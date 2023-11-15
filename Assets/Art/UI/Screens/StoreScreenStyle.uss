@@ -1,16 +1,16 @@
 .categories {
     flex-grow: 1;
-    width: 100%;
     position: absolute;
     bottom: 0;
-    height: 150px;
-    background-color: rgba(0, 0, 0, 0.41);
+    height: 95px;
+    background-color: rgba(50, 41, 90, 0.69);
     flex-direction: row;
     justify-content: space-around;
+    width: 100%;
 }
 
 .category-button {
-    font-size: 73px;
+    font-size: 44px;
     background-color: rgba(255, 255, 255, 0);
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
@@ -33,17 +33,17 @@
 }
 
 .store-safearea {
-    flex-wrap: wrap-reverse; 
-    flex-direction: row; 
-    align-self: auto; 
-    align-items: auto; 
+    flex-wrap: wrap-reverse;
+    flex-direction: row;
+    align-self: auto;
+    align-items: auto;
     justify-content: flex-start;
 }
 
 .product-list {
     flex-grow: 1;
     width: auto;
-    height: 100%;
+    height: 846px;
     flex-direction: row;
     justify-content: flex-start;
     flex-shrink: 0;
@@ -61,11 +61,11 @@
     margin-left: 50px;
     flex-wrap: wrap;
     max-width: 1500px;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(255, 255, 255, 0);
     width: auto;
     align-items: flex-start;
     justify-content: flex-start;
-    height: 850px;
+    height: 680px;
     align-self: flex-end;
 }
 
@@ -76,17 +76,17 @@
     justify-content: center;
     align-items: center;
     -unity-text-align: middle-center;
-    height: 60px;
-    font-size: 53px;
+    height: 66px;
+    font-size: 44px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 1.4px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 4px 4px 0 rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.33);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    background-color: rgba(50, 19, 74, 0.33);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .blocker {
@@ -108,4 +108,8 @@
 }
 
 .unity-text-element {
+}
+
+.product-category--small {
+    max-width: 1065px;
 }

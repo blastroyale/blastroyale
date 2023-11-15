@@ -5,7 +5,6 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
@@ -17,7 +16,7 @@ using UnityEngine.UIElements.Experimental;
 using Button = UnityEngine.UIElements.Button;
 
 
-namespace FirstLight.Game.Presenters
+namespace FirstLight.Game.Presenters.Store
 {
 	/// <summary>
 	/// Manages the IAP store.
@@ -65,23 +64,14 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var category in _gameServices.IAPService.AvailableProductCategories)
 			{
-				var categoryElement = new VisualElement();
-				categoryElement.AddToClassList(UssCategory);
-
-				var categoryLabel = new Label();
-				categoryLabel.AddToClassList(UssCategoryLabel);
-				categoryLabel.text = category.Name;
-				categoryElement.Add(categoryLabel);
-				
+				var categoryElement = new StoreCategoryElement(category.Name);
 				foreach (var product in category.Products)
 				{
-					var productElement = _StoreProductView.Instantiate();
-					productElement.AttachView(this, out StoreProductView view);
-					view.SetData(product);
-					view.OnClicked = BuyItem;
+					var productElement = new StoreGameProductElement();
+					productElement.SetData(product);
+					productElement.OnClicked = BuyItem;
 					categoryElement.Add(productElement);
 				}
-				
 				_productList.Add(categoryElement);
 
 				var categoryButton = new Button();
@@ -90,6 +80,7 @@ namespace FirstLight.Game.Presenters
 				categoryButton.clicked += () => SelectCategory(categoryElement, category);
 				_categoryList.Add(categoryButton);
 			}
+			base.QueryElements(root);
 		}
 
 		private void SelectCategory(VisualElement categoryContainer, GameProductCategory category)

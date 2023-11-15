@@ -2,8 +2,13 @@
 :root {
     --sprite-home__ArrowBig: url('/Assets/Art/UI/Sprites/Home/ArrowBig.png');
     --sprite-home__background-avatar-nft: url('/Assets/Art/UI/Sprites/Home/background-avatar-nft.png');
+    --sprite-home__background-big-bundle: url('/Assets/Art/UI/Sprites/Home/background-big-bundle.png');
     --sprite-home__background-bpchestreward: url('/Assets/Art/UI/Sprites/Home/background-bpchestreward.png');
     --sprite-home__background-bpreward-outline: url('/Assets/Art/UI/Sprites/Home/background-bpreward-outline.png');
+    --sprite-home__background-bundle-image: url('/Assets/Art/UI/Sprites/Home/background-bundle-image.png');
+    --sprite-home__background-bundle-image-gradient: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-gradient.png');
+    --sprite-home__background-bundle-image-small: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-small.png');
+    --sprite-home__background-dots-effect: url('/Assets/Art/UI/Sprites/Home/background-dots-effect.png');
     --sprite-home__background-gamemode-battleroyale: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale.png');
     --sprite-home__background-gamemode-battleroyale-top: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-top.png');
     --sprite-home__background-gamemode-custom: url('/Assets/Art/UI/Sprites/Home/background-gamemode-custom.png');
@@ -18,11 +23,14 @@
     --sprite-home__background-modetag-casual: url('/Assets/Art/UI/Sprites/Home/background-modetag-casual.png');
     --sprite-home__background-modetag-ranked: url('/Assets/Art/UI/Sprites/Home/background-modetag-ranked.png');
     --sprite-home__background-popup-equipment: url('/Assets/Art/UI/Sprites/Home/background-popup-equipment.png');
+    --sprite-home__background-price: url('/Assets/Art/UI/Sprites/Home/background-price.png');
+    --sprite-home__background-price-small: url('/Assets/Art/UI/Sprites/Home/background-price-small.png');
     --sprite-home__background-profile: url('/Assets/Art/UI/Sprites/Home/background-profile.png');
     --sprite-home__background-resourcepool: url('/Assets/Art/UI/Sprites/Home/background-resourcepool.png');
     --sprite-home__background-settings-item: url('/Assets/Art/UI/Sprites/Home/background-settings-item.png');
     --sprite-home__background-settingstab: url('/Assets/Art/UI/Sprites/Home/background-settingstab.png');
     --sprite-home__background-settingstab-chosen: url('/Assets/Art/UI/Sprites/Home/background-settingstab-chosen.png');
+    --sprite-home__background-small-bundle: url('/Assets/Art/UI/Sprites/Home/background-small-bundle.png');
     --sprite-home__background-textbubble-yellow: url('/Assets/Art/UI/Sprites/Home/background-textbubble-yellow.png');
     --sprite-home__background-tooltip-bottomleft: url('/Assets/Art/UI/Sprites/Home/background-tooltip-bottomleft.png');
     --sprite-home__background-tooltip-bottomright: url('/Assets/Art/UI/Sprites/Home/background-tooltip-bottomright.png');
@@ -101,6 +109,7 @@
     --sprite-home__header-popup-equipment: url('/Assets/Art/UI/Sprites/Home/header-popup-equipment.png');
     --sprite-home__header-profile: url('/Assets/Art/UI/Sprites/Home/header-profile.png');
     --sprite-home__header-profile-pressed: url('/Assets/Art/UI/Sprites/Home/header-profile-pressed.png');
+    --sprite-home__icon_coins_3: url('/Assets/Art/UI/Sprites/Home/icon_coins_3.png');
     --sprite-home__icon-airplane: url('/Assets/Art/UI/Sprites/Home/icon-airplane.png');
     --sprite-home__icon-arrow-level: url('/Assets/Art/UI/Sprites/Home/icon-arrow-level.png');
     --sprite-home__icon-arrow-settingstab: url('/Assets/Art/UI/Sprites/Home/icon-arrow-settingstab.png');
@@ -210,6 +219,12 @@
     height: 128px;
 }
 
+.sprite-home__background-big-bundle {
+    background-image: var(--sprite-home__background-big-bundle);
+    width: 442px;
+    height: 674px;
+}
+
 .sprite-home__background-bpchestreward {
     background-image: var(--sprite-home__background-bpchestreward);
     width: 132px;
@@ -220,6 +235,30 @@
     background-image: var(--sprite-home__background-bpreward-outline);
     width: 370px;
     height: 394px;
+}
+
+.sprite-home__background-bundle-image {
+    background-image: var(--sprite-home__background-bundle-image);
+    width: 428px;
+    height: 556px;
+}
+
+.sprite-home__background-bundle-image-gradient {
+    background-image: var(--sprite-home__background-bundle-image-gradient);
+    width: 228px;
+    height: 296px;
+}
+
+.sprite-home__background-bundle-image-small {
+    background-image: var(--sprite-home__background-bundle-image-small);
+    width: 304px;
+    height: 254px;
+}
+
+.sprite-home__background-dots-effect {
+    background-image: var(--sprite-home__background-dots-effect);
+    width: 370px;
+    height: 412px;
 }
 
 .sprite-home__background-gamemode-battleroyale {
@@ -306,6 +345,18 @@
     height: 76px;
 }
 
+.sprite-home__background-price {
+    background-image: var(--sprite-home__background-price);
+    width: 410px;
+    height: 104px;
+}
+
+.sprite-home__background-price-small {
+    background-image: var(--sprite-home__background-price-small);
+    width: 292px;
+    height: 60px;
+}
+
 .sprite-home__background-profile {
     background-image: var(--sprite-home__background-profile);
     width: 98px;
@@ -334,6 +385,12 @@
     background-image: var(--sprite-home__background-settingstab-chosen);
     width: 57px;
     height: 80px;
+}
+
+.sprite-home__background-small-bundle {
+    background-image: var(--sprite-home__background-small-bundle);
+    width: 442px;
+    height: 458px;
 }
 
 .sprite-home__background-textbubble-yellow {
@@ -752,6 +809,12 @@
 
 .sprite-home__header-profile:active {
     background-image: var(--sprite-home__header-profile-pressed);
+}
+
+.sprite-home__icon_coins_3 {
+    background-image: var(--sprite-home__icon_coins_3);
+    width: 512px;
+    height: 512px;
 }
 
 .sprite-home__icon-airplane {

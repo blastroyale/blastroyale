@@ -1,35 +1,25 @@
 .product-widget {
     flex-grow: 0;
-    width: 450px;
-    height: 700px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-white.png?fileID=21300000&guid=46b7b6295ba2d4960a4dcdac3b5595d5&type=3#slot-white');
-    justify-content: space-between;
+    width: 442px;
+    height: 674px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-big-bundle.png?fileID=21300000&guid=163b6e338259e914a80538a3c1634c86&type=3#background-big-bundle');
+    justify-content: flex-end;
     align-items: center;
-    -unity-background-scale-mode: stretch-to-fill;
-    -unity-background-image-tint-color: rgb(108, 128, 219);
-    margin-left: 0;
     align-self: auto;
-    -unity-text-outline-color: rgba(53, 52, 52, 0);
-    color: rgb(53, 52, 52);
-    background-color: rgba(53, 52, 52, 0);
-}
-
-.product-widget--small {
-    width: 450px;
-    height: 350px;
+    padding-top: 2px;
 }
 
 .product-name {
-    position: relative;
+    position: absolute;
     font-size: 60px;
     top: auto;
-    left: auto;
+    left: 2px;
     color: rgb(255, 207, 51);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 5px 5px 0 rgb(0, 0, 0);
-    bottom: auto;
-    width: 418px;
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    bottom: 109px;
+    width: 416px;
     -unity-text-align: upper-center;
     height: auto;
     text-overflow: clip;
@@ -39,56 +29,193 @@
 }
 
 .product-image {
-    background-image: url('project://database/Assets/AddressableResources/Sprites/Shared/Coin.png?fileID=21300000&guid=d5f58a3dc7bb0c64db18ff1050c650d9&type=3#Coin');
-    height: 350px;
-    position: relative;
-    top: auto;
-    left: auto;
-    align-self: auto;
-    flex-grow: 1; 
-    -unity-background-scale-mode: scale-to-fit; 
-    width: 100%;
+    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/CorposFemale/character-femalecorpos.png?fileID=21300000&guid=af1bba91a009af34e944e0bd7734104b&type=3#character-femalecorpos');
+    height: 480px;
+    width: 480px;
+    position: absolute;
+    align-self: center;
 }
 
 .product-background {
-    flex-grow: 1;
-    position: absolute;
-    bottom: -67px;
-    background-image: url('project://database/Assets/Art/Textures/Ui/EquipmentScreen/CardShine.png?fileID=21300000&guid=cbb60a486856f41fba61e9cf9aa536fd&type=3#CardShine');
-    height: 151px;
-    width: 470px;
-    left: -34px;
-    background-color: rgba(255, 255, 255, 0);
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    border-bottom-right-radius: 25px;
-    border-bottom-left-radius: 25px;
-    -unity-background-image-tint-color: rgba(0, 0, 0, 0.55);
-    rotate: 0;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-price.png?fileID=21300000&guid=29570bb82136e8a488edae12936f5b0f&type=3#background-price');
+    width: 410px;
+    height: 104px;
+    justify-content: flex-end;
+    background-color: rgba(231, 0, 0, 0.72);
 }
 
 .product-price {
-    position: relative;
     font-size: 60px;
-    top: auto;
-    left: auto;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
-    bottom: 0;
     align-self: center;
-    width: 100%;
-    height: 80px;
+    width: 410px;
+    height: 104px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-price.png?fileID=21300000&guid=29570bb82136e8a488edae12936f5b0f&type=3#background-price');
+    left: -10px;
 }
 
 .widget-effect {
-    position: absolute;
-    width: 100%;
-    height: 480px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/pattern-dots-rotated.png?fileID=21300000&guid=422abc81205ac4abfbc0fd8faf65aca4&type=3#pattern-dots-rotated');
+    width: 370px;
+    height: 412px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-dots-effect.png?fileID=21300000&guid=fa8e92fa48999ee4a8da9ee1555b2962&type=3#background-dots-effect');
     -unity-background-image-tint-color: rgba(255, 255, 255, 0.11);
-    -unity-background-scale-mode: scale-to-fit;
-    rotate: 7deg;
-    top: -29px;
+    align-self: center;
+    position: absolute;
+}
+
+.product-name--small {
+    bottom: 56px;
+    font-size: 40px;
+    -unity-text-outline-width: 1.2px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    width: 296px;
+}
+
+.product-image-gradient-sides {
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-bundle-image-gradient.png?fileID=21300000&guid=f2508f9cfda92404e868de558956a4bb&type=3#background-bundle-image-gradient');
+    width: 426px;
+    height: 552px;
+    -unity-background-image-tint-color: rgba(27, 57, 161, 0.58);
+}
+
+.product-image-gradient-big {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/gradientwhiteintense.png?fileID=21300000&guid=9703450dfb82ed84cba13dcd159b2bf4&type=3#gradientwhiteintense');
+    width: 440px;
+    height: 440px;
+    -unity-background-image-tint-color: rgb(82, 182, 255);
+    position: absolute;
+}
+
+.product-background-image {
+    width: 426px;
+    height: 576px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-bundle-image.png?fileID=21300000&guid=990907a628c5e684086dd1420f31d792&type=3#background-bundle-image');
+    -unity-background-image-tint-color: rgb(63, 115, 216);
+    align-items: center;
+    justify-content: center;
+}
+
+.product-widget--small {
+    width: 312px;
+    height: 320px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-small-bundle.png?fileID=21300000&guid=a9cca8098829b3644beb246b0ca28c57&type=3#background-small-bundle');
+}
+
+.product-image-gradient-small {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/gradientwhiteintense.png?fileID=21300000&guid=9703450dfb82ed84cba13dcd159b2bf4&type=3#gradientwhiteintense');
+    width: 160px;
+    height: 160px;
+    -unity-background-image-tint-color: rgb(253, 255, 164);
+    position: absolute;
+}
+
+.product-image--small {
+    width: 230px;
+    height: 230px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon_coins_3.png?fileID=21300000&guid=ab43c7f43962c6f48a219ff1166e7c2f&type=3#icon_coins_3');
+}
+
+.product-price--small {
+    width: 280px;
+    height: 54px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-price-small.png?fileID=21300000&guid=37153d4e2163e1a4ca45768ec9e20693&type=3#background-price-small');
+    font-size: 42px;
+    -unity-text-outline-width: 1.2px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.product-image-gradient-big--small {
+    width: 374px;
+    height: 310px;
+}
+
+.product-image-gradient-sides--small {
+    position: absolute;
+    height: 248px;
+    width: 300px;
+}
+
+.widget-effect--small {
+    width: 260px;
+    height: 260px;
+}
+
+.product-background-image--small {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-bundle-image-small.png?fileID=21300000&guid=0c49a0f4b2daf7a439b199f361ff0f95&type=3#background-bundle-image-small');
+    width: 301px;
+    height: 330px;
+}
+
+.product-background-image--purple {
+    -unity-background-image-tint-color: rgb(182, 51, 228);
+}
+
+.product-image-gradient-sides--purple {
+    -unity-background-image-tint-color: rgb(87, 32, 157);
+}
+
+.product-image-gradient-big--purple {
+    -unity-background-image-tint-color: rgb(182, 51, 228);
+}
+
+.product-image-gradient-small--purple {
+    -unity-background-image-tint-color: rgb(252, 172, 255);
+}
+
+.widget-effect--purple {
+    -unity-background-image-tint-color: rgba(255, 126, 247, 0.42);
+}
+
+.image-tint--yellow {
+    color: rgb(255, 192, 0);
+}
+
+.product-background-image--yellow {
+    -unity-background-image-tint-color: rgb(255, 140, 0);
+}
+
+.product-image-gradient-sides--yellow {
+    -unity-background-image-tint-color: rgb(190, 74, 58);
+}
+
+.product-image-gradient-big--yellow {
+    -unity-background-image-tint-color: rgb(255, 188, 58);
+}
+
+.product-image-gradient-small--yellow {
+    -unity-background-image-tint-color: rgb(250, 231, 130);
+}
+
+.widget-effect--yellow {
+    -unity-background-image-tint-color: rgba(254, 216, 101, 0.68);
+}
+
+.image-tint--green {
+    color: rgb(67, 176, 25);
+}
+
+.product-background-image--green {
+    -unity-background-image-tint-color: rgb(67, 176, 25);
+}
+
+.product-image-gradient-sides--green {
+    -unity-background-image-tint-color: rgb(1, 131, 45);
+}
+
+.product-image-gradient-big--green {
+    -unity-background-image-tint-color: rgb(186, 255, 0);
+}
+
+.product-image-gradient-small--green {
+    -unity-background-image-tint-color: rgb(221, 255, 164);
+}
+
+.widget-effect--green {
+    -unity-background-image-tint-color: rgba(221, 255, 164, 0.35);
 }

@@ -3,7 +3,7 @@
     <ui:VisualElement name="root" class="background fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement apply-top="false" class="fill-parent items-holder store-safearea">
             <ui:ScrollView name="ProductScrollView" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" horizontal-page-size="-1" class="scroll-view">
-                <ui:VisualElement name="ProductList" class="product-list"/>
+                <ui:VisualElement name="ProductList" class="product-list" />
             </ui:ScrollView>
             <ui:VisualElement name="Categories" class="categories" />
         </FirstLight.Game.UIElements.SafeAreaElement>

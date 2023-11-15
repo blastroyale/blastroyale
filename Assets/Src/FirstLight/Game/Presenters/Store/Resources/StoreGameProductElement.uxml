@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Templates/StoreGameProduct.uss?fileID=7433441132597879392&amp;guid=4f4b019b2a5304c718e1621916865b7a&amp;type=3#StoreGameProduct" />
+    <ui:Button name="ProductWidget" class="product-widget" style="margin-top: 0; padding-top: 2px;">
+        <ui:VisualElement name="BundleImage" class="product-background-image">
+            <ui:VisualElement name="GradientSides" class="product-image-gradient-sides" />
+            <ui:VisualElement name="GradientBig" class="product-image-gradient-big" />
+            <ui:VisualElement name="GradientSmall" class="product-image-gradient-small" />
+            <ui:VisualElement name="WidgetEffect" tabindex="-1" class="widget-effect" />
+            <ui:VisualElement name="ProductImage" class="product-image" />
+        </ui:VisualElement>
+        <ui:Label tabindex="-1" text="200 ¢" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ProductPrice" class="product-price">
+            <ui:Label tabindex="-1" text="200 Coin" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ProductName" class="product-name" />
+        </ui:Label>
+    </ui:Button>
+</ui:UXML>

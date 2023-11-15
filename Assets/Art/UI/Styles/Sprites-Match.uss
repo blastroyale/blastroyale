@@ -31,6 +31,7 @@
     --sprite-match__DarkStunGrenade: url('/Assets/Art/UI/Sprites/Match/DarkStunGrenade.png');
     --sprite-match__gradient-lowhp: url('/Assets/Art/UI/Sprites/Match/gradient-lowhp.png');
     --sprite-match__gradientwhite: url('/Assets/Art/UI/Sprites/Match/gradientwhite.png');
+    --sprite-match__gradientwhiteintense: url('/Assets/Art/UI/Sprites/Match/gradientwhiteintense.png');
     --sprite-match__icon-ammo: url('/Assets/Art/UI/Sprites/Match/icon-ammo.png');
     --sprite-match__icon-arrow-yellow-left: url('/Assets/Art/UI/Sprites/Match/icon-arrow-yellow-left.png');
     --sprite-match__icon-arrow-yellow-right: url('/Assets/Art/UI/Sprites/Match/icon-arrow-yellow-right.png');
@@ -284,6 +285,12 @@
     background-image: var(--sprite-match__gradientwhite);
     width: 261px;
     height: 265px;
+}
+
+.sprite-match__gradientwhiteintense {
+    background-image: var(--sprite-match__gradientwhiteintense);
+    width: 338px;
+    height: 338px;
 }
 
 .sprite-match__icon-ammo {

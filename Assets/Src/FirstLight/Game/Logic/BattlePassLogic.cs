@@ -523,6 +523,7 @@ namespace FirstLight.Game.Logic
 
 			public IReadOnlyCollection<EquipmentRewardConfig> GetClaimableRewards(PassType type)
 			{
+				if (GetConfig() == null) return new List<EquipmentRewardConfig>();
 				var levelsCompleted = GetClaimableLevels(out var points, type);
 				if (levelsCompleted.Count == 0) return Array.Empty<EquipmentRewardConfig>();
 				return GetRewardConfigs(levelsCompleted, type);

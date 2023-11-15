@@ -3,19 +3,20 @@
     <Style src="project://database/Assets/Art/UI/Screens/GenericPurchaseDialog.uss?fileID=7433441132597879392&amp;guid=a2664ed942180ef4ab7dead58410386d&amp;type=3#GenericPurchaseDialog" />
     <ui:VisualElement name="root" class="purchase-confirmation-root">
         <ui:Button name="BlockerButton" class="blocker" />
-        <ui:VisualElement name="Popup" class="popup popup-radius popup--xl anim-delay-0 anim-translate anim-translate--down-xxxl" style="">
+        <ui:VisualElement name="Popup" class="popup popup-radius popup--xl anim-delay-0 anim-translate anim-translate--down-xxxl">
             <ui:VisualElement name="Window" class="popup-radius popup__window popup__window--full">
-                <ui:VisualElement name="Header" class="background-purple window__header window__header--xl" style="">
+                <ui:VisualElement name="Header" class="background-purple window__header window__header--xl">
                     <ui:VisualElement name="TitleDots" class="dots-pattern" />
-                    <ui:Label name="Title" text="CONFIRM ACTION" class="purchase-confirmation__title" style="" />
+                    <ui:Label name="Title" text="CONFIRM ACTION" class="purchase-confirmation__title" />
                     <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="window__close-button" />
                 </ui:VisualElement>
-                <ui:VisualElement name="Content" class="window__content window__content--purchase" style="">
+                <ui:VisualElement name="Content" class="window__content window__content--purchase">
                     <ui:VisualElement name="ItemSlot" class="purchase-confirmation__item-slot">
                         <ui:VisualElement name="ItemIcon" class="purchase-confirmation__item-icon" />
+                        <ui:Label tabindex="-1" text="150" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemAmount" class="purchase-confirmation__amount" />
                     </ui:VisualElement>
                     <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
-                    <ui:Label name="Desc" focusable="false" text="YOU ARE GOING TO BUY" class="font-style-popup purchase-confirmation__desc" style="" />
+                    <ui:Label name="Desc" focusable="false" text="YOU ARE GOING TO BUY" class="font-style-popup purchase-confirmation__desc" />
                     <ui:VisualElement name="Controls" class="content__controls">
                         <FirstLight.Game.UIElements.ImageButton name="BuyButton" class="button-long button-long--yellow purchase-confirmation__item-button ">
                             <ui:Label tabindex="-1" text="200" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemPrice" class="purchase-confirmation__item-price-label" />

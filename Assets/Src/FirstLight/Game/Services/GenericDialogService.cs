@@ -137,7 +137,7 @@ namespace FirstLight.Game.Services
 				return;
 			}
 			
-			ui.SetNotEnoughBlastBucks();			
+			ui.SetNotEnoughBlastBucks(options.Value);			
 		}
 		
 		/// <inheritdoc />

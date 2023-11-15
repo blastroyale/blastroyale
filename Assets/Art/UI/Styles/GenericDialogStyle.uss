@@ -250,8 +250,8 @@
 }
 
 .purchase-confirmation-root--insufficient .purchase-confirmation__item-icon {
-    width: 50%;
-    height: 50%;
+    width: 70%;
+    height: 70%;
 }
 
 .purchase-confirmation-root--insufficient .purchase-confirmation__button-icon {
@@ -321,4 +321,17 @@
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
+}
+
+.purchase-confirmation__amount {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    color: rgb(255, 255, 255);
+    font-size: 64px;
+    height: 82px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    letter-spacing: -4px;
 }

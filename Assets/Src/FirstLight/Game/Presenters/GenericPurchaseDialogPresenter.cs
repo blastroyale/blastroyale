@@ -20,6 +20,7 @@ namespace FirstLight.Game.Presenters
 
 		private const string USS_NOT_ENOUGH_FUNDS = "purchase-confirmation-root--insufficient";
 		private Label _itemPrice;
+		private Label _itemAmount;
 		private Label _title;
 		private Label _itemDisplayName;
 		private VisualElement _itemIcon;
@@ -56,6 +57,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_itemDisplayName = root.Q<Label>("Desc").Required();
 			_title = root.Q<Label>("Title").Required();
+			_itemAmount = root.Q<Label>("ItemAmount").Required();
 			_itemIcon = root.Q<VisualElement>("ItemIcon").Required();
 			_itemPrice = root.Q<Label>("ItemPrice").Required();
 
@@ -95,10 +97,12 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
+				_itemIcon.style.backgroundImage = StyleKeyword.Null;
 				options.Item.GetViewModel().DrawIcon(_itemIcon);
 
 			}
 
+			_itemAmount.text = "";
 			_itemPrice.text = options.Value.ToString();
 			_confirmCallback = options.OnConfirm;
 			_closeCallback = options.OnExit;
@@ -109,14 +113,16 @@ namespace FirstLight.Game.Presenters
 		}
 		
 
-		public void SetNotEnoughBlastBucks()
+		public void SetNotEnoughBlastBucks(uint amount = 0)
 		{
+			_itemIcon.style.backgroundImage = StyleKeyword.Null;
 			Root.AddToClassList(USS_NOT_ENOUGH_FUNDS);
 			_itemDisplayName.text = "VISIT THE SHOP TO GET SOME MORE";
 			_itemPrice.text = "GO TO SHOP";
 			var itemIcon = ItemFactory.Currency(GameId.BlastBuck, 1);
 			itemIcon.GetViewModel().DrawIcon(_itemIcon);
 
+			_itemAmount.text = amount > 0 ? amount.ToString() : "";
 			_itemPrice.text = "GO TO SHOP";
 			_title.text = "NOT ENOUGH BLAST BUCKS";
 			_buyButton.clicked += GoToShop;
@@ -131,7 +137,7 @@ namespace FirstLight.Game.Presenters
 
 		public class GenericPurchaseOptions
 		{
-			public ulong Value;
+			public uint Value;
 			public ItemData Item;
 			public string OverwriteTitle;
 			public string OverwriteItemName;

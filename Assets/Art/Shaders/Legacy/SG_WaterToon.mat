@@ -61,7 +61,7 @@ Material:
     - Choppiness: 0.5
     - FlowSpeed: 0.005
     - FlowStrength: 0.003
-    - FoamDistance: 10
+    - FoamDistance: 1.42
     - Size: 15
     - Vector1_28287F92: 1
     - Vector1_485BCCF8: 0
@@ -78,11 +78,11 @@ Material:
     - Color_17AB51B8: {r: 0.454902, g: 2.682353, b: 4, a: 0}
     - Color_20EAE851: {r: 0, g: 0.6984148, b: 2, a: 0}
     - Color_2596AE61: {r: 1, g: 1, b: 1, a: 0}
-    - DarkFoamColor: {r: 0.35686275, g: 0.6612751, b: 0.6784314, a: 1}
+    - DarkFoamColor: {r: 0, g: 0.6313726, b: 0.7058824, a: 1}
     - FoamDistanceColor: {r: 0.9685534, g: 0.991951, b: 1, a: 0}
-    - LightFoamColor: {r: 0.61960787, g: 0.81681556, b: 0.8509804, a: 0}
+    - LightFoamColor: {r: 0.37254903, g: 0.9058824, b: 1, a: 0}
     - ShearCenter: {r: 0, g: 0, b: 0, a: 0}
     - ShearStrenght: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_348319FB: {r: 0.5, g: 0, b: 0, a: 0}
-    - WaterColor: {r: 0.41960785, g: 0.70179456, b: 0.7254902, a: 1}
+    - WaterColor: {r: 0, g: 0.68235296, b: 0.7372549, a: 1}
   m_BuildTextureStacks: []

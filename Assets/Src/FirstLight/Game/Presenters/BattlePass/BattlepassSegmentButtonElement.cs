@@ -30,7 +30,6 @@ namespace FirstLight.Game.Presenters.BattlePass
 		private VisualElement _claimBubble;
 		private VisualElement _rewardImage;
 		private VisualElement _imageContainer;
-		private VisualElement _readyToClaimShine;
 		private VisualElement _readyToClaimOutline;
 		private VisualElement _claimedCheckmark;
 		private AutoSizeLabel _title;
@@ -52,7 +51,6 @@ namespace FirstLight.Game.Presenters.BattlePass
 			var element = this;
 			_rewardRoot = element.Q("Reward").Required();
 			_blocker = element.Q("Blocker").Required();
-			_readyToClaimShine = element.Q("ReadyToClaimShine").Required();
 			_readyToClaimOutline = element.Q("ReadyToClaimOutline").Required();
 			_claimBubble = element.Q("ClaimBubble").Required();
 			_claimedCheckmark = element.Q("Checkmark").Required();
@@ -100,19 +98,16 @@ namespace FirstLight.Game.Presenters.BattlePass
 			var locked = SegmentData.PassType == PassType.Paid && !UnlockedPremium;
 			_lock.SetDisplay(locked);
 			_readyToClaimOutline.SetDisplay(RewardState == RewardState.Claimable && !locked);
-			_readyToClaimShine.SetDisplay(RewardState == RewardState.Claimable && !locked);
 			_claimBubble.SetDisplay(RewardState == RewardState.Claimable && !locked);
 			_blocker.SetDisplay(RewardState == RewardState.Claimed || locked);
 			_claimedCheckmark.SetDisplay(RewardState == RewardState.Claimed);
 			_button.RemoveModifiers();
 			var isClaimable = RewardState == RewardState.Claimable && !locked;
 			_readyToClaimOutline.SetDisplay(isClaimable);
-			_readyToClaimShine.SetDisplay(isClaimable);
 			_claimBubble.SetDisplay(isClaimable);
 			if (isClaimable)
 			{
-				_readyToClaimShine.AddRotatingEffect(1,10);
-				_claimBubble.AnimatePing(1.5f, 500, true);
+				_claimBubble.AnimatePing(1.3f, 500, true);
 			}
 			if (RewardState == RewardState.Claimed) _button.AddToClassList(UssClaimedButton);
 			else if (RewardState == RewardState.Claimable) _button.AddToClassList(UssClaimableButton);

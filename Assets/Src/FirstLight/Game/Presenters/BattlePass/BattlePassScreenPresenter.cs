@@ -407,6 +407,7 @@ namespace FirstLight.Game.Presenters
 			battlePassData.DisableInitialScrollAnimation = true;
 			Data.UiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 			{
+				SkipSummary = true,
 				Items = rewards,
 				OnFinish = () =>
 				{

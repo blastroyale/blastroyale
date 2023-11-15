@@ -90,15 +90,6 @@
     width: 337px;
 }
 
-.reward__ready-to-claim-shine {
-    background-image: url('project://database/Assets/Art/UI/Textures/battlepass-claimreward.png?fileID=2800000&guid=55f09f008b0554c3f9908de8032f65f7&type=3#battlepass-claimreward');
-    -unity-background-scale-mode: scale-to-fit;
-    position: absolute;
-    display: flex;
-    width: 700px;
-    height: 700px;
-}
-
 .reward__button-outline--claimed {
     -unity-background-image-tint-color: rgb(216, 75, 121);
 }

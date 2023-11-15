@@ -2,7 +2,6 @@
     <Style src="project://database/Assets/Src/FirstLight/Game/Presenters/BattlePass/Resources/BattlepassSegmentButtonElement.uss?fileID=7433441132597879392&amp;guid=085e3e990597b6b47bd7e65b60a2c14a&amp;type=3#BattlepassSegmentButtonElement" />
     <ui:VisualElement name="BattlePassSegment" class="segment">
         <ui:VisualElement name="Reward" class="reward">
-            <FirstLight.Game.UIElements.AnimatedImageElement name="ReadyToClaimShine" picking-mode="Ignore" rotationsPerSecond="0.05" class="reward__ready-to-claim-shine" />
             <ui:VisualElement name="ReadyToClaimOutline" picking-mode="Ignore" class="reward__ready-to-claim-outline" />
             <FirstLight.Game.UIElements.ImageButton name="Button" class="sfx-click-forwards reward__button" />
             <ui:VisualElement name="Blocker" class="reward__blocker">

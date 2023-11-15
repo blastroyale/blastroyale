@@ -599,6 +599,7 @@
     left: 30px;
     top: 2px;
     flex-direction: column-reverse;
+    align-items: flex-end;
 }
 
 .top-center-container {

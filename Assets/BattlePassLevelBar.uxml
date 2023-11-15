@@ -10,8 +10,10 @@
             <ui:Label tabindex="-1" text="77" display-tooltip-when-elided="true" name="BarLevelLabel" enable-rich-text="true" class="bar__level__label" />
         </ui:VisualElement>
         <FirstLight.Game.UIElements.ImageButton name="BuyLevelButton" class="bar__buy-button">
-            <ui:Label tabindex="-1" text="77" display-tooltip-when-elided="true" name="PriceLabel" enable-rich-text="true" class="bar__buy-button__label" />
-            <ui:VisualElement name="BlasBucksIcon" class="bar__buy-button__blastbucks-icon" />
+            <ui:VisualElement name="Content" class="bar__buy-button--content" style="flex-grow: 1;">
+                <ui:Label tabindex="-1" text="77" display-tooltip-when-elided="true" name="PriceLabel" enable-rich-text="true" class="bar__buy-button__label" />
+                <ui:VisualElement name="BlasBucksIcon" class="bar__buy-button__blastbucks-icon" />
+            </ui:VisualElement>
         </FirstLight.Game.UIElements.ImageButton>
     </ui:VisualElement>
 </ui:UXML>

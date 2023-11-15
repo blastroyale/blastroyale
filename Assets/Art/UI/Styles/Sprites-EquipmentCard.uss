@@ -31,8 +31,8 @@
 
 .sprite-equipmentcard__card-background {
     background-image: var(--sprite-equipmentcard__card-background);
-    width: 512px;
-    height: 1024px;
+    width: 500px;
+    height: 532px;
 }
 
 .sprite-equipmentcard__card-background:active {
@@ -41,151 +41,151 @@
 
 .sprite-equipmentcard__card-badge-nft {
     background-image: var(--sprite-equipmentcard__card-badge-nft);
-    width: 512px;
-    height: 1024px;
+    width: 110px;
+    height: 48px;
 }
 
 .sprite-equipmentcard__card-category-amulet {
     background-image: var(--sprite-equipmentcard__card-category-amulet);
-    width: 512px;
-    height: 1024px;
+    width: 50px;
+    height: 50px;
 }
 
 .sprite-equipmentcard__card-category-armor {
     background-image: var(--sprite-equipmentcard__card-category-armor);
-    width: 512px;
-    height: 1024px;
+    width: 50px;
+    height: 50px;
 }
 
 .sprite-equipmentcard__card-category-helmet {
     background-image: var(--sprite-equipmentcard__card-category-helmet);
-    width: 512px;
-    height: 1024px;
+    width: 50px;
+    height: 50px;
 }
 
 .sprite-equipmentcard__card-category-shield {
     background-image: var(--sprite-equipmentcard__card-category-shield);
-    width: 512px;
-    height: 1024px;
+    width: 50px;
+    height: 50px;
 }
 
 .sprite-equipmentcard__card-category-weapon {
     background-image: var(--sprite-equipmentcard__card-category-weapon);
-    width: 512px;
-    height: 1024px;
+    width: 50px;
+    height: 50px;
 }
 
 .sprite-equipmentcard__card-faction-celestial {
     background-image: var(--sprite-equipmentcard__card-faction-celestial);
-    width: 512px;
-    height: 1024px;
+    width: 92px;
+    height: 92px;
 }
 
 .sprite-equipmentcard__card-faction-chaos {
     background-image: var(--sprite-equipmentcard__card-faction-chaos);
-    width: 512px;
-    height: 1024px;
+    width: 92px;
+    height: 92px;
 }
 
 .sprite-equipmentcard__card-faction-dark {
     background-image: var(--sprite-equipmentcard__card-faction-dark);
-    width: 512px;
-    height: 1024px;
+    width: 92px;
+    height: 92px;
 }
 
 .sprite-equipmentcard__card-faction-dimensional {
     background-image: var(--sprite-equipmentcard__card-faction-dimensional);
-    width: 512px;
-    height: 1024px;
+    width: 92px;
+    height: 92px;
 }
 
 .sprite-equipmentcard__card-faction-order {
     background-image: var(--sprite-equipmentcard__card-faction-order);
-    width: 512px;
-    height: 1024px;
+    width: 92px;
+    height: 92px;
 }
 
 .sprite-equipmentcard__card-faction-organic {
     background-image: var(--sprite-equipmentcard__card-faction-organic);
-    width: 512px;
-    height: 1024px;
+    width: 92px;
+    height: 92px;
 }
 
 .sprite-equipmentcard__card-faction-shadow {
     background-image: var(--sprite-equipmentcard__card-faction-shadow);
-    width: 512px;
-    height: 1024px;
+    width: 92px;
+    height: 92px;
 }
 
 .sprite-equipmentcard__card-levelbg {
     background-image: var(--sprite-equipmentcard__card-levelbg);
-    width: 512px;
-    height: 1024px;
+    width: 121px;
+    height: 61px;
 }
 
 .sprite-equipmentcard__card-material-bronze {
     background-image: var(--sprite-equipmentcard__card-material-bronze);
-    width: 512px;
-    height: 1024px;
+    width: 74px;
+    height: 74px;
 }
 
 .sprite-equipmentcard__card-material-carbon {
     background-image: var(--sprite-equipmentcard__card-material-carbon);
-    width: 512px;
-    height: 1024px;
+    width: 74px;
+    height: 74px;
 }
 
 .sprite-equipmentcard__card-material-golden {
     background-image: var(--sprite-equipmentcard__card-material-golden);
-    width: 512px;
-    height: 1024px;
+    width: 74px;
+    height: 74px;
 }
 
 .sprite-equipmentcard__card-material-plastic {
     background-image: var(--sprite-equipmentcard__card-material-plastic);
-    width: 512px;
-    height: 1024px;
+    width: 74px;
+    height: 74px;
 }
 
 .sprite-equipmentcard__card-material-steel {
     background-image: var(--sprite-equipmentcard__card-material-steel);
-    width: 512px;
-    height: 1024px;
+    width: 74px;
+    height: 74px;
 }
 
 .sprite-equipmentcard__card-plusrarity {
     background-image: var(--sprite-equipmentcard__card-plusrarity);
-    width: 512px;
-    height: 1024px;
+    width: 400px;
+    height: 296px;
 }
 
 .sprite-equipmentcard__card-rarity-common {
     background-image: var(--sprite-equipmentcard__card-rarity-common);
-    width: 512px;
-    height: 1024px;
+    width: 478px;
+    height: 385px;
 }
 
 .sprite-equipmentcard__card-rarity-epic {
     background-image: var(--sprite-equipmentcard__card-rarity-epic);
-    width: 512px;
-    height: 1024px;
+    width: 478px;
+    height: 385px;
 }
 
 .sprite-equipmentcard__card-rarity-legendary {
     background-image: var(--sprite-equipmentcard__card-rarity-legendary);
-    width: 512px;
-    height: 1024px;
+    width: 478px;
+    height: 385px;
 }
 
 .sprite-equipmentcard__card-rarity-rare {
     background-image: var(--sprite-equipmentcard__card-rarity-rare);
-    width: 512px;
-    height: 1024px;
+    width: 478px;
+    height: 385px;
 }
 
 .sprite-equipmentcard__card-rarity-uncommon {
     background-image: var(--sprite-equipmentcard__card-rarity-uncommon);
-    width: 512px;
-    height: 1024px;
+    width: 478px;
+    height: 385px;
 }
 

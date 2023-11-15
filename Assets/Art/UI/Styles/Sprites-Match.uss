@@ -11,11 +11,11 @@
     --sprite-match__background-gradient-yellow: url('/Assets/Art/UI/Sprites/Match/background-gradient-yellow.png');
     --sprite-match__background-healthbar: url('/Assets/Art/UI/Sprites/Match/background-healthbar.png');
     --sprite-match__background-killstreak: url('/Assets/Art/UI/Sprites/Match/background-killstreak.png');
-    --sprite-match__background-playerbar: url('/Assets/Art/UI/Sprites/Match/background-playerbar.png');
+    --sprite-match__background-playerbars: url('/Assets/Art/UI/Sprites/Match/background-playerbars.png');
     --sprite-match__background-player-notification: url('/Assets/Art/UI/Sprites/Match/background-player-notification.png');
     --sprite-match__background-reward-bpp: url('/Assets/Art/UI/Sprites/Match/background-reward-bpp.png');
     --sprite-match__background-reward-normal: url('/Assets/Art/UI/Sprites/Match/background-reward-normal.png');
-    --sprite-match__background-squadmember: url('/Assets/Art/UI/Sprites/Match/background-squadmember.png');
+    --sprite-match__background-squads-damage: url('/Assets/Art/UI/Sprites/Match/background-squads-damage.png');
     --sprite-match__background-whitegradient: url('/Assets/Art/UI/Sprites/Match/background-whitegradient.png');
     --sprite-match__banner-rainbow: url('/Assets/Art/UI/Sprites/Match/banner-rainbow.png');
     --sprite-match__banner-red: url('/Assets/Art/UI/Sprites/Match/banner-red.png');
@@ -56,6 +56,7 @@
     --sprite-match__icon-menu: url('/Assets/Art/UI/Sprites/Match/icon-menu.png');
     --sprite-match__icon-players-alive: url('/Assets/Art/UI/Sprites/Match/icon-players-alive.png');
     --sprite-match__icon-players-killed: url('/Assets/Art/UI/Sprites/Match/icon-players-killed.png');
+    --sprite-match__icon-players-teams: url('/Assets/Art/UI/Sprites/Match/icon-players-teams.png');
     --sprite-match__icon-show: url('/Assets/Art/UI/Sprites/Match/icon-show.png');
     --sprite-match__icon-skull-1: url('/Assets/Art/UI/Sprites/Match/icon-skull-1.png');
     --sprite-match__icon-skull-2: url('/Assets/Art/UI/Sprites/Match/icon-skull-2.png');
@@ -74,7 +75,6 @@
     --sprite-match__pattern-jagged-vertical: url('/Assets/Art/UI/Sprites/Match/pattern-jagged-vertical.png');
     --sprite-match__progress-damage: url('/Assets/Art/UI/Sprites/Match/progress-damage.png');
     --sprite-match__progress-health: url('/Assets/Art/UI/Sprites/Match/progress-health.png');
-    --sprite-match__progress-health-squads: url('/Assets/Art/UI/Sprites/Match/progress-health-squads.png');
     --sprite-match__progress-separator: url('/Assets/Art/UI/Sprites/Match/progress-separator.png');
     --sprite-match__progress-shield: url('/Assets/Art/UI/Sprites/Match/progress-shield.png');
     --sprite-match__text-beast: url('/Assets/Art/UI/Sprites/Match/text-beast.png');
@@ -169,10 +169,10 @@
     height: 178px;
 }
 
-.sprite-match__background-playerbar {
-    background-image: var(--sprite-match__background-playerbar);
-    width: 62px;
-    height: 44px;
+.sprite-match__background-playerbars {
+    background-image: var(--sprite-match__background-playerbars);
+    width: 26px;
+    height: 42px;
 }
 
 .sprite-match__background-player-notification {
@@ -193,10 +193,10 @@
     height: 117px;
 }
 
-.sprite-match__background-squadmember {
-    background-image: var(--sprite-match__background-squadmember);
-    width: 127px;
-    height: 97px;
+.sprite-match__background-squads-damage {
+    background-image: var(--sprite-match__background-squads-damage);
+    width: 206px;
+    height: 186px;
 }
 
 .sprite-match__background-whitegradient {
@@ -437,6 +437,12 @@
     height: 48px;
 }
 
+.sprite-match__icon-players-teams {
+    background-image: var(--sprite-match__icon-players-teams);
+    width: 44px;
+    height: 48px;
+}
+
 .sprite-match__icon-show {
     background-image: var(--sprite-match__icon-show);
     width: 42px;
@@ -535,20 +541,14 @@
 
 .sprite-match__progress-damage {
     background-image: var(--sprite-match__progress-damage);
-    width: 12px;
+    width: 18px;
     height: 17px;
 }
 
 .sprite-match__progress-health {
     background-image: var(--sprite-match__progress-health);
-    width: 12px;
-    height: 18px;
-}
-
-.sprite-match__progress-health-squads {
-    background-image: var(--sprite-match__progress-health-squads);
-    width: 9px;
-    height: 11px;
+    width: 18px;
+    height: 17px;
 }
 
 .sprite-match__progress-separator {
@@ -559,8 +559,8 @@
 
 .sprite-match__progress-shield {
     background-image: var(--sprite-match__progress-shield);
-    width: 9px;
-    height: 11px;
+    width: 18px;
+    height: 16px;
 }
 
 .sprite-match__text-beast {

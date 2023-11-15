@@ -1,7 +1,7 @@
 .squad-member {
     width: 424px;
-    height: 126px;
-    margin-bottom: 42px;
+    height: 96px;
+    margin-bottom: 14px;
 }
 
 .squad-member__container {
@@ -17,45 +17,37 @@
 }
 
 .squad-member__bg {
-    background-image: var(--sprite-match__background-squadmember);
-    width: 407px;
-    height: 96px;
     position: absolute;
-    top: 11px;
-    left: 24px;
-    -unity-background-image-tint-color: rgba(49, 45, 71, 0.5);
+    opacity: 0;
+    top: -20px;
+    left: 18px;
+    background-image: var(--sprite-match__background-squads-damage);
+    right: 40px;
+    bottom: -20px;
 }
 
 .squad-member__team-color {
     position: absolute;
-    left: -10px;
+    left: -8px;
     top: 0;
-    width: 115px;
-    height: 115px;
+    width: 96px;
+    height: 96px;
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    border-left-color: rgb(24, 18, 54);
-    border-right-color: rgb(24, 18, 54);
-    border-top-color: rgb(24, 18, 54);
-    border-bottom-color: rgb(24, 18, 54);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
     overflow: hidden;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 255);
+    background-color: rgb(255, 255, 255);
 }
 
 .squad-member__pfp {
     position: absolute;
     left: 0;
-    top: 10px;
-    width: 95px;
-    height: 95px;
+    top: 8px;
+    width: 80px;
+    height: 80px;
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
@@ -78,128 +70,38 @@
 .squad-member__dead-cross {
     visibility: hidden;
     background-image: var(--sprite-match__icon-x-red);
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     position: absolute;
-    left: 21px;
-    top: 30px;
+    left: 13px;
+    top: 20px;
 }
 
 .squad-member--dead .squad-member__dead-cross {
     visibility: visible;
 }
 
-.squad-member__level {
+.squad-member__health-shield {
     position: absolute;
-    width: 45px;
-    height: 45px;
-    top: 66px;
-    left: 59px;
-    background-color: rgb(54, 48, 75);
-    border-left-color: rgb(24, 18, 54);
-    border-right-color: rgb(24, 18, 54);
-    border-top-color: rgb(24, 18, 54);
-    border-bottom-color: rgb(24, 18, 54);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    color: rgb(255, 255, 255);
-    font-size: 28px;
-    -unity-text-align: middle-center;
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(24, 18, 54);
-    text-shadow: 2px 2px 0 rgb(24, 18, 54);
-}
-
-.squad-member__shield-health-container {
-    position: absolute;
-    left: 134px;
-    top: 46px;
-    width: 244px;
-    height: 29px;
-    padding-left: 4px;
-    padding-right: 2px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    background-image: var(--sprite-match__background-healthbar);
-}
-
-.squad-member__shield-health-bg {
-    flex-grow: 1;
-    flex-direction: row;
-    align-items: stretch;
-    flex-shrink: 0;
-    margin-bottom: 1px;
-    margin-top: 1px;
-    margin-right: 1px;
-    margin-left: 1px;
-    padding-left: 1px;
-    padding-right: 1px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-}
-
-.squad-member__shield-bar {
-    flex-grow: 1;
-    background-image: var(--sprite-match__progress-shield);
-}
-
-.squad-member__health-bar {
-    flex-grow: 1;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Match/progress-health-squads.png?fileID=21300000&guid=fe3d255759da2154cbff8c350ca23a75&type=3#progress-health-squads');
-    left: -2px;
+    left: 100px;
+    top: 38px;
 }
 
 .squad-member__name {
     position: absolute;
-    top: 6px;
-    left: 139px;
-    font-size: 30px;
+    top: 4px;
+    left: 107px;
+    font-size: 28px;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(24, 18, 54);
     text-shadow: 2px 2px 0 rgb(24, 18, 54);
-}
-
-.squad-member__equipment-container {
-    position: absolute;
-    bottom: 0;
-    right: 39px;
-    left: 137px;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.squad-member__equipment {
-    width: 42px;
-    height: 42px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    background-color: rgb(24, 18, 54);
-    border-left-color: rgb(24, 18, 54);
-    border-right-color: rgb(24, 18, 54);
-    border-top-color: rgb(24, 18, 54);
-    border-bottom-color: rgb(24, 18, 54);
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    -unity-background-image-tint-color: rgb(148, 139, 196);
-}
-
-.squad-member__equipment--acquired {
-    -unity-background-image-tint-color: white;
-    background-color: rgba(0, 0, 0, 0);
-    border-left-color: rgba(0, 0, 0, 0);
-    border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: rgb(255, 255, 255);
 }

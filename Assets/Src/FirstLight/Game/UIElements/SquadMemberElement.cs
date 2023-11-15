@@ -12,43 +12,22 @@ namespace FirstLight.Game.UIElements
 	{
 		private const int DAMAGE_ANIMATION_DURATION = 500;
 
-		private readonly Color DAMAGE_BG = new(212f / 255f, 29f / 255f, 27f / 255f, 0.5f);
-		private readonly Color NORMAL_BG = new(49f / 255f, 45f / 255f, 71f / 255f, 0.5f);
-
 		private const string USS_BLOCK = "squad-member";
 		private const string USS_CONTAINER = USS_BLOCK + "__container";
 		private const string USS_DEAD = USS_BLOCK + "--dead";
 		private const string USS_DEAD_CROSS = USS_BLOCK + "__dead-cross";
 		private const string USS_BG = USS_BLOCK + "__bg";
 		private const string USS_PFP = USS_BLOCK + "__pfp";
-		private const string USS_TEAMCOLOR = USS_BLOCK + "__team-color";
+		private const string USS_TEAM_COLOR = USS_BLOCK + "__team-color";
 		private const string USS_NAME = USS_BLOCK + "__name";
-		private const string USS_LEVEL = USS_BLOCK + "__level";
-		private const string USS_SHIELD_HEALTH_CONTAINER = USS_BLOCK + "__shield-health-container";
-		private const string USS_SHIELD_HEALTH_BG = USS_BLOCK + "__shield-health-bg";
-		private const string USS_SHIELD_BAR = USS_BLOCK + "__shield-bar";
-		private const string USS_HEALTH_BAR = USS_BLOCK + "__health-bar";
-		private const string USS_EQUIPMENT_CONTAINER = USS_BLOCK + "__equipment-container";
-		private const string USS_EQUIPMENT = USS_BLOCK + "__equipment";
-		private const string USS_EQUIPMENT_ACQUIRED = USS_EQUIPMENT + "--acquired";
+		private const string USS_SHIELD_HEALTH = USS_BLOCK + "__health-shield";
 
-		private const string USS_SPRITE_EQUIPMENTCATEGORY = "sprite-shared__icon-equipmentcategory-{0}";
+		private readonly VisualElement _bg;
+		private readonly VisualElement _pfp;
+		private readonly VisualElement _teamColor;
+		private readonly Label _name;
 
-		private VisualElement _container;
-		private VisualElement _bg;
-		private VisualElement _pfp;
-		private VisualElement _teamColor;
-		private Label _level;
-		private Label _name;
-
-		private VisualElement _shieldBar;
-		private VisualElement _healthBar;
-
-		private VisualElement _equipmentWeapon;
-		private VisualElement _equipmentHelmet;
-		private VisualElement _equipmentShield;
-		private VisualElement _equipmentAmulet;
-		private VisualElement _equipmentArmor;
+		private readonly PlayerHealthShieldElement _healthShield;
 
 		private PlayerRef _player;
 		private int _pfpRequestHandle;
@@ -60,76 +39,31 @@ namespace FirstLight.Game.UIElements
 		{
 			AddToClassList(USS_BLOCK);
 
-			Add(_container = new VisualElement {name = "container"});
-			_container.AddToClassList(USS_CONTAINER);
+			var container = new VisualElement {name = "container"};
+			Add(container);
+			container.AddToClassList(USS_CONTAINER);
 
 			var deadCross = new VisualElement {name = "dead-cross"};
 			Add(deadCross);
 			deadCross.AddToClassList(USS_DEAD_CROSS);
 
-			_container.Add(_bg = new VisualElement {name = "bg"});
+			container.Add(_bg = new VisualElement {name = "bg"});
 			_bg.AddToClassList(USS_BG);
-			
-			_container.Add(_teamColor = new VisualElement {name = "teamColor"});
-			_teamColor.AddToClassList(USS_TEAMCOLOR);
-			
-			_container.Add(_pfp = new VisualElement {name = "pfp"});
-			_pfp.AddToClassList(USS_PFP);
-			
-			_container.Add(_level = new Label("1324") {name = "level"});
-			_level.AddToClassList(USS_LEVEL);
 
-			_container.Add(_name = new Label("PLAYER NAME") {name = "name"});
+			container.Add(_teamColor = new VisualElement {name = "teamColor"});
+			_teamColor.AddToClassList(USS_TEAM_COLOR);
+
+			container.Add(_pfp = new VisualElement {name = "pfp"});
+			_pfp.AddToClassList(USS_PFP);
+
+			container.Add(_name = new Label("PLAYER NAME") {name = "name"});
 			_name.AddToClassList(USS_NAME);
 
-			var shieldHealthContainer = new VisualElement {name = "shieldhealth-container"};
-			_container.Add(shieldHealthContainer);
-			shieldHealthContainer.AddToClassList(USS_SHIELD_HEALTH_CONTAINER);
-			{
-				var shieldBg = new VisualElement {name = "shield-bg"};
-				shieldHealthContainer.Add(shieldBg);
-				shieldBg.AddToClassList(USS_SHIELD_HEALTH_BG);
-				{
-					shieldBg.Add(_shieldBar = new VisualElement {name = "shield-bar"});
-					_shieldBar.AddToClassList(USS_SHIELD_BAR);
-				}
+			container.Add(_healthShield = new PlayerHealthShieldElement {name = "health-shield"});
+			_healthShield.AddToClassList(USS_SHIELD_HEALTH);
 
-				var healthBg = new VisualElement {name = "health-bg"};
-				shieldHealthContainer.Add(healthBg);
-				healthBg.AddToClassList(USS_SHIELD_HEALTH_BG);
-				{
-					healthBg.Add(_healthBar = new VisualElement {name = "health-bar"});
-					_healthBar.AddToClassList(USS_HEALTH_BAR);
-				}
-			}
-
-			var equipmentContainer = new VisualElement {name = "equipment-container"};
-			_container.Add(equipmentContainer);
-			equipmentContainer.AddToClassList(USS_EQUIPMENT_CONTAINER);
-			{
-				equipmentContainer.Add(_equipmentWeapon = new VisualElement {name = "weapon"});
-				_equipmentWeapon.AddToClassList(USS_EQUIPMENT);
-				_equipmentWeapon.AddToClassList(string.Format(USS_SPRITE_EQUIPMENTCATEGORY, "weapon"));
-
-				equipmentContainer.Add(_equipmentHelmet = new VisualElement {name = "helmet"});
-				_equipmentHelmet.AddToClassList(USS_EQUIPMENT);
-				_equipmentHelmet.AddToClassList(string.Format(USS_SPRITE_EQUIPMENTCATEGORY, "helmet"));
-
-				equipmentContainer.Add(_equipmentShield = new VisualElement {name = "shield"});
-				_equipmentShield.AddToClassList(USS_EQUIPMENT);
-				_equipmentShield.AddToClassList(string.Format(USS_SPRITE_EQUIPMENTCATEGORY, "shield"));
-
-				equipmentContainer.Add(_equipmentAmulet = new VisualElement {name = "amulet"});
-				_equipmentAmulet.AddToClassList(USS_EQUIPMENT);
-				_equipmentAmulet.AddToClassList(string.Format(USS_SPRITE_EQUIPMENTCATEGORY, "amulet"));
-
-				equipmentContainer.Add(_equipmentArmor = new VisualElement {name = "armor"});
-				_equipmentArmor.AddToClassList(USS_EQUIPMENT);
-				_equipmentArmor.AddToClassList(string.Format(USS_SPRITE_EQUIPMENTCATEGORY, "armor"));
-			}
-
-			_damageAnimation = _bg.experimental.animation.Start(0f, 1f, DAMAGE_ANIMATION_DURATION,
-				(e, o) => e.style.unityBackgroundImageTintColor = Color.Lerp(DAMAGE_BG, NORMAL_BG, o)).KeepAlive();
+			_damageAnimation = _bg.experimental.animation.Start(1f, 0f, DAMAGE_ANIMATION_DURATION,
+				(e, o) => e.style.opacity = o).KeepAlive();
 			_damageAnimation.Stop();
 
 			_damageAnimationHandle = _bg.schedule.Execute(_damageAnimation.Start);
@@ -140,7 +74,7 @@ namespace FirstLight.Game.UIElements
 
 		public void SetTeamColor(Color? color)
 		{
-			if(!color.HasValue) _teamColor.SetDisplay(false);
+			if (!color.HasValue) _teamColor.SetDisplay(false);
 			else _teamColor.style.backgroundColor = color.Value;
 		}
 
@@ -151,7 +85,6 @@ namespace FirstLight.Game.UIElements
 
 			_name.text = playerName;
 			_name.style.color = playerNameColor;
-			_level.text = level.ToString();
 
 			if (Application.isPlaying)
 			{
@@ -160,6 +93,8 @@ namespace FirstLight.Game.UIElements
 
 				if (!string.IsNullOrEmpty(pfpUrl))
 				{
+					var textureService = MainInstaller.Resolve<IGameServices>().RemoteTextureService;
+					textureService.CancelRequest(_pfpRequestHandle);
 					_pfpRequestHandle = MainInstaller.Resolve<IGameServices>().RemoteTextureService.RequestTexture(
 						pfpUrl,
 						tex =>
@@ -177,49 +112,14 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
-		public void UpdateLevel(int might)
+		public void UpdateHealth(int previous, int current, int max)
 		{
-			_level.text = might.ToString();
+			_healthShield.UpdateHealth(previous, current, max);
 		}
 
-		public void UpdateHealth(float health)
+		public void UpdateShield(int previous, int current, int max)
 		{
-			_healthBar.style.flexGrow = health;
-		}
-
-		public void UpdateShield(float shield)
-		{
-			_shieldBar.style.flexGrow = shield;
-		}
-
-		public void UpdateEquipment(Equipment equipment)
-		{
-			switch (equipment.GetEquipmentGroup())
-			{
-				case GameIdGroup.Helmet when !_equipmentHelmet.ClassListContains(USS_EQUIPMENT_ACQUIRED):
-					_equipmentHelmet.AddToClassList(USS_EQUIPMENT_ACQUIRED);
-					_equipmentHelmet.AnimatePing();
-					break;
-				case GameIdGroup.Weapon when !_equipmentWeapon.ClassListContains(USS_EQUIPMENT_ACQUIRED):
-					_equipmentWeapon.AddToClassList(USS_EQUIPMENT_ACQUIRED);
-					_equipmentWeapon.AnimatePing();
-					break;
-				case GameIdGroup.Amulet when !_equipmentAmulet.ClassListContains(USS_EQUIPMENT_ACQUIRED):
-					_equipmentAmulet.AddToClassList(USS_EQUIPMENT_ACQUIRED);
-					_equipmentAmulet.AnimatePing();
-					break;
-				case GameIdGroup.Armor when !_equipmentArmor.ClassListContains(USS_EQUIPMENT_ACQUIRED):
-					_equipmentArmor.AddToClassList(USS_EQUIPMENT_ACQUIRED);
-					_equipmentArmor.AnimatePing();
-					break;
-				case GameIdGroup.Shield when !_equipmentShield.ClassListContains(USS_EQUIPMENT_ACQUIRED):
-					_equipmentShield.AddToClassList(USS_EQUIPMENT_ACQUIRED);
-					_equipmentShield.AnimatePing();
-					break;
-				default:
-					FLog.Verbose($"Equipment piece already acquired: {equipment.GameId}");
-					break;
-			}
+			_healthShield.UpdateShield(previous, current, max);
 		}
 
 		public void SetDead()
@@ -230,7 +130,7 @@ namespace FirstLight.Game.UIElements
 		public void PingDamage()
 		{
 			_damageAnimation.Stop();
-			_bg.style.unityBackgroundImageTintColor = DAMAGE_BG;
+			_bg.style.opacity = 1;
 			_damageAnimationHandle.ExecuteLater(1000);
 		}
 

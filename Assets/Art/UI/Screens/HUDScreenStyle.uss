@@ -24,14 +24,14 @@
 
 .special-button--special0 {
     position: absolute;
-    right: 215px;
-    bottom: 411px;
+    right: 157px;
+    bottom: 355px;
 }
 
 .special-button--special1 {
     position: absolute;
-    right: 425px;
-    bottom: 285px;
+    right: 363px;
+    bottom: 263px;
 }
 
 .special-button--draggable {
@@ -200,10 +200,10 @@
 }
 
 .joystick--move {
-    left: 176px;
-    bottom: 134px;
-    width: 220px;
-    height: 220px;
+    left: 170px;
+    bottom: 145px;
+    width: 280px;
+    height: 280px;
 }
 
 .skydiving .joystick--move {
@@ -211,10 +211,10 @@
 }
 
 .joystick--aim {
-    right: 142px;
-    bottom: 83px;
-    width: 300px;
-    height: 300px;
+    right: 149px;
+    bottom: 100px;
+    width: 250px;
+    height: 250px;
 }
 
 .skydiving .joystick--aim {
@@ -340,7 +340,7 @@
 
 .device-status-bar {
     position: absolute;
-    right: 283px;
+    right: 305px;
     top: 35px;
     flex-direction: row-reverse;
     align-items: center;
@@ -352,8 +352,8 @@
     position: absolute;
     width: 216px;
     height: 193px;
-    right: 521px;
-    bottom: 65px;
+    right: 447px;
+    bottom: 46px;
 }
 
 .skydiving .weapon-display {
@@ -596,10 +596,10 @@
 
 .kill-feed {
     position: absolute;
-    left: 30px;
-    top: 2px;
+    left: 56px;
+    top: 22px;
     flex-direction: column-reverse;
-    align-items: flex-end;
+    align-items: flex-start;
 }
 
 .top-center-container {
@@ -675,8 +675,8 @@
 
 .squad-members-container {
     position: absolute;
-    top: 252px;
-    left: 29px;
+    top: 241px;
+    left: 65px;
 }
 
 .equipment-display {
@@ -785,8 +785,8 @@
 
 .player-counts {
     position: absolute;
-    right: 356px;
-    top: 121px;
+    right: 370px;
+    top: 112px;
 }
 
 .skydiving .player-counts {
@@ -802,6 +802,14 @@
 }
 
 .player-counts__alive-container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.player-counts__teams-container {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     flex-direction: row-reverse;

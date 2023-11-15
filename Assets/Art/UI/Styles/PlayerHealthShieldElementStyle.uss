@@ -1,0 +1,95 @@
+.player-health-shield {
+    width: 183px;
+    height: 43px;
+    padding-top: 3px;
+    padding-right: 3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    background-image: var(--sprite-match__background-playerbars);
+}
+
+.player-health-shield__health-container {
+    flex-grow: 1;
+    flex-direction: row;
+    margin-right: 2px;
+    margin-bottom: 0;
+    margin-top: 1px;
+}
+
+.player-health-shield__shield-container {
+    flex-grow: 1;
+    flex-direction: row;
+    margin-bottom: 1px;
+    margin-left: 2px;
+}
+
+.player-health-shield__health-label {
+    position: absolute;
+    color: rgb(170, 216, 97);
+    font-size: 30px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    left: 4px;
+    bottom: -16px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.player-health-shield__shield-label {
+    position: absolute;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 30px;
+    left: 5px;
+    bottom: -2px;
+    color: rgb(140, 221, 255);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    letter-spacing: -2px;
+}
+
+.player-health-shield__health-bar {
+    flex-grow: 1;
+    background-image: var(--sprite-match__progress-health);
+}
+
+.player-health-shield__shield-bar {
+    background-image: var(--sprite-match__progress-shield);
+    flex-grow: 1;
+}
+
+.player-health-shield__damage-bar {
+    display: none;
+    background-image: var(--sprite-match__progress-damage);
+    -unity-background-image-tint-color: rgb(235, 78, 1);
+}
+
+.player-health-shield__separator-holder {
+    position: absolute;
+    left: -4px;
+    top: 0;
+    right: -4px;
+    bottom: 0;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.player-health-shield__separator {
+    background-image: var(--sprite-match__progress-separator);
+    width: 4px;
+    height: 14px;
+}

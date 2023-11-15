@@ -135,4 +135,5 @@
 
 .death-notification--suicide .death-notification__kill-icon {
     background-image: var(--sprite-match__icon-killfeed-suicide);
+    margin-left: 0;
 }

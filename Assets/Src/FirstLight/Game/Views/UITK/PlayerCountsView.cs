@@ -12,6 +12,8 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _aliveCountPing;
 		private Label _killsCountLabel;
 		private VisualElement _killsCountPing;
+		private Label _teamsCountLabel;
+		private VisualElement _teamsCountPing;
 
 		private IMatchServices _matchServices;
 

@@ -174,6 +174,13 @@ namespace FirstLight.Game.Presenters
 					OnConfirm = () =>
 					{
 						_services.CommandService.ExecuteCommand(new ActivateBattlepassCommand());
+					},
+					OnExit = () =>
+					{
+						if (_services.IAPService.RequiredToViewStore)
+						{
+							Data.BackClicked.Invoke();
+						}
 					}
 				});
 		}

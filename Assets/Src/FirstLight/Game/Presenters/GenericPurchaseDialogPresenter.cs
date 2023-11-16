@@ -74,7 +74,7 @@ namespace FirstLight.Game.Presenters
 			_confirmCallback.Invoke();
 		}
 
-		public void SetOptions(GenericPurchaseOptions options)
+		public void SetHasEnoughOptions(GenericPurchaseOptions options)
 		{
 			Root.RemoveModifiers();
 			if (!string.IsNullOrEmpty(options.OverwriteTitle))
@@ -113,7 +113,7 @@ namespace FirstLight.Game.Presenters
 		}
 		
 
-		public void SetNotEnoughBlastBucks(uint amount = 0)
+		public void SetNotEnoughOptions(GenericPurchaseOptions options)
 		{
 			_itemIcon.style.backgroundImage = StyleKeyword.Null;
 			Root.AddToClassList(USS_NOT_ENOUGH_FUNDS);
@@ -122,17 +122,20 @@ namespace FirstLight.Game.Presenters
 			var itemIcon = ItemFactory.Currency(GameId.BlastBuck, 1);
 			itemIcon.GetViewModel().DrawIcon(_itemIcon);
 
-			_itemAmount.text = amount > 0 ? amount.ToString() : "";
+			_itemAmount.text = options.Value > 0 ? options.Value.ToString() : "";
 			_itemPrice.text = "GO TO SHOP";
 			_title.text = "NOT ENOUGH BLAST BUCKS";
 			_buyButton.clicked += GoToShop;
 			_buyButton.clicked += CloseRequested;
 			_blockerButton.clicked += CloseRequested;
 			_closeButton.clicked += CloseRequested;
+			_closeCallback = options.OnExit;
 		}
 
 		private void GoToShop()
 		{
+			MainInstaller.ResolveServices().IAPService.RequiredToViewStore = true;
+			CloseRequested();
 		}
 
 		public class GenericPurchaseOptions

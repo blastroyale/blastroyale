@@ -153,6 +153,7 @@ namespace FirstLight.Game.StateMachines
 			homeCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			homeCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
+			homeCheck.Transition().Condition(RequiresToSeeStore).Target(store);
 			homeCheck.Transition().Target(homeMenu);
 			homeCheck.OnExit(OpenHomeScreen);
 
@@ -216,6 +217,11 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 		}
 
+		private bool RequiresToSeeStore()
+		{
+			return _services.IAPService.RequiredToViewStore;
+		}
+		
 		private void HideMatchmaking()
 		{
 			_uiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(false);
@@ -475,22 +481,14 @@ namespace FirstLight.Game.StateMachines
 				OnBackClicked = () => { activity.Complete(); },
 				OnHomeClicked = () => { activity.Complete(); },
 				OnPurchaseItem = PurchaseItem,
-				IapProcessingFinished = OnIapProcessingFinished
 			};
-
 			_uiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new ShopScreenOpenedMessage());
 		}
 
 		private void PurchaseItem(GameProduct product)
 		{
-			_statechartTrigger(NetworkState.IapProcessStartedEvent);
 			_services.IAPService.BuyProduct(product);
-		}
-
-		private void OnIapProcessingFinished()
-		{
-			_statechartTrigger(NetworkState.IapProcessFinishedEvent);
 		}
 
 		private void OpenRoomJoinCreateMenuUI()

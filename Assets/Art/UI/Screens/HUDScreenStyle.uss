@@ -675,8 +675,9 @@
 
 .squad-members-container {
     position: absolute;
-    top: 241px;
     left: 65px;
+    bottom: 525px;
+    justify-content: flex-end;
 }
 
 .equipment-display {

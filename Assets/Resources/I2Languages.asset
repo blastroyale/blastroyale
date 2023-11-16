@@ -13788,10 +13788,144 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TAP TO CLAIM
+      - CLAIM!
       - "\u041D\u0430\u0436\u043C\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B
         \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u043E\u0432\u0430\u0442\u044C"
       - Toque para reivindicar
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/buy_premium_batttlepass_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - BUY PREMIUM BATTLEPASS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/buy_premium_batttlepass_popup_item_name
+      TermType: 0
+      Description: 
+      Languages:
+      - BUY PREMIUM BATTLEPASS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/buy_level_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - BUY A LEVEL OF BATTLE PASS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/buy_level_popup_item_name
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU ARE GOING TO BUY 1 LEVEL OF BATTLE PASS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_ended
+      TermType: 0
+      Description: 
+      Languages:
+      - SEASON ENDED
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/activate_premium_button_text
+      TermType: 0
+      Description: 
+      Languages:
+      - ACTIVATE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/left_bar_premium_title
+      TermType: 0
+      Description: 
+      Languages:
+      - 'PREMIUM
+
+        <size=32>PASS</size>'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/left_bar_free_title
+      TermType: 0
+      Description: 
+      Languages:
+      - FREE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_item_display_name
+      TermType: 0
+      Description: 
+      Languages:
+      - VISIT THE SHOP TO GET SOME MORE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_button_text
+      TermType: 0
+      Description: 
+      Languages:
+      - GO TO SHOP
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_title
+      TermType: 0
+      Description: 
+      Languages:
+      - NOT ENOUGH BLAST BUCKS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_title
+      TermType: 0
+      Description: 
+      Languages:
+      - CONFIRM ACTION
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -16910,6 +17044,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSettings/use_overhead_ui
+      TermType: 0
+      Description: 
+      Languages:
+      - Use Overhead UI
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITInbox/inbox_community
       TermType: 0
       Description: 
@@ -18042,7 +18187,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1700062304804
+    Google_LastUpdatedVersion: 1700143331266
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

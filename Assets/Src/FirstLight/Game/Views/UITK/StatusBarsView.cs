@@ -87,6 +87,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.SubscribeManual<EventOnShrinkingCircleDmg>(this, OnShrinkingCircleDmg);
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUpdated>(this, OnLocalPlayerSpecialUpdated);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 		}
 
@@ -278,6 +279,16 @@ namespace FirstLight.Game.Views.UITK
 				default:
 					FLog.Error($"Unknown collectable: {callback.CollectableId}");
 					break;
+			}
+		}
+
+		private void OnLocalPlayerSpecialUpdated(EventOnLocalPlayerSpecialUpdated callback)
+		{
+			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
+
+			if (callback.Special.IsValid)
+			{
+				bar.ShowNotification(PlayerStatusBarElement.NotificationType.SpecialPickup, callback.Special.SpecialId.GetLocalization());
 			}
 		}
 

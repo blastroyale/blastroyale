@@ -22,7 +22,6 @@ namespace FirstLight.Game.UIElements
 
 		private const string USS_BLOCK = "player-status-bar";
 		private const string USS_NOTIFICATION = USS_BLOCK + "__notification";
-		private const string USS_NOTIFICATION_ICON = USS_BLOCK + "__notification-icon";
 		private const string USS_NOTIFICATION_SHIELDS = USS_NOTIFICATION + "--shields";
 		private const string USS_NOTIFICATION_HEALTH = USS_NOTIFICATION + "--health";
 		private const string USS_NOTIFICATION_AMMO = USS_NOTIFICATION + "--ammo";
@@ -54,16 +53,11 @@ namespace FirstLight.Game.UIElements
 
 			AddToClassList(USS_BLOCK);
 
-			Add(_healthShield = new PlayerHealthShieldElement() {name = "health-shield"});
-
 			Add(_notificationLabel = new Label("MAX") {name = "notification-label"});
 			_notificationLabel.AddToClassList(USS_NOTIFICATION);
 			_notificationLabel.AddToClassList(USS_NOTIFICATION_HEALTH);
-			{
-				var notificationIcon = new VisualElement {name = "notification-icon"};
-				_notificationLabel.Add(notificationIcon);
-				notificationIcon.AddToClassList(USS_NOTIFICATION_ICON);
-			}
+
+			Add(_healthShield = new PlayerHealthShieldElement {name = "health-shield"});
 
 			_notificationHandle = schedule.Execute(() => { _notificationLabel.SetDisplay(false); });
 			_notificationHandle.Pause();
@@ -152,7 +146,7 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Shows a notification above the player's head.
 		/// </summary>
-		public void ShowNotification(NotificationType type)
+		public void ShowNotification(NotificationType type, string data = null)
 		{
 			_notificationLabel.RemoveModifiers();
 
@@ -176,6 +170,10 @@ namespace FirstLight.Game.UIElements
 					break;
 				case NotificationType.MaxSpecials:
 					_notificationLabel.text = ScriptLocalization.UITMatch.full;
+					_notificationLabel.AddToClassList(USS_NOTIFICATION_SPECIAL);
+					break;
+				case NotificationType.SpecialPickup:
+					_notificationLabel.text = data;
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_SPECIAL);
 					break;
 				default:
@@ -226,7 +224,8 @@ namespace FirstLight.Game.UIElements
 			MaxHealth,
 			MaxAmmo,
 			LevelUp,
-			MaxSpecials
+			MaxSpecials,
+			SpecialPickup
 		}
 
 		public new class UxmlFactory : UxmlFactory<PlayerStatusBarElement, UxmlTraits>

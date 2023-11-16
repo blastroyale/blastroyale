@@ -48,7 +48,7 @@ namespace Quantum.Systems
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
 			if (!f.TryGet<Projectile>(info.Entity, out var projectile) || info.Other == info.Entity || info.StaticData.IsTrigger || projectile.Attacker == info.Entity 
-				|| f.Has<EntityDestroyer>(info.Entity) || (projectile.Attacker == info.Other && !projectile.IsSubProjectile()) || (projectile.Attacker != info.Other && TeamHelpers.HasSameTeam(f, projectile.Attacker, info.Other)))
+				|| f.Has<EntityDestroyer>(info.Entity) || (projectile.Attacker == info.Other && !projectile.IsSubProjectile()) || (QuantumFeatureFlags.TEAM_IGNORE_COLLISION && projectile.Attacker != info.Other && TeamHelpers.HasSameTeam(f, projectile.Attacker, info.Other)))
 			{
 				return;
 			}
@@ -107,6 +107,14 @@ namespace Quantum.Systems
 			
 			var position = f.Get<Transform3D>(projectileEntity).Position;
 
+			var isTeamHit = TeamHelpers.HasSameTeam(f, projectile.Attacker, targetHit);
+			if (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION && isTeamHit)
+			{
+				f.Events.OnProjectileFailedHit(projectileEntity, projectile, position, false);
+				f.Destroy(projectileEntity);
+				return;
+			}
+			
 			if(targetHit == projectileEntity || !targetHit.IsValid)
 				f.Events.OnProjectileFailedHit(projectileEntity, projectile, position, true);
 			else
@@ -117,15 +125,16 @@ namespace Quantum.Systems
 			if (projectile.ShouldPerformSubProjectileOnHit(f))
 			{
 				CreateSubProjectile(f, projectile, position, true);
+				// TODO: Check if need to destroy projectile here
 			}
 			else
 			{
-
 				var isSelfAOE = projectile.Attacker == targetHit && projectile.IsSubProjectile();
 				var power = (uint)(projectile.GetPower(f) * (isSelfAOE ? Constants.SELF_DAMAGE_MODIFIER : FP._1));
 				
 				var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, projectileEntity, power,
 					projectile.KnockbackAmount, position, isSelfAOE ? 0 : projectile.TeamSource);
+				
 				if (QuantumHelpers.ProcessHit(f, &spell))
 				{
 					OnHit(f, &spell);

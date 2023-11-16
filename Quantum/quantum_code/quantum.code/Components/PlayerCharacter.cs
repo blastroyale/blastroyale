@@ -599,20 +599,5 @@ namespace Quantum
 
 			return weaponConfig;
 		}
-
-		private GameId[] GetSpecials(Frame f, ref QuantumWeaponConfig weaponConfig)
-		{
-			var specials = weaponConfig.Specials.ToArray();
-			
-			if (f.Context.GameModeConfig.Id == "Tutorial")
-			{
-				specials[0] = GameId.Random;
-				if (specials[1] != GameId.Random)
-				{
-					specials[1] = GameId.TutorialGrenade;
-				}
-			}
-			return specials;
-		}
 	}
 }

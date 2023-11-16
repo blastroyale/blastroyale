@@ -133,20 +133,19 @@ namespace FirstLight.Game.Services
 
 			if (bucks >= options.Value)
 			{
-				ui.SetOptions(options);
-				return;
+				ui.SetHasEnoughOptions(options);
 			}
-			
-			ui.SetNotEnoughBlastBucks(options.Value);			
+			else
+			{
+				ui.SetNotEnoughOptions(options);		
+			}
 		}
 		
 		/// <inheritdoc />
 		public void CloseDialog()
 		{
 			if (_openDialogType == null) return;
-
 			_uiService.CloseUi(_openDialogType);
-
 			_openDialogType = null;
 		}
 	}

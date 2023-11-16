@@ -5,6 +5,7 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.SDK.Services;
 using PlayFab.ClientModels;
 using UnityEngine.Purchasing;
@@ -38,6 +39,11 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface IIAPService
 	{
+		/// <summary>
+		/// If flagged as needs to see store, the next time player opens main manu 
+		/// </summary>
+		bool RequiredToViewStore { get; set; }
+		
 		/// <summary>
 		/// Api wrapper for Unity IAP integration. All operations are done via Unity Store.
 		/// </summary>
@@ -73,7 +79,10 @@ namespace FirstLight.Game.Services
 		private readonly IGameCommandService _commandService;
 		private readonly IGameBackendService _gameBackendService;
 		private readonly IAnalyticsService _analyticsService;
-
+		private readonly IMessageBrokerService _msgBroker;
+		
+		public bool RequiredToViewStore { get; set; }
+		
 		public IReadOnlyCollection<GameProductCategory> AvailableProductCategories => _availableProducts.Values;
 		public IUnityStoreSerivce UnityStore => _unityStore;
 		public IAPService(IGameCommandService commandService, IMessageBrokerService messageBroker,
@@ -84,9 +93,16 @@ namespace FirstLight.Game.Services
 			_playfabStore = new PlayfabStoreService(gameBackendService, commandService);
 			_commandService = commandService;
 			_gameBackendService = gameBackendService;
+			_msgBroker = messageBroker;
 			_analyticsService = analyticsService;
+			_msgBroker.Subscribe<ShopScreenOpenedMessage>(OnShopOpened);
 		}
-		
+
+		private void OnShopOpened(ShopScreenOpenedMessage msg)
+		{
+			RequiredToViewStore = false;
+		}
+
 		public void Init()
 		{
 			_playfabStore.Init();

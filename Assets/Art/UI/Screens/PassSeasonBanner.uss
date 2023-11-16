@@ -341,6 +341,7 @@
     margin-right: 208px;
     overflow: visible;
     left: 91px;
+    align-items: center;
 }
 
 .final-reward__icon {
@@ -379,4 +380,18 @@
     align-items: center;
     left: -648px;
     top: -76px;
+}
+
+.close-button {
+    position: absolute;
+    right: 23px;
+    width: 40px;
+    height: 40px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-close-white.png?fileID=21300000&guid=4df85ce872a81074581fef9150897ae5&type=3#icon-close-white');
+    top: -74px;
+}
+
+.banner-dots-left {
+    rotate: -450deg;
+    left: 135px;
 }

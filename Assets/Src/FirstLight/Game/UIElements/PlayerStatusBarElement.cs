@@ -127,7 +127,7 @@ namespace FirstLight.Game.UIElements
 		public void EnableStatusBars(bool enable)
 		{
 			_barsEnabled = enable;
-			_healthShield.SetDisplay(false);
+			_healthShield.SetDisplay(enable);
 		}
 
 		/// <summary>

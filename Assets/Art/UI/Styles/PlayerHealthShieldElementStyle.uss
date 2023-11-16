@@ -13,10 +13,10 @@
     width: 513px;
     background-image: none;
     background-color: rgba(23, 18, 53, 0.6);
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
 .player-health-shield__health-container {

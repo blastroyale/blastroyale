@@ -58,13 +58,13 @@ namespace FirstLight.Game.Presenters.BattlePass
 			};
 		}
 
-		public void SetBarData(uint level, bool completed, bool currentLevel,uint buyLevelPrice)
+		public void SetBarData(uint level, bool completed, bool currentLevel, uint buyLevelPrice)
 		{
 			Level = level;
 			_completedBar.style.width = Length.Percent(completed ? 100 : 0);
 			_number.text = level.ToString();
 			_barLevel.EnableInClassList(USS_BAR_GRAY,!completed);
-			_buyLevelButton.SetVisibility(currentLevel);
+			_buyLevelButton.SetVisibility(currentLevel && level > 1);
 			_priceLabel.text = buyLevelPrice.ToString();
 			if (!currentLevel)
 			{

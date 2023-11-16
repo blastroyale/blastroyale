@@ -26,15 +26,30 @@ namespace FirstLight.Game.Services
 			_services = services;
 			msgBroker.Subscribe<GameLogicInitialized>(InitializeBattlePass);
 			msgBroker.Subscribe<MainMenuOpenedMessage>(OnMainMenuOpen);
+			msgBroker.Subscribe<NewBattlePassSeasonMessage>(OnViewBanner);
+			msgBroker.Subscribe<OnViewingRewardsFinished>(OnFinishedViewingRewards);
+		}
+
+		private void OnViewBanner(NewBattlePassSeasonMessage msg)
+		{
+			_hasUnseenSeason = false; 
+		}
+
+		private void OnFinishedViewingRewards(OnViewingRewardsFinished msg)
+		{
+			CheckDisplayBanner();
 		}
 
 		private void OnMainMenuOpen(MainMenuOpenedMessage msg)
 		{
-			
+			CheckDisplayBanner();
+		}
+
+		private void CheckDisplayBanner()
+		{
 			if (!_hasUnseenSeason) return;
-			if (_services.TutorialService.IsTutorialRunning)
+			if (_gameDataProvider.PlayerDataProvider.Level.Value < 2)
 			{
-				_hasUnseenSeason = true; // new users for now don't see the banner
 				return;
 			}
 			_services.GameUiService.OpenUiAsync<BattlePassSeasonBannerPresenter>();

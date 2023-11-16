@@ -1,0 +1,102 @@
+/* AUTO GENERATED */
+:root {
+    --sprite-currencies__blastbuck-1: url('/Assets/Art/UI/Sprites/Currencies/blastbuck-1.png');
+    --sprite-currencies__blastbuck-2: url('/Assets/Art/UI/Sprites/Currencies/blastbuck-2.png');
+    --sprite-currencies__blastbuck-3: url('/Assets/Art/UI/Sprites/Currencies/blastbuck-3.png');
+    --sprite-currencies__blastbuck-default: url('/Assets/Art/UI/Sprites/Currencies/blastbuck-default.png');
+    --sprite-currencies__blst: url('/Assets/Art/UI/Sprites/Currencies/blst.png');
+    --sprite-currencies__bpp: url('/Assets/Art/UI/Sprites/Currencies/bpp.png');
+    --sprite-currencies__bpp-reward: url('/Assets/Art/UI/Sprites/Currencies/bpp-reward.png');
+    --sprite-currencies__coin-1: url('/Assets/Art/UI/Sprites/Currencies/coin-1.png');
+    --sprite-currencies__coin-2: url('/Assets/Art/UI/Sprites/Currencies/coin-2.png');
+    --sprite-currencies__coin-3: url('/Assets/Art/UI/Sprites/Currencies/coin-3.png');
+    --sprite-currencies__coin-default: url('/Assets/Art/UI/Sprites/Currencies/coin-default.png');
+    --sprite-currencies__cs: url('/Assets/Art/UI/Sprites/Currencies/cs.png');
+    --sprite-currencies__cs-reward: url('/Assets/Art/UI/Sprites/Currencies/cs-reward.png');
+    --sprite-currencies__fragments-default: url('/Assets/Art/UI/Sprites/Currencies/fragments-default.png');
+}
+
+.sprite-currencies__blastbuck-1 {
+    background-image: var(--sprite-currencies__blastbuck-1);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-currencies__blastbuck-2 {
+    background-image: var(--sprite-currencies__blastbuck-2);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-currencies__blastbuck-3 {
+    background-image: var(--sprite-currencies__blastbuck-3);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-currencies__blastbuck-default {
+    background-image: var(--sprite-currencies__blastbuck-default);
+    width: 160px;
+    height: 160px;
+}
+
+.sprite-currencies__blst {
+    background-image: var(--sprite-currencies__blst);
+    width: 160px;
+    height: 160px;
+}
+
+.sprite-currencies__bpp {
+    background-image: var(--sprite-currencies__bpp);
+    width: 166px;
+    height: 166px;
+}
+
+.sprite-currencies__bpp-reward {
+    background-image: var(--sprite-currencies__bpp-reward);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-currencies__coin-1 {
+    background-image: var(--sprite-currencies__coin-1);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-currencies__coin-2 {
+    background-image: var(--sprite-currencies__coin-2);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-currencies__coin-3 {
+    background-image: var(--sprite-currencies__coin-3);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-currencies__coin-default {
+    background-image: var(--sprite-currencies__coin-default);
+    width: 160px;
+    height: 160px;
+}
+
+.sprite-currencies__cs {
+    background-image: var(--sprite-currencies__cs);
+    width: 160px;
+    height: 160px;
+}
+
+.sprite-currencies__cs-reward {
+    background-image: var(--sprite-currencies__cs-reward);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-currencies__fragments-default {
+    background-image: var(--sprite-currencies__fragments-default);
+    width: 40px;
+    height: 40px;
+}
+

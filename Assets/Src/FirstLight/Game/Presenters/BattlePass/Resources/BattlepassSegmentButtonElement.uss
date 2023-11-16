@@ -120,7 +120,6 @@
 .reward-holder__image {
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/flag-demon.png?fileID=21300000&guid=200f11153aed542e3aeb0adb534ade89&type=3#flag-demon');
     top: -167px;
     width: 300px;
     height: 300px;
@@ -401,12 +400,12 @@
 
 .bar__buy-button__blastbucks-icon {
     flex-grow: 0;
-    background-image: var(--sprite-home__icon-blastbucks);
+    background-image: var(--sprite-currencies__blastbuck-default);
     width: 64px;
     height: 83px;
     position: absolute;
     top: 10px;
-    left: 46px;
+    left: 29px;
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -416,7 +415,7 @@
     width: 94px;
     position: absolute;
     top: 10px;
-    left: 116px;
+    left: 96px;
     font-size: 64px;
     height: 78px;
     -unity-text-align: middle-left;
@@ -433,10 +432,18 @@
     position: absolute;
     left: 22%;
     bottom: auto;
-    top: -200%;
+    top: -235%;
     background-image: var(--sprite-battlepass__buy-level-button);
+    padding-right: 0;
 }
 
+.bar__buy-button:active {
+    background-image: var(--sprite-battlepass__buy-level-button-pressed);
+}
+.bar__buy-button:active > .bar__buy-button--content {
+    left: 1;
+    top: 2;
+}
 .reward__lock {
     position: absolute;
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/icon-lock.png?fileID=21300000&guid=263366e3a84b54d6fa1dc43028346628&type=3#icon-lock');

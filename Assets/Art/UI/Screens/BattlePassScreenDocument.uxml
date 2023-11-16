@@ -1,30 +1,29 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/BattlePassScreenStyle.uss?fileID=7433441132597879392&amp;guid=dc4d7d108099c400695438f2df23550d&amp;type=3#BattlePassScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/ProfilePictures.uss?fileID=7433441132597879392&amp;guid=9c709a527dcc84effb4acf8d96656258&amp;type=3#ProfilePictures" />
+    <Style src="project://database/Assets/Art/UI/Styles/Sprites-BattlePass.uss?fileID=7433441132597879392&amp;guid=12a0b900f26604af6831ca49a2fe3bca&amp;type=3#Sprites-BattlePass" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent screen-root">
         <ui:VisualElement name="SeasonContent" class="season-content">
             <ui:VisualElement picking-mode="Ignore" name="Opacity" class="bottom-bar-opacity" />
             <ui:ScrollView focusable="true" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" name="RewardsScroll" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl season-content__scroll--doublelines">
-                <ui:VisualElement name="ColumnHolder" class="column-holder">
-                </ui:VisualElement>
+                <ui:VisualElement name="ColumnHolder" class="column-holder" />
             </ui:ScrollView>
-            <ui:VisualElement name="LeftBar" class="anim-delay-0 anim-translate anim-translate--right-xl left-bar">
-                <ui:VisualElement name="PaidContainerShadow" class="paid-container-shadow" />
-                <ui:VisualElement name="PaidContainerBorder" class="paid-container-border" />
-                <ui:VisualElement name="PaidContainer" class="paid-container">
-                    <ui:VisualElement name="IconBackground" class="paid-icon-background">
-                        <ui:VisualElement name="PassIcon" class="paid-pass-icon" />
-                        <ui:Label tabindex="-1" text="PREMIUM&#10;&lt;size=32&gt;PASS&lt;/size&gt;" display-tooltip-when-elided="true" name="PremiumTitle" class="premium-title" />
-                        <ui:VisualElement name="PremiumLock" class="premium-lock" />
+            <ui:VisualElement name="LeftBar" class="left-bar">
+                <ui:VisualElement name="Background" class="left-bar__background" />
+                <ui:VisualElement name="Passes" class="left-bar__passes-holder">
+                    <ui:VisualElement name="PaidContainer" class="paid-container">
+                        <ui:VisualElement name="IconBackground" class="paid-icon-background">
+                            <ui:VisualElement name="PassIcon" class="paid-pass-icon" />
+                            <ui:Label tabindex="-1" text="PREMIUM&#10;&lt;size=32&gt;PASS&lt;/size&gt;" display-tooltip-when-elided="true" name="PremiumTitle" class="premium-title" />
+                            <ui:VisualElement name="PremiumLock" class="premium-lock" />
+                        </ui:VisualElement>
+                        <ui:Button text="ACTIVATE" display-tooltip-when-elided="true" name="ActivateButton" class="activate-button" />
                     </ui:VisualElement>
-                    <ui:Button text="ACTIVATE" display-tooltip-when-elided="true" name="ActivateButton" class="activate-button" />
-                </ui:VisualElement>
-                <ui:VisualElement name="FreeContainerShadow" class="free-container-shadow" />
-                <ui:VisualElement name="FreeContainerBorder" class="free-container-border" />
-                <ui:VisualElement name="FreeContainer" class="free-container">
-                    <ui:VisualElement name="IconBackground" class="free-icon-background">
-                        <ui:VisualElement name="PassIcon" class="free-pass-icon" />
-                        <ui:Label tabindex="-1" text="FREE" display-tooltip-when-elided="true" name="FreeTitle" class="free-title" />
+                    <ui:VisualElement name="FreeContainer" class="free-container">
+                        <ui:VisualElement name="IconBackground" class="free-icon-background">
+                            <ui:VisualElement name="PassIcon" class="free-pass-icon" />
+                            <ui:Label tabindex="-1" text="FREE" display-tooltip-when-elided="true" name="FreeTitle" class="free-title" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

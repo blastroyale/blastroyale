@@ -71,7 +71,9 @@ namespace FirstLight.Game.Presenters.Store
 					productElement.SetData(product);
 					productElement.OnClicked = BuyItem;
 					categoryElement.Add(productElement);
+					categoryElement.EnsureSize(productElement.size);
 				}
+				
 				_productList.Add(categoryElement);
 
 				var categoryButton = new Button();

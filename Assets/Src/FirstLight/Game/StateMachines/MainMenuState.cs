@@ -531,6 +531,12 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
 
+		private void FinishRewardSequence()
+		{
+			OpenHomeScreen();
+			_services.MessageBrokerService.Publish(new OnViewingRewardsFinished());
+		}
+
 		private void OnRewardsReceived(List<ItemData> items)
 		{
 			var rewardsCopy = items.Where(item => !item.Id.IsInGroup(GameIdGroup.Currency) && item.Id is not (GameId.XP or GameId.BPP or GameId.Trophies)).ToList();
@@ -539,7 +545,7 @@ namespace FirstLight.Game.StateMachines
 				_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 				{
 					Items = rewardsCopy,
-					OnFinish = OpenHomeScreen
+					OnFinish = FinishRewardSequence
 				});
 			}
 		}
@@ -553,7 +559,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				FameRewards = true,
 				Items = levelRewards,
-				OnFinish = OpenHomeScreen
+				OnFinish = FinishRewardSequence
 			});
 		}
 

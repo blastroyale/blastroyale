@@ -211,7 +211,7 @@
     height: 50%;
     width: 150%;
     left: -36px;
-    top: 544px;
+    top: 54%;
     right: auto;
     bottom: auto;
     background-color: rgba(19, 34, 74, 0.57);
@@ -349,7 +349,7 @@
     flex-grow: 1;
     overflow: visible;
     height: 100%;
-    top: auto;
+    top: 62px;
     align-self: center;
     justify-content: center;
     align-items: center;
@@ -358,101 +358,48 @@
 }
 
 .left-bar {
-    background-color: rgba(255, 8, 8, 0);
-    height: 100%;
-    background-image: none;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    -unity-background-scale-mode: scale-and-crop;
-    padding-left: 0;
-    -unity-background-image-tint-color: rgb(89, 24, 83);
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    align-items: stretch;
-    justify-content: center;
-    align-self: auto;
-    overflow: visible;
-    -unity-slice-left: 0;
-    -unity-slice-top: 0;
-    -unity-slice-right: 0;
-    -unity-slice-bottom: 0;
     flex-grow: 1;
-    max-height: none;
-    flex-shrink: 0;
+    left: -179px;
     position: absolute;
-    width: 797px;
-    max-width: none;
-    min-width: auto;
-    left: -347px;
     top: 0;
+    bottom: 0;
+    flex-direction: row;
+    align-items: center;
 }
 
-.paid-container-shadow {
+.left-bar__passes-holder {
     flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
-    min-width: auto;
-    min-height: auto;
-    flex-shrink: 0;
-    justify-content: center;
-    align-items: center;
-    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
-    -unity-background-scale-mode: scale-and-crop;
-    margin-right: 9%;
-    padding-left: 150px;
-    display: flex;
-    width: 100%;
-    align-self: auto;
-    margin-left: -43px;
     position: absolute;
-    height: 50%;
-    bottom: auto;
-    top: 0;
-    left: 51px;
-    -unity-background-image-tint-color: rgba(9, 8, 14, 0.51);
+    left: 63px;
 }
 
-.paid-container-border {
-    flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
-    min-width: auto;
-    min-height: auto;
-    flex-shrink: 0;
-    justify-content: center;
-    align-items: center;
-    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
-    -unity-background-scale-mode: scale-and-crop;
-    margin-right: 9%;
-    padding-left: 150px;
-    display: flex;
-    width: 100%;
-    align-self: auto;
-    margin-left: -43px;
-    position: absolute;
-    height: 50%;
+.left-bar__background {
+    flex-grow: 0;
+    background-image: var(--sprite-battlepass__background-left-bar);
+    width: 636px;
+    height: 2156px;
+    top: auto;
+    position: relative;
+    left: auto;
     bottom: auto;
-    top: 0;
-    -unity-background-image-tint-color: rgb(0, 0, 0);
-    left: 45px;
+    flex-shrink: 0;
+    align-self: auto;
+    visibility: visible;
+    display: flex;
 }
 
 .paid-container {
     background-color: rgba(0, 0, 0, 0);
     min-width: auto;
     min-height: auto;
-    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
     -unity-background-scale-mode: scale-and-crop;
     margin-right: 0;
     -unity-background-image-tint-color: rgb(116, 23, 180);
     overflow: visible;
     display: flex;
-    width: 100%;
     border-right-width: 2px;
     flex-grow: 0;
     flex-shrink: 0;
-    height: 50%;
     padding-top: 27px;
     padding-left: 51px;
     padding-right: 50px;
@@ -461,6 +408,9 @@
     align-self: flex-start;
     flex-wrap: nowrap;
     flex-direction: column;
+    background-image: none;
+    height: 56%;
+    width: 64%;
 }
 
 .paid-icon-background {
@@ -472,7 +422,6 @@
     min-width: auto;
     min-height: auto;
     margin-top: 0;
-    margin-bottom: 0;
     -unity-background-image-tint-color: rgba(0, 0, 0, 0.59);
     justify-content: flex-end;
     flex-direction: column;
@@ -487,6 +436,7 @@
     align-items: flex-end;
     padding-right: 0;
     margin-right: 8px;
+    margin-bottom: 82px;
 }
 
 .activate-button {
@@ -501,7 +451,7 @@
     bottom: auto;
     margin-top: auto;
     margin-right: 28px;
-    margin-bottom: auto;
+    margin-bottom: 35px;
     margin-left: auto;
     padding-top: 10px;
     padding-right: 10px;
@@ -520,51 +470,6 @@
     height: 85px;
 }
 
-.free-container-shadow {
-    flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
-    min-width: auto;
-    min-height: auto;
-    flex-shrink: 0;
-    justify-content: center;
-    align-items: center;
-    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
-    -unity-background-scale-mode: scale-and-crop;
-    margin-right: 9%;
-    padding-left: 150px;
-    -unity-background-image-tint-color: rgba(39, 26, 41, 0.51);
-    display: flex;
-    width: 100%;
-    align-self: auto;
-    margin-left: -43px;
-    position: absolute;
-    height: 50%;
-    bottom: 0;
-    left: 7px;
-}
-
-.free-container-border {
-    flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
-    min-width: auto;
-    min-height: auto;
-    flex-shrink: 0;
-    justify-content: center;
-    align-items: center;
-    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
-    -unity-background-scale-mode: scale-and-crop;
-    margin-right: 9%;
-    padding-left: 150px;
-    display: flex;
-    width: 100%;
-    align-self: auto;
-    margin-left: -43px;
-    position: absolute;
-    height: 50%;
-    bottom: 0;
-    -unity-background-image-tint-color: rgb(0, 0, 0);
-    left: 1px;
-}
 
 .free-container {
     flex-grow: 1;
@@ -572,26 +477,26 @@
     min-width: auto;
     min-height: auto;
     flex-shrink: 0;
-    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
     -unity-background-scale-mode: scale-and-crop;
     margin-right: 9%;
     -unity-background-image-tint-color: rgb(36, 32, 55);
     display: flex;
-    width: 100%;
     align-self: stretch;
-    left: -43px;
     margin-left: 0;
     padding-left: 451px;
     padding-right: 65px;
     align-items: center;
     padding-top: 32px;
     justify-content: flex-start;
+    background-image: none;
+    width: 55%;
+    left: -114px;
 }
 
 .free-icon-background {
     flex-grow: 0;
     background-color: rgba(0, 0, 0, 0);
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/pass-back.png?fileID=21300000&guid=1bed5654b747c4e5d944090a92d18016&type=3#pass-back');
+    background-image: var(--sprite-battlepass__pass-back);
     -unity-background-scale-mode: stretch-to-fill;
     overflow: hidden;
     min-width: auto;
@@ -781,10 +686,10 @@
     left: -90px;
     min-width: 100%;
     justify-content: flex-end;
-    align-items: flex-end;
     padding-bottom: 21px;
     padding-right: 0;
     margin-left: 0;
+    align-items: center;
 }
 
 .completed-bar {

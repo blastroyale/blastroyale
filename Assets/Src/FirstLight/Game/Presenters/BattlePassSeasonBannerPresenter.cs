@@ -24,6 +24,7 @@ namespace FirstLight.Game.Presenters
 		private Label _timeLeft;
 		private VisualElement[] _rewards;
 		private VisualElement _finalReward;
+		private Cooldown _closeCooldown;
 
 		protected override void QueryElements(VisualElement root)
 		{
@@ -36,10 +37,12 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("StartButton").Required().clicked += OnClick;
 			root.Q<Button>("CloseButton").clicked += ClosePopup;
 			root.Q<VisualElement>("Blocker").RegisterCallback<ClickEvent>(ClickedOutside);
+			_closeCooldown = new Cooldown(TimeSpan.FromSeconds(2));
 		}
 
 		private void ClickedOutside(ClickEvent evt)
 		{
+			if (_closeCooldown.IsCooldown()) return;
 			ClosePopup();
 		}
 
@@ -50,7 +53,6 @@ namespace FirstLight.Game.Presenters
 
 		private void OnClick()
 		{
-			
 			var s = MainInstaller.ResolveServices();
 			s.GameUiService.CloseUi(this);
 			s.MessageBrokerService.Publish(new NewBattlePassSeasonMessage());
@@ -59,6 +61,7 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
+			_closeCooldown.Trigger();
 			var data = MainInstaller.ResolveData();
 			var currentSeason = data.BattlePassDataProvider.GetCurrentSeasonConfig();
 			var endsAt = currentSeason.Season.GetEndsAtDateTime();

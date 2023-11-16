@@ -105,15 +105,6 @@
 }
 
 .special-button__container {
-    background-color: var(--match-button-background-color);
-    border-left-color: var(--match-button-outline-color);
-    border-right-color: var(--match-button-outline-color);
-    border-top-color: var(--match-button-outline-color);
-    border-bottom-color: var(--match-button-outline-color);
-    border-left-width: var(--match-button-outline-width);
-    border-right-width: var(--match-button-outline-width);
-    border-top-width: var(--match-button-outline-width);
-    border-bottom-width: var(--match-button-outline-width);
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
@@ -125,6 +116,15 @@
     transition-property: width, height;
     transition-duration: 0.15s, 0.15s;
     transition-timing-function: ease-out-cubic, ease-out-cubic;
+    background-color: rgba(233, 226, 225, 0.07);
+    border-left-color: rgba(233, 226, 225, 0.3);
+    border-right-color: rgba(233, 226, 225, 0.3);
+    border-top-color: rgba(233, 226, 225, 0.3);
+    border-bottom-color: rgba(233, 226, 225, 0.3);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
 }
 
 .special-button--draggable.special-button--pressed > .special-button__container {
@@ -147,7 +147,7 @@
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    background-color: rgba(49, 45, 71, 0.25);
+    background-color: rgba(49, 45, 71, 0.19);
     position: absolute;
 }
 

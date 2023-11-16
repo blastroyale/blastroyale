@@ -76,10 +76,9 @@
     width: 835px;
     height: 100%;
     background-image: url('project://database/Assets/Art/Textures/Ui/AdventureHud/321Countdown/DiagonalWiper.png?fileID=21300000&guid=f26621d71421141298a9a8cf0dc80574&type=3#DiagonalWiper');
-    left: -176px;
+    left: -311px;
     -unity-background-image-tint-color: rgb(216, 75, 121);
     align-self: flex-end;
-    background-color: rgba(255, 19, 195, 0);
 }
 
 .banner-background__right-yellow {

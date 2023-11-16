@@ -5,8 +5,7 @@
     <Style src="project://database/Assets/Art/UI/Styles/HUDPlayerStatusBarStyle.uss?fileID=7433441132597879392&amp;guid=751c0e72a1b84d48bdcdb4e2da1076d7&amp;type=3#HUDPlayerStatusBarStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/HUDStatusNotificationsStyle.uss?fileID=7433441132597879392&amp;guid=ddf3c6530da749cb8886772e19e8e25f&amp;type=3#HUDStatusNotificationsStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/PlayerHealthShieldElementStyle.uss?fileID=7433441132597879392&amp;guid=a415ac8bc2ff84e8e934ecc38d63872e&amp;type=3#PlayerHealthShieldElementStyle" />
-    <ui:VisualElement style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Art/UI/References/HUD3.png?fileID=2800000&amp;guid=028bff9186c7d4da4a8d6b63ced0d136&amp;type=3#HUD3&apos;); opacity: 0;" />
-    <ui:VisualElement name="root" class="fill-parent" style="right: 60px; left: 60px;">
+    <ui:VisualElement name="root" class="fill-parent">
         <ui:VisualElement name="PlayerBars" picking-mode="Ignore" usage-hints="GroupTransform" class="non-customizable-hud fill-parent" style="display: flex; visibility: visible;">
             <FirstLight.Game.UIElements.HealthStatusBarElement name="TempHealthBar" style="position: absolute; left: 1064px; top: 246px;" />
             <FirstLight.Game.UIElements.PlayerStatusBarElement name="TempStatusBar" style="left: 1065px; top: 313px;" />
@@ -74,7 +73,7 @@
                 <FirstLight.Game.UIElements.SquadMemberElement />
                 <FirstLight.Game.UIElements.SquadMemberElement />
             </ui:VisualElement>
-            <ui:VisualElement name="EquipmentDisplay" picking-mode="Ignore" class="customizable-hud equipment-display">
+            <ui:VisualElement name="EquipmentDisplay" picking-mode="Ignore" class="customizable-hud equipment-display" style="display: none;">
                 <ui:VisualElement name="Character" picking-mode="Ignore" class="equipment-display__character">
                     <ui:VisualElement name="Armor" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--armor" />
                     <ui:VisualElement name="Amulet" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--amulet" />
@@ -98,6 +97,14 @@
                     <ui:VisualElement name="TeamsCountPing" class="player-counts__ping-background" />
                     <ui:VisualElement name="TeamsIcon" class="sprite-match__icon-players-teams player-counts__icon" />
                     <ui:Label text="12" name="TeamsCountText" class="player-counts__label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="BottomCenterContainer" class="bottom-center-container">
+                <ui:VisualElement name="LocalPlayerInfo" class="local-player-info">
+                    <ui:VisualElement name="TeamColor" class="local-player-info__team-color">
+                        <ui:VisualElement name="PlayerAvatar" class="local-player-info_pfp" />
+                    </ui:VisualElement>
+                    <FirstLight.Game.UIElements.PlayerHealthShieldElement name="LocalPlayerHealthShield" class="player-health-shield--local" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>

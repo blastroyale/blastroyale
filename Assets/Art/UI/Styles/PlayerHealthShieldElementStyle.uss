@@ -8,12 +8,28 @@
     background-image: var(--sprite-match__background-playerbars);
 }
 
+.player-health-shield--local {
+    height: 71px;
+    width: 513px;
+    background-image: none;
+    background-color: rgba(23, 18, 53, 0.6);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 .player-health-shield__health-container {
     flex-grow: 1;
     flex-direction: row;
     margin-right: 2px;
     margin-bottom: 0;
     margin-top: 1px;
+    flex-basis: 1px;
+}
+
+.player-health-shield--local > .player-health-shield__health-container {
+    margin: 0;
 }
 
 .player-health-shield__shield-container {
@@ -21,6 +37,11 @@
     flex-direction: row;
     margin-bottom: 1px;
     margin-left: 2px;
+    flex-basis: 1px;
+}
+
+.player-health-shield--local > .player-health-shield__shield-container {
+    margin: 0;
 }
 
 .player-health-shield__health-label {
@@ -40,6 +61,11 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+}
+
+.player-health-shield--local .player-health-shield__health-label {
+    bottom: 0;
+    top: 2px;
 }
 
 .player-health-shield__shield-label {
@@ -62,9 +88,19 @@
     letter-spacing: -2px;
 }
 
+.player-health-shield--local .player-health-shield__shield-label {
+    bottom: 0;
+    top: 2px;
+}
+
 .player-health-shield__health-bar {
-    flex-grow: 1;
+    flex-grow: 0.9;
     background-image: var(--sprite-match__progress-health);
+}
+
+.player-health-shield--local .player-health-shield__health-bar {
+    background-image: none;
+    background-color: rgb(139, 192, 83);
 }
 
 .player-health-shield__shield-bar {
@@ -72,10 +108,19 @@
     flex-grow: 1;
 }
 
+.player-health-shield--local .player-health-shield__shield-bar {
+    background-image: none;
+    background-color: rgb(69, 175, 255);
+}
+
 .player-health-shield__damage-bar {
-    display: none;
     background-image: var(--sprite-match__progress-damage);
     -unity-background-image-tint-color: rgb(235, 78, 1);
+}
+
+.player-health-shield--local .player-health-shield__damage-bar {
+    background-image: none;
+    background-color: rgb(235, 78, 1);
 }
 
 .player-health-shield__separator-holder {
@@ -86,6 +131,10 @@
     bottom: 0;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.player-health-shield--local .player-health-shield__separator-holder {
+    display: none;
 }
 
 .player-health-shield__separator {

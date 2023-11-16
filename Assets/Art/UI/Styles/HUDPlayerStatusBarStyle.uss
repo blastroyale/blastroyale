@@ -3,8 +3,8 @@
     width: 180px;
     height: 76px;
     position: absolute;
-    left: -112px;
-    top: -50px;
+    left: -87px;
+    top: -29px;
 }
 
 .player-status-bar--friendly {

@@ -1,11 +1,15 @@
 using FirstLight.Game.Utils;
+using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.UIElements
 {
 	public class PlayerHealthShieldElement : VisualElement
 	{
 		private const int HEALTH_SEPARATORS = 3;
+
+		private const int DAMAGE_ANIM_HIDE_DURATION = 1500;
 
 		private const string USS_BLOCK = "player-health-shield";
 		private const string USS_HEALTH_CONTAINER = USS_BLOCK + "__health-container";
@@ -24,6 +28,10 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _shieldDamageBar;
 		private readonly Label _healthLabel;
 		private readonly Label _shieldLabel;
+
+		private readonly StyleValues _flexSizeZero = new () {flexGrow = 0};
+		private ValueAnimation<StyleValues> _healthDamageBarAnimation;
+		private ValueAnimation<StyleValues> _shieldDamageBarAnimation;
 
 		public PlayerHealthShieldElement()
 		{
@@ -67,24 +75,56 @@ namespace FirstLight.Game.UIElements
 						separator.SetVisibility(false);
 					}
 				}
-				
+
 				healthBarContainer.Add(_healthLabel = new Label("90") {name = "health-label"});
 				_healthLabel.AddToClassList(USS_HEALTH_LABEL);
 			}
 		}
 
-		public void UpdateHealth(int previous, int current, int max)
+		public void UpdateHealth(int previous, int current, int max, bool normalize)
 		{
-			// TODO mihak: Damage
-			_healthLabel.text = current.ToString();
+			_healthLabel.text = normalize ? Mathf.CeilToInt(100f * current / max).ToString() : current.ToString();
 			_healthBar.style.flexGrow = (float) current / max;
+			_healthDamageBarAnimation?.Stop();
+			if (previous > current)
+			{
+				var flexSize = ((float) (previous - current) / max) + _healthDamageBar.style.flexGrow.value;
+				_healthDamageBar.style.flexGrow = flexSize;
+				_healthDamageBarAnimation = _healthDamageBar.experimental.animation
+					.Start(new StyleValues {flexGrow = flexSize}, _flexSizeZero, DAMAGE_ANIM_HIDE_DURATION).KeepAlive();
+			}
+			else
+			{
+				_healthDamageBar.style.flexGrow = 0;
+			}
+
+			if (previous != current)
+			{
+				_healthLabel.AnimatePing();
+			}
 		}
 
-		public void UpdateShield(int previous, int current, int max)
+		public void UpdateShield(int previous, int current, int max, bool normalize)
 		{
-			// TODO mihak: Damage
-			_shieldLabel.text = current.ToString();
+			_shieldLabel.text = normalize ? Mathf.CeilToInt(100f * current / max).ToString() : current.ToString();
 			_shieldBar.style.flexGrow = (float) current / max;
+			_shieldDamageBarAnimation?.Stop();
+			if (previous > current)
+			{
+				var flexSize = ((float) (previous - current) / max) + _shieldDamageBar.style.flexGrow.value;
+				_shieldDamageBar.style.flexGrow = flexSize;
+				_shieldDamageBarAnimation = _shieldDamageBar.experimental.animation
+					.Start(new StyleValues {flexGrow = flexSize}, _flexSizeZero, DAMAGE_ANIM_HIDE_DURATION).KeepAlive();
+			}
+			else
+			{
+				_shieldDamageBar.style.flexGrow = 0;
+			}
+
+			if (previous != current)
+			{
+				_shieldLabel.AnimatePing();
+			}
 		}
 
 		public new class UxmlFactory : UxmlFactory<PlayerHealthShieldElement, UxmlTraits>

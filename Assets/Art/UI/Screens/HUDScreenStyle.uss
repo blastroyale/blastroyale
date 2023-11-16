@@ -187,10 +187,10 @@
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
     background-color: rgba(233, 226, 225, 0.02);
-    border-left-color: rgba(233, 226, 225, 0.12);
-    border-right-color: rgba(233, 226, 225, 0.12);
-    border-top-color: rgba(233, 226, 225, 0.12);
-    border-bottom-color: rgba(233, 226, 225, 0.12);
+    border-left-color: rgba(233, 226, 225, 0.1);
+    border-right-color: rgba(233, 226, 225, 0.1);
+    border-top-color: rgba(233, 226, 225, 0.1);
+    border-bottom-color: rgba(233, 226, 225, 0.1);
     border-left-width: 4px;
     border-right-width: 4px;
     border-top-width: 4px;
@@ -847,4 +847,58 @@
     bottom: -13px;
     background-image: var(--sprite-match__background-player-notification);
     opacity: 0;
+}
+
+.bottom-center-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+}
+
+.local-player-info {
+    width: 630px;
+    height: 100px;
+    bottom: 45px;
+    right: 37px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.skydiving .local-player-info {
+    display: none;
+}
+
+.local-player-info__team-color {
+    width: 100px;
+    height: 100px;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.local-player-info_pfp {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    background-color: rgb(0, 0, 0);
+    width: 85px;
+    height: 85px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: rgb(24, 18, 54);
+    border-right-color: rgb(24, 18, 54);
+    border-top-color: rgb(24, 18, 54);
+    border-bottom-color: rgb(24, 18, 54);
+    background-image: var(--sprite-shared__avatar-default);
+    visibility: visible;
 }

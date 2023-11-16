@@ -43,7 +43,8 @@ namespace FirstLight.Game.UIElements
 		private bool _showRealDamage;
 		private readonly IVisualElementScheduledItem _notificationHandle;
 		private readonly StyleColor _defaultPingDmgColor = new (new Color(1f, 1f, 1f));
-
+		
+		public ref bool ShowRealDamage => ref _showRealDamage;
 
 		public PlayerStatusBarElement()
 		{
@@ -118,24 +119,21 @@ namespace FirstLight.Game.UIElements
 			return SMALL_DAMAGE + (DAMAGE_SCALE * damagePct / 100);
 		}
 
-		public ref bool ShowRealDamage => ref _showRealDamage;
-		
-
 		/// <summary>
 		/// Sets the max and current shield (i.e. the size of the shield bar).
 		/// </summary>
-		public void SetShield(int previous, int current, int max)
+		public void UpdateShield(int previous, int current, int max)
 		{
-			_healthShield.UpdateShield(previous, current, max);
+			_healthShield.UpdateShield(previous, current, max, !_showRealDamage);
 		}
 
 		/// <summary>
 		/// Sets the max and current health (i.e. the size of the health bar).
 		/// </summary>
-		public void SetHealth(int previous, int current, int max)
+		public void UpdateHealth(int previous, int current, int max)
 		{
 			_maxHealth = max;
-			_healthShield.UpdateHealth(previous, current, max);
+			_healthShield.UpdateHealth(previous, current, max, !_showRealDamage);
 		}
 
 		/// <summary>

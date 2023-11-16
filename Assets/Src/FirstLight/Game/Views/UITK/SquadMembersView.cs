@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -18,6 +19,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private IMatchServices _matchServices;
 		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
 
 		private readonly Dictionary<EntityRef, SquadMemberElement> _squadMembers = new ();
 
@@ -26,6 +28,7 @@ namespace FirstLight.Game.Views.UITK
 			base.Attached(element);
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_services = MainInstaller.ResolveServices();
+			_dataProvider = MainInstaller.ResolveData();
 			element.Clear(); // Clears development-time child elements.
 		}
 
@@ -110,6 +113,8 @@ namespace FirstLight.Game.Views.UITK
 					}
 
 					_squadMembers.Add(e, squadMember);
+
+					squadMember.ShowRealDamage = _dataProvider.AppDataProvider.ShowRealDamage;
 
 					var teamColor = _matchServices.TeamService.GetTeamMemberColor(e);
 					if (teamColor.HasValue)

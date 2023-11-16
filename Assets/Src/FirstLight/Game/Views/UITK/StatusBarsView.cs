@@ -187,10 +187,9 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view)) return;
 
-			if (!SHOW_ENEMY_BARS && !f.Context.IsLocalPlayer(player))
-			{
-				return;
-			}
+			if (!_data.AppDataProvider.UseOverheadUI) return;
+
+			if (!SHOW_ENEMY_BARS && !f.Context.IsLocalPlayer(player)) return;
 
 			// TODO: https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/915
 			if (_anchors.ContainsKey(entity))
@@ -218,17 +217,16 @@ namespace FirstLight.Game.Views.UITK
 			var stats = f.Get<Stats>(entity);
 
 			bar.ShowRealDamage = _data.AppDataProvider.ShowRealDamage;
-			bar.SetHealth(stats.CurrentHealth, stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
-			bar.SetShield(stats.CurrentShield, stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);
+			bar.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
+			bar.UpdateShield(stats.CurrentShield, stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);
 		}
 
 		private void OnPlayerDead(EventOnPlayerDead callback)
 		{
 			_culledPlayers.Remove(callback.Entity);
 
-			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
+			if (!_visiblePlayers.Remove(callback.Entity, out var bar)) return;
 
-			_visiblePlayers.Remove(callback.Entity);
 			_playerBarPool.Release(bar);
 		}
 
@@ -247,14 +245,14 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
-			bar.SetShield(callback.PreviousShield, callback.CurrentShield, callback.CurrentShieldCapacity);
+			bar.UpdateShield(callback.PreviousShield, callback.CurrentShield, callback.CurrentShieldCapacity);
 		}
 
 		private void OnHealthChanged(EventOnHealthChanged callback)
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
-			bar.SetHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
+			bar.UpdateHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
 		}
 
 		private void OnCollectableBlocked(EventOnCollectableBlocked callback)

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -17,8 +18,10 @@ namespace FirstLight.Game.Views.UITK
 
 		private IMatchServices _matchServices;
 
-		private int _aliveCount = -1;
 		private int _killsCount = -1;
+		private int _teamsCount = -1;
+
+		private readonly HashSet<int> _teamsCache = new ();
 
 		public override void Attached(VisualElement element)
 		{
@@ -29,6 +32,8 @@ namespace FirstLight.Game.Views.UITK
 			_aliveCountPing = element.Q<VisualElement>("AliveCountPing").Required();
 			_killsCountLabel = element.Q<Label>("KilledCountText").Required();
 			_killsCountPing = element.Q<VisualElement>("KilledCountPing").Required();
+			_teamsCountLabel = element.Q<Label>("TeamsCountText").Required();
+			_teamsCountPing = element.Q<VisualElement>("TeamsCountPing").Required();
 		}
 
 		public override void SubscribeToEvents()
@@ -61,20 +66,29 @@ namespace FirstLight.Game.Views.UITK
 
 			// We count all alive players in a match and display this number
 			var playersAlive = 0;
+			_teamsCache.Clear();
 			for (int i = 0; i < container.PlayersData.Length; i++)
 			{
 				var data = container.PlayersData[i];
 
 				if (data.IsValid && data.Entity.IsAlive(f))
 				{
+					_teamsCache.Add(data.TeamId);
 					playersAlive++;
 				}
 			}
 
-			_aliveCount = playersAlive;
 			_aliveCountLabel.text = playersAlive.ToString();
 			_aliveCountLabel.AnimatePing();
 			_aliveCountPing.AnimatePingOpacity();
+
+			if (_teamsCount != _teamsCache.Count)
+			{
+				_teamsCount = _teamsCache.Count;
+				_teamsCountLabel.text = _teamsCount.ToString();
+				_teamsCountLabel.AnimatePing();
+				_teamsCountPing.AnimatePingOpacity();
+			}
 
 			var killsCount = container.PlayersData[_matchServices.SpectateService.SpectatedPlayer.Value.Player]
 				.PlayersKilledCount;

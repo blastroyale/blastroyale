@@ -31,9 +31,12 @@ namespace FirstLight.Game.UIElements
 
 		private PlayerRef _player;
 		private int _pfpRequestHandle;
+		private bool _showRealDamage;
 
 		private readonly ValueAnimation<float> _damageAnimation;
 		private readonly IVisualElementScheduledItem _damageAnimationHandle;
+
+		public ref bool ShowRealDamage => ref _showRealDamage;
 
 		public SquadMemberElement()
 		{
@@ -50,11 +53,12 @@ namespace FirstLight.Game.UIElements
 			container.Add(_bg = new VisualElement {name = "bg"});
 			_bg.AddToClassList(USS_BG);
 
-			container.Add(_teamColor = new VisualElement {name = "teamColor"});
+			container.Add(_teamColor = new VisualElement {name = "team-color"});
 			_teamColor.AddToClassList(USS_TEAM_COLOR);
-
-			container.Add(_pfp = new VisualElement {name = "pfp"});
-			_pfp.AddToClassList(USS_PFP);
+			{
+				_teamColor.Add(_pfp = new VisualElement {name = "pfp"});
+				_pfp.AddToClassList(USS_PFP);
+			}
 
 			container.Add(_name = new Label("PLAYER NAME") {name = "name"});
 			_name.AddToClassList(USS_NAME);
@@ -114,12 +118,12 @@ namespace FirstLight.Game.UIElements
 
 		public void UpdateHealth(int previous, int current, int max)
 		{
-			_healthShield.UpdateHealth(previous, current, max);
+			_healthShield.UpdateHealth(previous, current, max, !_showRealDamage);
 		}
 
 		public void UpdateShield(int previous, int current, int max)
 		{
-			_healthShield.UpdateShield(previous, current, max);
+			_healthShield.UpdateShield(previous, current, max, !_showRealDamage);
 		}
 
 		public void SetDead()

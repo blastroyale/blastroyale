@@ -68,7 +68,7 @@
                 <FirstLight.Game.UIElements.DeathNotificationElement class="death-notification--suicide" />
                 <FirstLight.Game.UIElements.DeathNotificationElement />
             </ui:VisualElement>
-            <ui:VisualElement name="SquadMembers" picking-mode="Ignore" class="customizable-hud squad-members-container" style="opacity: 1; display: flex;">
+            <ui:VisualElement name="SquadMembers" picking-mode="Ignore" class="customizable-hud squad-members-container">
                 <FirstLight.Game.UIElements.SquadMemberElement />
                 <FirstLight.Game.UIElements.SquadMemberElement />
                 <FirstLight.Game.UIElements.SquadMemberElement />

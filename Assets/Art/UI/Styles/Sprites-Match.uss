@@ -75,8 +75,10 @@
     --sprite-match__pattern-jagged-vertical: url('/Assets/Art/UI/Sprites/Match/pattern-jagged-vertical.png');
     --sprite-match__progress-damage: url('/Assets/Art/UI/Sprites/Match/progress-damage.png');
     --sprite-match__progress-health: url('/Assets/Art/UI/Sprites/Match/progress-health.png');
+    --sprite-match__progress-health-local: url('/Assets/Art/UI/Sprites/Match/progress-health-local.png');
     --sprite-match__progress-separator: url('/Assets/Art/UI/Sprites/Match/progress-separator.png');
     --sprite-match__progress-shield: url('/Assets/Art/UI/Sprites/Match/progress-shield.png');
+    --sprite-match__progress-shield-local: url('/Assets/Art/UI/Sprites/Match/progress-shield-local.png');
     --sprite-match__text-beast: url('/Assets/Art/UI/Sprites/Match/text-beast.png');
     --sprite-match__text-blasted: url('/Assets/Art/UI/Sprites/Match/text-blasted.png');
     --sprite-match__text-blasted-white: url('/Assets/Art/UI/Sprites/Match/text-blasted-white.png');
@@ -551,6 +553,12 @@
     height: 17px;
 }
 
+.sprite-match__progress-health-local {
+    background-image: var(--sprite-match__progress-health-local);
+    width: 16px;
+    height: 35px;
+}
+
 .sprite-match__progress-separator {
     background-image: var(--sprite-match__progress-separator);
     width: 4px;
@@ -561,6 +569,12 @@
     background-image: var(--sprite-match__progress-shield);
     width: 18px;
     height: 16px;
+}
+
+.sprite-match__progress-shield-local {
+    background-image: var(--sprite-match__progress-shield-local);
+    width: 16px;
+    height: 35px;
 }
 
 .sprite-match__text-beast {

@@ -1,237 +1,48 @@
 .player-status-bar {
     background-color: rgba(0, 0, 0, 0);
     width: 180px;
-    height: 76px;
+    height: 100px;
     position: absolute;
     left: -87px;
-    top: -29px;
-}
-
-.player-status-bar--friendly {
-}
-
-.player-status-bar__level {
-    background-color: rgb(54, 46, 76);
-    position: absolute;
-    left: 0;
-    bottom: 3px;
-    width: 46px;
-    height: 46px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-left-color: rgb(24, 18, 54);
-    border-right-color: rgb(24, 18, 54);
-    border-top-color: rgb(24, 18, 54);
-    border-bottom-color: rgb(24, 18, 54);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 2px;
-    padding-bottom: 0;
-    -unity-text-align: middle-center;
-    color: rgb(255, 255, 255);
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(3, 0, 26);
-    font-size: 32px;
-    text-shadow: 2px 2px 0 rgb(3, 0, 26);
-}
-
-.player-status-bar__name {
-    color: rgb(255, 255, 255);
-    font-size: 28px;
-    -unity-text-align: upper-center;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 10px;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    text-overflow: ellipsis;
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(23, 18, 53);
-    text-shadow: 2px 2px 0 rgb(23, 18, 53);
-}
-
-.player-status-bar__ammo-holder {
-    bottom: 4px;
-    right: 11px;
-    position: absolute;
-    left: 32px;
-    height: 6px;
-    flex-direction: row;
-    display: none;
-}
-
-.player-status-bar__ammo-reload-bar {
-    position: absolute;
-    display: none;
-    bottom: 2px;
-    left: 32px;
-    width: 10px;
-    background-color: rgb(255, 255, 255);
-    height: 6px;
-}
-
-.player-status-bar--friendly .player-status-bar__ammo-holder {
-    display: flex;
-}
-
-.player-status-bar__ammo-segment {
-    background-color: rgb(242, 178, 51);
-    flex-grow: 1;
-    margin-left: 1px;
-    margin-right: 1px;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-.player-status-bar__health-holder {
-    background-color: rgba(0, 0, 0, 0);
-    position: absolute;
-    left: 24px;
-    bottom: 13px;
-    right: 4px;
-    height: 15px;
-    flex-direction: row;
-}
-
-.player-status-bar__health-bar {
-    flex-grow: 1;
-    background-image: var(--sprite-match__progress-health);
-}
-
-.player-status-bar__shield-holder {
-    height: 10px;
-    position: absolute;
-    right: 2px;
-    left: 29px;
-    bottom: 31px;
-    flex-direction: row;
-}
-
-.player-status-bar__shield-bar {
-    flex-grow: 1;
-    background-image: var(--sprite-match__progress-shield);
-}
-
-.player-status-bar__separator-holder {
-    position: absolute;
-    left: -1px;
-    top: 0;
-    right: -2px;
-    bottom: 0;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.player-status-bar__health-separator {
-    background-image: var(--sprite-match__progress-separator);
-    width: 4px;
-    height: 10px;
-}
-
-.player-status-bar__background {
-    background-image: var(--sprite-match__background-playerbar);
-    flex-shrink: 1;
-    position: absolute;
-    bottom: 10px;
-    right: -3px;
-    left: 21px;
-    height: 34px;
+    top: -84px;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .player-status-bar__notification {
-    position: absolute;
     display: none;
-    left: 54px;
-    top: -49px;
     align-items: stretch;
-    font-size: 30px;
+    font-size: 36px;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(23, 18, 53);
+    letter-spacing: -4px;
     text-shadow: 2px 2px 0 rgb(23, 18, 53);
-    width: 93px;
-    height: 91px;
-}
-
-.player-status-bar__notification-icon {
-    width: 38px;
-    height: 38px;
-    position: absolute;
-    left: 58px;
-    top: -1px;
+    -unity-text-align: upper-center;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 10px;
 }
 
 .player-status-bar__notification--shields {
     color: rgb(80, 199, 242);
 }
 
-.player-status-bar__notification--shields > .player-status-bar__notification-icon {
-    background-image: var(--sprite-match__icon-max-shield);
-}
-
 .player-status-bar__notification--ammo {
     color: rgb(241, 180, 50);
-}
-
-.player-status-bar__notification--ammo > .player-status-bar__notification-icon {
-    background-image: var(--sprite-match__icon-max-ammo);
 }
 
 .player-status-bar__notification--health {
     color: rgb(170, 217, 97);
 }
 
-.player-status-bar__notification--health > .player-status-bar__notification-icon {
-    background-image: var(--sprite-match__icon-max-health);
-}
-
 .player-status-bar__notification--lvlup {
     color: rgb(242, 178, 51);
 }
 
-.player-status-bar__notification--lvlup > .player-status-bar__notification-icon {
-    display: none;
-}
-
 .player-status-bar__notification--special {
     color: rgb(255, 255, 255);
-    left: 70px;
-}
-
-.player-status-bar__notification--special > .player-status-bar__notification-icon {
-    display: none;
-}
-
-.player-status-bar__icon {
-    width: 15px;
-    height: 15px;
-    top: 7px;
-    left: 2px;
-    background-image: url('project://database/Assets/Art/UI/Vectors/LeaderbordProfileMask.svg?fileID=7388822144124034973&guid=69441292e424642e182fedc73dd14e6b&type=3#LeaderbordProfileMask');
-    position: absolute;
-}
-
-.player-status-bar__icon-border {
-    width: 19px;
-    height: 19px;
-    top: 5px;
-    -unity-background-image-tint-color: black;
-    background-image: url('project://database/Assets/Art/UI/Vectors/LeaderbordProfileMask.svg?fileID=7388822144124034973&guid=69441292e424642e182fedc73dd14e6b&type=3#LeaderbordProfileMask');
-    position: absolute;
 }
 
 .player-status-bar__damage-holder {

@@ -64,8 +64,8 @@
 }
 
 .player-health-shield--local .player-health-shield__health-label {
-    bottom: 0;
-    top: 2px;
+    top: -1px;
+    font-size: 36px;
 }
 
 .player-health-shield__shield-label {
@@ -89,8 +89,8 @@
 }
 
 .player-health-shield--local .player-health-shield__shield-label {
-    bottom: 0;
-    top: 2px;
+    top: -2px;
+    font-size: 36px;
 }
 
 .player-health-shield__health-bar {
@@ -99,8 +99,7 @@
 }
 
 .player-health-shield--local .player-health-shield__health-bar {
-    background-image: none;
-    background-color: rgb(139, 192, 83);
+    background-image: var(--sprite-match__progress-health-local);
 }
 
 .player-health-shield__shield-bar {
@@ -109,8 +108,7 @@
 }
 
 .player-health-shield--local .player-health-shield__shield-bar {
-    background-image: none;
-    background-color: rgb(69, 175, 255);
+    background-image: var(--sprite-match__progress-shield-local);
 }
 
 .player-health-shield__damage-bar {
@@ -134,11 +132,16 @@
 }
 
 .player-health-shield--local .player-health-shield__separator-holder {
-    display: none;
+    display: flex;
 }
 
 .player-health-shield__separator {
     background-image: var(--sprite-match__progress-separator);
     width: 4px;
     height: 14px;
+}
+
+.player-health-shield--local .player-health-shield__separator {
+    width: 6px;
+    height: 25px;
 }

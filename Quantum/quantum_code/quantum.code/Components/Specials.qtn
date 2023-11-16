@@ -30,6 +30,7 @@ enum SpecialType
 synced event OnLocalPlayerSpecialUpdated
 {
     local player_ref Player;
+    entity_ref Entity;
     UInt32 SpecialIndex;
     Special Special;
 }

@@ -16,12 +16,13 @@
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/sound_effects" name="SoundEffects" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/announcer" name="Announcer" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/bg_music" name="BGMusic" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/haptic_feedback" name="HapticFeedback" class="settings-toggle" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Graphics" class="settings-container">
                             <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/fps" name="FPSRBG" choices="Normal, High" class="settings-radio-button-group" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/use_overhead_ui" name="UseOverheadUI" class="settings-toggle" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Controls" class="settings-container">
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/haptic_feedback" name="HapticFeedback" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/screenshake" name="ScreenShake" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/cone_aim" name="AimBackground" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/dynamic_joystick" name="DynamicJoystick" class="settings-toggle" />

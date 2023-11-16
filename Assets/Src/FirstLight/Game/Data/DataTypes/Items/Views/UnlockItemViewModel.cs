@@ -46,7 +46,7 @@ namespace FirstLight.Game.Data.DataTypes
 					icon.AddToClassList("sprite-home__icon-equipment");
 					break;
 				case UnlockSystem.GameModes:
-					icon.AddToClassList("sprite-home__icon-marketplace");
+					icon.AddToClassList("sprite-home__icon-customgame");
 					break;
 				case UnlockSystem.Squads:
 					icon.AddToClassList("sprite-home__icon-heroes");

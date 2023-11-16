@@ -64,6 +64,7 @@ namespace FirstLight.Game.Data
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
+		public bool UseOverheadUI = false;
 		
 		public bool DialogueEnabled = true;
 		public FpsTarget FpsTarget = FpsTarget.High;

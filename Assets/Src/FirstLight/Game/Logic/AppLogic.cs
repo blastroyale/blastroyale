@@ -55,6 +55,11 @@ namespace FirstLight.Game.Logic
 		/// Is Haptic feedback on device enabled?
 		/// </summary>
 		bool IsHapticOn { get; set; }
+		
+		/// <summary>
+		/// Is Haptic feedback on device enabled?
+		/// </summary>
+		bool UseOverheadUI { get; set; }
 
 		/// <summary>
 		/// Requests the enable property for dynamic movement joystick
@@ -289,6 +294,12 @@ namespace FirstLight.Game.Logic
 			{
 				Data.HapticEnabled = value;
 			}
+		}
+
+		public bool UseOverheadUI
+		{
+			get => Data.UseOverheadUI;
+			set => Data.UseOverheadUI = value;
 		}
 
 		public bool InvertSpecialCancellling

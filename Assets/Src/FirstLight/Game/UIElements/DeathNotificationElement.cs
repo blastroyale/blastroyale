@@ -30,15 +30,17 @@ namespace FirstLight.Game.UIElements
 		private const string USS_NAME_ENEMY = USS_NAME + "--enemy";
 		private const string USS_KILL_ICON = USS_BLOCK + "__kill-icon";
 
+		public bool JobDone { get; set; }
+
 		private readonly VisualElement _container;
 
 		private readonly VisualElement _killerPfp;
 		private readonly Label _killerName;
-		private readonly VisualElement _killerBar;
+		// private readonly VisualElement _killerBar;
 
 		private readonly VisualElement _victimPfp;
 		private readonly Label _victimName;
-		private readonly VisualElement _victimBar;
+		// private readonly VisualElement _victimBar;
 
 		public DeathNotificationElement() : this("FRIENDLYLONGNAME", true, "ENEMYLONGNAMEHI", false, false, GameConstants.PlayerName.DEFAULT_COLOR, GameConstants.PlayerName.DEFAULT_COLOR)
 		{
@@ -51,15 +53,15 @@ namespace FirstLight.Game.UIElements
 			Add(_container = new VisualElement {name = "container"});
 			_container.AddToClassList(USS_CONTAINER);
 
-			var killerGradient = new GradientElement {name = "killer-gradient"};
-			_container.Add(killerGradient);
-			killerGradient.AddToClassList(USS_GRADIENT);
-			killerGradient.AddToClassList(USS_GRADIENT_KILLER);
+			// var killerGradient = new GradientElement {name = "killer-gradient"};
+			// _container.Add(killerGradient);
+			// killerGradient.AddToClassList(USS_GRADIENT);
+			// killerGradient.AddToClassList(USS_GRADIENT_KILLER);
 
-			_container.Add(_killerBar = new VisualElement {name = "killer-bar"});
-			_killerBar.AddToClassList(USS_BAR);
-			_killerBar.AddToClassList(USS_BAR_KILLER);
-			_killerBar.AddToClassList(USS_BAR_FRIENDLY);
+			// _container.Add(_killerBar = new VisualElement {name = "killer-bar"});
+			// _killerBar.AddToClassList(USS_BAR);
+			// _killerBar.AddToClassList(USS_BAR_KILLER);
+			// _killerBar.AddToClassList(USS_BAR_FRIENDLY);
 
 			_container.Add(_killerPfp = new VisualElement {name = "killer-pfp"});
 			_killerPfp.AddToClassList(USS_PFP);
@@ -69,10 +71,10 @@ namespace FirstLight.Game.UIElements
 			_killerName.AddToClassList(USS_NAME);
 			_killerName.AddToClassList(USS_NAME_KILLER);
 
-			var victimGradient = new GradientElement {name = "victim-gradient"};
-			_container.Add(victimGradient);
-			victimGradient.AddToClassList(USS_GRADIENT);
-			victimGradient.AddToClassList(USS_GRADIENT_VICTIM);
+			// var victimGradient = new GradientElement {name = "victim-gradient"};
+			// _container.Add(victimGradient);
+			// victimGradient.AddToClassList(USS_GRADIENT);
+			// victimGradient.AddToClassList(USS_GRADIENT_VICTIM);
 
 			var killIcon = new VisualElement {name = "kill-icon"};
 			_container.Add(killIcon);
@@ -86,10 +88,10 @@ namespace FirstLight.Game.UIElements
 			_victimPfp.AddToClassList(USS_PFP);
 			_victimPfp.AddToClassList(USS_PFP_VICTIM);
 
-			_container.Add(_victimBar = new VisualElement {name = "victim-bar"});
-			_victimBar.AddToClassList(USS_BAR);
-			_victimBar.AddToClassList(USS_BAR_VICTIM);
-			_victimBar.AddToClassList(USS_BAR_ENEMY);
+			// _container.Add(_victimBar = new VisualElement {name = "victim-bar"});
+			// _victimBar.AddToClassList(USS_BAR);
+			// _victimBar.AddToClassList(USS_BAR_VICTIM);
+			// _victimBar.AddToClassList(USS_BAR_ENEMY);
 
 			SetData(killerName, killerFriendly, victimName, victimFriendly, suicide, killerColor, victimColor);
 		}
@@ -102,16 +104,16 @@ namespace FirstLight.Game.UIElements
 			_killerName.style.color = killerColor;
 			_victimName.style.color = victimColor;
 
-			_killerBar.RemoveFromClassList(USS_BAR_FRIENDLY);
-			_killerBar.RemoveFromClassList(USS_BAR_ENEMY);
-			_killerBar.AddToClassList(killerFriendly ? USS_BAR_FRIENDLY : USS_BAR_ENEMY);
+			// _killerBar.RemoveFromClassList(USS_BAR_FRIENDLY);
+			// _killerBar.RemoveFromClassList(USS_BAR_ENEMY);
+			// _killerBar.AddToClassList(killerFriendly ? USS_BAR_FRIENDLY : USS_BAR_ENEMY);
 			_killerName.RemoveFromClassList(USS_NAME_FRIENDLY);
 			_killerName.RemoveFromClassList(USS_NAME_ENEMY);
 			_killerName.AddToClassList(killerFriendly ? USS_NAME_FRIENDLY : USS_NAME_ENEMY);
 
-			_victimBar.RemoveFromClassList(USS_BAR_FRIENDLY);
-			_victimBar.RemoveFromClassList(USS_BAR_ENEMY);
-			_victimBar.AddToClassList(victimFriendly ? USS_BAR_FRIENDLY : USS_BAR_ENEMY);
+			// _victimBar.RemoveFromClassList(USS_BAR_FRIENDLY);
+			// _victimBar.RemoveFromClassList(USS_BAR_ENEMY);
+			// _victimBar.AddToClassList(victimFriendly ? USS_BAR_FRIENDLY : USS_BAR_ENEMY);
 			_victimName.RemoveFromClassList(USS_NAME_FRIENDLY);
 			_victimName.RemoveFromClassList(USS_NAME_ENEMY);
 			_victimName.AddToClassList(victimFriendly ? USS_NAME_FRIENDLY : USS_NAME_ENEMY);
@@ -124,6 +126,7 @@ namespace FirstLight.Game.UIElements
 
 		public void Hide(bool end)
 		{
+			JobDone = end;
 			RemoveFromClassList(USS_HIDDEN);
 			RemoveFromClassList(USS_HIDDEN_END);
 			AddToClassList(end ? USS_HIDDEN_END : USS_HIDDEN);

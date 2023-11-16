@@ -1,8 +1,8 @@
 namespace Quantum
 {
-	public unsafe partial struct PlayerInventory
+	public partial struct PlayerInventory
 	{
-		public bool TryAddSpecial(Frame f, PlayerRef player, Special special)
+		public bool TryAddSpecial(Frame f, EntityRef playerEntity, PlayerRef player, Special special)
 		{
 			for (var i = 0; i < Specials.Length; i++)
 			{
@@ -12,7 +12,7 @@ namespace Quantum
 				}
 
 				Specials[i] = special;
-				f.Events.OnLocalPlayerSpecialUpdated(player, (uint) i, special);
+				f.Events.OnLocalPlayerSpecialUpdated(player, playerEntity, (uint) i, special);
 				return true;
 			}
 

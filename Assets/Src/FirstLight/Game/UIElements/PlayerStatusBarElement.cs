@@ -14,32 +14,14 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class PlayerStatusBarElement : VisualElement
 	{
-		private const int MAX_AMMO_BARS = 20;
-
 		private const int DAMAGE_NUMBER_MAX_POOL_SIZE = 5;
 		private const int DAMAGE_NUMBER_ANIM_DURATION = 1000;
-		private const int DAMAGE_ANIMATION_DURATION = 1500; // How long the bar takes to fade out after taking damage.
 
-		private const int HEALTH_SEPARATORS = 6; // +2 for first and last one that aren't visible
+		private const float SMALL_DAMAGE = 32;
+		private const float DAMAGE_SCALE = 64;
 
 		private const string USS_BLOCK = "player-status-bar";
-		private const string USS_FRIENDLY = USS_BLOCK + "--friendly";
-		private const string USS_BACKGROUND = USS_BLOCK + "__background";
-		private const string USS_ICON = USS_BLOCK + "__icon";
-		private const string USS_ICON_BORDER = USS_BLOCK + "__icon-border";
-		private const string USS_NAME = USS_BLOCK + "__name";
-		private const string USS_LEVEL = USS_BLOCK + "__level";
-		private const string USS_SHIELD_HOLDER = USS_BLOCK + "__shield-holder";
-		private const string USS_SHIELD_BAR = USS_BLOCK + "__shield-bar";
-		private const string USS_HEALTH_HOLDER = USS_BLOCK + "__health-holder";
-		private const string USS_HEALTH_BAR = USS_BLOCK + "__health-bar";
-		private const string USS_AMMO_HOLDER = USS_BLOCK + "__ammo-holder";
-		private const string USS_SEPARATOR_HOLDER = USS_BLOCK + "__separator-holder";
-		private const string USS_HEALTH_SEPARATOR = USS_BLOCK + "__health-separator";
-		private const string USS_AMMO_RELOAD_BAR = USS_BLOCK + "__ammo-reload-bar";
-		private const string USS_AMMO_SEGMENT = USS_BLOCK + "__ammo-segment";
 		private const string USS_NOTIFICATION = USS_BLOCK + "__notification";
-		private const string USS_NOTIFICATION_ICON = USS_BLOCK + "__notification-icon";
 		private const string USS_NOTIFICATION_SHIELDS = USS_NOTIFICATION + "--shields";
 		private const string USS_NOTIFICATION_HEALTH = USS_NOTIFICATION + "--health";
 		private const string USS_NOTIFICATION_AMMO = USS_NOTIFICATION + "--ammo";
@@ -48,15 +30,8 @@ namespace FirstLight.Game.UIElements
 		private const string USS_DAMAGE_HOLDER = USS_BLOCK + "__damage-holder";
 		private const string USS_DAMAGE_NUMBER = USS_BLOCK + "__damage-number";
 
-		private readonly Label _name;
-		private readonly Label _level;
-		private readonly VisualElement _shieldBar;
-		private readonly VisualElement _healthBar;
-		private readonly VisualElement _ammoHolder;
-		private readonly VisualElement _ammoReloadBar;
+		private readonly PlayerHealthShieldElement _healthShield;
 		private readonly Label _notificationLabel;
-		private readonly VisualElement _icon;
-		private readonly VisualElement _iconBackground;
 		private readonly Label[] _damageNumbersPool = new Label[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private readonly ValueAnimation<float>[] _damageNumberAnims = new ValueAnimation<float>[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private readonly float[] _damageNumberAnimOffsets = new float[DAMAGE_NUMBER_MAX_POOL_SIZE];
@@ -64,15 +39,13 @@ namespace FirstLight.Game.UIElements
 		private int _damageNumberIndex;
 		private float _maxHealth;
 		private bool _isFriendly;
-		private float _smallDamage = 32;
-		private float _damageScale = 64;
 		private bool _showRealDamage;
-		private readonly ValueAnimation<float> _opacityAnimation;
-		private readonly IVisualElementScheduledItem _opacityAnimationHandle;
 		private readonly IVisualElementScheduledItem _notificationHandle;
 		private readonly StyleColor _defaultPingDmgColor = new (new Color(1f, 1f, 1f));
 
-		private ValueAnimation<Vector3> _reloadAnimation;
+		private bool _barsEnabled = true;
+
+		public ref bool ShowRealDamage => ref _showRealDamage;
 
 		public PlayerStatusBarElement()
 		{
@@ -80,74 +53,11 @@ namespace FirstLight.Game.UIElements
 
 			AddToClassList(USS_BLOCK);
 
-			Add(_name = new Label("PLAYER NAME") {name = "name"});
-			_name.AddToClassList(USS_NAME);
-
-			Add(_iconBackground = new VisualElement() {name = "icon-border"});
-			_iconBackground.AddToClassList(USS_ICON_BORDER);
-
-			Add(_icon = new VisualElement() {name = "icon"});
-			_icon.AddToClassList(USS_ICON);
-
-			//TODO: Make them visible again when we implement them properly
-			_iconBackground.SetVisibility(false);
-			_icon.SetVisibility(false);
-
-			var background = new VisualElement {name = "background"};
-			Add(background);
-			background.AddToClassList(USS_BACKGROUND);
-
-			var shieldHolder = new VisualElement {name = "shield-holder"};
-			Add(shieldHolder);
-			shieldHolder.AddToClassList(USS_SHIELD_HOLDER);
-			{
-				shieldHolder.Add(_shieldBar = new VisualElement {name = "shield-bar"});
-				_shieldBar.AddToClassList(USS_SHIELD_BAR);
-			}
-
-			var healthHolder = new VisualElement {name = "health-holder"};
-			Add(healthHolder);
-			healthHolder.AddToClassList(USS_HEALTH_HOLDER);
-			{
-				healthHolder.Add(_healthBar = new VisualElement {name = "health-bar"});
-				_healthBar.AddToClassList(USS_HEALTH_BAR);
-
-				var healthSeparatorHolder = new VisualElement() {name = "separator-holder"};
-				healthHolder.Add(healthSeparatorHolder);
-				healthSeparatorHolder.AddToClassList(USS_SEPARATOR_HOLDER);
-				for (int i = 0; i < HEALTH_SEPARATORS; i++)
-				{
-					var separator = new VisualElement {name = $"separator-{i}"};
-					separator.AddToClassList(USS_HEALTH_SEPARATOR);
-					healthSeparatorHolder.Add(separator);
-				}
-			}
-
-			Add(_ammoHolder = new VisualElement {name = "ammo-holder"});
-			_ammoHolder.AddToClassList(USS_AMMO_HOLDER);
-
-			Add(_ammoReloadBar = new VisualElement {name = "reload-bar"});
-			_ammoReloadBar.AddToClassList(USS_AMMO_RELOAD_BAR);
-
-			Add(_level = new Label("10") {name = "level"});
-			_level.AddToClassList(USS_LEVEL);
-			_level.SetDisplay(QuantumFeatureFlags.ENERGY_CUBES_REPLACE_SPECIALS);
-
 			Add(_notificationLabel = new Label("MAX") {name = "notification-label"});
 			_notificationLabel.AddToClassList(USS_NOTIFICATION);
 			_notificationLabel.AddToClassList(USS_NOTIFICATION_HEALTH);
-			{
-				var notificationIcon = new VisualElement {name = "notification-icon"};
-				_notificationLabel.Add(notificationIcon);
-				notificationIcon.AddToClassList(USS_NOTIFICATION_ICON);
-			}
 
-			_opacityAnimation = experimental.animation.Start(1f, 0f, DAMAGE_ANIMATION_DURATION,
-				(e, o) => e.style.opacity = o).KeepAlive();
-			_opacityAnimation.Stop();
-
-			_opacityAnimationHandle = schedule.Execute(_opacityAnimation.Start);
-			_opacityAnimationHandle.Pause();
+			Add(_healthShield = new PlayerHealthShieldElement {name = "health-shield"});
 
 			_notificationHandle = schedule.Execute(() => { _notificationLabel.SetDisplay(false); });
 			_notificationHandle.Pause();
@@ -172,36 +82,6 @@ namespace FirstLight.Game.UIElements
 					_damageNumberAnims[i] = anim;
 				}
 			}
-
-			SetIsFriendly(true);
-			//SetMagazine(4, 6);
-		}
-
-		public void SetIconColor(Color color)
-		{
-			if (!_name.visible || string.IsNullOrEmpty(_name.text) || color == GameConstants.PlayerName.DEFAULT_COLOR)
-			{
-				_iconBackground.SetVisibility(false);
-				_icon.SetVisibility(false);
-			}
-			else
-			{
-				_icon.style.unityBackgroundImageTintColor = color;
-				_iconBackground.SetVisibility(true);
-				_icon.SetVisibility(true);
-			}
-		}
-
-		/// <summary>
-		/// Marks this bar as friendly (always visible with ammo) or not (only visible when damaged and no ammo info).
-		/// </summary>
-		public void SetIsFriendly(bool isFriendly)
-		{
-			_isFriendly = isFriendly;
-
-			EnableInClassList(USS_FRIENDLY, isFriendly);
-
-			style.opacity = isFriendly ? 1f : 0f;
 		}
 
 		/// <summary>
@@ -228,117 +108,56 @@ namespace FirstLight.Game.UIElements
 			damageNumberLabel.BringToFront();
 			damageNumberAnim.Stop();
 			damageNumberAnim.Start();
-
-			if (_isFriendly) return;
-
-			_opacityAnimation.Stop();
-			style.opacity = 1f;
-			_opacityAnimationHandle.ExecuteLater(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HEALTHBAR_HIDE_DURATION);
 		}
 
 		private float GetDamageNumberSize(int damagePct)
 		{
-			return _smallDamage + (_damageScale * damagePct / 100);
+			return SMALL_DAMAGE + (DAMAGE_SCALE * damagePct / 100);
 		}
 
 		/// <summary>
-		/// Sets the name of the player.
+		/// Enables or disables the health / shield status bars.
 		/// </summary>
-		public void SetName(string playerName, Color nameColor)
+		public void EnableStatusBars(bool enable)
 		{
-			_name.text = playerName;
-			_name.style.color = nameColor;
-		}
-
-		public ref bool ShowRealDamage => ref _showRealDamage;
-
-		/// <summary>
-		/// Sets the magazine size and how full it is. Only affects friendly players.
-		/// </summary>
-		public void SetMagazine(int currentMagazine, int maxMagazine)
-		{
-			if (!_isFriendly) return;
-
-			var infiniteMagazine = maxMagazine <= 0;
-			var totalBars = infiniteMagazine ? 1 : Mathf.Min(maxMagazine, MAX_AMMO_BARS);
-			var visibleBars = infiniteMagazine
-				? 1
-				: Mathf.FloorToInt(currentMagazine * Mathf.Min((float) MAX_AMMO_BARS / maxMagazine, 1f));
-
-			// Max ammo
-			if (_ammoHolder.childCount > totalBars)
-			{
-				for (var i = _ammoHolder.childCount - 1; i >= totalBars; i--)
-				{
-					_ammoHolder.RemoveAt(i);
-				}
-			}
-			else if (_ammoHolder.childCount < totalBars)
-			{
-				for (var i = _ammoHolder.childCount; i < totalBars; i++)
-				{
-					var segment = new VisualElement {name = "ammo-segment"};
-					_ammoHolder.Add(segment);
-					segment.AddToClassList(USS_AMMO_SEGMENT);
-				}
-			}
-
-			// Current ammo
-			int index = 0;
-			foreach (var segment in _ammoHolder.Children())
-			{
-				segment.SetVisibility(index++ < visibleBars);
-			}
-
-			// Cancel reload
-			_reloadAnimation?.Stop();
-			_ammoReloadBar.SetDisplay(false);
+			_barsEnabled = enable;
+			_healthShield.SetDisplay(enable);
 		}
 
 		/// <summary>
 		/// Sets the max and current shield (i.e. the size of the shield bar).
 		/// </summary>
-		public void SetShield(int current, int max)
+		public void UpdateShield(int previous, int current, int max)
 		{
-			_shieldBar.style.flexGrow = (float) current / max;
-		}
-
-		/// <summary>
-		/// Sets the level of the player.
-		/// </summary>
-		public void SetLevel(int level)
-		{
-			if (QuantumFeatureFlags.ENERGY_CUBES_REPLACE_SPECIALS) return;
-
-			_level.text = level.ToString();
-			_level.AnimatePing();
+			if (!_barsEnabled) return;
+			_healthShield.UpdateShield(previous, current, max, !_showRealDamage);
 		}
 
 		/// <summary>
 		/// Sets the max and current health (i.e. the size of the health bar).
 		/// </summary>
-		public void SetHealth(int previous, int current, int max)
+		public void UpdateHealth(int previous, int current, int max)
 		{
-			// TODO: Handle red bar when damaged (i.e. previous < current)
 			_maxHealth = max;
-			_healthBar.style.flexGrow = (float) current / max;
+			if (!_barsEnabled) return;
+			_healthShield.UpdateHealth(previous, current, max, !_showRealDamage);
 		}
 
 		/// <summary>
 		/// Shows a notification above the player's head.
 		/// </summary>
-		public void ShowNotification(NotificationType type)
+		public void ShowNotification(NotificationType type, string data = null)
 		{
 			_notificationLabel.RemoveModifiers();
 
 			switch (type)
 			{
 				case NotificationType.MaxShields:
-					_notificationLabel.text = ScriptLocalization.UITMatch.max;
+					_notificationLabel.text = ScriptLocalization.UITMatch.max + " <sprite name=\"Shieldicon\">";
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_SHIELDS);
 					break;
 				case NotificationType.MaxAmmo:
-					_notificationLabel.text = ScriptLocalization.UITMatch.max;
+					_notificationLabel.text = ScriptLocalization.UITMatch.max + " <sprite name=\"Ammoicon\">";
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_AMMO);
 					break;
 				case NotificationType.LevelUp:
@@ -346,11 +165,15 @@ namespace FirstLight.Game.UIElements
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_LVLUP);
 					break;
 				case NotificationType.MaxHealth:
-					_notificationLabel.text = ScriptLocalization.UITMatch.max;
+					_notificationLabel.text = ScriptLocalization.UITMatch.max + " <sprite name=\"HPicon\">";
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_HEALTH);
 					break;
 				case NotificationType.MaxSpecials:
 					_notificationLabel.text = ScriptLocalization.UITMatch.full;
+					_notificationLabel.AddToClassList(USS_NOTIFICATION_SPECIAL);
+					break;
+				case NotificationType.SpecialPickup:
+					_notificationLabel.text = data;
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_SPECIAL);
 					break;
 				default:
@@ -360,27 +183,6 @@ namespace FirstLight.Game.UIElements
 			_notificationLabel.SetDisplay(true);
 			_notificationHandle.ExecuteLater(1000);
 			_notificationLabel.AnimatePing();
-		}
-
-		/// <summary>
-		/// Displays the reload animation.
-		/// </summary>
-		public void ShowReload(int reloadTime)
-		{
-			if (!_isFriendly) return;
-
-			_ammoReloadBar.SetDisplay(true);
-
-			_ammoReloadBar.transform.position = Vector3.zero;
-
-			_reloadAnimation?.Stop();
-			_reloadAnimation = _ammoReloadBar.experimental.animation.Position(new Vector3(130, 0, 0), reloadTime)
-				.OnCompleted(() =>
-				{
-					_ammoReloadBar.SetDisplay(false);
-					_reloadAnimation = null;
-				}).Ease(Easing.Linear);
-			_reloadAnimation.Start();
 		}
 
 		private void AnimateDamageNumber(VisualElement damageNumber, float t)
@@ -422,7 +224,8 @@ namespace FirstLight.Game.UIElements
 			MaxHealth,
 			MaxAmmo,
 			LevelUp,
-			MaxSpecials
+			MaxSpecials,
+			SpecialPickup
 		}
 
 		public new class UxmlFactory : UxmlFactory<PlayerStatusBarElement, UxmlTraits>

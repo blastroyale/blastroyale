@@ -153,11 +153,11 @@ namespace FirstLight.Game.UIElements
 			switch (type)
 			{
 				case NotificationType.MaxShields:
-					_notificationLabel.text = ScriptLocalization.UITMatch.max;
+					_notificationLabel.text = ScriptLocalization.UITMatch.max + " <sprite name=\"Shieldicon\">";
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_SHIELDS);
 					break;
 				case NotificationType.MaxAmmo:
-					_notificationLabel.text = ScriptLocalization.UITMatch.max;
+					_notificationLabel.text = ScriptLocalization.UITMatch.max + " <sprite name=\"Ammoicon\">";
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_AMMO);
 					break;
 				case NotificationType.LevelUp:
@@ -165,7 +165,7 @@ namespace FirstLight.Game.UIElements
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_LVLUP);
 					break;
 				case NotificationType.MaxHealth:
-					_notificationLabel.text = ScriptLocalization.UITMatch.max;
+					_notificationLabel.text = ScriptLocalization.UITMatch.max + " <sprite name=\"HPicon\">";
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_HEALTH);
 					break;
 				case NotificationType.MaxSpecials:

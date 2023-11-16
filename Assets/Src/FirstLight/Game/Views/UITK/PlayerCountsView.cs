@@ -16,24 +16,36 @@ namespace FirstLight.Game.Views.UITK
 		private Label _teamsCountLabel;
 		private VisualElement _teamsCountPing;
 
+		private IGameServices _gameServices;
 		private IMatchServices _matchServices;
 
 		private int _killsCount = -1;
 		private int _teamsCount = -1;
+
+		private bool _showTeamCount = true;
 
 		private readonly HashSet<int> _teamsCache = new ();
 
 		public override void Attached(VisualElement element)
 		{
 			base.Attached(element);
+			_gameServices = MainInstaller.ResolveServices();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
 			_aliveCountLabel = element.Q<Label>("AliveCountText").Required();
 			_aliveCountPing = element.Q<VisualElement>("AliveCountPing").Required();
 			_killsCountLabel = element.Q<Label>("KilledCountText").Required();
 			_killsCountPing = element.Q<VisualElement>("KilledCountPing").Required();
-			_teamsCountLabel = element.Q<Label>("TeamsCountText").Required();
-			_teamsCountPing = element.Q<VisualElement>("TeamsCountPing").Required();
+			_showTeamCount = _gameServices.RoomService.CurrentRoom.GameModeConfig.ShowTeamCount;
+			if (_showTeamCount)
+			{
+				_teamsCountLabel = element.Q<Label>("TeamsCountText").Required();
+				_teamsCountPing = element.Q<VisualElement>("TeamsCountPing").Required();
+			}
+			else
+			{
+				element.Q("TeamsContainer").Required().SetDisplay(false);
+			}
 		}
 
 		public override void SubscribeToEvents()
@@ -82,7 +94,7 @@ namespace FirstLight.Game.Views.UITK
 			_aliveCountLabel.AnimatePing();
 			_aliveCountPing.AnimatePingOpacity();
 
-			if (_teamsCount != _teamsCache.Count)
+			if (_showTeamCount && _teamsCount != _teamsCache.Count)
 			{
 				_teamsCount = _teamsCache.Count;
 				_teamsCountLabel.text = _teamsCount.ToString();

@@ -5,6 +5,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using I2.Loc;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -105,6 +106,7 @@ namespace FirstLight.Game.Presenters
 			_itemAmount.text = "";
 			_itemPrice.text = options.Value.ToString();
 			_confirmCallback = options.OnConfirm;
+			_title.text = ScriptLocalization.UITGeneric.purchase_title;
 			_closeCallback = options.OnExit;
 			_buyButton.clicked += OnBuyButtonClicked;
 			_buyButton.clicked += CloseRequested;
@@ -117,14 +119,14 @@ namespace FirstLight.Game.Presenters
 		{
 			_itemIcon.style.backgroundImage = StyleKeyword.Null;
 			Root.AddToClassList(USS_NOT_ENOUGH_FUNDS);
-			_itemDisplayName.text = "VISIT THE SHOP TO GET SOME MORE";
-			_itemPrice.text = "GO TO SHOP";
+			_itemDisplayName.text = ScriptLocalization.UITGeneric.purchase_not_enough_item_display_name;
 			var itemIcon = ItemFactory.Currency(GameId.BlastBuck, 1);
 			itemIcon.GetViewModel().DrawIcon(_itemIcon);
 
+			_itemPrice.text = ScriptLocalization.UITGeneric.purchase_not_enough_button_text;
+			_title.text = ScriptLocalization.UITGeneric.purchase_not_enough_title;
 			_itemAmount.text = options.Value > 0 ? options.Value.ToString() : "";
-			_itemPrice.text = "GO TO SHOP";
-			_title.text = "NOT ENOUGH BLAST BUCKS";
+	
 			_buyButton.clicked += GoToShop;
 			_buyButton.clicked += CloseRequested;
 			_blockerButton.clicked += CloseRequested;

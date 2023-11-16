@@ -61,6 +61,8 @@ namespace FirstLight.Game.Presenters
 		private Label _seasonNumber;
 		private Label _nextLevelValueLabel;
 		private Label _timeLeftLabel;
+		private Label _premiumTitle;
+		private Label _freeTitle;
 		private LocalizedLabel _seasonEndsLabel;
 		private ScreenHeaderElement _screenHeader;
 
@@ -96,6 +98,8 @@ namespace FirstLight.Game.Presenters
 			_premiumLock = root.Q("PremiumLock").Required();
 			_activateButton = root.Q<Button>("ActivateButton").Required();
 			_timeLeftLabel = root.Q<Label>("TimeLeftLabel").Required();
+			_premiumTitle = root.Q<Label>("PremiumTitle").Required();
+			_freeTitle = root.Q<Label>("FreeTitle").Required();
 			_seasonEndsLabel = root.Q<LocalizedLabel>("SeasonEndsLabel").Required();
 			root.Q("LastRewardBalloon").RegisterCallback<PointerDownEvent>(e => OnClickLastRewardIcon());
 			root.Q<CurrencyDisplayElement>("BBCurrency").AttachView(this, out CurrencyDisplayView _);
@@ -168,8 +172,8 @@ namespace FirstLight.Game.Presenters
 				new GenericPurchaseDialogPresenter.GenericPurchaseOptions()
 				{
 					ItemSprite = _battlepassPremiumSprite,
-					OverwriteTitle = "BUY PREMIUM BATTLEPASS",
-					OverwriteItemName = "BUY PREMIUM BATTLEPASS",
+					OverwriteTitle = ScriptLocalization.UITBattlePass.buy_premium_batttlepass_popup_title,
+					OverwriteItemName = ScriptLocalization.UITBattlePass.buy_premium_batttlepass_popup_item_name,
 					Value = price,
 					OnConfirm = () =>
 					{
@@ -194,8 +198,8 @@ namespace FirstLight.Game.Presenters
 				{
 					Value = price,
 					ItemSprite = _battlepassLevelSprite,
-					OverwriteTitle = "BUY A LEVEL OF BATTLE PASS",
-					OverwriteItemName = "YOU ARE GOING TO BUY 1 LEVEL OF BATTLE PASS",
+					OverwriteTitle = ScriptLocalization.UITBattlePass.buy_level_popup_title,
+					OverwriteItemName = ScriptLocalization.UITBattlePass.buy_level_popup_item_name,
 					OnConfirm = () =>
 					{
 						_services.CommandService.ExecuteCommand(new BuyBattlepassLevelCommand());
@@ -227,13 +231,13 @@ namespace FirstLight.Game.Presenters
 			var endsAt = battlePassConfig.Season.GetEndsAtDateTime();
 			if (now > endsAt)
 			{
-				_seasonEndsLabel.text = "SEASON ENDED!";
+				_seasonEndsLabel.text = ScriptLocalization.UITBattlePass.season_ended;
 				_timeLeftLabel.SetVisibility(false);
 			}
 			else
 			{
 				var duration = endsAt - now;
-				_seasonEndsLabel.text = "SEASON ENDS IN ";
+				_seasonEndsLabel.text = ScriptLocalization.UITBattlePass.season_ends_in;
 				_timeLeftLabel.text = duration.ToDayAndHours(true);
 				_seasonEndsLabel.SetVisibility(true);
 				_timeLeftLabel.SetVisibility(true);
@@ -281,6 +285,9 @@ namespace FirstLight.Game.Presenters
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 
 
+			_activateButton.text = ScriptLocalization.UITBattlePass.activate_premium_button_text;
+			_premiumTitle.text = ScriptLocalization.UITBattlePass.left_bar_premium_title;
+			_freeTitle.text = ScriptLocalization.UITBattlePass.left_bar_free_title;
 			_activateButton.SetDisplay(!_dataProvider.BattlePassDataProvider.HasPurchasedSeason());
 			_premiumLock.SetDisplay(!_dataProvider.BattlePassDataProvider.HasPurchasedSeason());
 			_claimButton.SetDisplay(_dataProvider.BattlePassDataProvider.HasUnclaimedRewards());

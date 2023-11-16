@@ -1223,13 +1223,21 @@ namespace I2.Loc
 
 		public static class UITBattlePass
 		{
+			public static string activate_premium_button_text 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/activate_premium_button_text"); } }
 			public static string bp_level 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/bp_level"); } }
+			public static string buy_level_popup_item_name 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/buy_level_popup_item_name"); } }
+			public static string buy_level_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/buy_level_popup_title"); } }
+			public static string buy_premium_batttlepass_popup_item_name 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/buy_premium_batttlepass_popup_item_name"); } }
+			public static string buy_premium_batttlepass_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/buy_premium_batttlepass_popup_title"); } }
 			public static string claim_all 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/claim_all"); } }
 			public static string equipment_reward 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/equipment_reward"); } }
 			public static string equipment_reward_desc 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/equipment_reward_desc"); } }
+			public static string left_bar_free_title 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/left_bar_free_title"); } }
+			public static string left_bar_premium_title 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/left_bar_premium_title"); } }
 			public static string max 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/max"); } }
 			public static string play_games_info 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/play_games_info"); } }
 			public static string random_equipment 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/random_equipment"); } }
+			public static string season_ended 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_ended"); } }
 			public static string season_ends_in 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_ends_in"); } }
 			public static string season_number 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_number"); } }
 			public static string season_time_left_big 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_time_left_big"); } }
@@ -1361,6 +1369,14 @@ namespace I2.Loc
 			public static string choose_a_mode 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/choose_a_mode"); } }
 			public static string custom_game_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/custom_game_description"); } }
 			public static string tap_to_choose 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/tap_to_choose"); } }
+		}
+
+		public static class UITGeneric
+		{
+			public static string purchase_not_enough_button_text 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_button_text"); } }
+			public static string purchase_not_enough_item_display_name 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_item_display_name"); } }
+			public static string purchase_not_enough_title 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_title"); } }
+			public static string purchase_title 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_title"); } }
 		}
 
 		public static class UITHomeScreen
@@ -1559,6 +1575,7 @@ namespace I2.Loc
 			public static string success 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/success"); } }
 			public static string thirty 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/thirty"); } }
 			public static string usa 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/usa"); } }
+			public static string use_overhead_ui 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/use_overhead_ui"); } }
 		}
 
 		public static class UITShared
@@ -2910,13 +2927,21 @@ namespace I2.Loc
 
 		public static class UITBattlePass
 		{
+		    public const string activate_premium_button_text = "UITBattlePass/activate_premium_button_text";
 		    public const string bp_level = "UITBattlePass/bp_level";
+		    public const string buy_level_popup_item_name = "UITBattlePass/buy_level_popup_item_name";
+		    public const string buy_level_popup_title = "UITBattlePass/buy_level_popup_title";
+		    public const string buy_premium_batttlepass_popup_item_name = "UITBattlePass/buy_premium_batttlepass_popup_item_name";
+		    public const string buy_premium_batttlepass_popup_title = "UITBattlePass/buy_premium_batttlepass_popup_title";
 		    public const string claim_all = "UITBattlePass/claim_all";
 		    public const string equipment_reward = "UITBattlePass/equipment_reward";
 		    public const string equipment_reward_desc = "UITBattlePass/equipment_reward_desc";
+		    public const string left_bar_free_title = "UITBattlePass/left_bar_free_title";
+		    public const string left_bar_premium_title = "UITBattlePass/left_bar_premium_title";
 		    public const string max = "UITBattlePass/max";
 		    public const string play_games_info = "UITBattlePass/play_games_info";
 		    public const string random_equipment = "UITBattlePass/random_equipment";
+		    public const string season_ended = "UITBattlePass/season_ended";
 		    public const string season_ends_in = "UITBattlePass/season_ends_in";
 		    public const string season_number = "UITBattlePass/season_number";
 		    public const string season_time_left_big = "UITBattlePass/season_time_left_big";
@@ -3048,6 +3073,14 @@ namespace I2.Loc
 		    public const string choose_a_mode = "UITGameModeSelection/choose_a_mode";
 		    public const string custom_game_description = "UITGameModeSelection/custom_game_description";
 		    public const string tap_to_choose = "UITGameModeSelection/tap_to_choose";
+		}
+
+		public static class UITGeneric
+		{
+		    public const string purchase_not_enough_button_text = "UITGeneric/purchase_not_enough_button_text";
+		    public const string purchase_not_enough_item_display_name = "UITGeneric/purchase_not_enough_item_display_name";
+		    public const string purchase_not_enough_title = "UITGeneric/purchase_not_enough_title";
+		    public const string purchase_title = "UITGeneric/purchase_title";
 		}
 
 		public static class UITHomeScreen
@@ -3246,6 +3279,7 @@ namespace I2.Loc
 		    public const string success = "UITSettings/success";
 		    public const string thirty = "UITSettings/thirty";
 		    public const string usa = "UITSettings/usa";
+		    public const string use_overhead_ui = "UITSettings/use_overhead_ui";
 		}
 
 		public static class UITShared

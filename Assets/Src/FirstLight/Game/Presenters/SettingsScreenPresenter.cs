@@ -102,6 +102,9 @@ namespace FirstLight.Game.Presenters
 				() => _gameDataProvider.AppDataProvider.FpsTarget,
 				val => _gameDataProvider.AppDataProvider.FpsTarget = val,
 				FpsTarget.Normal, FpsTarget.High);
+			SetupToggle(root.Q<Toggle>("UseOverheadUI").Required(),
+				() => _gameDataProvider.AppDataProvider.UseOverheadUI,
+				val => _gameDataProvider.AppDataProvider.UseOverheadUI = val);
 
 			// Account
 			_logoutButton = root.Q<Button>("LogoutButton");

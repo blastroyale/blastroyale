@@ -174,22 +174,18 @@ namespace FirstLight.Game.Views.UITK
 			for (int i = 0; i < f.PlayerCount; i++)
 			{
 				var p = dataArray[i];
-				InitPlayer(f, p.Entity, p.Player);
+				InitPlayer(f, p.Entity);
 			}
 		}
 
 		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
 		{
-			InitPlayer(callback.Game.Frames.Predicted, callback.Entity, callback.Player);
+			InitPlayer(callback.Game.Frames.Predicted, callback.Entity);
 		}
 
-		private void InitPlayer(Frame f, EntityRef entity, PlayerRef player)
+		private void InitPlayer(Frame f, EntityRef entity)
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view)) return;
-
-			if (!_data.AppDataProvider.UseOverheadUI) return;
-
-			if (!SHOW_ENEMY_BARS && !f.Context.IsLocalPlayer(player)) return;
 
 			// TODO: https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/915
 			if (_anchors.ContainsKey(entity))
@@ -216,7 +212,10 @@ namespace FirstLight.Game.Views.UITK
 
 			var stats = f.Get<Stats>(entity);
 
+			var spectatingCurrentEntity = _matchServices.SpectateService.GetSpectatedEntity() == entity;
+
 			bar.ShowRealDamage = _data.AppDataProvider.ShowRealDamage;
+			bar.EnableStatusBars((!spectatingCurrentEntity && SHOW_ENEMY_BARS) || (spectatingCurrentEntity && _data.AppDataProvider.UseOverheadUI));
 			bar.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
 			bar.UpdateShield(stats.CurrentShield, stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);
 		}

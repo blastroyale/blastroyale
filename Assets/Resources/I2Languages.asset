@@ -16910,6 +16910,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSettings/use_overhead_ui
+      TermType: 0
+      Description: 
+      Languages:
+      - Use Overhead UI
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITInbox/inbox_community
       TermType: 0
       Description: 

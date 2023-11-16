@@ -16,10 +16,10 @@ namespace FirstLight.Game.UIElements
 	{
 		private const int DAMAGE_NUMBER_MAX_POOL_SIZE = 5;
 		private const int DAMAGE_NUMBER_ANIM_DURATION = 1000;
-		
+
 		private const float SMALL_DAMAGE = 32;
 		private const float DAMAGE_SCALE = 64;
-		
+
 		private const string USS_BLOCK = "player-status-bar";
 		private const string USS_NOTIFICATION = USS_BLOCK + "__notification";
 		private const string USS_NOTIFICATION_ICON = USS_BLOCK + "__notification-icon";
@@ -43,7 +43,9 @@ namespace FirstLight.Game.UIElements
 		private bool _showRealDamage;
 		private readonly IVisualElementScheduledItem _notificationHandle;
 		private readonly StyleColor _defaultPingDmgColor = new (new Color(1f, 1f, 1f));
-		
+
+		private bool _barsEnabled = true;
+
 		public ref bool ShowRealDamage => ref _showRealDamage;
 
 		public PlayerStatusBarElement()
@@ -51,7 +53,7 @@ namespace FirstLight.Game.UIElements
 			usageHints = UsageHints.DynamicTransform;
 
 			AddToClassList(USS_BLOCK);
-			
+
 			Add(_healthShield = new PlayerHealthShieldElement() {name = "health-shield"});
 
 			Add(_notificationLabel = new Label("MAX") {name = "notification-label"});
@@ -120,10 +122,20 @@ namespace FirstLight.Game.UIElements
 		}
 
 		/// <summary>
+		/// Enables or disables the health / shield status bars.
+		/// </summary>
+		public void EnableStatusBars(bool enable)
+		{
+			_barsEnabled = enable;
+			_healthShield.SetDisplay(false);
+		}
+
+		/// <summary>
 		/// Sets the max and current shield (i.e. the size of the shield bar).
 		/// </summary>
 		public void UpdateShield(int previous, int current, int max)
 		{
+			if (!_barsEnabled) return;
 			_healthShield.UpdateShield(previous, current, max, !_showRealDamage);
 		}
 
@@ -133,6 +145,7 @@ namespace FirstLight.Game.UIElements
 		public void UpdateHealth(int previous, int current, int max)
 		{
 			_maxHealth = max;
+			if (!_barsEnabled) return;
 			_healthShield.UpdateHealth(previous, current, max, !_showRealDamage);
 		}
 

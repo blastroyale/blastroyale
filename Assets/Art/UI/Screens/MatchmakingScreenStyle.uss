@@ -188,13 +188,15 @@
 .map__image {
     position: absolute;
     left: 0;
-    top: 0;
+    top: -7;
     right: 0;
     bottom: 0;
     background-image: url('project://database/Assets/Art/UI/Textures/map-brgenesis.png?fileID=2800000&guid=d54eb0711a6ab8e45a698fa12ebb578b&type=3#map-brgenesis');
     -unity-background-scale-mode: scale-to-fit;
     width: 100%;
     height: 100%;
+    flex-shrink: 0;
+    flex-grow: 1;
 }
 
 .map__title {

@@ -74,8 +74,6 @@ namespace FirstLight.Game.Presenters
 			//	() => _gameDataProvider.AppDataProvider.UseDynamicJoystick,
 			//	val => _gameDataProvider.AppDataProvider.UseDynamicJoystick = val);
 			
-			//TODO: enable when have Haptic fixed
-			root.Q<LocalizedToggle>("HapticFeedback").SetDisplay(false); 
 			SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
 				() => _gameDataProvider.AppDataProvider.IsHapticOn,
 				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);

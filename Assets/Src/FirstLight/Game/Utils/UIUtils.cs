@@ -62,6 +62,15 @@ namespace FirstLight.Game.Utils
 		/// Gets the position (center of content rect) of the <paramref name="element"/>, in screen coordinates.
 		/// TODO: There has to be a better way to do this, without using the camera
 		/// </summary>
+		public static bool IsInScreen(this VisualElement element, VisualElement root)
+		{
+			return element.worldBound.Overlaps(root.worldBound);
+		}
+		
+		/// <summary>
+		/// Gets the position (center of content rect) of the <paramref name="element"/>, in screen coordinates.
+		/// TODO: There has to be a better way to do this, without using the camera
+		/// </summary>
 		public static Vector2 GetPositionOnScreen(this VisualElement element, VisualElement root, bool invertY = true,
 												  bool invertX = false)
 		{

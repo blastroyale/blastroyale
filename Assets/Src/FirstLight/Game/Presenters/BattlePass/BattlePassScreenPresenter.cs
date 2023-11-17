@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -18,6 +19,7 @@ using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 using Button = UnityEngine.UIElements.Button;
@@ -64,6 +66,7 @@ namespace FirstLight.Game.Presenters
 		private Label _premiumTitle;
 		private Label _freeTitle;
 		private LocalizedLabel _seasonEndsLabel;
+		private VisualElement _lastRewardBaloon;
 		private ScreenHeaderElement _screenHeader;
 
 		private IGameServices _services;
@@ -101,9 +104,11 @@ namespace FirstLight.Game.Presenters
 			_premiumTitle = root.Q<Label>("PremiumTitle").Required();
 			_freeTitle = root.Q<Label>("FreeTitle").Required();
 			_seasonEndsLabel = root.Q<LocalizedLabel>("SeasonEndsLabel").Required();
-			root.Q("LastRewardBalloon").RegisterCallback<PointerDownEvent>(e => OnClickLastRewardIcon());
+			_lastRewardBaloon = root.Q("LastRewardBalloon");
+			_lastRewardBaloon.RegisterCallback<PointerDownEvent>(e => OnClickLastRewardIcon());
 			root.Q<CurrencyDisplayElement>("BBCurrency").AttachView(this, out CurrencyDisplayView _);
 
+			_rewardsScroll.horizontalScroller.valueChanged += OnScroll;
 			_screenHeader.backClicked += Data.BackClicked;
 			_screenHeader.homeClicked += Data.BackClicked;
 			//_fullScreenClaimButton.clicked += OnClaimClicked;
@@ -136,7 +141,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnClickLastRewardIcon()
 		{
-			this.ScrollToBpLevel((int) _dataProvider.BattlePassDataProvider.MaxLevel, 1000);
+			ScrollToBpLevel((int) _dataProvider.BattlePassDataProvider.MaxLevel, 1000);
 		}
 
 		private void FixSafeZone()
@@ -362,8 +367,7 @@ namespace FirstLight.Game.Presenters
 
 			return RewardState.NotReached;
 		}
-
-
+		
 		private void ConfigureSegment(BattlepassSegmentButtonElement element, BattlePassSegmentData segment, bool update)
 		{
 			var state = GetRewardState(segment);
@@ -375,6 +379,12 @@ namespace FirstLight.Game.Presenters
 			element.SetData(segment, GetRewardState(segment), _dataProvider.BattlePassDataProvider.HasPurchasedSeason());
 			if (update) return;
 			element.Clicked += OnSegmentRewardClicked;
+		}
+
+		private void OnScroll(float x)
+		{
+			var lastElement = _levelElements.Last().Value;
+			_lastRewardBaloon.SetDisplay(!lastElement.IsInScreen(Root));
 		}
 
 		private void ScrollToBpLevel(int index, int durationMs, bool instant = false)

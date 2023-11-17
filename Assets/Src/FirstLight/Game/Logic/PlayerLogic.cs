@@ -174,7 +174,7 @@ namespace FirstLight.Game.Logic
 					}
 				}
 			}
-			throw new LogicException($"The system {unlockSystem} is not defined in the {nameof(PlayerLevelConfig)}");
+			return 0;
 		}
 		
 		public List<ItemData> GetRewardsForFameLevel(uint level)

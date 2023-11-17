@@ -215,7 +215,7 @@ namespace Quantum.Systems
 		private static void CreateProjectile(Frame f, in EntityRef shooter, in FP range, in FPVector2 aimingDirection, FPVector3 projectileStartPosition, QuantumWeaponConfig weaponConfig)
 		{
 			FP accuracyMod = FP._0;
-			if(weaponConfig.MinAttackAngle > FP._0 && !weaponConfig.IsMeleeWeapon)
+			if(weaponConfig.MinAttackAngle > FP._0 && !weaponConfig.IsMeleeWeapon && !(weaponConfig.NumberOfShots > 1))
 			{
 				accuracyMod = f.WeaponConfigs.GetRandomBakedAccuracyAngle(f, weaponConfig.Id);
 			}

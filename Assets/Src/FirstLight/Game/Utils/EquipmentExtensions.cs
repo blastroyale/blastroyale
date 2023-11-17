@@ -125,8 +125,6 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.NumberOfShots, weaponConfig.NumberOfShots);
 				stats.Add(EquipmentStatType.ReloadTime, weaponConfig.ReloadTime.AsFloat);
 				stats.Add(EquipmentStatType.MagazineSize, Math.Max(0, weaponConfig.MagazineSize));
-				stats.Add(EquipmentStatType.SpecialId0, (float) weaponConfig.Specials[0]);
-				stats.Add(EquipmentStatType.SpecialId1, (float) weaponConfig.Specials[1]);
 			}
 			else
 			{

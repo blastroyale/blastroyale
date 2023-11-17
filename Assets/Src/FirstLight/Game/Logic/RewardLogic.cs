@@ -263,9 +263,7 @@ namespace FirstLight.Game.Logic
 		{
 			foreach (var item in items)
 			{
-				// Equipment never goes to unclaimed
-				if (item.MetadataType == ItemMetadataType.Equipment) AddItemToPlayerInventory(item);
-				else _unclaimedRewards.Add(item);
+				_unclaimedRewards.Add(item);
 			}
 		}
 		
@@ -282,11 +280,6 @@ namespace FirstLight.Game.Logic
 			var rewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
 			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.First(c => c.Section == section).RewardIds.Contains((uint) c.Id));
 			var rewardItems = CreateItemsFromConfigs(rewardsConfigs);
-			var bpp = rewardItems.FirstOrDefault(r => r.Id == GameId.BPP);
-			if (bpp != null && section == TutorialSection.FTUE_MAP && bpp.TryGetMetadata<CurrencyMetadata>(out var meta))
-			{
-				meta.Amount = (int)GameLogic.BattlePassLogic.GetRequiredPointsForLevel();
-			}
 			return rewardItems;
 		}
 		

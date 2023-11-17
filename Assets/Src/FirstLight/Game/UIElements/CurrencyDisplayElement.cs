@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using FirstLight.FLogger;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -32,11 +34,13 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _icon;
 		private readonly VisualElement _iconOutline;
 		private readonly Label _label;
+		
 		/* Services, providers etc... */
 		private IGameDataProvider _gameDataProvider;
 		private IMainMenuServices _mainMenuServices;
 		private IGameServices _gameServices;
-
+		private CurrencyItemViewModel _currencyView;
+		
 		/* Other private variables */
 		private Tween _animationTween;
 		private VisualElement _originElement;
@@ -84,7 +88,7 @@ namespace FirstLight.Game.UIElements
 			var amount = _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(currency);
 			
 			// We always Display coins and show other currencies only if the amount is positive
-			this.SetDisplay(currency == GameId.COIN || amount > 0);
+			//this.SetDisplay(currency == GameId.COIN || amount > 0);
 			_label.text = amount.ToString();
 		}
 
@@ -158,10 +162,11 @@ namespace FirstLight.Game.UIElements
 			/* This is a custom attribute (that can be set from UXML / UI Builder. In this example it's a GameID enum for Currency */
 			private readonly UxmlEnumAttributeDescription<GameId> _currencyAttribute = new()
 			{
+				
 				name = "currency",
 				defaultValue = GameId.CS,
 				restriction = new UxmlEnumeration
-					{values = new[] {GameId.CS.ToString(), GameId.BLST.ToString(), GameId.COIN.ToString(), GameId.Fragments.ToString()}},
+					{ values = GameIdGroup.Currency.GetIds().Select(id => id.ToString()).ToArray() },
 				use = UxmlAttributeDescription.Use.Required
 			};
 
@@ -177,16 +182,18 @@ namespace FirstLight.Game.UIElements
 				base.Init(ve, bag, cc);
 
 				var cde = (CurrencyDisplayElement) ve;
-
+				
 				cde.currency = _currencyAttribute.GetValueFromBag(bag, cc);
+
+				cde._currencyView = (CurrencyItemViewModel)ItemFactory.Currency(cde.currency, 0).GetViewModel();
+				
 				cde._icon.ClearClassList();
 				cde._icon.AddToClassList(UssIcon);
-				cde._icon.AddToClassList(string.Format(UssSpriteCurrency, cde.currency.ToString().ToLowerInvariant()));
+				cde._currencyView.DrawIcon(cde._icon);
 
 				cde._iconOutline.ClearClassList();
 				cde._iconOutline.AddToClassList(UssIconOutline);
-				cde._iconOutline.AddToClassList(string.Format(UssSpriteCurrency,
-					cde.currency.ToString().ToLowerInvariant()));
+				cde._currencyView.DrawIcon(cde._iconOutline);
 			}
 		}
 	}

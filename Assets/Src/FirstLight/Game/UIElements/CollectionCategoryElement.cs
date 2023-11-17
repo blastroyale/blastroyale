@@ -28,7 +28,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssSpriteIconGlider = "sprite-home__icon-jetpack";
 		private const string UssSpriteIconCharacters = "sprite-home__icon-characters";
 		private const string UssSpriteIconHammer = "sprite-home__icon-melee-skin";
-		private const string UssSpriteIconProfilePicture = "sprite-home__icon-profilepicture";
+		private const string UssSpriteIconProfilePicture = "sprite-home__icon-avatar";
 		
 		public CollectionCategory Category { get; set; }
 

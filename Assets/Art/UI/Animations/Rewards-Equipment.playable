@@ -223,13 +223,13 @@ MonoBehaviour:
     m_Start: 0.5166666666666668
     m_ClipIn: 0.65
     m_Asset: {fileID: 7929174352326483785}
-    m_Duration: 0.48333333333333317
-    m_TimeScale: 0.24137931034482754
+    m_Duration: 0.5833333333333333
+    m_TimeScale: 0.1999999999999999
     m_ParentTrack: {fileID: -9079786361427324287}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 0.4833333333333333
+    m_BlendOutDuration: 0.5833333333333334
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -366,7 +366,7 @@ MonoBehaviour:
     m_ParentTrack: {fileID: -9079786361427324287}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.4833333333333333
+    m_BlendInDuration: 0.5833333333333334
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Name: UITScaleClip(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: 
   _template:
-    Scale: {x: 1.5620201, y: 1.5620201}
+    Scale: {x: 1.9522492, y: 1.9522492}
 --- !u!114 &-8968828312980172006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3066,25 +3066,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -3111,25 +3093,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -3240,34 +3204,16 @@ MonoBehaviour:
     m_Start: 0.5166666666666667
     m_ClipIn: 0.4753333333333337
     m_Asset: {fileID: 3317279846633209746}
-    m_Duration: 0.5833333333333334
-    m_TimeScale: 0.13142857142857145
+    m_Duration: 0.5166666666666667
+    m_TimeScale: 0.1483870967741936
     m_ParentTrack: {fileID: -6454450283680527895}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 0.40000000000000013
+    m_BlendOutDuration: 0.5166666666666666
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -3306,15 +3252,15 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: UITOpacityClip
   - m_Version: 1
-    m_Start: 0.7
+    m_Start: 0.5166666666666668
     m_ClipIn: 0.5520000000000004
     m_Asset: {fileID: -8339657869643240823}
-    m_Duration: 0.40000000000000013
-    m_TimeScale: 0.38333333333333364
+    m_Duration: 0.5833333333333333
+    m_TimeScale: 0.2628571428571432
     m_ParentTrack: {fileID: -6454450283680527895}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.40000000000000013
+    m_BlendInDuration: 0.5166666666666666
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -3342,25 +3288,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -3390,7 +3318,7 @@ MonoBehaviour:
   m_Name: UITPositionClip(Clone)(Clone)
   m_EditorClassIdentifier: 
   _template:
-    Position: {x: -342, y: 382}
+    Position: {x: -280.8, y: 159.8}
 --- !u!114 &-6231842558456513518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4255,13 +4183,13 @@ MonoBehaviour:
     m_Start: 0.5166666666666667
     m_ClipIn: 0.5499999999999943
     m_Asset: {fileID: 7370234547608499063}
-    m_Duration: 0.4833333333333333
-    m_TimeScale: 0.2758620689655171
+    m_Duration: 0.5833333333333334
+    m_TimeScale: 0.22857142857142848
     m_ParentTrack: {fileID: -4418146883390440668}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0.48333333333333317
+    m_BlendInDuration: 0.5833333333333334
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -4288,25 +4216,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -4329,29 +4239,11 @@ MonoBehaviour:
     m_ParentTrack: {fileID: -4418146883390440668}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.48333333333333317
-    m_BlendOutDuration: -1
+    m_BlendInDuration: -1
+    m_BlendOutDuration: 0.5833333333333334
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -4361,8 +4253,8 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 1
-        inSlope: 0
-        outSlope: 0
+        inSlope: -2
+        outSlope: -2
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
@@ -4370,8 +4262,8 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 1
         value: 0
-        inSlope: 0
-        outSlope: 0
+        inSlope: -0
+        outSlope: -0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
@@ -4399,7 +4291,7 @@ MonoBehaviour:
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 0
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -5424,7 +5316,7 @@ MonoBehaviour:
   m_Name: UITPositionClip(Clone)(Clone)
   m_EditorClassIdentifier: 
   _template:
-    Position: {x: 260, y: -233}
+    Position: {x: 277.4, y: 121.63}
 --- !u!114 &-2248527846660845962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6726,7 +6618,7 @@ MonoBehaviour:
   m_Name: UITPositionClip(Clone)(Clone)
   m_EditorClassIdentifier: 
   _template:
-    Position: {x: 350, y: 240}
+    Position: {x: -224.39, y: 204.14}
 --- !u!114 &387764874337135967
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7468,7 +7360,7 @@ MonoBehaviour:
   m_Name: UITPositionClip(Clone)(Clone)
   m_EditorClassIdentifier: 
   _template:
-    Position: {x: 0, y: 0}
+    Position: {x: 317.65, y: 0}
 --- !u!114 &2023242062321418722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8147,25 +8039,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -9111,7 +8985,7 @@ MonoBehaviour:
   m_Name: UITScaleClip(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: 
   _template:
-    Scale: {x: 1.9038686, y: 1.9038686}
+    Scale: {x: 1.9699951, y: 1.9699951}
 --- !u!114 &3878878891578582535
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11864,7 +11738,7 @@ MonoBehaviour:
   m_Name: UITScaleClip(Clone)(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: 
   _template:
-    Scale: {x: 0.021029849, y: 0.014438536}
+    Scale: {x: 0, y: 0}
 --- !u!114 &5838638160016931253
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13190,7 +13064,7 @@ MonoBehaviour:
   m_Name: UITPositionClip(Clone)
   m_EditorClassIdentifier: 
   _template:
-    Position: {x: -160.7, y: -213.1}
+    Position: {x: 230, y: -185.7}
 --- !u!114 &7484850498043001329
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13295,13 +13169,13 @@ MonoBehaviour:
     m_Start: 0.5166666666666668
     m_ClipIn: 0.5499999999999943
     m_Asset: {fileID: 8272127541030472936}
-    m_Duration: 0.48333333333333317
-    m_TimeScale: 0.27586206896551724
+    m_Duration: 0.5833333333333333
+    m_TimeScale: 0.22857142857142856
     m_ParentTrack: {fileID: 7695908689852534171}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 0.4833333333333333
+    m_BlendOutDuration: 0.5833333333333334
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -13369,7 +13243,7 @@ MonoBehaviour:
     m_ParentTrack: {fileID: 7695908689852534171}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.4833333333333333
+    m_BlendInDuration: 0.5833333333333334
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -13478,7 +13352,7 @@ MonoBehaviour:
   m_Name: UITPositionClip(Clone)
   m_EditorClassIdentifier: 
   _template:
-    Position: {x: -259.3, y: 144.4}
+    Position: {x: -93.5, y: -185.36}
 --- !u!114 &8272127541030472936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13492,7 +13366,7 @@ MonoBehaviour:
   m_Name: UITPositionClip(Clone)
   m_EditorClassIdentifier: 
   _template:
-    Position: {x: 245.6, y: 56.5}
+    Position: {x: 128.93, y: 0}
 --- !u!74 &8358153342976792759
 AnimationClip:
   m_ObjectHideFlags: 1
@@ -14256,25 +14130,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4

@@ -1283,7 +1283,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 88d02c5f6700a4b818733c8181483866
-    m_Address: Assets/Art/Materials/M_Baked_Bush.mat
+    m_Address: terials/M_Baked_Bush.mataked_Bush.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1497,11 +1497,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6598376af02364861969ec3778124ff6
-    m_Address: Assets/Art/UI/Sprites/Match/progress-shield.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c141205a3f2794e0194d1e29dc0e26c7
     m_Address: Assets/Art/UI/Sprites/Match/vfx-joystick-direction.png
     m_ReadOnly: 0
@@ -1607,11 +1602,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fe3d255759da2154cbff8c350ca23a75
-    m_Address: Assets/Art/UI/Sprites/Match/progress-health-squads.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 30e882f6d6fea4b0f94dd823b4e3490e
     m_Address: Assets/Art/UI/Sprites/Match/icon-menu.png
     m_ReadOnly: 0
@@ -1667,11 +1657,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 65dc91a3e3cba444584245b3ac6f518b
-    m_Address: Assets/Art/UI/Sprites/Match/background-playerbar.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 90722f230fb924a4fa6bb2cfef7a4aea
     m_Address: Assets/Art/UI/Sprites/Match/icon-skull-full.png
     m_ReadOnly: 0
@@ -1694,11 +1679,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d82e5dc2de30a408db68d2974774392a
     m_Address: Assets/Art/UI/Sprites/Match/text-busted.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d7346bb2941c7443c80bb105e4caf77f
-    m_Address: Assets/Art/UI/Sprites/Match/background-squadmember.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1732,11 +1712,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dec8e302ee2ae482bad7218e1b465e89
-    m_Address: Assets/Art/UI/Sprites/Match/progress-damage.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 02de3cf14de0a4b078cec77b331e6b9a
     m_Address: Assets/Art/UI/Sprites/Match/icon-ammo.png
     m_ReadOnly: 0
@@ -1759,11 +1734,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d466d5b0888ac6049ac6d2bd6418d980
     m_Address: Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart4.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 12f35fa0697254aa6b13143227467839
-    m_Address: Assets/Art/UI/Sprites/Match/progress-health.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -3406,6 +3376,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2953c2b5dfa4f864a85fd9ba191c7c19
     m_Address: Assets/Art/UI/Sprites/Home/icon-tiktok.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a18f37ac528733142a9b88762f8af958
+    m_Address: Assets/Art/Materials/M_Baked_Bush_Desert.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

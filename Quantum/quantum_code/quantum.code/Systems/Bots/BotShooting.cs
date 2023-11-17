@@ -228,7 +228,7 @@ namespace Quantum.Systems.Bots
 		}
 		
 		// We check specials and try to use them depending on their type if possible
-		public static bool TryUseSpecials(this ref BotCharacter bot, PlayerCharacter* player, EntityRef botEntity, Frame f)
+		public static bool TryUseSpecials(this ref BotCharacter bot, PlayerInventory* inventory, EntityRef botEntity, Frame f)
 		{
 			if (f.Context.TryGetMutatorByType(MutatorType.NoAbilities, out _))
 			{
@@ -247,7 +247,7 @@ namespace Quantum.Systems.Bots
 
 			for (var i = 0; i <= 1; i++)
 			{
-				if (TryUseSpecial(f, player, i, botEntity, bot.Target))
+				if (TryUseSpecial(f, inventory, i, botEntity, bot.Target))
 				{
 					bot.NextAllowedSpecialUseTime = f.Time + f.RNG->NextInclusive(bot.SpecialCooldown);
 					return true;
@@ -257,15 +257,15 @@ namespace Quantum.Systems.Bots
 			return false;
 		}
 
-		public static bool TryUseSpecial(Frame f, PlayerCharacter* playerCharacter, int specialIndex, EntityRef entity,
+		public static bool TryUseSpecial(Frame f, PlayerInventory* inventory, int specialIndex, EntityRef entity,
 								   EntityRef target)
 		{
-			var special = playerCharacter->WeaponSlot->Specials[specialIndex];
+			var special = inventory->Specials[specialIndex];
 
 			if ((target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
 				special.TryActivate(f, PlayerRef.None, entity, FPVector2.Zero, specialIndex))
 			{
-				playerCharacter->WeaponSlot->Specials[specialIndex] = special;
+				inventory->Specials[specialIndex] = special;
 				return true;
 			}
 

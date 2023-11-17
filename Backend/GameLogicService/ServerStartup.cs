@@ -66,7 +66,7 @@ namespace Backend
 			services.AddSingleton<IGameConfigurationService, GameConfigurationService>();
 			services.AddSingleton<IConfigBackendService, PlayfabConfigurationBackendService>();
 			services.AddSingleton<IEnvironmentService, ServerEnvironmentService>();
-
+			services.AddSingleton<IInventorySyncService, PlayfabInventorySyncService>();
 			services.AddSingleton<IPlayfabServer, PlayfabServerSettings>();
 			services.AddSingleton<ILogicWebService, GameLogicWebWebService>();
 			services.AddSingleton<JsonConverter, StringEnumConverter>();

@@ -17,6 +17,8 @@ namespace FirstLight.Game.Configs
 			public uint Number;
 			[Tooltip("The price of the Pro BP in BlastBucks")]
 			public uint Price;
+			[Tooltip("Buy level price, set 0 to disable functionality")]
+			public uint BuyLevelPrice;
 			public uint DefaultPointsPerLevel;
 			/// <summary>
 			/// Format dd/MM/yyyy
@@ -24,7 +26,8 @@ namespace FirstLight.Game.Configs
 			public string StartsAt;
 			public string EndsAt;
 			public DateTime GetStartsAtDateTime() => DateTime.ParseExact(StartsAt, "d/M/yyyy", CultureInfo.InvariantCulture);
-			public DateTime GetEndsAtDateTime() => DateTime.ParseExact(EndsAt, "d/M/yyyy", CultureInfo.InvariantCulture);
+			// Operations to get the last tick of the day
+			public DateTime GetEndsAtDateTime() => DateTime.ParseExact(EndsAt, "d/M/yyyy", CultureInfo.InvariantCulture).Date.AddDays(1).AddTicks(-1);
 		}
 		[Serializable]
 		public struct BattlePassLevel
@@ -58,7 +61,22 @@ namespace FirstLight.Game.Configs
 			return null;
 		}
 		
-		
+		public BattlePassSeasonWrapper GetSeason(uint season)
+		{
+			foreach (var battlePassSeason in Seasons)
+			{
+				if (battlePassSeason.Number == season)
+				{
+					return new BattlePassSeasonWrapper()
+					{
+						Season = battlePassSeason,
+						Levels = Levels.FindAll(lvl => lvl.Season == battlePassSeason.Number)
+					};
+				}
+			}
+
+			return null;
+		}
 		
 	}
 

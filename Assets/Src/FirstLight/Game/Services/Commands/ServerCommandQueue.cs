@@ -91,6 +91,10 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public void EnqueueCommand(IGameCommand command)
 		{
+			if (FeatureFlags.GetLocalConfiguration().OfflineMode)
+			{
+				return;
+			}
 			var entry = new ServerCommandQueueEntry(GetClientDelta(_data), command);
 			_queue.Enqueue(entry);
 			if (_queue.Count == 1)

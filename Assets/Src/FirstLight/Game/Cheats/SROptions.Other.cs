@@ -15,7 +15,13 @@ public partial class SROptions
 	{
 		MainInstaller.Resolve<IGameServices>().RemoteTextureService.ClearCache();
 	}
-
+	
+	[Category("Other")]
+	public void OpenBattlePassBanner()
+	{
+		MainInstaller.ResolveServices().GameUiService.OpenUiAsync<BattlePassSeasonBannerPresenter>();
+	}
+	
 	[Category("Other")]
 	public void OpenButtonDialog()
 	{

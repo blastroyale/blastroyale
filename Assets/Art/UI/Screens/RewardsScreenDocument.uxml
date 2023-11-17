@@ -37,16 +37,16 @@
             <ui:Label tabindex="-1" text="COINS" display-tooltip-when-elided="true" name="RewardName" class="rewards-one__name" />
             <ui:Label tabindex="-1" text="x 250" display-tooltip-when-elided="true" name="RewardAmount" class="rewards-one__amount" />
             <ui:VisualElement name="RewardsImpactCircle" class="rewards-one__circle-impact" />
+            <ui:VisualElement name="SparkGradient1" class="rewards-one__spark-small rewards-one__spark-small--1">
+                <ui:VisualElement name="Spark" class="rewards-one__spark" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SparkGradient2" class="rewards-one__spark-small rewards-one__spark-small--2">
+                <ui:VisualElement name="Spark" class="rewards-one__spark" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SparkGradient3" class="rewards-one__spark-small rewards-one__spark-small--3">
+                <ui:VisualElement name="Spark" class="rewards-one__spark" />
+            </ui:VisualElement>
             <ui:VisualElement name="RewardIcon" class="rewards-one__rewardicon sprite-home__icon-shop">
-                <ui:VisualElement name="SparkGradient1" class="rewards-one__spark-small rewards-one__spark-small--1">
-                    <ui:VisualElement name="Spark" class="rewards-one__spark" />
-                </ui:VisualElement>
-                <ui:VisualElement name="SparkGradient2" class="rewards-one__spark-small rewards-one__spark-small--2">
-                    <ui:VisualElement name="Spark" class="rewards-one__spark" />
-                </ui:VisualElement>
-                <ui:VisualElement name="SparkGradient3" class="rewards-one__spark-small rewards-one__spark-small--3">
-                    <ui:VisualElement name="Spark" class="rewards-one__spark" />
-                </ui:VisualElement>
                 <ui:VisualElement name="AppearGradient" class="rewards-one__spark-gradient">
                     <ui:VisualElement name="AppearSparkEquipment" class="rewards-one__appear-spark" />
                 </ui:VisualElement>
@@ -82,13 +82,13 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="EquipmentIcon" class="rewards-equipment__item-icon">
-                <ui:VisualElement name="SparkGradient1" class="rewards-one__spark-small rewards-one__spark-small--1">
+                <ui:VisualElement name="SparkGradient1" class="rewards-one__spark-small rewards-equipment__spark-small--1">
                     <ui:VisualElement name="Spark" class="rewards-one__spark" />
                 </ui:VisualElement>
-                <ui:VisualElement name="SparkGradient2" class="rewards-one__spark-small rewards-one__spark-small--2">
+                <ui:VisualElement name="SparkGradient2" class="rewards-one__spark-small rewards-equipment__spark-small--2">
                     <ui:VisualElement name="Spark" class="rewards-one__spark" />
                 </ui:VisualElement>
-                <ui:VisualElement name="SparkGradient3" class="rewards-one__spark-small rewards-one__spark-small--3">
+                <ui:VisualElement name="SparkGradient3" class="rewards-one__spark-small rewards-equipment__spark-small--3">
                     <ui:VisualElement name="Spark" class="rewards-one__spark" />
                 </ui:VisualElement>
                 <ui:VisualElement name="AppearGradientEquipment" class="rewards-one__spark-gradient">

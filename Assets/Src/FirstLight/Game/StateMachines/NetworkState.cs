@@ -49,10 +49,7 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("NETWORK - Left Room Event");
 		public static readonly IStatechartEvent DcScreenBackEvent = new StatechartEvent("NETWORK - Disconnected Screen Back Event");
 		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
-
-		public static readonly IStatechartEvent IapProcessStartedEvent = new StatechartEvent("NETWORK - IAP Started Event");
-		public static readonly IStatechartEvent IapProcessFinishedEvent = new StatechartEvent("NETWORK - IAP Processed Event");
-
+		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IInternalGameNetworkService _networkService;
@@ -88,7 +85,6 @@ namespace FirstLight.Game.StateMachines
 			var connectedToNameServer = stateFactory.State("NETWORK - Connected To Name Server");
 			var connectToRegionMaster = stateFactory.State("NETWORK - Connect To Region Master");
 			var connectionCheck = stateFactory.Choice("NETWORK - Connection Check");
-			var iapProcessing = stateFactory.State("NETWORK - IAP Processing");
 			var invalidServer = stateFactory.Transition("NETWORK - InvalidServer");
 
 			initial.Transition().Target(initialConnection);
@@ -102,8 +98,6 @@ namespace FirstLight.Game.StateMachines
 			invalidServer.OnEnter(ClearServerData);
 			invalidServer.Transition().Target(initialConnection);
 			
-			iapProcessing.Event(IapProcessFinishedEvent).OnTransition(HandleIapTransition).Target(connected);
-
 			connectionCheck.Transition().Condition(IsPhotonConnectedAndReady).Target(connected);
 			connectionCheck.Transition().Target(disconnected); // TODO: Send to reconnection state instead
 
@@ -601,7 +595,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			// If running the equipment/BP menu tutorial, the room is handled through the EquipmentBpTutorialState.cs
 			// This is the same flow as the first match setup
-			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_MATCH)
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
 			{
 				return;
 			}

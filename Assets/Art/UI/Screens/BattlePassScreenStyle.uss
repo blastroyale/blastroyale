@@ -29,6 +29,7 @@
     width: 100%;
     flex-shrink: 0;
     justify-content: center;
+    padding-right: 0;
 }
 
 .season-header-safe-area {
@@ -42,34 +43,42 @@
 }
 
 .season-header__currencies {
-    width: 514px;
-    position: absolute;
-    right: 152px;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
+    top: 0;
+    bottom: 0;
+    width: auto;
+    justify-content: space-between;
+    position: relative;
+    left: 0;
+    right: 0;
+    padding-left: 514px;
+    padding-right: 177px;
 }
 
 .season-header__background {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Textures/battlepass-header.png?fileID=21300000&guid=aaff47116a62f45e0a362688aa274e19&type=3#battlepass-header');
     width: 100%;
     height: 100%;
     flex-direction: row-reverse;
     justify-content: flex-end;
     -unity-background-image-tint-color: rgb(255, 255, 255);
+    display: flex;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/header.png?fileID=21300000&guid=2eb3dec7717e891448c766eef3c6ebc9&type=3#header');
+    -unity-background-scale-mode: scale-and-crop;
 }
 
 .season-header__bpp-bar-layout {
-    position: absolute;
     -unity-background-scale-mode: scale-and-crop;
     align-items: center;
-    justify-content: center;
     flex-direction: row;
     bottom: 0;
-    left: 600px;
-    top: 0;
-    right: 750px;
+    position: relative;
+    left: auto;
+    top: auto;
+    right: auto;
+    justify-content: flex-end;
+    align-self: auto;
 }
 
 .season-level {
@@ -79,42 +88,60 @@
     display: flex;
 }
 
-.season-level__label {
+.bar__level {
+    flex-grow: 0;
+    height: 70px;
+    width: 70px;
+    background-image: none;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-width: 4px;
+    border-radius: 35px;
+    align-items: center;
+    min-height: auto;
+    margin: 0;
+    bottom: auto;
+    justify-content: center;
+    align-self: center;
+    right: auto;
+    background-color: rgb(48, 46, 70);
+    border-color: rgb(26, 26, 44);
+    position: relative;
+    flex-shrink: 0;
+    left: auto;
+    top: auto;
+    flex-direction: column;
+    translate: 0 0;
+}
+
+.bar__level__label {
+    font-size: 50px;
+    color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    -unity-font-style: bold;
-    font-size: 50px;
-    color: rgb(255, 255, 255);
-    -unity-paragraph-spacing: -30px;
-    bottom: -3px;
-}
-
-.season-level__label--big {
-    font-size: 72px;
-    margin-left: 4px;
-    bottom: 3px;
+    width: 100%;
+    height: 100%;
+    -unity-text-align: upper-center;
 }
 
 .bpp-bar {
-    width: 300px;
-    height: 45px;
     align-items: flex-start;
     justify-content: center;
+    width: auto;
+    height: auto;
 }
 
 .bpp-bar__background {
-    height: 100%;
-    width: 296px;
-    background-image: var(--sprite-shared__progress-battlepass-bpp-bg);
-    padding-left: 2px;
-    padding-right: 2px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding: 2px;
     flex-direction: row;
-    position: absolute;
     align-items: center;
-    -unity-background-image-tint-color: rgb(22, 20, 38);
+    background-image: none;
+    background-color: rgb(0, 0, 0);
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+    border-radius: 10px;
+    position: relative;
+    width: 363px;
+    height: 51px;
 }
 
 .bpp-bar__progress {
@@ -125,23 +152,69 @@
 
 .bpp-bar__icon {
     background-image: var(--sprite-shared__icon-currency-bpp);
-    width: 60px;
-    height: 60px;
     position: absolute;
-    left: -30px;
+    left: -50px;
+    width: 66px;
+    height: 72px;
 }
 
 .bpp-bar__label {
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-font-style: bold;
-    font-size: 36px;
     color: rgb(255, 255, 255);
     -unity-text-align: middle-center;
     width: 100%;
     height: 100%;
     position: absolute;
+    font-size: 44px;
+    text-shadow: 2px 4px 0 rgb(0, 0, 0);
+}
+
+.bpp-bar__arrow {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/arrow.png?fileID=21300000&guid=9701a4b122d774f5abadb31755ff50ee&type=3#arrow');
+    width: 52px;
+    height: 52px;
+    -unity-background-scale-mode: scale-to-fit;
+    margin-right: 16px;
+    margin-left: 16px;
+}
+
+.season-number {
+    color: rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    letter-spacing: -2px;
+    left: auto;
+    top: auto;
+    position: relative;
+    justify-content: center;
+    align-self: center;
+    -unity-text-align: middle-center;
+    white-space: normal;
+    padding-bottom: 0;
+    padding-right: 0;
+    font-size: 54px;
+    text-shadow: 2px 4px 0 rgb(0, 0, 0);
+    padding-left: 0;
+    text-overflow: clip;
+    margin-left: 0;
+}
+
+.bottom-bar-opacity {
+    flex-grow: 1;
+    position: absolute;
+    display: flex;
+    height: 50%;
+    width: 150%;
+    left: -36px;
+    top: 54%;
+    right: auto;
+    bottom: auto;
+    background-color: rgba(19, 34, 74, 0.57);
 }
 
 .season-content {
@@ -156,18 +229,17 @@
     align-self: auto;
     flex-direction: row;
     flex-wrap: nowrap;
-}
-
-.season-content__scroll {
-    background-color: rgba(255, 0, 0, 0);
-    position: relative;
-    height: 800px;
-    left: auto;
-    right: auto;
+    padding-top: 0;
+    margin-top: -3px;
 }
 
 .season-content__scroll .unity-scroll-view__content-container {
     flex-direction: row-reverse;
+    height: 100%;
+}
+
+.season-content__scroll .unity-scroll-view__content-and-vertical-scroll-container {
+    height: 100%;
 }
 
 .season-image {
@@ -199,15 +271,17 @@
 
 .season-info {
     height: 81px;
-    position: absolute;
-    bottom: 0;
-    left: 400px;
-    flex-grow: 1;
-    right: 500px;
     overflow: visible;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    align-self: auto;
+    right: auto;
+    left: auto;
+    bottom: auto;
+    position: relative;
+    flex-grow: 0;
+    margin-right: 40px;
 }
 
 .season-info__season-end {
@@ -220,16 +294,25 @@
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-font-style: bold;
-    font-size: 36px;
-    color: rgb(255, 255, 255);
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
+    letter-spacing: -4px;
+    font-size: 38px;
+    color: rgb(75, 216, 214);
 }
 
-.season-info__label--yellow {
-    color: rgb(252, 211, 49);
+.season-info__label--white {
+    color: rgb(255, 255, 255);
+    margin-left: 0;
+    padding-left: 0;
+    font-size: 38px;
+}
+
+.season-info__blastbucks {
+    margin-right: 0;
+    margin-left: 30px;
 }
 
 .claim-button {
@@ -246,7 +329,7 @@
 }
 
 .screen-header .screen-header__title {
-    bottom: 70px;
+    display: none;
 }
 
 .fullscreen-claim {
@@ -265,87 +348,68 @@
     flex-grow: 1;
     overflow: visible;
     height: 100%;
-    top: auto;
+    top: 62px;
     align-self: center;
     justify-content: center;
     align-items: center;
-    margin-left: 419px;
+    margin-left: 110px;
+    padding-left: 265px;
 }
 
 .left-bar {
-    background-color: rgba(255, 8, 8, 0);
-    height: 100%;
-    width: 560px;
-    background-image: none;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    -unity-background-scale-mode: scale-and-crop;
-    left: -77px;
-    padding-left: 0;
-    -unity-background-image-tint-color: rgb(89, 24, 83);
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    align-items: stretch;
-    justify-content: center;
-    align-self: auto;
-    overflow: visible;
-    -unity-slice-left: 0;
-    -unity-slice-top: 0;
-    -unity-slice-right: 0;
-    -unity-slice-bottom: 0;
     flex-grow: 1;
-    min-width: 560px;
-    max-height: none;
-    max-width: 700px;
-    flex-shrink: 0;
+    left: -179px;
     position: absolute;
+    top: 0;
+    bottom: 0;
+    flex-direction: row;
+    align-items: center;
 }
 
-.paid-container-shadow {
+.left-bar__passes-holder {
     flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
-    min-width: auto;
-    min-height: auto;
-    flex-shrink: 0;
-    justify-content: center;
-    align-items: center;
-    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
-    -unity-background-scale-mode: scale-and-crop;
-    margin-right: 9%;
-    padding-left: 150px;
-    -unity-background-image-tint-color: rgba(39, 26, 41, 0.51);
-    display: flex;
-    width: 100%;
-    align-self: auto;
-    margin-left: -43px;
     position: absolute;
-    height: 50%;
+    left: 63px;
+}
+
+.left-bar__background {
+    flex-grow: 0;
+    background-image: var(--sprite-battlepass__background-left-bar);
+    width: 636px;
+    height: 2156px;
+    top: auto;
+    position: relative;
+    left: auto;
     bottom: auto;
-    left: 68px;
-    top: 0;
+    flex-shrink: 0;
+    align-self: auto;
+    visibility: visible;
+    display: flex;
 }
 
 .paid-container {
-    flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     min-width: auto;
     min-height: auto;
-    flex-shrink: 1;
-    justify-content: flex-start;
-    align-items: center;
-    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
     -unity-background-scale-mode: scale-and-crop;
     margin-right: 0;
-    padding-left: 150px;
     -unity-background-image-tint-color: rgb(116, 23, 180);
     overflow: visible;
     display: flex;
-    width: 100%;
-    height: auto;
-    align-self: stretch;
+    border-right-width: 2px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding-top: 27px;
+    padding-left: 51px;
+    padding-right: 50px;
+    align-items: auto;
+    justify-content: space-around;
+    align-self: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    background-image: none;
+    height: 56%;
+    width: 64%;
 }
 
 .paid-icon-background {
@@ -356,59 +420,53 @@
     overflow: visible;
     min-width: auto;
     min-height: auto;
-    margin-left: -25px;
-    margin-right: 0;
     margin-top: 0;
-    margin-bottom: 0;
-    width: 350px;
-    height: 350px;
     -unity-background-image-tint-color: rgba(0, 0, 0, 0.59);
-    max-height: 350px;
-    align-self: stretch;
     justify-content: flex-end;
-    align-items: center;
     flex-direction: column;
-    position: absolute;
-    top: 5%;
     flex-shrink: 0;
+    width: 336px;
+    height: 330px;
+    max-height: none;
+    position: relative;
+    top: auto;
+    margin-left: auto;
+    align-self: flex-end;
+    align-items: flex-end;
+    padding-right: 0;
+    margin-right: 8px;
+    margin-bottom: 82px;
 }
 
 .activate-button {
-    position: absolute;
-    bottom: 9px;
     overflow: visible;
     background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-main-yellow.png?fileID=2800000&guid=fec2c038b4fd64e349c7afb5d98f3cee&type=3#button-main-yellow');
-    width: 300px;
-    height: 80px;
-    font-size: 56px;
-    left: 144px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(147, 35, 14);
     text-shadow: 4px 4px 0 rgb(156, 36, 12);
-}
-
-.free-container-shadow {
-    flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
-    min-width: auto;
-    min-height: auto;
-    flex-shrink: 0;
-    justify-content: center;
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin-top: auto;
+    margin-right: 28px;
+    margin-bottom: 35px;
+    margin-left: auto;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    font-size: 40px;
+    align-self: center;
+    justify-content: flex-end;
     align-items: center;
-    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
-    -unity-background-scale-mode: scale-and-crop;
-    margin-right: 9%;
-    padding-left: 150px;
-    -unity-background-image-tint-color: rgba(39, 26, 41, 0.51);
-    display: flex;
-    width: 100%;
-    align-self: auto;
-    margin-left: -43px;
-    position: absolute;
-    height: 50%;
-    bottom: 0;
-    left: 21px;
+    width: 321px;
+    -unity-font-style: bold;
+    letter-spacing: -8px;
+    right: auto;
+    flex-direction: column;
+    -unity-background-scale-mode: stretch-to-fill;
+    height: 85px;
 }
 
 .free-container {
@@ -417,41 +475,44 @@
     min-width: auto;
     min-height: auto;
     flex-shrink: 0;
-    justify-content: center;
-    align-items: center;
-    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
     -unity-background-scale-mode: scale-and-crop;
     margin-right: 9%;
-    padding-left: 150px;
-    -unity-background-image-tint-color: rgb(39, 26, 41);
+    -unity-background-image-tint-color: rgb(36, 32, 55);
     display: flex;
-    width: 100%;
     align-self: stretch;
-    margin-left: -43px;
+    margin-left: 0;
+    padding-left: 451px;
+    padding-right: 65px;
+    align-items: center;
+    padding-top: 32px;
+    justify-content: flex-start;
+    background-image: none;
+    width: 55%;
+    left: -114px;
 }
 
 .free-icon-background {
     flex-grow: 0;
     background-color: rgba(0, 0, 0, 0);
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/pass-back.png?fileID=21300000&guid=1bed5654b747c4e5d944090a92d18016&type=3#pass-back');
+    background-image: var(--sprite-battlepass__pass-back);
     -unity-background-scale-mode: stretch-to-fill;
     overflow: hidden;
     min-width: auto;
     min-height: auto;
     margin-left: 12px;
-    margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
     width: 312px;
     height: 330px;
     -unity-background-image-tint-color: rgba(0, 0, 0, 0.35);
     max-height: 330px;
-    align-self: stretch;
     justify-content: center;
     align-items: center;
     flex-direction: column-reverse;
-    position: absolute;
     flex-shrink: 0;
+    position: relative;
+    align-self: center;
+    margin-right: 23px;
 }
 
 .free-pass-icon {
@@ -490,12 +551,10 @@
     position: absolute;
     top: auto;
     left: 84px;
-    font-size: 48px;
     color: rgb(252, 188, 50);
     -unity-text-align: upper-center;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -508,33 +567,38 @@
     -unity-background-scale-mode: stretch-to-fill;
     flex-direction: column;
     overflow: visible;
-    bottom: 5px;
+    font-size: 44px;
+    -unity-paragraph-spacing: -41px;
+    text-shadow: 2px 3px 0 rgb(0, 0, 0);
+    bottom: 27px;
+    letter-spacing: -4px;
 }
 
 .premium-lock {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
-    width: 70px;
-    height: 80px;
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/icon-lock.png?fileID=2800000&guid=263366e3a84b54d6fa1dc43028346628&type=3#icon-lock');
-    top: 22px;
-    left: 17px;
     visibility: visible;
     display: flex;
+    width: 57px;
+    height: 62px;
+    left: 35px;
+    top: 16px;
 }
 
 .free-title {
-    position: absolute;
     top: auto;
     left: auto;
-    font-size: 48px;
     color: rgb(255, 255, 255);
     -unity-text-align: upper-center;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    bottom: -1px;
+    letter-spacing: -2px;
+    font-size: 44px;
+    bottom: 39px;
+    position: absolute;
 }
 
 .bp-rows {
@@ -604,19 +668,139 @@
     justify-content: flex-start;
 }
 
-.bottom-row {
-    flex-grow: 1;
+.column-holder {
     background-color: rgba(0, 0, 0, 0);
-    flex-wrap: nowrap;
-    flex-direction: row;
     width: auto;
     height: 100%;
     flex-shrink: 1;
-    align-items: auto;
     min-height: auto;
-    min-width: auto;
     max-width: none;
     max-height: 100%;
     position: relative;
     align-self: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: row-reverse;
+    flex-grow: 0;
+    left: -90px;
+    min-width: 100%;
+    justify-content: flex-end;
+    padding-bottom: 21px;
+    padding-right: 0;
+    margin-left: 0;
+    align-items: center;
+}
+
+.completed-bar {
+    flex-grow: 0;
+    background-color: rgb(126, 250, 213);
+    background-image: none;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: 0;
+    left: 0;
+    align-items: flex-start;
+    margin: 0;
+    display: flex;
+    height: 40px;
+    width: 50%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    position: relative;
+    border-left-color: rgb(126, 250, 213);
+    border-right-color: rgb(126, 250, 213);
+    border-top-color: rgb(126, 250, 213);
+    border-bottom-color: rgb(126, 250, 213);
+    bottom: auto;
+    top: auto;
+    min-height: auto;
+}
+
+.completed-bar__shadow {
+    flex-grow: 0;
+    background-color: rgb(77, 182, 180);
+    width: 100%;
+    background-image: none;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-radius: 0;
+    left: auto;
+    align-items: auto;
+    margin: 0;
+    position: absolute;
+    height: 18px;
+    bottom: 0;
+    border-bottom-right-radius: 7px;
+    border-left-color: rgb(126, 250, 213);
+    border-right-color: rgb(126, 250, 213);
+    border-top-color: rgb(126, 250, 213);
+    border-bottom-color: rgb(126, 250, 213);
+    min-height: auto;
+}
+
+.season-header__right-container {
+    flex-grow: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.last-reward-widget {
+    flex-grow: 1;
+    width: 260px;
+    height: 200px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/cloud-final-reward.png?fileID=21300000&guid=f4015771d7e0942cead63273bd529e44&type=3#cloud-final-reward');
+    position: absolute;
+    right: 0;
+    top: 20px;
+    overflow: hidden;
+}
+
+.last-reward-container {
+    flex-grow: 1;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 193px;
+    background-image: none;
+}
+
+.last-reward-sprite {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/AssassinMale/character-maleassassin.png?fileID=21300000&guid=0f98b04066aac0445be253c05eaec55e&type=3#character-maleassassin');
+    -unity-background-scale-mode: scale-and-crop;
+    position: absolute;
+    width: 256px;
+    height: 232px;
+    top: 11px;
+    left: 6px;
+}
+
+.reward-shine-yellow {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/icon-star.png?fileID=21300000&guid=9abc186c83592ff419ca692f8c9f531b&type=3#icon-star');
+    height: 58px;
+    width: 65px;
+    position: absolute;
+    top: -2px;
+    left: 165px;
+    -unity-background-image-tint-color: rgb(249, 186, 45);
+}
+
+.reward-shine-blue {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/icon-star.png?fileID=21300000&guid=9abc186c83592ff419ca692f8c9f531b&type=3#icon-star');
+    height: 58px;
+    width: 65px;
+    position: absolute;
+    top: 140px;
+    left: 15px;
+    -unity-background-image-tint-color: rgb(86, 164, 244);
 }

@@ -43,7 +43,7 @@
     color: rgb(255, 255, 255);
     height: 45px;
     -unity-text-align: middle-center;
-    font-size: 48px;
+    font-size: 36px;
     margin: 0;
     padding: 0;
 }
@@ -53,6 +53,7 @@
     width: 42px;
     height: 42px;
     margin-right: 19px;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .collection-category__notification {

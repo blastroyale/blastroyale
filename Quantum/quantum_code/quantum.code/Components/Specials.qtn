@@ -27,6 +27,14 @@ enum SpecialType
 	Radar,
 }
 
+synced event OnLocalPlayerSpecialUpdated
+{
+    local player_ref Player;
+    entity_ref Entity;
+    UInt32 SpecialIndex;
+    Special Special;
+}
+
 synced event OnAirstrikeUsed
 {
 	entity_ref Hazard;

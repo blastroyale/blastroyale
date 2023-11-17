@@ -42,14 +42,13 @@ namespace Quantum.Systems
 				return;
 			}
 
-			f.Events.OnHazardLand(filter.Hazard->GameId, filter.Transform->Position, filter.Hazard->Attacker);
-
 			//check the area when the hazard explodes
 			var shape = Shape3D.CreateSphere(hazard->Radius);
 			var hits = f.Physics3D.OverlapShape(filter.Transform->Position, FPQuaternion.Identity, shape,
 												f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			hits.SortCastDistance();
 
+			uint properHits = 0;
 			//loop through each hit, and create a spell to deal damage to each target hit
 			for (var j = 0; j < hits.Count; j++)
 			{
@@ -84,9 +83,12 @@ namespace Quantum.Systems
 						continue;
 					}
 
+					properHits++;
 					OnHit(f, &spell);
 				}
 			}
+			
+			f.Events.OnHazardLand(filter.Hazard->GameId, filter.Transform->Position, filter.Hazard->Attacker, properHits);
 		}
 
 		private void OnHit(Frame f, Spell* spell)

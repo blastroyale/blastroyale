@@ -14,7 +14,8 @@ using PlayerProfile = PlayFab.ServerModels.PlayerProfile;
 public class WipeBPP : PlayfabScript
 {
 	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
-	
+	private const uint SEASON_TO_WIPE = 6;
+
 	public override void Execute(ScriptParameters parameters)
 	{
 		var task = RunAsync();
@@ -36,8 +37,12 @@ public class WipeBPP : PlayfabScript
 	{
 		var state = await ReadUserState(profile.PlayerId);
 		var playerData = state.DeserializeModel<BattlePassData>();
-		playerData.BPLevel = 0;
-		playerData.BPPoints = 0;
+		if (playerData.Seasons.TryGetValue(SEASON_TO_WIPE, out var season))
+		{
+			season.Level = 0;
+			season.Points = 0;
+		}
+		
 		state.UpdateModel(playerData);
 		await SetUserState(profile.PlayerId, state);
 		Console.WriteLine($"Wiped BPP for player {profile.PlayerId}");

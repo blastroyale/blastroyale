@@ -126,6 +126,7 @@ namespace FirstLight.Game.Services
 		public IRewardService RewardService { get; }
 
 		public IRoomService RoomService { get; }
+		public IBattlePassService BattlePassService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -180,11 +181,14 @@ namespace FirstLight.Game.Services
 		public IControlSetupService ControlsSetup { get; }
 
 		public IRoomService RoomService { get; }
+		
+		public IBattlePassService BattlePassService { get; }
 
 		public ILeaderboardService LeaderboardService { get; }
 
 		public ICheatsService CheatsService { get; }
 		public IRewardService RewardService { get; }
+		
 
 		public string QuitReason { get; set; }
 
@@ -253,6 +257,7 @@ namespace FirstLight.Game.Services
 				tutorialService);
 			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);
 			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
+			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, this);
 		}
 
 		/// <inheritdoc />

@@ -1,0 +1,396 @@
+.blocker {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.67);
+    top: 0;
+    left: 0;
+}
+
+.banner {
+    flex-grow: 0;
+    width: 100%;
+    height: 454px;
+    background-color: rgb(94, 9, 143);
+    align-self: center;
+    border-left-color: rgb(62, 9, 90);
+    border-right-color: rgb(62, 9, 90);
+    border-top-color: rgb(62, 9, 90);
+    border-bottom-color: rgb(62, 9, 90);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.banner-background__left {
+    flex-grow: 0;
+    width: 703px;
+    height: 100%;
+    background-image: url('project://database/Assets/Art/Textures/Ui/AdventureHud/321Countdown/DiagonalWiper.png?fileID=21300000&guid=f26621d71421141298a9a8cf0dc80574&type=3#DiagonalWiper');
+    left: -25px;
+    -unity-background-image-tint-color: rgb(62, 10, 91);
+    align-self: flex-start;
+    margin-left: -189px;
+}
+
+.purple-fill {
+    flex-grow: 0;
+    width: 482px;
+    height: 100%;
+    background-image: url('project://database/Assets/Art/Textures/Ui/AdventureHud/321Countdown/DiagonalWiper.png?fileID=21300000&guid=f26621d71421141298a9a8cf0dc80574&type=3#DiagonalWiper');
+    left: -216px;
+    -unity-background-image-tint-color: rgb(62, 10, 91);
+    align-self: flex-start;
+}
+
+.banner-dots {
+    flex-grow: 0;
+    width: 600px;
+    height: 600px;
+    background-image: url('project://database/Assets/Art/Textures/Ui/Loading/DorsRotated.png?fileID=21300000&guid=53ba4d982ebfe2f4dad7b4860aebb807&type=3#DorsRotated');
+    left: auto;
+    -unity-background-image-tint-color: rgb(106, 11, 156);
+    align-self: flex-end;
+    visibility: visible;
+    display: flex;
+    position: absolute;
+    top: -107px;
+    rotate: -282deg;
+    -unity-background-scale-mode: scale-and-crop;
+    right: 353px;
+}
+
+.banner-background__right {
+    flex-grow: 0;
+    width: 617px;
+    height: 100%;
+    flex-direction: row;
+    background-color: rgb(255, 199, 0);
+    margin-right: -114px;
+}
+
+.banner-pink-border {
+    flex-grow: 0;
+    width: 835px;
+    height: 100%;
+    background-image: url('project://database/Assets/Art/Textures/Ui/AdventureHud/321Countdown/DiagonalWiper.png?fileID=21300000&guid=f26621d71421141298a9a8cf0dc80574&type=3#DiagonalWiper');
+    left: -311px;
+    -unity-background-image-tint-color: rgb(216, 75, 121);
+    align-self: flex-end;
+}
+
+.banner-background__right-yellow {
+    flex-grow: 0;
+    width: 622px;
+    height: 100%;
+    background-image: url('project://database/Assets/Art/Textures/Ui/AdventureHud/321Countdown/DiagonalWiper.png?fileID=21300000&guid=f26621d71421141298a9a8cf0dc80574&type=3#DiagonalWiper');
+    left: 38px;
+    -unity-background-image-tint-color: rgb(255, 196, 0);
+    align-self: stretch;
+}
+
+.banner-dots-white {
+    flex-grow: 0;
+    width: 572px;
+    height: 592px;
+    background-image: url('project://database/Assets/Art/Textures/Ui/Loading/DorsRotated.png?fileID=21300000&guid=53ba4d982ebfe2f4dad7b4860aebb807&type=3#DorsRotated');
+    left: auto;
+    -unity-background-image-tint-color: rgb(255, 208, 0);
+    align-self: flex-end;
+    visibility: visible;
+    display: flex;
+    position: absolute;
+    top: 130px;
+    rotate: -175deg;
+    -unity-background-scale-mode: scale-and-crop;
+    right: 20px;
+}
+
+.banner-contents {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.banner-contents__left {
+    flex-grow: 0;
+    height: 100%;
+    width: 454px;
+    -unity-background-scale-mode: scale-and-crop;
+    position: relative;
+    top: auto;
+    left: auto;
+    flex-shrink: 0;
+}
+
+.banner-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/icon_premium-pass.png?fileID=21300000&guid=958626dbd35094e5d98703802369a31a&type=3#icon_premium-pass');
+    width: 500px;
+    height: 470px;
+    position: absolute;
+}
+
+.begin-button {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-long-yellow.png?fileID=21300000&guid=9da5c1bf95cb14250aacab06348ab34d&type=3#button-long-yellow');
+    height: 102px;
+    position: absolute;
+    width: 378px;
+    top: 313px;
+    left: 184px;
+    font-size: 44px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 2px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-color: rgb(156, 36, 12);
+    text-shadow: 4px 4px 0 rgb(156, 36, 12);
+    letter-spacing: -4px;
+}
+
+.time-left-widget {
+    flex-grow: 1;
+    width: auto;
+    height: 100px;
+    position: absolute;
+    top: 317px;
+    left: 605px;
+    flex-direction: row;
+    padding-right: 34px;
+    padding-left: 25px;
+    background-color: rgb(62, 10, 91);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.time-left-widget__title {
+    position: relative;
+    width: auto;
+    height: 100px;
+    top: auto;
+    left: auto;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    -unity-text-align: middle-center;
+    font-size: 36px;
+    color: rgb(255, 255, 255);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.time-left-widget__time {
+    position: relative;
+    width: auto;
+    height: 100px;
+    top: auto;
+    left: 12px;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    -unity-text-align: middle-center;
+    background-color: rgba(255, 255, 255, 0);
+    font-size: 36px;
+    color: rgb(255, 255, 255);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    letter-spacing: -4px;
+}
+
+.season-text-container {
+    flex-grow: 0;
+    flex-direction: column;
+    -unity-text-align: upper-left;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 60px;
+    flex-shrink: 0;
+}
+
+.season-text-container__title {
+    font-size: 78px;
+    color: rgb(248, 205, 45);
+    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 6px 6px 0 rgb(0, 0, 0);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    letter-spacing: -3px;
+}
+
+.season-text-container__season {
+    font-size: 78px;
+    color: rgb(248, 205, 45);
+    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    letter-spacing: -3px;
+}
+
+.season-text-container__desc {
+    font-size: 58px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+}
+
+.banner-rewards {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    align-self: auto;
+    left: 178px;
+    top: -19px;
+    padding-left: 0;
+}
+
+.reward-display {
+    flex-grow: 0;
+    background-color: rgb(62, 10, 91);
+    width: 182px;
+    height: 182px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 9px;
+    margin-right: 9px;
+    margin-bottom: 9px;
+    margin-left: 14px;
+    flex-shrink: 0;
+}
+
+.reward-display__icon {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/flag-demon.png?fileID=21300000&guid=200f11153aed542e3aeb0adb534ade89&type=3#flag-demon');
+    width: 182px;
+    height: 182px;
+    position: absolute;
+}
+
+.get-rewards-text {
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(156, 36, 12);
+    text-shadow: 4px 4px 0 rgb(156, 36, 12);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    position: absolute;
+    top: 236px;
+    -unity-font-style: bold;
+    letter-spacing: -4px;
+    -unity-text-align: upper-right;
+    left: -231px;
+}
+
+.banner-contents__right {
+    flex-grow: 0;
+    width: 628px;
+    justify-content: center;
+    align-items: flex-end;
+    display: flex;
+    visibility: visible;
+    flex-shrink: 0;
+}
+
+.final-reward {
+    flex-grow: 0;
+    background-color: rgb(226, 131, 3);
+    width: 288px;
+    height: 90%;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    margin-right: 208px;
+    overflow: visible;
+    left: 91px;
+    align-items: center;
+}
+
+.final-reward__icon {
+    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/PunkFemale/character-femalepunk.png?fileID=21300000&guid=d59bff88338df8840a6fbb2bccfa8122&type=3#character-femalepunk');
+    width: 462px;
+    height: 462px;
+    overflow: visible;
+    position: absolute;
+    top: -40px;
+}
+
+.banner-background {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    overflow: hidden;
+    justify-content: space-between;
+    align-items: flex-end;
+    display: flex;
+}
+
+.banner-root {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-icon-gradient {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/background-gradient-pink.png?fileID=21300000&guid=410485d9b78ea1d46a041e6d6bd29c5b&type=3#background-gradient-pink');
+    width: 1818px;
+    position: absolute;
+    height: 481px;
+    align-items: center;
+    left: -648px;
+    top: -76px;
+}
+
+.close-button {
+    position: absolute;
+    right: 23px;
+    width: 40px;
+    height: 40px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-close-white.png?fileID=21300000&guid=4df85ce872a81074581fef9150897ae5&type=3#icon-close-white');
+    top: -74px;
+}
+
+.banner-dots-left {
+    rotate: -450deg;
+    left: 135px;
+}

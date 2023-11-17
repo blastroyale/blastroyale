@@ -194,6 +194,7 @@ namespace FirstLight.GoogleSheetImporter
 				{
 					if (headerMap.TryGetValue(key, out var header))
 					{
+						if(string.IsNullOrWhiteSpace(header)) continue;
 						rowData.Add(header, value);
 					}
 				}

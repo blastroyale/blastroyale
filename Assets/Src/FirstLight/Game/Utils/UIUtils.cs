@@ -135,7 +135,7 @@ namespace FirstLight.Game.Utils
 		{
 			return LocalizationManager.TryGetTranslation(key, out var translation)
 				? translation
-				: $"#{key}#";
+				: $"{key}";
 		}
 
 		/// <summary>
@@ -179,19 +179,6 @@ namespace FirstLight.Game.Utils
 				GameId.CoreLegendary => USS_SPRITE_RARITY_LEGENDARY,
 				_                    => ""
 			};
-		}
-
-		/// <summary>
-		/// Animates the scale up and then back down to 1
-		/// </summary>
-		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f, int duration = 150)
-		{
-			var anim = element.experimental.animation.Scale(amount, duration).OnCompleted(() =>
-			{
-				element.experimental.animation.Scale(1f, duration).Start();
-			});
-			anim.Start();
-			return anim;
 		}
 
 

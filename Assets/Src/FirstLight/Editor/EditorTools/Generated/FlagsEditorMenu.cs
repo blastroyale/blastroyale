@@ -25,6 +25,7 @@ namespace FirstLight.Editor.EditorTools.Generated
 				EditorApplication.delayCall += () =>
 			{
 				Menu.SetChecked("FLG/Local Flags/Use local server", IsUseLocalServer);
+Menu.SetChecked("FLG/Local Flags/Offline mode", IsOfflineMode);
 Menu.SetChecked("FLG/Local Flags/Use local configs", IsUseLocalConfigs);
 Menu.SetChecked("FLG/Local Flags/Unblock NFTs only content", IsForceHasNfts);
 Menu.SetChecked("FLG/Local Flags/Unblock Equipment requirements", IsIgnoreEquipmentRequirementForRanked);
@@ -48,6 +49,18 @@ UpdateSelectionEnvironmentOverride();
 			{
 				FeatureFlags.GetLocalConfiguration().UseLocalServer = value;
 				Debug.Log("Setting UseLocalServer to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
+
+		private static bool IsOfflineMode
+		{
+			get => FeatureFlags.GetLocalConfiguration().OfflineMode;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().OfflineMode = value;
+				Debug.Log("Setting OfflineMode to "+value);
 				FeatureFlags.SaveLocalConfig();
 			}
 		}
@@ -138,6 +151,14 @@ UpdateSelectionEnvironmentOverride();
 		{
 			IsUseLocalServer = !IsUseLocalServer;
 			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Use local server", IsUseLocalServer); };
+		}
+
+
+		[MenuItem("FLG/Local Flags/Offline mode", false, 5)]
+		private static void ToggleOfflineMode()
+		{
+			IsOfflineMode = !IsOfflineMode;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Offline mode", IsOfflineMode); };
 		}
 
 

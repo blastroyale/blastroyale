@@ -13,7 +13,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// <summary>
 		/// Logs when the user purchases a product
 		/// </summary>
-		public void Purchase(Product product, ItemData reward, float price, float netIncomeModifier)
+		public void Purchase(Product product, ItemData reward, decimal price, decimal netIncomeModifier)
 		{
 			var data = new Dictionary<string, object>
 			{

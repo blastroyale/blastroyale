@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -174,7 +175,10 @@ namespace FirstLight.Game.Logic
 					}
 				}
 			}
-			throw new LogicException($"The system {unlockSystem} is not defined in the {nameof(PlayerLevelConfig)}");
+			
+			FLog.Info($"The system {unlockSystem} is not defined in the {nameof(PlayerLevelConfig)}");
+			
+			return 0;
 		}
 		
 		public List<ItemData> GetRewardsForFameLevel(uint level)

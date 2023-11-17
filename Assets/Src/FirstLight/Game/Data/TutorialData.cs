@@ -16,7 +16,13 @@ namespace FirstLight.Game.Data
 		/// <summary>
 		/// After ftue map, waiting for player to click "PLAY" on main menu
 		/// </summary>
-		FIRST_MATCH = 1 << 2,
+		FIRST_GUIDE_MATCH = 1 << 2,
+		
+		/// <summary>
+		/// Deprecated, don't use or remove
+		/// </summary>
+		[Obsolete]
+		META_GUIDE_AND_MATCH = 1 << 3
 	}
 	
 	/// <summary>

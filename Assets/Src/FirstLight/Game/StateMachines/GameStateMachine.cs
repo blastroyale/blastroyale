@@ -5,6 +5,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -170,6 +171,7 @@ namespace FirstLight.Game.StateMachines
 			_services.GameModeService.Init();
 			_services.IAPService.Init();
 			_services.AnalyticsService.SessionCalls.GameLoaded();
+			_services.MessageBrokerService.Publish(new GameLogicInitialized());
 		}
 
 		private void OpenNoInternetPopUp()
@@ -217,6 +219,8 @@ namespace FirstLight.Game.StateMachines
 			_services.AssetResolverService.UnloadAsset(asset);
 
 			await _uiService.LoadUiAsync<GenericDialogPresenter>();
+			await _uiService.LoadUiAsync<GenericPurchaseDialogPresenter>();
+			await _uiService.LoadUiAsync<GenericInputDialogPresenter>();
 			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
 			await Task.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
 			

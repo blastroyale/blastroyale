@@ -151,12 +151,6 @@
     background-color: rgb(255, 193, 64);
 }
 
-.equipment-tag--special {
-    color: rgb(212, 75, 120);
-    flex-direction: row;
-    height: 72px;
-}
-
 .tag-holder {
     flex-direction: row;
     flex-wrap: wrap;

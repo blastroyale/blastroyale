@@ -169,7 +169,6 @@ namespace FirstLight.Editor.Ids
 			{"CoreEpic", 48, Core, IAP, Chest},
 			{"CoreLegendary", 59, Core, IAP, Chest},
 
-
 			#region Collections
 
 			#region Player Skins

@@ -10,7 +10,7 @@ using Assert = NUnit.Framework.Assert;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
-	public class BattlePassLogicTest : MockedTestFixture<PlayerData>
+	public class BattlePassLogicTest : MockedTestFixture<BattlePassData>
 	{
 		private BattlePassLogic _battlePassLogic;
 
@@ -21,6 +21,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			SetupConfigs();
 			_battlePassLogic.Init();
+			_battlePassLogic.InitializeSeason();
 		}
 
 		[Test]

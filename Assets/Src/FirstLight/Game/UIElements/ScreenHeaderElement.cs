@@ -17,7 +17,6 @@ namespace FirstLight.Game.UIElements
 		private const string UssHome = UssBlock + "__home";
 		private const string UssBack = UssBlock + "__back";
 		private const string UssSeparator = UssBlock + "__separator";
-		private const string UssBackIcon = UssBlock + "__back-icon";
 
 		/// <summary>
 		/// Triggered when the home button is clicked.
@@ -47,7 +46,7 @@ namespace FirstLight.Game.UIElements
 			// on the Header element in UXML if you want to have interactive elements behind it.
 			pickingMode = PickingMode.Ignore;
 
-			var safeAreaContainer = new SafeAreaElement(true, false, true, true);
+			var safeAreaContainer = new SafeAreaElement(true, false, false, true);
 			safeAreaContainer.AddToClassList(UssSafeAreaHolder);
 			Add(safeAreaContainer);
 
@@ -55,11 +54,6 @@ namespace FirstLight.Game.UIElements
 			_back.AddToClassList(UssBack);
 			_back.AddToClassList(UIConstants.SFX_CLICK_BACKWARDS);
 			_back.clicked += () => backClicked?.Invoke();
-			{
-				var backIcon = new VisualElement { name = "icon" };
-				_back.Add(backIcon);
-				backIcon.AddToClassList(UssBackIcon);
-			}
 
 			safeAreaContainer.Add(_title = new Label("TITLE") {name = "title"});
 			_title.AddToClassList(UssTitle);
@@ -136,7 +130,7 @@ namespace FirstLight.Game.UIElements
 				she.titleKey = _titleKeyAttribute.GetValueFromBag(bag, cc);
 				she.subtitleKey = _subTitleKeyAttribute.GetValueFromBag(bag, cc);
 
-				she.SetTitle(she.titleKey.LocalizeKey(),
+				she.SetTitle(string.IsNullOrWhiteSpace(she.titleKey) ? "" : she.titleKey.LocalizeKey(),
 					string.IsNullOrWhiteSpace(she.subtitleKey) ? "" : she.subtitleKey.LocalizeKey());
 			}
 		}

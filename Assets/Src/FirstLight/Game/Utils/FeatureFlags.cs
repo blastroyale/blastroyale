@@ -44,6 +44,11 @@ namespace FirstLight.Game.Utils
 		/// Requests will be routed to local backend. To run, run "StandaloneServer" on backend project.
 		/// </summary>
 		[Description("Use local server")] public bool UseLocalServer = false;
+		
+		/// <summary>
+		/// Requests will be routed to local backend. To run, run "StandaloneServer" on backend project.
+		/// </summary>
+		[Description("Offline mode")] public bool OfflineMode = false;
 
 		/// <summary>
 		/// To use local configurations as opposed to remote configurations.

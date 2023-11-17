@@ -4943,9 +4943,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - DEMON
-      - Demon Flag
-      - Demon Flag
+      - Evil Flag
+      - Evil Flag
+      - Bandeira do Tinhoso
       - 
       - 
       Flags: 0000000000
@@ -7136,6 +7136,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/SpecialDefaultDash
+      TermType: 0
+      Description: 
+      Languages:
+      - DASH
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/SpeedPill
       TermType: 0
       Description: 
@@ -7827,6 +7838,182 @@ MonoBehaviour:
       - BLAST BUCKS
       - BLAST BUCKS
       - BLAST BUCKS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/Equipment
+      TermType: 0
+      Description: 
+      Languages:
+      - Equipment
+      - Equipment
+      - Equipamento
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/PlayerSkin
+      TermType: 0
+      Description: 
+      Languages:
+      - Skin
+      - Skin
+      - Skin
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/Glider
+      TermType: 0
+      Description: 
+      Languages:
+      - Glider
+      - Glider
+      - Paraglider
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/DeathMarker
+      TermType: 0
+      Description: 
+      Languages:
+      - Flag
+      - Flag
+      - Bandeira
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/MeleeSkin
+      TermType: 0
+      Description: 
+      Languages:
+      - Melee Skin
+      - Melee Skin
+      - Skin de Arma Branca
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/ProfilePicture
+      TermType: 0
+      Description: 
+      Languages:
+      - Avatar
+      - Avatar
+      - Avatar
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/Currency
+      TermType: 0
+      Description: 
+      Languages:
+      - Currency
+      - Currency
+      - Moeda
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/Collection
+      TermType: 0
+      Description: 
+      Languages:
+      - Collection Item
+      - Collection Item
+      - Item de Colecao
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/Core
+      TermType: 0
+      Description: 
+      Languages:
+      - Core
+      - Core
+      - Core
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/Shop
+      TermType: 0
+      Description: 
+      Languages:
+      - Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/Collection
+      TermType: 0
+      Description: 
+      Languages:
+      - Collection
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/Leaderboards
+      TermType: 0
+      Description: 
+      Languages:
+      - Leaderboards
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/Equipment
+      TermType: 0
+      Description: 
+      Languages:
+      - Equipment
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/GameModes
+      TermType: 0
+      Description: 
+      Languages:
+      - GameModes
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/Squads
+      TermType: 0
+      Description: 
+      Languages:
+      - Squads
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/PaidBattlePass
+      TermType: 0
+      Description: 
+      Languages:
+      - Congratulations, you got premium battle pass
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -13612,10 +13799,144 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TAP TO CLAIM
+      - CLAIM!
       - "\u041D\u0430\u0436\u043C\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B
         \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u043E\u0432\u0430\u0442\u044C"
       - Toque para reivindicar
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/buy_premium_batttlepass_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - BUY PREMIUM BATTLEPASS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/buy_premium_batttlepass_popup_item_name
+      TermType: 0
+      Description: 
+      Languages:
+      - BUY PREMIUM BATTLEPASS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/buy_level_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - BUY A LEVEL OF BATTLE PASS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/buy_level_popup_item_name
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU ARE GOING TO BUY 1 LEVEL OF BATTLE PASS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_ended
+      TermType: 0
+      Description: 
+      Languages:
+      - SEASON ENDED
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/activate_premium_button_text
+      TermType: 0
+      Description: 
+      Languages:
+      - ACTIVATE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/left_bar_premium_title
+      TermType: 0
+      Description: 
+      Languages:
+      - 'PREMIUM
+
+        <size=32>PASS</size>'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/left_bar_free_title
+      TermType: 0
+      Description: 
+      Languages:
+      - FREE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_item_display_name
+      TermType: 0
+      Description: 
+      Languages:
+      - VISIT THE SHOP TO GET SOME MORE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_button_text
+      TermType: 0
+      Description: 
+      Languages:
+      - GO TO SHOP
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_title
+      TermType: 0
+      Description: 
+      Languages:
+      - NOT ENOUGH BLAST BUCKS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_title
+      TermType: 0
+      Description: 
+      Languages:
+      - CONFIRM ACTION
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -13675,11 +13996,22 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionScreen/banners
+    - Term: UITMatch/full
       TermType: 0
       Description: 
       Languages:
-      - FLAGS
+      - SLOTS FULL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCollectionScreen/cat_deathmarker
+      TermType: 0
+      Description: 
+      Languages:
+      - FLAG
       - "\u0411\u0430\u043D\u043D\u0435\u0440\u044B"
       - Banners
       - 
@@ -13697,11 +14029,11 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionScreen/characters
+    - Term: UITCollectionScreen/cat_playerskin
       TermType: 0
       Description: 
       Languages:
-      - CHARACTERS
+      - CHARACTER
       - "\u041F\u0415\u0420\u0421\u041E\u041D\u0410\u0416\u0418"
       - PERSONAGENS
       - 
@@ -13730,34 +14062,34 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionScreen/gliders
+    - Term: UITCollectionScreen/cat_glider
       TermType: 0
       Description: 
       Languages:
-      - GLIDERS
+      - GLIDER
       - "\u041F\u043B\u0430\u043D\u0435\u0440\u044B"
       - Planadores
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionScreen/avatars
+    - Term: UITCollectionScreen/cat_profilepicture
       TermType: 0
       Description: 
       Languages:
-      - AVATARS
+      - AVATAR
       - "\u0410\u0412\u0410\u0422\u0410\u0420\u042B"
       - AVATARES
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionScreen/meleeskins
+    - Term: UITCollectionScreen/cat_meleeskin
       TermType: 0
       Description: 
       Languages:
-      - HAMMERS
-      - "\u041C\u043E\u043B\u043E\u0442\u043A\u0438"
+      - MELEE
+      - "\u0420\u0443\u043A\u043E\u043F\u0430\u0448\u043D\u044B\u043C \u0431\u043E\u0435\u043C"
       - MARTELOS
       - 
       - 
@@ -15106,9 +15438,15 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BATTLE ROYALE\nTRIOS
-      - BATTLE ROYALE\nTRIOS
-      - BATTLE ROYALE\nTRIOS
+      - 'BATTLE ROYALE
+
+        TRIOS'
+      - 'BATTLE ROYALE
+
+        TRIOS'
+      - 'BATTLE ROYALE
+
+        TRIOS'
       - 
       - 
       Flags: 0000000000
@@ -15117,9 +15455,15 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BATTLE ROYALE\nDUOS
-      - BATTLE ROYALE\nDUOS
-      - BATTLE ROYALE\nDUOS
+      - 'BATTLE ROYALE
+
+        DUOS'
+      - 'BATTLE ROYALE
+
+        DUOS'
+      - 'BATTLE ROYALE
+
+        DUOS'
       - 
       - 
       Flags: 0000000000
@@ -15252,7 +15596,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SQUAD
+      - SQUAD UP
       - "\u041E\u0422\u0420\u042F\u0414"
       - "ESQUADR\xC3O"
       - 
@@ -15676,7 +16020,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Use First Light ID to save your progress
+      - With First Light ID your game progress is secured
       - "\u0420\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u0442\u0441\u044F
         \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0432\u0430\u0448
         \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441"
@@ -16399,7 +16743,11 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - First Light ID not connected!
+      - 'First Light ID not connected!
+
+
+        Connect First Light ID to not lose
+        your progress.'
       - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
         \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
         \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
@@ -16692,6 +17040,28 @@ MonoBehaviour:
       - Real Damage
       - Real Damage
       - Dano Real
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/InvertSpecialCancel
+      TermType: 0
+      Description: 
+      Languages:
+      - Invert Special Cancelling
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/use_overhead_ui
+      TermType: 0
+      Description: 
+      Languages:
+      - Use Overhead UI
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -17771,6 +18141,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITTutorial/pick_up_special
+      TermType: 0
+      Description: 
+      Languages:
+      - PICK UP THE GRENADE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITWinners/winner
       TermType: 0
       Description: 
@@ -17817,7 +18198,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1698148843226
+    Google_LastUpdatedVersion: 1700143331266
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

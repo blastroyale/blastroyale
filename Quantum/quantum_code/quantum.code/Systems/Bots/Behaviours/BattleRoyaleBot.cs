@@ -47,7 +47,7 @@ namespace Quantum.Systems.Bots
 
 			// We stop aiming after the use of special because real players can't shoot and use specials at the same time
 			// So we don't allow bots to do it as well
-			if (filter.BotCharacter->TryUseSpecials(filter.PlayerCharacter, filter.Entity, f))
+			if (filter.BotCharacter->TryUseSpecials(filter.PlayerInventory, filter.Entity, f))
 			{
 				filter.StopAiming(f);
 			}

@@ -1,69 +1,71 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/BattlePassScreenStyle.uss?fileID=7433441132597879392&amp;guid=dc4d7d108099c400695438f2df23550d&amp;type=3#BattlePassScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/ProfilePictures.uss?fileID=7433441132597879392&amp;guid=9c709a527dcc84effb4acf8d96656258&amp;type=3#ProfilePictures" />
+    <Style src="project://database/Assets/Art/UI/Styles/Sprites-BattlePass.uss?fileID=7433441132597879392&amp;guid=12a0b900f26604af6831ca49a2fe3bca&amp;type=3#Sprites-BattlePass" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent screen-root">
         <ui:VisualElement name="SeasonContent" class="season-content">
-            <ui:ScrollView focusable="true" name="RewardsScroll" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl season-content__scroll--doublelines">
-                <ui:VisualElement name="BpRows" class="bp-rows">
-                    <ui:VisualElement name="UpperRow" class="upper-row" />
-                    <ui:VisualElement name="LevelBar" class="level-bar" />
-                    <ui:VisualElement name="BottomRow" class="bottom-row" />
-                </ui:VisualElement>
+            <ui:VisualElement picking-mode="Ignore" name="Opacity" class="bottom-bar-opacity" />
+            <ui:ScrollView focusable="true" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" name="RewardsScroll" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl season-content__scroll--doublelines">
+                <ui:VisualElement name="ColumnHolder" class="column-holder" />
             </ui:ScrollView>
-            <ui:VisualElement name="LeftBar" class="anim-delay-0 anim-translate anim-translate--right-xl left-bar">
-                <ui:VisualElement name="PaidContainerShadow" class="paid-container-shadow" />
-                <ui:VisualElement name="PaidContainer" class="paid-container">
-                    <ui:VisualElement name="IconBackground" class="paid-icon-background">
-                        <ui:VisualElement name="PassIcon" class="paid-pass-icon" />
-                        <ui:Label tabindex="-1" text="Premium &#10;Pass" display-tooltip-when-elided="true" name="PremiumTitle" class="premium-title" />
-                        <ui:VisualElement name="PremiumLock" class="premium-lock" />
+            <ui:VisualElement name="LeftBar" class="left-bar">
+                <ui:VisualElement name="Background" class="left-bar__background" />
+                <ui:VisualElement name="Passes" class="left-bar__passes-holder">
+                    <ui:VisualElement name="PaidContainer" class="paid-container">
+                        <ui:VisualElement name="IconBackground" class="paid-icon-background">
+                            <ui:VisualElement name="PassIcon" class="paid-pass-icon" />
+                            <ui:Label tabindex="-1" text="PREMIUM&#10;&lt;size=32&gt;PASS&lt;/size&gt;" display-tooltip-when-elided="true" name="PremiumTitle" class="premium-title" />
+                            <ui:VisualElement name="PremiumLock" class="premium-lock" />
+                        </ui:VisualElement>
+                        <ui:Button text="ACTIVATE" display-tooltip-when-elided="true" name="ActivateButton" class="activate-button" />
                     </ui:VisualElement>
-                    <ui:Button text="Activate" display-tooltip-when-elided="true" name="ActivateButton" class="activate-button" />
-                </ui:VisualElement>
-                <ui:VisualElement name="FreeContainerShadow" class="free-container-shadow" />
-                <ui:VisualElement name="FreeContainer" class="free-container">
-                    <ui:VisualElement name="IconBackground" class="free-icon-background">
-                        <ui:VisualElement name="PassIcon" class="free-pass-icon" />
-                        <ui:Label tabindex="-1" text="Pleb&apos;s &#10;Pass" display-tooltip-when-elided="true" name="FreeTitle" class="free-title" />
+                    <ui:VisualElement name="FreeContainer" class="free-container">
+                        <ui:VisualElement name="IconBackground" class="free-icon-background">
+                            <ui:VisualElement name="PassIcon" class="free-pass-icon" />
+                            <ui:Label tabindex="-1" text="FREE" display-tooltip-when-elided="true" name="FreeTitle" class="free-title" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton text="##" name="ClaimButton" localization-key="UITBattlePass/claim_all" class="sfx-click-forwards claim-button button-long button-long--yellow anim-delay-0 anim-translate anim-translate--up-s" />
-            <ui:VisualElement name="SeasonInfo" class="season-info anim-delay-0 anim-translate anim-translate--up-s">
-                <ui:VisualElement name="SeasonEndInfo" class="season-info__season-end">
-                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="SeasonEndsLabel" localization-key="UITBattlePass/season_ends_in" class="season-info__label" />
-                    <ui:Label text=" 10D 10H" display-tooltip-when-elided="true" name="TimeLeftLabel" class="season-info__label season-info__label--yellow" />
+            <FirstLight.Game.UIElements.ImageButton name="FullScreenClaim" class="fullscreen-claim" />
+            <ui:VisualElement name="LastRewardBalloon" tabindex="5" class="last-reward-widget">
+                <ui:VisualElement name="LastRewardContainer" class="last-reward-container">
+                    <ui:VisualElement name="LastRewardSprite" class="last-reward-sprite" />
+                    <ui:VisualElement name="RewardShineBlue" class="reward-shine-blue" />
+                    <ui:VisualElement name="RewardShineYellow" class="reward-shine-yellow" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.ImageButton name="FullScreenClaim" class="fullscreen-claim" />
         </ui:VisualElement>
         <ui:VisualElement name="SeasonHeader" class="season-header anim-translate anim-translate--down-s anim-delay-4">
             <ui:VisualElement name="Background" class="season-header__background" />
-            <FirstLight.Game.UIElements.SafeAreaElement apply-bottom="false" class="season-header-safe-area">
+            <ui:VisualElement name="HeaderContainer" class="season-header__currencies">
+                <ui:Label tabindex="-1" text="SEASON 1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SeasonNumber" enable-rich-text="true" class="season-number" />
                 <ui:VisualElement name="BppBarLayout" class="season-header__bpp-bar-layout">
-                    <ui:VisualElement name="CurrentLevel" class="season-level">
-                        <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
-                        <ui:Label display-tooltip-when-elided="true" name="CurrentLevelValue" text="0" class="season-level__label season-level__label--big" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xl" />
                     <ui:VisualElement name="BppBar" class="bpp-bar">
                         <ui:VisualElement name="BppBackground" class="bpp-bar__background">
-                            <ui:VisualElement name="BppProgress" class="bpp-bar__progress" />
+                            <ui:VisualElement name="BppProgress" class="completed-bar">
+                                <ui:VisualElement name="BarShadow" class="completed-bar__shadow" />
+                            </ui:VisualElement>
                             <ui:Label text="0 / 100" display-tooltip-when-elided="true" name="BppProgressLabel" class="bpp-bar__label" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Icon" class="bpp-bar__icon" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="NextLevel" class="season-level">
-                        <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
-                        <ui:Label text="1" display-tooltip-when-elided="true" name="NextLevelValue" class="season-level__label season-level__label--big" />
+                    <ui:VisualElement name="Arrow" class="bpp-bar__arrow" />
+                    <ui:VisualElement name="NextLevel" class="bar__level">
+                        <ui:Label tabindex="-1" text="13" display-tooltip-when-elided="true" name="NextLevelLabel" enable-rich-text="true" class="bar__level__label" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Currencies" class="season-header__currencies">
-                    <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" />
-                    <ui:VisualElement class="width-spacer width-spacer--xl" />
-                    <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" />
+                <ui:VisualElement name="RightContainer" class="season-header__right-container">
+                    <ui:VisualElement name="SeasonInfo" class="season-info anim-delay-0 anim-translate anim-translate--up-s">
+                        <ui:VisualElement name="SeasonEndInfo" class="season-info__season-end">
+                            <FirstLight.Game.UIElements.LocalizedLabel text="##" name="SeasonEndsLabel" localization-key="UITBattlePass/season_ends_in" class="season-info__label" />
+                            <ui:Label text=" 10d 10h" display-tooltip-when-elided="true" name="TimeLeftLabel" class="season-info__label season-info__label--white" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <FirstLight.Game.UIElements.CurrencyDisplayElement name="BBCurrency" currency="BlastBuck" class="season-info__blastbucks" />
                 </ui:VisualElement>
-            </FirstLight.Game.UIElements.SafeAreaElement>
+            </ui:VisualElement>
         </ui:VisualElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" picking-mode="Ignore" />
     </ui:VisualElement>

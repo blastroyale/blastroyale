@@ -33,8 +33,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			mockStatsConfigs.GetConfig(Arg.Do<Equipment>(_ => new QuantumEquipmentStatConfig()));
 			InitConfigData(new QuantumGameConfig {NftDurabilityDropDays = 7, NonNftDurabilityDropDays = 7});
 			InitConfigData(mockStatsConfigs);
-			InitConfigData(new QuantumWeaponConfig
-				{Specials = new List<GameId> {GameId.SpecialShieldSelf, GameId.SpecialShieldSelf}});
+			InitConfigData(new QuantumWeaponConfig {});
 			InitConfigData(new ScrapConfig
 			{
 				Rarity = EquipmentRarity.Epic,

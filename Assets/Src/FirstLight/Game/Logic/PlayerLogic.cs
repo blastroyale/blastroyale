@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -174,6 +175,9 @@ namespace FirstLight.Game.Logic
 					}
 				}
 			}
+			
+			FLog.Info($"The system {unlockSystem} is not defined in the {nameof(PlayerLevelConfig)}");
+			
 			return 0;
 		}
 		

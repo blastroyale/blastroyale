@@ -984,9 +984,9 @@
     -unity-text-align: middle-center;
     translate: -50% 0;
     bottom: 40px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Match/background-whitegradient.png?fileID=21300000&guid=1ee00d8996218784da437dd6689d72de&type=3#background-whitegradient');
-    -unity-background-image-tint-color: rgba(255, 78, 164, 0.35);
+    -unity-background-image-tint-color: rgba(22, 20, 38, 0.24);
     -unity-text-outline-color: rgb(22, 20, 38);
     -unity-text-outline-width: 1.2px;
     text-shadow: 2px 2px 0 rgb(22, 20, 38);
+    background-image: var(--sprite-match__background-whitegradient);
 }

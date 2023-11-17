@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/AddressableResources/Collections/CharacterSkins/FitnessC.meta
 guid: dc92c55ffa09142dc96ffdeb09d7aa48
-========
-guid: 1806f0a42e4de46f4b3015edc42ac327
->>>>>>>> develop:Assets/NewMapStuff/PolygonApocalypse.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -35,7 +35,7 @@ MonoBehaviour:
       LoadoutGearNumber: 0
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 524288
+        RawValue: 458752
       MovementSpeedMultiplier:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
@@ -69,7 +69,7 @@ MonoBehaviour:
       LoadoutGearNumber: 1
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 538852
+        RawValue: 473316
       MovementSpeedMultiplier:
         RawValue: 52429
       MaxDistanceToTeammateSquared:
@@ -103,7 +103,7 @@ MonoBehaviour:
       LoadoutGearNumber: 2
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 553415
+        RawValue: 487879
       MovementSpeedMultiplier:
         RawValue: 58982
       MaxDistanceToTeammateSquared:
@@ -137,7 +137,7 @@ MonoBehaviour:
       LoadoutGearNumber: 3
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 567979
+        RawValue: 502443
       MovementSpeedMultiplier:
         RawValue: 62259
       MaxDistanceToTeammateSquared:
@@ -168,10 +168,10 @@ MonoBehaviour:
         RawValue: 14564
       SpecialAimingDeviation:
         RawValue: 145636
-      LoadoutGearNumber: 4
+      LoadoutGearNumber: 3
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 582542
+        RawValue: 517006
       MovementSpeedMultiplier:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
@@ -179,7 +179,7 @@ MonoBehaviour:
       DamageDoneMultiplier:
         RawValue: 52429
       DamageTakenMultiplier:
-        RawValue: 72090
+        RawValue: 65536
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:
@@ -205,7 +205,7 @@ MonoBehaviour:
       LoadoutGearNumber: 4
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 597106
+        RawValue: 531570
       MovementSpeedMultiplier:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
@@ -239,7 +239,7 @@ MonoBehaviour:
       LoadoutGearNumber: 4
       LoadoutRarity: 2
       MaxAimingRange:
-        RawValue: 611669
+        RawValue: 546133
       MovementSpeedMultiplier:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
@@ -273,7 +273,7 @@ MonoBehaviour:
       LoadoutGearNumber: 4
       LoadoutRarity: 4
       MaxAimingRange:
-        RawValue: 626233
+        RawValue: 560697
       MovementSpeedMultiplier:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
@@ -307,7 +307,7 @@ MonoBehaviour:
       LoadoutGearNumber: 4
       LoadoutRarity: 6
       MaxAimingRange:
-        RawValue: 640796
+        RawValue: 575260
       MovementSpeedMultiplier:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
@@ -333,7 +333,7 @@ MonoBehaviour:
         RawValue: 65536
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 0
+      AccuracySpreadAngle: 10
       ChanceToUseSpecial:
         RawValue: 32768
       SpecialAimingDeviation:
@@ -341,7 +341,7 @@ MonoBehaviour:
       LoadoutGearNumber: 4
       LoadoutRarity: 8
       MaxAimingRange:
-        RawValue: 655360
+        RawValue: 589824
       MovementSpeedMultiplier:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
@@ -451,7 +451,7 @@ MonoBehaviour:
       DamageDoneMultiplier:
         RawValue: 26214
       DamageTakenMultiplier:
-        RawValue: 101580
+        RawValue: 101581
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:
@@ -477,7 +477,7 @@ MonoBehaviour:
       LoadoutGearNumber: 0
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 524288
+        RawValue: 458752
       MovementSpeedMultiplier:
         RawValue: 45875
       MaxDistanceToTeammateSquared:

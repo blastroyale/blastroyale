@@ -378,8 +378,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					var chestPickupVfx = Services.VfxService.Spawn(VfxId.ChestPickupFx).transform;
 					chestPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
 					return;
-				default:
-					return;
+			}
+
+			if (callback.CollectableId.IsInGroup(GameIdGroup.Special) || callback.CollectableId.IsInGroup(GameIdGroup.Weapon))
+			{
+				var chestPickupVfx = Services.VfxService.Spawn(VfxId.ChestPickupFx).transform;
+				chestPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
 			}
 		}
 

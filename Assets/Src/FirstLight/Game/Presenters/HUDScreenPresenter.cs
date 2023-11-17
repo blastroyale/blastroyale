@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -76,6 +77,7 @@ namespace FirstLight.Game.Presenters
 		private UnityInputScreenControl _specialCancelInput;
 
 		private IGameServices _gameServices;
+		private IGameDataProvider _dataProvider;
 
 		// ReSharper disable NotAccessedField.Local
 		private WeaponDisplayView _weaponDisplayView;
@@ -88,6 +90,7 @@ namespace FirstLight.Game.Presenters
 		private StatusBarsView _statusBarsView;
 		private StatusNotificationsView _statusNotificationsView;
 		private PlayerCountsView _playerCountsView;
+		private LocalPlayerInfoView _localPlayerInfoView;
 
 		// ReSharper restore NotAccessedField.Local
 
@@ -103,6 +106,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_gameServices = MainInstaller.Resolve<IGameServices>();
+			_dataProvider = MainInstaller.ResolveData();
 
 			_gameServices.ControlsSetup.SetControlPositions(Root);
 
@@ -112,10 +116,20 @@ namespace FirstLight.Game.Presenters
 			root.AttachView(this, out _specialButtonsView);
 			root.Q("DeviceStatus").Required().AttachView(this, out _deviceStatusView);
 			root.Q("SquadMembers").Required().AttachView(this, out _squadMembersView);
-			root.Q("EquipmentDisplay").Required().AttachView(this, out _equipmentDisplayView);
+			// root.Q("EquipmentDisplay").Required().AttachView(this, out _equipmentDisplayView);
 			root.Q("PlayerBars").Required().AttachView(this, out _statusBarsView);
 			root.Q("StatusNotifications").Required().AttachView(this, out _statusNotificationsView);
 			root.Q("PlayerCounts").Required().AttachView(this, out _playerCountsView);
+
+			var localPlayerInfo = root.Q("LocalPlayerInfo").Required();
+			if (_dataProvider.AppDataProvider.UseOverheadUI)
+			{
+				localPlayerInfo.SetDisplay(false);
+			}
+			else
+			{
+				localPlayerInfo.AttachView(this, out _localPlayerInfoView);
+			}
 
 			_weaponDisplayView.OutOfAmmoColors = _outOfAmmoGradient;
 			_matchTimerView.SetAreaShrinkingDirector(_areaShrinkingDirector);
@@ -183,6 +197,7 @@ namespace FirstLight.Game.Presenters
 				HideControls(false);
 				_weaponDisplayView.UpdateFromLatestVerifiedFrame();
 				_specialButtonsView.UpdateFromLatestVerifiedFrame();
+				_localPlayerInfoView.UpdateFromLatestVerifiedFrame();
 				_statusBarsView.InitAll();
 
 			});

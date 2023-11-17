@@ -440,16 +440,18 @@
 .bar__buy-button:active {
     background-image: var(--sprite-battlepass__buy-level-button-pressed);
 }
+
 .bar__buy-button:active > .bar__buy-button--content {
     left: 1;
     top: 2;
 }
+
 .reward__lock {
     position: absolute;
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/icon-lock.png?fileID=21300000&guid=263366e3a84b54d6fa1dc43028346628&type=3#icon-lock');
     top: -15px;
-    left: -1px;
-    width: 48px;
+    left: -13px;
+    width: 73px;
     height: 66px;
     -unity-background-scale-mode: scale-to-fit;
 }

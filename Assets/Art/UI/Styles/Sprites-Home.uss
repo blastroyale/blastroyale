@@ -925,8 +925,8 @@
 
 .sprite-home__icon-customgame {
     background-image: var(--sprite-home__icon-customgame);
-    width: 64px;
-    height: 42px;
+    width: 128px;
+    height: 85px;
 }
 
 .sprite-home__icon-discord {

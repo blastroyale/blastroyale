@@ -67,7 +67,7 @@ namespace Quantum
 					playerChar->GainEnergy(f, playerEntity, Amount.AsInt);
 					break;
 				case ConsumableType.Special:
-					f.Unsafe.GetPointer<PlayerInventory>(playerEntity)->TryAddSpecial(f, player,
+					f.Unsafe.GetPointer<PlayerInventory>(playerEntity)->TryAddSpecial(f, playerEntity, player,
 						new Special(f, f.Unsafe.GetPointer<Collectable>(entity)->GameId));
 					break;
 				default:

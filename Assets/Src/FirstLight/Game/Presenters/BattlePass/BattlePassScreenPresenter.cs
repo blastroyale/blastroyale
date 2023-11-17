@@ -298,7 +298,7 @@ namespace FirstLight.Game.Presenters
 			_bppProgressLabel.text = predictedProgress.Item2 + "/" + predictedMaxProgress;
 			_nextLevelValueLabel.text = (predictedProgress.Item1 + 1).ToString();
 			float pctCurrentLevel = (float) predictedProgress.Item2 / predictedMaxProgress;
-			_bppProgressFill.style.flexGrow = pctCurrentLevel;
+			_bppProgressFill.style.width = Length.Percent(pctCurrentLevel * 100f);
 
 			_seasonNumber.text = string.Format(ScriptLocalization.UITBattlePass.season_number,
 				battlePassConfig.Season.Number);

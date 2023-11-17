@@ -153,7 +153,7 @@
 .bpp-bar__icon {
     background-image: var(--sprite-shared__icon-currency-bpp);
     position: absolute;
-    left: -30px;
+    left: -50px;
     width: 66px;
     height: 72px;
 }
@@ -232,7 +232,6 @@
     padding-top: 0;
     margin-top: -3px;
 }
-
 
 .season-content__scroll .unity-scroll-view__content-container {
     flex-direction: row-reverse;
@@ -469,7 +468,6 @@
     -unity-background-scale-mode: stretch-to-fill;
     height: 85px;
 }
-
 
 .free-container {
     flex-grow: 1;

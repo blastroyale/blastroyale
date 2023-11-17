@@ -429,7 +429,7 @@ namespace FirstLight.Game.Logic
 		{
 			int points = pointOverride >= 0 ? pointOverride : (int) _currentPoints.Value;
 			var wouldLevelUp = points >= GetRequiredPointsForLevel((int) _currentLevel.Value);
-			var hasPaidRewards = _currentLevel.Value > GetCurrentSeasonData().LastLevelsClaimed[PassType.Paid];
+			var hasPaidRewards = HasPurchasedSeason() && _currentLevel.Value > GetCurrentSeasonData().LastLevelsClaimed[PassType.Paid];
 			var hasFreeRewards = _currentLevel.Value > GetCurrentSeasonData().LastLevelsClaimed[PassType.Free];
 			return (_currentLevel.Value < MaxLevel && wouldLevelUp) || (hasPaidRewards || hasFreeRewards);
 		}

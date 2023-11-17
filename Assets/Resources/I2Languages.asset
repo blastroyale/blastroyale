@@ -7136,6 +7136,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/SpecialDefaultDash
+      TermType: 0
+      Description: 
+      Languages:
+      - DASH
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/SpeedPill
       TermType: 0
       Description: 
@@ -13989,7 +14000,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - FULL
+      - SLOTS FULL
       - 
       - 
       - 

@@ -24,14 +24,14 @@
 
 .special-button--special0 {
     position: absolute;
-    right: 215px;
-    bottom: 411px;
+    right: 157px;
+    bottom: 355px;
 }
 
 .special-button--special1 {
     position: absolute;
-    right: 425px;
-    bottom: 285px;
+    right: 363px;
+    bottom: 263px;
 }
 
 .special-button--draggable {
@@ -105,15 +105,6 @@
 }
 
 .special-button__container {
-    background-color: var(--match-button-background-color);
-    border-left-color: var(--match-button-outline-color);
-    border-right-color: var(--match-button-outline-color);
-    border-top-color: var(--match-button-outline-color);
-    border-bottom-color: var(--match-button-outline-color);
-    border-left-width: var(--match-button-outline-width);
-    border-right-width: var(--match-button-outline-width);
-    border-top-width: var(--match-button-outline-width);
-    border-bottom-width: var(--match-button-outline-width);
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
@@ -125,6 +116,15 @@
     transition-property: width, height;
     transition-duration: 0.15s, 0.15s;
     transition-timing-function: ease-out-cubic, ease-out-cubic;
+    background-color: rgba(233, 226, 225, 0.07);
+    border-left-color: rgba(233, 226, 225, 0.3);
+    border-right-color: rgba(233, 226, 225, 0.3);
+    border-top-color: rgba(233, 226, 225, 0.3);
+    border-bottom-color: rgba(233, 226, 225, 0.3);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
 }
 
 .special-button--draggable.special-button--pressed > .special-button__container {
@@ -147,7 +147,7 @@
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    background-color: rgba(49, 45, 71, 0.25);
+    background-color: rgba(49, 45, 71, 0.19);
     position: absolute;
 }
 
@@ -187,10 +187,10 @@
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
     background-color: rgba(233, 226, 225, 0.02);
-    border-left-color: rgba(233, 226, 225, 0.12);
-    border-right-color: rgba(233, 226, 225, 0.12);
-    border-top-color: rgba(233, 226, 225, 0.12);
-    border-bottom-color: rgba(233, 226, 225, 0.12);
+    border-left-color: rgba(233, 226, 225, 0.1);
+    border-right-color: rgba(233, 226, 225, 0.1);
+    border-top-color: rgba(233, 226, 225, 0.1);
+    border-bottom-color: rgba(233, 226, 225, 0.1);
     border-left-width: 4px;
     border-right-width: 4px;
     border-top-width: 4px;
@@ -200,10 +200,10 @@
 }
 
 .joystick--move {
-    left: 176px;
-    bottom: 134px;
-    width: 220px;
-    height: 220px;
+    left: 170px;
+    bottom: 145px;
+    width: 280px;
+    height: 280px;
 }
 
 .skydiving .joystick--move {
@@ -211,10 +211,10 @@
 }
 
 .joystick--aim {
-    right: 142px;
-    bottom: 83px;
-    width: 300px;
-    height: 300px;
+    right: 149px;
+    bottom: 100px;
+    width: 250px;
+    height: 250px;
 }
 
 .skydiving .joystick--aim {
@@ -340,7 +340,7 @@
 
 .device-status-bar {
     position: absolute;
-    right: 283px;
+    right: 305px;
     top: 35px;
     flex-direction: row-reverse;
     align-items: center;
@@ -352,8 +352,8 @@
     position: absolute;
     width: 216px;
     height: 193px;
-    right: 521px;
-    bottom: 65px;
+    right: 447px;
+    bottom: 46px;
 }
 
 .skydiving .weapon-display {
@@ -596,9 +596,10 @@
 
 .kill-feed {
     position: absolute;
-    left: 30px;
-    top: 2px;
+    left: 56px;
+    top: 22px;
     flex-direction: column-reverse;
+    align-items: flex-start;
 }
 
 .top-center-container {
@@ -674,8 +675,9 @@
 
 .squad-members-container {
     position: absolute;
-    top: 252px;
-    left: 29px;
+    left: 65px;
+    bottom: 525px;
+    justify-content: flex-end;
 }
 
 .equipment-display {
@@ -784,8 +786,8 @@
 
 .player-counts {
     position: absolute;
-    right: 356px;
-    top: 121px;
+    right: 370px;
+    top: 112px;
 }
 
 .skydiving .player-counts {
@@ -801,6 +803,14 @@
 }
 
 .player-counts__alive-container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.player-counts__teams-container {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     flex-direction: row-reverse;
@@ -838,4 +848,58 @@
     bottom: -13px;
     background-image: var(--sprite-match__background-player-notification);
     opacity: 0;
+}
+
+.bottom-center-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+}
+
+.local-player-info {
+    width: 630px;
+    height: 100px;
+    bottom: 45px;
+    right: 37px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.skydiving .local-player-info {
+    display: none;
+}
+
+.local-player-info__team-color {
+    width: 100px;
+    height: 100px;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.local-player-info_pfp {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    background-color: rgb(0, 0, 0);
+    width: 85px;
+    height: 85px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: rgb(24, 18, 54);
+    border-right-color: rgb(24, 18, 54);
+    border-top-color: rgb(24, 18, 54);
+    border-bottom-color: rgb(24, 18, 54);
+    background-image: var(--sprite-shared__avatar-default);
+    visibility: visible;
 }

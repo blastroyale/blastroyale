@@ -143,6 +143,7 @@ SpriteAtlas:
     - 23beb82f33697664a8e8e12ace7b93f5: 21300000
     - ddaf3b2f1f5294775bf485c5459fd521: 21300000
     - 9d40657fe19ef4e468e2d46f08c0936d: 21300000
+    - a521189fe15b84d0d90d7796ac5f9c61: 21300000
     - f72f4e9f33524419caa8e91fdea624a5: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -232,6 +233,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 23beb82f33697664a8e8e12ace7b93f5, type: 3}
   - {fileID: 21300000, guid: ddaf3b2f1f5294775bf485c5459fd521, type: 3}
   - {fileID: 21300000, guid: 9d40657fe19ef4e468e2d46f08c0936d, type: 3}
+  - {fileID: 21300000, guid: a521189fe15b84d0d90d7796ac5f9c61, type: 3}
   - {fileID: 21300000, guid: f72f4e9f33524419caa8e91fdea624a5, type: 3}
   m_PackedSpriteNamesToIndex:
   - DefaultIndicatorBase
@@ -320,6 +322,7 @@ SpriteAtlas:
   - HUD_AdventureCoin
   - RadiusDirectionLine
   - CollectableDynamicIndicator
+  - SquadCircle
   - SmearHighlighted
   m_RenderDataMap: {}
   m_Tag: AdventureHud

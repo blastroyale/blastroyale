@@ -186,10 +186,10 @@ namespace FirstLight.Editor.Ids
 			{"FemalePunk", 83, PlayerSkin, BotItem, Punk, Collection},
 			{"FemaleSuperstar", 104, PlayerSkin, BotItem, Superstar, Collection},
 			{"TestSkin", 122},
-			{"PlayerSkinDragonBoxer", 148, PlayerSkin, Collection},		
-			{"PlayerSkinTieGuy", 147, PlayerSkin, Collection},	
-			{"PlayerSkinFitnessChick", 146, PlayerSkin, Collection},	
-			{"PlayerSkinSkellyQueen", 145, PlayerSkin, Collection},	
+			{"PlayerSkinDragonBoxer", 148, PlayerSkin, Collection},
+			{"PlayerSkinTieGuy", 147, PlayerSkin, Collection},
+			{"PlayerSkinFitnessChick", 146, PlayerSkin, Collection},
+			{"PlayerSkinSkellyQueen", 145}, // placeholder ID for the future skin
 			#endregion Player skins
 
 			#region Gliders

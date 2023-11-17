@@ -935,8 +935,6 @@ namespace Quantum
 				{
 					GameId.PlayerSkinSkellyQueen, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
@@ -1470,7 +1468,6 @@ namespace Quantum
 						GameId.PlayerSkinDragonBoxer,
 						GameId.PlayerSkinTieGuy,
 						GameId.PlayerSkinFitnessChick,
-						GameId.PlayerSkinSkellyQueen,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -1693,8 +1690,7 @@ namespace Quantum
 						GameId.FemaleSuperstar,
 						GameId.PlayerSkinDragonBoxer,
 						GameId.PlayerSkinTieGuy,
-						GameId.PlayerSkinFitnessChick,
-						GameId.PlayerSkinSkellyQueen
+						GameId.PlayerSkinFitnessChick
 					}.AsReadOnly()
 				},
 				{

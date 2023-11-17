@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Templates/BattlePassSegmentButtonStyle.uss?fileID=7433441132597879392&amp;guid=085e3e990597b6b47bd7e65b60a2c14a&amp;type=3#BattlePassSegmentButtonStyle" />
+    <Style src="project://database/Assets/Src/FirstLight/Game/Presenters/BattlePass/Resources/BattlepassSegmentButtonElement.uss?fileID=7433441132597879392&amp;guid=085e3e990597b6b47bd7e65b60a2c14a&amp;type=3#BattlepassSegmentButtonElement" />
+    <Style src="project://database/Assets/Art/UI/Styles/Sprites-BattlePass.uss?fileID=7433441132597879392&amp;guid=12a0b900f26604af6831ca49a2fe3bca&amp;type=3#Sprites-BattlePass" />
     <ui:VisualElement name="LevelBarSegment" class="segment-levelbar">
         <ui:VisualElement name="BarShadow" class="bar-shadow" />
         <ui:VisualElement name="CompletedBar" class="completed-bar">
@@ -8,5 +9,11 @@
         <ui:VisualElement name="BarLevel" class="bar__level">
             <ui:Label tabindex="-1" text="77" display-tooltip-when-elided="true" name="BarLevelLabel" enable-rich-text="true" class="bar__level__label" />
         </ui:VisualElement>
+        <FirstLight.Game.UIElements.ImageButton name="BuyLevelButton" class="bar__buy-button">
+            <ui:VisualElement name="Content" class="bar__buy-button--content" style="flex-grow: 1;">
+                <ui:Label tabindex="-1" text="77" display-tooltip-when-elided="true" name="PriceLabel" enable-rich-text="true" class="bar__buy-button__label" />
+                <ui:VisualElement name="BlasBucksIcon" class="bar__buy-button__blastbucks-icon" />
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.ImageButton>
     </ui:VisualElement>
 </ui:UXML>

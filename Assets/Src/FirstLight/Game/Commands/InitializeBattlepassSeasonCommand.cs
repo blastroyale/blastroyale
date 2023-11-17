@@ -9,7 +9,6 @@ namespace FirstLight.Game.Commands
 	public struct InitializeBattlepassSeasonCommand : IGameCommand
 	{
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
-
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />

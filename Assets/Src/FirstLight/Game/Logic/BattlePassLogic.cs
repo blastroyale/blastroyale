@@ -91,7 +91,13 @@ namespace FirstLight.Game.Logic
 		/// Checks if a given player has enough currency to purchase season
 		/// </summary>
 		bool HasCurrencyForPurchase();
-		
+
+
+		/// <summary>
+		/// Checks if a given player has enough currency to purchase a level
+		/// </summary>
+		bool HasCurrencyForLevelPurchase();
+
 		/// <summary>
 		/// Sets the last level the player claimed rewards for the given pass
 		/// </summary>
@@ -140,16 +146,21 @@ namespace FirstLight.Game.Logic
 		/// Adds the given <paramref name="amount"/> of BattlePass points to the Player.
 		/// </summary>
 		void AddBPP(uint amount);
-		
+
 		/// <summary>
 		/// Advances battle pass level to the given level with the given remaining points
 		/// </summary>
 		void SetLevelAndPoints(uint level, uint points);
-		
+
 		/// <summary>
 		/// Purchase the pro level of the current season of BattlePass.
 		/// </summary>
 		bool Purchase();
+
+		/// <summary>
+		/// Purchase a battlepass level.
+		/// </summary>
+		bool PurchaseLevel();
 
 		/// <summary>
 		/// Resets battle pass to original state
@@ -347,11 +358,11 @@ namespace FirstLight.Game.Logic
 					totalAccumulatedPoints += predictedProgress.Item2;
 				}
 			}
+
 			return maxAvailablePoints - totalAccumulatedPoints;
 		}
 
-		
-		
+
 		public bool HasCurrencyForPurchase()
 		{
 			var config = GetCurrentSeasonConfig();
@@ -361,6 +372,31 @@ namespace FirstLight.Game.Logic
 			{
 				return false;
 			}
+
+			return true;
+		}
+
+		public bool HasCurrencyForLevelPurchase()
+		{
+			var config = GetCurrentSeasonConfig();
+			var currentBB = GameLogic.CurrencyLogic.GetCurrencyAmount(GameId.BlastBuck);
+			if (config.Season.BuyLevelPrice > currentBB || _currentSeason.CompletedPass())
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		public bool PurchaseLevel()
+		{
+			var config = GetCurrentSeasonConfig();
+			if (!HasCurrencyForLevelPurchase()) return false;
+			GameLogic.CurrencyLogic.DeductCurrency(GameId.BlastBuck, config.Season.BuyLevelPrice);
+			var (predictedLevel, predictedPoints) = GetPredictedLevelAndPoints();
+			var newPoints = GetCurrentSeasonData().Points + (_currentSeason.GetRequiredPointsForLevel((int) predictedLevel) - predictedPoints);
+			GetCurrentSeasonData().Points = newPoints;
+			GameLogic.MessageBrokerService.Publish(new BattlePassLevelPurchasedMessage());
 			return true;
 		}
 
@@ -393,7 +429,7 @@ namespace FirstLight.Game.Logic
 		{
 			int points = pointOverride >= 0 ? pointOverride : (int) _currentPoints.Value;
 			var wouldLevelUp = points >= GetRequiredPointsForLevel((int) _currentLevel.Value);
-			var hasPaidRewards = _currentLevel.Value > GetCurrentSeasonData().LastLevelsClaimed[PassType.Paid];
+			var hasPaidRewards = HasPurchasedSeason() && _currentLevel.Value > GetCurrentSeasonData().LastLevelsClaimed[PassType.Paid];
 			var hasFreeRewards = _currentLevel.Value > GetCurrentSeasonData().LastLevelsClaimed[PassType.Free];
 			return (_currentLevel.Value < MaxLevel && wouldLevelUp) || (hasPaidRewards || hasFreeRewards);
 		}
@@ -471,6 +507,10 @@ namespace FirstLight.Game.Logic
 				return rewards;
 			}
 
+			public bool CompletedPass()
+			{
+				return GetData().Level >= MaxLevel;
+			}
 
 			public EquipmentRewardConfig GetRewardForLevel(uint level, PassType passType)
 			{
@@ -483,6 +523,7 @@ namespace FirstLight.Game.Logic
 
 			public IReadOnlyCollection<EquipmentRewardConfig> GetClaimableRewards(PassType type)
 			{
+				if (GetConfig() == null) return new List<EquipmentRewardConfig>();
 				var levelsCompleted = GetClaimableLevels(out var points, type);
 				if (levelsCompleted.Count == 0) return Array.Empty<EquipmentRewardConfig>();
 				return GetRewardConfigs(levelsCompleted, type);

@@ -21,6 +21,7 @@ namespace Quantum
 		SnipersOnly,
 		RPGsOnly,
 		ConsumablesSharing,
+		SpecialsMayhem,
 	}
 
 	[Serializable]

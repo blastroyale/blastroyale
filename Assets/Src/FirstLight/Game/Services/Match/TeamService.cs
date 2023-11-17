@@ -1,9 +1,6 @@
-using System.Collections.Generic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
-using Quantum.Systems;
 using UnityEngine;
 
 
@@ -11,14 +8,15 @@ namespace FirstLight.Game.MonoComponent.Match
 {
 	public static class TeamConstants
 	{
-		public static readonly Color [] Colors = {
-			new (15/255f, 145/255f, 70/255f), 
-			new (216/255f, 75/255f, 121/255f), 
-			new (93/255f, 127/255f, 239/255f),
-			new (144/255f,93/255f, 239/255f), 
+		public static readonly Color[] Colors =
+		{
+			new (0xFF / 255f, 0xD8 / 255f, 0x00 / 255f),
+			new (0xFF / 255f, 0x51 / 255f, 0x7E / 255f),
+			new (0x8C / 255f, 0x4D / 255f, 0xFF / 255f),
+			new (0x18 / 255f, 0xD0 / 255f, 0xC9 / 255f),
 		};
 	}
-	
+
 	public interface ITeamService
 	{
 		/// <summary>
@@ -57,7 +55,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (!QuantumRunner.Default.IsDefinedAndRunning()) return null;
 			if (!QuantumRunner.Default.PredictedFrame().TryGet<TeamMember>(e, out var member)) return null;
-			return TeamConstants.Colors[Mathf.Min(member.TeamIndex, TeamConstants.Colors.Length-1)];
+			return TeamConstants.Colors[Mathf.Min(member.TeamIndex, TeamConstants.Colors.Length - 1)];
 		}
 
 		public int GetTeam(EntityRef e)
@@ -79,8 +77,12 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		public void OnMatchEnded(QuantumGame game, bool isDisconnected) { }
+		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
+		{
+		}
 
-		public void OnMatchStarted(QuantumGame game, bool isReconnect) { }
+		public void OnMatchStarted(QuantumGame game, bool isReconnect)
+		{
+		}
 	}
 }

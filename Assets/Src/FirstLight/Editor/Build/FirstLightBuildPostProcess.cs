@@ -58,6 +58,9 @@ namespace FirstLight.Editor.Build
 			pbxProject.SetBuildProperty(frameworkTargetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "NO");
 			pbxProject.SetBuildProperty(mainTargetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "YES");
 			pbxProject.SetBuildProperty(mainTargetGuid, "SWIFT_VERSION", "5.1");
+
+			// Xcode 15 fix
+			pbxProject.AddBuildProperty(frameworkTargetGuid, "OTHER_LDFLAGS", "-ld64");
 			
 			// Disable bitcode
 			pbxProject.SetBuildProperty(mainTargetGuid, "ENABLE_BITCODE", "NO");

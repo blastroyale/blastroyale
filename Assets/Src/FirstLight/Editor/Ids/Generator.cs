@@ -16,6 +16,28 @@ namespace FirstLight.Editor.Ids
 		private const string _nameGroup = "GameIdGroup";
 		private const string _namespace = "FirstLight.Game.Ids";
 
+		[MenuItem("FLG/Generators/Next Game Id",priority = 20)]
+		public static void NextId()
+		{
+			int idsAmount = 10;
+			var maximumId = Ids.GameIds.InternalList.Max(i => i.Id) + idsAmount;
+			List<string> nextIds = new List<string>();
+			for (int x = 0; x <= maximumId; x++)
+			{
+				var exists = Ids.GameIds.InternalList.Exists(i => i.Id == x);
+				if (!exists)
+				{
+					nextIds.Add(x.ToString());
+				}
+
+				if (nextIds.Count == idsAmount)
+				{
+					break;
+				}
+			}
+
+			EditorUtility.DisplayDialog("Success!", "Next ids are " + string.Join(" , ", nextIds), "Ok");
+		}
 
 		/*[MenuItem("FLG/GOOOOOO")]
 		 Used for converting the current game ids to the new format
@@ -37,10 +59,9 @@ namespace FirstLight.Editor.Ids
 
 			Debug.Log(str);
 		}*/
-        
 
 
-		[MenuItem("FLG/Generators/Generate GameIds.qtn and GameIds.cs",priority = 20)]
+		[MenuItem("FLG/Generators/Generate GameIds.qtn and GameIds.cs", priority = 20)]
 		public static void GenerateIds()
 		{
 			Ids.GameIds.CheckDuplicates();
@@ -312,7 +333,7 @@ namespace FirstLight.Editor.Ids
 
 			File.WriteAllText(scriptPath, scriptString);
 		}
-		
+
 		private static IEnumerable<T> SortByEnumOrder<T>(IEnumerable<T> original) where T : Enum
 		{
 			return original.OrderBy(id =>

@@ -26,6 +26,7 @@ namespace FirstLight.Game.Presenters
 			public IEnumerable<ItemData> Items;
 			public ItemData ParentItem;
 			public Action OnFinish;
+			public bool SkipSummary;
 		}
 
 		#region Dependencies
@@ -181,6 +182,7 @@ namespace FirstLight.Game.Presenters
 
 		private bool ShouldShowSummary()
 		{
+			if (Data.SkipSummary) return false;
 			return Data.Items.Count() > 1;
 		}
 

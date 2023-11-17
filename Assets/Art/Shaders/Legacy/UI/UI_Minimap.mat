@@ -19,7 +19,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _Color
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -51,9 +51,9 @@ Material:
     - _UseUIAlphaClip: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DangerAreaColor: {r: 1, g: 0.43867922, b: 0.43867922, a: 1}
+    - _DangerAreaColor: {r: 1, g: 0.58248603, b: 0.43921566, a: 0.6392157}
     - _DangerAreaOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _DangerRingColor: {r: 1, g: 0, b: 0, a: 1}
+    - _DangerRingColor: {r: 1, g: 0.3529681, b: 0, a: 1}
     - _EnemiesColor: {r: 1, g: 0.23137255, b: 0, a: 1}
     - _FriendliesColor: {r: 0, g: 0.69860935, b: 1, a: 1}
     - _OuterRingColor: {r: 1, g: 1, b: 1, a: 1}

@@ -1,21 +1,27 @@
 /* AUTO GENERATED */
 :root {
     --sprite-battlepass__arrow: url('/Assets/Art/UI/Sprites/BattlePass/arrow.png');
+    --sprite-battlepass__background-left-bar: url('/Assets/Art/UI/Sprites/BattlePass/background-left-bar.png');
     --sprite-battlepass__bar-bp-back: url('/Assets/Art/UI/Sprites/BattlePass/bar-bp-back.png');
     --sprite-battlepass__bar-progress-bp: url('/Assets/Art/UI/Sprites/BattlePass/bar-progress-bp.png');
-    --sprite-battlepass__button_purchase-level: url('/Assets/Art/UI/Sprites/BattlePass/button_purchase-level.png');
+    --sprite-battlepass__buy-level-button: url('/Assets/Art/UI/Sprites/BattlePass/buy-level-button.png');
+    --sprite-battlepass__buy-level-button-pressed: url('/Assets/Art/UI/Sprites/BattlePass/buy-level-button-pressed.png');
     --sprite-battlepass__cloud-final-reward: url('/Assets/Art/UI/Sprites/BattlePass/cloud-final-reward.png');
+    --sprite-battlepass__header: url('/Assets/Art/UI/Sprites/BattlePass/header.png');
     --sprite-battlepass__icon_free-pass: url('/Assets/Art/UI/Sprites/BattlePass/icon_free-pass.png');
+    --sprite-battlepass__icon_free-pass-no-effects: url('/Assets/Art/UI/Sprites/BattlePass/icon_free-pass-no-effects.png');
     --sprite-battlepass__icon_premium-pass: url('/Assets/Art/UI/Sprites/BattlePass/icon_premium-pass.png');
+    --sprite-battlepass__icon_premium-pass-gradient: url('/Assets/Art/UI/Sprites/BattlePass/icon_premium-pass-gradient.png');
     --sprite-battlepass__icon-lock: url('/Assets/Art/UI/Sprites/BattlePass/icon-lock.png');
     --sprite-battlepass__level-reached: url('/Assets/Art/UI/Sprites/BattlePass/level-reached.png');
     --sprite-battlepass__level-unreached: url('/Assets/Art/UI/Sprites/BattlePass/level-unreached.png');
     --sprite-battlepass__pass-back: url('/Assets/Art/UI/Sprites/BattlePass/pass-back.png');
-    --sprite-battlepass__Rectangle 41: url('/Assets/Art/UI/Sprites/BattlePass/Rectangle 41.png');
+    --sprite-battlepass__rectangle: url('/Assets/Art/UI/Sprites/BattlePass/rectangle.png');
     --sprite-battlepass__slot-claimed: url('/Assets/Art/UI/Sprites/BattlePass/slot-claimed.png');
     --sprite-battlepass__slot-free-unreached: url('/Assets/Art/UI/Sprites/BattlePass/slot-free-unreached.png');
     --sprite-battlepass__slot-premium-reached: url('/Assets/Art/UI/Sprites/BattlePass/slot-premium-reached.png');
     --sprite-battlepass__slot-premium-unreached: url('/Assets/Art/UI/Sprites/BattlePass/slot-premium-unreached.png');
+    --sprite-battlepass__slot-white: url('/Assets/Art/UI/Sprites/BattlePass/slot-white.png');
     --sprite-battlepass__star: url('/Assets/Art/UI/Sprites/BattlePass/star.png');
 }
 
@@ -23,6 +29,12 @@
     background-image: var(--sprite-battlepass__arrow);
     width: 35px;
     height: 52px;
+}
+
+.sprite-battlepass__background-left-bar {
+    background-image: var(--sprite-battlepass__background-left-bar);
+    width: 604px;
+    height: 2048px;
 }
 
 .sprite-battlepass__bar-bp-back {
@@ -37,10 +49,14 @@
     height: 24px;
 }
 
-.sprite-battlepass__button_purchase-level {
-    background-image: var(--sprite-battlepass__button_purchase-level);
+.sprite-battlepass__buy-level-button {
+    background-image: var(--sprite-battlepass__buy-level-button);
     width: 255px;
     height: 109px;
+}
+
+.sprite-battlepass__buy-level-button:active {
+    background-image: var(--sprite-battlepass__buy-level-button-pressed);
 }
 
 .sprite-battlepass__cloud-final-reward {
@@ -49,10 +65,22 @@
     height: 196px;
 }
 
+.sprite-battlepass__header {
+    background-image: var(--sprite-battlepass__header);
+    width: 2048px;
+    height: 109px;
+}
+
 .sprite-battlepass__icon_free-pass {
     background-image: var(--sprite-battlepass__icon_free-pass);
     width: 401px;
     height: 401px;
+}
+
+.sprite-battlepass__icon_free-pass-no-effects {
+    background-image: var(--sprite-battlepass__icon_free-pass-no-effects);
+    width: 234px;
+    height: 144px;
 }
 
 .sprite-battlepass__icon_premium-pass {
@@ -61,10 +89,16 @@
     height: 447px;
 }
 
+.sprite-battlepass__icon_premium-pass-gradient {
+    background-image: var(--sprite-battlepass__icon_premium-pass-gradient);
+    width: 444px;
+    height: 447px;
+}
+
 .sprite-battlepass__icon-lock {
     background-image: var(--sprite-battlepass__icon-lock);
-    width: 52px;
-    height: 66px;
+    width: 212px;
+    height: 194px;
 }
 
 .sprite-battlepass__level-reached {
@@ -85,8 +119,8 @@
     height: 330px;
 }
 
-.sprite-battlepass__Rectangle 41 {
-    background-image: var(--sprite-battlepass__Rectangle 41);
+.sprite-battlepass__rectangle {
+    background-image: var(--sprite-battlepass__rectangle);
     width: 318px;
     height: 300px;
 }
@@ -113,6 +147,12 @@
     background-image: var(--sprite-battlepass__slot-premium-unreached);
     width: 359px;
     height: 342px;
+}
+
+.sprite-battlepass__slot-white {
+    background-image: var(--sprite-battlepass__slot-white);
+    width: 302px;
+    height: 288px;
 }
 
 .sprite-battlepass__star {

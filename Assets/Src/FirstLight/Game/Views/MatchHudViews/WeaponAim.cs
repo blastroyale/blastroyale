@@ -168,10 +168,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			if (_angleVariation > _minAngleVariation)
 			{
-				end = FPVector2.Rotate(_aim, -_angleVariation * FP.Deg2Rad).XOY * _variationRange;
+				end = FPVector2.Rotate(_aim, (-_angleVariation / FP._2) * FP.Deg2Rad).XOY * _variationRange;
 				DrawAimLine(f, _lowerLineRenderer, _view.EntityRef, origin, end);
 				
-				end = FPVector2.Rotate(_aim, _angleVariation * FP.Deg2Rad).XOY * _variationRange;
+				end = FPVector2.Rotate(_aim, (_angleVariation / FP._2) * FP.Deg2Rad).XOY * _variationRange;
 				DrawAimLine(f, _upperLineRenderer, _view.EntityRef, origin, end);
 			}
 
@@ -226,7 +226,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private bool IsValidRaycastHit(Frame f, Hit3D* hit, EntityRef shooter)
 		{
-			return hit->Point != FPVector3.Zero && (hit->Entity.IsValid && hit->Entity != shooter || !hit->IsDynamic) && !TeamHelpers.HasSameTeam(f, shooter, hit->Entity);
+			return hit->Point != FPVector3.Zero && (hit->Entity.IsValid && hit->Entity != shooter || !hit->IsDynamic) && (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION || !TeamHelpers.HasSameTeam(f, shooter, hit->Entity));
 		}
 	}
 }

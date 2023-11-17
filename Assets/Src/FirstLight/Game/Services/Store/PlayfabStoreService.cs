@@ -21,6 +21,7 @@ namespace FirstLight.Game.Services
 		Full,
 		Half
 	}
+
 	
 	/// <summary>
 	/// Properties that can be configured on Playfab on each store item 
@@ -29,7 +30,7 @@ namespace FirstLight.Game.Services
 	{
 		public StoreDisplaySize Size;
 		public string Category;
-		public string BackgroundColor;
+		public string UssModifier;
 		public string ImageOverride;
 	}
 

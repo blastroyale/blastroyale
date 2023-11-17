@@ -29,8 +29,9 @@ namespace FirstLight.Game.StateMachines
 			public string EventMetaId;
 			public short EventMetaAmount;
 		}
-		
+
 		public static readonly IStatechartEvent ProceedTutorialEvent = new StatechartEvent("TUTORIAL - Proceed tutorial event");
+		public static readonly IStatechartEvent GrenadeMissedTutorialEvent = new StatechartEvent("TUTORIAL - Grenade Missed");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
@@ -41,11 +42,14 @@ namespace FirstLight.Game.StateMachines
 		private CharacterDialogScreenPresenter _dialogUi;
 		private GuideHandPresenter _guideHandUi;
 		private HUDScreenPresenter _hud;
-		private Dictionary<string, GameObject> _tutorialObjectRefs = new();
-		private List<LocationPointerVfxMonoComponent> _activeLocationPointers = new();
+		private Dictionary<string, GameObject> _tutorialObjectRefs = new ();
+		private List<LocationPointerVfxMonoComponent> _activeLocationPointers = new ();
 		private MetaTutorialSequence _sequence;
 		private GameplayProceedEventData _currentGameplayProceedData;
 		private short _currentKillProceedProgress;
+		
+		private bool _hasSpecial0;
+		private bool _hasSpecial1;
 
 		public FirstGameTutorialState(IGameDataProvider logic, IGameServices services,
 									  IInternalTutorialService tutorialService,
@@ -74,7 +78,10 @@ namespace FirstLight.Game.StateMachines
 			var pickupWeapon = stateFactory.State("Pickup Weapon");
 			var moveToDummyArea = stateFactory.State("Move to dummy area");
 			var kill2Bots = stateFactory.State("Kill 2 bots");
+			var specialDecision = stateFactory.Choice("Already Has Special?");
+			var pickupSpecial = stateFactory.State("Pickup Special");
 			var kill1BotSpecial = stateFactory.State("Kill 1 bot special");
+			var grenadeMissed = stateFactory.Choice("Grenade Missed");
 			var moveToGateArea = stateFactory.State("Proceed through iron gate");
 			var moveToChestArea = stateFactory.State("Move to chest area");
 			var openBox = stateFactory.State("Open box");
@@ -84,7 +91,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(createTutorialRoom);
 			initial.OnExit(SubscribeMessages);
 			initial.OnExit(GetTutorialUiRefs);
-			
+
 			createTutorialRoom.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.CreateTutorialRoom); });
 			createTutorialRoom.OnEnter(StartFirstTutorialMatch);
 			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(waitSimulationStart);
@@ -108,7 +115,7 @@ namespace FirstLight.Game.StateMachines
 			firstMove.OnEnter(OnEnterFirstMove);
 			firstMove.Event(MatchState.MatchUnloadedEvent).Target(final);
 			firstMove.Event(ProceedTutorialEvent).Target(destroyBarrier);
-			
+
 			destroyBarrier.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.DestroyBarrier); });
 			destroyBarrier.OnEnter(OnEnterDestroyBarrier);
 			destroyBarrier.Event(MatchState.MatchUnloadedEvent).Target(final);
@@ -118,7 +125,7 @@ namespace FirstLight.Game.StateMachines
 			pickupWeapon.OnEnter(OnEnterPickupWeapon);
 			pickupWeapon.Event(MatchState.MatchUnloadedEvent).Target(final);
 			pickupWeapon.Event(ProceedTutorialEvent).Target(moveToDummyArea);
-			
+
 			moveToDummyArea.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveToDummyArea); });
 			moveToDummyArea.OnEnter(OnEnterMoveToDummyArea);
 			moveToDummyArea.Event(MatchState.MatchUnloadedEvent).Target(final);
@@ -127,18 +134,30 @@ namespace FirstLight.Game.StateMachines
 			kill2Bots.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.Kill2Bots); });
 			kill2Bots.OnEnter(OnEnterKill2Bots);
 			kill2Bots.Event(MatchState.MatchUnloadedEvent).Target(final);
-			kill2Bots.Event(ProceedTutorialEvent).Target(kill1BotSpecial);
+			kill2Bots.Event(ProceedTutorialEvent).Target(specialDecision);
+			
+			specialDecision.Transition().Condition(() => _hasSpecial0 || _hasSpecial1).Target(kill1BotSpecial);
+			specialDecision.Transition().Target(pickupSpecial);
+
+			pickupSpecial.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.PickupSpecial); });
+			pickupSpecial.OnEnter(OnEnterPickupSpecial);
+			pickupSpecial.Event(MatchState.MatchUnloadedEvent).Target(final);
+			pickupSpecial.Event(ProceedTutorialEvent).Target(kill1BotSpecial);
 
 			kill1BotSpecial.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.Kill1BotSpecial); });
 			kill1BotSpecial.OnEnter(OnEnterKill1BotSpecial);
 			kill1BotSpecial.Event(MatchState.MatchUnloadedEvent).Target(final);
 			kill1BotSpecial.Event(ProceedTutorialEvent).Target(moveToGateArea);
+			kill1BotSpecial.Event(GrenadeMissedTutorialEvent).Target(grenadeMissed);
+			
+			grenadeMissed.Transition().Condition(() => _hasSpecial0 || _hasSpecial1).Target(kill1BotSpecial);
+			grenadeMissed.Transition().Target(pickupSpecial);
 
 			moveToGateArea.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveToGateArea); });
 			moveToGateArea.OnEnter(OnEnterMoveToGateArea);
 			moveToGateArea.Event(MatchState.MatchUnloadedEvent).Target(final);
 			moveToGateArea.Event(ProceedTutorialEvent).Target(moveToChestArea);
-			
+
 			moveToChestArea.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveToChestArea); });
 			moveToChestArea.OnEnter(OnEnterMoveToChestArea);
 			moveToChestArea.Event(MatchState.MatchUnloadedEvent).Target(final);
@@ -182,14 +201,14 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi.HideDialog(CharacterType.Female);
 			_guideHandUi.Hide();
 		}
-		
+
 		private EntityView GetLocalPlayerView()
 		{
 			_matchServices.EntityViewUpdaterService.TryGetView(_matchServices.SpectateService.GetSpectatedEntity(), out var entityView);
 			return entityView;
 		}
 
-		
+
 		private void SubscribeMessages()
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
@@ -198,6 +217,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUpdated>(this, OnLocalPlayerSpecialUpdated);
 			_services.MessageBrokerService.Subscribe<PlayerEnteredMessageVolume>(OnPlayerEnteredMessageVolume);
 		}
 
@@ -227,7 +247,7 @@ namespace FirstLight.Game.StateMachines
 				_dialogUi.HideDialog(CharacterType.Female);
 			}
 		}
-		
+
 		private void BindMatchServices()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
@@ -247,7 +267,7 @@ namespace FirstLight.Game.StateMachines
 
 			CheckGameplayProceedConditions(typeof(EventOnEquipmentCollected));
 		}
-		
+
 		private async void OnPlayerDead(EventOnPlayerDead callback)
 		{
 			await Task.Yield();
@@ -259,6 +279,11 @@ namespace FirstLight.Game.StateMachines
 			await Task.Yield();
 
 			CheckGameplayProceedConditions(typeof(EventOnHazardLand), callback.sourceId.ToString());
+
+			if (callback.Hits == 0)
+			{
+				_statechartTrigger(GrenadeMissedTutorialEvent);
+			}
 		}
 
 		private async void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
@@ -282,6 +307,20 @@ namespace FirstLight.Game.StateMachines
 			CheckGameplayProceedConditions(typeof(EventOnChestOpened));
 		}
 
+		private void OnLocalPlayerSpecialUpdated(EventOnLocalPlayerSpecialUpdated callback)
+		{
+			if (callback.SpecialIndex == 0)
+			{
+				_hasSpecial0 = callback.Special.IsValid;
+			}
+			else
+			{
+				_hasSpecial1 = callback.Special.IsValid;
+			}
+			
+			CheckGameplayProceedConditions(typeof(EventOnLocalPlayerSpecialUpdated));
+		}
+
 		private void UnsubscribeMessages()
 		{
 			QuantumEvent.UnsubscribeListener(this);
@@ -298,17 +337,18 @@ namespace FirstLight.Game.StateMachines
 			if (_currentGameplayProceedData.EventType != eventType) return;
 
 			if (!string.IsNullOrEmpty(_currentGameplayProceedData.EventMetaId) &&
-			    _currentGameplayProceedData.EventMetaId != metaId) return;
+				_currentGameplayProceedData.EventMetaId != metaId) return;
 
 			if (_currentGameplayProceedData.EventMetaAmount != 0 &&
-			    _currentGameplayProceedData.EventMetaAmount > metaAmount) return;
-			
+				_currentGameplayProceedData.EventMetaAmount > metaAmount) return;
+
 			_statechartTrigger(ProceedTutorialEvent);
 		}
 
 		private void OnEnterStartedSimulation()
 		{
-			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.welcome_to_wastelands, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
+			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.welcome_to_wastelands, CharacterType.Female, CharacterDialogMoodType.Happy,
+				CharacterDialogPosition.TopLeft);
 
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -326,7 +366,7 @@ namespace FirstLight.Game.StateMachines
 		private async Task OnEnterMoveJoystickAsync()
 		{
 			_matchServices.PlayerInputService.OnQuantumInputSent += OnInput;
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral); 
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			_hud = _services.GameUiService.GetUi<HUDScreenPresenter>();
 			await _hud.EnsureOpen();
 			SetFingerPosition(_hud.MovementJoystick);
@@ -353,14 +393,14 @@ namespace FirstLight.Game.StateMachines
 				CheckGameplayProceedConditions(typeof(PlayerUsedMovementJoystick));
 			}
 		}
-		
+
 		private void OnEnterFirstMove()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.move_forward, CharacterType.Female, CharacterDialogMoodType.Happy);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_FIRST_MOVE].transform.position, GetLocalPlayerView().transform);
 			_guideHandUi.Hide();
-			
+
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
 				EventType = typeof(PlayerEnteredMessageVolume),
@@ -400,7 +440,7 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.nice_proceed_dummy_area, CharacterType.Female, CharacterDialogMoodType.Shocked);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT_AREA].transform.position, GetLocalPlayerView().transform);
-			
+
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
 				EventType = typeof(PlayerEnteredMessageVolume),
@@ -414,7 +454,7 @@ namespace FirstLight.Game.StateMachines
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT1].transform.position, GetLocalPlayerView().transform);
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT2].transform.position, GetLocalPlayerView().transform);
-			
+
 			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -427,13 +467,26 @@ namespace FirstLight.Game.StateMachines
 			});
 		}
 
+		private void OnEnterPickupSpecial()
+		{
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_special, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			DespawnPointers();
+			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_SPECIAL_PICKUP].transform.position, GetLocalPlayerView().transform);
+			_guideHandUi.Hide();
+
+			_currentGameplayProceedData = new GameplayProceedEventData
+			{
+				EventType = typeof(EventOnLocalPlayerSpecialUpdated)
+			};
+		}
+
 		private void OnEnterKill1BotSpecial()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_grenade, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT3].transform.position, GetLocalPlayerView().transform);
-			
-			SetFingerPosition(_hud.Special1, 90);
+
+			SetFingerPosition(_hasSpecial0 ? _hud.Special0 : _hud.Special1, 90);
 
 			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()
@@ -442,14 +495,14 @@ namespace FirstLight.Game.StateMachines
 				EventMetaAmount = 1
 			};
 		}
-		
+
 		private void OnEnterMoveToGateArea()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.proceed_iron_gate, CharacterType.Female, CharacterDialogMoodType.Happy);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_IRON_GATE].transform.position, GetLocalPlayerView().transform);
 			_guideHandUi.Hide();
-			
+
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
 				EventType = typeof(PlayerEnteredMessageVolume),
@@ -501,7 +554,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterWaitMatchFinish()
 		{
-			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.you_made_it_look_easy, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
+			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.you_made_it_look_easy, CharacterType.Female, CharacterDialogMoodType.Happy,
+				CharacterDialogPosition.TopLeft);
 		}
 	}
 }

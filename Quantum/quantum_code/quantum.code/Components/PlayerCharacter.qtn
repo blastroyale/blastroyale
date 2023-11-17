@@ -29,7 +29,6 @@ component DeadPlayerCharacter
 struct WeaponSlot
 {
 	Equipment Weapon;
-	array<Special>[MAX_SPECIALS] Specials;
 	int MagazineShotCount;
 	int MagazineSize;
 	FP ReloadTime;
@@ -49,6 +48,10 @@ component PlayerCharacter
 	[HideInInspector] Int32 DroppedLoadoutFlags;
     [HideInInspector] Int16 CurrentEnergy;
     bool RealPlayer;
+}
+
+component PlayerInventory {
+    array<Special>[MAX_SPECIALS] Specials;
 }
 
 component PlayerCharging

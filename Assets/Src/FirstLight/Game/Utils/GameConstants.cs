@@ -340,6 +340,7 @@ namespace FirstLight.Game.Utils
 			public const string INDICATOR_IRON_GATE = "IronGate";
 			public const string INDICATOR_TOP_PLATFORM = "TopPlatform";
 			public const string INDICATOR_EQUIPMENT_CHEST = "EquipmentChest";
+			public const string INDICATOR_SPECIAL_PICKUP = "SpecialSpawner";
 			public const string INDICATOR_ARENA_DROPDOWN = "ArenaDropDown";
 		}
 

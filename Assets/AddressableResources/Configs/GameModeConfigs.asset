@@ -33,6 +33,7 @@ MonoBehaviour:
       ShowWeaponSlots: 1
       SingleSlotMode: 1
       DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
+      ShowTeamCount: 0
       Lives: 1
       DropWeaponOnPickup: 1
       AirdropNearPlayer: 0
@@ -78,6 +79,7 @@ MonoBehaviour:
       ShowWeaponSlots: 1
       SingleSlotMode: 1
       DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
+      ShowTeamCount: 1
       Lives: 1
       DropWeaponOnPickup: 1
       AirdropNearPlayer: 0
@@ -123,6 +125,7 @@ MonoBehaviour:
       ShowWeaponSlots: 1
       SingleSlotMode: 1
       DescriptionLocalisationKey: MainMenu/DeathmatchDescription
+      ShowTeamCount: 0
       Lives: 0
       DropWeaponOnPickup: 0
       AirdropNearPlayer: 0
@@ -164,6 +167,7 @@ MonoBehaviour:
       ShowWeaponSlots: 1
       SingleSlotMode: 1
       DescriptionLocalisationKey: 
+      ShowTeamCount: 0
       Lives: 1
       DropWeaponOnPickup: 1
       AirdropNearPlayer: 0
@@ -205,6 +209,7 @@ MonoBehaviour:
       ShowWeaponSlots: 1
       SingleSlotMode: 1
       DescriptionLocalisationKey: 
+      ShowTeamCount: 0
       Lives: 1
       DropWeaponOnPickup: 0
       AirdropNearPlayer: 0
@@ -246,6 +251,7 @@ MonoBehaviour:
       ShowWeaponSlots: 1
       SingleSlotMode: 1
       DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
+      ShowTeamCount: 0
       Lives: 1
       DropWeaponOnPickup: 1
       AirdropNearPlayer: 0
@@ -291,6 +297,7 @@ MonoBehaviour:
       ShowWeaponSlots: 1
       SingleSlotMode: 1
       DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
+      ShowTeamCount: 1
       Lives: 1
       DropWeaponOnPickup: 1
       AirdropNearPlayer: 0

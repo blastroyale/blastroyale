@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc1b3a801874710bb28746fef5bda5e, type: 3}
+  m_Name: CurrencySpriteConfigs
+  m_EditorClassIdentifier: FirstLight.Game:FirstLight.Game.Configs:CurrencySpriteConfigs
+  _config:
+    Values:
+    - Key: 61
+      Value:
+        DefaultSprite: sprite-currencies__coin-default
+        SpriteByMinAmount:
+          _keyData: 010000002800000064000000
+          _valueData:
+          - sprite-currencies__coin-1
+          - sprite-currencies__coin-2
+          - sprite-currencies__coin-3
+    - Key: 105
+      Value:
+        DefaultSprite: sprite-currencies__blastbuck-default
+        SpriteByMinAmount:
+          _keyData: 010000000a00000064000000
+          _valueData:
+          - sprite-currencies__blastbuck-1
+          - sprite-currencies__blastbuck-2
+          - sprite-currencies__blastbuck-3
+    - Key: 26
+      Value:
+        DefaultSprite: sprite-currencies__bpp
+        SpriteByMinAmount:
+          _keyData: 01000000
+          _valueData:
+          - sprite-currencies__bpp-reward
+    - Key: 12
+      Value:
+        DefaultSprite: sprite-currencies__cs
+        SpriteByMinAmount:
+          _keyData: 01000000
+          _valueData:
+          - sprite-currencies__cs-reward
+    - Key: 112
+      Value:
+        DefaultSprite: 
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []

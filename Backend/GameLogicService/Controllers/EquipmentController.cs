@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Game.Services;
+using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
@@ -62,6 +64,7 @@ namespace ServerCommon.Cloudscript
 				{
 					UniqueId = i.Id,
 					i.Equipment,
+					TokenId = ctx.GameLogic.EquipmentLogic.NftInventory.TryGetValue(i.Id, out var nft) ? nft.TokenId : null,
 					Hash = i.Equipment.GetServerHashCode()
 				})), "application/json");
 		}
@@ -109,10 +112,20 @@ namespace ServerCommon.Cloudscript
 			{
 				var playerId = request.PlayerId;
 				await _mutex.Lock(playerId);
-				var playerState = await _state.GetPlayerState(playerId);
-				var ctx = await _logicContext.GetLogicContext(playerId, playerState);
+				var ctx = await _logicContext.GetLogicContext(playerId);
 				var uniqueId = ctx.GameLogic.EquipmentLogic.AddToInventory(request.Equipment);
-				var updatedState = playerState.GetOnlyUpdatedState();
+				var updatedState = ctx.PlayerData.GetUpdatedState();
+				if (!string.IsNullOrEmpty(request.TokenId))
+				{
+					var data = updatedState.DeserializeModel<EquipmentData>();
+					data.NftInventory[uniqueId] = new NftEquipmentData()
+					{
+						InsertionTimestamp = DateTime.UtcNow.Ticks,
+						TokenId = request.TokenId
+					};
+					updatedState.UpdateModel(data);
+				}
+				
 				await _state.UpdatePlayerState(playerId, updatedState);
 				var analytics = request.Equipment.GetAnalyticsData();
 				analytics["user"] = request.PlayerId;

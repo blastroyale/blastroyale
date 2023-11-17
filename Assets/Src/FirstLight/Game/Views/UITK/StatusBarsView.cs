@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -10,7 +9,6 @@ using FirstLight.UiService;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Pool;
-using UnityEngine.Rendering.LookDev;
 using UnityEngine.UIElements;
 using Assert = UnityEngine.Assertions.Assert;
 
@@ -21,20 +19,22 @@ namespace FirstLight.Game.Views.UITK
 	/// </summary>
 	public class StatusBarsView : UIView
 	{
+		private const bool SHOW_ENEMY_BARS = false;
+
 		private Camera _camera;
 
 		private IMatchServices _matchServices;
 		private IGameServices _gameServices;
 		private IGameDataProvider _data;
 
-		private readonly Dictionary<EntityRef, Transform> _anchors = new();
-		private readonly Dictionary<EntityRef, PlayerStatusBarElement> _visiblePlayers = new();
-		private readonly HashSet<EntityRef> _culledPlayers = new();
-		private readonly List<EntityRef> _entityCache = new(5);
-		private readonly StyleColor _defaultShieldDmgColor = new StyleColor(new Color(0.2f, 0.72f, 1f));
+		private readonly Dictionary<EntityRef, Transform> _anchors = new ();
+		private readonly Dictionary<EntityRef, PlayerStatusBarElement> _visiblePlayers = new ();
+		private readonly HashSet<EntityRef> _culledPlayers = new ();
+		private readonly List<EntityRef> _entityCache = new (5);
+		private readonly StyleColor _defaultShieldDmgColor = new (new Color(0.2f, 0.72f, 1f));
 
 		// TODO: Only returned to pool when it's destroyed, and they're not culled
-		private readonly Dictionary<EntityRef, HealthStatusBarElement> _healthBars = new();
+		private readonly Dictionary<EntityRef, HealthStatusBarElement> _healthBars = new ();
 
 		private ObjectPool<HealthStatusBarElement> _healthBarPool;
 		private ObjectPool<PlayerStatusBarElement> _playerBarPool;
@@ -84,11 +84,10 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
 			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
-			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, OnPlayerAmmoChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.SubscribeManual<EventOnShrinkingCircleDmg>(this, OnShrinkingCircleDmg);
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
-			QuantumEvent.SubscribeManual<EventOnPlayerReloadStart>(this, OnPlayerReloadStart);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUpdated>(this, OnLocalPlayerSpecialUpdated);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 		}
 
@@ -159,6 +158,7 @@ namespace FirstLight.Game.Views.UITK
 					FLog.Warn($"Failed to restore anchor for entity {entity}, likely due to reconnection, skipping");
 					continue;
 				}
+
 				if (anchor == null) continue;
 				var screenPoint = _camera.WorldToScreenPoint(anchor.position);
 				screenPoint.y = _camera.pixelHeight - screenPoint.y;
@@ -174,10 +174,11 @@ namespace FirstLight.Game.Views.UITK
 			var dataArray = f.GetSingleton<GameContainer>().PlayersData;
 			for (int i = 0; i < f.PlayerCount; i++)
 			{
-				InitPlayer(f, dataArray[i].Entity);
+				var p = dataArray[i];
+				InitPlayer(f, p.Entity);
 			}
 		}
-		
+
 		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
 		{
 			InitPlayer(callback.Game.Frames.Predicted, callback.Entity);
@@ -193,6 +194,7 @@ namespace FirstLight.Game.Views.UITK
 				FLog.Warn("Unhandled reconnection flow initializing entity twice, ignoring it for now");
 				return;
 			}
+
 			_anchors.Add(entity, view.GetComponent<HealthEntityBase>().HealthBarAnchor);
 
 			if (f.IsCulled(entity))
@@ -204,50 +206,34 @@ namespace FirstLight.Game.Views.UITK
 			InitBar(f, entity);
 		}
 
-		private unsafe void InitBar(Frame f, EntityRef entity)
+		private void InitBar(Frame f, EntityRef entity)
 		{
 			var bar = _playerBarPool.Get();
 			_visiblePlayers.Add(entity, bar);
 
-			var pc = f.Get<PlayerCharacter>(entity);
-			var pd = f.GetPlayerData(pc.Player);
 			var stats = f.Get<Stats>(entity);
-			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
-			var isFriendlyPlayer = (spectatedPlayer.Entity == entity || pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team);
-			var hidePlayerNames = f.Context.TryGetMutatorByType(MutatorType.HidePlayerNames, out _) && !isFriendlyPlayer;
-			var playerName = hidePlayerNames ? string.Empty : Extensions.GetPlayerName(f, entity, pc);
-			var nameColor = pd != null
-				                ? _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) pd.LeaderboardRank)
-				                : GameConstants.PlayerName.DEFAULT_COLOR;
 
-			bar.SetName(playerName, nameColor);
-			bar.SetIsFriendly(isFriendlyPlayer);
+			var spectatingCurrentEntity = _matchServices.SpectateService.GetSpectatedEntity() == entity;
+
 			bar.ShowRealDamage = _data.AppDataProvider.ShowRealDamage;
-			bar.SetLevel(pc.GetEnergyLevel(f));
-			bar.SetHealth(stats.CurrentHealth, stats.CurrentHealth,
-				stats.Values[(int) StatType.Health].StatValue.AsInt);
-			bar.SetShield(stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);
-			//bar.SetMagazine(pc.WeaponSlot->MagazineShotCount, pc.WeaponSlot->MagazineSize);
-			
-			//TODO: Call this again when we implement icons properly
-			//bar.SetIconColor(nameColor);
+			bar.EnableStatusBars((!spectatingCurrentEntity && SHOW_ENEMY_BARS) || (spectatingCurrentEntity && _data.AppDataProvider.UseOverheadUI));
+			bar.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
+			bar.UpdateShield(stats.CurrentShield, stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);
 		}
 
 		private void OnPlayerDead(EventOnPlayerDead callback)
 		{
 			_culledPlayers.Remove(callback.Entity);
 
-			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
+			if (!_visiblePlayers.Remove(callback.Entity, out var bar)) return;
 
-			_visiblePlayers.Remove(callback.Entity);
 			_playerBarPool.Release(bar);
 		}
 
 		private void OnPlayerLevelUp(EventOnPlayerLevelUp callback)
 		{
+			// TODO Can probably remove this permanently
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
-
-			bar.SetLevel(callback.CurrentLevel);
 
 			if (_matchServices.IsSpectatingPlayer(callback.Entity))
 			{
@@ -259,21 +245,14 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
-			bar.SetShield(callback.CurrentShield, callback.CurrentShieldCapacity);
+			bar.UpdateShield(callback.PreviousShield, callback.CurrentShield, callback.CurrentShieldCapacity);
 		}
 
 		private void OnHealthChanged(EventOnHealthChanged callback)
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
-			bar.SetHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
-		}
-
-		private void OnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
-		{
-			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
-
-			//bar.SetMagazine(callback.CurrentMag, callback.MaxMag);
+			bar.UpdateHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
 		}
 
 		private void OnCollectableBlocked(EventOnCollectableBlocked callback)
@@ -294,18 +273,23 @@ namespace FirstLight.Game.Views.UITK
 				case ConsumableType.Ammo:
 					bar.ShowNotification(PlayerStatusBarElement.NotificationType.MaxAmmo);
 					break;
+				case ConsumableType.Special:
+					bar.ShowNotification(PlayerStatusBarElement.NotificationType.MaxSpecials);
+					break;
 				default:
 					FLog.Error($"Unknown collectable: {callback.CollectableId}");
 					break;
 			}
 		}
 
-		private unsafe void OnPlayerReloadStart(EventOnPlayerReloadStart callback)
+		private void OnLocalPlayerSpecialUpdated(EventOnLocalPlayerSpecialUpdated callback)
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
-			if (!callback.Game.Frames.Verified.TryGet<PlayerCharacter>(callback.Entity, out var pc)) return;
 
-			//bar.ShowReload((int) (pc.WeaponSlot->ReloadTime.AsFloat * 1000));
+			if (callback.Special.IsValid)
+			{
+				bar.ShowNotification(PlayerStatusBarElement.NotificationType.SpecialPickup, callback.Special.SpecialId.GetLocalization());
+			}
 		}
 
 		private unsafe void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
@@ -318,7 +302,7 @@ namespace FirstLight.Game.Views.UITK
 				if (!_healthBars.TryGetValue(callback.HitEntity, out var bar))
 				{
 					bar = _healthBars[callback.HitEntity] = _healthBarPool.Get();
-			
+
 					_anchors[callback.HitEntity] = _matchServices.EntityViewUpdaterService
 						.GetManualView(callback.HitEntity).GetComponent<HealthEntityBase>().HealthBarAnchor;
 				}
@@ -342,7 +326,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		private unsafe void OnShrinkingCircleDmg(EventOnShrinkingCircleDmg callback)
+		private void OnShrinkingCircleDmg(EventOnShrinkingCircleDmg callback)
 		{
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 			if (callback.HitEntity == spectatedPlayer.Entity && _visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))

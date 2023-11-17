@@ -17,7 +17,7 @@ namespace FirstLight.Game.Data.DataTypes
 		public uint Amount => 1;
 		public string Description => null;
 		public string DisplayName => GameId.GetLocalization().ToUpper();
-		public string ItemTypeDisplayName => GameIdGroup.Equipment.ToString();
+		public string ItemTypeDisplayName => GameIdGroup.Equipment.GetGameIdGroupLocalization();
 		public VisualElement ItemCard => new EquipmentCardElement(_equipment)
 		{
 			pickingMode = PickingMode.Ignore

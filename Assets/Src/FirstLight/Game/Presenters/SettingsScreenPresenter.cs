@@ -74,12 +74,15 @@ namespace FirstLight.Game.Presenters
 			//	() => _gameDataProvider.AppDataProvider.UseDynamicJoystick,
 			//	val => _gameDataProvider.AppDataProvider.UseDynamicJoystick = val);
 			
-			//TODO: enable when have Haptic fixed
-			root.Q<LocalizedToggle>("HapticFeedback").SetDisplay(false); 
 			SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
 				() => _gameDataProvider.AppDataProvider.IsHapticOn,
 				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
-			
+
+			//root.Q<LocalizedToggle>("InvertSpecialCancelling").SetDisplay(false);
+			SetupToggle(root.Q<LocalizedToggle>("InvertSpecialCancelling").Required(),
+				() => _gameDataProvider.AppDataProvider.InvertSpecialCancellling,
+				val => _gameDataProvider.AppDataProvider.InvertSpecialCancellling = val);
+
 			SetupToggle(root.Q<LocalizedToggle>("ScreenShake").Required(),
 				() => _gameDataProvider.AppDataProvider.UseScreenShake,
 				val => _gameDataProvider.AppDataProvider.UseScreenShake = val);
@@ -97,6 +100,9 @@ namespace FirstLight.Game.Presenters
 				() => _gameDataProvider.AppDataProvider.FpsTarget,
 				val => _gameDataProvider.AppDataProvider.FpsTarget = val,
 				FpsTarget.Normal, FpsTarget.High);
+			SetupToggle(root.Q<Toggle>("UseOverheadUI").Required(),
+				() => _gameDataProvider.AppDataProvider.UseOverheadUI,
+				val => _gameDataProvider.AppDataProvider.UseOverheadUI = val);
 
 			// Account
 			_logoutButton = root.Q<Button>("LogoutButton");

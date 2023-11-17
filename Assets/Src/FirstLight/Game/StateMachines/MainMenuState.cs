@@ -10,9 +10,11 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
+using FirstLight.Game.Presenters.Store;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
+using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -151,6 +153,7 @@ namespace FirstLight.Game.StateMachines
 			homeCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			homeCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
+			homeCheck.Transition().Condition(RequiresToSeeStore).Target(store);
 			homeCheck.Transition().Target(homeMenu);
 			homeCheck.OnExit(OpenHomeScreen);
 
@@ -214,6 +217,11 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 		}
 
+		private bool RequiresToSeeStore()
+		{
+			return _services.IAPService.RequiredToViewStore;
+		}
+		
 		private void HideMatchmaking()
 		{
 			_uiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(false);
@@ -227,6 +235,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
+			_services.MessageBrokerService.Subscribe<NewBattlePassSeasonMessage>(OnBattlePassNewSeason);
 		}
 
 		private void UnsubscribeEvents()
@@ -447,6 +456,11 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<GlobalLeaderboardScreenPresenter, GlobalLeaderboardScreenPresenter.StateData>(data);
 		}
 
+		private void OnBattlePassNewSeason(NewBattlePassSeasonMessage msg)
+		{
+			_statechartTrigger(BattlePassClickedEvent);
+		}
+
 		private void OpenBattlePassUI(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
@@ -467,22 +481,14 @@ namespace FirstLight.Game.StateMachines
 				OnBackClicked = () => { activity.Complete(); },
 				OnHomeClicked = () => { activity.Complete(); },
 				OnPurchaseItem = PurchaseItem,
-				IapProcessingFinished = OnIapProcessingFinished
 			};
-
 			_uiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new ShopScreenOpenedMessage());
 		}
 
 		private void PurchaseItem(GameProduct product)
 		{
-			_statechartTrigger(NetworkState.IapProcessStartedEvent);
 			_services.IAPService.BuyProduct(product);
-		}
-
-		private void OnIapProcessingFinished()
-		{
-			_statechartTrigger(NetworkState.IapProcessFinishedEvent);
 		}
 
 		private void OpenRoomJoinCreateMenuUI()
@@ -523,6 +529,12 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
 
+		private void FinishRewardSequence()
+		{
+			OpenHomeScreen();
+			_services.MessageBrokerService.Publish(new OnViewingRewardsFinished());
+		}
+
 		private void OnRewardsReceived(List<ItemData> items)
 		{
 			var rewardsCopy = items.Where(item => !item.Id.IsInGroup(GameIdGroup.Currency) && item.Id is not (GameId.XP or GameId.BPP or GameId.Trophies)).ToList();
@@ -531,7 +543,7 @@ namespace FirstLight.Game.StateMachines
 				_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 				{
 					Items = rewardsCopy,
-					OnFinish = OpenHomeScreen
+					OnFinish = FinishRewardSequence
 				});
 			}
 		}
@@ -545,7 +557,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				FameRewards = true,
 				Items = levelRewards,
-				OnFinish = OpenHomeScreen
+				OnFinish = FinishRewardSequence
 			});
 		}
 

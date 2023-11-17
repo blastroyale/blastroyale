@@ -65,6 +65,14 @@ namespace FirstLight.Game.MonoComponent
 				renderersContainer.SetColor(color);
 			}
 		}
+		
+		public void SetAdditiveColor(Color color)
+		{
+			foreach (var renderersContainer in _renderersContainers)
+			{
+				renderersContainer.SetAdditiveColor(color);
+			}
+		}
 
 		public void SetMaterial(MaterialVfxId materialId, bool keepTexture)
 		{

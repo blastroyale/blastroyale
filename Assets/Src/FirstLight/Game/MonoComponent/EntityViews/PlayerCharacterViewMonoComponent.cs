@@ -159,18 +159,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 			
-			var localPlayer = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
-			if (evnt.Entity != localPlayer)
-			{
-				return;
-			}
-			
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(evnt.Entity, out var attackerView))
 			{
 				return;
 			}
 			
-			UpdateColor(GameConstants.Visuals.HIT_COLOR, 0.2f);
+			UpdateAdditiveColor(GameConstants.Visuals.HIT_COLOR, 0.2f);
 		}
 
 		/// <summary>

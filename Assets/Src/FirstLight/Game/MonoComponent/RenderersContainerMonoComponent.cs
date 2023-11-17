@@ -35,6 +35,11 @@ namespace FirstLight.Game.MonoComponent
 		/// Sets the color of the renderers.
 		/// </summary>
 		void SetColor(Color color);
+		
+		/// <summary>
+		/// Sets the additive color of the renderers.
+		/// </summary>
+		void SetAdditiveColor(Color color);
 
 		/// <summary>
 		/// Sets the layer of the renderers.
@@ -55,6 +60,7 @@ namespace FirstLight.Game.MonoComponent
 	public class RenderersContainerMonoComponent : MonoBehaviour, IRendersContainer
 	{
 		private static readonly int _mainTex = Shader.PropertyToID("_MainTex");
+		private static readonly int _additiveColor = Shader.PropertyToID("_AdditiveColor");
 
 		[SerializeField, ReadOnlyOdin] private List<Renderer> _renderers = new();
 		[SerializeField, ReadOnlyOdin] private List<Renderer> _particleRenderers = new();
@@ -113,6 +119,16 @@ namespace FirstLight.Game.MonoComponent
 			foreach (var render in _renderers)
 			{
 				render.material.color = c;
+			}
+		}
+		
+		public void SetAdditiveColor(Color c)
+		{
+			// TODO: Avoid duplicating the material
+			// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/task/334
+			foreach (var render in _renderers)
+			{
+				render.material.SetColor(_additiveColor, c);
 			}
 		}
 

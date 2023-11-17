@@ -169,16 +169,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// <summary>www
 		/// Updates the color of the given character for the duration
 		/// </summary>
-		public void UpdateColor(Color color, float duration)
+		public void UpdateAdditiveColor(Color color, float duration)
 		{
-			RenderersContainerProxy.SetColor(color);
+			RenderersContainerProxy.SetAdditiveColor(color);
 			StartCoroutine(EndBlink(duration));
 		}
 		
 		private IEnumerator EndBlink(float duration)
 		{
 			yield return new WaitForSeconds(duration);
-			RenderersContainerProxy.SetColor(Color.white);
+			RenderersContainerProxy.SetAdditiveColor(Color.black);
 		}
 
 		private void HandleOnStatusModifierSet(EventOnStatusModifierSet evnt)

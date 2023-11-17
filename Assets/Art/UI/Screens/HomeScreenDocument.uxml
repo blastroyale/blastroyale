@@ -102,7 +102,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Label text="Logic server out of sync" display-tooltip-when-elided="true" name="OutOfSyncWarning" style="font-size: 40px; color: rgb(255, 18, 18); -unity-text-align: middle-center; position: absolute; bottom: 0; left: 0; height: 68px; width: 100%; -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(0, 0, 0); display: flex; visibility: visible;" />
-            <ui:Label text="BETA" display-tooltip-when-elided="true" name="BetaWarning" enable-rich-text="true" class="beta-warning" />
+            <ui:Label text="BETA" display-tooltip-when-elided="true" name="BetaWarning" enable-rich-text="true" class="beta-warning" style="-unity-background-image-tint-color: rgba(39, 36, 57, 0.25);" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <ui:VisualElement name="Header" class="player-header anim-delay-0 anim-translate anim-translate--down-l">
             <ui:Button name="TrophiesHolder" class="player-header__trophies-holder">

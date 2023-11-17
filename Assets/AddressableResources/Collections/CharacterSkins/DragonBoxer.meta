@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/AddressableResources/Collections/CharacterSkins/DragonBoxer.meta
 guid: 14636e4c3e43d441685c4947a1381aaa
-========
-guid: 3a39fb418af1b4daf8499b99157a21c5
->>>>>>>> develop:Assets/NewMapStuff.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -598,6 +598,12 @@ namespace I2.Loc
 			public static string NewBRMap 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NewBRMap"); } }
 			public static string Philadelphia 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Philadelphia"); } }
 			public static string PhiladelphiaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PhiladelphiaDescription"); } }
+			public static string PlayerSkinDragonBoxer 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinDragonBoxer"); } }
+			public static string PlayerSkinDragonBoxerDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinDragonBoxerDescription"); } }
+			public static string PlayerSkinFitnessChick 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinFitnessChick"); } }
+			public static string PlayerSkinFitnessChickDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinFitnessChickDescription"); } }
+			public static string PlayerSkinTieGuy 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinTieGuy"); } }
+			public static string PlayerSkinTieGuyDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinTieGuyDescription"); } }
 			public static string Punk 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Punk"); } }
 			public static string PunkDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PunkDescription"); } }
 			public static string Rage 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Rage"); } }
@@ -667,6 +673,7 @@ namespace I2.Loc
 			public static string SpecialAimingStunGrenadeDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialAimingStunGrenadeDescription"); } }
 			public static string SpecialAirstrikeSimple 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialAirstrikeSimple"); } }
 			public static string SpecialAirstrikeSimpleDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialAirstrikeSimpleDescription"); } }
+			public static string SpecialDefaultDash 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialDefaultDash"); } }
 			public static string SpecialHealAround 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialHealAround"); } }
 			public static string SpecialHealAroundDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialHealAroundDescription"); } }
 			public static string SpecialHealingField 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialHealingField"); } }
@@ -1519,6 +1526,7 @@ namespace I2.Loc
 			public static string @new 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/new"); } }
 			public static string rewards_remaining 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/rewards_remaining"); } }
 			public static string short_range 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/short_range"); } }
+			public static string skip_all 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/skip_all"); } }
 			public static string this_week 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/this_week"); } }
 			public static string trophies 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/trophies"); } }
 			public static string you_got 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/you_got"); } }
@@ -2302,6 +2310,12 @@ namespace I2.Loc
 		    public const string NewBRMap = "GameIds/NewBRMap";
 		    public const string Philadelphia = "GameIds/Philadelphia";
 		    public const string PhiladelphiaDescription = "GameIds/PhiladelphiaDescription";
+		    public const string PlayerSkinDragonBoxer = "GameIds/PlayerSkinDragonBoxer";
+		    public const string PlayerSkinDragonBoxerDescription = "GameIds/PlayerSkinDragonBoxerDescription";
+		    public const string PlayerSkinFitnessChick = "GameIds/PlayerSkinFitnessChick";
+		    public const string PlayerSkinFitnessChickDescription = "GameIds/PlayerSkinFitnessChickDescription";
+		    public const string PlayerSkinTieGuy = "GameIds/PlayerSkinTieGuy";
+		    public const string PlayerSkinTieGuyDescription = "GameIds/PlayerSkinTieGuyDescription";
 		    public const string Punk = "GameIds/Punk";
 		    public const string PunkDescription = "GameIds/PunkDescription";
 		    public const string Rage = "GameIds/Rage";
@@ -2371,6 +2385,7 @@ namespace I2.Loc
 		    public const string SpecialAimingStunGrenadeDescription = "GameIds/SpecialAimingStunGrenadeDescription";
 		    public const string SpecialAirstrikeSimple = "GameIds/SpecialAirstrikeSimple";
 		    public const string SpecialAirstrikeSimpleDescription = "GameIds/SpecialAirstrikeSimpleDescription";
+		    public const string SpecialDefaultDash = "GameIds/SpecialDefaultDash";
 		    public const string SpecialHealAround = "GameIds/SpecialHealAround";
 		    public const string SpecialHealAroundDescription = "GameIds/SpecialHealAroundDescription";
 		    public const string SpecialHealingField = "GameIds/SpecialHealingField";
@@ -3223,6 +3238,7 @@ namespace I2.Loc
 		    public const string @new = "UITRewards/new";
 		    public const string rewards_remaining = "UITRewards/rewards_remaining";
 		    public const string short_range = "UITRewards/short_range";
+		    public const string skip_all = "UITRewards/skip_all";
 		    public const string this_week = "UITRewards/this_week";
 		    public const string trophies = "UITRewards/trophies";
 		    public const string you_got = "UITRewards/you_got";

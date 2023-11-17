@@ -1,6 +1,5 @@
 /* AUTO GENERATED */
 :root {
-    --sprite-battlepass__arrow: url('/Assets/Art/UI/Sprites/BattlePass/arrow.png');
     --sprite-battlepass__background-left-bar: url('/Assets/Art/UI/Sprites/BattlePass/background-left-bar.png');
     --sprite-battlepass__bar-bp-back: url('/Assets/Art/UI/Sprites/BattlePass/bar-bp-back.png');
     --sprite-battlepass__bar-progress-bp: url('/Assets/Art/UI/Sprites/BattlePass/bar-progress-bp.png');
@@ -23,12 +22,6 @@
     --sprite-battlepass__slot-premium-unreached: url('/Assets/Art/UI/Sprites/BattlePass/slot-premium-unreached.png');
     --sprite-battlepass__slot-white: url('/Assets/Art/UI/Sprites/BattlePass/slot-white.png');
     --sprite-battlepass__star: url('/Assets/Art/UI/Sprites/BattlePass/star.png');
-}
-
-.sprite-battlepass__arrow {
-    background-image: var(--sprite-battlepass__arrow);
-    width: 35px;
-    height: 52px;
 }
 
 .sprite-battlepass__background-left-bar {

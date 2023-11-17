@@ -579,3 +579,40 @@
     left: 105px;
     top: 185px;
 }
+
+.skip-button__icon {
+    flex-grow: 1;
+}
+
+.skip-all-button__root {
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    letter-spacing: -4px;
+    -unity-font-style: normal;
+    position: absolute;
+    top: 44px;
+    left: auto;
+    right: 80px;
+    flex-direction: row;
+}
+
+.skip-all-button__label {
+    text-shadow: 2px 3px 0 rgb(0, 0, 0);
+    padding-right: 11px;
+}
+
+.skip-all-button__icon {
+    height: 40px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.rewards-blocker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}

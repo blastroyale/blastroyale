@@ -20,7 +20,7 @@ namespace FirstLight.Game.Data.DataTypes
 		public ItemData Item { get; }
 		public GameId GameId => _gameId;
 		public uint Amount => _amount;
-		public string DisplayName => _amount.ToString();
+		public string DisplayName => GameId.GetCurrencyLocalization(_amount).ToUpper();
 		public string Description => $"X {_amount}";
 
 		public string ItemTypeDisplayName => GameId.GetCurrencyLocalization(_amount).ToUpperInvariant();

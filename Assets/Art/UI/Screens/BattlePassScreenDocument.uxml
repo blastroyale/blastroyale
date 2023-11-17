@@ -9,8 +9,7 @@
                 <ui:VisualElement name="ColumnHolder" class="column-holder" />
             </ui:ScrollView>
             <ui:VisualElement name="LeftBar" class="left-bar">
-                <ui:VisualElement name="Background" class="left-bar__background" />
-                <ui:VisualElement name="Passes" class="left-bar__passes-holder">
+                <ui:VisualElement name="Background" class="left-bar__background">
                     <ui:VisualElement name="PaidContainer" class="paid-container">
                         <ui:VisualElement name="IconBackground" class="paid-icon-background">
                             <ui:VisualElement name="PassIcon" class="paid-pass-icon" />

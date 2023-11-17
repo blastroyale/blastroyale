@@ -118,8 +118,14 @@ namespace FirstLight.Game.Presenters.BattlePass
 			});
 			var itemView = item.GetViewModel();
 			itemView.DrawIcon(_rewardImage);
-			_title.text = itemView.DisplayName.ToUpperInvariant();
 			_type.text = itemView.ItemTypeDisplayName.ToUpperInvariant();
+			// Dirty hack to only show amount of currencies
+			if (itemView is CurrencyItemViewModel cv)
+			{
+				_title.text = cv.Amount.ToString();
+				return;
+			}
+			_title.text = itemView.DisplayName.ToUpperInvariant();
 		}
 
 		public new class UxmlFactory : UxmlFactory<BattlepassSegmentButtonElement, UxmlTraits>

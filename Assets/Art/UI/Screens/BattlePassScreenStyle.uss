@@ -402,14 +402,17 @@
     padding-top: 27px;
     padding-left: 51px;
     padding-right: 50px;
-    align-items: auto;
-    justify-content: space-around;
-    align-self: flex-start;
-    flex-wrap: nowrap;
-    flex-direction: column;
     background-image: none;
-    height: 56%;
-    width: 64%;
+    height: 481px;
+    width: 395px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    align-self: center;
+    position: absolute;
+    top: 612px;
+    left: 175px;
 }
 
 .paid-icon-background {
@@ -426,7 +429,6 @@
     flex-direction: column;
     flex-shrink: 0;
     width: 336px;
-    height: 330px;
     max-height: none;
     position: relative;
     top: auto;
@@ -435,7 +437,8 @@
     align-items: flex-end;
     padding-right: 0;
     margin-right: 8px;
-    margin-bottom: 82px;
+    height: 330px;
+    margin-bottom: 0;
 }
 
 .activate-button {
@@ -446,14 +449,8 @@
     -unity-text-outline-color: rgb(147, 35, 14);
     text-shadow: 4px 4px 0 rgb(156, 36, 12);
     position: relative;
-    left: auto;
     bottom: auto;
-    margin-top: auto;
-    margin-right: 28px;
-    margin-bottom: 35px;
-    margin-left: auto;
     padding-top: 10px;
-    padding-right: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
     font-size: 40px;
@@ -467,6 +464,12 @@
     flex-direction: column;
     -unity-background-scale-mode: stretch-to-fill;
     height: 85px;
+    margin-bottom: 0;
+    display: flex;
+    margin-top: 30px;
+    margin-right: 0;
+    margin-left: 0;
+    left: 0;
 }
 
 .free-container {
@@ -476,19 +479,23 @@
     min-height: auto;
     flex-shrink: 0;
     -unity-background-scale-mode: scale-and-crop;
-    margin-right: 9%;
     -unity-background-image-tint-color: rgb(36, 32, 55);
     display: flex;
     align-self: stretch;
     margin-left: 0;
-    padding-left: 451px;
-    padding-right: 65px;
     align-items: center;
-    padding-top: 32px;
     justify-content: flex-start;
     background-image: none;
-    width: 55%;
-    left: -114px;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 1161px;
+    left: 207px;
+    padding-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    margin-right: 0;
 }
 
 .free-icon-background {

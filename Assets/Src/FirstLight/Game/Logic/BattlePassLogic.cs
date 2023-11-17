@@ -552,12 +552,12 @@ namespace FirstLight.Game.Logic
 				var currentLevelPoints = GetRequiredPointsForLevel((int) level);
 				while (points >= currentLevelPoints)
 				{
-					points -= currentLevelPoints;
-					level++;
 					if (level >= MaxLevel)
 					{
 						break;
 					}
+					points -= currentLevelPoints;
+					level++;
 
 					currentLevelPoints = GetRequiredPointsForLevel((int) level);
 				}

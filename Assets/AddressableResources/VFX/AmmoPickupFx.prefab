@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id:
-    _selection: ChestPickupFx
+    _selection: AmmoPickupFx
 --- !u!1 &1434174137651335915
 GameObject:
   m_ObjectHideFlags: 0

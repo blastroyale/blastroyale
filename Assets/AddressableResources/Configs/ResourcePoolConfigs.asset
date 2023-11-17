@@ -32,9 +32,9 @@ MonoBehaviour:
     TakeDecreaseExponent:
       RawValue: 117965
     PoolCapacityTrophiesModifier:
-      RawValue: 9830400000
+      RawValue: 19660800000
     TakeTrophiesModifier:
-      RawValue: 655360000
+      RawValue: 1966080000
   - Id: 26
     PoolCapacity: 600
     RestockIntervalMinutes: 180

@@ -33,6 +33,7 @@ namespace FirstLight.Game.Ids
 		HealthPickupFx = 26,
 		ShieldPickupFx = 27,
 		AmmoPickupFx = 28,
+		SpecialAndWeaponPickupFx = 29,
 	}
 	
 	/// <summary>

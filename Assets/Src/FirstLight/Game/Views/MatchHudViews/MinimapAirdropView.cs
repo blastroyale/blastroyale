@@ -37,15 +37,19 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Image _timerBackground;
 		[SerializeField, Required] private Image _glow;
 		[SerializeField, Required] private Image _icon;
+		[SerializeField, Required] private Image _innerCircle;
 
 		[SerializeField, Title("Colors")] private Color _iconDroppingColor;
 		[SerializeField] private Color _iconLandedColor;
 		[SerializeField] private Color _glowLandedColor;
+		[SerializeField] private float _innerCircleWithinBoundsOpacity;
 
 		[SerializeField, Title("Animation")] private Ease _showEase = Ease.OutSine;
 		[SerializeField] private float _showDuration = 0.3f;
 		[SerializeField] private Ease _hideEase = Ease.InSine;
 		[SerializeField] private float _hideDuration = 0.3f;
+
+		private bool _isOnEdge = false;
 		
 		private void Update()
 		{
@@ -102,7 +106,22 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetPosition(Vector2 position)
 		{
 			var rect = _container.rect;
-			_rectTransform.anchoredPosition = Vector2.ClampMagnitude(position, rect.width / 2f);
+			var clampedPos = Vector2.ClampMagnitude(position, rect.width / 2f);
+			_rectTransform.anchoredPosition = clampedPos;
+
+			if (!Mathf.Approximately(position.magnitude, clampedPos.magnitude))
+			{
+				 // Outside of the minimap - do tanya thing
+				 _glow.gameObject.SetActive(true);
+				 _innerCircle.color = _innerCircle.color.Alpha(_innerCircleWithinBoundsOpacity);
+				 _isOnEdge = true;
+			}
+			else
+			{
+				// TODO: Is this bad for performance?
+				_glow.gameObject.SetActive(false);
+				_innerCircle.color = _innerCircle.color.Alpha(1f);
+			}
 		}
 
 		/// <summary>

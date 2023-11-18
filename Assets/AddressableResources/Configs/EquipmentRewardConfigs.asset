@@ -1557,7 +1557,7 @@ MonoBehaviour:
     Generation: 0
     Amount: 1
   - Id: 40
-    GameId: 77
+    GameId: 148
     EquipmentCategory:
       _keyData: 
       _valueData: []
@@ -1594,7 +1594,7 @@ MonoBehaviour:
     Generation: 0
     Amount: 1
   - Id: 41
-    GameId: 77
+    GameId: 146
     EquipmentCategory:
       _keyData: 
       _valueData: []

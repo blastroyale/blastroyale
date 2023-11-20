@@ -88,6 +88,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnShrinkingCircleDmg>(this, OnShrinkingCircleDmg);
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUpdated>(this, OnLocalPlayerSpecialUpdated);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponAdded>(this, OnLocalPlayerWeaponAdded);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 		}
 
@@ -288,8 +289,15 @@ namespace FirstLight.Game.Views.UITK
 
 			if (callback.Special.IsValid)
 			{
-				bar.ShowNotification(PlayerStatusBarElement.NotificationType.SpecialPickup, callback.Special.SpecialId.GetLocalization());
+				bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, callback.Special.SpecialId.GetLocalization());
 			}
+		}
+
+		private void OnLocalPlayerWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
+		{
+			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
+
+			bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, callback.Weapon.GameId.GetLocalization());
 		}
 
 		private unsafe void OnPlayerAttackHit(EventOnPlayerAttackHit callback)

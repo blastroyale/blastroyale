@@ -221,7 +221,7 @@ namespace FirstLight.Game.Utils
 			public const float STAR_STATUS_CHARACTER_SCALE_MULTIPLIER = 1.5f;
 			public const float RADIAL_LOCAL_POS_OFFSET = 0.1f;
 			public const float NEAR_DEATH_HEALTH_RATIO_THRESHOLD = 0.4f;
-			public static readonly Color HIT_COLOR = new Color(0xA6 / 255f, 0xA6 / 255f, 0xA6 / 255f);
+			public static readonly Color HIT_COLOR = new Color(0x7B / 255f, 0x7B / 255f, 0x7B / 255f);
 
 			public const int LOW_FPS_MODE_TARGET = 30;
 			public const int HIGH_FPS_MODE_TARGET = 60;

@@ -10,6 +10,8 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
+using Vector3 = System.Numerics.Vector3;
 
 namespace FirstLight.Game.Presenters.BattlePass
 {
@@ -22,6 +24,7 @@ namespace FirstLight.Game.Presenters.BattlePass
 
 		// Bar stuff
 		private VisualElement _completedBar;
+		private VisualElement _currentLevelArrow;
 		private Label _number;
 		private Label _priceLabel;
 		private VisualElement _barLevel;
@@ -29,7 +32,7 @@ namespace FirstLight.Game.Presenters.BattlePass
 
 		public BattlepassSegmentButtonElement PaidReward { get; private set; }
 		public BattlepassSegmentButtonElement FreeReward { get; private set; }
-		
+
 		public uint Level { get; private set; }
 		public event Action OnBuyLevelClicked;
 
@@ -51,6 +54,7 @@ namespace FirstLight.Game.Presenters.BattlePass
 			_number = element.Q<Label>("BarLevelLabel").Required();
 			_barLevel = element.Q("BarLevel").Required();
 			_buyLevelButton = element.Q<ImageButton>("BuyLevelButton").Required();
+			_currentLevelArrow = element.Q<VisualElement>("BuyLevelArrow").Required();
 			_priceLabel = element.Q<Label>("PriceLabel").Required();
 			_buyLevelButton.clicked += () =>
 			{
@@ -63,14 +67,21 @@ namespace FirstLight.Game.Presenters.BattlePass
 			Level = level;
 			_completedBar.style.width = Length.Percent(completed ? 100 : 0);
 			_number.text = level.ToString();
-			_barLevel.EnableInClassList(USS_BAR_GRAY,!completed);
+			_barLevel.EnableInClassList(USS_BAR_GRAY, !completed);
 			_buyLevelButton.SetVisibility(currentLevel && level > 1);
 			_priceLabel.text = buyLevelPrice.ToString();
 			if (!currentLevel)
 			{
 				return;
 			}
+
 			_completedBar.style.width = Length.Percent(50);
+			AnimateArrow();
+		}
+
+		public void AnimateArrow()
+		{
+			_currentLevelArrow.AnimateTransform(new UnityEngine.Vector3(0, -25), 1000, true, Easing.InOutBack);
 		}
 
 		public new class UxmlFactory : UxmlFactory<BattlepassLevelColumnElement, UxmlTraits>

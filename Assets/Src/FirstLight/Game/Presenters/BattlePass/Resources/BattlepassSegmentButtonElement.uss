@@ -455,3 +455,10 @@
     height: 66px;
     -unity-background-scale-mode: scale-to-fit;
 }
+
+.bar__buy-button--arrow {
+    flex-grow: 1;
+    position: absolute;
+    top: -60%;
+    left: 80px;
+}

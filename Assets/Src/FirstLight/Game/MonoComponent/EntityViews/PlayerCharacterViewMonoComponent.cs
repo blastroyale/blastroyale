@@ -374,9 +374,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					return;
 				case GameId.ChestEquipment:
 				case GameId.ChestConsumable:
-				case GameId.ChestLegendary:
 					var chestPickupVfx = Services.VfxService.Spawn(VfxId.ChestPickupFx).transform;
 					chestPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
+					return;
+				case GameId.ChestLegendary:
+					var airdropPickupFx = Services.VfxService.Spawn(VfxId.AirdropPickupFx).transform;
+					airdropPickupFx.position = callback.CollectablePosition.ToUnityVector3();
 					return;
 			}
 

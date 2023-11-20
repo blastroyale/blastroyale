@@ -114,16 +114,10 @@ namespace FirstLight.Game.Views
 			
 			RemoveClasses();
 			
-			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.MatchType.ToString().ToLower()}");
-			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.GameModeId.ToLower()}");
+			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.MatchType.ToString().ToLowerInvariant()}");
+			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.GameModeId.ToLowerInvariant()}");
 
-
-			_gameModeLabel.text = GameModeInfo.Entry.GameModeId.ToUpper();
-			// TODO: Remove this adhoc style change
-			if (GameModeInfo.Entry.GameModeId.ToLower() == "battleroyaleduos")
-			{
-				_gameModeLabel.AddToClassList("game-mode-button-trios__label");
-			}
+			_gameModeLabel.text = LocalizationUtils.GetTranslationForGameModeId(GameModeInfo.Entry.GameModeId);
 
 			UpdateDescription();
 			UpdateMutators();
@@ -133,12 +127,6 @@ namespace FirstLight.Game.Views
 		{
 			_gameModes.ForEach(mode => _button.RemoveFromClassList($"{GameModeButtonBase}--{mode}"));
 			_matchTypes.ForEach(type => _button.RemoveFromClassList($"{GameModeButtonBase}--{type}"));
-
-			// TODO: Remove this adhoc style change
-			if (GameModeInfo.Entry.GameModeId.ToLower() == "battleroyaleduos")
-			{
-				_gameModeLabel.RemoveFromClassList("game-mode-button-trios__label");
-			}
 		}
 
 		private void UpdateDescription()
@@ -182,9 +170,9 @@ namespace FirstLight.Game.Views
 		{
 			mutatorLine.ClearClassList();
 			mutatorLine.AddToClassList(GameModeButtonMutatorLine);
-			mutatorLine.AddToClassList(mutator.ToLower() + "-mutator");
+			mutatorLine.AddToClassList(mutator.ToLowerInvariant() + "-mutator");
 			var mutatorTitle = mutatorLine.Q<Label>("Title").Required();
-			mutatorTitle.text = mutator.ToUpper();
+			mutatorTitle.text = mutator.ToUpperInvariant();
 		}
 
 		private void UpdateTimer()

@@ -604,19 +604,23 @@
 }
 
 .game-mode-button__mode {
-    padding-bottom: -33px;
-    margin-bottom: 0;
+    padding-bottom: 0;
     font-size: 45px;
     text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72);
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     overflow: visible;
-    -unity-text-align: middle-center;
+    -unity-text-align: middle-right;
     align-items: center;
     letter-spacing: -2px;
     scale: 1 1;
-    top: -5px;
+    top: -52px;
+    position: absolute;
+    right: 109px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .game-mode-button__mode--multiple-line {

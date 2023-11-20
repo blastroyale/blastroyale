@@ -17,12 +17,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// The position of this AirDrop in minimap viewport coordinates.
 		/// </summary>
 		public Vector3 ViewportPosition { get; private set; }
-		
+
 		/// <summary>
 		/// The quantum's <see cref="AirDrop"/> data for this view
 		/// </summary>
 		public AirDrop AirDrop { get; private set; }
-		
+
 		/// <summary>
 		/// The quantum's <see cref="EntityRef"/> representing this airdrop
 		/// </summary>
@@ -35,12 +35,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private RectTransform _rectTransform;
 
 		[SerializeField, Required] private Image _timerBackground;
-		[SerializeField, Required] private Image _glow;
 		[SerializeField, Required] private Image _icon;
 		[SerializeField, Required] private Image _innerCircle;
 
-		[SerializeField, Title("Colors")] private Color _iconDroppingColor;
-		[SerializeField] private Color _iconLandedColor;
+		[SerializeField, Title("Colors")] private Color _iconLandedColor;
 		[SerializeField] private Color _glowLandedColor;
 		[SerializeField] private float _innerCircleWithinBoundsOpacity;
 
@@ -48,13 +46,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private float _showDuration = 0.3f;
 		[SerializeField] private Ease _hideEase = Ease.InSine;
 		[SerializeField] private float _hideDuration = 0.3f;
-
-		private bool _isOnEdge = false;
-		
-		private void Update()
-		{
-			_glow.transform.localScale = Vector3.one + Vector3.one * ((Mathf.Sin(Time.time * 2f) + 1f) / 2f * 0.2f);
-		}
 
 		public void OnSpawn()
 		{
@@ -64,9 +55,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_timerImage.enabled = true;
 			_timerBackground.enabled = true;
-			_glow.enabled = false;
-			_glow.color = new Color(1f, 1f, 1f, 0f);
-			_icon.color = _iconDroppingColor;
 
 			_rectTransform.localScale = Vector3.zero;
 			_rectTransform.DOScale(Vector3.one * 0.6f, _showDuration).SetEase(_showEase);
@@ -75,7 +63,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void OnDespawn()
 		{
 			_rectTransform.DOScale(Vector3.zero, _hideDuration).SetEase(_hideEase)
-			              .OnComplete(() => { gameObject.SetActive(false); });
+				.OnComplete(() => { gameObject.SetActive(false); });
 		}
 
 		/// <summary>
@@ -111,15 +99,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			if (!Mathf.Approximately(position.magnitude, clampedPos.magnitude))
 			{
-				 // Outside of the minimap - do tanya thing
-				 _glow.gameObject.SetActive(true);
-				 _innerCircle.color = _innerCircle.color.Alpha(_innerCircleWithinBoundsOpacity);
-				 _isOnEdge = true;
+				// Outside of the minimap - do tanya thing
+				_innerCircle.color = _innerCircle.color.Alpha(_innerCircleWithinBoundsOpacity);
 			}
 			else
 			{
-				// TODO: Is this bad for performance?
-				_glow.gameObject.SetActive(false);
 				_innerCircle.color = _innerCircle.color.Alpha(1f);
 			}
 		}
@@ -131,8 +115,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_timerImage.enabled = false;
 			_timerBackground.enabled = false;
-			_glow.enabled = true;
-			_glow.DOColor(_glowLandedColor, 0.3f);
 			_icon.DOColor(_iconLandedColor, 0.3f);
 		}
 	}

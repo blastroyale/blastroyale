@@ -357,11 +357,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ea89a8a4b3f6c483fb52e25040be2244
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/AirdropLight.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 65a52d6474f8f414e96c8973ab997b49
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/Timer.png
     m_ReadOnly: 0

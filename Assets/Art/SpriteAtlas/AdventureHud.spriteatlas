@@ -77,7 +77,6 @@ SpriteAtlas:
     - eea4c914f098743eb80820aef94b95ac: 21300000
     - 26a1063432a2745b0a994e82a0bc9845: 21300000
     - 65a52d6474f8f414e96c8973ab997b49: 21300000
-    - ea89a8a4b3f6c483fb52e25040be2244: 21300000
     - b4f7eea4c12960a4f8ecb113e57816cd: 21300000
     - 9ccf5dc46a77943c1bf581cbaa659694: 21300000
     - 8a3451f4b261249adbe672242c3c5331: 21300000
@@ -167,7 +166,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: eea4c914f098743eb80820aef94b95ac, type: 3}
   - {fileID: 21300000, guid: 26a1063432a2745b0a994e82a0bc9845, type: 3}
   - {fileID: 21300000, guid: 65a52d6474f8f414e96c8973ab997b49, type: 3}
-  - {fileID: 21300000, guid: ea89a8a4b3f6c483fb52e25040be2244, type: 3}
   - {fileID: 21300000, guid: b4f7eea4c12960a4f8ecb113e57816cd, type: 3}
   - {fileID: 21300000, guid: 9ccf5dc46a77943c1bf581cbaa659694, type: 3}
   - {fileID: 21300000, guid: 8a3451f4b261249adbe672242c3c5331, type: 3}
@@ -256,7 +254,6 @@ SpriteAtlas:
   - HealthBarShine
   - SpecialRing
   - Timer
-  - AirdropLight
   - WhiteRound
   - SmearNewWhite
   - 2Countdown

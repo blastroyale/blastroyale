@@ -8,23 +8,24 @@ using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using UnityEngine;
-
+using Cysharp.Threading.Tasks;
+	
 namespace FirstLight.Game.Configs
 {
 	/// <summary>
 	/// Interface responsible for loading game-specific configuration files from a given asset resolver.
 	/// </summary>
-	public interface IConfigsLoader
+	public interface IConfigsLoader 
 	{
 		/// <summary>
 		/// Using the given asset resolver, loads and fills the IConfigsAdder object.
 		/// </summary>
-		IEnumerable<Task> LoadConfigTasks(IConfigsAdder cfg);
+		IEnumerable<UniTask> LoadConfigTasks(IConfigsAdder cfg);
 
 		/// <summary>
 		/// Loads a specific config using the given asset resolver. 
 		/// </summary>
-		Task LoadConfig<TContainer>(AddressableId id, Action<TContainer> onLoadComplete) where TContainer : ScriptableObject;
+		UniTask LoadConfig<TContainer>(AddressableId id, Action<TContainer> onLoadComplete) where TContainer : ScriptableObject;
 	}
 
 	/// <summary>
@@ -39,9 +40,9 @@ namespace FirstLight.Game.Configs
 			_assetLoader = assetLoader;
 		}
 
-		public IEnumerable<Task> LoadConfigTasks(IConfigsAdder configsAdder)
+		public IEnumerable<UniTask> LoadConfigTasks(IConfigsAdder configsAdder)
 		{
-			return new List<Task>
+			return new List<UniTask>
 			{
 				LoadConfig<GameConfigs>(AddressableId.Configs_GameConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<MapGridConfigs>(AddressableId.Configs_MapGridConfigs, asset => configsAdder.AddSingletonConfig(asset)),
@@ -92,7 +93,7 @@ namespace FirstLight.Game.Configs
 			return typeof(TContainer).CustomAttributes.Any(c => c.AttributeType == typeof(IgnoreServerSerialization));
 		}
 
-		public async Task LoadConfig<TContainer>(AddressableId id, Action<TContainer> onLoadComplete) where TContainer : ScriptableObject
+		public async UniTask LoadConfig<TContainer>(AddressableId id, Action<TContainer> onLoadComplete) where TContainer : ScriptableObject
 		{
 			var asset = await _assetLoader.LoadAssetAsync<TContainer>(id.GetConfig().Address);
 			onLoadComplete(asset);

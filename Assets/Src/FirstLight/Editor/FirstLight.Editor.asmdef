@@ -27,7 +27,8 @@
         "PlayFabEditorExtensions",
         "UnityEngine.Purchasing.Stores",
         "PhotonQuantumEditor",
-        "PhotonRealtime"
+        "PhotonRealtime",
+        "UniTask"
     ],
     "includePlatforms": [
         "Editor"

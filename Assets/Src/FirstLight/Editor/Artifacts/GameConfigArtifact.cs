@@ -1,5 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -15,7 +16,7 @@ namespace FirstLight.Editor.Artifacts
 			var configs = new ConfigsProvider();
 			var configsLoader = new GameConfigsLoader(new AssetResolverService());
 			Debug.Log("Parsing Configs");
-			await Task.WhenAll(configsLoader.LoadConfigTasks(configs));
+			await UniTask.WhenAll(configsLoader.LoadConfigTasks(configs));
 			return serializer.Serialize(configs, "develop");
 		}
 

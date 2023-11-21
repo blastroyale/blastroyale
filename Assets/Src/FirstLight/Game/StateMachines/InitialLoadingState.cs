@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -106,13 +107,13 @@ namespace FirstLight.Game.StateMachines
 		{
 			var configProvider = _services.ConfigsProvider;
 			
-			var tasks = new List<Task>();
+			var tasks = new List<UniTask>();
 
 			tasks.Add(LoadErrorAssets());
 			tasks.AddRange(_configsLoader.LoadConfigTasks(_configsAdder));
 			tasks.AddRange(LoadAssetConfigs());
 			
-			await Task.WhenAll(tasks);
+			await UniTask.WhenAll(tasks);
 			
 			if (FeatureFlags.REMOTE_CONFIGURATION)
 			{
@@ -148,7 +149,7 @@ namespace FirstLight.Game.StateMachines
 			LoadVfx();
 		}
 
-		private async Task LoadErrorAssets()
+		private async UniTask LoadErrorAssets()
 		{
 			await _configsLoader.LoadConfig<CustomAssetConfigs>(AddressableId.Configs_CustomAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset));
 			
@@ -163,9 +164,9 @@ namespace FirstLight.Game.StateMachines
 			_assetService.AddDebugConfigs(errorSprite.Result, errorCube.Result, errorMaterial.Result, errorClip.Result);
 		}
 
-		private IEnumerable<Task> LoadAssetConfigs()
+		private IEnumerable<UniTask> LoadAssetConfigs()
 		{
-			return new List<Task>
+			return new List<UniTask>
 			{
 				_configsLoader.LoadConfig<AudioMixerConfigs>(AddressableId.Configs_AudioMixerConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioMatchAssetConfigs>(AddressableId.Configs_AudioMatchAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),

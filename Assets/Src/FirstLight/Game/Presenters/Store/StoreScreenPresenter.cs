@@ -26,7 +26,6 @@ namespace FirstLight.Game.Presenters.Store
 	{
 		public struct StateData
 		{
-			public Action IapProcessingFinished;
 			public Action<GameProduct> OnPurchaseItem;
 			public Action OnHomeClicked;
 			public Action OnBackClicked;
@@ -106,7 +105,6 @@ namespace FirstLight.Game.Presenters.Store
 		[Button]
 		private void OnPurchaseFailed(PurchaseFailureReason reason)
 		{
-			Data.IapProcessingFinished();
 			_blocker.style.display = DisplayStyle.None;
 			if (reason is PurchaseFailureReason.UserCancelled or PurchaseFailureReason.PaymentDeclined) return;
 
@@ -133,7 +131,6 @@ namespace FirstLight.Game.Presenters.Store
 
 		private void OnCoresOpened(OpenedCoreMessage msg)
 		{
-			Data.IapProcessingFinished();
 			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 			{
 				ParentItem = msg.Core,
@@ -150,7 +147,6 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			// Handle only currency, other types are handled by claiming rewards
 			if (!msg.Item.Id.IsInGroup(GameIdGroup.Currency)) return;
-			Data.IapProcessingFinished();
 			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 			{
 				Items = new List<ItemData> {msg.Item},

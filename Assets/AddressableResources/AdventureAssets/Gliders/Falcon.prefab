@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5104324935369651877}
   - component: {fileID: 133602452677693325}
   - component: {fileID: 955586259708607677}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Thruster02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2272159313422500462}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.038475156, y: -0.17119308, z: -0.24036503}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3483469622654621321}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &133602452677693325
 MeshFilter:
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4669457747945642510}
   - component: {fileID: 7994909256586765306}
   - component: {fileID: 7421841631836258393}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Thruster01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,13 +108,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2550196158109597683}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.7203024, y: 0.03342459, z: -0.10167684}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3483469622654621321}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7994909256586765306
 MeshFilter:
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 4623779364408691522}
   - component: {fileID: 8831717351428058621}
   - component: {fileID: 7474305517270611643}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Thruster03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,13 +191,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3475974318202738161}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.7158345, y: 0.03342459, z: -0.10167684}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3483469622654621321}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8831717351428058621
 MeshFilter:
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 3483469622654621321}
   - component: {fileID: 574242758751836460}
   - component: {fileID: 2313981554691321318}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Falcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,6 +274,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4259303017125317683}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -283,7 +284,6 @@ Transform:
   - {fileID: 5104324935369651877}
   - {fileID: 4623779364408691522}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &574242758751836460
 MeshFilter:

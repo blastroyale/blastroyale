@@ -1,4 +1,5 @@
 using FirstLight.Game.Logic;
+using FirstLight.Game.Utils;
 using Lofelt.NiceVibrations;
 using Quantum;
 
@@ -14,6 +15,8 @@ namespace FirstLight.Game.Services.Match
 		private readonly IMatchServices _matchServices;
 		private readonly IGameDataProvider _dataProvider;
 
+		private EntityRef _localPlayerEntity;
+
 		public HapticsService(IGameServices gameServices, IMatchServices matchServices, IGameDataProvider dataProvider)
 		{
 			_gameServices = gameServices;
@@ -28,6 +31,7 @@ namespace FirstLight.Game.Services.Match
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
+			_localPlayerEntity = game.GetLocalPlayerData(true, out _).Entity;
 		}
 
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
@@ -36,18 +40,18 @@ namespace FirstLight.Game.Services.Match
 
 		private void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
 		{
-			if (callback.PlayerEntity != _matchServices.SpectateService.GetSpectatedEntity()) return;
+			if (callback.PlayerEntity != _localPlayerEntity) return;
 
 			HapticPatterns.PlayPreset(HapticPatterns.PresetType.MediumImpact);
 		}
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			if (callback.EntityDead == _matchServices.SpectateService.GetSpectatedEntity())
+			if (callback.EntityDead == _localPlayerEntity)
 			{
 				HapticPatterns.PlayPreset(HapticPatterns.PresetType.Failure);
 			}
-			else if (callback.EntityKiller == _matchServices.SpectateService.GetSpectatedEntity())
+			else if (callback.EntityKiller == _localPlayerEntity)
 			{
 				HapticPatterns.PlayPreset(HapticPatterns.PresetType.Success);
 			}

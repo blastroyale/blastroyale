@@ -29,7 +29,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[Required, SerializeField] private LineRenderer _upperLineRenderer;
 		[Required, SerializeField] private LineRenderer _lowerLineRenderer;
 
-		private const int _minAngleVariation = 15;
+		private const int _minAngleVariation = 90;
 		private readonly Color _sideLineStartColor = new (0.13f, 0.13f, 0.13f);
 		private readonly Color _sideLineEndColor = new (0.02f, 0.02f, 0.02f);
 		private readonly Color _mainLineColor = Color.white;

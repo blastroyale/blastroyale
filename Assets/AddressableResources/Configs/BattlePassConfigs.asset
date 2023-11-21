@@ -275,11 +275,11 @@ MonoBehaviour:
       PremiumRewardId: 46
       PointsForNextLevel: 50
       Season: 7
-    - RewardId: 45
+    - RewardId: 2
       PremiumRewardId: 31
       PointsForNextLevel: 100
       Season: 7
-    - RewardId: 2
+    - RewardId: 45
       PremiumRewardId: 46
       PointsForNextLevel: 200
       Season: 7

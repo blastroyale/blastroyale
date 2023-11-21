@@ -63,7 +63,7 @@ namespace Quantum
 			if (Charges == 0)
 			{
 				inventory->Specials[specialIndex] = default;
-				f.Events.OnLocalPlayerSpecialUpdated(playerRef, playerEntity, (uint) specialIndex, default);
+				f.Events.OnPlayerSpecialUpdated(playerRef, playerEntity, (uint) specialIndex, default);
 			}
 			else
 			{

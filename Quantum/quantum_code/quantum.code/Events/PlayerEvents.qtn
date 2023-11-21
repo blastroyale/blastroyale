@@ -250,9 +250,9 @@ synced event OnLocalPlayerDead
 }
 
 
-synced event OnLocalPlayerWeaponAdded
+synced event OnPlayerWeaponAdded
 {
-	local player_ref Player;
+	player_ref Player;
 	entity_ref Entity;
 	Equipment Weapon;
 	Int32 WeaponSlotNumber;

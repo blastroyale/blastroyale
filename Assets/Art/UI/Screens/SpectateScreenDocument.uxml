@@ -1,7 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/SpectateScreenStyle.uss?fileID=7433441132597879392&amp;guid=56b29c1063eac47cc94924e9e46faf57&amp;type=3#SpectateScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/HUDPlayerStatusBarStyle.uss?fileID=7433441132597879392&amp;guid=751c0e72a1b84d48bdcdb4e2da1076d7&amp;type=3#HUDPlayerStatusBarStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/PlayerHealthShieldElementStyle.uss?fileID=7433441132597879392&amp;guid=a415ac8bc2ff84e8e934ecc38d63872e&amp;type=3#PlayerHealthShieldElementStyle" />
     <ui:VisualElement name="root" class="fill-parent">
+        <ui:VisualElement name="StatusBars" picking-mode="Ignore" usage-hints="GroupTransform" class="fill-parent" style="flex-grow: 1;" />
         <FirstLight.Game.UIElements.SafeAreaElement name="PlayerSafeArea" picking-mode="Ignore" apply-right="false" apply-bottom="false" apply-top="false" apply-left="true">
             <ui:VisualElement name="PlayerHolder" class="player-holder anim-delay-0 anim-translate anim-translate--right-xxl">
                 <ui:VisualElement name="Background" class="fill-parent player-holder__background">

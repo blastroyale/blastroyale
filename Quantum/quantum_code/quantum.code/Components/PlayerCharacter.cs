@@ -308,7 +308,7 @@ namespace Quantum
 			targetSlot->MagazineSize = weaponConfig.MagazineSize;
 			WeaponSlots[slot].Weapon = weapon;
 
-			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
+			f.Events.OnPlayerWeaponAdded(Player, e, weapon, slot);
 
 			EquipSlotWeapon(f, e, slot);
 		}

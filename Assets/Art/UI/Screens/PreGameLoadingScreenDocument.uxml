@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/MatchmakingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#MatchmakingScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Screens/PreGameLoadingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#PreGameLoadingScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent">
         <FirstLight.Game.UIElements.AnimatedImageElement name="Clouds" sine-wave-pos-min-x="-65" sine-wave-pos-x-frequency="1" sine-wave-pos-y-frequency="-1" sine-wave-pos-min-y="-35" sine-wave-pos-max-x="65" sine-wave-pos-max-y="35" sine-wave-pos-x-offset="0" sine-wave-pos-y-offset="0.75" class="clouds" />
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
@@ -18,17 +18,8 @@
             </ui:VisualElement>
             <ui:VisualElement name="MapHolder" class="map-holder">
                 <ui:VisualElement name="Map" class="map">
-                    <ui:VisualElement name="Mask" class="map__mask">
-                        <ui:VisualElement name="MapImage" class="map__image">
-                            <ui:VisualElement name="TutorialDropPos" picking-mode="Ignore" class="tutorial-drop-pos" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="DropZone" picking-mode="Ignore" class="dropzone">
-                            <ui:VisualElement name="ShadowLeft" class="dropzone__shadow" />
-                            <ui:VisualElement name="Path" picking-mode="Ignore" class="dropzone__path">
-                                <ui:VisualElement name="Plane" picking-mode="Ignore" class="dropzone__plane" />
-                            </ui:VisualElement>
-                            <ui:VisualElement name="ShadowRight" class="dropzone__shadow" />
-                        </ui:VisualElement>
+                    <ui:VisualElement name="MapImage" class="map__image">
+                        <ui:VisualElement name="TutorialDropPos" picking-mode="Ignore" class="tutorial-drop-pos" />
                     </ui:VisualElement>
                     <ui:VisualElement name="PartyMarkers" picking-mode="Ignore" class="fill-parent party-markers">
                         <ui:VisualElement name="marker" class="map-marker-party" />

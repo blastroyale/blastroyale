@@ -32,6 +32,14 @@
     position: absolute;
 }
 
+.scroll-view .unity-scroll-view__content-viewport {
+    overflow: visible;
+}
+
+.scroll-view .unity-scroll-view__content-container {
+    overflow: visible;
+}
+
 .store-safearea {
     flex-wrap: wrap-reverse;
     flex-direction: row;

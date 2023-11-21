@@ -99,7 +99,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 
 			var character = attackerView.GetComponent<PlayerCharacterMonoComponent>();
-			character?.PlayerView?.UpdateColor(GameConstants.Visuals.HIT_COLOR, 0.2f);
+			character?.PlayerView?.UpdateAdditiveColor(GameConstants.Visuals.HIT_COLOR, 0.2f);
 		}
 		
 		public void Dispose()

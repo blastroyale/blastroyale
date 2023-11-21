@@ -265,7 +265,6 @@ namespace Quantum.Systems.Bots
 			if ((target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
 				special.TryActivate(f, PlayerRef.None, entity, FPVector2.Zero, specialIndex))
 			{
-				inventory->Specials[specialIndex] = special;
 				return true;
 			}
 

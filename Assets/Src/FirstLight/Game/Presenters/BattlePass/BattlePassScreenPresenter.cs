@@ -49,6 +49,7 @@ namespace FirstLight.Game.Presenters
 
 		private ScrollView _rewardsScroll;
 		private VisualElement _leftBar;
+		private VisualElement _rightContent;
 		private VisualElement _seasonHeader;
 		private VisualElement _columnHolder;
 		private VisualElement _root;
@@ -68,6 +69,7 @@ namespace FirstLight.Game.Presenters
 		private LocalizedLabel _seasonEndsLabel;
 		private VisualElement _lastRewardBaloon;
 		private ScreenHeaderElement _screenHeader;
+		private ImageButton _currentReward;
 
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
@@ -86,6 +88,8 @@ namespace FirstLight.Game.Presenters
 			base.QueryElements(root);
 			_levelElements = new Dictionary<int, BattlepassLevelColumnElement>();
 			_leftBar = root.Q<VisualElement>("LeftBar").Required();
+			_rightContent = root.Q<VisualElement>("RightContent").Required();
+			_currentReward = root.Q<ImageButton>("CurrentReward").Required();
 			_seasonHeader = root.Q<VisualElement>("SeasonHeader").Required();
 			_rewardsScroll = root.Q<ScrollView>("RewardsScroll").Required();
 			_screenHeader = root.Q<ScreenHeaderElement>("Header").Required();
@@ -114,6 +118,7 @@ namespace FirstLight.Game.Presenters
 			//_fullScreenClaimButton.clicked += OnClaimClicked;
 			//_claimButton.clicked += OnClaimClicked;
 			_activateButton.clicked += ActivateClicked;
+			_currentReward.clicked += GoToCurrentReward;
 
 			_fullScreenClaimButton.SetDisplay(false);
 			root.Q("RewardShineBlue").Required().AddRotatingEffect(3, 10);
@@ -154,7 +159,7 @@ namespace FirstLight.Game.Presenters
 
 			_leftBar.style.marginLeft = leftTop.x;
 			_seasonHeader.style.paddingRight = rightBottom.x;
-			_columnHolder.style.paddingLeft = leftTop.x;
+			_rightContent.style.left = leftTop.x;
 		}
 
 		private void InitScreenAndSegments()
@@ -353,6 +358,8 @@ namespace FirstLight.Game.Presenters
 			{
 				ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs, Data.DisableInitialScrollAnimation && !update);
 			}
+			// Disable current reward bubble
+			_currentReward.SetDisplay(false);
 		}
 
 		public RewardState GetRewardState(BattlePassSegmentData segment)
@@ -367,7 +374,7 @@ namespace FirstLight.Game.Presenters
 
 			return RewardState.NotReached;
 		}
-		
+
 		private void ConfigureSegment(BattlepassSegmentButtonElement element, BattlePassSegmentData segment, bool update)
 		{
 			var state = GetRewardState(segment);
@@ -381,16 +388,41 @@ namespace FirstLight.Game.Presenters
 			element.Clicked += OnSegmentRewardClicked;
 		}
 
+		private void GoToCurrentReward()
+		{
+			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+			ScrollToBpLevel((int) predictedProgress.Item1, 1000);
+		}
+
+		private void UpdateGoToCurrentRewardButton()
+		{
+			var level = (int) _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1;
+			var isCurrentLevelOnScreen = _levelElements[level].IsInScreen(_rightContent);
+			if (isCurrentLevelOnScreen)
+			{
+				_currentReward.SetDisplay(false);
+				return;
+			}
+			_currentReward.SetDisplay(true);
+			var scrollTarget = GetScrollTargetForElement(level);
+			var scroll = _rewardsScroll.scrollOffset.x;
+			_currentReward.RemoveModifiers();
+			if (scroll > scrollTarget)
+			{
+				_currentReward.AddToClassList("current-reward-cloud--left");
+			}
+		}
+
 		private void OnScroll(float x)
 		{
 			var lastElement = _levelElements.Last().Value;
 			_lastRewardBaloon.SetDisplay(!lastElement.IsInScreen(Root));
+			UpdateGoToCurrentRewardButton();
 		}
 
 		private void ScrollToBpLevel(int index, int durationMs, bool instant = false)
 		{
-			if (index >= _dataProvider.BattlePassDataProvider.MaxLevel) index = (int) _dataProvider.BattlePassDataProvider.MaxLevel - 1;
-			var targetX = ((index + 1) * BpSegmentWidth) - (BpSegmentWidth * 3);
+			var targetX = GetScrollTargetForElement(index);
 			if (instant)
 			{
 				_rewardsScroll.scrollOffset = new Vector2(targetX, _rewardsScroll.scrollOffset.y);
@@ -405,6 +437,13 @@ namespace FirstLight.Game.Presenters
 				var currentScroll = scrollView.scrollOffset;
 				scrollView.scrollOffset = new Vector2(startX + (offset * percent), currentScroll.y);
 			}).Ease(Easing.OutCubic);
+		}
+
+		private float GetScrollTargetForElement(int index)
+		{
+			if (index >= _dataProvider.BattlePassDataProvider.MaxLevel) index = (int) _dataProvider.BattlePassDataProvider.MaxLevel - 1;
+			var targetX = ((index + 1) * BpSegmentWidth) - (BpSegmentWidth * 3);
+			return Math.Max(0, targetX);
 		}
 
 		private void SpawnScrollFiller()

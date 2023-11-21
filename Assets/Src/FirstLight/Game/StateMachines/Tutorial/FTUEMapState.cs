@@ -59,7 +59,7 @@ namespace FirstLight.Game.StateMachines
 			_dataProvider = logic;
 			_tutorialService = tutorialService;
 			_statechartTrigger = statechartTrigger;
-			_sequence = new MetaTutorialSequence(services, TutorialSection.FTUE_MAP);
+			_sequence = new MetaTutorialSequence(services, TutorialSection.FIRST_GUIDE_MATCH);
 		}
 
 		/// <summary>

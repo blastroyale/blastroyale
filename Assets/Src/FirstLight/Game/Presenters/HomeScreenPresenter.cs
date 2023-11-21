@@ -524,9 +524,6 @@ namespace FirstLight.Game.Presenters
 			_csPoolContainer.SetDisplay(hasPool);
 			_playButtonContainer.EnableInClassList("button-with-pool", hasPool);
 
-			_gameModeLabel.EnableInClassList("game-mode-button__mode--multiple-line",
-				_gameModeLabel.text.Contains("\n"));
-
 			_gameModeButton.SetEnabled(!_partyService.HasParty.Value && !_partyService.OperationInProgress.Value);
 		}
 

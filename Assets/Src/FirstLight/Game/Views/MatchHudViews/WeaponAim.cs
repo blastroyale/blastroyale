@@ -38,7 +38,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private Shape3D _shape;
 		private FP _variationRange;
 		private FP _range;
-		private FP _angleVariation = 0;
+		private FP _angleVariation = 90;
 		private EntityView _view;
 		private FPVector2 _aim;
 		private FPVector2 _lastAim;

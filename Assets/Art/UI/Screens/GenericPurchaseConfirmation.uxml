@@ -6,7 +6,7 @@
         <ui:VisualElement name="Popup" class="popup popup-radius popup--xl anim-delay-0 anim-translate anim-translate--down-xxxl">
             <ui:VisualElement name="Window" class="popup-radius popup__window popup__window--full">
                 <ui:VisualElement name="Header" class="background-purple window__header window__header--xl">
-                    <ui:VisualElement name="TitleDots" class="dots-pattern" />
+                    <ui:VisualElement name="TitleDots" class="dots-pattern" style="-unity-background-image-tint-color: rgb(105, 67, 195);" />
                     <ui:Label name="Title" text="CONFIRM ACTION" class="purchase-confirmation__title" />
                     <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="window__close-button" />
                 </ui:VisualElement>

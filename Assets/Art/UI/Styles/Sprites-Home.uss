@@ -1,5 +1,6 @@
 /* AUTO GENERATED */
 :root {
+    --sprite-home__AirdropIconOnfield: url('/Assets/Art/UI/Sprites/Home/AirdropIconOnfield.png');
     --sprite-home__ArrowBig: url('/Assets/Art/UI/Sprites/Home/ArrowBig.png');
     --sprite-home__background-avatar-nft: url('/Assets/Art/UI/Sprites/Home/background-avatar-nft.png');
     --sprite-home__background-big-bundle: url('/Assets/Art/UI/Sprites/Home/background-big-bundle.png');
@@ -106,6 +107,7 @@
     --sprite-home__header-back-pressed: url('/Assets/Art/UI/Sprites/Home/header-back-pressed.png');
     --sprite-home__header-home: url('/Assets/Art/UI/Sprites/Home/header-home.png');
     --sprite-home__header-home-pressed: url('/Assets/Art/UI/Sprites/Home/header-home-pressed.png');
+    --sprite-home__header-popup: url('/Assets/Art/UI/Sprites/Home/header-popup.png');
     --sprite-home__header-popup-equipment: url('/Assets/Art/UI/Sprites/Home/header-popup-equipment.png');
     --sprite-home__header-profile: url('/Assets/Art/UI/Sprites/Home/header-profile.png');
     --sprite-home__header-profile-pressed: url('/Assets/Art/UI/Sprites/Home/header-profile-pressed.png');
@@ -197,6 +199,12 @@
     --sprite-home__vfx-rewards-rays: url('/Assets/Art/UI/Sprites/Home/vfx-rewards-rays.png');
     --sprite-home__volume-header: url('/Assets/Art/UI/Sprites/Home/volume-header.png');
     --sprite-home__weapon-placeholder: url('/Assets/Art/UI/Sprites/Home/weapon-placeholder.png');
+}
+
+.sprite-home__AirdropIconOnfield {
+    background-image: var(--sprite-home__AirdropIconOnfield);
+    width: 320px;
+    height: 320px;
 }
 
 .sprite-home__ArrowBig {
@@ -785,6 +793,12 @@
 
 .sprite-home__header-home:active {
     background-image: var(--sprite-home__header-home-pressed);
+}
+
+.sprite-home__header-popup {
+    background-image: var(--sprite-home__header-popup);
+    width: 148px;
+    height: 99px;
 }
 
 .sprite-home__header-popup-equipment {

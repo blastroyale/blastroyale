@@ -104,6 +104,7 @@
     width: 312px;
     height: 320px;
     background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-small-bundle.png?fileID=21300000&guid=a9cca8098829b3644beb246b0ca28c57&type=3#background-small-bundle');
+    margin-bottom: 30px;
 }
 
 .product-image-gradient-small {
@@ -117,7 +118,7 @@
 .product-image--small {
     width: 230px;
     height: 230px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon_coins_3.png?fileID=21300000&guid=ab43c7f43962c6f48a219ff1166e7c2f&type=3#icon_coins_3');
+    background-image: url('project://database/Assets/Art/UI/Sprites/Currencies/coin-3.png?fileID=21300000&guid=ab43c7f43962c6f48a219ff1166e7c2f&type=3#coin-3');
 }
 
 .product-price--small {

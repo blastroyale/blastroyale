@@ -41,7 +41,7 @@
     color: rgb(242, 178, 51);
 }
 
-.player-status-bar__notification--special {
+.player-status-bar__notification--misc {
     color: rgb(255, 255, 255);
 }
 

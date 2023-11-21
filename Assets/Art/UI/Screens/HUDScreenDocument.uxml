@@ -100,10 +100,11 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="BottomCenterContainer" class="bottom-center-container">
-                <ui:VisualElement name="LocalPlayerInfo" class="local-player-info">
+                <ui:VisualElement name="LocalPlayerInfo" class="local-player-info customizable-hud">
                     <ui:VisualElement name="TeamColor" class="local-player-info__team-color">
                         <ui:VisualElement name="PlayerAvatar" class="local-player-info_pfp" />
                     </ui:VisualElement>
+                    <ui:Label tabindex="-1" text="PLAYER NAME" parse-escape-sequences="true" name="LocalPlayerName" class="local-player-info__name" />
                     <FirstLight.Game.UIElements.PlayerHealthShieldElement name="LocalPlayerHealthShield" class="player-health-shield--local" />
                 </ui:VisualElement>
             </ui:VisualElement>

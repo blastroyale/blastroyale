@@ -26,7 +26,7 @@ namespace FirstLight.Game.UIElements
 		private const string USS_NOTIFICATION_HEALTH = USS_NOTIFICATION + "--health";
 		private const string USS_NOTIFICATION_AMMO = USS_NOTIFICATION + "--ammo";
 		private const string USS_NOTIFICATION_LVLUP = USS_NOTIFICATION + "--lvlup";
-		private const string USS_NOTIFICATION_SPECIAL = USS_NOTIFICATION + "--special";
+		private const string USS_NOTIFICATION_MISC = USS_NOTIFICATION + "--misc";
 		private const string USS_DAMAGE_HOLDER = USS_BLOCK + "__damage-holder";
 		private const string USS_DAMAGE_NUMBER = USS_BLOCK + "__damage-number";
 
@@ -170,11 +170,11 @@ namespace FirstLight.Game.UIElements
 					break;
 				case NotificationType.MaxSpecials:
 					_notificationLabel.text = ScriptLocalization.UITMatch.full;
-					_notificationLabel.AddToClassList(USS_NOTIFICATION_SPECIAL);
+					_notificationLabel.AddToClassList(USS_NOTIFICATION_MISC);
 					break;
-				case NotificationType.SpecialPickup:
+				case NotificationType.MiscPickup:
 					_notificationLabel.text = data;
-					_notificationLabel.AddToClassList(USS_NOTIFICATION_SPECIAL);
+					_notificationLabel.AddToClassList(USS_NOTIFICATION_MISC);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -225,7 +225,7 @@ namespace FirstLight.Game.UIElements
 			MaxAmmo,
 			LevelUp,
 			MaxSpecials,
-			SpecialPickup
+			MiscPickup
 		}
 
 		public new class UxmlFactory : UxmlFactory<PlayerStatusBarElement, UxmlTraits>

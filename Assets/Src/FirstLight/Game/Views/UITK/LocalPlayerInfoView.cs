@@ -14,7 +14,9 @@ namespace FirstLight.Game.Views.UITK
 		private PlayerHealthShieldElement _healthShield;
 		private VisualElement _teamColor;
 		private VisualElement _pfp;
+		private Label _name;
 
+		private IGameServices _gameServices;
 		private IMatchServices _matchServices;
 		private IGameDataProvider _dataProvider;
 
@@ -22,12 +24,14 @@ namespace FirstLight.Game.Views.UITK
 		{
 			base.Attached(element);
 
+			_gameServices = MainInstaller.ResolveServices();
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_dataProvider = MainInstaller.ResolveData();
 
 			_healthShield = element.Q<PlayerHealthShieldElement>("LocalPlayerHealthShield").Required();
 			_teamColor = element.Q("TeamColor").Required();
 			_pfp = element.Q("PlayerAvatar").Required();
+			_name = element.Q<Label>("LocalPlayerName").Required();
 		}
 
 		public override void SubscribeToEvents()
@@ -57,6 +61,19 @@ namespace FirstLight.Game.Views.UITK
 
 				_healthShield.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, maxHealth, !_dataProvider.AppDataProvider.ShowRealDamage);
 				_healthShield.UpdateShield(stats.CurrentShield, stats.CurrentShield, maxShield, !_dataProvider.AppDataProvider.ShowRealDamage);
+			}
+
+			if (f.TryGet<PlayerCharacter>(playerEntity, out var pc))
+			{
+				var isBot = f.Has<BotCharacter>(playerEntity);
+				var playerName = Extensions.GetPlayerName(f, playerEntity, pc);
+				var playerNameColor = isBot
+					? GameConstants.PlayerName.DEFAULT_COLOR
+					: _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked,
+						(int) f.GetPlayerData(pc.Player).LeaderboardRank);
+
+				_name.text = playerName;
+				_name.style.color = playerNameColor;
 			}
 
 			UpdateTeamColor();

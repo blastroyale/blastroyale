@@ -38,7 +38,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_shrinkingCircleLinerRenderer.gameObject.SetActive(false);
 			_safeAreaCircleLinerRenderer.gameObject.SetActive(false);
 			_damageZoneTransform.gameObject.SetActive(false);
-			_ringOfFireParticle.Stop();
+			_ringOfFireParticle.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
 		}
 
 		private void HandleGameEnded(EventOnGameEnded callback)
@@ -99,10 +99,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			cachedSafeAreaCircleLine.localScale = new Vector3(targetRadius, targetRadius, 1f);
 			_safeAreaCircleLinerRenderer.WidthMultiplier = 1f / targetRadius;
 			
-			if (_ringOfFireParticle.isStopped)
-			{
-				_ringOfFireParticle.Play();
-			}
 			
 			// Update ring of fire particle FX
 			_innerRadius = radiusFP/FP._10;
@@ -116,6 +112,11 @@ namespace FirstLight.Game.MonoComponent.Match
 				shape.radius = radius;
 				shape.radiusThickness = 0;
 				emission.rateOverTime = Math.Min(MaxParticles, radius * 2f);
+				
+				if (_ringOfFireParticle.isStopped)
+				{
+					_ringOfFireParticle.Play();
+				}
 			}
 		}
 	}

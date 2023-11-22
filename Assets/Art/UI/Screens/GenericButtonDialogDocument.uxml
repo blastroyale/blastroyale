@@ -4,9 +4,9 @@
         <ui:Button name="BlockerButton" class="blocker" />
         <ui:VisualElement name="Popup" class="popup popup-radius anim-delay-0 anim-translate anim-translate--down-xxxl" style="display: flex;">
             <ui:VisualElement name="Window" class="popup-radius popup__window">
-                <ui:VisualElement name="Header" class="background-purple window__header" style="display: flex;">
+                <ui:VisualElement name="Header" class="background-purple window__header">
                     <ui:VisualElement name="TitleDots" class="dots-pattern" />
-                    <ui:Label name="Title" text="TITLE TEXT GOES HERE" class="DO_NOT_USE_font-style-h2" />
+                    <ui:Label name="Title" text="TITLE TEXT GOES HERE" class="purchase-confirmation__title" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Content" class="window__content">
                     <ui:Label name="Desc" focusable="false" text="DESC TEXT GOES HERE" class="font-style-popup content__desc" />

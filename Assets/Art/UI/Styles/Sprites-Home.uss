@@ -107,6 +107,7 @@
     --sprite-home__header-back-pressed: url('/Assets/Art/UI/Sprites/Home/header-back-pressed.png');
     --sprite-home__header-home: url('/Assets/Art/UI/Sprites/Home/header-home.png');
     --sprite-home__header-home-pressed: url('/Assets/Art/UI/Sprites/Home/header-home-pressed.png');
+    --sprite-home__header-popup: url('/Assets/Art/UI/Sprites/Home/header-popup.png');
     --sprite-home__header-popup-equipment: url('/Assets/Art/UI/Sprites/Home/header-popup-equipment.png');
     --sprite-home__header-profile: url('/Assets/Art/UI/Sprites/Home/header-profile.png');
     --sprite-home__header-profile-pressed: url('/Assets/Art/UI/Sprites/Home/header-profile-pressed.png');
@@ -792,6 +793,12 @@
 
 .sprite-home__header-home:active {
     background-image: var(--sprite-home__header-home-pressed);
+}
+
+.sprite-home__header-popup {
+    background-image: var(--sprite-home__header-popup);
+    width: 148px;
+    height: 99px;
 }
 
 .sprite-home__header-popup-equipment {

@@ -27,9 +27,9 @@ enum SpecialType
 	Radar,
 }
 
-synced event OnLocalPlayerSpecialUpdated
+synced event OnPlayerSpecialUpdated
 {
-    local player_ref Player;
+    player_ref Player;
     entity_ref Entity;
     UInt32 SpecialIndex;
     Special Special;

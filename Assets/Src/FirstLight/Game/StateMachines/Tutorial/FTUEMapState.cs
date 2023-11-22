@@ -217,7 +217,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUpdated>(this, OnLocalPlayerSpecialUpdated);
+			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(this, OnPlayerSpecialUpdated);
 			_services.MessageBrokerService.Subscribe<PlayerEnteredMessageVolume>(OnPlayerEnteredMessageVolume);
 		}
 
@@ -307,8 +307,10 @@ namespace FirstLight.Game.StateMachines
 			CheckGameplayProceedConditions(typeof(EventOnChestOpened));
 		}
 
-		private void OnLocalPlayerSpecialUpdated(EventOnLocalPlayerSpecialUpdated callback)
+		private void OnPlayerSpecialUpdated(EventOnPlayerSpecialUpdated callback)
 		{
+			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
+
 			if (callback.SpecialIndex == 0)
 			{
 				_hasSpecial0 = callback.Special.IsValid;
@@ -318,7 +320,7 @@ namespace FirstLight.Game.StateMachines
 				_hasSpecial1 = callback.Special.IsValid;
 			}
 			
-			CheckGameplayProceedConditions(typeof(EventOnLocalPlayerSpecialUpdated));
+			CheckGameplayProceedConditions(typeof(EventOnPlayerSpecialUpdated));
 		}
 
 		private void UnsubscribeMessages()
@@ -476,7 +478,7 @@ namespace FirstLight.Game.StateMachines
 
 			_currentGameplayProceedData = new GameplayProceedEventData
 			{
-				EventType = typeof(EventOnLocalPlayerSpecialUpdated)
+				EventType = typeof(EventOnPlayerSpecialUpdated)
 			};
 		}
 

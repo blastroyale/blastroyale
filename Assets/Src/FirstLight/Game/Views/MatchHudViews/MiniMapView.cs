@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
@@ -81,6 +82,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private Material _minimapMat;
 		private IObjectPool<MinimapAirdropView> _airdropPool;
 		private IObjectPool<MinimapFriendlyView> _friendliesPool;
+		private HashSet<EntityRef> _spawnedFriendlies = new ();
 		private IObjectPool<MinimapPingView> _pingPool;
 		private readonly Vector4[] _enemyPositions = new Vector4[30];
 
@@ -124,17 +126,33 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
-			QuantumEvent.SubscribeManual<EventOnTeamAssigned>(this, OnTeamAssigned);
+			QuantumEvent.Subscribe<EventOnTeamAssigned>(this, OnTeamAssigned);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, OnRadarUsed);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, OnRadarUsed);
 			QuantumEvent.Subscribe<EventOnTeamPositionPing>(this, OnTeamPositionPing);
+
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
 			_button.onClick.AddListener(OnClick);
 			_fullScreenButton.onClick.AddListener(OnClick);
 			SetupCameraSize();
+		}
+
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer current)
+		{
+			// NOTE: If / when we have the minimap when spectating different players the friendlies pool needs to be cleared here
+			foreach (var (entity, pc) in QuantumRunner.Default.Game.Frames.Predicted.GetComponentIterator<PlayerCharacter>())
+			{
+				var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
+				if (pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team && spectatedPlayer.Entity != entity)
+				{
+					TrySpawnFriendlyPlayer(entity);
+				}
+			}
 		}
 
 		private void SetupCameraSize()
@@ -467,7 +485,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 					var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 					if (pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team && spectatedPlayer.Entity != entity)
 					{
-						SpawnFriendlyPlayer(entity);
+						TrySpawnFriendlyPlayer(entity);
 					}
 				}
 			}
@@ -508,9 +526,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var teamId = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity).TeamId;
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
+
 			if (teamId > 0 && teamId == spectatedPlayer.Team && spectatedPlayer.Entity != callback.Entity)
 			{
-				SpawnFriendlyPlayer(callback.Entity);
+				TrySpawnFriendlyPlayer(callback.Entity);
 			}
 		}
 
@@ -556,11 +575,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_minimapCamera.WorldToViewportPoint(airDrop.Position.ToUnityVector3()));
 		}
 
-		private void SpawnFriendlyPlayer(EntityRef entity)
+		private void TrySpawnFriendlyPlayer(EntityRef entity)
 		{
-			var friendlyView = _friendliesPool.Spawn();
-
+			if (_spawnedFriendlies.Contains(entity)) return;
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view)) return;
+
+			var friendlyView = _friendliesPool.Spawn();
+			_spawnedFriendlies.Add(entity);
 			friendlyView.SetPlayer(entity, view.transform);
 			friendlyView.SetColor(_matchServices.TeamService.GetTeamMemberColor(entity) ?? Color.white);
 		}

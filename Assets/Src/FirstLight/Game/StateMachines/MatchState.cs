@@ -259,7 +259,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsPlayingFirstTutorial()
 		{
-			return _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FTUE_MAP;
+			return _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH;
 		}
 
 

@@ -486,6 +486,11 @@ namespace FirstLight.Game.Services
 				try
 				{
 					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
+					// Type does not exists any more, example SeasonData
+					if (type == null)
+					{
+						continue;
+					}
 					var dataInstance = ModelSerializer.DeserializeFromData(type, state);
 					if (dataInstance is CollectionItemEnrichmentData enrichmentData)
 					{

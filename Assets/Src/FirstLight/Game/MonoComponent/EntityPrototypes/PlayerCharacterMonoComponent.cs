@@ -137,7 +137,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var container = obj.AddComponent<RenderersContainerMonoComponent>();
 			container.UpdateRenderers();
 			// TODO REMOVE THIS SHIT SOMEDAY
-			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FTUE_MAP)
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
 			{
 				AddLegacyCollider(obj);
 			}

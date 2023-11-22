@@ -76,7 +76,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_nameLabel.text = "No one"; // TODO: Localize!!!!
 			}
-			_winnerBanner.SetDisplay(_services.TutorialService.CurrentRunningTutorial.Value != TutorialSection.FTUE_MAP);
+			_winnerBanner.SetDisplay(_services.TutorialService.CurrentRunningTutorial.Value != TutorialSection.FIRST_GUIDE_MATCH);
 
 			if (_matchService.EntityViewUpdaterService.TryGetView(_playerWinnerEntity, out var entityView))
 			{

@@ -420,7 +420,7 @@ namespace FirstLight.Game.StateMachines
 				}
 				
 				if (_networkService.QuantumRunnerConfigs.IsOfflineMode ||
-					_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FTUE_MAP)
+					_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
 				{
 					LockRoom();
 				}

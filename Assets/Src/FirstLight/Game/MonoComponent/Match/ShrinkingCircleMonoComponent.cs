@@ -16,7 +16,6 @@ namespace FirstLight.Game.MonoComponent.Match
 		[SerializeField, Required] private CircleLineRendererMonoComponent _shrinkingCircleLinerRenderer;
 		[SerializeField, Required] private CircleLineRendererMonoComponent _safeAreaCircleLinerRenderer;
 		[SerializeField, Required] private Transform _damageZoneTransform;
-		[SerializeField, Required] private GameObject _ringOfFireDrawMesh;
 		[SerializeField, Required] private ParticleSystem _ringOfFireParticle; 
 
 		private QuantumShrinkingCircleConfig _config;
@@ -29,7 +28,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private FP _lastInnerRadius;
 		private FP _innerRadius;
 		private FP _outerRadius;
-		private Mesh _mesh;
+		private const int MaxParticles = 50;
 
 		private void Awake()
 		{
@@ -39,9 +38,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_shrinkingCircleLinerRenderer.gameObject.SetActive(false);
 			_safeAreaCircleLinerRenderer.gameObject.SetActive(false);
 			_damageZoneTransform.gameObject.SetActive(false);
-			
-			_mesh = new Mesh();
-			_ringOfFireDrawMesh.GetComponent<MeshFilter>().mesh = _mesh;
+			_ringOfFireParticle.Stop();
 		}
 
 		private void HandleGameEnded(EventOnGameEnded callback)
@@ -81,7 +78,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			cachedShrinkingCircleLineTransform.position = position;
 			cachedShrinkingCircleLineTransform.localScale = new Vector3(radius, radius, 1f);
 			_shrinkingCircleLinerRenderer.WidthMultiplier = 1f / radius;
-
+			
+			
+			//_ringOfFireParticle.transform.position = position;
+			
 			_damageZoneTransform.position = position;
 			_damageZoneTransform.localScale = new Vector3(radius * 2f, _damageZoneTransform.localScale.y, radius * 2f);
 			
@@ -93,9 +93,6 @@ namespace FirstLight.Game.MonoComponent.Match
 				{
 					cachedSafeAreaCircleLine.localScale = new Vector3(radius, radius, 1f);
 					_safeAreaCircleLinerRenderer.WidthMultiplier = 0f;
-					
-					// We also move Ring of Fire very far so we don't see the flame particle at the center of the map in the initial delay phase
-					_ringOfFireDrawMesh.transform.position = new Vector3(radius * 2f, radius * 2f, radius * 2f);
 				}
 				
 				return;
@@ -105,49 +102,24 @@ namespace FirstLight.Game.MonoComponent.Match
 			cachedSafeAreaCircleLine.localScale = new Vector3(targetRadius, targetRadius, 1f);
 			_safeAreaCircleLinerRenderer.WidthMultiplier = 1f / targetRadius;
 			
+			if (_ringOfFireParticle.isStopped)
+			{
+				_ringOfFireParticle.Play();
+			}
+			
 			// Update ring of fire particle FX
-			_ringOfFireDrawMesh.transform.position = _damageZoneTransform.position;
 			_innerRadius = radiusFP/FP._10;
 			_outerRadius = _innerRadius + _ringOfFireWidth;
 			if (_lastInnerRadius != _innerRadius)
 			{
 				_lastInnerRadius = _innerRadius;
-				//UpdateRingOfFireMesh();
 				
-				// In case we need to have fewer particles for smaller circle (the code below doesn't really work, it's just to show the idea)
-				// var emission = _ringOfFireParticle.emission;
-				// FP _radiusToEmissionMultiplier = FP._10 + FP._5;
-				// emission.rateOverTime = FPMath.CeilToInt(radiusFP * _radiusToEmissionMultiplier);
+				var emission = _ringOfFireParticle.emission;
+				var shape = _ringOfFireParticle.shape;
+				shape.radius = radius;
+				shape.radiusThickness = 0;
+				emission.rateOverTime = Math.Min(MaxParticles, radius * 2f);
 			}
-		}
-
-		// TODO: We can bake this mesh calculations in a LUT (lookup table) 
-		private void UpdateRingOfFireMesh()
-		{
-			_mesh.Clear();
-			Vector3[] vertices = new Vector3[((_ringOfFireSegments + 1) * 2)];
-			int[] triangles = new int[_ringOfFireSegments * 6];
-			
-			for (int i = 0; i <= _ringOfFireSegments; i++)
-			{
-				var rad = FP.Deg2Rad * (i * _anglePerSegment);
-				var c = FPMath.Cos(rad); // used FPMatch because it uses Lookup tables
-				var s = FPMath.Sin(rad);
-				vertices[i * 2] = new FPVector2(_innerRadius * c, _innerRadius * s).ToUnityVector2();
-				vertices[i * 2 + 1] = new FPVector2(_outerRadius * c, _outerRadius * s).ToUnityVector2();
-
-				if (i < _ringOfFireSegments)
-				{
-					int j = i * 6;
-					triangles[j] = i * 2;
-					triangles[j + 1] = triangles[j + 4] = (i + 1) * 2;
-					triangles[j + 2] = triangles[j + 3] = i * 2 + 1;
-					triangles[j + 5] = (i + 1) * 2 + 1;
-				}
-			}
-			_mesh.vertices = vertices;
-			_mesh.triangles = triangles;
-			_mesh.RecalculateNormals();
 		}
 	}
 }

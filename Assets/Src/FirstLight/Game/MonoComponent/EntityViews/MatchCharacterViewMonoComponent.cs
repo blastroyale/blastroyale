@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -27,7 +28,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// <summary>
 		/// Initializes the Adventure character view with the given player data
 		/// </summary>
-		public async Task Init(EntityView entityView, PlayerLoadout loadout, Frame frame)
+		public async UniTask Init(EntityView entityView, PlayerLoadout loadout, Frame frame)
 		{
 			Cosmetics = loadout.Cosmetics;
 			_footsteps = gameObject.AddComponent<FootprinterMonoComponent>();

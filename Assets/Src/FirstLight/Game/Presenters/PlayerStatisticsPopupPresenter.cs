@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.UIElements;
@@ -124,7 +125,7 @@ namespace FirstLight.Game.Presenters
 			_services.GameUiService.CloseUi<PlayerStatisticsPopupPresenter>();
 			_services.GameUiService.OpenScreen<GlobalLeaderboardScreenPresenter, GlobalLeaderboardScreenPresenter.StateData>(new ()
 			{
-				OnBackClicked = () => _services.GameUiService.OpenScreen<HomeScreenPresenter>(),
+				OnBackClicked = () => _services.MessageBrokerService.Publish(new MainMenuShouldReloadMessage()),
 				ShowSpecificLeaderboard = new GameLeaderboard(name, metric)
 			});
 		}

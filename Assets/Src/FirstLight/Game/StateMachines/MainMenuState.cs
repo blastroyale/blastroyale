@@ -236,6 +236,12 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_services.MessageBrokerService.Subscribe<NewBattlePassSeasonMessage>(OnBattlePassNewSeason);
+			_services.MessageBrokerService.Subscribe<MainMenuShouldReloadMessage>(MainMenuShouldReloadMessage);
+		}
+
+		private void MainMenuShouldReloadMessage(MainMenuShouldReloadMessage msg)
+		{
+			OpenHomeScreen();
 		}
 
 		private void UnsubscribeEvents()

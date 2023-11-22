@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
@@ -168,8 +169,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private async Task WaitSimulationFinish()
 		{
-			while(QuantumRunner.Default != null && QuantumRunner.Default.IsRunning)
-				await Task.Delay(1);
+			while (QuantumRunner.Default != null && QuantumRunner.Default.IsRunning)
+				await UniTask.NextFrame();
 		}
 		
 		private void UnsubscribeDisconnectEvents()
@@ -595,7 +596,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			// If running the equipment/BP menu tutorial, the room is handled through the EquipmentBpTutorialState.cs
 			// This is the same flow as the first match setup
-			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
+			if (_services.TutorialService.IsTutorialRunning)
 			{
 				return;
 			}

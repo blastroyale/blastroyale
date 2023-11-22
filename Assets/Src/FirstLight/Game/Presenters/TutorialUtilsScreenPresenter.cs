@@ -89,10 +89,10 @@ namespace FirstLight.Game.Presenters
 		/// <returns></returns>
 		public void Unblock()
 		{
-			Root.Remove(_blockerElementRight);
-			Root.Remove(_blockerElementLeft);
-			Root.Remove(_blockerElementTop);
-			Root.Remove(_blockerElementBottom);
+			_blockerElementRight.RemoveFromHierarchy();
+			_blockerElementLeft.RemoveFromHierarchy();
+			_blockerElementBottom.RemoveFromHierarchy();
+			_blockerElementTop.RemoveFromHierarchy();
 		}
 
 		/// <summary>

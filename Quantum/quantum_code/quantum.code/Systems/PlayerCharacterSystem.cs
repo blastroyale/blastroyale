@@ -187,7 +187,7 @@ namespace Quantum.Systems
 				{
 					consumablesToDrop.Add(GameId.EnergyCubeLarge);
 				}
-				else
+				else if(!f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
 				{
 					consumablesToDrop.Add(Special.GetRandomSpecialId(f));
 				}

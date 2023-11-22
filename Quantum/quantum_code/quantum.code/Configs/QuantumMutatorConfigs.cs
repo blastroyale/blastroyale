@@ -13,7 +13,7 @@ namespace Quantum
 		HammerTime,
 		ForceLevelPlayingField,
 		HidePlayerNames,
-		NoAbilities,
+		DoNotDropSpecials,
 		PistolsOnly,
 		SMGsOnly,
 		MinigunsOnly,

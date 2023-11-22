@@ -129,7 +129,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private void UpdateSpecials(Frame f, PlayerInventory inventory)
 		{
-			if (f.Context.TryGetMutatorByType(MutatorType.NoAbilities, out _))
+			if (f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
 			{
 				_special0Button.SetVisibility(false);
 				_special1Button.SetVisibility(false);

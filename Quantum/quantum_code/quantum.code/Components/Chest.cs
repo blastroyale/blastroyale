@@ -338,7 +338,7 @@ namespace Quantum
 						consumablesToDrop.Add(GameId.EnergyCubeLarge);
 						angleStep++;
 					}
-					else
+					else if(!f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
 					{
 						consumablesToDrop.Add(Special.GetRandomSpecialId(f));
 						angleStep++;

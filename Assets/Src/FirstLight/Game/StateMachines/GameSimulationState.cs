@@ -9,6 +9,7 @@ using Assets.Src.FirstLight.Game.Commands.QuantumLogicCommands;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -124,8 +125,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-
-
+			
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 
 			QuantumEvent.SubscribeManual<EventOnAllPlayersJoined>(this, OnAllPlayersJoined);
@@ -185,24 +185,24 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(SimulationDestroyedEvent);
 		}
 
-		private async Task WaitForCameraOnPlayer()
+		private async UniTask WaitForCameraOnPlayer()
 		{
-			var spectated = _matchServices.SpectateService.SpectatedPlayer.Value;
-			while (QuantumRunner.Default.IsDefinedAndRunning() && !spectated.Entity.IsValid)
-			{
-				spectated = _matchServices.SpectateService.SpectatedPlayer.Value;
-				if (!spectated.Entity.IsValid)
-				{
-					await Task.Delay(1);
-				}
-			}
+			await UniTask.WaitUntil(IsSpectatingPlayer);
 		}
 
-		private async Task CloseMatchmakingScreen()
+		private bool IsSpectatingPlayer()
+		{
+			if (!QuantumRunner.Default.IsDefinedAndRunning() || _matchServices == null) return false;
+			var spectated = _matchServices.SpectateService.SpectatedPlayer.Value;
+			if (!spectated.Entity.IsValid) return false;
+			return true;
+		}
+
+		private async UniTaskVoid CloseMatchmakingScreen()
 		{
 			await WaitForCameraOnPlayer();
-			_uiService.CloseUi<CustomLobbyScreenPresenter>();
-			_uiService.CloseUi<PreGameLoadingScreenPresenter>();
+			await _uiService.CloseUi<CustomLobbyScreenPresenter>();
+			await _uiService.CloseUi<PreGameLoadingScreenPresenter>();
 		}
 
 		private bool IsSpectator()

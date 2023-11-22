@@ -185,7 +185,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var directionNormalized = direction.Normalized;
 			var centerForShape = origin + (directionNormalized * (_range / FP._2));
 			
-			_hits = f.Physics3D.OverlapShape(centerForShape, FPQuaternion.LookRotation(directionNormalized), _shape, -1, _hitQuery);
+			_hits = f.Physics3D.OverlapShape(centerForShape, FPQuaternion.LookRotation(directionNormalized), _shape, f.Layers.GetLayerMask(PhysicsLayers.PLAYERS, PhysicsLayers.OBSTACLES), _hitQuery);
 			
 			if (_hits.Count > 0)
 			{

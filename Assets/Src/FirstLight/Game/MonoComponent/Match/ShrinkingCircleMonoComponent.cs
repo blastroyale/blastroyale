@@ -79,9 +79,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			cachedShrinkingCircleLineTransform.localScale = new Vector3(radius, radius, 1f);
 			_shrinkingCircleLinerRenderer.WidthMultiplier = 1f / radius;
 			
-			
-			//_ringOfFireParticle.transform.position = position;
-			
 			_damageZoneTransform.position = position;
 			_damageZoneTransform.localScale = new Vector3(radius * 2f, _damageZoneTransform.localScale.y, radius * 2f);
 			

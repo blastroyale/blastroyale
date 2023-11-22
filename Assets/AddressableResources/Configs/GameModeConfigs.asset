@@ -296,7 +296,7 @@ MonoBehaviour:
       ShowUIStandingsExtraInfo: 1
       ShowWeaponSlots: 1
       SingleSlotMode: 1
-      DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
+      DescriptionLocalisationKey: MainMenu/BattleRoyaleDuosDescription
       ShowTeamCount: 1
       Lives: 1
       DropWeaponOnPickup: 1

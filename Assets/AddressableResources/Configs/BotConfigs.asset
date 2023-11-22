@@ -494,3 +494,37 @@ MonoBehaviour:
         RawValue: 327680
       MaxRunFromZoneTime:
         RawValue: 1966080
+    - BehaviourType: 1
+      GameMode: Testing
+      Difficulty: 0
+      DecisionInterval:
+        RawValue: 163840
+      LookForTargetsToShootAtInterval:
+        RawValue: 83012
+      VisionRangeSqr:
+        RawValue: 104857600
+      AccuracySpreadAngle: 63
+      ChanceToUseSpecial:
+        RawValue: 3641
+      SpecialAimingDeviation:
+        RawValue: 233017
+      LoadoutGearNumber: 1
+      LoadoutRarity: 0
+      MaxAimingRange:
+        RawValue: 473316
+      MovementSpeedMultiplier:
+        RawValue: 52429
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080

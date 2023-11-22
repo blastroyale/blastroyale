@@ -427,7 +427,8 @@ namespace Quantum.Systems.Bots
 
 		private int GetSpawnPointForBot(Frame f, BotSetupContext ctx, QuantumBotConfig botConfig, int teamId)
 		{
-			if (GetSpecificSpawn(f, ctx, botConfig, out var specificSpawnPoint)) return specificSpawnPoint;
+			if (GetSpecificSpawn(f, ctx, botConfig,SpawnerType.BotOfType, out var specificSpawnPoint)) return specificSpawnPoint;
+			if (GetSpecificSpawn(f, ctx, botConfig,SpawnerType.AnyBot, out var anyBotSpawn)) return anyBotSpawn;
 
 			if (GetSpawnClosestToTeam(f, ctx, teamId, out var spawnPointForBot)) return spawnPointForBot;
 
@@ -436,7 +437,7 @@ namespace Quantum.Systems.Bots
 		}
 
 
-		private bool GetSpecificSpawn(Frame f, BotSetupContext ctx, QuantumBotConfig botConfig,
+		private bool GetSpecificSpawn(Frame f, BotSetupContext ctx, QuantumBotConfig botConfig, SpawnerType type,
 									  out int specificSpawnPoint)
 		{
 			// Try to find spawners that are specific to the type of bot
@@ -445,7 +446,12 @@ namespace Quantum.Systems.Bots
 			for (var i = 0; i < ctx.AvailableSpawners.Count; i++)
 			{
 				var playerSpawner = ctx.AvailableSpawners[i].Component;
-				if (playerSpawner->SpawnerType == SpawnerType.BotOfType && playerSpawner->BehaviourType == botType)
+				if (type == SpawnerType.BotOfType && playerSpawner->SpawnerType == SpawnerType.BotOfType && playerSpawner->BehaviourType == botType)
+				{
+					specificSpawnPoints.Add(i);
+				}
+
+				if (type == SpawnerType.AnyBot && playerSpawner->SpawnerType == SpawnerType.AnyBot)
 				{
 					specificSpawnPoints.Add(i);
 				}
@@ -460,6 +466,7 @@ namespace Quantum.Systems.Bots
 			specificSpawnPoint = -1;
 			return false;
 		}
+		
 
 		private bool GetSpawnClosestToTeam(Frame f, BotSetupContext ctx, int teamId, out int spawnPointForBot)
 		{

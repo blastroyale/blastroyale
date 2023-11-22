@@ -153,7 +153,7 @@ MonoBehaviour:
       IsDebugOnly: 1
       Systems: []
     - Id: Testing
-      MaxPlayers: 1
+      MaxPlayers: 4
       MinPlayers: 1
       Teams: 0
       MaxPlayersInTeam: 0
@@ -181,12 +181,12 @@ MonoBehaviour:
       DeathMarker: 0
       MinimumHealth: 0
       InstantLoad: 0
-      AllowBots: 0
+      AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 0
       BotRespawn: 0
       BotWeaponSearchStrategy: 1
-      BotsTeamOverride: 0
+      BotsTeamOverride: 666
       GameSimulationStateMachine: 1
       AudioStateMachine: 1
       CompletionStrategy: 0

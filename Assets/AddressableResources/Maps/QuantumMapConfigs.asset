@@ -19,7 +19,7 @@ MonoBehaviour:
         Value: 3072854346747122385
     QuantumConfigs:
     - Map: 11
-      MaxPlayers: 1
+      MaxPlayers: 4
       IsTestMap: 1
       IsCustomOnly: 0
       DropSelectionSize: 1

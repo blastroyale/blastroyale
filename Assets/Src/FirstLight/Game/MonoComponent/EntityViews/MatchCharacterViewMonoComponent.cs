@@ -35,7 +35,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_footsteps.Init(entityView, loadout);
 
 			var weaponTask = EquipWeapon(loadout.Weapon.GameId);
-			var list = new List<Task> {weaponTask};
+			var list = new List<UniTask>();
 
 			foreach (var item in loadout.Equipment)
 			{
@@ -55,7 +55,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				list.Add(InstantiateItem(glider, GameIdGroup.Glider));
 			}
 
-			await Task.WhenAll(list);
+			await UniTask.WhenAll(list);
 
 			var runner = QuantumRunner.Default;
 
@@ -64,7 +64,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var weapons = weaponTask.Result;
+			var weapons = await weaponTask;
 
 			for (var i = 0; i < weapons.Count; i++)
 			{

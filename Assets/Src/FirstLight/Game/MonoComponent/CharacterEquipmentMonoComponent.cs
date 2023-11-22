@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Collections;
@@ -49,7 +50,7 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Instantiate a Game Item of the specified GameIdGroup
 		/// </summary>
-		public async Task<List<GameObject>> InstantiateItem(ItemData item, GameIdGroup gameIdGroup)
+		public async UniTask<List<GameObject>> InstantiateItem(ItemData item, GameIdGroup gameIdGroup)
 		{
 			var anchors = _skin.GetEquipmentAnchors(gameIdGroup);
 			var instance = await _services.CollectionService.LoadCollectionItem3DModel(item);
@@ -73,7 +74,7 @@ namespace FirstLight.Game.MonoComponent
 			return instances;
 		}
 
-		protected async Task<GameObject> InstantiateEquipment(GameId gameId)
+		protected async UniTask<GameObject> InstantiateEquipment(GameId gameId)
 		{
 			// TODO Generic GameId to GameIDGroup skin converter
 			GameObject obj;
@@ -94,7 +95,7 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Equip characters equipment slot with an asset loaded by unique id.
 		/// </summary>
-		public async Task<List<GameObject>> EquipItem(GameId gameId)
+		public async UniTask<List<GameObject>> EquipItem(GameId gameId)
 		{
 			var slot = gameId.GetSlot();
 
@@ -230,7 +231,7 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Equip a weapon using a GameId
 		/// </summary>
-		public async Task<IList<GameObject>> EquipWeapon(GameId weapon)
+		public async UniTask<IList<GameObject>> EquipWeapon(GameId weapon)
 		{
 			var weapons = await EquipItem(weapon);
 

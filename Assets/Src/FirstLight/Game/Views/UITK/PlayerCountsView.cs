@@ -102,8 +102,11 @@ namespace FirstLight.Game.Views.UITK
 				_teamsCountPing.AnimatePingOpacity();
 			}
 
-			var killsCount = container.PlayersData[_matchServices.SpectateService.SpectatedPlayer.Value.Player]
-				.PlayersKilledCount;
+			// Check tries to fix https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/2681
+			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
+			var killsCount = spectatedPlayer.Player.IsValid
+				? container.PlayersData[_matchServices.SpectateService.SpectatedPlayer.Value.Player].PlayersKilledCount
+				: 0;
 			if (killsCount != _killsCount)
 			{
 				_killsCount = (int) killsCount;

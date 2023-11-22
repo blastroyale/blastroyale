@@ -11,7 +11,7 @@
                 </ui:ScrollView>
                 <ui:VisualElement name="LastRewardBalloon" tabindex="5" class="last-reward-widget">
                     <ui:VisualElement name="LastRewardContainer" class="last-reward-container">
-                        <ui:VisualElement name="LastRewardSprite" class="last-reward-sprite" />
+                        <ui:VisualElement name="LastRewardSprite" class="last-reward-sprite"  />
                         <ui:VisualElement name="RewardShineBlue" class="reward-shine-blue" />
                         <ui:VisualElement name="RewardShineYellow" class="reward-shine-yellow" />
                     </ui:VisualElement>

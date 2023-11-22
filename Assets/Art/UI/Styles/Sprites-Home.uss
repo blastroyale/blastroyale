@@ -1,5 +1,6 @@
 /* AUTO GENERATED */
 :root {
+    --sprite-home__AirdropIconOnfield: url('/Assets/Art/UI/Sprites/Home/AirdropIconOnfield.png');
     --sprite-home__ArrowBig: url('/Assets/Art/UI/Sprites/Home/ArrowBig.png');
     --sprite-home__background-avatar-nft: url('/Assets/Art/UI/Sprites/Home/background-avatar-nft.png');
     --sprite-home__background-big-bundle: url('/Assets/Art/UI/Sprites/Home/background-big-bundle.png');
@@ -197,6 +198,12 @@
     --sprite-home__vfx-rewards-rays: url('/Assets/Art/UI/Sprites/Home/vfx-rewards-rays.png');
     --sprite-home__volume-header: url('/Assets/Art/UI/Sprites/Home/volume-header.png');
     --sprite-home__weapon-placeholder: url('/Assets/Art/UI/Sprites/Home/weapon-placeholder.png');
+}
+
+.sprite-home__AirdropIconOnfield {
+    background-image: var(--sprite-home__AirdropIconOnfield);
+    width: 320px;
+    height: 320px;
 }
 
 .sprite-home__ArrowBig {

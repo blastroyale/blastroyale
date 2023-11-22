@@ -44,6 +44,7 @@ namespace FirstLight.Game.Presenters.BattlePass
 			PaidReward = this.Q<BattlepassSegmentButtonElement>("PaidReward").Required();
 			FreeReward = this.Q<BattlepassSegmentButtonElement>("FreeReward").Required();
 			QueryBar();
+			//DisablePaid();
 		}
 
 
@@ -62,13 +63,18 @@ namespace FirstLight.Game.Presenters.BattlePass
 			};
 		}
 
+		public void DisablePaid()
+		{
+			this.PaidReward.SetDisplay(false);
+		}
+		
 		public void SetBarData(uint level, bool completed, bool currentLevel, uint buyLevelPrice)
 		{
 			Level = level;
 			_completedBar.style.width = Length.Percent(completed ? 100 : 0);
 			_number.text = level.ToString();
 			_barLevel.EnableInClassList(USS_BAR_GRAY, !completed);
-			_buyLevelButton.SetVisibility(currentLevel && level > 1);
+			_buyLevelButton.SetVisibility(currentLevel && level > 1 && buyLevelPrice > 0);
 			_priceLabel.text = buyLevelPrice.ToString();
 			if (!currentLevel)
 			{

@@ -25,6 +25,8 @@ namespace FirstLight.Game.Configs
 			/// </summary>
 			public string StartsAt;
 			public string EndsAt;
+			public bool RemovePaid;
+			
 			public DateTime GetStartsAtDateTime() => DateTime.ParseExact(StartsAt, "d/M/yyyy", CultureInfo.InvariantCulture);
 			// Operations to get the last tick of the day
 			public DateTime GetEndsAtDateTime() => DateTime.ParseExact(EndsAt, "d/M/yyyy", CultureInfo.InvariantCulture).Date.AddDays(1).AddTicks(-1);

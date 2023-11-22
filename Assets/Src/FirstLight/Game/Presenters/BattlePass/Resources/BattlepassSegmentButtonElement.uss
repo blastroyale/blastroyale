@@ -216,7 +216,7 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
-.reward__root--free {
+.reward__root--small {
     scale: 0.8 0.8;
 }
 

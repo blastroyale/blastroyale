@@ -282,8 +282,19 @@ namespace FirstLight.Game.Presenters
 			//TODO: DO WE NEED ?
 		}
 
+		private bool IsDisablePremium()
+		{
+			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig();
+			return battlePassConfig.Season.RemovePaid;
+		}
+
 		private void InitScreen(bool update = false)
 		{
+			if (IsDisablePremium())
+			{
+				Root.AddToClassList("screen-root--no-paid");
+			}
+
 			_segmentData = new ()
 			{
 				{PassType.Free, new List<BattlePassSegmentData>()},
@@ -337,11 +348,16 @@ namespace FirstLight.Game.Presenters
 				_segmentData[PassType.Free].Add(freeSegmentData);
 				_segmentData[PassType.Paid].Add(paidSegmentData);
 
-				var completed = paidSegmentData.LevelAfterClaiming > i;
-				var currentLevel = paidSegmentData.LevelAfterClaiming == i;
+				var completed = freeSegmentData.LevelAfterClaiming > i;
+				var currentLevel = freeSegmentData.LevelAfterClaiming == i;
 				var column = update ? _levelElements[i] : new BattlepassLevelColumnElement();
 				ConfigureSegment(column.FreeReward, freeSegmentData, update);
 				ConfigureSegment(column.PaidReward, paidSegmentData, update);
+				if (IsDisablePremium())
+				{
+					column.DisablePaid();
+				}
+
 				column.SetBarData((uint) i + 1, completed, currentLevel, battlePassConfig.Season.BuyLevelPrice);
 				if (!update)
 				{
@@ -358,6 +374,7 @@ namespace FirstLight.Game.Presenters
 			{
 				ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs, Data.DisableInitialScrollAnimation && !update);
 			}
+
 			// Disable current reward bubble
 			_currentReward.SetDisplay(false);
 		}
@@ -383,7 +400,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			element.SetData(segment, GetRewardState(segment), _dataProvider.BattlePassDataProvider.HasPurchasedSeason());
+			element.SetData(segment, GetRewardState(segment), _dataProvider.BattlePassDataProvider.HasPurchasedSeason(), segment.PassType == PassType.Free && !IsDisablePremium());
 			if (update) return;
 			element.Clicked += OnSegmentRewardClicked;
 		}
@@ -403,6 +420,7 @@ namespace FirstLight.Game.Presenters
 				_currentReward.SetDisplay(false);
 				return;
 			}
+
 			_currentReward.SetDisplay(true);
 			var scrollTarget = GetScrollTargetForElement(level);
 			var scroll = _rewardsScroll.scrollOffset.x;

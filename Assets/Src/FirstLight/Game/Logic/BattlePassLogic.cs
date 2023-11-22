@@ -404,6 +404,7 @@ namespace FirstLight.Game.Logic
 		{
 			var config = GetCurrentSeasonConfig();
 			if (!HasCurrencyForPurchase()) return false;
+			if (config.Season.RemovePaid) return false;
 			GameLogic.CurrencyLogic.DeductCurrency(GameId.BlastBuck, config.Season.Price);
 			GetCurrentSeasonData().Purchased = true;
 			GameLogic.MessageBrokerService.Publish(new BattlePassPurchasedMessage());

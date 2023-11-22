@@ -22,7 +22,7 @@ namespace FirstLight.Game.Presenters.BattlePass
 		private const string UssClaimedButton = "reward__button--claimed";
 		private const string UssUnclaimedFree = "reward__button--unclaimed-free";
 		private const string UssUnclaimedPaid = "reward__button--unclaimed-paid";
-		private const string UssRootModifier = "reward__root--";
+		private const string UssRootModifierSmall = "reward__root--small";
 
 		public event Action<BattlepassSegmentButtonElement> Clicked;
 		private VisualElement _rewardRoot;
@@ -66,21 +66,23 @@ namespace FirstLight.Game.Presenters.BattlePass
 		/// <summary>
 		/// Sets the data needed to fill the segment visuals
 		/// </summary>
-		public void SetData(BattlePassSegmentData data, RewardState state, bool unlockedPremium)
+		public void SetData(BattlePassSegmentData data, RewardState state, bool unlockedPremium, bool small = false)
 		{
 			SegmentData = data;
 			RewardState = state;
 			UnlockedPremium = unlockedPremium;
 			SetStatusVisuals();
 			_rewardRoot.RemoveModifiers();
-			_rewardRoot.AddToClassList(UssRootModifier + data.PassType.ToString().ToLowerInvariant());
+			if (small)
+			{
+				_rewardRoot.AddToClassList(UssRootModifierSmall);
+			}
 		}
 
 		private void SetStatusVisuals()
 		{
 			DrawIcon();
 			_rewardRoot.RemoveModifiers();
-			_rewardRoot.AddToClassList(UssRootModifier + SegmentData.PassType.ToString().ToLowerInvariant());
 
 			var locked = SegmentData.PassType == PassType.Paid && !UnlockedPremium;
 			_lock.SetDisplay(locked);
@@ -125,6 +127,7 @@ namespace FirstLight.Game.Presenters.BattlePass
 				_title.text = cv.Amount.ToString();
 				return;
 			}
+
 			_title.text = itemView.DisplayName.ToUpperInvariant();
 		}
 

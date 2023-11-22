@@ -10,6 +10,10 @@
 .screen-root {
     flex-direction: column-reverse;
     justify-content: flex-end;
+    background-color: rgba(0, 0, 0, 0.13);
+}
+
+.screen-root--no-paid {
 }
 
 .safe-area {
@@ -217,6 +221,10 @@
     background-color: rgba(19, 34, 74, 0.57);
 }
 
+.screen-root--no-paid .bottom-bar-opacity {
+    display: none;
+}
+
 .season-content {
     flex-direction: row;
     flex-grow: 1;
@@ -364,6 +372,9 @@
     align-items: center;
 }
 
+.screen-root--no-paid .left-bar {
+}
+
 .left-bar__passes-holder {
     flex-grow: 1;
     position: absolute;
@@ -383,6 +394,10 @@
     align-self: auto;
     visibility: visible;
     display: flex;
+}
+
+.screen-root--no-paid .left-bar__background {
+    background-image: var(--sprite-battlepass__background-left-bar-free-only);
 }
 
 .paid-container {
@@ -411,6 +426,10 @@
     position: absolute;
     top: 612px;
     left: 175px;
+}
+
+.screen-root--no-paid .paid-container {
+    display: none;
 }
 
 .paid-icon-background {
@@ -494,6 +513,10 @@
     padding-right: 0;
     padding-bottom: 0;
     margin-right: 0;
+}
+
+.screen-root--no-paid .free-container {
+    top: 40%;
 }
 
 .free-icon-background {
@@ -779,13 +802,13 @@
 
 .last-reward-sprite {
     flex-grow: 1;
-    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/AssassinMale/character-maleassassin.png?fileID=21300000&guid=0f98b04066aac0445be253c05eaec55e&type=3#character-maleassassin');
+    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/PunkMale/character-malepunk.png?fileID=21300000&guid=01aa15896d13cf540a04a81d603fa54e&type=3#character-malepunk');
     -unity-background-scale-mode: scale-and-crop;
     position: absolute;
-    width: 256px;
-    height: 232px;
-    top: 11px;
-    left: 6px;
+    top: -19px;
+    left: 10px;
+    width: 234px;
+    height: 257px;
 }
 
 .reward-shine-yellow {
@@ -848,4 +871,17 @@
     right: 0;
     bottom: 0;
     margin-left: 380px;
+}
+
+.screen-root--no-paid .right-content {
+    margin-bottom: 145px;
+}
+
+.free-reward {
+    top: -30px;
+    left: -41px;
+}
+
+.screen-root--no-paid .free-reward {
+    top: 10px;
 }

@@ -820,7 +820,7 @@ namespace FirstLight.Game.StateMachines
 			}
 			else if (collectableId.IsInGroup(GameIdGroup.Special))
 			{
-				audio = AudioId.WeaponPickup;
+				audio = AudioId.LargeAmmoPickup;
 			}
 
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView) &&

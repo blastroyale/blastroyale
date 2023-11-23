@@ -100,6 +100,7 @@ namespace FirstLight.Game.Presenters
 		private Coroutine _updatePoolsCoroutine;
 		private HashSet<GameId> _currentAnimations = new ();
 		private HashSet<GameId> _initialized = new ();
+		private CurrencyDisplayElement _csOwned;
 
 		private void Awake()
 		{
@@ -172,10 +173,11 @@ namespace FirstLight.Game.Presenters
 			_playButtonContainer = root.Q("PlayButtonHolder");
 			_playButton = root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
+			
+			_csOwned = root.Q<CurrencyDisplayElement>("CSCurrency");
 
-			root.Q<CurrencyDisplayElement>("CSCurrency")
-				.AttachView(this, out CurrencyDisplayView _)
-				.SetAnimationOrigin(_playButton);
+			_csOwned.AttachView(this, out CurrencyDisplayView _)
+			        .SetAnimationOrigin(_playButton);
 			root.Q<CurrencyDisplayElement>("CoinCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
@@ -262,6 +264,11 @@ namespace FirstLight.Game.Presenters
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
 			_betaLabel.SetDisplay(FeatureFlags.BETA_VERSION);
+			
+			// We show CS in the top bar if player has some CS or equipment NFTs (which means CS pool is more than 0)
+			var cs = _dataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.CS);
+			_csOwned.SetDisplay(cs > 0 ||
+			                    _dataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.CS).PoolCapacity > 0);
 
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);

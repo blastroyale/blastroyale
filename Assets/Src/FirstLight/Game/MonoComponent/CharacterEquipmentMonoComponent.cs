@@ -143,7 +143,6 @@ namespace FirstLight.Game.MonoComponent
 				{
 					renderContainer.SetLayer(gameObject.layer);
 					_renderersContainerProxy.AddRenderersContainer(renderContainer);
-					//renderContainer.SetEnabled(true);
 					if (_renderersContainerProxy.GetFirstRendererColor(ref col))
 					{
 						renderContainer.SetColor(col);

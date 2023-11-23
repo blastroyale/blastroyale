@@ -124,6 +124,8 @@ namespace FirstLight.Game.MonoComponent
 
 			var childCount = instance.transform.childCount;
 
+			Color col = default;
+			
 			// We detach the first child of the equipment and copy it to the anchor
 			// Not sure why. Neither do I
 			for (var i = 0; i < Mathf.Max(childCount, 1); i++)
@@ -144,6 +146,10 @@ namespace FirstLight.Game.MonoComponent
 					renderContainer.SetLayer(gameObject.layer);
 					_renderersContainerProxy.AddRenderersContainer(renderContainer);
 					renderContainer.SetEnabled(true);
+					if (_renderersContainerProxy.GetFirstRendererColor(ref col))
+					{
+						renderContainer.SetColor(col);
+					}
 				}
 			}
 

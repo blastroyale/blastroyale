@@ -70,11 +70,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				var rend = msg.Item.GetComponentInChildren<RenderersContainerMonoComponent>();
 				rend?.SetEnabled(false);
-
-				if (rend)
-				{
-					Debug.Log($"EntityVisibilityService->OnItemEquipped - {rend.gameObject.FullGameObjectPath()}");
-				}
 			}
 		}
 		

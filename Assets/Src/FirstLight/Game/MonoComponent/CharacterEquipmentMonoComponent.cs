@@ -141,8 +141,6 @@ namespace FirstLight.Game.MonoComponent
 
 				if (piece.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
 				{
-					Debug.LogWarning($"Equipping weapon on layer {gameObject.FullGameObjectPath()} {LayerMask.LayerToName(gameObject.layer)}");
-					
 					renderContainer.SetLayer(gameObject.layer);
 					_renderersContainerProxy.AddRenderersContainer(renderContainer);
 					renderContainer.SetEnabled(true);

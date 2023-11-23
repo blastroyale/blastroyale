@@ -13,6 +13,7 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
+using LayerMask = UnityEngine.LayerMask;
 
 namespace FirstLight.Game.MonoComponent
 {
@@ -138,6 +139,8 @@ namespace FirstLight.Game.MonoComponent
 
 				if (piece.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
 				{
+					Debug.LogWarning($"Equipping weapon on layer{LayerMask.LayerToName(gameObject.layer)}");
+					
 					renderContainer.SetLayer(gameObject.layer);
 					_renderersContainerProxy.AddRenderersContainer(renderContainer);
 				}

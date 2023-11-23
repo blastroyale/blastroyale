@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 259382477880355926}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: WarriorArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23,6 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6628622503175996816}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,7 +33,6 @@ Transform:
   - {fileID: 3199890654782017386}
   - {fileID: 7112919849012171095}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7520623724095517716
 GameObject:
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 2135708159602081525}
   - component: {fileID: 9184525243754449612}
   - component: {fileID: 4924527585446883918}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: warriror_shoulder_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,13 +60,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7520623724095517716}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.0000019967554, z: -0, w: -1}
   m_LocalPosition: {x: -0.13200003, y: 0.13, z: -0.008000563}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 259382477880355926}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!33 &2135708159602081525
 MeshFilter:
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 6405062188476207803}
   - component: {fileID: 1347616586213559174}
   - component: {fileID: 1656070887394225159}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: warrior_shoulder_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,13 +161,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7754819849624540485}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.0000019967554, z: -0, w: -1}
   m_LocalPosition: {x: 0.128, y: 0.13, z: -0.008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 259382477880355926}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!33 &6405062188476207803
 MeshFilter:
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 1349448205965116603}
   - component: {fileID: 892931816866469043}
   - component: {fileID: 2238184746763691682}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: warrior_chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,13 +262,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9167977223549318358}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.0000019967554, z: -0, w: -1}
   m_LocalPosition: {x: -0.0020000394, y: 0, z: -0.008000274}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 259382477880355926}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!33 &1349448205965116603
 MeshFilter:

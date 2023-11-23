@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4088789332508306887}
   - component: {fileID: 7974615792077559085}
   - component: {fileID: 4787190700163417995}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: SoldierHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6407242307848870486}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4088789332508306887
 MeshFilter:

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6165000970535338875}
   - component: {fileID: 5294039822546108936}
   - component: {fileID: 398181099066565768}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: RiotShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771102762564191110}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6165000970535338875
 MeshFilter:

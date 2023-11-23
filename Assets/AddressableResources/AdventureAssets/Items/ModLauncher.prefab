@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2506563922435811417}
   - component: {fileID: 8927739510086699811}
   - component: {fileID: 5050621315324231011}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Wep_Grenade_Launcher_Mil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,6 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4351902759408172476}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: -0.171}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +35,6 @@ Transform:
   - {fileID: 7636587225728668276}
   - {fileID: 1404351867888460545}
   m_Father: {fileID: 4516585669790791155}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2506563922435811417
 MonoBehaviour:
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4516585669790791155}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: ModLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4516585669790791156}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -114,7 +115,6 @@ Transform:
   m_Children:
   - {fileID: 3269616851146867072}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1510953174655599850
 PrefabInstance:
@@ -174,7 +174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1630152414259336465, guid: cd277ed4c1621ad4da2d5d5d5d01389f, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -1630152414259336465, guid: cd277ed4c1621ad4da2d5d5d5d01389f, type: 3}
       propertyPath: m_IsActive
@@ -182,7 +182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -465890005730237519, guid: cd277ed4c1621ad4da2d5d5d5d01389f, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: cd277ed4c1621ad4da2d5d5d5d01389f, type: 3}
       propertyPath: m_Name
@@ -190,7 +190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: cd277ed4c1621ad4da2d5d5d5d01389f, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -220,9 +220,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3269616851146867072}
     m_Modifications:
+    - target: {fileID: 335867925761748138, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 699189905435078329, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_Name
       value: MuzzleStandard
+      objectReference: {fileID: 0}
+    - target: {fileID: 699189905435078329, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1013405764868694880, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_RootOrder

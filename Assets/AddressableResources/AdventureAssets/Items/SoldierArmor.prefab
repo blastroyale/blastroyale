@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5092011625378278942}
   - component: {fileID: 1030185097588863583}
   - component: {fileID: 1809153017118198891}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: MM_chest_plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 874207934572954050}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.0000009536743, z: -0, w: 1}
   m_LocalPosition: {x: 0.0049997796, y: 0, z: -0.033458136}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8526267834197534927}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5092011625378278942
 MeshFilter:
@@ -110,7 +110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8526267834197534927}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: SoldierArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,6 +124,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1052447930075331618}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -133,7 +134,6 @@ Transform:
   - {fileID: 6116987599862795446}
   - {fileID: 3216415756169386053}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5745689497002408400
 GameObject:
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 817667953673257961}
   - component: {fileID: 8327055793795857791}
   - component: {fileID: 4712679073529432011}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: MM_Shoulder_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,13 +161,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5745689497002408400}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.0000009536743, z: -0, w: 1}
   m_LocalPosition: {x: -0.12500022, y: 0.13, z: -0.033458322}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8526267834197534927}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &817667953673257961
 MeshFilter:
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 1381200751927049394}
   - component: {fileID: 6740627253512215805}
   - component: {fileID: 8014592885101991406}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: MM_Shoulder_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,13 +262,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8799486928355061532}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.0000009536743, z: -0, w: 1}
   m_LocalPosition: {x: 0.13499981, y: 0.13, z: -0.033457983}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8526267834197534927}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1381200751927049394
 MeshFilter:

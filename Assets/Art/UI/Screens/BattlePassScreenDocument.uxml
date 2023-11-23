@@ -11,7 +11,7 @@
                 </ui:ScrollView>
                 <ui:VisualElement name="LastRewardBalloon" tabindex="5" class="last-reward-widget">
                     <ui:VisualElement name="LastRewardContainer" class="last-reward-container">
-                        <ui:VisualElement name="LastRewardSprite" class="last-reward-sprite"  />
+                        <ui:VisualElement name="LastRewardSprite" class="last-reward-sprite" />
                         <ui:VisualElement name="RewardShineBlue" class="reward-shine-blue" />
                         <ui:VisualElement name="RewardShineYellow" class="reward-shine-yellow" />
                     </ui:VisualElement>
@@ -40,6 +40,18 @@
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton text="##" name="ClaimButton" localization-key="UITBattlePass/claim_all" class="sfx-click-forwards claim-button button-long button-long--yellow anim-delay-0 anim-translate anim-translate--up-s" />
             <FirstLight.Game.UIElements.ImageButton name="FullScreenClaim" class="fullscreen-claim" />
+            <ui:VisualElement name="LastReward" class="last-reward-picture__background" style="display: none;">
+                <ui:VisualElement name="BackgroundYellow" class="last-reward-picture__background-yellow" />
+                <ui:VisualElement name="BackgroundPink" class="last-reward-picture__background-pink">
+                    <ui:VisualElement name="Dots" class="last-reward-picture__dots" />
+                </ui:VisualElement>
+                <ui:VisualElement name="RewardPicture" class="last-reward-picture__reward-picture">
+                    <ui:VisualElement name="RewardNameCloud" class="last-reward-picture__cloud-background">
+                        <ui:Label tabindex="-1" text="EXCLUSIVE REWARD" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExclusiveReward" class="last-reward-picture__cloud-label" />
+                        <ui:Label tabindex="-1" text="PUNK SPIKE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RewardName" class="last-reward-picture__cloud-reward-name" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="SeasonHeader" class="season-header anim-translate anim-translate--down-s anim-delay-4">
             <ui:VisualElement name="Background" class="season-header__background" />

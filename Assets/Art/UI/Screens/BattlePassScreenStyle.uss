@@ -885,3 +885,77 @@
 .screen-root--no-paid .free-reward {
     top: 10px;
 }
+
+.last-reward-picture__background {
+    position: absolute;
+    height: 100%;
+    right: -180px;
+    width: 800px;
+    background-image: url('project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation');
+    -unity-background-image-tint-color: rgb(75, 216, 214);
+}
+
+.last-reward-picture__background-yellow {
+    background-image: url('project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation');
+    -unity-background-image-tint-color: rgb(255, 199, 0);
+    right: -38px;
+    position: absolute;
+    height: 100%;
+    width: 800px;
+}
+
+.last-reward-picture__background-pink {
+    background-image: url('project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation');
+    -unity-background-image-tint-color: rgb(216, 75, 121);
+    position: absolute;
+    height: 100%;
+    width: 800px;
+    right: -54px;
+}
+
+.last-reward-picture__reward-picture {
+    background-image: var(--sprite-home__malepunk-season-reward);
+    position: absolute;
+    width: 552px;
+    height: 714px;
+    align-self: center;
+    top: 53px;
+    right: 382px;
+}
+
+.last-reward-picture__cloud-background {
+    width: 500px;
+    height: 236px;
+    background-image: var(--sprite-home__cloud-exclusive-reward);
+    position: absolute;
+    bottom: -184px;
+}
+
+.last-reward-picture__cloud-reward-name {
+    position: absolute;
+    color: rgb(216, 75, 121);
+    font-size: 48px;
+    bottom: 70px;
+    left: 162px;
+    rotate: -2deg;
+}
+
+.last-reward-picture__cloud-label {
+    font-size: 40px;
+    color: rgb(49, 47, 84);
+    position: absolute;
+    top: 60px;
+    left: 114px;
+    rotate: -2deg;
+}
+
+.last-reward-picture__dots {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background-image: var(--sprite-home__pattern-dots-rotated);
+    rotate: 187deg;
+    bottom: -37px;
+    right: 184px;
+    -unity-background-image-tint-color: rgb(223, 86, 134);
+}

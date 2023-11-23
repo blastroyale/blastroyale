@@ -93,6 +93,7 @@
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');
     --sprite-home__card-selected: url('/Assets/Art/UI/Sprites/Home/card-selected.png');
     --sprite-home__card-shadow-pink: url('/Assets/Art/UI/Sprites/Home/card-shadow-pink.png');
+    --sprite-home__cloud-exclusive-reward: url('/Assets/Art/UI/Sprites/Home/cloud-exclusive-reward.png');
     --sprite-home__customizable-back-part: url('/Assets/Art/UI/Sprites/Home/customizable-back-part.png');
     --sprite-home__dark-pattern-piece: url('/Assets/Art/UI/Sprites/Home/dark-pattern-piece.png');
     --sprite-home__flag-demon: url('/Assets/Art/UI/Sprites/Home/flag-demon.png');
@@ -165,6 +166,7 @@
     --sprite-home__icon-tiktok: url('/Assets/Art/UI/Sprites/Home/icon-tiktok.png');
     --sprite-home__icon-youtube: url('/Assets/Art/UI/Sprites/Home/icon-youtube.png');
     --sprite-home__logo-blasthub: url('/Assets/Art/UI/Sprites/Home/logo-blasthub.png');
+    --sprite-home__malepunk-season-reward: url('/Assets/Art/UI/Sprites/Home/malepunk-season-reward.png');
     --sprite-home__pattern-circle-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-circle-gradient.png');
     --sprite-home__pattern-dots-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-dots-gradient.png');
     --sprite-home__pattern-dots-rotated: url('/Assets/Art/UI/Sprites/Home/pattern-dots-rotated.png');
@@ -715,6 +717,12 @@
     height: 304px;
 }
 
+.sprite-home__cloud-exclusive-reward {
+    background-image: var(--sprite-home__cloud-exclusive-reward);
+    width: 501px;
+    height: 236px;
+}
+
 .sprite-home__customizable-back-part {
     background-image: var(--sprite-home__customizable-back-part);
     width: 190px;
@@ -1139,6 +1147,12 @@
     background-image: var(--sprite-home__logo-blasthub);
     width: 260px;
     height: 52px;
+}
+
+.sprite-home__malepunk-season-reward {
+    background-image: var(--sprite-home__malepunk-season-reward);
+    width: 552px;
+    height: 713px;
 }
 
 .sprite-home__pattern-circle-gradient {

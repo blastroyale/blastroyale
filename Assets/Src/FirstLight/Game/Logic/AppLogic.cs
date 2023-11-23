@@ -55,7 +55,7 @@ namespace FirstLight.Game.Logic
 		/// Is Haptic feedback on device enabled?
 		/// </summary>
 		bool IsHapticOn { get; set; }
-		
+
 		/// <summary>
 		/// Is Haptic feedback on device enabled?
 		/// </summary>
@@ -145,7 +145,7 @@ namespace FirstLight.Game.Logic
 		/// Requests the player's title display name (including appended numbers)
 		/// </summary>
 		IObservableField<string> DisplayName { get; }
-		
+
 		/// <summary>
 		/// Playfab title data thats read and setup after player logs in
 		/// </summary>
@@ -220,7 +220,7 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IAppLogic"/>
 	public class AppLogic : AbstractBaseLogic<AppData>, IAppLogic
 	{
-		private readonly DateTime _defaultZeroTime = new(2020, 1, 1);
+		private readonly DateTime _defaultZeroTime = new (2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
 
 		public bool IsPlayerLoggedIn => !string.IsNullOrEmpty(Data.PlayerId);
@@ -290,10 +290,7 @@ namespace FirstLight.Game.Logic
 		public bool IsHapticOn
 		{
 			get => Data.HapticEnabled;
-			set
-			{
-				Data.HapticEnabled = value;
-			}
+			set { Data.HapticEnabled = value; }
 		}
 
 		public bool UseOverheadUI
@@ -305,10 +302,7 @@ namespace FirstLight.Game.Logic
 		public bool InvertSpecialCancellling
 		{
 			get => Data.InvertSpecialCancellling;
-			set
-			{
-				Data.InvertSpecialCancellling = value;
-			}
+			set { Data.InvertSpecialCancellling = value; }
 		}
 
 		/// <inheritdoc />

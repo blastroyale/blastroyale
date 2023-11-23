@@ -11,20 +11,18 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface IBattlePassService
 	{
-		 
 	}
 
 	public class BattlePassService : IBattlePassService
 	{
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
-		private bool _hasUnseenSeason;
+		private bool _hasSeenCurrentSeason => _gameDataProvider.BattlePassDataProvider.HasSeenCurrentSeasonBanner();
 
 		public BattlePassService(IMessageBrokerService msgBroker, IGameDataProvider gameDataProvider, IGameServices services)
 		{
 			_gameDataProvider = gameDataProvider;
 			_services = services;
-			msgBroker.Subscribe<GameLogicInitialized>(InitializeBattlePass);
 			msgBroker.Subscribe<MainMenuOpenedMessage>(OnMainMenuOpen);
 			msgBroker.Subscribe<NewBattlePassSeasonMessage>(OnViewBanner);
 			msgBroker.Subscribe<OnViewingRewardsFinished>(OnFinishedViewingRewards);
@@ -32,7 +30,7 @@ namespace FirstLight.Game.Services
 
 		private void OnViewBanner(NewBattlePassSeasonMessage msg)
 		{
-			_hasUnseenSeason = false; 
+			_services.CommandService.ExecuteCommand(new BattlepassMarkSeenBanner());
 		}
 
 		private void OnFinishedViewingRewards(OnViewingRewardsFinished msg)
@@ -47,24 +45,15 @@ namespace FirstLight.Game.Services
 
 		private void CheckDisplayBanner()
 		{
-			if (!_hasUnseenSeason) return;
+			var seen = _hasSeenCurrentSeason;
+			if (seen) return;
 			if (_gameDataProvider.PlayerDataProvider.Level.Value < 2)
 			{
 				return;
 			}
+
 			_services.GameUiService.OpenUiAsync<BattlePassSeasonBannerPresenter>();
-			_hasUnseenSeason = false;
-		}
-		
-		private void InitializeBattlePass(GameLogicInitialized _)
-		{
-			var hasRewardsToClaim = _gameDataProvider.BattlePassDataProvider.HasUncollectedRewardsFromPreviousSeasons();
-			var shouldInitializeSeason = _gameDataProvider.BattlePassDataProvider.ShouldInitializeSeason();
-			if (hasRewardsToClaim || shouldInitializeSeason)
-			{
-				_services.CommandService.ExecuteCommand(new InitializeBattlepassSeasonCommand());
-				_hasUnseenSeason = true;
-			}
+			_services.CommandService.ExecuteCommand(new BattlepassMarkSeenBanner());
 		}
 	}
 }

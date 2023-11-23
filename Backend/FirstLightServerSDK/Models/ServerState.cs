@@ -91,7 +91,15 @@ namespace FirstLight.Server.SDK.Models
 			return (T)DeserializeModel(typeof(T));
 		}
 
-
+		/// <summary>
+		/// Updates the current delta values
+		/// </summary>
+		/// <param name="delta"></param>
+		public void SetDelta(StateDelta delta)
+		{
+			this._delta = delta;
+		}
+		
 		/// <summary>
 		/// Obtains a server state that only contains keys that were updated after
 		/// the class instantiation. This is a way to optimize which keys are sent to external

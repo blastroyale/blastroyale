@@ -113,8 +113,17 @@ public class TestCommandValidation
 	public void TestAdminCommand()
 	{
 		Setup();
-		SetupCommand(new AdminOnlyCommand());
+		var cmd = new DummyCommand(CommandExecutionMode.Server, CommandAccessLevel.Admin);
+		SetupCommand(cmd);
 		RunAndAssertException("Insuficient permissions to run command");
+	}
+	[Test]
+	public void TestInitializationCommand()
+	{
+		Setup();
+		var cmd = new DummyCommand(CommandExecutionMode.Initialization, CommandAccessLevel.Player);
+		SetupCommand(cmd);
+		RunAndAssertException("Command can only be triggerred from server!");
 	}
 
 
@@ -146,20 +155,21 @@ public class TestCommandValidation
 
 	private class DummyCommand : IGameCommand
 	{
-		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
+		public CommandExecutionMode _executionMode;
+		public CommandAccessLevel _commandAccessLevel;
 
-		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
+		public DummyCommand(CommandExecutionMode executionMode, CommandAccessLevel commandAccessLevel)
+		{
+			_executionMode = executionMode;
+			_commandAccessLevel = commandAccessLevel;
+		}
 
-		public void Execute(CommandExecutionContext ctx)
+		public DummyCommand() : this(CommandExecutionMode.Server, CommandAccessLevel.Player)
 		{
 		}
-	}
 
-	private class AdminOnlyCommand : IGameCommand
-	{
-		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Admin;
-
-		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
+		public CommandAccessLevel AccessLevel() => _commandAccessLevel;
+		public CommandExecutionMode ExecutionMode() => _executionMode;
 
 		public void Execute(CommandExecutionContext ctx)
 		{

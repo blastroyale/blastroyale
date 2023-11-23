@@ -25,6 +25,7 @@ namespace FirstLight.Game.UIElements
 
 		private const string USS_SPRITE_SPECIAL = "sprite-shared__icon-special-{0}";
 
+		private readonly Cooldown _cancelCooldown = new (TimeSpan.FromSeconds(3f/4f));
 		private readonly VisualElement _stick;
 		private readonly VisualElement _container;
 		private readonly VisualElement _icon;
@@ -209,6 +210,7 @@ namespace FirstLight.Game.UIElements
 			}
 			else
 			{
+				_cancelCooldown.Trigger();
 				_cancelCircle.AddToClassList(USS_CANCEL_CIRCLE_SMALL);
 			}
 
@@ -235,9 +237,9 @@ namespace FirstLight.Game.UIElements
 
 			_stick.transform.position = stickPositionClamped;
 
-			var inCancelArea = _invertedSpecialCancel
+			var inCancelArea = (_invertedSpecialCancel
 				? _cancelCircle.ContainsPoint(_cancelCircle.WorldToLocal(evt.position))
-				: !_cancelCircle.ContainsPoint(_cancelCircle.WorldToLocal(evt.position));
+				: !_cancelCircle.ContainsPoint(_cancelCircle.WorldToLocal(evt.position))) && !_cancelCooldown.IsCooldown();
 
 			if (inCancelArea != _inCancel)
 			{

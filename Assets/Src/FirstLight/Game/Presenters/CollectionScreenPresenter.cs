@@ -389,9 +389,38 @@ namespace FirstLight.Game.Presenters
 			_equipButton.text = equipped != null && selectedId == equipped.Id
 				? ScriptLocalization.General.Selected.ToUpper()
 				: ScriptLocalization.General.Equip;
-
-			_selectedItemLabel.text = selectedItem.GetDisplayName();
-			_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
+			
+			// Choose how to handle Item Label based on Collection Category
+			switch (category.Id)
+			{
+				case GameIdGroup.ProfilePicture:
+				{
+					_selectedItemLabel.text = "";
+					break;
+				}
+				default:
+				{
+					_selectedItemLabel.text = selectedItem.GetDisplayName();
+					break;
+				}
+			}
+			
+			// Choose how to handle Item Description based on Collection Category
+			switch (category.Id)
+			{
+				case GameIdGroup.MeleeSkin:
+				case GameIdGroup.ProfilePicture:
+				{
+					_selectedItemDescription.text = "";
+					break;
+				}
+				default:
+				{
+					_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
+					break;
+				}
+			}
+			
 			_nameLockedIcon.SetDisplay(!_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
 			_equipButton.SetDisplay(_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
 		}

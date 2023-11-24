@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Services;
 using FirstLight.UiService;
@@ -74,9 +75,10 @@ namespace FirstLight.Game.Presenters
 		/// <summary>
 		/// Creates blocker elements around ui element object on the <typeparamref name="T"/> presenter.
 		/// </summary>
-		public void BlockAround<T>(string className = null, string elementName = null)
+		public async UniTask BlockAround<T>(string className = null, string elementName = null)
 			where T : UiPresenter, IUIDocumentPresenter
 		{
+			await UniTask.WaitUntil(() => _uiService.HasUiPresenter<T>());
 			var doc = _uiService.GetUi<T>().Document;
 			var element = doc.rootVisualElement.Q(elementName, className);
 			

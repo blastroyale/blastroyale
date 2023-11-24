@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5877377704812088118}
   - component: {fileID: 2106478410514651775}
   - component: {fileID: 2142440212951964222}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Wep_Plasma_Cannon_Scifi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,6 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377992452803880362}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +35,6 @@ Transform:
   - {fileID: 4438619953229523581}
   - {fileID: 5293547776046727089}
   m_Father: {fileID: 6348189754933789880}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5877377704812088118
 MonoBehaviour:
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6348189754933789880}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: SciCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,6 +106,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6348189754933789881}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -113,7 +114,6 @@ Transform:
   m_Children:
   - {fileID: 5291469295444742117}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5159540094475748146
 PrefabInstance:
@@ -123,9 +123,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5291469295444742117}
     m_Modifications:
+    - target: {fileID: 957451868609266315, guid: b04b82df6d157459196793d31b04218c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6484576896690508051, guid: b04b82df6d157459196793d31b04218c, type: 3}
       propertyPath: m_Name
       value: SciFiMuzzle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6484576896690508051, guid: b04b82df6d157459196793d31b04218c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104078013756083674, guid: b04b82df6d157459196793d31b04218c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8792006367312881999, guid: b04b82df6d157459196793d31b04218c, type: 3}
       propertyPath: m_RootOrder
@@ -259,7 +271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 14e5d1ad687562847864049a98d6a556, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

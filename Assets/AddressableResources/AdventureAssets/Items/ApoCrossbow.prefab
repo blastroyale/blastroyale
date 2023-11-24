@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1640824217119769764}
   - component: {fileID: 8847877434210179762}
   - component: {fileID: 3940281006029581541}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Wep_CrossBow_Apc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,6 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4043739400935054816}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +35,6 @@ Transform:
   - {fileID: 5898311590598318766}
   - {fileID: 5944900870023456262}
   m_Father: {fileID: 6141187416942925850}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1640824217119769764
 MonoBehaviour:
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6141187416942925850}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: ApoCrossbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6141187416942925851}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -114,7 +115,6 @@ Transform:
   m_Children:
   - {fileID: 7992025884976772726}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6219957453444087109
 PrefabInstance:
@@ -170,7 +170,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6840612833681671006, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -6840612833681671006, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
       propertyPath: m_IsActive
@@ -178,7 +178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2511208314892079831, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
       propertyPath: m_Name
@@ -186,7 +186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6979276666735944220, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
       propertyPath: m_Materials.Array.size
@@ -228,9 +228,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7992025884976772726}
     m_Modifications:
+    - target: {fileID: 335867925761748138, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 699189905435078329, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_Name
       value: MuzzleStandard
+      objectReference: {fileID: 0}
+    - target: {fileID: 699189905435078329, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1013405764868694880, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_RootOrder

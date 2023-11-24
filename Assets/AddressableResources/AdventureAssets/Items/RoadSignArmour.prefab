@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8953985300831445819}
   - component: {fileID: 4644099293651602062}
   - component: {fileID: 1856512860864621053}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Nutter_chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171905068312978463}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.0000022649763, z: -0, w: 1}
   m_LocalPosition: {x: -0.0039997124, y: 0, z: -0.060773756}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5175104466260548641}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8953985300831445819
 MeshFilter:
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 4760019109151786652}
   - component: {fileID: 2565966680048396265}
   - component: {fileID: 3792936922405738781}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Nutter_ShoulderL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,13 +127,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 692709253286077414}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.0000022649763, z: -0, w: 1}
   m_LocalPosition: {x: -0.16299969, y: 0, z: -0.060772683}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5175104466260548641}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4760019109151786652
 MeshFilter:
@@ -211,7 +211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5175104466260548641}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: RoadSignArmour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,6 +225,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952126670735314887}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -234,7 +235,6 @@ Transform:
   - {fileID: 5832184379880279841}
   - {fileID: 6181525686803630769}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5766785359382308091
 GameObject:
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 9103757909696833688}
   - component: {fileID: 1740618216965754537}
   - component: {fileID: 2574623312257698719}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Nutter_sholderR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,13 +262,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5766785359382308091}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.0000022649763, z: -0, w: 1}
   m_LocalPosition: {x: 0.16100024, y: 0, z: -0.06077487}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5175104466260548641}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9103757909696833688
 MeshFilter:

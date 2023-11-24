@@ -121,7 +121,19 @@ namespace FirstLight.Game.MonoComponent
 				render.material.color = c;
 			}
 		}
-		
+
+		public bool GetFirstRendererColor(ref Color color)
+		{
+			foreach (var render in _renderers)
+			{
+				color = render.material.color;
+
+				return true;
+			}
+			
+			return false;
+		}
+
 		public void SetAdditiveColor(Color c)
 		{
 			// TODO: Avoid duplicating the material

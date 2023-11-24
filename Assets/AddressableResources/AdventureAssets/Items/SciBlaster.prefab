@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6348189754933789880}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: SciBlaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23,6 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6348189754933789881}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -30,7 +31,6 @@ Transform:
   m_Children:
   - {fileID: 4870070328271553283}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7087418058083405533
 GameObject:
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7767845496381016292}
   - component: {fileID: 6056100245204631296}
   - component: {fileID: 7225982141456834087}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Wep_Laser_Blaster_Scfi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,6 +58,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7087418058083405533}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: -0.067}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -66,7 +67,6 @@ Transform:
   - {fileID: 5096659167086356844}
   - {fileID: 8429649985617932629}
   m_Father: {fileID: 6348189754933789880}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7767845496381016292
 MonoBehaviour:
@@ -123,9 +123,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4870070328271553283}
     m_Modifications:
+    - target: {fileID: 957451868609266315, guid: b04b82df6d157459196793d31b04218c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6484576896690508051, guid: b04b82df6d157459196793d31b04218c, type: 3}
       propertyPath: m_Name
       value: SciFiMuzzle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6484576896690508051, guid: b04b82df6d157459196793d31b04218c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104078013756083674, guid: b04b82df6d157459196793d31b04218c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8792006367312881999, guid: b04b82df6d157459196793d31b04218c, type: 3}
       propertyPath: m_RootOrder
@@ -271,7 +283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e26d252c9c23de24f8b24421c55d4e94, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

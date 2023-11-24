@@ -13,6 +13,7 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
+using LayerMask = UnityEngine.LayerMask;
 
 namespace FirstLight.Game.MonoComponent
 {
@@ -123,6 +124,8 @@ namespace FirstLight.Game.MonoComponent
 
 			var childCount = instance.transform.childCount;
 
+			Color col = default;
+			
 			// We detach the first child of the equipment and copy it to the anchor
 			// Not sure why. Neither do I
 			for (var i = 0; i < Mathf.Max(childCount, 1); i++)
@@ -140,6 +143,10 @@ namespace FirstLight.Game.MonoComponent
 				{
 					renderContainer.SetLayer(gameObject.layer);
 					_renderersContainerProxy.AddRenderersContainer(renderContainer);
+					if (_renderersContainerProxy.GetFirstRendererColor(ref col))
+					{
+						renderContainer.SetColor(col);
+					}
 				}
 			}
 

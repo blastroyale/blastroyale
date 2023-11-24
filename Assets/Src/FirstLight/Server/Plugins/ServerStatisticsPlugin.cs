@@ -34,6 +34,7 @@ namespace Src.FirstLight.Server
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.GAMES_WON_EVER, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_KILLS, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_KILLS_EVER, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_DEATHS_EVER, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.KILLS, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.KILLS_EVER, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_GAMES_WON, true);
@@ -146,6 +147,7 @@ namespace Src.FirstLight.Server
 			{
 				toSend.Add((GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, 1));
 				toSend.Add((GameConstants.Stats.RANKED_KILLS_EVER,  (int)thisPlayerData.Data.PlayersKilledCount));
+				toSend.Add((GameConstants.Stats.RANKED_DEATHS_EVER, (int)thisPlayerData.Data.DeathCount));
 				toSend.Add((GameConstants.Stats.RANKED_GAMES_PLAYED, 1));
 				toSend.Add((GameConstants.Stats.RANKED_KILLS,  (int)thisPlayerData.Data.PlayersKilledCount));
 			}

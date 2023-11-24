@@ -43,7 +43,7 @@ namespace FirstLight.Game.Presenters
 
 		private int _pfpRequestHandle = -1;
 		
-		private const int StatisticMaxSize = 6;
+		private const int StatisticMaxSize = 4;
 		
 		private void Awake()
 		{
@@ -91,6 +91,10 @@ namespace FirstLight.Game.Presenters
 				_statLabels[i] = root.Q<Label>($"StatName{i}").Required();
 				_statValues[i] = root.Q<Label>($"StatValue{i}").Required();
 			}
+			
+			// Hiding 2 more stats slots. Will be used later
+			root.Q<VisualElement>($"StatsWidget4").Required().SetDisplay(false);
+			root.Q<VisualElement>($"StatsWidget5").Required().SetDisplay(false);
 
 			_content.visible = false;
 			_loadingSpinner.visible = true;
@@ -143,9 +147,7 @@ namespace FirstLight.Game.Presenters
 				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);
 				SetStatInfo(1, result, GameConstants.Stats.RANKED_GAMES_WON_EVER, ScriptLocalization.MainMenu.RankedGamesWon);
 				SetStatInfo(2, result, GameConstants.Stats.RANKED_KILLS_EVER, ScriptLocalization.MainMenu.RankedKills);
-				SetStatInfo(3, result, GameConstants.Stats.GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.GamesPlayedEver);
-				SetStatInfo(4, result, GameConstants.Stats.GAMES_WON_EVER, ScriptLocalization.MainMenu.GamesWonEver);
-				SetStatInfo(5, result, GameConstants.Stats.KILLS_EVER, ScriptLocalization.MainMenu.KillsEver);
+				SetStatInfo(3, result, GameConstants.Stats.RANKED_DEATHS_EVER, ScriptLocalization.MainMenu.RankedDeaths);
 				
 				_pfpImage.SetAvatar(result.AvatarUrl);
 				_pfpImage.SetLevel(_gameDataProvider.PlayerDataProvider.Level.Value);

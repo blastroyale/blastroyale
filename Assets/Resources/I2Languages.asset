@@ -7085,7 +7085,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SKY LASER BEAM
+      - LASER BEAM
       - "\u041D\u0435\u0431\u043E \u043B\u0430\u0437\u0435\u0440\u043D\u044B\u0439
         \u043B\u0443\u0447"
       - "Feixe de laser do c\xE9u"
@@ -12167,7 +12167,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ranked Games Won
+      - Games Won
       - "\u0412\u044B\u0438\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
         \u0438\u0433\u0440"
       - "Jogos classificados j\xE1 vencidos"
@@ -12179,7 +12179,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ranked Kills
+      - Kills
       - "\n\u0420\u0430\u043D\u0433\u043E\u0432\u044B\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
       - Jogos classificados vencidos
       - 
@@ -12190,7 +12190,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ranked Games Played
+      - Games Played
       - "\u0421\u044B\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
         \u0438\u0433\u0440"
       - "\nMortes Classificat\xF3rias"
@@ -12231,6 +12231,17 @@ MonoBehaviour:
       - "\n\u0412\u0441\u0435\u0433\u043E \u0432\u044B\u0438\u0433\u0440\u0430\u043D\u043E
         \u0438\u0433\u0440"
       - Total de jogos ganhos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedDeaths
+      TermType: 0
+      Description: 
+      Languages:
+      - Deaths
+      - "\n\u0420\u0430\u043D\u0433\u043E\u0432\u044B\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
+      - Jogos classificados vencidos
       - 
       - 
       Flags: 0000000000
@@ -18273,7 +18284,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1700247200637
+    Google_LastUpdatedVersion: 1700835599274
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

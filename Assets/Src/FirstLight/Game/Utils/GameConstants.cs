@@ -173,6 +173,8 @@ namespace FirstLight.Game.Utils
 			public const string ITEM_SCRAPS_EVER = "Item Scraps Ever";
 			public const string FAME = "Fame";
 			public const string COINS_EARNED = "Coins Earned";
+			public const string BPP_EARNED = "BPP Earned";
+			public const string XP_EARNED = "XP Earned";
 			public const string CS_EARNED = "CS Earned";
 			public const string COINS_TOTAL = "Coins Total";
 			public const string CS_TOTAL = "CS Total";

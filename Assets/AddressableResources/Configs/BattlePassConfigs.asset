@@ -317,7 +317,7 @@ MonoBehaviour:
       PremiumRewardId: 46
       PointsForNextLevel: 0
       Season: 7
-    - RewardId: 2
+    - RewardId: 48
       PremiumRewardId: 46
       PointsForNextLevel: 0
       Season: 7
@@ -561,7 +561,7 @@ MonoBehaviour:
       PremiumRewardId: 46
       PointsForNextLevel: 0
       Season: 7
-    - RewardId: 2
+    - RewardId: 3
       PremiumRewardId: 46
       PointsForNextLevel: 0
       Season: 7
@@ -589,7 +589,7 @@ MonoBehaviour:
       PremiumRewardId: 4
       PointsForNextLevel: 0
       Season: 7
-    - RewardId: 3
+    - RewardId: 49
       PremiumRewardId: 46
       PointsForNextLevel: 0
       Season: 7

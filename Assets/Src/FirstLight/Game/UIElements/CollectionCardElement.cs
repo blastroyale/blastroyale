@@ -158,7 +158,16 @@ namespace FirstLight.Game.UIElements
 			Item = item;
 			var view = item.GetViewModel();
 			CollectionIndex = index;
-			_name.text = displayName;
+			
+			if (item.Id.IsInGroup(GameIdGroup.ProfilePicture))
+			{
+				_name.text = "";
+			}
+			else
+			{
+				_name.text = displayName;
+			}
+			
 			view.DrawIcon(_image);
 		}
 

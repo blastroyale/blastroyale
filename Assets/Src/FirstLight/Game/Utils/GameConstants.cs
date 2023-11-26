@@ -184,6 +184,7 @@ namespace FirstLight.Game.Utils
 			// Metrics that should not be used in leaderboards seasons
 			// as they should never be reset
 			public const string RANKED_KILLS_EVER = "Ranked Kills Ever";
+			public const string RANKED_DEATHS_EVER = "Ranked Deaths Ever";
 			public const string RANKED_GAMES_WON_EVER = "Ranked Games Won Ever";
 			public const string RANKED_GAMES_PLAYED_EVER = "Ranked Games Played Ever";
 			public const string KILLS_EVER = "Kills Ever";

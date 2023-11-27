@@ -14,22 +14,22 @@ namespace FirstLight.Game.Presenters.Store
 {
 	public class StoreGameProductElement : VisualElement
 	{
-		public const string UssSmall = "product-widget--small";
+		private const string USS_PRODUCT_NAME = "product-name";
+		private const string USS_PRODUCT_IMAGE = "product-image";
+		private const string USS_PRODUCT_PRICE = "product-price";
+		private const string USS_PRODUCT_WIDGET = "product-widget";
+		private const string USS_BUNDLE_IMAGE = "product-background-image";
+		private const string USS_GRADIENT_SIDES = "product-image-gradient-sides";
+		private const string USS_GRADIENT_BIG = "product-image-gradient-big";
+		private const string USS_GRADIENT_SMALL = "product-image-gradient-small";
+		private const string USS_WIDGET_EFFECTS = "widget-effect";
 
-		public const string UssProductName = "product-name";
-		public const string UssProductImage = "product-image";
-		public const string UssProductPrice = "product-price";
-		public const string UssProductWidget = "product-widget";
-		public const string UssBundleImage = "product-background-image";
-		public const string UssGradientSides = "product-image-gradient-sides";
-		public const string UssGradientBig = "product-image-gradient-big";
-		public const string UssGradientSmall = "product-image-gradient-small";
-		public const string UssWidgetEffects = "widget-effect";
-		
+		private const string USS_SPRITE_CURRENCIES_BLASTBUCK = "sprite-currencies__blastbuck-1";
+
 		public StoreDisplaySize size { get; set; }
 		public GameId gameId { get; set; }
 		public string imageOverwrite { get; set; }
-		
+
 		public Action<GameProduct> OnClicked;
 		private GameProduct _product;
 
@@ -38,15 +38,15 @@ namespace FirstLight.Game.Presenters.Store
 		/// </summary>
 		private string[] _modifiable =
 		{
-			UssBundleImage, UssGradientSides, UssGradientBig, 
-			UssGradientSmall, UssWidgetEffects
+			USS_BUNDLE_IMAGE, USS_GRADIENT_SIDES, USS_GRADIENT_BIG,
+			USS_GRADIENT_SMALL, USS_WIDGET_EFFECTS
 		};
 
 		private string[] _sizeable =
 		{
-			UssBundleImage, UssGradientSides, UssGradientBig, 
-			UssGradientSmall, UssWidgetEffects, UssProductWidget,
-			UssProductPrice, UssProductImage, UssProductName
+			USS_BUNDLE_IMAGE, USS_GRADIENT_SIDES, USS_GRADIENT_BIG,
+			USS_GRADIENT_SMALL, USS_WIDGET_EFFECTS, USS_PRODUCT_WIDGET,
+			USS_PRODUCT_PRICE, USS_PRODUCT_IMAGE, USS_PRODUCT_NAME
 		};
 
 		private Label _name;
@@ -62,6 +62,7 @@ namespace FirstLight.Game.Presenters.Store
 			_root.clicked += () => OnClicked(_product);
 			_name = this.Q<Label>("ProductName").Required();
 			_icon = this.Q("ProductImage").Required();
+			_icon.AddToClassList(USS_SPRITE_CURRENCIES_BLASTBUCK);
 			_price = this.Q<Label>("ProductPrice").Required();
 		}
 
@@ -76,7 +77,7 @@ namespace FirstLight.Game.Presenters.Store
 			itemView.DrawIcon(_icon);
 			FormatByStoreData();
 		}
-		
+
 		/// <summary>
 		/// element-name to ElementName
 		/// </summary>
@@ -87,9 +88,10 @@ namespace FirstLight.Game.Presenters.Store
 			{
 				final += Char.ToUpper(piece[0]) + piece.Substring(1).ToLower();
 			}
+
 			return final;
 		}
-		
+
 		private void FormatByStoreData()
 		{
 			size = _product.PlayfabProductConfig.StoreItemData.Size;
@@ -101,6 +103,7 @@ namespace FirstLight.Game.Presenters.Store
 					element.AddToClassList($"{sizeable}--small");
 				}
 			}
+
 			var customModifier = _product.PlayfabProductConfig.StoreItemData.UssModifier;
 			if (!string.IsNullOrEmpty(customModifier))
 			{
@@ -110,6 +113,7 @@ namespace FirstLight.Game.Presenters.Store
 					element.AddToClassList($"{modifiable}--{customModifier}");
 				}
 			}
+
 			var imageOverride = _product.PlayfabProductConfig.StoreItemData.ImageOverride;
 			if (!string.IsNullOrEmpty(imageOverride))
 			{
@@ -138,7 +142,7 @@ namespace FirstLight.Game.Presenters.Store
 				name = "game-id",
 				defaultValue = GameId.FemaleCorpos,
 			};
-			
+
 
 			private readonly UxmlStringAttributeDescription _imageOverwrite = new ()
 			{

@@ -29,7 +29,6 @@
 }
 
 .product-image {
-    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/CorposFemale/character-femalecorpos.png?fileID=21300000&guid=af1bba91a009af34e944e0bd7734104b&type=3#character-femalecorpos');
     height: 480px;
     width: 480px;
     position: absolute;
@@ -118,7 +117,6 @@
 .product-image--small {
     width: 230px;
     height: 230px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Currencies/coin-3.png?fileID=21300000&guid=ab43c7f43962c6f48a219ff1166e7c2f&type=3#coin-3');
 }
 
 .product-price--small {

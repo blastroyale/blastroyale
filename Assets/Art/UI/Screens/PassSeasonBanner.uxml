@@ -30,7 +30,6 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="TextContainer" picking-mode="Ignore" class="season-text-container">
                     <ui:Label tabindex="-1" text="BATTLE PASS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BPText" class="season-text-container__title" />
-                    <ui:Label tabindex="-1" text="SEASON 1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SeasonText" class="season-text-container__season" />
                     <ui:Label tabindex="-1" text="IS HERE !" parse-escape-sequences="true" display-tooltip-when-elided="true" name="IsHereText" class="season-text-container__desc" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Rewards" class="banner-rewards">

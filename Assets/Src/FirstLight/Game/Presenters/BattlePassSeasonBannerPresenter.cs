@@ -67,7 +67,8 @@ namespace FirstLight.Game.Presenters
 			var endsAt = currentSeason.Season.GetEndsAtDateTime();
 			
 			_timeLeft.text = (endsAt - DateTime.UtcNow).ToDayAndHours(true);
-			_seasonText.text = string.Format(ScriptLocalization.UITBattlePass.season_number, currentSeason.Season.Number);
+			// _seasonText.text = string.Format(ScriptLocalization.UITBattlePass.season_number, currentSeason.Season.Number);
+			_seasonText.SetVisibility(false);
 			
 			var rewards = data.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select((_, e) => (uint)e+1), PassType.Free);
 			rewards.Reverse();

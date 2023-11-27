@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -77,13 +79,13 @@ namespace FirstLight.Game.Views.UITK
 			}
 
 			UpdateTeamColor();
+			_ = LoadPFP();
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			UpdateFromLatestVerifiedFrame();
 		}
-
 
 		private void OnTeamAssigned(EventOnTeamAssigned callback)
 		{
@@ -124,6 +126,13 @@ namespace FirstLight.Game.Views.UITK
 			{
 				_teamColor.SetVisibility(false);
 			}
+		}
+
+		private async UniTask LoadPFP()
+		{
+			var itemData = _dataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
+			var sprite = await _gameServices.CollectionService.LoadCollectionItemSprite(itemData);
+			_pfp.style.backgroundImage = new StyleBackground(sprite);
 		}
 	}
 }

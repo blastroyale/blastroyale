@@ -99,11 +99,11 @@ namespace FirstLight.Game.UIElements
 				{
 					var textureService = MainInstaller.Resolve<IGameServices>().RemoteTextureService;
 					textureService.CancelRequest(_pfpRequestHandle);
-					_pfpRequestHandle = MainInstaller.Resolve<IGameServices>().RemoteTextureService.RequestTexture(
+					_pfpRequestHandle = textureService.RequestTexture(
 						pfpUrl,
 						tex =>
 						{
-							if (_pfp != null && _pfp.panel != null)
+							if (_pfp?.panel != null)
 							{
 								_pfp.style.backgroundImage = new StyleBackground(tex);
 							}

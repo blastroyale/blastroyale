@@ -121,7 +121,7 @@ namespace Src.FirstLight.Server
 			var thisPlayerData = endGameCmd.PlayersMatchData[endGameCmd.QuantumValues.ExecutingPlayer];
 			var firstPlayer = endGameCmd.PlayersMatchData.FirstOrDefault(p => p.PlayerRank == 1);
 			var isWin = false;
-			var ranked = endGameCmd.QuantumValues.MatchType == MatchType.Matchmaking;
+			var ranked = endGameCmd.QuantumValues.AllowedRewards?.Contains(GameId.Trophies) ?? false;
 			
 			if (firstPlayer.Data.IsValid && thisPlayerData.TeamId == firstPlayer.TeamId && thisPlayerData.TeamId > Constants.TEAM_ID_NEUTRAL)
 			{

@@ -4027,7 +4027,7 @@ MonoBehaviour:
       RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 127
+        Value: 102
       RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []
@@ -4105,93 +4105,6 @@ MonoBehaviour:
     Chest: []
     ChestOverride: []
     Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 2
-      GameId:
-        Value: 102
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    GearOverwrite: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -813895
-        Y:
-          RawValue: 235929
-        Z:
-          RawValue: -216353
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 21211382
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
     Consumable: []
@@ -4233,7 +4146,7 @@ MonoBehaviour:
     TeamMember: []
     Trigger:
     - Target:
-        SceneIndexPlusOne: 11
+        SceneIndexPlusOne: 10
       Data:
         _field_used_: CHESTOPENTRIGGERDATA
         PlayersAliveTriggerData:
@@ -4363,7 +4276,7 @@ MonoBehaviour:
     TeamMember: []
     Trigger:
     - Target:
-        SceneIndexPlusOne: 12
+        SceneIndexPlusOne: 11
       Data:
         _field_used_: PLAYERSALIVETRIGGERDATA
         PlayersAliveTriggerData:
@@ -4623,7 +4536,7 @@ MonoBehaviour:
     TeamMember: []
     Trigger:
     - Target:
-        SceneIndexPlusOne: 14
+        SceneIndexPlusOne: 13
       Data:
         _field_used_: WEAPONCOLLECTEDTRIGGERDATA
         PlayersAliveTriggerData:

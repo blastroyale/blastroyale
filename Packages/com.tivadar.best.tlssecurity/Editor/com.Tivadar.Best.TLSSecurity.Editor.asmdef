@@ -1,0 +1,21 @@
+{
+    "name": "com.Tivadar.Best.TLSSecurity.Editor",
+    "rootNamespace": "Best.TLSSecurity.Editor",
+    "references": [
+        "GUID:666d7b7b4f3ad1c42a375b9dee118475",
+        "GUID:9069ac25d95ca17448a247f3bb1c769f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "!BESTHTTP_DISABLE_ALTERNATE_SSL"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

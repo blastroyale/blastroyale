@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using BestHTTP.Extensions;
-using BestHTTP.SignalR;
-using BestHTTP.SignalR.Transports;
-using BestHTTP.SignalRCore;
-using BestHTTP.SignalRCore.Encoders;
+using Best.HTTP.Shared.Extensions;
+using Best.SignalR;
+using Best.SignalR.Authentication;
+using Best.SignalR.Encoders;
+using Best.TLSSecurity;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
 using JetBrains.Annotations;
@@ -46,7 +46,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Get the SignalR connection handler string 
 		/// </summary>
-		public Task<String> GetConnectionHandle(bool noCache = false);
+		public UniTask<String> GetConnectionHandle(bool noCache = false);
 
 		/// <summary>
 		/// Clear all listeners added a topic by <see cref="ListenTopic{T}"/> and <see cref="ListenSubscriptionStatus"/>
@@ -77,14 +77,16 @@ namespace FirstLight.Game.Services
 		private bool _connecting;
 		private string _connectionHandle;
 
-		private SemaphoreSlim _accessSemaphore = new(1, 1);
+		private SemaphoreSlim _accessSemaphore = new (1, 1);
 
-		private LitJsonEncoder _jsonEncoder = new();
-		private Dictionary<string, List<Action<byte[]>>> _onMessageListeners = new();
-		private Dictionary<string, List<Action<IPlayfabPubSubService.SubscriptionChangeMessage>>> _onSubscriptionStatus = new();
+		private LitJsonEncoder _jsonEncoder = new ();
+		private Dictionary<string, List<Action<byte[]>>> _onMessageListeners = new ();
+		private Dictionary<string, List<Action<IPlayfabPubSubService.SubscriptionChangeMessage>>> _onSubscriptionStatus = new ();
 		public event IPlayfabPubSubService.OnReconnectedHandler OnReconnected;
+
 		public PlayfabPubSubService(IMessageBrokerService msgBroker)
 		{
+			Best.HTTP.Response.Decompression.DeflateDecompressor.IsSupported = false;
 #pragma warning disable CS4014
 			msgBroker.Subscribe<SuccessAuthentication>(_ => { OnSuccessAuthentication(); });
 #pragma warning restore CS4014
@@ -110,7 +112,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc/>
-		public async Task<String> GetConnectionHandle(bool noCache = false)
+		public async UniTask<String> GetConnectionHandle(bool noCache = false)
 		{
 			if (noCache)
 			{
@@ -124,7 +126,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc/>
 		public void ListenSubscriptionStatus(string topic, Action<IPlayfabPubSubService.SubscriptionChangeMessage> handler)
 		{
-			var currentHandlers = _onSubscriptionStatus.TryGetValue(topic, out var handlers) ? handlers : new();
+			var currentHandlers = _onSubscriptionStatus.TryGetValue(topic, out var handlers) ? handlers : new ();
 			currentHandlers.Add(handler);
 			_onSubscriptionStatus[topic] = currentHandlers;
 		}
@@ -133,7 +135,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc/>
 		public void ListenTopic<T>(string topic, Action<T> handler)
 		{
-			var currentHandlers = _onMessageListeners.TryGetValue(topic, out var handlers) ? handlers : new();
+			var currentHandlers = _onMessageListeners.TryGetValue(topic, out var handlers) ? handlers : new ();
 			currentHandlers.Add(o =>
 			{
 				var message = _jsonEncoder.DecodeAs<T>(o.AsBuffer());
@@ -149,20 +151,25 @@ namespace FirstLight.Game.Services
 			_onSubscriptionStatus.Remove(topic);
 		}
 
-		private async Task Connect()
+		private async UniTask Connect()
 		{
 			if (_connected || _connecting)
 			{
 				return;
 			}
 
+			//TLSSecurity.Setup();
 			FLog.Verbose("PubSub", "Connecting to PubSub");
 			_connecting = true;
-			var url = $"https://{PlayFabSettings.TitleId}.playfabapi.com/PubSub";
+			var url = $"https://"+PlayFabSettings.TitleId+".playfabapi.com/PubSub";
 			_connection = new HubConnection(new Uri(url), new JsonProtocol(_jsonEncoder), new HubOptions()
 			{
 				PingInterval = TimeSpan.FromSeconds(2),
-				PingTimeoutInterval = TimeSpan.FromSeconds(15)
+				PingTimeoutInterval = TimeSpan.FromSeconds(15),
+				WebsocketOptions =
+				{
+				
+				}
 			});
 			_connection.ReconnectPolicy = new DefaultRetryPolicy();
 			_connection.AuthenticationProvider = new PlayFabAuthenticator(_connection, PlayFabSettings.staticPlayer.EntityToken);
@@ -227,8 +234,16 @@ namespace FirstLight.Game.Services
 				}
 			}
 		}
+		[Serializable]
+		private class StartOrRecoverySessionResponse
+		{
+			public string newConnectionHandle { get; set; }
+			public List<string> recoveredTopics { get; set; }
+			public string status { get; set; }
+			public string traceId { get; set; }
+		}
 
-		private async Task FetchConnectionHandle()
+		private async UniTask FetchConnectionHandle()
 		{
 			try
 			{
@@ -249,19 +264,14 @@ namespace FirstLight.Game.Services
 		}
 
 
+		[Serializable]
 		private class StartOrRecoverySessionRequest
 		{
 			public string oldConnectionHandle { get; set; }
 			public string traceParent { get; set; }
 		}
 
-		private class StartOrRecoverySessionResponse
-		{
-			public string newConnectionHandle { get; set; }
-			public List<string> recoveredTopics { get; set; }
-			public string status { get; set; }
-			public string traceId { get; set; }
-		}
+	
 
 
 		private class PlayfabPubSubMessage

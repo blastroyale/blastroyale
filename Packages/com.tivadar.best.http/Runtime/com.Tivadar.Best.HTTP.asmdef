@@ -1,0 +1,34 @@
+{
+    "name": "com.Tivadar.Best.HTTP",
+    "rootNamespace": "Best.HTTP",
+    "references": [
+        "Unity.Burst",
+        "Unity.Profiling.Core",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.burst",
+            "expression": "1.7.4",
+            "define": "BESTHTTP_WITH_BURST"
+        },
+        {
+            "name": "com.unity.profiling.core",
+            "expression": "1.0.0",
+            "define": "BESTHTTP_PROFILE"
+        },
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "1.0.0",
+            "define": "WITH_UNITASK"
+        }
+    ],
+    "noEngineReferences": false
+}

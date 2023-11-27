@@ -1,0 +1,26 @@
+{
+    "name": "com.tivadar.best.websockets",
+    "displayName": "Best WebSockets",
+    "description": "Best WebSockets is a premier networking library for Unity, tailored specifically for seamless WebSocket integration. It's perfect for applications that require real-time, bi-directional communication such as chat applications, multiplayer games, and live interactive systems.",
+    "version": "3.0.0",
+    "unity": "2021.1",
+    "documentationUrl": "https://bestdocshub.pages.dev/WebSockets/",
+    "changelogUrl": "https://bestdocshub.pages.dev/WebSockets/changelog/",
+    "licensesUrl": "https://bestdocshub.pages.dev/HTTP/third-party-notices/",
+    "author": {
+        "name": "Tivadar György Nagy",
+        "email": "besthttp@gmail.com",
+        "url": "https://benedicht.github.io/"
+    },
+    "keywords": [ "best", "besthttp", "http", "tls", "websocket", "ws", "wss", "dns", "tcp", "http2" ],
+    "dependencies": {
+        "com.unity.burst": "1.8.7",
+		"com.tivadar.best.http": "3.0.0"
+    },
+    "samples": [{
+            "displayName": "Simple Sample",
+            "description": "Contains sample codes for various WebSocket related scenarios.",
+            "path": "Samples~/With UI"
+        }
+    ]
+}

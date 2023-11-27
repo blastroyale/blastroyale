@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e604e93caa6673d48a2a2b8e63c7e003
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - certificationManagerWindow: {fileID: 9197481963319205126, guid: dea7f981fe098d044ab5f1242b5abfeb, type: 3}
+  - certificationItemTemplate: {fileID: 9197481963319205126, guid: a6005f1e9a2353a4db877c324ebfc42a, type: 3}
+  - clientCredentialItemTemplate: {fileID: 9197481963319205126, guid: cfabf24a2bf1d2c4d9cb633c13f277fe, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

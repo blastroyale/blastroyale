@@ -1,0 +1,17 @@
+{
+    "name": "com.Tivadar.Best.WebSockets.Samples.WithUI",
+    "rootNamespace": "Best.WebSockets.Examples",
+    "references": [
+        "GUID:9069ac25d95ca17448a247f3bb1c769f",
+        "GUID:bba0e49b0b1b9924ab06cd58867f661c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

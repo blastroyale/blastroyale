@@ -1,0 +1,13 @@
+Best SignalR Bundle is a bundle which includes the following assets. After purchasing this bundle, visit each package listed below, and you will be able to get them for free:
+1.) Best HTTP: https://assetstore.unity.com/packages/slug/267636
+2.) Best TLS Security: https://assetstore.unity.com/packages/slug/268761
+3.) Best WebSockets: https://assetstore.unity.com/packages/slug/268757
+4.) Best SignalR: https://assetstore.unity.com/packages/slug/268760
+
+How to get them:
+---------------
+1.) Navigate to each individual product's store page using the links above.
+2.) Add each product to your cart.
+3.) The products should show as costing 0$. If they do not, contact me (https://bestdocshub.pages.dev/Shared/support/)!
+4.) Check out each product.
+5.) Download each product separately like normal.

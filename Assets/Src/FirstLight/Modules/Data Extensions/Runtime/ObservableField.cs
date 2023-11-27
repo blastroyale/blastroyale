@@ -69,12 +69,16 @@ namespace FirstLight
 
 		private T _value;
 
+		private readonly bool _invokeOnEqualValue;
+
 		/// <inheritdoc cref="IObservableField{T}.Value" />
 		public virtual T Value
 		{
 			get => _value;
 			set
 			{
+				if (!_invokeOnEqualValue && EqualityComparer<T>.Default.Equals(_value, value)) return;
+
 				var previousValue = _value;
 				
 				_value = value;
@@ -95,14 +99,16 @@ namespace FirstLight
 			}
 		}
 
-		public ObservableField()
+		public ObservableField(bool invokeOnEqualValue = true)
 		{
 			_value = default;
+			_invokeOnEqualValue = invokeOnEqualValue;
 		}
  
-		public ObservableField(T initialValue)
+		public ObservableField(T initialValue, bool invokeOnEqualValue = true)
 		{
 			_value = initialValue;
+			_invokeOnEqualValue = invokeOnEqualValue;
 		}
 		
 		public static implicit operator T(ObservableField<T> value) => value.Value;

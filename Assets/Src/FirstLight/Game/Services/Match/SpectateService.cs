@@ -85,7 +85,7 @@ namespace FirstLight.Game.Services
 		private readonly IGameServices _gameServices;
 		private readonly IMatchServices _matchServices;
 		private readonly FP _playerVisionRange;
-		private readonly IObservableField<SpectatedPlayer> _spectatedPlayer = new ObservableField<SpectatedPlayer>();
+		private readonly IObservableField<SpectatedPlayer> _spectatedPlayer = new ObservableField<SpectatedPlayer>(false);
 
 		public IObservableFieldReader<SpectatedPlayer> SpectatedPlayer => _spectatedPlayer;
 

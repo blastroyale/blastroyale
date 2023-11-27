@@ -21,7 +21,7 @@ namespace FirstLight.Game.Presenters
 	public class RewardsScreenPresenter : UiToolkitPresenterData<RewardsScreenPresenter.StateData>
 	{
 		
-		private const int MIN_ITEMS_SHOW_SKIP_ALL = 12;
+		private const int MIN_ITEMS_SHOW_SKIP_ALL = 50;
 		
 		public struct StateData
 		{

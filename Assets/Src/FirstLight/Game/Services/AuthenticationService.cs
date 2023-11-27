@@ -101,11 +101,27 @@ namespace FirstLight.Game.Services
 		bool IsAccountDeleted();
 
 		/// <summary>
+		/// Checks if the logged in player is a guest
+		/// returns false if not logged in
+		/// </summary>
+		bool IsGuest { get; }
+		
+		/// <summary>
+		/// Returns true if the player has stored a linked device in his local AccountData
+		/// </summary>
+		bool IsDeviceLinked { get; }
+		
+		/// <summary>
 		/// Sets linked device to the current device context.
 		/// This is automatically set when logging in, but in case of failed logins, can be called to immediately to
 		/// update the status of the device link locally.
 		/// </summary>
 		void SetLinkedDevice(bool isLinked);
+
+		/// <summary>
+		/// Gets the current account data stored on device
+		/// </summary>
+		AccountData GetDeviceSavedAccountData();
 		
 		/// <summary>
 		/// Event called after players logs in
@@ -169,6 +185,7 @@ namespace FirstLight.Game.Services
 		private IInternalGameNetworkService _networkService;
 		private IGameDataProvider _dataProvider;
 		private IConfigsAdder _configsAdder;
+		private readonly DataService _localAccountData;
 
 		private GetPlayerCombinedInfoRequestParams StandardLoginInfoRequestParams =>
 			new()
@@ -189,6 +206,8 @@ namespace FirstLight.Game.Services
 			_networkService = networkService;
 			_dataProvider = dataProvider;
 			_configsAdder = configsAdder;
+			_localAccountData = new DataService();
+			_localAccountData.LoadData<AccountData>();
 			State = new AuthenticationState()
 			{
 				Retries = 0,
@@ -196,6 +215,15 @@ namespace FirstLight.Game.Services
 				StartedWithAccount = false,
 			};
 		}
+
+		public AccountData GetDeviceSavedAccountData()
+		{
+			return _localAccountData.GetData<AccountData>();
+		}
+
+		public bool IsDeviceLinked => !string.IsNullOrWhiteSpace(GetDeviceSavedAccountData().DeviceId);
+
+		public bool IsGuest => string.IsNullOrEmpty(GetDeviceSavedAccountData().LastLoginEmail);
 		
 		public AuthenticationState State { get; }
 
@@ -220,7 +248,7 @@ namespace FirstLight.Game.Services
 		{
 			FLog.Verbose("Logging in with device ID");
 
-			var deviceId = _dataService.GetData<AppData>().DeviceId;
+			var deviceId = _localAccountData.GetData<AccountData>().DeviceId;
 			var loginData = new LoginData() {IsGuest = false};
 
 #if UNITY_EDITOR
@@ -284,8 +312,10 @@ namespace FirstLight.Game.Services
 			UnlinkDeviceID(() =>
 			{
 				_services.HelpdeskService.Logout();
-				_dataService.GetData<AppData>().LastLoginEmail = null;
-				_dataService.SaveData<AppData>();
+				var data = _localAccountData.GetData<AccountData>();
+				data.LastLoginEmail = null;
+				data.DeviceId = null;
+				_localAccountData.SaveData<AccountData>();
 				onSuccess?.Invoke();
 			}, e => { _services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login); });
 		}
@@ -329,6 +359,7 @@ namespace FirstLight.Game.Services
 
 			FLog.Info($"Logged in. PlayfabId={result.PlayFabId} Title={PlayFabSettings.TitleId}");
 
+			var accountData = GetDeviceSavedAccountData();
 			var appData = _dataService.GetData<AppData>();
 			var tutorialData = _dataService.GetData<TutorialData>();
 			var titleData = result.InfoResultPayload.TitleData;
@@ -396,7 +427,7 @@ namespace FirstLight.Game.Services
 			_services.HelpdeskService.Login(userId, email, userName);
 
 
-			if (string.IsNullOrWhiteSpace(appData.DeviceId) || result.InfoResultPayload.AccountInfo.PrivateInfo.Email != appData.LastLoginEmail)
+			if (string.IsNullOrWhiteSpace(accountData.DeviceId) || result.InfoResultPayload.AccountInfo.PrivateInfo.Email != accountData.LastLoginEmail)
 			{
 				LinkDeviceID(null, null);
 			}
@@ -426,13 +457,14 @@ namespace FirstLight.Game.Services
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;
 			appData.PlayerId = result.PlayFabId;
-			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
+			accountData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			appData.TitleData = titleData;
 			OnLogin?.Invoke(result);
 			_dataService.SaveData<AppData>();
+			_localAccountData.SaveData<AccountData>();
 			FLog.Verbose("Saved AppData");
 
-			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId, _dataProvider.AppDataProvider.IsGuest);
+			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId, IsGuest);
 		}
 
 		public void GetPlayerData(LoginData loginData, Action<LoginData> onSuccess, Action<PlayFabError> onError, bool previouslyLoggedIn)
@@ -637,7 +669,8 @@ namespace FirstLight.Game.Services
 
 			void OnSuccess(AddUsernamePasswordResult result)
 			{
-				_dataProvider.AppDataProvider.LastLoginEmail.Value = email;
+				_localAccountData.GetData<AccountData>().LastLoginEmail = email;
+				_localAccountData.SaveData<AccountData>();
 				_services.GameBackendService.UpdateDisplayName(result.Username, null, null);
 				onSuccess?.Invoke(loginData);
 			}
@@ -658,8 +691,8 @@ namespace FirstLight.Game.Services
 
 		public void SetLinkedDevice(bool linked)
 		{
-			_dataProvider.AppDataProvider.DeviceID.Value = linked ? ParrelHelpers.DeviceID() : "";
-			_dataService.SaveData<AppData>();
+			_localAccountData.GetData<AccountData>().DeviceId = linked ? ParrelHelpers.DeviceID() : "";
+			_localAccountData.SaveData<AccountData>();
 		}
 
 		public bool IsAccountDeleted()

@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Server.SDK.Modules;
+using NUnit.Framework.Internal;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 // ReSharper disable CheckNamespace
 
@@ -14,7 +17,7 @@ namespace FirstLight.Statechart.Internal
 	internal class TaskWaitState : StateInternal, ITaskWaitState
 	{
 		private ITransitionInternal _transition;
-		private Func<Task> _taskAwaitAction;
+		private Func<UniTask> _taskAwaitAction;
 		private bool _triggered;
 		private bool _completed;
 		private uint _executionCount;
@@ -98,6 +101,13 @@ namespace FirstLight.Statechart.Internal
 
 		/// <inheritdoc />
 		public ITransition WaitingFor(Func<Task> taskAwaitAction)
+		{
+			return WaitingFor(() => WrapToUniTask(taskAwaitAction));
+		}
+
+		private async UniTask WrapToUniTask(Func<Task> t) => await t();
+		
+		public ITransition WaitingFor(Func<UniTask> taskAwaitAction)
 		{
 			_taskAwaitAction = taskAwaitAction ?? throw new NullReferenceException($"The state {Name} cannot have a null wait action");
 			_transition = new Transition();

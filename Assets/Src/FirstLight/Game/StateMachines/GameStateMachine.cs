@@ -102,7 +102,6 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(initialConfigs);
 			initial.OnExit(SubscribeEvents);
 			
-			initialConfigs.OnEnter(CheckDeviceSetup);
 			initialConfigs.WaitingFor(LoadInitialConfigs).Target(initialAssets);
 
 			initialAssets.OnEnter(_authenticationState.QuickAsyncLogin);
@@ -147,22 +146,6 @@ namespace FirstLight.Game.StateMachines
 			// TODO: REMOVE BELOW if works properly by uncommenting AppLogic Init lines
 			_gameLogic.AppLogic.SetDetailLevel();
 			_gameLogic.AppLogic.SetFpsTarget();
-		}
-
-		private void CheckDeviceSetup()
-		{
-		//var test = 123;
-			_dataService.LoadData<AppData>();
-#if UNITY_ANDROID
-			if (SystemInfo.systemMemorySize <= 5000)
-			{
-				var appData = _dataService.GetData<AppData>();
-				if (appData.IsFirstSession || string.IsNullOrEmpty(appData.DeviceId))
-				{
-					appData.CurrentDetailLevel = GraphicsConfig.DetailLevel.Low;
-				}
-			}
-#endif
 		}
 
 		private void InitializeRemainingLogic()

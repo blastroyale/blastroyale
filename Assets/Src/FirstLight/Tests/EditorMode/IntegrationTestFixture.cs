@@ -87,7 +87,7 @@ namespace FirstLight.Tests.EditorMode
 
 			FLog.Init();
 
-			var integrationAppData = TestData.GetData<AppData>();
+			var integrationAppData = TestData.GetData<AccountData>();
 			integrationAppData.DeviceId = "integration_test";
 			//TestData.SaveData<AppData>();
 			PlayFabSettings.staticSettings.TitleId = "***REMOVED***";

@@ -51,8 +51,6 @@ namespace FirstLight.Game.Data
 		public bool InvertSpecialCancellling = true;
 
 		public Environment LastEnvironment;
-		public string DeviceId;
-		public string LastLoginEmail;
 		public string ConnectionRegion;
 
 		public DateTime GameReviewDate;

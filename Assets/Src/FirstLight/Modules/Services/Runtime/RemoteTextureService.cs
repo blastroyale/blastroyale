@@ -42,7 +42,7 @@ namespace FirstLight.Game.Services
 
 		private const string TEXTURE_HASHES_KEY = "RemoteTextureService.Hashes";
 		private const string FILE_URI_PREFIX = "file://";
-		private const int TEXTURES_TO_KEEP = 20;
+		private const int TEXTURES_TO_KEEP = 200;
 		private readonly string TEXTURES_FOLDER = Path.Combine(Application.persistentDataPath, "RemoteTextures");
 
 		private readonly ICoroutineService _coroutineService;

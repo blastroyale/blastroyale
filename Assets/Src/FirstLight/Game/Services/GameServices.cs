@@ -264,7 +264,7 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR
 			UnityEditor.EditorApplication.isPlaying = false;
 #else
-				Application.Quit(); // Apple does not allow to close the app so might not work on iOS :<
+				UnityEngine.Application.Quit(); // Apple does not allow to close the app so might not work on iOS :<
 #endif
 		}
 	}

@@ -15,6 +15,7 @@ using FirstLight.Statechart;
 using I2.Loc;
 using Photon.Deterministic;
 using Quantum;
+using Quantum.Commands;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -471,6 +472,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterPickupSpecial()
 		{
+			QuantumRunner.Default.Game.SendCommand(new TutorialSpawnSpecialCommand());
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_special, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_SPECIAL_PICKUP].transform.position, GetLocalPlayerView().transform);

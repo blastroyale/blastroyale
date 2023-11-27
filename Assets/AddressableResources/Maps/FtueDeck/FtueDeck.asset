@@ -3754,6 +3754,7 @@ MonoBehaviour:
       - Value: 24
       - Value: 45
       - Value: 53
+      - Value: 102
       Rarity:
         Value: 4
     Collectable: []
@@ -3768,6 +3769,8 @@ MonoBehaviour:
       GameId:
         Value: 130
       RarityModifier: 0
+      Disabled:
+        Value: 0
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -3855,6 +3858,8 @@ MonoBehaviour:
       GameId:
         Value: 88
       RarityModifier: 0
+      Disabled:
+        Value: 0
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -3942,6 +3947,8 @@ MonoBehaviour:
       GameId:
         Value: 127
       RarityModifier: 0
+      Disabled:
+        Value: 0
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4029,6 +4036,8 @@ MonoBehaviour:
       GameId:
         Value: 102
       RarityModifier: 0
+      Disabled:
+        Value: 1
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []

@@ -81,7 +81,7 @@ namespace Quantum
 						anglesToDrop++;
 						// Collectable.DropEquipment(f, equipment, chestPosition, angleStep++, false);
 					}
-					else if (item.IsInGroup(GameIdGroup.Consumable))
+					else if (item.IsInGroup(GameIdGroup.Consumable) || item.IsInGroup(GameIdGroup.Special))
 					{
 						consumablesToDrop.Add(item);
 						anglesToDrop++;

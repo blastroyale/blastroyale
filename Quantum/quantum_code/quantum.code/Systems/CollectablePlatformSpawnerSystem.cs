@@ -59,6 +59,7 @@ namespace Quantum.Systems
 
 		public override void Update(Frame f, ref SpawnerFilter filter)
 		{
+			if (filter.Spawner->Disabled) return;
 			if (f.Time < filter.Spawner->NextSpawnTime || filter.Spawner->Collectable != EntityRef.None)
 			{
 				return;

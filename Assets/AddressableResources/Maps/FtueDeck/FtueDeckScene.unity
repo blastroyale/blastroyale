@@ -13379,6 +13379,10 @@ PrefabInstance:
       value: 102
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
+      propertyPath: Prototype.Disabled.Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
       value: 5
       objectReference: {fileID: 0}
@@ -14229,6 +14233,7 @@ MonoBehaviour:
     - Value: 24
     - Value: 45
     - Value: 53
+    - Value: 102
     Rarity:
       Value: 4
 --- !u!1 &1831252397

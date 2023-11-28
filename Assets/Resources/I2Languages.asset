@@ -15923,7 +15923,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Invalid Input Parameters
+      - Username can only contain letters and numbers
       - "\u041D\u0435\u0432\u0435\u0440\u043D\u044B\u0435 \u0432\u0445\u043E\u0434\u043D\u044B\u0435
         \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B"
       - "Par\xE2metros de entrada inv\xE1lidos"
@@ -17528,7 +17528,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - An unkown error ocurred, please try again.
+      - An unknown error occurred, please try again.
       - "\u041E\u0448\u0438\u0431\u043A\u0430 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u0435\u0442,
         \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435
         \u0440\u0430\u0437."
@@ -18185,7 +18185,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1701170108358
+    Google_LastUpdatedVersion: 1701195205591
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

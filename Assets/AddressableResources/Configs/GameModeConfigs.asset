@@ -180,7 +180,7 @@ MonoBehaviour:
       DeathDropStrategy: 0
       DeathMarker: 0
       MinimumHealth: 0
-      InstantLoad: 0
+      InstantLoad: 1
       AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 0

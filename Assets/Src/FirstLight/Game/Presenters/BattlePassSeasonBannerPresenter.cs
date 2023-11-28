@@ -20,7 +20,6 @@ namespace FirstLight.Game.Presenters
 	public class BattlePassSeasonBannerPresenter : UiToolkitPresenter
 	{
         
-		private Label _seasonText;
 		private Label _timeLeft;
 		private VisualElement[] _rewards;
 		private VisualElement _finalReward;
@@ -29,7 +28,6 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
-			_seasonText = root.Q<Label>("SeasonText").Required();
 			var rewards = root.Q("Rewards").Required();
 			_timeLeft = root.Q<Label>("TimeLeft").Required();
 			_rewards = rewards.Children().Select(r => r.Q("RewardIcon").Required()).ToArray();
@@ -67,8 +65,6 @@ namespace FirstLight.Game.Presenters
 			var endsAt = currentSeason.Season.GetEndsAtDateTime();
 			
 			_timeLeft.text = (endsAt - DateTime.UtcNow).ToDayAndHours(true);
-			// _seasonText.text = string.Format(ScriptLocalization.UITBattlePass.season_number, currentSeason.Season.Number);
-			_seasonText.SetVisibility(false);
 			
 			var rewards = data.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select((_, e) => (uint)e+1), PassType.Free);
 			rewards.Reverse();

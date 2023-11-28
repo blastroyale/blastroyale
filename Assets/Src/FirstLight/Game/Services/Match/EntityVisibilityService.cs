@@ -175,7 +175,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			var visibility = CheckSpectatorVisibility(towardsEntity);
 			FLog.Verbose($"[EntityVisibility] Setting {view.EntityRef} render to {visibility.CanSee}");
 			renderer.SetEnabled(visibility.CanSee);
-			renderer.GetComponent<PlayerCharacterMonoComponent>().SwitchShadowVisibility(visibility.CanSee);
+			if(view.gameObject.TryGetComponent<PlayerCharacterMonoComponent>( out var PCC))
+			{
+				PCC.SwitchShadowVisibility(visibility.CanSee);
+			}
 
 			if (!visibility.CanSee) _clientHidden.Add(renderer);
 			else _clientHidden.Remove(renderer);

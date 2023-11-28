@@ -18,6 +18,7 @@ using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
@@ -207,6 +208,9 @@ namespace FirstLight.Game.Presenters
 			SelectMapPosition(evt.localPosition, true, true);
 		}
 
+		/// <summary>
+		///  Select the drop zone based on percentages of the map
+		/// </summary>
 		public void SelectDropZone(float x, float y)
 		{
 			var mapWidth = _mapImage.contentRect.width;
@@ -320,9 +324,9 @@ namespace FirstLight.Game.Presenters
 
 		private void InitSkydiveSpawnMapData()
 		{
-			var posX = 0f;
-			var posY = 0f;
-			SelectMapPosition(new Vector2(posX, posY), false, false);
+			var posX = Random.Range(0.3f, 0.7f);
+			var posY = Random.Range(0.3f, 0.7f);
+			SelectDropZone(posX, posY);
 			_mapImage.RegisterCallback<ClickEvent>(OnMapClicked);
 		}
 
@@ -352,21 +356,26 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePlayerCount()
 		{
-			_debugPlayerCountLabel.text = Debug.isDebugBuild || _dataProvider.PlayerDataProvider.Flags.HasFlag(PlayerFlags.FLGOfficial)
+			_debugPlayerCountLabel.text = CanSeeDebugInfo()
 				? string.Format(ScriptLocalization.UITMatchmaking.current_player_amount,
 					CurrentRoom.GetRealPlayerAmount(), CurrentRoom.GetRealPlayerCapacity())
 				: "";
 		}
-
+		
 		private void UpdateMasterClient()
 		{
-			if (!Debug.isDebugBuild && !_dataProvider.PlayerDataProvider.Flags.HasFlag(PlayerFlags.FLGOfficial))
+			if (!CanSeeDebugInfo())
 			{
 				_debugMasterClient.SetDisplay(false);
 				return;
 			}
 
 			_debugMasterClient.SetDisplay(_services.NetworkService.LocalPlayer.IsMasterClient);
+		}
+		
+		private bool CanSeeDebugInfo()
+		{
+			return Debug.isDebugBuild || _dataProvider.PlayerDataProvider.Flags.HasFlag(PlayerFlags.FLGOfficial);
 		}
 
 		/// <summary>

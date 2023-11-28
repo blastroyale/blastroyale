@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
 using DG.Tweening;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -38,12 +39,14 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _playerBadge2;
 		private VisualElement _playerBadge3;
 		private IMatchServices _matchServices;
+		private IGameServices _gameServices;
 
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
 
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			_gameServices = MainInstaller.Resolve<IGameServices>();
 		}
 
 		protected override void OnOpened()
@@ -104,10 +107,13 @@ namespace FirstLight.Game.Presenters
 				if (i < playerDataCount)
 				{
 					var player = playerData[i];
+					var rankColor =
+						_gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) player.LeaderboardRank);
 
 					characters[i].gameObject.SetActive(true);
 					playerNames[i].visible = true;
 					playerNames[i].text = player.GetPlayerName();
+					playerNames[i].style.color = rankColor;
 
 					playerBadges[i].RemoveModifiers();
 					playerBadges[i].AddToClassList($"player__badge--position-{player.PlayerRank}");
@@ -128,13 +134,15 @@ namespace FirstLight.Game.Presenters
 				{
 					continue;
 				}
-				tasks.Add(characters[i].UpdateSkin(playerData[i].Data.PlayerSkin,
+
+				var skin = _gameServices.CollectionService.GetCosmeticForGroup(_matchServices.MatchEndDataService.PlayerMatchData[player].Cosmetics, GameIdGroup.PlayerSkin);
+				tasks.Add(characters[i].UpdateSkin(skin,
 					_matchServices.MatchEndDataService.PlayerMatchData[player].Gear.ToList()));
 			}
 
 			await Task.WhenAll(tasks);
 
-			_character1.AnimateFlair();
+			_character1.AnimateVictory();
 		}
 	}
 }

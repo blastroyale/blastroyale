@@ -11,7 +11,7 @@ namespace FirstLight.FLogger
 	/// </summary>
 	internal class FileFLogWriter : IFLogWriter
 	{
-		private const string LogPathsKey = "FLogger.LogPaths";
+		private string LogPathsKey = "FLogger.LogPaths";
 		private const int LogFilesToKeep = 10;
 		private const int MaxLogFileSize = 1000000; // In bytes
 		private const int MaxLogFileAge = 1; // In hours
@@ -22,6 +22,17 @@ namespace FirstLight.FLogger
 		private string _logPath;
 		private List<string> _logPaths;
 
+		public FileFLogWriter()
+		{
+#if UNITY_EDITOR
+			// workaround for this to work with parrelsync on windows 
+			var s = Application.dataPath.Split('/');
+			var projectName = s[^2];
+			LogsFolder = Path.Combine(LogsFolder, projectName);
+			LogPathsKey = LogPathsKey + "." + projectName;
+#endif
+		}
+
 		private void Init()
 		{
 			var pathsString = PlayerPrefs.GetString(LogPathsKey);
@@ -31,7 +42,7 @@ namespace FirstLight.FLogger
 			// Create new log file if current one is too big or too old
 			var logInfo = _logPath == null ? null : new FileInfo(_logPath);
 			if (logInfo == null || !logInfo.Exists || logInfo.Length > MaxLogFileSize ||
-			    logInfo.LastWriteTime.AddHours(MaxLogFileAge) < DateTime.Now)
+				logInfo.LastWriteTime.AddHours(MaxLogFileAge) < DateTime.Now)
 			{
 				if (!Directory.Exists(LogsFolder))
 				{

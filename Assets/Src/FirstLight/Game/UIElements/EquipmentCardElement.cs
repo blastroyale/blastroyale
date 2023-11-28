@@ -80,7 +80,7 @@ namespace FirstLight.Game.UIElements
 		{
 		}
 
-		public EquipmentCardElement(Equipment equipment, UniqueId id, bool highlighted = false)
+		public EquipmentCardElement(Equipment equipment, UniqueId id = default, bool highlighted = false)
 		{
 			AddToClassList(UssBlock);
 
@@ -189,11 +189,11 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
-		public void SetEquipment(Equipment equipment, UniqueId id, bool loaned = false, bool nft = false,
+		public void SetEquipment(Equipment equipment, UniqueId id = default, bool loaned = false, bool nft = false,
 								 bool equipped = false, bool notification = false, bool loadEditorSprite = false)
 		{
 			Assert.IsTrue(equipment.IsValid());
-
+			
 			_loanedBadge.SetDisplay(loaned);
 			_nftBadge.SetDisplay(nft);
 			_equippedBadge.SetDisplay(equipped);

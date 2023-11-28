@@ -19,6 +19,7 @@ namespace FirstLight.Game.Data
 		public int GameModeIndex;
 		public int MapIndex;
 		public int BotDifficulty;
+		public string WeaponLimiter;
 	}
 	
 	/// <summary>
@@ -58,6 +59,7 @@ namespace FirstLight.Game.Data
 		
 		public FrameSnapshot LastCapturedFrameSnapshot;
 
+		public bool ShowRealDamage = false;
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
@@ -71,7 +73,6 @@ namespace FirstLight.Game.Data
 			set { }
 		}
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
-		public List<UnlockSystem> SystemsTagged = new ();
 		public CustomGameOptions LastCustomGameOptions = new();
 		public bool ConeAim;
 		public bool MovespeedControl;

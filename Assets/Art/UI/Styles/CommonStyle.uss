@@ -4,11 +4,9 @@
     --color-highlight: rgb(196, 84, 122);
     --color-default: rgb(144, 98, 227);
     --color-body: rgb(148, 45, 68);
-
-    --font-bold: url('/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset');
-    --font-italic: url('/Assets/Art/UI/Fonts/Stawix-Italic-Static.asset');
-    --font-italic-dynamic: url('/Assets/Art/UI/Fonts/Stawix-Italic-Dynamic.asset');
-
+    --font-bold: url('project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static');
+    --font-italic: url('project://database/Assets/Art/UI/Fonts/Stawix-Italic-Static.asset?fileID=11400000&guid=7832e1fcb057c44e48fbbb2ea5135595&type=2#Stawix-Italic-Static');
+    --font-italic-dynamic: url('project://database/Assets/Art/UI/Fonts/Stawix-Italic-Dynamic.asset?fileID=11400000&guid=e9b95b0e9aa0b48e08bd5e26c6365ddc&type=2#Stawix-Italic-Dynamic');
     -unity-font-definition: var(--font-italic);
 }
 
@@ -100,7 +98,7 @@
 .button-with-icon:active {
     padding-top: 70px;
     background-image: var(--sprite-home__button-main-purple-pressed);
-    -unity-background-image-tint-color: rgba(164, 162, 166, 255);
+    -unity-background-image-tint-color: rgb(164, 162, 166);
 }
 
 .button-with-icon:disabled {
@@ -322,7 +320,16 @@
     background-image: var(--sprite-home__button-long-purple-pressed);
 }
 
-.button-long:disabled, .button-long:disabled.button-long:active {
+.button-long:disabled {
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    background-image: var(--sprite-home__button-long-grey);
+    -unity-text-align: middle-center;
+    padding-bottom: 0;
+}
+
+.button-long:disabled.button-long:active {
     background-color: rgba(0, 0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-text-outline-color: rgb(0, 0, 0);
@@ -360,6 +367,38 @@
 .button-long--price {
     padding-bottom: 16px;
     -unity-text-align: lower-center;
+}
+
+.multi-price-button {
+    flex-direction: column;
+}
+
+.multi-price-button:active .price-button__holder {
+    top: 3px;
+    bottom: 5px;
+}
+
+.multi-price-button__holder {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.multi-price-button__price {
+    flex-shrink: 1;
+}
+
+.multi-price-button__offset-title {
+    padding-top: 12px;
+}
+
+.multi-price-button__price--insufficient {
+    color: rgb(233, 58, 58);
+}
+
+.multi-price-button__icon {
+    width: 40px;
+    height: 40px;
 }
 
 .price-button {
@@ -536,4 +575,40 @@
     left: 100%;
     transition-delay: 1s;
     transition-timing-function: linear;
+}
+
+.fame-lock {
+    opacity: 1;
+    -unity-background-image-tint-color: rgb(99, 99, 99);
+    color: rgb(68, 65, 75);
+}
+
+.fame-lock .fame-lock__holder {
+    opacity: 1;
+    scale: 1 1;
+}
+
+.fame-lock__holder {
+    position: absolute;
+    opacity: 0;
+    scale: 1.3 1.3;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    align-items: center;
+    justify-content: center;
+    transition-duration: 0.5s;
+}
+
+.fame-lock__icon {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-collection-lock.png?fileID=21300000&guid=d5576ea5fdc864a9ba95bd20ee8e9a1b&type=3#icon-collection-lock');
+    width: 200px;
+    height: 175px;
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.fame-lock .button-with-icon__icon {
+    -unity-background-image-tint-color: rgb(83, 83, 84);
 }

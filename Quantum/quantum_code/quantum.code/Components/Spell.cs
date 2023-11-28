@@ -43,17 +43,29 @@ namespace Quantum
 		/// </summary>
 		public unsafe void DoHit(Frame f)
 		{
-			if (f.TryGet<PlayerCharacter>(Attacker, out var attacker))
-			{
-				f.Events.OnPlayerAttackHit(attacker.Player, Attacker, attacker.TeamId, Victim, 
-					OriginalHitPosition, PowerAmount);
-			}
 			if (!f.Unsafe.TryGetPointer<Stats>(Victim, out var stats) || PowerAmount == 0)
 			{
 				return;
 			}
 
 			var s = this;
+			var finalDmg = PowerAmount;
+
+			if (stats->HasShield() && stats->CurrentShield < PowerAmount)
+			{
+				finalDmg = (uint)stats->CurrentShield;
+			}
+			
+			if (!stats->HasShield() && stats->CurrentHealth < PowerAmount)
+			{
+				finalDmg = (uint)stats->CurrentHealth;
+			}
+
+			if (Id == ShrinkingCircleId)
+			{
+				f.Events.OnShrinkingCircleDmg(Victim, finalDmg);
+			}
+			
 			stats->ReduceHealth(f, Victim, &s);
 		}
 

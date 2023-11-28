@@ -1,15 +1,11 @@
 using System.Collections.Generic;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
-using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using JetBrains.Annotations;
 using Photon.Deterministic;
 using Quantum;
-using Quantum.Systems;
 using UnityEngine;
 
 
@@ -39,25 +35,43 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.SubscribeManual<EventOnProjectileFailedHit>(this, OnProjectileFailedHit);
 			QuantumCallback.SubscribeManual<CallbackGameDestroyed>(this, OnGameDestroyed);
 		}
-		
+
 		private void OnGameDestroyed(CallbackGameDestroyed c) => _hitEffects.Clear();
 		
 		private void OnProjectileFailedHit(EventOnProjectileFailedHit ev)
 		{
-			if (ev.Game.Frames.Predicted.IsCulled(ev.ProjectileEntity))
+			if (ev.Game.Frames.Verified.IsCulled(ev.ProjectileEntity) && ev.Projectile.Attacker != _matchServices.SpectateService.GetSpectatedEntity())
 			{
 				return;
 			}
+
+			if (!ev.HitWall) return;
+			
 			_gameServices.VfxService.Spawn(VfxId.ProjectileFailedSmoke).transform.position = ev.LastPosition.ToUnityVector3();
+		}
+
+		private void PlayHitEffect(EventOnProjectileSuccessHit ev)
+		{
+			var fx = GetHitEffect(ev);
+			if (fx == null) return;
+			foreach (var particle in fx.GetComponentsInChildren<ParticleSystem>())
+			{
+				particle.Stop();
+				particle.time = 0;
+				fx.transform.position = ev.HitPosition.ToUnityVector3();
+				fx.SetActive(true);
+				particle.Play();
+			}
 		}
 
 		private void OnProjectileHit(EventOnProjectileSuccessHit ev)
 		{
-			if (ev.Game.Frames.Predicted.IsCulled(ev.HitEntity))
+			var isMine = ev.Projectile.Attacker == _matchServices.SpectateService.GetSpectatedEntity() || ev.HitEntity == _matchServices.SpectateService.GetSpectatedEntity();
+			if (ev.Game.Frames.Verified.IsCulled(ev.HitEntity) && !isMine)
 			{
 				return;
 			}
-			
+
 			if (!ev.Game.Frames.Predicted.TryGet<Transform3D>(ev.Projectile.Attacker, out var shooterLocation))
 			{
 				return;
@@ -65,15 +79,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			if (FPVector3.DistanceSquared(shooterLocation.Position, ev.HitPosition) >= 2)
 			{
-				var fx = GetHitEffect(ev.HitEntity);
-				if (fx == null) return;
-				var particle = fx.GetComponentInChildren<ParticleSystem>();
-				particle.Stop();
-				particle.time = 0;
-				fx.transform.position = ev.HitPosition.ToUnityVector3();
-				fx.transform.LookAt(shooterLocation.Position.ToUnityVector3());
-				fx.SetActive(true);
-				particle.Play();
+				PlayHitEffect(ev);
 			}
 
 			if (_matchServices.SpectateService.SpectatedPlayer?.Value == null)
@@ -102,12 +108,16 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumCallback.UnsubscribeListener(this);
 		}
 		
-		private bool IsInitialized(EntityRef entity)
+		private bool IsInitialized(EventOnProjectileSuccessHit ev)
 		{
-			if (!_hitEffects.ContainsKey(entity))
+			if (!_hitEffects.ContainsKey(ev.HitEntity))
 			{
 				_gameServices.AssetResolverService.RequestAsset<VfxId, GameObject>(VfxId.SplashProjectile, true, true,
-					(id, gameObject, _) => _hitEffects[entity] = gameObject);
+					(id, gameObject, _) =>
+					{
+						_hitEffects[ev.HitEntity] = gameObject;
+						OnProjectileHit(ev);
+					});
 				return false;
 			}
 
@@ -115,10 +125,10 @@ namespace FirstLight.Game.MonoComponent.Match
 		}
 
 		[CanBeNull]
-		public GameObject GetHitEffect(EntityRef player)
+		public GameObject GetHitEffect(EventOnProjectileSuccessHit ev)
 		{
-			if (!IsInitialized(player)) return null;
-			if (!_hitEffects.TryGetValue(player, out var ef)) return null;
+			if (!IsInitialized(ev)) return null;
+			if (!_hitEffects.TryGetValue(ev.HitEntity, out var ef)) return null;
 			return ef;
 		}
 

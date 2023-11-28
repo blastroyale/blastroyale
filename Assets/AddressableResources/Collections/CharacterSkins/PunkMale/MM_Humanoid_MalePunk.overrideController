@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MM_Humanoid_MalePunk
+  m_Controller: {fileID: 9100000, guid: 2255c91a668d043eaadc81b6a1449962, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 323a8d754db39457f8bb3ca4d5c254a8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d5220f661d0ef4a0c930ffce52bd5ff6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 87cc7cf0f1edbec40846a2709c28096f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 24c31d59351a340499817f66be0d9c26, type: 2}
+  - m_OriginalClip: {fileID: -8876299173476729509, guid: b0d8a22ad3c4819458adb78a038f0e88, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 394f1af8d19e2479f8315ae91cbd6b2b, type: 2}
+  - m_OriginalClip: {fileID: 2457041396204736565, guid: b0d8a22ad3c4819458adb78a038f0e88, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: effa688dc4d574a2a9e2ebc33d8bfecd, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 48400ecc3d2ba1f4ca4b69042de3f9e0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e8aff1510b756c74690a7d96a5f10304, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c39bb301cf0fe9f4fa9d7eb51f49287f, type: 2}
+    m_OverrideClip: {fileID: 5706507740945915322, guid: b0d8a22ad3c4819458adb78a038f0e88, type: 3}

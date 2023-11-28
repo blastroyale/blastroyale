@@ -9,7 +9,8 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct PlayerLevelConfig
 	{
-		public uint Level;
+		public uint LevelStart;
+		public uint LevelEnd;
 		public uint LevelUpXP;
 		public SerializedDictionary<GameId,int> Rewards;
 		public List<UnlockSystem> Systems;
@@ -18,20 +19,8 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public enum UnlockSystem
 	{
-		EquipmentScreen,
-		BattlePassScreen,
-		CollectionScreen,
-		LeaderboardScreen,
-		ShopScreen,
-		SpecialsScreen,
-		SpecialSlot1,
-		SpecialSlot2,
-		Squads,
-		EquipmentUpgrade,
-		EquipmentScrapping,
-		EquipmentFusion,
-		CustomGameMode,
-		TriosGameMode,
+		Shop,
+		Collection
 	}
 
 	public class PlayerLevelConfigs : ScriptableObject, IConfigsContainer<PlayerLevelConfig>

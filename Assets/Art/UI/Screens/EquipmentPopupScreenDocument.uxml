@@ -10,6 +10,7 @@
                 <ui:VisualElement name="CurrencyGlow" class="currency-glow anim-delay-0 anim-fade" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-0 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-0 anim-translate anim-translate--down-s" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="FragmentsCurrency" currency="Fragments" class="anim-delay-0 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
             <ui:VisualElement name="EquipmentPopup" class="equipment-popup anim-delay-0 anim-translate anim-translate--down-xxxl">
                 <ui:Label name="Title" text="SCRAPPING ITEM" class="equipment-popup__title" />
@@ -32,14 +33,14 @@
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/popup_go_repair" name="RepairButton" class="button-long button-long--yellow content-rusted__button content-rusted__button--go-repair" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="Scrapping" class="fill-parent content-scrapping" style="display: flex;">
+                    <ui:VisualElement name="Scrapping" class="fill-parent content-scrapping" style="display: none;">
                         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_scrap_are_you_sure" name="AreYouSureLabel" />
                         <ui:VisualElement name="Requirements" class="content-scrapping__amount-holder">
                             <ui:VisualElement name="Icon" class="content-scrapping__amount-icon" />
                             <ui:Label text="325" name="Amount" />
                         </ui:VisualElement>
                         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_cannot_undo_action" />
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/popup_yes_scrap" display-tooltip-when-elided="true" name="ScrapButton" class="button-long button-long--red" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/popup_yes_scrap" display-tooltip-when-elided="true" name="ScrapButton" class="button-long button-long--yellow" />
                         <ui:VisualElement name="BottomFiller" class="content-bottom-filler" />
                     </ui:VisualElement>
                     <ui:VisualElement name="Repairing" class="fill-parent content-repairing" style="display: none;">
@@ -67,6 +68,17 @@
                             <ui:Label text="1234" name="Amount" class="requirements__amount" />
                         </ui:VisualElement>
                         <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/upgrade" name="UpgradePopupButton" class="button-long button-long--yellow content-scrapping__button" />
+                        <ui:VisualElement name="BottomFiller" class="content-bottom-filler" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Fusion" class="fill-parent content-fusing" style="display: flex;">
+                        <ui:VisualElement name="LevelHolder" class="content-fusing__level-holder">
+                            <ui:Label text="Common" name="RarityCurrent" />
+                            <ui:VisualElement name="RightArrow" class="content-fusing__arrow-icon" />
+                            <ui:Label text="LegendaryPlus" name="RarityNext" />
+                        </ui:VisualElement>
+                        <ui:ListView name="StatsList" fixed-item-height="80" selection-type="None" show-bound-collection-size="false" class="content-fusing__stats-list" />
+                        <ui:VisualElement name="Spacer" class="height-spacer height-spacer--xxl" />
+                        <FirstLight.Game.UIElements.MultiPriceButton name="FusePriceButton" localization-key="UITEquipment/fuse" class="button-long--yellow" />
                         <ui:VisualElement name="BottomFiller" class="content-bottom-filler" />
                     </ui:VisualElement>
                 </ui:VisualElement>

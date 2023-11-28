@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Absolute path to this script, e.g. /home/user/bin/foo.sh
 SCRIPT=$(readlink -f "$0")
@@ -14,10 +14,10 @@ helpFunction()
 }
 
 
-symbols="TRACE;DEBUG"
+symbols="TRACE%3BDEBUG"
 
 if [ "$1" = "bots-debug" ]; then
-  symbols="$symbols;DEBUG_BOTS"
+  symbols="$symbols%3BBOT_DEBUG"
   echo "Debugging bots"
 elif [ "$1" = "debug" ]; then
   echo "Standard debug build"
@@ -26,4 +26,11 @@ else
 fi 
 set -x
 
-msbuild "$SCRIPTPATH/quantum_code.sln" -restore -p:Configuration=Debug -p:RestorePackagesConfig=true -p:DefineConstants=\"$symbols\"
+command="msbuild"
+if ! command -v "msbuild" &> /dev/null
+then
+    command="msbuild.exe"
+fi
+
+
+$command "$SCRIPTPATH/quantum_code.sln" -restore -p:Configuration=Debug -p:RestorePackagesConfig=true -p:DefineConstants=$symbols

@@ -1,56 +1,132 @@
-using ExitGames.Client.Photon.StructWrapping;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using FirstLight.Game.Commands;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Utils;
-using FirstLightServerSDK.Modules.RemoteCollection;
-using FirstLightServerSDK.Services;
+using FirstLight.Game.Services.Collection.Handles;
+using FirstLight.SDK.Services;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
+using Quantum;
+using UnityEngine;
 
-namespace FirstLight.Game.Services
+namespace FirstLight.Game.Services.Collection
 {
-	/// <summary>
-	/// Service responsible for enrhicing collectiondata model with remote data
-	/// from third party services.
-	/// 
-	/// Flow:
-	/// - Client receives data models
-	/// - Client checks if data model is IEnrichableData
-	/// - Client calls registered IRemoteCollectionAdapter to obtain extra remote data
-	/// - Client merges data to the IEnrichableData data model  
-	/// </summary>
-	public class CollectionEnrichmentService : ICollectionEnrichmentService
+	public interface ICollectionService
 	{
-		private IGameBackendService _backend;
-		private IGameDataProvider _data;
-		private IRemoteCollectionAdapter _adapter;
+		Task<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true);
+		Task<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true);
 
-		public CollectionEnrichmentService(IGameBackendService backend, IGameDataProvider data)
+		/// <summary>
+		/// Find the cosmetic of ids present in the group, 
+		/// </summary>
+		/// <param name="group"></param>
+		/// <param name="returnDefault">If no skin was present for given group, return the default skin</param>
+		/// <param name="ids"></param>
+		/// <returns></returns>
+		ItemData GetCosmeticForGroup(IEnumerable<GameId> cosmeticLoadout, GameIdGroup group, bool returnDefault = true);
+	}
+
+	interface ICollectionGroupHandler
+	{
+		bool CanHandle(ItemData item);
+		Task<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true);
+		Task<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true);
+	}
+
+	public class CollectionService : ICollectionService
+	{
+		// Used if the player doesn't have any skin equipped, this should never be the case is a fallback to always render something
+		private static readonly Dictionary<GameIdGroup, GameId> DefaultSkins = new ()
 		{
-			_adapter = new PlayfabRemoteCollectionAdapter(backend);
-			_backend = backend;
-			_data = data;
+			{GameIdGroup.PlayerSkin, GameId.MaleAssassin},
+			{GameIdGroup.MeleeSkin, GameId.MeleeSkinDefault},
+			{GameIdGroup.Glider, GameId.Turbine},
+			{GameIdGroup.DeathMarker, GameId.Demon},
+			{GameIdGroup.Footprint, GameId.FootprintDot},
+			{GameIdGroup.ProfilePicture, GameId.Avatar2},
+		};
+
+
+		private IAssetResolverService _assetResolver;
+		private IConfigsProvider _configsProvider;
+		private IGameDataProvider _dataProvider;
+		private IGameCommandService _commandService;
+		private ICollectionGroupHandler[] _handlers;
+
+		public CollectionService(IAssetResolverService assetResolver,
+								 IConfigsProvider configsProvider,
+								 IMessageBrokerService messageBrokerService,
+								 IGameDataProvider dataProvider,
+								 IGameCommandService commandService)
+		{
+			_assetResolver = assetResolver;
+			_configsProvider = configsProvider;
+			_dataProvider = dataProvider;
+			_commandService = commandService;
+			_handlers = new ICollectionGroupHandler[]
+			{
+				new ProfilePictureHandler(_configsProvider, _assetResolver),
+				new CharacterSkinGroupHandler(_configsProvider, _assetResolver),
+				new WeaponSkinCollectionHandler(_configsProvider, _assetResolver)
+			};
+			messageBrokerService.Subscribe<SuccessAuthentication>(GiveDefaultCollectionItems);
 		}
 
-		public IRemoteCollectionAdapter GetAdapter() => _adapter;
-
-		public void Enrich<T>(T clientData) where T : IEnrichableData
+		/// <summary>
+		/// Give default items on player authentication
+		/// </summary>
+		private void GiveDefaultCollectionItems(SuccessAuthentication _)
 		{
-			if (!FeatureFlags.REMOTE_COLLECTIONS)
+			if (!_dataProvider.CollectionDataProvider.HasAllDefaultCollectionItems())
 			{
-				return;
+				_commandService.ExecuteCommand(new GiveDefaultCollectionItemsCommand());
 			}
-			var services = MainInstaller.Resolve<IGameServices>();
-			foreach (var collectionType in clientData.GetEnrichedTypes())
+		}
+
+		public ItemData GetCosmeticForGroup(IEnumerable<GameId> cosmeticLoadout, GameIdGroup group, bool returnDefault = true)
+		{
+			if (cosmeticLoadout != null)
 			{
-				_adapter.FetchOwned(collectionType, list =>
+				foreach (var gameId in cosmeticLoadout)
 				{
-					foreach(var owned in list) clientData.Enrich(owned);
-					services.MessageBrokerService.Publish(new CollectionEnrichedMessage()
+					if (gameId.IsInGroup(group))
 					{
-						CollectionType = collectionType,
-						DataType = clientData.GetType()
-					});
-				});
+						return ItemFactory.Collection(gameId);
+					}
+				}
 			}
+			return ItemFactory.Collection(returnDefault ? DefaultSkins[group] : default);
+		}
+
+
+		public async Task<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
+		{
+			foreach (var handler in _handlers)
+			{
+				if (handler.CanHandle(item))
+				{
+					return await handler.LoadCollectionItemSprite(item, instantiate);
+				}
+			}
+
+			return await _assetResolver.RequestAsset<GameId, Sprite>(item.Id, true, instantiate);
+		}
+
+
+		public async Task<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
+		{
+			foreach (var handler in _handlers)
+			{
+				if (handler.CanHandle(item))
+				{
+					return await handler.LoadCollectionItem3DModel(item, menuModel, instantiate);
+				}
+			}
+
+			return await _assetResolver.RequestAsset<GameId, GameObject>(item.Id, true, instantiate);
 		}
 	}
 }

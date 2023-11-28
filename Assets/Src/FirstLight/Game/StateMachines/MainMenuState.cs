@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -54,7 +55,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly SettingsMenuState _settingsMenuState;
 		private readonly EnterNameState _enterNameState;
 		private readonly CollectionMenuState _collectionMenuState;
-
 
 		private int _unclaimedCountCheck;
 
@@ -132,9 +132,8 @@ namespace FirstLight.Game.StateMachines
 			var store = stateFactory.Wait("Store");
 			var enterNameDialog = stateFactory.Nest("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
-			var loadoutRestricted = stateFactory.Wait("Loadout Restriction Pop Up");
 			var brokenItems = stateFactory.State("Broken Items Pop Up");
-			
+
 			void AddGoToMatchmakingHook(params IStateEvent[] states)
 			{
 				foreach (var state in states)
@@ -154,7 +153,7 @@ namespace FirstLight.Game.StateMachines
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
 			homeCheck.Transition().Target(homeMenu);
 			homeCheck.OnExit(OpenHomeScreen);
-			
+
 			homeMenu.OnEnter(OpenHomeScreen);
 			homeMenu.OnEnter(TryClaimUncollectedRewards);
 			homeMenu.Event(PlayClickedEvent).Target(playClickedCheck);
@@ -168,7 +167,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_equipmentClickedEvent).Target(equipmentMenu);
 			homeMenu.Event(_collectionClickedEvent).Target(collectionMenu);
 			homeMenu.Event(NetworkState.JoinedPlayfabMatchmaking).Target(waitMatchmaking);
-			
+
 			settingsMenu.Nest(_settingsMenuState.Setup).Target(homeCheck);
 			equipmentMenu.Nest(_equipmentMenuState.Setup).Target(homeCheck);
 			collectionMenu.Nest(_collectionMenuState.Setup).Target(homeCheck);
@@ -177,7 +176,6 @@ namespace FirstLight.Game.StateMachines
 			store.WaitingFor(OpenStore).Target(homeCheck);
 			AddGoToMatchmakingHook(settingsMenu, equipmentMenu, collectionMenu, battlePass, leaderboard, store);
 
-			playClickedCheck.Transition().Condition(LoadoutCountCheckToPlay).Target(loadoutRestricted);
 			playClickedCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			playClickedCheck.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
 			playClickedCheck.Transition().Condition(CheckIsNotPartyLeader).OnTransition(TogglePartyReadyStatus)
@@ -207,7 +205,6 @@ namespace FirstLight.Game.StateMachines
 			brokenItems.Event(_brokenItemsRepairEvent).Target(equipmentMenu);
 			brokenItems.OnExit(CloseBrokenItemsPopUp);
 
-			loadoutRestricted.WaitingFor(OpenItemsAmountInvalidDialog).Target(homeCheck);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
 			roomJoinCreateMenu.Event(PlayClickedEvent).OnTransition(OpenHomeScreen).Target(waitMatchmaking);
@@ -246,6 +243,7 @@ namespace FirstLight.Game.StateMachines
 				{
 					continue;
 				}
+
 				_ = _assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1);
 			}
 		}
@@ -260,7 +258,7 @@ namespace FirstLight.Game.StateMachines
 		private bool MetaTutorialConditionsCheck()
 		{
 			// If meta/match tutorial not completed, and tutorial not running
-			return FeatureFlags.TUTORIAL && 
+			return FeatureFlags.TUTORIAL &&
 				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH) &&
 				!_services.TutorialService.IsTutorialRunning;
 		}
@@ -337,20 +335,6 @@ namespace FirstLight.Game.StateMachines
 		private void SendCancelMatchmakingMessage()
 		{
 			_services.MessageBrokerService.Publish(new MatchmakingCancelMessage());
-		}
-
-
-		private bool LoadoutCountCheckToPlay()
-		{
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-
-			if (FeatureFlags.GetLocalConfiguration().IgnoreEquipmentRequirementForRanked)
-			{
-				return false;
-			}
-#endif
-			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType != MatchType.Casual
-				&& !_gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
 		}
 
 		private bool CheckItemsBroken()
@@ -524,11 +508,39 @@ namespace FirstLight.Game.StateMachines
 				OnBattlePassClicked = () => _statechartTrigger(BattlePassClickedEvent),
 				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
 				OnDiscordClicked = DiscordButtonClicked,
-				OnMatchmakingCancelClicked = SendCancelMatchmakingMessage
+				OnMatchmakingCancelClicked = SendCancelMatchmakingMessage,
+				OnLevelUp = OpenLevelUpScreen,
+				OnRewardsReceived = OnRewardsReceived
 			};
 
 			_uiService.OpenScreen<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
+		}
+
+		private void OnRewardsReceived(List<ItemData> items)
+		{
+			var rewardsCopy = items.Where(item => !item.Id.IsInGroup(GameIdGroup.Currency) && item.Id is not (GameId.XP or GameId.BPP or GameId.Trophies)).ToList();
+			if (rewardsCopy.Count > 0)
+			{
+				_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
+				{
+					Items = rewardsCopy,
+					OnFinish = OpenHomeScreen
+				});
+			}
+		}
+
+		private void OpenLevelUpScreen()
+		{
+			var levelRewards = _gameDataProvider.PlayerDataProvider.GetRewardsForFameLevel(
+				_gameDataProvider.PlayerDataProvider.Level.Value - 1
+			);
+			_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData
+			{
+				FameRewards = true,
+				Items = levelRewards,
+				OnFinish = OpenHomeScreen
+			});
 		}
 
 		private void OpenDisconnectedScreen()
@@ -544,12 +556,6 @@ namespace FirstLight.Game.StateMachines
 		private void LoadingComplete()
 		{
 			CloseTransitions();
-			
-			// Giving new skins to old players
-			if(!_gameDataProvider.CollectionDataProvider.IsItemOwned(new (GameId.MaleAssassin)))
-			{
-				_services.CommandService.ExecuteCommand(new GetNewSkinsCommand());
-			}
 		}
 
 		private void CloseTransitions()
@@ -591,7 +597,7 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.Bind<IMainMenuServices>(mainMenuServices);
 
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
-			
+
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
@@ -619,9 +625,9 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
-			
+
 			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
-			
+
 			Resources.UnloadUnusedAssets();
 			MainInstaller.CleanDispose<IMainMenuServices>();
 		}

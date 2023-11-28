@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FirstLight.FLogger;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
@@ -9,6 +10,7 @@ using FirstLight.UiService;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Rendering.LookDev;
 using UnityEngine.UIElements;
 using Assert = UnityEngine.Assertions.Assert;
 
@@ -23,11 +25,13 @@ namespace FirstLight.Game.Views.UITK
 
 		private IMatchServices _matchServices;
 		private IGameServices _gameServices;
+		private IGameDataProvider _data;
 
 		private readonly Dictionary<EntityRef, Transform> _anchors = new();
 		private readonly Dictionary<EntityRef, PlayerStatusBarElement> _visiblePlayers = new();
 		private readonly HashSet<EntityRef> _culledPlayers = new();
 		private readonly List<EntityRef> _entityCache = new(5);
+		private readonly StyleColor _defaultShieldDmgColor = new StyleColor(new Color(0.2f, 0.72f, 1f));
 
 		// TODO: Only returned to pool when it's destroyed, and they're not culled
 		private readonly Dictionary<EntityRef, HealthStatusBarElement> _healthBars = new();
@@ -42,6 +46,7 @@ namespace FirstLight.Game.Views.UITK
 			_camera = FLGCamera.Instance.MainCamera;
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_gameServices = MainInstaller.ResolveServices();
+			_data = MainInstaller.ReesolveData();
 
 			element.Clear();
 
@@ -56,7 +61,7 @@ namespace FirstLight.Game.Views.UITK
 				pbe => pbe.SetDisplay(true),
 				pbe => pbe.SetDisplay(false),
 				pbe => pbe.RemoveFromHierarchy(),
-				true, 3);
+				false, 3);
 
 			_healthBarPool = new ObjectPool<HealthStatusBarElement>(
 				() =>
@@ -69,7 +74,7 @@ namespace FirstLight.Game.Views.UITK
 				pbe => pbe.SetDisplay(true),
 				pbe => pbe.SetDisplay(false),
 				pbe => pbe.RemoveFromHierarchy(),
-				true, 3);
+				false, 3);
 		}
 
 		public override void SubscribeToEvents()
@@ -81,11 +86,10 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
 			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, OnPlayerAmmoChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
+			QuantumEvent.SubscribeManual<EventOnShrinkingCircleDmg>(this, OnShrinkingCircleDmg);
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.SubscribeManual<EventOnPlayerReloadStart>(this, OnPlayerReloadStart);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
-
-			_gameServices.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -149,7 +153,12 @@ namespace FirstLight.Game.Views.UITK
 			// Duplicates above ^
 			foreach (var (entity, bar) in _healthBars)
 			{
-				var anchor = _anchors[entity];
+				// TODO: https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/915
+				if (!_anchors.TryGetValue(entity, out var anchor))
+				{
+					FLog.Warn($"Failed to restore anchor for entity {entity}, likely due to reconnection, skipping");
+					continue;
+				}
 				if (anchor == null) continue;
 				var screenPoint = _camera.WorldToScreenPoint(anchor.position);
 				screenPoint.y = _camera.pixelHeight - screenPoint.y;
@@ -159,35 +168,16 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		private void OnMatchStarted(MatchStartedMessage message)
+		public void InitAll()
 		{
-			if (!message.IsResync) return;
-
-			_anchors.Clear();
-			_culledPlayers.Clear();
-			foreach (var (_, bar) in _visiblePlayers)
-			{
-				_playerBarPool.Release(bar);
-			}
-
-			_visiblePlayers.Clear();
-			foreach (var (_, bar) in _healthBars)
-			{
-				_healthBarPool.Release(bar);
-			}
-
-			_healthBarPool.Clear();
-
-			var f = message.Game.Frames.Verified;
-
+			var f = QuantumRunner.Default.Game.Frames.Verified;
 			var dataArray = f.GetSingleton<GameContainer>().PlayersData;
-
 			for (int i = 0; i < f.PlayerCount; i++)
 			{
 				InitPlayer(f, dataArray[i].Entity);
 			}
 		}
-
+		
 		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
 		{
 			InitPlayer(callback.Game.Frames.Predicted, callback.Entity);
@@ -197,6 +187,12 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view)) return;
 
+			// TODO: https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/915
+			if (_anchors.ContainsKey(entity))
+			{
+				FLog.Warn("Unhandled reconnection flow initializing entity twice, ignoring it for now");
+				return;
+			}
 			_anchors.Add(entity, view.GetComponent<HealthEntityBase>().HealthBarAnchor);
 
 			if (f.IsCulled(entity))
@@ -214,19 +210,27 @@ namespace FirstLight.Game.Views.UITK
 			_visiblePlayers.Add(entity, bar);
 
 			var pc = f.Get<PlayerCharacter>(entity);
+			var pd = f.GetPlayerData(pc.Player);
 			var stats = f.Get<Stats>(entity);
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 			var isFriendlyPlayer = (spectatedPlayer.Entity == entity || pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team);
 			var hidePlayerNames = f.Context.TryGetMutatorByType(MutatorType.HidePlayerNames, out _) && !isFriendlyPlayer;
 			var playerName = hidePlayerNames ? string.Empty : Extensions.GetPlayerName(f, entity, pc);
+			var nameColor = pd != null
+				                ? _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) pd.LeaderboardRank)
+				                : GameConstants.PlayerName.DEFAULT_COLOR;
 
-			bar.SetName(playerName);
+			bar.SetName(playerName, nameColor);
 			bar.SetIsFriendly(isFriendlyPlayer);
+			bar.ShowRealDamage = _data.AppDataProvider.ShowRealDamage;
 			bar.SetLevel(pc.GetEnergyLevel(f));
 			bar.SetHealth(stats.CurrentHealth, stats.CurrentHealth,
 				stats.Values[(int) StatType.Health].StatValue.AsInt);
 			bar.SetShield(stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);
 			bar.SetMagazine(pc.WeaponSlot->MagazineShotCount, pc.WeaponSlot->MagazineSize);
+			
+			//TODO: Call this again when we implement icons properly
+			//bar.SetIconColor(nameColor);
 		}
 
 		private void OnPlayerDead(EventOnPlayerDead callback)
@@ -314,7 +318,7 @@ namespace FirstLight.Game.Views.UITK
 				if (!_healthBars.TryGetValue(callback.HitEntity, out var bar))
 				{
 					bar = _healthBars[callback.HitEntity] = _healthBarPool.Get();
-
+			
 					_anchors[callback.HitEntity] = _matchServices.EntityViewUpdaterService
 						.GetManualView(callback.HitEntity).GetComponent<HealthEntityBase>().HealthBarAnchor;
 				}
@@ -333,6 +337,15 @@ namespace FirstLight.Game.Views.UITK
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 			if ((callback.PlayerTeamId == spectatedPlayer.Team || callback.HitEntity == spectatedPlayer.Entity) &&
 				_visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
+			{
+				playerBar.PingDamage(callback.TotalDamage, callback.isShieldDmg ? _defaultShieldDmgColor : null);
+			}
+		}
+
+		private unsafe void OnShrinkingCircleDmg(EventOnShrinkingCircleDmg callback)
+		{
+			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
+			if (callback.HitEntity == spectatedPlayer.Entity && _visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
 			{
 				playerBar.PingDamage(callback.TotalDamage);
 			}

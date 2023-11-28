@@ -34,6 +34,8 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _rays;
 		private VisualElement _gradient;
 		private VisualElement _gradientStronger;
+		private VisualElement _parentItemIcon;
+		private Label _parentItemName;
 
 		public void Init(RewardsAnimationController animationController, AnimatedBackground animatedBackground, PlayableDirector animationDirector)
 		{
@@ -54,19 +56,29 @@ namespace FirstLight.Game.Presenters
 			_gradient = element.Q<VisualElement>("RaysGradient").Required();
 			_gradientStronger = element.Q<VisualElement>("RaysStrongerGradient").Required();
 			_rays = element.Q<VisualElement>("RaysEquipment").Required();
+			_parentItemIcon = element.Q<VisualElement>("ParentItem").Required();
+			_parentItemName = element.Q<Label>("ParentItemName").Required();
+		}
+		
+		public void SetItemParent(IItemViewModel parent)
+		{
+			if (parent == null) return;
+			_parentItemIcon.SetDisplay(true);
+			_parentItemIcon.RemoveSpriteClasses();
+			_parentItemName.text = parent.DisplayName;
+			parent.DrawIcon(_parentItemIcon);
 		}
 
-
-		internal void ShowEquipment(EquipmentReward reward)
+		internal void ShowEquipment(EquipmentItemViewModel itemViewModel)
 		{
-			var rarityLower = reward.Equipment.Rarity.ToString().ToLowerInvariant().Replace("plus", "");
+			var rarityLower = itemViewModel.Equipment.Rarity.ToString().ToLowerInvariant().Replace("plus", "");
+			_parentItemIcon.SetDisplay(false);
+			_animatedBackground.SetColorByRarity(itemViewModel.Equipment.Rarity);
+			_card.SetEquipment(itemViewModel.Equipment);
 
-			_animatedBackground.SetColorByRarity(reward.Equipment.Rarity);
-			_card.SetEquipment(reward.Equipment, new UniqueId());
-
-			if (reward.GameId.IsInGroup(GameIdGroup.Weapon))
+			if (itemViewModel.GameId.IsInGroup(GameIdGroup.Weapon))
 			{
-				var isRanged = _configsProvider.GetConfig<QuantumWeaponConfig>((int) reward.GameId).UseRangedCam;
+				var isRanged = _configsProvider.GetConfig<QuantumWeaponConfig>((int) itemViewModel.GameId).UseRangedCam;
 				_range.Localize(isRanged ? "UITRewards/long_range" : "UITRewards/short_range");
 				_range.SetDisplay(true);
 			}
@@ -75,8 +87,8 @@ namespace FirstLight.Game.Presenters
 				_range.SetDisplay(false);
 			}
 
-			_rarity.text = reward.Equipment.Rarity.GetLocalization();
-			_name.text = reward.Equipment.GameId.GetLocalization();
+			_rarity.text = itemViewModel.Equipment.Rarity.GetLocalization();
+			_name.text = itemViewModel.Equipment.GameId.GetLocalization();
 
 			_rarity.RemoveModifiers();
 			_gradient.RemoveModifiers();
@@ -89,7 +101,7 @@ namespace FirstLight.Game.Presenters
 			_rays.AddToClassList(string.Format(USS_RAYS_MODIFIER_FORMAT, rarityLower));
 #pragma warning disable CS4014
 			// Ignore task return because it only loads the sprite and we don't want to wait for it
-			UIUtils.SetSprite(reward.GameId, _icon);
+			UIUtils.SetSprite(itemViewModel.GameId, _icon);
 #pragma warning restore CS4014
 			_animationController.StartAnimation(_animationDirector, SKIP_ANIMATION_TIME);
 		}

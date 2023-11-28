@@ -50,23 +50,19 @@ public partial class SROptions
 			return;
 		}
 
-		messageBrokerService.Unsubscribe<IAPPurchaseCompletedMessage>(OnPurchaseCompleted);
+		messageBrokerService.Unsubscribe<RewardClaimedMessage>(OnPurchaseCompleted);
 		messageBrokerService.Unsubscribe<IAPPurchaseFailedMessage>(OnPurchaseFailed);
 
-		messageBrokerService.Subscribe<IAPPurchaseCompletedMessage>(OnPurchaseCompleted);
+		messageBrokerService.Subscribe<RewardClaimedMessage>(OnPurchaseCompleted);
 		messageBrokerService.Subscribe<IAPPurchaseFailedMessage>(OnPurchaseFailed);
 
 		iapService.BuyProduct(id);
 	}
 
-	private void OnPurchaseCompleted(IAPPurchaseCompletedMessage message)
+	private void OnPurchaseCompleted(RewardClaimedMessage message)
 	{
 		FLog.Info("DBG IAP purchase completed");
-
-		foreach (var reward in message.Rewards)
-		{
-			FLog.Info($"DBG Purchased item: {reward.ToString()}");
-		}
+		FLog.Info($"DBG Purchased item: {message.Reward}");
 	}
 
 	private void OnPurchaseFailed(IAPPurchaseFailedMessage message)

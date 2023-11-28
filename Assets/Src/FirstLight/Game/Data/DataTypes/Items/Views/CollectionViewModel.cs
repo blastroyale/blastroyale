@@ -1,0 +1,47 @@
+using System.Threading.Tasks;
+using FirstLight.Game.UIElements;
+using FirstLight.Game.Utils;
+using Quantum;
+using UnityEngine.UIElements;
+
+namespace FirstLight.Game.Data.DataTypes
+{
+	/// <summary>
+	/// Collection items view model
+	/// </summary>
+	public class CollectionViewModel : IItemViewModel
+	{
+		public ItemData Item { get; }
+		public GameId GameId { get; }
+		public uint Amount { get; }
+		public string DisplayName { get; }
+		public VisualElement ItemCard => new CollectionRewardsSummaryElement()
+		{
+			pickingMode = PickingMode.Ignore
+		}.SetReward(this);
+
+		public void DrawIcon(VisualElement icon)
+		{
+			icon.style.backgroundImage = StyleKeyword.Null;
+			icon.RemoveSpriteClasses();
+			_ = DrawDynamicIconAsync(icon);
+		}
+
+		private async Task DrawDynamicIconAsync(VisualElement icon)
+		{
+			var sprite = await MainInstaller.ResolveServices().CollectionService.LoadCollectionItemSprite(Item);
+			if(sprite != null) icon.style.backgroundImage = new StyleBackground(sprite);
+			else icon.AddToClassList(GameId.GetUSSSpriteClass());
+		}
+		
+		public string Description => null;
+
+		public CollectionViewModel(ItemData item)
+		{
+			Item = item;
+			GameId = item.Id;
+			Amount = 1;
+			DisplayName = GameId.GetLocalization().ToUpper();
+		}
+	}
+}

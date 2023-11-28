@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Map_Islands
+  m_EditorClassIdentifier: 
+  m_GroupName: Map_Islands
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 07ea5325755c0d94889dbf6e3ef6d499
+  m_SerializeEntries:
+  - m_GUID: 7d88988e5c3e66b42ad3757d3ac6f4aa
+    m_Address: Maps/Islands
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d4009069eda27be4fb466cda8d97f0a4, type: 2}
+    - {fileID: 11400000, guid: 8af23aff95a5fdb44b1ce07427d0d4cc, type: 2}

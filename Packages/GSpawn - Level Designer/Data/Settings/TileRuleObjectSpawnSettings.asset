@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3291264ae5808646b6b439075603427, type: 3}
+  m_Name: TileRuleObjectSpawnSettings
+  m_EditorClassIdentifier: 
+  _brushYOffset: 0
+  _snapBrushYOffsetToTiles: 1
+  _brushSize: 1
+  _brushHeight: 1
+  _flexiBoxBrushFillMode: 0
+  _segBrushFillCorners: 1
+  _segBrushHeightMode: 0
+  _segBrushMinRandomHeight: 1
+  _segBrushMaxRandomHeight: 5
+  _segBrushHeightPatternWrapMode: 1
+  _segBrushHeightPattern: {fileID: 0}
+  _eraseForeignObjects: 1
+  _connectYOffset: 0
+  _connectMode: 0
+  _connectMajorAxis: 0
+  _connectFillCorners: 0
+  _connectGenerateRamps: 1

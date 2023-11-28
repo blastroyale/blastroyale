@@ -18,7 +18,8 @@ namespace FirstLight.Game.MonoComponent.Match
 	{
 		public HashSet<VisibilityVolumeMonoComponent> CollidingVisibilityVolumes = new ();
 
-		public bool CanSee()
+		public bool IsInLegacyVisibilityVolume() => CollidingVisibilityVolumes.Count > 0;
+		public bool IsInSameLegacyVolumeAsSpectator()
 		{
 			return CollidingVisibilityVolumes.Any(visVolume => visVolume.VolumeHasSpectatedPlayer());
 		}

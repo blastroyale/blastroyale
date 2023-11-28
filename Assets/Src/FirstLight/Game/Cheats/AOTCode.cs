@@ -17,7 +17,7 @@ namespace FirstLight.Game.Cheats
 		public List<IdData> IdData;
 		public List<RngData> RngData;
 		public List<PlayerData> PlayerData;
-		public List<CollectionMeta> CollectionMeta;
+		public List<CollectionTrait> CollectionMeta;
 		
 		/// <summary>
 		/// Forces the Vibration to be added to the Android manifest

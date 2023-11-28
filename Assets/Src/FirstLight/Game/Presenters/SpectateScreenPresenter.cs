@@ -65,7 +65,8 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			// TODO: Use proper localization
-			_header.SetSubtitle(_services.NetworkService.CurrentRoomGameModeConfig?.Id.ToUpper());
+			var gamemodeID =_services.RoomService.CurrentRoom.Properties.GameModeId.Value;
+			_header.SetSubtitle(gamemodeID.ToUpper());
 		}
 
 		protected override void SubscribeToEvents()
@@ -103,8 +104,14 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var data = new QuantumPlayerMatchData(f, playersData[current.Player]);
+			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, (int)data.LeaderboardRank);
+			
+			_followCamera.Follow = current.Transform;
+			_followCamera.LookAt = current.Transform;
+			_followCamera.SnapCamera();
 			
 			_playerName.text = data.GetPlayerName();
+			_playerName.style.color = nameColor;
 			_defeatedYou.SetVisibility(current.Player == _matchServices.MatchEndDataService.LocalPlayerKiller);
 			UpdateCurrentMight(playerCharacter);
 		}

@@ -133,7 +133,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsSpectator()
 		{
-			return _services.NetworkService.LocalPlayer.IsSpectator();
+			return _services.RoomService.IsLocalPlayerSpectator;
 		}
 
 		private bool IsRejoining()

@@ -13,7 +13,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// <summary>
 		/// Logs when the user purchases a product
 		/// </summary>
-		public void Purchase(Product product, RewardData reward, float price, float netIncomeModifier)
+		public void Purchase(Product product, ItemData reward, float price, float netIncomeModifier)
 		{
 			var data = new Dictionary<string, object>
 			{
@@ -23,7 +23,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"dollar_gross", price},
 				{"dollar_net", price * netIncomeModifier},
 				{"item_id", product.definition.id},
-				{"item_name", reward.RewardId.ToString()}
+				{"item_name", reward.Id.ToString()}
 			};
 
 			SingularSDK.InAppPurchase(product, data);

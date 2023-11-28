@@ -48,6 +48,12 @@ namespace FirstLight.Server.SDK.Services
 		/// Whenever development mode is enabled, permission checks can be bypassed
 		/// </summary>
 		bool DevelopmentMode { get; }
+		
+		/// <summary>
+		/// On standalone, no other external dependencies are needed for requests
+		/// like playfab or postgres
+		/// </summary>
+		bool Standalone { get; }
 
 		/// <summary>
 		/// Enables or disabled NFT sync system

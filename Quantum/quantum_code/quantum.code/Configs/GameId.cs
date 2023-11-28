@@ -80,6 +80,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.Fragments, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
 					GameId.CS, new List<GameIdGroup>
 					{
 						GameIdGroup.Currency,
@@ -185,6 +191,12 @@ namespace Quantum
 				},
 				{
 					GameId.IslandsMap, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
+					GameId.MazeMayhem, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
 					}.AsReadOnly()
@@ -571,116 +583,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.Male01Avatar, new List<GameIdGroup>
-					{
-						GameIdGroup.PlayerSkin
-					}.AsReadOnly()
-				},
-				{
-					GameId.Male02Avatar, new List<GameIdGroup>
-					{
-						GameIdGroup.PlayerSkin
-					}.AsReadOnly()
-				},
-				{
-					GameId.Female01Avatar, new List<GameIdGroup>
-					{
-						GameIdGroup.PlayerSkin
-					}.AsReadOnly()
-				},
-				{
-					GameId.Female02Avatar, new List<GameIdGroup>
-					{
-						GameIdGroup.PlayerSkin
-					}.AsReadOnly()
-				},
-				{
-					GameId.MaleAssassin, new List<GameIdGroup>
-					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Assassin
-					}.AsReadOnly()
-				},
-				{
-					GameId.MaleCorpos, new List<GameIdGroup>
-					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Corpo
-					}.AsReadOnly()
-				},
-				{
-					GameId.MalePunk, new List<GameIdGroup>
-					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
-						GameIdGroup.Punk
-					}.AsReadOnly()
-				},
-				{
-					GameId.MaleSuperstar, new List<GameIdGroup>
-					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
-						GameIdGroup.Superstar
-					}.AsReadOnly()
-				},
-				{
-					GameId.FemaleAssassin, new List<GameIdGroup>
-					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Assassin
-					}.AsReadOnly()
-				},
-				{
-					GameId.FemaleCorpos, new List<GameIdGroup>
-					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Corpo
-					}.AsReadOnly()
-				},
-				{
-					GameId.FemalePunk, new List<GameIdGroup>
-					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
-						GameIdGroup.Punk
-					}.AsReadOnly()
-				},
-				{
-					GameId.FemaleSuperstar, new List<GameIdGroup>
-					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
-						GameIdGroup.Superstar
-					}.AsReadOnly()
-				},
-				{
-					GameId.Divinci, new List<GameIdGroup>
-					{
-						GameIdGroup.Glider,
-						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
-					GameId.Falcon, new List<GameIdGroup>
-					{
-						GameIdGroup.Glider,
-						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
-					GameId.Rocket, new List<GameIdGroup>
-					{
-						GameIdGroup.Glider
-					}.AsReadOnly()
-				},
-				{
-					GameId.Turbine, new List<GameIdGroup>
-					{
-						GameIdGroup.Glider
-					}.AsReadOnly()
-				},
-				{
 					GameId.Rage, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
@@ -867,32 +769,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.Tombstone, new List<GameIdGroup>
-					{
-						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
-					GameId.Demon, new List<GameIdGroup>
-					{
-						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
-					GameId.Superstar, new List<GameIdGroup>
-					{
-						GameIdGroup.DeathMarker
-					}.AsReadOnly()
-				},
-				{
-					GameId.Unicorn, new List<GameIdGroup>
-					{
-						GameIdGroup.DeathMarker
-					}.AsReadOnly()
-				},
-				{
 					GameId.CoreCommon, new List<GameIdGroup>
 					{
 						GameIdGroup.Core
@@ -908,33 +784,385 @@ namespace Quantum
 					GameId.CoreRare, new List<GameIdGroup>
 					{
 						GameIdGroup.Core,
-						GameIdGroup.IAP
+						GameIdGroup.IAP,
+						GameIdGroup.Chest
 					}.AsReadOnly()
 				},
 				{
 					GameId.CoreEpic, new List<GameIdGroup>
 					{
 						GameIdGroup.Core,
-						GameIdGroup.IAP
+						GameIdGroup.IAP,
+						GameIdGroup.Chest
 					}.AsReadOnly()
 				},
 				{
 					GameId.CoreLegendary, new List<GameIdGroup>
 					{
 						GameIdGroup.Core,
-						GameIdGroup.IAP
+						GameIdGroup.IAP,
+						GameIdGroup.Chest
 					}.AsReadOnly()
 				},
 				{
-					GameId.Corpo, new List<GameIdGroup>
+					GameId.Male01Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.ProfilePicture
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Male02Avatar, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Female01Avatar, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Female02Avatar, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MaleAssassin, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Assassin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MaleCorpos, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Corpo,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MalePunk, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
+						GameIdGroup.Punk,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MaleSuperstar, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
+						GameIdGroup.Superstar,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FemaleAssassin, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Assassin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FemaleCorpos, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Corpo,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FemalePunk, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
+						GameIdGroup.Punk,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FemaleSuperstar, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
+						GameIdGroup.Superstar,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.TestSkin, new List<GameIdGroup>
+					{
+					}.AsReadOnly()
+				},
+				{
+					GameId.Divinci, new List<GameIdGroup>
+					{
+						GameIdGroup.Glider,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Falcon, new List<GameIdGroup>
+					{
+						GameIdGroup.Glider,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Rocket, new List<GameIdGroup>
+					{
+						GameIdGroup.Glider,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Turbine, new List<GameIdGroup>
+					{
+						GameIdGroup.Glider,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Tombstone, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Demon, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Superstar, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Unicorn, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinDefault, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinSausage, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinCactus, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinAtomSlicer, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinDaggerOfDestiny, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinElectricSolo, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinGigaMelee, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinHatchet, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinMicDrop, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinMightySledge, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinOutOfThePark, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinPowerPan, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinPutter, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinSirQuacks, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinThunderAxe, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinToyMelee, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinTvTakedown, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinWheelOfPain, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinWrench, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinYouGotMail, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
+					}.AsReadOnly()
+				},
+				{
+					GameId.Avatar1, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Avatar2, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Avatar3, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Avatar4, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.Avatar5, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarRemote, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection,
+						GameIdGroup.GenericCollectionItem
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarNFTCollection, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection,
+						GameIdGroup.GenericCollectionItem
 					}.AsReadOnly()
 				},
 				{
 					GameId.FootprintDot, new List<GameIdGroup>
 					{
-						GameIdGroup.Footprint
+						GameIdGroup.Footprint,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 			};
@@ -954,6 +1182,7 @@ namespace Quantum
 						GameId.RealMoney,
 						GameId.COIN,
 						GameId.BLST,
+						GameId.Fragments,
 						GameId.CS
 					}.AsReadOnly()
 				},
@@ -988,7 +1217,8 @@ namespace Quantum
 						GameId.FtueMiniMap,
 						GameId.District,
 						GameId.BattlelandsMap,
-						GameId.IslandsMap
+						GameId.IslandsMap,
+						GameId.MazeMayhem
 					}.AsReadOnly()
 				},
 				{
@@ -1188,7 +1418,7 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameIdGroup.PlayerSkin, new List<GameId>
+					GameIdGroup.Collection, new List<GameId>
 					{
 						GameId.Male01Avatar,
 						GameId.Male02Avatar,
@@ -1201,7 +1431,42 @@ namespace Quantum
 						GameId.FemaleAssassin,
 						GameId.FemaleCorpos,
 						GameId.FemalePunk,
-						GameId.FemaleSuperstar
+						GameId.FemaleSuperstar,
+						GameId.Divinci,
+						GameId.Falcon,
+						GameId.Rocket,
+						GameId.Turbine,
+						GameId.Tombstone,
+						GameId.Demon,
+						GameId.Superstar,
+						GameId.Unicorn,
+						GameId.MeleeSkinDefault,
+						GameId.MeleeSkinSausage,
+						GameId.MeleeSkinCactus,
+						GameId.MeleeSkinAtomSlicer,
+						GameId.MeleeSkinDaggerOfDestiny,
+						GameId.MeleeSkinElectricSolo,
+						GameId.MeleeSkinGigaMelee,
+						GameId.MeleeSkinHatchet,
+						GameId.MeleeSkinMicDrop,
+						GameId.MeleeSkinMightySledge,
+						GameId.MeleeSkinOutOfThePark,
+						GameId.MeleeSkinPowerPan,
+						GameId.MeleeSkinPutter,
+						GameId.MeleeSkinSirQuacks,
+						GameId.MeleeSkinThunderAxe,
+						GameId.MeleeSkinToyMelee,
+						GameId.MeleeSkinTvTakedown,
+						GameId.MeleeSkinWheelOfPain,
+						GameId.MeleeSkinWrench,
+						GameId.MeleeSkinYouGotMail,
+						GameId.Avatar1,
+						GameId.Avatar2,
+						GameId.Avatar3,
+						GameId.Avatar4,
+						GameId.Avatar5,
+						GameId.AvatarRemote,
+						GameId.AvatarNFTCollection
 					}.AsReadOnly()
 				},
 				{
@@ -1228,7 +1493,10 @@ namespace Quantum
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Tombstone,
-						GameId.Demon
+						GameId.Demon,
+						GameId.MeleeSkinDefault,
+						GameId.MeleeSkinYouGotMail,
+						GameId.FootprintDot
 					}.AsReadOnly()
 				},
 				{
@@ -1243,15 +1511,6 @@ namespace Quantum
 					{
 						GameId.MaleSuperstar,
 						GameId.FemaleSuperstar
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Glider, new List<GameId>
-					{
-						GameId.Divinci,
-						GameId.Falcon,
-						GameId.Rocket,
-						GameId.Turbine
 					}.AsReadOnly()
 				},
 				{
@@ -1288,7 +1547,10 @@ namespace Quantum
 					{
 						GameId.ChestConsumable,
 						GameId.ChestEquipment,
-						GameId.ChestLegendary
+						GameId.ChestLegendary,
+						GameId.CoreRare,
+						GameId.CoreEpic,
+						GameId.CoreLegendary
 					}.AsReadOnly()
 				},
 				{
@@ -1326,15 +1588,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameIdGroup.DeathMarker, new List<GameId>
-					{
-						GameId.Tombstone,
-						GameId.Demon,
-						GameId.Superstar,
-						GameId.Unicorn
-					}.AsReadOnly()
-				},
-				{
 					GameIdGroup.Core, new List<GameId>
 					{
 						GameId.CoreCommon,
@@ -1353,9 +1606,82 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameIdGroup.GenericCollectionItem, new List<GameId>
+					{
+						GameId.AvatarRemote,
+						GameId.AvatarNFTCollection
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.MeleeSkin, new List<GameId>
+					{
+						GameId.MeleeSkinDefault,
+						GameId.MeleeSkinSausage,
+						GameId.MeleeSkinCactus,
+						GameId.MeleeSkinAtomSlicer,
+						GameId.MeleeSkinDaggerOfDestiny,
+						GameId.MeleeSkinElectricSolo,
+						GameId.MeleeSkinGigaMelee,
+						GameId.MeleeSkinHatchet,
+						GameId.MeleeSkinMicDrop,
+						GameId.MeleeSkinMightySledge,
+						GameId.MeleeSkinOutOfThePark,
+						GameId.MeleeSkinPowerPan,
+						GameId.MeleeSkinPutter,
+						GameId.MeleeSkinSirQuacks,
+						GameId.MeleeSkinThunderAxe,
+						GameId.MeleeSkinToyMelee,
+						GameId.MeleeSkinTvTakedown,
+						GameId.MeleeSkinWheelOfPain,
+						GameId.MeleeSkinWrench,
+						GameId.MeleeSkinYouGotMail
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.PlayerSkin, new List<GameId>
+					{
+						GameId.Male01Avatar,
+						GameId.Male02Avatar,
+						GameId.Female01Avatar,
+						GameId.Female02Avatar,
+						GameId.MaleAssassin,
+						GameId.MaleCorpos,
+						GameId.MalePunk,
+						GameId.MaleSuperstar,
+						GameId.FemaleAssassin,
+						GameId.FemaleCorpos,
+						GameId.FemalePunk,
+						GameId.FemaleSuperstar
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Glider, new List<GameId>
+					{
+						GameId.Divinci,
+						GameId.Falcon,
+						GameId.Rocket,
+						GameId.Turbine
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.DeathMarker, new List<GameId>
+					{
+						GameId.Tombstone,
+						GameId.Demon,
+						GameId.Superstar,
+						GameId.Unicorn
+					}.AsReadOnly()
+				},
+				{
 					GameIdGroup.ProfilePicture, new List<GameId>
 					{
-						GameId.Corpo
+						GameId.Avatar1,
+						GameId.Avatar2,
+						GameId.Avatar3,
+						GameId.Avatar4,
+						GameId.Avatar5,
+						GameId.AvatarRemote,
+						GameId.AvatarNFTCollection
 					}.AsReadOnly()
 				},
 				{

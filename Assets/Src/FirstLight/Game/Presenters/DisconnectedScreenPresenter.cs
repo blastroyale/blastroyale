@@ -81,7 +81,7 @@ namespace FirstLight.Game.Presenters
 			// Disconnected in simulation - you can only reconnect
 			else if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Simulation)
 			{
-				_menuButton.SetDisplay(_services.NetworkService.LastMatchPlayers.Count <= 1);
+				_menuButton.SetDisplay(_services.RoomService.LastMatchPlayerAmount <= 1);
 				_reconnectButton.SetDisplay(true);
 			}
 		}

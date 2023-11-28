@@ -63,10 +63,6 @@
     text-shadow: 2px 2px 0 rgb(23, 18, 53);
 }
 
-.player-status-bar--friendly .player-status-bar__name {
-    color: rgb(68, 174, 255);
-}
-
 .player-status-bar__ammo-holder {
     bottom: 4px;
     right: 11px;
@@ -192,6 +188,24 @@
 
 .player-status-bar__notification--lvlup > .player-status-bar__notification-icon {
     display: none;
+}
+
+.player-status-bar__icon {
+    width: 15px;
+    height: 15px;
+    top: 7px;
+    left: 2px;
+    background-image: url('project://database/Assets/Art/UI/Vectors/LeaderbordProfileMask.svg?fileID=7388822144124034973&guid=69441292e424642e182fedc73dd14e6b&type=3#LeaderbordProfileMask');
+    position: absolute;
+}
+
+.player-status-bar__icon-border {
+    width: 19px;
+    height: 19px;
+    top: 5px;
+    -unity-background-image-tint-color: black;
+    background-image: url('project://database/Assets/Art/UI/Vectors/LeaderbordProfileMask.svg?fileID=7388822144124034973&guid=69441292e424642e182fedc73dd14e6b&type=3#LeaderbordProfileMask');
+    position: absolute;
 }
 
 .player-status-bar__damage-holder {

@@ -17,6 +17,9 @@
       <Reference Include="FirstLight.Game">
         <HintPath>..\Lib\FirstLight.Game.dll</HintPath>
       </Reference>
+        <Reference Include="FirstLight.Models">
+            <HintPath>..\Lib\FirstLight.Models.dll</HintPath>
+        </Reference>
       <Reference Include="FirstLight.Services">
         <HintPath>..\Lib\FirstLight.Services.dll</HintPath>
       </Reference>

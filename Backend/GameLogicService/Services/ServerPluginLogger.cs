@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Extensions.Logging;
 using FirstLight.Server.SDK.Services;
 
@@ -28,6 +29,11 @@ namespace Backend.Game.Services
 		public void LogError(string msg)
 		{
 			_mainLog.LogError(msg);
+		}
+
+		public void LogError(Exception exception)
+		{
+			_mainLog.LogError(exception, "Exception:");
 		}
 
 		public void LogTrace(string trace)

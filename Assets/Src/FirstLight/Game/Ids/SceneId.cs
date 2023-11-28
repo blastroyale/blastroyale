@@ -21,6 +21,7 @@ namespace FirstLight.Game.Ids
 		District,
 		BattlelandsMap,
 		IslandsMap,
+		MazeMayhem,
 	}
 	
 	/// <summary>

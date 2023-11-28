@@ -5,10 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Editor.Artifacts;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using FirstLight.Services;
 using I2.Loc;
 using PlayFab;
 using Quantum.Editor;
@@ -33,6 +35,7 @@ namespace FirstLight.Editor.EditorTools
 		private static string _quantumServerPath => $"{Application.dataPath}/../Quantum/quantum_server/Photon-Server/deploy/Plugins/DeterministicPlugin/bin/";
 		private static string _backendLibsPath => $"{_backendPath}/Lib";
 		private static string _backendResources => $"{_backendPath}/ServerCommon/Resources";
+		
 
 		static BackendMenu()
 		{
@@ -43,6 +46,13 @@ namespace FirstLight.Editor.EditorTools
 			}
 		}
 		
+		[MenuItem("FLG/Backend/Copy Local Quantum Files")]
+		public static async void CopyLocalQuantumFiles()
+		{
+			var qtnPluginFolder = $"{Application.dataPath}/../Quantum/quantum_server/quantum.custom.plugin/";
+			await ArtifactCopier.Copy(qtnPluginFolder, ArtifactCopier.QuantumAssetDBArtifact);
+		}
+
 
 		[MenuItem("FLG/Backend/Copy DLLs")]
 		public static async void MoveBackendDlls()
@@ -123,7 +133,6 @@ namespace FirstLight.Editor.EditorTools
 			await ArtifactCopier.GameTranslations.CopyTo(_backendResources);
 		}
 
-
 #if ENABLE_PLAYFABADMIN_API
 		/// <summary>
 		/// Uploads the last serialized configuration to dev playfab.
@@ -157,8 +166,8 @@ namespace FirstLight.Editor.EditorTools
 
 				var serialiezd = serializer.Serialize(configs, nextVersion.ToString());
 
-				PlayFabShortcuts.SetTitleData(PlayfabConfigurationProvider.ConfigName, serialiezd);
-				PlayFabShortcuts.SetTitleData(PlayfabConfigurationProvider.ConfigVersion, nextVersion.ToString());
+				PlayFabShortcuts.SetTitleData(PlayfabConfigKeys.ConfigName, serialiezd);
+				PlayFabShortcuts.SetTitleData(PlayfabConfigKeys.ConfigVersion, nextVersion.ToString());
 				Debug.Log($"Configs uploaded to playfab and version bumped to {nextVersion}");
 			});
 		}
@@ -212,6 +221,15 @@ namespace FirstLight.Editor.EditorTools
 
 				Debug.Log("Catalog updated successfully.");
 			}, error => { Debug.LogError($"Error updating catalog: {error.ErrorMessage}"); });
+		}
+
+		[MenuItem("FLG/Backend/Clear Frame Snapshot")]
+		private static void OpenCurrentAccount()
+		{
+			var srv = new DataService();
+			var data = srv.LoadData<AppData>();
+			data.LastCapturedFrameSnapshot = default;
+			srv.SaveData<AppData>();
 		}
 #endif
 	}

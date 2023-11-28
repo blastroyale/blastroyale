@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04721966a8c63194db0770aad504cdf0, type: 3}
+  m_Name: MeshCombineSettings
+  m_EditorClassIdentifier: 
+  _combineStaticMeshes: 1
+  _combineDynamicMeshes: 0
+  _combineLODs: 0
+  _lodIndex: 0
+  _combineAsStatic: 1
+  _combinedMeshPivot: 0
+  _combinedIndexFormat: 1
+  _ignoreMultiLevelHierarchies: 0
+  _generateLightmapUVs: 0
+  _combinedMeshesAreReadable: 0
+  _disableSourceRenderers: 1
+  _combinedMeshObjectBaseName: GSpawn_Combined_
+  _combinedMeshBaseName: GSpawn_CombinedMesh_
+  _combinedMeshFolder: Assets/GSpawn Combined Meshes

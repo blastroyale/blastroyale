@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Backend.Game.Services;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using IntegrationTests.Setups;
@@ -41,7 +42,7 @@ namespace IntegrationTests
 		[Test]
 		public async Task TestPlayfabConfigUpdate()
 		{
-			var configs = _server.GetService<IConfigsProvider>() as PlayfabConfigurationProvider;
+			var configs = _server.GetService<IConfigsProvider>() as ConfigsProvider;
 
 			var levelConfigs = configs.GetAllConfigs()[typeof(PlayerLevelConfig)] as Dictionary<int, PlayerLevelConfig>;
 			
@@ -59,7 +60,7 @@ namespace IntegrationTests
 			var firstConfig = levelConfigsAfter[1];
 			Assert.That(firstConfig.LevelUpXP != oldValue);
 			Assert.That(configs.Version == deprecatedVersion);
-			var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male01Avatar) };
+			var cmd = new EquipCollectionItemCommand() { Item = ItemFactory.Collection(GameId.Male01Avatar) };
 			// Sending a command should trigger the update
 			_server.SendTestCommand(cmd);
 			

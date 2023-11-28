@@ -22,6 +22,8 @@ namespace FirstLight.Game.UIElements
 		private const string USS_BLOCK = "player-status-bar";
 		private const string USS_FRIENDLY = USS_BLOCK + "--friendly";
 		private const string USS_BACKGROUND = USS_BLOCK + "__background";
+		private const string USS_ICON = USS_BLOCK + "__icon";
+		private const string USS_ICON_BORDER = USS_BLOCK + "__icon-border";
 		private const string USS_NAME = USS_BLOCK + "__name";
 		private const string USS_LEVEL = USS_BLOCK + "__level";
 		private const string USS_SHIELD_HOLDER = USS_BLOCK + "__shield-holder";
@@ -47,18 +49,23 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _ammoHolder;
 		private readonly VisualElement _ammoReloadBar;
 		private readonly Label _notificationLabel;
-
+		private readonly VisualElement _icon;
+		private readonly VisualElement _iconBackground;
 		private readonly Label[] _damageNumbersPool = new Label[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private readonly ValueAnimation<float>[] _damageNumberAnims = new ValueAnimation<float>[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private readonly float[] _damageNumberAnimOffsets = new float[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private readonly float[] _damageNumberAnimValues = new float[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private int _damageNumberIndex;
-
+		private float _maxHealth;
 		private bool _isFriendly;
-
+		private float _smallDamage = 32;
+		private float _damageScale = 64;
+		private bool _showRealDamage = false;
 		private readonly ValueAnimation<float> _opacityAnimation;
 		private readonly IVisualElementScheduledItem _opacityAnimationHandle;
 		private readonly IVisualElementScheduledItem _notificationHandle;
+		private readonly StyleColor _defaultPingDmgColor = new StyleColor(new Color(1f, 1f, 1f));
+
 		private ValueAnimation<Vector3> _reloadAnimation;
 
 		public PlayerStatusBarElement()
@@ -69,7 +76,17 @@ namespace FirstLight.Game.UIElements
 
 			Add(_name = new Label("PLAYER NAME") {name = "name"});
 			_name.AddToClassList(USS_NAME);
-
+			
+			Add(_iconBackground = new VisualElement() {name = "icon-border"});
+			_iconBackground.AddToClassList(USS_ICON_BORDER);
+			
+			Add(_icon = new VisualElement() {name = "icon"});
+			_icon.AddToClassList(USS_ICON);
+			
+			//TODO: Make them visible again when we implement them properly
+			_iconBackground.SetVisibility(false);
+			_icon.SetVisibility(false);
+			
 			var background = new VisualElement {name = "background"};
 			Add(background);
 			background.AddToClassList(USS_BACKGROUND);
@@ -132,7 +149,6 @@ namespace FirstLight.Game.UIElements
 					damageNumber.userData = i; // Save index to userData
 					_damageNumberAnimOffsets[i] = Random.Range(-5f, 5f);
 					_damageNumbersPool[i] = damageNumber;
-
 					// Create animation
 					var anim = damageNumber.experimental.animation.Start(0f, 1f, DAMAGE_NUMBER_ANIM_DURATION, AnimateDamageNumber);
 					anim.KeepAlive().Stop();
@@ -143,7 +159,22 @@ namespace FirstLight.Game.UIElements
 			SetIsFriendly(true);
 			SetMagazine(4, 6);
 		}
-
+		
+		public void SetIconColor(Color color)
+		{
+			if (!_name.visible || string.IsNullOrEmpty(_name.text) || color == GameConstants.PlayerName.DEFAULT_COLOR)
+			{
+				_iconBackground.SetVisibility(false);
+				_icon.SetVisibility(false);
+			}
+			else
+			{
+				_icon.style.unityBackgroundImageTintColor = color;
+				_iconBackground.SetVisibility(true);
+				_icon.SetVisibility(true);
+			}
+		}
+		
 		/// <summary>
 		/// Marks this bar as friendly (always visible with ammo) or not (only visible when damaged and no ammo info).
 		/// </summary>
@@ -159,13 +190,23 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// If the bar is not friendly, display it for some amount of time.
 		/// </summary>
-		public void PingDamage(uint damage)
+		public void PingDamage(uint damage, StyleColor? color = null)
 		{
 			_damageNumberIndex = (_damageNumberIndex + 1) % DAMAGE_NUMBER_MAX_POOL_SIZE;
 			var damageNumberLabel = _damageNumbersPool[_damageNumberIndex];
 			var damageNumberAnim = _damageNumberAnims[_damageNumberIndex];
 			_damageNumberAnimValues[_damageNumberIndex] = damage;
-			damageNumberLabel.text = damage.ToString();
+			damageNumberLabel.style.color = color ?? _defaultPingDmgColor;
+			if (_showRealDamage)
+			{
+				damageNumberLabel.text = damage.ToString();
+			}
+			else
+			{
+				var damagePct = (int) Math.Ceiling(100f * damage / _maxHealth);
+				damageNumberLabel.style.fontSize = GetDamageNumberSize(damagePct);
+				damageNumberLabel.text = damagePct.ToString();
+			}
 			damageNumberLabel.BringToFront();
 			damageNumberAnim.Stop();
 			damageNumberAnim.Start();
@@ -174,16 +215,24 @@ namespace FirstLight.Game.UIElements
 
 			_opacityAnimation.Stop();
 			style.opacity = 1f;
-			_opacityAnimationHandle.ExecuteLater(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
+			_opacityAnimationHandle.ExecuteLater(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HEALTHBAR_HIDE_DURATION);
+		}
+
+		private float GetDamageNumberSize(int damagePct)
+		{
+			return _smallDamage + (_damageScale * damagePct/100);
 		}
 
 		/// <summary>
 		/// Sets the name of the player.
 		/// </summary>
-		public void SetName(string playerName)
+		public void SetName(string playerName, Color nameColor)
 		{
 			_name.text = playerName;
+			_name.style.color = nameColor;
 		}
+
+		public ref bool ShowRealDamage => ref _showRealDamage;
 
 		/// <summary>
 		/// Sets the magazine size and how full it is. Only affects friendly players.
@@ -251,6 +300,7 @@ namespace FirstLight.Game.UIElements
 		public void SetHealth(int previous, int current, int max)
 		{
 			// TODO: Handle red bar when damaged (i.e. previous < current)
+			_maxHealth = max;
 			_healthBar.style.flexGrow = (float) current / max;
 		}
 

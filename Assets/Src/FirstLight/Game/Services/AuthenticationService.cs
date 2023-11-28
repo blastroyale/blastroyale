@@ -106,6 +106,11 @@ namespace FirstLight.Game.Services
 		/// update the status of the device link locally.
 		/// </summary>
 		void SetLinkedDevice(bool isLinked);
+		
+		/// <summary>
+		/// Event called after players logs in
+		/// </summary>
+		event Action<LoginResult> OnLogin;
 	}
 
 	public interface IInternalAuthenticationService : IAuthenticationService
@@ -156,6 +161,8 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IAuthenticationService" />
 	public class PlayfabAuthenticationService : IInternalAuthenticationService
 	{
+		public event Action<LoginResult> OnLogin;
+		
 		private IGameLogicInitializer _logicInit;
 		private IGameServices _services;
 		private IDataService _dataService;
@@ -168,7 +175,8 @@ namespace FirstLight.Game.Services
 			{
 				GetPlayerProfile = true,
 				GetUserAccountInfo = true,
-				GetTitleData = true
+				GetTitleData = true,
+				GetPlayerStatistics = true
 			};
 
 		public PlayfabAuthenticationService(IGameLogicInitializer logicInit, IGameServices services, IDataService dataService,
@@ -319,7 +327,7 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			FLog.Info($"Logged in. PlayfabId={result.PlayFabId}");
+			FLog.Info($"Logged in. PlayfabId={result.PlayFabId} Title={PlayFabSettings.TitleId}");
 
 			var appData = _dataService.GetData<AppData>();
 			var tutorialData = _dataService.GetData<TutorialData>();
@@ -329,14 +337,17 @@ namespace FirstLight.Game.Services
 			{
 				if (version == VersionUtils.VersionExternal)
 				{
-					_services.GameBackendService.EnvironmentRedirect = Environment.STAGING;
-					onSuccess(loginData);
+					FLog.Info("Redirecting to staging");
+					_services.GameBackendService.SetupBackendEnvironment(Environment.STAGING);
+					LoginSetupGuest(onSuccess, onError);
 					return;
 				}
 			}
-
-			_services.GameBackendService.EnvironmentRedirect = null;
-
+			else
+			{
+				FLog.Info($"No server redirect version={VersionUtils.VersionExternal} vInternal {VersionUtils.VersionInternal}");
+			}
+			
 			var userId = result.PlayFabId;
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			var userName = result.InfoResultPayload.AccountInfo.Username;
@@ -417,12 +428,11 @@ namespace FirstLight.Game.Services
 			appData.PlayerId = result.PlayFabId;
 			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			appData.TitleData = titleData;
-
+			OnLogin?.Invoke(result);
 			_dataService.SaveData<AppData>();
 			FLog.Verbose("Saved AppData");
 
 			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId, _dataProvider.AppDataProvider.IsGuest);
-			_services.MessageBrokerService.Publish(new SuccessAuthentication());
 		}
 
 		public void GetPlayerData(LoginData loginData, Action<LoginData> onSuccess, Action<PlayFabError> onError, bool previouslyLoggedIn)

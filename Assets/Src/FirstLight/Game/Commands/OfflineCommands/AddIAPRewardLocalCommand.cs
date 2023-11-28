@@ -7,12 +7,12 @@ using FirstLight.Services;
 namespace FirstLight.Game.Commands.OfflineCommands
 {
 	/// <summary>
-	/// Adds a reward to the local list of unclaimed rewards (used to sync up server
+	/// Adds a reward to the local list of unclaimed rewards (used to sync up server)
 	/// and client).
 	/// </summary>
 	public class AddIAPRewardLocalCommand : IGameCommand
 	{
-		public RewardData Reward;
+		public ItemData Reward;
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
@@ -20,7 +20,7 @@ namespace FirstLight.Game.Commands.OfflineCommands
 
 		public void Execute(CommandExecutionContext ctx)
 		{
-			ctx.Logic.RewardLogic().AddIAPReward(Reward);
+			ctx.Logic.RewardLogic().RewardToUnclaimedRewards(new [] { Reward });
 		}
 	}
 }

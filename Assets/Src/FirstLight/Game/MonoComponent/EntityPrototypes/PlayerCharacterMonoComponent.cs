@@ -1,8 +1,17 @@
+using System.Linq;
+using System.Threading.Tasks;
+using FirstLight.FLogger;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Photon.Realtime;
 using Quantum;
+using Quantum.Systems;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Extensions = FirstLight.Game.Utils.Extensions;
 
 namespace FirstLight.Game.MonoComponent.EntityPrototypes
 {
@@ -13,8 +22,10 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	{
 		[SerializeField, Required] private Transform _emojiAnchor;
 		[SerializeField] private GameObject _shadowBlob;
-
+		[SerializeField] private SpriteRenderer _circleIndicator;
 		private PlayerCharacterViewMonoComponent _playerView;
+		private IGameServices _services;
+		private IMatchServices _matchServices;
 
 		/// <summary>
 		/// The <see cref="Transform"/> anchor values to attach the avatar emoji
@@ -28,28 +39,51 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected override void OnAwake()
 		{
+			_services = MainInstaller.ResolveServices();
+			_matchServices = MainInstaller.ResolveMatchServices();
 			_shadowBlob.SetActive(false);
-
-			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+			_circleIndicator.gameObject.SetActive(false);
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateChange);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLanded);
+			QuantumEvent.Subscribe<EventOnTeamAssigned>(this, OnTeamAssigned);
+		}
+
+		public bool IsBot => QuantumRunner.Default.PredictedFrame().Has<BotCharacter>(EntityView.EntityRef);
+
+		private void OnSpectateChange(SpectatedPlayer oldP, SpectatedPlayer newP)
+		{
+			if (oldP.Team == newP.Team) return;
+			if (_circleIndicator.IsDestroyed() || this.IsDestroyed()) return;
+			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
+		}
+
+		private void OnTeamAssigned(EventOnTeamAssigned e)
+		{
+
+			if (PlayerView == null || e.Entity != PlayerView.EntityRef) return;
+			var color = _matchServices.TeamService.GetTeamMemberColor(e.Entity);
+			if (!color.HasValue) return;
+			_circleIndicator.color = color.Value;
+			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
 		}
 
 		private void OnPlayerSkydiveLanded(EventOnPlayerSkydiveLand callback)
 		{
-			if (callback.Entity != EntityView.EntityRef)
-				return;
+			if (callback.Entity != EntityView.EntityRef) return;
 
-			_playerView.GetComponent<MatchCharacterViewMonoComponent>().ShowAllEquipment();
+			if (_playerView != null)
+			{
+				_playerView.GetComponent<MatchCharacterViewMonoComponent>().ShowAllEquipment();
+			}
 			_shadowBlob.SetActive(true);
+			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
 		}
 
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
 			if (HasRenderedView()) return;
-
 			var frame = game.Frames.Verified;
-
-			InstantiateAvatar(game, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player);
+			_ = InstantiateAvatar(game, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player);
 		}
 
 		protected override void OnEntityDestroyed(QuantumGame game)
@@ -58,48 +92,88 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			if (f == null || _playerView == null) return;
 
-			var playerData = f.GetSingleton<GameContainer>().PlayersData[_playerView.PlayerRef];
-			var marker = playerData.PlayerDeathMarker;
-
-			SpawnDeathMarker(marker);
+			var cosmeticIds = PlayerLoadout.GetCosmetics(f, _playerView.PlayerRef);
+			var marker = _services.CollectionService.GetCosmeticForGroup(cosmeticIds, GameIdGroup.DeathMarker);
+			
+			_ = SpawnDeathMarker(marker);
 		}
 
-		private async void SpawnDeathMarker(GameId marker)
-		{
+		private async Task SpawnDeathMarker(ItemData marker)
+		{ 
 			var position = transform.position;
-			var obj = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(marker);
+			var obj = await Services.CollectionService.LoadCollectionItem3DModel(marker);
+			if (!QuantumRunner.Default.IsDefinedAndRunning())
+			{
+				Destroy(obj);
+				return;
+			}
 
 			obj.transform.position = position;
 		}
 
-		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+
+		public bool ShouldDisplayColorTag()
 		{
-			if (EntityView.EntityRef != callback.Entity)
+			if (IsBot)
 			{
-				return;
+				var specTeam = _matchServices.TeamService.GetTeam(_matchServices.SpectateService.GetSpectatedEntity());
+				var botTeam = _matchServices.TeamService.GetTeam(EntityView.EntityRef);
+				Log.Warn($"Bot {EntityView.EntityRef} team {botTeam} playerteam {specTeam}");
 			}
 
-			// Disabled VXF on player spawn
-			//var position = GetComponentData<Transform3D>(callback.Game).Position.ToUnityVector3();
-			//var aliveVfx = Services.VfxService.Spawn(VfxId.SpawnPlayer);
-
-			//aliveVfx.transform.position = position;
+			if (PlayerView == null || this.IsDestroyed() || PlayerView.IsEntityDestroyed())
+			{
+				return false;
+			}
+			if (TeamHelpers.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), PlayerView.EntityRef).Count < 1)
+			{
+				return false;
+			}
+			return !PlayerView.IsSkydiving && _matchServices.TeamService.IsSameTeamAsSpectator(EntityView.EntityRef);
 		}
 
-		private async void InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)
+		private async Task<GameObject> LoadCharacterSkin(GameId[] playerSkins)
+		{
+			var skin = Services.CollectionService.GetCosmeticForGroup(playerSkins, GameIdGroup.PlayerSkin);
+			var obj = await Services.CollectionService.LoadCollectionItem3DModel(skin);
+
+			// Add renderer containers
+			var container = obj.AddComponent<RenderersContainerMonoComponent>();
+			container.UpdateRenderers();
+			// TODO REMOVE THIS SHIT SOMEDAY
+			AddLegacyCollider(obj);
+			obj.AddComponent<RenderersContainerProxyMonoComponent>();
+			obj.AddComponent<MatchCharacterViewMonoComponent>();
+			obj.AddComponent<PlayerCharacterViewMonoComponent>();
+			OnLoaded(skin.Id, obj, true);
+			return obj;
+		}
+
+		private void AddLegacyCollider(GameObject obj)
+		{
+			// Legacy collider for old visibility volumes
+			var newCollider = obj.AddComponent<CapsuleCollider>();
+			newCollider.center = new Vector3(0, 0.75f, 0);
+			newCollider.radius = 0.2f;
+			newCollider.height = 0.75f;
+			newCollider.direction = 1; // Y axis
+			newCollider.isTrigger = true;
+		}
+
+		private async Task InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)
 		{
 			var frame = quantumGame.Frames.Verified;
 			var stats = frame.Get<Stats>(EntityView.EntityRef);
 			var loadout = PlayerLoadout.GetLoadout(frame, EntityView.EntityRef);
-			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(loadout.Skin, true, true, OnLoaded);
-
+			var skinInstance = await LoadCharacterSkin(loadout.Cosmetics);
+			
 			if (this.IsDestroyed())
 			{
 				return;
 			}
 
-			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
-			var matchCharacterViewMonoComponent = instance.GetComponent<MatchCharacterViewMonoComponent>();
+			_playerView = skinInstance.GetComponent<PlayerCharacterViewMonoComponent>();
+			var matchCharacterViewMonoComponent = skinInstance.GetComponent<MatchCharacterViewMonoComponent>();
 			await matchCharacterViewMonoComponent.Init(EntityView, loadout, frame);
 
 			if (this.IsDestroyed())
@@ -107,7 +181,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 			}
 
-			if (frame.Has<BotCharacter>(EntityView.EntityRef))
+			if (IsBot)
 			{
 				var bot = _playerView.gameObject.AddComponent<BotCharacterViewMonoComponent>();
 				bot.SetEntityView(quantumGame, _playerView.EntityView);
@@ -119,6 +193,15 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 				_playerView.SetStatusModifierEffect(stats.CurrentStatusModifierType, time.AsFloat);
 			}
+
+			var colorTag = _matchServices.TeamService.GetTeamMemberColor(EntityView.EntityRef);
+			if (colorTag.HasValue) _circleIndicator.color = colorTag.Value;
+			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
+
+			_services.MessageBrokerService.Publish(new PlayerCharacterInstantiated()
+			{
+				Character = this
+			});
 		}
 
 		protected override string GetName(QuantumGame game)

@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.Collections;
+using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -17,42 +21,38 @@ namespace FirstLight.Game.MonoComponent
 	/// </summary>
 	public abstract class CharacterEquipmentMonoComponent : MonoBehaviour
 	{
-		[FormerlySerializedAs("_animator")] [SerializeField]
-		protected Animator Animator;
-
-		[SerializeField] private Transform[] _weaponAnchors;
-		[SerializeField] private Transform[] _helmetAnchors;
-		[SerializeField] private Transform[] _bootsAnchors;
-		[SerializeField] private Transform[] _shieldAnchors;
-		[SerializeField] private Transform[] _amuletAnchors;
-		[SerializeField] private Transform[] _armorAnchors;
-		[SerializeField] private Transform _gliderAnchor;
-		[SerializeField, Required] private RenderersContainerProxyMonoComponent _renderersContainerProxy;
+		protected Animator _animator;
+		private RenderersContainerProxyMonoComponent _renderersContainerProxy;
+		private CharacterSkinMonoComponent _skin;
 
 		private IDictionary<GameIdGroup, IList<GameObject>> _equipment;
 		protected IGameServices _services;
 
-		private void OnValidate()
-		{
-			Animator = Animator ? Animator : GetComponent<Animator>();
-			_renderersContainerProxy = _renderersContainerProxy ? _renderersContainerProxy : GetComponent<RenderersContainerProxyMonoComponent>();
+		private GameId[] _cosmetics = { };
 
-			OnEditorValidate();
+		public GameId[] Cosmetics
+		{
+			get => _cosmetics;
+			set => _cosmetics = value;
 		}
+
 
 		protected virtual void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_equipment = new Dictionary<GameIdGroup, IList<GameObject>>();
+			_skin = GetComponent<CharacterSkinMonoComponent>();
+			_renderersContainerProxy = GetComponent<RenderersContainerProxyMonoComponent>();
+			_animator = GetComponent<Animator>();
 		}
 
 		/// <summary>
 		/// Instantiate a Game Item of the specified GameIdGroup
 		/// </summary>
-		public async Task<List<GameObject>> InstantiateItem(GameId gameId, GameIdGroup gameIdGroup)
+		public async Task<List<GameObject>> InstantiateItem(ItemData item, GameIdGroup gameIdGroup)
 		{
-			var anchors = GetEquipmentAnchors(gameIdGroup);
-			var instance = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
+			var anchors = _skin.GetEquipmentAnchors(gameIdGroup);
+			var instance = await _services.CollectionService.LoadCollectionItem3DModel(item);
 			var instances = new List<GameObject>(anchors.Length);
 
 			if (this.IsDestroyed())
@@ -73,9 +73,20 @@ namespace FirstLight.Game.MonoComponent
 			return instances;
 		}
 
-		protected virtual async Task<GameObject> InstantiateEquipment(GameId gameId)
+		protected async Task<GameObject> InstantiateEquipment(GameId gameId)
 		{
-			var obj = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
+			// TODO Generic GameId to GameIDGroup skin converter
+			GameObject obj;
+			if (gameId == GameId.Hammer)
+			{
+				var skinId = _services.CollectionService.GetCosmeticForGroup(_cosmetics, GameIdGroup.MeleeSkin);
+				obj = await _services.CollectionService.LoadCollectionItem3DModel(skinId, false, true);
+			}
+			else
+			{
+				obj = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
+			}
+
 			obj.name = gameId.ToString();
 			return obj;
 		}
@@ -87,10 +98,10 @@ namespace FirstLight.Game.MonoComponent
 		{
 			var slot = gameId.GetSlot();
 
-			var anchors = GetEquipmentAnchors(slot);
+			var anchors = _skin.GetEquipmentAnchors(slot);
 			var instances = new List<GameObject>();
 			var instance = await InstantiateEquipment(gameId);
-			
+
 			if (this.IsDestroyed())
 			{
 				Destroy(instance);
@@ -102,10 +113,17 @@ namespace FirstLight.Game.MonoComponent
 				UnequipItem(slot);
 			}
 
+			_services.MessageBrokerService.Publish(new ItemEquippedMessage()
+			{
+				Character = gameObject.GetComponent<PlayerCharacterViewMonoComponent>(),
+				Item = instance,
+				Id = gameId
+			});
+
 			var childCount = instance.transform.childCount;
 
 			// We detach the first child of the equipment and copy it to the anchor
-			// Not sure why
+			// Not sure why. Neither do I
 			for (var i = 0; i < Mathf.Max(childCount, 1); i++)
 			{
 				var piece = childCount > 0 ? instance.transform.GetChild(0) : instance.transform;
@@ -127,6 +145,9 @@ namespace FirstLight.Game.MonoComponent
 			// If we detached the child of a parent, we destroy the parent
 			if (childCount > 0)
 			{
+#if UNITY_EDITOR
+				Log.Warn("Unecessary destroy of child of equipment hack triggered, please fix");
+#endif
 				Destroy(instance);
 			}
 
@@ -140,7 +161,7 @@ namespace FirstLight.Game.MonoComponent
 		/// </summary>
 		public void DestroyItem(GameIdGroup slotType)
 		{
-			var anchors = GetEquipmentAnchors(slotType);
+			var anchors = _skin.GetEquipmentAnchors(slotType);
 			for (var i = 0; i < anchors.Length; i++)
 			{
 				if (i >= anchors.Length) continue;
@@ -215,7 +236,7 @@ namespace FirstLight.Game.MonoComponent
 
 			for (var i = 0; i < weapons.Count; i++)
 			{
-				Animator.runtimeAnimatorController = weapons[i].GetComponent<RuntimeAnimatorMonoComponent>().AnimatorController;
+				_animator.runtimeAnimatorController = weapons[i].GetComponent<RuntimeAnimatorMonoComponent>().AnimatorController;
 			}
 
 			return weapons;
@@ -223,27 +244,6 @@ namespace FirstLight.Game.MonoComponent
 
 		protected virtual void OnEditorValidate()
 		{
-		}
-
-		private Transform[] GetEquipmentAnchors(GameIdGroup slotType)
-		{
-			switch (slotType)
-			{
-				case GameIdGroup.Weapon:
-					return _weaponAnchors;
-				case GameIdGroup.Helmet:
-					return _helmetAnchors;
-				case GameIdGroup.Shield:
-					return _shieldAnchors;
-				case GameIdGroup.Amulet:
-					return _amuletAnchors;
-				case GameIdGroup.Armor:
-					return _armorAnchors;
-				case GameIdGroup.Glider:
-					return new[] { _gliderAnchor };
-				default:
-					throw new ArgumentOutOfRangeException(nameof(slotType), slotType, null);
-			}
 		}
 	}
 }

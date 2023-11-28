@@ -21,6 +21,7 @@ namespace FirstLight.Game.UIElements
 		private const string USS_DEAD_CROSS = USS_BLOCK + "__dead-cross";
 		private const string USS_BG = USS_BLOCK + "__bg";
 		private const string USS_PFP = USS_BLOCK + "__pfp";
+		private const string USS_TEAMCOLOR = USS_BLOCK + "__team-color";
 		private const string USS_NAME = USS_BLOCK + "__name";
 		private const string USS_LEVEL = USS_BLOCK + "__level";
 		private const string USS_SHIELD_HEALTH_CONTAINER = USS_BLOCK + "__shield-health-container";
@@ -36,6 +37,7 @@ namespace FirstLight.Game.UIElements
 		private VisualElement _container;
 		private VisualElement _bg;
 		private VisualElement _pfp;
+		private VisualElement _teamColor;
 		private Label _level;
 		private Label _name;
 
@@ -67,10 +69,13 @@ namespace FirstLight.Game.UIElements
 
 			_container.Add(_bg = new VisualElement {name = "bg"});
 			_bg.AddToClassList(USS_BG);
-
+			
+			_container.Add(_teamColor = new VisualElement {name = "teamColor"});
+			_teamColor.AddToClassList(USS_TEAMCOLOR);
+			
 			_container.Add(_pfp = new VisualElement {name = "pfp"});
 			_pfp.AddToClassList(USS_PFP);
-
+			
 			_container.Add(_level = new Label("1324") {name = "level"});
 			_level.AddToClassList(USS_LEVEL);
 
@@ -133,12 +138,19 @@ namespace FirstLight.Game.UIElements
 			this.Query().Build().ForEach(e => e.pickingMode = PickingMode.Ignore);
 		}
 
-		public void SetPlayer(PlayerRef player, string playerName, int level, string pfpUrl)
+		public void SetTeamColor(Color? color)
+		{
+			if(!color.HasValue) _teamColor.SetDisplay(false);
+			else _teamColor.style.backgroundColor = color.Value;
+		}
+
+		public void SetPlayer(PlayerRef player, string playerName, int level, string pfpUrl, Color playerNameColor)
 		{
 			if (_player == player) return;
 			_player = player;
 
 			_name.text = playerName;
+			_name.style.color = playerNameColor;
 			_level.text = level.ToString();
 
 			if (Application.isPlaying)

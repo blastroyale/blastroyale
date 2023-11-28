@@ -129,7 +129,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 			if (_equipmentList.MoveNext())
 			{
-				_card.SetEquipment(_equipmentList.Current, _card.UniqueId + 1, loadEditorSprite: true);
+				_card.SetEquipment(_equipmentList.Current , loadEditorSprite: true);
 			}
 			else
 			{
@@ -232,7 +232,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 			return AssetDatabase.LoadAssetAtPath<BaseEquipmentStatConfigs>(AssetDatabase.GUIDToAssetPath(assets[0]));
 		}
 
-		private void WriteRenderTextureToDisk(string filename, bool crop = false)
+		public void WriteRenderTextureToDisk(string filename, bool crop = false)
 		{
 			var ext = _textureMode == TextureMode.Png ? ".png" : ".jpg";
 			var path = Path.Combine(_outputDirectory, filename + ext);

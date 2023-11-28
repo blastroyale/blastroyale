@@ -14,7 +14,6 @@ using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
-using MoreMountains.NiceVibrations;
 using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
@@ -48,16 +47,15 @@ namespace FirstLight.Game.StateMachines
 			_gameLogic = gameLogic;
 			_services = services;
 			_uiService = uiService;
-			_configsAdder = configsAdder;
+			_configsAdder = configsAdder; 
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, dataService, configsAdder, vfxService, Trigger);
 			_authenticationState = new AuthenticationState(services, uiService, dataService, Trigger);
 			_audioState = new AudioState(gameLogic, services, Trigger);
 			_reconnection = new ReconnectionState(services, gameLogic, networkService, uiService, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
 			_tutorialState = new TutorialState(gameLogic, services, tutorialService, Trigger);
-			_coreLoopState = new CoreLoopState(_reconnection, services, gameLogic, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger);
+			_coreLoopState = new CoreLoopState(_reconnection, services, gameLogic, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger,services.RoomService);
 			_statechart = new Statechart.Statechart(Setup);
-			
 #if DEVELOPMENT_BUILD
 			Statechart.Statechart.OnStateTimed += (state, millis) =>
 			{
@@ -148,11 +146,11 @@ namespace FirstLight.Game.StateMachines
 			// TODO: REMOVE BELOW if works properly by uncommenting AppLogic Init lines
 			_gameLogic.AppLogic.SetDetailLevel();
 			_gameLogic.AppLogic.SetFpsTarget();
-			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
 		}
 
 		private void CheckDeviceSetup()
 		{
+		//var test = 123;
 			_dataService.LoadData<AppData>();
 #if UNITY_ANDROID
 			if (SystemInfo.systemMemorySize <= 5000)

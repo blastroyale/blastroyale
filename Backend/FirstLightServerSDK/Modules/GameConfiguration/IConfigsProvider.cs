@@ -51,5 +51,10 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 		/// Obtains all configs as a readonly dictionary
 		/// </summary>
 		public IReadOnlyDictionary<Type, IEnumerable> GetAllConfigs();
+
+		/// <summary>
+		/// Event triggered when he configs get updated
+		/// </summary>
+		public event Action OnConfigVersionChanged;
 	}
 }

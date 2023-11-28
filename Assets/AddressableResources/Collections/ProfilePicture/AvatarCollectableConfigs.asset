@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 706d164cbd6fa4e09bfb5e7b10b82906, type: 3}
+  m_Name: AvatarCollectableConfigs
+  m_EditorClassIdentifier: 
+  Config:
+    GameIdUrlDictionary:
+      _keyData: 7400000075000000760000007800000079000000
+      _valueData:
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/Avatar1.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/Avatar2.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/Avatar3.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/Avatar4.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/Avatar5.png

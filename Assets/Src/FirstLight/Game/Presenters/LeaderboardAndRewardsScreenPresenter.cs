@@ -4,9 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
 using DG.Tweening;
+using FirstLight.FLogger;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UiService;
@@ -40,6 +44,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private IMatchServices _matchServices;
+		private IGameServices _gameServices;
 		private IGameDataProvider _gameDataProvider;
 
 		private Button _nextButton;
@@ -47,16 +52,20 @@ namespace FirstLight.Game.Presenters
 		private ScrollView _leaderboardScrollView;
 		private VisualElement _playerName;
 		private Label _playerNameText;
+		private Label _fameTitle;
 		private VisualElement _rewardsPanel;
 		private VisualElement _craftSpice;
 		private VisualElement _trophies;
 		private VisualElement _bpp;
+		private VisualElement _fame;
 
 		private RewardPanelView _craftSpiceView;
 		private RewardPanelView _trophiesView;
-		private RewardBPPanelView _bppView;
+		private RewardLevelPanelView _bppView;
+		private RewardLevelPanelView _levelView;
 
 		private bool _showingLeaderboards;
+		private bool _showCSReward = false;
 
 		protected override void OnInitialized()
 		{
@@ -64,6 +73,7 @@ namespace FirstLight.Game.Presenters
 
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			_gameServices = MainInstaller.Resolve<IGameServices>();
 		}
 
 		protected override void OnOpened()
@@ -71,7 +81,7 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			SetupCamera();
-			
+
 			UpdateCharacter();
 			UpdatePlayerName();
 			UpdateLeaderboard();
@@ -102,6 +112,13 @@ namespace FirstLight.Game.Presenters
 			_trophies.AttachView(this, out _trophiesView);
 			_bpp = _rewardsPanel.Q<VisualElement>("BPP").Required();
 			_bpp.AttachView(this, out _bppView);
+
+			_fame = _rewardsPanel.Q<VisualElement>("Fame").Required();
+			_fame.AttachView(this, out _levelView);
+			_levelView.HideFinalLevel();
+			_fameTitle = root.Q<Label>("FameTitle").Required();
+			
+			root.Q<PlayerAvatarElement>("Avatar").Required().SetLocalPlayerData(_gameDataProvider, _gameServices);
 		}
 
 		private void OnNextButtonClicked()
@@ -137,35 +154,99 @@ namespace FirstLight.Game.Presenters
 
 		private async void AnimatePanels()
 		{
-			await Task.Delay(400);
-			await _craftSpiceView.Animate();
+			await Task.Delay(300);
+			await _levelView.Animate();
 			await _trophiesView.Animate();
+			if (_showCSReward)
+			{
+				await _craftSpiceView.Animate();
+			}
 			await _bppView.Animate();
 		}
 
 		private void UpdateRewards()
 		{
 			var rewards = ProcessRewards();
-			
+
 			// craft spice
 			var csReward = 0;
-			if (rewards.ContainsKey(GameId.CS))
+			if (rewards.TryGetValue(GameId.CS, out var reward))
 			{
-				csReward = rewards[GameId.CS];
-			}
+				csReward = reward;
 
-			_craftSpiceView.SetData(csReward, (int) _matchServices.MatchEndDataService.CSBeforeChange);
+				if (csReward > 0)
+				{
+					_craftSpiceView.SetData(csReward, (int) _matchServices.MatchEndDataService.CSBeforeChange);
+				}
+			}
+			_showCSReward = csReward != 0;
 
 			// Trophies
 			var trophiesReward = 0;
-			if (rewards.ContainsKey(GameId.Trophies))
+			if (rewards.TryGetValue(GameId.Trophies, out var r))
 			{
-				trophiesReward = rewards[GameId.Trophies];
+				trophiesReward = r;
 			}
 
 			_trophiesView.SetData(trophiesReward, (int) _matchServices.MatchEndDataService.TrophiesBeforeChange);
 
 			// BPP
+			SetBPPReward(rewards);
+
+			// Level (Fame)
+			SetLevelReward(rewards);
+		}
+
+		private void SetLevelReward(Dictionary<GameId, int> rewards)
+		{
+			var xpRewards = 0;
+			if (rewards.TryGetValue(GameId.XP, out var reward))
+			{
+				xpRewards = reward;
+			}
+
+			var maxLevel = GameConstants.Data.PLAYER_FAME_MAX_LEVEL;
+			var gainedLeft = xpRewards;
+			var levelsInfo = new List<RewardLevelPanelView.LevelLevelRewardInfo>();
+			var nextLevel = (uint) Math.Clamp(_matchServices.MatchEndDataService.LevelBeforeChange, 0, maxLevel);
+			var currentLevel = nextLevel;
+			//var configs = _gameServices.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
+			
+			do
+			{
+				var levelRewardInfo = new RewardLevelPanelView.LevelLevelRewardInfo();
+
+				levelRewardInfo.MaxLevel = (int)maxLevel;
+
+				// If it's the next level to the current one, we might have already some points in there
+				if (nextLevel == currentLevel)
+				{
+					levelRewardInfo.Start = (int) _matchServices.MatchEndDataService.XPBeforeChange;
+				}
+
+				levelRewardInfo.MaxForLevel = (int)_gameDataProvider.PlayerDataProvider.GetXpNeededForLevel(currentLevel);
+				levelRewardInfo.NextLevel = (int)currentLevel;
+
+				var amountToMax = levelRewardInfo.MaxForLevel - levelRewardInfo.Start;
+				if (amountToMax < gainedLeft)
+				{
+					levelRewardInfo.Total = amountToMax;
+					gainedLeft -= amountToMax;
+				}
+				else
+				{
+					levelRewardInfo.Total = gainedLeft;
+					gainedLeft = 0;
+				}
+				levelsInfo.Add(levelRewardInfo);
+				currentLevel++;
+			} while (gainedLeft > 0 && currentLevel < maxLevel);
+
+			_levelView.SetData(levelsInfo);
+		}
+
+		private void SetBPPReward(Dictionary<GameId, int> rewards)
+		{
 			var bppReward = 0;
 			if (rewards.ContainsKey(GameId.BPP))
 			{
@@ -175,13 +256,13 @@ namespace FirstLight.Game.Presenters
 			var maxLevel = _gameDataProvider.BattlePassDataProvider.MaxLevel;
 			var bppPoolInfo = _gameDataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.BPP);
 			var gainedLeft = bppReward;
-			var levelsInfo = new List<RewardBPPanelView.BPPLevelRewardInfo>();
+			var levelsInfo = new List<RewardLevelPanelView.LevelLevelRewardInfo>();
 			var nextLevel = (int) Math.Clamp(_matchServices.MatchEndDataService.BPLevelBeforeChange + 1, 0, maxLevel);
 			var currentLevel = nextLevel;
 
 			do
 			{
-				var levelRewardInfo = new RewardBPPanelView.BPPLevelRewardInfo();
+				var levelRewardInfo = new RewardLevelPanelView.LevelLevelRewardInfo();
 
 				levelRewardInfo.MaxLevel = (int) maxLevel;
 
@@ -220,7 +301,7 @@ namespace FirstLight.Game.Presenters
 			var playerRef = _matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None
 				? _matchServices.MatchEndDataService.Leader
 				: _matchServices.MatchEndDataService.LocalPlayer;
-			
+
 			if (playerRef == PlayerRef.None)
 			{
 				_playerNameText.text = "";
@@ -251,24 +332,30 @@ namespace FirstLight.Game.Presenters
 			{
 				_playerNameText.text = localPlayerData.QuantumPlayerMatchData.PlayerRank + ". ";
 			}
-
-			_playerNameText.text += localPlayerData.QuantumPlayerMatchData.GetPlayerName();
+			
+			var rankColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int)localPlayerData.QuantumPlayerMatchData.LeaderboardRank);
+			var playerName = localPlayerData.QuantumPlayerMatchData.GetPlayerName();
+			_playerNameText.text += playerName;
+			_fameTitle.text = playerName;
+			_playerNameText.style.color = rankColor;
+			_fameTitle.style.color = rankColor;
 		}
 
 		private void UpdateLeaderboard()
 		{
 			var entries = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
-			
+
 			entries.SortByPlayerRank(false);
 
 			foreach (var entry in entries)
 			{
 				// TODO: PFP
 				var newEntry = _leaderboardEntryAsset.Instantiate();
+				var borderColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int)entry.LeaderboardRank);
 				newEntry.AttachView(this, out LeaderboardEntryView view);
 				view.SetData((int) entry.PlayerRank, entry.GetPlayerName(), (int) entry.Data.PlayersKilledCount,
 					(int) entry.Data.PlayerTrophies,
-					_matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player, entry.AvatarUrl);
+					_matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player, entry.AvatarUrl, borderColor);
 				_leaderboardScrollView.Add(newEntry);
 			}
 		}
@@ -277,26 +364,23 @@ namespace FirstLight.Game.Presenters
 		{
 			var dictionary = new Dictionary<GameId, int>();
 			var rewards = _matchServices.MatchEndDataService.Rewards;
-
 			for (var i = 0; i < rewards.Count; i++)
 			{
-				var id = rewards[i].RewardId;
-
+				var id = rewards[i].Id;
+				if (!rewards[i].TryGetMetadata<CurrencyMetadata>(out var meta)) continue;
 				if (!dictionary.ContainsKey(id))
 				{
 					dictionary.Add(id, 0);
 				}
-
-				dictionary[id] += rewards[i].Value;
+				dictionary[id] += meta.Amount;
 			}
-
 			return dictionary;
 		}
 
 		private void SetupCamera()
 		{
 			// A very magic number that makes the character look good enough in any aspect ratio
-			_camera.m_Lens.FieldOfView =  Camera.HorizontalToVerticalFieldOfView(20f, _camera.m_Lens.Aspect);
+			_camera.m_Lens.FieldOfView = Camera.HorizontalToVerticalFieldOfView(20f, _camera.m_Lens.Aspect);
 		}
 
 		private async void UpdateCharacter()
@@ -304,7 +388,7 @@ namespace FirstLight.Game.Presenters
 			var playerRef = _matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None
 				? _matchServices.MatchEndDataService.Leader
 				: _matchServices.MatchEndDataService.LocalPlayer;
-			
+
 			if (playerRef == PlayerRef.None)
 			{
 				_character.gameObject.SetActive(false);
@@ -318,7 +402,8 @@ namespace FirstLight.Game.Presenters
 
 			var playerData = _matchServices.MatchEndDataService.PlayerMatchData[playerRef];
 
-			await _character.UpdateSkin(playerData.QuantumPlayerMatchData.Data.PlayerSkin, playerData.Gear.ToList());
+			var skinId = _gameServices.CollectionService.GetCosmeticForGroup(playerData.Cosmetics, GameIdGroup.PlayerSkin);
+			await _character.UpdateSkin(skinId, playerData.Gear.ToList());
 
 			var targetPosition = _character.transform.position;
 			var initialPosition = targetPosition;

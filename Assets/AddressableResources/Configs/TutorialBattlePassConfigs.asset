@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: TutorialBattlePassConfigs
   m_EditorClassIdentifier: 
   _config:
-    CurrentSeason: 3
+    CurrentSeason: 4
     DefaultPointsPerLevel: 200
     Levels:
     - RewardId: 1
       PointsForNextLevel: 25
-    - RewardId: 12
+    - RewardId: 26
       PointsForNextLevel: 35
-    - RewardId: 13
-      PointsForNextLevel: 55
-    - RewardId: 14
-      PointsForNextLevel: 80
-    - RewardId: 16
-      PointsForNextLevel: 95
-    - RewardId: 15
-      PointsForNextLevel: 100
+    - RewardId: 19
+      PointsForNextLevel: 40
+    - RewardId: 23
+      PointsForNextLevel: 50
+    - RewardId: 20
+      PointsForNextLevel: 60
+    - RewardId: 3
+      PointsForNextLevel: 70

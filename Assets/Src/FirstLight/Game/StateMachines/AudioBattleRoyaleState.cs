@@ -84,7 +84,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
+			if (!FeatureFlags.NEW_SFX)
+			{
+				QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
+			}
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 		}
 
@@ -171,11 +174,12 @@ namespace FirstLight.Game.StateMachines
 		{
 			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
 
-			_services.AudioFxService.PlayMusic(AudioId.MusicBrSkydiveLoop);
+			if(!FeatureFlags.NEW_SFX) _services.AudioFxService.PlayMusic(AudioId.MusicBrSkydiveLoop);
 		}
 
 		private void PlayLowIntensityMusic()
 		{
+			if (FeatureFlags.NEW_SFX) return;
 			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
 
 			// If resync, skip fading
@@ -189,6 +193,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayMidIntensityMusic()
 		{
+			if (FeatureFlags.NEW_SFX) return;
 			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
 
 			// If resync, skip fading
@@ -202,6 +207,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void PlayHighIntensityMusic()
 		{
+			if (FeatureFlags.NEW_SFX) return;
 			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
 			_isHighIntensityPhase = true;
 			
@@ -212,6 +218,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private IEnumerator PlayBrHighLoopCoroutine()
 		{
+			if (FeatureFlags.NEW_SFX) yield break;
 			yield return new WaitForSeconds(GameConstants.Audio.HIGH_LOOP_TRANSITION_DELAY);
 			_services.AudioFxService.PlayMusic(AudioId.MusicBrHighLoop);
 		}

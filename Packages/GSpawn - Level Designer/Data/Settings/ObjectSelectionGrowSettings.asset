@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bfb7de3a11892b4589859f115d63ad1, type: 3}
+  m_Name: ObjectSelectionGrowSettings
+  m_EditorClassIdentifier: 
+  _distanceThreshold: 0.0005
+  _xPositionConstraint: 0
+  _useXPositionThreshold: 0
+  _xPositionThreshold: 0.05
+  _growRight: 1
+  _growLeft: 1
+  _yPositionConstraint: 0
+  _useYPositionThreshold: 0
+  _yPositionThreshold: 0.05
+  _growUp: 1
+  _growDown: 1
+  _zPositionConstraint: 0
+  _useZPositionThreshold: 0
+  _zPositionThreshold: 0.05
+  _growForward: 1
+  _growBackward: 1
+  _prefabConstraint: 0
+  _rotationConstraintMode: 0
+  _angleThreshold: 0.00001
+  _useMaxCountConstraint: 0
+  _maxCount: 50
+  _ignoreOutOfView: 0

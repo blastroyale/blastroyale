@@ -10,6 +10,7 @@ TagManager:
   - GroundIndicator
   - GuideUiTarget
   - Bullet
+  - MapPreviewObject
   layers:
   - Default
   - TransparentFX
@@ -18,18 +19,18 @@ TagManager:
   - Water
   - UI
   - Players
-  - Dynamic Objects
+  - Bullets
+  - Obstacles
+  - CollideOnlyWithPlayers
   - Indicators
-  - Legacy - Playable Target
-  - Legacy - Default Silhouette
-  - Legacy - Environment No Silhouette
-  - Legacy - Collect Loot
-  - Legacy - Indicator
-  - Legacy - Player Only
-  - Legacy - Non Playable Static Target
-  - Legacy - Mini Map Object
-  - Legacy - Area
-  - Legacy - Bullet
+  - MinimapIgnore
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

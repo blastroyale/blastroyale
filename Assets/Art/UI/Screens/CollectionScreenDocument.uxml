@@ -2,6 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Screens/CollectionScreenStyle.uss?fileID=7433441132597879392&amp;guid=657a59ec24c054fd2be4fbcd2a1ab6bc&amp;type=3#CollectionScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/CollectionCardStyle.uss?fileID=7433441132597879392&amp;guid=e715dc23293f743bfa3ab9ee4aa8c200&amp;type=3#CollectionCardStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/CollectionCategoryStyle.uss?fileID=7433441132597879392&amp;guid=d775bd44c099e4586aaa9512c8cab4d6&amp;type=3#CollectionCategoryStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/PlayerAvatarStyle.uss?fileID=7433441132597879392&amp;guid=38b557c69f774f2983d0aded8a5e3b0d&amp;type=3#PlayerAvatarStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITCollectionScreen/collection" subtitle-back="true" name="Header" class="screen-header" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" name="SafeAreaElement" class="safe-area">
@@ -11,6 +12,9 @@
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
             <ui:VisualElement name="InfoHolder" focusable="true" class="anim-delay-0 anim-translate anim-translate--left-xxl info-holder">
+                <ui:VisualElement name="RenderTextureHolder" class="info-holder__rt-holder">
+                    <ui:VisualElement name="RenderTexture" class="info-holder__rt" />
+                </ui:VisualElement>
                 <ui:VisualElement name="ButtonHolder" class="button-holder">
                     <FirstLight.Game.UIElements.PriceButton localization-key="UITCollectionScreen/buy" name="BuyButton" class="info-holder__buy-button" />
                     <ui:VisualElement name="ItemNameHolder" style="width: 388px; height: 160px; right: 60px; bottom: 152px; position: absolute; align-items: center; flex-direction: row; justify-content: flex-start;">

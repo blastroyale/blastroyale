@@ -30,7 +30,7 @@ namespace FirstLight.Game.Commands
 			
 			ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(Section);
 			var rewardItems = ctx.Logic.RewardLogic().GetRewardsFromTutorial(Section);
-			ctx.Logic.RewardLogic().GiveItems(rewardItems);
+			ctx.Logic.RewardLogic().Reward(rewardItems);
 			ctx.Services.MessageBrokerService().Publish(new CompletedTutorialSectionMessage(){Section = Section});
 		}
 	}

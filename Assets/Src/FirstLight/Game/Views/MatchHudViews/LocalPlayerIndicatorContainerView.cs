@@ -205,11 +205,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 					_shootIndicatorId = IndicatorVfxId.Cone;
 				}
 
-				if (f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _))
-				{
-					_shootIndicatorId = _weaponConfig.NumberOfShots > 1 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
-				}
-
 				ShootIndicator.SetVisualState(ShootIndicator.VisualState);
 			}
 			else

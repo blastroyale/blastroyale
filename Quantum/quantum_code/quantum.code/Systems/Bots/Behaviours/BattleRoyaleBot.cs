@@ -34,7 +34,6 @@ namespace Quantum.Systems.Bots
 			BotLogger.LogAction(ref filter, "Taking decision");
 
 			// If bot is collecting something at the moment then let this bot finish collection before doing anything else
-			// and also clear StuckPosition so bot doesn't think that they stuck
 			if (filter.BotCharacter->MoveTarget != EntityRef.None &&
 				f.TryGet<Collectable>(filter.BotCharacter->MoveTarget, out var collectable) &&
 				collectable.IsCollecting(filter.PlayerCharacter->Player))
@@ -51,6 +50,15 @@ namespace Quantum.Systems.Bots
 			if (filter.BotCharacter->TryUseSpecials(filter.PlayerCharacter, filter.Entity, f))
 			{
 				filter.StopAiming(f);
+			}
+			
+			// In case a bot has a gun and no ammo, we should check if any chance to use an ability is valid
+			// othewise switch back to hammer
+			if (!filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) && 
+				f.TryGet<Stats>(filter.Entity, out var ammoStats) &&  
+				ammoStats.CurrentAmmoPercent == FP._0)
+			{
+				filter.TrySwitchToHammer(f);
 			}
 
 			// In case a bot has a gun and ammo but switched to a hammer - we switch back to a gun
@@ -77,15 +85,15 @@ namespace Quantum.Systems.Bots
 			}
 
 			// Let it finish the path
-			if (filter.BotCharacter->HasWaypoint() && filter.Controller->Velocity != FPVector3.Zero && filter.NavMeshAgent->IsActive)
+			if (filter.BotCharacter->HasWaypoint(filter.Entity, f) && filter.Controller->Velocity != FPVector3.Zero && filter.NavMeshAgent->IsActive)
 			{
-				BotLogger.LogAction(ref filter, "wait for path to finish waypoint");
+				BotLogger.LogAction(ref filter, "wait for path to finish waypoint. MoveTarget now is: " + filter.BotCharacter->MoveTarget);
 				return;
 			}
 
 			if (filter.TryGoForClosestCollectable(f, botCtx.circleCenter, botCtx.circleRadius, botCtx.circleIsShrinking))
 			{
-				BotLogger.LogAction(ref filter, "go to collectable");
+				BotLogger.LogAction(ref filter, "go to collectable. MoveTarget now is: " + filter.BotCharacter->MoveTarget);
 				return;
 			}
 
@@ -195,7 +203,8 @@ namespace Quantum.Systems.Bots
 			var vectorToTeammate = teammatePosition - botPosition;
 			var maxDistanceSquared = filter.BotCharacter->MaxDistanceToTeammateSquared;
 
-			if (vectorToTeammate.SqrMagnitude < maxDistanceSquared)
+			var distance = vectorToTeammate.SqrMagnitude;
+			if (distance < maxDistanceSquared)
 			{
 				return false;
 			}
@@ -206,6 +215,7 @@ namespace Quantum.Systems.Bots
 
 			if (isGoing)
 			{
+				BotLogger.LogAction(ref filter, $"going to teammate {filter.BotCharacter->RandomTeammate}distance {distance}");
 				filter.SetHasWaypoint(f);
 			}
 

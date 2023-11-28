@@ -26,7 +26,9 @@ namespace FirstLight.Game.UIElements
 		private const string UssSpriteIconBanner = "sprite-home__icon-banner";
 		private const string UssSpriteIconGlider = "sprite-home__icon-jetpack";
 		private const string UssSpriteIconCharacters = "sprite-home__icon-characters";
-
+		private const string UssSpriteIconHammer = "sprite-home__icon-melee-skin";
+		private const string UssSpriteIconProfilePicture = "sprite-home__icon-profilepicture";
+		
 		public CollectionCategory Category { get; set; }
 
 		private readonly VisualElement _icon;
@@ -59,12 +61,12 @@ namespace FirstLight.Game.UIElements
 				_notification.AddToClassList(UssNotification);
 				_notification.AddToClassList(UssNotificationIcon);
 			}
-			
+
 			SetNotification(false);
 
 			base.clicked += () => clicked?.Invoke(Category);
 		}
-		
+
 		public void SetupCategoryButton(CollectionCategory cat)
 		{
 			Category = cat;
@@ -74,7 +76,9 @@ namespace FirstLight.Game.UIElements
 				GameIdGroup.Glider      => UssSpriteIconGlider,
 				GameIdGroup.PlayerSkin  => UssSpriteIconCharacters,
 				GameIdGroup.DeathMarker => UssSpriteIconBanner,
-				_                       => ""
+				GameIdGroup.MeleeSkin   => UssSpriteIconHammer,
+				GameIdGroup.ProfilePicture   => UssSpriteIconProfilePicture,
+				_                       => "",
 			});
 
 			_name.text = cat.Id switch
@@ -82,7 +86,10 @@ namespace FirstLight.Game.UIElements
 				GameIdGroup.Glider      => ScriptLocalization.UITCollectionScreen.gliders,
 				GameIdGroup.PlayerSkin  => ScriptLocalization.UITCollectionScreen.characters,
 				GameIdGroup.DeathMarker => ScriptLocalization.UITCollectionScreen.banners,
-				_                       => cat.ToString()
+				GameIdGroup.MeleeSkin => ScriptLocalization.UITCollectionScreen.meleeskins,
+				GameIdGroup.ProfilePicture => ScriptLocalization.UITCollectionScreen.avatars,
+
+				_                       => cat.Id.ToString()
 			};
 		}
 
@@ -101,11 +108,9 @@ namespace FirstLight.Game.UIElements
 		{
 			EnableInClassList(UssBlockSelected, selected);
 		}
-		
+
 		public new class UxmlFactory : UxmlFactory<CollectionCategoryElement, UxmlTraits>
 		{
 		}
 	}
-	
-	
 }

@@ -25,9 +25,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
 
 		private static readonly int _playerPos = Shader.PropertyToID("_PlayerPos");
-		private const float SPEED_THRESHOLD_SQUARED = 0.5f * 0.5f; // unity units per second	
+		private const float SPEED_THRESHOLD_SQUARED = 0.45f * 0.45f; // unity units per second	
 		private bool _moveSpeedControl = false;
-		public Transform RootTransform;
 
 		/// <summary>
 		/// Deprecated, should be removed.
@@ -39,6 +38,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private Collider[] _colliders;
 
 		private Coroutine _attackHideRendererCoroutine;
+		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private bool _playerFullyGrounded;
 
@@ -63,6 +63,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.OnAwake();
 
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			_services = MainInstaller.ResolveServices();
+			if (_characterView == null)
+			{
+				_characterView = GetComponent<MatchCharacterViewMonoComponent>();
+			}
 			BuildingVisibility = new();
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
@@ -84,7 +89,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, HandleOnRadarUsed);
 		}
-		
+
 		private void OnDestroy()
 		{
 			if (_attackHideRendererCoroutine != null)
@@ -178,6 +183,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		public bool IsBeingSpectated => EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity;
 
+		public PlayerCharacter CharacterComponent => QuantumRunner.Default.Game.Frames.Predicted.Get<PlayerCharacter>(EntityRef);
+
+		public bool IsEntityDestroyed() => !QuantumRunner.Default.PredictedFrame().Exists(EntityView.EntityRef);
+		
+		public bool IsSkydiving
+		{
+			get
+			{
+				var f = QuantumRunner.Default.PredictedFrame();
+				return f.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(f, Constants.IsSkydiving);
+			}
+		}
+
 		protected override void OnInit(QuantumGame game)
 		{
 			base.OnInit(game);
@@ -193,10 +211,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			if (!Services.NetworkService.JoinSource.HasResync())
 			{
-				var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef)
-					.GetBoolean(frame, Constants.IsSkydiving);
-
-				if (isSkydiving)
+				if (IsSkydiving)
 				{
 					_playerFullyGrounded = false;
 					AnimatorWrapper.SetBool(Bools.Flying, frame.Context.GameModeConfig.SkydiveSpawn);
@@ -231,7 +246,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		public bool IsInInvisibilityArea()
 		{
-			return MatchServices.EntityVisibilityService.IsInInvisibilityArea(EntityRef) || BuildingVisibility.CollidingVisibilityVolumes.Count > 0;
+			return MatchServices.EntityVisibilityService.IsInInvisibilityArea(EntityRef);
 		}
 
 		private void TryStartAttackWithinVisVolume()
@@ -245,7 +260,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
 			}
-
 			_attackHideRendererCoroutine = Services.CoroutineService.StartCoroutine(AttackWithinVisVolumeCoroutine());
 		}
 
@@ -253,11 +267,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			SetRenderContainerVisible(true);
 
-			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
+			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_BUSH_ATTACK_REVEAL_SECONDS);
 
 			if (IsInInvisibilityArea())
 			{
-				SetRenderContainerVisible(MatchServices.EntityVisibilityService.CanSpectatedPlayerSee(EntityRef) && BuildingVisibility.CanSee());
+				SetRenderContainerVisible(MatchServices.EntityVisibilityService.CanSpectatedPlayerSee(EntityRef));
+			}
+			
+			//Old system needs to burn in fire
+			else if (BuildingVisibility.IsInLegacyVisibilityVolume())
+			{
+				SetRenderContainerVisible(BuildingVisibility.IsInSameLegacyVolumeAsSpectator());
 			}
 		}
 

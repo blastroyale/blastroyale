@@ -18,54 +18,53 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Animation _animation;
 		[SerializeField, Required] private TextMeshProUGUI _versionText;
 		
+		private readonly int _newBarMod = 25; 
+		private int _customBarsY = 0;
+		
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
 			_animation.Rewind();
 			_animation.Play();
 			_versionText.text = $"v{VersionUtils.VersionExternal}";
-			
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-			var y = 3;
 			var services = MainInstaller.Resolve<IGameServices>();
-			AddTextBar(y, services.GameBackendService.CurrentEnvironmentData.EnvironmentID.ToString());
+			AddTextBar(services.GameBackendService.CurrentEnvironmentData.EnvironmentID.ToString());
 			var config = FeatureFlags.GetLocalConfiguration();
 			if (config.UseLocalServer)
 			{
-				y += 3;
-				AddTextBar(y, "Local Server");
+				AddTextBar("Local Server");
 			}
 
 			if (config.Tutorial!=FlagOverwrite.None)
 			{
-				y += 3;
-				AddTextBar(y, "Tuto: "+config.Tutorial.Bool());
+				AddTextBar("Tuto: "+config.Tutorial.Bool());
 			}
 
 			if (config.ForceHasNfts)
 			{
-				y += 3;
-				AddTextBar(y,"Have NFTs");
+				AddTextBar("Have NFTs");
 			}
 			if (config.IgnoreEquipmentRequirementForRanked)
 			{
-				y += 3;
-				AddTextBar(y,"Ranked w/o Equip");
+				AddTextBar("Ranked w/o Equip");
 			}
 #endif
 		}
 
-		private void AddTextBar(int heightMod, string text)
+		private void AddTextBar(string text, float size = 1)
 		{
 			var original = _versionText.transform.parent.gameObject;
 			var parent = original.transform.parent;
 			
 			var newBar = Instantiate(original, parent);
 			var position = newBar.transform.position;
-			position = new Vector3(position.x, position.y+ heightMod,
+			_customBarsY += _newBarMod; 
+			position = new Vector3(position.x, position.y + (_customBarsY + (_newBarMod * (size - 1f))),
 				position.z);
 			newBar.transform.position = position;
 			newBar.GetComponentInChildren<TextMeshProUGUI>().text = text;
+			newBar.transform.localScale = new Vector3(size, size, size);
 		}
 		
 		/// <inheritdoc />

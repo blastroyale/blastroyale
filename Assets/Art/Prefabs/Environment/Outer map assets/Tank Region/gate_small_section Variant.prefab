@@ -53,6 +53,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: ba64e7de29c03d14f931e8a7c7c27d3a, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ba64e7de29c03d14f931e8a7c7c27d3a, type: 3}
       propertyPath: m_StaticShadowCaster
       value: 1
       objectReference: {fileID: 0}
@@ -71,5 +75,80 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ba64e7de29c03d14f931e8a7c7c27d3a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 479773635954546054}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ba64e7de29c03d14f931e8a7c7c27d3a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7810184256571960923}
   m_SourcePrefab: {fileID: 100100000, guid: ba64e7de29c03d14f931e8a7c7c27d3a, type: 3}
+--- !u!1 &1339891836131121453 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ba64e7de29c03d14f931e8a7c7c27d3a, type: 3}
+  m_PrefabInstance: {fileID: 2186824548878886012}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &479773635954546054
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339891836131121453}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.4921188, y: 3.1746058, z: 0.2748003}
+  m_Center: {x: 0, y: 1.5872722, z: 0}
+--- !u!114 &7810184256571960923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339891836131121453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 479773635954546054}
+  Size:
+    X:
+      RawValue: 97787
+    Y:
+      RawValue: 208050
+    Z:
+      RawValue: 18009
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 104023
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

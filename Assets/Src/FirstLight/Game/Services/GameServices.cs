@@ -5,6 +5,8 @@ using FirstLight.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.Party;
+using FirstLight.Game.Services.RoomService;
+using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
@@ -78,6 +80,9 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IGameBackendService"/>
 		IGameBackendService GameBackendService { get; }
 
+		/// <inheritdoc cref="IPlayerProfileService"/>
+		IPlayerProfileService ProfileService { get; }
+
 		/// <inheritdoc cref="IAuthenticationService"/>
 		IAuthenticationService AuthenticationService { get; }
 
@@ -114,8 +119,13 @@ namespace FirstLight.Game.Services
 		public IGameUiService GameUiService { get; }
 
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
-		
+		public ICollectionService CollectionService { get; }
+
 		public IControlSetupService ControlsSetup { get; }
+		public ILeaderboardService LeaderboardService { get; }
+		public IRewardService RewardService { get; }
+
+		public IRoomService RoomService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -149,6 +159,8 @@ namespace FirstLight.Game.Services
 		public IAudioFxService<AudioId> AudioFxService { get; }
 		public INotificationService NotificationService { get; }
 		public IGameBackendService GameBackendService { get; }
+
+		public IPlayerProfileService ProfileService { get; }
 		public IAuthenticationService AuthenticationService { get; }
 		public ITutorialService TutorialService { get; }
 		public ILiveopsService LiveopsService { get; }
@@ -163,10 +175,16 @@ namespace FirstLight.Game.Services
 		public IGameUiService GameUiService { get; }
 
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
-		
+		public ICollectionService CollectionService { get; }
+
 		public IControlSetupService ControlsSetup { get; }
-		
+
+		public IRoomService RoomService { get; }
+
+		public ILeaderboardService LeaderboardService { get; }
+
 		public ICheatsService CheatsService { get; }
+		public IRewardService RewardService { get; }
 
 		public string QuitReason { get; set; }
 
@@ -194,18 +212,25 @@ namespace FirstLight.Game.Services
 			HelpdeskService = new HelpdeskService();
 			GuidService = new GuidService();
 			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
-			GameBackendService = new GameBackendService(messageBrokerService, gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
-			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic, configsProvider);
-			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService, GenericDialogService, MessageBrokerService);
+			GameBackendService =
+				new GameBackendService(messageBrokerService, gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
+			ProfileService = new PlayerProfileService(GameBackendService);
+			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic,
+				configsProvider);
+			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService,
+				GenericDialogService, MessageBrokerService);
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic.EquipmentLogic, PartyService, gameLogic.AppDataProvider);
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
+			RewardService = new RewardService(this, gameLogic);
 			TickService = new TickService();
+			LeaderboardService = new LeaderboardsService(this);
 			CoroutineService = new CoroutineService();
 			ControlsSetup = new ControlSetupService();
 			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
-			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService, GameBackendService);
+			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService,
+				GameBackendService, ConfigsProvider);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 			GameUiService = uiService;
@@ -224,7 +249,10 @@ namespace FirstLight.Game.Services
 							.NOTIFICATION_IDLE_BOXES_CHANNEL));
 
 			var environmentService = new EnvironmentService(MessageBrokerService);
-			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic, tutorialService);
+			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic,
+				tutorialService);
+			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);
+			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
 		}
 
 		/// <inheritdoc />

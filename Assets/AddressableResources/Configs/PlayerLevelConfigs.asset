@@ -13,81 +13,59 @@ MonoBehaviour:
   m_Name: PlayerLevelConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - Level: 1
-    LevelUpXP: 0
-    Rewards:
-      _keyData: 
-      _valueData: 
-    Systems: 000000000100000006000000
-  - Level: 2
+  - LevelStart: 1
+    LevelEnd: 1
     LevelUpXP: 100
     Rewards:
-      _keyData: 3d0000000c000000
-      _valueData: 6400000019000000
+      _keyData: 3d000000
+      _valueData: 32000000
+    Systems: 01000000
+  - LevelStart: 2
+    LevelEnd: 2
+    LevelUpXP: 300
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 64000000
     Systems: 
-  - Level: 3
-    LevelUpXP: 150
+  - LevelStart: 3
+    LevelEnd: 3
+    LevelUpXP: 400
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 64000000
+    Systems: 00000000
+  - LevelStart: 4
+    LevelEnd: 4
+    LevelUpXP: 700
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 64000000
+    Systems: 
+  - LevelStart: 5
+    LevelEnd: 5
+    LevelUpXP: 1200
     Rewards:
       _keyData: 3d000000
       _valueData: 96000000
-    Systems: 09000000
-  - Level: 4
-    LevelUpXP: 200
-    Rewards:
-      _keyData: 3d0000000c000000
-      _valueData: c800000032000000
-    Systems: 02000000
-  - Level: 5
-    LevelUpXP: 400
+    Systems: 
+  - LevelStart: 6
+    LevelEnd: 6
+    LevelUpXP: 2400
     Rewards:
       _keyData: 3d000000
-      _valueData: 64000000
-    Systems: 0a000000
-  - Level: 6
-    LevelUpXP: 400
-    Rewards:
-      _keyData: 0c000000
-      _valueData: 64000000
-    Systems: 0300000004000000
-  - Level: 7
-    LevelUpXP: 400
-    Rewards:
-      _keyData: 0c000000
-      _valueData: 64000000
-    Systems: 0d000000
-  - Level: 8
-    LevelUpXP: 400
+      _valueData: c8000000
+    Systems: 
+  - LevelStart: 7
+    LevelEnd: 7
+    LevelUpXP: 4500
     Rewards:
       _keyData: 3d000000
-      _valueData: f4010000
-    Systems: 08000000
-  - Level: 9
-    LevelUpXP: 400
+      _valueData: 2c010000
+    Systems: 
+  - LevelStart: 8
+    LevelEnd: 999
+    LevelUpXP: 9000
     Rewards:
       _keyData: 3d000000
-      _valueData: 64000000
-    Systems: 05000000
-  - Level: 10
-    LevelUpXP: 400
-    Rewards:
-      _keyData: 3d000000
-      _valueData: e8030000
-    Systems: 0b000000
-  - Level: 11
-    LevelUpXP: 600
-    Rewards:
-      _keyData: 3d000000
-      _valueData: e8030000
-    Systems: 0b000000
-  - Level: 12
-    LevelUpXP: 800
-    Rewards:
-      _keyData: 3d000000
-      _valueData: d0070000
-    Systems: 07000000
-  - Level: 13
-    LevelUpXP: 1500
-    Rewards:
-      _keyData: 3d0000000c000000
-      _valueData: d0070000c8000000
+      _valueData: 90010000
     Systems: 

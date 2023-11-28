@@ -147,7 +147,7 @@ namespace Quantum.Systems.Bots
 		public static bool TryCombatMovement(this ref BotCharacter bot, in EntityRef e, Frame f, in FPVector3 botPosition, in EntityRef target, in FPVector3 targetPosition, in FP rangeSquared, in FP distanceSquared)
 		{
 			if (bot.IsLowLife(e, f) || bot.BehaviourType == BotBehaviourType.Static) return false;
-			if (!bot.Target.IsValid && bot.HasWaypoint()) return false; // if im not combating and moving ill ignore
+			if (!bot.Target.IsValid && bot.HasWaypoint(e, f)) return false; // if im not combating and moving ill ignore
 			if (!bot.GetCanTakeDecision(f)) return false;
 			
 			// If bot is too close he will walk randomly around the bot itself 
@@ -220,10 +220,21 @@ namespace Quantum.Systems.Bots
 			direction = (targetPosition - botPosition).XZ;
 			return true;
 		}
+
+		public static bool TrySwitchToHammer(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
+		{
+			botFilter.PlayerCharacter->EquipSlotWeapon(f, botFilter.Entity, Constants.WEAPON_INDEX_DEFAULT);
+			return true;
+		}
 		
 		// We check specials and try to use them depending on their type if possible
 		public static bool TryUseSpecials(this ref BotCharacter bot, PlayerCharacter* player, EntityRef botEntity, Frame f)
 		{
+			if (f.Context.TryGetMutatorByType(MutatorType.NoAbilities, out _))
+			{
+				return false;
+			}
+			
 			if (f.Time < bot.NextAllowedSpecialUseTime)
 			{
 				return false;

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Map_Battlelands
+  m_EditorClassIdentifier: 
+  m_GroupName: Map_Battlelands
+  m_Data:
+    m_SerializedData: []
+  m_GUID: dd7d422d2850e044f9031640b62d713e
+  m_SerializeEntries:
+  - m_GUID: 69b6ada9e097c4b45835a813b0a66f87
+    m_Address: Maps/Battlelands
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d6d177666fdcae64ca5a498f05ad0292, type: 2}
+    - {fileID: 11400000, guid: 4ba6734b3b486824f914563f493db4ad, type: 2}

@@ -189,7 +189,7 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 65536
         Z:
           RawValue: 0
       BoxExtents:
@@ -210,7 +210,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 0
-    Layer: 11
+    Layer: 9
     CallbackFlags:
       Value: 448
   PhysicsBody:
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 4189436069317226143}
   - component: {fileID: 3294266258226344514}
   - component: {fileID: 8021256014724763504}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,13 +427,13 @@ GameObject:
   - component: {fileID: 4281254824798933915}
   - component: {fileID: 92922402604554721}
   - component: {fileID: 2701821241445637797}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4281254824798933915
 Transform:
   m_ObjectHideFlags: 0

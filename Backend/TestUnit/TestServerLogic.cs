@@ -4,6 +4,7 @@ using Backend.Game.Services;
 using FirstLight;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,7 @@ public class TestServerLogic
 		_server = new TestServer();
 		// Running player states in-memory
 		_server.SetupInMemoryServer();
+		_server.GiveDefaultSkins();
 		_stateService = _server.GetService<IServerStateService>();
 		_cmdHandler = _server.GetService<IServerCommahdHandler>();
 	}
@@ -46,7 +48,7 @@ public class TestServerLogic
 		var oldState = _stateService.GetPlayerState(playerId).Result;
 		var oldPlayerData = oldState.DeserializeModel<CollectionData>();
 		var newSkin = GameId.FemaleAssassin;
-		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(newSkin) };
+		var cmd = new EquipCollectionItemCommand() { Item = ItemFactory.Collection(newSkin) };
 		var newState = _cmdHandler.ExecuteCommand(playerId, cmd, oldState).Result;
 		var newPlayerData = newState.DeserializeModel<CollectionData>();
 		

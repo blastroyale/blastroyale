@@ -18,11 +18,29 @@ namespace Quantum.Systems
 
 		public override void Update(Frame f, ref TransformFilter filter)
 		{
-			if (filter.Transform->Position.Y < Constants.OUT_OF_WORLD_Y_THRESHOLD)
+			if (f.Number % 30 != 0)
 			{
-				var spell = new Spell {Attacker = filter.Entity, PowerAmount = int.MaxValue};
-				filter.Stats->ReduceHealth(f, filter.Entity, &spell);
+				return;
 			}
+
+			if (filter.Transform->Position.Y >= Constants.OUT_OF_WORLD_Y_THRESHOLD) return;
+			
+			var newSpell = f.Create();
+			var damage = filter.Stats->GetStatData(StatType.Health).StatValue * FP._0_10 * FP._3;
+
+			f.ResolveList(filter.Stats->SpellEffects).Add(newSpell);
+			var spell = new Spell
+			{
+				Id = Spell.DefaultId,
+				Attacker = newSpell,
+				SpellSource = newSpell,
+				OriginalHitPosition = filter.Transform->Position,
+				PowerAmount = (uint)damage,
+				TeamSource = Constants.TEAM_ID_NEUTRAL,
+				Victim = filter.Entity,
+				IgnoreShield = true,
+			};
+			f.Add(newSpell, spell);
 		}
 	}
 }

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
@@ -134,7 +136,10 @@ namespace FirstLight.Game.Services
 
 				if (playerData.DeathCount > 0)
 				{
-					SpawnDeathMarker(playerData.PlayerDeathMarker, playerData.LastDeathPosition.ToUnityVector3());
+
+					var cosmetics = PlayerLoadout.GetCosmetics(f, playerData.Player);
+					var deathMarker = _gameServices.CollectionService.GetCosmeticForGroup(cosmetics,GameIdGroup.DeathMarker);
+					SpawnDeathMarker(deathMarker, playerData.LastDeathPosition.ToUnityVector3());
 				}
 			}
 		}
@@ -211,9 +216,9 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		private async void SpawnDeathMarker(GameId marker, Vector3 position)
+		private async void SpawnDeathMarker(ItemData marker, Vector3 position)
 		{
-			var obj = await _gameServices.AssetResolverService.RequestAsset<GameId, GameObject>(marker);
+			var obj = await _gameServices.CollectionService.LoadCollectionItem3DModel(marker);
 
 			obj.transform.position = position;
 		}

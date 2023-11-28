@@ -1,0 +1,201 @@
+.background {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.player-statistics-popup {
+    background-image: var(--sprite-home__background-popup-equipment);
+    width: 1350px;
+    height: 820px;
+    top: 30px;
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    font-size: 38px;
+}
+
+.player-statistics-popup--full-page .player-statistics-popup__content {
+    left: 0;
+}
+
+.player-statistics-popup__title {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/header-popup-equipment.png?fileID=21300000&guid=2d6c823359e264eac88204c4e1664c4c&type=3#header-popup-equipment');
+    -unity-text-align: middle-center;
+    height: 86px;
+    margin: 0;
+    padding: 0 120px 0 20px;
+    -unity-text-outline-width: 0.8px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.player-statistics-popup__close {
+    position: absolute;
+    right: 0;
+    top: -5px;
+    background-image: var(--sprite-home__button-popup-equipment-close);
+    height: 90px;
+    width: 104px;
+}
+
+.player-statistics-popup__close:active {
+    background-image: var(--sprite-home__button-popup-equipment-close-pressed);
+}
+
+.player-statistics-popup__content {
+    position: absolute;
+    left: 500px;
+    top: 86px;
+    right: 0;
+    bottom: 0;
+    flex-grow: 1;
+}
+
+.safe-area {
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    background-image: var(--sprite-home__icon-spinner-thick);
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.header-row {
+    background-color: rgba(0, 0, 0, 0);
+    width: 70%;
+    height: 243px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+    align-self: center;
+}
+
+.stats-container {
+    align-items: center;
+    justify-content: center;
+}
+
+.stats-container__stat-value {
+    justify-content: center;
+    align-items: center;
+}
+
+.header-row__pfp-image {
+    flex-grow: 1;
+    background-color: rgb(214, 74, 123);
+    width: 128px;
+    height: 128px;
+    max-width: 128px;
+    max-height: 128px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/avatar-default.png?fileID=2800000&guid=a586a1ae1408749e9b1267b30f1bc628&type=3#avatar-default');
+    align-self: flex-end;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    display: none;
+    visibility: visible;
+}
+
+.header-row__spinner-holder {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    width: 128px;
+    height: 128px;
+    max-width: 128px;
+    max-height: 128px;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-statistics-popup__content {
+    left: 0;
+    justify-content: flex-start;
+    align-items: center;
+    align-self: center;
+    flex-direction: column;
+    margin-top: 0;
+    visibility: visible;
+}
+
+.stat-row {
+    background-color: rgb(22, 20, 38);
+    width: 70%;
+    height: 200px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.header-row__edit-name-button {
+    margin-left: 23px;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(22, 20, 38);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.stats-container__stat-name {
+    font-size: 30px;
+    -unity-text-outline-width: 0.8px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.player-header__leaderboards-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/icon_edit.png?fileID=21300000&guid=5a4652befed4d024db77cdcb367eb46f&type=3#icon_edit');
+    width: 50px;
+    height: 50px;
+}
+
+.player-header__edit-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/icon_edit.png?fileID=21300000&guid=5a4652befed4d024db77cdcb367eb46f&type=3#icon_edit');
+    width: 50px;
+    height: 50px;
+}
+
+.player-header__playername-label {
+    justify-content: center;
+    align-items: auto;
+    align-self: center;
+    -unity-text-align: upper-right;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    -unity-text-outline-width: 0.8px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.stats-container_stat-value {
+    -unity-text-outline-width: 0.8px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.player-avatar {
+    scale: 0.7 0.7;
+}

@@ -1,3 +1,4 @@
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -14,9 +15,11 @@ namespace FirstLight.Game.UIElements
 		private const string USS_ICON = USS_BLOCK + "__icon";
 		private const string USS_LABEL = USS_BLOCK + "__label";
 
-		private readonly Label _label;
-		private readonly VisualElement _icon;
+		private const string USS_SPRITE_ICON_COIN = "sprite-shared__icon-currency-coin";
 
+		protected readonly Label _label;
+		protected readonly VisualElement _icon;
+		
 		public RewardSummaryItemElement()
 		{
 			AddToClassList(USS_BLOCK);
@@ -25,24 +28,17 @@ namespace FirstLight.Game.UIElements
 				name = "RewardIcon",
 			});
 			_icon.AddToClassList(USS_ICON);
+			_icon.AddToClassList(USS_SPRITE_ICON_COIN);
 			Add(_label = new Label("X 10000"));
 			_label.AddToClassList(USS_LABEL);
-		}
-
-		public RewardSummaryItemElement(IReward reward) : this()
-		{
-			SetReward(reward);
 		}
 
 		/// <summary>
 		/// Update the current displayed reward
 		/// </summary>
-		public void SetReward(IReward reward)
+		public virtual RewardSummaryItemElement SetReward(IItemViewModel itemViewModel)
 		{
-#pragma warning disable CS4014
-			UIUtils.SetSprite(reward.GameId, _icon);
-#pragma warning restore CS4014
-			_label.text = "X " + reward.Amount;
+			return this;
 		}
 
 		public new class UxmlFactory : UxmlFactory<RewardSummaryItemElement, UxmlTraits>

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -31,7 +32,6 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _icon;
 		private readonly VisualElement _iconOutline;
 		private readonly Label _label;
-
 		/* Services, providers etc... */
 		private IGameDataProvider _gameDataProvider;
 		private IMainMenuServices _mainMenuServices;
@@ -40,6 +40,7 @@ namespace FirstLight.Game.UIElements
 		/* Other private variables */
 		private Tween _animationTween;
 		private VisualElement _originElement;
+		private bool _playingAnimation;
 
 		/* The internal structure of the element is created in the constructor. */
 		public CurrencyDisplayElement()
@@ -78,7 +79,13 @@ namespace FirstLight.Game.UIElements
 
 		public void SubscribeToEvents()
 		{
-			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(currency, OnCurrencyChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.Observe(currency, OnCurrencyChanged);
+
+			var amount = _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(currency);
+			
+			// We always Display coins and show other currencies only if the amount is positive
+			this.SetDisplay(currency == GameId.COIN || amount > 0);
+			_label.text = amount.ToString();
 		}
 
 		public void UnsubscribeFromEvents()
@@ -97,22 +104,16 @@ namespace FirstLight.Game.UIElements
 
 		private void OnCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType type)
 		{
-			if (_gameDataProvider.RewardDataProvider.IsCollecting ||
-				DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
-			{
-				AnimateCurrency(previous, current);
-			}
-			else
-			{
-				_label.text = current.ToString();
-			}
+			if (!_playingAnimation && current > previous) AnimateCurrency(previous, current);
+			else _label.text = current.ToString();
 		}
 
 		private void AnimateCurrency(ulong previous, ulong current)
 		{
+			_playingAnimation = true;
 			_animationTween?.Kill();
 
-			_animationTween = DOVirtual.DelayedCall(2f, () =>
+			_animationTween = DOVirtual.DelayedCall(0.1f, () =>
 			{
 				for (int i = 0; i < Mathf.Min(10, current - previous); i++)
 				{
@@ -130,6 +131,7 @@ namespace FirstLight.Game.UIElements
 							_gameServices.AudioFxService.PlayClip2D(AudioId.CounterTick1);
 						});
 				}
+				_playingAnimation = false;
 			});
 		}
 
@@ -159,7 +161,7 @@ namespace FirstLight.Game.UIElements
 				name = "currency",
 				defaultValue = GameId.CS,
 				restriction = new UxmlEnumeration
-					{values = new[] {GameId.CS.ToString(), GameId.BLST.ToString(), GameId.COIN.ToString()}},
+					{values = new[] {GameId.CS.ToString(), GameId.BLST.ToString(), GameId.COIN.ToString(), GameId.Fragments.ToString()}},
 				use = UxmlAttributeDescription.Use.Required
 			};
 

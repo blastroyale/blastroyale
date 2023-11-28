@@ -8,11 +8,10 @@ namespace Quantum
 	{
 		public string PlayerId;
 		public string PlayerName;
-		public GameId Skin;
-		public GameId DeathMarker;
-		public GameId Glider;
+		public GameId[] Cosmetics;
 		public uint PlayerLevel;
 		public uint PlayerTrophies;
+		public uint LeaderboardRank;
 		public FPVector2 NormalizedSpawnPosition;
 		public string PartyId = string.Empty;
 		public Equipment Weapon;
@@ -24,15 +23,9 @@ namespace Quantum
 		partial void SerializeUserData(BitStream stream)
 		{
 			var serializer = new FrameSerializer(DeterministicFrameSerializeMode.Serialize, null, stream);
-			var skin = (int) Skin;
-			var deathMarker = (int) DeathMarker;
-			var glider = (int) Glider;
 
 			stream.Serialize(ref PlayerId);
 			stream.Serialize(ref PlayerName);
-			stream.Serialize(ref skin);
-			stream.Serialize(ref deathMarker);
-			stream.Serialize(ref glider);
 			stream.Serialize(ref PlayerLevel);
 			stream.Serialize(ref PlayerTrophies);
 			stream.Serialize(ref NormalizedSpawnPosition);
@@ -40,6 +33,7 @@ namespace Quantum
 			stream.Serialize(ref AvatarUrl);
 			stream.Serialize(ref UseBotBehaviour);
 			stream.SerializeArrayLength(ref Loadout);
+			stream.Serialize(ref LeaderboardRank);
 
 			for (var i = 0; i < Loadout.Length; i++)
 			{
@@ -63,9 +57,14 @@ namespace Quantum
 				LoadoutMetadata[i] = metadata;
 			}
 
-			Skin = (GameId) skin;
-			DeathMarker = (GameId) deathMarker;
-			Glider = (GameId) glider;
+			
+			stream.SerializeArrayLength(ref Cosmetics);
+			for (var i = 0; i < Cosmetics.Length; i++)
+			{
+				var skinId = (int)Cosmetics[i];
+				stream.Serialize(ref skinId);
+				Cosmetics[i] = (GameId)skinId;
+			}
 		}
 	}
 }

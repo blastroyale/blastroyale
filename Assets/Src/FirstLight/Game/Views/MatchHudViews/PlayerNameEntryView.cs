@@ -43,7 +43,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Set the information of this player entry based on the given strings and host status
 		/// </summary>
-		public void SetInfo(Player player, bool isLocal, bool isHost, bool isLoaded, string partyId, Action<Player> kickPlayerClickedCallback)
+		public void SetInfo(Player player, bool isLocal, bool isHost, bool isLoaded, string partyId, Action<Player> kickPlayerClickedCallback, Color color)
 		{
 			Player = player;
 			
@@ -62,8 +62,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 			IsLocal = isLocal;
 			PlayerName = player.NickName;
 
-			var col = IsHost ? _hostColor : _regularColor;
-			col = isLocal ? _localColor : col;
+			Color col = default;
+			if (color != default)
+			{
+				col = color;
+			}
+			else
+			{
+				col = IsHost ? _hostColor : _regularColor;
+				col = isLocal ? _localColor : col;
+			}
 
 			_hostIconObject.SetActive(isHost);
 

@@ -33,11 +33,6 @@ namespace FirstLight.Game.Services
 		/// Requests to check if a tutorial step has been completed
 		/// </summary>
 		bool HasCompletedTutorialSection(TutorialSection section);
-
-		/// <summary>
-		/// Listen for the first player movement and send PlayerUsedMovementJoystick message
-		/// </summary>
-		void ListenForSentMovement();
 	}
 
 	/// <inheritdoc cref="ITutorialService"/>
@@ -115,10 +110,11 @@ namespace FirstLight.Game.Services
 				MapId = GameId.FtueDeck.GetHashCode(),
 				RoomIdentifier = Guid.NewGuid().ToString(),
 				Mutators = Array.Empty<string>(),
-				JoinType = JoinType.ForcedGame,
+				MatchType = MatchType.Forced,
+				AllowedRewards = new ()
 			};
 
-			_services.NetworkService.CreateRoom(roomSetup, true);
+			_services.RoomService.CreateRoom(roomSetup, true);
 		}
 
 		public void CreateJoinSecondTutorialRoom()
@@ -130,13 +126,13 @@ namespace FirstLight.Game.Services
 			{
 				GameModeId = gameModeId,
 				MapId = gameModeConfig.AllowedMaps[0].GetHashCode(),
-				RoomIdentifier = _dataProvider.PlayerDataProvider.PlayerInfo.Nickname + Guid.NewGuid(),
+				RoomIdentifier = Guid.NewGuid().ToString(),
 				Mutators = Array.Empty<string>(),
-				JoinType = JoinType.ForcedGame,
-				MatchType = MatchType.Ranked,
+				MatchType = MatchType.Forced,
+				AllowedRewards = GameConstants.Data.AllowedGameRewards
 			};
 
-			_services.NetworkService.JoinOrCreateRandomRoom(setup);
+			_services.RoomService.JoinOrCreateRandomRoom(setup);
 		}
 
 		public GameObject[] FindTutorialObjects(string referenceTag)
@@ -154,25 +150,6 @@ namespace FirstLight.Game.Services
 		public bool HasCompletedTutorialSection(TutorialSection section)
 		{
 			return _dataProvider.PlayerDataProvider.HasTutorialSection(section);
-		}
-
-
-		public void ListenForSentMovement()
-		{
-			if (!MainInstaller.TryResolve<IMatchServices>(out var matchServices))
-			{
-				throw new Exception("MatchServices not found!");
-			}
-
-			void OnQuantumInputSent(Quantum.Input input)
-			{
-				if (CurrentRunningTutorial.Value != TutorialSection.FIRST_GUIDE_MATCH || input.Direction.Magnitude <= FP._0_05) return;
-				_services.MessageBrokerService.Publish(new PlayerUsedMovementJoystick());
-				matchServices.PlayerInputService.OnQuantumInputSent -= OnQuantumInputSent;
-
-			}
-
-			matchServices.PlayerInputService.OnQuantumInputSent += OnQuantumInputSent;
 		}
 	}
 }

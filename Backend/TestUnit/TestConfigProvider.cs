@@ -50,7 +50,6 @@ public class TestConfigsProvider
 				{
 					{0, new PlayerLevelConfig()
 					{
-						Level = 1,
 						LevelUpXP = 10
 					}}
 				}
@@ -64,7 +63,6 @@ public class TestConfigsProvider
 				{
 					{0, new PlayerLevelConfig()
 					{
-						Level = 1,
 						LevelUpXP = 50
 					}}
 				}

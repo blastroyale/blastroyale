@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ec393103561cb45956f1d7c72fd344, type: 3}
+  m_Name: FuseConfigs
+  m_EditorClassIdentifier: 
+  _configs:
+  - Rarity: 0
+    FragmentCost: 4
+    CoinCost: 0
+  - Rarity: 1
+    FragmentCost: 8
+    CoinCost: 0
+  - Rarity: 2
+    FragmentCost: 18
+    CoinCost: 0
+  - Rarity: 3
+    FragmentCost: 35
+    CoinCost: 1000
+  - Rarity: 4
+    FragmentCost: 70
+    CoinCost: 3500
+  - Rarity: 5
+    FragmentCost: 140
+    CoinCost: 7000
+  - Rarity: 6
+    FragmentCost: 270
+    CoinCost: 16000
+  - Rarity: 7
+    FragmentCost: 550
+    CoinCost: 36000
+  - Rarity: 8
+    FragmentCost: 1100
+    CoinCost: 75000
+  - Rarity: 9
+    FragmentCost: 0
+    CoinCost: 0

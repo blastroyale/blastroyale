@@ -7,6 +7,24 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.bakery": {
+      "version": "file:Bakery",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.dotween": {
+      "version": "file:Demigiant",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.easyhttp": {
+      "version": "file:Best HTTP",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.google.external-dependency-manager": {
       "version": "file:../Google/com.google.external-dependency-manager-1.2.176.tgz",
       "depth": 0,
@@ -37,6 +55,18 @@
         "com.google.firebase.app": "11.2.0"
       }
     },
+    "com.gspawn": {
+      "version": "file:GSpawn - Level Designer",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.helpshift": {
+      "version": "file:Helpshift",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.heurekagames.assethunterpro": {
       "version": "file:com.heurekagames.assethunterpro",
       "depth": 0,
@@ -55,6 +85,42 @@
       "source": "registry",
       "dependencies": {},
       "url": "https://npm.pkg.jetbrains.space/public/p/jetbrains-gamedev/jetbrains-gamedev"
+    },
+    "com.l2": {
+      "version": "file:I2",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.osa": {
+      "version": "file:OSA",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.playfab": {
+      "version": "file:PlayFabSDK",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.singular": {
+      "version": "file:Singular",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.srdebugger": {
+      "version": "file:StompyRobot",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.textmeshproflg": {
+      "version": "file:TextMesh Pro",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.unity.2d.animation": {
       "version": "9.0.3",
@@ -163,6 +229,13 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.editorcoroutines": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.ext.nunit": {
       "version": "2.0.2",
       "depth": 1,
@@ -181,7 +254,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.24",
+      "version": "3.0.25",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -219,6 +292,15 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.memoryprofiler": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.editorcoroutines": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.mobile.android-logcat": {
@@ -405,6 +487,13 @@
       "dependencies": {
         "com.unity.timeline": "1.6.5"
       }
+    },
+    "dev.kyubuns.appiconchangerunity": {
+      "version": "https://github.com/kyubuns/AppIconChangerUnity.git?path=Assets/AppIconChanger",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "48cbd360031104245ab583b8eb83420de070c610"
     },
     "unity-dependencies-hunter": {
       "version": "file:DependenciesHunter",

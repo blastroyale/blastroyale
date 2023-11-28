@@ -67,21 +67,26 @@ namespace FirstLight.Game.Presenters
 				() => _gameDataProvider.AppDataProvider.IsBgmEnabled,
 				val => _gameDataProvider.AppDataProvider.IsBgmEnabled = val);
 
-			//TODO: enable when hooked up to floating joystick logic
-			root.Q<LocalizedToggle>("DynamicJoystick").visible = false;
 			// Controls
+			//TODO: enable when hooked up to floating joystick logic
+			root.Q<LocalizedToggle>("DynamicJoystick").SetDisplay(false);
 			//SetupToggle(root.Q<LocalizedToggle>("DynamicJoystick").Required(),
 			//	() => _gameDataProvider.AppDataProvider.UseDynamicJoystick,
 			//	val => _gameDataProvider.AppDataProvider.UseDynamicJoystick = val);
-			SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
-				() => _gameDataProvider.AppDataProvider.IsHapticOn,
-				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
-			SetupToggle(root.Q<LocalizedToggle>("CameraPanning").Required(),
-				() => _gameDataProvider.AppDataProvider.UseDynamicCamera,
-				val => _gameDataProvider.AppDataProvider.UseDynamicCamera = val);
+			
+			//TODO: enable when have Haptic fixed
+			root.Q<LocalizedToggle>("HapticFeedback").SetDisplay(false); 
+			// SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
+			// 	() => _gameDataProvider.AppDataProvider.IsHapticOn,
+			// 	val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
+			
 			SetupToggle(root.Q<LocalizedToggle>("ScreenShake").Required(),
 				() => _gameDataProvider.AppDataProvider.UseScreenShake,
 				val => _gameDataProvider.AppDataProvider.UseScreenShake = val);
+			
+			SetupToggle(root.Q<LocalizedToggle>("ShowRealDamage").Required(),
+				() => _gameDataProvider.AppDataProvider.ShowRealDamage,
+				val => _gameDataProvider.AppDataProvider.ShowRealDamage = val);
 
 			SetupToggle(root.Q<Toggle>("AimBackground").Required(),
 				() => _gameDataProvider.AppDataProvider.ConeAim,
@@ -92,12 +97,6 @@ namespace FirstLight.Game.Presenters
 				() => _gameDataProvider.AppDataProvider.FpsTarget,
 				val => _gameDataProvider.AppDataProvider.FpsTarget = val,
 				FpsTarget.Normal, FpsTarget.High);
-			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("GraphicsRBG").Required(),
-				() => _gameDataProvider.AppDataProvider.CurrentDetailLevel,
-				val => _gameDataProvider.AppDataProvider.CurrentDetailLevel = val);
-			
-			// TODO: Enable it back when graphics settings actually mean/do something
-			root.Q<LocalizedRadioButtonGroup>("GraphicsRBG").SetEnabled(false);
 
 			// Account
 			_logoutButton = root.Q<Button>("LogoutButton");

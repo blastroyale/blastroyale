@@ -6,12 +6,9 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Messages;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Server.SDK.Modules.GameConfiguration;
-using FirstLight.Services;
-using Newtonsoft.Json;
 using Quantum;
-using UnityEngine.Purchasing;
 
 namespace FirstLight.Game.Logic
 {
@@ -26,19 +23,19 @@ namespace FirstLight.Game.Logic
 		/// Reflects if a player quit early in the game
 		/// </summary>
 		public bool DidPlayerQuit { get; set; }
-		
+
 		/// <summary>
 		/// Reflects how many players were participating in the game
 		/// </summary>
 		public int GamePlayerCount { get; set; }
-		
+
 		/// <summary>
 		/// Reflects the match data collected by quantum simulation
 		/// </summary>
 		public List<QuantumPlayerMatchData> MatchData { get; set; }
 
 		/// <summary>
-		/// TODO
+		/// Player Rank of the local player in MatchData array
 		/// </summary>
 		public int ExecutingPlayer { get; set; }
 
@@ -46,8 +43,13 @@ namespace FirstLight.Game.Logic
 		/// Reflects the type of the given match
 		/// </summary>
 		public MatchType MatchType { get; set; }
+
+		/// <summary>
+		/// Allowed rewards for this match
+		/// </summary>
+		public List<GameId> AllowedRewards { get; set; }
 	}
-	
+
 	/// <summary>
 	/// This logic provides the necessary behaviour to manage the player's rewards
 	/// </summary>
@@ -56,34 +58,17 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests the list of rewards in buffer to be awarded to the player
 		/// </summary>
-		IObservableListReader<RewardData> UnclaimedRewards { get; }
-		
-		/// <summary>
-		/// Checks if we are currently collecting rewards (running <see cref="IRewardLogic.ClaimUncollectedRewards"/>).
-		/// </summary>
-		bool IsCollecting { get; }
+		IObservableListReader<ItemData> UnclaimedRewards { get; }
 
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		List<RewardData> CalculateMatchRewards(RewardSource source, out int trophyChange);
+		List<ItemData> CalculateMatchRewards(RewardSource source, out int trophyChange);
 
-		/// <summary>
-		/// Check if the <see cref="UnclaimedRewards"/> list contains a reward that could
-		/// belong to a purchase made from the store.
-		/// </summary>
-		bool HasUnclaimedPurchase(Product product);
-
-		/// <summary>
-		/// Checks if there are any items belonging to the <see cref="GameIdGroup.IAP"/> in the
-		/// <see cref="UnclaimedRewards"/> list.
-		/// </summary>
-		bool HasUnclaimedPurchases();
-		
 		/// <summary>
 		/// Obtains the rewards for a given tutorial step
 		/// </summary>
-		List<ItemData> GetRewardsFromTutorial(TutorialSection section);
+		IEnumerable<ItemData> GetRewardsFromTutorial(TutorialSection section);
 	}
 
 	/// <inheritdoc />
@@ -92,41 +77,54 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="RewardSource"/> performance from a game completed
 		/// </summary>
-		List<RewardData> GiveMatchRewards(RewardSource source, out int trophyChange);
+		List<ItemData> GiveMatchRewards(RewardSource source, out int trophyChange);
 
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
 		/// </summary>
-		List<RewardData> ClaimUncollectedRewards();
-
+		List<ItemData> ClaimUnclaimedRewards();
+		
 		/// <summary>
-		/// Claims all the unclaimed IAP rewards (that were purchased from the shop).
+		/// Claims specific uncolledted item. Will throw an exception if the user
+		/// does not have the item as unclaimed reward.
+		/// Returns UniqueId of equipment if generated
 		/// </summary>
-		/// <returns></returns>
-		List<KeyValuePair<UniqueId,Equipment>> ClaimIAPRewards();
-
-		/// <summary>
-		/// Adds an IAP reward to the list of unclaimed rewards. This is used when doing an IAP, to
-		/// sync up the server and client, without having to do another request (since the server
-		/// adds it on it's end).
-		/// </summary>
-		void AddIAPReward(RewardData reward);
+		ItemData ClaimUnclaimedReward(ItemData item);
 
 		/// <summary>
 		/// Generic item handler to give items to player as rewards
+		/// If autoclaim is true then the rewards will be added instantly to inventory
+		/// instead of the UnclaimedRewards inventory
 		/// </summary>
-		/// <param name="items"></param>
-		void GiveItems(List<ItemData> items);
+		void Reward(IEnumerable<ItemData> items);
+		
+		/// <summary>
+		/// Reward items to player but instead of adding the items to the player
+		/// items directly, it will add to the player unclaimed rewards.
+		/// Whenever player gets to main menu, it will claim all unclaimed rewards.
+		/// This is to play animations even if the user quits the game.
+		/// </summary>
+		void RewardToUnclaimedRewards(IEnumerable<ItemData> items);
+		
+		/// <summary>
+		/// Creates an item based on a reward config.
+		/// The config is a Chest Like" structure that defines rules for item generation.
+		/// </summary>
+		ItemData CreateItemFromConfig(EquipmentRewardConfig config);
+		
+		/// <summary>
+		/// Generates ItemData of all given configs.
+		/// Those configs represents a "chest like" structure containing rules on how to generate items.
+		/// </summary>
+		IEnumerable<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> configs);
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
 	public class RewardLogic : AbstractBaseLogic<PlayerData>, IRewardLogic, IGameLogicInitializer
 	{
-		private IObservableList<RewardData> _unclaimedRewards;
+		private IObservableList<ItemData> _unclaimedRewards;
 
-		public IObservableListReader<RewardData> UnclaimedRewards => _unclaimedRewards;
-
-		public bool IsCollecting { get; private set; }
+		public IObservableListReader<ItemData> UnclaimedRewards => _unclaimedRewards;
 
 		public RewardLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -134,23 +132,21 @@ namespace FirstLight.Game.Logic
 
 		public void Init()
 		{
-			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
+			_unclaimedRewards = new ObservableList<ItemData>(Data.UncollectedRewards);
 		}
 
 		public void ReInit()
 		{
-			{
-				var listeners = _unclaimedRewards.GetObservers();
-				_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
-				_unclaimedRewards.AddObservers(listeners);
-			}
-			
+			var listeners = _unclaimedRewards.GetObservers();
+			_unclaimedRewards = new ObservableList<ItemData>(Data.UncollectedRewards);
+			_unclaimedRewards.AddObservers(listeners);
 			_unclaimedRewards.InvokeUpdate();
 		}
 
-		public List<RewardData> CalculateMatchRewards(RewardSource source, out int trophyChange)
+		public List<ItemData> CalculateMatchRewards(RewardSource source, out int trophyChange)
 		{
-			var rewards = new List<RewardData>();
+			var rewards = new List<ItemData>();
+
 			var localMatchData = source.MatchData[source.ExecutingPlayer];
 			trophyChange = 0;
 
@@ -163,31 +159,29 @@ namespace FirstLight.Game.Logic
 				GameLogic.ConfigsProvider.GetConfig<QuantumGameModeConfig>(localMatchData.GameModeId);
 			var teamSize = Math.Max(1, gameModeConfig.MaxPlayersInTeam);
 			var maxTeamsInMatch = gameModeConfig.MaxPlayers / teamSize;
-			
+
 			// Always perform ordering operation on the configs.
 			// If config data placement order changed in google sheet, it could silently screw up this algorithm.
 			var gameModeRewardConfigs = GameLogic.ConfigsProvider
-			                                     .GetConfigsList<MatchRewardConfig>()
-			                                     .OrderByDescending(x => x.Placement).ToList();
+				.GetConfigsList<MatchRewardConfig>()
+				.OrderByDescending(x => x.Placement).ToList();
 			var gameModeTrophyConfigs = GameLogic.ConfigsProvider //clean this up
-												 .GetConfigsList<TrophyRewardConfig>()
-												 .OrderByDescending(x => x.Placement).ToList();
+				.GetConfigsList<TrophyRewardConfig>()
+				.OrderByDescending(x => x.Placement).ToList();
 			var rewardConfig = gameModeRewardConfigs[0];
 			var trophyRewardConfig = gameModeTrophyConfigs[0];
 
 			// We calculate rank value for rewards based on the actual number of players/teams in a match (including bots)
 			// versus the maximum number of players/teams that are supposed to be in a match. This interpolation is needed
 			// in case we allow rewarded matches with lower number of players, for instance in case we ever do "no bots ranked"
-			var rankValue = (int) Math.Min(1 + Math.Floor(maxTeamsInMatch / (double)((source.GamePlayerCount / teamSize) - 1) * (localMatchData.PlayerRank - 1)), maxTeamsInMatch);
-			
+			var rankValue =
+				(int) Math.Min(1 + Math.Floor(maxTeamsInMatch / (double) ((source.GamePlayerCount / teamSize) - 1) * (localMatchData.PlayerRank - 1)),
+					maxTeamsInMatch);
+
 			//clean this up
 			foreach (var config in gameModeRewardConfigs)
 			{
-				if (teamSize == config.TeamSize && rankValue > config.Placement)
-				{
-					break;
-				}
-
+				if (teamSize == config.TeamSize && rankValue > config.Placement) break;
 				if (config.Placement == rankValue && config.TeamSize == teamSize)
 				{
 					rewardConfig = config;
@@ -197,11 +191,7 @@ namespace FirstLight.Game.Logic
 
 			foreach (var config in gameModeTrophyConfigs)
 			{
-				if (teamSize == config.TeamSize && rankValue > config.Placement)
-				{
-					break;
-				}
-
+				if (teamSize == config.TeamSize && rankValue > config.Placement) break;
 				if (config.Placement == rankValue && config.TeamSize == teamSize)
 				{
 					trophyRewardConfig = config;
@@ -209,320 +199,256 @@ namespace FirstLight.Game.Logic
 				}
 			}
 
-			// We don't reward quitters and we don't reward players for Custom games or games played alone (if we ever allow it)
-			if (source.MatchType == MatchType.Custom || source.DidPlayerQuit || source.GamePlayerCount == 1)
+			var allowedRewards = source.AllowedRewards ?? new List<GameId>();
+			
+			// We dont give rewards for quitting, but players can loose trophies
+			if (allowedRewards.Contains(GameId.Trophies))
 			{
-				if (source.MatchType == MatchType.Ranked && source.DidPlayerQuit)
-				{
-					CalculateTrophiesReward(rewards, source.MatchData, localMatchData, trophyRewardConfig, out trophyChange);
-				}
-
+				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, trophyRewardConfig, out trophyChange);
+			}
+			
+			if (source.DidPlayerQuit || source.GamePlayerCount == 1)
+			{
 				return rewards;
 			}
 
-			if (source.MatchType == MatchType.Ranked)
+			if (allowedRewards.Contains(GameId.CS))
 			{
 				CalculateCSReward(rewards, rewardConfig, localMatchData.Data.CollectedOwnedNfts);
-				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, trophyRewardConfig, out trophyChange);
 			}
-
-			if (source.MatchType is MatchType.Ranked or MatchType.Casual)
+			
+			if (allowedRewards.Contains(GameId.BPP))
 			{
 				CalculateBPPReward(rewards, rewardConfig);
 			}
+			
+			if (allowedRewards.Contains(GameId.XP))
+			{
+				CalculateXPReward(rewards, rewardConfig);
+			}
 
 			return rewards;
 		}
 
-		public bool HasUnclaimedPurchase(Product product)
-		{
-			var productReward = JsonConvert.DeserializeObject<RewardData>(product.definition.payout.data);
-
-			for (var i = 0; i < _unclaimedRewards.Count; i++)
-			{
-				if ( _unclaimedRewards[i].RewardId == productReward.RewardId)
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		public bool HasUnclaimedPurchases()
-		{
-			for (var i = 0; i < _unclaimedRewards.Count; i++)
-			{
-				if (_unclaimedRewards[i].RewardId.IsInGroup(GameIdGroup.IAP))
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		/// <inheritdoc />
-		public List<RewardData> GiveMatchRewards(RewardSource source, out int trophyChange)
+		public List<ItemData> GiveMatchRewards(RewardSource source, out int trophyChange)
 		{
 			var rewards = CalculateMatchRewards(source, out trophyChange);
-
 			foreach (var reward in rewards)
 			{
 				var rewardData = reward;
-
-				if (rewardData.RewardId.IsInGroup(GameIdGroup.ResourcePool))
+				if (rewardData.Id.IsInGroup(GameIdGroup.ResourcePool) && rewardData.TryGetMetadata<CurrencyMetadata>(out var meta))
 				{
-					rewardData.Value =
-						(int) GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
+					meta.Amount =
+						(int) GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.Id, (uint) meta.Amount);
 				}
-
-				Data.UncollectedRewards.Add(rewardData);
 			}
-
+			RewardToUnclaimedRewards(rewards);
 			return rewards;
 		}
 
-		/// <inheritdoc />
-		public List<RewardData> ClaimUncollectedRewards()
+		public ItemData ClaimUnclaimedReward(ItemData item)
 		{
-			IsCollecting = true;
-			
-			var rewards = new List<RewardData>(Data.UncollectedRewards.Count);
-
-			foreach (var reward in Data.UncollectedRewards)
-			{
-				if (reward.RewardId.IsInGroup(GameIdGroup.IAP)) continue;
-				rewards.Add(ClaimReward(reward));
-			}
-
-			Data.UncollectedRewards.RemoveAll(r => rewards.Contains(r));
-			
-			IsCollecting = false;
-
-			return rewards;
+			if (!Data.UncollectedRewards.Remove(item)) throw new LogicException($"Could not claim reward {item}");
+			return AddItemToPlayerInventory(item);
+		}
+		
+		public List<ItemData> ClaimUnclaimedRewards()
+		{
+			var claimed = new List<ItemData>(Data.UncollectedRewards);
+			foreach (var reward in claimed) ClaimUnclaimedReward(reward);
+			return claimed;
 		}
 
-		public List<KeyValuePair<UniqueId,Equipment>> ClaimIAPRewards()
-		{
-			var rewards = new List<KeyValuePair<UniqueId,Equipment>>(1);
-
-			foreach (var reward in Data.UncollectedRewards)
-			{
-				if (!reward.RewardId.IsInGroup(GameIdGroup.IAP)) continue;
-				rewards.Add(ClaimEquipmentReward(reward.RewardId));
-			}
-
-			Data.UncollectedRewards.RemoveAll(r => r.RewardId.IsInGroup(GameIdGroup.IAP));
-
-			return rewards;
-		}
-
-		public void AddIAPReward(RewardData reward)
-		{
-			Data.UncollectedRewards.Add(reward);
-		}
-
-		public void GiveItems(List<ItemData> items)
+		public void RewardToUnclaimedRewards(IEnumerable<ItemData> items)
 		{
 			foreach (var item in items)
 			{
-				if (item.ItemObject is Equipment eq)
-				{
-					GameLogic.EquipmentLogic.AddToInventory(eq);
-				}
-				else
-				{
-					_unclaimedRewards.Add(new RewardData()
-					{
-						Value = item.Amount,
-						RewardId = item.Id
-					});
-				}
+				// Equipment never goes to unclaimed
+				if (item.MetadataType == ItemMetadataType.Equipment) AddItemToPlayerInventory(item);
+				else _unclaimedRewards.Add(item);
 			}
 		}
-
-		public List<ItemData> GetRewardsFromTutorial(TutorialSection section)
+		
+		public void Reward(IEnumerable<ItemData> items)
 		{
-			var rewards = new List<ItemData>();
+			foreach (var item in items) AddItemToPlayerInventory(item);
+		}
+
+		public IEnumerable<ItemData> GetRewardsFromTutorial(TutorialSection section)
+		{
 			var tutorialRewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<TutorialRewardConfig>();
 			var tutorialRewardsCount = tutorialRewardsCfg.Count(c => c.Section == section);
-
-			// Omit rest of calculations if the tutorial doesn't have any rewards to give
-			if (tutorialRewardsCount == 0) return rewards;
-			
+			if (tutorialRewardsCount == 0) return Array.Empty<ItemData>();
 			var rewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
-			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.First(c => c.Section == section).RewardIds.Contains((uint)c.Id));
-			
-			foreach (var rewardConfig in rewardsConfigs)
+			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.First(c => c.Section == section).RewardIds.Contains((uint) c.Id));
+			var rewardItems = CreateItemsFromConfigs(rewardsConfigs);
+			var bpp = rewardItems.FirstOrDefault(r => r.Id == GameId.BPP);
+			if (bpp != null && section == TutorialSection.FIRST_GUIDE_MATCH && bpp.TryGetMetadata<CurrencyMetadata>(out var meta))
 			{
-				if (rewardConfig.IsEquipment())
-				{
-					var equipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(rewardConfig);
-					rewards.Add(new ItemData()
-					{
-						Amount = rewardConfig.Amount,
-						Id = equipment.GameId,
-						ItemObject = equipment
-					});
-				}
-				else
-				{
-					// We always want to give a set amount of BPP only to complete first BP level during tutorial
-					var finalAmount = section == TutorialSection.FIRST_GUIDE_MATCH && rewardConfig.GameId == GameId.BPP
-						? (int) GameLogic.BattlePassLogic.GetRequiredPointsForLevel()
-						: rewardConfig.Amount;
-					
-					rewards.Add(new ItemData()
-					{
-						Amount = finalAmount,
-						Id = rewardConfig.GameId,
-					});
-				}
+				meta.Amount = (int)GameLogic.BattlePassLogic.GetRequiredPointsForLevel();
 			}
-			return rewards;
+			return rewardItems;
 		}
-
-		private RewardData ClaimReward(RewardData reward)
+		
+		public ItemData CreateItemFromConfig(EquipmentRewardConfig config)
 		{
-			if (reward.RewardId == GameId.XP)
+			if (config.GameId.IsInGroup(GameIdGroup.Equipment))
 			{
-				GameLogic.PlayerLogic.AddXp((uint) reward.Value);
-			}
-			else if (reward.RewardId == GameId.BPP)
+				var generatedEquipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(config);
+				return ItemFactory.Equipment(generatedEquipment);
+			} if (config.GameId.IsInGroup(GameIdGroup.Collection))
 			{
-				GameLogic.BattlePassLogic.AddBPP((uint) reward.Value);
+				return ItemFactory.Collection(config.GameId);
 			}
-			else if (reward.RewardId == GameId.Trophies)
+			if (config.GameId.IsInGroup(GameIdGroup.Core))
 			{
-				GameLogic.PlayerLogic.UpdateTrophies(reward.Value);
+				// TODO: Isolate opening cores into "ChestLogic"
+				var generatedEquipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(config);
+				return ItemFactory.Equipment(generatedEquipment);
 			}
-			else if (reward.RewardId.IsInGroup(GameIdGroup.Currency))
-			{
-				GameLogic.CurrencyLogic.AddCurrency(reward.RewardId, (uint) reward.Value);
-			}
-			else
-			{
-				throw
-					new LogicException($"The reward '{reward.RewardId.ToString()}' is not from a group type that is rewardable.");
-			}
-
-			return reward;
+			return ItemFactory.Currency(config.GameId, config.Amount);
 		}
 
-		private KeyValuePair<UniqueId,Equipment> ClaimEquipmentReward(GameId id)
+		public IEnumerable<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> rewardConfigs)
+		{
+			var items = new List<ItemData>();
+			foreach (var reward in rewardConfigs) items.Add(CreateItemFromConfig(reward));
+			return items;
+		}
+
+		private ItemData OpenCoreById(GameId id)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>()
 				.First(cfg => cfg.GameId == id);
-
-			var equipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(config);
-			var uniqueId = GameLogic.EquipmentLogic.AddToInventory(equipment);
-			return new KeyValuePair<UniqueId, Equipment>(uniqueId, equipment);
+			return CreateItemFromConfig(config);
 		}
 
-		private void CalculateCSReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig, uint collectedNFTsCount)
+		private void CalculateCSReward(ICollection<ItemData> rewards, MatchRewardConfig rewardConfig, uint collectedNFTsCount)
 		{
 			var rewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == GameId.CS);
 			var percent = rewardPair.Value / 100d;
 			// rewardPair.Value is the absolute percent of the max take that people will be awarded
 
 			var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.CS);
-			
+
 			var takeForCollectedItems = info.WinnerRewardAmount * collectedNFTsCount;
 			var take = (uint) Math.Ceiling(takeForCollectedItems * percent);
-			var withdrawn = (int) Math.Min(info.CurrentAmount, take);
-
+			var withdrawn = (int)Math.Min(info.CurrentAmount, take);
 			if (withdrawn > 0)
 			{
-				rewards.Add(new RewardData(GameId.CS, withdrawn));
+				rewards.Add(ItemFactory.Currency(GameId.CS, withdrawn));
 			}
 		}
 
-		private void CalculateBPPReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig)
+		private void CalculateBPPReward(ICollection<ItemData> rewards, MatchRewardConfig rewardConfig)
 		{
 			if (rewardConfig.Rewards.TryGetValue(GameId.BPP, out var amount))
 			{
 				var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.BPP);
 				var withdrawn = (int) Math.Min(info.CurrentAmount, amount);
-				var remainingPoints = GameLogic.BattlePassLogic.GetRemainingPointsOfBp();
-
-				withdrawn = (int) Math.Min(withdrawn, remainingPoints);
-
+				var remainingPoints = (int)GameLogic.BattlePassLogic.GetRemainingPointsOfBp();
+				withdrawn = Math.Min(withdrawn, remainingPoints);
 				if (withdrawn > 0)
 				{
-					rewards.Add(new RewardData(GameId.BPP, withdrawn));
+					rewards.Add(ItemFactory.Currency(GameId.BPP, withdrawn));
 				}
 			}
 		}
 
-		private void CalculateTrophiesReward(ICollection<RewardData> rewards,
-										IReadOnlyCollection<QuantumPlayerMatchData> players,
-										QuantumPlayerMatchData localPlayerData,
-										TrophyRewardConfig rewardConfig,
-										out int trophyChangeOut)
+		private void CalculateXPReward(ICollection<ItemData> rewards, MatchRewardConfig rewardConfig)
+		{
+			if (rewardConfig.Rewards.TryGetValue(GameId.XP, out var amount))
+			{
+				rewards.Add(ItemFactory.Currency(GameId.XP, amount));
+			}
+		}
+
+		private void CalculateTrophiesReward(ICollection<ItemData> rewards,
+											 IReadOnlyCollection<QuantumPlayerMatchData> players,
+											 QuantumPlayerMatchData localPlayerData,
+											 TrophyRewardConfig rewardConfig,
+											 out int trophyChangeOut)
 		{
 			trophyChangeOut = 0;
 
 			var playerTrophies = localPlayerData.Data.PlayerTrophies;
 			var bracket = 0;
-			foreach (var rewardBracket in rewardConfig.BracketReward)
+			var maxBracket = rewardConfig.BracketReward.Keys.Max();
+			if (playerTrophies > maxBracket)
 			{
-				if (playerTrophies > rewardBracket.Key)
-				{
-					continue;
-				}
-				bracket = rewardBracket.Key;
-				break;
+				bracket = maxBracket;
 			}
-			
+			else
+			{
+				bracket = rewardConfig.BracketReward.FirstOrDefault(kp => playerTrophies <= kp.Key).Key;
+			}
+
 			if (rewardConfig.BracketReward.TryGetValue(bracket, out var amount))
 			{
 				var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-				
-				var killsMade = (int)localPlayerData.Data.PlayersKilledCount;
-				var finalTrophyChange = amount + (int)Math.Floor(gameConfig.TrophiesPerKill.AsDouble * killsMade);
-				
+
+				var killsMade = (int) localPlayerData.Data.PlayersKilledCount;
+				var finalTrophyChange = amount + (int) Math.Floor(gameConfig.TrophiesPerKill.AsDouble * killsMade);
+
 				if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > Data.Trophies)
 				{
 					finalTrophyChange = (int) -Data.Trophies;
 				}
-				
-				trophyChangeOut = finalTrophyChange;
-				rewards.Add(new RewardData(GameId.Trophies, finalTrophyChange));
-			}
-			
-			// The logic below is left here DELIBERATELY
-			// We will reuse it a bit later to calculate MMR which we will potentially keep hidden
 
-			// var tempPlayers = new List<QuantumPlayerMatchData>(players);
-			// tempPlayers.SortByPlayerRank(false);
-			//
-			// var trophyChange = 0d;
-			//
-			// // Losses; Note: PlayerRank starts from 1, not from 0
-			// for (var i = 0; i < localPlayerData.PlayerRank - 1; i++)
-			// {
-			// 	trophyChange += CalculateEloChange(0d, tempPlayers[i].Data.PlayerTrophies,
-			// 		localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-			// 		gameConfig.TrophyEloK.AsDouble, gameConfig.TrophyMinChange.AsDouble);
-			// }
-			//
-			// // Wins; Note: PlayerRank starts from 1, not from 0
-			// for (var i = (int) localPlayerData.PlayerRank; i < players.Count; i++)
-			// {
-			// 	trophyChange += CalculateEloChange(1d, tempPlayers[i].Data.PlayerTrophies,
-			// 		localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-			// 		gameConfig.TrophyEloK.AsDouble, gameConfig.TrophyMinChange.AsDouble);
-			// }
+				trophyChangeOut = finalTrophyChange;
+				rewards.Add(ItemFactory.Currency(GameId.Trophies, finalTrophyChange));
+			}
 		}
 
-		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange,
-										  double eloK, double minTrophyChange)
+		// TODO: implement adapters
+		private ItemData AddItemToPlayerInventory(ItemData reward)
 		{
-			var eloBracket = Math.Pow(10, ((int) trophiesOpponent - (int) trophiesPlayer) / (double) eloRange);
-			var trophyChange = eloK * (score - 1 / (1 + eloBracket));
-
-			return trophyChange < 0 ? Math.Min(trophyChange, -minTrophyChange) : Math.Max(trophyChange, minTrophyChange);
+			GameLogic.MessageBrokerService.Publish(new ItemRewardedMessage(reward));
+			if (reward.TryGetMetadata<EquipmentMetadata>(out var eqMeta))
+			{
+				GameLogic.EquipmentLogic.AddToInventory(eqMeta.Equipment);
+			}
+			else if (reward.TryGetMetadata<UnlockMetadata>(out var unlockMeta))
+			{
+				// unlocks dont need to do anything
+			}
+			else if (reward.Id.IsInGroup(GameIdGroup.Core)) // Cores auto-opens when added to inventory
+			{
+				var generated = OpenCoreById(reward.Id);
+				AddItemToPlayerInventory(generated);
+				GameLogic.MessageBrokerService.Publish(new OpenedCoreMessage()
+				{
+					Core = reward,
+					Results = new [] { generated } 
+				});
+				return generated;
+			}
+			else if (reward.Id.IsInGroup(GameIdGroup.Collection))
+			{
+				GameLogic.CollectionLogic.UnlockCollectionItem(reward);
+			}
+			else if (reward.TryGetMetadata<CurrencyMetadata>(out var currency))
+			{
+				if (reward.Id == GameId.XP)
+				{
+					GameLogic.PlayerLogic.AddXP((uint) currency.Amount);
+				}
+				else if (reward.Id == GameId.BPP)
+				{
+					GameLogic.BattlePassLogic.AddBPP((uint) currency.Amount);
+				}
+				else if (reward.Id == GameId.Trophies)
+				{
+					GameLogic.PlayerLogic.UpdateTrophies(currency.Amount);
+				}
+				else if (reward.Id.IsInGroup(GameIdGroup.Currency))
+				{
+					GameLogic.CurrencyLogic.AddCurrency(reward.Id, (uint) currency.Amount);
+				}
+				else throw new LogicException($"Unknown currency '{reward.Id.ToString()}'");
+			}
+			else throw new LogicException($"Unknown reward {reward}");
+			return reward;
 		}
 	}
 

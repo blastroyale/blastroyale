@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 2956260350070697403}
   - component: {fileID: 2877623031512952239}
   - component: {fileID: 1384261371968435894}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Barricade_Concrete_LowDamage_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2956260350070697403
 Transform:
@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476306321766530548}
-  m_Mesh: {fileID: -4776061778638456879, guid: 0c116c0f1d0d8994a8b040b5ce80d78d, type: 3}
+  m_Mesh: {fileID: 1138865973473098825, guid: 7832d0464cc8d7948bf1593b2b761586, type: 3}
 --- !u!23 &1384261371968435894
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -52,9 +52,9 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
+  m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
@@ -99,7 +99,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &413986291225408163
 Transform:
@@ -126,9 +126,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1841608845454103804}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.82648075, y: 0.92766434, z: 3.3072846}
   m_Center: {x: -0.07377654, y: 0.44461778, z: 0.009764791}
 --- !u!114 &4668388893441022906
@@ -185,12 +193,12 @@ GameObject:
   - component: {fileID: 4663712395038778083}
   - component: {fileID: 6890758955169309075}
   - component: {fileID: 5594569813101021828}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Barricade_Concrete_LowClean_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4663712395038778083
 Transform:
@@ -214,7 +222,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5854662683336105718}
-  m_Mesh: {fileID: -4489154431805044778, guid: 0c116c0f1d0d8994a8b040b5ce80d78d, type: 3}
+  m_Mesh: {fileID: -1342861020411414694, guid: 3fc4925794ae3214a979817f7bb54d92, type: 3}
 --- !u!23 &5594569813101021828
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -226,9 +234,9 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
+  m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0

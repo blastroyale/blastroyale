@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -16,6 +17,7 @@ namespace FirstLight.Game.Views.UITK
 		private const int MAX_SQUAD_MEMBERS = 2;
 
 		private IMatchServices _matchServices;
+		private IGameServices _services;
 
 		private readonly Dictionary<EntityRef, SquadMemberElement> _squadMembers = new();
 
@@ -23,7 +25,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			base.Attached(element);
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-
+			_services = MainInstaller.ResolveServices();
 			element.Clear(); // Clears development-time child elements.
 		}
 
@@ -37,13 +39,21 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
 			QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
+			QuantumEvent.SubscribeManual<EventOnTeamAssigned>(this, OnTeamAssigned);
+		}
+
+		private void OnTeamAssigned(EventOnTeamAssigned e)
+		{
+			if (!_squadMembers.TryGetValue(e.Entity, out var squadMemberElement)) return;
+			squadMemberElement.SetTeamColor(_matchServices.TeamService.GetTeamMemberColor(e.Entity));
 		}
 
 		public override void UnsubscribeFromEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
-
+		
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
 			RecheckSquadMembers(callback.Game.Frames.Verified);
@@ -124,12 +134,26 @@ namespace FirstLight.Game.Views.UITK
 					}
 
 					_squadMembers.Add(e, squadMember);
+					
+					var teamColor = _matchServices.TeamService.GetTeamMemberColor(e);
+					if (teamColor.HasValue)
+					{
+						squadMember.SetTeamColor(teamColor.Value);
+					}
 
 					var isBot = f.Has<BotCharacter>(e);
 					var playerName = Extensions.GetPlayerName(f, e, pc);
-
+					var playerNameColor = isBot ?
+						                      GameConstants.PlayerName.DEFAULT_COLOR :
+						                      _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, (int)f.GetPlayerData(pc.Player).LeaderboardRank);
+					
 					squadMember.SetPlayer(pc.Player, playerName, pc.GetEnergyLevel(f),
-						isBot ? null : f.GetPlayerData(pc.Player).AvatarUrl);
+						isBot ? null : f.GetPlayerData(pc.Player).AvatarUrl, playerNameColor);
+					if (f.TryGet<Stats>(e, out var stats))
+					{
+						squadMember.UpdateHealth(StatUtils.GetHealthPercentage(stats).AsFloat);
+						squadMember.UpdateShield(StatUtils.GetShieldPercentage(stats).AsFloat);
+					}
 
 					index++;
 				}

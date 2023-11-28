@@ -4108,9 +4108,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BlastPass
-      - BlastPass
-      - Blastpass
+      - Alpha Pass
+      - Alpha Pass
+      - Alpha Pass
       - 
       - 
       Flags: 0000000000
@@ -4489,6 +4489,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/BPP
+      TermType: 0
+      Description: 
+      Languages:
+      - Battlepass Point
+      - 
+      - Ponto do passe de batalha
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BPP_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - Battlepass Points
+      - 
+      - Pontos do passe de batalha
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/BRGenesis
       TermType: 0
       Description: 
@@ -4540,6 +4562,61 @@ MonoBehaviour:
       - Battle Royale
       - "\u0411\u0438\u0442\u0432\u0430 \u0420\u043E\u044F\u043B\u044C"
       - Batalha real
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BattleRoyaleTrios
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE TRIOS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BattleRoyaleDuos
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE DUOS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BattlelandsMap
+      TermType: 0
+      Description: 
+      Languages:
+      - LANDS OF BATTLES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BigRoyale
+      TermType: 0
+      Description: 
+      Languages:
+      - BIG ROYALE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BigRoyaleTrios
+      TermType: 0
+      Description: 
+      Languages:
+      - BIG ROYALE TRIOS
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -4621,17 +4698,30 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/COIN
+      TermType: 0
+      Description: 
+      Languages:
+      - Coin
+      - 
+      - Moeda
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/COINDescription
       TermType: 0
       Description: 
       Languages:
-      - 'Gain Coins by scrapping equipment.
+      - 'Gain Coins by Scrapping equipment
+
+        and completing Blast Pass.
 
 
-        Use Coins for upgrading
+        Use
+        Coins to upgrade
 
-        and
-        repairing your equipment.'
+        your equipment.'
       - "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043C\u043E\u043D\u0435\u0442\u044B,
         \u043E\u0442\u043A\u0430\u0437\u0430\u0432\u0448\u0438\u0441\u044C \u043E\u0442
         \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F.\n\n\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435
@@ -4645,6 +4735,28 @@ MonoBehaviour:
 
         e
         reparar seu equipamento.'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/COIN_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - Coins
+      - 
+      - Moedas
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/CS
+      TermType: 0
+      Description: 
+      Languages:
+      - Craft Spice
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -4663,10 +4775,10 @@ MonoBehaviour:
 
         on the Blast Hub
 
-        for upgrading, repairing
-        and
+        for upgrading and
 
-        replicating equipment.'
+        replicating
+        equipment.'
       - "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0440\u0435\u043C\u0435\u0441\u043B\u0435\u043D\u043D\u0443\u044E
         \u0441\u043F\u0435\u0446\u0438\u044E, \u043F\u043E\u043C\u0435\u0441\u0442\u0438\u0432
         \u0431\u043E\u043B\u0435\u0435 \u0432\u044B\u0441\u043E\u043A\u0438\u0439\n\u0432
@@ -4679,6 +4791,17 @@ MonoBehaviour:
       - "Ganhe tempero artesanal colocando mais alto\nEm partidas de batalha classificadas\nusando
         NFTs.\n\nTempero artesanal \xE9 usado no hub de explos\xE3o\npara atualizar,
         reparar e\nEquipamento de replica\xE7\xE3o."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/CS_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - Craft Spice
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -4787,7 +4910,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Custom
+      - Custom Game
       - "\u041E\u0431\u044B\u0447\u0430\u0439"
       - Personalizado
       - 
@@ -4820,7 +4943,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Demon Flag
+      - DEMON
       - Demon Flag
       - Demon Flag
       - 
@@ -4850,11 +4973,22 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/District
+      TermType: 0
+      Description: 
+      Languages:
+      - DISTRICT DASH
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Divinci
       TermType: 0
       Description: 
       Languages:
-      - Divinci Glider
+      - DIVINCI
       - 
       - 
       - 
@@ -4934,7 +5068,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Falcon Glider
+      - FALCON
       - 
       - 
       - 
@@ -4979,7 +5113,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sky Pilot
+      - Nothing Lasts Forever
       - Sky Pilot
       - Sky Pilot
       - 
@@ -5001,7 +5135,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Profession Thief
+      - Shining Strikes
       - Profession Thief
       - Profession Thief
       - 
@@ -5023,7 +5157,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Violent Enforcer
+      - A Fatal Whisper
       - Violent Enforcer
       - Violent Enforcer
       - 
@@ -5045,7 +5179,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Lieutenant Colonel
+      - Combat Queen
       - Lieutenant Colonel
       - Lieutenant Colonel
       - 
@@ -5056,7 +5190,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ELEKTRA
+      - ROSE
       - Electra Deckard
       - Electra Deckard
       - 
@@ -5067,7 +5201,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Punk Rock Thrasher
+      - Petal to the Metal
       - Punk Rock Thrasher
       - Punk Rock Thrasher
       - 
@@ -5089,7 +5223,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Maverick Reporter
+      - The Icon
       - Maverick Reporter
       - Maverick Reporter
       - 
@@ -5158,6 +5292,56 @@ MonoBehaviour:
       - FOOTBULL HELMET
       - "\u0428\u043B\u0435\u043C \u0441 \u043F\u0443\u043B\u044C\u043E\u043D\u043E\u043C"
       - Capacete de Footbull
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Forced
+      TermType: 0
+      Description: 
+      Languages:
+      - ' '
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Fragment_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - Fragment
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Fragments
+      TermType: 0
+      Description: 
+      Languages:
+      - Fragment
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FragmentsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Gain Fragments by scrapping equipment.
+
+
+        Use Fragments for fusing
+
+        your
+        equipment.'
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -5365,6 +5549,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/IslandsMap
+      TermType: 0
+      Description: 
+      Languages:
+      - RIVERBANK RUMBLE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/LegendaryBox
       TermType: 0
       Description: 
@@ -5460,7 +5655,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Archeologist Extraordinaire
+      - Endure and Survive!
       - Archeologist Extraordinaire
       - Archeologist Extraordinaire
       - 
@@ -5482,7 +5677,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Superstar Shooter
+      - One shot, Two kills
       - Superstar Shooter
       - Superstar Shooter
       - 
@@ -5504,7 +5699,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Deadly Assassin
+      - Hunt, Target, Kill
       - Deadly Assassin
       - Deadly Assassin
       - 
@@ -5526,7 +5721,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Corpos Major General
+      - El General
       - Major General
       - Major General
       - 
@@ -5548,7 +5743,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Wild Anarchist
+      - Punctured Your Ego?
       - Wild Anarchist
       - Wild Anarchist
       - 
@@ -5570,7 +5765,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Rebel Rouser
+      - Passionfruit Killer
       - Rebel Rouser
       - Rebel Rouser
       - 
@@ -5585,6 +5780,17 @@ MonoBehaviour:
       - "\u0421\u0446\u0435\u043D\u0430 \u0442\u0435\u0441\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F
         \u043A\u0430\u0440\u0442\u044B"
       - Cena do teste de mapa
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Matchmaking
+      TermType: 0
+      Description: 
+      Languages:
+      - Matchmaking
+      - "\u0420\u0430\u043D\u0436\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0439"
+      - Classificado
       - 
       - 
       Flags: 0000000000
@@ -5607,6 +5813,17 @@ MonoBehaviour:
       - 
       - 
       - '#VALUE!'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MazeMayhem
+      TermType: 0
+      Description: 
+      Languages:
+      - MAZE MAYHEM
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -5791,7 +6008,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MAZE MAYHEM
+      - NEW BR MAP
       - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
       - Novo mapa BR
       - 
@@ -5826,7 +6043,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Punk Flag
+      - PUNK
       - Punk Flag
       - Punk Flag
       - 
@@ -5851,17 +6068,6 @@ MonoBehaviour:
       - Quad Damage
       - "\u041A\u0432\u0430\u0434\u0440\u0430\u0442\u043D\u044B\u0439 \u043F\u043E\u0432\u0440\u0435\u0436\u0434\u0435\u043D\u0438\u0435"
       - "Dano qu\xE1dro"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Ranked
-      TermType: 0
-      Description: 
-      Languages:
-      - Ranked
-      - "\u0420\u0430\u043D\u0436\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0439"
-      - Classificado
       - 
       - 
       Flags: 0000000000
@@ -6057,7 +6263,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Rocket Glider
+      - ROCKET
       - 
       - 
       - 
@@ -7002,7 +7208,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Super Star Flag
+      - SUPERSTAR
       - Super Star Flag
       - Super Star Flag
       - 
@@ -7057,7 +7263,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Punk
+      - PUNK
       - Tombstone
       - Tombstone
       - 
@@ -7068,7 +7274,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - A marker of a fallen Blaster
+      - Rebels forever
       - A marker of a fallen Blaster
       - A marker of a fallen Blaster
       - 
@@ -7079,7 +7285,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Turbine Glider
+      - TURBINE
       - 
       - 
       - 
@@ -7134,7 +7340,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Unicorn Flag
+      - UNICORN
       - Unicorn Flag
       - Unicorn Flag
       - 
@@ -7284,134 +7490,321 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/District
+    - Term: GameIds/Avatar1
       TermType: 0
       Description: 
       Languages:
-      - DISTRICT DASH
+      - DRAKE
+      - DRAKE
+      - DRAKE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar1Description
+      TermType: 0
+      Description: 
+      Languages:
+      - 
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/BattleRoyaleTrios
+    - Term: GameIds/Avatar2
       TermType: 0
       Description: 
       Languages:
-      - BATTLE ROYALE TRIOS
+      - JINGS
+      - JINGS
+      - JINGS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar2Description
+      TermType: 0
+      Description: 
+      Languages:
+      - 
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/BattlelandsMap
+    - Term: GameIds/Avatar3
       TermType: 0
       Description: 
       Languages:
-      - LANDS OF BATTLES
+      - SERENITY
+      - SERENITY
+      - SERENITY
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar4
+      TermType: 0
+      Description: 
+      Languages:
+      - BUNNY
+      - BUNNY
+      - BUNNY
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar4Description
+      TermType: 0
+      Description: 
+      Languages:
+      - 
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/IslandsMap
+    - Term: GameIds/Avatar5
       TermType: 0
       Description: 
       Languages:
-      - DISTRICT DASH ROTATED
+      - JADE
+      - JADE
+      - JADE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar5Description
+      TermType: 0
+      Description: 
+      Languages:
+      - 
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/BigRoyale
+    - Term: GameIds/MeleeSkinDefault
       TermType: 0
       Description: 
       Languages:
-      - BIG ROYALE
-      - 
-      - 
+      - "EL CL\xC1SICO"
+      - "EL CL\xC1SICO"
+      - "EL CL\xC1SICO"
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/COIN
+    - Term: GameIds/MeleeSkinSausage
       TermType: 0
       Description: 
       Languages:
-      - Coin
-      - 
-      - Moeda
+      - SUPERDOG
+      - SUPERDOG
+      - SUPERDOG
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/COIN_Plural
+    - Term: GameIds/MeleeSkinCactus
       TermType: 0
       Description: 
       Languages:
-      - Coins
-      - 
-      - Moedas
+      - PICKY BOY
+      - PICKY BOY
+      - PICKY BOY
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/BPP
+    - Term: GameIds/MeleeSkinAtomSlicer
       TermType: 0
       Description: 
       Languages:
-      - Battlepass Point
-      - 
-      - Ponto do passe de batalha
+      - ATOM SLICER
+      - ATOM SLICER
+      - ATOM SLICER
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/BPP_Plural
+    - Term: GameIds/MeleeSkinDaggerOfDestiny
       TermType: 0
       Description: 
       Languages:
-      - Battlepass Points
-      - 
-      - Pontos do passe de batalha
+      - DAGGER OF DESTINY
+      - DAGGER OF DESTINY
+      - DAGGER OF DESTINY
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/CS
+    - Term: GameIds/MeleeSkinElectricSolo
       TermType: 0
       Description: 
       Languages:
-      - Craft Spice
-      - 
-      - 
+      - ELECTRIC SOLO
+      - ELECTRIC SOLO
+      - ELECTRIC SOLO
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/CS_Plural
+    - Term: GameIds/MeleeSkinGigaMelee
       TermType: 0
       Description: 
       Languages:
-      - Craft Spice
-      - 
-      - 
+      - GIGAHAMMER
+      - GIGAHAMMER
+      - GIGAHAMMER
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/BigRoyaleTrios
+    - Term: GameIds/MeleeSkinHatchet
       TermType: 0
       Description: 
       Languages:
-      - BIG ROYALE TRIOS
+      - HATCHET
+      - HATCHET
+      - HATCHET
       - 
       - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinMicDrop
+      TermType: 0
+      Description: 
+      Languages:
+      - MIC DROP
+      - MIC DROP
+      - MIC DROP
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinMightySledge
+      TermType: 0
+      Description: 
+      Languages:
+      - MIGHTY SLEDGE
+      - MIGHTY SLEDGE
+      - MIGHTY SLEDGE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinOutOfThePark
+      TermType: 0
+      Description: 
+      Languages:
+      - OUT OF THE PARK
+      - OUT OF THE PARK
+      - OUT OF THE PARK
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinPowerPan
+      TermType: 0
+      Description: 
+      Languages:
+      - POWER PAN
+      - POWER PAN
+      - POWER PAN
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinPutter
+      TermType: 0
+      Description: 
+      Languages:
+      - PUTTER
+      - PUTTER
+      - PUTTER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinSirQuacks
+      TermType: 0
+      Description: 
+      Languages:
+      - SIR QUACKS-A-LOT
+      - SIR QUACKS-A-LOT
+      - SIR QUACKS-A-LOT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinToyMelee
+      TermType: 0
+      Description: 
+      Languages:
+      - TOY HAMMER
+      - TOY HAMMER
+      - TOY HAMMER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinTvTakedown
+      TermType: 0
+      Description: 
+      Languages:
+      - TV TAKEDOWN
+      - TV TAKEDOWN
+      - TV TAKEDOWN
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinWheelOfPain
+      TermType: 0
+      Description: 
+      Languages:
+      - WHEEL OF PAIN
+      - WHEEL OF PAIN
+      - WHEEL OF PAIN
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinWrench
+      TermType: 0
+      Description: 
+      Languages:
+      - WRENCH
+      - WRENCH
+      - WRENCH
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinYouGotMail
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU GOT MAIL
+      - YOU GOT MAIL
+      - YOU GOT MAIL
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinThunderAxe
+      TermType: 0
+      Description: 
+      Languages:
+      - THUNDER AXE
+      - THUNDER AXE
+      - THUNDER AXE
       - 
       - 
       Flags: 0000000000
@@ -7768,6 +8161,17 @@ MonoBehaviour:
       - Reason3
       - "\u041F\u0440\u0438\u0447\u0438\u043D\u04303"
       - "Raz\xE3o3"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: General/Fuse
+      TermType: 0
+      Description: 
+      Languages:
+      - FUSE
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -8990,25 +9394,11 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: MainMenu/BigRoyaleDescription
+    - Term: MainMenu/BattleRoyaleDuosDescription
       TermType: 0
       Description: 
       Languages:
-      - One life. Big map. Last player standing wins the match
-      - "\u041E\u0434\u043D\u0430 \u0436\u0438\u0437\u043D\u044C. \u0411\u043E\u043B\u044C\u0448\u0430\u044F
-        \u043A\u0430\u0440\u0442\u0430. \u041F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0439
-        \u0438\u0433\u0440\u043E\u043A, \u0441\u0442\u043E\u044F\u0449\u0438\u0439
-        \u0437\u0430 \u043C\u0430\u0442\u0447\u0435\u043C"
-      - "Uma vida. Grande mapa. \xDAltimo jogador em p\xE9 vence a partida"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/BigRoyaleTriosDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - One life. Big map. Last team standing wins the match
+      - One life. Small map. Last team standing wins the match
       - "\u041E\u0434\u043D\u0430 \u0436\u0438\u0437\u043D\u044C. \u0411\u043E\u043B\u044C\u0448\u0430\u044F
         \u043A\u0430\u0440\u0442\u0430. \u041F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0439
         \u0438\u0433\u0440\u043E\u043A, \u0441\u0442\u043E\u044F\u0449\u0438\u0439
@@ -9156,6 +9546,34 @@ MonoBehaviour:
       - "Beat {0} \u0413\u043B\u0430\u0432\u0430 {1} \u0423\u0440\u043E\u0432\u0435\u043D\u044C
         {2} \u0421\u043D\u0430\u0447\u0430\u043B\u0430!"
       - "Beat {0} Cap\xEDtulo {1} N\xEDvel {2} primeiro!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/BigRoyaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - One life. Big map. Last player standing wins the match
+      - "\u041E\u0434\u043D\u0430 \u0436\u0438\u0437\u043D\u044C. \u0411\u043E\u043B\u044C\u0448\u0430\u044F
+        \u043A\u0430\u0440\u0442\u0430. \u041F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0439
+        \u0438\u0433\u0440\u043E\u043A, \u0441\u0442\u043E\u044F\u0449\u0438\u0439
+        \u0437\u0430 \u043C\u0430\u0442\u0447\u0435\u043C"
+      - "Uma vida. Grande mapa. \xDAltimo jogador em p\xE9 vence a partida"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/BigRoyaleTriosDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - One life. Big map. Last team standing wins the match
+      - "\u041E\u0434\u043D\u0430 \u0436\u0438\u0437\u043D\u044C. \u0411\u043E\u043B\u044C\u0448\u0430\u044F
+        \u043A\u0430\u0440\u0442\u0430. \u041F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0439
+        \u0438\u0433\u0440\u043E\u043A, \u0441\u0442\u043E\u044F\u0449\u0438\u0439
+        \u0437\u0430 \u043C\u0430\u0442\u0447\u0435\u043C"
+      - "Uma vida. Grande mapa. \xDAltimo jogador em p\xE9 vence a partida"
       - 
       - 
       Flags: 0000000000
@@ -10592,17 +11010,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: MainMenu/Playtest
-      TermType: 0
-      Description: 
-      Languages:
-      - PLAYTEST
-      - PLAYTEST
-      - PLAYTEST
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: MainMenu/PlayersActiveNumber
       TermType: 0
       Description: 
@@ -10622,6 +11029,17 @@ MonoBehaviour:
       - Game Error
       - "\u0418\u0433\u0440\u043E\u0432\u0430\u044F \u043E\u0448\u0438\u0431\u043A\u0430"
       - Erro de jogo
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/Playtest
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAYTEST
+      - PLAYTEST
+      - PLAYTEST
       - 
       - 
       Flags: 0000000000
@@ -10896,6 +11314,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateBotDifficulty
+      TermType: 0
+      Description: 
+      Languages:
+      - BOT SKILL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MainMenu/RoomJoinCreateGameModeSelect
       TermType: 0
       Description: 
@@ -10948,6 +11377,17 @@ MonoBehaviour:
       - "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0430\u044F
         \u0438\u0433\u0440\u0430"
       - Jogo personalizado
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateWeaponLimiterSelect
+      TermType: 0
+      Description: 
+      Languages:
+      - WEAPON LIMIT
+      - "\u041B\u0418\u041C\u0418\u0422 \u041E\u0420\u0423\u0416\u0418\u042F"
+      - WEAPON LIMIT
       - 
       - 
       Flags: 0000000000
@@ -11473,13 +11913,74 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: MainMenu/RoomJoinCreateBotDifficulty
+    - Term: MainMenu/RankedGamesWon
       TermType: 0
       Description: 
       Languages:
-      - BOT SKILL
+      - Ranked Games Won
+      - "\u0412\u044B\u0438\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
+        \u0438\u0433\u0440"
+      - "Jogos classificados j\xE1 vencidos"
       - 
       - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedKills
+      TermType: 0
+      Description: 
+      Languages:
+      - Ranked Kills
+      - "\n\u0420\u0430\u043D\u0433\u043E\u0432\u044B\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
+      - Jogos classificados vencidos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedGamesPlayedEver
+      TermType: 0
+      Description: 
+      Languages:
+      - Ranked Games Played
+      - "\u0421\u044B\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
+        \u0438\u0433\u0440"
+      - "\nMortes Classificat\xF3rias"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/KillsEver
+      TermType: 0
+      Description: 
+      Languages:
+      - Total Kills
+      - "\u0412\u0441\u0435\u0433\u043E \u0443\u0431\u0438\u0439\u0441\u0442\u0432"
+      - '
+
+        Total de mortes'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/GamesPlayedEver
+      TermType: 0
+      Description: 
+      Languages:
+      - Total Games Played
+      - "\n\u0412\u0441\u0435\u0433\u043E \u0441\u044B\u0433\u0440\u0430\u043D\u043E
+        \u0438\u0433\u0440"
+      - Total de jogos disputados
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/GamesWonEver
+      TermType: 0
+      Description: 
+      Languages:
+      - Total Games Won
+      - "\n\u0412\u0441\u0435\u0433\u043E \u0432\u044B\u0438\u0433\u0440\u0430\u043D\u043E
+        \u0438\u0433\u0440"
+      - Total de jogos ganhos
       - 
       - 
       Flags: 0000000000
@@ -11502,6 +12003,17 @@ MonoBehaviour:
       - Cafe
       - "\u041A\u0430\u0444\u0435"
       - Cafeteria
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MapDropPoints/Camp
+      TermType: 0
+      Description: 
+      Languages:
+      - Camp
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -11715,6 +12227,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MapDropPoints/Stores
+      TermType: 0
+      Description: 
+      Languages:
+      - Stores
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MapDropPoints/TheCore
       TermType: 0
       Description: 
@@ -11744,28 +12267,6 @@ MonoBehaviour:
       - Tower
       - "\u0411\u0430\u0448\u043D\u044F"
       - Torre
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MapDropPoints/Camp
-      TermType: 0
-      Description: 
-      Languages:
-      - Camp
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MapDropPoints/Stores
-      TermType: 0
-      Description: 
-      Languages:
-      - Stores
-      - 
-      - 
       - 
       - 
       Flags: 0000000000
@@ -13122,22 +13623,22 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITMatch/area_shrinking
+    - Term: UITMatch/airdrop_landing
       TermType: 0
       Description: 
       Languages:
-      - THE AREA IS SHRINKING
+      - THE AIRDROP IS LANDING
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITMatch/airdrop_landing
+    - Term: UITMatch/area_shrinking
       TermType: 0
       Description: 
       Languages:
-      - THE AIRDROP IS LANDING
+      - THE AREA IS SHRINKING
       - 
       - 
       - 
@@ -13155,17 +13656,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITMatch/max
-      TermType: 0
-      Description: 
-      Languages:
-      - MAX
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITMatch/lvl_up
       TermType: 0
       Description: 
@@ -13177,11 +13667,22 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITMatch/max
+      TermType: 0
+      Description: 
+      Languages:
+      - MAX
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCollectionScreen/banners
       TermType: 0
       Description: 
       Languages:
-      - BANNERS
+      - FLAGS
       - "\u0411\u0430\u043D\u043D\u0435\u0440\u044B"
       - Banners
       - 
@@ -13239,6 +13740,28 @@ MonoBehaviour:
       - GLIDERS
       - "\u041F\u043B\u0430\u043D\u0435\u0440\u044B"
       - Planadores
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCollectionScreen/avatars
+      TermType: 0
+      Description: 
+      Languages:
+      - AVATARS
+      - "\u0410\u0412\u0410\u0422\u0410\u0420\u042B"
+      - AVATARES
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCollectionScreen/meleeskins
+      TermType: 0
+      Description: 
+      Languages:
+      - HAMMERS
+      - "\u041C\u043E\u043B\u043E\u0442\u043A\u0438"
+      - MARTELOS
       - 
       - 
       Flags: 0000000000
@@ -13405,6 +13928,17 @@ MonoBehaviour:
       - ROYAL
       - "\u041A\u043E\u0440\u043E\u043B\u0435\u0432\u0441\u043A\u0438\u0439"
       - REAL
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITEquipment/ascend
+      TermType: 0
+      Description: 
+      Languages:
+      - ASCEND
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -13613,6 +14147,17 @@ MonoBehaviour:
       - SHADOW
       - "\u0422\u0415\u041D\u042C"
       - SOMBRA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITEquipment/fuse
+      TermType: 0
+      Description: 
+      Languages:
+      - FUSE
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -13910,6 +14455,39 @@ MonoBehaviour:
       - NOT EQUIPPED
       - "\u041D\u0435 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D"
       - "N\xC3O EQUIPADO"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITEquipment/pack
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIP
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITEquipment/packed
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIPPED
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_ascending_item
+      TermType: 0
+      Description: 
+      Languages:
+      - ASCENDING ITEM
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -14280,50 +14858,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITEquipment/upgrade
-      TermType: 0
-      Description: 
-      Languages:
-      - UPGRADE
-      - "\u041E\u0411\u041D\u041E\u0412\u041B\u0415\u041D\u0418\u0415"
-      - ATUALIZAR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITEquipment/ascend
-      TermType: 0
-      Description: 
-      Languages:
-      - ASCEND
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITEquipment/popup_ascending_item
-      TermType: 0
-      Description: 
-      Languages:
-      - ASCENDING ITEM
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITEquipment/pack
-      TermType: 0
-      Description: 
-      Languages:
-      - EQUIP
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITEquipment/unpack
       TermType: 0
       Description: 
@@ -14335,11 +14869,22 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITEquipment/packed
+    - Term: UITEquipment/upgrade
       TermType: 0
       Description: 
       Languages:
-      - EQUIPPED
+      - UPGRADE
+      - "\u041E\u0411\u041D\u041E\u0412\u041B\u0415\u041D\u0418\u0415"
+      - ATUALIZAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_fusing_item
+      TermType: 0
+      Description: 
+      Languages:
+      - FUSING ITEM
       - 
       - 
       - 
@@ -14535,6 +15080,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_BattleRoyaleDuos
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE\nDUOS
+      - BATTLE ROYALE\nDUOS
+      - BATTLE ROYALE\nDUOS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/gamemode_BigRoyale
       TermType: 0
       Description: 
@@ -14590,18 +15146,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITHomeScreen/joining
-      TermType: 0
-      Description: 
-      Languages:
-      - Joining...
-      - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435
-        ..."
-      - Juntando -se ...
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITHomeScreen/join_party
       TermType: 0
       Description: 
@@ -14610,6 +15154,18 @@ MonoBehaviour:
       - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C
         \u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0435"
       - "Junte -se \xE0 equipe"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/joining
+      TermType: 0
+      Description: 
+      Languages:
+      - Joining...
+      - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435
+        ..."
+      - Juntando -se ...
       - 
       - 
       Flags: 0000000000
@@ -14875,6 +15431,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITLeaderboards/games
+      TermType: 0
+      Description: 
+      Languages:
+      - Games
+      - Games
+      - Jogos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITLeaderboards/global_leaderboard
       TermType: 0
       Description: 
@@ -14891,9 +15458,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - K
-      - K
-      - K
+      - Kills
+      - Kills
+      - Kills
       - 
       - 
       Flags: 0000000000
@@ -14905,6 +15472,17 @@ MonoBehaviour:
       - PLAYER
       - "\u0418\u0433\u0440\u043E\u043A"
       - JOGADOR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/ranked
+      TermType: 0
+      Description: 
+      Languages:
+      - Ranked
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -14927,6 +15505,17 @@ MonoBehaviour:
       - TROPHIES
       - "\u0422\u0440\u043E\u0444\u0435\u0438"
       - "Trof\xE9us"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/wins
+      TermType: 0
+      Description: 
+      Languages:
+      - Wins
+      - Games Won
+      - "Vit\xF3rias"
       - 
       - 
       Flags: 0000000000
@@ -15259,6 +15848,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITMatchmaking/entering_game
+      TermType: 0
+      Description: 
+      Languages:
+      - ENTERING GAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITMatchmaking/loading_fail
       TermType: 0
       Description: 
@@ -15370,17 +15970,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITMatchmaking/entering_game
-      TermType: 0
-      Description: 
-      Languages:
-      - ENTERING GAME
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITRewards/battlepass
       TermType: 0
       Description: 
@@ -15399,6 +15988,61 @@ MonoBehaviour:
       - CRAFT SPICE
       - "\u0420\u0435\u043C\u0435\u0441\u043B\u0435\u043D\u043D\u0430\u044F \u0441\u043F\u0435\u0446\u0438\u044F"
       - Especiarias artesanais
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/fame
+      TermType: 0
+      Description: 
+      Languages:
+      - FAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/long_range
+      TermType: 0
+      Description: 
+      Languages:
+      - LONG RANGE
+      - 
+      - LONGA DISTANCIA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/new
+      TermType: 0
+      Description: 
+      Languages:
+      - NEW
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/rewards_remaining
+      TermType: 0
+      Description: 
+      Languages:
+      - REWARDS REMAINING
+      - 
+      - RECOMPENSAS RESTANTES
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/short_range
+      TermType: 0
+      Description: 
+      Languages:
+      - SHORT RANGE
+      - 
+      - CURTA DISTANCIA
       - 
       - 
       Flags: 0000000000
@@ -15425,28 +16069,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITRewards/
-      TermType: 0
-      Description: 
-      Languages:
-      - 
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITRewards/rewards_remaining
-      TermType: 0
-      Description: 
-      Languages:
-      - REWARDS REMAINING
-      - 
-      - RECOMPENSAS RESTANTES
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITRewards/you_got
       TermType: 0
       Description: 
@@ -15454,39 +16076,6 @@ MonoBehaviour:
       - YOU GOT
       - 
       - "VOC\xCA GANHOU"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITRewards/new
-      TermType: 0
-      Description: 
-      Languages:
-      - NEW
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITRewards/long_range
-      TermType: 0
-      Description: 
-      Languages:
-      - LONG RANGE
-      - 
-      - LONGA DISTANCIA
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITRewards/short_range
-      TermType: 0
-      Description: 
-      Languages:
-      - SHORT RANGE
-      - 
-      - CURTA DISTANCIA
       - 
       - 
       Flags: 0000000000
@@ -15567,6 +16156,17 @@ MonoBehaviour:
       Description: 
       Languages:
       - Camera Panning
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/cone_aim
+      TermType: 0
+      Description: 
+      Languages:
+      - Cone Aim
       - 
       - 
       - 
@@ -15849,6 +16449,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSettings/hud_customization
+      TermType: 0
+      Description: 
+      Languages:
+      - EDIT CONTROLS
+      - EDIT CONTROLS
+      - EDIT CONTROLS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSettings/logout
       TermType: 0
       Description: 
@@ -16041,46 +16652,13 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/cone_aim
+    - Term: UITSettings/show_real_damage
       TermType: 0
       Description: 
       Languages:
-      - Cone Aim
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/hud_customization
-      TermType: 0
-      Description: 
-      Languages:
-      - Customize Hud
-      - Customize Hud
-      - Customizar Hud
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITInbox/inbox_title
-      TermType: 0
-      Description: 
-      Languages:
-      - INBOX
-      - INBOX
-      - INBOX
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITInbox/inbox_news
-      TermType: 0
-      Description: 
-      Languages:
-      - NEWS
-      - NEWS
-      - NEWS
+      - Real Damage
+      - Real Damage
+      - Dano Real
       - 
       - 
       Flags: 0000000000
@@ -16096,6 +16674,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITInbox/inbox_news
+      TermType: 0
+      Description: 
+      Languages:
+      - NEWS
+      - NEWS
+      - NEWS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITInbox/inbox_personal
       TermType: 0
       Description: 
@@ -16103,6 +16692,17 @@ MonoBehaviour:
       - PERSONAL
       - PERSONAL
       - PERSONAL
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITInbox/inbox_title
+      TermType: 0
+      Description: 
+      Languages:
+      - INBOX
+      - INBOX
+      - INBOX
       - 
       - 
       Flags: 0000000000
@@ -16587,24 +17187,15 @@ MonoBehaviour:
       Languages:
       - 'Contains <b>1 random non-tradable item</b>
 
-        <b>Rarity</b>
 
-        Common
-        45%, Common+ 45%, Uncommon 10%
+        <b>Rarity chances:</b>
 
-        <b>Faction</b>
+        -
+        Common 45%
 
-        Order 20%,
-        Chaos 20%, Organic 20%, Dark 20%, Shadow 10%, Celestial 10%
+        - Common+ 45%
 
-        <b>Material</b>
-
-        Plastic
-        80%, Steel 20%
-
-        <b>Max durability</b>
-
-        1 100%'
+        - Uncommon 10%'
       - 
       - 
       - 
@@ -16617,24 +17208,13 @@ MonoBehaviour:
       Languages:
       - 'Contains <b>1 random non-tradable item</b>
 
-        <b>Rarity</b>
 
-        Common+
-        80%, Uncommon 20%
+        <b>Rarity chances:</b>
 
-        <b>Faction</b>
+        -
+        Common+ 80%
 
-        Order 20%, Chaos 20%,
-        Organic 20%, Dark 20%, Shadow 10%, Celestial 10%,
-
-        <b>Material</b>
-
-        Plastic
-        50%, Steel 50%
-
-        <b>Max durability</b>
-
-        1 50%, 2 50%'
+        - Uncommon 20%'
       - 
       - 
       - 
@@ -16647,24 +17227,13 @@ MonoBehaviour:
       Languages:
       - 'Contains <b>1 random non-tradable item</b>
 
-        <b>Rarity</b>
 
-        Common
-        75%, Common+ 25%
+        <b>Rarity chances:</b>
 
-        <b>Faction</b>
+        -
+        Common 75%
 
-        Order 25% Chaos 25% Organic
-        25% Dark 25%
-
-        <b>Material</b>
-
-        Plastic 100%
-
-        <b>Max
-        durability</b>
-
-        1 100%'
+        - Common+ 25%'
       - 
       - 
       - 
@@ -16734,6 +17303,138 @@ MonoBehaviour:
       - SHOP
       - "\u041C\u0410\u0413\u0410\u0417\u0418\u041D"
       - COMPRAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/coin_pack_small
+      TermType: 0
+      Description: 
+      Languages:
+      - 360 COINS
+      - 360 COINS
+      - 360 COINS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/coin_pack_medium
+      TermType: 0
+      Description: 
+      Languages:
+      - 720 COINS
+      - 720 COINS
+      - 720 COINS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/coin_pack_large
+      TermType: 0
+      Description: 
+      Languages:
+      - 1800 COINS
+      - 1800 COINS
+      - 1800 COINS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/blastbuck_pack_small
+      TermType: 0
+      Description: 
+      Languages:
+      - 30 BLAST BUCKS
+      - 30 BLAST BUCKS
+      - 30 BLAST BUCKS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/blastbuck_pack_medium
+      TermType: 0
+      Description: 
+      Languages:
+      - 120 BLAST BUCKS
+      - 120 BLAST BUCKS
+      - 120 BLAST BUCKS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/blastbuck_pack_large
+      TermType: 0
+      Description: 
+      Languages:
+      - 680 BLAST BUCKS
+      - 680 BLAST BUCKS
+      - 680 BLAST BUCKS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_coin_pack_small
+      TermType: 0
+      Description: 
+      Languages:
+      - You get some coins!
+      - You get some coins!
+      - You get some coins!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_coin_pack_medium
+      TermType: 0
+      Description: 
+      Languages:
+      - You get some coins!
+      - You get some coins!
+      - You get some coins!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_coin_pack_large
+      TermType: 0
+      Description: 
+      Languages:
+      - You get some coins!
+      - You get some coins!
+      - You get some coins!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_blastbuck_pack_small
+      TermType: 0
+      Description: 
+      Languages:
+      - You get some blast bucks!
+      - You get some blast bucks!
+      - You get some blast bucks!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_blastbuck_pack_medium
+      TermType: 0
+      Description: 
+      Languages:
+      - You get some blast bucks!
+      - You get some blast bucks!
+      - You get some blast bucks!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_blastbuck_pack_large
+      TermType: 0
+      Description: 
+      Languages:
+      - You get some blast bucks!
+      - You get some blast bucks!
+      - You get some blast bucks!
       - 
       - 
       Flags: 0000000000
@@ -16931,6 +17632,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITTutorial/select_map_position
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT YOUR SPAWN POSITION
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/select_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT THE WEAPON
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITTutorial/shoot_barrier
       TermType: 0
       Description: 
@@ -17015,28 +17738,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/select_weapon
-      TermType: 0
-      Description: 
-      Languages:
-      - SELECT THE WEAPON
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITTutorial/select_map_position
-      TermType: 0
-      Description: 
-      Languages:
-      - SELECT YOUR SPAWN POSITION
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITWinners/winner
       TermType: 0
       Description: 
@@ -17083,7 +17784,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1691418200071
+    Google_LastUpdatedVersion: 1697468646620
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

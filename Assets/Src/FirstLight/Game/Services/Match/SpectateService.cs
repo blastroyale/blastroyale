@@ -13,7 +13,7 @@ namespace FirstLight.Game.Services
 		public EntityRef Entity;
 		public PlayerRef Player;
 		public int Team;
-		public Transform Transform;
+		public Transform Transform; // todo: managed memory in unmanaged struct should remove
 
 		public SpectatedPlayer(EntityRef entity, PlayerRef player, int team, Transform transform)
 		{
@@ -46,6 +46,12 @@ namespace FirstLight.Game.Services
 		/// Starts spectating the previous player.
 		/// </summary>
 		public void SwipeRight();
+
+		/// <summary>
+		/// Returns the current spectated entity
+		/// </summary>
+		/// <returns></returns>
+		public EntityRef GetSpectatedEntity();
 	}
 
 	public class SpectateService : ISpectateService, MatchServices.IMatchService
@@ -79,9 +85,11 @@ namespace FirstLight.Game.Services
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
+		public EntityRef GetSpectatedEntity() => _spectatedPlayer.Value.Entity;
+
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
-			if (_gameServices.NetworkService.LocalPlayer.IsSpectator())
+			if (_gameServices.RoomService.IsLocalPlayerSpectator)
 			{
 				SwipeRight(game);
 
@@ -134,7 +142,7 @@ namespace FirstLight.Game.Services
 			// behind when we're in Spectate mode, meaning that we aren't able to fetch the initial spectated player
 			// on the first frame the same way we can in normal mode. SMH.
 			if (!_spectatedPlayer.Value.Entity.IsValid &&
-				_gameServices.NetworkService.LocalPlayer.IsSpectator() &&
+				_gameServices.RoomService.IsLocalPlayerSpectator &&
 				TryGetNextPlayer(game, out var player))
 			{
 				SetSpectatedEntity(callback.Game.Frames.Verified, player.Entity, player.Player, true);

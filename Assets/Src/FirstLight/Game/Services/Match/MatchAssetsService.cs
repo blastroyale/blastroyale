@@ -5,12 +5,15 @@ using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
+using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,7 +32,7 @@ namespace FirstLight.Game.Services
 		/// all players loaded before starting the game
 		/// </summary>
 		void StartMandatoryAssetLoad();
-		
+
 		/// <summary>
 		/// This method will start loading the optional assets, and hopefully the game starts when all are loaded.
 		/// Not loading all optional assets is just fine, and starting the game while one asset is in the middle
@@ -37,18 +40,18 @@ namespace FirstLight.Game.Services
 		/// In case they are not loaded the game will run just fine and assets will be loaded during the game.
 		/// </summary>
 		void StartOptionalAssetLoad();
-		
+
 		/// <summary>
 		/// Unloads all loaded assets
 		/// </summary>
 		Task UnloadAllMatchAssets();
-		
+
 		/// <summary>
 		/// Waits for all mandatory assets to have completed loading
 		/// </summary>
 		Task WaitMandatoryComplete();
 	}
-	
+
 	public class MatchAssetsService : IMatchAssetsService, MatchServices.IMatchService
 	{
 		private readonly IGameServices _services;
@@ -56,7 +59,7 @@ namespace FirstLight.Game.Services
 		private readonly IGameDataProvider _data;
 		private readonly AsyncTaskTracker _mandatoryAssets;
 		private readonly AsyncTaskTracker _optionalAssets;
-		
+
 		public MatchAssetsService()
 		{
 			_services = MainInstaller.ResolveServices();
@@ -64,12 +67,18 @@ namespace FirstLight.Game.Services
 			_data = MainInstaller.Resolve<IGameDataProvider>();
 			_mandatoryAssets = new AsyncTaskTracker();
 			_optionalAssets = new AsyncTaskTracker();
-			_services.MessageBrokerService.Subscribe<PlayerUpdateLoadoutMessage>(OnUpdateLoadout);
+			_services.RoomService.OnPlayersChange += OnRoomPlayersChange;
 		}
+
 
 		public void StartOptionalAssetLoad()
 		{
-			LoadGameIds(_services.NetworkService.LocalPlayer.GetLoadoutGameIds());
+			var localPlayerLoadout = _services.RoomService.CurrentRoom.LocalPlayerProperties.Loadout.Value;
+			if (localPlayerLoadout != null)
+			{
+				LoadGameIds(localPlayerLoadout);
+			}
+
 			_optionalAssets.Add(_assetAdderService.LoadAllAssets<MaterialVfxId, GameObject>());
 			_optionalAssets.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());
 			_optionalAssets.Add(_assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>());
@@ -83,17 +92,13 @@ namespace FirstLight.Game.Services
 		{
 			if (!_services.NetworkService.InRoom) return;
 			var time = Time.realtimeSinceStartup;
-			var config = _services.NetworkService.CurrentRoomMapConfig.Value;
-			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
-			var mutatorIds = _services.NetworkService.CurrentRoomMutatorIds;
-			var botDifficultyOverwrite = _services.NetworkService.CurrentRoom.GetMatchSetup().BotDifficultyOverwrite;
-			var map = config.Map.ToString();
+			var map = _services.RoomService.CurrentRoom.Properties.MapId.Value;
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
-			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			runnerConfigs.SetRuntimeConfig(gameModeConfig, config, mutatorIds, botDifficultyOverwrite);
+			_services.RoomService.CurrentRoom.SetRuntimeConfig();
 			LoadQuantumAssets(map);
 			_mandatoryAssets.Add(LoadScene(map));
-			_mandatoryAssets.Add(_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary));
+			_mandatoryAssets.Add(
+				_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary));
 			_mandatoryAssets.Add(_services.GameUiService.LoadUiAsync<HUDScreenPresenter>());
 			_mandatoryAssets.OnCompleteAll(() =>
 			{
@@ -106,19 +111,23 @@ namespace FirstLight.Game.Services
 				};
 				_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadMatchAssetsComplete, dic);
 				FLog.Verbose("Completed loading all core assets");
-				if (_services.NetworkService.InRoom) _services.MessageBrokerService.Publish(new CoreMatchAssetsLoadedMessage());
+
+				if (_services.RoomService.InRoom)
+				{
+					_services.RoomService.CurrentRoom.LocalPlayerProperties.CoreLoaded.Value = true;
+				}
 			});
 		}
-		
-		
+
+
 		public async Task UnloadAllMatchAssets()
 		{
 			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;
-			
+
 			_services.GameUiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
-			
+
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 
 			_services.VfxService.DespawnAll();
@@ -130,50 +139,63 @@ namespace FirstLight.Game.Services
 			Resources.UnloadUnusedAssets();
 		}
 
-		
+
 		private void LoadOptionalGroup(GameIdGroup group)
 		{
 			foreach (var id in group.GetIds())
 				_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
 		}
-		
+
 		public async Task WaitMandatoryComplete()
 		{
 			await _mandatoryAssets.WaitForCompletion();
 		}
 
 
-		private async Task LoadScene(string map)
+		private async Task LoadScene(GameId map)
 		{
-			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
+			if (!_services.ConfigsProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
+			{
+				throw new Exception("Asset map config not found for map " + map);
+			}
+
+			var sceneTask = _assetAdderService.LoadSceneAsync(config.Scene, LoadSceneMode.Additive);
 			SceneManager.SetActiveScene(await sceneTask);
 		}
-		
-		private void OnUpdateLoadout(PlayerUpdateLoadoutMessage msg)
+
+		private void OnRoomPlayersChange(Player player, PlayerChangeReason reason)
 		{
-			FLog.Verbose("Loading assets for player "+msg.Player.NickName);
-			LoadGameIds(msg.Loadout);
+			if (reason == PlayerChangeReason.Join)
+			{
+				LoadGameIds(_services.RoomService.CurrentRoom.GetPlayerProperties(player).Loadout.Value);
+			}
 		}
 
 		private void LoadGameIds(List<GameId> ids)
 		{
 			foreach (var id in ids)
 			{
-				_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true,
-					false));
+				_optionalAssets.Add(_services.CollectionService.LoadCollectionItem3DModel(ItemFactory.Collection(id), false, false));
 			}
 		}
 
-		private void LoadQuantumAssets(string map)
+		private void LoadQuantumAssets(GameId map)
 		{
+			if (_services.ConfigsProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
+			{
+				_optionalAssets.Add(_assetAdderService.LoadAssetAsync<AssetBase>(config.QuantumMap));
+			}
+
 			var assets = UnityDB.CollectAddressableAssets();
 			foreach (var asset in assets)
 			{
-				if (asset.Item1.Contains("Settings") || (asset.Item1.StartsWith("Maps/") && !asset.Item1.Contains(map)) || asset.Item1.Contains("CircuitExport"))
+				if (asset.Item1.Contains("Settings") || (asset.Item1.StartsWith("Maps/") && !asset.Item1.Contains(map.ToString())) ||
+					asset.Item1.Contains("CircuitExport"))
 				{
 					continue;
 				}
-				FLog.Verbose("Preloading Quantum Asset "+asset.Item1);
+
+				FLog.Verbose("Preloading Quantum Asset " + asset.Item1);
 				_optionalAssets.Add(_assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1));
 			}
 		}

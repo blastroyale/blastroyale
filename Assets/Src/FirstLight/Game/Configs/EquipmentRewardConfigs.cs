@@ -8,7 +8,8 @@ using UnityEngine;
 namespace FirstLight.Game.Configs
 {
 	/// <summary>
-	/// This struct stores the battle pass reward configs.
+	/// This struct stores a "Chest of Equipment"
+	/// That means it defines base rules to generate a given equipment
 	/// The rewards are non-NFTs, and are generated from a list of possibilities and ranges (GameID + Chance)
 	/// </summary>
 	[Serializable]
@@ -29,9 +30,6 @@ namespace FirstLight.Game.Configs
 		public uint Level;
 		public uint Generation;
 		public int Amount;
-
-		public bool IsEquipment() => Level > 0;
-
 	}
 	/// <summary>
 	/// Scriptable Object tool to import the <seealso cref="EquipmentRewardConfigs"/> sheet data

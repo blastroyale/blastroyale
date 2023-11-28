@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using DG.DemiLib;
@@ -13,6 +14,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
@@ -43,14 +45,14 @@ namespace FirstLight.Game.StateMachines
 		private Coroutine _csPoolTimerCoroutine;
 
 		public CoreLoopState(ReconnectionState reconnection, IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, IGameUiService uiService, IGameLogic gameLogic, 
-		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
+		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger, IRoomService roomService)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
 			_networkService = networkService;
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
-			_matchState = new MatchState(services, dataService, networkService, uiService, gameLogic, assetAdderService, statechartTrigger);
+			_matchState = new MatchState(services, dataService, networkService, uiService, gameLogic, assetAdderService, statechartTrigger,roomService);
 			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, statechartTrigger);
 			_reconnection = reconnection;
 		}
@@ -138,11 +140,50 @@ namespace FirstLight.Game.StateMachines
 			return false;
 		}
 
-		private async void AttemptJoinTutorialRoom()
+		private async Task TutorialJoinTask(bool transition = false)
 		{
-			await _uiService.CloseUi<LoadingScreenPresenter>();
-			_ = SwipeScreenPresenter.StartSwipe();
+			await _services.GameUiService.CloseUi<PrivacyDialogPresenter>();
+			if (transition)
+			{
+				await TransitionScreen();
+				// This is an ugly hack - if we dont wait a second here the state machine will get back to iddle state
+				// before the event of starting the match is fireds causing an infinite loop and crash.
+				// This can still happen on some devices so this hack needs to be solved.
+				await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
+			}
 			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
+		}
+
+		private async Task TransitionScreen()
+		{
+			await SwipeScreenPresenter.StartSwipe();
+			await _uiService.CloseUi<LoadingScreenPresenter>();
+		}
+
+		private async Task AcceptPrivacyDialog()
+		{
+			await TransitionScreen();
+			var data = new PrivacyDialogPresenter.StateData()
+			{
+				OnAccept = AcceptTerms
+			};
+			await _services.GameUiService.OpenUiAsync<PrivacyDialogPresenter, PrivacyDialogPresenter.StateData>(data);
+		}
+
+		private void AcceptTerms()
+		{
+			
+			_ = TutorialJoinTask();
+		}
+
+		private void AttemptJoinTutorialRoom()
+		{
+			if (_dataProvider.AppDataProvider.IsFirstSession)
+			{
+				_ = AcceptPrivacyDialog();
+				return;
+			}
+			_ = TutorialJoinTask(true);
 		}
 
 		private void SubscribeEvents()

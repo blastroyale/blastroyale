@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 4244908211650648713}
   - component: {fileID: 3072573433067274642}
   - component: {fileID: 200409045701836647}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Clapperboard_no_doors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3072542755982713318
 Transform:

@@ -14,14 +14,13 @@ namespace FirstLight.Game.Utils
 	/// </summary>
 	public static class EquipmentExtensions
 	{
-		public static AnalyticsData GetAnalyticsData(this Equipment equipment, UniqueId id)
+		public static AnalyticsData GetAnalyticsData(this Equipment equipment)
 		{
 			return new AnalyticsData()
 			{
 				{ "gameid", equipment.GameId },
 				{ "level", equipment.Level },
 				{ "rarity", equipment.Rarity },
-				{ "uniqueid", id.ToString() },
 			};
 		}
 		

@@ -1,7 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
 using JetBrains.Annotations;
 using Quantum;
@@ -14,24 +19,30 @@ namespace FirstLight.Game.Logic
 	public interface ICollectionDataProvider
 	{
 		/// <summary>
+		/// Default items gave to the player on account creation
+		/// </summary>
+		IReadOnlyDictionary<CollectionCategory, List<ItemData>> DefaultCollectionItems { get; }
+
+		/// <summary>
 		/// Gets all items in a given collection group
 		/// </summary>
-		List<CollectionItem> GetFullCollection(CollectionCategory group);
+		List<ItemData> GetFullCollection(CollectionCategory group);
 
 		/// <summary>
 		/// Get all items owned from a collection
 		/// </summary>
-		List<CollectionItem> GetOwnedCollection(CollectionCategory group);
+		List<ItemData> GetOwnedCollection(CollectionCategory group);
 
 		/// <summary>
 		/// Get equipped item from a collection
 		/// </summary>
-		[CanBeNull] CollectionItem GetEquipped(CollectionCategory group);
+		[CanBeNull]
+		ItemData GetEquipped(CollectionCategory group);
 
 		/// <summary>
 		/// Get a collection type from a collection item
 		/// </summary>
-		CollectionCategory GetCollectionType(CollectionItem item);
+		CollectionCategory GetCollectionType(ItemData item);
 
 		/// <summary>
 		/// Get all available collections
@@ -41,12 +52,12 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Does the player own a specific item?
 		/// </summary>
-		bool IsItemOwned(CollectionItem item);
+		bool IsItemOwned(ItemData item);
 
 		/// <summary>
-		/// Unlocks the collection item for the player
+		/// Check if player has all the default skins
 		/// </summary>
-		void UnlockCollectionItem(CollectionItem item);
+		bool HasAllDefaultCollectionItems();
 	}
 
 	/// <summary>
@@ -54,79 +65,162 @@ namespace FirstLight.Game.Logic
 	/// </summary>
 	public interface ICollectionLogic : ICollectionDataProvider
 	{
-		CollectionCategory Equip(CollectionItem item);
+		CollectionCategory Equip(ItemData item);
+
+		/// <summary>
+		/// Unlocks the collection item for the player
+		/// </summary>
+		ItemData UnlockCollectionItem(ItemData item);
 	}
-	
+
 	public class CollectionLogic : AbstractBaseLogic<CollectionData>, ICollectionLogic, IGameLogicInitializer
 	{
-		public List<CollectionItem> GetFullCollection(CollectionCategory group)
+		public IReadOnlyDictionary<CollectionCategory, List<ItemData>> DefaultCollectionItems => new ReadOnlyDictionary<CollectionCategory, List<ItemData>>(new Dictionary<CollectionCategory, List<ItemData>>()
 		{
-			List<CollectionItem> collection = new List<CollectionItem>();
+			{
+				CollectionCategories.PROFILE_PICTURE, new List<ItemData>()
+				{
+					ItemFactory.Collection(GameId.Avatar2)
+				}
+			},
+			{
+				CollectionCategories.PLAYER_SKINS, new List<ItemData>
+				{
+					ItemFactory.Collection(GameId.MaleAssassin),
+				}
+			},
+			{
+				CollectionCategories.GLIDERS, new List<ItemData>
+				{
+					ItemFactory.Collection(GameId.Turbine),
+				}
+			},
+			{
+				CollectionCategories.GRAVE, new List<ItemData>
+				{
+					ItemFactory.Collection(GameId.Demon),
+				}
+			},
+			{
+				CollectionCategories.MELEE_SKINS, new List<ItemData>
+				{
+					ItemFactory.Collection(GameId.MeleeSkinDefault),
+				}
+			}
+		});
+
+		/// <summary>
+		/// If the player doesn't have an equipped it will return this values when the equipped item is requested
+		/// If the player doesn't have the item, or there is no setting for the category it will get the first item of the collection
+		/// </summary>
+		public readonly Dictionary<CollectionCategory, ItemData> DefaultEquipped = new ()
+		{
+			{CollectionCategories.GLIDERS, ItemFactory.Collection(GameId.Turbine)},
+			{CollectionCategories.GRAVE, ItemFactory.Collection(GameId.Demon)},
+			{CollectionCategories.MELEE_SKINS, ItemFactory.Collection(GameId.MeleeSkinDefault)},
+			{CollectionCategories.PROFILE_PICTURE, ItemFactory.Collection(GameId.Avatar2)},
+		};
+
+
+		public List<ItemData> GetFullCollection(CollectionCategory group)
+		{
+			List<ItemData> collection = new List<ItemData>();
 			foreach (var id in group.Id.GetIds())
 			{
-				collection.Add(new CollectionItem(id));
+				// Player can have multiple items marked as genericcollectionitem, this means the id represent multiple collectables 
+				if(id.IsInGroup(GameIdGroup.GenericCollectionItem)) continue;
+				collection.Add(ItemFactory.Collection(id));
 			}
+			// Start to data driven shit
+
 			return collection;
 		}
+		
 
-		public List<CollectionItem> GetOwnedCollection(CollectionCategory group)
+		public List<ItemData> GetOwnedCollection(CollectionCategory group)
 		{
 			if (!Data.OwnedCollectibles.TryGetValue(group, out var collection))
 			{
-				collection = new();
+				collection = new ();
 			}
+
 			return collection;
 		}
 
+		public bool HasAllDefaultCollectionItems()
+		{
+			return DefaultCollectionItems.SelectMany(category => category.Value).All(IsItemOwned);
+		}
+
 		[CanBeNull]
-		public CollectionItem GetEquipped(CollectionCategory group)
+		public ItemData GetEquipped(CollectionCategory group)
 		{
 			if (Data.Equipped.TryGetValue(group, out var equipped))
 			{
 				return equipped;
 			}
 
-			Data.DefaultEquipped.TryGetValue(group, out var defaultEquipped);
-			return defaultEquipped;
+			if (DefaultEquipped.TryGetValue(group, out var defaultEquipped))
+			{
+				if (IsItemOwned(defaultEquipped))
+				{
+					return defaultEquipped;
+				}
+			}
+
+			var owned = GetOwnedCollection(group);
+			return owned.Count > 0 ? owned[0] : null;
 		}
 
-		public void UnlockCollectionItem(CollectionItem item)
+
+		public ItemData UnlockCollectionItem(ItemData item)
 		{
 			var category = GetCollectionType(item);
 			if (!Data.OwnedCollectibles.TryGetValue(category, out var collection))
 			{
-				collection = new();
+				collection = new ();
 				Data.OwnedCollectibles[category] = collection;
 			}
-			collection.Add(item);
+
+			if (!collection.Contains(item))
+			{
+				collection.Add(item);
+			}
+			return item;
 		}
 
-		public CollectionCategory GetCollectionType(CollectionItem item)
+		public CollectionCategory GetCollectionType(ItemData item)
 		{
 			return new (item.Id.GetGroups().First()); // TODO: this is shit
 		}
+
 
 		public List<CollectionCategory> GetCollectionsCategories()
 		{
 			return new List<CollectionCategory>()
 			{
-				new (GameIdGroup.PlayerSkin), new (GameIdGroup.DeathMarker), new (GameIdGroup.Glider)
+				new (GameIdGroup.PlayerSkin),
+				new (GameIdGroup.DeathMarker),
+				new (GameIdGroup.Glider),
+				new (GameIdGroup.MeleeSkin),
+				new (GameIdGroup.ProfilePicture)
 			};
 		}
 
-		public bool IsItemOwned(CollectionItem item)
+		public bool IsItemOwned(ItemData item)
 		{
 			var group = GetCollectionType(item);
 			return GetOwnedCollection(group).Contains(item);
 		}
 
-		public CollectionCategory Equip(CollectionItem item)
+		public CollectionCategory Equip(ItemData item)
 		{
 			var group = GetCollectionType(item);
 			if (!GetOwnedCollection(group).Contains(item))
 			{
 				throw new LogicException("Collection item not owned");
 			}
+
 			Data.Equipped[group] = item;
 			return group;
 		}

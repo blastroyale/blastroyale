@@ -126,19 +126,25 @@ namespace FirstLight.Game.Views.UITK
 			UpdatePlayerCounts(QuantumRunner.Default.Game.Frames.Verified);
 		}
 
-		private void UpdatePlayerCounts(FrameBase f)
+		private void UpdatePlayerCounts(Frame f)
 		{
 			var container = f.GetSingleton<GameContainer>();
-
-			// The target is everyone -1 (us) so we need to add 1 to get the full number of players
-			var enemiesLeft = container.TargetProgress - container.CurrentProgress + 1;
-			if (enemiesLeft != _aliveCount)
+			
+			// We count all alive players in a match and display this number
+			var playersAlive = 0;
+			for (int i = 0; i < container.PlayersData.Length; i++)
 			{
-				_aliveCount = (int) enemiesLeft;
-				_aliveCountLabel.text = enemiesLeft.ToString();
-				_aliveCountLabel.AnimatePing();
-			}
+				var data = container.PlayersData[i];
 
+				if (data.IsValid && data.Entity.IsAlive(f))
+				{
+					playersAlive++;
+				}
+			}
+			_aliveCount = (int) playersAlive;
+			_aliveCountLabel.text = playersAlive.ToString();
+			_aliveCountLabel.AnimatePing();
+			
 			var killsCount = container.PlayersData[_matchServices.SpectateService.SpectatedPlayer.Value.Player]
 				.PlayersKilledCount;
 			if (killsCount != _killsCount)
@@ -155,6 +161,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var shrinkingNotified = false;
 			var warningNotified = false;
+			var delayPhaseStarted = false;
 
 			// FLog.Info("PACO",
 			// 	"StartCountdown: delayTime: " + delayTimeMs + " warningTimeMs: " + warningTimeMs + " shrinkingTimeMs: " + shrinkingTimeMs +
@@ -171,12 +178,18 @@ namespace FirstLight.Game.Views.UITK
 
 					if (currentTimeSeconds < warningStartTime)
 					{
-						_timerLabel.text = string.Empty;
+						if (!delayPhaseStarted)
+						{
+							_timerLabel.text = string.Empty;
+							_counterElement.SetVisibility(false);
+							delayPhaseStarted = true;
+						}
 					}
 					else if (currentTimeSeconds < shrinkingStartTime)
 					{
 						if (!warningNotified)
 						{
+							_counterElement.SetVisibility(true);
 							ShowNotification(ScriptLocalization.UITMatch.go_to_safe_area);
 							warningNotified = true;
 						}
@@ -187,6 +200,7 @@ namespace FirstLight.Game.Views.UITK
 					{
 						if (!shrinkingNotified)
 						{
+							_counterElement.SetVisibility(true);
 							ShowNotification(ScriptLocalization.UITMatch.area_shrinking);
 							shrinkingNotified = true;
 						}

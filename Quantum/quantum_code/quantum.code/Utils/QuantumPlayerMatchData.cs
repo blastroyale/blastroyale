@@ -15,6 +15,7 @@ namespace Quantum
 		public bool IsBot;
 		public int TeamId;
 		public string AvatarUrl;
+		public uint LeaderboardRank;
 
 		public QuantumPlayerMatchData(Frame f, PlayerRef player) : this(f, f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[player])
 		{
@@ -31,6 +32,7 @@ namespace Quantum
 			PlayerName = playerData == null ? data.BotNameIndex.ToString() : playerData.PlayerName;
 			TeamId = data.TeamId;
 			AvatarUrl = playerData?.AvatarUrl;
+			LeaderboardRank = playerData == null ? 0 : playerData.LeaderboardRank;
 		}
 
 		public override int GetHashCode()

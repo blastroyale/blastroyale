@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
@@ -8,7 +9,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
-using MoreMountains.NiceVibrations;
 using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
@@ -61,6 +61,11 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		bool UseDynamicJoystick { get; set; }
 
+		/// <summary>
+		/// If should show the real damage instead of percentage damage
+		/// </summary>
+		ref bool ShowRealDamage { get; }
+		
 		/// <summary>
 		/// Requests the enable property for dynamic camera movement
 		/// </summary>
@@ -130,6 +135,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the player's title display name (including appended numbers)
 		/// </summary>
 		IObservableField<string> DisplayName { get; }
+		
+		/// <summary>
+		/// Playfab title data thats read and setup after player logs in
+		/// </summary>
+		IReadOnlyDictionary<string, string> TitleData { get; }
 
 		/// <summary>
 		/// Requests the player's title display name.
@@ -252,6 +262,8 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
+		public ref bool ShowRealDamage => ref Data.ShowRealDamage;
+		
 		/// <inheritdoc />
 		public bool IsDialogueEnabled
 		{
@@ -270,7 +282,6 @@ namespace FirstLight.Game.Logic
 			set
 			{
 				Data.HapticEnabled = value;
-				MMVibrationManager.SetHapticsActive(value);
 			}
 		}
 
@@ -330,6 +341,8 @@ namespace FirstLight.Game.Logic
 		public IObservableField<string> DisplayName { get; private set; }
 
 		public IObservableField<FrameSnapshot> LastFrameSnapshot { get; private set; }
+
+		public IReadOnlyDictionary<string, string> TitleData => Data.TitleData;
 
 		/// <inheritdoc />
 		public string DisplayNameTrimmed => GetDisplayName();
@@ -428,7 +441,7 @@ namespace FirstLight.Game.Logic
 			if (tagged)
 			{
 				var playerData = DataProvider.GetData<PlayerData>();
-				var skin = TemporarySkin.GetSkinBasedOnFlags(playerData.Flags);
+				var skin = TemporaryPlayerBadges.GetBadgeBasedOnFlags(playerData.Flags);
 				return skin != null ? $"{skin.GetSpriteText()} {name}" : name;
 			}
 

@@ -60,7 +60,6 @@ namespace FirstLight.Game.Presenters
 		private List<BattlePassSegmentData> _segmentData;
 		private List<KeyValuePair<BattlePassSegmentView, VisualElement>> _segmentViewsAndElements;
 
-		private Queue<KeyValuePair<UniqueId, Equipment>> _pendingRewards;
 		private bool _finishedTutorialBpThisCycle = false;
 
 		private void Awake()
@@ -69,7 +68,6 @@ namespace FirstLight.Game.Presenters
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_segmentViewsAndElements = new List<KeyValuePair<BattlePassSegmentView, VisualElement>>();
 			_segmentData = new List<BattlePassSegmentData>();
-			_pendingRewards = new Queue<KeyValuePair<UniqueId, Equipment>>();
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -295,15 +293,21 @@ namespace FirstLight.Game.Presenters
 		{
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 			ScrollToBpLevel((int) predictedProgress.Item1, 0);
-
-			_pendingRewards.Clear();
-
-			foreach (var config in message.Rewards)
+			var battlePassData = Data;
+			Data.UiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 			{
-				_pendingRewards.Enqueue(config);
-			}
+				Items = message.Rewards,
+				OnFinish = () =>
+				{
+					if (_finishedTutorialBpThisCycle)
+					{
+						CompleteTutorialPass();
+					}
 
-			TryShowNextReward();
+					_services.MessageBrokerService.Publish(new FinishedClaimingBpRewardsMessage());
+					_uiService.OpenScreen<BattlePassScreenPresenter, StateData>(battlePassData);
+				}
+			});
 		}
 
 		// TODO: Add some faff jazz & wiggs
@@ -316,25 +320,6 @@ namespace FirstLight.Game.Presenters
 					ButtonText = ScriptLocalization.General.OK,
 					ButtonOnClick = InitScreenAndSegments
 				});
-		}
-
-		private async void TryShowNextReward()
-		{
-			var battlePassData = Data;
-			Data.UiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
-			{
-				Rewards = _pendingRewards.Select(e => new EquipmentReward(e.Value)).ToList<IReward>(),
-				OnFinish = () =>
-				{
-					if (_finishedTutorialBpThisCycle)
-					{
-						CompleteTutorialPass();
-					}
-
-					_services.MessageBrokerService.Publish(new FinishedClaimingBpRewardsMessage());
-					_uiService.OpenScreen<BattlePassScreenPresenter, StateData>(battlePassData);
-				}
-			});
 		}
 	}
 }

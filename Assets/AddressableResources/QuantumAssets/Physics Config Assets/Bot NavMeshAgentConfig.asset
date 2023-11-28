@@ -41,7 +41,7 @@ MonoBehaviour:
     Speed:
       RawValue: 327680
     AngularSpeed:
-      RawValue: 786432
+      RawValue: 3276800
     Acceleration:
       RawValue: 6553600
     StoppingDistance:
@@ -49,7 +49,7 @@ MonoBehaviour:
     AutoBraking: 0
     AutoBrakingDistance:
       RawValue: 32768
-    ClampAgentToNavmesh: 0
+    ClampAgentToNavmesh: 1
     ClampAgentToNavmeshCorrection:
       RawValue: 16384
     AvoidanceType: 2

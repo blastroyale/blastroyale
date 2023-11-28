@@ -1,9 +1,15 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
+using FirstLight.Game.Views.UITK;
+using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -171,7 +177,7 @@ namespace FirstLight.Game.Utils
 				GameId.CoreRare      => USS_SPRITE_RARITY_RARE,
 				GameId.CoreEpic      => USS_SPRITE_RARITY_EPIC,
 				GameId.CoreLegendary => USS_SPRITE_RARITY_LEGENDARY,
-				_                    => USS_SPRITE_RARITY_RAINBOW
+				_                    => ""
 			};
 		}
 
@@ -199,16 +205,48 @@ namespace FirstLight.Game.Utils
 
 		public static async Task SetSprite(GameId id, params VisualElement[] elements)
 		{
+			await SetSprite(LoadSprite(id), elements);
+		}
+
+		public static async Task SetSprite(Task<Sprite> fetchSpriteTask, params VisualElement[] elements)
+		{
 			foreach (var visualElement in elements)
 			{
 				visualElement.style.backgroundImage = null;
 			}
 
-			var sprite = await LoadSprite(id);
+			var sprite = await fetchSpriteTask;
 			foreach (var visualElement in elements)
 			{
 				visualElement.style.backgroundImage = new StyleBackground(sprite);
 			}
+		}
+
+		/// <summary>
+		/// Locks an element behind a level. unlockedCallback is triggered when this element isn't locked and is pressed.
+		/// </summary>
+		public static void LevelLock<TElement, TPData>(this TElement element,
+													   UiToolkitPresenterData<TPData> presenter, VisualElement root, UnlockSystem unlockSystem,
+													   Action unlockedCallback)
+			where TElement : VisualElement
+			where TPData : struct
+		{
+			element.AttachView(presenter, out FameLockedView storeLockedView);
+			storeLockedView.Init(unlockSystem, root, unlockedCallback);
+		}
+
+		/// <summary>
+		/// Sets the PFP and level of the local player to this avatar element.
+		/// </summary>
+		public static void SetLocalPlayerData(this PlayerAvatarElement element, IGameDataProvider gameDataProvider, IGameServices gameServices)
+		{
+			element.SetLevel(gameDataProvider.PlayerDataProvider.Level.Value);
+
+
+			var itemData = gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
+			var spriteTask = gameServices.CollectionService.LoadCollectionItemSprite(itemData);
+
+			element.LoadFromTask(spriteTask);
 		}
 	}
 }

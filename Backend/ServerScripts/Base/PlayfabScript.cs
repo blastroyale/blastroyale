@@ -252,7 +252,7 @@ public abstract class PlayfabScript : IScript
 	{
 		if (error == null)
 			return;
-		throw new Exception($"Playfab Error {error.ErrorMessage}:{JsonConvert.SerializeObject(error.ErrorDetails)}");
+		throw new Exception($"Playfab Error {error.ErrorMessage}:{error.GenerateErrorReport()}");
 	}
 
 	/// <summary>

@@ -47,10 +47,12 @@ namespace Backend.Game.Services
 		private readonly IEventManager _eventManager;
 		private readonly IMetricsService _metrics;
 		private readonly IPluginManager _plugins;
+		private readonly IGameLogicContextService _logicContext;
 
-		public ServerCommandHandler(IPluginManager plugins, IGameConfigurationService cfg, ILogger log, IEventManager eventManager,
+		public ServerCommandHandler(IGameLogicContextService logicContext, IPluginManager plugins, IGameConfigurationService cfg, ILogger log, IEventManager eventManager,
 									IMetricsService metrics)
 		{
+			_logicContext = logicContext;
 			_cfg = cfg;
 			_log = log;
 			_eventManager = eventManager;
@@ -61,17 +63,13 @@ namespace Backend.Game.Services
 		/// <inheritdoc/>
 		public async Task<ServerState> ExecuteCommand(string userId, IGameCommand cmd, ServerState currentState)
 		{
-			var dataProvider = new ServerPlayerDataProvider(currentState);
-			dataProvider.ClearDeltas(); // initializing logic triggers deltas
-			var msgBroker = new GameServerLogicMessageBroker(userId, _eventManager, _log);
-			var logic = new GameServerLogic(await _cfg.GetGameConfigs(), dataProvider, msgBroker);
-			logic.Init();
+			var logicContext = await _logicContext.GetLogicContext(userId, currentState);
 			var serviceContainer = new ServiceContainer();
-			serviceContainer.Add<IMessageBrokerService>(msgBroker);
-			var logicContainer = new LogicContainer().Build(logic);
-			var commandContext = new CommandExecutionContext(logicContainer, serviceContainer, dataProvider);
+			serviceContainer.Add(logicContext.GameLogic.MessageBrokerService);
+			var logicContainer = new LogicContainer().Build(logicContext.GameLogic);
+			var commandContext = new CommandExecutionContext(logicContainer, serviceContainer, logicContext.PlayerData);
 			cmd.Execute(commandContext);
-			var newState = dataProvider.GetUpdatedState();
+			var newState = logicContext.PlayerData.GetUpdatedState();
 			return newState;
 		}
 

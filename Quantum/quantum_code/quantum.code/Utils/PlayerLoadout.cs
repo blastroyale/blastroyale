@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Quantum
@@ -8,12 +9,9 @@ namespace Quantum
 	/// </summary>
 	public struct PlayerLoadout
 	{
-		public GameId Skin;
+		public GameId[] Cosmetics;
 		public Equipment Weapon;
 		public Equipment[] Equipment;
-		public GameId Footstep;
-		public GameId Glider;
-		public GameId Deathmarker;
 
 		/// <summary>
 		/// Reads the entire player loadout on the given frame
@@ -22,16 +20,22 @@ namespace Quantum
 		{
 			var playerCharacter = f.Get<PlayerCharacter>(entity);
 			var playerData = f.GetSingleton<GameContainer>().PlayersData[playerCharacter.Player];
-			var loadout = new PlayerLoadout()
+
+			var cosmetics = playerData.Cosmetics != default ? f.ResolveList(playerData.Cosmetics).ToArray() : new GameId[] { };
+			return new PlayerLoadout()
 			{
 				Equipment = playerCharacter.Gear.ToList().Where(g => g.IsValid()).ToArray(),
-				Skin = playerData.PlayerSkin,
 				Weapon = playerCharacter.CurrentWeapon,
-				Footstep = GameId.FootprintDot,
-				Glider = playerData.Glider,
-				Deathmarker = playerData.PlayerDeathMarker
+				Cosmetics = cosmetics,
 			};
-			return loadout;
+		}
+
+
+		public static GameId[] GetCosmetics(Frame f, PlayerRef player)
+		{
+			var playerData = f.GetSingleton<GameContainer>().PlayersData[player];
+			if (playerData.Cosmetics == default) return new GameId[] { };
+			return f.ResolveList(playerData.Cosmetics).ToArray();
 		}
 	}
 }

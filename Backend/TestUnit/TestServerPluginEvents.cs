@@ -6,6 +6,7 @@ using Backend.Plugins;
 using FirstLight;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
@@ -35,7 +36,7 @@ public class TestServerPluginEvents
 	[Test]
 	public void TestCommandEvents()
 	{
-		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male02Avatar) };
+		var cmd = new EquipCollectionItemCommand() { Item = ItemFactory.Collection(GameId.Male02Avatar) };
 		var receivedUser = "";
 
 		void OnCommand(string userId, EquipCollectionItemCommand cmd, ServerState state)

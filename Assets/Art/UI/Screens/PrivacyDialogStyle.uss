@@ -1,0 +1,41 @@
+.text-row {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    flex-direction: row;
+}
+
+.row-btn {
+    margin: 0;
+    padding: 0;
+}
+
+.title-text {
+    font-size: 42px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+.desc-text-row {
+    margin-bottom: 10px;
+}
+
+.row-btn__text {
+    color: rgb(61, 123, 226);
+}
+
+.row-btn {
+    margin: 0;
+    padding: 0;
+}
+
+.row-btn__text {
+    color: rgb(61, 123, 226);
+}
+
+.text-row {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    flex-direction: row;
+}

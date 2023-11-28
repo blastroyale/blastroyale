@@ -10,6 +10,8 @@ using FirstLight.Game.Services.Party;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
@@ -26,10 +28,10 @@ namespace FirstLight.Game.Services
 			EndTime = endTime;
 		}
 
-		public GameModeInfo(string gameModeId, MatchType matchType, List<string> mutators, bool isSquads, bool needNft,
+		public GameModeInfo(string gameModeId, MatchType matchType, List<string> mutators, bool isSquads, bool needNft, List<GameId> allowedRewards,
 							DateTime endTime = default)
 		{
-			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators, isSquads, needNft);
+			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators, isSquads, needNft, allowedRewards);
 			EndTime = endTime;
 		}
 
@@ -67,6 +69,11 @@ namespace FirstLight.Game.Services
 		/// in different "seasons" might apply.
 		/// </summary>
 		bool IsInRotation(GameModeRotationConfig.GameModeEntry gameMode);
+
+		/// <summary>
+		/// Gets the current map in the given game mode rotation
+		/// </summary>
+		QuantumMapConfig GetRotationMapConfig(string gameModeId);
 	}
 
 	/// <inheritdoc cref="IGameModeService"/>
@@ -135,6 +142,41 @@ namespace FirstLight.Game.Services
 			{
 				MainInstaller.Resolve<IGameServices>().DataSaver.SaveData<AppData>();
 			}
+		}
+		
+		/// <summary>
+		/// Returns the current map in rotation, used for creating rooms with maps in rotation
+		/// </summary>
+		public QuantumMapConfig GetRotationMapConfig(string gameModeId)
+		{
+			var services = MainInstaller.ResolveServices();
+			var gameModeConfig = services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
+			var compatibleMaps = new List<QuantumMapConfig>();
+			var span = DateTime.UtcNow - DateTime.UtcNow.Date;
+			var timeSegmentIndex =
+				Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.Balance.MAP_ROTATION_TIME_MINUTES);
+
+			var mapConfigs = services.ConfigsProvider.GetConfigsDictionary<QuantumMapConfig>();
+			
+			foreach (var mapId in gameModeConfig.AllowedMaps)
+			{
+				if (!mapConfigs.TryGetValue((int) mapId, out var mapConfig))
+				{
+					FLog.Error($"Could not find map config for map {mapId} - maybe outdated AppData ?");
+					continue;
+				}
+				if (!mapConfig.IsTestMap && !mapConfig.IsCustomOnly)
+				{
+					compatibleMaps.Add(mapConfig);
+				}
+			}
+
+			if (timeSegmentIndex >= compatibleMaps.Count)
+			{
+				timeSegmentIndex %= compatibleMaps.Count;
+			}
+
+			return compatibleMaps[timeSegmentIndex];
 		}
 
 		public void OnPartyUpdate()

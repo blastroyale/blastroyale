@@ -75,20 +75,7 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 		{
 			GetWindow<MapGeneratorEditorWindow>("Map Generator EditorWindow").Show();
 		}
-		
-		
-		[Button("Import GameIds")]
-		private void ImportGameIds()
-		{
-			var importers = GoogleSheetToolImporter.GetAllImporters();
-			var importData = importers.FirstOrDefault(e => e.Type == typeof(GameIdsImporter));
-			
-			GoogleSheetToolImporter.ImportSheetAsync(importData, "");
-			AssetDatabase.SaveAssets();
-			AssetDatabase.Refresh();
-			
-			Debug.Log("Finished importing GameIds");
-		}
+        
 		
 		
 		[Button("Export Scene")]

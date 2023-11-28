@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff14f6390f1a30445ba7213cbaf67e13, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  _profileName: Default
+  _cellMode: 0
+  _useSceneGridCellSize: 1
+  _gridCellSize: {x: 1, y: 1, z: 1}
+  _majorAxis: 0
+  _cornerConnection: 0
+  _rotateAtCorners: 0
+  _objectSkipChance: 0
+  _horizontalPadding: 0
+  _verticalPadding: 0
+  _volumelessObjectSize: 1
+  _avoidOverlaps: 1
+  _maxSegmentLength: 200
+  _heightMode: 0
+  _defaultHeight: 1
+  _heightRaiseAmount: 1
+  _heightLowerAmount: 1
+  _minRandomHeight: 1
+  _maxRandomHeight: 5
+  _heightPatternWrapMode: 1
+  _heightPattern: {fileID: 0}
+  _jitterMode: 0
+  _minJitter: 0
+  _maxJitter: 0.1
+  _minJitterHeight: 1
+  _maxJitterHeight: 1
+  _fillMode: 0
+  _beginBorderWidth: 1
+  _endBorderWidth: 1
+  _topBorderWidth: 1
+  _bottomBorderWidth: 1
+  _segmentCapBorderWidth: 0
+  _prefabPickMode: 0
+  _randomPrefabProfileName: Default
+  _heightRangePrefabProfileName: Default
+  _projectionMode: 0

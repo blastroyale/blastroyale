@@ -9,10 +9,18 @@ namespace Quantum
 		SpecialsCooldowns,
 		Speed,
 		HealthPerSeconds,
-		AbsoluteAccuracy,
+		AbsoluteAccuracy, // DEPRECATED, but kept in ENUM to not mess IDs
 		HammerTime,
 		ForceLevelPlayingField,
 		HidePlayerNames,
+		NoAbilities,
+		PistolsOnly,
+		SMGsOnly,
+		MinigunsOnly,
+		ShotgunsOnly,
+		SnipersOnly,
+		RPGsOnly,
+		ConsumablesSharing,
 	}
 
 	[Serializable]

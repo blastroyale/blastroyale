@@ -36,17 +36,21 @@ namespace FirstLight.Game.Presenters
 			_icon = element.Q<VisualElement>("RewardIcon");
 		}
 
-
-		public void ShowReward(IReward reward)
+		public void ShowReward(IItemViewModel itemViewModel)
 		{
-			_amount.text = $"X {reward.Amount}";
-			_name.text = reward.DisplayName;
 			_animatedBackground.SetDefault();
-#pragma warning disable CS4014
-			// Ignore task return because it only loads the sprite and we don't want to wait for it
-			UIUtils.SetSprite(reward.GameId, _icon);
-#pragma warning restore CS4014
 			_animationController.StartAnimation(_animationDirector, SKIP_ANIMATION_TIME);
+			itemViewModel.DrawIcon(_icon);
+			_name.text = itemViewModel.DisplayName;
+			if (itemViewModel.Description != null)
+			{
+				_amount.SetVisibility(true);
+				_amount.text = itemViewModel.Description;
+			}
+			else
+			{
+				_amount.SetVisibility(false);
+			}
 		}
 	}
 }

@@ -7,6 +7,7 @@ using System.Text;
 using FirstLight.FLogger;
 using FirstLight.Game;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
@@ -441,7 +442,7 @@ public partial class SROptions
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Equipment")]
 	public void UnlockOneEquipment()
 	{
@@ -461,44 +462,34 @@ public partial class SROptions
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
-	[Category("Cosmetics")]
-	public void UnlockAllSkins()
+	private void UnlockCollectionItem(GameId item, IGameLogic gameLogic, IGameServices services)
 	{
-		var skins = new List<GameId>
+		var newCollectionItem = ItemFactory.Collection(item);
+		if (!gameLogic.CollectionLogic.IsItemOwned(newCollectionItem))
 		{
-			GameId.Male01Avatar,
-			GameId.Male02Avatar,
-			GameId.MaleAssassin,
-			GameId.MaleCorpos,
-			GameId.MalePunk,
-			GameId.MaleSuperstar,
-			GameId.Female01Avatar,
-			GameId.Female02Avatar,
-			GameId.FemaleAssassin,
-			GameId.FemaleCorpos,
-			GameId.FemalePunk,
-			GameId.FemaleSuperstar,
-		};
+			gameLogic.CollectionLogic.UnlockCollectionItem(newCollectionItem);
 
+			services.MessageBrokerService.Publish(new CollectionItemUnlockedMessage()
+			{
+				Source = CollectionUnlockSource.ServerGift,
+				EquippedItem = newCollectionItem
+			});
+		}
+	}
+
+	[Category("Cosmetics")]
+	public void UnlockAllCosmetics()
+	{
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var services = MainInstaller.Resolve<IGameServices>();
-		
-		foreach (var skin in skins)
+
+		foreach (var glider in gameLogic.CollectionLogic.GetCollectionsCategories().SelectMany(category => category.Id.GetIds()))
 		{
-			var newCollectionItem = new CollectionItem(skin);
-			
-			if (!gameLogic.CollectionLogic.IsItemOwned(newCollectionItem))
-			{
-				gameLogic.CollectionLogic.UnlockCollectionItem(newCollectionItem);
-				
-				services.MessageBrokerService.Publish(new CollectionItemUnlockedMessage()
-				{
-					Source = CollectionUnlockSource.ServerGift,
-					EquippedItem = newCollectionItem
-				});
-			}
+			if(glider.IsInGroup(GameIdGroup.GenericCollectionItem))continue;
+			UnlockCollectionItem(glider, gameLogic, services);
 		}
-		
+
+
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
@@ -510,7 +501,7 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 
 		// TODO: Remove Logic outside command
-		gameLogic.PlayerLogic.AddXp(amount);
+		gameLogic.PlayerLogic.AddXP(amount);
 
 		var data = new Dictionary<string, string>();
 		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
@@ -519,6 +510,15 @@ public partial class SROptions
 			Command = "CheatAddXpCommand",
 			Data = data
 		});
+	}
+
+	[Category("Progression")]
+	private void PrintLevelXP()
+	{
+		var dataProvider = MainInstaller.Resolve<IGameDataProvider>();
+
+		FLog.Info("PACO", $"Level: {dataProvider.PlayerDataProvider.Level}");
+		FLog.Info("PACO", $"XP: {dataProvider.PlayerDataProvider.XP}");
 	}
 
 	[Category("Progression")]
@@ -619,6 +619,40 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 
 		gameLogic.PlayerLogic.UpdateTrophies(200);
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	[Category("Progression")]
+	public void Add50XP()
+	{
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		gameLogic.PlayerLogic.AddXP(50);
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	[Category("Progression")]
+	public void LevelFameUp()
+	{
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+		var services = MainInstaller.Resolve<IGameServices>();
+		var level = gameLogic.PlayerLogic.Level.Value;
+		var xp = gameLogic.PlayerLogic.XP.Value;
+		var finalXpNeeded = gameLogic.PlayerLogic.GetXpNeededForLevel(level) - xp;
+		gameLogic.PlayerLogic.AddXP(finalXpNeeded);
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	[Category("Progression")]
+	public void ResetLevelAndXP()
+	{
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		gameLogic.PlayerLogic.ResetLevelAndXP();
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}

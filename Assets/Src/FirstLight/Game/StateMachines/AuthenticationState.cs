@@ -92,7 +92,6 @@ namespace FirstLight.Game.StateMachines
 			authLoginDevice.Event(_authFailAccountDeletedEvent).Target(authFail);
 
 			postAuthCheck.Transition().Condition(() => _services.AuthenticationService.State.LastAttemptFailed).Target(authFail);
-			postAuthCheck.Transition().Condition(IsEnvironmentRedirect).Target(setupEnvironment);
 			postAuthCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
 			postAuthCheck.Transition().Condition(IsGameInMaintenance).Target(gameBlocked);
 			postAuthCheck.Transition().Condition(IsGameOutdated).Target(gameUpdate);
@@ -104,8 +103,10 @@ namespace FirstLight.Game.StateMachines
 
 			gameUpdate.OnEnter(OpenGameUpdateDialog);
 
+			final.OnEnter(PublishAuthenticationSuccessMessage);
 			final.OnEnter(UnsubscribeEvents);
 		}
+
 
 		private async Task WaitForAsyncLogin()
 		{
@@ -146,7 +147,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsAsyncLogin()
 		{
-			return !IsEnvironmentRedirect() && _asyncLogin != null;
+			return _asyncLogin != null;
 		}
 
 		private void SubscribeEvents()
@@ -186,11 +187,6 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services.MessageBrokerService?.UnsubscribeAll(this);
-		}
-
-		private bool IsEnvironmentRedirect()
-		{
-			return _services.GameBackendService.EnvironmentRedirect.HasValue;
 		}
 
 		private bool IsAccountDeleted()
@@ -390,6 +386,11 @@ namespace FirstLight.Game.StateMachines
 		private void OnApplicationQuit(ApplicationQuitMessage msg)
 		{
 			OpenLoadingScreen();
+		}
+
+		private void PublishAuthenticationSuccessMessage()
+		{
+			_services.MessageBrokerService.Publish(new SuccessAuthentication());
 		}
 	}
 }

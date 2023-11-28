@@ -159,7 +159,6 @@ GameObject:
   - component: {fileID: 7799200939321987721}
   - component: {fileID: 5612451629978073312}
   - component: {fileID: 2879431998764754499}
-  - component: {fileID: 2994528407130736380}
   - component: {fileID: 8857968609941191585}
   - component: {fileID: 2982387074926561504}
   m_Layer: 0
@@ -321,7 +320,7 @@ MonoBehaviour:
         UserTag: 0
         IsSetFromSourceCollider: 0
       IsSetFromSourceCollider: 0
-    Layer: 0
+    Layer: 9
     CallbackFlags:
       Value: 455
   PhysicsBody:
@@ -389,14 +388,6 @@ MonoBehaviour:
   View:
     Id:
       Value: 0
---- !u!33 &2994528407130736380
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7799200939321987722}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &8857968609941191585
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -152,7 +152,7 @@ namespace FirstLight.Game.Serializers
 		public static void RegisterAOT()
 		{
 			// TODO Move this to AOTCode and reformat this file
-			Newtonsoft.Json.Utilities.AotHelper.EnsureList<CollectionMeta>();
+			Newtonsoft.Json.Utilities.AotHelper.EnsureList<CollectionTrait>();
 		}
 	}
 }

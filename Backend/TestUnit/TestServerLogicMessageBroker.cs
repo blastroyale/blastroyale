@@ -1,6 +1,7 @@
 using Backend.Game.Services;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
@@ -24,6 +25,7 @@ namespace Tests
 			_server = new TestServer();
 			_server.SetupInMemoryServer();
 			_pluginEvents = _server.GetService<IEventManager>();
+			_server.GiveDefaultSkins();
 		}
 
 		[Test]
@@ -36,7 +38,7 @@ namespace Tests
 				receivedMessage = msg;
 			});
 			
-			var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.FemaleAssassin) };
+			var cmd = new EquipCollectionItemCommand() { Item = ItemFactory.Collection(GameId.FemaleAssassin) };
 			
 			_server.SendTestCommand(cmd);
 			

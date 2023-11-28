@@ -75,11 +75,9 @@
 }
 
 .death-notification__name--friendly {
-    color: rgb(35, 210, 233);
 }
 
 .death-notification__name--enemy {
-    color: rgb(212, 83, 80);
 }
 
 .death-notification__pfp {
@@ -105,7 +103,7 @@
     top: 0;
     bottom: 0;
     width: 260px;
-    opacity: 0.58;
+    opacity: 1.00;
 }
 
 .death-notification__gradient--killer {

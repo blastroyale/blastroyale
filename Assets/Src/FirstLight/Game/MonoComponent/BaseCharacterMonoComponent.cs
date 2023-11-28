@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
@@ -17,14 +18,13 @@ namespace FirstLight.Game.MonoComponent
 	/// </summary>
 	public class BaseCharacterMonoComponent : MonoBehaviour
 	{
-		protected readonly int _equipRightHandHash = Animator.StringToHash("equip_hand_r");
-		protected readonly int _equipBodyHash = Animator.StringToHash("equip_body");
-		protected readonly int _flairHash = Animator.StringToHash("flair");
+		private readonly int _victoryHash = Animator.StringToHash("victory");
+
 		protected bool IsLoaded = false;
-		
+
 		[SerializeField, Required] protected UnityEvent _characterLoadedEvent;
 		[SerializeField, Required] protected Transform _characterAnchor;
-		
+
 		protected MainMenuCharacterViewComponent _characterViewComponent;
 		protected IGameServices _services;
 		protected Animator _animator;
@@ -35,14 +35,14 @@ namespace FirstLight.Game.MonoComponent
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		public async Task UpdateSkin(GameId skin, List<EquipmentInfo> equipment = null)
+		public async Task UpdateSkin(ItemData skin, List<EquipmentInfo> equipment = null)
 		{
 			var equipmentList = equipment?.Select(equipmentInfo => equipmentInfo.Equipment).ToList();
 
 			await UpdateSkin(skin, equipmentList);
 		}
-		
-		public async Task UpdateSkin(GameId skin, List<Equipment> equipment = null)
+
+		public async Task UpdateSkin(ItemData skinId, List<Equipment> equipment = null)
 		{
 			if (_characterViewComponent != null && _characterViewComponent.gameObject != null)
 			{
@@ -50,15 +50,34 @@ namespace FirstLight.Game.MonoComponent
 			}
 
 			_equipment = equipment;
-			
-			var instance = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(skin, true, true);
 
-			await SkinLoaded(skin, instance);
+			var obj = await _services.CollectionService.LoadCollectionItem3DModel(skinId, true,true);
+			var container = obj.AddComponent<RenderersContainerMonoComponent>();
+			container.UpdateRenderers();
+			obj.AddComponent<RenderersContainerProxyMonoComponent>();
+			obj.AddComponent<MainMenuCharacterViewComponent>();
+			AddDragCollider(obj);
+			await SkinLoaded(skinId, obj);
+		}
+		/// <summary>
+		/// Collider used for IDragHandler so we can rotate character on main menu
+		/// </summary>
+		/// <param name="obj"></param>
+		private void AddDragCollider(GameObject obj)
+		{
+			// Legacy collider for old visibility volumes
+			var newCollider = obj.AddComponent<CapsuleCollider>();
+			newCollider.center = new Vector3(0, 0.75f, 0);
+			newCollider.radius = 0.36f;
+			newCollider.height = 1.5f;
+			newCollider.direction = 1; // Y axis
+			newCollider.isTrigger = false;
 		}
 
-		public void AnimateFlair()
+
+		public void AnimateVictory()
 		{
-			_animator.SetTrigger(_flairHash);
+			_animator.SetTrigger(_victoryHash);
 		}
 
 		protected async void EquipDefault()
@@ -66,7 +85,7 @@ namespace FirstLight.Game.MonoComponent
 			await _characterViewComponent.EquipItem(GameId.Hammer);
 		}
 
-		private async Task SkinLoaded(GameId id, GameObject instance)
+		private async Task SkinLoaded(ItemData skin, GameObject instance)
 		{
 			instance.SetActive(false);
 
@@ -78,7 +97,7 @@ namespace FirstLight.Game.MonoComponent
 			cacheTransform.localRotation = Quaternion.identity;
 
 			_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
-			
+
 			cacheTransform.localScale = Vector3.one;
 
 			instance.SetActive(true);

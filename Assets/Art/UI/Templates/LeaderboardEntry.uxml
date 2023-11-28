@@ -3,13 +3,16 @@
     <ui:VisualElement name="LeaderboardEntryPositioner" class="leaderboard-entry-positioner">
         <ui:VisualElement name="LocalPlayerHighlight" class="leaderboard-entry-positioner__highlight" />
         <ui:VisualElement name="LeaderboardEntryParent" class="leaderboard-entry">
+            <ui:VisualElement name="PfpFrameColor" class="leaderboard-entry__pfp pfp-bg" style="display: none;" />
             <ui:VisualElement name="PFP" class="leaderboard-entry__pfp">
                 <ui:VisualElement name="PFPImage" class="leaderboard-entry__pfp-image" />
             </ui:VisualElement>
-            <ui:Label text="4." name="RankNumber" class="leaderboard-entry__rank-number" />
-            <ui:VisualElement name="RankBadge" class="leaderboard-entry__rank-badge" />
-            <ui:Label text="PLAYER NAME" name="PlayerName" class="leaderboard-entry--player-name leaderboard-entry__player-name" />
-            <ui:Label text="12" name="Kills" class="leaderboard-entry__kills" />
+            <ui:VisualElement name="CentralBar" class="leaderboard-entry__central-bar">
+                <ui:Label text="441." name="RankNumber" class="leaderboard-entry__rank-number" />
+                <ui:VisualElement name="RankBadge" class="leaderboard-entry__rank-badge" />
+                <ui:Label text="PLAYER NAME" name="PlayerName" class="leaderboard-entry--player-name leaderboard-entry__player-name" />
+                <ui:Label text="12" name="Kills" class="leaderboard-entry__kills" />
+            </ui:VisualElement>
             <ui:VisualElement name="TrophiesBar" class="leaderboard-entry__trophies-bar">
                 <ui:VisualElement name="TrophiesIcon" class="leaderboard-entry__trophies-icon" />
                 <ui:Label text="1400" name="TrophiesAmount" class="leaderboard-entry__trophies-amount" />

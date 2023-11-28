@@ -49,7 +49,8 @@ namespace Quantum
 		{
 			BotLogger.LogAction(bot, "Set Waypoint");
 			bot.MoveTarget = entity;
-			bot.NextDecisionTime = f.Time + FP._10;
+			bot.NextDecisionTime = f.Time + bot.DecisionInterval;
+			bot.StuckDetectionPosition = f.Get<Transform3D>(entity).Position.XZ;
 		}
 		
 		/// <summary>
@@ -61,6 +62,7 @@ namespace Quantum
 			BotLogger.LogAction(bot, "Clear waypoint");
 			bot.MoveTarget = EntityRef.None;
 			bot.NextDecisionTime = f.Time;
+			bot.StuckDetectionPosition = FPVector2.Zero;
 		}
 		
 		/// <summary>
@@ -75,8 +77,23 @@ namespace Quantum
 		/// <summary>
 		/// Checks if the given bot has or not a waypoint (moving)
 		/// </summary>
-		public static bool HasWaypoint(this ref BotCharacter bot)
+		public static bool HasWaypoint(this ref BotCharacter bot, EntityRef entity, Frame f)
 		{
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////
+			// This STUCK DETECTION code is HIDING the issue about bots being stuck, it's a WORKAROUND
+			// IF YOU EVER want to remove this code be sure to FIND OUT WHY bots stuck going into walls when they
+			// are trying to Wander or GoToSafeArea; it's not happening really when bots go for Consumables, so potentially
+			// the issue is somewhere where we convert randomly chosen position into navmesh position
+			if (bot.StuckDetectionPosition != FPVector2.Zero
+				&& FPVector2.DistanceSquared(bot.StuckDetectionPosition, f.Get<Transform3D>(entity).Position.XZ)
+				< Constants.BOT_STUCK_DETECTION_SQR_DISTANCE)
+			{
+				bot.ResetTargetWaypoint(f);
+				return false;
+			}
+			bot.StuckDetectionPosition = f.Get<Transform3D>(entity).Position.XZ;
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
 			return bot.MoveTarget.IsValid;
 		}
 		
@@ -101,7 +118,7 @@ namespace Quantum
 			bb->Set(f, Constants.IsAimPressedKey, true);
 			if (bot.Target != target)
 			{
-				bb->Set(f, nameof(Constants.NextTapTime), f.Time + (weaponConfig.IsMeleeWeapon ? 0 : PlayerCharacterSystem.AIM_DELAY));
+				PlayerCharacterSystem.OnStartAiming(f, bb, weaponConfig);
 			}
 			bot.Target = target;
 		}

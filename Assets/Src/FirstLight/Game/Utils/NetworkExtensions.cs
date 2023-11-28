@@ -12,18 +12,7 @@ namespace FirstLight.Game.Utils
 {
 	public static class NetworkExtensions
 	{
-		public static QuantumMapConfig Map(this MatchRoomSetup setup)
-		{
-			var cfgProvider = MainInstaller.Resolve<IGameServices>().ConfigsProvider;
-			return cfgProvider.GetConfig<QuantumMapConfig>(setup.MapId);
-		}
-
-		public static QuantumGameModeConfig GameMode(this MatchRoomSetup setup)
-		{
-			var cfgProvider = MainInstaller.Resolve<IGameServices>().ConfigsProvider;
-			return cfgProvider.GetConfig<QuantumGameModeConfig>(setup.GameModeId);
-		}
-
+        
 		public static string GetRoomDebugString(this Room room)
 		{
 			var s = MainInstaller.Resolve<IGameServices>();
@@ -36,7 +25,7 @@ namespace FirstLight.Game.Utils
 					p.UserId, p.NickName, Inactive=p.IsInactive, Master=p.IsMasterClient, Props=p.CustomProperties.ToString()
 				}),
 				ExpectedUsers = room.ExpectedUsers,
-				Date = room.GetRoomCreationDateTime(),
+				LoadingStartsAt = s.RoomService.CurrentRoom.Properties.LoadingStartServerTime.Value,
 				PlayereTTL = room.PlayerTtl,
 				EmptyRoomTTL = room.EmptyRoomTtl,
 				MaxPlayers=room.MaxPlayers,	
@@ -77,6 +66,17 @@ namespace FirstLight.Game.Utils
 			return runner != null && !runner.IsDestroyed() && runner.isActiveAndEnabled && runner.IsRunning && !runner.Session.IsStalling &&
 				!runner.Session.IsPaused;
 		}
+
+		public static Frame PredictedFrame(this QuantumRunner runner)
+		{
+			return runner.Game.Frames.Predicted;
+		}
+		
+		public static Frame VerifiedFrame(this QuantumRunner runner)
+		{
+			return runner.Game.Frames.Verified;
+		}
+
 
 		public static bool ShouldUsePlayfabMatchmaking(this QuantumGameModeConfig config)
 		{

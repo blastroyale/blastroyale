@@ -1,24 +1,28 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/RewardsScreenStyle.uss?fileID=7433441132597879392&amp;guid=e7c90e78a8c46ca409017b7643aa3eb4&amp;type=3#RewardsScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/EquipmentCardStyle.uss?fileID=7433441132597879392&amp;guid=1cc2b13c5be2a42cc84a1b72e0c15b89&amp;type=3#EquipmentCardStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/PlayerAvatarStyle.uss?fileID=7433441132597879392&amp;guid=38b557c69f774f2983d0aded8a5e3b0d&amp;type=3#PlayerAvatarStyle" />
     <ui:VisualElement name="root" class="fill-parent rewards-root">
         <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent">
-            <ui:VisualElement name="RewardsRemaining" class="rewards-remaining">
+            <ui:VisualElement name="RewardsRemaining" class="rewards-remaining" style="display: none;">
                 <ui:Label text="32" name="NumberLabel" class="rewards-remaining__number-label" />
                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITRewards/rewards_remaining" text="REWARDS REMAINING" name="RewardsRemainingLabel" class="rewards-remaining__text" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <ui:VisualElement name="ChestSummary" class="rewards-chest-summary" style="display: flex;">
+        <ui:VisualElement name="RewardsSummary" class="rewards-summary" style="display: none;">
             <ui:VisualElement name="RaysSummaryReward" class="rewards-one__rays">
                 <ui:VisualElement name="RaysGradient" class="rewards-one__gradient" />
             </ui:VisualElement>
+            <ui:Label tabindex="-1" text="YOU&apos;VE LEVELED UP" display-tooltip-when-elided="true" name="LevelUp" class="level-up__label" style="font-size: 48px; color: rgb(255, 255, 255); -unity-text-outline-width: 1.2px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 3px 3px 0 rgb(0, 0, 0); display: none;" />
+            <FirstLight.Game.UIElements.PlayerAvatarElement name="Avatar" class="player-avatar--nft rewards-summary__avatar" style="display: none;" />
             <ui:VisualElement name="LabelRewardsContainer" class="rewards-summary__label-rewards-holder">
                 <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" localization-key="UITRewards/you_got" text="YOU GOT" display-tooltip-when-elided="true" name="YouGotLabel" class="rewards-summary__you-got-label" />
+                <ui:Label tabindex="-1" text="REACH LEVEL &lt;color=#f8c72e&gt; 130 &lt;/color&gt; TO GET NEXT REWARDS" display-tooltip-when-elided="true" name="ReachLevelToGetRewards" class="rewards-summary__you-got-label" />
                 <ui:VisualElement name="RewardsContainer" class="rewards-summary__rewards-container">
                     <FirstLight.Game.UIElements.RewardSummaryItemElement />
                     <FirstLight.Game.UIElements.EquipmentCardElement />
                     <FirstLight.Game.UIElements.RewardSummaryItemElement />
-                    <FirstLight.Game.UIElements.RewardSummaryItemElement />
+                    <FirstLight.Game.UIElements.RewardSummaryItemElement style="align-items: flex-end; justify-content: space-around;" />
                     <FirstLight.Game.UIElements.EquipmentCardElement />
                     <FirstLight.Game.UIElements.EquipmentCardElement />
                     <FirstLight.Game.UIElements.RewardSummaryItemElement />
@@ -32,7 +36,8 @@
             </ui:VisualElement>
             <ui:Label tabindex="-1" text="COINS" display-tooltip-when-elided="true" name="RewardName" class="rewards-one__name" />
             <ui:Label tabindex="-1" text="x 250" display-tooltip-when-elided="true" name="RewardAmount" class="rewards-one__amount" />
-            <ui:VisualElement name="RewardIcon" class="rewards-one__rewardicon">
+            <ui:VisualElement name="RewardsImpactCircle" class="rewards-one__circle-impact" />
+            <ui:VisualElement name="RewardIcon" class="rewards-one__rewardicon sprite-home__icon-shop">
                 <ui:VisualElement name="SparkGradient1" class="rewards-one__spark-small rewards-one__spark-small--1">
                     <ui:VisualElement name="Spark" class="rewards-one__spark" />
                 </ui:VisualElement>
@@ -47,9 +52,9 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="EquipmentReward" class="rewards-equipment" style="display: none;">
+        <ui:VisualElement name="EquipmentReward" class="rewards-equipment" style="display: flex;">
             <ui:VisualElement name="RaysEquipment" class="rewards-equipment__rays">
-                <ui:VisualElement name="RaysStrongerGradient" class="rewards-equipment__gradient-stronger"/>
+                <ui:VisualElement name="RaysStrongerGradient" class="rewards-equipment__gradient-stronger" />
                 <ui:VisualElement name="RaysGradient" class="rewards-equipment__gradient" />
             </ui:VisualElement>
             <ui:VisualElement name="DarkPatternLeft" class="dark-pattern dark-pattern--left">
@@ -86,11 +91,14 @@
                 <ui:VisualElement name="SparkGradient3" class="rewards-one__spark-small rewards-one__spark-small--3">
                     <ui:VisualElement name="Spark" class="rewards-one__spark" />
                 </ui:VisualElement>
-                <ui:VisualElement name="AppearGradient" class="rewards-one__spark-gradient">
+                <ui:VisualElement name="AppearGradientEquipment" class="rewards-one__spark-gradient">
                     <ui:VisualElement name="AppearSparkEquipment" class="rewards-one__appear-spark" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="EquipmentInfoContainer" class="rewards-equipment__info-container">
+                <ui:VisualElement name="ParentItem" class="rewards-one__rewardicon sprite-home__icon-shop parent-item" style="display: none; top: -155px; left: 393px;">
+                    <ui:Label tabindex="-1" text="Legendary Core&#10;" display-tooltip-when-elided="true" name="ParentItemName" class="rewards-equipment__name parent-item__name" />
+                </ui:VisualElement>
                 <ui:VisualElement name="NameContainer" class="rewards-equipment__name-container">
                     <ui:Label tabindex="-1" text="GRENADE LAUNCHER" display-tooltip-when-elided="true" name="EquipmentName" class="rewards-equipment__name" />
                     <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" localization-key="UITRewards/new" text="NEW" display-tooltip-when-elided="true" name="NewLabel" class="rewards-equipment__new-label">
@@ -102,8 +110,9 @@
                     <ui:Label tabindex="-1" text="UNCOMMON" display-tooltip-when-elided="true" name="EquipmentRarityLabel" class="rewards-equipment__tag-label" />
                     <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" text="LONG RANGE" display-tooltip-when-elided="true" name="EquipmentRangeLabel" class="rewards-equipment__tag-label" />
                 </ui:VisualElement>
-                <FirstLight.Game.UIElements.EquipmentCardElement name="EquipmentRewardCard" class="rewards-equipment__card"/>
+                <FirstLight.Game.UIElements.EquipmentCardElement name="EquipmentRewardCard" class="rewards-equipment__card rewards-equipment__rays" />
             </ui:VisualElement>
+            <ui:VisualElement name="RewardsImpactCircle" class="rewards-one__circle-impact" />
             <ui:VisualElement name="WhiteBlink" class="screen-blink-white" />
         </ui:VisualElement>
     </ui:VisualElement>

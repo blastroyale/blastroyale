@@ -19,6 +19,6 @@
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITWinners/winners" subtitle-key="UITHomeScreen/gamemode_BattleRoyale" class="screen-header--no-back" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITWinners/winners" subtitle-key="UITHomeScreen/gamemode_BattleRoyale" class="screen-header--no-navigation" />
     </ui:VisualElement>
 </ui:UXML>

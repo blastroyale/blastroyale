@@ -62,7 +62,7 @@
     flex-grow: 1;
     width: 100%;
     height: 100%;
-    background-color: rgba(49, 45, 71, 255);
+    background-color: rgb(49, 45, 71);
     border-left-color: rgb(12, 12, 25);
     border-right-color: rgb(12, 12, 25);
     border-top-color: rgb(12, 12, 25);
@@ -90,9 +90,7 @@
     right: -260px;
 }
 
-
-.first-reward-segment
-{
+.first-reward-segment {
 }
 
 .reward__title {
@@ -157,7 +155,7 @@
 }
 
 .reward__ready-to-claim-shine {
-    background-image: url('/Assets/Art/UI/Textures/battlepass-claimreward.png');
+    background-image: url('project://database/Assets/Art/UI/Textures/battlepass-claimreward.png?fileID=2800000&guid=55f09f008b0554c3f9908de8032f65f7&type=3#battlepass-claimreward');
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
     width: 950px;
@@ -184,10 +182,13 @@
     position: absolute;
 }
 
+.circle-border-radius {
+    border-radius: 50px;
+}
+
 .reward-holder__image {
     width: 200px;
     height: 200px;
-    background-image: var(--sprite-home__icon-questionmark);
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
 }

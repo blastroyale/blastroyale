@@ -108,3 +108,11 @@
 .screen-header--no-back .screen-header__back-icon {
     display: none;
 }
+
+.screen-header--no-navigation .screen-header__back-icon {
+    display: none;
+}
+
+.screen-header--no-navigation .screen-header__home {
+    display: none;
+}

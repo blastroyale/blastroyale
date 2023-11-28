@@ -1,4 +1,5 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -78,13 +79,25 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
+		public void UpdateFromLatestVerifiedFrame()
+		{
+			var playerEntity = 	QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+			var f = QuantumRunner.Default.Game.Frames.Verified;
+			if (!f.TryGet<PlayerCharacter>(playerEntity,out var pc))
+			{
+				return;
+			}
+			
+			SetWeapon(pc.WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon);
+			SetSlot(pc.CurrentWeaponSlot);
+			_ammoLabel.text = "0";
+			UpdateAmmo(f, playerEntity);
+		}
+
+		// ReSharper disable Unity.PerformanceAnalysis
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
-			var pc = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
-			SetWeapon(pc.WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon);
-			SetSlot(Constants.WEAPON_INDEX_DEFAULT);
-			_ammoLabel.text = "0";
-			UpdateAmmo(callback.Game.Frames.Verified, callback.Entity);
+			UpdateFromLatestVerifiedFrame();
 		}
 
 		private void OnLocalPlayerWeaponAdded(EventOnLocalPlayerWeaponAdded callback)

@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ee24f592c834896820dd0e6f98dca61, type: 3}
+  m_Name: MapAssetConfigs
+  m_EditorClassIdentifier: 
+  Configs:
+  - Key: 65
+    Value:
+      Scene:
+        m_AssetGUID: 1fa3edd1744989741a15528d1769deb2
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      QuantumMap:
+        m_AssetGUID: 189b4cbbdf5d0a74bb9c1e3edaa5f855
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+  - Key: 113
+    Value:
+      Scene:
+        m_AssetGUID: 2e637bcb30c7f0a44b8c7ab15d9e3cda
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      QuantumMap:
+        m_AssetGUID: 47849fde33a339d4c8f9d916ed3a384a
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+  - Key: 108
+    Value:
+      Scene:
+        m_AssetGUID: 5fc05c78bb0518349b009b01f360d673
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      QuantumMap:
+        m_AssetGUID: 7b1b5589f93df224881f76f8239b581c
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+  - Key: 5
+    Value:
+      Scene:
+        m_AssetGUID: 716196f43d523334481ac4ba581947b7
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      QuantumMap:
+        m_AssetGUID: 91389158269995f4f8b5e35f5cb3f394
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+  - Key: 114
+    Value:
+      Scene:
+        m_AssetGUID: 540f3d4d7c97bf74aa43ed1ecdfc1ab0
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      QuantumMap:
+        m_AssetGUID: e580edb6d7f1bdc46929e14e6f38d6e9
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+  - Key: 115
+    Value:
+      Scene:
+        m_AssetGUID: 368bf89a47cbb404b92c463d44a0e59f
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      QuantumMap:
+        m_AssetGUID: 9a64727ee7300524ca22c7fa8d7626f4
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+  - Key: 11
+    Value:
+      Scene:
+        m_AssetGUID: 322ba97b8db6d4b29a57bbe15ca381c8
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      QuantumMap:
+        m_AssetGUID: 0ea0ea1d7e7e74df5ac657360bbcdb01
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0

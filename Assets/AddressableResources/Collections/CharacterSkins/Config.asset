@@ -1,0 +1,219 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb509fd87cd49ee40b021b26c0feee64, type: 3}
+  m_Name: Config
+  m_EditorClassIdentifier: 
+  _config:
+    Skins:
+    - GameId: 68
+      Prefab:
+        m_AssetGUID: d4881cab261a1824ba7c08ba93554633
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 0f98b04066aac0445be253c05eaec55e
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 81
+      Prefab:
+        m_AssetGUID: 7579eb4889c7c1a42affbde8915a6123
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 7cdf8b844857a474c9eed60ec3663f49
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 82
+      Prefab:
+        m_AssetGUID: 2735c3a8a4c191b4cabbfd62e02cc5c2
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: af1bba91a009af34e944e0bd7734104b
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 69
+      Prefab:
+        m_AssetGUID: 4cf03009660528d49ac570b099672ecb
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 8400e0851f7a6d644afbd42d99dd3d31
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 57
+      Prefab:
+        m_AssetGUID: ba7d126243eda4509b9d69289f71bb9a
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 32e93afb36446234bb571edcc73d25d0
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 58
+      Prefab:
+        m_AssetGUID: aabbd62e78bff4da49630d96829f0c6b
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: cc875c06a4b32244e9caa3257ce28258
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 55
+      Prefab:
+        m_AssetGUID: 7f1ce898fc6214cd69073ec4959bd546
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: c468f9b754f63e2479f9285f665193a3
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 56
+      Prefab:
+        m_AssetGUID: 9656ef67f1b59408594f6470cccab3d0
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 58c8e57393b978c4fab7b7c661dbf707
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 83
+      Prefab:
+        m_AssetGUID: b0cca99e5654f4115bb50a6a3da18df9
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: d59bff88338df8840a6fbb2bccfa8122
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 77
+      Prefab:
+        m_AssetGUID: 015c43d21d9b6415287c23f64cc2bddc
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 01aa15896d13cf540a04a81d603fa54e
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 104
+      Prefab:
+        m_AssetGUID: 3ce634b01be6f45fa97f2b1defb61e45
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: cd5f052698f5bf94381f1d423085103e
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 80
+      Prefab:
+        m_AssetGUID: 832dd9598f2464f0fb4982c7795b4424
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 31923a4a455ce834f805ba83faedd726
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    InGameDefaultAnimation:
+      ApplyRootMotion: 0
+      UpdateMode: 0
+      CullingMode: 0
+      Controller: {fileID: 9100000, guid: 2255c91a668d043eaadc81b6a1449962, type: 2}
+    MenuDefaultAnimation:
+      ApplyRootMotion: 0
+      UpdateMode: 0
+      CullingMode: 1
+      Controller: {fileID: 22100000, guid: 1e2ae51406c824b4aba97335aa2a77d9, type: 2}
+    Anchors:
+    - Key: 0
+      Value:
+      - Offset:
+          Position: {x: 0, y: 0, z: 0}
+          Rotation: {x: 0, y: -90, z: -90}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: WeaponAttach_R
+        AtBeggningOfHierarchy: 0
+    - Key: 2
+      Value:
+      - Offset:
+          Position: {x: 7.460698e-16, y: -0.02, z: -7.216449e-17}
+          Rotation: {x: 0, y: 0, z: 90}
+          Scale: {x: 0, y: 0, z: 0}
+        AttachToBone: WeaponAttach2_L
+        AtBeggningOfHierarchy: 0
+    - Key: 1
+      Value:
+      - Offset:
+          Position: {x: 0, y: 0, z: 0}
+          Rotation: {x: 0, y: 0, z: 0}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: Head_M
+        AtBeggningOfHierarchy: 0
+    - Key: 4
+      Value:
+      - Offset:
+          Position: {x: 0, y: 0, z: 0}
+          Rotation: {x: 0, y: 0, z: 0}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: Spine1_M
+        AtBeggningOfHierarchy: 0
+    - Key: 3
+      Value:
+      - Offset:
+          Position: {x: 0, y: 0, z: 0}
+          Rotation: {x: 0, y: 0, z: 0}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: Spine2_M
+        AtBeggningOfHierarchy: 0
+      - Offset:
+          Position: {x: 0.02, y: 0, z: -0.02}
+          Rotation: {x: 90, y: 0, z: 150}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: Shoulder_L
+        AtBeggningOfHierarchy: 0
+      - Offset:
+          Position: {x: 0.02, y: 0, z: -0.02}
+          Rotation: {x: -90, y: -150, z: -4}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: Shoulder_R
+        AtBeggningOfHierarchy: 0
+    - Key: 5
+      Value:
+      - Offset:
+          Position: {x: 0, y: 0.01, z: 0.015}
+          Rotation: {x: -4.117, y: 0, z: 0}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: Neck_M
+        AtBeggningOfHierarchy: 0

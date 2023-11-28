@@ -6,6 +6,6 @@ namespace FirstLight.Editor.SheetImporters
 	public class ScrapConfigImporter : GoogleSheetQuantumConfigsImporter<ScrapConfig, ScrapConfigs>
 	{
 		/// <inheritdoc />
-		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=1375025072";
+		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=728204205";
 	}
 }

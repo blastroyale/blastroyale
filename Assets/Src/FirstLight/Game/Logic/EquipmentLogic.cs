@@ -58,6 +58,11 @@ namespace FirstLight.Game.Logic
 		Pair<GameId, uint> GetUpgradeCost(Equipment equipment, bool isNft);
 
 		/// <summary>
+		/// Requests the given's <paramref name="equipment"/> fusion cost for 1 upgrade
+		/// </summary>
+		Pair<GameId, uint>[] GetFuseCost(Equipment equipment);
+
+		/// <summary>
 		/// Requests the given's <paramref name="equipment"/> repair cost
 		/// </summary>
 		Pair<GameId, uint> GetRepairCost(Equipment equipment, bool isNft);
@@ -87,11 +92,7 @@ namespace FirstLight.Game.Logic
 		/// Requests the <see cref="EquipmentInfo"/> for all the inventory with the given <paramref name="filter"/>
 		/// </summary>
 		List<EquipmentInfo> GetInventoryEquipmentInfo(EquipmentFilter filter);
-
-		/// <summary>
-		/// Requests to see if player has enough NFTs equipped for play
-		/// </summary>
-		bool EnoughLoadoutEquippedToPlay();
+        
 
 		/// <summary>
 		/// Generates a new unique non-NFT piece of equipment from battle pass reward configs
@@ -118,6 +119,11 @@ namespace FirstLight.Game.Logic
 		UniqueId AddToInventory(Equipment equipment);
 
 		/// <summary>
+		/// Removes a given equipment from inventory.
+		/// </summary>
+		void RemoveFromInventory(UniqueId id);
+
+		/// <summary>
 		/// Sets the loadout for each slot in given <paramref name="newLoadout"/>
 		/// </summary>
 		void SetLoadout(IDictionary<GameIdGroup, UniqueId> newLoadout);
@@ -141,6 +147,11 @@ namespace FirstLight.Game.Logic
 		/// Upgrades the equipment of the given <paramref name="itemId"/> by one level
 		/// </summary>
 		void Upgrade(UniqueId itemId);
+
+		/// <summary>
+		/// Fuses the equipment of the given <paramref name="itemId"/> increasing it's rarity by 1 step
+		/// </summary>
+		void Fuse(UniqueId itemId);
 
 		/// <summary>
 		/// Repairs the equipment of the given <paramref name="itemId"/> to full durability
@@ -197,33 +208,24 @@ namespace FirstLight.Game.Logic
 
 		public Pair<GameId, uint> GetScrappingReward(Equipment equipment, bool isNft)
 		{
-			var resourceType = isNft ? GameId.CS : GameId.COIN;
-			var config = GameLogic.ConfigsProvider.GetConfig<ScrapConfig>((int) resourceType);
-			var rarityValue =
-				Math.Ceiling(config.BaseValue * Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity));
-			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective));
-			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade);
-			var levelMultiplier = ((int) equipment.Level * config.LevelMultiplier).AsDouble;
-			var winValue = rarityValue + adjectiveValue + ((rarityValue + adjectiveValue) * levelMultiplier * gradeValue);
-
-			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(winValue));
+			var config = GameLogic.ConfigsProvider.GetConfig<ScrapConfig>((int) equipment.Rarity);
+			return new Pair<GameId, uint>(GameId.COIN, config.CoinReward);
 		}
 
 		public Pair<GameId, uint> GetUpgradeCost(Equipment equipment, bool isNft)
 		{
-			var resourceType = isNft ? GameId.CS : GameId.COIN;
-			var config = GameLogic.ConfigsProvider.GetConfig<UpgradeDataConfig>((int) resourceType);
-			var rarityValue = Math.Ceiling(config.BaseValue *
-			                               Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity));
-			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective)) -
-			                     config.AdjectiveCostScale;
-			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade);
-			var levelMultiplier = ((int)equipment.Level * config.LevelMultiplier).AsDouble;
-			var cost = rarityValue + adjectiveValue + 
-			          ((rarityValue + adjectiveValue) * (int) equipment.Level * 
-				          levelMultiplier * gradeValue * equipment.MaxDurability / config.DurabilityDivider);
+			var config = GameLogic.ConfigsProvider.GetConfig<UpgradeDataConfig>((int) equipment.Level);
+			return new Pair<GameId, uint>(GameId.COIN,config.CoinCost);
+		}
 
-			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));
+		public Pair<GameId, uint>[] GetFuseCost(Equipment equipment)
+		{
+			var config = GameLogic.ConfigsProvider.GetConfig<FuseConfig>((int) equipment.Rarity);
+
+			return new Pair<GameId, uint>[]{
+				new (GameId.COIN, config.CoinCost),
+				new (GameId.Fragments, config.FragmentCost)
+			};
 		}
 
 		public Pair<GameId, uint> GetRepairCost(Equipment equipment, bool isNft)
@@ -253,23 +255,28 @@ namespace FirstLight.Game.Logic
 		{
 			var nextEquipment = equipment;
 			nextEquipment.Level++;
+
+			var nextRarityEquipment = equipment;
+			nextRarityEquipment.Rarity++;
 			
 			var durability =
 				equipment.GetCurrentDurability(isNft, GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>(),
 					GameLogic.TimeService.DateTimeUtcNow.Ticks);
-			
+
 			return new EquipmentInfo
 			{
 				Equipment = equipment,
 				ScrappingValue = GetScrappingReward(equipment, isNft),
 				UpgradeCost = GetUpgradeCost(equipment, isNft),
 				RepairCost = GetRepairCost(equipment, isNft),
+				FuseCost = GetFuseCost(equipment),
 				CurrentDurability = durability,
 				IsNft = isNft,
 				MaxLevel = GetMaxLevel(equipment),
 				Manufacturer = GetManufacturer(equipment),
 				Stats = equipment.GetStats(GameLogic.ConfigsProvider),
-				NextLevelStats = nextEquipment.GetStats(GameLogic.ConfigsProvider)
+				NextLevelStats = nextEquipment.GetStats(GameLogic.ConfigsProvider),
+				NextRarityStats = nextRarityEquipment.GetStats(GameLogic.ConfigsProvider)
 			};
 		}
 
@@ -355,12 +362,7 @@ namespace FirstLight.Game.Logic
 
 			return ret;
 		}
-
-		public bool EnoughLoadoutEquippedToPlay()
-		{
-			return Loadout.Count >= GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
-		}
-
+		
 		public Equipment GenerateEquipmentFromConfig(EquipmentRewardConfig config)
 		{
 			if (config.Level < 1)
@@ -537,6 +539,28 @@ namespace FirstLight.Game.Logic
 			_inventory[itemId] = equipment;
 		}
 
+		public void Fuse(UniqueId itemId)
+		{
+			var equipment = _inventory[itemId];
+
+			if (_nftInventory.ContainsKey(itemId))
+			{
+				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and " +
+										 $"{itemId} - {equipment.GameId.ToString()} is a NFT");
+			}
+
+			if (equipment.Rarity == EquipmentRarity.TOTAL -1)
+			{
+				throw new LogicException($"Item {itemId} - {equipment.GameId.ToString()} is already at max rarity " +
+										 $"{equipment.Level} and cannot be fused further");
+			}
+
+			equipment.Rarity++;
+
+			_inventory[itemId] = equipment;
+		}
+
+
 		public void Repair(UniqueId itemId)
 		{
 			var equipment = _inventory[itemId];
@@ -588,16 +612,14 @@ namespace FirstLight.Game.Logic
 			throw new LogicException("Dictionary weighted random could not return a valid index.");
 		}
 
-		private void RemoveFromInventory(UniqueId equipment)
+		public void RemoveFromInventory(UniqueId equipment)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[equipment];
 			var slot = gameId.GetSlot();
-
 			if (_loadout.TryGetValue(slot, out var equippedId) && equippedId == equipment)
 			{
 				Unequip(equippedId);
 			}
-
 			_inventory.Remove(equipment);
 			GameLogic.UniqueIdLogic.RemoveId(equipment);
 		}

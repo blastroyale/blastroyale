@@ -6,6 +6,7 @@ using Backend.Game;
 using Backend.Game.Services;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using NUnit.Framework;
@@ -28,6 +29,8 @@ public class TestDataService
 		_server = new TestServer();
 		_server.SetupInMemoryServer();
 		_service = _server.GetService<IServerStateService>();
+		_server.GiveDefaultSkins();
+
 	}
 
 	/// <summary>
@@ -69,7 +72,7 @@ public class TestDataService
 		var initialState = await _server.ServerState.GetPlayerState(_server.GetTestPlayerID());
 		var modelBefore = initialState.DeserializeModel<CollectionData>();
 		
-		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.FemaleAssassin) };
+		var cmd = new EquipCollectionItemCommand() { Item = ItemFactory.Collection(GameId.FemaleAssassin) };
 		
 		var result = _server.SendTestCommand(cmd).Data;
 
@@ -101,7 +104,7 @@ public class TestDataService
 		var initialState = await _server.ServerState.GetPlayerState(_server.GetTestPlayerID());
 		var modelBefore = initialState.DeserializeModel<PlayerData>();
 		
-		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.FemaleAssassin) };
+		var cmd = new EquipCollectionItemCommand() { Item = ItemFactory.Collection(GameId.FemaleAssassin) };
 		
 		var result = _server.SendTestCommand(cmd).Data;
 
@@ -120,7 +123,7 @@ public class TestDataService
 	{
 		var initialState = await _server.ServerState.GetPlayerState(_server.GetTestPlayerID());
 
-		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.FemaleAssassin) };
+		var cmd = new EquipCollectionItemCommand() { Item = ItemFactory.Collection(GameId.FemaleAssassin) };
 		
 		var result = _server.SendTestCommand(cmd).Data;
 		var resultDelta = ModelSerializer.DeserializeFromData<StateDelta>(result);

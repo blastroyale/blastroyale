@@ -11,7 +11,7 @@ using UnityEngine.Playables;
 public partial class SROptions
 {
 #if DEVELOPMENT_BUILD
-	
+
 	[Category("Gameplay")]
 	public void KillLocalPlayer()
 	{

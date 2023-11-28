@@ -20,9 +20,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public class WeaponViewMonoComponent : EntityViewBase
 	{
 		[SerializeField, Required] private ParticleSystem _particleSystem;
+		[SerializeField, Required] private int _shells;
+		private IGameServices _services;
 		
 		protected override void OnAwake()
 		{
+			_particleSystem.Stop();
+			_services = MainInstaller.ResolveServices();
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventOnGameEnded);
@@ -43,6 +47,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_particleSystem.Stop();
 			_particleSystem.time = 0;
 			_particleSystem.Play();
+
+			var t = transform;
+			for (var x = 0; x < _shells; x++)
+			{
+				var currentEuler = t.rotation.eulerAngles;
+				var rot = Quaternion.Euler(currentEuler.x, currentEuler.y+65, currentEuler.z);
+				_services.VfxService.Spawn(VfxId.Shell).transform.SetPositionAndRotation(t.position, rot);
+			}
+			_services.AudioFxService.PlayClip3D(AudioId.Shells, t.position);
 		}
 
 		private void OnEventOnPlayerStopAttack(EventOnPlayerStopAttack callback)

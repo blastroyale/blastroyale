@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Configs
+  m_EditorClassIdentifier: 
+  m_GroupName: Configs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: af2aacc928c4fa64797568970db41854
+  m_SerializeEntries:
+  - m_GUID: b90e44e25fcba3f4c8dbc9f2d7f2a66e
+    m_Address: Maps/MapAssetConfigs.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GenerateIds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0d9bcc08e239214b9f652458396205c
+    m_Address: Maps/QuantumMapConfigs.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GenerateIds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa9c5497372c14d9ea5dab0d6be12609
+    m_Address: Configs
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Quantum
+    - GenerateIds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 43ad42752dc9a4852a54f13c2fd5acec
+    m_Address: Collections/ProfilePicture/AvatarCollectableConfigs.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ScriptableObjectsOnly
+    - GenerateIds
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 293babaad41b198448defb8a0c4e44b7, type: 2}
+    - {fileID: 11400000, guid: 096836c4ed0498f489225d31cb92a538, type: 2}

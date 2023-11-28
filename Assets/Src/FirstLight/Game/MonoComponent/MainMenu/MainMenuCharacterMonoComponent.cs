@@ -39,7 +39,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		
 		private async void InitAllComponents()
 		{
-			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id;
+			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin));
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 
 			await UpdateSkin(skin, loadout);
@@ -72,12 +72,15 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private async void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage msg)
 		{
 			if (msg.Category != new CollectionCategory(GameIdGroup.PlayerSkin)) return;
-			
- 			Destroy(_characterViewComponent.gameObject);
 
-			if (!msg.EquippedItem.IsValid()) return;
+			if (_characterViewComponent != null)
+			{
+				Destroy(_characterViewComponent.gameObject);
+			}
+
+			if (msg.EquippedItem == null) return;
 			
-			await UpdateSkin(msg.EquippedItem.Id, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All));
+			await UpdateSkin(msg.EquippedItem, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All));
 		}
 	}
 }

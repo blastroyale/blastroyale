@@ -64,6 +64,11 @@ namespace FirstLight.Game.MonoComponent
 
 		private void OnValidate()
 		{
+			UpdateRenderers();
+		}
+
+		public void UpdateRenderers()
+		{
 			var renderers = GetComponentsInChildren<Renderer>(true);
 
 			_particleRenderers.Clear();

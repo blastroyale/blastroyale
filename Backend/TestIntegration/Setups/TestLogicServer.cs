@@ -19,5 +19,5 @@ using GameLogicService;
 
 public class TestLogicServer: TestService<Program>
 {
-	
+
 }

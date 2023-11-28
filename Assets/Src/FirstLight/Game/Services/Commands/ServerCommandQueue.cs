@@ -140,7 +140,7 @@ namespace FirstLight.Game.Services
 			{
 				if (desynchs.Count > 0)
 				{
-#if !STORE_BUILD && !UNITY_EDITOR
+#if !DISABLE_SRDEBUGGER && !UNITY_EDITOR
 					SROptions.Current.SendQuietBugReport($"models desynched {string.Join(',', desynchs)}");
 #endif
 					
@@ -201,7 +201,7 @@ namespace FirstLight.Game.Services
 		private void UpdateConfiguration(ulong serverVersion, ServerCommandQueueEntry lastCommand)
 		{
 			var configAdder = _logic.ConfigsProvider as IConfigsAdder;
-			_gameBackend.GetTitleData(PlayfabConfigurationProvider.ConfigName, configString =>
+			_gameBackend.GetTitleData(PlayfabConfigKeys.ConfigName, configString =>
 			{
 				var updatedConfig = new ConfigsSerializer().Deserialize<ConfigsProvider>(configString);
 				configAdder.UpdateTo(serverVersion, updatedConfig.GetAllConfigs());

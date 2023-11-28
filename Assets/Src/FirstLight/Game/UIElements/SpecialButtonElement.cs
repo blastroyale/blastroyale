@@ -1,10 +1,8 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.UIElements
 {
@@ -38,7 +36,8 @@ namespace FirstLight.Game.UIElements
 		private bool _needsAim;
 		private bool _onCooldown;
 		private bool _inCancel;
-
+		private int? _currentPointerId = null;
+		
 		private IVisualElementScheduledItem _disableScheduledItem;
 
 		/// <summary>
@@ -105,6 +104,11 @@ namespace FirstLight.Game.UIElements
 			if (special == GameId.TutorialGrenade)
 			{
 				special = GameId.SpecialAimingGrenade;
+			}
+			
+			if ( _currentPointerId != null && _container.HasPointerCapture((int)_currentPointerId))
+			{
+				ResetBtnState((int)_currentPointerId);
 			}
 
 			_needsAim = needsAim;
@@ -183,7 +187,8 @@ namespace FirstLight.Game.UIElements
 			if (_onCooldown) return;
 
 			_container.CapturePointer(evt.pointerId);
-
+			_currentPointerId = evt.pointerId;
+			
 			if (_needsAim)
 			{
 				_cancelCircle.RemoveFromClassList(USS_CANCEL_CIRCLE_SMALL);
@@ -237,28 +242,31 @@ namespace FirstLight.Game.UIElements
 		private void OnPointerUp(PointerUpEvent evt)
 		{
 			if (_onCooldown) return;
+			ResetBtnState(evt.pointerId);
+		}
 
-			_container.ReleasePointer(evt.pointerId);
 
+		private void ResetBtnState(int pointerId)
+		{
+			_container.ReleasePointer(pointerId);
+			_currentPointerId = null;
+			
 			RemoveFromClassList(USS_PRESSED);
 			RemoveFromClassList(USS_DRAGGING);
 			_cancelCircle.RemoveFromClassList(USS_CANCEL_CIRCLE_SMALL);
 			
 			_stick.transform.position = Vector3.zero;
-
+			
 			if (_inCancel)
 			{
 				_cancelIcon.SetVisibility(false);
 				OnCancel?.Invoke(1f);
 			}
-			else
-			{
-				OnPress?.Invoke(0f);
-			}
+
 			OnPress?.Invoke(0f);
 			_inCancel = false;
 		}
-
+		
 		public new class UxmlFactory : UxmlFactory<SpecialButtonElement, UxmlTraits>
 		{
 		}

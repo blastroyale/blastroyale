@@ -1,13 +1,14 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Services.Party;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
-using FirstLight.UiService;
 using FirstLightServerSDK.Modules.RemoteCollection;
 using NSubstitute;
 
@@ -33,6 +34,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IAudioFxService<AudioId> AudioFxService { get; }
 		public virtual INotificationService NotificationService { get; }
 		public virtual IGameBackendService GameBackendService { get; }
+		public virtual IPlayerProfileService ProfileService { get; }
 		public virtual IAuthenticationService AuthenticationService { get; set; }
 		public virtual ITutorialService TutorialService { get; }
 		public virtual ILiveopsService LiveopsService { get; set; }
@@ -46,7 +48,11 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
 		public IGameUiService GameUiService { get; }
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
+		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; set; }
+		public IRoomService RoomService { get; }
+		public ILeaderboardService LeaderboardService { get; set; }
+		public IRewardService RewardService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
@@ -83,6 +89,7 @@ namespace FirstLight.Tests.EditorMode
 			IAPService = null;
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();
+			ProfileService = new PlayerProfileService(GameBackendService);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this,
 				dataService, networkService, gameLogic, (IConfigsAdder) configsProvider);
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
@@ -91,10 +98,12 @@ namespace FirstLight.Tests.EditorMode
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService,
-				MessageBrokerService, NetworkService, GameBackendService);
+				MessageBrokerService, NetworkService, GameBackendService,ConfigsProvider);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			NotificationService = Substitute.For<INotificationService>();
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
+			RoomService = Substitute.For<IRoomService>();
+			CollectionService = Substitute.For<ICollectionService>();
 		}
 	}
 }

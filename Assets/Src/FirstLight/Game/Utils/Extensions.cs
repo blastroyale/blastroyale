@@ -303,96 +303,10 @@ namespace FirstLight.Game.Utils
 			graph.Stop();
 			graph.GetRootPlayable(0).SetSpeed(0);
 		}
-
-		/// <summary>
-		/// Requests the Verified state of the current <see cref="Frame"/> that triggered the given <paramref name="eventBase"/>.
-		/// Returns TRUE if this frame was verified by all running clients, FALSE otherwise
-		/// </summary>
-		public static bool IsVerifiedFrame(this EventBase eventBase)
-		{
-			return eventBase.Game.Session.IsFrameVerified(eventBase.Tick);
-		}
-
-		/// <summary>
-		/// Returns true if the given <paramref name="room"/> is a playtest room
-		/// </summary>
-		public static bool IsPlayTestRoom(this Room room)
-		{
-			return room.Name.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST);
-		}
-
-		/// <summary>
-		/// Returns true if the given <paramref name="roomName"/> is a playtest room
-		/// </summary>
-		public static bool IsPlayTestRoom(this string roomName)
-		{
-			return roomName.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST);
-		}
-
-		/// <summary>
-		/// Obtains the current selected map id in the given <paramref name="room"/>
-		/// </summary>
-		public static int GetMapId(this Room room)
-		{
-			return (int) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MAP];
-		}
-		
-		public static List<GameId> GetLoadoutGameIds(this Player player)
-		{
-			return ((int[])player.CustomProperties[GameConstants.Network.PLAYER_PROPS_LOADOUT]).Cast<GameId>().ToList();
-		}
-
-		/// <summary>
-		/// Obtains the current selected game mode id in the given <paramref name="room"/>
-		/// </summary>
-		public static string GetGameModeId(this Room room)
-		{
-			return (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_GAME_MODE];
-		}
-
-		/// <summary>
-		/// Return if this room was created by playfab matchmaking
-		/// </summary>
-		public static bool ShouldUsePlayFabMatchmaking(this Room room, IConfigsProvider configsProvider)
-		{
-			var gamemodeId = room.GetGameModeId();
-			return configsProvider.GetConfig<QuantumGameModeConfig>(gamemodeId).ShouldUsePlayfabMatchmaking();
-		}
-
-
-		/// <summary>
-		/// Obtains the current room creation time (created with UTC.Now)
-		/// </summary>
-		public static DateTime GetRoomCreationDateTime(this Room room)
-		{
-			return new DateTime((long) room.CustomProperties[GameConstants.Network.ROOM_PROPS_CREATION_TICKS]);
-		}
-
-		/// <summary>
-		/// Obtains the current dropzone pos+rot vector3 for the given <paramref name="room"/>
-		/// </summary>
-		public static Vector3 GetDropzonePosRot(this Room room)
-		{
-			return (Vector3) room.CustomProperties[GameConstants.Network.DROP_ZONE_POS_ROT];
-		}
-
-		/// <summary>
-		/// Obtains the current room creation time (created with UTC.Now)
-		/// </summary>
-		public static string TrimRoomCommitLock(this string roomName)
-		{
-			return roomName.Replace(NetworkUtils.RoomCommitLockData, "");
-		}
-
-		/// <summary>
-		/// Obtains the list of mutators enabled in the given <paramref name="room"/>
-		/// </summary>
-		public static List<string> GetMutatorIds(this Room room)
-		{
-			var str = (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MUTATORS];
-			return str.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
-		}
-
+        
+        
+        
+        
 		/// <summary>
 		/// Obtains the current selected room code name in the given <paramref name="room"/>
 		/// </summary>
@@ -400,31 +314,7 @@ namespace FirstLight.Game.Utils
 		{
 			return room.Name.Split(GameConstants.Network.ROOM_META_SEPARATOR)[0];
 		}
-
-		/// <summary>
-		/// Obtains info on whether the room is used for matchmaking
-		/// </summary>
-		public static bool IsMatchmakingRoom(this Room room)
-		{
-			return room.IsVisible;
-		}
-
-		/// <summary>
-		/// Obtains info on whether the room is used for matchmaking
-		/// </summary>
-		public static bool HaveStartedGame(this Room room)
-		{
-			return room.GetProp<bool>(GameConstants.Network.ROOM_PROPS_STARTED_GAME);
-		}
-
-		/// <summary>
-		/// Obtains the <see cref="MatchType"/> of this room.
-		/// </summary>
-		public static MatchType GetMatchType(this Room room)
-		{
-			return Enum.Parse<MatchType>((string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MATCH_TYPE]);
-		}
-
+        
 		/// <summary>
 		/// Can a game room frame be restored from a local snapshot ?
 		/// </summary>
@@ -435,13 +325,7 @@ namespace FirstLight.Game.Utils
 				return false;
 			}
 
-			if (!_services.NetworkService.JoinSource.IsSnapshotAutoConnect())
-			{
-				FLog.Verbose("Not snapshot connect room");
-				return false;
-			}
-
-			return FeatureFlags.RESTORE_SNAPSHOT_GAMES && (room.GetMatchType() == MatchType.Custom || room.IsOffline || _services.GameBackendService.IsDev());
+			return room.IsOffline;
 		}
 
 		/// <summary>
@@ -454,178 +338,9 @@ namespace FirstLight.Game.Utils
 				return false;
 			}
 
-			return FeatureFlags.RESTORE_SNAPSHOT_GAMES && (snapshot.Setup.MatchType == MatchType.Custom || snapshot.Offline || _services.GameBackendService.IsDev());
+			return snapshot.Offline;
 		}
-
-		public static void SetProperty(this Room room, string prop, object value)
-		{
-			var table = new Hashtable();
-			table[prop] = value;
-			room.SetCustomProperties(table);
-		}
-
-		public static T GetProp<T>(this Room room, string prop)
-		{
-			if (room.CustomProperties.TryGetValue(prop, out var v))
-				return (T) v;
-			return default;
-		}
-
-		public static MatchRoomSetup GetMatchSetup(this Room room)
-		{
-			var str = (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_SETUP];
-			return ModelSerializer.Deserialize<MatchRoomSetup>(str);
-		}
-
-		/// <summary>
-		/// Obtains amount of non-spectator players currently in room
-		/// </summary>
-		public static int GetRealPlayerAmount(this Room room)
-		{
-			int playerAmount = 0;
-
-			foreach (var kvp in room.Players)
-			{
-				kvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_SPECTATOR, out var isSpectator);
-				if (isSpectator is null or false)
-				{
-					playerAmount++;
-				}
-			}
-
-			return playerAmount;
-		}
-
-		/// <summary>
-		/// Obtains amount of spectators players currently in room
-		/// </summary>
-		public static int GetSpectatorAmount(this Room room)
-		{
-			int playerAmount = 0;
-
-			foreach (var kvp in room.Players)
-			{
-				var isSpectator = (bool) kvp.Value.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
-
-				if (isSpectator)
-				{
-					playerAmount++;
-				}
-			}
-
-			return playerAmount;
-		}
-
-		/// <summary>
-		/// Obtains room capacity for non-spectator players
-		/// </summary>
-		public static int GetRealPlayerCapacity(this Room room)
-		{
-			return room.MaxPlayers - room.GetSpectatorCapacity();
-		}
-
-		/// <summary>
-		/// Obtains room capacity for non-spectator players
-		/// </summary>
-		public static int GetSpectatorCapacity(this Room room)
-		{
-			return NetworkUtils.GetMaxSpectators(room.GetMatchSetup());
-		}
-
-		/// <summary>
-		/// Obtains info on whether room has all its player slots full
-		/// </summary>
-		public static bool IsAtFullPlayerCapacity(this Room room, IConfigsProvider cfgProvider)
-		{
-			// This is playfab mm
-			if (room.ShouldUsePlayFabMatchmaking(cfgProvider) && room.ExpectedUsers != null && room.ExpectedUsers.Length > 0)
-			{
-				bool everyBodyJoined = room.ExpectedUsers
-					.All(id => room.Players.Any(p => p.Value.UserId == id));
-
-				bool everybodyLoadedCoreAssets = room.Players.Values.All(p => p.LoadedCoreMatchAssets());
-				return everyBodyJoined && everybodyLoadedCoreAssets;
-			}
-			return room.GetRealPlayerAmount() >= room.GetRealPlayerCapacity();
-		}
-
-		/// <summary>
-		/// Obtains info on whether room has all its spectator slots full
-		/// </summary>
-		public static bool IsAtFullSpectatorCapacity(this Room room)
-		{
-			return room.GetSpectatorAmount() >= room.GetSpectatorCapacity();
-		}
-
-		/// <summary>
-		/// Obtains spectator/player status for player
-		/// </summary>
-		/// <returns></returns>
-		public static bool IsSpectator(this Player player)
-		{
-			return (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
-		}
-
-		/// <summary>
-		/// Requests the team id of the player (-1 for no team).
-		/// </summary>
-		public static string GetTeamId(this Player player)
-		{
-			if (player.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_TEAM_ID, out var teamId))
-			{
-				return (string) teamId;
-			}
-
-			return string.Empty;
-		}
-
-		/// <summary>
-		/// Requests the team id of the player (-1 for no team).
-		/// </summary>
-		public static Vector2 GetDropPosition(this Player player)
-		{
-			if (player.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_DROP_POSITION, out var dropPosition))
-			{
-				return (Vector2) dropPosition;
-			}
-
-			return Vector2.zero;
-		}
-
-		/// <summary>
-		/// Requests to check if player has loaded core match assets
-		/// </summary>
-		public static bool LoadedCoreMatchAssets(this Player player)
-		{
-			return player.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_CORE_LOADED,
-				out var propertyValue) && (bool)propertyValue;
-		}
-
-		/// <summary>
-		/// Requests the current state of the given <paramref name="room"/> if it is ready to start the game or not
-		/// based on loading state of all players assets
-		/// </summary>
-		public static bool AreAllPlayersReady(this Room room)
-		{
-			foreach (var playerKvp in room.Players)
-			{
-				// We check userid null because that means player is joining first time
-				// if userid is not null means he entered the room then left, in this case room should start without him
-				// with the player being inactive so he can join later
-				if (playerKvp.Value.IsInactive && playerKvp.Value.UserId == null)
-				{
-					FLog.Verbose("Inactive player" + playerKvp.Value.LoadedCoreMatchAssets());
-					continue;
-				}
-				
-				if (!playerKvp.Value.LoadedCoreMatchAssets())
-				{
-					return false;
-				}
-			}
-
-			return true;
-		}
+		
 
 		/// <summary>
 		/// Copy properties from one model to another.
@@ -667,9 +382,9 @@ namespace FirstLight.Game.Utils
 		/// Requests the local player entity ref.
 		/// Always gets from Verified frame
 		/// </summary>
-		public static EntityRef GetLocalPlayerEntityRef(this QuantumGame game)
+		public static EntityRef GetLocalPlayerEntityRef(this QuantumGame game,bool isVerified = true)
 		{
-			return game.GetLocalPlayerData(true, out _).Entity;
+			return game.GetLocalPlayerData(isVerified, out _).Entity;
 		}
 
 		/// <summary>
@@ -752,7 +467,7 @@ namespace FirstLight.Game.Utils
 
 		public static void SelectDefaultRankedMode(this IGameModeService service)
 		{
-			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Ranked);
+			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Matchmaking);
 			service.SelectedGameMode.Value = gameMode;
 		}
 
@@ -777,7 +492,7 @@ namespace FirstLight.Game.Utils
 				
 				case AmbienceType.Urban:
 					return AudioId.UrbanAmbientLoop;
-				
+
 				case AmbienceType.Water:
 					return AudioId.WaterAmbientLoop;
 				

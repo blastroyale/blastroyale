@@ -98,6 +98,7 @@
     <Compile Include="AI\Functions\HFSM.CurrentFrameTimeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.TransformPositionFunction.cs" />
     <Compile Include="Commands\Cheats\Tutorial\CheatKillAllTutorialBots.cs" />
+    <Compile Include="Components\CosteticsHolder.cs" />
     <Compile Include="Configs\QuantumBotDifficultyConfigs.cs" />
     <Compile Include="QuantumFeatureFlags.cs" />
     <Compile Include="AI\HFSM.State.cs" />
@@ -281,6 +282,7 @@
     <Compile Include="Systems\Bots\BotSetup.cs" />
     <Compile Include="Systems\Bots\BotShooting.cs" />
     <Compile Include="Systems\Bots\BotUpdateContext.cs" />
+    <Compile Include="Systems\TeamSystem.cs" />
     <Compile Include="Systems\VisibilityAreaSystem.cs" />
     <Compile Include="Systems\CommandsSystem.cs" />
     <Compile Include="Systems\GateSystem.cs" />
@@ -313,11 +315,13 @@
     <Compile Include="Utils\FPMathHelpers.cs" />
     <Compile Include="Utils\ListExtension.cs" />
     <Compile Include="Utils\OptionalSystemAttribute.cs" />
+    <Compile Include="Utils\PhysicsLayers.cs" />
     <Compile Include="Utils\PlayerLoadout.cs" />
     <Compile Include="Utils\QuantumExtensions.cs" />
     <Compile Include="Utils\QuantumHelpers.cs" />
     <Compile Include="Utils\QuantumPlayerMatchData.cs" />
     <Compile Include="Utils\QuantumStatCalculator.cs" />
+    <Compile Include="Utils\StatUtils.cs" />
     <Compile Include="Utils\TeamHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -332,6 +336,7 @@
     <Content Include="BotSDK\Blackboard\Blackboard.qtn" />
     <Content Include="BotSDK\Core\BotSDK.qtn" />
     <Content Include="Components\AirDrop.qtn" />
+    <Content Include="Components\CosmeticsHolder.qtn" />
     <Content Include="Components\VisibilityArea.qtn" />
     <Content Include="Components\Chest.qtn" />
     <Content Include="Components\DummyCharacter.qtn" />

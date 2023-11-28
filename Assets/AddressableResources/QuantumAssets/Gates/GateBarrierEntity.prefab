@@ -117,7 +117,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 0
-    Layer: 0
+    Layer: 8
     CallbackFlags:
       Value: 0
   PhysicsBody:
@@ -234,7 +234,6 @@ MonoBehaviour:
       RawValue: 0
     OpeningTime:
       RawValue: 131072
-    PlayersAlive: 3
 --- !u!114 &1167682403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,11 +268,14 @@ MonoBehaviour:
         PlayersAlive: 2
       ChestOpenTriggerData:
         _empty_prototype_dummy_field_: 0
+      WeaponCollectedTriggerData:
+        WeaponSpawner: {fileID: 0}
 --- !u!1001 &166066626998595919
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1597010685742832781}
     m_Modifications:
     - target: {fileID: 706019165814168570, guid: 73769d4d379cc4963ae8f81d68d9d3e6, type: 3}
@@ -341,6 +343,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: fa578e2f2d8ee324295414ba764cc7d2, type: 2}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 706019165814168570, guid: 73769d4d379cc4963ae8f81d68d9d3e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1167682405}
   m_SourcePrefab: {fileID: 100100000, guid: 73769d4d379cc4963ae8f81d68d9d3e6, type: 3}
 --- !u!4 &829141750344116916 stripped
 Transform:
@@ -365,6 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 829141750344116919}
+  _isOpenWide: 0
 --- !u!95 &829141750344116919 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 706019165814168568, guid: 73769d4d379cc4963ae8f81d68d9d3e6, type: 3}

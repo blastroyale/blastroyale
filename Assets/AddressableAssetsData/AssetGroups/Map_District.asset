@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Map_District
+  m_EditorClassIdentifier: 
+  m_GroupName: Map_District
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 66b1dfe845e93cc4781745167df000d4
+  m_SerializeEntries:
+  - m_GUID: 361c17e9ba1a79641af6d02dc5c8345c
+    m_Address: Maps/District
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: feee5d039a1fe6445b7c6799aa29b5ae, type: 2}
+    - {fileID: 11400000, guid: fd18d59b9f497c2419703aa5f39b171c, type: 2}

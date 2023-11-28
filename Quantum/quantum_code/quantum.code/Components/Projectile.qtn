@@ -27,10 +27,12 @@ event OnProjectileFiredPredicted
 	Projectile ProjectileData;
 }
 
-synced event OnProjectileExplosion 
+synced event OnProjectileEndOfLife 
 {
-	GameId sourceId;
+	GameId SourceId;
 	FPVector3 EndPosition;
+	bool Hit;
+	bool SubProjectile;
 }
 
 synced event OnProjectileTargetableHit
@@ -45,6 +47,7 @@ event OnProjectileFailedHit
     entity_ref ProjectileEntity;
  	Projectile Projectile;
  	FPVector3 LastPosition;
+ 	bool HitWall;
 }
 
 event OnProjectileSuccessHit

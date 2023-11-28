@@ -1,0 +1,37 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
+    <Style src="project://database/Assets/Art/UI/Screens/PrivacyDialogStyle.uss?fileID=7433441132597879392&amp;guid=cb0eb3341c6774ab8867621416ff2384&amp;type=3#PrivacyDialogStyle" />
+    <ui:VisualElement name="root" class="screen-root">
+        <ui:Button name="BlockerButton" class="blocker" />
+        <ui:VisualElement name="Popup" class="popup popup-radius anim-delay-0 anim-translate anim-translate--down-xxxl">
+            <ui:VisualElement name="Window" class="popup-radius popup__window">
+                <ui:VisualElement name="Header" class="background-purple window__header">
+                    <ui:VisualElement name="TitleDots" class="dots-pattern" />
+                    <ui:Label name="Title" text="Privacy Policy" class="DO_NOT_USE_font-style-h2" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Content" class="window__content">
+                    <ui:VisualElement name="Row" class="text-row">
+                        <ui:Label name="Desc" focusable="false" text="You need to agree to our" localization-key="UITBattlePass/equipment_reward_desc" class="font-style-popup content__desc" />
+                        <ui:Button text="&#10;" display-tooltip-when-elided="true" name="TermsOfServiceButton" class="row-btn">
+                            <ui:Label name="Desc" focusable="false" text="Terms of Service" localization-key="UITBattlePass/equipment_reward_desc" class="font-style-popup content__desc row-btn__text" />
+                        </ui:Button>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Row" class="text-row">
+                        <ui:Label name="Desc" focusable="false" text="and read our " localization-key="UITBattlePass/equipment_reward_desc" class="font-style-popup content__desc" />
+                        <ui:Button text="&#10;" display-tooltip-when-elided="true" name="PrivacyButton" class="row-btn">
+                            <ui:Label name="PrivacyPolicyButton" focusable="false" text="Privacy Policy" localization-key="UITBattlePass/equipment_reward_desc" class="font-style-popup content__desc row-btn__text" />
+                        </ui:Button>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Row">
+                        <ui:Label name="Desc" focusable="false" text="to continue playing" localization-key="UITBattlePass/equipment_reward_desc" class="desc-text-row font-style-popup content__desc"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Controls" class="content__controls">
+                        <ui:VisualElement class="button-flat-outline">
+                            <ui:Button localization-key="Accept" name="ConfirmButton" text="Accept" class="button-flat button-flat--primary accept-btn" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

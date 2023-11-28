@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/HomeScreenStyle.uss?fileID=7433441132597879392&amp;guid=54dbd0d57987f4f398aea3e4722669ea&amp;type=3#HomeScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/PlayerAvatarStyle.uss?fileID=7433441132597879392&amp;guid=38b557c69f774f2983d0aded8a5e3b0d&amp;type=3#PlayerAvatarStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent">
             <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons">
@@ -8,6 +9,7 @@
                 </FirstLight.Game.UIElements.ImageButton>
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-1 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="FragmentsCurrency" currency="Fragments" class="anim-delay-2 anim-translate anim-translate--down-s" />
                 <ui:Button display-tooltip-when-elided="true" name="DiscordButton" class="discord-button sfx-click-forwards anim-delay-0 anim-translate anim-translate--left-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
@@ -50,15 +52,16 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="LeftButtons" class="main-buttons main-buttons--left">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="sfx-click-forwards button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl main-button-margin">
-                    <ui:VisualElement class="button-with-icon__icon" />
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="sfx-click-forwards button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl main-button-margin fame-locked-button">
+                    <ui:VisualElement name="EquipmentIcon" class="button-with-icon__icon" />
                     <ui:VisualElement name="EquipmentNotification" class="notification-icon button-with-icon__notification" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/collection" name="CollectionButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl main-button-margin">
-                    <ui:VisualElement class="button-with-icon__icon" />
+                    <ui:VisualElement name="CollectionIcon" class="button-with-icon__icon" />
+                    <ui:VisualElement name="CollectionNotification" class="notification-icon button-with-icon__notification" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="sfx-click-forwards button-with-icon button-with-icon--shop anim-delay-2 anim-translate anim-translate--right-l main-button-margin">
-                    <ui:VisualElement class="button-with-icon__icon" />
+                    <ui:VisualElement name="StoreIcon" class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <ui:VisualElement name="BattlePassButtonHolder" class="anim-delay-0 anim-translate anim-translate--right-xl button-with-pool">
                     <ui:VisualElement name="BPPPoolContainer" class="resource-pool resource-pool--bpp">
@@ -96,7 +99,8 @@
                     </FirstLight.Game.UIElements.ImageButton>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:Label text="Logic server out of sync" display-tooltip-when-elided="true" name="OutOfSyncWarning" style="font-size: 40px; color: rgb(255, 18, 18); -unity-text-align: middle-center; position: absolute; bottom: 0; left: 0; height: 68px; width: 100%; -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(0, 0, 0);" />
+            <ui:Label text="Logic server out of sync" display-tooltip-when-elided="true" name="OutOfSyncWarning" style="font-size: 40px; color: rgb(255, 18, 18); -unity-text-align: middle-center; position: absolute; bottom: 0; left: 0; height: 68px; width: 100%; -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(0, 0, 0); display: flex; visibility: visible;" />
+            <ui:Label text="BETA" display-tooltip-when-elided="true" name="BetaWarning" enable-rich-text="true" class="beta-warning" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <ui:VisualElement name="Header" class="player-header anim-delay-0 anim-translate anim-translate--down-l">
             <ui:Button name="TrophiesHolder" class="player-header__trophies-holder">
@@ -108,14 +112,10 @@
             </ui:Button>
             <FirstLight.Game.UIElements.ImageButton name="ProfileButton" class="player-header__profile-button sfx-click-forwards">
                 <ui:VisualElement name="Holder" class="player-header__profile-holder">
-                    <ui:VisualElement name="Avatar" class="player-header__avatar">
-                        <ui:VisualElement name="AvatarMask" class="player-header__avatar-mask">
-                            <ui:VisualElement name="AvatarPFP" class="player-header__avatar-pfp" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:Label text="PLAYER NAME" name="PlayerName" class="player-header__name" />
+                    <FirstLight.Game.UIElements.PlayerAvatarElement name="Avatar" style="position: absolute; scale: 0.6 0.6; left: 6px; top: -20px;" />
                 </ui:VisualElement>
             </FirstLight.Game.UIElements.ImageButton>
+            <ui:Label text="PLAYER NAME" name="PlayerName" class="player-header__name" />
         </ui:VisualElement>
         <ui:VisualElement name="Matchmaking" class="matchmaking-container matchmaking-container--hidden">
             <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent matchmaking-container__safearea">

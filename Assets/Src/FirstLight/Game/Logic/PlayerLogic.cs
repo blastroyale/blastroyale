@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Infos;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Services;
-using Quantum;
+using PlayFab.Internal;
 
 namespace FirstLight.Game.Logic
 {
@@ -21,14 +21,14 @@ namespace FirstLight.Game.Logic
 		IObservableFieldReader<uint> Trophies { get; }
 
 		/// <summary>
-		/// Requests a list of systems already seen by the player.
+		/// Request the player's current fame level
 		/// </summary>
-		IObservableList<UnlockSystem> SystemsTagged { get; }
+		IObservableFieldReader<uint> Level { get; }
 
 		/// <summary>
-		/// Requests the current <see cref="Infos.PlayerInfo"/>
+		/// Request the player's current XP (level up consumes XP).
 		/// </summary>
-		PlayerInfo PlayerInfo { get; }
+		IObservableFieldReader<uint> XP { get; }
 
 		/// <summary>
 		/// Requests the unlock level of the given <paramref name="unlockSystem"/>
@@ -36,19 +36,24 @@ namespace FirstLight.Game.Logic
 		uint GetUnlockSystemLevel(UnlockSystem unlockSystem);
 
 		/// <summary>
-		/// Requests the list of unlocked systems until the given <paramref name="level"/> from the given <paramref name="startLevel"/>
+		/// Returns a list of rewards you get for reaching a specific level.
 		/// </summary>
-		List<UnlockSystem> GetUnlockSystems(uint level, uint startLevel = 1);
-		
+		List<ItemData> GetRewardsForFameLevel(uint level);
+
 		/// <summary>
 		/// Checks if a given player has completed a given tutorial step
 		/// </summary>
 		bool HasTutorialSection(TutorialSection section);
-		
+
 		/// <summary>
 		/// Checks if this account has completed guest data migration
 		/// </summary>
 		bool MigratedGuestAccount { get; }
+
+		/// <summary>
+		/// Gets the amount of XP needed to level up
+		/// </summary>
+		uint GetXpNeededForLevel(uint level);
 	}
 
 	/// <inheritdoc />
@@ -57,8 +62,8 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Adds the given <paramref name="amount"/> of XP to the Player.
 		/// </summary>
-		void AddXp(uint amount);
-		
+		void AddXP(uint amount);
+
 		/// <summary>
 		/// Updates player's trophies (Elo) based on their ranking in the match, and returns the amount of trophies
 		/// added/removed
@@ -75,73 +80,44 @@ namespace FirstLight.Game.Logic
 		/// account upon logging in again
 		/// </summary>
 		void MarkGuestAccountMigrated();
+
+		void ResetLevelAndXP();
 	}
 	
-	// TODO: Remove all player skin stuff related and move to CollectionLogic
 	/// <inheritdoc cref="IPlayerLogic"/>
 	public class PlayerLogic : AbstractBaseLogic<PlayerData>, IPlayerLogic, IGameLogicInitializer
 	{
 		private IObservableField<uint> _trophies;
+		private IObservableField<uint> _level;
+		private IObservableField<uint> _xp;
 
 		private IObservableField<TutorialSection> _tutorialSections;
-		
-		public IObservableFieldReader<TutorialSection> TutorialSections => _tutorialSections;
+
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Trophies => _trophies;
 
-		/// <inheritdoc />
-		public IObservableList<UnlockSystem> SystemsTagged { get; private set; }
+		public IObservableFieldReader<uint> Level => _level;
+		public IObservableFieldReader<uint> XP => _xp;
 
 		public bool MigratedGuestAccount
 		{
 			get
 			{
 				var data = DataProvider.GetData<PlayerData>();
-				return data.MigratedGuestData ;
+				return data.MigratedGuestData;
 			}
 		}
-
-		/// <inheritdoc />
-		public PlayerInfo PlayerInfo
-		{
-			get
-			{
-				var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
-				var config = configs[(int) Math.Min(Data.Level, configs.Count)];
-				var maxLevel = configs[configs.Count].Level + 1;
-				var totalXp = Data.Level;
-
-				for (var i = 1; i < Data.Level; i++)
-				{
-					totalXp += configs[i].LevelUpXP;
-				}
-				
-				return new PlayerInfo
-				{
-					Level = Data.Level,
-					Xp = Data.Xp,
-					TotalCollectedXp = totalXp,
-					MaxLevel = maxLevel,
-					Config = config,
-					TotalTrophies = _trophies.Value,
-					CurrentUnlockedSystems = GetUnlockSystems(Data.Level)
-				};
-			}
-		}
-
-		// TODO - Remove appdata/any local data call from game logic so it doesn't have to be copied onto backend code
-		private AppData AppData => DataProvider.GetData<AppData>();
 
 		public PlayerLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
-
-		/// <inheritdoc />
+		
 		public void Init()
 		{
 			_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
+			_level = new ObservableResolverField<uint>(() => Data.Level, val => Data.Level = val);
+			_xp = new ObservableResolverField<uint>(() => Data.Xp, val => Data.Xp = val);
 			_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
-			SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
 		}
 
 		public void ReInit()
@@ -151,13 +127,19 @@ namespace FirstLight.Game.Logic
 				_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 				_trophies.AddObservers(listeners);
 			}
-			
+
 			{
-				var listeners = SystemsTagged.GetObservers();
-				SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
-				SystemsTagged.AddObservers(listeners);
+				var listeners = _level.GetObservers();
+				_level = new ObservableResolverField<uint>(() => Data.Level, val => Data.Level = val);
+				_level.AddObservers(listeners);
 			}
-			
+
+			{
+				var listeners = _xp.GetObservers();
+				_xp = new ObservableResolverField<uint>(() => Data.Xp, val => Data.Xp = val);
+				_xp.AddObservers(listeners);
+			}
+
 			{
 				var listeners = _tutorialSections.GetObservers();
 				_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
@@ -165,97 +147,145 @@ namespace FirstLight.Game.Logic
 			}
 
 			_trophies.InvokeUpdate();
+			_level.InvokeUpdate();
+			_xp.InvokeUpdate();
 			_tutorialSections.InvokeUpdate();
-			SystemsTagged.InvokeUpdate();
 		}
-
-		/// <inheritdoc />
+		
 		public uint GetUnlockSystemLevel(UnlockSystem unlockSystem)
 		{
-			var configs = GameLogic.ConfigsProvider.GetConfigsList<PlayerLevelConfig>();
+			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
 
-			for (var i = 0; i < configs.Count; i++)
+			foreach (var config in configs)
 			{
-				if (configs[i].Systems.Contains(unlockSystem))
+				for (var i = config.Value.LevelStart; i <= config.Value.LevelEnd; i++)
 				{
-					return configs[i].Level;
+					if (config.Value.Systems.Contains(unlockSystem))
+					{
+						// In the config we specify fame points required and rewards in the current level
+						// Example: in config in level 1 we set reward Shop and requirement 100 XP
+						// It means that to get from level 1 to level 2 a player needs to get 100 XP and will be rewarded with Shop
+						return config.Value.LevelStart + 1;
+					}
 				}
 			}
-
 			throw new LogicException($"The system {unlockSystem} is not defined in the {nameof(PlayerLevelConfig)}");
 		}
-
-		/// <inheritdoc />
-		public List<UnlockSystem> GetUnlockSystems(uint level, uint startLevel = 1)
-		{
-			var configs = GameLogic.ConfigsProvider.GetConfigsList<PlayerLevelConfig>();
-			var ret = new List<UnlockSystem>();
-
-			for (var i = 0; i < configs.Count; i++)
-			{
-				if (configs[i].Level < startLevel)
-				{
-					continue;
-				}
-				
-				if (configs[i].Level > level)
-				{
-					break;
-				}
-				
-				ret.AddRange(configs[i].Systems);
-			}
-
-			return ret;
-		}
-
-		/// <inheritdoc />
-		public void AddXp(uint amount)
+		
+		public List<ItemData> GetRewardsForFameLevel(uint level)
 		{
 			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
-			var xp = Data.Xp + amount;
-			var level = Data.Level;
+			var rewards = new List<ItemData>();
+
+			foreach (var config in configs)
+			{
+				if (level >= config.Value.LevelStart && level <= config.Value.LevelEnd)
+				{
+					foreach (var (id, amount) in config.Value.Rewards)
+					{
+						if(amount > 1)
+							rewards.Add(ItemFactory.Currency(id, amount));
+						else
+							rewards.Add(ItemFactory.Simple(id));
+					}
+
+					foreach (var unlockSystem in config.Value.Systems)
+					{
+						rewards.Add(ItemFactory.Unlock(unlockSystem));
+					}
+					
+					break;
+				}
+			}
+
+			return rewards;
+		}
+
+		public uint GetXpNeededForLevel(uint level)
+		{
+			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
+
+			foreach (var config in configs)
+			{
+				if (level >= config.Value.LevelStart && level <= config.Value.LevelEnd)
+				{
+					return config.Value.LevelUpXP;
+				}
+			}
 			
-			if (level == configs.Count + 1)
+			throw new LogicException($"Could not find level config for level {level}");
+		}
+		
+		public void AddXP(uint amount)
+		{
+			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
+			var xp = _xp.Value + amount;
+			var level = _level.Value;
+			
+			if (level == GameConstants.Data.PLAYER_FAME_MAX_LEVEL)
 			{
 				return;
 			}
 
-			while (configs.TryGetValue((int) level, out var config) && xp >= config.LevelUpXP)
+			foreach (var config in configs)
 			{
-				xp -= config.LevelUpXP;
-				level++;
+				if (level < config.Value.LevelStart || level > config.Value.LevelEnd)
+				{
+					continue;
+				}
+				
+				for (var i = config.Value.LevelStart; i <= config.Value.LevelEnd; i++)
+				{
+					if (xp < config.Value.LevelUpXP)
+					{
+						break;
+					}
+					
+					xp -= config.Value.LevelUpXP;
+					level++;
+				}
+				
+				if (xp < config.Value.LevelUpXP)
+				{
+					break;
+				}
+			}
+			for (var l = _level.Value; l < level; l++)
+			{
+				GameLogic.RewardLogic.Reward(GetRewardsForFameLevel(l));
 			}
 
-			Data.Level = level;
-			Data.Xp = level >= configs.Count ? 0 : xp;
+			_level.Value = level;
+			_xp.Value = level >= GameConstants.Data.PLAYER_FAME_MAX_LEVEL ? 0 : xp;
 		}
 
-		/// <inheritdoc />
 		public void UpdateTrophies(int change)
 		{
 			_trophies.Value = (uint) Math.Max(0, _trophies.Value + change);
 		}
-
-		/// <inheritdoc />
+		
 		public bool HasTutorialSection(TutorialSection section)
 		{
 			return DataProvider.GetData<TutorialData>().TutorialSections.HasFlag(section);
 		}
 
-		/// <inheritdoc />
 		public void MarkTutorialSectionCompleted(TutorialSection section)
 		{
 			var data = DataProvider.GetData<TutorialData>();
 			data.TutorialSections |= section;
 			_tutorialSections.Value = data.TutorialSections; // trigger observables after bitshift
 		}
-
-		/// <inheritdoc />
+		
 		public void MarkGuestAccountMigrated()
 		{
 			var data = DataProvider.GetData<PlayerData>();
 			data.MigratedGuestData = true;
+		}
+
+		public void ResetLevelAndXP()
+		{
+			_level.Value = 1;
+			_xp.Value = 0;
 		}
 	}
 }

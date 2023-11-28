@@ -92,20 +92,9 @@ namespace FirstLight.Game.StateMachines
 			createRoomFromSnapshot.Event(NetworkState.CreateRoomFailedEvent).OnTransition(ClearSnapshot).Target(final);
 		}
 
-		private async Task OneFrame()
-		{
-			await Task.Delay(1);
-		}
-
 		private void FireReconnect()
 		{
 			_statechartTrigger(ReconnectToRoomEvent);
-		}
-
-		private void AlreadyJoinedSnapshot()
-		{
-			FLog.Verbose("Already connected to snapshot, reconnecting");
-			_networkService.JoinSource.Value = JoinRoomSource.ReconnectFrameSnapshot;
 		}
 
 		private void ClearSnapshot()
@@ -138,16 +127,24 @@ namespace FirstLight.Game.StateMachines
 			var snapshot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
 			snapshot.Setup.RoomIdentifier ??= Guid.NewGuid().ToString();
 			_networkService.JoinSource.Value = JoinRoomSource.RecreateFrameSnapshot;
-			_services.NetworkService.CreateRoom(snapshot.Setup, snapshot.Offline);
+			_services.RoomService.CreateRoom(snapshot.Setup, snapshot.Offline);
 		}
 
 		private bool HasPendingMatch()
 		{
 			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
 			var isTutorial = snapShot.Setup is {GameModeId: GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID};
-			var singlePlayerServerless = _services.GameBackendService.IsDev() && (snapShot.Offline || snapShot.AmtPlayers <= 1);
-			
-			if (!singlePlayerServerless && !isTutorial && !snapShot.Expired())
+			var canRestoreFromSnapshot = _services.GameBackendService.RunsSimulationOnServer() || snapShot.Offline || snapShot.AmtPlayers > 1;
+
+			// Tutorial does not support reconnecting mid-way if app was closed due to keeping track of internal states in view/state machines
+			// and not simulation
+			if (isTutorial)
+			{
+				ClearSnapshot();
+				return false;
+			} 
+
+			if (canRestoreFromSnapshot && !snapShot.Expired())
 			{
 				return true;
 			}
@@ -171,13 +168,13 @@ namespace FirstLight.Game.StateMachines
 			{
 				FLog.Verbose("Creating offline room from snapshot");
 				_networkService.JoinSource.Value = JoinRoomSource.RecreateFrameSnapshot;
-				_services.NetworkService.CreateRoom(snapShot.Setup, true);
+				_services.RoomService.CreateRoom(snapShot.Setup, true);
 			}
 			else
 			{
 				FLog.Verbose($"Rejoining room from {snapShot.RoomName} snapshot");
 				_networkService.JoinSource.Value = JoinRoomSource.ReconnectFrameSnapshot;
-				_services.NetworkService.RejoinRoom(snapShot.RoomName);
+				_services.RoomService.RejoinRoom(snapShot.RoomName);
 			}
 		}
 	}

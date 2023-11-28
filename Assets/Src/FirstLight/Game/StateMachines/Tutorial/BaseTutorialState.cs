@@ -87,8 +87,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RequestStartFirstGameTutorialMessage>(OnRequestStartFirstTutorialMessage);
 			_services.MessageBrokerService.Subscribe<RequestStartMetaMatchTutorialMessage>(OnRequestStartMetaMatchTutorialMessage);
 		}
-		
-		
 
 		private void OnRequestStartFirstTutorialMessage(RequestStartFirstGameTutorialMessage msg)
 		{

@@ -2,14 +2,17 @@
 :root {
     --sprite-shared__avatar-default: url('/Assets/Art/UI/Sprites/Shared/avatar-default.png');
     --sprite-shared__background-currentplayer: url('/Assets/Art/UI/Sprites/Shared/background-currentplayer.png');
+    --sprite-shared__background-rewards-fame: url('/Assets/Art/UI/Sprites/Shared/background-rewards-fame.png');
     --sprite-shared__background-stat: url('/Assets/Art/UI/Sprites/Shared/background-stat.png');
     --sprite-shared__background-stat-dark: url('/Assets/Art/UI/Sprites/Shared/background-stat-dark.png');
     --sprite-shared__highlight-leaderboard-localplayer: url('/Assets/Art/UI/Sprites/Shared/highlight-leaderboard-localplayer.png');
+    --sprite-shared__icon_edit: url('/Assets/Art/UI/Sprites/Shared/icon_edit.png');
     --sprite-shared__icon-back: url('/Assets/Art/UI/Sprites/Shared/icon-back.png');
     --sprite-shared__icon-currency-blst: url('/Assets/Art/UI/Sprites/Shared/icon-currency-blst.png');
     --sprite-shared__icon-currency-bpp: url('/Assets/Art/UI/Sprites/Shared/icon-currency-bpp.png');
     --sprite-shared__icon-currency-coin: url('/Assets/Art/UI/Sprites/Shared/icon-currency-coin.png');
     --sprite-shared__icon-currency-cs: url('/Assets/Art/UI/Sprites/Shared/icon-currency-cs.png');
+    --sprite-shared__icon-currency-fragments: url('/Assets/Art/UI/Sprites/Shared/icon-currency-fragments.png');
     --sprite-shared__icon-equipmentcategory-amulet: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-amulet.png');
     --sprite-shared__icon-equipmentcategory-armor: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-armor.png');
     --sprite-shared__icon-equipmentcategory-helmet: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-helmet.png');
@@ -30,10 +33,10 @@
     --sprite-shared__icon-special-skylaserbeam: url('/Assets/Art/UI/Sprites/Shared/icon-special-skylaserbeam.png');
     --sprite-shared__icon-trophy: url('/Assets/Art/UI/Sprites/Shared/icon-trophy.png');
     --sprite-shared__logo-br: url('/Assets/Art/UI/Sprites/Shared/logo-br.png');
-    --sprite-shared__progress-battlepass-bpp: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp.png');
     --sprite-shared__progress-battlepass-bpp-bg: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-bg.png');
-    --sprite-shared__progress-battlepass-bpp-rewards: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-rewards.png');
     --sprite-shared__progress-battlepass-bpp-yellow: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-yellow.png');
+    --sprite-shared__progress-battlepass-rewards: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards.png');
+    --sprite-shared__progress-battlepass-rewards-bpp: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards-bpp.png');
 }
 
 .sprite-shared__avatar-default {
@@ -46,6 +49,12 @@
     background-image: var(--sprite-shared__background-currentplayer);
     width: 62px;
     height: 64px;
+}
+
+.sprite-shared__background-rewards-fame {
+    background-image: var(--sprite-shared__background-rewards-fame);
+    width: 92px;
+    height: 108px;
 }
 
 .sprite-shared__background-stat {
@@ -64,6 +73,12 @@
     background-image: var(--sprite-shared__highlight-leaderboard-localplayer);
     width: 1412px;
     height: 92px;
+}
+
+.sprite-shared__icon_edit {
+    background-image: var(--sprite-shared__icon_edit);
+    width: 50px;
+    height: 50px;
 }
 
 .sprite-shared__icon-back {
@@ -94,6 +109,12 @@
     background-image: var(--sprite-shared__icon-currency-cs);
     width: 64px;
     height: 64px;
+}
+
+.sprite-shared__icon-currency-fragments {
+    background-image: var(--sprite-shared__icon-currency-fragments);
+    width: 40px;
+    height: 40px;
 }
 
 .sprite-shared__icon-equipmentcategory-amulet {
@@ -206,8 +227,8 @@
 
 .sprite-shared__icon-trophy {
     background-image: var(--sprite-shared__icon-trophy);
-    width: 44px;
-    height: 44px;
+    width: 66px;
+    height: 66px;
 }
 
 .sprite-shared__logo-br {
@@ -216,27 +237,27 @@
     height: 181px;
 }
 
-.sprite-shared__progress-battlepass-bpp {
-    background-image: var(--sprite-shared__progress-battlepass-bpp);
-    width: 58px;
-    height: 40px;
-}
-
 .sprite-shared__progress-battlepass-bpp-bg {
     background-image: var(--sprite-shared__progress-battlepass-bpp-bg);
-    width: 64px;
-    height: 48px;
-}
-
-.sprite-shared__progress-battlepass-bpp-rewards {
-    background-image: var(--sprite-shared__progress-battlepass-bpp-rewards);
-    width: 58px;
-    height: 44px;
+    width: 24px;
+    height: 30px;
 }
 
 .sprite-shared__progress-battlepass-bpp-yellow {
     background-image: var(--sprite-shared__progress-battlepass-bpp-yellow);
-    width: 58px;
-    height: 44px;
+    width: 22px;
+    height: 30px;
+}
+
+.sprite-shared__progress-battlepass-rewards {
+    background-image: var(--sprite-shared__progress-battlepass-rewards);
+    width: 22px;
+    height: 30px;
+}
+
+.sprite-shared__progress-battlepass-rewards-bpp {
+    background-image: var(--sprite-shared__progress-battlepass-rewards-bpp);
+    width: 22px;
+    height: 30px;
 }
 

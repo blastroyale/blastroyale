@@ -54,8 +54,8 @@ namespace FirstLight.Game.Views
 		private VisualElement _mutatorsPanel;
 		private List<VisualElement> _mutatorLines;
 
-		private List<string> _gameModes = new (){"deathmatch", "battleroyale", "battleroyaletrios"};
-		private List<string> _matchTypes = new (){"ranked", "casual", "custom"};
+		private List<string> _gameModes = new (){"deathmatch", "battleroyale", "battleroyaletrios", "battleroyaleduos"};
+		private List<string> _matchTypes = new (){"matchmaking", "forced", "custom"};
 
 		public GameModeSelectionButtonView()
 		{
@@ -120,7 +120,7 @@ namespace FirstLight.Game.Views
 
 			_gameModeLabel.text = GameModeInfo.Entry.GameModeId.ToUpper();
 			// TODO: Remove this adhoc style change
-			if (GameModeInfo.Entry.GameModeId.ToLower() == "battleroyaletrios")
+			if (GameModeInfo.Entry.GameModeId.ToLower() == "battleroyaleduos")
 			{
 				_gameModeLabel.AddToClassList("game-mode-button-trios__label");
 			}
@@ -135,7 +135,7 @@ namespace FirstLight.Game.Views
 			_matchTypes.ForEach(type => _button.RemoveFromClassList($"{GameModeButtonBase}--{type}"));
 
 			// TODO: Remove this adhoc style change
-			if (GameModeInfo.Entry.GameModeId.ToLower() == "battleroyaletrios")
+			if (GameModeInfo.Entry.GameModeId.ToLower() == "battleroyaleduos")
 			{
 				_gameModeLabel.RemoveFromClassList("game-mode-button-trios__label");
 			}

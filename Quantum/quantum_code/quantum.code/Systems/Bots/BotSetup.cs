@@ -178,7 +178,7 @@ namespace Quantum.Systems.Bots
 			var teamId = GetBotTeamId(f, id, ctx.PlayersByTeam);
 
 			var botEntity = realPlayer
-				? f.GetSingleton<GameContainer>().PlayersData[id].Entity
+				? f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[id].Entity
 				: f.Create(ctx.PlayerPrototype);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
 			var pathfinder = NavMeshPathfinder.Create(f, botEntity, ctx.NavMeshAgentConfig);

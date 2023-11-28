@@ -86,8 +86,6 @@ namespace FirstLight.Game.StateMachines
 			_statechart.Trigger(eventTrigger);
 		}
 		
-		
-
 		private void Setup(IStateFactory stateFactory)
 		{
 			var initial = stateFactory.Initial("Initial");
@@ -121,11 +119,11 @@ namespace FirstLight.Game.StateMachines
 
 			final.OnEnter(UnsubscribeEvents);
 		}
-
-
+		
 		private async Task LoadInitialConfigs()
 		{
-			_gameLogic.InitLocal();
+			_services.DataService.LoadData<AppData>();
+;			_gameLogic.InitLocal();
 			await LoadRequiredAuthenticationConfigs();
 			await VersionUtils.LoadVersionDataAsync();
 		}

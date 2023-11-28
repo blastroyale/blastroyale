@@ -1,4 +1,6 @@
 using System;
+using Cysharp.Threading.Tasks;
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
@@ -6,6 +8,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Statechart;
 using I2.Loc;
+using Photon.Realtime;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
@@ -76,7 +79,7 @@ namespace FirstLight.Game.StateMachines
 			connectId.Event(_connectIdFailedEvent).Target(settingsMenu);
 			connectId.OnExit(CloseConnectUI);
 
-			serverSelect.OnEnter(OpenServerSelectUI);
+			serverSelect.OnEnter(() => _ = OpenServerSelectUI());
 			serverSelect.Event(NetworkState.PhotonMasterConnectedEvent).Target(settingsMenu);
 			serverSelect.OnExit(CloseServerSelectUI);
 
@@ -146,15 +149,16 @@ namespace FirstLight.Game.StateMachines
 			});
 		}
 
-		private async void OpenServerSelectUI()
+		private async UniTaskVoid OpenServerSelectUI()
 		{
 			var data = new ServerSelectScreenPresenter.StateData
 			{
-				BackClicked = () => _statechartTrigger(NetworkState.ConnectToRegionMasterEvent),
+				BackClicked = () => _statechartTrigger(NetworkState.RegionUpdatedEvent),
 				RegionChosen = (region) =>
 				{
 					_data.AppDataProvider.ConnectionRegion.Value = region.Code;
-					_statechartTrigger(NetworkState.ConnectToRegionMasterEvent);
+					_statechartTrigger(NetworkState.RegionUpdatedEvent);
+					_uiService.CloseUi<ServerSelectScreenPresenter>();
 				},
 			};
 

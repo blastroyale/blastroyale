@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
@@ -305,12 +306,21 @@ namespace FirstLight.Game.Services
 
 		private void OnPingRegions(PingedRegionsMessage msg)
 		{
-			if (string.IsNullOrEmpty(_dataProvider.AppDataProvider.ConnectionRegion.Value))
+			var appData = _services.DataService.GetData<AppData>();
+			if (string.IsNullOrEmpty(appData.ConnectionRegion))
 			{
-				_dataProvider.AppDataProvider.ConnectionRegion.Value = msg.RegionHandler.BestRegion.Code;
+				appData.ConnectionRegion = msg.RegionHandler.BestRegion.Code;
 				_services.DataSaver.SaveData<AppData>();
 				FLog.Info("Setting player default region to " + msg.RegionHandler.BestRegion.Code);
 			}
+		}
+
+		//[Conditional("DEBUG")]
+		private void DebugConnection()
+		{
+			FLog.Verbose("Connection", $"State = {QuantumClient.State.ToString()}");
+			FLog.Verbose("Connection", $"Peer State = {QuantumClient.LoadBalancingPeer.PeerState.ToString()}");
+			FLog.Verbose("Connection", $"Server = {QuantumClient.Server.ToString()}");
 		}
 
 		public void EnableQuantumPingCheck(bool enabled)
@@ -426,13 +436,13 @@ namespace FirstLight.Game.Services
 	
 		public void ReconnectPhoton(out bool requiresManualReconnection)
 		{
-			FLog.Info("ReconnectPhoton");
-
 			requiresManualReconnection = false;
 			JoinSource.Value = JoinRoomSource.Reconnection;
 
 			if (QuantumClient.LoadBalancingPeer.PeerState != PeerStateValue.Disconnected) return;
 
+			FLog.Info("ReconnectPhoton");
+			
 			if (QuantumClient.Server == ServerConnection.GameServer)
 			{
 				FLog.Info("ReconnectPhoton - ReconnectAndRejoin");

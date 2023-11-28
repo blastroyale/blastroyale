@@ -36,8 +36,7 @@ namespace Quantum.Systems
 
 		private void ProcessAreaHazard(Frame f, Hazard* hazard, ref HazardFilter filter)
 		{
-
-			if (f.GetSingleton<GameContainer>().IsGameOver)
+			if (f.Unsafe.GetPointerSingleton<GameContainer>()->IsGameOver)
 			{
 				return;
 			}

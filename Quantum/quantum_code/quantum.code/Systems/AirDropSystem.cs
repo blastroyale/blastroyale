@@ -64,7 +64,7 @@ namespace Quantum.Systems
 
 		private void CenterAirdropOnLocalPlayer(Frame f, ref AirDropFilter filter)
 		{
-			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[0].Entity;
+			var characterEntity = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[0].Entity;
 			if (QuantumHelpers.IsDestroyed(f, characterEntity))
 			{
 				return;

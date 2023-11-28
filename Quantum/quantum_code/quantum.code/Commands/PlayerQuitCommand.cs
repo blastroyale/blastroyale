@@ -15,7 +15,7 @@ namespace Quantum.Commands
 		/// <inheritdoc />
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
-			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
+			var characterEntity = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[playerRef].Entity;
 			
 			f.Events.OnPlayerLeft(playerRef, characterEntity);
 			if(f.Has<AlivePlayerCharacter>(characterEntity) && !f.Has<BotCharacter>(characterEntity))

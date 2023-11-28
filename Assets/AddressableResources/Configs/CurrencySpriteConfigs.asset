@@ -18,7 +18,7 @@ MonoBehaviour:
       Value:
         DefaultSprite: sprite-currencies__coin-default
         SpriteByMinAmount:
-          _keyData: 01000000e8030000d0070000
+          _keyData: 01000000bc020000a4060000
           _valueData:
           - sprite-currencies__coin-1
           - sprite-currencies__coin-2
@@ -27,7 +27,7 @@ MonoBehaviour:
       Value:
         DefaultSprite: sprite-currencies__blastbuck-default
         SpriteByMinAmount:
-          _keyData: 01000000c8000000e8030000
+          _keyData: 010000006400000058020000
           _valueData:
           - sprite-currencies__blastbuck-1
           - sprite-currencies__blastbuck-2

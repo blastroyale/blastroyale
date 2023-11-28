@@ -413,7 +413,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateGoToCurrentRewardButton()
 		{
-			var level = Math.Min((int) _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1, (int)_dataProvider.BattlePassDataProvider.MaxLevel);
+			var level = Math.Min((int) _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1, (int)_dataProvider.BattlePassDataProvider.MaxLevel-1);
 			var isCurrentLevelOnScreen = _levelElements[level].IsInScreen(_rightContent);
 			if (isCurrentLevelOnScreen)
 			{

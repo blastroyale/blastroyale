@@ -512,7 +512,7 @@ namespace FirstLight.Game.Services.RoomService
 				return;
 			}
 
-			if (CurrentRoom.Properties.MatchType.Value == MatchType.Custom && !CurrentRoom.Properties.StartCustomGame.Value)
+			if (CurrentRoom.Properties.MatchType.Value == MatchType.Custom && !CurrentRoom.Properties.StartCustomGame.Value && !CurrentRoom.GameModeConfig.InstantLoad)
 			{
 				return;
 			}

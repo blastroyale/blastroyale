@@ -20,13 +20,9 @@ namespace FirstLight.Game.Presenters
 		
 		private readonly int _newBarMod = 25; 
 		private int _customBarsY = 0;
-		
-		/// <inheritdoc />
-		protected override void OnOpened()
+
+		protected override void OnInitialized()
 		{
-			_animation.Rewind();
-			_animation.Play();
-			_versionText.text = $"v{VersionUtils.VersionExternal}";
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 			var services = MainInstaller.Resolve<IGameServices>();
 			AddTextBar(services.GameBackendService.CurrentEnvironmentData.EnvironmentID.ToString());
@@ -50,6 +46,14 @@ namespace FirstLight.Game.Presenters
 				AddTextBar("Ranked w/o Equip");
 			}
 #endif
+		}
+		
+		/// <inheritdoc />
+		protected override void OnOpened()
+		{
+			_animation.Rewind();
+			_animation.Play();
+			_versionText.text = $"v{VersionUtils.VersionExternal}";
 		}
 
 		private void AddTextBar(string text, float size = 1)

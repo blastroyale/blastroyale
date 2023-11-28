@@ -52,7 +52,8 @@ namespace FirstLight.Tests.EditorMode
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; set; }
 		public IRoomService RoomService { get; }
-		
+		public IGameAppService GameAppService { get; set; }
+
 		public IBattlePassService BattlePassService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
@@ -108,6 +109,7 @@ namespace FirstLight.Tests.EditorMode
 			RoomService = Substitute.For<IRoomService>();
 			CollectionService = Substitute.For<ICollectionService>();
 			BattlePassService = Substitute.For<IBattlePassService>();
+			GameAppService = Substitute.For<IGameAppService>();
 		}
 	}
 }

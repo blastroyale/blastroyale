@@ -143,7 +143,7 @@ namespace Quantum
 		/// </summary>
 		public static bool IsAttackable(Frame f, EntityRef e, int attackerTeam)
 		{
-			if (f.GetSingleton<GameContainer>().IsGameOver)
+			if (f.Unsafe.GetPointerSingleton<GameContainer>()->IsGameOver)
 			{
 				return false;
 			}
@@ -167,7 +167,7 @@ namespace Quantum
 		/// </summary>
 		public static uint ProcessAreaHit(Frame f, FP radius, Spell* spell, uint maxHitCount = uint.MaxValue, SpellCallBack onHitCallback = null)
 		{
-			if (f.GetSingleton<GameContainer>().IsGameOver)
+			if (f.Unsafe.GetPointerSingleton<GameContainer>()->IsGameOver)
 			{
 				return 0;
 			}

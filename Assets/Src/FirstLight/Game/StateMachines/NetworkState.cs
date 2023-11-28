@@ -48,7 +48,6 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent AlreadyJoined = new StatechartEvent("NETWORK - Already joined");
 		public static readonly IStatechartEvent GameDoesNotExists = new StatechartEvent("NETWORK - Game does not exists");
 		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("NETWORK - Left Room Event");
-		public static readonly IStatechartEvent DcScreenBackEvent = new StatechartEvent("NETWORK - Disconnected Screen Back Event");
 		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
 		
 		private readonly IGameServices _services;
@@ -88,20 +87,16 @@ namespace FirstLight.Game.StateMachines
 			var connectionCheck = stateFactory.Choice("NETWORK - Connection Check");
 			var invalidServer = stateFactory.Transition("NETWORK - InvalidServer");
 
-			initial.Transition().Target(initialConnection);
+			initial.Transition().Target(connectionCheck);
 			initial.OnExit(SubscribeEvents);
-
-			initialConnection.OnEnter(ConnectPhoton);
-			initialConnection.Event(RegionListPinged).Target(connectToRegionMaster);
-			initialConnection.Event(PhotonMasterConnectedEvent).Target(connected);
-			initialConnection.Event(PhotonInvalidServer).Target(invalidServer);;
-			
-			invalidServer.OnEnter(ClearServerData);
-			invalidServer.Transition().Target(initialConnection);
 			
 			connectionCheck.Transition().Condition(IsPhotonConnectedAndReady).Target(connected);
 			connectionCheck.Transition().Target(disconnected); // TODO: Send to reconnection state instead
-
+			
+			invalidServer.OnEnter(ClearServerData);
+			invalidServer.Transition().Target(connectionCheck);
+			
+			connected.OnEnter(() => FLog.Verbose("NETWORK STATE CONNECTED"));
 			connected.Event(PhotonDisconnectedEvent).Target(waitSimulationFinished);
 			connected.Event(OpenServerSelectScreenEvent).Target(disconnectForServerSelect);
 
@@ -112,6 +107,7 @@ namespace FirstLight.Game.StateMachines
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 			disconnected.Event(JoinedRoomEvent).Target(connected);
 			disconnected.Event(JoinedPlayfabMatchmaking).Target(connected);
+			initialConnection.Event(PhotonInvalidServer).Target(invalidServer);
 			disconnected.OnExit(UnsubscribeDisconnectEvents);
 
 			disconnectForServerSelect.OnEnter(DisconnectPhoton);
@@ -163,14 +159,17 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeDisconnectEvents()
 		{
+			UnsubscribeDisconnectEvents();
 			_tickReconnectAttemptCoroutine = _services.CoroutineService.StartCoroutine(TickReconnectAttempt());
 			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
 		}
 		
 		private async Task WaitSimulationFinish()
 		{
-			while (QuantumRunner.Default != null && QuantumRunner.Default.IsRunning)
-				await UniTask.NextFrame();
+			FLog.Verbose("Waiting for simulation to finish");
+			while (QuantumRunner.Default.IsDefinedAndRunning())
+				await Task.Delay(5);
+			FLog.Verbose("Simulation ended, advancing network action");
 		}
 		
 		private void UnsubscribeDisconnectEvents()
@@ -212,9 +211,6 @@ namespace FirstLight.Game.StateMachines
 				FLog.Verbose("Parameter: "+k.Key+" = "+k.Value);
 			}
 		}
-		
-	
-        
 
 		private void UpdateLastDisconnectLocation()
 		{
@@ -233,6 +229,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void ConnectPhoton()
 		{
+			FLog.Verbose("Connecting Photon");
 			_networkService.ConnectPhotonServer();
 		}
 
@@ -362,17 +359,14 @@ namespace FirstLight.Game.StateMachines
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Disconnection,
 				_networkService.QuantumClient.DisconnectedCause
 					.ToString());
-
-			if (QuantumRunner.Default != null && QuantumRunner.Default.Session.GameMode != DeterministicGameMode.Local)
-			{
-				FLog.Verbose("Disabling Simulation Updates");
-				QuantumRunner.Default.OverrideUpdateSession = true;
-			}
+			
+			_services.AnalyticsService.SessionCalls.Disconnection(false);
+			
 			_statechartTrigger(PhotonDisconnectedEvent);
 		}
 
 		public void OnCreatedRoom()
-		{
+		{ 
 			FLog.Info("OnCreatedRoom");
 		}
 
@@ -513,14 +507,12 @@ namespace FirstLight.Game.StateMachines
 		private void OnPingedRegions(RegionHandler regionHandler)
 		{
 			FLog.Info("OnPingedRegions" + regionHandler.GetResults());
-
 			_services.ThreadService.MainThreadDispatcher.Enqueue(() =>
 			{
 				_services.MessageBrokerService.Publish(new PingedRegionsMessage()
 				{
 					RegionHandler = regionHandler
 				});
-				_statechartTrigger(RegionListPinged);
 			});
 		}
 
@@ -569,8 +561,9 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!NetworkUtils.IsOnline() || !_networkService.QuantumClient.IsConnected)
 			{
-				FLog.Warn($"Network action on connection state {_networkService.QuantumClient.State} on server {_networkService.QuantumClient.Server}");
+				FLog.Error($"Network action on connection state {_networkService.QuantumClient.State} on server {_networkService.QuantumClient.Server}");
 				_statechartTrigger(PhotonCriticalDisconnectedEvent);
+				_services.AnalyticsService.SessionCalls.Disconnection(true);
 			}
 		}
 
@@ -588,7 +581,10 @@ namespace FirstLight.Game.StateMachines
 			if (msg.Reason != SimulationEndReason.Disconnected)
 			{
 				FLog.Verbose("Simulation endeed abruptly, leaving room");
-				_services.RoomService.LeaveRoom();
+				if (_services.RoomService.InRoom && _networkService.QuantumClient.IsConnectedAndReady)
+				{
+					_services.RoomService.LeaveRoom();
+				}
 			}
 		}
         
@@ -695,8 +691,9 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator CriticalDisconnectCoroutine()
 		{
 			yield return new WaitForSeconds(GameConstants.Network.CRITICAL_DISCONNECT_THRESHOLD_SECONDS);
-			FLog.Verbose("Critical disconnection");
+			FLog.Error("Critical disconnection");
 			_statechartTrigger(PhotonCriticalDisconnectedEvent);
+			_services.AnalyticsService.SessionCalls.Disconnection(true);
 		}
         
 		public void OnErrorInfo(ErrorInfo errorInfo)

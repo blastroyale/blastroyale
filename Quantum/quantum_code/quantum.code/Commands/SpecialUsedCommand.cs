@@ -22,7 +22,7 @@ namespace Quantum.Commands
 		/// <inheritdoc />
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
-			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
+			var characterEntity = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[playerRef].Entity;
 
 			// Between sending the command and receiving it, the player might have died due to the frame delay between Unity & Quantum
 			if (!f.Unsafe.TryGetPointer<PlayerInventory>(characterEntity, out var playerInventory))

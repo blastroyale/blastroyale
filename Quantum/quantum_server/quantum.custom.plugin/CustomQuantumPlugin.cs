@@ -70,7 +70,6 @@ namespace Quantum
 		/// </summary>
 		public override void OnCreateGame(ICreateGameCallInfo info)
 		{
-			
 			if (FlgConfig.DebugMode)
 			{
 				Log.Info($"Actor {info.Request.ActorNr} created & joined with userId {info.UserId}");
@@ -96,8 +95,10 @@ namespace Quantum
 			var allowedRewards = new List<GameId>();
 			foreach (var idString in ((string) customProperties["alrewards"]).Split(','))
 			{
-				var id = (GameId)Enum.Parse(typeof(GameId), idString, true);
-				allowedRewards.Add(id);
+				if(Enum.TryParse(idString, true, out GameId id))
+				{
+					allowedRewards.Add(id);
+				}
 			}
 			_roomProps.AllowedRewards.Value = allowedRewards;
 			_roomProps.MatchType.Value = (MatchType)Enum.Parse(typeof(MatchType), (string)customProperties["mt"], true);

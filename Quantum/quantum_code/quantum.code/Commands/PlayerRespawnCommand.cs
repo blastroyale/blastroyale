@@ -16,7 +16,7 @@ namespace Quantum.Commands
 		/// <inheritdoc />
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
-			var entity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
+			var entity = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[playerRef].Entity;
 
 			if (!f.TryGet<DeadPlayerCharacter>(entity, out var deadPlayer) || 
 			    f.Time < deadPlayer.TimeOfDeath + f.GameConfig.PlayerRespawnTime)

@@ -7501,105 +7501,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/Avatar1
-      TermType: 0
-      Description: 
-      Languages:
-      - DRAKE
-      - DRAKE
-      - DRAKE
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar1Description
-      TermType: 0
-      Description: 
-      Languages:
-      - 
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar2
-      TermType: 0
-      Description: 
-      Languages:
-      - JINGS
-      - JINGS
-      - JINGS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar2Description
-      TermType: 0
-      Description: 
-      Languages:
-      - 
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar3
-      TermType: 0
-      Description: 
-      Languages:
-      - SERENITY
-      - SERENITY
-      - SERENITY
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar4
-      TermType: 0
-      Description: 
-      Languages:
-      - BUNNY
-      - BUNNY
-      - BUNNY
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar4Description
-      TermType: 0
-      Description: 
-      Languages:
-      - 
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar5
-      TermType: 0
-      Description: 
-      Languages:
-      - JADE
-      - JADE
-      - JADE
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar5Description
-      TermType: 0
-      Description: 
-      Languages:
-      - 
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: GameIds/MeleeSkinDefault
       TermType: 0
       Description: 
@@ -18284,7 +18185,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1700850529877
+    Google_LastUpdatedVersion: 1701170108358
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

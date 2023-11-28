@@ -1,6 +1,7 @@
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using Quantum;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
@@ -41,7 +42,8 @@ namespace FirstLight.Game.Presenters
 			_animatedBackground.SetDefault();
 			_animationController.StartAnimation(_animationDirector, SKIP_ANIMATION_TIME);
 			itemViewModel.DrawIcon(_icon);
-			_name.text = itemViewModel.DisplayName;
+			_name.text = itemViewModel.GameId.IsInGroup(GameIdGroup.ProfilePicture) ? "AVATAR" : itemViewModel.DisplayName;
+			
 			if (itemViewModel.Description != null)
 			{
 				_amount.SetVisibility(true);

@@ -128,7 +128,7 @@ namespace FirstLight.Game.Presenters.BattlePass
 				return;
 			}
 
-			_title.text = itemView.DisplayName.ToUpperInvariant();
+			_title.text = itemView.GameId.IsInGroup(GameIdGroup.ProfilePicture) ? "" : itemView.DisplayName.ToUpperInvariant();
 		}
 
 		public new class UxmlFactory : UxmlFactory<BattlepassSegmentButtonElement, UxmlTraits>

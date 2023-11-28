@@ -107,6 +107,13 @@ namespace Quantum.Systems
 			var position = f.Get<Transform3D>(projectileEntity).Position;
 			var isTeamHit = TeamHelpers.HasSameTeam(f, projectile.Attacker, targetHit);
 
+			//we want to create teh sub projectile regardless of what hit occurs
+			if (projectile.ShouldPerformSubProjectileOnHit(f))
+			{
+				CreateSubProjectile(f, projectile, position, true);
+				// TODO: Check if need to destroy projectile here
+			}
+
 			if (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION && isTeamHit && !projectile.IsSubProjectile())
 			{
 				f.Events.OnProjectileFailedHit(projectileEntity, projectile, position, false);
@@ -121,11 +128,6 @@ namespace Quantum.Systems
 			
 			f.Events.OnProjectileEndOfLife(projectile.SourceId, position, true,projectile.IsSubProjectile());
 
-			if (projectile.ShouldPerformSubProjectileOnHit(f))
-			{
-				CreateSubProjectile(f, projectile, position, true);
-				// TODO: Check if need to destroy projectile here
-			}
 			else
 			{
 				var isSelfAOE = projectile.Attacker == targetHit && projectile.IsSubProjectile();

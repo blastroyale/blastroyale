@@ -49,6 +49,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		public bool IsBot => QuantumRunner.Default.PredictedFrame().Has<BotCharacter>(EntityView.EntityRef);
 
+		public void SwitchShadowVisibility(bool visibility)
+		{
+			_shadowBlob.SetActive(visibility);
+		}
+
 		private void OnSpectateChange(SpectatedPlayer oldP, SpectatedPlayer newP)
 		{
 			if (oldP.Team == newP.Team) return;

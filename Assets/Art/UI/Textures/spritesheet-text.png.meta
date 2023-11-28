@@ -375,7 +375,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -383,6 +383,48 @@ TextureImporter:
       bones: []
       spriteID: bab8e4bc03dbb19438cfd4e164f1a99a
       internalID: 1138685718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blastbuckicon
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f593efddcecdac46ad7ceacb08768c8
+      internalID: 2068562051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CollectionIcon
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 824
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9239df36fdbc1884b8ae34e8ffd163c3
+      internalID: -1037532214
       vertices: []
       indices: 
       edges: []
@@ -400,8 +442,10 @@ TextureImporter:
     nameFileIdTable:
       Ammoicon: -597092786
       BPicon: -890671015
+      Blastbuckicon: 2068562051
       Checked: 1859312832
       Coinicon: -163695951
+      CollectionIcon: -1037532214
       CraftSpiceicon: 1236277509
       Crown: 1226512841
       EnergylevelIcon: 1684124606

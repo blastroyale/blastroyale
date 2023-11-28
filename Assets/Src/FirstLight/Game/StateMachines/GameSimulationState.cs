@@ -27,7 +27,6 @@ using Photon.Deterministic;
 using Quantum;
 using Quantum.Commands;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 
 namespace FirstLight.Game.StateMachines
@@ -76,7 +75,6 @@ namespace FirstLight.Game.StateMachines
 			var simulationInitializationError = stateFactory.Choice("Stop Simulation Initialization Error");
 			var disconnected = stateFactory.State("Disconnected");
 			var disconnectedCritical = stateFactory.State("Disconnected Critical");
-			var criticalMatchError = stateFactory.Transition("Critical Match Error");
 
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
@@ -97,7 +95,7 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
 			battleRoyale.OnExit(CleanUpMatch);
 
-			simulationInitializationError.Transition().OnTransition(MatchError).Target(criticalMatchError);
+			simulationInitializationError.Transition().OnTransition(() => _ = MatchError()).Target(final);
 
 			stopSimulationForDisconnection.OnEnter(StopSimulation);
 			stopSimulationForDisconnection.Event(NetworkState.JoinedRoomEvent).OnTransition(UnloadSimulation).Target(startSimulation);
@@ -105,9 +103,7 @@ namespace FirstLight.Game.StateMachines
 
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(disconnectedCritical);
-
-			criticalMatchError.Transition().Target(final);
-
+			
 			final.OnEnter(UnloadSimulationUi);
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -252,33 +248,21 @@ namespace FirstLight.Game.StateMachines
 			{
 				return;
 			}
-
-			TryEnableClientUpdate();
 			_statechartTrigger(SimulationStartedEvent);
-
-			Task.Yield();
-
-			CloseMatchmakingScreen();
+			_ = CloseMatchmakingScreen();
 		}
 
 		private void OnGameResync(CallbackGameResynced callback)
 		{
 			FLog.Verbose(
 				$"Game Resync {callback.Game.Frames.Verified.Number} vs {_gameDataProvider.AppDataProvider.LastFrameSnapshot.Value.FrameNumber}");
-			TryEnableClientUpdate();
-			_services.CoroutineService.StartCoroutine(ResyncCoroutine());
+			
+			_ = ResyncCoroutine();
 		}
 
-		private void TryEnableClientUpdate()
+		private async UniTaskVoid ResyncCoroutine()
 		{
-			// Client update needs to be enabled in offline rooms, and disabled in online ones, otherwise 
-			// many things break (different breakage for both online and offline)
-			_services.NetworkService.EnableClientUpdate(_services.NetworkService.CurrentRoom.IsOffline);
-		}
-
-		private IEnumerator ResyncCoroutine()
-		{
-			yield return new WaitForSeconds(0.1f);
+			await UniTask.NextFrame();
 			PublishMatchStartedMessage(QuantumRunner.Default.Game, true);
 			_statechartTrigger(SimulationStartedEvent);
 			CloseMatchmakingScreen();
@@ -307,9 +291,10 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(MatchState.MatchQuitEvent);
 		}
 
-		private void MatchError()
+		private async UniTask MatchError()
 		{
 			FLog.Verbose("Raising Match Error");
+			await UniTask.NextFrame(); // to avoid state machine fork https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/2737
 			_statechartTrigger(MatchState.MatchErrorEvent);
 		}
 
@@ -373,7 +358,6 @@ namespace FirstLight.Game.StateMachines
 			});
 			QuantumRunner.ShutdownAll(true);
 			_services.RoomService.LeaveRoom(false);
-			_services.NetworkService.EnableClientUpdate(true);
 		}
 
 		private void CleanUpMatch()

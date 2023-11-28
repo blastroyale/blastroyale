@@ -54,6 +54,7 @@ namespace FirstLight.Game.Utils
 		{
 			if (IsOfflineOrDisconnected())
 			{
+				FLog.Warn("Client is offline, sending network disconnected message");
 				MainInstaller.Resolve<IGameServices>().MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
 				return false;
 			}

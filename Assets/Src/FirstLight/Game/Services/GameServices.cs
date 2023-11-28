@@ -120,8 +120,8 @@ namespace FirstLight.Game.Services
 		public IControlSetupService ControlsSetup { get; }
 		public ILeaderboardService LeaderboardService { get; }
 		public IRewardService RewardService { get; }
-
 		public IRoomService RoomService { get; }
+		public IGameAppService GameAppService { get; }
 		public IBattlePassService BattlePassService { get; }
 
 		/// <summary>
@@ -156,7 +156,7 @@ namespace FirstLight.Game.Services
 		public IAudioFxService<AudioId> AudioFxService { get; }
 		public INotificationService NotificationService { get; }
 		public IGameBackendService GameBackendService { get; }
-
+		public IGameAppService GameAppService { get; }
 		public IPlayerProfileService ProfileService { get; }
 		public IAuthenticationService AuthenticationService { get; }
 		public ITutorialService TutorialService { get; }
@@ -170,22 +170,14 @@ namespace FirstLight.Game.Services
 		public IPartyService PartyService { get; }
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public IGameUiService GameUiService { get; }
-
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
-
 		public IControlSetupService ControlsSetup { get; }
-
 		public IRoomService RoomService { get; }
-		
 		public IBattlePassService BattlePassService { get; }
-
 		public ILeaderboardService LeaderboardService { get; }
-
 		public ICheatsService CheatsService { get; }
 		public IRewardService RewardService { get; }
-		
-
 		public string QuitReason { get; set; }
 
 
@@ -254,6 +246,7 @@ namespace FirstLight.Game.Services
 			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);
 			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
 			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, this);
+			GameAppService = new GameAppService(this);
 		}
 
 		/// <inheritdoc />

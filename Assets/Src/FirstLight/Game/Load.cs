@@ -62,8 +62,7 @@ namespace FirstLight.Game
 				configsProvider, gameLogic, genericDialogService, assetResolver, tutorialService, vfxService,
 				audioFxService, uiService);
 
-			networkService.BindServicesAndData(gameLogic, gameServices);
-			networkService.EnableClientUpdate(true);
+			networkService.StartNetworking(gameLogic, gameServices);
 			networkService.EnableQuantumPingCheck(true);
 			tutorialService.BindServicesAndData(gameLogic, gameServices);
 

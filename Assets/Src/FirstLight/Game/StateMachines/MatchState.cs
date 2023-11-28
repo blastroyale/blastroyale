@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Assets.Src.FirstLight.Game.Commands.QuantumLogicCommands;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -107,7 +108,7 @@ namespace FirstLight.Game.StateMachines
 			var winners = stateFactory.Wait("Winners Screen");
 			var randomLeftRoom = stateFactory.Choice("Oddly left room");
 			var gameResults = stateFactory.Wait("Game Results Screen");
-			var matchStateEnding = stateFactory.TaskWait("Publish Wait Match State Ending");
+			var matchStateEnding = stateFactory.Wait("Publish Wait Match State Ending");
 
 			initial.Transition().Target(customGameCheck);
 			initial.OnExit(SubscribeEvents);
@@ -142,6 +143,9 @@ namespace FirstLight.Game.StateMachines
 			randomLeftRoom.Transition().Target(transitionToMenu);
 
 			gameSimulation.OnEnter(CloseSwipeTransition);
+			
+			/// This state makes a fork and both default OnTransition and gameSimulation.Event(MatchErrorEvent).Target(transitionToMenu); executes
+			/// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/2737
 			gameSimulation.Nest(_gameSimulationState.Setup).OnTransition(() => HandleSimulationEnd(false)).Target(gameEndedChoice);
 			gameSimulation.Event(MatchErrorEvent).Target(transitionToMenu);
 			gameSimulation.Event(MatchEndedEvent).OnTransition(() => HandleSimulationEnd(false)).Target(gameEndedChoice);
@@ -150,7 +154,7 @@ namespace FirstLight.Game.StateMachines
 				.Target(disconnected);
 
 			gameEndedChoice.OnEnter(CloseMatchHud);
-			gameEndedChoice.Transition().Condition(IsSimulationStopped).Target(final);
+			gameEndedChoice.Transition().Condition(IsSimulationBroken).Target(final);
 			gameEndedChoice.Transition().Condition(HasLeftBeforeMatchEnded).Target(transitionToGameResults);
 			gameEndedChoice.Transition().Target(gameEnded);
 
@@ -181,13 +185,12 @@ namespace FirstLight.Game.StateMachines
 			disconnected.Event(NetworkState.JoinedPlayfabMatchmaking).Target(postDisconnectCheck);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(postDisconnectCheck);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(transitionToMenu);
-			disconnected.Event(NetworkState.DcScreenBackEvent).Target(transitionToMenu);
 
 			postDisconnectCheck.Transition().Condition(HasDisconnectedDuringMatchmaking).Target(roomCheck);
 			postDisconnectCheck.Transition().Condition(HasDisconnectedDuringSimulation).OnTransition(CloseCurrentScreen).Target(roomCheck);
 			postDisconnectCheck.Transition().OnTransition(CloseCurrentScreen).Target(transitionToMenu);
-
-			matchStateEnding.WaitingFor(MatchStateEndTrigger).Target(final);
+			
+			matchStateEnding.WaitingFor(a => _ = MatchStateEndTrigger(a)).Target(final);
 			matchStateEnding.OnExit(UnloadMainMenuAssetConfigs);
 
 			final.OnEnter(DisposeMatchServices);
@@ -369,13 +372,16 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(MatchUnloadedEvent);
 		}
 
-		private async Task MatchStateEndTrigger()
+		private async UniTaskVoid MatchStateEndTrigger(IWaitActivity activity)
 		{
 			// Workaround to triggering statechart events on enter/exit
 			// Necessary for audio to play at correct time, but this can't be called OnEnter or OnExit, or the 
 			// state machine ends up working very strangely.
+			// FIX THIS SHIT = 5000 TACOS
+			await UniTask.NextFrame();
 			_statechartTrigger(MatchStateEndingEvent);
-			await Task.Yield();
+			await UniTask.NextFrame();
+			activity.Complete();
 		}
 
 		private void PublishMatchEnded(bool isDisconnected, bool isPlayerQuit, QuantumGame game)
@@ -390,7 +396,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void HandleSimulationEnd(bool playerQuit)
 		{
-			FLog.Verbose("Match End");
+			FLog.Verbose("[MatchState] Match End");
 			PublishMatchEnded(false, playerQuit, QuantumRunner.Default.Game);
 
 			_services.AnalyticsService.MatchCalls.MatchEnd(QuantumRunner.Default.Game, playerQuit,
@@ -402,14 +408,14 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private bool IsSimulationStopped()
+		private bool IsSimulationBroken()
 		{
-			return QuantumRunner.Default == null || QuantumRunner.Default.IsDestroyed();
+			return QuantumRunner.Default == null || QuantumRunner.Default.IsDestroyed() || NetworkUtils.IsOfflineOrDisconnected();
 		}
 
 		private async Task UnloadMatchAndTransition()
 		{
-			FLog.Verbose("Unloading Match State");
+			FLog.Verbose("[MatchState] Unloading Match State");
 			CloseCurrentScreen();
 
 			StopSimulation();
@@ -418,11 +424,12 @@ namespace FirstLight.Game.StateMachines
 			await UnloadAllMatchAssets();
 
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MainMenuAssetConfigs>());
+			FLog.Verbose("[MatchState] Finished Unloading Match State");
 		}
 
 		private void UnloadMainMenuAssetConfigs()
 		{
-			// Unload the assets loaded in UnloadMatchAssets method
+			FLog.Verbose("Unloading Main Menu Asssets");
 			_services.AssetResolverService.UnloadAssets(true, _services.ConfigsProvider.GetConfig<MainMenuAssetConfigs>());
 		}
 
@@ -440,8 +447,6 @@ namespace FirstLight.Game.StateMachines
 				_matchServices.MatchEndDataService.Reload();
 				QuantumRunner.ShutdownAll(true);
 			}
-
-			_services.NetworkService.EnableClientUpdate(true);
 		}
 
 		private void DisposeMatchServices()

@@ -44,6 +44,7 @@ namespace FirstLight.Game.Services
 		public bool LastAttemptFailed;
 		public int Retries;
 		public bool StartedWithAccount;
+		public bool LoggedIn;
 	}
 
 	/// <summary>
@@ -460,6 +461,7 @@ namespace FirstLight.Game.Services
 			accountData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			appData.TitleData = titleData;
 			OnLogin?.Invoke(result);
+			State.LoggedIn = true;
 			_dataService.SaveData<AppData>();
 			_localAccountData.SaveData<AccountData>();
 			FLog.Verbose("Saved AppData");

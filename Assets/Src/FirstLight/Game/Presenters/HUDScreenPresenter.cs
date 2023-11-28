@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;

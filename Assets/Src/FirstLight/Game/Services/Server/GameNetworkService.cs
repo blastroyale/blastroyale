@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
@@ -84,12 +86,7 @@ namespace FirstLight.Game.Services
 		/// Updates/Adds Photon LocalPlayer custom properties
 		/// </summary>
 		void SetPlayerCustomProperties(Hashtable propertiesToUpdate);
-
-		/// <summary>
-		/// Enables or disables client ticking update and lag detection
-		/// </summary>
-		void EnableClientUpdate(bool enabled);
-
+		
 		/// <summary>
 		/// Requests the current room that the local player is in
 		/// </summary>
@@ -143,7 +140,6 @@ namespace FirstLight.Game.Services
 		/// <para>This can't be made private because it's used to add callback targets,
 		/// has a lot of utils and useful code. Just don't abuse it, or you will regret it.</para></remarks>
 		QuantumLoadBalancingClient QuantumClient { get; }
-        
 
 		/// <summary>
 		/// Last match room setup used to join or create rooms
@@ -165,6 +161,12 @@ namespace FirstLight.Game.Services
 		/// Set last connected room
 		/// </summary>
 		void SetLastRoom();
+
+		/// <summary>
+		/// Awaits until server connection is stablished
+		/// Will return false if connection could be made
+		/// </summary>
+		UniTask<bool> AwaitServerConnection();
 	}
 
 	public enum JoinRoomSource
@@ -219,7 +221,6 @@ namespace FirstLight.Game.Services
 		private IConfigsProvider _configsProvider;
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
-		
 
 		private Queue<int> LastRttQueue;
 		private int CurrentRttTotal;
@@ -259,10 +260,22 @@ namespace FirstLight.Game.Services
 			CurrentRoom.IsOffline = QuantumRunnerConfigs.IsOfflineMode;
 			LastConnectedRoom.Value = CurrentRoom;
 		}
-        
+
+		public async UniTask<bool> AwaitServerConnection()
+		{
+			var timeout = 10;
+			while (timeout > 0)
+			{
+				if (QuantumClient.IsConnectedAndReady) return true;
+				await Task.Delay(TimeSpan.FromSeconds(1));
+				if(Time.timeScale == 0) QuantumClient.Service();
+				timeout--;
+			}
+			return false;
+		}
+
 		private int RttAverage => CurrentRttTotal / LastRttQueue.Count;
-
-
+		
 		public GameNetworkService(IConfigsProvider configsProvider)
 		{
 			_configsProvider = configsProvider;
@@ -281,12 +294,13 @@ namespace FirstLight.Game.Services
 		/// Binds services and data to the object, and starts starts ticking quantum client.
 		/// Done here, instead of constructor because things are initialized in a particular order in Main.cs
 		/// </summary>
-		public void BindServicesAndData(IGameDataProvider dataProvider, IGameServices services)
+		public void StartNetworking(IGameDataProvider dataProvider, IGameServices services)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
 
 			_services.MessageBrokerService.Subscribe<PingedRegionsMessage>(OnPingRegions);
+			_services.TickService.SubscribeOnUpdate(f => QuantumClient.Service());
 		}
 
 		private void OnPingRegions(PingedRegionsMessage msg)
@@ -314,39 +328,6 @@ namespace FirstLight.Game.Services
 					_services.CoroutineService.StopCoroutine(_tickPingCheckCoroutine);
 					_tickPingCheckCoroutine = null;
 				}
-			}
-		}
-
-		public void EnableClientUpdate(bool enabled)
-		{
-			if (_services == null) return;
-
-			if (enabled)
-			{
-				_tickUpdateCoroutine = _services.CoroutineService.StartCoroutine(TickQuantumClient());
-			}
-			else
-			{
-				if (_tickUpdateCoroutine != null)
-				{
-					_services.CoroutineService.StopCoroutine(_tickUpdateCoroutine);
-					_tickUpdateCoroutine = null;
-				}
-			}
-		}
-
-		private IEnumerator TickQuantumClient()
-		{
-			var waitForSeconds = new WaitForSeconds(QUANTUM_TICK_SECONDS);
-
-			while (true)
-			{
-				if (QuantumClient.IsConnected && NetworkUtils.IsOnline())
-				{
-					QuantumClient.Service();
-				}
-
-				yield return waitForSeconds;
 			}
 		}
 

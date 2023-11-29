@@ -106,15 +106,9 @@ namespace Quantum.Systems
 		{
 			var position = f.Get<Transform3D>(projectileEntity).Position;
 			var isTeamHit = TeamHelpers.HasSameTeam(f, projectile.Attacker, targetHit);
-			var spawnSubProjectile = projectile.ShouldPerformSubProjectileOnHit(f);
+			var spawnSubOnEof = projectile.ShouldPerformSubProjectileOnEndOfLifetime(f);
 
-			if (spawnSubProjectile)
-			{
-				CreateSubProjectile(f, projectile, position, true);
-				// TODO: Check if need to destroy projectile here
-			}
-
-			if (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION && isTeamHit && !projectile.IsSubProjectile())
+			if (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION && isTeamHit && !projectile.IsSubProjectile() && !spawnSubOnEof)
 			{
 				f.Events.OnProjectileFailedHit(projectileEntity, projectile, position, false);
 				f.Destroy(projectileEntity);
@@ -128,26 +122,24 @@ namespace Quantum.Systems
 			
 			f.Events.OnProjectileEndOfLife(projectile.SourceId, position, true,projectile.IsSubProjectile());
 
-			if(!spawnSubProjectile)
+			var isSelfAOE = projectile.Attacker == targetHit && projectile.IsSubProjectile();
+			var power = (uint)(projectile.GetPower(f) * (isSelfAOE ? Constants.SELF_DAMAGE_MODIFIER : FP._1));
+				
+			var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, projectileEntity, power,
+											projectile.KnockbackAmount, position, isSelfAOE ? 0 : projectile.TeamSource);
+				
+			if (QuantumHelpers.ProcessHit(f, &spell))
 			{
-				var isSelfAOE = projectile.Attacker == targetHit && projectile.IsSubProjectile();
-				var power = (uint)(projectile.GetPower(f) * (isSelfAOE ? Constants.SELF_DAMAGE_MODIFIER : FP._1));
-				
-				var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, projectileEntity, power,
-					projectile.KnockbackAmount, position, isSelfAOE ? 0 : projectile.TeamSource);
-				
-				if (QuantumHelpers.ProcessHit(f, &spell))
-				{
-					OnHit(f, &spell);
-				}
+				OnHit(f, &spell);
+			}
+			
+			if (spawnSubOnEof)
+			{
+				CreateSubProjectile(f, projectile, position, false);
 			}
 
-			if (projectile.Speed > 0)
+			if (!projectile.IsSubProjectile())
 			{
-				if (projectile.ShouldPerformSubProjectileOnEndOfLifetime(f))
-				{
-					CreateSubProjectile(f, projectile, position, false);
-				}
 				f.Destroy(projectileEntity);
 			}
 		}

@@ -842,6 +842,7 @@ namespace Quantum
 					GameId.MaleAssassin, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Assassin,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -858,7 +859,6 @@ namespace Quantum
 					GameId.MalePunk, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Punk,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -867,7 +867,6 @@ namespace Quantum
 					GameId.MaleSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Superstar,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -892,7 +891,6 @@ namespace Quantum
 					GameId.FemalePunk, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Punk,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -901,7 +899,6 @@ namespace Quantum
 					GameId.FemaleSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Superstar,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -941,7 +938,6 @@ namespace Quantum
 					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -949,7 +945,6 @@ namespace Quantum
 					GameId.Falcon, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -964,6 +959,7 @@ namespace Quantum
 					GameId.Turbine, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -979,7 +975,6 @@ namespace Quantum
 					GameId.Demon, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1135,8 +1130,7 @@ namespace Quantum
 					GameId.MeleeSkinYouGotMail, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection,
-						GameIdGroup.BotItem
+						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
@@ -1882,16 +1876,10 @@ namespace Quantum
 				{
 					GameIdGroup.BotItem, new List<GameId>
 					{
-						GameId.MalePunk,
-						GameId.MaleSuperstar,
-						GameId.FemalePunk,
-						GameId.FemaleSuperstar,
-						GameId.Divinci,
-						GameId.Falcon,
+						GameId.MaleAssassin,
+						GameId.Turbine,
 						GameId.Tombstone,
-						GameId.Demon,
 						GameId.MeleeSkinDefault,
-						GameId.MeleeSkinYouGotMail,
 						GameId.FootprintDot
 					}.AsReadOnly()
 				},

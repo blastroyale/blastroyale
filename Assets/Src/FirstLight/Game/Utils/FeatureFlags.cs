@@ -93,6 +93,12 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		[Description("Force Authentication Connection Error")]
 		public bool ForceAuthError = false;
+		
+		/// <summary>
+		/// Force authentication connection error
+		/// </summary>
+		[Description("Disable Pause Behaviour")]
+		public bool DisablePauseBehaviour = false;
 	}
 
 

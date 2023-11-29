@@ -177,14 +177,14 @@ namespace FirstLight.Editor.Ids
 			{"Male02Avatar", 56, PlayerSkin, Collection},
 			{"Female01Avatar", 57, PlayerSkin, Collection},
 			{"Female02Avatar", 58, PlayerSkin, Collection},
-			{"MaleAssassin", 68, PlayerSkin, Assassin, Collection},
+			{"MaleAssassin", 68, PlayerSkin, BotItem, Assassin, Collection},
 			{"MaleCorpos", 69, PlayerSkin, Corpo, Collection},
-			{"MalePunk", 77, PlayerSkin, BotItem, Punk, Collection},
-			{"MaleSuperstar", 80, PlayerSkin, BotItem, Superstar, Collection},
+			{"MalePunk", 77, PlayerSkin, Punk, Collection},
+			{"MaleSuperstar", 80, PlayerSkin, Superstar, Collection},
 			{"FemaleAssassin", 81, PlayerSkin, Assassin, Collection},
 			{"FemaleCorpos", 82, PlayerSkin, Corpo, Collection},
-			{"FemalePunk", 83, PlayerSkin, BotItem, Punk, Collection},
-			{"FemaleSuperstar", 104, PlayerSkin, BotItem, Superstar, Collection},
+			{"FemalePunk", 83, PlayerSkin, Punk, Collection},
+			{"FemaleSuperstar", 104, PlayerSkin, Superstar, Collection},
 			{"TestSkin", 122},
 			{"PlayerSkinDragonBoxer", 148, PlayerSkin, Collection},
 			{"PlayerSkinTieGuy", 147, PlayerSkin, Collection},
@@ -195,17 +195,17 @@ namespace FirstLight.Editor.Ids
 
 			#region Gliders
 
-			{"Divinci", 66, Glider, BotItem, Collection},
-			{"Falcon", 67, Glider, BotItem, Collection},
+			{"Divinci", 66, Glider, Collection},
+			{"Falcon", 67, Glider, Collection},
 			{"Rocket", 73, Glider, Collection},
-			{"Turbine", 74, Glider, Collection},
+			{"Turbine", 74, Glider, BotItem, Collection},
 
 			#endregion
 
 			#region Deathmarkers
 
 			{"Tombstone", 37, DeathMarker, BotItem, Collection},
-			{"Demon", 25, DeathMarker, BotItem, Collection},
+			{"Demon", 25, DeathMarker, Collection},
 			{"Superstar", 75, DeathMarker, Collection},
 			{"Unicorn", 76, DeathMarker, Collection},
 
@@ -232,7 +232,7 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinTvTakedown", 316, MeleeSkin, Collection},
 			{"MeleeSkinWheelOfPain", 317, MeleeSkin, Collection},
 			{"MeleeSkinWrench", 318, MeleeSkin, Collection},
-			{"MeleeSkinYouGotMail", 319, MeleeSkin, Collection, BotItem},
+			{"MeleeSkinYouGotMail", 319, MeleeSkin, Collection},
 
 			#endregion
 

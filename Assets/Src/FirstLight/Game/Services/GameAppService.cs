@@ -4,6 +4,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.TestCases;
+using FirstLight.Game.Utils;
 using UnityEditor;
 using UnityEngine;
 using Application = UnityEngine.Device.Application;
@@ -76,6 +77,10 @@ namespace FirstLight.Game.Services
 
 		private void OnPause(bool paused)
 		{
+			if (FeatureFlags.GetLocalConfiguration().DisablePauseBehaviour)
+			{
+				return;
+			}
 			if (paused) HandleGamePaused();
 			else HandleGameUnpaused();
 		}

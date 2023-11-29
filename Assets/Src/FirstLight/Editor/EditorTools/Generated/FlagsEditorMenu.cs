@@ -32,6 +32,7 @@ Menu.SetChecked("FLG/Local Flags/Unblock Equipment requirements", IsIgnoreEquipm
 Menu.SetChecked("FLG/Local Flags/Record quantum input", IsRecordQuantumInput);
 Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGameAutomatically);
 Menu.SetChecked("FLG/Local Flags/Force Authentication Connection Error", IsForceAuthError);
+Menu.SetChecked("FLG/Local Flags/Disable Pause Behaviour", IsDisablePauseBehaviour);
 
 				Menu.SetChecked("FLG/Local Flags/Symbols/Enable bot debug visuals", IsBotDebug);
 
@@ -137,6 +138,18 @@ UpdateSelectionEnvironmentOverride();
 			}
 		}
 
+
+		private static bool IsDisablePauseBehaviour
+		{
+			get => FeatureFlags.GetLocalConfiguration().DisablePauseBehaviour;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().DisablePauseBehaviour = value;
+				Debug.Log("Setting DisablePauseBehaviour to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
 		
 				private static bool IsBotDebug
 		{
@@ -207,6 +220,14 @@ UpdateSelectionEnvironmentOverride();
 		{
 			IsForceAuthError = !IsForceAuthError;
 			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Force Authentication Connection Error", IsForceAuthError); };
+		}
+
+
+		[MenuItem("FLG/Local Flags/Disable Pause Behaviour", false, 5)]
+		private static void ToggleDisablePauseBehaviour()
+		{
+			IsDisablePauseBehaviour = !IsDisablePauseBehaviour;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Disable Pause Behaviour", IsDisablePauseBehaviour); };
 		}
 
 		

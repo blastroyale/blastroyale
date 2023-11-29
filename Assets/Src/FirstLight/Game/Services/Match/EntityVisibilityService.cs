@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using JetBrains.Annotations;
@@ -174,6 +175,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			var visibility = CheckSpectatorVisibility(towardsEntity);
 			FLog.Verbose($"[EntityVisibility] Setting {view.EntityRef} render to {visibility.CanSee}");
 			renderer.SetEnabled(visibility.CanSee);
+			if(view.gameObject.TryGetComponent<PlayerCharacterMonoComponent>( out var PCC))
+			{
+				PCC.SwitchShadowVisibility(visibility.CanSee);
+			}
 
 			if (!visibility.CanSee) _clientHidden.Add(renderer);
 			else _clientHidden.Remove(renderer);

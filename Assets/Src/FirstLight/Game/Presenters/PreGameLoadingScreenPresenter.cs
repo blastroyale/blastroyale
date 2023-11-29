@@ -450,7 +450,7 @@ namespace FirstLight.Game.Presenters
 				}
 			};
 
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, false,
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true,
 				confirmButton);
 		}
 	}

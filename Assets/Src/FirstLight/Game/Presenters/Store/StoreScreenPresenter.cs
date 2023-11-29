@@ -67,7 +67,7 @@ namespace FirstLight.Game.Presenters.Store
 				foreach (var product in category.Products)
 				{
 					var productElement = new StoreGameProductElement();
-					productElement.SetData(product);
+					productElement.SetData(product, root);
 					productElement.OnClicked = BuyItem;
 					categoryElement.Add(productElement);
 					categoryElement.EnsureSize(productElement.size);

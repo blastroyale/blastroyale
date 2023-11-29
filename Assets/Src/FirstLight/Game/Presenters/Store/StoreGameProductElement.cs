@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using PlayFab.ClientModels;
 using Quantum;
@@ -51,23 +53,34 @@ namespace FirstLight.Game.Presenters.Store
 
 		private Label _name;
 		private VisualElement _icon;
-		private Button _root;
+		private VisualElement _root;
 		private Label _price;
+		private ImageButton _infoButton; 
+		private ImageButton _background;
 
 		public StoreGameProductElement()
 		{
 			var treeAsset = Resources.Load<VisualTreeAsset>("StoreGameProductElement");
 			treeAsset.CloneTree(this);
-			_root = this.Q<Button>("ProductWidget").Required();
-			_root.clicked += () => OnClicked(_product);
+			_background = this.Q<ImageButton>("ProductBackgroundImage").Required();
+			_background.clicked += () => OnClicked(_product);
 			_name = this.Q<Label>("ProductName").Required();
 			_icon = this.Q("ProductImage").Required();
 			_icon.AddToClassList(USS_SPRITE_CURRENCIES_BLASTBUCK);
 			_price = this.Q<Label>("ProductPrice").Required();
+			_infoButton = this.Q<ImageButton>("InformationClickArea").Required();
+			_infoButton.clicked += OnClickInfo;
 		}
 
-		public void SetData(GameProduct product)
+		private void OnClickInfo()
 		{
+			var desc = _product.PlayfabProductConfig.StoreItemData.Description;
+			_infoButton.OpenTooltip(_root, desc, TooltipDirection.BottomLeft, TooltipPosition.TopRight);
+		}
+
+		public void SetData(GameProduct product, VisualElement rootDocument)
+		{
+			_root = rootDocument;
 			_product = product;
 			var itemView = product.GameItem.GetViewModel();
 			_name.text = "";
@@ -178,7 +191,7 @@ namespace FirstLight.Game.Presenters.Store
 							}
 						}
 					},
-				});
+				}, ve);
 			}
 		}
 	}

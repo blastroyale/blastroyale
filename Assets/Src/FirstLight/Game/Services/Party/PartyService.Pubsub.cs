@@ -94,16 +94,14 @@ namespace FirstLight.Game.Services.Party
 				}
 				catch (WrappedPlayFabException ex)
 				{
-					if (ex.Error.Error == PlayFabErrorCode.LobbyBadRequest)
+					var err = ConvertErrors(ex);
+					if (err == PartyErrors.UserIsNotMember)
 					{
-						if (ex.Error.ErrorMessage == "User is not lobby owner or member")
-						{
 							// This means that the player got kicked before getting the connection handler of the lobby
 							Members.Remove(LocalPartyMember());
 							ResetPubSubState();
 							LocalPlayerKicked();
 							return;
-						}
 					}
 
 					throw;
@@ -340,13 +338,12 @@ namespace FirstLight.Game.Services.Party
 
 		private async Task UnsubscribeToLobbyUpdates()
 		{
+			if (_pubSubState != PartySubscriptionState.Connected || _subscribedLobbyId == null)
+			{
+				return;
+			}
 			try
 			{
-				if (_pubSubState != PartySubscriptionState.Connected || _subscribedLobbyId == null)
-				{
-					return;
-				}
-
 				await _pubSubSemaphore.WaitAsync();
 
 				var connStr = await _pubsub.GetConnectionHandle();

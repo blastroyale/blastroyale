@@ -33,7 +33,7 @@ namespace FirstLight.Game.Services.Party
 			return new Member()
 			{
 				MemberEntity = LocalEntityKey(),
-				MemberData = new()
+				MemberData = new ()
 				{
 					{DisplayNameMemberProperty, _appDataProvider.GetDisplayName()},
 					{LevelProperty, _playerDataProvider.Level.Value.ToString()},
@@ -63,7 +63,7 @@ namespace FirstLight.Game.Services.Party
 				local: Local().EntityId == id,
 				leader: leader,
 				ready: false,
-				rawProperties: new()
+				rawProperties: new ()
 			);
 			if (data != null)
 			{
@@ -146,6 +146,7 @@ namespace FirstLight.Game.Services.Party
 
 			throw new PartyException(ex, err);
 		}
+		
 
 		private PartyErrors ConvertErrors(WrappedPlayFabException ex)
 		{
@@ -158,9 +159,10 @@ namespace FirstLight.Game.Services.Party
 
 			if (code == PlayFabErrorCode.LobbyBadRequest)
 			{
-				if (ex.Error.ErrorMessage == "Cannot get lobby details since user is not lobby owner or member")
+				if (_lobbyBadRequestToErrorsMap.TryGetValue(ex.Error.ErrorMessage,out var transformedCode))
 				{
-					return PartyErrors.TryingToGetDetailsOfNonMemberParty;
+					return transformedCode;
+
 				}
 			}
 

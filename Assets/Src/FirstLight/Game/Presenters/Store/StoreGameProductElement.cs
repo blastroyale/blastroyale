@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using DG.DemiEditor;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -136,6 +137,8 @@ namespace FirstLight.Game.Presenters.Store
 					_icon.style.backgroundImage = new StyleBackground(texture2D);
 				});
 			}
+			
+			_infoButton.SetDisplay(!_product.PlayfabProductConfig.StoreItemData.Description.IsNullOrEmpty());
 		}
 
 		public new class UxmlFactory : UxmlFactory<StoreGameProductElement, UxmlTraits>

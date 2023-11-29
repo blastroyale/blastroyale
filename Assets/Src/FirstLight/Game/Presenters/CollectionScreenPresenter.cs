@@ -262,7 +262,7 @@ namespace FirstLight.Game.Presenters
 		{
 			HashSet<int> hiddenGameIds = new HashSet<int>();
 			// TODO: Move this to configs
-			if (_gameDataProvider.AppDataProvider.TitleData.TryGetValue("HIDE_COLLECTION", out var hidden))
+			if (_gameDataProvider.AppDataProvider.TitleData.TryGetValue("HIDE_COLLECTION", out var hidden) && hidden != null)
 			{
 				hiddenGameIds = hidden.Split(",").Select(Int32.Parse).ToHashSet();
 			}

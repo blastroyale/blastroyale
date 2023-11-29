@@ -291,8 +291,8 @@ namespace FirstLight.Game.Services
 				? Leader
 				: LocalPlayer;
 
-			var room = _services.RoomService.CurrentRoom;
-			var matchType = room?.Properties.MatchType.Value ?? _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
+			var room = _services.RoomService.CurrentRoom ?? _services.RoomService.LastRoom;
+			var matchType = room?.Properties?.MatchType?.Value ?? _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
 
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
 				!gameContainer.IsGameOver)
@@ -311,7 +311,7 @@ namespace FirstLight.Game.Services
 				MatchType = matchType,
 				DidPlayerQuit = false,
 				GamePlayerCount = QuantumPlayerMatchData.Count(),
-				AllowedRewards = _services.RoomService.LastRoom.Properties.AllowedRewards.Value
+				AllowedRewards = room?.Properties?.AllowedRewards.Value
 			};
 			Rewards = _dataProvider.RewardDataProvider.CalculateMatchRewards(rewardSource, out var trophyChange);
 			TrophiesChange = trophyChange;

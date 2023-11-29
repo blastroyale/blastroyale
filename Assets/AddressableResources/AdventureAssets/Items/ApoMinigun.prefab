@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2228932138845084722}
   - component: {fileID: 6609297592621284676}
   - component: {fileID: 6671044932016379133}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Wep_Minigun_02_Apc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,6 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462211274697349940}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +35,6 @@ Transform:
   - {fileID: 490436272923089601}
   - {fileID: 4207793764714256539}
   m_Father: {fileID: 581295853275894912}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2228932138845084722
 MonoBehaviour:
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 581295853275894912}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: ApoMinigun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 581295853275894919}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -114,7 +115,6 @@ Transform:
   m_Children:
   - {fileID: 1112948520478388819}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &639007697946605985
 PrefabInstance:
@@ -124,9 +124,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1112948520478388819}
     m_Modifications:
+    - target: {fileID: 335867925761748138, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 699189905435078329, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_Name
       value: MuzzleStandard
+      objectReference: {fileID: 0}
+    - target: {fileID: 699189905435078329, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1013405764868694880, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_RootOrder
@@ -251,7 +259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6208502038820993046, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -6208502038820993046, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_IsActive
@@ -263,11 +271,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2508648685871570079, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2508648685871570079, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_IsActive

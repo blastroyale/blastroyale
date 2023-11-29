@@ -54,7 +54,7 @@ MonoBehaviour:
         RawValue: 0
       Param2:
         RawValue: 0
-    - Id: NoAbilities
+    - Id: DoNotDropSpecials
       Type: 7
       Param1:
         RawValue: 0
@@ -98,12 +98,6 @@ MonoBehaviour:
         RawValue: 0
     - Id: ConsumablesSharing
       Type: 14
-      Param1:
-        RawValue: 0
-      Param2:
-        RawValue: 0
-    - Id: SpecialsMayhem
-      Type: 15
       Param1:
         RawValue: 0
       Param2:

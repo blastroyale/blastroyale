@@ -1,104 +1,97 @@
 using System;
-using BestHTTP;
-using BestHTTP.SignalRCore;
 
-public sealed class PlayFabAuthenticator : IAuthenticationProvider
+namespace Best.SignalR.Authentication
 {
-	/// <summary>
-	/// No pre-auth step required for this type of authentication
-	/// </summary>
-	public bool IsPreAuthRequired
-	{
-		get { return false; }
-	}
+    public sealed class PlayFabAuthenticator : IAuthenticationProvider
+    {
+        /// <summary>
+        /// No pre-auth step required for this type of authentication
+        /// </summary>
+        public bool IsPreAuthRequired { get { return false; } }
 
-#pragma warning disable 0067
-	/// <summary>
-	/// Not used event as IsPreAuthRequired is false
-	/// </summary>
-	public event OnAuthenticationSuccededDelegate OnAuthenticationSucceded;
+    #pragma warning disable 0067
+        /// <summary>
+        /// Not used event as IsPreAuthRequired is false
+        /// </summary>
+        public event OnAuthenticationSuccededDelegate OnAuthenticationSucceded;
 
-	/// <summary>
-	/// Not used event as IsPreAuthRequired is false
-	/// </summary>
-	public event OnAuthenticationFailedDelegate OnAuthenticationFailed;
+        /// <summary>
+        /// Not used event as IsPreAuthRequired is false
+        /// </summary>
+        public event OnAuthenticationFailedDelegate OnAuthenticationFailed;
 
-#pragma warning restore 0067
+    #pragma warning restore 0067
 
-	private HubConnection _connection;
-	private string _entityToken;
+        private HubConnection _connection;
+        private string _entityToken;
 
-	public PlayFabAuthenticator(HubConnection connection, string entityToken)
-	{
-		this._connection = connection;
-		this._entityToken = entityToken;
-	}
+        public PlayFabAuthenticator(HubConnection connection, string entityToken)
+        {
+            this._connection = connection;
+            this._entityToken = entityToken;
+        }
 
-	/// <summary>
-	/// Not used as IsPreAuthRequired is false
-	/// </summary>
-	public void StartAuthentication()
-	{
-	}
+        /// <summary>
+        /// Not used as IsPreAuthRequired is false
+        /// </summary>
+        public void StartAuthentication() { }
 
+        /// <summary>
+        /// Prepares the request by adding two headers to it
+        /// </summary>
+        public void PrepareRequest(Best.HTTP.HTTPRequest request)
+        {
+            if (this._connection.NegotiationResult == null) {
+                request.SetHeader("X-EntityToken", this._entityToken);
+                return;
+            }
 
-	/// <summary>
-	/// Prepares the request by adding two headers to it
-	/// </summary>
-	public void PrepareRequest(HTTPRequest request)
-	{
-		if (this._connection.NegotiationResult == null)
-		{
-			request.SetHeader("X-EntityToken", this._entityToken);
-			return;
-		}
+            // Add Authorization header to http requests, add access_token param to the uri otherwise
+            if (Best.HTTP.Hosts.Connections.HTTPProtocolFactory.GetProtocolFromUri(request.CurrentUri) == Best.HTTP.Hosts.Connections.SupportedProtocols.HTTP)
+                request.SetHeader("Authorization", "Bearer " + this._connection.NegotiationResult.AccessToken);
+            else
+    #if !BESTHTTP_DISABLE_WEBSOCKET
+                if (Best.HTTP.Hosts.Connections.HTTPProtocolFactory.GetProtocolFromUri(request.Uri) != Best.HTTP.Hosts.Connections.SupportedProtocols.WebSocket)
+                request.Uri = PrepareUriImpl(request.Uri);
+    #else
+                ;
+    #endif
+        }
 
-		// Add Authorization header to http requests, add access_token param to the uri otherwise
-		if (BestHTTP.Connections.HTTPProtocolFactory.GetProtocolFromUri(request.CurrentUri) == BestHTTP.Connections.SupportedProtocols.HTTP)
-			request.SetHeader("Authorization", "Bearer " + this._connection.NegotiationResult.AccessToken);
-		else
-#if !BESTHTTP_DISABLE_WEBSOCKET
-		if (BestHTTP.Connections.HTTPProtocolFactory.GetProtocolFromUri(request.Uri) != BestHTTP.Connections.SupportedProtocols.WebSocket)
-			request.Uri = PrepareUriImpl(request.Uri);
-#else
-            ;
-#endif
-	}
+        public Uri PrepareUri(Uri uri)
+        {
+            if (this._connection.NegotiationResult == null)
+                return uri;
 
-	public Uri PrepareUri(Uri uri)
-	{
-		if (this._connection.NegotiationResult == null)
-			return uri;
+            if (uri.Query.StartsWith("??"))
+            {
+                UriBuilder builder = new UriBuilder(uri);
+                builder.Query = builder.Query.Substring(2);
 
-		if (uri.Query.StartsWith("??"))
-		{
-			UriBuilder builder = new UriBuilder(uri);
-			builder.Query = builder.Query.Substring(2);
+                return builder.Uri;
+            }
 
-			return builder.Uri;
-		}
+    #if !BESTHTTP_DISABLE_WEBSOCKET
+            if (Best.HTTP.Hosts.Connections.HTTPProtocolFactory.GetProtocolFromUri(uri) == Best.HTTP.Hosts.Connections.SupportedProtocols.WebSocket)
+                uri = PrepareUriImpl(uri);
+    #endif
 
-#if !BESTHTTP_DISABLE_WEBSOCKET
-		if (BestHTTP.Connections.HTTPProtocolFactory.GetProtocolFromUri(uri) == BestHTTP.Connections.SupportedProtocols.WebSocket)
-			uri = PrepareUriImpl(uri);
-#endif
+            return uri;
 
-		return uri;
-	}
+        }
 
-	private Uri PrepareUriImpl(Uri uri)
-	{
-		if (this._connection.NegotiationResult != null && !string.IsNullOrEmpty(this._connection.NegotiationResult.AccessToken))
-		{
-			string query = string.IsNullOrEmpty(uri.Query) ? "" : uri.Query + "&";
-			UriBuilder uriBuilder = new UriBuilder(uri.Scheme, uri.Host, uri.Port, uri.AbsolutePath, query + "access_token=" + this._connection.NegotiationResult.AccessToken);
-			return uriBuilder.Uri;
-		}
+        private Uri PrepareUriImpl(Uri uri)
+        {
+            if (this._connection.NegotiationResult != null && !string.IsNullOrEmpty(this._connection.NegotiationResult.AccessToken))
+            {
+                string query = string.IsNullOrEmpty(uri.Query) ? "" : uri.Query + "&";
+                UriBuilder uriBuilder = new UriBuilder(uri.Scheme, uri.Host, uri.Port, uri.AbsolutePath, query + "access_token=" + this._connection.NegotiationResult.AccessToken);
+                return uriBuilder.Uri;
+            }
 
-		return uri;
-	}
+            return uri;
+        }
 
-	public void Cancel()
-	{
-	}
+        public void Cancel() { }
+    }
 }

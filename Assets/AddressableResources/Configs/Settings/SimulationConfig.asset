@@ -28,7 +28,7 @@ MonoBehaviour:
         RawValue: 65536
       RawPathSize: 256
       RawPathAllocationStrategy: 0
-      EnableAvoidance: 1
+      EnableAvoidance: 0
       AvoidanceRange:
         RawValue: 524288
       MaxAvoidanceCandidates: 64
@@ -43,11 +43,11 @@ MonoBehaviour:
         Z:
           RawValue: 0
       SolverType: 1
-      SolverIterations: 3
-      PositionSolverIterations: 2
+      SolverIterations: 1
+      PositionSolverIterations: 1
       UseJoints: 0
       UseAngularVelocity: 0
-      UseVerticalTransform: 1
+      UseVerticalTransform: 0
       PenetrationAllowance:
         RawValue: 655
       PenetrationCorrection:
@@ -63,7 +63,7 @@ MonoBehaviour:
         RawValue: 655
       ShapeCastSoftTolerance:
         RawValue: 3275
-      AllowSleeping: 0
+      AllowSleeping: 1
       SleepTimeSec:
         RawValue: 32768
       LinearSleepTolerance:
@@ -84,8 +84,8 @@ MonoBehaviour:
       DefaultQueriesCapacity: 1024
       DefaultQueryItemsCapacity: 4096
       DefaultHitCollectionItemsCapacity: 32
-      DefaultBucketsCapacity: 16
-      DefaultIslandsCapacity: 512
+      DefaultBucketsCapacity: 64
+      DefaultIslandsCapacity: 1024
       DefaultManifoldsCapacity: 1024
       DefaultJointsCapacity: 64
       DefaultPhysicsMaterial:
@@ -108,6 +108,8 @@ MonoBehaviour:
       - Bullets
       - Obstacles
       - CollideOnlyWithPlayers
+      - Indicators
+      - MinimapIgnore
       - 
       - 
       - 
@@ -128,9 +130,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - 
-      - 
-      LayerMatrix: 088cfdff0880f9ff088cf9ffffffffff0880f9ff0880f9ffc8ffffff48fdffffc8ccfdff48ccffffcd8ffbffcd8ff9ffc890f9ffc880f9ffc883f9fffffffdfffffff9ffc806f8ffc983f8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+      LayerMatrix: 0880fdff0880f9ff0880f9ffffffffff0880f9ff0880f9ffc8f3ffffc8f1ffffc8c0fdff48c0ffff0880fbff0880f9ffc890f9ffc880f9ffc883f9fffffffdfffffff9ffc806f8ffc983f8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     Entities:
       CommitCommandsMode: 0
       DefaultEntityCapacity: 1024
@@ -138,10 +138,11 @@ MonoBehaviour:
       ComponentTypeConfiguration: []
     AutoLoadSceneFromMap: 0
     DeltaTimeType: 0
-    HeapPageShift: 15
-    HeapPageCount: 64
-    HeapExtraCount: 0
     ThreadCount: 2
     ChecksumSnapshotHistoryLengthSeconds:
       RawValue: 196608
     ChecksumErrorDumpOptions: 0
+    HeapTrackingMode: 0
+    HeapPageShift: 15
+    HeapPageCount: 64
+    HeapExtraCount: 0

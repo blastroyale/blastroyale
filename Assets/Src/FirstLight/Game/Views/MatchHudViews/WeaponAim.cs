@@ -29,7 +29,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[Required, SerializeField] private LineRenderer _upperLineRenderer;
 		[Required, SerializeField] private LineRenderer _lowerLineRenderer;
 
-		private const int _minAngleVariation = 15;
+		private const int _minAngleVariation = 90;
 		private readonly Color _sideLineStartColor = new (0.13f, 0.13f, 0.13f);
 		private readonly Color _sideLineEndColor = new (0.02f, 0.02f, 0.02f);
 		private readonly Color _mainLineColor = Color.white;
@@ -66,7 +66,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public void UpdateWeapon(Frame f, EntityRef entity, QuantumWeaponConfig newWeapon)
 		{
-			_range = f.Get<Stats>(entity).GetStatData(StatType.AttackRange).StatValue;
+			if (!f.TryGet<Stats>(entity, out var stats)) return;
+			
+			_range = stats.GetStatData(StatType.AttackRange).StatValue;
 			_angleVariation = newWeapon.MinAttackAngle;
 			AdjustDottedLine(_centerLineRenderer);
 			
@@ -183,7 +185,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var directionNormalized = direction.Normalized;
 			var centerForShape = origin + (directionNormalized * (_range / FP._2));
 			
-			_hits = f.Physics3D.OverlapShape(centerForShape, FPQuaternion.LookRotation(directionNormalized), _shape, -1, _hitQuery);
+			_hits = f.Physics3D.OverlapShape(centerForShape, FPQuaternion.LookRotation(directionNormalized), _shape, f.Layers.GetLayerMask(PhysicsLayers.PLAYERS, PhysicsLayers.OBSTACLES), _hitQuery);
 			
 			if (_hits.Count > 0)
 			{

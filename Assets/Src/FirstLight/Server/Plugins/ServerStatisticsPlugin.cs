@@ -34,6 +34,7 @@ namespace Src.FirstLight.Server
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.GAMES_WON_EVER, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_KILLS, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_KILLS_EVER, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_DEATHS_EVER, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.KILLS, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.KILLS_EVER, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_GAMES_WON, true);
@@ -48,6 +49,8 @@ namespace Src.FirstLight.Server
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.COINS_TOTAL, false);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.CS_EARNED, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.COINS_EARNED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.XP_EARNED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.BPP_EARNED, true);
 
 			var evManager = _ctx.PluginEventManager!;
 			evManager.RegisterEventListener<GameLogicMessageEvent<ClaimedRewardsMessage>>(OnClaimRewards);
@@ -71,25 +74,39 @@ namespace Src.FirstLight.Server
 
 		private async Task OnClaimRewards(GameLogicMessageEvent<ClaimedRewardsMessage> ev)
 		{
-			var coins = ev.Message.Rewards.Where(r => r.Id == GameId.COIN).Sum(r => r.GetMetadata<CurrencyMetadata>().Amount);
-			var cs = ev.Message.Rewards.Where(r => r.Id == GameId.CS).Sum(r => r.GetMetadata<CurrencyMetadata>().Amount);
-			if (coins > 0 || cs > 0)
+			TrackRewards(ev.PlayerId, ev.Message.Rewards);
+		}
+
+		private void TrackRewards(string playerId, IEnumerable<ItemData> rewards)
+		{
+			var coins = 0;
+			var cs = 0;
+			var equipments = 0;
+			var xp = 0;
+			var bpp = 0;
+
+			foreach (var item in rewards)
 			{
-				_ctx.Statistics.UpdateStatistics(ev.PlayerId, (GameConstants.Stats.COINS_EARNED, coins),
-					(GameConstants.Stats.CS_EARNED, cs));
+				if (item.Id == GameId.COIN) coins += item.GetMetadata<CurrencyMetadata>().Amount;
+				if (item.Id == GameId.CS) cs += item.GetMetadata<CurrencyMetadata>().Amount;
+				if (item.Id == GameId.XP) xp += item.GetMetadata<CurrencyMetadata>().Amount;
+				if (item.Id.IsInGroup(GameIdGroup.Equipment)) equipments += 1;
+				if (item.Id == GameId.BPP) bpp += item.GetMetadata<CurrencyMetadata>().Amount;
 			}
 			
+			if (cs == 0 && coins == 0 && equipments == 0 && xp == 0 && bpp == 0) return;
 			
+			_ctx.Statistics.UpdateStatistics(playerId, 
+				(GameConstants.Stats.COINS_EARNED, coins),
+				(GameConstants.Stats.XP_EARNED, xp), 
+				(GameConstants.Stats.BPP_EARNED, bpp), 
+				(GameConstants.Stats.CS_EARNED, cs), 
+				(GameConstants.Stats.ITEMS_OBTAINED, equipments));
 		}
 
 		private async Task OnBattlePassLevel(GameLogicMessageEvent<BattlePassLevelUpMessage> ev)
 		{
-			var equipments = ev.Message.Rewards.Count();
-			// TODO: Track other rewards after bpp rewards PR
-			if (equipments > 0)
-			{
-				_ctx.Statistics.UpdateStatistics(ev.PlayerId, (GameConstants.Stats.ITEMS_OBTAINED, equipments));
-			}
+			TrackRewards(ev.PlayerId, ev.Message.Rewards);
 		}
 		
 		private async Task OnPurchase(GameLogicMessageEvent<RewardClaimedMessage> ev)
@@ -102,8 +119,20 @@ namespace Src.FirstLight.Server
 			var toSend = new List<ValueTuple<string, int>>();
 			var trophies = (int)state.DeserializeModel<PlayerData>().Trophies;
 			var thisPlayerData = endGameCmd.PlayersMatchData[endGameCmd.QuantumValues.ExecutingPlayer];
-			var ranked = endGameCmd.QuantumValues.MatchType == MatchType.Matchmaking;
-			if (thisPlayerData.PlayerRank == 1)
+			var firstPlayer = endGameCmd.PlayersMatchData.FirstOrDefault(p => p.PlayerRank == 1);
+			var isWin = false;
+			var ranked = endGameCmd.QuantumValues.AllowedRewards?.Contains(GameId.Trophies) ?? false;
+			
+			if (firstPlayer.Data.IsValid && thisPlayerData.TeamId == firstPlayer.TeamId && thisPlayerData.TeamId > Constants.TEAM_ID_NEUTRAL)
+			{
+				isWin = true;
+			}
+			else if(thisPlayerData.PlayerRank == 1)
+			{
+				isWin = true;
+			}
+			
+			if (isWin)
 			{
 				toSend.Add((GameConstants.Stats.GAMES_WON, 1));
 				toSend.Add((GameConstants.Stats.GAMES_WON_EVER, 1));
@@ -118,6 +147,7 @@ namespace Src.FirstLight.Server
 			{
 				toSend.Add((GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, 1));
 				toSend.Add((GameConstants.Stats.RANKED_KILLS_EVER,  (int)thisPlayerData.Data.PlayersKilledCount));
+				toSend.Add((GameConstants.Stats.RANKED_DEATHS_EVER, (int)thisPlayerData.Data.DeathCount));
 				toSend.Add((GameConstants.Stats.RANKED_GAMES_PLAYED, 1));
 				toSend.Add((GameConstants.Stats.RANKED_KILLS,  (int)thisPlayerData.Data.PlayersKilledCount));
 			}

@@ -81,7 +81,7 @@ namespace Quantum
 						anglesToDrop++;
 						// Collectable.DropEquipment(f, equipment, chestPosition, angleStep++, false);
 					}
-					else if (item.IsInGroup(GameIdGroup.Consumable))
+					else if (item.IsInGroup(GameIdGroup.Consumable) || item.IsInGroup(GameIdGroup.Special))
 					{
 						consumablesToDrop.Add(item);
 						anglesToDrop++;
@@ -338,7 +338,7 @@ namespace Quantum
 						consumablesToDrop.Add(GameId.EnergyCubeLarge);
 						angleStep++;
 					}
-					else
+					else if(!f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
 					{
 						consumablesToDrop.Add(Special.GetRandomSpecialId(f));
 						angleStep++;

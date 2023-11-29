@@ -40,6 +40,30 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Animates the scale up and then back down to 1
+		/// </summary>
+		public static IValueAnimation AnimateTransform(this VisualElement element, Vector3 offset, int duration = 150, bool repeat = false, Func<float, float> easing = null)
+		{
+			var anim = element.experimental.animation.Position(offset, duration).OnCompleted(() =>
+			{
+				element.experimental.animation.Position(Vector3.zero, duration).OnCompleted(() =>
+				{
+					if (repeat)
+					{
+						element.AnimateTransform(offset, duration, true);
+					}
+				}).Ease(easing ?? Easing.OutQuad).Start();
+			});
+
+			if (easing != null)
+			{
+				anim.easingCurve = easing;
+			}
+
+			return anim;
+		}
+
+		/// <summary>
 		/// Animates the opacity from 0 up to <paramref name="amount"/> and back to 0;
 		/// </summary>
 		public static IValueAnimation AnimatePingOpacity(this VisualElement element, float amount = 1f, int duration = 150, bool repeat = false)

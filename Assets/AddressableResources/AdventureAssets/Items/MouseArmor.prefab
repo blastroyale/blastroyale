@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2100514850694742862}
   - component: {fileID: 983242226573021174}
   - component: {fileID: 8544327991182236433}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: ArmorPadR_Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 627727042737687168}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.0000029504295, z: -0, w: -1}
   m_LocalPosition: {x: 0.134, y: 0.13, z: -0.014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6772095483247031561}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!33 &2100514850694742862
 MeshFilter:
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 4228944780628181141}
   - component: {fileID: 6255344514994245643}
   - component: {fileID: 7536626989615544135}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: ArmorChest_Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,13 +127,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450743743916982958}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.0000029504295, z: -0, w: -1}
   m_LocalPosition: {x: 0.0039999913, y: 0, z: -0.014000561}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6772095483247031561}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!33 &4228944780628181141
 MeshFilter:
@@ -211,7 +211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6772095483247031561}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: MouseArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,6 +225,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4180440777399539181}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -234,7 +235,6 @@ Transform:
   - {fileID: 5422023900428651686}
   - {fileID: 7025323295390792010}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5961103654935641242
 GameObject:
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 7223826394109969322}
   - component: {fileID: 2962823409669157281}
   - component: {fileID: 2182371902464378072}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: ArmorPadL_Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,13 +262,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5961103654935641242}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.0000029504295, z: -0, w: -1}
   m_LocalPosition: {x: -0.12599999, y: 0.13, z: -0.014001112}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6772095483247031561}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!33 &7223826394109969322
 MeshFilter:

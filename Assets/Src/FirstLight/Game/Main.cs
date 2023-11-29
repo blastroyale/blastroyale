@@ -46,8 +46,6 @@ namespace FirstLight.Game
 		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-
-			StartCoroutine(HeartbeatCoroutine());
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
@@ -68,27 +66,6 @@ namespace FirstLight.Game
 		{
 			_services?.MessageBrokerService?.Publish(new ApplicationQuitMessage());
 			_services?.AnalyticsService?.SessionCalls?.SessionEnd(_services?.QuitReason);
-		}
-
-		private void TrySetLocalServer()
-		{
-#if UNITY_EDITOR
-			FeatureFlags.ParseLocalFeatureFlags();
-			Debug.Log("Using local server? -" + FeatureFlags.GetLocalConfiguration().UseLocalServer);
-#endif
-		}
-
-		private IEnumerator HeartbeatCoroutine()
-		{
-			var waitFor30Seconds = new WaitForSeconds(30);
-			var waitFor5Seconds = new WaitForSeconds(5);
-
-
-			while (true)
-			{
-				yield return FLGTestRunner.Instance.IsRunning() ? waitFor5Seconds : waitFor30Seconds;
-				_services?.AnalyticsService.SessionCalls.Heartbeat();
-			}
 		}
 
 		private static async Task<object> Convert(Task task)

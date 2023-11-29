@@ -8,21 +8,18 @@ namespace FirstLight.Game.Data
 	public enum TutorialSection : ushort
 	{
 		NONE = 0,
-		/// <summary>
-		/// Initial FTUE map where player learns movement etc
-		/// </summary>
-		FTUE_MAP = 1 << 1,
-		
-		/// <summary>
-		/// After ftue map, waiting for player to click "PLAY" on main menu
-		/// </summary>
-		FIRST_GUIDE_MATCH = 1 << 2,
-		
-		/// <summary>
-		/// Deprecated, don't use or remove
-		/// </summary>
+		FIRST_GUIDE_MATCH = 1 << 1,
+		META_GUIDE_AND_MATCH = 1 << 2,
+		[Obsolete] // Cant remove it because it will break existing data
+		TUTORIAL_BP = 1 << 4,
 		[Obsolete]
-		META_GUIDE_AND_MATCH = 1 << 3
+		SECOND_GUIDE_MATCH = 1 << 2,
+		[Obsolete]
+		POST_MATCH_GUIDE = 1 << 3,
+		[Obsolete]
+		BP_EQUIPMENT_GUIDE = 1 << 3,
+		
+			
 	}
 	
 	/// <summary>

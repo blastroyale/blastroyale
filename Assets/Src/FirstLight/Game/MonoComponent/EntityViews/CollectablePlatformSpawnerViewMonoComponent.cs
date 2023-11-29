@@ -48,7 +48,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var spawner = frame.Get<CollectablePlatformSpawner>(EntityRef);
 			var remaining = spawner.NextSpawnTime.AsFloat - frame.Time.AsFloat;
 
-			if (remaining > 0)
+			if (remaining > 0 && !spawner.Disabled)
 			{
 				_canvas?.gameObject.SetActive(true);
 				var intervalTime = spawner.IntervalTime.AsFloat;

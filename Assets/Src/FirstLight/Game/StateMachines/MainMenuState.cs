@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Data;
@@ -14,7 +15,6 @@ using FirstLight.Game.Presenters.Store;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
-using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -91,7 +91,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(mainMenuLoading);
 			initial.OnExit(SubscribeEvents);
 
-			mainMenuLoading.OnEnter(LoadMainMenu);
+			mainMenuLoading.OnEnter(() => LoadMainMenu());
 			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
 
@@ -181,7 +181,7 @@ namespace FirstLight.Game.StateMachines
 
 			playClickedCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			playClickedCheck.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
-			playClickedCheck.Transition().Condition(CheckIsNotPartyLeader).OnTransition(TogglePartyReadyStatus)
+			playClickedCheck.Transition().Condition(CheckIsNotPartyLeader).OnTransition(() => TogglePartyReadyStatus())
 				.Target(homeCheck);
 			playClickedCheck.Transition().OnTransition(SendPlayReadyMessage)
 				.Target(waitMatchmaking);
@@ -203,7 +203,7 @@ namespace FirstLight.Game.StateMachines
 			enterNameDialog.OnEnter(RequestStartMetaMatchTutorial);
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 
-			brokenItems.OnEnter(OpenBrokenItemsPopUp);
+			brokenItems.OnEnter(() => OpenBrokenItemsPopUp());
 			brokenItems.Event(_brokenItemsCloseEvent).Target(homeCheck);
 			brokenItems.Event(_brokenItemsRepairEvent).Target(equipmentMenu);
 			brokenItems.OnExit(CloseBrokenItemsPopUp);
@@ -236,6 +236,12 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_services.MessageBrokerService.Subscribe<NewBattlePassSeasonMessage>(OnBattlePassNewSeason);
+			_services.MessageBrokerService.Subscribe<MainMenuShouldReloadMessage>(MainMenuShouldReloadMessage);
+		}
+
+		private void MainMenuShouldReloadMessage(MainMenuShouldReloadMessage msg)
+		{
+			OpenHomeScreen();
 		}
 
 		private void UnsubscribeEvents()
@@ -243,7 +249,7 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private async Task PreloadQuantumSettings()
+		private async UniTask PreloadQuantumSettings()
 		{
 			var assets = UnityDB.CollectAddressableAssets();
 			foreach (var asset in assets)
@@ -285,10 +291,10 @@ namespace FirstLight.Game.StateMachines
 				OnCheckIfServerRewardsMatch(true);
 				return;
 			}
-			_services.GameBackendService.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch, null);
+			_services.GameBackendService.CheckIfRewardsMatch(b => OnCheckIfServerRewardsMatch(b), null);
 		}
 
-		private async void OnCheckIfServerRewardsMatch(bool serverRewardsMatch)
+		private async UniTaskVoid OnCheckIfServerRewardsMatch(bool serverRewardsMatch)
 		{
 			if (serverRewardsMatch)
 			{
@@ -337,7 +343,7 @@ namespace FirstLight.Game.StateMachines
 
 			_unclaimedCountCheck++;
 			await Task.Delay(TimeSpan.FromMilliseconds(500)); // space check calls a bit
-			_services?.GameBackendService?.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch, null);
+			_services?.GameBackendService?.CheckIfRewardsMatch(b => OnCheckIfServerRewardsMatch(b), null);
 		}
 
 		private void SendPlayReadyMessage()
@@ -370,13 +376,13 @@ namespace FirstLight.Game.StateMachines
 				!_services.PartyService.PartyReady.Value;
 		}
 
-		private async void TogglePartyReadyStatus()
+		private async UniTaskVoid TogglePartyReadyStatus()
 		{
 			var local = _services.PartyService.GetLocalMember();
 			await _services.PartyService.Ready(!local?.Ready ?? false);
 		}
 
-		private async void OpenBrokenItemsPopUp()
+		private async UniTaskVoid OpenBrokenItemsPopUp()
 		{
 			var infos = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 			var loadout = new Dictionary<GameIdGroup, UniqueId>();
@@ -606,7 +612,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private async void LoadMainMenu()
+		private async UniTaskVoid LoadMainMenu()
 		{
 			var uiVfxService = new UiVfxService(_services.AssetResolverService);
 			var mainMenuServices = new MainMenuServices(uiVfxService, _services.RemoteTextureService);

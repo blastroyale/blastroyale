@@ -29,7 +29,7 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			return new OpJoinRandomRoomParams
 			{
-				ExpectedCustomRoomProperties = new Hashtable(),
+				ExpectedCustomRoomProperties = GetJoinRoomProperties(setup).ToHashTable(),
 				ExpectedMaxPlayers = _service.GetMaxPlayers(_service.GetGameModeConfig(setup.GameModeId), _service.GetMapConfig(setup.MapId),
 					setup.MatchType),
 				ExpectedUsers = null,
@@ -60,8 +60,6 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			// !!!NOTE!!!
 			// If you add anything here you must also add the key in GetCreateRoomPropertiesForLobby!
-
-
 			return new RoomProperties
 			{
 				MatchType = {Value = setup.MatchType},
@@ -82,7 +80,7 @@ namespace FirstLight.Game.Services.RoomService
 			var gamemodeConfig = _service.GetGameModeConfig(setup.GameModeId);
 			var mapConfig = _service.GetMapConfig(setup.MapId);
 
-			var isRandomMatchmaking = setup.MatchType == MatchType.Matchmaking;
+			var isRandomMatchmaking = setup.MatchType == MatchType.Matchmaking && !gamemodeConfig.ShouldUsePlayfabMatchmaking();
 
 			var roomNameFinal = string.IsNullOrEmpty(setup.RoomIdentifier) ? null : setup.RoomIdentifier;
 			// In offline games we need to create the room with the correct TTL as we cannot update TTL

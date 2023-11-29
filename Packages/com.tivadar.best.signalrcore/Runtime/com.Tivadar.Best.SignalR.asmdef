@@ -1,0 +1,29 @@
+{
+    "name": "com.Tivadar.Best.SignalR",
+    "rootNamespace": "Best.SignalR",
+    "references": [
+        "com.Tivadar.Best.HTTP",
+        "com.Tivadar.Best.WebSockets",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.nuget.newtonsoft-json",
+            "expression": "1.0.0",
+            "define": "BEST_SIGNALR_ENABLE_NEWTONSOFT_JSON_DOTNET_ENCODER"
+        },
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "1.0.0",
+            "define": "WITH_UNITASK"
+        }
+    ],
+    "noEngineReferences": false
+}

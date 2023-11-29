@@ -32,6 +32,7 @@ namespace FirstLight.Game.Services
 		public string Category;
 		public string UssModifier;
 		public string ImageOverride;
+		public string Description;
 	}
 
 	/// <summary>

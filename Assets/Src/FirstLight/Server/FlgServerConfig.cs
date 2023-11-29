@@ -42,6 +42,19 @@ namespace Src.FirstLight.Server
 				new PlayfabAvatarPlugin()
             };
         }
+        
+        /// <summary>
+        /// Get the list of commands that will run after get player data on the server, this is done manually here. In the future
+        /// we should auto discover commands
+        /// </summary>
+        public Type[] GetInitializationCommandTypes()
+        {
+            return new[]
+            {
+                typeof(GiveDefaultCollectionItemsCommand),
+                typeof(InitializeBattlepassSeasonCommand),
+            };
+        }
 
         /// <summary>
         /// Here we define server implementation of how to handle client specific code.

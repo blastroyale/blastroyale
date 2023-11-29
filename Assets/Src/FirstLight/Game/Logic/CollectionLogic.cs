@@ -71,6 +71,11 @@ namespace FirstLight.Game.Logic
 		/// Unlocks the collection item for the player
 		/// </summary>
 		ItemData UnlockCollectionItem(ItemData item);
+
+		/// <summary>
+		/// Remove the collection item  from the player
+		/// </summary>
+		ItemData RemoveFromPlayer(ItemData item);
 	}
 
 	public class CollectionLogic : AbstractBaseLogic<CollectionData>, ICollectionLogic, IGameLogicInitializer
@@ -128,14 +133,14 @@ namespace FirstLight.Game.Logic
 			foreach (var id in group.Id.GetIds())
 			{
 				// Player can have multiple items marked as genericcollectionitem, this means the id represent multiple collectables 
-				if(id.IsInGroup(GameIdGroup.GenericCollectionItem)) continue;
+				if (id.IsInGroup(GameIdGroup.GenericCollectionItem)) continue;
 				collection.Add(ItemFactory.Collection(id));
 			}
 			// Start to data driven shit
 
 			return collection;
 		}
-		
+
 
 		public List<ItemData> GetOwnedCollection(CollectionCategory group)
 		{
@@ -186,6 +191,29 @@ namespace FirstLight.Game.Logic
 			{
 				collection.Add(item);
 			}
+
+			return item;
+		}
+
+		public ItemData RemoveFromPlayer(ItemData item)
+		{
+			var category = GetCollectionType(item);
+			if (!Data.OwnedCollectibles.TryGetValue(category, out var collection))
+			{
+				collection = new ();
+				Data.OwnedCollectibles[category] = collection;
+			}
+
+			collection.Remove(item);
+
+			if (Data.Equipped.TryGetValue(category, out var equipped))
+			{
+				if (equipped.Equals(item))
+				{
+					Data.Equipped.Remove(category);
+				}
+			}
+
 			return item;
 		}
 

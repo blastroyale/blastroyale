@@ -69,13 +69,7 @@ namespace Backend.Game
 				var currentPlayerState = await _state.GetPlayerState(playerId);
 				ValidateCommand(currentPlayerState, commandInstance, requestData);
 
-				var newState = await _cmdHandler.ExecuteCommand(playerId, commandInstance, currentPlayerState);
-				_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, currentPlayerState, commandData));
-				_eventManager.CallCommandEvent(playerId, commandInstance, newState);
-				if (newState.HasDelta())
-				{
-					await _state.UpdatePlayerState(playerId, newState.GetOnlyUpdatedState());
-				}
+				var newState = await RunCommands(playerId, new[] { commandInstance }, currentPlayerState, commandData);
 
 				var response = new Dictionary<string, string>();
 				if (requestData.TryGetValue(CommandFields.ConfigurationVersion, out var clientConfigVersion))
@@ -88,7 +82,7 @@ namespace Backend.Game
 				}
 
 				ModelSerializer.SerializeToData(response, newState.GetDeltas());
-				return new BackendLogicResult() {Command = cmdType, Data = response, PlayFabId = playerId};
+				return new BackendLogicResult() { Command = cmdType, Data = response, PlayFabId = playerId };
 			}
 			catch (Exception ex)
 			{
@@ -103,6 +97,41 @@ namespace Backend.Game
 		}
 
 		/// <summary>
+		/// Run all initialization commands and SAVES the player state if it has modifications
+		/// </summary>
+		/// <param name="playerId"></param>
+		/// <param name="state"></param>
+		/// <returns></returns>
+		public Task<ServerState> RunInitializationCommands(string playerId, ServerState state)
+		{
+			var cmds = _cmdHandler.GetInitializationCommands();
+			_log.LogInformation($"{playerId} running initialization commands: {string.Join(", ", cmds.Select(a => a.GetType().Name))}");
+			return RunCommands(playerId, cmds, state, "{}");
+		}
+
+		private async Task<ServerState> RunCommands(string playerId, IGameCommand[] commandInstances, ServerState currentPlayerState, string commandData)
+		{
+			var currentState = currentPlayerState;
+			var deltas = new StateDelta();
+			foreach (var commandInstance in commandInstances)
+			{
+				var newState = await _cmdHandler.ExecuteCommand(playerId, commandInstance, currentState);
+				_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, currentState, commandData));
+				_eventManager.CallCommandEvent(playerId, commandInstance, newState);
+				currentState = newState;
+				deltas.Merge(currentState.GetDeltas());
+			}
+
+			var hasDeltas = deltas.GetModifiedTypes().Any();
+			if (!hasDeltas) return currentState;
+			
+			currentState.SetDelta(deltas);
+			var state = currentState.GetOnlyUpdatedState();
+			await _state.UpdatePlayerState(playerId, state);
+			return currentState;
+		}
+
+		/// <summary>
 		/// Validates if a given command with a given input can be ran on a given player state.
 		/// Will raise exceptions in case its not feasible to run the command.
 		/// </summary>
@@ -111,6 +140,11 @@ namespace Backend.Game
 			if (!HasAccess(state, cmd, cmdData))
 			{
 				throw new LogicException("Insuficient permissions to run command");
+			}
+
+			if (cmd.ExecutionMode() == CommandExecutionMode.Initialization)
+			{
+				throw new LogicException("Command can only be triggerred from server!");
 			}
 
 			if (cmd.ExecutionMode() == CommandExecutionMode.Quantum)
@@ -154,7 +188,7 @@ namespace Backend.Game
 		{
 			_log.LogError(exp, $"Unhandled Server Error for {request?.Command}");
 			_metrics.EmitException(exp, $"{exp.Message} at {exp.StackTrace} on {request?.Command}");
-			return new BackendErrorResult() {Error = exp, Command = request?.Command, Data = new Dictionary<string, string>() {{"LogicException", exp.Message}}};
+			return new BackendErrorResult() { Error = exp, Command = request?.Command, Data = new Dictionary<string, string>() { { "LogicException", exp.Message } } };
 		}
 
 		/// <summary>

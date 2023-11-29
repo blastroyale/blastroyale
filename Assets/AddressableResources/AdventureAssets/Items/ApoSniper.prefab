@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6025386868260110323}
   - component: {fileID: 3195541657606193346}
   - component: {fileID: 6224469976513979055}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2067043023611493174}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.14, z: 0.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1350752188585308118}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &3195541657606193346
 ParticleSystem:
@@ -4870,13 +4870,15 @@ ParticleSystemRenderer:
   m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
+  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
+  m_UseCustomTrailVertexStreams: 0
+  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 1801921913108395325, guid: 022e85dee57a41549a4592437135d884, type: 3}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -4895,7 +4897,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6141187416942925850}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: ApoSniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4909,6 +4911,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6141187416942925851}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -4916,7 +4919,6 @@ Transform:
   m_Children:
   - {fileID: 1350752188585308118}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6658071990872224906
 GameObject:
@@ -4930,7 +4932,7 @@ GameObject:
   - component: {fileID: 4947872304868891502}
   - component: {fileID: 7479142060398350577}
   - component: {fileID: 1924506580031129484}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Wep_SniperRifle_Apc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4944,6 +4946,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6658071990872224906}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -4952,7 +4955,6 @@ Transform:
   - {fileID: 4191897197444123838}
   - {fileID: 6025386868260110323}
   m_Father: {fileID: 6141187416942925850}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4947872304868891502
 MonoBehaviour:
@@ -5055,7 +5057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1438053515359790370, guid: 6075bb9010669da41a0e5264d7fbe378, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6075bb9010669da41a0e5264d7fbe378, type: 3}
       propertyPath: m_Name
@@ -5063,7 +5065,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6075bb9010669da41a0e5264d7fbe378, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1759412202630797080, guid: 6075bb9010669da41a0e5264d7fbe378, type: 3}
       propertyPath: m_Materials.Array.size
@@ -5079,7 +5081,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
     - target: {fileID: 1784666113194708747, guid: 6075bb9010669da41a0e5264d7fbe378, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1784666113194708747, guid: 6075bb9010669da41a0e5264d7fbe378, type: 3}
       propertyPath: m_IsActive

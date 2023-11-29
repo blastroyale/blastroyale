@@ -39,6 +39,8 @@ namespace FirstLight.Game.Views.UITK
 		private ObjectPool<HealthStatusBarElement> _healthBarPool;
 		private ObjectPool<PlayerStatusBarElement> _playerBarPool;
 
+		private bool _useOverheadUi;
+
 		public override void Attached(VisualElement element)
 		{
 			base.Attached(element);
@@ -47,6 +49,8 @@ namespace FirstLight.Game.Views.UITK
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_gameServices = MainInstaller.ResolveServices();
 			_data = MainInstaller.ResolveData();
+
+			_useOverheadUi = _data.AppDataProvider.UseOverheadUI;
 
 			element.Clear();
 
@@ -87,7 +91,9 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.SubscribeManual<EventOnShrinkingCircleDmg>(this, OnShrinkingCircleDmg);
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUpdated>(this, OnLocalPlayerSpecialUpdated);
+			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(this, OnPlayerSpecialUpdated);
+			QuantumEvent.SubscribeManual<EventOnPlayerWeaponAdded>(this, OnPlayerWeaponAdded);
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 		}
 
@@ -97,6 +103,14 @@ namespace FirstLight.Game.Views.UITK
 			QuantumCallback.UnsubscribeListener(this);
 
 			_gameServices.MessageBrokerService.UnsubscribeAll(this);
+		}
+
+		/// <summary>
+		/// Forces the showing of overhead UI for local player.
+		/// </summary>
+		public void ForceOverheadUI()
+		{
+			_useOverheadUi = true;
 		}
 
 		private void OnUpdateView(CallbackUpdateView callback)
@@ -183,6 +197,15 @@ namespace FirstLight.Game.Views.UITK
 		{
 			InitPlayer(callback.Game.Frames.Predicted, callback.Entity);
 		}
+		
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer current)
+		{
+			foreach (var (entity, bar) in _visiblePlayers)
+			{
+				var spectatingCurrentEntity = current.Entity == entity;
+				bar.EnableStatusBars((!spectatingCurrentEntity && SHOW_ENEMY_BARS) || (spectatingCurrentEntity && _useOverheadUi));
+			}
+		}
 
 		private void InitPlayer(Frame f, EntityRef entity)
 		{
@@ -216,7 +239,7 @@ namespace FirstLight.Game.Views.UITK
 			var spectatingCurrentEntity = _matchServices.SpectateService.GetSpectatedEntity() == entity;
 
 			bar.ShowRealDamage = _data.AppDataProvider.ShowRealDamage;
-			bar.EnableStatusBars((!spectatingCurrentEntity && SHOW_ENEMY_BARS) || (spectatingCurrentEntity && _data.AppDataProvider.UseOverheadUI));
+			bar.EnableStatusBars((!spectatingCurrentEntity && SHOW_ENEMY_BARS) || (spectatingCurrentEntity && _useOverheadUi));
 			bar.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
 			bar.UpdateShield(stats.CurrentShield, stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);
 		}
@@ -282,13 +305,23 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		private void OnLocalPlayerSpecialUpdated(EventOnLocalPlayerSpecialUpdated callback)
+		private void OnPlayerSpecialUpdated(EventOnPlayerSpecialUpdated callback)
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
-			if (callback.Special.IsValid)
+			if (callback.Special.IsValid && _matchServices.IsSpectatingPlayer(callback.Entity))
 			{
-				bar.ShowNotification(PlayerStatusBarElement.NotificationType.SpecialPickup, callback.Special.SpecialId.GetLocalization());
+				bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, callback.Special.SpecialId.GetLocalization());
+			}
+		}
+
+		private void OnPlayerWeaponAdded(EventOnPlayerWeaponAdded callback)
+		{
+			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
+
+			if (_matchServices.IsSpectatingPlayer(callback.Entity))
+			{
+				bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, callback.Weapon.GameId.GetLocalization());
 			}
 		}
 

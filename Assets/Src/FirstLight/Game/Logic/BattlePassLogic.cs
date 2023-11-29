@@ -92,6 +92,11 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		bool HasCurrencyForPurchase();
 
+		/// <summary>
+		/// Checks if the current user saw the current season number
+		/// </summary>
+		/// <returns></returns>
+		bool HasSeenCurrentSeasonBanner();
 
 		/// <summary>
 		/// Checks if a given player has enough currency to purchase a level
@@ -161,6 +166,12 @@ namespace FirstLight.Game.Logic
 		/// Purchase a battlepass level.
 		/// </summary>
 		bool PurchaseLevel();
+
+
+		/// <summary>
+		/// Mark the banner for the current season as seen
+		/// </summary>
+		void MarkBannerAsSeen();
 
 		/// <summary>
 		/// Resets battle pass to original state
@@ -376,6 +387,11 @@ namespace FirstLight.Game.Logic
 			return true;
 		}
 
+		public bool HasSeenCurrentSeasonBanner()
+		{
+			return GetCurrentSeasonData().SeenBanner;
+		}
+
 		public bool HasCurrencyForLevelPurchase()
 		{
 			var config = GetCurrentSeasonConfig();
@@ -400,10 +416,17 @@ namespace FirstLight.Game.Logic
 			return true;
 		}
 
+		public void MarkBannerAsSeen()
+		{
+			var data = GetCurrentSeasonData();
+			data.SeenBanner = true;
+		}
+
 		public bool Purchase()
 		{
 			var config = GetCurrentSeasonConfig();
 			if (!HasCurrencyForPurchase()) return false;
+			if (config.Season.RemovePaid) return false;
 			GameLogic.CurrencyLogic.DeductCurrency(GameId.BlastBuck, config.Season.Price);
 			GetCurrentSeasonData().Purchased = true;
 			GameLogic.MessageBrokerService.Publish(new BattlePassPurchasedMessage());
@@ -556,6 +579,7 @@ namespace FirstLight.Game.Logic
 					{
 						break;
 					}
+
 					points -= currentLevelPoints;
 					level++;
 

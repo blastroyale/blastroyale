@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 577507079646104933}
   - component: {fileID: 7471082620917282610}
   - component: {fileID: 7091585591037488130}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: SoldierAmulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3778093641346879370}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &577507079646104933
 MeshFilter:

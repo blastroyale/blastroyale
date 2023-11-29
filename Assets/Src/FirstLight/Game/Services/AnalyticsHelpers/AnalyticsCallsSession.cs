@@ -85,6 +85,20 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_analyticsService.LogEvent(AnalyticsEvents.SessionHeartbeat, parameters, false);
 		}
 
+		public void Disconnection(bool critical)
+		{
+			var dic = new Dictionary<string, object>
+			{
+				{ "client_version", VersionUtils.VersionInternal },
+				{ "device_internet", Application.internetReachability.ToString() },
+				{ "client_state", _services.NetworkService?.QuantumClient?.State.ToString() },
+				{ "critical", critical },
+				{ "peer_state", _services.NetworkService?.QuantumClient?.LoadBalancingPeer?.PeerState.ToString() },
+				{ "connected_server", _services.NetworkService?.QuantumClient?.Server.ToString() }
+			};
+			_analyticsService.LogEvent(AnalyticsEvents.PlayerDisconnect, dic, false);
+		}
+
 
 		/// <summary>
 		/// Logs when we start doing the initial loading of the app

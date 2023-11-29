@@ -15,6 +15,7 @@ using FirstLight.Statechart;
 using I2.Loc;
 using Photon.Deterministic;
 using Quantum;
+using Quantum.Commands;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -59,7 +60,7 @@ namespace FirstLight.Game.StateMachines
 			_dataProvider = logic;
 			_tutorialService = tutorialService;
 			_statechartTrigger = statechartTrigger;
-			_sequence = new MetaTutorialSequence(services, TutorialSection.FTUE_MAP);
+			_sequence = new MetaTutorialSequence(services, TutorialSection.FIRST_GUIDE_MATCH);
 		}
 
 		/// <summary>
@@ -217,7 +218,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUpdated>(this, OnLocalPlayerSpecialUpdated);
+			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(this, OnPlayerSpecialUpdated);
 			_services.MessageBrokerService.Subscribe<PlayerEnteredMessageVolume>(OnPlayerEnteredMessageVolume);
 		}
 
@@ -307,8 +308,10 @@ namespace FirstLight.Game.StateMachines
 			CheckGameplayProceedConditions(typeof(EventOnChestOpened));
 		}
 
-		private void OnLocalPlayerSpecialUpdated(EventOnLocalPlayerSpecialUpdated callback)
+		private void OnPlayerSpecialUpdated(EventOnPlayerSpecialUpdated callback)
 		{
+			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
+
 			if (callback.SpecialIndex == 0)
 			{
 				_hasSpecial0 = callback.Special.IsValid;
@@ -318,7 +321,7 @@ namespace FirstLight.Game.StateMachines
 				_hasSpecial1 = callback.Special.IsValid;
 			}
 			
-			CheckGameplayProceedConditions(typeof(EventOnLocalPlayerSpecialUpdated));
+			CheckGameplayProceedConditions(typeof(EventOnPlayerSpecialUpdated));
 		}
 
 		private void UnsubscribeMessages()
@@ -469,6 +472,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterPickupSpecial()
 		{
+			QuantumRunner.Default.Game.SendCommand(new TutorialSpawnSpecialCommand());
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_special, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_SPECIAL_PICKUP].transform.position, GetLocalPlayerView().transform);
@@ -476,7 +480,7 @@ namespace FirstLight.Game.StateMachines
 
 			_currentGameplayProceedData = new GameplayProceedEventData
 			{
-				EventType = typeof(EventOnLocalPlayerSpecialUpdated)
+				EventType = typeof(EventOnPlayerSpecialUpdated)
 			};
 		}
 

@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:TextField label="Domain" name="DomainInput" />
+    <ui:Box style="flex-direction: row; align-items: center; justify-content: space-between;">
+        <ui:Label text="..." name="SelectedFile" />
+        <ui:Button text="Select Cetificate" name="SelectButton"/>
+    </ui:Box>
+    <ui:Box style="flex-direction: row; justify-content: space-around;">
+        <ui:Button text="Ok" name="OKButton" />
+        <ui:Button text="Cancel" name="CancelButton" />
+    </ui:Box>
+</ui:UXML>

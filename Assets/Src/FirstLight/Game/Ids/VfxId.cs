@@ -30,6 +30,11 @@ namespace FirstLight.Game.Ids
 		DeathEffect = 23,
 		StepSmoke = 24,
 		ChestPickupFx = 25,
+		HealthPickupFx = 26,
+		ShieldPickupFx = 27,
+		AmmoPickupFx = 28,
+		SpecialAndWeaponPickupFx = 29,
+		AirdropPickupFx = 30,
 	}
 	
 	/// <summary>

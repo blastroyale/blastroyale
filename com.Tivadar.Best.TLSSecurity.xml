@@ -1,0 +1,326 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>com.Tivadar.Best.TLSSecurity</name>
+    </assembly>
+    <members>
+        <member name="T:Best.TLSSecurity.Databases.Indexing.NoAllocList`1">
+            <summary>
+            Implements most common list functions. With best case (no or only one item) it doesn't do any allocation.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.Databases.Indexing.Node`2.Depth">
+            <summary>
+            Depth of the node.
+            </summary>
+        </member>
+        <member name="P:Best.TLSSecurity.Databases.Indexing.Node`2.BalanceFactor">
+            <summary>
+            Difference between LeftDepth and RightDepth.
+            </summary>
+        </member>
+        <member name="P:Best.TLSSecurity.Databases.Indexing.Node`2.LeftDepth">
+            <summary>
+            Left node's Depth, or -1 if it's null.
+            </summary>
+        </member>
+        <member name="P:Best.TLSSecurity.Databases.Indexing.Node`2.RightDepth">
+            <summary>
+            Right node's Depth, or -1 if it's null.
+            </summary>
+        </member>
+        <member name="M:Best.TLSSecurity.Databases.Indexing.AVLTree`2.RemoveNode(Best.TLSSecurity.Databases.Indexing.Node{`0,`1})">
+            <summary>
+            Removes node and reparent any child it has.
+            </summary>
+        </member>
+        <member name="P:Best.TLSSecurity.Databases.Shared.DiskManager`1.CacheSize">
+            <summary>
+            Sum size of the cached contents
+            </summary>
+        </member>
+        <member name="M:Best.TLSSecurity.Databases.Shared.IndexingService`2.GetOptimizedIndexes">
+            <summary>
+            Return indexes in an optimized way to help speeding up loading next time.
+            </summary>
+        </member>
+        <member name="T:Best.TLSSecurity.SecureTlsClient">
+            <summary>
+            Provides a concrete implementation for handling TLS v1.2 and v1.3 client functionalities to provide enhanced TLS client functionalities to establish and maintain a secure connection
+            </summary>
+            <remarks>
+            The SecureTlsClient class offers mechanisms to process, handle, and manage:
+            <list type="bullet">
+            <item><description>Supported protocol versions (v1.2 and v1.3).</description></item>
+            <item><description>Client extensions.</description></item>
+            <item><description>Signature algorithms from private keys.</description></item>
+            <item><description>Creation of signer credentials based on provided algorithms and credentials.</description></item>
+            <item><description>Client credentials handling for CertificateRequest.</description></item>
+            <item><description>Server certificate validation using root and intermediate certificates from the local database.</description></item>
+            <item><description>Domain validation for X509 certificates.</description></item>
+            </list>
+            The class relies heavily on integration with the BouncyCastle crypto library and includes a number of methods to facilitate
+            the security aspects of the TLS protocol, from the handshaking process through to the verification of server certificates.
+            </remarks>
+        </member>
+        <member name="T:Best.TLSSecurity.OCSPCacheHTTPRequestOptions">
+            <summary>
+            Represents configuration options specific to the HTTP requests made for OCSP caching.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPCacheHTTPRequestOptions.DataLengthThreshold">
+            <summary>
+            Gets or sets the threshold for data length.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPCacheHTTPRequestOptions.UseKeepAlive">
+            <summary>
+            Determines whether to use the KeepAlive feature in the HTTP requests.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPCacheHTTPRequestOptions.UseCache">
+            <summary>
+            Determines whether to allow caching for the HTTP requests.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPCacheHTTPRequestOptions.ConnectTimeout">
+            <summary>
+            Gets or sets the connection timeout duration for the HTTP request.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPCacheHTTPRequestOptions.Timeout">
+            <summary>
+            Gets or sets the general timeout duration for the HTTP request.
+            </summary>
+        </member>
+        <member name="T:Best.TLSSecurity.OCSPCacheOptions">
+            <summary>
+            Represents configuration options specific to OCSP caching.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPCacheOptions.MaxWaitTime">
+            <summary>
+            Gets or sets the maximum wait time for OCSP responses.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPCacheOptions.RetryUnknownAfter">
+            <summary>
+            Determines the duration after which to retry in cases of unknown OCSP statuses.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPCacheOptions.FolderName">
+            <summary>
+            Gets or sets the folder name for OCSP caching.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPCacheOptions.DatabaseOptions">
+            <summary>
+            Represents database-specific options for OCSP caching.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPCacheOptions.HTTPRequestOptions">
+            <summary>
+            Represents HTTP request-specific options for OCSP caching.
+            </summary>
+        </member>
+        <member name="T:Best.TLSSecurity.OCSPOptions">
+            <summary>
+            Represents the configuration options for handling OCSP (Online Certificate Status Protocol) operations.
+            </summary>
+            <remarks>
+            The OCSPOptions class provides settings that dictate behavior for:
+            <list type="bullet">
+            <item><description>Sending OCSP requests for certificate revocation checks.</description></item>
+            <item><description>Thresholds for lifespan to determine revocation checks.</description></item>
+            <item><description>Handling scenarios with unknown revocation statuses.</description></item>
+            <item><description>Ensuring server compliance with the must-staple flag.</description></item>
+            <item><description>Configurations related to caching OCSP responses.</description></item>
+            </list>
+            The class enables granular control over OCSP operations, ensuring that applications can fine-tune their security and performance behaviors 
+            with regard to certificate revocation checks.
+            </remarks>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPOptions.EnableOCSPQueries">
+            <summary>
+            Enable or disable sending out OCSP requests for revocation checking.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPOptions.ShortLifeSpanThreshold">
+            <summary>
+            The plugin not going to check revocation status for short lifespan certificates.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPOptions.FailHard">
+            <summary>
+            Treat unknown revocation statuses (unknown OCSP status or unreachable servers) as revoked and abort the TLS negotiation.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPOptions.FailOnMissingCertStatusWhenMustStaplePresent">
+            <summary>
+            Treat the TLS connection failed if the leaf certificate has the must-staple flag, but the server doesn't send certificate status.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.OCSPOptions.OCSPCache">
+            <summary>
+            OCSP Cache Options
+            </summary>
+        </member>
+        <member name="T:Best.TLSSecurity.FolderAndFileOptions">
+            <summary>
+            Contains options related to file and folder naming conventions used within the plugin.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.FolderAndFileOptions.FolderName">
+            <summary>
+            Gets or sets the main folder name for the plugin's file storage.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.FolderAndFileOptions.DatabaseFolderName">
+            <summary>
+            Gets or sets the folder name designated for database storage.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.FolderAndFileOptions.MetadataExtension">
+            <summary>
+            Gets or sets the file extension for metadata files.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.FolderAndFileOptions.DatabaseExtension">
+            <summary>
+            Gets or sets the file extension for database files.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.FolderAndFileOptions.DatabaseFreeListExtension">
+            <summary>
+            Gets or sets the file extension for database free list files.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.FolderAndFileOptions.HashExtension">
+            <summary>
+            Gets or sets the file extension for hash files.
+            </summary>
+        </member>
+        <member name="T:Best.TLSSecurity.SecurityOptions">
+            <summary>
+            Provides centralized security settings and configuration options related to certificate management, 
+            OCSP (Online Certificate Status Protocol) operations, and other file and folder settings. The 
+            SecurityOptions class consolidates options for determining how the plugin interacts 
+            with server-sent certificates, OCSP operations, and databases for trusted certificate authorities and credentials.
+            </summary>
+            <remarks>
+            This class centralizes various security settings, allowing developers to easily configure and fine-tune 
+            security behaviors in the application, ensuring optimal balance between security, compatibility, and performance.
+            </remarks>
+        </member>
+        <member name="F:Best.TLSSecurity.SecurityOptions.UseServerSentIntermediateCertificates">
+            <summary>
+            If false, only certificates stored in the trusted intermediates database are used to reconstruct the certificate chain. 
+            When set to <c>true</c> (default), it improves compatibility but the plugin going to use/accept certificates that not stored in its trusted database.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.SecurityOptions.FolderAndFileOptions">
+            <summary>
+            Folder, file and extension options.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.SecurityOptions.OCSP">
+            <summary>
+            OCSP and OCSP cache options.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.SecurityOptions.TrustedRootsOptions">
+            <summary>
+            Database options of the Trusted CAs database
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.SecurityOptions.TrustedIntermediatesOptions">
+            <summary>
+            Database options of the Trusted Intermediate Certifications database
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.SecurityOptions.ClientCredentialsOptions">
+            <summary>
+            Database options of the Client Credentials database
+            </summary>
+        </member>
+        <member name="T:Best.TLSSecurity.TLSSecurity">
+            <summary>
+            A static class responsible for handling TLS security operations including setup, unloading databases, and waiting for the setup to finish.
+            </summary>
+            <remarks>
+            The class manages Root CAs, Intermediate Certificates, Client Certificates, and provides functionality for the setup process. 
+            </remarks>
+        </member>
+        <member name="P:Best.TLSSecurity.TLSSecurity.trustedRootCertificates">
+            <summary>
+            Database of Root CAs that trusted by the client.
+            </summary>
+        </member>
+        <member name="P:Best.TLSSecurity.TLSSecurity.trustedIntermediateCertificates">
+            <summary>
+            Database of Intermediate Certificates that trusted by the client.
+            </summary>
+        </member>
+        <member name="P:Best.TLSSecurity.TLSSecurity.ClientCredentials">
+            <summary>
+            Database of Client Certificates that's available to send when the server requests it.
+            </summary>
+        </member>
+        <member name="P:Best.TLSSecurity.TLSSecurity.IsSetupCalled">
+            <summary>
+            True if Setup already called.
+            </summary>
+        </member>
+        <member name="P:Best.TLSSecurity.TLSSecurity.IsSetupFinished">
+            <summary>
+            True if setup process finished successfully.
+            </summary>
+        </member>
+        <member name="F:Best.TLSSecurity.TLSSecurity.OnSetupFinished">
+            <summary>
+            Called when all databases are in place and loaded.
+            </summary>
+        </member>
+        <member name="M:Best.TLSSecurity.TLSSecurity.Setup">
+            <summary>
+            Initiates the setup process of the TLS Security package.
+            </summary>
+        </member>
+        <member name="M:Best.TLSSecurity.TLSSecurity.UnloadDatabases">
+            <summary>
+            Unloads all databases (certificates and OCSP cache).
+            </summary>
+        </member>
+        <member name="M:Best.TLSSecurity.TLSSecurity.PostInstallSetupFinishedCallback">
+            <summary>
+            Called by the database unpacker. It loads the databases and calls OnSetupFinished.
+            </summary>
+        </member>
+        <member name="M:Best.TLSSecurity.TLSSecurity.WaitForSetupFinish">
+            <summary>
+            Blocks the current thread until setup is finished.
+            </summary>
+        </member>
+        <member name="M:Best.TLSSecurity.TLSSecurity.ExtendedTlsClientFactory(System.Uri,System.Collections.Generic.List{Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.ProtocolName},Best.HTTP.Shared.Logger.LoggingContext)">
+            <summary>
+            TLSClient factory implementation that can be used for HTTPManager.TlsClientFactory.
+            </summary>
+        </member>
+        <member name="M:Best.TLSSecurity.TLSSecurity.CreateClientCredentialsIfNotFound">
+            <summary>
+            Creates the client credentials DB if it can't be found in the resources folder.
+            </summary>
+            <see href="https://github.com/Benedicht/BestHTTP-Issues/issues/144"/>
+        </member>
+        <member name="T:Best.TLSSecurity.TLSSecurity.OnSetupFinishedDispatcher">
+            <summary>
+            Helper class to call OnSetupFinished on Unity's main thread
+            </summary>
+        </member>
+        <member name="T:UnitySourceGeneratedAssemblyMonoScriptTypes_v1.MonoScriptData">
+            <summary>
+            Data is UTF-8 encoded strings
+            </summary>
+        </member>
+    </members>
+</doc>

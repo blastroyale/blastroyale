@@ -6,6 +6,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using Quantum;
 using UnityEngine;
@@ -36,6 +37,10 @@ namespace FirstLight.Game.Presenters
 		private MightElement _playerMight;
 		private VisualElement _defeatedYou;
 
+		// ReSharper disable NotAccessedField.Local
+		private StatusBarsView _statusBarsView;
+		// ReSharper reset NotAccessedField.Local
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -44,10 +49,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_header = root.Q<ScreenHeaderElement>("Header").Required(); 
+			_header = root.Q<ScreenHeaderElement>("Header").Required();
 			_playerMight = root.Q<MightElement>("PlayerMight").Required();
 			_playerName = root.Q<Label>("PlayerName").Required();
 			_defeatedYou = root.Q<VisualElement>("DefeatedYou").Required();
+			root.Q("StatusBars").Required().AttachView(this, out _statusBarsView);
+			_statusBarsView.ForceOverheadUI();
+			_statusBarsView.InitAll();
 
 			_header.homeClicked += Data.OnLeaveClicked;
 
@@ -65,7 +73,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			// TODO: Use proper localization
-			var gamemodeID =_services.RoomService.CurrentRoom.Properties.GameModeId.Value;
+			var gamemodeID = _services.RoomService.CurrentRoom.Properties.GameModeId.Value;
 			_header.SetSubtitle(gamemodeID.ToUpper());
 		}
 
@@ -104,12 +112,12 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var data = new QuantumPlayerMatchData(f, playersData[current.Player]);
-			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, (int)data.LeaderboardRank);
-			
+			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, (int) data.LeaderboardRank);
+
 			_followCamera.Follow = current.Transform;
 			_followCamera.LookAt = current.Transform;
 			_followCamera.SnapCamera();
-			
+
 			_playerName.text = data.GetPlayerName();
 			_playerName.style.color = nameColor;
 			_defeatedYou.SetVisibility(current.Player == _matchServices.MatchEndDataService.LocalPlayerKiller);

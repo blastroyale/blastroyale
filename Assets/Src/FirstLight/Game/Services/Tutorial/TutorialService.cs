@@ -132,7 +132,7 @@ namespace FirstLight.Game.Services
 				AllowedRewards = GameConstants.Data.AllowedGameRewards
 			};
 
-			_services.RoomService.JoinOrCreateRandomRoom(setup);
+			_services.RoomService.JoinOrCreateRoom(setup);
 		}
 
 		public GameObject[] FindTutorialObjects(string referenceTag)

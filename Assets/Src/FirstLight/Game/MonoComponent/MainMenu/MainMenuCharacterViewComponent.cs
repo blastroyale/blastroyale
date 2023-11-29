@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
@@ -39,9 +40,9 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		/// <summary>
 		/// Equip this character with the equipment data given in the <paramref name="info"/>
 		/// </summary>
-		public async Task Init(List<EquipmentInfo> items)
+		public async UniTask Init(List<EquipmentInfo> items)
 		{
-			var list = new List<Task>();
+			var list = new List<UniTask>();
 			
 			foreach (var item in items)
 			{
@@ -49,15 +50,15 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				list.Add(item.Equipment.IsWeapon() ? EquipWeapon(item.Equipment.GameId) : EquipItem(item.Equipment.GameId));
 			}
 
-			await Task.WhenAll(list);
+			await UniTask.WhenAll(list);
 		}
 		
 		/// <summary>
 		/// Equip this character with the equipment data given in the <paramref name="info"/>
 		/// </summary>
-		public async Task Init(List<Equipment> items)
+		public async UniTask Init(List<Equipment> items)
 		{
-			var list = new List<Task>();
+			var list = new List<UniTask>();
 			
 			foreach (var item in items)
 			{
@@ -65,7 +66,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				list.Add(item.IsWeapon() ? EquipWeapon(item.GameId) : EquipItem(item.GameId));
 			}
 
-			await Task.WhenAll(list);
+			await UniTask.WhenAll(list);
 		}
 
 		private void Update()

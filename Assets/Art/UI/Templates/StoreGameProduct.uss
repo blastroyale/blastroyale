@@ -7,6 +7,7 @@
     align-items: center;
     align-self: auto;
     padding-top: 2px;
+    overflow: visible;
 }
 
 .product-name {
@@ -29,7 +30,6 @@
 }
 
 .product-image {
-    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/CorposFemale/character-femalecorpos.png?fileID=21300000&guid=af1bba91a009af34e944e0bd7734104b&type=3#character-femalecorpos');
     height: 480px;
     width: 480px;
     position: absolute;
@@ -37,7 +37,6 @@
 }
 
 .product-background {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-price.png?fileID=21300000&guid=29570bb82136e8a488edae12936f5b0f&type=3#background-price');
     width: 410px;
     height: 104px;
     justify-content: flex-end;
@@ -104,6 +103,7 @@
     width: 312px;
     height: 320px;
     background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-small-bundle.png?fileID=21300000&guid=a9cca8098829b3644beb246b0ca28c57&type=3#background-small-bundle');
+    margin-bottom: 30px;
 }
 
 .product-image-gradient-small {
@@ -117,7 +117,6 @@
 .product-image--small {
     width: 230px;
     height: 230px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon_coins_3.png?fileID=21300000&guid=ab43c7f43962c6f48a219ff1166e7c2f&type=3#icon_coins_3');
 }
 
 .product-price--small {
@@ -218,4 +217,28 @@
 
 .widget-effect--green {
     -unity-background-image-tint-color: rgba(221, 255, 164, 0.35);
+}
+
+.info-click-area {
+    flex-grow: 0;
+    display: flex;
+    visibility: visible;
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    translate: 25% -25%;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.info-button {
+    background-image: var(--sprite-home__button-info);
+    width: 90%;
+    height: 90%;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
 }

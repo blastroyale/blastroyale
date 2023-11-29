@@ -1020,6 +1020,7 @@ namespace I2.Loc
 			public static string PrepareForActionWaiting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PrepareForActionWaiting"); } }
 			public static string ProgressChapter 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ProgressChapter"); } }
 			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
+			public static string RankedDeaths 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedDeaths"); } }
 			public static string RankedGamesPlayedEver 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedGamesPlayedEver"); } }
 			public static string RankedGamesWon 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedGamesWon"); } }
 			public static string RankedKills 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedKills"); } }
@@ -2732,6 +2733,7 @@ namespace I2.Loc
 		    public const string PrepareForActionWaiting = "MainMenu/PrepareForActionWaiting";
 		    public const string ProgressChapter = "MainMenu/ProgressChapter";
 		    public const string QuitGameButton = "MainMenu/QuitGameButton";
+		    public const string RankedDeaths = "MainMenu/RankedDeaths";
 		    public const string RankedGamesPlayedEver = "MainMenu/RankedGamesPlayedEver";
 		    public const string RankedGamesWon = "MainMenu/RankedGamesWon";
 		    public const string RankedKills = "MainMenu/RankedKills";

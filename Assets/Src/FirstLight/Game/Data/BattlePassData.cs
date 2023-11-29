@@ -20,6 +20,7 @@ namespace FirstLight.Game.Data
 
 		public uint Level = 0;
 		public uint Points = 0;
+		public bool SeenBanner;
 
 		public Dictionary<PassType, uint> LastLevelsClaimed = new ()
 		{

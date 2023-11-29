@@ -7,6 +7,7 @@ component CollectablePlatformSpawner
 	UInt32 InitialSpawnDelayInSec;
 	GameId GameId;
 	Int32 RarityModifier;
+	bool Disabled;
 }
 
 enum SpawnerType

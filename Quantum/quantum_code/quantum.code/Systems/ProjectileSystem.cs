@@ -104,11 +104,10 @@ namespace Quantum.Systems
 
 		private void OnProjectileHit(Frame f, in EntityRef targetHit, in EntityRef projectileEntity, in Projectile projectile)
 		{
-			
 			var position = f.Get<Transform3D>(projectileEntity).Position;
-
 			var isTeamHit = TeamHelpers.HasSameTeam(f, projectile.Attacker, targetHit);
-			if (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION && isTeamHit)
+
+			if (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION && isTeamHit && !projectile.IsSubProjectile())
 			{
 				f.Events.OnProjectileFailedHit(projectileEntity, projectile, position, false);
 				f.Destroy(projectileEntity);

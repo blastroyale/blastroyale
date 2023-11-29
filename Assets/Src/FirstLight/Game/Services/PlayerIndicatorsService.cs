@@ -37,7 +37,7 @@ namespace FirstLight.Game.Services
 
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDied);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUpdated>(this, OnLocalPlayerSpecialUpdated);
+			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(this, OnPlayerSpecialUpdated);
 		}
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
@@ -66,14 +66,17 @@ namespace FirstLight.Game.Services
 
 		private void RegisterListeners()
 		{
-			_inputs.Move.AddListener(OnMove);
-			_inputs.Aim.AddListener(OnAim);
-			_inputs.AimButton.AddListener(OnShooting);
-			_inputs.SpecialButton0.AddListener(OnSpecial0);
-			_inputs.SpecialButton1.AddListener(OnSpecial1);
-			_inputs.SpecialAim.AddListener(OnSpecialAim);
-			_inputs.CancelButton.AddListener(OnSpecialCancel);
-			_registered = true;
+			if (!_registered)
+			{
+				_inputs.Move.AddListener(OnMove);
+				_inputs.Aim.AddListener(OnAim);
+				_inputs.AimButton.AddListener(OnShooting);
+				_inputs.SpecialButton0.AddListener(OnSpecial0);
+				_inputs.SpecialButton1.AddListener(OnSpecial1);
+				_inputs.SpecialAim.AddListener(OnSpecialAim);
+				_inputs.CancelButton.AddListener(OnSpecialCancel);
+				_registered = true;
+			}
 		}
 
 		private void UnregisterListeners()
@@ -119,9 +122,11 @@ namespace FirstLight.Game.Services
 
 			InitializeLocalPlayer(callback.Game);
 		}
-		
-		private void OnLocalPlayerSpecialUpdated(EventOnLocalPlayerSpecialUpdated callback)
+
+		private void OnPlayerSpecialUpdated(EventOnPlayerSpecialUpdated callback)
 		{
+			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
+
 			_indicatorContainerView.SetupIndicator((int) callback.SpecialIndex, callback.Special.SpecialId);
 		}
 

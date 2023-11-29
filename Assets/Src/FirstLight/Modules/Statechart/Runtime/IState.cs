@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 // ReSharper disable CheckNamespace
 
@@ -11,6 +12,8 @@ namespace FirstLight.Statechart
 	public interface IState
 	{
 	}
+	
+	
 
 	#region Compositions
 
@@ -154,7 +157,14 @@ namespace FirstLight.Statechart
 		/// Blocks the state behaviour until the given async <paramref name="taskAwaitAction"/> is completed.
 		/// It will return the created <see cref="ITransition"/> that will triggered as soon as the state is unblocked
 		/// </summary>
+		[Obsolete("Please use UniTask instead")]
 		ITransition WaitingFor(Func<Task> taskAwaitAction);
+		
+		/// <summary>
+		/// Blocks the state behaviour until the given async <paramref name="taskAwaitAction"/> is completed.
+		/// It will return the created <see cref="ITransition"/> that will triggered as soon as the state is unblocked
+		/// </summary>
+		ITransition WaitingFor(Func<UniTask> taskAwaitAction);
 	}
 
 	/// <summary>

@@ -4,10 +4,22 @@
     <Style src="project://database/Assets/Art/UI/Styles/Sprites-BattlePass.uss?fileID=7433441132597879392&amp;guid=12a0b900f26604af6831ca49a2fe3bca&amp;type=3#Sprites-BattlePass" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent screen-root">
         <ui:VisualElement name="SeasonContent" class="season-content">
-            <ui:VisualElement picking-mode="Ignore" name="Opacity" class="bottom-bar-opacity" />
-            <ui:ScrollView focusable="true" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" name="RewardsScroll" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl season-content__scroll--doublelines">
-                <ui:VisualElement name="ColumnHolder" class="column-holder" />
-            </ui:ScrollView>
+            <ui:VisualElement name="RightContent" class="right-content">
+                <ui:VisualElement picking-mode="Ignore" name="Opacity" class="bottom-bar-opacity" />
+                <ui:ScrollView focusable="true" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" name="RewardsScroll" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl season-content__scroll--doublelines">
+                    <ui:VisualElement name="ColumnHolder" class="column-holder" />
+                </ui:ScrollView>
+                <ui:VisualElement name="LastRewardBalloon" tabindex="5" class="last-reward-widget">
+                    <ui:VisualElement name="LastRewardContainer" class="last-reward-container">
+                        <ui:VisualElement name="LastRewardSprite" class="last-reward-sprite"  />
+                        <ui:VisualElement name="RewardShineBlue" class="reward-shine-blue" />
+                        <ui:VisualElement name="RewardShineYellow" class="reward-shine-yellow" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <FirstLight.Game.UIElements.ImageButton name="CurrentReward" tabindex="5" class="current-reward-cloud">
+                    <ui:VisualElement name="CurrentRewardIcon" class="sprite-shared__icon-arrow-current current-reward-icon" />
+                </FirstLight.Game.UIElements.ImageButton>
+            </ui:VisualElement>
             <ui:VisualElement name="LeftBar" class="left-bar">
                 <ui:VisualElement name="Background" class="left-bar__background">
                     <ui:VisualElement name="PaidContainer" class="paid-container">
@@ -28,13 +40,6 @@
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton text="##" name="ClaimButton" localization-key="UITBattlePass/claim_all" class="sfx-click-forwards claim-button button-long button-long--yellow anim-delay-0 anim-translate anim-translate--up-s" />
             <FirstLight.Game.UIElements.ImageButton name="FullScreenClaim" class="fullscreen-claim" />
-            <ui:VisualElement name="LastRewardBalloon" tabindex="5" class="last-reward-widget">
-                <ui:VisualElement name="LastRewardContainer" class="last-reward-container">
-                    <ui:VisualElement name="LastRewardSprite" class="last-reward-sprite" />
-                    <ui:VisualElement name="RewardShineBlue" class="reward-shine-blue" />
-                    <ui:VisualElement name="RewardShineYellow" class="reward-shine-yellow" />
-                </ui:VisualElement>
-            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="SeasonHeader" class="season-header anim-translate anim-translate--down-s anim-delay-4">
             <ui:VisualElement name="Background" class="season-header__background" />

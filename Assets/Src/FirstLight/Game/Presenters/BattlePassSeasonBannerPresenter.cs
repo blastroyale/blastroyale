@@ -20,7 +20,6 @@ namespace FirstLight.Game.Presenters
 	public class BattlePassSeasonBannerPresenter : UiToolkitPresenter
 	{
         
-		private Label _seasonText;
 		private Label _timeLeft;
 		private VisualElement[] _rewards;
 		private VisualElement _finalReward;
@@ -29,18 +28,17 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
-			_seasonText = root.Q<Label>("SeasonText").Required();
 			var rewards = root.Q("Rewards").Required();
 			_timeLeft = root.Q<Label>("TimeLeft").Required();
 			_rewards = rewards.Children().Select(r => r.Q("RewardIcon").Required()).ToArray();
 			_finalReward = root.Q("FinalRewardIcon").Required();
 			root.Q<Button>("StartButton").Required().clicked += OnClick;
 			root.Q<Button>("CloseButton").clicked += ClosePopup;
-			root.Q<VisualElement>("Blocker").RegisterCallback<ClickEvent>(ClickedOutside);
+			root.Q<VisualElement>("Blocker").RegisterCallback<PointerDownEvent>(ClickedOutside);
 			_closeCooldown = new Cooldown(TimeSpan.FromSeconds(2));
 		}
 
-		private void ClickedOutside(ClickEvent evt)
+		private void ClickedOutside(PointerDownEvent evt)
 		{
 			if (_closeCooldown.IsCooldown()) return;
 			ClosePopup();
@@ -67,12 +65,10 @@ namespace FirstLight.Game.Presenters
 			var endsAt = currentSeason.Season.GetEndsAtDateTime();
 			
 			_timeLeft.text = (endsAt - DateTime.UtcNow).ToDayAndHours(true);
-			_seasonText.text = string.Format(ScriptLocalization.UITBattlePass.season_number, currentSeason.Season.Number);
 			
-			var lastGoodRewardIndex = 0;
-			var rewards = data.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select(l => (uint)l.RewardId), PassType.Paid);
+			var rewards = data.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select((_, e) => (uint)e+1), PassType.Free);
 			rewards.Reverse();
-
+			
 			var bestReward = rewards.First();
 			rewards.Remove(bestReward);
 			var lastRewardView = ItemFactory.Legacy(new LegacyItemData()
@@ -81,7 +77,7 @@ namespace FirstLight.Game.Presenters
 				Value = bestReward.Amount
 			}).GetViewModel();
 			lastRewardView.DrawIcon(_finalReward);
-			
+
 			var goodies = rewards.Where(ShouldShowcase).ToList();
 			foreach (var goodie in goodies) rewards.Remove(goodie);
 			while (goodies.Count < 3)

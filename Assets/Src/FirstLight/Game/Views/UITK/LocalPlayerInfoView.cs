@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -14,7 +16,9 @@ namespace FirstLight.Game.Views.UITK
 		private PlayerHealthShieldElement _healthShield;
 		private VisualElement _teamColor;
 		private VisualElement _pfp;
+		private Label _name;
 
+		private IGameServices _gameServices;
 		private IMatchServices _matchServices;
 		private IGameDataProvider _dataProvider;
 
@@ -22,12 +26,14 @@ namespace FirstLight.Game.Views.UITK
 		{
 			base.Attached(element);
 
+			_gameServices = MainInstaller.ResolveServices();
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_dataProvider = MainInstaller.ResolveData();
 
 			_healthShield = element.Q<PlayerHealthShieldElement>("LocalPlayerHealthShield").Required();
 			_teamColor = element.Q("TeamColor").Required();
 			_pfp = element.Q("PlayerAvatar").Required();
+			_name = element.Q<Label>("LocalPlayerName").Required();
 		}
 
 		public override void SubscribeToEvents()
@@ -59,14 +65,27 @@ namespace FirstLight.Game.Views.UITK
 				_healthShield.UpdateShield(stats.CurrentShield, stats.CurrentShield, maxShield, !_dataProvider.AppDataProvider.ShowRealDamage);
 			}
 
+			if (f.TryGet<PlayerCharacter>(playerEntity, out var pc))
+			{
+				var isBot = f.Has<BotCharacter>(playerEntity);
+				var playerName = Extensions.GetPlayerName(f, playerEntity, pc);
+				var playerNameColor = isBot
+					? GameConstants.PlayerName.DEFAULT_COLOR
+					: _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked,
+						(int) f.GetPlayerData(pc.Player).LeaderboardRank);
+
+				_name.text = playerName;
+				_name.style.color = playerNameColor;
+			}
+
 			UpdateTeamColor();
+			_ = LoadPFP();
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			UpdateFromLatestVerifiedFrame();
 		}
-
 
 		private void OnTeamAssigned(EventOnTeamAssigned callback)
 		{
@@ -107,6 +126,13 @@ namespace FirstLight.Game.Views.UITK
 			{
 				_teamColor.SetVisibility(false);
 			}
+		}
+
+		private async UniTask LoadPFP()
+		{
+			var itemData = _dataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
+			var sprite = await _gameServices.CollectionService.LoadCollectionItemSprite(itemData);
+			_pfp.style.backgroundImage = new StyleBackground(sprite);
 		}
 	}
 }

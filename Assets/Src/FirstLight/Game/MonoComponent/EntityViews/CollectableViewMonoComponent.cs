@@ -136,6 +136,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 						QuantumEvent.Subscribe<EventOnShieldChanged>(this,
 							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Shield));
 						break;
+					case ConsumableType.Special:
+						QuantumEvent.Subscribe<EventOnPlayerSpecialUpdated>(this,
+							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Special));
+						break;
 				}
 			}
 
@@ -154,7 +158,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (!entity.IsValid || !f.Exists(entity) || !MatchServices.IsSpectatingPlayer(entity)) return;
 
 			var stats = f.Get<Stats>(entity);
-			_pickupCircle.gameObject.SetActive(!stats.IsConsumableStatFilled(type));
+			bool filled;
+			if (type == ConsumableType.Special)
+			{
+				filled =!f.Get<PlayerInventory>(entity).HasSpaceForSpecial();
+			}
+			else
+			{
+				filled = stats.IsConsumableStatFilled(type);
+			}
+			_pickupCircle.gameObject.SetActive(!filled);
 		}
 
 		private IEnumerator GoToPoint(float moveTime, Vector3 startPos, Vector3 endPos)

@@ -52,7 +52,7 @@ namespace GameLogicService.Services
 			if (result.Error != null)
 			{
 				_log.LogError(result.Error.GenerateErrorReport());
-				return 0;
+				return -1;
 			}
 			return result.Result.Version;
 		}

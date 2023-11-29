@@ -26,20 +26,22 @@ namespace FirstLight.Game.MonoComponent.Match
 		[SerializeField, Required] private CinemachineVirtualCamera _deathCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _specialAimCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _winnerCamera;
+
 		[SerializeField] private CinemachineVirtualCamera[] _spectateCameras;
+
 		//this object is locked to the player and used for more intriacate camera control
 		[SerializeField, Required] private GameObject _followObject;
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private IGameDataProvider _gameDataProvider;
-		
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			
+
 			_matchServices.MatchCameraService.SetCameras(_adventureCamera);
 
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
@@ -49,7 +51,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponAdded>(this, OnPlayerWeaponAdded);
+			QuantumEvent.SubscribeManual<EventOnPlayerWeaponAdded>(this, OnPlayerWeaponAdded);
 			gameObject.SetActive(false);
 		}
 
@@ -60,7 +62,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumCallback.UnsubscribeListener(this);
 			QuantumEvent.UnsubscribeListener(this);
 		}
-		
+
 		private static GameObject GetFollowObject(SpectatedPlayer player)
 		{
 			var component = player.Transform.gameObject.GetComponent<PlayerCharacterMonoComponent>();
@@ -69,6 +71,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				FLog.Warn("Camera following something that is not a player :L");
 				return player.Transform.gameObject;
 			}
+
 			return component.transform.gameObject;
 		}
 
@@ -77,29 +80,36 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (!next.Entity.IsValid) return;
 
 			// If local player died and camera is in spawn mode, reset back to adventure (death upon landing fix)
-			if (!_services.RoomService.IsLocalPlayerSpectator && ReferenceEquals(FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera, _spawnCamera))
+			if (!_services.RoomService.IsLocalPlayerSpectator &&
+				ReferenceEquals(FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera, _spawnCamera))
 			{
 				SetActiveCamera(_adventureCamera);
 			}
 
+			var currentWeaponId = QuantumRunner.Default.Game.Frames.Verified.Get<PlayerCharacter>(next.Entity).CurrentWeapon.GameId;
+			var useLongRangeCam = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) currentWeaponId).UseRangedCam;
+			SetActiveCamera(useLongRangeCam ? _specialAimCamera : _adventureCamera);
+
 			_followObject = GetFollowObject(next);
 			RefreshSpectator(_followObject.transform);
-			
+
 			//when becoming a spectator, disable camera panning and set the follow target to the spectated player's transform
 			if (!_services.RoomService.IsLocalPlayerSpectator)
 			{
 				return;
 			}
+
 			QuantumCallback.UnsubscribeListener(this);
 			FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera?.SnapCamera();
 		}
 
-		public void OnPlayerWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
-		{		
-			var useLongRangeCam = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int)callback.Weapon.GameId).UseRangedCam;
+		public void OnPlayerWeaponAdded(EventOnPlayerWeaponAdded callback)
+		{
+			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
+
+			var useLongRangeCam = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) callback.Weapon.GameId).UseRangedCam;
 			SetActiveCamera(useLongRangeCam ? _specialAimCamera : _adventureCamera);
 		}
-
 
 		private void OnSpectateSetCameraMessage(SpectateSetCameraMessage obj)
 		{
@@ -109,7 +119,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnMatchStarted(MatchStartedMessage obj)
 		{
 			gameObject.SetActive(true);
-			
+
 			if (obj.IsResync)
 			{
 				SetActiveCamera(_adventureCamera);
@@ -121,9 +131,9 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			_winnerCamera.Follow = obj.WinnerTrasform;
 			_winnerCamera.LookAt = obj.WinnerTrasform;
-			
+
 			SetActiveCamera(_winnerCamera);
-			
+
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 		}
 
@@ -134,7 +144,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				SetActiveCamera(_spawnCamera);
 				_spawnCamera.SnapCamera();
 				FLGCamera.Instance.CinemachineBrain.ManualUpdate();
-				
+
 				SetActiveCamera(_adventureCamera);
 			}
 		}
@@ -162,7 +172,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)
 		{
 			if (virtualCamera != null && virtualCamera.gameObject != null && FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera != null &&
-				 virtualCamera.gameObject == FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
+				virtualCamera.gameObject == FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
 			{
 				return;
 			}

@@ -169,7 +169,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		public bool InRoom => CurrentRoom != null;
 
-		public bool IsLocalPlayerSpectator => CurrentRoom.LocalPlayerProperties.Spectator.Value;
+		public bool IsLocalPlayerSpectator => CurrentRoom?.LocalPlayerProperties?.Spectator?.Value ?? false;
 
 		internal MatchmakingAndRoomConfig Configs => _configsProvider.GetConfig<MatchmakingAndRoomConfig>();
 
@@ -512,7 +512,7 @@ namespace FirstLight.Game.Services.RoomService
 				return;
 			}
 
-			if (CurrentRoom.Properties.MatchType.Value == MatchType.Custom && !CurrentRoom.Properties.StartCustomGame.Value)
+			if (CurrentRoom.Properties.MatchType.Value == MatchType.Custom && !CurrentRoom.Properties.StartCustomGame.Value && !CurrentRoom.GameModeConfig.InstantLoad)
 			{
 				return;
 			}

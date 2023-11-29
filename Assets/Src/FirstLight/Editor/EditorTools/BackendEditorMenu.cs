@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Editor.Artifacts;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
@@ -90,11 +91,11 @@ namespace FirstLight.Editor.EditorTools
 			var serializer = new ConfigsSerializer();
 			var allConfigs = new ConfigsProvider();
 			var configsLoader = new GameConfigsLoader(new AssetResolverService());
-			await Task.WhenAll(configsLoader.LoadConfigTasks(allConfigs));
+			await UniTask.WhenAll(configsLoader.LoadConfigTasks(allConfigs));
 
 			FeatureFlags.REMOTE_CONFIGURATION = true;
 			var onlyClientConfigs = new ConfigsProvider();
-			await Task.WhenAll(configsLoader.LoadConfigTasks(onlyClientConfigs));
+			await UniTask.WhenAll(configsLoader.LoadConfigTasks(onlyClientConfigs));
 
 			var serverConfigs = new ConfigsProvider();
 			var serializedConfigs = serializer.Serialize(allConfigs, "test");
@@ -145,7 +146,7 @@ namespace FirstLight.Editor.EditorTools
 			var configs = new ConfigsProvider();
 			var configsLoader = new GameConfigsLoader(new AssetResolverService());
 			Debug.Log("Parsing Configs");
-			await Task.WhenAll(configsLoader.LoadConfigTasks(configs));
+			await UniTask.WhenAll(configsLoader.LoadConfigTasks(configs));
 			Debug.Log("Getting title data");
 			PlayFabShortcuts.GetTitleData("GameConfigVersion", configVersion =>
 			{

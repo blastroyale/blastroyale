@@ -114,7 +114,7 @@ namespace Quantum
 				WeaponSlots[i] = default;
 			}
 			
-			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
+			var isRespawning = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[Player].DeathCount > 0;
 			var pi = f.Unsafe.GetPointer<PlayerInventory>(e);
 			if (isRespawning)
 			{
@@ -308,7 +308,7 @@ namespace Quantum
 			targetSlot->MagazineSize = weaponConfig.MagazineSize;
 			WeaponSlots[slot].Weapon = weapon;
 
-			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
+			f.Events.OnPlayerWeaponAdded(Player, e, weapon, slot);
 
 			EquipSlotWeapon(f, e, slot);
 		}

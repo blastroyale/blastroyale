@@ -177,7 +177,7 @@ namespace FirstLight.Game.Presenters
 
 		public void UpdateAccountStatus()
 		{
-			if (_gameDataProvider.AppDataProvider.IsGuest)
+			if (_services.AuthenticationService.IsGuest)
 			{
 				_connectIdButton.SetDisplay(true);
 				_deleteAccountButton.SetDisplay(false);

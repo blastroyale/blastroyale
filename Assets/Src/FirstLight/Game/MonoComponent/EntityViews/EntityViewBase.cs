@@ -98,6 +98,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		public void OnUpdateView(CallbackUpdateView callback)
 		{
+			if (callback.Game.IsGameOver()) return;
+			
 			if (callback.Game.Frames.Predicted.IsCulled(EntityRef))
 			{
 				if (!_culled)

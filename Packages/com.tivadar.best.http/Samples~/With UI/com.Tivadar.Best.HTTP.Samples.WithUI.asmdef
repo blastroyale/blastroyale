@@ -1,0 +1,17 @@
+{
+    "name": "com.Tivadar.Best.HTTP.Samples.WithUI",
+    "rootNamespace": "Best.HTTP.Examples",
+    "references": [
+        "com.Tivadar.Best.HTTP",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

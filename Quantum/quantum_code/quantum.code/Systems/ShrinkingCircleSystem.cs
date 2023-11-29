@@ -26,7 +26,7 @@ namespace Quantum.Systems
 		public override void Update(Frame f)
 		{
 			if (!f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer ||
-				f.GetSingleton<GameContainer>().PlayersData[0].Entity != EntityRef.None)
+				f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[0].Entity != EntityRef.None)
 			{
 				var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
 
@@ -145,8 +145,8 @@ namespace Quantum.Systems
 			}
 
 			var newSpell = f.Create();
-			var circle = f.GetSingleton<ShrinkingCircle>();
-			var damage = f.Get<Stats>(playerEntity).GetStatData(StatType.Health).StatValue * circle.Damage;
+			var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
+			var damage = f.Get<Stats>(playerEntity).GetStatData(StatType.Health).StatValue * circle->Damage;
 
 			f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects).Add(newSpell);
 			var spell = new Spell
@@ -212,7 +212,7 @@ namespace Quantum.Systems
 
 		private void SetShrinkingCircleCenteredOnLocalPlayer(ShrinkingCircle* circle, Frame f)
 		{
-			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[0].Entity;
+			var characterEntity = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[0].Entity;
 			if (QuantumHelpers.IsDestroyed(f, characterEntity))
 			{
 				return;

@@ -230,7 +230,7 @@ namespace Quantum.Systems.Bots
 		// We check specials and try to use them depending on their type if possible
 		public static bool TryUseSpecials(this ref BotCharacter bot, PlayerInventory* inventory, EntityRef botEntity, Frame f)
 		{
-			if (f.Context.TryGetMutatorByType(MutatorType.NoAbilities, out _))
+			if (f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
 			{
 				return false;
 			}
@@ -265,7 +265,6 @@ namespace Quantum.Systems.Bots
 			if ((target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
 				special.TryActivate(f, PlayerRef.None, entity, FPVector2.Zero, specialIndex))
 			{
-				inventory->Specials[specialIndex] = special;
 				return true;
 			}
 

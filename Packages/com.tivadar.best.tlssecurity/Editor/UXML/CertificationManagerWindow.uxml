@@ -1,0 +1,69 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+  <ui:Template name="CertificationTemplate" src="CertificationTemplate.uxml" />
+  <ui:VisualElement style="align-items: stretch; justify-content: flex-start; height: 100%; flex-grow: 1;">
+
+    <!-- Root CAs-->
+    <ui:Instance template="CertificationTemplate" name="TrustedRoots" style="flex-grow: 1; min-height: 200px; margin: 0px; border-width: 0px; border-color: rgb(80, 80, 80); border-radius: 0px; padding: 2px;" />
+
+    <!-- Trusted Intermediates-->
+    <ui:Instance template="CertificationTemplate" name="TrustedIntermediates" style="flex-grow: 1; min-height: 200px; margin: 0px; border-width: 0px; border-color: rgb(80, 80, 80); border-radius: 0px; padding: 2px;" />
+
+    <!-- Client Credentials -->
+    <ui:Box name="ClientCredentialsRoot" style="flex-grow: 0.5; min-height: 200px; margin: 0px; border-width: 0px; border-color: rgb(80, 80, 80); border-radius: 0px; padding: 2px;">
+      <ui:Label binding-path="header" style="font-size: 24px; -unity-font-style: bold; -unity-text-align: middle-center; margin-top: 5px; margin-bottom: 10px;" />
+      <ui:Box style="flex-grow: 1; border-width: 2px; border-color: #000000; padding: 2px;">
+        <uie:Toolbar>
+          <!--uie:ToolbarButton text="Add" name="Add" /-->
+          <uie:ToolbarButton text="Add for Domain" name="AddTargetDomain" />
+          <uie:ToolbarButton text="Delete Selected" name="DeleteSelected" />
+
+          <uie:ToolbarSpacer style="width: auto; flex-grow: 1;" />
+          <uie:ToolbarButton name="HelpButton" text="?" />
+        </uie:Toolbar>
+
+        <!-- LitView Header -->
+        <ui:VisualElement style="flex-direction: row;">
+          <ui:Box style="width: 40px;" >
+            <ui:Label text="#" style="-unity-text-align: middle-center;" />
+          </ui:Box>
+
+          <ui:Box style="width: auto; flex-grow: 1; flex-shrink: 1; overflow: hidden; " >
+            <ui:Label text="Target Domain" style="-unity-text-align: middle-center;" />
+          </ui:Box>
+
+          <ui:Box style="white-space: nowrap; width: auto; flex-shrink: 1; flex-grow: 1; overflow: hidden;" >
+            <ui:Label text="Authority" style="-unity-text-align: middle-center;" />
+          </ui:Box>
+
+        </ui:VisualElement>
+
+        <ui:ListView name="ListView" show-alternating-row-backgrounds="ContentOnly" show-border="true" selection-type="Multiple" style="flex-grow: 1;" />
+
+        <uie:Toolbar>
+          <ui:Label text="Certifications: " style="-unity-text-align: middle-center;" />
+          <ui:Label text="0" binding-path="count" style="-unity-text-align: middle-center;" />
+          <ui:Label text="|" style="-unity-text-align: middle-center;" />
+          <ui:Label text="Certificate Size Stats" binding-path="certificateStats" style="-unity-text-align: middle-center;" />
+          <ui:Label text="|" style="-unity-text-align: middle-center;" />
+          <ui:Label text="Status" binding-path="status" style="-unity-text-align: middle-center;" />
+        </uie:Toolbar>
+      </ui:Box>
+    </ui:Box>
+
+    <!-- Send test request -->
+    <ui:Box style="margin-top:5px;min-height: 25px;">
+      <uie:Toolbar >
+        <ui:Label text="Send a test request to:" style="-unity-text-align: middle-left;" />
+        <ui:TextField label="https://" name="TestRequestURL" text="example.com" style="-unity-text-align: middle-left; flex-direction: row; flex-grow: 1; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; justify-content: flex-start; align-items: stretch; flex-shrink: 1;" />
+        <uie:ToolbarButton text="Send" name="SendButton" />
+        <uie:ToolbarSpacer />
+        <ui:Label binding-path="testRequestStatus" />
+      </uie:Toolbar>
+    </ui:Box>
+
+    <!-- Generic Information -->
+    <uie:Toolbar style="margin-top: 5px;">
+      <ui:Label text="Best TLS Security 3.0.0 besthttp@gmail.com" name="version" />
+    </uie:Toolbar>
+  </ui:VisualElement>
+</ui:UXML>

@@ -213,7 +213,7 @@
     -unity-text-align: upper-left;
     align-items: flex-start;
     justify-content: flex-start;
-    margin-top: 60px;
+    margin-top: 86px;
     flex-shrink: 0;
 }
 

@@ -16,19 +16,19 @@ MonoBehaviour:
     Identifier:
       Path: AddressableResources/Maps/Test/TestScene_NavMesh
       Guid:
-        Value: 3526647891069364318
+        Value: 4132623271473847115
     Name: NavMesh
     DataAsset:
       Id:
-        Value: 477379078662942642
+        Value: 724045998517328729
     DataFilepath: 
-    GridSizeX: 20
-    GridSizeY: 20
-    GridNodeSize: 16
+    GridSizeX: 16
+    GridSizeY: 38
+    GridNodeSize: 4
     WorldOffset:
       X:
-        RawValue: -10485760
+        RawValue: -2097152
       Y:
-        RawValue: -10485760
+        RawValue: -4980736
     MinAgentRadius:
       RawValue: 13107

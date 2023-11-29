@@ -10,7 +10,7 @@
             <FirstLight.Game.UIElements.HealthStatusBarElement name="TempHealthBar" style="position: absolute; left: 1064px; top: 246px;" />
             <FirstLight.Game.UIElements.PlayerStatusBarElement name="TempStatusBar" style="left: 1065px; top: 313px;" />
         </ui:VisualElement>
-        <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
+        <FirstLight.Game.UIElements.SafeAreaElement class="safe-area" apply-right="false">
             <ui:VisualElement name="MoveJoystickArea" class="joystick-container">
                 <FirstLight.Game.UIElements.JoystickElement name="MovementJoystick" class="joystick--move" />
             </ui:VisualElement>
@@ -100,10 +100,11 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="BottomCenterContainer" class="bottom-center-container">
-                <ui:VisualElement name="LocalPlayerInfo" class="local-player-info">
+                <ui:VisualElement name="LocalPlayerInfo" class="local-player-info customizable-hud">
                     <ui:VisualElement name="TeamColor" class="local-player-info__team-color">
                         <ui:VisualElement name="PlayerAvatar" class="local-player-info_pfp" />
                     </ui:VisualElement>
+                    <ui:Label tabindex="-1" text="PLAYER NAME" parse-escape-sequences="true" name="LocalPlayerName" class="local-player-info__name" />
                     <FirstLight.Game.UIElements.PlayerHealthShieldElement name="LocalPlayerHealthShield" class="player-health-shield--local" />
                 </ui:VisualElement>
             </ui:VisualElement>

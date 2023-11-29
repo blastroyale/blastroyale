@@ -1,0 +1,16 @@
+{
+    "name": "com.Tivadar.Best.WebSockets",
+    "rootNamespace": "Best.WebSockets",
+    "references": [
+        "com.Tivadar.Best.HTTP"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

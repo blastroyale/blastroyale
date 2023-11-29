@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MatchmakingAndRoomConfigs
   m_EditorClassIdentifier: 
   _config:
-    SecondsToStartOldMatchmakingRoom: 10
-    SecondsToLoadCustomGames: 10
+    SecondsToStartOldMatchmakingRoom: 15
+    SecondsToLoadCustomGames: 15
     SecondsLoadingTimeout: 5
     PlayfabTicketTimeout: 15

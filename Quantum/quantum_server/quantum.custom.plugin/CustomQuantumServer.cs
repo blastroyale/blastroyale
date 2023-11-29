@@ -374,7 +374,7 @@ namespace Quantum
                 }
             }
 
-            if (!player.Weapon.IsWeapon() && !player.Weapon.IsDefaultItem())
+            if (player.Weapon.GameId != GameId.Random && !player.Weapon.IsWeapon() && !player.Weapon.IsDefaultItem())
             {
                 Log.Error($"Player {player.PlayerId} sent invalid weapon id {player.Weapon.GameId}");
                 return false;

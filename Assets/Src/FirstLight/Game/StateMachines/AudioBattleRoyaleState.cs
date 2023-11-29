@@ -143,7 +143,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsTutorial()
 		{
-			return _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FTUE_MAP;
+			return _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH;
 		}
 		
 		private bool IsSkyDivePhase()

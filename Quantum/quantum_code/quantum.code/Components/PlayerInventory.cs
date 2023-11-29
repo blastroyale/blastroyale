@@ -12,7 +12,7 @@ namespace Quantum
 				}
 
 				Specials[i] = special;
-				f.Events.OnLocalPlayerSpecialUpdated(player, playerEntity, (uint) i, special);
+				f.Events.OnPlayerSpecialUpdated(player, playerEntity, (uint) i, special);
 				return true;
 			}
 

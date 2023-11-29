@@ -18,6 +18,7 @@ using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
@@ -31,21 +32,16 @@ namespace FirstLight.Game.Presenters
 	public class PreGameLoadingScreenPresenter : UiToolkitPresenterData<PreGameLoadingScreenPresenter.StateData>
 	{
 		private const int TIMER_PADDING_MS = 2000;
-		
+
 		public struct StateData
 		{
 			public Action LeaveRoomClicked;
 		}
 
-		[SerializeField] private int _planeFlyDurationMs = 4500;
-
-		private VisualElement _dropzone;
 		private VisualElement _mapHolder;
 		private VisualElement _mapTitleBg;
 		private VisualElement _mapMarker;
-		private VisualElement _mapMarkerIcon;
 		private VisualElement _mapImage;
-		private VisualElement _plane;
 		private VisualElement _squadContainer;
 		private VisualElement _partyMarkers;
 		private Label _squadLabel;
@@ -86,13 +82,10 @@ namespace FirstLight.Game.Presenters
 		{
 			base.QueryElements(root);
 
-			_dropzone = root.Q("DropZone").Required();
 			_mapHolder = root.Q("Map").Required();
 			_mapImage = root.Q("MapImage").Required();
-			_plane = root.Q("Plane").Required();
 			_mapMarker = root.Q("MapMarker").Required();
 			_mapMarkerTitle = root.Q<Label>("MapMarkerTitle").Required();
-			_mapMarkerIcon = root.Q("MapMarkerIcon").Required();
 			_mapTitleBg = root.Q("MapTitleBg").Required();
 			_loadStatusLabel = root.Q<Label>("LoadStatusLabel").Required();
 			_locationLabel = root.Q<Label>("LocationLabel").Required();
@@ -215,6 +208,9 @@ namespace FirstLight.Game.Presenters
 			SelectMapPosition(evt.localPosition, true, true);
 		}
 
+		/// <summary>
+		///  Select the drop zone based on percentages of the map
+		/// </summary>
 		public void SelectDropZone(float x, float y)
 		{
 			var mapWidth = _mapImage.contentRect.width;
@@ -308,7 +304,6 @@ namespace FirstLight.Game.Presenters
 
 			if (!gameModeConfig.SkydiveSpawn || RejoiningRoom)
 			{
-				_dropzone.SetDisplay(false);
 				_mapMarker.SetDisplay(false);
 				_mapTitleBg.SetDisplay(false);
 				_ = LoadMapAsset(mapConfig);
@@ -329,10 +324,9 @@ namespace FirstLight.Game.Presenters
 
 		private void InitSkydiveSpawnMapData()
 		{
-			var posX = 0f;
-			var posY = 0f;
-			_dropzone.SetDisplay(false);
-			SelectMapPosition(new Vector2(posX, posY), false, false);
+			var posX = Random.Range(0.3f, 0.7f);
+			var posY = Random.Range(0.3f, 0.7f);
+			SelectDropZone(posX, posY);
 			_mapImage.RegisterCallback<ClickEvent>(OnMapClicked);
 		}
 
@@ -352,35 +346,36 @@ namespace FirstLight.Game.Presenters
 
 			_header.SetHomeVisible(false);
 
-			if (RejoiningRoom)
-			{
-				_loadStatusLabel.text = "Reconnecting to Game !"; // todo translation
-			}
-			else
-			{
-				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
-			}
+			_loadStatusLabel.text = RejoiningRoom
+				? "Reconnecting to Game!"
+				: // todo translation
+				ScriptLocalization.UITMatchmaking.loading_status_starting;
 
 			_dropSelectionAllowed = false;
 		}
 
 		private void UpdatePlayerCount()
 		{
-			_debugPlayerCountLabel.text = Debug.isDebugBuild || _dataProvider.PlayerDataProvider.Flags.HasFlag(PlayerFlags.FLGOfficial)
+			_debugPlayerCountLabel.text = CanSeeDebugInfo()
 				? string.Format(ScriptLocalization.UITMatchmaking.current_player_amount,
 					CurrentRoom.GetRealPlayerAmount(), CurrentRoom.GetRealPlayerCapacity())
 				: "";
 		}
-
+		
 		private void UpdateMasterClient()
 		{
-			if (!Debug.isDebugBuild && !_dataProvider.PlayerDataProvider.Flags.HasFlag(PlayerFlags.FLGOfficial))
+			if (!CanSeeDebugInfo())
 			{
 				_debugMasterClient.SetDisplay(false);
 				return;
 			}
 
 			_debugMasterClient.SetDisplay(_services.NetworkService.LocalPlayer.IsMasterClient);
+		}
+		
+		private bool CanSeeDebugInfo()
+		{
+			return Debug.isDebugBuild || _dataProvider.PlayerDataProvider.Flags.HasFlag(PlayerFlags.FLGOfficial);
 		}
 
 		/// <summary>
@@ -455,7 +450,7 @@ namespace FirstLight.Game.Presenters
 				}
 			};
 
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true,
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, false,
 				confirmButton);
 		}
 	}

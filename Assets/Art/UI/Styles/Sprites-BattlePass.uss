@@ -1,11 +1,13 @@
 /* AUTO GENERATED */
 :root {
     --sprite-battlepass__background-left-bar: url('/Assets/Art/UI/Sprites/BattlePass/background-left-bar.png');
+    --sprite-battlepass__background-left-bar-free-only: url('/Assets/Art/UI/Sprites/BattlePass/background-left-bar-free-only.png');
     --sprite-battlepass__bar-bp-back: url('/Assets/Art/UI/Sprites/BattlePass/bar-bp-back.png');
     --sprite-battlepass__bar-progress-bp: url('/Assets/Art/UI/Sprites/BattlePass/bar-progress-bp.png');
     --sprite-battlepass__buy-level-button: url('/Assets/Art/UI/Sprites/BattlePass/buy-level-button.png');
     --sprite-battlepass__buy-level-button-pressed: url('/Assets/Art/UI/Sprites/BattlePass/buy-level-button-pressed.png');
-    --sprite-battlepass__cloud-final-reward: url('/Assets/Art/UI/Sprites/BattlePass/cloud-final-reward.png');
+    --sprite-battlepass__cloud-left: url('/Assets/Art/UI/Sprites/BattlePass/cloud-left.png');
+    --sprite-battlepass__cloud-right: url('/Assets/Art/UI/Sprites/BattlePass/cloud-right.png');
     --sprite-battlepass__header: url('/Assets/Art/UI/Sprites/BattlePass/header.png');
     --sprite-battlepass__icon_free-pass: url('/Assets/Art/UI/Sprites/BattlePass/icon_free-pass.png');
     --sprite-battlepass__icon_free-pass-no-effects: url('/Assets/Art/UI/Sprites/BattlePass/icon_free-pass-no-effects.png');
@@ -27,6 +29,12 @@
 .sprite-battlepass__background-left-bar {
     background-image: var(--sprite-battlepass__background-left-bar);
     width: 604px;
+    height: 2048px;
+}
+
+.sprite-battlepass__background-left-bar-free-only {
+    background-image: var(--sprite-battlepass__background-left-bar-free-only);
+    width: 607px;
     height: 2048px;
 }
 
@@ -52,8 +60,14 @@
     background-image: var(--sprite-battlepass__buy-level-button-pressed);
 }
 
-.sprite-battlepass__cloud-final-reward {
-    background-image: var(--sprite-battlepass__cloud-final-reward);
+.sprite-battlepass__cloud-left {
+    background-image: var(--sprite-battlepass__cloud-left);
+    width: 120px;
+    height: 98px;
+}
+
+.sprite-battlepass__cloud-right {
+    background-image: var(--sprite-battlepass__cloud-right);
     width: 261px;
     height: 196px;
 }

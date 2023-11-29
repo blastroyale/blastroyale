@@ -1,0 +1,24 @@
+{
+    "name": "com.Tivadar.Best.SignalR.Samples.WithUI",
+    "rootNamespace": "Best.SignalR.Examples",
+    "references": [
+        "com.Tivadar.Best.HTTP",
+        "com.Tivadar.Best.SignalR",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "1.0.0",
+            "define": "WITH_UNITASK"
+        }
+    ],
+    "noEngineReferences": false
+}

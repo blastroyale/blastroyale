@@ -42,6 +42,7 @@ LocalizedTextField > Label {
     background-color: rgb(128, 87, 227);
     overflow: hidden;
 }
+
 .popup-element__header__background {
     background-image: var(--sprite-home__pattern-dots-rotated);
     -unity-background-image-tint-color: rgba(58, 58, 58, 0.35);
@@ -49,15 +50,20 @@ LocalizedTextField > Label {
     height: 604px;
     position: absolute;
     top: -138px;
-    left: -28px
+    left: -28px;
 }
+
 .popup-element__header__title {
     height: 90px;
     -unity-text-align: middle-center;
-    font-size: 36px;
+    font-size: 44px;
     color: rgb(255, 255, 255);
     overflow: hidden;
+    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
+
 .popup-element__container {
     flex-grow: 1;
     align-items: center;
@@ -76,4 +82,3 @@ LocalizedTextField > Label {
     right: 0;
     bottom: 0;
 }
-

@@ -288,8 +288,8 @@
 
 .menu-button {
     position: absolute;
-    top: 0;
-    right: -20px;
+    top: 3px;
+    right: -5px;
     width: 129px;
     height: 91px;
     align-items: center;
@@ -298,8 +298,9 @@
 
 .menu-button__icon {
     background-image: var(--sprite-match__icon-menu);
-    width: 50px;
+    width: 30px;
     height: 36px;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .menu-button:active > .menu-button__icon {
@@ -902,4 +903,24 @@
     border-bottom-color: rgb(24, 18, 54);
     background-image: var(--sprite-shared__avatar-default);
     visibility: visible;
+}
+
+.local-player-info__name {
+    position: absolute;
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(24, 18, 54);
+    text-shadow: 2px 2px 0 rgb(24, 18, 54);
+    left: 118px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-align: lower-left;
+    bottom: 86px;
 }

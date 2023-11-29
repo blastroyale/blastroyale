@@ -1,5 +1,5 @@
 using System;
-using FirstLight.FLogger;
+using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -37,6 +37,8 @@ namespace FirstLight.Game.Views.UITK
 		/// </summary>
 		public event Action<float> OnCancel;
 
+		private IMatchServices _matchServices;
+
 		public override void Attached(VisualElement element)
 		{
 			base.Attached(element);
@@ -49,17 +51,21 @@ namespace FirstLight.Game.Views.UITK
 			_special1Button.OnDrag += val => OnDrag?.Invoke(val);
 			_special0Button.OnCancel += val => OnCancel?.Invoke(val);
 			_special1Button.OnCancel += val => OnCancel?.Invoke(val);
+
+			_matchServices = MainInstaller.ResolveMatchServices();
 		}
 
 		public override void SubscribeToEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUsed>(OnLocalPlayerSpecialUsed);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUpdated>(OnLocalPlayerSpecialUpdated);
+			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(OnPlayerSpecialUpdated);
 		}
 
-		private void OnLocalPlayerSpecialUpdated(EventOnLocalPlayerSpecialUpdated callback)
+		private void OnPlayerSpecialUpdated(EventOnPlayerSpecialUpdated callback)
 		{
+			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
+
 			switch (callback.SpecialIndex)
 			{
 				case 0:
@@ -123,7 +129,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private void UpdateSpecials(Frame f, PlayerInventory inventory)
 		{
-			if (f.Context.TryGetMutatorByType(MutatorType.NoAbilities, out _))
+			if (f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
 			{
 				_special0Button.SetVisibility(false);
 				_special1Button.SetVisibility(false);

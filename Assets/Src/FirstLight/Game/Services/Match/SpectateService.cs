@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
@@ -10,10 +11,10 @@ namespace FirstLight.Game.Services
 {
 	public struct SpectatedPlayer
 	{
-		public EntityRef Entity;
-		public PlayerRef Player;
-		public int Team;
-		public Transform Transform; // todo: managed memory in unmanaged struct should remove
+		public readonly EntityRef Entity;
+		public readonly PlayerRef Player;
+		public readonly int Team;
+		public readonly Transform Transform; // todo: managed memory in unmanaged struct should remove
 
 		public SpectatedPlayer(EntityRef entity, PlayerRef player, int team, Transform transform)
 		{
@@ -21,6 +22,31 @@ namespace FirstLight.Game.Services
 			Player = player;
 			Team = team;
 			Transform = transform;
+		}
+
+		public bool Equals(SpectatedPlayer other)
+		{
+			return Entity.Equals(other.Entity) && Player.Equals(other.Player);
+		}
+
+		public override bool Equals(object obj)
+		{
+			return obj is SpectatedPlayer other && Equals(other);
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(Entity, Player);
+		}
+
+		public static bool operator ==(SpectatedPlayer left, SpectatedPlayer right)
+		{
+			return left.Equals(right);
+		}
+
+		public static bool operator !=(SpectatedPlayer left, SpectatedPlayer right)
+		{
+			return !left.Equals(right);
 		}
 	}
 
@@ -59,7 +85,7 @@ namespace FirstLight.Game.Services
 		private readonly IGameServices _gameServices;
 		private readonly IMatchServices _matchServices;
 		private readonly FP _playerVisionRange;
-		private readonly IObservableField<SpectatedPlayer> _spectatedPlayer = new ObservableField<SpectatedPlayer>();
+		private readonly IObservableField<SpectatedPlayer> _spectatedPlayer = new ObservableField<SpectatedPlayer>(false);
 
 		public IObservableFieldReader<SpectatedPlayer> SpectatedPlayer => _spectatedPlayer;
 

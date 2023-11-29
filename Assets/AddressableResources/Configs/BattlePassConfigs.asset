@@ -20,12 +20,14 @@ MonoBehaviour:
       DefaultPointsPerLevel: 400
       StartsAt: 25/10/2023
       EndsAt: 1/11/2023
+      RemovePaid: 1
     - Number: 7
       Price: 300
       BuyLevelPrice: 10
       DefaultPointsPerLevel: 400
       StartsAt: 2/11/2023
       EndsAt: 31/01/2024
+      RemovePaid: 1
     Levels:
     - RewardId: 2
       PremiumRewardId: 0
@@ -275,11 +277,11 @@ MonoBehaviour:
       PremiumRewardId: 46
       PointsForNextLevel: 50
       Season: 7
-    - RewardId: 45
+    - RewardId: 2
       PremiumRewardId: 31
       PointsForNextLevel: 100
       Season: 7
-    - RewardId: 2
+    - RewardId: 45
       PremiumRewardId: 46
       PointsForNextLevel: 200
       Season: 7
@@ -315,7 +317,7 @@ MonoBehaviour:
       PremiumRewardId: 46
       PointsForNextLevel: 0
       Season: 7
-    - RewardId: 2
+    - RewardId: 48
       PremiumRewardId: 46
       PointsForNextLevel: 0
       Season: 7
@@ -559,7 +561,7 @@ MonoBehaviour:
       PremiumRewardId: 46
       PointsForNextLevel: 0
       Season: 7
-    - RewardId: 2
+    - RewardId: 3
       PremiumRewardId: 46
       PointsForNextLevel: 0
       Season: 7
@@ -587,7 +589,7 @@ MonoBehaviour:
       PremiumRewardId: 4
       PointsForNextLevel: 0
       Season: 7
-    - RewardId: 3
+    - RewardId: 49
       PremiumRewardId: 46
       PointsForNextLevel: 0
       Season: 7

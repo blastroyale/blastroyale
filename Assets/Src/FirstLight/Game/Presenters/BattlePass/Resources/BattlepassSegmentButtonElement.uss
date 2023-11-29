@@ -216,7 +216,7 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
-.reward__root--free {
+.reward__root--small {
     scale: 0.8 0.8;
 }
 
@@ -454,4 +454,11 @@
     width: 73px;
     height: 66px;
     -unity-background-scale-mode: scale-to-fit;
+}
+
+.bar__buy-button--arrow {
+    flex-grow: 1;
+    position: absolute;
+    top: -60%;
+    left: 80px;
 }

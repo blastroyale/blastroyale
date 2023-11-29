@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/StoreScreenStyle.uss?fileID=7433441132597879392&amp;guid=4e78e87407db04df3a3f36ca0181c06c&amp;type=3#StoreScreenStyle" />
     <ui:VisualElement name="root" class="background fill-parent">
-        <FirstLight.Game.UIElements.SafeAreaElement apply-top="false" class="fill-parent items-holder store-safearea">
+        <FirstLight.Game.UIElements.SafeAreaElement apply-top="false" apply-bottom="false" class="fill-parent items-holder store-safearea">
             <ui:ScrollView name="ProductScrollView" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" horizontal-page-size="-1" class="scroll-view">
                 <ui:VisualElement name="ProductList" class="product-list" />
             </ui:ScrollView>

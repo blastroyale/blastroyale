@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -73,7 +74,7 @@ namespace FirstLight.Game.StateMachines
 			completionCheck.Transition().Target(playGame);
 				
 			playGame.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.PlayGameClick); });
-			playGame.OnEnter(OnPlayGameEnter);
+			playGame.OnEnter(() => _ = OnPlayGameEnter());
 			playGame.Event(MainMenuState.PlayClickedEvent).Target(createTutorialRoom);
 			playGame.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 			playGame.OnExit(OnPlayGameExit);
@@ -84,7 +85,7 @@ namespace FirstLight.Game.StateMachines
 			createTutorialRoom.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 
 			mapSelect.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.SelectMapPoint); });
-			mapSelect.OnEnter(OnMapSelectEnter);
+			mapSelect.OnEnter(() => _ = OnMapSelectEnter());
 			mapSelect.Event(_selectedMapPointEvent).Target(waitSimulationStart);
 			mapSelect.Event(GameSimulationState.SimulationStartedEvent).OnTransition(()=>_sequence.EnterStep(TutorialClientStep.TutorialFinish)).Target(final);
 			mapSelect.OnExit(OnMapSelectExit);
@@ -142,14 +143,14 @@ namespace FirstLight.Game.StateMachines
 			_tutorialUtilsUi.BlockFullScreen();
 		}
 		
-		private async void OnPlayGameEnter()
+		private async UniTaskVoid OnPlayGameEnter()
 		{
 			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
 
 			_tutorialUtilsUi.Unblock();
-			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>("play-button");
+			await _tutorialUtilsUi.BlockAround<HomeScreenPresenter>("play-button");
 			_tutorialUtilsUi.Highlight<HomeScreenPresenter>("play-button");
 		}
 		
@@ -159,13 +160,13 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi.HideDialog(CharacterType.Female);
 		}
 		
-		private async void OnMapSelectEnter()
+		private async UniTaskVoid OnMapSelectEnter()
 		{
 			_tutorialUtilsUi.BlockFullScreen();
 			await Task.Delay(GameConstants.Tutorial.TIME_4000MS);
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.select_map_position, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
 			_tutorialUtilsUi.Unblock();
-			_tutorialUtilsUi.BlockAround<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
+			await _tutorialUtilsUi.BlockAround<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
 			_tutorialUtilsUi.Highlight<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
 		}
 		

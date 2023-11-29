@@ -7085,7 +7085,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SKY LASER BEAM
+      - LASER BEAM
       - "\u041D\u0435\u0431\u043E \u043B\u0430\u0437\u0435\u0440\u043D\u044B\u0439
         \u043B\u0443\u0447"
       - "Feixe de laser do c\xE9u"
@@ -7497,105 +7497,6 @@ MonoBehaviour:
       - WEAPON
       - "\u041E\u0420\u0423\u0416\u0418\u0415"
       - ARMA
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar1
-      TermType: 0
-      Description: 
-      Languages:
-      - DRAKE
-      - DRAKE
-      - DRAKE
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar1Description
-      TermType: 0
-      Description: 
-      Languages:
-      - 
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar2
-      TermType: 0
-      Description: 
-      Languages:
-      - JINGS
-      - JINGS
-      - JINGS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar2Description
-      TermType: 0
-      Description: 
-      Languages:
-      - 
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar3
-      TermType: 0
-      Description: 
-      Languages:
-      - SERENITY
-      - SERENITY
-      - SERENITY
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar4
-      TermType: 0
-      Description: 
-      Languages:
-      - BUNNY
-      - BUNNY
-      - BUNNY
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar4Description
-      TermType: 0
-      Description: 
-      Languages:
-      - 
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar5
-      TermType: 0
-      Description: 
-      Languages:
-      - JADE
-      - JADE
-      - JADE
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Avatar5Description
-      TermType: 0
-      Description: 
-      Languages:
-      - 
-      - 
-      - 
       - 
       - 
       Flags: 0000000000
@@ -12167,7 +12068,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ranked Games Won
+      - Games Won
       - "\u0412\u044B\u0438\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
         \u0438\u0433\u0440"
       - "Jogos classificados j\xE1 vencidos"
@@ -12179,7 +12080,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ranked Kills
+      - Kills
       - "\n\u0420\u0430\u043D\u0433\u043E\u0432\u044B\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
       - Jogos classificados vencidos
       - 
@@ -12190,7 +12091,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ranked Games Played
+      - Games Played
       - "\u0421\u044B\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
         \u0438\u0433\u0440"
       - "\nMortes Classificat\xF3rias"
@@ -12231,6 +12132,17 @@ MonoBehaviour:
       - "\n\u0412\u0441\u0435\u0433\u043E \u0432\u044B\u0438\u0433\u0440\u0430\u043D\u043E
         \u0438\u0433\u0440"
       - Total de jogos ganhos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedDeaths
+      TermType: 0
+      Description: 
+      Languages:
+      - Deaths
+      - "\n\u0420\u0430\u043D\u0433\u043E\u0432\u044B\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
+      - Jogos classificados vencidos
       - 
       - 
       Flags: 0000000000
@@ -15493,7 +15405,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BATTLE ROYALE
+      - 'MODE: SOLOS'
       - BATTLE ROYALE
       - BATTLE ROYALE
       - 
@@ -15521,9 +15433,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'BATTLE ROYALE
-
-        DUOS'
+      - 'MODE: DUOS'
       - 'BATTLE ROYALE
 
         DUOS'
@@ -16013,7 +15923,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Invalid Input Parameters
+      - Username can only contain letters and numbers
       - "\u041D\u0435\u0432\u0435\u0440\u043D\u044B\u0435 \u0432\u0445\u043E\u0434\u043D\u044B\u0435
         \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B"
       - "Par\xE2metros de entrada inv\xE1lidos"
@@ -17618,7 +17528,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - An unkown error ocurred, please try again.
+      - An unknown error occurred, please try again.
       - "\u041E\u0448\u0438\u0431\u043A\u0430 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u0435\u0442,
         \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435
         \u0440\u0430\u0437."
@@ -18275,7 +18185,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1700247200637
+    Google_LastUpdatedVersion: 1701195205591
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -27,14 +28,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// <summary>
 		/// Initializes the Adventure character view with the given player data
 		/// </summary>
-		public async Task Init(EntityView entityView, PlayerLoadout loadout, Frame frame)
+		public async UniTask Init(EntityView entityView, PlayerLoadout loadout, Frame frame)
 		{
 			Cosmetics = loadout.Cosmetics;
 			_footsteps = gameObject.AddComponent<FootprinterMonoComponent>();
 			_footsteps.Init(entityView, loadout);
 
 			var weaponTask = EquipWeapon(loadout.Weapon.GameId);
-			var list = new List<Task> {weaponTask};
+			var list = new List<UniTask>();
 
 			foreach (var item in loadout.Equipment)
 			{
@@ -54,7 +55,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				list.Add(InstantiateItem(glider, GameIdGroup.Glider));
 			}
 
-			await Task.WhenAll(list);
+			await UniTask.WhenAll(list);
 
 			var runner = QuantumRunner.Default;
 
@@ -63,7 +64,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var weapons = weaponTask.Result;
+			var weapons = await weaponTask;
 
 			for (var i = 0; i < weapons.Count; i++)
 			{

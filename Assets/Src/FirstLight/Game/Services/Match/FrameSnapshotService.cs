@@ -160,9 +160,12 @@ namespace FirstLight.Game.Services
 
 		public void ClearFrameSnapshot()
 		{
-			FLog.Info("Clearing Frame Snapshot");
-			_data.AppDataProvider.LastFrameSnapshot.Value = default;
-			_services.DataSaver.SaveData<AppData>();
+			if (_data.AppDataProvider.LastFrameSnapshot != default)
+			{
+				FLog.Info("Clearing Frame Snapshot");
+				_data.AppDataProvider.LastFrameSnapshot.Value = default;
+				_services.DataSaver.SaveData<AppData>();
+			}
 		}
 
 		/// <inheritdoc />

@@ -1,0 +1,6 @@
+#https://forum.unity.com/threads/rsp-file-per-assembly-or-folder.572758/
+
+#https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/errors-warnings
+-warnaserror
+-nowarn:CS1701,CS0612,CS1591,CS1571,CS1572,CS1573,CS1574,CS1587
+-doc:com.Tivadar.Best.HTTP.xml

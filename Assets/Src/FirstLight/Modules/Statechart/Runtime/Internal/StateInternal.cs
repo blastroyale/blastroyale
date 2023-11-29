@@ -249,8 +249,8 @@ namespace FirstLight.Statechart.Internal
          }
          catch (Exception e)
          {
-            throw new Exception($"Exception in the transition '{Name}' -> '{transition.TargetState?.Name}'," +
-                                $" TriggerTransition() actions.\n{transition.CreationStackTrace}", e);
+            throw new Exception($"Exception in the transition '{Name}' -> '{transition?.TargetState?.Name}'," +
+                                $" TriggerTransition() actions.\n{transition?.CreationStackTrace}", e);
          }
       }
    }

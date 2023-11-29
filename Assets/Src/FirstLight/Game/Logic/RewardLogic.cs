@@ -255,8 +255,12 @@ namespace FirstLight.Game.Logic
 		public List<ItemData> ClaimUnclaimedRewards()
 		{
 			var claimed = new List<ItemData>(Data.UncollectedRewards);
-			foreach (var reward in claimed) ClaimUnclaimedReward(reward);
-			return claimed;
+			foreach (var reward in claimed)
+			{
+				if (reward.Id == GameId.Random) Data.UncollectedRewards.Remove(reward);
+				else ClaimUnclaimedReward(reward);
+			}
+			return claimed.Where(r => r.Id != GameId.Random).ToList();
 		}
 
 		public void RewardToUnclaimedRewards(IEnumerable<ItemData> items)
@@ -439,7 +443,7 @@ namespace FirstLight.Game.Logic
 					GameLogic.CurrencyLogic.AddCurrency(reward.Id, (uint) currency.Amount);
 				}
 				else throw new LogicException($"Unknown currency '{reward.Id.ToString()}'");
-			}
+			} 
 			else throw new LogicException($"Unknown reward {reward}");
 			return reward;
 		}

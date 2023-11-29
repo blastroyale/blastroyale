@@ -183,15 +183,6 @@ namespace Quantum.Systems
 					consumablesToDrop.Add(consumable);
 				}
 
-				if (QuantumFeatureFlags.ENERGY_CUBES_REPLACE_SPECIALS)
-				{
-					consumablesToDrop.Add(GameId.EnergyCubeLarge);
-				}
-				else
-				{
-					consumablesToDrop.Add(Special.GetRandomSpecialId(f));
-				}
-
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
 				{
 					equipmentToDrop.Add(playerDead->CurrentWeapon);

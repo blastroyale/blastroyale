@@ -1,5 +1,6 @@
 
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
@@ -48,6 +49,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		public bool IsBot => QuantumRunner.Default.PredictedFrame().Has<BotCharacter>(EntityView.EntityRef);
 
+		public void SwitchShadowVisibility(bool visibility)
+		{
+			_shadowBlob.SetActive(visibility);
+		}
+
 		private void OnSpectateChange(SpectatedPlayer oldP, SpectatedPlayer newP)
 		{
 			if (oldP.Team == newP.Team) return;
@@ -94,7 +100,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_ = SpawnDeathMarker(marker);
 		}
 
-		private async Task SpawnDeathMarker(ItemData marker)
+		private async UniTaskVoid SpawnDeathMarker(ItemData marker)
 		{ 
 			var position = transform.position;
 			var obj = await Services.CollectionService.LoadCollectionItem3DModel(marker);
@@ -110,13 +116,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		public bool ShouldDisplayColorTag()
 		{
-			if (IsBot)
-			{
-				var specTeam = _matchServices.TeamService.GetTeam(_matchServices.SpectateService.GetSpectatedEntity());
-				var botTeam = _matchServices.TeamService.GetTeam(EntityView.EntityRef);
-				Log.Warn($"Bot {EntityView.EntityRef} team {botTeam} playerteam {specTeam}");
-			}
-
 			if (PlayerView == null || this.IsDestroyed() || PlayerView.IsEntityDestroyed())
 			{
 				return false;
@@ -128,7 +127,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			return !PlayerView.IsSkydiving && _matchServices.TeamService.IsSameTeamAsSpectator(EntityView.EntityRef);
 		}
 
-		private async Task<GameObject> LoadCharacterSkin(GameId[] playerSkins)
+		private async UniTask<GameObject> LoadCharacterSkin(GameId[] playerSkins)
 		{
 			var skin = Services.CollectionService.GetCosmeticForGroup(playerSkins, GameIdGroup.PlayerSkin);
 			var obj = await Services.CollectionService.LoadCollectionItem3DModel(skin);
@@ -137,7 +136,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var container = obj.AddComponent<RenderersContainerMonoComponent>();
 			container.UpdateRenderers();
 			// TODO REMOVE THIS SHIT SOMEDAY
-			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FTUE_MAP)
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
 			{
 				AddLegacyCollider(obj);
 			}
@@ -159,13 +158,12 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			newCollider.isTrigger = true;
 		}
 		
-		private async Task InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)
+		private async UniTaskVoid InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)
 		{
 			var frame = quantumGame.Frames.Verified;
 			var stats = frame.Get<Stats>(EntityView.EntityRef);
 			var loadout = PlayerLoadout.GetLoadout(frame, EntityView.EntityRef);
 			var skinInstance = await LoadCharacterSkin(loadout.Cosmetics);
-
 
 			if (this.IsDestroyed())
 			{

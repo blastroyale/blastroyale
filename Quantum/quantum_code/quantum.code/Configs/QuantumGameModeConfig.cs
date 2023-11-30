@@ -8,7 +8,7 @@ using Sirenix.OdinInspector;
 namespace Quantum
 {
 	[Serializable]
-	public struct QuantumGameModeConfig
+	public class QuantumGameModeConfig
 	{
 		[PropertyTooltip(DESC_ID)] public string Id;
 

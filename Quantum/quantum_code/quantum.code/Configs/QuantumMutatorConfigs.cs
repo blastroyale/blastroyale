@@ -25,7 +25,7 @@ namespace Quantum
 	}
 
 	[Serializable]
-	public partial struct QuantumMutatorConfig
+	public partial class QuantumMutatorConfig
 	{
 		public string Id;
 		public MutatorType Type;

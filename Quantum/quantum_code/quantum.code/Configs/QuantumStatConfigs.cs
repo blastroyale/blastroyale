@@ -5,7 +5,7 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public partial struct QuantumStatConfig
+	public partial class QuantumStatConfig
 	{
 		public StatType StatType;
 		public FP BaseValue;

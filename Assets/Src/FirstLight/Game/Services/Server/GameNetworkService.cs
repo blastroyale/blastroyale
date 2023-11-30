@@ -225,9 +225,9 @@ namespace FirstLight.Game.Services
 
 		private Queue<int> LastRttQueue;
 		private int CurrentRttTotal;
-		private Coroutine _tickUpdateCoroutine;
 		private Coroutine _tickPingCheckCoroutine;
-
+		private bool _ticking = false;
+		
 		public IObservableField<string> UserId { get; }
 		public IObservableField<JoinRoomSource> JoinSource { get; }
 		public IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
@@ -301,7 +301,35 @@ namespace FirstLight.Game.Services
 			_dataProvider = dataProvider;
 
 			_services.MessageBrokerService.Subscribe<PingedRegionsMessage>(OnPingRegions);
-			_services.TickService.SubscribeOnUpdate(f => QuantumClient.Service());
+			_services.TickService.SubscribeOnUpdate(QuantumTick);
+			_ticking = true;
+			
+			QuantumCallback.SubscribeManual<CallbackSimulateFinished>(this, OnSimulationFinish);
+			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnSimulationStarted);
+		}
+
+		private void OnSimulationFinish(CallbackSimulateFinished cb)
+		{
+			if (!_ticking)
+			{
+				_services.TickService.SubscribeOnUpdate(QuantumTick);
+				_ticking = true;
+			}
+		}
+
+		private void OnSimulationStarted(CallbackGameStarted cb)
+		{
+			if (_ticking)
+			{
+				_services.TickService.UnsubscribeOnUpdate(QuantumTick);
+				_ticking = false;
+			}
+		}
+
+		private void QuantumTick(float f)
+		{
+			if (QuantumRunner.Default.IsDefinedAndRunning()) return;
+			QuantumClient.Service();
 		}
 
 		private void OnPingRegions(PingedRegionsMessage msg)

@@ -6,7 +6,7 @@ namespace Quantum.Systems.Bots
 {
 	public unsafe class BattleRoyaleBot
 	{
-		internal void Update(Frame f, ref BotCharacterFilter filter, bool isTakingCircleDamage, in BotUpdateGlobalContext botCtx)
+		internal void Update(Frame f, ref BotCharacterFilter filter, in bool isTakingCircleDamage, in BotUpdateGlobalContext botCtx)
 		{
 			filter.CleanDestroyedWaypointTarget(f);
 
@@ -136,7 +136,7 @@ namespace Quantum.Systems.Bots
 			}
 
 			var randomTeammate = EntityRef.None;
-			var team = f.Get<Targetable>(filter.Entity).Team;
+			var team = f.Unsafe.GetPointer<Targetable>(filter.Entity)->Team;
 
 			foreach (var candidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
 			{

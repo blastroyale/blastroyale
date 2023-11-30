@@ -100,6 +100,7 @@
     <Compile Include="Commands\Cheats\Tutorial\CheatKillAllTutorialBots.cs" />
     <Compile Include="Commands\TutorialSpawnSpecialCommand.cs" />
     <Compile Include="Components\CosteticsHolder.cs" />
+    <Compile Include="Components\InputBake.cs" />
     <Compile Include="Components\PlayerInventory.cs" />
     <Compile Include="Configs\QuantumBotDifficultyConfigs.cs" />
     <Compile Include="QuantumFeatureFlags.cs" />

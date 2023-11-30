@@ -21,7 +21,7 @@ namespace Quantum.Systems
 			f.Context.TargetPlayersMask = f.Layers.GetLayerMask(PhysicsLayers.PLAYERS);
 			f.Context.TargetMapOnlyLayerMask = f.Layers.GetLayerMask(PhysicsLayers.OBSTACLES);
 			f.Context.MapShrinkingCircleConfigs = f.ShrinkingCircleConfigs.GetConfigs(f.RuntimeConfig.MapId);
-			
+
 			foreach (var systemName in f.Context.GameModeConfig.Systems)
 			{
 				var systemType = Type.GetType(systemName);

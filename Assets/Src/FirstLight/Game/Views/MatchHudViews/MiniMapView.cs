@@ -274,7 +274,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var safeCenter = _minimapCamera.WorldToViewportPoint(circle.TargetCircleCenter.XOY.ToUnityVector3()) -
 				Vector3.one / 2f;
 
-			if (_config.Step != circle.Step)
+			if (_config == null || _config.Step != circle.Step)
 			{
 				_config = f.Context.MapShrinkingCircleConfigs[circle.Step];
 			}

@@ -5,7 +5,7 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public struct QuantumBotDifficultyConfig
+	public class QuantumBotDifficultyConfig
 	{
 		public uint MinTrophies;
 		public uint MaxTrophies;

@@ -5,14 +5,14 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public struct QuantumChestRarityModifierEntry
+	public class QuantumChestRarityModifierEntry
 	{
 		public FP Chance;
 		public ChestType NewType;
 	}
 
 	[Serializable]
-	public partial struct QuantumChestConfig
+	public partial class QuantumChestConfig
 	{
 		public GameId Id;
 		public ChestType ChestType;

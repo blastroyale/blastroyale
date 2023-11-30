@@ -16,8 +16,8 @@ namespace Quantum
 				return;
 			}
 			
+			// TODO: Pre-bake lerp calculations
 			var lerp = FPMath.Max(0, (f.Time - ShrinkingStartTime) / ShrinkingDurationTime);
-
 			radius = FPMath.Lerp(CurrentRadius, TargetRadius, lerp);
 			center = FPVector2.Lerp(CurrentCircleCenter, TargetCircleCenter, lerp);
 		}

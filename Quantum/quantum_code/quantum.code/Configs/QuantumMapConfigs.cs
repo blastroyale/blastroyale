@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Quantum
 {
 	[Serializable]
-	public partial struct QuantumMapConfig
+	public partial class QuantumMapConfig
 	{
 		public GameId Map;
 		public int MaxPlayers;

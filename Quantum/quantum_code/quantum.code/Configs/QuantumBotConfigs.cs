@@ -5,7 +5,7 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public struct QuantumBotConfig
+	public class QuantumBotConfig
 	{
 		public BotBehaviourType BehaviourType;
 		public string GameMode;

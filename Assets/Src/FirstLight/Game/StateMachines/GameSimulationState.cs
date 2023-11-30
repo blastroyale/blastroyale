@@ -14,6 +14,7 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes.Helpers;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -103,7 +104,7 @@ namespace FirstLight.Game.StateMachines
 
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(disconnectedCritical);
-			
+
 			final.OnEnter(UnloadSimulationUi);
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -121,7 +122,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			
+
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 
 			QuantumEvent.SubscribeManual<EventOnAllPlayersJoined>(this, OnAllPlayersJoined);
@@ -248,6 +249,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				return;
 			}
+
 			_statechartTrigger(SimulationStartedEvent);
 			_ = CloseMatchmakingScreen();
 		}
@@ -256,7 +258,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Verbose(
 				$"Game Resync {callback.Game.Frames.Verified.Number} vs {_gameDataProvider.AppDataProvider.LastFrameSnapshot.Value.FrameNumber}");
-			
+
 			_ = ResyncCoroutine();
 		}
 
@@ -429,6 +431,10 @@ namespace FirstLight.Game.StateMachines
 				.Select(data => data.Id)
 				.ToArray();
 
+
+			var config = _services.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
+			var avatarUrl = AvatarHelpers.GetAvatarUrl(_gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE),
+				config);
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
@@ -441,7 +447,7 @@ namespace FirstLight.Game.StateMachines
 				LoadoutMetadata = loadoutMetadata,
 				LeaderboardRank = (uint) _services.LeaderboardService.CurrentRankedEntry.Position,
 				PartyId = GetTeamId(),
-				AvatarUrl = _gameDataProvider.AppDataProvider.AvatarUrl,
+				AvatarUrl = avatarUrl,
 				UseBotBehaviour = FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour
 			});
 		}

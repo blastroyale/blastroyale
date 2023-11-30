@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using Quantum;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 
@@ -33,10 +34,11 @@ namespace FirstLight.Game.Data.DataTypes
 
 		private async Task DrawAvatar(VisualElement icon)
 		{
+			// TODO: Move to general USS
 			var sprite = await MainInstaller.ResolveServices().CollectionService.LoadCollectionItemSprite(Item);
 			icon.style.backgroundImage = new StyleBackground(sprite);
-			var w = icon.resolvedStyle.width / 2;
-			if (w == 0) w = 128;
+			var w = short.MaxValue;
+			icon.style.scale = new StyleScale(new Scale(new Vector2(0.8f, 0.8f)));
 			icon.style.borderBottomLeftRadius = w;
 			icon.style.borderBottomRightRadius = w;
 			icon.style.borderTopLeftRadius = w;

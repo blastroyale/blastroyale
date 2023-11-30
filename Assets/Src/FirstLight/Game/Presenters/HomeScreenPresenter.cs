@@ -184,6 +184,10 @@ namespace FirstLight.Game.Presenters
 			root.Q<CurrencyDisplayElement>("FragmentsCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
+			root.Q<CurrencyDisplayElement>("BlastBuckCurrency")
+				.AttachView(this, out CurrencyDisplayView _)
+				.SetAnimationOrigin(_playButton);;
+
 
 			// TODO: Uncomment when we use Fragments
 			root.Q<CurrencyDisplayElement>("FragmentsCurrency").SetDisplay(false);

@@ -7732,6 +7732,18 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/BlastBuckDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Earn Blast Bucks by completing Blast Pass or buy them in the shop. Use them
+        to speed up Blast Pass progress
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/BlastBuck_Plural
       TermType: 0
       Description: 
@@ -18185,7 +18197,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1701337923659
+    Google_LastUpdatedVersion: 1701355915992
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

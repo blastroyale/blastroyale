@@ -768,15 +768,15 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 954409
+    - Key: 2920489
       Step: 1
       Map: 115
       DelayTime:
-        RawValue: 2293760
-      WarningTime:
         RawValue: 1310720
+      WarningTime:
+        RawValue: 983040
       ShrinkingTime:
-        RawValue: 3932160
+        RawValue: 3276800
       ShrinkingSizeK:
         RawValue: 39322
       NewSafeSpaceAreaSizeK:
@@ -793,15 +793,15 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 655360
       AirdropChest: 19
-    - Key: 2919169
+    - Key: 2394881
       Step: 2
       Map: 115
       DelayTime:
         RawValue: 327680
       WarningTime:
-        RawValue: 983040
+        RawValue: 786432
       ShrinkingTime:
-        RawValue: 2621440
+        RawValue: 2293760
       ShrinkingSizeK:
         RawValue: 49152
       NewSafeSpaceAreaSizeK:
@@ -818,15 +818,15 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 524288
       AirdropChest: 19
-    - Key: 2650960
+    - Key: 1471312
       Step: 3
       Map: 115
       DelayTime:
         RawValue: 327680
       WarningTime:
-        RawValue: 983040
+        RawValue: 786432
       ShrinkingTime:
-        RawValue: 2293760
+        RawValue: 1966080
       ShrinkingSizeK:
         RawValue: 45875
       NewSafeSpaceAreaSizeK:
@@ -843,15 +843,15 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 524288
       AirdropChest: 19
-    - Key: 1997308
+    - Key: 1079804
       Step: 4
       Map: 115
       DelayTime:
         RawValue: 327680
       WarningTime:
-        RawValue: 983040
+        RawValue: 786432
       ShrinkingTime:
-        RawValue: 1638400
+        RawValue: 1310720
       ShrinkingSizeK:
         RawValue: 42598
       NewSafeSpaceAreaSizeK:
@@ -868,15 +868,15 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 262144
       AirdropChest: 19
-    - Key: 498145
+    - Key: 104929
       Step: 5
       Map: 115
       DelayTime:
         RawValue: 327680
       WarningTime:
-        RawValue: 983040
+        RawValue: 655360
       ShrinkingTime:
-        RawValue: 983040
+        RawValue: 786432
       ShrinkingSizeK:
         RawValue: 32768
       NewSafeSpaceAreaSizeK:

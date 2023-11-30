@@ -221,6 +221,7 @@ namespace FirstLight.Game.Presenters
 		private void SelectMapPosition(Vector2 localPos, bool offsetCoors, bool checkClickWithinRadius)
 		{
 			if (_mapImage == null) return;
+			if (!_services.RoomService.InRoom) return;
 
 			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapRadius(localPos))) return;
 

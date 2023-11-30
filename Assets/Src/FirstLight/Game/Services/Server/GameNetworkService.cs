@@ -319,6 +319,11 @@ namespace FirstLight.Game.Services
 
 		private void OnSimulationStarted(CallbackGameStarted cb)
 		{
+			var isOffline = _services.RoomService.CurrentRoom?.IsOffline ?? false;
+			if (isOffline)
+			{
+				return;
+			}
 			if (_ticking)
 			{
 				_services.TickService.UnsubscribeOnUpdate(QuantumTick);

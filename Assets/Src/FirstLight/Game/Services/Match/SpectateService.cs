@@ -137,7 +137,16 @@ namespace FirstLight.Game.Services
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
 			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
-			var playerWinner = localWinner ? playerData[game.GetLocalPlayerRef()] : playerData[leader];
+			var playerWinner =  playerData[leader];
+			if (localWinner)
+			{
+				var local = playerData[game.GetLocalPlayerRef()];
+				var isLocalPlayerAlive = local.Data.Entity.IsAlive(game.Frames.Predicted);
+				if (isLocalPlayerAlive)
+				{
+					playerWinner = local;
+				}
+			}
 
 			if (playerWinner.Data.IsValid)
 			{

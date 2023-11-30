@@ -371,6 +371,7 @@ namespace Quantum
 			{358, new FPVector2(FP.FromRaw(3721), FP.FromRaw(65430))},
 			{359, new FPVector2(FP.FromRaw(2579), FP.FromRaw(65485))},
 			{360, new FPVector2(FP.FromRaw(1437), FP.FromRaw(65520))},
+			{361, new FPVector2(FP.FromRaw(0), FP.FromRaw(65536))},
 		};
 	
 		/// <summary>

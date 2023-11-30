@@ -37,16 +37,7 @@ namespace FirstLight.Game.Presenters
 		{
 			Close(false);
 		}
-
-		protected override void Close(bool destroy)
-		{
-			// TODO - check if IsOpenedComplete check needs to be added to prevent "closing too early" edge cases
-			base.Close(destroy);
-			_blockerButton.clicked -= CloseRequested;
-			_buyButton.clicked -= CloseRequested;
-			_buyButton.clicked -= OnBuyButtonClicked;
-		}
-
+		
 		protected override Task OnClosed()
 		{
 			_closeCallback?.Invoke();
@@ -68,6 +59,10 @@ namespace FirstLight.Game.Presenters
 
 			_confirmCallback = null;
 			_closeCallback = null;
+			
+			_buyButton.clicked += OnBuyButtonClicked;
+			_blockerButton.clicked += CloseRequested;
+			_closeButton.clicked += CloseRequested;
 		}
 
 		private void OnBuyButtonClicked()
@@ -100,17 +95,14 @@ namespace FirstLight.Game.Presenters
 			{
 				_itemIcon.style.backgroundImage = StyleKeyword.Null;
 				options.Item.GetViewModel().DrawIcon(_itemIcon);
-
 			}
 
 			_itemAmount.text = "";
 			_itemPrice.text = options.Value.ToString();
-			_confirmCallback = options.OnConfirm;
+
 			_title.text = ScriptLocalization.UITGeneric.purchase_title;
 			_closeCallback = options.OnExit;
-			_buyButton.clicked += OnBuyButtonClicked;
-			_blockerButton.clicked += CloseRequested;
-			_closeButton.clicked += CloseRequested;
+			_confirmCallback = options.OnConfirm;
 		}
 		
 
@@ -125,11 +117,8 @@ namespace FirstLight.Game.Presenters
 			_itemPrice.text = ScriptLocalization.UITGeneric.purchase_not_enough_button_text;
 			_title.text = ScriptLocalization.UITGeneric.purchase_not_enough_title;
 			_itemAmount.text = options.Value > 0 ? options.Value.ToString() : "";
-	
-			_buyButton.clicked += GoToShop;
-			_blockerButton.clicked += CloseRequested;
-			_closeButton.clicked += CloseRequested;
 			_closeCallback = options.OnExit;
+			_confirmCallback = GoToShop;
 		}
 
 		private void GoToShop()

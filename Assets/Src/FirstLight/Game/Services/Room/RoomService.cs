@@ -271,6 +271,7 @@ namespace FirstLight.Game.Services.RoomService
 		/// <returns></returns>
 		public bool JoinOrCreateRandomRoom(MatchRoomSetup setup)
 		{
+			FLog.Verbose("Is player in room "+InRoom);
 			if (InRoom) return false;
 
 			FLog.Info($"JoinOrCreateRandomRoom: {setup}");
@@ -419,6 +420,8 @@ namespace FirstLight.Game.Services.RoomService
 
 		public void OnJoinedRoom()
 		{
+			FLog.Verbose("Joined room!");
+
 			CheckRoomInit();
 		}
 
@@ -566,6 +569,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		public void OnLeftRoom()
 		{
+			FLog.Verbose("Left room");
 			CurrentRoom = null;
 		}
 

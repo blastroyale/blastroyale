@@ -1,5 +1,7 @@
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace FirstLight.Editor.Artifacts
@@ -68,9 +70,19 @@ namespace FirstLight.Editor.Artifacts
 			Odin
 		};
 
-		public static Task Copy(string target, params IArtifact[] artifacts)
+		public static async UniTask Copy(string target, params IArtifact[] artifacts)
 		{
-			return Task.WhenAll(artifacts.Select(a => a.CopyTo(target)));
+			AssureDirectoryExistence(target);
+
+			await UniTask.WhenAll(artifacts.Select(a => a.CopyTo(target)));
+		}
+		
+		private static void AssureDirectoryExistence(string directory)
+		{
+			if (!Directory.Exists(directory))
+			{
+				Directory.CreateDirectory(directory);
+			}
 		}
 	}
 }

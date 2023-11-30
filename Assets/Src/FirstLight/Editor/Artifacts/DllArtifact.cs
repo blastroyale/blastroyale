@@ -1,5 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace FirstLight.Editor.Artifacts
 {
@@ -9,9 +10,8 @@ namespace FirstLight.Editor.Artifacts
 		public string[] Dlls { get; set; }
 
 
-		public Task CopyTo(string target)
+		public UniTask CopyTo(string target)
 		{
-			this.AssureDirectoryExistence(target);
 			foreach (var dll in Dlls)
 			{
 				var gameDllPath = $"{SourceDir}{dll}";
@@ -21,7 +21,7 @@ namespace FirstLight.Editor.Artifacts
 				File.Copy(gameDllPath, destDll, true);
 			}
 
-			return Task.CompletedTask;
+			return UniTask.CompletedTask;
 		}
 	}
 }

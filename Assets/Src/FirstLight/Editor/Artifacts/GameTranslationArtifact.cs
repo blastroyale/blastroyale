@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules;
@@ -24,14 +25,12 @@ namespace FirstLight.Editor.Artifacts
 			return ModelSerializer.Serialize(terms).Value;
 		}
 
-		public Task CopyTo(string directory)
+		public UniTask CopyTo(string directory)
 		{
-			this.AssureDirectoryExistence(directory);
-
 			var path = $"{directory}/gameTranslations.json";
 			File.WriteAllText(path, GenerateTranslationJson());
 			Debug.Log($"Parsed and saved translations at {path}");
-			return Task.CompletedTask;
+			return UniTask.CompletedTask;
 		}
 	}
 }

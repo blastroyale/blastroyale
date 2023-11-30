@@ -10,7 +10,7 @@ namespace FirstLight.Editor.Artifacts
 {
 	public class GameConfigArtifact : IArtifact
 	{
-		public async Task<string> GenerateConfigJson()
+		public async UniTask<string> GenerateConfigJson()
 		{
 			var serializer = new ConfigsSerializer();
 			var configs = new ConfigsProvider();
@@ -20,9 +20,8 @@ namespace FirstLight.Editor.Artifacts
 			return serializer.Serialize(configs, "develop");
 		}
 
-		public async Task CopyTo(string directory)
+		public async UniTask CopyTo(string directory)
 		{
-			this.AssureDirectoryExistence(directory);
 			var serializedJson = await GenerateConfigJson();
 			var path = $"{directory}/gameConfig.json";
 			File.WriteAllText(path, serializedJson);

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules;
@@ -13,12 +14,11 @@ namespace FirstLight.Editor.Artifacts
 {
 	public class QuantumAssetDBArtifact : IArtifact
 	{
-		public Task CopyTo(string directory)
+		public UniTask CopyTo(string directory)
 		{
-			this.AssureDirectoryExistence(directory);
 			AssetDBGeneration.Export(directory + "assetDatabase.json");
 			Debug.Log("Exported Quantum asset database");
-			return Task.CompletedTask;
+			return UniTask.CompletedTask;
 		}
 	}
 }

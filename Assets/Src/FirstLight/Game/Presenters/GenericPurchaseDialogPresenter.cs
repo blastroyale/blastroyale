@@ -109,7 +109,6 @@ namespace FirstLight.Game.Presenters
 			_title.text = ScriptLocalization.UITGeneric.purchase_title;
 			_closeCallback = options.OnExit;
 			_buyButton.clicked += OnBuyButtonClicked;
-			_buyButton.clicked += CloseRequested;
 			_blockerButton.clicked += CloseRequested;
 			_closeButton.clicked += CloseRequested;
 		}
@@ -128,7 +127,6 @@ namespace FirstLight.Game.Presenters
 			_itemAmount.text = options.Value > 0 ? options.Value.ToString() : "";
 	
 			_buyButton.clicked += GoToShop;
-			_buyButton.clicked += CloseRequested;
 			_blockerButton.clicked += CloseRequested;
 			_closeButton.clicked += CloseRequested;
 			_closeCallback = options.OnExit;

@@ -29,8 +29,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			var positionOffset = new Vector3(-_dampenedRotationRate.y, -_dampenedRotationRate.x, 0f);
 
-			Debug.Log($"Dampened: {_dampenedRotationRate}, Raw: {_gyro.rotationRateUnbiased}, Offset: {positionOffset}");
-
 			_centerTriangle.localPosition = positionOffset * _centerTriangleShift;
 			_innerBolts.localPosition = positionOffset * _innerBoltsShift;
 			_outerBolts.localPosition = positionOffset * _outerBoltsShift;

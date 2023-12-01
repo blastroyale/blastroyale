@@ -1,6 +1,4 @@
 using System.IO;
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -10,19 +8,20 @@ namespace FirstLight.Editor.Artifacts
 {
 	public class GameConfigArtifact : IArtifact
 	{
-		public async UniTask<string> GenerateConfigJson()
+		public string GenerateConfigJson()
 		{
 			var serializer = new ConfigsSerializer();
 			var configs = new ConfigsProvider();
 			var configsLoader = new GameConfigsLoader(new AssetResolverService());
 			Debug.Log("Parsing Configs");
-			await UniTask.WhenAll(configsLoader.LoadConfigTasks(configs));
+			configsLoader.LoadConfigEditor(configs);
+
 			return serializer.Serialize(configs, "develop");
 		}
 
-		public async UniTask CopyTo(string directory)
+		public void CopyTo(string directory)
 		{
-			var serializedJson = await GenerateConfigJson();
+			var serializedJson = GenerateConfigJson();
 			var path = $"{directory}/gameConfig.json";
 			File.WriteAllText(path, serializedJson);
 			Debug.Log($"Parsed and saved gameConfigs at {path}");

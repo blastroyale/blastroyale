@@ -17,4 +17,5 @@ enum TeamPingType
 component TeamMember {
     int TeamId;
     int TeamIndex;
+    byte Color;
 }

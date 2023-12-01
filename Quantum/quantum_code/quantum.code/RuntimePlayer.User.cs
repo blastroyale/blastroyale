@@ -19,6 +19,7 @@ namespace Quantum
 		public EquipmentSimulationMetadata[] LoadoutMetadata;
 		public string AvatarUrl;
 		public bool UseBotBehaviour;
+		public byte TeamColor;
 
 		partial void SerializeUserData(BitStream stream)
 		{
@@ -32,6 +33,7 @@ namespace Quantum
 			stream.Serialize(ref PartyId);
 			stream.Serialize(ref AvatarUrl);
 			stream.Serialize(ref UseBotBehaviour);
+			stream.Serialize(ref TeamColor);
 			stream.SerializeArrayLength(ref Loadout);
 			stream.Serialize(ref LeaderboardRank);
 

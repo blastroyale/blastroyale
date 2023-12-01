@@ -554,7 +554,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				if (friendlyView.Entity != callback.Entity) continue;
 
-				friendlyView.SetColor(_matchServices.TeamService.GetTeamMemberColor(callback.Entity) ?? Color.white);
+				friendlyView.SetColor(_services.TeamService.GetTeamMemberColor(callback.Entity) ?? Color.white);
 				break;
 			}
 		}
@@ -584,7 +584,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var friendlyView = _friendliesPool.Spawn();
 			_spawnedFriendlies.Add(entity);
 			friendlyView.SetPlayer(entity, view.transform);
-			friendlyView.SetColor(_matchServices.TeamService.GetTeamMemberColor(entity) ?? Color.white);
+			friendlyView.SetColor(_services.TeamService.GetTeamMemberColor(entity) ?? Color.white);
 		}
 
 		private Vector2 ViewportToMinimapPosition(Vector3 viewportPosition, Vector3 playerViewportPosition)

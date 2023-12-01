@@ -50,6 +50,8 @@ namespace FirstLight.Game.Services.RoomService
 		/// Do you need docs ?
 		/// </summary>
 		event Action OnMasterChanged;
+		
+		event Action OnJoinedRoom;
 
 		/// <summary>
 		/// Yo
@@ -164,6 +166,7 @@ namespace FirstLight.Game.Services.RoomService
 		public event Action OnMatchStarted;
 		public event Action OnCustomGameLoadStart;
 		public event Action OnMasterChanged;
+		public event Action OnJoinedRoom;
 		public event Action OnPlayerPropertiesUpdated;
 		public event Action OnLocalPlayerKicked;
 
@@ -418,11 +421,11 @@ namespace FirstLight.Game.Services.RoomService
 		}
 
 
-		public void OnJoinedRoom()
+		void IMatchmakingCallbacks.OnJoinedRoom()
 		{
 			FLog.Verbose("Joined room!");
-
 			CheckRoomInit();
+			OnJoinedRoom?.Invoke();
 		}
 
 		private void InitPlayerProperties(Player player)

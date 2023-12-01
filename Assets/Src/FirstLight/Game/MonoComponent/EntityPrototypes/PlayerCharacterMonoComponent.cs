@@ -64,7 +64,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		private void OnTeamAssigned(EventOnTeamAssigned e)
 		{
 			if (PlayerView == null || e.Entity != PlayerView.EntityRef) return;
-			var color = _matchServices.TeamService.GetTeamMemberColor(e.Entity);
+			var color = _services.TeamService.GetTeamMemberColor(e.Entity);
 			if (!color.HasValue) return;
 			_circleIndicator.color = color.Value;
 			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
@@ -124,7 +124,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return false;
 			}
-			return !PlayerView.IsSkydiving && _matchServices.TeamService.IsSameTeamAsSpectator(EntityView.EntityRef);
+			return !PlayerView.IsSkydiving && _services.TeamService.IsSameTeamAsSpectator(EntityView.EntityRef);
 		}
 
 		private async UniTask<GameObject> LoadCharacterSkin(GameId[] playerSkins)
@@ -192,7 +192,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				_playerView.SetStatusModifierEffect(stats.CurrentStatusModifierType, time.AsFloat);
 			}
 
-			var colorTag = _matchServices.TeamService.GetTeamMemberColor(EntityView.EntityRef);
+			var colorTag = _services.TeamService.GetTeamMemberColor(EntityView.EntityRef);
 			if (colorTag.HasValue) _circleIndicator.color = colorTag.Value;
 			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
 

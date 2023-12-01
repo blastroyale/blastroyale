@@ -133,9 +133,9 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.56974477, g: 0, b: 0.44030443, a: 1}
-    - _ColorBottom: {r: 0, g: 0.22745098, b: 0.99215686, a: 1}
+    - _ColorBottom: {r: 0.7607843, g: 0.24705882, b: 0.90588236, a: 1}
     - _ColorPattern: {r: 0.03529412, g: 0.12368213, b: 0.25490198, a: 0.07058824}
-    - _ColorTop: {r: 0, g: 0.90588236, b: 0.99215686, a: 1}
+    - _ColorTop: {r: 0.40392157, g: 0.12156863, b: 0.70980394, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _Speed: {r: 1.15, g: -5, b: 1, a: 1}

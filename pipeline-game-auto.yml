@@ -210,8 +210,6 @@ stages:
         timeoutInMinutes: 90
         dependsOn:  EditorTests
         displayName: Android Build
-        workspace:
-          clean: all
         condition: |
             and(in(dependencies.EditorTests.result, 'Succeeded', 'Skipped'),not(or(failed(), canceled())))
           
@@ -270,8 +268,6 @@ stages:
         timeoutInMinutes: 90
         dependsOn:  EditorTests
         displayName: iOS Build
-        workspace:
-          clean: all
         condition: |
           and(
             ne(${{ parameters.param_fake_build }}, true),

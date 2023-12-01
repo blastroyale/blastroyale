@@ -30,6 +30,8 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private void Update()
 		{
+			if (_gyro == null) return;
+
 			var angularVelocity = _gyro.angularVelocity.ReadValue();
 
 			_dampenedRotationRate = Vector3.Lerp(_dampenedRotationRate, angularVelocity, Time.deltaTime * _dampingSpeed);

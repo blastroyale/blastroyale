@@ -42,7 +42,7 @@ namespace FirstLight.Game.Configs
 
 		public IEnumerable<UniTask> LoadConfigTasks(IConfigsAdder configsAdder)
 		{
-			return GetLoadHandlers(configsAdder).Select(cld => cld.LoadConfig());
+			return GetLoadHandlers(configsAdder).Select(cld => cld.LoadConfigRuntime());
 		}
 
 		public void LoadConfigEditor(IConfigsAdder configsAdder)
@@ -53,9 +53,9 @@ namespace FirstLight.Game.Configs
 			}
 		}
 		
-		public IEnumerable<IConfigLoadHandler<ScriptableObject>> GetLoadHandlers(IConfigsAdder configsAdder)
+		public IEnumerable<IConfigLoadHandler> GetLoadHandlers(IConfigsAdder configsAdder)
 		{
-			return new List<IConfigLoadHandler<ScriptableObject>>
+			return new List<IConfigLoadHandler>
 			{
 				new ConfigLoadDefinition<GameConfigs>(_assetLoader, AddressableId.Configs_GameConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<MapGridConfigs>(_assetLoader, AddressableId.Configs_MapGridConfigs, asset => configsAdder.AddSingletonConfig(asset)),
@@ -113,15 +113,14 @@ namespace FirstLight.Game.Configs
 			_assetLoader.UnloadAsset(asset);
 		}
 
-		public interface IConfigLoadHandler<out TContainer>
-			where TContainer : ScriptableObject
+		public interface IConfigLoadHandler
 		{
-			public UniTask LoadConfig();
+			public UniTask LoadConfigRuntime();
 
-			public TContainer LoadConfigEditor();
+			public void LoadConfigEditor();
 		}
 
-		private class ConfigLoadDefinition<TContainer> : IConfigLoadHandler<TContainer>
+		private class ConfigLoadDefinition<TContainer> : IConfigLoadHandler
 			where TContainer : ScriptableObject
 		{
 			private readonly IAssetAdderService _assetLoader;
@@ -136,22 +135,21 @@ namespace FirstLight.Game.Configs
 				_onLoadComplete = onLoadComplete;
 			}
 
-			public Type Type => typeof(TContainer);
-
-			public async UniTask LoadConfig()
+			public async UniTask LoadConfigRuntime()
 			{
 				var asset = await _assetLoader.LoadAssetAsync<TContainer>(_id.GetConfig().Address);
 				_onLoadComplete(asset);
 				_assetLoader.UnloadAsset(asset);
 			}
 
-			public TContainer LoadConfigEditor()
+			public void LoadConfigEditor()
 			{
 #if UNITY_EDITOR
 				var editorCfg = UnityEditor.AssetDatabase.FindAssets($"t:{typeof(TContainer)}");
 				Assert.AreEqual(1, editorCfg.Length, $"Found more than one config of type {typeof(TContainer)}");
-
-				return (TContainer) UnityEditor.AssetDatabase.LoadAssetAtPath(editorCfg[0], typeof(TContainer));
+				var cfgPath = UnityEditor.AssetDatabase.GUIDToAssetPath(editorCfg[0]);
+				var asset = (TContainer) UnityEditor.AssetDatabase.LoadAssetAtPath(cfgPath, typeof(TContainer));
+				_onLoadComplete(asset);
 #else
 				throw new NotSupportedException("You're not allowed to call this at runtime");
 #endif

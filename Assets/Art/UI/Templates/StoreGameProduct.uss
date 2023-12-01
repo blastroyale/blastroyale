@@ -55,6 +55,7 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-price.png?fileID=21300000&guid=29570bb82136e8a488edae12936f5b0f&type=3#background-price');
     left: -10px;
     -unity-text-align: middle-center;
+    top: -3px;
 }
 
 .widget-effect {
@@ -79,7 +80,7 @@
     position: absolute;
     background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-bundle-image-gradient.png?fileID=21300000&guid=f2508f9cfda92404e868de558956a4bb&type=3#background-bundle-image-gradient');
     width: 426px;
-    height: 552px;
+    height: 566px;
     -unity-background-image-tint-color: rgba(27, 57, 161, 0.58);
 }
 
@@ -137,7 +138,7 @@
 
 .product-image-gradient-sides--small {
     position: absolute;
-    height: 248px;
+    height: 258px;
     width: 300px;
 }
 

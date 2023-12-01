@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Hot_dog_kart"],"padding":[47],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Hot_dog_kart"],"padding":[63],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

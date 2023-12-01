@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Cement_barrier_broken_no_reinforcement"],"padding":[60],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Cement_barrier_broken_no_reinforcement"],"padding":[74],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

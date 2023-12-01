@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["FancyFacade_1_GEO"],"padding":[9],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["FancyFacade_1_GEO"],"padding":[12],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

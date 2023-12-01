@@ -25,7 +25,6 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ALPHATEST_ON
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords:
   - _FLIPBOOKBLENDING_OFF
@@ -100,7 +99,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 1
+    - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
@@ -146,10 +145,10 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.495283, g: 0.92386943, b: 1, a: 0.5529412}
+    - _BaseColor: {r: 0.495283, g: 0.92386943, b: 1, a: 0.41960785}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.495283, g: 0.92386943, b: 1, a: 0.5529412}
+    - _Color: {r: 0.495283, g: 0.92386943, b: 1, a: 0.41960785}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

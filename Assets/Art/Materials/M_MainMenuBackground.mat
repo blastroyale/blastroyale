@@ -99,7 +99,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _Multiplier: 1
+    - _Multiplier: 1.3
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0

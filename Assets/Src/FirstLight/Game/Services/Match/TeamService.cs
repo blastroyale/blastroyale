@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
@@ -28,7 +31,13 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <summary>
 		/// Gets team of a given entity
 		/// </summary>
+		public Color? GetTeamMemberColor(PlayerProperties color);
+
+		/// <summary>
+		/// Gets team of a given entity
+		/// </summary>
 		public int GetTeam(EntityRef entity);
+
 
 		/// <summary>
 		/// Checks if the entity is from the same team as the spectated player
@@ -39,24 +48,29 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// <summary>
 	/// Match service for team related handling
 	/// </summary>
-	public class TeamService : ITeamService, MatchServices.IMatchService
+	public class TeamService : ITeamService
 	{
-		private IGameServices _gameServices;
-		private IMatchServices _matchServices;
-		private IEntityViewUpdaterService _entityViewUpdater;
+		private IRoomService _roomService;
 
-		public TeamService(IGameServices gameServices, IMatchServices matchServices)
+		public TeamService(IRoomService roomService)
 		{
-			_matchServices = matchServices;
-			_gameServices = gameServices;
+			_roomService = roomService;
+			roomService.OnJoinedRoom += OnJoinedRoom;
 		}
+
 
 		public Color? GetTeamMemberColor(EntityRef e)
 		{
 			if (!QuantumRunner.Default.IsDefinedAndRunning()) return null;
 			if (!QuantumRunner.Default.PredictedFrame().TryGet<TeamMember>(e, out var member)) return null;
-			return TeamConstants.Colors[Mathf.Min(member.TeamIndex, TeamConstants.Colors.Length - 1)];
+			return TeamConstants.Colors[Mathf.Min(member.Color, TeamConstants.Colors.Length - 1)];
 		}
+
+		public Color? GetTeamMemberColor(PlayerProperties properties)
+		{
+			return TeamConstants.Colors[Mathf.Min(properties.ColorIndex.Value, TeamConstants.Colors.Length - 1)];
+		}
+
 
 		public int GetTeam(EntityRef e)
 		{
@@ -67,22 +81,36 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		public bool IsSameTeamAsSpectator(EntityRef entity)
 		{
+			var matchServices = MainInstaller.ResolveMatchServices();
 			var team = GetTeam(entity);
-			return team > 0 && team == GetTeam(_matchServices.SpectateService.GetSpectatedEntity());
+			return team > 0 && team == GetTeam(matchServices.SpectateService.GetSpectatedEntity());
 		}
 
-		public void Dispose()
-		{
-			QuantumEvent.UnsubscribeListener(this);
-			QuantumCallback.UnsubscribeListener(this);
-		}
 
-		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
+		private void OnJoinedRoom()
 		{
-		}
+			var localProperties = _roomService.CurrentRoom.LocalPlayerProperties;
+			var team = localProperties.TeamId.Value;
+			List<byte> usedIds = new ();
+			foreach (var playersValue in _roomService.CurrentRoom.Players.Values)
+			{
+				if (playersValue.IsLocal) continue;
+				var properties = _roomService.CurrentRoom.GetPlayerProperties(playersValue);
+				if (properties.TeamId.Value == team && properties.ColorIndex.HasValue)
+				{
+					usedIds.Add(properties.ColorIndex.Value);
+				}
+			}
 
-		public void OnMatchStarted(QuantumGame game, bool isReconnect)
-		{
+			byte max = (byte) (usedIds.Count > 0 ? usedIds.Max() + 1 : 1);
+			for (byte i = 0; i <= max; i++)
+			{
+				if (!usedIds.Contains(i))
+				{
+					localProperties.ColorIndex.Value = i;
+					break;
+				}
+			}
 		}
 	}
 }

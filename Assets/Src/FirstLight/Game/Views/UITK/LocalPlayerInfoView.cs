@@ -116,7 +116,7 @@ namespace FirstLight.Game.Views.UITK
 				return;
 			}
 
-			var teamColor = _matchServices.TeamService.GetTeamMemberColor(playerEntity);
+			var teamColor = _gameServices.TeamService.GetTeamMemberColor(playerEntity);
 			if (teamColor.HasValue)
 			{
 				_teamColor.SetVisibility(true);

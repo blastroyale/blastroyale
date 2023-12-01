@@ -13,19 +13,28 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		[SerializeField] private float _dampingSpeed = 1f;
 
-		private Gyroscope _gyro;
+		private UnityEngine.InputSystem.Gyroscope _gyro;
 
 		private Vector3 _dampenedRotationRate;
 
 		private void Start()
 		{
-			_gyro = UnityEngine.Input.gyro;
-			_gyro.enabled = true;
+			_gyro = UnityEngine.InputSystem.Gyroscope.current;
+
+			if (_gyro != null)
+			{
+				// Wtf
+				UnityEngine.InputSystem.InputSystem.EnableDevice(UnityEngine.InputSystem.Gyroscope.current);
+			}
 		}
 
 		private void Update()
 		{
-			_dampenedRotationRate = Vector3.Lerp(_dampenedRotationRate, _gyro.rotationRateUnbiased, Time.deltaTime * _dampingSpeed);
+			if (_gyro == null) return;
+
+			var angularVelocity = _gyro.angularVelocity.ReadValue();
+
+			_dampenedRotationRate = Vector3.Lerp(_dampenedRotationRate, angularVelocity, Time.deltaTime * _dampingSpeed);
 
 			var positionOffset = new Vector3(-_dampenedRotationRate.y, -_dampenedRotationRate.x, 0f);
 

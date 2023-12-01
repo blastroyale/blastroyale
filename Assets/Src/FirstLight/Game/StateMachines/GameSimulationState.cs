@@ -448,7 +448,8 @@ namespace FirstLight.Game.StateMachines
 				LeaderboardRank = (uint) _services.LeaderboardService.CurrentRankedEntry.Position,
 				PartyId = GetTeamId(),
 				AvatarUrl = avatarUrl,
-				UseBotBehaviour = FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour
+				UseBotBehaviour = FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour,
+				TeamColor = _services.RoomService.CurrentRoom.LocalPlayerProperties.ColorIndex.Value
 			});
 		}
 

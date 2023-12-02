@@ -60,12 +60,12 @@ MonoBehaviour:
         Values: 5802000090010000
       CollectableCollectTime:
         Default:
-          RawValue: 131072
+          RawValue: 98304
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 131072
+        - RawValue: 98304
         - RawValue: 39322
       PlayerAliveShieldDuration:
         Default:

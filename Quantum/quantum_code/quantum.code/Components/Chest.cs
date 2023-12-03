@@ -160,7 +160,7 @@ namespace Quantum
 					continue;
 				}
 
-				for (uint i = 0; i < count; i++)
+				for (uint i = 0; i < count + (f.Context.MapConfig.LootingVersion == 2 ? 1 : 0); i++)
 				{
 					var drop = GameId.Random;
 					if (healthFilled < ammoFilled && healthFilled < shieldFilled &&
@@ -298,7 +298,8 @@ namespace Quantum
 
 					// Second, we drop equipment from their loadout if it is all valid and we haven't dropped them all already
 					// NOTE: Level Playing Field mutator prevents gear from dropping
-					if (!f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _))
+					// Looting 2.0 also prevents gear from dropping
+					if (!f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _) && f.Context.MapConfig.LootingVersion != 2)
 					{
 						Equipment drop;
 						if (!f.Has<BotCharacter>(playerEntity))

@@ -98,15 +98,14 @@ namespace Quantum
 
 		public static GameId GetRandomSpecialId(Frame f)
 		{
-			return f.RNG->Next(0, 7) switch
+			return f.RNG->Next(0, 6) switch
 			{
 				0 => GameId.SpecialRadar,
 				1 => GameId.SpecialAimingGrenade,
-				2 => GameId.SpecialDefaultDash,
-				3 => GameId.SpecialShieldedCharge,
-				4 => GameId.SpecialShieldSelf,
-				5 => GameId.SpecialAimingStunGrenade,
-				6 => GameId.SpecialSkyLaserBeam,
+				2 => GameId.SpecialShieldedCharge,
+				3 => GameId.SpecialShieldSelf,
+				4 => GameId.SpecialAimingStunGrenade,
+				5 => GameId.SpecialSkyLaserBeam,
 				_ => throw new Exception("Shouldn't happen")
 			};
 		}

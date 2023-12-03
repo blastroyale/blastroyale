@@ -189,6 +189,16 @@ namespace Quantum.Systems
 				else
 				{
 					equipment->Collect(f, entity, playerEntity, player);
+					
+					// In Looting 2.0 we restore ammo to initial level if it was lower in a previous gun
+					if (f.Context.MapConfig.LootingVersion == 2 && equipment->Item.IsWeapon())
+					{
+						var statsPointer = f.Unsafe.GetPointer<Stats>(playerEntity);
+						if (statsPointer->CurrentAmmoPercent < Constants.INITIAL_AMMO_FILLED)
+						{
+							statsPointer->SetCurrentAmmo(f, playerCharacter, playerEntity, Constants.INITIAL_AMMO_FILLED);
+						}
+					}
 				}
 			}
 			else if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))

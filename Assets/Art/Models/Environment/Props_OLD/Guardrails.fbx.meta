@@ -41,7 +41,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["GuardrailA","GuardrailD","GuardrailB","GuardrailC"],"padding":[77,42,34,74],"unwrapper":[0,0,0,0]}'
+    - '#BAKERY{"meshName":["GuardrailA","GuardrailD","GuardrailB","GuardrailC"],"padding":[77,56,45,74],"unwrapper":[0,0,0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

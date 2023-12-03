@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["FootballPitch_GEO"],"padding":[10],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["FootballPitch_GEO"],"padding":[13],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

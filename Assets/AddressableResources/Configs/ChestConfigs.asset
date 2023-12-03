@@ -28,7 +28,7 @@ MonoBehaviour:
       CollectableChestPickupRadius:
         RawValue: 111411
       CollectTime:
-        RawValue: 183500
+        RawValue: 131072
     - Id: 130
       ChestType: 1
       RandomEquipment:
@@ -42,7 +42,7 @@ MonoBehaviour:
       CollectableChestPickupRadius:
         RawValue: 111411
       CollectTime:
-        RawValue: 183500
+        RawValue: 131072
     - Id: 19
       ChestType: 2
       RandomEquipment:
@@ -56,4 +56,4 @@ MonoBehaviour:
       CollectableChestPickupRadius:
         RawValue: 131072
       CollectTime:
-        RawValue: 327680
+        RawValue: 229376

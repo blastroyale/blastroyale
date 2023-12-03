@@ -249,3 +249,14 @@ MonoBehaviour:
             m_SubObjectName: 
             m_SubObjectType: 
             m_EditorAssetChanged: 0
+        - SkinId: 320
+          Prefab:
+            m_AssetGUID: 10ffc052a8e4bb8439b2ce53b6daf3a4
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 67aa28c95d8df4e219b4758800bf3b87
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0

@@ -570,6 +570,7 @@ namespace I2.Loc
 			public static string MeleeSkinTvTakedown 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinTvTakedown"); } }
 			public static string MeleeSkinWheelOfPain 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinWheelOfPain"); } }
 			public static string MeleeSkinWrench 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinWrench"); } }
+			public static string MeleeSkinXmas2023 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinXmas2023"); } }
 			public static string MeleeSkinYouGotMail 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinYouGotMail"); } }
 			public static string ModHeavyMachineGun 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ModHeavyMachineGun"); } }
 			public static string ModLauncher 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ModLauncher"); } }
@@ -2275,6 +2276,7 @@ namespace I2.Loc
 		    public const string MeleeSkinTvTakedown = "GameIds/MeleeSkinTvTakedown";
 		    public const string MeleeSkinWheelOfPain = "GameIds/MeleeSkinWheelOfPain";
 		    public const string MeleeSkinWrench = "GameIds/MeleeSkinWrench";
+		    public const string MeleeSkinXmas2023 = "GameIds/MeleeSkinXmas2023";
 		    public const string MeleeSkinYouGotMail = "GameIds/MeleeSkinYouGotMail";
 		    public const string ModHeavyMachineGun = "GameIds/ModHeavyMachineGun";
 		    public const string ModLauncher = "GameIds/ModLauncher";

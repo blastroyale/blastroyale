@@ -146,24 +146,23 @@ namespace FirstLight.Game.Services.Party
 
 			throw new PartyException(ex, err);
 		}
-		
+
 
 		private PartyErrors ConvertErrors(WrappedPlayFabException ex)
 		{
 			var code = ex.Error.Error;
 
+			if (_customErrorMessagesMapping.TryGetValue(code, out var mapping))
+			{
+				if (mapping.TryGetValue(ex.Error.ErrorMessage, out var transformedCode))
+				{
+					return transformedCode;
+				}
+			}
+
 			if (_errorMapping.TryGetValue(code, out var partyError))
 			{
 				return partyError;
-			}
-
-			if (code == PlayFabErrorCode.LobbyBadRequest)
-			{
-				if (_lobbyBadRequestToErrorsMap.TryGetValue(ex.Error.ErrorMessage,out var transformedCode))
-				{
-					return transformedCode;
-
-				}
 			}
 
 			return PartyErrors.Unknown;

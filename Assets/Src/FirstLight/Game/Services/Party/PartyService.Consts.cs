@@ -35,10 +35,22 @@ namespace FirstLight.Game.Services.Party
 			{PlayFabErrorCode.ConnectionError, PartyErrors.ConnectionError}
 		};
 
-		private static Dictionary<string, PartyErrors> _lobbyBadRequestToErrorsMap = new ()
+		private static Dictionary<PlayFabErrorCode, Dictionary<string, PartyErrors>> _customErrorMessagesMapping = new ()
 		{
-			{"User is not lobby owner or member or server", PartyErrors.UserIsNotMember},
-			{"Cannot get lobby details since user is not lobby owner or member", PartyErrors.TryingToGetDetailsOfNonMemberParty}
+			{
+				PlayFabErrorCode.LobbyBadRequest, new Dictionary<string, PartyErrors>()
+				{
+					{"User is not lobby owner or member or server", PartyErrors.UserIsNotMember},
+					{"Cannot get lobby details since user is not lobby owner or member", PartyErrors.TryingToGetDetailsOfNonMemberParty}
+				}
+			},	
+			{
+				PlayFabErrorCode.LobbyNotJoinable, new Dictionary<string, PartyErrors>()
+				{
+					{"The lobby is full", PartyErrors.PartyFull}
+				}
+			},
+			
 		};
 	}
 }

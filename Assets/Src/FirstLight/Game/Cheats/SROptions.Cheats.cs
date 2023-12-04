@@ -313,6 +313,14 @@ public partial class SROptions
 			level: 35,
 			grade: EquipmentGrade.GradeI,
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.ModSniper,
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Dimensional,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}

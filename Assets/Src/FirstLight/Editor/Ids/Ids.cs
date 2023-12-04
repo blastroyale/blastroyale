@@ -233,7 +233,8 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinWheelOfPain", 317, MeleeSkin, Collection},
 			{"MeleeSkinWrench", 318, MeleeSkin, Collection},
 			{"MeleeSkinYouGotMail", 319, MeleeSkin, Collection},
-
+			{"MeleeSkinXmas2023", 320, MeleeSkin, Collection},
+			
 			#endregion
 
 			#region ProfilePictures

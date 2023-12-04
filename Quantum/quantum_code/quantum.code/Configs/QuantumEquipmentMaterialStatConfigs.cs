@@ -5,7 +5,7 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public struct QuantumEquipmentMaterialStatConfig
+	public class QuantumEquipmentMaterialStatConfig
 	{
 		public GameIdGroup Category;
 		public EquipmentMaterial Material;

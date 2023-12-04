@@ -16,7 +16,7 @@ namespace FirstLight
 	/// Generic container of the configs imported with a ConfigsImporter script
 	/// The given <typeparamref name="T"/> type is the same of the config struct defined to be serialized in the scriptable object
 	/// </summary>
-	public interface IConfigsContainer<T> where T : struct
+	public interface IConfigsContainer<T> 
 	{
 		List<T> Configs { get; set; }
 	}
@@ -25,7 +25,7 @@ namespace FirstLight
 	/// Generic container of the unique single config imported with a ConfigsImporter script
 	/// The given <typeparamref name="T"/> type is the same of the config struct defined to be serialized in the scriptable object
 	/// </summary>
-	public interface ISingleConfigContainer<T> where T : struct
+	public interface ISingleConfigContainer<T>
 	{
 		T Config { get; set; }
 	}

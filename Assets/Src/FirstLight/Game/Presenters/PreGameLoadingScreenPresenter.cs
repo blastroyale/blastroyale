@@ -163,8 +163,8 @@ namespace FirstLight.Game.Presenters
 				var marker = new VisualElement {name = "marker"};
 				marker.AddToClassList("map-marker-party");
 				var props = CurrentRoom.GetPlayerProperties(squadMember);
-				var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, props.Rank.Value);
-				marker.style.backgroundColor = nameColor;
+				var nameColor = _services.TeamService.GetTeamMemberColor(props);
+				marker.style.backgroundColor = nameColor ?? Color.white;
 				var mapWidth = _mapImage.contentRect.width;
 				var markerPos = new Vector2(memberDropPosition.x * mapWidth, -memberDropPosition.y * mapWidth);
 
@@ -178,10 +178,11 @@ namespace FirstLight.Game.Presenters
 			if (index < 0 || index >= _squadMembers.Count) return;
 
 			var props = CurrentRoom.GetPlayerProperties(_squadMembers[index]);
-			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, props.Rank.Value);
+			var nameColor = _services.TeamService.GetTeamMemberColor(props);
+
 
 			((Label) element).text = _squadMembers[index].NickName;
-			((Label) element).style.color = nameColor;
+			((Label) element).style.color = nameColor ?? Color.white;
 		}
 
 		private VisualElement CreateSquadListEntry()
@@ -221,6 +222,7 @@ namespace FirstLight.Game.Presenters
 		private void SelectMapPosition(Vector2 localPos, bool offsetCoors, bool checkClickWithinRadius)
 		{
 			if (_mapImage == null) return;
+			if (!_services.RoomService.InRoom) return;
 
 			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapRadius(localPos))) return;
 
@@ -361,7 +363,7 @@ namespace FirstLight.Game.Presenters
 					CurrentRoom.GetRealPlayerAmount(), CurrentRoom.GetRealPlayerCapacity())
 				: "";
 		}
-		
+
 		private void UpdateMasterClient()
 		{
 			if (!CanSeeDebugInfo())
@@ -372,7 +374,7 @@ namespace FirstLight.Game.Presenters
 
 			_debugMasterClient.SetDisplay(_services.NetworkService.LocalPlayer.IsMasterClient);
 		}
-		
+
 		private bool CanSeeDebugInfo()
 		{
 			return Debug.isDebugBuild || _dataProvider.PlayerDataProvider.Flags.HasFlag(PlayerFlags.FLGOfficial);
@@ -450,7 +452,7 @@ namespace FirstLight.Game.Presenters
 				}
 			};
 
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, false,
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true,
 				confirmButton);
 		}
 	}

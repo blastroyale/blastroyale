@@ -18,7 +18,7 @@
                 <ui:VisualElement name="ButtonHolder" class="button-holder">
                     <FirstLight.Game.UIElements.PriceButton localization-key="UITCollectionScreen/buy" name="BuyButton" class="info-holder__buy-button" />
                     <ui:VisualElement name="ItemNameHolder" style="width: 388px; height: 160px; right: 60px; bottom: 152px; position: absolute; align-items: center; flex-direction: row; justify-content: flex-start;">
-                        <ui:VisualElement name="ItemNameLocked" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/icon-collection-lock.png?fileID=2800000&amp;guid=d5576ea5fdc864a9ba95bd20ee8e9a1b&amp;type=3#icon-collection-lock&apos;); width: 148px; height: 160px; margin-right: -40px; margin-left: -40px; margin-top: -40px; margin-bottom: -40px; display: flex; visibility: visible;" />
+                        <ui:VisualElement name="ItemNameLocked" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/icon-collection-lock.png?fileID=2800000&amp;guid=d5576ea5fdc864a9ba95bd20ee8e9a1b&amp;type=3#icon-collection-lock&apos;); width: 148px; height: 160px; margin-right: -40px; margin-left: -40px; margin-top: -40px; margin-bottom: -40px; display: flex; visibility: visible; flex-shrink: 0;" />
                         <ui:Label text="ITEM NAME" display-tooltip-when-elided="true" name="ItemName" class="info-holder__item-name" style="-unity-text-align: middle-left;" />
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/equip" name="EquipButton" class="button-long button-long--yellow info-holder__equip-button" />

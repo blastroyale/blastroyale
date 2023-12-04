@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Prop_Tent_Long_GEO","Prop_Tent_PopUp_GEO","Prop_Caravan_GEO","Prop_Tent_PopUp_Broken_GEO"],"padding":[46,41,21,42],"unwrapper":[0,0,0,0]}'
+    - '#BAKERY{"meshName":["Prop_Tent_Long_GEO","Prop_Tent_PopUp_GEO","Prop_Caravan_GEO","Prop_Tent_PopUp_Broken_GEO"],"padding":[61,55,28,56],"unwrapper":[0,0,0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

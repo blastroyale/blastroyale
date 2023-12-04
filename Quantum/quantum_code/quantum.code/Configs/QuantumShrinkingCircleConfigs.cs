@@ -5,7 +5,7 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public struct QuantumShrinkingCircleConfig
+	public class QuantumShrinkingCircleConfig
 	{
 		public int Key;
 		public int Step;

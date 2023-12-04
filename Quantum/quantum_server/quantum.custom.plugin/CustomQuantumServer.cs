@@ -206,33 +206,19 @@ namespace Quantum
             {
                 return;
             }
-
             if (gameSession == null)
             {
                 return;
             }
-
-            try
+            if (gameSession.Session.FrameVerified != null)
             {
-                if (gameSession.Session.FrameVerified != null)
-                {
-                    // Interpolate time to make sure server catchup if it ticked too slow for some reason
-                    double gameTime = Session.Input.GameTime;
-                    var sessionTime = gameSession.Session.AccumulatedTime + gameSession.Session.FrameVerified.Number * gameSession.Session.DeltaTimeDouble;
-                    gameSession.Service(gameTime - sessionTime);
-                }
-                else
-                {
-                    gameSession.Service();
-                }
+                // Interpolate time to make sure server catchup if it ticked too slow for some reason
+                var sessionTime = gameSession.Session.AccumulatedTime + gameSession.Session.FrameVerified.Number * gameSession.Session.DeltaTimeDouble;
+                gameSession.Service(Session.Input.GameTime - sessionTime);
             }
-            catch (Exception e)
+            else
             {
-                PluginHost.LogError($"An exception was thrown while servicing the GameSession.");
-                PluginHost.LogException(e);
-
-                gameSession?.Destroy();
-                gameSession = null;
+                gameSession.Service();
             }
         }
 

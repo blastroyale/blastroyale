@@ -1,10 +1,6 @@
 ﻿using FirstLight.Game.Commands;
 using Quantum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Assets.Src.FirstLight.Game.Commands.QuantumLogicCommands
 {
@@ -14,18 +10,13 @@ namespace Assets.Src.FirstLight.Game.Commands.QuantumLogicCommands
 	/// </summary>
 	public class QuantumLogicCommandFactory
 	{
-		private readonly static Dictionary<QuantumServerCommand, Type> _registry = new Dictionary<QuantumServerCommand, Type>()
-		{
-			{ QuantumServerCommand.EndOfGameRewards,typeof(EndOfGameCalculationsCommand) }
-		};
-
 		public static IQuantumCommand BuildFromEvent(EventFireQuantumServerCommand ev)
 		{
-			if(!_registry.TryGetValue(ev.CommandType, out var commandType))
+			if (ev.CommandType == QuantumServerCommand.EndOfGameRewards)
 			{
-				throw new Exception($"Invalid quantum server command from simulation {ev.CommandType.ToString()}");
+				return new EndOfGameCalculationsCommand();
 			}
-			return Activator.CreateInstance(commandType) as IQuantumCommand;
+			return null;
 		}
 	}
 }

@@ -16,6 +16,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
+using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -154,8 +155,12 @@ namespace FirstLight.Game.StateMachines
 			homeCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
 			homeCheck.Transition().Condition(RequiresToSeeStore).Target(store);
+			homeCheck.Transition().Condition(IsInRoom)
+				.OnTransition(() => _services.RoomService.LeaveRoom())
+				.Target(homeMenu);
 			homeCheck.Transition().Target(homeMenu);
 			homeCheck.OnExit(OpenHomeScreen);
+
 
 			homeMenu.OnEnter(OpenHomeScreen);
 			homeMenu.OnEnter(TryClaimUncollectedRewards);
@@ -181,6 +186,7 @@ namespace FirstLight.Game.StateMachines
 
 			playClickedCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			playClickedCheck.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
+			playClickedCheck.Transition().Condition(IsInRoom).Target(homeCheck);
 			playClickedCheck.Transition().Condition(CheckIsNotPartyLeader).OnTransition(() => TogglePartyReadyStatus())
 				.Target(homeCheck);
 			playClickedCheck.Transition().OnTransition(SendPlayReadyMessage)
@@ -221,7 +227,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _services.IAPService.RequiredToViewStore;
 		}
-		
+
 		private void HideMatchmaking()
 		{
 			_uiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(false);
@@ -291,6 +297,7 @@ namespace FirstLight.Game.StateMachines
 				OnCheckIfServerRewardsMatch(true);
 				return;
 			}
+
 			_services.GameBackendService.CheckIfRewardsMatch(b => OnCheckIfServerRewardsMatch(b), null);
 		}
 
@@ -656,6 +663,11 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.CleanDispose<IMainMenuServices>();
 		}
 
+		private bool IsInRoom()
+		{
+			return _services.RoomService.InRoom;
+		}
+
 		private void DiscordButtonClicked()
 		{
 			Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
@@ -665,12 +677,12 @@ namespace FirstLight.Game.StateMachines
 		{
 			Application.OpenURL(GameConstants.Links.YOUTUBE_LINK);
 		}
-		
+
 		private void InstagramButtonClicked()
 		{
 			Application.OpenURL(GameConstants.Links.INSTAGRAM_LINK);
 		}
-		
+
 		private void TiktokButtonClicked()
 		{
 			Application.OpenURL(GameConstants.Links.TIKTOK_LINK);

@@ -87,7 +87,7 @@ namespace FirstLight.Game.Services
 		/// Updates/Adds Photon LocalPlayer custom properties
 		/// </summary>
 		void SetPlayerCustomProperties(Hashtable propertiesToUpdate);
-		
+
 		/// <summary>
 		/// Requests the current room that the local player is in
 		/// </summary>
@@ -112,7 +112,7 @@ namespace FirstLight.Game.Services
 		/// Requests the check if the last connection to a room was for a new room (new match), or a rejoin
 		/// </summary>
 		JoinRoomSource JoinSource { get; }
-        
+
 		/// <summary>
 		/// Requests the check if the last disconnection was in matchmaking, before the match started
 		/// </summary>
@@ -157,7 +157,7 @@ namespace FirstLight.Game.Services
 		/// Event for when quantum client connects to master
 		/// </summary>
 		public event Action OnConnectedToMaster;
-        
+
 		/// <summary>
 		/// Set last connected room
 		/// </summary>
@@ -203,7 +203,7 @@ namespace FirstLight.Game.Services
 		new IObservableField<string> UserId { get; }
 
 		new IObservableField<JoinRoomSource> JoinSource { get; }
-        
+
 		/// <inheritdoc cref="IGameNetworkService.LastDisconnectLocation" />
 		new IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
 
@@ -225,8 +225,8 @@ namespace FirstLight.Game.Services
 
 		private Queue<int> LastRttQueue;
 		private int CurrentRttTotal;
-		private Coroutine _tickUpdateCoroutine;
 		private Coroutine _tickPingCheckCoroutine;
+		private bool _ticking = false;
 
 		public IObservableField<string> UserId { get; }
 		public IObservableField<JoinRoomSource> JoinSource { get; }
@@ -244,6 +244,7 @@ namespace FirstLight.Game.Services
 			get => LastDisconnectLocation.Value;
 			set => LastDisconnectLocation.Value = value;
 		}
+
 		Room IGameNetworkService.LastConnectedRoom => LastConnectedRoom.Value;
 		IObservableFieldReader<bool> IGameNetworkService.HasLag => HasLag;
 		IObservableField<MatchRoomSetup> IGameNetworkService.LastUsedSetup => LastUsedSetup;
@@ -251,7 +252,7 @@ namespace FirstLight.Game.Services
 		public Room CurrentRoom => QuantumClient.CurrentRoom;
 		public Player LocalPlayer => QuantumClient.LocalPlayer;
 		public bool InRoom => QuantumClient.InRoom;
-		
+
 		public event Action OnConnectedToMaster;
 
 		public QuantumRunnerConfigs QuantumRunnerConfigs => _configsProvider.GetConfig<QuantumRunnerConfigs>();
@@ -269,14 +270,15 @@ namespace FirstLight.Game.Services
 			{
 				if (QuantumClient.IsConnectedAndReady) return true;
 				await Task.Delay(TimeSpan.FromSeconds(1));
-				if(Time.timeScale == 0) QuantumClient.Service();
+				if (Time.timeScale == 0) QuantumClient.Service();
 				timeout--;
 			}
+
 			return false;
 		}
 
 		private int RttAverage => CurrentRttTotal / LastRttQueue.Count;
-		
+
 		public GameNetworkService(IConfigsProvider configsProvider)
 		{
 			_configsProvider = configsProvider;
@@ -301,7 +303,45 @@ namespace FirstLight.Game.Services
 			_dataProvider = dataProvider;
 
 			_services.MessageBrokerService.Subscribe<PingedRegionsMessage>(OnPingRegions);
-			_services.TickService.SubscribeOnUpdate(f => QuantumClient.Service());
+			_services.TickService.SubscribeOnUpdate(QuantumTick);
+			_ticking = true;
+
+			QuantumCallback.SubscribeManual<CallbackSimulateFinished>(this, OnSimulationFinish);
+			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnSimulationStarted);
+		}
+
+		private void OnSimulationFinish(CallbackSimulateFinished cb)
+		{
+			if (!_ticking)
+			{
+				_services.TickService.SubscribeOnUpdate(QuantumTick);
+				_ticking = true;
+				FLog.Info("Quantum Tick = true");
+			}
+		}
+
+		private void OnSimulationStarted(CallbackGameStarted cb)
+		{
+			var isOffline = _services.RoomService.CurrentRoom?.IsOffline ?? false;
+			if (isOffline)
+			{
+				return;
+			}
+
+			if (_ticking)
+			{
+				_services.TickService.UnsubscribeOnUpdate(QuantumTick);
+				_ticking = false;
+				FLog.Info("Quantum Tick = false");
+			}
+		}
+
+		private void QuantumTick(float f)
+		{
+			// We should always tick during offline simulations, otherwise the connection to quantum will timeout
+			var isOffline = _services.RoomService.CurrentRoom?.IsOffline ?? false;
+			if (!isOffline && QuantumRunner.Default.IsDefinedAndRunning()) return;
+			QuantumClient.Service();
 		}
 
 		private void OnPingRegions(PingedRegionsMessage msg)
@@ -424,7 +464,6 @@ namespace FirstLight.Game.Services
 		{
 			QuantumClient.Disconnect();
 		}
-        
 
 		public bool SendPlayerToken(string token)
 		{
@@ -433,7 +472,7 @@ namespace FirstLight.Game.Services
 				SendOptions.SendReliable);
 		}
 
-	
+
 		public void ReconnectPhoton(out bool requiresManualReconnection)
 		{
 			requiresManualReconnection = false;
@@ -442,7 +481,7 @@ namespace FirstLight.Game.Services
 			if (QuantumClient.LoadBalancingPeer.PeerState != PeerStateValue.Disconnected) return;
 
 			FLog.Info("ReconnectPhoton");
-			
+
 			if (QuantumClient.Server == ServerConnection.GameServer)
 			{
 				FLog.Info("ReconnectPhoton - ReconnectAndRejoin");
@@ -454,8 +493,7 @@ namespace FirstLight.Game.Services
 				QuantumClient.ReconnectToMaster();
 			}
 		}
-        
-        
+
 
 		public void SetCurrentRoomOpen(bool isOpen)
 		{
@@ -469,7 +507,7 @@ namespace FirstLight.Game.Services
 			FLog.Verbose(propertiesToUpdate);
 			QuantumClient.LocalPlayer.SetCustomProperties(propertiesToUpdate);
 		}
-        
+
 
 		private void SetUserId(string id)
 		{
@@ -478,7 +516,7 @@ namespace FirstLight.Game.Services
 			QuantumClient.AuthValues.AddAuthParameter("username", id);
 		}
 
-		
+
 		private void ResetQuantumProperties()
 		{
 			if (QuantumClient.AuthValues != null)
@@ -488,7 +526,7 @@ namespace FirstLight.Game.Services
 
 			QuantumClient.EnableProtocolFallback = true;
 		}
-		
+
 		#region IConnectionCallbacks
 
 		public void OnConnected()
@@ -515,6 +553,7 @@ namespace FirstLight.Game.Services
 		public void OnCustomAuthenticationFailed(string debugMessage)
 		{
 		}
+
 		#endregion
 	}
 }

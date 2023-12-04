@@ -12,7 +12,6 @@ namespace FirstLight.Editor.SheetImporters
 	/// </remarks>
 	public abstract class GoogleSheetConfigsAssetImporterBase<TConfig, TScriptableObject, TAssetConfigs> :
 		GoogleSheetConfigsImporter<TConfig, TScriptableObject>
-		where TConfig : struct
 		where TScriptableObject : ScriptableObject, IConfigsContainer<TConfig>
 		where TAssetConfigs : ScriptableObject
 	{

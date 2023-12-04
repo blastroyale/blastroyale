@@ -2,6 +2,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Services.Collection;
@@ -123,6 +124,7 @@ namespace FirstLight.Game.Services
 		public IRoomService RoomService { get; }
 		public IGameAppService GameAppService { get; }
 		public IBattlePassService BattlePassService { get; }
+		public ITeamService TeamService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -175,6 +177,8 @@ namespace FirstLight.Game.Services
 		public IControlSetupService ControlsSetup { get; }
 		public IRoomService RoomService { get; }
 		public IBattlePassService BattlePassService { get; }
+		
+		public ITeamService TeamService { get; }
 		public ILeaderboardService LeaderboardService { get; }
 		public ICheatsService CheatsService { get; }
 		public IRewardService RewardService { get; }
@@ -247,6 +251,7 @@ namespace FirstLight.Game.Services
 			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
 			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, this);
 			GameAppService = new GameAppService(this);
+			TeamService = new TeamService(RoomService);
 		}
 
 		/// <inheritdoc />

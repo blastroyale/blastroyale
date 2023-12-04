@@ -1134,6 +1134,13 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.MeleeSkinXmas2023, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Avatar1, new List<GameIdGroup>
 					{
 						GameIdGroup.ProfilePicture,
@@ -1805,6 +1812,7 @@ namespace Quantum
 						GameId.MeleeSkinWheelOfPain,
 						GameId.MeleeSkinWrench,
 						GameId.MeleeSkinYouGotMail,
+						GameId.MeleeSkinXmas2023,
 						GameId.Avatar1,
 						GameId.Avatar2,
 						GameId.Avatar3,
@@ -2018,7 +2026,8 @@ namespace Quantum
 						GameId.MeleeSkinTvTakedown,
 						GameId.MeleeSkinWheelOfPain,
 						GameId.MeleeSkinWrench,
-						GameId.MeleeSkinYouGotMail
+						GameId.MeleeSkinYouGotMail,
+						GameId.MeleeSkinXmas2023
 					}.AsReadOnly()
 				},
 				{

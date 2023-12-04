@@ -14,8 +14,10 @@ namespace FirstLight.Game.Services
 	/// <summary>
 	/// Handles game application proccess
 	/// </summary>
-	public interface IGameAppService { }
-	
+	public interface IGameAppService
+	{
+	}
+
 	public class GameAppService : IGameAppService
 	{
 		private IGameServices _services;
@@ -25,10 +27,14 @@ namespace FirstLight.Game.Services
 		private DateTime _pauseTime;
 		private UniTask _heartbeatTask;
 		private bool _paused;
-		
+
 		public GameAppService(IGameServices services)
 		{
-			Application.runInBackground = false;
+			if (!FeatureFlags.GetLocalConfiguration().DisablePauseBehaviour)
+			{
+				Application.runInBackground = false;
+			}
+
 			_services = services;
 			_services.MessageBrokerService.Subscribe<ApplicationFocusMessage>(OnApplicationFocus);
 			_services.MessageBrokerService.Subscribe<ApplicationPausedMessage>(OnApplicationPause);
@@ -69,7 +75,8 @@ namespace FirstLight.Game.Services
 				_services.GenericDialogService.OpenSimpleMessage("Disconnected", "Please Restart", Application.Quit);
 				return;
 			}
-			_services.NetworkService.QuantumClient.LoadBalancingPeer.DisconnectTimeout = 10000; 
+
+			_services.NetworkService.QuantumClient.LoadBalancingPeer.DisconnectTimeout = 10000;
 			Time.timeScale = 1;
 			_paused = false;
 			FLog.Info("Game Resumed");
@@ -81,10 +88,11 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
+
 			if (paused) HandleGamePaused();
 			else HandleGameUnpaused();
 		}
-	
+
 		private void OnApplicationFocus(ApplicationFocusMessage msg) => OnPause(!msg.IsFocus);
 
 		private void OnApplicationPause(ApplicationPausedMessage msg) => OnPause(msg.IsPaused);

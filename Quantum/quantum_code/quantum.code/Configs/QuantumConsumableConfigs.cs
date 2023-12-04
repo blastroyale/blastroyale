@@ -5,7 +5,7 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public partial struct QuantumConsumableConfig
+	public partial class QuantumConsumableConfig
 	{
 		public GameId Id;
 		public AssetRefEntityPrototype AssetRef; 

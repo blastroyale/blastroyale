@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["pure_side_walk"],"padding":[98],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["pure_side_walk"],"padding":[126],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

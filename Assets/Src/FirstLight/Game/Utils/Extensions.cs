@@ -249,7 +249,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool IsAlive(this EntityRef entity, Frame f)
 		{
-			if (!f.TryGet<Stats>(entity, out var stats))
+			if (!entity.IsValid || !f.TryGet<Stats>(entity, out var stats))
 			{
 				return false;
 			}

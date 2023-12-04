@@ -274,7 +274,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var safeCenter = _minimapCamera.WorldToViewportPoint(circle.TargetCircleCenter.XOY.ToUnityVector3()) -
 				Vector3.one / 2f;
 
-			if (_config.Step != circle.Step)
+			if (_config == null || _config.Step != circle.Step)
 			{
 				_config = f.Context.MapShrinkingCircleConfigs[circle.Step];
 			}
@@ -554,7 +554,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				if (friendlyView.Entity != callback.Entity) continue;
 
-				friendlyView.SetColor(_matchServices.TeamService.GetTeamMemberColor(callback.Entity) ?? Color.white);
+				friendlyView.SetColor(_services.TeamService.GetTeamMemberColor(callback.Entity) ?? Color.white);
 				break;
 			}
 		}
@@ -584,7 +584,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var friendlyView = _friendliesPool.Spawn();
 			_spawnedFriendlies.Add(entity);
 			friendlyView.SetPlayer(entity, view.transform);
-			friendlyView.SetColor(_matchServices.TeamService.GetTeamMemberColor(entity) ?? Color.white);
+			friendlyView.SetColor(_services.TeamService.GetTeamMemberColor(entity) ?? Color.white);
 		}
 
 		private Vector2 ViewportToMinimapPosition(Vector3 viewportPosition, Vector3 playerViewportPosition)

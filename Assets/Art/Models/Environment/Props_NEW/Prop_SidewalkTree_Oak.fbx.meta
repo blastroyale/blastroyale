@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Prop_SidewalkTree_Oak_GEO"],"padding":[39],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Prop_SidewalkTree_Oak_GEO"],"padding":[52],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

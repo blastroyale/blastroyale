@@ -70,7 +70,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			var position = new Vector3(center.x, cachedShrinkingCircleLineTransform.position.y, center.y);
 			
-			if (_config.Step != circle.Step)
+			if (_config == null || _config.Step != circle.Step)
 			{
 				_config = frame.Context.MapShrinkingCircleConfigs[circle.Step];
 			}

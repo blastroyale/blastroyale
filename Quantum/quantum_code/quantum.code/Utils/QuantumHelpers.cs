@@ -135,7 +135,7 @@ namespace Quantum
 		/// </summary>
 		public static FP GetDistance(Frame f, in EntityRef e, in EntityRef target)
 		{
-			return FPVector3.DistanceSquared(f.Get<Transform3D>(target).Position, f.Get<Transform3D>(e).Position);
+			return FPVector3.DistanceSquared(f.Unsafe.GetPointer<Transform3D>(target)->Position, f.Unsafe.GetPointer<Transform3D>(e)->Position);
 		}
 		
 		/// <summary>

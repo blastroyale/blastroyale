@@ -4,7 +4,7 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public struct QuantumGameConfig
+	public class QuantumGameConfig
 	{
 		public FP DisconnectedDestroySeconds;
 		public uint DoubleKillTimeLimit;

@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -10,7 +8,6 @@ using PlayFab.ClientModels;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters.Store
 {
@@ -136,6 +133,8 @@ namespace FirstLight.Game.Presenters.Store
 					_icon.style.backgroundImage = new StyleBackground(texture2D);
 				});
 			}
+			
+			_infoButton.SetDisplay(!string.IsNullOrEmpty(_product.PlayfabProductConfig.StoreItemData.Description));
 		}
 
 		public new class UxmlFactory : UxmlFactory<StoreGameProductElement, UxmlTraits>

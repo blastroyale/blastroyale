@@ -226,6 +226,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupIndicator(int index, GameId specialId)
 		{
 			_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) specialId, out var config);
+			if (config == null) return;
+			
 			if (_specialIndicators[index] != null)
 			{
 				Object.Destroy(((MonoBehaviour) _specialIndicators[index]).gameObject);

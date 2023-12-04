@@ -16,7 +16,7 @@ namespace Quantum
 	}
 	
 	[Serializable]
-	public struct QuantumWeaponConfig
+	public class QuantumWeaponConfig
 	{
 		public GameId Id;
 		public FiringMode FiringMode;

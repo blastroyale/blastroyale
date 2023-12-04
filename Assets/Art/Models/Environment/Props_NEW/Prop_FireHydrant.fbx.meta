@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Prop_FireHydrant_GEO"],"padding":[106],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Prop_FireHydrant_GEO"],"padding":[141],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

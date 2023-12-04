@@ -5,7 +5,7 @@ using System.Text;
 namespace Quantum
 {
 	[Serializable]
-	public struct QuantumGameModePair<TValue>
+	public class QuantumGameModePair<TValue>
 	{
 		public TValue Default;
 

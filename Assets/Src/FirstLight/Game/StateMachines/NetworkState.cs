@@ -233,11 +233,13 @@ namespace FirstLight.Game.StateMachines
 			var config = _services.RoomService.GetGameModeConfig(setup.GameModeId);
 			if (config.ShouldUsePlayfabMatchmaking())
 			{
+				FLog.Verbose("Using playfab matchmaking!");
 				_networkService.LastUsedSetup.Value = setup;
 				_services.MatchmakingService.JoinMatchmaking(setup);
 			}
 			else
 			{
+				FLog.Verbose("Using old matchmaking to join or create room!");
 				_services.RoomService.JoinOrCreateRandomRoom(setup);
 			}
 		}
@@ -542,10 +544,12 @@ namespace FirstLight.Game.StateMachines
         
 		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)
 		{
+			FLog.Verbose("Received play ready matchmaking at network state");
 			// If running the equipment/BP menu tutorial, the room is handled through the EquipmentBpTutorialState.cs
 			// This is the same flow as the first match setup
 			if (_services.TutorialService.IsTutorialRunning)
 			{
+				FLog.Verbose("Tutorial running!");
 				return;
 			}
 

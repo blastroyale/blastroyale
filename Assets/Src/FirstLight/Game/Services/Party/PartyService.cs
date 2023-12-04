@@ -171,7 +171,7 @@ namespace FirstLight.Game.Services.Party
 		// State
 		private string _lobbyId;
 		private PlayFabAuthenticationContext usedPlayfabContext;
-		SemaphoreSlim _accessSemaphore = new(1, 1);
+		SemaphoreSlim _accessSemaphore = new (1, 1);
 
 		private IObservableField<bool> HasParty { get; }
 		private IObservableField<bool> PartyReady { get; }
@@ -196,7 +196,7 @@ namespace FirstLight.Game.Services.Party
 			_pubsub = pubsub;
 			_backendService = backendService;
 			_genericDialogService = genericDialogService;
-			Members = new ObservableList<PartyMember>(new());
+			Members = new ObservableList<PartyMember>(new ());
 			HasParty = new ObservableField<bool>(false);
 			PartyReady = new ObservableField<bool>(false);
 			OperationInProgress = new ObservableField<bool>(false);
@@ -559,8 +559,10 @@ namespace FirstLight.Game.Services.Party
 				}
 				catch (WrappedPlayFabException ex)
 				{
+					var errors = ConvertErrors(ex);
+
 					// If player try to leaves the lobby but he is not on the lobby or the lobby doesn't exists ignore the error and reset state
-					if (ex.Error.Error is PlayFabErrorCode.LobbyPlayerNotPresent or PlayFabErrorCode.LobbyDoesNotExist)
+					if (errors is PartyErrors.UserIsNotMember or PartyErrors.TryingToGetDetailsOfNonMemberParty or PartyErrors.PartyNotFound or PartyErrors.MemberNotFound)
 					{
 						return;
 					}

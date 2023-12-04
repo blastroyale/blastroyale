@@ -84,11 +84,7 @@ namespace FirstLight.Game.UIElements
 		public void SubscribeToEvents()
 		{
 			_gameDataProvider.CurrencyDataProvider.Currencies.Observe(currency, OnCurrencyChanged);
-
 			var amount = _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(currency);
-			
-			// We always Display coins and show other currencies only if the amount is positive
-			//this.SetDisplay(currency == GameId.COIN || amount > 0);
 			_label.text = amount.ToString();
 		}
 
@@ -162,7 +158,6 @@ namespace FirstLight.Game.UIElements
 			/* This is a custom attribute (that can be set from UXML / UI Builder. In this example it's a GameID enum for Currency */
 			private readonly UxmlEnumAttributeDescription<GameId> _currencyAttribute = new()
 			{
-				
 				name = "currency",
 				defaultValue = GameId.CS,
 				restriction = new UxmlEnumeration

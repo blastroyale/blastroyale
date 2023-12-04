@@ -45,7 +45,7 @@ namespace FirstLight.Game.Views.UITK
 		private void OnTeamAssigned(EventOnTeamAssigned e)
 		{
 			if (!_squadMembers.TryGetValue(e.Entity, out var squadMemberElement)) return;
-			squadMemberElement.SetTeamColor(_matchServices.TeamService.GetTeamMemberColor(e.Entity));
+			squadMemberElement.SetTeamColor(_services.TeamService.GetTeamMemberColor(e.Entity));
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -116,7 +116,7 @@ namespace FirstLight.Game.Views.UITK
 
 					squadMember.ShowRealDamage = _dataProvider.AppDataProvider.ShowRealDamage;
 
-					var teamColor = _matchServices.TeamService.GetTeamMemberColor(e);
+					var teamColor = _services.TeamService.GetTeamMemberColor(e);
 					if (teamColor.HasValue)
 					{
 						squadMember.SetTeamColor(teamColor.Value);

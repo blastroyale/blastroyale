@@ -154,6 +154,7 @@ enum GameId
 	MeleeSkinWheelOfPain = 317,
 	MeleeSkinWrench = 318,
 	MeleeSkinYouGotMail = 319,
+	MeleeSkinXmas2023 = 320,
 	Avatar1 = 116,
 	Avatar2 = 117,
 	Avatar3 = 118,

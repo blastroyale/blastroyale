@@ -162,8 +162,9 @@ namespace FirstLight.Game.StateMachines
 		
 		private async UniTaskVoid OnMapSelectEnter()
 		{
+			_services.RoomService.CurrentRoom.PauseTimer();
 			_tutorialUtilsUi.BlockFullScreen();
-			await Task.Delay(GameConstants.Tutorial.TIME_4000MS);
+			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.select_map_position, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
 			_tutorialUtilsUi.Unblock();
 			await _tutorialUtilsUi.BlockAround<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
@@ -172,6 +173,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnMapSelectExit()
 		{
+			_services.RoomService.CurrentRoom.ResumeTimer(8);
 			CloseTutorialUi();
 			_dialogUi.HideDialog(CharacterType.Female);
 		}

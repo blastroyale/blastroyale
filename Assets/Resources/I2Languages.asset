@@ -7721,6 +7721,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinXmas2023
+      TermType: 0
+      Description: 
+      Languages:
+      - 2023 XMAS STRIKER
+      - 2023 XMAS STRIKER
+      - 2023 XMAS STRIKER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/BlastBuck
       TermType: 0
       Description: 
@@ -7728,6 +7739,22 @@ MonoBehaviour:
       - BLAST BUCK
       - BLAST BUCK
       - BLAST BUCK
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BlastBuckDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Blast Bucks by completing
+
+        Blast Pass or buy them in the shop.
+
+        Use
+        them to speed up Blast Pass progress'
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15405,7 +15432,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'MODE: SOLOS'
+      - 'MODE: SOLO'
       - BATTLE ROYALE
       - BATTLE ROYALE
       - 
@@ -18185,7 +18212,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1701195205591
+    Google_LastUpdatedVersion: 1701600161069
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

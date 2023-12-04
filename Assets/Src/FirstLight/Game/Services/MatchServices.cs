@@ -28,7 +28,6 @@ namespace FirstLight.Game.Services
 		public IPlayerIndicatorService PlayerIndicatorService { get; }
 		public IBulletService BulletService { get; }
 		public IMatchAssetsService MatchAssetService { get; }
-		public ITeamService TeamService { get; }
 
 		/// <summary>
 		///  Run the actions when the match starts, if the match already started run instantaneously
@@ -104,7 +103,6 @@ namespace FirstLight.Game.Services
 			BulletService = Configure(new BulletService(_gameServices, this));
 			HapticsService = Configure(new HapticsService(_gameServices, this, _dataProvider));
 			MatchAssetService = Configure(new MatchAssetsService());
-			TeamService = Configure(new TeamService(_gameServices, this));
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);
 			FLog.Verbose("Registered Match Services");

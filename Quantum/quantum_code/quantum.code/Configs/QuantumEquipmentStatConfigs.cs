@@ -5,7 +5,7 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public struct QuantumEquipmentStatConfig
+	public class QuantumEquipmentStatConfig
 	{
 		public EquipmentFaction Faction;
 		public FP HpRatioToBaseK;

@@ -11,7 +11,7 @@ PlayerSettings:
   defaultScreenOrientation: 4
   targetDevice: 2
   useOnDemandResources: 0
-  accelerometerFrequency: 0
+  accelerometerFrequency: 30
   companyName: First Light Games
   productName: Blast Royale
   defaultCursor: {fileID: 0}

@@ -316,16 +316,13 @@ namespace Quantum.Systems
 			{
 				rotation = prevRotation;
 			}
-
-			var moveSpeed = input->MovementMagnitude;
-			if (moveSpeed >= MOVE_SPEED_UP_CAP) moveSpeed = 1;
-
+			
 			var wasShooting = bb->GetBoolean(f, Constants.IsAimPressedKey);
 
 			bb->Set(f, Constants.IsAimPressedKey, shooting);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
-			bb->Set(f, Constants.MoveSpeedKey, moveSpeed);
+			bb->Set(f, Constants.MoveSpeedKey, 1);
 
 			if (!wasShooting && shooting)
 			{
@@ -339,17 +336,10 @@ namespace Quantum.Systems
 			}
 
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
-			var maxSpeed = f.Get<Stats>(filter.Entity).GetStatData(StatType.Speed).StatValue;
+			var maxSpeed = f.Unsafe.GetPointer<Stats>(filter.Entity)->GetStatData(StatType.Speed).StatValue;
 			var moveDirection = bb->GetVector2(f, Constants.MoveDirectionKey).XOY;
 			var velocity = kcc->Velocity;
-
-			if (moveSpeed != FP._1)
-			{
-				maxSpeed *= moveSpeed;
-				velocity.X *= moveSpeed;
-				velocity.Z *= moveSpeed;
-			}
-
+			
 			if (shooting)
 			{
 				maxSpeed *= weaponConfig.AimingMovementSpeed;

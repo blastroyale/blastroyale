@@ -38,6 +38,7 @@
     --sprite-home__background-tooltip-topleft: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topleft.png');
     --sprite-home__background-tooltip-topright: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topright.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
+    --sprite-home__blastroyale-logo: url('/Assets/Art/UI/Sprites/Home/blastroyale-logo.png');
     --sprite-home__button-battlepass: url('/Assets/Art/UI/Sprites/Home/button-battlepass.png');
     --sprite-home__button-battlepass-claimreward: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward.png');
     --sprite-home__button-battlepass-claimreward-pressed: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward-pressed.png');
@@ -165,6 +166,7 @@
     --sprite-home__icon-star-silver: url('/Assets/Art/UI/Sprites/Home/icon-star-silver.png');
     --sprite-home__icon-tiktok: url('/Assets/Art/UI/Sprites/Home/icon-tiktok.png');
     --sprite-home__icon-youtube: url('/Assets/Art/UI/Sprites/Home/icon-youtube.png');
+    --sprite-home__loading_background: url('/Assets/Art/UI/Sprites/Home/loading_background.png');
     --sprite-home__logo-blasthub: url('/Assets/Art/UI/Sprites/Home/logo-blasthub.png');
     --sprite-home__malepunk-season-reward: url('/Assets/Art/UI/Sprites/Home/malepunk-season-reward.png');
     --sprite-home__pattern-circle-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-circle-gradient.png');
@@ -429,6 +431,12 @@
     background-image: var(--sprite-home__banner-mapselection);
     width: 932px;
     height: 275px;
+}
+
+.sprite-home__blastroyale-logo {
+    background-image: var(--sprite-home__blastroyale-logo);
+    width: 1568px;
+    height: 859px;
 }
 
 .sprite-home__button-battlepass {
@@ -1141,6 +1149,12 @@
     background-image: var(--sprite-home__icon-youtube);
     width: 48px;
     height: 48px;
+}
+
+.sprite-home__loading_background {
+    background-image: var(--sprite-home__loading_background);
+    width: 2048px;
+    height: 945px;
 }
 
 .sprite-home__logo-blasthub {

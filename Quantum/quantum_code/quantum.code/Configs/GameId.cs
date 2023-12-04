@@ -757,6 +757,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.SkipTutorial, new List<GameIdGroup>
+					{
+						GameIdGroup.Destructible
+					}.AsReadOnly()
+				},
+				{
 					GameId.DummyCharacter, new List<GameIdGroup>
 					{
 						GameIdGroup.DummyCharacter
@@ -1971,7 +1977,8 @@ namespace Quantum
 					GameIdGroup.Destructible, new List<GameId>
 					{
 						GameId.Barrel,
-						GameId.Barrier
+						GameId.Barrier,
+						GameId.SkipTutorial
 					}.AsReadOnly()
 				},
 				{

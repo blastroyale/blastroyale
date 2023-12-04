@@ -197,7 +197,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			InitPlayer(callback.Game.Frames.Predicted, callback.Entity);
 		}
-		
+
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer current)
 		{
 			foreach (var (entity, bar) in _visiblePlayers)
@@ -331,17 +331,25 @@ namespace FirstLight.Game.Views.UITK
 
 			if (f.Has<Destructible>(callback.HitEntity) &&
 				f.Unsafe.TryGetPointer<Stats>(callback.HitEntity, out var stats))
+
 			{
+				if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.HitEntity, out var view))
+				{
+					return;
+				}
+
+				if (!view.TryGetComponent<HealthEntityBase>(out var healthEntityBase))
+				{
+					return;
+				}
+
 				if (!_healthBars.TryGetValue(callback.HitEntity, out var bar))
 				{
 					bar = _healthBars[callback.HitEntity] = _healthBarPool.Get();
-
-					_anchors[callback.HitEntity] = _matchServices.EntityViewUpdaterService
-						.GetManualView(callback.HitEntity).GetComponent<HealthEntityBase>().HealthBarAnchor;
+					_anchors[callback.HitEntity] = healthEntityBase.HealthBarAnchor;
 				}
 
 				bar.SetHealth((float) stats->CurrentHealth / stats->Values[(int) StatType.Health].StatValue.AsInt);
-
 				return;
 			}
 			else if (_healthBars.TryGetValue(callback.HitEntity, out var bar))

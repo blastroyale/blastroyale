@@ -33,6 +33,7 @@ namespace FirstLight.Game.StateMachines
 
 		public static readonly IStatechartEvent ProceedTutorialEvent = new StatechartEvent("TUTORIAL - Proceed tutorial event");
 		public static readonly IStatechartEvent GrenadeMissedTutorialEvent = new StatechartEvent("TUTORIAL - Grenade Missed");
+		public static readonly IStatechartEvent SkipTutorialEvent = new StatechartEvent("TUTORIAL - SkipTutorialEvent");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
@@ -48,7 +49,7 @@ namespace FirstLight.Game.StateMachines
 		private MetaTutorialSequence _sequence;
 		private GameplayProceedEventData _currentGameplayProceedData;
 		private short _currentKillProceedProgress;
-		
+
 		private bool _hasSpecial0;
 		private bool _hasSpecial1;
 
@@ -89,6 +90,16 @@ namespace FirstLight.Game.StateMachines
 			var killFinalBot = stateFactory.State("Kill final bot");
 			var waitMatchFinish = stateFactory.State("Wait simulation finish");
 
+			void SkipTutorialHook(params IStateEvent[] states)
+			{
+				foreach (var stateEvent in states)
+				{
+					stateEvent.Event(SkipTutorialEvent)
+						.OnTransition(KillTutorialBots)
+						.Target(waitMatchFinish);
+				}
+			}
+
 			initial.Transition().Target(createTutorialRoom);
 			initial.OnExit(SubscribeMessages);
 			initial.OnExit(GetTutorialUiRefs);
@@ -121,7 +132,8 @@ namespace FirstLight.Game.StateMachines
 			destroyBarrier.OnEnter(OnEnterDestroyBarrier);
 			destroyBarrier.Event(MatchState.MatchUnloadedEvent).Target(final);
 			destroyBarrier.Event(ProceedTutorialEvent).Target(pickupWeapon);
-
+			
+			SkipTutorialHook(moveJoystick, firstMove, destroyBarrier);
 			pickupWeapon.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.PickUpWeapon); });
 			pickupWeapon.OnEnter(OnEnterPickupWeapon);
 			pickupWeapon.Event(MatchState.MatchUnloadedEvent).Target(final);
@@ -136,7 +148,7 @@ namespace FirstLight.Game.StateMachines
 			kill2Bots.OnEnter(OnEnterKill2Bots);
 			kill2Bots.Event(MatchState.MatchUnloadedEvent).Target(final);
 			kill2Bots.Event(ProceedTutorialEvent).Target(specialDecision);
-			
+
 			specialDecision.Transition().Condition(() => _hasSpecial0 || _hasSpecial1).Target(kill1BotSpecial);
 			specialDecision.Transition().Target(pickupSpecial);
 
@@ -150,7 +162,7 @@ namespace FirstLight.Game.StateMachines
 			kill1BotSpecial.Event(MatchState.MatchUnloadedEvent).Target(final);
 			kill1BotSpecial.Event(ProceedTutorialEvent).Target(moveToGateArea);
 			kill1BotSpecial.Event(GrenadeMissedTutorialEvent).Target(grenadeMissed);
-			
+
 			grenadeMissed.Transition().Condition(() => _hasSpecial0 || _hasSpecial1).Target(kill1BotSpecial);
 			grenadeMissed.Transition().Target(pickupSpecial);
 
@@ -181,6 +193,12 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(CloseTutorialUi);
 			final.OnEnter(_sequence.SendCurrentStepCompletedAnalytics);
 			final.OnEnter(UnsubscribeMessages);
+		}
+
+		private void KillTutorialBots()
+		{
+			QuantumRunner.Default.Game.SendCommand(new CheatKillAllTutorialBots {BehaviourType = BotBehaviourType.Static});
+			QuantumRunner.Default.Game.SendCommand(new CheatKillAllTutorialBots {BehaviourType = BotBehaviourType.WanderAndShoot});
 		}
 
 		private void GetTutorialUiRefs()
@@ -279,6 +297,12 @@ namespace FirstLight.Game.StateMachines
 		{
 			await Task.Yield();
 
+			if (callback.sourceId == GameId.SkipTutorial)
+			{
+				_statechartTrigger(SkipTutorialEvent);
+				return;
+			}
+
 			CheckGameplayProceedConditions(typeof(EventOnHazardLand), callback.sourceId.ToString());
 
 			if (callback.Hits == 0)
@@ -320,7 +344,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				_hasSpecial1 = callback.Special.IsValid;
 			}
-			
+
 			CheckGameplayProceedConditions(typeof(EventOnPlayerSpecialUpdated));
 		}
 

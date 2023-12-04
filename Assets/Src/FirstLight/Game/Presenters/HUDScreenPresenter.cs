@@ -10,6 +10,7 @@ using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using Quantum;
 using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor.GettingStarted;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.Playables;
@@ -171,9 +172,9 @@ namespace FirstLight.Game.Presenters
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		public bool IsMenuVisible()
+		private bool IsMenuVisible()
 		{
-			return !_gameServices.TutorialService.IsTutorialRunning &&
+			return _gameServices.RoomService.CurrentRoom.GameModeConfig.Id == GameConstants.Tutorial.SECOND_BOT_MODE_ID ||
 				_gameServices.RoomService.CurrentRoom.Properties.MatchType.Value == MatchType.Custom;
 		}
 	

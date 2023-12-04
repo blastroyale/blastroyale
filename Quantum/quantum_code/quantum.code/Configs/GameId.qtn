@@ -101,6 +101,7 @@ enum GameId
 	TutorialGrenade = 70,
 	Barrel = 109,
 	Barrier = 72,
+	SkipTutorial = 195,
 	DummyCharacter = 6,
 	WeaponPlatformSpawner = 138,
 	ConsumablePlatformSpawner = 140,

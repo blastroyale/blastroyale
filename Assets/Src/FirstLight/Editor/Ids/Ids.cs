@@ -160,6 +160,7 @@ namespace FirstLight.Editor.Ids
 			{"TutorialGrenade", 70, Special},
 			{"Barrel", 109, Destructible},
 			{"Barrier", 72, Destructible},
+			{"SkipTutorial", 195, Destructible},
 			{"DummyCharacter", 6, DummyCharacter},
 			{"WeaponPlatformSpawner", 138, Platform},
 			{"ConsumablePlatformSpawner", 140, Platform},

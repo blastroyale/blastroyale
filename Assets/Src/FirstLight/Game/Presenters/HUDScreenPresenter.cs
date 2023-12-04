@@ -10,7 +10,6 @@ using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using Quantum;
 using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor.GettingStarted;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.Playables;

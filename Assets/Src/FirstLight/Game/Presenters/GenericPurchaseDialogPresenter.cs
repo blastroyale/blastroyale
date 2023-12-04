@@ -18,7 +18,6 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class GenericPurchaseDialogPresenter : UiToolkitPresenter
 	{
-
 		private const string USS_NOT_ENOUGH_FUNDS = "purchase-confirmation-root--insufficient";
 		private Label _itemPrice;
 		private Label _itemAmount;
@@ -37,7 +36,7 @@ namespace FirstLight.Game.Presenters
 		{
 			Close(false);
 		}
-		
+
 		protected override Task OnClosed()
 		{
 			_closeCallback?.Invoke();
@@ -59,7 +58,7 @@ namespace FirstLight.Game.Presenters
 
 			_confirmCallback = null;
 			_closeCallback = null;
-			
+
 			_buyButton.clicked += OnBuyButtonClicked;
 			_blockerButton.clicked += CloseRequested;
 			_closeButton.clicked += CloseRequested;
@@ -68,6 +67,7 @@ namespace FirstLight.Game.Presenters
 		private void OnBuyButtonClicked()
 		{
 			_confirmCallback.Invoke();
+			CloseRequested();
 		}
 
 		public void SetHasEnoughOptions(GenericPurchaseOptions options)
@@ -82,7 +82,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_itemDisplayName.text = options.OverwriteItemName;
 			}
-			else if(options.Item != null)
+			else if (options.Item != null)
 			{
 				_itemDisplayName.text = options.Item.GetDisplayName();
 			}
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Presenters
 			_closeCallback = options.OnExit;
 			_confirmCallback = options.OnConfirm;
 		}
-		
+
 
 		public void SetNotEnoughOptions(GenericPurchaseOptions options)
 		{

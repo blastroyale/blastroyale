@@ -12,6 +12,7 @@ namespace Quantum
 		public bool IsCustomOnly;
 		public float DropSelectionSize;
 		public float MinimapCameraSize;
+		public short LootingVersion;
 	}
 	
 	/// <summary>

@@ -294,9 +294,11 @@ namespace Quantum
 			}
 
 			// Optionally drop the weapon if there's a different weapon in a slot
-			if (f.Context.GameModeConfig.DropWeaponOnPickup &&
-			    WeaponSlots[slot].Weapon.IsValid() &&
-			    WeaponSlots[slot].Weapon.GameId != weapon.GameId)
+			// In Looting 2.0 we don't drop the gun on the floor
+			if (f.Context.MapConfig.LootingVersion != 2 &&
+				f.Context.GameModeConfig.DropWeaponOnPickup &&
+				WeaponSlots[slot].Weapon.IsValid() &&
+				WeaponSlots[slot].Weapon.GameId != weapon.GameId)
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0, true, 1);

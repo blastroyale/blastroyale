@@ -475,7 +475,7 @@ MonoBehaviour:
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
-        RawValue: 39322
+        RawValue: 0
       PowerRatioToBase:
         RawValue: 131072
       AttackRangeRatioToBase:

@@ -881,6 +881,7 @@ namespace Quantum
 					GameId.FemaleAssassin, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Assassin,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -1899,6 +1900,7 @@ namespace Quantum
 					GameIdGroup.BotItem, new List<GameId>
 					{
 						GameId.MaleAssassin,
+						GameId.FemaleAssassin,
 						GameId.Turbine,
 						GameId.Tombstone,
 						GameId.MeleeSkinDefault,

@@ -181,7 +181,7 @@ namespace FirstLight.Editor.Ids
 			{"MaleCorpos", 69, PlayerSkin, Corpo, Collection},
 			{"MalePunk", 77, PlayerSkin, Punk, Collection},
 			{"MaleSuperstar", 80, PlayerSkin, Superstar, Collection},
-			{"FemaleAssassin", 81, PlayerSkin, Assassin, Collection},
+			{"FemaleAssassin", 81, PlayerSkin, BotItem, Assassin, Collection},
 			{"FemaleCorpos", 82, PlayerSkin, Corpo, Collection},
 			{"FemalePunk", 83, PlayerSkin, Punk, Collection},
 			{"FemaleSuperstar", 104, PlayerSkin, Superstar, Collection},

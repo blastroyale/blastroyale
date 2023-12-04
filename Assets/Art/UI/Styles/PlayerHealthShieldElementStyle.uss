@@ -42,6 +42,7 @@
 
 .player-health-shield--local > .player-health-shield__shield-container {
     margin: 0;
+    margin-bottom: 2px;
 }
 
 .player-health-shield__health-label {

@@ -571,6 +571,7 @@ namespace I2.Loc
 			public static string MeleeSkinWheelOfPain 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinWheelOfPain"); } }
 			public static string MeleeSkinWrench 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinWrench"); } }
 			public static string MeleeSkinXmas2023 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinXmas2023"); } }
+			public static string MeleeSkinXmas2023Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinXmas2023Description"); } }
 			public static string MeleeSkinYouGotMail 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinYouGotMail"); } }
 			public static string ModHeavyMachineGun 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ModHeavyMachineGun"); } }
 			public static string ModLauncher 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ModLauncher"); } }
@@ -597,6 +598,8 @@ namespace I2.Loc
 			public static string PlayerSkinFitnessChickDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinFitnessChickDescription"); } }
 			public static string PlayerSkinTieGuy 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinTieGuy"); } }
 			public static string PlayerSkinTieGuyDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinTieGuyDescription"); } }
+			public static string PlayerSkinXmasSuperstar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinXmasSuperstar"); } }
+			public static string PlayerSkinXmasSuperstarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinXmasSuperstarDescription"); } }
 			public static string Punk 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Punk"); } }
 			public static string PunkDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PunkDescription"); } }
 			public static string Rage 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Rage"); } }
@@ -2277,6 +2280,7 @@ namespace I2.Loc
 		    public const string MeleeSkinWheelOfPain = "GameIds/MeleeSkinWheelOfPain";
 		    public const string MeleeSkinWrench = "GameIds/MeleeSkinWrench";
 		    public const string MeleeSkinXmas2023 = "GameIds/MeleeSkinXmas2023";
+		    public const string MeleeSkinXmas2023Description = "GameIds/MeleeSkinXmas2023Description";
 		    public const string MeleeSkinYouGotMail = "GameIds/MeleeSkinYouGotMail";
 		    public const string ModHeavyMachineGun = "GameIds/ModHeavyMachineGun";
 		    public const string ModLauncher = "GameIds/ModLauncher";
@@ -2303,6 +2307,8 @@ namespace I2.Loc
 		    public const string PlayerSkinFitnessChickDescription = "GameIds/PlayerSkinFitnessChickDescription";
 		    public const string PlayerSkinTieGuy = "GameIds/PlayerSkinTieGuy";
 		    public const string PlayerSkinTieGuyDescription = "GameIds/PlayerSkinTieGuyDescription";
+		    public const string PlayerSkinXmasSuperstar = "GameIds/PlayerSkinXmasSuperstar";
+		    public const string PlayerSkinXmasSuperstarDescription = "GameIds/PlayerSkinXmasSuperstarDescription";
 		    public const string Punk = "GameIds/Punk";
 		    public const string PunkDescription = "GameIds/PunkDescription";
 		    public const string Rage = "GameIds/Rage";

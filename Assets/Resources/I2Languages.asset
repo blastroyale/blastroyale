@@ -7725,9 +7725,20 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 2023 XMAS STRIKER
-      - 2023 XMAS STRIKER
-      - 2023 XMAS STRIKER
+      - CANDY CRUSHER
+      - CANDY CRUSHER
+      - CANDY CRUSHER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinXmas2023Description
+      TermType: 0
+      Description: 
+      Languages:
+      - 2023 Xmas Event
+      - 2023 Xmas Event
+      - 2023 Xmas Event
       - 
       - 
       Flags: 0000000000
@@ -7832,6 +7843,28 @@ MonoBehaviour:
       - Came To A Better Place
       - Punk Rock Thrasher
       - Punk Rock Thrasher
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinXmasSuperstar
+      TermType: 0
+      Description: 
+      Languages:
+      - DRAKE CLAUS
+      - DRAKE CLAUS
+      - DRAKE CLAUS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinXmasSuperstarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 2023 Xmas Event
+      - 2023 Xmas Event
+      - 2023 Xmas Event
       - 
       - 
       Flags: 0000000000
@@ -18212,7 +18245,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1701600161069
+    Google_LastUpdatedVersion: 1701686337053
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

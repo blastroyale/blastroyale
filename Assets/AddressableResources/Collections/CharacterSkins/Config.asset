@@ -137,7 +137,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 80
       Prefab:
-        m_AssetGUID: 832dd9598f2464f0fb4982c7795b4424
+        m_AssetGUID: 5917d278f063745d591d4d6f64a60d3c
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -179,6 +179,17 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+    - GameId: 149
+      Prefab:
+        m_AssetGUID: 5917d278f063745d591d4d6f64a60d3c
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 79ca3826bb7534852b40f0ecacb05b65
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 1
     InGameDefaultAnimation:
       ApplyRootMotion: 0
       UpdateMode: 0

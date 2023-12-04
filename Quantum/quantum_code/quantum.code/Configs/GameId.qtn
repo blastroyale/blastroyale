@@ -126,6 +126,7 @@ enum GameId
 	PlayerSkinTieGuy = 147,
 	PlayerSkinFitnessChick = 146,
 	PlayerSkinSkellyQueen = 145,
+	PlayerSkinXmasSuperstar = 149,
 	Divinci = 66,
 	Falcon = 67,
 	Rocket = 73,

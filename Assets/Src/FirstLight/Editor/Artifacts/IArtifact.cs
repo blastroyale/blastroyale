@@ -6,6 +6,6 @@ namespace FirstLight.Editor.Artifacts
 {
 	public interface IArtifact
 	{
-		UniTask CopyTo(string directory);
+		void CopyTo(string directory);
 	}
 }

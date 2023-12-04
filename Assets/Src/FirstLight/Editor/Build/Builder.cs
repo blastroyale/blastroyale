@@ -101,15 +101,6 @@ namespace FirstLight.Editor.Build
 			JenkinsBuild(args);
 		}
 
-		/// <summary>
-		/// Copies build artifacts
-		/// </summary>
-		public static async void AzureCopyArtifacts()
-		{
-			// Copy Dlls to a folder that will be publish as a pipeline artifact
-			await ArtifactCopier.Copy($"{Application.dataPath}/../BuildArtifacts/", ArtifactCopier.All);
-		}
-
 		[MenuItem("FLG/Build/Store Azure Build")]
 		public static async void EditorBuild()
 		{
@@ -147,6 +138,9 @@ namespace FirstLight.Editor.Build
 				Debug.LogError("Could not get app file name from command line args.");
 				EditorApplication.Exit(1);
 			}
+			
+			// Copy Dlls to a folder that will be publish as a pipeline artifact
+			ArtifactCopier.Copy($"{Application.dataPath}/../BuildArtifacts/", ArtifactCopier.All);
 
 			PlayerSettings.SplashScreen.show = false;
 			PlayerSettings.SplashScreen.showUnityLogo = false;

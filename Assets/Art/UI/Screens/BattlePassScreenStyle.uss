@@ -713,7 +713,6 @@
     min-width: 100%;
     justify-content: flex-end;
     padding-bottom: 21px;
-    padding-right: 0;
     margin-left: 0;
     align-items: center;
 }
@@ -887,12 +886,14 @@
 }
 
 .last-reward-picture__background {
-    position: absolute;
-    height: 100%;
-    right: -180px;
     width: 800px;
     background-image: url('project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation');
     -unity-background-image-tint-color: rgb(75, 216, 214);
+    position: absolute;
+    right: -500px;
+    top: -76px;
+    bottom: -90px;
+    justify-content: center;
 }
 
 .last-reward-picture__background-yellow {
@@ -915,12 +916,12 @@
 
 .last-reward-picture__reward-picture {
     background-image: var(--sprite-home__malepunk-season-reward);
-    position: absolute;
+    position: relative;
     width: 552px;
     height: 714px;
     align-self: center;
-    top: 53px;
-    right: 382px;
+    right: 267px;
+    top: -69px;
 }
 
 .last-reward-picture__cloud-background {
@@ -958,4 +959,8 @@
     bottom: -37px;
     right: 184px;
     -unity-background-image-tint-color: rgb(223, 86, 134);
+}
+
+.unity-scroll-view__content-viewport {
+    overflow: visible;
 }

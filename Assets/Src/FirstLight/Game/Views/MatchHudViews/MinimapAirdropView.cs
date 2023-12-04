@@ -56,8 +56,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_timerImage.enabled = true;
 			_timerBackground.enabled = true;
 
+			var endScale = _rectTransform.localScale;
 			_rectTransform.localScale = Vector3.zero;
-			_rectTransform.DOScale(Vector3.one * 0.6f, _showDuration).SetEase(_showEase);
+			_rectTransform.DOScale(endScale, _showDuration).SetEase(_showEase);
 		}
 
 		public void OnDespawn()

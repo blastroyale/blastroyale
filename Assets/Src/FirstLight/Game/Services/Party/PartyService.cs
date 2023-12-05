@@ -211,9 +211,21 @@ namespace FirstLight.Game.Services.Party
 				OnReconnectPubSub();
 #pragma warning restore CS4014
 			};
+			msgBroker.Subscribe<ChangedServerRegionMessage>(OnChangedPhotonServer);
 		}
 
+		private void OnChangedPhotonServer(ChangedServerRegionMessage obj)
+		{
+			LeavePartyAndForget();
+		}
+
+
 		private void OnSuccessAuthentication(SuccessAuthentication obj)
+		{
+			LeavePartyAndForget();
+		}
+
+		private void LeavePartyAndForget()
 		{
 			if (HasParty.Value)
 			{
@@ -223,7 +235,6 @@ namespace FirstLight.Game.Services.Party
 #pragma warning restore CS4014
 			}
 		}
-
 
 		/// <inheritdoc/>
 		public async UniTask CreateParty()

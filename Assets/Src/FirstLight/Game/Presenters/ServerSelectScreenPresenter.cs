@@ -1,13 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using I2.Loc;
-using Photon.Realtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,21 +20,18 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
-			public Action<Region> RegionChosen;
-			public Action BackClicked;
+			public Action<bool> OnExit;
 		}
 
+		[SerializeField, Required] private GameObject _selectorAndButtonsContainer;
+		[SerializeField, Required] private TMP_Text _statusText;
 		[SerializeField, Required] private Button _connectButton;
 		[SerializeField, Required] private Button _backButton;
-		[SerializeField, Required] private GameObject _frontDimBlocker;
 		[SerializeField, Required] private TMP_Dropdown _serverSelectDropdown;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
-		private List<Region> _availableRegions;
-
-		private Coroutine _fadeBlockerCoroutine;
 
 		private void Awake()
 		{
@@ -49,87 +44,64 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			SetFrontDimBlockerActive(true);
+			_statusText.SetText("Pinging servers...");
+			_selectorAndButtonsContainer.SetActive(false);
+			WaitForRegionPing();
 		}
 
-		protected override async Task OnClosed()
+		private async UniTaskVoid WaitForRegionPing()
 		{
-			await base.OnClosed();
-
-			if (_fadeBlockerCoroutine != null)
+			await UniTask.WaitUntil(() => _services.ServerListService.State is IServerListService.ServerListState.FetchedPings or IServerListService.ServerListState.Failed);
+			if (_services.ServerListService.State == IServerListService.ServerListState.Failed)
 			{
-				_services.CoroutineService.StopCoroutine(_fadeBlockerCoroutine);
+				CloseSeverSelect(false);
+				return;
 			}
+
+			_selectorAndButtonsContainer.SetActive(true);
+			_statusText.SetText("");
+			UpdateServerList();
 		}
 
 		/// <summary>
 		/// Activates and populates the server selection list
 		/// </summary>
-		public void InitServerSelectionList(RegionHandler regionHandler)
+		public void UpdateServerList()
 		{
-			SetFrontDimBlockerActive(false);
-
-			_availableRegions = regionHandler.EnabledRegions;
+			var regions = _services.ServerListService.PingsByServer;
 			_serverSelectDropdown.options.Clear();
 
 			int currentRegion = 0;
-
-			foreach (var region in _availableRegions)
+			int i = 0;
+			foreach (var region in regions.Values)
 			{
 				string regionTitle = string.Format(ScriptLocalization.MainMenu.ServerSelectOption,
-				                                   region.Code.GetPhotonRegionTranslation().ToUpper(), "-");
+					region.ServerCode.GetPhotonRegionTranslation().ToUpper(), region.ReceivedPing ? region.Ping : "");
 
 				_serverSelectDropdown.options.Add(new DropdownMenuOption(regionTitle, region));
 
-				if (_gameDataProvider.AppDataProvider.ConnectionRegion.Value == region.Code)
+				if (_gameDataProvider.AppDataProvider.ConnectionRegion.Value == region.ServerCode)
 				{
-					currentRegion = _availableRegions.IndexOf(region);
+					currentRegion = i;
 				}
+
+				i++;
 			}
 
 			_serverSelectDropdown.SetValueWithoutNotify(currentRegion);
 			_serverSelectDropdown.RefreshShownValue();
 		}
+		
 
-		/// <summary>
-		/// Updates pings of regions in the currently initialized list
-		/// </summary>
-		public void UpdateRegionPing(RegionHandler regionHandler)
+		private void CloseSeverSelect(bool changedServer)
 		{
-			var selectedOption = (DropdownMenuOption) _serverSelectDropdown.options[_serverSelectDropdown.value];
-
-			_serverSelectDropdown.captionText.text = string.Format(ScriptLocalization.MainMenu.ServerSelectOption,
-			                                                       selectedOption.RegionInfo.Code.GetPhotonRegionTranslation().ToUpper(),
-			                                                       selectedOption.RegionInfo.Ping);
-
-			foreach (var dropdownOption in _serverSelectDropdown.options)
-			{
-				var regionOption = (DropdownMenuOption) dropdownOption;
-
-				dropdownOption.text = string.Format(ScriptLocalization.MainMenu.ServerSelectOption,
-				                                    regionOption.RegionInfo.Code.GetPhotonRegionTranslation().ToUpper(),
-				                                    regionOption.RegionInfo.Ping);
-			}
-		}
-
-		private IEnumerator FrontDimBlockerSequence()
-		{
-			SetFrontDimBlockerActive(true);
-
-			yield return new WaitForSeconds(GameConstants.Data.SERVER_SELECT_CONNECTION_TIMEOUT);
-			
-			SetFrontDimBlockerActive(false);
-		}
-
-		private void SetFrontDimBlockerActive(bool active)
-		{
-			_frontDimBlocker.SetActive(active);
+			Data.OnExit.Invoke(changedServer);
+			Close(true);
 		}
 
 		private void OnBackClicked()
 		{
-			Data.BackClicked.Invoke();
-			_fadeBlockerCoroutine = _services.CoroutineService.StartCoroutine(FrontDimBlockerSequence());
+			CloseSeverSelect(false);
 		}
 
 		private void OnConnectClicked()
@@ -141,9 +113,31 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var selectedRegion = ((DropdownMenuOption) _serverSelectDropdown.options[_serverSelectDropdown.value]).RegionInfo;
-			Data.RegionChosen.Invoke(selectedRegion);
-			_fadeBlockerCoroutine = _services.CoroutineService.StartCoroutine(FrontDimBlockerSequence());
+			Connect(selectedRegion);
 		}
+
+		private async UniTaskVoid Connect(IServerListService.ServerPing server)
+		{
+			// No need to reconnect if it is the same server
+			if (_gameDataProvider.AppDataProvider.ConnectionRegion.Value == server.ServerCode)
+			{
+				CloseSeverSelect(false);
+				return;
+			}
+			_statusText.SetText("Connecting...");
+			_selectorAndButtonsContainer.SetActive(false);
+			FLog.Info("Connecting to " + server.ServerCode);
+			await _services.NetworkService.ChangeServerRegionAndReconnect(server.ServerCode);
+			var connected = await _services.NetworkService.AwaitMasterServerConnection(10, server.ServerCode);
+			if (!connected)
+			{
+				FLog.Error("Failed to change region!");
+			}
+
+			CloseSeverSelect(connected);
+			FLog.Info("Should close this");
+		}
+
 
 		private void OpenNoInternetPopup()
 		{
@@ -154,14 +148,14 @@ namespace FirstLight.Game.Presenters
 			};
 
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet,
-			                               ScriptLocalization.General.NoInternetDescription, button);
+				ScriptLocalization.General.NoInternetDescription, button);
 		}
 
 		private class DropdownMenuOption : TMP_Dropdown.OptionData
 		{
-			public Region RegionInfo { get; set; }
+			public IServerListService.ServerPing RegionInfo { get; set; }
 
-			public DropdownMenuOption(string text, Region regionInfo) : base(text)
+			public DropdownMenuOption(string text, IServerListService.ServerPing regionInfo) : base(text)
 			{
 				RegionInfo = regionInfo;
 			}

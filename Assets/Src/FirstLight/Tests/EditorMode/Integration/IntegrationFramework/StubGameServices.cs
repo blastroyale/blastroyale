@@ -57,6 +57,7 @@ namespace FirstLight.Tests.EditorMode
 
 		public IBattlePassService BattlePassService { get; }
 		public ITeamService TeamService { get; }
+		public IServerListService ServerListService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
@@ -113,6 +114,7 @@ namespace FirstLight.Tests.EditorMode
 			BattlePassService = Substitute.For<IBattlePassService>();
 			GameAppService = Substitute.For<IGameAppService>();
 			TeamService = Substitute.For<ITeamService>();
+			ServerListService = Substitute.For<IServerListService>();
 		}
 	}
 }

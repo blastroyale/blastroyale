@@ -6,6 +6,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
 using Photon.Realtime;
@@ -29,6 +30,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _connectIdLoginSuccessEvent = new StatechartEvent("Connect ID login success event");
 		private readonly IStatechartEvent _connectIdRegisterSuccessEvent = new StatechartEvent("Connect ID register success event");
 		private readonly IStatechartEvent _connectIdFailedEvent = new StatechartEvent("Connect ID failed event");
+		private readonly IStatechartEvent _exitedSelectServer = new StatechartEvent("Exited Select Server");
 
 		private readonly MatchState _matchState;
 		private readonly MainMenuState _mainMenuState;
@@ -41,8 +43,8 @@ namespace FirstLight.Game.StateMachines
 		private Coroutine _csPoolTimerCoroutine;
 
 		public SettingsMenuState(IGameDataProvider data, IGameServices services, IGameLogic gameLogic,
-			IGameUiService uiService,
-			Action<IStatechartEvent> statechartTrigger)
+								 IGameUiService uiService,
+								 Action<IStatechartEvent> statechartTrigger)
 		{
 			_data = data;
 			_services = services;
@@ -80,8 +82,7 @@ namespace FirstLight.Game.StateMachines
 			connectId.OnExit(CloseConnectUI);
 
 			serverSelect.OnEnter(() => _ = OpenServerSelectUI());
-			serverSelect.Event(NetworkState.PhotonMasterConnectedEvent).Target(settingsMenu);
-			serverSelect.OnExit(CloseServerSelectUI);
+			serverSelect.Event(_exitedSelectServer).Target(settingsMenu);
 
 			logoutWait.OnEnter(TryLogOut);
 			logoutWait.Event(_logoutFailedEvent).Target(final);
@@ -105,8 +106,6 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnServerHttpErrorMessage);
-			_services.MessageBrokerService.Subscribe<PingedRegionsMessage>(OnPingedRegionsMessage);
-			_services.MessageBrokerService.Subscribe<RegionListReceivedMessage>(OnRegionListReceivedMessage);
 		}
 
 		private void UnsubscribeEvents()
@@ -126,7 +125,7 @@ namespace FirstLight.Game.StateMachines
 				OnDeleteAccountClicked = () =>
 					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted, null)
 			};
-			
+
 			_uiService.OpenScreen<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
 		}
 
@@ -153,12 +152,15 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new ServerSelectScreenPresenter.StateData
 			{
-				BackClicked = () => _statechartTrigger(NetworkState.RegionUpdatedEvent),
-				RegionChosen = (region) =>
+				OnExit = (changed) =>
 				{
-					_data.AppDataProvider.ConnectionRegion.Value = region.Code;
-					_statechartTrigger(NetworkState.RegionUpdatedEvent);
-					_uiService.CloseUi<ServerSelectScreenPresenter>();
+					if (changed)
+					{
+						_services.MessageBrokerService.Publish(new ChangedServerRegionMessage());
+						_services.GenericDialogService.OpenSimpleMessage("Server", "Connected to " + _appLogic.ConnectionRegion.Value.GetPhotonRegionTranslation() + " server!");
+					}
+
+					_statechartTrigger(_exitedSelectServer);
 				},
 			};
 
@@ -170,23 +172,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<ServerSelectScreenPresenter>(true);
 		}
 
-		private void OnRegionListReceivedMessage(RegionListReceivedMessage msg)
-		{
-			if (_uiService.HasUiPresenter<ServerSelectScreenPresenter>())
-			{
-				_uiService.GetUi<ServerSelectScreenPresenter>()
-					.InitServerSelectionList(_services.NetworkService.QuantumClient.RegionHandler);
-			}
-		}
-
-		private void OnPingedRegionsMessage(PingedRegionsMessage msg)
-		{
-			if (_uiService.HasUiPresenter<ServerSelectScreenPresenter>())
-			{
-				_uiService.GetUi<ServerSelectScreenPresenter>()
-					.UpdateRegionPing(_services.NetworkService.QuantumClient.RegionHandler);
-			}
-		}
 
 		private async void OpenConnectIdUI()
 		{
@@ -215,7 +200,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnLogoutComplete()
 		{
 			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
-			
+
 			var title = ScriptLocalization.UITShared.info;
 			var desc = ScriptLocalization.UITSettings.logout_success_desc;
 
@@ -242,7 +227,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnLogoutFail(PlayFabError error)
 		{
 			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
-			
+
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
@@ -251,7 +236,7 @@ namespace FirstLight.Game.StateMachines
 
 			_services.GenericDialogService.OpenButtonDialog("Logout Fail", error.ErrorMessage, false, confirmButton);
 		}
-		
+
 		private void OpenGameClosePopup()
 		{
 			var title = "Login Success";

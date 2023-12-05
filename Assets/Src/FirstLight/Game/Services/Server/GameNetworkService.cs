@@ -167,7 +167,9 @@ namespace FirstLight.Game.Services
 		/// Awaits until server connection is stablished
 		/// Will return false if connection could be made
 		/// </summary>
-		UniTask<bool> AwaitServerConnection();
+		UniTask<bool> AwaitMasterServerConnection(int timeout = 10, string server = "");
+
+		UniTask ChangeServerRegionAndReconnect(string regionCode);
 	}
 
 	public enum JoinRoomSource
@@ -263,15 +265,22 @@ namespace FirstLight.Game.Services
 			LastConnectedRoom.Value = CurrentRoom;
 		}
 
-		public async UniTask<bool> AwaitServerConnection()
+		public async UniTask<bool> AwaitMasterServerConnection(int timeout = 10, string server = "")
 		{
-			var timeout = 10;
-			while (timeout > 0)
+			var i = timeout * 4;
+			while (i > 0)
 			{
-				if (QuantumClient.IsConnectedAndReady) return true;
-				await Task.Delay(TimeSpan.FromSeconds(1));
+				if (QuantumClient.IsConnectedAndReady)
+				{
+					if (string.IsNullOrEmpty(server) || QuantumClient.CloudRegion == server)
+					{
+						return true;
+					}
+				}
+
+				await UniTask.Delay(250);
 				if (Time.timeScale == 0) QuantumClient.Service();
-				timeout--;
+				i--;
 			}
 
 			return false;
@@ -411,6 +420,14 @@ namespace FirstLight.Game.Services
 			HasLag.Value = roundTripCheck || dcCheck;
 		}
 
+		public async UniTask ChangeServerRegionAndReconnect(string serverCode)
+		{
+			_dataProvider.AppDataProvider.ConnectionRegion.Value = serverCode;
+			_services.DataService.SaveData<AppData>();
+			DisconnectPhoton();
+			FLog.Info("Changing region to " + serverCode);
+		}
+
 		public bool ConnectPhotonServer()
 		{
 			FLog.Info("Connecting Photon Server");
@@ -489,6 +506,14 @@ namespace FirstLight.Game.Services
 			}
 			else
 			{
+				var settingsRegion = _dataProvider.AppDataProvider.ConnectionRegion.Value;
+				if (settingsRegion != QuantumClient.CloudRegion)
+				{
+					FLog.Info("ReconnectPhoton - ReconnectToMaster changing region ");
+					QuantumClient.ConnectToRegionMaster(settingsRegion);
+					return;
+				}
+
 				FLog.Info("ReconnectPhoton - ReconnectToMaster");
 				QuantumClient.ReconnectToMaster();
 			}

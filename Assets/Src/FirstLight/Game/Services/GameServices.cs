@@ -126,6 +126,8 @@ namespace FirstLight.Game.Services
 		public IBattlePassService BattlePassService { get; }
 		public ITeamService TeamService { get; }
 
+		public IServerListService ServerListService { get; }
+
 		/// <summary>
 		/// Reason why the player quit the app
 		/// </summary>
@@ -177,8 +179,9 @@ namespace FirstLight.Game.Services
 		public IControlSetupService ControlsSetup { get; }
 		public IRoomService RoomService { get; }
 		public IBattlePassService BattlePassService { get; }
-		
+
 		public ITeamService TeamService { get; }
+		public IServerListService ServerListService { get; }
 		public ILeaderboardService LeaderboardService { get; }
 		public ICheatsService CheatsService { get; }
 		public IRewardService RewardService { get; }
@@ -252,6 +255,7 @@ namespace FirstLight.Game.Services
 			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, this);
 			GameAppService = new GameAppService(this);
 			TeamService = new TeamService(RoomService);
+			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);
 		}
 
 		/// <inheritdoc />

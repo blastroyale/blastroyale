@@ -59,6 +59,9 @@ namespace FirstLight.Game.Presenters
 			if (ui == null) return;
 			ui._swipeParent.AddToClassList("hidden-end");
 			await ui.WaitTransition();
+			// concurrency check
+			ui = service.GameUiService.GetUi<SwipeScreenPresenter>();
+			if (ui == null || !service.GameUiService.IsOpen<SwipeScreenPresenter>()) return;
 			await service.GameUiService.CloseUi<SwipeScreenPresenter>(true);
 		}
 	}

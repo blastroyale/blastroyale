@@ -187,7 +187,7 @@ namespace FirstLight.Game.Presenters
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 				
 			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
-			Data.AuthRegisterFail();
+			Data.AuthRegisterFail?.Invoke();
 		}
 		
 		private void LoginClicked(string email, string password)

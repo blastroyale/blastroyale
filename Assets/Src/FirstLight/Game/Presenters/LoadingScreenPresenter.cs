@@ -14,6 +14,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			var labelsContainer = root.Q("LabelsContainer").Required();
+			labelsContainer.Clear();
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 

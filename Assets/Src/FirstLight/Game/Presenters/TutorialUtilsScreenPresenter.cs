@@ -85,6 +85,19 @@ namespace FirstLight.Game.Presenters
 			CreateBlockers(element);
 		}
 
+		public async UniTask EnsurePresenterElement<T>(string className = null, string elementName = null)
+			where T : UiPresenter, IUIDocumentPresenter
+		{
+			await UniTask.WaitUntil(() => _uiService.HasUiPresenter<T>());
+			var doc = _uiService.GetUi<PreGameLoadingScreenPresenter>().Document;
+			var element = doc.rootVisualElement.Q(elementName, className);
+
+			while (element.worldBound is {width: 0, height: 0})
+			{
+				await UniTask.NextFrame();
+			}
+		}
+
 		/// <summary>
 		/// Removes blockers
 		/// </summary>

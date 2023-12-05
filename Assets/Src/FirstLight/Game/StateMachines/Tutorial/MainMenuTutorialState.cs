@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
@@ -11,11 +9,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Services.Tutorial;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
-using FirstLight.Game.Services.Tutorial;
 using I2.Loc;
-using NUnit.Framework;
-using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -159,13 +153,19 @@ namespace FirstLight.Game.StateMachines
 			CloseTutorialUi();
 			_dialogUi.HideDialog(CharacterType.Female);
 		}
-		
+
 		private async UniTaskVoid OnMapSelectEnter()
 		{
 			_services.RoomService.CurrentRoom.PauseTimer();
+
+			await _tutorialUtilsUi.EnsurePresenterElement<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
+
 			_tutorialUtilsUi.BlockFullScreen();
-			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
-			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.select_map_position, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
+
+			await UniTask.Delay(GameConstants.Tutorial.TIME_1000MS);
+
+			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.select_map_position, CharacterType.Female, CharacterDialogMoodType.Happy,
+				CharacterDialogPosition.TopLeft);
 			_tutorialUtilsUi.Unblock();
 			await _tutorialUtilsUi.BlockAround<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
 			_tutorialUtilsUi.Highlight<PreGameLoadingScreenPresenter>("tutorial-drop-pos");

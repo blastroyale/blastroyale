@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 // ReSharper disable CheckNamespace
@@ -219,6 +220,22 @@ namespace FirstLight.Statechart.Internal
 			}
 
 			return areAllFinished ? _transition : null;
+		}
+
+		public override string CurrentStateDebug()
+		{
+			var str = new StringBuilder();
+			str.AppendLine($"{Name} <b>{GetType().Name}</b>");
+			foreach (var innerStateData in _innerStates)
+			{
+				if (innerStateData.CurrenState is IStateDebug debug)
+				{
+					str.AppendLine("\u21b3 " + string.Join("\n", debug.CurrentStateDebug().Split("\n")
+						.Select(a => "  " + a)));
+				}
+			}
+
+			return str.ToString();
 		}
 
 		public override Dictionary<string, object> CurrentState

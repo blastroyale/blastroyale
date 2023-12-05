@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
+using FirstLight.Game.StateMachines;
 using FirstLight.Game.TestCases;
 using FirstLight.Game.Utils;
 using UnityEditor;
@@ -84,6 +85,11 @@ namespace FirstLight.Game.Services
 
 		private void OnPause(bool paused)
 		{
+			if (MainInstaller.TryResolve<IGameStateMachine>(out var state))
+			{
+				FLog.Info(state.GetCurrentStateDebug());
+			}
+
 			if (FeatureFlags.GetLocalConfiguration().DisablePauseBehaviour)
 			{
 				return;

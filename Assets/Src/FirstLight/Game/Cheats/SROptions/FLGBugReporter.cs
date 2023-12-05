@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
+using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
@@ -35,13 +36,20 @@ namespace FirstLight.Game.Cheats.SROptions
 			MainInstaller.ResolveServices().GameBackendService.FetchServerState(state =>
 			{
 				var console = new List<ConsoleEntry>(report.ConsoleLog);
+				console.Add(new ConsoleEntry
+				{
+					LogType = LogType.Log,
+					Message = MainInstaller.Resolve<IGameStateMachine>().GetCurrentStateDebug(),
+					Count = 1,
+					StackTrace = ""
+				});
+
 				foreach (var type in dataProvider.GetKeys())
 				{
 					string serverValue = string.Empty;
 					if (type.FullName != null) state.TryGetValue(type.FullName, out serverValue);
 
 					string clientValue = ModelSerializer.Serialize(dataProvider.GetData((type))).Value;
-
 
 					console.Add(new ConsoleEntry
 					{
@@ -51,7 +59,7 @@ namespace FirstLight.Game.Cheats.SROptions
 						Count = 1,
 					});
 				}
-				
+
 				report.ConsoleLog = console;
 				BugReportApi.Submit(report, Settings.Instance.ApiKey, onComplete, progress);
 			}, (err) => FLog.Error(err.ErrorMessage));

@@ -19,12 +19,17 @@ using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
+	public interface IGameStateMachine
+	{
+		string GetCurrentStateDebug();
+	}
+
 	/// <summary>
 	/// The State Machine that controls the entire flow of the game
 	/// </summary>
-	public class GameStateMachine
+	public class GameStateMachine : IGameStateMachine
 	{
-		private readonly IStatechart _statechart;
+		private readonly Statechart.Statechart _statechart;
 		private readonly InitialLoadingState _initialLoadingState;
 		private readonly AuthenticationState _authenticationState;
 		private readonly AudioState _audioState;
@@ -84,6 +89,11 @@ namespace FirstLight.Game.StateMachines
 		private void Trigger(IStatechartEvent eventTrigger)
 		{
 			_statechart.Trigger(eventTrigger);
+		}
+
+		public string GetCurrentStateDebug()
+		{
+			return _statechart.DebugCurrentState();
 		}
 
 		private void Setup(IStateFactory stateFactory)

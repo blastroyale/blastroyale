@@ -75,6 +75,7 @@ namespace FirstLight.Game
 				tutorialService,
 				configsProvider, assetResolver, dataService, vfxService);
 
+			MainInstaller.Bind<IGameStateMachine>(_gameState);
 			OnGameLoadAwake?.Invoke();
 		}
 		

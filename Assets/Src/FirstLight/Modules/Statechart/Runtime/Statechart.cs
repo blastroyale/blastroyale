@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
 using FirstLight.FLogger;
 using FirstLight.Statechart.Internal;
 using Quantum;
@@ -21,19 +23,19 @@ namespace FirstLight.Statechart
 		/// Triggers only work if the State Chart is not paused.
 		/// </summary>
 		void Trigger(IStatechartEvent trigger);
-		
+
 		/// <summary>
 		/// Start/Resume the control of the State Chart from where is anchored.
 		/// Does nothing if already running.
 		/// </summary>
 		void Run();
-		
+
 		/// <summary>
 		/// Pauses the control of the State Chart.
 		/// Call <see cref="Run"/> to resume it.
 		/// </summary>
 		void Pause();
-		
+
 		/// <summary>
 		/// Resets the State Chart to it's initial starting point.
 		/// This call doesn't pause or resume the control of the State Chart. If the State Chart is in waiting
@@ -54,7 +56,7 @@ namespace FirstLight.Statechart
 		private bool _isRunning;
 		private IStateInternal _currentState;
 		private readonly IStateFactoryInternal _stateFactory;
-		
+
 #if DEVELOPMENT_BUILD
 		public Stopwatch StateWatch = new ();
 		public static Action<string, long> OnStateTimed;
@@ -63,12 +65,14 @@ namespace FirstLight.Statechart
 #if UNITY_EDITOR
 		public string CurrentState => _currentState.Name;
 #endif
-		
-		private Statechart() {}
+
+		private Statechart()
+		{
+		}
 
 		public Statechart(Action<IStateFactory> setup)
 		{
-			var stateFactory = new StateFactory(0, new StateFactoryData { Statechart = this, StateChartMoveNextCall = MoveNext });
+			var stateFactory = new StateFactory(0, new StateFactoryData {Statechart = this, StateChartMoveNextCall = MoveNext});
 
 			setup(stateFactory);
 
@@ -82,14 +86,14 @@ namespace FirstLight.Statechart
 			_currentState = _stateFactory.InitialState;
 
 #if UNITY_EDITOR || DEBUG
-			for(int i = 0; i < _stateFactory.States.Count; i++)
+			for (int i = 0; i < _stateFactory.States.Count; i++)
 			{
 				_stateFactory.States[i].Validate();
 			}
 #endif
 		}
 
-		Dictionary<string,object> IStatechart.CurrentStateDebug()
+		Dictionary<string, object> IStatechart.CurrentStateDebug()
 		{
 			return _currentState.CurrentState;
 		}
@@ -99,7 +103,7 @@ namespace FirstLight.Statechart
 		{
 			FLog.Verbose($"{_currentState.Creator} in {_currentState.Name} triggered {trigger.Name}");
 		}
-		
+
 		/// <inheritdoc />
 		public void Trigger(IStatechartEvent trigger)
 		{
@@ -109,7 +113,7 @@ namespace FirstLight.Statechart
 			}
 
 			LogTrigger(trigger);
-			
+
 
 			MoveNext(trigger);
 		}
@@ -145,6 +149,15 @@ namespace FirstLight.Statechart
 			}
 		}
 #endif
+		public string DebugCurrentState()
+		{
+			if (_currentState is IStateDebug debug)
+			{
+				return "<color=orange>State Machine Debug LOG!!!!!!</color>\n"+debug.CurrentStateDebug();
+			}
+
+			return _currentState.Name;
+		}
 
 		private void MoveNext(IStatechartEvent trigger)
 		{
@@ -162,8 +175,6 @@ namespace FirstLight.Statechart
 #endif
 				_currentState = nextState;
 				nextState = _currentState.Trigger(null);
-				
-				
 			}
 		}
 	}

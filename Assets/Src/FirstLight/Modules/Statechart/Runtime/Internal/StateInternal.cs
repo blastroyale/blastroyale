@@ -66,7 +66,7 @@ namespace FirstLight.Statechart.Internal
    }
 
    /// <inheritdoc />
-   internal abstract class StateInternal : IStateInternal
+   internal abstract class StateInternal : IStateInternal, IStateDebug
    {
       protected readonly IStateFactoryInternal _stateFactory;
 
@@ -197,6 +197,11 @@ namespace FirstLight.Statechart.Internal
       public override string ToString()
       {
          return Name;
+      }
+
+      public virtual string CurrentStateDebug()
+      {
+         return $"{Name} <i>{GetType().Name}</i>";
       }
 
       /// <inheritdoc />

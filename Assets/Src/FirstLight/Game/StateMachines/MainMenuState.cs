@@ -84,7 +84,7 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var mainMenuLoading = stateFactory.State("Main Menu Loading");
 			var mainMenuUnloading = stateFactory.TaskWait("Main Menu Unloading");
-			var mainMenu = stateFactory.Nest("Main Menu");
+			var mainMenu = stateFactory.Nest("Main Menu Screen");
 			var mainMenuTransition = stateFactory.Transition("Main Transition");
 			var disconnected = stateFactory.State("Disconnected");
 			var disconnectedCheck = stateFactory.Choice("Disconnected Final Choice");

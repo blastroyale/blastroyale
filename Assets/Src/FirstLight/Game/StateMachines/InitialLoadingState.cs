@@ -95,15 +95,15 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private async Task DownloadData()
+		private async UniTask DownloadData()
 		{
 			//await Addressables.DownloadDependenciesAsync(AddressableLabel.Label_Quantum.ToLabelString(), true).Task;
-			await Addressables.InitializeAsync().Task;
+			await Addressables.InitializeAsync().Task.AsUniTask();
 			
 			Resources.UnloadUnusedAssets();
 		}
 
-		private async Task LoadInitialAssets()
+		private async UniTask LoadInitialAssets()
 		{
 			var configProvider = _services.ConfigsProvider;
 			
@@ -120,7 +120,7 @@ namespace FirstLight.Game.StateMachines
 				var appData = _dataService.GetData<AppData>();
 				while (appData.TitleData.Count == 0)
 				{
-					await Task.Delay(1);
+					await UniTask.Delay(1);
 				}
 
 				if (!appData.TitleData.TryGetValue(PlayfabConfigKeys.ConfigName, out var remoteStringConfig))
@@ -137,14 +137,14 @@ namespace FirstLight.Game.StateMachines
 				_configsAdder.UpdateTo(remoteConfig.Version, remoteConfig.GetAllConfigs());
 			}
 			
-			var audioTasks = new List<Task>();
+			var audioTasks = new List<UniTask>();
 			
 			audioTasks.Add(_services.AudioFxService
-			                        .LoadAudioMixers(configProvider.GetConfig<AudioMixerConfigs>().ConfigsDictionary));
+			                        .LoadAudioMixers(configProvider.GetConfig<AudioMixerConfigs>().ConfigsDictionary).AsUniTask());
 			audioTasks.Add(_services.AudioFxService
-			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary));
+			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary).AsUniTask());
 			
-			await Task.WhenAll(audioTasks);
+			await UniTask.WhenAll(audioTasks);
 			
 			LoadVfx();
 		}

@@ -112,7 +112,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask WaitForAsyncLogin()
 		{
-			await _asyncLogin;
+			await UniTask.WaitUntil(() => _asyncLogin.Status == UniTaskStatus.Succeeded);
 		}
 
 		private async UniTask AsyncDeviceLogin()

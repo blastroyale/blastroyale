@@ -9,6 +9,7 @@ namespace Quantum
 		public static readonly FP OUT_OF_WORLD_Y_THRESHOLD = -FP._5;
 		public static readonly FP CHARGE_VALIDITY_CHECK_DISTANCE_STEP = FP._0_25;
 		public static readonly FP ACTOR_AS_TARGET_Y_OFFSET = FP._0_50;
+		public static readonly FP SPECIAL_CHARGE_Y_OFFSET = FP._0_10;
 		public static readonly FP SPAWNER_INACTIVE_TIME = FP._1_50;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_25;
 		public static readonly int OFFHAND_POOLSIZE = 20;

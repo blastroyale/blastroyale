@@ -863,7 +863,7 @@
     width: 630px;
     height: 100px;
     bottom: 45px;
-    right: 37px;
+    right: 15px;
     flex-direction: row;
     align-items: center;
 }

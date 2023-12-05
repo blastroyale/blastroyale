@@ -38,6 +38,7 @@
     --sprite-home__background-tooltip-topleft: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topleft.png');
     --sprite-home__background-tooltip-topright: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topright.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
+    --sprite-home__blastroyale-logo: url('/Assets/Art/UI/Sprites/Home/blastroyale-logo.png');
     --sprite-home__button-battlepass: url('/Assets/Art/UI/Sprites/Home/button-battlepass.png');
     --sprite-home__button-battlepass-claimreward: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward.png');
     --sprite-home__button-battlepass-claimreward-pressed: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward-pressed.png');
@@ -93,6 +94,7 @@
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');
     --sprite-home__card-selected: url('/Assets/Art/UI/Sprites/Home/card-selected.png');
     --sprite-home__card-shadow-pink: url('/Assets/Art/UI/Sprites/Home/card-shadow-pink.png');
+    --sprite-home__cloud-exclusive-reward: url('/Assets/Art/UI/Sprites/Home/cloud-exclusive-reward.png');
     --sprite-home__customizable-back-part: url('/Assets/Art/UI/Sprites/Home/customizable-back-part.png');
     --sprite-home__dark-pattern-piece: url('/Assets/Art/UI/Sprites/Home/dark-pattern-piece.png');
     --sprite-home__flag-demon: url('/Assets/Art/UI/Sprites/Home/flag-demon.png');
@@ -164,7 +166,9 @@
     --sprite-home__icon-star-silver: url('/Assets/Art/UI/Sprites/Home/icon-star-silver.png');
     --sprite-home__icon-tiktok: url('/Assets/Art/UI/Sprites/Home/icon-tiktok.png');
     --sprite-home__icon-youtube: url('/Assets/Art/UI/Sprites/Home/icon-youtube.png');
+    --sprite-home__loading_background: url('/Assets/Art/UI/Sprites/Home/loading_background.png');
     --sprite-home__logo-blasthub: url('/Assets/Art/UI/Sprites/Home/logo-blasthub.png');
+    --sprite-home__malepunk-season-reward: url('/Assets/Art/UI/Sprites/Home/malepunk-season-reward.png');
     --sprite-home__pattern-circle-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-circle-gradient.png');
     --sprite-home__pattern-dots-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-dots-gradient.png');
     --sprite-home__pattern-dots-rotated: url('/Assets/Art/UI/Sprites/Home/pattern-dots-rotated.png');
@@ -427,6 +431,12 @@
     background-image: var(--sprite-home__banner-mapselection);
     width: 932px;
     height: 275px;
+}
+
+.sprite-home__blastroyale-logo {
+    background-image: var(--sprite-home__blastroyale-logo);
+    width: 1568px;
+    height: 859px;
 }
 
 .sprite-home__button-battlepass {
@@ -713,6 +723,12 @@
     background-image: var(--sprite-home__card-shadow-pink);
     width: 288px;
     height: 304px;
+}
+
+.sprite-home__cloud-exclusive-reward {
+    background-image: var(--sprite-home__cloud-exclusive-reward);
+    width: 501px;
+    height: 236px;
 }
 
 .sprite-home__customizable-back-part {
@@ -1135,10 +1151,22 @@
     height: 48px;
 }
 
+.sprite-home__loading_background {
+    background-image: var(--sprite-home__loading_background);
+    width: 2048px;
+    height: 945px;
+}
+
 .sprite-home__logo-blasthub {
     background-image: var(--sprite-home__logo-blasthub);
     width: 260px;
     height: 52px;
+}
+
+.sprite-home__malepunk-season-reward {
+    background-image: var(--sprite-home__malepunk-season-reward);
+    width: 552px;
+    height: 713px;
 }
 
 .sprite-home__pattern-circle-gradient {

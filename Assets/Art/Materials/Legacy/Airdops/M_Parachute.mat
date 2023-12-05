@@ -124,7 +124,7 @@ Material:
     m_Colors:
     - Color_3EC64E69: {r: 16, g: 0.8340815, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
     - _Displace_Position: {r: 0, g: 0.5, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

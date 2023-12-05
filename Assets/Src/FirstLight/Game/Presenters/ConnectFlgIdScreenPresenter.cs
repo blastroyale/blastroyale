@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
@@ -165,11 +166,18 @@ namespace FirstLight.Game.Presenters
 			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
 			Data.AuthRegisterSuccess();
 		}
+		
+		private string GetErrorString(PlayFabError error)
+		{
+			var realError = error.ErrorDetails.Values.FirstOrDefault()?.FirstOrDefault();
+			return realError ?? error.ErrorMessage;
+		}
+
 
 		void OnRegisterFail(PlayFabError error)
 		{
 			var title = ScriptLocalization.UITSettings.failure;
-			var desc = string.Format(ScriptLocalization.UITSettings.flg_id_register_fail, error.ErrorMessage);
+			var desc = string.Format(ScriptLocalization.UITSettings.flg_id_register_fail, GetErrorString(error));
 			
 			var confirmButton = new GenericDialogButton
 			{
@@ -229,7 +237,7 @@ namespace FirstLight.Game.Presenters
 		void OnLoginFail(PlayFabError error)
 		{
 			var title = ScriptLocalization.UITSettings.failure;
-			var desc = string.Format(ScriptLocalization.UITSettings.flg_id_login_fail, error.ErrorMessage);
+			var desc = string.Format(ScriptLocalization.UITSettings.flg_id_login_fail, GetErrorString(error));
 			
 			var confirmButton = new GenericDialogButton
 			{
@@ -239,7 +247,7 @@ namespace FirstLight.Game.Presenters
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 				
 			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
-			Data.AuthLoginFail();
+			Data.AuthLoginFail?.Invoke();
 		}
 		
 		private void OpenPasswordRecoveryPopup()
@@ -281,7 +289,7 @@ namespace FirstLight.Game.Presenters
 		private void OnRecoveryEmailError(PlayFabError error)
 		{
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
-				error.ErrorMessage);
+				GetErrorString(error));
 
 			var confirmButton = new GenericDialogButton
 			{
@@ -298,7 +306,7 @@ namespace FirstLight.Game.Presenters
 				FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
 			}
 
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, GetErrorString(error),
 				false, confirmButton);
 		}
 	}

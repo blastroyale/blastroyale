@@ -225,6 +225,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public void SetupIndicator(int index, GameId specialId)
 		{
+			if (_services.RoomService.IsLocalPlayerSpectator) return;
 			_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) specialId, out var config);
 			if (config == null) return;
 			

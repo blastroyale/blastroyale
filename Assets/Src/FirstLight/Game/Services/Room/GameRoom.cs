@@ -261,11 +261,6 @@ namespace FirstLight.Game.Services.RoomService
 
 		public void ResumeTimer(int secondsToStart = -1)
 		{
-			if (!_pause)
-			{
-				throw new Exception("Room timer is not paused");
-			}
-
 			_pause = false;
 			Properties.LoadingStartServerTime.Value = _roomService._networkService.ServerTimeInMilliseconds;
 			if (secondsToStart == -1)

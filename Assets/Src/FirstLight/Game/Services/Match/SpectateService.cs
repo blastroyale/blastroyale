@@ -98,6 +98,7 @@ namespace FirstLight.Game.Services
 			_gameServices.MessageBrokerService.Subscribe<SimulationEndedMessage>(OnMatchSimulationEnded);
 
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
+			QuantumEvent.SubscribeManual<EventOnTeamAssigned>(this, OnTeamAssigned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned); // For Deathmatch
@@ -113,6 +114,13 @@ namespace FirstLight.Game.Services
 
 		public EntityRef GetSpectatedEntity() => _spectatedPlayer.Value.Entity;
 
+		private void OnTeamAssigned(EventOnTeamAssigned ev)
+		{
+			if (ev.Entity != this.GetSpectatedEntity()) return;
+			var localPlayer = ev.Game.GetLocalPlayerData(false, out var f);
+			SetSpectatedEntity(ev.Game.Frames.Verified, ev.Entity, localPlayer.Player, false);
+		}
+		
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
 			if (_gameServices.RoomService.IsLocalPlayerSpectator)
@@ -263,7 +271,7 @@ namespace FirstLight.Game.Services
 		{
 			if (f != null && _matchServices.EntityViewUpdaterService.TryGetView(entity, out var view))
 			{
-				var team = f.TryGet<Targetable>(entity, out var t) ? t.Team : -1;
+				var team = f.TryGet<TeamMember>(entity, out var t) ? t.TeamId : -1;
 				_spectatedPlayer.Value = new SpectatedPlayer(entity, player, team, view.transform);
 
 				return true;

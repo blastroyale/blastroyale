@@ -158,10 +158,9 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.RoomService.CurrentRoom.PauseTimer();
 
-			await _tutorialUtilsUi.EnsurePresenterElement<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
-
 			_tutorialUtilsUi.BlockFullScreen();
 
+			await _tutorialUtilsUi.EnsurePresenterElement<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
 			await UniTask.Delay(GameConstants.Tutorial.TIME_1000MS);
 
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.select_map_position, CharacterType.Female, CharacterDialogMoodType.Happy,

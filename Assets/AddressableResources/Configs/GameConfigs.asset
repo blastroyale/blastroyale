@@ -105,7 +105,7 @@ MonoBehaviour:
       PlayerVisionRange:
         RawValue: 1245184
       AirdropPositionOffsetMultiplier:
-        RawValue: 19661
+        RawValue: 6553
       AirdropRandomAreaMultiplier:
         RawValue: 6554
       AirdropHeight:

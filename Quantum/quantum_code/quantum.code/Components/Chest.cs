@@ -57,9 +57,7 @@ namespace Quantum
 			var config = f.ChestConfigs.GetConfig(ChestType);
 			var stats = f.Get<Stats>(playerEntity);
 
-			// As max ammo is a very high value, we treat fraction of ammo as full ammo, but drop ammo as a fallback as well
-			var ammoFilled = stats.CurrentAmmoPercent * Constants.LOW_AMMO_THRESHOLD_TO_DROP_MORE;
-
+			var ammoFilled = stats.CurrentAmmoPercent;
 			var shieldFilled = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue;
 			var healthFilled = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue;
 			var chestItems = new List<ChestItemDropped>();
@@ -162,31 +160,37 @@ namespace Quantum
 
 				for (uint i = 0; i < count + (f.Context.MapConfig.LootingVersion == 2 ? 1 : 0); i++)
 				{
-					var drop = GameId.Random;
-					if (healthFilled < ammoFilled && healthFilled < shieldFilled &&
-						ChestType != ChestType.Equipment) //health
+					var potentialDrop = new List<GameId>();
+
+					if (healthFilled < FP._1)
 					{
-						drop = GameId.Health;
+						potentialDrop.Add(GameId.Health);
+					}
+					if (shieldFilled < FP._1)
+					{
+						potentialDrop.Add(GameId.ShieldSmall);
+					}
+					// Ammo is a fallback drop
+					if (ammoFilled < FP._1 || potentialDrop.Count == 0)
+					{
+						potentialDrop.Add(GameId.AmmoSmall);
+					}
+
+					var drop = potentialDrop[f.RNG->Next(0, potentialDrop.Count)];
+
+					if (drop == GameId.Health)
+					{
 						healthFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f) /
 							stats.GetStatData(StatType.Health).StatValue;
 					}
-					else if ((ammoFilled < healthFilled && ammoFilled < shieldFilled) ||
-							 ChestType == ChestType.Equipment) //ammo
+					else if (drop == GameId.ShieldSmall)
 					{
-						drop = GameId.AmmoSmall;
-						ammoFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f);
-					}
-					else if (shieldFilled < healthFilled && shieldFilled < ammoFilled &&
-							 ChestType != ChestType.Equipment) //shield
-					{
-						drop = GameId.ShieldSmall;
 						shieldFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f) /
 							stats.GetStatData(StatType.Shield).StatValue;
 					}
-					else
+					else if (drop == GameId.AmmoSmall)
 					{
-						// Ammo is a fallback drop
-						drop = GameId.AmmoSmall;
+						ammoFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f);
 					}
 
 					consumablesToDrop.Add(drop);

@@ -70,6 +70,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _lastRewardBaloon;
 		private ScreenHeaderElement _screenHeader;
 		private ImageButton _currentReward;
+		private VisualElement _endGraphic;
 
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
@@ -110,6 +111,7 @@ namespace FirstLight.Game.Presenters
 			_seasonEndsLabel = root.Q<LocalizedLabel>("SeasonEndsLabel").Required();
 			_lastRewardBaloon = root.Q("LastRewardBalloon");
 			_lastRewardBaloon.RegisterCallback<PointerDownEvent>(e => OnClickLastRewardIcon());
+			_endGraphic = root.Q("LastReward").Required();
 			root.Q<CurrencyDisplayElement>("BBCurrency").AttachView(this, out CurrencyDisplayView _);
 
 			_rewardsScroll.horizontalScroller.valueChanged += OnScroll;
@@ -295,6 +297,12 @@ namespace FirstLight.Game.Presenters
 			return battlePassConfig.Season.RemovePaid;
 		}
 
+		private bool IsDisableEndGraphic()
+		{
+			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig();
+			return battlePassConfig.Season.RemoveEndGraphic;
+		}
+
 		private void InitScreen(bool update = false)
 		{
 			if (IsDisablePremium())
@@ -363,6 +371,11 @@ namespace FirstLight.Game.Presenters
 				if (IsDisablePremium())
 				{
 					column.DisablePaid();
+				}
+				
+				if(IsDisableEndGraphic())
+				{
+					_endGraphic.SetDisplay(false);
 				}
 
 				column.SetBarData((uint) i + 1, completed, currentLevel, battlePassConfig.Season.BuyLevelPrice);

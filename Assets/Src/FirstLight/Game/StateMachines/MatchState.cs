@@ -141,8 +141,6 @@ namespace FirstLight.Game.StateMachines
 
 			randomLeftRoom.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(disconnected);
 			randomLeftRoom.Transition().Target(transitionToMenu);
-
-			gameSimulation.OnEnter(CloseSwipeTransition);
 			
 			/// This state makes a fork and both default OnTransition and gameSimulation.Event(MatchErrorEvent).Target(transitionToMenu); executes
 			/// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/2737

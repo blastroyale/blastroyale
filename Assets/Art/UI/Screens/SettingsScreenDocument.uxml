@@ -11,7 +11,9 @@
                         <FirstLight.Game.UIElements.TabButton target="Sound" focusable="true" text="SOUND" class="settings-tab-button" />
                         <FirstLight.Game.UIElements.TabButton target="Graphics" focusable="true" text="GRAPHICS" class="settings-tab-button" />
                         <FirstLight.Game.UIElements.TabButton target="Controls" focusable="true" text="CONTROLS" class="settings-tab-button" />
-                        <FirstLight.Game.UIElements.TabButton target="Account" focusable="true" text="ACCOUNT" class="settings-tab-button" />
+                        <FirstLight.Game.UIElements.TabButton target="Account" focusable="true" text="ACCOUNT" class="settings-tab-button">
+                            <ui:VisualElement name="AccountNotification" class="notification-icon button-with-icon__notification" style="top: -14px; right: -11px;" />
+                        </FirstLight.Game.UIElements.TabButton>
                         <ui:VisualElement name="Sound" class="settings-container">
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/sound_effects" name="SoundEffects" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/announcer" name="Announcer" class="settings-toggle" />
@@ -35,7 +37,9 @@
                             <ui:VisualElement name="Buttons" class="account-buttons">
                                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/delete_account" name="DeleteAccountButton" text="FAQ" class="button-long button-long--red account-button" />
                                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/logout" name="LogoutButton" text="FAQ" class="button-long account-button" />
-                                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/connect" name="ConnectButton" text="FAQ" class="button-long button-long--yellow account-button" />
+                                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/connect" name="ConnectButton" text="FAQ" class="button-long button-long--yellow account-button">
+                                    <ui:VisualElement name="ConnectNotification" class="notification-icon button-with-icon__notification" style="top: -14px; right: -11px;" />
+                                </FirstLight.Game.UIElements.LocalizedButton>
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </FirstLight.Game.UIElements.TabbedView>

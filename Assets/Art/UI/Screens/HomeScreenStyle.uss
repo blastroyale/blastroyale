@@ -526,7 +526,7 @@
 }
 
 .button-party {
-    width: 320px;
+    width: 340px;
     height: 78px;
     background-image: var(--sprite-home__button-long-darkblue);
     font-size: 36px;
@@ -829,7 +829,7 @@
 }
 
 .squad-container {
-    width: 320px;
+    width: 337px;
     background-color: rgba(16, 12, 34, 0.59);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 0;

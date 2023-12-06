@@ -7,6 +7,7 @@
             <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons">
                 <FirstLight.Game.UIElements.ImageButton name="SettingsButton" class="sfx-click-forwards anim-delay-0 anim-translate anim-translate--down-s settings-button">
                     <ui:VisualElement name="Icon" class="settings-button__icon" />
+                    <ui:VisualElement name="SettingsNotification" class="notification-icon button-with-icon__notification" style="top: -1px; right: -5px;" />
                 </FirstLight.Game.UIElements.ImageButton>
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-1 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />

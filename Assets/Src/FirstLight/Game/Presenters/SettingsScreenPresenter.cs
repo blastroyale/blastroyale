@@ -55,7 +55,10 @@ namespace FirstLight.Game.Presenters
 			// Build Info Text
 			_buildInfoLabel = root.Q<Label>("BuildInfoLabel");
 			_buildInfoLabel.text = VersionUtils.VersionInternal;
-
+			
+			Root.Q("AccountNotification").Required().SetDisplay(_services.AuthenticationService.IsGuest);
+			Root.Q("ConnectNotification").Required().SetDisplay(_services.AuthenticationService.IsGuest);
+			
 			// Sound
 			SetupToggle(root.Q<LocalizedToggle>("SoundEffects").Required(),
 				() => _gameDataProvider.AppDataProvider.IsSfxEnabled,

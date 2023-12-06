@@ -74,6 +74,7 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement _equipmentNotification;
 		private VisualElement _collectionNotification;
+		private VisualElement _settingsNotification;
 
 		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
@@ -152,7 +153,8 @@ namespace FirstLight.Game.Presenters
 
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
 			_collectionNotification = root.Q<VisualElement>("CollectionNotification").Required();
-
+			_settingsNotification = root.Q<VisualElement>("SettingsNotification").Required();
+			
 			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
 			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
 			_bppPoolRestockTimeLabel = _bppPoolContainer.Q<Label>("RestockLabelTime").Required();
@@ -260,6 +262,7 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
+			_settingsNotification.SetDisplay(_services.AuthenticationService.IsGuest);
 			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
 #if !STORE_BUILD && !UNITY_EDITOR

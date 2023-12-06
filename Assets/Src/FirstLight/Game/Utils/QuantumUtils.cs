@@ -53,7 +53,21 @@ namespace FirstLight.Game.Utils
 		public static bool HasGameContainer(this QuantumGame game)
 		{
 			var f = game.Frames.Verified;
+			if (f == null) return false;
 			return f.TryGetSingleton<GameContainer>(out _);
+		}
+		
+		public static bool IsLocalPlayerNotPresent()
+		{
+			if (QuantumRunner.Default != null && QuantumRunner.Default.Game != null)
+			{
+				var game = QuantumRunner.Default.Game;
+				var entity = game.GetLocalPlayerEntityRef();
+				if (!entity.IsValid) return false;
+				return !game.Frames.Verified.Get<PlayerCharacter>(entity).RealPlayer;
+			}
+
+			return false;
 		}
 	}
 }

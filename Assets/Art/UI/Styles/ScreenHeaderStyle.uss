@@ -31,6 +31,18 @@
     margin-right: -392px;
 }
 
+.screen-header--disable-buttons {
+
+}
+
+.screen-header--disable-buttons .screen-header__home {
+    margin-right: -800px;
+    transition-duration: 0.33s;
+    transition-timing-function: ease-in-back;
+    visibility: hidden;
+}
+
+
 .screen-header__home:active {
     background-image: var(--sprite-home__header-home-pressed);
 }
@@ -77,6 +89,14 @@
     justify-content: flex-end;
     align-items: center;
 }
+
+.screen-header--disable-buttons .screen-header__back {
+    margin-left: -700px;
+    transition-duration: 0.33s;
+    transition-timing-function: ease-in-back;
+    visibility: hidden;
+}
+
 
 .screen-header__back:active {
     background-image: var(--sprite-home__header-back-pressed);

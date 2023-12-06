@@ -204,7 +204,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 					_shootIndicatorId = IndicatorVfxId.Cone;
 				}
 
-				ShootIndicator.SetVisualState(ShootIndicator.VisualState);
+				ShootIndicator?.SetVisualState(ShootIndicator.VisualState);
 			}
 			else
 			{

@@ -79,7 +79,7 @@ namespace FirstLight.Game.StateMachines
 			};
 			_roomService.OnLocalPlayerKicked += OnLocalPlayerKicked;
 		}
-        
+
 
 		/// <summary>
 		/// Setups the Adventure gameplay state
@@ -107,6 +107,7 @@ namespace FirstLight.Game.StateMachines
 			var transitionToMenu = stateFactory.TaskWait("Unload to Menu");
 			var winners = stateFactory.Wait("Winners Screen");
 			var randomLeftRoom = stateFactory.Choice("Oddly left room");
+			var checkInactivePlayer = stateFactory.Choice("Check inactive player");
 			var gameResults = stateFactory.Wait("Game Results Screen");
 			var matchStateEnding = stateFactory.Wait("Publish Wait Match State Ending");
 
@@ -135,13 +136,14 @@ namespace FirstLight.Game.StateMachines
 			roomCheck.Transition().Condition(IsGameStarted).Target(gameSimulation);
 			roomCheck.Transition().Target(gameLoading);
 
-			gameLoading.Event(RoomGameStartEvent).Target(gameSimulation);
+			gameLoading.Event(RoomGameStartEvent).Target(checkInactivePlayer);
 			gameLoading.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringMatchmaking).Target(disconnected);
 			gameLoading.Event(NetworkState.LeftRoomEvent).Target(randomLeftRoom);
 
 			randomLeftRoom.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(disconnected);
 			randomLeftRoom.Transition().Target(transitionToMenu);
-			
+			checkInactivePlayer.Transition().Condition(() => !_services.RoomService.InRoom).Target(transitionToMenu);
+			checkInactivePlayer.Transition().Target(gameSimulation);
 			/// This state makes a fork and both default OnTransition and gameSimulation.Event(MatchErrorEvent).Target(transitionToMenu); executes
 			/// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/2737
 			gameSimulation.Nest(_gameSimulationState.Setup).OnTransition(() => HandleSimulationEnd(false)).Target(gameEndedChoice);
@@ -187,14 +189,14 @@ namespace FirstLight.Game.StateMachines
 			postDisconnectCheck.Transition().Condition(HasDisconnectedDuringMatchmaking).Target(roomCheck);
 			postDisconnectCheck.Transition().Condition(HasDisconnectedDuringSimulation).OnTransition(CloseCurrentScreen).Target(roomCheck);
 			postDisconnectCheck.Transition().OnTransition(CloseCurrentScreen).Target(transitionToMenu);
-			
+
 			matchStateEnding.WaitingFor(a => _ = MatchStateEndTrigger(a)).Target(final);
 			matchStateEnding.OnExit(UnloadMainMenuAssetConfigs);
 
 			final.OnEnter(DisposeMatchServices);
 			final.OnEnter(UnsubscribeEvents);
 		}
-		
+
 
 		private bool IsInstantLoad()
 		{
@@ -351,7 +353,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Simulation;
 		}
-        
+
 
 		private void StartMatchLoading()
 		{

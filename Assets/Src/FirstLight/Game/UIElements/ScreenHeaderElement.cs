@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Utils;
+using Photon.Realtime;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -12,6 +13,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssBlock = "screen-header";
 
 		private const string UssSafeAreaHolder = UssBlock + "__safe-area-holder";
+		private const string UssDisableButtonsModifier = UssBlock + "--disable-buttons";
 		private const string UssTitle = UssBlock + "__title";
 		private const string UssSubTitle = UssBlock + "__subtitle";
 		private const string UssHome = UssBlock + "__home";
@@ -80,6 +82,14 @@ namespace FirstLight.Game.UIElements
 		}
 
 		/// <summary>
+		/// Show or hide back and home buttons based on the shouldShow parameter
+		/// </summary>
+		public void SetButtonsVisibility(bool shouldShow)
+		{
+			EnableInClassList(UssDisableButtonsModifier, !shouldShow);
+		}
+
+		/// <summary>
 		/// Sets the title and optional subtitle of the header element (should be already localized).
 		/// </summary>
 		public void SetTitle(string title, string subtitle = "")
@@ -110,13 +120,13 @@ namespace FirstLight.Game.UIElements
 
 		public new class UxmlTraits : ImageButton.UxmlTraits
 		{
-			private readonly UxmlStringAttributeDescription _titleKeyAttribute = new()
+			private readonly UxmlStringAttributeDescription _titleKeyAttribute = new ()
 			{
 				name = "title-key",
 				use = UxmlAttributeDescription.Use.Required
 			};
 
-			private readonly UxmlStringAttributeDescription _subTitleKeyAttribute = new()
+			private readonly UxmlStringAttributeDescription _subTitleKeyAttribute = new ()
 			{
 				name = "subtitle-key",
 				use = UxmlAttributeDescription.Use.Optional

@@ -15,7 +15,6 @@ namespace FirstLight.Game.StateMachines
 	{
 		private readonly IStatechartEvent _localPlayerDeadEvent = new StatechartEvent("Local Player Dead");
 		private readonly IStatechartEvent _localPlayerAliveEvent = new StatechartEvent("Local Player Alive");
-		private readonly IStatechartEvent _localPlayerExitEvent = new StatechartEvent("Local Player Exit");
 		private readonly IStatechartEvent _localPlayerNextEvent = new StatechartEvent("Local Player Next");
 
 		private readonly IGameServices _services;
@@ -84,7 +83,7 @@ namespace FirstLight.Game.StateMachines
 			});
 			
 			spectating.OnEnter(OpenSpectateScreen);
-			spectating.Event(_localPlayerExitEvent).Target(final);
+			spectating.Event(GameSimulationState.LocalPlayerExitEvent).Target(final);
 			spectating.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
@@ -133,7 +132,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsSpectator()
 		{
-			return _services.RoomService.IsLocalPlayerSpectator;
+			return _services.RoomService.IsLocalPlayerSpectator || QuantumUtils.IsLocalPlayerNotPresent();
 		}
 
 		private bool IsRejoining()
@@ -183,7 +182,7 @@ namespace FirstLight.Game.StateMachines
 				OnLeaveClicked = () =>
 				{
 					_services.MessageBrokerService.Publish(new LeftBeforeMatchFinishedMessage());
-					_statechartTrigger(_localPlayerExitEvent);
+					_statechartTrigger(GameSimulationState.LocalPlayerExitEvent);
 				}
 			};
 

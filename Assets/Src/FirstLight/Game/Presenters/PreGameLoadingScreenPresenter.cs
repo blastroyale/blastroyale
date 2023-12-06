@@ -32,6 +32,7 @@ namespace FirstLight.Game.Presenters
 	public class PreGameLoadingScreenPresenter : UiToolkitPresenterData<PreGameLoadingScreenPresenter.StateData>
 	{
 		private const int TIMER_PADDING_MS = 2000;
+		private const int DISABLE_LEAVE_AFTER = 3;
 
 		public struct StateData
 		{
@@ -298,7 +299,7 @@ namespace FirstLight.Game.Presenters
 
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
-			_header.SetHomeVisible(!_services.TutorialService.IsTutorialRunning);
+			_header.SetButtonsVisibility(!_services.TutorialService.IsTutorialRunning);
 
 			UpdatePlayerCount();
 			UpdateMasterClient();
@@ -346,7 +347,7 @@ namespace FirstLight.Game.Presenters
 				_services.CoroutineService.StopCoroutine(_gameStartTimerCoroutine);
 			}
 
-			_header.SetHomeVisible(false);
+			_header.SetButtonsVisibility(false);
 
 			_loadStatusLabel.text = RejoiningRoom
 				? "Reconnecting to Game!"
@@ -407,6 +408,11 @@ namespace FirstLight.Game.Presenters
 				}
 
 				var timeLeft = CurrentRoom.TimeLeftToGameStart().Add(TimeSpan.FromMilliseconds(-TIMER_PADDING_MS));
+				if (timeLeft.Seconds <= DISABLE_LEAVE_AFTER)
+				{
+					_header.SetButtonsVisibility(false);
+					_services.GenericDialogService.CloseDialog();
+				}
 				if (timeLeft.Milliseconds < 0)
 				{
 					_dropSelectionAllowed = false;

@@ -39,7 +39,7 @@ namespace FirstLight.Game.StateMachines
 	{
 		public static readonly IStatechartEvent SimulationStartedEvent = new StatechartEvent("Simulation Ready Event");
 		public static readonly IStatechartEvent SimulationDestroyedEvent = new StatechartEvent("Simulation Destroyed Event");
-
+		public static readonly IStatechartEvent LocalPlayerExitEvent = new StatechartEvent("Local Player Exit");
 		private readonly BattleRoyaleState _battleRoyaleState;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameServices _services;
@@ -239,6 +239,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			yield return new WaitForSeconds(0.1f);
 			PublishMatchStartedMessage(game, false);
+			yield return new WaitForSeconds(1f);
+			var f = game.Frames.Verified;
+			var entityRef = game.GetLocalPlayerEntityRef();
+			if (f != null && entityRef.IsValid && f.TryGet<PlayerCharacter>(entityRef, out var pc))
+			{
+				if (!pc.RealPlayer)
+				{
+					_services.MessageBrokerService.Publish(new LeftBeforeMatchFinishedMessage());
+					_statechartTrigger(LocalPlayerExitEvent);
+				}
+			}
 		}
 
 		private void OnAllPlayersJoined(EventOnAllPlayersJoined callback)
@@ -379,7 +390,7 @@ namespace FirstLight.Game.StateMachines
 				_services.AnalyticsService.MatchCalls.MatchStart();
 				SetPlayerMatchData(game);
 			}
-
+			
 			_services.MessageBrokerService.Publish(new MatchStartedMessage {Game = game, IsResync = isResync});
 		}
 

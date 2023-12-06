@@ -170,7 +170,7 @@ namespace FirstLight.Game.Services.RoomService
 		public event Action OnPlayerPropertiesUpdated;
 		public event Action OnLocalPlayerKicked;
 
-		public bool InRoom => CurrentRoom != null;
+		public bool InRoom => CurrentRoom != null && _networkService.InRoom;
 
 		public bool IsLocalPlayerSpectator => CurrentRoom?.LocalPlayerProperties?.Spectator?.Value ?? false;
 

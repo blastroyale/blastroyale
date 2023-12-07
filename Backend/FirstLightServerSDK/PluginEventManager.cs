@@ -5,6 +5,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
 
+
 namespace FirstLight.Server.SDK
 {
 	public class GameServerEvent
@@ -32,10 +33,10 @@ namespace FirstLight.Server.SDK
 		/// </summary>
 		Task CallEvent<TEventType>(TEventType ev);
 
-		void RegisterCommandListener<TCommand>(Action<string, TCommand, ServerState> action)
+		void RegisterCommandListener<TCommand>(Func<string, TCommand, ServerState, Task> action)
 			where TCommand : IGameCommand;
 
-		void CallCommandEvent(string userId, IGameCommand command, ServerState finalState);
+		Task CallCommandEvent(string userId, IGameCommand command, ServerState finalState);
 	}
 
 	internal class Subscription
@@ -70,11 +71,11 @@ namespace FirstLight.Server.SDK
 			});
 		}
 
-		public void RegisterCommandListener<TCommand>(Action<string, TCommand, ServerState> action)
+		public void RegisterCommandListener<TCommand>(Func<string, TCommand, ServerState, Task> action)
 			where TCommand : IGameCommand
 		{
 			var wrappedAction =
-				new Action<string, IGameCommand, ServerState>((user, cmd, state) =>
+				new Func<string, IGameCommand, ServerState, Task>((user, cmd, state) =>
 					action.Invoke(user, (TCommand) cmd, state));
 			var subs = GetSubscribers(typeof(TCommand));
 			subs.Listeners.Add(new Listener()
@@ -83,15 +84,15 @@ namespace FirstLight.Server.SDK
 			});
 		}
 
-		public void CallCommandEvent(string userId, IGameCommand command, ServerState finalState)
+		public async Task CallCommandEvent(string userId, IGameCommand command, ServerState finalState)
 		{
 			var t = command.GetType();
 			_log.LogDebug($"Calling command event {command.GetType().Name}");
 			var subs = GetSubscribers(command.GetType());
 			foreach (var listener in subs.Listeners)
 			{
-				var action = listener.Action as Action<string, IGameCommand, ServerState>;
-				action.Invoke(userId, command, finalState);
+				var action = listener.Action as Func<string, IGameCommand, ServerState, Task>;
+				await action!.Invoke(userId, command, finalState);
 			}
 		}
 
@@ -104,7 +105,7 @@ namespace FirstLight.Server.SDK
 				try
 				{				
 					var action = listener.Action as Func<TEventType, Task>;
-					await action?.Invoke(ev);
+					await action!.Invoke(ev);
 				}
 				catch (Exception e)
 				{

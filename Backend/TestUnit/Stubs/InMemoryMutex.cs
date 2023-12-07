@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Server.SDK.Services;
@@ -30,5 +31,13 @@ public class InMemoryMutex : IServerMutex
 	{
 		_locked.Remove(userId);
 		_task = null;
+	}
+
+	public async Task<IServerMutex> Transaction(string userId, Func<Task> a)
+	{
+		await Lock(userId);
+		await a();
+		Unlock(userId);
+		return this;
 	}
 }

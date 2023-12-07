@@ -62,22 +62,22 @@ namespace Src.FirstLight.Server
 			evManager.RegisterCommandListener<UpgradeItemCommand>(OnUpgrade);
 		}
 
-		private void OnScrap(string userId, ScrapItemCommand endGameCmd, ServerState state)
+		private async Task OnScrap(string userId, ScrapItemCommand endGameCmd, ServerState state)
 		{
-			_ctx.Statistics.UpdateStatistics(userId, (GameConstants.Stats.ITEM_SCRAPS, 1), (GameConstants.Stats.ITEM_SCRAPS_EVER, 1));
+			await _ctx.Statistics.UpdateStatistics(userId, (GameConstants.Stats.ITEM_SCRAPS, 1), (GameConstants.Stats.ITEM_SCRAPS_EVER, 1));
 		}
-		
-		private void OnUpgrade(string userId, UpgradeItemCommand endGameCmd, ServerState state)
+
+		private async Task OnUpgrade(string userId, UpgradeItemCommand endGameCmd, ServerState state)
 		{
-			_ctx.Statistics.UpdateStatistics(userId, (GameConstants.Stats.ITEM_UPGRADES, 1), (GameConstants.Stats.ITEM_UPGRADES_EVER, 1));
+			await _ctx.Statistics.UpdateStatistics(userId, (GameConstants.Stats.ITEM_UPGRADES, 1), (GameConstants.Stats.ITEM_UPGRADES_EVER, 1));
 		}
 
 		private async Task OnClaimRewards(GameLogicMessageEvent<ClaimedRewardsMessage> ev)
 		{
-			TrackRewards(ev.PlayerId, ev.Message.Rewards);
+			await TrackRewards(ev.PlayerId, ev.Message.Rewards);
 		}
 
-		private void TrackRewards(string playerId, IEnumerable<ItemData> rewards)
+		private async Task TrackRewards(string playerId, IEnumerable<ItemData> rewards)
 		{
 			var coins = 0;
 			var cs = 0;
@@ -93,45 +93,45 @@ namespace Src.FirstLight.Server
 				if (item.Id.IsInGroup(GameIdGroup.Equipment)) equipments += 1;
 				if (item.Id == GameId.BPP) bpp += item.GetMetadata<CurrencyMetadata>().Amount;
 			}
-			
+
 			if (cs == 0 && coins == 0 && equipments == 0 && xp == 0 && bpp == 0) return;
-			
-			_ctx.Statistics.UpdateStatistics(playerId, 
+
+			await _ctx.Statistics.UpdateStatistics(playerId,
 				(GameConstants.Stats.COINS_EARNED, coins),
-				(GameConstants.Stats.XP_EARNED, xp), 
-				(GameConstants.Stats.BPP_EARNED, bpp), 
-				(GameConstants.Stats.CS_EARNED, cs), 
+				(GameConstants.Stats.XP_EARNED, xp),
+				(GameConstants.Stats.BPP_EARNED, bpp),
+				(GameConstants.Stats.CS_EARNED, cs),
 				(GameConstants.Stats.ITEMS_OBTAINED, equipments));
 		}
 
 		private async Task OnBattlePassLevel(GameLogicMessageEvent<BattlePassLevelUpMessage> ev)
 		{
-			TrackRewards(ev.PlayerId, ev.Message.Rewards);
-		}
-		
-		private async Task OnPurchase(GameLogicMessageEvent<RewardClaimedMessage> ev)
-		{
-			_ctx.Statistics.UpdateStatistics(ev.PlayerId, (GameConstants.Stats.ITEMS_OBTAINED, 1));
+			await TrackRewards(ev.PlayerId, ev.Message.Rewards);
 		}
 
-		private void OnEndGameCalculations(string userId, EndOfGameCalculationsCommand endGameCmd, ServerState state)
+		private async Task OnPurchase(GameLogicMessageEvent<RewardClaimedMessage> ev)
+		{
+			await _ctx.Statistics.UpdateStatistics(ev.PlayerId, (GameConstants.Stats.ITEMS_OBTAINED, 1));
+		}
+
+		private async Task OnEndGameCalculations(string userId, EndOfGameCalculationsCommand endGameCmd, ServerState state)
 		{
 			var toSend = new List<ValueTuple<string, int>>();
-			var trophies = (int)state.DeserializeModel<PlayerData>().Trophies;
+			var trophies = (int) state.DeserializeModel<PlayerData>().Trophies;
 			var thisPlayerData = endGameCmd.PlayersMatchData[endGameCmd.QuantumValues.ExecutingPlayer];
 			var firstPlayer = endGameCmd.PlayersMatchData.FirstOrDefault(p => p.PlayerRank == 1);
 			var isWin = false;
 			var ranked = endGameCmd.QuantumValues.AllowedRewards?.Contains(GameId.Trophies) ?? false;
-			
+
 			if (firstPlayer.Data.IsValid && thisPlayerData.TeamId == firstPlayer.TeamId && thisPlayerData.TeamId > Constants.TEAM_ID_NEUTRAL)
 			{
 				isWin = true;
 			}
-			else if(thisPlayerData.PlayerRank == 1)
+			else if (thisPlayerData.PlayerRank == 1)
 			{
 				isWin = true;
 			}
-			
+
 			if (isWin)
 			{
 				toSend.Add((GameConstants.Stats.GAMES_WON, 1));
@@ -146,37 +146,83 @@ namespace Src.FirstLight.Server
 			if (ranked)
 			{
 				toSend.Add((GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, 1));
-				toSend.Add((GameConstants.Stats.RANKED_KILLS_EVER,  (int)thisPlayerData.Data.PlayersKilledCount));
-				toSend.Add((GameConstants.Stats.RANKED_DEATHS_EVER, (int)thisPlayerData.Data.DeathCount));
+				toSend.Add((GameConstants.Stats.RANKED_KILLS_EVER, (int) thisPlayerData.Data.PlayersKilledCount));
+				toSend.Add((GameConstants.Stats.RANKED_DEATHS_EVER, (int) thisPlayerData.Data.DeathCount));
 				toSend.Add((GameConstants.Stats.RANKED_GAMES_PLAYED, 1));
-				toSend.Add((GameConstants.Stats.RANKED_KILLS,  (int)thisPlayerData.Data.PlayersKilledCount));
+				toSend.Add((GameConstants.Stats.RANKED_KILLS, (int) thisPlayerData.Data.PlayersKilledCount));
 			}
-			toSend.Add((GameConstants.Stats.GAMES_PLAYED_EVER, 1));
-			toSend.Add((GameConstants.Stats.KILLS_EVER,  (int)thisPlayerData.Data.PlayersKilledCount));
-			toSend.Add((GameConstants.Stats.GAMES_PLAYED, 1));
-			toSend.Add((GameConstants.Stats.KILLS,  (int)thisPlayerData.Data.PlayersKilledCount));
-			toSend.Add((GameConstants.Stats.DEATHS, (int)thisPlayerData.Data.DeathCount));
-			toSend.Add((GameConstants.Stats.LEADERBOARD_LADDER_NAME, trophies));
-			_ctx.Statistics.UpdateStatistics(userId, toSend.ToArray());
-		}
 
+			toSend.Add((GameConstants.Stats.GAMES_PLAYED_EVER, 1));
+			toSend.Add((GameConstants.Stats.KILLS_EVER, (int) thisPlayerData.Data.PlayersKilledCount));
+			toSend.Add((GameConstants.Stats.GAMES_PLAYED, 1));
+			toSend.Add((GameConstants.Stats.KILLS, (int) thisPlayerData.Data.PlayersKilledCount));
+			toSend.Add((GameConstants.Stats.DEATHS, (int) thisPlayerData.Data.DeathCount));
+			trophies = (int) await CheckUpdateTrophiesState(userId, state);
+			toSend.Add((GameConstants.Stats.LEADERBOARD_LADDER_NAME, trophies));
+			await _ctx.Statistics.UpdateStatistics(userId, toSend.ToArray());
+		}
+		
 		public async Task OnPlayerLoaded(PlayerDataLoadEvent playerLoadEvent)
 		{
 			if (!playerLoadEvent.PlayerState.Has<EquipmentData>())
 			{
 				return;
 			}
+
 			var equipmentData = playerLoadEvent.PlayerState.DeserializeModel<EquipmentData>();
 			var playerData = playerLoadEvent.PlayerState.DeserializeModel<PlayerData>();
 			playerData.Currencies.TryGetValue(GameId.CS, out var cs);
 			playerData.Currencies.TryGetValue(GameId.COIN, out var coins);
-			_ctx.Statistics.UpdateStatistics(playerLoadEvent.PlayerId,
+
+			var newTrophies = await CheckUpdateTrophiesState(playerLoadEvent.PlayerId, playerLoadEvent.PlayerState);
+			if (newTrophies != playerData.Trophies)
+			{
+				// TODO: move out for player data load pipeline
+				await _ctx.PlayerMutex.Transaction(playerLoadEvent.PlayerId, async () =>
+				{
+					var state = await _ctx.ServerState.GetPlayerState(playerLoadEvent.PlayerId);
+					var pd = state.DeserializeModel<PlayerData>();
+					pd.Trophies = newTrophies;
+					pd.TrophySeason = playerData.TrophySeason;
+					state.UpdateModel(pd);
+					await _ctx.ServerState.UpdatePlayerState(playerLoadEvent.PlayerId, state.GetOnlyUpdatedState());
+				});
+			}
+			
+			await _ctx.Statistics.UpdateStatistics(playerLoadEvent.PlayerId,
 				(GameConstants.Stats.NFT_ITEMS, equipmentData.NftInventory.Count),
-				(GameConstants.Stats.NON_NFTS, equipmentData.Inventory.Count - equipmentData.NftInventory.Count), 
-				(GameConstants.Stats.CS_TOTAL, (int)cs), 
-				(GameConstants.Stats.COINS_TOTAL, (int)coins), 
-				(GameConstants.Stats.FAME, (int)playerData.Level), 
+				(GameConstants.Stats.NON_NFTS, equipmentData.Inventory.Count - equipmentData.NftInventory.Count),
+				(GameConstants.Stats.CS_TOTAL, (int) cs),
+				(GameConstants.Stats.COINS_TOTAL, (int) coins),
+				(GameConstants.Stats.FAME, (int) playerData.Level),
 				(GameConstants.Stats.BROKEN_ITEMS, equipmentData.Inventory.Values.Count(e => e.IsBroken())));
+		}
+
+		/// <summary>
+		/// Runs a trophy season check in the given server state.
+		/// Runs fully in-memory
+		/// </summary>
+		private async Task<uint> CheckUpdateTrophiesState(string userId, ServerState state)
+		{
+			var data = state.DeserializeModel<PlayerData>();
+			var currentSeason = await _ctx.Statistics.GetSeason(GameConstants.Stats.LEADERBOARD_LADDER_NAME);
+			if (currentSeason <= 0) return data.Trophies;
+			if (data.TrophySeason == 0)
+			{
+				_ctx.Log.LogInformation($"Updating season for {userId}");
+				data.TrophySeason = (uint) currentSeason;
+				state.UpdateModel(data);
+			}
+			else if (currentSeason != data.TrophySeason)
+			{
+				_ctx.Log.LogInformation($"Wiping Trophy {userId} s{data.TrophySeason} to s{currentSeason}");
+				data.TrophySeason = (uint) currentSeason;
+				data.Trophies = 0;
+				state.UpdateModel(data);
+				return 0;
+			}
+
+			return data.Trophies;
 		}
 	}
 }

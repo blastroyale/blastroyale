@@ -10,7 +10,7 @@ using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
 
-
+/*
 namespace Src.FirstLight.Server
 {
 	/// <summary>
@@ -32,6 +32,7 @@ namespace Src.FirstLight.Server
 			evManager.RegisterEventListener<GameLogicMessageEvent<TrophiesUpdatedMessage>>(OnTrophiesUpdate);
 		}
 
+		
 		private async Task OnTrophiesUpdate(GameLogicMessageEvent<TrophiesUpdatedMessage> ev)
 		{
 			var currentSeason = await _ctx.Statistics.GetSeasonAsync(GameConstants.Stats.LEADERBOARD_LADDER_NAME);
@@ -46,44 +47,12 @@ namespace Src.FirstLight.Server
 			}
 			_ctx.Statistics.UpdateStatistics(ev.PlayerId, (GameConstants.Stats.LEADERBOARD_LADDER_NAME, (int)finalTrophies));
 		}
-		
-		private async Task ResetTrophies(string userId, uint trophies, uint season)
-		{
-			try
-			{
-				await _ctx.PlayerMutex.Lock(userId);
-				var state = await _ctx.ServerState.GetPlayerState(userId);
-				var data = state.DeserializeModel<PlayerData>();
-				data.Trophies = trophies;
-				data.TrophySeason = season;
-				state.UpdateModel(data);
-				await _ctx.ServerState.UpdatePlayerState(userId, state);
-			}
-			catch (Exception e) 	
-			{
-				_ctx.Log.LogError(e.StackTrace);
-			}
-			finally
-			{
-				_ctx.PlayerMutex.Unlock(userId);
-			}
-		}
-	
 		public async Task OnPlayerLoaded(PlayerDataLoadEvent playerLoadEvent)
 		{
 			await CheckSeasonReset(playerLoadEvent.PlayerId, playerLoadEvent.PlayerState);
 		}
 
-		private async Task CheckSeasonReset(string userId, ServerState state)
-		{
-			var playerData = state.DeserializeModel<PlayerData>();
-			var currentSeason = await _ctx.Statistics.GetSeasonAsync(GameConstants.Stats.LEADERBOARD_LADDER_NAME);
-			if (currentSeason == -1) return;
-			
-			if (currentSeason != playerData.TrophySeason)
-			{
-				await ResetTrophies(userId, 0, (uint)currentSeason);
-			}
-		}
+	
 	}
 }
+*/

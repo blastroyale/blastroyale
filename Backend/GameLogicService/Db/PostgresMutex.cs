@@ -5,6 +5,7 @@ using Backend.Db;
 using Backend.Game.Services;
 using Medallion.Threading.Postgres;
 using FirstLight.Server.SDK.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Backend.Game
 {
@@ -15,10 +16,26 @@ namespace Backend.Game
 	{
 		private Dictionary<string, PostgresDistributedLockHandle> _handles = new ();
 		private IBaseServiceConfiguration _cfg;
+		private ILogger _log;
 		
-		public PostgresMutex(IBaseServiceConfiguration cfg)
+		public PostgresMutex(IBaseServiceConfiguration cfg, ILogger log)
 		{
 			_cfg = cfg;
+			_log = log;
+		}
+
+		public async Task<IServerMutex> Transaction(string userId, Func<Task> a)
+		{
+			try
+			{
+				await Lock(userId);
+				await a();
+			}
+			finally
+			{
+				Unlock(userId);
+			}
+			return this;
 		}
 		
 		/// <inheritdoc />
@@ -50,6 +67,10 @@ namespace Backend.Game
 		public void Dispose() {}
 		public async Task Lock(string userId) {}
 		public void Unlock(string userId) {}
+		public Task<IServerMutex> Transaction(string userId, Func<Task> a)
+		{
+			return null;
+		}
 	}
 }
 

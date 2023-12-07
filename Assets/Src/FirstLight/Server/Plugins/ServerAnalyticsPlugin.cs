@@ -36,7 +36,7 @@ namespace Src.FirstLight.Server
 			evManager.RegisterCommandListener<EndOfGameCalculationsCommand>(OnGameEndCommand);
 		}
 
-		private void OnGameEndCommand(string userId, EndOfGameCalculationsCommand cmd, ServerState state)
+		private async Task OnGameEndCommand(string userId, EndOfGameCalculationsCommand cmd, ServerState state)
 		{
 			var player = cmd.PlayersMatchData[cmd.QuantumValues.ExecutingPlayer];
 			var data = new AnalyticsData()

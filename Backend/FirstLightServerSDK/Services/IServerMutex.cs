@@ -17,6 +17,11 @@ namespace FirstLight.Server.SDK.Services
 		/// Unlocks the user for modifications. Releases the mutex.
 		/// </summary>
 		void Unlock(string userId);
+
+		/// <summary>
+		/// Runs a given function as a locked transaction for the given player
+		/// </summary>
+		Task<IServerMutex> Transaction(string userId, Func<Task> a);
 	}
 }
 

@@ -99,9 +99,6 @@ namespace Backend.Game
 		/// <summary>
 		/// Run all initialization commands and SAVES the player state if it has modifications
 		/// </summary>
-		/// <param name="playerId"></param>
-		/// <param name="state"></param>
-		/// <returns></returns>
 		public Task<ServerState> RunInitializationCommands(string playerId, ServerState state)
 		{
 			var cmds = _cmdHandler.GetInitializationCommands();
@@ -116,8 +113,8 @@ namespace Backend.Game
 			foreach (var commandInstance in commandInstances)
 			{
 				var newState = await _cmdHandler.ExecuteCommand(playerId, commandInstance, currentState);
-				_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, currentState, commandData));
-				_eventManager.CallCommandEvent(playerId, commandInstance, newState);
+				await _eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, currentState, commandData));
+				await _eventManager.CallCommandEvent(playerId, commandInstance, newState);
 				currentState = newState;
 				deltas.Merge(currentState.GetDeltas());
 			}

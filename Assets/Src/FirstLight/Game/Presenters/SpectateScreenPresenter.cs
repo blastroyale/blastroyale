@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cinemachine;
+using FirstLight.FLogger;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -106,6 +107,12 @@ namespace FirstLight.Game.Presenters
 			var f = QuantumRunner.Default.Game.Frames.Predicted;
 			var playersData = f.GetSingleton<GameContainer>().PlayersData;
 
+			if (!current.Player.IsValid)
+			{
+				FLog.Warn($"Invalid player entity {current.Entity} being spectated");
+				return;
+			}
+			
 			if (!f.TryGet<PlayerCharacter>(current.Entity, out var playerCharacter))
 			{
 				return;

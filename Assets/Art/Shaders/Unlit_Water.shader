@@ -48,13 +48,14 @@ Shader "FLG/Unlit/Water"
             Blend SrcAlpha OneMinusSrcAlpha
             ZWrite Off
 
-            CGPROGRAM
+            HLSLPROGRAM
             #define SMOOTHSTEP_AA 0.01
 
             #pragma vertex vert
             #pragma fragment frag
 
-            #include "UnityCG.cginc"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+
 
             // Blends two colors using the same algorithm that our shader is using
             // to blend with the screen. This is usually called "normal blending",
@@ -93,11 +94,13 @@ Shader "FLG/Unlit/Water"
             {
                 v2f o;
 
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                o.screenPosition = ComputeScreenPos(o.vertex);
+                const VertexPositionInputs inputs = GetVertexPositionInputs(v.vertex.xyz);
+
+                o.vertex = inputs.positionCS;
+                o.screenPosition = inputs.positionNDC;
                 o.distortUV = TRANSFORM_TEX(v.uv, _SurfaceDistortion);
                 o.noiseUV = TRANSFORM_TEX(v.uv, _SurfaceNoise);
-                o.viewNormal = COMPUTE_VIEW_NORMAL;
+                o.viewNormal = TransformWorldToViewNormal(TransformObjectToWorldNormal(v.normal));
 
                 return o;
             }
@@ -121,10 +124,10 @@ Shader "FLG/Unlit/Water"
             {
                 // Retrieve the current depth value of the surface behind the
                 // pixel we are currently rendering.
-                float existingDepth01 = tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.screenPosition)).r;
+                float existingDepth01 = tex2Dproj(_CameraDepthTexture, i.screenPosition).r;
                 // Convert the depth from non-linear 0...1 range to linear
                 // depth, in Unity units.
-                float existingDepthLinear = LinearEyeDepth(existingDepth01);
+                float existingDepthLinear = LinearEyeDepth(existingDepth01, _ZBufferParams);
 
                 // Difference, in Unity units, between the water's surface and the object behind it.
                 float depthDifference = existingDepthLinear - i.screenPosition.w;
@@ -135,7 +138,7 @@ Shader "FLG/Unlit/Water"
 
                 // Retrieve the view-space normal of the surface behind the
                 // pixel we are currently rendering.
-                float3 existingNormal = tex2Dproj(_CameraNormalsTexture, UNITY_PROJ_COORD(i.screenPosition));
+                float3 existingNormal = tex2Dproj(_CameraNormalsTexture, i.screenPosition);
 
                 //return float4(existingNormal, 1);
 
@@ -155,14 +158,15 @@ Shader "FLG/Unlit/Water"
                 // Distort the noise UV based off the RG channels (using xy here) of the distortion texture.
                 // Also offset it by time, scaled by the scroll speed.
                 float2 noiseUV = float2((i.noiseUV.x + _Time.y * _SurfaceNoiseScroll.x) + distortSample.x,
-                                                  (i.noiseUV.y + _Time.y * _SurfaceNoiseScroll.y) + distortSample.y);
+                                        (i.noiseUV.y + _Time.y * _SurfaceNoiseScroll
+                                            .y) + distortSample.y);
                 float surfaceNoiseSample = tex2D(_SurfaceNoise, noiseUV).r;
 
                 // Use smoothstep to ensure we get some anti-aliasing in the transition from foam to surface.
                 // Uncomment the line below to see how it looks without AA.
                 // float surfaceNoise = surfaceNoiseSample > surfaceNoiseCutoff ? 1 : 0;
                 float surfaceNoise = smoothstep(surfaceNoiseCutoff - SMOOTHSTEP_AA, surfaceNoiseCutoff + SMOOTHSTEP_AA,
-                                                surfaceNoiseSample);
+                                                                 surfaceNoiseSample);
 
                 float4 surfaceNoiseColor = _FoamColor;
                 surfaceNoiseColor.a *= surfaceNoise;
@@ -170,7 +174,7 @@ Shader "FLG/Unlit/Water"
                 // Use normal alpha blending to combine the foam with the surface.
                 return alphaBlend(surfaceNoiseColor, waterColor);
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }

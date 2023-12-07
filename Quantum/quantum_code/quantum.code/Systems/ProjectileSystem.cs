@@ -19,7 +19,7 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f, ref ProjectileFilter filter)
 		{
-			if ((filter.Transform->Position - filter.Projectile->SpawnPosition).SqrMagnitude > filter.Projectile->RangeSquared)
+			if ((filter.Transform->Position - filter.Projectile->SpawnPosition).SqrMagnitude >= filter.Projectile->RangeSquared)
 			{
 				if (filter.Projectile->ShouldPerformSubProjectileOnEndOfLifetime(f))
 				{

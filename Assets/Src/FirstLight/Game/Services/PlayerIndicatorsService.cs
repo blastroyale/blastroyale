@@ -37,6 +37,7 @@ namespace FirstLight.Game.Services
 
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDied);
+			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(this, OnPlayerSpecialUpdated);
 		}
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
@@ -48,6 +49,7 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
+
 			InitializeLocalPlayer(game);
 		}
 
@@ -64,14 +66,17 @@ namespace FirstLight.Game.Services
 
 		private void RegisterListeners()
 		{
-			_inputs.Move.AddListener(OnMove);
-			_inputs.Aim.AddListener(OnAim);
-			_inputs.AimButton.AddListener(OnShooting);
-			_inputs.SpecialButton0.AddListener(OnSpecial0);
-			_inputs.SpecialButton1.AddListener(OnSpecial1);
-			_inputs.SpecialAim.AddListener(OnSpecialAim);
-			_inputs.CancelButton.AddListener(OnSpecialCancel);
-			_registered = true;
+			if (!_registered)
+			{
+				_inputs.Move.AddListener(OnMove);
+				_inputs.Aim.AddListener(OnAim);
+				_inputs.AimButton.AddListener(OnShooting);
+				_inputs.SpecialButton0.AddListener(OnSpecial0);
+				_inputs.SpecialButton1.AddListener(OnSpecial1);
+				_inputs.SpecialAim.AddListener(OnSpecialAim);
+				_inputs.CancelButton.AddListener(OnSpecialCancel);
+				_registered = true;
+			}
 		}
 
 		private void UnregisterListeners()
@@ -86,6 +91,7 @@ namespace FirstLight.Game.Services
 				_inputs.SpecialAim.RemoveListener(OnSpecialAim);
 				_inputs.CancelButton.RemoveListener(OnSpecialCancel);
 			}
+
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
@@ -113,7 +119,15 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
+
 			InitializeLocalPlayer(callback.Game);
+		}
+
+		private void OnPlayerSpecialUpdated(EventOnPlayerSpecialUpdated callback)
+		{
+			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
+
+			_indicatorContainerView.SetupIndicator((int) callback.SpecialIndex, callback.Special.SpecialId);
 		}
 
 		private void OnSpecial0(InputAction.CallbackContext c)
@@ -142,7 +156,7 @@ namespace FirstLight.Game.Services
 		{
 			if (!CanListen()) return;
 			if (_specialPressed == -1) return;
-			
+
 			var buttonValue = c.ReadValue<float>();
 			var cancelPressed = c.ReadValueAsButton();
 			var radius = _indicatorContainerView.GetSpecialRadiusIndicator(_specialPressed);
@@ -180,6 +194,7 @@ namespace FirstLight.Game.Services
 					_inputs.Aim.ReadValue<Vector2>().ToFPVector2(),
 					newValue);
 			}
+
 			_shooting = newValue;
 		}
 
@@ -218,7 +233,7 @@ namespace FirstLight.Game.Services
 			_indicatorContainerView.OnMoveUpdate(direction, direction != Vector2.zero);
 		}
 
-		private unsafe void InitializeLocalPlayer(QuantumGame game)
+		private void InitializeLocalPlayer(QuantumGame game)
 		{
 			if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
 			var localPlayer = game.GetLocalPlayerData(true, out var f);
@@ -233,9 +248,10 @@ namespace FirstLight.Game.Services
 			}
 
 			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
+			var inventory = f.Get<PlayerInventory>(localPlayer.Entity);
 			_indicatorContainerView.Init(playerView);
 			_indicatorContainerView.SetupWeaponInfo(f, playerCharacter.CurrentWeapon.GameId);
-			_indicatorContainerView.SetupWeaponSpecials(*playerCharacter.WeaponSlot);
+			_indicatorContainerView.SetupSpecials(inventory);
 		}
 	}
 }

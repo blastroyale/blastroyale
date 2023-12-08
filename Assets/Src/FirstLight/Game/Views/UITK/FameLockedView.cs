@@ -4,6 +4,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
@@ -56,11 +57,19 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnClick()
 		{
+
+			var dir = TooltipDirection.TopLeft;
+			var pos = TooltipPosition.BottomRight;
+			if (Element.GetPositionOnScreen(_root).x > (Screen.width / 2))
+			{
+				dir = TooltipDirection.TopRight;
+				pos = TooltipPosition.BottomLeft;
+			}
 			if (_locked)
 			{
 				// Tooltip
 				Element.OpenTooltip(_root, $"You need to reach level <color=#f8c72e>{_requiredLevel}</color> to unlock this.",
-					position: TooltipPosition.BottomRight, direction: TooltipDirection.TopLeft);
+					position: pos, direction: dir);
 			}
 			else
 			{
@@ -89,7 +98,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private void UpdateLock(bool animate)
 		{
-			var locked = _currentLevel < _requiredLevel;
+			var locked = FeatureFlags.SYSTEM_LOCKS ?  _currentLevel < _requiredLevel : false;
 			EnableLock(locked, animate);
 		}
 

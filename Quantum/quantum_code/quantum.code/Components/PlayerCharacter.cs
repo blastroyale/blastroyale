@@ -114,17 +114,17 @@ namespace Quantum
 				WeaponSlots[i] = default;
 			}
 			
-			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
+			var isRespawning = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[Player].DeathCount > 0;
+			var pi = f.Unsafe.GetPointer<PlayerInventory>(e);
 			if (isRespawning)
 			{
-				var defaultSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
-				for (var i = 0; i < defaultSlot->Specials.Length; i++)
+				for (var i = 0; i < pi->Specials.Length; i++)
 				{
-					var special = defaultSlot->Specials[i];
+					var special = pi->Specials[i];
 
 					special.AvailableTime = f.Time + special.InitialCooldown;
 
-					defaultSlot->Specials[i] = special;
+					pi->Specials[i] = special;
 				}
 				
 				EquipSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
@@ -132,15 +132,7 @@ namespace Quantum
 			else
 			{
 				var slot = GetDefaultWeaponSlot();
-				var weaponConfig = SetSlotWeapon(f, e, slot);
-				var defaultSlot = WeaponSlots.GetPointer(slot);
-				var specials = GetSpecials(f, ref weaponConfig);
-				for (var i = 0; i < defaultSlot->Specials.Length; i++)
-				{
-					var id = specials[i];
-					
-					defaultSlot->Specials[i] = id == default ? new Special() : new Special(f, id);
-				}
+				SetSlotWeapon(f, e, slot);
 			}
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
@@ -302,9 +294,11 @@ namespace Quantum
 			}
 
 			// Optionally drop the weapon if there's a different weapon in a slot
-			if (f.Context.GameModeConfig.DropWeaponOnPickup &&
-			    WeaponSlots[slot].Weapon.IsValid() &&
-			    WeaponSlots[slot].Weapon.GameId != weapon.GameId)
+			// In Looting 2.0 we don't drop the gun on the floor
+			if (f.Context.MapConfig.LootingVersion != 2 &&
+				f.Context.GameModeConfig.DropWeaponOnPickup &&
+				WeaponSlots[slot].Weapon.IsValid() &&
+				WeaponSlots[slot].Weapon.GameId != weapon.GameId)
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0, true, 1);
@@ -316,22 +310,7 @@ namespace Quantum
 			targetSlot->MagazineSize = weaponConfig.MagazineSize;
 			WeaponSlots[slot].Weapon = weapon;
 
-			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
-			
-			var specials = GetSpecials(f, ref weaponConfig);
-			for (var i = 0; i < WeaponSlots[slot].Specials.Length; i++)
-			{
-				var id = specials[i];
-				var special	= id == default ? new Special() : new Special(f, id);
-
-				// If equipping a weapon of the same type, just increase the charges and keep the lowest recharge time
-				if (weapon.GameId == primaryWeapon.GameId)
-				{
-					special.AvailableTime = FPMath.Min(WeaponSlots[slot].Specials[i].AvailableTime, special.AvailableTime);
-				}
-
-				WeaponSlots.GetPointer(slot)->Specials[i] = special;
-			}
+			f.Events.OnPlayerWeaponAdded(Player, e, weapon, slot);
 
 			EquipSlotWeapon(f, e, slot);
 		}
@@ -621,21 +600,6 @@ namespace Quantum
 				weaponConfig.MaxAmmo, WeaponSlot->MagazineShotCount, WeaponSlot->MagazineSize);
 
 			return weaponConfig;
-		}
-
-		private GameId[] GetSpecials(Frame f, ref QuantumWeaponConfig weaponConfig)
-		{
-			var specials = weaponConfig.Specials.ToArray();
-			
-			if (f.Context.GameModeConfig.Id == "Tutorial")
-			{
-				specials[0] = GameId.Random;
-				if (specials[1] != GameId.Random)
-				{
-					specials[1] = GameId.TutorialGrenade;
-				}
-			}
-			return specials;
 		}
 	}
 }

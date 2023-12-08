@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Server.SDK.Modules.Commands;
 
@@ -13,37 +15,27 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public struct RedeemBPPCommand : IGameCommand
 	{
+		public PassType PassType;
+		
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		public void Execute(CommandExecutionContext ctx)
 		{
-			var levelsCompleted = ctx.Logic.BattlePassLogic().GetClaimableLevels(out var points);
-			if (levelsCompleted.Count == 0) return;
-			var rewardConfigs = ctx.Logic.BattlePassLogic().GetRewardConfigs(levelsCompleted);
-			IEnumerable<ItemData> rewardItems = null;
-			if (rewardConfigs.Count > 0)
+			if (PassType == PassType.Paid && !ctx.Logic.BattlePassLogic().HasPurchasedSeason())
 			{
-				rewardItems = ctx.Logic.RewardLogic().CreateItemsFromConfigs(rewardConfigs);
-				ctx.Logic.RewardLogic().Reward(rewardItems);
+				throw new LogicException("Paid Battle Pass not unlocked");
 			}
-			var newLevel = levelsCompleted.Max();
-			ctx.Logic.BattlePassLogic().SetLevelAndPoints(newLevel, points);
+			var rewards = ctx.Logic.BattlePassLogic().ClaimBattlePassPoints(PassType);
+			if (rewards.Count == 0) return;
+			var rewardItems = ctx.Logic.RewardLogic().CreateItemsFromConfigs(rewards);
+			ctx.Logic.RewardLogic().Reward(rewardItems);
 			ctx.Services.MessageBrokerService().Publish(new BattlePassLevelUpMessage
 			{
 				Rewards = rewardItems,
-				NewLevel = newLevel
+				NewLevel = ctx.Logic.BattlePassLogic().CurrentLevel.Value
 			});
-			if (ctx.Logic.BattlePassLogic().IsTutorial())
-			{
-				if (newLevel >= ctx.Logic.BattlePassLogic().MaxLevel)
-				{
-					ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(TutorialSection.TUTORIAL_BP);
-					ctx.Logic.BattlePassLogic().Reset();
-					ctx.Services.MessageBrokerService().Publish(new TutorialBattlePassCompleted());
-				}
-			}
 		}
 	}
 }

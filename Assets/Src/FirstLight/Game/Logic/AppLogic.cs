@@ -30,12 +30,7 @@ namespace FirstLight.Game.Logic
 		/// Requests the information if the game was or not yet reviewed
 		/// </summary>
 		bool IsGameReviewed { get; }
-
-		/// <summary>
-		/// Requests if this device is Linked
-		/// </summary>
-		bool IsDeviceLinked { get; }
-
+		
 		/// <summary>
 		/// Are Sound Effects enabled?
 		/// </summary>
@@ -57,6 +52,11 @@ namespace FirstLight.Game.Logic
 		bool IsHapticOn { get; set; }
 
 		/// <summary>
+		/// Is Haptic feedback on device enabled?
+		/// </summary>
+		bool UseOverheadUI { get; set; }
+
+		/// <summary>
 		/// Requests the enable property for dynamic movement joystick
 		/// </summary>
 		bool UseDynamicJoystick { get; set; }
@@ -65,7 +65,12 @@ namespace FirstLight.Game.Logic
 		/// If should show the real damage instead of percentage damage
 		/// </summary>
 		ref bool ShowRealDamage { get; }
-		
+
+		/// <summary>
+		/// What kind of special cancelling system is used
+		/// </summary>
+		bool InvertSpecialCancellling { get; set; }
+
 		/// <summary>
 		/// Requests the enable property for dynamic camera movement
 		/// </summary>
@@ -95,12 +100,7 @@ namespace FirstLight.Game.Logic
 		/// Obtains the player unique id
 		/// </summary>
 		string PlayerId { get; }
-
-		/// <summary>
-		/// Determines if the player is a guest
-		/// </summary>
-		bool IsGuest { get; }
-
+		
 		/// <summary>
 		/// The URL of the player's avatar.
 		/// </summary>
@@ -120,22 +120,12 @@ namespace FirstLight.Game.Logic
 		/// Requests the last region that player was connected to
 		/// </summary>
 		IObservableField<string> ConnectionRegion { get; }
-
-		/// <summary>
-		/// Requests current device Id
-		/// </summary>
-		IObservableField<string> DeviceID { get; }
-
-		/// <summary>
-		/// Requests current device Id
-		/// </summary>
-		IObservableField<string> LastLoginEmail { get; }
-
+		
 		/// <summary>
 		/// Requests the player's title display name (including appended numbers)
 		/// </summary>
 		IObservableField<string> DisplayName { get; }
-		
+
 		/// <summary>
 		/// Playfab title data thats read and setup after player logs in
 		/// </summary>
@@ -210,7 +200,7 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IAppLogic"/>
 	public class AppLogic : AbstractBaseLogic<AppData>, IAppLogic
 	{
-		private readonly DateTime _defaultZeroTime = new(2020, 1, 1);
+		private readonly DateTime _defaultZeroTime = new (2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
 
 		public bool IsPlayerLoggedIn => !string.IsNullOrEmpty(Data.PlayerId);
@@ -226,11 +216,6 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public CustomGameOptions LastCustomGameOptions => Data.LastCustomGameOptions;
-
-		/// <inheritdoc />
-		public bool IsDeviceLinked => !string.IsNullOrWhiteSpace(DeviceID.Value);
-
-		public bool IsGuest => string.IsNullOrEmpty(LastLoginEmail.Value);
 
 		public string AvatarUrl => Data.AvatarUrl;
 
@@ -263,7 +248,8 @@ namespace FirstLight.Game.Logic
 		}
 
 		public ref bool ShowRealDamage => ref Data.ShowRealDamage;
-		
+
+
 		/// <inheritdoc />
 		public bool IsDialogueEnabled
 		{
@@ -279,10 +265,19 @@ namespace FirstLight.Game.Logic
 		public bool IsHapticOn
 		{
 			get => Data.HapticEnabled;
-			set
-			{
-				Data.HapticEnabled = value;
-			}
+			set { Data.HapticEnabled = value; }
+		}
+
+		public bool UseOverheadUI
+		{
+			get => Data.UseOverheadUI;
+			set => Data.UseOverheadUI = value;
+		}
+
+		public bool InvertSpecialCancellling
+		{
+			get => Data.InvertSpecialCancellling;
+			set { Data.InvertSpecialCancellling = value; }
 		}
 
 		/// <inheritdoc />
@@ -332,12 +327,6 @@ namespace FirstLight.Game.Logic
 		public IObservableField<string> ConnectionRegion { get; private set; }
 
 		/// <inheritdoc />
-		public IObservableField<string> DeviceID { get; private set; }
-
-		/// <inheritdoc />
-		public IObservableField<string> LastLoginEmail { get; private set; }
-
-		/// <inheritdoc />
 		public IObservableField<string> DisplayName { get; private set; }
 
 		public IObservableField<FrameSnapshot> LastFrameSnapshot { get; private set; }
@@ -371,8 +360,6 @@ namespace FirstLight.Game.Logic
 
 			DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
-			DeviceID = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
-			LastLoginEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
 			LastFrameSnapshot = new ObservableResolverField<FrameSnapshot>(() => Data.LastCapturedFrameSnapshot,
 				snap => Data.LastCapturedFrameSnapshot = snap);
 		}
@@ -394,23 +381,9 @@ namespace FirstLight.Game.Logic
 				ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 				ConnectionRegion.AddObservers(listeners);
 			}
-
-			{
-				var listeners = DeviceID.GetObservers();
-				DeviceID = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
-				DeviceID.AddObservers(listeners);
-			}
-
-			{
-				var listeners = LastLoginEmail.GetObservers();
-				LastLoginEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
-				LastLoginEmail.AddObservers(listeners);
-			}
-
+			
 			DisplayName.InvokeUpdate();
 			ConnectionRegion.InvokeUpdate();
-			DeviceID.InvokeUpdate();
-			LastLoginEmail.InvokeUpdate();
 		}
 
 		public void SetLastCustomGameOptions(CustomGameOptions options)

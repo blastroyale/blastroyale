@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
@@ -13,6 +14,15 @@ public partial class SROptions
 	private static GameObject _profilers;
 
 	public bool IsMultiClient;
+
+	[Category("Photon")]
+	public void PrintCurrentServer()
+	{
+		var client = MainInstaller.ResolveServices().NetworkService.QuantumClient;
+		FLog.Info("Current server is " + client.Server + " and region " + client.CloudRegion);
+		FLog.Info("Current server state " + client.State + " " + client.MasterServerAddress);
+	}
+
 
 	[Category("Quantum")]
 	public void ShowHideStats()
@@ -31,7 +41,7 @@ public partial class SROptions
 
 			return;
 		}
-		
+
 		_profilers.SetActive(!_profilers.activeSelf);
 	}
 
@@ -41,14 +51,14 @@ public partial class SROptions
 		IsMultiClient = true;
 		GameObject.FindObjectOfType<HomeScreenPresenter>().SendMessage("OnPlayOnlineClicked");
 	}
-	
+
 	[Category("Quantum")]
 	public void DisconnectQuantumTimeout()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		services.NetworkService.QuantumClient.Disconnect(DisconnectCause.ClientTimeout);
 	}
-	
+
 	[Category("Quantum")]
 	public void DisconnectQuantumClientLogic()
 	{
@@ -57,8 +67,8 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 		services.NetworkService.QuantumClient.Disconnect(DisconnectCause.DisconnectByClientLogic);
 	}
-	
-	
+
+
 	[Category("Network")]
 	public bool EnableCommitRoomLock
 	{

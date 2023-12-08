@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Prop_Rubble_2_GEO","Prop_Rubble_1_GEO"],"padding":[32,56],"unwrapper":[0,0]}'
+    - '#BAKERY{"meshName":["Prop_Rubble_2_GEO","Prop_Rubble_1_GEO"],"padding":[45,56],"unwrapper":[0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

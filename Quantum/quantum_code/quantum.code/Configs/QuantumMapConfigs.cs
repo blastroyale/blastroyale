@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Quantum
 {
 	[Serializable]
-	public partial struct QuantumMapConfig
+	public partial class QuantumMapConfig
 	{
 		public GameId Map;
 		public int MaxPlayers;
@@ -12,6 +12,7 @@ namespace Quantum
 		public bool IsCustomOnly;
 		public float DropSelectionSize;
 		public float MinimapCameraSize;
+		public short LootingVersion;
 	}
 	
 	/// <summary>

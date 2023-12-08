@@ -488,3 +488,11 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
+  - Key: 105
+    Value:
+      m_AssetGUID: 6f373736db2a4c4418acd0b1c689d767
+      m_SubObjectName: icon-currency-blastbuck
+      m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      m_EditorAssetChanged: 0
+      

@@ -20,12 +20,16 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class RewardsScreenPresenter : UiToolkitPresenterData<RewardsScreenPresenter.StateData>
 	{
+		
+		private const int MIN_ITEMS_SHOW_SKIP_ALL = 50;
+		
 		public struct StateData
 		{
 			public bool FameRewards;
 			public IEnumerable<ItemData> Items;
 			public ItemData ParentItem;
 			public Action OnFinish;
+			public bool SkipSummary;
 		}
 
 		#region Dependencies
@@ -52,7 +56,9 @@ namespace FirstLight.Game.Presenters
 		private GenericRewardView _genericRewardView;
 		private RewardsSummaryView _summaryView;
 
+		private Button _skipAllButton;
 		private Label _remainingNumber;
+		private VisualElement _blocker;
 		private VisualElement _remainingRoot;
 
 		#endregion
@@ -74,12 +80,15 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.ResolveServices();
-			
+
 			_animations = new RewardsAnimationController();
 			_remainingRoot = root.Q<VisualElement>("RewardsRemaining").Required();
+			_blocker = root.Q<VisualElement>("Blocker").Required();
+			_skipAllButton = root.Q<Button>("SkipAllButton").Required();
+			_skipAllButton.clicked += OnSkipAllClicked;
 			_remainingNumber = _remainingRoot.Q<Label>("NumberLabel").Required();
 
-			root.RegisterCallback<ClickEvent>(OnClick);
+			_blocker.RegisterCallback<ClickEvent>(OnClick);
 
 			root.Q<VisualElement>("EquipmentReward").Required().AttachView(this, out _equipmentRewardView);
 			_equipmentRewardView.Init(_animations, _animatedBackground, _equipmentRewardDirector);
@@ -93,10 +102,15 @@ namespace FirstLight.Game.Presenters
 			_summaryView.CreateSummaryElements(Data.Items, Data.FameRewards);
 		}
 
+		private void OnSkipAllClicked()
+		{
+			_remaining.Clear();
+			Move();
+		}
+
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-
 			if (Data.FameRewards)
 			{
 				_remaining = new Queue<ItemData>();
@@ -112,8 +126,8 @@ namespace FirstLight.Game.Presenters
 
 		public void OnClick(ClickEvent evt)
 		{
-			evt.StopImmediatePropagation();
 			Move();
+			evt.StopImmediatePropagation();
 		}
 
 		private void Move()
@@ -149,6 +163,7 @@ namespace FirstLight.Game.Presenters
 				});
 				return;
 			}
+
 			Data.OnFinish?.Invoke();
 		}
 
@@ -181,6 +196,7 @@ namespace FirstLight.Game.Presenters
 
 		private bool ShouldShowSummary()
 		{
+			if (Data.SkipSummary) return false;
 			return Data.Items.Count() > 1;
 		}
 
@@ -197,6 +213,7 @@ namespace FirstLight.Game.Presenters
 			_summaryView.Element.SetDisplay(view == _summaryView);
 			_equipmentRewardView.Element.SetDisplay(view == _equipmentRewardView);
 			_remainingRoot.SetDisplay(_remaining.Count > 0);
+			_skipAllButton.SetDisplay(view != _summaryView && !Data.FameRewards && Data.Items.Count() >= MIN_ITEMS_SHOW_SKIP_ALL);
 		}
 
 		public void OnLevelUpSignal()

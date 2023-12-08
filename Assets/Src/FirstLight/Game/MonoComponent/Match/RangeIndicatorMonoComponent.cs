@@ -61,6 +61,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		public void Init(EntityView playerEntityView)
 		{
 			var cacheTransform = transform;
+			if (gameObject == null || cacheTransform == null) return;
 			
 			cacheTransform.SetParent(playerEntityView.transform);
 			

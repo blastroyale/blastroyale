@@ -1,34 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/StoreScreenStyle.uss?fileID=7433441132597879392&amp;guid=4e78e87407db04df3a3f36ca0181c06c&amp;type=3#StoreScreenStyle" />
     <ui:VisualElement name="root" class="background fill-parent">
-        <FirstLight.Game.UIElements.SafeAreaElement apply-top="false" class="fill-parent items-holder">
-            <ui:Button name="ItemRare" class="store-item anim-delay-0 anim-translate anim-translate--down-xxxl">
-                <ui:VisualElement name="_shadow" class="store-item__shadow" />
-                <ui:VisualElement name="_body" class="store-item__body">
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITStore/rare_core" class="store-item__body__title store-item__body__title--rare" />
-                    <ui:VisualElement class="store-item__body__icon sprite-home__icon-core-rare" />
-                    <ui:Label name="Price" text="0.99€" class="store-item__body__price" />
-                </ui:VisualElement>
-                <ui:Button name="InfoButton" class="store-item__button-info anim-delay-2 anim-translate anim-translate--down-xxxl"/>
-            </ui:Button>
-            <ui:Button name="ItemEpic" class="store-item anim-delay-1 anim-translate anim-translate--down-xxxl" style="margin-left: 100px; margin-right: 100px;">
-                <ui:VisualElement name="_shadow" class="store-item__shadow" />
-                <ui:VisualElement name="_body" class="store-item__body">
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITStore/epic_core" class="store-item__body__title store-item__body__title--epic" />
-                    <ui:VisualElement class="store-item__body__icon sprite-home__icon-core-epic" />
-                    <ui:Label name="Price" text="1.99€" class="store-item__body__price" />
-                </ui:VisualElement>
-                <ui:Button name="InfoButton" class="store-item__button-info anim-delay-2 anim-translate anim-translate--down-xxxl"/>
-            </ui:Button>
-            <ui:Button name="ItemLegendary" class="store-item anim-delay-2 anim-translate anim-translate--down-xxxl">
-                <ui:VisualElement name="_shadow" class="store-item__shadow" />
-                <ui:VisualElement name="_body" class="store-item__body">
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITStore/legendary_core" class="store-item__body__title store-item__body__title--legendary" />
-                    <ui:VisualElement class="store-item__body__icon sprite-home__icon-core-legendary" />
-                    <ui:Label name="Price" text="2.99€" class="store-item__body__price" />
-                </ui:VisualElement>
-                <ui:Button name="InfoButton" class="store-item__button-info anim-delay-2 anim-translate anim-translate--down-xxxl"/>
-            </ui:Button>
+        <FirstLight.Game.UIElements.SafeAreaElement apply-top="false" apply-bottom="false" class="fill-parent items-holder store-safearea">
+            <ui:ScrollView name="ProductScrollView" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" horizontal-page-size="-1" class="scroll-view">
+                <ui:VisualElement name="ProductList" class="product-list" />
+            </ui:ScrollView>
+            <ui:VisualElement name="Categories" class="categories" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITStore/shop" name="Header" />
         <ui:VisualElement name="Blocker" class="blocker" style="display: none;">

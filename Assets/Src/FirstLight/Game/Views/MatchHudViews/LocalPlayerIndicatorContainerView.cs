@@ -76,14 +76,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			if (!IsInitialized()) return;
 			SetupWeaponInfo(callback.Game.Frames.Predicted, callback.WeaponSlot.Weapon.GameId);
-			SetupWeaponSpecials(callback.WeaponSlot);
 		}
 
-		public void SetupWeaponSpecials(WeaponSlot slot)
+		public void SetupSpecials(PlayerInventory inventory)
 		{
-			for (var i = 0; i < slot.Specials.Length; i++)
+			for (var i = 0; i < inventory.Specials.Length; i++)
 			{
-				SetupIndicator(i, slot.Specials[i].SpecialId, _playerView);
+				SetupIndicator(i, inventory.Specials[i].SpecialId);
 			}
 		}
 
@@ -205,7 +204,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 					_shootIndicatorId = IndicatorVfxId.Cone;
 				}
 
-				ShootIndicator.SetVisualState(ShootIndicator.VisualState);
+				ShootIndicator?.SetVisualState(ShootIndicator.VisualState);
 			}
 			else
 			{
@@ -224,9 +223,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Setups the indicator configs for the specials
 		/// </summary>
-		public void SetupIndicator(int index, GameId specialId, EntityView playerView)
+		public void SetupIndicator(int index, GameId specialId)
 		{
+			if (_services.RoomService.IsLocalPlayerSpectator) return;
 			_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) specialId, out var config);
+			if (config == null) return;
+			
 			if (_specialIndicators[index] != null)
 			{
 				Object.Destroy(((MonoBehaviour) _specialIndicators[index]).gameObject);
@@ -242,10 +244,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 					.GetComponent<RangeIndicatorMonoComponent>();
 			}
 
-			_specialRadiusIndicators[index].Init(playerView);
+			_specialRadiusIndicators[index].Init(_playerView);
 			_specialRadiusIndicators[index].SetVisualProperties(config.MaxRange.AsFloat,
 				config.MaxRange.AsFloat, config.MaxRange.AsFloat);
-			_specialIndicators[index].Init(playerView);
+			_specialIndicators[index].Init(_playerView);
 
 			_specialIndicators[index].SetVisualProperties(
 				config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS,
@@ -312,7 +314,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (!IsInitialized() || _localPlayerEntity != callback.Entity)
 				return;
 
-			if (callback.CurrentMag == 0)
+			if (callback.CurrentAmmo == 0)
 			{
 				_weaponAim.SetColor(Color.red);
 			}
@@ -320,9 +322,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				_weaponAim.ResetColor();
 			}
-
-			if (callback.CurrentMag != 0)
-				return;
 
 			ShootIndicator.SetVisualState(ShootIndicator.VisualState, true);
 		}

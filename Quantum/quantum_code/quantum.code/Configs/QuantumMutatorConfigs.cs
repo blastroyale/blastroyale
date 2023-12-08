@@ -13,7 +13,7 @@ namespace Quantum
 		HammerTime,
 		ForceLevelPlayingField,
 		HidePlayerNames,
-		NoAbilities,
+		DoNotDropSpecials,
 		PistolsOnly,
 		SMGsOnly,
 		MinigunsOnly,
@@ -21,10 +21,11 @@ namespace Quantum
 		SnipersOnly,
 		RPGsOnly,
 		ConsumablesSharing,
+		SpecialsMayhem,
 	}
 
 	[Serializable]
-	public partial struct QuantumMutatorConfig
+	public partial class QuantumMutatorConfig
 	{
 		public string Id;
 		public MutatorType Type;

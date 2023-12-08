@@ -396,11 +396,11 @@
 .bpp__bar__green-bar {
     position: absolute;
     height: 26px;
-    width: 50%;
+    width: 100%;
     align-self: center;
     margin-left: 3px;
-    margin-right: 3px;
     background-image: url('project://database/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards-bpp.png?fileID=21300000&guid=557657056a3d9b44dbbbb666ec2fc9d9&type=3#progress-battlepass-rewards-bpp');
+    max-width: 460px;
 }
 
 .bpp__bar__total {
@@ -574,8 +574,9 @@
     height: 26px;
     width: 50%;
     align-self: center;
-    margin-left: 3px;
+    margin-left: 2px;
     margin-right: 3px;
+    max-width: 406px;
 }
 
 .fame__bar__total {

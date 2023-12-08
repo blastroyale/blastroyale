@@ -1,0 +1,27 @@
+{
+  "name": "com.tivadar.best.http",
+  "displayName": "Best HTTP",
+  "description": "Best HTTP is a comprehensive networking library for Unity that empowers developers to make HTTP and HTTPS requests with ease. Whether you're building web applications, multiplayer games, or real-time communication solutions, Best HTTP has got you covered.",
+  "version": "3.0.0",
+  "unity": "2021.1",
+  "documentationUrl": "https://bestdocshub.pages.dev/HTTP/",
+  "changelogUrl": "https://bestdocshub.pages.dev/HTTP/changelog/",
+  "licensesUrl": "https://bestdocshub.pages.dev/HTTP/third-party-notices/",
+  "author": {
+    "name": "Tivadar György Nagy",
+    "email": "besthttp@gmail.com",
+    "url": "https://benedicht.github.io/"
+  },
+  "keywords": [ "best", "besthttp", "http", "http2", "tls", "https", "DNS", "TCP", "request", "response" ],
+  "dependencies": {
+    "com.unity.burst": "1.8.7",
+    "com.unity.profiling.core": "1.0.0"
+  },
+  "samples": [
+    {
+      "displayName": "Samples with UI",
+      "description": "Contains sample code for various HTTP related scenarios.",
+      "path": "Samples~/With UI"
+    }
+  ]
+}

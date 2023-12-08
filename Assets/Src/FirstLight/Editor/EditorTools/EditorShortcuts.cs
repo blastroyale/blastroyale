@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules;
+using FirstLight.Services;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -446,6 +450,15 @@ namespace FirstLight.Editor.EditorTools
 			}
 
 			return atlas;
+		}
+		
+		[MenuItem("FLG/Print App Data")]
+		private static void PrintAppData()
+		{
+			var srv = new DataService();
+			var data = srv.LoadData<AppData>();
+			EditorUtility.DisplayDialog("Data", ModelSerializer.PrettySerialize(data), "Ok");
+			FLog.Info(ModelSerializer.PrettySerialize(data));
 		}
 	}
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using UnityEngine;
@@ -25,9 +26,9 @@ namespace FirstLight.Game.Presenters
 			_swipeParent.RegisterCallback<TransitionStartEvent>(_ => TransitionFinished = false);
 		}
 
-		public async Task WaitTransition()
+		public async UniTask WaitTransition()
 		{
-			while (!TransitionFinished) await Task.Delay(10);
+			await UniTask.WaitUntil(() => TransitionFinished);
 		}
 
 		protected override void OnTransitionsReady()
@@ -40,7 +41,7 @@ namespace FirstLight.Game.Presenters
 		/// If this method is awaited will wait the transition to be where
 		/// the whole screen is covered
 		/// </summary>
-		public static async Task StartSwipe()
+		public static async UniTask StartSwipe()
 		{
 			var service = MainInstaller.ResolveServices();
 			var swipe = await service.GameUiService.OpenUiAsync<SwipeScreenPresenter>();
@@ -51,7 +52,7 @@ namespace FirstLight.Game.Presenters
 		/// Finishes the transition. If waited, will wait the whole transition to be finished
 		/// and the whole screen to be freed.
 		/// </summary>
-		public static async Task Finish()
+		public static async UniTask Finish()
 		{
 			var service = MainInstaller.ResolveServices();
 			if (!service.GameUiService.HasUiPresenter<SwipeScreenPresenter>()) return;
@@ -59,6 +60,9 @@ namespace FirstLight.Game.Presenters
 			if (ui == null) return;
 			ui._swipeParent.AddToClassList("hidden-end");
 			await ui.WaitTransition();
+			// concurrency check
+			ui = service.GameUiService.GetUi<SwipeScreenPresenter>();
+			if (ui == null || !service.GameUiService.IsOpen<SwipeScreenPresenter>()) return;
 			await service.GameUiService.CloseUi<SwipeScreenPresenter>(true);
 		}
 	}

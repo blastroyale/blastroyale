@@ -5,7 +5,7 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public struct QuantumShrinkingCircleConfig
+	public class QuantumShrinkingCircleConfig
 	{
 		public int Key;
 		public int Step;
@@ -18,7 +18,7 @@ namespace Quantum
 		
 		// 1 means new safe area will fit and may touch edges
 		// 0 (min value) means new safe area will be exactly in the center
-		// 2 (max value) means new safe area will be able to go half of its radius outside of the current safe area
+		// 2 means new safe area will be able to go half of its radius outside of the current safe area
 		public FP NewSafeSpaceAreaSizeK;
 		
 		public FP MaxHealthDamage;

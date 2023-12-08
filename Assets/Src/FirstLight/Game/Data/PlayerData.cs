@@ -29,8 +29,6 @@ namespace FirstLight.Game.Data
 		public uint Xp = 0;
 		public uint TrophySeason = 0;
 		public uint Trophies = 0;
-		public uint BPLevel = 0;
-		public uint BPPoints = 0;
 		public bool MigratedGuestData = false;
 		public readonly List<ItemData> UncollectedRewards = new();
 		public readonly Dictionary<GameIdGroup, UniqueId> Equipped = new(new GameIdGroupComparer());
@@ -44,7 +42,8 @@ namespace FirstLight.Game.Data
 			{ GameId.CS, 0 },
 			{ GameId.BLST, 0 },
 			{ GameId.COIN, 0 },
-			{ GameId.Fragments, 0 }
+			{ GameId.Fragments, 0 },
+			{ GameId.BlastBuck, 0 }
 		};
 
 		public override int GetHashCode()
@@ -54,9 +53,7 @@ namespace FirstLight.Game.Data
 			hash = hash * 23 + Level.GetHashCode();
 			hash = hash * 23 + Xp.GetHashCode();
 			hash = hash * 23 + Trophies.GetHashCode();
-			hash = hash * 23 + BPLevel.GetHashCode();
-			hash = hash * 23 + BPPoints.GetHashCode();
-			
+
 			foreach (var e in UncollectedRewards)
 				hash = hash * 23 + e.GetHashCode();
 			

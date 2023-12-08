@@ -51,6 +51,9 @@ namespace FirstLight.Game.Presenters
 			public Action OnBattlePassClicked;
 			public Action OnStoreClicked;
 			public Action OnDiscordClicked;
+			public Action OnYoutubeClicked;
+			public Action OnInstagramClicked;
+			public Action OnTiktokClicked;
 			public Action OnMatchmakingCancelClicked;
 			public Action OnLevelUp;
 			public Action<List<ItemData>> OnRewardsReceived;
@@ -71,6 +74,7 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement _equipmentNotification;
 		private VisualElement _collectionNotification;
+		private VisualElement _settingsNotification;
 
 		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
@@ -97,6 +101,7 @@ namespace FirstLight.Game.Presenters
 		private Coroutine _updatePoolsCoroutine;
 		private HashSet<GameId> _currentAnimations = new ();
 		private HashSet<GameId> _initialized = new ();
+		private CurrencyDisplayElement _csOwned;
 
 		private void Awake()
 		{
@@ -137,7 +142,7 @@ namespace FirstLight.Game.Presenters
 					Data.OnProfileClicked();
 				}
 			};
-			root.Q<ImageButton>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
+
 			_playerNameLabel = root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = root.Q<Label>("TrophiesAmount").Required();
 
@@ -148,7 +153,8 @@ namespace FirstLight.Game.Presenters
 
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
 			_collectionNotification = root.Q<VisualElement>("CollectionNotification").Required();
-
+			_settingsNotification = root.Q<VisualElement>("SettingsNotification").Required();
+			
 			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
 			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
 			_bppPoolRestockTimeLabel = _bppPoolContainer.Q<Label>("RestockLabelTime").Required();
@@ -169,16 +175,21 @@ namespace FirstLight.Game.Presenters
 			_playButtonContainer = root.Q("PlayButtonHolder");
 			_playButton = root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
+			
+			_csOwned = root.Q<CurrencyDisplayElement>("CSCurrency");
 
-			root.Q<CurrencyDisplayElement>("CSCurrency")
-				.AttachView(this, out CurrencyDisplayView _)
-				.SetAnimationOrigin(_playButton);
+			_csOwned.AttachView(this, out CurrencyDisplayView _)
+			        .SetAnimationOrigin(_playButton);
 			root.Q<CurrencyDisplayElement>("CoinCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
 			root.Q<CurrencyDisplayElement>("FragmentsCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
+			root.Q<CurrencyDisplayElement>("BlastBuckCurrency")
+				.AttachView(this, out CurrencyDisplayView _)
+				.SetAnimationOrigin(_playButton);;
+
 
 			// TODO: Uncomment when we use Fragments
 			root.Q<CurrencyDisplayElement>("FragmentsCurrency").SetDisplay(false);
@@ -186,12 +197,14 @@ namespace FirstLight.Game.Presenters
 			_outOfSyncWarningLabel = root.Q<Label>("OutOfSyncWarning").Required();
 			_betaLabel = root.Q<Label>("BetaWarning").Required();
 
-			_gameModeButton.clicked += Data.OnGameModeClicked;
 			root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 			root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
 
-			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
-			root.Q<Button>("TrophiesHolder").clicked += Data.OnLeaderboardClicked;
+			_gameModeButton.LevelLock(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
+			var leaderBoardButton = root.Q<ImageButton>("LeaderboardsButton");
+			leaderBoardButton.LevelLock(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
+			var equipmentButton = root.Q<Button>("EquipmentButton");
+			equipmentButton.LevelLock(this, Root, UnlockSystem.Equipment, Data.OnLootButtonClicked);
 			var collectionButton = root.Q<Button>("CollectionButton");
 			collectionButton.LevelLock(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
 
@@ -209,6 +222,27 @@ namespace FirstLight.Game.Presenters
 				Data.OnDiscordClicked();
 			};
 
+			var youtubeButton = root.Q<Button>("YoutubeButton");
+			youtubeButton.clicked += () =>
+			{
+				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.YoutubeLink);
+				Data.OnYoutubeClicked();
+			};
+			
+			var instagramButton = root.Q<Button>("InstagramButton");
+			instagramButton.clicked += () =>
+			{
+				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.InstagramLink);
+				Data.OnInstagramClicked();
+			};
+			
+			var tiktokButton = root.Q<Button>("TiktokButton");
+			tiktokButton.clicked += () =>
+			{
+				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.TiktokLink);
+				Data.OnTiktokClicked();
+			};
+			
 			root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
 
@@ -228,6 +262,7 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
+			_settingsNotification.SetDisplay(_services.AuthenticationService.IsGuest);
 			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
 #if !STORE_BUILD && !UNITY_EDITOR
@@ -236,6 +271,11 @@ namespace FirstLight.Game.Presenters
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
 			_betaLabel.SetDisplay(FeatureFlags.BETA_VERSION);
+			
+			// We show CS in the top bar if player has some CS or equipment NFTs (which means CS pool is more than 0)
+			var cs = _dataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.CS);
+			_csOwned.SetDisplay(cs > 0 ||
+			                    _dataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.CS).PoolCapacity > 0);
 
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
@@ -469,7 +509,7 @@ namespace FirstLight.Game.Presenters
 				segmentIndex += 1;
 
 				var points = (int) previous + totalSegmentPointsRedeemed;
-				var wasRedeemable = _dataProvider.BattlePassDataProvider.IsRedeemable((int) previous);
+				var wasRedeemable = _dataProvider.BattlePassDataProvider.HasUnclaimedRewards((int) previous);
 
 				_mainMenuServices.UiVfxService.PlayVfx(id,
 					segmentIndex * 0.05f,
@@ -497,9 +537,6 @@ namespace FirstLight.Game.Presenters
 				&& _dataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.CS).PoolCapacity > 0;
 			_csPoolContainer.SetDisplay(hasPool);
 			_playButtonContainer.EnableInClassList("button-with-pool", hasPool);
-
-			_gameModeLabel.EnableInClassList("game-mode-button__mode--multiple-line",
-				_gameModeLabel.text.Contains("\\n"));
 
 			_gameModeButton.SetEnabled(!_partyService.HasParty.Value && !_partyService.OperationInProgress.Value);
 		}
@@ -554,7 +591,7 @@ namespace FirstLight.Game.Presenters
 			if (!string.IsNullOrEmpty(buttonClass)) _playButton.AddToClassList(buttonClass);
 			_playButton.Localize(translationKey);
 		}
-
+		
 		private void UpdateBattlePassReward()
 		{
 			var nextLevel = _dataProvider.BattlePassDataProvider.CurrentLevel.Value + 1;
@@ -562,20 +599,19 @@ namespace FirstLight.Game.Presenters
 
 			if (nextLevel <= _dataProvider.BattlePassDataProvider.MaxLevel)
 			{
-				var reward = _dataProvider.BattlePassDataProvider.GetRewardForLevel(nextLevel);
+				var reward = _dataProvider.BattlePassDataProvider.GetRewardForLevel(nextLevel, PassType.Free);
 				_battlePassRarity.AddToClassList(UIUtils.GetBPRarityStyle(reward.GameId));
 			}
 		}
 
 		private void UpdateBattlePassPoints(int points)
 		{
-			var hasRewards = _dataProvider.BattlePassDataProvider.IsRedeemable(points);
+			var hasRewards = _dataProvider.BattlePassDataProvider.HasUnclaimedRewards(points);
 			_battlePassButton.EnableInClassList("battle-pass-button--claimreward", hasRewards);
 
 			if (!hasRewards)
 			{
-				if (!_dataProvider.BattlePassDataProvider.IsTutorial() &&
-					_dataProvider.BattlePassDataProvider.CurrentLevel.Value ==
+				if (_dataProvider.BattlePassDataProvider.CurrentLevel.Value ==
 					_dataProvider.BattlePassDataProvider.MaxLevel)
 				{
 					_battlePassButton.EnableInClassList("battle-pass-button--completed", true);

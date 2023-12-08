@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -76,17 +76,20 @@ namespace FirstLight.Game.Presenters
 		private UnityInputScreenControl _specialCancelInput;
 
 		private IGameServices _gameServices;
+		private IGameDataProvider _dataProvider;
 
 		// ReSharper disable NotAccessedField.Local
 		private WeaponDisplayView _weaponDisplayView;
 		private KillFeedView _killFeedView;
-		private MatchStatusView _matchStatusView;
+		private MatchTimerView _matchTimerView;
 		private SpecialButtonsView _specialButtonsView;
 		private DeviceStatusView _deviceStatusView;
 		private SquadMembersView _squadMembersView;
 		private EquipmentDisplayView _equipmentDisplayView;
 		private StatusBarsView _statusBarsView;
 		private StatusNotificationsView _statusNotificationsView;
+		private PlayerCountsView _playerCountsView;
+		private LocalPlayerInfoView _localPlayerInfoView;
 
 		// ReSharper restore NotAccessedField.Local
 
@@ -102,21 +105,33 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_gameServices = MainInstaller.Resolve<IGameServices>();
+			_dataProvider = MainInstaller.ResolveData();
 
 			_gameServices.ControlsSetup.SetControlPositions(Root);
 
 			root.Q("WeaponDisplay").Required().AttachView(this, out _weaponDisplayView);
 			root.Q("KillFeed").Required().AttachView(this, out _killFeedView);
-			root.Q("MatchStatus").Required().AttachView(this, out _matchStatusView);
+			root.Q("MatchStatus").Required().AttachView(this, out _matchTimerView);
 			root.AttachView(this, out _specialButtonsView);
 			root.Q("DeviceStatus").Required().AttachView(this, out _deviceStatusView);
 			root.Q("SquadMembers").Required().AttachView(this, out _squadMembersView);
-			root.Q("EquipmentDisplay").Required().AttachView(this, out _equipmentDisplayView);
+			// root.Q("EquipmentDisplay").Required().AttachView(this, out _equipmentDisplayView);
 			root.Q("PlayerBars").Required().AttachView(this, out _statusBarsView);
 			root.Q("StatusNotifications").Required().AttachView(this, out _statusNotificationsView);
+			root.Q("PlayerCounts").Required().AttachView(this, out _playerCountsView);
+
+			var localPlayerInfo = root.Q("LocalPlayerInfo").Required();
+			if (_dataProvider.AppDataProvider.UseOverheadUI)
+			{
+				localPlayerInfo.SetDisplay(false);
+			}
+			else
+			{
+				localPlayerInfo.AttachView(this, out _localPlayerInfoView);
+			}
 
 			_weaponDisplayView.OutOfAmmoColors = _outOfAmmoGradient;
-			_matchStatusView.SetAreaShrinkingDirector(_areaShrinkingDirector);
+			_matchTimerView.SetAreaShrinkingDirector(_areaShrinkingDirector);
 			_statusNotificationsView.Init(_blasted1Director, _blasted2Director, _blasted3Director, _blastedBeastDirector, _lowHPThreshold);
 
 			_movementJoystick = root.Q<JoystickElement>("MovementJoystick").Required();
@@ -156,9 +171,9 @@ namespace FirstLight.Game.Presenters
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		public bool IsMenuVisible()
+		private bool IsMenuVisible()
 		{
-			return !_gameServices.TutorialService.IsTutorialRunning &&
+			return _gameServices.RoomService.CurrentRoom.GameModeConfig.Id == GameConstants.Tutorial.SECOND_BOT_MODE_ID ||
 				_gameServices.RoomService.CurrentRoom.Properties.MatchType.Value == MatchType.Custom;
 		}
 	
@@ -181,6 +196,7 @@ namespace FirstLight.Game.Presenters
 				HideControls(false);
 				_weaponDisplayView.UpdateFromLatestVerifiedFrame();
 				_specialButtonsView.UpdateFromLatestVerifiedFrame();
+				_localPlayerInfoView.UpdateFromLatestVerifiedFrame();
 				_statusBarsView.InitAll();
 
 			});

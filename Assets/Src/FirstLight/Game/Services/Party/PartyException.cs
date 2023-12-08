@@ -15,6 +15,7 @@ namespace FirstLight.Game.Services.Party
 		MemberNotFound,
 		ConnectionError,
 		TryingToGetDetailsOfNonMemberParty,
+		UserIsNotMember,
 		Unknown
 	}
 

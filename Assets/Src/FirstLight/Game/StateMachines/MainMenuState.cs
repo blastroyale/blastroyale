@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Data;
@@ -10,10 +11,12 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
+using FirstLight.Game.Presenters.Store;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
+using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -81,7 +84,7 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var mainMenuLoading = stateFactory.State("Main Menu Loading");
 			var mainMenuUnloading = stateFactory.TaskWait("Main Menu Unloading");
-			var mainMenu = stateFactory.Nest("Main Menu");
+			var mainMenu = stateFactory.Nest("Main Menu Screen");
 			var mainMenuTransition = stateFactory.Transition("Main Transition");
 			var disconnected = stateFactory.State("Disconnected");
 			var disconnectedCheck = stateFactory.Choice("Disconnected Final Choice");
@@ -89,7 +92,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(mainMenuLoading);
 			initial.OnExit(SubscribeEvents);
 
-			mainMenuLoading.OnEnter(LoadMainMenu);
+			mainMenuLoading.OnEnter(() => LoadMainMenu());
 			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
 
@@ -151,8 +154,13 @@ namespace FirstLight.Game.StateMachines
 			homeCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			homeCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
+			homeCheck.Transition().Condition(RequiresToSeeStore).Target(store);
+			homeCheck.Transition().Condition(IsInRoom)
+				.OnTransition(() => _services.RoomService.LeaveRoom())
+				.Target(homeMenu);
 			homeCheck.Transition().Target(homeMenu);
 			homeCheck.OnExit(OpenHomeScreen);
+
 
 			homeMenu.OnEnter(OpenHomeScreen);
 			homeMenu.OnEnter(TryClaimUncollectedRewards);
@@ -178,7 +186,8 @@ namespace FirstLight.Game.StateMachines
 
 			playClickedCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			playClickedCheck.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
-			playClickedCheck.Transition().Condition(CheckIsNotPartyLeader).OnTransition(TogglePartyReadyStatus)
+			playClickedCheck.Transition().Condition(IsInRoom).Target(homeCheck);
+			playClickedCheck.Transition().Condition(CheckIsNotPartyLeader).OnTransition(() => TogglePartyReadyStatus())
 				.Target(homeCheck);
 			playClickedCheck.Transition().OnTransition(SendPlayReadyMessage)
 				.Target(waitMatchmaking);
@@ -200,7 +209,7 @@ namespace FirstLight.Game.StateMachines
 			enterNameDialog.OnEnter(RequestStartMetaMatchTutorial);
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 
-			brokenItems.OnEnter(OpenBrokenItemsPopUp);
+			brokenItems.OnEnter(() => OpenBrokenItemsPopUp());
 			brokenItems.Event(_brokenItemsCloseEvent).Target(homeCheck);
 			brokenItems.Event(_brokenItemsRepairEvent).Target(equipmentMenu);
 			brokenItems.OnExit(CloseBrokenItemsPopUp);
@@ -212,6 +221,11 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(_closeClickedEvent).Target(homeCheck);
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
+		}
+
+		private bool RequiresToSeeStore()
+		{
+			return _services.IAPService.RequiredToViewStore;
 		}
 
 		private void HideMatchmaking()
@@ -227,6 +241,13 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
+			_services.MessageBrokerService.Subscribe<NewBattlePassSeasonMessage>(OnBattlePassNewSeason);
+			_services.MessageBrokerService.Subscribe<MainMenuShouldReloadMessage>(MainMenuShouldReloadMessage);
+		}
+
+		private void MainMenuShouldReloadMessage(MainMenuShouldReloadMessage msg)
+		{
+			OpenHomeScreen();
 		}
 
 		private void UnsubscribeEvents()
@@ -234,7 +255,7 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private async Task PreloadQuantumSettings()
+		private async UniTask PreloadQuantumSettings()
 		{
 			var assets = UnityDB.CollectAddressableAssets();
 			foreach (var asset in assets)
@@ -259,7 +280,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			// If meta/match tutorial not completed, and tutorial not running
 			return FeatureFlags.TUTORIAL &&
-				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH) &&
+				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH) &&
 				!_services.TutorialService.IsTutorialRunning;
 		}
 
@@ -271,11 +292,16 @@ namespace FirstLight.Game.StateMachines
 		private void TryClaimUncollectedRewards()
 		{
 			_unclaimedCountCheck = 0;
+			if (FeatureFlags.GetLocalConfiguration().OfflineMode)
+			{
+				OnCheckIfServerRewardsMatch(true);
+				return;
+			}
 
-			_services.GameBackendService.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch, null);
+			_services.GameBackendService.CheckIfRewardsMatch(b => OnCheckIfServerRewardsMatch(b), null);
 		}
 
-		private async void OnCheckIfServerRewardsMatch(bool serverRewardsMatch)
+		private async UniTaskVoid OnCheckIfServerRewardsMatch(bool serverRewardsMatch)
 		{
 			if (serverRewardsMatch)
 			{
@@ -324,7 +350,7 @@ namespace FirstLight.Game.StateMachines
 
 			_unclaimedCountCheck++;
 			await Task.Delay(TimeSpan.FromMilliseconds(500)); // space check calls a bit
-			_services?.GameBackendService?.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch, null);
+			_services?.GameBackendService?.CheckIfRewardsMatch(b => OnCheckIfServerRewardsMatch(b), null);
 		}
 
 		private void SendPlayReadyMessage()
@@ -357,13 +383,13 @@ namespace FirstLight.Game.StateMachines
 				!_services.PartyService.PartyReady.Value;
 		}
 
-		private async void TogglePartyReadyStatus()
+		private async UniTaskVoid TogglePartyReadyStatus()
 		{
 			var local = _services.PartyService.GetLocalMember();
 			await _services.PartyService.Ready(!local?.Ready ?? false);
 		}
 
-		private async void OpenBrokenItemsPopUp()
+		private async UniTaskVoid OpenBrokenItemsPopUp()
 		{
 			var infos = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 			var loadout = new Dictionary<GameIdGroup, UniqueId>();
@@ -443,6 +469,11 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<GlobalLeaderboardScreenPresenter, GlobalLeaderboardScreenPresenter.StateData>(data);
 		}
 
+		private void OnBattlePassNewSeason(NewBattlePassSeasonMessage msg)
+		{
+			_statechartTrigger(BattlePassClickedEvent);
+		}
+
 		private void OpenBattlePassUI(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
@@ -463,23 +494,14 @@ namespace FirstLight.Game.StateMachines
 				OnBackClicked = () => { activity.Complete(); },
 				OnHomeClicked = () => { activity.Complete(); },
 				OnPurchaseItem = PurchaseItem,
-				UiService = _uiService,
-				IapProcessingFinished = OnIapProcessingFinished
 			};
-
 			_uiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new ShopScreenOpenedMessage());
 		}
 
-		private void PurchaseItem(string id)
+		private void PurchaseItem(GameProduct product)
 		{
-			_statechartTrigger(NetworkState.IapProcessStartedEvent);
-			_services.IAPService.BuyProduct(id);
-		}
-
-		private void OnIapProcessingFinished()
-		{
-			_statechartTrigger(NetworkState.IapProcessFinishedEvent);
+			_services.IAPService.BuyProduct(product);
 		}
 
 		private void OpenRoomJoinCreateMenuUI()
@@ -508,6 +530,9 @@ namespace FirstLight.Game.StateMachines
 				OnBattlePassClicked = () => _statechartTrigger(BattlePassClickedEvent),
 				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
 				OnDiscordClicked = DiscordButtonClicked,
+				OnYoutubeClicked = YoutubeButtonClicked,
+				OnInstagramClicked = InstagramButtonClicked,
+				OnTiktokClicked = TiktokButtonClicked,
 				OnMatchmakingCancelClicked = SendCancelMatchmakingMessage,
 				OnLevelUp = OpenLevelUpScreen,
 				OnRewardsReceived = OnRewardsReceived
@@ -515,6 +540,12 @@ namespace FirstLight.Game.StateMachines
 
 			_uiService.OpenScreen<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
+		}
+
+		private void FinishRewardSequence()
+		{
+			OpenHomeScreen();
+			_services.MessageBrokerService.Publish(new OnViewingRewardsFinished());
 		}
 
 		private void OnRewardsReceived(List<ItemData> items)
@@ -525,7 +556,7 @@ namespace FirstLight.Game.StateMachines
 				_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 				{
 					Items = rewardsCopy,
-					OnFinish = OpenHomeScreen
+					OnFinish = FinishRewardSequence
 				});
 			}
 		}
@@ -539,7 +570,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				FameRewards = true,
 				Items = levelRewards,
-				OnFinish = OpenHomeScreen
+				OnFinish = FinishRewardSequence
 			});
 		}
 
@@ -588,7 +619,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private async void LoadMainMenu()
+		private async UniTaskVoid LoadMainMenu()
 		{
 			var uiVfxService = new UiVfxService(_services.AssetResolverService);
 			var mainMenuServices = new MainMenuServices(uiVfxService, _services.RemoteTextureService);
@@ -632,9 +663,29 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.CleanDispose<IMainMenuServices>();
 		}
 
+		private bool IsInRoom()
+		{
+			return _services.RoomService.InRoom;
+		}
+
 		private void DiscordButtonClicked()
 		{
 			Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
+		}
+
+		private void YoutubeButtonClicked()
+		{
+			Application.OpenURL(GameConstants.Links.YOUTUBE_LINK);
+		}
+
+		private void InstagramButtonClicked()
+		{
+			Application.OpenURL(GameConstants.Links.INSTAGRAM_LINK);
+		}
+
+		private void TiktokButtonClicked()
+		{
+			Application.OpenURL(GameConstants.Links.TIKTOK_LINK);
 		}
 	}
 }

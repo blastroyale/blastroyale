@@ -22,7 +22,12 @@ namespace FirstLight.Game.Utils
 		public static class Links
 		{
 			public const string FEEDBACK_FORM = "https://forms.gle/2V4ffFNmRgoVAba89";
+			
 			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
+			public const string YOUTUBE_LINK = "https://www.youtube.com/c/BlastRoyale22";
+			public const string INSTAGRAM_LINK = "https://www.instagram.com/blastroyale";
+			public const string TIKTOK_LINK = "https://www.tiktok.com/@blastroyale";
+			
 			public const string APP_STORE_IOS = "https://apps.apple.com/app/blast-royale/id1621071488";
 			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.blastroyale";
 #if LIVE_SERVER
@@ -168,6 +173,8 @@ namespace FirstLight.Game.Utils
 			public const string ITEM_SCRAPS_EVER = "Item Scraps Ever";
 			public const string FAME = "Fame";
 			public const string COINS_EARNED = "Coins Earned";
+			public const string BPP_EARNED = "BPP Earned";
+			public const string XP_EARNED = "XP Earned";
 			public const string CS_EARNED = "CS Earned";
 			public const string COINS_TOTAL = "Coins Total";
 			public const string CS_TOTAL = "CS Total";
@@ -177,6 +184,7 @@ namespace FirstLight.Game.Utils
 			// Metrics that should not be used in leaderboards seasons
 			// as they should never be reset
 			public const string RANKED_KILLS_EVER = "Ranked Kills Ever";
+			public const string RANKED_DEATHS_EVER = "Ranked Deaths Ever";
 			public const string RANKED_GAMES_WON_EVER = "Ranked Games Won Ever";
 			public const string RANKED_GAMES_PLAYED_EVER = "Ranked Games Played Ever";
 			public const string KILLS_EVER = "Kills Ever";
@@ -216,7 +224,7 @@ namespace FirstLight.Game.Utils
 			public const float STAR_STATUS_CHARACTER_SCALE_MULTIPLIER = 1.5f;
 			public const float RADIAL_LOCAL_POS_OFFSET = 0.1f;
 			public const float NEAR_DEATH_HEALTH_RATIO_THRESHOLD = 0.4f;
-			public static readonly Color HIT_COLOR = new Color(1, 0.5f, 0.5f);
+			public static readonly Color HIT_COLOR = new Color(0x7B / 255f, 0x7B / 255f, 0x7B / 255f);
 
 			public const int LOW_FPS_MODE_TARGET = 30;
 			public const int HIGH_FPS_MODE_TARGET = 60;
@@ -303,11 +311,13 @@ namespace FirstLight.Game.Utils
 		{
 			public const string FIRST_TUTORIAL_GAME_MODE_ID = "Tutorial";
 			public const string SECOND_BOT_MODE_ID = "BattleRoyale First Game";
+			public const int SECONDS_TO_START_SECOND_MATCH = 20;
 
 			public const int TIME_250MS = 250;
 			public const int TIME_500MS = 500;
 			public const int TIME_750MS = 750;
 			public const int TIME_1000MS = 1000;
+
 			public const int TIME_4000MS = 4000;
 
 			public const int TIME_HIGHLIGHT_FADE = 450;
@@ -335,6 +345,7 @@ namespace FirstLight.Game.Utils
 			public const string INDICATOR_IRON_GATE = "IronGate";
 			public const string INDICATOR_TOP_PLATFORM = "TopPlatform";
 			public const string INDICATOR_EQUIPMENT_CHEST = "EquipmentChest";
+			public const string INDICATOR_SPECIAL_PICKUP = "SpecialSpawner";
 			public const string INDICATOR_ARENA_DROPDOWN = "ArenaDropDown";
 		}
 

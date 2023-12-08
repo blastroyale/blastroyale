@@ -213,6 +213,12 @@ namespace Quantum
 			// Do not do reduce if your weapon does not consume ammo
 			if (weapon.MaxAmmo != -1)
 			{
+				// If it's a bot then don't reduce ammo below threshold
+				if (f.Unsafe.TryGetPointer<BotCharacter>(e, out _) && CurrentAmmoPercent < Constants.BOT_AMMO_REDUCE_THRESHOLD)
+				{
+					return;
+				}
+				
 				SetCurrentAmmo(f, player, e, (GetCurrentAmmo() - numShots) / GetStatData(StatType.AmmoCapacity).StatValue);
 			}
 		}
@@ -324,10 +330,15 @@ namespace Quantum
 			if (previousShield > 0 && !spell->IgnoreShield)
 			{
 				shieldDamageAmount = Math.Min(previousShield, damageAmount);
-				
+				damageAmount = FPMath.Max(0, damageAmount - shieldDamageAmount).AsInt;
+
 				// We don't do any damage to health if a player had at least 1 shields
-				damageAmount = 0;
-				
+				if (QuantumFeatureFlags.SHIELD_CRACKING)
+				{
+					damageAmount = 0;
+					
+				}
+
 				SetCurrentShield(f, entity, previousShield - shieldDamageAmount, GetStatData(StatType.Shield).StatValue.AsInt);
 			}
 			

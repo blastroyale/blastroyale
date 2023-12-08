@@ -1,5 +1,7 @@
+using System;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -14,10 +16,20 @@ namespace FirstLight.Game.MonoComponent.Match
 		[SerializeField, Required] private CircleLineRendererMonoComponent _shrinkingCircleLinerRenderer;
 		[SerializeField, Required] private CircleLineRendererMonoComponent _safeAreaCircleLinerRenderer;
 		[SerializeField, Required] private Transform _damageZoneTransform;
+		[SerializeField, Required] private ParticleSystem _ringOfFireParticle; 
 
 		private QuantumShrinkingCircleConfig _config;
 		private IGameServices _services;
 		
+		// Ring of Fire FX config values
+		private static readonly int _ringOfFireSegments = 32; // The more segments the smoother the ring of fire will be
+		private static readonly FP _anglePerSegment = 360 / _ringOfFireSegments;
+		private static readonly FP _ringOfFireWidth = FP._0_04;
+		private FP _lastInnerRadius;
+		private FP _innerRadius;
+		private FP _outerRadius;
+		private const int MaxParticles = 50;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -26,6 +38,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_shrinkingCircleLinerRenderer.gameObject.SetActive(false);
 			_safeAreaCircleLinerRenderer.gameObject.SetActive(false);
 			_damageZoneTransform.gameObject.SetActive(false);
+			_ringOfFireParticle.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
 		}
 
 		private void HandleGameEnded(EventOnGameEnded callback)
@@ -57,7 +70,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			var position = new Vector3(center.x, cachedShrinkingCircleLineTransform.position.y, center.y);
 			
-			if (_config.Step != circle.Step)
+			if (_config == null || _config.Step != circle.Step)
 			{
 				_config = frame.Context.MapShrinkingCircleConfigs[circle.Step];
 			}
@@ -65,7 +78,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			cachedShrinkingCircleLineTransform.position = position;
 			cachedShrinkingCircleLineTransform.localScale = new Vector3(radius, radius, 1f);
 			_shrinkingCircleLinerRenderer.WidthMultiplier = 1f / radius;
-
+			
 			_damageZoneTransform.position = position;
 			_damageZoneTransform.localScale = new Vector3(radius * 2f, _damageZoneTransform.localScale.y, radius * 2f);
 			
@@ -85,6 +98,26 @@ namespace FirstLight.Game.MonoComponent.Match
 			cachedSafeAreaCircleLine.position = new Vector3(targetCircleCenter.x, cachedSafeAreaCircleLine.position.y, targetCircleCenter.y);
 			cachedSafeAreaCircleLine.localScale = new Vector3(targetRadius, targetRadius, 1f);
 			_safeAreaCircleLinerRenderer.WidthMultiplier = 1f / targetRadius;
+			
+			
+			// Update ring of fire particle FX
+			_innerRadius = radiusFP/FP._10;
+			_outerRadius = _innerRadius + _ringOfFireWidth;
+			if (_lastInnerRadius != _innerRadius)
+			{
+				_lastInnerRadius = _innerRadius;
+				
+				var emission = _ringOfFireParticle.emission;
+				var shape = _ringOfFireParticle.shape;
+				shape.radius = radius;
+				shape.radiusThickness = 0;
+				emission.rateOverTime = Math.Min(MaxParticles, radius * 2f);
+				
+				if (_ringOfFireParticle.isStopped)
+				{
+					_ringOfFireParticle.Play();
+				}
+			}
 		}
 	}
 }

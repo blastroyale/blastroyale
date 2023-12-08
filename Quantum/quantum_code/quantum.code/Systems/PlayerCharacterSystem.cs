@@ -86,7 +86,7 @@ namespace Quantum.Systems
 				}
 				else
 				{
-					membersByTeam["p" + i] = new HashSet<int>() { i };
+					membersByTeam["p" + i] = new HashSet<int>() {i};
 				}
 			}
 
@@ -183,11 +183,6 @@ namespace Quantum.Systems
 					consumablesToDrop.Add(consumable);
 				}
 
-				if (QuantumFeatureFlags.DropEnergyCubes)
-				{
-					consumablesToDrop.Add(GameId.EnergyCubeLarge);
-				}
-
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
 				{
 					equipmentToDrop.Add(playerDead->CurrentWeapon);
@@ -223,7 +218,7 @@ namespace Quantum.Systems
 			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
 				new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
 					f.RNG->Next(-gridSquareSize, gridSquareSize));
-			var spawnTransform = new Transform3D { Position = FPVector3.Zero, Rotation = FPQuaternion.Identity };
+			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
 
 			spawnTransform.Position = spawnPosition.XOY;
 
@@ -321,16 +316,13 @@ namespace Quantum.Systems
 			{
 				rotation = prevRotation;
 			}
-
-			var moveSpeed = input->MovementMagnitude;
-			if (moveSpeed >= MOVE_SPEED_UP_CAP) moveSpeed = 1;
-
+			
 			var wasShooting = bb->GetBoolean(f, Constants.IsAimPressedKey);
 
 			bb->Set(f, Constants.IsAimPressedKey, shooting);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
-			bb->Set(f, Constants.MoveSpeedKey, moveSpeed);
+			bb->Set(f, Constants.MoveSpeedKey, 1);
 
 			if (!wasShooting && shooting)
 			{
@@ -344,17 +336,10 @@ namespace Quantum.Systems
 			}
 
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
-			var maxSpeed = f.Get<Stats>(filter.Entity).GetStatData(StatType.Speed).StatValue;
+			var maxSpeed = f.Unsafe.GetPointer<Stats>(filter.Entity)->GetStatData(StatType.Speed).StatValue;
 			var moveDirection = bb->GetVector2(f, Constants.MoveDirectionKey).XOY;
 			var velocity = kcc->Velocity;
-
-			if (moveSpeed != FP._1)
-			{
-				maxSpeed *= moveSpeed;
-				velocity.X *= moveSpeed;
-				velocity.Z *= moveSpeed;
-			}
-
+			
 			if (shooting)
 			{
 				maxSpeed *= weaponConfig.AimingMovementSpeed;
@@ -389,7 +374,7 @@ namespace Quantum.Systems
 					return;
 				}
 
-				var spell = new Spell() { PowerAmount = (uint)health };
+				var spell = new Spell() {PowerAmount = (uint) health};
 				if (health > 0)
 				{
 					stats->GainHealth(f, filter.Entity, &spell);
@@ -403,7 +388,7 @@ namespace Quantum.Systems
 
 		public bool OnCharacterCollision3D(FrameBase f, EntityRef character, Hit3D hit)
 		{
-			var blockMovement = !TeamHelpers.HasSameTeam(f, character, hit.Entity);
+			var blockMovement = !QuantumFeatureFlags.TEAM_IGNORE_COLLISION || !TeamHelpers.HasSameTeam(f, character, hit.Entity);
 			if (!QuantumFeatureFlags.PLAYER_PUSHING) return blockMovement;
 			if (blockMovement && f.TryGet<CharacterController3D>(hit.Entity, out var enemyKcc) &&
 				f.TryGet<CharacterController3D>(character, out var myKcc))

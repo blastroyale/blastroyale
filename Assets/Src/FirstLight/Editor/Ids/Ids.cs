@@ -63,6 +63,7 @@ namespace FirstLight.Editor.Ids
 			{"Random", 0, GameDesign},
 			{"RealMoney", 125, Currency},
 			{"COIN", 61, Currency},
+			{"BlastBuck", 105, Currency},
 			{"BLST", 14, Currency},
 			{"Fragments", 112, Currency},
 			{"CS", 12, Currency, ResourcePool},
@@ -159,6 +160,7 @@ namespace FirstLight.Editor.Ids
 			{"TutorialGrenade", 70, Special},
 			{"Barrel", 109, Destructible},
 			{"Barrier", 72, Destructible},
+			{"SkipTutorial", 195, Destructible},
 			{"DummyCharacter", 6, DummyCharacter},
 			{"WeaponPlatformSpawner", 138, Platform},
 			{"ConsumablePlatformSpawner", 140, Platform},
@@ -168,7 +170,6 @@ namespace FirstLight.Editor.Ids
 			{"CoreEpic", 48, Core, IAP, Chest},
 			{"CoreLegendary", 59, Core, IAP, Chest},
 
-
 			#region Collections
 
 			#region Player Skins
@@ -177,31 +178,36 @@ namespace FirstLight.Editor.Ids
 			{"Male02Avatar", 56, PlayerSkin, Collection},
 			{"Female01Avatar", 57, PlayerSkin, Collection},
 			{"Female02Avatar", 58, PlayerSkin, Collection},
-			{"MaleAssassin", 68, PlayerSkin, Assassin, Collection},
+			{"MaleAssassin", 68, PlayerSkin, BotItem, Assassin, Collection},
 			{"MaleCorpos", 69, PlayerSkin, Corpo, Collection},
-			{"MalePunk", 77, PlayerSkin, BotItem, Punk, Collection},
-			{"MaleSuperstar", 80, PlayerSkin, BotItem, Superstar, Collection},
-			{"FemaleAssassin", 81, PlayerSkin, Assassin, Collection},
+			{"MalePunk", 77, PlayerSkin, Punk, Collection},
+			{"MaleSuperstar", 80, PlayerSkin, Superstar, Collection},
+			{"FemaleAssassin", 81, PlayerSkin, BotItem, Assassin, Collection},
 			{"FemaleCorpos", 82, PlayerSkin, Corpo, Collection},
-			{"FemalePunk", 83, PlayerSkin, BotItem, Punk, Collection},
-			{"FemaleSuperstar", 104, PlayerSkin, BotItem, Superstar, Collection},
+			{"FemalePunk", 83, PlayerSkin, Punk, Collection},
+			{"FemaleSuperstar", 104, PlayerSkin, Superstar, Collection},
 			{"TestSkin", 122},
+			{"PlayerSkinDragonBoxer", 148, PlayerSkin, Collection},
+			{"PlayerSkinTieGuy", 147, PlayerSkin, Collection},
+			{"PlayerSkinFitnessChick", 146, PlayerSkin, Collection},
+			{"PlayerSkinSkellyQueen", 145}, // placeholder ID for the future skin
+			{"PlayerSkinXmasSuperstar", 149, PlayerSkin, Collection}, 
 
 			#endregion Player skins
 
 			#region Gliders
 
-			{"Divinci", 66, Glider, BotItem, Collection},
-			{"Falcon", 67, Glider, BotItem, Collection},
+			{"Divinci", 66, Glider, Collection},
+			{"Falcon", 67, Glider, Collection},
 			{"Rocket", 73, Glider, Collection},
-			{"Turbine", 74, Glider, Collection},
+			{"Turbine", 74, Glider, BotItem, Collection},
 
 			#endregion
 
 			#region Deathmarkers
 
 			{"Tombstone", 37, DeathMarker, BotItem, Collection},
-			{"Demon", 25, DeathMarker, BotItem, Collection},
+			{"Demon", 25, DeathMarker, Collection},
 			{"Superstar", 75, DeathMarker, Collection},
 			{"Unicorn", 76, DeathMarker, Collection},
 
@@ -228,8 +234,9 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinTvTakedown", 316, MeleeSkin, Collection},
 			{"MeleeSkinWheelOfPain", 317, MeleeSkin, Collection},
 			{"MeleeSkinWrench", 318, MeleeSkin, Collection},
-			{"MeleeSkinYouGotMail", 319, MeleeSkin, Collection, BotItem},
-
+			{"MeleeSkinYouGotMail", 319, MeleeSkin, Collection},
+			{"MeleeSkinXmas2023", 320, MeleeSkin, Collection},
+			
 			#endregion
 
 			#region ProfilePictures
@@ -241,6 +248,51 @@ namespace FirstLight.Editor.Ids
 			{"Avatar5", 121, ProfilePicture, Collection},
 			{"AvatarRemote", 123, ProfilePicture, Collection, GenericCollectionItem},
 			{"AvatarNFTCollection", 124, ProfilePicture, Collection, GenericCollectionItem},
+			{"AvatarAssasinmask", 150, ProfilePicture, Collection},
+			{"AvatarBlastcatads", 151, ProfilePicture, Collection},
+			{"AvatarBurgerads", 152, ProfilePicture, Collection},
+			{"AvatarCatcupads", 153, ProfilePicture, Collection},
+			{"AvatarCorpoads", 154, ProfilePicture, Collection},
+			{"AvatarCorpocrossads", 155, ProfilePicture, Collection},
+			{"AvatarCorpomask", 156, ProfilePicture, Collection},
+			{"AvatarEyesads", 157, ProfilePicture, Collection},
+			{"AvatarFemaleassasinwantedads", 158, ProfilePicture, Collection},
+			{"AvatarFemaleassassinconcept", 159, ProfilePicture, Collection},
+			{"AvatarFemaleassassinwhatsticker", 160, ProfilePicture, Collection},
+			{"AvatarFemalecorpo", 161, ProfilePicture, Collection},
+			{"AvatarFemalecorpoconcept", 162, ProfilePicture, Collection},
+			{"AvatarFemalecorpophonesticker", 163, ProfilePicture, Collection},
+			{"AvatarFemalecorposticker", 164, ProfilePicture, Collection},
+			{"AvatarFemalehost", 165, ProfilePicture, Collection},
+			{"AvatarFemalepunk", 166, ProfilePicture, Collection},
+			{"AvatarFemalepunkconcept", 167, ProfilePicture, Collection},
+			{"AvatarFemalepunkfunsticker", 168, ProfilePicture, Collection},
+			{"AvatarFemalepunkgraffiti", 169, ProfilePicture, Collection},
+			{"AvatarFemalesuperstarads", 170, ProfilePicture, Collection},
+			{"AvatarFemalesuperstarconcept", 171, ProfilePicture, Collection},
+			{"AvatarFemalesuperstardisguststicker", 172, ProfilePicture, Collection},
+			{"AvatarFemalesupperstar", 173, ProfilePicture, Collection},
+			{"AvatarMaleassasin", 174, ProfilePicture, Collection},
+			{"AvatarMaleassasinconcept", 175, ProfilePicture, Collection},
+			{"AvatarMaleassasinexcitedsticker", 176, ProfilePicture, Collection},
+			{"AvatarMaleassasinwantedads", 177, ProfilePicture, Collection},
+			{"AvatarMalecorpoangryads", 178, ProfilePicture, Collection},
+			{"AvatarMalecorpoconcept", 179, ProfilePicture, Collection},
+			{"AvatarMalecorposcaredsticker", 180, ProfilePicture, Collection},
+			{"AvatarMalehost", 181, ProfilePicture, Collection},
+			{"AvatarMalepunk", 182, ProfilePicture, Collection},
+			{"AvatarMalepunkads", 183, ProfilePicture, Collection},
+			{"AvatarMalepunkconcept", 184, ProfilePicture, Collection},
+			{"AvatarMalepunkgraffiti", 185, ProfilePicture, Collection},
+			{"AvatarMalepunkhahasticker", 186, ProfilePicture, Collection},
+			{"AvatarMalesuperstarads", 187, ProfilePicture, Collection},
+			{"AvatarMalesuperstarconcept", 188, ProfilePicture, Collection},
+			{"AvatarMalesuperstarstopsticker", 189, ProfilePicture, Collection},
+			{"AvatarMusic", 190, ProfilePicture, Collection},
+			{"AvatarPunklogoads", 191, ProfilePicture, Collection},
+			{"AvatarRocketads", 192, ProfilePicture, Collection},
+			{"AvatarSuperstarloveads", 193, ProfilePicture, Collection},
+			{"AvatarUnicornssticker", 194, ProfilePicture, Collection},
 
 			#endregion
 

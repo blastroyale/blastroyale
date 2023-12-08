@@ -220,6 +220,21 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Formats a string in seconds to Days and Hours.
+		/// </summary>
+		public static string ToDayAndHours(this TimeSpan ts, bool simplified = false)
+		{
+			if (ts.Days > 0)
+			{
+				return simplified
+					? $"{ts.Days.ToString()}d {ts.Hours.ToString()}h"
+					: $"{ts.Days.ToString()} days and {ts.Hours.ToString()} hours";
+			}
+
+			return ts.Hours + (simplified ? "h" : " hours");
+		}
+
+		/// <summary>
 		/// Requests the <see cref="GameIdGroup"/> slot representing the given <see cref="item"/>
 		/// </summary>
 		public static GameIdGroup GetSlot(this GameId item)
@@ -234,7 +249,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool IsAlive(this EntityRef entity, Frame f)
 		{
-			if (!f.TryGet<Stats>(entity, out var stats))
+			if (!entity.IsValid || !f.TryGet<Stats>(entity, out var stats))
 			{
 				return false;
 			}
@@ -254,7 +269,7 @@ namespace FirstLight.Game.Utils
 
 			return data.PlayerName;
 		}
-		
+
 		/// <summary>
 		/// Requests the player name for the given player's match <paramref name="data"/>
 		/// </summary>
@@ -303,10 +318,8 @@ namespace FirstLight.Game.Utils
 			graph.Stop();
 			graph.GetRootPlayable(0).SetSpeed(0);
 		}
-        
-        
-        
-        
+
+
 		/// <summary>
 		/// Obtains the current selected room code name in the given <paramref name="room"/>
 		/// </summary>
@@ -314,7 +327,7 @@ namespace FirstLight.Game.Utils
 		{
 			return room.Name.Split(GameConstants.Network.ROOM_META_SEPARATOR)[0];
 		}
-        
+
 		/// <summary>
 		/// Can a game room frame be restored from a local snapshot ?
 		/// </summary>
@@ -340,7 +353,7 @@ namespace FirstLight.Game.Utils
 
 			return snapshot.Offline;
 		}
-		
+
 
 		/// <summary>
 		/// Copy properties from one model to another.
@@ -377,12 +390,12 @@ namespace FirstLight.Game.Utils
 
 			return localPlayers.Length == 0 ? PlayerRef.None : localPlayers[0];
 		}
-		
+
 		/// <summary>
 		/// Requests the local player entity ref.
 		/// Always gets from Verified frame
 		/// </summary>
-		public static EntityRef GetLocalPlayerEntityRef(this QuantumGame game,bool isVerified = true)
+		public static EntityRef GetLocalPlayerEntityRef(this QuantumGame game, bool isVerified = true)
 		{
 			return game.GetLocalPlayerData(isVerified, out _).Entity;
 		}
@@ -445,15 +458,14 @@ namespace FirstLight.Game.Utils
 		{
 			return MainInstaller.Resolve<IGameDataProvider>().HasNfts();
 		}
-		
+
 		/// <summary>
 		/// Check if the player have NFTs
 		/// </summary>
 		/// <param name="equipmentLogic"></param>
-
 		public static bool HasNfts(this IGameDataProvider data)
 		{
-#if  UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
 			if (FeatureFlags.GetLocalConfiguration().ForceHasNfts)
 			{
 				return true;
@@ -473,29 +485,29 @@ namespace FirstLight.Game.Utils
 
 		public static AudioId GetAmbientAudioId(this AmbienceType ambience)
 		{
-			switch(ambience)
+			switch (ambience)
 			{
 				case AmbienceType.CityCenter:
 					return AudioId.CentralAmbientLoop;
-				
+
 				case AmbienceType.Desert:
 					return AudioId.DesertAmbientLoop;
-				
+
 				case AmbienceType.Forest:
 					return AudioId.ForestAmbientLoop;
-				
+
 				case AmbienceType.Frost:
 					return AudioId.FrostAmbientLoop;
-				
+
 				case AmbienceType.Lava:
 					return AudioId.LavaAmbientLoop;
-				
+
 				case AmbienceType.Urban:
 					return AudioId.UrbanAmbientLoop;
 
 				case AmbienceType.Water:
 					return AudioId.WaterAmbientLoop;
-				
+
 				default:
 					throw new ArgumentOutOfRangeException(nameof(ambience), ambience, null);
 			}

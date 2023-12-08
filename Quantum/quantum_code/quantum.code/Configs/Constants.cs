@@ -9,17 +9,18 @@ namespace Quantum
 		public static readonly FP OUT_OF_WORLD_Y_THRESHOLD = -FP._5;
 		public static readonly FP CHARGE_VALIDITY_CHECK_DISTANCE_STEP = FP._0_25;
 		public static readonly FP ACTOR_AS_TARGET_Y_OFFSET = FP._0_50;
+		public static readonly FP SPECIAL_CHARGE_Y_OFFSET = FP._0_10;
 		public static readonly FP SPAWNER_INACTIVE_TIME = FP._1_50;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_25;
 		public static readonly int OFFHAND_POOLSIZE = 20;
 		public static readonly FP BOT_STUCK_DETECTION_SQR_DISTANCE = FP._2;
+		public static readonly FP BOT_AMMO_REDUCE_THRESHOLD = FP._0_20;
 		public static readonly int BURST_INTERVAL_DIVIDER = 3;
 		public static readonly FP SELF_DAMAGE_MODIFIER= FP._0_75;
 		public static readonly FP PICKUP_SPEED_MINIMUM = FP._0_10;
 		public static readonly double[] APPRX_NORMAL_DISTRIBUTION = {1, 13, 35, 65, 87, 99, 100};
 		public static readonly FP TAP_TO_USE_SPECIAL_AIMING_OFFSET = FP._0_75 + FP._0_10;
-		public static readonly FP LOW_AMMO_THRESHOLD_TO_DROP_MORE = FP._1 / (FP._0_50 + FP._0_05);
-		public static readonly FP INITIAL_AMMO_FILLED = FP._0_33;
+		public static readonly FP INITIAL_AMMO_FILLED = FP._0_20;
 		public static readonly FP CONSUMABLE_POPOUT_DURATION = FP._0_50 + FP._0_10;
 
 		public static readonly int TEAM_ID_NEUTRAL = 0;

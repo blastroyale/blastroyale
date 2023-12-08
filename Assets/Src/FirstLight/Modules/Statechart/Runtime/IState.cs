@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 // ReSharper disable CheckNamespace
 
@@ -11,6 +12,12 @@ namespace FirstLight.Statechart
 	public interface IState
 	{
 	}
+
+	public interface IStateDebug
+	{
+		string CurrentStateDebug();
+	}
+
 
 	#region Compositions
 
@@ -35,7 +42,7 @@ namespace FirstLight.Statechart
 		/// Adds the <paramref name="action"/> to be invoked when the state is activated
 		/// </summary>
 		void OnEnter(Action action);
-		
+
 		/// <summary>
 		/// Adds an async action to be executed on enter. This is not blocking, it behaves the same way as OnEnter,
 		/// but it accepts Func<Task>, so we can have better stack traces
@@ -116,7 +123,7 @@ namespace FirstLight.Statechart
 		/// Nest state with the <see cref="NestedStateData"/> executes set to true
 		/// </remarks>
 		ITransition Nest(Action<IStateFactory> data);
-		
+
 		/// <summary>
 		/// Creates a new nested region defined in the <paramref name="data"/>.
 		/// It will return the created <see cref="ITransition"/> that will triggered as soon as the nested region is finalized.
@@ -154,7 +161,14 @@ namespace FirstLight.Statechart
 		/// Blocks the state behaviour until the given async <paramref name="taskAwaitAction"/> is completed.
 		/// It will return the created <see cref="ITransition"/> that will triggered as soon as the state is unblocked
 		/// </summary>
+		[Obsolete("Please use UniTask instead")]
 		ITransition WaitingFor(Func<Task> taskAwaitAction);
+
+		/// <summary>
+		/// Blocks the state behaviour until the given async <paramref name="taskAwaitAction"/> is completed.
+		/// It will return the created <see cref="ITransition"/> that will triggered as soon as the state is unblocked
+		/// </summary>
+		ITransition WaitingFor(Func<UniTask> taskAwaitAction);
 	}
 
 	/// <summary>
@@ -181,7 +195,7 @@ namespace FirstLight.Statechart
 		/// Split state with the <see cref="NestedStateData"/> executes set to true
 		/// </remarks>
 		ITransition Split(params Action<IStateFactory>[] data);
-		
+
 		/// <summary>
 		/// Splits the state into two new nested parallel regions that will be active at the same time.
 		/// Setups all nested region's defined in the <paramref name="data"/>.
@@ -206,7 +220,7 @@ namespace FirstLight.Statechart
 	public interface ILeaveState : IStateEnter, IStateTransition
 	{
 	}
-	
+
 	/// <summary>
 	/// Data composition to setup nested states for <see cref="ISplitState"/> & <see cref="INestState"/>
 	/// </summary>
@@ -216,11 +230,13 @@ namespace FirstLight.Statechart
 		/// Setups of this nested state definition
 		/// </summary>
 		public Action<IStateFactory> Setup;
+
 		/// <summary>
 		/// If true then the internal current active <see cref="IStateExit.OnExit"/> will be executed when leaving
 		/// the nested state from completion of this <see cref="ISplitState"/>.
 		/// </summary>
 		public bool ExecuteExit;
+
 		/// <summary>
 		/// If true then the internal <see cref="IFinalState"/> will be executed when leaving the nested state from
 		/// an event or from a <see cref="ILeaveState"/> from one of the inner states.

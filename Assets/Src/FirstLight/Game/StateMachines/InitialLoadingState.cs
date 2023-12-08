@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -94,32 +95,32 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private async Task DownloadData()
+		private async UniTask DownloadData()
 		{
 			//await Addressables.DownloadDependenciesAsync(AddressableLabel.Label_Quantum.ToLabelString(), true).Task;
-			await Addressables.InitializeAsync().Task;
+			await Addressables.InitializeAsync().Task.AsUniTask();
 			
 			Resources.UnloadUnusedAssets();
 		}
 
-		private async Task LoadInitialAssets()
+		private async UniTask LoadInitialAssets()
 		{
 			var configProvider = _services.ConfigsProvider;
 			
-			var tasks = new List<Task>();
+			var tasks = new List<UniTask>();
 
 			tasks.Add(LoadErrorAssets());
 			tasks.AddRange(_configsLoader.LoadConfigTasks(_configsAdder));
 			tasks.AddRange(LoadAssetConfigs());
 			
-			await Task.WhenAll(tasks);
+			await UniTask.WhenAll(tasks);
 			
 			if (FeatureFlags.REMOTE_CONFIGURATION)
 			{
 				var appData = _dataService.GetData<AppData>();
 				while (appData.TitleData.Count == 0)
 				{
-					await Task.Delay(1);
+					await UniTask.Delay(1);
 				}
 
 				if (!appData.TitleData.TryGetValue(PlayfabConfigKeys.ConfigName, out var remoteStringConfig))
@@ -136,19 +137,19 @@ namespace FirstLight.Game.StateMachines
 				_configsAdder.UpdateTo(remoteConfig.Version, remoteConfig.GetAllConfigs());
 			}
 			
-			var audioTasks = new List<Task>();
+			var audioTasks = new List<UniTask>();
 			
 			audioTasks.Add(_services.AudioFxService
-			                        .LoadAudioMixers(configProvider.GetConfig<AudioMixerConfigs>().ConfigsDictionary));
+			                        .LoadAudioMixers(configProvider.GetConfig<AudioMixerConfigs>().ConfigsDictionary).AsUniTask());
 			audioTasks.Add(_services.AudioFxService
-			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary));
+			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary).AsUniTask());
 			
-			await Task.WhenAll(audioTasks);
+			await UniTask.WhenAll(audioTasks);
 			
 			LoadVfx();
 		}
 
-		private async Task LoadErrorAssets()
+		private async UniTask LoadErrorAssets()
 		{
 			await _configsLoader.LoadConfig<CustomAssetConfigs>(AddressableId.Configs_CustomAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset));
 			
@@ -163,9 +164,9 @@ namespace FirstLight.Game.StateMachines
 			_assetService.AddDebugConfigs(errorSprite.Result, errorCube.Result, errorMaterial.Result, errorClip.Result);
 		}
 
-		private IEnumerable<Task> LoadAssetConfigs()
+		private IEnumerable<UniTask> LoadAssetConfigs()
 		{
-			return new List<Task>
+			return new List<UniTask>
 			{
 				_configsLoader.LoadConfig<AudioMixerConfigs>(AddressableId.Configs_AudioMixerConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioMatchAssetConfigs>(AddressableId.Configs_AudioMatchAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),

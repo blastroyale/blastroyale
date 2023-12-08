@@ -10,7 +10,7 @@ using Assert = NUnit.Framework.Assert;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
-	public class BattlePassLogicTest : MockedTestFixture<PlayerData>
+	public class BattlePassLogicTest : MockedTestFixture<BattlePassData>
 	{
 		private BattlePassLogic _battlePassLogic;
 
@@ -21,8 +21,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			SetupConfigs();
 			_battlePassLogic.Init();
-
-			GameLogic.PlayerDataProvider.HasTutorialSection(TutorialSection.TUTORIAL_BP).Returns(true);
+			_battlePassLogic.InitializeSeason();
 		}
 
 		[Test]
@@ -52,7 +51,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
 
 			_battlePassLogic.AddBPP(9);
-			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points);
+			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points, PassType.Free);
 			
 			Assert.AreEqual(0, claimableLevels.Count);
 			Assert.AreEqual(9, points);
@@ -65,8 +64,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
 
 			_battlePassLogic.AddBPP(10);
-			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points);
-			var rewards = _battlePassLogic.GetRewardConfigs(claimableLevels.ToArray());
+			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points, PassType.Free);
+			var rewards = _battlePassLogic.GetRewardConfigs(claimableLevels.ToArray(), PassType.Free);
 			_battlePassLogic.SetLevelAndPoints(claimableLevels.Max(), points);
 			
 			Assert.AreEqual(1, claimableLevels.Max());
@@ -82,8 +81,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
 
 			_battlePassLogic.AddBPP(15);
-			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points);
-			var rewards = _battlePassLogic.GetRewardConfigs(claimableLevels.ToArray());
+			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points, PassType.Free);
+			var rewards = _battlePassLogic.GetRewardConfigs(claimableLevels.ToArray(), PassType.Free);
 			var newLevel = claimableLevels.Max();
 			_battlePassLogic.SetLevelAndPoints(claimableLevels.Max(), points);
 
@@ -100,8 +99,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
 
 			_battlePassLogic.AddBPP(30);
-			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points);
-			var rewards = _battlePassLogic.GetRewardConfigs(claimableLevels.ToArray());
+			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points, PassType.Free);
+			var rewards = _battlePassLogic.GetRewardConfigs(claimableLevels.ToArray(), PassType.Free);
 			var newLevel = claimableLevels.Max();
 			_battlePassLogic.SetLevelAndPoints(claimableLevels.Max(), points);
 
@@ -118,8 +117,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
 
 			_battlePassLogic.AddBPP(100);
-			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points);
-			var rewards = _battlePassLogic.GetRewardConfigs(claimableLevels.ToArray());
+			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points, PassType.Free);
+			var rewards = _battlePassLogic.GetRewardConfigs(claimableLevels.ToArray(), PassType.Free);
 			var newLevel = claimableLevels.Max();
 			_battlePassLogic.SetLevelAndPoints(claimableLevels.Max(), points);
 
@@ -146,7 +145,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			Assert.AreEqual(6, _battlePassLogic.GetRemainingPointsOfBp());
 
-			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points);
+			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points, PassType.Free);
 			_battlePassLogic.SetLevelAndPoints(claimableLevels.Max(), points);
 
 			Assert.AreEqual(6, _battlePassLogic.GetRemainingPointsOfBp());
@@ -155,7 +154,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void TestGetRewardForLevel()
 		{
-			var reward = _battlePassLogic.GetRewardForLevel(2);
+			var reward = _battlePassLogic.GetRewardForLevel(2, PassType.Free);
 
 			Assert.AreEqual(1, reward.Id);
 			Assert.AreEqual(GameId.ApoMinigun, reward.GameId);
@@ -170,12 +169,12 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			_battlePassLogic.AddBPP(9);
 
-			Assert.IsFalse(_battlePassLogic.IsRedeemable());
+			Assert.IsFalse(_battlePassLogic.HasUnclaimedRewards());
 			Assert.AreEqual(10, pointsPerLevel);
 
 			_battlePassLogic.AddBPP(5);
 
-			Assert.IsTrue(_battlePassLogic.IsRedeemable());
+			Assert.IsTrue(_battlePassLogic.HasUnclaimedRewards());
 			Assert.AreEqual(10, pointsPerLevel);
 		}
 		
@@ -183,24 +182,38 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var bpConfig = new BattlePassConfig
 			{
-				DefaultPointsPerLevel = 10,
+				Seasons =   new List<BattlePassConfig.BattlePassSeason>()
+				{
+					new BattlePassConfig.BattlePassSeason()
+					{
+						DefaultPointsPerLevel = 10,
+						Number = 1,
+						Price = 300,
+						StartsAt = "12/09/1999",
+						EndsAt = "12/09/2050"
+					}	
+				},
 				Levels = new List<BattlePassConfig.BattlePassLevel>
 				{
 					new()
 					{
-						RewardId = 0
+						RewardId = 0,
+						Season = 1
 					},
 					new()
 					{
-						RewardId = 1
+						RewardId = 1,
+						Season = 1
 					},
 					new()
 					{
-						RewardId = 2
+						RewardId = 2,
+						Season = 1
 					},
 					new()
 					{
-						RewardId = 3
+						RewardId = 3,
+						Season = 1
 					}
 				}
 			};

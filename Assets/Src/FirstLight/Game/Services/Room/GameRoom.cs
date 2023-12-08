@@ -18,10 +18,11 @@ namespace FirstLight.Game.Services.RoomService
 	public class GameRoom
 	{
 		public RoomProperties Properties { get; private set; }
-		private Dictionary<int, PlayerProperties> _playerProperties = new();
+		private Dictionary<int, PlayerProperties> _playerProperties = new ();
 
 		private Room _room;
 		private RoomService _roomService;
+		private bool _pause;
 
 		public bool GameStarted => Properties.GameStarted.Value;
 		public QuantumMapConfig MapConfig => _roomService.GetMapConfig(Properties.MapId.Value.GetHashCode());
@@ -34,6 +35,7 @@ namespace FirstLight.Game.Services.RoomService
 		public int MasterClientId => _room.MasterClientId;
 
 		public bool IsOffline => _room.IsOffline;
+
 
 		public GameRoom(RoomService roomService, Room room)
 		{
@@ -52,13 +54,12 @@ namespace FirstLight.Game.Services.RoomService
 		/// <returns></returns>
 		public long GameStartsAt()
 		{
-			var mp = Properties.SecondsToStart.Value * 1000;
 			return Properties.LoadingStartServerTime.Value + Properties.SecondsToStart.Value * 1000;
 		}
 
 		public bool ShouldTimerRun()
 		{
-			return Properties.LoadingStartServerTime.HasValue;
+			return Properties.LoadingStartServerTime.HasValue && !_pause;
 		}
 
 		public TimeSpan TimeLeftToGameStart()
@@ -66,9 +67,11 @@ namespace FirstLight.Game.Services.RoomService
 			return TimeSpan.FromMilliseconds(GameStartsAt() - _roomService._networkService.ServerTimeInMilliseconds);
 		}
 
+
 		public bool ShouldGameStart()
 		{
 			if (GameModeConfig.InstantLoad) return true;
+			if (_pause) return false;
 			if (!Properties.LoadingStartServerTime.HasValue)
 			{
 				return false;
@@ -96,22 +99,6 @@ namespace FirstLight.Game.Services.RoomService
 			return _room.MaxPlayers - GetMaxSpectators();
 		}
 
-		/// <summary>
-		/// Obtains info on whether room has all its player slots full
-		/// </summary>
-		public bool IsAtFullPlayerCapacity()
-		{
-			// This is playfab mm
-			/*if (room.ShouldUsePlayFabMatchmaking(cfgProvider) && room.ExpectedUsers != null && room.ExpectedUsers.Length > 0)
-			{
-				bool everyBodyJoined = room.ExpectedUsers
-					.All(id => room.Players.Any(p => p.Value.UserId == id));
-
-				bool everybodyLoadedCoreAssets = room.Players.Values.All(p => p.LoadedCoreMatchAssets());
-				return everyBodyJoined && everybodyLoadedCoreAssets;
-			}*/
-			return GetRealPlayerAmount() >= GetRealPlayerCapacity();
-		}
 
 		/// <summary>
 		/// Obtains amount of spectators players currently in room
@@ -188,6 +175,7 @@ namespace FirstLight.Game.Services.RoomService
 			{
 				throw new Exception("Asset map config not found for map " + map);
 			}
+
 			var op = Addressables.LoadAssetAsync<MapAsset>(config.QuantumMap);
 			var runtimeConfig = _roomService._configsProvider.GetConfig<QuantumRunnerConfigs>().RuntimeConfig;
 			runtimeConfig.Seed = Random.Range(0, int.MaxValue);
@@ -226,7 +214,7 @@ namespace FirstLight.Game.Services.RoomService
 
 			return true;
 		}
-		
+
 
 		public string GetRoomName()
 		{
@@ -257,6 +245,30 @@ namespace FirstLight.Game.Services.RoomService
 			var newPlayerProps = new PlayerProperties();
 			_playerProperties.Add(player.ActorNumber, newPlayerProps);
 			return newPlayerProps;
+		}
+
+
+		private bool IsTimerPaused() => _pause;
+
+		/// <summary>
+		/// Pauses the room timer.
+		/// This property is not synced, only work for rooms with one player
+		/// </summary>
+		public void PauseTimer()
+		{
+			_pause = true;
+		}
+
+		public void ResumeTimer(int secondsToStart = -1)
+		{
+			_pause = false;
+			Properties.LoadingStartServerTime.Value = _roomService._networkService.ServerTimeInMilliseconds;
+			if (secondsToStart == -1)
+			{
+				return;
+			}
+
+			Properties.SecondsToStart.Value = secondsToStart;
 		}
 	}
 }

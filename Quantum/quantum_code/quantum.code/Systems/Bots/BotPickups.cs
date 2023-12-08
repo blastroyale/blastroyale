@@ -75,6 +75,8 @@ namespace Quantum.Systems.Bots
 			var needAmmo = currentAmmo < FP._0_99;
 			var needShields = stats.CurrentShield < maxShields;
 			var needHealth = stats.CurrentHealth < maxHealth;
+			var needSpecials = !filter.PlayerInventory->Specials[0].IsUsable(f) ||
+							   !filter.PlayerInventory->Specials[1].IsUsable(f);
 
 			var teamMembers = TeamHelpers.GetTeamMembers(f, filter.Entity);
 			var invalidTargets = f.ResolveHashSet(filter.BotCharacter->InvalidMoveTargets);
@@ -124,6 +126,7 @@ namespace Quantum.Systems.Bots
 						ConsumableType.Ammo   => needAmmo,
 						ConsumableType.Shield => needShields,
 						ConsumableType.Health => needHealth,
+						ConsumableType.Special => needSpecials,
 						_                     => true
 					};
 

@@ -140,11 +140,10 @@
     bottom: -6px;
 }
 
-
 .player-header__trophies-holder {
     position: relative;
     width: 422px;
-    height: 126px;
+    height: 136px;
     flex-direction: row;
     align-items: center;
     background-image: var(--sprite-home__background-profile);
@@ -527,7 +526,7 @@
 }
 
 .button-party {
-    width: 320px;
+    width: 340px;
     height: 78px;
     background-image: var(--sprite-home__button-long-darkblue);
     font-size: 36px;
@@ -535,6 +534,10 @@
     -unity-text-align: middle-center;
     padding-top: 0;
     margin-bottom: 20px;
+    overflow: visible;
+    -unity-text-outline-width: 1.4px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
 }
 
 .button-party:active {
@@ -601,19 +604,23 @@
 }
 
 .game-mode-button__mode {
-    padding-bottom: -33px;
-    margin-bottom: 0;
+    padding-bottom: 0;
     font-size: 45px;
     text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72);
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     overflow: visible;
-    -unity-text-align: middle-center;
+    -unity-text-align: middle-right;
     align-items: center;
     letter-spacing: -2px;
     scale: 1 1;
-    top: -5px;
+    top: -52px;
+    position: absolute;
+    right: 109px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .game-mode-button__mode--multiple-line {
@@ -743,13 +750,39 @@
 }
 
 .discord-button {
-    width: 66px;
-    height: 66px;
+    width: 48px;
+    height: 48px;
     background-image: var(--sprite-home__icon-discord);
-    top: 100px;
-    margin-right: 20px;
-    margin-top: 0;
+    left: 684px;
     position: absolute;
+    top: 40px;
+}
+
+.youtube-button {
+    width: 48px;
+    height: 48px;
+    background-image: var(--sprite-home__icon-youtube);
+    position: absolute;
+    left: 758px;
+    top: 40px;
+}
+
+.instagram-button {
+    width: 48px;
+    height: 48px;
+    background-image: var(--sprite-home__icon-instagram);
+    position: absolute;
+    left: 832px;
+    top: 40px;
+}
+
+.tiktok-button {
+    width: 48px;
+    height: 48px;
+    background-image: var(--sprite-home__icon-tiktok);
+    position: absolute;
+    top: 40px;
+    left: 906px;
 }
 
 .button-with-icon--equipment > .button-with-icon__icon {
@@ -757,7 +790,7 @@
 }
 
 .button-with-icon--heroes > .button-with-icon__icon {
-    background-image: var(--sprite-home__icon-heroes);
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-collection.png?fileID=21300000&guid=9eb74582f82fb15428c6bb7b432a45d5&type=3#icon-collection');
 }
 
 .button-with-icon--leaderboards > .button-with-icon__icon {
@@ -796,7 +829,7 @@
 }
 
 .squad-container {
-    width: 320px;
+    width: 337px;
     background-color: rgba(16, 12, 34, 0.59);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 0;
@@ -946,28 +979,18 @@
 }
 
 .beta-warning {
-    font-size: 69px;
+    font-size: 44px;
     position: absolute;
     left: 50%;
-    top: 41px;
-    width: 220px;
-    height: 80px;
-    -unity-text-outline-width: 4px;
-    -unity-text-outline-color: rgb(0, 0, 0);
+    width: 280px;
+    height: 56px;
     color: rgb(255, 255, 255);
-    background-color: rgb(49, 45, 71);
     -unity-text-align: middle-center;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-left-width: 4px;
-    border-right-width: 4px;
-    border-top-width: 4px;
-    border-bottom-width: 4px;
     translate: -50% 0;
+    bottom: 40px;
+    -unity-background-image-tint-color: rgba(22, 20, 38, 0.24);
+    -unity-text-outline-color: rgb(22, 20, 38);
+    -unity-text-outline-width: 1.2px;
+    text-shadow: 2px 2px 0 rgb(22, 20, 38);
+    background-image: var(--sprite-match__background-whitegradient);
 }

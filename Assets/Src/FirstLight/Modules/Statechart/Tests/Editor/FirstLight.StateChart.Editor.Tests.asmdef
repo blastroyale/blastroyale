@@ -1,9 +1,11 @@
 {
     "name": "FirstLight.StateChart.Editor.Tests",
+    "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "FirstLight.Statechart"
+        "FirstLight.Statechart",
+        "UniTask"
     ],
     "includePlatforms": [
         "Editor"

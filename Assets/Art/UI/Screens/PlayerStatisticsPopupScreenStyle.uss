@@ -1,15 +1,18 @@
 .background {
     background-color: rgba(0, 0, 0, 0.8);
+    background-image: none;
 }
 
 .player-statistics-popup {
     background-image: var(--sprite-home__background-popup-equipment);
     width: 1350px;
     height: 820px;
-    top: 30px;
+    top: auto;
     color: rgb(255, 255, 255);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     font-size: 38px;
+    align-items: stretch;
+    align-self: center;
 }
 
 .player-statistics-popup--full-page .player-statistics-popup__content {
@@ -46,6 +49,10 @@
     right: 0;
     bottom: 0;
     flex-grow: 1;
+    -unity-text-align: upper-center;
+    justify-content: flex-start;
+    align-items: auto;
+    align-self: auto;
 }
 
 .safe-area {
@@ -64,7 +71,7 @@
 
 .header-row {
     background-color: rgba(0, 0, 0, 0);
-    width: 70%;
+    width: 101%;
     height: 243px;
     flex-direction: row;
     align-items: center;
@@ -76,6 +83,8 @@
 .stats-container {
     align-items: center;
     justify-content: center;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/background-stat-dark.png?fileID=21300000&guid=d49b2a8c0f8344da4a317261f81e6850&type=3#background-stat-dark');
+    width: 156px;
 }
 
 .stats-container__stat-value {
@@ -128,9 +137,9 @@
 }
 
 .stat-row {
-    background-color: rgb(22, 20, 38);
-    width: 70%;
-    height: 200px;
+    background-color: rgba(255, 255, 255, 0);
+    width: 100%;
+    height: 129px;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
@@ -146,19 +155,27 @@
     justify-content: center;
     align-items: center;
     align-self: center;
-    width: 60px;
-    height: 60px;
-    background-color: rgb(22, 20, 38);
+    width: 89px;
+    height: 68px;
+    background-color: rgba(22, 20, 38, 0);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+    position: absolute;
+    right: -2px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/background-stat.png?fileID=21300000&guid=119d947463d914dde82656f9069a791f&type=3#background-stat');
+    -unity-background-scale-mode: stretch-to-fill;
 }
 
 .stats-container__stat-name {
-    font-size: 30px;
+    font-size: 44px;
     -unity-text-outline-width: 0.8px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    top: 25px;
+    -unity-text-align: upper-center;
+    left: -290px;
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
 }
 
 .player-header__leaderboards-icon {
@@ -194,8 +211,63 @@
 .stats-container_stat-value {
     -unity-text-outline-width: 0.8px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    top: -29px;
+    -unity-text-align: upper-center;
 }
 
 .player-avatar {
     scale: 0.7 0.7;
+}
+
+.stats-widget {
+    flex-grow: 0;
+    background-color: rgba(23, 20, 38, 0);
+    width: 647px;
+    height: 80px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/background-stat.png?fileID=21300000&guid=119d947463d914dde82656f9069a791f&type=3#background-stat');
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    -unity-text-outline-width: 0;
+    -unity-text-outline-color: rgb(255, 255, 255);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    align-items: flex-end;
+}
+
+.avatar-container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    height: 68px;
+    width: 627px;
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/background-stat-dark.png?fileID=21300000&guid=d49b2a8c0f8344da4a317261f81e6850&type=3#background-stat-dark');
+    margin-left: 61px;
+    flex-direction: row;
+    padding-left: 63px;
+    max-width: none;
+    flex-shrink: 1;
+    align-items: auto;
+    flex-wrap: nowrap;
+    min-width: 200px;
+    flex-basis: initial;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.crown {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    width: 90px;
+    height: 90px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-crown-ranked.png?fileID=21300000&guid=a3323e773a3d94bfda84717a55d45241&type=3#icon-crown-ranked');
+    position: absolute;
+    right: 340px;
 }

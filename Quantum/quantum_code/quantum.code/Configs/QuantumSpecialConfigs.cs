@@ -18,7 +18,7 @@ namespace Quantum
 	}
 	
 	[Serializable]
-	public partial struct QuantumSpecialConfig
+	public partial class QuantumSpecialConfig
 	{
 		public GameId Id;
 		public SpecialType SpecialType;

@@ -17,8 +17,10 @@ namespace FirstLight.Game.Messages
 	public struct RedirectToEnvironmentMessage : IMessage { public Environment NewEnvironment; }
 	
 	public struct PingedRegionsMessage : IMessage { public RegionHandler RegionHandler; }
-	
-	public struct RegionListReceivedMessage : IMessage { public RegionHandler RegionHandler; }
+
+	public struct ChangedServerRegionMessage : IMessage
+	{
+	}
 	
 	public struct NetworkActionWhileDisconnectedMessage : IMessage { }
 	public struct AttemptManualReconnectionMessage : IMessage { }

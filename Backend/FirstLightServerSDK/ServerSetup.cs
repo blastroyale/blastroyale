@@ -27,6 +27,11 @@ namespace FirstLight.Server.SDK
 		/// Will replace any pre-defined server ones if present.
 		/// </summary>
 		Dictionary<Type, Type> SetupDependencies();
+
+		/// <summary>
+		/// Get the list of commands which will run after get player data, this only executes on the server
+		/// </summary>
+		Type[] GetInitializationCommandTypes();
 	}
 }
 

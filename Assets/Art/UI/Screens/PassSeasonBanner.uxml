@@ -1,0 +1,55 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/PassSeasonBanner.uss?fileID=7433441132597879392&amp;guid=6b607a5f5d390413abee30b075a16eff&amp;type=3#PassSeasonBanner" />
+    <ui:VisualElement name="root" class="banner-root">
+        <ui:VisualElement name="Blocker" class="blocker" />
+        <ui:VisualElement name="Banner" class="banner">
+            <ui:Button name="CloseButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="close-button" />
+            <ui:VisualElement name="Background" class="banner-background">
+                <ui:VisualElement name="DotLeft" class="banner-dots banner-dots-left" />
+                <ui:VisualElement name="LeftPart" class="banner-background__left">
+                    <ui:VisualElement name="LeftPart" class="purple-fill" />
+                </ui:VisualElement>
+                <ui:VisualElement name="DotRight" class="banner-dots" />
+                <ui:VisualElement name="RightPart" class="banner-background__right">
+                    <ui:VisualElement name="PinkBorder" class="banner-pink-border">
+                        <ui:VisualElement name="YellowAngle" class="banner-background__right-yellow" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Dots" class="banner-dots-white" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Contents" class="banner-contents">
+                <ui:VisualElement name="LeftSide" picking-mode="Ignore" class="banner-contents__left">
+                    <ui:VisualElement name="GradientTicket" class="banner-icon-gradient">
+                        <ui:VisualElement name="TicketIcon" picking-mode="Ignore" class="banner-icon" />
+                    </ui:VisualElement>
+                    <ui:Button text="BEGIN SEASON" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" enable-rich-text="true" tabindex="5" class="begin-button" />
+                    <ui:VisualElement name="TimeLeftWidget" class="time-left-widget">
+                        <ui:Label tabindex="-1" text="TIME LEFT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TimeLeftTitle" class="time-left-widget__title" />
+                        <ui:Label tabindex="-1" text="1D 45H" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TimeLeft" class="time-left-widget__time" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="TextContainer" picking-mode="Ignore" class="season-text-container">
+                    <ui:Label tabindex="-1" text="BATTLE PASS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BPText" class="season-text-container__title" />
+                    <ui:Label tabindex="-1" text="IS HERE !" parse-escape-sequences="true" display-tooltip-when-elided="true" name="IsHereText" class="season-text-container__desc" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Rewards" class="banner-rewards">
+                    <ui:VisualElement name="ItemDisplay" class="reward-display">
+                        <ui:VisualElement name="RewardIcon" class="reward-display__icon" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ItemDisplay" class="reward-display">
+                        <ui:VisualElement name="RewardIcon" class="reward-display__icon" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ItemDisplay" class="reward-display">
+                        <ui:VisualElement name="RewardIcon" class="reward-display__icon" />
+                        <ui:Label tabindex="-1" text="GET EXCLUSIVE REWARDS" parse-escape-sequences="false" display-tooltip-when-elided="true" name="GetExclusiveRewards" class="get-rewards-text" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="RightSide" class="banner-contents__right">
+                    <ui:VisualElement name="FinalReward" class="final-reward">
+                        <ui:VisualElement name="FinalRewardIcon" class="final-reward__icon" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

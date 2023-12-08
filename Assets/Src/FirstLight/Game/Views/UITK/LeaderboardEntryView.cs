@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using Newtonsoft.Json;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Views
 {
@@ -21,6 +24,7 @@ namespace FirstLight.Game.Views
 
 		private const string USS_AVATAR_NFT = "leaderboard-entry__pfp--nft";
 
+		private string _playerId;
 		private VisualElement _leaderboardEntry;
 		private Label _rankNumber;
 		private Label _playerName;
@@ -41,6 +45,7 @@ namespace FirstLight.Game.Views
 			_services = MainInstaller.Resolve<IGameServices>();
 
 			_leaderboardEntry = element.Q<VisualElement>("LeaderboardEntryParent").Required();
+			_leaderboardEntry.RegisterCallback<MouseDownEvent>(OnClick);
 			_rankNumber = element.Q<Label>("RankNumber").Required();
 			_playerName = element.Q<Label>("PlayerName").Required();
 			_insideMetric = element.Q<Label>("Kills").Required();
@@ -59,6 +64,15 @@ namespace FirstLight.Game.Views
 				_metricIcon.AddToClassList($"{USS_LEADERBOARD_ENTRY}__{iconClass}");
 			}
 		}
+
+		private void OnClick(MouseDownEvent e)
+		{
+			if (_playerId == null) return;
+			_services.GameUiService.OpenUiAsync<PlayerStatisticsPopupPresenter, PlayerStatisticsPopupPresenter.StateData>(new ()
+			{
+				PlayerId = _playerId
+			});
+		}
 		
 		public VisualElement MetricIcon => _metricIcon;
 		
@@ -66,7 +80,7 @@ namespace FirstLight.Game.Views
 		/// Sets the data needed to fill leaderboard entry's data.
 		/// </summary>
 		public void SetData(int rank, string playerName, int playerKilledCount, int playerTrophies, bool isLocalPlayer,
-							string pfpUrl, Color? borderColor)
+							string pfpUrl, string playerId, Color? borderColor)
 		{
 			_leaderboardEntry.RemoveModifiers();
 			
@@ -129,6 +143,7 @@ namespace FirstLight.Game.Views
 					tex =>
 					{
 						_pfpImage.style.backgroundImage = new StyleBackground(tex);
+						_pfpImage.style.top = -tex.height / 4;
 					},
 					() =>
 					{

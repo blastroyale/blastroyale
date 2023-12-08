@@ -87,7 +87,7 @@
 }
 
 .game-mode-button--battleroyale .game-mode-button__top {
-    background-image: var(--sprite-home__background-gamemode-battleroyale);
+    background-image: var(--sprite-home__background-gamemode-deathmatch);
 }
 
 .game-mode-button--battleroyaletrios .game-mode-button__top {
@@ -111,7 +111,7 @@
     height: 731px;
     margin-left: 2px;
     overflow: hidden;
-    background-image: url('/Assets/Art/UI/Vectors/ModeButton.svg');
+    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
     margin-top: 2px;
     -unity-background-image-tint-color: rgba(255, 255, 255, 0);
 }
@@ -121,11 +121,11 @@
 }
 
 .game-mode-button--battleroyale .game-mode-button__top-image {
-    background-image: var(--sprite-home__background-gamemode-battleroyale-top);
     width: 491px;
     height: 466px;
     top: 51px;
     left: -5px;
+    background-image: var(--sprite-home__background-gamemode-deathmatch-top);
 }
 
 .game-mode-button--battleroyaletrios .game-mode-button__top-image {
@@ -137,11 +137,11 @@
 }
 
 .game-mode-button--battleroyaleduos .game-mode-button__top-image {
-    background-image: var(--sprite-home__background-gamemode-deathmatch-top);
     width: 491px;
     height: 466px;
     top: 48px;
     left: -5px;
+    background-image: var(--sprite-home__background-gamemode-battleroyale-top);
 }
 
 .game-mode-button--deathmatch .game-mode-button__top-image {
@@ -163,7 +163,7 @@
     width: 502px;
     height: 731px;
     overflow: hidden;
-    background-image: url('/Assets/Art/UI/Vectors/ModeButton.svg');
+    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
     -unity-background-image-tint-color: rgba(1, 0, 0, 0);
 }
 
@@ -215,7 +215,7 @@
 }
 
 .game-mode-button--custom .game-mode-button__icon {
-    -unity-background-image-tint-color: rgba(0, 0, 0, 255);
+    -unity-background-image-tint-color: rgb(0, 0, 0);
 }
 
 .game-mode-button__label {
@@ -286,7 +286,7 @@
 .game-mode-button__mutators {
     width: 270px;
     height: auto;
-    background-image: url('/Assets/Art/UI/Vectors/MutatorsBack.svg');
+    background-image: url('project://database/Assets/Art/UI/Vectors/MutatorsBack.svg?fileID=7388822144124034973&guid=0e58669687c4b4ff387d2604ced0f2ff&type=3#MutatorsBack');
     position: absolute;
     bottom: 219px;
     left: 15px;

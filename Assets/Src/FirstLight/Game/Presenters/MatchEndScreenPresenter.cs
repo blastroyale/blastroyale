@@ -21,7 +21,7 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action OnTimeToLeave;
 		}
-		
+
 		[SerializeField, Required] private PlayableDirector _winDirector;
 		[SerializeField, Required] private PlayableDirector _blastedDirector;
 
@@ -59,12 +59,12 @@ namespace FirstLight.Game.Presenters
 			_bustedTitle.SetDisplay(false);
 			_waitTime = 2f;
 
-			if (QuantumRunner.Default == null || QuantumRunner.Default.Game == null)
+			if (QuantumRunner.Default == null || QuantumRunner.Default.Game == null || !QuantumRunner.Default.Game.HasGameContainer())
 			{
 				Data.OnTimeToLeave?.Invoke();
 				return; // reconnection edge case to avoid soft-lock
 			}
-			
+
 			var game = QuantumRunner.Default.Game;
 			var gameOver = game.IsGameOver();
 			var playersData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);

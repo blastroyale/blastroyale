@@ -1,5 +1,7 @@
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Services.Party;
@@ -51,6 +53,11 @@ namespace FirstLight.Tests.EditorMode
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; set; }
 		public IRoomService RoomService { get; }
+		public IGameAppService GameAppService { get; set; }
+
+		public IBattlePassService BattlePassService { get; }
+		public ITeamService TeamService { get; }
+		public IServerListService ServerListService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
@@ -104,6 +111,10 @@ namespace FirstLight.Tests.EditorMode
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
 			RoomService = Substitute.For<IRoomService>();
 			CollectionService = Substitute.For<ICollectionService>();
+			BattlePassService = Substitute.For<IBattlePassService>();
+			GameAppService = Substitute.For<IGameAppService>();
+			TeamService = Substitute.For<ITeamService>();
+			ServerListService = Substitute.For<IServerListService>();
 		}
 	}
 }

@@ -26,6 +26,7 @@ namespace FirstLight.Game.Services
 		public static readonly string SessionHeartbeat = "session_heartbeat";
 		public static readonly string GameLoadStart = "game_load_start";
 		public static readonly string PlayerRegister = "player_register";
+		public static readonly string PlayerDisconnect = "player_disconnect";
 		public static readonly string PlayerLogin = "player_login";
 		public static readonly string GameLoaded = "game_loaded";
 		public static readonly string ScreenView = "screen_view";

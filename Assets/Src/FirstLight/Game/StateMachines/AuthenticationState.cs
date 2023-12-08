@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Messages;
@@ -39,7 +40,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IDataService _dataService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private IConfigsAdder _configsAdder;
-		private Task _asyncLogin;
+		private UniTask _asyncLogin;
+		private bool _usingAsyncLogin;
 
 		public AuthenticationState(IGameServices services, IGameUiServiceInit uiService,
 								   IDataService dataService, Action<IStatechartEvent> statechartTrigger)
@@ -108,12 +110,12 @@ namespace FirstLight.Game.StateMachines
 		}
 
 
-		private async Task WaitForAsyncLogin()
+		private async UniTask WaitForAsyncLogin()
 		{
-			await _asyncLogin;
+			await UniTask.WaitUntil(() => _asyncLogin.Status == UniTaskStatus.Succeeded);
 		}
 
-		private async Task AsyncDeviceLogin()
+		private async UniTask AsyncDeviceLogin()
 		{
 			bool complete = false;
 			_services.AuthenticationService.State.StartedWithAccount = true;
@@ -123,31 +125,27 @@ namespace FirstLight.Game.StateMachines
 					OnAuthFail(error, true);
 					complete = true;
 				});
-			await WaitFor(() => complete);
+			await UniTask.WaitUntil(() => complete);
 		}
 
-		private async Task AsyncGuestLogin()
+		private async UniTask AsyncGuestLogin()
 		{
 			bool complete = false;
 			_services.AuthenticationService.LoginSetupGuest(r => { complete = true; },
 				(error) => { OnAuthFail(error, true); });
-			await WaitFor(() => complete);
-		}
-
-		private async Task WaitFor(Func<bool> condition)
-		{
-			while (!condition()) await Task.Delay(2);
+			await UniTask.WaitUntil(() => complete);
 		}
 
 		public void QuickAsyncLogin()
 		{
 			_services.GameBackendService.SetupBackendEnvironment();
+			_usingAsyncLogin = true;
 			_asyncLogin = HasLinkedDevice() ? AsyncDeviceLogin() : AsyncGuestLogin();
 		}
 
 		private bool IsAsyncLogin()
 		{
-			return _asyncLogin != null;
+			return _usingAsyncLogin;
 		}
 
 		private void SubscribeEvents()
@@ -206,7 +204,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasLinkedDevice()
 		{
-			return !string.IsNullOrWhiteSpace(_dataService.GetData<AppData>().DeviceId);
+			return !string.IsNullOrWhiteSpace(_services.AuthenticationService.GetDeviceSavedAccountData().DeviceId);
 		}
 
 		private void SetupBackendEnvironmentData()

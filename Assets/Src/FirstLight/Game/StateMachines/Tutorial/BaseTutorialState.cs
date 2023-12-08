@@ -1,35 +1,29 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using FirstLight.Statechart;
-using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
-	
 	public class TutorialState
 	{
 		private static readonly IStatechartEvent _startFirstGameTutorialEvent = new StatechartEvent("TUTORIAL - Start First Game Tutorial");
 		private static readonly IStatechartEvent _startEquipmentBpTutorialEvent = new StatechartEvent("TUTORIAL - Start Equipment BP Tutorial");
-		
+
 		private readonly IGameServices _services;
-		private readonly IGameDataProvider _dataProvider;
 		private readonly IInternalTutorialService _tutorialService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly FirstGameTutorialState _firstGameTutorialState;
 		private readonly MetaAndMatchTutorialState _metaAndMatchTutorialState;
+
 		public TutorialState(IGameDataProvider logic, IGameServices services, IInternalTutorialService tutorialService,
 							 Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_dataProvider = logic;
 			_tutorialService = tutorialService;
 			_statechartTrigger = statechartTrigger;
 			_firstGameTutorialState = new FirstGameTutorialState(logic, services, tutorialService, statechartTrigger);
@@ -46,20 +40,20 @@ namespace FirstLight.Game.StateMachines
 			var idle = stateFactory.State("TUTORIAL - Idle");
 			var firstGameTutorial = stateFactory.Nest("TUTORIAL - First Game Tutorial");
 			var metaAndMatchTutorial = stateFactory.Nest("TUTORIAL - Equipment BP Tutorial");
-			
+
 			initial.Transition().Target(loadTutorialUi);
 			initial.OnExit(SubscribeMessages);
 
 			loadTutorialUi.WaitingFor(OpenTutorialScreens).Target(idle);
-			
+
 			idle.OnEnter(() => SetCurrentSection(TutorialSection.NONE));
 			idle.Event(_startFirstGameTutorialEvent).Target(firstGameTutorial);
 			idle.Event(_startEquipmentBpTutorialEvent).Target(metaAndMatchTutorial);
-			
+
 			firstGameTutorial.OnEnter(() => SetCurrentSection(TutorialSection.FIRST_GUIDE_MATCH));
 			firstGameTutorial.Nest(_firstGameTutorialState.Setup).Target(idle);
 			firstGameTutorial.OnExit(() => SendSectionCompleted(TutorialSection.FIRST_GUIDE_MATCH));
-			
+
 			metaAndMatchTutorial.OnEnter(() => SetCurrentSection(TutorialSection.META_GUIDE_AND_MATCH));
 			metaAndMatchTutorial.Nest(_metaAndMatchTutorialState.Setup).Target(idle);
 			metaAndMatchTutorial.OnExit(() => SendSectionCompleted(TutorialSection.META_GUIDE_AND_MATCH));
@@ -76,7 +70,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_tutorialService.CurrentRunningTutorial.Value = section;
 		}
-		
+
 		private void SendSectionCompleted(TutorialSection section)
 		{
 			_tutorialService.CompleteTutorialSection(section);
@@ -90,14 +84,14 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnRequestStartFirstTutorialMessage(RequestStartFirstGameTutorialMessage msg)
 		{
-			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH)) return;
+			if (_tutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH)) return;
 
 			_statechartTrigger(_startFirstGameTutorialEvent);
 		}
 
 		private void OnRequestStartMetaMatchTutorialMessage(RequestStartMetaMatchTutorialMessage msg)
 		{
-			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH)) return;
+			if (_tutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH)) return;
 
 			_statechartTrigger(_startEquipmentBpTutorialEvent);
 		}

@@ -1,5 +1,9 @@
 using System;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
+using I2.Loc;
+using Quantum;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -26,6 +30,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public bool IsEmpty => ButtonOnClick.GetInvocationList().Length == 0;
 	}
+	
 
 	/// <summary>
 	/// This service provides a direct reference to UI Generic dialogs to any system in the game.
@@ -50,6 +55,18 @@ namespace FirstLight.Game.Services
 							 TouchScreenKeyboardType keyboardType = TouchScreenKeyboardType.Default);
 
 		/// <summary>
+		/// Displays a simple message dialog
+		/// </summary>
+		void OpenSimpleMessage(string title, string desc, Action onClick = null);
+		
+
+		/// <summary>
+		/// Open the purchase confirmation dialog, and if the player doesn't have the amount of blast bucks open not enough popup
+		/// </summary>
+		void OpenPurchaseOrNotEnough(GenericPurchaseDialogPresenter.GenericPurchaseOptions options);
+
+
+		/// <summary>
 		/// Closes the <see cref="GenericDialogPresenter"/> if opened
 		/// </summary>
 		void CloseDialog();
@@ -59,12 +76,14 @@ namespace FirstLight.Game.Services
 	public class GenericDialogService : IGenericDialogService
 	{
 		private readonly IGameUiService _uiService;
+		private readonly ICurrencyDataProvider _currencyDataProvider;
 
 		private Type _openDialogType;
 
-		public GenericDialogService(IGameUiService uiService)
+		public GenericDialogService(IGameUiService uiService, ICurrencyDataProvider currencyDataProvider)
 		{
 			_uiService = uiService;
+			_currencyDataProvider = currencyDataProvider;
 		}
 
 		/// <inheritdoc />
@@ -93,13 +112,40 @@ namespace FirstLight.Game.Services
 			ui.SetInfo(title, desc, initialInputText, button, showCloseButton, closeCallback, keyboardType);
 		}
 
+		public void OpenSimpleMessage(string title, string desc, Action onClick = null)
+		{
+			OpenButtonDialog(title, desc, false, new GenericDialogButton()
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = () =>
+				{
+					CloseDialog();
+					onClick?.Invoke();
+				}
+			});
+		}
+
+		public void OpenPurchaseOrNotEnough(GenericPurchaseDialogPresenter.GenericPurchaseOptions options)
+		{
+			var bucks = _currencyDataProvider.GetCurrencyAmount(GameId.BlastBuck);
+			var ui = _uiService.OpenUi<GenericPurchaseDialogPresenter>();
+			_openDialogType = ui.GetType();
+
+			if (bucks >= options.Value)
+			{
+				ui.SetHasEnoughOptions(options);
+			}
+			else
+			{
+				ui.SetNotEnoughOptions(options);		
+			}
+		}
+		
 		/// <inheritdoc />
 		public void CloseDialog()
 		{
 			if (_openDialogType == null) return;
-
 			_uiService.CloseUi(_openDialogType);
-
 			_openDialogType = null;
 		}
 	}

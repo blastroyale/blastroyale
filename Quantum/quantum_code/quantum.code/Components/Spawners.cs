@@ -39,7 +39,7 @@ namespace Quantum
 		{
 			var transform = f.Get<Transform3D>(e);
 
-			if (GameId.IsInGroup(GameIdGroup.Consumable))
+			if (GameId.IsInGroup(GameIdGroup.Consumable) || GameId.IsInGroup(GameIdGroup.Special))
 			{
 				Collectable = SpawnConsumable(f, GameId, &transform, e);
 			}
@@ -88,14 +88,14 @@ namespace Quantum
 		{
 			// TODO: Clean this up and merge with SpawnGear when we start spawning freelying gear for public
 			var configs = f.WeaponConfigs;
-			var gameContainer = f.GetSingleton<GameContainer>();
+			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
-			var rarity = (EquipmentRarity) FPMath.Clamp((int) gameContainer.DropPool.AverageRarity + rarityModifier,
+			var rarity = (EquipmentRarity) FPMath.Clamp((int) gameContainer->DropPool.AverageRarity + rarityModifier,
 			                                            0,
 			                                            (int) EquipmentRarity.TOTAL - 1);
 
 			var equipment = id == GameId.Random
-				                ? gameContainer.GenerateNextWeapon(f)
+				                ? gameContainer->GenerateNextWeapon(f)
 								: Equipment.Create(f, configs.GetConfig(id).Id, rarity, 1);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform->Position, FPQuaternion.Identity, transform->Position,

@@ -74,6 +74,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.BlastBuck, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
 					GameId.BLST, new List<GameIdGroup>
 					{
 						GameIdGroup.Currency
@@ -751,6 +757,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.SkipTutorial, new List<GameIdGroup>
+					{
+						GameIdGroup.Destructible
+					}.AsReadOnly()
+				},
+				{
 					GameId.DummyCharacter, new List<GameIdGroup>
 					{
 						GameIdGroup.DummyCharacter
@@ -836,6 +848,7 @@ namespace Quantum
 					GameId.MaleAssassin, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Assassin,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -852,7 +865,6 @@ namespace Quantum
 					GameId.MalePunk, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Punk,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -861,7 +873,6 @@ namespace Quantum
 					GameId.MaleSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Superstar,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -870,6 +881,7 @@ namespace Quantum
 					GameId.FemaleAssassin, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Assassin,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -886,7 +898,6 @@ namespace Quantum
 					GameId.FemalePunk, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Punk,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -895,7 +906,6 @@ namespace Quantum
 					GameId.FemaleSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Superstar,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -906,10 +916,42 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.PlayerSkinDragonBoxer, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinTieGuy, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinFitnessChick, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinSkellyQueen, new List<GameIdGroup>
+					{
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinXmasSuperstar, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -917,7 +959,6 @@ namespace Quantum
 					GameId.Falcon, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -932,6 +973,7 @@ namespace Quantum
 					GameId.Turbine, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -947,7 +989,6 @@ namespace Quantum
 					GameId.Demon, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1103,8 +1144,14 @@ namespace Quantum
 					GameId.MeleeSkinYouGotMail, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection,
-						GameIdGroup.BotItem
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinXmas2023, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
@@ -1159,6 +1206,321 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.AvatarAssasinmask, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarBlastcatads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarBurgerads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarCatcupads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarCorpoads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarCorpocrossads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarCorpomask, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarEyesads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemaleassasinwantedads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemaleassassinconcept, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemaleassassinwhatsticker, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemalecorpo, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemalecorpoconcept, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemalecorpophonesticker, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemalecorposticker, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemalehost, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemalepunk, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemalepunkconcept, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemalepunkfunsticker, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemalepunkgraffiti, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemalesuperstarads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemalesuperstarconcept, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemalesuperstardisguststicker, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemalesupperstar, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMaleassasin, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMaleassasinconcept, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMaleassasinexcitedsticker, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMaleassasinwantedads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMalecorpoangryads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMalecorpoconcept, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMalecorposcaredsticker, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMalehost, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMalepunk, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMalepunkads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMalepunkconcept, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMalepunkgraffiti, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMalepunkhahasticker, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMalesuperstarads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMalesuperstarconcept, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMalesuperstarstopsticker, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMusic, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarPunklogoads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarRocketads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSuperstarloveads, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarUnicornssticker, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.FootprintDot, new List<GameIdGroup>
 					{
 						GameIdGroup.Footprint,
@@ -1181,6 +1543,7 @@ namespace Quantum
 					{
 						GameId.RealMoney,
 						GameId.COIN,
+						GameId.BlastBuck,
 						GameId.BLST,
 						GameId.Fragments,
 						GameId.CS
@@ -1432,6 +1795,10 @@ namespace Quantum
 						GameId.FemaleCorpos,
 						GameId.FemalePunk,
 						GameId.FemaleSuperstar,
+						GameId.PlayerSkinDragonBoxer,
+						GameId.PlayerSkinTieGuy,
+						GameId.PlayerSkinFitnessChick,
+						GameId.PlayerSkinXmasSuperstar,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -1460,13 +1827,59 @@ namespace Quantum
 						GameId.MeleeSkinWheelOfPain,
 						GameId.MeleeSkinWrench,
 						GameId.MeleeSkinYouGotMail,
+						GameId.MeleeSkinXmas2023,
 						GameId.Avatar1,
 						GameId.Avatar2,
 						GameId.Avatar3,
 						GameId.Avatar4,
 						GameId.Avatar5,
 						GameId.AvatarRemote,
-						GameId.AvatarNFTCollection
+						GameId.AvatarNFTCollection,
+						GameId.AvatarAssasinmask,
+						GameId.AvatarBlastcatads,
+						GameId.AvatarBurgerads,
+						GameId.AvatarCatcupads,
+						GameId.AvatarCorpoads,
+						GameId.AvatarCorpocrossads,
+						GameId.AvatarCorpomask,
+						GameId.AvatarEyesads,
+						GameId.AvatarFemaleassasinwantedads,
+						GameId.AvatarFemaleassassinconcept,
+						GameId.AvatarFemaleassassinwhatsticker,
+						GameId.AvatarFemalecorpo,
+						GameId.AvatarFemalecorpoconcept,
+						GameId.AvatarFemalecorpophonesticker,
+						GameId.AvatarFemalecorposticker,
+						GameId.AvatarFemalehost,
+						GameId.AvatarFemalepunk,
+						GameId.AvatarFemalepunkconcept,
+						GameId.AvatarFemalepunkfunsticker,
+						GameId.AvatarFemalepunkgraffiti,
+						GameId.AvatarFemalesuperstarads,
+						GameId.AvatarFemalesuperstarconcept,
+						GameId.AvatarFemalesuperstardisguststicker,
+						GameId.AvatarFemalesupperstar,
+						GameId.AvatarMaleassasin,
+						GameId.AvatarMaleassasinconcept,
+						GameId.AvatarMaleassasinexcitedsticker,
+						GameId.AvatarMaleassasinwantedads,
+						GameId.AvatarMalecorpoangryads,
+						GameId.AvatarMalecorpoconcept,
+						GameId.AvatarMalecorposcaredsticker,
+						GameId.AvatarMalehost,
+						GameId.AvatarMalepunk,
+						GameId.AvatarMalepunkads,
+						GameId.AvatarMalepunkconcept,
+						GameId.AvatarMalepunkgraffiti,
+						GameId.AvatarMalepunkhahasticker,
+						GameId.AvatarMalesuperstarads,
+						GameId.AvatarMalesuperstarconcept,
+						GameId.AvatarMalesuperstarstopsticker,
+						GameId.AvatarMusic,
+						GameId.AvatarPunklogoads,
+						GameId.AvatarRocketads,
+						GameId.AvatarSuperstarloveads,
+						GameId.AvatarUnicornssticker
 					}.AsReadOnly()
 				},
 				{
@@ -1486,16 +1899,11 @@ namespace Quantum
 				{
 					GameIdGroup.BotItem, new List<GameId>
 					{
-						GameId.MalePunk,
-						GameId.MaleSuperstar,
-						GameId.FemalePunk,
-						GameId.FemaleSuperstar,
-						GameId.Divinci,
-						GameId.Falcon,
+						GameId.MaleAssassin,
+						GameId.FemaleAssassin,
+						GameId.Turbine,
 						GameId.Tombstone,
-						GameId.Demon,
 						GameId.MeleeSkinDefault,
-						GameId.MeleeSkinYouGotMail,
 						GameId.FootprintDot
 					}.AsReadOnly()
 				},
@@ -1571,7 +1979,8 @@ namespace Quantum
 					GameIdGroup.Destructible, new List<GameId>
 					{
 						GameId.Barrel,
-						GameId.Barrier
+						GameId.Barrier,
+						GameId.SkipTutorial
 					}.AsReadOnly()
 				},
 				{
@@ -1634,7 +2043,8 @@ namespace Quantum
 						GameId.MeleeSkinTvTakedown,
 						GameId.MeleeSkinWheelOfPain,
 						GameId.MeleeSkinWrench,
-						GameId.MeleeSkinYouGotMail
+						GameId.MeleeSkinYouGotMail,
+						GameId.MeleeSkinXmas2023
 					}.AsReadOnly()
 				},
 				{
@@ -1651,7 +2061,11 @@ namespace Quantum
 						GameId.FemaleAssassin,
 						GameId.FemaleCorpos,
 						GameId.FemalePunk,
-						GameId.FemaleSuperstar
+						GameId.FemaleSuperstar,
+						GameId.PlayerSkinDragonBoxer,
+						GameId.PlayerSkinTieGuy,
+						GameId.PlayerSkinFitnessChick,
+						GameId.PlayerSkinXmasSuperstar
 					}.AsReadOnly()
 				},
 				{
@@ -1681,7 +2095,52 @@ namespace Quantum
 						GameId.Avatar4,
 						GameId.Avatar5,
 						GameId.AvatarRemote,
-						GameId.AvatarNFTCollection
+						GameId.AvatarNFTCollection,
+						GameId.AvatarAssasinmask,
+						GameId.AvatarBlastcatads,
+						GameId.AvatarBurgerads,
+						GameId.AvatarCatcupads,
+						GameId.AvatarCorpoads,
+						GameId.AvatarCorpocrossads,
+						GameId.AvatarCorpomask,
+						GameId.AvatarEyesads,
+						GameId.AvatarFemaleassasinwantedads,
+						GameId.AvatarFemaleassassinconcept,
+						GameId.AvatarFemaleassassinwhatsticker,
+						GameId.AvatarFemalecorpo,
+						GameId.AvatarFemalecorpoconcept,
+						GameId.AvatarFemalecorpophonesticker,
+						GameId.AvatarFemalecorposticker,
+						GameId.AvatarFemalehost,
+						GameId.AvatarFemalepunk,
+						GameId.AvatarFemalepunkconcept,
+						GameId.AvatarFemalepunkfunsticker,
+						GameId.AvatarFemalepunkgraffiti,
+						GameId.AvatarFemalesuperstarads,
+						GameId.AvatarFemalesuperstarconcept,
+						GameId.AvatarFemalesuperstardisguststicker,
+						GameId.AvatarFemalesupperstar,
+						GameId.AvatarMaleassasin,
+						GameId.AvatarMaleassasinconcept,
+						GameId.AvatarMaleassasinexcitedsticker,
+						GameId.AvatarMaleassasinwantedads,
+						GameId.AvatarMalecorpoangryads,
+						GameId.AvatarMalecorpoconcept,
+						GameId.AvatarMalecorposcaredsticker,
+						GameId.AvatarMalehost,
+						GameId.AvatarMalepunk,
+						GameId.AvatarMalepunkads,
+						GameId.AvatarMalepunkconcept,
+						GameId.AvatarMalepunkgraffiti,
+						GameId.AvatarMalepunkhahasticker,
+						GameId.AvatarMalesuperstarads,
+						GameId.AvatarMalesuperstarconcept,
+						GameId.AvatarMalesuperstarstopsticker,
+						GameId.AvatarMusic,
+						GameId.AvatarPunklogoads,
+						GameId.AvatarRocketads,
+						GameId.AvatarSuperstarloveads,
+						GameId.AvatarUnicornssticker
 					}.AsReadOnly()
 				},
 				{

@@ -1,12 +1,11 @@
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using UnityEngine;
 
 namespace FirstLight.Editor.Artifacts
 {
 	public static class ArtifactCopier
 	{
-		public static DllArtifacts QuantumDlls = new()
+		public static readonly DllArtifacts QuantumDlls = new ()
 		{
 			SourceDir = $"{Application.dataPath}/../Assets/Libs/Photon/Quantum/Assemblies/",
 			Dlls = new[]
@@ -17,8 +16,7 @@ namespace FirstLight.Editor.Artifacts
 			}
 		};
 
-
-		public static DllArtifacts GameDlls = new()
+		public static readonly DllArtifacts GameDlls = new ()
 		{
 			SourceDir = $"{Application.dataPath}/../Library/ScriptAssemblies/",
 			Dlls = new[]
@@ -32,7 +30,7 @@ namespace FirstLight.Editor.Artifacts
 			}
 		};
 
-		public static DllArtifacts ServerSdk = new()
+		public static readonly DllArtifacts ServerSdk = new ()
 		{
 			SourceDir = $"{Application.dataPath}/../Assets/Src/FirstLight/Server/Plugin/net48/",
 			Dlls = new[]
@@ -41,7 +39,7 @@ namespace FirstLight.Editor.Artifacts
 			}
 		};
 
-		public static DllArtifacts Odin = new()
+		public static readonly DllArtifacts Odin = new ()
 		{
 			SourceDir = $"{Application.dataPath}/../Assets/Libs/Odin/Plugins/Sirenix/Assemblies/",
 			Dlls = new[]
@@ -50,14 +48,14 @@ namespace FirstLight.Editor.Artifacts
 			}
 		};
 
-		public static GameConfigArtifact GameConfigs = new();
+		public static readonly GameConfigArtifact GameConfigs = new ();
 
-		public static GameTranslationArtifact GameTranslations = new();
+		public static readonly GameTranslationArtifact GameTranslations = new ();
 
-		public static QuantumAssetDBArtifact QuantumAssetDBArtifact = new();
+		public static readonly QuantumAssetDBArtifact QuantumAssetDBArtifact = new ();
 
 
-		public static IArtifact[] All =
+		public static readonly IArtifact[] All =
 		{
 			GameConfigs,
 			GameTranslations,
@@ -68,9 +66,22 @@ namespace FirstLight.Editor.Artifacts
 			Odin
 		};
 
-		public static Task Copy(string target, params IArtifact[] artifacts)
+		public static void Copy(string target, params IArtifact[] artifacts)
 		{
-			return Task.WhenAll(artifacts.Select(a => a.CopyTo(target)));
+			AssureDirectoryExistence(target);
+
+			foreach (var artifact in artifacts)
+			{
+				artifact.CopyTo(target);
+			}
+		}
+
+		private static void AssureDirectoryExistence(string directory)
+		{
+			if (!Directory.Exists(directory))
+			{
+				Directory.CreateDirectory(directory);
+			}
 		}
 	}
 }

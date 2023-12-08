@@ -19,17 +19,6 @@ namespace FirstLight.Game.Commands
 		public MatchType MatchType;
 		public List<GameId> AllowedRewards;
 	}
-
-	/// <summary>
-	/// Payload with needed information to be sent to quantum server to run quantum commands.
-	/// We dont need the command data, as we enrich the command server-side fully in authoritative manner.
-	/// </summary>
-	[Serializable]
-	public struct QuantumCommandPayload
-	{
-		public string Token;
-		public string CommandType;
-	}
 	
 	/// <summary>
 	/// Quantum Commands will be executed on client and also by quantum server at the end of every match.

@@ -1,0 +1,26 @@
+{
+  "name": "com.tivadar.best.tlssecurity",
+  "displayName": "Best TLS Security",
+  "description": "Best TLS Security is a paramount security library for Unity, intricately designed for solid Transport Layer Security (TLS) implementation. Enhancing the security of the Best suite of packages (including HTTP, Socket.IO, WebSockets, SignalR and Server-Sent Events), it's ideal for applications necessitating strict security measures, ensuring data confidentiality, integrity, and authentication.",
+  "version": "3.0.1",
+  "unity": "2019.4",
+  "documentationUrl": "https://bestdocshub.pages.dev/TLS%20Security/",
+  "changelogUrl": "https://bestdocshub.pages.dev/TLS%20Security/changelog/",
+  "licensesUrl": "https://bestdocshub.pages.dev/HTTP/third-party-notices/",
+  "author": {
+    "name": "Tivadar György Nagy",
+    "email": "besthttp@gmail.com",
+    "url": "https://bestdocshub.pages.dev/"
+  },
+  "keywords": [ "best", "besthttp", "wss", "websocket", "socket.io", "signalr", "best", "http", "https", "web", "webrequest", "REST", "authentication", "uwp", "hololens", "android", "ios", "tls", "security", "validation", "certificate", "client", "auth", "x509", "ocsp" ],
+  "dependencies": {
+	"com.tivadar.best.http": "3.0.0"
+  },
+  "samples": [
+    {
+      "displayName": "Batched Tests",
+      "description": "Tests running in batches. Tests both urls/scenarios that must fail and those who have to work.",
+      "path": "Samples~/Batched Tests"
+    }
+  ]
+}

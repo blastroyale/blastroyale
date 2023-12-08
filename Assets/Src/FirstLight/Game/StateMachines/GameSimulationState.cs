@@ -9,10 +9,12 @@ using Assets.Src.FirstLight.Game.Commands.QuantumLogicCommands;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes.Helpers;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -26,7 +28,6 @@ using Photon.Deterministic;
 using Quantum;
 using Quantum.Commands;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 
 namespace FirstLight.Game.StateMachines
@@ -38,7 +39,7 @@ namespace FirstLight.Game.StateMachines
 	{
 		public static readonly IStatechartEvent SimulationStartedEvent = new StatechartEvent("Simulation Ready Event");
 		public static readonly IStatechartEvent SimulationDestroyedEvent = new StatechartEvent("Simulation Destroyed Event");
-
+		public static readonly IStatechartEvent LocalPlayerExitEvent = new StatechartEvent("Local Player Exit");
 		private readonly BattleRoyaleState _battleRoyaleState;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameServices _services;
@@ -75,7 +76,6 @@ namespace FirstLight.Game.StateMachines
 			var simulationInitializationError = stateFactory.Choice("Stop Simulation Initialization Error");
 			var disconnected = stateFactory.State("Disconnected");
 			var disconnectedCritical = stateFactory.State("Disconnected Critical");
-			var criticalMatchError = stateFactory.Transition("Critical Match Error");
 
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
@@ -96,7 +96,7 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
 			battleRoyale.OnExit(CleanUpMatch);
 
-			simulationInitializationError.Transition().OnTransition(MatchError).Target(criticalMatchError);
+			simulationInitializationError.Transition().OnTransition(() => _ = MatchError()).Target(final);
 
 			stopSimulationForDisconnection.OnEnter(StopSimulation);
 			stopSimulationForDisconnection.Event(NetworkState.JoinedRoomEvent).OnTransition(UnloadSimulation).Target(startSimulation);
@@ -104,8 +104,6 @@ namespace FirstLight.Game.StateMachines
 
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(disconnectedCritical);
-
-			criticalMatchError.Transition().Target(final);
 
 			final.OnEnter(UnloadSimulationUi);
 			final.OnEnter(UnsubscribeEvents);
@@ -124,7 +122,6 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-
 
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 
@@ -185,24 +182,24 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(SimulationDestroyedEvent);
 		}
 
-		private async Task WaitForCameraOnPlayer()
+		private async UniTask WaitForCameraOnPlayer()
 		{
-			var spectated = _matchServices.SpectateService.SpectatedPlayer.Value;
-			while (QuantumRunner.Default.IsDefinedAndRunning() && !spectated.Entity.IsValid)
-			{
-				spectated = _matchServices.SpectateService.SpectatedPlayer.Value;
-				if (!spectated.Entity.IsValid)
-				{
-					await Task.Delay(1);
-				}
-			}
+			await UniTask.WaitUntil(IsSpectatingPlayer);
 		}
 
-		private async Task CloseMatchmakingScreen()
+		private bool IsSpectatingPlayer()
+		{
+			if (!QuantumRunner.Default.IsDefinedAndRunning() || _matchServices == null) return false;
+			var spectated = _matchServices.SpectateService.SpectatedPlayer.Value;
+			if (!spectated.Entity.IsValid) return false;
+			return true;
+		}
+
+		private async UniTaskVoid CloseMatchmakingScreen()
 		{
 			await WaitForCameraOnPlayer();
-			_uiService.CloseUi<CustomLobbyScreenPresenter>();
-			_uiService.CloseUi<PreGameLoadingScreenPresenter>();
+			await _uiService.CloseUi<CustomLobbyScreenPresenter>();
+			await _uiService.CloseUi<PreGameLoadingScreenPresenter>();
 		}
 
 		private bool IsSpectator()
@@ -242,6 +239,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			yield return new WaitForSeconds(0.1f);
 			PublishMatchStartedMessage(game, false);
+			yield return new WaitForSeconds(1f);
+			var f = game.Frames.Verified;
+			var entityRef = game.GetLocalPlayerEntityRef();
+			if (f != null && entityRef.IsValid && f.TryGet<PlayerCharacter>(entityRef, out var pc))
+			{
+				if (!pc.RealPlayer)
+				{
+					_services.MessageBrokerService.Publish(new LeftBeforeMatchFinishedMessage());
+					_statechartTrigger(LocalPlayerExitEvent);
+				}
+			}
 		}
 
 		private void OnAllPlayersJoined(EventOnAllPlayersJoined callback)
@@ -253,32 +261,21 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			TryEnableClientUpdate();
 			_statechartTrigger(SimulationStartedEvent);
-
-			Task.Yield();
-
-			CloseMatchmakingScreen();
+			_ = CloseMatchmakingScreen();
 		}
 
 		private void OnGameResync(CallbackGameResynced callback)
 		{
 			FLog.Verbose(
 				$"Game Resync {callback.Game.Frames.Verified.Number} vs {_gameDataProvider.AppDataProvider.LastFrameSnapshot.Value.FrameNumber}");
-			TryEnableClientUpdate();
-			_services.CoroutineService.StartCoroutine(ResyncCoroutine());
+
+			_ = ResyncCoroutine();
 		}
 
-		private void TryEnableClientUpdate()
+		private async UniTaskVoid ResyncCoroutine()
 		{
-			// Client update needs to be enabled in offline rooms, and disabled in online ones, otherwise 
-			// many things break (different breakage for both online and offline)
-			_services.NetworkService.EnableClientUpdate(_services.NetworkService.CurrentRoom.IsOffline);
-		}
-
-		private IEnumerator ResyncCoroutine()
-		{
-			yield return new WaitForSeconds(0.1f);
+			await UniTask.NextFrame();
 			PublishMatchStartedMessage(QuantumRunner.Default.Game, true);
 			_statechartTrigger(SimulationStartedEvent);
 			CloseMatchmakingScreen();
@@ -307,9 +304,10 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(MatchState.MatchQuitEvent);
 		}
 
-		private void MatchError()
+		private async UniTask MatchError()
 		{
 			FLog.Verbose("Raising Match Error");
+			await UniTask.NextFrame(); // to avoid state machine fork https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/2737
 			_statechartTrigger(MatchState.MatchErrorEvent);
 		}
 
@@ -373,7 +371,6 @@ namespace FirstLight.Game.StateMachines
 			});
 			QuantumRunner.ShutdownAll(true);
 			_services.RoomService.LeaveRoom(false);
-			_services.NetworkService.EnableClientUpdate(true);
 		}
 
 		private void CleanUpMatch()
@@ -393,7 +390,7 @@ namespace FirstLight.Game.StateMachines
 				_services.AnalyticsService.MatchCalls.MatchStart();
 				SetPlayerMatchData(game);
 			}
-
+			
 			_services.MessageBrokerService.Publish(new MatchStartedMessage {Game = game, IsResync = isResync});
 		}
 
@@ -445,6 +442,10 @@ namespace FirstLight.Game.StateMachines
 				.Select(data => data.Id)
 				.ToArray();
 
+
+			var config = _services.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
+			var avatarUrl = AvatarHelpers.GetAvatarUrl(_gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE),
+				config);
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
@@ -457,8 +458,9 @@ namespace FirstLight.Game.StateMachines
 				LoadoutMetadata = loadoutMetadata,
 				LeaderboardRank = (uint) _services.LeaderboardService.CurrentRankedEntry.Position,
 				PartyId = GetTeamId(),
-				AvatarUrl = _gameDataProvider.AppDataProvider.AvatarUrl,
-				UseBotBehaviour = FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour
+				AvatarUrl = avatarUrl,
+				UseBotBehaviour = FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour,
+				TeamColor = _services.RoomService.CurrentRoom.LocalPlayerProperties.ColorIndex.Value
 			});
 		}
 

@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
@@ -86,11 +89,6 @@ namespace FirstLight.Game.Services
 		void SetPlayerCustomProperties(Hashtable propertiesToUpdate);
 
 		/// <summary>
-		/// Enables or disables client ticking update and lag detection
-		/// </summary>
-		void EnableClientUpdate(bool enabled);
-
-		/// <summary>
 		/// Requests the current room that the local player is in
 		/// </summary>
 		Room CurrentRoom { get; }
@@ -114,7 +112,7 @@ namespace FirstLight.Game.Services
 		/// Requests the check if the last connection to a room was for a new room (new match), or a rejoin
 		/// </summary>
 		JoinRoomSource JoinSource { get; }
-        
+
 		/// <summary>
 		/// Requests the check if the last disconnection was in matchmaking, before the match started
 		/// </summary>
@@ -143,7 +141,6 @@ namespace FirstLight.Game.Services
 		/// <para>This can't be made private because it's used to add callback targets,
 		/// has a lot of utils and useful code. Just don't abuse it, or you will regret it.</para></remarks>
 		QuantumLoadBalancingClient QuantumClient { get; }
-        
 
 		/// <summary>
 		/// Last match room setup used to join or create rooms
@@ -160,11 +157,19 @@ namespace FirstLight.Game.Services
 		/// Event for when quantum client connects to master
 		/// </summary>
 		public event Action OnConnectedToMaster;
-        
+
 		/// <summary>
 		/// Set last connected room
 		/// </summary>
 		void SetLastRoom();
+
+		/// <summary>
+		/// Awaits until server connection is stablished
+		/// Will return false if connection could be made
+		/// </summary>
+		UniTask<bool> AwaitMasterServerConnection(int timeout = 10, string server = "");
+
+		UniTask ChangeServerRegionAndReconnect(string regionCode);
 	}
 
 	public enum JoinRoomSource
@@ -200,7 +205,7 @@ namespace FirstLight.Game.Services
 		new IObservableField<string> UserId { get; }
 
 		new IObservableField<JoinRoomSource> JoinSource { get; }
-        
+
 		/// <inheritdoc cref="IGameNetworkService.LastDisconnectLocation" />
 		new IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
 
@@ -219,12 +224,11 @@ namespace FirstLight.Game.Services
 		private IConfigsProvider _configsProvider;
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
-		
 
 		private Queue<int> LastRttQueue;
 		private int CurrentRttTotal;
-		private Coroutine _tickUpdateCoroutine;
 		private Coroutine _tickPingCheckCoroutine;
+		private bool _ticking = false;
 
 		public IObservableField<string> UserId { get; }
 		public IObservableField<JoinRoomSource> JoinSource { get; }
@@ -242,6 +246,7 @@ namespace FirstLight.Game.Services
 			get => LastDisconnectLocation.Value;
 			set => LastDisconnectLocation.Value = value;
 		}
+
 		Room IGameNetworkService.LastConnectedRoom => LastConnectedRoom.Value;
 		IObservableFieldReader<bool> IGameNetworkService.HasLag => HasLag;
 		IObservableField<MatchRoomSetup> IGameNetworkService.LastUsedSetup => LastUsedSetup;
@@ -249,7 +254,7 @@ namespace FirstLight.Game.Services
 		public Room CurrentRoom => QuantumClient.CurrentRoom;
 		public Player LocalPlayer => QuantumClient.LocalPlayer;
 		public bool InRoom => QuantumClient.InRoom;
-		
+
 		public event Action OnConnectedToMaster;
 
 		public QuantumRunnerConfigs QuantumRunnerConfigs => _configsProvider.GetConfig<QuantumRunnerConfigs>();
@@ -259,9 +264,29 @@ namespace FirstLight.Game.Services
 			CurrentRoom.IsOffline = QuantumRunnerConfigs.IsOfflineMode;
 			LastConnectedRoom.Value = CurrentRoom;
 		}
-        
-		private int RttAverage => CurrentRttTotal / LastRttQueue.Count;
 
+		public async UniTask<bool> AwaitMasterServerConnection(int timeout = 10, string server = "")
+		{
+			var i = timeout * 4;
+			while (i > 0)
+			{
+				if (QuantumClient.IsConnectedAndReady)
+				{
+					if (string.IsNullOrEmpty(server) || QuantumClient.CloudRegion == server)
+					{
+						return true;
+					}
+				}
+
+				await UniTask.Delay(250);
+				if (Time.timeScale == 0) QuantumClient.Service();
+				i--;
+			}
+
+			return false;
+		}
+
+		private int RttAverage => CurrentRttTotal / LastRttQueue.Count;
 
 		public GameNetworkService(IConfigsProvider configsProvider)
 		{
@@ -281,22 +306,70 @@ namespace FirstLight.Game.Services
 		/// Binds services and data to the object, and starts starts ticking quantum client.
 		/// Done here, instead of constructor because things are initialized in a particular order in Main.cs
 		/// </summary>
-		public void BindServicesAndData(IGameDataProvider dataProvider, IGameServices services)
+		public void StartNetworking(IGameDataProvider dataProvider, IGameServices services)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
 
 			_services.MessageBrokerService.Subscribe<PingedRegionsMessage>(OnPingRegions);
+			_services.TickService.SubscribeOnUpdate(QuantumTick);
+			_ticking = true;
+
+			QuantumCallback.SubscribeManual<CallbackSimulateFinished>(this, OnSimulationFinish);
+			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnSimulationStarted);
+		}
+
+		private void OnSimulationFinish(CallbackSimulateFinished cb)
+		{
+			if (!_ticking)
+			{
+				_services.TickService.SubscribeOnUpdate(QuantumTick);
+				_ticking = true;
+				FLog.Info("Quantum Tick = true");
+			}
+		}
+
+		private void OnSimulationStarted(CallbackGameStarted cb)
+		{
+			var isOffline = _services.RoomService.CurrentRoom?.IsOffline ?? false;
+			if (isOffline)
+			{
+				return;
+			}
+
+			if (_ticking)
+			{
+				_services.TickService.UnsubscribeOnUpdate(QuantumTick);
+				_ticking = false;
+				FLog.Info("Quantum Tick = false");
+			}
+		}
+
+		private void QuantumTick(float f)
+		{
+			// We should always tick during offline simulations, otherwise the connection to quantum will timeout
+			var isOffline = _services.RoomService.CurrentRoom?.IsOffline ?? false;
+			if (!isOffline && QuantumRunner.Default.IsDefinedAndRunning()) return;
+			QuantumClient.Service();
 		}
 
 		private void OnPingRegions(PingedRegionsMessage msg)
 		{
-			if (string.IsNullOrEmpty(_dataProvider.AppDataProvider.ConnectionRegion.Value))
+			var appData = _services.DataService.GetData<AppData>();
+			if (string.IsNullOrEmpty(appData.ConnectionRegion))
 			{
-				_dataProvider.AppDataProvider.ConnectionRegion.Value = msg.RegionHandler.BestRegion.Code;
+				appData.ConnectionRegion = msg.RegionHandler.BestRegion.Code;
 				_services.DataSaver.SaveData<AppData>();
 				FLog.Info("Setting player default region to " + msg.RegionHandler.BestRegion.Code);
 			}
+		}
+
+		//[Conditional("DEBUG")]
+		private void DebugConnection()
+		{
+			FLog.Verbose("Connection", $"State = {QuantumClient.State.ToString()}");
+			FLog.Verbose("Connection", $"Peer State = {QuantumClient.LoadBalancingPeer.PeerState.ToString()}");
+			FLog.Verbose("Connection", $"Server = {QuantumClient.Server.ToString()}");
 		}
 
 		public void EnableQuantumPingCheck(bool enabled)
@@ -314,39 +387,6 @@ namespace FirstLight.Game.Services
 					_services.CoroutineService.StopCoroutine(_tickPingCheckCoroutine);
 					_tickPingCheckCoroutine = null;
 				}
-			}
-		}
-
-		public void EnableClientUpdate(bool enabled)
-		{
-			if (_services == null) return;
-
-			if (enabled)
-			{
-				_tickUpdateCoroutine = _services.CoroutineService.StartCoroutine(TickQuantumClient());
-			}
-			else
-			{
-				if (_tickUpdateCoroutine != null)
-				{
-					_services.CoroutineService.StopCoroutine(_tickUpdateCoroutine);
-					_tickUpdateCoroutine = null;
-				}
-			}
-		}
-
-		private IEnumerator TickQuantumClient()
-		{
-			var waitForSeconds = new WaitForSeconds(QUANTUM_TICK_SECONDS);
-
-			while (true)
-			{
-				if (QuantumClient.IsConnected && NetworkUtils.IsOnline())
-				{
-					QuantumClient.Service();
-				}
-
-				yield return waitForSeconds;
 			}
 		}
 
@@ -378,6 +418,14 @@ namespace FirstLight.Game.Services
 			var dcCheck = NetworkUtils.IsOfflineOrDisconnected();
 
 			HasLag.Value = roundTripCheck || dcCheck;
+		}
+
+		public async UniTask ChangeServerRegionAndReconnect(string serverCode)
+		{
+			_dataProvider.AppDataProvider.ConnectionRegion.Value = serverCode;
+			_services.DataService.SaveData<AppData>();
+			DisconnectPhoton();
+			FLog.Info("Changing region to " + serverCode);
 		}
 
 		public bool ConnectPhotonServer()
@@ -433,7 +481,6 @@ namespace FirstLight.Game.Services
 		{
 			QuantumClient.Disconnect();
 		}
-        
 
 		public bool SendPlayerToken(string token)
 		{
@@ -442,15 +489,15 @@ namespace FirstLight.Game.Services
 				SendOptions.SendReliable);
 		}
 
-	
+
 		public void ReconnectPhoton(out bool requiresManualReconnection)
 		{
-			FLog.Info("ReconnectPhoton");
-
 			requiresManualReconnection = false;
 			JoinSource.Value = JoinRoomSource.Reconnection;
 
 			if (QuantumClient.LoadBalancingPeer.PeerState != PeerStateValue.Disconnected) return;
+
+			FLog.Info("ReconnectPhoton");
 
 			if (QuantumClient.Server == ServerConnection.GameServer)
 			{
@@ -459,12 +506,19 @@ namespace FirstLight.Game.Services
 			}
 			else
 			{
+				var settingsRegion = _dataProvider.AppDataProvider.ConnectionRegion.Value;
+				if (settingsRegion != QuantumClient.CloudRegion)
+				{
+					FLog.Info("ReconnectPhoton - ReconnectToMaster changing region ");
+					QuantumClient.ConnectToRegionMaster(settingsRegion);
+					return;
+				}
+
 				FLog.Info("ReconnectPhoton - ReconnectToMaster");
 				QuantumClient.ReconnectToMaster();
 			}
 		}
-        
-        
+
 
 		public void SetCurrentRoomOpen(bool isOpen)
 		{
@@ -478,7 +532,7 @@ namespace FirstLight.Game.Services
 			FLog.Verbose(propertiesToUpdate);
 			QuantumClient.LocalPlayer.SetCustomProperties(propertiesToUpdate);
 		}
-        
+
 
 		private void SetUserId(string id)
 		{
@@ -487,7 +541,7 @@ namespace FirstLight.Game.Services
 			QuantumClient.AuthValues.AddAuthParameter("username", id);
 		}
 
-		
+
 		private void ResetQuantumProperties()
 		{
 			if (QuantumClient.AuthValues != null)
@@ -497,7 +551,7 @@ namespace FirstLight.Game.Services
 
 			QuantumClient.EnableProtocolFallback = true;
 		}
-		
+
 		#region IConnectionCallbacks
 
 		public void OnConnected()
@@ -524,6 +578,7 @@ namespace FirstLight.Game.Services
 		public void OnCustomAuthenticationFailed(string debugMessage)
 		{
 		}
+
 		#endregion
 	}
 }

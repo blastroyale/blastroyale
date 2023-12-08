@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
-using PlayFab.Internal;
 
 namespace FirstLight.Game.Logic
 {
@@ -54,6 +54,11 @@ namespace FirstLight.Game.Logic
 		/// Gets the amount of XP needed to level up
 		/// </summary>
 		uint GetXpNeededForLevel(uint level);
+		
+		/// <summary>
+		/// Returns the flags of the player.
+		/// </summary>
+		PlayerFlags Flags { get; }
 	}
 
 	/// <inheritdoc />
@@ -98,6 +103,7 @@ namespace FirstLight.Game.Logic
 
 		public IObservableFieldReader<uint> Level => _level;
 		public IObservableFieldReader<uint> XP => _xp;
+		public PlayerFlags Flags => Data.Flags;
 
 		public bool MigratedGuestAccount
 		{
@@ -169,7 +175,10 @@ namespace FirstLight.Game.Logic
 					}
 				}
 			}
-			throw new LogicException($"The system {unlockSystem} is not defined in the {nameof(PlayerLevelConfig)}");
+			
+			FLog.Info($"The system {unlockSystem} is not defined in the {nameof(PlayerLevelConfig)}");
+			
+			return 0;
 		}
 		
 		public List<ItemData> GetRewardsForFameLevel(uint level)
@@ -215,7 +224,7 @@ namespace FirstLight.Game.Logic
 			
 			throw new LogicException($"Could not find level config for level {level}");
 		}
-		
+
 		public void AddXP(uint amount)
 		{
 			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();

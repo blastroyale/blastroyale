@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement style="flex-direction: row; align-items: stretch; justify-content: space-around;">
+        <ui:Label binding-path="idx" style="width: 40px; -unity-text-align: middle-center;" />
+        <ui:Label binding-path="isUserAdded" style="width: 30px; -unity-text-align: middle-center;" />
+        <ui:Label binding-path="isLocked" style="width: 33px; -unity-text-align: middle-center;" />
+        <ui:Label binding-path="subject" style="width: auto; flex-grow: 1; flex-shrink: 1; overflow: hidden;" />
+        <ui:Label binding-path="issuer" style="width: auto; flex-grow: 0.95; flex-shrink: 1; overflow: hidden; -unity-text-align: middle-right;" />
+    </ui:VisualElement>
+</ui:UXML>

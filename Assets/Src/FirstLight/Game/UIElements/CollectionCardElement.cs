@@ -44,10 +44,11 @@ namespace FirstLight.Game.UIElements
 
 		private const string UssNotification = UssBlock + "__notification";
 		private const string UssNotificationIcon = "notification-icon";
-
+		
+		private IGameServices _services;
 		public ItemData Item { get; private set; }
 		public int CollectionIndex { get; private set; }
-
+		
 		private readonly VisualElement _backgroundImage;
 		private readonly VisualElement _image;
 		private readonly Label _name;
@@ -67,7 +68,8 @@ namespace FirstLight.Game.UIElements
 		public CollectionCardElement()
 		{
 			AddToClassList(UssBlock);
-
+			_services = MainInstaller.ResolveServices();
+			
 			var selectedBg = new VisualElement {name = "selected-bg"};
 			Add(selectedBg);
 			selectedBg.AddToClassList(UssSelected);
@@ -120,7 +122,15 @@ namespace FirstLight.Game.UIElements
 
 		public void SetSelected(bool selected)
 		{
-			if (selected) AddToClassList(UssBlockSelected);
+			if (selected)
+			{
+				AddToClassList(UssBlockSelected);
+				if (_notification.style.display == DisplayStyle.Flex)
+				{
+					_services.RewardService.MarkAsSeen(ItemMetadataType.Collection, Item);
+					SetNotificationPip(false);
+				}
+			}
 			else RemoveFromClassList(UssBlockSelected);
 		}
 
@@ -148,7 +158,16 @@ namespace FirstLight.Game.UIElements
 			Item = item;
 			var view = item.GetViewModel();
 			CollectionIndex = index;
-			_name.text = displayName;
+			
+			if (item.Id.IsInGroup(GameIdGroup.ProfilePicture))
+			{
+				_name.text = "";
+			}
+			else
+			{
+				_name.text = displayName;
+			}
+			
 			view.DrawIcon(_image);
 		}
 

@@ -1,12 +1,10 @@
 using Assets.Src.FirstLight.Game.Commands.QuantumLogicCommands;
 using FirstLight.Game.Commands;
-using FirstLight.Server.SDK.Modules;
 using quantum.custom.plugin;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using FirstLight.Server.SDK.Modules.Commands;
+
 
 namespace Quantum
 { 
@@ -38,11 +36,11 @@ namespace Quantum
 			try
 			{
 				var logicCommand = QuantumLogicCommandFactory.BuildFromEvent(ev);
-				var payload = new QuantumCommandPayload()
+				if (logicCommand == null)
 				{
-					CommandType = logicCommand.GetType().FullName
-				};
-				DispatchCommand(actorId, payload, ev.Game.Frames.Verified, true);
+					Log.Error("Could not instantiate command "+ev.CommandType);
+				}
+				DispatchCommand(actorId, logicCommand, ev.Game.Frames.Verified, true);
 			}
 			catch(Exception e)
 			{
@@ -55,9 +53,8 @@ namespace Quantum
 		/// Enriches the command with data from this server-side simulation
 		/// and dispatches the command to playfab
 		/// </summary>
-		public void DispatchCommand(int actorNumber, QuantumCommandPayload command, Frame frame, bool async = false)
+		public void DispatchCommand(int actorNumber, IQuantumCommand command, Frame frame, bool async = false)
 		{
-
 			if (_plugin.CustomServer.gameSession == null)
 			{
 				_plugin.LogError("Game did not ran, not sending commands");
@@ -75,21 +72,6 @@ namespace Quantum
 				_plugin.LogError("Command without player id received");
 				return;
 			}
-
-			var game = _plugin.CustomServer.gameSession.Session.Game as QuantumGame;
-			var commandType = _commandAssembly.GetType(command.CommandType);
-			if(commandType == null)
-			{
-				_plugin.LogError($"Could not find command type {command.CommandType}");
-				return;
-			}
-			var commandInstance = Activator.CreateInstance(commandType) as IQuantumCommand;
-			if (commandInstance == null)
-			{
-				_plugin.LogError($"Actor {actorNumber} sent command {commandType.Name} which is not a quantum command");
-				return;
-			}
-			
 			var quantumValues = new QuantumValues()
 			{
 				ExecutingPlayer = _plugin.CustomServer.GetClientIndexByActorNumber(actorNumber),
@@ -97,8 +79,8 @@ namespace Quantum
 				AllowedRewards = _plugin.RoomProperties.AllowedRewards.Value,
 				MatchId = _plugin.MatchID
 			};
-			commandInstance.FromFrame(frame, quantumValues);
-			_plugin.CustomServer.Playfab.SendServerCommand(playfabId, token, commandInstance, async);
+			command.FromFrame(frame, quantumValues);
+			_plugin.CustomServer.Playfab.SendServerCommand(playfabId, token, command, async);
 		}
 
 		/// <summary>

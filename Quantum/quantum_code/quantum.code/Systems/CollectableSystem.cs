@@ -7,7 +7,7 @@ namespace Quantum.Systems
 	/// This system handles all the <see cref="Collectable"/> component collection interactions using triggers 
 	/// </summary>
 	public unsafe class CollectableSystem : SystemSignalsOnly, ISignalPlayerDead,
-	                                        ISignalOnTriggerEnter3D, ISignalOnTrigger3D, ISignalOnTriggerExit3D,
+											ISignalOnTriggerEnter3D, ISignalOnTrigger3D, ISignalOnTriggerExit3D,
 											ISignalPlayerColliderDisabled
 	{
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
@@ -18,12 +18,12 @@ namespace Quantum.Systems
 		public void OnTrigger3D(Frame f, TriggerInfo3D info)
 		{
 			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
-			    !f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var player) ||
-			    f.Has<EntityDestroyer>(info.Entity))
+				!f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var player) ||
+				f.Has<EntityDestroyer>(info.Entity))
 			{
 				return;
 			}
-			
+
 			// We try to start collecting here because collectable may be allowed to
 			// become collected after it already triggered with a player
 			if (!collectable->IsCollecting(player.Player) && f.Time >= collectable->AllowedToPickupTime)
@@ -33,7 +33,7 @@ namespace Quantum.Systems
 					return;
 				}
 			}
-			
+
 			var endTime = collectable->CollectorsEndTime[player.Player];
 			if (endTime == FP._0 || f.Time < endTime)
 			{
@@ -48,15 +48,15 @@ namespace Quantum.Systems
 			}
 
 			Collect(f, info.Entity, info.Other, player.Player, collectable);
-			
+
 			f.Destroy(info.Entity);
 		}
 
 		public void OnTriggerExit3D(Frame f, ExitInfo3D info)
 		{
 			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
-			    !f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var player) ||
-			    f.Has<EntityDestroyer>(info.Entity))
+				!f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var player) ||
+				f.Has<EntityDestroyer>(info.Entity))
 			{
 				return;
 			}
@@ -66,20 +66,20 @@ namespace Quantum.Systems
 
 		private bool TryStartCollecting(Frame f, TriggerInfo3D info, bool sendEvent)
 		{
-			
 			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
 				f.Time < collectable->AllowedToPickupTime || !f.Has<AlivePlayerCharacter>(info.Other) ||
 				!f.TryGet<PlayerCharacter>(info.Other, out var player) || f.Has<EntityDestroyer>(info.Entity))
 			{
 				return false;
 			}
-			
+
 			if (IsCollectableFilled(f, info.Entity, info.Other))
 			{
 				if (sendEvent)
 				{
 					f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
 				}
+
 				return false;
 			}
 
@@ -90,6 +90,11 @@ namespace Quantum.Systems
 		{
 			if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
 			{
+				if (consumable->ConsumableType == ConsumableType.Special)
+				{
+					return !f.Unsafe.GetPointer<PlayerInventory>(player)->HasSpaceForSpecial();
+				}
+
 				var stats = f.Get<Stats>(player);
 				return stats.IsConsumableStatFilled(consumable->ConsumableType);
 			}
@@ -106,7 +111,7 @@ namespace Quantum.Systems
 		}
 
 		private bool StartCollecting(Frame f, PlayerRef player, EntityRef playerEntity, Collectable* collectable,
-		                             EntityRef collectableEntity)
+									 EntityRef collectableEntity)
 		{
 			if (collectable->IsCollecting(player)) return false;
 
@@ -117,7 +122,7 @@ namespace Quantum.Systems
 		}
 
 		private void StopCollecting(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player,
-		                            Collectable* collectable)
+									Collectable* collectable)
 		{
 			if (!collectable->IsCollecting(player)) return;
 
@@ -126,7 +131,7 @@ namespace Quantum.Systems
 		}
 
 		private void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player,
-		                     Collectable* collectable)
+							 Collectable* collectable)
 		{
 			var gameId = collectable->GameId;
 
@@ -137,31 +142,31 @@ namespace Quantum.Systems
 				if (!f.Has<BotCharacter>(playerEntity))
 				{
 					var loadoutMetadata = playerCharacter->GetLoadoutMetadata(f, &equipment->Item);
-					
+
 					// We count how many NFTs from their loadout a player has collected to use later for CS earnings
 					if (loadoutMetadata != null && loadoutMetadata.Value.IsNft)
 					{
 						// TODO: Handle a situation when a player somehow collects not his Helmet first but then collects
 						// his NFT Helmet instead. Current logic will NOT do increment in this edge case
-						
-						var slotIsBusy = equipment->Item.IsWeapon() ?
-											 playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid() :
-											 playerCharacter->Gear[PlayerCharacter.GetGearSlot(&equipment->Item)].IsValid();
-						
+
+						var slotIsBusy = equipment->Item.IsWeapon()
+							? playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid()
+							: playerCharacter->Gear[PlayerCharacter.GetGearSlot(&equipment->Item)].IsValid();
+
 						if (!slotIsBusy)
 						{
 							var playerData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
 							var matchData = playerData[player];
-							
+
 							// TODO: This code duplicates the struct every time we use it. Needs refactoring
 							matchData.CollectedOwnedNfts++;
-							
+
 							// We have to do reassign to store the updated value
 							playerData[player] = matchData;
 						}
 					}
 				}
-			
+
 				if (playerCharacter->HasBetterWeaponEquipped(&equipment->Item))
 				{
 					gameId = GameId.AmmoSmall;
@@ -184,6 +189,16 @@ namespace Quantum.Systems
 				else
 				{
 					equipment->Collect(f, entity, playerEntity, player);
+					
+					// In Looting 2.0 we restore ammo to initial level if it was lower in a previous gun
+					if (f.Context.MapConfig.LootingVersion == 2 && equipment->Item.IsWeapon())
+					{
+						var statsPointer = f.Unsafe.GetPointer<Stats>(playerEntity);
+						if (statsPointer->CurrentAmmoPercent < Constants.INITIAL_AMMO_FILLED)
+						{
+							statsPointer->SetCurrentAmmo(f, playerCharacter, playerEntity, Constants.INITIAL_AMMO_FILLED);
+						}
+					}
 				}
 			}
 			else if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
@@ -204,7 +219,8 @@ namespace Quantum.Systems
 			}
 
 			f.Signals.CollectableCollected(gameId, entity, player, playerEntity, collectable->Spawner);
-			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity, collectable->Spawner);
+			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity, collectable->Spawner,
+				f.Get<Transform3D>(entity).Position);
 		}
 
 		private FP GetEndTime(Frame f, EntityRef consumableEntity, EntityRef playerEntity)
@@ -235,7 +251,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-			
+
 			foreach (var collectable in f.Unsafe.GetComponentBlockIterator<Collectable>())
 			{
 				StopCollecting(f, collectable.Entity, playerEntity, player.Player, collectable.Component);

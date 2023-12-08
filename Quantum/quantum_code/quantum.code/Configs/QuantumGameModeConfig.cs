@@ -8,7 +8,7 @@ using Sirenix.OdinInspector;
 namespace Quantum
 {
 	[Serializable]
-	public struct QuantumGameModeConfig
+	public class QuantumGameModeConfig
 	{
 		[PropertyTooltip(DESC_ID)] public string Id;
 
@@ -62,6 +62,9 @@ namespace Quantum
 		
 		[FoldoutGroup("UI"), PropertyTooltip(DESC_DESCRIPTION_LOCALISATION_KEY)]
 		public string DescriptionLocalisationKey;
+		
+		[FoldoutGroup("UI"), PropertyTooltip(DESC_SHOW_TEAM_COUNT)]
+		public bool ShowTeamCount;
 
 #endregion
 
@@ -193,6 +196,7 @@ namespace Quantum
 		private const string DESC_SHOW_WEAPON_SLOTS = "Displays weapon slots and enables the player to switch between weapons.";
 		private const string DESC_SINGLE_SLOT_MODE = "Only shows the melee slot and the first weapon slot";
 		private const string DESC_DESCRIPTION_LOCALISATION_KEY = "Localisation key for the description of this game mode";
+		private const string DESC_SHOW_TEAM_COUNT = "Displays the number of teams lef";
 		private const string DESC_LIVES = "How many lives does the player have. Use 0 for infinite lives";
 		private const string DESC_MINIMUM_HEALTH = "Health will not fall below this value. Not for bots.";
 		private const string DESC_DROP_WEAPON_ON_PICKUP = "Drops the player's equipped weapon if they pick up a better one.";

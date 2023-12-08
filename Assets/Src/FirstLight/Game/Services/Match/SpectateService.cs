@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
@@ -10,10 +11,10 @@ namespace FirstLight.Game.Services
 {
 	public struct SpectatedPlayer
 	{
-		public EntityRef Entity;
-		public PlayerRef Player;
-		public int Team;
-		public Transform Transform; // todo: managed memory in unmanaged struct should remove
+		public readonly EntityRef Entity;
+		public readonly PlayerRef Player;
+		public readonly int Team;
+		public readonly Transform Transform; // todo: managed memory in unmanaged struct should remove
 
 		public SpectatedPlayer(EntityRef entity, PlayerRef player, int team, Transform transform)
 		{
@@ -21,6 +22,31 @@ namespace FirstLight.Game.Services
 			Player = player;
 			Team = team;
 			Transform = transform;
+		}
+
+		public bool Equals(SpectatedPlayer other)
+		{
+			return Entity.Equals(other.Entity) && Player.Equals(other.Player);
+		}
+
+		public override bool Equals(object obj)
+		{
+			return obj is SpectatedPlayer other && Equals(other);
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(Entity, Player);
+		}
+
+		public static bool operator ==(SpectatedPlayer left, SpectatedPlayer right)
+		{
+			return left.Equals(right);
+		}
+
+		public static bool operator !=(SpectatedPlayer left, SpectatedPlayer right)
+		{
+			return !left.Equals(right);
 		}
 	}
 
@@ -59,7 +85,7 @@ namespace FirstLight.Game.Services
 		private readonly IGameServices _gameServices;
 		private readonly IMatchServices _matchServices;
 		private readonly FP _playerVisionRange;
-		private readonly IObservableField<SpectatedPlayer> _spectatedPlayer = new ObservableField<SpectatedPlayer>();
+		private readonly IObservableField<SpectatedPlayer> _spectatedPlayer = new ObservableField<SpectatedPlayer>(false);
 
 		public IObservableFieldReader<SpectatedPlayer> SpectatedPlayer => _spectatedPlayer;
 
@@ -72,6 +98,7 @@ namespace FirstLight.Game.Services
 			_gameServices.MessageBrokerService.Subscribe<SimulationEndedMessage>(OnMatchSimulationEnded);
 
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
+			QuantumEvent.SubscribeManual<EventOnTeamAssigned>(this, OnTeamAssigned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned); // For Deathmatch
@@ -87,6 +114,13 @@ namespace FirstLight.Game.Services
 
 		public EntityRef GetSpectatedEntity() => _spectatedPlayer.Value.Entity;
 
+		private void OnTeamAssigned(EventOnTeamAssigned ev)
+		{
+			if (ev.Entity != this.GetSpectatedEntity()) return;
+			var localPlayer = ev.Game.GetLocalPlayerData(false, out var f);
+			SetSpectatedEntity(ev.Game.Frames.Verified, ev.Entity, localPlayer.Player, false);
+		}
+		
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
 			if (_gameServices.RoomService.IsLocalPlayerSpectator)
@@ -111,7 +145,16 @@ namespace FirstLight.Game.Services
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
 			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
-			var playerWinner = localWinner ? playerData[game.GetLocalPlayerRef()] : playerData[leader];
+			var playerWinner =  playerData[leader];
+			if (localWinner)
+			{
+				var local = playerData[game.GetLocalPlayerRef()];
+				var isLocalPlayerAlive = local.Data.Entity.IsAlive(game.Frames.Predicted);
+				if (isLocalPlayerAlive)
+				{
+					playerWinner = local;
+				}
+			}
 
 			if (playerWinner.Data.IsValid)
 			{
@@ -157,14 +200,18 @@ namespace FirstLight.Game.Services
 
 		private void SwipeLeft(QuantumGame game)
 		{
-			TryGetPreviousPlayer(game, out var player);
-			SetSpectatedEntity(game.Frames.Verified, player.Entity, player.Player);
+			if (TryGetPreviousPlayer(game, out var player))
+			{
+				SetSpectatedEntity(game.Frames.Verified, player.Entity, player.Player);
+			}
 		}
 
 		private void SwipeRight(QuantumGame game)
 		{
-			TryGetNextPlayer(game, out var player);
-			SetSpectatedEntity(game.Frames.Verified, player.Entity, player.Player);
+			if (TryGetNextPlayer(game, out var player))
+			{
+				SetSpectatedEntity(game.Frames.Verified, player.Entity, player.Player);
+			}
 		}
 
 		private bool TryGetNextPlayer(QuantumGame game, out Quantum.PlayerMatchData player)
@@ -224,7 +271,7 @@ namespace FirstLight.Game.Services
 		{
 			if (f != null && _matchServices.EntityViewUpdaterService.TryGetView(entity, out var view))
 			{
-				var team = f.TryGet<Targetable>(entity, out var t) ? t.Team : -1;
+				var team = f.TryGet<TeamMember>(entity, out var t) ? t.TeamId : -1;
 				_spectatedPlayer.Value = new SpectatedPlayer(entity, player, team, view.transform);
 
 				return true;

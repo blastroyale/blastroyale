@@ -5,6 +5,7 @@ Shader "FLG/Unlit/Dynamic Object"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Color ("Color", Color) = (1,1,1,1)
+        _AdditiveColor ("Additive Color", Color) = (0,0,0,1)
     }
     SubShader
     {
@@ -42,6 +43,7 @@ Shader "FLG/Unlit/Dynamic Object"
 
             CBUFFER_START(UnityPerMaterial)
             half4 _Color;
+            half4 _AdditiveColor;
             CBUFFER_END
 
             Varyings vert(Attributes IN)
@@ -55,7 +57,7 @@ Shader "FLG/Unlit/Dynamic Object"
 
             half4 frag(const Varyings IN) : SV_Target
             {
-                half4 tex = tex2D(_MainTex, IN.uvOS) * _Color;
+                half4 tex = tex2D(_MainTex, IN.uvOS) * _Color + _AdditiveColor;
                 return tex;
             }
             ENDHLSL

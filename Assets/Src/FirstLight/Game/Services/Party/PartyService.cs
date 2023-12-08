@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -30,32 +31,32 @@ namespace FirstLight.Game.Services.Party
 		/// Create a new Party generating a code when done <seealso cref="PartyCode"/>
 		/// </summary>
 		/// <exception cref="PartyException">throws with exceptional cases like player already have party</exception>
-		Task CreateParty();
+		UniTask CreateParty();
 
 		/// <summary>
 		/// Join a party by a previous generated <paramref name="code"/> with <see cref="CreateParty"/>
 		/// </summary>
 		/// <exception cref="PartyException">throws with exceptional cases like party not found</exception>
-		Task JoinParty(string code);
+		UniTask JoinParty(string code);
 
 		/// <summary>
 		/// Set ready status in a party
 		/// </summary>
 		/// <exception cref="PartyException">throws with exceptional cases like party not found</exception>
-		Task Ready(bool ready);
+		UniTask Ready(bool ready);
 
 		/// <summary>
 		/// Leave a previous joined/created party <see cref="CreateParty"/>
 		/// </summary>
 		/// <exception cref="PartyException">throws with exceptional cases like user not in a party</exception>
-		Task LeaveParty();
+		UniTask LeaveParty();
 
 		/// <summary>
 		/// Kick a player from the party <see cref="CreateParty"/> using their <paramref name="playfabID"/>
 		/// Must be the Party Leader to use this method
 		/// </summary>
 		/// <exception cref="PartyException">throws with exceptional cases like player not in party</exception>
-		Task Kick(string playfabID);
+		UniTask Kick(string playfabID);
 
 		/// <summary>
 		/// Forces a refresh of the party state / list.
@@ -108,19 +109,19 @@ namespace FirstLight.Game.Services.Party
 		/// </summary>
 		/// <param name="key"></param>
 		/// <param name="value"></param>
-		Task SetLobbyProperty(string key, string value);
+		UniTask SetLobbyProperty(string key, string value);
 
 		/// <summary>
 		/// Set a property in the local member
 		/// </summary>
 		/// <param name="key"></param>
 		/// <param name="value"></param>
-		Task SetMemberProperty(string key, string value);
+		UniTask SetMemberProperty(string key, string value);
 
 		/// <summary>
 		/// Delete a lobby property
 		/// </summary>
-		Task DeleteLobbyProperty(string key);
+		UniTask DeleteLobbyProperty(string key);
 
 		/// <summary>
 		/// Get local player object as <see cref="PartyMember"/> from lobby <see cref="Members"/> list
@@ -170,7 +171,7 @@ namespace FirstLight.Game.Services.Party
 		// State
 		private string _lobbyId;
 		private PlayFabAuthenticationContext usedPlayfabContext;
-		SemaphoreSlim _accessSemaphore = new(1, 1);
+		SemaphoreSlim _accessSemaphore = new (1, 1);
 
 		private IObservableField<bool> HasParty { get; }
 		private IObservableField<bool> PartyReady { get; }
@@ -195,7 +196,7 @@ namespace FirstLight.Game.Services.Party
 			_pubsub = pubsub;
 			_backendService = backendService;
 			_genericDialogService = genericDialogService;
-			Members = new ObservableList<PartyMember>(new());
+			Members = new ObservableList<PartyMember>(new ());
 			HasParty = new ObservableField<bool>(false);
 			PartyReady = new ObservableField<bool>(false);
 			OperationInProgress = new ObservableField<bool>(false);
@@ -210,9 +211,21 @@ namespace FirstLight.Game.Services.Party
 				OnReconnectPubSub();
 #pragma warning restore CS4014
 			};
+			msgBroker.Subscribe<ChangedServerRegionMessage>(OnChangedPhotonServer);
 		}
 
+		private void OnChangedPhotonServer(ChangedServerRegionMessage obj)
+		{
+			LeavePartyAndForget();
+		}
+
+
 		private void OnSuccessAuthentication(SuccessAuthentication obj)
+		{
+			LeavePartyAndForget();
+		}
+
+		private void LeavePartyAndForget()
 		{
 			if (HasParty.Value)
 			{
@@ -223,9 +236,8 @@ namespace FirstLight.Game.Services.Party
 			}
 		}
 
-
 		/// <inheritdoc/>
-		public async Task CreateParty()
+		public async UniTask CreateParty()
 		{
 			try
 			{
@@ -282,7 +294,7 @@ namespace FirstLight.Game.Services.Party
 		}
 
 		/// <inheritdoc/>
-		public async Task JoinParty(string code)
+		public async UniTask JoinParty(string code)
 		{
 			try
 			{
@@ -381,7 +393,7 @@ namespace FirstLight.Game.Services.Party
 			SendAnalyticsAction("Join");
 		}
 
-		public async Task SetLobbyProperty(string key, string value)
+		public async UniTask SetLobbyProperty(string key, string value)
 		{
 			if (!HasParty.Value)
 			{
@@ -404,7 +416,7 @@ namespace FirstLight.Game.Services.Party
 			});
 		}
 
-		public async Task DeleteLobbyProperty(string key)
+		public async UniTask DeleteLobbyProperty(string key)
 		{
 			if (!HasParty.Value)
 			{
@@ -425,14 +437,14 @@ namespace FirstLight.Game.Services.Party
 		}
 
 		/// <inheritdoc/>
-		public async Task Ready(bool ready)
+		public async UniTask Ready(bool ready)
 		{
 			await SetMemberProperty(ReadyMemberProperty, ready.ToString());
 			SendAnalyticsAction($"Ready {ready}");
 		}
 
 		/// <inheritdoc/>
-		public async Task SetMemberProperty(string key, string value)
+		public async UniTask SetMemberProperty(string key, string value)
 		{
 			try
 			{
@@ -477,12 +489,12 @@ namespace FirstLight.Game.Services.Party
 			}
 		}
 
-		public Task Kick(string playfabID)
+		public UniTask Kick(string playfabID)
 		{
 			return Kick(playfabID, true);
 		}
 
-		private async Task Kick(string playfabID, bool useSemaphore, bool preventRejoin = true)
+		private async UniTask Kick(string playfabID, bool useSemaphore, bool preventRejoin = true)
 		{
 			try
 			{
@@ -521,7 +533,7 @@ namespace FirstLight.Game.Services.Party
 		}
 
 		/// <inheritdoc/>
-		public async Task LeaveParty()
+		public async UniTask LeaveParty()
 		{
 			var lobbyId = _lobbyId;
 			var members = MembersAsString();
@@ -558,8 +570,10 @@ namespace FirstLight.Game.Services.Party
 				}
 				catch (WrappedPlayFabException ex)
 				{
+					var errors = ConvertErrors(ex);
+
 					// If player try to leaves the lobby but he is not on the lobby or the lobby doesn't exists ignore the error and reset state
-					if (ex.Error.Error is PlayFabErrorCode.LobbyPlayerNotPresent or PlayFabErrorCode.LobbyDoesNotExist)
+					if (errors is PartyErrors.UserIsNotMember or PartyErrors.TryingToGetDetailsOfNonMemberParty or PartyErrors.PartyNotFound or PartyErrors.MemberNotFound)
 					{
 						return;
 					}
@@ -604,7 +618,7 @@ namespace FirstLight.Game.Services.Party
 		}
 
 
-		private async Task FetchPartyAndUpdateState()
+		private async UniTask FetchPartyAndUpdateState()
 		{
 			try
 			{

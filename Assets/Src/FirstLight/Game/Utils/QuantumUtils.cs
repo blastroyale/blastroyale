@@ -21,7 +21,7 @@ namespace FirstLight.Game.Utils
 			var matchData = container.GeneratePlayersMatchData(f, out leader, out var leaderTeam);
 
 			localWinner = false;
-			
+
 			if (game.PlayerIsLocal(leader))
 			{
 				localWinner = true;
@@ -29,13 +29,13 @@ namespace FirstLight.Game.Utils
 			else
 			{
 				var localPlayerRef = game.GetLocalPlayerRef();
-				
+
 				if (localPlayerRef != PlayerRef.None)
 				{
 					localWinner = matchData[localPlayerRef].TeamId == leaderTeam;
 				}
 			}
-			
+
 			return matchData;
 		}
 
@@ -46,8 +46,28 @@ namespace FirstLight.Game.Utils
 		{
 			var f = game.Frames.Verified;
 			var container = f.GetSingleton<GameContainer>();
-			
+
 			return container.IsGameOver;
+		}
+
+		public static bool HasGameContainer(this QuantumGame game)
+		{
+			var f = game.Frames.Verified;
+			if (f == null) return false;
+			return f.TryGetSingleton<GameContainer>(out _);
+		}
+		
+		public static bool IsLocalPlayerNotPresent()
+		{
+			if (QuantumRunner.Default != null && QuantumRunner.Default.Game != null)
+			{
+				var game = QuantumRunner.Default.Game;
+				var entity = game.GetLocalPlayerEntityRef();
+				if (!entity.IsValid) return false;
+				return !game.Frames.Verified.Get<PlayerCharacter>(entity).RealPlayer;
+			}
+
+			return false;
 		}
 	}
 }

@@ -37,6 +37,11 @@ namespace Backend.Game.Services
 		/// and deserialize the data as a IGameCommand instance to be executed.
 		/// </summary>
 		public IGameCommand BuildCommandInstance(string commandData, string commandTypeName);
+
+		/// <summary>
+		/// Build all initialization commands
+		/// </summary>
+		public IGameCommand[] GetInitializationCommands();
 	}
 
 	/// <inheritdoc/>
@@ -91,6 +96,19 @@ namespace Backend.Game.Services
 		public Type GetCommandType(string typeName)
 		{
 			return _plugins.GetRegisteredCommand(typeName);
+		}
+
+		public IGameCommand[] GetInitializationCommands()
+		{
+			var types = _plugins.GetInitializationCommands();
+			var commands = new IGameCommand[types.Length];
+			for (var i = 0; i < types.Length; i++)
+			{
+				var type = types[i];
+				commands[i] = Activator.CreateInstance(type) as IGameCommand;
+			}
+
+			return commands;
 		}
 	}
 }

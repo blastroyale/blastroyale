@@ -39,11 +39,6 @@ MonoBehaviour:
         Id:
           Value: 148021496798672150
       Address: QuantumAssets/Projectiles/MainBullet.prefab[MainBulletEntityPrototype]
-    - Path: AddressableResources/Maps/Test/SmallWilderness_NavMesh_data
-      AssetRef:
-        Id:
-          Value: 150081812885928368
-      Address: Maps/Test/SmallWilderness_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/Projectiles/SmallBullet|EntityPrototype
       AssetRef:
         Id:
@@ -114,11 +109,6 @@ MonoBehaviour:
         Id:
           Value: 434800705800386188
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CurrentFrameTimeFunction_4]
-    - Path: AddressableResources/Maps/Test/TestScene_NavMesh_data
-      AssetRef:
-        Id:
-          Value: 477379078662942642
-      Address: Maps/Test/TestScene_NavMesh_data.asset
     - Path: AddressableResources/Configs/MutatorConfigs
       AssetRef:
         Id:
@@ -199,6 +189,11 @@ MonoBehaviour:
         Id:
           Value: 679108917589745186
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckBlackboardInt_43]
+    - Path: AddressableResources/Maps/Test/TestScene_mesh
+      AssetRef:
+        Id:
+          Value: 681132644485897465
+      Address: Maps/Test/TestScene_mesh.asset
     - Path: AddressableResources/QuantumAssets/Default Config Assets/Default CharacterController3DConfigAsset
       AssetRef:
         Id:
@@ -209,6 +204,11 @@ MonoBehaviour:
         Id:
           Value: 701952959705295376
       Address: QuantumAssets/Collectables/ChestPickup.prefab[ChestPickupEntityView]
+    - Path: AddressableResources/Maps/Test/TestScene_NavMesh_data
+      AssetRef:
+        Id:
+          Value: 724045998517328729
+      Address: Maps/Test/TestScene_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydiveFullyGroundedAction_22
       AssetRef:
         Id:
@@ -249,11 +249,6 @@ MonoBehaviour:
         Id:
           Value: 802778647459596964
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[GetAmmoCountFunction_3]
-    - Path: AddressableResources/Maps/Test/TestScene
-      AssetRef:
-        Id:
-          Value: 803407184028536169
-      Address: Maps/Test/TestScene.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_9
       AssetRef:
         Id:
@@ -664,6 +659,11 @@ MonoBehaviour:
         Id:
           Value: 2575471535425279547
       Address: Maps/District/District_NavMesh.asset
+    - Path: AddressableResources/Maps/Test/TestScene
+      AssetRef:
+        Id:
+          Value: 2605633785285790643
+      Address: Maps/Test/TestScene.asset
     - Path: AddressableResources/AdventureAssets/MapObjects/Bush Small|EntityPrototype
       AssetRef:
         Id:
@@ -861,11 +861,6 @@ MonoBehaviour:
         Id:
           Value: 3521447524462001825
       Address: Configs/ConsumableConfigs.asset
-    - Path: AddressableResources/Maps/Test/TestScene_NavMesh
-      AssetRef:
-        Id:
-          Value: 3526647891069364318
-      Address: Maps/Test/TestScene_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_18
       AssetRef:
         Id:
@@ -896,11 +891,6 @@ MonoBehaviour:
         Id:
           Value: 3726627970685454479
       Address: QuantumAssets/Collectables/ConsumablePickup.prefab[ConsumablePickupEntityView]
-    - Path: AddressableResources/Maps/Test/TestScene_mesh
-      AssetRef:
-        Id:
-          Value: 3801973863776343812
-      Address: Maps/Test/TestScene_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckIntDecision_15
       AssetRef:
         Id:
@@ -976,6 +966,11 @@ MonoBehaviour:
         Id:
           Value: 4114084746910684070
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Spawn_11]
+    - Path: AddressableResources/Maps/Test/TestScene_NavMesh
+      AssetRef:
+        Id:
+          Value: 4132623271473847115
+      Address: Maps/Test/TestScene_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_20
       AssetRef:
         Id:

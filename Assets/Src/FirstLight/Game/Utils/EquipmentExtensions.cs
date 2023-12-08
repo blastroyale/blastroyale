@@ -125,8 +125,6 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.NumberOfShots, weaponConfig.NumberOfShots);
 				stats.Add(EquipmentStatType.ReloadTime, weaponConfig.ReloadTime.AsFloat);
 				stats.Add(EquipmentStatType.MagazineSize, Math.Max(0, weaponConfig.MagazineSize));
-				stats.Add(EquipmentStatType.SpecialId0, (float) weaponConfig.Specials[0]);
-				stats.Add(EquipmentStatType.SpecialId1, (float) weaponConfig.Specials[1]);
 			}
 			else
 			{
@@ -196,7 +194,6 @@ namespace FirstLight.Game.Utils
 		{
 			return type switch
 			{
-				EquipmentStatType.ReloadTime => "N2",
 				EquipmentStatType.PowerToDamageRatio => "P2",
 				EquipmentStatType.Armor => "P2",
 				EquipmentStatType.AttackCooldown => "N2",
@@ -217,7 +214,6 @@ namespace FirstLight.Game.Utils
 			{EquipmentStatType.Speed, 0.09f},
 			{EquipmentStatType.Armor, 0.065f},
 			{EquipmentStatType.TargetRange, 11.5f},
-			{EquipmentStatType.ReloadTime, 4f},
 			{EquipmentStatType.SplashDamageRadius, 2f},
 			{EquipmentStatType.PowerToDamageRatio, 2f},
 			{EquipmentStatType.PickupSpeed, 0.12f},
@@ -227,8 +223,7 @@ namespace FirstLight.Game.Utils
 		public static readonly HashSet<EquipmentStatType> INVERT_VALUES = new()
 		{
 			EquipmentStatType.AttackCooldown,
-			EquipmentStatType.MinAttackAngle,
-			EquipmentStatType.ReloadTime
+			EquipmentStatType.MinAttackAngle
 		};
 		
 		public static readonly HashSet<EquipmentStatType> SPECIAL_TYPES = new()

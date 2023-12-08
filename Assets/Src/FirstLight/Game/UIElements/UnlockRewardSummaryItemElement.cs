@@ -18,18 +18,8 @@ namespace FirstLight.Game.UIElements
 		{
 			_icon.style.backgroundImage = StyleKeyword.Null;
 			_icon.RemoveSpriteClasses();
-			var ur = itemViewModel as UnlockItemViewModel;
-			switch (ur.UnlockSystem)
-			{
-				// TODO: Make this more dynamic
-				case UnlockSystem.Shop:
-					_icon.AddToClassList("sprite-home__icon-shop");
-					break;
-				case UnlockSystem.Collection:
-					_icon.AddToClassList("sprite-home__icon-heroes");
-					break;
-			}
-			_label.text = ur.DisplayName;
+			itemViewModel.DrawIcon(_icon);
+			_label.text = itemViewModel.DisplayName;
 			return this;
 		}
 

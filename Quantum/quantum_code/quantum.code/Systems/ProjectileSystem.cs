@@ -19,7 +19,7 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f, ref ProjectileFilter filter)
 		{
-			if ((filter.Transform->Position - filter.Projectile->SpawnPosition).SqrMagnitude > filter.Projectile->RangeSquared)
+			if ((filter.Transform->Position - filter.Projectile->SpawnPosition).SqrMagnitude >= filter.Projectile->RangeSquared)
 			{
 				if (filter.Projectile->ShouldPerformSubProjectileOnEndOfLifetime(f))
 				{
@@ -48,7 +48,7 @@ namespace Quantum.Systems
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
 			if (!f.TryGet<Projectile>(info.Entity, out var projectile) || info.Other == info.Entity || info.StaticData.IsTrigger || projectile.Attacker == info.Entity 
-				|| f.Has<EntityDestroyer>(info.Entity) || (projectile.Attacker == info.Other && !projectile.IsSubProjectile()) || (projectile.Attacker != info.Other && TeamHelpers.HasSameTeam(f, projectile.Attacker, info.Other)))
+				|| f.Has<EntityDestroyer>(info.Entity) || (projectile.Attacker == info.Other && !projectile.IsSubProjectile()) || (QuantumFeatureFlags.TEAM_IGNORE_COLLISION && projectile.Attacker != info.Other && TeamHelpers.HasSameTeam(f, projectile.Attacker, info.Other)))
 			{
 				return;
 			}
@@ -81,7 +81,7 @@ namespace Quantum.Systems
 		/// This creates a sub-projectile based on the parent projectile just changing its entity prototype and
 		/// a couple specific veriables specified per projectile hit type
 		/// </summary>
-		private void CreateSubProjectile(Frame f, Projectile p, FPVector3 hitPosition, bool onHit)
+		private void CreateSubProjectile(Frame f, in Projectile p, in FPVector3 hitPosition, in bool onHit)
 		{
 			var cfg = f.WeaponConfigs.GetConfig(p.SourceId);
 			var subProjectile = p;
@@ -102,11 +102,19 @@ namespace Quantum.Systems
 			f.Add(entity, subProjectile);
 		}
 
-		private void OnProjectileHit(Frame f, EntityRef targetHit, EntityRef projectileEntity, Projectile projectile)
+		private void OnProjectileHit(Frame f, in EntityRef targetHit, in EntityRef projectileEntity, in Projectile projectile)
 		{
-			
 			var position = f.Get<Transform3D>(projectileEntity).Position;
+			var isTeamHit = TeamHelpers.HasSameTeam(f, projectile.Attacker, targetHit);
+			var spawnSubOnEof = projectile.ShouldPerformSubProjectileOnEndOfLifetime(f);
 
+			if (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION && isTeamHit && !projectile.IsSubProjectile() && !spawnSubOnEof)
+			{
+				f.Events.OnProjectileFailedHit(projectileEntity, projectile, position, false);
+				f.Destroy(projectileEntity);
+				return;
+			}
+			
 			if(targetHit == projectileEntity || !targetHit.IsValid)
 				f.Events.OnProjectileFailedHit(projectileEntity, projectile, position, true);
 			else
@@ -114,30 +122,24 @@ namespace Quantum.Systems
 			
 			f.Events.OnProjectileEndOfLife(projectile.SourceId, position, true,projectile.IsSubProjectile());
 
-			if (projectile.ShouldPerformSubProjectileOnHit(f))
-			{
-				CreateSubProjectile(f, projectile, position, true);
-			}
-			else
-			{
-
-				var isSelfAOE = projectile.Attacker == targetHit && projectile.IsSubProjectile();
-				var power = (uint)(projectile.GetPower(f) * (isSelfAOE ? Constants.SELF_DAMAGE_MODIFIER : FP._1));
+			var isSelfAOE = projectile.Attacker == targetHit && projectile.IsSubProjectile();
+			var power = (uint)(projectile.GetPower(f) * (isSelfAOE ? Constants.SELF_DAMAGE_MODIFIER : FP._1));
 				
-				var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, projectileEntity, power,
-					projectile.KnockbackAmount, position, isSelfAOE ? 0 : projectile.TeamSource);
-				if (QuantumHelpers.ProcessHit(f, &spell))
-				{
-					OnHit(f, &spell);
-				}
+			var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, projectileEntity, power,
+											projectile.KnockbackAmount, position, isSelfAOE ? 0 : projectile.TeamSource);
+				
+			if (QuantumHelpers.ProcessHit(f, &spell))
+			{
+				OnHit(f, &spell);
+			}
+			
+			if (spawnSubOnEof)
+			{
+				CreateSubProjectile(f, projectile, position, false);
 			}
 
-			if (projectile.Speed > 0)
+			if (!projectile.IsSubProjectile())
 			{
-				if (projectile.ShouldPerformSubProjectileOnEndOfLifetime(f))
-				{
-					CreateSubProjectile(f, projectile, position, false);
-				}
 				f.Destroy(projectileEntity);
 			}
 		}
@@ -159,7 +161,7 @@ namespace Quantum.Systems
 		/// </summary>
 		/// <param name="f"></param>
 		/// <param name="e"></param>
-		public static void Shoot(Frame f, EntityRef e)
+		public static void Shoot(Frame f, in EntityRef e)
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
@@ -203,10 +205,10 @@ namespace Quantum.Systems
 			}
 		}
 		
-		private static void CreateProjectile(Frame f, EntityRef shooter, FP range, FPVector2 aimingDirection, FPVector3 projectileStartPosition, QuantumWeaponConfig weaponConfig)
+		private static void CreateProjectile(Frame f, in EntityRef shooter, in FP range, in FPVector2 aimingDirection, FPVector3 projectileStartPosition, QuantumWeaponConfig weaponConfig)
 		{
 			FP accuracyMod = FP._0;
-			if(weaponConfig.MinAttackAngle > FP._0 && !weaponConfig.IsMeleeWeapon)
+			if(weaponConfig.MinAttackAngle > FP._0 && !weaponConfig.IsMeleeWeapon && !(weaponConfig.NumberOfShots > 1))
 			{
 				accuracyMod = f.WeaponConfigs.GetRandomBakedAccuracyAngle(f, weaponConfig.Id);
 			}

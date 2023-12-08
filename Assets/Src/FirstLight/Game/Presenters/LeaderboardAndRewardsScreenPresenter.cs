@@ -208,7 +208,7 @@ namespace FirstLight.Game.Presenters
 			var maxLevel = GameConstants.Data.PLAYER_FAME_MAX_LEVEL;
 			var gainedLeft = xpRewards;
 			var levelsInfo = new List<RewardLevelPanelView.LevelLevelRewardInfo>();
-			var nextLevel = (uint) Math.Clamp(_matchServices.MatchEndDataService.LevelBeforeChange, 0, maxLevel);
+			var nextLevel = (uint) Math.Clamp(_gameDataProvider.PlayerDataProvider.Level.Value, 1, maxLevel);
 			var currentLevel = nextLevel;
 			//var configs = _gameServices.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
 			
@@ -349,13 +349,12 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var entry in entries)
 			{
-				// TODO: PFP
 				var newEntry = _leaderboardEntryAsset.Instantiate();
 				var borderColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int)entry.LeaderboardRank);
 				newEntry.AttachView(this, out LeaderboardEntryView view);
 				view.SetData((int) entry.PlayerRank, entry.GetPlayerName(), (int) entry.Data.PlayersKilledCount,
 					(int) entry.Data.PlayerTrophies,
-					_matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player, entry.AvatarUrl, borderColor);
+					_matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player, entry.AvatarUrl, null, borderColor);
 				_leaderboardScrollView.Add(newEntry);
 			}
 		}

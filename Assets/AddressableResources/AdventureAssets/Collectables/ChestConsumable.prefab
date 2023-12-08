@@ -155,7 +155,7 @@ PrefabInstance:
     - target: {fileID: 8394961782085835017, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: _collectClip
       value: 
-      objectReference: {fileID: 1827226128182048838, guid: b6332db56c6086d45a70d4371167e94b, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 8962051101469580897, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: m_Layer
       value: 0

@@ -28,15 +28,16 @@ namespace Src.FirstLight.Server
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.LEADERBOARD_LADDER_NAME, false);
 
 			var evManager = _ctx.PluginEventManager!;
-			// evManager.RegisterEventListener<PlayerDataLoadEvent>(OnPlayerLoaded);
-			// evManager.RegisterEventListener<GameLogicMessageEvent<TrophiesUpdatedMessage>>(OnTrophiesUpdate);
+			evManager.RegisterEventListener<PlayerDataLoadEvent>(OnPlayerLoaded);
+			evManager.RegisterEventListener<GameLogicMessageEvent<TrophiesUpdatedMessage>>(OnTrophiesUpdate);
 		}
 
 		private async Task OnTrophiesUpdate(GameLogicMessageEvent<TrophiesUpdatedMessage> ev)
 		{
 			var currentSeason = await _ctx.Statistics.GetSeasonAsync(GameConstants.Stats.LEADERBOARD_LADDER_NAME);
-			var finalTrophies = ev.Message.NewValue;
+			if (currentSeason == -1) return;
 			
+			var finalTrophies = ev.Message.NewValue;
 			if (currentSeason != ev.Message.Season)
 			{
 				if (finalTrophies < ev.Message.OldValue) finalTrophies = 0;
@@ -77,6 +78,8 @@ namespace Src.FirstLight.Server
 		{
 			var playerData = state.DeserializeModel<PlayerData>();
 			var currentSeason = await _ctx.Statistics.GetSeasonAsync(GameConstants.Stats.LEADERBOARD_LADDER_NAME);
+			if (currentSeason == -1) return;
+			
 			if (currentSeason != playerData.TrophySeason)
 			{
 				await ResetTrophies(userId, 0, (uint)currentSeason);

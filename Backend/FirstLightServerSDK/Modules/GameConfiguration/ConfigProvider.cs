@@ -65,10 +65,9 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 		}
 
 		/// <inheritdoc />
-		public void AddConfigs<T>(Func<T, int> referenceIdResolver, IList<T> configList) where T : struct
+		public void AddConfigs<T>(Func<T, int> referenceIdResolver, IList<T> configList)
 		{
 			var dictionary = new Dictionary<int, T>(configList.Count);
-
 			for (int i = 0; i < configList.Count; i++)
 			{
 				dictionary.Add(referenceIdResolver(configList[i]), configList[i]);
@@ -77,7 +76,7 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 			_configs.Add(typeof(T), dictionary);
 		}
 
-		public void AddConfigs<T>(Func<T, string> referenceIdResolver, IList<T> configList) where T : struct
+		public void AddConfigs<T>(Func<T, string> referenceIdResolver, IList<T> configList)
 		{
 			AddConfigs(config => referenceIdResolver(config).GetDeterministicHashCode(), configList);
 		}

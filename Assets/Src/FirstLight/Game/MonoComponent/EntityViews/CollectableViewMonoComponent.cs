@@ -31,12 +31,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField, Required] private Animation _animation;
 
 		//[SerializeField, Required] private AnimationClip _spawnClip;
-		[SerializeField, Required] private AnimationClip _idleClip;
+		[SerializeField] private AnimationClip _idleClip;
 		[SerializeField] private AnimationClip _collectClip;
 		[SerializeField] private Transform _pickupCircle;
 		[SerializeField] private bool _spawnAnim = true;
 
-		private readonly Dictionary<EntityRef, CollectingData> _collectors = new();
+		private readonly Dictionary<EntityRef, CollectingData> _collectors = new ();
 		private EntityRef _displayedCollector;
 		private CollectableIndicatorVfxMonoComponent _collectingVfx;
 
@@ -63,7 +63,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			MatchServices = MainInstaller.Resolve<IMatchServices>();
 
 			//_animation.AddClip(_spawnClip, CLIP_SPAWN);
-			_animation.AddClip(_idleClip, CLIP_IDLE);
+			if (_idleClip != null)
+			{
+				_animation.AddClip(_idleClip, CLIP_IDLE);
+			}
+
 			if (_collectClip != null)
 			{
 				_animation.AddClip(_collectClip, CLIP_COLLECT);
@@ -132,6 +136,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 						QuantumEvent.Subscribe<EventOnShieldChanged>(this,
 							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Shield));
 						break;
+					case ConsumableType.Special:
+						QuantumEvent.Subscribe<EventOnPlayerSpecialUpdated>(this,
+							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Special));
+						break;
 				}
 			}
 
@@ -139,7 +147,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			//_animation.Play(CLIP_SPAWN);
 			//_animation.PlayQueued(CLIP_IDLE, QueueMode.CompleteOthers, PlayMode.StopAll);
 
-			_animation.Play(CLIP_IDLE);
+			if (_idleClip != null)
+			{
+				_animation.Play(CLIP_IDLE);
+			}
 		}
 
 		private void RefreshIndicator(Frame f, EntityRef entity, ConsumableType type)
@@ -147,7 +158,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (!entity.IsValid || !f.Exists(entity) || !MatchServices.IsSpectatingPlayer(entity)) return;
 
 			var stats = f.Get<Stats>(entity);
-			_pickupCircle.gameObject.SetActive(!stats.IsConsumableStatFilled(type));
+			bool filled;
+			if (type == ConsumableType.Special)
+			{
+				filled =!f.Get<PlayerInventory>(entity).HasSpaceForSpecial();
+			}
+			else
+			{
+				filled = stats.IsConsumableStatFilled(type);
+			}
+			_pickupCircle.gameObject.SetActive(!filled);
 		}
 
 		private IEnumerator GoToPoint(float moveTime, Vector3 startPos, Vector3 endPos)

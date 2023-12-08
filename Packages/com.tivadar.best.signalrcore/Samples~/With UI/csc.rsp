@@ -1,0 +1,5 @@
+#https://forum.unity.com/threads/rsp-file-per-assembly-or-folder.572758/
+
+#https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/errors-warnings
+-warnaserror
+-nowarn:CS1701,CS0612

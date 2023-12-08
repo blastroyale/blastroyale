@@ -10,8 +10,16 @@ namespace FirstLight.Game.Data
 		NONE = 0,
 		FIRST_GUIDE_MATCH = 1 << 1,
 		META_GUIDE_AND_MATCH = 1 << 2,
+		[Obsolete] // Cant remove it because it will break existing data
+		TUTORIAL_BP = 1 << 4,
+		[Obsolete]
+		SECOND_GUIDE_MATCH = 1 << 2,
+		[Obsolete]
 		POST_MATCH_GUIDE = 1 << 3,
-		TUTORIAL_BP = 1 << 4
+		[Obsolete]
+		BP_EQUIPMENT_GUIDE = 1 << 3,
+		
+			
 	}
 	
 	/// <summary>

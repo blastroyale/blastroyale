@@ -58,7 +58,7 @@ namespace FirstLight.Game.Services
 			}
 			
 			// Only give items after the tutorial is finished
-			if(!_tutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH) && FeatureFlags.TUTORIAL)
+			if(!_tutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH) && FeatureFlags.TUTORIAL)
 			{
 				return;
 			}

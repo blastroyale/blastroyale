@@ -68,7 +68,7 @@ namespace FirstLight.Game.Views.UITK
 
 		public override void SubscribeToEvents()
 		{
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponAdded>(OnLocalPlayerWeaponAdded);
+			QuantumEvent.SubscribeManual<EventOnPlayerWeaponAdded>(OnPlayerWeaponAdded);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(OnLocalPlayerWeaponChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(OnPlayerAmmoChanged);
@@ -81,13 +81,13 @@ namespace FirstLight.Game.Views.UITK
 
 		public void UpdateFromLatestVerifiedFrame()
 		{
-			var playerEntity = 	QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 			var f = QuantumRunner.Default.Game.Frames.Verified;
-			if (!f.TryGet<PlayerCharacter>(playerEntity,out var pc))
+			if (!f.TryGet<PlayerCharacter>(playerEntity, out var pc))
 			{
 				return;
 			}
-			
+
 			SetWeapon(pc.WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon);
 			SetSlot(pc.CurrentWeaponSlot);
 			_ammoLabel.text = "0";
@@ -100,8 +100,10 @@ namespace FirstLight.Game.Views.UITK
 			UpdateFromLatestVerifiedFrame();
 		}
 
-		private void OnLocalPlayerWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
+		private void OnPlayerWeaponAdded(EventOnPlayerWeaponAdded callback)
 		{
+			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
+
 			SetWeapon(callback.Weapon);
 		}
 

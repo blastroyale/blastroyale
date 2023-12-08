@@ -15,6 +15,9 @@ namespace FirstLight.Game.Data.DataTypes
 		public GameId GameId { get; }
 		public uint Amount { get; }
 		public string DisplayName { get; }
+		
+		public string ItemTypeDisplayName => Item.GetCollectionCategory().GetCollectionCategoryDisplayName();
+
 		public VisualElement ItemCard => new CollectionRewardsSummaryElement()
 		{
 			pickingMode = PickingMode.Ignore

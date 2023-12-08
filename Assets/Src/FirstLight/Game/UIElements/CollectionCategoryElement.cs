@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
 using I2.Loc;
@@ -27,7 +28,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssSpriteIconGlider = "sprite-home__icon-jetpack";
 		private const string UssSpriteIconCharacters = "sprite-home__icon-characters";
 		private const string UssSpriteIconHammer = "sprite-home__icon-melee-skin";
-		private const string UssSpriteIconProfilePicture = "sprite-home__icon-profilepicture";
+		private const string UssSpriteIconProfilePicture = "sprite-home__icon-avatar";
 		
 		public CollectionCategory Category { get; set; }
 
@@ -80,17 +81,7 @@ namespace FirstLight.Game.UIElements
 				GameIdGroup.ProfilePicture   => UssSpriteIconProfilePicture,
 				_                       => "",
 			});
-
-			_name.text = cat.Id switch
-			{
-				GameIdGroup.Glider      => ScriptLocalization.UITCollectionScreen.gliders,
-				GameIdGroup.PlayerSkin  => ScriptLocalization.UITCollectionScreen.characters,
-				GameIdGroup.DeathMarker => ScriptLocalization.UITCollectionScreen.banners,
-				GameIdGroup.MeleeSkin => ScriptLocalization.UITCollectionScreen.meleeskins,
-				GameIdGroup.ProfilePicture => ScriptLocalization.UITCollectionScreen.avatars,
-
-				_                       => cat.Id.ToString()
-			};
+			_name.text = cat.GetCollectionCategoryDisplayName();
 		}
 
 		/// <summary>

@@ -45,14 +45,12 @@ namespace FirstLight.Game.Data
 		public DateTime LastLoginTime;
 		public DateTime LoginTime;
 		public bool IsFirstSession;
-
 		public bool UseDynamicJoystick = false;
 		public bool UseDynamicCamera = true;
 		public bool UseScreenShake = true;
+		public bool InvertSpecialCancellling = true;
 
 		public Environment LastEnvironment;
-		public string DeviceId;
-		public string LastLoginEmail;
 		public string ConnectionRegion;
 
 		public DateTime GameReviewDate;
@@ -63,6 +61,7 @@ namespace FirstLight.Game.Data
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
+		public bool UseOverheadUI = false;
 		
 		public bool DialogueEnabled = true;
 		public FpsTarget FpsTarget = FpsTarget.High;
@@ -78,6 +77,7 @@ namespace FirstLight.Game.Data
 		public bool MovespeedControl;
 		public bool AngleTapShoot;
 		public bool StopShootingShake;
+		
 		
 		[NonSerialized] public Dictionary<string, string> TitleData;
 		

@@ -809,6 +809,7 @@ namespace FirstLight.Game.StateMachines
 					break;
 			}
 
+			
 			if (collectableId.IsInGroup(GameIdGroup.Weapon))
 			{
 				audio = AudioId.WeaponPickup;
@@ -816,6 +817,10 @@ namespace FirstLight.Game.StateMachines
 			else if (collectableId.IsInGroup(GameIdGroup.Equipment))
 			{
 				audio = AudioId.GearPickup;
+			}
+			else if (collectableId.IsInGroup(GameIdGroup.Special))
+			{
+				audio = AudioId.LargeAmmoPickup;
 			}
 
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView) &&
@@ -900,7 +905,12 @@ namespace FirstLight.Game.StateMachines
 			// Remove top-most matching occurence of the ambience in the list
 			// This is so ambience can support entering volumes of same type, and transitioning between
 			// different volumes correctly
-			_ambienceList.RemoveAt(_ambienceList.FindLastIndex(x => x == msg.Ambience.GetAmbientAudioId()));
+			var index = _ambienceList.FindLastIndex(x => x == msg.Ambience.GetAmbientAudioId());
+
+			if (index != -1)
+			{
+				_ambienceList.RemoveAt(index);
+			}
 
 			if (_ambienceList.Count > 0)
 			{

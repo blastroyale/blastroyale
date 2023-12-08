@@ -1,12 +1,10 @@
 using System;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
-using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 
 namespace FirstLight.Game.Utils
 {
-	
 	/// <inheritdoc cref="IInstaller"/>
 	/// <remarks>
 	/// Use this installer for generic Binding interfaces that are available in the entire scope of the game
@@ -14,7 +12,7 @@ namespace FirstLight.Game.Utils
 	public static class MainInstaller
 	{
 		private static readonly IInstaller _installer = new Installer();
-		
+
 		/// <inheritdoc cref="IInstaller.Bind{T}"/>
 		public static void Bind<T>(T instance) where T : class
 		{
@@ -43,7 +41,7 @@ namespace FirstLight.Game.Utils
 		public static bool CleanDispose<T>() where T : class, IDisposable
 		{
 			_installer.Resolve<T>().Dispose();
-			
+
 			return _installer.Clean<T>();
 		}
 
@@ -60,6 +58,7 @@ namespace FirstLight.Game.Utils
 		{
 			return Resolve<IGameServices>();
 		}
+
 		/// <summary>
 		/// Helper to resolve match services
 		/// </summary>
@@ -67,11 +66,11 @@ namespace FirstLight.Game.Utils
 		{
 			return Resolve<IMatchServices>();
 		}
-		
+
 		/// <summary>
 		/// Helper to resolve data provider
 		/// </summary>
-		public static IGameDataProvider ReesolveData()
+		public static IGameDataProvider ResolveData()
 		{
 			return Resolve<IGameDataProvider>();
 		}

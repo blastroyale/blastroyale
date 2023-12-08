@@ -10,8 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Src.FirstLight.Server;
 
-namespace Backend.Plugins {
-
+namespace Backend.Plugins
+{
 	/// <summary>
 	/// Plugin manager interface to handle registered commands and registered plugins on server.
 	/// </summary>
@@ -21,26 +21,34 @@ namespace Backend.Plugins {
 		/// Gets all registered plugins
 		/// </summary>
 		public List<ServerPlugin> GetPlugins();
+
 		/// <summary>
 		/// 
 		/// </summary>
 		public Type GetRegisteredCommand(string typeFullName);
+
+
+		/// <summary>
+		/// Get all initialization command types
+		/// </summary>
+		public Type[] GetInitializationCommands();
 	}
-	
+
 	/// <summary>
 	/// Responsible for loading and initializing plugins.
 	/// </summary>
 	public class PluginManager : IPluginManager
 	{
 		private IServerSetup _serverSetup;
-		
+
 		private List<ServerPlugin> _loadedPlugins = new();
 		private List<Assembly> _loadedLibraries = new();
-		
+
 		private Assembly _commandAssembly;
-		
+
 		public Type? GetRegisteredCommand(string fullName) => _commandAssembly.GetType(fullName);
-		
+		public Type[] GetInitializationCommands() => _serverSetup.GetInitializationCommandTypes();
+
 		public List<ServerPlugin> GetPlugins() => _loadedPlugins;
 
 		/// <summary>
@@ -53,6 +61,7 @@ namespace Backend.Plugins {
 			{
 				return;
 			}
+
 			var setup = Activator.CreateInstance(serverSetup) as IServerSetup;
 			var dependencies = setup.SetupDependencies();
 			foreach (var kp in dependencies)
@@ -60,10 +69,11 @@ namespace Backend.Plugins {
 				services.RemoveAll(kp.Key);
 				services.AddSingleton(kp.Key, kp.Value);
 			}
+
 			_serverSetup = setup;
 			_commandAssembly = setup.GetCommandsAssembly();
 		}
-		
+
 		/// <summary>
 		/// Loads server plugins and perform hooks to PluginSetup
 		/// </summary>
@@ -75,6 +85,7 @@ namespace Backend.Plugins {
 			{
 				allPlugins.AddRange(clientPlugins);
 			}
+
 			foreach (var plugin in allPlugins)
 			{
 				try
@@ -100,9 +111,10 @@ namespace Backend.Plugins {
 			{
 				return null;
 			}
+
 			return _serverSetup.GetPlugins()?.ToList();
 		}
-		
+
 		/// <summary>
 		/// Gets available plugins that are declared only on server.
 		/// Plugins declared on server as opposed to client are the ones that have specific
@@ -114,7 +126,7 @@ namespace Backend.Plugins {
 			loadedPlugins.Add(new BlastRoyalePlugin());
 			return loadedPlugins;
 		}
-		
+
 		/// <summary>
 		/// Finds all plugins in a given folder.
 		/// Will add those plugins & libraries to code namespace.
@@ -133,9 +145,9 @@ namespace Backend.Plugins {
 				else
 				{
 					_loadedLibraries.Add(assembly);
-					
 				}
 			}
+
 			return _loadedPlugins;
 		}
 
@@ -151,6 +163,7 @@ namespace Backend.Plugins {
 					return Activator.CreateInstance(type) as ServerPlugin;
 				}
 			}
+
 			return null;
 		}
 	}
@@ -171,6 +184,7 @@ namespace Backend.Plugins {
 			{
 				return LoadFromAssemblyPath(assemblyPath);
 			}
+
 			return null;
 		}
 

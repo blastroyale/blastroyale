@@ -5,6 +5,7 @@
 @import url("/Assets/Art/UI/Styles/Sprites-Shared.uss");
 @import url("/Assets/Art/UI/Styles/Sprites-EquipmentCard.uss");
 @import url("/Assets/Art/UI/Styles/Sprites-FTUE.uss");
+@import url("/Assets/Art/UI/Styles/Sprites-Currencies.uss");
 @import url("/Assets/Art/UI/Styles/CommonStyle.uss");
 @import url("/Assets/Art/UI/Styles/Transitions.uss");
 @import url("/Assets/Art/UI/Styles/ProfilePictures.uss");

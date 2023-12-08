@@ -1,114 +1,124 @@
-.background {
-}
-
-.store-item {
-    width: 450px;
-    height: 700px;
-    background-color: rgba(0, 0, 0, 0);
-    overflow: visible;
-    border-width: 0;
-}
-
-.store-item:active {
-    scale: 0.95 0.95;
-}
-
-.store-item__shadow {
-    border-radius: 20px;
-    background-color: rgb(0, 0, 0);
+.categories {
+    flex-grow: 1;
     position: absolute;
-    left: 0;
-    top: 0;
-    right: -10px;
-    bottom: -10px;
-}
-
-.store-item__body {
-    border-radius: 20px;
-    background-color: rgb(255, 255, 255);
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
     bottom: 0;
-    overflow: hidden;
+    height: 100px;
+    background-color: rgba(50, 41, 90, 0.69);
+    flex-direction: row;
+    justify-content: space-around;
+    width: 140%;
+    left: -500px;
+}
+
+.category-button {
+    font-size: 44px;
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+}
+
+.scroll-view {
+    width: 100%;
+    height: 80%;
+    flex-grow: 1;
+    align-items: flex-start;
+    white-space: nowrap;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
     flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    position: absolute;
+}
+
+.scroll-view .unity-scroll-view__content-viewport {
+    overflow: visible;
+}
+
+.scroll-view .unity-scroll-view__content-container {
+    overflow: visible;
+}
+
+.store-safearea {
+    flex-wrap: wrap-reverse;
+    flex-direction: row;
+    align-self: auto;
+    align-items: auto;
+    justify-content: flex-start;
+}
+
+.product-list {
+    flex-grow: 1;
+    width: auto;
+    height: 850px;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    overflow: visible;
+    max-width: none;
+    flex-wrap: nowrap;
+    align-self: auto;
     align-items: center;
-    justify-content: space-between;
 }
 
-.store-item__body__title {
-    margin: 0;
-    padding: 20px;
-    -unity-text-align: middle-center;
-    font-size: 50px;
-    color: rgb(255, 255, 255);
+.product-category {
+    flex-grow: 0;
+    flex-direction: row;
+    margin-right: 50px;
+    margin-left: 50px;
+    flex-wrap: wrap;
+    max-width: 1500px;
+    background-color: rgba(255, 255, 255, 0);
+    width: auto;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 680px;
+    align-self: flex-end;
+}
+
+.category-label {
+    position: absolute;
+    top: -92px;
     width: 100%;
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-}
-
-.store-item__body__title--rare {
-    background-color: rgb(171, 173, 193);
-}
-
-.store-item__body__title--epic {
-    background-color: rgb(30, 123, 130);
-}
-
-.store-item__body__title--legendary {
-    background-color: rgb(162, 52, 206);
-}
-
-.store-item__body__icon {
-    width: 400px;
-    height: 400px;
-}
-
-.store-item__body__price {
-    border-radius: 0;
-    width: 100%;
-    margin: 0;
-    padding: 20px;
+    justify-content: center;
+    align-items: center;
     -unity-text-align: middle-center;
-    font-size: 50px;
+    height: 66px;
+    font-size: 44px;
     color: rgb(255, 255, 255);
-    background-color: rgb(156, 98, 240);
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 1.4px;
     -unity-text-outline-color: rgb(0, 0, 0);
-}
-
-.store-item__button-info {
-    background-image: var(--sprite-home__button-info);
-    width: 75px;
-    height: 85px;
-    top: -40px;
-    right: -390px;
-}
-
-.store-item__button-info:active {
-    background-image: var(--sprite-home__button-info-pressed);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    background-color: rgba(50, 19, 74, 0.33);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .blocker {
     position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.56);
-    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.37);
+    align-self: center;
     justify-content: center;
+    align-items: center;
 }
 
 .blocker__title {
-    font-size: 100px;
+    font-size: 90px;
     color: rgb(255, 255, 255);
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 8px 8px 0 rgb(0, 0, 0);
 }
 
-.items-holder {
-    align-items: center;
-    flex-direction: row;
-    justify-content: center;
-    top: 100px;
+.unity-text-element {
+}
+
+.product-category--small {
+    max-width: 1065px;
 }

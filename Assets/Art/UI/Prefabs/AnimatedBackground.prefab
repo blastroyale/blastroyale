@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8810216313043286469}
   - component: {fileID: 4739949357168174595}
   m_Layer: 0
-  m_Name: Game Mode Selection Camera
+  m_Name: AnimatedBackgroundCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -231,7 +231,7 @@ Transform:
   - {fileID: 8810216313043286469}
   - {fileID: 1691902160147362556}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8925188912424810450
 MonoBehaviour:

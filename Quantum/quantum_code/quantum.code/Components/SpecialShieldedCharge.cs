@@ -11,7 +11,7 @@ namespace Quantum
 		{
 			var targetPosition = FPVector3.Zero;
 			var attackerPosition = f.Get<Transform3D>(e).Position;
-			attackerPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
+			attackerPosition.Y += Constants.SPECIAL_CHARGE_Y_OFFSET;
 
 			if (!f.TryGet<Targetable>(e, out var targetable))
 			{

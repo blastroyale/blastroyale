@@ -11,7 +11,7 @@ namespace Quantum.Commands
 	{
 		public FPVector2 AimInput;
 		public int SpecialIndex;
-		
+
 		/// <inheritdoc />
 		public override void Serialize(BitStream stream)
 		{
@@ -22,26 +22,25 @@ namespace Quantum.Commands
 		/// <inheritdoc />
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
-			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
+			var characterEntity = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[playerRef].Entity;
 
 			// Between sending the command and receiving it, the player might have died due to the frame delay between Unity & Quantum
-			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(characterEntity, out var playerCharacter))
+			if (!f.Unsafe.TryGetPointer<PlayerInventory>(characterEntity, out var playerInventory))
 			{
 				return;
 			}
 
 			var aimInputProcessed = AimInput;
-			var special = playerCharacter->WeaponSlot->Specials[SpecialIndex];
-			
-			if (aimInputProcessed.SqrMagnitude < FP.SmallestNonZero && f.TryGet<Transform3D>(characterEntity, out var transform))
+			var special = playerInventory->Specials[SpecialIndex];
+
+			if (aimInputProcessed.SqrMagnitude < FP.SmallestNonZero &&
+				f.TryGet<Transform3D>(characterEntity, out var transform))
 			{
-				aimInputProcessed = (transform.Rotation * FPVector3.Forward).XZ.Normalized * Constants.TAP_TO_USE_SPECIAL_AIMING_OFFSET;
+				aimInputProcessed = (transform.Rotation * FPVector3.Forward).XZ.Normalized *
+					Constants.TAP_TO_USE_SPECIAL_AIMING_OFFSET;
 			}
-			
-			if (special.TryActivate(f, playerRef, characterEntity, aimInputProcessed, SpecialIndex))
-			{
-				playerCharacter->WeaponSlot->Specials[SpecialIndex] = special;
-			}
+
+			special.TryActivate(f, playerRef, characterEntity, aimInputProcessed, SpecialIndex);
 		}
 	}
 }

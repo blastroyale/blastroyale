@@ -23,6 +23,7 @@ namespace Quantum
 			factories.Add(new WeaponSlotSwitchCommand());
 			factories.Add(new TeamPositionPingCommand());
 			factories.Add(new CheatKillAllTutorialBots());
+			factories.Add(new TutorialSpawnSpecialCommand());
 		}
 	}
 }

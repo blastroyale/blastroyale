@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Editor.Artifacts;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
@@ -32,10 +33,13 @@ namespace FirstLight.Editor.EditorTools
 			$"{Application.dataPath}/../Assets/Libs/Photon/Quantum/Assemblies/";
 
 		private static string _backendPath => $"{Application.dataPath}/../Backend";
-		private static string _quantumServerPath => $"{Application.dataPath}/../Quantum/quantum_server/Photon-Server/deploy/Plugins/DeterministicPlugin/bin/";
+
+		private static string _quantumServerPath =>
+			$"{Application.dataPath}/../Quantum/quantum_server/Photon-Server/deploy/Plugins/DeterministicPlugin/bin/";
+
 		private static string _backendLibsPath => $"{_backendPath}/Lib";
 		private static string _backendResources => $"{_backendPath}/ServerCommon/Resources";
-		
+
 
 		static BackendMenu()
 		{
@@ -45,28 +49,28 @@ namespace FirstLight.Editor.EditorTools
 				PlayFabSettings.LocalApiServer = "http://localhost:7274";
 			}
 		}
-		
+
 		[MenuItem("FLG/Backend/Copy Local Quantum Files")]
-		public static async void CopyLocalQuantumFiles()
+		public static void CopyLocalQuantumFiles()
 		{
 			var qtnPluginFolder = $"{Application.dataPath}/../Quantum/quantum_server/quantum.custom.plugin/";
-			await ArtifactCopier.Copy(qtnPluginFolder, ArtifactCopier.QuantumAssetDBArtifact);
+			ArtifactCopier.Copy(qtnPluginFolder, ArtifactCopier.QuantumAssetDBArtifact);
 		}
 
 
 		[MenuItem("FLG/Backend/Copy DLLs")]
-		public static async void MoveBackendDlls()
+		public static void MoveBackendDlls()
 		{
-			await ArtifactCopier.Copy(_backendLibsPath, ArtifactCopier.QuantumDlls, ArtifactCopier.GameDlls);
+			ArtifactCopier.Copy(_backendLibsPath, ArtifactCopier.QuantumDlls, ArtifactCopier.GameDlls);
 
-			await CopyConfigs(); // also copy configs to ensure everything is updated
-			await CopyTranslations();
+			CopyConfigs(); // also copy configs to ensure everything is updated
+			CopyTranslations();
 		}
 
 		[MenuItem("FLG/Backend/Generate Quantum Assets")]
-		public static async Task ExportQuantumAssets()
+		public static void ExportQuantumAssets()
 		{
-			await ArtifactCopier.QuantumAssetDBArtifact.CopyTo(_quantumServerPath);
+			ArtifactCopier.QuantumAssetDBArtifact.CopyTo(_quantumServerPath);
 		}
 
 		/// <summary>
@@ -74,9 +78,9 @@ namespace FirstLight.Editor.EditorTools
 		/// and moves the config file to the backend.
 		/// </summary>
 		[MenuItem("FLG/Backend/Copy Server Test Configs")]
-		public static async Task CopyConfigs()
+		public static void CopyConfigs()
 		{
-			await ArtifactCopier.GameConfigs.CopyTo(_backendResources);
+			ArtifactCopier.GameConfigs.CopyTo(_backendResources);
 		}
 
 		/// <summary>
@@ -84,17 +88,17 @@ namespace FirstLight.Editor.EditorTools
 		/// and moves the file to the backend directory.
 		/// </summary>
 		[MenuItem("FLG/Backend/ValidateConfigs")]
-		public static async Task TestConfigs()
+		public static void TestConfigs()
 		{
 			FeatureFlags.REMOTE_CONFIGURATION = false;
 			var serializer = new ConfigsSerializer();
 			var allConfigs = new ConfigsProvider();
 			var configsLoader = new GameConfigsLoader(new AssetResolverService());
-			await Task.WhenAll(configsLoader.LoadConfigTasks(allConfigs));
+			configsLoader.LoadConfigEditor(allConfigs);
 
 			FeatureFlags.REMOTE_CONFIGURATION = true;
 			var onlyClientConfigs = new ConfigsProvider();
-			await Task.WhenAll(configsLoader.LoadConfigTasks(onlyClientConfigs));
+			configsLoader.LoadConfigEditor(onlyClientConfigs);
 
 			var serverConfigs = new ConfigsProvider();
 			var serializedConfigs = serializer.Serialize(allConfigs, "test");
@@ -128,9 +132,9 @@ namespace FirstLight.Editor.EditorTools
 		/// and moves the file to the backend directory.
 		/// </summary>
 		[MenuItem("FLG/Backend/Copy Server Translations")]
-		public static async Task CopyTranslations()
+		public static void CopyTranslations()
 		{
-			await ArtifactCopier.GameTranslations.CopyTo(_backendResources);
+			ArtifactCopier.GameTranslations.CopyTo(_backendResources);
 		}
 
 #if ENABLE_PLAYFABADMIN_API
@@ -139,13 +143,13 @@ namespace FirstLight.Editor.EditorTools
 		/// Playfab title is set in the Window -> Playfab -> Editor Extension menu
 		/// </summary>
 		[MenuItem("FLG/Backend/Upload Configs to Playfab")]
-		public static async Task UploadToPlayfab()
+		public static void UploadToPlayfab()
 		{
 			var serializer = new ConfigsSerializer();
 			var configs = new ConfigsProvider();
 			var configsLoader = new GameConfigsLoader(new AssetResolverService());
 			Debug.Log("Parsing Configs");
-			await Task.WhenAll(configsLoader.LoadConfigTasks(configs));
+			configsLoader.LoadConfigEditor(configs);
 			Debug.Log("Getting title data");
 			PlayFabShortcuts.GetTitleData("GameConfigVersion", configVersion =>
 			{
@@ -154,12 +158,14 @@ namespace FirstLight.Editor.EditorTools
 				var title = PlayFab.PfEditor.PlayFabEditorDataService.ActiveTitle;
 				if (title == null)
 				{
-					EditorUtility.DisplayDialog("Enable Playfab Ext", "Please go to Windows -> Playfab and enable playfab EXT to use this", "Accept", "Forcefully Accept");
+					EditorUtility.DisplayDialog("Enable Playfab Ext", "Please go to Windows -> Playfab and enable playfab EXT to use this", "Accept",
+						"Forcefully Accept");
 					return;
 				}
 
 				if (!EditorUtility.DisplayDialog("Confirm Version Update",
-					    @$"Update configs from version {currentVersion} to {nextVersion} on environment {title.Name.ToUpper()} {title.Id.ToUpper()}?", "Confirm", "Cancel"))
+						@$"Update configs from version {currentVersion} to {nextVersion} on environment {title.Name.ToUpper()} {title.Id.ToUpper()}?",
+						"Confirm", "Cancel"))
 				{
 					return;
 				}

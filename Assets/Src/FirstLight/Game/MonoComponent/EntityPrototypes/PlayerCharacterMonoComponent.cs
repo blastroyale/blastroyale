@@ -1,14 +1,13 @@
-using System.Linq;
+
 using System.Threading.Tasks;
-using FirstLight.FLogger;
+using Cysharp.Threading.Tasks;
+using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using Photon.Realtime;
 using Quantum;
-using Quantum.Systems;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Extensions = FirstLight.Game.Utils.Extensions;
@@ -50,6 +49,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		public bool IsBot => QuantumRunner.Default.PredictedFrame().Has<BotCharacter>(EntityView.EntityRef);
 
+		public void SwitchShadowVisibility(bool visibility)
+		{
+			_shadowBlob.SetActive(visibility);
+		}
+
 		private void OnSpectateChange(SpectatedPlayer oldP, SpectatedPlayer newP)
 		{
 			if (oldP.Team == newP.Team) return;
@@ -59,9 +63,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void OnTeamAssigned(EventOnTeamAssigned e)
 		{
-
 			if (PlayerView == null || e.Entity != PlayerView.EntityRef) return;
-			var color = _matchServices.TeamService.GetTeamMemberColor(e.Entity);
+			var color = _services.TeamService.GetTeamMemberColor(e.Entity);
 			if (!color.HasValue) return;
 			_circleIndicator.color = color.Value;
 			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
@@ -70,10 +73,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		private void OnPlayerSkydiveLanded(EventOnPlayerSkydiveLand callback)
 		{
 			if (callback.Entity != EntityView.EntityRef) return;
-
 			if (_playerView != null)
 			{
-				_playerView.GetComponent<MatchCharacterViewMonoComponent>().ShowAllEquipment();
+				_playerView.GetComponent<MatchCharacterViewMonoComponent>()?.ShowAllEquipment();
 			}
 			_shadowBlob.SetActive(true);
 			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
@@ -98,7 +100,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_ = SpawnDeathMarker(marker);
 		}
 
-		private async Task SpawnDeathMarker(ItemData marker)
+		private async UniTaskVoid SpawnDeathMarker(ItemData marker)
 		{ 
 			var position = transform.position;
 			var obj = await Services.CollectionService.LoadCollectionItem3DModel(marker);
@@ -114,13 +116,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		public bool ShouldDisplayColorTag()
 		{
-			if (IsBot)
-			{
-				var specTeam = _matchServices.TeamService.GetTeam(_matchServices.SpectateService.GetSpectatedEntity());
-				var botTeam = _matchServices.TeamService.GetTeam(EntityView.EntityRef);
-				Log.Warn($"Bot {EntityView.EntityRef} team {botTeam} playerteam {specTeam}");
-			}
-
 			if (PlayerView == null || this.IsDestroyed() || PlayerView.IsEntityDestroyed())
 			{
 				return false;
@@ -129,10 +124,10 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return false;
 			}
-			return !PlayerView.IsSkydiving && _matchServices.TeamService.IsSameTeamAsSpectator(EntityView.EntityRef);
+			return !PlayerView.IsSkydiving && _services.TeamService.IsSameTeamAsSpectator(EntityView.EntityRef);
 		}
 
-		private async Task<GameObject> LoadCharacterSkin(GameId[] playerSkins)
+		private async UniTask<GameObject> LoadCharacterSkin(GameId[] playerSkins)
 		{
 			var skin = Services.CollectionService.GetCosmeticForGroup(playerSkins, GameIdGroup.PlayerSkin);
 			var obj = await Services.CollectionService.LoadCollectionItem3DModel(skin);
@@ -141,14 +136,17 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var container = obj.AddComponent<RenderersContainerMonoComponent>();
 			container.UpdateRenderers();
 			// TODO REMOVE THIS SHIT SOMEDAY
-			AddLegacyCollider(obj);
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
+			{
+				AddLegacyCollider(obj);
+			}
 			obj.AddComponent<RenderersContainerProxyMonoComponent>();
 			obj.AddComponent<MatchCharacterViewMonoComponent>();
 			obj.AddComponent<PlayerCharacterViewMonoComponent>();
 			OnLoaded(skin.Id, obj, true);
 			return obj;
 		}
-
+		
 		private void AddLegacyCollider(GameObject obj)
 		{
 			// Legacy collider for old visibility volumes
@@ -159,14 +157,14 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			newCollider.direction = 1; // Y axis
 			newCollider.isTrigger = true;
 		}
-
-		private async Task InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)
+		
+		private async UniTaskVoid InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)
 		{
 			var frame = quantumGame.Frames.Verified;
 			var stats = frame.Get<Stats>(EntityView.EntityRef);
 			var loadout = PlayerLoadout.GetLoadout(frame, EntityView.EntityRef);
 			var skinInstance = await LoadCharacterSkin(loadout.Cosmetics);
-			
+
 			if (this.IsDestroyed())
 			{
 				return;
@@ -194,7 +192,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				_playerView.SetStatusModifierEffect(stats.CurrentStatusModifierType, time.AsFloat);
 			}
 
-			var colorTag = _matchServices.TeamService.GetTeamMemberColor(EntityView.EntityRef);
+			var colorTag = _services.TeamService.GetTeamMemberColor(EntityView.EntityRef);
 			if (colorTag.HasValue) _circleIndicator.color = colorTag.Value;
 			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
 

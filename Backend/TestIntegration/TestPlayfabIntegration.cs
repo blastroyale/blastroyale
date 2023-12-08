@@ -43,7 +43,6 @@ namespace IntegrationTests
 		public async Task TestPlayfabConfigUpdate()
 		{
 			var configs = _server.GetService<IConfigsProvider>() as ConfigsProvider;
-
 			var levelConfigs = configs.GetAllConfigs()[typeof(PlayerLevelConfig)] as Dictionary<int, PlayerLevelConfig>;
 			
 			var currentVersion = configs.Version;

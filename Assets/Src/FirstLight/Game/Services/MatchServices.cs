@@ -4,6 +4,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Match;
+using FirstLight.Game.Services.Match;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Services;
@@ -27,7 +28,6 @@ namespace FirstLight.Game.Services
 		public IPlayerIndicatorService PlayerIndicatorService { get; }
 		public IBulletService BulletService { get; }
 		public IMatchAssetsService MatchAssetService { get; }
-		public ITeamService TeamService { get; }
 
 		/// <summary>
 		///  Run the actions when the match starts, if the match already started run instantaneously
@@ -74,6 +74,7 @@ namespace FirstLight.Game.Services
 		public IPlayerIndicatorService PlayerIndicatorService { get; }
 		public IEntityVisibilityService EntityVisibilityService { get; }
 		public IBulletService BulletService { get; }
+		public IHapticsService HapticsService { get; }
 		
 		public IMatchAssetsService MatchAssetService { get; }
 		public ITeamService TeamService { get; }
@@ -100,8 +101,8 @@ namespace FirstLight.Game.Services
 			PlayerIndicatorService = Configure(new PlayerIndicatorsService(this, _gameServices));
 			EntityVisibilityService = Configure(new EntityVisibilityService(this, _gameServices));
 			BulletService = Configure(new BulletService(_gameServices, this));
+			HapticsService = Configure(new HapticsService(_gameServices, this, _dataProvider));
 			MatchAssetService = Configure(new MatchAssetsService());
-			TeamService = Configure(new TeamService(_gameServices, this));
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);
 			FLog.Verbose("Registered Match Services");

@@ -24,7 +24,7 @@ namespace FirstLight.Game.Presenters
 			_partyContainer = root.Q("PartyContainer").Required().AttachView(this, out _partyView);
 			_partyView.SetRoot(root);
 			_partyButton = root.Q<LocalizedButton>("PartyButton").Required();
-			_partyButton.clicked += OnPartyClicked;
+			_partyButton.LevelLock(this, root, Configs.UnlockSystem.Squads, OnPartyClicked);
 		}
 
 		private void UpdateSquadsButtonVisibility()

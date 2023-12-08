@@ -50,6 +50,8 @@ namespace FirstLight.Game.Services.RoomService
 		/// Do you need docs ?
 		/// </summary>
 		event Action OnMasterChanged;
+		
+		event Action OnJoinedRoom;
 
 		/// <summary>
 		/// Yo
@@ -164,12 +166,13 @@ namespace FirstLight.Game.Services.RoomService
 		public event Action OnMatchStarted;
 		public event Action OnCustomGameLoadStart;
 		public event Action OnMasterChanged;
+		public event Action OnJoinedRoom;
 		public event Action OnPlayerPropertiesUpdated;
 		public event Action OnLocalPlayerKicked;
 
-		public bool InRoom => CurrentRoom != null;
+		public bool InRoom => CurrentRoom != null && _networkService.InRoom;
 
-		public bool IsLocalPlayerSpectator => CurrentRoom.LocalPlayerProperties.Spectator.Value;
+		public bool IsLocalPlayerSpectator => CurrentRoom?.LocalPlayerProperties?.Spectator?.Value ?? false;
 
 		internal MatchmakingAndRoomConfig Configs => _configsProvider.GetConfig<MatchmakingAndRoomConfig>();
 
@@ -271,6 +274,7 @@ namespace FirstLight.Game.Services.RoomService
 		/// <returns></returns>
 		public bool JoinOrCreateRandomRoom(MatchRoomSetup setup)
 		{
+			FLog.Verbose("Is player in room "+InRoom);
 			if (InRoom) return false;
 
 			FLog.Info($"JoinOrCreateRandomRoom: {setup}");
@@ -417,9 +421,11 @@ namespace FirstLight.Game.Services.RoomService
 		}
 
 
-		public void OnJoinedRoom()
+		void IMatchmakingCallbacks.OnJoinedRoom()
 		{
+			FLog.Verbose("Joined room!");
 			CheckRoomInit();
+			OnJoinedRoom?.Invoke();
 		}
 
 		private void InitPlayerProperties(Player player)
@@ -512,7 +518,7 @@ namespace FirstLight.Game.Services.RoomService
 				return;
 			}
 
-			if (CurrentRoom.Properties.MatchType.Value == MatchType.Custom && !CurrentRoom.Properties.StartCustomGame.Value)
+			if (CurrentRoom.Properties.MatchType.Value == MatchType.Custom && !CurrentRoom.Properties.StartCustomGame.Value && !CurrentRoom.GameModeConfig.InstantLoad)
 			{
 				return;
 			}
@@ -566,6 +572,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		public void OnLeftRoom()
 		{
+			FLog.Verbose("Left room");
 			CurrentRoom = null;
 		}
 

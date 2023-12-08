@@ -29,7 +29,7 @@ if (env.Standalone)
 
 	builder.Host.UseSerilog();
 	Log.Logger = new LoggerConfiguration()
-		.MinimumLevel.Information()
+		.MinimumLevel.Debug()
 		.MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
 		.Enrich.FromLogContext()
 		.WriteTo.Console(theme: AnsiConsoleTheme.Code).CreateLogger();

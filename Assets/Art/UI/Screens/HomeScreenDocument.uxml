@@ -1,16 +1,18 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/HomeScreenStyle.uss?fileID=7433441132597879392&amp;guid=54dbd0d57987f4f398aea3e4722669ea&amp;type=3#HomeScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/PlayerAvatarStyle.uss?fileID=7433441132597879392&amp;guid=38b557c69f774f2983d0aded8a5e3b0d&amp;type=3#PlayerAvatarStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent">
             <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons">
                 <FirstLight.Game.UIElements.ImageButton name="SettingsButton" class="sfx-click-forwards anim-delay-0 anim-translate anim-translate--down-s settings-button">
                     <ui:VisualElement name="Icon" class="settings-button__icon" />
+                    <ui:VisualElement name="SettingsNotification" class="notification-icon button-with-icon__notification" style="top: -1px; right: -5px;" />
                 </FirstLight.Game.UIElements.ImageButton>
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-1 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="FragmentsCurrency" currency="Fragments" class="anim-delay-2 anim-translate anim-translate--down-s" />
-                <ui:Button display-tooltip-when-elided="true" name="DiscordButton" class="discord-button sfx-click-forwards anim-delay-0 anim-translate anim-translate--left-s" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBuckCurrency" currency="BlastBuck" class="anim-delay-0 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
                 <ui:VisualElement name="PartyHolder" class="anim-delay-2 anim-translate anim-translate--left-xl">
@@ -21,7 +23,9 @@
                         </ui:VisualElement>
                         <ui:ListView focusable="true" name="PartyList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" show-alternating-row-backgrounds="ContentOnly" class="squad-container__list" />
                     </ui:VisualElement>
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/party" name="PartyButton" class="button-party sfx-click-forwards" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/party" name="PartyButton" class="button-party sfx-click-forwards">
+                        <ui:VisualElement name="PartyIcon" class="button-party__icon" />
+                    </FirstLight.Game.UIElements.LocalizedButton>
                 </ui:VisualElement>
                 <FirstLight.Game.UIElements.ImageButton name="GameModeButton" class="sfx-click-forwards anim-delay-1 anim-translate anim-translate--left-l game-mode-button">
                     <ui:VisualElement name="GameModeOverlay" class="game-mode-button__overlay" />
@@ -60,7 +64,7 @@
                     <ui:VisualElement name="CollectionIcon" class="button-with-icon__icon" />
                     <ui:VisualElement name="CollectionNotification" class="notification-icon button-with-icon__notification" />
                 </FirstLight.Game.UIElements.LocalizedButton>
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="sfx-click-forwards button-with-icon button-with-icon--shop anim-delay-2 anim-translate anim-translate--right-l main-button-margin">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="sfx-click-forwards button-with-icon button-with-icon--shop anim-delay-2 anim-translate anim-translate--right-l main-button-margin fame-lock_holder">
                     <ui:VisualElement name="StoreIcon" class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <ui:VisualElement name="BattlePassButtonHolder" class="anim-delay-0 anim-translate anim-translate--right-xl button-with-pool">
@@ -106,7 +110,7 @@
             <ui:Button name="TrophiesHolder" class="player-header__trophies-holder">
                 <ui:VisualElement name="TrophyIcon" class="sprite-shared__icon-trophy" />
                 <ui:Label text="69420" name="TrophiesAmount" class="player-header__trophies-label" />
-                <FirstLight.Game.UIElements.ImageButton name="LeaderboardsButton" class="player-header__leaderboards-button sfx-click-forwards">
+                <FirstLight.Game.UIElements.ImageButton name="LeaderboardsButton" class="player-header__leaderboards-button sfx-click-forwards fame-lock">
                     <ui:VisualElement name="Icon" class="player-header__leaderboards-icon" />
                 </FirstLight.Game.UIElements.ImageButton>
             </ui:Button>
@@ -117,6 +121,10 @@
             </FirstLight.Game.UIElements.ImageButton>
             <ui:Label text="PLAYER NAME" name="PlayerName" class="player-header__name" />
         </ui:VisualElement>
+        <ui:Button display-tooltip-when-elided="true" name="DiscordButton" class="discord-button sfx-click-forwards anim-delay-0 anim-translate anim-translate--left-s" />
+        <ui:Button display-tooltip-when-elided="true" name="YoutubeButton" class="youtube-button sfx-click-forwards anim-delay-0 anim-translate anim-translate--left-s" />
+        <ui:Button display-tooltip-when-elided="true" name="InstagramButton" class="instagram-button sfx-click-forwards anim-delay-0 anim-translate anim-translate--left-s" />
+        <ui:Button display-tooltip-when-elided="true" name="TiktokButton" class="tiktok-button sfx-click-forwards anim-delay-0 anim-translate anim-translate--left-s" />
         <ui:VisualElement name="Matchmaking" class="matchmaking-container matchmaking-container--hidden">
             <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent matchmaking-container__safearea">
                 <ui:VisualElement name="MatchmakingStatus" class="matchmaking-status sprite-home__background-matchmakingstatus">

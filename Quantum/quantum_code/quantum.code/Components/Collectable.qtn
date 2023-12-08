@@ -31,6 +31,7 @@ synced event OnCollectableCollected
 	player_ref Player;
 	entity_ref PlayerEntity;
 	entity_ref Spawner;
+	FPVector3 CollectablePosition;
 }
 
 synced event OnCollectableBlocked

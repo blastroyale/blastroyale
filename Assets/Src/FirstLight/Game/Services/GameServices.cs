@@ -1,9 +1,8 @@
-using BestHTTP.SecureProtocol.Org.BouncyCastle.Crmf;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Services.Collection;
@@ -11,9 +10,7 @@ using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
-using FirstLight.UiService;
 using FirstLightServerSDK.Modules.RemoteCollection;
-using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
@@ -124,8 +121,12 @@ namespace FirstLight.Game.Services
 		public IControlSetupService ControlsSetup { get; }
 		public ILeaderboardService LeaderboardService { get; }
 		public IRewardService RewardService { get; }
-
 		public IRoomService RoomService { get; }
+		public IGameAppService GameAppService { get; }
+		public IBattlePassService BattlePassService { get; }
+		public ITeamService TeamService { get; }
+
+		public IServerListService ServerListService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -159,7 +160,7 @@ namespace FirstLight.Game.Services
 		public IAudioFxService<AudioId> AudioFxService { get; }
 		public INotificationService NotificationService { get; }
 		public IGameBackendService GameBackendService { get; }
-
+		public IGameAppService GameAppService { get; }
 		public IPlayerProfileService ProfileService { get; }
 		public IAuthenticationService AuthenticationService { get; }
 		public ITutorialService TutorialService { get; }
@@ -173,19 +174,17 @@ namespace FirstLight.Game.Services
 		public IPartyService PartyService { get; }
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public IGameUiService GameUiService { get; }
-
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
-
 		public IControlSetupService ControlsSetup { get; }
-
 		public IRoomService RoomService { get; }
+		public IBattlePassService BattlePassService { get; }
 
+		public ITeamService TeamService { get; }
+		public IServerListService ServerListService { get; }
 		public ILeaderboardService LeaderboardService { get; }
-
 		public ICheatsService CheatsService { get; }
 		public IRewardService RewardService { get; }
-
 		public string QuitReason { get; set; }
 
 
@@ -253,6 +252,10 @@ namespace FirstLight.Game.Services
 				tutorialService);
 			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);
 			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
+			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, this);
+			GameAppService = new GameAppService(this);
+			TeamService = new TeamService(RoomService);
+			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);
 		}
 
 		/// <inheritdoc />
@@ -263,7 +266,7 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR
 			UnityEditor.EditorApplication.isPlaying = false;
 #else
-				Application.Quit(); // Apple does not allow to close the app so might not work on iOS :<
+				UnityEngine.Application.Quit(); // Apple does not allow to close the app so might not work on iOS :<
 #endif
 		}
 	}

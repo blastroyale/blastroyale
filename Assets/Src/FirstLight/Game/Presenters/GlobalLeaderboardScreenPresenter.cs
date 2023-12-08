@@ -11,6 +11,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UiService;
+using JetBrains.Annotations;
 using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -25,6 +26,7 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action OnBackClicked;
+			[CanBeNull] public GameLeaderboard ShowSpecificLeaderboard;
 		}
 
 		private const int DefaultTrophies = 0;
@@ -121,8 +123,16 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-			SetupButtons();
-			DisplayLeaderboard(_services.LeaderboardService.Leaderboards.First());
+			if (Data.ShowSpecificLeaderboard != null)
+			{
+				DisplayLeaderboard(Data.ShowSpecificLeaderboard);
+				_descriptionContainer.SetVisibility(false);
+			}
+			else
+			{
+				SetupButtons();
+				DisplayLeaderboard(_services.LeaderboardService.Leaderboards.First());
+			}
 		}
 
 		private void SetupButtons()
@@ -141,9 +151,11 @@ namespace FirstLight.Game.Presenters
 		private void DisplayLeaderboard(GameLeaderboard board)
 		{
 			foreach(var b in _buttons.Values) b.RemoveFromClassList(UssLeaderboardButtonHighlight);
-			var button = _buttons[board];
-			button.Add(_viewingIndicator);
-			button.AddToClassList(UssLeaderboardButtonHighlight);
+			if (_buttons.TryGetValue(board, out var button))
+			{
+				button.Add(_viewingIndicator);
+				button.AddToClassList(UssLeaderboardButtonHighlight);
+			}
 			_leaderboardListView.Clear();
 			_leaderboardListView.RefreshItems();
 			_leaderboardListView.SetVisibility(false);
@@ -178,14 +190,19 @@ namespace FirstLight.Game.Presenters
 			var borderColor = _services.LeaderboardService.GetRankColor(_viewingBoard, leaderboardEntry.Position + 1);
 			leaderboardEntryView.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName[..^5], -1,
-				leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.Profile.AvatarUrl, borderColor);
+				leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.Profile.AvatarUrl, leaderboardEntry.PlayFabId, borderColor);
 			
-			leaderboardEntryView.SetIcon(GetViewingSeasonConfig().Icon);
+			leaderboardEntryView.SetIcon(GetIconClass());
 		}
 
 		private SeasonConfig GetViewingSeasonConfig()
 		{
 			return _services.LeaderboardService.GetConfigs().GetConfig(_viewingBoard).GetSeason(_viewingSeason);;
+		}
+
+		private bool HasSeasonConfig()
+		{
+			return _services.LeaderboardService.GetConfigs().ContainsKey(_viewingBoard.MetricName);
 		}
 		
 		/// <summary>
@@ -194,6 +211,11 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		private void DisplaySeasonData(GameLeaderboard board, GetLeaderboardResult result)
 		{
+			if (!HasSeasonConfig())
+			{
+				_descriptionContainer.SetVisibility(false);
+				return;
+			}
 			DateTime endTime = DateTime.UtcNow;
 			var seasonConfig = GetViewingSeasonConfig();
 			var hasRewards = !string.IsNullOrEmpty(seasonConfig.Rewards); // TODO: Read from playfab prize tables
@@ -290,9 +312,9 @@ namespace FirstLight.Game.Presenters
 
 			view.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
-				trophies, true, _dataProvider.AppDataProvider.AvatarUrl, Color.white);
-
-			view.SetIcon(GetViewingSeasonConfig().Icon);
+				trophies, true, _dataProvider.AppDataProvider.AvatarUrl, leaderboardEntry.PlayFabId, Color.white);
+			
+			view.SetIcon(GetIconClass());
 			
 			newEntry.AddToClassList(UssLeaderboardEntryGlobal);
 			newEntry.AddToClassList(UssLeaderboardEntryPositionerHighlight);
@@ -303,6 +325,15 @@ namespace FirstLight.Game.Presenters
 			_fixedLocalPlayerHolder.Add(newEntry);
 			_leaderboardListView.SetVisibility(true);
 			_loadingSpinner.SetDisplay(false);
+		}
+		
+		public string GetIconClass()
+		{
+			if (HasSeasonConfig())
+			{
+				return GetViewingSeasonConfig().Icon;
+			}
+			return null;
 		}
 
 		IEnumerator RepositionScrollToLocalPlayer()

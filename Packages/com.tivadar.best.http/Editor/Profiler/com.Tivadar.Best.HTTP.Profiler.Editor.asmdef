@@ -1,0 +1,25 @@
+{
+    "name": "com.Tivadar.Best.HTTP.Profiler.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b46779583a009f04ba9f5f31d0e7e6ac",
+        "GUID:9069ac25d95ca17448a247f3bb1c769f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.profiling.core",
+            "expression": "1.0.0",
+            "define": "BESTHTTP_PROFILE"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,9 +1,5 @@
-using System.Collections.Generic;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.SDK.Services;
-using Quantum;
-using UnityEngine.Purchasing;
 
 namespace FirstLight.Game.Messages
 {
@@ -11,9 +7,14 @@ namespace FirstLight.Game.Messages
 	{
 		public ItemData Reward;
 	}
-
-	public struct IAPPurchaseFailedMessage : IMessage
+	
+	public struct BattlePassPurchasedMessage : IMessage
 	{
-		public PurchaseFailureReason Reason;
+	}
+
+
+	public struct BattlePassLevelPurchasedMessage : IMessage
+	{
+		
 	}
 }

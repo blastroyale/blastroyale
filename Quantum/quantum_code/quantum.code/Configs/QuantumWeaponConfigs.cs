@@ -16,7 +16,7 @@ namespace Quantum
 	}
 	
 	[Serializable]
-	public struct QuantumWeaponConfig
+	public class QuantumWeaponConfig
 	{
 		public GameId Id;
 		public FiringMode FiringMode;
@@ -39,7 +39,6 @@ namespace Quantum
 		public bool CanHitSameTarget;
 		public FP SplashRadius;
 		public FP SplashDamageRatio;
-		public List<GameId> Specials;
 		public FP InitialAttackCooldown;
 		public FP InitialAttackRampUpTime;
 		public bool UseRangedCam;

@@ -19,15 +19,13 @@ namespace Quantum
 	/// </summary>
 	public partial struct Input
 	{
-		private static readonly UInt16 MASK_5_BITS = (1 << 5) - 1;
 		private static readonly UInt16 MASK_9_BITS = (1 << 9) - 1;
-
-		private static FP MovementMagMult = FP._0_04;
 		
-		public int CompressedInput => B1 << 16 | B2 << 8 | B3;
+		private static FP MovementMagMult = FP._0_04;
+		public int CompressedInput => (B1 << 16) + (B2 << 8) + B3;
 		public FP MovementMagnitude => FPMath.Min((B1 >> 3) * MovementMagMult, FP._1);
-		public FPVector2 Direction => DecodeVector((CompressedInput >> 1) & MASK_9_BITS, 1);
-		public FPVector2 AimingDirection => DecodeVector(CompressedInput >> 10 & MASK_9_BITS, 1);
+		public FPVector2 Direction => BakedInputs[(CompressedInput >> 1) & MASK_9_BITS];
+		public FPVector2 AimingDirection => BakedInputs[CompressedInput >> 10 & MASK_9_BITS];
 		public bool IsShooting => (CompressedInput & 1) == 1;
 
 		/// <summary>
@@ -39,12 +37,11 @@ namespace Quantum
 			// In debug builds the shift values were not working as expected, they were all done in one line without casts.
 			// To fix this issue i casted everything to uint (>> is arithmetic in C# and >>> only exists in C# 11)
 			// and breaking the code in variables (this somehow prevented casting the values to byte idk whatfuck happend at IL2CPP)
-			var encodedMovement = (byte)Math.Floor(movementRangePercentage.AsDouble / 4d);
-			var movementMagnitudeShifted = (uint)encodedMovement << 19;
-			var aimShifted = (uint)EncodeVector(aim, 1) << 10;
-			var movementShifted = (uint)EncodeVector(movement, 1) << 1;
-			var shootingShifted = isShooting ? (uint)1 : 0;
-			var compressedInput = movementMagnitudeShifted | aimShifted | movementShifted | shootingShifted;
+			var compressedInput = ((uint)Math.Floor(movementRangePercentage.AsDouble / 4d) << 19) |
+				((uint)EncodeVector(aim, 1) << 10) |
+				((uint)EncodeVector(movement, 1) << 1) |
+				(isShooting ? (uint)1 : 0);
+
 			B1 = (byte)(compressedInput >> 16);
 			B2 = (byte)(compressedInput >> 8);
 			B3 = (byte)compressedInput;

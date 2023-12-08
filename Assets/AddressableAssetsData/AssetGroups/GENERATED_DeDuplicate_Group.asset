@@ -357,11 +357,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ea89a8a4b3f6c483fb52e25040be2244
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/AirdropLight.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 65a52d6474f8f414e96c8973ab997b49
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/Timer.png
     m_ReadOnly: 0
@@ -1283,7 +1278,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 88d02c5f6700a4b818733c8181483866
-    m_Address: Assets/Art/Materials/M_Baked_Bush.mat
+    m_Address: terials/M_Baked_Bush.mataked_Bush.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1497,11 +1492,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6598376af02364861969ec3778124ff6
-    m_Address: Assets/Art/UI/Sprites/Match/progress-shield.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c141205a3f2794e0194d1e29dc0e26c7
     m_Address: Assets/Art/UI/Sprites/Match/vfx-joystick-direction.png
     m_ReadOnly: 0
@@ -1607,11 +1597,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fe3d255759da2154cbff8c350ca23a75
-    m_Address: Assets/Art/UI/Sprites/Match/progress-health-squads.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 30e882f6d6fea4b0f94dd823b4e3490e
     m_Address: Assets/Art/UI/Sprites/Match/icon-menu.png
     m_ReadOnly: 0
@@ -1667,11 +1652,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 65dc91a3e3cba444584245b3ac6f518b
-    m_Address: Assets/Art/UI/Sprites/Match/background-playerbar.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 90722f230fb924a4fa6bb2cfef7a4aea
     m_Address: Assets/Art/UI/Sprites/Match/icon-skull-full.png
     m_ReadOnly: 0
@@ -1694,11 +1674,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d82e5dc2de30a408db68d2974774392a
     m_Address: Assets/Art/UI/Sprites/Match/text-busted.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d7346bb2941c7443c80bb105e4caf77f
-    m_Address: Assets/Art/UI/Sprites/Match/background-squadmember.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1732,11 +1707,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dec8e302ee2ae482bad7218e1b465e89
-    m_Address: Assets/Art/UI/Sprites/Match/progress-damage.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 02de3cf14de0a4b078cec77b331e6b9a
     m_Address: Assets/Art/UI/Sprites/Match/icon-ammo.png
     m_ReadOnly: 0
@@ -1759,11 +1729,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d466d5b0888ac6049ac6d2bd6418d980
     m_Address: Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart4.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 12f35fa0697254aa6b13143227467839
-    m_Address: Assets/Art/UI/Sprites/Match/progress-health.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2052,11 +2017,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ce83c8bea7bca44b893b799aca685404
-    m_Address: Assets/Art/UI/Sprites/Home/glider-falcon.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8b7ba78e2985a484eb604578991570fc
     m_Address: Assets/Art/UI/Sprites/Home/button-bpreward.png
     m_ReadOnly: 0
@@ -2092,11 +2052,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d3812d1e1c56b4a188ccfb9324966a36
-    m_Address: Assets/Art/UI/Sprites/Home/flag-tombstone.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ed3decfd505b34a329a69123a943bd71
     m_Address: Assets/Art/UI/Sprites/Home/button-equipmentslot-rare-pressed.png
     m_ReadOnly: 0
@@ -2129,11 +2084,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 270a8fbd99be94e3f866a62bc26685fb
     m_Address: Assets/Art/UI/Sprites/Home/icon-heroes.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 55356cbdba04d48d9b5a996b1db941ca
-    m_Address: Assets/Art/UI/Sprites/Home/flag-unicorn.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2302,11 +2252,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9ce754ea943f24c39812ee0c1156204a
-    m_Address: Assets/Art/UI/Sprites/Home/glider-turbine.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4ae1d3aa07df24ffa8764d9412ca78e1
     m_Address: Assets/Art/UI/Sprites/Home/icon-star-silver.png
     m_ReadOnly: 0
@@ -2354,11 +2299,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3f3e6e2aea9444cbb92bb223a33ea6a8
     m_Address: Assets/Art/UI/Sprites/Home/background-profile.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3b196d1a9145c4220b265b4d0ff754a1
-    m_Address: Assets/Art/UI/Sprites/Home/glider-divinci.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2612,18 +2552,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cdc7358579aa94ba0a86ff51775df66b
-    m_Address: Assets/Art/UI/Sprites/Home/flag-superstar.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 924e9a658b38a417982f18d0ba0dc4e4
     m_Address: Assets/Art/UI/Sprites/Home/background-settingstab.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 939f9d55c3bea4ada9601d4a0843b2f3
-    m_Address: Assets/Art/UI/Sprites/Home/glider-rocket.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2634,11 +2564,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 05460215ca74e4b5baa3781e20e550dd
     m_Address: Assets/Art/UI/Sprites/Home/button-equipmentslot-empty-pressed.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 200f11153aed542e3aeb0adb534ade89
-    m_Address: Assets/Art/UI/Sprites/Home/flag-demon.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -3431,6 +3356,26 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1a21036a0b364c74aa6fdcd723a96ad7
     m_Address: Assets/Art/Models/Environment/BattleRoyalMaps/T_Apocalypse_Texture_03_A.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2594952eaa8ee244189843049640b37b
+    m_Address: Assets/Art/UI/Sprites/Home/icon-instagram.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 35fbf7d6cec57b346b3bf82283a7d10d
+    m_Address: Assets/Art/UI/Sprites/Home/icon-youtube.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2953c2b5dfa4f864a85fd9ba191c7c19
+    m_Address: Assets/Art/UI/Sprites/Home/icon-tiktok.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a18f37ac528733142a9b88762f8af958
+    m_Address: Assets/Art/Materials/M_Baked_Bush_Desert.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

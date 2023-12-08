@@ -7,12 +7,14 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using NSubstitute;
+using NSubstitute.Extensions;
 using NUnit.Framework;
 using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 using Assert = NUnit.Framework.Assert;
 using Equipment = Quantum.Equipment;
+using QuantumBaseEquipmentStatConfig = Quantum.QuantumBaseEquipmentStatConfig;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
@@ -25,7 +27,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void Init()
 		{
 			var mockStatsConfigs = Substitute.For<EquipmentStatConfigs>();
-
+			ConfigsProvider.GetConfig<QuantumBaseEquipmentStatConfig>(Arg.Any<int>()).Returns(new QuantumBaseEquipmentStatConfig());
+			ConfigsProvider.GetConfig<QuantumEquipmentStatConfig>(Arg.Any<int>()).Returns(new QuantumEquipmentStatConfig());
 			_item = SetupItem(1, GameId.ApoCrossbow);
 			_equipmentLogic = new EquipmentLogic(GameLogic, DataService);
 
@@ -33,8 +36,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			mockStatsConfigs.GetConfig(Arg.Do<Equipment>(_ => new QuantumEquipmentStatConfig()));
 			InitConfigData(new QuantumGameConfig {NftDurabilityDropDays = 7, NonNftDurabilityDropDays = 7});
 			InitConfigData(mockStatsConfigs);
-			InitConfigData(new QuantumWeaponConfig
-				{Specials = new List<GameId> {GameId.SpecialShieldSelf, GameId.SpecialShieldSelf}});
+			InitConfigData(new QuantumWeaponConfig {});
 			InitConfigData(new ScrapConfig
 			{
 				Rarity = EquipmentRarity.Epic,

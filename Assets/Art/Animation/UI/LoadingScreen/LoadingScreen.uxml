@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Styles/LoadingScreenStyle.uss?fileID=7433441132597879392&amp;guid=a15dae26ebc421e469052e60ae509610&amp;type=3#LoadingScreenStyle" />
+    <ui:VisualElement name="root" class="fill-parent">
+        <ui:VisualElement name="Background" class="loading-background" style="background-color: rgba(255, 255, 255, 0);">
+            <ui:VisualElement name="Logo" class="loading-br-logo" />
+        </ui:VisualElement>
+        <ui:VisualElement name="LabelsContainer" class="loading-container">
+            <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        </ui:VisualElement>
+        <ui:Label tabindex="-1" text="LOADING" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Loadinglabel" class="loading-label" />
+        <FirstLight.Game.UIElements.AnimatedImageElement name="Spinner" rotations-per-second="1" class="loading-spinner" />
+    </ui:VisualElement>
+</ui:UXML>

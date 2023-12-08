@@ -1,9 +1,10 @@
 using System.Collections.Generic;
-using FirstLight.Game.Messages;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine.UIElements;
 
@@ -14,18 +15,20 @@ namespace FirstLight.Game.Views.UITK
 	/// </summary>
 	public class SquadMembersView : UIView
 	{
-		private const int MAX_SQUAD_MEMBERS = 2;
+		private const int MAX_SQUAD_MEMBERS = 3;
 
 		private IMatchServices _matchServices;
 		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
 
-		private readonly Dictionary<EntityRef, SquadMemberElement> _squadMembers = new();
+		private readonly Dictionary<EntityRef, SquadMemberElement> _squadMembers = new ();
 
 		public override void Attached(VisualElement element)
 		{
 			base.Attached(element);
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_services = MainInstaller.ResolveServices();
+			_dataProvider = MainInstaller.ResolveData();
 			element.Clear(); // Clears development-time child elements.
 		}
 
@@ -33,11 +36,8 @@ namespace FirstLight.Game.Views.UITK
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
-			QuantumEvent.SubscribeManual<EventOnPlayerGearChanged>(this, OnPlayerGearChanged);
-			QuantumEvent.SubscribeManual<EventOnPlayerWeaponChanged>(this, OnPlayerWeaponChanged);
 			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
 			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
-			QuantumEvent.SubscribeManual<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
 			QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
 			QuantumEvent.SubscribeManual<EventOnTeamAssigned>(this, OnTeamAssigned);
 		}
@@ -45,7 +45,7 @@ namespace FirstLight.Game.Views.UITK
 		private void OnTeamAssigned(EventOnTeamAssigned e)
 		{
 			if (!_squadMembers.TryGetValue(e.Entity, out var squadMemberElement)) return;
-			squadMemberElement.SetTeamColor(_matchServices.TeamService.GetTeamMemberColor(e.Entity));
+			squadMemberElement.SetTeamColor(_services.TeamService.GetTeamMemberColor(e.Entity));
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -53,7 +53,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.UnsubscribeListener(this);
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
-		
+
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
 			RecheckSquadMembers(callback.Game.Frames.Verified);
@@ -67,39 +67,18 @@ namespace FirstLight.Game.Views.UITK
 			_squadMembers.Remove(callback.Entity);
 		}
 
-		private void OnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
-		{
-			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
-
-			squadMember.UpdateEquipment(callback.Weapon);
-		}
-
-		private void OnPlayerGearChanged(EventOnPlayerGearChanged callback)
-		{
-			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
-
-			squadMember.UpdateEquipment(callback.Gear);
-		}
-
 		private void OnHealthChanged(EventOnHealthChanged callback)
 		{
 			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
 
-			squadMember.UpdateHealth((float) callback.CurrentHealth / callback.MaxHealth);
+			squadMember.UpdateHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
 		}
 
 		private void OnShieldChanged(EventOnShieldChanged callback)
 		{
 			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
 
-			squadMember.UpdateShield((float) callback.CurrentShield / callback.CurrentShieldCapacity);
-		}
-
-		private void OnPlayerLevelUp(EventOnPlayerLevelUp callback)
-		{
-			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
-
-			squadMember.UpdateLevel(callback.CurrentLevel);
+			squadMember.UpdateShield(callback.PreviousShield, callback.CurrentShield, callback.CurrentShieldCapacity);
 		}
 
 		private void OnEntityDamaged(EventOnEntityDamaged callback)
@@ -134,8 +113,10 @@ namespace FirstLight.Game.Views.UITK
 					}
 
 					_squadMembers.Add(e, squadMember);
-					
-					var teamColor = _matchServices.TeamService.GetTeamMemberColor(e);
+
+					squadMember.ShowRealDamage = _dataProvider.AppDataProvider.ShowRealDamage;
+
+					var teamColor = _services.TeamService.GetTeamMemberColor(e);
 					if (teamColor.HasValue)
 					{
 						squadMember.SetTeamColor(teamColor.Value);
@@ -143,16 +124,20 @@ namespace FirstLight.Game.Views.UITK
 
 					var isBot = f.Has<BotCharacter>(e);
 					var playerName = Extensions.GetPlayerName(f, e, pc);
-					var playerNameColor = isBot ?
-						                      GameConstants.PlayerName.DEFAULT_COLOR :
-						                      _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, (int)f.GetPlayerData(pc.Player).LeaderboardRank);
-					
+					var playerNameColor = isBot
+						? GameConstants.PlayerName.DEFAULT_COLOR
+						: _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked,
+							(int) f.GetPlayerData(pc.Player).LeaderboardRank);
+
 					squadMember.SetPlayer(pc.Player, playerName, pc.GetEnergyLevel(f),
 						isBot ? null : f.GetPlayerData(pc.Player).AvatarUrl, playerNameColor);
 					if (f.TryGet<Stats>(e, out var stats))
 					{
-						squadMember.UpdateHealth(StatUtils.GetHealthPercentage(stats).AsFloat);
-						squadMember.UpdateShield(StatUtils.GetShieldPercentage(stats).AsFloat);
+						var maxHealth = FPMath.RoundToInt(stats.GetStatData(StatType.Health).StatValue);
+						var maxShield = FPMath.RoundToInt(stats.GetStatData(StatType.Shield).StatValue);
+
+						squadMember.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, maxHealth);
+						squadMember.UpdateShield(stats.CurrentShield, stats.CurrentShield, maxShield);
 					}
 
 					index++;

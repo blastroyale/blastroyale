@@ -19,7 +19,8 @@ Shader "FLG/UI/Minimap"
         _PingColor ("Ping Color", Color) = (0,0,1,1)
         _PingProgress ("Ping Progress", Float) = 1
 
-        _PlayersSize("Players Size", Float) = 0.01
+        _PlayersSize("Players Size", Float) = 0.02
+        _PlayersSizeFocused("Players Size Focused", Float) = 0.06
         _PingSize("Ping Size", Float) = 0.01
         _PingWidth("Ping Width", Float) = 0.1
         _SafeAreaSize ("Safe Area Size", Float) = 1
@@ -121,9 +122,6 @@ Shader "FLG/UI/Minimap"
 
             int _EnemiesCount = 0;
             half4 _Enemies[30];
-            int _FriendliesCount = 0;
-            half4 _Friendlies[30];
-            fixed4 _FriendliesColors[30];
             half _EnemiesOpacity;
 
             half _PingSize;
@@ -199,16 +197,6 @@ Shader "FLG/UI/Minimap"
                     color = color * (1 - playerCircle) + playerCircle * _EnemiesColor;
                 }
 
-                for (int i = 0; i < _FriendliesCount; i++)
-                {
-                    const half2 playerPos = stMod - _Friendlies[i];
-                    const half playerCircle = circle(playerPos, _PlayersSize);
-                    const half playerCircleOuter = circle(playerPos, _PlayersSize * 1.15);
-
-                    color = color * (1 - playerCircleOuter) + playerCircleOuter * _PlayersOutlineColor;
-                    color = color * (1 - playerCircle) + playerCircle * _FriendliesColors[i];
-                }
-
                 // Draw Ping ring
                 const half2 pingPos = stMod - _PingPosition;
                 const half progressCubic = _PingProgress * _PingProgress;
@@ -222,10 +210,11 @@ Shader "FLG/UI/Minimap"
                 // Draw outer ring
                 const half outerRing = circle(st, 1) - circle(st, 1.0 - _OuterRindWidth);
                 color = color * (1 - outerRing) + outerRing * _OuterRingColor;
+                
 
                 // Fade
-                const half fade = 1 - max(0, distance(st, float2(0.5, 0.5)) - 0.405) * 10.0;
-                color.a = fade + outerRing * _OuterRingColor.a;
+                // const half fade = 1 - max(0, distance(st, float2(0.5, 0.5)) - 0.405) * 10.0;
+                // color.a = fade + outerRing * _OuterRingColor.a;
 
                 // END CUSTOM DRAW
 

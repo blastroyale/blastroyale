@@ -72,19 +72,8 @@ namespace FirstLight.Game.Services.Collection
 				new CharacterSkinGroupHandler(_configsProvider, _assetResolver),
 				new WeaponSkinCollectionHandler(_configsProvider, _assetResolver)
 			};
-			messageBrokerService.Subscribe<SuccessAuthentication>(GiveDefaultCollectionItems);
 		}
-
-		/// <summary>
-		/// Give default items on player authentication
-		/// </summary>
-		private void GiveDefaultCollectionItems(SuccessAuthentication _)
-		{
-			if (!_dataProvider.CollectionDataProvider.HasAllDefaultCollectionItems())
-			{
-				_commandService.ExecuteCommand(new GiveDefaultCollectionItemsCommand());
-			}
-		}
+		
 
 		public ItemData GetCosmeticForGroup(IEnumerable<GameId> cosmeticLoadout, GameIdGroup group, bool returnDefault = true)
 		{

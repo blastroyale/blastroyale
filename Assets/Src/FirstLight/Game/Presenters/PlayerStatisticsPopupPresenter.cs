@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.UIElements;
@@ -38,9 +40,10 @@ namespace FirstLight.Game.Presenters
 		private Label[] _statLabels;
 		private Label[] _statValues;
 		private VisualElement[] _statContainers;
+
 		private int _pfpRequestHandle = -1;
 		
-		private const int StatisticMaxSize = 6;
+		private const int StatisticMaxSize = 4;
 		
 		private void Awake()
 		{
@@ -84,13 +87,14 @@ namespace FirstLight.Game.Presenters
 			{
 				_statContainers[i] = root.Q<VisualElement>($"StatsContainer{i}").Required();
 				_statContainers[i].visible = false;
-			}
-			
-			for (int i = 0; i < StatisticMaxSize; i++)
-			{
+				
 				_statLabels[i] = root.Q<Label>($"StatName{i}").Required();
 				_statValues[i] = root.Q<Label>($"StatValue{i}").Required();
 			}
+			
+			// Hiding 2 more stats slots. Will be used later
+			root.Q<VisualElement>($"StatsWidget4").Required().SetDisplay(false);
+			root.Q<VisualElement>($"StatsWidget5").Required().SetDisplay(false);
 
 			_content.visible = false;
 			_loadingSpinner.visible = true;
@@ -101,14 +105,13 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-
+		
 			SetupPopup();
 		}
 
 		protected override async Task OnClosed()
 		{
 			base.OnClosed();
-			
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
 		}
 
@@ -118,10 +121,23 @@ namespace FirstLight.Game.Presenters
 			_statLabels[index].text = statLoc;
 			_statValues[index].text = stat.Value.ToString();
 			_statContainers[index].visible = true;
+			_statContainers[index].parent.RegisterCallback<MouseDownEvent>(e => OpenLeaderboard(statLoc, statName));
+		}
+
+		private void OpenLeaderboard(string name, string metric)
+		{
+			_services.GameUiService.CloseUi<PlayerStatisticsPopupPresenter>();
+			_services.GameUiService.OpenScreen<GlobalLeaderboardScreenPresenter, GlobalLeaderboardScreenPresenter.StateData>(new ()
+			{
+				OnBackClicked = () => _services.MessageBrokerService.Publish(new MainMenuShouldReloadMessage()),
+				ShowSpecificLeaderboard = new GameLeaderboard(name, metric)
+			});
 		}
 
 		private void SetupPopup()
 		{
+			_content.visible = false;
+			_loadingSpinner.visible = true;
 			_services.ProfileService.GetPlayerPublicProfile(Data.PlayerId, (result) =>
 			{
 			    if (!IsOpen) return;
@@ -131,13 +147,11 @@ namespace FirstLight.Game.Presenters
 				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);
 				SetStatInfo(1, result, GameConstants.Stats.RANKED_GAMES_WON_EVER, ScriptLocalization.MainMenu.RankedGamesWon);
 				SetStatInfo(2, result, GameConstants.Stats.RANKED_KILLS_EVER, ScriptLocalization.MainMenu.RankedKills);
-				SetStatInfo(3, result, GameConstants.Stats.GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.GamesPlayedEver);
-				SetStatInfo(4, result, GameConstants.Stats.GAMES_WON_EVER, ScriptLocalization.MainMenu.GamesWonEver);
-				SetStatInfo(5, result, GameConstants.Stats.KILLS_EVER, ScriptLocalization.MainMenu.KillsEver);
+				SetStatInfo(3, result, GameConstants.Stats.RANKED_DEATHS_EVER, ScriptLocalization.MainMenu.RankedDeaths);
 				
 				_pfpImage.SetAvatar(result.AvatarUrl);
 				_pfpImage.SetLevel(_gameDataProvider.PlayerDataProvider.Level.Value);
-
+				_pfpImage.RegisterCallback<MouseDownEvent>(e => OpenLeaderboard(ScriptLocalization.General.Level, GameConstants.Stats.FAME));
 				_content.visible = true;
 				_loadingSpinner.visible = false;
 			});

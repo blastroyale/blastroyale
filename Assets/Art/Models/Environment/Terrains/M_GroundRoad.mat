@@ -128,7 +128,7 @@ Material:
     - Color_CB1CA255: {r: 1, g: 1, b: 1, a: 1}
     - Vector2_FD0C58A4: {r: 0.3, g: 0.3, b: 1, a: 1}
     - Vector4_F799D26D: {r: 1, g: 1, b: 0, a: 90}
-    - _BaseColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+    - _BaseColor: {r: 0.23629408, g: 0.24797527, b: 0.2830189, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}

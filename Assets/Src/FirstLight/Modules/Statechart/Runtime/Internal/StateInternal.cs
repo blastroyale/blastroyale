@@ -66,7 +66,7 @@ namespace FirstLight.Statechart.Internal
    }
 
    /// <inheritdoc />
-   internal abstract class StateInternal : IStateInternal
+   internal abstract class StateInternal : IStateInternal, IStateDebug
    {
       protected readonly IStateFactoryInternal _stateFactory;
 
@@ -199,6 +199,11 @@ namespace FirstLight.Statechart.Internal
          return Name;
       }
 
+      public virtual string CurrentStateDebug()
+      {
+         return $"{Name} <i>{GetType().Name}</i>";
+      }
+
       /// <inheritdoc />
       public abstract void Enter();
 
@@ -249,8 +254,8 @@ namespace FirstLight.Statechart.Internal
          }
          catch (Exception e)
          {
-            throw new Exception($"Exception in the transition '{Name}' -> '{transition.TargetState?.Name}'," +
-                                $" TriggerTransition() actions.\n{transition.CreationStackTrace}", e);
+            throw new Exception($"Exception in the transition '{Name}' -> '{transition?.TargetState?.Name}'," +
+                                $" TriggerTransition() actions.\n{transition?.CreationStackTrace}", e);
          }
       }
    }

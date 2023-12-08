@@ -1,0 +1,20 @@
+{
+    "name": "com.Tivadar.Best.TLSSecurity",
+    "rootNamespace": "Best.TLSSecurity",
+    "references": [
+        "com.Tivadar.Best.HTTP"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [
+        "WebGL"
+    ],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "!BESTHTTP_DISABLE_ALTERNATE_SSL"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

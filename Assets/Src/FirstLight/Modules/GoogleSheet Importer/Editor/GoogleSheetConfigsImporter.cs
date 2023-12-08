@@ -74,7 +74,6 @@ namespace FirstLightEditor.GoogleSheetImporter
 	/// </remarks>
 	public abstract class GoogleSheetConfigsImporter<TConfig, TScriptableObject> : 
 		GoogleSheetScriptableObjectImportContainer<TScriptableObject>
-		where TConfig : struct
 		where TScriptableObject : ScriptableObject, IConfigsContainer<TConfig>
 	{
 		protected override void OnImport(TScriptableObject scriptableObject, List<Dictionary<string, string>> data)
@@ -102,7 +101,6 @@ namespace FirstLightEditor.GoogleSheetImporter
 	/// </remarks>
 	public abstract class GoogleSheetSingleConfigImporter<TConfig, TScriptableObject>  : 
 		GoogleSheetScriptableObjectImportContainer<TScriptableObject>
-		where TConfig : struct
 		where TScriptableObject : ScriptableObject, ISingleConfigContainer<TConfig>
 	{
 		protected override void OnImport(TScriptableObject scriptableObject, List<Dictionary<string, string>> data)

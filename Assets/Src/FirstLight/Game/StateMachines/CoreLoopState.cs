@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.DemiLib;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
@@ -127,20 +128,12 @@ namespace FirstLight.Game.StateMachines
 					});
 				}
 
-				if (!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH))
-				{
-					_services.CommandService.ExecuteCommand(new CompleteTutorialSectionCommand()
-					{
-						Section = TutorialSection.META_GUIDE_AND_MATCH
-					});
-				}
-
 				return true;
 			}
 			return false;
 		}
 
-		private async Task TutorialJoinTask(bool transition = false)
+		private async UniTask TutorialJoinTask(bool transition = false)
 		{
 			await _services.GameUiService.CloseUi<PrivacyDialogPresenter>();
 			if (transition)
@@ -149,18 +142,18 @@ namespace FirstLight.Game.StateMachines
 				// This is an ugly hack - if we dont wait a second here the state machine will get back to iddle state
 				// before the event of starting the match is fireds causing an infinite loop and crash.
 				// This can still happen on some devices so this hack needs to be solved.
-				await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
+				await UniTask.Delay(GameConstants.Tutorial.TIME_1000MS);
 			}
 			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
 		}
 
-		private async Task TransitionScreen()
+		private async UniTask TransitionScreen()
 		{
 			await SwipeScreenPresenter.StartSwipe();
 			await _uiService.CloseUi<LoadingScreenPresenter>();
 		}
 
-		private async Task AcceptPrivacyDialog()
+		private async UniTask AcceptPrivacyDialog()
 		{
 			await TransitionScreen();
 			var data = new PrivacyDialogPresenter.StateData()

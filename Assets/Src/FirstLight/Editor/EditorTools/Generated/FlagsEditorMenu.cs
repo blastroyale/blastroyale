@@ -25,12 +25,14 @@ namespace FirstLight.Editor.EditorTools.Generated
 				EditorApplication.delayCall += () =>
 			{
 				Menu.SetChecked("FLG/Local Flags/Use local server", IsUseLocalServer);
+Menu.SetChecked("FLG/Local Flags/Offline mode", IsOfflineMode);
 Menu.SetChecked("FLG/Local Flags/Use local configs", IsUseLocalConfigs);
 Menu.SetChecked("FLG/Local Flags/Unblock NFTs only content", IsForceHasNfts);
 Menu.SetChecked("FLG/Local Flags/Unblock Equipment requirements", IsIgnoreEquipmentRequirementForRanked);
 Menu.SetChecked("FLG/Local Flags/Record quantum input", IsRecordQuantumInput);
 Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGameAutomatically);
 Menu.SetChecked("FLG/Local Flags/Force Authentication Connection Error", IsForceAuthError);
+Menu.SetChecked("FLG/Local Flags/Disable Pause Behaviour", IsDisablePauseBehaviour);
 
 				Menu.SetChecked("FLG/Local Flags/Symbols/Enable bot debug visuals", IsBotDebug);
 
@@ -48,6 +50,18 @@ UpdateSelectionEnvironmentOverride();
 			{
 				FeatureFlags.GetLocalConfiguration().UseLocalServer = value;
 				Debug.Log("Setting UseLocalServer to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
+
+		private static bool IsOfflineMode
+		{
+			get => FeatureFlags.GetLocalConfiguration().OfflineMode;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().OfflineMode = value;
+				Debug.Log("Setting OfflineMode to "+value);
 				FeatureFlags.SaveLocalConfig();
 			}
 		}
@@ -124,6 +138,18 @@ UpdateSelectionEnvironmentOverride();
 			}
 		}
 
+
+		private static bool IsDisablePauseBehaviour
+		{
+			get => FeatureFlags.GetLocalConfiguration().DisablePauseBehaviour;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().DisablePauseBehaviour = value;
+				Debug.Log("Setting DisablePauseBehaviour to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
 		
 				private static bool IsBotDebug
 		{
@@ -138,6 +164,14 @@ UpdateSelectionEnvironmentOverride();
 		{
 			IsUseLocalServer = !IsUseLocalServer;
 			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Use local server", IsUseLocalServer); };
+		}
+
+
+		[MenuItem("FLG/Local Flags/Offline mode", false, 5)]
+		private static void ToggleOfflineMode()
+		{
+			IsOfflineMode = !IsOfflineMode;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Offline mode", IsOfflineMode); };
 		}
 
 
@@ -186,6 +220,14 @@ UpdateSelectionEnvironmentOverride();
 		{
 			IsForceAuthError = !IsForceAuthError;
 			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Force Authentication Connection Error", IsForceAuthError); };
+		}
+
+
+		[MenuItem("FLG/Local Flags/Disable Pause Behaviour", false, 5)]
+		private static void ToggleDisablePauseBehaviour()
+		{
+			IsDisablePauseBehaviour = !IsDisablePauseBehaviour;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Disable Pause Behaviour", IsDisablePauseBehaviour); };
 		}
 
 		

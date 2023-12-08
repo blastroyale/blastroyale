@@ -145,7 +145,7 @@ namespace FirstLight.Editor.Configs
 			return wrapper != null;
 		}
 
-		private class QuantumSingleConfigWrapper<TAsset, TConfig> where TConfig : struct
+		private class QuantumSingleConfigWrapper<TAsset, TConfig>
 		                                                          where TAsset : Object, ISingleConfigContainer<TConfig>
 		{
 			private readonly TAsset _asset;
@@ -163,7 +163,7 @@ namespace FirstLight.Editor.Configs
 			}
 		}
 
-		private class QuantumConfigWrapper<TAsset, TConfig> where TConfig : struct
+		private class QuantumConfigWrapper<TAsset, TConfig>
 		                                                    where TAsset : Object, IConfigsContainer<TConfig>
 		{
 			private readonly TAsset _asset;

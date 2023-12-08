@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Editor.Artifacts;
 using FirstLight.Editor.EditorTools;
 using Photon.Realtime;
@@ -93,27 +94,26 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Combines the configure and build steps
 		/// </summary>
-		public static async void AzureBuild()
+		public static void AzureBuild()
 		{
 			var args = Environment.GetCommandLineArgs();
 			ConfigureBuild(args);
-			await JenkinsBuild(args);
+			JenkinsBuild(args);
 		}
-
 
 		[MenuItem("FLG/Build/Store Azure Build")]
 		public static async void EditorBuild()
 		{
 			var args = "-flBuildSymbol STORE_BUILD -flBuildServer TESTNET_SERVER -flBuildNumber 3000 -flBuildFileName app".Split(" ");
 			ConfigureBuild(args);
-			await JenkinsBuild(args, false);
+			JenkinsBuild(args, false);
 		}
 
 
 		/// <summary>
 		/// Execute method for Jenkins builds
 		/// </summary>
-		public static async Task JenkinsBuild(string[] arguments, bool quit = true)
+		public static void JenkinsBuild(string[] arguments, bool quit = true)
 		{
 			var buildTarget = BuildTarget.NoTarget;
 
@@ -138,6 +138,9 @@ namespace FirstLight.Editor.Build
 				Debug.LogError("Could not get app file name from command line args.");
 				EditorApplication.Exit(1);
 			}
+			
+			// Copy Dlls to a folder that will be publish as a pipeline artifact
+			ArtifactCopier.Copy($"{Application.dataPath}/../BuildArtifacts/", ArtifactCopier.All);
 
 			PlayerSettings.SplashScreen.show = false;
 			PlayerSettings.SplashScreen.showUnityLogo = false;
@@ -149,9 +152,6 @@ namespace FirstLight.Editor.Build
 
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(buildTarget, fileName, buildSymbol);
 			var buildReport = BuildPipeline.BuildPlayer(options);
-
-			// Copy Dlls to a folder that will be publish as a pipeline artifact
-			await ArtifactCopier.Copy($"{Application.dataPath}/../BuildArtifacts/", ArtifactCopier.All);
 
 			LogBuildReport(buildReport);
 

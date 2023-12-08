@@ -95,7 +95,7 @@ namespace Quantum
 			var allowedRewards = new List<GameId>();
 			foreach (var idString in ((string) customProperties["alrewards"]).Split(','))
 			{
-				if(Enum.TryParse(idString, true, out GameId id))
+				if(!string.IsNullOrEmpty(idString) && Enum.TryParse(idString, true, out GameId id))
 				{
 					allowedRewards.Add(id);
 				}

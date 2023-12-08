@@ -44,6 +44,11 @@ namespace FirstLight.Game.Utils
 		/// Requests will be routed to local backend. To run, run "StandaloneServer" on backend project.
 		/// </summary>
 		[Description("Use local server")] public bool UseLocalServer = false;
+		
+		/// <summary>
+		/// Requests will be routed to local backend. To run, run "StandaloneServer" on backend project.
+		/// </summary>
+		[Description("Offline mode")] public bool OfflineMode = false;
 
 		/// <summary>
 		/// To use local configurations as opposed to remote configurations.
@@ -88,6 +93,12 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		[Description("Force Authentication Connection Error")]
 		public bool ForceAuthError = false;
+		
+		/// <summary>
+		/// Force authentication connection error
+		/// </summary>
+		[Description("Disable Pause Behaviour")]
+		public bool DisablePauseBehaviour = false;
 	}
 
 
@@ -163,6 +174,11 @@ namespace FirstLight.Game.Utils
 		/// If the tutorial is active, useful for testing
 		/// </summary>
 		public static bool TUTORIAL = true;
+
+		/// <summary>
+		/// If the main menu systems start locked, useful for testing
+		/// </summary>
+		public static bool SYSTEM_LOCKS = true;
 
 		/// <summary>
 		/// If the tutorial is active, useful for testing

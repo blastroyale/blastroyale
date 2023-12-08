@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using ExitGames.Client.Photon;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
@@ -30,16 +31,16 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent NameSetEvent = new StatechartEvent("Name Set Event");
 		private readonly IStatechartEvent _nameSetInvalidEvent = new StatechartEvent("Name Set Invalid Event");
 		private readonly IStatechartEvent _nameInvalidAcknowledgedEvent = new StatechartEvent("Name Invalid Acknowledged Event");
-		
+
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private string _nameInvalidStatus = "";
-		
-		public EnterNameState(IGameServices services, IGameUiService uiService, IGameDataProvider dataProvider, 
-		                      Action<IStatechartEvent> statechartTrigger)
+
+		public EnterNameState(IGameServices services, IGameUiService uiService, IGameDataProvider dataProvider,
+							  Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_uiService = uiService;
@@ -56,10 +57,10 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var nameEntry = stateFactory.State("Name Entry");
 			var nameInvalid = stateFactory.State("Name Invalid");
-			
+
 			initial.Transition().Target(nameEntry);
 			initial.OnExit(SubscribeEvents);
-			
+
 			nameEntry.OnEnter(OpenEnterNameDialog);
 			nameEntry.Event(NameSetEvent).Target(final);
 			nameEntry.Event(_nameSetInvalidEvent).Target(nameInvalid);
@@ -78,7 +79,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
-		
+
 		private void OpenEnterNameDialog()
 		{
 			var confirmButton = new GenericDialogButton<string>
@@ -86,12 +87,13 @@ namespace FirstLight.Game.StateMachines
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = OnNameSet
 			};
-			
-			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.enter_your_name, ScriptLocalization.UITHomeScreen.new_name_desc, 
-			                                                    _dataProvider.AppDataProvider.GetDisplayName(true, false), 
-			                                                    confirmButton, false);
+
+			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.enter_your_name,
+				ScriptLocalization.UITHomeScreen.new_name_desc,
+				_dataProvider.AppDataProvider.GetDisplayName(true, false),
+				confirmButton, false);
 		}
-		
+
 		private void OpenNameInvalidDialog()
 		{
 			var okButton = new GenericDialogButton
@@ -99,28 +101,35 @@ namespace FirstLight.Game.StateMachines
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = OnNameInvalidAcknowledged
 			};
-			
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, _nameInvalidStatus,false, okButton);
+
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, _nameInvalidStatus, false, okButton);
 		}
 
 		private void OnNameSet(string newName)
 		{
 			var newNameTrimmed = newName.Trim();
-			
+
 			if (newNameTrimmed.Length < GameConstants.PlayerName.PLAYER_NAME_MIN_LENGTH)
 			{
-				_nameInvalidStatus = string.Format(ScriptLocalization.MainMenu.NameTooShort, 
+				_nameInvalidStatus = string.Format(ScriptLocalization.UITProfileScreen.username_too_short,
 					GameConstants.PlayerName.PLAYER_NAME_MIN_LENGTH);
-				
+
 				_statechartTrigger(_nameSetInvalidEvent);
 				return;
 			}
-			
+
 			if (newNameTrimmed.Length > GameConstants.PlayerName.PLAYER_NAME_MAX_LENGTH)
 			{
-				_nameInvalidStatus = string.Format(ScriptLocalization.MainMenu.NameTooLong, 
+				_nameInvalidStatus = string.Format(ScriptLocalization.UITProfileScreen.username_too_long,
 					GameConstants.PlayerName.PLAYER_NAME_MAX_LENGTH);
-				
+
+				_statechartTrigger(_nameSetInvalidEvent);
+				return;
+			}
+
+			if (new Regex("[^a-zA-Z0-9 _-\uA421]+").IsMatch(newNameTrimmed))
+			{
+				_nameInvalidStatus = ScriptLocalization.UITProfileScreen.username_invalid_characters;
 				_statechartTrigger(_nameSetInvalidEvent);
 				return;
 			}
@@ -129,10 +138,10 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.GameBackendService.UpdateDisplayName(newNameTrimmed, null, null);
 			}
-			
+
 			_statechartTrigger(NameSetEvent);
 		}
-		
+
 		private void OnNameInvalidAcknowledged()
 		{
 			_statechartTrigger(_nameInvalidAcknowledgedEvent);

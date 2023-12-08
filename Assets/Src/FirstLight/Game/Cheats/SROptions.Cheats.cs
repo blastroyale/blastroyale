@@ -313,6 +313,14 @@ public partial class SROptions
 			level: 35,
 			grade: EquipmentGrade.GradeI,
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.ModSniper,
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Dimensional,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
@@ -596,17 +604,25 @@ public partial class SROptions
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
+	
+	[Category("Progression")]
+	public void Add100BlastBucks()
+	{
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		gameLogic.CurrencyLogic.AddCurrency(GameId.BlastBuck, 100);
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
 
 	[Category("Progression")]
 	public void ResetBpp()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var dataProvider = services.DataSaver as IDataService;
-		var playerData = dataProvider.GetData<PlayerData>();
-
-		playerData.BPLevel = 0;
-		playerData.BPPoints = 0;
-
+		var data = dataProvider.GetData<BattlePassData>();
+		data.Seasons.Clear();
 		dataProvider.SaveData<PlayerData>();
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
@@ -630,6 +646,17 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 
 		gameLogic.PlayerLogic.AddXP(50);
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
+	[Category("Progression")]
+	public void Add500XP()
+	{
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		gameLogic.PlayerLogic.AddXP(500);
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}

@@ -62,6 +62,15 @@ namespace FirstLight.Game.Utils
 		/// Gets the position (center of content rect) of the <paramref name="element"/>, in screen coordinates.
 		/// TODO: There has to be a better way to do this, without using the camera
 		/// </summary>
+		public static bool IsInScreen(this VisualElement element, VisualElement root)
+		{
+			return element.worldBound.Overlaps(root.worldBound);
+		}
+		
+		/// <summary>
+		/// Gets the position (center of content rect) of the <paramref name="element"/>, in screen coordinates.
+		/// TODO: There has to be a better way to do this, without using the camera
+		/// </summary>
 		public static Vector2 GetPositionOnScreen(this VisualElement element, VisualElement root, bool invertY = true,
 												  bool invertX = false)
 		{
@@ -135,7 +144,7 @@ namespace FirstLight.Game.Utils
 		{
 			return LocalizationManager.TryGetTranslation(key, out var translation)
 				? translation
-				: $"#{key}#";
+				: $"{key}";
 		}
 
 		/// <summary>
@@ -179,19 +188,6 @@ namespace FirstLight.Game.Utils
 				GameId.CoreLegendary => USS_SPRITE_RARITY_LEGENDARY,
 				_                    => ""
 			};
-		}
-
-		/// <summary>
-		/// Animates the scale up and then back down to 1
-		/// </summary>
-		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f, int duration = 150)
-		{
-			var anim = element.experimental.animation.Scale(amount, duration).OnCompleted(() =>
-			{
-				element.experimental.animation.Scale(1f, duration).Start();
-			});
-			anim.Start();
-			return anim;
 		}
 
 

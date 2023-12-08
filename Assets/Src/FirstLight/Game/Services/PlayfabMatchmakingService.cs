@@ -222,13 +222,7 @@ namespace FirstLight.Game.Services
 		{
 			if (after == null)
 			{
-				if (_pooling != null)
-				{
-					FLog.Info("Stopped pooling received null ticket value from squad");
-					_pooling.Stop();
-					_pooling = null;
-				}
-
+				// This case of canceling the ticket is handled at set member property
 				return;
 			}
 

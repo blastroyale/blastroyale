@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -36,6 +37,8 @@ namespace FirstLight.Game.Views.UITK
 		/// </summary>
 		public event Action<float> OnCancel;
 
+		private IMatchServices _matchServices;
+
 		public override void Attached(VisualElement element)
 		{
 			base.Attached(element);
@@ -48,37 +51,49 @@ namespace FirstLight.Game.Views.UITK
 			_special1Button.OnDrag += val => OnDrag?.Invoke(val);
 			_special0Button.OnCancel += val => OnCancel?.Invoke(val);
 			_special1Button.OnCancel += val => OnCancel?.Invoke(val);
+
+			_matchServices = MainInstaller.ResolveMatchServices();
 		}
 
 		public override void SubscribeToEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(OnLocalPlayerWeaponChanged);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUsed>(OnLocalPlayerSpecialUsed);
+			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(OnPlayerSpecialUpdated);
+		}
+
+		private void OnPlayerSpecialUpdated(EventOnPlayerSpecialUpdated callback)
+		{
+			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
+
+			switch (callback.SpecialIndex)
+			{
+				case 0:
+					UpdateSpecial(callback.Game.Frames.Verified, callback.Special, _special0Button);
+					break;
+				case 1:
+					UpdateSpecial(callback.Game.Frames.Verified, callback.Special, _special1Button);
+					break;
+			}
 		}
 
 		public override void UnsubscribeFromEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}
-		
+
 		public void UpdateFromLatestVerifiedFrame()
 		{
-			var playerEntity = 	QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 			var f = QuantumRunner.Default.Game.Frames.Verified;
-			var pc = f.Get<PlayerCharacter>(playerEntity);
-			UpdateSpecials(f, pc.WeaponSlots[pc.CurrentWeaponSlot]);
-		}
-
-		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
-		{
-			UpdateSpecials(callback.Game.Frames.Predicted, callback.WeaponSlot);
+			var inventory = f.Get<PlayerInventory>(playerEntity);
+			UpdateSpecials(f, inventory);
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
-			var pc = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
-			UpdateSpecials(callback.Game.Frames.Predicted, pc.WeaponSlots[pc.CurrentWeaponSlot]);
+			var inventory = callback.Game.Frames.Verified.Get<PlayerInventory>(callback.Entity);
+			UpdateSpecials(callback.Game.Frames.Predicted, inventory);
 		}
 
 		private void OnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
@@ -88,23 +103,22 @@ namespace FirstLight.Game.Views.UITK
 			{
 				case 0:
 					// TODO: Callback to enable input
-					_special0Button.DisableFor((long)(1000L * callback.Special.Cooldown.AsFloat), null);
+					_special0Button.DisableFor((long) (1000L * callback.Special.Cooldown.AsFloat), null);
 					break;
 				case 1:
 					// TODO: Callback to enable input
-					_special1Button.DisableFor((long)(1000L * callback.Special.Cooldown.AsFloat), null);
+					_special1Button.DisableFor((long) (1000L * callback.Special.Cooldown.AsFloat), null);
 					break;
 			}
 		}
 
-		private void UpdateSpecial(Frame f, WeaponSlot currentSlot, int slot, SpecialButtonElement button)
+		private void UpdateSpecial(Frame f, Special special, SpecialButtonElement button)
 		{
-			var special = currentSlot.Specials[slot];
 			if (special.IsValid)
 			{
 				button.SetVisibility(true);
 				button.SetSpecial(special.SpecialId, special.IsAimable,
-					Math.Max(0L, (long)(special.AvailableTime - f.Time).AsFloat * 1000L));
+					Math.Max(0L, (long) (special.AvailableTime - f.Time).AsFloat * 1000L));
 			}
 			else
 			{
@@ -113,17 +127,17 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		private void UpdateSpecials(Frame f, WeaponSlot currentSlot)
+		private void UpdateSpecials(Frame f, PlayerInventory inventory)
 		{
-			if (f.Context.TryGetMutatorByType(MutatorType.NoAbilities, out _))
+			if (f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
 			{
 				_special0Button.SetVisibility(false);
 				_special1Button.SetVisibility(false);
 				return;
 			}
-			
-			UpdateSpecial(f, currentSlot, 0, _special0Button);
-			UpdateSpecial(f, currentSlot, 1, _special1Button);
+
+			UpdateSpecial(f, inventory.Specials[0], _special0Button);
+			UpdateSpecial(f, inventory.Specials[1], _special1Button);
 		}
 	}
 }

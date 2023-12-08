@@ -116,7 +116,7 @@ namespace FirstLight.Game.Logic
 		/// Generates ItemData of all given configs.
 		/// Those configs represents a "chest like" structure containing rules on how to generate items.
 		/// </summary>
-		IEnumerable<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> configs);
+		IReadOnlyCollection<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> configs);
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -255,17 +255,19 @@ namespace FirstLight.Game.Logic
 		public List<ItemData> ClaimUnclaimedRewards()
 		{
 			var claimed = new List<ItemData>(Data.UncollectedRewards);
-			foreach (var reward in claimed) ClaimUnclaimedReward(reward);
-			return claimed;
+			foreach (var reward in claimed)
+			{
+				if (reward.Id == GameId.Random) Data.UncollectedRewards.Remove(reward);
+				else ClaimUnclaimedReward(reward);
+			}
+			return claimed.Where(r => r.Id != GameId.Random).ToList();
 		}
 
 		public void RewardToUnclaimedRewards(IEnumerable<ItemData> items)
 		{
 			foreach (var item in items)
 			{
-				// Equipment never goes to unclaimed
-				if (item.MetadataType == ItemMetadataType.Equipment) AddItemToPlayerInventory(item);
-				else _unclaimedRewards.Add(item);
+				_unclaimedRewards.Add(item);
 			}
 		}
 		
@@ -282,11 +284,6 @@ namespace FirstLight.Game.Logic
 			var rewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
 			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.First(c => c.Section == section).RewardIds.Contains((uint) c.Id));
 			var rewardItems = CreateItemsFromConfigs(rewardsConfigs);
-			var bpp = rewardItems.FirstOrDefault(r => r.Id == GameId.BPP);
-			if (bpp != null && section == TutorialSection.FIRST_GUIDE_MATCH && bpp.TryGetMetadata<CurrencyMetadata>(out var meta))
-			{
-				meta.Amount = (int)GameLogic.BattlePassLogic.GetRequiredPointsForLevel();
-			}
 			return rewardItems;
 		}
 		
@@ -309,7 +306,7 @@ namespace FirstLight.Game.Logic
 			return ItemFactory.Currency(config.GameId, config.Amount);
 		}
 
-		public IEnumerable<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> rewardConfigs)
+		public IReadOnlyCollection<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> rewardConfigs)
 		{
 			var items = new List<ItemData>();
 			foreach (var reward in rewardConfigs) items.Add(CreateItemFromConfig(reward));
@@ -446,7 +443,7 @@ namespace FirstLight.Game.Logic
 					GameLogic.CurrencyLogic.AddCurrency(reward.Id, (uint) currency.Amount);
 				}
 				else throw new LogicException($"Unknown currency '{reward.Id.ToString()}'");
-			}
+			} 
 			else throw new LogicException($"Unknown reward {reward}");
 			return reward;
 		}

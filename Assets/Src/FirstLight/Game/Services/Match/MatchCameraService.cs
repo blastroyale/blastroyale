@@ -121,6 +121,7 @@ namespace FirstLight.Game.Services
 
 		public void Dispose()
 		{
+			QuantumEvent.UnsubscribeListener(this);
 			Object.Destroy(_cameraServiceObject);
 		}
 

@@ -40,13 +40,6 @@ namespace FirstLight.Editor.SheetImporters
 		protected override QuantumWeaponConfig DeserializeAsset(Dictionary<string, string> data, CustomAssetConfigs assetConfigs)
 		{
 			var config = QuantumDeserializer.DeserializeTo<QuantumWeaponConfig>(data);
-
-			config.Specials = new List<GameId>
-			{
-				CsvParser.Parse<GameId>(data["SpecialId0"]), 
-				CsvParser.Parse<GameId>(data["SpecialId1"])
-			};
-
 			return config;
 		}
 	}

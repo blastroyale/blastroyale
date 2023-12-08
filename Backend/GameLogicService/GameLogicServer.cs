@@ -12,6 +12,7 @@ using PlayFab;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
 using FirstLightServerSDK.Services;
 using GameLogicService.Game;
@@ -90,6 +91,7 @@ namespace Backend
 					await SetupPlayer(playerId);
 				}
 				await _eventManager.CallEvent(new PlayerDataLoadEvent(playerId, state));
+				await _server.RunInitializationCommands(playerId, state);
 				return Playfab.Result(playerId, new Dictionary<string, string>()
 				{
 					{"BuildNumber", _serviceConfiguration.BuildNumber},

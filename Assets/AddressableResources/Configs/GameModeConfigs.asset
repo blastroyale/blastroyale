@@ -33,6 +33,7 @@ MonoBehaviour:
       ShowWeaponSlots: 1
       SingleSlotMode: 1
       DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
+      ShowTeamCount: 0
       Lives: 1
       DropWeaponOnPickup: 1
       AirdropNearPlayer: 0
@@ -78,6 +79,7 @@ MonoBehaviour:
       ShowWeaponSlots: 1
       SingleSlotMode: 1
       DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
+      ShowTeamCount: 1
       Lives: 1
       DropWeaponOnPickup: 1
       AirdropNearPlayer: 0
@@ -123,6 +125,7 @@ MonoBehaviour:
       ShowWeaponSlots: 1
       SingleSlotMode: 1
       DescriptionLocalisationKey: MainMenu/DeathmatchDescription
+      ShowTeamCount: 0
       Lives: 0
       DropWeaponOnPickup: 0
       AirdropNearPlayer: 0
@@ -150,7 +153,7 @@ MonoBehaviour:
       IsDebugOnly: 1
       Systems: []
     - Id: Testing
-      MaxPlayers: 1
+      MaxPlayers: 4
       MinPlayers: 1
       Teams: 0
       MaxPlayersInTeam: 0
@@ -164,6 +167,7 @@ MonoBehaviour:
       ShowWeaponSlots: 1
       SingleSlotMode: 1
       DescriptionLocalisationKey: 
+      ShowTeamCount: 0
       Lives: 1
       DropWeaponOnPickup: 1
       AirdropNearPlayer: 0
@@ -176,13 +180,13 @@ MonoBehaviour:
       DeathDropStrategy: 0
       DeathMarker: 0
       MinimumHealth: 0
-      InstantLoad: 0
-      AllowBots: 0
+      InstantLoad: 1
+      AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 0
       BotRespawn: 0
       BotWeaponSearchStrategy: 1
-      BotsTeamOverride: 0
+      BotsTeamOverride: 666
       GameSimulationStateMachine: 1
       AudioStateMachine: 1
       CompletionStrategy: 0
@@ -205,6 +209,7 @@ MonoBehaviour:
       ShowWeaponSlots: 1
       SingleSlotMode: 1
       DescriptionLocalisationKey: 
+      ShowTeamCount: 0
       Lives: 1
       DropWeaponOnPickup: 0
       AirdropNearPlayer: 0
@@ -246,6 +251,7 @@ MonoBehaviour:
       ShowWeaponSlots: 1
       SingleSlotMode: 1
       DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
+      ShowTeamCount: 0
       Lives: 1
       DropWeaponOnPickup: 1
       AirdropNearPlayer: 0
@@ -290,7 +296,8 @@ MonoBehaviour:
       ShowUIStandingsExtraInfo: 1
       ShowWeaponSlots: 1
       SingleSlotMode: 1
-      DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
+      DescriptionLocalisationKey: MainMenu/BattleRoyaleDuosDescription
+      ShowTeamCount: 1
       Lives: 1
       DropWeaponOnPickup: 1
       AirdropNearPlayer: 0

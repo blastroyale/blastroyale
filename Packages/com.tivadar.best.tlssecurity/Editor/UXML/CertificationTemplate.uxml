@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+    xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True" >
+
+  <ui:Box name="rootFoldout" style="flex-grow: 1;" >
+    <ui:Label binding-path="header" style="font-size: 24px; -unity-font-style: bold; -unity-text-align: middle-center; margin-top: 5px; margin-bottom: 10px;"/>
+    <ui:Box style="flex-grow: 1; border-width: 2px; border-color: #000000; padding: 2px;">
+      <uie:Toolbar>
+        <uie:ToolbarButton text="Reset URL" name="ResetURL" />
+
+        <ui:TextField name="URL" binding-path="URL" />
+        <uie:ToolbarButton text="Download" name="Download" />
+
+        <uie:ToolbarSpacer />
+        <ui:Toggle value="true" text="Clear Before Download" name="KeepCustom" binding-path="clearBeforeDownload" />
+
+        <uie:ToolbarSpacer />
+        <uie:ToolbarSpacer />
+
+        <uie:ToolbarButton text="Clear" name="Clear" />
+        <ui:Toggle value="true" text="Keep Custom" name="KeepCustom" binding-path="keepCustomCertificates" />
+
+        <uie:ToolbarSpacer />
+        <uie:ToolbarSpacer />
+
+        <uie:ToolbarButton text="Add Custom" name="AddCustom" />
+
+        <uie:ToolbarSpacer />
+        <uie:ToolbarSpacer />
+
+        <uie:ToolbarButton text="Delete Selected" name="DeleteSelected" />
+
+        <uie:ToolbarSpacer />
+        <uie:ToolbarSpacer />
+
+        <uie:ToolbarSearchField name="Search" style="flex-grow: 1;" />
+
+        <uie:ToolbarSpacer style="width: auto; flex-grow: 1;" />
+
+        <uie:ToolbarButton name="HelpButton" text="?" />
+      </uie:Toolbar>
+
+      <!-- LitView Header -->
+      <ui:VisualElement style="flex-direction: row;">
+        <ui:Box style="width: 40px;" >
+          <ui:Label text="#" style="-unity-text-align: middle-center;" />
+        </ui:Box>
+        <ui:Box style="width: 30px;" >
+          <ui:Label text="User" tooltip="Checked if it&apos;s a user added certification." style="-unity-text-align: middle-center;" />
+        </ui:Box>
+        <ui:Box style="width: 33px;" >
+          <ui:Label text="Lock" style="-unity-text-align: middle-center;" />
+        </ui:Box>
+        <ui:Box style="width: auto; flex-grow: 1;" >
+          <ui:Label text="Subject" style="-unity-text-align: upper-center;" />
+        </ui:Box>
+        <ui:Box style="width: auto; flex-grow: 1;" >
+          <ui:Label text="Issuer" style="-unity-text-align: upper-center;" />
+        </ui:Box>
+      </ui:VisualElement>
+
+      <ui:ListView name="ListView" show-alternating-row-backgrounds="None" selection-type="Multiple" style="flex-grow: 1;" />
+
+      <uie:Toolbar>
+        <ui:Label text="Certificate Size Stats" binding-path="certificateStats" style="-unity-text-align: middle-center;" />
+        <ui:Label text="|" style="-unity-text-align: middle-center;" />
+        <ui:Label text="Status" binding-path="status" style="-unity-text-align: middle-center;" />
+      </uie:Toolbar>
+    </ui:Box>
+  </ui:Box>
+</ui:UXML>

@@ -71,7 +71,7 @@ namespace FirstLight.Game.Presenters
 			header.homeClicked += Data.CloseClicked;
 			_playtestButton = root.Q<Button>("PlaytestButton");
 			_playtestButton.clicked += PlaytestClicked;
-			_playtestButton.SetEnabled(_services.GameBackendService.IsDev());
+			_playtestButton.SetDisplay(_services.GameBackendService.IsDev());
 
 			_joinRoomButton = root.Q<Button>("JoinButton");
 			_joinRoomButton.clicked += JoinRoomClicked;

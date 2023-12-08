@@ -138,7 +138,8 @@ namespace Quantum.Systems
 				CreateSubProjectile(f, projectile, position, false);
 			}
 
-			if (!projectile.IsSubProjectile())
+			// We dont destroy projectiles that can multi-hit
+			if (!projectile.IsSubProjectile() && !projectile.WeaponConfig(f).IsMeleeWeapon)
 			{
 				f.Destroy(projectileEntity);
 			}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.FLogger;
@@ -19,7 +20,7 @@ namespace FirstLight.Game.Services
 	public class GameProduct
 	{
 		public PlayfabProductConfig PlayfabProductConfig;
-		public Product UnityIapProduct;
+		public Func<Product> UnityIapProduct; // TODO: Fix this properly, it shouldn't be a func
 		public ItemData GameItem;
 	}
 	
@@ -121,7 +122,7 @@ namespace FirstLight.Game.Services
 					{
 						GameItem = ItemFactory.PlayfabCatalog(playfabProduct.CatalogItem),
 						PlayfabProductConfig = playfabProduct,
-						UnityIapProduct = _unityStore.GetUnityProduct(playfabProduct.CatalogItem.ItemId)
+						UnityIapProduct = () => _unityStore.GetUnityProduct(playfabProduct.CatalogItem.ItemId)
 					});
 				}
 			};
@@ -129,8 +130,8 @@ namespace FirstLight.Game.Services
 
 		public void BuyProduct(GameProduct product)
 		{
-			FLog.Info($"Purchase initiated: {product.UnityIapProduct.definition.id}");
-			_unityStore.Controller.InitiatePurchase(product.UnityIapProduct.definition.id);
+			FLog.Info($"Purchase initiated: {product.UnityIapProduct().definition.id}");
+			_unityStore.Controller.InitiatePurchase(product.UnityIapProduct().definition.id);
 		}
 
 		/// <summary>

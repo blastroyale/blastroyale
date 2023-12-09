@@ -35,7 +35,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 19661
       TapCooldown:
         RawValue: 49152
       AttackCooldown:
@@ -76,7 +76,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 32768
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 65536
       TapCooldown:
         RawValue: 16384
       AttackCooldown:
@@ -199,7 +199,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 52429
       TapCooldown:
         RawValue: 65536
       AttackCooldown:
@@ -281,7 +281,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 65536
       TapCooldown:
         RawValue: 8520
       AttackCooldown:
@@ -322,7 +322,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 52429
       TapCooldown:
         RawValue: 72090
       AttackCooldown:
@@ -404,7 +404,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 52429
       TapCooldown:
         RawValue: 85197
       AttackCooldown:
@@ -445,7 +445,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 32768
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 65536
       TapCooldown:
         RawValue: 16384
       AttackCooldown:
@@ -486,7 +486,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 52429
       TapCooldown:
         RawValue: 72090
       AttackCooldown:
@@ -527,7 +527,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 65536
       TapCooldown:
         RawValue: 8520
       AttackCooldown:
@@ -691,7 +691,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 32768
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 65536
       TapCooldown:
         RawValue: 16384
       AttackCooldown:
@@ -732,7 +732,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 65536
       TapCooldown:
         RawValue: 8520
       AttackCooldown:
@@ -814,7 +814,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 52429
       TapCooldown:
         RawValue: 72090
       AttackCooldown:
@@ -896,7 +896,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 52429
       TapCooldown:
         RawValue: 85197
       AttackCooldown:

@@ -544,6 +544,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void FinishRewardSequence()
 		{
+			if (_services.RoomService.InRoom) return;
+			
 			OpenHomeScreen();
 			_services.MessageBrokerService.Publish(new OnViewingRewardsFinished());
 		}

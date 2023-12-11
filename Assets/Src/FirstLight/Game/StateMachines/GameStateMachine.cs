@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
@@ -134,9 +135,31 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.DataService.LoadData<AppData>();
 			_gameLogic.InitLocal();
+
+			AccountReadTrick();
+			
 			await LoadRequiredAuthenticationConfigs();
 			await VersionUtils.LoadVersionDataAsync();
 		}
+
+		/// <summary>
+		/// Migrating where reads login data from old players
+		/// </summary>
+		private void AccountReadTrick()
+		{
+			var appData = _services.DataService.LoadData<AppData>();
+			var accountData = _services.DataService.LoadData<AccountData>();
+
+			if (!string.IsNullOrWhiteSpace(appData.DeviceId))
+			{
+				accountData.DeviceId = appData.DeviceId;
+				accountData.LastLoginEmail = appData.LastLoginEmail;
+				appData.DeviceId = null;
+				appData.LastLoginEmail = null;
+				_services.DataSaver.SaveData<AppData>();
+				_services.DataSaver.SaveData<AccountData>();
+			}
+		} 
 
 		private void SubscribeEvents()
 		{

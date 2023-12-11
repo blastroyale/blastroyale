@@ -53,6 +53,13 @@ namespace FirstLight.Game.Data
 		public Environment LastEnvironment;
 		public string ConnectionRegion;
 
+		// Moved to AccountData, this is here for backwards compatibility
+		[Obsolete]
+		public string DeviceId;
+		
+		[Obsolete]
+		public string LastLoginEmail;
+		
 		public DateTime GameReviewDate;
 		
 		public FrameSnapshot LastCapturedFrameSnapshot;

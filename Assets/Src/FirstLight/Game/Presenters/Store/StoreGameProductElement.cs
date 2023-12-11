@@ -83,7 +83,7 @@ namespace FirstLight.Game.Presenters.Store
 			_name.text = "";
 			if (itemView.Amount > 1) _name.text += itemView.Amount + " ";
 			_name.text += itemView.DisplayName;
-			_price.text = (product.PlayfabProductConfig.StoreItem.VirtualCurrencyPrices["RM"] / 100d).ToString();
+			_price.text = product.UnityIapProduct().metadata.localizedPriceString;
 			itemView.DrawIcon(_icon);
 			FormatByStoreData();
 		}

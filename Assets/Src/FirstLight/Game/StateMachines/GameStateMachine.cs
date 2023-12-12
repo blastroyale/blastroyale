@@ -148,7 +148,7 @@ namespace FirstLight.Game.StateMachines
 		private void AccountReadTrick()
 		{
 			var appData = _services.DataService.LoadData<AppData>();
-			var accountData = _services.DataService.LoadData<AccountData>();
+			var accountData = _services.AuthenticationService.GetDeviceSavedAccountData();
 
 			if (!string.IsNullOrWhiteSpace(appData.DeviceId))
 			{

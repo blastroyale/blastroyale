@@ -12,7 +12,7 @@ namespace FirstLight.Game.Presenters
 	{
 		private GenericDialogButton<string> _confirmButton;
 		private Action<string> _closeCallback;
-		private ContentTypeTextField _inputField;
+		private TextField _inputField;
 
 		private IGameServices _services;
 
@@ -25,7 +25,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.QueryElements(root);
 			
-			_inputField = root.Q<ContentTypeTextField>().Required();
+			_inputField = root.Q<TextField>().Required();
 
 			_closeCallback = null;
 			_confirmButton = new GenericDialogButton<string>();

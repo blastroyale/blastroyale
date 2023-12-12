@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -177,7 +178,6 @@ namespace FirstLight.Game.Utils
 			const string USS_SPRITE_RARITY_RARE = USS_SPRITE_RARITY_MODIFIER + "rare";
 			const string USS_SPRITE_RARITY_EPIC = USS_SPRITE_RARITY_MODIFIER + "epic";
 			const string USS_SPRITE_RARITY_LEGENDARY = USS_SPRITE_RARITY_MODIFIER + "legendary";
-			const string USS_SPRITE_RARITY_RAINBOW = USS_SPRITE_RARITY_MODIFIER + "rainbow";
 
 			return id switch
 			{
@@ -242,7 +242,7 @@ namespace FirstLight.Game.Utils
 			var itemData = gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
 			var spriteTask = gameServices.CollectionService.LoadCollectionItemSprite(itemData);
 
-			element.LoadFromTask(spriteTask);
+			element.LoadFromTask(spriteTask).Forget();
 		}
 	}
 }

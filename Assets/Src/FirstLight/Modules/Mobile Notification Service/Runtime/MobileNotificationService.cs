@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -79,7 +80,7 @@ namespace FirstLight.NotificationService
 		/// Request the permission pop up to the user to allow to receive local and remote notifications.
 		/// Only needed for iOS
 		/// </summary>
-		Task RequestPermissions();
+		UniTask RequestPermissions();
 	}
 	
 	/// <inheritdoc />
@@ -177,7 +178,7 @@ namespace FirstLight.NotificationService
 		}
 
 		/// <inheritdoc />
-		public async Task RequestPermissions()
+		public async UniTask RequestPermissions()
 		{
 #if UNITY_IOS
 			if (Unity.Notifications.iOS.iOSNotificationCenter.GetNotificationSettings().AuthorizationStatus ==
@@ -189,11 +190,11 @@ namespace FirstLight.NotificationService
 			
 				while (!request.IsFinished)
 				{
-					await Task.Yield();
+					await UniTask.Yield();
 				}
 			}
 #endif
-			await Task.Yield();
+			await UniTask.Yield();
 		}
 	}
 }

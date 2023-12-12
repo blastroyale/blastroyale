@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
@@ -13,7 +10,6 @@ using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
-using LayerMask = UnityEngine.LayerMask;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -69,7 +65,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				_characterView = GetComponent<MatchCharacterViewMonoComponent>();
 			}
 
+#pragma warning disable CS0612 // Type or member is obsolete
 			BuildingVisibility = new ();
+#pragma warning restore CS0612 // Type or member is obsolete
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
@@ -262,10 +260,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			//Old system needs to burn in fire
+#pragma warning disable CS0612 // Type or member is obsolete
 			else if (BuildingVisibility.IsInLegacyVisibilityVolume())
 			{
 				SetRenderContainerVisible(BuildingVisibility.IsInSameLegacyVolumeAsSpectator());
 			}
+#pragma warning restore CS0612 // Type or member is obsolete
 		}
 
 		private void HandleOnStunGrenadeUsed(EventOnStunGrenadeUsed callback)
@@ -279,7 +279,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
 			HandleParabolicUsed(callback.HazardData.EndTime,
-				time, targetPosition, VfxId.GrenadeStunParabolic, VfxId.ImpactGrenadeStun);
+				time, targetPosition, VfxId.GrenadeStunParabolic, VfxId.ImpactGrenadeStun).Forget();
 
 			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
 
@@ -299,7 +299,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
 			HandleParabolicUsed(callback.HazardData.EndTime,
-				time, targetPosition, VfxId.GrenadeParabolic, VfxId.ImpactGrenade);
+				time, targetPosition, VfxId.GrenadeParabolic, VfxId.ImpactGrenade).Forget();
 
 			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
 
@@ -486,7 +486,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			_ = _characterView.EquipItem(callback.Gear);
+			_characterView.EquipItem(callback.Gear).Forget();
 		}
 
 		private void HandleOnAirstrikeUsed(EventOnAirstrikeUsed callback)
@@ -505,7 +505,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			Services.VfxService.Spawn(VfxId.Airstrike).transform.position = targetPosition;
 
-			HandleDelayedFX(callback.HazardData.Interval, targetPosition, VfxId.ImpactAirStrike);
+			HandleDelayedFX(callback.HazardData.Interval, targetPosition, VfxId.ImpactAirStrike).Forget();
 		}
 
 		private async UniTaskVoid HandleDelayedFX(FP delayTime, Vector3 targetPosition, VfxId explosionVfxId)
@@ -546,7 +546,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat,
 				(callback.HazardData.EndTime - time).AsFloat);
 
-			HandleDelayedFX(callback.HazardData.Interval - FP._0_50, targetPosition, VfxId.Skybeam);
+			HandleDelayedFX(callback.HazardData.Interval - FP._0_50, targetPosition, VfxId.Skybeam).Forget();
 		}
 
 		private void HandleOnRadarUsed(EventOnRadarUsed callback)

@@ -48,7 +48,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private float _fullScreenPadding = 50f;
 		[SerializeField, Range(0f, 1f)] private float _viewportSize = 0.2f;
 		[SerializeField] private int _cameraHeight = 10;
-		[SerializeField] private float _maxFriendlyDistance = 50;
 
 		[SerializeField, Title("Animation")] private Ease _openCloseEase = Ease.OutSine;
 		[SerializeField, Required] private float _duration = 0.2f;

@@ -46,7 +46,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_statusText.SetText("Pinging servers...");
 			_selectorAndButtonsContainer.SetActive(false);
-			WaitForRegionPing();
+			WaitForRegionPing().Forget();
 		}
 
 		private async UniTaskVoid WaitForRegionPing()
@@ -113,7 +113,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var selectedRegion = ((DropdownMenuOption) _serverSelectDropdown.options[_serverSelectDropdown.value]).RegionInfo;
-			Connect(selectedRegion);
+			Connect(selectedRegion).Forget();
 		}
 
 		private async UniTaskVoid Connect(IServerListService.ServerPing server)
@@ -127,7 +127,7 @@ namespace FirstLight.Game.Presenters
 			_statusText.SetText("Connecting...");
 			_selectorAndButtonsContainer.SetActive(false);
 			FLog.Info("Connecting to " + server.ServerCode);
-			await _services.NetworkService.ChangeServerRegionAndReconnect(server.ServerCode);
+			_services.NetworkService.ChangeServerRegionAndReconnect(server.ServerCode);
 			var connected = await _services.NetworkService.AwaitMasterServerConnection(10, server.ServerCode);
 			if (!connected)
 			{
@@ -137,7 +137,6 @@ namespace FirstLight.Game.Presenters
 			CloseSeverSelect(connected);
 			FLog.Info("Should close this");
 		}
-
 
 		private void OpenNoInternetPopup()
 		{

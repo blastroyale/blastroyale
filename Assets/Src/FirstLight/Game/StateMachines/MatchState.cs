@@ -51,7 +51,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IDataService _dataService;
 		private readonly IAssetAdderService _assetAdderService;
 		private IMatchServices _matchServices;
-		private bool _arePlayerAssetsLoaded = false;
 		private Action<IStatechartEvent> _statechartTrigger;
 
 		public MatchState(IGameServices services, IDataService dataService, IInternalGameNetworkService networkService, IGameUiService uiService,
@@ -144,8 +143,8 @@ namespace FirstLight.Game.StateMachines
 			randomLeftRoom.Transition().Target(transitionToMenu);
 			checkInactivePlayer.Transition().Condition(() => !_services.RoomService.InRoom).Target(transitionToMenu);
 			checkInactivePlayer.Transition().Target(gameSimulation);
-			/// This state makes a fork and both default OnTransition and gameSimulation.Event(MatchErrorEvent).Target(transitionToMenu); executes
-			/// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/2737
+			// This state makes a fork and both default OnTransition and gameSimulation.Event(MatchErrorEvent).Target(transitionToMenu); executes
+			// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/2737
 			gameSimulation.Nest(_gameSimulationState.Setup).OnTransition(() => HandleSimulationEnd(false)).Target(gameEndedChoice);
 			gameSimulation.Event(MatchErrorEvent).Target(transitionToMenu);
 			gameSimulation.Event(MatchEndedEvent).OnTransition(() => HandleSimulationEnd(false)).Target(gameEndedChoice);
@@ -413,7 +412,7 @@ namespace FirstLight.Game.StateMachines
 			return QuantumRunner.Default == null || QuantumRunner.Default.IsDestroyed() || NetworkUtils.IsOfflineOrDisconnected();
 		}
 
-		private async Task UnloadMatchAndTransition()
+		private async UniTask UnloadMatchAndTransition()
 		{
 			FLog.Verbose("[MatchState] Unloading Match State");
 			CloseCurrentScreen();
@@ -494,7 +493,7 @@ namespace FirstLight.Game.StateMachines
 			await SwipeScreenPresenter.StartSwipe();
 		}
 
-		private async Task OpenPreGameScreen()
+		private async UniTask OpenPreGameScreen()
 		{
 			await OpenSwipeTransition();
 			FLog.Verbose("Entering Match State");
@@ -511,7 +510,7 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.OpenScreenAsync<PreGameLoadingScreenPresenter, PreGameLoadingScreenPresenter.StateData>(data);
 		}
 
-		private async Task OpenCustomLobbyScreen()
+		private async UniTask OpenCustomLobbyScreen()
 		{
 			var data = new CustomLobbyScreenPresenter.StateData
 			{

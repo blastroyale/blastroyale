@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
 using UnityEngine;
@@ -96,7 +97,7 @@ namespace FirstLight.Game.UIElements
 			SetStarsColorLevel((uint) colorLevel);
 		}
 
-		public async Task LoadFromTask(Task<Sprite> loadSpriteTask)
+		public async UniTask LoadFromTask(Task<Sprite> loadSpriteTask)
 		{
 			_avatarHolder.SetVisibility(false);
 			AddToClassList(USS_AVATAR_NFT);

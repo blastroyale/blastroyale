@@ -92,7 +92,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(mainMenuLoading);
 			initial.OnExit(SubscribeEvents);
 
-			mainMenuLoading.OnEnter(() => LoadMainMenu());
+			mainMenuLoading.OnEnter(() => LoadMainMenu().Forget());
 			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
 
@@ -187,7 +187,7 @@ namespace FirstLight.Game.StateMachines
 			playClickedCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			playClickedCheck.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
 			playClickedCheck.Transition().Condition(IsInRoom).Target(homeCheck);
-			playClickedCheck.Transition().Condition(CheckIsNotPartyLeader).OnTransition(() => TogglePartyReadyStatus())
+			playClickedCheck.Transition().Condition(CheckIsNotPartyLeader).OnTransition(() => TogglePartyReadyStatus().Forget())
 				.Target(homeCheck);
 			playClickedCheck.Transition().OnTransition(SendPlayReadyMessage)
 				.Target(waitMatchmaking);
@@ -209,7 +209,7 @@ namespace FirstLight.Game.StateMachines
 			enterNameDialog.OnEnter(RequestStartMetaMatchTutorial);
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 
-			brokenItems.OnEnter(() => OpenBrokenItemsPopUp());
+			brokenItems.OnEnter(() => OpenBrokenItemsPopUp().Forget());
 			brokenItems.Event(_brokenItemsCloseEvent).Target(homeCheck);
 			brokenItems.Event(_brokenItemsRepairEvent).Target(equipmentMenu);
 			brokenItems.OnExit(CloseBrokenItemsPopUp);
@@ -265,7 +265,7 @@ namespace FirstLight.Game.StateMachines
 					continue;
 				}
 
-				_ = _assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1);
+				await _assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1);
 			}
 		}
 
@@ -294,11 +294,11 @@ namespace FirstLight.Game.StateMachines
 			_unclaimedCountCheck = 0;
 			if (FeatureFlags.GetLocalConfiguration().OfflineMode)
 			{
-				OnCheckIfServerRewardsMatch(true);
+				OnCheckIfServerRewardsMatch(true).Forget();
 				return;
 			}
 
-			_services.GameBackendService.CheckIfRewardsMatch(b => OnCheckIfServerRewardsMatch(b), null);
+			_services.GameBackendService.CheckIfRewardsMatch(b => OnCheckIfServerRewardsMatch(b).Forget(), null);
 		}
 
 		private async UniTaskVoid OnCheckIfServerRewardsMatch(bool serverRewardsMatch)
@@ -350,7 +350,7 @@ namespace FirstLight.Game.StateMachines
 
 			_unclaimedCountCheck++;
 			await Task.Delay(TimeSpan.FromMilliseconds(500)); // space check calls a bit
-			_services?.GameBackendService?.CheckIfRewardsMatch(b => OnCheckIfServerRewardsMatch(b), null);
+			_services?.GameBackendService?.CheckIfRewardsMatch(b => OnCheckIfServerRewardsMatch(b).Forget(), null);
 		}
 
 		private void SendPlayReadyMessage()
@@ -425,21 +425,6 @@ namespace FirstLight.Game.StateMachines
 		private void CloseBrokenItemsPopUp()
 		{
 			_uiService.CloseUi<EquipmentPopupPresenter>();
-		}
-
-		private void OpenItemsAmountInvalidDialog(IWaitActivity activity)
-		{
-			var cacheActivity = activity;
-
-			var confirmButton = new GenericDialogButton()
-			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = () => { cacheActivity.Complete(); }
-			};
-
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error,
-				ScriptLocalization.MainMenu.NftRestrictionText, false,
-				confirmButton);
 		}
 
 		private void OpenGameModeSelectionUI()
@@ -644,7 +629,7 @@ namespace FirstLight.Game.StateMachines
 			_ = PreloadQuantumSettings();
 		}
 
-		private async Task UnloadMenuTask()
+		private async UniTask UnloadMenuTask()
 		{
 			await SwipeScreenPresenter.StartSwipe();
 			FLGCamera.Instance.PhysicsRaycaster.enabled = false;
@@ -661,7 +646,7 @@ namespace FirstLight.Game.StateMachines
 
 			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
 
-			Resources.UnloadUnusedAssets();
+			await Resources.UnloadUnusedAssets();
 			MainInstaller.CleanDispose<IMainMenuServices>();
 		}
 

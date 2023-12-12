@@ -16,7 +16,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private static readonly int _hitHash = Animator.StringToHash("hit");
 		
 		[SerializeField, Required] private Animator _animator;
-		[SerializeField] private float _dissolveDelay = 1f;
 
 		protected override void OnAwake()
 		{

@@ -55,7 +55,7 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			SetupCamera();
-			UpdateCharacters();
+			UpdateCharacters().Forget();
 		}
 
 		protected override async Task OnClosed()

@@ -1,30 +1,18 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using DG.DemiLib;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
-using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
 using FirstLight.Statechart;
-using I2.Loc;
 using Photon.Realtime;
-using Quantum;
 using UnityEngine;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -101,11 +89,11 @@ namespace FirstLight.Game.StateMachines
 			return _networkService.InRoom;
 		}
 
-		private async Task WaitForPhotonConnection()
+		private async UniTask WaitForPhotonConnection()
 		{
 			while (!_services.NetworkService.QuantumClient.IsConnectedAndReady || _services.NetworkService.QuantumClient.Server == ServerConnection.NameServer)
 			{
-				await Task.Yield();
+				await UniTask.Yield();
 			}
 		}
 

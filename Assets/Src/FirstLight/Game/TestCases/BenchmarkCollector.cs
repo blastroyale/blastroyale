@@ -9,9 +9,7 @@ namespace FirstLight.Game.TestCases
 	public class BenchmarkCollector : MonoBehaviour
 	{
 		private float frequency = 0.1f;
-		private float group_frequency = 5f;
 		private TimeFrameCollected currentTimeFrame;
-		
 
 		private void Start()
 		{

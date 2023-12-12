@@ -109,10 +109,11 @@ namespace FirstLight.Game.Presenters
 			SetupPopup();
 		}
 
-		protected override async Task OnClosed()
+		protected override Task OnClosed()
 		{
-			base.OnClosed();
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
+
+			return base.OnClosed();
 		}
 
 		private void SetStatInfo(int index, PublicPlayerProfile result, string statName, string statLoc)

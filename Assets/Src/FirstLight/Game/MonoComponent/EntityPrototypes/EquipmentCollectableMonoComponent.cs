@@ -15,7 +15,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		[SerializeField, Required] private Transform _itemTransform;
 		[SerializeField, Required] private CollectableViewMonoComponent _collectableView;
 
-		protected override async void OnEntityInstantiated(QuantumGame game)
+		protected override void OnEntityInstantiated(QuantumGame game)
 		{
 			var collectable = GetComponentData<EquipmentCollectable>(game);
 

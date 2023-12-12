@@ -58,7 +58,6 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _loanedBadge;
 		private readonly VisualElement _equippedBadge;
 		private readonly VisualElement _notification;
-		private int _requestTextureHandle = -1;
 
 		/// <summary>
 		/// Triggered when the card is clicked

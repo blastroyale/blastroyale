@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -53,7 +54,7 @@ namespace FirstLight.Game
 			_services?.MessageBrokerService?.Publish(new ApplicationFocusMessage() { IsFocus = hasFocus });
 			if (!hasFocus)
 			{
-				_services?.DataSaver?.SaveAllData();
+				_services?.DataSaver?.SaveData<AppData>();
 			}
 		}
 

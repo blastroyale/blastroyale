@@ -147,6 +147,8 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.iOS.iOSManualProvisioningProfileID = _distributionProvisioningProfile;
 			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
 			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
+			PlayerSettings.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
+			PlayerSettings.SetStackTraceLogType(LogType.Warning, StackTraceLogType.None);
 			EditorUserBuildSettings.development = false;
 			EditorUserBuildSettings.buildAppBundle = true;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;

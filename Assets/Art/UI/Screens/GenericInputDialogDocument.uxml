@@ -11,7 +11,7 @@
                 <ui:VisualElement name="Content" class="window__content">
                     <ui:Label name="Desc" text="DESC GOES HERE" class="font-style-popup content__desc" />
                     <ui:VisualElement name="Spacer" class="spacer content-spacer--small" />
-                    <TextField name="InputTextField" text="INPUT GOES HERE" value="..." max-length="34" class="input-field input-field--center" />
+                    <ui:TextField name="InputTextField" text="INPUT GOES HERE" value="..." max-length="34" class="input-field input-field--center" />
                     <ui:VisualElement name="Spacer" class="height-spacer height-spacer--xl" />
                     <ui:VisualElement name="Controls" class="content__controls">
                         <ui:VisualElement class="button-flat-outline">

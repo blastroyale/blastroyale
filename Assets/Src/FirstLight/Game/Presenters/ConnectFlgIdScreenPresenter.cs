@@ -169,7 +169,7 @@ namespace FirstLight.Game.Presenters
 		
 		private string GetErrorString(PlayFabError error)
 		{
-			var realError = error.ErrorDetails.Values.FirstOrDefault()?.FirstOrDefault();
+			var realError = error.ErrorDetails?.Values.FirstOrDefault()?.FirstOrDefault();
 			return realError ?? error.ErrorMessage;
 		}
 

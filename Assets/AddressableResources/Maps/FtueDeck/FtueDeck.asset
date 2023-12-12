@@ -3292,7 +3292,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride: []
+    ChestContents: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3375,7 +3375,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride: []
+    ChestContents: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3471,7 +3471,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride: []
+    ChestContents: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3562,7 +3562,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride: []
+    ChestContents: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3653,7 +3653,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride: []
+    ChestContents: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3749,14 +3749,62 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride:
-    - ContentsOverride:
-      - Value: 24
-      - Value: 45
-      - Value: 53
-      - Value: 102
-      Rarity:
-        Value: 4
+    ChestContents:
+    - Items:
+      - _field_used_: EQUIPMENTITEM
+        SimpleItem:
+          Id:
+            Value: 0
+        EquipmentItem:
+          GameId:
+            Value: 71
+          Edition:
+            Value: 0
+          Rarity:
+            Value: 0
+          Grade:
+            Value: 0
+          Faction:
+            Value: 0
+          Adjective:
+            Value: 0
+          Material:
+            Value: 0
+          MaxDurability: 0
+          InitialReplicationCounter: 0
+          Tuning: 0
+          Level: 1
+          Generation: 0
+          ReplicationCounter: 0
+          TotalRestoredDurability: 0
+          LastRepairTimestamp: 0
+      - _field_used_: SIMPLEITEM
+        SimpleItem:
+          Id:
+            Value: 127
+        EquipmentItem:
+          GameId:
+            Value: 0
+          Edition:
+            Value: 0
+          Rarity:
+            Value: 0
+          Grade:
+            Value: 0
+          Faction:
+            Value: 0
+          Adjective:
+            Value: 0
+          Material:
+            Value: 0
+          MaxDurability: 0
+          InitialReplicationCounter: 0
+          Tuning: 0
+          Level: 0
+          Generation: 0
+          ReplicationCounter: 0
+          TotalRestoredDurability: 0
+          LastRepairTimestamp: 0
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3823,11 +3871,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 70757
+          RawValue: 106467
         Y:
-          RawValue: 470941
+          RawValue: 480509
         Z:
-          RawValue: -30933
+          RawValue: 3471
       Rotation:
         X:
           RawValue: 0
@@ -3845,7 +3893,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride: []
+    ChestContents: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3934,7 +3982,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride: []
+    ChestContents: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -4023,7 +4071,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride: []
+    ChestContents: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -4112,7 +4160,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride: []
+    ChestContents: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4242,7 +4290,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride: []
+    ChestContents: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4372,7 +4420,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride: []
+    ChestContents: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4502,7 +4550,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride: []
+    ChestContents: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4632,7 +4680,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    ChestOverride: []
+    ChestContents: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []

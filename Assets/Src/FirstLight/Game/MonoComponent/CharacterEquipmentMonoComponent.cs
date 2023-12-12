@@ -75,9 +75,10 @@ namespace FirstLight.Game.MonoComponent
 			return instances;
 		}
 
-		protected async UniTask<GameObject> InstantiateEquipment(GameId gameId)
+		protected async UniTask<GameObject> InstantiateEquipment(Equipment equip)
 		{
 			// TODO Generic GameId to GameIDGroup skin converter
+			var gameId = equip.GameId;
 			GameObject obj;
 			if (gameId == GameId.Hammer)
 			{
@@ -88,7 +89,6 @@ namespace FirstLight.Game.MonoComponent
 			{
 				obj = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
 			}
-
 			obj.name = gameId.ToString();
 			return obj;
 		}
@@ -96,20 +96,21 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Equip characters equipment slot with an asset loaded by unique id.
 		/// </summary>
-		public async UniTask<List<GameObject>> EquipItem(GameId gameId)
+		public async UniTask<List<GameObject>> EquipItem(Equipment equip)
 		{
+			var gameId = equip.GameId;
 			var slot = gameId.GetSlot();
 
 			var anchors = _skin.GetEquipmentAnchors(slot);
 			var instances = new List<GameObject>();
-			var instance = await InstantiateEquipment(gameId);
+			var instance = await InstantiateEquipment(equip);
 
 			if (this.IsDestroyed())
 			{
 				Destroy(instance);
 				return instances;
 			}
-
+			
 			if (_equipment.ContainsKey(slot))
 			{
 				UnequipItem(slot);
@@ -158,9 +159,12 @@ namespace FirstLight.Game.MonoComponent
 #endif
 				Destroy(instance);
 			}
-
 			_equipment.Add(slot, instances);
-
+			_services.MessageBrokerService.Publish(new EquipmentInstantiatedMessage()
+			{
+				Equipment = equip,
+				Object = instances[0]
+			});
 			return instances;
 		}
 
@@ -238,9 +242,9 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Equip a weapon using a GameId
 		/// </summary>
-		public async UniTask<IList<GameObject>> EquipWeapon(GameId weapon)
+		public async UniTask<IList<GameObject>> EquipWeapon(Equipment equip)
 		{
-			var weapons = await EquipItem(weapon);
+			var weapons = await EquipItem(equip);
 
 			for (var i = 0; i < weapons.Count; i++)
 			{

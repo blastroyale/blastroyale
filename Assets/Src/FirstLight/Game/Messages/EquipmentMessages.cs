@@ -23,6 +23,12 @@ namespace FirstLight.Game.Messages
 		public Pair<GameId, uint> Reward;
 	}
 	
+	public struct EquipmentInstantiatedMessage : IMessage
+	{
+		public GameObject Object;
+		public Equipment Equipment;
+	}
+	
 	public struct ItemUpgradedMessage : IMessage
 	{
 		public UniqueId Id;

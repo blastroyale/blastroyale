@@ -36,39 +36,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_services.MessageBrokerService.Subscribe<PlayScreenOpenedMessage>(OnPlayScreenOpenedMessage);
 		
 		}
-
-		/// <summary>
-		/// Equip this character with the equipment data given in the <paramref name="info"/>
-		/// </summary>
-		public async UniTask Init(List<EquipmentInfo> items)
-		{
-			var list = new List<UniTask>();
-			
-			foreach (var item in items)
-			{
-				// TODO mihak: Make this into a single Equip method call
-				list.Add(item.Equipment.IsWeapon() ? EquipWeapon(item.Equipment.GameId) : EquipItem(item.Equipment.GameId));
-			}
-
-			await UniTask.WhenAll(list);
-		}
 		
-		/// <summary>
-		/// Equip this character with the equipment data given in the <paramref name="info"/>
-		/// </summary>
-		public async UniTask Init(List<Equipment> items)
-		{
-			var list = new List<UniTask>();
-			
-			foreach (var item in items)
-			{
-				// TODO mihak: Make this into a single Equip method call
-				list.Add(item.IsWeapon() ? EquipWeapon(item.GameId) : EquipItem(item.GameId));
-			}
-
-			await UniTask.WhenAll(list);
-		}
-
 		private void Update()
 		{
 			if (!_processFlareAnimation)

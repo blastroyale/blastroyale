@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
 using FirstLight.Game.MonoComponent.MainMenu;
@@ -35,14 +36,14 @@ namespace FirstLight.Game.MonoComponent
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		public async Task UpdateSkin(ItemData skin, List<EquipmentInfo> equipment = null)
+		public async UniTask UpdateSkin(ItemData skin, List<EquipmentInfo> equipment = null)
 		{
 			var equipmentList = equipment?.Select(equipmentInfo => equipmentInfo.Equipment).ToList();
 
 			await UpdateSkin(skin, equipmentList);
 		}
 
-		public async Task UpdateSkin(ItemData skinId, List<Equipment> equipment = null)
+		public async UniTask UpdateSkin(ItemData skinId, List<Equipment> equipment = null)
 		{
 			if (_characterViewComponent != null && _characterViewComponent.gameObject != null)
 			{
@@ -80,12 +81,7 @@ namespace FirstLight.Game.MonoComponent
 			_animator.SetTrigger(_victoryHash);
 		}
 
-		protected async void EquipDefault()
-		{
-			await _characterViewComponent.EquipItem(GameId.Hammer);
-		}
-
-		private async Task SkinLoaded(ItemData skin, GameObject instance)
+		private async UniTask SkinLoaded(ItemData skin, GameObject instance)
 		{
 			instance.SetActive(false);
 

@@ -29,7 +29,6 @@ namespace Quantum.Systems
 						}
 						drop->Stage = AirDropStage.Announcing;
 						f.Events.OnAirDropDropped(filter.Entity, f.Get<AirDrop>(filter.Entity));
-
 						f.Unsafe.GetPointer<PhysicsCollider3D>(filter.Entity)->Enabled = false;
 					}
 
@@ -43,14 +42,10 @@ namespace Quantum.Systems
 					if (f.Time >= drop->StartTime + drop->Delay + drop->Duration)
 					{
 						drop->Stage = AirDropStage.Dropped;
-
-						var config = f.ChestConfigs.GetConfig(drop->Chest);
-						f.Add<Chest>(filter.Entity, out var chest);
-						chest->Init(f, filter.Entity, drop->Position, FPQuaternion.Identity,
-							ref config);
-						
-						f.Unsafe.GetPointer<PhysicsCollider3D>(filter.Entity)->Enabled = true;
-						f.Events.OnAirDropLanded(filter.Entity, f.Get<AirDrop>(filter.Entity));
+						var chestEntity = ChestSystem.SpawnChest(f, drop->Chest, drop->Position);
+						f.Add(chestEntity, *drop);
+						f.Events.OnAirDropLanded(filter.Entity, chestEntity, f.Get<AirDrop>(filter.Entity));
+						f.Destroy(filter.Entity);
 					}
 
 					break;

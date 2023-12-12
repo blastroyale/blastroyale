@@ -65,6 +65,7 @@ namespace Quantum
 	[AssetObjectConfig(GenerateAssetCreateMenu = false)]
 	public partial class QuantumWeaponConfigs
 	{
+		public FP GoldenGunDamageModifier = FP._1_20;
 		public List<QuantumWeaponConfig> QuantumConfigs = new List<QuantumWeaponConfig>();
 		
 		private IDictionary<GameId, QuantumWeaponConfig> _dictionary = null;

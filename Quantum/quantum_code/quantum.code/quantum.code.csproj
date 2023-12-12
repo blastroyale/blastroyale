@@ -99,6 +99,7 @@
     <Compile Include="AI\Functions\HFSM.TransformPositionFunction.cs" />
     <Compile Include="Commands\Cheats\Tutorial\CheatKillAllTutorialBots.cs" />
     <Compile Include="Commands\TutorialSpawnSpecialCommand.cs" />
+    <Compile Include="Components\SimulationItem.cs" />
     <Compile Include="Components\CosteticsHolder.cs" />
     <Compile Include="Components\InputBake.cs" />
     <Compile Include="Components\PlayerInventory.cs" />
@@ -211,7 +212,6 @@
     <Compile Include="Commands\TeamPositionPingCommand.cs" />
     <Compile Include="Commands\WeaponSlotSwitchCommand.cs" />
     <Compile Include="Components\AirDrop.cs" />
-    <Compile Include="Components\ChestOverride.cs" />
     <Compile Include="Components\Chest.cs" />
     <Compile Include="Components\Collectable.cs" />
     <Compile Include="Components\Destructible.cs" />
@@ -263,7 +263,6 @@
     <Compile Include="Core\CodeGen.cs" />
     <Compile Include="CommandSetup.cs" />
     <Compile Include="Core\Core.cs" />
-    <Compile Include="Events\ChestEvents.cs" />
     <Compile Include="Events\GameEvents.cs" />
     <Compile Include="Events\PlayerEvents.cs" />
     <Compile Include="Frame.User.cs" />
@@ -285,6 +284,7 @@
     <Compile Include="Systems\Bots\BotSetup.cs" />
     <Compile Include="Systems\Bots\BotShooting.cs" />
     <Compile Include="Systems\Bots\BotUpdateContext.cs" />
+    <Compile Include="Systems\ChestSystem.cs" />
     <Compile Include="Systems\TeamSystem.cs" />
     <Compile Include="Systems\VisibilityAreaSystem.cs" />
     <Compile Include="Systems\CommandsSystem.cs" />
@@ -326,6 +326,7 @@
     <Compile Include="Utils\QuantumStatCalculator.cs" />
     <Compile Include="Utils\StatUtils.cs" />
     <Compile Include="Utils\TeamHelpers.cs" />
+    <Compile Include="Utils\WeightedList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BotSDK\AI\BT\bt.qtn" />
@@ -340,6 +341,7 @@
     <Content Include="BotSDK\Core\BotSDK.qtn" />
     <Content Include="Components\AirDrop.qtn" />
     <Content Include="Components\CosmeticsHolder.qtn" />
+    <Content Include="Components\SimulationItem.qtn" />
     <Content Include="Components\VisibilityArea.qtn" />
     <Content Include="Components\Chest.qtn" />
     <Content Include="Components\DummyCharacter.qtn" />
@@ -376,9 +378,6 @@
     <Content Include="Events\GameEvents.qtn" />
     <Content Include="Events\PlayerEvents.qtn" />
     <EmbeddedResource Include="db.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Components\ChestOverride.qtn" />
   </ItemGroup>
   <Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec">
     <PropertyGroup>

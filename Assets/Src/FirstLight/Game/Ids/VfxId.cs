@@ -35,6 +35,7 @@ namespace FirstLight.Game.Ids
 		AmmoPickupFx = 28,
 		SpecialAndWeaponPickupFx = 29,
 		AirdropPickupFx = 30,
+		GoldenEffect = 31,
 	}
 	
 	/// <summary>

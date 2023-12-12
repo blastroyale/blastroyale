@@ -1,0 +1,12 @@
+union SimulationItem
+{
+    SimpleItem SimpleItem;
+    Equipment EquipmentItem;
+}
+
+struct SimpleItem {
+    GameId Id;
+}
+
+
+

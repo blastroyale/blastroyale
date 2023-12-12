@@ -1,0 +1,63 @@
+using System;
+using Cysharp.Threading.Tasks;
+using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
+using FirstLight.Game.Utils;
+using Quantum;
+using UnityEngine;
+
+namespace FirstLight.Game.Services.Match
+{
+	public interface IWeaponCustomizationService
+	{
+		
+	}
+	
+	public class WeaponCustomizationService : IWeaponCustomizationService, MatchServices.IMatchService
+	{
+		private IGameServices _services;
+		private Material _goldenMaterial;
+		
+		public WeaponCustomizationService(IGameServices services)
+		{
+			_services = services;
+			_services.MessageBrokerService.Subscribe<EquipmentInstantiatedMessage>(OnEquipmentInstantiate);
+		}
+
+		private void OnEquipmentInstantiate(EquipmentInstantiatedMessage msg)
+		{
+			if (msg.Equipment.Material == EquipmentMaterial.Golden)
+			{
+				_ = SetGolden(msg.Object);
+			}
+		}
+
+		private async UniTaskVoid SetGolden(GameObject o)
+		{
+			if (_goldenMaterial == null)
+			{
+				_goldenMaterial = await _services.AssetResolverService.RequestAsset<MaterialVfxId, Material>(MaterialVfxId.Golden);
+			}
+			var rend = o.GetComponentInChildren<MeshRenderer>();
+			if (rend == null || rend.IsDestroyed()) return;
+			rend.material = _goldenMaterial;
+			var vfx = MainInstaller.ResolveServices().VfxService.Spawn(VfxId.GoldenEffect);
+			vfx.transform.SetParent(rend.transform, false);
+		}
+
+		public void Dispose()
+		{
+			_services.MessageBrokerService.UnsubscribeAll(this);
+		}
+
+		public void OnMatchStarted(QuantumGame game, bool isReconnect)
+		{
+			
+		}
+
+		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
+		{
+			Dispose();
+		}
+	}
+}

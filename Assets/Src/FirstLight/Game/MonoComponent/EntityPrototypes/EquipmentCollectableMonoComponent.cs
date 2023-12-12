@@ -1,3 +1,4 @@
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -20,12 +21,12 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			_collectableView.SetEntityView(game, EntityView);
 
-			TryShowEquipment(collectable.Item.GameId);
+			TryShowEquipment(collectable.Item);
 		}
 
-		private async void TryShowEquipment(GameId item)
+		private async void TryShowEquipment(Equipment item)
 		{
-			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(item);
+			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(item.GameId);
 
 			if (this.IsDestroyed())
 			{
@@ -38,6 +39,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localScale = Vector3.one;
 			cacheTransform.localRotation = Quaternion.identity;
+			Services.MessageBrokerService.Publish(new EquipmentInstantiatedMessage()
+			{
+				Equipment = item,
+				Object = instance
+			});
 		}
 
 		protected override string GetName(QuantumGame game)

@@ -458,7 +458,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var task = _characterView.EquipWeapon(callback.Weapon.GameId);
+			var task = _characterView.EquipWeapon(callback.Weapon);
 			task.ContinueWith(weapons =>
 			{
 				var f = callback.Game.Frames.Verified;
@@ -486,7 +486,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			_ = _characterView.EquipItem(callback.Gear.GameId);
+			_ = _characterView.EquipItem(callback.Gear);
 		}
 
 		private void HandleOnAirstrikeUsed(EventOnAirstrikeUsed callback)

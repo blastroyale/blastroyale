@@ -132,14 +132,10 @@ namespace Quantum.Systems
 
 						equipment = Equipment.Create(f, offPool[index], EquipmentRarity.Common, 1);
 					}
-
 					rarity += (int) equipment.Value.Rarity;
 					component->DropPool.WeaponPool[i] = equipment.Value;
 				}
 			}
-
-			component->DropPool.AverageRarity = (EquipmentRarity) FPMath.FloorToInt((FP) rarity / (count + 1));
-			component->DropPool.MedianRarity = component->DropPool.WeaponPool[count / 2].Rarity;
 		}
 
 		public void OnPlayerDataSet(Frame f, PlayerRef player)

@@ -20,6 +20,23 @@ MonoBehaviour:
     QuantumConfigs:
     - Id: 131
       ChestType: 0
+      GoldenGunChance:
+        RawValue: 0
+      Specials:
+        Chance:
+          RawValue: 32768
+        Amount: 1
+        Pool:
+        - Id: 85
+          Weight: 10
+        - Id: 119
+          Weight: 5
+        - Id: 85
+          Weight: 10
+        - Id: 141
+          Weight: 5
+        - Id: 62
+          Weight: 1
       RandomEquipment: []
       SmallConsumable:
       - Value1:
@@ -31,6 +48,13 @@ MonoBehaviour:
         RawValue: 131072
     - Id: 130
       ChestType: 1
+      GoldenGunChance:
+        RawValue: 3276
+      Specials:
+        Chance:
+          RawValue: 0
+        Amount: 0
+        Pool: []
       RandomEquipment:
       - Value1:
           RawValue: 65536
@@ -45,6 +69,15 @@ MonoBehaviour:
         RawValue: 131072
     - Id: 19
       ChestType: 2
+      GoldenGunChance:
+        RawValue: 65536
+      Specials:
+        Chance:
+          RawValue: 65536
+        Amount: 0
+        Pool:
+        - Id: 10
+          Weight: 1
       RandomEquipment:
       - Value1:
           RawValue: 65536

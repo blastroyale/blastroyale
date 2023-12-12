@@ -16,6 +16,13 @@ namespace Quantum
 			var weaponConfig = f.WeaponConfigs.GetConfig(SourceId);
 			if (!f.TryGet<Stats>(Attacker, out var stats)) return 0;
 			var dmg = stats.GetStatData(StatType.Power).StatValue * weaponConfig.PowerToDamageRatio;
+			if (f.Unsafe.TryGetPointer<PlayerCharacter>(Attacker, out var player))
+			{
+				if (player->CurrentWeapon.Material == EquipmentMaterial.Golden)
+				{
+					dmg *= f.WeaponConfigs.GoldenGunDamageModifier;
+				}
+			}
 			if (DamagePct != 0) dmg *= (DamagePct / FP._100);
 			return dmg;
 		}

@@ -34,7 +34,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_footsteps = gameObject.AddComponent<FootprinterMonoComponent>();
 			_footsteps.Init(entityView, loadout);
 
-			var weaponTask = EquipWeapon(loadout.Weapon.GameId);
+			var weaponTask = EquipWeapon(loadout.Weapon);
 			var list = new List<UniTask>();
 
 			foreach (var item in loadout.Equipment)
@@ -44,7 +44,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					continue;
 				}
 
-				list.Add(EquipItem(item.GameId));
+				list.Add(EquipItem(item));
 			}
 
 			var isSkydiving = frame.Get<AIBlackboardComponent>(entityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);

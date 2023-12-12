@@ -12,11 +12,41 @@ namespace Quantum
 	}
 
 	[Serializable]
+	public struct WeightedGameId
+	{
+		public GameId Id;
+		public int Weight;
+	}
+
+	[Serializable]
+	public class WeightedPoolDrop
+	{
+		/// <summary>
+		/// Chance to drop this pool
+		/// </summary>
+		public FP Chance;
+		
+		/// <summary>
+		/// Amount of items from the pool to drop.
+		/// </summary>
+		public byte Amount;
+		
+		/// <summary>
+		/// Pool of items that the wheighted random will pick
+		/// </summary>
+		public List<WeightedGameId> Pool;
+	}
+
+	[Serializable]
 	public partial class QuantumChestConfig
 	{
 		public GameId Id;
 		public ChestType ChestType;
 
+		public FP GoldenGunChance;
+		
+		public WeightedPoolDrop Specials;
+		
 		public List<QuantumPair<FP, uint>> RandomEquipment;
 		public List<QuantumPair<FP, uint>> SmallConsumable;
 

@@ -38,10 +38,6 @@ namespace FirstLight.Game.Messages
 	{
 		
 	}
-	
-	public struct TutorialBattlePassCompleted : IMessage
-	{
-	}
 
 	public struct OpenedCoreMessage : IMessage
 	{

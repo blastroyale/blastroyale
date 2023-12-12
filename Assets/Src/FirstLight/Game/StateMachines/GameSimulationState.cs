@@ -278,7 +278,7 @@ namespace FirstLight.Game.StateMachines
 			await UniTask.NextFrame();
 			PublishMatchStartedMessage(QuantumRunner.Default.Game, true);
 			_statechartTrigger(SimulationStartedEvent);
-			CloseMatchmakingScreen();
+			CloseMatchmakingScreen().Forget();
 		}
 
 		private void OnQuitGameScreenClickedMessage(QuitGameClickedMessage message)

@@ -76,7 +76,6 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _dataProvider;
 		private Dictionary<PassType, List<BattlePassSegmentData>> _segmentData;
 		private Dictionary<int, BattlepassLevelColumnElement> _levelElements;
-		private bool _finishedTutorialBpThisCycle = false;
 
 		private void Awake()
 		{
@@ -229,7 +228,6 @@ namespace FirstLight.Game.Presenters
 		protected override void SubscribeToEvents()
 		{
 			base.SubscribeToEvents();
-			_services.MessageBrokerService.Subscribe<TutorialBattlePassCompleted>(OnTutorialBattlePassCompleted);
 			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.Observe(OnBpPointsChanged);
 		}
@@ -490,11 +488,6 @@ namespace FirstLight.Game.Presenters
 			_rewardsScroll.Add(filler);
 			filler.pickingMode = PickingMode.Ignore;
 			filler.AddToClassList(UssBpSegmentFiller);
-		}
-
-		private void OnTutorialBattlePassCompleted(TutorialBattlePassCompleted message)
-		{
-			_finishedTutorialBpThisCycle = true;
 		}
 
 		private void OnBattlePassLevelUp(BattlePassLevelUpMessage message)

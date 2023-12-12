@@ -82,7 +82,7 @@ namespace FirstLight.Game.TestCases.Helpers
 			// Wait a little to be able to view the inputs
 			var presenter = Object.FindObjectOfType<GenericInputDialogPresenter>();
 			var dialogRoot = presenter.GetComponent<UIDocument>().rootVisualElement;
-			var input = dialogRoot.Q<ContentTypeTextField>();
+			var input = dialogRoot.Q<TextField>();
 			input.Focus();
 
 			yield return new WaitForSeconds(1);

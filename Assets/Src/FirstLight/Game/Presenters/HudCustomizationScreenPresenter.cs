@@ -39,7 +39,6 @@ namespace FirstLight.Game.Presenters
 		private Label _scaleLabel;
 		private Label _opacityLabel;
 		private bool _open = true;
-		private float _optionsSize = 400;
 		private List<VisualElement> _disabled = new();
 		
 		public struct StateData

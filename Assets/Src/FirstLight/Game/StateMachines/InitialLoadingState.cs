@@ -100,7 +100,7 @@ namespace FirstLight.Game.StateMachines
 			//await Addressables.DownloadDependenciesAsync(AddressableLabel.Label_Quantum.ToLabelString(), true).Task;
 			await Addressables.InitializeAsync().Task.AsUniTask();
 			
-			Resources.UnloadUnusedAssets();
+			await Resources.UnloadUnusedAssets();
 		}
 
 		private async UniTask LoadInitialAssets()

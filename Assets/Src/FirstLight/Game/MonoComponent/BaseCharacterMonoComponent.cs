@@ -58,7 +58,7 @@ namespace FirstLight.Game.MonoComponent
 			obj.AddComponent<RenderersContainerProxyMonoComponent>();
 			obj.AddComponent<MainMenuCharacterViewComponent>();
 			AddDragCollider(obj);
-			await SkinLoaded(skinId, obj);
+			SkinLoaded(skinId, obj);
 		}
 		/// <summary>
 		/// Collider used for IDragHandler so we can rotate character on main menu
@@ -81,7 +81,7 @@ namespace FirstLight.Game.MonoComponent
 			_animator.SetTrigger(_victoryHash);
 		}
 
-		private async UniTask SkinLoaded(ItemData skin, GameObject instance)
+		private void SkinLoaded(ItemData skin, GameObject instance)
 		{
 			instance.SetActive(false);
 

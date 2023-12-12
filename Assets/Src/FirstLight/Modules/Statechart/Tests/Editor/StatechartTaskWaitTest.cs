@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Threading;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Statechart;
 using NSubstitute;
 using NUnit.Framework;
@@ -183,11 +184,11 @@ namespace FirstLightEditor.StateChart.Tests
 			}));
 		}
 
-		private async Task TaskWaitAction()
+		private async UniTask TaskWaitAction()
 		{
 			while (_blocker)
 			{
-				await Task.Yield();
+				await UniTask.Yield();
 			}
 
 			_done = true;
@@ -203,7 +204,7 @@ namespace FirstLightEditor.StateChart.Tests
 			yield return null;
 		}
 
-		private void SetupTaskWaitState(IStateFactory factory, Func<Task> waitAction)
+		private void SetupTaskWaitState(IStateFactory factory, Func<UniTask> waitAction)
 		{
 			var initial = factory.Initial("Initial");
 			var waiting = factory.TaskWait("Task Wait");

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -59,7 +60,7 @@ namespace FirstLight.Game.StateMachines
 			metaAndMatchTutorial.OnExit(() => SendSectionCompleted(TutorialSection.META_GUIDE_AND_MATCH));
 		}
 
-		private async Task OpenTutorialScreens()
+		private async UniTask OpenTutorialScreens()
 		{
 			await _services.GameUiService.OpenUiAsync<TutorialUtilsScreenPresenter>();
 			await _services.GameUiService.OpenUiAsync<CharacterDialogScreenPresenter>();

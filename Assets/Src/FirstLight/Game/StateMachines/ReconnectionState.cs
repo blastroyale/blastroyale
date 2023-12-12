@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.DemiLib;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
@@ -154,7 +155,7 @@ namespace FirstLight.Game.StateMachines
 			return false;
 		}
 
-		private async Task MatchTransition()
+		private async UniTaskVoid MatchTransition()
 		{
 			await SwipeScreenPresenter.StartSwipe();
 			await _uiService.CloseUi<LoadingScreenPresenter>();
@@ -162,7 +163,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void JoinPendingMatch()
 		{
-			MatchTransition();
+			MatchTransition().Forget();
 			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
 			if (snapShot.Offline)
 			{

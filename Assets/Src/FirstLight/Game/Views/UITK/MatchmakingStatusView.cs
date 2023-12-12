@@ -46,8 +46,6 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnLastRoomSetupUpdate(MatchRoomSetup _, MatchRoomSetup setup)
 		{
-			var translationTerm = ScriptTerms.UITHomeScreen.joining;
-
 			if (setup != null)
 			{
 				var gamemodeConfig = _configsProvider.GetConfig<QuantumGameModeConfig>(setup.GameModeId);

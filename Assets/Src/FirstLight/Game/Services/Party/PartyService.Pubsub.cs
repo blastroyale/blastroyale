@@ -304,7 +304,7 @@ namespace FirstLight.Game.Services.Party
 					// Let the leader kick it
 					if (LocalPartyMember() is {Leader: true})
 					{
-#pragma warning disable CS4014 This is a websocket and we do not need to wait for this
+#pragma warning disable CS4014 // This is a websocket and we do not need to wait for this
 						KickDisconnectedPlayer(disconnectedMember.PlayfabID);
 #pragma warning restore CS4014
 					}

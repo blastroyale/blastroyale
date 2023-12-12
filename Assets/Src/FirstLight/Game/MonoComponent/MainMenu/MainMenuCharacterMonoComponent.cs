@@ -50,7 +50,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			InitAllComponents();
 		}
 
-		private async void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId, ObservableUpdateType updateType)
+		private void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId, ObservableUpdateType updateType)
 		{
 			// This happens when the system auto unequips/equips items during the loading of screen
 			if (_characterViewComponent == null)

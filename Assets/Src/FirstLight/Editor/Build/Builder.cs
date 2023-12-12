@@ -102,7 +102,7 @@ namespace FirstLight.Editor.Build
 		}
 
 		[MenuItem("FLG/Build/Store Azure Build")]
-		public static async void EditorBuild()
+		public static void EditorBuild()
 		{
 			var args = "-flBuildSymbol STORE_BUILD -flBuildServer TESTNET_SERVER -flBuildNumber 3000 -flBuildFileName app".Split(" ");
 			ConfigureBuild(args);

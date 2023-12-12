@@ -49,12 +49,24 @@ MonoBehaviour:
     - Id: 130
       ChestType: 1
       GoldenGunChance:
-        RawValue: 3276
+        RawValue: 39321
       Specials:
         Chance:
-          RawValue: 0
-        Amount: 0
-        Pool: []
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - Id: 85
+          Weight: 100
+        - Id: 89
+          Weight: 100
+        - Id: 110
+          Weight: 60
+        - Id: 119
+          Weight: 80
+        - Id: 102
+          Weight: 60
+        - Id: 62
+          Weight: 100
       RandomEquipment:
       - Value1:
           RawValue: 65536
@@ -74,10 +86,20 @@ MonoBehaviour:
       Specials:
         Chance:
           RawValue: 65536
-        Amount: 0
+        Amount: 1
         Pool:
-        - Id: 10
-          Weight: 1
+        - Id: 85
+          Weight: 100
+        - Id: 89
+          Weight: 100
+        - Id: 110
+          Weight: 140
+        - Id: 119
+          Weight: 120
+        - Id: 102
+          Weight: 140
+        - Id: 62
+          Weight: 100
       RandomEquipment:
       - Value1:
           RawValue: 65536

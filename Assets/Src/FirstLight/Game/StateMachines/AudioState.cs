@@ -441,8 +441,10 @@ namespace FirstLight.Game.StateMachines
 			{
 				yield break;
 			}
-
-			var config = f.Context.MapShrinkingCircleConfigs[callback.ShrinkingCircle.Step];
+			
+			var config = f.Context.MapShrinkingCircleConfigs[Math.Clamp(callback.ShrinkingCircle.Step - 1,
+			                                                            0,
+			                                                            f.Context.MapShrinkingCircleConfigs.Count - 1)];
 
 			var circle = f.GetSingleton<ShrinkingCircle>();
 

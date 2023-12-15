@@ -277,7 +277,7 @@ namespace FirstLight.Game.Presenters
 
 			// Title
 			_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.equipment_details_title,
-				string.Format(ADJECTIVE_LOC_KEY, info.Equipment.Adjective.ToString().ToLowerInvariant()).LocalizeKey(),
+				info.IsNft ? string.Format(ADJECTIVE_LOC_KEY, info.Equipment.Adjective.ToString().ToLowerInvariant()).LocalizeKey() : "",
 				info.Equipment.GameId.GetLocalization(),
 				info.Equipment.Level);
 

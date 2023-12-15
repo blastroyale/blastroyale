@@ -34,6 +34,7 @@ namespace FirstLight.Game.Infos
 		ShieldCapacity,
 		MagazineSize,
 		AmmoCapacityBonus,
+		Damage,
 	}
 
 	public struct EquipmentInfo

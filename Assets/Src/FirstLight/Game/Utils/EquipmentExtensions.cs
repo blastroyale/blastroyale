@@ -90,6 +90,8 @@ namespace FirstLight.Game.Utils
 			if (equipment.GameId.IsInGroup(GameIdGroup.Weapon))
 			{
 				var weaponConfig = configs.GetConfig<QuantumWeaponConfig>((int) equipment.GameId);
+				var power = QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int)StatType.Power],
+				                                                      ref baseStatsConfig, ref statsConfig, equipment).AsFloat;
 
 				stats.Add(EquipmentStatType.Hp,
 						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Health],
@@ -100,9 +102,6 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.Armor,
 						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Armour],
 							  ref baseStatsConfig, ref statsConfig, equipment).AsFloat / 100f);
-				stats.Add(EquipmentStatType.Power,
-						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Power],
-							  ref baseStatsConfig, ref statsConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.TargetRange,
 						  (QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.AttackRange],
 								  ref baseStatsConfig, ref statsConfig, equipment)
@@ -121,10 +120,11 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
 				stats.Add(EquipmentStatType.MinAttackAngle, weaponConfig.MinAttackAngle);
 				stats.Add(EquipmentStatType.SplashDamageRadius, weaponConfig.SplashRadius.AsFloat);
-				stats.Add(EquipmentStatType.PowerToDamageRatio, weaponConfig.PowerToDamageRatio.AsFloat);
 				stats.Add(EquipmentStatType.NumberOfShots, weaponConfig.NumberOfShots);
 				stats.Add(EquipmentStatType.ReloadTime, weaponConfig.ReloadTime.AsFloat);
 				stats.Add(EquipmentStatType.MagazineSize, Math.Max(0, weaponConfig.MagazineSize));
+				
+				stats.Add(EquipmentStatType.Damage, weaponConfig.PowerToDamageRatio.AsFloat * power);
 			}
 			else
 			{
@@ -218,6 +218,7 @@ namespace FirstLight.Game.Utils
 			{EquipmentStatType.PowerToDamageRatio, 2f},
 			{EquipmentStatType.PickupSpeed, 0.12f},
 			{EquipmentStatType.ShieldCapacity, 120},
+			{EquipmentStatType.Damage, 30},
 		};
 
 		public static readonly HashSet<EquipmentStatType> INVERT_VALUES = new()

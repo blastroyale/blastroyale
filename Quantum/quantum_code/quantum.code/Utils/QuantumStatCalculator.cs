@@ -146,6 +146,14 @@ namespace Quantum
 			
 			var modifiedValue = FP._0;
 			var value = (ratioToBase + statRatio) * statConfig.BaseValue;
+			
+			// Power, Health and Shields aren't modified by rarity and level
+			if (statConfig.StatType == StatType.Power
+				|| statConfig.StatType == StatType.Health
+				|| statConfig.StatType == StatType.Shield)
+			{
+				return value;
+			}
 
 			// Apply rarity multiplier
 			modifiedValue += value * QuantumHelpers.PowFp(statConfig.RarityMultiplier, (uint) equipment.Rarity);

@@ -275,7 +275,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			if (_config == null || _config.Step != circle.Step)
 			{
-				_config = f.Context.MapShrinkingCircleConfigs[circle.Step];
+				_config = f.Context.MapShrinkingCircleConfigs[Math.Clamp(circle.Step - 1,
+				                                                         0,
+				                                                         f.Context.MapShrinkingCircleConfigs.Count - 1)];
 			}
 
 			// Check to only draw safe area after the warning / announcement

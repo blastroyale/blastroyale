@@ -161,39 +161,5 @@ namespace FirstLight.Game.Infos
 
 			return total;
 		}
-
-		/// <summary>
-		/// Requests "Might" for all the equipments in the given <paramref name="items"/>
-		/// </summary>
-		public static float GetTotalMight(this List<EquipmentInfo> items, IConfigsProvider configsProvider)
-		{
-			var total = 0f;
-			var gameConfig = configsProvider.GetConfig<QuantumGameConfig>();
-
-			foreach (var nft in items)
-			{
-				total += QuantumStatCalculator.GetMightOfItem(gameConfig, nft.Equipment);
-			}
-
-			return total;
-		}
-
-		/// <summary>
-		/// Requests "Might" for all the equipments in the given <paramref name="items"/>
-		/// </summary>
-		public static float GetTotalMight(this IEnumerable<Equipment> items, IConfigsProvider configsProvider)
-		{
-			var total = 0f;
-			var gameConfig = configsProvider.GetConfig<QuantumGameConfig>();
-
-			foreach (var item in items)
-			{
-				var stats = item.GetStats(configsProvider);
-
-				total += QuantumStatCalculator.GetMightOfItem(gameConfig, item);
-			}
-
-			return total;
-		}
 	}
 }

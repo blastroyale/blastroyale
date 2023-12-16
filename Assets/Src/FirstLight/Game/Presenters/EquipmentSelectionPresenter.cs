@@ -51,7 +51,6 @@ namespace FirstLight.Game.Presenters
 
 		private ScreenHeaderElement _header;
 
-		private MightElement _might;
 		private VisualElement _details;
 		private Label _missingEquipment;
 		private Label _equipmentName;
@@ -93,7 +92,6 @@ namespace FirstLight.Game.Presenters
 
 			_equipmentList = root.Q<ListView>("EquipmentList").Required();
 			_equipmentList.DisableScrollbars();
-			_might = root.Q<MightElement>("Might").Required();
 			_missingEquipment = root.Q<Label>("MissingEquipment").Required();
 			_missingEquipment.text = string.Format(NO_ITEMS_LOC_KEY, Data.EquipmentSlot.ToString().ToLowerInvariant())
 				.LocalizeKey();
@@ -161,7 +159,6 @@ namespace FirstLight.Game.Presenters
 			UpdateEquipmentList(resetSelected);
 			UpdateEquipmentDetails();
 			UpdateEquipButtonText();
-			UpdateMight(false);
 		}
 
 
@@ -189,7 +186,6 @@ namespace FirstLight.Game.Presenters
 			if (previousItem != UniqueId.Invalid) _equipmentList.RefreshItem(_itemRowMap[previousItem]);
 			if (_equippedItem != UniqueId.Invalid) _equipmentList.RefreshItem(_itemRowMap[_equippedItem]);
 			UpdateEquipButtonText();
-			UpdateMight();
 		}
 
 		private void UpdateEquipmentList(bool resetSelected)
@@ -349,14 +345,6 @@ namespace FirstLight.Game.Presenters
 			_equipButton.text = _equippedItem == SelectedItem
 				? ScriptLocalization.UITEquipment.unpack
 				: ScriptLocalization.UITEquipment.pack;
-		}
-
-		private void UpdateMight(bool animate = true)
-		{
-			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
-			var might = loadout.GetTotalMight(_services.ConfigsProvider);
-
-			_might.SetMight(might, animate);
 		}
 
 		private VisualElement MakeEquipmentStatListItem()

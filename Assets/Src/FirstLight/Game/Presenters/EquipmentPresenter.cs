@@ -27,7 +27,6 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private List<EquipmentSlotElement> _categories;
-		private MightElement _might;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -40,7 +39,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_might = root.Q<MightElement>("Might").Required();
 			_categories = root.Query<EquipmentSlotElement>().Build().ToList();
 
 			foreach (var cat in _categories)
@@ -60,7 +58,6 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			RefreshCategories();
-			RefreshMight();
 			
 			_services.MessageBrokerService.Publish(new EquipmentScreenOpenedMessage());
 		}
@@ -84,14 +81,6 @@ namespace FirstLight.Game.Presenters
 					element.SetEquipment(default, false, unseenItems);
 				}
 			}
-		}
-
-		private void RefreshMight()
-		{
-			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
-			var might = loadout.GetTotalMight(_services.ConfigsProvider);
-
-			_might.SetMight(might, false);
 		}
 	}
 }

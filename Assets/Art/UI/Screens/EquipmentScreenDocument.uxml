@@ -3,7 +3,6 @@
     <Style src="project://database/Assets/Art/UI/Screens/EquipmentScreenStyle.uss?fileID=7433441132597879392&amp;guid=4db877ea6f2aa4a9e89b2280626e6649&amp;type=3#EquipmentScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore">
-            <FirstLight.Game.UIElements.MightElement name="Might" class="anim-delay-0 anim-fade" />
             <ui:VisualElement name="CategoryHolder" class="category-holder">
                 <FirstLight.Game.UIElements.EquipmentSlotElement category="Weapon" name="WeaponCategory" class="anim-delay-4 anim-translate anim-translate--right-xxl" />
                 <FirstLight.Game.UIElements.EquipmentSlotElement category="Helmet" name="HelmetCategory" class="anim-delay-3 anim-translate anim-translate--right-xxl" />

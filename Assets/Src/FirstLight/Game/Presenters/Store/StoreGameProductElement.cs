@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -83,7 +84,35 @@ namespace FirstLight.Game.Presenters.Store
 			_name.text = "";
 			if (itemView.Amount > 1) _name.text += itemView.Amount + " ";
 			_name.text += itemView.DisplayName;
-			_price.text = product.UnityIapProduct().metadata.localizedPriceString;
+
+			var priceConfig = product.PlayfabProductConfig.CatalogItem.VirtualCurrencyPrices.First();
+			if (priceConfig.Key == "RM")
+			{
+				// Real money purchase
+				_price.text = product.UnityIapProduct().metadata.localizedPriceString;
+			}
+			else
+			{
+				// Default icon is Coins
+				var priceIcon = "<sprite name=\"Coinicon\"> ";
+				
+				switch (priceConfig.Key)
+				{
+					case "BB":
+					{
+						priceIcon = "<sprite name=\"Blastbuckicon\"> ";
+						break;
+					}
+					case "CS":
+					{
+						priceIcon = "<sprite name=\"CraftSpiceicon\"> ";
+						break;
+					}
+				}
+				
+				_price.text = priceIcon + priceConfig.Value;
+			}
+			
 			itemView.DrawIcon(_icon);
 			FormatByStoreData();
 		}

@@ -253,6 +253,9 @@ namespace FirstLight.Game.Views.UITK
 
 			_factionIcon.AddToClassList(string.Format(USS_SPRITE_FACTION,
 				weapon.Faction.ToString().ToLowerInvariant()));
+			
+			// No need to show faction icon until we have usecase for it in a match
+			_factionIcon.SetVisibility(false);
 
 			_weaponIcon.style.backgroundImage = _weaponShadow.style.backgroundImage =
 				new StyleBackground(

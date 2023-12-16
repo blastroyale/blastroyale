@@ -185,7 +185,8 @@ namespace FirstLight.Game.Presenters
 				_connectIdButton.SetDisplay(true);
 				_deleteAccountButton.SetDisplay(false);
 				_logoutButton.SetDisplay(false);
-				_accountStatusLabel.text = ScriptLocalization.UITSettings.flg_id_not_connected;
+				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_not_connected,
+				                                         _gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
 			else
 			{

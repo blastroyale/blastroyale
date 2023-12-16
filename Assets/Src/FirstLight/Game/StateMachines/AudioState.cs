@@ -657,7 +657,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			// Killstreak announcer
-			_services.AudioFxService.PlayClipQueued2D(voKillstreakAudio);
+			_services.AudioFxService.PlayClipQueued2D(voKillstreakAudio, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 
 			// Clutch announcer
 			if (!frame.TryGet<Stats>(callback.EntityKiller, out var stats))

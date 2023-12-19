@@ -2407,3 +2407,77 @@ MonoBehaviour:
     Level: 0
     Generation: 0
     Amount: 1
+  - Id: 63
+    GameId: 61
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 80
+  - Id: 64
+    GameId: 61
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 120

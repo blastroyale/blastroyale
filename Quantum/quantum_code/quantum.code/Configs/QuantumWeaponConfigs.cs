@@ -65,6 +65,8 @@ namespace Quantum
 	[AssetObjectConfig(GenerateAssetCreateMenu = false)]
 	public partial class QuantumWeaponConfigs
 	{
+		private object _lock = new object();
+		
 		public List<QuantumWeaponConfig> QuantumConfigs = new List<QuantumWeaponConfig>();
 		
 		private IDictionary<GameId, QuantumWeaponConfig> _dictionary = null;
@@ -77,6 +79,7 @@ namespace Quantum
 		/// </summary>
 		public unsafe FP GetRandomBakedAccuracyAngle(Frame f, GameId weaponId)
 		{
+			
 			if (BakedAccuracyMods == null)
 			{
 				BakeAngles(f);
@@ -92,24 +95,28 @@ namespace Quantum
 		/// </summary>
 		private void BakeAngles(Frame f)
 		{
-			BakedAccuracyMods = new Dictionary<GameId, List<int>>();
-			foreach (var config in f.WeaponConfigs.QuantumConfigs)
+			lock (_lock)
 			{
-				var accuracies = new List<int>();
-				var maxAttackAngle = config.MinAttackAngle;
-				if (maxAttackAngle == 0)
+				var bakes = new Dictionary<GameId, List<int>>();
+				foreach (var config in f.WeaponConfigs.QuantumConfigs)
 				{
-					accuracies.Add(0);
-				}
-				else
-				{
-					foreach (var distribution in Constants.APPRX_NORMAL_DISTRIBUTION)
+					var accuracies = new List<int>();
+					var maxAttackAngle = config.MinAttackAngle;
+					if (maxAttackAngle == 0)
 					{
-						var mod = (int)Math.Round(maxAttackAngle / 100d * distribution);
-						accuracies.Add(mod /2);
+						accuracies.Add(0);
 					}
+					else
+					{
+						foreach (var distribution in Constants.APPRX_NORMAL_DISTRIBUTION)
+						{
+							var mod = (int)Math.Round(maxAttackAngle / 100d * distribution);
+							accuracies.Add(mod /2);
+						}
+					}
+					bakes[config.Id] = accuracies;
 				}
-				BakedAccuracyMods[config.Id] = accuracies;
+				BakedAccuracyMods = bakes;
 			}
 		}
 		
@@ -120,11 +127,14 @@ namespace Quantum
 		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<GameId, QuantumWeaponConfig>();
-				
-				foreach (var config in QuantumConfigs)
+				lock (_lock)
 				{
-					_dictionary.Add(config.Id, config);
+					var dictionary = new Dictionary<GameId, QuantumWeaponConfig>();
+					foreach (var config in QuantumConfigs)
+					{
+						dictionary.Add(config.Id, config);
+					}
+					_dictionary = dictionary;
 				}
 			}
 			return _dictionary[gameId];

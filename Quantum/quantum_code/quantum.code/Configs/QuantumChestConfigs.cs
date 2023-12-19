@@ -34,6 +34,8 @@ namespace Quantum
 
 		private IDictionary<GameId, QuantumChestConfig> _dictionary = null;
 
+		private object _lock = new object();
+
 		/// <summary>
 		/// Requests the <see cref="QuantumChestConfig"/> defined by the given <paramref name="id"/>
 		/// </summary>
@@ -41,11 +43,16 @@ namespace Quantum
 		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<GameId, QuantumChestConfig>();
-
-				for (var i = 0; i < QuantumConfigs.Count; i++)
+				lock (_lock)
 				{
-					_dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					var dict = new Dictionary<GameId, QuantumChestConfig>();
+
+					for (var i = 0; i < QuantumConfigs.Count; i++)
+					{
+						dict.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					}
+
+					_dictionary = dict;
 				}
 			}
 

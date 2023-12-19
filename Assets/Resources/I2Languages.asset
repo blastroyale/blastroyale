@@ -7869,6 +7869,94 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinJodie
+      TermType: 0
+      Description: 
+      Languages:
+      - JODIE
+      - JODIE
+      - JODIE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinJodieDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Long Time No See
+      - Long Time No See
+      - Long Time No See
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMontyVonCue
+      TermType: 0
+      Description: 
+      Languages:
+      - MONTY VON CUE
+      - MONTY VON CUE
+      - MONTY VON CUE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMontyVonCueDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - The Game Is George
+      - The Game Is George
+      - The Game Is George
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBoudicca
+      TermType: 0
+      Description: 
+      Languages:
+      - BOUDICCA
+      - BOUDICCA
+      - BOUDICCA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBoudiccaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Fear Not
+      - Fear Not
+      - Fear Not
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCupid
+      TermType: 0
+      Description: 
+      Languages:
+      - CUPID
+      - CUPID
+      - CUPID
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCupidDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Love Is In The Air
+      - Love Is In The Air
+      - Love Is In The Air
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIdGroups/Equipment
       TermType: 0
       Description: 
@@ -18245,7 +18333,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1701686337053
+    Google_LastUpdatedVersion: 1702999694377
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

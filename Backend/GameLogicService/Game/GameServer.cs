@@ -71,6 +71,11 @@ namespace Backend.Game
 
 				var newState = await RunCommands(playerId, new[] { commandInstance }, currentPlayerState, commandData);
 
+				if (newState.HasDelta())
+				{
+					await _state.UpdatePlayerState(playerId, newState.GetOnlyUpdatedState());
+				}
+
 				var response = new Dictionary<string, string>();
 				if (requestData.TryGetValue(CommandFields.ConfigurationVersion, out var clientConfigVersion))
 				{
@@ -110,6 +115,7 @@ namespace Backend.Game
 		{
 			var currentState = currentPlayerState;
 			var deltas = new StateDelta();
+			currentState.GetDeltas().Merge(deltas);
 			foreach (var commandInstance in commandInstances)
 			{
 				var newState = await _cmdHandler.ExecuteCommand(playerId, commandInstance, currentState);
@@ -121,10 +127,8 @@ namespace Backend.Game
 
 			var hasDeltas = deltas.GetModifiedTypes().Any();
 			if (!hasDeltas) return currentState;
-			
+
 			currentState.SetDelta(deltas);
-			var state = currentState.GetOnlyUpdatedState();
-			await _state.UpdatePlayerState(playerId, state);
 			return currentState;
 		}
 

@@ -55,14 +55,16 @@ namespace Backend
 		private readonly GameServer _server;
 		private readonly IEventManager _eventManager;
 		private readonly IStatisticsService _statistics;
+		private readonly IServerMutex _mutex;
 
 		public GameLogicWebWebService(IEventManager eventManager, ILogger log,
-									  IPlayerSetupService service, IServerStateService stateService, GameServer server, IBaseServiceConfiguration serviceConfiguration)
+									  IPlayerSetupService service, IServerStateService stateService, GameServer server, IBaseServiceConfiguration serviceConfiguration, IServerMutex mutex)
 		{
 			_setupService = service;
 			_stateService = stateService;
 			_server = server;
 			_serviceConfiguration = serviceConfiguration;
+			_mutex = mutex;
 			_eventManager = eventManager;
 			_log = log;
 		}
@@ -72,7 +74,7 @@ namespace Backend
 			try
 			{
 				return
-					Playfab.Result(playerId, await _server.RunLogic(playerId, request)); 
+					Playfab.Result(playerId, await _server.RunLogic(playerId, request));
 			}
 			catch (Exception e)
 			{
@@ -84,24 +86,34 @@ namespace Backend
 		{
 			try
 			{
+				await _mutex.Lock(playerId);
 				var state = await _stateService.GetPlayerState(playerId);
 				if (!_setupService.IsSetup(state))
 				{
 					_log.LogInformation($"Setting up player {playerId}");
 					await SetupPlayer(playerId);
 				}
+				state = await _server.RunInitializationCommands(playerId, state);
 				await _eventManager.CallEvent(new PlayerDataLoadEvent(playerId, state));
-				await _server.RunInitializationCommands(playerId, state);
+				if (state.HasDelta())
+				{
+					await _stateService.UpdatePlayerState(playerId, state.GetOnlyUpdatedState());
+				}
+
 				return Playfab.Result(playerId, new Dictionary<string, string>()
 				{
-					{"BuildNumber", _serviceConfiguration.BuildNumber},
-					{"BuildCommit", _serviceConfiguration.BuildCommit}
+					{ "BuildNumber", _serviceConfiguration.BuildNumber },
+					{ "BuildCommit", _serviceConfiguration.BuildCommit }
 				});
 			}
 			catch (Exception e)
 			{
 				var errorResult = _server.GetErrorResult(null, e);
 				return GetPlayfabError(errorResult);
+			}
+			finally
+			{
+				_mutex.Unlock(playerId);
 			}
 		}
 
@@ -146,7 +158,7 @@ namespace Backend
 						{
 							"Exception",
 							errorResult.Error != null
-								? new[] {errorResult.Error.StackTrace}
+								? new[] { errorResult.Error.StackTrace }
 								: errorResult?.Data?.Values.ToArray()
 						}
 					}

@@ -39,16 +39,11 @@ namespace GameLogicService.Services
 	public class PlayfabInventorySyncService : IInventorySyncService
 	{
 		private PluginContext _ctx;
-		private IServerStateService _serverState;
-		private IServerMutex _mutex;
 		private ILogger _log;
 		private Dictionary<string, CatalogItem> _catalog;
-		
-		public PlayfabInventorySyncService(IServerStateService state, IServerMutex mutex, ILogger log)
+
+		public PlayfabInventorySyncService(ILogger log)
 		{
-			_log = log;
-			_serverState = state;
-			_mutex = mutex;
 			_log = log;
 		}
 
@@ -67,9 +62,10 @@ namespace GameLogicService.Services
 					_catalog[catalogItem.ItemId] = catalogItem;
 				}
 			}
+
 			return _catalog[item.ItemId];
 		}
-		
+
 		private async Task<int> SyncCurrency(string player, GetUserInventoryResult inventory, PlayerData playerData, GameId gameId)
 		{
 			var playfabName = PlayfabCurrencies.MAP[gameId];
@@ -89,29 +85,28 @@ namespace GameLogicService.Services
 				_log.LogInformation($"[Playfab Sync] Synced {playfabAmount} x {gameId} for user {player}");
 				return playfabAmount;
 			}
+
 			return 0;
 		}
 
-		public async Task<bool> SyncData(string player)
+		public async Task<bool> SyncData(ServerState state, string player)
 		{
 			var consumedItems = new List<ItemInstance>();
 			var consumedCurrencies = new Dictionary<GameId, int>();
 			try
 			{
-				await _mutex.Lock(player);
 				var result = await PlayFabServerAPI.GetUserInventoryAsync(new()
 				{
-					PlayFabId = player, 
+					PlayFabId = player,
 				});
 				if (result.Error != null) throw new Exception(result.Error.GenerateErrorReport());
 				var inventory = result.Result;
-				
-				var state = await _serverState.GetPlayerState(player);
+
 				var playerData = state.DeserializeModel<PlayerData>();
 
 				consumedCurrencies[GameId.COIN] = await SyncCurrency(player, inventory, playerData, GameId.COIN);
 				consumedCurrencies[GameId.CS] = await SyncCurrency(player, inventory, playerData, GameId.CS);
-
+	
 				if (inventory.Inventory.Count > 0)
 				{
 					foreach (var item in inventory.Inventory)
@@ -120,18 +115,14 @@ namespace GameLogicService.Services
 						var legacy = JsonConvert.DeserializeObject<LegacyItemData>(catalogItem.CustomData);
 						playerData.UncollectedRewards.Add(ItemFactory.Legacy(legacy));
 						var res = await PlayFabServerAPI.ConsumeItemAsync(new ConsumeItemRequest
-							{ConsumeCount = 1, PlayFabId = player, ItemInstanceId = item.ItemInstanceId});
+							{ ConsumeCount = 1, PlayFabId = player, ItemInstanceId = item.ItemInstanceId });
 						if (res.Error != null) throw new Exception(res.Error.GenerateErrorReport());
 						consumedItems.Add(item);
 						_log.LogInformation($"[Playfab Sync] Synced item {item.DisplayName} -> {legacy.RewardId} to player {player}");
 					}
 				}
-				
+
 				state.UpdateModel(playerData);
-				if (state.HasDelta())
-				{
-					await _serverState.UpdatePlayerState(player, state.GetOnlyUpdatedState());
-				}
 			}
 			catch (Exception e)
 			{
@@ -152,15 +143,15 @@ namespace GameLogicService.Services
 						_log.LogError($"CRITICAL ON ITEM ROLLBACK: Items {itemsString} to player {player}: {res.Error.GenerateErrorReport()}");
 						_ctx.Analytics.EmitEvent("Item Vanished", new AnalyticsData()
 						{
-							{"items", itemsString}, {"affectedPlayer", player}
+							{ "items", itemsString }, { "affectedPlayer", player }
 						});
 					}
 				}
-				
+
 				foreach (var (currency, amt) in consumedCurrencies)
 				{
 					if (amt == 0) continue;
-					var res2 = await PlayFabServerAPI.AddUserVirtualCurrencyAsync(new ()
+					var res2 = await PlayFabServerAPI.AddUserVirtualCurrencyAsync(new()
 					{
 						Amount = amt, PlayFabId = player, VirtualCurrency = PlayfabCurrencies.MAP[currency]
 					});
@@ -169,15 +160,14 @@ namespace GameLogicService.Services
 						_log.LogError($"CRITICAL ON CURRENCY ROLLBACK: Currency {amt} x {currency} to player {player}: {res2.Error.GenerateErrorReport()}");
 						_ctx.Analytics.EmitEvent("Item Vanished", new AnalyticsData()
 						{
-							{"currency", currency}, {"amount", amt}, {"affectedPlayer", player}
+							{ "currency", currency }, { "amount", amt }, { "affectedPlayer", player }
 						});
 					}
 				}
+
+				throw;
 			}
-			finally
-			{
-				_mutex.Unlock(player);
-			}
+
 			return true;
 		}
 	}

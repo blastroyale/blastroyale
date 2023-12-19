@@ -136,6 +136,11 @@ namespace FirstLight.Game.Utils
 		public static bool REMOTE_CONFIGURATION = false;
 
 		/// <summary>
+		/// Forces to stop the game when pausing
+		/// </summary>
+		public static bool PAUSE_FREEZE = true;
+		
+		/// <summary>
 		/// Enables / disables item durability checks for Non NFTs
 		/// </summary>
 		public static bool ITEM_DURABILITY_NON_NFTS = false;
@@ -339,6 +344,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("BULLET_CAMERA_ADJUSTMENT", overrideData, out var cameraFix))
 			{
 				BULLET_CAMERA_ADJUSTMENT = cameraFix;
+			}
+			
+			if (TrySetFlag("PAUSE_FREEZE", overrideData, out var pauseFreeze))
+			{
+				PAUSE_FREEZE = pauseFreeze;
 			}
 		}
 

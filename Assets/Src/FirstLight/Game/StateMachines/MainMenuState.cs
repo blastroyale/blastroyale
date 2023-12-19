@@ -518,6 +518,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenHomeScreen()
 		{
+			if (_uiService.IsOpen<HomeScreenPresenter>()) return;
+			
 			var data = new HomeScreenPresenter.StateData
 			{
 				OnPlayButtonClicked = PlayButtonClicked,
@@ -552,6 +554,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnRewardsReceived(List<ItemData> items)
 		{
+			if (_services.RoomService.InRoom) return;
 			var rewardsCopy = items.Where(item => !item.Id.IsInGroup(GameIdGroup.Currency) && item.Id is not (GameId.XP or GameId.BPP or GameId.Trophies)).ToList();
 			if (rewardsCopy.Count > 0)
 			{
@@ -565,6 +568,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLevelUpScreen()
 		{
+			if (_services.RoomService.InRoom) return;
+			
 			var levelRewards = _gameDataProvider.PlayerDataProvider.GetRewardsForFameLevel(
 				_gameDataProvider.PlayerDataProvider.Level.Value - 1
 			);

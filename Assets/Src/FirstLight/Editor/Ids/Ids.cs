@@ -191,7 +191,11 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinTieGuy", 147, PlayerSkin, Collection},
 			{"PlayerSkinFitnessChick", 146, PlayerSkin, Collection},
 			{"PlayerSkinSkellyQueen", 145}, // placeholder ID for the future skin
-			{"PlayerSkinXmasSuperstar", 149, PlayerSkin, Collection}, 
+			{"PlayerSkinXmasSuperstar", 149, PlayerSkin, Collection},
+			{"PlayerSkinJodie", 126, PlayerSkin, Collection},
+			{"PlayerSkinMontyVonCue", 129, PlayerSkin, Collection},
+			{"PlayerSkinBoudicca", 132, PlayerSkin, Collection},
+			{"PlayerSkinCupid", 134, PlayerSkin, Collection},
 
 			#endregion Player skins
 

@@ -179,7 +179,6 @@ namespace Src.FirstLight.Server
 			if (newTrophies != playerData.Trophies)
 			{
 				playerData.Trophies = newTrophies;
-				playerData.TrophySeason = playerData.TrophySeason;
 				state.UpdateModel(playerData);
 			}
 

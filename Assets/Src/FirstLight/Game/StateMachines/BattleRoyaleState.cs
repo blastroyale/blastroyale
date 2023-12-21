@@ -157,7 +157,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OpenMatchHud()
 		{
-			_uiService.OpenScreen<HUDScreenPresenter>();
+			_uiService.OpenUi<HUDScreenPresenter>();
 		}
 		
 		private void OpenMatchEndScreen()

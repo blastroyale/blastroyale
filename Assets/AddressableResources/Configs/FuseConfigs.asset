@@ -14,32 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Rarity: 0
-    FragmentCost: 4
-    CoinCost: 0
+    FragmentCost: 0
+    CoinCost: 1500
   - Rarity: 1
-    FragmentCost: 8
-    CoinCost: 0
+    FragmentCost: 0
+    CoinCost: 2000
   - Rarity: 2
-    FragmentCost: 18
-    CoinCost: 0
+    FragmentCost: 0
+    CoinCost: 3000
   - Rarity: 3
-    FragmentCost: 35
-    CoinCost: 1000
+    FragmentCost: 0
+    CoinCost: 4500
   - Rarity: 4
-    FragmentCost: 70
-    CoinCost: 3500
+    FragmentCost: 0
+    CoinCost: 6000
   - Rarity: 5
-    FragmentCost: 140
-    CoinCost: 7000
+    FragmentCost: 0
+    CoinCost: 8000
   - Rarity: 6
-    FragmentCost: 270
-    CoinCost: 16000
+    FragmentCost: 0
+    CoinCost: 10000
   - Rarity: 7
-    FragmentCost: 550
-    CoinCost: 36000
+    FragmentCost: 0
+    CoinCost: 12500
   - Rarity: 8
-    FragmentCost: 1100
-    CoinCost: 75000
+    FragmentCost: 0
+    CoinCost: 15000
   - Rarity: 9
     FragmentCost: 0
     CoinCost: 0

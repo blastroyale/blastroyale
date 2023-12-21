@@ -21,7 +21,7 @@ namespace FirstLight.Game.Views.UITK
 		private Label _currentRarity;
 		private Label _nextRarity;
 		private ListView _statsList;
-		private MultiPriceButton _fuseButton;
+		private PriceButton _fuseButton;
 		private VisualElement _bottomFiller;
 
 		private Action _confirmAction;
@@ -34,7 +34,7 @@ namespace FirstLight.Game.Views.UITK
 			_currentRarity = element.Q<Label>("RarityCurrent").Required();
 			_nextRarity = element.Q<Label>("RarityNext").Required();
 			_statsList = element.Q<ListView>("StatsList").Required();
-			_fuseButton = element.Q<MultiPriceButton>("FusePriceButton").Required();
+			_fuseButton = element.Q<PriceButton>("FusePriceButton").Required();
 			_bottomFiller = element.Q<VisualElement>("BottomFiller").Required();
 
 			_statsList.DisableScrollbars();
@@ -44,12 +44,12 @@ namespace FirstLight.Game.Views.UITK
 
 		public void SetData(EquipmentInfo info, Action confirmAction, bool[] insufficient)
 		{
-			var canPurchase = insufficient[0] || insufficient[1];
+			var canPurchase = insufficient[1];
 			_currentRarity.text = string.Format(info.Equipment.Rarity.ToString());
 			_nextRarity.text = string.Format((info.Equipment.Rarity + 1).ToString());
 
 			_fuseButton.SetEnabled(!canPurchase);
-			_fuseButton.SetPrice(info.FuseCost, info.IsNft, insufficient, canPurchase);
+			_fuseButton.SetPrice(info.FuseCost[0], info.IsNft, insufficient[1], canPurchase);
 
 			_confirmAction = confirmAction;
 

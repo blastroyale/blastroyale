@@ -29,8 +29,8 @@
                 <ui:VisualElement name="ButtonsHolder" focusable="true" class="details__buttons-holder anim-delay-0 anim-translate anim-translate--left-xxl">
                     <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/scrap" name="ScrapButton" />
                     <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/upgrade" name="UpgradeButton" />
+                    <FirstLight.Game.UIElements.PriceButton name="FuseButton" localization-key="UITEquipment/fuse" />
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/pack" name="EquipButton" class="button-long button-long--yellow" />
-                    <FirstLight.Game.UIElements.MultiPriceButton name="FuseButton" localization-key="UITEquipment/fuse" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>

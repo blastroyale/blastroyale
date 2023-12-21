@@ -9189,6 +9189,94 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinJodie
+      TermType: 0
+      Description: 
+      Languages:
+      - KATNISS
+      - KATNISS
+      - KATNISS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinJodieDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Long Time No See
+      - Long Time No See
+      - Long Time No See
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMontyVonCue
+      TermType: 0
+      Description: 
+      Languages:
+      - 8 BALL MONTY
+      - 8 BALL MONTY
+      - 8 BALL MONTY
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMontyVonCueDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - The Game Is George
+      - The Game Is George
+      - The Game Is George
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBoudicca
+      TermType: 0
+      Description: 
+      Languages:
+      - ASTRID
+      - ASTRID
+      - ASTRID
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBoudiccaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Fear Not
+      - Fear Not
+      - Fear Not
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCupid
+      TermType: 0
+      Description: 
+      Languages:
+      - VALENTINO
+      - VALENTINO
+      - VALENTINO
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCupidDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Love Is In The Air
+      - Love Is In The Air
+      - Love Is In The Air
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIdGroups/Equipment
       TermType: 0
       Description: 
@@ -9725,9 +9813,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - FUSE
-      - 
-      - 
+      - RARITY UP
+      - RARITY UP
+      - RARITY UP
       - 
       - 
       Flags: 0000000000
@@ -11761,9 +11849,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - FUSE
-      - "\u041F\u0420\u0415\u0414\u041E\u0425\u0420\u0410\u041D\u0418\u0422\u0415\u041B\u042C"
-      - "FUS\xCDVEL"
+      - RARITY UP
+      - RARITY UP
+      - RARITY UP
       - 
       - 
       Flags: 0000000000
@@ -15878,9 +15966,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - FUSE
-      - 
-      - 
+      - RARITY UP
+      - RARITY UP
+      - RARITY UP
       - 
       - 
       Flags: 0000000000
@@ -16607,9 +16695,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - FUSING ITEM
-      - 
-      - 
+      - RARITY UP
+      - RARITY UP
+      - RARITY UP
       - 
       - 
       Flags: 0000000000
@@ -16645,6 +16733,17 @@ MonoBehaviour:
       - "\u041D\u0430\u0436\u043C\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B
         \u0432\u044B\u0431\u0440\u0430\u0442\u044C \u0440\u0435\u0436\u0438\u043C"
       - Toque para escolher o modo
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/zombies_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Kill all the zombies. Survive as many waves as you can.
+      - Kill all the zombies. Survive as many waves as you can.
+      - Kill all the zombies. Survive as many waves as you can.
       - 
       - 
       Flags: 0000000000
@@ -16853,6 +16952,17 @@ MonoBehaviour:
       - DEATHMATCH
       - DEATHMATCH
       - DEATHMATCH
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_Zombies
+      TermType: 0
+      Description: 
+      Languages:
+      - ZOMBIES
+      - ZOMBIES
+      - ZOMBIES
       - 
       - 
       Flags: 0000000000
@@ -19566,7 +19676,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1702643008006
+    Google_LastUpdatedVersion: 1703097860323
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

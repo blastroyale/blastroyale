@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using FirstLight.Server.SDK.Models;
 
 namespace FirstLightServerSDK.Services
 {
@@ -7,6 +8,6 @@ namespace FirstLightServerSDK.Services
 	/// </summary>
 	public interface IInventorySyncService
 	{
-		Task<bool> SyncData(string player);
+		Task<bool> SyncData(ServerState state, string player);
 	}
 }

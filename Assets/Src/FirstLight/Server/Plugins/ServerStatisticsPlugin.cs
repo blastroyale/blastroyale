@@ -161,7 +161,7 @@ namespace Src.FirstLight.Server
 			toSend.Add((GameConstants.Stats.LEADERBOARD_LADDER_NAME, trophies));
 			await _ctx.Statistics.UpdateStatistics(userId, toSend.ToArray());
 		}
-		
+
 		public async Task OnPlayerLoaded(PlayerDataLoadEvent playerLoadEvent)
 		{
 			if (!playerLoadEvent.PlayerState.Has<EquipmentData>())
@@ -169,26 +169,19 @@ namespace Src.FirstLight.Server
 				return;
 			}
 
-			var equipmentData = playerLoadEvent.PlayerState.DeserializeModel<EquipmentData>();
-			var playerData = playerLoadEvent.PlayerState.DeserializeModel<PlayerData>();
+			var state = playerLoadEvent.PlayerState;
+			var equipmentData = state.DeserializeModel<EquipmentData>();
+			var playerData = state.DeserializeModel<PlayerData>();
 			playerData.Currencies.TryGetValue(GameId.CS, out var cs);
 			playerData.Currencies.TryGetValue(GameId.COIN, out var coins);
-
-			var newTrophies = await CheckUpdateTrophiesState(playerLoadEvent.PlayerId, playerLoadEvent.PlayerState);
+		
+			var newTrophies = await CheckUpdateTrophiesState(playerLoadEvent.PlayerId, state);
 			if (newTrophies != playerData.Trophies)
 			{
-				// TODO: move out for player data load pipeline
-				await _ctx.PlayerMutex.Transaction(playerLoadEvent.PlayerId, async () =>
-				{
-					var state = await _ctx.ServerState.GetPlayerState(playerLoadEvent.PlayerId);
-					var pd = state.DeserializeModel<PlayerData>();
-					pd.Trophies = newTrophies;
-					pd.TrophySeason = playerData.TrophySeason;
-					state.UpdateModel(pd);
-					await _ctx.ServerState.UpdatePlayerState(playerLoadEvent.PlayerId, state.GetOnlyUpdatedState());
-				});
+				playerData.Trophies = newTrophies;
+				state.UpdateModel(playerData);
 			}
-			
+
 			await _ctx.Statistics.UpdateStatistics(playerLoadEvent.PlayerId,
 				(GameConstants.Stats.NFT_ITEMS, equipmentData.NftInventory.Count),
 				(GameConstants.Stats.NON_NFTS, equipmentData.Inventory.Count - equipmentData.NftInventory.Count),

@@ -9,6 +9,8 @@ namespace BlastRoyaleNFTPlugin
 	public class BlastRoyalePlugin : ServerPlugin
 	{
 		private PluginContext _ctx;
+		private NftSynchronizer _nftSynchronizer;
+
 		/// <summary>
 		/// Server override called whenever the plugin is loaded.
 		/// </summary>
@@ -20,21 +22,32 @@ namespace BlastRoyaleNFTPlugin
 			context.Log?.LogInformation($"Using blockchain URL at {baseUrl}");
 			if (context.ServerConfig.NftSync)
 			{
-				context.DataSyncs?.RegisterSync(new NftSynchronizer(baseUrl, apiSecret, context));
+				_nftSynchronizer = new NftSynchronizer(baseUrl, apiSecret, context);
 			}
-			context.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnDataLoad);
+
+			context.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnDataLoad, EventPriority.LAST);
 			context.PluginEventManager.RegisterEventListener<InventoryUpdatedEvent>(OnInventoryUpdate);
 		}
 
 		private async Task OnDataLoad(PlayerDataLoadEvent onLoad)
 		{
-			await _ctx.InventorySync!.SyncData(onLoad.PlayerId);
+			if (_nftSynchronizer != null)
+				await _nftSynchronizer.SyncData(onLoad.PlayerState, onLoad.PlayerId);
+			// It needs to be the last one, because it may fail and need to rollback items back to playfab
+			await _ctx.InventorySync!.SyncData(onLoad.PlayerState, onLoad.PlayerId);
 		}
-		
+
 		private async Task OnInventoryUpdate(InventoryUpdatedEvent onLoad)
 		{
-			await _ctx.InventorySync!.SyncData(onLoad.PlayerId);
+			await _ctx.PlayerMutex.Transaction(onLoad.PlayerId, async () =>
+			{
+				var state = await _ctx.ServerState.GetPlayerState(onLoad.PlayerId);
+				await _ctx.InventorySync!.SyncData(state, onLoad.PlayerId);
+				if (state.HasDelta())
+				{
+					await _ctx.ServerState.UpdatePlayerState(onLoad.PlayerId, state.GetOnlyUpdatedState());
+				}
+			});
 		}
 	}
 }
-

@@ -11,12 +11,22 @@ namespace FirstLight.Server.SDK
 	public class GameServerEvent
 	{
 		public string PlayerId;
-		
+
 		public GameServerEvent(string player)
 		{
 			PlayerId = player;
 		}
 	}
+
+	public static class EventPriority
+	{
+		// Executes first
+		public const int FIRST = 100;
+		public const int MIDDLE = 50;
+		public const int LAST = 0;
+		// Executes last
+	}
+
 
 	/// <summary>
 	/// Interface to register and callback events
@@ -26,7 +36,7 @@ namespace FirstLight.Server.SDK
 		/// <summary>
 		/// Registers a given function to be called back when TEventType fires
 		/// </summary>
-		void RegisterEventListener<TEventType>(Func<TEventType, Task> listener) where TEventType : GameServerEvent;
+		void RegisterEventListener<TEventType>(Func<TEventType, Task> listener, int priority = EventPriority.MIDDLE) where TEventType : GameServerEvent;
 
 		/// <summary>
 		/// Calls a given event. All callbacks will be notified.
@@ -47,6 +57,7 @@ namespace FirstLight.Server.SDK
 	internal class Listener
 	{
 		internal object Action;
+		internal int Priority;
 	}
 
 	/// <summary>
@@ -63,12 +74,15 @@ namespace FirstLight.Server.SDK
 			_log = log;
 		}
 
-		public void RegisterEventListener<TEventType>(Func<TEventType, Task> listener) where TEventType : GameServerEvent
+		public void RegisterEventListener<TEventType>(Func<TEventType, Task> listener, int eventPriority = EventPriority.MIDDLE) where TEventType : GameServerEvent
 		{
-			GetSubscribers(typeof(TEventType)).Listeners.Add(new Listener()
+			var listeners = GetSubscribers(typeof(TEventType)).Listeners;
+			listeners.Add(new Listener()
 			{
-				Action = listener
+				Action = listener,
+				Priority = eventPriority
 			});
+			listeners.Sort((listener1, listener2) => listener2.Priority - listener1.Priority);
 		}
 
 		public void RegisterCommandListener<TCommand>(Func<string, TCommand, ServerState, Task> action)
@@ -103,13 +117,14 @@ namespace FirstLight.Server.SDK
 			foreach (var listener in subs.Listeners)
 			{
 				try
-				{				
+				{
 					var action = listener.Action as Func<TEventType, Task>;
 					await action!.Invoke(ev);
 				}
 				catch (Exception e)
 				{
 					_log.LogError(e);
+					throw;
 				}
 			}
 		}

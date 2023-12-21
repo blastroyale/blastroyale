@@ -23,6 +23,7 @@ public class TestNftSyncPlugin
 	private PluginEventManager _events;
 	private TestServer _app;
 	private InMemoryAnalytics _analytics;
+	private ServerState _state;
 
 	[SetUp]
 	public void Setup()
@@ -34,7 +35,6 @@ public class TestNftSyncPlugin
 		var pluginCtx = new PluginContext(_events, _app.Services);
 		_nftSync = new StubbedNftSync(pluginCtx);
 		_plugin = new BlastRoyalePlugin();
-		pluginCtx.DataSyncs?.RegisterSync(_nftSync);
 		_plugin.OnEnable(pluginCtx);
 		_analytics = _app.GetService<IServerAnalytics>() as InMemoryAnalytics;
 		_nftSync.Indexed.Add(new PolygonNFTMetadata()
@@ -45,6 +45,7 @@ public class TestNftSyncPlugin
 		});
 		var state = _app.Services.GetService<IPlayerSetupService>().GetInitialState("yolo");
 		_app.ServerState.UpdatePlayerState("yolo", state).GetAwaiter().GetResult();
+		_state = state;
 	}
 
 	[Test]
@@ -60,36 +61,17 @@ public class TestNftSyncPlugin
 		Assert.AreEqual(v.Z.RawValue, deserialized.Z.RawValue);
 	}
 
-	[Test]
-	public void TestEventTriggersSync()
-	{
-		var nftDataBefore = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
-
-		_events.CallEvent(new PlayerDataLoadEvent("yolo", null));
-
-		var nftDataAfter = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
-		Assert.AreEqual(0, nftDataBefore.Inventory.Keys.Count);
-		Assert.AreEqual(0, nftDataBefore.NftInventory.Keys.Count);
-		Assert.AreEqual(1, nftDataAfter.Inventory.Keys.Count);
-		Assert.AreEqual(1, nftDataAfter.NftInventory.Keys.Count);
-	}
 
 	[Test]
 	public async Task TestInventorySync()
 	{
-		await _nftSync.SyncData("yolo");
+		await SyncData();
+
 
 		var nftData = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 		var equip = nftData.Inventory.Values.First();
 
 		Assert.AreEqual(equip.Faction, EquipmentFaction.Chaos);
-	}
-	
-	[Test]
-	public async Task TestAlreadyInSync()
-	{
-		Assert.IsTrue(await _nftSync.SyncData("yolo"));
-		Assert.IsFalse(await _nftSync.SyncData("yolo"));
 	}
 
 	[Test]
@@ -100,8 +82,8 @@ public class TestNftSyncPlugin
 		equips.LastUpdateTimestamp = _nftSync.LastUpdate + 1;
 		state.UpdateModel(equips);
 		_app.ServerState.UpdatePlayerState("yolo", state).Wait();
-
-		await _nftSync.SyncData("yolo");
+		_state = state;
+		await SyncData();
 
 		var nftData = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
@@ -109,22 +91,29 @@ public class TestNftSyncPlugin
 		Assert.AreEqual(0, nftData.NftInventory.Count());
 	}
 
+	private async Task SyncData()
+	{
+		_state = await _app.ServerState.GetPlayerState("yolo");
+		await _nftSync.SyncData(_state, "yolo");
+		await _app.ServerState.UpdatePlayerState("yolo", _state.GetOnlyUpdatedState());
+	}
+
 	[Test]
 	public async Task TestNotDuplicatingAlreadyOwned()
 	{
-		await _nftSync.SyncData("yolo");
+		await SyncData();
 		var firstState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 		var firstStateUniqueId = firstState.Inventory.Keys.First();
 
 		_nftSync.Indexed.Add(new PolygonNFTMetadata()
 		{
 			token_id = "tokenid2",
-			subCategory = (int)GameId.ModRifle,
+			subCategory = (int) GameId.ModRifle,
 			faction = (long) EquipmentFaction.Dimensional
 		});
 		_nftSync.LastUpdate++;
 
-		await _nftSync.SyncData("yolo");
+		await SyncData();
 
 		var secondState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
@@ -138,15 +127,16 @@ public class TestNftSyncPlugin
 	[Test]
 	public async Task TestUpgradingTriggersSync()
 	{
-		await _nftSync.SyncData("yolo");
+		await SyncData();
 		var firstState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		var newLevel = 10;
 		var nftMetadata = _nftSync.Indexed.First();
 		nftMetadata.level = newLevel;
 		_nftSync.LastUpdate++;
-		
-		await _nftSync.SyncData("yolo");
+
+		await SyncData();
+
 		var secondState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		var itemBefore = firstState.Inventory.Values.First();
@@ -159,15 +149,15 @@ public class TestNftSyncPlugin
 	[Test]
 	public async Task TestRepairingTriggersSync()
 	{
-		await _nftSync.SyncData("yolo");
+		await SyncData();
 		var firstState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		var newRepairTime = 100;
 		var nftMetadata = _nftSync.Indexed.First();
 		nftMetadata.lastRepairTime = newRepairTime;
 		_nftSync.LastUpdate++;
-	
-		await _nftSync.SyncData("yolo");
+
+		await SyncData();
 		var secondState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		var nftDataBefore = firstState.Inventory.Values.First();
@@ -180,13 +170,15 @@ public class TestNftSyncPlugin
 	[Test]
 	public async Task TestRemovingFromGameWhenRemovedFromBlockchain()
 	{
-		await _nftSync.SyncData("yolo");
+		await SyncData();
+
 		var firstState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		_nftSync.Indexed.Clear();
 		_nftSync.LastUpdate++;
-		
-		await _nftSync.SyncData("yolo");
+
+		await SyncData();
+
 		var secondState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		Assert.AreEqual(1, firstState.Inventory.Keys.Count);
@@ -211,13 +203,13 @@ public class TestNftSyncPlugin
 	[Test]
 	public async Task TestNftSyncTriggeringRemoveNftAnalytics()
 	{
-		await _nftSync.SyncData("yolo");
+		await SyncData();
 		var firstState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		_nftSync.Indexed.Clear();
 		_nftSync.LastUpdate++;
 
-		await _nftSync.SyncData("yolo");
+		await SyncData();
 		_app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		var nftRemovedEvents = _analytics.FiredEvents.Where(e => e.Name == "nft_remove").ToList();

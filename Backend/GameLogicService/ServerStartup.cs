@@ -60,7 +60,6 @@ namespace Backend
 			services.AddSingleton<IPluginLogger, ServerPluginLogger>();
 			services.AddSingleton<IGameLogicContextService, GameLogicContextService>();
 			services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
-			services.AddSingleton<IDataSynchronizer, PlayerDataSynchronizer>();
 			services.AddSingleton<IStatisticsService, PlayfabStatisticsService>();
 			services.AddSingleton<IServerStateService, PlayfabGameStateService>();
 			services.AddSingleton<IGameConfigurationService, GameConfigurationService>();

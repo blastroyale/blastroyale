@@ -489,6 +489,11 @@ MonoBehaviour:
         Id:
           Value: 1833622622204030874
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[GetMagShotCountFunction_12]
+    - Path: AddressableResources/Maps/Cemetery/Cemetery_NavMesh
+      AssetRef:
+        Id:
+          Value: 1837168948990186834
+      Address: Maps/Cemetery/Cemetery_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/Gates/GateBarrierEntity|EntityPrototype
       AssetRef:
         Id:
@@ -524,6 +529,11 @@ MonoBehaviour:
         Id:
           Value: 1975221382551009861
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerTeleportSpawnAction_11]
+    - Path: AddressableResources/Maps/Cemetery/Cemetery_mesh
+      AssetRef:
+        Id:
+          Value: 2015630497605358489
+      Address: Maps/Cemetery/Cemetery_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StartShot_10
       AssetRef:
         Id:
@@ -896,6 +906,11 @@ MonoBehaviour:
         Id:
           Value: 3810624336601686864
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckIntDecision_15]
+    - Path: AddressableResources/Maps/Cemetery/Cemetery_NavMesh_data
+      AssetRef:
+        Id:
+          Value: 3899413888198970482
+      Address: Maps/Cemetery/Cemetery_NavMesh_data.asset
     - Path: AddressableResources/Maps/Battlelands/BattlelandsMap_NavMesh
       AssetRef:
         Id:
@@ -1056,6 +1071,11 @@ MonoBehaviour:
         Id:
           Value: 4486983998464243699
       Address: QuantumAssets/Collectables/ChestPickup.prefab[ChestPickupEntityPrototype]
+    - Path: AddressableResources/Maps/Cemetery/Cemetery
+      AssetRef:
+        Id:
+          Value: 4487114524772037996
+      Address: Maps/Cemetery/Cemetery.asset
     - Path: AddressableResources/QuantumAssets/Characters/DummyCharacter|EntityView
       AssetRef:
         Id:

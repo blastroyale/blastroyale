@@ -85,6 +85,7 @@ namespace FirstLight.Editor.Ids
 			{"BattlelandsMap", 113, Map},
 			{"IslandsMap", 114, Map},
 			{"MazeMayhem", 115, Map},
+			{"Cemetery", 197, Map},
 			{"MausHelmet", 24, Helmet, Equipment, Gear, Simple},
 			{"SoldierHelmet", 49, Helmet, Equipment, Gear},
 			{"RiotHelmet", 50, Helmet, Equipment, Gear},

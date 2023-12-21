@@ -67,3 +67,10 @@ MonoBehaviour:
       DropSelectionSize: 1
       MinimapCameraSize: 118
       LootingVersion: 0
+    - Map: 197
+      MaxPlayers: 4
+      IsTestMap: 1
+      IsCustomOnly: 1
+      DropSelectionSize: 1
+      MinimapCameraSize: 30
+      LootingVersion: 0

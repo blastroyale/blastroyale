@@ -229,7 +229,7 @@ namespace Quantum
 
 			if (!f.Has<BotCharacter>(e))
 			{
-				f.Events.FireQuantumServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
+				f.ServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
 			}
 		}
 

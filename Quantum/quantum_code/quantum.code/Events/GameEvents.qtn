@@ -9,6 +9,12 @@ synced server event FireQuantumServerCommand
     QuantumServerCommand CommandType;
 }
 
+synced event FireLocalQuantumServerCommand 
+{
+    local player_ref Player;
+    QuantumServerCommand CommandType;
+}
+
 enum QuantumServerCommand
 {
 	EndOfGameRewards

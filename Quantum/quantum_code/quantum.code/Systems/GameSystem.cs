@@ -62,7 +62,7 @@ namespace Quantum.Systems
 			{
 				if (f.TryGet<PlayerCharacter>(livingPlayer.Entity, out var playerCharacter) && !f.Has<BotCharacter>(livingPlayer.Entity))
 				{
-					f.Events.FireQuantumServerCommand(playerCharacter.Player, QuantumServerCommand.EndOfGameRewards);
+					f.ServerCommand(playerCharacter.Player, QuantumServerCommand.EndOfGameRewards);
 				}
 			}
 

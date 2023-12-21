@@ -4093,7 +4093,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - You completed the starting battle pass ! New rewards awaits you !
+      - You completed the starting Blast Pass! New rewards awaits you !
       - "\u0412\u044B \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u043B\u0438 \u0441\u0442\u0430\u0440\u0442\u043E\u0432\u044B\u0439
         \u0431\u043E\u0435\u0432\u043E\u0439 \u043F\u0440\u043E\u0445\u043E\u0434!
         \u0412\u0430\u0441 \u0436\u0434\u0443\u0442 \u043D\u043E\u0432\u044B\u0435
@@ -7873,9 +7873,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - JODIE
-      - JODIE
-      - JODIE
+      - KATNISS
+      - KATNISS
+      - KATNISS
       - 
       - 
       Flags: 0000000000
@@ -7884,9 +7884,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Long Time No See
-      - Long Time No See
-      - Long Time No See
+      - The Odds Are In My Favour
+      - The Odds Are In My Favour
+      - The Odds Are In My Favour
       - 
       - 
       Flags: 0000000000
@@ -7895,9 +7895,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MONTY VON CUE
-      - MONTY VON CUE
-      - MONTY VON CUE
+      - 8 BALL MONTY
+      - 8 BALL MONTY
+      - 8 BALL MONTY
       - 
       - 
       Flags: 0000000000
@@ -7906,9 +7906,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - The Game Is George
-      - The Game Is George
-      - The Game Is George
+      - Rack 'Em & Wreck 'Em
+      - Rack 'Em & Wreck 'Em
+      - Rack 'Em & Wreck 'Em
       - 
       - 
       Flags: 0000000000
@@ -7917,9 +7917,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BOUDICCA
-      - BOUDICCA
-      - BOUDICCA
+      - ASTRID
+      - ASTRID
+      - ASTRID
       - 
       - 
       Flags: 0000000000
@@ -7928,9 +7928,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Fear Not
-      - Fear Not
-      - Fear Not
+      - For Valhalla!
+      - For Valhalla!
+      - For Valhalla!
       - 
       - 
       Flags: 0000000000
@@ -7939,9 +7939,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - CUPID
-      - CUPID
-      - CUPID
+      - VALENTINO
+      - VALENTINO
+      - VALENTINO
       - 
       - 
       Flags: 0000000000
@@ -7950,9 +7950,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Love Is In The Air
-      - Love Is In The Air
-      - Love Is In The Air
+      - Aim Of Affection
+      - Aim Of Affection
+      - Aim Of Affection
       - 
       - 
       Flags: 0000000000
@@ -8126,7 +8126,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Congratulations, you got premium battle pass
+      - Congratulations, you got premium Blast Pass!
       - 
       - 
       - 
@@ -9843,7 +9843,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Blast Pass
+      - Beta Pass
       - "\u0412\u0437\u0440\u044B\u0432\u043D\u043E\u0439 \u043F\u0440\u043E\u0445\u043E\u0434"
       - "Passe de explos\xE3o"
       - 
@@ -13881,7 +13881,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'SEASON ENDS IN '
+      - 'ENDS IN '
       - "\u0421\u0435\u0437\u043E\u043D \u0437\u0430\u043A\u0430\u043D\u0447\u0438\u0432\u0430\u0435\u0442\u0441\u044F"
       - A temporada termina
       - 
@@ -13892,7 +13892,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SEASON {0}
+      - BETA SEASON {0}
       - "\u0421\u0435\u0437\u043E\u043D {0}"
       - Temporada {0}
       - 
@@ -13937,7 +13937,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BUY PREMIUM BATTLEPASS
+      - BUY PREMIUM BLAST PASS
       - 
       - 
       - 
@@ -13948,7 +13948,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BUY PREMIUM BATTLEPASS
+      - BUY PREMIUM BLAST PASS
       - 
       - 
       - 
@@ -13959,7 +13959,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BUY A LEVEL OF BATTLE PASS
+      - BUY A LEVEL OF BLAST PASS
       - 
       - 
       - 
@@ -13970,7 +13970,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - YOU ARE GOING TO BUY 1 LEVEL OF BATTLE PASS
+      - YOU ARE GOING TO BUY 1 LEVEL OF BLAST PASS
       - 
       - 
       - 
@@ -16475,7 +16475,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BATTLE PASS
+      - BLAST PASS
       - "\u0411\u043E\u0435\u0432\u043E\u0439 \u043F\u0440\u043E\u0445\u043E\u0434"
       - Passe de batalha
       - 
@@ -18333,7 +18333,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1702999694377
+    Google_LastUpdatedVersion: 1703171485222
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

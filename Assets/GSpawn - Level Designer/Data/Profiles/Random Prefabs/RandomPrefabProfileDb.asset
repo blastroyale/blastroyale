@@ -15,7 +15,8 @@ MonoBehaviour:
   _profiles:
   - {fileID: 11400000, guid: 90d6e66f3a8be4b03a14ab03a607c46f, type: 2}
   - {fileID: 11400000, guid: 3e7d96b0ab6bd9b49ad1191017115b21, type: 2}
-  _activeProfile: {fileID: 11400000, guid: 3e7d96b0ab6bd9b49ad1191017115b21, type: 2}
+  - {fileID: 11400000, guid: 92f06b523704f424cac3e0f3794c5536, type: 2}
+  _activeProfile: {fileID: 11400000, guid: 92f06b523704f424cac3e0f3794c5536, type: 2}
 --- !u!114 &8804432987260949236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29,13 +30,12 @@ MonoBehaviour:
   m_Name: RandomPrefabProfileDbUI_PrefabViewState
   m_EditorClassIdentifier: 
   selectedItems:
-    _serializedList:
-    - _guidString: 5cf07c88-40da-4283-84c2-3029085aefc4
+    _serializedList: []
   selectRangeBeginId:
-    _guidString: 5cf07c88-40da-4283-84c2-3029085aefc4
+    _guidString: 6853adbb-f1e9-4d4a-9cc4-f8a35ed7e8ee
   selectRangeEndId:
-    _guidString: 5cf07c88-40da-4283-84c2-3029085aefc4
-  hasSelectRange: 1
+    _guidString: 6853adbb-f1e9-4d4a-9cc4-f8a35ed7e8ee
+  hasSelectRange: 0
   scrollOffset: {x: 0, y: 0}
   vertScrollHighValue: 0
   vertScrollLowValue: 0

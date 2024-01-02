@@ -11,6 +11,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
+using FirstLight.Game.Presenters.News;
 using FirstLight.Game.Presenters.Store;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -34,10 +35,12 @@ namespace FirstLight.Game.StateMachines
 
 		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
 
+		private readonly IStatechartEvent _backButtonClicked = new StatechartEvent("Back Button Clicked");
 		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
 		private readonly IStatechartEvent _equipmentClickedEvent = new StatechartEvent("Equipment Clicked Event");
+		private readonly IStatechartEvent _newsClickedEvent = new StatechartEvent("News Clicked");
 		private readonly IStatechartEvent _collectionClickedEvent = new StatechartEvent("Collection Clicked Event");
 		private readonly IStatechartEvent _gameModeSelectedFinishedEvent = new StatechartEvent("Game Mode Selected Finished Event");
 		private readonly IStatechartEvent _leaderboardClickedEvent = new StatechartEvent("Leaderboard Clicked Event");
@@ -124,6 +127,7 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var homeCheck = stateFactory.Choice("Main Screen Check");
 			var homeMenu = stateFactory.State("Home Menu");
+			var news = stateFactory.State("News");
 			var equipmentMenu = stateFactory.Nest("Equipment Menu");
 			var collectionMenu = stateFactory.Nest("Collection Menu");
 			var settingsMenu = stateFactory.Nest("Settings Menu");
@@ -151,6 +155,9 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(OpenUiVfxPresenter);
 			initial.OnExit(() => FLGCamera.Instance.PhysicsRaycaster.enabled = true);
 
+			news.OnEnter(OnEnterNews);
+			news.Event(_backButtonClicked).Target(homeCheck);
+			
 			homeCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			homeCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
@@ -171,6 +178,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_chooseGameModeClickedEvent).Target(chooseGameMode);
 			homeMenu.Event(_leaderboardClickedEvent).Target(leaderboard);
 			homeMenu.Event(BattlePassClickedEvent).Target(battlePass);
+			homeMenu.Event(_newsClickedEvent).Target(news);
 			homeMenu.Event(_storeClickedEvent).Target(store);
 			homeMenu.Event(_equipmentClickedEvent).Target(equipmentMenu);
 			homeMenu.Event(_collectionClickedEvent).Target(collectionMenu);
@@ -182,7 +190,7 @@ namespace FirstLight.Game.StateMachines
 			battlePass.WaitingFor(OpenBattlePassUI).Target(homeCheck);
 			leaderboard.WaitingFor(OpenLeaderboardUI).Target(homeCheck);
 			store.WaitingFor(OpenStore).Target(homeCheck);
-			AddGoToMatchmakingHook(settingsMenu, equipmentMenu, collectionMenu, battlePass, leaderboard, store);
+			AddGoToMatchmakingHook(settingsMenu, equipmentMenu, collectionMenu, battlePass, leaderboard, store, news);
 
 			playClickedCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			playClickedCheck.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
@@ -223,6 +231,14 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 		}
 
+		private void OnEnterNews()
+		{
+			_services.GameUiService.OpenScreenAsync<NewsScreenPresenter, NewsScreenPresenter.NewsScreenData>(new NewsScreenPresenter.NewsScreenData()
+			{
+				OnBack = OnBackClicked
+			});
+		}
+
 		private bool RequiresToSeeStore()
 		{
 			return _services.IAPService.RequiredToViewStore;
@@ -231,6 +247,11 @@ namespace FirstLight.Game.StateMachines
 		private void HideMatchmaking()
 		{
 			_uiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(false);
+		}
+
+		private void OnBackClicked()
+		{
+			_statechartTrigger(_backButtonClicked);
 		}
 
 		private void ShowMatchmaking()
@@ -520,7 +541,8 @@ namespace FirstLight.Game.StateMachines
 				OnTiktokClicked = TiktokButtonClicked,
 				OnMatchmakingCancelClicked = SendCancelMatchmakingMessage,
 				OnLevelUp = OpenLevelUpScreen,
-				OnRewardsReceived = OnRewardsReceived
+				OnRewardsReceived = OnRewardsReceived,
+				NewsClicked = () => _statechartTrigger(_newsClickedEvent)
 			};
 
 			_uiService.OpenScreen<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);

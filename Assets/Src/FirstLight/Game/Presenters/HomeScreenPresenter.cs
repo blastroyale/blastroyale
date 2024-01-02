@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
@@ -56,6 +57,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnTiktokClicked;
 			public Action OnMatchmakingCancelClicked;
 			public Action OnLevelUp;
+			public Action NewsClicked;
 			public Action<List<ItemData>> OnRewardsReceived;
 		}
 
@@ -75,6 +77,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _equipmentNotification;
 		private VisualElement _collectionNotification;
 		private VisualElement _settingsNotification;
+		private VisualElement _newsNotification;
 
 		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
@@ -154,7 +157,8 @@ namespace FirstLight.Game.Presenters
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
 			_collectionNotification = root.Q<VisualElement>("CollectionNotification").Required();
 			_settingsNotification = root.Q<VisualElement>("SettingsNotification").Required();
-			
+			_newsNotification = root.Q<VisualElement>("NewsNotification").Required();
+
 			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
 			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
 			_bppPoolRestockTimeLabel = _bppPoolContainer.Q<Label>("RestockLabelTime").Required();
@@ -170,6 +174,8 @@ namespace FirstLight.Game.Presenters
 			_battlePassProgressLabel = _battlePassButton.Q<Label>("BPProgressText").Required();
 			_battlePassRarity = _battlePassButton.Q<VisualElement>("BPRarity").Required();
 
+			root.Q<ImageButton>("NewsButton").clicked += Data.NewsClicked;
+			
 			QueryElementsSquads(root);
 
 			_playButtonContainer = root.Q("PlayButtonHolder");
@@ -265,6 +271,8 @@ namespace FirstLight.Game.Presenters
 			_settingsNotification.SetDisplay(_services.AuthenticationService.IsGuest);
 			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
+			_newsNotification.SetDisplay(false);
+			_services.NewsService.HasNotSeenNews().ContinueWith(hasNews => _newsNotification.SetDisplay(hasNews));
 #if !STORE_BUILD && !UNITY_EDITOR
 			_outOfSyncWarningLabel.SetDisplay(VersionUtils.IsOutOfSync());
 #else

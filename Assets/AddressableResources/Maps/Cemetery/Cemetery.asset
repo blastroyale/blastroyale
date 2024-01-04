@@ -77,7 +77,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree2 (1)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree3 (7)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree3 (9)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree3 (2)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -241,7 +241,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree2 (2)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -282,7 +282,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree2 (5)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -323,7 +323,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree2 (6)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -364,7 +364,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree2 (3)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -405,7 +405,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree3 (3)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -446,7 +446,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree3 (5)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -487,7 +487,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree3 (10)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -528,7 +528,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree3 (4)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -569,7 +569,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree3 (6)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -610,7 +610,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree1 (1)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -651,7 +651,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree1 (2)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -692,7 +692,7 @@ MonoBehaviour:
       StaticData:
         Name: PineTree1 (3)
         Tag: MapPreviewObject
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -739,6 +739,2056 @@ MonoBehaviour:
             Value: 0
         IsTrigger: 0
         ColliderIndex: 16
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -1489633
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 540016
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 327680
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 17
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -776601
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 1005322
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 393216
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (1)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 18
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -112066
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 1435893
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 204800
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (2)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 19
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: 145489
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 1367736
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 196608
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (3)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 20
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: 611450
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 653393
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 458752
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (4)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 21
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 865075
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 260833
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 196608
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (5)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 22
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 1002045
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 48496
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 221184
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (6)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 23
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: 1505361
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -1966
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 589824
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (7)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 24
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: 1375600
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -165150
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 393216
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (8)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 25
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: 1011220
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -325713
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 327680
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (9)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 26
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: 1322516
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -443678
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 344064
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (10)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 27
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 1403125
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -784465
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 360448
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (11)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 28
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 720240
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -1227489
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 262144
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (12)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 29
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -117964
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -1774059
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 275251
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (13)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 30
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: -473169
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -1686896
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 262144
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (14)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 31
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: -793640
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -1196032
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 131072
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (15)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 32
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: -1114767
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -701235
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 262144
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (16)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 33
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: -1210253
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 194183
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 57344
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 19660
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (17)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 34
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 301465
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -490209
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 57344
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 19660
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (18)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 35
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 686161
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -239861
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 57344
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 19660
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (19)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 36
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 825753
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -744488
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 65536
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (20)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 37
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 278528
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -1159331
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 32768
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (21)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 38
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 55050
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -1304821
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 32768
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (22)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 39
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -1324482
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -366346
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 32768
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (23)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 40
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -1463418
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -145489
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 32768
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (24)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 41
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -997457
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 249692
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 49152
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 49152
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (25)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 42
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -652083
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -75366
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 16384
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (26)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 43
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -875560
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -220200
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 16384
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (27)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 44
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -1101004
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -367001
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 16384
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (28)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 45
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -900464
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -675676
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 16384
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (29)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 46
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -684195
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -1010565
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 16384
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (30)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 47
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: -546570
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -416808
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 16384
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (31)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 48
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 179568
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 384696
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 26214
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 16384
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (32)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 49
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 397803
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 527564
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 26214
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 16384
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (33)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 50
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -89784
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 216924
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 108134
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 16384
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (34)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 51
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -283770
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -546570
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 212992
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (35)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 52
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: -16384
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -610795
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 212992
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (36)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 53
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: -333578
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -816578
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 212992
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (37)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 54
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -169082
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -933887
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (38)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 55
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 20316
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -810680
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (39)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 56
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -785776
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 694681
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 212992
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (35)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 57
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: -518389
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 630456
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 212992
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (36)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 58
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: -835584
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 424673
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 212992
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (37)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 59
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -671088
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 307363
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (38)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 60
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -481689
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 430571
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (39)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 61
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -234618
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 1051852
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 212992
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (35)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 62
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 987627
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 212992
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (36)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 63
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: -284426
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 781844
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 212992
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (37)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 64
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -119930
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 664535
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (38)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 65
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 69468
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 787742
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 24576
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (39)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 66
         MutableMode: 0
       MutableMode: 0
     MapEntities: []

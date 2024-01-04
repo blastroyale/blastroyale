@@ -2823,6 +2823,2154 @@ MonoBehaviour:
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 180224
+          Y:
+            RawValue: 131072
+          Z:
+            RawValue: 196608
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 65536
+            Z:
+              RawValue: 0
+          BoxExtents:
+            X:
+              RawValue: 131072
+            Y:
+              RawValue: 131072
+            Z:
+              RawValue: 131072
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -177901
+        Y:
+          RawValue: 117964
+        Z:
+          RawValue: -708849
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21430272
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    GearOverwrite: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 180224
+          Y:
+            RawValue: 131072
+          Z:
+            RawValue: 196608
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 65536
+            Z:
+              RawValue: 0
+          BoxExtents:
+            X:
+              RawValue: 131072
+            Y:
+              RawValue: 131072
+            Z:
+              RawValue: 131072
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -676864
+        Y:
+          RawValue: 117964
+        Z:
+          RawValue: 529974
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21430272
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    GearOverwrite: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 180224
+          Y:
+            RawValue: 131072
+          Z:
+            RawValue: 196608
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 65536
+            Z:
+              RawValue: 0
+          BoxExtents:
+            X:
+              RawValue: 131072
+            Y:
+              RawValue: 131072
+            Z:
+              RawValue: 131072
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -127233
+        Y:
+          RawValue: 117964
+        Z:
+          RawValue: 886909
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21430272
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    GearOverwrite: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 91750
+          Y:
+            RawValue: 32768
+          Z:
+            RawValue: 134348
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 117309
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 58982
+          BoxExtents:
+            X:
+              RawValue: 149422
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 229376
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -85196
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 175636
+          BoxExtents:
+            X:
+              RawValue: 78643
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 108789
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -46530
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 78643
+          BoxExtents:
+            X:
+              RawValue: 53739
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 53739
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: -8847360
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -666308
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1038527
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21430272
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    GearOverwrite: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 91750
+          Y:
+            RawValue: 32768
+          Z:
+            RawValue: 134348
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 117309
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 58982
+          BoxExtents:
+            X:
+              RawValue: 149422
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 229376
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -85196
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 175636
+          BoxExtents:
+            X:
+              RawValue: 78643
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 108789
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -46530
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 78643
+          BoxExtents:
+            X:
+              RawValue: 53739
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 53739
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: -8847360
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -877778
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -711690
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21430272
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    GearOverwrite: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 91750
+          Y:
+            RawValue: 32768
+          Z:
+            RawValue: 134348
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 117309
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 58982
+          BoxExtents:
+            X:
+              RawValue: 149422
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 229376
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -85196
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 175636
+          BoxExtents:
+            X:
+              RawValue: 78643
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 108789
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -46530
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 78643
+          BoxExtents:
+            X:
+              RawValue: 53739
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 53739
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: -8847360
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1088041
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -390320
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21430272
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    GearOverwrite: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 91750
+          Y:
+            RawValue: 32768
+          Z:
+            RawValue: 134348
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 117309
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 58982
+          BoxExtents:
+            X:
+              RawValue: 149422
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 229376
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -85196
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 175636
+          BoxExtents:
+            X:
+              RawValue: 78643
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 108789
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -46530
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 78643
+          BoxExtents:
+            X:
+              RawValue: 53739
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 53739
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: -8847360
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -860494
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -242549
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21430272
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    GearOverwrite: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 91750
+          Y:
+            RawValue: 32768
+          Z:
+            RawValue: 134348
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 117309
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 58982
+          BoxExtents:
+            X:
+              RawValue: 149422
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 229376
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -85196
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 175636
+          BoxExtents:
+            X:
+              RawValue: 78643
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 108789
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -46530
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 78643
+          BoxExtents:
+            X:
+              RawValue: 53739
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 53739
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: -8847360
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -641655
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -93400
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21430272
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    GearOverwrite: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 131072
+          Y:
+            RawValue: 32768
+          Z:
+            RawValue: 134348
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 117309
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 58982
+          BoxExtents:
+            X:
+              RawValue: 149422
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 229376
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -85196
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 175636
+          BoxExtents:
+            X:
+              RawValue: 78643
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 108789
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -46530
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 78643
+          BoxExtents:
+            X:
+              RawValue: 53739
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 53739
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: -8847360
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 530605
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -698841
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21430272
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    GearOverwrite: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 131072
+          Y:
+            RawValue: 32768
+          Z:
+            RawValue: 134348
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 117309
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 58982
+          BoxExtents:
+            X:
+              RawValue: 149422
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 229376
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -85196
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 175636
+          BoxExtents:
+            X:
+              RawValue: 78643
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 108789
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -46530
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 78643
+          BoxExtents:
+            X:
+              RawValue: 53739
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 53739
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: -8847360
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 906660
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -460880
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21430272
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    GearOverwrite: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 131072
+          Y:
+            RawValue: 32768
+          Z:
+            RawValue: 134348
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 117309
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 58982
+          BoxExtents:
+            X:
+              RawValue: 149422
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 229376
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -85196
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 175636
+          BoxExtents:
+            X:
+              RawValue: 78643
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 108789
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -46530
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 78643
+          BoxExtents:
+            X:
+              RawValue: 53739
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 53739
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: -8847360
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1111869
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -779280
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21430272
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    GearOverwrite: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 131072
+          Y:
+            RawValue: 32768
+          Z:
+            RawValue: 134348
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 117309
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 58982
+          BoxExtents:
+            X:
+              RawValue: 149422
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 229376
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -85196
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 175636
+          BoxExtents:
+            X:
+              RawValue: 78643
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 108789
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -46530
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 78643
+          BoxExtents:
+            X:
+              RawValue: 53739
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 53739
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: -8847360
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 740154
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1019112
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21430272
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    GearOverwrite: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0

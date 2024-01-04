@@ -23,7 +23,7 @@ MonoBehaviour:
     Scene: CemeteryScene
     ScenePath: Assets/AddressableResources/Maps/Cemetery/CemeteryScene.unity
     SceneGuid: 4ad82073443106b49b53e42761c59d39
-    WorldSize: 256
+    WorldSize: 60
     BucketsCount: 16
     BucketsSubdivisions: 8
     BucketingAxis: 0
@@ -2789,6 +2789,170 @@ MonoBehaviour:
             Value: 0
         IsTrigger: 0
         ColliderIndex: 66
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: -956170
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 1433927
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 1638400
+        Y:
+          RawValue: 163840
+        Z:
+          RawValue: 65536
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL
+        Tag: Untagged
+        Layer: 9
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 67
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18600
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62840
+      Position:
+        X:
+          RawValue: 897187
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -1426718
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 1638400
+        Y:
+          RawValue: 163840
+        Z:
+          RawValue: 65536
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (1)
+        Tag: Untagged
+        Layer: 9
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 68
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: 1304821
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 867696
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 1703936
+        Y:
+          RawValue: 163840
+        Z:
+          RawValue: 65536
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (2)
+        Tag: Untagged
+        Layer: 9
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 69
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 31250
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 57605
+      Position:
+        X:
+          RawValue: -1325137
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: -861798
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 1703936
+        Y:
+          RawValue: 163840
+        Z:
+          RawValue: 65536
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: COLL (3)
+        Tag: Untagged
+        Layer: 9
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 70
         MutableMode: 0
       MutableMode: 0
     MapEntities: []

@@ -63,7 +63,7 @@ MonoBehaviour:
     _texture: {fileID: 0}
     _yaw: 0
     _pitch: 0
-  _uiSelected: 0
+  _uiSelected: 1
 --- !u!114 &3485363527319868695
 MonoBehaviour:
   m_ObjectHideFlags: 0

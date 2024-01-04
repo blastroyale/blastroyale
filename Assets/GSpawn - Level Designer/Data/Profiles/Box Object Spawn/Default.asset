@@ -36,6 +36,6 @@ MonoBehaviour:
   _fillMode: 0
   _borderWidth: 1
   _prefabPickMode: 1
-  _randomPrefabProfileName: RandomGrass
+  _randomPrefabProfileName: RandomTarmac
   _heightRangePrefabProfileName: Default
   _projectionMode: 0

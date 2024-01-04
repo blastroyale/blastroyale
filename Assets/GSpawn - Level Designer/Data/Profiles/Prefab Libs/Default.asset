@@ -30,7 +30,7 @@ MonoBehaviour:
   _modularSnapVerticalStep: 0
   _surfaceSnapAppliedOffsetFromSurface: 0
   _modelSize: {x: 2, y: 2, z: 2}
-  _uiSelected: 1
+  _uiSelected: 0
 --- !u!114 &-7372329522029540526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
   _modularSnapVerticalStep: 0
   _surfaceSnapAppliedOffsetFromSurface: 0
   _modelSize: {x: 2, y: 2, z: 2}
-  _uiSelected: 1
+  _uiSelected: 0
 --- !u!114 &-5708732273622958255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   _modularSnapVerticalStep: 0
   _surfaceSnapAppliedOffsetFromSurface: 0
   _modelSize: {x: 2, y: 2, z: 2}
-  _uiSelected: 1
+  _uiSelected: 0
 --- !u!114 &-4725329534397859013
 MonoBehaviour:
   m_ObjectHideFlags: 0

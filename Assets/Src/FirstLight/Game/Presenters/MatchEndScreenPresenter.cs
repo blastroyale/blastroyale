@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -59,7 +60,7 @@ namespace FirstLight.Game.Presenters
 			_bustedTitle.SetDisplay(false);
 			_waitTime = 2f;
 
-			if (QuantumRunner.Default == null || QuantumRunner.Default.Game == null || !QuantumRunner.Default.Game.HasGameContainer())
+			if (!QuantumRunner.Default.IsDefinedAndRunning())
 			{
 				Data.OnTimeToLeave?.Invoke();
 				return; // reconnection edge case to avoid soft-lock

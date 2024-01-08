@@ -1,8 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
+using FirstLight.Game.MonoComponent;
+using Quantum;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // ReSharper disable once CheckNamespace
 
@@ -54,21 +59,23 @@ namespace FirstLight.Services
 			Destroy(gameObject);
 			return false;
 		}
-		
-		protected virtual void OnInitialized() {}
+
+		protected virtual void OnInitialized() { }
 		
 		protected virtual void OnSpawned() {}
 		
 		protected virtual void OnDespawned() {}
 
-		protected virtual async void Despawner(float time)
+		protected virtual async UniTaskVoid Despawner(float time)
 		{
 			if (time is < 0 and > -1)
 			{
-				time = 0;
+				await UniTask.NextFrame(); // cannot despawn on same frame it spawned to avoid messing the pool
 			}
-			
-			await Task.Delay((int) (time * 1000));
+			else
+			{
+				await UniTask.Delay((int) (time * 1000));
+			}
 
 			if (this != null && gameObject != null)
 			{
@@ -130,6 +137,13 @@ namespace FirstLight.Services
 		public VfxService()
 		{
 			Container = new GameObject("Vfx Container").transform;
+			QuantumCallback.SubscribeManual<CallbackGameDestroyed>(this, OnSimulationFinished);
+		}
+
+		private void OnSimulationFinished(CallbackGameDestroyed ev)
+		{
+			FLog.Verbose("Simulation Destroyed, Disposing VFX's");
+			Dispose();
 		}
 
 		/// <inheritdoc />

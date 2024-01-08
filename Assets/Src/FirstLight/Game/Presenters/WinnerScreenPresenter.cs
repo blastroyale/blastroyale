@@ -34,10 +34,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _winnerBanner;
 		private Label _nameLabel;
 		private Button _nextButton;
-
-		private QuantumGame _game;
-		private QuantumGame _frame;
-		private GameContainer _container;
+		
 		private Transform _entityViewTransform;
 
 		private bool _isSpectator;
@@ -60,6 +57,11 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
+			if (!QuantumRunner.Default.IsDefinedAndRunning())
+			{
+				FLog.Error("Screen was about to read simulation data while it's not in memory.");
+				return;
+			}
 			var game = QuantumRunner.Default.Game;
 			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
 			var playerWinner = localWinner ? playerData[game.GetLocalPlayerRef()] : playerData[leader];

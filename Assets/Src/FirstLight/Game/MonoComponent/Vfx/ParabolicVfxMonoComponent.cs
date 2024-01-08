@@ -40,7 +40,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 			
 			_rigidbody.AddForce(force, ForceMode.VelocityChange);
 
-			Despawner(flyTime);
+			Despawner(flyTime).Forget();
 		}
 	}
 }

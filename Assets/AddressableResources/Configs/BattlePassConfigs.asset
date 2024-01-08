@@ -880,7 +880,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 3
+      PremiumRewardId: 54
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 2

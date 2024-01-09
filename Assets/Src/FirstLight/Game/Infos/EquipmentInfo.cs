@@ -171,7 +171,8 @@ namespace FirstLight.Game.Infos
 
 			foreach (var nft in items)
 			{
-				total += QuantumStatCalculator.GetMightOfItem(gameConfig, nft.Equipment);
+				var eq = nft.Equipment;
+				total += QuantumStatCalculator.GetMightOfItem(gameConfig, ref eq);
 			}
 
 			return total;
@@ -187,9 +188,8 @@ namespace FirstLight.Game.Infos
 
 			foreach (var item in items)
 			{
-				var stats = item.GetStats(configsProvider);
-
-				total += QuantumStatCalculator.GetMightOfItem(gameConfig, item);
+				var i = item;
+				total += QuantumStatCalculator.GetMightOfItem(gameConfig, ref i);
 			}
 
 			return total;

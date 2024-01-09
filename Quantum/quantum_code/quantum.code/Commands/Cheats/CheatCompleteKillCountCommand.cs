@@ -23,7 +23,7 @@ namespace Quantum.Commands
 			var playerInt = (int) playerRef;
 			var player = playerInt == 0 ? 1 : playerInt;
 
-			container->PlayersData.GetPointer(IsLocalWinner ? playerInt : player)->PlayersKilledCount = container->TargetProgress;
+			container->PlayersData.GetPointer(IsLocalWinner ? playerInt : player)->PlayersKilledCount = (ushort)container->TargetProgress;
 			container->UpdateGameProgress(f, container->TargetProgress);
 #else
 			Log.Error($"Trying to use Cheat command {this.GetType().Name} in Release build of Quantum Code");

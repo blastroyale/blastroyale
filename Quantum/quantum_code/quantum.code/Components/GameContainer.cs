@@ -21,10 +21,10 @@ namespace Quantum
 			var data = PlayersData[setup.playerRef];
 			data.Entity = setup.e;
 			data.Player = setup.playerRef;
-			data.PlayerLevel = setup.playerLevel;
+			data.PlayerLevel = (ushort)setup.playerLevel;
 			data.PlayerTrophies = setup.trophies;
 			data.TeamId = setup.teamId;
-			data.BotNameIndex = isBot ? bot.BotNameIndex : 0;
+			data.BotNameIndex = isBot ? (short)bot.BotNameIndex : (short)0;
 			var skins = f.ResolveList(data.Cosmetics);
 			if (f.TryGet<CosmeticsHolder>(setup.e, out var cosmeticsHolder))
 			{

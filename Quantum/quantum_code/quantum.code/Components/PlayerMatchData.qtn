@@ -5,21 +5,25 @@ struct PlayerMatchData
 	UInt32 PlayerLevel;
 	UInt32 PlayerTrophies;
 	Int32 TeamId;
-	Int32 BotNameIndex;
+	short BotNameIndex;
 	FPVector3 LastDeathPosition;
 	FP FirstDeathTime;
-	UInt32 PlayersKilledCount;
+	UInt16 PlayersKilledCount;
 	UInt32 DamageDone;
 	UInt32 HealingDone;
 	UInt32 DamageReceived;
 	UInt32 HealingReceived;
-	UInt32 DeathCount;
-	UInt32 SuicideCount;
-	UInt32 SpecialsUsedCount;
+	UInt16 DeathCount;
+	UInt16 SuicideCount;
+	UInt16 SpecialsUsedCount;
 	byte CollectedOwnedNfts;
-	UInt32 CurrentKillStreak;
-	UInt32 CurrentMultiKill;
+	UInt16 CurrentKillStreak;
+	UInt16 CurrentMultiKill;
 	FP MultiKillResetTime;
+	
 	[AllocateOnComponentAdded, FreeOnComponentRemoved]
     list<GameId> Cosmetics;
+    
+    [AllocateOnComponentAdded, FreeOnComponentRemoved]
+    dictionary<GameId, ushort> CollectedMetaItems;
 }

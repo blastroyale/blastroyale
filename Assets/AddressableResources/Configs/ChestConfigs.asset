@@ -22,26 +22,41 @@ MonoBehaviour:
       ChestType: 0
       GoldenGunChance:
         RawValue: 0
-      Specials:
-        Chance:
-          RawValue: 32768
+      AutoOpen: 1
+      DropTables:
+      - Chance:
+          RawValue: 65536
         Amount: 1
         Pool:
-        - Id: 85
-          Weight: 10
-        - Id: 119
+        - Id: 4
           Weight: 5
-        - Id: 85
-          Weight: 10
+        - Id: 127
+          Weight: 5
+        - Id: 20
+          Weight: 2
+      - Chance:
+          RawValue: 13107
+        Amount: 1
+        Pool:
+        - Id: 102
+          Weight: 4
         - Id: 141
           Weight: 5
+        - Id: 85
+          Weight: 5
         - Id: 62
+          Weight: 5
+        - Id: 10
           Weight: 1
+      - Chance:
+          RawValue: 655
+        Amount: 1
+        Pool:
+        - Id: 61
+          Weight: 6
+        - Id: 26
+          Weight: 3
       RandomEquipment: []
-      SmallConsumable:
-      - Value1:
-          RawValue: 65536
-        Value2: 2
       CollectableChestPickupRadius:
         RawValue: 111411
       CollectTime:
@@ -49,29 +64,10 @@ MonoBehaviour:
     - Id: 130
       ChestType: 1
       GoldenGunChance:
-        RawValue: 39321
-      Specials:
-        Chance:
-          RawValue: 65536
-        Amount: 1
-        Pool:
-        - Id: 85
-          Weight: 100
-        - Id: 89
-          Weight: 100
-        - Id: 110
-          Weight: 60
-        - Id: 119
-          Weight: 80
-        - Id: 102
-          Weight: 60
-        - Id: 62
-          Weight: 100
+        RawValue: 3276
+      AutoOpen: 1
+      DropTables: []
       RandomEquipment:
-      - Value1:
-          RawValue: 65536
-        Value2: 1
-      SmallConsumable:
       - Value1:
           RawValue: 65536
         Value2: 1
@@ -83,31 +79,34 @@ MonoBehaviour:
       ChestType: 2
       GoldenGunChance:
         RawValue: 65536
-      Specials:
-        Chance:
+      AutoOpen: 0
+      DropTables:
+      - Chance:
+          RawValue: 65536
+        Amount: 2
+        Pool:
+        - Id: 20
+          Weight: 2
+        - Id: 20
+          Weight: 2
+      - Chance:
           RawValue: 65536
         Amount: 1
         Pool:
-        - Id: 85
-          Weight: 100
-        - Id: 89
-          Weight: 100
-        - Id: 110
-          Weight: 140
-        - Id: 119
-          Weight: 120
         - Id: 102
-          Weight: 140
-        - Id: 62
-          Weight: 100
+          Weight: 1
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - Id: 61
+          Weight: 2
+        - Id: 26
+          Weight: 1
       RandomEquipment:
       - Value1:
           RawValue: 65536
         Value2: 2
-      SmallConsumable:
-      - Value1:
-          RawValue: 65536
-        Value2: 3
       CollectableChestPickupRadius:
         RawValue: 131072
       CollectTime:

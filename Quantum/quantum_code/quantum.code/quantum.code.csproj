@@ -286,6 +286,7 @@
     <Compile Include="Systems\Bots\BotShooting.cs" />
     <Compile Include="Systems\Bots\BotUpdateContext.cs" />
     <Compile Include="Systems\ChestSystem.cs" />
+    <Compile Include="Systems\GameItemCollectableSystem.cs" />
     <Compile Include="Systems\TeamSystem.cs" />
     <Compile Include="Systems\VisibilityAreaSystem.cs" />
     <Compile Include="Systems\CommandsSystem.cs" />

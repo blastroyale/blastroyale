@@ -138,7 +138,6 @@ namespace FirstLight.Game.Presenters
 
 		private float GetSpectatedPlayerMight(PlayerCharacter character)
 		{
-			var gear = character.Gear;
 			var currentWeapon = character.CurrentWeapon;
 
 			var currentEquipment = new List<Equipment>(6);
@@ -147,9 +146,8 @@ namespace FirstLight.Game.Presenters
 				currentEquipment.Add(currentWeapon);
 			}
 
-			for (int i = 0; i < gear.Length; i++)
+			foreach (var item in  character.GetLoadoutGear(QuantumRunner.Default.VerifiedFrame()))
 			{
-				var item = gear[i];
 				if (item.IsValid())
 				{
 					currentEquipment.Add(item);

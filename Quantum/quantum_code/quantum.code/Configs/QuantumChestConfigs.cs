@@ -44,11 +44,10 @@ namespace Quantum
 		public ChestType ChestType;
 
 		public FP GoldenGunChance;
-		
-		public WeightedPoolDrop Specials;
+		public bool AutoOpen;
+		public List<WeightedPoolDrop> DropTables;
 		
 		public List<QuantumPair<FP, uint>> RandomEquipment;
-		public List<QuantumPair<FP, uint>> SmallConsumable;
 
 		public FP CollectableChestPickupRadius;
 		public FP CollectTime;
@@ -72,13 +71,11 @@ namespace Quantum
 			if (_dictionary == null)
 			{
 				_dictionary = new Dictionary<GameId, QuantumChestConfig>();
-
 				for (var i = 0; i < QuantumConfigs.Count; i++)
 				{
 					_dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
 				}
 			}
-
 			return _dictionary[id];
 		}
 

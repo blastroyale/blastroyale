@@ -33,6 +33,7 @@ namespace Quantum
 				new DummyCharacterSystem(),
 				new CollectableSystem(),
 				new VisibilityAreaSystem(), 
+				new GameItemCollectableSystem(),
 				
 				// Update systems - Update & OnInit & Signal order matters
 				new CommandsSystem(),

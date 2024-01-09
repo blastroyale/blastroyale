@@ -334,6 +334,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			Services.VfxService.Spawn(impactVfxId).transform.position = targetPosition;
 		}
 
+		private void PlayCollectionVfx(VfxId id, EventOnCollectableCollected ev)
+		{
+			var vfx = Services.VfxService.Spawn(id).transform;
+			vfx.position = ev.CollectablePosition.ToUnityVector3();
+		}
+
 		private void HandleOnCollectableCollected(EventOnCollectableCollected callback)
 		{
 			if (Culled || EntityView.EntityRef != callback.PlayerEntity)
@@ -350,27 +356,28 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					// vfx.localPosition = Vector3.zero;
 					// vfx.localScale = Vector3.one;
 					// vfx.localRotation = Quaternion.identity;
-					var healthPickupVfx = Services.VfxService.Spawn(VfxId.HealthPickupFx).transform;
-					healthPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
+					PlayCollectionVfx(VfxId.HealthPickupFx, callback);
 					return;
 				case GameId.ShieldLarge:
 				case GameId.ShieldSmall:
-					var shieldPickupVfx = Services.VfxService.Spawn(VfxId.ShieldPickupFx).transform;
-					shieldPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
+					PlayCollectionVfx(VfxId.ShieldPickupFx, callback);
+					return;
+				case GameId.COIN:
+					PlayCollectionVfx(VfxId.CoinPickupFx, callback);
+					return;
+				case GameId.BPP:
+					PlayCollectionVfx(VfxId.BppPickupFx, callback);
 					return;
 				case GameId.AmmoLarge:
 				case GameId.AmmoSmall:
-					var ammoPickupVfx = Services.VfxService.Spawn(VfxId.AmmoPickupFx).transform;
-					ammoPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
+					PlayCollectionVfx(VfxId.AmmoPickupFx, callback);
 					return;
 				case GameId.ChestEquipment:
 				case GameId.ChestConsumable:
-					var chestPickupVfx = Services.VfxService.Spawn(VfxId.ChestPickupFx).transform;
-					chestPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
+					PlayCollectionVfx(VfxId.ChestPickupFx, callback);
 					return;
 				case GameId.ChestLegendary:
-					var airdropPickupFx = Services.VfxService.Spawn(VfxId.AirdropPickupFx).transform;
-					airdropPickupFx.position = callback.CollectablePosition.ToUnityVector3();
+					PlayCollectionVfx(VfxId.AirdropPickupFx, callback);
 					return;
 			}
 

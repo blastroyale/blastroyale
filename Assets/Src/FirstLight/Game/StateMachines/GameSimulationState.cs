@@ -405,30 +405,7 @@ namespace FirstLight.Game.StateMachines
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			var f = game.Frames.Verified;
 			var spawnPosition = _services.RoomService.CurrentRoom.LocalPlayerProperties.DropPosition.Value;
-			var spawnWithloadout = f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon;
-			var finalLoadOut = new List<Equipment>();
-
-			foreach (var item in loadout.ReadOnlyDictionary.Values.ToList())
-			{
-				var itemId = inventory[item.Id];
-				if (itemId.GameId.IsInGroup(GameIdGroup.Gear) && !f.Context.GameModeConfig.SpawnWithGear)
-				{
-					continue;
-				}
-
-				if (itemId.GameId.IsInGroup(GameIdGroup.Weapon) &&
-					(!f.Context.GameModeConfig.SpawnWithWeapon || f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _)))
-				{
-					continue;
-				}
-
-				finalLoadOut.Add(inventory[item.Id]);
-			}
-
-			var loadoutArray = spawnWithloadout
-				? finalLoadOut.ToArray()
-				: loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray();
-
+			var loadoutArray = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray();
 			var nftLoadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly);
 			var loadoutMetadata = loadoutArray.Select(e => new EquipmentSimulationMetadata()
 			{

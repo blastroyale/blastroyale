@@ -226,25 +226,24 @@ namespace FirstLight.Game.Services
 				}
 
 				var frameData = frame.GetPlayerData(quantumPlayerData.Data.Player);
-
-				List<Equipment> gear = new();
+				
 				Equipment weapon = Equipment.None;
+
+				var gear = frameData?.Loadout?.Where(l => !l.IsWeapon()).ToList() ?? new List<Equipment>();
+				
 				if (PlayersFinalEquipment.ContainsKey(quantumPlayerData.Data.Player))
 				{
 					var equipmentData = PlayersFinalEquipment[quantumPlayerData.Data.Player];
-					gear = equipmentData.Gear.ToList().FindAll(equipment => equipment.IsValid());
 					weapon = equipmentData.CurrentWeapon;
 				}
 				else if (frame.Has<PlayerCharacter>(quantumPlayerData.Data.Entity))
 				{
 					var playerCharacter = frame.Get<PlayerCharacter>(quantumPlayerData.Data.Entity);
-					gear = playerCharacter.Gear.ToList().FindAll(equipment => equipment.IsValid());
 					weapon = playerCharacter.CurrentWeapon;
 				}
 				else if (frameData != null)
 				{
 					weapon = frameData.Weapon;
-					gear = frameData.Loadout.Where(l => l.IsValid()).ToList();
 				}
 
 				if (weapon.IsValid())
@@ -304,6 +303,12 @@ namespace FirstLight.Game.Services
 			BPPBeforeChange = predictedProgress.Item2;
 			BPLevelBeforeChange = predictedProgress.Item1;
 
+			var metaEarned = new Dictionary<GameId, ushort>();
+			var metaItems = frame.ResolveDictionary(gameContainer.PlayersData[playerRef].CollectedMetaItems);
+			foreach (var (id, amt) in metaItems)
+			{
+				metaEarned[id] = amt;
+			}
 			var rewardSource = new RewardSource()
 			{
 				MatchData = QuantumPlayerMatchData,
@@ -311,7 +316,8 @@ namespace FirstLight.Game.Services
 				MatchType = matchType,
 				DidPlayerQuit = false,
 				GamePlayerCount = QuantumPlayerMatchData.Count(),
-				AllowedRewards = room?.Properties?.AllowedRewards.Value
+				AllowedRewards = room?.Properties?.AllowedRewards.Value,
+				CollectedItems = metaEarned
 			};
 			Rewards = _dataProvider.RewardDataProvider.CalculateMatchRewards(rewardSource, out var trophyChange);
 			TrophiesChange = trophyChange;

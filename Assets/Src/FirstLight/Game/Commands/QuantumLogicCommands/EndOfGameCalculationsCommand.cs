@@ -1,6 +1,7 @@
 using FirstLight.Game.Logic;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -14,6 +15,7 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public class EndOfGameCalculationsCommand : IQuantumCommand, IGameCommand
 	{
+		public Dictionary<GameId, ushort> EarnedGameItems = new ();
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public QuantumValues QuantumValues;
 		public bool ValidRewardsFromFrame = true;
@@ -42,7 +44,8 @@ namespace FirstLight.Game.Commands
 				MatchType = matchType,
 				DidPlayerQuit = false,
 				GamePlayerCount = matchData.Count,
-				AllowedRewards = QuantumValues.AllowedRewards
+				AllowedRewards = QuantumValues.AllowedRewards,
+				CollectedItems = EarnedGameItems
 			};
 			
 			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);
@@ -59,9 +62,16 @@ namespace FirstLight.Game.Commands
 		{
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			PlayersMatchData = gameContainer.GeneratePlayersMatchData(frame, out _, out _);
+			
 			QuantumValues = quantumValues;
 			TeamSize = frame.Context.GameModeConfig.MaxPlayersInTeam;
-			
+
+			var executingData = PlayersMatchData[QuantumValues.ExecutingPlayer];
+			var items = frame.ResolveDictionary(executingData.Data.CollectedMetaItems);
+			foreach (var (id, amt) in items)
+			{
+				EarnedGameItems[id] = amt;
+			}
 			// TODO: Find better way to determine tutorial mode. GameConstants ID perhaps? Something that backend has access to
 			RunningTutorialMode = frame.Context.GameModeConfig.Id.Contains("Tutorial");
 				

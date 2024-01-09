@@ -48,6 +48,11 @@ namespace FirstLight.Game.Logic
 		/// Allowed rewards for this match
 		/// </summary>
 		public List<GameId> AllowedRewards { get; set; }
+		
+		/// <summary>
+		/// Items the player collected during the match
+		/// </summary>
+		public Dictionary<GameId, ushort> CollectedItems { get; set; }
 	}
 
 	/// <summary>
@@ -226,8 +231,29 @@ namespace FirstLight.Game.Logic
 			{
 				CalculateXPReward(rewards, rewardConfig);
 			}
-
+			CalculateCollectedRewards(rewards, source);
 			return rewards;
+		}
+
+		private void CalculateCollectedRewards(List<ItemData> rewards, RewardSource source)
+		{
+			if (source.CollectedItems == null || source.CollectedItems.Count == 0) return;
+
+			var collected = new Dictionary<GameId, ushort>(source.CollectedItems);
+			
+			foreach (var reward in rewards)
+			{
+				if (collected.TryGetValue(reward.Id, out var collectedAmt))
+				{
+					reward.GetMetadata<CurrencyMetadata>().Amount += collectedAmt;
+					collected.Remove(reward.Id);
+				}
+			}
+			
+			foreach (var (id, amt) in collected)
+			{
+				rewards.Add(ItemFactory.Currency(id, amt));
+			}
 		}
 
 		public List<ItemData> GiveMatchRewards(RewardSource source, out int trophyChange)
@@ -242,6 +268,7 @@ namespace FirstLight.Game.Logic
 						(int) GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.Id, (uint) meta.Amount);
 				}
 			}
+			
 			RewardToUnclaimedRewards(rewards);
 			return rewards;
 		}

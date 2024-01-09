@@ -149,10 +149,7 @@ namespace Quantum.Systems
 						// TODO: Handle a situation when a player somehow collects not his Helmet first but then collects
 						// his NFT Helmet instead. Current logic will NOT do increment in this edge case
 
-						var slotIsBusy = equipment->Item.IsWeapon()
-							? playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid()
-							: playerCharacter->Gear[PlayerCharacter.GetGearSlot(&equipment->Item)].IsValid();
-
+						var slotIsBusy = playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid();
 						if (!slotIsBusy)
 						{
 							var playerData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;

@@ -44,9 +44,6 @@ component PlayerCharacter
 	[HideInInspector] Int32 TeamId;
 	[HideInInspector] Int32 CurrentWeaponSlot;
 	[HideInInspector] array<WeaponSlot>[MAX_WEAPONS] WeaponSlots;
-	[HideInInspector] array<Equipment>[MAX_GEAR] Gear;
-	[HideInInspector] Int32 DroppedLoadoutFlags;
-    [HideInInspector] Int16 CurrentEnergy;
     bool RealPlayer;
 }
 

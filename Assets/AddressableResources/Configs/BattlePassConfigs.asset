@@ -37,7 +37,7 @@ MonoBehaviour:
       StartsAt: 01/02/2024
       EndsAt: 31/03/2024
       RemovePaid: 0
-      RemoveEndGraphic: 0
+      RemoveEndGraphic: 1
     Levels:
     - RewardId: 2
       PremiumRewardId: 0
@@ -880,7 +880,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 3
+      PremiumRewardId: 54
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 2

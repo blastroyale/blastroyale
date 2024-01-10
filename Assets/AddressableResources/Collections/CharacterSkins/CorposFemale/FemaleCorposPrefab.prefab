@@ -2346,20 +2346,6 @@ MonoBehaviour:
   _menuController: {fileID: 22100000, guid: 7c80168c381e045739bc41d315729c3e, type: 2}
   _inGameController: {fileID: 0}
   _anchors:
-  - Key: 1
-    Value:
-    - {fileID: 6324282369965998966}
-  - Key: 5
-    Value:
-    - {fileID: 5004346080184562639}
-  - Key: 2
-    Value:
-    - {fileID: 5820807850375242836}
-  - Key: 3
-    Value:
-    - {fileID: 2331828032104189237}
-    - {fileID: 3670499470564112777}
-    - {fileID: 1897002396606560327}
   - Key: 0
     Value:
     - {fileID: 2094523922036871808}

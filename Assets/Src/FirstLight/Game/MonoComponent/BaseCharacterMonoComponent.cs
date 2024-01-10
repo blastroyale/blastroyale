@@ -79,12 +79,7 @@ namespace FirstLight.Game.MonoComponent
 		{
 			_animator.SetTrigger(_victoryHash);
 		}
-
-		protected async void EquipDefault()
-		{
-			await _characterViewComponent.EquipItem(GameId.Hammer);
-		}
-
+		
 		private async Task SkinLoaded(ItemData skin, GameObject instance)
 		{
 			instance.SetActive(false);

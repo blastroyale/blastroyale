@@ -37,16 +37,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var weaponTask = EquipWeapon(loadout.Weapon.GameId);
 			var list = new List<UniTask>();
 
-			foreach (var item in loadout.Equipment)
-			{
-				if (!item.IsValid())
-				{
-					continue;
-				}
-
-				list.Add(EquipItem(item.GameId));
-			}
-
 			var isSkydiving = frame.Get<AIBlackboardComponent>(entityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
 
 			if (isSkydiving)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Data;
@@ -92,6 +93,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(mainMenuLoading);
 			initial.OnExit(SubscribeEvents);
 
+			mainMenuLoading.OnEnter(UpdateSkinIfNeeded);
 			mainMenuLoading.OnEnter(() => LoadMainMenu());
 			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
@@ -150,7 +152,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(homeCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 			initial.OnExit(() => FLGCamera.Instance.PhysicsRaycaster.enabled = true);
-
+			
 			homeCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			homeCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
@@ -626,6 +628,19 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
+		private void UpdateSkinIfNeeded()
+		{
+			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS);
+			if (skin != null && !skin.Id.IsInGroup(GameIdGroup.PlayerSkin))
+			{
+				FLog.Info("Updating skin as skin was not in PlayerSkin group");
+				_services.CommandService.ExecuteCommand(new EquipCollectionItemCommand()
+				{
+					Item = _gameDataProvider.CollectionDataProvider.DefaultCollectionItems[CollectionCategories.PLAYER_SKINS].First()
+				});
+			}
+		}
+
 		private async UniTaskVoid LoadMainMenu()
 		{
 			var uiVfxService = new UiVfxService(_services.AssetResolverService);
@@ -645,7 +660,7 @@ namespace FirstLight.Game.StateMachines
 			uiVfxService.Init(_uiService);
 
 			_statechartTrigger(MainMenuLoadedEvent);
-
+		
 			_ = PreloadQuantumSettings();
 		}
 

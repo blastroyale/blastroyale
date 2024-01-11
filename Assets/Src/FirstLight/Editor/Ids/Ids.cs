@@ -174,10 +174,10 @@ namespace FirstLight.Editor.Ids
 
 			#region Player Skins
 
-			{"Male01Avatar", 55, PlayerSkin, Collection},
-			{"Male02Avatar", 56, PlayerSkin, Collection},
-			{"Female01Avatar", 57, PlayerSkin, Collection},
-			{"Female02Avatar", 58, PlayerSkin, Collection},
+			{"Male01Avatar", 55, Deprecated },
+			{"Male02Avatar", 56, Deprecated},
+			{"Female01Avatar", 57, Deprecated},
+			{"Female02Avatar", 58, Deprecated},
 			{"MaleAssassin", 68, PlayerSkin, BotItem, Assassin, Collection},
 			{"MaleCorpos", 69, PlayerSkin, Corpo, Collection},
 			{"MalePunk", 77, PlayerSkin, Punk, Collection},

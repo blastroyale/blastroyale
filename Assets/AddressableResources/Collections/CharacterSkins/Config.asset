@@ -190,6 +190,50 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 1
+    - GameId: 132
+      Prefab:
+        m_AssetGUID: 5917d278f063745d591d4d6f64a60d3c
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: e7abe64a27015f5498945b8e24d9c0d4
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 134
+      Prefab:
+        m_AssetGUID: 5917d278f063745d591d4d6f64a60d3c
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 4989d377545942c45acf1fd8674dcc60
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 126
+      Prefab:
+        m_AssetGUID: 5917d278f063745d591d4d6f64a60d3c
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 5cb6635b416e58e459bdc8f96abc9e15
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 129
+      Prefab:
+        m_AssetGUID: 5917d278f063745d591d4d6f64a60d3c
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: c71b34c76fce7be4a88fe84961a4f8a7
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
     InGameDefaultAnimation:
       ApplyRootMotion: 0
       UpdateMode: 0

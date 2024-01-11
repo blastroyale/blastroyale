@@ -41,7 +41,7 @@ namespace Quantum
 					return;
 				}
 
-				OnLocalPlayerWeaponChanged(player, entity, *playerCharacter->WeaponSlot, slot);
+				OnLocalPlayerWeaponChanged(player, entity, *playerCharacter->SelectedWeaponSlot, slot);
 			}
 
 			public void OnLocalPlayerDead(PlayerRef player, PlayerRef killer, EntityRef killerEntity, QBoolean fromRoofDamage)

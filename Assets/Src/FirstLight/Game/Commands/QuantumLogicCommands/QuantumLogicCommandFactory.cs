@@ -18,5 +18,14 @@ namespace Assets.Src.FirstLight.Game.Commands.QuantumLogicCommands
 			}
 			return null;
 		}
+		
+		public static IQuantumCommand BuildFromEvent(EventFireLocalQuantumServerCommand ev)
+		{
+			if (ev.CommandType == QuantumServerCommand.EndOfGameRewards)
+			{
+				return new EndOfGameCalculationsCommand();
+			}
+			return null;
+		}
 	}
 }

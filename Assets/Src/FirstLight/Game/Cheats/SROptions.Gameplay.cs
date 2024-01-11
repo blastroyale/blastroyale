@@ -78,6 +78,19 @@ public partial class SROptions
 	}
 	
 	[Category("Gameplay")]
+	public void KillAllExceptOne()
+	{
+		var game = QuantumRunner.Default.Game;
+		if (game == null)
+		{
+			Debug.LogWarning("Simulation is not running yet");
+			return;
+		}
+		
+		game.SendCommand(new CheatKillAllExceptOneCommand());
+	}
+	
+	[Category("Gameplay")]
 	public void SkipTutorialSection()
 	{
 		Object.FindObjectOfType<PlayableDirector>().playableGraph.PlayTimeline();

@@ -127,6 +127,7 @@ namespace FirstLight.Game.Services
 		public ITeamService TeamService { get; }
 
 		public IServerListService ServerListService { get; }
+		public INewsService NewsService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -182,6 +183,7 @@ namespace FirstLight.Game.Services
 
 		public ITeamService TeamService { get; }
 		public IServerListService ServerListService { get; }
+		public INewsService NewsService { get; }
 		public ILeaderboardService LeaderboardService { get; }
 		public ICheatsService CheatsService { get; }
 		public IRewardService RewardService { get; }
@@ -230,6 +232,7 @@ namespace FirstLight.Game.Services
 			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider);
+			NewsService = new PlayfabNewsService();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 			GameUiService = uiService;

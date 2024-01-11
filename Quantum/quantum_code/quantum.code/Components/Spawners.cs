@@ -112,6 +112,15 @@ namespace Quantum
 				contents.Items = overrideComponent->Items; // copy pointer not objects so same list for all
 				f.Add(chestEntity, contents);
 			}
+
+			var config = f.ChestConfigs.GetConfig(id);
+			if (config.AutoOpen)
+			{
+				Disabled = true;
+				f.Unsafe.GetPointer<Chest>(chestEntity)->Open(f, chestEntity, EntityRef.None, PlayerRef.None);
+				f.Destroy(chestEntity);
+				return EntityRef.None;
+			}
 			return chestEntity;
 		}
 	}

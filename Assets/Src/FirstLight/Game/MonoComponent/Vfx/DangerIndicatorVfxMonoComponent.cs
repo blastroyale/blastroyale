@@ -19,7 +19,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 			cacheTransform.localScale = scale;
 			cacheTransform.position = spawnPosition;
 			
-			Despawner(lifetime);
+			Despawner(lifetime).Forget();
 		}
 	}
 }

@@ -169,6 +169,7 @@
     --sprite-home__loading_background: url('/Assets/Art/UI/Sprites/Home/loading_background.png');
     --sprite-home__logo-blasthub: url('/Assets/Art/UI/Sprites/Home/logo-blasthub.png');
     --sprite-home__malepunk-season-reward: url('/Assets/Art/UI/Sprites/Home/malepunk-season-reward.png');
+    --sprite-home__news-icon: url('/Assets/Art/UI/Sprites/Home/news-icon.png');
     --sprite-home__pattern-circle-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-circle-gradient.png');
     --sprite-home__pattern-dots-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-dots-gradient.png');
     --sprite-home__pattern-dots-rotated: url('/Assets/Art/UI/Sprites/Home/pattern-dots-rotated.png');
@@ -1167,6 +1168,12 @@
     background-image: var(--sprite-home__malepunk-season-reward);
     width: 552px;
     height: 713px;
+}
+
+.sprite-home__news-icon {
+    background-image: var(--sprite-home__news-icon);
+    width: 512px;
+    height: 512px;
 }
 
 .sprite-home__pattern-circle-gradient {

@@ -994,3 +994,13 @@
     text-shadow: 2px 2px 0 rgb(22, 20, 38);
     background-image: var(--sprite-match__background-whitegradient);
 }
+
+.news-button__icon {
+    background-image: var(--sprite-home__news-icon);
+}
+
+.news-button {
+    position: absolute;
+    bottom: -99px;
+    translate: 0 0;
+}

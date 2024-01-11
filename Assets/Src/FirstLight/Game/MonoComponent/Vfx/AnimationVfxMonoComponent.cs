@@ -20,7 +20,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 
 		protected override void OnSpawned()
 		{
-			Despawner(_animation.clip.length);
+			Despawner(_animation.clip.length).Forget();
 		}
 	}
 }

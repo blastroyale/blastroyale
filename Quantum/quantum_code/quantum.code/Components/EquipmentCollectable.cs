@@ -58,10 +58,6 @@ namespace Quantum
 				
 				playerCharacter->AddWeapon(f, playerEntity, ref Item, primaryWeapon);
 			}
-			else
-			{
-				playerCharacter->EquipGear(f, playerEntity, Item);
-			}
 
 			f.Events.OnEquipmentCollected(entity, playerRef, playerEntity);
 		}

@@ -20,7 +20,7 @@ namespace Quantum.Commands
 			f.Events.OnPlayerLeft(playerRef, characterEntity);
 			if(f.Has<AlivePlayerCharacter>(characterEntity) && !f.Has<BotCharacter>(characterEntity))
 			{
-				f.Events.FireQuantumServerCommand(playerRef, QuantumServerCommand.EndOfGameRewards);
+				f.ServerCommand(playerRef, QuantumServerCommand.EndOfGameRewards);
 			}
 		}
 	}

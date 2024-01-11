@@ -129,7 +129,7 @@ namespace FirstLight.Game.Views.UITK
 						: _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked,
 							(int) f.GetPlayerData(pc.Player).LeaderboardRank);
 
-					squadMember.SetPlayer(pc.Player, playerName, pc.GetEnergyLevel(f),
+					squadMember.SetPlayer(pc.Player, playerName, 0,
 						isBot ? null : f.GetPlayerData(pc.Player).AvatarUrl, playerNameColor);
 					if (f.TryGet<Stats>(e, out var stats))
 					{

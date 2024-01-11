@@ -15,7 +15,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 		
 		protected override void OnSpawned()
 		{
-			Despawner(_activeTime);
+			Despawner(_activeTime).Forget();
 		}
 	}
 }

@@ -93,6 +93,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(this, OnPlayerSpecialUpdated);
 			QuantumEvent.SubscribeManual<EventOnPlayerWeaponAdded>(this, OnPlayerWeaponAdded);
+			QuantumEvent.SubscribeManual<EventGameItemCollected>(this, OnCollected);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 		}
@@ -313,6 +314,21 @@ namespace FirstLight.Game.Views.UITK
 			{
 				bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, callback.Special.SpecialId.GetLocalization());
 			}
+		}
+		
+		private void OnCollected(EventGameItemCollected ev)
+		{
+			if (!_matchServices.IsSpectatingPlayer(ev.PlayerEntity))
+			{
+				return;
+			}
+			if (!_visiblePlayers.TryGetValue(ev.PlayerEntity, out var bar))
+			{
+				return;
+			}
+			
+			var text = $"+{ev.Amount} {ev.Collected.GetCurrencyLocalization(ev.Amount)}";
+			bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, text);
 		}
 
 		private void OnPlayerWeaponAdded(EventOnPlayerWeaponAdded callback)

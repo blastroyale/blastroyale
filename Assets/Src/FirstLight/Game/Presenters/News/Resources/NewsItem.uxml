@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Src/FirstLight/Game/Presenters/News/Resources/NewsItem.uss?fileID=7433441132597879392&amp;guid=e233840b655224cf3a790ea9647356e5&amp;type=3#NewsItem" />
+    <ui:VisualElement name="NewsItem" class="news-item">
+        <ui:VisualElement name="Header" class="news-header">
+            <ui:Label tabindex="-1" text="05/10/1986 -" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Date" class="news-date" />
+            <ui:Label tabindex="-1" text="News Title" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" class="news-title" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Contents" class="news-content">
+            <ui:VisualElement name="ContentImage" class="news-content__image" style="display: flex; background-image: none;" />
+            <ui:VisualElement name="TextContents" class="news-content__text">
+                <ui:Label tabindex="-1" text="This is the context text &lt;br&gt;Yolo" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Text" class="news-text" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

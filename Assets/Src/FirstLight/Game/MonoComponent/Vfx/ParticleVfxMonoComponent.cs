@@ -20,7 +20,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 		
 		protected override void OnSpawned()
 		{
-			Despawner(_particle.main.startLifetime.constant);
+			Despawner(_particle.main.startLifetime.constant).Forget();
 		}
 	}
 }

@@ -809,6 +809,10 @@ namespace FirstLight.Game.StateMachines
 				case GameId.EnergyCubeSmall:
 					audio = AudioId.GearPickup;
 					break;
+				case GameId.COIN:
+				case GameId.BPP:
+					audio = AudioId.LargeShieldPickup;
+					break;
 			}
 
 			

@@ -221,7 +221,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
-			QuantumEvent.SubscribeManual<EventFireQuantumServerCommand>(this, OnServerCommand);
+			QuantumEvent.SubscribeManual<EventFireLocalQuantumServerCommand>(this, OnServerCommand);
 		}
 
 		private void UnsubscribeEvents()
@@ -269,7 +269,7 @@ namespace FirstLight.Game.StateMachines
 		/// Whenever the simulation wants to fire logic commands.
 		/// This will also run on quantum server and will be sent to logic service from there.
 		/// </summary>
-		private void OnServerCommand(EventFireQuantumServerCommand ev)
+		private void OnServerCommand(EventFireLocalQuantumServerCommand ev)
 		{
 			var game = ev.Game;
 			if (!game.PlayerIsLocal(ev.Player))

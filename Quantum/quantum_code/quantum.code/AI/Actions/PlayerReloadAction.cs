@@ -16,7 +16,7 @@ namespace Quantum
 			// Do the reload here
 			var pc = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			var slot = pc->WeaponSlot;
+			var slot = pc->SelectedWeaponSlot;
 			var diff = FPMath.Min(stats->GetCurrentAmmo(), slot->MagazineSize - slot->MagazineShotCount).AsInt;
 
 			if(diff > 0)

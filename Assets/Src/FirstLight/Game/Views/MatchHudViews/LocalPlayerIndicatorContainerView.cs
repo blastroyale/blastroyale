@@ -268,7 +268,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
-			var reloading = playerCharacter->WeaponSlot->MagazineShotCount == 0;
+			var reloading = playerCharacter->SelectedWeaponSlot->MagazineShotCount == 0;
 			var transform = f.Unsafe.GetPointer<Transform3D>(_localPlayerEntity);
 			var aimDirection = QuantumHelpers.GetAimDirection(aim, ref transform->Rotation).Normalized.ToUnityVector2();
 			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue.AsFloat;

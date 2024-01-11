@@ -13,6 +13,10 @@
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="FragmentsCurrency" currency="Fragments" class="anim-delay-2 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBuckCurrency" currency="BlastBuck" class="anim-delay-0 anim-translate anim-translate--down-s" />
+                <FirstLight.Game.UIElements.ImageButton name="NewsButton" class="sfx-click-forwards anim-delay-0 anim-translate anim-translate--down-s news-button">
+                    <ui:VisualElement name="Icon" class="news-button__icon" style="width: 66px; height: 66px; margin-top: 20px; margin-right: 20px; margin-bottom: 20px; margin-left: 20px;" />
+                    <ui:VisualElement name="NewsNotification" class="notification-icon button-with-icon__notification" style="top: -1px; right: -5px;" />
+                </FirstLight.Game.UIElements.ImageButton>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
                 <ui:VisualElement name="PartyHolder" class="anim-delay-2 anim-translate anim-translate--left-xl">

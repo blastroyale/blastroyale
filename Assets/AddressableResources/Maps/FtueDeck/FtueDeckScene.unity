@@ -787,7 +787,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RenderersContainerProxy: {fileID: 41083024}
   _animator: {fileID: 8415062918650742913}
-  _dissolveDelay: 1
 --- !u!1 &85046268
 GameObject:
   m_ObjectHideFlags: 0
@@ -9204,23 +9203,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1223799952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc957c0d7668faa738f169c7f626e1c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b518bde46aed4d7ab50fa21e1b62986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    Gear:
-    - Id:
+    Weapon:
+      GameId:
         Value: 88
+      Edition:
+        Value: 0
       Rarity:
         Value: 0
-      Level: 5
-    - Id:
-        Value: 23
-      Rarity:
+      Grade:
         Value: 0
-      Level: 5
-    AmmoPercentage:
-      RawValue: 65536
+      Faction:
+        Value: 0
+      Adjective:
+        Value: 0
+      Material:
+        Value: 0
+      MaxDurability: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
+      Level: 1
+      Generation: 0
+      ReplicationCounter: 0
+      TotalRestoredDurability: 0
+      LastRepairTimestamp: 0
 --- !u!1 &1232842087
 GameObject:
   m_ObjectHideFlags: 0
@@ -14154,18 +14163,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1810857157}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc957c0d7668faa738f169c7f626e1c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b518bde46aed4d7ab50fa21e1b62986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    Gear:
-    - Id:
+    Weapon:
+      GameId:
         Value: 84
+      Edition:
+        Value: 0
       Rarity:
         Value: 0
+      Grade:
+        Value: 0
+      Faction:
+        Value: 0
+      Adjective:
+        Value: 0
+      Material:
+        Value: 0
+      MaxDurability: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
       Level: 1
-    AmmoPercentage:
-      RawValue: 65536
+      Generation: 0
+      ReplicationCounter: 0
+      TotalRestoredDurability: 0
+      LastRepairTimestamp: 0
 --- !u!1 &1818814817
 GameObject:
   m_ObjectHideFlags: 0
@@ -14397,7 +14421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 130
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.RarityModifier
@@ -14431,9 +14455,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3587682744574828602, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1822364227}
     - targetCorrespondingSourceObject: {fileID: 579235936735519706, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -14448,37 +14469,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7757663921541325714, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
   m_PrefabInstance: {fileID: 1822364223}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822364226}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1822364226 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3587682744574828602, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-  m_PrefabInstance: {fileID: 1822364223}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1822364227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822364226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b90412fbfc9712547b192f7089eed9d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prototype:
-    ContentsOverride:
-    - Value: 24
-    - Value: 45
-    - Value: 53
-    - Value: 102
-    Rarity:
-      Value: 4
 --- !u!1 &1831252397
 GameObject:
   m_ObjectHideFlags: 0
@@ -16330,18 +16326,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 2134747420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc957c0d7668faa738f169c7f626e1c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b518bde46aed4d7ab50fa21e1b62986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    Gear:
-    - Id:
+    Weapon:
+      GameId:
         Value: 84
+      Edition:
+        Value: 0
       Rarity:
         Value: 0
+      Grade:
+        Value: 0
+      Faction:
+        Value: 0
+      Adjective:
+        Value: 0
+      Material:
+        Value: 0
+      MaxDurability: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
       Level: 1
-    AmmoPercentage:
-      RawValue: 65536
+      Generation: 0
+      ReplicationCounter: 0
+      TotalRestoredDurability: 0
+      LastRepairTimestamp: 0
 --- !u!1 &2137786595
 GameObject:
   m_ObjectHideFlags: 0

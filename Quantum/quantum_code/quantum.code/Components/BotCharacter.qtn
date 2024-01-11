@@ -5,11 +5,9 @@ enum BotBehaviourType
 	BattleRoyale,
 }
 
-component GearOverwrite {
-    list<EquipmentMinified> Gear;
-    FP AmmoPercentage;
+component BotLoadout {
+    Equipment Weapon;
 }
-
 
 component BotCharacter
 {
@@ -92,8 +90,9 @@ component BotCharacter
 	
 	// Next time bot is allowed to use special, this is to track state
 	FP NextAllowedSpecialUseTime;
-	
 }
+
+
 
 synced event OnDummyCharacterKilled
 {

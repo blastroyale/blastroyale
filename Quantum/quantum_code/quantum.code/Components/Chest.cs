@@ -17,9 +17,8 @@ namespace Quantum
 			}
 			if (contents == null || contents.Count == 0)
 			{
-				contents = ChestSystem.GenerateItemsForPlayer(f, e, playerEntity);
+				contents = ChestSystem.GenerateItems(f, e);
 			}
-			
 			var step = 0;
 			foreach (var drop in contents)
 			{

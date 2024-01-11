@@ -129,14 +129,6 @@ namespace Quantum.Systems
 			}
 
 			var itemCount = 0;
-			for (int i = 0; i < playerDead->Gear.Length; i++) //loadout items found
-			{
-				if (playerDead->Gear[i].GameId != GameId.Random)
-				{
-					itemCount++;
-				}
-			}
-
 			for (int i = 0; i < playerDead->WeaponSlots.Length; i++) //item slots filled
 			{
 				if (playerDead->WeaponSlots[i].Weapon.GameId != GameId.Random)
@@ -158,7 +150,7 @@ namespace Quantum.Systems
 
 				//drop consumables based on the number of items you have collected and the kind of consumables the player needs
 				for (uint i = 0;
-					 i < (FPMath.FloorToInt(itemCount / 5) + FPMath.RoundToInt(playerDead->GetEnergyLevel(f) / 5) + 1);
+					 i < (FPMath.FloorToInt(itemCount / 5) + 1);
 					 i++)
 				{
 					var consumable = GameId.AmmoSmall;
@@ -219,15 +211,8 @@ namespace Quantum.Systems
 				new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
 					f.RNG->Next(-gridSquareSize, gridSquareSize));
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
-
 			spawnTransform.Position = spawnPosition.XOY;
-
-			var equipment = Array.Empty<Equipment>();
-			if (f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon)
-			{
-				equipment = playerData.Loadout;
-			}
-
+			var equipment = playerData.Loadout;
 			var kccConfig = f.FindAsset<CharacterController3DConfig>(playerCharacter->KccConfigRef.Id);
 			var setup = new PlayerCharacterSetup()
 			{
@@ -237,8 +222,6 @@ namespace Quantum.Systems
 				playerLevel = playerData.PlayerLevel,
 				trophies = playerData.PlayerTrophies,
 				teamId = teamId,
-				startingEquipment = equipment,
-				loadoutWeapon = playerData.Loadout.FirstOrDefault(e => e.IsWeapon()),
 				modifiers = null,
 				minimumHealth = f.Context.GameModeConfig.MinimumHealth,
 				KccConfig = kccConfig

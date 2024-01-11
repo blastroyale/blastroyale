@@ -200,7 +200,7 @@ namespace FirstLight.Game.Services
 			if (view.ManualDisposal)
 			{
 				_viewsListToDestroy.Add(view);
-				_viewsToDestroy.Add(view.EntityRef, view);
+				_viewsToDestroy[view.EntityRef] = view;
 
 				return;
 			}

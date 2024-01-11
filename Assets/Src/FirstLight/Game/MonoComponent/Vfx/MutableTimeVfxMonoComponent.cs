@@ -14,7 +14,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 		/// </summary>
 		public void StartDespawnTimer(float time)
 		{
-			Despawner(time);
+			Despawner(time).Forget();
 		}
 	}
 }

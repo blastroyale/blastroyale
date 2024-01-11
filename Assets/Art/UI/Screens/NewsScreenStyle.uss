@@ -1,0 +1,38 @@
+.news-bg {
+    flex-grow: 1;
+    background-image: none;
+    padding-top: 122px;
+}
+
+.news-container {
+    flex-grow: 1;
+    width: 100%;
+    height: auto;
+    flex-shrink: 1;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.news-loading {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    flex-grow: 1;
+}
+
+.news-header {
+}
+
+.news-scroll-contents {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}

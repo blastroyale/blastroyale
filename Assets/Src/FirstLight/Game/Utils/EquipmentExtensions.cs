@@ -91,7 +91,7 @@ namespace FirstLight.Game.Utils
 			{
 				var weaponConfig = configs.GetConfig<QuantumWeaponConfig>((int) equipment.GameId);
 				var power = QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int)StatType.Power],
-				                                                      ref baseStatsConfig, ref statsConfig, equipment).AsFloat;
+				                                                      ref baseStatsConfig, ref statsConfig, ref equipment).AsFloat;
 
 				stats.Add(EquipmentStatType.Hp,
 						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Health],

@@ -109,3 +109,15 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+  - Key: 198
+    Value:
+      Scene:
+        m_AssetGUID: 0d2e7a79f30e53f45878b92ecc13c1ed
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      QuantumMap:
+        m_AssetGUID: c574b52272fab56478a156045fbe9bf3
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0

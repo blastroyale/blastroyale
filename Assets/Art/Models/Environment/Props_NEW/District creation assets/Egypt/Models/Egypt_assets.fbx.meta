@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Clean_pyramid","cover1","cover","sphinx","scroll","Sarcophagus","Sand_stone_block","Rug","rolled_scroll","Rolled_carpet","pyramid","pillar_2","pillar","Palm","Obelisk_chipped","Medium_Jar","large_pot_2","Large_pot","Large_jar","Ladder","Gate","Furnace","Desert_house_single_story","desert_house_2_story","Desert_House","Cat_statue","Broken_Obelisk","Box_of_spices","Ankh_slab"],"padding":[33,56,50,25,135,81,68,94,256,115,18,74,84,82,67,151,90,77,88,101,27,54,23,27,19,49,81,74,128],"unwrapper":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}'
+    - '#BAKERY{"meshName":["cover1","cover"],"padding":[56,49],"unwrapper":[0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

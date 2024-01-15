@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Dungeon_stone_wall","Single_grave_stone","Graveyard_fence","Coffin","gravestone","Knight_statue","Bench","Grave_stone_wall","altar","Dungeon_corner_wall","Dungeon_stone_wall_with_door_hatch","Well","square_tower","Large_flag","crate_box","Large_block","Dungeon_colum_half","Tower_round","empty_book_case","Stone_wall","Draw_bridge","Dungeon_stone_window","carrige","Dungeon_prison_wall","rubble_pile","Book_pile","cauldren","Castle_gate","Book_closed","Book_case","Gothic_church","Wooden_door","Spring_door","single_bed","Grave_cover","Dungeon_gate","Double_bed","cross_wood","candles","Candle","broken_bench"],"padding":[57,138,53,68,78,67,121,61,85,80,47,50,34,220,162,73,94,70,55,64,65,37,81,76,67,151,159,25,144,43,12,131,106,81,101,50,64,204,176,237,95],"unwrapper":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}'
+    - '#BAKERY{"meshName":["Graveyard_fence","Bench","Large_flag","Stone_wall","Dungeon_stone_window","Tower_round","Dungeon_colum_half","Dungeon_stone_wall","Dungeon_stone_wall_with_door_hatch","Book_pile","Large_block","Dungeon_prison_wall","Castle_gate","Draw_bridge","crate_box","carrige","empty_book_case","Dungeon_corner_wall","square_tower","Well","Book_closed","cauldren","Book_case","altar","Wooden_door","Gothic_church"],"padding":[53,121,220,64,37,35,94,41,47,151,73,76,25,65,162,81,55,80,34,50,144,159,43,85,131,12],"unwrapper":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

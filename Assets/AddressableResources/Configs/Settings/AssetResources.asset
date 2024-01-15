@@ -770,6 +770,11 @@ MonoBehaviour:
         Id:
           Value: 3078609414033823315
       Address: AdventureAssets/MapObjects/Bush Small.prefab[Bush SmallEntityView]
+    - Path: AddressableResources/Maps/Fortress/Fortress_NavMesh_data
+      AssetRef:
+        Id:
+          Value: 3079226671557161395
+      Address: Maps/Fortress/Fortress_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/Projectiles/MainEnergyBullet|EntityView
       AssetRef:
         Id:
@@ -820,6 +825,11 @@ MonoBehaviour:
         Id:
           Value: 3177262706605919769
       Address: Maps/NewBR/NewBRMap_mesh.asset
+    - Path: AddressableResources/Maps/Fortress/Fortress_mesh
+      AssetRef:
+        Id:
+          Value: 3179881957922959982
+      Address: Maps/Fortress/Fortress_mesh.asset
     - Path: AddressableResources/Configs/SpecialConfigs
       AssetRef:
         Id:
@@ -886,6 +896,11 @@ MonoBehaviour:
         Id:
           Value: 3582668498530828953
       Address: QuantumAssets/Projectiles/MainSmallBullet.prefab[MainSmallBulletEntityPrototype]
+    - Path: AddressableResources/Maps/Fortress/Fortress
+      AssetRef:
+        Id:
+          Value: 3635319050582391121
+      Address: Maps/Fortress/Fortress.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_27
       AssetRef:
         Id:
@@ -1026,6 +1041,11 @@ MonoBehaviour:
         Id:
           Value: 4344381221028547365
       Address: Maps/District/District.asset
+    - Path: AddressableResources/Maps/Fortress/Fortress_NavMesh
+      AssetRef:
+        Id:
+          Value: 4351006285510731336
+      Address: Maps/Fortress/Fortress_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StartReload_14
       AssetRef:
         Id:

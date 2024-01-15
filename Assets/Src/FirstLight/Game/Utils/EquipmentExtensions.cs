@@ -90,6 +90,8 @@ namespace FirstLight.Game.Utils
 			if (equipment.GameId.IsInGroup(GameIdGroup.Weapon))
 			{
 				var weaponConfig = configs.GetConfig<QuantumWeaponConfig>((int) equipment.GameId);
+				var power = QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int)StatType.Power],
+				                                                      ref baseStatsConfig, ref statsConfig, ref equipment).AsFloat;
 
 				stats.Add(EquipmentStatType.Hp,
 						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Health],
@@ -101,12 +103,12 @@ namespace FirstLight.Game.Utils
 						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Armour],
 							  ref baseStatsConfig, ref statsConfig, ref equipment).AsFloat / 100f);
 				stats.Add(EquipmentStatType.Power,
-						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Power],
-							  ref baseStatsConfig, ref statsConfig, ref equipment).AsFloat);
+				          QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Power],
+				                                                    ref baseStatsConfig, ref statsConfig, ref equipment).AsFloat);
 				stats.Add(EquipmentStatType.TargetRange,
-						  (QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.AttackRange],
-								  ref baseStatsConfig, ref statsConfig, ref equipment)
-						   + weaponConfig.AttackRange).AsFloat);
+				          (QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.AttackRange],
+				                                                     ref baseStatsConfig, ref statsConfig, ref equipment)
+				           + weaponConfig.AttackRange).AsFloat);
 				stats.Add(EquipmentStatType.PickupSpeed,
 						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.PickupSpeed],
 							  ref baseStatsConfig, ref statsConfig, ref equipment).AsFloat / 100f);
@@ -125,6 +127,8 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.NumberOfShots, weaponConfig.NumberOfShots);
 				stats.Add(EquipmentStatType.ReloadTime, weaponConfig.ReloadTime.AsFloat);
 				stats.Add(EquipmentStatType.MagazineSize, Math.Max(0, weaponConfig.MagazineSize));
+				
+				stats.Add(EquipmentStatType.Damage, weaponConfig.PowerToDamageRatio.AsFloat * power);
 			}
 			else
 			{
@@ -209,15 +213,14 @@ namespace FirstLight.Game.Utils
 		// Max values below are PER ITEM
 		public static readonly Dictionary<EquipmentStatType, float> MAX_VALUES = new()
 		{
-			{EquipmentStatType.Power, 150},
 			{EquipmentStatType.Hp, 120},
 			{EquipmentStatType.Speed, 0.09f},
 			{EquipmentStatType.Armor, 0.065f},
 			{EquipmentStatType.TargetRange, 11.5f},
 			{EquipmentStatType.SplashDamageRadius, 2f},
-			{EquipmentStatType.PowerToDamageRatio, 2f},
 			{EquipmentStatType.PickupSpeed, 0.12f},
 			{EquipmentStatType.ShieldCapacity, 120},
+			{EquipmentStatType.Damage, 30},
 		};
 
 		public static readonly HashSet<EquipmentStatType> INVERT_VALUES = new()

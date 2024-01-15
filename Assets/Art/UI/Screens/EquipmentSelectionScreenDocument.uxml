@@ -4,7 +4,6 @@
     <Style src="project://database/Assets/Art/UI/Styles/EquipmentStatBarStyle.uss?fileID=7433441132597879392&amp;guid=3f98db78bba74198b5adda7525e11796&amp;type=3#EquipmentStatBarStyle" />
     <ui:VisualElement name="root" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement>
-            <FirstLight.Game.UIElements.MightElement name="Might" class="anim-delay-0 anim-fade" />
             <ui:Label name="MissingEquipment" text="YOU HAVE NO&#10;WEAPONS" class="no-equipment-label" />
             <ui:ListView name="EquipmentList" fixed-item-height="400" selection-type="None" show-bound-collection-size="false" class="equipment-list anim-delay-0 anim-translate anim-translate--right-xxl" />
             <ui:VisualElement name="Details" picking-mode="Ignore" class="details">

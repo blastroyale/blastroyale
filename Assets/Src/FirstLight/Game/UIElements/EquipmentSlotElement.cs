@@ -174,6 +174,7 @@ namespace FirstLight.Game.UIElements
 			_factionIcon.RemoveSpriteClasses();
 			_factionIcon.AddToClassList(
 				string.Format(UssSpriteFaction, equipment.Faction.ToString().ToLowerInvariant()));
+			_factionIcon.SetDisplay(info.IsNft);
 
 			_plusRarity.SetDisplay((int) equipment.Rarity % 2 == 1);
 

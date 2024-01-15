@@ -5486,21 +5486,21 @@ MonoBehaviour:
   alwaysEnableRTX: 0
   checkerPreviewOn: 0
   rtSceneViewPreviewOn: 0
-  renderSettingsBounces: 5
-  renderSettingsGISamples: 16
+  renderSettingsBounces: 1
+  renderSettingsGISamples: 12
   renderSettingsGIBackFaceWeight: 0
-  renderSettingsTileSize: 512
+  renderSettingsTileSize: 4096
   renderSettingsPriority: 2
-  renderSettingsTexelsPerUnit: 20
+  renderSettingsTexelsPerUnit: 12
   renderSettingsForceRefresh: 1
   renderSettingsForceRebuildGeometry: 1
   renderSettingsPerformRendering: 1
   renderSettingsUserRenderMode: 0
   renderSettingsDistanceShadowmask: 0
-  renderSettingsSettingsMode: 0
+  renderSettingsSettingsMode: 2
   renderSettingsFixSeams: 1
   renderSettingsDenoise: 1
-  renderSettingsDenoise2x: 0
+  renderSettingsDenoise2x: 1
   renderSettingsEncode: 1
   renderSettingsEncodeMode: 0
   renderSettingsOverwriteWarning: 0
@@ -5508,27 +5508,27 @@ MonoBehaviour:
   renderSettingsUnwrapUVs: 1
   renderSettingsForceDisableUnwrapUVs: 0
   renderSettingsMaxAutoResolution: 4096
-  renderSettingsMinAutoResolution: 16
+  renderSettingsMinAutoResolution: 4096
   renderSettingsUnloadScenes: 1
   renderSettingsAdjustSamples: 1
   renderSettingsGILODMode: 2
   renderSettingsGILODModeEnabled: 0
   renderSettingsCheckOverlaps: 0
   renderSettingsSkipOutOfBoundsUVs: 1
-  renderSettingsHackEmissiveBoost: 1
-  renderSettingsHackIndirectBoost: 1
+  renderSettingsHackEmissiveBoost: 0
+  renderSettingsHackIndirectBoost: 0
   renderSettingsTempPath: 
-  renderSettingsOutPath: 
+  renderSettingsOutPath: BakeryLightmaps
   renderSettingsUseScenePath: 0
-  renderSettingsHackAOIntensity: 0
-  renderSettingsHackAOSamples: 16
-  renderSettingsHackAORadius: 1
-  renderSettingsShowAOSettings: 0
+  renderSettingsHackAOIntensity: 1.2
+  renderSettingsHackAOSamples: 12
+  renderSettingsHackAORadius: 1.2
+  renderSettingsShowAOSettings: 1
   renderSettingsShowTasks: 1
   renderSettingsShowTasks2: 0
   renderSettingsShowPaths: 1
   renderSettingsShowNet: 1
-  renderSettingsOcclusionProbes: 0
+  renderSettingsOcclusionProbes: 1
   renderSettingsTexelsPerMap: 0
   renderSettingsTexelsColor: 1
   renderSettingsTexelsMask: 1
@@ -5539,25 +5539,25 @@ MonoBehaviour:
   renderSettingsSamplesWarning: 1
   renderSettingsSuppressPopups: 0
   renderSettingsPrefabWarning: 1
-  renderSettingsSplitByScene: 0
-  renderSettingsSplitByTag: 0
-  renderSettingsUVPaddingMax: 0
+  renderSettingsSplitByScene: 1
+  renderSettingsSplitByTag: 1
+  renderSettingsUVPaddingMax: 1
   renderSettingsPostPacking: 1
-  renderSettingsHoleFilling: 0
+  renderSettingsHoleFilling: 1
   renderSettingsBeepOnFinish: 0
-  renderSettingsExportTerrainAsHeightmap: 1
-  renderSettingsRTXMode: 0
+  renderSettingsExportTerrainAsHeightmap: 0
+  renderSettingsRTXMode: 1
   renderSettingsLightProbeMode: 1
   renderSettingsClientMode: 0
   renderSettingsServerAddress: 127.0.0.1
   renderSettingsUnwrapper: 0
-  renderSettingsDenoiserType: 5
+  renderSettingsDenoiserType: 100
   renderSettingsExportTerrainTrees: 0
   renderSettingsShowPerf: 1
   renderSettingsSampleDiv: 1
-  renderSettingsAtlasPacker: 0
+  renderSettingsAtlasPacker: 1
   renderSettingsBatchPoints: 1
-  renderSettingsCompressVolumes: 0
+  renderSettingsCompressVolumes: 1
   renderSettingsRTPVExport: 1
   renderSettingsRTPVSceneView: 0
   renderSettingsRTPVHDR: 0

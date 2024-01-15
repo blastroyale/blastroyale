@@ -26,6 +26,7 @@ enum GameId
 	BattlelandsMap = 113,
 	IslandsMap = 114,
 	MazeMayhem = 115,
+	Cemetery = 197,
 	MausHelmet = 24,
 	SoldierHelmet = 49,
 	RiotHelmet = 50,

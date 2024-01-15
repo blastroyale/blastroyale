@@ -34,7 +34,7 @@ namespace FirstLight.Game.Input
                     ""type"": ""PassThrough"",
                     ""id"": ""80e0617a-f7d5-4342-9ec4-8445552b4b71"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""StickDeadzone(min=0.12,max=0.92)"",
+                    ""processors"": ""StickDeadzone(min=0.12,max=0.92),CameraRotationInput"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
@@ -43,7 +43,7 @@ namespace FirstLight.Game.Input
                     ""type"": ""PassThrough"",
                     ""id"": ""6600ce1c-2814-459a-816a-acbe147764c8"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""StickDeadzone(min=0.2,max=0.9)"",
+                    ""processors"": ""StickDeadzone(min=0.2,max=0.9),CameraRotationInput"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
@@ -52,7 +52,7 @@ namespace FirstLight.Game.Input
                     ""type"": ""PassThrough"",
                     ""id"": ""15d88791-423a-4e9d-b67e-a41cf186bf27"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""CameraRotationInput"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },

@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["cover1","cover"],"padding":[56,49],"unwrapper":[0,0]}'
+    - '#BAKERY{"meshName":["Clean_pyramid"],"padding":[33],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

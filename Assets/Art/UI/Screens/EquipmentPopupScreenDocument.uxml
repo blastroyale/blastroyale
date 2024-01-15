@@ -78,7 +78,7 @@
                         </ui:VisualElement>
                         <ui:ListView name="StatsList" fixed-item-height="80" selection-type="None" show-bound-collection-size="false" class="content-fusing__stats-list" />
                         <ui:VisualElement name="Spacer" class="height-spacer height-spacer--xxl" />
-                        <FirstLight.Game.UIElements.MultiPriceButton name="FusePriceButton" localization-key="UITEquipment/fuse" class="button-long--yellow" />
+                        <FirstLight.Game.UIElements.PriceButton name="FusePriceButton" localization-key="UITEquipment/fuse" class="button-long--yellow" />
                         <ui:VisualElement name="BottomFiller" class="content-bottom-filler" />
                     </ui:VisualElement>
                 </ui:VisualElement>

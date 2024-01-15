@@ -214,7 +214,7 @@
 
 .details__info-button {
     position: absolute;
-    top: 13px;
+    top: -60px;
     right: 0;
     width: 48px;
     height: 54px;

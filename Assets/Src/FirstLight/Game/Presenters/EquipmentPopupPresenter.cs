@@ -68,9 +68,15 @@ namespace FirstLight.Game.Presenters
 			_rustedContent = root.Q<VisualElement>("Rusted").Required().AttachView(this, out _rustedView);
 			_fusingContent = root.Q<VisualElement>("Fusion").Required().AttachView(this, out _fuseView);
 
-			root.Q<CurrencyDisplayElement>("CSCurrency").Required().AttachView(this, out CurrencyDisplayView _);
+			var csCounter = root.Q<CurrencyDisplayElement>("CSCurrency").Required();
+			csCounter.AttachView(this, out CurrencyDisplayView _);
+			csCounter.SetDisplay(false);
+			
 			root.Q<CurrencyDisplayElement>("CoinCurrency").Required().AttachView(this, out CurrencyDisplayView _);
-			root.Q<CurrencyDisplayElement>("FragmentsCurrency").Required().AttachView(this, out CurrencyDisplayView _);
+			
+			var fragmentsCounter = root.Q<CurrencyDisplayElement>("FragmentsCurrency").Required();
+			fragmentsCounter.AttachView(this, out CurrencyDisplayView _);
+			fragmentsCounter.SetDisplay(false);
 
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
 			root.Q<VisualElement>("Background")
@@ -131,7 +137,7 @@ namespace FirstLight.Game.Presenters
 				case Mode.Fuse:
 					_title.text = ScriptLocalization.UITEquipment.popup_fusing_item;
 					_fuseView.SetData(info, () => Data.OnActionConfirmed(Mode.Fuse, info.Id),
-						new bool[] { !HasEnoughCurrency(info.FuseCost[0]), !HasEnoughCurrency(info.FuseCost[1]) });
+						new bool[] { !HasEnoughCurrency(info.FuseCost[0]), !HasEnoughCurrency(info.FuseCost[0]) });
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

@@ -60,7 +60,7 @@ namespace FirstLight.Game.Presenters
 		private Button _equipButton;
 		private PriceButton _scrapButton;
 		private PriceButton _upgradeButton;
-		private MultiPriceButton _fuseButton;
+		private PriceButton _fuseButton;
 		private ImageButton _infoButton;
 
 		private VisualElement _cooldownTag;
@@ -108,7 +108,7 @@ namespace FirstLight.Game.Presenters
 			_equipButton = root.Q<Button>("EquipButton").Required();
 			_scrapButton = root.Q<PriceButton>("ScrapButton").Required();
 			_upgradeButton = root.Q<PriceButton>("UpgradeButton").Required();
-			_fuseButton = root.Q<MultiPriceButton>("FuseButton").Required();
+			_fuseButton = root.Q<PriceButton>("FuseButton").Required();
 			_infoButton = root.Q<ImageButton>("InfoButton").Required();
 
 			_equipButton.clicked += OnEquipClicked;
@@ -304,20 +304,12 @@ namespace FirstLight.Game.Presenters
 			// Prices
 			_scrapButton.SetPrice(info.ScrappingValue, info.IsNft, false, true);
 			_upgradeButton.SetPrice(info.UpgradeCost, info.IsNft, !HasEnoughCurrency(info.UpgradeCost));
-			_upgradeButton.SetEnabled(info.Equipment.Level < info.MaxLevel);
+			_upgradeButton.SetDisplay(info.Equipment.Level < info.MaxLevel);
 
-			bool[] sufficientFuseCost = new bool[info.FuseCost.Length];
-			for (int i = 0; i < info.FuseCost.Length; i++)
-			{
-				sufficientFuseCost[i] = !HasEnoughCurrency(info.FuseCost[i]);
-			}
-
-			_fuseButton.SetPrice(info.FuseCost, info.IsNft, sufficientFuseCost);
-
-			// TODO: Uncomment when/if we use Fusion again
-			// _fuseButton.SetEnabled(info.Equipment.Rarity < (EquipmentRarity.TOTAL - 1));
-			// _fuseButton.SetDisplay(!info.IsNft);
-			_fuseButton.SetDisplay(false);
+			_fuseButton.SetPrice(info.FuseCost[0], info.IsNft, !HasEnoughCurrency(info.FuseCost[0]));
+			_fuseButton.SetDisplay(!info.IsNft
+			                       && info.Equipment.Level == info.MaxLevel
+			                       && info.Equipment.Rarity < (EquipmentRarity.TOTAL - 1));
 
 			// Equip Button
 			_equipButton.SetEnabled(!info.IsBroken);
@@ -333,6 +325,9 @@ namespace FirstLight.Game.Presenters
 			{
 				_seenItems.Add(SelectedItem);
 			}
+			
+			// Info button
+			_infoButton.SetVisibility(info.IsNft);
 		}
 
 		private bool HasEnoughCurrency(Pair<GameId, uint> cost)

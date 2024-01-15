@@ -225,7 +225,7 @@ namespace FirstLight.Game.Presenters
 			if (_mapImage == null) return;
 			if (!_services.RoomService.InRoom) return;
 
-			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapRadius(localPos))) return;
+			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapArea(localPos))) return;
 
 			if (checkClickWithinRadius)
 			{
@@ -246,19 +246,18 @@ namespace FirstLight.Game.Presenters
 			_mapMarker.transform.position = localPos;
 
 			// Get normalized position for spawn positions in quantum, -0.5 to 0.5 range
-			var quantumSelectPos = new Vector2(localPos.x / mapWidth, -localPos.y / mapWidth);
+			var quantumSelectPos = new Vector2(localPos.x / mapWidth, -localPos.y / mapHeight);
 			_services.RoomService.CurrentRoom.LocalPlayerProperties.DropPosition.Value = quantumSelectPos;
 
 			_mapMarkerTitle.SetDisplay(false);
 		}
 
-		private bool IsWithinMapRadius(Vector3 dropPos)
+		private bool IsWithinMapArea(Vector3 dropPos)
 		{
-			var mapRadius = _mapImage.contentRect.width / 2;
-			var mapCenter = new Vector3(_mapImage.transform.position.x + mapRadius,
-				_mapImage.transform.position.y + mapRadius, _mapImage.transform.position.z);
-
-			return Vector3.Distance(mapCenter, dropPos) < mapRadius;
+			return dropPos.x >= _mapImage.transform.position.x &&
+				dropPos.x <= _mapImage.transform.position.x + _mapImage.contentRect.width &&
+				dropPos.y >= _mapImage.transform.position.y &&
+				dropPos.y <= _mapImage.transform.position.y + _mapImage.contentRect.width;
 		}
 
 		private async Task LoadMapAsset(QuantumMapConfig mapConfig)

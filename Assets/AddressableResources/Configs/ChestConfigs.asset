@@ -100,35 +100,51 @@ MonoBehaviour:
     - Id: 19
       ChestType: 2
       GoldenGunChance:
-        RawValue: 65536
+        RawValue: 52428
       AutoOpen: 0
       DropTables:
       - Chance:
           RawValue: 65536
-        Amount: 2
-        Pool:
-        - Id: 20
-          Weight: 2
-        - Id: 20
-          Weight: 2
-      - Chance:
-          RawValue: 65536
         Amount: 1
         Pool:
+        - Id: 85
+          Weight: 1
+        - Id: 89
+          Weight: 1
+        - Id: 110
+          Weight: 2
+        - Id: 119
+          Weight: 2
         - Id: 102
+          Weight: 2
+        - Id: 62
+          Weight: 1
+        - Id: 4
+          Weight: 1
+        - Id: 127
+          Weight: 1
+        - Id: 20
           Weight: 1
       - Chance:
           RawValue: 65536
         Amount: 1
         Pool:
+        - Id: 4
+          Weight: 1
+        - Id: 127
+          Weight: 1
+        - Id: 20
+          Weight: 1
+      - Chance:
+          RawValue: 65
+        Amount: 1
+        Pool:
         - Id: 61
-          Weight: 2
-        - Id: 26
           Weight: 1
       RandomEquipment:
       - Value1:
           RawValue: 65536
-        Value2: 2
+        Value2: 1
       CollectableChestPickupRadius:
         RawValue: 131072
       CollectTime:

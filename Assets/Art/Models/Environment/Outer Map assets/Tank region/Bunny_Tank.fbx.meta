@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Bunny_Tank"],"padding":[21],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Bunny_Tank"],"padding":[20],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

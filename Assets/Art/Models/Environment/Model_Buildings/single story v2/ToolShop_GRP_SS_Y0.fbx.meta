@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["ToolShop_Base_GEO","ToolShop_Roof_GEO"],"padding":[14,18],"unwrapper":[0,0]}'
+    - '#BAKERY{"meshName":["ToolShop_Roof_GEO","ToolShop_Base_GEO"],"padding":[18,14],"unwrapper":[0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

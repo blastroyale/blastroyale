@@ -16,5 +16,6 @@ enum ChestType
 	Consumable,
     Equipment,
     Legendary,
-    Tutorial
+    Tutorial,
+    Weapon
 }

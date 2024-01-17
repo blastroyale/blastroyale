@@ -12818,11 +12818,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -526718
+          RawValue: -531174
         Y:
           RawValue: 6553
         Z:
-          RawValue: -***REMOVED***8
+          RawValue: -534285
       Rotation:
         X:
           RawValue: 0
@@ -12907,11 +12907,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -276212
+          RawValue: -280668
         Y:
           RawValue: 6553
         Z:
-          RawValue: 845021
+          RawValue: 792434
       Rotation:
         X:
           RawValue: 0
@@ -12996,11 +12996,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 387945
+          RawValue: 383488
         Y:
           RawValue: 6553
         Z:
-          RawValue: 849749
+          RawValue: 797161
       Rotation:
         X:
           RawValue: 0

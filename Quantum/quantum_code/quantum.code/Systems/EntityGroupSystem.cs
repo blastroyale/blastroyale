@@ -1,5 +1,3 @@
-using Quantum.Core;
-
 namespace Quantum.Systems
 {
 	public class EntityGroupSystem : SystemSignalsOnly, ISignalOnComponentAdded<EntityGroup>
@@ -28,12 +26,21 @@ namespace Quantum.Systems
 		/// <summary>
 		/// Special handling for specific components
 		/// </summary>
-		private static unsafe void HandleEntity(FrameBase f, EntityRef entity)
+		private static unsafe void HandleEntity(Frame f, EntityRef entity)
 		{
 			// CollectablePlatformSpawner
-			if(f.Unsafe.TryGetPointer<CollectablePlatformSpawner>(entity, out var collectableSpawner))
+			if (f.Unsafe.TryGetPointer<CollectablePlatformSpawner>(entity, out var collectableSpawner))
 			{
 				collectableSpawner->Disabled = false;
+			}
+
+			// EntityGroup
+			if (f.Unsafe.TryGetPointer<EntityGroup>(entity, out var entityGroup))
+			{
+				foreach (var egEntity in f.ResolveList(entityGroup->Entities))
+				{
+					EntityDestroyer.Create(f, egEntity);
+				}
 			}
 		}
 	}

@@ -28,34 +28,18 @@ MonoBehaviour:
           RawValue: 65536
         Amount: 1
         Pool:
-        - Id: 4
-          Weight: 5
-        - Id: 127
-          Weight: 5
-        - Id: 20
-          Weight: 2
-      - Chance:
-          RawValue: 13107
-        Amount: 1
-        Pool:
-        - Id: 102
-          Weight: 4
-        - Id: 141
-          Weight: 5
         - Id: 85
-          Weight: 5
-        - Id: 62
-          Weight: 5
-        - Id: 10
+          Weight: 2
+        - Id: 89
+          Weight: 2
+        - Id: 110
           Weight: 1
-      - Chance:
-          RawValue: 655
-        Amount: 1
-        Pool:
-        - Id: 61
-          Weight: 6
-        - Id: 26
-          Weight: 3
+        - Id: 119
+          Weight: 1
+        - Id: 102
+          Weight: 1
+        - Id: 62
+          Weight: 2
       RandomEquipment: []
       CollectableChestPickupRadius:
         RawValue: 111411

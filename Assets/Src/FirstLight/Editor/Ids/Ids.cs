@@ -150,6 +150,7 @@ namespace FirstLight.Editor.Ids
 			{"ChestEpic", 2},
 			{"ChestConsumable", 131, Chest, Collectable},
 			{"ChestEquipment", 130, Chest, Collectable},
+			{"ChestEquipmentTutorial", 132, Chest, Collectable},
 			{"ChestLegendary", 19, Chest, Collectable},
 			{"SpecialAimingAirstrike", 10, Special},
 			{"SpecialAimingStunGrenade", 85, Special},

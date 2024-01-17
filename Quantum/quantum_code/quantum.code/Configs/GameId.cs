@@ -696,6 +696,13 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.ChestEquipmentTutorial, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
 					GameId.ChestLegendary, new List<GameIdGroup>
 					{
 						GameIdGroup.Chest,
@@ -1955,6 +1962,7 @@ namespace Quantum
 						GameId.EnergyCubeLarge,
 						GameId.ChestConsumable,
 						GameId.ChestEquipment,
+						GameId.ChestEquipmentTutorial,
 						GameId.ChestLegendary
 					}.AsReadOnly()
 				},
@@ -1969,6 +1977,7 @@ namespace Quantum
 					{
 						GameId.ChestConsumable,
 						GameId.ChestEquipment,
+						GameId.ChestEquipmentTutorial,
 						GameId.ChestLegendary,
 						GameId.CoreRare,
 						GameId.CoreEpic,

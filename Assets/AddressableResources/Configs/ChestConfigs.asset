@@ -65,12 +65,19 @@ MonoBehaviour:
       ChestType: 1
       GoldenGunChance:
         RawValue: 3276
-      AutoOpen: 1
-      DropTables: []
-      RandomEquipment:
-      - Value1:
+      AutoOpen: 0
+      DropTables:
+      - Chance:
           RawValue: 65536
-        Value2: 1
+        Amount: 1
+        Pool:
+        - Id: 85
+          Weight: 0
+        - Id: 89
+          Weight: 0
+        - Id: 110
+          Weight: 0
+      RandomEquipment: []
       CollectableChestPickupRadius:
         RawValue: 111411
       CollectTime:
@@ -111,3 +118,29 @@ MonoBehaviour:
         RawValue: 131072
       CollectTime:
         RawValue: 229376
+    - Id: 132
+      ChestType: 3
+      GoldenGunChance:
+        RawValue: 65536
+      AutoOpen: 0
+      DropTables:
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - Id: 102
+          Weight: 1
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - Id: 20
+          Weight: 1
+      RandomEquipment:
+      - Value1:
+          RawValue: 65536
+        Value2: 1
+      CollectableChestPickupRadius:
+        RawValue: 111411
+      CollectTime:
+        RawValue: 131072

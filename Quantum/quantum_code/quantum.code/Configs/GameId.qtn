@@ -91,6 +91,7 @@ enum GameId
 	ChestEpic = 2,
 	ChestConsumable = 131,
 	ChestEquipment = 130,
+	ChestEquipmentTutorial = 132,
 	ChestLegendary = 19,
 	SpecialAimingAirstrike = 10,
 	SpecialAimingStunGrenade = 85,

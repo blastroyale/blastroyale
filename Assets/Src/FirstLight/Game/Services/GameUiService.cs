@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Presenters;
 using FirstLight.UiService;
@@ -16,7 +17,7 @@ namespace FirstLight.Game.Services
 		/// It will update the <see cref="LoadingScreenPresenter"/> value based on the current loading status to a max
 		/// value defined by the given <paramref name="loadingCap"/>
 		/// </summary>
-		Task LoadGameUiSet(UiSetId uiSetId, float loadingCap);
+		UniTask LoadGameUiSet(UiSetId uiSetId, float loadingCap);
 	}
 
 	/// <inheritdoc cref="IGameUiService"/>
@@ -36,18 +37,9 @@ namespace FirstLight.Game.Services
 		}
 		
 		/// <inheritdoc />
-		public async Task LoadGameUiSet(UiSetId uiSetId, float loadingCap)
+		public async UniTask LoadGameUiSet(UiSetId uiSetId, float loadingCap)
 		{
-			var tasks = LoadUiSetAsync((int) uiSetId);
-			var loadedUiCount = 0f;
-
-			// Load all initial uis
-			foreach (var taskTemplate in tasks)
-			{
-				await await taskTemplate;
-
-				loadedUiCount++;
-			}
+			await LoadUiSetAsync((int) uiSetId);
 		}
 	}
 }

@@ -49,6 +49,9 @@
       <Reference Include="Sirenix.OdinInspector.Attributes">
         <HintPath>..\UnityLib\Sirenix.OdinInspector.Attributes.dll</HintPath>
       </Reference>
+      <Reference Include="UniTask">
+        <HintPath>..\Lib\UniTask.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine.AudioModule">
         <HintPath>..\UnityLib\UnityEngine.AudioModule.dll</HintPath>
       </Reference>

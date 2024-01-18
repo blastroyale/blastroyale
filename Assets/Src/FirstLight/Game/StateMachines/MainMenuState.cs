@@ -648,7 +648,7 @@ namespace FirstLight.Game.StateMachines
 
 			_statechartTrigger(MainMenuLoadedEvent);
 
-			_ = PreloadQuantumSettings();
+			await PreloadQuantumSettings();
 		}
 
 		private async UniTask UnloadMenuTask()

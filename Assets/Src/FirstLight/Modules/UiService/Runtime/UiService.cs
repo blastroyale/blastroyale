@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using UnityEngine;
 
@@ -155,7 +156,7 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public async Task<T> LoadUiAsync<T>(bool openAfter = false) where T : UiPresenter
+		public async UniTask<T> LoadUiAsync<T>(bool openAfter = false) where T : UiPresenter
 		{
 			var uiPresenter = await LoadUiAsync(typeof(T), openAfter);
 			
@@ -163,7 +164,7 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public async Task<UiPresenter> LoadUiAsync(Type type, bool openAfter = false)
+		public async UniTask<UiPresenter> LoadUiAsync(Type type, bool openAfter = false)
 		{
 			if (!_uiConfigs.TryGetValue(type, out var config))
 			{
@@ -247,7 +248,7 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public async Task<T> GetUiAsync<T>() where T : UiPresenter
+		public async UniTask<T> GetUiAsync<T>() where T : UiPresenter
 		{
 			var presenter = await GetUiAsync(typeof(T));
 			
@@ -261,7 +262,7 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public async Task<UiPresenter> GetUiAsync(Type type)
+		public async UniTask<UiPresenter> GetUiAsync(Type type)
 		{
 			var presenter = await GetReferenceAsync(type);
 
@@ -283,7 +284,7 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public async Task<T> OpenUiAsync<T>(bool openedException = false) where T : UiPresenter
+		public async UniTask<T> OpenUiAsync<T>(bool openedException = false) where T : UiPresenter
 		{
 			await GetUiAsync<T>();
 
@@ -302,7 +303,7 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public async Task<UiPresenter> OpenUiAsync(Type type)
+		public async UniTask<UiPresenter> OpenUiAsync(Type type)
 		{
 			await GetUiAsync(type);
 			
@@ -335,7 +336,7 @@ namespace FirstLight.UiService
 		}
 		
 		/// <inheritdoc />
-		public async Task<T> OpenUiAsync<T, TData>(TData initialData) 
+		public async UniTask<T> OpenUiAsync<T, TData>(TData initialData) 
 			where T : class, IUiPresenterData 
 			where TData : struct
 		{
@@ -358,7 +359,7 @@ namespace FirstLight.UiService
 		}
 		
 		/// <inheritdoc />
-		public async Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData) where TData : struct
+		public async UniTask<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData) where TData : struct
 		{
 			await GetUiAsync(type);
 
@@ -366,13 +367,13 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public async Task CloseUi<T>(bool destroy = false) where T : UiPresenter
+		public async UniTask CloseUi<T>(bool destroy = false) where T : UiPresenter
 		{
 			await CloseUi(typeof(T), destroy);
 		}
 
 		/// <inheritdoc />
-		public async Task CloseUi(Type type, bool destroy = false)
+		public async UniTask CloseUi(Type type, bool destroy = false)
 		{
 			if (!_visibleUiList.Contains(type))
 			{
@@ -394,13 +395,13 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public async Task CloseUi<T>(T uiPresenter, bool destroy = false) where T : UiPresenter
+		public async UniTask CloseUi<T>(T uiPresenter, bool destroy = false) where T : UiPresenter
 		{
 			await CloseUi(uiPresenter.GetType().UnderlyingSystemType, destroy);
 		}
 
 		/// <inheritdoc />
-		public async Task CloseAllUi()
+		public async UniTask CloseAllUi()
 		{
 			for (int i = 0; i < _visibleUiList.Count; i++)
 			{
@@ -414,7 +415,7 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public async Task CloseUiAndAllInFront<T>(params int[] excludeLayers) where T : UiPresenter
+		public async UniTask CloseUiAndAllInFront<T>(params int[] excludeLayers) where T : UiPresenter
 		{
 			var layers = new List<int>(excludeLayers);
 			
@@ -431,7 +432,7 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public async Task CloseAllUi(int layer)
+		public async UniTask CloseAllUi(int layer)
 		{
 			for (int i = 0; i < _visibleUiList.Count; i++)
 			{
@@ -478,10 +479,10 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public Task<Task<UiPresenter>>[] LoadUiSetAsync(int setId)
+		public UniTask<UiPresenter[]> LoadUiSetAsync(int setId)
 		{
 			var set = GetUiSet(setId);
-			var uiTasks = new List<Task<UiPresenter>>();
+			var uiTasks = new List<UniTask<UiPresenter>>();
 
 			foreach (var t in set.UiConfigsType)
 			{
@@ -493,7 +494,7 @@ namespace FirstLight.UiService
 				uiTasks.Add(LoadUiAsync(t));
 			}
 
-			return Interleaved(uiTasks);
+			return UniTask.WhenAll(uiTasks);
 		}
 
 		/// <inheritdoc />
@@ -584,7 +585,7 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public async Task<UiPresenter> OpenScreenAsync<T>() where T : UiPresenter
+		public async UniTask<UiPresenter> OpenScreenAsync<T>() where T : UiPresenter
 		{
 			ScreenStartOpening?.Invoke(typeof(T));
 			
@@ -608,7 +609,7 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public async Task<T> OpenScreenAsync<T, TData>(TData initialData) where T : UiPresenter, IUiPresenterData where TData : struct
+		public async UniTask<T> OpenScreenAsync<T, TData>(TData initialData) where T : UiPresenter, IUiPresenterData where TData : struct
 		{
 			
 			ScreenStartOpening?.Invoke(typeof(T));
@@ -651,7 +652,7 @@ namespace FirstLight.UiService
 			return uiReference;
 		}
 
-		private async Task<UiReference> GetReferenceAsync(Type type)
+		private async UniTask<UiReference> GetReferenceAsync(Type type)
 		{
 			if (!_uiViews.TryGetValue(type, out var uiReference))
 			{
@@ -670,28 +671,28 @@ namespace FirstLight.UiService
 			return uiReference;
 		}
 		
-		private Task<Task<T>>[] Interleaved<T>(IEnumerable<Task<T>> tasks)
+		private UniTask<UniTask<T>>[] Interleaved<T>(IEnumerable<UniTask<T>> tasks)
 		{
 			var inputTasks = tasks.ToList();
-			var buckets = new TaskCompletionSource<Task<T>>[inputTasks.Count];
-			var results = new Task<Task<T>>[buckets.Length];
+			var buckets = new UniTaskCompletionSource<UniTask<T>>[inputTasks.Count];
+			var results = new UniTask<UniTask<T>>[buckets.Length];
 			var nextTaskIndex = -1;
 			
 			for (var i = 0; i < buckets.Length; i++) 
 			{
-				buckets[i] = new TaskCompletionSource<Task<T>>();
+				buckets[i] = new UniTaskCompletionSource<UniTask<T>>();
 				results[i] = buckets[i].Task;
 			}
 			
 			foreach (var inputTask in inputTasks)
 			{
-				inputTask.ContinueWith(Continuation, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+				inputTask.ContinueWith(t => Continuation(inputTask));
 			}
 
 			return results;
 
 			// Local function
-			void Continuation(Task<T> completed)
+			void Continuation(UniTask<T> completed)
 			{
 				buckets[Interlocked.Increment(ref nextTaskIndex)].TrySetResult(completed);
 			}

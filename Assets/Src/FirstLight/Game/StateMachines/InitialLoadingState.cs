@@ -140,9 +140,10 @@ namespace FirstLight.Game.StateMachines
 			var audioTasks = new List<UniTask>();
 			
 			audioTasks.Add(_services.AudioFxService
-			                        .LoadAudioMixers(configProvider.GetConfig<AudioMixerConfigs>().ConfigsDictionary).AsUniTask());
+			                        .LoadAudioMixers(configProvider.GetConfig<AudioMixerConfigs>().ConfigsDictionary));
+			
 			audioTasks.Add(_services.AudioFxService
-			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary).AsUniTask());
+			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary));
 			
 			await UniTask.WhenAll(audioTasks);
 			

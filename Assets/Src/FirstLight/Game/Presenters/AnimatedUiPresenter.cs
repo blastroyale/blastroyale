@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -36,7 +37,7 @@ namespace FirstLight.Game.Presenters
 			Services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override Task OnClosed()
+		protected override UniTask OnClosed()
 		{
 			if (_coroutine != null)
 			{
@@ -58,7 +59,7 @@ namespace FirstLight.Game.Presenters
 				OnClosedCompleted();
 			}
 
-			return Task.CompletedTask;
+			return UniTask.CompletedTask;
 		}
 
 		protected override void OnOpened()
@@ -141,7 +142,7 @@ namespace FirstLight.Game.Presenters
 			Services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override Task OnClosed()
+		protected override UniTask OnClosed()
 		{
 			if (_coroutine != null)
 			{
@@ -163,7 +164,7 @@ namespace FirstLight.Game.Presenters
 				OnClosedCompleted();
 			}
 
-			return Task.CompletedTask;
+			return UniTask.CompletedTask;
 		}
 
 		protected override void OnOpened()

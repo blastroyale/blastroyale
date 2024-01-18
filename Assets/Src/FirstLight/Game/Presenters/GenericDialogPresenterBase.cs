@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -40,7 +41,7 @@ namespace FirstLight.Game.Presenters
 			_confirmButton.clicked -= _confirmCallback;
 		}
 
-		protected override Task OnClosed()
+		protected override UniTask OnClosed()
 		{
 			_closeCallback?.Invoke();
 			return base.OnClosed();

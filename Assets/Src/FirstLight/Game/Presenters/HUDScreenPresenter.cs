@@ -1,4 +1,6 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
@@ -202,7 +204,7 @@ namespace FirstLight.Game.Presenters
 			});
 		}
 
-		protected override Task OnClosed()
+		protected override UniTask OnClosed()
 		{
 			_legacyMinimap.SetActive(false);
 

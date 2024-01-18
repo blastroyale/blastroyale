@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
@@ -138,7 +139,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(Data.EquipmentSlot, OnLoadoutUpdated);
 		}
 
-		protected override Task OnClosed()
+		protected override UniTask OnClosed()
 		{
 			_gameDataProvider.EquipmentDataProvider.Loadout.StopObservingAll(this);
 

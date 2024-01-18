@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Services;
 using UnityEngine;
@@ -17,12 +18,12 @@ namespace Backend.Game
     	{
     	}
     
-    	public Task LoadAudioMixers(IEnumerable audioMixers)
+    	public UniTask LoadAudioMixers(IEnumerable audioMixers)
     	{
     		return default;
     	}
     
-    	public Task LoadAudioClips(IEnumerable clips) => null;
+    	public UniTask LoadAudioClips(IEnumerable clips) => UniTask.CompletedTask;
     
     	public void UnloadAudioClips(IEnumerable clips)
     	{

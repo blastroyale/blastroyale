@@ -2231,19 +2231,23 @@ MonoBehaviour:
   - Key: 85
     Value:
       AudioClips:
-      - m_AssetGUID: 156f86af8df14a74180542b245c684b2
+      - m_AssetGUID: abdfa798336ee46c785f895fba045f11
         m_SubObjectName: 
         m_SubObjectType: 
-        m_EditorAssetChanged: 1
-      - m_AssetGUID: 367465b87beaeb746b9d69636203b038
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 50e8784d4c43547e782b386f6245904f
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 286279b28048047eeaba195277a24433
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
       RandomiseStartTime: 0
-      BaseVolume: 0.7
+      BaseVolume: 0.3
       BasePitch: 0.9
-      VolumeRandDeviation: 0.2
+      VolumeRandDeviation: 0.1
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 170

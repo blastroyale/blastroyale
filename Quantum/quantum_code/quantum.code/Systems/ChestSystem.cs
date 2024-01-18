@@ -49,7 +49,6 @@ namespace Quantum.Systems
 				Config = f.ChestConfigs.GetConfig(chest->ChestType),
 			};
 			var items = new List<SimulationItem>();
-			GenerateEquipment(f, ctx, items);
 			RollDropTables(f, ctx, items);
 			if (f.Context.TryGetMutatorByType(MutatorType.SpecialsMayhem, out _))
 			{
@@ -60,42 +59,24 @@ namespace Quantum.Systems
 
 		private static void RollDropTables(Frame f, ChestContentsGenerationContext ctx, List<SimulationItem> items)
 		{
+			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 			foreach (var droptable in ctx.Config.DropTables)
 			{
 				if (droptable.Amount == 0) continue;
 				if (f.RNG->Next() > droptable.Chance) continue;
 				var count = droptable.Amount;
-				var list = new WeightedList<GameId>(f);
-				list.Add(droptable.Pool.Select(s => new WeightItem<GameId>(s.Id, s.Weight)).ToList());
+				var list = new WeightedList<SimulationItemConfig>(f);
+				list.Add(droptable.Pool.Select(s => new WeightItem<SimulationItemConfig>(s.ItemConfig, s.Weight)).ToList());
 				while (list.Count > 0 && count > 0)
 				{
-					var drop = SimulationItem.CreateSimple(list.Next());
-					items.Add(drop);
+					var drop = list.Next();
+					var item = SimulationItem.FromConfig(drop);
+					if (item.ItemType == ItemType.Equipment && item.EquipmentItem->GameId == GameId.Any)
+					{
+						item.EquipmentItem->GameId = gameContainer->GenerateNextWeapon(f).GameId;
+					}
+					items.Add(item);
 					count--;
-				}
-			}
-		}
-		
-		private static void GenerateEquipment(Frame f, ChestContentsGenerationContext ctx, List<SimulationItem> items)
-		{
-			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
-			if (ctx.Config.GoldenGunChance > 0 && f.RNG->Next() < ctx.Config.GoldenGunChance)
-			{
-				var golden = gameContainer->GenerateNextWeapon(f);
-				golden.Material = EquipmentMaterial.Golden;
-				golden.Rarity = EquipmentRarity.Legendary;
-				items.Add(SimulationItem.CreateEquipment(golden));
-				return;
-			}
-			
-			foreach (var (chance, count) in ctx.Config.RandomEquipment)
-			{
-				if (f.RNG->Next() > chance) continue;
-				for (uint i = 0; i < count; i++)
-				{
-					var weapon = gameContainer->GenerateNextWeapon(f);
-					weapon.Material = EquipmentMaterial.Steel;
-					items.Add(SimulationItem.CreateEquipment(weapon));
 				}
 			}
 		}

@@ -2,6 +2,7 @@
 enum GameId
 {
 	Random = 0,
+	Any = 126,
 	RealMoney = 125,
 	COIN = 61,
 	BlastBuck = 105,

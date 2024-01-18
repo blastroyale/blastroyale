@@ -40,18 +40,7 @@ namespace Backend
 			var services = builder.Services;
 			DbSetup.Setup(services, envConfig);
 			var pluginManager = new PluginManager();
-
-			var insightsConnection = envConfig.TelemetryConnectionString;
-			if (insightsConnection != null)
-			{
-				services.AddApplicationInsightsTelemetry(o => o.ConnectionString = insightsConnection);
-				services.AddSingleton<IMetricsService, AppInsightsMetrics>();
-			}
-			else
-			{
-				services.AddSingleton<IMetricsService, NoMetrics>();
-			}
-
+			
 			services.AddSingleton<IPluginManager>(f => pluginManager);
 			services.AddSingleton<ShopService>();
 			services.AddSingleton<IServerAnalytics, PlaystreamAnalyticsService>();

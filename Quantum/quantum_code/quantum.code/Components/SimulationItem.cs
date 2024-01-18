@@ -53,6 +53,10 @@ namespace Quantum
 			if (config.SimpleGameId == GameId.Random)
 			{
 				throw new Exception("Invalid item config for simple id " + config.SimpleGameId);
+			}  
+			if (config.SimpleGameId.IsInGroup(GameIdGroup.Equipment))
+			{
+				return CreateEquipment(new Equipment(config.SimpleGameId));
 			}
 			return CreateSimple(config.SimpleGameId);
 		}

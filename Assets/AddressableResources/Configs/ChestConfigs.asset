@@ -508,7 +508,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 0
+              GameId: 88
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -527,7 +527,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 0
+              GameId: 78
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -546,7 +546,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 0
+              GameId: 95
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -565,7 +565,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 0
+              GameId: 71
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -584,7 +584,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 0
+              GameId: 93
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -603,7 +603,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 0
+              GameId: 101
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1007,7 +1007,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 0
+              GameId: 88
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1026,7 +1026,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 0
+              GameId: 78
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1045,7 +1045,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 0
+              GameId: 95
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1064,7 +1064,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 0
+              GameId: 71
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1083,7 +1083,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 0
+              GameId: 93
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1102,7 +1102,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 0
+              GameId: 101
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1151,7 +1151,7 @@ MonoBehaviour:
         Amount: 1
         Pool:
         - ItemConfig:
-            SimpleGameId: 70
+            SimpleGameId: 102
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1202,7 +1202,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 0
+              GameId: 78
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0

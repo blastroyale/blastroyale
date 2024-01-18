@@ -34,6 +34,7 @@ namespace Quantum
 				new CollectableSystem(),
 				new VisibilityAreaSystem(), 
 				new GameItemCollectableSystem(),
+				new EntityGroupSystem(),
 				
 				// Update systems - Update & OnInit & Signal order matters
 				new CommandsSystem(),

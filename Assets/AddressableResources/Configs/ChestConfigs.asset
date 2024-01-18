@@ -20,6 +20,631 @@ MonoBehaviour:
     QuantumConfigs:
     - Id: 131
       ChestType: 0
+      AutoOpen: 1
+      DropTables:
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 85
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 89
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 110
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 119
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 102
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 62
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+      CollectableChestPickupRadius:
+        RawValue: 111411
+      CollectTime:
+        RawValue: 131072
+    - Id: 130
+      ChestType: 1
+      AutoOpen: 0
+      DropTables:
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 62
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 126
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 1
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 89
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 126
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 110
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 102
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 119
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 85
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 4
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 20
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 127
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 4
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 20
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 127
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 88
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 3
+        - ItemConfig:
+            SimpleGameId: 78
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 3
+        - ItemConfig:
+            SimpleGameId: 95
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 3
+        - ItemConfig:
+            SimpleGameId: 71
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 5
+        - ItemConfig:
+            SimpleGameId: 93
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 5
+        - ItemConfig:
+            SimpleGameId: 101
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 5
+        - ItemConfig:
+            SimpleGameId: 88
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 88
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 4
+        - ItemConfig:
+            SimpleGameId: 78
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 78
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 4
+        - ItemConfig:
+            SimpleGameId: 95
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 95
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 4
+        - ItemConfig:
+            SimpleGameId: 71
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 71
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 93
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 93
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 101
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 101
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+      - Chance:
+          RawValue: 65
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 61
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+      CollectableChestPickupRadius:
+        RawValue: 111411
+      CollectTime:
+        RawValue: 131072
+    - Id: 19
+      ChestType: 2
       AutoOpen: 0
       DropTables:
       - Chance:
@@ -44,7 +669,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 4
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 20
             EquipmentMetadata:
@@ -63,7 +688,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 127
             EquipmentMetadata:
@@ -82,68 +707,11 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 5
+          Weight: 1
       - Chance:
-          RawValue: 13107
+          RawValue: 65536
         Amount: 1
         Pool:
-        - ItemConfig:
-            SimpleGameId: 85
-            EquipmentMetadata:
-              Adjective: 0
-              Edition: 0
-              Faction: 0
-              GameId: 0
-              Generation: 0
-              Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
-              Level: 0
-              Material: 0
-              MaxDurability: 0
-              Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
-          Weight: 4
-        - ItemConfig:
-            SimpleGameId: 141
-            EquipmentMetadata:
-              Adjective: 0
-              Edition: 0
-              Faction: 0
-              GameId: 0
-              Generation: 0
-              Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
-              Level: 0
-              Material: 0
-              MaxDurability: 0
-              Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
-          Weight: 5
-        - ItemConfig:
-            SimpleGameId: 102
-            EquipmentMetadata:
-              Adjective: 0
-              Edition: 0
-              Faction: 0
-              GameId: 0
-              Generation: 0
-              Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
-              Level: 0
-              Material: 0
-              MaxDurability: 0
-              Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
-          Weight: 5
         - ItemConfig:
             SimpleGameId: 62
             EquipmentMetadata:
@@ -162,13 +730,9 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 5
-      - Chance:
-          RawValue: 655
-        Amount: 1
-        Pool:
+          Weight: 1
         - ItemConfig:
-            SimpleGameId: 61
+            SimpleGameId: 89
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -185,9 +749,9 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 6
+          Weight: 1
         - ItemConfig:
-            SimpleGameId: 26
+            SimpleGameId: 110
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -205,68 +769,82 @@ MonoBehaviour:
               TotalRestoredDurability: 0
               Tuning: 0
           Weight: 3
-      CollectableChestPickupRadius:
-        RawValue: 111411
-      CollectTime:
-        RawValue: 131072
-    - Id: 130
-      ChestType: 1
-      AutoOpen: 0
-      DropTables:
-      - Chance:
-          RawValue: 65536
-        Amount: 1
-        Pool:
         - ItemConfig:
-            SimpleGameId: 0
+            SimpleGameId: 102
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 126
+              GameId: 0
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
               LastRepairTimestamp: 0
               Level: 0
-              Material: 1
+              Material: 0
               MaxDurability: 0
               Rarity: 0
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 1000
+          Weight: 3
         - ItemConfig:
-            SimpleGameId: 0
+            SimpleGameId: 119
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 126
+              GameId: 0
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
               LastRepairTimestamp: 0
               Level: 0
-              Material: 4
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 3
+        - ItemConfig:
+            SimpleGameId: 85
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
               MaxDurability: 0
               Rarity: 0
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
           Weight: 1
-      CollectableChestPickupRadius:
-        RawValue: 111411
-      CollectTime:
-        RawValue: 131072
-    - Id: 19
-      ChestType: 2
-      AutoOpen: 0
-      DropTables:
-      - Chance:
-          RawValue: 65536
-        Amount: 2
-        Pool:
+        - ItemConfig:
+            SimpleGameId: 4
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 20
             EquipmentMetadata:
@@ -285,7 +863,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 127
             EquipmentMetadata:
@@ -304,36 +882,70 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
-      - Chance:
-          RawValue: 65536
-        Amount: 1
-        Pool:
-        - ItemConfig:
-            SimpleGameId: 0
-            EquipmentMetadata:
-              Adjective: 0
-              Edition: 0
-              Faction: 0
-              GameId: 126
-              Generation: 0
-              Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
-              Level: 0
-              Material: 4
-              MaxDurability: 0
-              Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
       - Chance:
           RawValue: 65536
         Amount: 1
         Pool:
         - ItemConfig:
-            SimpleGameId: 61
+            SimpleGameId: 88
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 78
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 95
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 71
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -352,7 +964,163 @@ MonoBehaviour:
               Tuning: 0
           Weight: 2
         - ItemConfig:
-            SimpleGameId: 26
+            SimpleGameId: 93
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 101
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 88
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 88
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 5
+        - ItemConfig:
+            SimpleGameId: 78
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 78
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 5
+        - ItemConfig:
+            SimpleGameId: 95
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 95
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 5
+        - ItemConfig:
+            SimpleGameId: 71
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 71
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 7
+        - ItemConfig:
+            SimpleGameId: 93
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 93
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 7
+        - ItemConfig:
+            SimpleGameId: 101
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 101
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 7
+      - Chance:
+          RawValue: 65
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 61
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -374,3 +1142,206 @@ MonoBehaviour:
         RawValue: 131072
       CollectTime:
         RawValue: 229376
+    - Id: 132
+      ChestType: 3
+      AutoOpen: 0
+      DropTables:
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 102
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 20
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 78
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 78
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+      CollectableChestPickupRadius:
+        RawValue: 111411
+      CollectTime:
+        RawValue: 131072
+    - Id: 134
+      ChestType: 4
+      AutoOpen: 1
+      DropTables:
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 88
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 78
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 95
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 71
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 93
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 101
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+      CollectableChestPickupRadius:
+        RawValue: 111411
+      CollectTime:
+        RawValue: 131072

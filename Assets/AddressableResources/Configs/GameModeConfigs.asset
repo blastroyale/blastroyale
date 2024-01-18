@@ -58,7 +58,7 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 1
-      MetaCoinsMultiplier: 20
+      MetaCoinsMultiplier: 100
       MetaBppMultiplier: 10
       IsDebugOnly: 0
       Systems:
@@ -106,7 +106,7 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 1
-      MetaCoinsMultiplier: 5
+      MetaCoinsMultiplier: 100
       MetaBppMultiplier: 3
       IsDebugOnly: 0
       Systems:
@@ -286,7 +286,7 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 1
-      MetaCoinsMultiplier: 1
+      MetaCoinsMultiplier: 100
       MetaBppMultiplier: 1
       IsDebugOnly: 1
       Systems:
@@ -334,7 +334,7 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 1
-      MetaCoinsMultiplier: 1
+      MetaCoinsMultiplier: 100
       MetaBppMultiplier: 1
       IsDebugOnly: 0
       Systems:

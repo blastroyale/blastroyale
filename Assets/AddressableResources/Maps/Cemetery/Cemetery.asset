@@ -2975,6 +2975,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3115,6 +3116,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3255,6 +3257,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3395,6 +3398,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3587,6 +3591,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3779,6 +3784,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3971,6 +3977,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -4163,6 +4170,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -4355,6 +4363,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -4547,6 +4556,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -4739,6 +4749,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -4931,6 +4942,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -5123,6 +5135,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -5206,6 +5219,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -5289,6 +5303,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -5372,6 +5387,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -5455,6 +5471,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -5538,6 +5555,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -5621,6 +5639,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -5704,6 +5723,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -5787,6 +5807,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -5870,6 +5891,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -5953,6 +5975,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6036,6 +6059,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6119,6 +6143,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6202,6 +6227,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6285,6 +6311,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6368,6 +6395,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6451,6 +6479,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6534,6 +6563,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6617,6 +6647,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6700,6 +6731,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6783,6 +6815,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6866,6 +6899,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6949,6 +6983,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7032,6 +7067,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7115,6 +7151,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7198,6 +7235,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7281,6 +7319,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7364,6 +7403,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7447,6 +7487,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7530,6 +7571,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7613,6 +7655,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7696,6 +7739,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7779,6 +7823,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7862,6 +7907,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7945,6 +7991,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8028,6 +8075,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8111,6 +8159,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8194,6 +8243,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8277,6 +8327,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8360,6 +8411,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8443,6 +8495,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8526,6 +8579,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8609,6 +8663,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8692,6 +8747,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8775,6 +8831,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8858,6 +8915,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8941,6 +8999,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9024,6 +9083,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9107,6 +9167,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9190,6 +9251,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9273,6 +9335,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9356,6 +9419,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9439,6 +9503,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9522,6 +9587,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9605,6 +9671,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9688,6 +9755,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9771,6 +9839,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9854,6 +9923,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9937,6 +10007,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10020,6 +10091,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10103,6 +10175,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10186,6 +10259,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10269,6 +10343,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10352,6 +10427,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10435,6 +10511,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10518,6 +10595,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10601,6 +10679,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10684,6 +10763,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10767,6 +10847,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10850,6 +10931,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10933,6 +11015,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11016,6 +11099,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11099,6 +11183,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11182,6 +11267,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11265,6 +11351,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11348,6 +11435,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11431,6 +11519,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11515,6 +11604,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11593,6 +11683,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11671,6 +11762,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11749,6 +11841,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11827,6 +11920,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11905,6 +11999,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11983,6 +12078,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12061,6 +12157,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12139,6 +12236,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12217,6 +12315,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12295,6 +12394,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12373,6 +12473,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12451,6 +12552,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12529,6 +12631,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12607,6 +12710,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12685,6 +12789,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12754,6 +12859,82 @@ MonoBehaviour:
     Chest: []
     ChestContents: []
     Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup:
+    - Entities:
+      - SceneIndexPlusOne: 107
+      - SceneIndexPlusOne: 108
+      - SceneIndexPlusOne: 109
+      EntitiesToKeep: 1
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D:
+    - Position:
+        X:
+          RawValue: -655360
+        Y:
+          RawValue: -924057
+      Rotation:
+        RawValue: -2162687
+    Transform2DVertical: []
+    Transform3D: []
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -12774,6 +12955,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12818,11 +13000,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -526718
+          RawValue: -531174
         Y:
           RawValue: 6553
         Z:
-          RawValue: -***REMOVED***8
+          RawValue: -534285
       Rotation:
         X:
           RawValue: 0
@@ -12863,6 +13045,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12907,11 +13090,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -276212
+          RawValue: -280668
         Y:
           RawValue: 6553
         Z:
-          RawValue: 845021
+          RawValue: 792434
       Rotation:
         X:
           RawValue: 0
@@ -12952,6 +13135,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12996,11 +13180,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 387945
+          RawValue: 383488
         Y:
           RawValue: 6553
         Z:
-          RawValue: 849749
+          RawValue: 797161
       Rotation:
         X:
           RawValue: 0
@@ -13041,6 +13225,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13130,6 +13315,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13219,6 +13405,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13308,6 +13495,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13397,6 +13585,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13486,6 +13675,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13575,6 +13765,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13664,6 +13855,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13753,6 +13945,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13842,6 +14035,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13931,6 +14125,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14020,6 +14215,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14109,6 +14305,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14187,7 +14384,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -14198,6 +14395,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14242,16 +14440,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1149627
+          RawValue: -1164511
         Y:
-          RawValue: 6553
+          RawValue: 13107
         Z:
-          RawValue: -1300109
+          RawValue: -1317012
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 2162687
+          RawValue: 4325375
         Z:
           RawValue: 0
     View: []
@@ -14276,7 +14474,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -14287,6 +14485,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14331,16 +14530,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -969855
+          RawValue: -965707
         Y:
-          RawValue: 6553
+          RawValue: 13107
         Z:
-          RawValue: -333797
+          RawValue: -331020
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 2162687
+          RawValue: 4325375
         Z:
           RawValue: 0
     View: []
@@ -14365,7 +14564,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -14376,6 +14575,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14420,16 +14620,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -900946
+          RawValue: -897676
         Y:
-          RawValue: 6553
+          RawValue: 13107
         Z:
-          RawValue: 645903
+          RawValue: 646124
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 2162687
+          RawValue: 4325375
         Z:
           RawValue: 0
     View: []
@@ -14454,7 +14654,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -14465,6 +14665,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14509,16 +14710,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -131525
+          RawValue: -128228
         Y:
-          RawValue: 6553
+          RawValue: 13107
         Z:
-          RawValue: -1086074
+          RawValue: -1088215
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 2162687
+          RawValue: 4325375
         Z:
           RawValue: 0
     View: []
@@ -14543,7 +14744,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -14554,6 +14755,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14598,16 +14800,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 147061
+          RawValue: 150852
         Y:
-          RawValue: 6553
+          RawValue: 13107
         Z:
-          RawValue: -294895
+          RawValue: -292668
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 2162687
+          RawValue: 4325375
         Z:
           RawValue: 0
     View: []
@@ -14632,7 +14834,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -14643,6 +14845,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14687,16 +14890,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 50800
+          RawValue: 49151
         Y:
-          RawValue: 6553
+          RawValue: 13107
         Z:
-          RawValue: 543574
+          RawValue: 544645
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 2162687
+          RawValue: 4325375
         Z:
           RawValue: 0
     View: []
@@ -14721,7 +14924,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -14732,6 +14935,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14776,16 +14980,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1171430
+          RawValue: 1174043
         Y:
-          RawValue: 6553
+          RawValue: 13107
         Z:
-          RawValue: -1340683
+          RawValue: -1346287
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 2162687
+          RawValue: 4325375
         Z:
           RawValue: 0
     View: []
@@ -14810,7 +15014,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -14821,6 +15025,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14865,16 +15070,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1155542
+          RawValue: 1165543
         Y:
-          RawValue: 6553
+          RawValue: 13107
         Z:
-          RawValue: -398904
+          RawValue: -399147
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 2162687
+          RawValue: 4325375
         Z:
           RawValue: 0
     View: []
@@ -14899,7 +15104,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -14910,6 +15115,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14954,16 +15160,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1338360
+          RawValue: 1330608
         Y:
-          RawValue: 6553
+          RawValue: 13107
         Z:
-          RawValue: 842837
+          RawValue: 852560
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 2162687
+          RawValue: 4325375
         Z:
           RawValue: 0
     View: []
@@ -14988,7 +15194,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -14999,6 +15205,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15043,16 +15250,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 891592
+          RawValue: 881184
         Y:
-          RawValue: 6553
+          RawValue: 13107
         Z:
-          RawValue: 1397875
+          RawValue: 1386661
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 2162687
+          RawValue: 4325375
         Z:
           RawValue: 0
     View: []
@@ -15077,7 +15284,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -15088,6 +15295,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15132,16 +15340,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -466952
+          RawValue: -463790
         Y:
-          RawValue: 6553
+          RawValue: 13107
         Z:
-          RawValue: 1408051
+          RawValue: 1402091
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 2162687
+          RawValue: 4325375
         Z:
           RawValue: 0
     View: []
@@ -15177,6 +15385,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15266,6 +15475,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15355,6 +15565,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15409,6 +15620,276 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 3
+      GameId:
+        Value: 131
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 984308
+        Y:
+          RawValue: 13107
+        Z:
+          RawValue: -1349662
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 4325375
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 3
+      GameId:
+        Value: 131
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -80554
+        Y:
+          RawValue: 13107
+        Z:
+          RawValue: 1533769
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 4325375
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 3
+      GameId:
+        Value: 131
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1419663
+        Y:
+          RawValue: 13107
+        Z:
+          RawValue: -1382617
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 4325375
         Z:
           RawValue: 0
     View: []

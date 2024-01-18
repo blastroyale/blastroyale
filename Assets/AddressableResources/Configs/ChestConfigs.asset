@@ -1142,3 +1142,206 @@ MonoBehaviour:
         RawValue: 131072
       CollectTime:
         RawValue: 229376
+    - Id: 132
+      ChestType: 3
+      AutoOpen: 0
+      DropTables:
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 70
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 20
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 78
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+      CollectableChestPickupRadius:
+        RawValue: 111411
+      CollectTime:
+        RawValue: 131072
+    - Id: 134
+      ChestType: 4
+      AutoOpen: 1
+      DropTables:
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 88
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 78
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 95
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 71
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 93
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 101
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+      CollectableChestPickupRadius:
+        RawValue: 111411
+      CollectTime:
+        RawValue: 131072

@@ -61,6 +61,8 @@ namespace FirstLight.Editor.Ids
 		internal static GameIdHolder GameIds = new ()
 		{
 			{"Random", 0, GameDesign},
+			{"Any", 126, GameDesign },
+			
 			{"RealMoney", 125, Currency},
 			{"COIN", 61, Currency},
 			{"BlastBuck", 105, Currency},

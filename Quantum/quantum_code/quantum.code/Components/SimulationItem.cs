@@ -1,3 +1,5 @@
+using System;
+
 namespace Quantum
 {
 	public enum ItemType
@@ -18,7 +20,10 @@ namespace Quantum
 				return ItemType.Undefined;
 			}
 		}
-
+		
+		/// <summary>
+		/// Creates an equipment type of item
+		/// </summary>
 		public static SimulationItem CreateEquipment(Equipment e)
 		{
 			var i = new SimulationItem();
@@ -27,11 +32,29 @@ namespace Quantum
 			return i;
 		}
 
+		/// <summary>
+		/// Creates an item that only consists of a game id
+		/// </summary>
 		public static SimulationItem CreateSimple(GameId id)
 		{
 			var i = new SimulationItem();
 			i.SimpleItem->Id = id;
 			return i;
+		}
+
+		public static SimulationItem FromConfig(SimulationItemConfig config)
+		{
+			if (config.EquipmentMetadata.IsValid())
+			{
+				var item = CreateEquipment(config.EquipmentMetadata);
+				if (item.EquipmentItem->Level == 0) item.EquipmentItem->Level = 1;
+				return item;
+			}
+			if (config.SimpleGameId == GameId.Random)
+			{
+				throw new Exception("Invalid item config for simple id " + config.SimpleGameId);
+			}
+			return CreateSimple(config.SimpleGameId);
 		}
 	}
 }

@@ -1,23 +1,32 @@
 using System;
 using System.Collections.Generic;
 using Photon.Deterministic;
+using Sirenix.OdinInspector;
 
 namespace Quantum
 {
 	[Serializable]
-	public class QuantumChestRarityModifierEntry
+	public struct WeightedItem
 	{
-		public FP Chance;
-		public ChestType NewType;
-	}
-
-	[Serializable]
-	public struct WeightedGameId
-	{
-		public GameId Id;
+		public SimulationItemConfig ItemConfig;
 		public int Weight;
 	}
-
+	
+	[Serializable]
+	public struct SimulationItemConfig
+	{
+		/// <summary>
+		/// Used when item has only a single item id.
+		/// Leave "Random" when using metadata
+		/// </summary>
+		public GameId SimpleGameId;
+		
+		/// <summary>
+		/// Used to define an equipment item
+		/// </summary>
+		public Equipment EquipmentMetadata;
+	}
+	
 	[Serializable]
 	public class WeightedPoolDrop
 	{
@@ -34,7 +43,7 @@ namespace Quantum
 		/// <summary>
 		/// Pool of items that the wheighted random will pick
 		/// </summary>
-		public List<WeightedGameId> Pool;
+		public List<WeightedItem> Pool;
 	}
 
 	[Serializable]
@@ -42,12 +51,9 @@ namespace Quantum
 	{
 		public GameId Id;
 		public ChestType ChestType;
-
-		public FP GoldenGunChance;
+		
 		public bool AutoOpen;
 		public List<WeightedPoolDrop> DropTables;
-		
-		public List<QuantumPair<FP, uint>> RandomEquipment;
 
 		public FP CollectableChestPickupRadius;
 		public FP CollectTime;

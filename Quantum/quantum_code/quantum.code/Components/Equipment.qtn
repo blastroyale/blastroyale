@@ -14,23 +14,21 @@ struct EquipmentMinified {
 struct Equipment
 {
 	GameId GameId;
-	EquipmentEdition Edition;
 	EquipmentRarity Rarity;
-	EquipmentGrade Grade;
-	EquipmentFaction Faction;
-	EquipmentAdjective Adjective;
 	EquipmentMaterial Material;
-	
-	UInt32 MaxDurability;
-	UInt32 InitialReplicationCounter;
-	UInt32 Tuning;
-	
-	UInt32 Level;
-	UInt32 Generation;
-	UInt32 ReplicationCounter;
-	UInt64 TotalRestoredDurability;
-	
-	Int64 LastRepairTimestamp;
+    UInt32 Level;
+    		
+	[HideInInspector] EquipmentEdition Edition;
+	[HideInInspector] EquipmentGrade Grade;
+	[HideInInspector] EquipmentFaction Faction;
+	[HideInInspector] EquipmentAdjective Adjective;	
+	[HideInInspector] UInt32 MaxDurability;
+	[HideInInspector] UInt32 InitialReplicationCounter;
+	[HideInInspector] UInt32 Tuning;	
+	[HideInInspector] UInt32 Generation;
+	[HideInInspector] UInt32 ReplicationCounter;
+	[HideInInspector] UInt64 TotalRestoredDurability;
+	[HideInInspector] Int64 LastRepairTimestamp;
 }
 
 enum EquipmentEdition

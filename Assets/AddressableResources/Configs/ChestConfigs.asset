@@ -20,93 +20,356 @@ MonoBehaviour:
     QuantumConfigs:
     - Id: 131
       ChestType: 0
-      GoldenGunChance:
-        RawValue: 0
-      AutoOpen: 1
+      AutoOpen: 0
       DropTables:
       - Chance:
           RawValue: 65536
         Amount: 1
         Pool:
-        - Id: 4
-          Weight: 5
-        - Id: 127
-          Weight: 5
-        - Id: 20
+        - ItemConfig:
+            SimpleGameId: 4
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 4
+        - ItemConfig:
+            SimpleGameId: 20
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
           Weight: 2
+        - ItemConfig:
+            SimpleGameId: 127
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 5
       - Chance:
           RawValue: 13107
         Amount: 1
         Pool:
-        - Id: 102
+        - ItemConfig:
+            SimpleGameId: 85
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
           Weight: 4
-        - Id: 141
+        - ItemConfig:
+            SimpleGameId: 141
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
           Weight: 5
-        - Id: 85
+        - ItemConfig:
+            SimpleGameId: 102
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
           Weight: 5
-        - Id: 62
+        - ItemConfig:
+            SimpleGameId: 62
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
           Weight: 5
-        - Id: 10
-          Weight: 1
       - Chance:
           RawValue: 655
         Amount: 1
         Pool:
-        - Id: 61
+        - ItemConfig:
+            SimpleGameId: 61
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
           Weight: 6
-        - Id: 26
+        - ItemConfig:
+            SimpleGameId: 26
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
           Weight: 3
-      RandomEquipment: []
       CollectableChestPickupRadius:
         RawValue: 111411
       CollectTime:
         RawValue: 131072
     - Id: 130
       ChestType: 1
-      GoldenGunChance:
-        RawValue: 3276
-      AutoOpen: 1
-      DropTables: []
-      RandomEquipment:
-      - Value1:
+      AutoOpen: 0
+      DropTables:
+      - Chance:
           RawValue: 65536
-        Value2: 1
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 0
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 126
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 1
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1000
+        - ItemConfig:
+            SimpleGameId: 0
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 126
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
       CollectableChestPickupRadius:
         RawValue: 111411
       CollectTime:
         RawValue: 131072
     - Id: 19
       ChestType: 2
-      GoldenGunChance:
-        RawValue: 65536
       AutoOpen: 0
       DropTables:
       - Chance:
           RawValue: 65536
         Amount: 2
         Pool:
-        - Id: 20
+        - ItemConfig:
+            SimpleGameId: 20
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
           Weight: 2
-        - Id: 20
+        - ItemConfig:
+            SimpleGameId: 127
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
           Weight: 2
       - Chance:
           RawValue: 65536
         Amount: 1
         Pool:
-        - Id: 102
+        - ItemConfig:
+            SimpleGameId: 0
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 126
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 4
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
           Weight: 1
       - Chance:
           RawValue: 65536
         Amount: 1
         Pool:
-        - Id: 61
+        - ItemConfig:
+            SimpleGameId: 61
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
           Weight: 2
-        - Id: 26
+        - ItemConfig:
+            SimpleGameId: 26
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
           Weight: 1
-      RandomEquipment:
-      - Value1:
-          RawValue: 65536
-        Value2: 2
       CollectableChestPickupRadius:
         RawValue: 131072
       CollectTime:

@@ -62,6 +62,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.Any, new List<GameIdGroup>
+					{
+						GameIdGroup.GameDesign
+					}.AsReadOnly()
+				},
+				{
 					GameId.RealMoney, new List<GameIdGroup>
 					{
 						GameIdGroup.Currency
@@ -1547,7 +1553,8 @@ namespace Quantum
 				{
 					GameIdGroup.GameDesign, new List<GameId>
 					{
-						GameId.Random
+						GameId.Random,
+						GameId.Any
 					}.AsReadOnly()
 				},
 				{

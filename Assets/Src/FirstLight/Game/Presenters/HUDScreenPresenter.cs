@@ -48,7 +48,7 @@ namespace FirstLight.Game.Presenters
 		private Gradient _outOfAmmoGradient;
 
 		[SerializeField, Required, TabGroup("Animation")]
-		private int _lowHPThreshold = 50;
+		private int _lowHPThreshold = 10;
 
 		[SerializeField, Required, TabGroup("Input")]
 		private UnityInputScreenControl _moveDirectionJoystickInput;

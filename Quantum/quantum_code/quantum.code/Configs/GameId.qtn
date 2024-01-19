@@ -103,6 +103,7 @@ enum GameId
 	SpecialAimingGrenade = 102,
 	SpecialDefaultDash = 141,
 	SpecialRadar = 62,
+	SpecialLandmine = 666,
 	TutorialGrenade = 70,
 	Barrel = 109,
 	Barrier = 72,

@@ -135,7 +135,7 @@ namespace FirstLight.Game.Presenters
 			Update3DObject().Forget();
 		}
 
-		protected override Task OnClosed()
+		protected override UniTask OnClosed()
 		{
 			if (_seenItems.Count > 0)
 			{
@@ -156,6 +156,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			return base.OnClosed();
+			
 		}
 
 		private void SetupCategories()

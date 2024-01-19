@@ -19749,7 +19749,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159690803613263917, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: m_Animations.Array.size
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4159690803613263917, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: m_Animations.Array.data[0]

@@ -41,6 +41,9 @@ MonoBehaviour:
     AirDropPrototype:
       Id:
         Value: 515801528670249359
+    LandMinePrototype:
+      Id:
+        Value: 182712282339768594
     BotNavMeshConfig:
       Id:
         Value: 1093005050644660195

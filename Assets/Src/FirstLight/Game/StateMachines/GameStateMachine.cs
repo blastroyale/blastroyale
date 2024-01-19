@@ -238,8 +238,8 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.LoadUiAsync<GenericPurchaseDialogPresenter>();
 			await _uiService.LoadUiAsync<GenericInputDialogPresenter>();
 			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
-			await Task.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
-
+			await UniTask.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
+			
 			var dic = new Dictionary<string, object>
 			{
 				{"client_version", VersionUtils.VersionInternal},

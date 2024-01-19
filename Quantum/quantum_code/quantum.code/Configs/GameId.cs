@@ -771,6 +771,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.SpecialLandmine, new List<GameIdGroup>
+					{
+						GameIdGroup.Special
+					}.AsReadOnly()
+				},
+				{
 					GameId.TutorialGrenade, new List<GameIdGroup>
 					{
 						GameIdGroup.Special
@@ -2011,6 +2017,7 @@ namespace Quantum
 						GameId.SpecialAimingGrenade,
 						GameId.SpecialDefaultDash,
 						GameId.SpecialRadar,
+						GameId.SpecialLandmine,
 						GameId.TutorialGrenade
 					}.AsReadOnly()
 				},

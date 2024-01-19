@@ -35,6 +35,7 @@ namespace Quantum
 				new VisibilityAreaSystem(), 
 				new GameItemCollectableSystem(),
 				new EntityGroupSystem(),
+				new LandMineSystem(),
 				
 				// Update systems - Update & OnInit & Signal order matters
 				new CommandsSystem(),

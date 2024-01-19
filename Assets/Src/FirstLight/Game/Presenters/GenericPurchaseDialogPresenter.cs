@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -37,12 +38,20 @@ namespace FirstLight.Game.Presenters
 			Close(false);
 		}
 
-		protected override Task OnClosed()
+		protected override void Close(bool destroy)
+		{
+			// TODO - check if IsOpenedComplete check needs to be added to prevent "closing too early" edge cases
+			base.Close(destroy);
+			_blockerButton.clicked -= CloseRequested;
+			_buyButton.clicked -= CloseRequested;
+			_buyButton.clicked -= OnBuyButtonClicked;
+		}
+
+		protected override UniTask OnClosed()
 		{
 			_closeCallback?.Invoke();
 			return base.OnClosed();
 		}
-
 
 		protected override void QueryElements(VisualElement root)
 		{

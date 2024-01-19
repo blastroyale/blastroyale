@@ -25,14 +25,14 @@ namespace FirstLight.Editor.EditorTools.Generated
 				EditorApplication.delayCall += () =>
 			{
 				Menu.SetChecked("FLG/Local Flags/Use local server", IsUseLocalServer);
-Menu.SetChecked("FLG/Local Flags/Offline mode", IsOfflineMode);
 Menu.SetChecked("FLG/Local Flags/Use local configs", IsUseLocalConfigs);
-Menu.SetChecked("FLG/Local Flags/Unblock NFTs only content", IsForceHasNfts);
-Menu.SetChecked("FLG/Local Flags/Unblock Equipment requirements", IsIgnoreEquipmentRequirementForRanked);
 Menu.SetChecked("FLG/Local Flags/Record quantum input", IsRecordQuantumInput);
-Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGameAutomatically);
 Menu.SetChecked("FLG/Local Flags/Force Authentication Connection Error", IsForceAuthError);
-Menu.SetChecked("FLG/Local Flags/Disable Pause Behaviour", IsDisablePauseBehaviour);
+Menu.SetChecked("FLG/Local Flags/Dev QOL/Disable Pause Behaviour", IsDisablePauseBehaviour);
+Menu.SetChecked("FLG/Local Flags/Dev QOL/Offline mode", IsOfflineMode);
+Menu.SetChecked("FLG/Local Flags/Dev QOL/Autostart test game", IsStartTestGameAutomatically);
+Menu.SetChecked("FLG/Local Flags/Dev QOL/Unlock all fame stuff", IsUnlockAllFameStuff);
+Menu.SetChecked("FLG/Local Flags/Dev QOL/Disable Reconnection", IsDisableReconnection);
 
 				Menu.SetChecked("FLG/Local Flags/Symbols/Enable bot debug visuals", IsBotDebug);
 
@@ -55,18 +55,6 @@ UpdateSelectionEnvironmentOverride();
 		}
 
 
-		private static bool IsOfflineMode
-		{
-			get => FeatureFlags.GetLocalConfiguration().OfflineMode;
-			set
-			{
-				FeatureFlags.GetLocalConfiguration().OfflineMode = value;
-				Debug.Log("Setting OfflineMode to "+value);
-				FeatureFlags.SaveLocalConfig();
-			}
-		}
-
-
 		private static bool IsUseLocalConfigs
 		{
 			get => FeatureFlags.GetLocalConfiguration().UseLocalConfigs;
@@ -79,30 +67,6 @@ UpdateSelectionEnvironmentOverride();
 		}
 
 
-		private static bool IsForceHasNfts
-		{
-			get => FeatureFlags.GetLocalConfiguration().ForceHasNfts;
-			set
-			{
-				FeatureFlags.GetLocalConfiguration().ForceHasNfts = value;
-				Debug.Log("Setting ForceHasNfts to "+value);
-				FeatureFlags.SaveLocalConfig();
-			}
-		}
-
-
-		private static bool IsIgnoreEquipmentRequirementForRanked
-		{
-			get => FeatureFlags.GetLocalConfiguration().IgnoreEquipmentRequirementForRanked;
-			set
-			{
-				FeatureFlags.GetLocalConfiguration().IgnoreEquipmentRequirementForRanked = value;
-				Debug.Log("Setting IgnoreEquipmentRequirementForRanked to "+value);
-				FeatureFlags.SaveLocalConfig();
-			}
-		}
-
-
 		private static bool IsRecordQuantumInput
 		{
 			get => FeatureFlags.GetLocalConfiguration().RecordQuantumInput;
@@ -110,18 +74,6 @@ UpdateSelectionEnvironmentOverride();
 			{
 				FeatureFlags.GetLocalConfiguration().RecordQuantumInput = value;
 				Debug.Log("Setting RecordQuantumInput to "+value);
-				FeatureFlags.SaveLocalConfig();
-			}
-		}
-
-
-		private static bool IsStartTestGameAutomatically
-		{
-			get => FeatureFlags.GetLocalConfiguration().StartTestGameAutomatically;
-			set
-			{
-				FeatureFlags.GetLocalConfiguration().StartTestGameAutomatically = value;
-				Debug.Log("Setting StartTestGameAutomatically to "+value);
 				FeatureFlags.SaveLocalConfig();
 			}
 		}
@@ -150,6 +102,54 @@ UpdateSelectionEnvironmentOverride();
 			}
 		}
 
+
+		private static bool IsOfflineMode
+		{
+			get => FeatureFlags.GetLocalConfiguration().OfflineMode;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().OfflineMode = value;
+				Debug.Log("Setting OfflineMode to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
+
+		private static bool IsStartTestGameAutomatically
+		{
+			get => FeatureFlags.GetLocalConfiguration().StartTestGameAutomatically;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().StartTestGameAutomatically = value;
+				Debug.Log("Setting StartTestGameAutomatically to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
+
+		private static bool IsUnlockAllFameStuff
+		{
+			get => FeatureFlags.GetLocalConfiguration().UnlockAllFameStuff;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().UnlockAllFameStuff = value;
+				Debug.Log("Setting UnlockAllFameStuff to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
+
+		private static bool IsDisableReconnection
+		{
+			get => FeatureFlags.GetLocalConfiguration().DisableReconnection;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().DisableReconnection = value;
+				Debug.Log("Setting DisableReconnection to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
 		
 				private static bool IsBotDebug
 		{
@@ -167,35 +167,11 @@ UpdateSelectionEnvironmentOverride();
 		}
 
 
-		[MenuItem("FLG/Local Flags/Offline mode", false, 5)]
-		private static void ToggleOfflineMode()
-		{
-			IsOfflineMode = !IsOfflineMode;
-			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Offline mode", IsOfflineMode); };
-		}
-
-
 		[MenuItem("FLG/Local Flags/Use local configs", false, 5)]
 		private static void ToggleUseLocalConfigs()
 		{
 			IsUseLocalConfigs = !IsUseLocalConfigs;
 			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Use local configs", IsUseLocalConfigs); };
-		}
-
-
-		[MenuItem("FLG/Local Flags/Unblock NFTs only content", false, 5)]
-		private static void ToggleForceHasNfts()
-		{
-			IsForceHasNfts = !IsForceHasNfts;
-			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Unblock NFTs only content", IsForceHasNfts); };
-		}
-
-
-		[MenuItem("FLG/Local Flags/Unblock Equipment requirements", false, 5)]
-		private static void ToggleIgnoreEquipmentRequirementForRanked()
-		{
-			IsIgnoreEquipmentRequirementForRanked = !IsIgnoreEquipmentRequirementForRanked;
-			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Unblock Equipment requirements", IsIgnoreEquipmentRequirementForRanked); };
 		}
 
 
@@ -207,14 +183,6 @@ UpdateSelectionEnvironmentOverride();
 		}
 
 
-		[MenuItem("FLG/Local Flags/Start Test Game automatically", false, 5)]
-		private static void ToggleStartTestGameAutomatically()
-		{
-			IsStartTestGameAutomatically = !IsStartTestGameAutomatically;
-			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGameAutomatically); };
-		}
-
-
 		[MenuItem("FLG/Local Flags/Force Authentication Connection Error", false, 5)]
 		private static void ToggleForceAuthError()
 		{
@@ -223,11 +191,43 @@ UpdateSelectionEnvironmentOverride();
 		}
 
 
-		[MenuItem("FLG/Local Flags/Disable Pause Behaviour", false, 5)]
+		[MenuItem("FLG/Local Flags/Dev QOL/Disable Pause Behaviour", false, 5)]
 		private static void ToggleDisablePauseBehaviour()
 		{
 			IsDisablePauseBehaviour = !IsDisablePauseBehaviour;
-			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Disable Pause Behaviour", IsDisablePauseBehaviour); };
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Dev QOL/Disable Pause Behaviour", IsDisablePauseBehaviour); };
+		}
+
+
+		[MenuItem("FLG/Local Flags/Dev QOL/Offline mode", false, 5)]
+		private static void ToggleOfflineMode()
+		{
+			IsOfflineMode = !IsOfflineMode;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Dev QOL/Offline mode", IsOfflineMode); };
+		}
+
+
+		[MenuItem("FLG/Local Flags/Dev QOL/Autostart test game", false, 5)]
+		private static void ToggleStartTestGameAutomatically()
+		{
+			IsStartTestGameAutomatically = !IsStartTestGameAutomatically;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Dev QOL/Autostart test game", IsStartTestGameAutomatically); };
+		}
+
+
+		[MenuItem("FLG/Local Flags/Dev QOL/Unlock all fame stuff", false, 5)]
+		private static void ToggleUnlockAllFameStuff()
+		{
+			IsUnlockAllFameStuff = !IsUnlockAllFameStuff;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Dev QOL/Unlock all fame stuff", IsUnlockAllFameStuff); };
+		}
+
+
+		[MenuItem("FLG/Local Flags/Dev QOL/Disable Reconnection", false, 5)]
+		private static void ToggleDisableReconnection()
+		{
+			IsDisableReconnection = !IsDisableReconnection;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Dev QOL/Disable Reconnection", IsDisableReconnection); };
 		}
 
 		

@@ -1,13 +1,12 @@
 using System;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
-using UnityEngine.Device;
 using UnityEngine.Networking;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -44,24 +43,24 @@ namespace FirstLight.Game.Presenters
 			_terms.clicked += () =>
 			{
 				data.TryGetValue("TERMS_OF_SERVICE_URL", out var termsUrl);
-				_ = DownloadAndShow("Terms of Service", termsUrl, HardCodedTexts.TERMS_OF_SERVICE);
+				DownloadAndShow("Terms of Service", termsUrl, HardCodedTexts.TERMS_OF_SERVICE).Forget();
 			};
 			
 			_privacy.clicked += () =>
 			{
 				data.TryGetValue("PRIVACY_POLICY_URL", out var termsUrl);
-				_ = DownloadAndShow("Privacy Policy", termsUrl, HardCodedTexts.PRIVACY_POLICY);
+				DownloadAndShow("Privacy Policy", termsUrl, HardCodedTexts.PRIVACY_POLICY).Forget();
 			};
 		}
 
-		protected override async Task OnClosed()
+		protected override async UniTask OnClosed()
 		{
 			await base.OnClosed();
 			await _services.GameUiService.CloseUi<GenericScrollingTextDialogPresenter>(true);
 			_services.GameUiService.UnloadUi<GenericScrollingTextDialogPresenter>();
 		}
 		
-		private async Task DownloadAndShow(string title, string url, string defaultValue)
+		private async UniTaskVoid DownloadAndShow(string title, string url, string defaultValue)
 		{
 			var data = new GenericScrollingTextDialogPresenter.StateData()
 			{
@@ -75,8 +74,7 @@ namespace FirstLight.Game.Presenters
 			else
 			{
 				var www = UnityWebRequest.Get(url);
-				www.SendWebRequest();
-				while (!www.isDone) await Task.Yield();
+				await www.SendWebRequest();
 				if (www.result == UnityWebRequest.Result.Success)
 				{
 					FLog.Verbose("Downloaded privacy policy");

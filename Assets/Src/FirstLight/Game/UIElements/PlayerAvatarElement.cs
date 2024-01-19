@@ -97,7 +97,7 @@ namespace FirstLight.Game.UIElements
 			SetStarsColorLevel((uint) colorLevel);
 		}
 
-		public async UniTask LoadFromTask(Task<Sprite> loadSpriteTask)
+		public async UniTask LoadFromTask(UniTask<Sprite> loadSpriteTask)
 		{
 			_avatarHolder.SetVisibility(false);
 			AddToClassList(USS_AVATAR_NFT);

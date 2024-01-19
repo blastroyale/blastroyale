@@ -15,7 +15,7 @@ namespace FirstLight.Game.Ids
 		GrenadeParabolic = 8,
 		CollectableIndicator = 9,
 		GrenadeStunParabolic = 10,
-		ImpactGrenade = 11,
+		Explosion = 11,
 		ImpactGrenadeStun = 12,
 		EnergyShield = 13,
 		Airstrike = 14,

@@ -93,6 +93,12 @@ namespace FirstLight.Game.Views.UITK
 		private void OnFameUpdated(uint _, uint level)
 		{
 			_currentLevel = level;
+			#if UNITY_EDITOR
+			if (FeatureFlags.GetLocalConfiguration().UnlockAllFameStuff)
+			{
+				_currentLevel = 99;
+			}
+			#endif
 			UpdateLock(true);
 		}
 

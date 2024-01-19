@@ -63,7 +63,7 @@ namespace Quantum
 			if (Charges == 0)
 			{
 				inventory->Specials[specialIndex] = default;
-				f.Events.OnPlayerSpecialUpdated(playerRef, playerEntity, (uint) specialIndex, default);
+				f.Events.OnPlayerSpecialUpdated(playerRef, playerEntity, (uint)specialIndex, default);
 			}
 			else
 			{
@@ -91,6 +91,9 @@ namespace Quantum
 					return SpecialGrenade.Use(f, entity, ref this, aimInput, MaxRange);
 				case SpecialType.Radar:
 					return SpecialRadar.Use(f, entity, playerRef, ref this);
+				case SpecialType.Landmine:
+					f.Signals.UseGenericSpecial(this, entity, aimInput, MaxRange);
+					return true;
 				default:
 					return false;
 			}
@@ -98,7 +101,7 @@ namespace Quantum
 
 		public static GameId GetRandomSpecialId(Frame f)
 		{
-			return f.RNG->Next(0, 6) switch
+			return f.RNG->Next(0, 7) switch
 			{
 				0 => GameId.SpecialRadar,
 				1 => GameId.SpecialAimingGrenade,
@@ -106,6 +109,7 @@ namespace Quantum
 				3 => GameId.SpecialShieldSelf,
 				4 => GameId.SpecialAimingStunGrenade,
 				5 => GameId.SpecialSkyLaserBeam,
+				6 => GameId.SpecialLandmine,
 				_ => throw new Exception("Shouldn't happen")
 			};
 		}

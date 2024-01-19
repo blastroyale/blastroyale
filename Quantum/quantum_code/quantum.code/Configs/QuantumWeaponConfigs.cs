@@ -14,7 +14,7 @@ namespace Quantum
 		/// </summary>
 		AreaOfEffect
 	}
-	
+
 	[Serializable]
 	public class QuantumWeaponConfig
 	{
@@ -42,7 +42,7 @@ namespace Quantum
 		public FP InitialAttackCooldown;
 		public FP InitialAttackRampUpTime;
 		public bool UseRangedCam;
-		
+
 		/// <summary>
 		/// Requests if this config is from a melee weapon
 		/// <remarks>
@@ -67,7 +67,7 @@ namespace Quantum
 	{
 		public FP GoldenGunDamageModifier = FP._1_20;
 		public List<QuantumWeaponConfig> QuantumConfigs = new List<QuantumWeaponConfig>();
-		
+
 		private IDictionary<GameId, QuantumWeaponConfig> _dictionary = null;
 
 		private IDictionary<GameId, List<int>> BakedAccuracyMods = null;
@@ -82,6 +82,7 @@ namespace Quantum
 			{
 				BakeAngles(f);
 			}
+
 			var mods = BakedAccuracyMods[weaponId];
 			var mod = mods[f.RNG->Next(0, mods.Count)];
 			return f.RNG->Next(0, 2) == 1 ? -mod : mod;
@@ -107,28 +108,39 @@ namespace Quantum
 					foreach (var distribution in Constants.APPRX_NORMAL_DISTRIBUTION)
 					{
 						var mod = (int)Math.Round(maxAttackAngle / 100d * distribution);
-						accuracies.Add(mod /2);
+						accuracies.Add(mod / 2);
 					}
 				}
+
 				BakedAccuracyMods[config.Id] = accuracies;
 			}
 		}
-		
+
 		/// <summary>
 		/// Requests the <see cref="QuantumWeaponConfig"/> of the given enemy <paramref name="gameId"/>
 		/// </summary>
 		public QuantumWeaponConfig GetConfig(GameId gameId)
 		{
+			TryGetConfig(gameId, out var returnValue);
+			return returnValue;
+		}
+
+		/// <summary>
+		/// Requests the <see cref="QuantumWeaponConfig"/> of the given enemy <paramref name="gameId"/>
+		/// </summary>
+		public bool TryGetConfig(GameId gameId, out QuantumWeaponConfig configValue)
+		{
 			if (_dictionary == null)
 			{
 				_dictionary = new Dictionary<GameId, QuantumWeaponConfig>();
-				
+
 				foreach (var config in QuantumConfigs)
 				{
 					_dictionary.Add(config.Id, config);
 				}
 			}
-			return _dictionary[gameId];
+
+			return _dictionary.TryGetValue(gameId, out configValue);
 		}
 	}
 }

@@ -140,6 +140,25 @@ MonoBehaviour:
               TotalRestoredDurability: 0
               Tuning: 0
           Weight: 2
+        - ItemConfig:
+            SimpleGameId: 666
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
       CollectableChestPickupRadius:
         RawValue: 111411
       CollectTime:
@@ -249,6 +268,25 @@ MonoBehaviour:
           Weight: 1
         - ItemConfig:
             SimpleGameId: 85
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+        - ItemConfig:
+            SimpleGameId: 666
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -809,6 +847,25 @@ MonoBehaviour:
           Weight: 3
         - ItemConfig:
             SimpleGameId: 85
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 1
+        - ItemConfig:
+            SimpleGameId: 666
             EquipmentMetadata:
               Adjective: 0
               Edition: 0

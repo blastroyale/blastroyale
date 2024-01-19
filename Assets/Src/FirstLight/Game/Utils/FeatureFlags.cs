@@ -44,11 +44,6 @@ namespace FirstLight.Game.Utils
 		/// Requests will be routed to local backend. To run, run "StandaloneServer" on backend project.
 		/// </summary>
 		[Description("Use local server")] public bool UseLocalServer = false;
-		
-		/// <summary>
-		/// Requests will be routed to local backend. To run, run "StandaloneServer" on backend project.
-		/// </summary>
-		[Description("Offline mode")] public bool OfflineMode = false;
 
 		/// <summary>
 		/// To use local configurations as opposed to remote configurations.
@@ -61,18 +56,6 @@ namespace FirstLight.Game.Utils
 		[Description("Tutorial")] public FlagOverwrite Tutorial = FlagOverwrite.None;
 
 		/// <summary>
-		/// If we should consider if the player has NFTs even if he doens't
-		/// </summary>
-		[Description("Unblock NFTs only content")]
-		public bool ForceHasNfts = false;
-
-		/// <summary>
-		/// If we ignore equipment requirement to play ranked games
-		/// </summary>
-		[Description("Unblock Equipment requirements")]
-		public bool IgnoreEquipmentRequirementForRanked = false;
-
-		/// <summary>
 		/// Which environment to connect
 		/// </summary>
 		public Environment EnvironmentOverride = Environment.DEV;
@@ -83,12 +66,6 @@ namespace FirstLight.Game.Utils
 		[Description("Record quantum input")] public bool RecordQuantumInput = false;
 
 		/// <summary>
-		/// If automatically starts the test game mode after the game boot up
-		/// </summary>
-		[Description("Start Test Game automatically")]
-		public bool StartTestGameAutomatically = false;
-
-		/// <summary>
 		/// Force authentication connection error
 		/// </summary>
 		[Description("Force Authentication Connection Error")]
@@ -97,8 +74,31 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Force authentication connection error
 		/// </summary>
-		[Description("Disable Pause Behaviour")]
+		[Description("Dev QOL/Disable Pause Behaviour")]
 		public bool DisablePauseBehaviour = false;
+		
+		/// <summary>
+		/// Requests will be routed to local backend. To run, run "StandaloneServer" on backend project.
+		/// </summary>
+		[Description("Dev QOL/Offline mode")] public bool OfflineMode = false;
+		
+		/// <summary>
+		/// If automatically starts the test game mode after the game boot up
+		/// </summary>
+		[Description("Dev QOL/Autostart test game")]
+		public bool StartTestGameAutomatically = false;
+		
+		/// <summary>
+		/// If we should consider if the player has NFTs even if he doens't
+		/// </summary>
+		[Description("Dev QOL/Unlock all fame stuff")]
+		public bool UnlockAllFameStuff = false;
+		
+		/// <summary>
+		/// If we should consider if the player has NFTs even if he doens't
+		/// </summary>
+		[Description("Dev QOL/Disable Reconnection")]
+		public bool DisableReconnection = false;
 	}
 
 

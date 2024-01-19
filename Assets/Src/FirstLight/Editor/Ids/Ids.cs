@@ -163,6 +163,7 @@ namespace FirstLight.Editor.Ids
 			{"SpecialAimingGrenade", 102, Special},
 			{"SpecialDefaultDash", 141, Special},
 			{"SpecialRadar", 62, Special},
+			{"SpecialLandmine", 666, Special},
 			{"TutorialGrenade", 70, Special},
 			{"Barrel", 109, Destructible},
 			{"Barrier", 72, Destructible},

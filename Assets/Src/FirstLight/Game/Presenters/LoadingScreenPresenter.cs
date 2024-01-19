@@ -34,16 +34,7 @@ namespace FirstLight.Game.Presenters
 			{
 				labelsContainer.Add(new Label($"Tutorial: {config.Tutorial.Bool()}"));
 			}
-
-			if (config.ForceHasNfts)
-			{
-				labelsContainer.Add(new Label("Have NFTs"));
-			}
-
-			if (config.IgnoreEquipmentRequirementForRanked)
-			{
-				labelsContainer.Add(new Label("Ranked w/o Equip"));
-			}
+			
 #endif
 
 			labelsContainer.Add(new Label($"v{VersionUtils.VersionExternal}"));

@@ -18,7 +18,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 		{
 			_rigidbody = _rigidbody == null ? GetComponent<Rigidbody>() : _rigidbody;
 		}
-
+		
 		/// <summary>
 		/// Starts the parabolic vfx to play during the given <paramref name="flyTime"/> to reach the given <paramref name="targetPosition"/>
 		/// </summary>

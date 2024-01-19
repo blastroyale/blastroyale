@@ -11,7 +11,7 @@ namespace Quantum
 		/// for when a project misses.
 		/// Edge case: Player shoots with weapon A and swaps to weapon B before the projectile hits.
 		/// </summary>
-		public FP GetPower(in Frame f)
+		public readonly FP GetPower(in Frame f)
 		{
 			var weaponConfig = f.WeaponConfigs.GetConfig(SourceId);
 			if (!f.TryGet<Stats>(Attacker, out var stats)) return 0;
@@ -23,27 +23,37 @@ namespace Quantum
 					dmg *= f.WeaponConfigs.GoldenGunDamageModifier;
 				}
 			}
+
 			if (DamagePct != 0) dmg *= (DamagePct / FP._100);
 			return dmg;
 		}
 
-		public QuantumWeaponConfig WeaponConfig(Frame f) => f.WeaponConfigs.GetConfig(SourceId); 
 
-		public bool ShouldPerformSubProjectileOnHit(Frame f)
-		{
-			return WeaponConfig(f).BulletHitPrototype != null && Iteration == 0;
-		}
-
-		public bool IsSubProjectile()
+		public readonly bool IsSubProjectile()
 		{
 			return Iteration > 0;
 		}
 
-		public bool ConfigHasSubprojectile(Frame f)
+		private readonly bool ConfigHasSubprojectile(Frame f)
 		{
-			return WeaponConfig(f).BulletEndOfLifetimePrototype != null;
+			if (f.WeaponConfigs.TryGetConfig(SourceId, out var config))
+			{
+				return config.BulletEndOfLifetimePrototype != null;
+			}
+
+			return false;
 		}
-		
+
+		public readonly bool ConfigIsMelee(Frame f)
+		{
+			return f.WeaponConfigs.TryGetConfig(SourceId, out var config) && config.IsMeleeWeapon;
+		}
+
+		public readonly bool IsSubProjectileAOE(Frame f)
+		{
+			return f.WeaponConfigs.TryGetConfig(SourceId, out var config) && config.HitType == SubProjectileHitType.AreaOfEffect;
+		}
+
 		public bool ShouldPerformSubProjectileOnEndOfLifetime(Frame f)
 		{
 			return ConfigHasSubprojectile(f) && !IsSubProjectile();

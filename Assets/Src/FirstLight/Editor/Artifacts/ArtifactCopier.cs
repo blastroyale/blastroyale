@@ -26,6 +26,7 @@ namespace FirstLight.Editor.Artifacts
 				"FirstLight.Game.dll",
 				"FirstLight.Services.dll",
 				"FirstLight.Models.dll",
+				"UniTask.dll",
 				"PhotonQuantum.dll"
 			}
 		};

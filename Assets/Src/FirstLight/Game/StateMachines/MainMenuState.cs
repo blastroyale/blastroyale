@@ -17,7 +17,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
-using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -559,6 +558,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnRewardsReceived(List<ItemData> items)
 		{
+			if (_services.RoomService.InRoom) return;
+			
 			var rewardsCopy = items.Where(item => !item.Id.IsInGroup(GameIdGroup.Currency) && item.Id is not (GameId.XP or GameId.BPP or GameId.Trophies)).ToList();
 			if (rewardsCopy.Count > 0)
 			{
@@ -572,6 +573,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLevelUpScreen()
 		{
+			if (_services.RoomService.InRoom) return;
+			
 			var levelRewards = _gameDataProvider.PlayerDataProvider.GetRewardsForFameLevel(
 				_gameDataProvider.PlayerDataProvider.Level.Value - 1
 			);
@@ -648,7 +651,7 @@ namespace FirstLight.Game.StateMachines
 
 			_statechartTrigger(MainMenuLoadedEvent);
 
-			_ = PreloadQuantumSettings();
+			await PreloadQuantumSettings();
 		}
 
 		private async UniTask UnloadMenuTask()

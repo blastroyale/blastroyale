@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -7,23 +9,25 @@ namespace Quantum.Systems
 	/// </summary>
 	public unsafe class HazardSystem : SystemMainThreadFilter<HazardSystem.HazardFilter>
 	{
+
 		public struct HazardFilter
 		{
 			public EntityRef Entity;
 			public Hazard* Hazard;
 			public Transform3D* Transform;
 		}
-		
+
+
 		/// <inheritdoc />
 		public override void Update(Frame f, ref HazardFilter filter)
 		{
 			var hazard = filter.Hazard;
-			
+
 			if (f.Time > hazard->EndTime)
 			{
 				f.Add<EntityDestroyer>(filter.Entity);
 			}
-			
+
 			if (f.Time < hazard->NextTickTime)
 			{
 				return;
@@ -40,11 +44,12 @@ namespace Quantum.Systems
 			{
 				return;
 			}
+			
 
 			//check the area when the hazard explodes
 			var shape = Shape3D.CreateSphere(hazard->Radius);
 			var hits = f.Physics3D.OverlapShape(filter.Transform->Position, FPQuaternion.Identity, shape,
-												f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
+				f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			hits.SortCastDistance();
 
 			uint properHits = 0;
@@ -71,7 +76,7 @@ namespace Quantum.Systems
 						KnockbackAmount = hazard->Knockback
 					};
 
-					if(spell.Victim == spell.Attacker)
+					if (spell.Victim == spell.Attacker)
 					{
 						spell.TeamSource = 0;
 						spell.PowerAmount = (uint)(spell.PowerAmount * Constants.SELF_DAMAGE_MODIFIER);
@@ -86,19 +91,19 @@ namespace Quantum.Systems
 					OnHit(f, &spell);
 				}
 			}
-			
+
 			f.Events.OnHazardLand(filter.Hazard->GameId, filter.Transform->Position, filter.Hazard->Attacker, properHits);
 		}
 
 		private void OnHit(Frame f, Spell* spell)
 		{
 			var source = f.Get<Hazard>(spell->SpellSource);
-			
+
 			if (source.StunDuration > FP._0)
 			{
 				StatusModifiers.AddStatusModifierToEntity(f, spell->Victim, StatusModifierType.Stun, source.StunDuration);
 			}
-			
+
 			f.Events.OnHazardHit(spell->Attacker, spell->Victim, spell->OriginalHitPosition);
 		}
 	}

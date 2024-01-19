@@ -465,12 +465,6 @@ namespace FirstLight.Game.Utils
 		/// <param name="equipmentLogic"></param>
 		public static bool HasNfts(this IGameDataProvider data)
 		{
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-			if (FeatureFlags.GetLocalConfiguration().ForceHasNfts)
-			{
-				return true;
-			}
-#endif
 			var profilePictures =
 				data.CollectionDataProvider.GetOwnedCollection(CollectionCategories.PROFILE_PICTURE);
 			return profilePictures.Count > 0 || data.EquipmentDataProvider.NftInventory.Count > 0;

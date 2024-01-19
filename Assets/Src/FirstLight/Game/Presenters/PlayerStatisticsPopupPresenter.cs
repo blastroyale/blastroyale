@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -28,15 +29,15 @@ namespace FirstLight.Game.Presenters
 			public Action OnCloseClicked;
 			public Action OnEditNameClicked;
 		}
-		
+
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
-		
+
 		private Label _nameLabel;
 		private VisualElement _content;
 		private VisualElement _loadingSpinner;
 		private PlayerAvatarElement _pfpImage;
-		
+
 		private Label[] _statLabels;
 		private Label[] _statValues;
 		private VisualElement[] _statContainers;
@@ -74,7 +75,7 @@ namespace FirstLight.Game.Presenters
 			_statValues = new Label[StatisticMaxSize];
 			_statContainers = new VisualElement[StatisticMaxSize];
 
-			root.Q<ImageButton>("EditNameButton").clicked += () =>Data.OnEditNameClicked();
+			root.Q<ImageButton>("EditNameButton").clicked += () => Data.OnEditNameClicked();
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
 			root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
 
@@ -87,7 +88,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_statContainers[i] = root.Q<VisualElement>($"StatsContainer{i}").Required();
 				_statContainers[i].visible = false;
-				
+
 				_statLabels[i] = root.Q<Label>($"StatName{i}").Required();
 				_statValues[i] = root.Q<Label>($"StatValue{i}").Required();
 			}
@@ -98,21 +99,20 @@ namespace FirstLight.Game.Presenters
 
 			_content.visible = false;
 			_loadingSpinner.visible = true;
-			
+
 			root.SetupClicks(_services);
 		}
 
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-		
+
 			SetupPopup();
 		}
 
-		protected override Task OnClosed()
+		protected override UniTask OnClosed()
 		{
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
-
 			return base.OnClosed();
 		}
 
@@ -141,8 +141,8 @@ namespace FirstLight.Game.Presenters
 			_loadingSpinner.visible = true;
 			_services.ProfileService.GetPlayerPublicProfile(Data.PlayerId, (result) =>
 			{
-			    if (!IsOpen) return;
-				
+				if (!IsOpen) return;
+
 				_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
 
 				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);

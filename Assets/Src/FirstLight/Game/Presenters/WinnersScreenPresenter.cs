@@ -58,7 +58,7 @@ namespace FirstLight.Game.Presenters
 			UpdateCharacters().Forget();
 		}
 
-		protected override async Task OnClosed()
+		protected override async UniTask OnClosed()
 		{
 			StartMovingCharacterOut(_character1.gameObject);
 			StartMovingCharacterOut(_character2.gameObject);

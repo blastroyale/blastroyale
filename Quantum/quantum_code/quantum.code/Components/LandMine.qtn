@@ -1,0 +1,28 @@
+component LandMine
+{
+    entity_ref owner;
+    FP TriggeredTime;
+    FP TriggerableAfter;
+    FP Radius; 
+    uint Damage;
+    bool AutoTrigerred;
+}
+
+synced event LandMineThrown {
+    entity_ref entity;
+    FP TrajectoryStartsAt;
+    FP TrajectoryEndsAt;
+    FPVector3 TrajectoryStart;
+    FPVector3 TrajectoryEnd;
+}
+
+synced event LandMineTriggered {
+    entity_ref Entity;
+    entity_ref Triggered;
+    FP Radius; 
+
+}
+
+synced event LandMineExploded {
+    entity_ref Entity;
+}

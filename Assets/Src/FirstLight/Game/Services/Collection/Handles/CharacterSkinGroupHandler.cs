@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.MonoComponent.Collections;
@@ -27,14 +28,14 @@ namespace FirstLight.Game.Services.Collection.Handles
 			return SkinContainer.Skins.Any(s => s.GameId == item.Id);
 		}
 
-		public async Task<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
+		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
 		{
 			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == item.Id);
 			return await _assetResolver.LoadAssetByReference<Sprite>(skin.Sprite, true, instantiate);
 		}
 
 
-		public async Task<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
+		public async UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
 		{
 			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == item.Id);
 			var obj = await _assetResolver.LoadAssetByReference<GameObject>(skin.Prefab, true, instantiate);

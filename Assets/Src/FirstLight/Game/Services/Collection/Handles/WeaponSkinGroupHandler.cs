@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Collection;
 using FirstLight.Game.Data.DataTypes;
@@ -78,14 +79,14 @@ namespace FirstLight.Game.Services.Collection.Handles
 			return _canHandleLookup.Contains(item.Id);
 		}
 
-		public async Task<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
+		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
 		{
 			var assetRef = _spriteLookup[item.Id];
 			return await _assetResolver.LoadAssetByReference<Sprite>(assetRef, true, instantiate);
 		}
 
 
-		public async Task<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
+		public async UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
 		{
 			CheckConfigInitialize();
 			var assetRef = _prefabLookup[item.Id];

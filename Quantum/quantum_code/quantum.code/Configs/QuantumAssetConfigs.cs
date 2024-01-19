@@ -14,6 +14,7 @@ namespace Quantum
 		public AssetRefEntityPrototype EquipmentPickUpPrototype;
 		public AssetRefEntityPrototype ChestPrototype;
 		public AssetRefEntityPrototype AirDropPrototype;
+		public AssetRefEntityPrototype LandMinePrototype;
 		public AssetRefNavMeshAgentConfig BotNavMeshConfig;
 		public AssetRefCharacterController3DConfig BotKccConfig;
 	}

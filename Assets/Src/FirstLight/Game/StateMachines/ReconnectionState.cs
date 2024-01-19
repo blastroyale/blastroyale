@@ -133,6 +133,13 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasPendingMatch()
 		{
+			#if UNITY_EDITOR
+			if (FeatureFlags.GetLocalConfiguration().DisableReconnection)
+			{
+				ClearSnapshot();
+				return false;
+			}
+			#endif
 			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
 			var isTutorial = snapShot.Setup is {GameModeId: GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID};
 			var canRestoreFromSnapshot = _services.GameBackendService.RunsSimulationOnServer() || snapShot.Offline || snapShot.AmtPlayers > 1;

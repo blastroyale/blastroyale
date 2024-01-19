@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.AssetImporter;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -16,7 +17,7 @@ namespace FirstLight.AddressablesExtensions
 	public class AddressablesAssetLoader : IAssetLoader, ISceneLoader
 	{
 		/// <inheritdoc />
-		public async Task<T> LoadAssetAsync<T>(object key)
+		public async UniTask<T> LoadAssetAsync<T>(object key)
 		{			
 			var operation = Addressables.LoadAssetAsync<T>(key);
 
@@ -36,13 +37,13 @@ namespace FirstLight.AddressablesExtensions
 		}
 		
 		/// <inheritdoc />
-		public async Task<GameObject> InstantiateAsync(object key, Transform parent, bool instantiateInWorldSpace)
+		public async UniTask<GameObject> InstantiateAsync(object key, Transform parent, bool instantiateInWorldSpace)
 		{
 			return await InstantiatePrefabAsync(key, new InstantiationParameters(parent, instantiateInWorldSpace));
 		}
 
 		/// <inheritdoc />
-		public async Task<GameObject> InstantiateAsync(object key, Vector3 position, Quaternion rotation, Transform parent)
+		public async UniTask<GameObject> InstantiateAsync(object key, Vector3 position, Quaternion rotation, Transform parent)
 		{
 			return await InstantiatePrefabAsync(key, new InstantiationParameters(position, rotation, parent));
 		}

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Data.DataTypes.Helpers;
@@ -29,7 +30,7 @@ namespace FirstLight.Game.Services.Collection.Handles
 			return item.Id.IsInGroup(GameIdGroup.ProfilePicture) || Config.GameIdUrlDictionary.ContainsKey(item.Id);
 		}
 
-		public async Task<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
+		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
 		{
 			var avatarUrl = AvatarHelpers.GetAvatarUrl(item, Config);
 			
@@ -52,9 +53,9 @@ namespace FirstLight.Game.Services.Collection.Handles
 		}
 
 
-		public Task<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
+		public UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
 		{
-			return Task.FromResult<GameObject>(null);
+			return default;
 		}
 	}
 }

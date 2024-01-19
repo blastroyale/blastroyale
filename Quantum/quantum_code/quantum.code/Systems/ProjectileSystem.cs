@@ -56,15 +56,14 @@ namespace Quantum.Systems
 			if (info.Other.IsValid)
 			{
 				
-				var cfg = projectile.WeaponConfig(f);
 				// For melee we need to have LOS between attacker and target
-				if (cfg.IsMeleeWeapon && !QuantumHelpers.HasMapLineOfSight(f, projectile.Attacker, info.Other))
+				if (projectile.ConfigIsMelee(f) && !QuantumHelpers.HasMapLineOfSight(f, projectile.Attacker, info.Other))
 				{
 					return;
 				}
 
 				// For area of effects, we need to have LOS between the projectile and the target
-				if (projectile.IsSubProjectile() && cfg.HitType == SubProjectileHitType.AreaOfEffect)
+				if (projectile.IsSubProjectile() && projectile.IsSubProjectileAOE(f))
 				{
 					if (!QuantumHelpers.HasMapLineOfSight(f, info.Entity, info.Other))
 					{
@@ -139,7 +138,7 @@ namespace Quantum.Systems
 			}
 
 			// We dont destroy projectiles that can multi-hit
-			if (!projectile.IsSubProjectile() && !projectile.WeaponConfig(f).IsMeleeWeapon)
+			if (!projectile.IsSubProjectile() && !projectile.ConfigIsMelee(f))
 			{
 				f.Destroy(projectileEntity);
 			}
@@ -254,5 +253,6 @@ namespace Quantum.Systems
 			// Can be read from predicted 
 			f.Events.OnProjectileFiredPredicted(projectileEntity, projectile);
 		}
+		
 	}
 }

@@ -25,6 +25,7 @@ enum SpecialType
 	ShieldedCharge,
 	Grenade,
 	Radar,
+	Landmine,
 }
 
 synced event OnPlayerSpecialUpdated
@@ -43,6 +44,13 @@ synced event OnAirstrikeUsed
 }
 
 synced event OnStunGrenadeUsed
+{
+	entity_ref Hazard;
+	FPVector3 TargetPosition;
+	Hazard HazardData;
+}
+
+synced event OnGenericSpecialUsed
 {
 	entity_ref Hazard;
 	FPVector3 TargetPosition;
@@ -77,3 +85,4 @@ synced event OnRadarUsed
 }
 
 signal SpecialUsed(entity_ref entity, Int32 specialIndex);
+signal UseGenericSpecial(Special special, entity_ref attacker, FPVector2 aimDirection, FP maxRange);

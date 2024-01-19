@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
@@ -149,12 +150,12 @@ namespace FirstLight.Game.Presenters
 			_showingLeaderboards = false;
 			_nextButton.text = ScriptLocalization.UITShared.leave;
 
-			AnimatePanels();
+			AnimatePanels().Forget();
 		}
 
-		private async void AnimatePanels()
+		private async UniTaskVoid AnimatePanels()
 		{
-			await Task.Delay(300);
+			await UniTask.Delay(300);
 			await _levelView.Animate();
 			await _trophiesView.Animate();
 			if (_showCSReward)

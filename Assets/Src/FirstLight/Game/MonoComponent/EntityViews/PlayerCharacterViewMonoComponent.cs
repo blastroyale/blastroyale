@@ -299,7 +299,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
 			HandleParabolicUsed(callback.HazardData.EndTime,
-				time, targetPosition, VfxId.GrenadeParabolic, VfxId.ImpactGrenade).Forget();
+				time, targetPosition, VfxId.GrenadeParabolic, VfxId.Explosion).Forget();
 
 			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
 
@@ -321,10 +321,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var parabolic = (ParabolicVfxMonoComponent) Services.VfxService.Spawn(parabolicVfxId);
 
 			parabolic.transform.position = transform.position;
-
+			parabolic.GetComponent<Rigidbody>().position = transform.position;
+	
 			parabolic.StartParabolic(targetPosition, flyTime);
-
-			await Task.Delay((int) (flyTime * 1000));
+			await UniTask.NextFrame();
+			parabolic.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Extrapolate;
+			await UniTask.Delay((int) (flyTime * 1000));
 
 			if (parabolic.IsDestroyed())
 			{

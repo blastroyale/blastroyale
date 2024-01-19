@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
@@ -44,12 +44,12 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Unloads all loaded assets
 		/// </summary>
-		Task UnloadAllMatchAssets();
+		UniTask UnloadAllMatchAssets();
 
 		/// <summary>
 		/// Waits for all mandatory assets to have completed loading
 		/// </summary>
-		Task WaitMandatoryComplete();
+		UniTask WaitMandatoryComplete();
 	}
 
 	public class MatchAssetsService : IMatchAssetsService, MatchServices.IMatchService
@@ -120,7 +120,7 @@ namespace FirstLight.Game.Services
 		}
 
 
-		public async Task UnloadAllMatchAssets()
+		public async UniTask UnloadAllMatchAssets()
 		{
 			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;
@@ -136,9 +136,8 @@ namespace FirstLight.Game.Services
 			_services.AssetResolverService.UnloadAssets<IndicatorVfxId, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());
 
-			Resources.UnloadUnusedAssets();
+			await Resources.UnloadUnusedAssets();
 		}
-
 
 		private void LoadOptionalGroup(GameIdGroup group)
 		{
@@ -146,13 +145,13 @@ namespace FirstLight.Game.Services
 				_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
 		}
 
-		public async Task WaitMandatoryComplete()
+		public async UniTask WaitMandatoryComplete()
 		{
 			await _mandatoryAssets.WaitForCompletion();
 		}
 
 
-		private async Task LoadScene(GameId map)
+		private async UniTask LoadScene(GameId map)
 		{
 			if (!_services.ConfigsProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
 			{

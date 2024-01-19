@@ -2,46 +2,47 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace FirstLight.Game.Utils
 {
 	public class AsyncTaskTracker
 	{
-		private Dictionary<int, Task> _tracked = new ();
-		private HashSet<int> _pending = new();
-		private HashSet<int> _completed = new();
+		private HashSet<UniTask> _tracked = new ();
+		private HashSet<UniTask> _pending = new();
+		private HashSet<UniTask> _completed = new();
 
 		public int Pending => _pending.Count;
 		public int Completed => _completed.Count;
 
-		public async Task WaitForCompletion()
+		public async UniTask WaitForCompletion()
 		{
-			await Task.WhenAll(_tracked.Values);
+			await UniTask.WhenAll(_tracked);
 		}
 
-		private async Task TaskCompletionTracker(Task t)
+		private async UniTask TaskCompletionTracker(UniTask t)
 		{
-			if (t == null || t.IsCanceled || t.IsCompleted || t.IsCompletedSuccessfully || t.IsFaulted)
+			if (t.Status is not UniTaskStatus.Succeeded)
 				return;
-			_pending.Add(t.Id);
+			_pending.Add(t);
 			await t;
-			_pending.Remove(t.Id);
-			_completed.Add(t.Id);
+			_pending.Remove(t);
+			_completed.Add(t);
 		}
 		
-		public void Add(params Task [] tasks)
+		public void Add(params UniTask [] tasks)
 		{
 			foreach(var task in tasks)
 			{
-				_tracked.Add(task.Id, task);
+				_tracked.Add(task);
 				_ = TaskCompletionTracker(task);
 			}
 		}
 
-		private async Task OnCompleteAllTask(Action a)
+		private async UniTask OnCompleteAllTask(Action a)
 		{
-			while (_pending.Count > 0) await Task.Delay(10);
+			while (_pending.Count > 0) await UniTask.Delay(10);
 			a();
 		}
 

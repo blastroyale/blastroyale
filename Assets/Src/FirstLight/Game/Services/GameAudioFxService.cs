@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -38,7 +39,7 @@ namespace FirstLight.Game.Services
 			_assetResolver = assetResolver;
 		}
 
-		public override async Task LoadAudioMixers(IEnumerable audioMixers)
+		public override async UniTask LoadAudioMixers(IEnumerable audioMixers)
 		{
 			var mixerConfigs = audioMixers as IReadOnlyDictionary<AudioMixerID, AudioMixerConfig>;
 			var mainMixerConfig = mixerConfigs[AudioMixerID.Default];
@@ -68,7 +69,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public override async Task LoadAudioClips(IEnumerable clips)
+		public override async UniTask LoadAudioClips(IEnumerable clips)
 		{
 			var clipConfigs = clips as IReadOnlyDictionary<AudioId, AudioClipConfig>;
 			var tasks = new List<Task>();

@@ -14,15 +14,11 @@ namespace FirstLight.Game.TestCases.Helpers
 			_uiHelper = uiHelper;
 		}
 
-		public IEnumerator WaitForPresenter(float timeout = 30)
-		{
-			yield return _uiHelper.WaitForPresenter<GameModeSelectionPresenter>(0, timeout);
-		}
 
 
 		public IEnumerator ClickCustomRoom()
 		{
-			yield return WaitForPresenter();
+			yield return _uiHelper.WaitForPresenter<GameModeSelectionPresenter>(0.5f, 10);
 			yield return _uiHelper.TouchOnElementByName("CustomGameButton");
 		}
 

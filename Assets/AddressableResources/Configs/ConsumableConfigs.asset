@@ -333,7 +333,7 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 131072
+        - RawValue: 98304
         - RawValue: 13107
       CollectableConsumablePickupRadius:
         RawValue: 49152

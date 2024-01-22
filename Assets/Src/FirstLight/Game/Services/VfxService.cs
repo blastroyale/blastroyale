@@ -143,7 +143,7 @@ namespace FirstLight.Services
 		private void OnSimulationFinished(CallbackGameDestroyed ev)
 		{
 			FLog.Verbose("Simulation Destroyed, Disposing VFX's");
-			Dispose();
+			DespawnAll();
 		}
 
 		/// <inheritdoc />
@@ -189,7 +189,8 @@ namespace FirstLight.Services
 			{
 				list.AddRange(pool.Value.Clear());
 			}
-			
+
+			FLog.Verbose("CLearing VFX Pools");
 			_pools.Clear();
 
 			return list;
@@ -210,6 +211,7 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public void RemovePool(T vfxType)
 		{
+			FLog.Verbose("Removing VFX "+vfxType.GetType().Name+" from pool");
 			_pools.Remove(vfxType);
 		}
 
@@ -222,6 +224,7 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public void Dispose()
 		{
+			FLog.Info("Disposing VFX Service");
 			foreach (var pool in _pools)
 			{
 				var spawned = pool.Value.SpawnedReadOnly;
@@ -243,6 +246,7 @@ namespace FirstLight.Services
 			{
 				UnityEngine.Object.Destroy(Container.gameObject);
 			}
+			
 		}
 		
 		private Vfx<T> Instantiator(Vfx<T> entityRef)

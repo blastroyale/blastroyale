@@ -181,10 +181,10 @@ namespace FirstLight.Editor.Ids
 
 			#region Player Skins
 
-			{"Male01Avatar", 55, PlayerSkin, Collection},
-			{"Male02Avatar", 56, PlayerSkin, Collection},
-			{"Female01Avatar", 57, PlayerSkin, Collection},
-			{"Female02Avatar", 58, PlayerSkin, Collection},
+			{"Male01Avatar", 55, Deprecated },
+			{"Male02Avatar", 56, Deprecated},
+			{"Female01Avatar", 57, Deprecated},
+			{"Female02Avatar", 58, Deprecated},
 			{"MaleAssassin", 68, PlayerSkin, BotItem, Assassin, Collection},
 			{"MaleCorpos", 69, PlayerSkin, Corpo, Collection},
 			{"MalePunk", 77, PlayerSkin, Punk, Collection},
@@ -198,7 +198,11 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinTieGuy", 147, PlayerSkin, Collection},
 			{"PlayerSkinFitnessChick", 146, PlayerSkin, Collection},
 			{"PlayerSkinSkellyQueen", 145}, // placeholder ID for the future skin
-			{"PlayerSkinXmasSuperstar", 149, PlayerSkin, Collection}, 
+			{"PlayerSkinXmasSuperstar", 149, PlayerSkin, Collection},
+			{"PlayerSkinJodie", 126, PlayerSkin, Collection},
+			{"PlayerSkinMontyVonCue", 129, PlayerSkin, Collection},
+			{"PlayerSkinBoudicca", 132, PlayerSkin, Collection},
+			{"PlayerSkinCupid", 134, PlayerSkin, Collection},
 
 			#endregion Player skins
 

@@ -36,7 +36,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_services.MessageBrokerService.Subscribe<PlayScreenOpenedMessage>(OnPlayScreenOpenedMessage);
 		
 		}
-		
+
 		private void Update()
 		{
 			if (!_processFlareAnimation)

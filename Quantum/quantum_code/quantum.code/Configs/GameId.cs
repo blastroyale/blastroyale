@@ -857,29 +857,25 @@ namespace Quantum
 				{
 					GameId.Male01Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.Male02Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.Female01Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.Female02Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -981,6 +977,34 @@ namespace Quantum
 				},
 				{
 					GameId.PlayerSkinXmasSuperstar, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinJodie, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinMontyVonCue, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinBoudicca, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinCupid, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
 						GameIdGroup.Collection
@@ -1840,6 +1864,10 @@ namespace Quantum
 						GameId.PlayerSkinTieGuy,
 						GameId.PlayerSkinFitnessChick,
 						GameId.PlayerSkinXmasSuperstar,
+						GameId.PlayerSkinJodie,
+						GameId.PlayerSkinMontyVonCue,
+						GameId.PlayerSkinBoudicca,
+						GameId.PlayerSkinCupid,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -2111,7 +2139,11 @@ namespace Quantum
 						GameId.PlayerSkinDragonBoxer,
 						GameId.PlayerSkinTieGuy,
 						GameId.PlayerSkinFitnessChick,
-						GameId.PlayerSkinXmasSuperstar
+						GameId.PlayerSkinXmasSuperstar,
+						GameId.PlayerSkinJodie,
+						GameId.PlayerSkinMontyVonCue,
+						GameId.PlayerSkinBoudicca,
+						GameId.PlayerSkinCupid
 					}.AsReadOnly()
 				},
 				{

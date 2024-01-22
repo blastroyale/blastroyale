@@ -20,6 +20,8 @@ namespace Quantum
 	[AssetObjectConfig(GenerateAssetCreateMenu = true)]
 	public partial class QuantumStatConfigs
 	{
+		private object _lock = new object();
+		
 		public List<QuantumStatConfig> QuantumConfigs = new List<QuantumStatConfig>();
 
 		private Dictionary<StatType, QuantumStatConfig> _dictionary = null;
@@ -34,14 +36,16 @@ namespace Quantum
 			{
 				if (_dictionary == null)
 				{
-					_dictionary = new Dictionary<StatType, QuantumStatConfig>();
-
-					for (var i = 0; i < QuantumConfigs.Count; i++)
+					lock (_lock)
 					{
-						_dictionary.Add(QuantumConfigs[i].StatType, QuantumConfigs[i]);
+						var dictionary = new Dictionary<StatType, QuantumStatConfig>();
+						for (var i = 0; i < QuantumConfigs.Count; i++)
+						{
+							dictionary.Add(QuantumConfigs[i].StatType, QuantumConfigs[i]);
+						}
+						_dictionary = dictionary;
 					}
 				}
-
 				return _dictionary;
 			}
 		}

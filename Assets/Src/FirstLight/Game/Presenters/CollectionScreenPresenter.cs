@@ -282,8 +282,7 @@ namespace FirstLight.Game.Presenters
 					result.Add(item);
 				}
 			}
-
-			return result;
+			return result.Where(c => c.Id.IsInGroup(GameIdGroup.Collection)).ToList();
 		}
 
 		private void OnEquipClicked()

@@ -1614,7 +1614,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Rex
+      - Shadow
       - Shadow
       - Shadow
       - 
@@ -1625,7 +1625,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Jump Leads
+      - Rex
       - Rex
       - Rex
       - 
@@ -1636,7 +1636,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Bunny
+      - Jump Leads
       - Jump Leads
       - Jump Leads
       - 
@@ -1647,7 +1647,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Lady GooGoo
+      - Bunny
       - Bunny
       - Bunny
       - 
@@ -1658,7 +1658,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Banjo
+      - Lady GooGoo
       - Lady GooGoo
       - Lady GooGoo
       - 
@@ -1669,7 +1669,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Squid
+      - Banjo
       - Banjo
       - Banjo
       - 
@@ -1680,7 +1680,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Lemon
+      - Squid
       - Squid
       - Squid
       - 
@@ -1691,7 +1691,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Percy
+      - Lemon
       - Lemon
       - Lemon
       - 
@@ -1702,7 +1702,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Little Weece
+      - Percy
       - Percy
       - Percy
       - 
@@ -1713,7 +1713,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Brandi
+      - Little Weece
       - Little Weece
       - Little Weece
       - 
@@ -1724,7 +1724,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Pizza
+      - Brandi
       - Brandi
       - Brandi
       - 
@@ -1735,7 +1735,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ErikVale
+      - Pizza
       - Pizza
       - Pizza
       - 
@@ -1746,7 +1746,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Burger
+      - ErikVale
       - ErikVale
       - ErikVale
       - 
@@ -1757,7 +1757,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Coffee
+      - Burger
       - Burger
       - Burger
       - 
@@ -1768,7 +1768,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Tea
+      - Coffee
       - Coffee
       - Coffee
       - 
@@ -1779,7 +1779,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Beer
+      - Tea
       - Tea
       - Tea
       - 
@@ -1790,7 +1790,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Bottom
+      - Beer
       - Beer
       - Beer
       - 
@@ -1801,7 +1801,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Botorama
+      - Bottom
       - Bottom
       - Bottom
       - 
@@ -1812,7 +1812,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ElClassico
+      - Botorama
       - Botorama
       - Botorama
       - 
@@ -1823,7 +1823,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Fred
+      - ElClassico
       - ElClassico
       - ElClassico
       - 
@@ -1834,7 +1834,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NukeMan
+      - Fred
       - Fred
       - Fred
       - 
@@ -1845,7 +1845,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Doge
+      - NukeMan
       - NukeMan
       - NukeMan
       - 
@@ -1856,7 +1856,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Jannis
+      - Doge
       - Doge
       - Doge
       - 
@@ -1867,7 +1867,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - $H1BA
+      - Jannis
       - Jannis
       - Jannis
       - 
@@ -1878,7 +1878,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Smackster
+      - $H1BA
       - $H1BA
       - $H1BA
       - 
@@ -1889,7 +1889,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Hamster
+      - Smackster
       - Smackster
       - Smackster
       - 
@@ -1900,7 +1900,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Badger
+      - Hamster
       - Hamster
       - Hamster
       - 
@@ -1911,7 +1911,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sonic
+      - Badger
       - Badger
       - Badger
       - 
@@ -1922,7 +1922,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MarioTime
+      - Sonic
       - Sonic
       - Sonic
       - 
@@ -1933,7 +1933,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Browser
+      - MarioTime
       - MarioTime
       - MarioTime
       - 
@@ -1944,7 +1944,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Lionheart
+      - Browser
       - Browser
       - Browser
       - 
@@ -1955,7 +1955,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - kl0p
+      - Lionheart
       - Lionheart
       - Lionheart
       - 
@@ -1966,7 +1966,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Furhad
+      - kl0p
       - kl0p
       - kl0p
       - 
@@ -1977,7 +1977,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Salty
+      - Furhad
       - Furhad
       - Furhad
       - 
@@ -1988,7 +1988,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Piw
+      - Salty
       - Salty
       - Salty
       - 
@@ -1999,7 +1999,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Yui
+      - Piw
       - Piw
       - Piw
       - 
@@ -2010,7 +2010,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Blabbermouth
+      - Yui
       - Yui
       - Yui
       - 
@@ -2021,7 +2021,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Hercules
+      - Blabbermouth
       - Blabbermouth
       - Blabbermouth
       - 
@@ -2032,7 +2032,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Konversation
+      - Hercules
       - Hercules
       - Hercules
       - 
@@ -2043,7 +2043,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Lollipop
+      - Konversation
       - Konversation
       - Konversation
       - 
@@ -2054,7 +2054,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Smart
+      - Lollipop
       - Lollipop
       - Lollipop
       - 
@@ -2065,7 +2065,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Hey
+      - Smart
       - Smart
       - Smart
       - 
@@ -2076,7 +2076,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Bigmouth
+      - Hey
       - Hey
       - Hey
       - 
@@ -2087,7 +2087,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Galore
+      - Bigmouth
       - Bigmouth
       - Bigmouth
       - 
@@ -2098,7 +2098,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Jovial
+      - Galore
       - Galore
       - Galore
       - 
@@ -2109,7 +2109,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Pappy
+      - Jovial
       - Jovial
       - Jovial
       - 
@@ -2120,7 +2120,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Captain
+      - Pappy
       - Pappy
       - Pappy
       - 
@@ -2131,7 +2131,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Supersmart
+      - Captain
       - Captain
       - Captain
       - 
@@ -2142,7 +2142,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BleepBloop
+      - Supersmart
       - Supersmart
       - Supersmart
       - 
@@ -2153,7 +2153,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TheMonkey
+      - BleepBloop
       - BleepBloop
       - BleepBloop
       - 
@@ -2164,7 +2164,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Volter
+      - TheMonkey
       - TheMonkey
       - TheMonkey
       - 
@@ -2175,7 +2175,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Fintech
+      - Volter
       - Volter
       - Volter
       - 
@@ -2186,7 +2186,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - FunnyGuy
+      - Fintech
       - Fintech
       - Fintech
       - 
@@ -2197,7 +2197,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ReallyClever
+      - FunnyGuy
       - FunnyGuy
       - FunnyGuy
       - 
@@ -2208,7 +2208,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Daggers
+      - ReallyClever
       - ReallyClever
       - ReallyClever
       - 
@@ -2219,7 +2219,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - OkaySir
+      - Daggers
       - Daggers
       - Daggers
       - 
@@ -2230,7 +2230,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - GODVIN
+      - OkaySir
       - OkaySir
       - OkaySir
       - 
@@ -2241,7 +2241,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Cybernetic
+      - GODVIN
       - GODVIN
       - GODVIN
       - 
@@ -2252,7 +2252,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - DigitalDave
+      - Cybernetic
       - Cybernetic
       - Cybernetic
       - 
@@ -2263,7 +2263,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MrRo
+      - DigitalDave
       - DigitalDave
       - DigitalDave
       - 
@@ -2274,7 +2274,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Pepper
+      - MrRo
       - MrRo
       - MrRo
       - 
@@ -2285,7 +2285,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Baxi
+      - Pepper
       - Pepper
       - Pepper
       - 
@@ -2296,7 +2296,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Tutorial
+      - Baxi
       - Baxi
       - Baxi
       - 
@@ -2307,7 +2307,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Cloud
+      - Tutorial
       - Tutorial
       - Tutorial
       - 
@@ -2318,7 +2318,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Comet
+      - Cloud
       - Cloud
       - Cloud
       - 
@@ -2329,7 +2329,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Albus
+      - Comet
       - Comet
       - Comet
       - 
@@ -2340,7 +2340,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Starter
+      - Comet
       - Comet
       - Comet
       - 
@@ -2351,7 +2351,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Anthony
+      - Albus
       - Albus
       - Albus
       - 
@@ -2362,7 +2362,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Brooke
+      - Starter
       - Starter
       - Starter
       - 
@@ -2373,7 +2373,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Bumper
+      - Anthony
       - Anthony
       - Anthony
       - 
@@ -2384,7 +2384,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Chandler
+      - Brooke
       - Brooke
       - Brooke
       - 
@@ -2395,7 +2395,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Charlotte
+      - Bumper
       - Bumper
       - Bumper
       - 
@@ -2406,7 +2406,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SmartOne
+      - Chandler
       - Chandler
       - Chandler
       - 
@@ -2417,7 +2417,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Abracadabra
+      - Charlotte
       - Charlotte
       - Charlotte
       - 
@@ -2428,7 +2428,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Creations
+      - SmartOne
       - SmartOne
       - SmartOne
       - 
@@ -2439,7 +2439,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Alchemist
+      - Abracadabra
       - Abracadabra
       - Abracadabra
       - 
@@ -2450,7 +2450,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Alphius
+      - Creations
       - Creations
       - Creations
       - 
@@ -2461,7 +2461,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Lion
+      - Alchemist
       - Alchemist
       - Alchemist
       - 
@@ -2472,7 +2472,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Beast
+      - Alphius
       - Alphius
       - Alphius
       - 
@@ -2483,7 +2483,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ofHearts
+      - Lion
       - Lion
       - Lion
       - 
@@ -2494,7 +2494,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Laser
+      - Beast
       - Beast
       - Beast
       - 
@@ -2505,7 +2505,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MindReader
+      - ofHearts
       - ofHearts
       - ofHearts
       - 
@@ -2516,7 +2516,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Proton
+      - Laser
       - Laser
       - Laser
       - 
@@ -2527,7 +2527,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Hail
+      - MindReader
       - MindReader
       - MindReader
       - 
@@ -2538,7 +2538,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Tornado
+      - Proton
       - Proton
       - Proton
       - 
@@ -2549,7 +2549,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Insightful
+      - Hail
       - Hail
       - Hail
       - 
@@ -2560,7 +2560,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Rapid
+      - Tornado
       - Tornado
       - Tornado
       - 
@@ -2571,7 +2571,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ForHonor
+      - Insightful
       - Insightful
       - Insightful
       - 
@@ -2582,7 +2582,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Mystic
+      - Rapid
       - Rapid
       - Rapid
       - 
@@ -2593,7 +2593,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Self
+      - ForHonor
       - ForHonor
       - ForHonor
       - 
@@ -2604,7 +2604,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Spy
+      - Mystic
       - Mystic
       - Mystic
       - 
@@ -2615,7 +2615,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Retel
+      - Self
       - Self
       - Self
       - 
@@ -2626,7 +2626,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Naya
+      - Spy
       - Spy
       - Spy
       - 
@@ -2637,7 +2637,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Kabir
+      - Retel
       - Retel
       - Retel
       - 
@@ -2648,7 +2648,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ishaan
+      - Naya
       - Naya
       - Naya
       - 
@@ -2659,7 +2659,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Jai
+      - Kabir
       - Kabir
       - Kabir
       - 
@@ -2670,7 +2670,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Inaya
+      - Ishaan
       - Ishaan
       - Ishaan
       - 
@@ -2681,7 +2681,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Amar
+      - Jai
       - Jai
       - Jai
       - 
@@ -2692,7 +2692,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Dhruv
+      - Inaya
       - Inaya
       - Inaya
       - 
@@ -2703,7 +2703,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Vilka
+      - Amar
       - Amar
       - Amar
       - 
@@ -2714,7 +2714,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Kanan
+      - Dhruv
       - Dhruv
       - Dhruv
       - 
@@ -2725,7 +2725,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ai
+      - Vilka
       - Vilka
       - Vilka
       - 
@@ -2736,7 +2736,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Fang
+      - Kanan
       - Kanan
       - Kanan
       - 
@@ -2747,7 +2747,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Jing
+      - Ai
       - Ai
       - Ai
       - 
@@ -2758,7 +2758,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Li
+      - Fang
       - Fang
       - Fang
       - 
@@ -2769,7 +2769,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Min
+      - Jing
       - Jing
       - Jing
       - 
@@ -2780,7 +2780,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Yan
+      - Li
       - Li
       - Li
       - 
@@ -2791,7 +2791,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Xiu
+      - Min
       - Min
       - Min
       - 
@@ -2802,7 +2802,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ya
+      - Yan
       - Yan
       - Yan
       - 
@@ -2813,7 +2813,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Asahi
+      - Xiu
       - Xiu
       - Xiu
       - 
@@ -2824,7 +2824,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Moon
+      - Ya
       - Ya
       - Ya
       - 
@@ -2835,7 +2835,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Haru
+      - Asahi
       - Asahi
       - Asahi
       - 
@@ -2846,7 +2846,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Akio
+      - Moon
       - Moon
       - Moon
       - 
@@ -2857,7 +2857,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Akira
+      - Haru
       - Haru
       - Haru
       - 
@@ -2868,7 +2868,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Haruto
+      - Akio
       - Akio
       - Akio
       - 
@@ -2879,7 +2879,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ahmya
+      - Akira
       - Akira
       - Akira
       - 
@@ -2890,7 +2890,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Fumiko
+      - Haruto
       - Haruto
       - Haruto
       - 
@@ -2901,7 +2901,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Katana
+      - Ahmya
       - Ahmya
       - Ahmya
       - 
@@ -2912,7 +2912,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Midori
+      - Fumiko
       - Fumiko
       - Fumiko
       - 
@@ -2923,7 +2923,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Rika
+      - Katana
       - Katana
       - Katana
       - 
@@ -2934,7 +2934,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ahanu
+      - Midori
       - Midori
       - Midori
       - 
@@ -2945,7 +2945,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Bigish
+      - Rika
       - Rika
       - Rika
       - 
@@ -2956,7 +2956,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ahiga
+      - Ahanu
       - Ahanu
       - Ahanu
       - 
@@ -2967,7 +2967,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sakari
+      - Bigish
       - Bigish
       - Bigish
       - 
@@ -2978,7 +2978,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Urika
+      - Ahiga
       - Ahiga
       - Ahiga
       - 
@@ -2989,7 +2989,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Winona
+      - Sakari
       - Sakari
       - Sakari
       - 
@@ -3000,7 +3000,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Adriel
+      - Urika
       - Urika
       - Urika
       - 
@@ -3011,7 +3011,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Anakin
+      - Winona
       - Winona
       - Winona
       - 
@@ -3022,7 +3022,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Kosumi
+      - Adriel
       - Adriel
       - Adriel
       - 
@@ -3033,7 +3033,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Nova
+      - Anakin
       - Anakin
       - Anakin
       - 
@@ -3044,7 +3044,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Wayra
+      - Kosumi
       - Kosumi
       - Kosumi
       - 
@@ -3055,7 +3055,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Kieola
+      - Nova
       - Nova
       - Nova
       - 
@@ -3066,7 +3066,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Kolbasa
+      - Wayra
       - Wayra
       - Wayra
       - 
@@ -3077,7 +3077,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Tuio1
+      - Kieola
       - Kieola
       - Kieola
       - 
@@ -3088,7 +3088,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Buela
+      - Kolbasa
       - Kolbasa
       - Kolbasa
       - 
@@ -3099,7 +3099,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - n00b
+      - Tuio1
       - Tuio1
       - Tuio1
       - 
@@ -3110,7 +3110,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - l33t
+      - Buela
       - Buela
       - Buela
       - 
@@ -3121,7 +3121,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - H4x0r
+      - n00b
       - n00b
       - n00b
       - 
@@ -3132,7 +3132,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - pwnd
+      - l33t
       - l33t
       - l33t
       - 
@@ -3143,7 +3143,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ch0p
+      - H4x0r
       - H4x0r
       - H4x0r
       - 
@@ -3154,7 +3154,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - zoombax
+      - pwnd
       - pwnd
       - pwnd
       - 
@@ -3165,7 +3165,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - w00t
+      - ch0p
       - ch0p
       - ch0p
       - 
@@ -3176,7 +3176,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ub3r
+      - zoombax
       - zoombax
       - zoombax
       - 
@@ -3187,7 +3187,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Phoenix
+      - w00t
       - w00t
       - w00t
       - 
@@ -3198,7 +3198,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PewPew
+      - ub3r
       - ub3r
       - ub3r
       - 
@@ -3209,7 +3209,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - poasdg
+      - Phoenix
       - Phoenix
       - Phoenix
       - 
@@ -3220,7 +3220,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PassionDispenser
+      - PewPew
       - PewPew
       - PewPew
       - 
@@ -3231,7 +3231,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Trudy
+      - poasdg
       - poasdg
       - poasdg
       - 
@@ -3242,7 +3242,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Bangers Mash
+      - PassionDispenser
       - PassionDispenser
       - PassionDispenser
       - 
@@ -3253,7 +3253,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ITS ME MUM
+      - Trudy
       - Trudy
       - Trudy
       - 
@@ -3264,7 +3264,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Mandy Land
+      - Bangers Mash
       - Bangers Mash
       - Bangers Mash
       - 
@@ -3275,7 +3275,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Curt Vogel
+      - ITS ME MUM
       - ITS ME MUM
       - ITS ME MUM
       - 
@@ -3286,7 +3286,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - you fail
+      - Mandy Land
       - Mandy Land
       - Mandy Land
       - 
@@ -3297,7 +3297,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Le Fox
+      - Curt Vogel
       - Curt Vogel
       - Curt Vogel
       - 
@@ -3308,7 +3308,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - VLAD_69
+      - you fail
       - you fail
       - you fail
       - 
@@ -3319,7 +3319,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Botticelli
+      - Le Fox
       - Le Fox
       - Le Fox
       - 
@@ -3330,7 +3330,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - James25
+      - VLAD_69
       - VLAD_69
       - VLAD_69
       - 
@@ -3341,7 +3341,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - IAN BOT
+      - Botticelli
       - Botticelli
       - Botticelli
       - 
@@ -3352,7 +3352,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - LEBOT23
+      - James25
       - James25
       - James25
       - 
@@ -3363,7 +3363,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Randy
+      - IAN BOT
       - IAN BOT
       - IAN BOT
       - 
@@ -3374,7 +3374,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Coconut
+      - LEBOT23
       - LEBOT23
       - LEBOT23
       - 
@@ -3385,7 +3385,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - UncleDeeDee
+      - Randy
       - Randy
       - Randy
       - 
@@ -3396,7 +3396,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Patty
+      - Coconut
       - Coconut
       - Coconut
       - 
@@ -3407,7 +3407,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Kitten
+      - UncleDeeDee
       - UncleDeeDee
       - UncleDeeDee
       - 
@@ -3418,7 +3418,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BrokenDevelop
+      - Patty
       - Patty
       - Patty
       - 
@@ -3429,7 +3429,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Gandalf
+      - Kitten
       - Kitten
       - Kitten
       - 
@@ -3440,7 +3440,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Handyman
+      - BrokenDevelop
       - BrokenDevelop
       - BrokenDevelop
       - 
@@ -3451,7 +3451,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Olivia
+      - Gandalf
       - Gandalf
       - Gandalf
       - 
@@ -3462,7 +3462,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - HairyPotter
+      - Handyman
       - Handyman
       - Handyman
       - 
@@ -3473,7 +3473,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Doctor
+      - Olivia
       - Olivia
       - Olivia
       - 
@@ -3484,7 +3484,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Jeremy
+      - HairyPotter
       - HairyPotter
       - HairyPotter
       - 
@@ -3495,7 +3495,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - WWWWWWW
+      - Doctor
       - Doctor
       - Doctor
       - 
@@ -3506,7 +3506,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - WOW
+      - Jeremy
       - Jeremy
       - Jeremy
       - 
@@ -3517,7 +3517,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - VX IX IV XX
+      - WWWWWWW
       - WWWWWWW
       - WWWWWWW
       - 
@@ -3528,7 +3528,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MickeyMouse
+      - WOW
       - WOW
       - WOW
       - 
@@ -3539,7 +3539,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Einstein
+      - VX IX IV XX
       - VX IX IV XX
       - VX IX IV XX
       - 
@@ -3550,7 +3550,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Gorilla
+      - MickeyMouse
       - MickeyMouse
       - MickeyMouse
       - 
@@ -3561,7 +3561,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 24 Pound
+      - Einstein
       - Einstein
       - Einstein
       - 
@@ -3572,7 +3572,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Emma
+      - Gorilla
       - Gorilla
       - Gorilla
       - 
@@ -3583,7 +3583,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NIKE69
+      - 24 Pound
       - 24 Pound
       - 24 Pound
       - 
@@ -3594,7 +3594,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Messi
+      - Emma
       - Emma
       - Emma
       - 
@@ -3605,7 +3605,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ronaldo
+      - NIKE69
       - NIKE69
       - NIKE69
       - 
@@ -3616,7 +3616,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BOI BOI
+      - Messi
       - Messi
       - Messi
       - 
@@ -3627,7 +3627,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BOOM
+      - Ronaldo
       - Ronaldo
       - Ronaldo
       - 
@@ -3638,7 +3638,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - FFFFFFF1982
+      - BOI BOI
       - BOI BOI
       - BOI BOI
       - 
@@ -3649,7 +3649,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - AK-420
+      - BOOM
       - BOOM
       - BOOM
       - 
@@ -3660,7 +3660,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ADAM
+      - FFFFFFF1982
       - FFFFFFF1982
       - FFFFFFF1982
       - 
@@ -3671,7 +3671,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NFT
+      - AK-420
       - AK-420
       - AK-420
       - 
@@ -3682,7 +3682,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Bitcoin
+      - ADAM
       - ADAM
       - ADAM
       - 
@@ -3693,7 +3693,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Ava
+      - NFT
       - NFT
       - NFT
       - 
@@ -3704,7 +3704,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BILLIONAIRE
+      - Bitcoin
       - Bitcoin
       - Bitcoin
       - 
@@ -3715,7 +3715,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - KK M8
+      - Ava
       - Ava
       - Ava
       - 
@@ -3726,7 +3726,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Lightning
+      - BILLIONAIRE
       - BILLIONAIRE
       - BILLIONAIRE
       - 
@@ -3737,7 +3737,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Nelson
+      - KK M8
       - KK M8
       - KK M8
       - 
@@ -3748,7 +3748,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Napoleon
+      - Lightning
       - Lightning
       - Lightning
       - 
@@ -3759,7 +3759,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Montgomery
+      - Nelson
       - Nelson
       - Nelson
       - 
@@ -3770,7 +3770,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Boomer
+      - Napoleon
       - Napoleon
       - Napoleon
       - 
@@ -3781,7 +3781,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Millenial
+      - Montgomery
       - Montgomery
       - Montgomery
       - 
@@ -3792,7 +3792,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SR NEE
+      - Boomer
       - Boomer
       - Boomer
       - 
@@ -3803,7 +3803,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Tagged
+      - Millenial
       - Millenial
       - Millenial
       - 
@@ -3814,7 +3814,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Mia
+      - SR NEE
       - SR NEE
       - SR NEE
       - 
@@ -3825,7 +3825,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Woke
+      - Tagged
       - Tagged
       - Tagged
       - 
@@ -3836,7 +3836,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - GenX
+      - Mia
       - Mia
       - Mia
       - 
@@ -3847,7 +3847,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - GenZ
+      - Woke
       - Woke
       - Woke
       - 
@@ -3858,7 +3858,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Furry
+      - GenX
       - GenX
       - GenX
       - 
@@ -3869,7 +3869,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Fat Cat
+      - GenZ
       - GenZ
       - GenZ
       - 
@@ -3880,7 +3880,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Piggy
+      - Furry
       - Furry
       - Furry
       - 
@@ -3891,7 +3891,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Panic
+      - Fat Cat
       - Fat Cat
       - Fat Cat
       - 
@@ -3902,7 +3902,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - DESTROYER
+      - Piggy
       - Piggy
       - Piggy
       - 
@@ -3913,7 +3913,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SimpleDimple
+      - Panic
       - Panic
       - Panic
       - 
@@ -3924,7 +3924,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Popit
+      - DESTROYER
       - DESTROYER
       - DESTROYER
       - 
@@ -3935,7 +3935,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Harper
+      - SimpleDimple
       - SimpleDimple
       - SimpleDimple
       - 
@@ -3946,7 +3946,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Nagibator
+      - Popit
       - Popit
       - Popit
       - 
@@ -3957,7 +3957,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Cyb0rg
+      - Harper
       - Harper
       - Harper
       - 
@@ -3968,7 +3968,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PANGDANG
+      - Nagibator
       - Nagibator
       - Nagibator
       - 
@@ -3979,7 +3979,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - s1ake
+      - Cyb0rg
       - Cyb0rg
       - Cyb0rg
       - 
@@ -3990,7 +3990,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - peppa
+      - PANGDANG
       - PANGDANG
       - PANGDANG
       - 
@@ -4001,7 +4001,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - D33PM1ND
+      - s1ake
       - s1ake
       - s1ake
       - 
@@ -4012,7 +4012,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 2Pints
+      - peppa
       - peppa
       - peppa
       - 
@@ -4023,7 +4023,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SwiftHalf
+      - D33PM1ND
       - D33PM1ND
       - D33PM1ND
       - 
@@ -4034,7 +4034,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - CHEEKYNANDO
+      - 2Pints
       - 2Pints
       - 2Pints
       - 
@@ -4045,7 +4045,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - OIOISAVALOY
+      - SwiftHalf
       - SwiftHalf
       - SwiftHalf
       - 
@@ -4056,7 +4056,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PixelPenguin
+      - CHEEKYNANDO
       - CHEEKYNANDO
       - CHEEKYNANDO
       - 
@@ -4067,1329 +4067,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - GamingGuru
       - OIOISAVALOY
       - OIOISAVALOY
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot302
-      TermType: 0
-      Description: 
-      Languages:
-      - GameKnight
-      - GameKnight
-      - GameKnight
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot303
-      TermType: 0
-      Description: 
-      Languages:
-      - GameOnGamer
-      - GameOnGamer
-      - GameOnGamer
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot304
-      TermType: 0
-      Description: 
-      Languages:
-      - GamingGeek
-      - GamingGeek
-      - GamingGeek
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot305
-      TermType: 0
-      Description: 
-      Languages:
-      - GameMaster
-      - GameMaster
-      - GameMaster
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot306
-      TermType: 0
-      Description: 
-      Languages:
-      - PixelatedPlayer
-      - PixelatedPlayer
-      - PixelatedPlayer
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot307
-      TermType: 0
-      Description: 
-      Languages:
-      - GameChanger
-      - GameChanger
-      - GameChanger
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot308
-      TermType: 0
-      Description: 
-      Languages:
-      - PrettyGamer
-      - PrettyGamer
-      - PrettyGamer
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot309
-      TermType: 0
-      Description: 
-      Languages:
-      - ChampOfAll
-      - ChampOfAll
-      - ChampOfAll
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot310
-      TermType: 0
-      Description: 
-      Languages:
-      - RrRosa
-      - RrRosa
-      - RrRosa
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot311
-      TermType: 0
-      Description: 
-      Languages:
-      - PixelatedWiz
-      - PixelatedWiz
-      - PixelatedWiz
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot312
-      TermType: 0
-      Description: 
-      Languages:
-      - Bulletproof
-      - Bulletproof
-      - Bulletproof
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot313
-      TermType: 0
-      Description: 
-      Languages:
-      - Executioner
-      - Executioner
-      - Executioner
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot314
-      TermType: 0
-      Description: 
-      Languages:
-      - Terminator
-      - Terminator
-      - Terminator
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot315
-      TermType: 0
-      Description: 
-      Languages:
-      - Enforcer
-      - Enforcer
-      - Enforcer
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot316
-      TermType: 0
-      Description: 
-      Languages:
-      - Punisher
-      - Punisher
-      - Punisher
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot317
-      TermType: 0
-      Description: 
-      Languages:
-      - Slayer
-      - Slayer
-      - Slayer
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot318
-      TermType: 0
-      Description: 
-      Languages:
-      - Annihilator
-      - Annihilator
-      - Annihilator
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot319
-      TermType: 0
-      Description: 
-      Languages:
-      - Mercenary
-      - Mercenary
-      - Mercenary
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot320
-      TermType: 0
-      Description: 
-      Languages:
-      - Assassin
-      - Assassin
-      - Assassin
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot321
-      TermType: 0
-      Description: 
-      Languages:
-      - Hitman
-      - Hitman
-      - Hitman
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot322
-      TermType: 0
-      Description: 
-      Languages:
-      - Sniper
-      - Sniper
-      - Sniper
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot323
-      TermType: 0
-      Description: 
-      Languages:
-      - Marksman
-      - Marksman
-      - Marksman
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot324
-      TermType: 0
-      Description: 
-      Languages:
-      - Gunslinger
-      - Gunslinger
-      - Gunslinger
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot325
-      TermType: 0
-      Description: 
-      Languages:
-      - Outlaw
-      - Outlaw
-      - Outlaw
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot326
-      TermType: 0
-      Description: 
-      Languages:
-      - Bandit
-      - Bandit
-      - Bandit
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot327
-      TermType: 0
-      Description: 
-      Languages:
-      - Maverick
-      - Maverick
-      - Maverick
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot328
-      TermType: 0
-      Description: 
-      Languages:
-      - Renegade
-      - Renegade
-      - Renegade
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot329
-      TermType: 0
-      Description: 
-      Languages:
-      - Rebel
-      - Rebel
-      - Rebel
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot330
-      TermType: 0
-      Description: 
-      Languages:
-      - Warrior
-      - Warrior
-      - Warrior
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot331
-      TermType: 0
-      Description: 
-      Languages:
-      - Gladiator
-      - Gladiator
-      - Gladiator
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot332
-      TermType: 0
-      Description: 
-      Languages:
-      - Champion
-      - Champion
-      - Champion
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot333
-      TermType: 0
-      Description: 
-      Languages:
-      - Hero
-      - Hero
-      - Hero
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot334
-      TermType: 0
-      Description: 
-      Languages:
-      - Titan
-      - Titan
-      - Titan
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot335
-      TermType: 0
-      Description: 
-      Languages:
-      - Colossus
-      - Colossus
-      - Colossus
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot336
-      TermType: 0
-      Description: 
-      Languages:
-      - Behemoth
-      - Behemoth
-      - Behemoth
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot337
-      TermType: 0
-      Description: 
-      Languages:
-      - Juggernaut
-      - Juggernaut
-      - Juggernaut
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot338
-      TermType: 0
-      Description: 
-      Languages:
-      - Bulldozer
-      - Bulldozer
-      - Bulldozer
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot339
-      TermType: 0
-      Description: 
-      Languages:
-      - Tank
-      - Tank
-      - Tank
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot340
-      TermType: 0
-      Description: 
-      Languages:
-      - Bruiser
-      - Bruiser
-      - Bruiser
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot341
-      TermType: 0
-      Description: 
-      Languages:
-      - Brawler
-      - Brawler
-      - Brawler
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot342
-      TermType: 0
-      Description: 
-      Languages:
-      - Crusher
-      - Crusher
-      - Crusher
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot343
-      TermType: 0
-      Description: 
-      Languages:
-      - Smasher
-      - Smasher
-      - Smasher
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot344
-      TermType: 0
-      Description: 
-      Languages:
-      - Hammer
-      - Hammer
-      - Hammer
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot345
-      TermType: 0
-      Description: 
-      Languages:
-      - Mauler
-      - Mauler
-      - Mauler
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot346
-      TermType: 0
-      Description: 
-      Languages:
-      - Thrasher
-      - Thrasher
-      - Thrasher
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot347
-      TermType: 0
-      Description: 
-      Languages:
-      - Rampage
-      - Rampage
-      - Rampage
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot348
-      TermType: 0
-      Description: 
-      Languages:
-      - Fury
-      - Fury
-      - Fury
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot349
-      TermType: 0
-      Description: 
-      Languages:
-      - Havoc
-      - Havoc
-      - Havoc
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot350
-      TermType: 0
-      Description: 
-      Languages:
-      - Chaos
-      - Chaos
-      - Chaos
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot351
-      TermType: 0
-      Description: 
-      Languages:
-      - Anarchy
-      - Anarchy
-      - Anarchy
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot352
-      TermType: 0
-      Description: 
-      Languages:
-      - Pandemonium
-      - Pandemonium
-      - Pandemonium
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot353
-      TermType: 0
-      Description: 
-      Languages:
-      - Inferno
-      - Inferno
-      - Inferno
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot354
-      TermType: 0
-      Description: 
-      Languages:
-      - Blaze
-      - Blaze
-      - Blaze
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot355
-      TermType: 0
-      Description: 
-      Languages:
-      - Firestarter
-      - Firestarter
-      - Firestarter
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot356
-      TermType: 0
-      Description: 
-      Languages:
-      - Pyro
-      - Pyro
-      - Pyro
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot357
-      TermType: 0
-      Description: 
-      Languages:
-      - Dragon
-      - Dragon
-      - Dragon
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot358
-      TermType: 0
-      Description: 
-      Languages:
-      - Monster
-      - Monster
-      - Monster
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot359
-      TermType: 0
-      Description: 
-      Languages:
-      - Jetlag
-      - Jetlag
-      - Jetlag
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot360
-      TermType: 0
-      Description: 
-      Languages:
-      - 4L13N
-      - 4L13N
-      - 4L13N
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot361
-      TermType: 0
-      Description: 
-      Languages:
-      - B4D455
-      - B4D455
-      - B4D455
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot362
-      TermType: 0
-      Description: 
-      Languages:
-      - C0D3X
-      - C0D3X
-      - C0D3X
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot363
-      TermType: 0
-      Description: 
-      Languages:
-      - 3L1T3
-      - 3L1T3
-      - 3L1T3
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot364
-      TermType: 0
-      Description: 
-      Languages:
-      - F1R3
-      - F1R3
-      - F1R3
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot365
-      TermType: 0
-      Description: 
-      Languages:
-      - G4M3R
-      - G4M3R
-      - G4M3R
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot366
-      TermType: 0
-      Description: 
-      Languages:
-      - H4CK3R
-      - H4CK3R
-      - H4CK3R
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot367
-      TermType: 0
-      Description: 
-      Languages:
-      - 1NV4D3R
-      - 1NV4D3R
-      - 1NV4D3R
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot368
-      TermType: 0
-      Description: 
-      Languages:
-      - J0K3R
-      - J0K3R
-      - J0K3R
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot369
-      TermType: 0
-      Description: 
-      Languages:
-      - K1LL3R
-      - K1LL3R
-      - K1LL3R
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot370
-      TermType: 0
-      Description: 
-      Languages:
-      - M4G3
-      - M4G3
-      - M4G3
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot371
-      TermType: 0
-      Description: 
-      Languages:
-      - N1NJ4
-      - N1NJ4
-      - N1NJ4
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot372
-      TermType: 0
-      Description: 
-      Languages:
-      - 0M3G4
-      - 0M3G4
-      - 0M3G4
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot373
-      TermType: 0
-      Description: 
-      Languages:
-      - P0W3R
-      - P0W3R
-      - P0W3R
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot374
-      TermType: 0
-      Description: 
-      Languages:
-      - QW3RTY
-      - QW3RTY
-      - QW3RTY
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot375
-      TermType: 0
-      Description: 
-      Languages:
-      - R4G3
-      - R4G3
-      - R4G3
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot376
-      TermType: 0
-      Description: 
-      Languages:
-      - S7R1K3
-      - S7R1K3
-      - S7R1K3
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot377
-      TermType: 0
-      Description: 
-      Languages:
-      - T4NK
-      - T4NK
-      - T4NK
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot378
-      TermType: 0
-      Description: 
-      Languages:
-      - U83R
-      - U83R
-      - U83R
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot379
-      TermType: 0
-      Description: 
-      Languages:
-      - V1P3R
-      - V1P3R
-      - V1P3R
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot380
-      TermType: 0
-      Description: 
-      Languages:
-      - W4R10R
-      - W4R10R
-      - W4R10R
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot381
-      TermType: 0
-      Description: 
-      Languages:
-      - XTR3M3
-      - XTR3M3
-      - XTR3M3
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot382
-      TermType: 0
-      Description: 
-      Languages:
-      - Y0L0
-      - Y0L0
-      - Y0L0
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot383
-      TermType: 0
-      Description: 
-      Languages:
-      - Z3R0
-      - Z3R0
-      - Z3R0
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot384
-      TermType: 0
-      Description: 
-      Languages:
-      - 4C3
-      - 4C3
-      - 4C3
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot385
-      TermType: 0
-      Description: 
-      Languages:
-      - B0MB
-      - B0MB
-      - B0MB
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot386
-      TermType: 0
-      Description: 
-      Languages:
-      - C4T
-      - C4T
-      - C4T
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot387
-      TermType: 0
-      Description: 
-      Languages:
-      - D4WG
-      - D4WG
-      - D4WG
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot388
-      TermType: 0
-      Description: 
-      Languages:
-      - 3V1L
-      - 3V1L
-      - 3V1L
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot389
-      TermType: 0
-      Description: 
-      Languages:
-      - F0X
-      - F0X
-      - F0X
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot390
-      TermType: 0
-      Description: 
-      Languages:
-      - H3R0
-      - H3R0
-      - H3R0
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot391
-      TermType: 0
-      Description: 
-      Languages:
-      - 1C3
-      - 1C3
-      - 1C3
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot392
-      TermType: 0
-      Description: 
-      Languages:
-      - J4M
-      - J4M
-      - J4M
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot393
-      TermType: 0
-      Description: 
-      Languages:
-      - K4T
-      - K4T
-      - K4T
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot394
-      TermType: 0
-      Description: 
-      Languages:
-      - L0L
-      - L0L
-      - L0L
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot395
-      TermType: 0
-      Description: 
-      Languages:
-      - M4X
-      - M4X
-      - M4X
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot396
-      TermType: 0
-      Description: 
-      Languages:
-      - 0Perative
-      - 0Perative
-      - 0Perative
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot397
-      TermType: 0
-      Description: 
-      Languages:
-      - Q1X
-      - Q1X
-      - Q1X
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot398
-      TermType: 0
-      Description: 
-      Languages:
-      - R0X
-      - R0X
-      - R0X
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot399
-      TermType: 0
-      Description: 
-      Languages:
-      - S4M
-      - S4M
-      - S4M
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot400
-      TermType: 0
-      Description: 
-      Languages:
-      - T3H
-      - T3H
-      - T3H
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot401
-      TermType: 0
-      Description: 
-      Languages:
-      - UZ1
-      - UZ1
-      - UZ1
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot402
-      TermType: 0
-      Description: 
-      Languages:
-      - V4N
-      - V4N
-      - V4N
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot403
-      TermType: 0
-      Description: 
-      Languages:
-      - W1Z
-      - W1Z
-      - W1Z
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot404
-      TermType: 0
-      Description: 
-      Languages:
-      - X0X
-      - X0X
-      - X0X
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot405
-      TermType: 0
-      Description: 
-      Languages:
-      - Y4Y
-      - Y4Y
-      - Y4Y
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot406
-      TermType: 0
-      Description: 
-      Languages:
-      - Z3N
-      - Z3N
-      - Z3N
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot407
-      TermType: 0
-      Description: 
-      Languages:
-      - iddqd
-      - iddqd
-      - iddqd
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot408
-      TermType: 0
-      Description: 
-      Languages:
-      - idkfa
-      - idkfa
-      - idkfa
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot409
-      TermType: 0
-      Description: 
-      Languages:
-      - pepsipon
-      - pepsipon
-      - pepsipon
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot410
-      TermType: 0
-      Description: 
-      Languages:
-      - Lamb0
-      - Lamb0
-      - Lamb0
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot411
-      TermType: 0
-      Description: 
-      Languages:
-      - pRetty
-      - pRetty
-      - pRetty
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot412
-      TermType: 0
-      Description: 
-      Languages:
-      - Rolling
-      - Rolling
-      - Rolling
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot413
-      TermType: 0
-      Description: 
-      Languages:
-      - Shpiper
-      - Shpiper
-      - Shpiper
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot414
-      TermType: 0
-      Description: 
-      Languages:
-      - Terry
-      - Terry
-      - Terry
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot415
-      TermType: 0
-      Description: 
-      Languages:
-      - B0ss
-      - B0ss
-      - B0ss
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot416
-      TermType: 0
-      Description: 
-      Languages:
-      - Barney
-      - Barney
-      - Barney
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot417
-      TermType: 0
-      Description: 
-      Languages:
-      - Liquid
-      - Liquid
-      - Liquid
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot418
-      TermType: 0
-      Description: 
-      Languages:
-      - LowQ
-      - LowQ
-      - LowQ
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot419
-      TermType: 0
-      Description: 
-      Languages:
-      - Senator
-      - Senator
-      - Senator
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot420
-      TermType: 0
-      Description: 
-      Languages:
-      - Popsicle
-      - Popsicle
-      - Popsicle
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot421
-      TermType: 0
-      Description: 
-      Languages:
-      - Velvet
-      - Velvet
-      - Velvet
+      - OIOISAVALOY
       - 
       - 
       Flags: 0000000000
@@ -5413,7 +4093,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - You completed the starting battle pass ! New rewards awaits you !
+      - You completed the starting Blast Pass! New rewards awaits you !
       - "\u0412\u044B \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u043B\u0438 \u0441\u0442\u0430\u0440\u0442\u043E\u0432\u044B\u0439
         \u0431\u043E\u0435\u0432\u043E\u0439 \u043F\u0440\u043E\u0445\u043E\u0434!
         \u0412\u0430\u0441 \u0436\u0434\u0443\u0442 \u043D\u043E\u0432\u044B\u0435
@@ -9204,9 +7884,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Long Time No See
-      - Long Time No See
-      - Long Time No See
+      - The Odds Are In My Favour
+      - The Odds Are In My Favour
+      - The Odds Are In My Favour
       - 
       - 
       Flags: 0000000000
@@ -9226,9 +7906,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - The Game Is George
-      - The Game Is George
-      - The Game Is George
+      - Rack 'Em & Wreck 'Em
+      - Rack 'Em & Wreck 'Em
+      - Rack 'Em & Wreck 'Em
       - 
       - 
       Flags: 0000000000
@@ -9248,9 +7928,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Fear Not
-      - Fear Not
-      - Fear Not
+      - For Valhalla!
+      - For Valhalla!
+      - For Valhalla!
       - 
       - 
       Flags: 0000000000
@@ -9270,9 +7950,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Love Is In The Air
-      - Love Is In The Air
-      - Love Is In The Air
+      - Aim Of Affection
+      - Aim Of Affection
+      - Aim Of Affection
       - 
       - 
       Flags: 0000000000
@@ -9446,7 +8126,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Congratulations, you got premium battle pass
+      - Congratulations, you got premium Blast Pass!
       - 
       - 
       - 
@@ -9813,9 +8493,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - RARITY UP
-      - RARITY UP
-      - RARITY UP
+      - FUSE
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -11163,7 +9843,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Blast Pass
+      - Beta Pass
       - "\u0412\u0437\u0440\u044B\u0432\u043D\u043E\u0439 \u043F\u0440\u043E\u0445\u043E\u0434"
       - "Passe de explos\xE3o"
       - 
@@ -11849,9 +10529,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - RARITY UP
-      - RARITY UP
-      - RARITY UP
+      - FUSE
+      - "\u041F\u0420\u0415\u0414\u041E\u0425\u0420\u0410\u041D\u0418\u0422\u0415\u041B\u042C"
+      - "FUS\xCDVEL"
       - 
       - 
       Flags: 0000000000
@@ -15201,7 +13881,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'SEASON ENDS IN '
+      - 'ENDS IN '
       - "\u0421\u0435\u0437\u043E\u043D \u0437\u0430\u043A\u0430\u043D\u0447\u0438\u0432\u0430\u0435\u0442\u0441\u044F"
       - A temporada termina
       - 
@@ -15212,7 +13892,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SEASON {0}
+      - BETA SEASON {0}
       - "\u0421\u0435\u0437\u043E\u043D {0}"
       - Temporada {0}
       - 
@@ -15257,7 +13937,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BUY PREMIUM BATTLEPASS
+      - BUY PREMIUM BLAST PASS
       - 
       - 
       - 
@@ -15268,7 +13948,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BUY PREMIUM BATTLEPASS
+      - BUY PREMIUM BLAST PASS
       - 
       - 
       - 
@@ -15279,7 +13959,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BUY A LEVEL OF BATTLE PASS
+      - BUY A LEVEL OF BLAST PASS
       - 
       - 
       - 
@@ -15290,7 +13970,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - YOU ARE GOING TO BUY 1 LEVEL OF BATTLE PASS
+      - YOU ARE GOING TO BUY 1 LEVEL OF BLAST PASS
       - 
       - 
       - 
@@ -15966,9 +14646,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - RARITY UP
-      - RARITY UP
-      - RARITY UP
+      - FUSE
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -16695,9 +15375,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - RARITY UP
-      - RARITY UP
-      - RARITY UP
+      - FUSING ITEM
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -16733,17 +15413,6 @@ MonoBehaviour:
       - "\u041D\u0430\u0436\u043C\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B
         \u0432\u044B\u0431\u0440\u0430\u0442\u044C \u0440\u0435\u0436\u0438\u043C"
       - Toque para escolher o modo
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/zombies_description
-      TermType: 0
-      Description: 
-      Languages:
-      - Kill all the zombies. Survive as many waves as you can.
-      - Kill all the zombies. Survive as many waves as you can.
-      - Kill all the zombies. Survive as many waves as you can.
       - 
       - 
       Flags: 0000000000
@@ -16952,17 +15621,6 @@ MonoBehaviour:
       - DEATHMATCH
       - DEATHMATCH
       - DEATHMATCH
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/gamemode_Zombies
-      TermType: 0
-      Description: 
-      Languages:
-      - ZOMBIES
-      - ZOMBIES
-      - ZOMBIES
       - 
       - 
       Flags: 0000000000
@@ -17817,7 +16475,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BATTLE PASS
+      - BLAST PASS
       - "\u0411\u043E\u0435\u0432\u043E\u0439 \u043F\u0440\u043E\u0445\u043E\u0434"
       - Passe de batalha
       - 
@@ -18222,10 +16880,9 @@ MonoBehaviour:
       Languages:
       - 'First Light ID not connected!
 
-        <color=#FF4128>Connect First Light
-        ID to not lose your progress.</color>
 
-        Guest User ID: <color=#948bc4>{0}</color>'
+        Connect First Light ID to not lose
+        your progress.'
       - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
         \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
         \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
@@ -19676,7 +18333,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1703097860323
+    Google_LastUpdatedVersion: 1703171485222
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

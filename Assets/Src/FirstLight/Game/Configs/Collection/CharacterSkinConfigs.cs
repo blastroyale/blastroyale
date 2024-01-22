@@ -1,26 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using Sirenix.OdinInspector;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Serialization;
 
 namespace FirstLight.Game.Configs
 {
 	public enum AnchorType
 	{
-		Weapon,
-		Helmet,
-		Shield,
-		Armor,
-		Glider,
-		Amulet,
+		Weapon = 0,
+		Glider = 4,
 	}
 
 	[Serializable, IgnoreServerSerialization]
@@ -41,7 +34,6 @@ namespace FirstLight.Game.Configs
 	{
 		public TransformParams Offset;
 		public string AttachToBone;
-		public bool AtBeggningOfHierarchy;
 	}
 
 

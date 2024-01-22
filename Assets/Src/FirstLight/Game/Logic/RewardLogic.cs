@@ -74,6 +74,12 @@ namespace FirstLight.Game.Logic
 		/// Obtains the rewards for a given tutorial step
 		/// </summary>
 		IEnumerable<ItemData> GetRewardsFromTutorial(TutorialSection section);
+		
+		/// <summary>
+		/// Creates an item based on a reward config.
+		/// The config is a Chest Like" structure that defines rules for item generation.
+		/// </summary>
+		ItemData CreateItemFromConfig(EquipmentRewardConfig config);
 	}
 
 	/// <inheritdoc />
@@ -111,11 +117,6 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		void RewardToUnclaimedRewards(IEnumerable<ItemData> items);
 		
-		/// <summary>
-		/// Creates an item based on a reward config.
-		/// The config is a Chest Like" structure that defines rules for item generation.
-		/// </summary>
-		ItemData CreateItemFromConfig(EquipmentRewardConfig config);
 		
 		/// <summary>
 		/// Generates ItemData of all given configs.

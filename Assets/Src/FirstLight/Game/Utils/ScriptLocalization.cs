@@ -592,10 +592,18 @@ namespace I2.Loc
 			public static string NewBRMap 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NewBRMap"); } }
 			public static string Philadelphia 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Philadelphia"); } }
 			public static string PhiladelphiaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PhiladelphiaDescription"); } }
+			public static string PlayerSkinBoudicca 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinBoudicca"); } }
+			public static string PlayerSkinBoudiccaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinBoudiccaDescription"); } }
+			public static string PlayerSkinCupid 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinCupid"); } }
+			public static string PlayerSkinCupidDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinCupidDescription"); } }
 			public static string PlayerSkinDragonBoxer 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinDragonBoxer"); } }
 			public static string PlayerSkinDragonBoxerDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinDragonBoxerDescription"); } }
 			public static string PlayerSkinFitnessChick 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinFitnessChick"); } }
 			public static string PlayerSkinFitnessChickDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinFitnessChickDescription"); } }
+			public static string PlayerSkinJodie 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinJodie"); } }
+			public static string PlayerSkinJodieDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinJodieDescription"); } }
+			public static string PlayerSkinMontyVonCue 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinMontyVonCue"); } }
+			public static string PlayerSkinMontyVonCueDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinMontyVonCueDescription"); } }
 			public static string PlayerSkinTieGuy 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinTieGuy"); } }
 			public static string PlayerSkinTieGuyDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinTieGuyDescription"); } }
 			public static string PlayerSkinXmasSuperstar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinXmasSuperstar"); } }
@@ -2301,10 +2309,18 @@ namespace I2.Loc
 		    public const string NewBRMap = "GameIds/NewBRMap";
 		    public const string Philadelphia = "GameIds/Philadelphia";
 		    public const string PhiladelphiaDescription = "GameIds/PhiladelphiaDescription";
+		    public const string PlayerSkinBoudicca = "GameIds/PlayerSkinBoudicca";
+		    public const string PlayerSkinBoudiccaDescription = "GameIds/PlayerSkinBoudiccaDescription";
+		    public const string PlayerSkinCupid = "GameIds/PlayerSkinCupid";
+		    public const string PlayerSkinCupidDescription = "GameIds/PlayerSkinCupidDescription";
 		    public const string PlayerSkinDragonBoxer = "GameIds/PlayerSkinDragonBoxer";
 		    public const string PlayerSkinDragonBoxerDescription = "GameIds/PlayerSkinDragonBoxerDescription";
 		    public const string PlayerSkinFitnessChick = "GameIds/PlayerSkinFitnessChick";
 		    public const string PlayerSkinFitnessChickDescription = "GameIds/PlayerSkinFitnessChickDescription";
+		    public const string PlayerSkinJodie = "GameIds/PlayerSkinJodie";
+		    public const string PlayerSkinJodieDescription = "GameIds/PlayerSkinJodieDescription";
+		    public const string PlayerSkinMontyVonCue = "GameIds/PlayerSkinMontyVonCue";
+		    public const string PlayerSkinMontyVonCueDescription = "GameIds/PlayerSkinMontyVonCueDescription";
 		    public const string PlayerSkinTieGuy = "GameIds/PlayerSkinTieGuy";
 		    public const string PlayerSkinTieGuyDescription = "GameIds/PlayerSkinTieGuyDescription";
 		    public const string PlayerSkinXmasSuperstar = "GameIds/PlayerSkinXmasSuperstar";

@@ -14,24 +14,10 @@ namespace FirstLight.Game.MonoComponent.Collections
 	[RequireComponent(typeof(Animator))]
 	public class CharacterSkinMonoComponent : MonoBehaviour
 	{
-		private static readonly Dictionary<AnchorType, GameIdGroup> AnchorMapping = new()
+		private static readonly Dictionary<AnchorType, GameIdGroup> AnchorMapping = new ()
 		{
-			{AnchorType.Amulet, GameIdGroup.Amulet},
 			{AnchorType.Weapon, GameIdGroup.Weapon},
-			{AnchorType.Helmet, GameIdGroup.Helmet},
-			{AnchorType.Shield, GameIdGroup.Shield},
-			{AnchorType.Armor, GameIdGroup.Armor},
 			{AnchorType.Glider, GameIdGroup.Glider},
-		};
-
-		private static readonly Dictionary<AnchorType, List<string>> AnchorNaming = new()
-		{
-			{AnchorType.Amulet, new() {"Amulet"}},
-			{AnchorType.Weapon, new() {"Weapon"}},
-			{AnchorType.Helmet, new() {"Helmet", "Hat"}},
-			{AnchorType.Shield, new() {"Shield"}},
-			{AnchorType.Armor, new() {"Armor"}},
-			{AnchorType.Glider, new() {"Glider"}},
 		};
 
 		[InfoBox("If not set will use default animation!"), SerializeField]
@@ -47,7 +33,7 @@ namespace FirstLight.Game.MonoComponent.Collections
 		public RuntimeAnimatorController MenuController => _menuController;
 
 
-		private ReadOnlyDictionary<GameIdGroup, Transform[]> _anchorDictionary = new(new Dictionary<GameIdGroup, Transform[]>());
+		private ReadOnlyDictionary<GameIdGroup, Transform[]> _anchorDictionary = new (new Dictionary<GameIdGroup, Transform[]>());
 
 		private void Awake()
 		{
@@ -74,15 +60,15 @@ namespace FirstLight.Game.MonoComponent.Collections
 
 
 #if UNITY_EDITOR
-		[Button,InfoBox("Remove all anchors from GameObject and add new ones based on default anchors config!")]
+		[Button, InfoBox("Remove all anchors from GameObject and add new ones based on default anchors config!")]
 		public void CreateAnchorsAutomatically()
 		{
 			DeleteAllAnchors();
-			AddAnchors();
+			AddAnchorsAndFillRefs();
 		}
 
-        
-		public void AddAnchors()
+
+		public void AddAnchorsAndFillRefs()
 		{
 			var id = AddressableConfigLookup.GetConfig(AddressableId.Collections_CharacterSkins_Config);
 			var op = Addressables.LoadAssetAsync<CharacterSkinConfigs>(id.Address);
@@ -96,63 +82,59 @@ namespace FirstLight.Game.MonoComponent.Collections
 				{
 					var type = entry.Key;
 					var i = 1;
-					foreach (var anchor in entry.Value)
+					foreach (var anchorConfig in entry.Value)
 					{
-						var obj = new GameObject($"Anchor_{type}_{i}");
-						AddObjectInside(anchor.AttachToBone, obj);
-						obj.transform.localPosition = anchor.Offset.Position;
-						obj.transform.localRotation = Quaternion.Euler(anchor.Offset.Rotation);
+						if (!AddObjectInside($"Anchor_{type}_{i}",anchorConfig.AttachToBone,out var obj))
+						{
+							UnityEditor.EditorUtility.DisplayDialog("Error", $"Could not find bone {anchorConfig.AttachToBone} to attach {type} anchor!","Cancel");
+							_anchors.Clear();
+							return;
+						}
+						obj.transform.localPosition = anchorConfig.Offset.Position;
+						obj.transform.localRotation = Quaternion.Euler(anchorConfig.Offset.Rotation);
+						var added = false;
+						foreach (var anchor in _anchors.Where(anchor => anchor.Key == type))
+						{
+							anchor.Value.Add(obj.transform);
+							added = true;
+						}
+
+						if (!added)
+						{
+							_anchors.Add(new Pair<AnchorType, List<Transform>>(type, new List<Transform>() {obj.transform}));
+						}
+
 						i++;
 					}
 				}
 			};
 		}
 
-		private void AddObjectInside(string name, GameObject obj)
+		private bool AddObjectInside(string objectName, string parentName, out GameObject createdObject )
 		{
-			var transform = GetComponentsInChildren<Transform>().FirstOrDefault(t => t.name == name);
+			var transform = GetComponentsInChildren<Transform>().FirstOrDefault(t => t.name == parentName);
 			if (transform != null)
 			{
+				var obj = new GameObject(objectName);
 				obj.transform.parent = transform;
+				createdObject = obj;
+				return true;
 			}
+
+			createdObject = null;
+			return false;
 		}
-		
+
 		public void DeleteAllAnchors()
 		{
 			foreach (var child in GetComponentsInChildren<Transform>())
 			{
 				var name = child.name;
-				if (!name.Contains("Anchor")) continue;
+				if (!name.Contains("Anchor_")) continue;
 				DestroyImmediate(child.gameObject);
 			}
-		}
-        
-		[Button,InfoBox("Searches for anchor references inside the object and add it to the anchors references")]
-		public void FillSkinAnchorReferences()
-		{
+
 			_anchors = new List<Pair<AnchorType, List<Transform>>>();
-			foreach (var child in GetComponentsInChildren<Transform>())
-			{
-				var name = child.name;
-				if (!name.Contains("Anchor")) continue;
-				var contains = AnchorNaming.Any(entry => entry.Value.Any(validName => name.Contains(validName)));
-				if (!contains) continue;
-				var key = AnchorNaming.First(entry => entry.Value.Any(validName => name.Contains(validName))).Key;
-
-				var added = false;
-				foreach (var anchor in _anchors.Where(anchor => anchor.Key == key))
-				{
-					anchor.Value.Add(child);
-					added = true;
-				}
-
-				if (added)
-				{
-					continue;
-				}
-
-				_anchors.Add(new Pair<AnchorType, List<Transform>>(key, new List<Transform>() {child}));
-			}
 		}
 #endif
 	}

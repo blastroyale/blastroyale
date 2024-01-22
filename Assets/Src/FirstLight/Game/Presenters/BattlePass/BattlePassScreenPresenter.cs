@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -68,6 +69,7 @@ namespace FirstLight.Game.Presenters
 		private Label _freeTitle;
 		private LocalizedLabel _seasonEndsLabel;
 		private VisualElement _lastRewardBaloon;
+		private VisualElement _lastRewardSprite;
 		private ScreenHeaderElement _screenHeader;
 		private ImageButton _currentReward;
 		private VisualElement _endGraphic;
@@ -110,6 +112,7 @@ namespace FirstLight.Game.Presenters
 			_seasonEndsLabel = root.Q<LocalizedLabel>("SeasonEndsLabel").Required();
 			_lastRewardBaloon = root.Q("LastRewardBalloon");
 			_lastRewardBaloon.RegisterCallback<PointerDownEvent>(e => OnClickLastRewardIcon());
+			_lastRewardSprite = root.Q("LastRewardSprite");
 			_endGraphic = root.Q("LastReward").Required();
 			root.Q<CurrencyDisplayElement>("BBCurrency").AttachView(this, out CurrencyDisplayView _);
 
@@ -387,7 +390,8 @@ namespace FirstLight.Game.Presenters
 			}
 
 			SpawnScrollFiller();
-
+			UpdateLastRewardBubbleSprite().Forget();
+			
 			if (predictedProgress.Item1 > 1)
 			{
 				ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs, Data.DisableInitialScrollAnimation && !update);
@@ -395,6 +399,19 @@ namespace FirstLight.Game.Presenters
 
 			// Disable current reward bubble
 			_currentReward.SetDisplay(false);
+		}
+
+		public async UniTaskVoid UpdateLastRewardBubbleSprite()
+		{
+			// Go ahead miha, you can yell at me
+			var currentSeason = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig();
+			var type = currentSeason.Season.RemovePaid ? PassType.Free : PassType.Paid;
+			var rewards = _dataProvider.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select((_, e) => (uint)e+1), type);
+			rewards.Reverse();
+			var bestReward = rewards.First();
+			var itemData = _dataProvider.RewardDataProvider.CreateItemFromConfig(bestReward);
+			var loadTask = _services.CollectionService.LoadCollectionItemSprite(itemData);
+			await UIUtils.SetSprite(loadTask, _lastRewardSprite);
 		}
 
 		public RewardState GetRewardState(BattlePassSegmentData segment)

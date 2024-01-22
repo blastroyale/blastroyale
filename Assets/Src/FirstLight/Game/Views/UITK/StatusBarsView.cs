@@ -204,7 +204,12 @@ namespace FirstLight.Game.Views.UITK
 			foreach (var (entity, bar) in _visiblePlayers)
 			{
 				var spectatingCurrentEntity = current.Entity == entity;
+				if (spectatingCurrentEntity)
+				{
+					UpdateBarStats(QuantumRunner.Default.Game.Frames.Predicted, current.Entity, bar);	
+				}
 				bar.EnableStatusBars((!spectatingCurrentEntity && SHOW_ENEMY_BARS) || (spectatingCurrentEntity && _useOverheadUi));
+			
 			}
 		}
 
@@ -234,7 +239,11 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var bar = _playerBarPool.Get();
 			_visiblePlayers.Add(entity, bar);
+			UpdateBarStats(f, entity, bar);
+		}
 
+		private void UpdateBarStats(Frame f, EntityRef entity, PlayerStatusBarElement bar)
+		{
 			var stats = f.Get<Stats>(entity);
 
 			var spectatingCurrentEntity = _matchServices.SpectateService.GetSpectatedEntity() == entity;

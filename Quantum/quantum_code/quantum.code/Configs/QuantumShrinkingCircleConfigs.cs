@@ -34,6 +34,8 @@ namespace Quantum
 	[AssetObjectConfig(GenerateAssetCreateMenu = false)]
 	public partial class QuantumShrinkingCircleConfigs
 	{
+		private object _lock = new object();
+		
 		public List<QuantumShrinkingCircleConfig> QuantumConfigs = new List<QuantumShrinkingCircleConfig>();
 		
 		private IDictionary<int, IDictionary<int, QuantumShrinkingCircleConfig>> _dictionary;
@@ -45,17 +47,20 @@ namespace Quantum
 		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<int, IDictionary<int, QuantumShrinkingCircleConfig>>();
-				
-				foreach (var config in QuantumConfigs)
+				lock (_lock)
 				{
-					if (!_dictionary.ContainsKey((int)config.Map))
+					var dictionary = new Dictionary<int, IDictionary<int, QuantumShrinkingCircleConfig>>();
+					foreach (var config in QuantumConfigs)
 					{
-						_dictionary.Add((int)config.Map, new Dictionary<int, QuantumShrinkingCircleConfig>());
-					}
+						if (!dictionary.ContainsKey((int)config.Map))
+						{
+							dictionary.Add((int)config.Map, new Dictionary<int, QuantumShrinkingCircleConfig>());
+						}
 
-					// We do -1 here so dictionary keys can acts as indexes, starting from 0 (as steps in configs start with 1)
-					_dictionary[(int)config.Map].Add(config.Step - 1, config);
+						// We do -1 here so dictionary keys can acts as indexes, starting from 0 (as steps in configs start with 1)
+						dictionary[(int)config.Map].Add(config.Step - 1, config);
+						_dictionary = dictionary;
+					}
 				}
 			}
 			

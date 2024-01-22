@@ -45,6 +45,8 @@ namespace Quantum
 		
 		private IDictionary<GameId, QuantumSpecialConfig> _dictionary = null;
 
+		private object _lock = new object();
+
 		/// <summary>
 		/// Requests the <see cref="QuantumSpecialConfig"/> of the given enemy <paramref name="gameId"/>
 		/// </summary>
@@ -52,11 +54,14 @@ namespace Quantum
 		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<GameId, QuantumSpecialConfig>();
-				
-				foreach (var config in QuantumConfigs)
+				lock (_lock)
 				{
-					_dictionary.Add(config.Id, config);
+					var dictionary = new Dictionary<GameId, QuantumSpecialConfig>();
+					foreach (var config in QuantumConfigs)
+					{
+						dictionary.Add(config.Id, config);
+					}
+					_dictionary = dictionary;
 				}
 			}
 

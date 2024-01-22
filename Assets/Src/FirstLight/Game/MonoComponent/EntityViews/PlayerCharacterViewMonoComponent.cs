@@ -81,7 +81,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnShieldedChargeUsed>(this, HandleOnShieldedChargeUsed);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, HandleOnGameEnded);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandlePlayerWeaponChanged);
-			QuantumEvent.Subscribe<EventOnPlayerGearChanged>(this, HandlePlayerGearChanged);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveFullyGrounded>(this, HandlePlayerSkydiveFullyGrounded);
@@ -486,16 +485,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					}
 				}
 			});
-		}
-
-		private void HandlePlayerGearChanged(EventOnPlayerGearChanged callback)
-		{
-			if (callback.Entity != EntityView.EntityRef)
-			{
-				return;
-			}
-
-			_characterView.EquipItem(callback.Gear).Forget();
 		}
 
 		private void HandleOnAirstrikeUsed(EventOnAirstrikeUsed callback)

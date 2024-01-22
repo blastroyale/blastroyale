@@ -55,6 +55,8 @@ namespace Quantum
 	[AssetObjectConfig(GenerateAssetCreateMenu = true)]
 	public partial class QuantumBaseEquipmentStatConfigs
 	{
+		private object _lock = new object();
+
 		public List<QuantumBaseEquipmentStatConfig> QuantumConfigs = new List<QuantumBaseEquipmentStatConfig>();
 
 		private IDictionary<GameId, QuantumBaseEquipmentStatConfig> _dictionary = null;
@@ -66,11 +68,16 @@ namespace Quantum
 		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<GameId, QuantumBaseEquipmentStatConfig>();
-
-				for (var i = 0; i < QuantumConfigs.Count; i++)
+				lock (_lock)
 				{
-					_dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					var dict = new Dictionary<GameId, QuantumBaseEquipmentStatConfig>();
+
+					for (var i = 0; i < QuantumConfigs.Count; i++)
+					{
+						dict.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					}
+
+					_dictionary = dict;
 				}
 			}
 

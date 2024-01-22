@@ -249,6 +249,8 @@ namespace Quantum
 
 		private IDictionary<string, QuantumGameModeConfig> _dictionary;
 
+		private object _lock = new object();
+
 		/// <summary>
 		/// Requests the <see cref="QuantumGameModeConfig"/> defined by the given <paramref name="name"/>
 		/// </summary>
@@ -256,14 +258,16 @@ namespace Quantum
 		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<string, QuantumGameModeConfig>();
-
-				for (var i = 0; i < QuantumConfigs.Count; i++)
+				lock (_lock)
 				{
-					_dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					var dictionary = new Dictionary<string, QuantumGameModeConfig>();
+					for (var i = 0; i < QuantumConfigs.Count; i++)
+					{
+						dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					}
+					_dictionary = dictionary;
 				}
 			}
-
 			return _dictionary[name];
 		}
 	}

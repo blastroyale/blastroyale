@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
@@ -16,6 +17,7 @@ using I2.Loc;
 using Newtonsoft.Json;
 using PlayFab;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -112,7 +114,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask WaitForAsyncLogin()
 		{
-			await UniTask.WaitUntil(() => _asyncLogin.Status == UniTaskStatus.Succeeded);
+			await UniTask.WaitUntil(() => _asyncLogin.Status.IsCompleted());
 		}
 
 		private async UniTask AsyncDeviceLogin()
@@ -151,36 +153,8 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
-			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnServerHttpError);
 		}
 
-		private void OnServerHttpError(ServerHttpErrorMessage msg)
-		{
-			_services.AnalyticsService.CrashLog($"Login error code {msg.ErrorCode} -  {msg.Message}");
-			if (msg.ErrorCode != HttpStatusCode.RequestTimeout)
-			{
-				return;
-			}
-
-			var title = "Login Timeout";
-			var desc = $"Please Retry";
-#if UNITY_EDITOR
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
-				ButtonOnClick = () => { _services.QuitGame("Close due to login error"); }
-			};
-			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
-#else
-				var button = new FirstLight.NativeUi.AlertButton
-				{
-					Callback = () => {_services.QuitGame("Close due to login error"); },
-					Style = FirstLight.NativeUi.AlertButtonStyle.Positive,
-					Text = ScriptLocalization.MainMenu.QuitGameButton
-				};
-				FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, title, desc, button);
-#endif
-		}
 
 		private void UnsubscribeEvents()
 		{
@@ -235,89 +209,66 @@ namespace FirstLight.Game.StateMachines
 
 			// If unauthorized/session ticket expired, try to re-log without moving the state machine
 			var recoverable = IsAuthErrorRecoverable(error);
-			if (recoverable && _services.AuthenticationService.State.Retries < MaxAuthenticationRetries)
-			{
-				_services.AuthenticationService.State.Retries++;
-				if (hasAccount)
-				{
-					LoginWithDevice();
-				}
-				else
-				{
-					SetupLoginGuest();
-				}
 
-				return;
-			}
-
+			// Some unrecoverable shit happen, show a button to clear account data and reopen the game.
 			// Send error
-			OnPlayFabError(error, automaticLogin);
+			OnLoginError(error);
 
-			// Max retries exceeded, so don't reset the player account and let them try later!
-			if (recoverable && automaticLogin)
-			{
-				_uiService.CloseUi<LoadingScreenPresenter>();
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
-					ButtonOnClick = () => _services.QuitGame("auth failed")
-				};
 
-				if (error.ErrorDetails != null)
-				{
-					FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
-				}
-
-				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, "Authentication failed try again later!",
-					false, confirmButton);
-				return;
-			}
-
-			_services.AuthenticationService.SetLinkedDevice(false);
-			_statechartTrigger(_authFailEvent);
+			return;
 		}
 
-		public bool IsAuthErrorRecoverable(PlayFabError err)
+		private bool IsAuthErrorRecoverable(PlayFabError err)
 		{
-			if (err.Error is PlayFabErrorCode.ConnectionError or PlayFabErrorCode.FailedLoginAttemptRateLimitExceeded)
-			{
-				return true;
-			}
-
-			// If unauthorized/session ticket expired, try to re-log without moving the state machine
-			if ((HttpStatusCode) err.HttpCode == HttpStatusCode.Unauthorized)
-			{
-				return true;
-			}
-
-			return false;
+			return err.Error is not (PlayFabErrorCode.AccountDeleted
+				or PlayFabErrorCode.AccountBanned
+				or PlayFabErrorCode.AccountNotFound
+				);
 		}
 
-		private void OnPlayFabError(PlayFabError error, bool automaticLogin)
+		private void OnLoginError(PlayFabError error)
 		{
-			string errorMessage = error.ErrorMessage;
+			var recoverable = IsAuthErrorRecoverable(error);
 
-			if (automaticLogin)
+			var account = _dataService.GetData<AccountData>();
+			Analytics.SendEvent("loginError", new Dictionary<string, object>
 			{
-				errorMessage = $"AutomaticLogin: {error.ErrorMessage}";
+				{"report", error.GenerateErrorReport()},
+				{"device_id", account.DeviceId ?? "null"},
+				{"last_login_email", account.LastLoginEmail ?? "null"},
+				{"recoverable", recoverable},
+			});
+			if (error.ErrorDetails != null)
+			{
+				FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
 			}
+
+			FLog.Info("Error: "+error.Error);
 
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = () =>
 				{
-					_services.GenericDialogService.CloseDialog();
-					_statechartTrigger(_authFailContinueEvent);
+					if (!recoverable)
+					{
+						_services.AuthenticationService.SetLinkedDevice(false);
+					}
+
+					_services.QuitGame("OnLoginError " + error.GenerateErrorReport());
 				}
 			};
-
-			if (error.ErrorDetails != null)
+			var message = error.ErrorMessage;
+			if (!recoverable)
 			{
-				FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
+				message = $"<color=red>You will be logged out of this account!</color>\n\n<size=70%>{message}</size>";
+			}
+			else
+			{
+				message = $"{message}\n\nIf this keeps happening please contact us at <color=blue><u><a href=\"{GameConstants.Links.DISCORD_SERVER}\">Discord</a></u></color>";
 			}
 
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage,
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, message,
 				false, confirmButton);
 		}
 

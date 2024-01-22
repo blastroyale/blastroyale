@@ -58,6 +58,8 @@ namespace Quantum
 
 		private Dictionary<EquipmentStatsKey, QuantumEquipmentStatConfig> _dictionary = null;
 
+		private object _lock = new object();
+
 		/// <summary>
 		/// Requests the <see cref="QuantumEquipmentStatConfig"/> of the given <paramref name="equipment"/>
 		/// </summary>
@@ -65,16 +67,18 @@ namespace Quantum
 		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<EquipmentStatsKey, QuantumEquipmentStatConfig>();
-			
-				foreach (var statsConfig in QuantumConfigs)
+				lock (_lock)
 				{
-					_dictionary
-						.Add(new EquipmentStatsKey(statsConfig.Faction),
-						     statsConfig);
+					var dict = new Dictionary<EquipmentStatsKey, QuantumEquipmentStatConfig>();
+					foreach (var statsConfig in QuantumConfigs)
+					{
+						dict
+							.Add(new EquipmentStatsKey(statsConfig.Faction),
+								statsConfig);
+					}
+					_dictionary = dict;
 				}
 			}
-
 			return _dictionary[equipment.GetStatsKey()];
 		}
 	}

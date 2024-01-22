@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Data;
@@ -94,6 +95,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(mainMenuLoading);
 			initial.OnExit(SubscribeEvents);
 
+			mainMenuLoading.OnEnter(UpdateSkinIfNeeded);
 			mainMenuLoading.OnEnter(() => LoadMainMenu().Forget());
 			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
@@ -528,6 +530,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenHomeScreen()
 		{
+			if (_uiService.IsOpen<HomeScreenPresenter>()) return;
+			
 			var data = new HomeScreenPresenter.StateData
 			{
 				OnPlayButtonClicked = PlayButtonClicked,
@@ -564,7 +568,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnRewardsReceived(List<ItemData> items)
 		{
 			if (_services.RoomService.InRoom) return;
-			
+
 			var rewardsCopy = items.Where(item => !item.Id.IsInGroup(GameIdGroup.Currency) && item.Id is not (GameId.XP or GameId.BPP or GameId.Trophies)).ToList();
 			if (rewardsCopy.Count > 0)
 			{
@@ -633,6 +637,19 @@ namespace FirstLight.Game.StateMachines
 			if (FeatureFlags.TUTORIAL)
 			{
 				_services.MessageBrokerService.Publish(new RequestStartMetaMatchTutorialMessage());
+			}
+		}
+
+		private void UpdateSkinIfNeeded()
+		{
+			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS);
+			if (skin != null && !skin.Id.IsInGroup(GameIdGroup.PlayerSkin))
+			{
+				FLog.Info("Updating skin as skin was not in PlayerSkin group");
+				_services.CommandService.ExecuteCommand(new EquipCollectionItemCommand()
+				{
+					Item = _gameDataProvider.CollectionDataProvider.DefaultCollectionItems[CollectionCategories.PLAYER_SKINS].First()
+				});
 			}
 		}
 

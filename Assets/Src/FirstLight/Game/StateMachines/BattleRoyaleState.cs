@@ -126,6 +126,7 @@ namespace FirstLight.Game.StateMachines
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayerRef()];
+
 			return localPlayer.Entity.IsAlive(f);
 		}
 
@@ -148,7 +149,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
-	
+
 		private void CloseMatchHud()
 		{
 			_uiService.CloseUi<HUDScreenPresenter>();
@@ -156,7 +157,6 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OpenMatchHud()
 		{
-			_uiService.CloseCurrentScreen();
 			_uiService.OpenUi<HUDScreenPresenter>();
 		}
 		

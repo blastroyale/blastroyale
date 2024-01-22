@@ -25,6 +25,8 @@ namespace Quantum
 		
 		private IDictionary<int, QuantumMapConfig> _dictionary;
 
+		private object _lock = new object();
+		
 		/// <summary>
 		/// Requests the <see cref="QuantumMapConfig"/> from it's <paramref name="id"/>
 		/// </summary>
@@ -32,14 +34,16 @@ namespace Quantum
 		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<int, QuantumMapConfig>();
-				
-				foreach (var config in QuantumConfigs)
+				lock (_lock)
 				{
-					_dictionary.Add((int) config.Map, config);
+					var dict = new Dictionary<int, QuantumMapConfig>();
+					foreach (var config in QuantumConfigs)
+					{
+						dict.Add((int) config.Map, config);
+					}
+					_dictionary = dict;
 				}
 			}
-
 			return _dictionary[id];
 		}
 	}

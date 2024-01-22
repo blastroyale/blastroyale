@@ -65,8 +65,9 @@ namespace FirstLight.Game.Presenters
 			var endsAt = currentSeason.Season.GetEndsAtDateTime();
 			
 			_timeLeft.text = (endsAt - DateTime.UtcNow).ToDayAndHours(true);
-			
-			var rewards = data.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select((_, e) => (uint)e+1), PassType.Free);
+
+			var type = currentSeason.Season.RemovePaid ? PassType.Free : PassType.Paid;
+			var rewards = data.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select((_, e) => (uint)e+1), type);
 			rewards.Reverse();
 			
 			var bestReward = rewards.First();

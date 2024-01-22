@@ -67,7 +67,7 @@ namespace FirstLight.Game.Utils
 		{
 			return element.worldBound.Overlaps(root.worldBound);
 		}
-		
+
 		/// <summary>
 		/// Gets the position (center of content rect) of the <paramref name="element"/>, in screen coordinates.
 		/// TODO: There has to be a better way to do this, without using the camera
@@ -191,7 +191,7 @@ namespace FirstLight.Game.Utils
 		}
 
 
-		public static async Task<Sprite> LoadSprite(GameId id)
+		public static async UniTask<Sprite> LoadSprite(GameId id)
 		{
 			// TODO: This should be handled better.
 			var services = MainInstaller.Resolve<IGameServices>();
@@ -204,16 +204,18 @@ namespace FirstLight.Game.Utils
 			await SetSprite(LoadSprite(id), elements);
 		}
 
-		public static async Task SetSprite(Task<Sprite> fetchSpriteTask, params VisualElement[] elements)
+		public static async UniTask SetSprite(UniTask<Sprite> fetchSpriteTask, params VisualElement[] elements)
 		{
 			foreach (var visualElement in elements)
 			{
+				if (visualElement == null || visualElement.panel == null || visualElement.panel.visualTree == null) continue;
 				visualElement.style.backgroundImage = null;
 			}
 
 			var sprite = await fetchSpriteTask;
 			foreach (var visualElement in elements)
 			{
+				if (visualElement == null || visualElement.panel == null || visualElement.panel.visualTree == null) continue;
 				visualElement.style.backgroundImage = new StyleBackground(sprite);
 			}
 		}

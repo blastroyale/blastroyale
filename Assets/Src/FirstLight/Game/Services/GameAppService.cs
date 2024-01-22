@@ -56,7 +56,10 @@ namespace FirstLight.Game.Services
 			if (!_services.AuthenticationService.State.LoggedIn) return;
 			if (_paused) return;
 			_paused = true;
-			Time.timeScale = 0;
+			if (FeatureFlags.PAUSE_FREEZE)
+			{
+				Time.timeScale = 0;
+			}
 			_pauseTime = DateTime.UtcNow;
 			_services.NetworkService.QuantumClient.LoadBalancingPeer.DisconnectTimeout = ushort.MaxValue;
 			FLog.Info("Game Paused");
@@ -78,7 +81,10 @@ namespace FirstLight.Game.Services
 			}
 
 			_services.NetworkService.QuantumClient.LoadBalancingPeer.DisconnectTimeout = 10000;
-			Time.timeScale = 1;
+			if (FeatureFlags.PAUSE_FREEZE)
+			{
+				Time.timeScale = 1;
+			}
 			_paused = false;
 			FLog.Info("Game Resumed");
 		}

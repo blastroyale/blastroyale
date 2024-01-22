@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using FirstLight.FLogger;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Newtonsoft.Json;
@@ -72,7 +73,7 @@ namespace FirstLight.Game.Views.UITK
 			_text.text = data.Text;
 			if (data.Image != null)
 			{
-				MainInstaller.ResolveServices().RemoteTextureService.SetTexture(_image, data.Image, false);
+				MainInstaller.ResolveServices().RemoteTextureService.SetTexture(_image, data.Image);
 			}
 			else
 			{

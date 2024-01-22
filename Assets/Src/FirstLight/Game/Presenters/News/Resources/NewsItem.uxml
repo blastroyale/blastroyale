@@ -6,7 +6,7 @@
             <ui:Label tabindex="-1" text="News Title" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" class="news-title" />
         </ui:VisualElement>
         <ui:VisualElement name="Contents" class="news-content">
-            <ui:VisualElement name="ContentImage" class="news-content__image" style="display: flex; background-image: none;" />
+            <ui:VisualElement name="ContentImage" class="news-content__image" />
             <ui:VisualElement name="TextContents" class="news-content__text">
                 <ui:Label tabindex="-1" text="This is the context text &lt;br&gt;Yolo" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Text" class="news-text" />
             </ui:VisualElement>

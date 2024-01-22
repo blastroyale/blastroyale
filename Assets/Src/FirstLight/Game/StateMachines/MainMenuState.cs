@@ -255,6 +255,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void ShowMatchmaking()
 		{
+			if (!_uiService.HasUiPresenter<HomeScreenPresenter>())
+			{
+				Log.Warn("Trying to open matchmaking screen but home screen already closed");
+				return;
+			}
 			_uiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(true);
 		}
 

@@ -196,6 +196,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.TestAssetsMap, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
 					GameId.BattlelandsMap, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
@@ -1642,6 +1648,7 @@ namespace Quantum
 						GameId.NewBRMap,
 						GameId.FtueMiniMap,
 						GameId.District,
+						GameId.TestAssetsMap,
 						GameId.BattlelandsMap,
 						GameId.IslandsMap,
 						GameId.MazeMayhem,

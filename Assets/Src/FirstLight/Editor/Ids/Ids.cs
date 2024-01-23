@@ -84,6 +84,7 @@ namespace FirstLight.Editor.Ids
 			{"NewBRMap", 65, Map},
 			{"FtueMiniMap", 133, Map},
 			{"District", 108, Map},
+			{"TestAssetsMap", 1009, Map},
 			{"BattlelandsMap", 113, Map},
 			{"IslandsMap", 114, Map},
 			{"MazeMayhem", 115, Map},

@@ -479,6 +479,11 @@ MonoBehaviour:
         Id:
           Value: 1722351953338325886
       Address: QuantumAssets/Projectiles/HammerHit.prefab[HammerHitEntityPrototype]
+    - Path: AddressableResources/Maps/TestAssets/BinaryDataAsset
+      AssetRef:
+        Id:
+          Value: 1757640690739227388
+      Address: Maps/TestAssets/BinaryDataAsset.asset
     - Path: AddressableResources/Configs/CustomAssetConfigs
       AssetRef:
         Id:
@@ -639,6 +644,11 @@ MonoBehaviour:
         Id:
           Value: 2403753126067035639
       Address: QuantumAssets/Spawners/PlatformSpawner.prefab[PlatformSpawnerEntityPrototype]
+    - Path: AddressableResources/Maps/TestAssets/TestAssetsMap_mesh
+      AssetRef:
+        Id:
+          Value: 2408532451239495612
+      Address: Maps/TestAssets/TestAssetsMap_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFPDecision_24
       AssetRef:
         Id:
@@ -956,6 +966,11 @@ MonoBehaviour:
         Id:
           Value: 3976978988907550274
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerOnBurstCompleteAction_17]
+    - Path: AddressableResources/Maps/TestAssets/TestAssetsMap
+      AssetRef:
+        Id:
+          Value: 3982788431232669379
+      Address: Maps/TestAssets/TestAssetsMap.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardFP_2
       AssetRef:
         Id:
@@ -1106,6 +1121,11 @@ MonoBehaviour:
         Id:
           Value: 4487114524772037996
       Address: Maps/Cemetery/Cemetery.asset
+    - Path: AddressableResources/Maps/TestAssets/NavMeshAsset
+      AssetRef:
+        Id:
+          Value: 4500954794891978155
+      Address: Maps/TestAssets/NavMeshAsset.asset
     - Path: AddressableResources/QuantumAssets/Characters/DummyCharacter|EntityView
       AssetRef:
         Id:

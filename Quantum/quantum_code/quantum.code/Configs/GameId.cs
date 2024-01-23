@@ -1817,7 +1817,11 @@ namespace Quantum
 						GameId.SciNeedleGun,
 						GameId.SciRifle,
 						GameId.SciSniper,
-						GameId.SciMelter
+						GameId.SciMelter,
+						GameId.Male01Avatar,
+						GameId.Male02Avatar,
+						GameId.Female01Avatar,
+						GameId.Female02Avatar
 					}.AsReadOnly()
 				},
 				{
@@ -1855,10 +1859,6 @@ namespace Quantum
 				{
 					GameIdGroup.Collection, new List<GameId>
 					{
-						GameId.Male01Avatar,
-						GameId.Male02Avatar,
-						GameId.Female01Avatar,
-						GameId.Female02Avatar,
 						GameId.MaleAssassin,
 						GameId.MaleCorpos,
 						GameId.MalePunk,
@@ -2131,10 +2131,6 @@ namespace Quantum
 				{
 					GameIdGroup.PlayerSkin, new List<GameId>
 					{
-						GameId.Male01Avatar,
-						GameId.Male02Avatar,
-						GameId.Female01Avatar,
-						GameId.Female02Avatar,
 						GameId.MaleAssassin,
 						GameId.MaleCorpos,
 						GameId.MalePunk,

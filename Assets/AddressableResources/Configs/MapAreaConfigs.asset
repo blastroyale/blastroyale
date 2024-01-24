@@ -18,17 +18,57 @@ MonoBehaviour:
     Areas:
     - Color:
         serializedVersion: 2
-        rgba: 4278234879
-      Name: BottomRight
+        rgba: 4280856831
+      Name: CONTAINERS
     - Color:
         serializedVersion: 2
-        rgba: 4294906368
-      Name: Center
+        rgba: 4278255589
+      Name: ARCHIPELAGO
     - Color:
         serializedVersion: 2
-        rgba: 4280821998
-      Name: Left
+        rgba: 4278255440
+      Name: COVE
     - Color:
         serializedVersion: 2
-        rgba: 4278255372
-      Name: TopRight
+        rgba: 4290711551
+      Name: WAREHOUSE
+    - Color:
+        serializedVersion: 2
+        rgba: 4278190335
+      Name: INDUSTRIAL COMPLEX
+    - Color:
+        serializedVersion: 2
+        rgba: 4278255517
+      Name: STRANDED BAY
+    - Color:
+        serializedVersion: 2
+        rgba: 4286054144
+      Name: SHOAL
+    - Color:
+        serializedVersion: 2
+        rgba: 4291886848
+      Name: ABANDONED HOUSE
+    - Color:
+        serializedVersion: 2
+        rgba: 4294955269
+      Name: CONSTRUCTION SITE
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901934
+      Name: JUNKYARD
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901849
+      Name: CAR CRASH PARK
+    - Color:
+        serializedVersion: 2
+        rgba: 4294936069
+      Name: RUINS
+    - Color:
+        serializedVersion: 2
+        rgba: 4293460223
+      Name: MEADOWS
+    - Color:
+        serializedVersion: 2
+        rgba: 4294916864
+      Name: MANSION

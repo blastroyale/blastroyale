@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10b750895db74e91ae127fb111cd7e16, type: 3}
+  m_Name: MapAreaConfigs
+  m_EditorClassIdentifier: 
+  _configs:
+  - MapID: 115
+    AreaTexture: {fileID: 2800000, guid: 3733ffe6ac7b940b9afcb65bb0b3b302, type: 3}
+    Areas:
+    - Color:
+        serializedVersion: 2
+        rgba: 4278234879
+      Name: BottomRight
+    - Color:
+        serializedVersion: 2
+        rgba: 4294906368
+      Name: Center
+    - Color:
+        serializedVersion: 2
+        rgba: 4280821998
+      Name: Left
+    - Color:
+        serializedVersion: 2
+        rgba: 4278255372
+      Name: TopRight

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -64,6 +65,8 @@ namespace FirstLight.Game.Presenters
 		private bool _matchStarting;
 
 		private List<Player> _squadMembers = new ();
+
+		private MapAreaConfig _mapAreaConfig;
 
 		private bool RejoiningRoom => _services.NetworkService.JoinSource.HasResync();
 
@@ -237,6 +240,8 @@ namespace FirstLight.Game.Presenters
 			var mapWidthHalf = mapWidth / 2;
 			var mapHeightHalf = mapHeight / 2;
 
+			var mapAreaPosition = new Vector2(localPos.x / mapWidth, 1f - localPos.y / mapHeight);
+
 			// Set map marker at click point
 			if (offsetCoors)
 			{
@@ -249,7 +254,16 @@ namespace FirstLight.Game.Presenters
 			var quantumSelectPos = new Vector2(localPos.x / mapWidth, -localPos.y / mapHeight);
 			_services.RoomService.CurrentRoom.LocalPlayerProperties.DropPosition.Value = quantumSelectPos;
 
-			_mapMarkerTitle.SetDisplay(false);
+			if (_mapAreaConfig != null)
+			{
+				_mapMarkerTitle.SetDisplay(true);
+				var areaName = _mapAreaConfig.GetAreaName(mapAreaPosition);
+				_mapMarkerTitle.text = areaName;
+			}
+			else
+			{
+				_mapMarkerTitle.SetDisplay(false);
+			}
 		}
 
 		private bool IsWithinMapArea(Vector3 dropPos)
@@ -266,6 +280,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
 				_mapImage.style.backgroundImage = new StyleBackground(sprite);
+				_mapAreaConfig = _services.ConfigsProvider.GetConfig<MapAreaConfigs>().GetMapAreaConfig(mapConfig.Map);
 			}
 			else
 			{
@@ -331,7 +346,6 @@ namespace FirstLight.Game.Presenters
 			SelectDropZone(posX, posY);
 			_mapImage.RegisterCallback<ClickEvent>(OnMapClicked);
 		}
-
 
 		private void OnPlayersChanged(Player p, PlayerChangeReason r)
 		{
@@ -412,6 +426,7 @@ namespace FirstLight.Game.Presenters
 					_header.SetButtonsVisibility(false);
 					_services.GenericDialogService.CloseDialog();
 				}
+
 				if (timeLeft.Milliseconds < 0)
 				{
 					_dropSelectionAllowed = false;

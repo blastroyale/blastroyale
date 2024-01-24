@@ -27,7 +27,7 @@ MonoBehaviour:
       BuyLevelPrice: 10
       DefaultPointsPerLevel: 400
       StartsAt: 2/11/2023
-      EndsAt: 31/01/2024
+      EndsAt: 29/02/2024
       RemovePaid: 1
       RemoveEndGraphic: 0
     Levels:

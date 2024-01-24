@@ -84,6 +84,7 @@ namespace FirstLight.Editor.Ids
 			{"NewBRMap", 65, Map},
 			{"FtueMiniMap", 133, Map},
 			{"District", 108, Map},
+			{"TestAssetsMap", 1009, Map},
 			{"BattlelandsMap", 113, Map},
 			{"IslandsMap", 114, Map},
 			{"MazeMayhem", 115, Map},
@@ -199,10 +200,10 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinFitnessChick", 146, PlayerSkin, Collection},
 			{"PlayerSkinSkellyQueen", 145}, // placeholder ID for the future skin
 			{"PlayerSkinXmasSuperstar", 149, PlayerSkin, Collection},
-			{"PlayerSkinJodie", 126, PlayerSkin, Collection},
-			{"PlayerSkinMontyVonCue", 129, PlayerSkin, Collection},
-			{"PlayerSkinBoudicca", 132, PlayerSkin, Collection},
-			{"PlayerSkinCupid", 134, PlayerSkin, Collection},
+			{"PlayerSkinJodie", 135, PlayerSkin, Collection},
+			{"PlayerSkinMontyVonCue", 136, PlayerSkin, Collection},
+			{"PlayerSkinBoudicca", 139, PlayerSkin, Collection},
+			{"PlayerSkinCupid", 142, PlayerSkin, Collection},
 
 			#endregion Player skins
 

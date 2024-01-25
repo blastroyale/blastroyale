@@ -8,17 +8,20 @@ namespace Quantum
 		public const byte DefaultId = 0;
 		public const byte ShrinkingCircleId = 1;
 		public const byte HeightDamageId = 2;
-		
+		public const byte Wounded = 3;
+		public const byte InstantKill = 3;
+		public const byte InstantKillWithoutWounding = 4;
+
 		/// <summary>
 		/// Checks if this is a instant hit spell type
 		/// </summary>
 		public bool IsInstantaneous => EndTime < FP.SmallestNonZero || Cooldown < FP.SmallestNonZero;
-		
+
 		/// <summary>
 		/// Creates an instant hit <see cref="Spell"/> based on the given data
 		/// </summary>
-		public static Spell CreateInstant(Frame f, EntityRef victim, EntityRef attacker, EntityRef spellSource, 
-		                                  uint powerAmount, uint knockbackAmount, FPVector3 position)
+		public static Spell CreateInstant(Frame f, EntityRef victim, EntityRef attacker, EntityRef spellSource,
+										  uint powerAmount, uint knockbackAmount, FPVector3 position)
 		{
 			return new Spell
 			{
@@ -35,7 +38,7 @@ namespace Quantum
 				TeamSource = f.Get<Targetable>(attacker).Team
 			};
 		}
-		
+
 		/// <summary>
 		/// Sometimes we just simply want to deal damage.
 		/// To avoid having to create a new spell everytime we deal damage, we can use SingleHit
@@ -55,7 +58,7 @@ namespace Quantum
 			{
 				finalDmg = (uint)stats->CurrentShield;
 			}
-			
+
 			if (!stats->HasShield() && stats->CurrentHealth < PowerAmount)
 			{
 				finalDmg = (uint)stats->CurrentHealth;
@@ -65,15 +68,15 @@ namespace Quantum
 			{
 				f.Events.OnShrinkingCircleDmg(Victim, finalDmg);
 			}
-			
+
 			stats->ReduceHealth(f, Victim, &s);
 		}
 
 		/// <summary>
 		/// Creates an instant hit <see cref="Spell"/> based on the given data
 		/// </summary>
-		public static Spell CreateInstant(Frame f, EntityRef victim, EntityRef attacker, EntityRef spellSource, 
-		                               uint powerAmount, uint knockbackAmount, FPVector3 position, Int32 team)
+		public static Spell CreateInstant(Frame f, EntityRef victim, EntityRef attacker, EntityRef spellSource,
+										  uint powerAmount, uint knockbackAmount, FPVector3 position, Int32 team)
 		{
 			return new Spell
 			{
@@ -89,6 +92,11 @@ namespace Quantum
 				KnockbackAmount = knockbackAmount,
 				TeamSource = team
 			};
+		}
+
+		public bool IsInstantKill()
+		{
+			return Id == InstantKillWithoutWounding || Id == InstantKill;
 		}
 	}
 }

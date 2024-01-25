@@ -9,7 +9,9 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
+using Quantum.Systems;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -86,6 +88,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveFullyGrounded>(this, HandlePlayerSkydiveFullyGrounded);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, HandleOnRadarUsed);
+			QuantumEvent.Subscribe<EventOnPlayerRevived>(this, OnPlayerRevived);
+			QuantumEvent.Subscribe<EventOnPlayerWounded>(this, OnPlayerWounded);
+		}
+
+		private void OnPlayerWounded(EventOnPlayerWounded callback)
+		{
+		}
+
+		private void OnPlayerRevived(EventOnPlayerRevived callback)
+		{
 		}
 
 		private void OnDestroy()
@@ -649,7 +661,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			rend.material = new Material(Shader.Find("Unlit/Color"));
 			if (playerCharacter.TeamId > 0)
 			{
-				var playersByTeam = TeamHelpers.GetPlayersByTeam(frame);
+				var playersByTeam = TeamSystem.GetPlayersByTeam(frame);
 				float teams = playersByTeam.Count;
 				float myTeam = 0;
 				foreach (var entityRefs in playersByTeam.Values)

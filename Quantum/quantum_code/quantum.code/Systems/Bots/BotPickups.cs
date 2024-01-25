@@ -78,7 +78,7 @@ namespace Quantum.Systems.Bots
 			var needSpecials = !filter.PlayerInventory->Specials[0].IsUsable(f) ||
 							   !filter.PlayerInventory->Specials[1].IsUsable(f);
 
-			var teamMembers = TeamHelpers.GetTeamMembers(f, filter.Entity);
+			var teamMembers = TeamSystem.GetTeamMembers(f, filter.Entity);
 			var invalidTargets = f.ResolveHashSet(filter.BotCharacter->InvalidMoveTargets);
 			var collectibleFilter = default(CollectibleFilter);
 			while (it.Next(&collectibleFilter))

@@ -1,5 +1,6 @@
 using System;
 using Photon.Deterministic;
+using Quantum.Systems;
 
 namespace Quantum
 {
@@ -48,6 +49,11 @@ namespace Quantum
 		public bool TryActivate(Frame f, PlayerRef playerRef, EntityRef playerEntity, FPVector2 aimInput,
 								int specialIndex)
 		{
+			if (ReviveSystem.IsWounded(f, playerEntity))
+			{
+				return false;
+			}
+
 			if (!IsUsable(f) || !TryUse(f, playerEntity, playerRef, aimInput))
 			{
 				return false;

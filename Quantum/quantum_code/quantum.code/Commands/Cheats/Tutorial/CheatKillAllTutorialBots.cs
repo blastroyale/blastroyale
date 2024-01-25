@@ -32,15 +32,14 @@ namespace Quantum.Commands
 			for (var i = 0; i < game.PlayersData.Length; i++)
 			{
 				var entity = game.PlayersData[i].Entity;
-				if (!f.Has<BotCharacter>(entity) || !f.Has<Stats>(entity)) continue;
+				if (!f.Has<BotCharacter>(entity) || !f.Unsafe.TryGetPointer<Stats>(entity, out var stats)) continue;
 				var bot = f.Unsafe.GetPointer<BotCharacter>(entity);
 				if (bot->BehaviourType != BehaviourType)
 				{
 					continue;
 				}
 
-				var spell = Spell.CreateInstant(f, entity, playerEntity, playerEntity, 100000, 0, entity.GetPosition(f));
-				QuantumHelpers.ProcessHit(f, &spell);
+				stats->Kill(f, entity, playerEntity);
 			}
 		}
 	}

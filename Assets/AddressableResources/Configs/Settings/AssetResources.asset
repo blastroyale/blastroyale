@@ -951,6 +951,11 @@ MonoBehaviour:
         Id:
           Value: 3912986414844588615
       Address: Maps/Battlelands/BattlelandsMap_NavMesh.asset
+    - Path: AddressableResources/Configs/ReviveConfigs
+      AssetRef:
+        Id:
+          Value: 3922240779153377466
+      Address: Configs/ReviveConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckIntDecision_8
       AssetRef:
         Id:

@@ -40,7 +40,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			if (IsCollectableFilled(f, info.Entity, info.Other))
+			if (IsCollectableFilled(f, info.Entity, info.Other) || ReviveSystem.IsWounded(f, info.Other))
 			{
 				//f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
 				StopCollecting(f, info.Entity, info.Other, player.Player, collectable);
@@ -68,7 +68,7 @@ namespace Quantum.Systems
 		{
 			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
 				f.Time < collectable->AllowedToPickupTime || !f.Has<AlivePlayerCharacter>(info.Other) ||
-				!f.TryGet<PlayerCharacter>(info.Other, out var player) || f.Has<EntityDestroyer>(info.Entity))
+				!f.TryGet<PlayerCharacter>(info.Other, out var player) || f.Has<EntityDestroyer>(info.Entity) || ReviveSystem.IsWounded(f, info.Other))
 			{
 				return false;
 			}
@@ -170,7 +170,7 @@ namespace Quantum.Systems
 					var stats = f.Get<Stats>(playerEntity);
 					var ammoSmallConfig = f.ConsumableConfigs.GetConfig(GameId.AmmoSmall);
 					var initialAmmo = ammoSmallConfig.Amount.Get(f);
-					var consumable = new Consumable {ConsumableType = ConsumableType.Ammo, Amount = initialAmmo};
+					var consumable = new Consumable { ConsumableType = ConsumableType.Ammo, Amount = initialAmmo };
 					var ammoWasEmpty = stats.CurrentAmmoPercent < FP.SmallestNonZero;
 
 					// Fake use a consumable to simulate it's natural life cycle
@@ -186,7 +186,7 @@ namespace Quantum.Systems
 				else
 				{
 					equipment->Collect(f, entity, playerEntity, player);
-					
+
 					// In Looting 2.0 we restore ammo to initial level if it was lower in a previous gun
 					if (f.Context.MapConfig.LootingVersion == 2 && equipment->Item.IsWeapon())
 					{

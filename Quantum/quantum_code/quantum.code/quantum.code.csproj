@@ -104,7 +104,11 @@
     <Compile Include="Components\CosteticsHolder.cs" />
     <Compile Include="Components\InputBake.cs" />
     <Compile Include="Components\PlayerInventory.cs" />
+    <Compile Include="Configs\Helpers\QuantumGameModePair.cs" />
+    <Compile Include="Configs\Helpers\QuantumPerGameModeConfig.cs" />
+    <Compile Include="Configs\Helpers\QuantumPair.cs" />
     <Compile Include="Configs\QuantumBotDifficultyConfigs.cs" />
+    <Compile Include="Configs\QuantumReviveConfigs.cs" />
     <Compile Include="QuantumFeatureFlags.cs" />
     <Compile Include="AI\HFSM.State.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.cs" />
@@ -251,13 +255,11 @@
     <Compile Include="Configs\QuantumStatConfigs.cs" />
     <Compile Include="Configs\QuantumMapConfigs.cs" />
     <Compile Include="Configs\QuantumEquipmentStatConfigs.cs" />
-    <Compile Include="Configs\QuantumPair.cs" />
     <Compile Include="Configs\QuantumShrinkingCircleConfigs.cs" />
     <Compile Include="Configs\QuantumBotConfigs.cs" />
     <Compile Include="Configs\QuantumConsumableConfigs.cs" />
     <Compile Include="Configs\QuantumDestructibleConfigs.cs" />
     <Compile Include="Configs\QuantumAssetConfigs.cs" />
-    <Compile Include="Configs\QuantumGameModePair.cs" />
     <Compile Include="Configs\QuantumGameConfigs.cs" />
     <Compile Include="Configs\QuantumSpecialConfigs.cs" />
     <Compile Include="Configs\QuantumWeaponConfigs.cs" />
@@ -316,6 +318,7 @@
     <Compile Include="Systems\ProjectileSystem.cs" />
     <Compile Include="Systems\SystemInitializer.cs" />
     <Compile Include="Systems\TriggerSystem.cs" />
+    <Compile Include="Systems\ReviveSystem.cs" />
     <Compile Include="Utils\AmmoUtils.cs" />
     <Compile Include="Utils\BitUtil.cs" />
     <Compile Include="Utils\DebugExtensions.cs" />
@@ -329,7 +332,6 @@
     <Compile Include="Utils\QuantumPlayerMatchData.cs" />
     <Compile Include="Utils\QuantumStatCalculator.cs" />
     <Compile Include="Utils\StatUtils.cs" />
-    <Compile Include="Utils\TeamHelpers.cs" />
     <Compile Include="Utils\WeightedList.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -377,6 +379,7 @@
     <Content Include="Components\EquipmentCollectable.qtn" />
     <Content Include="Components\Triggers.qtn" />
     <Content Include="Components\WeaponDropPool.qtn" />
+    <Content Include="Components\Revive.qtn" />
     <Content Include="Configs\Configs.qtn" />
     <Content Include="Configs\GameId.qtn" />
     <Content Include="Configs\GameModeEnums.qtn" />

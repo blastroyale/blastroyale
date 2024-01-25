@@ -22,8 +22,7 @@ namespace Quantum.Commands
 		var characterEntity = container->PlayersData[playerInt].Entity;
 			
 		var stats = f.Unsafe.GetPointer<Stats>(characterEntity);
-		var spell = new Spell {Attacker = characterEntity, PowerAmount = int.MaxValue};
-		stats->ReduceHealth(f, characterEntity, &spell);
+		stats->Kill(f, characterEntity, true);
 #else
 		Log.Error($"Trying to use Cheat command {this.GetType().Name} in Release build of Quantum Code");
 #endif

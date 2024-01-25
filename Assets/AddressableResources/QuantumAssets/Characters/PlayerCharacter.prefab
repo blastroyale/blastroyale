@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 8755646374635016916}
   - component: {fileID: 672166898487096628}
   - component: {fileID: 4338328958762609681}
+  - component: {fileID: 5235651184850599565}
   m_Layer: 6
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -402,9 +403,12 @@ MonoBehaviour:
     - Weapon:
         GameId:
           Value: 0
-        Edition:
-          Value: 0
         Rarity:
+          Value: 0
+        Material:
+          Value: 0
+        Level: 0
+        Edition:
           Value: 0
         Grade:
           Value: 0
@@ -412,12 +416,9 @@ MonoBehaviour:
           Value: 0
         Adjective:
           Value: 0
-        Material:
-          Value: 0
         MaxDurability: 0
         InitialReplicationCounter: 0
         Tuning: 0
-        Level: 0
         Generation: 0
         ReplicationCounter: 0
         TotalRestoredDurability: 0
@@ -429,9 +430,12 @@ MonoBehaviour:
     - Weapon:
         GameId:
           Value: 0
-        Edition:
-          Value: 0
         Rarity:
+          Value: 0
+        Material:
+          Value: 0
+        Level: 0
+        Edition:
           Value: 0
         Grade:
           Value: 0
@@ -439,12 +443,9 @@ MonoBehaviour:
           Value: 0
         Adjective:
           Value: 0
-        Material:
-          Value: 0
         MaxDurability: 0
         InitialReplicationCounter: 0
         Tuning: 0
-        Level: 0
         Generation: 0
         ReplicationCounter: 0
         TotalRestoredDurability: 0
@@ -456,9 +457,12 @@ MonoBehaviour:
     - Weapon:
         GameId:
           Value: 0
-        Edition:
-          Value: 0
         Rarity:
+          Value: 0
+        Material:
+          Value: 0
+        Level: 0
+        Edition:
           Value: 0
         Grade:
           Value: 0
@@ -466,12 +470,9 @@ MonoBehaviour:
           Value: 0
         Adjective:
           Value: 0
-        Material:
-          Value: 0
         MaxDurability: 0
         InitialReplicationCounter: 0
         Tuning: 0
-        Level: 0
         Generation: 0
         ReplicationCounter: 0
         TotalRestoredDurability: 0
@@ -480,119 +481,6 @@ MonoBehaviour:
       MagazineSize: 0
       ReloadTime:
         RawValue: 0
-    Gear:
-    - GameId:
-        Value: 0
-      Edition:
-        Value: 0
-      Rarity:
-        Value: 0
-      Grade:
-        Value: 0
-      Faction:
-        Value: 0
-      Adjective:
-        Value: 0
-      Material:
-        Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Level: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
-    - GameId:
-        Value: 0
-      Edition:
-        Value: 0
-      Rarity:
-        Value: 0
-      Grade:
-        Value: 0
-      Faction:
-        Value: 0
-      Adjective:
-        Value: 0
-      Material:
-        Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Level: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
-    - GameId:
-        Value: 0
-      Edition:
-        Value: 0
-      Rarity:
-        Value: 0
-      Grade:
-        Value: 0
-      Faction:
-        Value: 0
-      Adjective:
-        Value: 0
-      Material:
-        Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Level: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
-    - GameId:
-        Value: 0
-      Edition:
-        Value: 0
-      Rarity:
-        Value: 0
-      Grade:
-        Value: 0
-      Faction:
-        Value: 0
-      Adjective:
-        Value: 0
-      Material:
-        Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Level: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
-    - GameId:
-        Value: 0
-      Edition:
-        Value: 0
-      Rarity:
-        Value: 0
-      Grade:
-        Value: 0
-      Faction:
-        Value: 0
-      Adjective:
-        Value: 0
-      Material:
-        Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Level: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
-    DroppedLoadoutFlags: 0
-    CurrentEnergy: 0
     RealPlayer:
       Value: 0
 --- !u!114 &8755646374635016916
@@ -686,6 +574,20 @@ MonoBehaviour:
         RawValue: 0
       Charges: 0
       Knockback: 0
+--- !u!114 &5235651184850599565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100407106362044460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9ae53b228d18c443a77ed7e71b345c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    TimesWounded: 0
 --- !u!1001 &2810552878819034193
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
-using System.Linq;
+ using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
@@ -6,6 +6,7 @@ using FirstLight.Services;
 using Photon.Deterministic;
 using Quantum;
 using Quantum.Physics3D;
+using Quantum.Systems;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
@@ -228,7 +229,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private bool IsValidRaycastHit(Frame f, Hit3D* hit, EntityRef shooter)
 		{
-			return hit->Point != FPVector3.Zero && (hit->Entity.IsValid && hit->Entity != shooter || !hit->IsDynamic) && (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION || !TeamHelpers.HasSameTeam(f, shooter, hit->Entity));
+			return hit->Point != FPVector3.Zero && (hit->Entity.IsValid && hit->Entity != shooter || !hit->IsDynamic) && (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION || !TeamSystem.HasSameTeam(f, shooter, hit->Entity));
 		}
 	}
 }

@@ -88,7 +88,7 @@ namespace Quantum.Systems.Bots
 				AverageTrophies = baseTrophies,
 				PlayerPrototype = f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id),
 				NavMeshAgentConfig = f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id),
-				PlayersByTeam = TeamHelpers.GetPlayersByTeam(f),
+				PlayersByTeam = TeamSystem.GetPlayersByTeam(f),
 				TotalTeamsInGameMode = f.Context.GameModeConfig.MaxPlayers /
 					(f.Context.GameModeConfig.Teams ? f.Context.GameModeConfig.MaxPlayersInTeam : 1)
 			};

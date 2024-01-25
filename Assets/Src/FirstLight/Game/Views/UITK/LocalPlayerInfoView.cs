@@ -7,6 +7,7 @@ using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Photon.Deterministic;
 using Quantum;
+using Quantum.Systems;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
@@ -110,7 +111,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 
-			if (TeamHelpers.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), playerEntity).Count < 1)
+			if (TeamSystem.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), playerEntity).Count < 1)
 			{
 				_teamColor.SetVisibility(false);
 				return;

@@ -22,6 +22,7 @@ namespace Quantum
 		RPGsOnly,
 		ConsumablesSharing,
 		SpecialsMayhem,
+		DisableRevive,
 	}
 
 	[Serializable]

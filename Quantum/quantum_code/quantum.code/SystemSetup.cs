@@ -47,6 +47,7 @@ namespace Quantum
 				
 				new PlayerChargingSystem(),
 				new PlayerCharacterSystem(),
+				new ReviveSystem(),
 				new BotCharacterSystem(),
 				new StatSystem(),
 				new SpellSystem(),

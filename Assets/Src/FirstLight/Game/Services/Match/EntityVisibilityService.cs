@@ -136,7 +136,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private bool InterestedInAreaUpdate(EntityRef entity)
 		{
 			return IsSpectator(entity)
-				|| TeamHelpers.HasSameTeam(
+				|| TeamSystem.HasSameTeam(
 					QuantumRunner.Default.Game.Frames.Verified, entity,
 					QuantumRunner.Default.Game.GetLocalPlayerEntityRef());
 		}

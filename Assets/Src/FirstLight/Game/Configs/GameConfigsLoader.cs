@@ -84,6 +84,7 @@ namespace FirstLight.Game.Configs
 				new ConfigLoadDefinition<AdjectiveDataConfigs>(_assetLoader, AddressableId.Configs_AdjectiveDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.Adjective, asset.Configs)),
 				new ConfigLoadDefinition<GradeDataConfigs>(_assetLoader, AddressableId.Configs_GradeDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.Grade, asset.Configs)),
 				new ConfigLoadDefinition<GameModeConfigs>(_assetLoader, AddressableId.Configs_GameModeConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
+				new ConfigLoadDefinition<ReviveConfigs>(_assetLoader, AddressableId.Configs_ReviveConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<GameModeRotationConfigs>(_assetLoader, AddressableId.Configs_GameModeRotationConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<MutatorConfigs>(_assetLoader, AddressableId.Configs_MutatorConfigs, asset => configsAdder.AddConfigs(data => data.Id.GetHashCode(), asset.Configs)),
 				new ConfigLoadDefinition<ScrapConfigs>(_assetLoader, AddressableId.Configs_ScrapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Rarity, asset.Configs)),

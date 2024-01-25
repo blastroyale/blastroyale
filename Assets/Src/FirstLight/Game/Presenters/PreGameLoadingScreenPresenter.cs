@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
@@ -67,6 +68,7 @@ namespace FirstLight.Game.Presenters
 		private List<Player> _squadMembers = new ();
 
 		private MapAreaConfig _mapAreaConfig;
+		private Vector2 _markerLocalPosition;
 
 		private bool RejoiningRoom => _services.NetworkService.JoinSource.HasResync();
 
@@ -208,11 +210,6 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Unsubscribe<WaitingMandatoryMatchAssetsMessage>(OnWaitingMandatoryMatchAssets);
 		}
 
-		private void OnMapClicked(ClickEvent evt)
-		{
-			SelectMapPosition(evt.localPosition, true, true);
-		}
-
 		/// <summary>
 		///  Select the drop zone based on percentages of the map
 		/// </summary>
@@ -220,61 +217,17 @@ namespace FirstLight.Game.Presenters
 		{
 			var mapWidth = _mapImage.contentRect.width;
 
-			SelectMapPosition(new Vector2(x * mapWidth, y * mapWidth), true, false);
-		}
-
-		private void SelectMapPosition(Vector2 localPos, bool offsetCoors, bool checkClickWithinRadius)
-		{
-			if (_mapImage == null) return;
-			if (!_services.RoomService.InRoom) return;
-
-			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapArea(localPos))) return;
-
-			if (checkClickWithinRadius)
+			if (TrySetMarkerPosition(new Vector2(x * mapWidth, y * mapWidth)))
 			{
-				_services.MessageBrokerService.Publish(new MapDropPointSelectedMessage());
-			}
-
-			var mapWidth = _mapImage.contentRect.width;
-			var mapHeight = _mapImage.contentRect.height;
-			var mapWidthHalf = mapWidth / 2;
-			var mapHeightHalf = mapHeight / 2;
-
-			var mapAreaPosition = new Vector2(localPos.x / mapWidth, 1f - localPos.y / mapHeight);
-
-			// Set map marker at click point
-			if (offsetCoors)
-			{
-				localPos = new Vector3(localPos.x - mapWidthHalf, localPos.y - mapHeightHalf, 0);
-			}
-
-			_mapMarker.transform.position = localPos;
-
-			// Get normalized position for spawn positions in quantum, -0.5 to 0.5 range
-			var quantumSelectPos = new Vector2(localPos.x / mapWidth, -localPos.y / mapHeight);
-			_services.RoomService.CurrentRoom.LocalPlayerProperties.DropPosition.Value = quantumSelectPos;
-
-			if (_mapAreaConfig != null)
-			{
-				_mapMarkerTitle.SetDisplay(true);
-				var areaName = _mapAreaConfig.GetAreaName(mapAreaPosition);
-				_mapMarkerTitle.text = areaName;
+				ConfirmMarkerPosition(new Vector2(x * mapWidth, y * mapWidth), false);
 			}
 			else
 			{
-				_mapMarkerTitle.SetDisplay(false);
+				FLog.Error($"Drop zone position could not be set on x: {x}, y: {y}.");
 			}
 		}
 
-		private bool IsWithinMapArea(Vector3 dropPos)
-		{
-			return dropPos.x >= _mapImage.transform.position.x &&
-				dropPos.x <= _mapImage.transform.position.x + _mapImage.contentRect.width &&
-				dropPos.y >= _mapImage.transform.position.y &&
-				dropPos.y <= _mapImage.transform.position.y + _mapImage.contentRect.width;
-		}
-
-		private async Task LoadMapAsset(QuantumMapConfig mapConfig)
+		private async UniTask LoadMapAsset(QuantumMapConfig mapConfig)
 		{
 			if (_services.AssetResolverService.TryGetAssetReference<GameId, Sprite>(mapConfig.Map, out _))
 			{
@@ -295,7 +248,7 @@ namespace FirstLight.Game.Presenters
 				_services.CoroutineService.StartCoroutine(GameStartTimerCoroutine());
 		}
 
-		private void InitMap(GeometryChangedEvent evt)
+		private async void InitMap(GeometryChangedEvent evt)
 		{
 			if (CurrentRoom == null) return;
 
@@ -323,7 +276,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_mapMarker.SetDisplay(false);
 				_mapTitleBg.SetDisplay(false);
-				_ = LoadMapAsset(mapConfig);
+				LoadMapAsset(mapConfig).Forget();
 
 				return;
 			}
@@ -335,8 +288,8 @@ namespace FirstLight.Game.Presenters
 				OnWaitingMandatoryMatchAssets(new WaitingMandatoryMatchAssetsMessage());
 			}
 
+			await LoadMapAsset(mapConfig);
 			InitSkydiveSpawnMapData();
-			_ = LoadMapAsset(mapConfig);
 		}
 
 		private void InitSkydiveSpawnMapData()
@@ -344,7 +297,95 @@ namespace FirstLight.Game.Presenters
 			var posX = Random.Range(0.3f, 0.7f);
 			var posY = Random.Range(0.3f, 0.7f);
 			SelectDropZone(posX, posY);
-			_mapImage.RegisterCallback<ClickEvent>(OnMapClicked);
+
+			// This weird register is just a slight performance improvement that prevents a closure allocation
+			_mapImage.RegisterCallback<PointerDownEvent, PreGameLoadingScreenPresenter>((ev, args) => args.OnMapPointerDown(ev), this);
+			_mapImage.RegisterCallback<PointerMoveEvent, PreGameLoadingScreenPresenter>((ev, arg) => arg.OnMapPointerMove(ev), this);
+			_mapImage.RegisterCallback<PointerUpEvent, PreGameLoadingScreenPresenter>((ev, arg) => arg.OnMapPointerUp(ev), this);
+		}
+
+		private void OnMapPointerDown(PointerDownEvent e)
+		{
+			_mapImage.CapturePointer(e.pointerId);
+
+			TrySetMarkerPosition(e.localPosition);
+		}
+
+		private void OnMapPointerMove(PointerMoveEvent e)
+		{
+			if (!_mapImage.HasPointerCapture(e.pointerId)) return;
+
+			TrySetMarkerPosition(e.localPosition);
+		}
+
+		private void OnMapPointerUp(PointerUpEvent e)
+		{
+			_mapImage.ReleasePointer(e.pointerId);
+
+			ConfirmMarkerPosition(_markerLocalPosition, true);
+		}
+
+		private bool TrySetMarkerPosition(Vector2 localPos)
+		{
+			if (!_services.RoomService.InRoom) return false;
+			if (!_dropSelectionAllowed) return false;
+
+			var mapWidth = _mapImage.contentRect.width;
+			var mapHeight = _mapImage.contentRect.height;
+			var mapWidthHalf = mapWidth / 2;
+			var mapHeightHalf = mapHeight / 2;
+			var mapAreaPosition = new Vector2(localPos.x / mapWidth, 1f - localPos.y / mapHeight);
+
+			if (mapAreaPosition.x >= 1f || mapAreaPosition.x < 0f || mapAreaPosition.y >= 1f || mapAreaPosition.y < 0f)
+			{
+				return false;
+			}
+
+			if (_mapAreaConfig != null)
+			{
+				var areaName = _mapAreaConfig.GetAreaName(mapAreaPosition);
+
+				// No area name means invalid area
+				if (string.IsNullOrEmpty(areaName))
+				{
+					return false;
+				}
+
+				_mapMarkerTitle.SetDisplay(true);
+				_mapMarkerTitle.text = areaName;
+			}
+			else
+			{
+				_mapMarkerTitle.SetDisplay(false);
+			}
+
+			_markerLocalPosition = new Vector3(localPos.x - mapWidthHalf, localPos.y - mapHeightHalf, 0);
+			_mapMarker.transform.position = _markerLocalPosition;
+
+			return true;
+		}
+
+		private void ConfirmMarkerPosition(Vector2 localPos, bool sendEvent)
+		{
+			if (!_services.RoomService.InRoom) return;
+			if (!_dropSelectionAllowed) return;
+
+			if (sendEvent)
+			{
+				_services.MessageBrokerService.Publish(new MapDropPointSelectedMessage());
+			}
+
+			var mapWidth = _mapImage.contentRect.width;
+			var mapHeight = _mapImage.contentRect.height;
+			var mapWidthHalf = mapWidth / 2;
+			var mapHeightHalf = mapHeight / 2;
+
+			// Set map marker at click point
+			localPos = new Vector3(localPos.x - mapWidthHalf, localPos.y - mapHeightHalf, 0);
+
+			// Get normalized position for spawn positions in quantum, -0.5 to 0.5 range
+			var quantumSelectPos = new Vector2(localPos.x / mapWidth, -localPos.y / mapHeight);
+			_services.RoomService.CurrentRoom.LocalPlayerProperties.DropPosition.Value = quantumSelectPos;
 		}
 
 		private void OnPlayersChanged(Player p, PlayerChangeReason r)
@@ -429,6 +470,9 @@ namespace FirstLight.Game.Presenters
 
 				if (timeLeft.Milliseconds < 0)
 				{
+					// If the user war dragging on map after drop selection is disabled we need to confirm his last position
+					ConfirmMarkerPosition(_markerLocalPosition, true);
+
 					_dropSelectionAllowed = false;
 					_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_waiting;
 					return;

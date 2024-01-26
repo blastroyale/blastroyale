@@ -6255,6 +6255,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6264,6 +6265,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -6395,6 +6397,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6404,6 +6407,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -6535,6 +6539,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6544,6 +6549,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -6675,6 +6681,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6684,6 +6691,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -6867,6 +6875,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -6876,6 +6885,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -7059,6 +7069,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7068,6 +7079,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -7251,6 +7263,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7260,6 +7273,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -7443,6 +7457,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7452,6 +7467,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -7635,6 +7651,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7644,6 +7661,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -7827,6 +7845,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -7836,6 +7855,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -8019,6 +8039,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8028,6 +8049,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -8211,6 +8233,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8220,6 +8243,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -8403,6 +8427,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8412,6 +8437,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -8595,6 +8621,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8604,6 +8631,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -8799,6 +8827,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8808,6 +8837,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -8888,6 +8918,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8897,6 +8928,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -8977,6 +9009,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -8986,6 +9019,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -9046,6 +9080,83 @@ MonoBehaviour:
     Chest: []
     ChestContents: []
     Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup:
+    - Entities:
+      - SceneIndexPlusOne: 19
+      - SceneIndexPlusOne: 20
+      - SceneIndexPlusOne: 21
+      EntitiesToKeep: 1
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D:
+    - Position:
+        X:
+          RawValue: -662469
+        Y:
+          RawValue: -898150
+      Rotation:
+        RawValue: -2162687
+    Transform2DVertical: []
+    Transform3D: []
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -9053,9 +9164,9 @@ MonoBehaviour:
         RawValue: 0
       SpawnCount: 0
       RespawnTimeInSec: 0
-      InitialSpawnDelayInSec: 5
+      InitialSpawnDelayInSec: 3
       GameId:
-        Value: 4
+        Value: 131
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -9066,6 +9177,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9075,6 +9187,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -9110,11 +9223,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1575216
+          RawValue: -1559443
         Y:
           RawValue: 6553
         Z:
-          RawValue: -702508
+          RawValue: 1538677
       Rotation:
         X:
           RawValue: 0
@@ -9142,9 +9255,9 @@ MonoBehaviour:
         RawValue: 0
       SpawnCount: 0
       RespawnTimeInSec: 0
-      InitialSpawnDelayInSec: 5
+      InitialSpawnDelayInSec: 3
       GameId:
-        Value: 4
+        Value: 131
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -9155,6 +9268,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9164,6 +9278,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -9199,11 +9314,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1538724
+          RawValue: -252683
         Y:
           RawValue: 6553
         Z:
-          RawValue: -1570010
+          RawValue: 2402
       Rotation:
         X:
           RawValue: 0
@@ -9231,9 +9346,9 @@ MonoBehaviour:
         RawValue: 0
       SpawnCount: 0
       RespawnTimeInSec: 0
-      InitialSpawnDelayInSec: 5
+      InitialSpawnDelayInSec: 3
       GameId:
-        Value: 4
+        Value: 131
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -9244,6 +9359,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9253,6 +9369,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -9288,11 +9405,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -846338
+          RawValue: 923208
         Y:
           RawValue: 6553
         Z:
-          RawValue: 1373306
+          RawValue: -1580166
       Rotation:
         X:
           RawValue: 0
@@ -9320,9 +9437,9 @@ MonoBehaviour:
         RawValue: 0
       SpawnCount: 0
       RespawnTimeInSec: 0
-      InitialSpawnDelayInSec: 5
+      InitialSpawnDelayInSec: 3
       GameId:
-        Value: 4
+        Value: 131
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -9333,6 +9450,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9342,6 +9460,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -9377,11 +9496,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1782548
+          RawValue: 1598417
         Y:
           RawValue: 6553
         Z:
-          RawValue: 1310991
+          RawValue: 1310227
       Rotation:
         X:
           RawValue: 0
@@ -9409,9 +9528,9 @@ MonoBehaviour:
         RawValue: 0
       SpawnCount: 0
       RespawnTimeInSec: 0
-      InitialSpawnDelayInSec: 5
+      InitialSpawnDelayInSec: 3
       GameId:
-        Value: 4
+        Value: 131
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -9422,6 +9541,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9431,6 +9551,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -9466,11 +9587,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -99175
+          RawValue: -1664969
         Y:
           RawValue: 6553
         Z:
-          RawValue: 372350
+          RawValue: -1698229
       Rotation:
         X:
           RawValue: 0
@@ -9511,6 +9632,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9520,6 +9642,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -9600,6 +9723,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9609,6 +9733,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -9689,6 +9814,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9698,6 +9824,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -9765,6 +9892,1501 @@ MonoBehaviour:
         RawValue: 0
       SpawnCount: 0
       RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 5
+      GameId:
+        Value: 4
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1575216
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: -702508
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 5
+      GameId:
+        Value: 4
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1538724
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: -1570010
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 5
+      GameId:
+        Value: 4
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -846338
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: 1373306
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 5
+      GameId:
+        Value: 4
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1782548
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: 1310991
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 5
+      GameId:
+        Value: 4
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -99175
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: 372350
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1445997
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: 601527
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 446928
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: 1228919
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1529431
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: 1250377
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1037540
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: 1227489
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1521671
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: 347337
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -34908
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: -1748762
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1642136
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: -1081981
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1096646
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: -1234881
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1421748
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: -98749
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -325653
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: -1123132
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 499336
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: -1115014
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 963781
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: -707873
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1137364
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: -558493
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 2162687
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 6
       GameId:
         Value: 127
@@ -9778,6 +11400,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9787,6 +11410,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -9867,6 +11491,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9876,6 +11501,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -9956,6 +11582,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -9965,6 +11592,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -10045,6 +11673,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10054,6 +11683,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -10134,6 +11764,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10143,6 +11774,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -10223,6 +11855,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10232,6 +11865,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -10312,6 +11946,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10321,6 +11956,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -10401,6 +12037,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10410,6 +12047,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -10479,7 +12117,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -10490,6 +12128,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10499,6 +12138,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -10534,11 +12174,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1789725
+          RawValue: -1783515
         Y:
           RawValue: 6553
         Z:
-          RawValue: 1324860
+          RawValue: 1322390
       Rotation:
         X:
           RawValue: 0
@@ -10568,7 +12208,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -10579,6 +12219,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10588,6 +12229,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -10623,11 +12265,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1539569
+          RawValue: -1544595
         Y:
           RawValue: 6553
         Z:
-          RawValue: -398102
+          RawValue: -403434
       Rotation:
         X:
           RawValue: 0
@@ -10657,7 +12299,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -10668,6 +12310,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10677,6 +12320,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -10712,11 +12356,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1531679
+          RawValue: -1535855
         Y:
           RawValue: 6553
         Z:
-          RawValue: 380545
+          RawValue: 380131
       Rotation:
         X:
           RawValue: 0
@@ -10746,7 +12390,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -10757,6 +12401,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10766,6 +12411,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -10801,11 +12447,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -358520
+          RawValue: -358050
         Y:
           RawValue: 6553
         Z:
-          RawValue: -1563611
+          RawValue: -1572513
       Rotation:
         X:
           RawValue: 0
@@ -10835,7 +12481,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -10846,6 +12492,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10855,6 +12502,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -10890,11 +12538,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 367208
+          RawValue: 366551
         Y:
           RawValue: 6553
         Z:
-          RawValue: 150746
+          RawValue: 144921
       Rotation:
         X:
           RawValue: 0
@@ -10924,7 +12572,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -10935,6 +12583,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -10944,6 +12593,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -10979,11 +12629,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 768743
+          RawValue: 774018
         Y:
           RawValue: 6553
         Z:
-          RawValue: -1236831
+          RawValue: -1237132
       Rotation:
         X:
           RawValue: 0
@@ -11013,7 +12663,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -11024,6 +12674,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11033,6 +12684,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -11068,11 +12720,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1693858
+          RawValue: 1691553
         Y:
           RawValue: 6553
         Z:
-          RawValue: -1648503
+          RawValue: -1653257
       Rotation:
         X:
           RawValue: 0
@@ -11102,7 +12754,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -11113,6 +12765,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11122,6 +12775,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -11157,11 +12811,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1448731
+          RawValue: 1447332
         Y:
           RawValue: 6553
         Z:
-          RawValue: -388285
+          RawValue: -392846
       Rotation:
         X:
           RawValue: 0
@@ -11191,7 +12845,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -11202,6 +12856,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11211,6 +12866,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -11246,11 +12902,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1086636
+          RawValue: 1082103
         Y:
           RawValue: 6553
         Z:
-          RawValue: 501698
+          RawValue: 500734
       Rotation:
         X:
           RawValue: 0
@@ -11280,7 +12936,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -11291,6 +12947,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11300,6 +12957,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -11335,11 +12993,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1037352
+          RawValue: 1031392
         Y:
           RawValue: 6553
         Z:
-          RawValue: 1544870
+          RawValue: 1541708
       Rotation:
         X:
           RawValue: 0
@@ -11369,7 +13027,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 0
+        Value: 134
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -11380,6 +13038,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -11389,6 +13048,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -11424,1025 +13084,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 159881
+          RawValue: 165927
         Y:
           RawValue: 6553
         Z:
-          RawValue: 958975
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2162687
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -1445997
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: 601527
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2162687
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 446928
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: 1228919
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2162687
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -1529431
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: 1250377
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2162687
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 1037540
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: 1227489
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2162687
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 1521671
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: 347337
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2162687
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -34908
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: -1748762
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2162687
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 1642136
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: -1081981
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2162687
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 1096646
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: -1234881
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2162687
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -1421748
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: -98749
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2162687
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -325653
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: -1123132
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2162687
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 499336
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: -1115014
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2162687
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 963781
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: -707873
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2162687
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -1137364
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: -558493
+          RawValue: 955049
       Rotation:
         X:
           RawValue: 0
@@ -12471,6 +13117,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12480,6 +13127,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -12554,6 +13202,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12563,6 +13212,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -12637,6 +13287,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12646,6 +13297,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -12720,6 +13372,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12729,6 +13382,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -12803,6 +13457,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12812,6 +13467,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -12886,6 +13542,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12895,6 +13552,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -12969,6 +13627,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -12978,6 +13637,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -13052,6 +13712,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13061,6 +13722,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -13135,6 +13797,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13144,6 +13807,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -13218,6 +13882,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13227,6 +13892,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -13301,6 +13967,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13310,6 +13977,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -13384,6 +14052,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13393,6 +14062,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -13467,6 +14137,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13476,6 +14147,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -13550,6 +14222,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13559,6 +14232,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -13633,6 +14307,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13642,6 +14317,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -13716,6 +14392,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13725,6 +14402,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -13799,6 +14477,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13808,6 +14487,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -13882,6 +14562,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13891,6 +14572,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -13965,6 +14647,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -13974,6 +14657,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -14048,6 +14732,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14057,6 +14742,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -14131,6 +14817,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14140,6 +14827,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -14214,6 +14902,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14223,6 +14912,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -14297,6 +14987,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14306,6 +14997,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -14380,6 +15072,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14389,6 +15082,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -14463,6 +15157,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14472,6 +15167,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -14546,6 +15242,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14555,6 +15252,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -14629,6 +15327,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14638,6 +15337,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -14712,6 +15412,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14721,6 +15422,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -14795,6 +15497,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14804,6 +15507,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -14878,6 +15582,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14887,6 +15592,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -14961,6 +15667,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -14970,6 +15677,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -15044,6 +15752,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15053,6 +15762,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -15127,6 +15837,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15136,6 +15847,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -15210,6 +15922,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15219,6 +15932,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -15293,6 +16007,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15302,6 +16017,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -15376,6 +16092,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15385,6 +16102,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -15459,6 +16177,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15468,6 +16187,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -15542,6 +16262,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15551,6 +16272,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -15625,6 +16347,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15634,6 +16357,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -15708,6 +16432,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15717,6 +16442,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -15791,6 +16517,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15800,6 +16527,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -15874,6 +16602,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15883,6 +16612,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -15957,6 +16687,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -15966,6 +16697,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -16040,6 +16772,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -16049,6 +16782,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -16123,6 +16857,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -16132,6 +16867,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -16206,6 +16942,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -16215,6 +16952,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -16289,6 +17027,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -16298,6 +17037,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -16372,6 +17112,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -16381,6 +17122,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -16455,6 +17197,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -16464,6 +17207,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -16538,6 +17282,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -16547,6 +17292,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -16621,6 +17367,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -16630,6 +17377,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -16704,6 +17452,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -16713,6 +17462,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -16787,6 +17537,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -16796,6 +17547,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -16870,6 +17622,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -16879,6 +17632,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -16953,6 +17707,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -16962,6 +17717,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -17036,6 +17792,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -17045,6 +17802,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -17119,6 +17877,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -17128,6 +17887,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -17202,6 +17962,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -17211,6 +17972,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -17285,6 +18047,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -17294,6 +18057,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -17368,6 +18132,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -17377,6 +18142,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -17451,6 +18217,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -17460,6 +18227,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -17534,6 +18302,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -17543,6 +18312,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -17617,6 +18387,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -17626,6 +18397,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -17700,6 +18472,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -17709,6 +18482,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -17783,6 +18557,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -17792,6 +18567,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -17866,6 +18642,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -17875,6 +18652,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -17949,6 +18727,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -17958,6 +18737,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -18032,6 +18812,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -18041,6 +18822,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -18115,6 +18897,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -18124,6 +18907,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -18198,6 +18982,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -18207,6 +18992,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -18281,6 +19067,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -18290,6 +19077,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -18364,6 +19152,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -18373,6 +19162,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -18447,6 +19237,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -18456,6 +19247,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -18530,6 +19322,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -18539,6 +19332,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -18613,6 +19407,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -18622,6 +19417,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -18696,6 +19492,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -18705,6 +19502,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -18779,6 +19577,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -18788,6 +19587,7 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []

@@ -30,6 +30,7 @@ enum GameId
 	MazeMayhem = 115,
 	Cemetery = 197,
 	Fortress = 198,
+	IslandOne = 200,
 	MausHelmet = 24,
 	SoldierHelmet = 49,
 	RiotHelmet = 50,

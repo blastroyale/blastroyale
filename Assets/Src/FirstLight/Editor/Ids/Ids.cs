@@ -90,6 +90,7 @@ namespace FirstLight.Editor.Ids
 			{"MazeMayhem", 115, Map},
 			{"Cemetery", 197, Map},
 			{"Fortress", 198, Map},
+			{"IslandOne", 200, Map},
 			{"MausHelmet", 24, Helmet, Equipment, Gear, Simple},
 			{"SoldierHelmet", 49, Helmet, Equipment, Gear},
 			{"RiotHelmet", 50, Helmet, Equipment, Gear},

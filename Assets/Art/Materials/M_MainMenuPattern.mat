@@ -11,15 +11,18 @@ Material:
   m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
-    RenderType: Opaque
-  disabledShaderPasses: []
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
+  - SHADOWCASTER
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -94,8 +97,8 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _DstBlendAlpha: 0
+    - _DstBlend: 10
+    - _DstBlendAlpha: 10
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -116,15 +119,15 @@ Material:
     - _SpecularHighlights: 1
     - _SpeedX: 1
     - _SpeedY: 1
-    - _SrcBlend: 1
+    - _SrcBlend: 5
     - _SrcBlendAlpha: 1
-    - _Surface: 0
+    - _Surface: 1
     - _WorkflowMode: 1
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
     - _AdditiveColor: {r: 0, g: 0, b: 0, a: 1}
-    - _BaseColor: {r: 0.737312, g: 0.3508811, b: 0.7830189, a: 0.83137256}
-    - _Color: {r: 0.737312, g: 0.3508811, b: 0.7830189, a: 0.83137256}
+    - _BaseColor: {r: 0.043137256, g: 0.3254902, b: 0.8117647, a: 0.34117648}
+    - _Color: {r: 0.043137256, g: 0.3254902, b: 0.8117647, a: 0.34117648}
     - _ColorBottom: {r: 1, g: 0, b: 0, a: 1}
     - _ColorPattern: {r: 1, g: 1, b: 1, a: 1}
     - _ColorTop: {r: 0, g: 0, b: 1, a: 1}

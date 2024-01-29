@@ -66,7 +66,6 @@ SpriteAtlas:
     - 8b6bea0173d97c744befc64bceab542e: 21300000
     - 04395511ad9f3fa4caca419869ec6ba5: 21300000
     - d66d92d1e501e4d12b64f78788cdada0: 21300000
-    - cdb1e422daeda164a838e8c4b7dff259: 21300000
     - fffcdc323b176c44685847bb11a5ad2b: 21300000
     - 710393722a6aea44a91958ec48faf1df: 21300000
     - 526a739286f93464497b3041da810a0f: 21300000
@@ -157,7 +156,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8b6bea0173d97c744befc64bceab542e, type: 3}
   - {fileID: 21300000, guid: 04395511ad9f3fa4caca419869ec6ba5, type: 3}
   - {fileID: 21300000, guid: d66d92d1e501e4d12b64f78788cdada0, type: 3}
-  - {fileID: 21300000, guid: cdb1e422daeda164a838e8c4b7dff259, type: 2}
   - {fileID: 21300000, guid: fffcdc323b176c44685847bb11a5ad2b, type: 3}
   - {fileID: 21300000, guid: 710393722a6aea44a91958ec48faf1df, type: 3}
   - {fileID: 21300000, guid: 526a739286f93464497b3041da810a0f, type: 3}
@@ -247,7 +245,6 @@ SpriteAtlas:
   - SpeedPill
   - QuestBarFill
   - PlayerIndicatorFace
-  - CollectableStaticIndicatorLarge
   - MovementIndicatorStar
   - JoystickAutoAim
   - AirplaneIcon

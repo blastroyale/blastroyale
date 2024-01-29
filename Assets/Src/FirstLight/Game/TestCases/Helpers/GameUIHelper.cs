@@ -20,14 +20,6 @@ namespace FirstLight.Game.TestCases.Helpers
 			yield return _uiHelper.WaitForPresenter<PreGameLoadingScreenPresenter>();
 		}
 
-
-		public IEnumerator SelectWater()
-		{
-			var presenter = _uiHelper.GetPresenter<PreGameLoadingScreenPresenter>();
-			presenter.SelectDropZone(0.9f, 0.5f);
-			yield break;
-		}
-
 		public IEnumerator SelectPosition(float x, float y)
 		{
 			var presenter = _uiHelper.GetPresenter<PreGameLoadingScreenPresenter>();

@@ -58,7 +58,7 @@ namespace FirstLight.Game.Configs
 			return new List<IConfigLoadHandler>
 			{
 				new ConfigLoadDefinition<GameConfigs>(_assetLoader, AddressableId.Configs_GameConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
-				new ConfigLoadDefinition<MapGridConfigs>(_assetLoader, AddressableId.Configs_MapGridConfigs, asset => configsAdder.AddSingletonConfig(asset)),
+				new ConfigLoadDefinition<MapAreaConfigs>(_assetLoader, AddressableId.Configs_MapAreaConfigs, asset => configsAdder.AddSingletonConfig(asset)),
 				new ConfigLoadDefinition<MapConfigs>(_assetLoader, AddressableId.Maps_QuantumMapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Map, asset.Configs)),
 				new ConfigLoadDefinition<MapAssetConfigs>(_assetLoader, AddressableId.Maps_MapAssetConfigs, configsAdder.AddSingletonConfig),
 				new ConfigLoadDefinition<WeaponConfigs>(_assetLoader, AddressableId.Configs_WeaponConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),

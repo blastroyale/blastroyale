@@ -64,7 +64,6 @@ namespace FirstLight.Game.Data
 		
 		public FrameSnapshot LastCapturedFrameSnapshot;
 
-		public bool ShowRealDamage = false;
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;

@@ -65,7 +65,6 @@ MonoBehaviour:
   _fullScreenPadding: 50
   _viewportSize: 0.4
   _cameraHeight: 10
-  _maxFriendlyDistance: 45
   _openCloseEase: 3
   _duration: 0.1
   _pingDuration: 5
@@ -924,7 +923,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  _lowHPThreshold: 150
+  _lowHPThreshold: 25
   _moveDirectionJoystickInput: {fileID: 9012470036974147663}
   _moveDownJoystickInput: {fileID: 3877068891791816140}
   _aimDirectionJoystickInput: {fileID: 901318833764697391}

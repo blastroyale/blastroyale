@@ -70,9 +70,23 @@ MonoBehaviour:
       _valueData: 2c010000
     Systems: 
   - LevelStart: 9
-    LevelEnd: 999
+    LevelEnd: 99
     LevelUpXP: 9000
     Rewards:
       _keyData: 3d000000
       _valueData: 90010000
+    Systems: 
+  - LevelStart: 100
+    LevelEnd: 499
+    LevelUpXP: 20000
+    Rewards:
+      _keyData: 3d000000
+      _valueData: e8030000
+    Systems: 
+  - LevelStart: 500
+    LevelEnd: 999
+    LevelUpXP: 50000
+    Rewards:
+      _keyData: 3d000000
+      _valueData: d0070000
     Systems: 

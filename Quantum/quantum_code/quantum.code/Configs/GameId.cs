@@ -905,6 +905,7 @@ namespace Quantum
 					GameId.MalePunk, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Punk,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -913,6 +914,7 @@ namespace Quantum
 					GameId.MaleSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Superstar,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -938,6 +940,7 @@ namespace Quantum
 					GameId.FemalePunk, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Punk,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -946,6 +949,7 @@ namespace Quantum
 					GameId.FemaleSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Superstar,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -985,6 +989,7 @@ namespace Quantum
 					GameId.PlayerSkinXmasSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -992,6 +997,7 @@ namespace Quantum
 					GameId.PlayerSkinJodie, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -999,6 +1005,7 @@ namespace Quantum
 					GameId.PlayerSkinMontyVonCue, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1006,6 +1013,7 @@ namespace Quantum
 					GameId.PlayerSkinBoudicca, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1013,6 +1021,7 @@ namespace Quantum
 					GameId.PlayerSkinCupid, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1020,6 +1029,7 @@ namespace Quantum
 					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1027,6 +1037,7 @@ namespace Quantum
 					GameId.Falcon, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1034,6 +1045,7 @@ namespace Quantum
 					GameId.Rocket, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1057,6 +1069,7 @@ namespace Quantum
 					GameId.Demon, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1064,6 +1077,7 @@ namespace Quantum
 					GameId.Superstar, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1071,6 +1085,7 @@ namespace Quantum
 					GameId.Unicorn, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1107,7 +1122,8 @@ namespace Quantum
 					GameId.MeleeSkinDaggerOfDestiny, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1135,7 +1151,8 @@ namespace Quantum
 					GameId.MeleeSkinMicDrop, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1156,7 +1173,8 @@ namespace Quantum
 					GameId.MeleeSkinPowerPan, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1177,14 +1195,16 @@ namespace Quantum
 					GameId.MeleeSkinThunderAxe, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
 					GameId.MeleeSkinToyMelee, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1198,7 +1218,8 @@ namespace Quantum
 					GameId.MeleeSkinWheelOfPain, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1219,7 +1240,8 @@ namespace Quantum
 					GameId.MeleeSkinXmas2023, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1976,10 +1998,32 @@ namespace Quantum
 					GameIdGroup.BotItem, new List<GameId>
 					{
 						GameId.MaleAssassin,
+						GameId.MalePunk,
+						GameId.MaleSuperstar,
 						GameId.FemaleAssassin,
+						GameId.FemalePunk,
+						GameId.FemaleSuperstar,
+						GameId.PlayerSkinXmasSuperstar,
+						GameId.PlayerSkinJodie,
+						GameId.PlayerSkinMontyVonCue,
+						GameId.PlayerSkinBoudicca,
+						GameId.PlayerSkinCupid,
+						GameId.Divinci,
+						GameId.Falcon,
+						GameId.Rocket,
 						GameId.Turbine,
 						GameId.Tombstone,
+						GameId.Demon,
+						GameId.Superstar,
+						GameId.Unicorn,
 						GameId.MeleeSkinDefault,
+						GameId.MeleeSkinDaggerOfDestiny,
+						GameId.MeleeSkinMicDrop,
+						GameId.MeleeSkinPowerPan,
+						GameId.MeleeSkinThunderAxe,
+						GameId.MeleeSkinToyMelee,
+						GameId.MeleeSkinWheelOfPain,
+						GameId.MeleeSkinXmas2023,
 						GameId.FootprintDot
 					}.AsReadOnly()
 				},

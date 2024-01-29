@@ -628,3 +628,39 @@
     left: -42px;
     top: -9px;
 }
+
+.unity-scroller--vertical {
+    width: 60px;
+    border-left-width: 2px;
+   
+}
+
+.unity-scroller--vertical > .unity-scroller__high-button {
+    width: 100%;
+    height: 60px;
+    background-color: rgb(130, 84, 226);
+}
+
+.unity-scroller--vertical > .unity-scroller__low-button {
+    width: 100%;
+    height: 60px;
+    background-color: rgb(130, 84, 226);
+}
+
+.unity-scroller--vertical > .unity-scroller__slider {
+    width: 100%;
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+.unity-scroller--vertical .unity-base-slider__tracker {
+    width: 100%;
+    background-color: rgb(49, 45, 71);
+}
+
+.unity-scroller--vertical .unity-base-slider__dragger {
+    width: 90%;
+    align-self: center;
+    background-color: rgb(130, 84, 226);
+    border-radius: 1px;
+}

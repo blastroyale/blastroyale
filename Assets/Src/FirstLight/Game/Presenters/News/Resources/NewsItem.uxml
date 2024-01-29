@@ -1,15 +1,24 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Src/FirstLight/Game/Presenters/News/Resources/NewsItem.uss?fileID=7433441132597879392&amp;guid=e233840b655224cf3a790ea9647356e5&amp;type=3#NewsItem" />
+    <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
     <ui:VisualElement name="NewsItem" class="news-item">
-        <ui:VisualElement name="Header" class="news-header">
-            <ui:Label tabindex="-1" text="05/10/1986 -" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Date" class="news-date" />
-            <ui:Label tabindex="-1" text="News Title" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" class="news-title" />
-        </ui:VisualElement>
-        <ui:VisualElement name="Contents" class="news-content">
-            <ui:VisualElement name="ContentImage" class="news-content__image" />
-            <ui:VisualElement name="TextContents" class="news-content__text">
-                <ui:Label tabindex="-1" text="This is the context text &lt;br&gt;Yolo" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Text" class="news-text" />
+        <ui:VisualElement name="Popup" class="popup-radius anim-delay-0 anim-translate anim-translate--down-xxxl news-item news-popup">
+            <ui:VisualElement name="Window" class="popup-radius popup__window">
+                <ui:VisualElement name="Header" class="background-purple window__header">
+                    <ui:VisualElement name="TitleDots" class="dots-pattern" />
+                    <ui:Label tabindex="-1" text="05/10/1986 -" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Date" class="news-date" />
+                    <ui:Label name="Title" text="Privacy Policy" class="DO_NOT_USE_font-style-h2 news-title" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Content" class="window__content window__content--small">
+                    <ui:VisualElement name="Row" class="text-row">
+                        <ui:VisualElement name="ContentImage" class="news-content__image" style="display: none;" />
+                        <ui:Label name="Text" focusable="false" text="We are gonna update our privacy policy. This means things will get more private, and politiated. Police force will enforce privacy using a new policy around private police. What ?" localization-key="UITBattlePass/equipment_reward_desc" class="news-text" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Controls" class="content__controls" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="HotShine" class="hot-shine" />
+        <ui:VisualElement name="Hot" class="hot" />
     </ui:VisualElement>
 </ui:UXML>

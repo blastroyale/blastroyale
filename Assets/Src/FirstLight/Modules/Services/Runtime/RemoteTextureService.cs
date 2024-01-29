@@ -97,6 +97,7 @@ namespace FirstLight.Game.Services
 			{
 				if (element == null || element.parent == null || element.panel == null) return;
 				element.style.backgroundImage = new StyleBackground(tex);
+				element.style.display = DisplayStyle.Flex;
 			}, null, cache);
 		}
 

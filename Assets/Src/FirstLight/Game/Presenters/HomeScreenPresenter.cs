@@ -78,7 +78,8 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _collectionNotification;
 		private VisualElement _settingsNotification;
 		private VisualElement _newsNotification;
-
+		private VisualElement _newsNotificationShine;
+		
 		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
 
@@ -158,7 +159,9 @@ namespace FirstLight.Game.Presenters
 			_collectionNotification = root.Q<VisualElement>("CollectionNotification").Required();
 			_settingsNotification = root.Q<VisualElement>("SettingsNotification").Required();
 			_newsNotification = root.Q<VisualElement>("NewsNotification").Required();
-
+			_newsNotificationShine = root.Q("NewsShine").Required();
+			_newsNotificationShine.AddRotatingEffect(1, 1);
+			
 			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
 			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
 			_bppPoolRestockTimeLabel = _bppPoolContainer.Q<Label>("RestockLabelTime").Required();
@@ -265,14 +268,25 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		private void SetHasNewsNotification(bool hasNews)
+		{
+			_newsNotification.SetDisplay(hasNews);
+			_newsNotificationShine.SetDisplay(hasNews);
+			if (hasNews)
+			{
+				_newsNotification.AnimatePing();
+				_newsNotificationShine.AnimatePing();
+			}
+		}
+
 		protected override void OnOpened()
 		{
 			base.OnOpened();
 			_settingsNotification.SetDisplay(_services.AuthenticationService.IsGuest);
 			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
-			_newsNotification.SetDisplay(false);
-			_services.NewsService.HasNotSeenNews().ContinueWith(hasNews => _newsNotification.SetDisplay(hasNews));
+			SetHasNewsNotification(false);
+			_services.NewsService.HasNotSeenNews().ContinueWith(SetHasNewsNotification);
 #if !STORE_BUILD && !UNITY_EDITOR
 			_outOfSyncWarningLabel.SetDisplay(VersionUtils.IsOutOfSync());
 #else

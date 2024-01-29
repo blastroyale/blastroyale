@@ -232,7 +232,7 @@ namespace FirstLight.Game.Services
 			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider);
-			NewsService = new PlayfabNewsService();
+			NewsService = new PlayfabNewsService(MessageBrokerService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 			GameUiService = uiService;

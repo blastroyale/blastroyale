@@ -5,6 +5,11 @@
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent">
             <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons">
+                <FirstLight.Game.UIElements.ImageButton name="NewsButton" class="sfx-click-forwards anim-delay-0 anim-translate anim-translate--down-s news-button" style="position: relative; bottom: 0;">
+                    <ui:VisualElement name="NewsShine" tabindex="140" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Match/icon-star-yellow.png?fileID=2800000&amp;guid=f0e70dff85a180146b884d80ed6c9bff&amp;type=3#icon-star-yellow&apos;); position: absolute; width: 261px; height: 248px; top: -66px; left: -79px; rotate: 431deg; transition-duration: 0s; transition-timing-function: ease;" />
+                    <ui:VisualElement name="Icon" class="news-button__icon anim-delay-1 anim-translate--left-l" style="width: 66px; height: 66px; margin-top: 20px; margin-right: 20px; margin-bottom: 20px; margin-left: 20px;" />
+                    <ui:VisualElement name="NewsNotification" class="notification-icon button-with-icon__notification" style="top: -1px; right: -5px;" />
+                </FirstLight.Game.UIElements.ImageButton>
                 <FirstLight.Game.UIElements.ImageButton name="SettingsButton" class="sfx-click-forwards anim-delay-0 anim-translate anim-translate--down-s settings-button">
                     <ui:VisualElement name="Icon" class="settings-button__icon" />
                     <ui:VisualElement name="SettingsNotification" class="notification-icon button-with-icon__notification" style="top: -1px; right: -5px;" />
@@ -13,10 +18,6 @@
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="FragmentsCurrency" currency="Fragments" class="anim-delay-2 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBuckCurrency" currency="BlastBuck" class="anim-delay-0 anim-translate anim-translate--down-s" />
-                <FirstLight.Game.UIElements.ImageButton name="NewsButton" class="sfx-click-forwards anim-delay-0 anim-translate anim-translate--down-s news-button">
-                    <ui:VisualElement name="Icon" class="news-button__icon" style="width: 66px; height: 66px; margin-top: 20px; margin-right: 20px; margin-bottom: 20px; margin-left: 20px;" />
-                    <ui:VisualElement name="NewsNotification" class="notification-icon button-with-icon__notification" style="top: -1px; right: -5px;" />
-                </FirstLight.Game.UIElements.ImageButton>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
                 <ui:VisualElement name="PartyHolder" class="anim-delay-2 anim-translate anim-translate--left-xl">

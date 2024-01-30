@@ -84,7 +84,7 @@ MonoBehaviour:
       DefaultQueriesCapacity: 1024
       DefaultQueryItemsCapacity: 4096
       DefaultHitCollectionItemsCapacity: 32
-      DefaultBucketsCapacity: 64
+      DefaultBucketsCapacity: 16
       DefaultIslandsCapacity: 1024
       DefaultManifoldsCapacity: 1024
       DefaultJointsCapacity: 64

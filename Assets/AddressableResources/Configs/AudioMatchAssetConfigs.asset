@@ -2231,15 +2231,11 @@ MonoBehaviour:
   - Key: 85
     Value:
       AudioClips:
-      - m_AssetGUID: abdfa798336ee46c785f895fba045f11
+      - m_AssetGUID: bf4fb85cef6a0df408571a2efc32ea0a
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
-      - m_AssetGUID: 50e8784d4c43547e782b386f6245904f
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
-      - m_AssetGUID: 286279b28048047eeaba195277a24433
+      - m_AssetGUID: 350f086b55bb35148aa6c056929e28e1
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

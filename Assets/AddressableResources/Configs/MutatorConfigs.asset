@@ -18,12 +18,6 @@ MonoBehaviour:
       Guid:
         Value: 490727885306324360
     QuantumConfigs:
-    - Id: QuickSpecials
-      Type: 0
-      Param1:
-        RawValue: 655360
-      Param2:
-        RawValue: 0
     - Id: SpeedUp
       Type: 1
       Param1:
@@ -33,17 +27,11 @@ MonoBehaviour:
     - Id: HealthyAir
       Type: 2
       Param1:
-        RawValue: 6553600
+        RawValue: 983040
       Param2:
         RawValue: 196608
     - Id: HammerTime
       Type: 4
-      Param1:
-        RawValue: 0
-      Param2:
-        RawValue: 0
-    - Id: ForceLevelPlayingField
-      Type: 5
       Param1:
         RawValue: 0
       Param2:

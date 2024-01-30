@@ -361,13 +361,6 @@ namespace Quantum
 		public Equipment[] GetAllLoadout(Frame f)
 		{
 			var loadout = f.GetPlayerData(Player)?.Loadout ?? Array.Empty<Equipment>();
-			if (f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _))
-			{
-				for(int i = 0; i < loadout.Length; i++)
-				{
-					loadout[i].Rarity = Constants.STANDARDISED_EQUIPMENT_RARITY;
-				}
-			}
 			return loadout;
 		}
 		
@@ -377,10 +370,6 @@ namespace Quantum
 		public Equipment GetLoadoutWeapon(Frame f)
 		{
 			var weapon = f.GetPlayerData(Player)?.Weapon ?? Equipment.None;
-			if (f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _))
-			{
-				weapon.Rarity = Constants.STANDARDISED_EQUIPMENT_RARITY;
-			}
 			return weapon;
 		}
 

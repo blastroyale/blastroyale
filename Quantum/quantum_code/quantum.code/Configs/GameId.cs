@@ -232,6 +232,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.IslandOne, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
 					GameId.MausHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
@@ -1675,7 +1681,8 @@ namespace Quantum
 						GameId.IslandsMap,
 						GameId.MazeMayhem,
 						GameId.Cemetery,
-						GameId.Fortress
+						GameId.Fortress,
+						GameId.IslandOne
 					}.AsReadOnly()
 				},
 				{

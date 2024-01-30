@@ -364,6 +364,11 @@ MonoBehaviour:
         Id:
           Value: 1290780386109179055
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[HFSMAndDecision_5]
+    - Path: AddressableResources/Maps/IslandOne/IslandOne_mesh
+      AssetRef:
+        Id:
+          Value: 1294501418838150284
+      Address: Maps/IslandOne/IslandOne_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_21
       AssetRef:
         Id:
@@ -524,6 +529,11 @@ MonoBehaviour:
         Id:
           Value: 1867448010216857276
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[HFSMAndDecision_16]
+    - Path: AddressableResources/Maps/IslandOne/IslandOne_NavMesh_data
+      AssetRef:
+        Id:
+          Value: 1919838176174387320
+      Address: Maps/IslandOne/IslandOne_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFPDecision_7
       AssetRef:
         Id:
@@ -1066,6 +1076,11 @@ MonoBehaviour:
         Id:
           Value: 4298551067525067090
       Address: QuantumAssets/Gates/GateBarrierEntity.prefab[GateBarrierEntityEntityView]
+    - Path: AddressableResources/Maps/IslandOne/IslandOne
+      AssetRef:
+        Id:
+          Value: 4318130223778477555
+      Address: Maps/IslandOne/IslandOne.asset
     - Path: AddressableResources/Maps/District/District
       AssetRef:
         Id:
@@ -1126,6 +1141,11 @@ MonoBehaviour:
         Id:
           Value: 4487114524772037996
       Address: Maps/Cemetery/Cemetery.asset
+    - Path: AddressableResources/Maps/IslandOne/IslandOne_NavMesh
+      AssetRef:
+        Id:
+          Value: 4499516975046161500
+      Address: Maps/IslandOne/IslandOne_NavMesh.asset
     - Path: AddressableResources/Maps/TestAssets/NavMeshAsset
       AssetRef:
         Id:

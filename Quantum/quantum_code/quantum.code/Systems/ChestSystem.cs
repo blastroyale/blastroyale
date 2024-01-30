@@ -59,6 +59,7 @@ namespace Quantum.Systems
 
 		private static void RollDropTables(Frame f, ChestContentsGenerationContext ctx, List<SimulationItem> items)
 		{
+			var isHammerTimeMutator = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _);
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 			foreach (var droptable in ctx.Config.DropTables)
 			{
@@ -71,9 +72,21 @@ namespace Quantum.Systems
 				{
 					var drop = list.Next();
 					var item = SimulationItem.FromConfig(drop);
-					if (item.ItemType == ItemType.Equipment && item.EquipmentItem->GameId == GameId.Any)
+					if (item.ItemType == ItemType.Equipment)
 					{
-						item.EquipmentItem->GameId = gameContainer->GenerateNextWeapon(f).GameId;
+						if (isHammerTimeMutator)
+						{
+							count--;
+							continue;
+						}
+						else if (f.Context.TryGetWeaponLimiterMutator(out var forcedWeaponId))
+						{
+							item.EquipmentItem->GameId = forcedWeaponId;
+						}
+						else if (item.EquipmentItem->GameId == GameId.Any)
+						{
+							item.EquipmentItem->GameId = gameContainer->GenerateNextWeapon(f).GameId;
+						}
 					}
 					items.Add(item);
 					count--;

@@ -248,7 +248,6 @@ namespace FirstLight.Game.Views.UITK
 
 			var spectatingCurrentEntity = _matchServices.SpectateService.GetSpectatedEntity() == entity;
 
-			bar.ShowRealDamage = _data.AppDataProvider.ShowRealDamage;
 			bar.EnableStatusBars((!spectatingCurrentEntity && SHOW_ENEMY_BARS) || (spectatingCurrentEntity && _useOverheadUi));
 			bar.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
 			bar.UpdateShield(stats.CurrentShield, stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);

@@ -31,12 +31,9 @@ namespace FirstLight.Game.UIElements
 
 		private PlayerRef _player;
 		private int _pfpRequestHandle;
-		private bool _showRealDamage;
 
 		private readonly ValueAnimation<float> _damageAnimation;
 		private readonly IVisualElementScheduledItem _damageAnimationHandle;
-
-		public ref bool ShowRealDamage => ref _showRealDamage;
 
 		public SquadMemberElement()
 		{
@@ -118,12 +115,12 @@ namespace FirstLight.Game.UIElements
 
 		public void UpdateHealth(int previous, int current, int max)
 		{
-			_healthShield.UpdateHealth(previous, current, max, !_showRealDamage);
+			_healthShield.UpdateHealth(previous, current, max);
 		}
 
 		public void UpdateShield(int previous, int current, int max)
 		{
-			_healthShield.UpdateShield(previous, current, max, !_showRealDamage);
+			_healthShield.UpdateShield(previous, current, max);
 		}
 
 		public void SetDead()

@@ -81,9 +81,9 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
-		public void UpdateHealth(int previous, int current, int max, bool normalize)
+		public void UpdateHealth(int previous, int current, int max)
 		{
-			_healthLabel.text = normalize ? Mathf.CeilToInt(100f * current / max).ToString() : current.ToString();
+			_healthLabel.text = current.ToString();
 			_healthBar.style.flexGrow = (float) current / max;
 			_healthDamageBarAnimation?.Stop();
 			if (previous > current)
@@ -104,9 +104,9 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
-		public void UpdateShield(int previous, int current, int max, bool normalize)
+		public void UpdateShield(int previous, int current, int max)
 		{
-			_shieldLabel.text = normalize ? Mathf.CeilToInt(100f * current / max).ToString() : current.ToString();
+			_shieldLabel.text = current.ToString();
 			_shieldBar.style.flexGrow = (float) current / max;
 			_shieldDamageBarAnimation?.Stop();
 			if (previous > current)

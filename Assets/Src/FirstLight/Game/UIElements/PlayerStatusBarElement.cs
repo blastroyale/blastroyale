@@ -39,13 +39,10 @@ namespace FirstLight.Game.UIElements
 		private int _damageNumberIndex;
 		private float _maxHealth;
 		private bool _isFriendly;
-		private bool _showRealDamage;
 		private readonly IVisualElementScheduledItem _notificationHandle;
 		private readonly StyleColor _defaultPingDmgColor = new (new Color(1f, 1f, 1f));
 
 		private bool _barsEnabled = true;
-
-		public ref bool ShowRealDamage => ref _showRealDamage;
 
 		public PlayerStatusBarElement()
 		{
@@ -94,16 +91,8 @@ namespace FirstLight.Game.UIElements
 			var damageNumberAnim = _damageNumberAnims[_damageNumberIndex];
 			_damageNumberAnimValues[_damageNumberIndex] = damage;
 			damageNumberLabel.style.color = color ?? _defaultPingDmgColor;
-			if (_showRealDamage)
-			{
-				damageNumberLabel.text = damage.ToString();
-			}
-			else
-			{
-				var damagePct = (int) Math.Ceiling(100f * damage / _maxHealth);
-				damageNumberLabel.style.fontSize = GetDamageNumberSize(damagePct);
-				damageNumberLabel.text = damagePct.ToString();
-			}
+
+			damageNumberLabel.text = damage.ToString();
 
 			damageNumberLabel.BringToFront();
 			damageNumberAnim.Stop();
@@ -130,7 +119,7 @@ namespace FirstLight.Game.UIElements
 		public void UpdateShield(int previous, int current, int max)
 		{
 			if (!_barsEnabled) return;
-			_healthShield.UpdateShield(previous, current, max, !_showRealDamage);
+			_healthShield.UpdateShield(previous, current, max);
 		}
 
 		/// <summary>
@@ -140,7 +129,7 @@ namespace FirstLight.Game.UIElements
 		{
 			_maxHealth = max;
 			if (!_barsEnabled) return;
-			_healthShield.UpdateHealth(previous, current, max, !_showRealDamage);
+			_healthShield.UpdateHealth(previous, current, max);
 		}
 
 		/// <summary>

@@ -89,10 +89,6 @@ namespace FirstLight.Game.Presenters
 			SetupToggle(root.Q<LocalizedToggle>("ScreenShake").Required(),
 				() => _gameDataProvider.AppDataProvider.UseScreenShake,
 				val => _gameDataProvider.AppDataProvider.UseScreenShake = val);
-			
-			SetupToggle(root.Q<LocalizedToggle>("ShowRealDamage").Required(),
-				() => _gameDataProvider.AppDataProvider.ShowRealDamage,
-				val => _gameDataProvider.AppDataProvider.ShowRealDamage = val);
 
 			SetupToggle(root.Q<Toggle>("AimBackground").Required(),
 				() => _gameDataProvider.AppDataProvider.ConeAim,

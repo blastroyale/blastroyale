@@ -114,8 +114,6 @@ namespace FirstLight.Game.Views.UITK
 
 					_squadMembers.Add(e, squadMember);
 
-					squadMember.ShowRealDamage = _dataProvider.AppDataProvider.ShowRealDamage;
-
 					var teamColor = _services.TeamService.GetTeamMemberColor(e);
 					if (teamColor.HasValue)
 					{

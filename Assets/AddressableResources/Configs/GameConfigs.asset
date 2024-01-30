@@ -22,7 +22,7 @@ MonoBehaviour:
         RawValue: 655360
       DoubleKillTimeLimit: 10
       RoomLockKillCount: 14
-      BotsNameCount: 420
+      BotsNameCount: 912
       PlayerRespawnTime:
         RawValue: 262144
       PlayerForceRespawnTime:

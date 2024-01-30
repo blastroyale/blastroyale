@@ -188,30 +188,30 @@ namespace FirstLight.Editor.Ids
 			{"Female02Avatar", 58, Deprecated},
 			{"MaleAssassin", 68, PlayerSkin, BotItem, Assassin, Collection},
 			{"MaleCorpos", 69, PlayerSkin, Corpo, Collection},
-			{"MalePunk", 77, PlayerSkin, Punk, Collection},
-			{"MaleSuperstar", 80, PlayerSkin, Superstar, Collection},
+			{"MalePunk", 77, PlayerSkin, BotItem, Punk, Collection},
+			{"MaleSuperstar", 80, PlayerSkin, BotItem, Superstar, Collection},
 			{"FemaleAssassin", 81, PlayerSkin, BotItem, Assassin, Collection},
 			{"FemaleCorpos", 82, PlayerSkin, Corpo, Collection},
-			{"FemalePunk", 83, PlayerSkin, Punk, Collection},
-			{"FemaleSuperstar", 104, PlayerSkin, Superstar, Collection},
+			{"FemalePunk", 83, PlayerSkin, BotItem, Punk, Collection},
+			{"FemaleSuperstar", 104, PlayerSkin, BotItem, Superstar, Collection},
 			{"TestSkin", 122},
 			{"PlayerSkinDragonBoxer", 148, PlayerSkin, Collection},
 			{"PlayerSkinTieGuy", 147, PlayerSkin, Collection},
 			{"PlayerSkinFitnessChick", 146, PlayerSkin, Collection},
 			{"PlayerSkinSkellyQueen", 145}, // placeholder ID for the future skin
-			{"PlayerSkinXmasSuperstar", 149, PlayerSkin, Collection},
-			{"PlayerSkinJodie", 135, PlayerSkin, Collection},
-			{"PlayerSkinMontyVonCue", 136, PlayerSkin, Collection},
-			{"PlayerSkinBoudicca", 139, PlayerSkin, Collection},
-			{"PlayerSkinCupid", 142, PlayerSkin, Collection},
+			{"PlayerSkinXmasSuperstar", 149, PlayerSkin, BotItem, Collection},
+			{"PlayerSkinJodie", 135, PlayerSkin, BotItem, Collection},
+			{"PlayerSkinMontyVonCue", 136, PlayerSkin, BotItem, Collection},
+			{"PlayerSkinBoudicca", 139, PlayerSkin, BotItem, Collection},
+			{"PlayerSkinCupid", 142, PlayerSkin, BotItem, Collection},
 
 			#endregion Player skins
 
 			#region Gliders
 
-			{"Divinci", 66, Glider, Collection},
-			{"Falcon", 67, Glider, Collection},
-			{"Rocket", 73, Glider, Collection},
+			{"Divinci", 66, Glider, BotItem, Collection},
+			{"Falcon", 67, Glider, BotItem, Collection},
+			{"Rocket", 73, Glider, BotItem, Collection},
 			{"Turbine", 74, Glider, BotItem, Collection},
 
 			#endregion
@@ -219,9 +219,9 @@ namespace FirstLight.Editor.Ids
 			#region Deathmarkers
 
 			{"Tombstone", 37, DeathMarker, BotItem, Collection},
-			{"Demon", 25, DeathMarker, Collection},
-			{"Superstar", 75, DeathMarker, Collection},
-			{"Unicorn", 76, DeathMarker, Collection},
+			{"Demon", 25, DeathMarker, BotItem, Collection},
+			{"Superstar", 75, DeathMarker, BotItem, Collection},
+			{"Unicorn", 76, DeathMarker, BotItem, Collection},
 
 			#endregion
 
@@ -231,23 +231,23 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinSausage", 301, MeleeSkin, Collection},
 			{"MeleeSkinCactus", 302, MeleeSkin, Collection},
 			{"MeleeSkinAtomSlicer", 303, MeleeSkin, Collection},
-			{"MeleeSkinDaggerOfDestiny", 304, MeleeSkin, Collection},
+			{"MeleeSkinDaggerOfDestiny", 304, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinElectricSolo", 305, MeleeSkin, Collection},
 			{"MeleeSkinGigaMelee", 306, MeleeSkin, Collection},
 			{"MeleeSkinHatchet", 307, MeleeSkin, Collection},
-			{"MeleeSkinMicDrop", 308, MeleeSkin, Collection},
+			{"MeleeSkinMicDrop", 308, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinMightySledge", 309, MeleeSkin, Collection},
 			{"MeleeSkinOutOfThePark", 310, MeleeSkin, Collection},
-			{"MeleeSkinPowerPan", 311, MeleeSkin, Collection},
+			{"MeleeSkinPowerPan", 311, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinPutter", 312, MeleeSkin, Collection},
 			{"MeleeSkinSirQuacks", 313, MeleeSkin, Collection},
-			{"MeleeSkinThunderAxe", 314, MeleeSkin, Collection},
-			{"MeleeSkinToyMelee", 315, MeleeSkin, Collection},
+			{"MeleeSkinThunderAxe", 314, MeleeSkin, Collection, BotItem},
+			{"MeleeSkinToyMelee", 315, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinTvTakedown", 316, MeleeSkin, Collection},
-			{"MeleeSkinWheelOfPain", 317, MeleeSkin, Collection},
+			{"MeleeSkinWheelOfPain", 317, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinWrench", 318, MeleeSkin, Collection},
 			{"MeleeSkinYouGotMail", 319, MeleeSkin, Collection},
-			{"MeleeSkinXmas2023", 320, MeleeSkin, Collection},
+			{"MeleeSkinXmas2023", 320, MeleeSkin, Collection, BotItem},
 			
 			#endregion
 

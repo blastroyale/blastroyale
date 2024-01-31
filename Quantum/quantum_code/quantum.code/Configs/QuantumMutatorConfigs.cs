@@ -6,12 +6,12 @@ namespace Quantum
 {
 	public enum MutatorType
 	{
-		SpecialsCooldowns,
+		SpecialsCooldowns, // DEPRECATED, but kept in ENUM to not mess IDs
 		Speed,
 		HealthPerSeconds,
 		AbsoluteAccuracy, // DEPRECATED, but kept in ENUM to not mess IDs
 		HammerTime,
-		ForceLevelPlayingField,
+		ForceLevelPlayingField, // DEPRECATED, but kept in ENUM to not mess IDs
 		HidePlayerNames,
 		DoNotDropSpecials,
 		PistolsOnly,

@@ -4,6 +4,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
+using Quantum.Systems;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -60,6 +61,20 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUsed>(OnLocalPlayerSpecialUsed);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(OnPlayerSpecialUpdated);
+			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(OnPlayerKnockedOut);
+			QuantumEvent.SubscribeManual<EventOnPlayerRevived>(OnPlayerRevived);
+		}
+
+		private void OnPlayerRevived(EventOnPlayerRevived callback)
+		{
+			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
+			UpdateFromLatestVerifiedFrame();
+		}
+
+		private void OnPlayerKnockedOut(EventOnPlayerKnockedOut callback)
+		{
+			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
+			UpdateFromLatestVerifiedFrame();
 		}
 
 		private void OnPlayerSpecialUpdated(EventOnPlayerSpecialUpdated callback)
@@ -87,7 +102,7 @@ namespace FirstLight.Game.Views.UITK
 			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 			var f = QuantumRunner.Default.Game.Frames.Verified;
 			var inventory = f.Get<PlayerInventory>(playerEntity);
-			UpdateSpecials(f, inventory);
+			UpdateSpecials(f, inventory, ReviveSystem.IsKnockedOut(f, playerEntity));
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
@@ -127,9 +142,9 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		private void UpdateSpecials(Frame f, PlayerInventory inventory)
+		private void UpdateSpecials(Frame f, PlayerInventory inventory, bool forceHide = false)
 		{
-			if (f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
+			if (f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _) || forceHide)
 			{
 				_special0Button.SetVisibility(false);
 				_special1Button.SetVisibility(false);

@@ -8,9 +8,9 @@ namespace Quantum
 		public const byte DefaultId = 0;
 		public const byte ShrinkingCircleId = 1;
 		public const byte HeightDamageId = 2;
-		public const byte Wounded = 3;
+		public const byte KnockedOut = 3;
 		public const byte InstantKill = 3;
-		public const byte InstantKillWithoutWounding = 4;
+		public const byte InstantKillWithoutKnockingOut = 4;
 
 		/// <summary>
 		/// Checks if this is a instant hit spell type
@@ -96,7 +96,7 @@ namespace Quantum
 
 		public bool IsInstantKill()
 		{
-			return Id == InstantKillWithoutWounding || Id == InstantKill;
+			return Id == InstantKillWithoutKnockingOut || Id == InstantKill;
 		}
 	}
 }

@@ -133,7 +133,7 @@ namespace FirstLight.Game.Presenters
 				}
 
 				_botDifficultyDropDown.value = DifficultyToSlide(lastUsedOptions.BotDifficulty);
-				
+
 				var presentWeaponLimiter = _weaponLimitDropDown.choices.FirstOrDefault(o => o == lastUsedOptions.WeaponLimiter);
 				if (presentWeaponLimiter != null)
 				{
@@ -157,7 +157,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnRoomJoinClicked(string roomNameInput)
 		{
-			_services.MessageBrokerService.Publish(new PlayJoinRoomClickedMessage { RoomName = roomNameInput });
+			_services.MessageBrokerService.Publish(new PlayJoinRoomClickedMessage {RoomName = roomNameInput});
 			Data.PlayClicked();
 		}
 
@@ -177,9 +177,17 @@ namespace FirstLight.Game.Presenters
 		{
 			var gameModeConfig = _quantumGameModeConfigs[_gameModeDropDown.index];
 			var mapConfig = _quantumMapConfigs[_mapDropDown.index];
+			var roomName = GameConstants.Network.ROOM_NAME_PLAYTEST;
+			#if UNITY_EDITOR
+			if (FeatureFlags.GetLocalConfiguration().AppendMinuteToPlaytest)
+			{
+				var date = new DateTime(1999, 9, 12, 22, 00, 00);
+				roomName += Math.Floor((DateTime.Now  - date).TotalMinutes);
+			}
+			#endif
 			var message = new PlayCreateRoomClickedMessage
 			{
-				RoomName = GameConstants.Network.ROOM_NAME_PLAYTEST,
+				RoomName = roomName,
 				GameModeConfig = gameModeConfig,
 				MapConfig = mapConfig,
 				CustomGameOptions = GetChosenOptions(),
@@ -275,7 +283,7 @@ namespace FirstLight.Game.Presenters
 					{
 						continue;
 					}
-					
+
 					if (!selectedMutators.Contains(mutatorConfig.Id))
 					{
 						menuChoices.Add(mutatorConfig.Id);
@@ -295,7 +303,7 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var mapId in gameModeConfig.AllowedMaps)
 			{
-				var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>((int)mapId);
+				var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) mapId);
 				if (!mapConfig.IsTestMap || Debug.isDebugBuild)
 				{
 					_quantumMapConfigs.Add(mapConfig);
@@ -329,7 +337,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var difficulties = _services.ConfigsProvider.GetConfig<BotDifficultyConfigs>();
 			// Plus 1 because the first value is the default one (not changing difficulty)
-			_botDifficultyDropDown.highValue = difficulties.Configs.Count-1;
+			_botDifficultyDropDown.highValue = difficulties.Configs.Count - 1;
 			_botDifficultyDropDown.lowValue = -1;
 			_botDifficultyDropDown.value = 0;
 		}
@@ -340,15 +348,15 @@ namespace FirstLight.Game.Presenters
 			if (slideValue == -1)
 			{
 				return -1;
-
 			}
+
 			var difficulties = _services.ConfigsProvider.GetConfig<BotDifficultyConfigs>();
 
 			for (var i = 0; i < difficulties.Configs.Count; i++)
 			{
 				if (slideValue == i)
 				{
-					return (int)difficulties.Configs[i].BotDifficulty;
+					return (int) difficulties.Configs[i].BotDifficulty;
 				}
 			}
 
@@ -371,7 +379,7 @@ namespace FirstLight.Game.Presenters
 
 			return 0;
 		}
-		
+
 		private void FillWeaponLimitSelectionList()
 		{
 			var mutatorConfigs = _services.ConfigsProvider.GetConfigsList<QuantumMutatorConfig>();

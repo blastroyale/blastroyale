@@ -55,7 +55,6 @@ Shader "UI/Ring"
 			#pragma target 2.0
 
 			#include "UnityCG.cginc"
-			#include "UIShaderShared.cginc"
 
 			#pragma multi_compile_local _ UNITY_UI_CLIP_RECT
 			#pragma multi_compile_local _ UNITY_UI_ALPHACLIP
@@ -88,6 +87,11 @@ Shader "UI/Ring"
 			float _Invert;
 			float4 _Offset;
 
+			inline float circle(in float2 st, in float radius)
+            {
+                return step(distance(st, float2(0.5, 0.5)), radius / 2.0);
+            }
+			
 			v2f vert(appdata_t v)
 			{
 				v2f OUT;

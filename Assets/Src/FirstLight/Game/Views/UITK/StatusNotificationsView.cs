@@ -29,7 +29,7 @@ namespace FirstLight.Game.Views.UITK
 		private PlayableDirector _blasted3Director;
 		private PlayableDirector _blastedBeastDirector;
 
-		private readonly Queue<(string, uint)> _killedPlayersQueue = new();
+		private readonly Queue<(string, uint)> _killedPlayersQueue = new ();
 
 		private int _lowHPThreshold;
 		private IVisualElementScheduledItem _lowHPAnimation;
@@ -93,6 +93,23 @@ namespace FirstLight.Game.Views.UITK
 
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
+			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
+			QuantumEvent.SubscribeManual<EventOnPlayerRevived>(this, OnPlayerRevived);
+		}
+
+		private void OnPlayerKnockedOut(EventOnPlayerKnockedOut callback)
+		{
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			_lowHPAnimationStartTime = Time.time;
+			_lowHPAnimation.Resume();
+		}
+
+		private void OnPlayerRevived(EventOnPlayerRevived callback)
+		{
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			_lowHPAnimation.Pause();
+			_lowHP.style.opacity = 0;
+			
 		}
 
 		private void OnHealthChanged(EventOnHealthChanged callback)

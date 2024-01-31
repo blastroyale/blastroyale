@@ -26,6 +26,21 @@
     bottom: -20px;
 }
 
+
+.squad-member--knockedout .squad-member__ring-effect {
+    left: -30px;
+    top: -22px;
+    width: 140px;
+    height: 140px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background-color: rgba(250, 49, 49, 0.5);
+    position: absolute;
+}
+
+
 .squad-member__team-color {
     position: absolute;
     left: -8px;
@@ -79,11 +94,16 @@
     visibility: visible;
 }
 
+.squad-member--knockedout .squad-member__dead-cross {
+    visibility: visible;
+}
+
 .squad-member__health-shield {
     position: absolute;
     left: 100px;
     top: 38px;
 }
+
 
 .squad-member__name {
     position: absolute;

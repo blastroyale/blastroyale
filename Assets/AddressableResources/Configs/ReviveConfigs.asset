@@ -17,7 +17,7 @@ MonoBehaviour:
       Path: AddressableResources/Configs/ReviveConfigs
       Guid:
         Value: 3922240779153377466
-    FullyDisable: 1
+    FullyDisable: 0
     PerGameMode:
       Default:
         AllowedRevives:
@@ -31,12 +31,14 @@ MonoBehaviour:
             RawValue: 327680
           LifePercentageOnRevived:
             RawValue: 22937
-          LifePercentageOnWounded:
+          LifePercentageOnKnockedOut:
             RawValue: 65536
           MoveSpeedMultiplier:
-            RawValue: 13107
+            RawValue: 21626
           ReviveColliderRange:
             RawValue: 131072
+          ProgressDownSpeedMultiplier:
+            RawValue: 32768
         - DamageTickInterval:
             RawValue: 65536
           DamagePerTick:
@@ -47,12 +49,14 @@ MonoBehaviour:
             RawValue: 327680
           LifePercentageOnRevived:
             RawValue: 22937
-          LifePercentageOnWounded:
-            RawValue: 65536
+          LifePercentageOnKnockedOut:
+            RawValue: 32768
           MoveSpeedMultiplier:
-            RawValue: 13107
+            RawValue: 21626
           ReviveColliderRange:
             RawValue: 131072
+          ProgressDownSpeedMultiplier:
+            RawValue: 32768
         - DamageTickInterval:
             RawValue: 65536
           DamagePerTick:
@@ -63,10 +67,12 @@ MonoBehaviour:
             RawValue: 327680
           LifePercentageOnRevived:
             RawValue: 22937
-          LifePercentageOnWounded:
-            RawValue: 65536
+          LifePercentageOnKnockedOut:
+            RawValue: 16384
           MoveSpeedMultiplier:
-            RawValue: 13107
+            RawValue: 21626
           ReviveColliderRange:
             RawValue: 131072
+          ProgressDownSpeedMultiplier:
+            RawValue: 32768
       Values: []

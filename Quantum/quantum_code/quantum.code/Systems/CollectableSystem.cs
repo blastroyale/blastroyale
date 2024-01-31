@@ -40,7 +40,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			if (IsCollectableFilled(f, info.Entity, info.Other) || ReviveSystem.IsWounded(f, info.Other))
+			if (IsCollectableFilled(f, info.Entity, info.Other) || ReviveSystem.IsKnockedOut(f, info.Other))
 			{
 				//f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
 				StopCollecting(f, info.Entity, info.Other, player.Player, collectable);
@@ -68,7 +68,7 @@ namespace Quantum.Systems
 		{
 			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
 				f.Time < collectable->AllowedToPickupTime || !f.Has<AlivePlayerCharacter>(info.Other) ||
-				!f.TryGet<PlayerCharacter>(info.Other, out var player) || f.Has<EntityDestroyer>(info.Entity) || ReviveSystem.IsWounded(f, info.Other))
+				!f.TryGet<PlayerCharacter>(info.Other, out var player) || f.Has<EntityDestroyer>(info.Entity) || ReviveSystem.IsKnockedOut(f, info.Other))
 			{
 				return false;
 			}

@@ -70,7 +70,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="SquadMembers" picking-mode="Ignore" class="customizable-hud squad-members-container">
                 <FirstLight.Game.UIElements.SquadMemberElement />
-                <FirstLight.Game.UIElements.SquadMemberElement />
+                <FirstLight.Game.UIElements.SquadMemberElement class="player-health-shield--knockedout squad-member--knockedout" />
                 <FirstLight.Game.UIElements.SquadMemberElement />
             </ui:VisualElement>
             <ui:VisualElement name="EquipmentDisplay" picking-mode="Ignore" class="customizable-hud equipment-display" style="display: none;">
@@ -106,6 +106,19 @@
                     </ui:VisualElement>
                     <ui:Label tabindex="-1" text="PLAYER NAME" parse-escape-sequences="true" name="LocalPlayerName" class="local-player-info__name" />
                     <FirstLight.Game.UIElements.PlayerHealthShieldElement name="LocalPlayerHealthShield" class="player-health-shield--local" />
+                    <ui:Label tabindex="-1" text="KNOCKED OUT" parse-escape-sequences="true" name="KnockedOutLabel" class="local-player-info__knocked-out" style="left: auto; right: 7px; display: none;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="KnockoutNotificationContainer" class="bottom-notifications-container">
+                    <ui:VisualElement name="NeedshelpNotification" class="revive-needshelp-background" style="display: none;">
+                        <ui:Label tabindex="-1" text="YOUR TEAMMATE&#10;NEEDS HELP" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NeedshelpLabel" class="revive-needshelp-label" />
+                        <ui:VisualElement name="NeedshelpIcon" class="revive-needshelp-icon" />
+                        <ui:VisualElement name="NeedshelpIconAnimated" class="revive-needshelp-icon-animate" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="KnockedOutNotification" class="revive-knockedout-background" style="display: none;">
+                        <ui:Label tabindex="-1" text="KNOCKED OUT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KnockedOutLabel" class="revive-knockedout-label" />
+                        <ui:VisualElement name="KnockedOutIcon" class="revive-knockedout-icon" />
+                        <ui:VisualElement name="KnockedOutIconAnimated" class="revive-knockedout-icon-animate" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
@@ -167,7 +180,7 @@
                     <ui:VisualElement name="StarIcon" class="status-kill__star" style="display: none;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="LowHP" picking-mode="Ignore" class="low-hp" style="opacity: 0; top: 0; right: 0; left: 0; bottom: 0;">
+            <ui:VisualElement name="LowHP" picking-mode="Ignore" class="low-hp" style="opacity: 0; top: 2px; right: -1px; left: 2px; bottom: -1px;">
                 <FirstLight.Game.UIElements.GradientElement name="Left" picking-mode="Ignore" class="low-hp__gradient low-hp__gradient--left" />
                 <FirstLight.Game.UIElements.GradientElement name="Right" picking-mode="Ignore" class="low-hp__gradient low-hp__gradient--right" />
             </ui:VisualElement>

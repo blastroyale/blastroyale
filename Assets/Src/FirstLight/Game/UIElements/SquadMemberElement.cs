@@ -11,10 +11,14 @@ namespace FirstLight.Game.UIElements
 	public class SquadMemberElement : VisualElement
 	{
 		private const int DAMAGE_ANIMATION_DURATION = 500;
+		private const int WOUNDED_PING_DURATION = 1000;
+		private const int WOUNDED_PING_REPEAT = 2000;
 
 		private const string USS_BLOCK = "squad-member";
 		private const string USS_CONTAINER = USS_BLOCK + "__container";
 		private const string USS_DEAD = USS_BLOCK + "--dead";
+		private const string USS_KNOCKEDOUT = USS_BLOCK + "--knockedout";
+		private const string USS_RING_EFFECT = USS_BLOCK + "__ring-effect";
 		private const string USS_DEAD_CROSS = USS_BLOCK + "__dead-cross";
 		private const string USS_BG = USS_BLOCK + "__bg";
 		private const string USS_PFP = USS_BLOCK + "__pfp";
@@ -34,6 +38,8 @@ namespace FirstLight.Game.UIElements
 
 		private readonly ValueAnimation<float> _damageAnimation;
 		private readonly IVisualElementScheduledItem _damageAnimationHandle;
+		private readonly VisualElement _pingRingEffect;
+		private ValueAnimation<float> _pingAnimation;
 
 		public SquadMemberElement()
 		{
@@ -46,6 +52,9 @@ namespace FirstLight.Game.UIElements
 			var deadCross = new VisualElement {name = "dead-cross"};
 			Add(deadCross);
 			deadCross.AddToClassList(USS_DEAD_CROSS);
+
+			container.Add(_pingRingEffect = new VisualElement {name = "ring-effect"});
+			_pingRingEffect.AddToClassList(USS_RING_EFFECT);
 
 			container.Add(_bg = new VisualElement {name = "bg"});
 			_bg.AddToClassList(USS_BG);
@@ -66,6 +75,10 @@ namespace FirstLight.Game.UIElements
 			_damageAnimation = _bg.experimental.animation.Start(1f, 0f, DAMAGE_ANIMATION_DURATION,
 				(e, o) => e.style.opacity = o).KeepAlive();
 			_damageAnimation.Stop();
+
+			_pingAnimation = _pingRingEffect.experimental.animation.Scale(1f, WOUNDED_PING_DURATION)
+				.KeepAlive();
+			_pingAnimation.from = 0f;
 
 			_damageAnimationHandle = _bg.schedule.Execute(_damageAnimation.Start);
 			_damageAnimationHandle.Pause();
@@ -126,6 +139,22 @@ namespace FirstLight.Game.UIElements
 		public void SetDead()
 		{
 			AddToClassList(USS_DEAD);
+			SetKnocked(false);
+		}
+
+		public void SetKnocked(bool value)
+		{
+			var alreadyKnockedOut = ClassListContains(USS_KNOCKEDOUT);
+			EnableInClassList(USS_KNOCKEDOUT, value);
+			_healthShield.SetKnockedOut(value);
+			if (value && !alreadyKnockedOut)
+			{
+				_pingRingEffect.schedule.Execute(() =>
+				{
+					_pingAnimation.Start();
+                    
+				}).Every(WOUNDED_PING_REPEAT).Until(() => !ClassListContains(USS_KNOCKEDOUT));
+			}
 		}
 
 		public void PingDamage()

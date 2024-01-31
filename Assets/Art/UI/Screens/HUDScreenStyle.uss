@@ -924,3 +924,111 @@
     -unity-text-align: lower-left;
     bottom: 86px;
 }
+
+.revive-knockedout-background {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/background-whitegradient.png?fileID=21300000&guid=1ee00d8996218784da437dd6689d72de&type=3#background-whitegradient');
+    width: 522px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.32);
+    align-self: center;
+    justify-content: center;
+    position: absolute;
+    height: 54px;
+    bottom: -58px;
+}
+
+.revive-knockedout-label {
+    font-size: 42px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-color: rgb(49, 46, 72);
+    -unity-text-outline-width: 1.2px;
+    text-shadow: 2px 2px 0 rgb(49, 46, 72);
+    -unity-text-align: middle-center;
+    position: absolute;
+    align-self: center;
+}
+
+.revive-knockedout-icon-animate {
+    flex-grow: 1;
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/icon-revive-knockedout.png?fileID=21300000&guid=1e193028e4d1389429b918ac597c3d92&type=3#icon-revive-knockedout');
+    align-self: center;
+    bottom: 64px;
+}
+
+.revive-knockedout-icon {
+    flex-grow: 1;
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/icon-revive-knockedout.png?fileID=21300000&guid=1e193028e4d1389429b918ac597c3d92&type=3#icon-revive-knockedout');
+    align-self: center;
+    bottom: 64px;
+}
+
+.bottom-notifications-container {
+    position: absolute;
+    bottom: 270px;
+}
+
+.revive-needshelp-icon {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    bottom: 104px;
+    align-self: center;
+    background-image: var(--sprite-match__icon-revive-needshelp);
+}
+
+.revive-needshelp-label {
+    position: absolute;
+    font-size: 42px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(49, 46, 72);
+    text-shadow: 2px 2px 0 rgb(49, 46, 72);
+    -unity-text-align: upper-center;
+    align-self: center;
+    -unity-paragraph-spacing: -20px;
+}
+
+.revive-needshelp-icon-animate {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    bottom: 104px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/icon-revive-knockedout.png?fileID=21300000&guid=1e193028e4d1389429b918ac597c3d92&type=3#icon-revive-knockedout');
+    align-self: center;
+}
+
+.revive-needshelp-background {
+    position: relative;
+    background-image: var(--sprite-match__background-whitegradient);
+    width: 522px;
+    height: 90px;
+    align-self: center;
+    justify-content: center;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.31);
+}
+
+.local-player-info__knocked-out {
+    position: absolute;
+    font-size: 32px;
+    color: rgb(242, 176, 53);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(24, 18, 54);
+    text-shadow: 2px 2px 0 rgb(24, 18, 54);
+    left: 118px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-align: lower-left;
+    bottom: 86px;
+}

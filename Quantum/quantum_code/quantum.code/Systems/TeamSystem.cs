@@ -99,7 +99,7 @@ namespace Quantum.Systems
 		/// <summary>
 		/// Return PlayerCharacters members of the same team of entity, it doesn't include the entity!
 		/// </summary>
-		public static ushort GetAliveTeamMembersAmount(Frame f, EntityRef entity, bool countWounded)
+		public static ushort GetAliveTeamMembersAmount(Frame f, EntityRef entity, bool countKnockedOut)
 		{
 			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var player))
 			{
@@ -114,7 +114,7 @@ namespace Quantum.Systems
 				var teamId = otherPlayer.Component->TeamId;
 				if (teamId > 0 && teamId == playerTeam && otherPlayer.Entity != entity)
 				{
-					if (!countWounded && ReviveSystem.IsWounded(f, otherPlayer.Entity))
+					if (!countKnockedOut && ReviveSystem.IsKnockedOut(f, otherPlayer.Entity))
 					{
 						continue;
 					}

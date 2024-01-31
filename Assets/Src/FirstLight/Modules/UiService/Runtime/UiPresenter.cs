@@ -194,7 +194,7 @@ namespace FirstLight.UiService
 		[SerializeField] private int _millisecondsToClose = 0;
 
 		protected VisualElement Root;
-		private readonly Dictionary<VisualElement, UIView> _views = new();
+		private readonly List<UIView> _views = new();
 
 		public UIDocument Document => _document;
 
@@ -210,7 +210,7 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void SubscribeToEvents()
 		{
-			foreach (var (_, view) in _views)
+			foreach (var view in _views)
 			{
 				view.SubscribeToEvents();
 			}
@@ -221,7 +221,7 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void UnsubscribeFromEvents()
 		{
-			foreach (var (_, view) in _views)
+			foreach (var view in _views)
 			{
 				view.UnsubscribeFromEvents();
 			}
@@ -232,7 +232,7 @@ namespace FirstLight.UiService
 		/// </summary>
 		public void AddView(VisualElement element, UIView view)
 		{
-			_views.Add(element, view);
+			_views.Add(view);
 			view.Attached(element);
 		}
 

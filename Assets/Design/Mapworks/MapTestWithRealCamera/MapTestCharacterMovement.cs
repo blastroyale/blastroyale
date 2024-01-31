@@ -35,6 +35,9 @@ public class MapTestCharacterMovement : MonoBehaviour
 		moveVector = Quaternion.AngleAxis(_adventureCamera.transform.localEulerAngles.y, Vector3.up) * moveVector;
 		
 		transform.position += moveVector;
-		transform.rotation = Quaternion.LookRotation(moveVector);
+		if (moveVector.magnitude > Mathf.Epsilon) {    // Where EPSILON is a very small number
+			transform.rotation = Quaternion.LookRotation(moveVector);
+		}
+
 	}
 }

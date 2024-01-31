@@ -25,6 +25,7 @@
     --sprite-match__DarkAirstrike: url('/Assets/Art/UI/Sprites/Match/DarkAirstrike.png');
     --sprite-match__DarkGrenade: url('/Assets/Art/UI/Sprites/Match/DarkGrenade.png');
     --sprite-match__DarkHazardAimSpawn: url('/Assets/Art/UI/Sprites/Match/DarkHazardAimSpawn.png');
+    --sprite-match__DarkLandmineIcon: url('/Assets/Art/UI/Sprites/Match/DarkLandmineIcon.png');
     --sprite-match__DarkRadar: url('/Assets/Art/UI/Sprites/Match/DarkRadar.png');
     --sprite-match__DarkShieldedCharge: url('/Assets/Art/UI/Sprites/Match/DarkShieldedCharge.png');
     --sprite-match__DarkShieldSelfStatus: url('/Assets/Art/UI/Sprites/Match/DarkShieldSelfStatus.png');
@@ -57,6 +58,8 @@
     --sprite-match__icon-players-alive: url('/Assets/Art/UI/Sprites/Match/icon-players-alive.png');
     --sprite-match__icon-players-killed: url('/Assets/Art/UI/Sprites/Match/icon-players-killed.png');
     --sprite-match__icon-players-teams: url('/Assets/Art/UI/Sprites/Match/icon-players-teams.png');
+    --sprite-match__icon-revive-knockedout: url('/Assets/Art/UI/Sprites/Match/icon-revive-knockedout.png');
+    --sprite-match__icon-revive-needshelp: url('/Assets/Art/UI/Sprites/Match/icon-revive-needshelp.png');
     --sprite-match__icon-show: url('/Assets/Art/UI/Sprites/Match/icon-show.png');
     --sprite-match__icon-skull-1: url('/Assets/Art/UI/Sprites/Match/icon-skull-1.png');
     --sprite-match__icon-skull-2: url('/Assets/Art/UI/Sprites/Match/icon-skull-2.png');
@@ -74,8 +77,11 @@
     --sprite-match__icon-x-red: url('/Assets/Art/UI/Sprites/Match/icon-x-red.png');
     --sprite-match__pattern-jagged-vertical: url('/Assets/Art/UI/Sprites/Match/pattern-jagged-vertical.png');
     --sprite-match__progress-damage: url('/Assets/Art/UI/Sprites/Match/progress-damage.png');
+    --sprite-match__progress-damage-knockedout: url('/Assets/Art/UI/Sprites/Match/progress-damage-knockedout.png');
     --sprite-match__progress-health: url('/Assets/Art/UI/Sprites/Match/progress-health.png');
+    --sprite-match__progress-health-knockedout: url('/Assets/Art/UI/Sprites/Match/progress-health-knockedout.png');
     --sprite-match__progress-health-local: url('/Assets/Art/UI/Sprites/Match/progress-health-local.png');
+    --sprite-match__progress-health-local-knockedout: url('/Assets/Art/UI/Sprites/Match/progress-health-local-knockedout.png');
     --sprite-match__progress-separator: url('/Assets/Art/UI/Sprites/Match/progress-separator.png');
     --sprite-match__progress-shield: url('/Assets/Art/UI/Sprites/Match/progress-shield.png');
     --sprite-match__progress-shield-local: url('/Assets/Art/UI/Sprites/Match/progress-shield-local.png');
@@ -249,6 +255,12 @@
 
 .sprite-match__DarkHazardAimSpawn {
     background-image: var(--sprite-match__DarkHazardAimSpawn);
+    width: 248px;
+    height: 248px;
+}
+
+.sprite-match__DarkLandmineIcon {
+    background-image: var(--sprite-match__DarkLandmineIcon);
     width: 248px;
     height: 248px;
 }
@@ -445,6 +457,18 @@
     height: 48px;
 }
 
+.sprite-match__icon-revive-knockedout {
+    background-image: var(--sprite-match__icon-revive-knockedout);
+    width: 72px;
+    height: 72px;
+}
+
+.sprite-match__icon-revive-needshelp {
+    background-image: var(--sprite-match__icon-revive-needshelp);
+    width: 72px;
+    height: 72px;
+}
+
 .sprite-match__icon-show {
     background-image: var(--sprite-match__icon-show);
     width: 42px;
@@ -547,14 +571,32 @@
     height: 17px;
 }
 
+.sprite-match__progress-damage-knockedout {
+    background-image: var(--sprite-match__progress-damage-knockedout);
+    width: 18px;
+    height: 38px;
+}
+
 .sprite-match__progress-health {
     background-image: var(--sprite-match__progress-health);
     width: 18px;
     height: 17px;
 }
 
+.sprite-match__progress-health-knockedout {
+    background-image: var(--sprite-match__progress-health-knockedout);
+    width: 18px;
+    height: 38px;
+}
+
 .sprite-match__progress-health-local {
     background-image: var(--sprite-match__progress-health-local);
+    width: 16px;
+    height: 35px;
+}
+
+.sprite-match__progress-health-local-knockedout {
+    background-image: var(--sprite-match__progress-health-local-knockedout);
     width: 16px;
     height: 35px;
 }

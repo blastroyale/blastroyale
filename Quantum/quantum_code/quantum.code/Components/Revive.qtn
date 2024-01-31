@@ -1,44 +1,40 @@
 ﻿component Revivable {
-    byte TimesWounded;
+    byte TimesKnockedOut;
 }
 
-component Wounded{
-    byte WoundedConfigIndex;
+component KnockedOut{
+    byte ConfigIndex;
     FP NextDamageAt;
     [AllocateOnComponentAdded, FreeOnComponentRemoved]
     hash_set<entity_ref> PlayersReviving;
     FP EndRevivingAt;
     FP BackAtZero;
-    entity_ref WoundedBy;
+    entity_ref KnockedOutBy;
     entity_ref ColliderEntity;
 }
 
-// Flag only
-component WoundedCollider{
-    entity_ref WoundedEntity;
+component KnockedOutCollider{
+    entity_ref KnockedOutEntity;
 }
 
 
-synced event OnPlayerWounded
+synced event OnPlayerKnockedOut
 {
 	entity_ref Entity;
-	
 }
 
 synced event OnPlayerStartReviving
 {
 	entity_ref Entity;
-	
 }
 
-synced event OnPlayerStopReviving
-{
-	entity_ref Entity;
-	
-}
+signal OnPlayerKnockedOut(entity_ref Entity);
+
+
+signal OnPlayerRevived(entity_ref Entity);
+
 
 synced event OnPlayerRevived
 {
 	entity_ref Entity;
-	
 }

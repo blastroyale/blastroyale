@@ -31,6 +31,7 @@ namespace Quantum
 		public static readonly string DeadEvent = "OnDead";
 		public static readonly string RespawnEvent = "OnRespawn";
 		public static readonly string StunnedEvent = "OnStunned";
+		public static readonly string KnockedOutEvent = "OnKnockedOut";
 		public static readonly string StunCancelledEvent = "OnStunCancelled";
 		public static readonly string ChangeWeaponEvent = "OnWeaponChanged";
 		public static readonly string StunDurationKey = "StunDuration";
@@ -49,5 +50,6 @@ namespace Quantum
 		public static readonly string IsAimPressedKey = "IsAimPressed";
 		public static readonly string IsSkydiving = "IsSkydiving";
 		public static readonly string IsShootingKey = "IsShooting";
+		public static readonly string IsKnockedOut = "IsKnockedOut";
 	}
 }

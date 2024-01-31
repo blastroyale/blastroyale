@@ -22,6 +22,17 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
+			if (ReviveSystem.IsKnockedOut(f, filter.Entity))
+			{
+				// hard coded values so the bot will always go to teammate
+				if (TryStayCloseToTeammate(f, ref filter, botCtx.circleCenter, FP._10000, false))
+				{
+					BotLogger.LogAction(ref filter, "stay close to team mate");
+					return;
+				}
+				return;
+			}
+
 			// Do not do any decision making if the time has not come, unless a bot have no target to move to
 			if (!filter.BotCharacter->GetCanTakeDecision(f))
 			{
@@ -140,7 +151,7 @@ namespace Quantum.Systems.Bots
 
 			foreach (var candidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
 			{
-				if (candidate.Component->Team == team)
+				if (candidate.Component->Team == team && !ReviveSystem.IsKnockedOut(f, candidate.Entity))
 				{
 					randomTeammate = candidate.Entity;
 					break;

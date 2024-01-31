@@ -33,6 +33,7 @@ Menu.SetChecked("FLG/Local Flags/Dev QOL/Offline mode", IsOfflineMode);
 Menu.SetChecked("FLG/Local Flags/Dev QOL/Autostart test game", IsStartTestGameAutomatically);
 Menu.SetChecked("FLG/Local Flags/Dev QOL/Unlock all fame stuff", IsUnlockAllFameStuff);
 Menu.SetChecked("FLG/Local Flags/Dev QOL/Disable Reconnection", IsDisableReconnection);
+Menu.SetChecked("FLG/Local Flags/Dev QOL/Append Minute to Playtest room", IsAppendMinuteToPlaytest);
 
 				Menu.SetChecked("FLG/Local Flags/Symbols/Enable bot debug visuals", IsBotDebug);
 
@@ -150,6 +151,18 @@ UpdateSelectionEnvironmentOverride();
 			}
 		}
 
+
+		private static bool IsAppendMinuteToPlaytest
+		{
+			get => FeatureFlags.GetLocalConfiguration().AppendMinuteToPlaytest;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().AppendMinuteToPlaytest = value;
+				Debug.Log("Setting AppendMinuteToPlaytest to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
 		
 				private static bool IsBotDebug
 		{
@@ -228,6 +241,14 @@ UpdateSelectionEnvironmentOverride();
 		{
 			IsDisableReconnection = !IsDisableReconnection;
 			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Dev QOL/Disable Reconnection", IsDisableReconnection); };
+		}
+
+
+		[MenuItem("FLG/Local Flags/Dev QOL/Append Minute to Playtest room", false, 5)]
+		private static void ToggleAppendMinuteToPlaytest()
+		{
+			IsAppendMinuteToPlaytest = !IsAppendMinuteToPlaytest;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Dev QOL/Append Minute to Playtest room", IsAppendMinuteToPlaytest); };
 		}
 
 		

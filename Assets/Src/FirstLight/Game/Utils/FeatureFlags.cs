@@ -99,6 +99,12 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		[Description("Dev QOL/Disable Reconnection")]
 		public bool DisableReconnection = false;
+		
+		/// <summary>
+		/// Force authentication connection error
+		/// </summary>
+		[Description("Dev QOL/Append Minute to Playtest room")]
+		public bool AppendMinuteToPlaytest = true;
 	}
 
 

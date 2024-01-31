@@ -284,18 +284,18 @@ namespace Quantum
 		/// <summary>
 		/// Instant kill an entity
 		/// </summary>
-		public void Kill(Frame f, EntityRef entityRef, bool canWound = false)
+		public void Kill(Frame f, EntityRef entityRef, bool canKnockOut = false)
 		{
-			this.Kill(f, entityRef, EntityRef.None, canWound);
+			Kill(f, entityRef, EntityRef.None, canKnockOut);
 		}
 
 		/// <summary>
 		/// Instant kill an entity
 		/// </summary>
-		public void Kill(Frame f, EntityRef entityRef, EntityRef attacker, bool canWound = false)
+		public void Kill(Frame f, EntityRef entityRef, EntityRef attacker, bool canKnockOut = false)
 		{
 			var spell = Spell.CreateInstant(f, entityRef, attacker, EntityRef.None, 9999, 0, FPVector3.Zero, 0);
-			spell.Id = canWound ? Spell.InstantKill : Spell.InstantKillWithoutWounding;
+			spell.Id = canKnockOut ? Spell.InstantKill : Spell.InstantKillWithoutKnockingOut;
 			ReduceHealth(f, entityRef, &spell);
 		}
 
@@ -319,9 +319,9 @@ namespace Quantum
 
 			var damageAmount = totalDamage;
 
-			// Wounded players always take the same amount of damage
+			// Knocked out players always take the same amount of damage
 			// This code should not be here, but stats system will be deprecated very soon(TM)
-			// And wounded damage should be controlled by the wounded system, it only overwrites projectile hits
+			// And knocked out damage should be controlled by the revive system, it only overwrites projectile hits
 			if (ReviveSystem.OverwriteDamage(f, entity, spell, maxHealth, ref damageAmount))
 			{
 				previousShield = 0;
@@ -395,8 +395,8 @@ namespace Quantum
 
 			if (CurrentHealth == 0)
 			{
-				// If the player can be wounded do not kill him yet
-				if (spell->Id != Spell.InstantKillWithoutWounding && ReviveSystem.WoundPlayer(f, entity, spell))
+				// If the player can be knocked out do not kill him yet
+				if (spell->Id != Spell.InstantKillWithoutKnockingOut && ReviveSystem.KnockOutPlayer(f, entity, spell))
 				{
 					return;
 				}

@@ -24,7 +24,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
 
 		private static readonly int _playerPos = Shader.PropertyToID("_PlayerPos");
-		private const float SPEED_THRESHOLD_SQUARED = 0.45f * 0.45f; // unity units per second	
+		private const float SPEED_THRESHOLD_SQUARED = 0.15f * 0.15f; // unity units per second	
 		private bool _moveSpeedControl = false;
 
 		/// <summary>
@@ -36,7 +36,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private Vector3 _lastPosition;
 
 		private Coroutine _attackHideRendererCoroutine;
-		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private bool _playerFullyGrounded;
 
@@ -61,7 +60,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.OnAwake();
 
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_services = MainInstaller.ResolveServices();
 			if (_characterView == null)
 			{
 				_characterView = GetComponent<MatchCharacterViewMonoComponent>();
@@ -88,18 +86,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveFullyGrounded>(this, HandlePlayerSkydiveFullyGrounded);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, HandleOnRadarUsed);
-			QuantumEvent.Subscribe<EventOnPlayerRevived>(this, OnPlayerRevived);
-			QuantumEvent.Subscribe<EventOnPlayerWounded>(this, OnPlayerWounded);
 		}
-
-		private void OnPlayerWounded(EventOnPlayerWounded callback)
-		{
-		}
-
-		private void OnPlayerRevived(EventOnPlayerRevived callback)
-		{
-		}
-
+		
 		private void OnDestroy()
 		{
 			if (_attackHideRendererCoroutine != null)
@@ -113,7 +101,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		public override void SetCulled(bool culled)
 		{
 			if (_characterView == null || this.IsDestroyed()) return;
-			
+
 			if (culled)
 			{
 				if (_playerFullyGrounded)
@@ -125,7 +113,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				AnimatorWrapper.Enabled = true;
 			}
-			
+
 			_characterView.PrintFootsteps = !culled;
 
 			base.SetCulled(culled);
@@ -320,7 +308,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		}
 
 		private async UniTaskVoid HandleParabolicUsed(FP launchTime, FP frameTime, Vector3 targetPosition,
-											   VfxId parabolicVfxId, VfxId impactVfxId)
+													  VfxId parabolicVfxId, VfxId impactVfxId)
 		{
 			var flyTime = (launchTime - frameTime).AsFloat;
 
@@ -333,7 +321,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			parabolic.transform.position = transform.position;
 			parabolic.GetComponent<Rigidbody>().position = transform.position;
-	
+
 			parabolic.StartParabolic(targetPosition, flyTime);
 			await UniTask.NextFrame();
 			parabolic.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Extrapolate;

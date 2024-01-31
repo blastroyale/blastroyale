@@ -4,15 +4,15 @@ using Photon.Deterministic;
 namespace Quantum.Systems
 {
 	/// <summary>
-	/// System handling revive logic, this contains knocking out the player when he dies, revive collider, and reviving the player.
+	/// System handling knockout logic, this contains knocking out the player when he dies, knockout collider, and reviving the player.
 	/// </summary>
-	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.WoundedFilter>, ISignalOnTriggerEnter3D,
-									   ISignalOnTriggerExit3D, ISignalOnComponentRemoved<Wounded>, ISignalPlayerDead
+	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.KnockedOutFilter>, ISignalOnTriggerEnter3D,
+									   ISignalOnTriggerExit3D, ISignalOnComponentRemoved<KnockedOut>, ISignalPlayerDead
 	{
-		public struct WoundedFilter
+		public struct KnockedOutFilter
 		{
 			public EntityRef Entity;
-			public Wounded* Wounded;
+			public KnockedOut* KnockedOut;
 			public Transform3D* Transform;
 			public Stats* Stats;
 		}
@@ -32,30 +32,31 @@ namespace Quantum.Systems
 			return gamemodeConfig.AllowedRevives[index];
 		}
 
-		public static ReviveEntry GetConfigForWounded(Frame f, Wounded* wounded)
+		public static ReviveEntry GetConfigForKnockedOut(Frame f, KnockedOut* knockedout)
 		{
-			return GetReviveConfig(f, wounded->WoundedConfigIndex);
+			return GetReviveConfig(f, knockedout->ConfigIndex);
 		}
 
 		#endregion
 
 		#region Revive
 
-		public override void Update(Frame f, ref WoundedFilter filter)
+		public override void Update(Frame f, ref KnockedOutFilter filter)
 		{
 			// Move revive collider with player
-			var colliderTransform3D = f.Unsafe.GetPointer<Transform3D>(filter.Wounded->ColliderEntity);
+			var colliderTransform3D = f.Unsafe.GetPointer<Transform3D>(filter.KnockedOut->ColliderEntity);
 			colliderTransform3D->Position = filter.Transform->Position;
 
-			if (f.ResolveHashSet(filter.Wounded->PlayersReviving).Count > 0)
+			if (f.ResolveHashSet(filter.KnockedOut->PlayersReviving).Count > 0)
 			{
-				if (filter.Wounded->EndRevivingAt <= f.Time)
+				if (filter.KnockedOut->EndRevivingAt <= f.Time)
 				{
 					// Revive player
-					var reviveHealthPercentage = GetConfigForWounded(f, filter.Wounded).LifePercentageOnRevived;
-					f.Remove<Wounded>(filter.Entity);
-					f.Events.OnPlayerRevived(filter.Entity);
+					var reviveHealthPercentage = GetConfigForKnockedOut(f, filter.KnockedOut).LifePercentageOnRevived;
+					f.Remove<KnockedOut>(filter.Entity);
 					filter.Stats->SetCurrentHealthPercentage(f, filter.Entity, reviveHealthPercentage);
+					f.Events.OnPlayerRevived(filter.Entity);
+					f.Signals.OnPlayerRevived(filter.Entity);
 				}
 
 				// Someone is reviving him so no damage
@@ -63,16 +64,16 @@ namespace Quantum.Systems
 			}
 
 
-			if (filter.Wounded->NextDamageAt <= f.Time)
+			if (filter.KnockedOut->NextDamageAt <= f.Time)
 			{
 				// Do damage
-				var config = GetConfigForWounded(f, filter.Wounded);
-				filter.Wounded->NextDamageAt = f.Time + config.DamageTickInterval;
+				var config = GetConfigForKnockedOut(f, filter.KnockedOut);
+				filter.KnockedOut->NextDamageAt = f.Time + config.DamageTickInterval;
 				var spell = new Spell
 				{
-					Id = Spell.Wounded,
+					Id = Spell.KnockedOut,
 					Victim = filter.Entity,
-					Attacker = filter.Wounded->WoundedBy,
+					Attacker = filter.KnockedOut->KnockedOutBy,
 					SpellSource = EntityRef.None,
 					Cooldown = FP._0,
 					EndTime = FP._0,
@@ -89,39 +90,39 @@ namespace Quantum.Systems
 
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
-			if (!f.Unsafe.TryGetPointer<WoundedCollider>(info.Entity, out var woundedCollider))
+			if (!f.Unsafe.TryGetPointer<KnockedOutCollider>(info.Entity, out var knockedOutCollider))
 			{
 				return;
 			}
 
 			// It needs to be a player to revivew
-			// Wounded players cant revive other players
-			if (!f.Has<PlayerCharacter>(info.Other) || f.Has<Wounded>(info.Other))
+			// Knocked out players cant revive other players
+			if (!f.Has<PlayerCharacter>(info.Other) || f.Has<KnockedOut>(info.Other))
 			{
 				return;
 			}
 
 			// needs to be in the same team
-			if (!TeamSystem.HasSameTeam(f, info.Other, woundedCollider->WoundedEntity))
+			if (!TeamSystem.HasSameTeam(f, info.Other, knockedOutCollider->KnockedOutEntity))
 			{
 				return;
 			}
 
-			var wounded = f.Unsafe.GetPointer<Wounded>(woundedCollider->WoundedEntity);
-			var reviving = f.ResolveHashSet(wounded->PlayersReviving);
+			var knockedOut = f.Unsafe.GetPointer<KnockedOut>(knockedOutCollider->KnockedOutEntity);
+			var reviving = f.ResolveHashSet(knockedOut->PlayersReviving);
 			if (reviving.Count == 0)
 			{
-				var config = GetConfigForWounded(f, wounded);
-				wounded->EndRevivingAt = f.Time + config.TimeToRevive;
+				var config = GetConfigForKnockedOut(f, knockedOut);
+				knockedOut->EndRevivingAt = f.Time + config.TimeToRevive;
 				// Why this mess exists?
 				// Because I want to allow the bar to slowly decrease when a player leaves a collider, i have considered summing and decreasing a value per frame
 				// but this is more performant, since we don't need to do anything on update loop, but the cost is readability
-				if (wounded->BackAtZero > f.Time)
+				if (knockedOut->BackAtZero > f.Time)
 				{
-					wounded->EndRevivingAt -= wounded->BackAtZero - f.Time;
+					knockedOut->EndRevivingAt -= knockedOut->BackAtZero - f.Time;
 				}
 
-				f.Events.OnPlayerStartReviving(woundedCollider->WoundedEntity);
+				f.Events.OnPlayerStartReviving(knockedOutCollider->KnockedOutEntity);
 			}
 
 			reviving.Add(info.Other);
@@ -130,30 +131,30 @@ namespace Quantum.Systems
 
 		public void OnTriggerExit3D(Frame f, ExitInfo3D info)
 		{
-			if (!f.Unsafe.TryGetPointer<WoundedCollider>(info.Entity, out var woundedCollider))
+			if (!f.Unsafe.TryGetPointer<KnockedOutCollider>(info.Entity, out var knockedOutCollider)
+				|| !f.Unsafe.TryGetPointer<KnockedOut>(knockedOutCollider->KnockedOutEntity, out var knockedOut)
+			   )
 			{
 				return;
 			}
 
-			var wounded = f.Unsafe.GetPointer<Wounded>(woundedCollider->WoundedEntity);
-			var resolveHashSet = f.ResolveHashSet(wounded->PlayersReviving);
+			var resolveHashSet = f.ResolveHashSet(knockedOut->PlayersReviving);
 			resolveHashSet.Remove(info.Other);
 			if (resolveHashSet.Count == 0)
 			{
-				var config = GetConfigForWounded(f, wounded);
+				var config = GetConfigForKnockedOut(f, knockedOut);
 				// Progress on leave
-				var timeReviving = config.TimeToRevive - (wounded->EndRevivingAt - f.Time);
-				wounded->BackAtZero = f.Time + timeReviving;
+				var timeReviving = config.TimeToRevive - (knockedOut->EndRevivingAt - f.Time);
+				knockedOut->BackAtZero = f.Time + (timeReviving * config.ProgressDownSpeedMultiplier);
 				// Reset damage timer 
-				wounded->NextDamageAt = f.Time + config.DamageTickInterval;
-				f.Events.OnPlayerStopReviving(woundedCollider->WoundedEntity);
+				knockedOut->NextDamageAt = f.Time + config.DamageTickInterval;
 			}
 		}
 
 
-		public void OnRemoved(Frame f, EntityRef entity, Wounded* component)
+		public void OnRemoved(Frame f, EntityRef entity, KnockedOut* component)
 		{
-			f.Destroy(component->ColliderEntity);
+			f.Add<EntityDestroyer>(component->ColliderEntity);
 		}
 
 		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
@@ -161,13 +162,13 @@ namespace Quantum.Systems
 			var teamsAlive = new HashSet<int>();
 			foreach (var (entity, _) in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
 			{
-				if (f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var t) && !IsWounded(f, entity))
+				if (f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var t) && !IsKnockedOut(f, entity))
 				{
 					teamsAlive.Add(t->TeamId);
 				}
 			}
 
-			foreach (var (entity, wounded) in f.Unsafe.GetComponentBlockIterator<Wounded>())
+			foreach (var (entity, knockedOut) in f.Unsafe.GetComponentBlockIterator<KnockedOut>())
 			{
 				if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var t))
 				{
@@ -180,7 +181,7 @@ namespace Quantum.Systems
 				}
 
 				// KILL THEM ALL
-				f.Unsafe.GetPointer<Stats>(entity)->Kill(f, entity, wounded->WoundedBy);
+				f.Unsafe.GetPointer<Stats>(entity)->Kill(f, entity, knockedOut->KnockedOutBy);
 			}
 		}
 
@@ -188,27 +189,27 @@ namespace Quantum.Systems
 
 		#region Helpers
 
-		public static bool IsWounded(Frame f, EntityRef player)
+		public static bool IsKnockedOut(Frame f, EntityRef player)
 		{
-			return f.Has<Wounded>(player);
+			return f.Has<KnockedOut>(player);
 		}
 
 		// ReSharper disable once UnusedMember.Global
-		public static FP CalculateRevivePercentage(Frame f, Wounded* wounded)
+		public static FP CalculateRevivePercentage(Frame f, KnockedOut* knockedOut)
 		{
-			var timeToRevive = GetConfigForWounded(f, wounded).TimeToRevive;
+			var config = GetConfigForKnockedOut(f, knockedOut);
 			// Player is being revived
-			if (f.ResolveHashSet(wounded->PlayersReviving).Count > 0)
+			if (f.ResolveHashSet(knockedOut->PlayersReviving).Count > 0)
 			{
-				var timeLeftToRevive = wounded->EndRevivingAt - f.Time;
-				return FP._1 - (timeLeftToRevive / timeToRevive);
+				var timeLeftToRevive = knockedOut->EndRevivingAt - f.Time;
+				return FP._1 - (timeLeftToRevive / config.TimeToRevive);
 			}
 
 			// Bar is still decreasing
-			if (wounded->BackAtZero > f.Time)
+			if (knockedOut->BackAtZero > f.Time)
 			{
-				var timeLeftDecreasing = wounded->BackAtZero - f.Time;
-				return timeLeftDecreasing / timeToRevive;
+				var timeLeftDecreasing = knockedOut->BackAtZero - f.Time;
+				return timeLeftDecreasing / config.TimeToRevive / config.ProgressDownSpeedMultiplier;
 			}
 
 			return FP._0;
@@ -220,21 +221,21 @@ namespace Quantum.Systems
 
 		/// <summary>
 		/// This is called at every time any player takes damage
-		/// It is used to change the damage to the wounded player
+		/// It is used to change the damage to the knockedout player
 		/// </summary>
 		public static bool OverwriteDamage(Frame f, EntityRef damaged, Spell* spell, int maxHealth, ref int damage)
 		{
 			if (
 				spell->IsInstantKill() ||
-				!f.Unsafe.TryGetPointer<Wounded>(damaged, out var wounded))
+				!f.Unsafe.TryGetPointer<KnockedOut>(damaged, out var knockedout))
 			{
 				return false;
 			}
 
 
-			if (spell->Id != Spell.Wounded)
+			if (spell->Id != Spell.KnockedOut)
 			{
-				damage = ((FP)maxHealth * GetConfigForWounded(f, wounded).DamagePerShot).AsInt;
+				damage = ((FP)maxHealth * GetConfigForKnockedOut(f, knockedout).DamagePerShot).AsInt;
 				return true;
 			}
 
@@ -245,44 +246,45 @@ namespace Quantum.Systems
 		/// This is called everytime a player health reaches 0
 		/// Returning true will skip the dead logic
 		/// </summary>
-		public static bool WoundPlayer(Frame f, EntityRef playerEntityRef, Spell* spell)
+		public static bool KnockOutPlayer(Frame f, EntityRef playerEntityRef, Spell* spell)
 		{
 			if (!f.Unsafe.TryGetPointer<Revivable>(playerEntityRef, out var revivable))
 			{
 				return false;
 			}
 
-			if (!CanBeWounded(f, playerEntityRef, revivable))
+			if (!CanBeKnockedOut(f, playerEntityRef, revivable))
 			{
 				return false;
 			}
 
-			f.Add<Wounded>(playerEntityRef, out var woundedComponent);
-			woundedComponent->WoundedConfigIndex = revivable->TimesWounded;
-			var config = GetConfigForWounded(f, woundedComponent);
+			f.Add<KnockedOut>(playerEntityRef, out var knockedOutComponent);
+			knockedOutComponent->ConfigIndex = revivable->TimesKnockedOut;
+			var config = GetConfigForKnockedOut(f, knockedOutComponent);
 			var stats = f.Unsafe.GetPointer<Stats>(playerEntityRef);
 			var transform = f.Unsafe.GetPointer<Transform3D>(playerEntityRef);
-			stats->SetCurrentHealthPercentage(f, playerEntityRef, config.LifePercentageOnWounded);
-			woundedComponent->NextDamageAt = f.Time + config.DamageTickInterval;
+			stats->SetCurrentHealthPercentage(f, playerEntityRef, config.LifePercentageOnKnockedOut);
+			knockedOutComponent->NextDamageAt = f.Time + config.DamageTickInterval;
 			// Create collider to detect revive
-			woundedComponent->ColliderEntity = f.Create();
-			woundedComponent->WoundedBy = spell->Attacker;
+			knockedOutComponent->ColliderEntity = f.Create();
+			knockedOutComponent->KnockedOutBy = spell->Attacker;
 
 			var shape3D = Shape3D.CreateSphere(config.ReviveColliderRange);
-			var colliderEntity = woundedComponent->ColliderEntity;
+			var colliderEntity = knockedOutComponent->ColliderEntity;
 			f.Add(colliderEntity, Transform3D.Create(transform->Position));
 			f.Add(colliderEntity, PhysicsCollider3D.Create(f, shape3D, null, true, f.Context.TargetPlayerTriggersLayerIndex));
-			f.Add(colliderEntity, new WoundedCollider()
+			f.Add(colliderEntity, new KnockedOutCollider()
 			{
-				WoundedEntity = playerEntityRef
+				KnockedOutEntity = playerEntityRef
 			});
 			f.Physics3D.SetCallbacks(colliderEntity, CallbackFlags.OnDynamicTriggerEnter | CallbackFlags.OnDynamicTriggerExit);
-			f.Events.OnPlayerWounded(playerEntityRef);
-			revivable->TimesWounded++;
+			f.Events.OnPlayerKnockedOut(playerEntityRef);
+			f.Signals.OnPlayerKnockedOut(playerEntityRef);
+			revivable->TimesKnockedOut++;
 			return true;
 		}
 
-		public static bool CanBeWounded(Frame f, EntityRef entityRef, Revivable* revivable)
+		public static bool CanBeKnockedOut(Frame f, EntityRef entityRef, Revivable* revivable)
 		{
 			if (GetConfig(f).FullyDisable)
 			{
@@ -295,8 +297,8 @@ namespace Quantum.Systems
 				return false;
 			}
 
-			// Already wounded
-			if (f.Has<Wounded>(entityRef))
+			// Already knockedout
+			if (f.Has<KnockedOut>(entityRef))
 			{
 				return false;
 			}
@@ -307,7 +309,7 @@ namespace Quantum.Systems
 			}
 
 			var maxRevives = GetConfig(f).PerGameMode.Get(f).AllowedRevives.Count;
-			if (revivable->TimesWounded >= maxRevives)
+			if (revivable->TimesKnockedOut >= maxRevives)
 			{
 				return false;
 			}
@@ -317,26 +319,26 @@ namespace Quantum.Systems
 
 
 		/// <summary>
-		/// Called everytime a player dies, except when he got wounded in that frame
+		/// Called everytime a player dies, except when he got knockedout in that frame
 		/// </summary>
 		public static void OverwriteKiller(Frame f, EntityRef entity, Spell* spell)
 		{
-			// Gives the kill to the player who wounded the damaged
-			if (f.Unsafe.TryGetPointer<Wounded>(entity, out var wounded))
+			// Gives the kill to the player who knockedout the damaged
+			if (f.Unsafe.TryGetPointer<KnockedOut>(entity, out var knockedOut))
 			{
-				// if the player killhimself give the kill to the player who shot him, otherwise give the kill to theplayer who wounded him
-				if (wounded->WoundedBy != EntityRef.None && wounded->WoundedBy != entity)
+				// if the player killhimself give the kill to the player who shot him, otherwise give the kill to the player who knockedout him
+				if (knockedOut->KnockedOutBy != EntityRef.None && knockedOut->KnockedOutBy != entity)
 				{
-					spell->Attacker = wounded->WoundedBy;
+					spell->Attacker = knockedOut->KnockedOutBy;
 				}
 			}
 		}
 
 		public static void OverwriteMaxMoveSpeed(Frame f, EntityRef player, ref FP maxMoveSpeed)
 		{
-			if (f.Unsafe.TryGetPointer<Wounded>(player, out var wounded))
+			if (f.Unsafe.TryGetPointer<KnockedOut>(player, out var knockedOut))
 			{
-				maxMoveSpeed *= GetConfigForWounded(f, wounded).MoveSpeedMultiplier;
+				maxMoveSpeed *= GetConfigForKnockedOut(f, knockedOut).MoveSpeedMultiplier;
 			}
 		}
 

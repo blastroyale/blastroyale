@@ -12,9 +12,10 @@ namespace Quantum
 		public FP DamagePerShot;
 		public FP TimeToRevive;
 		public FP LifePercentageOnRevived;
-		public FP LifePercentageOnWounded;
+		public FP LifePercentageOnKnockedOut;
 		public FP MoveSpeedMultiplier;
 		public FP ReviveColliderRange;
+		public FP ProgressDownSpeedMultiplier;
 	}
 
 	[Serializable]

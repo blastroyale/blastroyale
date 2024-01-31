@@ -38,7 +38,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// <summary>
 		/// Animation triggers to play in the avatar
 		/// </summary>
-		protected static class Triggers
+		public static class Triggers
 		{
 			public static readonly AnimatorWrapper.Trigger Shoot = new("shoot");
 			public static readonly AnimatorWrapper.Trigger Die = new("die");
@@ -51,6 +51,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			public static readonly AnimatorWrapper.Trigger Jump = new("jump");
 			public static readonly AnimatorWrapper.Trigger Melee = new("melee");
 			public static readonly AnimatorWrapper.Trigger PLF = new("plf");
+			public static readonly AnimatorWrapper.Trigger KnockedOut = new("knockedout");
+			public static readonly AnimatorWrapper.Trigger Revived = new("revived");
 		}
 
 		/// <summary>

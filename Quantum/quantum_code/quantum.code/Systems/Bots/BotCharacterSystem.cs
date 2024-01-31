@@ -14,7 +14,9 @@ namespace Quantum.Systems.Bots
 	public unsafe class BotCharacterSystem : SystemMainThread,
 											 ISignalHealthChangedFromAttacker,
 											 ISignalAllPlayersSpawned, ISignalOnNavMeshWaypointReached,
-											 ISignalOnNavMeshSearchFailed, ISignalOnComponentRemoved<BotCharacter>
+											 ISignalOnNavMeshSearchFailed, ISignalOnComponentRemoved<BotCharacter>,
+											 ISignalOnPlayerRevived,
+											 ISignalOnPlayerKnockedOut
 	{
 		private BotSetup _botSetup = new BotSetup();
 		private BattleRoyaleBot _battleRoyaleBot = new BattleRoyaleBot();
@@ -256,6 +258,42 @@ namespace Quantum.Systems.Bots
 			}
 
 			bot->SetSearchForEnemyDelay(f);
+		}
+
+		public void OnPlayerRevived(Frame f, EntityRef entity)
+		{
+			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot))
+			{
+				return;
+			}
+
+			bot->NextDecisionTime = f.Time;
+
+			if (f.Unsafe.TryGetPointer<AIBlackboardComponent>(entity, out var bb))
+			{
+				bb->Set(f, Constants.IsKnockedOut, false);
+			}
+		}
+
+		public void OnPlayerKnockedOut(Frame f, EntityRef entity)
+		{
+			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot))
+			{
+				return;
+			}
+
+			BotShooting.StopAiming(f, bot, entity);
+			bot->NextDecisionTime = f.Time;
+
+			if (f.Unsafe.TryGetPointer<AIBlackboardComponent>(entity, out var bb))
+			{
+				bb->Set(f, Constants.IsKnockedOut, true);
+			}
+
+			if (f.Unsafe.TryGetPointer<HFSMAgent>(entity, out var agent))
+			{
+				HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.KnockedOutEvent);
+			}
 		}
 	}
 }

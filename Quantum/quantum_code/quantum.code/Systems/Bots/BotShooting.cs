@@ -17,12 +17,17 @@ namespace Quantum.Systems.Bots
 		{
 			return FPMath.Min(Stats.GetStat(f, entity, StatType.AttackRange), bot.MaxAimingRange);
 		}
-		
+
 		/// <summary>
 		/// Updates to keep aiming at the current target
 		/// </summary>
 		public static EntityRef UpdateAimTarget(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f)
 		{
+			if (ReviveSystem.IsKnockedOut(f, filter.Entity))
+			{
+				return EntityRef.None;
+			}
+
 			var target = filter.BotCharacter->Target;
 			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
 
@@ -57,6 +62,7 @@ namespace Quantum.Systems.Bots
 					}
 				}
 			}
+
 			return target;
 		}
 
@@ -82,7 +88,7 @@ namespace Quantum.Systems.Bots
 			var it = f.Unsafe.FilterStruct<BotTargetFilter>();
 			it.UseCulling = true;
 			var filter = default(BotTargetFilter);
-			
+
 			while (it.Next(&filter))
 			{
 				if (botFilter.TryToAimAtEnemy(f, team, limitedTargetRange, filter.Entity, out var targetHit))
@@ -91,13 +97,15 @@ namespace Quantum.Systems.Bots
 					break;
 				}
 			}
+
 			if (target.IsValid && botFilter.BotCharacter->Target != target)
 			{
 				botFilter.SetAttackTarget(f, target);
 			}
+
 			botFilter.SetSearchForEnemyDelay(f);
 		}
-		
+
 		public static void ClearTarget(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
 		{
 			botFilter.StopAiming(f);
@@ -108,7 +116,7 @@ namespace Quantum.Systems.Bots
 			// 	filter.BotCharacter->MoveTarget = EntityRef.None;
 			// 	filter.NavMeshAgent->Stop(f, filter.Entity, true);
 			// }
-			
+
 			// if i did had a target but combat is over
 			if (botFilter.BotCharacter->Target.IsValid)
 			{
@@ -119,9 +127,10 @@ namespace Quantum.Systems.Bots
 					botFilter.NavMeshAgent->Stop(f, botFilter.Entity, true);
 				}
 			}
+
 			botFilter.BotCharacter->Target = EntityRef.None;
 		}
-		
+
 		public static void StopAiming(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
 		{
 			var speed = f.Get<Stats>(botFilter.Entity).Values[(int)StatType.Speed].StatValue;
@@ -130,14 +139,35 @@ namespace Quantum.Systems.Bots
 			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
 			speed = speedUpMutatorExists ? speed * speedUpMutatorConfig.Param1 : speed;
 
+			ReviveSystem.OverwriteMaxMoveSpeed(f, botFilter.Entity, ref speed);
 			// When we clear the target we also return speed to normal
 			// because without a target bots don't shoot
 			f.Unsafe.GetPointer<CharacterController3D>(botFilter.Entity)->MaxSpeed = speed;
 
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botFilter.Entity);
 			bb->Set(f, Constants.IsAimPressedKey, false);
-			
+
 			BotLogger.LogAction(ref botFilter, "[Aim] Cleared Aim");
+		}
+
+		public static void StopAiming(Frame f, BotCharacter* botCharacter, EntityRef entity)
+		{
+			var speed = f.Get<Stats>(entity).Values[(int)StatType.Speed].StatValue;
+			speed *= botCharacter->MovementSpeedMultiplier;
+
+			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
+			speed = speedUpMutatorExists ? speed * speedUpMutatorConfig.Param1 : speed;
+
+			ReviveSystem.OverwriteMaxMoveSpeed(f, entity, ref speed);
+			// When we clear the target we also return speed to normal
+			// because without a target bots don't shoot
+			f.Unsafe.GetPointer<CharacterController3D>(entity)->MaxSpeed = speed;
+
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(entity);
+			bb->Set(f, Constants.IsAimPressedKey, false);
+			bb->Set(f, Constants.IsShootingKey, false);
+
+			BotLogger.LogAction(entity, "[Aim] Cleared Aim");
 		}
 
 		/// <summary>
@@ -149,10 +179,10 @@ namespace Quantum.Systems.Bots
 			if (bot.IsLowLife(e, f) || bot.BehaviourType == BotBehaviourType.Static) return false;
 			if (!bot.Target.IsValid && bot.HasWaypoint(e, f)) return false; // if im not combating and moving ill ignore
 			if (!bot.GetCanTakeDecision(f)) return false;
-			
+
 			// If bot is too close he will walk randomly around the bot itself 
 			var minCombatDistance = rangeSquared * FP._0_33;
-			
+
 			if (distanceSquared < minCombatDistance)
 			{
 				if (bot.WanderInsideCircle(e, f, botPosition.XZ, minCombatDistance))
@@ -164,7 +194,7 @@ namespace Quantum.Systems.Bots
 					return true;
 				}
 			}
-			
+
 			// If im engaging already and im inside weapon range
 			if (distanceSquared <= rangeSquared && bot.Target == target)
 			{
@@ -183,9 +213,10 @@ namespace Quantum.Systems.Bots
 					return true;
 				}
 			}
+
 			return false;
 		}
-		
+
 		/// <summary>
 		/// Will attempt to predict where the target will be given his movement speed
 		/// and will attempt to shoot where the target will be and not where the target is now
@@ -226,7 +257,7 @@ namespace Quantum.Systems.Bots
 			botFilter.PlayerCharacter->EquipSlotWeapon(f, botFilter.Entity, Constants.WEAPON_INDEX_DEFAULT);
 			return true;
 		}
-		
+
 		// We check specials and try to use them depending on their type if possible
 		public static bool TryUseSpecials(this ref BotCharacter bot, PlayerInventory* inventory, EntityRef botEntity, Frame f)
 		{
@@ -234,7 +265,7 @@ namespace Quantum.Systems.Bots
 			{
 				return false;
 			}
-			
+
 			if (f.Time < bot.NextAllowedSpecialUseTime)
 			{
 				return false;
@@ -258,7 +289,7 @@ namespace Quantum.Systems.Bots
 		}
 
 		public static bool TryUseSpecial(Frame f, PlayerInventory* inventory, int specialIndex, EntityRef entity,
-								   EntityRef target)
+										 EntityRef target)
 		{
 			var special = inventory->Specials[specialIndex];
 
@@ -297,7 +328,7 @@ namespace Quantum.Systems.Bots
 				//BotLogger.LogAction(botEntity, "Cant view "+targetToCheck);
 				return false;
 			}
-			
+
 			if (!QuantumHelpers.IsAttackable(f, targetToCheck, team))
 			{
 				//BotLogger.LogAction(botEntity, "Not attackable "+targetToCheck);
@@ -314,7 +345,7 @@ namespace Quantum.Systems.Bots
 
 			var botPosition = botEntity.GetPosition(f);
 			botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
-			
+
 			var targetPosition = f.Get<Transform3D>(targetToCheck).Position;
 			targetPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 
@@ -322,7 +353,7 @@ namespace Quantum.Systems.Bots
 			{
 				targetHit = targetToCheck;
 			}
-			else 
+			else
 			{
 				var hit = f.Physics3D.Linecast(botPosition,
 					targetPosition,
@@ -337,15 +368,16 @@ namespace Quantum.Systems.Bots
 					targetHit = hit.Value.Entity;
 				}
 			}
-			
+
 			if (targetHit.IsValid)
 			{
 				bot.SetAimWithAccuracyLerp(botEntity, f, targetHit, targetPosition);
 				return true;
 			}
+
 			return false;
 		}
-		
+
 		/// <summary>
 		/// Performs an accuracy lerp so bot rotates while pretending to be innacurate
 		/// This means players can see the bot innacuracy rotation and react to it.
@@ -357,7 +389,7 @@ namespace Quantum.Systems.Bots
 		{
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botEntity);
 			var botPosition = botEntity.GetPosition(f);
-			
+
 			// if bot is marked to sharpshoot next shot we just aim at the enemy
 			// when the shot is fired bot will make sure it gets prediction
 			if (bot.SharpShootNextShot)
@@ -365,12 +397,12 @@ namespace Quantum.Systems.Bots
 				bb->Set(f, Constants.AimDirectionKey, (targetPosition - botPosition).XZ);
 				return;
 			}
-			
+
 			if (bot.AccuracySpreadAngle > 0)
 			{
 				var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
 				var targetAimDirection = bb->GetVector2(f, Constants.TargetAim);
-				
+
 				if (aimDirection == FPVector2.Zero)
 				{
 					aimDirection = (targetPosition - botPosition).XZ;
@@ -384,7 +416,7 @@ namespace Quantum.Systems.Bots
 					var botHealthRatio = Stats.HealthRatio(botEntity, f);
 
 					// If bot has at least 90% of the player life, 50% chance he will aim innacurately
-					if (targetHealthRatio <= botHealthRatio + FP._0_10 || f.RNG->NextBool()) 
+					if (targetHealthRatio <= botHealthRatio + FP._0_10 || f.RNG->NextBool())
 					{
 						var angleHalfInRad = (bot.AccuracySpreadAngle * FP.Deg2Rad) / FP._2;
 						targetAimDirection = FPVector2.Rotate((targetPosition - botPosition).XZ, f.RNG->Next(-angleHalfInRad, angleHalfInRad));
@@ -397,7 +429,7 @@ namespace Quantum.Systems.Bots
 						{
 							bot.SharpShootNextShot = true;
 						}
-						
+
 						// if he is just lower life than enemy he will just shoot better
 						// but wont sharp shoot
 						targetAimDirection = (targetPosition - botPosition).XZ;
@@ -406,7 +438,7 @@ namespace Quantum.Systems.Bots
 						return;
 					}
 				}
-				
+
 				// Do the lerp towards the direction he wants to aim to
 				var lerpSpeed = bb->GetFP(f, Constants.AccuracyLerp);
 				lerpSpeed += ACCURACY_LERP_TICK;
@@ -423,6 +455,7 @@ namespace Quantum.Systems.Bots
 					bb->Set(f, Constants.AccuracyLerp, lerpSpeed);
 					aimDirection = FPQuaternion.Lerp(aimDirection.ToRotation(), targetAimDirection.ToRotation(), lerpSpeed).ToDirection();
 				}
+
 				bb->Set(f, Constants.AimDirectionKey, aimDirection);
 			}
 			else
@@ -433,6 +466,5 @@ namespace Quantum.Systems.Bots
 				bb->Set(f, Constants.AimDirectionKey, (targetPosition - botPosition).XZ);
 			}
 		}
-
 	}
 }

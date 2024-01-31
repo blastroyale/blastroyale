@@ -49,7 +49,7 @@ namespace Quantum
 		public bool TryActivate(Frame f, PlayerRef playerRef, EntityRef playerEntity, FPVector2 aimInput,
 								int specialIndex)
 		{
-			if (ReviveSystem.IsWounded(f, playerEntity))
+			if (ReviveSystem.IsKnockedOut(f, playerEntity))
 			{
 				return false;
 			}

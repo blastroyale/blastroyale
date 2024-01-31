@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Photon.Deterministic;
 using Quantum;
+using Quantum.Systems;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
@@ -40,12 +42,9 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
 			QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
 			QuantumEvent.SubscribeManual<EventOnTeamAssigned>(this, OnTeamAssigned);
-		}
-
-		private void OnTeamAssigned(EventOnTeamAssigned e)
-		{
-			if (!_squadMembers.TryGetValue(e.Entity, out var squadMemberElement)) return;
-			squadMemberElement.SetTeamColor(_services.TeamService.GetTeamMemberColor(e.Entity));
+			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
+			QuantumEvent.SubscribeManual<EventOnPlayerRevived>(this, OnPlayerRevived);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -54,10 +53,41 @@ namespace FirstLight.Game.Views.UITK
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
+		private void OnMatchStarted(MatchStartedMessage obj)
+		{
+			if (!obj.IsResync)
+			{
+				return;
+			}
+
+			RecheckSquadMembers(obj.Game.Frames.Predicted);
+		}
+
+
+		private void OnTeamAssigned(EventOnTeamAssigned e)
+		{
+			if (!_squadMembers.TryGetValue(e.Entity, out var squadMemberElement)) return;
+			squadMemberElement.SetTeamColor(_services.TeamService.GetTeamMemberColor(e.Entity));
+		}
+
+
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
 			RecheckSquadMembers(callback.Game.Frames.Verified);
 		}
+
+		private void OnPlayerKnockedOut(EventOnPlayerKnockedOut e)
+		{
+			if (!_squadMembers.TryGetValue(e.Entity, out var squadMemberElement)) return;
+			squadMemberElement.SetKnocked(true);
+		}
+
+		private void OnPlayerRevived(EventOnPlayerRevived e)
+		{
+			if (!_squadMembers.TryGetValue(e.Entity, out var squadMemberElement)) return;
+			squadMemberElement.SetKnocked(false);
+		}
+
 
 		private void OnPlayerDead(EventOnPlayerDead callback)
 		{
@@ -66,6 +96,7 @@ namespace FirstLight.Game.Views.UITK
 			squadMember.SetDead();
 			_squadMembers.Remove(callback.Entity);
 		}
+
 
 		private void OnHealthChanged(EventOnHealthChanged callback)
 		{
@@ -137,6 +168,7 @@ namespace FirstLight.Game.Views.UITK
 						squadMember.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, maxHealth);
 						squadMember.UpdateShield(stats.CurrentShield, stats.CurrentShield, maxShield);
 					}
+					squadMember.SetKnocked(ReviveSystem.IsKnockedOut(f,e));
 
 					index++;
 				}

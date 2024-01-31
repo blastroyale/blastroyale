@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Config:
     PlayerCount: 0
-    ChecksumCrossPlatformDeterminism: 1
+    ChecksumCrossPlatformDeterminism: 0
     LockstepSimulation: 0
     AggressiveSendMode: 0
-    UpdateFPS: 30
+    UpdateFPS: 60
     ChecksumInterval: 60
     RollbackWindow: 40
     InputHardTolerance: 8
-    InputRedundancy: 2
+    InputRedundancy: 3
     InputRepeatMaxDistance: 10
     SessionStartTimeout: 1
     TimeCorrectionRate: 4
@@ -31,7 +31,7 @@ MonoBehaviour:
     TimeScalePingMin: 100
     TimeScalePingMax: 300
     InputDelayMin: 0
-    InputDelayMax: 100
-    InputDelayPingStart: 300
+    InputDelayMax: 60
+    InputDelayPingStart: 100
     InputFixedSizeEnabled: 1
     InputFixedSize: 0

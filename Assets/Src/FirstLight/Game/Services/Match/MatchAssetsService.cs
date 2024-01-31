@@ -122,6 +122,8 @@ namespace FirstLight.Game.Services
 
 		public async UniTask UnloadAllMatchAssets()
 		{
+			var start = DateTime.UtcNow;
+			FLog.Info("Unloading Match Assets");
 			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;
 
@@ -135,8 +137,9 @@ namespace FirstLight.Game.Services
 			_services.AssetResolverService.UnloadAssets<EquipmentRarity, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets<IndicatorVfxId, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());
-
-			await Resources.UnloadUnusedAssets();
+			
+			await Resources.UnloadUnusedAssets().ToUniTask();
+			FLog.Verbose($"Unloading match assets took {(DateTime.UtcNow - start).TotalMilliseconds} ms");
 		}
 
 		private void LoadOptionalGroup(GameIdGroup group)

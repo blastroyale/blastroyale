@@ -369,7 +369,7 @@ namespace FirstLight.Game.StateMachines
 				Game = QuantumRunner.Default.Game,
 				Reason = SimulationEndReason.Disconnected
 			});
-			QuantumRunner.ShutdownAll(true);
+			QuantumRunner.ShutdownAll();
 			_services.RoomService.LeaveRoom(false);
 		}
 

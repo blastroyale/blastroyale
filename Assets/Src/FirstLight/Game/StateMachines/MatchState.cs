@@ -20,6 +20,7 @@ using I2.Loc;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -364,7 +365,7 @@ namespace FirstLight.Game.StateMachines
 			_matchServices.MatchAssetService.StartOptionalAssetLoad();
 		}
 
-		private async Task UnloadAllMatchAssets()
+		private async UniTask UnloadAllMatchAssets()
 		{
 			if (_matchServices == null) return;
 			await _matchServices.MatchAssetService.UnloadAllMatchAssets();
@@ -423,6 +424,7 @@ namespace FirstLight.Game.StateMachines
 			await UnloadAllMatchAssets();
 
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MainMenuAssetConfigs>());
+			
 			FLog.Verbose("[MatchState] Finished Unloading Match State");
 		}
 
@@ -444,7 +446,7 @@ namespace FirstLight.Game.StateMachines
 				}
 #endif
 				_matchServices.MatchEndDataService.Reload();
-				QuantumRunner.ShutdownAll(true);
+				QuantumRunner.ShutdownAll();
 			}
 		}
 
@@ -487,7 +489,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<LeaderboardAndRewardsScreenPresenter, LeaderboardAndRewardsScreenPresenter.StateData>(data);
 		}
 
-		private async Task OpenSwipeTransition()
+		private async UniTask OpenSwipeTransition()
 		{
 			_uiService.CloseCurrentScreen();
 			await SwipeScreenPresenter.StartSwipe();

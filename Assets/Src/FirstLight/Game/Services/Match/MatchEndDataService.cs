@@ -208,6 +208,10 @@ namespace FirstLight.Game.Services
 
 		public void ReadMatchDataForEndingScreens(QuantumGame game)
 		{
+			if (game == null || game.Frames.Verified == null)
+			{
+				return;
+			}
 			var frame = game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			LocalPlayer = game.GetLocalPlayerRef();

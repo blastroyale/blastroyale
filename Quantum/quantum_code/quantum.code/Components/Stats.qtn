@@ -57,6 +57,7 @@ event OnHealthChanged
 	Int32 PreviousHealth;
 	Int32 CurrentHealth;
 	Int32 MaxHealth;
+	byte SpellType;
 }
 
 synced event OnDamageBlocked

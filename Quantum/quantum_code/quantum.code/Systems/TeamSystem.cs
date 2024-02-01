@@ -56,13 +56,21 @@ namespace Quantum.Systems
 				{
 					var entity = entry.Key;
 					var color = entry.Value;
-					var component = new TeamMember()
+
+					// Cache team mates 
+					f.Add(entity, new TeamMember()
 					{
 						TeamId = teamId,
 						TeamIndex = index,
 						Color = color
-					};
-					f.Add(entity, component);
+					}, out var teamMember);
+					var set = f.ResolveHashSet(teamMember->TeamMates);
+					foreach (var member in members.Keys)
+					{
+						if (member == entity) continue;
+						set.Add(member);
+					}
+
 					index++;
 				}
 			}

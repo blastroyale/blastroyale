@@ -49,8 +49,12 @@ namespace Quantum.Systems
 
 			if (f.ResolveHashSet(filter.KnockedOut->PlayersReviving).Count > 0)
 			{
-				if (filter.KnockedOut->EndRevivingAt <= f.Time)
+				if (filter.KnockedOut->EndRevivingAt != FP._0 && filter.KnockedOut->EndRevivingAt <= f.Time)
 				{
+					if (filter.KnockedOut->EndRevivingAt - filter.KnockedOut->StartedRevivingAt <= FP._2)
+					{
+						Log.Warn("Some shit happened");
+					}
 					// Revive player
 					var reviveHealthPercentage = GetConfigForKnockedOut(f, filter.KnockedOut).LifePercentageOnRevived;
 					f.Remove<KnockedOut>(filter.Entity);
@@ -114,6 +118,7 @@ namespace Quantum.Systems
 			{
 				var config = GetConfigForKnockedOut(f, knockedOut);
 				knockedOut->EndRevivingAt = f.Time + config.TimeToRevive;
+				knockedOut->StartedRevivingAt = f.Time;
 				// Why this mess exists?
 				// Because I want to allow the bar to slowly decrease when a player leaves a collider, i have considered summing and decreasing a value per frame
 				// but this is more performant, since we don't need to do anything on update loop, but the cost is readability
@@ -138,17 +143,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			var resolveHashSet = f.ResolveHashSet(knockedOut->PlayersReviving);
-			resolveHashSet.Remove(info.Other);
-			if (resolveHashSet.Count == 0)
-			{
-				var config = GetConfigForKnockedOut(f, knockedOut);
-				// Progress on leave
-				var timeReviving = config.TimeToRevive - (knockedOut->EndRevivingAt - f.Time);
-				knockedOut->BackAtZero = f.Time + (timeReviving * config.ProgressDownSpeedMultiplier);
-				// Reset damage timer 
-				knockedOut->NextDamageAt = f.Time + config.DamageTickInterval;
-			}
+			StopRevivingPlayer(f, knockedOut, info.Other);
 		}
 
 
@@ -278,10 +273,53 @@ namespace Quantum.Systems
 				KnockedOutEntity = playerEntityRef
 			});
 			f.Physics3D.SetCallbacks(colliderEntity, CallbackFlags.OnDynamicTriggerEnter | CallbackFlags.OnDynamicTriggerExit);
-			f.Events.OnPlayerKnockedOut(playerEntityRef);
+			f.Events.OnPlayerKnockedOut(spell->Attacker, playerEntityRef);
 			f.Signals.OnPlayerKnockedOut(playerEntityRef);
+			CheckIsRevivingOthers(f, playerEntityRef);
 			revivable->TimesKnockedOut++;
 			return true;
+		}
+
+		private static void StopRevivingPlayer(Frame f, KnockedOut* knockedOut, EntityRef reviving)
+		{
+			var resolveHashSet = f.ResolveHashSet(knockedOut->PlayersReviving);
+			if (!resolveHashSet.Contains(reviving)) return;
+			resolveHashSet.Remove(reviving);
+			if (resolveHashSet.Count == 0)
+			{
+				var config = GetConfigForKnockedOut(f, knockedOut);
+				// Progress on leave
+				var timeReviving = config.TimeToRevive - (knockedOut->EndRevivingAt - f.Time);
+				if (timeReviving > FP._5)
+				{
+					Log.Warn("Another shit happened");
+				}
+				knockedOut->BackAtZero = f.Time + (timeReviving * config.ProgressDownSpeedMultiplier);
+				// Reset damage timer 
+				knockedOut->NextDamageAt = f.Time + config.DamageTickInterval;
+			}
+		}
+
+
+		private static void CheckIsRevivingOthers(Frame f, EntityRef knockedOutEntity)
+		{
+			if (!f.Unsafe.TryGetPointer<TeamMember>(knockedOutEntity, out var teamMember))
+			{
+				return;
+			}
+
+			foreach (var teamMate in f.ResolveHashSet(teamMember->TeamMates))
+			{
+				if (!f.Unsafe.TryGetPointer<KnockedOut>(teamMate, out var teammateKnockedOut))
+				{
+					continue;
+				}
+
+				if (f.ResolveHashSet(teammateKnockedOut->PlayersReviving).Contains(knockedOutEntity))
+				{
+					StopRevivingPlayer(f, teammateKnockedOut, knockedOutEntity);
+				}
+			}
 		}
 
 		public static bool CanBeKnockedOut(Frame f, EntityRef entityRef, Revivable* revivable)

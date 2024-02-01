@@ -3,6 +3,8 @@ using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using FirstLight.FLogger;
+using FirstLight.Game.MonoComponent.Match;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
@@ -23,6 +25,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField, Required] private Image _rangeIndicator;
 
 
+		private IGameServices _services;
 		private EntityView _view;
 		private TweenerCore<Vector3, Vector3, VectorOptions> _tweener;
 		private bool _circleActive;
@@ -30,12 +33,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private EntityRef _entityRef => _view.EntityRef;
 		private AnimatorWrapper _animatorWrapper => GetComponentInChildren<PlayerCharacterViewMonoComponent>().AnimatorWrapper;
+		private MatchCharacterViewMonoComponent _matchCharacterView => GetComponentInChildren<MatchCharacterViewMonoComponent>();
+
 
 		private void Awake()
 		{
+			_services = MainInstaller.ResolveServices();
 			_view = GetComponent<EntityView>();
 			_view.OnEntityInstantiated.AddListener(OnEntityInstantiated);
-
 			_vfxInitialRotation = _indicatorsRoot.transform.rotation;
 			QuantumEvent.Subscribe<EventOnPlayerRevived>(this, OnPlayerRevived);
 			QuantumEvent.Subscribe<EventOnPlayerRevived>(this, OnPlayerRevived);
@@ -53,15 +58,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
+			// Only team mates can see revive circle
+			if (!_services.TeamService.IsSameTeamAsSpectator(_entityRef))
+			{
+				return;
+			}
+
 			var reviving = f.ResolveHashSet(knockedOut->PlayersReviving).Count > 0;
 			if (!reviving && knockedOut->BackAtZero < f.Time)
 			{
-				if (_circleActive)
-				{
-					ToggleOffCircle();
-					_circleActive = false;
-				}
-
+				ToggleOffCircle();
 				return;
 			}
 
@@ -108,6 +114,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void ToggleOffCircle()
 		{
+			if (!_circleActive)
+			{
+				return;
+			}
+
+			_circleActive = false;
 			_tweener?.Kill();
 			_tweener = null;
 			_tweener = _indicatorsRoot.transform.DOScale(new Vector3(0, 0, 0), ANIMATION_DURATION).SetAutoKill().SetEase(Ease.OutBack);
@@ -140,6 +152,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void OnPlayerStartReviving(EventOnPlayerStartReviving callback)
 		{
 			if (callback.Entity != _entityRef) return;
+			// Only team mates can see revive circle
+			if (!_services.TeamService.IsSameTeamAsSpectator(callback.Entity))
+			{
+				return;
+			}
+
 			var f = callback.Game.Frames.Verified;
 			StartRevivingPlayer(f, callback.Entity);
 		}

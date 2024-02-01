@@ -6,6 +6,8 @@ namespace Quantum.Systems.Bots
 {
 	public unsafe class BattleRoyaleBot
 	{
+		public static FP MaxDistanceToTryToRevive = FP.FromString("25") * FP.FromString("25");
+
 		internal void Update(Frame f, ref BotCharacterFilter filter, in bool isTakingCircleDamage, in BotUpdateGlobalContext botCtx)
 		{
 			filter.CleanDestroyedWaypointTarget(f);
@@ -22,16 +24,6 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
-			if (ReviveSystem.IsKnockedOut(f, filter.Entity))
-			{
-				// hard coded values so the bot will always go to teammate
-				if (TryStayCloseToTeammate(f, ref filter, botCtx.circleCenter, FP._10000, false))
-				{
-					BotLogger.LogAction(ref filter, "stay close to team mate");
-					return;
-				}
-				return;
-			}
 
 			// Do not do any decision making if the time has not come, unless a bot have no target to move to
 			if (!filter.BotCharacter->GetCanTakeDecision(f))
@@ -39,10 +31,28 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
+
 			///////////////////////////////////////////////////////////
 			// The following code works in Decision time intervals
 			///////////////////////////////////////////////////////////
 			BotLogger.LogAction(ref filter, "Taking decision");
+
+			if (ReviveSystem.IsKnockedOut(f, filter.Entity))
+			{
+				// hard coded values so the bot will always go to teammate
+				if (TryStayCloseToTeammate(f, ref filter, botCtx.circleCenter, FP._10000, false))
+				{
+					BotLogger.LogAction(ref filter, "stay close to team mate");
+					filter.BotCharacter->SetNextDecisionDelay(f, filter.BotCharacter->DecisionInterval);
+					return;
+				}
+
+				return;
+			}
+
+			// If there is a knockedout member near him go help 
+			if (TryGoReviveTeamMate(f, ref filter, botCtx)) return;
+
 
 			// If bot is collecting something at the moment then let this bot finish collection before doing anything else
 			if (filter.BotCharacter->MoveTarget != EntityRef.None &&
@@ -62,10 +72,10 @@ namespace Quantum.Systems.Bots
 			{
 				filter.StopAiming(f);
 			}
-			
+
 			// In case a bot has a gun and no ammo we switch back to hammer
-			if (!filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) && 
-				f.TryGet<Stats>(filter.Entity, out var ammoStats) &&  
+			if (!filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) &&
+				f.TryGet<Stats>(filter.Entity, out var ammoStats) &&
 				ammoStats.CurrentAmmoPercent == FP._0)
 			{
 				filter.TrySwitchToHammer(f);
@@ -84,7 +94,7 @@ namespace Quantum.Systems.Bots
 					}
 				}
 			}
-			
+
 			if (!FPMathHelpers.IsPositionInsideCircle(botCtx.circleTargetCenter, botCtx.circleTargetRadius, filter.Transform->Position.XZ) && botCtx.circleTimeToShrink < filter.BotCharacter->TimeStartRunningFromCircle)
 			{
 				if (TryGoToSafeArea(f, ref filter, botCtx.circleTargetCenter, botCtx.circleTargetRadius))
@@ -124,7 +134,55 @@ namespace Quantum.Systems.Bots
 			{
 				filter.BotCharacter->SetNextDecisionDelay(f, FP._0_05);
 			}
+
 			BotLogger.LogAction(ref filter, "no action");
+		}
+
+		private static bool TryGoReviveTeamMate(Frame f, ref BotCharacterFilter filter, in BotUpdateGlobalContext botCtx)
+		{
+			foreach (var entityRef in f.ResolveHashSet(filter.TeamMember->TeamMates))
+			{
+				if (entityRef.IsValid && f.Unsafe.TryGetPointer<KnockedOut>(entityRef, out var knockedOut))
+				{
+					var reviving = f.ResolveHashSet(knockedOut->PlayersReviving);
+					// Already reviving wait for finish
+					if (reviving.Contains(filter.Entity))
+					{
+						filter.BotCharacter->NextDecisionTime = knockedOut->EndRevivingAt + FP._0_25;
+						return true;
+					}
+
+					// Someone else is reviving him so lets shoot other players
+					if (reviving.Count > 0)
+					{
+						continue;
+					}
+
+					var teamMatePosition = f.Unsafe.GetPointer<Transform3D>(entityRef)->Position;
+					// if the player is outside the safe zone that's his problem :D
+					if (!filter.IsInCircle(f, botCtx, teamMatePosition))
+					{
+						continue;
+					}
+
+					var vectorToTeammate = teamMatePosition - filter.Transform->Position;
+
+					if (vectorToTeammate.SqrMagnitude <= MaxDistanceToTryToRevive)
+					{
+						var destination = teamMatePosition - (vectorToTeammate.Normalized * FP._0_50);
+						filter.BotCharacter->NextDecisionTime = f.Time + filter.BotCharacter->DecisionInterval;
+
+
+						if (BotMovement.MoveToLocation(f, filter.Entity, destination))
+						{
+							filter.SetHasWaypoint(f);
+							return true;
+						}
+					}
+				}
+			}
+
+			return false;
 		}
 
 
@@ -147,13 +205,12 @@ namespace Quantum.Systems.Bots
 			}
 
 			var randomTeammate = EntityRef.None;
-			var team = f.Unsafe.GetPointer<Targetable>(filter.Entity)->Team;
 
-			foreach (var candidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
+			foreach (var candidate in f.ResolveHashSet(filter.TeamMember->TeamMates))
 			{
-				if (candidate.Component->Team == team && !ReviveSystem.IsKnockedOut(f, candidate.Entity))
+				if (candidate.IsValid && f.Has<AlivePlayerCharacter>(candidate) && !ReviveSystem.IsKnockedOut(f, candidate))
 				{
-					randomTeammate = candidate.Entity;
+					randomTeammate = candidate;
 					break;
 				}
 			}
@@ -166,7 +223,7 @@ namespace Quantum.Systems.Bots
 
 			filter.BotCharacter->RandomTeammate = randomTeammate;
 		}
-		
+
 
 		private bool TryGoToSafeArea(Frame f, ref BotCharacterFilter filter, FPVector2 circleCenter, FP circleRadius)
 		{
@@ -220,7 +277,7 @@ namespace Quantum.Systems.Bots
 			}
 
 			var destination = filter.Transform->Position + vectorToTeammate.Normalized * (vectorToTeammate.Magnitude / FP._2);
-			var isGoing = filter.IsInCircle(f, circleCenter, circleRadius, circleIsShrinking, destination)
+			var isGoing = BotState.IsInCircle(circleCenter, circleRadius, circleIsShrinking, destination)
 				&& BotMovement.MoveToLocation(f, filter.Entity, destination);
 
 			if (isGoing)
@@ -231,7 +288,5 @@ namespace Quantum.Systems.Bots
 
 			return isGoing;
 		}
-
-		
 	}
 }

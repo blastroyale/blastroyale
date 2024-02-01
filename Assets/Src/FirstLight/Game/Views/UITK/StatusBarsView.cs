@@ -352,7 +352,7 @@ namespace FirstLight.Game.Views.UITK
 		private unsafe void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
 		{
 			var f = callback.Game.Frames.Verified;
-
+			if (callback.SpellType == Spell.KnockedOut) return;
 			if (f.Has<Destructible>(callback.HitEntity) &&
 				f.Unsafe.TryGetPointer<Stats>(callback.HitEntity, out var stats))
 

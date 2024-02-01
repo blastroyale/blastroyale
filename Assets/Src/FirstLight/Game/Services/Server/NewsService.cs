@@ -90,6 +90,10 @@ namespace FirstLight.Game.Services
 		{
 			FLog.Info("News", "Checking if has unseen news");
 			await WaitPendingFetch();
+			if (_news == null)
+			{
+				return false;
+			}
 			var latest = _news.First();
 			return _data.LastNewsId != latest.NewsId;
 		}

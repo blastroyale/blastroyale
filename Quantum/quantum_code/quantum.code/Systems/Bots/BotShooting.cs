@@ -309,13 +309,6 @@ namespace Quantum.Systems.Bots
 				out targetHit);
 		}
 
-		public static bool TryToAimAtEnemy(this ref BotCharacter bot, EntityRef botEntity, Frame f, in EntityRef targetToCheck, out EntityRef targetHit, out FP botRange)
-		{
-			var team = f.Get<Targetable>(botEntity).Team;
-			botRange = bot.GetMaxWeaponRange(botEntity, f);
-			return bot.TryToAimAtEnemy(botEntity, f, team, botRange, targetToCheck, out targetHit);
-		}
-
 		// We check specific entity if a bot can hit it or not, to make a decision to aim or not to aim
 		// Note that as a result we can get another entity that is being hit, for instance if it appears between the bot and a target that we are checking
 		public static bool TryToAimAtEnemy(this ref BotCharacter bot, EntityRef botEntity, Frame f, int team, in FP targetRange, in EntityRef targetToCheck, out EntityRef targetHit)
@@ -395,11 +388,13 @@ namespace Quantum.Systems.Bots
 			if (bot.SharpShootNextShot)
 			{
 				bb->Set(f, Constants.AimDirectionKey, (targetPosition - botPosition).XZ);
+				BotLogger.LogAction(bot, "Sharp Shooting");
 				return;
 			}
 
 			if (bot.AccuracySpreadAngle > 0)
 			{
+				var lerpSpeed = bb->GetFP(f, Constants.AccuracyLerp);
 				var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
 				var targetAimDirection = bb->GetVector2(f, Constants.TargetAim);
 
@@ -416,31 +411,31 @@ namespace Quantum.Systems.Bots
 					var botHealthRatio = Stats.HealthRatio(botEntity, f);
 
 					// If bot has at least 90% of the player life, 50% chance he will aim innacurately
-					if (targetHealthRatio <= botHealthRatio + FP._0_10 || f.RNG->NextBool())
+					if (targetHealthRatio < botHealthRatio)
 					{
 						var angleHalfInRad = (bot.AccuracySpreadAngle * FP.Deg2Rad) / FP._2;
 						targetAimDirection = FPVector2.Rotate((targetPosition - botPosition).XZ, f.RNG->Next(-angleHalfInRad, angleHalfInRad));
 						bb->Set(f, Constants.TargetAim, targetAimDirection);
+						BotLogger.LogAction(bot, "Setting Target Aim without precision");
 					}
 					else
 					{
-						// If bot is almost dying, target is not dying, 50% chance he will sharp shoot to catchup
-						if (botHealthRatio < FP._0_25 && targetHealthRatio > FP._0_25 && f.RNG->NextBool())
+						// If bot is almost dying, target is not dying he will sharp shoot to catchup
+						if (botHealthRatio < FP._0_33 && botHealthRatio < targetHealthRatio && f.RNG->NextBool())
 						{
 							bot.SharpShootNextShot = true;
+							bb->Set(f, Constants.AccuracyLerp, FP._1);
 						}
 
 						// if he is just lower life than enemy he will just shoot better
 						// but wont sharp shoot
 						targetAimDirection = (targetPosition - botPosition).XZ;
 						bb->Set(f, Constants.AimDirectionKey, targetAimDirection);
-						bb->Set(f, Constants.TargetAim, targetAimDirection);
-						return;
+						BotLogger.LogAction(bot, "Setting aim with precision but lerping");
 					}
 				}
 
 				// Do the lerp towards the direction he wants to aim to
-				var lerpSpeed = bb->GetFP(f, Constants.AccuracyLerp);
 				lerpSpeed += ACCURACY_LERP_TICK;
 
 				// reached my aim rotation target, so ill reset and look for another innacurate lerped angle

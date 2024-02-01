@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
@@ -19,13 +20,14 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			if (ctx.Logic.LiveopsLogic().HasTriggeredSegmentationAction(ActionIdentifier))
 			{
 				throw new LogicException($"Action {ActionIdentifier} was already triggered");
 			}
 			ctx.Logic.LiveopsLogic().MarkTriggeredSegmentationAction(ActionIdentifier);
+			return UniTask.CompletedTask;
 		}
 	}
 }

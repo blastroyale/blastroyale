@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Models;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Server.SDK.Services;
 using FirstLightServerSDK.Services;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -19,19 +19,6 @@ using ItemInstance = PlayFab.ServerModels.ItemInstance;
 namespace GameLogicService.Services
 {
 	/// <summary>
-	/// Map of game id currencies to playfab currency names
-	/// </summary>
-	public static class PlayfabCurrencies
-	{
-		public static readonly IReadOnlyDictionary<GameId, string> MAP = new Dictionary<GameId, string>()
-		{
-			{ GameId.COIN, "CN" },
-			{ GameId.CS, "CS" },
-			{ GameId.XP, "XP" }
-		};
-	}
-
-	/// <summary>
 	/// Syncs playfab inventory items with user data
 	/// It will remove any pending items and currency from playfab inventory
 	/// and convert to our currency datas
@@ -40,35 +27,17 @@ namespace GameLogicService.Services
 	{
 		private PluginContext _ctx;
 		private ILogger _log;
-		private Dictionary<string, CatalogItem> _catalog;
+		private IItemCatalog<ItemData> _catalog;
 
-		public PlayfabInventorySyncService(ILogger log)
+		public PlayfabInventorySyncService(ILogger log, IItemCatalog<ItemData> catalog)
 		{
 			_log = log;
+			_catalog = catalog;
 		}
-
-		private async Task<CatalogItem> GetCatalogItem(ItemInstance item)
-		{
-			if (_catalog == null)
-			{
-				var resultCatalog = await PlayFabServerAPI.GetCatalogItemsAsync(new()
-				{
-					CatalogVersion = "Store"
-				});
-				if (resultCatalog.Error != null) throw new Exception(resultCatalog.Error.GenerateErrorReport());
-				_catalog = new();
-				foreach (var catalogItem in resultCatalog.Result.Catalog)
-				{
-					_catalog[catalogItem.ItemId] = catalogItem;
-				}
-			}
-
-			return _catalog[item.ItemId];
-		}
-
+		
 		private async Task<int> SyncCurrency(string player, GetUserInventoryResult inventory, PlayerData playerData, GameId gameId)
 		{
-			var playfabName = PlayfabCurrencies.MAP[gameId];
+			var playfabName = PlayfabCurrencies.GetPlayfabCurrencyName(gameId);
 			inventory.VirtualCurrency.TryGetValue(playfabName, out var playfabAmount);
 			if (playfabAmount > 0)
 			{
@@ -85,7 +54,6 @@ namespace GameLogicService.Services
 				_log.LogInformation($"[Playfab Sync] Synced {playfabAmount} x {gameId} for user {player}");
 				return playfabAmount;
 			}
-
 			return 0;
 		}
 
@@ -111,14 +79,13 @@ namespace GameLogicService.Services
 				{
 					foreach (var item in inventory.Inventory)
 					{
-						var catalogItem = await GetCatalogItem(item);
-						var legacy = JsonConvert.DeserializeObject<LegacyItemData>(catalogItem.CustomData);
-						playerData.UncollectedRewards.Add(ItemFactory.Legacy(legacy));
+						var itemData = await _catalog.GetCatalogItem(item.ItemId);
+						playerData.UncollectedRewards.Add(itemData);
 						var res = await PlayFabServerAPI.ConsumeItemAsync(new ConsumeItemRequest
 							{ ConsumeCount = 1, PlayFabId = player, ItemInstanceId = item.ItemInstanceId });
 						if (res.Error != null) throw new Exception(res.Error.GenerateErrorReport());
 						consumedItems.Add(item);
-						_log.LogInformation($"[Playfab Sync] Synced item {item.DisplayName} -> {legacy.RewardId} to player {player}");
+						_log.LogInformation($"[Playfab Sync] Synced item {item.DisplayName} -> {itemData.Id} to player {player}");
 					}
 				}
 
@@ -153,7 +120,9 @@ namespace GameLogicService.Services
 					if (amt == 0) continue;
 					var res2 = await PlayFabServerAPI.AddUserVirtualCurrencyAsync(new()
 					{
-						Amount = amt, PlayFabId = player, VirtualCurrency = PlayfabCurrencies.MAP[currency]
+						Amount = amt, 
+						PlayFabId = player, 
+						VirtualCurrency = PlayfabCurrencies.GetPlayfabCurrencyName(currency)
 					});
 					if (res2.Error != null)
 					{

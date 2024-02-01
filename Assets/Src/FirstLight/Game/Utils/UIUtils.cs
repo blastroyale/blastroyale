@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -199,7 +200,7 @@ namespace FirstLight.Game.Utils
 			return sprite;
 		}
 
-		public static async Task SetSprite(GameId id, params VisualElement[] elements)
+		public static async UniTask SetSprite(GameId id, params VisualElement[] elements)
 		{
 			await SetSprite(LoadSprite(id), elements);
 		}
@@ -208,14 +209,22 @@ namespace FirstLight.Game.Utils
 		{
 			foreach (var visualElement in elements)
 			{
-				if (visualElement == null || visualElement.panel == null || visualElement.panel.visualTree == null) continue;
+				if (visualElement == null || visualElement.panel == null || visualElement.panel.visualTree == null)
+				{
+					FLog.Warn($"Skipping nulling element {visualElement?.name} as its not valid");
+					continue;
+				}
 				visualElement.style.backgroundImage = null;
 			}
 
 			var sprite = await fetchSpriteTask;
 			foreach (var visualElement in elements)
 			{
-				if (visualElement == null || visualElement.panel == null || visualElement.panel.visualTree == null) continue;
+				if (visualElement == null || visualElement.panel == null || visualElement.panel.visualTree == null)
+				{
+					FLog.Warn($"Skipping updating element background element {visualElement?.name} as its not valid");
+					continue;
+				}
 				visualElement.style.backgroundImage = new StyleBackground(sprite);
 			}
 		}

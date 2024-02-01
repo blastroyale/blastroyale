@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
@@ -26,7 +27,7 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			foreach (var (type, value) in Data)
 			{
@@ -34,6 +35,7 @@ namespace FirstLight.Game.Commands
 				var currentData = ctx.Data.GetData(type);
 				convertedValue.CopyPropertiesShallowTo(currentData);
 			}
+			return UniTask.CompletedTask;
 		}
 	}
 }

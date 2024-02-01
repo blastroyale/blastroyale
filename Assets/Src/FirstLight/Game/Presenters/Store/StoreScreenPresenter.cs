@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -38,7 +40,8 @@ namespace FirstLight.Game.Presenters.Store
 		[SerializeField] private VisualTreeAsset _StoreProductView;
 		
 		private IGameServices _gameServices;
-
+		private IGameDataProvider _data;
+		
 		private VisualElement _blocker;
 		private ScreenHeaderElement _header;
 		private VisualElement _productList;
@@ -48,6 +51,7 @@ namespace FirstLight.Game.Presenters.Store
 		private void Awake()
 		{
 			_gameServices = MainInstaller.Resolve<IGameServices>();
+			_data = MainInstaller.ResolveData();
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -67,14 +71,22 @@ namespace FirstLight.Game.Presenters.Store
 				foreach (var product in category.Products)
 				{
 					var productElement = new StoreGameProductElement();
-					productElement.SetData(product, root);
-					productElement.OnClicked = BuyItem;
+				
 					categoryElement.Add(productElement);
 					categoryElement.EnsureSize(productElement.size);
+					var flags = ProductFlags.NONE;
+					if (IsItemOwned(product))
+					{
+						flags |= ProductFlags.OWNED;
+					}
+					else
+					{
+						productElement.OnClicked = BuyItem;
+					}
+					productElement.SetData(product, flags, root);
 				}
 				
 				_productList.Add(categoryElement);
-
 				var categoryButton = new Button();
 				categoryButton.text = category.Name;
 				categoryButton.AddToClassList(UssCategoryButton);
@@ -82,6 +94,15 @@ namespace FirstLight.Game.Presenters.Store
 				_categoryList.Add(categoryButton);
 			}
 			base.QueryElements(root);
+		}
+
+		/// <summary>
+		/// Checks if its already owned and should not allow double purchase
+		/// </summary>
+		private bool IsItemOwned(GameProduct product)
+		{
+			if (!product.GameItem.Id.IsInGroup(GameIdGroup.Collection)) return false;
+			return _data.CollectionDataProvider.IsItemOwned(product.GameItem);
 		}
 
 		private void SelectCategory(VisualElement categoryContainer, GameProductCategory category)
@@ -100,8 +121,14 @@ namespace FirstLight.Game.Presenters.Store
 			_gameServices.MessageBrokerService.Subscribe<OpenedCoreMessage>(OnCoresOpened);
 			_gameServices.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_gameServices.IAPService.UnityStore.OnPurchaseFailure += OnPurchaseFailed;
+			_gameServices.IAPService.PurchaseFinished += OnPurchaseFinished;
 		}
 
+		private void OnPurchaseFinished(ItemData item, bool success)
+		{
+			_blocker.style.display = DisplayStyle.None;
+		}
+		
 		[Button]
 		private void OnPurchaseFailed(PurchaseFailureReason reason)
 		{
@@ -131,6 +158,7 @@ namespace FirstLight.Game.Presenters.Store
 
 		private void OnCoresOpened(OpenedCoreMessage msg)
 		{
+			FLog.Verbose("Store Screen", $"Viewing Opening Core {msg.Core}");
 			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 			{
 				ParentItem = msg.Core,
@@ -145,8 +173,9 @@ namespace FirstLight.Game.Presenters.Store
 		
 		private void OnItemRewarded(ItemRewardedMessage msg)
 		{
-			// Handle only currency, other types are handled by claiming rewards
-			if (!msg.Item.Id.IsInGroup(GameIdGroup.Currency)) return;
+			// Cores are handled above separately
+			FLog.Verbose("Store Screen", $"Viewing Reward {msg.Item}");
+			if (!msg.Item.Id.IsInGroup(GameIdGroup.Currency) && !msg.Item.Id.IsInGroup(GameIdGroup.Collection)) return;
 			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 			{
 				Items = new List<ItemData> {msg.Item},
@@ -162,6 +191,7 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			_gameServices.MessageBrokerService.UnsubscribeAll(this);
 			_gameServices.IAPService.UnityStore.OnPurchaseFailure -= OnPurchaseFailed;
+			_gameServices.IAPService.PurchaseFinished -= OnPurchaseFinished;
 		}
 
 		private void BuyItem(GameProduct product)

@@ -1,6 +1,7 @@
 using FirstLight.Game.Logic;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -27,11 +28,11 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Quantum;
 
 		/// <inheritdoc />
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			if (!ValidRewardsFromFrame || RunningTutorialMode)
 			{
-				return;
+				return UniTask.CompletedTask;
 			}
 			
 			var matchData = PlayersMatchData;
@@ -56,6 +57,7 @@ namespace FirstLight.Game.Commands
 				TrophiesChange = trophyChange,
 				TrophiesBeforeChange = trophiesBeforeChange
 			});
+			return UniTask.CompletedTask;
 		}
 
 		public void FromFrame(Frame frame, QuantumValues quantumValues)

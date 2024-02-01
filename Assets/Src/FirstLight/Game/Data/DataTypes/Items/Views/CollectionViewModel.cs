@@ -1,4 +1,7 @@
+using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -27,14 +30,21 @@ namespace FirstLight.Game.Data.DataTypes
 		{
 			icon.style.backgroundImage = StyleKeyword.Null;
 			icon.RemoveSpriteClasses();
-			_ = DrawDynamicIconAsync(icon);
+			DrawDynamicIconAsync(icon).Forget();
 		}
 
-		private async Task DrawDynamicIconAsync(VisualElement icon)
+		private async UniTask DrawDynamicIconAsync(VisualElement icon)
 		{
-			var sprite = await MainInstaller.ResolveServices().CollectionService.LoadCollectionItemSprite(Item);
-			if(sprite != null) icon.style.backgroundImage = new StyleBackground(sprite);
-			else icon.AddToClassList(GameId.GetUSSSpriteClass());
+			try
+			{
+				var sprite = await MainInstaller.ResolveServices().CollectionService.LoadCollectionItemSprite(Item);
+				icon.style.backgroundImage = new StyleBackground(sprite);
+			}
+			catch (Exception e)
+			{
+				FLog.Warn("Error rendering texture, using sprite fallback", e);
+				icon.AddToClassList(GameId.GetUSSSpriteClass());
+			}
 		}
 		
 		public string Description => null;

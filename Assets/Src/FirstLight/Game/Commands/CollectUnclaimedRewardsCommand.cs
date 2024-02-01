@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -17,7 +18,7 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			var trophiesBefore = ctx.Logic.PlayerLogic().Trophies.Value;
 			var rewards = ctx.Logic.RewardLogic().ClaimUnclaimedRewards();
@@ -35,6 +36,7 @@ namespace FirstLight.Game.Commands
 					OldValue = trophiesBefore
 				});
 			}
+			return UniTask.CompletedTask;
 		}
 	}
 }

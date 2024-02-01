@@ -5,7 +5,7 @@
             <ui:ScrollView name="ProductScrollView" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" horizontal-page-size="-1" class="scroll-view">
                 <ui:VisualElement name="ProductList" class="product-list" />
             </ui:ScrollView>
-            <ui:VisualElement name="Categories" class="categories" />
+            <ui:VisualElement name="Categories" class="categories" style="width: 100%;" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITStore/shop" name="Header" />
         <ui:VisualElement name="Blocker" class="blocker" style="display: none;">

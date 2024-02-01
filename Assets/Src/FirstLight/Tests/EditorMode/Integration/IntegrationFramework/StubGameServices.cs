@@ -94,7 +94,7 @@ namespace FirstLight.Tests.EditorMode
 			PartyService = Substitute.For<IPartyService>();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic,
 				PartyService, gameLogic.AppDataProvider);
-			IAPService = null;
+		
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();
 			ProfileService = new PlayerProfileService(GameBackendService);
@@ -117,6 +117,7 @@ namespace FirstLight.Tests.EditorMode
 			GameAppService = Substitute.For<IGameAppService>();
 			TeamService = Substitute.For<ITeamService>();
 			ServerListService = Substitute.For<IServerListService>();
+			IAPService = Substitute.For<IIAPService>();
 		}
 	}
 }

@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Server.SDK.Modules;
+using FirstLightServerSDK.Services;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -60,7 +62,7 @@ namespace FirstLight.Game.Services
 	/// Wraps all playfab specific functionality required for the IAP store to work
 	/// Handles the Catalog, Store Items and Prices
 	/// </summary>
-	public class PlayfabStoreService
+	public class PlayfabStoreService : IStoreService, IItemCatalog<ItemData>
 	{
 		public event Action<List<PlayfabProductConfig>> OnStoreLoaded;
 		
@@ -146,8 +148,7 @@ namespace FirstLight.Game.Services
 				FLog.Info($"Purchase handled by the server: {product.definition.id}, {result.FunctionName}");
 				var logicResult =
 					JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
-				var legacyReward = ModelSerializer.DeserializeFromData<LegacyItemData>(logicResult!.Result.Data);
-				var item = ItemFactory.Legacy(legacyReward);
+				var item = ModelSerializer.DeserializeFromData<ItemData>(logicResult!.Result.Data);
 				onRewarded.Invoke(product, item);
 			}, OnError, request);
 		}
@@ -179,6 +180,31 @@ namespace FirstLight.Game.Services
 			};
 			PlayFabClientAPI.ValidateGooglePlayPurchase(request, r => onValidated(cacheProduct), OnError);
 #endif
+		}
+
+		public Task<FlgStoreItem> GetItemPrice(string itemId)
+		{
+			var i = _storeItems[itemId];
+			return Task.FromResult(new FlgStoreItem()
+			{
+				ItemId = i.ItemId,
+				Price = i.VirtualCurrencyPrices
+			});
+		}
+
+		public Task<FlgCatalogItem> GetCatalogItemById(string itemId)
+		{
+			var i = _catalogItems[itemId];
+			return Task.FromResult(new FlgCatalogItem()
+			{
+				ItemId = i.ItemId,
+				ItemData = i.CustomData
+			});
+		}
+
+		public Task<ItemData> GetCatalogItem(string itemId)
+		{
+			return Task.FromResult(ItemFactory.PlayfabCatalog(_catalogItems[itemId]));
 		}
 	}
 }

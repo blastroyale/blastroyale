@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
@@ -25,17 +26,27 @@ namespace FirstLight.Game.Services
 	{
 		private readonly IDataService _dataService;
 		private readonly IGameServices _services;
+		private readonly IGameLogic _logic;
 		private readonly ServerCommandQueue _serverCommandQueue;
-		private readonly CommandExecutionContext _commandContext;
+		private CommandExecutionContext _commandContext;
 
 		public GameCommandService(IGameBackendService gameBackendService, IGameLogic gameLogic, IDataService dataService,
 			IGameServices services)
 		{
+			_logic = gameLogic;
 			_dataService = dataService;
 			_services = services;
 			_serverCommandQueue = new ServerCommandQueue(dataService, gameLogic, gameBackendService, services);
-			_commandContext = new CommandExecutionContext(
-				new LogicContainer().Build(gameLogic), new ServiceContainer().Build(services), dataService);
+		}
+
+		private CommandExecutionContext GetContext()
+		{
+			if (_commandContext == null)
+			{
+				_commandContext = new CommandExecutionContext(
+					new LogicContainer().Build(_logic), new ServiceContainer().Build(_services), _dataService);
+			}
+			return _commandContext;
 		}
 		
 		/// <inheritdoc cref="CommandService{TGameLogic}.ExecuteCommand{TCommand}" />
@@ -48,7 +59,7 @@ namespace FirstLight.Game.Services
 #endif
 			try
 			{
-				command.Execute(_commandContext);
+				command.Execute(GetContext()).GetAwaiter().GetResult();
 				switch (command.ExecutionMode())
 				{
 					case CommandExecutionMode.Quantum:

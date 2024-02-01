@@ -569,6 +569,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_services.RoomService.InRoom) return;
 
+			FLog.Verbose("Main Menu State", "Opening reward sequence");
 			var rewardsCopy = items.Where(item => !item.Id.IsInGroup(GameIdGroup.Currency) && item.Id is not (GameId.XP or GameId.BPP or GameId.Trophies)).ToList();
 			if (rewardsCopy.Count > 0)
 			{

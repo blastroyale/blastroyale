@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Server.SDK.Modules.Commands;
@@ -21,7 +22,7 @@ namespace FirstLight.Game.Commands.Cheats
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			var equips = ctx.Data.GetData<EquipmentData>().Inventory;
 			List<Equipment> toAdd = new(EquipmentToGive);
@@ -51,6 +52,7 @@ namespace FirstLight.Game.Commands.Cheats
 					ctx.Logic.EquipmentLogic().Equip(id);
 				}
 			}
+			return UniTask.CompletedTask;
 		}
 
 		private bool IsEqual(Equipment eq, Equipment eq2)

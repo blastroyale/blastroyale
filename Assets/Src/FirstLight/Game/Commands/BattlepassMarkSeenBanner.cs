@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Server.SDK.Modules.Commands;
@@ -11,9 +12,10 @@ namespace FirstLight.Game.Commands
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			ctx.Logic.BattlePassLogic().MarkBannerAsSeen();
+			return UniTask.CompletedTask;
 		}
 	}
 }

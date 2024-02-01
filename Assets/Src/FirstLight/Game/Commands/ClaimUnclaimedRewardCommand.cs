@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -19,10 +20,11 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			var msg = new RewardClaimedMessage {Reward = ctx.Logic.RewardLogic().ClaimUnclaimedReward(ToClaim)};
 			ctx.Services.MessageBrokerService().Publish(msg);
+			return UniTask.CompletedTask;
 		}
 	}
 }

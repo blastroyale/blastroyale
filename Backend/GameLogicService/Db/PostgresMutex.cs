@@ -67,9 +67,10 @@ namespace Backend.Game
 		public void Dispose() {}
 		public async Task Lock(string userId) {}
 		public void Unlock(string userId) {}
-		public Task<IServerMutex> Transaction(string userId, Func<Task> a)
+		public async Task<IServerMutex> Transaction(string userId, Func<Task> a)
 		{
-			return null;
+			await a();
+			return this;
 		}
 	}
 }

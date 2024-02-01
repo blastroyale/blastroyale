@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -52,11 +53,12 @@ namespace FirstLight.Game.Commands
 
 
 		/// <inheritdoc />
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			GiveDefaultItems(ctx);
 			SyncItemsBasedOnFlag(ctx, PlayerFlags.DiscordMod, DiscordModItems, "discordmod");
 			SyncItemsBasedOnFlag(ctx, PlayerFlags.FLGOfficial, DiscordModItems, "flg");
+			return UniTask.CompletedTask;
 		}
 
 		private void GiveDefaultItems(CommandExecutionContext ctx)

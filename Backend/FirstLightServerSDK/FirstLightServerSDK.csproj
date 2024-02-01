@@ -14,5 +14,12 @@
       <PackageReference Include="MessagePack" Version="2.5.108" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" ExcludeAssets="runtime" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <Reference Include="UniTask">
+        <HintPath>..\Lib\UniTask.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+    </ItemGroup>
 
 </Project>

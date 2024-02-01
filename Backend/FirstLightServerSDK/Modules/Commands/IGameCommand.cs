@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+
 namespace FirstLight.Server.SDK.Modules.Commands
 {
 	/// <summary>
@@ -20,7 +22,7 @@ namespace FirstLight.Server.SDK.Modules.Commands
 		/// <summary>
 		/// Executes the command logic
 		/// </summary>
-		void Execute(CommandExecutionContext ctx);
+		UniTask Execute(CommandExecutionContext ctx);
 	}
 }
 

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -16,7 +17,7 @@ namespace FirstLight.Game.Commands
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			var info = ctx.Logic.EquipmentLogic().GetInfo(Item);
 			var reward = ctx.Logic.EquipmentLogic().Scrap(Item);
@@ -39,6 +40,7 @@ namespace FirstLight.Game.Commands
 				Durability = info.CurrentDurability,
 				Reward = reward
 			});
+			return UniTask.CompletedTask;
 		}
 	}
 }

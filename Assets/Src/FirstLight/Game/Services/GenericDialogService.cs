@@ -127,7 +127,7 @@ namespace FirstLight.Game.Services
 
 		public void OpenPurchaseOrNotEnough(GenericPurchaseDialogPresenter.GenericPurchaseOptions options)
 		{
-			var bucks = _currencyDataProvider.GetCurrencyAmount(GameId.BlastBuck);
+			var bucks = _currencyDataProvider.GetCurrencyAmount(options.Currency);
 			var ui = _uiService.OpenUi<GenericPurchaseDialogPresenter>();
 			_openDialogType = ui.GetType();
 

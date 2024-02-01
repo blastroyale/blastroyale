@@ -1,14 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Utils;
+using FirstLight.Models;
 using FirstLight.SDK.Services;
+using FirstLightServerSDK.Services;
 using PlayFab.ClientModels;
+using Quantum;
 using UnityEngine.Purchasing;
 
 
@@ -22,6 +27,12 @@ namespace FirstLight.Game.Services
 		public PlayfabProductConfig PlayfabProductConfig;
 		public Func<Product> UnityIapProduct; // TODO: Fix this properly, it shouldn't be a func
 		public ItemData GameItem;
+
+		public (GameId item, uint amt) GetPrice()
+		{
+			var cost = PlayfabProductConfig.StoreItem.VirtualCurrencyPrices.First();
+			return (PlayfabCurrencies.GetCurrency(cost.Key), cost.Value);
+		}
 	}
 	
 	/// <summary>
@@ -49,6 +60,11 @@ namespace FirstLight.Game.Services
 		/// Api wrapper for Unity IAP integration. All operations are done via Unity Store.
 		/// </summary>
 		IUnityStoreSerivce UnityStore { get; }
+		
+		/// <summary>
+		/// Refences our remote catalog store
+		/// </summary>
+		IStoreService RemoteCatalogStore { get; }
 			
 		/// <summary>
 		/// Buys the product defined by the given <paramref name="unityStoreId"/>
@@ -64,6 +80,11 @@ namespace FirstLight.Game.Services
 		/// Initializes the purchasing module.
 		/// </summary>
 		void Init();
+		
+		/// <summary>
+		/// Event fired everytime a purchase finishes processing
+		/// </summary>
+		event Action<ItemData, bool> PurchaseFinished;
 	}
 
 	public class IAPService : IIAPService
@@ -74,28 +95,34 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		private const decimal NET_INCOME_MODIFIER = (decimal)0.7;
 		
+		private PlayfabStoreService _playfab;
+
+		public event Action<ItemData, bool> PurchaseFinished;
+		
 		private Dictionary<string, GameProductCategory> _availableProducts = new ();
 		private UnityStoreService _unityStore;
-		private PlayfabStoreService _playfabStore;
 		private readonly IGameCommandService _commandService;
 		private readonly IGameBackendService _gameBackendService;
 		private readonly IAnalyticsService _analyticsService;
 		private readonly IMessageBrokerService _msgBroker;
+		private readonly IGameDataProvider _data;
 		
 		public bool RequiredToViewStore { get; set; }
 		
 		public IReadOnlyCollection<GameProductCategory> AvailableProductCategories => _availableProducts.Values;
 		public IUnityStoreSerivce UnityStore => _unityStore;
+		public IStoreService RemoteCatalogStore => _playfab;
 		public IAPService(IGameCommandService commandService, IMessageBrokerService messageBroker,
 						  IGameBackendService gameBackendService, IAnalyticsService analyticsService,
 						  IGameDataProvider gameDataProvider)
 		{
 			_unityStore = new UnityStoreService(ProcessPurchase);
-			_playfabStore = new PlayfabStoreService(gameBackendService, commandService);
+			_playfab = new PlayfabStoreService(gameBackendService, commandService);
 			_commandService = commandService;
 			_gameBackendService = gameBackendService;
 			_msgBroker = messageBroker;
 			_analyticsService = analyticsService;
+			_data = gameDataProvider;
 			_msgBroker.Subscribe<ShopScreenOpenedMessage>(OnShopOpened);
 		}
 
@@ -106,8 +133,8 @@ namespace FirstLight.Game.Services
 
 		public void Init()
 		{
-			_playfabStore.Init();
-			_playfabStore.OnStoreLoaded += playfabProducts =>
+			_playfab.Init();
+			_playfab.OnStoreLoaded += playfabProducts =>
 			{
 				_unityStore.InitializeUnityCatalog(playfabProducts.Select(i => i.CatalogItem.ItemId).ToHashSet());
 				foreach (var playfabProduct in playfabProducts)
@@ -128,10 +155,54 @@ namespace FirstLight.Game.Services
 			};
 		}
 
+		private bool IsRealMoney(GameProduct product)
+		{
+			return product.PlayfabProductConfig.StoreItem.VirtualCurrencyPrices.Keys.Contains("RM");
+		}
+
 		public void BuyProduct(GameProduct product)
 		{
-			FLog.Info($"Purchase initiated: {product.UnityIapProduct().definition.id}");
-			_unityStore.Controller.InitiatePurchase(product.UnityIapProduct().definition.id);
+			if (!IsRealMoney(product))
+			{
+				LogicPurchaseItem(product);
+			}
+			else
+			{
+				FLog.Info("IAP",$"Purchase initiated: {product.UnityIapProduct().definition.id}");
+				_unityStore.Controller.InitiatePurchase(product.UnityIapProduct().definition.id);
+			}
+		}
+
+		private void ConfirmLogicalPurchase(GameProduct product, ItemData item, (GameId item, uint price) price)
+		{
+			FLog.Info("IAP", "Purchase of logical item");
+			_commandService.ExecuteCommand(new BuyFromStoreCommand()
+			{
+				CatalogItemId = product.PlayfabProductConfig.CatalogItem.ItemId
+			});
+			PurchaseFinished?.Invoke(item, true);
+			_analyticsService.EconomyCalls.PurchaseIngameItem(product.UnityIapProduct(), item, price.item.ToString(), price.price);
+		}
+
+		/// <summary>
+		/// A logical purchase happens when no real money (FIAT) is involved
+		/// </summary>
+		private void LogicPurchaseItem(GameProduct product)
+		{
+			var generatedItem = ItemFactory.PlayfabCatalog(product.PlayfabProductConfig.CatalogItem);
+			var price = product.GetPrice();
+
+			MainInstaller.ResolveServices().GenericDialogService.OpenPurchaseOrNotEnough(new ()
+			{
+				Item = generatedItem,
+				Value = price.amt,
+				Currency = price.item,
+				OnConfirm = () => ConfirmLogicalPurchase(product, generatedItem, price),
+				OnExit = () =>
+				{
+					PurchaseFinished?.Invoke(generatedItem, false);
+				}
+			});
 		}
 
 		/// <summary>
@@ -144,9 +215,9 @@ namespace FirstLight.Game.Services
 		{
 			var devStore = _gameBackendService.IsDev();
 			var product = purchaseEvent.purchasedProduct;
-			FLog.Info($"Purchase processed: {product.definition.id}, Dev store: {devStore}, TransactionId({purchaseEvent.purchasedProduct.transactionID})");
-			if (devStore) _playfabStore.AskBackendForItem(product, OnServerRewardConfirmed);
-			else _playfabStore.ValidateReceipt(product, OnPurchaseValidated);
+			FLog.Info("IAP",$"Purchase processed: {product.definition.id}, Dev store: {devStore}, TransactionId({purchaseEvent.purchasedProduct.transactionID})");
+			if (devStore) _playfab.AskBackendForItem(product, OnServerRewardConfirmed);
+			else _playfab.ValidateReceipt(product, OnPurchaseValidated);
 			return PurchaseProcessingResult.Pending;
 		}
 
@@ -156,7 +227,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		private void OnPurchaseValidated(Product product)
 		{
-			_playfabStore.AskBackendForItem(product, OnServerRewardConfirmed);
+			_playfab.AskBackendForItem(product, OnServerRewardConfirmed);
 		}
 
 		private void OnServerRewardConfirmed(Product product, ItemData item)
@@ -171,6 +242,7 @@ namespace FirstLight.Game.Services
 				ToClaim = item
 			});
 			_unityStore.Controller.ConfirmPendingPurchase(product);
+			PurchaseFinished?.Invoke(item, true);
 			SendAnalyticsEvent(product, item);
 		}
 

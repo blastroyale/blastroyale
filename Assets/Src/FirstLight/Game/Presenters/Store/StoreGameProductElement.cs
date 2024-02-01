@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Models;
 using PlayFab.ClientModels;
 using Quantum;
 using UnityEngine;
@@ -12,6 +14,14 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters.Store
 {
+	[Flags]
+	public enum ProductFlags : byte
+	{
+		NONE = 0,
+		OWNED = 1 << 1,
+		NEW = 1 << 2
+	}
+	
 	public class StoreGameProductElement : VisualElement
 	{
 		private const string USS_PRODUCT_NAME = "product-name";
@@ -55,17 +65,19 @@ namespace FirstLight.Game.Presenters.Store
 		private Label _price;
 		private ImageButton _infoButton; 
 		private ImageButton _background;
+		private VisualElement _ownedStamp;
 
 		public StoreGameProductElement()
 		{
 			var treeAsset = Resources.Load<VisualTreeAsset>("StoreGameProductElement");
 			treeAsset.CloneTree(this);
 			_background = this.Q<ImageButton>("ProductBackgroundImage").Required();
-			_background.clicked += () => OnClicked(_product);
+			_background.clicked += () => OnClicked?.Invoke(_product);
 			_name = this.Q<Label>("ProductName").Required();
 			_icon = this.Q("ProductImage").Required();
 			_icon.AddToClassList(USS_SPRITE_CURRENCIES_BLASTBUCK);
 			_price = this.Q<Label>("ProductPrice").Required();
+			_ownedStamp = this.Q("OwnedStamp").Required();
 			_infoButton = this.Q<ImageButton>("InformationClickArea").Required();
 			_infoButton.clicked += OnClickInfo;
 		}
@@ -76,7 +88,7 @@ namespace FirstLight.Game.Presenters.Store
 			_infoButton.OpenTooltip(_root, desc, TooltipDirection.BottomLeft, TooltipPosition.TopRight);
 		}
 
-		public void SetData(GameProduct product, VisualElement rootDocument)
+		public void SetData(GameProduct product, ProductFlags flags, VisualElement rootDocument)
 		{
 			_root = rootDocument;
 			_product = product;
@@ -84,35 +96,29 @@ namespace FirstLight.Game.Presenters.Store
 			_name.text = "";
 			if (itemView.Amount > 1) _name.text += itemView.Amount + " ";
 			_name.text += itemView.DisplayName;
-
+			
+			_ownedStamp.SetDisplay(flags.HasFlag(ProductFlags.OWNED));
+			
+			var price = product.GetPrice();
+			FLog.Verbose("Store Screen", $"Setting up store item {product.GameItem}, price={price}");
+			
 			var priceConfig = product.PlayfabProductConfig.CatalogItem.VirtualCurrencyPrices.First();
-			if (priceConfig.Key == "RM")
+
+			if (flags.HasFlag(ProductFlags.OWNED))
 			{
-				// Real money purchase
+				_price.text = "";
+			}
+			else if (price.item == GameId.RealMoney)
+			{
 				_price.text = product.UnityIapProduct().metadata.localizedPriceString;
 			}
 			else
 			{
-				// Default icon is Coins
-				var priceIcon = "<sprite name=\"Coinicon\"> ";
-				
-				switch (priceConfig.Key)
-				{
-					case "BB":
-					{
-						priceIcon = "<sprite name=\"Blastbuckicon\"> ";
-						break;
-					}
-					case "CS":
-					{
-						priceIcon = "<sprite name=\"CraftSpiceicon\"> ";
-						break;
-					}
-				}
-				
+				var currencyItem = ItemFactory.Currency(price.item, 1);
+				var currencyView = (CurrencyItemViewModel)currencyItem.GetViewModel();
+				var priceIcon = currencyView.GetRichTextIcon();
 				_price.text = priceIcon + priceConfig.Value;
 			}
-			
 			itemView.DrawIcon(_icon);
 			FormatByStoreData();
 		}
@@ -219,7 +225,7 @@ namespace FirstLight.Game.Presenters.Store
 							}
 						}
 					},
-				}, ve);
+				}, 0, ve);
 			}
 		}
 	}

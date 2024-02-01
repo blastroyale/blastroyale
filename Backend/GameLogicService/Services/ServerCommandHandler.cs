@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Backend.Plugins;
 using FirstLight;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
@@ -16,6 +17,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using FirstLightServerSDK.Services;
 using GameLogicService.Game;
 
 
@@ -53,8 +55,10 @@ namespace Backend.Game.Services
 		private readonly IMetricsService _metrics;
 		private readonly IPluginManager _plugins;
 		private readonly IGameLogicContextService _logicContext;
+		private readonly IStoreService _store;
+		private readonly IItemCatalog<ItemData> _catalog;
 
-		public ServerCommandHandler(IGameLogicContextService logicContext, IPluginManager plugins, IGameConfigurationService cfg, ILogger log, IEventManager eventManager,
+		public ServerCommandHandler(IGameLogicContextService logicContext, IStoreService store, IItemCatalog<ItemData> catalog, IPluginManager plugins, IGameConfigurationService cfg, ILogger log, IEventManager eventManager,
 									IMetricsService metrics)
 		{
 			_logicContext = logicContext;
@@ -63,6 +67,8 @@ namespace Backend.Game.Services
 			_eventManager = eventManager;
 			_metrics = metrics;
 			_plugins = plugins;
+			_catalog = catalog;
+			_store = store;
 		}
 
 		/// <inheritdoc/>
@@ -71,9 +77,11 @@ namespace Backend.Game.Services
 			var logicContext = await _logicContext.GetLogicContext(userId, currentState);
 			var serviceContainer = new ServiceContainer();
 			serviceContainer.Add(logicContext.GameLogic.MessageBrokerService);
+			serviceContainer.Add(_catalog);
+			serviceContainer.Add(_store);
 			var logicContainer = new LogicContainer().Build(logicContext.GameLogic);
 			var commandContext = new CommandExecutionContext(logicContainer, serviceContainer, logicContext.PlayerData);
-			cmd.Execute(commandContext);
+			await cmd.Execute(commandContext);
 			var newState = logicContext.PlayerData.GetUpdatedState();
 			return newState;
 		}

@@ -20,7 +20,7 @@
                     <ui:VisualElement name="Controls" class="content__controls">
                         <FirstLight.Game.UIElements.ImageButton name="BuyButton" class="button-long button-long--yellow purchase-confirmation__item-button ">
                             <ui:Label tabindex="-1" text="200" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemPrice" class="purchase-confirmation__item-price-label" />
-                            <ui:VisualElement name="BBIcon" class="purchase-confirmation__button-icon" />
+                            <ui:VisualElement name="CostIcon" class="purchase-confirmation__button-icon" />
                         </FirstLight.Game.UIElements.ImageButton>
                     </ui:VisualElement>
                 </ui:VisualElement>

@@ -1,21 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using ServerCommon.Cloudscript;
-using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Logic.RPC;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Services;
 using GameLogicService.Game;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using PlayFab;
-using PlayFab.ServerModels;
 using ServerCommon;
 
 namespace GameLogicService.Services
@@ -39,13 +33,15 @@ namespace GameLogicService.Services
 		private IErrorService<PlayFabError> _errorHandler;
 		private IBaseServiceConfiguration _cfg;
 		private IEventManager _events;
+		private IItemCatalog<ItemData> _catalog;
 
-		public ShopService(ILogger log, IErrorService<PlayFabError> errorHandler, IBaseServiceConfiguration cfg, IEventManager events)
+		public ShopService(ILogger log, IItemCatalog<ItemData> catalog, IErrorService<PlayFabError> errorHandler, IBaseServiceConfiguration cfg, IEventManager events)
 		{
 			_log = log;
 			_errorHandler = errorHandler;
 			_cfg = cfg;
 			_events = events;
+			_catalog = catalog;
 		}
 
 		/// <summary>
@@ -58,8 +54,7 @@ namespace GameLogicService.Services
 		{
 			_log.Log(LogLevel.Information, $"{playerId} is executing - ConsumeValidatedPurchaseCommand");
 
-			var item = await FindCatalogItem(catalogItemId);
-			
+			var item = await _catalog.GetCatalogItem(catalogItemId);
 			if (_cfg.DevelopmentMode)
 			{
 				var res = await PlayFabServerAPI.GrantItemsToUserAsync(new()
@@ -76,21 +71,8 @@ namespace GameLogicService.Services
 			await _events.CallEvent(new InventoryUpdatedEvent(playerId));
 
 			var result = Playfab.Result(playerId);
-			ModelSerializer.SerializeToData(result.Result.Data, ModelSerializer.Deserialize<LegacyItemData>(item.CustomData));
+			ModelSerializer.SerializeToData(result.Result.Data, item);
 			return result;
-		}
-	
-		private async Task<CatalogItem> FindCatalogItem(string item)
-		{
-			var request = new GetCatalogItemsRequest { CatalogVersion = "Store" };
-			var catalogResult = await PlayFabServerAPI.GetCatalogItemsAsync(request);
-			_errorHandler.CheckErrors(catalogResult);
-			var catalogItem = catalogResult.Result.Catalog.FirstOrDefault(i => i.ItemId == item);
-			if (catalogItem != null)
-			{
-				return catalogItem;
-			}
-			throw new LogicException($"no catalog item with the given item id: {item}");
 		}
 	}
 }

@@ -244,3 +244,46 @@
     justify-content: center;
     align-items: center;
 }
+
+.owned-stamp {
+    flex-grow: 1;
+    width: 168px;
+    height: 57px;
+    position: absolute;
+    background-image: none;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    justify-content: center;
+    align-self: center;
+    top: auto;
+    left: 128px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    display: flex;
+    bottom: 20px;
+}
+
+.owned-stamp__bg {
+    flex-grow: 1;
+    width: 169px;
+    height: 57px;
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-bpreward-outline.png?fileID=2800000&guid=57e23c21c38ad444b8edc6fd8e9eac32&type=3#button-bpreward-outline');
+    -unity-background-image-tint-color: rgb(255, 0, 0);
+    justify-content: center;
+    align-self: center;
+    display: flex;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.owned-stamp__text {
+    align-self: center;
+    justify-content: center;
+    -unity-text-align: middle-left;
+    font-size: 49px;
+    color: rgb(255, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+}

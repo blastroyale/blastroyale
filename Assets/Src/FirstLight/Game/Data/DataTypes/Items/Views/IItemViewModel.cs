@@ -1,5 +1,4 @@
 using FirstLight.FLogger;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine.UIElements;

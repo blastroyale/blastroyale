@@ -259,7 +259,6 @@
 
 .purchase-confirmation__button-icon {
     flex-grow: 0;
-    background-image: var(--sprite-currencies__blastbuck-default);
     width: 64px;
     height: 64px;
     margin-left: 5px;

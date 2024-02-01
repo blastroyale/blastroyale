@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -20,7 +21,7 @@ namespace FirstLight.Game.Commands.Cheats
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			var rarity = EquipmentRarity.RarePlus;
 
@@ -52,6 +53,7 @@ namespace FirstLight.Game.Commands.Cheats
 
 			// Add some coins as well to repair and upgrade
 			ctx.Logic.CurrencyLogic().AddCurrency(GameId.COIN, 1_000_000);
+			return UniTask.CompletedTask;
 		}
 
 

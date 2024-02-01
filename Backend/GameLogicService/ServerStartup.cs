@@ -5,6 +5,7 @@ using Backend.Game;
 using Backend.Game.Services;
 using Backend.Plugins;
 using Backend.Models;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using Microsoft.Azure.WebJobs.Logging;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,7 @@ using GameLogicService.Services;
 using ServerCommon;
 using ServerCommon.CommonServices;
 using IPlayerProfileService = FirstLight.Game.Services.IPlayerProfileService;
+using PlayfabStoreService = FirstLight.Game.Services.PlayfabStoreService;
 using PluginManager = Backend.Plugins.PluginManager;
 
 namespace Backend
@@ -56,6 +58,8 @@ namespace Backend
 			services.AddSingleton<IEnvironmentService, ServerEnvironmentService>();
 			services.AddSingleton<IInventorySyncService, PlayfabInventorySyncService>();
 			services.AddSingleton<IPlayfabServer, PlayfabServerSettings>();
+			services.AddSingleton<IStoreService, PlayfabServerStoreService>();
+			services.AddSingleton<IItemCatalog<ItemData>, PlayfabItemCatalogService>();
 			services.AddSingleton<ILogicWebService, GameLogicWebWebService>();
 			services.AddSingleton<JsonConverter, StringEnumConverter>();
 			services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();

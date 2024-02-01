@@ -93,5 +93,5 @@ MonoBehaviour:
       IsTestMap: 1
       IsCustomOnly: 1
       DropSelectionSize: 1
-      MinimapCameraSize: 100
+      MinimapCameraSize: 300
       LootingVersion: 2

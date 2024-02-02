@@ -3,6 +3,8 @@ using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using FirstLight.FLogger;
+using FirstLight.Game.Ids;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
@@ -25,6 +27,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private EntityView _view;
 		private TweenerCore<Vector3, Vector3, VectorOptions> _tweener;
+		private IGameServices _services;
 		private bool _circleActive;
 		private Quaternion _vfxInitialRotation;
 
@@ -33,6 +36,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void Awake()
 		{
+			_services = MainInstaller.ResolveServices();
 			_view = GetComponent<EntityView>();
 			_view.OnEntityInstantiated.AddListener(OnEntityInstantiated);
 
@@ -102,6 +106,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_indicatorsRoot.SetActive(false);
 			_animatorWrapper.SetTrigger(AvatarViewBase.Triggers.Revived);
+			_services.VfxService.Spawn(VfxId.Revived);
 			_view.GetComponentInChildren<MatchCharacterViewMonoComponent>()?.ShowAllEquipment();
 		}
 

@@ -37,7 +37,8 @@ namespace FirstLight.Game.Ids
 		AirdropPickupFx = 30,
 		GoldenEffect = 31,
 		CoinPickupFx = 32,
-		BppPickupFx = 33
+		BppPickupFx = 33,
+		Revived = 34,
 	}
 	
 	/// <summary>

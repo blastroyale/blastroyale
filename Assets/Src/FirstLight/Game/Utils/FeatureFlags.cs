@@ -259,6 +259,12 @@ namespace FirstLight.Game.Utils
 		/// Adjust bullets visuals to fit camera better
 		/// </summary>
 		public static bool BULLET_CAMERA_ADJUSTMENT = true;
+
+		/// <summary>
+		/// Only for testing.
+		/// When true, you will become invisible when entering bushes.
+		/// </summary>
+		public static bool ALWAYS_TOGGLE_INVISIBILITY_AREAS = false;
 		
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.

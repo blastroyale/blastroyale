@@ -239,7 +239,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void TryStartAttackWithinVisVolume()
 		{
-			if (IsBeingSpectated || !IsInInvisibilityArea())
+			if (!FeatureFlags.ALWAYS_TOGGLE_INVISIBILITY_AREAS && (IsBeingSpectated || !IsInInvisibilityArea()))
 			{
 				return;
 			}

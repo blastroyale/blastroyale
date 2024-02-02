@@ -172,6 +172,7 @@ event OnPlayerAttackHit
 	FPVector3 HitPosition;
 	UInt32 TotalDamage;
 	bool isShieldDmg;
+	byte SpellType;
 }
 
 event OnPlayerStopAttack

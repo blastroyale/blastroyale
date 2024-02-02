@@ -18,4 +18,8 @@ component TeamMember {
     int TeamId;
     int TeamIndex;
     byte Color;
+    	
+	// Cached team mates, to avoid looping all entities
+	[AllocateOnComponentAdded, FreeOnComponentRemoved]
+	hash_set<EntityRef> TeamMates;
 }

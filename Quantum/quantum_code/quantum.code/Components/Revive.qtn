@@ -5,6 +5,7 @@
 component KnockedOut{
     byte ConfigIndex;
     FP NextDamageAt;
+    FP StartedRevivingAt;
     [AllocateOnComponentAdded, FreeOnComponentRemoved]
     hash_set<entity_ref> PlayersReviving;
     FP EndRevivingAt;
@@ -20,6 +21,7 @@ component KnockedOutCollider{
 
 synced event OnPlayerKnockedOut
 {
+    entity_ref Attacker;
 	entity_ref Entity;
 }
 

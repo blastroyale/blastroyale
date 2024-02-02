@@ -33,6 +33,7 @@ namespace Quantum.Systems.Bots
 			public AlivePlayerCharacter* AlivePlayerCharacter;
 			public NavMeshPathfinder* NavMeshAgent;
 			public CharacterController3D* Controller;
+			public TeamMember* TeamMember;
 		}
 
 		/// <inheritdoc />

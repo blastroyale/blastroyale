@@ -56,12 +56,17 @@ namespace FirstLight.Game.MonoComponent.Match
 		public VisibilityCheckResult CheckSpectatorVisibility(EntityRef entity)
 		{
 			var spectator = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
-			return VisibilityAreaSystem.CanEntityViewEntity(QuantumRunner.Default.Game.Frames.Verified, spectator, entity); 
+			var result = VisibilityAreaSystem.CanEntityViewEntity(QuantumRunner.Default.Game.Frames.Verified, spectator, entity);;
+			if (result.TargetArea.Area.IsValid && FeatureFlags.ALWAYS_TOGGLE_INVISIBILITY_AREAS)
+			{
+				result.CanSee = false;
+			}
+			return result;
 		}
 		
 		public bool CanSpectatedPlayerSee(EntityRef entity)
 		{
-			if (_matchServices.SpectateService.GetSpectatedEntity() == entity) return true;
+			if (!FeatureFlags.ALWAYS_TOGGLE_INVISIBILITY_AREAS && _matchServices.SpectateService.GetSpectatedEntity() == entity) return true;
 			return CheckSpectatorVisibility(entity).CanSee;
 		}
 

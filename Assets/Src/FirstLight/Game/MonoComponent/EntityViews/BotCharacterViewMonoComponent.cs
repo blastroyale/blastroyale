@@ -14,7 +14,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	/// </summary>
 	public class BotCharacterViewMonoComponent : EntityViewBase
 	{
-		void Update()
+		void LateUpdate()
 		{
 			if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
 			var f = QuantumRunner.Default.Game.Frames.Predicted;

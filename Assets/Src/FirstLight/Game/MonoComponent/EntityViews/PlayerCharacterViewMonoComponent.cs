@@ -11,7 +11,6 @@ using Photon.Deterministic;
 using Quantum;
 using Quantum.Systems;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -24,7 +23,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
 
 		private static readonly int _playerPos = Shader.PropertyToID("_PlayerPos");
-		private const float SPEED_THRESHOLD_SQUARED = 0.15f * 0.15f; // unity units per second	
+		private const float SPEED_THRESHOLD_SQUARED = 0.45f * 0.45f; // unity units per second	
 		private bool _moveSpeedControl = false;
 
 		/// <summary>
@@ -87,7 +86,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, HandleOnRadarUsed);
 		}
-		
+
 		private void OnDestroy()
 		{
 			if (_attackHideRendererCoroutine != null)
@@ -143,7 +142,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			AnimatorWrapper.SetTrigger(Triggers.Hit);
+			// Do not trigger hit when player is knockedout
+			if (!ReviveSystem.IsKnockedOut(evnt.Game.Frames.Verified, evnt.Entity))
+			{
+				AnimatorWrapper.SetTrigger(Triggers.Hit);
+			}
+
+			if (evnt.SpellType == Spell.KnockedOut) return;
 
 			if (_matchServices.SpectateService.SpectatedPlayer?.Value == null)
 			{
@@ -234,7 +239,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void TryStartAttackWithinVisVolume()
 		{
-			if (IsBeingSpectated || !IsInInvisibilityArea())
+			if (!FeatureFlags.ALWAYS_TOGGLE_INVISIBILITY_AREAS && (IsBeingSpectated || !IsInInvisibilityArea()))
 			{
 				return;
 			}
@@ -557,10 +562,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			Services.VfxService.Spawn(VfxId.Radar).transform.position = transform.position;
 		}
 
-		private void HandleUpdateView(CallbackUpdateView callback)
+		private unsafe void HandleUpdateView(CallbackUpdateView callback)
 		{
 			var f = callback.Game.Frames.Predicted;
 			if (!f.TryGet<AIBlackboardComponent>(EntityRef, out var bb))
+			{
+				return;
+			}
+
+			if (!f.Unsafe.TryGetPointer<CharacterController3D>(EntityRef, out var characterController3D))
 			{
 				return;
 			}
@@ -570,16 +580,24 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
+			var knockedOut = ReviveSystem.IsKnockedOut(f, EntityRef);
 			var currentPosition = transform.position;
 			var deltaPosition = currentPosition - _lastPosition;
 
 			deltaPosition.y = 0f; // falling doesn't count
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
+
 			var isMoving = sqrSpeed > SPEED_THRESHOLD_SQUARED;
-			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey);
+			// Speed threshold doesn't work very well with knockedout player because of low velocity, I tried to change the values but it keeps breaking
+			if (ReviveSystem.IsKnockedOut(f, EntityRef))
+			{
+				isMoving = characterController3D->Velocity.Magnitude.AsFloat > 0;
+			}
+
+			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey) && !knockedOut;
 
 			AnimatorWrapper.SetBool(Bools.Move, isMoving);
-			_characterView.PrintFootsteps = isMoving;
+			_characterView.PrintFootsteps = isMoving && !knockedOut;
 			if (isMoving)
 			{
 				deltaPosition.Normalize();

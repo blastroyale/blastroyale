@@ -1522,7 +1522,7 @@ MonoBehaviour:
       Step: 1
       Map: 200
       DelayTime:
-        RawValue: 1310720
+        RawValue: 1310720000
       WarningTime:
         RawValue: 983040
       ShrinkingTime:

@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
@@ -41,8 +42,10 @@ namespace FirstLight.Game.Services.Match
 			var rend = o.GetComponentInChildren<MeshRenderer>();
 			if (rend == null || rend.IsDestroyed()) return;
 			rend.material = _goldenMaterial;
+			var gunRenderer = o.GetComponentInChildren<RenderersContainerMonoComponent>();
 			var vfx = MainInstaller.ResolveServices().VfxService.Spawn(VfxId.GoldenEffect);
-			vfx.transform.SetParent(rend.transform, false);
+			vfx.transform.SetParent(gunRenderer.transform, false);
+			gunRenderer.UpdateRenderers();
 		}
 
 		public void Dispose()

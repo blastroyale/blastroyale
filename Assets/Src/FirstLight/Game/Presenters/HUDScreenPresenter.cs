@@ -206,7 +206,7 @@ namespace FirstLight.Game.Presenters
 
 				HideControls(false);
 				_weaponDisplayView.UpdateFromLatestVerifiedFrame();
-				_specialButtonsView.UpdateFromLatestVerifiedFrame();
+				_specialButtonsView.UpdateFromLatestVerifiedFrame(playerEntity);
 				_localPlayerInfoView.UpdateFromLatestVerifiedFrame();
 				_statusBarsView.InitAll();
 				SetKnockedOutStatus(ReviveSystem.IsKnockedOut(f, playerEntity));

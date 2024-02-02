@@ -278,7 +278,7 @@ namespace Quantum
 				return;
 			}
 
-			SetCurrentHealth(f, entity, (int)(CurrentHealth + spell->PowerAmount));
+			SetCurrentHealth(f, entity, (int)(CurrentHealth + spell->PowerAmount), spell->Id);
 		}
 
 		/// <summary>
@@ -355,7 +355,7 @@ namespace Quantum
 			if (f.TryGet<PlayerCharacter>(spell->Attacker, out var attacker))
 			{
 				f.Events.OnPlayerAttackHit(attacker.Player, spell->Attacker, attacker.TeamId, spell->Victim,
-					spell->OriginalHitPosition, (uint)totalDamage, previousShield > 0);
+					spell->OriginalHitPosition, (uint)totalDamage, previousShield > 0, spell->Id);
 			}
 
 			f.Events.OnEntityDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount),
@@ -386,7 +386,7 @@ namespace Quantum
 		{
 			var previousHealth = CurrentHealth;
 
-			SetCurrentHealth(f, entity, amount);
+			SetCurrentHealth(f, entity, amount, spell->Id);
 
 			if (CurrentHealth != previousHealth && spell->Attacker != EntityRef.None)
 			{
@@ -408,7 +408,7 @@ namespace Quantum
 			}
 		}
 
-		private void SetCurrentHealth(Frame f, EntityRef e, int amount)
+		private void SetCurrentHealth(Frame f, EntityRef e, int amount, byte spellType)
 		{
 			var previousHealth = CurrentHealth;
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
@@ -418,14 +418,14 @@ namespace Quantum
 
 			if (CurrentHealth != previousHealth)
 			{
-				f.Events.OnHealthChanged(e, previousHealth, CurrentHealth, maxHealth);
+				f.Events.OnHealthChanged(e, previousHealth, CurrentHealth, maxHealth, spellType);
 			}
 		}
 
 		public void SetCurrentHealthPercentage(Frame f, EntityRef e, FP percentage)
 		{
 			var health = FPMath.RoundToInt((FP)MaxHealth * percentage);
-			SetCurrentHealth(f, e, health);
+			SetCurrentHealth(f, e, health, Spell.DefaultId);
 		}
 
 		private int CalculateStatsFrom(Frame f, ref Equipment weapon, Equipment[] gear, EntityRef e)
@@ -483,7 +483,7 @@ namespace Quantum
 			var newHealthAmount = Math.Min(CurrentHealth + Math.Max(newMaxHealth - previousMaxHeath, 0), newMaxHealth);
 
 			// Adapts the player health & shield if new equipment changes player's max HP or shields capacity
-			SetCurrentHealth(f, e, newHealthAmount);
+			SetCurrentHealth(f, e, newHealthAmount, Spell.DefaultId);
 			SetCurrentShield(f, e, CurrentShield, previousMaxShield);
 
 			f.Events.OnPlayerEquipmentStatsChanged(player, e, previousStats, this, might);

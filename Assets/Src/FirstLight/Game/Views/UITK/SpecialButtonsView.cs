@@ -68,13 +68,13 @@ namespace FirstLight.Game.Views.UITK
 		private void OnPlayerRevived(EventOnPlayerRevived callback)
 		{
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
-			UpdateFromLatestVerifiedFrame();
+			UpdateFromLatestVerifiedFrame(callback.Entity);
 		}
 
 		private void OnPlayerKnockedOut(EventOnPlayerKnockedOut callback)
 		{
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
-			UpdateFromLatestVerifiedFrame();
+			UpdateFromLatestVerifiedFrame(callback.Entity);
 		}
 
 		private void OnPlayerSpecialUpdated(EventOnPlayerSpecialUpdated callback)
@@ -97,12 +97,11 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
-		public void UpdateFromLatestVerifiedFrame()
+		public void UpdateFromLatestVerifiedFrame(EntityRef entityRef)
 		{
-			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 			var f = QuantumRunner.Default.Game.Frames.Verified;
-			var inventory = f.Get<PlayerInventory>(playerEntity);
-			UpdateSpecials(f, inventory, ReviveSystem.IsKnockedOut(f, playerEntity));
+			var inventory = f.Get<PlayerInventory>(entityRef);
+			UpdateSpecials(f, inventory, ReviveSystem.IsKnockedOut(f, entityRef));
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)

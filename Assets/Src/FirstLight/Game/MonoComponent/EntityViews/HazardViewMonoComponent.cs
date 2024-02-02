@@ -35,7 +35,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			transform.parent = null;
 
-			this.LateCall(_gracefulFinishDuration, () => Destroy(gameObject));
+			this.LateCall(_gracefulFinishDuration, () => Destroy(gameObject)).Forget();
 		}
 	}
 }

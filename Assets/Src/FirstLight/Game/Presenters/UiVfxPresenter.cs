@@ -62,7 +62,7 @@ namespace FirstLight.Game.Presenters
 			floatingText.transform.position = position;
 			floatingText.SetText(text);
 
-			this.LateCall(floatingText.AnimationLength, () => _floatingTextPool.Despawn(floatingText));
+			this.LateCall(floatingText.AnimationLength, () => _floatingTextPool.Despawn(floatingText)).Forget();
 		}
 	}
 }

@@ -178,7 +178,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 				var ping = _pingPool.Spawn();
 				ping.ViewportPosition = pingPosition;
-				ping.LateCall(_pingDuration, () => _pingPool.Despawn(ping));
+				ping.LateCall(_pingDuration, () => _pingPool.Despawn(ping)).Forget();
 
 				_minimapImage.materialForRendering.SetVector(_pingPositionPID, pingPosition - Vector3.one / 2f);
 

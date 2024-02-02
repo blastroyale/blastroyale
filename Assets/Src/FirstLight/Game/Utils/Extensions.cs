@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
@@ -115,7 +116,7 @@ namespace FirstLight.Game.Utils
 		/// Calls the given <paramref name="onCallback"/> after the given <paramref name="duration"/> is completed and
 		/// only if the given <paramref name="component"/> is still alive
 		/// </summary>
-		public static async void LateCall(this Component component, float duration, Action onCallback)
+		public static async UniTaskVoid LateCall(this Component component, float duration, Action onCallback)
 		{
 			await LateCallAwaitable(component, duration, onCallback);
 		}
@@ -143,9 +144,9 @@ namespace FirstLight.Game.Utils
 		/// <remarks>
 		/// Extends the method to allow awaitable task callbacks
 		/// </remarks>
-		public static async Task LateCallAwaitable(this Component component, float duration, Action onCallback)
+		public static async UniTask LateCallAwaitable(this Component component, float duration, Action onCallback)
 		{
-			await Task.Delay((int) (duration * 1000));
+			await UniTask.Delay((int) (duration * 1000));
 
 			if (!component.IsDestroyed())
 			{

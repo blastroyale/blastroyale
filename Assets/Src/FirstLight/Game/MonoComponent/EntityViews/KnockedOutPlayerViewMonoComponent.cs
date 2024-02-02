@@ -29,7 +29,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private IGameServices _services;
 		private EntityView _view;
 		private TweenerCore<Vector3, Vector3, VectorOptions> _tweener;
-		private IGameServices _services;
 		private bool _circleActive;
 		private Quaternion _vfxInitialRotation;
 
@@ -110,7 +109,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_indicatorsRoot.SetActive(false);
 			_animatorWrapper.SetTrigger(AvatarViewBase.Triggers.Revived);
-			_services.VfxService.Spawn(VfxId.Revived);
+			_services.VfxService.Spawn(VfxId.Revived).transform.position = transform.position + Vector3.up;
 			_view.GetComponentInChildren<MatchCharacterViewMonoComponent>()?.ShowAllEquipment();
 		}
 

@@ -4952,7 +4952,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6783121921148591499
 Transform:
   m_ObjectHideFlags: 0
@@ -9849,7 +9849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7439421407438997627
 Transform:
   m_ObjectHideFlags: 0
@@ -9873,7 +9873,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4634717733210948100}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.7
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -9948,8 +9948,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.6
+      scalar: 0.05
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -10055,7 +10055,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.54509807, g: 0.75686276, b: 0.32941177, a: 1}
+      maxColor: {r: 0.54509807, g: 0.75686276, b: 0.32941177, a: 0.72156864}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -10436,7 +10436,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 1000
+    maxNumParticles: 4
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -10812,7 +10812,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 5
+        scalar: 4
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -10878,20 +10878,20 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0
           value: 0
-          inSlope: 24.575338
-          outSlope: 24.575338
+          inSlope: 7.185186
+          outSlope: 7.185186
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
-          outWeight: 0.051900633
+          outWeight: 0.15804459
         - serializedVersion: 3
-          time: 0.09610929
-          value: 0.981343
-          inSlope: -0.20110849
-          outSlope: -0.20110849
+          time: 0.11930745
+          value: 0.5801058
+          inSlope: 0.09232283
+          outSlope: 0.09232283
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.69799453
+          inWeight: 1
           outWeight: 0.122821964
         - serializedVersion: 3
           time: 1
@@ -14774,7 +14774,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6047500336543403051}
   serializedVersion: 8
-  lengthInSec: 2
+  lengthInSec: 4
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -14849,7 +14849,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.83
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -14956,7 +14956,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.4054993, g: 0.6132076, b: 0.19379672, a: 1}
+      maxColor: {r: 0.3215112, g: 0.4716981, b: 0.1713243, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19647,7 +19647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3676101508341220286
 Transform:
   m_ObjectHideFlags: 0

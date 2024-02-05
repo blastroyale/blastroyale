@@ -58,7 +58,7 @@ namespace FirstLight.Game.Configs
 			return new List<IConfigLoadHandler>
 			{
 				new ConfigLoadDefinition<GameConfigs>(_assetLoader, AddressableId.Configs_GameConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
-				new ConfigLoadDefinition<MapAreaConfigs>(_assetLoader, AddressableId.Configs_MapAreaConfigs, asset => configsAdder.AddSingletonConfig(asset)),
+				new ConfigLoadDefinition<MapAreaConfigs>(_assetLoader, AddressableId.Configs_MapAreaConfigs, configsAdder.AddSingletonConfig, false),
 				new ConfigLoadDefinition<MapConfigs>(_assetLoader, AddressableId.Maps_QuantumMapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Map, asset.Configs)),
 				new ConfigLoadDefinition<MapAssetConfigs>(_assetLoader, AddressableId.Maps_MapAssetConfigs, configsAdder.AddSingletonConfig),
 				new ConfigLoadDefinition<WeaponConfigs>(_assetLoader, AddressableId.Configs_WeaponConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
@@ -128,19 +128,24 @@ namespace FirstLight.Game.Configs
 
 			private readonly AddressableId _id;
 			private readonly Action<TContainer> _onLoadComplete;
+			private readonly bool _unloadConfig;
 
-			public ConfigLoadDefinition(IAssetAdderService assetLoader, AddressableId id, Action<TContainer> onLoadComplete)
+			public ConfigLoadDefinition(IAssetAdderService assetLoader, AddressableId id, Action<TContainer> onLoadComplete, bool unloadConfig = true)
 			{
 				_assetLoader = assetLoader;
 				_id = id;
 				_onLoadComplete = onLoadComplete;
+				_unloadConfig = unloadConfig;
 			}
 
 			public async UniTask LoadConfigRuntime()
 			{
 				var asset = await _assetLoader.LoadAssetAsync<TContainer>(_id.GetConfig().Address);
 				_onLoadComplete(asset);
-				_assetLoader.UnloadAsset(asset);
+				if (_unloadConfig)
+				{
+					_assetLoader.UnloadAsset(asset);
+				}
 			}
 
 			public void LoadConfigEditor()

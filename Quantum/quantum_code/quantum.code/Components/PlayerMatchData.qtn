@@ -16,7 +16,6 @@ struct PlayerMatchData
 	UInt16 DeathCount;
 	UInt16 SuicideCount;
 	UInt16 SpecialsUsedCount;
-	byte CollectedOwnedNfts;
 	UInt16 CurrentKillStreak;
 	UInt16 CurrentMultiKill;
 	FP MultiKillResetTime;

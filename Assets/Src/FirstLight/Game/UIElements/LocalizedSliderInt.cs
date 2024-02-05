@@ -29,11 +29,11 @@ namespace FirstLight.Game.UIElements
 			label = LocalizationManager.TryGetTranslation(key, out var translation) ? translation : $"#{key}#";
 		}
 
-		public new class UxmlFactory : UxmlFactory<LocalizedSliderInt, UxmlTraits>
+		protected new class UxmlFactory : UxmlFactory<LocalizedSliderInt, UxmlTraits>
 		{
 		}
 
-		public new class UxmlTraits : SliderInt.UxmlTraits
+		protected new class UxmlTraits : SliderInt.UxmlTraits
 		{
 			UxmlStringAttributeDescription _localizationKeyAttribute = new()
 			{

@@ -304,73 +304,685 @@ namespace I2.Loc
 			public static string Bot30 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot30"); } }
 			public static string Bot300 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot300"); } }
 			public static string Bot301 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot301"); } }
+			public static string Bot302 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot302"); } }
+			public static string Bot303 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot303"); } }
+			public static string Bot304 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot304"); } }
+			public static string Bot305 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot305"); } }
+			public static string Bot306 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot306"); } }
+			public static string Bot307 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot307"); } }
+			public static string Bot308 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot308"); } }
+			public static string Bot309 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot309"); } }
 			public static string Bot31 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot31"); } }
+			public static string Bot310 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot310"); } }
+			public static string Bot311 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot311"); } }
+			public static string Bot312 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot312"); } }
+			public static string Bot313 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot313"); } }
+			public static string Bot314 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot314"); } }
+			public static string Bot315 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot315"); } }
+			public static string Bot316 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot316"); } }
+			public static string Bot317 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot317"); } }
+			public static string Bot318 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot318"); } }
+			public static string Bot319 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot319"); } }
 			public static string Bot32 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot32"); } }
+			public static string Bot320 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot320"); } }
+			public static string Bot321 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot321"); } }
+			public static string Bot322 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot322"); } }
+			public static string Bot323 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot323"); } }
+			public static string Bot324 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot324"); } }
+			public static string Bot325 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot325"); } }
+			public static string Bot326 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot326"); } }
+			public static string Bot327 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot327"); } }
+			public static string Bot328 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot328"); } }
+			public static string Bot329 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot329"); } }
 			public static string Bot33 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot33"); } }
+			public static string Bot330 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot330"); } }
+			public static string Bot331 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot331"); } }
+			public static string Bot332 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot332"); } }
+			public static string Bot333 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot333"); } }
+			public static string Bot334 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot334"); } }
+			public static string Bot335 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot335"); } }
+			public static string Bot336 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot336"); } }
+			public static string Bot337 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot337"); } }
+			public static string Bot338 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot338"); } }
+			public static string Bot339 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot339"); } }
 			public static string Bot34 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot34"); } }
+			public static string Bot340 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot340"); } }
+			public static string Bot341 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot341"); } }
+			public static string Bot342 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot342"); } }
+			public static string Bot343 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot343"); } }
+			public static string Bot344 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot344"); } }
+			public static string Bot345 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot345"); } }
+			public static string Bot346 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot346"); } }
+			public static string Bot347 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot347"); } }
+			public static string Bot348 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot348"); } }
+			public static string Bot349 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot349"); } }
 			public static string Bot35 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot35"); } }
+			public static string Bot350 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot350"); } }
+			public static string Bot351 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot351"); } }
+			public static string Bot352 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot352"); } }
+			public static string Bot353 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot353"); } }
+			public static string Bot354 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot354"); } }
+			public static string Bot355 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot355"); } }
+			public static string Bot356 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot356"); } }
+			public static string Bot357 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot357"); } }
+			public static string Bot358 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot358"); } }
+			public static string Bot359 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot359"); } }
 			public static string Bot36 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot36"); } }
+			public static string Bot360 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot360"); } }
+			public static string Bot361 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot361"); } }
+			public static string Bot362 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot362"); } }
+			public static string Bot363 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot363"); } }
+			public static string Bot364 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot364"); } }
+			public static string Bot365 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot365"); } }
+			public static string Bot366 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot366"); } }
+			public static string Bot367 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot367"); } }
+			public static string Bot368 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot368"); } }
+			public static string Bot369 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot369"); } }
 			public static string Bot37 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot37"); } }
+			public static string Bot370 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot370"); } }
+			public static string Bot371 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot371"); } }
+			public static string Bot372 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot372"); } }
+			public static string Bot373 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot373"); } }
+			public static string Bot374 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot374"); } }
+			public static string Bot375 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot375"); } }
+			public static string Bot376 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot376"); } }
+			public static string Bot377 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot377"); } }
+			public static string Bot378 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot378"); } }
+			public static string Bot379 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot379"); } }
 			public static string Bot38 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot38"); } }
+			public static string Bot380 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot380"); } }
+			public static string Bot381 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot381"); } }
+			public static string Bot382 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot382"); } }
+			public static string Bot383 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot383"); } }
+			public static string Bot384 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot384"); } }
+			public static string Bot385 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot385"); } }
+			public static string Bot386 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot386"); } }
+			public static string Bot387 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot387"); } }
+			public static string Bot388 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot388"); } }
+			public static string Bot389 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot389"); } }
 			public static string Bot39 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot39"); } }
+			public static string Bot390 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot390"); } }
+			public static string Bot391 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot391"); } }
+			public static string Bot392 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot392"); } }
+			public static string Bot393 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot393"); } }
+			public static string Bot394 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot394"); } }
+			public static string Bot395 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot395"); } }
+			public static string Bot396 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot396"); } }
+			public static string Bot397 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot397"); } }
+			public static string Bot398 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot398"); } }
+			public static string Bot399 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot399"); } }
 			public static string Bot4 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot4"); } }
 			public static string Bot40 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot40"); } }
+			public static string Bot400 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot400"); } }
+			public static string Bot401 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot401"); } }
+			public static string Bot402 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot402"); } }
+			public static string Bot403 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot403"); } }
+			public static string Bot404 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot404"); } }
+			public static string Bot405 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot405"); } }
+			public static string Bot406 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot406"); } }
+			public static string Bot407 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot407"); } }
+			public static string Bot408 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot408"); } }
+			public static string Bot409 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot409"); } }
 			public static string Bot41 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot41"); } }
+			public static string Bot410 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot410"); } }
+			public static string Bot411 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot411"); } }
+			public static string Bot412 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot412"); } }
+			public static string Bot413 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot413"); } }
+			public static string Bot414 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot414"); } }
+			public static string Bot415 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot415"); } }
+			public static string Bot416 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot416"); } }
+			public static string Bot417 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot417"); } }
+			public static string Bot418 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot418"); } }
+			public static string Bot419 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot419"); } }
 			public static string Bot42 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot42"); } }
+			public static string Bot420 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot420"); } }
+			public static string Bot421 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot421"); } }
+			public static string Bot422 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot422"); } }
+			public static string Bot423 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot423"); } }
+			public static string Bot424 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot424"); } }
+			public static string Bot425 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot425"); } }
+			public static string Bot426 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot426"); } }
+			public static string Bot427 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot427"); } }
+			public static string Bot428 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot428"); } }
+			public static string Bot429 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot429"); } }
 			public static string Bot43 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot43"); } }
+			public static string Bot430 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot430"); } }
+			public static string Bot431 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot431"); } }
+			public static string Bot432 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot432"); } }
+			public static string Bot433 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot433"); } }
+			public static string Bot434 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot434"); } }
+			public static string Bot435 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot435"); } }
+			public static string Bot436 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot436"); } }
+			public static string Bot437 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot437"); } }
+			public static string Bot438 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot438"); } }
+			public static string Bot439 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot439"); } }
 			public static string Bot44 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot44"); } }
+			public static string Bot440 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot440"); } }
+			public static string Bot441 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot441"); } }
+			public static string Bot442 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot442"); } }
+			public static string Bot443 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot443"); } }
+			public static string Bot444 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot444"); } }
+			public static string Bot445 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot445"); } }
+			public static string Bot446 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot446"); } }
+			public static string Bot447 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot447"); } }
+			public static string Bot448 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot448"); } }
+			public static string Bot449 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot449"); } }
 			public static string Bot45 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot45"); } }
+			public static string Bot450 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot450"); } }
+			public static string Bot451 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot451"); } }
+			public static string Bot452 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot452"); } }
+			public static string Bot453 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot453"); } }
+			public static string Bot454 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot454"); } }
+			public static string Bot455 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot455"); } }
+			public static string Bot456 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot456"); } }
+			public static string Bot457 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot457"); } }
+			public static string Bot458 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot458"); } }
+			public static string Bot459 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot459"); } }
 			public static string Bot46 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot46"); } }
+			public static string Bot460 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot460"); } }
+			public static string Bot461 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot461"); } }
+			public static string Bot462 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot462"); } }
+			public static string Bot463 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot463"); } }
+			public static string Bot464 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot464"); } }
+			public static string Bot465 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot465"); } }
+			public static string Bot466 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot466"); } }
+			public static string Bot467 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot467"); } }
+			public static string Bot468 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot468"); } }
+			public static string Bot469 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot469"); } }
 			public static string Bot47 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot47"); } }
+			public static string Bot470 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot470"); } }
+			public static string Bot471 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot471"); } }
+			public static string Bot472 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot472"); } }
+			public static string Bot473 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot473"); } }
+			public static string Bot474 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot474"); } }
+			public static string Bot475 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot475"); } }
+			public static string Bot476 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot476"); } }
+			public static string Bot477 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot477"); } }
+			public static string Bot478 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot478"); } }
+			public static string Bot479 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot479"); } }
 			public static string Bot48 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot48"); } }
+			public static string Bot480 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot480"); } }
+			public static string Bot481 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot481"); } }
+			public static string Bot482 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot482"); } }
+			public static string Bot483 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot483"); } }
+			public static string Bot484 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot484"); } }
+			public static string Bot485 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot485"); } }
+			public static string Bot486 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot486"); } }
+			public static string Bot487 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot487"); } }
+			public static string Bot488 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot488"); } }
+			public static string Bot489 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot489"); } }
 			public static string Bot49 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot49"); } }
+			public static string Bot490 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot490"); } }
+			public static string Bot491 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot491"); } }
+			public static string Bot492 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot492"); } }
+			public static string Bot493 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot493"); } }
+			public static string Bot494 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot494"); } }
+			public static string Bot495 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot495"); } }
+			public static string Bot496 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot496"); } }
+			public static string Bot497 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot497"); } }
+			public static string Bot498 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot498"); } }
+			public static string Bot499 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot499"); } }
 			public static string Bot5 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot5"); } }
 			public static string Bot50 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot50"); } }
+			public static string Bot500 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot500"); } }
+			public static string Bot501 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot501"); } }
+			public static string Bot502 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot502"); } }
+			public static string Bot503 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot503"); } }
+			public static string Bot504 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot504"); } }
+			public static string Bot505 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot505"); } }
+			public static string Bot506 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot506"); } }
+			public static string Bot507 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot507"); } }
+			public static string Bot508 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot508"); } }
+			public static string Bot509 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot509"); } }
 			public static string Bot51 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot51"); } }
+			public static string Bot510 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot510"); } }
+			public static string Bot511 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot511"); } }
+			public static string Bot512 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot512"); } }
+			public static string Bot513 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot513"); } }
+			public static string Bot514 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot514"); } }
+			public static string Bot515 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot515"); } }
+			public static string Bot516 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot516"); } }
+			public static string Bot517 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot517"); } }
+			public static string Bot518 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot518"); } }
+			public static string Bot519 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot519"); } }
 			public static string Bot52 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot52"); } }
+			public static string Bot520 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot520"); } }
+			public static string Bot521 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot521"); } }
+			public static string Bot522 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot522"); } }
+			public static string Bot523 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot523"); } }
+			public static string Bot524 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot524"); } }
+			public static string Bot525 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot525"); } }
+			public static string Bot526 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot526"); } }
+			public static string Bot527 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot527"); } }
+			public static string Bot528 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot528"); } }
+			public static string Bot529 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot529"); } }
 			public static string Bot53 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot53"); } }
+			public static string Bot530 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot530"); } }
+			public static string Bot531 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot531"); } }
+			public static string Bot532 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot532"); } }
+			public static string Bot533 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot533"); } }
+			public static string Bot534 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot534"); } }
+			public static string Bot535 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot535"); } }
+			public static string Bot536 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot536"); } }
+			public static string Bot537 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot537"); } }
+			public static string Bot538 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot538"); } }
+			public static string Bot539 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot539"); } }
 			public static string Bot54 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot54"); } }
+			public static string Bot540 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot540"); } }
+			public static string Bot541 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot541"); } }
+			public static string Bot542 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot542"); } }
+			public static string Bot543 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot543"); } }
+			public static string Bot544 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot544"); } }
+			public static string Bot545 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot545"); } }
+			public static string Bot546 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot546"); } }
+			public static string Bot547 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot547"); } }
+			public static string Bot548 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot548"); } }
+			public static string Bot549 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot549"); } }
 			public static string Bot55 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot55"); } }
+			public static string Bot550 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot550"); } }
+			public static string Bot551 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot551"); } }
+			public static string Bot552 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot552"); } }
+			public static string Bot553 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot553"); } }
+			public static string Bot554 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot554"); } }
+			public static string Bot555 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot555"); } }
+			public static string Bot556 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot556"); } }
+			public static string Bot557 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot557"); } }
+			public static string Bot558 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot558"); } }
+			public static string Bot559 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot559"); } }
 			public static string Bot56 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot56"); } }
+			public static string Bot560 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot560"); } }
+			public static string Bot561 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot561"); } }
+			public static string Bot562 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot562"); } }
+			public static string Bot563 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot563"); } }
+			public static string Bot564 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot564"); } }
+			public static string Bot565 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot565"); } }
+			public static string Bot566 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot566"); } }
+			public static string Bot567 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot567"); } }
+			public static string Bot568 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot568"); } }
+			public static string Bot569 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot569"); } }
 			public static string Bot57 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot57"); } }
+			public static string Bot570 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot570"); } }
+			public static string Bot571 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot571"); } }
+			public static string Bot572 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot572"); } }
+			public static string Bot573 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot573"); } }
+			public static string Bot574 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot574"); } }
+			public static string Bot575 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot575"); } }
+			public static string Bot576 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot576"); } }
+			public static string Bot577 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot577"); } }
+			public static string Bot578 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot578"); } }
+			public static string Bot579 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot579"); } }
 			public static string Bot58 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot58"); } }
+			public static string Bot580 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot580"); } }
+			public static string Bot581 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot581"); } }
+			public static string Bot582 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot582"); } }
+			public static string Bot583 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot583"); } }
+			public static string Bot584 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot584"); } }
+			public static string Bot585 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot585"); } }
+			public static string Bot586 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot586"); } }
+			public static string Bot587 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot587"); } }
+			public static string Bot588 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot588"); } }
+			public static string Bot589 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot589"); } }
 			public static string Bot59 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot59"); } }
+			public static string Bot590 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot590"); } }
+			public static string Bot591 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot591"); } }
+			public static string Bot592 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot592"); } }
+			public static string Bot593 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot593"); } }
+			public static string Bot594 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot594"); } }
+			public static string Bot595 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot595"); } }
+			public static string Bot596 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot596"); } }
+			public static string Bot597 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot597"); } }
+			public static string Bot598 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot598"); } }
+			public static string Bot599 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot599"); } }
 			public static string Bot6 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot6"); } }
 			public static string Bot60 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot60"); } }
+			public static string Bot600 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot600"); } }
+			public static string Bot601 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot601"); } }
+			public static string Bot602 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot602"); } }
+			public static string Bot603 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot603"); } }
+			public static string Bot604 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot604"); } }
+			public static string Bot605 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot605"); } }
+			public static string Bot606 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot606"); } }
+			public static string Bot607 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot607"); } }
+			public static string Bot608 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot608"); } }
+			public static string Bot609 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot609"); } }
 			public static string Bot61 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot61"); } }
+			public static string Bot610 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot610"); } }
+			public static string Bot611 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot611"); } }
+			public static string Bot612 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot612"); } }
+			public static string Bot613 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot613"); } }
+			public static string Bot614 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot614"); } }
+			public static string Bot615 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot615"); } }
+			public static string Bot616 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot616"); } }
+			public static string Bot617 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot617"); } }
+			public static string Bot618 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot618"); } }
+			public static string Bot619 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot619"); } }
 			public static string Bot62 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot62"); } }
+			public static string Bot620 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot620"); } }
+			public static string Bot621 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot621"); } }
+			public static string Bot622 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot622"); } }
+			public static string Bot623 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot623"); } }
+			public static string Bot624 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot624"); } }
+			public static string Bot625 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot625"); } }
+			public static string Bot626 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot626"); } }
+			public static string Bot627 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot627"); } }
+			public static string Bot628 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot628"); } }
+			public static string Bot629 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot629"); } }
 			public static string Bot63 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot63"); } }
+			public static string Bot630 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot630"); } }
+			public static string Bot631 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot631"); } }
+			public static string Bot632 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot632"); } }
+			public static string Bot633 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot633"); } }
+			public static string Bot634 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot634"); } }
+			public static string Bot635 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot635"); } }
+			public static string Bot636 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot636"); } }
+			public static string Bot637 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot637"); } }
+			public static string Bot638 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot638"); } }
+			public static string Bot639 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot639"); } }
 			public static string Bot64 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot64"); } }
+			public static string Bot640 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot640"); } }
+			public static string Bot641 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot641"); } }
+			public static string Bot642 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot642"); } }
+			public static string Bot643 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot643"); } }
+			public static string Bot644 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot644"); } }
+			public static string Bot645 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot645"); } }
+			public static string Bot646 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot646"); } }
+			public static string Bot647 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot647"); } }
+			public static string Bot648 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot648"); } }
+			public static string Bot649 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot649"); } }
 			public static string Bot65 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot65"); } }
+			public static string Bot650 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot650"); } }
+			public static string Bot651 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot651"); } }
+			public static string Bot652 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot652"); } }
+			public static string Bot653 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot653"); } }
+			public static string Bot654 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot654"); } }
+			public static string Bot655 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot655"); } }
+			public static string Bot656 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot656"); } }
+			public static string Bot657 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot657"); } }
+			public static string Bot658 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot658"); } }
+			public static string Bot659 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot659"); } }
 			public static string Bot66 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot66"); } }
+			public static string Bot660 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot660"); } }
+			public static string Bot661 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot661"); } }
+			public static string Bot662 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot662"); } }
+			public static string Bot663 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot663"); } }
+			public static string Bot664 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot664"); } }
+			public static string Bot665 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot665"); } }
+			public static string Bot666 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot666"); } }
+			public static string Bot667 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot667"); } }
+			public static string Bot668 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot668"); } }
+			public static string Bot669 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot669"); } }
 			public static string Bot67 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot67"); } }
+			public static string Bot670 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot670"); } }
+			public static string Bot671 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot671"); } }
+			public static string Bot672 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot672"); } }
+			public static string Bot673 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot673"); } }
+			public static string Bot674 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot674"); } }
+			public static string Bot675 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot675"); } }
+			public static string Bot676 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot676"); } }
+			public static string Bot677 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot677"); } }
+			public static string Bot678 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot678"); } }
+			public static string Bot679 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot679"); } }
 			public static string Bot68 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot68"); } }
+			public static string Bot680 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot680"); } }
+			public static string Bot681 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot681"); } }
+			public static string Bot682 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot682"); } }
+			public static string Bot683 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot683"); } }
+			public static string Bot684 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot684"); } }
+			public static string Bot685 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot685"); } }
+			public static string Bot686 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot686"); } }
+			public static string Bot687 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot687"); } }
+			public static string Bot688 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot688"); } }
+			public static string Bot689 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot689"); } }
 			public static string Bot69 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot69"); } }
+			public static string Bot690 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot690"); } }
+			public static string Bot691 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot691"); } }
+			public static string Bot692 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot692"); } }
+			public static string Bot693 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot693"); } }
+			public static string Bot694 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot694"); } }
+			public static string Bot695 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot695"); } }
+			public static string Bot696 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot696"); } }
+			public static string Bot697 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot697"); } }
+			public static string Bot698 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot698"); } }
+			public static string Bot699 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot699"); } }
 			public static string Bot7 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot7"); } }
 			public static string Bot70 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot70"); } }
+			public static string Bot700 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot700"); } }
+			public static string Bot701 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot701"); } }
+			public static string Bot702 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot702"); } }
+			public static string Bot703 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot703"); } }
+			public static string Bot704 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot704"); } }
+			public static string Bot705 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot705"); } }
+			public static string Bot706 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot706"); } }
+			public static string Bot707 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot707"); } }
+			public static string Bot708 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot708"); } }
+			public static string Bot709 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot709"); } }
 			public static string Bot71 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot71"); } }
+			public static string Bot710 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot710"); } }
+			public static string Bot711 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot711"); } }
+			public static string Bot712 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot712"); } }
+			public static string Bot713 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot713"); } }
+			public static string Bot714 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot714"); } }
+			public static string Bot715 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot715"); } }
+			public static string Bot716 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot716"); } }
+			public static string Bot717 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot717"); } }
+			public static string Bot718 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot718"); } }
+			public static string Bot719 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot719"); } }
 			public static string Bot72 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot72"); } }
+			public static string Bot720 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot720"); } }
+			public static string Bot721 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot721"); } }
+			public static string Bot722 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot722"); } }
+			public static string Bot723 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot723"); } }
+			public static string Bot724 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot724"); } }
+			public static string Bot725 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot725"); } }
+			public static string Bot726 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot726"); } }
+			public static string Bot727 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot727"); } }
+			public static string Bot728 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot728"); } }
+			public static string Bot729 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot729"); } }
 			public static string Bot73 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot73"); } }
+			public static string Bot730 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot730"); } }
+			public static string Bot731 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot731"); } }
+			public static string Bot732 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot732"); } }
+			public static string Bot733 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot733"); } }
+			public static string Bot734 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot734"); } }
+			public static string Bot735 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot735"); } }
+			public static string Bot736 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot736"); } }
+			public static string Bot737 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot737"); } }
+			public static string Bot738 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot738"); } }
+			public static string Bot739 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot739"); } }
 			public static string Bot74 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot74"); } }
+			public static string Bot740 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot740"); } }
+			public static string Bot741 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot741"); } }
+			public static string Bot742 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot742"); } }
+			public static string Bot743 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot743"); } }
+			public static string Bot744 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot744"); } }
+			public static string Bot745 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot745"); } }
+			public static string Bot746 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot746"); } }
+			public static string Bot747 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot747"); } }
+			public static string Bot748 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot748"); } }
+			public static string Bot749 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot749"); } }
 			public static string Bot75 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot75"); } }
+			public static string Bot750 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot750"); } }
+			public static string Bot751 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot751"); } }
+			public static string Bot752 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot752"); } }
+			public static string Bot753 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot753"); } }
+			public static string Bot754 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot754"); } }
+			public static string Bot755 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot755"); } }
+			public static string Bot756 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot756"); } }
+			public static string Bot757 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot757"); } }
+			public static string Bot758 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot758"); } }
+			public static string Bot759 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot759"); } }
 			public static string Bot76 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot76"); } }
+			public static string Bot760 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot760"); } }
+			public static string Bot761 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot761"); } }
+			public static string Bot762 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot762"); } }
+			public static string Bot763 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot763"); } }
+			public static string Bot764 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot764"); } }
+			public static string Bot765 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot765"); } }
+			public static string Bot766 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot766"); } }
+			public static string Bot767 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot767"); } }
+			public static string Bot768 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot768"); } }
+			public static string Bot769 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot769"); } }
 			public static string Bot77 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot77"); } }
+			public static string Bot770 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot770"); } }
+			public static string Bot771 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot771"); } }
+			public static string Bot772 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot772"); } }
+			public static string Bot773 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot773"); } }
+			public static string Bot774 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot774"); } }
+			public static string Bot775 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot775"); } }
+			public static string Bot776 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot776"); } }
+			public static string Bot777 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot777"); } }
+			public static string Bot778 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot778"); } }
+			public static string Bot779 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot779"); } }
 			public static string Bot78 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot78"); } }
+			public static string Bot780 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot780"); } }
+			public static string Bot781 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot781"); } }
+			public static string Bot782 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot782"); } }
+			public static string Bot783 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot783"); } }
+			public static string Bot784 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot784"); } }
+			public static string Bot785 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot785"); } }
+			public static string Bot786 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot786"); } }
+			public static string Bot787 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot787"); } }
+			public static string Bot788 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot788"); } }
+			public static string Bot789 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot789"); } }
 			public static string Bot79 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot79"); } }
+			public static string Bot790 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot790"); } }
+			public static string Bot791 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot791"); } }
+			public static string Bot792 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot792"); } }
+			public static string Bot793 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot793"); } }
+			public static string Bot794 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot794"); } }
+			public static string Bot795 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot795"); } }
+			public static string Bot796 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot796"); } }
+			public static string Bot797 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot797"); } }
+			public static string Bot798 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot798"); } }
+			public static string Bot799 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot799"); } }
 			public static string Bot8 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot8"); } }
 			public static string Bot80 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot80"); } }
+			public static string Bot800 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot800"); } }
+			public static string Bot801 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot801"); } }
+			public static string Bot802 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot802"); } }
+			public static string Bot803 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot803"); } }
+			public static string Bot804 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot804"); } }
+			public static string Bot805 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot805"); } }
+			public static string Bot806 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot806"); } }
+			public static string Bot807 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot807"); } }
+			public static string Bot808 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot808"); } }
+			public static string Bot809 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot809"); } }
 			public static string Bot81 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot81"); } }
+			public static string Bot810 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot810"); } }
+			public static string Bot811 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot811"); } }
+			public static string Bot812 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot812"); } }
+			public static string Bot813 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot813"); } }
+			public static string Bot814 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot814"); } }
+			public static string Bot815 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot815"); } }
+			public static string Bot816 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot816"); } }
+			public static string Bot817 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot817"); } }
+			public static string Bot818 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot818"); } }
+			public static string Bot819 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot819"); } }
 			public static string Bot82 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot82"); } }
+			public static string Bot820 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot820"); } }
+			public static string Bot821 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot821"); } }
+			public static string Bot822 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot822"); } }
+			public static string Bot823 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot823"); } }
+			public static string Bot824 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot824"); } }
+			public static string Bot825 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot825"); } }
+			public static string Bot826 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot826"); } }
+			public static string Bot827 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot827"); } }
+			public static string Bot828 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot828"); } }
+			public static string Bot829 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot829"); } }
 			public static string Bot83 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot83"); } }
+			public static string Bot830 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot830"); } }
+			public static string Bot831 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot831"); } }
+			public static string Bot832 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot832"); } }
+			public static string Bot833 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot833"); } }
+			public static string Bot834 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot834"); } }
+			public static string Bot835 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot835"); } }
+			public static string Bot836 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot836"); } }
+			public static string Bot837 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot837"); } }
+			public static string Bot838 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot838"); } }
+			public static string Bot839 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot839"); } }
 			public static string Bot84 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot84"); } }
+			public static string Bot840 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot840"); } }
+			public static string Bot841 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot841"); } }
+			public static string Bot842 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot842"); } }
+			public static string Bot843 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot843"); } }
+			public static string Bot844 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot844"); } }
+			public static string Bot845 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot845"); } }
+			public static string Bot846 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot846"); } }
+			public static string Bot847 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot847"); } }
+			public static string Bot848 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot848"); } }
+			public static string Bot849 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot849"); } }
 			public static string Bot85 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot85"); } }
+			public static string Bot850 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot850"); } }
+			public static string Bot851 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot851"); } }
+			public static string Bot852 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot852"); } }
+			public static string Bot853 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot853"); } }
+			public static string Bot854 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot854"); } }
+			public static string Bot855 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot855"); } }
+			public static string Bot856 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot856"); } }
+			public static string Bot857 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot857"); } }
+			public static string Bot858 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot858"); } }
+			public static string Bot859 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot859"); } }
 			public static string Bot86 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot86"); } }
+			public static string Bot860 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot860"); } }
+			public static string Bot861 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot861"); } }
+			public static string Bot862 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot862"); } }
+			public static string Bot863 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot863"); } }
+			public static string Bot864 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot864"); } }
+			public static string Bot865 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot865"); } }
+			public static string Bot866 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot866"); } }
+			public static string Bot867 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot867"); } }
+			public static string Bot868 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot868"); } }
+			public static string Bot869 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot869"); } }
 			public static string Bot87 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot87"); } }
+			public static string Bot870 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot870"); } }
+			public static string Bot871 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot871"); } }
+			public static string Bot872 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot872"); } }
+			public static string Bot873 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot873"); } }
+			public static string Bot874 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot874"); } }
+			public static string Bot875 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot875"); } }
+			public static string Bot876 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot876"); } }
+			public static string Bot877 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot877"); } }
+			public static string Bot878 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot878"); } }
+			public static string Bot879 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot879"); } }
 			public static string Bot88 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot88"); } }
+			public static string Bot880 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot880"); } }
+			public static string Bot881 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot881"); } }
+			public static string Bot882 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot882"); } }
+			public static string Bot883 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot883"); } }
+			public static string Bot884 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot884"); } }
+			public static string Bot885 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot885"); } }
+			public static string Bot886 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot886"); } }
+			public static string Bot887 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot887"); } }
+			public static string Bot888 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot888"); } }
+			public static string Bot889 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot889"); } }
 			public static string Bot89 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot89"); } }
+			public static string Bot890 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot890"); } }
+			public static string Bot891 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot891"); } }
+			public static string Bot892 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot892"); } }
+			public static string Bot893 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot893"); } }
+			public static string Bot894 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot894"); } }
+			public static string Bot895 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot895"); } }
+			public static string Bot896 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot896"); } }
+			public static string Bot897 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot897"); } }
+			public static string Bot898 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot898"); } }
+			public static string Bot899 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot899"); } }
 			public static string Bot9 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot9"); } }
 			public static string Bot90 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot90"); } }
+			public static string Bot900 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot900"); } }
+			public static string Bot901 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot901"); } }
+			public static string Bot902 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot902"); } }
+			public static string Bot903 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot903"); } }
+			public static string Bot904 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot904"); } }
+			public static string Bot905 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot905"); } }
+			public static string Bot906 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot906"); } }
+			public static string Bot907 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot907"); } }
+			public static string Bot908 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot908"); } }
+			public static string Bot909 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot909"); } }
 			public static string Bot91 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot91"); } }
+			public static string Bot910 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot910"); } }
+			public static string Bot911 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot911"); } }
+			public static string Bot912 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot912"); } }
+			public static string Bot913 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot913"); } }
 			public static string Bot92 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot92"); } }
 			public static string Bot93 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot93"); } }
 			public static string Bot94 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot94"); } }
@@ -461,6 +1073,7 @@ namespace I2.Loc
 			public static string CSDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CSDescription"); } }
 			public static string CS_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CS_Plural"); } }
 			public static string Casual 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Casual"); } }
+			public static string Cemetery 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Cemetery"); } }
 			public static string ChickenDinner 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ChickenDinner"); } }
 			public static string CommonBox 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CommonBox"); } }
 			public static string CommonCore 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CommonCore"); } }
@@ -505,6 +1118,7 @@ namespace I2.Loc
 			public static string FootballArmor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FootballArmor"); } }
 			public static string FootballHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FootballHelmet"); } }
 			public static string Forced 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Forced"); } }
+			public static string Fortress 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Fortress"); } }
 			public static string Fragment_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Fragment_Plural"); } }
 			public static string Fragments 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Fragments"); } }
 			public static string FragmentsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FragmentsDescription"); } }
@@ -686,6 +1300,8 @@ namespace I2.Loc
 			public static string SpecialHealingModeDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialHealingModeDescription"); } }
 			public static string SpecialInvisibilitySelf 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialInvisibilitySelf"); } }
 			public static string SpecialInvisibilitySelfDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialInvisibilitySelfDescription"); } }
+			public static string SpecialLandMine 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialLandMine"); } }
+			public static string SpecialLandMineDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialLandMineDescription"); } }
 			public static string SpecialRadar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialRadar"); } }
 			public static string SpecialRadarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialRadarDescription"); } }
 			public static string SpecialRageSelf 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialRageSelf"); } }
@@ -1381,10 +1997,14 @@ namespace I2.Loc
 			public static string choose_a_mode 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/choose_a_mode"); } }
 			public static string custom_game_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/custom_game_description"); } }
 			public static string tap_to_choose 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/tap_to_choose"); } }
+			public static string zombies_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/zombies_description"); } }
 		}
 
 		public static class UITGeneric
 		{
+			public static string @for 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/for"); } }
+			public static string items_converted 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/items_converted"); } }
+			public static string items_converted_msg 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/items_converted_msg"); } }
 			public static string purchase_not_enough_button_text 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_button_text"); } }
 			public static string purchase_not_enough_item_display_name 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_item_display_name"); } }
 			public static string purchase_not_enough_title 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_title"); } }
@@ -1411,6 +2031,7 @@ namespace I2.Loc
 			public static string gamemode_BigRoyale 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/gamemode_BigRoyale"); } }
 			public static string gamemode_BigRoyaleTrios 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/gamemode_BigRoyaleTrios"); } }
 			public static string gamemode_Deathmatch 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/gamemode_Deathmatch"); } }
+			public static string gamemode_Zombies 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/gamemode_Zombies"); } }
 			public static string heroes 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/heroes"); } }
 			public static string join 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/join"); } }
 			public static string join_party 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/join_party"); } }
@@ -1593,6 +2214,7 @@ namespace I2.Loc
 
 		public static class UITShared
 		{
+			public static string News 		{ get{ return LocalizationManager.GetTranslation ("UITShared/News"); } }
 			public static string back_to 		{ get{ return LocalizationManager.GetTranslation ("UITShared/back_to"); } }
 			public static string battle_royale 		{ get{ return LocalizationManager.GetTranslation ("UITShared/battle_royale"); } }
 			public static string cancel 		{ get{ return LocalizationManager.GetTranslation ("UITShared/cancel"); } }
@@ -2021,73 +2643,685 @@ namespace I2.Loc
 		    public const string Bot30 = "BotNames/Bot30";
 		    public const string Bot300 = "BotNames/Bot300";
 		    public const string Bot301 = "BotNames/Bot301";
+		    public const string Bot302 = "BotNames/Bot302";
+		    public const string Bot303 = "BotNames/Bot303";
+		    public const string Bot304 = "BotNames/Bot304";
+		    public const string Bot305 = "BotNames/Bot305";
+		    public const string Bot306 = "BotNames/Bot306";
+		    public const string Bot307 = "BotNames/Bot307";
+		    public const string Bot308 = "BotNames/Bot308";
+		    public const string Bot309 = "BotNames/Bot309";
 		    public const string Bot31 = "BotNames/Bot31";
+		    public const string Bot310 = "BotNames/Bot310";
+		    public const string Bot311 = "BotNames/Bot311";
+		    public const string Bot312 = "BotNames/Bot312";
+		    public const string Bot313 = "BotNames/Bot313";
+		    public const string Bot314 = "BotNames/Bot314";
+		    public const string Bot315 = "BotNames/Bot315";
+		    public const string Bot316 = "BotNames/Bot316";
+		    public const string Bot317 = "BotNames/Bot317";
+		    public const string Bot318 = "BotNames/Bot318";
+		    public const string Bot319 = "BotNames/Bot319";
 		    public const string Bot32 = "BotNames/Bot32";
+		    public const string Bot320 = "BotNames/Bot320";
+		    public const string Bot321 = "BotNames/Bot321";
+		    public const string Bot322 = "BotNames/Bot322";
+		    public const string Bot323 = "BotNames/Bot323";
+		    public const string Bot324 = "BotNames/Bot324";
+		    public const string Bot325 = "BotNames/Bot325";
+		    public const string Bot326 = "BotNames/Bot326";
+		    public const string Bot327 = "BotNames/Bot327";
+		    public const string Bot328 = "BotNames/Bot328";
+		    public const string Bot329 = "BotNames/Bot329";
 		    public const string Bot33 = "BotNames/Bot33";
+		    public const string Bot330 = "BotNames/Bot330";
+		    public const string Bot331 = "BotNames/Bot331";
+		    public const string Bot332 = "BotNames/Bot332";
+		    public const string Bot333 = "BotNames/Bot333";
+		    public const string Bot334 = "BotNames/Bot334";
+		    public const string Bot335 = "BotNames/Bot335";
+		    public const string Bot336 = "BotNames/Bot336";
+		    public const string Bot337 = "BotNames/Bot337";
+		    public const string Bot338 = "BotNames/Bot338";
+		    public const string Bot339 = "BotNames/Bot339";
 		    public const string Bot34 = "BotNames/Bot34";
+		    public const string Bot340 = "BotNames/Bot340";
+		    public const string Bot341 = "BotNames/Bot341";
+		    public const string Bot342 = "BotNames/Bot342";
+		    public const string Bot343 = "BotNames/Bot343";
+		    public const string Bot344 = "BotNames/Bot344";
+		    public const string Bot345 = "BotNames/Bot345";
+		    public const string Bot346 = "BotNames/Bot346";
+		    public const string Bot347 = "BotNames/Bot347";
+		    public const string Bot348 = "BotNames/Bot348";
+		    public const string Bot349 = "BotNames/Bot349";
 		    public const string Bot35 = "BotNames/Bot35";
+		    public const string Bot350 = "BotNames/Bot350";
+		    public const string Bot351 = "BotNames/Bot351";
+		    public const string Bot352 = "BotNames/Bot352";
+		    public const string Bot353 = "BotNames/Bot353";
+		    public const string Bot354 = "BotNames/Bot354";
+		    public const string Bot355 = "BotNames/Bot355";
+		    public const string Bot356 = "BotNames/Bot356";
+		    public const string Bot357 = "BotNames/Bot357";
+		    public const string Bot358 = "BotNames/Bot358";
+		    public const string Bot359 = "BotNames/Bot359";
 		    public const string Bot36 = "BotNames/Bot36";
+		    public const string Bot360 = "BotNames/Bot360";
+		    public const string Bot361 = "BotNames/Bot361";
+		    public const string Bot362 = "BotNames/Bot362";
+		    public const string Bot363 = "BotNames/Bot363";
+		    public const string Bot364 = "BotNames/Bot364";
+		    public const string Bot365 = "BotNames/Bot365";
+		    public const string Bot366 = "BotNames/Bot366";
+		    public const string Bot367 = "BotNames/Bot367";
+		    public const string Bot368 = "BotNames/Bot368";
+		    public const string Bot369 = "BotNames/Bot369";
 		    public const string Bot37 = "BotNames/Bot37";
+		    public const string Bot370 = "BotNames/Bot370";
+		    public const string Bot371 = "BotNames/Bot371";
+		    public const string Bot372 = "BotNames/Bot372";
+		    public const string Bot373 = "BotNames/Bot373";
+		    public const string Bot374 = "BotNames/Bot374";
+		    public const string Bot375 = "BotNames/Bot375";
+		    public const string Bot376 = "BotNames/Bot376";
+		    public const string Bot377 = "BotNames/Bot377";
+		    public const string Bot378 = "BotNames/Bot378";
+		    public const string Bot379 = "BotNames/Bot379";
 		    public const string Bot38 = "BotNames/Bot38";
+		    public const string Bot380 = "BotNames/Bot380";
+		    public const string Bot381 = "BotNames/Bot381";
+		    public const string Bot382 = "BotNames/Bot382";
+		    public const string Bot383 = "BotNames/Bot383";
+		    public const string Bot384 = "BotNames/Bot384";
+		    public const string Bot385 = "BotNames/Bot385";
+		    public const string Bot386 = "BotNames/Bot386";
+		    public const string Bot387 = "BotNames/Bot387";
+		    public const string Bot388 = "BotNames/Bot388";
+		    public const string Bot389 = "BotNames/Bot389";
 		    public const string Bot39 = "BotNames/Bot39";
+		    public const string Bot390 = "BotNames/Bot390";
+		    public const string Bot391 = "BotNames/Bot391";
+		    public const string Bot392 = "BotNames/Bot392";
+		    public const string Bot393 = "BotNames/Bot393";
+		    public const string Bot394 = "BotNames/Bot394";
+		    public const string Bot395 = "BotNames/Bot395";
+		    public const string Bot396 = "BotNames/Bot396";
+		    public const string Bot397 = "BotNames/Bot397";
+		    public const string Bot398 = "BotNames/Bot398";
+		    public const string Bot399 = "BotNames/Bot399";
 		    public const string Bot4 = "BotNames/Bot4";
 		    public const string Bot40 = "BotNames/Bot40";
+		    public const string Bot400 = "BotNames/Bot400";
+		    public const string Bot401 = "BotNames/Bot401";
+		    public const string Bot402 = "BotNames/Bot402";
+		    public const string Bot403 = "BotNames/Bot403";
+		    public const string Bot404 = "BotNames/Bot404";
+		    public const string Bot405 = "BotNames/Bot405";
+		    public const string Bot406 = "BotNames/Bot406";
+		    public const string Bot407 = "BotNames/Bot407";
+		    public const string Bot408 = "BotNames/Bot408";
+		    public const string Bot409 = "BotNames/Bot409";
 		    public const string Bot41 = "BotNames/Bot41";
+		    public const string Bot410 = "BotNames/Bot410";
+		    public const string Bot411 = "BotNames/Bot411";
+		    public const string Bot412 = "BotNames/Bot412";
+		    public const string Bot413 = "BotNames/Bot413";
+		    public const string Bot414 = "BotNames/Bot414";
+		    public const string Bot415 = "BotNames/Bot415";
+		    public const string Bot416 = "BotNames/Bot416";
+		    public const string Bot417 = "BotNames/Bot417";
+		    public const string Bot418 = "BotNames/Bot418";
+		    public const string Bot419 = "BotNames/Bot419";
 		    public const string Bot42 = "BotNames/Bot42";
+		    public const string Bot420 = "BotNames/Bot420";
+		    public const string Bot421 = "BotNames/Bot421";
+		    public const string Bot422 = "BotNames/Bot422";
+		    public const string Bot423 = "BotNames/Bot423";
+		    public const string Bot424 = "BotNames/Bot424";
+		    public const string Bot425 = "BotNames/Bot425";
+		    public const string Bot426 = "BotNames/Bot426";
+		    public const string Bot427 = "BotNames/Bot427";
+		    public const string Bot428 = "BotNames/Bot428";
+		    public const string Bot429 = "BotNames/Bot429";
 		    public const string Bot43 = "BotNames/Bot43";
+		    public const string Bot430 = "BotNames/Bot430";
+		    public const string Bot431 = "BotNames/Bot431";
+		    public const string Bot432 = "BotNames/Bot432";
+		    public const string Bot433 = "BotNames/Bot433";
+		    public const string Bot434 = "BotNames/Bot434";
+		    public const string Bot435 = "BotNames/Bot435";
+		    public const string Bot436 = "BotNames/Bot436";
+		    public const string Bot437 = "BotNames/Bot437";
+		    public const string Bot438 = "BotNames/Bot438";
+		    public const string Bot439 = "BotNames/Bot439";
 		    public const string Bot44 = "BotNames/Bot44";
+		    public const string Bot440 = "BotNames/Bot440";
+		    public const string Bot441 = "BotNames/Bot441";
+		    public const string Bot442 = "BotNames/Bot442";
+		    public const string Bot443 = "BotNames/Bot443";
+		    public const string Bot444 = "BotNames/Bot444";
+		    public const string Bot445 = "BotNames/Bot445";
+		    public const string Bot446 = "BotNames/Bot446";
+		    public const string Bot447 = "BotNames/Bot447";
+		    public const string Bot448 = "BotNames/Bot448";
+		    public const string Bot449 = "BotNames/Bot449";
 		    public const string Bot45 = "BotNames/Bot45";
+		    public const string Bot450 = "BotNames/Bot450";
+		    public const string Bot451 = "BotNames/Bot451";
+		    public const string Bot452 = "BotNames/Bot452";
+		    public const string Bot453 = "BotNames/Bot453";
+		    public const string Bot454 = "BotNames/Bot454";
+		    public const string Bot455 = "BotNames/Bot455";
+		    public const string Bot456 = "BotNames/Bot456";
+		    public const string Bot457 = "BotNames/Bot457";
+		    public const string Bot458 = "BotNames/Bot458";
+		    public const string Bot459 = "BotNames/Bot459";
 		    public const string Bot46 = "BotNames/Bot46";
+		    public const string Bot460 = "BotNames/Bot460";
+		    public const string Bot461 = "BotNames/Bot461";
+		    public const string Bot462 = "BotNames/Bot462";
+		    public const string Bot463 = "BotNames/Bot463";
+		    public const string Bot464 = "BotNames/Bot464";
+		    public const string Bot465 = "BotNames/Bot465";
+		    public const string Bot466 = "BotNames/Bot466";
+		    public const string Bot467 = "BotNames/Bot467";
+		    public const string Bot468 = "BotNames/Bot468";
+		    public const string Bot469 = "BotNames/Bot469";
 		    public const string Bot47 = "BotNames/Bot47";
+		    public const string Bot470 = "BotNames/Bot470";
+		    public const string Bot471 = "BotNames/Bot471";
+		    public const string Bot472 = "BotNames/Bot472";
+		    public const string Bot473 = "BotNames/Bot473";
+		    public const string Bot474 = "BotNames/Bot474";
+		    public const string Bot475 = "BotNames/Bot475";
+		    public const string Bot476 = "BotNames/Bot476";
+		    public const string Bot477 = "BotNames/Bot477";
+		    public const string Bot478 = "BotNames/Bot478";
+		    public const string Bot479 = "BotNames/Bot479";
 		    public const string Bot48 = "BotNames/Bot48";
+		    public const string Bot480 = "BotNames/Bot480";
+		    public const string Bot481 = "BotNames/Bot481";
+		    public const string Bot482 = "BotNames/Bot482";
+		    public const string Bot483 = "BotNames/Bot483";
+		    public const string Bot484 = "BotNames/Bot484";
+		    public const string Bot485 = "BotNames/Bot485";
+		    public const string Bot486 = "BotNames/Bot486";
+		    public const string Bot487 = "BotNames/Bot487";
+		    public const string Bot488 = "BotNames/Bot488";
+		    public const string Bot489 = "BotNames/Bot489";
 		    public const string Bot49 = "BotNames/Bot49";
+		    public const string Bot490 = "BotNames/Bot490";
+		    public const string Bot491 = "BotNames/Bot491";
+		    public const string Bot492 = "BotNames/Bot492";
+		    public const string Bot493 = "BotNames/Bot493";
+		    public const string Bot494 = "BotNames/Bot494";
+		    public const string Bot495 = "BotNames/Bot495";
+		    public const string Bot496 = "BotNames/Bot496";
+		    public const string Bot497 = "BotNames/Bot497";
+		    public const string Bot498 = "BotNames/Bot498";
+		    public const string Bot499 = "BotNames/Bot499";
 		    public const string Bot5 = "BotNames/Bot5";
 		    public const string Bot50 = "BotNames/Bot50";
+		    public const string Bot500 = "BotNames/Bot500";
+		    public const string Bot501 = "BotNames/Bot501";
+		    public const string Bot502 = "BotNames/Bot502";
+		    public const string Bot503 = "BotNames/Bot503";
+		    public const string Bot504 = "BotNames/Bot504";
+		    public const string Bot505 = "BotNames/Bot505";
+		    public const string Bot506 = "BotNames/Bot506";
+		    public const string Bot507 = "BotNames/Bot507";
+		    public const string Bot508 = "BotNames/Bot508";
+		    public const string Bot509 = "BotNames/Bot509";
 		    public const string Bot51 = "BotNames/Bot51";
+		    public const string Bot510 = "BotNames/Bot510";
+		    public const string Bot511 = "BotNames/Bot511";
+		    public const string Bot512 = "BotNames/Bot512";
+		    public const string Bot513 = "BotNames/Bot513";
+		    public const string Bot514 = "BotNames/Bot514";
+		    public const string Bot515 = "BotNames/Bot515";
+		    public const string Bot516 = "BotNames/Bot516";
+		    public const string Bot517 = "BotNames/Bot517";
+		    public const string Bot518 = "BotNames/Bot518";
+		    public const string Bot519 = "BotNames/Bot519";
 		    public const string Bot52 = "BotNames/Bot52";
+		    public const string Bot520 = "BotNames/Bot520";
+		    public const string Bot521 = "BotNames/Bot521";
+		    public const string Bot522 = "BotNames/Bot522";
+		    public const string Bot523 = "BotNames/Bot523";
+		    public const string Bot524 = "BotNames/Bot524";
+		    public const string Bot525 = "BotNames/Bot525";
+		    public const string Bot526 = "BotNames/Bot526";
+		    public const string Bot527 = "BotNames/Bot527";
+		    public const string Bot528 = "BotNames/Bot528";
+		    public const string Bot529 = "BotNames/Bot529";
 		    public const string Bot53 = "BotNames/Bot53";
+		    public const string Bot530 = "BotNames/Bot530";
+		    public const string Bot531 = "BotNames/Bot531";
+		    public const string Bot532 = "BotNames/Bot532";
+		    public const string Bot533 = "BotNames/Bot533";
+		    public const string Bot534 = "BotNames/Bot534";
+		    public const string Bot535 = "BotNames/Bot535";
+		    public const string Bot536 = "BotNames/Bot536";
+		    public const string Bot537 = "BotNames/Bot537";
+		    public const string Bot538 = "BotNames/Bot538";
+		    public const string Bot539 = "BotNames/Bot539";
 		    public const string Bot54 = "BotNames/Bot54";
+		    public const string Bot540 = "BotNames/Bot540";
+		    public const string Bot541 = "BotNames/Bot541";
+		    public const string Bot542 = "BotNames/Bot542";
+		    public const string Bot543 = "BotNames/Bot543";
+		    public const string Bot544 = "BotNames/Bot544";
+		    public const string Bot545 = "BotNames/Bot545";
+		    public const string Bot546 = "BotNames/Bot546";
+		    public const string Bot547 = "BotNames/Bot547";
+		    public const string Bot548 = "BotNames/Bot548";
+		    public const string Bot549 = "BotNames/Bot549";
 		    public const string Bot55 = "BotNames/Bot55";
+		    public const string Bot550 = "BotNames/Bot550";
+		    public const string Bot551 = "BotNames/Bot551";
+		    public const string Bot552 = "BotNames/Bot552";
+		    public const string Bot553 = "BotNames/Bot553";
+		    public const string Bot554 = "BotNames/Bot554";
+		    public const string Bot555 = "BotNames/Bot555";
+		    public const string Bot556 = "BotNames/Bot556";
+		    public const string Bot557 = "BotNames/Bot557";
+		    public const string Bot558 = "BotNames/Bot558";
+		    public const string Bot559 = "BotNames/Bot559";
 		    public const string Bot56 = "BotNames/Bot56";
+		    public const string Bot560 = "BotNames/Bot560";
+		    public const string Bot561 = "BotNames/Bot561";
+		    public const string Bot562 = "BotNames/Bot562";
+		    public const string Bot563 = "BotNames/Bot563";
+		    public const string Bot564 = "BotNames/Bot564";
+		    public const string Bot565 = "BotNames/Bot565";
+		    public const string Bot566 = "BotNames/Bot566";
+		    public const string Bot567 = "BotNames/Bot567";
+		    public const string Bot568 = "BotNames/Bot568";
+		    public const string Bot569 = "BotNames/Bot569";
 		    public const string Bot57 = "BotNames/Bot57";
+		    public const string Bot570 = "BotNames/Bot570";
+		    public const string Bot571 = "BotNames/Bot571";
+		    public const string Bot572 = "BotNames/Bot572";
+		    public const string Bot573 = "BotNames/Bot573";
+		    public const string Bot574 = "BotNames/Bot574";
+		    public const string Bot575 = "BotNames/Bot575";
+		    public const string Bot576 = "BotNames/Bot576";
+		    public const string Bot577 = "BotNames/Bot577";
+		    public const string Bot578 = "BotNames/Bot578";
+		    public const string Bot579 = "BotNames/Bot579";
 		    public const string Bot58 = "BotNames/Bot58";
+		    public const string Bot580 = "BotNames/Bot580";
+		    public const string Bot581 = "BotNames/Bot581";
+		    public const string Bot582 = "BotNames/Bot582";
+		    public const string Bot583 = "BotNames/Bot583";
+		    public const string Bot584 = "BotNames/Bot584";
+		    public const string Bot585 = "BotNames/Bot585";
+		    public const string Bot586 = "BotNames/Bot586";
+		    public const string Bot587 = "BotNames/Bot587";
+		    public const string Bot588 = "BotNames/Bot588";
+		    public const string Bot589 = "BotNames/Bot589";
 		    public const string Bot59 = "BotNames/Bot59";
+		    public const string Bot590 = "BotNames/Bot590";
+		    public const string Bot591 = "BotNames/Bot591";
+		    public const string Bot592 = "BotNames/Bot592";
+		    public const string Bot593 = "BotNames/Bot593";
+		    public const string Bot594 = "BotNames/Bot594";
+		    public const string Bot595 = "BotNames/Bot595";
+		    public const string Bot596 = "BotNames/Bot596";
+		    public const string Bot597 = "BotNames/Bot597";
+		    public const string Bot598 = "BotNames/Bot598";
+		    public const string Bot599 = "BotNames/Bot599";
 		    public const string Bot6 = "BotNames/Bot6";
 		    public const string Bot60 = "BotNames/Bot60";
+		    public const string Bot600 = "BotNames/Bot600";
+		    public const string Bot601 = "BotNames/Bot601";
+		    public const string Bot602 = "BotNames/Bot602";
+		    public const string Bot603 = "BotNames/Bot603";
+		    public const string Bot604 = "BotNames/Bot604";
+		    public const string Bot605 = "BotNames/Bot605";
+		    public const string Bot606 = "BotNames/Bot606";
+		    public const string Bot607 = "BotNames/Bot607";
+		    public const string Bot608 = "BotNames/Bot608";
+		    public const string Bot609 = "BotNames/Bot609";
 		    public const string Bot61 = "BotNames/Bot61";
+		    public const string Bot610 = "BotNames/Bot610";
+		    public const string Bot611 = "BotNames/Bot611";
+		    public const string Bot612 = "BotNames/Bot612";
+		    public const string Bot613 = "BotNames/Bot613";
+		    public const string Bot614 = "BotNames/Bot614";
+		    public const string Bot615 = "BotNames/Bot615";
+		    public const string Bot616 = "BotNames/Bot616";
+		    public const string Bot617 = "BotNames/Bot617";
+		    public const string Bot618 = "BotNames/Bot618";
+		    public const string Bot619 = "BotNames/Bot619";
 		    public const string Bot62 = "BotNames/Bot62";
+		    public const string Bot620 = "BotNames/Bot620";
+		    public const string Bot621 = "BotNames/Bot621";
+		    public const string Bot622 = "BotNames/Bot622";
+		    public const string Bot623 = "BotNames/Bot623";
+		    public const string Bot624 = "BotNames/Bot624";
+		    public const string Bot625 = "BotNames/Bot625";
+		    public const string Bot626 = "BotNames/Bot626";
+		    public const string Bot627 = "BotNames/Bot627";
+		    public const string Bot628 = "BotNames/Bot628";
+		    public const string Bot629 = "BotNames/Bot629";
 		    public const string Bot63 = "BotNames/Bot63";
+		    public const string Bot630 = "BotNames/Bot630";
+		    public const string Bot631 = "BotNames/Bot631";
+		    public const string Bot632 = "BotNames/Bot632";
+		    public const string Bot633 = "BotNames/Bot633";
+		    public const string Bot634 = "BotNames/Bot634";
+		    public const string Bot635 = "BotNames/Bot635";
+		    public const string Bot636 = "BotNames/Bot636";
+		    public const string Bot637 = "BotNames/Bot637";
+		    public const string Bot638 = "BotNames/Bot638";
+		    public const string Bot639 = "BotNames/Bot639";
 		    public const string Bot64 = "BotNames/Bot64";
+		    public const string Bot640 = "BotNames/Bot640";
+		    public const string Bot641 = "BotNames/Bot641";
+		    public const string Bot642 = "BotNames/Bot642";
+		    public const string Bot643 = "BotNames/Bot643";
+		    public const string Bot644 = "BotNames/Bot644";
+		    public const string Bot645 = "BotNames/Bot645";
+		    public const string Bot646 = "BotNames/Bot646";
+		    public const string Bot647 = "BotNames/Bot647";
+		    public const string Bot648 = "BotNames/Bot648";
+		    public const string Bot649 = "BotNames/Bot649";
 		    public const string Bot65 = "BotNames/Bot65";
+		    public const string Bot650 = "BotNames/Bot650";
+		    public const string Bot651 = "BotNames/Bot651";
+		    public const string Bot652 = "BotNames/Bot652";
+		    public const string Bot653 = "BotNames/Bot653";
+		    public const string Bot654 = "BotNames/Bot654";
+		    public const string Bot655 = "BotNames/Bot655";
+		    public const string Bot656 = "BotNames/Bot656";
+		    public const string Bot657 = "BotNames/Bot657";
+		    public const string Bot658 = "BotNames/Bot658";
+		    public const string Bot659 = "BotNames/Bot659";
 		    public const string Bot66 = "BotNames/Bot66";
+		    public const string Bot660 = "BotNames/Bot660";
+		    public const string Bot661 = "BotNames/Bot661";
+		    public const string Bot662 = "BotNames/Bot662";
+		    public const string Bot663 = "BotNames/Bot663";
+		    public const string Bot664 = "BotNames/Bot664";
+		    public const string Bot665 = "BotNames/Bot665";
+		    public const string Bot666 = "BotNames/Bot666";
+		    public const string Bot667 = "BotNames/Bot667";
+		    public const string Bot668 = "BotNames/Bot668";
+		    public const string Bot669 = "BotNames/Bot669";
 		    public const string Bot67 = "BotNames/Bot67";
+		    public const string Bot670 = "BotNames/Bot670";
+		    public const string Bot671 = "BotNames/Bot671";
+		    public const string Bot672 = "BotNames/Bot672";
+		    public const string Bot673 = "BotNames/Bot673";
+		    public const string Bot674 = "BotNames/Bot674";
+		    public const string Bot675 = "BotNames/Bot675";
+		    public const string Bot676 = "BotNames/Bot676";
+		    public const string Bot677 = "BotNames/Bot677";
+		    public const string Bot678 = "BotNames/Bot678";
+		    public const string Bot679 = "BotNames/Bot679";
 		    public const string Bot68 = "BotNames/Bot68";
+		    public const string Bot680 = "BotNames/Bot680";
+		    public const string Bot681 = "BotNames/Bot681";
+		    public const string Bot682 = "BotNames/Bot682";
+		    public const string Bot683 = "BotNames/Bot683";
+		    public const string Bot684 = "BotNames/Bot684";
+		    public const string Bot685 = "BotNames/Bot685";
+		    public const string Bot686 = "BotNames/Bot686";
+		    public const string Bot687 = "BotNames/Bot687";
+		    public const string Bot688 = "BotNames/Bot688";
+		    public const string Bot689 = "BotNames/Bot689";
 		    public const string Bot69 = "BotNames/Bot69";
+		    public const string Bot690 = "BotNames/Bot690";
+		    public const string Bot691 = "BotNames/Bot691";
+		    public const string Bot692 = "BotNames/Bot692";
+		    public const string Bot693 = "BotNames/Bot693";
+		    public const string Bot694 = "BotNames/Bot694";
+		    public const string Bot695 = "BotNames/Bot695";
+		    public const string Bot696 = "BotNames/Bot696";
+		    public const string Bot697 = "BotNames/Bot697";
+		    public const string Bot698 = "BotNames/Bot698";
+		    public const string Bot699 = "BotNames/Bot699";
 		    public const string Bot7 = "BotNames/Bot7";
 		    public const string Bot70 = "BotNames/Bot70";
+		    public const string Bot700 = "BotNames/Bot700";
+		    public const string Bot701 = "BotNames/Bot701";
+		    public const string Bot702 = "BotNames/Bot702";
+		    public const string Bot703 = "BotNames/Bot703";
+		    public const string Bot704 = "BotNames/Bot704";
+		    public const string Bot705 = "BotNames/Bot705";
+		    public const string Bot706 = "BotNames/Bot706";
+		    public const string Bot707 = "BotNames/Bot707";
+		    public const string Bot708 = "BotNames/Bot708";
+		    public const string Bot709 = "BotNames/Bot709";
 		    public const string Bot71 = "BotNames/Bot71";
+		    public const string Bot710 = "BotNames/Bot710";
+		    public const string Bot711 = "BotNames/Bot711";
+		    public const string Bot712 = "BotNames/Bot712";
+		    public const string Bot713 = "BotNames/Bot713";
+		    public const string Bot714 = "BotNames/Bot714";
+		    public const string Bot715 = "BotNames/Bot715";
+		    public const string Bot716 = "BotNames/Bot716";
+		    public const string Bot717 = "BotNames/Bot717";
+		    public const string Bot718 = "BotNames/Bot718";
+		    public const string Bot719 = "BotNames/Bot719";
 		    public const string Bot72 = "BotNames/Bot72";
+		    public const string Bot720 = "BotNames/Bot720";
+		    public const string Bot721 = "BotNames/Bot721";
+		    public const string Bot722 = "BotNames/Bot722";
+		    public const string Bot723 = "BotNames/Bot723";
+		    public const string Bot724 = "BotNames/Bot724";
+		    public const string Bot725 = "BotNames/Bot725";
+		    public const string Bot726 = "BotNames/Bot726";
+		    public const string Bot727 = "BotNames/Bot727";
+		    public const string Bot728 = "BotNames/Bot728";
+		    public const string Bot729 = "BotNames/Bot729";
 		    public const string Bot73 = "BotNames/Bot73";
+		    public const string Bot730 = "BotNames/Bot730";
+		    public const string Bot731 = "BotNames/Bot731";
+		    public const string Bot732 = "BotNames/Bot732";
+		    public const string Bot733 = "BotNames/Bot733";
+		    public const string Bot734 = "BotNames/Bot734";
+		    public const string Bot735 = "BotNames/Bot735";
+		    public const string Bot736 = "BotNames/Bot736";
+		    public const string Bot737 = "BotNames/Bot737";
+		    public const string Bot738 = "BotNames/Bot738";
+		    public const string Bot739 = "BotNames/Bot739";
 		    public const string Bot74 = "BotNames/Bot74";
+		    public const string Bot740 = "BotNames/Bot740";
+		    public const string Bot741 = "BotNames/Bot741";
+		    public const string Bot742 = "BotNames/Bot742";
+		    public const string Bot743 = "BotNames/Bot743";
+		    public const string Bot744 = "BotNames/Bot744";
+		    public const string Bot745 = "BotNames/Bot745";
+		    public const string Bot746 = "BotNames/Bot746";
+		    public const string Bot747 = "BotNames/Bot747";
+		    public const string Bot748 = "BotNames/Bot748";
+		    public const string Bot749 = "BotNames/Bot749";
 		    public const string Bot75 = "BotNames/Bot75";
+		    public const string Bot750 = "BotNames/Bot750";
+		    public const string Bot751 = "BotNames/Bot751";
+		    public const string Bot752 = "BotNames/Bot752";
+		    public const string Bot753 = "BotNames/Bot753";
+		    public const string Bot754 = "BotNames/Bot754";
+		    public const string Bot755 = "BotNames/Bot755";
+		    public const string Bot756 = "BotNames/Bot756";
+		    public const string Bot757 = "BotNames/Bot757";
+		    public const string Bot758 = "BotNames/Bot758";
+		    public const string Bot759 = "BotNames/Bot759";
 		    public const string Bot76 = "BotNames/Bot76";
+		    public const string Bot760 = "BotNames/Bot760";
+		    public const string Bot761 = "BotNames/Bot761";
+		    public const string Bot762 = "BotNames/Bot762";
+		    public const string Bot763 = "BotNames/Bot763";
+		    public const string Bot764 = "BotNames/Bot764";
+		    public const string Bot765 = "BotNames/Bot765";
+		    public const string Bot766 = "BotNames/Bot766";
+		    public const string Bot767 = "BotNames/Bot767";
+		    public const string Bot768 = "BotNames/Bot768";
+		    public const string Bot769 = "BotNames/Bot769";
 		    public const string Bot77 = "BotNames/Bot77";
+		    public const string Bot770 = "BotNames/Bot770";
+		    public const string Bot771 = "BotNames/Bot771";
+		    public const string Bot772 = "BotNames/Bot772";
+		    public const string Bot773 = "BotNames/Bot773";
+		    public const string Bot774 = "BotNames/Bot774";
+		    public const string Bot775 = "BotNames/Bot775";
+		    public const string Bot776 = "BotNames/Bot776";
+		    public const string Bot777 = "BotNames/Bot777";
+		    public const string Bot778 = "BotNames/Bot778";
+		    public const string Bot779 = "BotNames/Bot779";
 		    public const string Bot78 = "BotNames/Bot78";
+		    public const string Bot780 = "BotNames/Bot780";
+		    public const string Bot781 = "BotNames/Bot781";
+		    public const string Bot782 = "BotNames/Bot782";
+		    public const string Bot783 = "BotNames/Bot783";
+		    public const string Bot784 = "BotNames/Bot784";
+		    public const string Bot785 = "BotNames/Bot785";
+		    public const string Bot786 = "BotNames/Bot786";
+		    public const string Bot787 = "BotNames/Bot787";
+		    public const string Bot788 = "BotNames/Bot788";
+		    public const string Bot789 = "BotNames/Bot789";
 		    public const string Bot79 = "BotNames/Bot79";
+		    public const string Bot790 = "BotNames/Bot790";
+		    public const string Bot791 = "BotNames/Bot791";
+		    public const string Bot792 = "BotNames/Bot792";
+		    public const string Bot793 = "BotNames/Bot793";
+		    public const string Bot794 = "BotNames/Bot794";
+		    public const string Bot795 = "BotNames/Bot795";
+		    public const string Bot796 = "BotNames/Bot796";
+		    public const string Bot797 = "BotNames/Bot797";
+		    public const string Bot798 = "BotNames/Bot798";
+		    public const string Bot799 = "BotNames/Bot799";
 		    public const string Bot8 = "BotNames/Bot8";
 		    public const string Bot80 = "BotNames/Bot80";
+		    public const string Bot800 = "BotNames/Bot800";
+		    public const string Bot801 = "BotNames/Bot801";
+		    public const string Bot802 = "BotNames/Bot802";
+		    public const string Bot803 = "BotNames/Bot803";
+		    public const string Bot804 = "BotNames/Bot804";
+		    public const string Bot805 = "BotNames/Bot805";
+		    public const string Bot806 = "BotNames/Bot806";
+		    public const string Bot807 = "BotNames/Bot807";
+		    public const string Bot808 = "BotNames/Bot808";
+		    public const string Bot809 = "BotNames/Bot809";
 		    public const string Bot81 = "BotNames/Bot81";
+		    public const string Bot810 = "BotNames/Bot810";
+		    public const string Bot811 = "BotNames/Bot811";
+		    public const string Bot812 = "BotNames/Bot812";
+		    public const string Bot813 = "BotNames/Bot813";
+		    public const string Bot814 = "BotNames/Bot814";
+		    public const string Bot815 = "BotNames/Bot815";
+		    public const string Bot816 = "BotNames/Bot816";
+		    public const string Bot817 = "BotNames/Bot817";
+		    public const string Bot818 = "BotNames/Bot818";
+		    public const string Bot819 = "BotNames/Bot819";
 		    public const string Bot82 = "BotNames/Bot82";
+		    public const string Bot820 = "BotNames/Bot820";
+		    public const string Bot821 = "BotNames/Bot821";
+		    public const string Bot822 = "BotNames/Bot822";
+		    public const string Bot823 = "BotNames/Bot823";
+		    public const string Bot824 = "BotNames/Bot824";
+		    public const string Bot825 = "BotNames/Bot825";
+		    public const string Bot826 = "BotNames/Bot826";
+		    public const string Bot827 = "BotNames/Bot827";
+		    public const string Bot828 = "BotNames/Bot828";
+		    public const string Bot829 = "BotNames/Bot829";
 		    public const string Bot83 = "BotNames/Bot83";
+		    public const string Bot830 = "BotNames/Bot830";
+		    public const string Bot831 = "BotNames/Bot831";
+		    public const string Bot832 = "BotNames/Bot832";
+		    public const string Bot833 = "BotNames/Bot833";
+		    public const string Bot834 = "BotNames/Bot834";
+		    public const string Bot835 = "BotNames/Bot835";
+		    public const string Bot836 = "BotNames/Bot836";
+		    public const string Bot837 = "BotNames/Bot837";
+		    public const string Bot838 = "BotNames/Bot838";
+		    public const string Bot839 = "BotNames/Bot839";
 		    public const string Bot84 = "BotNames/Bot84";
+		    public const string Bot840 = "BotNames/Bot840";
+		    public const string Bot841 = "BotNames/Bot841";
+		    public const string Bot842 = "BotNames/Bot842";
+		    public const string Bot843 = "BotNames/Bot843";
+		    public const string Bot844 = "BotNames/Bot844";
+		    public const string Bot845 = "BotNames/Bot845";
+		    public const string Bot846 = "BotNames/Bot846";
+		    public const string Bot847 = "BotNames/Bot847";
+		    public const string Bot848 = "BotNames/Bot848";
+		    public const string Bot849 = "BotNames/Bot849";
 		    public const string Bot85 = "BotNames/Bot85";
+		    public const string Bot850 = "BotNames/Bot850";
+		    public const string Bot851 = "BotNames/Bot851";
+		    public const string Bot852 = "BotNames/Bot852";
+		    public const string Bot853 = "BotNames/Bot853";
+		    public const string Bot854 = "BotNames/Bot854";
+		    public const string Bot855 = "BotNames/Bot855";
+		    public const string Bot856 = "BotNames/Bot856";
+		    public const string Bot857 = "BotNames/Bot857";
+		    public const string Bot858 = "BotNames/Bot858";
+		    public const string Bot859 = "BotNames/Bot859";
 		    public const string Bot86 = "BotNames/Bot86";
+		    public const string Bot860 = "BotNames/Bot860";
+		    public const string Bot861 = "BotNames/Bot861";
+		    public const string Bot862 = "BotNames/Bot862";
+		    public const string Bot863 = "BotNames/Bot863";
+		    public const string Bot864 = "BotNames/Bot864";
+		    public const string Bot865 = "BotNames/Bot865";
+		    public const string Bot866 = "BotNames/Bot866";
+		    public const string Bot867 = "BotNames/Bot867";
+		    public const string Bot868 = "BotNames/Bot868";
+		    public const string Bot869 = "BotNames/Bot869";
 		    public const string Bot87 = "BotNames/Bot87";
+		    public const string Bot870 = "BotNames/Bot870";
+		    public const string Bot871 = "BotNames/Bot871";
+		    public const string Bot872 = "BotNames/Bot872";
+		    public const string Bot873 = "BotNames/Bot873";
+		    public const string Bot874 = "BotNames/Bot874";
+		    public const string Bot875 = "BotNames/Bot875";
+		    public const string Bot876 = "BotNames/Bot876";
+		    public const string Bot877 = "BotNames/Bot877";
+		    public const string Bot878 = "BotNames/Bot878";
+		    public const string Bot879 = "BotNames/Bot879";
 		    public const string Bot88 = "BotNames/Bot88";
+		    public const string Bot880 = "BotNames/Bot880";
+		    public const string Bot881 = "BotNames/Bot881";
+		    public const string Bot882 = "BotNames/Bot882";
+		    public const string Bot883 = "BotNames/Bot883";
+		    public const string Bot884 = "BotNames/Bot884";
+		    public const string Bot885 = "BotNames/Bot885";
+		    public const string Bot886 = "BotNames/Bot886";
+		    public const string Bot887 = "BotNames/Bot887";
+		    public const string Bot888 = "BotNames/Bot888";
+		    public const string Bot889 = "BotNames/Bot889";
 		    public const string Bot89 = "BotNames/Bot89";
+		    public const string Bot890 = "BotNames/Bot890";
+		    public const string Bot891 = "BotNames/Bot891";
+		    public const string Bot892 = "BotNames/Bot892";
+		    public const string Bot893 = "BotNames/Bot893";
+		    public const string Bot894 = "BotNames/Bot894";
+		    public const string Bot895 = "BotNames/Bot895";
+		    public const string Bot896 = "BotNames/Bot896";
+		    public const string Bot897 = "BotNames/Bot897";
+		    public const string Bot898 = "BotNames/Bot898";
+		    public const string Bot899 = "BotNames/Bot899";
 		    public const string Bot9 = "BotNames/Bot9";
 		    public const string Bot90 = "BotNames/Bot90";
+		    public const string Bot900 = "BotNames/Bot900";
+		    public const string Bot901 = "BotNames/Bot901";
+		    public const string Bot902 = "BotNames/Bot902";
+		    public const string Bot903 = "BotNames/Bot903";
+		    public const string Bot904 = "BotNames/Bot904";
+		    public const string Bot905 = "BotNames/Bot905";
+		    public const string Bot906 = "BotNames/Bot906";
+		    public const string Bot907 = "BotNames/Bot907";
+		    public const string Bot908 = "BotNames/Bot908";
+		    public const string Bot909 = "BotNames/Bot909";
 		    public const string Bot91 = "BotNames/Bot91";
+		    public const string Bot910 = "BotNames/Bot910";
+		    public const string Bot911 = "BotNames/Bot911";
+		    public const string Bot912 = "BotNames/Bot912";
+		    public const string Bot913 = "BotNames/Bot913";
 		    public const string Bot92 = "BotNames/Bot92";
 		    public const string Bot93 = "BotNames/Bot93";
 		    public const string Bot94 = "BotNames/Bot94";
@@ -2178,6 +3412,7 @@ namespace I2.Loc
 		    public const string CSDescription = "GameIds/CSDescription";
 		    public const string CS_Plural = "GameIds/CS_Plural";
 		    public const string Casual = "GameIds/Casual";
+		    public const string Cemetery = "GameIds/Cemetery";
 		    public const string ChickenDinner = "GameIds/ChickenDinner";
 		    public const string CommonBox = "GameIds/CommonBox";
 		    public const string CommonCore = "GameIds/CommonCore";
@@ -2222,6 +3457,7 @@ namespace I2.Loc
 		    public const string FootballArmor = "GameIds/FootballArmor";
 		    public const string FootballHelmet = "GameIds/FootballHelmet";
 		    public const string Forced = "GameIds/Forced";
+		    public const string Fortress = "GameIds/Fortress";
 		    public const string Fragment_Plural = "GameIds/Fragment_Plural";
 		    public const string Fragments = "GameIds/Fragments";
 		    public const string FragmentsDescription = "GameIds/FragmentsDescription";
@@ -2403,6 +3639,8 @@ namespace I2.Loc
 		    public const string SpecialHealingModeDescription = "GameIds/SpecialHealingModeDescription";
 		    public const string SpecialInvisibilitySelf = "GameIds/SpecialInvisibilitySelf";
 		    public const string SpecialInvisibilitySelfDescription = "GameIds/SpecialInvisibilitySelfDescription";
+		    public const string SpecialLandMine = "GameIds/SpecialLandMine";
+		    public const string SpecialLandMineDescription = "GameIds/SpecialLandMineDescription";
 		    public const string SpecialRadar = "GameIds/SpecialRadar";
 		    public const string SpecialRadarDescription = "GameIds/SpecialRadarDescription";
 		    public const string SpecialRageSelf = "GameIds/SpecialRageSelf";
@@ -3098,10 +4336,14 @@ namespace I2.Loc
 		    public const string choose_a_mode = "UITGameModeSelection/choose_a_mode";
 		    public const string custom_game_description = "UITGameModeSelection/custom_game_description";
 		    public const string tap_to_choose = "UITGameModeSelection/tap_to_choose";
+		    public const string zombies_description = "UITGameModeSelection/zombies_description";
 		}
 
 		public static class UITGeneric
 		{
+		    public const string @for = "UITGeneric/for";
+		    public const string items_converted = "UITGeneric/items_converted";
+		    public const string items_converted_msg = "UITGeneric/items_converted_msg";
 		    public const string purchase_not_enough_button_text = "UITGeneric/purchase_not_enough_button_text";
 		    public const string purchase_not_enough_item_display_name = "UITGeneric/purchase_not_enough_item_display_name";
 		    public const string purchase_not_enough_title = "UITGeneric/purchase_not_enough_title";
@@ -3128,6 +4370,7 @@ namespace I2.Loc
 		    public const string gamemode_BigRoyale = "UITHomeScreen/gamemode_BigRoyale";
 		    public const string gamemode_BigRoyaleTrios = "UITHomeScreen/gamemode_BigRoyaleTrios";
 		    public const string gamemode_Deathmatch = "UITHomeScreen/gamemode_Deathmatch";
+		    public const string gamemode_Zombies = "UITHomeScreen/gamemode_Zombies";
 		    public const string heroes = "UITHomeScreen/heroes";
 		    public const string join = "UITHomeScreen/join";
 		    public const string join_party = "UITHomeScreen/join_party";
@@ -3310,6 +4553,7 @@ namespace I2.Loc
 
 		public static class UITShared
 		{
+		    public const string News = "UITShared/News";
 		    public const string back_to = "UITShared/back_to";
 		    public const string battle_royale = "UITShared/battle_royale";
 		    public const string cancel = "UITShared/cancel";

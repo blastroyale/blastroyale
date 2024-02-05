@@ -95,7 +95,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(mainMenuLoading);
 			initial.OnExit(SubscribeEvents);
 
-			mainMenuLoading.OnEnter(UpdateSkinIfNeeded);
+			mainMenuLoading.OnEnter(BeforeLoadingMenu);
 			mainMenuLoading.OnEnter(() => LoadMainMenu().Forget());
 			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
@@ -267,6 +267,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
+			_services.MessageBrokerService.Subscribe<ItemConvertedToBlastBuckMessage>(OnItemConvertedToBlastBucks);
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_services.MessageBrokerService.Subscribe<NewBattlePassSeasonMessage>(OnBattlePassNewSeason);
 			_services.MessageBrokerService.Subscribe<MainMenuShouldReloadMessage>(MainMenuShouldReloadMessage);
@@ -275,6 +276,16 @@ namespace FirstLight.Game.StateMachines
 		private void MainMenuShouldReloadMessage(MainMenuShouldReloadMessage msg)
 		{
 			OpenHomeScreen();
+		}
+
+		private void OnItemConvertedToBlastBucks(ItemConvertedToBlastBuckMessage m)
+		{
+			if (_services.RoomService.InRoom) return;
+			
+			_services.GenericDialogService.OpenSimpleMessage(
+				ScriptLocalization.UITGeneric.items_converted, 
+				string.Format(ScriptLocalization.UITGeneric.items_converted_msg, m.BlastBucks, m.Items.Count)
+			);
 		}
 
 		private void UnsubscribeEvents()
@@ -641,8 +652,9 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void UpdateSkinIfNeeded()
+		private void BeforeLoadingMenu()
 		{
+			// Removing invalid skins
 			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS);
 			if (skin != null && !skin.Id.IsInGroup(GameIdGroup.PlayerSkin))
 			{
@@ -651,6 +663,14 @@ namespace FirstLight.Game.StateMachines
 				{
 					Item = _gameDataProvider.CollectionDataProvider.DefaultCollectionItems[CollectionCategories.PLAYER_SKINS].First()
 				});
+			}
+			
+			// Removing non-nft equipments
+			var nonNfts = _gameDataProvider.EquipmentDataProvider.GetInventoryEquipmentInfo(EquipmentFilter.NoNftOnly);
+			if (nonNfts.Count > 0)
+			{
+				FLog.Info("Converting non-nfts to blast bucks");
+				_services.CommandService.ExecuteCommand(new NonNftConvertCommand());
 			}
 		}
 

@@ -3,6 +3,7 @@ using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using FirstLight.FLogger;
+using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -108,6 +109,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_indicatorsRoot.SetActive(false);
 			_animatorWrapper.SetTrigger(AvatarViewBase.Triggers.Revived);
+			_services.VfxService.Spawn(VfxId.Revived).transform.position = transform.position + Vector3.up;
 			_view.GetComponentInChildren<MatchCharacterViewMonoComponent>()?.ShowAllEquipment();
 		}
 

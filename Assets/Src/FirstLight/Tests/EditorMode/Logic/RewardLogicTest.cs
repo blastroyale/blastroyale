@@ -371,9 +371,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 				{
 					PlayerRank = (uint) i,
 					Data = new PlayerMatchData()
-					{
-						CollectedOwnedNfts = collectedNfts
-					}
 				});
 				_executingPlayer = rank - 1;
 			}

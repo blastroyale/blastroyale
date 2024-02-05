@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Data.DataTypes;
@@ -52,7 +53,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Information about all the players that played in the match that ended.
 		/// </summary>
-		Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; }
+		Dictionary<PlayerRef, ClientCachedPlayerMatchData> PlayerMatchData { get; }
 
 		/// <summary>
 		/// List of rewards
@@ -106,18 +107,19 @@ namespace FirstLight.Game.Services
 		void Reload();
 	}
 
-	public struct PlayerMatchData
+	/// <summary>
+	/// Cached match data after simulation to be read by ending sequence
+	/// </summary>
+	public class ClientCachedPlayerMatchData
 	{
 		public PlayerRef PlayerRef { get; }
-
 		public QuantumPlayerMatchData QuantumPlayerMatchData;
 		public Equipment Weapon { get; }
-		public List<Equipment> Gear { get; }
+		public Equipment [] Gear { get; }
+		public GameId [] Cosmetics { get; }
 
-		public List<GameId> Cosmetics { get; }
-
-		public PlayerMatchData(PlayerRef playerRef, QuantumPlayerMatchData quantumData, Equipment weapon,
-							   List<Equipment> gear, List<GameId> cosmetics)
+		public ClientCachedPlayerMatchData(PlayerRef playerRef, QuantumPlayerMatchData quantumData, Equipment weapon,
+							   Equipment [] gear, GameId [] cosmetics)
 		{
 			PlayerRef = playerRef;
 			QuantumPlayerMatchData = quantumData;
@@ -139,7 +141,7 @@ namespace FirstLight.Game.Services
 		public QuantumPlayerMatchData LocalPlayerMatchData { get; private set; }
 		public PlayerRef LocalPlayerKiller { get; private set; }
 		public bool DiedFromRoofDamage { get; private set; }
-		public Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; private set; } = new();
+		public Dictionary<PlayerRef, ClientCachedPlayerMatchData> PlayerMatchData { get; private set; } = new();
 		public List<ItemData> Rewards { get; private set; }
 		public int TrophiesChange { get; private set; }
 		public uint TrophiesBeforeChange { get; private set; }
@@ -172,7 +174,7 @@ namespace FirstLight.Game.Services
 			CSBeforeChange = (uint) _dataProvider.CurrencyDataProvider.Currencies[GameId.CS];
 			ShowUIStandingsExtraInfo = game.Frames.Verified.Context.GameModeConfig.ShowUIStandingsExtraInfo;
 			LocalPlayer = game.GetLocalPlayerRef();
-			PlayerMatchData = new Dictionary<PlayerRef, PlayerMatchData>();
+			PlayerMatchData = new Dictionary<PlayerRef, ClientCachedPlayerMatchData>();
 			LocalPlayerKiller = PlayerRef.None;
 			PlayersFinalEquipment.Clear();
 			LevelBeforeChange = _dataProvider.PlayerDataProvider.Level.Value;
@@ -232,8 +234,6 @@ namespace FirstLight.Game.Services
 				var frameData = frame.GetPlayerData(quantumPlayerData.Data.Player);
 				
 				Equipment weapon = Equipment.None;
-
-				var gear = frameData?.Loadout?.Where(l => !l.IsWeapon()).ToList() ?? new List<Equipment>();
 				
 				if (PlayersFinalEquipment.ContainsKey(quantumPlayerData.Data.Player))
 				{
@@ -245,18 +245,9 @@ namespace FirstLight.Game.Services
 					var playerCharacter = frame.Get<PlayerCharacter>(quantumPlayerData.Data.Entity);
 					weapon = playerCharacter.CurrentWeapon;
 				}
-				else if (frameData != null)
-				{
-					weapon = frameData.Weapon;
-				}
-
-				if (weapon.IsValid())
-				{
-					gear.Add(weapon);
-				}
 
 				var cosmetics = PlayerLoadout.GetCosmetics(frame, quantumPlayerData.Data.Player);
-				var playerData = new PlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, gear, cosmetics.ToList());
+				var playerData = new ClientCachedPlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, Array.Empty<Equipment>(), cosmetics);
 
 				if (game.PlayerIsLocal(playerData.PlayerRef))
 				{

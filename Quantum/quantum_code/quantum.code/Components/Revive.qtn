@@ -5,7 +5,6 @@
 component KnockedOut{
     byte ConfigIndex;
     FP NextDamageAt;
-    FP StartedRevivingAt;
     [AllocateOnComponentAdded, FreeOnComponentRemoved]
     hash_set<entity_ref> PlayersReviving;
     FP EndRevivingAt;

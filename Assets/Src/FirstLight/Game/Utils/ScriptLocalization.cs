@@ -1300,8 +1300,8 @@ namespace I2.Loc
 			public static string SpecialHealingModeDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialHealingModeDescription"); } }
 			public static string SpecialInvisibilitySelf 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialInvisibilitySelf"); } }
 			public static string SpecialInvisibilitySelfDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialInvisibilitySelfDescription"); } }
-			public static string SpecialLandMine 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialLandMine"); } }
-			public static string SpecialLandMineDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialLandMineDescription"); } }
+			public static string SpecialLandmine 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialLandmine"); } }
+			public static string SpecialLandmineDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialLandmineDescription"); } }
 			public static string SpecialRadar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialRadar"); } }
 			public static string SpecialRadarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialRadarDescription"); } }
 			public static string SpecialRageSelf 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialRageSelf"); } }
@@ -3639,8 +3639,8 @@ namespace I2.Loc
 		    public const string SpecialHealingModeDescription = "GameIds/SpecialHealingModeDescription";
 		    public const string SpecialInvisibilitySelf = "GameIds/SpecialInvisibilitySelf";
 		    public const string SpecialInvisibilitySelfDescription = "GameIds/SpecialInvisibilitySelfDescription";
-		    public const string SpecialLandMine = "GameIds/SpecialLandMine";
-		    public const string SpecialLandMineDescription = "GameIds/SpecialLandMineDescription";
+		    public const string SpecialLandmine = "GameIds/SpecialLandmine";
+		    public const string SpecialLandmineDescription = "GameIds/SpecialLandmineDescription";
 		    public const string SpecialRadar = "GameIds/SpecialRadar";
 		    public const string SpecialRadarDescription = "GameIds/SpecialRadarDescription";
 		    public const string SpecialRageSelf = "GameIds/SpecialRageSelf";

@@ -93,7 +93,7 @@ namespace FirstLight.Game.Services
 		{
 			if (MainInstaller.TryResolve<IGameStateMachine>(out var state))
 			{
-				FLog.Info(state.GetCurrentStateDebug());
+				FLog.Info($"Game Paused Update: {paused} {state.GetCurrentStateDebug()}");
 			}
 
 			if (FeatureFlags.GetLocalConfiguration().DisablePauseBehaviour)

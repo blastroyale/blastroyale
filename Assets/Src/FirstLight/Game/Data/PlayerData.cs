@@ -34,7 +34,6 @@ namespace FirstLight.Game.Data
 		public readonly Dictionary<GameIdGroup, UniqueId> Equipped = new(new GameIdGroupComparer());
 		public readonly Dictionary<GameId, ResourcePoolData> ResourcePools = new(new GameIdComparer())
 		{
-			{ GameId.CS, new ResourcePoolData(GameId.CS, 0, DateTime.MinValue) },
 			{ GameId.BPP, new ResourcePoolData(GameId.BPP, 0, DateTime.MinValue) },
 		};
 		public readonly Dictionary<GameId, ulong> Currencies = new (new GameIdComparer())

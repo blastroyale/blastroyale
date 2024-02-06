@@ -15,7 +15,6 @@
                     <ui:VisualElement name="SettingsNotification" class="notification-icon button-with-icon__notification" style="top: -1px; right: -5px;" />
                 </FirstLight.Game.UIElements.ImageButton>
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-1 anim-translate anim-translate--down-s" />
-                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="FragmentsCurrency" currency="Fragments" class="anim-delay-2 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBuckCurrency" currency="BlastBuck" class="anim-delay-0 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
@@ -41,16 +40,6 @@
                     <ui:VisualElement name="Dimmer" class="game-mode-button__dimmer fill-parent" />
                 </FirstLight.Game.UIElements.ImageButton>
                 <ui:VisualElement name="PlayButtonHolder" class="anim-delay-0 anim-translate anim-translate--left-l button-with-pool">
-                    <ui:VisualElement name="CSPoolContainer" class="resource-pool resource-pool--cs">
-                        <ui:VisualElement name="Background" class="resource-pool__background" />
-                        <ui:VisualElement name="Holder" class="resource-pool__holder">
-                            <ui:VisualElement name="Separator" class="resource-pool__separator" />
-                            <ui:Label text="+20" name="RestockLabelAmount" />
-                            <ui:VisualElement name="cscon" class="resource-pool__icon" />
-                            <ui:Label text="IN 2H 45M" name="RestockLabelTime" />
-                            <ui:Label text="&lt;color=#49D4D4&gt;20&lt;/color&gt; / 100&#10;" name="AmountLabel" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/play" name="PlayButton" class="sfx-click-forwards play-button">
                         <FirstLight.Game.UIElements.AnimatedImageElement name="LoadIcon" rotations-per-second="1" class="play-button__spinner loading-spinner" />
                         <ui:VisualElement name="CheckmarkBG" class="play-button__checkmark-bg">

@@ -25,9 +25,7 @@ namespace FirstLight.Game.Input
 
 		public override Vector2 Process(Vector2 value, InputControl control)
 		{
-			// TODO: Read rotation value from match camera and apply opposite rotation
-
-			value = value.Rotate(-33);
+			value = value.Rotate(-FLGCamera.Instance.MainCamera.transform.rotation.eulerAngles.y);
 
 			return value;
 		}

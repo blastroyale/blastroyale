@@ -3249,831 +3249,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: BotNames/Bot31
-      TermType: 0
-      Description: 
-      Languages:
-      - ITS ME MUM
-      - Trudy
-      - Trudy
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot32
-      TermType: 0
-      Description: 
-      Languages:
-      - Mandy Land
-      - Bangers Mash
-      - Bangers Mash
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot33
-      TermType: 0
-      Description: 
-      Languages:
-      - Curt Vogel
-      - ITS ME MUM
-      - ITS ME MUM
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot34
-      TermType: 0
-      Description: 
-      Languages:
-      - you fail
-      - Mandy Land
-      - Mandy Land
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot35
-      TermType: 0
-      Description: 
-      Languages:
-      - Le Fox
-      - Curt Vogel
-      - Curt Vogel
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot36
-      TermType: 0
-      Description: 
-      Languages:
-      - VLAD_69
-      - you fail
-      - you fail
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot37
-      TermType: 0
-      Description: 
-      Languages:
-      - Botticelli
-      - Le Fox
-      - Le Fox
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot38
-      TermType: 0
-      Description: 
-      Languages:
-      - James25
-      - VLAD_69
-      - VLAD_69
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot39
-      TermType: 0
-      Description: 
-      Languages:
-      - IAN BOT
-      - Botticelli
-      - Botticelli
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot4
-      TermType: 0
-      Description: 
-      Languages:
-      - LEBOT23
-      - James25
-      - James25
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot40
-      TermType: 0
-      Description: 
-      Languages:
-      - Randy
-      - IAN BOT
-      - IAN BOT
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot41
-      TermType: 0
-      Description: 
-      Languages:
-      - Coconut
-      - LEBOT23
-      - LEBOT23
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot42
-      TermType: 0
-      Description: 
-      Languages:
-      - UncleDeeDee
-      - Randy
-      - Randy
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot43
-      TermType: 0
-      Description: 
-      Languages:
-      - Patty
-      - Coconut
-      - Coconut
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot44
-      TermType: 0
-      Description: 
-      Languages:
-      - Kitten
-      - UncleDeeDee
-      - UncleDeeDee
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot45
-      TermType: 0
-      Description: 
-      Languages:
-      - BrokenDevelop
-      - Patty
-      - Patty
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot46
-      TermType: 0
-      Description: 
-      Languages:
-      - Gandalf
-      - Kitten
-      - Kitten
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot47
-      TermType: 0
-      Description: 
-      Languages:
-      - Handyman
-      - BrokenDevelop
-      - BrokenDevelop
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot48
-      TermType: 0
-      Description: 
-      Languages:
-      - Olivia
-      - Gandalf
-      - Gandalf
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot49
-      TermType: 0
-      Description: 
-      Languages:
-      - HairyPotter
-      - Handyman
-      - Handyman
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot5
-      TermType: 0
-      Description: 
-      Languages:
-      - Doctor
-      - Olivia
-      - Olivia
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot50
-      TermType: 0
-      Description: 
-      Languages:
-      - Jeremy
-      - HairyPotter
-      - HairyPotter
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot51
-      TermType: 0
-      Description: 
-      Languages:
-      - WWWWWWW
-      - Doctor
-      - Doctor
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot52
-      TermType: 0
-      Description: 
-      Languages:
-      - WOW
-      - Jeremy
-      - Jeremy
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot53
-      TermType: 0
-      Description: 
-      Languages:
-      - VX IX IV XX
-      - WWWWWWW
-      - WWWWWWW
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot54
-      TermType: 0
-      Description: 
-      Languages:
-      - MickeyMouse
-      - WOW
-      - WOW
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot55
-      TermType: 0
-      Description: 
-      Languages:
-      - Einstein
-      - VX IX IV XX
-      - VX IX IV XX
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot56
-      TermType: 0
-      Description: 
-      Languages:
-      - Gorilla
-      - MickeyMouse
-      - MickeyMouse
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot57
-      TermType: 0
-      Description: 
-      Languages:
-      - 24 Pound
-      - Einstein
-      - Einstein
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot58
-      TermType: 0
-      Description: 
-      Languages:
-      - Emma
-      - Gorilla
-      - Gorilla
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot59
-      TermType: 0
-      Description: 
-      Languages:
-      - NIKE69
-      - 24 Pound
-      - 24 Pound
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot6
-      TermType: 0
-      Description: 
-      Languages:
-      - Messi
-      - Emma
-      - Emma
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot60
-      TermType: 0
-      Description: 
-      Languages:
-      - Ronaldo
-      - NIKE69
-      - NIKE69
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot61
-      TermType: 0
-      Description: 
-      Languages:
-      - BOI BOI
-      - Messi
-      - Messi
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot62
-      TermType: 0
-      Description: 
-      Languages:
-      - BOOM
-      - Ronaldo
-      - Ronaldo
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot63
-      TermType: 0
-      Description: 
-      Languages:
-      - FFFFFFF1982
-      - BOI BOI
-      - BOI BOI
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot64
-      TermType: 0
-      Description: 
-      Languages:
-      - AK-420
-      - BOOM
-      - BOOM
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot65
-      TermType: 0
-      Description: 
-      Languages:
-      - ADAM
-      - FFFFFFF1982
-      - FFFFFFF1982
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot66
-      TermType: 0
-      Description: 
-      Languages:
-      - NFT
-      - AK-420
-      - AK-420
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot67
-      TermType: 0
-      Description: 
-      Languages:
-      - Bitcoin
-      - ADAM
-      - ADAM
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot68
-      TermType: 0
-      Description: 
-      Languages:
-      - Ava
-      - NFT
-      - NFT
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot69
-      TermType: 0
-      Description: 
-      Languages:
-      - BILLIONAIRE
-      - Bitcoin
-      - Bitcoin
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot7
-      TermType: 0
-      Description: 
-      Languages:
-      - KK M8
-      - Ava
-      - Ava
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot70
-      TermType: 0
-      Description: 
-      Languages:
-      - Lightning
-      - BILLIONAIRE
-      - BILLIONAIRE
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot71
-      TermType: 0
-      Description: 
-      Languages:
-      - Nelson
-      - KK M8
-      - KK M8
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot72
-      TermType: 0
-      Description: 
-      Languages:
-      - Napoleon
-      - Lightning
-      - Lightning
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot73
-      TermType: 0
-      Description: 
-      Languages:
-      - Montgomery
-      - Nelson
-      - Nelson
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot74
-      TermType: 0
-      Description: 
-      Languages:
-      - Boomer
-      - Napoleon
-      - Napoleon
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot75
-      TermType: 0
-      Description: 
-      Languages:
-      - Millenial
-      - Montgomery
-      - Montgomery
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot76
-      TermType: 0
-      Description: 
-      Languages:
-      - SR NEE
-      - Boomer
-      - Boomer
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot77
-      TermType: 0
-      Description: 
-      Languages:
-      - Tagged
-      - Millenial
-      - Millenial
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot78
-      TermType: 0
-      Description: 
-      Languages:
-      - Mia
-      - SR NEE
-      - SR NEE
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot79
-      TermType: 0
-      Description: 
-      Languages:
-      - Woke
-      - Tagged
-      - Tagged
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot8
-      TermType: 0
-      Description: 
-      Languages:
-      - GenX
-      - Mia
-      - Mia
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot80
-      TermType: 0
-      Description: 
-      Languages:
-      - GenZ
-      - Woke
-      - Woke
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot81
-      TermType: 0
-      Description: 
-      Languages:
-      - Furry
-      - GenX
-      - GenX
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot82
-      TermType: 0
-      Description: 
-      Languages:
-      - Fat Cat
-      - GenZ
-      - GenZ
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot83
-      TermType: 0
-      Description: 
-      Languages:
-      - Piggy
-      - Furry
-      - Furry
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot84
-      TermType: 0
-      Description: 
-      Languages:
-      - Panic
-      - Fat Cat
-      - Fat Cat
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot85
-      TermType: 0
-      Description: 
-      Languages:
-      - DESTROYER
-      - Piggy
-      - Piggy
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot86
-      TermType: 0
-      Description: 
-      Languages:
-      - SimpleDimple
-      - Panic
-      - Panic
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot87
-      TermType: 0
-      Description: 
-      Languages:
-      - Popit
-      - DESTROYER
-      - DESTROYER
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot88
-      TermType: 0
-      Description: 
-      Languages:
-      - Harper
-      - SimpleDimple
-      - SimpleDimple
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot89
-      TermType: 0
-      Description: 
-      Languages:
-      - Nagibator
-      - Popit
-      - Popit
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot9
-      TermType: 0
-      Description: 
-      Languages:
-      - Cyb0rg
-      - Harper
-      - Harper
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot90
-      TermType: 0
-      Description: 
-      Languages:
-      - PANGDANG
-      - Nagibator
-      - Nagibator
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot91
-      TermType: 0
-      Description: 
-      Languages:
-      - s1ake
-      - Cyb0rg
-      - Cyb0rg
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot92
-      TermType: 0
-      Description: 
-      Languages:
-      - peppa
-      - PANGDANG
-      - PANGDANG
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot93
-      TermType: 0
-      Description: 
-      Languages:
-      - D33PM1ND
-      - s1ake
-      - s1ake
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot94
-      TermType: 0
-      Description: 
-      Languages:
-      - 2Pints
-      - peppa
-      - peppa
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot95
-      TermType: 0
-      Description: 
-      Languages:
-      - SwiftHalf
-      - D33PM1ND
-      - D33PM1ND
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot96
-      TermType: 0
-      Description: 
-      Languages:
-      - CHEEKYNANDO
-      - 2Pints
-      - 2Pints
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot97
-      TermType: 0
-      Description: 
-      Languages:
-      - OIOISAVALOY
-      - SwiftHalf
-      - SwiftHalf
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot98
-      TermType: 0
-      Description: 
-      Languages:
-      - PixelPenguin
-      - CHEEKYNANDO
-      - CHEEKYNANDO
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: BotNames/Bot99
-      TermType: 0
-      Description: 
-      Languages:
-      - GamingGuru
-      - OIOISAVALOY
-      - OIOISAVALOY
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: BotNames/Bot302
       TermType: 0
       Description: 
@@ -4158,6 +3333,17 @@ MonoBehaviour:
       - ChampOfAll
       - ChampOfAll
       - ChampOfAll
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot31
+      TermType: 0
+      Description: 
+      Languages:
+      - ITS ME MUM
+      - Trudy
+      - Trudy
       - 
       - 
       Flags: 0000000000
@@ -4272,6 +3458,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot32
+      TermType: 0
+      Description: 
+      Languages:
+      - Mandy Land
+      - Bangers Mash
+      - Bangers Mash
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot320
       TermType: 0
       Description: 
@@ -4378,6 +3575,17 @@ MonoBehaviour:
       - Rebel
       - Rebel
       - Rebel
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot33
+      TermType: 0
+      Description: 
+      Languages:
+      - Curt Vogel
+      - ITS ME MUM
+      - ITS ME MUM
       - 
       - 
       Flags: 0000000000
@@ -4492,6 +3700,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot34
+      TermType: 0
+      Description: 
+      Languages:
+      - you fail
+      - Mandy Land
+      - Mandy Land
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot340
       TermType: 0
       Description: 
@@ -4598,6 +3817,17 @@ MonoBehaviour:
       - Havoc
       - Havoc
       - Havoc
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot35
+      TermType: 0
+      Description: 
+      Languages:
+      - Le Fox
+      - Curt Vogel
+      - Curt Vogel
       - 
       - 
       Flags: 0000000000
@@ -4712,6 +3942,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot36
+      TermType: 0
+      Description: 
+      Languages:
+      - VLAD_69
+      - you fail
+      - you fail
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot360
       TermType: 0
       Description: 
@@ -4818,6 +4059,17 @@ MonoBehaviour:
       - K1LL3R
       - K1LL3R
       - K1LL3R
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot37
+      TermType: 0
+      Description: 
+      Languages:
+      - Botticelli
+      - Le Fox
+      - Le Fox
       - 
       - 
       Flags: 0000000000
@@ -4932,6 +4184,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot38
+      TermType: 0
+      Description: 
+      Languages:
+      - James25
+      - VLAD_69
+      - VLAD_69
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot380
       TermType: 0
       Description: 
@@ -5038,6 +4301,17 @@ MonoBehaviour:
       - F0X
       - F0X
       - F0X
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot39
+      TermType: 0
+      Description: 
+      Languages:
+      - IAN BOT
+      - Botticelli
+      - Botticelli
       - 
       - 
       Flags: 0000000000
@@ -5152,6 +4426,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot4
+      TermType: 0
+      Description: 
+      Languages:
+      - LEBOT23
+      - James25
+      - James25
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot40
+      TermType: 0
+      Description: 
+      Languages:
+      - Randy
+      - IAN BOT
+      - IAN BOT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot400
       TermType: 0
       Description: 
@@ -5258,6 +4554,17 @@ MonoBehaviour:
       - pepsipon
       - pepsipon
       - pepsipon
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot41
+      TermType: 0
+      Description: 
+      Languages:
+      - Coconut
+      - LEBOT23
+      - LEBOT23
       - 
       - 
       Flags: 0000000000
@@ -5372,6 +4679,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot42
+      TermType: 0
+      Description: 
+      Languages:
+      - UncleDeeDee
+      - Randy
+      - Randy
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot420
       TermType: 0
       Description: 
@@ -5478,6 +4796,17 @@ MonoBehaviour:
       - ST3L AlphaStrike
       - ST3L AlphaStrike
       - ST3L AlphaStrike
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot43
+      TermType: 0
+      Description: 
+      Languages:
+      - Patty
+      - Coconut
+      - Coconut
       - 
       - 
       Flags: 0000000000
@@ -5592,6 +4921,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot44
+      TermType: 0
+      Description: 
+      Languages:
+      - Kitten
+      - UncleDeeDee
+      - UncleDeeDee
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot440
       TermType: 0
       Description: 
@@ -5698,6 +5038,17 @@ MonoBehaviour:
       - R3AP NovaHunter
       - R3AP NovaHunter
       - R3AP NovaHunter
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot45
+      TermType: 0
+      Description: 
+      Languages:
+      - BrokenDevelop
+      - Patty
+      - Patty
       - 
       - 
       Flags: 0000000000
@@ -5812,6 +5163,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot46
+      TermType: 0
+      Description: 
+      Languages:
+      - Gandalf
+      - Kitten
+      - Kitten
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot460
       TermType: 0
       Description: 
@@ -5918,6 +5280,17 @@ MonoBehaviour:
       - BP BulletStorm
       - BP BulletStorm
       - BP BulletStorm
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot47
+      TermType: 0
+      Description: 
+      Languages:
+      - Handyman
+      - BrokenDevelop
+      - BrokenDevelop
       - 
       - 
       Flags: 0000000000
@@ -6032,6 +5405,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot48
+      TermType: 0
+      Description: 
+      Languages:
+      - Olivia
+      - Gandalf
+      - Gandalf
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot480
       TermType: 0
       Description: 
@@ -6138,6 +5522,17 @@ MonoBehaviour:
       - Ryota
       - Ryota
       - Ryota
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot49
+      TermType: 0
+      Description: 
+      Languages:
+      - HairyPotter
+      - Handyman
+      - Handyman
       - 
       - 
       Flags: 0000000000
@@ -6252,6 +5647,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot5
+      TermType: 0
+      Description: 
+      Languages:
+      - Doctor
+      - Olivia
+      - Olivia
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot50
+      TermType: 0
+      Description: 
+      Languages:
+      - Jeremy
+      - HairyPotter
+      - HairyPotter
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot500
       TermType: 0
       Description: 
@@ -6358,6 +5775,17 @@ MonoBehaviour:
       - wahyu
       - wahyu
       - wahyu
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot51
+      TermType: 0
+      Description: 
+      Languages:
+      - WWWWWWW
+      - Doctor
+      - Doctor
       - 
       - 
       Flags: 0000000000
@@ -6472,6 +5900,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot52
+      TermType: 0
+      Description: 
+      Languages:
+      - WOW
+      - Jeremy
+      - Jeremy
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot520
       TermType: 0
       Description: 
@@ -6578,6 +6017,17 @@ MonoBehaviour:
       - seungmin
       - seungmin
       - seungmin
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot53
+      TermType: 0
+      Description: 
+      Languages:
+      - VX IX IV XX
+      - WWWWWWW
+      - WWWWWWW
       - 
       - 
       Flags: 0000000000
@@ -6692,6 +6142,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot54
+      TermType: 0
+      Description: 
+      Languages:
+      - MickeyMouse
+      - WOW
+      - WOW
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot540
       TermType: 0
       Description: 
@@ -6798,6 +6259,17 @@ MonoBehaviour:
       - lukas
       - lukas
       - lukas
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot55
+      TermType: 0
+      Description: 
+      Languages:
+      - Einstein
+      - VX IX IV XX
+      - VX IX IV XX
       - 
       - 
       Flags: 0000000000
@@ -6912,6 +6384,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot56
+      TermType: 0
+      Description: 
+      Languages:
+      - Gorilla
+      - MickeyMouse
+      - MickeyMouse
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot560
       TermType: 0
       Description: 
@@ -7018,6 +6501,17 @@ MonoBehaviour:
       - onur
       - onur
       - onur
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot57
+      TermType: 0
+      Description: 
+      Languages:
+      - 24 Pound
+      - Einstein
+      - Einstein
       - 
       - 
       Flags: 0000000000
@@ -7132,6 +6626,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot58
+      TermType: 0
+      Description: 
+      Languages:
+      - Emma
+      - Gorilla
+      - Gorilla
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot580
       TermType: 0
       Description: 
@@ -7238,6 +6743,17 @@ MonoBehaviour:
       - felix
       - felix
       - felix
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot59
+      TermType: 0
+      Description: 
+      Languages:
+      - NIKE69
+      - 24 Pound
+      - 24 Pound
       - 
       - 
       Flags: 0000000000
@@ -7352,6 +6868,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot6
+      TermType: 0
+      Description: 
+      Languages:
+      - Messi
+      - Emma
+      - Emma
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot60
+      TermType: 0
+      Description: 
+      Languages:
+      - Ronaldo
+      - NIKE69
+      - NIKE69
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot600
       TermType: 0
       Description: 
@@ -7458,6 +6996,17 @@ MonoBehaviour:
       - leonardo
       - leonardo
       - leonardo
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot61
+      TermType: 0
+      Description: 
+      Languages:
+      - BOI BOI
+      - Messi
+      - Messi
       - 
       - 
       Flags: 0000000000
@@ -7572,6 +7121,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot62
+      TermType: 0
+      Description: 
+      Languages:
+      - BOOM
+      - Ronaldo
+      - Ronaldo
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot620
       TermType: 0
       Description: 
@@ -7678,6 +7238,17 @@ MonoBehaviour:
       - F4T4 ShadowFury
       - F4T4 ShadowFury
       - F4T4 ShadowFury
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot63
+      TermType: 0
+      Description: 
+      Languages:
+      - FFFFFFF1982
+      - BOI BOI
+      - BOI BOI
       - 
       - 
       Flags: 0000000000
@@ -7792,6 +7363,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot64
+      TermType: 0
+      Description: 
+      Languages:
+      - AK-420
+      - BOOM
+      - BOOM
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot640
       TermType: 0
       Description: 
@@ -7898,6 +7480,17 @@ MonoBehaviour:
       - STR1 SteelStrike
       - STR1 SteelStrike
       - STR1 SteelStrike
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot65
+      TermType: 0
+      Description: 
+      Languages:
+      - ADAM
+      - FFFFFFF1982
+      - FFFFFFF1982
       - 
       - 
       Flags: 0000000000
@@ -8012,6 +7605,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot66
+      TermType: 0
+      Description: 
+      Languages:
+      - NFT
+      - AK-420
+      - AK-420
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot660
       TermType: 0
       Description: 
@@ -8118,6 +7722,17 @@ MonoBehaviour:
       - Inferno
       - Inferno
       - Inferno
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot67
+      TermType: 0
+      Description: 
+      Languages:
+      - Bitcoin
+      - ADAM
+      - ADAM
       - 
       - 
       Flags: 0000000000
@@ -8232,6 +7847,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot68
+      TermType: 0
+      Description: 
+      Languages:
+      - Ava
+      - NFT
+      - NFT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot680
       TermType: 0
       Description: 
@@ -8338,6 +7964,17 @@ MonoBehaviour:
       - Riddle
       - Riddle
       - Riddle
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot69
+      TermType: 0
+      Description: 
+      Languages:
+      - BILLIONAIRE
+      - Bitcoin
+      - Bitcoin
       - 
       - 
       Flags: 0000000000
@@ -8452,6 +8089,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot7
+      TermType: 0
+      Description: 
+      Languages:
+      - KK M8
+      - Ava
+      - Ava
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot70
+      TermType: 0
+      Description: 
+      Languages:
+      - Lightning
+      - BILLIONAIRE
+      - BILLIONAIRE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot700
       TermType: 0
       Description: 
@@ -8558,6 +8217,17 @@ MonoBehaviour:
       - Perfect
       - Perfect
       - Perfect
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot71
+      TermType: 0
+      Description: 
+      Languages:
+      - Nelson
+      - KK M8
+      - KK M8
       - 
       - 
       Flags: 0000000000
@@ -8672,6 +8342,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot72
+      TermType: 0
+      Description: 
+      Languages:
+      - Napoleon
+      - Lightning
+      - Lightning
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot720
       TermType: 0
       Description: 
@@ -8778,6 +8459,17 @@ MonoBehaviour:
       - obsidianHunter
       - obsidianHunter
       - obsidianHunter
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot73
+      TermType: 0
+      Description: 
+      Languages:
+      - Montgomery
+      - Nelson
+      - Nelson
       - 
       - 
       Flags: 0000000000
@@ -8892,6 +8584,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot74
+      TermType: 0
+      Description: 
+      Languages:
+      - Boomer
+      - Napoleon
+      - Napoleon
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot740
       TermType: 0
       Description: 
@@ -8998,6 +8701,17 @@ MonoBehaviour:
       - solarRaider
       - solarRaider
       - solarRaider
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot75
+      TermType: 0
+      Description: 
+      Languages:
+      - Millenial
+      - Montgomery
+      - Montgomery
       - 
       - 
       Flags: 0000000000
@@ -9112,6 +8826,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot76
+      TermType: 0
+      Description: 
+      Languages:
+      - SR NEE
+      - Boomer
+      - Boomer
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot760
       TermType: 0
       Description: 
@@ -9218,6 +8943,17 @@ MonoBehaviour:
       - fireBlitz
       - fireBlitz
       - fireBlitz
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot77
+      TermType: 0
+      Description: 
+      Languages:
+      - Tagged
+      - Millenial
+      - Millenial
       - 
       - 
       Flags: 0000000000
@@ -9332,6 +9068,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot78
+      TermType: 0
+      Description: 
+      Languages:
+      - Mia
+      - SR NEE
+      - SR NEE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot780
       TermType: 0
       Description: 
@@ -9438,6 +9185,17 @@ MonoBehaviour:
       - blazeShifter
       - blazeShifter
       - blazeShifter
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot79
+      TermType: 0
+      Description: 
+      Languages:
+      - Woke
+      - Tagged
+      - Tagged
       - 
       - 
       Flags: 0000000000
@@ -9552,6 +9310,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot8
+      TermType: 0
+      Description: 
+      Languages:
+      - GenX
+      - Mia
+      - Mia
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot80
+      TermType: 0
+      Description: 
+      Languages:
+      - GenZ
+      - Woke
+      - Woke
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot800
       TermType: 0
       Description: 
@@ -9658,6 +9438,17 @@ MonoBehaviour:
       - obsidianHunter
       - obsidianHunter
       - obsidianHunter
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot81
+      TermType: 0
+      Description: 
+      Languages:
+      - Furry
+      - GenX
+      - GenX
       - 
       - 
       Flags: 0000000000
@@ -9772,6 +9563,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot82
+      TermType: 0
+      Description: 
+      Languages:
+      - Fat Cat
+      - GenZ
+      - GenZ
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot820
       TermType: 0
       Description: 
@@ -9878,6 +9680,17 @@ MonoBehaviour:
       - thunderPredator
       - thunderPredator
       - thunderPredator
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot83
+      TermType: 0
+      Description: 
+      Languages:
+      - Piggy
+      - Furry
+      - Furry
       - 
       - 
       Flags: 0000000000
@@ -9992,6 +9805,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot84
+      TermType: 0
+      Description: 
+      Languages:
+      - Panic
+      - Fat Cat
+      - Fat Cat
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot840
       TermType: 0
       Description: 
@@ -10098,6 +9922,17 @@ MonoBehaviour:
       - captainHunter
       - captainHunter
       - captainHunter
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot85
+      TermType: 0
+      Description: 
+      Languages:
+      - DESTROYER
+      - Piggy
+      - Piggy
       - 
       - 
       Flags: 0000000000
@@ -10212,6 +10047,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot86
+      TermType: 0
+      Description: 
+      Languages:
+      - SimpleDimple
+      - Panic
+      - Panic
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot860
       TermType: 0
       Description: 
@@ -10318,6 +10164,17 @@ MonoBehaviour:
       - obsidianWraith
       - obsidianWraith
       - obsidianWraith
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot87
+      TermType: 0
+      Description: 
+      Languages:
+      - Popit
+      - DESTROYER
+      - DESTROYER
       - 
       - 
       Flags: 0000000000
@@ -10432,6 +10289,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot88
+      TermType: 0
+      Description: 
+      Languages:
+      - Harper
+      - SimpleDimple
+      - SimpleDimple
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot880
       TermType: 0
       Description: 
@@ -10538,6 +10406,17 @@ MonoBehaviour:
       - captainHavoc
       - captainHavoc
       - captainHavoc
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot89
+      TermType: 0
+      Description: 
+      Languages:
+      - Nagibator
+      - Popit
+      - Popit
       - 
       - 
       Flags: 0000000000
@@ -10652,6 +10531,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot9
+      TermType: 0
+      Description: 
+      Languages:
+      - Cyb0rg
+      - Harper
+      - Harper
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot90
+      TermType: 0
+      Description: 
+      Languages:
+      - PANGDANG
+      - Nagibator
+      - Nagibator
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot900
       TermType: 0
       Description: 
@@ -10762,6 +10663,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: BotNames/Bot91
+      TermType: 0
+      Description: 
+      Languages:
+      - s1ake
+      - Cyb0rg
+      - Cyb0rg
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: BotNames/Bot910
       TermType: 0
       Description: 
@@ -10802,6 +10714,94 @@ MonoBehaviour:
       - proglot
       - proglot
       - proglot
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot92
+      TermType: 0
+      Description: 
+      Languages:
+      - peppa
+      - PANGDANG
+      - PANGDANG
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot93
+      TermType: 0
+      Description: 
+      Languages:
+      - D33PM1ND
+      - s1ake
+      - s1ake
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot94
+      TermType: 0
+      Description: 
+      Languages:
+      - 2Pints
+      - peppa
+      - peppa
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot95
+      TermType: 0
+      Description: 
+      Languages:
+      - SwiftHalf
+      - D33PM1ND
+      - D33PM1ND
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot96
+      TermType: 0
+      Description: 
+      Languages:
+      - CHEEKYNANDO
+      - 2Pints
+      - 2Pints
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot97
+      TermType: 0
+      Description: 
+      Languages:
+      - OIOISAVALOY
+      - SwiftHalf
+      - SwiftHalf
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot98
+      TermType: 0
+      Description: 
+      Languages:
+      - PixelPenguin
+      - CHEEKYNANDO
+      - CHEEKYNANDO
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: BotNames/Bot99
+      TermType: 0
+      Description: 
+      Languages:
+      - GamingGuru
+      - OIOISAVALOY
+      - OIOISAVALOY
       - 
       - 
       Flags: 0000000000
@@ -11298,22 +11298,22 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/BattleRoyaleTrios
+    - Term: GameIds/BattleRoyaleDuos
       TermType: 0
       Description: 
       Languages:
-      - BATTLE ROYALE TRIOS
+      - BATTLE ROYALE DUOS
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/BattleRoyaleDuos
+    - Term: GameIds/BattleRoyaleTrios
       TermType: 0
       Description: 
       Languages:
-      - BATTLE ROYALE DUOS
+      - BATTLE ROYALE TRIOS
       - 
       - 
       - 
@@ -11349,6 +11349,44 @@ MonoBehaviour:
       - BIG ROYALE TRIOS
       - 
       - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BlastBuck
+      TermType: 0
+      Description: 
+      Languages:
+      - BLAST BUCK
+      - BLAST BUCK
+      - BLAST BUCK
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BlastBuckDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Blast Bucks by completing
+
+        Blast Pass or buy them in the shop.
+
+        Use
+        them to speed up Blast Pass progress'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BlastBuck_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - BLAST BUCKS
+      - BLAST BUCKS
+      - BLAST BUCKS
       - 
       - 
       Flags: 0000000000
@@ -11545,6 +11583,17 @@ MonoBehaviour:
       - Casual
       - "\u041F\u043E\u0432\u0441\u0435\u0434\u043D\u0435\u0432\u043D\u044B\u0439"
       - Casual
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Cemetery
+      TermType: 0
+      Description: 
+      Languages:
+      - CEMETERY
+      - CEMETERY
+      - CEMETERY
       - 
       - 
       Flags: 0000000000
@@ -12035,6 +12084,17 @@ MonoBehaviour:
       - ' '
       - 
       - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Fortress
+      TermType: 0
+      Description: 
+      Languages:
+      - FORTRESS
+      - FORTRESS
+      - FORTRESS
       - 
       - 
       Flags: 0000000000
@@ -12560,6 +12620,248 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinAtomSlicer
+      TermType: 0
+      Description: 
+      Languages:
+      - ATOM SLICER
+      - ATOM SLICER
+      - ATOM SLICER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinCactus
+      TermType: 0
+      Description: 
+      Languages:
+      - PICKY BOY
+      - PICKY BOY
+      - PICKY BOY
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinDaggerOfDestiny
+      TermType: 0
+      Description: 
+      Languages:
+      - DAGGER OF DESTINY
+      - DAGGER OF DESTINY
+      - DAGGER OF DESTINY
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinDefault
+      TermType: 0
+      Description: 
+      Languages:
+      - "EL CL\xC1SICO"
+      - "EL CL\xC1SICO"
+      - "EL CL\xC1SICO"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinElectricSolo
+      TermType: 0
+      Description: 
+      Languages:
+      - ELECTRIC SOLO
+      - ELECTRIC SOLO
+      - ELECTRIC SOLO
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinGigaMelee
+      TermType: 0
+      Description: 
+      Languages:
+      - GIGAHAMMER
+      - GIGAHAMMER
+      - GIGAHAMMER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinHatchet
+      TermType: 0
+      Description: 
+      Languages:
+      - HATCHET
+      - HATCHET
+      - HATCHET
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinMicDrop
+      TermType: 0
+      Description: 
+      Languages:
+      - MIC DROP
+      - MIC DROP
+      - MIC DROP
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinMightySledge
+      TermType: 0
+      Description: 
+      Languages:
+      - MIGHTY SLEDGE
+      - MIGHTY SLEDGE
+      - MIGHTY SLEDGE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinOutOfThePark
+      TermType: 0
+      Description: 
+      Languages:
+      - OUT OF THE PARK
+      - OUT OF THE PARK
+      - OUT OF THE PARK
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinPowerPan
+      TermType: 0
+      Description: 
+      Languages:
+      - POWER PAN
+      - POWER PAN
+      - POWER PAN
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinPutter
+      TermType: 0
+      Description: 
+      Languages:
+      - PUTTER
+      - PUTTER
+      - PUTTER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinSausage
+      TermType: 0
+      Description: 
+      Languages:
+      - SUPERDOG
+      - SUPERDOG
+      - SUPERDOG
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinSirQuacks
+      TermType: 0
+      Description: 
+      Languages:
+      - SIR QUACKS-A-LOT
+      - SIR QUACKS-A-LOT
+      - SIR QUACKS-A-LOT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinThunderAxe
+      TermType: 0
+      Description: 
+      Languages:
+      - THUNDER AXE
+      - THUNDER AXE
+      - THUNDER AXE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinToyMelee
+      TermType: 0
+      Description: 
+      Languages:
+      - TOY HAMMER
+      - TOY HAMMER
+      - TOY HAMMER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinTvTakedown
+      TermType: 0
+      Description: 
+      Languages:
+      - TV TAKEDOWN
+      - TV TAKEDOWN
+      - TV TAKEDOWN
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinWheelOfPain
+      TermType: 0
+      Description: 
+      Languages:
+      - WHEEL OF PAIN
+      - WHEEL OF PAIN
+      - WHEEL OF PAIN
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinWrench
+      TermType: 0
+      Description: 
+      Languages:
+      - WRENCH
+      - WRENCH
+      - WRENCH
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinXmas2023
+      TermType: 0
+      Description: 
+      Languages:
+      - CANDY CRUSHER
+      - CANDY CRUSHER
+      - CANDY CRUSHER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinXmas2023Description
+      TermType: 0
+      Description: 
+      Languages:
+      - 2023 Xmas Event
+      - 2023 Xmas Event
+      - 2023 Xmas Event
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinYouGotMail
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU GOT MAIL
+      - YOU GOT MAIL
+      - YOU GOT MAIL
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/ModHeavyMachineGun
       TermType: 0
       Description: 
@@ -12767,6 +13069,182 @@ MonoBehaviour:
         \u0433\u043E\u0440\u043E\u0434, \u0442\u0435\u043F\u0435\u0440\u044C \u043F\u043E\u043B\u044F
         \u0431\u043E\u0435\u0432\u044B\u0445 \u0441\u0430\u043B\u043E\u043D\u043E\u0432"
       - Uma vez uma cidade movimentada, agora um campo de batalha de saqueadores
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBoudicca
+      TermType: 0
+      Description: 
+      Languages:
+      - ASTRID
+      - ASTRID
+      - ASTRID
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBoudiccaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - For Valhalla!
+      - For Valhalla!
+      - For Valhalla!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCupid
+      TermType: 0
+      Description: 
+      Languages:
+      - VALENTINO
+      - VALENTINO
+      - VALENTINO
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCupidDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Aim Of Affection
+      - Aim Of Affection
+      - Aim Of Affection
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDragonBoxer
+      TermType: 0
+      Description: 
+      Languages:
+      - FURY
+      - Electra Deckard
+      - Electra Deckard
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDragonBoxerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - The Eye Of The Dragon
+      - Punk Rock Thrasher
+      - Punk Rock Thrasher
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFitnessChick
+      TermType: 0
+      Description: 
+      Languages:
+      - JUMPY JULIE
+      - Electra Deckard
+      - Electra Deckard
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFitnessChickDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Train Hard Or Die Training
+      - Punk Rock Thrasher
+      - Punk Rock Thrasher
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinJodie
+      TermType: 0
+      Description: 
+      Languages:
+      - KATNISS
+      - KATNISS
+      - KATNISS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinJodieDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - The Odds Are In My Favour
+      - The Odds Are In My Favour
+      - The Odds Are In My Favour
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMontyVonCue
+      TermType: 0
+      Description: 
+      Languages:
+      - 8 BALL MONTY
+      - 8 BALL MONTY
+      - 8 BALL MONTY
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMontyVonCueDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Rack 'Em & Wreck 'Em
+      - Rack 'Em & Wreck 'Em
+      - Rack 'Em & Wreck 'Em
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinTieGuy
+      TermType: 0
+      Description: 
+      Languages:
+      - RICK MOSS
+      - Electra Deckard
+      - Electra Deckard
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinTieGuyDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Came To A Better Place
+      - Punk Rock Thrasher
+      - Punk Rock Thrasher
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinXmasSuperstar
+      TermType: 0
+      Description: 
+      Languages:
+      - DRAKE CLAUS
+      - DRAKE CLAUS
+      - DRAKE CLAUS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinXmasSuperstarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 2023 Xmas Event
+      - 2023 Xmas Event
+      - 2023 Xmas Event
       - 
       - 
       Flags: 0000000000
@@ -13585,6 +14063,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/SpecialDefaultDash
+      TermType: 0
+      Description: 
+      Languages:
+      - DASH
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/SpecialHealAround
       TermType: 0
       Description: 
@@ -13608,28 +14097,6 @@ MonoBehaviour:
         \u0444\u0438\u043A\u0441\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u0439
         \u043E\u0431\u043B\u0430\u0441\u0442\u0438."
       - "Cura todos os jogadores\ndentro de uma \xE1rea fixa."
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/SpecialLandMine
-      TermType: 0
-      Description: 
-      Languages:
-      - LAND MINE
-      - LAND MINE
-      - Mina Terrestre
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/SpecialLandMineDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Places a land mine on the ground
-      - Places a land mine on the ground
-      - Coloca uma mina terrestre no chao
       - 
       - 
       Flags: 0000000000
@@ -13718,6 +14185,28 @@ MonoBehaviour:
         \u043D\u0430\u0446\u0435\u043B\u0438\u0442\u044C\u0441\u044F \u043D\u0430
         \u0432\u0430\u0441."
       - "Ficar invis\xEDvel, causando\ninimigos para parar de atingir voc\xEA."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/SpecialLandMine
+      TermType: 0
+      Description: 
+      Languages:
+      - LAND MINE
+      - LAND MINE
+      - Mina Terrestre
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/SpecialLandMineDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Places a land mine on the ground
+      - Places a land mine on the ground
+      - Coloca uma mina terrestre no chao
       - 
       - 
       Flags: 0000000000
@@ -13886,17 +14375,6 @@ MonoBehaviour:
         \u0432\u0440\u0430\u0433\u043E\u0432\n\u0441 \u0431\u043E\u043B\u044C\u0448\u043E\u0439
         \u0442\u0435\u0440\u0440\u0438\u0442\u043E\u0440\u0438\u0435\u0439."
       - "Atordoa todos os inimigos\ncom uma grande \xE1rea."
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/SpecialDefaultDash
-      TermType: 0
-      Description: 
-      Languages:
-      - DASH
-      - 
-      - 
       - 
       - 
       Flags: 0000000000
@@ -14255,561 +14733,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/MeleeSkinDefault
-      TermType: 0
-      Description: 
-      Languages:
-      - "EL CL\xC1SICO"
-      - "EL CL\xC1SICO"
-      - "EL CL\xC1SICO"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinSausage
-      TermType: 0
-      Description: 
-      Languages:
-      - SUPERDOG
-      - SUPERDOG
-      - SUPERDOG
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinCactus
-      TermType: 0
-      Description: 
-      Languages:
-      - PICKY BOY
-      - PICKY BOY
-      - PICKY BOY
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinAtomSlicer
-      TermType: 0
-      Description: 
-      Languages:
-      - ATOM SLICER
-      - ATOM SLICER
-      - ATOM SLICER
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinDaggerOfDestiny
-      TermType: 0
-      Description: 
-      Languages:
-      - DAGGER OF DESTINY
-      - DAGGER OF DESTINY
-      - DAGGER OF DESTINY
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinElectricSolo
-      TermType: 0
-      Description: 
-      Languages:
-      - ELECTRIC SOLO
-      - ELECTRIC SOLO
-      - ELECTRIC SOLO
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinGigaMelee
-      TermType: 0
-      Description: 
-      Languages:
-      - GIGAHAMMER
-      - GIGAHAMMER
-      - GIGAHAMMER
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinHatchet
-      TermType: 0
-      Description: 
-      Languages:
-      - HATCHET
-      - HATCHET
-      - HATCHET
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinMicDrop
-      TermType: 0
-      Description: 
-      Languages:
-      - MIC DROP
-      - MIC DROP
-      - MIC DROP
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinMightySledge
-      TermType: 0
-      Description: 
-      Languages:
-      - MIGHTY SLEDGE
-      - MIGHTY SLEDGE
-      - MIGHTY SLEDGE
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinOutOfThePark
-      TermType: 0
-      Description: 
-      Languages:
-      - OUT OF THE PARK
-      - OUT OF THE PARK
-      - OUT OF THE PARK
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinPowerPan
-      TermType: 0
-      Description: 
-      Languages:
-      - POWER PAN
-      - POWER PAN
-      - POWER PAN
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinPutter
-      TermType: 0
-      Description: 
-      Languages:
-      - PUTTER
-      - PUTTER
-      - PUTTER
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinSirQuacks
-      TermType: 0
-      Description: 
-      Languages:
-      - SIR QUACKS-A-LOT
-      - SIR QUACKS-A-LOT
-      - SIR QUACKS-A-LOT
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinToyMelee
-      TermType: 0
-      Description: 
-      Languages:
-      - TOY HAMMER
-      - TOY HAMMER
-      - TOY HAMMER
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinTvTakedown
-      TermType: 0
-      Description: 
-      Languages:
-      - TV TAKEDOWN
-      - TV TAKEDOWN
-      - TV TAKEDOWN
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinWheelOfPain
-      TermType: 0
-      Description: 
-      Languages:
-      - WHEEL OF PAIN
-      - WHEEL OF PAIN
-      - WHEEL OF PAIN
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinWrench
-      TermType: 0
-      Description: 
-      Languages:
-      - WRENCH
-      - WRENCH
-      - WRENCH
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinYouGotMail
-      TermType: 0
-      Description: 
-      Languages:
-      - YOU GOT MAIL
-      - YOU GOT MAIL
-      - YOU GOT MAIL
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinThunderAxe
-      TermType: 0
-      Description: 
-      Languages:
-      - THUNDER AXE
-      - THUNDER AXE
-      - THUNDER AXE
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinXmas2023
-      TermType: 0
-      Description: 
-      Languages:
-      - CANDY CRUSHER
-      - CANDY CRUSHER
-      - CANDY CRUSHER
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinXmas2023Description
-      TermType: 0
-      Description: 
-      Languages:
-      - 2023 Xmas Event
-      - 2023 Xmas Event
-      - 2023 Xmas Event
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/BlastBuck
-      TermType: 0
-      Description: 
-      Languages:
-      - BLAST BUCK
-      - BLAST BUCK
-      - BLAST BUCK
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/BlastBuckDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Earn Blast Bucks by completing
-
-        Blast Pass or buy them in the shop.
-
-        Use
-        them to speed up Blast Pass progress'
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/BlastBuck_Plural
-      TermType: 0
-      Description: 
-      Languages:
-      - BLAST BUCKS
-      - BLAST BUCKS
-      - BLAST BUCKS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinDragonBoxer
-      TermType: 0
-      Description: 
-      Languages:
-      - FURY
-      - Electra Deckard
-      - Electra Deckard
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinDragonBoxerDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - The Eye Of The Dragon
-      - Punk Rock Thrasher
-      - Punk Rock Thrasher
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinFitnessChick
-      TermType: 0
-      Description: 
-      Languages:
-      - JUMPY JULIE
-      - Electra Deckard
-      - Electra Deckard
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinFitnessChickDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Train Hard Or Die Training
-      - Punk Rock Thrasher
-      - Punk Rock Thrasher
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinTieGuy
-      TermType: 0
-      Description: 
-      Languages:
-      - RICK MOSS
-      - Electra Deckard
-      - Electra Deckard
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinTieGuyDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Came To A Better Place
-      - Punk Rock Thrasher
-      - Punk Rock Thrasher
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinXmasSuperstar
-      TermType: 0
-      Description: 
-      Languages:
-      - DRAKE CLAUS
-      - DRAKE CLAUS
-      - DRAKE CLAUS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinXmasSuperstarDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - 2023 Xmas Event
-      - 2023 Xmas Event
-      - 2023 Xmas Event
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinJodie
-      TermType: 0
-      Description: 
-      Languages:
-      - KATNISS
-      - KATNISS
-      - KATNISS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinJodieDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - The Odds Are In My Favour
-      - The Odds Are In My Favour
-      - The Odds Are In My Favour
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinMontyVonCue
-      TermType: 0
-      Description: 
-      Languages:
-      - 8 BALL MONTY
-      - 8 BALL MONTY
-      - 8 BALL MONTY
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinMontyVonCueDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Rack 'Em & Wreck 'Em
-      - Rack 'Em & Wreck 'Em
-      - Rack 'Em & Wreck 'Em
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinBoudicca
-      TermType: 0
-      Description: 
-      Languages:
-      - ASTRID
-      - ASTRID
-      - ASTRID
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinBoudiccaDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - For Valhalla!
-      - For Valhalla!
-      - For Valhalla!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinCupid
-      TermType: 0
-      Description: 
-      Languages:
-      - VALENTINO
-      - VALENTINO
-      - VALENTINO
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinCupidDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Aim Of Affection
-      - Aim Of Affection
-      - Aim Of Affection
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Fortress
-      TermType: 0
-      Description: 
-      Languages:
-      - FORTRESS
-      - FORTRESS
-      - FORTRESS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Cemetery
-      TermType: 0
-      Description: 
-      Languages:
-      - CEMETERY
-      - CEMETERY
-      - CEMETERY
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIdGroups/Equipment
-      TermType: 0
-      Description: 
-      Languages:
-      - Equipment
-      - Equipment
-      - Equipamento
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIdGroups/PlayerSkin
-      TermType: 0
-      Description: 
-      Languages:
-      - Skin
-      - Skin
-      - Skin
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIdGroups/Glider
-      TermType: 0
-      Description: 
-      Languages:
-      - Glider
-      - Glider
-      - Paraglider
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIdGroups/DeathMarker
-      TermType: 0
-      Description: 
-      Languages:
-      - Flag
-      - Flag
-      - Bandeira
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIdGroups/MeleeSkin
-      TermType: 0
-      Description: 
-      Languages:
-      - Melee Skin
-      - Melee Skin
-      - Skin de Arma Branca
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIdGroups/ProfilePicture
-      TermType: 0
-      Description: 
-      Languages:
-      - Avatar
-      - Avatar
-      - Avatar
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIdGroups/Currency
-      TermType: 0
-      Description: 
-      Languages:
-      - Currency
-      - Currency
-      - Moeda
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: GameIdGroups/Collection
       TermType: 0
       Description: 
@@ -14832,13 +14755,79 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UnlockSystems/Shop
+    - Term: GameIdGroups/Currency
       TermType: 0
       Description: 
       Languages:
-      - Shop
+      - Currency
+      - Currency
+      - Moeda
       - 
       - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/DeathMarker
+      TermType: 0
+      Description: 
+      Languages:
+      - Flag
+      - Flag
+      - Bandeira
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/Equipment
+      TermType: 0
+      Description: 
+      Languages:
+      - Equipment
+      - Equipment
+      - Equipamento
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/Glider
+      TermType: 0
+      Description: 
+      Languages:
+      - Glider
+      - Glider
+      - Paraglider
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/MeleeSkin
+      TermType: 0
+      Description: 
+      Languages:
+      - Melee Skin
+      - Melee Skin
+      - Skin de Arma Branca
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/PlayerSkin
+      TermType: 0
+      Description: 
+      Languages:
+      - Skin
+      - Skin
+      - Skin
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/ProfilePicture
+      TermType: 0
+      Description: 
+      Languages:
+      - Avatar
+      - Avatar
+      - Avatar
       - 
       - 
       Flags: 0000000000
@@ -14848,17 +14837,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Collection
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UnlockSystems/Leaderboards
-      TermType: 0
-      Description: 
-      Languages:
-      - Leaderboards
       - 
       - 
       - 
@@ -14887,11 +14865,11 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UnlockSystems/Squads
+    - Term: UnlockSystems/Leaderboards
       TermType: 0
       Description: 
       Languages:
-      - Squads
+      - Leaderboards
       - 
       - 
       - 
@@ -14903,6 +14881,28 @@ MonoBehaviour:
       Description: 
       Languages:
       - Congratulations, you got premium Blast Pass!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/Shop
+      TermType: 0
+      Description: 
+      Languages:
+      - Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/Squads
+      TermType: 0
+      Description: 
+      Languages:
+      - Squads
       - 
       - 
       - 
@@ -16480,7 +16480,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: MainMenu/BattleRoyaleTriosDescription
+    - Term: MainMenu/BattleRoyaleDuosDescription
       TermType: 0
       Description: 
       Languages:
@@ -16494,7 +16494,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: MainMenu/BattleRoyaleDuosDescription
+    - Term: MainMenu/BattleRoyaleTriosDescription
       TermType: 0
       Description: 
       Languages:
@@ -17367,6 +17367,30 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/GamesPlayedEver
+      TermType: 0
+      Description: 
+      Languages:
+      - Total Games Played
+      - "\n\u0412\u0441\u0435\u0433\u043E \u0441\u044B\u0433\u0440\u0430\u043D\u043E
+        \u0438\u0433\u0440"
+      - Total de jogos disputados
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/GamesWonEver
+      TermType: 0
+      Description: 
+      Languages:
+      - Total Games Won
+      - "\n\u0412\u0441\u0435\u0433\u043E \u0432\u044B\u0438\u0433\u0440\u0430\u043D\u043E
+        \u0438\u0433\u0440"
+      - Total de jogos ganhos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MainMenu/HOME
       TermType: 0
       Description: 
@@ -17514,6 +17538,19 @@ MonoBehaviour:
       - JOIN
       - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F"
       - Juntar
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/KillsEver
+      TermType: 0
+      Description: 
+      Languages:
+      - Total Kills
+      - "\u0412\u0441\u0435\u0433\u043E \u0443\u0431\u0438\u0439\u0441\u0442\u0432"
+      - '
+
+        Total de mortes'
       - 
       - 
       Flags: 0000000000
@@ -18182,6 +18219,52 @@ MonoBehaviour:
       - QUIT GAME
       - "\u0412\u042B\u0419\u0422\u0418 \u0418\u0417 \u0418\u0413\u0420\u042B"
       - DESISTIR DO JOGO
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedDeaths
+      TermType: 0
+      Description: 
+      Languages:
+      - Deaths
+      - "\n\u0420\u0430\u043D\u0433\u043E\u0432\u044B\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
+      - Jogos classificados vencidos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedGamesPlayedEver
+      TermType: 0
+      Description: 
+      Languages:
+      - Games Played
+      - "\u0421\u044B\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
+        \u0438\u0433\u0440"
+      - "\nMortes Classificat\xF3rias"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedGamesWon
+      TermType: 0
+      Description: 
+      Languages:
+      - Games Won
+      - "\u0412\u044B\u0438\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
+        \u0438\u0433\u0440"
+      - "Jogos classificados j\xE1 vencidos"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedKills
+      TermType: 0
+      Description: 
+      Languages:
+      - Kills
+      - "\n\u0420\u0430\u043D\u0433\u043E\u0432\u044B\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
+      - Jogos classificados vencidos
       - 
       - 
       Flags: 0000000000
@@ -18984,89 +19067,6 @@ MonoBehaviour:
       - "\u041E\u0440\u0443\u0436\u0438\u0435 \u043D\u0430 \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u043C
         \u0443\u0440\u043E\u0432\u043D\u0435"
       - "Arma est\xE1 no n\xEDvel m\xE1ximo"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/RankedGamesWon
-      TermType: 0
-      Description: 
-      Languages:
-      - Games Won
-      - "\u0412\u044B\u0438\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
-        \u0438\u0433\u0440"
-      - "Jogos classificados j\xE1 vencidos"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/RankedKills
-      TermType: 0
-      Description: 
-      Languages:
-      - Kills
-      - "\n\u0420\u0430\u043D\u0433\u043E\u0432\u044B\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
-      - Jogos classificados vencidos
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/RankedGamesPlayedEver
-      TermType: 0
-      Description: 
-      Languages:
-      - Games Played
-      - "\u0421\u044B\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
-        \u0438\u0433\u0440"
-      - "\nMortes Classificat\xF3rias"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/KillsEver
-      TermType: 0
-      Description: 
-      Languages:
-      - Total Kills
-      - "\u0412\u0441\u0435\u0433\u043E \u0443\u0431\u0438\u0439\u0441\u0442\u0432"
-      - '
-
-        Total de mortes'
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/GamesPlayedEver
-      TermType: 0
-      Description: 
-      Languages:
-      - Total Games Played
-      - "\n\u0412\u0441\u0435\u0433\u043E \u0441\u044B\u0433\u0440\u0430\u043D\u043E
-        \u0438\u0433\u0440"
-      - Total de jogos disputados
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/GamesWonEver
-      TermType: 0
-      Description: 
-      Languages:
-      - Total Games Won
-      - "\n\u0412\u0441\u0435\u0433\u043E \u0432\u044B\u0438\u0433\u0440\u0430\u043D\u043E
-        \u0438\u0433\u0440"
-      - Total de jogos ganhos
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/RankedDeaths
-      TermType: 0
-      Description: 
-      Languages:
-      - Deaths
-      - "\n\u0420\u0430\u043D\u0433\u043E\u0432\u044B\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
-      - Jogos classificados vencidos
       - 
       - 
       Flags: 0000000000
@@ -20571,6 +20571,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITBattlePass/activate_premium_button_text
+      TermType: 0
+      Description: 
+      Languages:
+      - ACTIVATE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITBattlePass/bp_level
       TermType: 0
       Description: 
@@ -20578,6 +20589,50 @@ MonoBehaviour:
       - LV
       - "\u0414\u043E\u043B\u044C\u0434\u043E"
       - Lv
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/buy_level_popup_item_name
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU ARE GOING TO BUY 1 LEVEL OF BLAST PASS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/buy_level_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - BUY A LEVEL OF BLAST PASS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/buy_premium_batttlepass_popup_item_name
+      TermType: 0
+      Description: 
+      Languages:
+      - BUY PREMIUM BLAST PASS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/buy_premium_batttlepass_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - BUY PREMIUM BLAST PASS
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -20618,6 +20673,30 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITBattlePass/left_bar_free_title
+      TermType: 0
+      Description: 
+      Languages:
+      - FREE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/left_bar_premium_title
+      TermType: 0
+      Description: 
+      Languages:
+      - 'PREMIUM
+
+        <size=32>PASS</size>'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITBattlePass/max
       TermType: 0
       Description: 
@@ -20649,6 +20728,17 @@ MonoBehaviour:
       - RANDOM EQUIPMENT
       - "\u0421\u043B\u0443\u0447\u0430\u0439\u043D\u043E\u0435 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u0435"
       - "Equipamento aleat\xF3rio"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_ended
+      TermType: 0
+      Description: 
+      Languages:
+      - SEASON ENDED
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -20709,103 +20799,24 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITBattlePass/buy_premium_batttlepass_popup_title
+    - Term: UITGeneric/for
       TermType: 0
       Description: 
       Languages:
-      - BUY PREMIUM BLAST PASS
-      - 
-      - 
+      - FOR
+      - by vodka
+      - PARA
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITBattlePass/buy_premium_batttlepass_popup_item_name
+    - Term: UITGeneric/items_converted
       TermType: 0
       Description: 
       Languages:
-      - BUY PREMIUM BLAST PASS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITBattlePass/buy_level_popup_title
-      TermType: 0
-      Description: 
-      Languages:
-      - BUY A LEVEL OF BLAST PASS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITBattlePass/buy_level_popup_item_name
-      TermType: 0
-      Description: 
-      Languages:
-      - YOU ARE GOING TO BUY 1 LEVEL OF BLAST PASS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITBattlePass/season_ended
-      TermType: 0
-      Description: 
-      Languages:
-      - SEASON ENDED
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITBattlePass/activate_premium_button_text
-      TermType: 0
-      Description: 
-      Languages:
-      - ACTIVATE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITBattlePass/left_bar_premium_title
-      TermType: 0
-      Description: 
-      Languages:
-      - 'PREMIUM
-
-        <size=32>PASS</size>'
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITBattlePass/left_bar_free_title
-      TermType: 0
-      Description: 
-      Languages:
-      - FREE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGeneric/purchase_not_enough_item_display_name
-      TermType: 0
-      Description: 
-      Languages:
-      - VISIT THE SHOP TO GET SOME MORE
-      - 
-      - 
+      - ITEMS CONVERTED
+      - vodka became vodka
+      - ITEMS CONVERTIDOS
       - 
       - 
       Flags: 0000000000
@@ -20815,8 +20826,19 @@ MonoBehaviour:
       Description: 
       Languages:
       - GO TO SHOP
+      - go to vodka
+      - IR A LOJA
       - 
       - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_item_display_name
+      TermType: 0
+      Description: 
+      Languages:
+      - VISIT THE SHOP TO GET SOME MORE
+      - drink vodka
+      - VISITE A LOJA PARA OBTER
       - 
       - 
       Flags: 0000000000
@@ -20826,8 +20848,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - NOT ENOUGH
-      - 
-      - 
+      - more vodka
+      - INSUFICIENTE
       - 
       - 
       Flags: 0000000000
@@ -20837,8 +20859,19 @@ MonoBehaviour:
       Description: 
       Languages:
       - CONFIRM ACTION
+      - yes vodka
+      - CONFIRMAR
       - 
       - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/items_converted_msg
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU GOT {0} BLAST BUCKS FOR YOUR {1} NON NFT EQUIPMENTS
+      - got vodka
+      - VOCE RECEBEU {0} BLAST BUCKS PELOS SEUS {1} EQUIPMAMENTOS NAO NFTS
       - 
       - 
       Flags: 0000000000
@@ -20859,6 +20892,17 @@ MonoBehaviour:
       Description: 
       Languages:
       - THE AREA IS SHRINKING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITMatch/full
+      TermType: 0
+      Description: 
+      Languages:
+      - SLOTS FULL
       - 
       - 
       - 
@@ -20898,13 +20942,13 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITMatch/full
+    - Term: UITCollectionScreen/buy
       TermType: 0
       Description: 
       Languages:
-      - SLOTS FULL
-      - 
-      - 
+      - BUY
+      - "\u041A\u0423\u041F\u0418\u0422\u042C"
+      - COMPRAR
       - 
       - 
       Flags: 0000000000
@@ -20920,13 +20964,24 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionScreen/buy
+    - Term: UITCollectionScreen/cat_glider
       TermType: 0
       Description: 
       Languages:
-      - BUY
-      - "\u041A\u0423\u041F\u0418\u0422\u042C"
-      - COMPRAR
+      - GLIDER
+      - "\u041F\u043B\u0430\u043D\u0435\u0440\u044B"
+      - Planadores
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCollectionScreen/cat_meleeskin
+      TermType: 0
+      Description: 
+      Languages:
+      - MELEE
+      - "\u0420\u0443\u043A\u043E\u043F\u0430\u0448\u043D\u044B\u043C \u0431\u043E\u0435\u043C"
+      - MARTELOS
       - 
       - 
       Flags: 0000000000
@@ -20938,6 +20993,17 @@ MonoBehaviour:
       - CHARACTER
       - "\u041F\u0415\u0420\u0421\u041E\u041D\u0410\u0416\u0418"
       - PERSONAGENS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCollectionScreen/cat_profilepicture
+      TermType: 0
+      Description: 
+      Languages:
+      - AVATAR
+      - "\u0410\u0412\u0410\u0422\u0410\u0420\u042B"
+      - AVATARES
       - 
       - 
       Flags: 0000000000
@@ -20960,39 +21026,6 @@ MonoBehaviour:
       - COMING SOON!
       - "\u0412\u0421\u041A\u041E\u0420\u0415!"
       - EM BREVE!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCollectionScreen/cat_glider
-      TermType: 0
-      Description: 
-      Languages:
-      - GLIDER
-      - "\u041F\u043B\u0430\u043D\u0435\u0440\u044B"
-      - Planadores
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCollectionScreen/cat_profilepicture
-      TermType: 0
-      Description: 
-      Languages:
-      - AVATAR
-      - "\u0410\u0412\u0410\u0422\u0410\u0420\u042B"
-      - AVATARES
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCollectionScreen/cat_meleeskin
-      TermType: 0
-      Description: 
-      Languages:
-      - MELEE
-      - "\u0420\u0443\u043A\u043E\u043F\u0430\u0448\u043D\u044B\u043C \u0431\u043E\u0435\u043C"
-      - MARTELOS
       - 
       - 
       Flags: 0000000000
@@ -21771,6 +21804,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITEquipment/popup_fusing_item
+      TermType: 0
+      Description: 
+      Languages:
+      - RARITY UP
+      - RARITY UP
+      - RARITY UP
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITEquipment/popup_go_repair
       TermType: 0
       Description: 
@@ -22147,17 +22191,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITEquipment/popup_fusing_item
-      TermType: 0
-      Description: 
-      Languages:
-      - RARITY UP
-      - RARITY UP
-      - RARITY UP
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITGameModeSelection/choose_a_mode
       TermType: 0
       Description: 
@@ -22347,6 +22380,21 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_BattleRoyaleDuos
+      TermType: 0
+      Description: 
+      Languages:
+      - 'MODE: DUOS'
+      - 'BATTLE ROYALE
+
+        DUOS'
+      - 'BATTLE ROYALE
+
+        DUOS'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/gamemode_BattleRoyaleTrios
       TermType: 0
       Description: 
@@ -22360,21 +22408,6 @@ MonoBehaviour:
       - 'BATTLE ROYALE
 
         TRIOS'
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/gamemode_BattleRoyaleDuos
-      TermType: 0
-      Description: 
-      Languages:
-      - 'MODE: DUOS'
-      - 'BATTLE ROYALE
-
-        DUOS'
-      - 'BATTLE ROYALE
-
-        DUOS'
       - 
       - 
       Flags: 0000000000
@@ -23346,6 +23379,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITRewards/skip_all
+      TermType: 0
+      Description: 
+      Languages:
+      - SKIP ALL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITRewards/this_week
       TermType: 0
       Description: 
@@ -23379,11 +23423,11 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITRewards/skip_all
+    - Term: UITSettings/InvertSpecialCancel
       TermType: 0
       Description: 
       Languages:
-      - SKIP ALL
+      - Invert Special Cancelling
       - 
       - 
       - 
@@ -23901,6 +23945,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSettings/show_real_damage
+      TermType: 0
+      Description: 
+      Languages:
+      - Real Damage
+      - Real Damage
+      - Dano Real
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSettings/sixty
       TermType: 0
       Description: 
@@ -23961,28 +24016,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - USA
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/show_real_damage
-      TermType: 0
-      Description: 
-      Languages:
-      - Real Damage
-      - Real Damage
-      - Dano Real
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/InvertSpecialCancel
-      TermType: 0
-      Description: 
-      Languages:
-      - Invert Special Cancelling
       - 
       - 
       - 
@@ -24051,6 +24084,17 @@ MonoBehaviour:
       - VIDEOS
       - VIDEOS
       - VIDEOS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITShared/News
+      TermType: 0
+      Description: 
+      Languages:
+      - News
+      - News
+      - Noticias
       - 
       - 
       Flags: 0000000000
@@ -24297,17 +24341,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITShared/News
-      TermType: 0
-      Description: 
-      Languages:
-      - News
-      - News
-      - Noticias
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITSpectate/camera_1
       TermType: 0
       Description: 
@@ -24529,6 +24562,138 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITStore/blastbuck_pack_large
+      TermType: 0
+      Description: 
+      Languages:
+      - 680 BLAST BUCKS
+      - 680 BLAST BUCKS
+      - 680 BLAST BUCKS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/blastbuck_pack_medium
+      TermType: 0
+      Description: 
+      Languages:
+      - 120 BLAST BUCKS
+      - 120 BLAST BUCKS
+      - 120 BLAST BUCKS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/blastbuck_pack_small
+      TermType: 0
+      Description: 
+      Languages:
+      - 30 BLAST BUCKS
+      - 30 BLAST BUCKS
+      - 30 BLAST BUCKS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/coin_pack_large
+      TermType: 0
+      Description: 
+      Languages:
+      - 1800 COINS
+      - 1800 COINS
+      - 1800 COINS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/coin_pack_medium
+      TermType: 0
+      Description: 
+      Languages:
+      - 720 COINS
+      - 720 COINS
+      - 720 COINS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/coin_pack_small
+      TermType: 0
+      Description: 
+      Languages:
+      - 360 COINS
+      - 360 COINS
+      - 360 COINS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_blastbuck_pack_large
+      TermType: 0
+      Description: 
+      Languages:
+      - Gives a large number of Blast Bucks currency!
+      - Gives a large number of Blast Bucks currency!
+      - Gives a large number of Blast Bucks currency!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_blastbuck_pack_medium
+      TermType: 0
+      Description: 
+      Languages:
+      - Gives a medium number of Blast Bucks currency!
+      - Gives a medium number of Blast Bucks currency!
+      - Gives a medium number of Blast Bucks currency!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_blastbuck_pack_small
+      TermType: 0
+      Description: 
+      Languages:
+      - Gives a small number of Blast Bucks currency!
+      - Gives a small number of Blast Bucks currency!
+      - Gives a small number of Blast Bucks currency!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_coin_pack_large
+      TermType: 0
+      Description: 
+      Languages:
+      - Gives a large number of Coins currency!
+      - Gives a large number of Coins currency!
+      - Gives a large number of Coins currency!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_coin_pack_medium
+      TermType: 0
+      Description: 
+      Languages:
+      - Gives a medium number of Coins currency!
+      - Gives a medium number of Coins currency!
+      - Gives a medium number of Coins currency!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_coin_pack_small
+      TermType: 0
+      Description: 
+      Languages:
+      - Gives a small number of Coins currency!
+      - Gives a small number of Coins currency!
+      - Gives a small number of Coins currency!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITStore/description_epic_core
       TermType: 0
       Description: 
@@ -24651,138 +24816,6 @@ MonoBehaviour:
       - SHOP
       - "\u041C\u0410\u0413\u0410\u0417\u0418\u041D"
       - COMPRAR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/coin_pack_small
-      TermType: 0
-      Description: 
-      Languages:
-      - 360 COINS
-      - 360 COINS
-      - 360 COINS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/coin_pack_medium
-      TermType: 0
-      Description: 
-      Languages:
-      - 720 COINS
-      - 720 COINS
-      - 720 COINS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/coin_pack_large
-      TermType: 0
-      Description: 
-      Languages:
-      - 1800 COINS
-      - 1800 COINS
-      - 1800 COINS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/blastbuck_pack_small
-      TermType: 0
-      Description: 
-      Languages:
-      - 30 BLAST BUCKS
-      - 30 BLAST BUCKS
-      - 30 BLAST BUCKS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/blastbuck_pack_medium
-      TermType: 0
-      Description: 
-      Languages:
-      - 120 BLAST BUCKS
-      - 120 BLAST BUCKS
-      - 120 BLAST BUCKS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/blastbuck_pack_large
-      TermType: 0
-      Description: 
-      Languages:
-      - 680 BLAST BUCKS
-      - 680 BLAST BUCKS
-      - 680 BLAST BUCKS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/description_coin_pack_small
-      TermType: 0
-      Description: 
-      Languages:
-      - Gives a small number of Coins currency!
-      - Gives a small number of Coins currency!
-      - Gives a small number of Coins currency!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/description_coin_pack_medium
-      TermType: 0
-      Description: 
-      Languages:
-      - Gives a medium number of Coins currency!
-      - Gives a medium number of Coins currency!
-      - Gives a medium number of Coins currency!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/description_coin_pack_large
-      TermType: 0
-      Description: 
-      Languages:
-      - Gives a large number of Coins currency!
-      - Gives a large number of Coins currency!
-      - Gives a large number of Coins currency!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/description_blastbuck_pack_small
-      TermType: 0
-      Description: 
-      Languages:
-      - Gives a small number of Blast Bucks currency!
-      - Gives a small number of Blast Bucks currency!
-      - Gives a small number of Blast Bucks currency!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/description_blastbuck_pack_medium
-      TermType: 0
-      Description: 
-      Languages:
-      - Gives a medium number of Blast Bucks currency!
-      - Gives a medium number of Blast Bucks currency!
-      - Gives a medium number of Blast Bucks currency!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/description_blastbuck_pack_large
-      TermType: 0
-      Description: 
-      Languages:
-      - Gives a large number of Blast Bucks currency!
-      - Gives a large number of Blast Bucks currency!
-      - Gives a large number of Blast Bucks currency!
       - 
       - 
       Flags: 0000000000
@@ -24955,6 +24988,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITTutorial/pick_up_special
+      TermType: 0
+      Description: 
+      Languages:
+      - PICK UP THE GRENADE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITTutorial/pick_up_weapon
       TermType: 0
       Description: 
@@ -25086,17 +25130,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/pick_up_special
-      TermType: 0
-      Description: 
-      Languages:
-      - PICK UP THE GRENADE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITWinners/winner
       TermType: 0
       Description: 
@@ -25143,7 +25176,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1706708519814
+    Google_LastUpdatedVersion: 1706882983819
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

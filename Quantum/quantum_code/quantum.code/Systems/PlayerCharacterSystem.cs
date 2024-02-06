@@ -212,7 +212,6 @@ namespace Quantum.Systems
 					f.RNG->Next(-gridSquareSize, gridSquareSize));
 			var spawnTransform = new Transform3D { Position = FPVector3.Zero, Rotation = FPQuaternion.Identity };
 			spawnTransform.Position = spawnPosition.XOY;
-			var equipment = playerData.Loadout;
 			var kccConfig = f.FindAsset<CharacterController3DConfig>(playerCharacter->KccConfigRef.Id);
 			var setup = new PlayerCharacterSetup()
 			{

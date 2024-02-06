@@ -17,7 +17,7 @@ namespace Quantum.Systems.Bots
 			{
 				return;
 			}
-
+			
 			var angle = f.RNG->NextInclusive(FP._0, rad360);
 			// It will try to go from 0 to 338, it doesn't make sence to go back to 360
 			var variationPerRetry = (rad360 - FP.Rad_22_50) / RETRIES;
@@ -25,8 +25,6 @@ namespace Quantum.Systems.Bots
 			{
 				if (TryToWanderToAngle(f, ref filter, filter.Transform->Position.XZ, FP._10, angle))
 				{
-					filter.BotCharacter->SetHasWaypoint(filter.Entity, f);
-					filter.BotCharacter->SetNextDecisionDelay(f, FP._3);
 					break;
 				}
 				angle += variationPerRetry;
@@ -37,8 +35,14 @@ namespace Quantum.Systems.Bots
 		{
 			var x = circleCenter.X + circleRadius * FPMath.Cos(angleRad);
 			var y = circleCenter.Y + circleRadius * FPMath.Sin(angleRad);
-			BotLogger.LogAction(ref filter,$"Going to ({x},{y})");
-			return BotMovement.MoveToLocation(f, filter.Entity, new FPVector3(x, FP._0, y));
+			if (BotMovement.MoveToLocation(f, filter.Entity, new FPVector3(x, FP._0, y)))
+			{
+				BotLogger.LogAction(ref filter,$"Wandering to ({x},{y})");
+				filter.BotCharacter->SetHasWaypoint(filter.Entity, f);
+				filter.BotCharacter->SetNextDecisionDelay(f, FP._3);
+				return true;
+			}
+			return false;
 		}
 	}
 }

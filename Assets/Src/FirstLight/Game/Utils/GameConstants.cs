@@ -10,10 +10,6 @@ namespace FirstLight.Game.Utils
 	/// </summary>
 	public static class GameConstants
 	{
-		public static class Editor
-		{
-		}
-
 		public static class Scenes
 		{
 			public const string SCENE_MAIN_MENU = "MainMenu";
@@ -217,29 +213,10 @@ namespace FirstLight.Game.Utils
 
 		public static class Visuals
 		{
-			public const float DISSOLVE_DURATION = 1.15f;
-			public const float DISSOLVE_DELAY = 2.5f;
-			public const float HIT_DURATION = 0.5f;
-			public const float DISSOLVE_END_ALPHA_CLIP_VALUE = 0.75f;
+			public const float RESOURCE_POOL_UPDATE_TIME_SECONDS = 3;
 			public const float STAR_STATUS_CHARACTER_SCALE_MULTIPLIER = 1.5f;
 			public const float RADIAL_LOCAL_POS_OFFSET = 0.1f;
-			public const float NEAR_DEATH_HEALTH_RATIO_THRESHOLD = 0.4f;
 			public static readonly Color HIT_COLOR = new Color(0x7B / 255f, 0x7B / 255f, 0x7B / 255f);
-
-			public const int LOW_FPS_MODE_TARGET = 30;
-			public const int HIGH_FPS_MODE_TARGET = 60;
-
-			// Description post fix string tag
-			public const string DESCRIPTION_POSTFIX = "Description";
-
-			// Multiplier to convert Movement Speed values into more readable
-			public const float MOVEMENT_SPEED_BEAUTIFIER = 100f;
-
-			// Maximum player rag-doll impulse force amount 
-			public const float PLAYER_RAGDOLL_FORCE_MAX = 1f;
-
-			// Minimum player rag-doll impulse force amount 
-			public const float PLAYER_RAGDOLL_FORCE_MIN = 0.25f;
 
 			// The name of the parameter in the animator that decides the time of stun outro animation
 			public const string STUN_OUTRO_TIME_ANIMATOR_PARAM = "stun_outro_time_sec";
@@ -249,62 +226,9 @@ namespace FirstLight.Game.Utils
 
 			// This conversion is manually chosen based on the visual of special/danger indicators that have decorative elements
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS = 2.2f;
-
 			public const long GAMEPLAY_BUSH_ATTACK_REVEAL_SECONDS = 2;
 			public const long GAMEPLAY_POST_ATTACK_HEALTHBAR_HIDE_DURATION = 2000;
-
-			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
-
-			public const int REWARD_POPUP_CLOSE_MS = 300;
-
 			public const float CHEST_CONSUMABLE_POPOUT_HEIGHT = 2f;
-		}
-
-		public static class Camera
-		{
-			public const float DYNAMIC_CAMERA_PAN_TO_AIM_TIME = 0.5f;
-			public const float DYNAMIC_CAMERA_PAN_TO_CENTER_TIME = 0.25f;
-			public const float DYNAMIC_CAMERA_PAN_DISTANCE_DEFAULT = 1.75f;
-			public const float DYNAMIC_CAMERA_PAN_NEGATIVE_Y_DIR_MULTIPLIER = 1.3f;
-		}
-
-		public static class Controls
-		{
-			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1f;
-			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 1f;
-			public const float JOYSTICK_MOVEMENT_MAX_RADIUS_MULTIPLIER = 8f;
-
-			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1;
-			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.15f;
-			public const float SPECIAL_BUTTON_CANCEL_RADIUS_MULT = 0.75f;
-		}
-
-		public static class Haptics
-		{
-			// Platform dependent intensity as the vibrations vary greatly between android/iOS
-#if UNITY_ANDROID
-			public const float DAMAGE_INTENSITY_MIN = 0.1f;
-			public const float DAMAGE_INTENSITY_MAX = 0.8f;
-#else
-			public const float DAMAGE_INTENSITY_MIN = 0.3f;
-			public const float DAMAGE_INTENSITY_MAX = 1f;
-#endif
-
-			// Min/max amounts of haptic vibration sharpness when a player is damaged
-			public const float IOS_DAMAGE_SHARPNESS_MIN = 0.3f;
-			public const float IOS_DAMAGE_SHARPNESS_MAX = 1f;
-
-			// Duration of haptic feedback when player is damaged
-			public const float DAMAGE_DURATION = 0.05f;
-
-			// Duration of haptic feedback when player is damaged
-			public const float GAME_START_DURATION = 0.25f;
-			public const float GAME_START_INTENSITY = 1f;
-			public const float GAME_START_SHARPNESS = 1f;
-
-			public const float PLAYER_KILL_DURATION = 0.1f;
-			public const float PLAYER_KILL_INTENSITY = 1;
-			public const float PLAYER_KILL_SHARPNESS = 1;
 		}
 
 		public static class Tutorial
@@ -330,10 +254,6 @@ namespace FirstLight.Game.Utils
 			public const string TRIGGER_CHEST_AREA = "ChestArea";
 			public const string TRIGGER_GATE_AREA = "GateArea";
 			public const string TRIGGER_ARENA_AREA = "ArenaArea";
-
-			public const string GUIDE_UI_MOVEMENT_JOYSTICK = "MovementUiJoystick";
-			public const string GUIDE_UI_SHOOTING_JOYSTICK = "ShootingUiJoystick";
-			public const string GUIDE_UI_SPECIAL_BUTTON = "TutorialSpecialTarget";
 
 			public const string INDICATOR_FIRST_MOVE = "FirstMove";
 			public const string INDICATOR_WOODEN_BARRIER = "WoodenBarrier";

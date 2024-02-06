@@ -217,11 +217,6 @@ namespace FirstLight.Game.Logic
 			{
 				return rewards;
 			}
-
-			if (allowedRewards.Contains(GameId.CS))
-			{
-				CalculateCSReward(rewards, rewardConfig, localMatchData.Data.CollectedOwnedNfts);
-			}
 			
 			if (allowedRewards.Contains(GameId.BPP))
 			{
@@ -346,23 +341,6 @@ namespace FirstLight.Game.Logic
 			var config = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>()
 				.First(cfg => cfg.GameId == id);
 			return CreateItemFromConfig(config);
-		}
-
-		private void CalculateCSReward(ICollection<ItemData> rewards, MatchRewardConfig rewardConfig, uint collectedNFTsCount)
-		{
-			var rewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == GameId.CS);
-			var percent = rewardPair.Value / 100d;
-			// rewardPair.Value is the absolute percent of the max take that people will be awarded
-
-			var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.CS);
-
-			var takeForCollectedItems = info.WinnerRewardAmount * collectedNFTsCount;
-			var take = (uint) Math.Ceiling(takeForCollectedItems * percent);
-			var withdrawn = (int)Math.Min(info.CurrentAmount, take);
-			if (withdrawn > 0)
-			{
-				rewards.Add(ItemFactory.Currency(GameId.CS, withdrawn));
-			}
 		}
 
 		private void CalculateBPPReward(ICollection<ItemData> rewards, MatchRewardConfig rewardConfig)

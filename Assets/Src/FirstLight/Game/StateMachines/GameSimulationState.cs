@@ -400,26 +400,14 @@ namespace FirstLight.Game.StateMachines
 			{
 				return;
 			}
-
-			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
-			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
-			var f = game.Frames.Verified;
 			var spawnPosition = _services.RoomService.CurrentRoom.LocalPlayerProperties.DropPosition.Value;
-			var loadoutArray = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray();
-			var nftLoadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly);
-			var loadoutMetadata = loadoutArray.Select(e => new EquipmentSimulationMetadata()
-			{
-				IsNft = nftLoadout.Any(nft => nft.Equipment.Equals(e))
-			}).ToArray();
-
 			var equippedCosmetics = _gameDataProvider.CollectionDataProvider
 				.GetCollectionsCategories()
 				.Select(id => _gameDataProvider.CollectionDataProvider.GetEquipped(id))
 				.Where(data => data != null)
 				.Select(data => data.Id)
 				.ToArray();
-
-
+			
 			var config = _services.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
 			var avatarUrl = AvatarHelpers.GetAvatarUrl(_gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE),
 				config);
@@ -431,8 +419,6 @@ namespace FirstLight.Game.StateMachines
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
-				Loadout = loadoutArray,
-				LoadoutMetadata = loadoutMetadata,
 				LeaderboardRank = (uint) _services.LeaderboardService.CurrentRankedEntry.Position,
 				PartyId = GetTeamId(),
 				AvatarUrl = avatarUrl,

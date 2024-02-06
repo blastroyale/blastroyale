@@ -95,17 +95,12 @@ namespace FirstLight.Game.Presenters
 		private Label _bppPoolRestockTimeLabel;
 		private Label _bppPoolRestockAmountLabel;
 		private Label _bppPoolAmountLabel;
-		private VisualElement _csPoolContainer;
-		private Label _csPoolRestockTimeLabel;
-		private Label _csPoolRestockAmountLabel;
-		private Label _csPoolAmountLabel;
 		private Label _outOfSyncWarningLabel;
 		private Label _betaLabel;
 		private MatchmakingStatusView _matchmakingStatusView;
 		private Coroutine _updatePoolsCoroutine;
 		private HashSet<GameId> _currentAnimations = new ();
 		private HashSet<GameId> _initialized = new ();
-		private CurrencyDisplayElement _csOwned;
 
 		private void Awake()
 		{
@@ -167,11 +162,6 @@ namespace FirstLight.Game.Presenters
 			_bppPoolRestockTimeLabel = _bppPoolContainer.Q<Label>("RestockLabelTime").Required();
 			_bppPoolRestockAmountLabel = _bppPoolContainer.Q<Label>("RestockLabelAmount").Required();
 
-			_csPoolContainer = root.Q<VisualElement>("CSPoolContainer").Required();
-			_csPoolAmountLabel = _csPoolContainer.Q<Label>("AmountLabel").Required();
-			_csPoolRestockTimeLabel = _csPoolContainer.Q<Label>("RestockLabelTime").Required();
-			_csPoolRestockAmountLabel = _csPoolContainer.Q<Label>("RestockLabelAmount").Required();
-
 			_battlePassButton = root.Q<ImageButton>("BattlePassButton").Required();
 			_battlePassProgressElement = _battlePassButton.Q<VisualElement>("BattlePassProgressElement").Required();
 			_battlePassProgressLabel = _battlePassButton.Q<Label>("BPProgressText").Required();
@@ -184,11 +174,7 @@ namespace FirstLight.Game.Presenters
 			_playButtonContainer = root.Q("PlayButtonHolder");
 			_playButton = root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
-			
-			_csOwned = root.Q<CurrencyDisplayElement>("CSCurrency");
-
-			_csOwned.AttachView(this, out CurrencyDisplayView _)
-			        .SetAnimationOrigin(_playButton);
+		
 			root.Q<CurrencyDisplayElement>("CoinCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
@@ -294,11 +280,6 @@ namespace FirstLight.Game.Presenters
 #endif
 			_betaLabel.SetDisplay(FeatureFlags.BETA_VERSION);
 			
-			// We show CS in the top bar if player has some CS or equipment NFTs (which means CS pool is more than 0)
-			var cs = _dataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.CS);
-			_csOwned.SetDisplay(cs > 0 ||
-			                    _dataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.CS).PoolCapacity > 0);
-
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
 		}
@@ -324,7 +305,6 @@ namespace FirstLight.Game.Presenters
 			base.SubscribeToEvents();
 			_dataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
 			_dataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
-			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.CS, OnPoolChanged);
 			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.BPP, OnPoolChanged);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
 			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
@@ -444,15 +424,12 @@ namespace FirstLight.Game.Presenters
 
 		private IEnumerator UpdatePoolLabels()
 		{
-			var waitForSeconds = new WaitForSeconds(GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
+			var waitForSeconds = new WaitForSeconds(GameConstants.Visuals.RESOURCE_POOL_UPDATE_TIME_SECONDS);
 
 			while (true)
 			{
 				UpdatePool(GameId.BPP, BPP_POOL_AMOUNT_FORMAT, _bppPoolRestockTimeLabel, _bppPoolRestockAmountLabel,
 					_bppPoolAmountLabel);
-				UpdatePool(GameId.CS, CS_POOL_AMOUNT_FORMAT, _csPoolRestockTimeLabel, _csPoolRestockAmountLabel,
-					_csPoolAmountLabel);
-
 				yield return waitForSeconds;
 			}
 		}
@@ -554,12 +531,6 @@ namespace FirstLight.Game.Presenters
 		{
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
 			_gameModeLabel.text = LocalizationUtils.GetTranslationForGameModeId(current.GameModeId);
-
-			var hasPool = current.AllowedRewards.Contains(GameId.CS)
-				&& _dataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.CS).PoolCapacity > 0;
-			_csPoolContainer.SetDisplay(hasPool);
-			_playButtonContainer.EnableInClassList("button-with-pool", hasPool);
-
 			_gameModeButton.SetEnabled(!_partyService.HasParty.Value && !_partyService.OperationInProgress.Value);
 		}
 

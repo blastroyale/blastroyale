@@ -11,7 +11,7 @@ namespace Quantum.Systems.Bots
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="BotCharacter"/>
 	/// </summary>
-	public unsafe class BotCharacterSystem : SystemMainThread,
+	public unsafe class BotCharacterSystem : SystemMainThreadFilter<BotCharacterSystem.BotCharacterFilter>,
 											 ISignalHealthChangedFromAttacker,
 											 ISignalAllPlayersSpawned, ISignalOnNavMeshWaypointReached,
 											 ISignalOnNavMeshSearchFailed, ISignalOnComponentRemoved<BotCharacter>,
@@ -52,21 +52,15 @@ namespace Quantum.Systems.Bots
 			_botSetup.InitializeBots(f, averagePlayerTrophies);
 		}
 
-		public override void Update(Frame f)
+		public override void Update(Frame f, ref BotCharacterFilter filter)
 		{
-			var it = f.Unsafe.FilterStruct<BotCharacterFilter>();
-			it.UseCulling = true;
-			var filter = default(BotCharacterFilter);
-
-			var botCtx = CreateGlobalContext(f);
-			while (it.Next(&filter))
-			{
-				Update(f, botCtx, ref filter);
-			}
+			Update(f, CreateGlobalContext(f), ref filter);
 		}
 
 		private BotUpdateGlobalContext CreateGlobalContext(Frame f)
 		{
+			if (_updateContext.FrameNumber == f.Number) return _updateContext;
+			
 			var circleCenter = FPVector2.Zero;
 			var circleRadius = FP._0;
 			var circleIsShrinking = false;
@@ -82,6 +76,7 @@ namespace Quantum.Systems.Bots
 				circleTimeToShrink = circle->ShrinkingStartTime - f.Time;
 			}
 
+			_updateContext.FrameNumber = f.Number;
 			_updateContext.circleCenter = circleCenter;
 			_updateContext.circleRadius = circleRadius;
 			_updateContext.circleIsShrinking = circleIsShrinking;
@@ -139,7 +134,7 @@ namespace Quantum.Systems.Bots
 
 
 			// Distribute bot processing in 15 frames
-			if (filter.BotCharacter->BotNameIndex % 15 == f.Number % 15)
+			if (filter.BotCharacter->BotNameIndex % 30 == f.Number % 30)
 			{
 				return;
 			}
@@ -166,6 +161,7 @@ namespace Quantum.Systems.Bots
 
 			// Static bots don't move so no need to process anything else
 			if (filter.BotCharacter->BehaviourType == BotBehaviourType.Static) return;
+			
 			if (filter.BotCharacter->BehaviourType == BotBehaviourType.WanderAndShoot)
 			{
 				_wanderAndShootBot.Update(f, ref filter, botCtx);
@@ -198,7 +194,6 @@ namespace Quantum.Systems.Bots
 		public void OnNavMeshSearchFailed(Frame f, EntityRef entity, ref bool resetAgent)
 		{
 			BotLogger.LogAction(entity, "pathfinding failed");
-
 			if (f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot))
 			{
 				if (bot->MoveTarget != EntityRef.None && bot->MoveTarget != entity)
@@ -206,7 +201,6 @@ namespace Quantum.Systems.Bots
 					var invalid = f.ResolveHashSet(bot->InvalidMoveTargets);
 					invalid.Add(bot->MoveTarget);
 				}
-
 				bot->ResetTargetWaypoint(f);
 			}
 		}
@@ -216,49 +210,65 @@ namespace Quantum.Systems.Bots
 		/// </summary>
 		public void HealthChangedFromAttacker(Frame f, EntityRef entity, EntityRef attacker, int previousHealth)
 		{
+			if (f.RNG->NextBool()) return; // 50% chance bots ignore
+			
+			BotLogger.LogAction(entity, $"Bot took damage from {attacker}");
 			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot)) return;
 			if (attacker == bot->Target) return;
-			if (f.Time < bot->NextLookForTargetsToShootAtTime) return;
 			if (!f.Unsafe.TryGetPointer<Transform3D>(attacker, out var attackerLocation)) return;
 			if (!f.Unsafe.TryGetPointer<Transform3D>(entity, out var botLocation)) return;
-			if (!f.Unsafe.TryGetPointer<Transform3D>(bot->Target, out var targetLocation)) return;
-
+			
+			var distanceToAttacker =
+				FPVector2.DistanceSquared(botLocation->Position.XZ, attackerLocation->Position.XZ);
+			
 			// If player attacks a bot that has no target, the bot will try to answer
 			if (!bot->Target.IsValid)
 			{
-				if (!bot->TryUseSpecials(f.Unsafe.GetPointer<PlayerInventory>(entity), entity, f))
-				{
-					// If the bastard is shooting me from a longer range i can shoot him but i can see him
-					if (QuantumHelpers.HasLineOfSight(f, botLocation->Position, attackerLocation->Position, out _))
-					{
-						var botMaxRange = bot->GetMaxWeaponRange(entity, f);
-						;
-						// If enemy is not further than twice my range ill go for him
-						botMaxRange *= botMaxRange;
-						if (FPVector2.DistanceSquared(botLocation->Position.XZ, attackerLocation->Position.XZ) <
-							botMaxRange * 2)
-						{
-							BotLogger.LogAction(entity, $"Going to kick {attacker} ass for shooting me from distance");
-							if (BotMovement.MoveToLocation(f, entity, targetLocation->Position))
-								bot->SetHasWaypoint(entity, f);
-							return;
-						}
-					}
+				if (bot->TryUseSpecials(f.Unsafe.GetPointer<PlayerInventory>(entity), entity, f)) return;
+				var botMaxRange = bot->GetMaxWeaponRange(entity, f);
+
+				BotLogger.LogAction(entity, $"Going to kick {attacker} ass for shooting me from distance");
+				
+				// If enemy is not further than twice my range ill go for him
+				botMaxRange *= botMaxRange;
+				bot->Target = attacker;
+				
+				// when in range, ill just target back
+				if(distanceToAttacker < botMaxRange){
+					bot->SetAttackTarget(entity, f, attacker);
+					bot->SetSearchForEnemyDelay(f);
+					bot->SetNextDecisionDelay(f, FP._3);
+					BotLogger.LogAction(entity, "Fighting back");
 				}
-
-				return;
+				else
+				{
+				
+					bot->SetHasWaypoint(entity, f);
+					bot->MoveTarget = attacker;
+					bot->SetNextDecisionDelay(f, FP._3);
+					bot->NextLookForTargetsToShootAtTime = f.Time;
+					BotMovement.MoveToLocation(f, entity, attackerLocation->Position);
+					BotLogger.LogAction(entity, $"Attacker too distant, coming closer");
+				}
 			}
-
-			// If the attacker is closer to the bot than the current bot target, 50% swap chance
-			if (f.RNG->NextBool() &&
-				FPVector2.DistanceSquared(botLocation->Position.XZ, attackerLocation->Position.XZ) <
-				FPVector2.DistanceSquared(botLocation->Position.XZ, targetLocation->Position.XZ))
+			else // bot already has a valid target
 			{
-				BotLogger.LogAction(entity, "Changing attacker to nearby attacker");
-				bot->SetAttackTarget(entity, f, attacker);
+				if (!f.Unsafe.TryGetPointer<Transform3D>(bot->Target, out var targetLocation))
+				{
+					return;
+				}
+				
+				// If the attacker is closer to the bot than the current bot target, 50% swap chance
+				if (f.RNG->NextBool() &&
+					distanceToAttacker <
+					FPVector2.DistanceSquared(botLocation->Position.XZ, targetLocation->Position.XZ))
+				{
+					BotLogger.LogAction(entity, "Changing attacker to nearby attacker");
+					bot->SetNextDecisionDelay(f, FP._3);
+					bot->SetSearchForEnemyDelay(f);
+					bot->SetAttackTarget(entity, f, attacker);
+				}
 			}
-
-			bot->SetSearchForEnemyDelay(f);
 		}
 
 		public void OnPlayerRevived(Frame f, EntityRef entity)
@@ -268,7 +278,7 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
-			bot->NextDecisionTime = f.Time;
+			bot->SetNextDecisionDelay(f, 0);
 
 			if (f.Unsafe.TryGetPointer<AIBlackboardComponent>(entity, out var bb))
 			{
@@ -284,7 +294,7 @@ namespace Quantum.Systems.Bots
 			}
 
 			BotShooting.StopAiming(f, bot, entity);
-			bot->NextDecisionTime = f.Time;
+			bot->SetNextDecisionDelay(f, 0);
 
 			if (f.Unsafe.TryGetPointer<AIBlackboardComponent>(entity, out var bb))
 			{

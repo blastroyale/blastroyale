@@ -7,7 +7,8 @@
     padding-left: 3px;
     background-image: var(--sprite-match__background-playerbars);
 }
-.player-health-shield--knockedout .player-health-shield{
+
+.player-health-shield--knockedout .player-health-shield {
     height: 36px;
 }
 
@@ -172,13 +173,14 @@
     justify-content: space-between;
 }
 
+.player-health-shield--local .player-health-shield__separator-holder {
+    display: flex;
+}
+
 .player-health-shield--knockedout .player-health-shield__separator-holder {
     display: none;
 }
 
-.player-health-shield--local .player-health-shield__separator-holder {
-    display: flex;
-}
 
 .player-health-shield__separator {
     background-image: var(--sprite-match__progress-separator);

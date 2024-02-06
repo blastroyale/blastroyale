@@ -51,10 +51,6 @@ namespace Quantum.Systems
 			{
 				if (filter.KnockedOut->EndRevivingAt != FP._0 && filter.KnockedOut->EndRevivingAt <= f.Time)
 				{
-					if (filter.KnockedOut->EndRevivingAt - filter.KnockedOut->StartedRevivingAt <= FP._2)
-					{
-						Log.Warn("Some shit happened");
-					}
 					// Revive player
 					var reviveHealthPercentage = GetConfigForKnockedOut(f, filter.KnockedOut).LifePercentageOnRevived;
 					f.Remove<KnockedOut>(filter.Entity);
@@ -118,7 +114,6 @@ namespace Quantum.Systems
 			{
 				var config = GetConfigForKnockedOut(f, knockedOut);
 				knockedOut->EndRevivingAt = f.Time + config.TimeToRevive;
-				knockedOut->StartedRevivingAt = f.Time;
 				// Why this mess exists?
 				// Because I want to allow the bar to slowly decrease when a player leaves a collider, i have considered summing and decreasing a value per frame
 				// but this is more performant, since we don't need to do anything on update loop, but the cost is readability
@@ -290,10 +285,6 @@ namespace Quantum.Systems
 				var config = GetConfigForKnockedOut(f, knockedOut);
 				// Progress on leave
 				var timeReviving = config.TimeToRevive - (knockedOut->EndRevivingAt - f.Time);
-				if (timeReviving > FP._5)
-				{
-					Log.Warn("Another shit happened");
-				}
 				knockedOut->BackAtZero = f.Time + (timeReviving * config.ProgressDownSpeedMultiplier);
 				// Reset damage timer 
 				knockedOut->NextDamageAt = f.Time + config.DamageTickInterval;

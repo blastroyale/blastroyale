@@ -18,7 +18,7 @@ namespace Quantum.Systems.Bots
 		}
 		
 		[Conditional("BOT_DEBUG")]
-		public static void LogAction(BotCharacter bot, string action)
+		public static void LogAction(in BotCharacter bot, string action)
 		{
 			Log.Warn($"[{DateTime.Now.Ticks}] Bot " + bot.BotNameIndex + " took decision " + action);
 		}

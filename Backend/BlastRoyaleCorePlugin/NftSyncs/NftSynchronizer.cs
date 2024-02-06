@@ -42,10 +42,7 @@ namespace BlastRoyaleNFTPlugin
 			{
 				return;
 			}
-
-			var equipmentSync = _equipmentSync.SyncNftEquipment(playfabId, serverState, lastBlockchainUpdate);
-			var corposSync = _corpoSync.SyncCorpos(playfabId, serverState, lastBlockchainUpdate);
-			await Task.WhenAll(equipmentSync, corposSync);
+			await _corpoSync.SyncCorpos(playfabId, serverState, lastBlockchainUpdate);
 		}
 
 

@@ -73,6 +73,7 @@ namespace FirstLight.Game.Services
 
 		public void StartOptionalAssetLoad()
 		{
+			FLog.Verbose("Starting optional match asset load");
 			var localPlayerLoadout = _services.RoomService.CurrentRoom.LocalPlayerProperties.Loadout.Value;
 			if (localPlayerLoadout != null)
 			{
@@ -91,6 +92,7 @@ namespace FirstLight.Game.Services
 		public void StartMandatoryAssetLoad()
 		{
 			if (!_services.NetworkService.InRoom) return;
+			FLog.Verbose("Starting mandatory asset load");
 			var time = Time.realtimeSinceStartup;
 			var map = _services.RoomService.CurrentRoom.Properties.MapId.Value;
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());

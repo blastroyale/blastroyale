@@ -126,9 +126,8 @@ namespace Quantum
 		{
 			var targetable = new Targetable {Team = TeamId};
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-
-			var loadout = GetLoadoutGear(f);
-			stats->ResetStats(f, CurrentWeapon, loadout, e);
+			
+			stats->ResetStats(f, CurrentWeapon, Array.Empty<Equipment>(), e);
 
 			var maxHealth = FPMath.RoundToInt(stats->GetStatData(StatType.Health).StatValue);
 			var currentHealth = stats->CurrentHealth;
@@ -337,70 +336,7 @@ namespace Quantum
 				_ => throw new NotSupportedException($"Could not find GameIdGroup for slot({slot})")
 			};
 		}
-
-		/// <summary>
-		/// Gets specific metadata around a specific loadout item.
-		/// Can return null if the equipment is not part of the loadout.
-		/// </summary>
-		public EquipmentSimulationMetadata? GetLoadoutMetadata(Frame f, Equipment* e)
-		{
-			var loadout = GetAllLoadout(f);
-			for (var i = 0; i < loadout.Length; i++)
-			{
-				if (loadout[i].GameId == e->GameId) // only compare game id for speed
-				{
-					return f.GetPlayerData(Player)?.LoadoutMetadata[i];
-				}
-			}
-			return null;
-		}
-
-		/// <summary>
-		/// Requests the player's initial setup loadout
-		/// </summary>
-		public Equipment[] GetAllLoadout(Frame f)
-		{
-			var loadout = f.GetPlayerData(Player)?.Loadout ?? Array.Empty<Equipment>();
-			return loadout;
-		}
 		
-		/// <summary>
-		/// Requests the player's weapon from initial setup loadout
-		/// </summary>
-		public Equipment GetLoadoutWeapon(Frame f)
-		{
-			var weapon = f.GetPlayerData(Player)?.Weapon ?? Equipment.None;
-			return weapon;
-		}
-
-		/// <summary>
-		/// Requests the player's initial loadout (only gear, weapon excluded)
-		/// </summary>
-		public Equipment[] GetLoadoutGear(Frame f)
-		{
-			var loadout = GetAllLoadout(f).
-							Where(eq => !eq.GameId.IsInGroup(GameIdGroup.Weapon)).ToArray();
-			return loadout;
-		}
-
-		/// <summary>
-		/// Checks if the player has this <paramref name="equipment"/> item equipped, based on it's
-		/// GameId and Rarity (rarity of equipped item has to be higher).
-		/// </summary>
-		internal bool HasBetterWeaponEquipped(Equipment* equipment)
-		{
-			for (int i = 0; i < WeaponSlots.Length; i++)
-			{
-				var weapon = WeaponSlots[i].Weapon;
-				if (weapon.GameId == equipment->GameId && weapon.Rarity >= equipment->Rarity)
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-
 		private int GetWeaponEquipSlot(Frame f, Equipment weapon, bool primary)
 		{
 			if (f.Context.GameModeConfig.SingleSlotMode)
@@ -418,6 +354,24 @@ namespace Quantum
 			}
 
 			return primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
+		}
+		
+		/// <summary>
+		/// Checks if the player has this <paramref name="equipment"/> item equipped, based on it's
+		/// GameId and Rarity (rarity of equipped item has to be higher).
+		/// </summary>
+		internal bool HasBetterWeaponEquipped(Equipment* equipment)
+		{
+			for (int i = 0; i < WeaponSlots.Length; i++)
+			{
+				var weapon = WeaponSlots[i].Weapon;
+				if (weapon.GameId == equipment->GameId && weapon.Rarity >= equipment->Rarity)
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		private QuantumWeaponConfig SetSlotWeapon(Frame f, EntityRef e, int slot)
@@ -441,7 +395,7 @@ namespace Quantum
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 
 			var stats = f.Unsafe.GetPointer<Stats>(e); 
-			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, GetLoadoutGear(f));
+			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Array.Empty<Equipment>());
 			
 			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 			f.Events.OnPlayerAmmoChanged(Player, e, stats->GetCurrentAmmo(),

@@ -65,9 +65,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				GamePlayerCount = _matchData.Count
 			}, out _);
 
-			Assert.AreEqual(3, rewards.Count);
-			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT1_CS_PERCENTAGE / 100,
-				rewards.Find(data => data.Id == GameId.CS).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.AreEqual(2, rewards.Count);
 			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
 			Assert.AreEqual(PLACEMENT1_Trophies, rewards.Find(data => data.Id == GameId.Trophies).GetMetadata<CurrencyMetadata>().Amount);
 		}
@@ -86,9 +84,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				AllowedRewards = GameConstants.Data.AllowedGameRewards,
 			}, out _);
 
-			Assert.AreEqual(3, rewards.Count);
-			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100,
-				rewards.Find(data => data.Id == GameId.CS).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.AreEqual(2, rewards.Count);
 			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
 			Assert.AreEqual(PLACEMENT3_Trophies, rewards.Find(data => data.Id == GameId.Trophies).GetMetadata<CurrencyMetadata>().Amount);
 		}
@@ -107,9 +103,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				AllowedRewards = GameConstants.Data.AllowedGameRewards,
 			}, out _);
 
-			Assert.AreEqual(3, rewards.Count);
-			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT1_CS_PERCENTAGE / 100,
-				rewards.Find(data => data.Id == GameId.CS).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.AreEqual(2, rewards.Count);
 			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
 			Assert.AreEqual(PLACEMENT1_Trophies, rewards.Find(data => data.Id == GameId.Trophies).GetMetadata<CurrencyMetadata>().Amount);
 		}
@@ -128,9 +122,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				AllowedRewards = GameConstants.Data.AllowedGameRewards,
 			}, out _);
 
-			Assert.AreEqual(3, rewards.Count);
-			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100,
-				rewards.Find(data => data.Id == GameId.CS).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.AreEqual(2, rewards.Count);
 			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
 			Assert.AreEqual(PLACEMENT3_Trophies, rewards.Find(data => data.Id == GameId.Trophies).GetMetadata<CurrencyMetadata>().Amount);
 		}

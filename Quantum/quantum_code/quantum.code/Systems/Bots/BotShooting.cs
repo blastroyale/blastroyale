@@ -36,6 +36,7 @@ namespace Quantum.Systems.Bots
 				// We need to check also for AlivePlayerCharacter because with respawns we don't destroy Player Entities
 				if (QuantumHelpers.IsDestroyed(f, target) || !f.Has<AlivePlayerCharacter>(target))
 				{
+					BotLogger.LogAction(ref filter, "Target is not valid, stopping");
 					filter.ClearTarget(f);
 				}
 				// Aim at target
@@ -106,6 +107,13 @@ namespace Quantum.Systems.Bots
 			botFilter.SetSearchForEnemyDelay(f);
 		}
 
+		public static bool IsGoingTowardsEnemy(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
+		{
+			return botFilter.BotCharacter->MoveTarget.IsValid 
+				&& botFilter.BotCharacter->MoveTarget != botFilter.Entity 
+				&& f.Has<PlayerCharacter>(botFilter.BotCharacter->MoveTarget);
+		}
+
 		public static void ClearTarget(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
 		{
 			botFilter.StopAiming(f);
@@ -121,13 +129,12 @@ namespace Quantum.Systems.Bots
 			if (botFilter.BotCharacter->Target.IsValid)
 			{
 				// if im not going towards a valid collectible ill re-think my life
-				if (!botFilter.IsGoingTowardsValidCollectible(f, out _))
+				if (!botFilter.IsGoingTowardsEnemy(f) && !botFilter.IsGoingTowardsValidCollectible(f, out _))
 				{
 					botFilter.BotCharacter->ResetTargetWaypoint(f);
 					botFilter.NavMeshAgent->Stop(f, botFilter.Entity, true);
 				}
 			}
-
 			botFilter.BotCharacter->Target = EntityRef.None;
 		}
 

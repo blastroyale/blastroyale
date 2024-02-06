@@ -20,6 +20,7 @@ namespace Quantum
 
 		public static void SetNextDecisionDelay(this ref BotCharacter bot, Frame f, in FP seconds)
 		{
+			BotLogger.LogAction(bot, $"Adding decision delay: {seconds} seconds");
 			bot.NextDecisionTime = f.Time + seconds;
 		}
 
@@ -49,7 +50,7 @@ namespace Quantum
 		{
 			BotLogger.LogAction(bot, "Set Waypoint");
 			bot.MoveTarget = entity;
-			bot.NextDecisionTime = f.Time + bot.DecisionInterval;
+			bot.SetNextDecisionDelay(f, bot.DecisionInterval);
 			bot.StuckDetectionPosition = f.Get<Transform3D>(entity).Position.XZ;
 		}
 
@@ -61,7 +62,7 @@ namespace Quantum
 		{
 			BotLogger.LogAction(bot, "Clear waypoint");
 			bot.MoveTarget = EntityRef.None;
-			bot.NextDecisionTime = f.Time;
+			bot.SetNextDecisionDelay(f, 0);
 			bot.StuckDetectionPosition = FPVector2.Zero;
 		}
 

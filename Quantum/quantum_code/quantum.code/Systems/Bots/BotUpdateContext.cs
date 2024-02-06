@@ -4,6 +4,7 @@ namespace Quantum.Systems.Bots
 {
 	public class BotUpdateGlobalContext
 	{
+		public int FrameNumber;
 		public FPVector2 circleCenter;
 		public FP circleRadius;
 		public bool circleIsShrinking;

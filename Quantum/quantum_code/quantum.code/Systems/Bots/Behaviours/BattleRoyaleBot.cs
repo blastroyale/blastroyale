@@ -170,9 +170,9 @@ namespace Quantum.Systems.Bots
 					if (vectorToTeammate.SqrMagnitude <= MaxDistanceToTryToRevive)
 					{
 						var destination = teamMatePosition - (vectorToTeammate.Normalized * FP._0_50);
-						filter.BotCharacter->NextDecisionTime = f.Time + filter.BotCharacter->DecisionInterval;
 
-
+						filter.BotCharacter->SetNextDecisionDelay(f, filter.BotCharacter->DecisionInterval);
+						
 						if (BotMovement.MoveToLocation(f, filter.Entity, destination))
 						{
 							filter.SetHasWaypoint(f);

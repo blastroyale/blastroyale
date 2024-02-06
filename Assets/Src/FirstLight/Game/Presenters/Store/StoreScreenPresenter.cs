@@ -73,7 +73,7 @@ namespace FirstLight.Game.Presenters.Store
 					var productElement = new StoreGameProductElement();
 				
 					categoryElement.Add(productElement);
-					categoryElement.EnsureSize(productElement.size);
+					categoryElement.EnsureSize(product.PlayfabProductConfig.StoreItemData.Size);
 					var flags = ProductFlags.NONE;
 					if (IsItemOwned(product))
 					{

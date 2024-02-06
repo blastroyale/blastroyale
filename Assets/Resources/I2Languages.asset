@@ -14189,7 +14189,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/SpecialLandMine
+    - Term: GameIds/SpecialLandmine
       TermType: 0
       Description: 
       Languages:
@@ -14200,7 +14200,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/SpecialLandMineDescription
+    - Term: GameIds/SpecialLandmineDescription
       TermType: 0
       Description: 
       Languages:
@@ -25176,7 +25176,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1706882983819
+    Google_LastUpdatedVersion: 1707241137388
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

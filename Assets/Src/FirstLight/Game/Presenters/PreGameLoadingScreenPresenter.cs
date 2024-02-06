@@ -380,11 +380,8 @@ namespace FirstLight.Game.Presenters
 			var mapWidthHalf = mapWidth / 2;
 			var mapHeightHalf = mapHeight / 2;
 
-			// Set map marker at click point
-			localPos = new Vector3(localPos.x - mapWidthHalf, localPos.y - mapHeightHalf, 0);
-
 			// Get normalized position for spawn positions in quantum, -0.5 to 0.5 range
-			var quantumSelectPos = new Vector2(localPos.x / mapWidth, -localPos.y / mapHeight);
+			var quantumSelectPos = new Vector2((localPos.x - mapWidthHalf) / mapWidth + 0.5f, -(localPos.y - mapHeightHalf) / mapHeight - 0.5f);
 			_services.RoomService.CurrentRoom.LocalPlayerProperties.DropPosition.Value = quantumSelectPos;
 		}
 

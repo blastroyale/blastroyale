@@ -140,6 +140,11 @@ namespace FirstLight.Game.Utils
 		/// If true will load game configurations from remote server
 		/// </summary>
 		public static bool REMOTE_CONFIGURATION = false;
+		
+		/// <summary>
+		/// When true will wait rewards to be synced before allowing players to continue playing
+		/// </summary>
+		public static bool WAIT_REWARD_SYNC = false;
 
 		/// <summary>
 		/// Forces to stop the game when pausing
@@ -361,6 +366,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("PAUSE_FREEZE", overrideData, out var pauseFreeze))
 			{
 				PAUSE_FREEZE = pauseFreeze;
+			}
+			
+			if (TrySetFlag("WAIT_REWARD_SYNC", overrideData, out var waitSync))
+			{
+				WAIT_REWARD_SYNC = waitSync;
 			}
 		}
 

@@ -62,9 +62,14 @@ public class FootprinterMonoComponent : MonoBehaviour
         _skin = services.CollectionService.GetCosmeticForGroup(loadout.Cosmetics, GameIdGroup.Footprint);
     }
 
+    private bool CanSpawn()
+    {
+        return _character != null && _character.PlayerView != null && _view != null && SpawnFootprints && _skin.Id != GameId.Random && _cooldown.CheckTrigger();
+    }
+    
     private void Update()
     {
-        if (_character != null && _view != null && SpawnFootprints && _skin.Id != GameId.Random && _cooldown.CheckTrigger())
+        if (CanSpawn())
         {
             Spawn().Forget();
         }
@@ -85,16 +90,26 @@ public class FootprinterMonoComponent : MonoBehaviour
         return _view.transform.rotation; 
     }
 
+    private bool IsValid()
+    {
+        return _view != null && _character != null & _character.PlayerView != null && !_character.PlayerView.Culled;
+    }
+
     /// <summary>
     /// Spawns the footstep.
     /// </summary>
     private async UniTaskVoid Spawn()
     {
-        if (_character.PlayerView.Culled) return;
+        if (!IsValid()) return;
         if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
         
         if (_globalPool.Count > 0) _pooledFootprint = _globalPool.Dequeue();
         else  _pooledFootprint = await _services.CollectionService.LoadCollectionItem3DModel(_skin);
+        if (!IsValid())
+        {
+            Despawn(_pooledFootprint);
+            return;
+        }
         if (_rightStepScale == Vector3.zero)
         {
             _rightStepScale = _pooledFootprint.transform.localScale;
@@ -108,7 +123,7 @@ public class FootprinterMonoComponent : MonoBehaviour
         _pooledFootprint.transform.rotation = Quaternion.Euler(90, _localRotation.eulerAngles.y, 0);
         _pooledFootprint.SetActive(true);
         PlayEffects();
-        StartCoroutine(Despawn(_pooledFootprint));
+        StartCoroutine(DespawnCoroutine(_pooledFootprint));
     }
 
     private void PlayEffects()
@@ -121,10 +136,15 @@ public class FootprinterMonoComponent : MonoBehaviour
         }
     }
 
-    private IEnumerator Despawn(GameObject o)
+    private IEnumerator DespawnCoroutine(GameObject o)
     {
         yield return _duration;
-        if (!o.activeSelf) yield break;
+        Despawn(o);
+    }
+
+    private void Despawn(GameObject o)
+    {
+        if (!o.activeSelf) return;
         o.SetActive(false);
         _globalPool.Enqueue(o);
     }

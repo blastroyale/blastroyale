@@ -121,6 +121,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				UpdateSpectatedArea(ev.Game.Frames.Verified, ev.Area);
 			}
+			
 			UpdateLocalPlayerViewOn(ev.Entity);
 		}
 		
@@ -190,7 +191,19 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			if (IsSpectator(towardsEntity))
 			{
-				renderer.SetColor(visibility.TargetArea.Area.IsValid ? _inBushColor : Color.white);	
+				var f = QuantumRunner.Default.Game.Frames.Verified;
+				
+				if (visibility.TargetArea.Area.IsValid && f.TryGet<VisibilityArea>(visibility.TargetArea.Area, out var visibilityArea))
+				{
+					if (visibilityArea.AreaType == VisibilityAreaType.Bush)
+					{
+						renderer.SetColor(_inBushColor);
+					}
+				}
+				else
+				{
+					renderer.ResetColor();
+				}
 			}
 			
 			_gameServices.MessageBrokerService.Publish(new LocalPlayerEntityVisibilityUpdate()
@@ -212,7 +225,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void Reset(RenderersContainerProxyMonoComponent renderer)
 		{
-			renderer.SetColor(Color.white);
+			renderer.ResetColor();
 			renderer.SetEnabled(true);
 		}
 		

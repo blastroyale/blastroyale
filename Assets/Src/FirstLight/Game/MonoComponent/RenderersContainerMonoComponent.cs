@@ -122,6 +122,14 @@ namespace FirstLight.Game.MonoComponent
 			}
 		}
 
+		public void ResetColor()
+		{
+			for(var i=0; i<_renderers.Count; i++)
+			{
+				_renderers[i].material.color = _originalMaterials[i].color;
+			}
+		}
+
 		public bool GetFirstRendererColor(ref Color color)
 		{
 			foreach (var render in _renderers)

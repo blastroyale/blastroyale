@@ -135,6 +135,7 @@ namespace Backend
 		{
 			var serverData = _setupService.GetInitialState(playerId);
 			await _stateService.UpdatePlayerState(playerId, serverData);
+			await _eventManager.CallEvent(new PlayerDataSetupEvent(playerId));
 			return Playfab.Result(playerId, serverData);
 		}
 

@@ -78,9 +78,9 @@ namespace FirstLight.Game.Logic
 		ItemData RemoveFromPlayer(ItemData item);
 	}
 
-	public class CollectionLogic : AbstractBaseLogic<CollectionData>, ICollectionLogic, IGameLogicInitializer
+	public static class DefaultCollectionItems
 	{
-		public IReadOnlyDictionary<CollectionCategory, List<ItemData>> DefaultCollectionItems => new ReadOnlyDictionary<CollectionCategory, List<ItemData>>(new Dictionary<CollectionCategory, List<ItemData>>()
+		public static IReadOnlyDictionary<CollectionCategory, List<ItemData>> Items => new ReadOnlyDictionary<CollectionCategory, List<ItemData>>(new Dictionary<CollectionCategory, List<ItemData>>()
 		{
 			{
 				CollectionCategories.PROFILE_PICTURE, new List<ItemData>()
@@ -113,7 +113,10 @@ namespace FirstLight.Game.Logic
 				}
 			}
 		});
+	}
 
+	public class CollectionLogic : AbstractBaseLogic<CollectionData>, ICollectionLogic, IGameLogicInitializer
+	{
 		/// <summary>
 		/// If the player doesn't have an equipped it will return this values when the equipped item is requested
 		/// If the player doesn't have the item, or there is no setting for the category it will get the first item of the collection
@@ -125,7 +128,8 @@ namespace FirstLight.Game.Logic
 			{CollectionCategories.MELEE_SKINS, ItemFactory.Collection(GameId.MeleeSkinDefault)},
 			{CollectionCategories.PROFILE_PICTURE, ItemFactory.Collection(GameId.Avatar2)},
 		};
-
+		
+		public IReadOnlyDictionary<CollectionCategory, List<ItemData>> DefaultCollectionItems => Logic.DefaultCollectionItems.Items;
 
 		public List<ItemData> GetFullCollection(CollectionCategory group)
 		{

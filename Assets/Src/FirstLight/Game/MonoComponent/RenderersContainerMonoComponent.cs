@@ -92,7 +92,7 @@ namespace FirstLight.Game.MonoComponent
 				}
 
 				_renderers.Add(r);
-				_rendererColors.Add(r.material.color);
+				_rendererColors.Add(r.sharedMaterial.color);
 				_originalMaterials.Add(r.sharedMaterial);
 			}
 		}

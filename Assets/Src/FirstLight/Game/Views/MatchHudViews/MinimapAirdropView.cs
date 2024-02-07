@@ -26,7 +26,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// The quantum's <see cref="EntityRef"/> representing this airdrop
 		/// </summary>
-		public EntityRef Entity { get; private set; }
+		public EntityRef Entity { get; set; }
 
 		[SerializeField, Required, Title("Refs")]
 		private Image _timerImage;

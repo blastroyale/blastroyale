@@ -507,6 +507,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				if (airdropView.Entity != callback.Entity) continue;
 
 				airdropView.OnLanded();
+				airdropView.Entity = callback.ChestEntity;
 				break;
 			}
 		}

@@ -768,19 +768,19 @@ MonoBehaviour:
       PointsForNextLevel: 50
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 100
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 200
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 300
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 350
       Season: 8
     - RewardId: 63
@@ -788,7 +788,7 @@ MonoBehaviour:
       PointsForNextLevel: 350
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 350
       Season: 8
     - RewardId: 63
@@ -796,27 +796,27 @@ MonoBehaviour:
       PointsForNextLevel: 350
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 350
       Season: 8
     - RewardId: 56
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -824,19 +824,19 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -844,39 +844,39 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 43
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -884,27 +884,27 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -912,23 +912,23 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 44
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -936,7 +936,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -944,23 +944,23 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 42
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -968,35 +968,35 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 57
@@ -1004,11 +1004,11 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -1016,7 +1016,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -1024,27 +1024,27 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -1052,11 +1052,11 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -1064,15 +1064,15 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -1080,31 +1080,31 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 58
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -1112,11 +1112,11 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 63
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 31

@@ -27,9 +27,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private const string UssHideControls = "hide-controls";
-
-		[SerializeField] private CinemachineVirtualCamera _followCamera;
-
+		
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 
@@ -106,11 +104,7 @@ namespace FirstLight.Game.Presenters
 
 			var data = new QuantumPlayerMatchData(f, playersData[current.Player]);
 			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, (int) data.LeaderboardRank);
-
-			_followCamera.Follow = current.Transform;
-			_followCamera.LookAt = current.Transform;
-			_followCamera.SnapCamera();
-
+			
 			_playerName.text = data.GetPlayerName();
 			_playerName.style.color = nameColor;
 			_defeatedYou.SetVisibility(current.Player == _matchServices.MatchEndDataService.LocalPlayerKiller);

@@ -24,9 +24,9 @@ MonoBehaviour:
         - DamageTickInterval:
             RawValue: 65536
           DamagePerTick:
-            RawValue: 1638
+            RawValue: 1966
           DamagePerShot:
-            RawValue: 5242
+            RawValue: 19660
           TimeToRevive:
             RawValue: 327680
           LifePercentageOnRevived:
@@ -42,9 +42,9 @@ MonoBehaviour:
         - DamageTickInterval:
             RawValue: 65536
           DamagePerTick:
-            RawValue: 1638
+            RawValue: 1966
           DamagePerShot:
-            RawValue: 5242
+            RawValue: 19660
           TimeToRevive:
             RawValue: 327680
           LifePercentageOnRevived:
@@ -60,9 +60,9 @@ MonoBehaviour:
         - DamageTickInterval:
             RawValue: 65536
           DamagePerTick:
-            RawValue: 1638
+            RawValue: 1966
           DamagePerShot:
-            RawValue: 5242
+            RawValue: 19660
           TimeToRevive:
             RawValue: 327680
           LifePercentageOnRevived:

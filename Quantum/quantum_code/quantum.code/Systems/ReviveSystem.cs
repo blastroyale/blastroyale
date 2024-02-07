@@ -225,7 +225,7 @@ namespace Quantum.Systems
 
 			if (spell->Id != Spell.KnockedOut)
 			{
-				damage = ((FP)maxHealth * GetConfigForKnockedOut(f, knockedout).DamagePerShot).AsInt;
+				damage = FPMath.CeilToInt((FP)damage * GetConfigForKnockedOut(f, knockedout).DamagePerShot);
 				return true;
 			}
 

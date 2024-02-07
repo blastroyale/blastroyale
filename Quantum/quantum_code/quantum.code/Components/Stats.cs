@@ -324,6 +324,7 @@ namespace Quantum
 			// And knocked out damage should be controlled by the revive system, it only overwrites projectile hits
 			if (ReviveSystem.OverwriteDamage(f, entity, spell, maxHealth, ref damageAmount))
 			{
+				totalDamage = damageAmount;
 				previousShield = 0;
 			}
 

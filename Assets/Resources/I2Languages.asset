@@ -13252,7 +13252,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PANDA
+      - BAM BOO
       - PANDA
       - PANDA
       - 
@@ -13263,7 +13263,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Panda description
+      - Pow! Punch! Win!
       - Panda description
       - Panda description
       - 
@@ -13274,7 +13274,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - LEPRECHAUN
+      - PATRICK CLOVER
       - LEPRECHAUN
       - LEPRECHAUN
       - 
@@ -13285,7 +13285,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Leprechaun description
+      - "It\u2019s my lucky day!"
       - Leprechaun description
       - Leprechaun description
       - 
@@ -13318,7 +13318,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SNOWBOARD GUY
+      - FROSTY BENNET
       - SNOWBOARD GUY
       - SNOWBOARD GUY
       - 
@@ -13329,7 +13329,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Snowboarder description
+      - Cool as the slopes
       - Snowboarder description
       - Snowboarder description
       - 
@@ -13340,7 +13340,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SPICE DUNE GUY
+      - DUSTY
       - SPICE DUNE GUY
       - SPICE DUNE GUY
       - 
@@ -13351,9 +13351,31 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - A storm is brewing
       - This guy's description
       - This guy's description
-      - This guy's description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinHarald
+      TermType: 0
+      Description: 
+      Languages:
+      - HARALD
+      - DRAGON
+      - DRAGON
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinHaraldDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Strength in Every Step
+      - Dragon description
+      - Dragon description
       - 
       - 
       Flags: 0000000000
@@ -25296,7 +25318,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1707407542485
+    Google_LastUpdatedVersion: 1707416443751
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

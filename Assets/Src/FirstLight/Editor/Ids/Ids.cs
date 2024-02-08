@@ -210,6 +210,7 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinDragon", 402, PlayerSkin, Collection},
 			{"PlayerSkinSnowboarder", 403, PlayerSkin, Collection},
 			{"PlayerSkinDunePaul", 404, PlayerSkin, Collection},
+			{"PlayerSkinHarald", 405, PlayerSkin, Collection},
 
 			#endregion Player skins
 

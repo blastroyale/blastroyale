@@ -13248,6 +13248,116 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinPanda
+      TermType: 0
+      Description: 
+      Languages:
+      - PANDA
+      - PANDA
+      - PANDA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPandaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Panda description
+      - Panda description
+      - Panda description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinLeprechaun
+      TermType: 0
+      Description: 
+      Languages:
+      - LEPRECHAUN
+      - LEPRECHAUN
+      - LEPRECHAUN
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinLeprechaunDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Leprechaun description
+      - Leprechaun description
+      - Leprechaun description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDragon
+      TermType: 0
+      Description: 
+      Languages:
+      - DRAGON
+      - DRAGON
+      - DRAGON
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDragonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Dragon description
+      - Dragon description
+      - Dragon description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSnowboarder
+      TermType: 0
+      Description: 
+      Languages:
+      - SNOWBOARD GUY
+      - SNOWBOARD GUY
+      - SNOWBOARD GUY
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSnowboarderDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Snowboarder description
+      - Snowboarder description
+      - Snowboarder description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDunePaul
+      TermType: 0
+      Description: 
+      Languages:
+      - SPICE DUNE GUY
+      - SPICE DUNE GUY
+      - SPICE DUNE GUY
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDunePaulDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - This guy's description
+      - This guy's description
+      - This guy's description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Punk
       TermType: 0
       Description: 
@@ -20868,9 +20978,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - YOU GOT {0} BLAST BUCKS FOR YOUR {1} NON NFT EQUIPMENTS
+      - YOU GOT {0} FOR YOUR {1} NON NFT EQUIPMENTS
       - got vodka
-      - VOCE RECEBEU {0} BLAST BUCKS PELOS SEUS {1} EQUIPMAMENTOS NAO NFTS
+      - VOCE RECEBEU {0} PELOS SEUS {1} EQUIPMAMENTOS NAO NFTS
       - 
       - 
       Flags: 0000000000
@@ -24819,6 +24929,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITStore/you_own_this_item
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU OWN THIS ITEM
+      - YOU OWN THIS ITEM
+      - "VOC\xCA J\xC1 POSSUI ESTE ITEM"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSwipeTransition/lets_blast
       TermType: 0
       Description: 
@@ -25175,7 +25296,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1707242627921
+    Google_LastUpdatedVersion: 1707407542485
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

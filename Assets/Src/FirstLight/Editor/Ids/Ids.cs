@@ -205,6 +205,11 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinMontyVonCue", 136, PlayerSkin, BotItem, Collection},
 			{"PlayerSkinBoudicca", 139, PlayerSkin, BotItem, Collection},
 			{"PlayerSkinCupid", 142, PlayerSkin, BotItem, Collection},
+			{"PlayerSkinPanda", 400, PlayerSkin, Collection},
+			{"PlayerSkinLeprechaun", 401, PlayerSkin, Collection},
+			{"PlayerSkinDragon", 402, PlayerSkin, Collection},
+			{"PlayerSkinSnowboarder", 403, PlayerSkin, Collection},
+			{"PlayerSkinDunePaul", 404, PlayerSkin, Collection},
 
 			#endregion Player skins
 

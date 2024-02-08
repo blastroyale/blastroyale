@@ -1032,6 +1032,41 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.PlayerSkinPanda, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinLeprechaun, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinDragon, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinSnowboarder, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinDunePaul, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
@@ -1904,6 +1939,11 @@ namespace Quantum
 						GameId.PlayerSkinMontyVonCue,
 						GameId.PlayerSkinBoudicca,
 						GameId.PlayerSkinCupid,
+						GameId.PlayerSkinPanda,
+						GameId.PlayerSkinLeprechaun,
+						GameId.PlayerSkinDragon,
+						GameId.PlayerSkinSnowboarder,
+						GameId.PlayerSkinDunePaul,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -2197,7 +2237,12 @@ namespace Quantum
 						GameId.PlayerSkinJodie,
 						GameId.PlayerSkinMontyVonCue,
 						GameId.PlayerSkinBoudicca,
-						GameId.PlayerSkinCupid
+						GameId.PlayerSkinCupid,
+						GameId.PlayerSkinPanda,
+						GameId.PlayerSkinLeprechaun,
+						GameId.PlayerSkinDragon,
+						GameId.PlayerSkinSnowboarder,
+						GameId.PlayerSkinDunePaul
 					}.AsReadOnly()
 				},
 				{

@@ -11373,7 +11373,9 @@ MonoBehaviour:
         Blast Pass or buy them in the shop.
 
         Use
-        them to speed up Blast Pass progress'
+        them to speed up Blast Pass
+
+        progress or purchase items in the shop.'
       - 
       - 
       - 
@@ -11483,15 +11485,12 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'Gain Coins by Scrapping equipment
+      - 'Earn Coins by completing
 
-        and completing Blast Pass.
-
+        Blast Pass or buy them in the shop.
 
         Use
-        Coins to upgrade
-
-        your equipment.'
+        them to purchase items in the shop.'
       - "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043C\u043E\u043D\u0435\u0442\u044B,
         \u043E\u0442\u043A\u0430\u0437\u0430\u0432\u0448\u0438\u0441\u044C \u043E\u0442
         \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F.\n\n\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435
@@ -25176,7 +25175,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1707241137388
+    Google_LastUpdatedVersion: 1707242627921
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

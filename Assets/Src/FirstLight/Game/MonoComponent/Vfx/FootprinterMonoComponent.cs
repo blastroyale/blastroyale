@@ -105,7 +105,7 @@ public class FootprinterMonoComponent : MonoBehaviour
         
         if (_globalPool.Count > 0) _pooledFootprint = _globalPool.Dequeue();
         else  _pooledFootprint = await _services.CollectionService.LoadCollectionItem3DModel(_skin);
-        if (!IsValid())
+        if (!IsValid() || _pooledFootprint == null)
         {
             Despawn(_pooledFootprint);
             return;
@@ -144,7 +144,7 @@ public class FootprinterMonoComponent : MonoBehaviour
 
     private void Despawn(GameObject o)
     {
-        if (!o.activeSelf) return;
+        if (o is not {activeSelf: true}) return;
         o.SetActive(false);
         _globalPool.Enqueue(o);
     }

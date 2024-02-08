@@ -13248,6 +13248,138 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinPanda
+      TermType: 0
+      Description: 
+      Languages:
+      - BAM BOO
+      - PANDA
+      - PANDA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPandaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Pow! Punch! Win!
+      - Panda description
+      - Panda description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinLeprechaun
+      TermType: 0
+      Description: 
+      Languages:
+      - PATRICK CLOVER
+      - LEPRECHAUN
+      - LEPRECHAUN
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinLeprechaunDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - "It\u2019s my lucky day!"
+      - Leprechaun description
+      - Leprechaun description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDragon
+      TermType: 0
+      Description: 
+      Languages:
+      - DRAGON
+      - DRAGON
+      - DRAGON
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDragonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Dragon description
+      - Dragon description
+      - Dragon description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSnowboarder
+      TermType: 0
+      Description: 
+      Languages:
+      - FROSTY BENNET
+      - SNOWBOARD GUY
+      - SNOWBOARD GUY
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSnowboarderDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Cool as the slopes
+      - Snowboarder description
+      - Snowboarder description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDunePaul
+      TermType: 0
+      Description: 
+      Languages:
+      - DUSTY
+      - SPICE DUNE GUY
+      - SPICE DUNE GUY
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDunePaulDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - A storm is brewing
+      - This guy's description
+      - This guy's description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinHarald
+      TermType: 0
+      Description: 
+      Languages:
+      - HARALD
+      - DRAGON
+      - DRAGON
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinHaraldDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Strength in Every Step
+      - Dragon description
+      - Dragon description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Punk
       TermType: 0
       Description: 
@@ -25186,7 +25318,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1707326346246
+    Google_LastUpdatedVersion: 1707416443751
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -1210,14 +1210,26 @@ namespace I2.Loc
 			public static string PlayerSkinBoudiccaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinBoudiccaDescription"); } }
 			public static string PlayerSkinCupid 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinCupid"); } }
 			public static string PlayerSkinCupidDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinCupidDescription"); } }
+			public static string PlayerSkinDragon 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinDragon"); } }
 			public static string PlayerSkinDragonBoxer 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinDragonBoxer"); } }
 			public static string PlayerSkinDragonBoxerDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinDragonBoxerDescription"); } }
+			public static string PlayerSkinDragonDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinDragonDescription"); } }
+			public static string PlayerSkinDunePaul 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinDunePaul"); } }
+			public static string PlayerSkinDunePaulDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinDunePaulDescription"); } }
 			public static string PlayerSkinFitnessChick 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinFitnessChick"); } }
 			public static string PlayerSkinFitnessChickDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinFitnessChickDescription"); } }
+			public static string PlayerSkinHarald 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinHarald"); } }
+			public static string PlayerSkinHaraldDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinHaraldDescription"); } }
 			public static string PlayerSkinJodie 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinJodie"); } }
 			public static string PlayerSkinJodieDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinJodieDescription"); } }
+			public static string PlayerSkinLeprechaun 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinLeprechaun"); } }
+			public static string PlayerSkinLeprechaunDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinLeprechaunDescription"); } }
 			public static string PlayerSkinMontyVonCue 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinMontyVonCue"); } }
 			public static string PlayerSkinMontyVonCueDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinMontyVonCueDescription"); } }
+			public static string PlayerSkinPanda 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinPanda"); } }
+			public static string PlayerSkinPandaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinPandaDescription"); } }
+			public static string PlayerSkinSnowboarder 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinSnowboarder"); } }
+			public static string PlayerSkinSnowboarderDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinSnowboarderDescription"); } }
 			public static string PlayerSkinTieGuy 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinTieGuy"); } }
 			public static string PlayerSkinTieGuyDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinTieGuyDescription"); } }
 			public static string PlayerSkinXmasSuperstar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinXmasSuperstar"); } }
@@ -3550,14 +3562,26 @@ namespace I2.Loc
 		    public const string PlayerSkinBoudiccaDescription = "GameIds/PlayerSkinBoudiccaDescription";
 		    public const string PlayerSkinCupid = "GameIds/PlayerSkinCupid";
 		    public const string PlayerSkinCupidDescription = "GameIds/PlayerSkinCupidDescription";
+		    public const string PlayerSkinDragon = "GameIds/PlayerSkinDragon";
 		    public const string PlayerSkinDragonBoxer = "GameIds/PlayerSkinDragonBoxer";
 		    public const string PlayerSkinDragonBoxerDescription = "GameIds/PlayerSkinDragonBoxerDescription";
+		    public const string PlayerSkinDragonDescription = "GameIds/PlayerSkinDragonDescription";
+		    public const string PlayerSkinDunePaul = "GameIds/PlayerSkinDunePaul";
+		    public const string PlayerSkinDunePaulDescription = "GameIds/PlayerSkinDunePaulDescription";
 		    public const string PlayerSkinFitnessChick = "GameIds/PlayerSkinFitnessChick";
 		    public const string PlayerSkinFitnessChickDescription = "GameIds/PlayerSkinFitnessChickDescription";
+		    public const string PlayerSkinHarald = "GameIds/PlayerSkinHarald";
+		    public const string PlayerSkinHaraldDescription = "GameIds/PlayerSkinHaraldDescription";
 		    public const string PlayerSkinJodie = "GameIds/PlayerSkinJodie";
 		    public const string PlayerSkinJodieDescription = "GameIds/PlayerSkinJodieDescription";
+		    public const string PlayerSkinLeprechaun = "GameIds/PlayerSkinLeprechaun";
+		    public const string PlayerSkinLeprechaunDescription = "GameIds/PlayerSkinLeprechaunDescription";
 		    public const string PlayerSkinMontyVonCue = "GameIds/PlayerSkinMontyVonCue";
 		    public const string PlayerSkinMontyVonCueDescription = "GameIds/PlayerSkinMontyVonCueDescription";
+		    public const string PlayerSkinPanda = "GameIds/PlayerSkinPanda";
+		    public const string PlayerSkinPandaDescription = "GameIds/PlayerSkinPandaDescription";
+		    public const string PlayerSkinSnowboarder = "GameIds/PlayerSkinSnowboarder";
+		    public const string PlayerSkinSnowboarderDescription = "GameIds/PlayerSkinSnowboarderDescription";
 		    public const string PlayerSkinTieGuy = "GameIds/PlayerSkinTieGuy";
 		    public const string PlayerSkinTieGuyDescription = "GameIds/PlayerSkinTieGuyDescription";
 		    public const string PlayerSkinXmasSuperstar = "GameIds/PlayerSkinXmasSuperstar";

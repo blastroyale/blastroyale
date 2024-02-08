@@ -103,6 +103,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -112,6 +113,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -126,6 +130,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -153,16 +158,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 0
+          RawValue: 82451
         Y:
           RawValue: 66846
         Z:
-          RawValue: -151388
+          RawValue: -126964
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21430272
         Z:
           RawValue: 0
     View: []
@@ -186,6 +191,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -195,6 +201,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -209,6 +218,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -236,16 +246,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 655360
+          RawValue: 632083
         Y:
           RawValue: 66846
         Z:
-          RawValue: -151388
+          RawValue: 229969
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21430272
         Z:
           RawValue: 0
     View: []
@@ -269,6 +279,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -278,6 +289,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -292,6 +306,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -319,16 +334,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 573440
+          RawValue: 563379
         Y:
           RawValue: 66846
         Z:
-          RawValue: -151388
+          RawValue: 185353
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21430272
         Z:
           RawValue: 0
     View: []
@@ -352,6 +367,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -361,6 +377,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -375,6 +394,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -402,16 +422,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 491520
+          RawValue: 494675
         Y:
           RawValue: 66846
         Z:
-          RawValue: -151388
+          RawValue: 140736
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21430272
         Z:
           RawValue: 0
     View: []
@@ -435,6 +455,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -444,6 +465,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -458,6 +482,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -485,16 +510,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 409600
+          RawValue: 425971
         Y:
           RawValue: 66846
         Z:
-          RawValue: -151388
+          RawValue: 96119
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21430272
         Z:
           RawValue: 0
     View: []
@@ -518,6 +543,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -527,6 +553,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -541,6 +570,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -568,16 +598,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 327680
+          RawValue: 357267
         Y:
           RawValue: 66846
         Z:
-          RawValue: -151388
+          RawValue: 51502
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21430272
         Z:
           RawValue: 0
     View: []
@@ -601,6 +631,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -610,6 +641,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -624,6 +658,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -651,16 +686,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 245760
+          RawValue: 288563
         Y:
           RawValue: 66846
         Z:
-          RawValue: -151388
+          RawValue: 6885
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21430272
         Z:
           RawValue: 0
     View: []
@@ -684,6 +719,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -693,6 +729,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -707,6 +746,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -734,16 +774,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 163840
+          RawValue: 219859
         Y:
           RawValue: 66846
         Z:
-          RawValue: -151388
+          RawValue: -37731
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21430272
         Z:
           RawValue: 0
     View: []
@@ -767,6 +807,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -776,6 +817,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -790,6 +834,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -817,16 +862,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 81920
+          RawValue: 151155
         Y:
           RawValue: 66846
         Z:
-          RawValue: -151388
+          RawValue: -82347
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21430272
         Z:
           RawValue: 0
     View: []
@@ -850,6 +895,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -859,6 +905,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -873,6 +922,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -900,16 +950,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 0
+          RawValue: 82451
         Y:
           RawValue: 66846
         Z:
-          RawValue: -151388
+          RawValue: -126964
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21430272
         Z:
           RawValue: 0
     View: []

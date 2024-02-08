@@ -281,10 +281,11 @@ namespace FirstLight.Game.StateMachines
 		private void OnItemConvertedToBlastBucks(ItemConvertedToBlastBuckMessage m)
 		{
 			if (_services.RoomService.InRoom) return;
-			
+
+			var itemView = ItemFactory.Currency(GameId.BlastBuck, m.BlastBucks).GetViewModel();
 			_services.GenericDialogService.OpenSimpleMessage(
 				ScriptLocalization.UITGeneric.items_converted, 
-				string.Format(ScriptLocalization.UITGeneric.items_converted_msg, m.BlastBucks, m.Items.Count)
+				string.Format(ScriptLocalization.UITGeneric.items_converted_msg, $"{m.BlastBucks} {itemView}", m.Items.Count)
 			);
 		}
 

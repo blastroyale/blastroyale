@@ -66,6 +66,7 @@ namespace FirstLight.Game.MonoComponent
 		[SerializeField, ReadOnlyOdin] private List<Renderer> _particleRenderers = new();
 		[SerializeField, ReadOnlyOdin] private List<Material> _originalMaterials = new();
 
+		private readonly List<Color> _rendererColors = new();
 		private IGameServices _services;
 
 		private void OnValidate()
@@ -80,6 +81,7 @@ namespace FirstLight.Game.MonoComponent
 			_particleRenderers.Clear();
 			_renderers.Clear();
 			_originalMaterials.Clear();
+			_rendererColors.Clear();
 
 			foreach (var r in renderers)
 			{
@@ -90,6 +92,7 @@ namespace FirstLight.Game.MonoComponent
 				}
 
 				_renderers.Add(r);
+				_rendererColors.Add(r.sharedMaterial.color);
 				_originalMaterials.Add(r.sharedMaterial);
 			}
 		}
@@ -119,6 +122,24 @@ namespace FirstLight.Game.MonoComponent
 			foreach (var render in _renderers)
 			{
 				render.material.color = c;
+			}
+
+			for (var i=0; i<_rendererColors.Count; i++)
+			{
+				_rendererColors[i] = c;
+			}
+		}
+
+		public void ResetColor()
+		{
+			for(var i=0; i<_renderers.Count; i++)
+			{
+				_renderers[i].material.color = _originalMaterials[i].color;
+			}
+			
+			for (var i=0; i<_rendererColors.Count; i++)
+			{
+				_rendererColors[i] = _originalMaterials[i].color;
 			}
 		}
 
@@ -191,6 +212,7 @@ namespace FirstLight.Game.MonoComponent
 			for (var i = 0; i < _renderers.Count; i++)
 			{
 				_renderers[i].sharedMaterial = _originalMaterials[i];
+				_renderers[i].material.color = _rendererColors[i];
 			}
 		}
 	}

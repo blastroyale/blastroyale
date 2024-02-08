@@ -70,6 +70,7 @@ namespace FirstLight.Game.Data.DataTypes
 			
 		}
 
+		public override string ToString() => GetRichTextIcon();
 
 		private GameId _gameId;
 		private uint _amount;

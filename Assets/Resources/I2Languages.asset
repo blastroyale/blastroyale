@@ -20868,9 +20868,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - YOU GOT {0} BLAST BUCKS FOR YOUR {1} NON NFT EQUIPMENTS
+      - YOU GOT {0} FOR YOUR {1} NON NFT EQUIPMENTS
       - got vodka
-      - VOCE RECEBEU {0} BLAST BUCKS PELOS SEUS {1} EQUIPMAMENTOS NAO NFTS
+      - VOCE RECEBEU {0} PELOS SEUS {1} EQUIPMAMENTOS NAO NFTS
       - 
       - 
       Flags: 0000000000
@@ -24819,6 +24819,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITStore/you_own_this_item
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU OWN THIS ITEM
+      - YOU OWN THIS ITEM
+      - "VOC\xCA J\xC1 POSSUI ESTE ITEM"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSwipeTransition/lets_blast
       TermType: 0
       Description: 
@@ -25175,7 +25186,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1707242627921
+    Google_LastUpdatedVersion: 1707326346246
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

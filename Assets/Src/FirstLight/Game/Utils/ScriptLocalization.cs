@@ -2289,6 +2289,7 @@ namespace I2.Loc
 			public static string price 		{ get{ return LocalizationManager.GetTranslation ("UITStore/price"); } }
 			public static string rare_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/rare_core"); } }
 			public static string shop 		{ get{ return LocalizationManager.GetTranslation ("UITStore/shop"); } }
+			public static string you_own_this_item 		{ get{ return LocalizationManager.GetTranslation ("UITStore/you_own_this_item"); } }
 		}
 
 		public static class UITSwipeTransition
@@ -4628,6 +4629,7 @@ namespace I2.Loc
 		    public const string price = "UITStore/price";
 		    public const string rare_core = "UITStore/rare_core";
 		    public const string shop = "UITStore/shop";
+		    public const string you_own_this_item = "UITStore/you_own_this_item";
 		}
 
 		public static class UITSwipeTransition

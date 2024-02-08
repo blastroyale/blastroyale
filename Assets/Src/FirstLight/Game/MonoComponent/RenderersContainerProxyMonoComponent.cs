@@ -66,6 +66,14 @@ namespace FirstLight.Game.MonoComponent
 			}
 		}
 
+		public void ResetColor()
+		{
+			foreach (var renderersContainer in _renderersContainers)
+			{
+				renderersContainer.ResetColor();
+			}
+		}
+
 		public bool GetFirstRendererColor(ref Color color)
 		{
 			foreach (var renderersContainer in _renderersContainers)

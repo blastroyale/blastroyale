@@ -177,7 +177,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 126
+              GameId: 0
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -196,7 +196,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 126
+              GameId: 0
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0

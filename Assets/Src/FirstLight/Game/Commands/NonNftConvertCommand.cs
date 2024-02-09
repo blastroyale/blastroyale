@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Server.SDK.Modules.Commands;
@@ -27,8 +25,8 @@ namespace FirstLight.Game.Commands
 
 		private int ComputePoints(Equipment e)
 		{
-			return _rarityBlastBuckConversionReward[Math.Clamp((int)e.Rarity, 0, _rarityBlastBuckConversionReward.Length-1)] + 
-				_levelBlastBuckConversionReward[Math.Clamp((int)e.Level-1, 0, _levelBlastBuckConversionReward.Length-1)];
+			return _rarityBlastBuckConversionReward[System.Math.Clamp((int)e.Rarity, 0, _rarityBlastBuckConversionReward.Length-1)] + 
+				_levelBlastBuckConversionReward[System.Math.Clamp((int)e.Level-1, 0, _levelBlastBuckConversionReward.Length-1)];
 		}
 		
 		public UniTask Execute(CommandExecutionContext ctx)

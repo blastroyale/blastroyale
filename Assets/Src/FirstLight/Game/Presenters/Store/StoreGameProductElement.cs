@@ -7,6 +7,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Models;
+using I2.Loc;
 using PlayFab.ClientModels;
 using Quantum;
 using UnityEngine;
@@ -28,12 +29,13 @@ namespace FirstLight.Game.Presenters.Store
 		private const string USS_PRODUCT_IMAGE = "product-image";
 		private const string USS_PRODUCT_PRICE = "product-price";
 		private const string USS_PRODUCT_WIDGET = "product-widget";
+		private const string USS_INFO = "info-button";
 		private const string USS_BUNDLE_IMAGE = "product-background-image";
 		private const string USS_GRADIENT_SIDES = "product-image-gradient-sides";
 		private const string USS_GRADIENT_BIG = "product-image-gradient-big";
 		private const string USS_GRADIENT_SMALL = "product-image-gradient-small";
 		private const string USS_WIDGET_EFFECTS = "widget-effect";
-
+		private const string USS_OWNED_MODIFIER = "--owned";
 		private const string USS_SPRITE_CURRENCIES_BLASTBUCK = "sprite-currencies__blastbuck-1";
 
 		public StoreDisplaySize size { get; set; }
@@ -66,6 +68,8 @@ namespace FirstLight.Game.Presenters.Store
 		private ImageButton _infoButton; 
 		private ImageButton _background;
 		private VisualElement _ownedStamp;
+		private VisualElement _infoIcon;
+		private VisualElement _ownedOverlay;
 
 		public StoreGameProductElement()
 		{
@@ -78,7 +82,10 @@ namespace FirstLight.Game.Presenters.Store
 			_icon.AddToClassList(USS_SPRITE_CURRENCIES_BLASTBUCK);
 			_price = this.Q<Label>("ProductPrice").Required();
 			_ownedStamp = this.Q("OwnedStamp").Required();
+			_ownedStamp.SetDisplay(false);
 			_infoButton = this.Q<ImageButton>("InformationClickArea").Required();
+			_infoIcon = this.Q("InformationIcon").Required();
+			_ownedOverlay = this.Q("OwnedOverlay").Required();
 			_infoButton.clicked += OnClickInfo;
 		}
 
@@ -96,8 +103,15 @@ namespace FirstLight.Game.Presenters.Store
 			_name.text = "";
 			if (itemView.Amount > 1) _name.text += itemView.Amount + " ";
 			_name.text += itemView.DisplayName;
-			
-			_ownedStamp.SetDisplay(flags.HasFlag(ProductFlags.OWNED));
+
+			if (flags.HasFlag(ProductFlags.OWNED))
+			{
+				_ownedOverlay.SetDisplay(true);
+				_ownedStamp.SetDisplay(true);
+				_icon.AddToClassList(USS_PRODUCT_NAME+USS_OWNED_MODIFIER);
+				_name.AddToClassList(USS_PRODUCT_NAME+USS_OWNED_MODIFIER);
+				_infoIcon.AddToClassList(USS_INFO+USS_OWNED_MODIFIER);
+			}
 			
 			var price = product.GetPrice();
 			FLog.Verbose("Store Screen", $"Setting up store item {product.GameItem}, price={price}");
@@ -120,6 +134,8 @@ namespace FirstLight.Game.Presenters.Store
 				_price.text = priceIcon + priceConfig.Value;
 			}
 			itemView.DrawIcon(_icon);
+
+			_infoButton.SetDisplay(flags.HasFlag(ProductFlags.OWNED) || !string.IsNullOrEmpty(_product.PlayfabProductConfig.StoreItemData.Description));
 			FormatByStoreData();
 		}
 
@@ -168,8 +184,6 @@ namespace FirstLight.Game.Presenters.Store
 					_icon.style.backgroundImage = new StyleBackground(texture2D);
 				});
 			}
-			
-			_infoButton.SetDisplay(!string.IsNullOrEmpty(_product.PlayfabProductConfig.StoreItemData.Description));
 		}
 
 		public new class UxmlFactory : UxmlFactory<StoreGameProductElement, UxmlTraits>

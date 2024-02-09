@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace FirstLight.Game.Utils
 {
@@ -21,7 +21,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public bool IsPermissionsAnswered()
 		{
-			#if UNITY_IOS
+			#if UNITY_IOS && !UNITY_EDITOR
 				return IsIOSPermissionAnswered();
 			#endif
 			return true;
@@ -32,7 +32,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public bool IsTrackingAccepted()
 		{
-			#if UNITY_IOS
+			#if UNITY_IOS && !UNITY_EDITOR
 				return IsIOSTrackingAccepted();
 			#endif
 			return true;
@@ -40,12 +40,12 @@ namespace FirstLight.Game.Utils
 
 		public void RequestPermissions()
 		{
-			#if UNITY_IOS
+			#if UNITY_IOS && !UNITY_EDITOR
 				DisplayIOSPermissionsDialog();
 			#endif
 		}
 		
-		#if UNITY_IOS
+		#if UNITY_IOS && !UNITY_EDITOR
 		private bool IsIOSTrackingAccepted()
 		{
 			var currentStatus = Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
@@ -70,9 +70,9 @@ namespace FirstLight.Game.Utils
 		}
 		#endif
 
-		public async Task PermissionResponseAwaitTask()
+		public async UniTask PermissionResponseAwaitTask()
 		{
-			while (!IsPermissionsAnswered()) await Task.Delay(10);
+			while (!IsPermissionsAnswered()) await UniTask.Delay(10);
 		}
 	}
 }

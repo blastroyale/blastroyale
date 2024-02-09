@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.TestCases;
 using UnityEngine;
@@ -58,14 +59,14 @@ namespace FirstLight.Game.Utils
 		/// Load the internal version string from resources async. Should be called once when the
 		/// app is started.
 		/// </summary>
-		public static async Task LoadVersionDataAsync()
+		public static async UniTask LoadVersionDataAsync()
 		{
 			var source = new TaskCompletionSource<TextAsset>();
 			var request = Resources.LoadAsync<TextAsset>(VersionDataFilename);
 			
-			request.completed += operation => source.SetResult(request.asset as TextAsset);
+			request.completed += _ => source.SetResult(request.asset as TextAsset);
 			
-			var textAsset = await source.Task;
+			var textAsset = await source.Task.AsUniTask();
 			
 			if (!textAsset)
 			{
@@ -73,7 +74,7 @@ namespace FirstLight.Game.Utils
 				_loaded = false;
 				return;
 			}
-			
+
 			_versionData = JsonUtility.FromJson<VersionData>(textAsset.text);
 			_loaded = true;
 
@@ -83,7 +84,7 @@ namespace FirstLight.Game.Utils
 				SRDebug.Instance.AddSystemInfo(SRDebugger.InfoEntry.Create("Version", VersionUtils.VersionInternal), "Game");
 			}
 #endif
-			
+
 			Resources.UnloadAsset(textAsset);
 		}
 		

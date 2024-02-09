@@ -11,6 +11,7 @@ namespace FirstLight.Game.Commands
 {
 	public class NonNftConvertCommand : IGameCommand
 	{
+		//non-NFT conversion to Blast Bucks formula link: https://docs.google.com/spreadsheets/d/1LrHGwlNi2tbb7I8xmQVNCKKbc9YgEJjYyA8EFsIFarw/edit#gid=945899350
 		private static readonly int[] _rarityBlastBuckConversionReward = { 5, 10, 15, 25, 40, 70, 120, 200, 350, 600 };
 		private static readonly int[] _levelBlastBuckConversionReward =
 		{

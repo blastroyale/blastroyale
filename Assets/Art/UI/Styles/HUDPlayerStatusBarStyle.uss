@@ -45,6 +45,12 @@
     color: rgb(255, 255, 255);
 }
 
+.player-status-bar__notification--wounded {
+    color: rgb(255, 0, 0);
+    font-size: 72px;
+}
+
+
 .player-status-bar__damage-holder {
     position: absolute;
     left: 0;
@@ -53,6 +59,7 @@
     align-content: center;
     top: 0;
 }
+
 
 .player-status-bar__damage-number {
     position: absolute;

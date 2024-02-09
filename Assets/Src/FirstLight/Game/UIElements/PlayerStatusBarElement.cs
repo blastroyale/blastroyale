@@ -27,9 +27,10 @@ namespace FirstLight.Game.UIElements
 		private const string USS_NOTIFICATION_AMMO = USS_NOTIFICATION + "--ammo";
 		private const string USS_NOTIFICATION_LVLUP = USS_NOTIFICATION + "--lvlup";
 		private const string USS_NOTIFICATION_MISC = USS_NOTIFICATION + "--misc";
+		private const string USS_NOTIFICATION_WOUNDED = USS_NOTIFICATION + "--wounded";
 		private const string USS_DAMAGE_HOLDER = USS_BLOCK + "__damage-holder";
 		private const string USS_DAMAGE_NUMBER = USS_BLOCK + "__damage-number";
-
+		
 		private readonly PlayerHealthShieldElement _healthShield;
 		private readonly Label _notificationLabel;
 		private readonly Label[] _damageNumbersPool = new Label[DAMAGE_NUMBER_MAX_POOL_SIZE];
@@ -41,7 +42,7 @@ namespace FirstLight.Game.UIElements
 		private bool _isFriendly;
 		private readonly IVisualElementScheduledItem _notificationHandle;
 		private readonly StyleColor _defaultPingDmgColor = new (new Color(1f, 1f, 1f));
-
+		
 		private bool _barsEnabled = true;
 
 		public PlayerStatusBarElement()
@@ -49,7 +50,7 @@ namespace FirstLight.Game.UIElements
 			usageHints = UsageHints.DynamicTransform;
 
 			AddToClassList(USS_BLOCK);
-
+			
 			Add(_notificationLabel = new Label("MAX") {name = "notification-label"});
 			_notificationLabel.AddToClassList(USS_NOTIFICATION);
 			_notificationLabel.AddToClassList(USS_NOTIFICATION_HEALTH);
@@ -98,12 +99,7 @@ namespace FirstLight.Game.UIElements
 			damageNumberAnim.Stop();
 			damageNumberAnim.Start();
 		}
-
-		private float GetDamageNumberSize(int damagePct)
-		{
-			return SMALL_DAMAGE + (DAMAGE_SCALE * damagePct / 100);
-		}
-
+		
 		/// <summary>
 		/// Enables or disables the health / shield status bars.
 		/// </summary>
@@ -161,6 +157,10 @@ namespace FirstLight.Game.UIElements
 					_notificationLabel.text = ScriptLocalization.UITMatch.full;
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_MISC);
 					break;
+				case NotificationType.Wounded:
+					_notificationLabel.text = " <sprite name=\"RedCrossIcon\"> ";
+					_notificationLabel.AddToClassList(USS_NOTIFICATION_WOUNDED);
+					break;
 				case NotificationType.MiscPickup:
 					_notificationLabel.text = data;
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_MISC);
@@ -214,7 +214,8 @@ namespace FirstLight.Game.UIElements
 			MaxAmmo,
 			LevelUp,
 			MaxSpecials,
-			MiscPickup
+			MiscPickup,
+			Wounded
 		}
 
 		public new class UxmlFactory : UxmlFactory<PlayerStatusBarElement, UxmlTraits>

@@ -116,9 +116,6 @@
     text-shadow: 8px 8px 0 rgb(0, 0, 0);
 }
 
-.unity-text-element {
-}
-
 .product-category--small {
     max-width: 1065px;
 }

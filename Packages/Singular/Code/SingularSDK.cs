@@ -35,21 +35,21 @@ public class SingularSDK : MonoBehaviour {
     public static string openUri;
     public bool collectOAID = false;
 
-#if UNITY_ANDROID
+//#if UNITY_ANDROID
     private static string imei;
     // This are only for android because it does not support setting the custom user id before init
     private static string customUserId;
-#endif
+//#endif
 
     public long ddlTimeoutSec = 0; // default - 0 - use default timeout (60s)
     public long sessionTimeoutSec = 0; // default - 0 - use default timeout (60s)
     public long shortlinkResolveTimeout = 0; // default - 0 - use default timeout (10s)
 
-#if UNITY_IOS
+//#if UNITY_IOS
     public bool SKANEnabled = false;
     public bool manualSKANConversionManagement = false;
     public int waitForTrackingAuthorizationWithTimeoutInterval = 0;
-#endif
+//#endif
 
     private const long DEFAULT_SHORT_LINKS_TIMEOUT = 10;
     private const long DEFAULT_DDL_TIMEOUT = 60;

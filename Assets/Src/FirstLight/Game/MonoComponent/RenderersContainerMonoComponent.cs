@@ -61,7 +61,8 @@ namespace FirstLight.Game.MonoComponent
 	{
 		private static readonly int _mainTex = Shader.PropertyToID("_MainTex");
 		private static readonly int _additiveColor = Shader.PropertyToID("_AdditiveColor");
-
+		private static readonly int _color = Shader.PropertyToID("_Color");
+		
 		[SerializeField, ReadOnlyOdin] private List<Renderer> _renderers = new();
 		[SerializeField, ReadOnlyOdin] private List<Renderer> _particleRenderers = new();
 		[SerializeField, ReadOnlyOdin] private List<Material> _originalMaterials = new();
@@ -92,7 +93,9 @@ namespace FirstLight.Game.MonoComponent
 				}
 
 				_renderers.Add(r);
-				_rendererColors.Add(r.sharedMaterial.color);
+
+				_rendererColors.Add(r.sharedMaterial.HasProperty(_color) ? r.sharedMaterial.color : default);
+
 				_originalMaterials.Add(r.sharedMaterial);
 			}
 		}
@@ -134,13 +137,18 @@ namespace FirstLight.Game.MonoComponent
 		{
 			for(var i=0; i<_renderers.Count; i++)
 			{
-				_renderers[i].material.color = _originalMaterials[i].color;
+				if (_renderers[i].sharedMaterial.HasProperty(_color))
+				{
+					_renderers[i].material.color = _originalMaterials[i].color;
+					
+					_rendererColors[i] = _originalMaterials[i].color;
+				}
 			}
 			
-			for (var i=0; i<_rendererColors.Count; i++)
-			{
-				_rendererColors[i] = _originalMaterials[i].color;
-			}
+			//for (var i=0; i<_rendererColors.Count; i++)
+			//{
+			//	_rendererColors[i] = _originalMaterials[i].color;
+			//}
 		}
 
 		public bool GetFirstRendererColor(ref Color color)
@@ -211,8 +219,13 @@ namespace FirstLight.Game.MonoComponent
 		{
 			for (var i = 0; i < _renderers.Count; i++)
 			{
-				_renderers[i].sharedMaterial = _originalMaterials[i];
-				_renderers[i].material.color = _rendererColors[i];
+				var r = _renderers[i];
+				r.sharedMaterial = _originalMaterials[i];
+
+				if (r.sharedMaterial.HasProperty(_color))
+				{
+					r.material.color = _rendererColors[i];
+				}
 			}
 		}
 	}

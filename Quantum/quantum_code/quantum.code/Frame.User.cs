@@ -16,7 +16,7 @@ namespace Quantum
 
 		public static bool NextBool(this ref RNGSession session)
 		{
-			return session.Next(0, 1) == 0;
+			return session.NextInclusive(0, 1) == 0;
 		}
 
 		public static FP Sign(this ref RNGSession session)

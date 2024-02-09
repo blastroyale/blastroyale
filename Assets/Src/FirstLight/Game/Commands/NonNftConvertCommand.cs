@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -12,12 +13,22 @@ namespace FirstLight.Game.Commands
 {
 	public class NonNftConvertCommand : IGameCommand
 	{
+		private static readonly int[] _rarityBlastBuckConversionReward = { 5, 10, 15, 25, 40, 70, 120, 200, 350, 600 };
+		private static readonly int[] _levelBlastBuckConversionReward =
+		{
+			0, 5, 7, 9, 11, 16, 21, 26, 31,
+			36, 43, 50, 57, 64, 71, 81, 91,
+			101, 111, 121, 133, 145, 157, 169, 181,
+			196, 211, 226, 241, 256, 273, 290, 307,
+			324, 341
+		};
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		private int ComputePoints(Equipment e)
 		{
-			return (int) e.Rarity + 1;
+			return _rarityBlastBuckConversionReward[Math.Clamp((int)e.Rarity, 0, _rarityBlastBuckConversionReward.Length-1)] + 
+				_levelBlastBuckConversionReward[Math.Clamp((int)e.Level-1, 0, _levelBlastBuckConversionReward.Length-1)];
 		}
 		
 		public UniTask Execute(CommandExecutionContext ctx)

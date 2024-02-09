@@ -126,15 +126,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				{
 					case ConsumableType.Health:
 						QuantumEvent.Subscribe<EventOnHealthChanged>(this,
-							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Health));
+							c => RefreshIndicator(c.Game.Frames.Predicted, c.Entity, ConsumableType.Health));
 						break;
 					case ConsumableType.Ammo:
 						QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this,
-							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Ammo));
+							 c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Ammo));
 						break;
 					case ConsumableType.Shield:
 						QuantumEvent.Subscribe<EventOnShieldChanged>(this,
-							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Shield));
+							c => RefreshIndicator(c.Game.Frames.Predicted, c.Entity, ConsumableType.Shield));
 						break;
 					case ConsumableType.Special:
 						QuantumEvent.Subscribe<EventOnPlayerSpecialUpdated>(this,
@@ -167,6 +167,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				filled = stats.IsConsumableStatFilled(type);
 			}
+			
+			Debug.LogWarning($"ConsumableType {type}  filled {filled}");
 			_pickupCircle.gameObject.SetActive(!filled);
 		}
 

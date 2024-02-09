@@ -7,6 +7,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
@@ -65,6 +66,12 @@ namespace FirstLight.Game.Presenters.Store
 			_header.backClicked += Data.OnBackClicked;
 			_header.homeClicked += Data.OnHomeClicked;
 
+			root.Q<CurrencyDisplayElement>("Coins")
+				.AttachView(this, out CurrencyDisplayView _);
+
+			root.Q<CurrencyDisplayElement>("BlastBucks")
+				.AttachView(this, out CurrencyDisplayView _);
+			
 			foreach (var category in _gameServices.IAPService.AvailableProductCategories)
 			{
 				var categoryElement = new StoreCategoryElement(category.Name);

@@ -19,7 +19,7 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-.unity-button:hover {
+.unity-button:hover, .unity-button:hover:enabled {
     background-color: rgba(0, 0, 0, 0);
 }
 

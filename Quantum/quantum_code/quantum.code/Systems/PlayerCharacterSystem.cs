@@ -127,63 +127,39 @@ namespace Quantum.Systems
 			{
 				equipmentToDrop.Add(playerDead->CurrentWeapon);
 			}
-
-			var itemCount = 0;
-			for (int i = 0; i < playerDead->WeaponSlots.Length; i++) //item slots filled
-			{
-				if (playerDead->WeaponSlots[i].Weapon.GameId != GameId.Random)
-				{
-					itemCount++;
-				}
-			}
-
+			
+			// We drop two items. One is always a consumable. Another can be a gun (50% chance) or consumable
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Consumables)
 			{
-				if (!f.Unsafe.TryGetPointer<Stats>(attacker, out var stats))
-				{
-					stats = deadStats;
-				}
-
-				var healthFilled = stats->CurrentHealth / stats->GetStatData(StatType.Health).StatValue;
-				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
-				var ammoFilled = stats->CurrentAmmoPercent;
-
-				//drop consumables based on the number of items you have collected and the kind of consumables the player needs
-				for (uint i = 0;
-					 i < (FPMath.FloorToInt(itemCount / 5) + 1);
-					 i++)
-				{
-					var consumable = GameId.AmmoSmall;
-					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
-					{
-						consumable = GameId.Health;
-						healthFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) /
-							stats->GetStatData(StatType.Health).StatValue;
-					}
-					else if (ammoFilled < healthFilled && ammoFilled < shieldFilled) //ammo
-					{
-						consumable = GameId.AmmoSmall;
-						ammoFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f);
-					}
-					else if (shieldFilled < healthFilled && shieldFilled < ammoFilled) //shield
-					{
-						consumable = GameId.ShieldSmall;
-						shieldFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) /
-							stats->GetStatData(StatType.Shield).StatValue;
-					}
-
-					consumablesToDrop.Add(consumable);
-				}
-
-				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
+				var consumable = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.Health, GameId.ShieldSmall);
+				consumablesToDrop.Add(consumable);
+				
+				if (!playerDead->HasMeleeWeapon(f, entity) && f.RNG->NextBool()) //also drop the target player's weapon
 				{
 					equipmentToDrop.Add(playerDead->CurrentWeapon);
 				}
+				else
+				{
+					// Avoid dropping the same consumable from a single player twice
+					switch (consumable)
+					{
+						case GameId.AmmoSmall:
+							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.Health, GameId.ShieldSmall));
+							break;
+						case GameId.Health:
+							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall));
+							break;
+						case GameId.ShieldSmall:
+							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.Health));
+							break;
+					}
+				}
 			}
-
+			
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Tutorial)
 			{
-				consumablesToDrop.Add(GameId.Health);
+				// No need to drop anything from killed dummies
+				// they don't even shoot anymore (first ones)
 			}
 
 			var anglesToDrop = equipmentToDrop.Count + consumablesToDrop.Count;

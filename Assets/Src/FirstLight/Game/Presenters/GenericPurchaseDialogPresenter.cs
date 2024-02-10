@@ -75,7 +75,6 @@ namespace FirstLight.Game.Presenters
 		{
 			FLog.Verbose("Generic Purchase Dialog","Buy Clicked");
 			_confirmCallback.Invoke();
-			CloseRequested();
 		}
 
 		public void SetHasEnoughOptions(GenericPurchaseOptions options)

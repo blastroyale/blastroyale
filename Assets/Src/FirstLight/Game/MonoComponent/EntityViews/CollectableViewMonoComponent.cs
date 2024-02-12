@@ -155,6 +155,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void RefreshIndicator(Frame f, EntityRef entity, ConsumableType type)
 		{
+			if (Culled)
+			{
+				return;
+			}
+			
 			if (!entity.IsValid || !f.Exists(entity) || !MatchServices.IsSpectatingPlayer(entity)) return;
 
 			var stats = f.Get<Stats>(entity);
@@ -167,8 +172,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				filled = stats.IsConsumableStatFilled(type);
 			}
-			
-			Debug.LogWarning($"ConsumableType {type}  filled {filled}");
 			_pickupCircle.gameObject.SetActive(!filled);
 		}
 
@@ -355,6 +358,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_animation.enabled = !culled;
 			base.SetCulled(culled);
+			if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
+			var frame = QuantumRunner.Default.PredictedFrame();
+			if (!culled && frame.TryGet<Consumable>(EntityView.EntityRef, out var consumable))
+			{
+				RefreshIndicator(frame, MatchServices.GetSpectatedPlayer().Entity, consumable.ConsumableType);
+			}
 		}
 
 		private struct CollectingData

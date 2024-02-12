@@ -1,12 +1,12 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="LoadingSpinnerScreenDocument" src="project://database/Assets/Art/UI/Screens/LoadingSpinnerScreenDocument.uxml?fileID=9197481963319205126&amp;guid=4b9b14257b1aeb048a45b218067f15ab&amp;type=3#LoadingSpinnerScreenDocument" />
     <Style src="project://database/Assets/Art/UI/Screens/NewsScreenStyle.uss?fileID=7433441132597879392&amp;guid=f95e04589e64b461cae6bb2e547c06bd&amp;type=3#NewsScreenStyle" />
-    <ui:VisualElement name="root" focusable="true" class="fill-parent">
-        <FirstLight.Game.UIElements.SafeAreaElement apply-left="false" apply-top="false">
+    <ui:VisualElement name="root" focusable="true" class="fill-parent background">
+        <FirstLight.Game.UIElements.SafeAreaElement class="news-safearea">
             <ui:VisualElement name="BottomArt" class="art">
                 <ui:VisualElement name="Girl" class="art-girl">
                     <ui:VisualElement name="Speech" class="art-girl__bubble">
-                        <ui:Label tabindex="-1" text="Tuned !" parse-escape-sequences="true" display-tooltip-when-elided="true" name="GirlSpeech" class="art-bubble-text" style="margin-top: -4px;" />
+                        <ui:Label tabindex="-1" text="Tuned !" parse-escape-sequences="true" display-tooltip-when-elided="true" name="GirlSpeech" class="art-bubble-text" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
@@ -17,7 +17,7 @@
                 </ui:ScrollView>
             </ui:VisualElement>
             <ui:Instance template="LoadingSpinnerScreenDocument" name="Loading" class="news-loading" style="display: none;" />
-            <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="News" name="Header" class="news-header" />
+            <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITShared/News" name="Header" class="news-header" />
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -23,6 +23,7 @@
     align-items: auto;
     position: absolute;
     left: 12px;
+    display: none;
 }
 
 .news-title {
@@ -74,6 +75,9 @@
     font-size: 41px;
     -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static');
     white-space: normal;
+    -unity-text-align: middle-center;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .popup-radius {

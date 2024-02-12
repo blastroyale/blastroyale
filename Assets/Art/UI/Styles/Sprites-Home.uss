@@ -1172,8 +1172,8 @@
 
 .sprite-home__news-icon {
     background-image: var(--sprite-home__news-icon);
-    width: 512px;
-    height: 512px;
+    width: 66px;
+    height: 66px;
 }
 
 .sprite-home__pattern-circle-gradient {

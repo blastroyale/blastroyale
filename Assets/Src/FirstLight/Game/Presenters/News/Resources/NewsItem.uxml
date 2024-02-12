@@ -6,8 +6,8 @@
             <ui:VisualElement name="Window" class="popup-radius popup__window">
                 <ui:VisualElement name="Header" class="background-purple window__header">
                     <ui:VisualElement name="TitleDots" class="dots-pattern" />
-                    <ui:Label tabindex="-1" text="05/10/1986 -" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Date" class="news-date" />
-                    <ui:Label name="Title" text="Privacy Policy" class="DO_NOT_USE_font-style-h2 news-title" />
+                    <ui:Label tabindex="-1" text="Feb 5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Date" class="news-date" />
+                    <ui:Label name="Title" text="PRIVACY POLICY" enable-rich-text="false" class="DO_NOT_USE_font-style-h2 news-title" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Content" class="window__content window__content--small">
                     <ui:VisualElement name="Row" class="text-row">

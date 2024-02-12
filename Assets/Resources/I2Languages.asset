@@ -24223,9 +24223,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - News
-      - News
-      - Noticias
+      - NEWS
+      - NEWS
+      - NOTICIAS
       - 
       - 
       Flags: 0000000000
@@ -25318,7 +25318,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1707416443751
+    Google_LastUpdatedVersion: 1707492644591
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

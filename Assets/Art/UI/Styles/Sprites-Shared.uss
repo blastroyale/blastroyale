@@ -6,6 +6,7 @@
     --sprite-shared__background-rewards-fame: url('/Assets/Art/UI/Sprites/Shared/background-rewards-fame.png');
     --sprite-shared__background-stat: url('/Assets/Art/UI/Sprites/Shared/background-stat.png');
     --sprite-shared__background-stat-dark: url('/Assets/Art/UI/Sprites/Shared/background-stat-dark.png');
+    --sprite-shared__cloud-left: url('/Assets/Art/UI/Sprites/Shared/cloud-left.png');
     --sprite-shared__highlight-leaderboard-localplayer: url('/Assets/Art/UI/Sprites/Shared/highlight-leaderboard-localplayer.png');
     --sprite-shared__icon_edit: url('/Assets/Art/UI/Sprites/Shared/icon_edit.png');
     --sprite-shared__icon-arrow-current: url('/Assets/Art/UI/Sprites/Shared/icon-arrow-current.png');
@@ -76,6 +77,12 @@
     background-image: var(--sprite-shared__background-stat-dark);
     width: 48px;
     height: 52px;
+}
+
+.sprite-shared__cloud-left {
+    background-image: var(--sprite-shared__cloud-left);
+    width: 120px;
+    height: 98px;
 }
 
 .sprite-shared__highlight-leaderboard-localplayer {

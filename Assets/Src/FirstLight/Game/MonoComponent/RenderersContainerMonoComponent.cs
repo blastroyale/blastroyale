@@ -135,7 +135,7 @@ namespace FirstLight.Game.MonoComponent
 
 		public void ResetColor()
 		{
-			for(var i=0; i<_renderers.Count; i++)
+			for(var i=0; i<_rendererColors.Count; i++)
 			{
 				if (_renderers[i].sharedMaterial.HasProperty(_color))
 				{

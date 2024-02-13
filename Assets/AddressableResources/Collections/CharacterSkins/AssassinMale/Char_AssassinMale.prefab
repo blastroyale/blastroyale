@@ -96,26 +96,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -4819223349682164798, guid: da0b0c5ff52fe4604a0dd55b408910d2, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: -2511240423080479738, guid: da0b0c5ff52fe4604a0dd55b408910d2, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: -1356303237341133908, guid: da0b0c5ff52fe4604a0dd55b408910d2, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: da0b0c5ff52fe4604a0dd55b408910d2, type: 3}
       propertyPath: m_Name
       value: Char_AssassinMale
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: da0b0c5ff52fe4604a0dd55b408910d2, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: da0b0c5ff52fe4604a0dd55b408910d2, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: b857519056ebe48a286f8d936e5f6101, type: 3}
     - target: {fileID: 5866666021909216657, guid: da0b0c5ff52fe4604a0dd55b408910d2, type: 3}
       propertyPath: m_Controller
       value: 
@@ -123,10 +111,6 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: da0b0c5ff52fe4604a0dd55b408910d2, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8502549445762705191, guid: da0b0c5ff52fe4604a0dd55b408910d2, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

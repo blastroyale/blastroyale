@@ -125,6 +125,7 @@ namespace FirstLight.Game.Presenters.Store
 
 		protected override void SubscribeToEvents()
 		{
+			base.SubscribeToEvents();
 			_gameServices.MessageBrokerService.Subscribe<OpenedCoreMessage>(OnCoresOpened);
 			_gameServices.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_gameServices.IAPService.UnityStore.OnPurchaseFailure += OnPurchaseFailed;
@@ -196,6 +197,7 @@ namespace FirstLight.Game.Presenters.Store
 
 		protected override void UnsubscribeFromEvents()
 		{
+			base.UnsubscribeFromEvents();
 			_gameServices.MessageBrokerService.UnsubscribeAll(this);
 			_gameServices.IAPService.UnityStore.OnPurchaseFailure -= OnPurchaseFailed;
 			_gameServices.IAPService.PurchaseFinished -= OnPurchaseFinished;

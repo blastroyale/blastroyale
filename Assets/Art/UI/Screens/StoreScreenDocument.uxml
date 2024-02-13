@@ -8,7 +8,7 @@
             <ui:VisualElement name="Categories" class="categories" style="width: 100%;" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITStore/shop" name="Header">
-            <ui:VisualElement name="Currencies" style="flex-grow: 1; position: absolute; right: 200px; top: 34px; flex-direction: row-reverse; justify-content: space-around; width: 502px;">
+            <ui:VisualElement name="Currencies" class="currency-display-holder">
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="Coins" currency="COIN" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBucks" currency="BlastBuck" />
             </ui:VisualElement>

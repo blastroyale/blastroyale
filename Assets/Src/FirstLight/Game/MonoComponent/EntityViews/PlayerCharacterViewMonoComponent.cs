@@ -36,7 +36,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private Coroutine _attackHideRendererCoroutine;
 		private IMatchServices _matchServices;
+		
+		// TODO mihak: Probably remove this
+#pragma warning disable CS0414 // Field is assigned but its value is never used
 		private bool _playerFullyGrounded;
+#pragma warning restore CS0414 // Field is assigned but its value is never used
 
 		/// <summary>
 		/// Indicates if this is the local player

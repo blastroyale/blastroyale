@@ -49,7 +49,7 @@ namespace FirstLight.Game.TestCases.FirebaseLab
 							ScenarioNumber = castedValue;
 							return;
 						}
-						catch (FormatException ex)
+						catch (FormatException)
 						{
 						}
 					}

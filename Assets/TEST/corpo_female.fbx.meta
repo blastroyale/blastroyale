@@ -34,7 +34,9 @@ ModelImporter:
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
-    extraExposedTransformPaths: []
+    extraExposedTransformPaths:
+    - Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+    - Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
     extraUserProperties: []
     clipAnimations: []
     isReadable: 0

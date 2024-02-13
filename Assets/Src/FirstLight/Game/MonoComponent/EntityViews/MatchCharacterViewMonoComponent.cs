@@ -42,7 +42,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (isSkydiving)
 			{
 				var glider = _services.CollectionService.GetCosmeticForGroup(Cosmetics, GameIdGroup.Glider);
-				list.Add(InstantiateItem(glider, GameIdGroup.Glider));
+				list.Add(InstantiateGlider(glider));
 			}
 
 			await UniTask.WhenAll(list);

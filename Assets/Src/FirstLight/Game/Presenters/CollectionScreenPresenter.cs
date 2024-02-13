@@ -297,7 +297,8 @@ namespace FirstLight.Game.Presenters
 		{
 			if (_selectedCategory.Id == GameIdGroup.PlayerSkin)
 			{
-				_collectionObject.GetComponent<MainMenuCharacterViewComponent>().PlayAnimation();
+				// TODO mihak
+				//_collectionObject.GetComponent<MainMenuCharacterViewComponent>().PlayAnimation();
 			}
 		}
 

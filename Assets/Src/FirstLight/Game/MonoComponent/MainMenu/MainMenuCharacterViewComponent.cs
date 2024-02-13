@@ -1,12 +1,5 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Infos;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Utils;
-using Quantum;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
@@ -22,7 +15,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private float _nextFlareTime = -1f;
 		private bool _processFlareAnimation = true;
 		private bool _playedFirstFlareAnim;
-		private readonly int _flairHash = Animator.StringToHash("flair");
 		
 		protected override void Awake()
 		{
@@ -46,7 +38,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			
 			if (_currentIdleTime > _nextFlareTime)
 			{
-				_animator.SetTrigger(_flairHash);
+				_skin.TriggerFlair();
 				_nextFlareTime = Random.Range(_animationConfig.FlareAnimMinPlaybackTime, _animationConfig.FlareAnimMaxPlaybackTime);
 				
 				_currentIdleTime = 0;
@@ -59,7 +51,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			// Animator.SetTrigger(_triggerNamesClicked[Random.Range(0, _triggerNamesClicked.Length)]);
 			var config = _animationConfig.AnimationNames;
-			_animator.SetTrigger(config[Random.Range(0, config.Length)]);
+			//_animator.SetTrigger(config[Random.Range(0, config.Length)]);
 		}
 		
 		public void OnDrag(PointerEventData eventData)

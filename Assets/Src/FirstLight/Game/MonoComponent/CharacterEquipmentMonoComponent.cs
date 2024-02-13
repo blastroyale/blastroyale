@@ -23,9 +23,8 @@ namespace FirstLight.Game.MonoComponent
 	/// </summary>
 	public abstract class CharacterEquipmentMonoComponent : MonoBehaviour
 	{
-		protected Animator _animator;
 		private RenderersContainerProxyMonoComponent _renderersContainerProxy;
-		private CharacterSkinMonoComponent _skin;
+		protected CharacterSkinMonoComponent _skin;
 
 		private IDictionary<GameIdGroup, IList<GameObject>> _equipment;
 		protected IGameServices _services;
@@ -45,34 +44,29 @@ namespace FirstLight.Game.MonoComponent
 			_equipment = new Dictionary<GameIdGroup, IList<GameObject>>();
 			_skin = GetComponent<CharacterSkinMonoComponent>();
 			_renderersContainerProxy = GetComponent<RenderersContainerProxyMonoComponent>();
-			_animator = GetComponent<Animator>();
 		}
 
 		/// <summary>
 		/// Instantiate a Game Item of the specified GameIdGroup
 		/// </summary>
-		public async UniTask<List<GameObject>> InstantiateItem(ItemData item, GameIdGroup gameIdGroup)
+		public async UniTask InstantiateGlider(ItemData item)
 		{
-			var anchors = _skin.GetEquipmentAnchors(gameIdGroup);
+			var anchor = _skin.GliderAnchor;
 			var instance = await _services.CollectionService.LoadCollectionItem3DModel(item);
-			var instances = new List<GameObject>(anchors.Length);
 
 			if (this.IsDestroyed())
 			{
 				Destroy(instance);
 
-				return instances;
+				return;
 			}
 
 			var piece = instance.transform;
-			piece.SetParent(anchors[0]);
+			piece.SetParent(anchor);
 
 			piece.localPosition = Vector3.zero;
 			piece.localRotation = Quaternion.identity;
 			piece.localScale = Vector3.one;
-			instances.Add(piece.gameObject);
-
-			return instances;
 		}
 
 		protected async UniTask<GameObject> InstantiateEquipment(Equipment equip)
@@ -89,6 +83,7 @@ namespace FirstLight.Game.MonoComponent
 			{
 				obj = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
 			}
+
 			obj.name = gameId.ToString();
 			return obj;
 		}
@@ -96,12 +91,13 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Equip characters equipment slot with an asset loaded by unique id.
 		/// </summary>
-		public async UniTask<List<GameObject>> EquipItem(Equipment equip)
+		public async UniTask<List<GameObject>> EquipWeaponInternal(Equipment equip)
 		{
 			var gameId = equip.GameId;
 			var slot = gameId.GetSlot();
 
-			var anchors = _skin.GetEquipmentAnchors(slot);
+			var anchors = _skin.WeaponAnchor;
+			anchors.localScale = Vector3.one; // TODO mihak: TEMP!!!!!
 			var instances = new List<GameObject>();
 			var instance = await InstantiateEquipment(equip);
 
@@ -110,7 +106,7 @@ namespace FirstLight.Game.MonoComponent
 				Destroy(instance);
 				return instances;
 			}
-			
+
 			if (_equipment.ContainsKey(slot))
 			{
 				UnequipItem(slot);
@@ -122,18 +118,22 @@ namespace FirstLight.Game.MonoComponent
 				Item = instance,
 				Id = gameId
 			});
+			// TODO mihak: TEMP
+			_skin.WeaponType = equip.GameId == GameId.Hammer
+				? CharacterSkinMonoComponent.WEAPON_TYPE_MELEE
+				: CharacterSkinMonoComponent.WEAPON_TYPE_GUN;
 
 			var childCount = instance.transform.childCount;
 
 			Color col = default;
-			
+
 			// We detach the first child of the equipment and copy it to the anchor
 			// Not sure why. Neither do I
 			for (var i = 0; i < Mathf.Max(childCount, 1); i++)
 			{
 				var piece = childCount > 0 ? instance.transform.GetChild(0) : instance.transform;
 
-				piece.SetParent(anchors[i]);
+				piece.SetParent(anchors); // TODO mihak: Something weird may happen here
 				instances.Add(piece.gameObject);
 
 				piece.localPosition = Vector3.zero;
@@ -159,6 +159,7 @@ namespace FirstLight.Game.MonoComponent
 #endif
 				Destroy(instance);
 			}
+
 			_equipment.Add(slot, instances);
 			_services.MessageBrokerService.Publish(new EquipmentInstantiatedMessage()
 			{
@@ -171,14 +172,12 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Destroy an item currently equipped on the character.
 		/// </summary>
-		public void DestroyItem(GameIdGroup slotType)
+		public void DestroyGlider()
 		{
-			var anchors = _skin.GetEquipmentAnchors(slotType);
-			for (var i = 0; i < anchors.Length; i++)
+			var anchor = _skin.GliderAnchor;
+
+			if (anchor.childCount != 0)
 			{
-				if (i >= anchors.Length) continue;
-				var anchor = anchors[i];
-				if (anchor.childCount == 0) continue;
 				for (var c = 0; c < anchor.childCount; c++)
 				{
 					var child = anchor.GetChild(c).gameObject;
@@ -244,12 +243,12 @@ namespace FirstLight.Game.MonoComponent
 		/// </summary>
 		public async UniTask<IList<GameObject>> EquipWeapon(Equipment equip)
 		{
-			var weapons = await EquipItem(equip);
+			var weapons = await EquipWeaponInternal(equip);
 
-			for (var i = 0; i < weapons.Count; i++)
-			{
-				_animator.runtimeAnimatorController = weapons[i].GetComponent<RuntimeAnimatorMonoComponent>().AnimatorController;
-			}
+			// for (var i = 0; i < weapons.Count; i++)
+			// {
+			// 	_animator.runtimeAnimatorController = weapons[i].GetComponent<RuntimeAnimatorMonoComponent>().AnimatorController;
+			// }
 
 			return weapons;
 		}

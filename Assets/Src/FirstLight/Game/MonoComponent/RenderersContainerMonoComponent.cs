@@ -66,8 +66,8 @@ namespace FirstLight.Game.MonoComponent
 		[SerializeField, ReadOnlyOdin] private List<Renderer> _renderers = new();
 		[SerializeField, ReadOnlyOdin] private List<Renderer> _particleRenderers = new();
 		[SerializeField, ReadOnlyOdin] private List<Material> _originalMaterials = new();
-
-		private readonly List<Color> _rendererColors = new();
+		[SerializeField, ReadOnlyOdin] private List<Color> _rendererColors = new();
+		
 		private IGameServices _services;
 
 		private void OnValidate()

@@ -394,7 +394,7 @@ namespace FirstLight.Game.Presenters
 		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
 		{
 			_currentAnimations.Add(id);
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.4f);
 
 			label.text = previous.ToString();
 
@@ -476,7 +476,7 @@ namespace FirstLight.Game.Presenters
 			_currentAnimations.Add(id);
 			// Apparently this initial delay is a must, otherwise "GetPositionOnScreen" starts throwing "Element out of bounds" exception OCCASIONALLY
 			// I guess it depends on how long the transition to home screen take; so these errors still may appear
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.4f);
 
 			var pointsDiff = (int) current - (int) previous;
 			var pointsToAnimate = Mathf.Clamp((current - previous) / 10, 3, 10);

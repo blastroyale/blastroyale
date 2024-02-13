@@ -229,7 +229,7 @@ MonoBehaviour:
       SpawnPattern: 0
       DeathDropStrategy: 5
       DeathMarker: 0
-      MinimumHealth: 100
+      MinimumHealth: 15
       InstantLoad: 1
       AllowBots: 1
       UseBotsFromGamemode: 

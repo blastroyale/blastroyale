@@ -80,13 +80,12 @@ namespace FirstLight.Game.Services
 				LoadGameIds(localPlayerLoadout);
 			}
 
-			_optionalAssets.Add(_assetAdderService.LoadAllAssets<MaterialVfxId, GameObject>());
+			_optionalAssets.Add(_assetAdderService.LoadAllAssets<MaterialVfxId, Material>());
 			_optionalAssets.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());
 			_optionalAssets.Add(_assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>());
 			_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(GameId.Hammer, true, false));
 			LoadOptionalGroup(GameIdGroup.Consumable);
 			LoadOptionalGroup(GameIdGroup.BotItem);
-			LoadOptionalGroup(GameIdGroup.Chest);
 		}
 
 		public void StartMandatoryAssetLoad()
@@ -147,7 +146,16 @@ namespace FirstLight.Game.Services
 		private void LoadOptionalGroup(GameIdGroup group)
 		{
 			foreach (var id in group.GetIds())
-				_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
+			{
+				if (id.IsInGroup(GameIdGroup.Collection))
+				{
+					_optionalAssets.Add(_services.CollectionService.LoadCollectionItem3DModel(ItemFactory.Collection(id), false, false));
+				}
+				else
+				{
+					_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
+				}
+			}
 		}
 
 		public async UniTask WaitMandatoryComplete()

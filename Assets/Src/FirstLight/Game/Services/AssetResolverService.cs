@@ -169,6 +169,7 @@ namespace FirstLight.Game.Services
 
 			if (dictionary == null || !dictionary.TryGetValue(id, out var assetReference))
 			{
+				FLog.Error($"AssetResolverService-> LoadScene error {id} of {typeof(TId)}");
 				throw new
 					MissingMemberException($"The {nameof(AssetResolverService)} does not have the {nameof(AssetReference)}" +
 						$"config to load the scene with the given {id} id of {typeof(TId)} type");
@@ -207,6 +208,11 @@ namespace FirstLight.Game.Services
 			var list = new List<Pair<TId, TAsset>>();
 			var tasks = new List<UniTask<TAsset>>();
 			var dictionary = GetDictionary<TId, TAsset>();
+
+			if (dictionary == null)
+			{
+				FLog.Error($"AssetResolverService-> LoadAllAssets dictionary == null of {typeof(TId)} type");
+			}
 
 			foreach (var pair in dictionary)
 			{
@@ -263,6 +269,7 @@ namespace FirstLight.Game.Services
 
 			if (dictionary == null || !dictionary.TryGetValue(id, out var assetReference))
 			{
+				FLog.Error($"AssetResolverService-> RequestAsset error {id} {UnityEngine.StackTraceUtility.ExtractStackTrace ()}");
 				throw new MissingMemberException($"The {nameof(AssetResolverService)} does not have the " +
 					$"{nameof(AssetReference)} config to load the necessary asset for the " +
 					$"given {typeof(TAsset)} type with the given {id} id of {typeof(TId)} type");
@@ -354,6 +361,7 @@ namespace FirstLight.Game.Services
 
 			if (dictionary == null || !dictionary.TryGetValue(id, out var assetReference))
 			{
+				FLog.Error($"AssetResolverService-> UnloadScene error {id}");
 				throw new
 					MissingMemberException($"The {nameof(AssetResolverService)} does not have the {nameof(AssetReference)}" +
 						$"config to load the scene with the given {id} id of {typeof(TId)} type");

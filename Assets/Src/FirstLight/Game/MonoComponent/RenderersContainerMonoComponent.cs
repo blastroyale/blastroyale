@@ -137,7 +137,7 @@ namespace FirstLight.Game.MonoComponent
 		{
 			for(var i=0; i<_rendererColors.Count; i++)
 			{
-				if (_renderers[i].sharedMaterial.HasProperty(_color))
+				if (_originalMaterials[i].HasProperty(_color))
 				{
 					_renderers[i].material.color = _originalMaterials[i].color;
 					

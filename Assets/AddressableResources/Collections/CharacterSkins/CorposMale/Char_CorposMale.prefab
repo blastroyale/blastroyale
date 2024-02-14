@@ -96,9 +96,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4819223349682164798, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2511240423080479738, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -1356303237341133908, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
       propertyPath: m_Name
       value: Char_CorposMale
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
       propertyPath: m_Avatar
@@ -108,6 +124,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 13d1b76a3cd20412baded888cc19b5be, type: 2}
+    - target: {fileID: 8502549445762705191, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

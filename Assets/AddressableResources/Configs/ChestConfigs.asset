@@ -603,7 +603,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 95
+              GameId: 87
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -641,7 +641,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 71
+              GameId: 90
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -679,7 +679,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 101
+              GameId: 94
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1159,7 +1159,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 95
+              GameId: 87
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1197,7 +1197,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 71
+              GameId: 90
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1235,7 +1235,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 101
+              GameId: 94
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0

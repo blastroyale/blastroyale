@@ -35,6 +35,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField] private AnimationClip _collectClip;
 		[SerializeField] private Transform _pickupCircle;
 		[SerializeField] private bool _spawnAnim = true;
+		[SerializeField] private GameObject _itemGameObject;
 
 		private readonly Dictionary<EntityRef, CollectingData> _collectors = new ();
 		private EntityRef _displayedCollector;
@@ -103,6 +104,26 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (frame.TryGet<Collectable>(EntityView.EntityRef, out var collectable) &&
 				collectable.PickupRadius > FP._0)
 			{
+				// Change scale for certain weapons
+				if (collectable.GameId.IsInGroup(GameIdGroup.Weapon))
+				{
+					switch (collectable.GameId)
+					{
+						case GameId.ModPistol :
+							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
+							break;
+						case GameId.ApoSMG :
+							_itemGameObject.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+							break;
+						case GameId.ModShotgun :
+							_itemGameObject.transform.localScale = new Vector3(2f, 2f, 2f);
+							break;
+						case GameId.ApoMinigun :
+							_itemGameObject.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+							break;
+					}
+				}
+				
 				var radiusCorrected = collectable.PickupRadius.AsFloat * RADIUS_CORRECTION;
 				_pickupCircle.localScale =
 					new Vector3(radiusCorrected, radiusCorrected, 1f);

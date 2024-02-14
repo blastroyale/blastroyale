@@ -253,11 +253,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 86
+      value: 94
       objectReference: {fileID: 0}
     - target: {fileID: 3587682744574828602, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: m_Name
-      value: ApoRPG
+      value: ModLauncher
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2240,86 +2240,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &659743447
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2072156789}
-    m_Modifications:
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 19.563992
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 57.50138
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -77.21206
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.GameId.Value
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 3587682744574828602, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_Name
-      value: ApoCrossbow
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 579235936735519706, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-  m_SourcePrefab: {fileID: 100100000, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
---- !u!4 &659743448 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-  m_PrefabInstance: {fileID: 659743447}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &659743449 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7757663921541325714, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-  m_PrefabInstance: {fileID: 659743447}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &667335697
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2492,11 +2412,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 84
+      value: 93
       objectReference: {fileID: 0}
     - target: {fileID: 3587682744574828602, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: m_Name
-      value: ApoSniper
+      value: ModSniper
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3478,11 +3398,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 71
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 3587682744574828602, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: m_Name
-      value: ApoShotgun
+      value: ModShotgun
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7285,7 +7205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.size
-      value: 41
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[8]
@@ -7346,75 +7266,75 @@ PrefabInstance:
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[22]
       value: 
-      objectReference: {fileID: 1031763737}
+      objectReference: {fileID: 539328292}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[23]
       value: 
-      objectReference: {fileID: 917029521}
+      objectReference: {fileID: 1031763737}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[24]
       value: 
-      objectReference: {fileID: 115137755}
+      objectReference: {fileID: 53782190}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[25]
       value: 
-      objectReference: {fileID: 53782190}
+      objectReference: {fileID: 917029521}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[26]
       value: 
-      objectReference: {fileID: 539328292}
+      objectReference: {fileID: 676701974}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[27]
       value: 
-      objectReference: {fileID: 659743449}
+      objectReference: {fileID: 115137755}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[28]
       value: 
-      objectReference: {fileID: 676701974}
+      objectReference: {fileID: 1233995751}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[29]
       value: 
-      objectReference: {fileID: 1233995751}
+      objectReference: {fileID: 1059618158}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[30]
       value: 
-      objectReference: {fileID: 1059618158}
+      objectReference: {fileID: 1736197682}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[31]
       value: 
-      objectReference: {fileID: 1736197682}
+      objectReference: {fileID: 458799060}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[32]
       value: 
-      objectReference: {fileID: 458799060}
+      objectReference: {fileID: 1951587008}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[33]
       value: 
-      objectReference: {fileID: 1951587008}
+      objectReference: {fileID: 1453002788}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[34]
       value: 
-      objectReference: {fileID: 1453002788}
+      objectReference: {fileID: 1565265478}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[35]
       value: 
-      objectReference: {fileID: 1565265478}
+      objectReference: {fileID: 1428518243}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[36]
       value: 
-      objectReference: {fileID: 1428518243}
+      objectReference: {fileID: 261844290}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[37]
       value: 
-      objectReference: {fileID: 261844290}
+      objectReference: {fileID: 1429152500}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[38]
       value: 
-      objectReference: {fileID: 1429152500}
+      objectReference: {fileID: 1345291409}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[39]
       value: 
-      objectReference: {fileID: 1345291409}
+      objectReference: {fileID: 196699904}
     - target: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
       propertyPath: MapEntityReferences.Array.data[40]
       value: 
@@ -7805,13 +7725,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1031763736}
-  - {fileID: 917029520}
-  - {fileID: 115137754}
-  - {fileID: 53782189}
   - {fileID: 539328291}
-  - {fileID: 659743448}
+  - {fileID: 1031763736}
+  - {fileID: 53782189}
+  - {fileID: 917029520}
   - {fileID: 676701973}
+  - {fileID: 115137754}
   - {fileID: 1233995750}
   m_Father: {fileID: 1580170521}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

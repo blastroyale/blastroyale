@@ -1,8 +1,6 @@
 using Backend.Game.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Services;
-using FirstLightServerSDK.Modules;
-using Microsoft.Azure.WebJobs.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
@@ -27,7 +25,7 @@ namespace ServerCommon
             }
             services.AddSingleton<ILogger, ILogger>(l =>
             {
-                return l.GetService<ILoggerFactory>().CreateLogger(LogCategories.CreateFunctionUserCategory("Common"));
+                return l.GetService<ILoggerFactory>()!.CreateLogger("Common");
             });
 
             builder.AddNewtonsoftJson(); // cloudscript specifically requires newtonsoft as it does not add [Serializable] attrs

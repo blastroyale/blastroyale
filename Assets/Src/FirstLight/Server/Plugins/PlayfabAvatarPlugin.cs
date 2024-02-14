@@ -42,6 +42,7 @@ namespace Src.FirstLight.Server
 
 		private async Task SetupPlayerAvatarUrl(string playerId, ItemData avatar)
 		{
+			_ctx.Log.LogDebug($"Updating avatar url for {playerId}");
 			var config = _ctx.GameConfig.GetConfig<AvatarCollectableConfig>();
 			var url = AvatarHelpers.GetAvatarUrl(avatar, config);
 			await _ctx.PlayerProfile.UpdatePlayerAvatarURL(playerId, url);

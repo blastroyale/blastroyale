@@ -10,8 +10,8 @@
 
     <ItemGroup>
       <PackageReference Include="CsvHelper" Version="28.0.1" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-      <PackageReference Include="PlayFabAllSDK" Version="1.127.220718" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="PlayFabAllSDK" Version="1.175.240202" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Modules;
 
 
 namespace FirstLight.Server.SDK
@@ -101,7 +103,7 @@ namespace FirstLight.Server.SDK
 		public async Task CallCommandEvent(string userId, IGameCommand command, ServerState finalState)
 		{
 			var t = command.GetType();
-			_log.LogDebug($"Calling command event {command.GetType().Name}");
+			_log.LogDebug($"Calling command execution finish for plugins: {command.GetType().Name}");
 			var subs = GetSubscribers(command.GetType());
 			foreach (var listener in subs.Listeners)
 			{
@@ -112,7 +114,7 @@ namespace FirstLight.Server.SDK
 
 		public async Task CallEvent<TEventType>(TEventType ev)
 		{
-			_log.LogDebug($"Calling event {ev.GetType().Name}");
+			DebugEvent(ev);
 			var subs = GetSubscribers(ev.GetType());
 			foreach (var listener in subs.Listeners)
 			{
@@ -127,6 +129,12 @@ namespace FirstLight.Server.SDK
 					throw;
 				}
 			}
+		}
+		
+		[Conditional("DEBUG")]
+		private void DebugEvent(object ev)
+		{
+			_log.LogInformation($"Calling event for plugins: {ev.GetType().GetRealTypeName()}");
 		}
 
 		/// <summary>

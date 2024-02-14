@@ -22,7 +22,7 @@ namespace FirstLight.Game.Services
 	public class GameAppService : IGameAppService
 	{
 		private IGameServices _services;
-		private static readonly TimeSpan _maxPauseTime = TimeSpan.FromMinutes(1);
+		private static readonly TimeSpan _maxPauseTime = TimeSpan.FromMinutes(5);
 		private static readonly TimeSpan _heartBeatTest = TimeSpan.FromSeconds(5);
 		private static readonly TimeSpan _heartBeat = TimeSpan.FromSeconds(30);
 		private DateTime _pauseTime;
@@ -61,7 +61,6 @@ namespace FirstLight.Game.Services
 				Time.timeScale = 0;
 			}
 			_pauseTime = DateTime.UtcNow;
-			_services.NetworkService.QuantumClient.LoadBalancingPeer.DisconnectTimeout = ushort.MaxValue;
 			FLog.Info("Game Paused");
 		}
 
@@ -79,8 +78,6 @@ namespace FirstLight.Game.Services
 				_services.GenericDialogService.OpenSimpleMessage("Disconnected", "Please Restart", Application.Quit);
 				return;
 			}
-
-			_services.NetworkService.QuantumClient.LoadBalancingPeer.DisconnectTimeout = 10000;
 			if (FeatureFlags.PAUSE_FREEZE)
 			{
 				Time.timeScale = 1;

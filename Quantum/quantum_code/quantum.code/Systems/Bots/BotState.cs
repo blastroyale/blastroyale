@@ -132,12 +132,12 @@ namespace Quantum
 			botFilter.BotCharacter->SetAttackTarget(botFilter.Entity, f, target);
 		}
 
-		public static bool IsInCircle(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f, in BotUpdateGlobalContext botCtx, FPVector3 positionToCheck)
+		public static bool IsInCircleWithSpareSpace(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f, in BotUpdateGlobalContext botCtx, FPVector3 positionToCheck)
 		{
-			return IsInCircle(botCtx.circleCenter, botCtx.circleRadius, botCtx.circleIsShrinking, positionToCheck);
+			return IsInCircleWithSpareSpace(botCtx.circleCenter, botCtx.circleRadius, botCtx.circleIsShrinking, positionToCheck);
 		}
 
-		public static bool IsInCircle(FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking, FPVector3 positionToCheck)
+		public static bool IsInCircleWithSpareSpace(FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking, FPVector3 positionToCheck)
 		{
 			// If circle doesn't exist then we always return true
 			if (circleRadius < FP.SmallestNonZero)
@@ -145,15 +145,29 @@ namespace Quantum
 				return true;
 			}
 
+			var circleRadiusSqr = circleRadius * circleRadius;
 			var distanceSqr = (positionToCheck.XZ - circleCenter).SqrMagnitude;
 
 			// If circle is shrinking then it's risky to get to consumables on the edge so we don't do it
 			if (circleIsShrinking)
 			{
-				return distanceSqr <= (circleRadius * circleRadius) * (FP._0_20 + FP._0_10);
+				return distanceSqr <= circleRadiusSqr * (FP._0_20 + FP._0_10);
 			}
 
-			return distanceSqr <= (circleRadius * circleRadius) * (FP._0_75);
+			return distanceSqr <= circleRadiusSqr * (FP._0_75);
+		}
+
+		public static bool IsInCircle(FPVector2 circleCenter, FP circleRadius, FPVector3 positionToCheck)
+		{
+			// If circle doesn't exist then we always return true
+			if (circleRadius < FP.SmallestNonZero)
+			{
+				return true;
+			}
+
+			var circleRadiusSqr = circleRadius * circleRadius;
+			var distanceSqr = (positionToCheck.XZ - circleCenter).SqrMagnitude;
+			return distanceSqr <= circleRadiusSqr;
 		}
 	}
 }

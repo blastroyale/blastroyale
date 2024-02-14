@@ -60,7 +60,7 @@ namespace Quantum.Systems.Bots
 		private BotUpdateGlobalContext CreateGlobalContext(Frame f)
 		{
 			if (_updateContext.FrameNumber == f.Number) return _updateContext;
-			
+
 			var circleCenter = FPVector2.Zero;
 			var circleRadius = FP._0;
 			var circleIsShrinking = false;
@@ -161,7 +161,7 @@ namespace Quantum.Systems.Bots
 
 			// Static bots don't move so no need to process anything else
 			if (filter.BotCharacter->BehaviourType == BotBehaviourType.Static) return;
-			
+
 			if (filter.BotCharacter->BehaviourType == BotBehaviourType.WanderAndShoot)
 			{
 				_wanderAndShootBot.Update(f, ref filter, botCtx);
@@ -185,7 +185,7 @@ namespace Quantum.Systems.Bots
 			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot)) return;
 
 			// Every waypoint, if its not going towards consumable, bot re-evaluates his life
-			if (bot->MoveTarget == entity || !bot->MoveTarget.IsValid)
+			if (bot->MoveTarget == entity || !bot->MoveTarget.IsValid || waypointFlags.HasFlag(Navigation.WaypointFlag.Target))
 			{
 				bot->ResetTargetWaypoint(f);
 			}
@@ -201,6 +201,7 @@ namespace Quantum.Systems.Bots
 					var invalid = f.ResolveHashSet(bot->InvalidMoveTargets);
 					invalid.Add(bot->MoveTarget);
 				}
+
 				bot->ResetTargetWaypoint(f);
 			}
 		}
@@ -211,16 +212,16 @@ namespace Quantum.Systems.Bots
 		public void HealthChangedFromAttacker(Frame f, EntityRef entity, EntityRef attacker, int previousHealth)
 		{
 			if (f.RNG->NextBool()) return; // 50% chance bots ignore
-			
+
 			BotLogger.LogAction(entity, $"Bot took damage from {attacker}");
 			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot)) return;
 			if (attacker == bot->Target) return;
 			if (!f.Unsafe.TryGetPointer<Transform3D>(attacker, out var attackerLocation)) return;
 			if (!f.Unsafe.TryGetPointer<Transform3D>(entity, out var botLocation)) return;
-			
+
 			var distanceToAttacker =
 				FPVector2.DistanceSquared(botLocation->Position.XZ, attackerLocation->Position.XZ);
-			
+
 			// If player attacks a bot that has no target, the bot will try to answer
 			if (!bot->Target.IsValid)
 			{
@@ -228,13 +229,14 @@ namespace Quantum.Systems.Bots
 				var botMaxRange = bot->GetMaxWeaponRange(entity, f);
 
 				BotLogger.LogAction(entity, $"Going to kick {attacker} ass for shooting me from distance");
-				
+
 				// If enemy is not further than twice my range ill go for him
 				botMaxRange *= botMaxRange;
 				bot->Target = attacker;
-				
+
 				// when in range, ill just target back
-				if(distanceToAttacker < botMaxRange){
+				if (distanceToAttacker < botMaxRange)
+				{
 					bot->SetAttackTarget(entity, f, attacker);
 					bot->SetSearchForEnemyDelay(f);
 					bot->SetNextDecisionDelay(f, FP._3);
@@ -242,7 +244,6 @@ namespace Quantum.Systems.Bots
 				}
 				else
 				{
-				
 					bot->SetHasWaypoint(entity, f);
 					bot->MoveTarget = attacker;
 					bot->SetNextDecisionDelay(f, FP._3);
@@ -257,7 +258,7 @@ namespace Quantum.Systems.Bots
 				{
 					return;
 				}
-				
+
 				// If the attacker is closer to the bot than the current bot target, 50% swap chance
 				if (f.RNG->NextBool() &&
 					distanceToAttacker <
@@ -286,24 +287,44 @@ namespace Quantum.Systems.Bots
 			}
 		}
 
-		public void OnPlayerKnockedOut(Frame f, EntityRef entity)
+		public void OnPlayerKnockedOut(Frame f, EntityRef knockedOutEntity)
 		{
-			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot))
+			OnTeamMateKnockedOut(f, knockedOutEntity);
+
+			if (!f.Unsafe.TryGetPointer<BotCharacter>(knockedOutEntity, out var bot))
 			{
 				return;
 			}
 
-			BotShooting.StopAiming(f, bot, entity);
+			BotShooting.StopAiming(f, bot, knockedOutEntity);
 			bot->SetNextDecisionDelay(f, 0);
 
-			if (f.Unsafe.TryGetPointer<AIBlackboardComponent>(entity, out var bb))
+			if (f.Unsafe.TryGetPointer<AIBlackboardComponent>(knockedOutEntity, out var bb))
 			{
 				bb->Set(f, Constants.IsKnockedOut, true);
 			}
 
-			if (f.Unsafe.TryGetPointer<HFSMAgent>(entity, out var agent))
+			if (f.Unsafe.TryGetPointer<HFSMAgent>(knockedOutEntity, out var agent))
 			{
-				HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.KnockedOutEvent);
+				HFSMManager.TriggerEvent(f, &agent->Data, knockedOutEntity, Constants.KnockedOutEvent);
+			}
+		}
+
+		/// <summary>
+		///  When a teammate gets knocked out stop everything and go help them
+		/// </summary>
+		private static void OnTeamMateKnockedOut(Frame f, EntityRef knockedOutEntity)
+		{
+			if (!f.Unsafe.TryGetPointer<TeamMember>(knockedOutEntity, out var teamMember)) return;
+
+			foreach (var teamMemberEntity in f.ResolveHashSet(teamMember->TeamMates))
+			{
+				if (knockedOutEntity.IsValid && f.Unsafe.TryGetPointer<BotCharacter>(teamMemberEntity, out var teamMateBot) && !ReviveSystem.IsKnockedOut(f, teamMemberEntity))
+				{
+					teamMateBot->NextDecisionTime = f.Time;
+					teamMateBot->ResetTargetWaypoint(f);
+					f.Unsafe.GetPointer<NavMeshPathfinder>(teamMemberEntity)->Stop(f, teamMemberEntity);
+				}
 			}
 		}
 	}

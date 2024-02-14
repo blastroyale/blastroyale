@@ -143,7 +143,7 @@ namespace Quantum.Systems.Bots
 
 				if (IsInVisionRange(newSqrDistance, ref filter)
 					&& newSqrDistance < sqrDistance
-					&& BotState.IsInCircle(circleCenter, circleRadius, circleIsShrinking, positionCandidate))
+					&& BotState.IsInCircleWithSpareSpace(circleCenter, circleRadius, circleIsShrinking, positionCandidate))
 				{
 					sqrDistance = newSqrDistance;
 					collectablePosition = positionCandidate;

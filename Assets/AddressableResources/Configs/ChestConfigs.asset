@@ -465,7 +465,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 3
         - ItemConfig:
-            SimpleGameId: 95
+            SimpleGameId: 87
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -503,7 +503,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 4
         - ItemConfig:
-            SimpleGameId: 71
+            SimpleGameId: 90
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -541,7 +541,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 5
         - ItemConfig:
-            SimpleGameId: 101
+            SimpleGameId: 94
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -598,7 +598,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 4
         - ItemConfig:
-            SimpleGameId: 95
+            SimpleGameId: 87
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -636,7 +636,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 3
         - ItemConfig:
-            SimpleGameId: 71
+            SimpleGameId: 90
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -674,7 +674,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 1
         - ItemConfig:
-            SimpleGameId: 101
+            SimpleGameId: 94
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1021,7 +1021,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 1
         - ItemConfig:
-            SimpleGameId: 95
+            SimpleGameId: 87
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1059,7 +1059,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 1
         - ItemConfig:
-            SimpleGameId: 71
+            SimpleGameId: 90
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1097,7 +1097,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 2
         - ItemConfig:
-            SimpleGameId: 101
+            SimpleGameId: 94
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1154,7 +1154,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 5
         - ItemConfig:
-            SimpleGameId: 95
+            SimpleGameId: 87
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1192,7 +1192,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 6
         - ItemConfig:
-            SimpleGameId: 71
+            SimpleGameId: 90
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1230,7 +1230,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 7
         - ItemConfig:
-            SimpleGameId: 101
+            SimpleGameId: 94
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1399,7 +1399,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 4
         - ItemConfig:
-            SimpleGameId: 95
+            SimpleGameId: 87
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1437,7 +1437,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 3
         - ItemConfig:
-            SimpleGameId: 71
+            SimpleGameId: 90
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1475,7 +1475,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 2
         - ItemConfig:
-            SimpleGameId: 101
+            SimpleGameId: 94
             EquipmentMetadata:
               Adjective: 0
               Edition: 0

@@ -3122,7 +3122,7 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 5
       GameId:
-        Value: 78
+        Value: 91
       RarityModifier: 0
       Disabled:
         Value: 0
@@ -3592,7 +3592,7 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 5
       GameId:
-        Value: 79
+        Value: 92
       RarityModifier: 0
       Disabled:
         Value: 0

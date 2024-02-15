@@ -11893,9 +11893,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Available to OG players only
       - Nothing Lasts Forever
-      - Sky Pilot
-      - Sky Pilot
+      - Nothing Lasts Forever
       - 
       - 
       Flags: 0000000000
@@ -11915,9 +11915,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Available to OG players only
       - Shining Strikes
-      - Profession Thief
-      - Profession Thief
+      - Shining Strikes
       - 
       - 
       Flags: 0000000000
@@ -11937,9 +11937,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Purchase in the Shop
       - A Fatal Whisper
-      - Violent Enforcer
-      - Violent Enforcer
+      - A Fatal Whisper
       - 
       - 
       Flags: 0000000000
@@ -11959,9 +11959,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Own any female Corpo to unlock
       - Combat Queen
-      - Lieutenant Colonel
-      - Lieutenant Colonel
+      - Combat Queen
       - 
       - 
       Flags: 0000000000
@@ -11981,9 +11981,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Purchase in the Shop
       - Petal to the Metal
-      - Punk Rock Thrasher
-      - Punk Rock Thrasher
+      - Petal to the Metal
       - 
       - 
       Flags: 0000000000
@@ -12003,9 +12003,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - November'23 Leadeboard
       - The Icon
-      - Maverick Reporter
-      - Maverick Reporter
+      - The Icon
       - 
       - 
       Flags: 0000000000
@@ -12446,9 +12446,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Available to OG players only
       - Endure and Survive!
-      - Archeologist Extraordinaire
-      - Archeologist Extraordinaire
+      - Endure and Survive!
       - 
       - 
       Flags: 0000000000
@@ -12468,9 +12468,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Available to OG players only
       - One shot, Two kills
-      - Superstar Shooter
-      - Superstar Shooter
+      - One shot, Two kills
       - 
       - 
       Flags: 0000000000
@@ -12490,9 +12490,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Default character
       - Hunt, Target, Kill
-      - Deadly Assassin
-      - Deadly Assassin
+      - Hunt, Target, Kill
       - 
       - 
       Flags: 0000000000
@@ -12512,9 +12512,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Own any male Corpo to unlock
       - El General
-      - Major General
-      - Major General
+      - El General
       - 
       - 
       Flags: 0000000000
@@ -12534,9 +12534,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Blast Pass - Beta Season 7
       - Punctured Your Ego?
-      - Wild Anarchist
-      - Wild Anarchist
+      - Punctured Your Ego?
       - 
       - 
       Flags: 0000000000
@@ -12556,9 +12556,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Blast Pass - Beta Season 6
       - Passionfruit Killer
-      - Rebel Rouser
-      - Rebel Rouser
+      - Passionfruit Killer
       - 
       - 
       Flags: 0000000000
@@ -12876,7 +12876,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - GRENADE LAUNCHER
+      - ROCKET LAUNCHER
       - "\u0413\u0420\u0410\u041D\u0410\u0422\u041E\u041C\u0415\u0422"
       - "LAN\xC7ADOR DE GRANADA"
       - 
@@ -12887,7 +12887,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - DAEDALUS
+      - SMG
       - "\u0414\u0435\u0434\u0430\u043B\u0443\u0441"
       - "D\xE9dalo"
       - 
@@ -12909,7 +12909,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - CARBINE
+      - ASSAULT RIFLE
       - "\u041A\u0410\u0420\u0410\u0411\u0418\u041D"
       - CARABINA
       - 
@@ -13109,7 +13109,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Aim Of Affection
+      - Purchase in the Shop
       - Aim Of Affection
       - Aim Of Affection
       - 
@@ -13263,9 +13263,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Blast Pass - Beta Season 8
       - Pow! Punch! Win!
-      - Panda description
-      - Panda description
+      - Pow! Punch! Win!
       - 
       - 
       Flags: 0000000000
@@ -13285,9 +13285,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Blast Pass - Beta Season 8
       - "It\u2019s my lucky day!"
-      - Leprechaun description
-      - Leprechaun description
+      - "It\u2019s my lucky day!"
       - 
       - 
       Flags: 0000000000
@@ -13329,9 +13329,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Blast Pass - Beta Season 8
       - Cool as the slopes
-      - Snowboarder description
-      - Snowboarder description
+      - Cool as the slopes
       - 
       - 
       Flags: 0000000000
@@ -13351,9 +13351,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Blast Pass - Beta Season 8
       - A storm is brewing
-      - This guy's description
-      - This guy's description
+      - A storm is brewing
       - 
       - 
       Flags: 0000000000
@@ -13373,9 +13373,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Blast Pass - Beta Season 8
       - Strength in Every Step
-      - Dragon description
-      - Dragon description
+      - Strength in Every Step
       - 
       - 
       Flags: 0000000000
@@ -25318,7 +25318,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1707492644591
+    Google_LastUpdatedVersion: 1708017222930
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

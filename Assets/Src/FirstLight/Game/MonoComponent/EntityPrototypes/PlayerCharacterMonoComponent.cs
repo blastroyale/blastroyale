@@ -130,8 +130,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private async UniTask<GameObject> LoadCharacterSkin(GameId[] playerSkins)
 		{
-			// TODO mihak: TEMP FOR TESTING - Always load AssassinMale
-			var skin = Services.CollectionService.GetCosmeticForGroup(null, GameIdGroup.PlayerSkin);
+			var skin = Services.CollectionService.GetCosmeticForGroup(playerSkins, GameIdGroup.PlayerSkin);
 			var obj = await Services.CollectionService.LoadCollectionItem3DModel(skin);
 
 			// Add renderer containers

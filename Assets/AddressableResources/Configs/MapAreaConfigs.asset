@@ -268,5 +268,81 @@ MonoBehaviour:
     Areas:
     - Color:
         serializedVersion: 2
-        rgba: 4294946737
-      Name: ISLAND
+        rgba: 4294945007
+      Name: PRIMEVAL FOREST
+    - Color:
+        serializedVersion: 2
+        rgba: 4294956937
+      Name: OUTPOST
+    - Color:
+        serializedVersion: 2
+        rgba: 4291886975
+      Name: PORT
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901823
+      Name: PRISON
+    - Color:
+        serializedVersion: 2
+        rgba: 4294940553
+      Name: TRAIN STATION
+    - Color:
+        serializedVersion: 2
+        rgba: 4294909184
+      Name: FARM
+    - Color:
+        serializedVersion: 2
+        rgba: 4278208767
+      Name: RESORT
+    - Color:
+        serializedVersion: 2
+        rgba: 4294956032
+      Name: HIGH STREET
+    - Color:
+        serializedVersion: 2
+        rgba: 4291297024
+      Name: COMMERCIAL DISTRICT
+    - Color:
+        serializedVersion: 2
+        rgba: 4294934272
+      Name: CENTRAL PARK
+    - Color:
+        serializedVersion: 2
+        rgba: 4279828735
+      Name: PLAZA
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901895
+      Name: FISHERMEN
+    - Color:
+        serializedVersion: 2
+        rgba: 4278230527
+      Name: WAREHOUSE
+    - Color:
+        serializedVersion: 2
+        rgba: 4287365375
+      Name: ESTATE
+    - Color:
+        serializedVersion: 2
+        rgba: 4293198079
+      Name: EASTSIDE
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901959
+      Name: NEW FOREST
+    - Color:
+        serializedVersion: 2
+        rgba: 4278255598
+      Name: ALLOTMENTS
+    - Color:
+        serializedVersion: 2
+        rgba: 4278255381
+      Name: MILITARY BASE
+    - Color:
+        serializedVersion: 2
+        rgba: 4285726464
+      Name: POWER PLANT
+    - Color:
+        serializedVersion: 2
+        rgba: 4278255504
+      Name: CEMETERY

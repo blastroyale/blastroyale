@@ -880,7 +880,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 67
+      PremiumRewardId: 61
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -940,7 +940,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
-      PremiumRewardId: 61
+      PremiumRewardId: 68
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
@@ -1000,7 +1000,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 35
-      PremiumRewardId: 68
+      PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
     - RewardId: 63
@@ -1119,7 +1119,7 @@ MonoBehaviour:
       PremiumRewardId: 64
       PointsForNextLevel: 0
       Season: 8
-    - RewardId: 31
+    - RewardId: 67
       PremiumRewardId: 65
       PointsForNextLevel: 0
       Season: 8

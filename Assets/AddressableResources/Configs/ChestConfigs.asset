@@ -446,7 +446,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 3
         - ItemConfig:
-            SimpleGameId: 78
+            SimpleGameId: 91
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -484,7 +484,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 3
         - ItemConfig:
-            SimpleGameId: 79
+            SimpleGameId: 92
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -579,12 +579,12 @@ MonoBehaviour:
               Tuning: 0
           Weight: 4
         - ItemConfig:
-            SimpleGameId: 78
+            SimpleGameId: 91
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 78
+              GameId: 91
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -617,12 +617,12 @@ MonoBehaviour:
               Tuning: 0
           Weight: 4
         - ItemConfig:
-            SimpleGameId: 79
+            SimpleGameId: 92
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 79
+              GameId: 92
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1002,7 +1002,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 1
         - ItemConfig:
-            SimpleGameId: 78
+            SimpleGameId: 91
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1040,7 +1040,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 1
         - ItemConfig:
-            SimpleGameId: 79
+            SimpleGameId: 92
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1135,12 +1135,12 @@ MonoBehaviour:
               Tuning: 0
           Weight: 5
         - ItemConfig:
-            SimpleGameId: 78
+            SimpleGameId: 91
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 78
+              GameId: 91
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1173,12 +1173,12 @@ MonoBehaviour:
               Tuning: 0
           Weight: 5
         - ItemConfig:
-            SimpleGameId: 79
+            SimpleGameId: 92
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 79
+              GameId: 92
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1330,12 +1330,12 @@ MonoBehaviour:
         Amount: 1
         Pool:
         - ItemConfig:
-            SimpleGameId: 78
+            SimpleGameId: 91
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 78
+              GameId: 91
               Generation: 0
               Grade: 0
               InitialReplicationCounter: 0
@@ -1380,7 +1380,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 4
         - ItemConfig:
-            SimpleGameId: 78
+            SimpleGameId: 91
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1418,7 +1418,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 4
         - ItemConfig:
-            SimpleGameId: 79
+            SimpleGameId: 92
             EquipmentMetadata:
               Adjective: 0
               Edition: 0

@@ -113,13 +113,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
 							break;
 						case GameId.ApoSMG :
+						case GameId.ApoMinigun :
+						case GameId.ModMachineGun :
 							_itemGameObject.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
 							break;
 						case GameId.ModShotgun :
 							_itemGameObject.transform.localScale = new Vector3(2f, 2f, 2f);
-							break;
-						case GameId.ApoMinigun :
-							_itemGameObject.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
 							break;
 					}
 				}

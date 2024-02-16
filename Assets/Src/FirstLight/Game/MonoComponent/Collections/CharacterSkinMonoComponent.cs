@@ -7,11 +7,6 @@ namespace FirstLight.Game.MonoComponent.Collections
 {
 	public class CharacterSkinMonoComponent : MonoBehaviour
 	{
-		public const int WEAPON_TYPE_NONE = 0;
-		public const int WEAPON_TYPE_MELEE = 1;
-		public const int WEAPON_TYPE_GUN = 2;
-		public const int WEAPON_TYPE_XLGUN = 3;
-
 		// ReSharper disable InconsistentNaming
 		private readonly int P_MOVING = Animator.StringToHash("moving");
 		private readonly int P_AIMING = Animator.StringToHash("aiming");
@@ -28,6 +23,7 @@ namespace FirstLight.Game.MonoComponent.Collections
 		private readonly int P_RESTORE = Animator.StringToHash("restore");
 
 		private readonly int P_WEAPON_TYPE = Animator.StringToHash("weapon_type");
+		private readonly int P_WEAPON_TYPE_FLOAT = Animator.StringToHash("weapon_type_float");
 		// ReSharper restore InconsistentNaming
 
 		[SerializeField, Required] private Transform _weaponAnchor;
@@ -56,7 +52,11 @@ namespace FirstLight.Game.MonoComponent.Collections
 
 		public WeaponType WeaponType
 		{
-			set => _animator.SetInteger(P_WEAPON_TYPE, (int) value);
+			set
+			{
+				_animator.SetInteger(P_WEAPON_TYPE, (int) value);
+				_animator.SetFloat(P_WEAPON_TYPE_FLOAT, (float) value);
+			}
 		}
 
 		public void TriggerHit() => _animator.SetTrigger(P_HIT);

@@ -248,6 +248,14 @@ MonoBehaviour:
   _background: {fileID: 5999551479570966150}
   _millisecondsToClose: 0
   _animatedBackground: {fileID: 4732243659026786884}
+  _genericRewardBgColor:
+    Bottom: {r: 0.8784314, g: 0.5568628, b: 0.82579637, a: 1}
+    Top: {r: 0.98301035, g: 0.28627455, b: 1, a: 1}
+    Pattern: {r: 0, g: 0, b: 0, a: 0.101960786}
+  _summaryBgColor:
+    Bottom: {r: 0.55574936, g: 0.8792453, b: 0.62543917, a: 1}
+    Top: {r: 0.28490567, g: 1, b: 0.75111544, a: 1}
+    Pattern: {r: 0, g: 0, b: 0, a: 0.101960786}
   _genericRewardDirector: {fileID: 1371233941262645798}
   _equipmentRewardDirector: {fileID: 6144278238971451846}
   _summaryDirector: {fileID: 6405030375585127210}

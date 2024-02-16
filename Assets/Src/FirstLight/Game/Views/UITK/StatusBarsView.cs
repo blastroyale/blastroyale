@@ -93,7 +93,6 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(this, OnPlayerSpecialUpdated);
 			QuantumEvent.SubscribeManual<EventOnPlayerWeaponAdded>(this, OnPlayerWeaponAdded);
-			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnKnockedOut);
 			QuantumEvent.SubscribeManual<EventGameItemCollected>(this, OnCollected);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
@@ -207,10 +206,10 @@ namespace FirstLight.Game.Views.UITK
 				var spectatingCurrentEntity = current.Entity == entity;
 				if (spectatingCurrentEntity)
 				{
-					UpdateBarStats(QuantumRunner.Default.Game.Frames.Predicted, current.Entity, bar);	
+					UpdateBarStats(QuantumRunner.Default.Game.Frames.Predicted, current.Entity, bar);
 				}
+
 				bar.EnableStatusBars((!spectatingCurrentEntity && SHOW_ENEMY_BARS) || (spectatingCurrentEntity && _useOverheadUi));
-			
 			}
 		}
 
@@ -248,7 +247,7 @@ namespace FirstLight.Game.Views.UITK
 			var stats = f.Get<Stats>(entity);
 
 			var spectatingCurrentEntity = _matchServices.SpectateService.GetSpectatedEntity() == entity;
-			
+
 			bar.EnableStatusBars((!spectatingCurrentEntity && SHOW_ENEMY_BARS) || (spectatingCurrentEntity && _useOverheadUi));
 			bar.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
 			bar.UpdateShield(stats.CurrentShield, stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);
@@ -274,15 +273,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		private void OnKnockedOut(EventOnPlayerKnockedOut callback)
-		{
-			if (_matchServices.SpectateService.GetSpectatedEntity() == callback.Entity) return;
-			
-			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
-			
-			bar.ShowNotification(PlayerStatusBarElement.NotificationType.Wounded);
-		}
-		
+
 		private void OnShieldChanged(EventOnShieldChanged callback)
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
@@ -333,18 +324,19 @@ namespace FirstLight.Game.Views.UITK
 				bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, callback.Special.SpecialId.GetLocalization());
 			}
 		}
-		
+
 		private void OnCollected(EventGameItemCollected ev)
 		{
 			if (!_matchServices.IsSpectatingPlayer(ev.PlayerEntity))
 			{
 				return;
 			}
+
 			if (!_visiblePlayers.TryGetValue(ev.PlayerEntity, out var bar))
 			{
 				return;
 			}
-			
+
 			var text = $"+{ev.Amount} {ev.Collected.GetCurrencyLocalization(ev.Amount)}";
 			bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, text);
 		}

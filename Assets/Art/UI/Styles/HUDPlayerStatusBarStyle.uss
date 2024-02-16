@@ -23,31 +23,43 @@
     padding-top: 0;
     padding-bottom: 0;
     margin-bottom: 10px;
+    transition-property: opacity;
+    transition-duration: 333ms;
 }
 
 .player-status-bar__notification--shields {
     color: rgb(80, 199, 242);
+    opacity: 1;
 }
 
 .player-status-bar__notification--ammo {
     color: rgb(241, 180, 50);
+    opacity: 1;
 }
 
 .player-status-bar__notification--health {
     color: rgb(170, 217, 97);
+    opacity: 1;
 }
 
 .player-status-bar__notification--lvlup {
     color: rgb(242, 178, 51);
+    opacity: 1;
 }
 
 .player-status-bar__notification--misc {
     color: rgb(255, 255, 255);
+    opacity: 1;
 }
 
 .player-status-bar__notification--wounded {
     color: rgb(255, 0, 0);
     font-size: 72px;
+    opacity: 1;
+}
+
+.player-status-bar__notification--hidden {
+    opacity: 0;
 }
 
 

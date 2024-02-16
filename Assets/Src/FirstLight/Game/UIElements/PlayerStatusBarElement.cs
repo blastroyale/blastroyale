@@ -22,6 +22,7 @@ namespace FirstLight.Game.UIElements
 
 		private const string USS_BLOCK = "player-status-bar";
 		private const string USS_NOTIFICATION = USS_BLOCK + "__notification";
+		private const string USS_NOTIFICATION_HIDDEN = USS_NOTIFICATION + "--hidden";
 		private const string USS_NOTIFICATION_SHIELDS = USS_NOTIFICATION + "--shields";
 		private const string USS_NOTIFICATION_HEALTH = USS_NOTIFICATION + "--health";
 		private const string USS_NOTIFICATION_AMMO = USS_NOTIFICATION + "--ammo";
@@ -57,7 +58,7 @@ namespace FirstLight.Game.UIElements
 
 			Add(_healthShield = new PlayerHealthShieldElement {name = "health-shield"});
 
-			_notificationHandle = schedule.Execute(() => { _notificationLabel.SetDisplay(false); });
+			_notificationHandle = schedule.Execute(() => { _notificationLabel.AddToClassList(USS_NOTIFICATION_HIDDEN); });
 			_notificationHandle.Pause();
 
 			var damageHolder = new VisualElement {name = "damage-holder"};

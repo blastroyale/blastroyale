@@ -323,7 +323,8 @@ namespace Quantum
 					GameId.ApoShotgun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -338,8 +339,7 @@ namespace Quantum
 					GameId.ApoRifle, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment,
-						GameIdGroup.Deprecated
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
@@ -362,8 +362,7 @@ namespace Quantum
 					GameId.ApoMinigun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment,
-						GameIdGroup.Deprecated
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
@@ -378,8 +377,7 @@ namespace Quantum
 					GameId.ModShotgun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment,
-						GameIdGroup.Deprecated
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
@@ -409,15 +407,15 @@ namespace Quantum
 					GameId.ModLauncher, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment,
-						GameIdGroup.Deprecated
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
 					GameId.ModHeavyMachineGun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -465,7 +463,7 @@ namespace Quantum
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment,
-						GameIdGroup.Simple
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -1829,7 +1827,6 @@ namespace Quantum
 						GameId.RoadHelmet,
 						GameId.ApoSMG,
 						GameId.ModPistol,
-						GameId.SciCannon,
 						GameId.MouseAmulet,
 						GameId.TikTokAmulet,
 						GameId.MouseArmor,
@@ -1875,19 +1872,18 @@ namespace Quantum
 					GameIdGroup.Deprecated, new List<GameId>
 					{
 						GameId.ApoCrossbow,
-						GameId.ApoRifle,
+						GameId.ApoShotgun,
 						GameId.ApoSniper,
 						GameId.ApoRPG,
-						GameId.ApoMinigun,
-						GameId.ModShotgun,
 						GameId.ModMachineGun,
 						GameId.ModRifle,
-						GameId.ModLauncher,
+						GameId.ModHeavyMachineGun,
 						GameId.SciPistol,
 						GameId.SciBlaster,
 						GameId.SciNeedleGun,
 						GameId.SciRifle,
 						GameId.SciSniper,
+						GameId.SciCannon,
 						GameId.SciMelter,
 						GameId.Male01Avatar,
 						GameId.Male02Avatar,

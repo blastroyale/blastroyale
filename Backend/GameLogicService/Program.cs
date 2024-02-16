@@ -24,7 +24,8 @@ var builder = WebApplication.CreateBuilder(args);
 var binPath = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
 var env = ServerStartup.Setup(builder.Services.AddControllers().AddControllersAsServices(), binPath);
 
-builder.UseFlgTelemetry(env);
+builder.SetupLogging(env);
+builder.SetupMetrics(env);
 
 if (env.Standalone)
 {

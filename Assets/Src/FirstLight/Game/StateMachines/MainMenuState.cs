@@ -167,9 +167,7 @@ namespace FirstLight.Game.StateMachines
 				.OnTransition(() => _services.RoomService.LeaveRoom())
 				.Target(homeMenu);
 			homeCheck.Transition().Target(homeMenu);
-			homeCheck.OnExit(OpenHomeScreen);
-
-
+			
 			homeMenu.OnEnter(OpenHomeScreen);
 			homeMenu.OnEnter(TryClaimUncollectedRewards);
 			homeMenu.Event(PlayClickedEvent).Target(playClickedCheck);

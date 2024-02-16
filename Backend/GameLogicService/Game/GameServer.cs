@@ -119,7 +119,6 @@ namespace Backend.Game
 			foreach (var commandInstance in commandInstances)
 			{
 				var newState = await _cmdHandler.ExecuteCommand(playerId, commandInstance, currentState);
-				await _eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, currentState, commandData));
 				await _eventManager.CallCommandEvent(playerId, commandInstance, newState);
 				currentState = newState;
 				deltas.Merge(currentState.GetDeltas());

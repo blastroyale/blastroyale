@@ -156,6 +156,7 @@ namespace FirstLight.Game.Presenters
 				button.Add(_viewingIndicator);
 				button.AddToClassList(UssLeaderboardButtonHighlight);
 			}
+			_localPlayerPos = -1;
 			_leaderboardListView.Clear();
 			_leaderboardListView.RefreshItems();
 			_leaderboardListView.SetVisibility(false);

@@ -294,6 +294,7 @@
 
 .info-button--owned {
     background-image: var(--sprite-home__icon-checkmark);
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .product-name--owned {

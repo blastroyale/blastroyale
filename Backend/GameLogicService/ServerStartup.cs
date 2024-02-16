@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using Backend.Db;
 using Backend.Game;
 using Backend.Game.Services;
@@ -7,7 +6,6 @@ using Backend.Plugins;
 using Backend.Models;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
-using Microsoft.Azure.WebJobs.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -17,14 +15,11 @@ using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
-using FirstLightServerSDK.Modules;
 using FirstLightServerSDK.Services;
 using GameLogicService.Game;
 using GameLogicService.Services;
 using ServerCommon;
 using ServerCommon.CommonServices;
-using IPlayerProfileService = FirstLight.Game.Services.IPlayerProfileService;
-using PlayfabStoreService = FirstLight.Game.Services.PlayfabStoreService;
 using PluginManager = Backend.Plugins.PluginManager;
 
 namespace Backend

@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Game.Ids;
 using FirstLight.Services;
 using Sirenix.OdinInspector;
@@ -12,15 +13,22 @@ namespace FirstLight.Game.MonoComponent.Vfx
 	public class ParticleVfxMonoComponent : Vfx<VfxId>
 	{
 		[SerializeField, Required] private ParticleSystem _particle;
-		
+		private float _particleLifeTime;
+
+		private void Awake()
+		{
+			var main = _particle.main;
+			_particleLifeTime = main.startLifetime.constant * (1 / main.simulationSpeed);
+		}
+
 		private void OnValidate()
 		{
 			_particle = _particle ? _particle : GetComponent<ParticleSystem>();
 		}
-		
+
 		protected override void OnSpawned()
 		{
-			Despawner(_particle.main.startLifetime.constant).Forget();
+			Despawner(_particleLifeTime).Forget();
 		}
 	}
 }

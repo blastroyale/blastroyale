@@ -16,7 +16,7 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public class EndOfGameCalculationsCommand : IQuantumCommand, IGameCommand
 	{
-		public Dictionary<GameId, ushort> EarnedGameItems = new ();
+		public Dictionary<GameId, ushort> EarnedGameItems;
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public QuantumValues QuantumValues;
 		public bool ValidRewardsFromFrame = true;
@@ -46,7 +46,7 @@ namespace FirstLight.Game.Commands
 				DidPlayerQuit = false,
 				GamePlayerCount = matchData.Count,
 				AllowedRewards = QuantumValues.AllowedRewards,
-				CollectedItems = EarnedGameItems
+				CollectedItems = EarnedGameItems ?? new ()
 			};
 			
 			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);

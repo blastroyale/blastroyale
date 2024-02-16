@@ -40,7 +40,7 @@ namespace Quantum.Systems.Bots
 			if (ReviveSystem.IsKnockedOut(f, filter.Entity))
 			{
 				// hard coded values so the bot will always go to teammate
-				if (TryStayCloseToTeammate(f, ref filter, botCtx.circleCenter, FP._10000, false))
+				if (TryStayCloseToTeammate(f, ref filter, botCtx.circleCenter, FP._0, false))
 				{
 					BotLogger.LogAction(ref filter, "stay close to team mate");
 					filter.BotCharacter->SetNextDecisionDelay(f, filter.BotCharacter->DecisionInterval);
@@ -148,7 +148,7 @@ namespace Quantum.Systems.Bots
 					// Already reviving wait for finish
 					if (reviving.Contains(filter.Entity))
 					{
-						filter.BotCharacter->NextDecisionTime = knockedOut->EndRevivingAt + FP._0_25;
+						filter.BotCharacter->NextDecisionTime = knockedOut->EndRevivingAt + FP._0_05;
 						return true;
 					}
 
@@ -160,24 +160,23 @@ namespace Quantum.Systems.Bots
 
 					var teamMatePosition = f.Unsafe.GetPointer<Transform3D>(entityRef)->Position;
 					// if the player is outside the safe zone that's his problem :D
-					if (!filter.IsInCircle(f, botCtx, teamMatePosition))
+					if (!BotState.IsInCircle(botCtx.circleCenter, botCtx.circleRadius, teamMatePosition))
 					{
 						continue;
 					}
 
 					var vectorToTeammate = teamMatePosition - filter.Transform->Position;
 
-					if (vectorToTeammate.SqrMagnitude <= MaxDistanceToTryToRevive)
-					{
-						var destination = teamMatePosition - (vectorToTeammate.Normalized * FP._0_50);
+					if (vectorToTeammate.SqrMagnitude > MaxDistanceToTryToRevive) continue;
 
-						filter.BotCharacter->SetNextDecisionDelay(f, filter.BotCharacter->DecisionInterval);
-						
-						if (BotMovement.MoveToLocation(f, filter.Entity, destination))
-						{
-							filter.SetHasWaypoint(f);
-							return true;
-						}
+					var destination = teamMatePosition + (vectorToTeammate.Normalized * FP._0_50);
+
+					filter.BotCharacter->SetNextDecisionDelay(f, filter.BotCharacter->DecisionInterval);
+
+					if (BotMovement.MoveToLocation(f, filter.Entity, destination))
+					{
+						filter.BotCharacter->SetHasWaypoint(entityRef, f);
+						return true;
 					}
 				}
 			}
@@ -208,7 +207,7 @@ namespace Quantum.Systems.Bots
 
 			foreach (var candidate in f.ResolveHashSet(filter.TeamMember->TeamMates))
 			{
-				if (candidate.IsValid && f.Has<AlivePlayerCharacter>(candidate) && !ReviveSystem.IsKnockedOut(f, candidate))
+				if (candidate.IsValid && f.Has<AlivePlayerCharacter>(candidate))
 				{
 					randomTeammate = candidate;
 					break;
@@ -277,7 +276,7 @@ namespace Quantum.Systems.Bots
 			}
 
 			var destination = filter.Transform->Position + vectorToTeammate.Normalized * (vectorToTeammate.Magnitude / FP._2);
-			var isGoing = BotState.IsInCircle(circleCenter, circleRadius, circleIsShrinking, destination)
+			var isGoing = BotState.IsInCircleWithSpareSpace(circleCenter, circleRadius, circleIsShrinking, destination)
 				&& BotMovement.MoveToLocation(f, filter.Entity, destination);
 
 			if (isGoing)

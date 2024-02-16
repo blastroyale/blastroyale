@@ -247,7 +247,7 @@ ModelImporter:
       takeName: run_xlgun
       internalID: -4765163583855099442
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 64
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -624,7 +624,7 @@ ModelImporter:
       takeName: die
       internalID: -5455075036266976943
       firstFrame: 0
-      lastFrame: 16
+      lastFrame: 22
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -653,15 +653,15 @@ ModelImporter:
       takeName: fly
       internalID: -2481596286897056705
       firstFrame: 0
-      lastFrame: 16
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
@@ -682,7 +682,7 @@ ModelImporter:
       takeName: land
       internalID: 4461826734956849724
       firstFrame: 0
-      lastFrame: 16
+      lastFrame: 236
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -711,7 +711,7 @@ ModelImporter:
       takeName: stun_start
       internalID: -8595042255137888172
       firstFrame: 0
-      lastFrame: 16
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -740,7 +740,7 @@ ModelImporter:
       takeName: stun_loop
       internalID: -7677596426192605876
       firstFrame: 0
-      lastFrame: 16
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

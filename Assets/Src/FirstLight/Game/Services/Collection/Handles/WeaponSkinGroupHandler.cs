@@ -102,13 +102,13 @@ namespace FirstLight.Game.Services.Collection.Handles
 			var component = obj.AddComponent<RuntimeAnimatorMonoComponent>();
 			component.AnimatorController = animator;
 
-			// Menu model doesn't need dirty anchor hack
-			if (!menuModel)
-			{
-				var container = new GameObject();
-				obj.transform.parent = container.transform;
-				return container;
-			}
+			// // Menu model doesn't need dirty anchor hack
+			// if (!menuModel)
+			// {
+			// 	var container = new GameObject();
+			// 	obj.transform.parent = container.transform;
+			// 	return container;
+			// }
 
 			return obj;
 		}

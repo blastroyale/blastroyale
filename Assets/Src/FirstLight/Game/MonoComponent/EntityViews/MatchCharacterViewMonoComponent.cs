@@ -54,13 +54,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var weapons = await weaponTask;
+			var weapon = await weaponTask;
 
-			for (var i = 0; i < weapons.Count; i++)
+			if (weapon != null) // Not sure why this null check is here
 			{
-				if (weapons[i] == null) continue;
-
-				var components = weapons[i].GetComponents<EntityViewBase>();
+				var components = weapon.GetComponents<EntityViewBase>();
 
 				foreach (var entityViewBase in components)
 				{

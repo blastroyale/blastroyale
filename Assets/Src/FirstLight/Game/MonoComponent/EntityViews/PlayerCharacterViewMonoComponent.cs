@@ -469,7 +469,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			var task = _characterView.EquipWeapon(callback.Weapon);
-			task.ContinueWith(weapons =>
+			task.ContinueWith(weapon =>
 			{
 				var f = callback.Game.Frames.Verified;
 				if (!f.Exists(EntityView.EntityRef))
@@ -477,14 +477,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					return;
 				}
 
-				for (var i = 0; i < weapons.Count; i++)
-				{
-					var components = weapons[i].GetComponents<EntityViewBase>();
+				var components = weapon.GetComponents<EntityViewBase>();
 
-					foreach (var entityViewBase in components)
-					{
-						entityViewBase.SetEntityView(callback.Game, EntityView);
-					}
+				foreach (var entityViewBase in components)
+				{
+					entityViewBase.SetEntityView(callback.Game, EntityView);
 				}
 			});
 		}

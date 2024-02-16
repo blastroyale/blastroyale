@@ -1,4 +1,5 @@
 ﻿using System;
+using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -53,10 +54,9 @@ namespace FirstLight.Game.MonoComponent.Collections
 			set => _animator.SetBool(P_AIMING, value);
 		}
 
-		// TODO mihak: Do this better
-		public int WeaponType
+		public WeaponType WeaponType
 		{
-			set => _animator.SetInteger(P_WEAPON_TYPE, value);
+			set => _animator.SetInteger(P_WEAPON_TYPE, (int) value);
 		}
 
 		public void TriggerHit() => _animator.SetTrigger(P_HIT);

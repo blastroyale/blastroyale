@@ -97,7 +97,6 @@ namespace FirstLight.Game.MonoComponent
 			var slot = gameId.GetSlot();
 
 			var anchors = _skin.WeaponAnchor;
-			anchors.localScale = Vector3.one; // TODO mihak: TEMP!!!!!
 			var instances = new List<GameObject>();
 			var instance = await InstantiateEquipment(equip);
 

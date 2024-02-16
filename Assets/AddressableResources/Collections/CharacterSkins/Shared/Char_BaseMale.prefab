@@ -100,6 +100,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: character_animations
       objectReference: {fileID: 0}
+    - target: {fileID: 1486661543501798017, guid: 92f2224f4c15b4320b3c701712c18065, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3032823981353252494, guid: 92f2224f4c15b4320b3c701712c18065, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326651385194316010, guid: 92f2224f4c15b4320b3c701712c18065, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 92f2224f4c15b4320b3c701712c18065, type: 3}
       propertyPath: m_Controller
       value: 

@@ -1,9 +1,9 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Collections
 {
-	[ExecuteAlways]
 	public class CharacterSkinMonoComponent : MonoBehaviour
 	{
 		public const int WEAPON_TYPE_NONE = 0;
@@ -35,6 +35,13 @@ namespace FirstLight.Game.MonoComponent.Collections
 
 		public Transform WeaponAnchor => _weaponAnchor;
 		public Transform GliderAnchor => _gliderAnchor;
+
+		private void Start()
+		{
+			// TODO mihak: TEMPORARY!!!
+			_weaponAnchor.localScale = Vector3.one;
+			_gliderAnchor.localScale = Vector3.one;
+		}
 
 		public bool Moving
 		{

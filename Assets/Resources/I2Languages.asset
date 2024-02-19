@@ -11723,7 +11723,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Evil Flag
+      - SHADOW TRIDENT
       - Evil Flag
       - Bandeira do Tinhoso
       - 
@@ -25318,7 +25318,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1708336531075
+    Google_LastUpdatedVersion: 1708343224169
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

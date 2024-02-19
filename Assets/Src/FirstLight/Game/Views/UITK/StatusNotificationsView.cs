@@ -3,6 +3,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
+using Quantum.Systems;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -100,8 +101,9 @@ namespace FirstLight.Game.Views.UITK
 		private void OnPlayerKnockedOut(EventOnPlayerKnockedOut callback)
 		{
 			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
-			_lowHPAnimationStartTime = Time.time;
-			_lowHPAnimation.Resume();
+			_lowHPAnimation.Pause();
+			_lowHP.style.opacity = 1;
+
 		}
 
 		private void OnPlayerRevived(EventOnPlayerRevived callback)
@@ -114,8 +116,15 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnHealthChanged(EventOnHealthChanged callback)
 		{
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+			if (callback.Entity != spectatedEntity) return;
 
+			// When player is knocked out the effect should always play
+			if (ReviveSystem.IsKnockedOut(callback.Game.Frames.Predicted, spectatedEntity))
+			{
+				return;
+			}
+			
 			var shouldShowLowHP = callback.CurrentHealth <= _lowHPThreshold;
 			if (shouldShowLowHP == _lowHPAnimation.isActive) return;
 

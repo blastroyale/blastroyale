@@ -7,7 +7,12 @@
             </ui:ScrollView>
             <ui:VisualElement name="Categories" class="categories" style="width: 100%;" />
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITStore/shop" name="Header" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITStore/shop" name="Header">
+            <ui:VisualElement name="Currencies" class="currency-display-holder">
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="Coins" currency="COIN" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBucks" currency="BlastBuck" />
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.ScreenHeaderElement>
         <ui:VisualElement name="Blocker" class="blocker" style="display: none;">
             <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/waiting" class="blocker__title" />
         </ui:VisualElement>

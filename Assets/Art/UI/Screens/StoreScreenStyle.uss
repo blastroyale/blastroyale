@@ -119,3 +119,12 @@
 .product-category--small {
     max-width: 1065px;
 }
+
+.currency-display-holder {
+    position: absolute;
+    right: 200px;
+    top: 34px;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    width: 502px;
+}

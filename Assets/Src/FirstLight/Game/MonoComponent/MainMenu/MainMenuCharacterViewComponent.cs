@@ -46,13 +46,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			_currentIdleTime += Time.deltaTime;
 		}
-
-		public void PlayAnimation()
-		{
-			// Animator.SetTrigger(_triggerNamesClicked[Random.Range(0, _triggerNamesClicked.Length)]);
-			var config = _animationConfig.AnimationNames;
-			//_animator.SetTrigger(config[Random.Range(0, config.Length)]);
-		}
 		
 		public void OnDrag(PointerEventData eventData)
 		{

@@ -8,7 +8,6 @@ using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -19,42 +18,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	[RequireComponent(typeof(Animator), typeof(RenderersContainerProxyMonoComponent))]
 	public abstract class AvatarViewBase : EntityMainViewBase
 	{
-		private static readonly int _mainText = Shader.PropertyToID("_MainTex");
-		private static readonly int _hitProperty = Shader.PropertyToID("_Hit");
 		private IGameServices _services;
-		
-		// /// <summary>
-		// /// Animation booleans to play in the avatar
-		// /// </summary>
-		// protected static class Bools
-		// {
-		// 	public static readonly AnimatorWrapper.Bool Move = new("move");
-		// 	public static readonly AnimatorWrapper.Bool Aim = new("aim");
-		// 	public static readonly AnimatorWrapper.Bool Stun = new("stun");
-		// 	public static readonly AnimatorWrapper.Bool Pickup = new("pickup");
-		// 	public static readonly AnimatorWrapper.Bool Furious = new("furious");
-		// 	public static readonly AnimatorWrapper.Bool Flying = new("flying");
-		// }
-		//
-		// /// <summary>
-		// /// Animation triggers to play in the avatar
-		// /// </summary>
-		// public static class Triggers
-		// {
-		// 	public static readonly AnimatorWrapper.Trigger Shoot = new("shoot");
-		// 	public static readonly AnimatorWrapper.Trigger Die = new("die");
-		// 	public static readonly AnimatorWrapper.Trigger Hit = new("hit");
-		// 	public static readonly AnimatorWrapper.Trigger Victory = new("victory");
-		// 	public static readonly AnimatorWrapper.Trigger Spawn = new("spawn");
-		// 	public static readonly AnimatorWrapper.Trigger Revive = new("revive");
-		// 	public static readonly AnimatorWrapper.Trigger Special = new("special");
-		// 	public static readonly AnimatorWrapper.Trigger Charge = new("charge");
-		// 	public static readonly AnimatorWrapper.Trigger Jump = new("jump");
-		// 	public static readonly AnimatorWrapper.Trigger Melee = new("melee");
-		// 	public static readonly AnimatorWrapper.Trigger PLF = new("plf");
-		// 	public static readonly AnimatorWrapper.Trigger KnockedOut = new("knockedout");
-		// 	public static readonly AnimatorWrapper.Trigger Revived = new("revived");
-		// }
 		
 		[SerializeField, Required] private Animator _animator;
 		[SerializeField] private Vector3 _vfxLocalScale = Vector3.one;

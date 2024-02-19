@@ -85,7 +85,6 @@ namespace FirstLight.Game.Services.Collection.Handles
 			return await _assetResolver.LoadAssetByReference<Sprite>(assetRef, true, instantiate);
 		}
 
-
 		public async UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
 		{
 			CheckConfigInitialize();
@@ -101,14 +100,6 @@ namespace FirstLight.Game.Services.Collection.Handles
 			var animator = skin.AnimatorController != null ? skin.AnimatorController : _groupLookup[item.Id].DefaultAnimationOverwrite;
 			var component = obj.AddComponent<RuntimeAnimatorMonoComponent>();
 			component.AnimatorController = animator;
-
-			// // Menu model doesn't need dirty anchor hack
-			// if (!menuModel)
-			// {
-			// 	var container = new GameObject();
-			// 	obj.transform.parent = container.transform;
-			// 	return container;
-			// }
 
 			return obj;
 		}

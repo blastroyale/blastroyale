@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: assassin_male
-    second: {fileID: 2800000, guid: c8d8c9b2597a54e1a9103e5be7922401, type: 3}
+    second: {fileID: 2800000, guid: 209748730395547fa928ad35dec006c2, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

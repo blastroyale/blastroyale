@@ -9,24 +9,28 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	/// <inheritdoc cref="CharacterEquipmentMonoComponent"/>
 	public class MainMenuCharacterViewComponent : CharacterEquipmentMonoComponent, IDragHandler
 	{
-		 private MainMenuCharacterAnimationConfig  _animationConfig => _services.ConfigsProvider.GetConfig<MainMenuCharacterAnimationConfig>();
+		private MainMenuCharacterAnimationConfig _animationConfig => _services.ConfigsProvider.GetConfig<MainMenuCharacterAnimationConfig>();
 
 		private float _currentIdleTime;
 		private float _nextFlareTime = -1f;
 		private bool _processFlareAnimation = true;
 		private bool _playedFirstFlareAnim;
-		
+
 		protected override void Awake()
 		{
 			base.Awake();
-		
-			_nextFlareTime = Random.Range(_animationConfig.FlareAnimMinPlaybackTime / 2, 
+
+			_nextFlareTime = Random.Range(_animationConfig.FlareAnimMinPlaybackTime / 2,
 				_animationConfig.FlareAnimMaxPlaybackTime / 2);
-			
-			
+
+
 			_services.MessageBrokerService.Subscribe<EquipmentScreenOpenedMessage>(OnEquipmentScreenOpenedMessage);
 			_services.MessageBrokerService.Subscribe<PlayScreenOpenedMessage>(OnPlayScreenOpenedMessage);
-		
+		}
+
+		private void Start()
+		{
+			_skin.Meta = true;
 		}
 
 		private void Update()
@@ -35,18 +39,18 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			{
 				return;
 			}
-			
+
 			if (_currentIdleTime > _nextFlareTime)
 			{
 				_skin.TriggerFlair();
 				_nextFlareTime = Random.Range(_animationConfig.FlareAnimMinPlaybackTime, _animationConfig.FlareAnimMaxPlaybackTime);
-				
+
 				_currentIdleTime = 0;
 			}
 
 			_currentIdleTime += Time.deltaTime;
 		}
-		
+
 		public void OnDrag(PointerEventData eventData)
 		{
 			transform.parent.Rotate(0, -eventData.delta.x, 0, Space.Self);

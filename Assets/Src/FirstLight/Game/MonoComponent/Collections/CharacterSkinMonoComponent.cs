@@ -49,7 +49,12 @@ namespace FirstLight.Game.MonoComponent.Collections
 		{
 			set => _animator.SetBool(P_AIMING, value);
 		}
-
+		
+		public bool Meta
+		{
+			set => _animator.SetLayerWeight(_animator.GetLayerIndex("Meta"), value ? 1f : 0f);
+		}
+		
 		public WeaponType WeaponType
 		{
 			set

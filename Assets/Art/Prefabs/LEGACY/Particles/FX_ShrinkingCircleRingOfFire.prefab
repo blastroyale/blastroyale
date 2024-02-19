@@ -29,7 +29,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1203972239209985922}
   - {fileID: 5504811613519120803}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -63,7 +62,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1203972239209985922}
   m_Father: {fileID: 5504811613422289840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &5504811613519120802
@@ -74,7 +74,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5504811613519120804}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 8
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -83,7 +83,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -4898,12 +4898,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6408266066062323414}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5504811613422289840}
+  m_Father: {fileID: 5504811613519120803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &7416783013771817721
 ParticleSystem:
@@ -4922,13 +4922,13 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 1
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -5476,7 +5476,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 1000
+    maxNumParticles: 100
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 1
@@ -5623,7 +5623,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 2
+      value: 3
       mode: 0
       spread: 0
       speed:
@@ -6181,7 +6181,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 0.8759048, b: 0, a: 1}
-        key1: {r: 1, g: 0.6324958, b: 0, a: 0}
+        key1: {r: 1, g: 0.5231711, b: 0, a: 0.9823529}
         key2: {r: 1, g: 0.16334546, b: 0.039215684, a: 0}
         key3: {r: 1, g: 1, b: 1, a: 0}
         key4: {r: 1, g: 1, b: 1, a: 0}
@@ -6189,16 +6189,16 @@ ParticleSystem:
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 26600
-        ctime2: 55898
+        ctime1: 39321
+        ctime2: 65535
         ctime3: 65535
         ctime4: 65535
         ctime5: 0
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 65535
-        atime2: 0
+        atime1: 42405
+        atime2: 65535
         atime3: 0
         atime4: 0
         atime5: 0
@@ -6206,8 +6206,8 @@ ParticleSystem:
         atime7: 0
         m_Mode: 0
         m_ColorSpace: 0
-        m_NumColorKeys: 4
-        m_NumAlphaKeys: 2
+        m_NumColorKeys: 3
+        m_NumAlphaKeys: 3
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

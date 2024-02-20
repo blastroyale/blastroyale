@@ -58,50 +58,6 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
-    - GameId: 57
-      Prefab:
-        m_AssetGUID: e454db8b4c77d43b88b84b5f8240a737
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
-      Sprite:
-        m_AssetGUID: 32e93afb36446234bb571edcc73d25d0
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
-    - GameId: 58
-      Prefab:
-        m_AssetGUID: e454db8b4c77d43b88b84b5f8240a737
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
-      Sprite:
-        m_AssetGUID: cc875c06a4b32244e9caa3257ce28258
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
-    - GameId: 55
-      Prefab:
-        m_AssetGUID: e454db8b4c77d43b88b84b5f8240a737
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
-      Sprite:
-        m_AssetGUID: c468f9b754f63e2479f9285f665193a3
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
-    - GameId: 56
-      Prefab:
-        m_AssetGUID: e454db8b4c77d43b88b84b5f8240a737
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
-      Sprite:
-        m_AssetGUID: 58c8e57393b978c4fab7b7c661dbf707
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
     - GameId: 83
       Prefab:
         m_AssetGUID: b0cca99e5654f4115bb50a6a3da18df9
@@ -143,6 +99,17 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       Sprite:
         m_AssetGUID: 31923a4a455ce834f805ba83faedd726
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 142
+      Prefab:
+        m_AssetGUID: 164f793bda22e401ab3b54b2f1996b7d
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 4aacb9bbcf154439ea41378c0ac49ea9
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -201,17 +168,6 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
-    - GameId: 142
-      Prefab:
-        m_AssetGUID: 164f793bda22e401ab3b54b2f1996b7d
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
-      Sprite:
-        m_AssetGUID: 4989d377545942c45acf1fd8674dcc60
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
     - GameId: 135
       Prefab:
         m_AssetGUID: e454db8b4c77d43b88b84b5f8240a737
@@ -219,7 +175,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 5cb6635b416e58e459bdc8f96abc9e15
+        m_AssetGUID: 
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -300,28 +256,3 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
-    InGameDefaultAnimation:
-      ApplyRootMotion: 0
-      UpdateMode: 0
-      CullingMode: 0
-      Controller: {fileID: 9100000, guid: 2255c91a668d043eaadc81b6a1449962, type: 2}
-    MenuDefaultAnimation:
-      ApplyRootMotion: 0
-      UpdateMode: 0
-      CullingMode: 1
-      Controller: {fileID: 22100000, guid: 1e2ae51406c824b4aba97335aa2a77d9, type: 2}
-    Anchors:
-    - Key: 0
-      Value:
-      - Offset:
-          Position: {x: 0, y: 0, z: 0}
-          Rotation: {x: 0, y: -90, z: -90}
-          Scale: {x: 1, y: 1, z: 1}
-        AttachToBone: RightHandMiddle1
-    - Key: 1
-      Value:
-      - Offset:
-          Position: {x: 0, y: 0, z: 0}
-          Rotation: {x: 0, y: 0, z: 0}
-          Scale: {x: 1, y: 1, z: 1}
-        AttachToBone: Spine1

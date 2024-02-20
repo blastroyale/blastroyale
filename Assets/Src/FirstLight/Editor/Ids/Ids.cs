@@ -196,18 +196,18 @@ namespace FirstLight.Editor.Ids
 			{"FemalePunk", 83, PlayerSkin, BotItem, Punk, Collection},
 			{"FemaleSuperstar", 104, PlayerSkin, BotItem, Superstar, Collection},
 			{"TestSkin", 122},
-			{"PlayerSkinDragonBoxer", 148, PlayerSkin, Collection},
-			{"PlayerSkinTieGuy", 147, PlayerSkin, Collection},
-			{"PlayerSkinFitnessChick", 146, PlayerSkin, Collection},
+			{"PlayerSkinDragonBoxer", 148}, // placeholder ID for the future skin
+			{"PlayerSkinTieGuy", 147}, // placeholder ID for the future skin
+			{"PlayerSkinFitnessChick", 146}, // placeholder ID for the future skin
 			{"PlayerSkinSkellyQueen", 145}, // placeholder ID for the future skin
 			{"PlayerSkinXmasSuperstar", 149, PlayerSkin, BotItem, Collection},
-			{"PlayerSkinJodie", 135, PlayerSkin, BotItem, Collection},
-			{"PlayerSkinMontyVonCue", 136, PlayerSkin, BotItem, Collection},
-			{"PlayerSkinBoudicca", 139, PlayerSkin, BotItem, Collection},
+			{"PlayerSkinJodie", 135}, // placeholder ID for the future skin
+			{"PlayerSkinMontyVonCue", 136}, // placeholder ID for the future skin
+			{"PlayerSkinBoudicca", 139}, // placeholder ID for the future skin
 			{"PlayerSkinCupid", 142, PlayerSkin, BotItem, Collection},
 			{"PlayerSkinPanda", 400, PlayerSkin, Collection},
-			{"PlayerSkinLeprechaun", 401, PlayerSkin, Collection},
-			{"PlayerSkinDragon", 402, PlayerSkin, Collection},
+			{"PlayerSkinLeprechaun", 401}, // placeholder ID for the future skin
+			{"PlayerSkinDragon", 402}, // placeholder ID for the future skin
 			{"PlayerSkinSnowboarder", 403, PlayerSkin, Collection},
 			{"PlayerSkinDunePaul", 404, PlayerSkin, Collection},
 			{"PlayerSkinHarald", 405, PlayerSkin, Collection},

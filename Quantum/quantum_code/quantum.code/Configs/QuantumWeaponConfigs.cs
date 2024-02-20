@@ -20,6 +20,7 @@ namespace Quantum
 	{
 		public GameId Id;
 		public FiringMode FiringMode;
+		public WeaponType WeaponType;
 		public int MaxAmmo;
 		public AssetRefEntityPrototype BulletPrototype;
 		public AssetRefEntityPrototype BulletHitPrototype;
@@ -57,6 +58,14 @@ namespace Quantum
 	{
 		FullyAutomatic = 0,
 		SemiAutomatic = 1,
+	}
+
+	public enum WeaponType
+	{
+		// 0 is "no weapon" in animations so we keep the same numbering here.
+		Melee = 1,
+		Gun = 2,
+		XLGun = 3
 	}
 
 	/// <summary>

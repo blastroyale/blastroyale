@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
@@ -10,10 +7,7 @@ using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
-using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
-using LayerMask = UnityEngine.LayerMask;
 
 namespace FirstLight.Game.MonoComponent
 {
@@ -23,9 +17,8 @@ namespace FirstLight.Game.MonoComponent
 	/// </summary>
 	public abstract class CharacterEquipmentMonoComponent : MonoBehaviour
 	{
-		protected Animator _animator;
 		private RenderersContainerProxyMonoComponent _renderersContainerProxy;
-		private CharacterSkinMonoComponent _skin;
+		protected CharacterSkinMonoComponent _skin;
 
 		private IDictionary<GameIdGroup, IList<GameObject>> _equipment;
 		protected IGameServices _services;
@@ -38,44 +31,38 @@ namespace FirstLight.Game.MonoComponent
 			set => _cosmetics = value;
 		}
 
-
 		protected virtual void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_equipment = new Dictionary<GameIdGroup, IList<GameObject>>();
 			_skin = GetComponent<CharacterSkinMonoComponent>();
 			_renderersContainerProxy = GetComponent<RenderersContainerProxyMonoComponent>();
-			_animator = GetComponent<Animator>();
 		}
 
 		/// <summary>
 		/// Instantiate a Game Item of the specified GameIdGroup
 		/// </summary>
-		public async UniTask<List<GameObject>> InstantiateItem(ItemData item, GameIdGroup gameIdGroup)
+		public async UniTask InstantiateGlider(ItemData item)
 		{
-			var anchors = _skin.GetEquipmentAnchors(gameIdGroup);
+			var anchor = _skin.GliderAnchor;
 			var instance = await _services.CollectionService.LoadCollectionItem3DModel(item);
-			var instances = new List<GameObject>(anchors.Length);
 
 			if (this.IsDestroyed())
 			{
 				Destroy(instance);
 
-				return instances;
+				return;
 			}
 
 			var piece = instance.transform;
-			piece.SetParent(anchors[0]);
+			piece.SetParent(anchor);
 
 			piece.localPosition = Vector3.zero;
-			piece.localRotation = Quaternion.identity;
+			piece.localRotation = Quaternion.Euler(0, 90, 0); // TODO mihak: Temp hack
 			piece.localScale = Vector3.one;
-			instances.Add(piece.gameObject);
-
-			return instances;
 		}
 
-		protected async UniTask<GameObject> InstantiateEquipment(Equipment equip)
+		protected async UniTask<GameObject> InstantiateWeapon(Equipment equip)
 		{
 			// TODO Generic GameId to GameIDGroup skin converter
 			var gameId = equip.GameId;
@@ -89,6 +76,7 @@ namespace FirstLight.Game.MonoComponent
 			{
 				obj = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
 			}
+
 			obj.name = gameId.ToString();
 			return obj;
 		}
@@ -96,21 +84,20 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Equip characters equipment slot with an asset loaded by unique id.
 		/// </summary>
-		public async UniTask<List<GameObject>> EquipItem(Equipment equip)
+		public async UniTask<GameObject> EquipWeaponInternal(Equipment equip)
 		{
 			var gameId = equip.GameId;
 			var slot = gameId.GetSlot();
 
-			var anchors = _skin.GetEquipmentAnchors(slot);
-			var instances = new List<GameObject>();
-			var instance = await InstantiateEquipment(equip);
+
+			var instance = await InstantiateWeapon(equip);
 
 			if (this.IsDestroyed())
 			{
 				Destroy(instance);
-				return instances;
+				return instance;
 			}
-			
+
 			if (_equipment.ContainsKey(slot))
 			{
 				UnequipItem(slot);
@@ -123,62 +110,47 @@ namespace FirstLight.Game.MonoComponent
 				Id = gameId
 			});
 
-			var childCount = instance.transform.childCount;
+			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) equip.GameId);
+			_skin.WeaponType = config.WeaponType;
 
-			Color col = default;
-			
-			// We detach the first child of the equipment and copy it to the anchor
-			// Not sure why. Neither do I
-			for (var i = 0; i < Mathf.Max(childCount, 1); i++)
+			var weaponTransform = instance.transform;
+			var anchor = _skin.WeaponAnchor;
+
+			weaponTransform.SetParent(anchor);
+
+			weaponTransform.localPosition = new Vector3(0, 0.1f, 0); // TODO mihak: TEMP HACK
+			weaponTransform.localRotation = Quaternion.Euler(0, 115, 0); // TODO mihak: TEMP HACK
+			weaponTransform.localScale = Vector3.one;
+
+			if (weaponTransform.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
 			{
-				var piece = childCount > 0 ? instance.transform.GetChild(0) : instance.transform;
-
-				piece.SetParent(anchors[i]);
-				instances.Add(piece.gameObject);
-
-				piece.localPosition = Vector3.zero;
-				piece.localRotation = Quaternion.identity;
-				piece.localScale = Vector3.one;
-
-				if (piece.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
+				renderContainer.SetLayer(gameObject.layer);
+				_renderersContainerProxy.AddRenderersContainer(renderContainer);
+				Color col = default;
+				if (_renderersContainerProxy.GetFirstRendererColor(ref col))
 				{
-					renderContainer.SetLayer(gameObject.layer);
-					_renderersContainerProxy.AddRenderersContainer(renderContainer);
-					if (_renderersContainerProxy.GetFirstRendererColor(ref col))
-					{
-						renderContainer.SetColor(col);
-					}
+					renderContainer.SetColor(col);
 				}
 			}
 
-			// If we detached the child of a parent, we destroy the parent
-			if (childCount > 0)
-			{
-#if UNITY_EDITOR
-				Log.Warn("Unecessary destroy of child of equipment hack triggered, please fix");
-#endif
-				Destroy(instance);
-			}
-			_equipment.Add(slot, instances);
+			_equipment.Add(slot, new[] {instance}); // TODO: Ugly temporary thing
 			_services.MessageBrokerService.Publish(new EquipmentInstantiatedMessage()
 			{
 				Equipment = equip,
-				Object = instances[0]
+				Object = instance
 			});
-			return instances;
+			return instance;
 		}
 
 		/// <summary>
 		/// Destroy an item currently equipped on the character.
 		/// </summary>
-		public void DestroyItem(GameIdGroup slotType)
+		public void DestroyGlider()
 		{
-			var anchors = _skin.GetEquipmentAnchors(slotType);
-			for (var i = 0; i < anchors.Length; i++)
+			var anchor = _skin.GliderAnchor;
+
+			if (anchor.childCount != 0)
 			{
-				if (i >= anchors.Length) continue;
-				var anchor = anchors[i];
-				if (anchor.childCount == 0) continue;
 				for (var c = 0; c < anchor.childCount; c++)
 				{
 					var child = anchor.GetChild(c).gameObject;
@@ -242,20 +214,16 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Equip a weapon using a GameId
 		/// </summary>
-		public async UniTask<IList<GameObject>> EquipWeapon(Equipment equip)
+		public async UniTask<GameObject> EquipWeapon(Equipment equip)
 		{
-			var weapons = await EquipItem(equip);
+			var weapon = await EquipWeaponInternal(equip);
 
-			for (var i = 0; i < weapons.Count; i++)
-			{
-				_animator.runtimeAnimatorController = weapons[i].GetComponent<RuntimeAnimatorMonoComponent>().AnimatorController;
-			}
+			// for (var i = 0; i < weapons.Count; i++)
+			// {
+			// 	_animator.runtimeAnimatorController = weapons[i].GetComponent<RuntimeAnimatorMonoComponent>().AnimatorController;
+			// }
 
-			return weapons;
-		}
-
-		protected virtual void OnEditorValidate()
-		{
+			return weapon;
 		}
 	}
 }

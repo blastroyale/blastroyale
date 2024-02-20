@@ -7,7 +7,7 @@ namespace Quantum.Systems
 	/// System handling knockout logic, this contains knocking out the player when he dies, knockout collider, and reviving the player.
 	/// </summary>
 	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.KnockedOutFilter>, ISignalOnTriggerEnter3D,
-									   ISignalOnTriggerExit3D, ISignalOnComponentRemoved<KnockedOut>, ISignalPlayerDead
+									   ISignalOnTriggerExit3D, ISignalOnComponentRemoved<KnockedOut>, ISignalPlayerDead, ISignalGameEnded
 	{
 		public struct KnockedOutFilter
 		{
@@ -51,12 +51,8 @@ namespace Quantum.Systems
 			{
 				if (filter.KnockedOut->EndRevivingAt != FP._0 && filter.KnockedOut->EndRevivingAt <= f.Time)
 				{
-					// Revive player
 					var reviveHealthPercentage = GetConfigForKnockedOut(f, filter.KnockedOut).LifePercentageOnRevived;
-					f.Remove<KnockedOut>(filter.Entity);
-					filter.Stats->SetCurrentHealthPercentage(f, filter.Entity, reviveHealthPercentage);
-					f.Events.OnPlayerRevived(filter.Entity);
-					f.Signals.OnPlayerRevived(filter.Entity);
+					RevivePlayer(f, filter.Entity, filter.Stats, reviveHealthPercentage);
 				}
 
 				// Someone is reviving him so no damage
@@ -147,6 +143,12 @@ namespace Quantum.Systems
 			f.Add<EntityDestroyer>(component->ColliderEntity);
 		}
 
+		public void GameEnded(Frame f)
+		{
+			ReviveAllKnockedOutPlayers(f);
+			f.SystemDisable<ReviveSystem>();
+		}
+
 		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
 		{
 			var teamsAlive = new HashSet<int>();
@@ -172,6 +174,24 @@ namespace Quantum.Systems
 
 				// KILL THEM ALL
 				f.Unsafe.GetPointer<Stats>(entity)->Kill(f, entity, knockedOut->KnockedOutBy);
+			}
+		}
+
+		private static void RevivePlayer(Frame f, EntityRef entityRef, Stats* stats, FP lifePercentage)
+		{
+			// Revive player
+			f.Remove<KnockedOut>(entityRef);
+			stats->SetCurrentHealthPercentage(f, entityRef, lifePercentage);
+			f.Events.OnPlayerRevived(entityRef);
+			f.Signals.OnPlayerRevived(entityRef);
+		}
+
+		private static void ReviveAllKnockedOutPlayers(Frame f)
+		{
+			var players = f.Filter<Stats, KnockedOut, AlivePlayerCharacter>();
+			while (players.NextUnsafe(out var entity, out var stats, out _, out _))
+			{
+				RevivePlayer(f, entity, stats, FP._1);
 			}
 		}
 
@@ -313,7 +333,8 @@ namespace Quantum.Systems
 			}
 		}
 
-		public static bool CanBeKnockedOut(Frame f, EntityRef entityRef, Revivable* revivable)
+
+		private static bool CanBeKnockedOut(Frame f, EntityRef entityRef, Revivable* revivable)
 		{
 			if (GetConfig(f).FullyDisable)
 			{

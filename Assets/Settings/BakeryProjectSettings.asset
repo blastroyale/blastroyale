@@ -23,7 +23,7 @@ MonoBehaviour:
   alphaMetaPassResolutionMultiplier: 2
   volumeRenderMode: 1000
   deletePreviousLightmapsBeforeBake: 0
-  logLevel: 3
+  logLevel: 2
   alternativeScaleInLightmap: 0
   alignToTextureBlocksWithXatlas: 1
   generateSmoothPos: 1

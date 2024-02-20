@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
+using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -19,8 +20,6 @@ namespace FirstLight.Game.MonoComponent
 	/// </summary>
 	public class BaseCharacterMonoComponent : MonoBehaviour
 	{
-		private readonly int _victoryHash = Animator.StringToHash("victory");
-
 		protected bool IsLoaded = false;
 
 		[SerializeField, Required] protected UnityEvent _characterLoadedEvent;
@@ -28,7 +27,7 @@ namespace FirstLight.Game.MonoComponent
 
 		protected MainMenuCharacterViewComponent _characterViewComponent;
 		protected IGameServices _services;
-		protected Animator _animator;
+		protected CharacterSkinMonoComponent _skin;
 		protected List<Equipment> _equipment = new List<Equipment>();
 
 		protected virtual void Awake()
@@ -78,7 +77,7 @@ namespace FirstLight.Game.MonoComponent
 
 		public void AnimateVictory()
 		{
-			_animator.SetTrigger(_victoryHash);
+			_skin.TriggerVictory();
 		}
 
 		private void SkinLoaded(ItemData skin, GameObject instance)
@@ -98,7 +97,7 @@ namespace FirstLight.Game.MonoComponent
 
 			instance.SetActive(true);
 
-			_animator = instance.GetComponent<Animator>();
+			_skin = instance.GetComponent<CharacterSkinMonoComponent>();
 			IsLoaded = true;
 			_characterLoadedEvent?.Invoke();
 		}

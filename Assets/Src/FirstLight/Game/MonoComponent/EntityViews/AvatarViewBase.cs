@@ -180,7 +180,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private IEnumerator EndBlink(float duration)
 		{
 			yield return new WaitForSeconds(duration);
-			RenderersContainerProxy.SetAdditiveColor(Color.black);
+			RenderersContainerProxy.ResetAdditiveColor();
 		}
 
 		private void HandleOnStatusModifierSet(EventOnStatusModifierSet evnt)

@@ -36,7 +36,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private Coroutine _attackHideRendererCoroutine;
 		private IMatchServices _matchServices;
+		
+		// TODO mihak: Probably remove this
+#pragma warning disable CS0414 // Field is assigned but its value is never used
 		private bool _playerFullyGrounded;
+#pragma warning restore CS0414 // Field is assigned but its value is never used
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -47,12 +51,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// Requests the <see cref="PlayerRef"/> of this player
 		/// </summary>
 		public PlayerRef PlayerRef { get; private set; }
-
-		private static class PlayerFloats
-		{
-			public static readonly AnimatorWrapper.Float DirX = new ("DirX");
-			public static readonly AnimatorWrapper.Float DirY = new ("DirY");
-		}
 
 		protected override void OnAwake()
 		{
@@ -101,17 +99,18 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (_characterView == null || this.IsDestroyed()) return;
 
-			if (culled)
-			{
-				if (_playerFullyGrounded)
-				{
-					AnimatorWrapper.Enabled = false;
-				}
-			}
-			else
-			{
-				AnimatorWrapper.Enabled = true;
-			}
+			// TODO mihak: Figure this out
+			// if (culled)
+			// {
+			// 	if (_playerFullyGrounded)
+			// 	{
+			// 		AnimatorWrapper.Enabled = false;
+			// 	}
+			// }
+			// else
+			// {
+			// 	AnimatorWrapper.Enabled = true;
+			// }
 
 			_characterView.PrintFootsteps = !culled;
 
@@ -145,7 +144,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			// Do not trigger hit when player is knockedout
 			if (!ReviveSystem.IsKnockedOut(evnt.Game.Frames.Verified, evnt.Entity))
 			{
-				AnimatorWrapper.SetTrigger(Triggers.Hit);
+				_skin.TriggerHit();
 			}
 
 			if (evnt.SpellType == Spell.KnockedOut) return;
@@ -161,14 +160,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			UpdateAdditiveColor(GameConstants.Visuals.HIT_COLOR, 0.2f);
-		}
-
-		/// <summary>
-		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
-		/// </summary>
-		public void SetMovingState(bool isAiming)
-		{
-			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
 		}
 
 		public bool IsBeingSpectated => EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity;
@@ -204,20 +195,24 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				if (IsSkydiving)
 				{
 					_playerFullyGrounded = false;
-					AnimatorWrapper.SetBool(Bools.Flying, frame.Context.GameModeConfig.SkydiveSpawn);
+					if (frame.Context.GameModeConfig.SkydiveSpawn)
+					{
+						_skin.TriggerSkydive();
+					}
 				}
 				else
 				{
-					AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);
+					// TODO: No spawn animation - probably not needed
+					//AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);
 				}
 			}
 			else
 			{
-				AnimatorWrapper.SetBool(Bools.Flying, false);
+				//AnimatorWrapper.SetBool(Bools.Flying, false);
 
 				if (!EntityView.EntityRef.IsAlive(frame))
 				{
-					AnimatorWrapper.SetTrigger(Triggers.Die);
+					_skin.TriggerDie();
 				}
 			}
 		}
@@ -404,9 +399,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			AddDebugCylinder(callback.Game.Frames.Verified);
 #endif
 
-			AnimatorWrapper.Enabled = true;
-
-			AnimatorWrapper.SetTrigger(Triggers.Revive);
+			// TODO mihak: ??
+			// AnimatorWrapper.Enabled = true;
+			//AnimatorWrapper.SetTrigger(Triggers.Revive);
+			
 			RenderersContainerProxy.SetEnabled(true);
 		}
 
@@ -417,10 +413,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			if (callback.HasRespawned)
-			{
-				AnimatorWrapper.SetTrigger(Triggers.Revive);
-			}
+			// TODO mihak: ??
+			// if (callback.HasRespawned)
+			// {
+			// 	AnimatorWrapper.SetTrigger(Triggers.Revive);
+			// }
 
 			RenderersContainerProxy.SetEnabled(false);
 		}
@@ -432,7 +429,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			AnimatorWrapper.SetTrigger(Triggers.Shoot);
+			_skin.TriggerAttack();
 			TryStartAttackWithinVisVolume();
 		}
 
@@ -455,12 +452,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (EntityView.EntityRef == callback.EntityLeader ||
 				(localPlayerRef != PlayerRef.None && callback.PlayersMatchData[localPlayerRef].TeamId == callback.LeaderTeam))
 			{
-				AnimatorWrapper.SetBool(Bools.Aim, false);
-				AnimatorWrapper.SetTrigger(Triggers.Victory);
+				// TODO mihak: AnimatorWrapper.SetBool(Bools.Aim, false);
+				_skin.TriggerVictory();
 			}
 			else
 			{
-				AnimatorWrapper.SetBool(Bools.Stun, true);
+				_skin.TriggerStun();
 			}
 		}
 
@@ -472,7 +469,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			var task = _characterView.EquipWeapon(callback.Weapon);
-			task.ContinueWith(weapons =>
+			task.ContinueWith(weapon =>
 			{
 				var f = callback.Game.Frames.Verified;
 				if (!f.Exists(EntityView.EntityRef))
@@ -480,14 +477,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					return;
 				}
 
-				for (var i = 0; i < weapons.Count; i++)
-				{
-					var components = weapons[i].GetComponents<EntityViewBase>();
+				var components = weapon.GetComponents<EntityViewBase>();
 
-					foreach (var entityViewBase in components)
-					{
-						entityViewBase.SetEntityView(callback.Game, EntityView);
-					}
+				foreach (var entityViewBase in components)
+				{
+					entityViewBase.SetEntityView(callback.Game, EntityView);
 				}
 			});
 		}
@@ -595,25 +589,21 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey) && !knockedOut;
-
-			AnimatorWrapper.SetBool(Bools.Move, isMoving);
+			
+			_skin.Moving = isMoving;
 			_characterView.PrintFootsteps = isMoving && !knockedOut;
-			if (isMoving)
-			{
-				deltaPosition.Normalize();
-				var localDeltaPosition = transform.InverseTransformDirection(deltaPosition);
-				AnimatorWrapper.SetFloat(PlayerFloats.DirX, localDeltaPosition.x);
-				AnimatorWrapper.SetFloat(PlayerFloats.DirY, localDeltaPosition.z);
-				if (_moveSpeedControl) AnimatorWrapper.Speed = isAiming ? 1 : sqrSpeed / 3.5f;
-			}
-			else
-			{
-				if (_moveSpeedControl) AnimatorWrapper.Speed = 1;
-				AnimatorWrapper.SetFloat(PlayerFloats.DirX, 0f);
-				AnimatorWrapper.SetFloat(PlayerFloats.DirY, 0f);
-			}
+			// TODO mihak: ???
+			// if (isMoving)
+			// {
+			// 	deltaPosition.Normalize();
+			// 	if (_moveSpeedControl) AnimatorWrapper.Speed = isAiming ? 1 : sqrSpeed / 3.5f;
+			// }
+			// else
+			// {
+			// 	if (_moveSpeedControl) AnimatorWrapper.Speed = 1;
+			// }
 
-			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
+			_skin.Aiming = isAiming;
 			_lastPosition = currentPosition;
 
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity == EntityRef)
@@ -629,7 +619,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			AnimatorWrapper.SetTrigger(Triggers.PLF);
+			_skin.TriggerPLF();
 		}
 
 		private void HandlePlayerSkydiveFullyGrounded(EventOnPlayerSkydiveFullyGrounded callback)
@@ -649,9 +639,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			AnimatorWrapper.SetBool(Bools.Flying, false);
+			// TODO mihak: ???
+			//AnimatorWrapper.SetBool(Bools.Flying, false);
 
-			_characterView.DestroyItem(GameIdGroup.Glider);
+			_characterView.DestroyGlider();
 		}
 
 		private void AddDebugCylinder(Frame frame)

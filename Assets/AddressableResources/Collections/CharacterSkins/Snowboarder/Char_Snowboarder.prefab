@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3866279891779956540}
   - component: {fileID: 2130527926870913908}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Char_Snowboarder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,9 +96,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4819223349682164798, guid: fcb98fe921e1b4a7884738e94dbb4c73, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2511240423080479738, guid: fcb98fe921e1b4a7884738e94dbb4c73, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -1356303237341133908, guid: fcb98fe921e1b4a7884738e94dbb4c73, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fcb98fe921e1b4a7884738e94dbb4c73, type: 3}
       propertyPath: m_Name
       value: Char_Snowboarder
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fcb98fe921e1b4a7884738e94dbb4c73, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: fcb98fe921e1b4a7884738e94dbb4c73, type: 3}
       propertyPath: m_Controller
@@ -107,6 +123,10 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: fcb98fe921e1b4a7884738e94dbb4c73, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8502549445762705191, guid: fcb98fe921e1b4a7884738e94dbb4c73, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

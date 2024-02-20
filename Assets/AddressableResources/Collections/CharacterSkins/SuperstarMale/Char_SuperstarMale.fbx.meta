@@ -52,6 +52,7 @@ ModelImporter:
     extraExposedTransformPaths:
     - Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
     - Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+    - Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
     extraUserProperties: []
     clipAnimations: []
     isReadable: 0

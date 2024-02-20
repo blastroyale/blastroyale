@@ -203,7 +203,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 142
       Prefab:
-        m_AssetGUID: e454db8b4c77d43b88b84b5f8240a737
+        m_AssetGUID: 164f793bda22e401ab3b54b2f1996b7d
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 400
       Prefab:
-        m_AssetGUID: e454db8b4c77d43b88b84b5f8240a737
+        m_AssetGUID: c30055f912a634166a53df7e6926c3ca
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -269,7 +269,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 403
       Prefab:
-        m_AssetGUID: e454db8b4c77d43b88b84b5f8240a737
+        m_AssetGUID: 6d10466fb5efe4239826230ab5593f9a
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -280,7 +280,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 404
       Prefab:
-        m_AssetGUID: e454db8b4c77d43b88b84b5f8240a737
+        m_AssetGUID: 0dc9aeb65c28941ec80de8e9e6073174
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

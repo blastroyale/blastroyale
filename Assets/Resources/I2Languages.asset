@@ -13358,7 +13358,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/PlayerSkinHarald
+    - Term: GameIds/PlayerSkinViking
       TermType: 0
       Description: 
       Languages:
@@ -13369,7 +13369,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/PlayerSkinHaraldDescription
+    - Term: GameIds/PlayerSkinVikingDescription
       TermType: 0
       Description: 
       Languages:

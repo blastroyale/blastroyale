@@ -1,9 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
 using Cysharp.Threading.Tasks;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
@@ -28,6 +23,8 @@ namespace FirstLight.Game.Commands
 			{
 				throw new LogicException("Paid Battle Pass not unlocked");
 			}
+
+			var bppLevelBeforeClaim = ctx.Logic.BattlePassLogic().CurrentLevel.Value;
 			var rewards = ctx.Logic.BattlePassLogic().ClaimBattlePassPoints(PassType);
 			if (rewards.Count == 0)
 			{
@@ -38,7 +35,9 @@ namespace FirstLight.Game.Commands
 			ctx.Services.MessageBrokerService().Publish(new BattlePassLevelUpMessage
 			{
 				Rewards = rewardItems,
-				NewLevel = ctx.Logic.BattlePassLogic().CurrentLevel.Value
+				PreviousLevel = bppLevelBeforeClaim,
+				NewLevel = ctx.Logic.BattlePassLogic().CurrentLevel.Value,
+				Completed =  ctx.Logic.BattlePassLogic().CurrentLevel.Value == ctx.Logic.BattlePassLogic().MaxLevel
 			});
 			return UniTask.CompletedTask;
 			

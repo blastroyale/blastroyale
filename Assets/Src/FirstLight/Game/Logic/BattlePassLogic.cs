@@ -24,6 +24,7 @@ namespace FirstLight.Game.Logic
 	/// </summary>
 	public interface IBattlePassDataProvider
 	{
+		
 		/// <summary>
 		/// The current BP level.
 		/// </summary>
@@ -200,12 +201,10 @@ namespace FirstLight.Game.Logic
 
 		private IObservableField<uint> _currentLevel;
 		private IObservableField<uint> _currentPoints;
-
-
+		
 		public IObservableFieldReader<uint> CurrentLevel => _currentLevel;
 
 		public IObservableFieldReader<uint> CurrentPoints => _currentPoints;
-
 
 		public uint MaxLevel => _currentSeason.MaxLevel;
 

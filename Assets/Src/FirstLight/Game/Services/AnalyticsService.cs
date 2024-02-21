@@ -47,6 +47,10 @@ namespace FirstLight.Game.Services
 		public static readonly string LoadCoreAssetsComplete = "load_core_assets_complete";
 		public static readonly string LoadMatchAssetsComplete = "load_match_assets_complete";
 		public static readonly string TutorialStepCompleted = "tutorial_step_completed";
+		
+		//BlastPass Analytics Events
+		public static readonly string BlastPassLevelUp = "player_bp_levelup";
+		public static readonly string BlastPassCompleted = "player_bp_completed";
 	}
 	
 	/// <summary>
@@ -102,6 +106,8 @@ namespace FirstLight.Game.Services
 		public AnalyticsCallsErrors ErrorsCalls { get; }
 		public AnalyticsCallsUi UiCalls { get; }
 		public AnalyticsCallsEquipment EquipmentCalls { get; }
+		
+		public AnalyticsCallLeveling LevelingCalls { get; }
 
 		public AnalyticsService(IGameServices services,
 		                        IGameDataProvider gameDataProvider,
@@ -115,6 +121,7 @@ namespace FirstLight.Game.Services
 			ErrorsCalls = new AnalyticsCallsErrors(this);
 			UiCalls = new AnalyticsCallsUi(this, uiService);
 			EquipmentCalls = new AnalyticsCallsEquipment(this, services);
+			LevelingCalls = new AnalyticsCallLeveling(this, services);
 		}
 
 

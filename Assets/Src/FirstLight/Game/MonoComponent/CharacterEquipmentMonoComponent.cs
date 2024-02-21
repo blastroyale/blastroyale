@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Collections;
@@ -124,13 +125,15 @@ namespace FirstLight.Game.MonoComponent
 
 			if (weaponTransform.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
 			{
-				renderContainer.SetLayer(gameObject.layer);
-				_renderersContainerProxy.AddRenderersContainer(renderContainer);
-				Color col = default;
-				if (_renderersContainerProxy.GetFirstRendererColor(ref col))
-				{
-					renderContainer.SetColor(col);
-				}
+				AddEquipmentRenderersContainer(renderContainer);
+			}
+			else if (weaponTransform.GetChild(0).TryGetComponent<RenderersContainerMonoComponent>(out var c))
+			{
+				AddEquipmentRenderersContainer(c);
+			}
+			else
+			{
+				FLog.Error($"Unable to find RenderersContainerMonoComponent for {gameId}");
 			}
 
 			_equipment.Add(slot, new[] {instance}); // TODO: Ugly temporary thing
@@ -141,7 +144,7 @@ namespace FirstLight.Game.MonoComponent
 			});
 			return instance;
 		}
-
+		
 		/// <summary>
 		/// Destroy an item currently equipped on the character.
 		/// </summary>
@@ -224,6 +227,17 @@ namespace FirstLight.Game.MonoComponent
 			// }
 
 			return weapon;
+		}
+
+		private void AddEquipmentRenderersContainer(RenderersContainerMonoComponent renderersContainer)
+		{
+			renderersContainer.SetLayer(gameObject.layer);
+			_renderersContainerProxy.AddRenderersContainer(renderersContainer);
+			Color col = default;
+			if (_renderersContainerProxy.GetFirstRendererColor(ref col))
+			{
+				renderersContainer.SetColor(col);
+			}
 		}
 	}
 }

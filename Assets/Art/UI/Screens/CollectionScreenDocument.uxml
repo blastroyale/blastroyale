@@ -6,10 +6,10 @@
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITCollectionScreen/collection" subtitle-back="true" name="Header" class="screen-header" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" name="SafeAreaElement" class="safe-area">
-            <ui:VisualElement name="CategoryHolder" style="position: absolute; width: 600px; height: 600px; left: -250px; top: 200px; bottom: 0; right: 0;" />
-            <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons">
-                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-1 anim-translate anim-translate--down-s" />
-                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
+            <ui:VisualElement name="CategoryHolder" class="anim-delay-0 anim-translate anim-translate--right-xl" style="position: absolute; width: 600px; height: 600px; left: -250px; top: 200px; bottom: 0; right: 0;" />
+            <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="anim-delay-0 anim-fade top-buttons">
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" />
             </ui:VisualElement>
             <ui:VisualElement name="InfoHolder" focusable="true" class="anim-delay-0 anim-translate anim-translate--left-xxl info-holder">
                 <ui:VisualElement name="RenderTextureHolder" class="info-holder__rt-holder">
@@ -25,7 +25,7 @@
                     <ui:Label text="ITEM DESCRIPTION GOES HERE" display-tooltip-when-elided="true" name="ItemDescription" class="info-holder__item-description" style="font-size: 34px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:ListView name="CollectionList" focusable="false" selection-type="None" show-bound-collection-size="false" fixed-item-height="400" class="anim-delay-0 anim-translate anim-translate--right-xxl collection-list" style="background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: rgba(0, 0, 0, 0);" />
+            <ui:ListView name="CollectionList" focusable="false" selection-type="None" show-bound-collection-size="false" fixed-item-height="400" class="anim-delay-0 anim-translate anim-translate--up-xxxl collection-list" style="background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: rgba(0, 0, 0, 0);" />
             <FirstLight.Game.UIElements.LocalizedLabel name="ComingSoon" localization-key="UITCollectionScreen/comingsoon" class="coming-soon" />
             <FirstLight.Game.UIElements.LocalizedButton name="ChangeButton" text="CHANGE ANIM" class="button-long button-long--yellow info-holder__equip-button" style="left: 124px; bottom: 179px; top: 922px;" />
         </FirstLight.Game.UIElements.SafeAreaElement>

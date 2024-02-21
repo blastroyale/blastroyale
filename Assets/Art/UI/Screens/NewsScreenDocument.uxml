@@ -2,8 +2,9 @@
     <ui:Template name="LoadingSpinnerScreenDocument" src="project://database/Assets/Art/UI/Screens/LoadingSpinnerScreenDocument.uxml?fileID=9197481963319205126&amp;guid=4b9b14257b1aeb048a45b218067f15ab&amp;type=3#LoadingSpinnerScreenDocument" />
     <Style src="project://database/Assets/Art/UI/Screens/NewsScreenStyle.uss?fileID=7433441132597879392&amp;guid=f95e04589e64b461cae6bb2e547c06bd&amp;type=3#NewsScreenStyle" />
     <ui:VisualElement name="root" focusable="true" class="fill-parent background">
-        <FirstLight.Game.UIElements.SafeAreaElement class="news-safearea">
-            <ui:VisualElement name="BottomArt" class="art">
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITShared/News" name="Header" class="news-header" />
+        <FirstLight.Game.UIElements.SafeAreaElement name="SafeAreaElement" picking-mode="Ignore" class="news-safearea">
+            <ui:VisualElement name="BottomArt" class="art" picking-mode="Ignore">
                 <ui:VisualElement name="Girl" class="art-girl">
                     <ui:VisualElement name="Speech" class="art-girl__bubble">
                         <ui:Label tabindex="-1" text="Tuned !" parse-escape-sequences="true" display-tooltip-when-elided="true" name="GirlSpeech" class="art-bubble-text" />
@@ -17,7 +18,6 @@
                 </ui:ScrollView>
             </ui:VisualElement>
             <ui:Instance template="LoadingSpinnerScreenDocument" name="Loading" class="news-loading" style="display: none;" />
-            <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITShared/News" name="Header" class="news-header" />
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
 </ui:UXML>

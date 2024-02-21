@@ -805,7 +805,7 @@
 
 .last-reward-sprite {
     flex-grow: 1;
-    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/PunkMale/character-malepunk.png?fileID=21300000&guid=01aa15896d13cf540a04a81d603fa54e&type=3#character-malepunk');
+    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/PunkMale/Icon_Char_PunkMale.png?fileID=21300000&guid=01aa15896d13cf540a04a81d603fa54e&type=3#Icon_Char_PunkMale');
     -unity-background-scale-mode: scale-and-crop;
     position: absolute;
     top: -19px;
@@ -919,11 +919,11 @@
 }
 
 .last-reward-picture__reward-picture {
-    background-image: var(--sprite-home__malepunk-season-reward);
     position: relative;
     width: 552px;
     height: 714px;
     align-self: center;
+    -unity-background-scale-mode: scale-to-fit;
     right: 267px;
     top: -69px;
 }

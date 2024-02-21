@@ -13,7 +13,7 @@
                             <ui:VisualElement name="BackgroundPink" class="last-reward-picture__background-pink">
                                 <ui:VisualElement name="Dots" class="last-reward-picture__dots" />
                             </ui:VisualElement>
-                            <ui:VisualElement name="RewardPicture" class="last-reward-picture__reward-picture">
+                            <ui:VisualElement name="RewardPicture" class="last-reward-picture__reward-picture sprite-home__malepunk-season-reward">
                                 <ui:VisualElement name="RewardNameCloud" class="last-reward-picture__cloud-background">
                                     <ui:Label tabindex="-1" text="EXCLUSIVE REWARD" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExclusiveReward" class="last-reward-picture__cloud-label" />
                                     <ui:Label tabindex="-1" text="PUNK SPIKE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RewardName" class="last-reward-picture__cloud-reward-name" />

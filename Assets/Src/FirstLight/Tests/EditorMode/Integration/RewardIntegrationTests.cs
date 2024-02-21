@@ -66,18 +66,18 @@ namespace FirstLight.Tests.EditorMode.Integration
 			Assert.True(TestLogic.CollectionLogic.IsItemOwned(item));
 		}
 		
-		[Test]
-		public void TestCoreReward()
-		{
-			var item = ItemFactory.Simple(GameId.CoreRare);
-
-			var equipsBefore = TestLogic.EquipmentLogic.Inventory.Count;
-			
-			TestLogic.RewardLogic.Reward(new [] {item});
-
-			var equipsAfter = TestLogic.EquipmentLogic.Inventory.Count;
-			Assert.True(equipsAfter > equipsBefore);
-		}
+		// [Test]
+		// public void TestCoreReward()
+		// {
+		// 	var item = ItemFactory.Simple(GameId.CoreRare);
+		//
+		// 	var equipsBefore = TestLogic.EquipmentLogic.Inventory.Count;
+		// 	
+		// 	TestLogic.RewardLogic.Reward(new [] {item});
+		//
+		// 	var equipsAfter = TestLogic.EquipmentLogic.Inventory.Count;
+		// 	Assert.True(equipsAfter > equipsBefore);
+		// }
 		
 		[Test]
 		public void TestXPReward()

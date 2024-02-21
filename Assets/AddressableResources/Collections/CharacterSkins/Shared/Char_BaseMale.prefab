@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5122410274595683935}
   - component: {fileID: 3683305025578655024}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Char_BaseMale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,9 +96,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4819223349682164798, guid: 92f2224f4c15b4320b3c701712c18065, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2511240423080479738, guid: 92f2224f4c15b4320b3c701712c18065, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -1356303237341133908, guid: 92f2224f4c15b4320b3c701712c18065, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 92f2224f4c15b4320b3c701712c18065, type: 3}
       propertyPath: m_Name
       value: character_animations
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 92f2224f4c15b4320b3c701712c18065, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1486661543501798017, guid: 92f2224f4c15b4320b3c701712c18065, type: 3}
       propertyPath: m_IsActive
@@ -119,6 +135,10 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 92f2224f4c15b4320b3c701712c18065, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8502549445762705191, guid: 92f2224f4c15b4320b3c701712c18065, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_Char_SuperstarMale
+    second: {fileID: 2100000, guid: 382cb2a5f76994837ac4aaabc1299077, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: assassin_male
     second: {fileID: 2100000, guid: b392a829456e542bab84d9f24c0a716f, type: 2}
   - first:
@@ -37,7 +42,13 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Avatar Rig Configuration mis-match. Bone length in configuration
+      does not match position in animation file:\n\t'UpLeg.L' : position error =
+      2.184143 mm\n\t'UpLeg.R' : position error = 2.184143 mm\n\t'shoulder.L' : position
+      error = 1.344852 mm\n\t'indexFinger01.L' : position error = 1.677395 mm\n\t'thumb01.L'
+      : position error = 2.010658 mm\n\t'shoulder.R' : position error = 1.344852
+      mm\n\t'indexFinger01.R' : position error = 1.678960 mm\n\t'thumb01.R' : position
+      error = 1.552769 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -52,6 +63,7 @@ ModelImporter:
     extraExposedTransformPaths:
     - Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
     - Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+    - Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
     extraUserProperties: []
     clipAnimations: []
     isReadable: 0

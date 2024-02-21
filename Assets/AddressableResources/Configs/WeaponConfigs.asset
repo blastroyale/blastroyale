@@ -652,7 +652,7 @@ MonoBehaviour:
       UseRangedCam: 1
     - Id: 103
       FiringMode: 0
-      WeaponType: 0
+      WeaponType: 2
       MaxAmmo: 600
       BulletPrototype:
         Id:
@@ -694,7 +694,7 @@ MonoBehaviour:
       UseRangedCam: 1
     - Id: 88
       FiringMode: 0
-      WeaponType: 0
+      WeaponType: 2
       MaxAmmo: 400
       BulletPrototype:
         Id:
@@ -736,7 +736,7 @@ MonoBehaviour:
       UseRangedCam: 0
     - Id: 78
       FiringMode: 0
-      WeaponType: 0
+      WeaponType: 2
       MaxAmmo: 640
       BulletPrototype:
         Id:
@@ -778,7 +778,7 @@ MonoBehaviour:
       UseRangedCam: 0
     - Id: 95
       FiringMode: 0
-      WeaponType: 0
+      WeaponType: 2
       MaxAmmo: 600
       BulletPrototype:
         Id:
@@ -820,7 +820,7 @@ MonoBehaviour:
       UseRangedCam: 1
     - Id: 71
       FiringMode: 0
-      WeaponType: 0
+      WeaponType: 2
       MaxAmmo: 150
       BulletPrototype:
         Id:
@@ -862,7 +862,7 @@ MonoBehaviour:
       UseRangedCam: 0
     - Id: 93
       FiringMode: 0
-      WeaponType: 0
+      WeaponType: 3
       MaxAmmo: 100
       BulletPrototype:
         Id:
@@ -904,7 +904,7 @@ MonoBehaviour:
       UseRangedCam: 1
     - Id: 101
       FiringMode: 0
-      WeaponType: 0
+      WeaponType: 3
       MaxAmmo: 100
       BulletPrototype:
         Id:

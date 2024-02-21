@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
@@ -10,32 +9,11 @@ using UnityEngine.AddressableAssets;
 
 namespace FirstLight.Game.Configs
 {
-	public enum AnchorType
-	{
-		Weapon = 0,
-		Glider = 4,
-	}
-
 	[Serializable, IgnoreServerSerialization]
 	public struct CharacterSkinsConfig
 	{
-		[TabGroup("Skin List")]
 		public List<CharacterSkinConfigEntry> Skins;
-		[TabGroup("Default Animations")]
-		[Required] public AnimatorParams InGameDefaultAnimation;
-		[TabGroup("Default Animations")]
-		[Required] public AnimatorParams MenuDefaultAnimation;
-		[TabGroup("Anchors")]
-		public List<Pair<AnchorType,List<AnchorSettings>>> Anchors;
 	}
-
-	[Serializable]
-	public struct AnchorSettings
-	{
-		public TransformParams Offset;
-		public string AttachToBone;
-	}
-
 
 	[Serializable]
 	public struct CharacterSkinConfigEntry
@@ -48,9 +26,6 @@ namespace FirstLight.Game.Configs
 		[Required] public AssetReferenceSprite Sprite;
 	}
 
-	/// <summary>
-	/// Scriptable Object tool to import the <seealso cref="BattlePassConfig"/> sheet data
-	/// </summary>
 	[CreateAssetMenu(fileName = "CharacterSkinConfigs", menuName = "ScriptableObjects/Configs/Collection/CharacterSkinContainer"),
 	 IgnoreServerSerialization]
 	public class CharacterSkinConfigs : ScriptableObject, ISingleConfigContainer<CharacterSkinsConfig>

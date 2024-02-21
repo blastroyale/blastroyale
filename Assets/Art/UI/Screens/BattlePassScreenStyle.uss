@@ -488,6 +488,10 @@
     margin-left: 0;
     left: 0;
 }
+.activate-button:active {
+    background-image: var(--sprite-home__button-main-yellow-pressed);
+    padding-top: 18px;
+}
 
 .free-container {
     flex-grow: 1;

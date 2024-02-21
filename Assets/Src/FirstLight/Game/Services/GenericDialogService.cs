@@ -30,7 +30,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public bool IsEmpty => ButtonOnClick.GetInvocationList().Length == 0;
 	}
-	
+
 
 	/// <summary>
 	/// This service provides a direct reference to UI Generic dialogs to any system in the game.
@@ -58,7 +58,7 @@ namespace FirstLight.Game.Services
 		/// Displays a simple message dialog
 		/// </summary>
 		void OpenSimpleMessage(string title, string desc, Action onClick = null);
-		
+
 
 		/// <summary>
 		/// Open the purchase confirmation dialog, and if the player doesn't have the amount of blast bucks open not enough popup
@@ -127,20 +127,13 @@ namespace FirstLight.Game.Services
 
 		public void OpenPurchaseOrNotEnough(GenericPurchaseDialogPresenter.GenericPurchaseOptions options)
 		{
-			var bucks = _currencyDataProvider.GetCurrencyAmount(options.Currency);
+			var ownedCurrency = _currencyDataProvider.GetCurrencyAmount(options.Currency);
 			var ui = _uiService.OpenUi<GenericPurchaseDialogPresenter>();
 			_openDialogType = ui.GetType();
-
-			if (bucks >= options.Value)
-			{
-				ui.SetHasEnoughOptions(options);
-			}
-			else
-			{
-				ui.SetNotEnoughOptions(options);		
-			}
+			options.OwnedCurrency = ownedCurrency;
+			ui.SetOptions(options);
 		}
-		
+
 		/// <inheritdoc />
 		public void CloseDialog()
 		{

@@ -1868,7 +1868,6 @@ namespace I2.Loc
 			public static string buy_level_popup_item_name 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/buy_level_popup_item_name"); } }
 			public static string buy_level_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/buy_level_popup_title"); } }
 			public static string buy_premium_batttlepass_popup_item_name 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/buy_premium_batttlepass_popup_item_name"); } }
-			public static string buy_premium_batttlepass_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/buy_premium_batttlepass_popup_title"); } }
 			public static string claim_all 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/claim_all"); } }
 			public static string equipment_reward 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/equipment_reward"); } }
 			public static string equipment_reward_desc 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/equipment_reward_desc"); } }
@@ -2017,10 +2016,13 @@ namespace I2.Loc
 			public static string @for 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/for"); } }
 			public static string items_converted 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/items_converted"); } }
 			public static string items_converted_msg 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/items_converted_msg"); } }
+			public static string purchase_about_to_buy 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_about_to_buy"); } }
+			public static string purchase_get_currency 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_get_currency"); } }
 			public static string purchase_not_enough_button_text 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_button_text"); } }
 			public static string purchase_not_enough_item_display_name 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_item_display_name"); } }
 			public static string purchase_not_enough_title 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_title"); } }
 			public static string purchase_title 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_title"); } }
+			public static string purchase_you_need_currency 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_you_need_currency"); } }
 		}
 
 		public static class UITHomeScreen
@@ -4220,7 +4222,6 @@ namespace I2.Loc
 		    public const string buy_level_popup_item_name = "UITBattlePass/buy_level_popup_item_name";
 		    public const string buy_level_popup_title = "UITBattlePass/buy_level_popup_title";
 		    public const string buy_premium_batttlepass_popup_item_name = "UITBattlePass/buy_premium_batttlepass_popup_item_name";
-		    public const string buy_premium_batttlepass_popup_title = "UITBattlePass/buy_premium_batttlepass_popup_title";
 		    public const string claim_all = "UITBattlePass/claim_all";
 		    public const string equipment_reward = "UITBattlePass/equipment_reward";
 		    public const string equipment_reward_desc = "UITBattlePass/equipment_reward_desc";
@@ -4369,10 +4370,13 @@ namespace I2.Loc
 		    public const string @for = "UITGeneric/for";
 		    public const string items_converted = "UITGeneric/items_converted";
 		    public const string items_converted_msg = "UITGeneric/items_converted_msg";
+		    public const string purchase_about_to_buy = "UITGeneric/purchase_about_to_buy";
+		    public const string purchase_get_currency = "UITGeneric/purchase_get_currency";
 		    public const string purchase_not_enough_button_text = "UITGeneric/purchase_not_enough_button_text";
 		    public const string purchase_not_enough_item_display_name = "UITGeneric/purchase_not_enough_item_display_name";
 		    public const string purchase_not_enough_title = "UITGeneric/purchase_not_enough_title";
 		    public const string purchase_title = "UITGeneric/purchase_title";
+		    public const string purchase_you_need_currency = "UITGeneric/purchase_you_need_currency";
 		}
 
 		public static class UITHomeScreen

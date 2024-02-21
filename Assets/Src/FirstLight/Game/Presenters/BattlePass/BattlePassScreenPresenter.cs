@@ -186,7 +186,6 @@ namespace FirstLight.Game.Presenters
 				new GenericPurchaseDialogPresenter.GenericPurchaseOptions()
 				{
 					ItemSprite = _battlepassPremiumSprite,
-					OverwriteTitle = ScriptLocalization.UITBattlePass.buy_premium_batttlepass_popup_title,
 					OverwriteItemName = ScriptLocalization.UITBattlePass.buy_premium_batttlepass_popup_item_name,
 					Value = price,
 					OnConfirm = () =>
@@ -212,7 +211,6 @@ namespace FirstLight.Game.Presenters
 				{
 					Value = price,
 					ItemSprite = _battlepassLevelSprite,
-					OverwriteTitle = ScriptLocalization.UITBattlePass.buy_level_popup_title,
 					OverwriteItemName = ScriptLocalization.UITBattlePass.buy_level_popup_item_name,
 					OnConfirm = () =>
 					{

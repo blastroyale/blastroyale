@@ -629,6 +629,11 @@
     top: -9px;
 }
 
+.avatar--rounded {
+    border-radius: 100%;
+    scale: 0.8 0.8
+}
+
 .unity-scroller--vertical {
     width: 60px;
     border-left-width: 2px;

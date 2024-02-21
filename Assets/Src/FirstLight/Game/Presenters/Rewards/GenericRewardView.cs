@@ -43,6 +43,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_animatedBackground.SetColor(_genericBgColor);
 			_animationController.StartAnimation(_animationDirector, SKIP_ANIMATION_TIME);
+			_icon.RemoveModifiers();
 			itemViewModel.DrawIcon(_icon);
 			_name.text = itemViewModel.GameId.IsInGroup(GameIdGroup.ProfilePicture) ? "AVATAR" : itemViewModel.DisplayName;
 

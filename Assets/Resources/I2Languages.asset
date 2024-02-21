@@ -20750,20 +20750,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BUY PREMIUM BLAST PASS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITBattlePass/buy_premium_batttlepass_popup_title
-      TermType: 0
-      Description: 
-      Languages:
-      - BUY PREMIUM BLAST PASS
-      - 
-      - 
+      - YOU ARE ABOUT TO PURCHASE PREMIUM BATTLE PASS
+      - Vodka
+      - "Cacha\xE7a"
       - 
       - 
       Flags: 0000000000
@@ -20992,6 +20981,39 @@ MonoBehaviour:
       - CONFIRM ACTION
       - yes vodka
       - CONFIRMAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_get_currency
+      TermType: 0
+      Description: 
+      Languages:
+      - GET {0}
+      - love vodka
+      - COMPRAR {0}
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_you_need_currency
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU NEED {0} MORE {1}
+      - want vodka
+      - "VOC\xCA PRECISA DE MAIS {0} {1}"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_about_to_buy
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU ARE ABOUT TO BUY
+      - be vodka
+      - "VOC\xCA VAI COMPRAR {0}"
       - 
       - 
       Flags: 0000000000
@@ -25318,7 +25340,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1708343224169
+    Google_LastUpdatedVersion: 1708472910445
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -54,6 +54,14 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetCurrencyLocalization(this GameId id, uint amount)
 		{
+			return GetCurrencyLocalization(id, (ulong) amount);
+		}
+
+		/// <summary>
+		/// Get's the translation string of the given <paramref name="id"/>
+		/// </summary>
+		public static string GetCurrencyLocalization(this GameId id, ulong amount)
+		{
 			var key = id.GetLocalizationKey();
 			if (amount != 1 && LocalizationManager.TryGetTranslation(key + "_Plural", out var translation))
 			{
@@ -62,7 +70,7 @@ namespace FirstLight.Game.Utils
 
 			return LocalizationManager.GetTranslation(key);
 		}
-		
+
 		/// <summary>
 		/// Get's the translation string of the given <paramref name="id"/>
 		/// </summary>
@@ -113,7 +121,7 @@ namespace FirstLight.Game.Utils
 		{
 			return $"{nameof(ScriptTerms.GameIds)}/{id.ToString()}";
 		}
-		
+
 		/// <summary>
 		/// Gets the translation term of the given <paramref name="id"/>
 		/// </summary>
@@ -216,7 +224,7 @@ namespace FirstLight.Game.Utils
 
 		public static string GetTranslation(this UnlockSystem unlockSystem)
 		{
-			var term = $"{nameof(ScriptTerms.UnlockSystems)}/"+unlockSystem.ToString();
+			var term = $"{nameof(ScriptTerms.UnlockSystems)}/" + unlockSystem.ToString();
 			if (LocalizationManager.TryGetTranslation(term, out var translation))
 			{
 				return translation;

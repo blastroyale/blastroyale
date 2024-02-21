@@ -21,11 +21,13 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class GenericPurchaseDialogPresenter : UiToolkitPresenter
 	{
-		private const string USS_NOT_ENOUGH_FUNDS = "purchase-confirmation-root--insufficient";
 		private Label _itemPrice;
 		private Label _itemAmount;
 		private Label _title;
 		private Label _itemDisplayName;
+		private VisualElement _notEnoughContainer;
+		private Label _notEnoughText;
+		private VisualElement _notEnoughIcon;
 		private VisualElement _itemIcon;
 		private Button _blockerButton;
 		private ImageButton _closeButton;
@@ -33,6 +35,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _costIcon;
 
 
+		private GenericPurchaseOptions _options;
 		private Action _closeCallback;
 		private Action _confirmCallback;
 
@@ -40,7 +43,7 @@ namespace FirstLight.Game.Presenters
 		{
 			Close(false);
 		}
-		
+
 		protected override UniTask OnClosed()
 		{
 			_closeCallback?.Invoke();
@@ -60,34 +63,44 @@ namespace FirstLight.Game.Presenters
 			_closeButton = root.Q<ImageButton>("CloseButton").Required();
 			_blockerButton = root.Q<Button>("BlockerButton").Required();
 
+			_notEnoughIcon = root.Q<VisualElement>("NotEnoughDescIcon").Required();
+			_notEnoughText = root.Q<Label>("NotEnoughDescLabel").Required();
+			_notEnoughContainer = root.Q<VisualElement>("NotEnoughDescContainer").Required();
+
+
 			_confirmCallback = null;
 			_closeCallback = null;
 
 			_buyButton.clicked += OnBuyButtonClicked;
 			_blockerButton.clicked += CloseRequested;
 			_closeButton.clicked += CloseRequested;
-			
-			FLog.Verbose("Generic Purchase Dialog","Opened and registered callbacks");
+
+			FLog.Verbose("Generic Purchase Dialog", "Opened and registered callbacks");
 			base.QueryElements(root);
 		}
 
 		private void OnBuyButtonClicked()
 		{
-			FLog.Verbose("Generic Purchase Dialog","Buy Clicked");
+			FLog.Verbose("Generic Purchase Dialog", "Buy Clicked");
 			_confirmCallback.Invoke();
 			CloseRequested();
 		}
 
-		public void SetHasEnoughOptions(GenericPurchaseOptions options)
+		public void SetOptions(GenericPurchaseOptions options)
 		{
-			Root.RemoveModifiers();
+			_options = options;
+			var notEnough = options.OwnedCurrency < options.Value;
+			_title.text = ScriptLocalization.UITGeneric.purchase_title;
 			if (!string.IsNullOrEmpty(options.OverwriteTitle))
 			{
 				_title.text = options.OverwriteTitle;
 			}
-			
-			var costIcon = ItemFactory.Currency(options.Currency, (int)options.Value);
+
+			// amnt 0 to always show default currency icon
+			var costIcon = ItemFactory.Currency(options.Currency, 0);
 			costIcon.GetViewModel().DrawIcon(_costIcon);
+
+			_itemAmount.text = "";
 
 			if (!string.IsNullOrEmpty(options.OverwriteItemName))
 			{
@@ -95,7 +108,15 @@ namespace FirstLight.Game.Presenters
 			}
 			else if (options.Item != null)
 			{
-				_itemDisplayName.text = options.Item.GetDisplayName();
+				var itemView = options.Item.GetViewModel();
+				_itemDisplayName.text = ScriptLocalization.UITGeneric.purchase_about_to_buy + " ";
+				if (itemView.Amount > 1)
+				{
+					_itemDisplayName.text += itemView.Amount + " ";
+					_itemAmount.text = $"{itemView.Amount}";
+				}
+
+				_itemDisplayName.text += itemView.DisplayName;
 			}
 
 			if (options.ItemSprite != null)
@@ -104,50 +125,44 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
+				var itemView = options.Item.GetViewModel();
 				_itemIcon.style.backgroundImage = StyleKeyword.Null;
-				options.Item.GetViewModel().DrawIcon(_itemIcon);
+				itemView.DrawIcon(_itemIcon);
 			}
 
-			_itemAmount.text = "";
 			_itemPrice.text = options.Value.ToString();
 
-			_title.text = ScriptLocalization.UITGeneric.purchase_title;
 			_closeCallback = options.OnExit;
 			_confirmCallback = options.OnConfirm;
-		}
 
+			_notEnoughContainer.SetDisplay(notEnough);
+			_costIcon.SetDisplay(!notEnough);
+			if (!notEnough)
+			{
+				return;
+			}
 
-		public void SetNotEnoughOptions(GenericPurchaseOptions options)
-		{
-			_itemIcon.style.backgroundImage = StyleKeyword.Null;
-			Root.AddToClassList(USS_NOT_ENOUGH_FUNDS);
-		
-			var costIcon = ItemFactory.Currency(options.Currency, (int)options.Value);
-			costIcon.GetViewModel().DrawIcon(_itemIcon);
-
-			_title.text = $"{ScriptLocalization.UITGeneric.purchase_not_enough_title} {costIcon.GetDisplayName().ToUpper()}S";;
-			_itemAmount.text = options.Value > 0 ? options.Value.ToString() : "";
+			costIcon.GetViewModel().DrawIcon(_notEnoughIcon);
+			var missing = options.Value - options.OwnedCurrency;
+			_notEnoughText.text = string.Format(ScriptLocalization.UITGeneric.purchase_you_need_currency, missing, options.Currency.GetCurrencyLocalization(missing).ToUpperInvariant());
+			_itemPrice.text = string.Format(ScriptLocalization.UITGeneric.purchase_get_currency, options.Currency.GetCurrencyLocalization(2).ToUpperInvariant());
 			_closeCallback = options.OnExit;
 			_confirmCallback = GoToShop;
-			if (_uiService.GetCurrentOpenedScreen().GetType() == typeof(StoreScreenPresenter))
-			{
-				_itemPrice.text = ScriptLocalization.General.OK;
-				_itemDisplayName.text = "";
-			}
-			else
-			{
-				_itemDisplayName.text = ScriptLocalization.UITGeneric.purchase_not_enough_title;
-				_itemPrice.text = ScriptLocalization.UITGeneric.purchase_not_enough_button_text;
-			}
 		}
+
 
 		private void GoToShop()
 		{
-			FLog.Verbose("Generic Purchase Dialog","Go To Shop");
+			FLog.Verbose("Generic Purchase Dialog", "Go To Shop");
 			if (_uiService.GetCurrentOpenedScreen().GetType() != typeof(StoreScreenPresenter))
 			{
 				MainInstaller.ResolveServices().IAPService.RequiredToViewStore = true;
 			}
+			else
+			{
+				((StoreScreenPresenter) _uiService.GetCurrentOpenedScreen()).GoToCategoryWithProduct(_options.Currency);
+			}
+
 			CloseRequested();
 		}
 
@@ -155,6 +170,7 @@ namespace FirstLight.Game.Presenters
 		{
 			public GameId Currency = GameId.BlastBuck;
 			public uint Value;
+			public ulong OwnedCurrency;
 			public ItemData Item;
 			public string OverwriteTitle;
 			public string OverwriteItemName;

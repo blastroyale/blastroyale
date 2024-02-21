@@ -68,12 +68,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0c7a161c5a66842a991358994dd6ae53
-    m_Address: Timeline
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GenerateIds
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cf2e71bde4a694081a6c35be5418d3e2
     m_Address: VFX/WeaponAim.prefab
     m_ReadOnly: 0

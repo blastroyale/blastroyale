@@ -213,6 +213,11 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
+			if (CurrentRoom == null)
+			{
+				return;
+			}
+
 			if (CurrentRoom.Properties.StartCustomGame.Value)
 			{
 				ReadyToPlay();

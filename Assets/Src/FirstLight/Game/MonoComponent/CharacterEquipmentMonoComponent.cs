@@ -84,7 +84,7 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Equip characters equipment slot with an asset loaded by unique id.
 		/// </summary>
-		public async UniTask<GameObject> EquipWeaponInternal(Equipment equip)
+		private async UniTask<GameObject> EquipWeaponInternal(Equipment equip)
 		{
 			var gameId = equip.GameId;
 			var slot = gameId.GetSlot();
@@ -218,10 +218,9 @@ namespace FirstLight.Game.MonoComponent
 		{
 			var weapon = await EquipWeaponInternal(equip);
 
-			// for (var i = 0; i < weapons.Count; i++)
-			// {
-			// 	_animator.runtimeAnimatorController = weapons[i].GetComponent<RuntimeAnimatorMonoComponent>().AnimatorController;
-			// }
+			// We set the first child to 0 pos because that's the actual weapon and that offset is
+			// there for the spawners as they use the same prefab.
+			weapon.transform.GetChild(0).localPosition = Vector3.zero;
 
 			return weapon;
 		}

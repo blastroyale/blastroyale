@@ -129,7 +129,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			if (!this.IsDestroyed())
 			{
-				RenderersContainerProxy.SetAdditiveColor(Color.black);
+				RenderersContainerProxy.ResetAdditiveColor();
 			}
 		}
 

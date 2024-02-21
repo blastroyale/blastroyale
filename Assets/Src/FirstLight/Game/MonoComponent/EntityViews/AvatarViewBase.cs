@@ -1,13 +1,13 @@
 using System.Collections;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
+using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -18,56 +18,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	[RequireComponent(typeof(Animator), typeof(RenderersContainerProxyMonoComponent))]
 	public abstract class AvatarViewBase : EntityMainViewBase
 	{
-		private static readonly int _mainText = Shader.PropertyToID("_MainTex");
-		private static readonly int _hitProperty = Shader.PropertyToID("_Hit");
 		private IGameServices _services;
 		
-		/// <summary>
-		/// Animation booleans to play in the avatar
-		/// </summary>
-		protected static class Bools
-		{
-			public static readonly AnimatorWrapper.Bool Move = new("move");
-			public static readonly AnimatorWrapper.Bool Aim = new("aim");
-			public static readonly AnimatorWrapper.Bool Stun = new("stun");
-			public static readonly AnimatorWrapper.Bool Pickup = new("pickup");
-			public static readonly AnimatorWrapper.Bool Furious = new("furious");
-			public static readonly AnimatorWrapper.Bool Flying = new("flying");
-		}
-
-		/// <summary>
-		/// Animation triggers to play in the avatar
-		/// </summary>
-		public static class Triggers
-		{
-			public static readonly AnimatorWrapper.Trigger Shoot = new("shoot");
-			public static readonly AnimatorWrapper.Trigger Die = new("die");
-			public static readonly AnimatorWrapper.Trigger Hit = new("hit");
-			public static readonly AnimatorWrapper.Trigger Victory = new("victory");
-			public static readonly AnimatorWrapper.Trigger Spawn = new("spawn");
-			public static readonly AnimatorWrapper.Trigger Revive = new("revive");
-			public static readonly AnimatorWrapper.Trigger Special = new("special");
-			public static readonly AnimatorWrapper.Trigger Charge = new("charge");
-			public static readonly AnimatorWrapper.Trigger Jump = new("jump");
-			public static readonly AnimatorWrapper.Trigger Melee = new("melee");
-			public static readonly AnimatorWrapper.Trigger PLF = new("plf");
-			public static readonly AnimatorWrapper.Trigger KnockedOut = new("knockedout");
-			public static readonly AnimatorWrapper.Trigger Revived = new("revived");
-		}
-
-		/// <summary>
-		/// Animation states to play in the avatar
-		/// </summary>
-		public static class States
-		{
-			public static readonly AnimatorWrapper.State Dissolve = new("dissolve");
-			public static readonly AnimatorWrapper.State Aim = new("aim_gun");
-		}
-		
-		[SerializeField, Required] private Animator _animator;
 		[SerializeField] private Vector3 _vfxLocalScale = Vector3.one;
 
-		private AnimatorWrapper _animatorWrapper;
+		protected CharacterSkinMonoComponent _skin;
 		private Coroutine _stunCoroutine;
 		private Coroutine _materialsCoroutine;
 		private Coroutine _starCoroutine;
@@ -76,7 +31,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// <summary>
 		/// The readonly <see cref="AnimatorWrapper"/> to play the avatar animations
 		/// </summary>
-		public AnimatorWrapper AnimatorWrapper => _animatorWrapper;
+		public CharacterSkinMonoComponent CharacterSkin => _skin;
 
 		private void OnDestroy()
 		{
@@ -85,11 +40,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected override void OnAwake()
 		{
-			if (_animator == null)
-			{
-				_animator = GetComponent<Animator>();
-			}
-			_animatorWrapper = new AnimatorWrapper(_animator);
+			_skin = GetComponent<CharacterSkinMonoComponent>();
 			_services = MainInstaller.ResolveServices();
 			
 			QuantumEvent.Subscribe<EventOnHealthIsZeroFromAttacker>(this, HandleOnHealthIsZeroFromAttacker);
@@ -105,9 +56,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (statusType == StatusModifierType.Stun)
 			{
-				// Set "stun" bool to false in advance to allow stun outro animation to play
-				duration -= _animator.GetFloat(GameConstants.Visuals.STUN_OUTRO_TIME_ANIMATOR_PARAM);
-
 				_stunCoroutine = StartCoroutine(StunCoroutine(duration));
 			}
 
@@ -150,9 +98,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				_services.VfxService.Spawn(VfxId.DeathEffect).transform.position = transform.position + Vector3.up;
 			}
 			
-			AnimatorWrapper.SetBool(Bools.Stun, false);
-			AnimatorWrapper.SetBool(Bools.Pickup, false);
-			AnimatorWrapper.SetTrigger(Triggers.Die);
+			_skin.TriggerDie();
 		}
 
 		private void HandleOnHealthIsZeroFromAttacker(EventOnHealthIsZeroFromAttacker callback)
@@ -180,7 +126,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private IEnumerator EndBlink(float duration)
 		{
 			yield return new WaitForSeconds(duration);
-			RenderersContainerProxy.ResetAdditiveColor();
+
+			if (!this.IsDestroyed())
+			{
+				RenderersContainerProxy.SetAdditiveColor(Color.black);
+			}
 		}
 
 		private void HandleOnStatusModifierSet(EventOnStatusModifierSet evnt)
@@ -244,13 +194,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void FinishStun()
 		{
 			_stunCoroutine = null;
-			_animatorWrapper.SetBool(Bools.Stun, false);
+			_skin.TriggerRestore();
 		}
 
 		private IEnumerator StunCoroutine(float time)
 		{
-			_animatorWrapper.SetBool(Bools.Aim, false);
-			_animatorWrapper.SetBool(Bools.Stun, true);
+			_skin.TriggerStun();
 
 			yield return new WaitForSeconds(time);
 

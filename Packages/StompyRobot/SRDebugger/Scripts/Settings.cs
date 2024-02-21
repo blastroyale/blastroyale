@@ -560,13 +560,13 @@ namespace SRDebugger
 #endif
         }
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         public bool DisableWelcomePopup
         {
             get { return _disableWelcomePopup; }
             set { _disableWelcomePopup = value; }
         }
-#endif
+//#endif
 
 #endregion
 

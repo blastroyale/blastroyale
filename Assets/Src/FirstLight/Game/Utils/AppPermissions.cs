@@ -21,10 +21,11 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public bool IsPermissionsAnswered()
 		{
-			#if UNITY_IOS && !UNITY_EDITOR
-				return IsIOSPermissionAnswered();
-			#endif
+#if UNITY_IOS && !UNITY_EDITOR
+			return IsIOSPermissionAnswered();
+#else
 			return true;
+#endif
 		}
 		
 		/// <summary>
@@ -32,10 +33,11 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public bool IsTrackingAccepted()
 		{
-			#if UNITY_IOS && !UNITY_EDITOR
-				return IsIOSTrackingAccepted();
-			#endif
+#if UNITY_IOS && !UNITY_EDITOR
+			return IsIOSTrackingAccepted();
+#else
 			return true;
+#endif
 		}
 
 		public void RequestPermissions()

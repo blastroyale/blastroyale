@@ -145,7 +145,7 @@ enum GameId
 	PlayerSkinDragon = 402,
 	PlayerSkinSnowboarder = 403,
 	PlayerSkinDunePaul = 404,
-	PlayerSkinHarald = 405,
+	PlayerSkinViking = 405,
 	Divinci = 66,
 	Falcon = 67,
 	Rocket = 73,

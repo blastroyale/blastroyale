@@ -4,6 +4,7 @@ using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
+using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -33,7 +34,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private Quaternion _vfxInitialRotation;
 
 		private EntityRef _entityRef => _view.EntityRef;
-		private AnimatorWrapper _animatorWrapper => GetComponentInChildren<PlayerCharacterViewMonoComponent>().AnimatorWrapper;
+		private CharacterSkinMonoComponent _skin => GetComponentInChildren<CharacterSkinMonoComponent>(); // TODO: BAD!
 		private MatchCharacterViewMonoComponent _matchCharacterView => GetComponentInChildren<MatchCharacterViewMonoComponent>();
 
 
@@ -88,7 +89,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void KnockoutPlayer()
 		{
 			_view.GetComponentInChildren<MatchCharacterViewMonoComponent>()?.HideAllEquipment();
-			_animatorWrapper.SetTrigger(AvatarViewBase.Triggers.KnockedOut);
+			_skin.TriggerKnockOut();
 		}
 
 		private void StartRevivingPlayer(Frame f, EntityRef entityRef)
@@ -108,7 +109,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void RevivePlayer()
 		{
 			_indicatorsRoot.SetActive(false);
-			_animatorWrapper.SetTrigger(AvatarViewBase.Triggers.Revived);
+			_skin.TriggerRestore();
 			_services.VfxService.Spawn(VfxId.Revived).transform.position = transform.position + Vector3.up;
 			_view.GetComponentInChildren<MatchCharacterViewMonoComponent>()?.ShowAllEquipment();
 		}

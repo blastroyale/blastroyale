@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MatSand1
+  m_Name: WallMatSand1
   m_Shader: {fileID: 4800000, guid: b6e721c850e845908724637f718a62a5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0

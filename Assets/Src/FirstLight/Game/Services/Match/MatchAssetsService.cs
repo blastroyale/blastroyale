@@ -137,6 +137,7 @@ namespace FirstLight.Game.Services
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets<EquipmentRarity, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets<IndicatorVfxId, GameObject>(false);
+			_services.AssetResolverService.UnloadAssets<MaterialVfxId, Material>(false);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());
 			
 			await Resources.UnloadUnusedAssets().ToUniTask();

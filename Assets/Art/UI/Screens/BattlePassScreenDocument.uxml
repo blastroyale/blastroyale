@@ -13,7 +13,7 @@
                             <ui:VisualElement name="BackgroundPink" class="last-reward-picture__background-pink">
                                 <ui:VisualElement name="Dots" class="last-reward-picture__dots" />
                             </ui:VisualElement>
-                            <ui:VisualElement name="RewardPicture" class="last-reward-picture__reward-picture">
+                            <ui:VisualElement name="RewardPicture" class="last-reward-picture__reward-picture sprite-home__malepunk-season-reward">
                                 <ui:VisualElement name="RewardNameCloud" class="last-reward-picture__cloud-background">
                                     <ui:Label tabindex="-1" text="EXCLUSIVE REWARD" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExclusiveReward" class="last-reward-picture__cloud-label" />
                                     <ui:Label tabindex="-1" text="PUNK SPIKE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RewardName" class="last-reward-picture__cloud-reward-name" />
@@ -37,7 +37,10 @@
                 <ui:VisualElement name="Background" class="left-bar__background">
                     <ui:VisualElement name="PaidContainer" class="paid-container">
                         <ui:VisualElement name="IconBackground" class="paid-icon-background">
-                            <ui:VisualElement name="PassIcon" class="paid-pass-icon" />
+                            <ui:VisualElement name="PassIcon" class="paid-pass-icon">
+                                <ui:VisualElement name="BannerSparkBig" class="paid-pass-icon__spark-big" />
+                                <ui:VisualElement name="BannerSparkSmall" class="paid-pass-icon__spark-small" />
+                            </ui:VisualElement>
                             <ui:Label tabindex="-1" text="PREMIUM&#10;&lt;size=32&gt;PASS&lt;/size&gt;" display-tooltip-when-elided="true" name="PremiumTitle" class="premium-title" />
                             <ui:VisualElement name="PremiumLock" class="premium-lock" />
                         </ui:VisualElement>

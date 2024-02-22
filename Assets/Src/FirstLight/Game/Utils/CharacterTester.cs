@@ -1,6 +1,6 @@
+#if UNITY_EDITOR
 using FirstLight.Game.MonoComponent.Collections;
 using Sirenix.OdinInspector;
-using SRF;
 using UnityEditor;
 using UnityEngine;
 
@@ -67,3 +67,4 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 		}
 	}
 }
+#endif

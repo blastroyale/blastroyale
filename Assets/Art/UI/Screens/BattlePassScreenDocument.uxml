@@ -37,7 +37,10 @@
                 <ui:VisualElement name="Background" class="left-bar__background">
                     <ui:VisualElement name="PaidContainer" class="paid-container">
                         <ui:VisualElement name="IconBackground" class="paid-icon-background">
-                            <ui:VisualElement name="PassIcon" class="paid-pass-icon" />
+                            <ui:VisualElement name="PassIcon" class="paid-pass-icon">
+                                <ui:VisualElement name="BannerSparkBig" class="paid-pass-icon__spark-big" />
+                                <ui:VisualElement name="BannerSparkSmall" class="paid-pass-icon__spark-small" />
+                            </ui:VisualElement>
                             <ui:Label tabindex="-1" text="PREMIUM&#10;&lt;size=32&gt;PASS&lt;/size&gt;" display-tooltip-when-elided="true" name="PremiumTitle" class="premium-title" />
                             <ui:VisualElement name="PremiumLock" class="premium-lock" />
                         </ui:VisualElement>

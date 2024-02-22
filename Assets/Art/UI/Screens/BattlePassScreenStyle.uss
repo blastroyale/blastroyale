@@ -968,3 +968,21 @@
 .unity-scroll-view__content-viewport {
     overflow: visible;
 }
+
+.paid-pass-icon__spark-big {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-image: var(--sprite-match__icon-star-yellow);
+    right: 82px;
+    top: 80px;
+}
+
+.paid-pass-icon__spark-small {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: var(--sprite-match__icon-star-yellow);
+    bottom: 90px;
+    left: 104px;
+}

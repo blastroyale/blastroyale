@@ -488,6 +488,10 @@
     margin-left: 0;
     left: 0;
 }
+.activate-button:active {
+    background-image: var(--sprite-home__button-main-yellow-pressed);
+    padding-top: 18px;
+}
 
 .free-container {
     flex-grow: 1;
@@ -848,7 +852,7 @@
 }
 
 .current-reward-cloud--left {
-    background-image: var(--sprite-battlepass__cloud-left);
+    background-image: var(--sprite-shared__cloud-left);
     right: auto;
     left: 40px;
 }

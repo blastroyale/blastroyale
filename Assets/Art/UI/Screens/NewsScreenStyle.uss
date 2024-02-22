@@ -7,11 +7,12 @@
     justify-content: flex-start;
     align-items: auto;
     align-self: auto;
+    padding-top: 139px;
 }
 
 .news-container {
     flex-grow: 1;
-    width: 100%;
+    width: auto;
     height: auto;
     flex-shrink: 1;
     align-self: center;
@@ -119,17 +120,23 @@
     margin-bottom: 0;
     margin-right: 0;
     margin-left: 0;
-    padding-top: 129px;
     padding-bottom: 50px;
     padding-right: 50px;
+    padding-top: 0;
+}
+
+.news-scroll-contents .unity-scroll-view__content-viewport {
+    overflow: visible;
 }
 
 .news-categories {
     align-self: flex-start;
     align-items: flex-start;
     justify-content: flex-start;
-    top: 168px;
-    left: 181px;
+    left: 0;
+    top: 0;
+    margin-top: 0;
+    padding-left: 181px;
 }
 
 .news-safearea {

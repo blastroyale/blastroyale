@@ -131,7 +131,7 @@ public class FootprinterMonoComponent : MonoBehaviour
         var clip = _services.AudioFxService.PlayClip3D(AudioId.PlayerWalkRoad, _character.transform.position);
         if (_matchServices.SpectateService.GetSpectatedEntity() == _character.EntityView.EntityRef)
         {
-            clip.Source.volume /= 10;
+            clip.Source.volume /= 2;
             _services.VfxService.Spawn(VfxId.StepSmoke).transform.position = _pooledFootprint.transform.position;
         }
     }

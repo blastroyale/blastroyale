@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Collections;
@@ -84,7 +85,7 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Equip characters equipment slot with an asset loaded by unique id.
 		/// </summary>
-		public async UniTask<GameObject> EquipWeaponInternal(Equipment equip)
+		private async UniTask<GameObject> EquipWeaponInternal(Equipment equip)
 		{
 			var gameId = equip.GameId;
 			var slot = gameId.GetSlot();
@@ -124,13 +125,15 @@ namespace FirstLight.Game.MonoComponent
 
 			if (weaponTransform.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
 			{
-				renderContainer.SetLayer(gameObject.layer);
-				_renderersContainerProxy.AddRenderersContainer(renderContainer);
-				Color col = default;
-				if (_renderersContainerProxy.GetFirstRendererColor(ref col))
-				{
-					renderContainer.SetColor(col);
-				}
+				AddEquipmentRenderersContainer(renderContainer);
+			}
+			else if (weaponTransform.GetChild(0).TryGetComponent<RenderersContainerMonoComponent>(out var c))
+			{
+				AddEquipmentRenderersContainer(c);
+			}
+			else
+			{
+				FLog.Error($"Unable to find RenderersContainerMonoComponent for {gameId}");
 			}
 
 			_equipment.Add(slot, new[] {instance}); // TODO: Ugly temporary thing
@@ -141,7 +144,7 @@ namespace FirstLight.Game.MonoComponent
 			});
 			return instance;
 		}
-
+		
 		/// <summary>
 		/// Destroy an item currently equipped on the character.
 		/// </summary>
@@ -218,12 +221,22 @@ namespace FirstLight.Game.MonoComponent
 		{
 			var weapon = await EquipWeaponInternal(equip);
 
-			// for (var i = 0; i < weapons.Count; i++)
-			// {
-			// 	_animator.runtimeAnimatorController = weapons[i].GetComponent<RuntimeAnimatorMonoComponent>().AnimatorController;
-			// }
+			// We set the first child to 0 pos because that's the actual weapon and that offset is
+			// there for the spawners as they use the same prefab.
+			weapon.transform.GetChild(0).localPosition = Vector3.zero;
 
 			return weapon;
+		}
+
+		private void AddEquipmentRenderersContainer(RenderersContainerMonoComponent renderersContainer)
+		{
+			renderersContainer.SetLayer(gameObject.layer);
+			_renderersContainerProxy.AddRenderersContainer(renderersContainer);
+			Color col = default;
+			if (_renderersContainerProxy.GetFirstRendererColor(ref col))
+			{
+				renderersContainer.SetColor(col);
+			}
 		}
 	}
 }

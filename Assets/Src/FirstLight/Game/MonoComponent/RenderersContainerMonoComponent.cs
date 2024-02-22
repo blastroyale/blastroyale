@@ -67,6 +67,7 @@ namespace FirstLight.Game.MonoComponent
 		[SerializeField, ReadOnlyOdin] private List<Renderer> _particleRenderers = new();
 		[SerializeField, ReadOnlyOdin] private List<Material> _originalMaterials = new();
 		[SerializeField, ReadOnlyOdin] private List<Color> _rendererColors = new();
+		[SerializeField, ReadOnlyOdin] private List<Color> _rendererAdditiveColors = new();
 		
 		private IGameServices _services;
 
@@ -83,6 +84,7 @@ namespace FirstLight.Game.MonoComponent
 			_renderers.Clear();
 			_originalMaterials.Clear();
 			_rendererColors.Clear();
+			_rendererAdditiveColors.Clear();
 
 			foreach (var r in renderers)
 			{
@@ -95,7 +97,7 @@ namespace FirstLight.Game.MonoComponent
 				_renderers.Add(r);
 
 				_rendererColors.Add(r.sharedMaterial.HasProperty(_color) ? r.sharedMaterial.color : default);
-
+				_rendererAdditiveColors.Add(r.sharedMaterial.HasProperty(_additiveColor) ? r.sharedMaterial.GetColor(_additiveColor) : default);
 				_originalMaterials.Add(r.sharedMaterial);
 			}
 		}
@@ -160,11 +162,20 @@ namespace FirstLight.Game.MonoComponent
 
 		public void SetAdditiveColor(Color c)
 		{
+			
 			// TODO: Avoid duplicating the material
 			// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/task/334
 			foreach (var render in _renderers)
 			{
 				render.material.SetColor(_additiveColor, c);
+			}
+		}
+		
+		public void ResetAdditiveColor()
+		{
+			for (var i = 0; i < _renderers.Count; i++)
+			{
+				_renderers[i].material.SetColor(_additiveColor, _rendererAdditiveColors[i]);
 			}
 		}
 

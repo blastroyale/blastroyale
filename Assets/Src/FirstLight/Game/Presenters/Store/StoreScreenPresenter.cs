@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -39,15 +40,16 @@ namespace FirstLight.Game.Presenters.Store
 		public const string UssCategoryButton = "category-button";
 
 		[SerializeField] private VisualTreeAsset _StoreProductView;
-		
+
 		private IGameServices _gameServices;
 		private IGameDataProvider _data;
-		
+
 		private VisualElement _blocker;
 		private ScreenHeaderElement _header;
 		private VisualElement _productList;
 		private VisualElement _categoryList;
 		private ScrollView _scroll;
+		private Dictionary<string, VisualElement> _categoriesElements = new ();
 
 		private void Awake()
 		{
@@ -71,14 +73,15 @@ namespace FirstLight.Game.Presenters.Store
 
 			root.Q<CurrencyDisplayElement>("BlastBucks")
 				.AttachView(this, out CurrencyDisplayView _);
-			
+
+			_categoriesElements.Clear();
 			foreach (var category in _gameServices.IAPService.AvailableProductCategories)
 			{
 				var categoryElement = new StoreCategoryElement(category.Name);
 				foreach (var product in category.Products)
 				{
 					var productElement = new StoreGameProductElement();
-				
+
 					categoryElement.Add(productElement);
 					categoryElement.EnsureSize(product.PlayfabProductConfig.StoreItemData.Size);
 					var flags = ProductFlags.NONE;
@@ -90,16 +93,19 @@ namespace FirstLight.Game.Presenters.Store
 					{
 						productElement.OnClicked = BuyItem;
 					}
+
 					productElement.SetData(product, flags, root);
 				}
-				
+
 				_productList.Add(categoryElement);
 				var categoryButton = new Button();
 				categoryButton.text = category.Name;
 				categoryButton.AddToClassList(UssCategoryButton);
-				categoryButton.clicked += () => SelectCategory(categoryElement, category);
+				categoryButton.clicked += () => SelectCategory(categoryElement);
 				_categoryList.Add(categoryButton);
+				_categoriesElements[category.Name] = categoryElement;
 			}
+
 			base.QueryElements(root);
 		}
 
@@ -112,7 +118,7 @@ namespace FirstLight.Game.Presenters.Store
 			return _data.CollectionDataProvider.IsItemOwned(product.GameItem);
 		}
 
-		private void SelectCategory(VisualElement categoryContainer, GameProductCategory category)
+		private void SelectCategory(VisualElement categoryContainer)
 		{
 			var targetX = categoryContainer.resolvedStyle.left;
 			_scroll.experimental.animation.Start(0, 1f, 300, (element, percent) =>
@@ -121,6 +127,18 @@ namespace FirstLight.Game.Presenters.Store
 				var currentScroll = scrollView.scrollOffset;
 				scrollView.scrollOffset = new Vector2(targetX * percent, currentScroll.y);
 			}).Ease(Easing.OutCubic);
+		}
+
+		public void GoToCategoryWithProduct(GameId id)
+		{
+			foreach (var category in _gameServices.IAPService.AvailableProductCategories)
+			{
+				if (category.Products.Any(a => a.GameItem.Id == id))
+				{
+					SelectCategory(_categoriesElements[category.Name]);
+					return;
+				}
+			}
 		}
 
 		protected override void SubscribeToEvents()
@@ -136,7 +154,7 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			_blocker.style.display = DisplayStyle.None;
 		}
-		
+
 		[Button]
 		private void OnPurchaseFailed(PurchaseFailureReason reason)
 		{
@@ -150,7 +168,7 @@ namespace FirstLight.Game.Presenters.Store
 				ButtonOnClick = () => _gameServices.GenericDialogService.CloseDialog()
 			};
 
-			_gameServices.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, 
+			_gameServices.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error,
 				string.Format(ScriptLocalization.UITStore.iap_error, reason.ToString()), false, confirmButton);
 #else
 			var button = new FirstLight.NativeUi.AlertButton
@@ -178,7 +196,7 @@ namespace FirstLight.Game.Presenters.Store
 				}
 			});
 		}
-		
+
 		private void OnItemRewarded(ItemRewardedMessage msg)
 		{
 			// Cores are handled above separately
@@ -206,7 +224,7 @@ namespace FirstLight.Game.Presenters.Store
 		private void BuyItem(GameProduct product)
 		{
 			if (_blocker.style.display == DisplayStyle.Flex) return;
-			
+
 			_blocker.style.display = DisplayStyle.Flex;
 			Data.OnPurchaseItem(product);
 		}

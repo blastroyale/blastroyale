@@ -20,7 +20,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	{
 		private IGameServices _services;
 		
-		[SerializeField, Required] private Animator _animator;
 		[SerializeField] private Vector3 _vfxLocalScale = Vector3.one;
 
 		protected CharacterSkinMonoComponent _skin;
@@ -57,9 +56,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (statusType == StatusModifierType.Stun)
 			{
-				// Set "stun" bool to false in advance to allow stun outro animation to play
-				duration -= _animator.GetFloat(GameConstants.Visuals.STUN_OUTRO_TIME_ANIMATOR_PARAM);
-
 				_stunCoroutine = StartCoroutine(StunCoroutine(duration));
 			}
 
@@ -130,7 +126,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private IEnumerator EndBlink(float duration)
 		{
 			yield return new WaitForSeconds(duration);
-			RenderersContainerProxy.SetAdditiveColor(Color.black);
+
+			if (!this.IsDestroyed())
+			{
+				RenderersContainerProxy.ResetAdditiveColor();
+			}
 		}
 
 		private void HandleOnStatusModifierSet(EventOnStatusModifierSet evnt)

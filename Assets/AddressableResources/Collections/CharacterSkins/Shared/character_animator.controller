@@ -1590,11 +1590,11 @@ AnimatorStateMachine:
     second: []
   - first: {fileID: 650447998188526516}
     second: []
+  - first: {fileID: 7438784621235500841}
+    second: []
   - first: {fileID: 7840163810359972742}
     second:
     - {fileID: -3890465922920977437}
-  - first: {fileID: 7438784621235500841}
-    second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 720, y: 610, z: 0}
   m_EntryPosition: {x: 1410, y: 200, z: 0}
@@ -1812,12 +1812,12 @@ AnimatorController:
   - m_Name: weapon_type
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 0
+    m_DefaultInt: 2
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: weapon_type_float
     m_Type: 1
-    m_DefaultFloat: 0
+    m_DefaultFloat: 2
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
@@ -3055,7 +3055,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RunBT
-  m_Speed: 1.333
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4766829137049235848}

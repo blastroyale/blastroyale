@@ -28,7 +28,7 @@ MonoBehaviour:
       BuyLevelPrice: 10
       DefaultPointsPerLevel: 400
       StartsAt: 2/11/2023
-      EndsAt: 29/02/2024
+      EndsAt: 20/02/2024
       RemovePaid: 1
       EndGraphicImageClass: sprite-home__malepunk-season-reward
       EndGraphicName: PUNK SPIKE
@@ -36,7 +36,7 @@ MonoBehaviour:
       Price: 150
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 400
-      StartsAt: 01/03/2024
+      StartsAt: 21/02/2024
       EndsAt: 30/04/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__bamboo-season-reward

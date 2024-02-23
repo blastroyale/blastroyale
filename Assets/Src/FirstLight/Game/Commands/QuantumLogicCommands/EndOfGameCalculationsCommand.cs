@@ -70,9 +70,9 @@ namespace FirstLight.Game.Commands
 
 			var executingData = PlayersMatchData[QuantumValues.ExecutingPlayer];
 			var items = frame.ResolveDictionary(executingData.Data.CollectedMetaItems);
-			foreach (var (id, amt) in items)
+			foreach (var kp in items)
 			{
-				EarnedGameItems[id] = amt;
+				EarnedGameItems[kp.Key] = kp.Value;
 			}
 			// TODO: Find better way to determine tutorial mode. GameConstants ID perhaps? Something that backend has access to
 			RunningTutorialMode = frame.Context.GameModeConfig.Id.Contains("Tutorial");

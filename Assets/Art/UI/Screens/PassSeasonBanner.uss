@@ -252,7 +252,7 @@
 }
 
 .season-text-container__desc {
-    font-size: 58px;
+    font-size: 52px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1.2px;
     -unity-text-outline-color: rgb(0, 0, 0);
@@ -266,7 +266,7 @@
     align-items: center;
     align-self: auto;
     left: 178px;
-    top: -19px;
+    top: 0;
     padding-left: 0;
 }
 
@@ -311,11 +311,11 @@
     margin-bottom: 0;
     margin-left: 0;
     position: absolute;
-    top: 236px;
+    top: 206px;
     -unity-font-style: bold;
     letter-spacing: -4px;
     -unity-text-align: upper-right;
-    left: -231px;
+    left: -135px;
 }
 
 .banner-contents__right {
@@ -393,4 +393,23 @@
 .banner-dots-left {
     rotate: -450deg;
     left: 135px;
+}
+
+.banner-icon__spark {
+    width: 100px;
+    height: 100px;
+    background-image: var(--sprite-match__icon-star-yellow);
+    position: absolute;
+    top: 123px;
+    right: 113px;
+}
+
+.banner-icon__spark-small {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: var(--sprite-match__icon-star-yellow);
+    rotate: 33deg;
+    bottom: 112px;
+    left: 140px;
 }

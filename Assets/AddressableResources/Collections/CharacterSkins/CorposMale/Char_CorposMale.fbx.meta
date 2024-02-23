@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_Char_CorposMale
+    second: {fileID: 2100000, guid: 9798138f13a144a2fadc03167dcb9bc0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: assassin_male
     second: {fileID: 2100000, guid: b392a829456e542bab84d9f24c0a716f, type: 2}
   - first:

@@ -368,21 +368,7 @@ namespace Quantum
                     return false;
                 }
             }
-
-            foreach (var eq in player.Loadout)
-            {
-                if (!eq.GameId.IsInGroup(GameIdGroup.Equipment))
-                {
-                    Log.Error($"Player {player.PlayerId} sent invalid equipment id {eq.GameId}");
-                    return false;
-                }
-            }
-
-            if (player.Weapon.GameId != GameId.Random && !player.Weapon.IsWeapon() && !player.Weapon.IsDefaultItem())
-            {
-                Log.Error($"Player {player.PlayerId} sent invalid weapon id {player.Weapon.GameId}");
-                return false;
-            }
+            
 
             return true;
         }
@@ -419,16 +405,6 @@ namespace Quantum
                 if (isNft || !itemTuple.Value.IsBroken())
                 {
                     validItemHashes.Add(itemTuple.Value.GetServerHashCode());
-                }
-            }
-
-            foreach (var clientEquip in clientPlayer.Loadout)
-            {
-                var clientEquiphash = clientEquip.GetServerHashCode();
-                if (!validItemHashes.Contains(clientEquiphash))
-                {
-                    Log.Error($"Player {clientPlayer.PlayerId} tried to send equipment {clientEquip.GameId} hash {clientEquiphash} which he does not own or cant be used atm");
-                    return;
                 }
             }
 

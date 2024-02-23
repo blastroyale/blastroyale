@@ -82,6 +82,10 @@ MonoBehaviour:
   - {fileID: 1448177143657234843}
   _originalMaterials:
   - {fileID: 2100000, guid: 131409319b68ac944b348112d1efa06e, type: 2}
+  _rendererColors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &6841709957393611347
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,11 +239,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1013405764868694880, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.10700001
+      value: 0.117
       objectReference: {fileID: 0}
     - target: {fileID: 1013405764868694880, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.8
+      value: 0.765
       objectReference: {fileID: 0}
     - target: {fileID: 1013405764868694880, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_LocalRotation.w

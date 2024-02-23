@@ -477,7 +477,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					return;
 				}
 
-				var components = weapon.GetComponents<EntityViewBase>();
+				var components = weapon.GetComponentsInChildren<EntityViewBase>();
 
 				foreach (var entityViewBase in components)
 				{

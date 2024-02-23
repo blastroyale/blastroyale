@@ -234,7 +234,7 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			foreach (var key in table.Keys)
 			{
-				var hasProp = _allProperties.FirstOrDefault(p => p.Key == key);
+				var hasProp = _allProperties.FirstOrDefault(p => p.Key == key as string);
 				if (hasProp != null)
 				{
 					hasProp.FromRaw(table[key]);
@@ -249,7 +249,7 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			foreach (var (key, value) in table)
 			{
-				var hasProp = _allProperties.FirstOrDefault(p => p.Key == key);
+				var hasProp = _allProperties.FirstOrDefault(p => p.Key == key as string);
 				if (hasProp != null)
 				{
 					hasProp.FromRaw(value);

@@ -1,17 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Server.SDK.Modules;
 using Newtonsoft.Json;
-using Quantum;
 
 namespace Src.FirstLight.Server
 {
@@ -36,7 +31,7 @@ namespace Src.FirstLight.Server
 			evManager.RegisterCommandListener<EndOfGameCalculationsCommand>(OnGameEndCommand);
 		}
 
-		private void OnGameEndCommand(string userId, EndOfGameCalculationsCommand cmd, ServerState state)
+		private Task OnGameEndCommand(string userId, EndOfGameCalculationsCommand cmd, ServerState state)
 		{
 			var player = cmd.PlayersMatchData[cmd.QuantumValues.ExecutingPlayer];
 			var data = new AnalyticsData()
@@ -63,9 +58,10 @@ namespace Src.FirstLight.Server
 				{"team_id", player.Data.TeamId },
 			};
 			_ctx.Analytics!.EmitUserEvent(userId, $"server_match_end_summary", data);
+			return Task.CompletedTask;
 		}
 
-		private async Task OnCurrencyChanged(GameLogicMessageEvent<CurrencyChangedMessage> ev)
+		private Task OnCurrencyChanged(GameLogicMessageEvent<CurrencyChangedMessage> ev)
 		{
 			var data = new AnalyticsData
 			{
@@ -78,9 +74,10 @@ namespace Src.FirstLight.Server
 			var eventName = ev.Message.Id.ToString().ToLowerInvariant() + "_" +
 				(ev.Message.Change > 0 ? "earning" : "spending");
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, eventName, data);
+			return Task.CompletedTask;
 		}
 
-		private async Task OnItemRepaired(GameLogicMessageEvent<ItemRepairedMessage> ev)
+		private Task OnItemRepaired(GameLogicMessageEvent<ItemRepairedMessage> ev)
 		{
 			var data = new AnalyticsData
 			{
@@ -93,9 +90,10 @@ namespace Src.FirstLight.Server
 			};
 
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "item_repair", data);
+			return Task.CompletedTask;
 		}
 
-		private async Task OnItemUpgraded(GameLogicMessageEvent<ItemUpgradedMessage> ev)
+		private Task OnItemUpgraded(GameLogicMessageEvent<ItemUpgradedMessage> ev)
 		{
 			var data = new AnalyticsData
 			{
@@ -108,9 +106,10 @@ namespace Src.FirstLight.Server
 			};
 
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "item_upgrade", data);
+			return Task.CompletedTask;
 		}
 
-		private async Task OnItemScrapped(GameLogicMessageEvent<ItemScrappedMessage> ev)
+		private Task OnItemScrapped(GameLogicMessageEvent<ItemScrappedMessage> ev)
 		{
 			var data = new AnalyticsData
 			{
@@ -122,9 +121,10 @@ namespace Src.FirstLight.Server
 			};
 
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "item_scrap", data);
+			return Task.CompletedTask;
 		}
 
-		private async Task OnGameCompleted(GameLogicMessageEvent<GameCompletedRewardsMessage> ev)
+		private Task OnGameCompleted(GameLogicMessageEvent<GameCompletedRewardsMessage> ev)
 		{
 			var data = new AnalyticsData
 			{
@@ -137,9 +137,10 @@ namespace Src.FirstLight.Server
 			}
 
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "game_completed_rewards", data);
+			return Task.CompletedTask;
 		}
 
-		private async Task OnBattlePassRewards(GameLogicMessageEvent<BattlePassLevelUpMessage> ev)
+		private Task OnBattlePassRewards(GameLogicMessageEvent<BattlePassLevelUpMessage> ev)
 		{
 			var data = new AnalyticsData
 			{
@@ -147,12 +148,11 @@ namespace Src.FirstLight.Server
 			};
 			if (ev.Message.Rewards != null)
 			{
-				var rewardData = new List<string>();
-			
 				data["rewards"] = JsonConvert.SerializeObject(ev.Message.Rewards.Select(e => e.Id.ToString()));
 			}
 
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "battle_pass_rewards", data);
+			return Task.CompletedTask;
 		}
 	}
 }

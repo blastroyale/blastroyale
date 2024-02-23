@@ -12,6 +12,7 @@ namespace FirstLight.Game.UIElements
 		private const int DAMAGE_ANIM_HIDE_DURATION = 1500;
 
 		private const string USS_BLOCK = "player-health-shield";
+		private const string USS_KNOCKED_OUT_MODIFIER = USS_BLOCK + "--knockedout";
 		private const string USS_HEALTH_CONTAINER = USS_BLOCK + "__health-container";
 		private const string USS_SHIELD_CONTAINER = USS_BLOCK + "__shield-container";
 		private const string USS_HEALTH_BAR = USS_BLOCK + "__health-bar";
@@ -81,9 +82,14 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
-		public void UpdateHealth(int previous, int current, int max, bool normalize)
+		public void SetKnockedOut(bool knockedout)
 		{
-			_healthLabel.text = normalize ? Mathf.CeilToInt(100f * current / max).ToString() : current.ToString();
+			EnableInClassList(USS_KNOCKED_OUT_MODIFIER, knockedout);
+		}
+
+		public void UpdateHealth(int previous, int current, int max)
+		{
+			_healthLabel.text = current.ToString();
 			_healthBar.style.flexGrow = (float) current / max;
 			_healthDamageBarAnimation?.Stop();
 			if (previous > current)
@@ -104,9 +110,9 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
-		public void UpdateShield(int previous, int current, int max, bool normalize)
+		public void UpdateShield(int previous, int current, int max)
 		{
-			_shieldLabel.text = normalize ? Mathf.CeilToInt(100f * current / max).ToString() : current.ToString();
+			_shieldLabel.text = current.ToString();
 			_shieldBar.style.flexGrow = (float) current / max;
 			_shieldDamageBarAnimation?.Stop();
 			if (previous > current)

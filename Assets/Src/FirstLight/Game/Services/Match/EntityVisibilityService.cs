@@ -56,12 +56,17 @@ namespace FirstLight.Game.MonoComponent.Match
 		public VisibilityCheckResult CheckSpectatorVisibility(EntityRef entity)
 		{
 			var spectator = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
-			return VisibilityAreaSystem.CanEntityViewEntity(QuantumRunner.Default.Game.Frames.Verified, spectator, entity); 
+			var result = VisibilityAreaSystem.CanEntityViewEntity(QuantumRunner.Default.Game.Frames.Verified, spectator, entity);;
+			if (result.TargetArea.Area.IsValid && FeatureFlags.ALWAYS_TOGGLE_INVISIBILITY_AREAS)
+			{
+				result.CanSee = false;
+			}
+			return result;
 		}
 		
 		public bool CanSpectatedPlayerSee(EntityRef entity)
 		{
-			if (_matchServices.SpectateService.GetSpectatedEntity() == entity) return true;
+			if (!FeatureFlags.ALWAYS_TOGGLE_INVISIBILITY_AREAS && _matchServices.SpectateService.GetSpectatedEntity() == entity) return true;
 			return CheckSpectatorVisibility(entity).CanSee;
 		}
 
@@ -116,6 +121,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				UpdateSpectatedArea(ev.Game.Frames.Verified, ev.Area);
 			}
+			
 			UpdateLocalPlayerViewOn(ev.Entity);
 		}
 		
@@ -136,7 +142,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private bool InterestedInAreaUpdate(EntityRef entity)
 		{
 			return IsSpectator(entity)
-				|| TeamHelpers.HasSameTeam(
+				|| TeamSystem.HasSameTeam(
 					QuantumRunner.Default.Game.Frames.Verified, entity,
 					QuantumRunner.Default.Game.GetLocalPlayerEntityRef());
 		}
@@ -185,7 +191,19 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			if (IsSpectator(towardsEntity))
 			{
-				renderer.SetColor(visibility.TargetArea.Area.IsValid ? _inBushColor : Color.white);	
+				var f = QuantumRunner.Default.Game.Frames.Verified;
+				
+				if (visibility.TargetArea.Area.IsValid && f.TryGet<VisibilityArea>(visibility.TargetArea.Area, out var visibilityArea))
+				{
+					if (visibilityArea.AreaType == VisibilityAreaType.Bush)
+					{
+						renderer.SetColor(_inBushColor);
+					}
+				}
+				else
+				{
+					renderer.ResetColor();
+				}
 			}
 			
 			_gameServices.MessageBrokerService.Publish(new LocalPlayerEntityVisibilityUpdate()
@@ -207,7 +225,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void Reset(RenderersContainerProxyMonoComponent renderer)
 		{
-			renderer.SetColor(Color.white);
+			renderer.ResetColor();
 			renderer.SetEnabled(true);
 		}
 		

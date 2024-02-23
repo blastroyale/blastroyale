@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace FirstLight.Server.SDK.Services
 {
@@ -10,7 +11,7 @@ namespace FirstLight.Server.SDK.Services
 	public interface IPluginLogger
 	{
 		void LogInformation(string msg);
-
+		
 		void LogDebug(string msg);
 
 		void LogError(string msg);

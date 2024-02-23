@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2276598027288582146}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.02951296, y: 0.22383207, z: 0.05114907, w: 0.9728371}
   m_LocalPosition: {x: -646.0507, y: -696.3237, z: -1865.2935}
   m_LocalScale: {x: 1920, y: 1080.0002, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2949304956738128959}
-  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: -27.668, y: 16.462, z: -13.676}
 --- !u!33 &3480719135167872738
 MeshFilter:
@@ -107,6 +107,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2304870670114574604}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.18879704, y: 0.12917043, z: 0.02518066, w: 0.9731581}
   m_LocalPosition: {x: -603.8798, y: -933.57007, z: -2235.1462}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -114,7 +115,6 @@ Transform:
   m_Children:
   - {fileID: 3254268880122587575}
   m_Father: {fileID: 2949304956738128959}
-  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4739949357168174595
 MonoBehaviour:
@@ -179,13 +179,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3991770868925129404}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.99965733, z: 0.026176924, w: 0}
   m_LocalPosition: {x: 0, y: -1814.7623, z: 286.51096}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8810216313043286469}
-  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1631128668452495577
 MonoBehaviour:
@@ -223,6 +223,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7580220932082907920}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 525.9292, y: 2748.7305, z: 1281.6954}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -231,7 +232,6 @@ Transform:
   - {fileID: 8810216313043286469}
   - {fileID: 1691902160147362556}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8925188912424810450
 MonoBehaviour:
@@ -246,18 +246,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _quadRenderer: {fileID: 9143211546483603550}
-  _commonBottom: {r: 0.7264151, g: 0.71189326, b: 0.59278214, a: 1}
-  _commonTop: {r: 0.40521538, g: 0.44356343, b: 0.5471698, a: 1}
-  _commonPattern: {r: 0.08290316, g: 0.15424946, b: 0.21698111, a: 0.09803922}
-  _uncommonBottom: {r: 0.64705884, g: 0.84313726, b: 0.42745098, a: 0}
-  _uncommonTop: {r: 0.22352941, g: 0.3647059, b: 0.36078432, a: 0}
-  _uncommonPattern: {r: 0.00057849905, g: 0.122641504, b: 0.012391036, a: 0.09803922}
-  _rareBottom: {r: 0.2784314, g: 0.61960787, b: 0.9098039, a: 0}
-  _rareTop: {r: 0.2, g: 0.44705883, b: 0.78431374, a: 0}
-  _rarePattern: {r: 0.02701541, g: 0, b: 0.1981132, a: 0.101960786}
-  _epicBottom: {r: 0.98039216, g: 0.4509804, b: 0.40784314, a: 0}
-  _epicTop: {r: 0.5921569, g: 0.12941177, b: 0.15294118, a: 0}
-  _epicPattern: {r: 0.18867922, g: 0, b: 0.02964955, a: 0.14117648}
-  _legendaryBottom: {r: 0.90588236, g: 0.7146651, b: 0.03529413, a: 0}
-  _legendaryTop: {r: 0.90588236, g: 0.37246782, b: 0.03529413, a: 0}
-  _legendaryPattern: {r: 0.65882355, g: 0.2198085, b: 0.14117645, a: 0.23529412}
+  _default:
+    Bottom: {r: 0.99215686, g: 0.25882354, b: 1, a: 1}
+    Top: {r: 0.52156866, g: 0.05490196, b: 0.8980392, a: 1}
+    Pattern: {r: 0.14117648, g: 0.03529412, b: 0.078431375, a: 0.05490196}
+  _common:
+    Bottom: {r: 0.7264151, g: 0.71189326, b: 0.59278214, a: 1}
+    Top: {r: 0.40521538, g: 0.44356343, b: 0.5471698, a: 1}
+    Pattern: {r: 0.08290316, g: 0.15424946, b: 0.2169811, a: 0.09803922}
+  _uncommon:
+    Bottom: {r: 0.64705884, g: 0.84313726, b: 0.42745098, a: 0}
+    Top: {r: 0.22352941, g: 0.3647059, b: 0.36078432, a: 0}
+    Pattern: {r: 0.00057849905, g: 0.122641504, b: 0.012391036, a: 0.09803922}
+  _rare:
+    Bottom: {r: 0.2784314, g: 0.61960787, b: 0.9098039, a: 0}
+    Top: {r: 0.2, g: 0.44705883, b: 0.78431374, a: 0}
+    Pattern: {r: 0.02701541, g: 0, b: 0.1981132, a: 0.101960786}
+  _epic:
+    Bottom: {r: 0.98039216, g: 0.4509804, b: 0.40784314, a: 0}
+    Top: {r: 0.5921569, g: 0.12941177, b: 0.15294118, a: 0}
+    Pattern: {r: 0.18867922, g: 0, b: 0.02964955, a: 0.14117648}
+  _legendary:
+    Bottom: {r: 0.90588236, g: 0.7146651, b: 0.03529413, a: 0}
+    Top: {r: 0.90588236, g: 0.37246782, b: 0.03529413, a: 0}
+    Pattern: {r: 0.65882355, g: 0.2198085, b: 0.14117645, a: 0.23529412}

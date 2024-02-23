@@ -30,8 +30,6 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
-		static readonly string styleName = "TabButtonStyles";
-		static readonly string UxmlName = "TabButton";
 		static readonly string s_UssClassName = "unity-tab-button";
 		static readonly string s_UssActiveClassName = s_UssClassName + "--active";
 

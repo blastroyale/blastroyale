@@ -27,15 +27,12 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private const string UssHideControls = "hide-controls";
-
-		[SerializeField] private CinemachineVirtualCamera _followCamera;
-
+		
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 
 		private ScreenHeaderElement _header;
 		private Label _playerName;
-		private MightElement _playerMight;
 		private VisualElement _defeatedYou;
 
 		// ReSharper disable NotAccessedField.Local
@@ -51,7 +48,6 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_header = root.Q<ScreenHeaderElement>("Header").Required();
-			_playerMight = root.Q<MightElement>("PlayerMight").Required();
 			_playerName = root.Q<Label>("PlayerName").Required();
 			_defeatedYou = root.Q<VisualElement>("DefeatedYou").Required();
 			root.Q("StatusBars").Required().AttachView(this, out _statusBarsView);
@@ -82,24 +78,12 @@ namespace FirstLight.Game.Presenters
 		{
 			base.SubscribeToEvents();
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
-			QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnPlayerEquipmentStatsChanged);
 		}
 
 		protected override void UnsubscribeFromEvents()
 		{
 			base.UnsubscribeFromEvents();
 			_matchServices.SpectateService.SpectatedPlayer.StopObservingAll(this);
-		}
-
-		private void OnPlayerEquipmentStatsChanged(EventOnPlayerEquipmentStatsChanged callback)
-		{
-			if (callback.Player != _matchServices.SpectateService.SpectatedPlayer.Value.Player) return;
-
-			var f = QuantumRunner.Default.Game.Frames.Predicted;
-			if (f.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter))
-			{
-				UpdateCurrentMight(playerCharacter);
-			}
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer _, SpectatedPlayer current)
@@ -120,43 +104,10 @@ namespace FirstLight.Game.Presenters
 
 			var data = new QuantumPlayerMatchData(f, playersData[current.Player]);
 			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, (int) data.LeaderboardRank);
-
-			_followCamera.Follow = current.Transform;
-			_followCamera.LookAt = current.Transform;
-			_followCamera.SnapCamera();
-
+			
 			_playerName.text = data.GetPlayerName();
 			_playerName.style.color = nameColor;
 			_defeatedYou.SetVisibility(current.Player == _matchServices.MatchEndDataService.LocalPlayerKiller);
-			UpdateCurrentMight(playerCharacter);
-		}
-
-		private void UpdateCurrentMight(PlayerCharacter character)
-		{
-			_playerMight.SetMight(GetSpectatedPlayerMight(character), false);
-		}
-
-		private float GetSpectatedPlayerMight(PlayerCharacter character)
-		{
-			var gear = character.Gear;
-			var currentWeapon = character.CurrentWeapon;
-
-			var currentEquipment = new List<Equipment>(6);
-			if (currentWeapon.IsValid())
-			{
-				currentEquipment.Add(currentWeapon);
-			}
-
-			for (int i = 0; i < gear.Length; i++)
-			{
-				var item = gear[i];
-				if (item.IsValid())
-				{
-					currentEquipment.Add(item);
-				}
-			}
-
-			return currentEquipment.GetTotalMight(_services.ConfigsProvider);
 		}
 
 		private void OnNextPlayerClicked()

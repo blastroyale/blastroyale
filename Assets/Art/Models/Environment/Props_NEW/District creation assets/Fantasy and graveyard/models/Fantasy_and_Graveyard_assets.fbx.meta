@@ -30,7 +30,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["Bench","Dungeon_stone_wall","Graveyard_fence","Single_grave_stone","Dungeon_corner_wall","Dungeon_stone_wall_with_door_hatch","Knight_statue","square_tower","Large_flag","Well","Grave_stone_wall"],"padding":[121,57,53,113,80,37,66,34,220,50,61],"unwrapper":[0,0,0,0,0,0,0,0,0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

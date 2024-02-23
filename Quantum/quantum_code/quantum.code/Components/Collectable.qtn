@@ -41,3 +41,12 @@ synced event OnCollectableBlocked
 	player_ref Player;
 	entity_ref PlayerEntity;
 }
+
+synced event GameItemCollected {
+    entity_ref PlayerEntity;
+    player_ref PlayerRef;
+    GameId Collected;
+    ushort Amount;
+}
+
+signal OnConsumableCollected(PlayerRef PlayerRef EntityRef EntityRef Consumable Consumable Collectable Collectable);

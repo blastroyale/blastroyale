@@ -361,37 +361,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			};
 
 			QueueEvent(AnalyticsEvents.MatchChestOpenAction, data);
-
-			foreach (var item in callback.Items)
-			{
-				MatchChestItemDrop(item, callback.Game);
-			}
-		}
-
-		/// <summary>
-		/// Logs when a chest item is dropped
-		/// </summary>
-		public void MatchChestItemDrop(ChestItemDropped chestItemDropped, QuantumGame game)
-		{
-			if (!(game.PlayerIsLocal(chestItemDropped.Player)))
-			{
-				return;
-			}
-
-			var data = new Dictionary<string, object>
-			{
-				{"match_id", _matchId},
-				{"match_type", _matchType},
-				{"game_mode", _gameModeId},
-				{"mutators", _mutators},
-				{"chest_type", _gameIdsLookup[chestItemDropped.ChestType]},
-				{"chest_coordinates", chestItemDropped.ChestPosition.ToString()},
-				{"item_type", _gameIdsLookup[chestItemDropped.ItemType]},
-				{"amount", chestItemDropped.Amount.ToString()},
-				{"angle_step_around_chest", chestItemDropped.AngleStepAroundChest.ToString()}
-			};
-
-			QueueEvent(AnalyticsEvents.MatchChestItemDrop, data);
 		}
 
 		/// <summary>

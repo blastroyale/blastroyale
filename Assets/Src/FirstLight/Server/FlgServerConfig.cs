@@ -7,6 +7,7 @@ using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Services;
 using Src.FirstLight.Server.ServerServices;
 
+
 namespace Src.FirstLight.Server
 {
     /// <summary>
@@ -38,7 +39,6 @@ namespace Src.FirstLight.Server
             {
                 new ServerAnalyticsPlugin(),
                 new ServerStatisticsPlugin(),
-                new TrophyLeaderboardPlugin(),
 				new PlayfabAvatarPlugin()
             };
         }

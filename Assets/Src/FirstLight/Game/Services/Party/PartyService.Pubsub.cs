@@ -83,7 +83,7 @@ namespace FirstLight.Game.Services.Party
 
 				try
 				{
-					var result = await AsyncPlayfabMultiplayerAPI.SubscribeToLobbyResource(subscribeReq);
+					var result = await AsyncPlayfabAPI.SubscribeToLobbyResource(subscribeReq);
 					// This whole process of creating an websocket subscribing to resource can take a a considerable time(+- 5s)
 					// So we may have missed some messages and this results in a broke state
 					await FetchPartyAndUpdateState();
@@ -304,7 +304,7 @@ namespace FirstLight.Game.Services.Party
 					// Let the leader kick it
 					if (LocalPartyMember() is {Leader: true})
 					{
-#pragma warning disable CS4014 This is a websocket and we do not need to wait for this
+#pragma warning disable CS4014 // This is a websocket and we do not need to wait for this
 						KickDisconnectedPlayer(disconnectedMember.PlayfabID);
 #pragma warning restore CS4014
 					}
@@ -356,7 +356,7 @@ namespace FirstLight.Game.Services.Party
 					PubSubConnectionHandle = connStr
 				};
 
-				await AsyncPlayfabMultiplayerAPI.UnsubscribeFromLobbyResource(req);
+				await AsyncPlayfabAPI.UnsubscribeFromLobbyResource(req);
 			}
 			catch (Exception ex)
 			{

@@ -430,7 +430,7 @@ namespace FirstLight.Game.Services
 
 			if (string.IsNullOrWhiteSpace(accountData.DeviceId) || result.InfoResultPayload.AccountInfo.PrivateInfo.Email != accountData.LastLoginEmail)
 			{
-				LinkDeviceID(null, null);
+				LinkDeviceID(null, onError);
 			}
 
 			if (email != null && email.Contains("@") && isMissingContactEmail)

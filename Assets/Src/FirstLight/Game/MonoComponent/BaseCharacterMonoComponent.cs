@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
+using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -18,8 +20,6 @@ namespace FirstLight.Game.MonoComponent
 	/// </summary>
 	public class BaseCharacterMonoComponent : MonoBehaviour
 	{
-		private readonly int _victoryHash = Animator.StringToHash("victory");
-
 		protected bool IsLoaded = false;
 
 		[SerializeField, Required] protected UnityEvent _characterLoadedEvent;
@@ -27,7 +27,7 @@ namespace FirstLight.Game.MonoComponent
 
 		protected MainMenuCharacterViewComponent _characterViewComponent;
 		protected IGameServices _services;
-		protected Animator _animator;
+		protected CharacterSkinMonoComponent _skin;
 		protected List<Equipment> _equipment = new List<Equipment>();
 
 		protected virtual void Awake()
@@ -35,14 +35,14 @@ namespace FirstLight.Game.MonoComponent
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		public async Task UpdateSkin(ItemData skin, List<EquipmentInfo> equipment = null)
+		public async UniTask UpdateSkin(ItemData skin, List<EquipmentInfo> equipment = null)
 		{
 			var equipmentList = equipment?.Select(equipmentInfo => equipmentInfo.Equipment).ToList();
 
 			await UpdateSkin(skin, equipmentList);
 		}
 
-		public async Task UpdateSkin(ItemData skinId, List<Equipment> equipment = null)
+		public async UniTask UpdateSkin(ItemData skinId, List<Equipment> equipment = null)
 		{
 			if (_characterViewComponent != null && _characterViewComponent.gameObject != null)
 			{
@@ -57,7 +57,7 @@ namespace FirstLight.Game.MonoComponent
 			obj.AddComponent<RenderersContainerProxyMonoComponent>();
 			obj.AddComponent<MainMenuCharacterViewComponent>();
 			AddDragCollider(obj);
-			await SkinLoaded(skinId, obj);
+			SkinLoaded(skinId, obj);
 		}
 		/// <summary>
 		/// Collider used for IDragHandler so we can rotate character on main menu
@@ -77,15 +77,10 @@ namespace FirstLight.Game.MonoComponent
 
 		public void AnimateVictory()
 		{
-			_animator.SetTrigger(_victoryHash);
+			_skin.TriggerVictory();
 		}
 
-		protected async void EquipDefault()
-		{
-			await _characterViewComponent.EquipItem(GameId.Hammer);
-		}
-
-		private async Task SkinLoaded(ItemData skin, GameObject instance)
+		private void SkinLoaded(ItemData skin, GameObject instance)
 		{
 			instance.SetActive(false);
 
@@ -102,7 +97,7 @@ namespace FirstLight.Game.MonoComponent
 
 			instance.SetActive(true);
 
-			_animator = instance.GetComponent<Animator>();
+			_skin = instance.GetComponent<CharacterSkinMonoComponent>();
 			IsLoaded = true;
 			_characterLoadedEvent?.Invoke();
 		}

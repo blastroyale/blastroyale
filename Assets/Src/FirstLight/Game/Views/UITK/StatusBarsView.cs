@@ -93,6 +93,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(this, OnPlayerSpecialUpdated);
 			QuantumEvent.SubscribeManual<EventOnPlayerWeaponAdded>(this, OnPlayerWeaponAdded);
+			QuantumEvent.SubscribeManual<EventGameItemCollected>(this, OnCollected);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 		}
@@ -203,6 +204,11 @@ namespace FirstLight.Game.Views.UITK
 			foreach (var (entity, bar) in _visiblePlayers)
 			{
 				var spectatingCurrentEntity = current.Entity == entity;
+				if (spectatingCurrentEntity)
+				{
+					UpdateBarStats(QuantumRunner.Default.Game.Frames.Predicted, current.Entity, bar);
+				}
+
 				bar.EnableStatusBars((!spectatingCurrentEntity && SHOW_ENEMY_BARS) || (spectatingCurrentEntity && _useOverheadUi));
 			}
 		}
@@ -233,12 +239,15 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var bar = _playerBarPool.Get();
 			_visiblePlayers.Add(entity, bar);
+			UpdateBarStats(f, entity, bar);
+		}
 
+		private void UpdateBarStats(Frame f, EntityRef entity, PlayerStatusBarElement bar)
+		{
 			var stats = f.Get<Stats>(entity);
 
 			var spectatingCurrentEntity = _matchServices.SpectateService.GetSpectatedEntity() == entity;
 
-			bar.ShowRealDamage = _data.AppDataProvider.ShowRealDamage;
 			bar.EnableStatusBars((!spectatingCurrentEntity && SHOW_ENEMY_BARS) || (spectatingCurrentEntity && _useOverheadUi));
 			bar.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
 			bar.UpdateShield(stats.CurrentShield, stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);
@@ -263,6 +272,7 @@ namespace FirstLight.Game.Views.UITK
 				bar.ShowNotification(PlayerStatusBarElement.NotificationType.LevelUp);
 			}
 		}
+
 
 		private void OnShieldChanged(EventOnShieldChanged callback)
 		{
@@ -315,6 +325,22 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
+		private void OnCollected(EventGameItemCollected ev)
+		{
+			if (!_matchServices.IsSpectatingPlayer(ev.PlayerEntity))
+			{
+				return;
+			}
+
+			if (!_visiblePlayers.TryGetValue(ev.PlayerEntity, out var bar))
+			{
+				return;
+			}
+
+			var text = $"+{ev.Amount} {ev.Collected.GetCurrencyLocalization(ev.Amount)}";
+			bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, text);
+		}
+
 		private void OnPlayerWeaponAdded(EventOnPlayerWeaponAdded callback)
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
@@ -328,7 +354,7 @@ namespace FirstLight.Game.Views.UITK
 		private unsafe void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
 		{
 			var f = callback.Game.Frames.Verified;
-
+			if (callback.SpellType == Spell.KnockedOut) return;
 			if (f.Has<Destructible>(callback.HitEntity) &&
 				f.Unsafe.TryGetPointer<Stats>(callback.HitEntity, out var stats))
 

@@ -15,7 +15,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// <summary>
 	/// This view simply contains all the local player indicators controller view
 	/// </summary>
-	public unsafe class LocalPlayerIndicatorContainerView : IDisposable
+	public class LocalPlayerIndicatorContainerView : IDisposable
 	{
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _data;
@@ -167,7 +167,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		///  Instantiates all possible indicators
 		/// </summary>
-		public void InstantiateAllIndicators()
+		public async void InstantiateAllIndicators()
 		{
 			var loader = _services.AssetResolverService;
 
@@ -179,8 +179,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 					continue;
 				}
 
-				var obj = _services.AssetResolverService
-					.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId) i, false, true).Result;
+				var obj = await _services.AssetResolverService
+					.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId) i, false, true);
+
 				_indicators[i] = obj.GetComponent<IIndicator>();
 			}
 		}
@@ -254,7 +255,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 
-		private void LegacyConeAim(Frame f, FPVector2 aim, bool shooting)
+		private unsafe void LegacyConeAim(Frame f, FPVector2 aim, bool shooting)
 		{
 			if (!f.Unsafe.TryGetPointer<CharacterController3D>(_localPlayerEntity, out var kcc) ||
 				!f.Unsafe.TryGetPointer<PlayerCharacter>(_localPlayerEntity, out var playerCharacter))
@@ -268,7 +269,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
-			var reloading = playerCharacter->WeaponSlot->MagazineShotCount == 0;
+			var reloading = playerCharacter->SelectedWeaponSlot->MagazineShotCount == 0;
 			var transform = f.Unsafe.GetPointer<Transform3D>(_localPlayerEntity);
 			var aimDirection = QuantumHelpers.GetAimDirection(aim, ref transform->Rotation).Normalized.ToUnityVector2();
 			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue.AsFloat;

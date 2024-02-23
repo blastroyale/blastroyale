@@ -1,5 +1,54 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &56523277940095012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2716201979189208670}
+  - component: {fileID: 3899425563891135787}
+  m_Layer: 0
+  m_Name: TeammateNeedsHelp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2716201979189208670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56523277940095012}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7124237809034167372}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &3899425563891135787
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56523277940095012}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: b9c3443ace3e5144695462c9320e9843, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &144150220411840444
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +114,6 @@ MonoBehaviour:
   _fullScreenPadding: 50
   _viewportSize: 0.4
   _cameraHeight: 10
-  _maxFriendlyDistance: 45
   _openCloseEase: 3
   _duration: 0.1
   _pingDuration: 5
@@ -554,6 +602,8 @@ Transform:
   - {fileID: 7394637218872555438}
   - {fileID: 2378895474710746206}
   - {fileID: 4904996904948385044}
+  - {fileID: 2716201979189208670}
+  - {fileID: 3957840879213384157}
   m_Father: {fileID: 9107933737851029003}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &951876065807350399
@@ -614,6 +664,55 @@ MonoBehaviour:
   _shownScale: 0.4
   _hideEase: 2
   _hideDuration: 0.3
+--- !u!1 &1176487178318275788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3957840879213384157}
+  - component: {fileID: 5496956807909716160}
+  m_Layer: 0
+  m_Name: KnockedOut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3957840879213384157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176487178318275788}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7124237809034167372}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &5496956807909716160
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176487178318275788}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: cd797e88cc169804ca848799cf8b77dc, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &1579841734724544114
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +1023,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  _lowHPThreshold: 150
+  _lowHPThreshold: 25
   _moveDirectionJoystickInput: {fileID: 9012470036974147663}
   _moveDownJoystickInput: {fileID: 3877068891791816140}
   _aimDirectionJoystickInput: {fileID: 901318833764697391}
@@ -934,6 +1033,9 @@ MonoBehaviour:
   _special1PressedInput: {fileID: 2611357786635388943}
   _specialAimInput: {fileID: 3116711909838201759}
   _specialCancelInput: {fileID: 700093303692945992}
+  _knockOutNotificationView:
+    _friendKnockedOutPlayable: {fileID: 3899425563891135787}
+    _knockedOutPlayable: {fileID: 5496956807909716160}
 --- !u!1 &2554705336927834585
 GameObject:
   m_ObjectHideFlags: 0

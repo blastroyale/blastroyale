@@ -40,7 +40,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			if (IsCollectableFilled(f, info.Entity, info.Other))
+			if (IsCollectableFilled(f, info.Entity, info.Other) || ReviveSystem.IsKnockedOut(f, info.Other))
 			{
 				//f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
 				StopCollecting(f, info.Entity, info.Other, player.Player, collectable);
@@ -68,7 +68,7 @@ namespace Quantum.Systems
 		{
 			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
 				f.Time < collectable->AllowedToPickupTime || !f.Has<AlivePlayerCharacter>(info.Other) ||
-				!f.TryGet<PlayerCharacter>(info.Other, out var player) || f.Has<EntityDestroyer>(info.Entity))
+				!f.TryGet<PlayerCharacter>(info.Other, out var player) || f.Has<EntityDestroyer>(info.Entity) || ReviveSystem.IsKnockedOut(f, info.Other))
 			{
 				return false;
 			}
@@ -138,67 +138,14 @@ namespace Quantum.Systems
 			if (f.Unsafe.TryGetPointer<EquipmentCollectable>(entity, out var equipment))
 			{
 				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
-
-				if (!f.Has<BotCharacter>(playerEntity))
+				
+				equipment->Collect(f, entity, playerEntity, player);
+				
+				// We restore ammo to initial level if it was lower
+				var statsPointer = f.Unsafe.GetPointer<Stats>(playerEntity);
+				if (statsPointer->CurrentAmmoPercent < Constants.INITIAL_AMMO_FILLED)
 				{
-					var loadoutMetadata = playerCharacter->GetLoadoutMetadata(f, &equipment->Item);
-
-					// We count how many NFTs from their loadout a player has collected to use later for CS earnings
-					if (loadoutMetadata != null && loadoutMetadata.Value.IsNft)
-					{
-						// TODO: Handle a situation when a player somehow collects not his Helmet first but then collects
-						// his NFT Helmet instead. Current logic will NOT do increment in this edge case
-
-						var slotIsBusy = equipment->Item.IsWeapon()
-							? playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid()
-							: playerCharacter->Gear[PlayerCharacter.GetGearSlot(&equipment->Item)].IsValid();
-
-						if (!slotIsBusy)
-						{
-							var playerData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
-							var matchData = playerData[player];
-
-							// TODO: This code duplicates the struct every time we use it. Needs refactoring
-							matchData.CollectedOwnedNfts++;
-
-							// We have to do reassign to store the updated value
-							playerData[player] = matchData;
-						}
-					}
-				}
-
-				if (playerCharacter->HasBetterWeaponEquipped(&equipment->Item))
-				{
-					gameId = GameId.AmmoSmall;
-					var stats = f.Get<Stats>(playerEntity);
-					var ammoSmallConfig = f.ConsumableConfigs.GetConfig(GameId.AmmoSmall);
-					var initialAmmo = ammoSmallConfig.Amount.Get(f);
-					var consumable = new Consumable {ConsumableType = ConsumableType.Ammo, Amount = initialAmmo};
-					var ammoWasEmpty = stats.CurrentAmmoPercent < FP.SmallestNonZero;
-
-					// Fake use a consumable to simulate it's natural life cycle
-					f.Add(entity, consumable);
-					consumable.Collect(f, entity, playerEntity, player);
-
-					// Special case: having no ammo and collecting the weapon that is already in one of the slots
-					if (ammoWasEmpty && playerCharacter->HasMeleeWeapon(f, playerEntity))
-					{
-						playerCharacter->TryEquipExistingWeaponId(f, playerEntity, equipment->Item.GameId);
-					}
-				}
-				else
-				{
-					equipment->Collect(f, entity, playerEntity, player);
-					
-					// In Looting 2.0 we restore ammo to initial level if it was lower in a previous gun
-					if (f.Context.MapConfig.LootingVersion == 2 && equipment->Item.IsWeapon())
-					{
-						var statsPointer = f.Unsafe.GetPointer<Stats>(playerEntity);
-						if (statsPointer->CurrentAmmoPercent < Constants.INITIAL_AMMO_FILLED)
-						{
-							statsPointer->SetCurrentAmmo(f, playerCharacter, playerEntity, Constants.INITIAL_AMMO_FILLED);
-						}
-					}
+					statsPointer->SetCurrentAmmo(f, playerCharacter, playerEntity, Constants.INITIAL_AMMO_FILLED);
 				}
 			}
 			else if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))

@@ -14,12 +14,13 @@ namespace Quantum
 		/// </summary>
 		AreaOfEffect
 	}
-	
+
 	[Serializable]
 	public class QuantumWeaponConfig
 	{
 		public GameId Id;
 		public FiringMode FiringMode;
+		public WeaponType WeaponType;
 		public int MaxAmmo;
 		public AssetRefEntityPrototype BulletPrototype;
 		public AssetRefEntityPrototype BulletHitPrototype;
@@ -42,7 +43,7 @@ namespace Quantum
 		public FP InitialAttackCooldown;
 		public FP InitialAttackRampUpTime;
 		public bool UseRangedCam;
-		
+
 		/// <summary>
 		/// Requests if this config is from a melee weapon
 		/// <remarks>
@@ -59,14 +60,26 @@ namespace Quantum
 		SemiAutomatic = 1,
 	}
 
+	public enum WeaponType
+	{
+		// 0 is "no weapon" in animations so we keep the same numbering here.
+		Melee = 1,
+		Gun = 2,
+		XLGun = 3
+	}
+
 	/// <summary>
 	/// This is the quantum's asset config container for <see cref="QuantumWeaponConfig"/>
 	/// </summary>
 	[AssetObjectConfig(GenerateAssetCreateMenu = false)]
 	public partial class QuantumWeaponConfigs
 	{
-		public List<QuantumWeaponConfig> QuantumConfigs = new List<QuantumWeaponConfig>();
+		private object _lock = new object();
 		
+		public FP GoldenGunDamageModifier = FP._1_20;
+
+		public List<QuantumWeaponConfig> QuantumConfigs = new List<QuantumWeaponConfig>();
+
 		private IDictionary<GameId, QuantumWeaponConfig> _dictionary = null;
 
 		private IDictionary<GameId, List<int>> BakedAccuracyMods = null;
@@ -77,10 +90,12 @@ namespace Quantum
 		/// </summary>
 		public unsafe FP GetRandomBakedAccuracyAngle(Frame f, GameId weaponId)
 		{
+			
 			if (BakedAccuracyMods == null)
 			{
 				BakeAngles(f);
 			}
+
 			var mods = BakedAccuracyMods[weaponId];
 			var mod = mods[f.RNG->Next(0, mods.Count)];
 			return f.RNG->Next(0, 2) == 1 ? -mod : mod;
@@ -92,42 +107,59 @@ namespace Quantum
 		/// </summary>
 		private void BakeAngles(Frame f)
 		{
-			BakedAccuracyMods = new Dictionary<GameId, List<int>>();
-			foreach (var config in f.WeaponConfigs.QuantumConfigs)
+			lock (_lock)
 			{
-				var accuracies = new List<int>();
-				var maxAttackAngle = config.MinAttackAngle;
-				if (maxAttackAngle == 0)
+				var bakes = new Dictionary<GameId, List<int>>();
+				foreach (var config in f.WeaponConfigs.QuantumConfigs)
 				{
-					accuracies.Add(0);
-				}
-				else
-				{
-					foreach (var distribution in Constants.APPRX_NORMAL_DISTRIBUTION)
+					var accuracies = new List<int>();
+					var maxAttackAngle = config.MinAttackAngle;
+					if (maxAttackAngle == 0)
 					{
-						var mod = (int)Math.Round(maxAttackAngle / 100d * distribution);
-						accuracies.Add(mod /2);
+						accuracies.Add(0);
 					}
+					else
+					{
+						foreach (var distribution in Constants.APPRX_NORMAL_DISTRIBUTION)
+						{
+							var mod = (int)Math.Round(maxAttackAngle / 100d * distribution);
+							accuracies.Add(mod /2);
+						}
+					}
+					bakes[config.Id] = accuracies;
 				}
-				BakedAccuracyMods[config.Id] = accuracies;
+				BakedAccuracyMods = bakes;
 			}
 		}
-		
+
 		/// <summary>
 		/// Requests the <see cref="QuantumWeaponConfig"/> of the given enemy <paramref name="gameId"/>
 		/// </summary>
 		public QuantumWeaponConfig GetConfig(GameId gameId)
 		{
+			TryGetConfig(gameId, out var returnValue);
+			return returnValue;
+		}
+
+		/// <summary>
+		/// Requests the <see cref="QuantumWeaponConfig"/> of the given enemy <paramref name="gameId"/>
+		/// </summary>
+		public bool TryGetConfig(GameId gameId, out QuantumWeaponConfig configValue)
+		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<GameId, QuantumWeaponConfig>();
-				
-				foreach (var config in QuantumConfigs)
+				lock (_lock)
 				{
-					_dictionary.Add(config.Id, config);
+					var dictionary = new Dictionary<GameId, QuantumWeaponConfig>();
+					foreach (var config in QuantumConfigs)
+					{
+						dictionary.Add(config.Id, config);
+					}
+					_dictionary = dictionary;
 				}
 			}
-			return _dictionary[gameId];
+
+			return _dictionary.TryGetValue(gameId, out configValue);
 		}
 	}
 }

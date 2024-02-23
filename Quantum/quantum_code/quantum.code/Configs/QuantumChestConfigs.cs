@@ -1,14 +1,49 @@
 using System;
 using System.Collections.Generic;
 using Photon.Deterministic;
+using Sirenix.OdinInspector;
 
 namespace Quantum
 {
 	[Serializable]
-	public class QuantumChestRarityModifierEntry
+	public struct WeightedItem
 	{
+		public SimulationItemConfig ItemConfig;
+		public int Weight;
+	}
+	
+	[Serializable]
+	public struct SimulationItemConfig
+	{
+		/// <summary>
+		/// Used when item has only a single item id.
+		/// Leave "Random" when using metadata
+		/// </summary>
+		public GameId SimpleGameId;
+		
+		/// <summary>
+		/// Used to define an equipment item
+		/// </summary>
+		public Equipment EquipmentMetadata;
+	}
+	
+	[Serializable]
+	public class WeightedPoolDrop
+	{
+		/// <summary>
+		/// Chance to drop this pool
+		/// </summary>
 		public FP Chance;
-		public ChestType NewType;
+		
+		/// <summary>
+		/// Amount of items from the pool to drop.
+		/// </summary>
+		public byte Amount;
+		
+		/// <summary>
+		/// Pool of items that the wheighted random will pick
+		/// </summary>
+		public List<WeightedItem> Pool;
 	}
 
 	[Serializable]
@@ -16,9 +51,9 @@ namespace Quantum
 	{
 		public GameId Id;
 		public ChestType ChestType;
-
-		public List<QuantumPair<FP, uint>> RandomEquipment;
-		public List<QuantumPair<FP, uint>> SmallConsumable;
+		
+		public bool AutoOpen;
+		public List<WeightedPoolDrop> DropTables;
 
 		public FP CollectableChestPickupRadius;
 		public FP CollectTime;
@@ -34,6 +69,8 @@ namespace Quantum
 
 		private IDictionary<GameId, QuantumChestConfig> _dictionary = null;
 
+		private object _lock = new object();
+
 		/// <summary>
 		/// Requests the <see cref="QuantumChestConfig"/> defined by the given <paramref name="id"/>
 		/// </summary>
@@ -41,11 +78,15 @@ namespace Quantum
 		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<GameId, QuantumChestConfig>();
-
-				for (var i = 0; i < QuantumConfigs.Count; i++)
+				lock (_lock)
 				{
-					_dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					var dict = new Dictionary<GameId, QuantumChestConfig>();
+					for (var i = 0; i < QuantumConfigs.Count; i++)
+					{
+						dict.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					}
+
+					_dictionary = dict;
 				}
 			}
 

@@ -206,13 +206,16 @@ namespace FirstLight.Game.UIElements
 			_plusRarity.SetDisplay((int) equipment.Rarity % 2 == 1);
 
 			_grade.text = equipment.Grade.ToString().Replace("Grade", "");
+			_grade.SetDisplay(nft);
 
 			_material.RemoveSpriteClasses();
 			_material.AddToClassList(string.Format(UssSpriteMaterial,
 				equipment.Material.ToString().ToLowerInvariant()));
+			_material.SetDisplay(nft);
 
 			_faction.RemoveSpriteClasses();
 			_faction.AddToClassList(string.Format(UssSpriteFaction, equipment.Faction.ToString().ToLowerInvariant()));
+			_faction.SetDisplay(nft);
 
 			_level.text = string.Format(ScriptLocalization.UITEquipment.card_lvl, equipment.Level);
 			_name.text = equipment.GameId.GetLocalization();
@@ -224,6 +227,7 @@ namespace FirstLight.Game.UIElements
 			_adjective.text = equipment.Adjective.ToString().ToUpperInvariant(); // TODO: Add localization
 			_adjective.text = string.Format(ADJECTIVE_LOC_KEY, equipment.Adjective.ToString().ToLowerInvariant())
 				.LocalizeKey();
+			_adjective.SetDisplay(nft);
 
 			UniqueId = id;
 			var shouldLoadImage = equipment.IsValid() && equipment.GameId != Equipment.GameId;

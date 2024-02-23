@@ -89,10 +89,6 @@ namespace FirstLight.Game.Presenters
 			SetupToggle(root.Q<LocalizedToggle>("ScreenShake").Required(),
 				() => _gameDataProvider.AppDataProvider.UseScreenShake,
 				val => _gameDataProvider.AppDataProvider.UseScreenShake = val);
-			
-			SetupToggle(root.Q<LocalizedToggle>("ShowRealDamage").Required(),
-				() => _gameDataProvider.AppDataProvider.ShowRealDamage,
-				val => _gameDataProvider.AppDataProvider.ShowRealDamage = val);
 
 			SetupToggle(root.Q<Toggle>("AimBackground").Required(),
 				() => _gameDataProvider.AppDataProvider.ConeAim,
@@ -185,7 +181,8 @@ namespace FirstLight.Game.Presenters
 				_connectIdButton.SetDisplay(true);
 				_deleteAccountButton.SetDisplay(false);
 				_logoutButton.SetDisplay(false);
-				_accountStatusLabel.text = ScriptLocalization.UITSettings.flg_id_not_connected;
+				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_not_connected,
+				                                         _gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
 			else
 			{

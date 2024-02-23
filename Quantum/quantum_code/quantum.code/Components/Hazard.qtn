@@ -27,3 +27,4 @@ synced event OnHazardHit
  	entity_ref HitEntity;
  	FPVector3 HitPosition;
  }
+ 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using FirstLight.Services;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace FirstLight.Editor.EditorTools
 {
@@ -24,6 +26,74 @@ namespace FirstLight.Editor.EditorTools
 		private static void OpenFtueDeckScene()
 		{
 			EditorSceneManager.OpenScene(GetScenePath("FtueDeck"));
+		}
+
+		[MenuItem("FLG/Build/Quantum")]
+		private static void BuildQuantum()
+		{
+			var progressId = Progress.Start("Building Quantum", "Builds Quantum as Debug using msbuild.",
+				Progress.Options.Indefinite | Progress.Options.Unmanaged);
+
+			var fileName = EditorPrefs.GetString(FLGSettingsRegister.KEY_MSBUILD);
+			if (string.IsNullOrEmpty(fileName))
+			{
+				Debug.LogWarning("Please set MSBUILD and optional PATH values in the settings under FLG");
+				return;
+			}
+
+			var startInfo = new ProcessStartInfo
+			{
+				UseShellExecute = false,
+				RedirectStandardError = true,
+				RedirectStandardOutput = true,
+				FileName = fileName,
+				Arguments = "./Quantum/quantum_code/quantum_code.sln -restore -p:Configuration=Debug -p:RestorePackagesConfig=true",
+				CreateNoWindow = true,
+				WorkingDirectory = Application.dataPath.Replace("/Assets", "")
+			};
+
+			startInfo.EnvironmentVariables["PATH"] =
+				$"{startInfo.EnvironmentVariables["PATH"]}:{EditorPrefs.GetString(FLGSettingsRegister.KEY_CUSTOM_PATH)}";
+
+			var p = new Process {StartInfo = startInfo, EnableRaisingEvents = true};
+
+			p.OutputDataReceived += (sender, args) =>
+			{
+				if (args.Data == null) return;
+				Progress.Report(progressId, 0, args.Data);
+			};
+
+			p.ErrorDataReceived += (sender, args) =>
+			{
+				if (args.Data == null) return;
+				Debug.LogError(args.Data);
+			};
+
+			p.Exited += (_, _) =>
+			{
+				var exitCode = p.ExitCode;
+
+				if (exitCode == 0)
+				{
+					Progress.Finish(progressId);
+				}
+				else
+				{
+					Progress.Finish(progressId, Progress.Status.Failed);
+				}
+			};
+
+			try
+			{
+				p.Start();
+				p.BeginOutputReadLine();
+				p.BeginErrorReadLine();
+			}
+			catch (Exception e)
+			{
+				Debug.LogError("Error building Quantum: " + e.Message);
+				Progress.Finish(progressId, Progress.Status.Failed);
+			}
 		}
 
 		[MenuItem("FLG/Scene/Open Main Scene &1")]
@@ -451,7 +521,7 @@ namespace FirstLight.Editor.EditorTools
 
 			return atlas;
 		}
-		
+
 		[MenuItem("FLG/Print App Data")]
 		private static void PrintAppData()
 		{

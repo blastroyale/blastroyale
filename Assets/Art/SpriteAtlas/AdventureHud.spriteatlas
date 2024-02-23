@@ -62,7 +62,6 @@ SpriteAtlas:
     - 657537604173846308db848529b8e666: 21300000
     - 388f5070d8df04c05ac878003ea3a704: 21300000
     - 4f5bb9c04ad71274097f42d6b1bb830a: 21300000
-    - c3eac4e07ddacd74092c162b3512ca82: 21300000
     - 8b6bea0173d97c744befc64bceab542e: 21300000
     - 04395511ad9f3fa4caca419869ec6ba5: 21300000
     - d66d92d1e501e4d12b64f78788cdada0: 21300000
@@ -73,6 +72,7 @@ SpriteAtlas:
     - 07ff8b0340c7df94f8a4257a1a776eb7: 21300000
     - d39f12438282f3f4582fc4dbd4bed85d: 21300000
     - 2ba2d5a3829f2844da9780a46bde1f63: 21300000
+    - b08a43c373d843e4d9dca5d5df2f1571: 21300000
     - abae18041ec2b3a4d8d16772af05241d: 21300000
     - eea4c914f098743eb80820aef94b95ac: 21300000
     - 26a1063432a2745b0a994e82a0bc9845: 21300000
@@ -151,7 +151,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 657537604173846308db848529b8e666, type: 3}
   - {fileID: 21300000, guid: 388f5070d8df04c05ac878003ea3a704, type: 3}
   - {fileID: 21300000, guid: 4f5bb9c04ad71274097f42d6b1bb830a, type: 3}
-  - {fileID: 21300000, guid: c3eac4e07ddacd74092c162b3512ca82, type: 3}
   - {fileID: 21300000, guid: 8b6bea0173d97c744befc64bceab542e, type: 3}
   - {fileID: 21300000, guid: 04395511ad9f3fa4caca419869ec6ba5, type: 3}
   - {fileID: 21300000, guid: d66d92d1e501e4d12b64f78788cdada0, type: 3}
@@ -162,6 +161,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 07ff8b0340c7df94f8a4257a1a776eb7, type: 3}
   - {fileID: 21300000, guid: d39f12438282f3f4582fc4dbd4bed85d, type: 3}
   - {fileID: 21300000, guid: 2ba2d5a3829f2844da9780a46bde1f63, type: 3}
+  - {fileID: 21300000, guid: b08a43c373d843e4d9dca5d5df2f1571, type: 3}
   - {fileID: 21300000, guid: abae18041ec2b3a4d8d16772af05241d, type: 3}
   - {fileID: 21300000, guid: eea4c914f098743eb80820aef94b95ac, type: 3}
   - {fileID: 21300000, guid: 26a1063432a2745b0a994e82a0bc9845, type: 3}
@@ -239,7 +239,6 @@ SpriteAtlas:
   - BossIndicatorOutside
   - WeaponNameBg
   - HUDRankBackground
-  - CollectableStaticIndicatorLarge
   - SpeedPill
   - QuestBarFill
   - PlayerIndicatorFace
@@ -250,6 +249,7 @@ SpriteAtlas:
   - CircleWipe
   - Female01Avatar
   - Male02Avatar
+  - 1unitDiameterCircle
   - HUD_Coin
   - HealthBarShine
   - SpecialRing

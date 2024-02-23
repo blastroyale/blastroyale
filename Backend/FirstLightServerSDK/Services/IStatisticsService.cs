@@ -21,21 +21,16 @@ namespace FirstLightServerSDK.Services
 		/// Atempts to send user metrics to a given statistic. This is a non-blocking
 		/// fire and forget operation.
 		/// </summary>
-		void UpdateStatistics(string user, params ValueTuple<string, int> [] statistics);
+		Task UpdateStatistics(string user, params ValueTuple<string, int> [] statistics);
 
 		/// <summary>
 		/// Gets the current season of a given statistic
 		/// </summary>
-		void GetSeason(string name, Action<int> onGetSeason, Action<string> onError);
+		Task<int> GetSeason(string name);
 		
 		/// <summary>
 		/// Gets the statistics profile of a given user
 		/// </summary>
 		Task<PublicPlayerProfile> GetProfile(string user);
-		
-		/// <summary>
-		/// Gets season of a metric, async
-		/// </summary>
-		Task<int> GetSeasonAsync(string name);
 	}
 }

@@ -8,7 +8,7 @@ namespace Quantum
 	public partial class QuantumConsumableConfig
 	{
 		public GameId Id;
-		public AssetRefEntityPrototype AssetRef; 
+		public AssetRefEntityPrototype AssetRef;
 		public ConsumableType ConsumableType;
 		public QuantumGameModePair<FP> Amount;
 		public QuantumGameModePair<FP> ConsumableCollectTime;
@@ -25,6 +25,9 @@ namespace Quantum
 
 		private IDictionary<GameId, QuantumConsumableConfig> _dictionary = null;
 
+		private object _lock = new object();
+
+
 		/// <summary>
 		/// Requests the <see cref="QuantumConsumableConfig"/> defined by the given <paramref name="id"/>
 		/// </summary>
@@ -32,11 +35,16 @@ namespace Quantum
 		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<GameId, QuantumConsumableConfig>();
-
-				for (var i = 0; i < QuantumConfigs.Count; i++)
+				lock (_lock)
 				{
-					_dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					var dict = new Dictionary<GameId, QuantumConsumableConfig>();
+
+					for (var i = 0; i < QuantumConfigs.Count; i++)
+					{
+						dict.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					}
+
+					_dictionary = dict;
 				}
 			}
 

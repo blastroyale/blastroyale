@@ -106,7 +106,7 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(MatchState.MatchUnloadedEvent).OnTransition(StopAllAudio).Target(audioBase);
 			battleRoyale.OnExit(UnsubscribeMatchEvents);
 			battleRoyale.OnExit(() => SetSimulationRunning(false));
-            
+
 
 			postGameSpectatorCheck.Transition().Condition(IsSpectator).OnTransition(StopMusicInstant).Target(audioBase);
 			postGameSpectatorCheck.Transition().Target(postGame);
@@ -179,7 +179,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _services.RoomService.IsLocalPlayerSpectator;
 		}
-        
+
 
 		private void SetMatchServices()
 		{
@@ -442,7 +442,9 @@ namespace FirstLight.Game.StateMachines
 				yield break;
 			}
 
-			var config = f.Context.MapShrinkingCircleConfigs[callback.ShrinkingCircle.Step];
+			var config = f.Context.MapShrinkingCircleConfigs[Math.Clamp(callback.ShrinkingCircle.Step - 1,
+				0,
+				f.Context.MapShrinkingCircleConfigs.Count - 1)];
 
 			var circle = f.GetSingleton<ShrinkingCircle>();
 
@@ -560,8 +562,10 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.SourceId);
-			_services.AudioFxService.PlayClip3D(weaponConfig.ProjectileEndOfLife, callback.EndPosition.ToUnityVector3());
+			if (_services.ConfigsProvider.TryGetConfig<AudioWeaponConfig>((int) callback.SourceId, out var weaponConfig))
+			{
+				_services.AudioFxService.PlayClip3D(weaponConfig.ProjectileEndOfLife, callback.EndPosition.ToUnityVector3());
+			}
 		}
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
@@ -655,7 +659,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			// Killstreak announcer
-			_services.AudioFxService.PlayClipQueued2D(voKillstreakAudio);
+			_services.AudioFxService.PlayClipQueued2D(voKillstreakAudio, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 
 			// Clutch announcer
 			if (!frame.TryGet<Stats>(callback.EntityKiller, out var stats))
@@ -807,9 +811,13 @@ namespace FirstLight.Game.StateMachines
 				case GameId.EnergyCubeSmall:
 					audio = AudioId.GearPickup;
 					break;
+				case GameId.COIN:
+				case GameId.BPP:
+					audio = AudioId.LargeShieldPickup;
+					break;
 			}
 
-			
+
 			if (collectableId.IsInGroup(GameIdGroup.Weapon))
 			{
 				audio = AudioId.WeaponPickup;

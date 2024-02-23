@@ -64,13 +64,12 @@ namespace FirstLight.Game.Data
 		
 		public FrameSnapshot LastCapturedFrameSnapshot;
 
-		public bool ShowRealDamage = false;
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
 		public bool UseOverheadUI = false;
 		
-		public bool DialogueEnabled = true;
+		public bool DialogueEnabled = false;
 		public FpsTarget FpsTarget = FpsTarget.High;
 
 		public GraphicsConfig.DetailLevel CurrentDetailLevel

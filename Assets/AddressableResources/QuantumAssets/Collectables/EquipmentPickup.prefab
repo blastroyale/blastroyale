@@ -27,6 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3587682744574828602}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +35,6 @@ Transform:
   m_Children:
   - {fileID: 6324209233026971484}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7757663921541325714
 MonoBehaviour:
@@ -245,9 +245,12 @@ MonoBehaviour:
     Item:
       GameId:
         Value: 0
-      Edition:
-        Value: 0
       Rarity:
+        Value: 0
+      Material:
+        Value: 0
+      Level: 0
+      Edition:
         Value: 0
       Grade:
         Value: 0
@@ -255,12 +258,9 @@ MonoBehaviour:
         Value: 0
       Adjective:
         Value: 0
-      Material:
-        Value: 0
       MaxDurability: 0
       InitialReplicationCounter: 0
       Tuning: 0
-      Level: 0
       Generation: 0
       ReplicationCounter: 0
       TotalRestoredDurability: 0
@@ -351,6 +351,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.4
       objectReference: {fileID: 0}
+    - target: {fileID: 8394961782085835017, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: _itemGameObject
+      value: 
+      objectReference: {fileID: 2314415827602187134}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -359,6 +363,11 @@ PrefabInstance:
 --- !u!4 &2314415827602187133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7273039971299085641, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+  m_PrefabInstance: {fileID: 4967879128221675060}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2314415827602187134 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7273039971299085642, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
   m_PrefabInstance: {fileID: 4967879128221675060}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &3490737195945178941 stripped

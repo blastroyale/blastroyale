@@ -36,31 +36,14 @@ namespace Quantum
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);
-
-			var loadoutWeapon = playerCharacter->GetLoadoutWeapon(f);
-
-
 			if (Item.IsWeapon())
 			{
 				var primaryWeapon = isBot || 
 										Owner == playerRef ||
 										// If you don't have a weapon in loadout and you don't already have a weapon in slot 1
-										(!loadoutWeapon.IsValid() && !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid()) ||
-										// If you got the same type of weapon you have in loadout
-										Item.GameId == loadoutWeapon.GameId;
-				
-				// If a player has loadout weapon then we inherit rarity and faction from it
-				if (loadoutWeapon.IsValid())
-				{
-					Item.Rarity = loadoutWeapon.Rarity;
-					Item.Faction = loadoutWeapon.Faction;
-				}
+										(!playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid());
 				
 				playerCharacter->AddWeapon(f, playerEntity, ref Item, primaryWeapon);
-			}
-			else
-			{
-				playerCharacter->EquipGear(f, playerEntity, Item);
 			}
 
 			f.Events.OnEquipmentCollected(entity, playerRef, playerEntity);

@@ -5,6 +5,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
+using Quantum.Systems;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -72,6 +73,20 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(OnLocalPlayerWeaponChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(OnPlayerAmmoChanged);
+			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(OnPlayerKnockedOut);
+			QuantumEvent.SubscribeManual<EventOnPlayerRevived>(OnPlayerRevived);
+		}
+
+		private void OnPlayerRevived(EventOnPlayerRevived callback)
+		{
+			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
+			UpdateFromLatestVerifiedFrame();
+		}
+
+		private void OnPlayerKnockedOut(EventOnPlayerKnockedOut callback)
+		{
+			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
+			UpdateFromLatestVerifiedFrame();
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -83,10 +98,14 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 			var f = QuantumRunner.Default.Game.Frames.Verified;
+			
+			Element.SetDisplay(!ReviveSystem.IsKnockedOut(f, playerEntity));
 			if (!f.TryGet<PlayerCharacter>(playerEntity, out var pc))
 			{
 				return;
 			}
+
+			
 
 			SetWeapon(pc.WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon);
 			SetSlot(pc.CurrentWeaponSlot);
@@ -253,6 +272,9 @@ namespace FirstLight.Game.Views.UITK
 
 			_factionIcon.AddToClassList(string.Format(USS_SPRITE_FACTION,
 				weapon.Faction.ToString().ToLowerInvariant()));
+
+			// No need to show faction icon until we have usecase for it in a match
+			_factionIcon.SetVisibility(false);
 
 			_weaponIcon.style.backgroundImage = _weaponShadow.style.backgroundImage =
 				new StyleBackground(

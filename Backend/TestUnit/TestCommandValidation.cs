@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Backend.Game;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Logic.RPC;
 using NUnit.Framework;
 using FirstLight.Server.SDK.Models;
@@ -142,8 +143,9 @@ public class TestCommandValidation
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
+			return UniTask.CompletedTask;
 		}
 
 		public Enum[] AllowedEnvironments()
@@ -171,8 +173,9 @@ public class TestCommandValidation
 		public CommandAccessLevel AccessLevel() => _commandAccessLevel;
 		public CommandExecutionMode ExecutionMode() => _executionMode;
 
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
+			return UniTask.CompletedTask;
 		}
 	}
 }

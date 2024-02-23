@@ -2139,7 +2139,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       Loop: 1
       RandomiseStartTime: 0
-      BaseVolume: 1
+      BaseVolume: 0.2
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
@@ -2153,7 +2153,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       Loop: 1
       RandomiseStartTime: 0
-      BaseVolume: 1
+      BaseVolume: 0.2
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
@@ -2181,7 +2181,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       Loop: 1
       RandomiseStartTime: 0
-      BaseVolume: 1
+      BaseVolume: 0.2
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
@@ -2195,7 +2195,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       Loop: 1
       RandomiseStartTime: 0
-      BaseVolume: 1
+      BaseVolume: 0.2
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
@@ -2209,7 +2209,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       Loop: 1
       RandomiseStartTime: 0
-      BaseVolume: 1
+      BaseVolume: 0.2
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
@@ -2223,7 +2223,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       Loop: 1
       RandomiseStartTime: 0
-      BaseVolume: 1
+      BaseVolume: 0.2
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
@@ -2231,19 +2231,31 @@ MonoBehaviour:
   - Key: 85
     Value:
       AudioClips:
-      - m_AssetGUID: 156f86af8df14a74180542b245c684b2
+      - m_AssetGUID: 37e636c0e4a5b43d7b5ef37d0a62b6f4
         m_SubObjectName: 
         m_SubObjectType: 
-        m_EditorAssetChanged: 1
-      - m_AssetGUID: 367465b87beaeb746b9d69636203b038
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 6e7745cd2a8364f39b5e7c2fcc8a634e
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 8eec35e02cd96412d967422db62d1360
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 6fe20324430f042c890f3e59686ac714
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: e0d5597ef7bd5473585edb2634a814d4
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
       RandomiseStartTime: 0
-      BaseVolume: 0.7
+      BaseVolume: 0.1
       BasePitch: 0.9
-      VolumeRandDeviation: 0.2
+      VolumeRandDeviation: 0
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 170

@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -66,7 +68,7 @@ namespace FirstLight.Game.Utils
 		{
 			return element.worldBound.Overlaps(root.worldBound);
 		}
-		
+
 		/// <summary>
 		/// Gets the position (center of content rect) of the <paramref name="element"/>, in screen coordinates.
 		/// TODO: There has to be a better way to do this, without using the camera
@@ -177,7 +179,6 @@ namespace FirstLight.Game.Utils
 			const string USS_SPRITE_RARITY_RARE = USS_SPRITE_RARITY_MODIFIER + "rare";
 			const string USS_SPRITE_RARITY_EPIC = USS_SPRITE_RARITY_MODIFIER + "epic";
 			const string USS_SPRITE_RARITY_LEGENDARY = USS_SPRITE_RARITY_MODIFIER + "legendary";
-			const string USS_SPRITE_RARITY_RAINBOW = USS_SPRITE_RARITY_MODIFIER + "rainbow";
 
 			return id switch
 			{
@@ -191,7 +192,7 @@ namespace FirstLight.Game.Utils
 		}
 
 
-		public static async Task<Sprite> LoadSprite(GameId id)
+		public static async UniTask<Sprite> LoadSprite(GameId id)
 		{
 			// TODO: This should be handled better.
 			var services = MainInstaller.Resolve<IGameServices>();
@@ -199,21 +200,31 @@ namespace FirstLight.Game.Utils
 			return sprite;
 		}
 
-		public static async Task SetSprite(GameId id, params VisualElement[] elements)
+		public static async UniTask SetSprite(GameId id, params VisualElement[] elements)
 		{
 			await SetSprite(LoadSprite(id), elements);
 		}
 
-		public static async Task SetSprite(Task<Sprite> fetchSpriteTask, params VisualElement[] elements)
+		public static async UniTask SetSprite(UniTask<Sprite> fetchSpriteTask, params VisualElement[] elements)
 		{
 			foreach (var visualElement in elements)
 			{
+				if (visualElement == null || visualElement.panel == null || visualElement.panel.visualTree == null)
+				{
+					FLog.Warn($"Skipping nulling element {visualElement?.name} as its not valid");
+					continue;
+				}
 				visualElement.style.backgroundImage = null;
 			}
 
 			var sprite = await fetchSpriteTask;
 			foreach (var visualElement in elements)
 			{
+				if (visualElement == null || visualElement.panel == null || visualElement.panel.visualTree == null)
+				{
+					FLog.Warn($"Skipping updating element background element {visualElement?.name} as its not valid");
+					continue;
+				}
 				visualElement.style.backgroundImage = new StyleBackground(sprite);
 			}
 		}
@@ -242,7 +253,7 @@ namespace FirstLight.Game.Utils
 			var itemData = gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
 			var spriteTask = gameServices.CollectionService.LoadCollectionItemSprite(itemData);
 
-			element.LoadFromTask(spriteTask);
+			element.LoadFromTask(spriteTask).Forget();
 		}
 	}
 }

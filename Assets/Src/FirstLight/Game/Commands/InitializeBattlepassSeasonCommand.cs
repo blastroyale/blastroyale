@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Server.SDK.Modules.Commands;
 
@@ -12,7 +13,7 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Initialization;
 
 		/// <inheritdoc />
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			ctx.Logic.BattlePassLogic().InitializeSeason();
 
@@ -20,6 +21,7 @@ namespace FirstLight.Game.Commands
 			var rewardItems = ctx.Logic.RewardLogic().CreateItemsFromConfigs(rewards);
 			ctx.Logic.BattlePassLogic().MarkRewardsFromPreviousSeasonsAsClaimed();
 			ctx.Logic.RewardLogic().RewardToUnclaimedRewards(rewardItems);
+			return UniTask.CompletedTask;
 		}
 	}
 }

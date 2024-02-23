@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
@@ -51,7 +52,6 @@ namespace FirstLight.Game.Presenters
 
 		private ScreenHeaderElement _header;
 
-		private MightElement _might;
 		private VisualElement _details;
 		private Label _missingEquipment;
 		private Label _equipmentName;
@@ -61,7 +61,7 @@ namespace FirstLight.Game.Presenters
 		private Button _equipButton;
 		private PriceButton _scrapButton;
 		private PriceButton _upgradeButton;
-		private MultiPriceButton _fuseButton;
+		private PriceButton _fuseButton;
 		private ImageButton _infoButton;
 
 		private VisualElement _cooldownTag;
@@ -93,7 +93,6 @@ namespace FirstLight.Game.Presenters
 
 			_equipmentList = root.Q<ListView>("EquipmentList").Required();
 			_equipmentList.DisableScrollbars();
-			_might = root.Q<MightElement>("Might").Required();
 			_missingEquipment = root.Q<Label>("MissingEquipment").Required();
 			_missingEquipment.text = string.Format(NO_ITEMS_LOC_KEY, Data.EquipmentSlot.ToString().ToLowerInvariant())
 				.LocalizeKey();
@@ -110,7 +109,7 @@ namespace FirstLight.Game.Presenters
 			_equipButton = root.Q<Button>("EquipButton").Required();
 			_scrapButton = root.Q<PriceButton>("ScrapButton").Required();
 			_upgradeButton = root.Q<PriceButton>("UpgradeButton").Required();
-			_fuseButton = root.Q<MultiPriceButton>("FuseButton").Required();
+			_fuseButton = root.Q<PriceButton>("FuseButton").Required();
 			_infoButton = root.Q<ImageButton>("InfoButton").Required();
 
 			_equipButton.clicked += OnEquipClicked;
@@ -140,7 +139,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(Data.EquipmentSlot, OnLoadoutUpdated);
 		}
 
-		protected override Task OnClosed()
+		protected override UniTask OnClosed()
 		{
 			_gameDataProvider.EquipmentDataProvider.Loadout.StopObservingAll(this);
 
@@ -161,7 +160,6 @@ namespace FirstLight.Game.Presenters
 			UpdateEquipmentList(resetSelected);
 			UpdateEquipmentDetails();
 			UpdateEquipButtonText();
-			UpdateMight(false);
 		}
 
 
@@ -189,7 +187,6 @@ namespace FirstLight.Game.Presenters
 			if (previousItem != UniqueId.Invalid) _equipmentList.RefreshItem(_itemRowMap[previousItem]);
 			if (_equippedItem != UniqueId.Invalid) _equipmentList.RefreshItem(_itemRowMap[_equippedItem]);
 			UpdateEquipButtonText();
-			UpdateMight();
 		}
 
 		private void UpdateEquipmentList(bool resetSelected)
@@ -277,7 +274,7 @@ namespace FirstLight.Game.Presenters
 
 			// Title
 			_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.equipment_details_title,
-				string.Format(ADJECTIVE_LOC_KEY, info.Equipment.Adjective.ToString().ToLowerInvariant()).LocalizeKey(),
+				info.IsNft ? string.Format(ADJECTIVE_LOC_KEY, info.Equipment.Adjective.ToString().ToLowerInvariant()).LocalizeKey() : "",
 				info.Equipment.GameId.GetLocalization(),
 				info.Equipment.Level);
 
@@ -308,20 +305,12 @@ namespace FirstLight.Game.Presenters
 			// Prices
 			_scrapButton.SetPrice(info.ScrappingValue, info.IsNft, false, true);
 			_upgradeButton.SetPrice(info.UpgradeCost, info.IsNft, !HasEnoughCurrency(info.UpgradeCost));
-			_upgradeButton.SetEnabled(info.Equipment.Level < info.MaxLevel);
+			_upgradeButton.SetDisplay(info.Equipment.Level < info.MaxLevel);
 
-			bool[] sufficientFuseCost = new bool[info.FuseCost.Length];
-			for (int i = 0; i < info.FuseCost.Length; i++)
-			{
-				sufficientFuseCost[i] = !HasEnoughCurrency(info.FuseCost[i]);
-			}
-
-			_fuseButton.SetPrice(info.FuseCost, info.IsNft, sufficientFuseCost);
-
-			// TODO: Uncomment when/if we use Fusion again
-			// _fuseButton.SetEnabled(info.Equipment.Rarity < (EquipmentRarity.TOTAL - 1));
-			// _fuseButton.SetDisplay(!info.IsNft);
-			_fuseButton.SetDisplay(false);
+			_fuseButton.SetPrice(info.FuseCost[0], info.IsNft, !HasEnoughCurrency(info.FuseCost[0]));
+			_fuseButton.SetDisplay(!info.IsNft
+			                       && info.Equipment.Level == info.MaxLevel
+			                       && info.Equipment.Rarity < (EquipmentRarity.TOTAL - 1));
 
 			// Equip Button
 			_equipButton.SetEnabled(!info.IsBroken);
@@ -337,6 +326,9 @@ namespace FirstLight.Game.Presenters
 			{
 				_seenItems.Add(SelectedItem);
 			}
+			
+			// Info button
+			_infoButton.SetVisibility(info.IsNft);
 		}
 
 		private bool HasEnoughCurrency(Pair<GameId, uint> cost)
@@ -349,14 +341,6 @@ namespace FirstLight.Game.Presenters
 			_equipButton.text = _equippedItem == SelectedItem
 				? ScriptLocalization.UITEquipment.unpack
 				: ScriptLocalization.UITEquipment.pack;
-		}
-
-		private void UpdateMight(bool animate = true)
-		{
-			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
-			var might = loadout.GetTotalMight(_services.ConfigsProvider);
-
-			_might.SetMight(might, animate);
 		}
 
 		private VisualElement MakeEquipmentStatListItem()

@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
@@ -36,18 +40,21 @@ namespace FirstLight.Game.Presenters.Store
 		public const string UssCategoryButton = "category-button";
 
 		[SerializeField] private VisualTreeAsset _StoreProductView;
-		
+
 		private IGameServices _gameServices;
+		private IGameDataProvider _data;
 
 		private VisualElement _blocker;
 		private ScreenHeaderElement _header;
 		private VisualElement _productList;
 		private VisualElement _categoryList;
 		private ScrollView _scroll;
+		private Dictionary<string, VisualElement> _categoriesElements = new ();
 
 		private void Awake()
 		{
 			_gameServices = MainInstaller.Resolve<IGameServices>();
+			_data = MainInstaller.ResolveData();
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -61,30 +68,57 @@ namespace FirstLight.Game.Presenters.Store
 			_header.backClicked += Data.OnBackClicked;
 			_header.homeClicked += Data.OnHomeClicked;
 
+			root.Q<CurrencyDisplayElement>("Coins")
+				.AttachView(this, out CurrencyDisplayView _);
+
+			root.Q<CurrencyDisplayElement>("BlastBucks")
+				.AttachView(this, out CurrencyDisplayView _);
+
+			_categoriesElements.Clear();
 			foreach (var category in _gameServices.IAPService.AvailableProductCategories)
 			{
 				var categoryElement = new StoreCategoryElement(category.Name);
 				foreach (var product in category.Products)
 				{
 					var productElement = new StoreGameProductElement();
-					productElement.SetData(product, root);
-					productElement.OnClicked = BuyItem;
-					categoryElement.Add(productElement);
-					categoryElement.EnsureSize(productElement.size);
-				}
-				
-				_productList.Add(categoryElement);
 
+					categoryElement.Add(productElement);
+					categoryElement.EnsureSize(product.PlayfabProductConfig.StoreItemData.Size);
+					var flags = ProductFlags.NONE;
+					if (IsItemOwned(product))
+					{
+						flags |= ProductFlags.OWNED;
+					}
+					else
+					{
+						productElement.OnClicked = BuyItem;
+					}
+
+					productElement.SetData(product, flags, root);
+				}
+
+				_productList.Add(categoryElement);
 				var categoryButton = new Button();
 				categoryButton.text = category.Name;
 				categoryButton.AddToClassList(UssCategoryButton);
-				categoryButton.clicked += () => SelectCategory(categoryElement, category);
+				categoryButton.clicked += () => SelectCategory(categoryElement);
 				_categoryList.Add(categoryButton);
+				_categoriesElements[category.Name] = categoryElement;
 			}
+
 			base.QueryElements(root);
 		}
 
-		private void SelectCategory(VisualElement categoryContainer, GameProductCategory category)
+		/// <summary>
+		/// Checks if its already owned and should not allow double purchase
+		/// </summary>
+		private bool IsItemOwned(GameProduct product)
+		{
+			if (!product.GameItem.Id.IsInGroup(GameIdGroup.Collection)) return false;
+			return _data.CollectionDataProvider.IsItemOwned(product.GameItem);
+		}
+
+		private void SelectCategory(VisualElement categoryContainer)
 		{
 			var targetX = categoryContainer.resolvedStyle.left;
 			_scroll.experimental.animation.Start(0, 1f, 300, (element, percent) =>
@@ -95,11 +129,30 @@ namespace FirstLight.Game.Presenters.Store
 			}).Ease(Easing.OutCubic);
 		}
 
+		public void GoToCategoryWithProduct(GameId id)
+		{
+			foreach (var category in _gameServices.IAPService.AvailableProductCategories)
+			{
+				if (category.Products.Any(a => a.GameItem.Id == id))
+				{
+					SelectCategory(_categoriesElements[category.Name]);
+					return;
+				}
+			}
+		}
+
 		protected override void SubscribeToEvents()
 		{
+			base.SubscribeToEvents();
 			_gameServices.MessageBrokerService.Subscribe<OpenedCoreMessage>(OnCoresOpened);
 			_gameServices.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_gameServices.IAPService.UnityStore.OnPurchaseFailure += OnPurchaseFailed;
+			_gameServices.IAPService.PurchaseFinished += OnPurchaseFinished;
+		}
+
+		private void OnPurchaseFinished(ItemData item, bool success)
+		{
+			_blocker.style.display = DisplayStyle.None;
 		}
 
 		[Button]
@@ -115,7 +168,7 @@ namespace FirstLight.Game.Presenters.Store
 				ButtonOnClick = () => _gameServices.GenericDialogService.CloseDialog()
 			};
 
-			_gameServices.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, 
+			_gameServices.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error,
 				string.Format(ScriptLocalization.UITStore.iap_error, reason.ToString()), false, confirmButton);
 #else
 			var button = new FirstLight.NativeUi.AlertButton
@@ -131,6 +184,7 @@ namespace FirstLight.Game.Presenters.Store
 
 		private void OnCoresOpened(OpenedCoreMessage msg)
 		{
+			FLog.Verbose("Store Screen", $"Viewing Opening Core {msg.Core}");
 			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 			{
 				ParentItem = msg.Core,
@@ -142,11 +196,12 @@ namespace FirstLight.Game.Presenters.Store
 				}
 			});
 		}
-		
+
 		private void OnItemRewarded(ItemRewardedMessage msg)
 		{
-			// Handle only currency, other types are handled by claiming rewards
-			if (!msg.Item.Id.IsInGroup(GameIdGroup.Currency)) return;
+			// Cores are handled above separately
+			FLog.Verbose("Store Screen", $"Viewing Reward {msg.Item}");
+			if (!msg.Item.Id.IsInGroup(GameIdGroup.Currency) && !msg.Item.Id.IsInGroup(GameIdGroup.Collection)) return;
 			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 			{
 				Items = new List<ItemData> {msg.Item},
@@ -160,14 +215,16 @@ namespace FirstLight.Game.Presenters.Store
 
 		protected override void UnsubscribeFromEvents()
 		{
+			base.UnsubscribeFromEvents();
 			_gameServices.MessageBrokerService.UnsubscribeAll(this);
 			_gameServices.IAPService.UnityStore.OnPurchaseFailure -= OnPurchaseFailed;
+			_gameServices.IAPService.PurchaseFinished -= OnPurchaseFinished;
 		}
 
 		private void BuyItem(GameProduct product)
 		{
 			if (_blocker.style.display == DisplayStyle.Flex) return;
-			
+
 			_blocker.style.display = DisplayStyle.Flex;
 			Data.OnPurchaseItem(product);
 		}

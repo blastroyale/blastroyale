@@ -17,16 +17,18 @@ namespace FirstLight.Game.Presenters
 		private RewardsAnimationController _animationController;
 		private AnimatedBackground _animatedBackground;
 		private PlayableDirector _animationDirector;
+		private AnimatedBackground.AnimatedBackgroundColor _genericBgColor;
 
 		private Label _name;
 		private Label _amount;
 		private VisualElement _icon;
 
-		public void Init(RewardsAnimationController animationController, AnimatedBackground animatedBackground, PlayableDirector animationDirector)
+		public void Init(RewardsAnimationController animationController, AnimatedBackground animatedBackground, PlayableDirector animationDirector, AnimatedBackground.AnimatedBackgroundColor genericBgColor)
 		{
 			_animationController = animationController;
 			_animatedBackground = animatedBackground;
 			_animationDirector = animationDirector;
+			_genericBgColor = genericBgColor;
 		}
 
 		public override void Attached(VisualElement element)
@@ -39,11 +41,12 @@ namespace FirstLight.Game.Presenters
 
 		public void ShowReward(IItemViewModel itemViewModel)
 		{
-			_animatedBackground.SetDefault();
+			_animatedBackground.SetColor(_genericBgColor);
 			_animationController.StartAnimation(_animationDirector, SKIP_ANIMATION_TIME);
+			_icon.RemoveModifiers();
 			itemViewModel.DrawIcon(_icon);
 			_name.text = itemViewModel.GameId.IsInGroup(GameIdGroup.ProfilePicture) ? "AVATAR" : itemViewModel.DisplayName;
-			
+
 			if (itemViewModel.Description != null)
 			{
 				_amount.SetVisibility(true);

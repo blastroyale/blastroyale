@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
@@ -56,6 +57,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnTiktokClicked;
 			public Action OnMatchmakingCancelClicked;
 			public Action OnLevelUp;
+			public Action NewsClicked;
 			public Action<List<ItemData>> OnRewardsReceived;
 		}
 
@@ -75,7 +77,9 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _equipmentNotification;
 		private VisualElement _collectionNotification;
 		private VisualElement _settingsNotification;
-
+		private VisualElement _newsNotification;
+		private VisualElement _newsNotificationShine;
+		
 		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
 
@@ -91,17 +95,12 @@ namespace FirstLight.Game.Presenters
 		private Label _bppPoolRestockTimeLabel;
 		private Label _bppPoolRestockAmountLabel;
 		private Label _bppPoolAmountLabel;
-		private VisualElement _csPoolContainer;
-		private Label _csPoolRestockTimeLabel;
-		private Label _csPoolRestockAmountLabel;
-		private Label _csPoolAmountLabel;
 		private Label _outOfSyncWarningLabel;
 		private Label _betaLabel;
 		private MatchmakingStatusView _matchmakingStatusView;
 		private Coroutine _updatePoolsCoroutine;
 		private HashSet<GameId> _currentAnimations = new ();
 		private HashSet<GameId> _initialized = new ();
-		private CurrencyDisplayElement _csOwned;
 
 		private void Awake()
 		{
@@ -154,32 +153,28 @@ namespace FirstLight.Game.Presenters
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
 			_collectionNotification = root.Q<VisualElement>("CollectionNotification").Required();
 			_settingsNotification = root.Q<VisualElement>("SettingsNotification").Required();
+			_newsNotification = root.Q<VisualElement>("NewsNotification").Required();
+			_newsNotificationShine = root.Q("NewsShine").Required();
+			_newsNotificationShine.AddRotatingEffect(1, 1);
 			
 			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
 			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
 			_bppPoolRestockTimeLabel = _bppPoolContainer.Q<Label>("RestockLabelTime").Required();
 			_bppPoolRestockAmountLabel = _bppPoolContainer.Q<Label>("RestockLabelAmount").Required();
 
-			_csPoolContainer = root.Q<VisualElement>("CSPoolContainer").Required();
-			_csPoolAmountLabel = _csPoolContainer.Q<Label>("AmountLabel").Required();
-			_csPoolRestockTimeLabel = _csPoolContainer.Q<Label>("RestockLabelTime").Required();
-			_csPoolRestockAmountLabel = _csPoolContainer.Q<Label>("RestockLabelAmount").Required();
-
 			_battlePassButton = root.Q<ImageButton>("BattlePassButton").Required();
 			_battlePassProgressElement = _battlePassButton.Q<VisualElement>("BattlePassProgressElement").Required();
 			_battlePassProgressLabel = _battlePassButton.Q<Label>("BPProgressText").Required();
 			_battlePassRarity = _battlePassButton.Q<VisualElement>("BPRarity").Required();
 
+			root.Q<ImageButton>("NewsButton").clicked += Data.NewsClicked;
+			
 			QueryElementsSquads(root);
 
 			_playButtonContainer = root.Q("PlayButtonHolder");
 			_playButton = root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
-			
-			_csOwned = root.Q<CurrencyDisplayElement>("CSCurrency");
-
-			_csOwned.AttachView(this, out CurrencyDisplayView _)
-			        .SetAnimationOrigin(_playButton);
+		
 			root.Q<CurrencyDisplayElement>("CoinCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
@@ -259,12 +254,25 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		private void SetHasNewsNotification(bool hasNews)
+		{
+			_newsNotification.SetDisplay(hasNews);
+			_newsNotificationShine.SetDisplay(hasNews);
+			if (hasNews)
+			{
+				_newsNotification.AnimatePing();
+				_newsNotificationShine.AnimatePing();
+			}
+		}
+
 		protected override void OnOpened()
 		{
 			base.OnOpened();
 			_settingsNotification.SetDisplay(_services.AuthenticationService.IsGuest);
 			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
+			SetHasNewsNotification(false);
+			_services.NewsService.HasNotSeenNews().ContinueWith(SetHasNewsNotification);
 #if !STORE_BUILD && !UNITY_EDITOR
 			_outOfSyncWarningLabel.SetDisplay(VersionUtils.IsOutOfSync());
 #else
@@ -272,11 +280,6 @@ namespace FirstLight.Game.Presenters
 #endif
 			_betaLabel.SetDisplay(FeatureFlags.BETA_VERSION);
 			
-			// We show CS in the top bar if player has some CS or equipment NFTs (which means CS pool is more than 0)
-			var cs = _dataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.CS);
-			_csOwned.SetDisplay(cs > 0 ||
-			                    _dataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.CS).PoolCapacity > 0);
-
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
 		}
@@ -302,7 +305,6 @@ namespace FirstLight.Game.Presenters
 			base.SubscribeToEvents();
 			_dataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
 			_dataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
-			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.CS, OnPoolChanged);
 			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.BPP, OnPoolChanged);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
 			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
@@ -392,7 +394,7 @@ namespace FirstLight.Game.Presenters
 		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
 		{
 			_currentAnimations.Add(id);
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.4f);
 
 			label.text = previous.ToString();
 
@@ -422,15 +424,12 @@ namespace FirstLight.Game.Presenters
 
 		private IEnumerator UpdatePoolLabels()
 		{
-			var waitForSeconds = new WaitForSeconds(GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
+			var waitForSeconds = new WaitForSeconds(GameConstants.Visuals.RESOURCE_POOL_UPDATE_TIME_SECONDS);
 
 			while (true)
 			{
 				UpdatePool(GameId.BPP, BPP_POOL_AMOUNT_FORMAT, _bppPoolRestockTimeLabel, _bppPoolRestockAmountLabel,
 					_bppPoolAmountLabel);
-				UpdatePool(GameId.CS, CS_POOL_AMOUNT_FORMAT, _csPoolRestockTimeLabel, _csPoolRestockAmountLabel,
-					_csPoolAmountLabel);
-
 				yield return waitForSeconds;
 			}
 		}
@@ -477,7 +476,7 @@ namespace FirstLight.Game.Presenters
 			_currentAnimations.Add(id);
 			// Apparently this initial delay is a must, otherwise "GetPositionOnScreen" starts throwing "Element out of bounds" exception OCCASIONALLY
 			// I guess it depends on how long the transition to home screen take; so these errors still may appear
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.4f);
 
 			var pointsDiff = (int) current - (int) previous;
 			var pointsToAnimate = Mathf.Clamp((current - previous) / 10, 3, 10);
@@ -532,12 +531,6 @@ namespace FirstLight.Game.Presenters
 		{
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
 			_gameModeLabel.text = LocalizationUtils.GetTranslationForGameModeId(current.GameModeId);
-
-			var hasPool = current.AllowedRewards.Contains(GameId.CS)
-				&& _dataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.CS).PoolCapacity > 0;
-			_csPoolContainer.SetDisplay(hasPool);
-			_playButtonContainer.EnableInClassList("button-with-pool", hasPool);
-
 			_gameModeButton.SetEnabled(!_partyService.HasParty.Value && !_partyService.OperationInProgress.Value);
 		}
 

@@ -1,10 +1,10 @@
-using System;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Analytics;
+using FirstLight.FLogger;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
@@ -41,7 +41,7 @@ namespace FirstLight.Game.Views
 
 		private void Start()
 		{
-			_ = StartTask();
+			StartTask().Forget();
 		}
 
 		/// <summary>
@@ -50,15 +50,15 @@ namespace FirstLight.Game.Views
 		/// So this is to try to make it appear at least. This is ultra hacky but life is about
 		/// what u have on the moment i guess
 		/// </summary>
-		private async Task PermissionRequestHack()
+		private async UniTask PermissionRequestHack()
 		{
-			await Task.Delay(500);
+			await UniTask.Delay(500);
 			if(!_permissions.IsPermissionsAnswered()) _permissions.RequestPermissions();
-			await Task.Delay(1500);
+			await UniTask.Delay(1500);
 			if(!_permissions.IsPermissionsAnswered()) _permissions.RequestPermissions();
 		}
 
-		private async Task StartTask()
+		private async UniTask StartTask()
 		{
 			var asyncOperation = SceneManager.LoadSceneAsync(_mainSceneName, LoadSceneMode.Additive);
 
@@ -73,7 +73,7 @@ namespace FirstLight.Game.Views
 
 			Debug.Log("initializing with analytics enabled = " + _permissions.IsTrackingAccepted());
 			
-			await UnityServices.InitializeAsync();
+			await UnityServices.InitializeAsync().AsUniTask();
 			await StartAnalytics();
 			if (_permissions.IsTrackingAccepted())
 			{
@@ -90,21 +90,21 @@ namespace FirstLight.Game.Views
 			if(hasFocus) _permissions.RequestPermissions();
 		}
 
-		private async Task WaitForInstaller()
+		private async UniTask WaitForInstaller()
 		{
-			while (!MainInstaller.TryResolve<IGameServices>(out var _))
+			while (!MainInstaller.TryResolve<IGameServices>(out _))
 			{
-				await Task.Yield();
+				await UniTask.Yield();
 			}
 		}
 
-		private async Task StartAnalytics()
+		private async UniTask StartAnalytics()
 		{
-			var dependencyStatus = FirebaseApp.CheckAndFixDependenciesAsync();
+			var dependencyStatus = FirebaseApp.CheckAndFixDependenciesAsync().AsUniTask();
 
 			await dependencyStatus;
 
-			if (dependencyStatus.Result != DependencyStatus.Available)
+			if (dependencyStatus.Status != UniTaskStatus.Succeeded)
 			{
 				throw new InitializationException(InitResult.FailedMissingDependency,
 					$"Firebase could not be initialized properly. Status: {dependencyStatus}");
@@ -130,18 +130,18 @@ namespace FirstLight.Game.Views
 			}
 		}
 
-		private async Task MergeScenes(AsyncOperation asyncOperation)
+		private async UniTask MergeScenes(AsyncOperation asyncOperation)
 		{
 			while (!SplashScreen.isFinished || asyncOperation.progress < 0.9f || _audioSource.isPlaying)
 			{
-				await Task.Yield();
+				await UniTask.Yield();
 			}
 
 			asyncOperation.allowSceneActivation = true;
 
 			while (!asyncOperation.isDone)
 			{
-				await Task.Yield();
+				await UniTask.Yield();
 			}
 
 			await WaitForInstaller();

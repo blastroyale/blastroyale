@@ -24,7 +24,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
-      AllowedMaps: 6c00000041000000710000007200000073000000
+      AllowedMaps: 6c00000041000000710000007200000073000000c5000000c6000000c8000000
       RankSorter: 0
       RankProcessor: 0
       ShowUIMinimap: 1
@@ -58,6 +58,8 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 1
+      MetaCoinsMultiplier: 100
+      MetaBppMultiplier: 10
       IsDebugOnly: 0
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
@@ -70,7 +72,7 @@ MonoBehaviour:
       Teams: 1
       MaxPlayersInTeam: 3
       MinPlayersInTeam: 1
-      AllowedMaps: 6c00000041000000710000007200000073000000
+      AllowedMaps: 6c00000041000000710000007200000073000000c5000000c6000000c8000000
       RankSorter: 1
       RankProcessor: 1
       ShowUIMinimap: 1
@@ -104,6 +106,8 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 1
+      MetaCoinsMultiplier: 100
+      MetaBppMultiplier: 3
       IsDebugOnly: 0
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
@@ -150,6 +154,8 @@ MonoBehaviour:
       CompletionStrategy: 2
       CompletionKillCount: 10
       AllowEarlyRewards: 0
+      MetaCoinsMultiplier: 1
+      MetaBppMultiplier: 1
       IsDebugOnly: 1
       Systems: []
     - Id: Testing
@@ -158,7 +164,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
-      AllowedMaps: 0b00000005000000
+      AllowedMaps: 0b00000005000000f1030000
       RankSorter: 0
       RankProcessor: 0
       ShowUIMinimap: 0
@@ -192,6 +198,8 @@ MonoBehaviour:
       CompletionStrategy: 0
       CompletionKillCount: 0
       AllowEarlyRewards: 1
+      MetaCoinsMultiplier: 1
+      MetaBppMultiplier: 1
       IsDebugOnly: 1
       Systems: []
     - Id: Tutorial
@@ -221,7 +229,7 @@ MonoBehaviour:
       SpawnPattern: 0
       DeathDropStrategy: 5
       DeathMarker: 0
-      MinimumHealth: 100
+      MinimumHealth: 15
       InstantLoad: 1
       AllowBots: 1
       UseBotsFromGamemode: 
@@ -234,6 +242,8 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 0
+      MetaCoinsMultiplier: 1
+      MetaBppMultiplier: 1
       IsDebugOnly: 1
       Systems: []
     - Id: BattleRoyale First Game
@@ -276,6 +286,8 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 1
+      MetaCoinsMultiplier: 100
+      MetaBppMultiplier: 1
       IsDebugOnly: 1
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
@@ -288,7 +300,7 @@ MonoBehaviour:
       Teams: 1
       MaxPlayersInTeam: 2
       MinPlayersInTeam: 1
-      AllowedMaps: 6c00000041000000710000007200000073000000
+      AllowedMaps: 6c00000041000000710000007200000073000000c5000000c6000000c8000000
       RankSorter: 1
       RankProcessor: 1
       ShowUIMinimap: 1
@@ -322,6 +334,8 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 1
+      MetaCoinsMultiplier: 100
+      MetaBppMultiplier: 1
       IsDebugOnly: 0
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,

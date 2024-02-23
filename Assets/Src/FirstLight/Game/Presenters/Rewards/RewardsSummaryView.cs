@@ -24,31 +24,31 @@ namespace FirstLight.Game.Presenters
 		private const string USS_FAME_REWARDS_SUMMARY = "rewards-summary--fame";
 
 		private IGameDataProvider _dataProvider;
-		private IGameServices _services;
 
 		private RewardsAnimationController _animationController;
 		private AnimatedBackground _animatedBackground;
 		private PlayableDirector _animationDirector;
 		private bool _isFame;
+		private AnimatedBackground.AnimatedBackgroundColor _summaryBgColor;
 
 		private VisualElement _container;
 		private PlayerAvatarElement _avatar;
 		private Label _reachLevelLabel;
-		
+
 		public void Init(RewardsAnimationController animationController, AnimatedBackground animatedBackground, PlayableDirector animationDirector,
-						 bool isFame)
+						 bool isFame, AnimatedBackground.AnimatedBackgroundColor summaryBgColor)
 		{
 			_animationController = animationController;
 			_animatedBackground = animatedBackground;
 			_animationDirector = animationDirector;
 			_isFame = isFame;
+			_summaryBgColor = summaryBgColor;
 		}
 
 		public override void Attached(VisualElement element)
 		{
 			base.Attached(element);
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_services = MainInstaller.ResolveServices();
 
 			_container = element.Q<VisualElement>("RewardsContainer").Required();
 			_avatar = element.Q<PlayerAvatarElement>("Avatar").Required();
@@ -65,7 +65,7 @@ namespace FirstLight.Game.Presenters
 			_avatar.SetLevel(currentLevel);
 			_avatar.SetAvatar(_dataProvider.AppDataProvider.AvatarUrl);
 		}
-		
+
 
 		public void CreateSummaryElements(IEnumerable<ItemData> items, bool fameRewards)
 		{
@@ -94,7 +94,7 @@ namespace FirstLight.Game.Presenters
 
 		public void Show()
 		{
-			_animatedBackground.SetDefault();
+			_animatedBackground.SetColor(_summaryBgColor);
 			if (_isFame)
 			{
 				_animationController.StartAnimation(_animationDirector, FAME_MIDDLE_SKIP_TIME, FAME_MIDDLE_SKIP_TIME);

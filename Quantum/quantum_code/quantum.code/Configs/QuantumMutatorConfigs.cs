@@ -6,12 +6,12 @@ namespace Quantum
 {
 	public enum MutatorType
 	{
-		SpecialsCooldowns,
+		SpecialsCooldowns, // DEPRECATED, but kept in ENUM to not mess IDs
 		Speed,
 		HealthPerSeconds,
 		AbsoluteAccuracy, // DEPRECATED, but kept in ENUM to not mess IDs
 		HammerTime,
-		ForceLevelPlayingField,
+		ForceLevelPlayingField, // DEPRECATED, but kept in ENUM to not mess IDs
 		HidePlayerNames,
 		DoNotDropSpecials,
 		PistolsOnly,
@@ -22,6 +22,7 @@ namespace Quantum
 		RPGsOnly,
 		ConsumablesSharing,
 		SpecialsMayhem,
+		DisableRevive,
 	}
 
 	[Serializable]
@@ -43,6 +44,8 @@ namespace Quantum
 
 		private IDictionary<string, QuantumMutatorConfig> _dictionary;
 
+		private object _lock = new object();
+		
 		/// <summary>
 		/// Requests the <see cref="QuantumMutatorConfig"/> defined by the given <paramref name="id"/>
 		/// </summary>
@@ -50,14 +53,16 @@ namespace Quantum
 		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<string, QuantumMutatorConfig>();
-
-				for (var i = 0; i < QuantumConfigs.Count; i++)
+				lock (_lock)
 				{
-					_dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					var dictionary = new Dictionary<string, QuantumMutatorConfig>();
+					for (var i = 0; i < QuantumConfigs.Count; i++)
+					{
+						dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					}
+					_dictionary = dictionary;
 				}
 			}
-
 			return _dictionary[id];
 		}
 	}

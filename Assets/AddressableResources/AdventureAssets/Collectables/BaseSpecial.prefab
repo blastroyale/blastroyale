@@ -19740,15 +19740,27 @@ PrefabInstance:
       value: BaseSpecial
       objectReference: {fileID: 0}
     - target: {fileID: 4159690803613263917, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159690803613263917, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: m_Animation
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4159690803613263917, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: m_Animations.Array.size
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4159690803613263917, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: m_Animations.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159690803613263917, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: m_Animations.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159690803613263917, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: m_Animations.Array.data[2]
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}

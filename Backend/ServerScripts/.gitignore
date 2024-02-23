@@ -265,3 +265,5 @@ __pycache__/
 
 # Zip bundles for deployment
 *.zip
+
+playfab_key.txt

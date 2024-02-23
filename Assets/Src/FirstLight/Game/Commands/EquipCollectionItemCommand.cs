@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -18,7 +19,7 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			var category = ctx.Logic.CollectionLogic().Equip(Item);
 			ctx.Services.MessageBrokerService().Publish(new CollectionItemEquippedMessage()
@@ -26,6 +27,7 @@ namespace FirstLight.Game.Commands
 				Category = category,
 				EquippedItem = Item
 			});
+			return UniTask.CompletedTask;
 		}
 	}
 }

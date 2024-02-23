@@ -27,7 +27,9 @@ namespace FirstLight.Game.Services.Match
 
 			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
+			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
 		}
+
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
@@ -41,8 +43,20 @@ namespace FirstLight.Game.Services.Match
 		private void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
 		{
 			if (callback.PlayerEntity != _localPlayerEntity) return;
-
+			if (callback.SpellType == Spell.KnockedOut) return;
 			HapticPatterns.PlayPreset(HapticPatterns.PresetType.MediumImpact);
+		}
+
+		private void OnPlayerKnockedOut(EventOnPlayerKnockedOut callback)
+		{
+			if (callback.Entity == _localPlayerEntity)
+			{
+				HapticPatterns.PlayPreset(HapticPatterns.PresetType.Failure);
+			}
+			else if (callback.Attacker == _localPlayerEntity)
+			{
+				HapticPatterns.PlayPreset(HapticPatterns.PresetType.Success);
+			}
 		}
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)

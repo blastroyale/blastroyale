@@ -17,8 +17,7 @@ namespace FirstLight.Editor.EditorTools.Skins
 		private Camera _camera;
 		private Vector3 _originalCameraPos;
 		private Quaternion _originalCameraRot;
-
-
+		
 		private RenderTexture _rt;
 
 		private async void Start()

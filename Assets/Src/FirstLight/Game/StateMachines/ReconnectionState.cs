@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.DemiLib;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
@@ -132,6 +133,13 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasPendingMatch()
 		{
+			#if UNITY_EDITOR
+			if (FeatureFlags.GetLocalConfiguration().DisableReconnection)
+			{
+				ClearSnapshot();
+				return false;
+			}
+			#endif
 			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
 			var isTutorial = snapShot.Setup is {GameModeId: GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID};
 			var canRestoreFromSnapshot = _services.GameBackendService.RunsSimulationOnServer() || snapShot.Offline || snapShot.AmtPlayers > 1;
@@ -154,7 +162,7 @@ namespace FirstLight.Game.StateMachines
 			return false;
 		}
 
-		private async Task MatchTransition()
+		private async UniTaskVoid MatchTransition()
 		{
 			await SwipeScreenPresenter.StartSwipe();
 			await _uiService.CloseUi<LoadingScreenPresenter>();
@@ -162,7 +170,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void JoinPendingMatch()
 		{
-			MatchTransition();
+			MatchTransition().Forget();
 			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
 			if (snapShot.Offline)
 			{

@@ -89,7 +89,7 @@ namespace FirstLight.Game.Services
 			_data = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_dataService = dataService;
-			_services.MessageBrokerService.Subscribe<ApplicationFocusMessage>(OnApplicationFocus);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			_services.MessageBrokerService.Subscribe<SimulationEndedMessage>(OnSimulationEnd);
 		}
 
@@ -105,9 +105,9 @@ namespace FirstLight.Game.Services
 			}
 		}
 		 
-		private void OnApplicationFocus(ApplicationFocusMessage msg)
+		private void OnMatchStarted(MatchStartedMessage msg)
 		{
-			if (!msg.IsFocus && QuantumRunner.Default != null && QuantumRunner.Default.Game?.Frames.Verified != null)
+			if (QuantumRunner.Default != null && QuantumRunner.Default.Game?.Frames.Verified != null)
 			{
 				TakeSnapshot(QuantumRunner.Default.Game);
 			}
@@ -135,7 +135,6 @@ namespace FirstLight.Game.Services
 		{
 			if (!CanGameBeReconnected()) return;
 			
-			var isOffline = _services.NetworkService.LastConnectedRoom?.IsOffline;
 			var lastRoom = _services.RoomService.LastRoom;
 			var snapshot = new FrameSnapshot()
 			{
@@ -145,13 +144,6 @@ namespace FirstLight.Game.Services
 				Setup = lastRoom?.ToMatchSetup(),
 				AmtPlayers = (byte) lastRoom?.GetRealPlayerAmount(),
 			};
-
-			if (ShouldAddFrameData())
-			{
-				FLog.Verbose("Taking frame data snapshot");
-				snapshot.SnapshotBytes = game.Frames.Verified.Serialize(DeterministicFrameSerializeMode.Blit);
-				snapshot.FrameNumber = game.Frames.Verified.Number;
-			}
 			
 			_data.AppDataProvider.LastFrameSnapshot.Value = snapshot;
 			_services.DataSaver.SaveData<AppData>();

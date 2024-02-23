@@ -62,7 +62,7 @@ namespace Quantum.Systems
 			{
 				if (f.TryGet<PlayerCharacter>(livingPlayer.Entity, out var playerCharacter) && !f.Has<BotCharacter>(livingPlayer.Entity))
 				{
-					f.Events.FireQuantumServerCommand(playerCharacter.Player, QuantumServerCommand.EndOfGameRewards);
+					f.ServerCommand(playerCharacter.Player, QuantumServerCommand.EndOfGameRewards);
 				}
 			}
 
@@ -108,7 +108,6 @@ namespace Quantum.Systems
 			var isHammerTimeMutator = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _);
 			var offPool = new List<GameId>(GameIdGroup.Weapon.GetIds().Where(item => !item.IsInGroup(GameIdGroup.Deprecated)));
 			var count = isHammerTimeMutator ? 0 : component->DropPool.WeaponPool.Length;
-			var rarity = 0;
 
 			offPool.Remove(GameId.Hammer);
 
@@ -119,27 +118,6 @@ namespace Quantum.Systems
 					component->DropPool.WeaponPool[i] = Equipment.Create(f, forcedWeaponId, EquipmentRarity.Common, 1);
 				}
 			}
-			else
-			{
-				for (var i = 0; i < count; i++)
-				{
-					var playerData = f.GetPlayerData(i);
-					var equipment = playerData?.Weapon;
-
-					if (!equipment.HasValue || !equipment.Value.IsValid() || equipment.Value.IsDefaultItem())
-					{
-						var index = f.RNG->Next(0, offPool.Count);
-
-						equipment = Equipment.Create(f, offPool[index], EquipmentRarity.Common, 1);
-					}
-
-					rarity += (int) equipment.Value.Rarity;
-					component->DropPool.WeaponPool[i] = equipment.Value;
-				}
-			}
-
-			component->DropPool.AverageRarity = (EquipmentRarity) FPMath.FloorToInt((FP) rarity / (count + 1));
-			component->DropPool.MedianRarity = component->DropPool.WeaponPool[count / 2].Rarity;
 		}
 
 		public void OnPlayerDataSet(Frame f, PlayerRef player)

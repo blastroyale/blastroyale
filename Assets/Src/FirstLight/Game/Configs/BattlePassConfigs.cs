@@ -26,7 +26,8 @@ namespace FirstLight.Game.Configs
 			public string StartsAt;
 			public string EndsAt;
 			public bool RemovePaid;
-			public bool RemoveEndGraphic; // TODO: Temporary until it's dynamic
+			public string EndGraphicImageClass;
+			public string EndGraphicName;
 			
 			public DateTime GetStartsAtDateTime() => DateTime.ParseExact(StartsAt, "d/M/yyyy", CultureInfo.InvariantCulture);
 			// Operations to get the last tick of the day

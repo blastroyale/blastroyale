@@ -59,6 +59,8 @@ namespace Quantum
 
 		private Dictionary<EquipmentMaterialStatsKey, QuantumEquipmentMaterialStatConfig> _dictionary = null;
 
+		private object _lock = new object();
+
 		/// <summary>
 		/// Requests the <see cref="QuantumEquipmentMaterialStatConfig"/> of the given <paramref name="equipment"/>
 		/// </summary>
@@ -66,14 +68,20 @@ namespace Quantum
 		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<EquipmentMaterialStatsKey, QuantumEquipmentMaterialStatConfig>();
-				
-				foreach (var statsConfig in QuantumConfigs)
+				lock (_lock)
 				{
-					_dictionary
-						.Add(new EquipmentMaterialStatsKey(statsConfig.Category, statsConfig.Material), statsConfig);
+					var dict = new Dictionary<EquipmentMaterialStatsKey, QuantumEquipmentMaterialStatConfig>();
+
+					foreach (var statsConfig in QuantumConfigs)
+					{
+						dict
+							.Add(new EquipmentMaterialStatsKey(statsConfig.Category, statsConfig.Material), statsConfig);
+					}
+
+					_dictionary = dict;
 				}
 			}
+
 
 			return _dictionary[equipment.GetMaterialStatsKey()];
 		}
@@ -109,13 +117,13 @@ namespace Quantum
 		{
 			unchecked
 			{
-				var hashCode = (int) Category;
-				hashCode = (hashCode * 397) ^ (int) Material;
+				var hashCode = (int)Category;
+				hashCode = (hashCode * 397) ^ (int)Material;
 				return hashCode;
 			}
 		}
 	}
-	
+
 	/// <summary>
 	/// Helper methods to work with <see cref="QuantumEquipmentMaterialStatConfig"/> and <see cref="EquipmentMaterialStatsKey"/>.
 	/// </summary>

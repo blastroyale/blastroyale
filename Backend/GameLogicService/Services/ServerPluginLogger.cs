@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using FirstLight.Server.SDK.Services;
 
@@ -20,7 +21,7 @@ namespace Backend.Game.Services
 		{
 			_mainLog.LogInformation(msg);
 		}
-
+		
 		public void LogDebug(string msg)
 		{
 			_mainLog.LogDebug(msg);

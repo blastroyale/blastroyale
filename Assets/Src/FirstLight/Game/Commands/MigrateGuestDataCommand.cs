@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
@@ -22,9 +23,9 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
-			if (ctx.Logic.PlayerLogic().MigratedGuestAccount) return;
+			if (ctx.Logic.PlayerLogic().MigratedGuestAccount) return UniTask.CompletedTask;
 			
 			// Mark all flags that were completed in guest data, but not player data
 			foreach (TutorialSection section in Enum.GetValues(typeof(TutorialSection)))
@@ -36,6 +37,7 @@ namespace FirstLight.Game.Commands
 			}
 			
 			ctx.Logic.PlayerLogic().MarkGuestAccountMigrated();
+			return UniTask.CompletedTask;
 		}
 	}
 }

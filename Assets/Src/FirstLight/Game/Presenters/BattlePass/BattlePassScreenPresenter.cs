@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -68,15 +69,17 @@ namespace FirstLight.Game.Presenters
 		private Label _freeTitle;
 		private LocalizedLabel _seasonEndsLabel;
 		private VisualElement _lastRewardBaloon;
+		private VisualElement _lastRewardSprite;
 		private ScreenHeaderElement _screenHeader;
 		private ImageButton _currentReward;
-		private VisualElement _endGraphic;
+		private VisualElement _endGraphicContainer;
+		private VisualElement _endGraphicPicture;
+		private Label _endGraphicLabel;
 
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 		private Dictionary<PassType, List<BattlePassSegmentData>> _segmentData;
 		private Dictionary<int, BattlepassLevelColumnElement> _levelElements;
-		private bool _finishedTutorialBpThisCycle = false;
 
 		private void Awake()
 		{
@@ -111,7 +114,10 @@ namespace FirstLight.Game.Presenters
 			_seasonEndsLabel = root.Q<LocalizedLabel>("SeasonEndsLabel").Required();
 			_lastRewardBaloon = root.Q("LastRewardBalloon");
 			_lastRewardBaloon.RegisterCallback<PointerDownEvent>(e => OnClickLastRewardIcon());
-			_endGraphic = root.Q("LastReward").Required();
+			_lastRewardSprite = root.Q("LastRewardSprite");
+			_endGraphicContainer = root.Q("LastReward").Required();
+			_endGraphicPicture = _endGraphicContainer.Q("RewardPicture").Required();
+			_endGraphicLabel = _endGraphicContainer.Q<Label>("RewardName").Required();
 			root.Q<CurrencyDisplayElement>("BBCurrency").AttachView(this, out CurrencyDisplayView _);
 
 			_rewardsScroll.horizontalScroller.valueChanged += OnScroll;
@@ -184,7 +190,6 @@ namespace FirstLight.Game.Presenters
 				new GenericPurchaseDialogPresenter.GenericPurchaseOptions()
 				{
 					ItemSprite = _battlepassPremiumSprite,
-					OverwriteTitle = ScriptLocalization.UITBattlePass.buy_premium_batttlepass_popup_title,
 					OverwriteItemName = ScriptLocalization.UITBattlePass.buy_premium_batttlepass_popup_item_name,
 					Value = price,
 					OnConfirm = () =>
@@ -210,7 +215,6 @@ namespace FirstLight.Game.Presenters
 				{
 					Value = price,
 					ItemSprite = _battlepassLevelSprite,
-					OverwriteTitle = ScriptLocalization.UITBattlePass.buy_level_popup_title,
 					OverwriteItemName = ScriptLocalization.UITBattlePass.buy_level_popup_item_name,
 					OnConfirm = () =>
 					{
@@ -229,7 +233,6 @@ namespace FirstLight.Game.Presenters
 		protected override void SubscribeToEvents()
 		{
 			base.SubscribeToEvents();
-			_services.MessageBrokerService.Subscribe<TutorialBattlePassCompleted>(OnTutorialBattlePassCompleted);
 			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.Observe(OnBpPointsChanged);
 		}
@@ -295,12 +298,6 @@ namespace FirstLight.Game.Presenters
 		{
 			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig();
 			return battlePassConfig.Season.RemovePaid;
-		}
-
-		private bool IsDisableEndGraphic()
-		{
-			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig();
-			return battlePassConfig.Season.RemoveEndGraphic;
 		}
 
 		private void InitScreen(bool update = false)
@@ -372,10 +369,17 @@ namespace FirstLight.Game.Presenters
 				{
 					column.DisablePaid();
 				}
-				
-				if(IsDisableEndGraphic())
+
+				if (string.IsNullOrEmpty(battlePassConfig.Season.EndGraphicImageClass))
 				{
-					_endGraphic.SetDisplay(false);
+					_endGraphicContainer.SetDisplay(false);
+				}
+				else
+				{
+					_endGraphicContainer.SetDisplay(true);
+					_endGraphicPicture.RemoveSpriteClasses();
+					_endGraphicPicture.AddToClassList(battlePassConfig.Season.EndGraphicImageClass);
+					_endGraphicLabel.text = battlePassConfig.Season.EndGraphicName;
 				}
 
 				column.SetBarData((uint) i + 1, completed, currentLevel, battlePassConfig.Season.BuyLevelPrice);
@@ -389,7 +393,8 @@ namespace FirstLight.Game.Presenters
 			}
 
 			SpawnScrollFiller();
-
+			UpdateLastRewardBubbleSprite().Forget();
+			
 			if (predictedProgress.Item1 > 1)
 			{
 				ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs, Data.DisableInitialScrollAnimation && !update);
@@ -397,6 +402,19 @@ namespace FirstLight.Game.Presenters
 
 			// Disable current reward bubble
 			_currentReward.SetDisplay(false);
+		}
+
+		public async UniTaskVoid UpdateLastRewardBubbleSprite()
+		{
+			// Go ahead miha, you can yell at me
+			var currentSeason = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig();
+			var type = currentSeason.Season.RemovePaid ? PassType.Free : PassType.Paid;
+			var rewards = _dataProvider.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select((_, e) => (uint)e+1), type);
+			rewards.Reverse();
+			var bestReward = rewards.First();
+			var itemData = _dataProvider.RewardDataProvider.CreateItemFromConfig(bestReward);
+			var loadTask = _services.CollectionService.LoadCollectionItemSprite(itemData);
+			await UIUtils.SetSprite(loadTask, _lastRewardSprite);
 		}
 
 		public RewardState GetRewardState(BattlePassSegmentData segment)
@@ -490,11 +508,6 @@ namespace FirstLight.Game.Presenters
 			_rewardsScroll.Add(filler);
 			filler.pickingMode = PickingMode.Ignore;
 			filler.AddToClassList(UssBpSegmentFiller);
-		}
-
-		private void OnTutorialBattlePassCompleted(TutorialBattlePassCompleted message)
-		{
-			_finishedTutorialBpThisCycle = true;
 		}
 
 		private void OnBattlePassLevelUp(BattlePassLevelUpMessage message)

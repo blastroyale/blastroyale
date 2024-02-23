@@ -5,14 +5,15 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
-	public unsafe delegate void SpellCallBack(Frame f, Spell* spell);  
-	
+	public unsafe delegate void SpellCallBack(Frame f, Spell* spell);
+
 	/// <summary>
 	/// This class contains various helper functions to use inside Quantum
 	/// </summary>
 	public static unsafe class QuantumHelpers
 	{
 		private static readonly FPVector3 LINE_OF_SIGHT_OFFSET = FPVector3.Up / 2;
+
 		/// <summary>
 		/// Requests the math <paramref name="power"/> of the given <paramref name="baseValue"/>
 		/// </summary>
@@ -27,7 +28,7 @@ namespace Quantum
 
 			return ret;
 		}
-		
+
 		/// <summary>
 		/// Makes the given entity <paramref name="e"/> rotate in the XZ axis to the given <paramref name="target"/> position
 		/// </summary>
@@ -71,7 +72,7 @@ namespace Quantum
 			return HasLineOfSight(f, source, destination, f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitStatics |
 				QueryOptions.HitKinematics, out firstHit);
 		}
-		
+
 		/// <summary>
 		/// Checks for map line of sight. Ignores players and other stuff.
 		/// </summary>
@@ -80,18 +81,19 @@ namespace Quantum
 			if (f.Has<Destructible>(two)) return true;
 			if (f.TryGet<Transform3D>(one, out var onePosition) && f.TryGet<Transform3D>(two, out var twoPosition))
 			{
-				return HasLineOfSight(f, onePosition.Position+LINE_OF_SIGHT_OFFSET, twoPosition.Position+LINE_OF_SIGHT_OFFSET, f.Context.TargetAllLayerMask, QueryOptions.HitStatics, out _);
+				return HasLineOfSight(f, onePosition.Position + LINE_OF_SIGHT_OFFSET, twoPosition.Position + LINE_OF_SIGHT_OFFSET, f.Context.TargetAllLayerMask, QueryOptions.HitStatics, out _);
 			}
+
 			return true;
 		}
-		
+
 		public static bool HasLineOfSight(Frame f, FPVector3 source, FPVector3 destination, int layerMask, QueryOptions options, out EntityRef? firstHit)
 		{
 			var hit = f.Physics3D.Linecast(source,
 				destination,
 				layerMask,
 				options
-				);
+			);
 			firstHit = hit?.Entity;
 			return !hit.HasValue;
 		}
@@ -114,13 +116,14 @@ namespace Quantum
 				transform->Rotation = FPQuaternion.AngleAxis(targetAngle, FPVector3.Up);
 				return;
 			}
+
 			var diff = FPMath.Abs(deltaAngle);
 			var complementDiff = 360 - diff;
 			var maxAngleDelta = lerpAngle * (diff < complementDiff ? diff : complementDiff);
 			var clampedDeltaAngle = FPMath.Clamp(deltaAngle, -maxAngleDelta, maxAngleDelta);
 			transform->Rotation = FPQuaternion.AngleAxis(currentAngle - clampedDeltaAngle, FPVector3.Up);
 		}
-		
+
 		/// <summary>
 		/// Determines if <paramref name="target"/> entity is between <paramref name="minRange"/> and <paramref name="maxRange"/> of another entity
 		/// </summary>
@@ -129,7 +132,7 @@ namespace Quantum
 			var sqrDistance = GetDistance(f, e, target);
 			return sqrDistance >= (minRange * minRange) && sqrDistance <= (maxRange * maxRange);
 		}
-		
+
 		/// <summary>
 		/// Determines if <paramref name="target"/> entity is between <paramref name="minRange"/> and <paramref name="maxRange"/> of another entity
 		/// </summary>
@@ -137,7 +140,7 @@ namespace Quantum
 		{
 			return FPVector3.DistanceSquared(f.Unsafe.GetPointer<Transform3D>(target)->Position, f.Unsafe.GetPointer<Transform3D>(e)->Position);
 		}
-		
+
 		/// <summary>
 		/// Determines if <paramref name="e"/> entity is valid, exists, not marked on destroy and targetable
 		/// </summary>
@@ -147,11 +150,11 @@ namespace Quantum
 			{
 				return false;
 			}
-			
+
 			return !IsDestroyed(f, e) && f.TryGet<Targetable>(e, out var targetable) &&
-			       (targetable.Team != attackerTeam || targetable.Team == Constants.TEAM_ID_NEUTRAL || attackerTeam == Constants.TEAM_ID_NEUTRAL);
+				(targetable.Team != attackerTeam || targetable.Team == Constants.TEAM_ID_NEUTRAL || attackerTeam == Constants.TEAM_ID_NEUTRAL);
 		}
-		
+
 		/// <summary>
 		/// Determines if <paramref name="e"/> entity is destroyed in the game
 		/// </summary>
@@ -171,24 +174,24 @@ namespace Quantum
 			{
 				return 0;
 			}
-			
+
 			uint hitCount = 0;
 			var shape = Shape3D.CreateSphere(radius);
-			var hits = f.Physics3D.OverlapShape(spell->OriginalHitPosition, FPQuaternion.Identity, shape, 
-			                                    f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
-			
+			var hits = f.Physics3D.OverlapShape(spell->OriginalHitPosition, FPQuaternion.Identity, shape,
+				f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
+
 			hits.SortCastDistance();
 
 			for (var j = 0; j < hits.Count; j++)
 			{
 				var hitSpell = Spell.CreateInstant(f, hits[j].Entity, spell->Attacker, spell->SpellSource,
-				                                   spell->PowerAmount, spell->KnockbackAmount, hits[j].Point, spell->TeamSource);
+					spell->PowerAmount, spell->KnockbackAmount, hits[j].Point, spell->TeamSource);
 
 				if (hitSpell.Victim == spell->Attacker)
 				{
 					hitSpell.TeamSource = 0;
 					//TODO: this self damage modifier should take into account equipment modifiers once we have it, for now it's just a constant
-					hitSpell.PowerAmount = (uint)(spell->PowerAmount * Constants.SELF_DAMAGE_MODIFIER); 
+					hitSpell.PowerAmount = (uint)(spell->PowerAmount * Constants.SELF_DAMAGE_MODIFIER);
 				}
 
 				if (!ProcessHit(f, &hitSpell))
@@ -221,11 +224,11 @@ namespace Quantum
 			}
 
 			if (spell->KnockbackAmount > 0 &&
-			    f.Unsafe.TryGetPointer<CharacterController3D>(spell->Victim, out var kcc) &&
-			    f.TryGet<Transform3D>(spell->Victim, out var victimTransform))
+				f.Unsafe.TryGetPointer<CharacterController3D>(spell->Victim, out var kcc) &&
+				f.TryGet<Transform3D>(spell->Victim, out var victimTransform))
 			{
 				var kick = (victimTransform.Position - spell->OriginalHitPosition).Normalized *
-				           spell->KnockbackAmount;
+					spell->KnockbackAmount;
 				kick.Y = FP._0;
 				kcc->Velocity += kick;
 			}
@@ -234,18 +237,18 @@ namespace Quantum
 
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Get a random element from the <see cref="elements"/> based on weights
 		/// </summary>
 		public static T RngWeightBased<T>(Frame f, int weightSum, List<T> elements, Func<T, int> weightResolver)
 		{
 			var weight = f.RNG->Next(0, weightSum);
-			
+
 			for (int i = 0, sum = 0; i < elements.Count; i++)
 			{
 				sum += weightResolver(elements[i]);
-				
+
 				if (weight < sum)
 				{
 					return elements[i];
@@ -253,8 +256,8 @@ namespace Quantum
 			}
 
 			throw new ArgumentOutOfRangeException($"The weight sum {weightSum.ToString()} is bigger than the sumof the " +
-			                                      $"weights in the given elements list. " +
-			                                      $"Call {nameof(GetWeightSum)} with the same elements first before calling this.");
+				$"weights in the given elements list. " +
+				$"Call {nameof(GetWeightSum)} with the same elements first before calling this.");
 		}
 
 		/// <summary>
@@ -289,7 +292,7 @@ namespace Quantum
 				{
 					continue;
 				}
-				
+
 				spawners.Add(pair);
 			}
 
@@ -311,12 +314,12 @@ namespace Quantum
 			}
 
 			var entity = spawners[0].Entity;
-			
+
 			f.Unsafe.GetPointer<PlayerSpawner>(entity)->ActivationTime = f.Time + Constants.SPAWNER_INACTIVE_TIME;
 
 			return new EntityComponentPair<Transform3D>
 			{
-				Component = f.Get<Transform3D>(entity), 
+				Component = f.Get<Transform3D>(entity),
 				Entity = entity
 			};
 		}
@@ -335,17 +338,16 @@ namespace Quantum
 		/// </summary>
 		public static bool TryFindPosOnNavMesh(Frame f, FPVector3 initialPosition, FP radius, out FPVector3 correctedPosition)
 		{
-			
 			var navMesh = f.NavMesh;
 
-			if (navMesh.FindRandomPointOnNavmesh(initialPosition, radius, f.RNG, NavMeshRegionMask.Default, 
-			                                     out correctedPosition))
+			if (navMesh.FindRandomPointOnNavmesh(initialPosition, radius, f.RNG, NavMeshRegionMask.Default,
+					out correctedPosition))
 			{
 				return true;
 			}
 
-			if (navMesh.FindClosestTriangle(initialPosition, radius * 2, NavMeshRegionMask.Default, out var triangle, 
-			                                out correctedPosition))
+			if (navMesh.FindClosestTriangle(initialPosition, radius * 2, NavMeshRegionMask.Default, out var triangle,
+					out correctedPosition))
 			{
 				return navMesh.FindRandomPointOnTriangle(triangle, f.RNG, out correctedPosition);
 			}
@@ -368,7 +370,18 @@ namespace Quantum
 		{
 			return f.Unsafe.GetPointer<Transform3D>(entity)->Position;
 		}
-		
+
+		/// <summary>
+		/// Set the Position inside the <see cref="Transform3D"/> component of the provided entity
+		/// </summary>
+		/// <param name="entity"></param>
+		/// <param name="f"></param>
+		/// <param name="position"></param>
+		public static void SetPosition(this EntityRef entity, Frame f, FPVector3 position)
+		{
+			f.Unsafe.GetPointer<Transform3D>(entity)->Position = position;
+		}
+
 		/// <summary>
 		/// Calculates and returns an augmented shot angle based on approximation of normal distribution
 		/// </summary>
@@ -378,9 +391,9 @@ namespace Quantum
 		/// </remarks>
 		public static FP GetSingleShotAngleAccuracyModifier(Frame f, FP targetAttackAngle)
 		{
-			var rngNumber = f.RNG->NextInclusive(0,100);
+			var rngNumber = f.RNG->NextInclusive(0, 100);
 			var angleStep = targetAttackAngle / Constants.APPRX_NORMAL_DISTRIBUTION.Length;
-			
+
 			for (var i = 0; i < Constants.APPRX_NORMAL_DISTRIBUTION.Length; i++)
 			{
 				if (rngNumber <= Constants.APPRX_NORMAL_DISTRIBUTION[i])
@@ -388,7 +401,7 @@ namespace Quantum
 					return f.RNG->Next(angleStep * i, angleStep * (i + 1)) - (targetAttackAngle / FP._2);
 				}
 			}
-			
+
 			return FP._0;
 		}
 
@@ -399,7 +412,7 @@ namespace Quantum
 		{
 			return attackDirection == FPVector2.Zero ? (rotation * FPVector3.Forward).XZ : attackDirection;
 		}
-		
+
 		/// <summary>
 		/// Used to sort spawners based on relevancy to the type of player that is spawning. If it's a bot, it will first provide spawners specifically for bots, and so on.
 		/// </summary>
@@ -408,8 +421,8 @@ namespace Quantum
 			return (pair, pointerPair) =>
 			{
 				// If its the same spawner type, BotOfType still needs to also compare the Behaviour Type
-				if (pair.Component->SpawnerType == pointerPair.Component->SpawnerType && 
-					(pair.Component->SpawnerType!= SpawnerType.BotOfType || pair.Component->BehaviourType == pointerPair.Component->BehaviourType))
+				if (pair.Component->SpawnerType == pointerPair.Component->SpawnerType &&
+					(pair.Component->SpawnerType != SpawnerType.BotOfType || pair.Component->BehaviourType == pointerPair.Component->BehaviourType))
 				{
 					if (sortByDistance)
 					{
@@ -417,15 +430,15 @@ namespace Quantum
 						var pos2 = f.Get<Transform3D>(pointerPair.Entity).Position;
 
 						return FPVector3.DistanceSquared(pos1, positionToCompare) <
-							   FPVector3.DistanceSquared(pos2, positionToCompare)
-								   ? -1
-								   : 1;
+							FPVector3.DistanceSquared(pos2, positionToCompare)
+								? -1
+								: 1;
 					}
-					
+
 					// Making it random for the similar ones, will make it so they are randomly sorted between them, making the next one random
 					return f.RNG->Next(-1, 2);
 				}
-				
+
 				if (!isBot)
 				{
 					if (pair.Component->SpawnerType == SpawnerType.Player)
@@ -441,10 +454,12 @@ namespace Quantum
 					{
 						return pair.Component->BehaviourType == botCharacter->BehaviourType ? -1 : 1;
 					}
+
 					if (pointerPair.Component->SpawnerType == SpawnerType.BotOfType)
 					{
 						return pointerPair.Component->BehaviourType == botCharacter->BehaviourType ? 1 : -1;
 					}
+
 					if (pair.Component->SpawnerType == SpawnerType.AnyBot)
 					{
 						return -1;

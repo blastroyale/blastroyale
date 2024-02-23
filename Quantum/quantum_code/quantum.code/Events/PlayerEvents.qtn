@@ -61,7 +61,6 @@ synced event OnPlayerDead
 }
 
 struct EquipmentEventData {
-    array<Equipment>[MAX_GEAR] Gear;
     Equipment CurrentWeapon;
 }
 
@@ -173,6 +172,7 @@ event OnPlayerAttackHit
 	FPVector3 HitPosition;
 	UInt32 TotalDamage;
 	bool isShieldDmg;
+	byte SpellType;
 }
 
 event OnPlayerStopAttack

@@ -12,16 +12,13 @@
                     <ui:VisualElement class="player-holder__background-jagged" />
                 </ui:VisualElement>
                 <FirstLight.Game.UIElements.SafeAreaElement apply-top="true" apply-bottom="true" apply-left="false" apply-right="false">
-                    <ui:VisualElement name="RTHolder" class="player-holder__rt-holder">
-                        <ui:VisualElement name="PlayerRT" class="player-holder__player-rt" />
-                    </ui:VisualElement>
+                    <ui:VisualElement name="RTHolder" class="player-holder__rt-holder" />
                     <ui:VisualElement name="Switcher" class="player-holder__switcher">
                         <FirstLight.Game.UIElements.ImageButton name="ArrowLeft" class="player-holder__arrow sfx-click-backwards">
                             <ui:VisualElement name="Icon" class="player-holder__arrow-icon" />
                         </FirstLight.Game.UIElements.ImageButton>
                         <ui:VisualElement name="CurrentPlayer" class="player-holder__player">
-                            <FirstLight.Game.UIElements.MightElement name="PlayerMight" />
-                            <ui:Label text="FLG | PENUS" name="PlayerName" class="player-holder__player-name" />
+                            <ui:Label text="PLAYER NAME" name="PlayerName" class="player-holder__player-name" />
                             <FirstLight.Game.UIElements.LocalizedLabel name="DefeatedYou" localization-key="UITSpectate/defeated_you" class="player-holder__defeated-you" />
                         </ui:VisualElement>
                         <FirstLight.Game.UIElements.ImageButton name="ArrowRight" class="player-holder__arrow player-holder__arrow--right sfx-click-forwards">

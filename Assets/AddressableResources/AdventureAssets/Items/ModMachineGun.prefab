@@ -114,6 +114,10 @@ MonoBehaviour:
   - {fileID: 6824811221735831115}
   _originalMaterials:
   - {fileID: 2100000, guid: 131409319b68ac944b348112d1efa06e, type: 2}
+  _rendererColors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 1}
 --- !u!1001 &577084986728780384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -144,11 +148,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1013405764868694880, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.082
+      value: 0.125
       objectReference: {fileID: 0}
     - target: {fileID: 1013405764868694880, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.38399997
+      value: 0.249
       objectReference: {fileID: 0}
     - target: {fileID: 1013405764868694880, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_LocalRotation.w

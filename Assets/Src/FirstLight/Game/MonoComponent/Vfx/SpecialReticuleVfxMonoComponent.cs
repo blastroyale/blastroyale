@@ -21,7 +21,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 			transformCache.position = targetPosition;
 			transformCache.localScale = scale;
 			
-			Despawner(endTime);
+			Despawner(endTime).Forget();
 		}
 	}
 }

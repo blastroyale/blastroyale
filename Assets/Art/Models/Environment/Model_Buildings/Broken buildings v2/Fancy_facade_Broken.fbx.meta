@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Fancy_facade_BRKN"],"padding":[14],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Fancy_facade_BRKN"],"padding":[19],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

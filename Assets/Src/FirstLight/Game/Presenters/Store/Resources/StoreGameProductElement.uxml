@@ -2,17 +2,22 @@
     <Style src="project://database/Assets/Art/UI/Templates/StoreGameProduct.uss?fileID=7433441132597879392&amp;guid=4f4b019b2a5304c718e1621916865b7a&amp;type=3#StoreGameProduct" />
     <ui:VisualElement name="ProductWidget" class="product-widget">
         <FirstLight.Game.UIElements.ImageButton name="ProductBackgroundImage" class="product-background-image">
-            <ui:VisualElement name="ProductImageGradientSides" class="product-image-gradient-sides" />
             <ui:VisualElement name="ProductImageGradientBig" class="product-image-gradient-big" />
             <ui:VisualElement name="ProductImageGradientSmall" class="product-image-gradient-small" />
             <ui:VisualElement name="WidgetEffect" tabindex="-1" class="widget-effect" />
             <ui:VisualElement name="ProductImage" class="product-image" />
+            <ui:VisualElement name="OwnedOverlay" class="owned-overlay" />
+            <ui:VisualElement name="ProductImageGradientSides" class="product-image-gradient-sides" style="display: flex;" />
         </FirstLight.Game.UIElements.ImageButton>
-        <ui:Label tabindex="-1" text="200 ¢" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ProductPrice" class="product-price">
+        <ui:Label tabindex="-1" text="200 ¢" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ProductPrice" class="product-price" style="display: flex;">
             <ui:Label tabindex="-1" text="200 Coin" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ProductName" class="product-name" />
         </ui:Label>
         <FirstLight.Game.UIElements.ImageButton name="InformationClickArea" focusable="true" tabindex="1" class="info-click-area">
-            <ui:VisualElement name="InformationIcon" class="info-button" />
+            <ui:VisualElement name="InformationIcon" class="info-button" style="display: flex; visibility: visible;" />
         </FirstLight.Game.UIElements.ImageButton>
+        <ui:VisualElement name="OwnedStamp" class="owned-stamp">
+            <ui:VisualElement name="OwnedBg" class="owned-stamp__bg" style="display: none; visibility: hidden;" />
+            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITStore/you_own_this_item" name="OwnedText" class="owned-stamp__text" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

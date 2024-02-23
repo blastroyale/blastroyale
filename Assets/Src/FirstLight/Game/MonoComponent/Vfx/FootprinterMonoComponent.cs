@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data.DataTypes;
@@ -45,13 +46,12 @@ public class FootprinterMonoComponent : MonoBehaviour
     {
         _services = MainInstaller.Resolve<IGameServices>();
         _matchServices = MainInstaller.Resolve<IMatchServices>();
-        SceneManager.activeSceneChanged += OnSceneChanged;
+        QuantumCallback.Subscribe<CallbackGameDestroyed>(this, OnGameDestroyed);
     }
 
-    private void OnSceneChanged(Scene newScene, Scene oldScene)
+    private void OnGameDestroyed(CallbackGameDestroyed e)
     {
         _globalPool.Clear();
-        SceneManager.activeSceneChanged -= OnSceneChanged;
     }
 
     public void Init(EntityView view, PlayerLoadout loadout)
@@ -62,9 +62,17 @@ public class FootprinterMonoComponent : MonoBehaviour
         _skin = services.CollectionService.GetCosmeticForGroup(loadout.Cosmetics, GameIdGroup.Footprint);
     }
 
+    private bool CanSpawn()
+    {
+        return _character != null && _character.PlayerView != null && _view != null && SpawnFootprints && _skin.Id != GameId.Random && _cooldown.CheckTrigger();
+    }
+    
     private void Update()
     {
-        if (_character != null && _view != null && SpawnFootprints && _skin.Id != GameId.Random && _cooldown.CheckTrigger()) Spawn();
+        if (CanSpawn())
+        {
+            Spawn().Forget();
+        }
     }
 
     private Quaternion GetFootRotation()
@@ -76,21 +84,32 @@ public class FootprinterMonoComponent : MonoBehaviour
         
         if (f.TryGet<AIBlackboardComponent>(_view.EntityRef, out var bb) && bb.HasEntry(f, Constants.MoveDirectionKey))
         {
+            // TODO: Use lookup table for performance
             return Quaternion.LookRotation(bb.GetVector2(f, Constants.MoveDirectionKey).ToUnityVector3());
         }
         return _view.transform.rotation; 
     }
 
+    private bool IsValid()
+    {
+        return _view != null && _character != null & _character.PlayerView != null && !_character.PlayerView.Culled;
+    }
+
     /// <summary>
     /// Spawns the footstep.
     /// </summary>
-    private async void Spawn()
+    private async UniTaskVoid Spawn()
     {
-        if (_character.PlayerView.Culled) return;
+        if (!IsValid()) return;
+        if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
         
         if (_globalPool.Count > 0) _pooledFootprint = _globalPool.Dequeue();
         else  _pooledFootprint = await _services.CollectionService.LoadCollectionItem3DModel(_skin);
-        if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
+        if (!IsValid() || _pooledFootprint == null)
+        {
+            Despawn(_pooledFootprint);
+            return;
+        }
         if (_rightStepScale == Vector3.zero)
         {
             _rightStepScale = _pooledFootprint.transform.localScale;
@@ -104,25 +123,28 @@ public class FootprinterMonoComponent : MonoBehaviour
         _pooledFootprint.transform.rotation = Quaternion.Euler(90, _localRotation.eulerAngles.y, 0);
         _pooledFootprint.SetActive(true);
         PlayEffects();
-        StartCoroutine(Despawn(_pooledFootprint));
+        StartCoroutine(DespawnCoroutine(_pooledFootprint));
     }
 
     private void PlayEffects()
     {
-        if (_matchServices.EntityVisibilityService.CanSpectatedPlayerSee(_character.PlayerView.EntityRef))
-        {
-            _services.AudioFxService.PlayClip3D(AudioId.PlayerWalkRoad, _character.transform.position);
-        }
+        var clip = _services.AudioFxService.PlayClip3D(AudioId.PlayerWalkRoad, _character.transform.position);
         if (_matchServices.SpectateService.GetSpectatedEntity() == _character.EntityView.EntityRef)
         {
+            clip.Source.volume /= 2;
             _services.VfxService.Spawn(VfxId.StepSmoke).transform.position = _pooledFootprint.transform.position;
         }
     }
 
-    private IEnumerator Despawn(GameObject o)
+    private IEnumerator DespawnCoroutine(GameObject o)
     {
         yield return _duration;
-        if (!o.activeSelf) yield break;
+        Despawn(o);
+    }
+
+    private void Despawn(GameObject o)
+    {
+        if (o is not {activeSelf: true}) return;
         o.SetActive(false);
         _globalPool.Enqueue(o);
     }

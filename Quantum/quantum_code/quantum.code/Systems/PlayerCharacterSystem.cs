@@ -86,7 +86,7 @@ namespace Quantum.Systems
 				}
 				else
 				{
-					membersByTeam["p" + i] = new HashSet<int>() {i};
+					membersByTeam["p" + i] = new HashSet<int>() { i };
 				}
 			}
 
@@ -127,71 +127,39 @@ namespace Quantum.Systems
 			{
 				equipmentToDrop.Add(playerDead->CurrentWeapon);
 			}
-
-			var itemCount = 0;
-			for (int i = 0; i < playerDead->Gear.Length; i++) //loadout items found
-			{
-				if (playerDead->Gear[i].GameId != GameId.Random)
-				{
-					itemCount++;
-				}
-			}
-
-			for (int i = 0; i < playerDead->WeaponSlots.Length; i++) //item slots filled
-			{
-				if (playerDead->WeaponSlots[i].Weapon.GameId != GameId.Random)
-				{
-					itemCount++;
-				}
-			}
-
+			
+			// We drop two items. One is always a consumable. Another can be a gun (50% chance) or consumable
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Consumables)
 			{
-				if (!f.Unsafe.TryGetPointer<Stats>(attacker, out var stats))
-				{
-					stats = deadStats;
-				}
-
-				var healthFilled = stats->CurrentHealth / stats->GetStatData(StatType.Health).StatValue;
-				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
-				var ammoFilled = stats->CurrentAmmoPercent;
-
-				//drop consumables based on the number of items you have collected and the kind of consumables the player needs
-				for (uint i = 0;
-					 i < (FPMath.FloorToInt(itemCount / 5) + FPMath.RoundToInt(playerDead->GetEnergyLevel(f) / 5) + 1);
-					 i++)
-				{
-					var consumable = GameId.AmmoSmall;
-					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
-					{
-						consumable = GameId.Health;
-						healthFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) /
-							stats->GetStatData(StatType.Health).StatValue;
-					}
-					else if (ammoFilled < healthFilled && ammoFilled < shieldFilled) //ammo
-					{
-						consumable = GameId.AmmoSmall;
-						ammoFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f);
-					}
-					else if (shieldFilled < healthFilled && shieldFilled < ammoFilled) //shield
-					{
-						consumable = GameId.ShieldSmall;
-						shieldFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) /
-							stats->GetStatData(StatType.Shield).StatValue;
-					}
-
-					consumablesToDrop.Add(consumable);
-				}
-
-				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
+				var consumable = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.Health, GameId.ShieldSmall);
+				consumablesToDrop.Add(consumable);
+				
+				if (!playerDead->HasMeleeWeapon(f, entity) && f.RNG->NextBool()) //also drop the target player's weapon
 				{
 					equipmentToDrop.Add(playerDead->CurrentWeapon);
 				}
+				else
+				{
+					// Avoid dropping the same consumable from a single player twice
+					switch (consumable)
+					{
+						case GameId.AmmoSmall:
+							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.Health, GameId.ShieldSmall));
+							break;
+						case GameId.Health:
+							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall));
+							break;
+						case GameId.ShieldSmall:
+							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.Health));
+							break;
+					}
+				}
 			}
-
+			
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Tutorial)
 			{
-				consumablesToDrop.Add(GameId.Health);
+				// No need to drop anything from killed dummies
+				// they don't even shoot anymore (first ones)
 			}
 
 			var anglesToDrop = equipmentToDrop.Count + consumablesToDrop.Count;
@@ -218,16 +186,8 @@ namespace Quantum.Systems
 			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
 				new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
 					f.RNG->Next(-gridSquareSize, gridSquareSize));
-			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
-
+			var spawnTransform = new Transform3D { Position = FPVector3.Zero, Rotation = FPQuaternion.Identity };
 			spawnTransform.Position = spawnPosition.XOY;
-
-			var equipment = Array.Empty<Equipment>();
-			if (f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon)
-			{
-				equipment = playerData.Loadout;
-			}
-
 			var kccConfig = f.FindAsset<CharacterController3DConfig>(playerCharacter->KccConfigRef.Id);
 			var setup = new PlayerCharacterSetup()
 			{
@@ -237,8 +197,6 @@ namespace Quantum.Systems
 				playerLevel = playerData.PlayerLevel,
 				trophies = playerData.PlayerTrophies,
 				teamId = teamId,
-				startingEquipment = equipment,
-				loadoutWeapon = playerData.Loadout.FirstOrDefault(e => e.IsWeapon()),
 				modifiers = null,
 				minimumHealth = f.Context.GameModeConfig.MinimumHealth,
 				KccConfig = kccConfig
@@ -285,13 +243,13 @@ namespace Quantum.Systems
 			var movedirection = FPVector2.Zero;
 			var prevRotation = bb->GetVector2(f, Constants.AimDirectionKey);
 
+			var isKnockedOut = ReviveSystem.IsKnockedOut(f, filter.Entity);
 			var direction = input->Direction;
 			var aim = input->AimingDirection;
-			var shooting = input->IsShooting;
+			var shooting = input->IsShooting && !isKnockedOut;
 			var lastShotAt = bb->GetFP(f, Constants.LastShotAt);
 			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
 			var attackCooldown = f.Time < lastShotAt + (weaponConfig.IsMeleeWeapon ? FP._0_33 : FP._0_20);
-
 			if (direction != FPVector2.Zero)
 			{
 				movedirection = direction;
@@ -316,7 +274,7 @@ namespace Quantum.Systems
 			{
 				rotation = prevRotation;
 			}
-			
+
 			var wasShooting = bb->GetBoolean(f, Constants.IsAimPressedKey);
 
 			bb->Set(f, Constants.IsAimPressedKey, shooting);
@@ -339,11 +297,13 @@ namespace Quantum.Systems
 			var maxSpeed = f.Unsafe.GetPointer<Stats>(filter.Entity)->GetStatData(StatType.Speed).StatValue;
 			var moveDirection = bb->GetVector2(f, Constants.MoveDirectionKey).XOY;
 			var velocity = kcc->Velocity;
-			
+
 			if (shooting)
 			{
 				maxSpeed *= weaponConfig.AimingMovementSpeed;
 			}
+
+			ReviveSystem.OverwriteMaxMoveSpeed(f, filter.Entity, ref maxSpeed);
 
 			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
 			kcc->MaxSpeed = speedUpMutatorExists ? maxSpeed * speedUpMutatorConfig.Param1 : maxSpeed;
@@ -374,7 +334,7 @@ namespace Quantum.Systems
 					return;
 				}
 
-				var spell = new Spell() {PowerAmount = (uint) health};
+				var spell = new Spell() { PowerAmount = (uint)health };
 				if (health > 0)
 				{
 					stats->GainHealth(f, filter.Entity, &spell);
@@ -388,7 +348,7 @@ namespace Quantum.Systems
 
 		public bool OnCharacterCollision3D(FrameBase f, EntityRef character, Hit3D hit)
 		{
-			var blockMovement = !QuantumFeatureFlags.TEAM_IGNORE_COLLISION || !TeamHelpers.HasSameTeam(f, character, hit.Entity);
+			var blockMovement = !QuantumFeatureFlags.TEAM_IGNORE_COLLISION || !TeamSystem.HasSameTeam(f, character, hit.Entity);
 			if (!QuantumFeatureFlags.PLAYER_PUSHING) return blockMovement;
 			if (blockMovement && f.TryGet<CharacterController3D>(hit.Entity, out var enemyKcc) &&
 				f.TryGet<CharacterController3D>(character, out var myKcc))

@@ -169,7 +169,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		UniTask<bool> AwaitMasterServerConnection(int timeout = 10, string server = "");
 
-		UniTask ChangeServerRegionAndReconnect(string regionCode);
+		void ChangeServerRegionAndReconnect(string regionCode);
 	}
 
 	public enum JoinRoomSource
@@ -315,11 +315,11 @@ namespace FirstLight.Game.Services
 			_services.TickService.SubscribeOnUpdate(QuantumTick);
 			_ticking = true;
 
-			QuantumCallback.SubscribeManual<CallbackSimulateFinished>(this, OnSimulationFinish);
+			QuantumCallback.SubscribeManual<CallbackGameDestroyed>(this, OnSimulationFinish);
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnSimulationStarted);
 		}
 
-		private void OnSimulationFinish(CallbackSimulateFinished cb)
+		private void OnSimulationFinish(CallbackGameDestroyed cb)
 		{
 			if (!_ticking)
 			{
@@ -420,7 +420,7 @@ namespace FirstLight.Game.Services
 			HasLag.Value = roundTripCheck || dcCheck;
 		}
 
-		public async UniTask ChangeServerRegionAndReconnect(string serverCode)
+		public void ChangeServerRegionAndReconnect(string serverCode)
 		{
 			_dataProvider.AppDataProvider.ConnectionRegion.Value = serverCode;
 			_services.DataService.SaveData<AppData>();

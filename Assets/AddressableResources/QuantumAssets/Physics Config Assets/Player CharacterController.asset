@@ -38,7 +38,7 @@ MonoBehaviour:
     UseManifoldNormal: 1
     AirControl: 1
     Acceleration:
-      RawValue: 6553600
+      RawValue: 2621440
     Braking:
       RawValue: 6553600
     BaseJumpImpulse:

@@ -1,4 +1,6 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
@@ -9,6 +11,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using Quantum;
+using Quantum.Systems;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
@@ -46,7 +49,7 @@ namespace FirstLight.Game.Presenters
 		private Gradient _outOfAmmoGradient;
 
 		[SerializeField, Required, TabGroup("Animation")]
-		private int _lowHPThreshold = 50;
+		private int _lowHPThreshold = 10;
 
 		[SerializeField, Required, TabGroup("Input")]
 		private UnityInputScreenControl _moveDirectionJoystickInput;
@@ -75,8 +78,11 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required, TabGroup("Input")]
 		private UnityInputScreenControl _specialCancelInput;
 
+
 		private IGameServices _gameServices;
 		private IGameDataProvider _dataProvider;
+
+		[SerializeField, TabGroup("Views")] private KnockOutNotificationView _knockOutNotificationView = new ();
 
 		// ReSharper disable NotAccessedField.Local
 		private WeaponDisplayView _weaponDisplayView;
@@ -119,6 +125,7 @@ namespace FirstLight.Game.Presenters
 			root.Q("PlayerBars").Required().AttachView(this, out _statusBarsView);
 			root.Q("StatusNotifications").Required().AttachView(this, out _statusNotificationsView);
 			root.Q("PlayerCounts").Required().AttachView(this, out _playerCountsView);
+			root.AttachExistingView(this, _knockOutNotificationView);
 
 			var localPlayerInfo = root.Q("LocalPlayerInfo").Required();
 			if (_dataProvider.AppDataProvider.UseOverheadUI)
@@ -162,7 +169,10 @@ namespace FirstLight.Game.Presenters
 			base.SubscribeToEvents();
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, _ => HideControls(true));
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, _ => HideControls(false));
+			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(OnPlayerKnockedOut);
+			QuantumEvent.SubscribeManual<EventOnPlayerRevived>(OnPlayerRevived);
 		}
+
 
 		protected override void UnsubscribeFromEvents()
 		{
@@ -176,7 +186,7 @@ namespace FirstLight.Game.Presenters
 			return _gameServices.RoomService.CurrentRoom.GameModeConfig.Id == GameConstants.Tutorial.SECOND_BOT_MODE_ID ||
 				_gameServices.RoomService.CurrentRoom.Properties.MatchType.Value == MatchType.Custom;
 		}
-	
+
 		protected override void OnOpened()
 		{
 			base.OnOpened();
@@ -185,24 +195,25 @@ namespace FirstLight.Game.Presenters
 			MainInstaller.ResolveMatchServices().RunOnMatchStart((isReconnect) =>
 			{
 				if (!isReconnect) return;
-				var playerEntity = 	QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+				var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 				// player died
-				if (!QuantumRunner.Default.Game.Frames.Verified.Exists(playerEntity))
+				var f = QuantumRunner.Default.Game.Frames.Verified;
+				if (!f.Exists(playerEntity))
 				{
 					HideControls(true);
 					return;
-				}; 
-					
+				}
+
 				HideControls(false);
 				_weaponDisplayView.UpdateFromLatestVerifiedFrame();
-				_specialButtonsView.UpdateFromLatestVerifiedFrame();
+				_specialButtonsView.UpdateFromLatestVerifiedFrame(playerEntity);
 				_localPlayerInfoView.UpdateFromLatestVerifiedFrame();
 				_statusBarsView.InitAll();
-
+				SetKnockedOutStatus(ReviveSystem.IsKnockedOut(f, playerEntity));
 			});
 		}
 
-		protected override Task OnClosed()
+		protected override UniTask OnClosed()
 		{
 			_legacyMinimap.SetActive(false);
 
@@ -217,6 +228,25 @@ namespace FirstLight.Game.Presenters
 		private void HideControls(bool hide)
 		{
 			Root.EnableInClassList(USS_SKYDIVING, hide);
+		}
+
+		private void OnPlayerRevived(EventOnPlayerRevived callback)
+		{
+			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+			if (callback.Entity != playerEntity) return;
+			SetKnockedOutStatus(false);
+		}
+
+		private void OnPlayerKnockedOut(EventOnPlayerKnockedOut callback)
+		{
+			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+			if (callback.Entity != playerEntity) return;
+			SetKnockedOutStatus(true);
+		}
+
+		private void SetKnockedOutStatus(bool knockedOut)
+		{
+			_shootingJoystick.SetVisibility(!knockedOut);
 		}
 	}
 }

@@ -61,11 +61,14 @@ namespace FirstLight.Game.MonoComponent
 	{
 		private static readonly int _mainTex = Shader.PropertyToID("_MainTex");
 		private static readonly int _additiveColor = Shader.PropertyToID("_AdditiveColor");
-
+		private static readonly int _color = Shader.PropertyToID("_Color");
+		
 		[SerializeField, ReadOnlyOdin] private List<Renderer> _renderers = new();
 		[SerializeField, ReadOnlyOdin] private List<Renderer> _particleRenderers = new();
 		[SerializeField, ReadOnlyOdin] private List<Material> _originalMaterials = new();
-
+		[SerializeField, ReadOnlyOdin] private List<Color> _rendererColors = new();
+		[SerializeField, ReadOnlyOdin] private List<Color> _rendererAdditiveColors = new();
+		
 		private IGameServices _services;
 
 		private void OnValidate()
@@ -80,6 +83,8 @@ namespace FirstLight.Game.MonoComponent
 			_particleRenderers.Clear();
 			_renderers.Clear();
 			_originalMaterials.Clear();
+			_rendererColors.Clear();
+			_rendererAdditiveColors.Clear();
 
 			foreach (var r in renderers)
 			{
@@ -90,6 +95,9 @@ namespace FirstLight.Game.MonoComponent
 				}
 
 				_renderers.Add(r);
+
+				_rendererColors.Add(r.sharedMaterial.HasProperty(_color) ? r.sharedMaterial.color : default);
+				_rendererAdditiveColors.Add(r.sharedMaterial.HasProperty(_additiveColor) ? r.sharedMaterial.GetColor(_additiveColor) : default);
 				_originalMaterials.Add(r.sharedMaterial);
 			}
 		}
@@ -120,6 +128,24 @@ namespace FirstLight.Game.MonoComponent
 			{
 				render.material.color = c;
 			}
+
+			for (var i=0; i<_rendererColors.Count; i++)
+			{
+				_rendererColors[i] = c;
+			}
+		}
+
+		public void ResetColor()
+		{
+			for(var i=0; i<_rendererColors.Count; i++)
+			{
+				if (_originalMaterials[i].HasProperty(_color))
+				{
+					_renderers[i].material.color = _originalMaterials[i].color;
+					
+					_rendererColors[i] = _originalMaterials[i].color;
+				}
+			}
 		}
 
 		public bool GetFirstRendererColor(ref Color color)
@@ -136,11 +162,20 @@ namespace FirstLight.Game.MonoComponent
 
 		public void SetAdditiveColor(Color c)
 		{
+			
 			// TODO: Avoid duplicating the material
 			// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/task/334
 			foreach (var render in _renderers)
 			{
 				render.material.SetColor(_additiveColor, c);
+			}
+		}
+		
+		public void ResetAdditiveColor()
+		{
+			for (var i = 0; i < _renderers.Count; i++)
+			{
+				_renderers[i].material.SetColor(_additiveColor, _rendererAdditiveColors[i]);
 			}
 		}
 
@@ -190,7 +225,13 @@ namespace FirstLight.Game.MonoComponent
 		{
 			for (var i = 0; i < _renderers.Count; i++)
 			{
-				_renderers[i].sharedMaterial = _originalMaterials[i];
+				var r = _renderers[i];
+				r.sharedMaterial = _originalMaterials[i];
+
+				if (r.sharedMaterial.HasProperty(_color))
+				{
+					r.material.color = _rendererColors[i];
+				}
 			}
 		}
 	}

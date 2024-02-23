@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
@@ -12,8 +9,8 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
+using Quantum.Systems;
 using UnityEngine;
-using LayerMask = UnityEngine.LayerMask;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -38,9 +35,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private Vector3 _lastPosition;
 
 		private Coroutine _attackHideRendererCoroutine;
-		private IGameServices _services;
 		private IMatchServices _matchServices;
+		
+		// TODO mihak: Probably remove this
+#pragma warning disable CS0414 // Field is assigned but its value is never used
 		private bool _playerFullyGrounded;
+#pragma warning restore CS0414 // Field is assigned but its value is never used
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -52,24 +52,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// </summary>
 		public PlayerRef PlayerRef { get; private set; }
 
-		private static class PlayerFloats
-		{
-			public static readonly AnimatorWrapper.Float DirX = new ("DirX");
-			public static readonly AnimatorWrapper.Float DirY = new ("DirY");
-		}
-
 		protected override void OnAwake()
 		{
 			base.OnAwake();
 
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_services = MainInstaller.ResolveServices();
 			if (_characterView == null)
 			{
 				_characterView = GetComponent<MatchCharacterViewMonoComponent>();
 			}
 
+#pragma warning disable CS0612 // Type or member is obsolete
 			BuildingVisibility = new ();
+#pragma warning restore CS0612 // Type or member is obsolete
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
@@ -83,7 +78,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnShieldedChargeUsed>(this, HandleOnShieldedChargeUsed);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, HandleOnGameEnded);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandlePlayerWeaponChanged);
-			QuantumEvent.Subscribe<EventOnPlayerGearChanged>(this, HandlePlayerGearChanged);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveFullyGrounded>(this, HandlePlayerSkydiveFullyGrounded);
@@ -104,19 +98,20 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		public override void SetCulled(bool culled)
 		{
 			if (_characterView == null || this.IsDestroyed()) return;
-			
-			if (culled)
-			{
-				if (_playerFullyGrounded)
-				{
-					AnimatorWrapper.Enabled = false;
-				}
-			}
-			else
-			{
-				AnimatorWrapper.Enabled = true;
-			}
-			
+
+			// TODO mihak: Figure this out
+			// if (culled)
+			// {
+			// 	if (_playerFullyGrounded)
+			// 	{
+			// 		AnimatorWrapper.Enabled = false;
+			// 	}
+			// }
+			// else
+			// {
+			// 	AnimatorWrapper.Enabled = true;
+			// }
+
 			_characterView.PrintFootsteps = !culled;
 
 			base.SetCulled(culled);
@@ -146,7 +141,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			AnimatorWrapper.SetTrigger(Triggers.Hit);
+			// Do not trigger hit when player is knockedout
+			if (!ReviveSystem.IsKnockedOut(evnt.Game.Frames.Verified, evnt.Entity))
+			{
+				_skin.TriggerHit();
+			}
+
+			if (evnt.SpellType == Spell.KnockedOut) return;
 
 			if (_matchServices.SpectateService.SpectatedPlayer?.Value == null)
 			{
@@ -159,14 +160,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			UpdateAdditiveColor(GameConstants.Visuals.HIT_COLOR, 0.2f);
-		}
-
-		/// <summary>
-		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
-		/// </summary>
-		public void SetMovingState(bool isAiming)
-		{
-			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
 		}
 
 		public bool IsBeingSpectated => EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity;
@@ -202,20 +195,24 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				if (IsSkydiving)
 				{
 					_playerFullyGrounded = false;
-					AnimatorWrapper.SetBool(Bools.Flying, frame.Context.GameModeConfig.SkydiveSpawn);
+					if (frame.Context.GameModeConfig.SkydiveSpawn)
+					{
+						_skin.TriggerSkydive();
+					}
 				}
 				else
 				{
-					AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);
+					// TODO: No spawn animation - probably not needed
+					//AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);
 				}
 			}
 			else
 			{
-				AnimatorWrapper.SetBool(Bools.Flying, false);
+				//AnimatorWrapper.SetBool(Bools.Flying, false);
 
 				if (!EntityView.EntityRef.IsAlive(frame))
 				{
-					AnimatorWrapper.SetTrigger(Triggers.Die);
+					_skin.TriggerDie();
 				}
 			}
 		}
@@ -237,7 +234,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void TryStartAttackWithinVisVolume()
 		{
-			if (IsBeingSpectated || !IsInInvisibilityArea())
+			if (!FeatureFlags.ALWAYS_TOGGLE_INVISIBILITY_AREAS && (IsBeingSpectated || !IsInInvisibilityArea()))
 			{
 				return;
 			}
@@ -262,10 +259,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			//Old system needs to burn in fire
+#pragma warning disable CS0612 // Type or member is obsolete
 			else if (BuildingVisibility.IsInLegacyVisibilityVolume())
 			{
 				SetRenderContainerVisible(BuildingVisibility.IsInSameLegacyVolumeAsSpectator());
 			}
+#pragma warning restore CS0612 // Type or member is obsolete
 		}
 
 		private void HandleOnStunGrenadeUsed(EventOnStunGrenadeUsed callback)
@@ -279,7 +278,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
 			HandleParabolicUsed(callback.HazardData.EndTime,
-				time, targetPosition, VfxId.GrenadeStunParabolic, VfxId.ImpactGrenadeStun);
+				time, targetPosition, VfxId.GrenadeStunParabolic, VfxId.ImpactGrenadeStun).Forget();
 
 			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
 
@@ -299,7 +298,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
 			HandleParabolicUsed(callback.HazardData.EndTime,
-				time, targetPosition, VfxId.GrenadeParabolic, VfxId.ImpactGrenade);
+				time, targetPosition, VfxId.GrenadeParabolic, VfxId.Explosion).Forget();
 
 			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
 
@@ -309,7 +308,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		}
 
 		private async UniTaskVoid HandleParabolicUsed(FP launchTime, FP frameTime, Vector3 targetPosition,
-											   VfxId parabolicVfxId, VfxId impactVfxId)
+													  VfxId parabolicVfxId, VfxId impactVfxId)
 		{
 			var flyTime = (launchTime - frameTime).AsFloat;
 
@@ -321,10 +320,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var parabolic = (ParabolicVfxMonoComponent) Services.VfxService.Spawn(parabolicVfxId);
 
 			parabolic.transform.position = transform.position;
+			parabolic.GetComponent<Rigidbody>().position = transform.position;
 
 			parabolic.StartParabolic(targetPosition, flyTime);
-
-			await Task.Delay((int) (flyTime * 1000));
+			await UniTask.NextFrame();
+			parabolic.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Extrapolate;
+			await UniTask.Delay((int) (flyTime * 1000));
 
 			if (parabolic.IsDestroyed())
 			{
@@ -332,6 +333,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			Services.VfxService.Spawn(impactVfxId).transform.position = targetPosition;
+		}
+
+		private void PlayCollectionVfx(VfxId id, EventOnCollectableCollected ev)
+		{
+			var vfx = Services.VfxService.Spawn(id).transform;
+			vfx.position = ev.CollectablePosition.ToUnityVector3();
 		}
 
 		private void HandleOnCollectableCollected(EventOnCollectableCollected callback)
@@ -350,27 +357,28 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					// vfx.localPosition = Vector3.zero;
 					// vfx.localScale = Vector3.one;
 					// vfx.localRotation = Quaternion.identity;
-					var healthPickupVfx = Services.VfxService.Spawn(VfxId.HealthPickupFx).transform;
-					healthPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
+					PlayCollectionVfx(VfxId.HealthPickupFx, callback);
 					return;
 				case GameId.ShieldLarge:
 				case GameId.ShieldSmall:
-					var shieldPickupVfx = Services.VfxService.Spawn(VfxId.ShieldPickupFx).transform;
-					shieldPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
+					PlayCollectionVfx(VfxId.ShieldPickupFx, callback);
+					return;
+				case GameId.COIN:
+					PlayCollectionVfx(VfxId.CoinPickupFx, callback);
+					return;
+				case GameId.BPP:
+					PlayCollectionVfx(VfxId.BppPickupFx, callback);
 					return;
 				case GameId.AmmoLarge:
 				case GameId.AmmoSmall:
-					var ammoPickupVfx = Services.VfxService.Spawn(VfxId.AmmoPickupFx).transform;
-					ammoPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
+					PlayCollectionVfx(VfxId.AmmoPickupFx, callback);
 					return;
 				case GameId.ChestEquipment:
 				case GameId.ChestConsumable:
-					var chestPickupVfx = Services.VfxService.Spawn(VfxId.ChestPickupFx).transform;
-					chestPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
+					PlayCollectionVfx(VfxId.ChestPickupFx, callback);
 					return;
 				case GameId.ChestLegendary:
-					var airdropPickupFx = Services.VfxService.Spawn(VfxId.AirdropPickupFx).transform;
-					airdropPickupFx.position = callback.CollectablePosition.ToUnityVector3();
+					PlayCollectionVfx(VfxId.AirdropPickupFx, callback);
 					return;
 			}
 
@@ -391,9 +399,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			AddDebugCylinder(callback.Game.Frames.Verified);
 #endif
 
-			AnimatorWrapper.Enabled = true;
-
-			AnimatorWrapper.SetTrigger(Triggers.Revive);
+			// TODO mihak: ??
+			// AnimatorWrapper.Enabled = true;
+			//AnimatorWrapper.SetTrigger(Triggers.Revive);
+			
 			RenderersContainerProxy.SetEnabled(true);
 		}
 
@@ -404,10 +413,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			if (callback.HasRespawned)
-			{
-				AnimatorWrapper.SetTrigger(Triggers.Revive);
-			}
+			// TODO mihak: ??
+			// if (callback.HasRespawned)
+			// {
+			// 	AnimatorWrapper.SetTrigger(Triggers.Revive);
+			// }
 
 			RenderersContainerProxy.SetEnabled(false);
 		}
@@ -419,7 +429,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			AnimatorWrapper.SetTrigger(Triggers.Shoot);
+			_skin.TriggerAttack();
 			TryStartAttackWithinVisVolume();
 		}
 
@@ -442,12 +452,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (EntityView.EntityRef == callback.EntityLeader ||
 				(localPlayerRef != PlayerRef.None && callback.PlayersMatchData[localPlayerRef].TeamId == callback.LeaderTeam))
 			{
-				AnimatorWrapper.SetBool(Bools.Aim, false);
-				AnimatorWrapper.SetTrigger(Triggers.Victory);
+				// TODO mihak: AnimatorWrapper.SetBool(Bools.Aim, false);
+				_skin.TriggerVictory();
 			}
 			else
 			{
-				AnimatorWrapper.SetBool(Bools.Stun, true);
+				_skin.TriggerStun();
 			}
 		}
 
@@ -458,8 +468,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var task = _characterView.EquipWeapon(callback.Weapon.GameId);
-			task.ContinueWith(weapons =>
+			var task = _characterView.EquipWeapon(callback.Weapon);
+			task.ContinueWith(weapon =>
 			{
 				var f = callback.Game.Frames.Verified;
 				if (!f.Exists(EntityView.EntityRef))
@@ -467,26 +477,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					return;
 				}
 
-				for (var i = 0; i < weapons.Count; i++)
-				{
-					var components = weapons[i].GetComponents<EntityViewBase>();
+				var components = weapon.GetComponentsInChildren<EntityViewBase>();
 
-					foreach (var entityViewBase in components)
-					{
-						entityViewBase.SetEntityView(callback.Game, EntityView);
-					}
+				foreach (var entityViewBase in components)
+				{
+					entityViewBase.SetEntityView(callback.Game, EntityView);
 				}
 			});
-		}
-
-		private void HandlePlayerGearChanged(EventOnPlayerGearChanged callback)
-		{
-			if (callback.Entity != EntityView.EntityRef)
-			{
-				return;
-			}
-
-			_ = _characterView.EquipItem(callback.Gear.GameId);
 		}
 
 		private void HandleOnAirstrikeUsed(EventOnAirstrikeUsed callback)
@@ -505,7 +502,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			Services.VfxService.Spawn(VfxId.Airstrike).transform.position = targetPosition;
 
-			HandleDelayedFX(callback.HazardData.Interval, targetPosition, VfxId.ImpactAirStrike);
+			HandleDelayedFX(callback.HazardData.Interval, targetPosition, VfxId.ImpactAirStrike).Forget();
 		}
 
 		private async UniTaskVoid HandleDelayedFX(FP delayTime, Vector3 targetPosition, VfxId explosionVfxId)
@@ -546,7 +543,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat,
 				(callback.HazardData.EndTime - time).AsFloat);
 
-			HandleDelayedFX(callback.HazardData.Interval - FP._0_50, targetPosition, VfxId.Skybeam);
+			HandleDelayedFX(callback.HazardData.Interval - FP._0_50, targetPosition, VfxId.Skybeam).Forget();
 		}
 
 		private void HandleOnRadarUsed(EventOnRadarUsed callback)
@@ -559,10 +556,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			Services.VfxService.Spawn(VfxId.Radar).transform.position = transform.position;
 		}
 
-		private void HandleUpdateView(CallbackUpdateView callback)
+		private unsafe void HandleUpdateView(CallbackUpdateView callback)
 		{
 			var f = callback.Game.Frames.Predicted;
 			if (!f.TryGet<AIBlackboardComponent>(EntityRef, out var bb))
+			{
+				return;
+			}
+
+			if (!f.Unsafe.TryGetPointer<CharacterController3D>(EntityRef, out var characterController3D))
 			{
 				return;
 			}
@@ -572,32 +574,36 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
+			var knockedOut = ReviveSystem.IsKnockedOut(f, EntityRef);
 			var currentPosition = transform.position;
 			var deltaPosition = currentPosition - _lastPosition;
 
 			deltaPosition.y = 0f; // falling doesn't count
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
+
 			var isMoving = sqrSpeed > SPEED_THRESHOLD_SQUARED;
-			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey);
-
-			AnimatorWrapper.SetBool(Bools.Move, isMoving);
-			_characterView.PrintFootsteps = isMoving;
-			if (isMoving)
+			// Speed threshold doesn't work very well with knockedout player because of low velocity, I tried to change the values but it keeps breaking
+			if (ReviveSystem.IsKnockedOut(f, EntityRef))
 			{
-				deltaPosition.Normalize();
-				var localDeltaPosition = transform.InverseTransformDirection(deltaPosition);
-				AnimatorWrapper.SetFloat(PlayerFloats.DirX, localDeltaPosition.x);
-				AnimatorWrapper.SetFloat(PlayerFloats.DirY, localDeltaPosition.z);
-				if (_moveSpeedControl) AnimatorWrapper.Speed = isAiming ? 1 : sqrSpeed / 3.5f;
-			}
-			else
-			{
-				if (_moveSpeedControl) AnimatorWrapper.Speed = 1;
-				AnimatorWrapper.SetFloat(PlayerFloats.DirX, 0f);
-				AnimatorWrapper.SetFloat(PlayerFloats.DirY, 0f);
+				isMoving = characterController3D->Velocity.Magnitude.AsFloat > 0;
 			}
 
-			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
+			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey) && !knockedOut;
+			
+			_skin.Moving = isMoving;
+			_characterView.PrintFootsteps = isMoving && !knockedOut;
+			// TODO mihak: ???
+			// if (isMoving)
+			// {
+			// 	deltaPosition.Normalize();
+			// 	if (_moveSpeedControl) AnimatorWrapper.Speed = isAiming ? 1 : sqrSpeed / 3.5f;
+			// }
+			// else
+			// {
+			// 	if (_moveSpeedControl) AnimatorWrapper.Speed = 1;
+			// }
+
+			_skin.Aiming = isAiming;
 			_lastPosition = currentPosition;
 
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity == EntityRef)
@@ -613,7 +619,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			AnimatorWrapper.SetTrigger(Triggers.PLF);
+			_skin.TriggerPLF();
 		}
 
 		private void HandlePlayerSkydiveFullyGrounded(EventOnPlayerSkydiveFullyGrounded callback)
@@ -633,9 +639,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			AnimatorWrapper.SetBool(Bools.Flying, false);
+			// TODO mihak: ???
+			//AnimatorWrapper.SetBool(Bools.Flying, false);
 
-			_characterView.DestroyItem(GameIdGroup.Glider);
+			_characterView.DestroyGlider();
 		}
 
 		private void AddDebugCylinder(Frame frame)
@@ -651,7 +658,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			rend.material = new Material(Shader.Find("Unlit/Color"));
 			if (playerCharacter.TeamId > 0)
 			{
-				var playersByTeam = TeamHelpers.GetPlayersByTeam(frame);
+				var playersByTeam = TeamSystem.GetPlayersByTeam(frame);
 				float teams = playersByTeam.Count;
 				float myTeam = 0;
 				foreach (var entityRefs in playersByTeam.Values)

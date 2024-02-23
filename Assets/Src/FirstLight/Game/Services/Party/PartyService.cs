@@ -267,7 +267,7 @@ namespace FirstLight.Game.Services.Party
 					UseConnections = true,
 					Members = new List<Member> {CreateLocalMember()}
 				};
-				var result = await AsyncPlayfabMultiplayerAPI.CreateLobby(req);
+				var result = await AsyncPlayfabAPI.CreateLobby(req);
 				_lobbyId = result.LobbyId;
 				usedPlayfabContext.CopyFrom(PlayFabSettings.staticPlayer);
 				await FetchPartyAndUpdateState();
@@ -317,7 +317,7 @@ namespace FirstLight.Game.Services.Party
 				{
 					Filter = filter
 				};
-				var lobbiesResult = await AsyncPlayfabMultiplayerAPI.FindLobbies(req);
+				var lobbiesResult = await AsyncPlayfabAPI.FindLobbies(req);
 				// TODO players can create any code they want(doing request manually curl),
 				// so it is possible to have multiple lobbies with the same code 
 
@@ -355,7 +355,7 @@ namespace FirstLight.Game.Services.Party
 				};
 				try
 				{
-					var result = await AsyncPlayfabMultiplayerAPI.JoinLobby(joinRequest);
+					var result = await AsyncPlayfabAPI.JoinLobby(joinRequest);
 					_lobbyId = result.LobbyId;
 					usedPlayfabContext.CopyFrom(PlayFabSettings.staticPlayer);
 				}
@@ -406,7 +406,7 @@ namespace FirstLight.Game.Services.Party
 			}
 
 			FLog.Verbose($"setting property {key} to " + _lobbyId);
-			await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
+			await AsyncPlayfabAPI.UpdateLobby(new UpdateLobbyRequest()
 			{
 				LobbyId = _lobbyId,
 				LobbyData = new Dictionary<string, string>()
@@ -429,7 +429,7 @@ namespace FirstLight.Game.Services.Party
 			}
 
 			FLog.Verbose($"removing property {key} from " + _lobbyId);
-			await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
+			await AsyncPlayfabAPI.UpdateLobby(new UpdateLobbyRequest()
 			{
 				LobbyId = _lobbyId,
 				LobbyDataToDelete = new List<string> {key}
@@ -466,7 +466,7 @@ namespace FirstLight.Game.Services.Party
 					{key, value}
 				};
 
-				await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
+				await AsyncPlayfabAPI.UpdateLobby(new UpdateLobbyRequest()
 				{
 					LobbyId = _lobbyId,
 					MemberEntity = localPartyMember.ToEntityKey(),
@@ -517,7 +517,7 @@ namespace FirstLight.Game.Services.Party
 					PreventRejoin = preventRejoin,
 					MemberEntity = new EntityKey() {Id = playfabID, Type = PlayFabConstants.TITLE_PLAYER_ENTITY_TYPE}
 				};
-				await AsyncPlayfabMultiplayerAPI.RemoveMember(req);
+				await AsyncPlayfabAPI.RemoveMember(req);
 			}
 			catch (Exception ex)
 			{
@@ -566,7 +566,7 @@ namespace FirstLight.Game.Services.Party
 
 				try
 				{
-					await AsyncPlayfabMultiplayerAPI.LeaveLobby(req);
+					await AsyncPlayfabAPI.LeaveLobby(req);
 				}
 				catch (WrappedPlayFabException ex)
 				{
@@ -626,7 +626,7 @@ namespace FirstLight.Game.Services.Party
 				{
 					LobbyId = _lobbyId,
 				};
-				var result = await AsyncPlayfabMultiplayerAPI.GetLobby(req);
+				var result = await AsyncPlayfabAPI.GetLobby(req);
 				_lobbyId = result.Lobby.LobbyId;
 				UpdateMembers(result.Lobby);
 				UpdateProperties(result.Lobby);

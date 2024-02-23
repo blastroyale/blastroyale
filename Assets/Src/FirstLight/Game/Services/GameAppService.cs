@@ -22,7 +22,7 @@ namespace FirstLight.Game.Services
 	public class GameAppService : IGameAppService
 	{
 		private IGameServices _services;
-		private static readonly TimeSpan _maxPauseTime = TimeSpan.FromMinutes(1);
+		private static readonly TimeSpan _maxPauseTime = TimeSpan.FromMinutes(5);
 		private static readonly TimeSpan _heartBeatTest = TimeSpan.FromSeconds(5);
 		private static readonly TimeSpan _heartBeat = TimeSpan.FromSeconds(30);
 		private DateTime _pauseTime;
@@ -56,9 +56,11 @@ namespace FirstLight.Game.Services
 			if (!_services.AuthenticationService.State.LoggedIn) return;
 			if (_paused) return;
 			_paused = true;
-			Time.timeScale = 0;
+			if (FeatureFlags.PAUSE_FREEZE)
+			{
+				Time.timeScale = 0;
+			}
 			_pauseTime = DateTime.UtcNow;
-			_services.NetworkService.QuantumClient.LoadBalancingPeer.DisconnectTimeout = ushort.MaxValue;
 			FLog.Info("Game Paused");
 		}
 
@@ -76,9 +78,10 @@ namespace FirstLight.Game.Services
 				_services.GenericDialogService.OpenSimpleMessage("Disconnected", "Please Restart", Application.Quit);
 				return;
 			}
-
-			_services.NetworkService.QuantumClient.LoadBalancingPeer.DisconnectTimeout = 10000;
-			Time.timeScale = 1;
+			if (FeatureFlags.PAUSE_FREEZE)
+			{
+				Time.timeScale = 1;
+			}
 			_paused = false;
 			FLog.Info("Game Resumed");
 		}
@@ -87,7 +90,7 @@ namespace FirstLight.Game.Services
 		{
 			if (MainInstaller.TryResolve<IGameStateMachine>(out var state))
 			{
-				FLog.Info(state.GetCurrentStateDebug());
+				FLog.Info($"Game Paused Update: {paused} {state.GetCurrentStateDebug()}");
 			}
 
 			if (FeatureFlags.GetLocalConfiguration().DisablePauseBehaviour)

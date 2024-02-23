@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 // ReSharper disable CheckNamespace
@@ -87,7 +87,7 @@ namespace FirstLight.UiService
 		/// Thrown if the service does NOT contain a <see cref="UiConfig"/> of the given type <typeparamref name="T"/>.
 		/// You need to call <seealso cref="AddUiConfig"/> or <seealso cref="AddUi{T}"/> or initialize the service first
 		/// </exception>
-		Task<T> LoadUiAsync<T>(bool openAfter = false) where T : UiPresenter;
+		UniTask<T> LoadUiAsync<T>(bool openAfter = false) where T : UiPresenter;
 		
 		/// <summary>
 		/// Loads an UI asynchronously with the given <paramref name="type"/>.
@@ -98,7 +98,7 @@ namespace FirstLight.UiService
 		/// Thrown if the service does NOT contain a <see cref="UiConfig"/> of the given <paramref name="type"/>
 		/// You need to call <seealso cref="AddUiConfig"/> or <seealso cref="AddUi{T}"/> or initialize the service first
 		/// </exception>
-		Task<UiPresenter> LoadUiAsync(Type type, bool openAfter = false);
+		UniTask<UiPresenter> LoadUiAsync(Type type, bool openAfter = false);
 		
 		/// <summary>
 		/// Unloads the UI of the given type <typeparamref name="T"/>
@@ -138,7 +138,7 @@ namespace FirstLight.UiService
 		/// <remarks>
 		/// Executes the call asynchronously while loading the UI asset
 		/// </remarks>
-		Task<T> GetUiAsync<T>() where T : UiPresenter;
+		UniTask<T> GetUiAsync<T>() where T : UiPresenter;
 		
 		/// <summary>
 		/// Requests the UI of given type <typeparamref name="T"/>
@@ -152,7 +152,7 @@ namespace FirstLight.UiService
 		/// <remarks>
 		/// Executes the call asynchronously while loading the UI asset
 		/// </remarks>
-		Task<UiPresenter> GetUiAsync(Type type);
+		UniTask<UiPresenter> GetUiAsync(Type type);
 		
 		/// <summary>
 		/// Requests the UI of given <paramref name="type"/>
@@ -171,7 +171,7 @@ namespace FirstLight.UiService
 		/// <remarks>
 		/// Executes the call asynchronously while loading the UI asset
 		/// </remarks>
-		Task<T> OpenUiAsync<T>(bool openedException = false) where T : UiPresenter;
+		UniTask<T> OpenUiAsync<T>(bool openedException = false) where T : UiPresenter;
 
 		/// <summary>
 		/// Checks if a given UI is open
@@ -192,7 +192,7 @@ namespace FirstLight.UiService
 		/// <remarks>
 		/// Executes the call asynchronously while loading the UI asset
 		/// </remarks>
-		Task<UiPresenter> OpenUiAsync(Type type);
+		UniTask<UiPresenter> OpenUiAsync(Type type);
 		
 		/// <summary>
 		/// Opens and returns the UI of given <paramref name="type"/>.
@@ -208,7 +208,7 @@ namespace FirstLight.UiService
 		/// <remarks>
 		/// Executes the call asynchronously while loading the UI asset
 		/// </remarks>
-		Task<T> OpenUiAsync<T, TData>(TData initialData) 
+		UniTask<T> OpenUiAsync<T, TData>(TData initialData) 
 			where T : class, IUiPresenterData 
 			where TData : struct;
 		
@@ -224,7 +224,7 @@ namespace FirstLight.UiService
 		/// <remarks>
 		/// Executes the call asynchronously while loading the UI asset
 		/// </remarks>
-		Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData) where TData : struct;
+		UniTask<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData) where TData : struct;
 		
 		///<inheritdoc cref="OpenUi(Type, bool)"/>
 		/// <exception cref="ArgumentException">
@@ -243,7 +243,7 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given type <typeparamref name="T"/>
 		/// </exception>
-		Task CloseUi<T>(bool destroy = false) where T : UiPresenter;
+		UniTask CloseUi<T>(bool destroy = false) where T : UiPresenter;
 
 		/// <summary>
 		/// Closes and returns the UI of given <paramref name="type"/>.
@@ -253,7 +253,7 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given <paramref name="type"/>
 		/// </exception>
-		Task CloseUi(Type type, bool destroy = false);
+		UniTask CloseUi(Type type, bool destroy = false);
 
 		/// <summary>
 		/// Closes and returns the same given <paramref name="uiPresenter"/>.
@@ -263,17 +263,17 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain the given <paramref name="uiPresenter"/>
 		/// </exception>
-		Task CloseUi<T>(T uiPresenter, bool destroy = false) where T : UiPresenter;
+		UniTask CloseUi<T>(T uiPresenter, bool destroy = false) where T : UiPresenter;
 
 		/// <summary>
 		/// Closes all the visible <seealso cref="UiPresenter"/>
 		/// </summary>
-		Task CloseAllUi();
+		UniTask CloseAllUi();
 
 		/// <summary>
 		/// Closes all the visible <seealso cref="UiPresenter"/> in the given <paramref name="layer"/>
 		/// </summary>
-		Task CloseAllUi(int layer);
+		UniTask CloseAllUi(int layer);
 
 		/// <summary>
 		/// Closes all the visible <seealso cref="UiPresenter"/> in front or in the same layer of the given type <typeparamref name="T"/>
@@ -282,7 +282,7 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given type <typeparamref name="T"/>
 		/// </exception>
-		Task CloseUiAndAllInFront<T>(params int[] excludeLayers) where T : UiPresenter;
+		UniTask CloseUiAndAllInFront<T>(params int[] excludeLayers) where T : UiPresenter;
 
 		/// <summary>
 		/// Adds the given <paramref name="uiSet"/> to the service
@@ -310,7 +310,7 @@ namespace FirstLight.UiService
 		/// Thrown if the service does NOT contain an <see cref="UiSetConfig"/> with the given <paramref name="setId"/>.
 		/// You need to add it first by calling <seealso cref="AddUiSet"/>
 		/// </exception>
-		Task<Task<UiPresenter>>[] LoadUiSetAsync(int setId);
+		UniTask<UiPresenter[]> LoadUiSetAsync(int setId);
 
 		/// <summary>
 		/// Unloads all the <see cref="UiPresenter"/> from given <paramref name="setId "/> that are still present in the service
@@ -376,7 +376,7 @@ namespace FirstLight.UiService
 		/// closes it if another one opens. This way it makes the new screen only open when the current one is finished closing.
 		/// Useful to let the current screen make an out animation before being replaced by a new screen.
 		/// </summary>
-		Task<UiPresenter> OpenScreenAsync<T>() where T : UiPresenter;
+		UniTask<UiPresenter> OpenScreenAsync<T>() where T : UiPresenter;
 		
 		/// <summary>
 		/// Executes the call asynchronously while loading the Screen asset if needed. It keeps track of the current open screen and
@@ -392,7 +392,7 @@ namespace FirstLight.UiService
 		/// closes it if another one opens. This way it makes the new screen only open when the current one is finished closing.
 		/// Useful to let the current screen make an out animation before being replaced by a new screen.
 		/// </summary>
-		Task<T> OpenScreenAsync<T, TData>(TData initialData) 
+		UniTask<T> OpenScreenAsync<T, TData>(TData initialData) 
 			where T : UiPresenter, IUiPresenterData 
 			where TData : struct;
 		

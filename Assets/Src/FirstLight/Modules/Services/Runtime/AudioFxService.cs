@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -53,13 +53,13 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Loads audio mixer and initializes the mixer groups
 		/// </summary>
-		Task LoadAudioMixers(IEnumerable audioMixers);
+		UniTask LoadAudioMixers(IEnumerable audioMixers);
 
 		/// <summary>
 		/// Load a set of audio clips into memory, and into the loaded clips collection
 		/// </summary>
 		/// <param name="clips">Enumerable collection of audio clips and their associated IDs</param>
-		Task LoadAudioClips(IEnumerable clips);
+		UniTask LoadAudioClips(IEnumerable clips);
 
 		/// <summary>
 		/// Unload a set of audio clips from memory, and remove al references from loaded clips collection
@@ -348,15 +348,15 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public virtual Task LoadAudioMixers(IEnumerable audioMixers)
+		public virtual UniTask LoadAudioMixers(IEnumerable audioMixers)
 		{
-			return default;
+			return UniTask.CompletedTask;
 		}
 
 		/// <inheritdoc />
-		public virtual Task LoadAudioClips(IEnumerable clips)
+		public virtual UniTask LoadAudioClips(IEnumerable clips)
 		{
-			return default;
+			return UniTask.CompletedTask;
 		}
 
 		/// <inheritdoc />
@@ -464,7 +464,7 @@ namespace FirstLight.Services
 
 			_soundQueue.Dequeue();
 
-			await Task.Delay(_soundQueueBreakMs);
+			await UniTask.Delay(_soundQueueBreakMs);
 
 			if (_soundQueue.Count > 0)
 			{

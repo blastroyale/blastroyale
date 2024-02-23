@@ -8,6 +8,10 @@
     background-image: var(--sprite-match__background-playerbars);
 }
 
+.player-health-shield--knockedout .player-health-shield {
+    height: 36px;
+}
+
 .player-health-shield--local {
     height: 71px;
     width: 513px;
@@ -18,6 +22,7 @@
     padding-top: 2px;
     padding-bottom: 2px;
 }
+
 
 .player-health-shield__health-container {
     flex-grow: 1;
@@ -32,12 +37,21 @@
     margin: 0;
 }
 
+
 .player-health-shield__shield-container {
     flex-grow: 1;
     flex-direction: row;
     margin-bottom: 1px;
     margin-left: 2px;
     flex-basis: 1px;
+}
+
+.player-health-shield--knockedout .player-health-shield__shield-container {
+    display: none;
+}
+
+.player-health-shield--local.player-health-shield--knockedout .player-health-shield__shield-container {
+    display: flex;
 }
 
 .player-health-shield--local > .player-health-shield__shield-container {
@@ -69,6 +83,13 @@
     font-size: 36px;
 }
 
+.player-health-shield--knockedout .player-health-shield__health-label {
+    color: rgb(255, 255, 255);
+    bottom: auto;
+    height: 100%;
+    -unity-text-align: middle-left;
+}
+
 .player-health-shield__shield-label {
     position: absolute;
     margin-left: 0;
@@ -94,13 +115,26 @@
     font-size: 36px;
 }
 
+.player-health-shield--local.player-health-shield--knockedout .player-health-shield__shield-label {
+    display: none;
+}
+
 .player-health-shield__health-bar {
     flex-grow: 0.9;
     background-image: var(--sprite-match__progress-health);
 }
 
+.player-health-shield--knockedout .player-health-shield__health-bar {
+    flex-grow: 0.9;
+    background-image: var(--sprite-match__progress-health-knockedout);
+}
+
 .player-health-shield--local .player-health-shield__health-bar {
     background-image: var(--sprite-match__progress-health-local);
+}
+
+.player-health-shield--local.player-health-shield--knockedout .player-health-shield__health-bar {
+    background-image: var(--sprite-match__progress-health-local-knockedout);
 }
 
 .player-health-shield__shield-bar {
@@ -112,10 +146,17 @@
     background-image: var(--sprite-match__progress-shield-local);
 }
 
+
+.player-health-shield--knockedout .player-health-shield__damage-bar {
+    background-image: var(--sprite-match__progress-damage-knockedout);
+    -unity-background-image-tint-color: rgb(235, 78, 1);
+}
+
 .player-health-shield__damage-bar {
     background-image: var(--sprite-match__progress-damage);
     -unity-background-image-tint-color: rgb(235, 78, 1);
 }
+
 
 .player-health-shield--local .player-health-shield__damage-bar {
     background-image: none;
@@ -135,6 +176,11 @@
 .player-health-shield--local .player-health-shield__separator-holder {
     display: flex;
 }
+
+.player-health-shield--knockedout .player-health-shield__separator-holder {
+    display: none;
+}
+
 
 .player-health-shield__separator {
     background-image: var(--sprite-match__progress-separator);

@@ -31,7 +31,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventOnGameEnded);
 		}
-
+		
 		private void OnEventOnPlayerAttack(EventOnPlayerAttack callback)
 		{
 			if (EntityRef != callback.PlayerEntity)

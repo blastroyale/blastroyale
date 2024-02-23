@@ -20,7 +20,7 @@ namespace Quantum
 		public static readonly FP PICKUP_SPEED_MINIMUM = FP._0_10;
 		public static readonly double[] APPRX_NORMAL_DISTRIBUTION = {1, 13, 35, 65, 87, 99, 100};
 		public static readonly FP TAP_TO_USE_SPECIAL_AIMING_OFFSET = FP._0_75 + FP._0_10;
-		public static readonly FP INITIAL_AMMO_FILLED = FP._0_20;
+		public static readonly FP INITIAL_AMMO_FILLED = FP._0_10 + FP._0_05;
 		public static readonly FP CONSUMABLE_POPOUT_DURATION = FP._0_50 + FP._0_10;
 
 		public static readonly int TEAM_ID_NEUTRAL = 0;
@@ -31,6 +31,7 @@ namespace Quantum
 		public static readonly string DeadEvent = "OnDead";
 		public static readonly string RespawnEvent = "OnRespawn";
 		public static readonly string StunnedEvent = "OnStunned";
+		public static readonly string KnockedOutEvent = "OnKnockedOut";
 		public static readonly string StunCancelledEvent = "OnStunCancelled";
 		public static readonly string ChangeWeaponEvent = "OnWeaponChanged";
 		public static readonly string StunDurationKey = "StunDuration";
@@ -49,5 +50,6 @@ namespace Quantum
 		public static readonly string IsAimPressedKey = "IsAimPressed";
 		public static readonly string IsSkydiving = "IsSkydiving";
 		public static readonly string IsShootingKey = "IsShooting";
+		public static readonly string IsKnockedOut = "IsKnockedOut";
 	}
 }

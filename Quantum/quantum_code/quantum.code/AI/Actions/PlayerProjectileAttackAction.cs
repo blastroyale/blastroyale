@@ -19,6 +19,11 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
+			if (ReviveSystem.IsKnockedOut(f, e))
+			{
+				return;
+			}
+
 			ProjectileSystem.Shoot(f, e);
 		}
 	}

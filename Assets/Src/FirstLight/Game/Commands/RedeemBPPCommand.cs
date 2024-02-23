@@ -1,8 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
@@ -21,21 +17,30 @@ namespace FirstLight.Game.Commands
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			if (PassType == PassType.Paid && !ctx.Logic.BattlePassLogic().HasPurchasedSeason())
 			{
 				throw new LogicException("Paid Battle Pass not unlocked");
 			}
+
+			var bppLevelBeforeClaim = ctx.Logic.BattlePassLogic().CurrentLevel.Value;
 			var rewards = ctx.Logic.BattlePassLogic().ClaimBattlePassPoints(PassType);
-			if (rewards.Count == 0) return;
+			if (rewards.Count == 0)
+			{
+				return UniTask.CompletedTask;
+			}
 			var rewardItems = ctx.Logic.RewardLogic().CreateItemsFromConfigs(rewards);
 			ctx.Logic.RewardLogic().Reward(rewardItems);
 			ctx.Services.MessageBrokerService().Publish(new BattlePassLevelUpMessage
 			{
 				Rewards = rewardItems,
-				NewLevel = ctx.Logic.BattlePassLogic().CurrentLevel.Value
+				PreviousLevel = bppLevelBeforeClaim,
+				NewLevel = ctx.Logic.BattlePassLogic().CurrentLevel.Value,
+				Completed =  ctx.Logic.BattlePassLogic().CurrentLevel.Value == ctx.Logic.BattlePassLogic().MaxLevel
 			});
+			return UniTask.CompletedTask;
+			
 		}
 	}
 }

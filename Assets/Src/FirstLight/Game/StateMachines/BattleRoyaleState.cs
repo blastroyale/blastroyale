@@ -150,8 +150,6 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
 
-
-		
 		private void CloseMatchHud()
 		{
 			_uiService.CloseUi<HUDScreenPresenter>();

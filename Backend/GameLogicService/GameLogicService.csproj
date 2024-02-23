@@ -8,13 +8,14 @@
 
     <PropertyGroup Condition=" '$(RunConfiguration)' == 'GameLogicService2' " />
     <ItemGroup>
-      <PackageReference Include="DistributedLock" Version="2.3.0" />
-      <PackageReference Include="DistributedLock.Postgres" Version="1.0.2" />
-      <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
-      <PackageReference Include="Microsoft.ApplicationInsights.TraceListener" Version="2.21.0" />
+      <PackageReference Include="DistributedLock" Version="2.3.4" />
+      <PackageReference Include="DistributedLock.Postgres" Version="1.0.5" />
+      <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
+      <PackageReference Include="Microsoft.ApplicationInsights.TraceListener" Version="2.22.0" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
-      <PackageReference Include="Serilog" Version="3.0.1" />
-      <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+      <PackageReference Include="Serilog" Version="3.1.1" />
+      <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+      <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="4.0.0" />
       
       <ProjectReference Include="..\BlastRoyaleCorePlugin\BlastRoyaleCorePlugin.csproj" />
       <ProjectReference Include="..\FirstLightServerSDK\FirstLightServerSDK.csproj" />
@@ -48,6 +49,9 @@
       </Reference>
       <Reference Include="Sirenix.OdinInspector.Attributes">
         <HintPath>..\UnityLib\Sirenix.OdinInspector.Attributes.dll</HintPath>
+      </Reference>
+      <Reference Include="UniTask">
+        <HintPath>..\Lib\UniTask.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.AudioModule">
         <HintPath>..\UnityLib\UnityEngine.AudioModule.dll</HintPath>

@@ -48,7 +48,7 @@ namespace Quantum.Systems
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
 			if (!f.TryGet<Projectile>(info.Entity, out var projectile) || info.Other == info.Entity || info.StaticData.IsTrigger || projectile.Attacker == info.Entity 
-				|| f.Has<EntityDestroyer>(info.Entity) || (projectile.Attacker == info.Other && !projectile.IsSubProjectile()) || (QuantumFeatureFlags.TEAM_IGNORE_COLLISION && projectile.Attacker != info.Other && TeamHelpers.HasSameTeam(f, projectile.Attacker, info.Other)))
+				|| f.Has<EntityDestroyer>(info.Entity) || (projectile.Attacker == info.Other && !projectile.IsSubProjectile()) || (QuantumFeatureFlags.TEAM_IGNORE_COLLISION && projectile.Attacker != info.Other && TeamSystem.HasSameTeam(f, projectile.Attacker, info.Other)))
 			{
 				return;
 			}
@@ -56,15 +56,14 @@ namespace Quantum.Systems
 			if (info.Other.IsValid)
 			{
 				
-				var cfg = projectile.WeaponConfig(f);
 				// For melee we need to have LOS between attacker and target
-				if (cfg.IsMeleeWeapon && !QuantumHelpers.HasMapLineOfSight(f, projectile.Attacker, info.Other))
+				if (projectile.ConfigIsMelee(f) && !QuantumHelpers.HasMapLineOfSight(f, projectile.Attacker, info.Other))
 				{
 					return;
 				}
 
 				// For area of effects, we need to have LOS between the projectile and the target
-				if (projectile.IsSubProjectile() && cfg.HitType == SubProjectileHitType.AreaOfEffect)
+				if (projectile.IsSubProjectile() && projectile.IsSubProjectileAOE(f))
 				{
 					if (!QuantumHelpers.HasMapLineOfSight(f, info.Entity, info.Other))
 					{
@@ -105,7 +104,7 @@ namespace Quantum.Systems
 		private void OnProjectileHit(Frame f, in EntityRef targetHit, in EntityRef projectileEntity, in Projectile projectile)
 		{
 			var position = f.Get<Transform3D>(projectileEntity).Position;
-			var isTeamHit = TeamHelpers.HasSameTeam(f, projectile.Attacker, targetHit);
+			var isTeamHit = TeamSystem.HasSameTeam(f, projectile.Attacker, targetHit);
 			var spawnSubOnEof = projectile.ShouldPerformSubProjectileOnEndOfLifetime(f);
 
 			if (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION && isTeamHit && !projectile.IsSubProjectile() && !spawnSubOnEof)
@@ -139,7 +138,7 @@ namespace Quantum.Systems
 			}
 
 			// We dont destroy projectiles that can multi-hit
-			if (!projectile.IsSubProjectile() && !projectile.WeaponConfig(f).IsMeleeWeapon)
+			if (!projectile.IsSubProjectile() && !projectile.ConfigIsMelee(f))
 			{
 				f.Destroy(projectileEntity);
 			}
@@ -254,5 +253,6 @@ namespace Quantum.Systems
 			// Can be read from predicted 
 			f.Events.OnProjectileFiredPredicted(projectileEntity, projectile);
 		}
+		
 	}
 }

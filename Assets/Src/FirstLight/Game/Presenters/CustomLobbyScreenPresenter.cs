@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
@@ -212,6 +213,11 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
+			if (CurrentRoom == null)
+			{
+				return;
+			}
+
 			if (CurrentRoom.Properties.StartCustomGame.Value)
 			{
 				ReadyToPlay();
@@ -266,10 +272,10 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		protected override Task OnClosed()
+		protected override UniTask OnClosed()
 		{
 			_rootObject.SetActive(true);
-			return Task.CompletedTask;
+			return UniTask.CompletedTask;
 		}
 
 

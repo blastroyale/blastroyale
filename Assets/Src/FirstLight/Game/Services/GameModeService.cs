@@ -82,7 +82,7 @@ namespace FirstLight.Game.Services
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IThreadService _threadService;
 		private readonly IPartyService _partyService;
-		private readonly IEquipmentDataProvider _equipmentDataProvider;
+		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IAppDataProvider _appDataProvider;
 
 		private readonly IObservableList<GameModeInfo> _slots;
@@ -93,12 +93,12 @@ namespace FirstLight.Game.Services
 
 
 		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService,
-							   IEquipmentDataProvider equipmentDataProvider, IPartyService partyService,
+							   IGameDataProvider gameDataProvider, IPartyService partyService,
 							   IAppDataProvider appDataProvider)
 		{
 			_configsProvider = configsProvider;
 			_threadService = threadService;
-			_equipmentDataProvider = equipmentDataProvider;
+			_gameDataProvider = gameDataProvider;
 			_partyService = partyService;
 			_appDataProvider = appDataProvider;
 
@@ -198,7 +198,7 @@ namespace FirstLight.Game.Services
 		private bool CanSelectGameMode(GameModeRotationConfig.GameModeEntry gameMode)
 		{
 			bool hasParty = _partyService.HasParty.Value;
-			if (gameMode.Squads && !hasParty && !_equipmentDataProvider.HasNfts())
+			if (gameMode.Squads && !hasParty && !_gameDataProvider.HasNfts())
 			{
 				return false;
 			}

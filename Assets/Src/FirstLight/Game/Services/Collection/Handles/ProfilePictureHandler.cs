@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Data.DataTypes.Helpers;
-using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Services.Collection.Handles
 {
@@ -34,7 +30,7 @@ namespace FirstLight.Game.Services.Collection.Handles
 			return item.Id.IsInGroup(GameIdGroup.ProfilePicture) || Config.GameIdUrlDictionary.ContainsKey(item.Id);
 		}
 
-		public async Task<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
+		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
 		{
 			var avatarUrl = AvatarHelpers.GetAvatarUrl(item, Config);
 			
@@ -57,9 +53,9 @@ namespace FirstLight.Game.Services.Collection.Handles
 		}
 
 
-		public async Task<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
+		public UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
 		{
-			return null;
+			return default;
 		}
 	}
 }

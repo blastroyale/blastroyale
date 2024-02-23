@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.MonoComponent.Collections;
@@ -27,20 +28,17 @@ namespace FirstLight.Game.Services.Collection.Handles
 			return SkinContainer.Skins.Any(s => s.GameId == item.Id);
 		}
 
-		public async Task<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
+		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
 		{
 			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == item.Id);
 			return await _assetResolver.LoadAssetByReference<Sprite>(skin.Sprite, true, instantiate);
 		}
 
-
-		public async Task<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
+		public async UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
 		{
 			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == item.Id);
 			var obj = await _assetResolver.LoadAssetByReference<GameObject>(skin.Prefab, true, instantiate);
 			if (!instantiate) return obj;
-			var skinComponent = obj.GetComponent<CharacterSkinMonoComponent>();
-			if (skinComponent != null) UpdateAnimator(obj, skinComponent, menuModel);
 			var level = menuModel ? 0 : 2;
 
 			foreach (var component in obj.GetComponents<Renderer>())
@@ -52,21 +50,6 @@ namespace FirstLight.Game.Services.Collection.Handles
 			}
 
 			return obj;
-		}
-
-		private void UpdateAnimator(GameObject obj, CharacterSkinMonoComponent skinComponent, bool menu)
-		{
-			var defaultValues = menu ? SkinContainer.MenuDefaultAnimation : SkinContainer.InGameDefaultAnimation;
-			var animator = obj.GetComponent<Animator>();
-			animator.runtimeAnimatorController = menu switch
-			{
-				true when skinComponent.MenuController != null    => skinComponent.MenuController,
-				false when skinComponent.InGameController != null => skinComponent.InGameController,
-				_                                                 => defaultValues.Controller
-			};
-			animator.applyRootMotion = defaultValues.ApplyRootMotion;
-			animator.updateMode = defaultValues.UpdateMode;
-			animator.cullingMode = defaultValues.CullingMode;
 		}
 	}
 }

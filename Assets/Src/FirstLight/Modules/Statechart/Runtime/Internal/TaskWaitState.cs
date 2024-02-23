@@ -126,13 +126,13 @@ namespace FirstLight.Statechart.Internal
 			if (!_triggered)
 			{
 				_triggered = true;
-				InnerTaskAwait(statechartEvent?.Name);
+				InnerTaskAwait(statechartEvent?.Name).Forget();
 			}
 
 			return _completed ? _transition : null;
 		}
 
-		private async void InnerTaskAwait(string eventName)
+		private async UniTaskVoid InnerTaskAwait(string eventName)
 		{
 			var currentExecution = _executionCount;
 
@@ -143,7 +143,7 @@ namespace FirstLight.Statechart.Internal
 				FLog.Verbose("Statechart", $"TaskWait - '{eventName}' : " +
 				                           $"'{_taskAwaitAction.Target}.{_taskAwaitAction.Method.Name}()' => '{Name}'");
 
-				await Task.Yield();
+				await UniTask.Yield();
 				await _taskAwaitAction();
 			}
 			catch (Exception e)

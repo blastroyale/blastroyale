@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.UIElements;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -23,10 +23,10 @@ namespace FirstLight.UiService
 		/// </summary>
 		public bool IsOpen => gameObject.activeSelf;
 
-		public async Task EnsureOpen()
+		public async UniTask EnsureOpen()
 		{
-			while (!IsOpen) await Task.Yield();
-			await Task.Yield(); // one frame to allow it to render
+			while (!IsOpen) await UniTask.Yield();
+			await UniTask.Yield(); // one frame to allow it to render
 		}
 		
 		/// <summary>
@@ -55,9 +55,9 @@ namespace FirstLight.UiService
 		/// <summary>
 		/// Allows the ui presenter implementation to have extra behaviour when it is closed
 		/// </summary>
-		protected virtual Task OnClosed()
+		protected virtual UniTask OnClosed()
 		{
-			return Task.CompletedTask;
+			return UniTask.CompletedTask;
 		}
 
 		/// <summary>
@@ -81,7 +81,7 @@ namespace FirstLight.UiService
 			OnOpened();
 		}
 
-		internal virtual async Task InternalClose(bool destroy)
+		internal virtual async UniTask InternalClose(bool destroy)
 		{
 			await OnClosed();
 
@@ -108,7 +108,7 @@ namespace FirstLight.UiService
 	/// </summary>
 	public abstract class UiCloseActivePresenter : UiPresenter
 	{
-		internal override async Task InternalClose(bool destroy)
+		internal override async UniTask InternalClose(bool destroy)
 		{
 			if (destroy)
 			{
@@ -169,7 +169,7 @@ namespace FirstLight.UiService
 	/// </summary>
 	public abstract class UiCloseActivePresenterData<T> : UiPresenterData<T> where T : struct
 	{
-		internal override async Task InternalClose(bool destroy)
+		internal override async UniTask InternalClose(bool destroy)
 		{
 			if (destroy)
 			{
@@ -194,7 +194,7 @@ namespace FirstLight.UiService
 		[SerializeField] private int _millisecondsToClose = 0;
 
 		protected VisualElement Root;
-		private readonly Dictionary<VisualElement, UIView> _views = new();
+		private readonly List<UIView> _views = new();
 
 		public UIDocument Document => _document;
 
@@ -210,7 +210,7 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void SubscribeToEvents()
 		{
-			foreach (var (_, view) in _views)
+			foreach (var view in _views)
 			{
 				view.SubscribeToEvents();
 			}
@@ -221,7 +221,7 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void UnsubscribeFromEvents()
 		{
-			foreach (var (_, view) in _views)
+			foreach (var view in _views)
 			{
 				view.UnsubscribeFromEvents();
 			}
@@ -232,7 +232,7 @@ namespace FirstLight.UiService
 		/// </summary>
 		public void AddView(VisualElement element, UIView view)
 		{
-			_views.Add(element, view);
+			_views.Add(view);
 			view.Attached(element);
 		}
 
@@ -259,13 +259,13 @@ namespace FirstLight.UiService
 			SubscribeToEvents();
 		}
 
-		protected override async Task OnClosed()
+		protected override async UniTask OnClosed()
 		{
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
 
 			UnsubscribeFromEvents();
 
-			await Task.Delay(_millisecondsToClose);
+			await UniTask.Delay(_millisecondsToClose);
 
 			if (_background != null)
 			{

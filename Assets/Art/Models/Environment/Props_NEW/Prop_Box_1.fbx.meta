@@ -30,7 +30,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["Prop_Box_1_GEO"],"padding":[153],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

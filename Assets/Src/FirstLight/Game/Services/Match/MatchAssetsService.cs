@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
@@ -44,12 +44,12 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Unloads all loaded assets
 		/// </summary>
-		Task UnloadAllMatchAssets();
+		UniTask UnloadAllMatchAssets();
 
 		/// <summary>
 		/// Waits for all mandatory assets to have completed loading
 		/// </summary>
-		Task WaitMandatoryComplete();
+		UniTask WaitMandatoryComplete();
 	}
 
 	public class MatchAssetsService : IMatchAssetsService, MatchServices.IMatchService
@@ -73,24 +73,25 @@ namespace FirstLight.Game.Services
 
 		public void StartOptionalAssetLoad()
 		{
+			FLog.Verbose("Starting optional match asset load");
 			var localPlayerLoadout = _services.RoomService.CurrentRoom.LocalPlayerProperties.Loadout.Value;
 			if (localPlayerLoadout != null)
 			{
 				LoadGameIds(localPlayerLoadout);
 			}
 
-			_optionalAssets.Add(_assetAdderService.LoadAllAssets<MaterialVfxId, GameObject>());
+			_optionalAssets.Add(_assetAdderService.LoadAllAssets<MaterialVfxId, Material>());
 			_optionalAssets.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());
 			_optionalAssets.Add(_assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>());
 			_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(GameId.Hammer, true, false));
 			LoadOptionalGroup(GameIdGroup.Consumable);
 			LoadOptionalGroup(GameIdGroup.BotItem);
-			LoadOptionalGroup(GameIdGroup.Chest);
 		}
 
 		public void StartMandatoryAssetLoad()
 		{
 			if (!_services.NetworkService.InRoom) return;
+			FLog.Verbose("Starting mandatory asset load");
 			var time = Time.realtimeSinceStartup;
 			var map = _services.RoomService.CurrentRoom.Properties.MapId.Value;
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
@@ -120,8 +121,10 @@ namespace FirstLight.Game.Services
 		}
 
 
-		public async Task UnloadAllMatchAssets()
+		public async UniTask UnloadAllMatchAssets()
 		{
+			var start = DateTime.UtcNow;
+			FLog.Info("Unloading Match Assets");
 			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;
 
@@ -134,25 +137,35 @@ namespace FirstLight.Game.Services
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets<EquipmentRarity, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets<IndicatorVfxId, GameObject>(false);
+			_services.AssetResolverService.UnloadAssets<MaterialVfxId, Material>(false);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());
-
-			Resources.UnloadUnusedAssets();
+			
+			await Resources.UnloadUnusedAssets().ToUniTask();
+			FLog.Verbose($"Unloading match assets took {(DateTime.UtcNow - start).TotalMilliseconds} ms");
 		}
-
 
 		private void LoadOptionalGroup(GameIdGroup group)
 		{
 			foreach (var id in group.GetIds())
-				_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
+			{
+				if (id.IsInGroup(GameIdGroup.Collection))
+				{
+					_optionalAssets.Add(_services.CollectionService.LoadCollectionItem3DModel(ItemFactory.Collection(id), false, false));
+				}
+				else
+				{
+					_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
+				}
+			}
 		}
 
-		public async Task WaitMandatoryComplete()
+		public async UniTask WaitMandatoryComplete()
 		{
 			await _mandatoryAssets.WaitForCompletion();
 		}
 
 
-		private async Task LoadScene(GameId map)
+		private async UniTask LoadScene(GameId map)
 		{
 			if (!_services.ConfigsProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
 			{

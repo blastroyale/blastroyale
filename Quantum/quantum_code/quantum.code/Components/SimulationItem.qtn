@@ -1,0 +1,17 @@
+union SimulationItem
+{
+    SimpleItem SimpleItem;
+    Equipment EquipmentItem;
+}
+
+struct SimpleItem {
+    GameId Id;
+}
+
+struct CurrencyItem {
+    GameId Id;
+    ushort Amount;
+}
+
+
+

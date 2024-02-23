@@ -8,6 +8,7 @@ using FirstLight.FLogger;
 using FirstLight.Services;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Services
 {
@@ -21,8 +22,13 @@ namespace FirstLight.Game.Services
 		/// or be retrieved from the local cache.
 		/// </summary>
 		/// <returns>A handle ID that can be used in <see cref="CancelRequest"/></returns>
-		int RequestTexture(string url, Action<Texture2D> success, Action error=null);
+		int RequestTexture(string url, Action<Texture2D> success, Action error=null, bool cache = true);
 
+		/// <summary>
+		/// Sets the visual element background to be the remote texture
+		/// </summary>
+		int SetTexture(VisualElement element, string url, bool cache = true);
+		
 		/// <summary>
 		/// Cancels a texture request. After this is called, the request callbacks
 		/// will never be called.
@@ -73,16 +79,26 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public int RequestTexture(string url, Action<Texture2D> callback, Action error=null)
+		public int RequestTexture(string url, Action<Texture2D> callback, Action error=null, bool cache = true)
 		{
 			FLog.Info($"Requested texture: {url}");
 
 			var handle = _handle++;
-			var downloadRequest = LoadImage(GetImageUri(url), callback, error, handle);
+			var downloadRequest = LoadImage(GetImageUri(url), callback, error, handle, cache);
 			var coroutine = _coroutineService.StartCoroutine(downloadRequest);
 			_requests.Add(handle, coroutine);
 
 			return handle;
+		}
+
+		public int SetTexture(VisualElement element, string url, bool cache = true)
+		{
+			return RequestTexture(url, tex =>
+			{
+				if (element == null || element.parent == null || element.panel == null) return;
+				element.style.backgroundImage = new StyleBackground(tex);
+				element.style.display = DisplayStyle.Flex;
+			}, null, cache);
 		}
 
 		/// <inheritdoc />
@@ -106,7 +122,7 @@ namespace FirstLight.Game.Services
 			_cachedTextures.Clear();
 		}
 
-		private IEnumerator LoadImage(string uri, Action<Texture2D> callback, Action error, int handle)
+		private IEnumerator LoadImage(string uri, Action<Texture2D> callback, Action error, int handle, bool cacheOnDisk = true)
 		{
 			FLog.Verbose($"Loading texture URI: {uri}");
 			
@@ -135,7 +151,7 @@ namespace FirstLight.Game.Services
 					FLog.Verbose($"Loaded texture URI from cache: {uri}");
 					callback(tex);
 				}
-				else
+				else if(cacheOnDisk)
 				{
 					CacheTexture(tex, request.downloadHandler.data, uri, callback);
 				}

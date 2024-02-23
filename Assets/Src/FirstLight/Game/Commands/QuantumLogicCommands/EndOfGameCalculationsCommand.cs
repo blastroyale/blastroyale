@@ -1,6 +1,8 @@
 using FirstLight.Game.Logic;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -14,6 +16,7 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public class EndOfGameCalculationsCommand : IQuantumCommand, IGameCommand
 	{
+		public Dictionary<GameId, ushort> EarnedGameItems;
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public QuantumValues QuantumValues;
 		public bool ValidRewardsFromFrame = true;
@@ -25,11 +28,11 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Quantum;
 
 		/// <inheritdoc />
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			if (!ValidRewardsFromFrame || RunningTutorialMode)
 			{
-				return;
+				return UniTask.CompletedTask;
 			}
 			
 			var matchData = PlayersMatchData;
@@ -42,7 +45,8 @@ namespace FirstLight.Game.Commands
 				MatchType = matchType,
 				DidPlayerQuit = false,
 				GamePlayerCount = matchData.Count,
-				AllowedRewards = QuantumValues.AllowedRewards
+				AllowedRewards = QuantumValues.AllowedRewards,
+				CollectedItems = EarnedGameItems ?? new ()
 			};
 			
 			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);
@@ -53,15 +57,23 @@ namespace FirstLight.Game.Commands
 				TrophiesChange = trophyChange,
 				TrophiesBeforeChange = trophiesBeforeChange
 			});
+			return UniTask.CompletedTask;
 		}
 
 		public void FromFrame(Frame frame, QuantumValues quantumValues)
 		{
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			PlayersMatchData = gameContainer.GeneratePlayersMatchData(frame, out _, out _);
+			
 			QuantumValues = quantumValues;
 			TeamSize = frame.Context.GameModeConfig.MaxPlayersInTeam;
-			
+
+			var executingData = PlayersMatchData[QuantumValues.ExecutingPlayer];
+			var items = frame.ResolveDictionary(executingData.Data.CollectedMetaItems);
+			foreach (var kp in items)
+			{
+				EarnedGameItems[kp.Key] = kp.Value;
+			}
 			// TODO: Find better way to determine tutorial mode. GameConstants ID perhaps? Something that backend has access to
 			RunningTutorialMode = frame.Context.GameModeConfig.Id.Contains("Tutorial");
 				

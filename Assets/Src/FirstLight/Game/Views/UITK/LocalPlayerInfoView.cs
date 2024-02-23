@@ -7,6 +7,7 @@ using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Photon.Deterministic;
 using Quantum;
+using Quantum.Systems;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
@@ -61,8 +62,8 @@ namespace FirstLight.Game.Views.UITK
 				var maxHealth = FPMath.RoundToInt(stats.GetStatData(StatType.Health).StatValue);
 				var maxShield = FPMath.RoundToInt(stats.GetStatData(StatType.Shield).StatValue);
 
-				_healthShield.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, maxHealth, !_dataProvider.AppDataProvider.ShowRealDamage);
-				_healthShield.UpdateShield(stats.CurrentShield, stats.CurrentShield, maxShield, !_dataProvider.AppDataProvider.ShowRealDamage);
+				_healthShield.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, maxHealth);
+				_healthShield.UpdateShield(stats.CurrentShield, stats.CurrentShield, maxShield);
 			}
 
 			if (f.TryGet<PlayerCharacter>(playerEntity, out var pc))
@@ -95,22 +96,20 @@ namespace FirstLight.Game.Views.UITK
 		private void OnShieldChanged(EventOnShieldChanged callback)
 		{
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
-			_healthShield.UpdateShield(callback.PreviousShield, callback.CurrentShield, callback.CurrentShieldCapacity,
-				!_dataProvider.AppDataProvider.ShowRealDamage);
+			_healthShield.UpdateShield(callback.PreviousShield, callback.CurrentShield, callback.CurrentShieldCapacity);
 		}
 
 		private void OnHealthChanged(EventOnHealthChanged callback)
 		{
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
-			_healthShield.UpdateHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth,
-				!_dataProvider.AppDataProvider.ShowRealDamage);
+			_healthShield.UpdateHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
 		}
 
 		private void UpdateTeamColor()
 		{
 			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 
-			if (TeamHelpers.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), playerEntity).Count < 1)
+			if (TeamSystem.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), playerEntity).Count < 1)
 			{
 				_teamColor.SetVisibility(false);
 				return;

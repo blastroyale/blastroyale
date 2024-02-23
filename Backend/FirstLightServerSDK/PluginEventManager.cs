@@ -1,21 +1,34 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Modules;
+
 
 namespace FirstLight.Server.SDK
 {
 	public class GameServerEvent
 	{
 		public string PlayerId;
-		
+
 		public GameServerEvent(string player)
 		{
 			PlayerId = player;
 		}
 	}
+
+	public static class EventPriority
+	{
+		// Executes first
+		public const int FIRST = 100;
+		public const int MIDDLE = 50;
+		public const int LAST = 0;
+		// Executes last
+	}
+
 
 	/// <summary>
 	/// Interface to register and callback events
@@ -25,17 +38,17 @@ namespace FirstLight.Server.SDK
 		/// <summary>
 		/// Registers a given function to be called back when TEventType fires
 		/// </summary>
-		void RegisterEventListener<TEventType>(Func<TEventType, Task> listener) where TEventType : GameServerEvent;
+		void RegisterEventListener<TEventType>(Func<TEventType, Task> listener, int priority = EventPriority.MIDDLE) where TEventType : GameServerEvent;
 
 		/// <summary>
 		/// Calls a given event. All callbacks will be notified.
 		/// </summary>
 		Task CallEvent<TEventType>(TEventType ev);
 
-		void RegisterCommandListener<TCommand>(Action<string, TCommand, ServerState> action)
+		void RegisterCommandListener<TCommand>(Func<string, TCommand, ServerState, Task> action)
 			where TCommand : IGameCommand;
 
-		void CallCommandEvent(string userId, IGameCommand command, ServerState finalState);
+		Task CallCommandEvent(string userId, IGameCommand command, ServerState finalState);
 	}
 
 	internal class Subscription
@@ -46,6 +59,7 @@ namespace FirstLight.Server.SDK
 	internal class Listener
 	{
 		internal object Action;
+		internal int Priority;
 	}
 
 	/// <summary>
@@ -62,19 +76,22 @@ namespace FirstLight.Server.SDK
 			_log = log;
 		}
 
-		public void RegisterEventListener<TEventType>(Func<TEventType, Task> listener) where TEventType : GameServerEvent
+		public void RegisterEventListener<TEventType>(Func<TEventType, Task> listener, int eventPriority = EventPriority.MIDDLE) where TEventType : GameServerEvent
 		{
-			GetSubscribers(typeof(TEventType)).Listeners.Add(new Listener()
+			var listeners = GetSubscribers(typeof(TEventType)).Listeners;
+			listeners.Add(new Listener()
 			{
-				Action = listener
+				Action = listener,
+				Priority = eventPriority
 			});
+			listeners.Sort((listener1, listener2) => listener2.Priority - listener1.Priority);
 		}
 
-		public void RegisterCommandListener<TCommand>(Action<string, TCommand, ServerState> action)
+		public void RegisterCommandListener<TCommand>(Func<string, TCommand, ServerState, Task> action)
 			where TCommand : IGameCommand
 		{
 			var wrappedAction =
-				new Action<string, IGameCommand, ServerState>((user, cmd, state) =>
+				new Func<string, IGameCommand, ServerState, Task>((user, cmd, state) =>
 					action.Invoke(user, (TCommand) cmd, state));
 			var subs = GetSubscribers(typeof(TCommand));
 			subs.Listeners.Add(new Listener()
@@ -83,34 +100,41 @@ namespace FirstLight.Server.SDK
 			});
 		}
 
-		public void CallCommandEvent(string userId, IGameCommand command, ServerState finalState)
+		public async Task CallCommandEvent(string userId, IGameCommand command, ServerState finalState)
 		{
 			var t = command.GetType();
-			_log.LogDebug($"Calling command event {command.GetType().Name}");
+			_log.LogDebug($"Calling command execution finish for plugins: {command.GetType().Name}");
 			var subs = GetSubscribers(command.GetType());
 			foreach (var listener in subs.Listeners)
 			{
-				var action = listener.Action as Action<string, IGameCommand, ServerState>;
-				action.Invoke(userId, command, finalState);
+				var action = listener.Action as Func<string, IGameCommand, ServerState, Task>;
+				await action!.Invoke(userId, command, finalState);
 			}
 		}
 
 		public async Task CallEvent<TEventType>(TEventType ev)
 		{
-			_log.LogDebug($"Calling event {ev.GetType().Name}");
+			DebugEvent(ev);
 			var subs = GetSubscribers(ev.GetType());
 			foreach (var listener in subs.Listeners)
 			{
 				try
-				{				
+				{
 					var action = listener.Action as Func<TEventType, Task>;
-					await action?.Invoke(ev);
+					await action!.Invoke(ev);
 				}
 				catch (Exception e)
 				{
 					_log.LogError(e);
+					throw;
 				}
 			}
+		}
+		
+		[Conditional("DEBUG")]
+		private void DebugEvent(object ev)
+		{
+			_log.LogInformation($"Calling event for plugins: {ev.GetType().GetRealTypeName()}");
 		}
 
 		/// <summary>

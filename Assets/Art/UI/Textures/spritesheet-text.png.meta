@@ -429,6 +429,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: RedCrossIcon
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 724
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b25d0ec3b47344d48ad750a53aad742b
+      internalID: 1027694511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -453,6 +474,7 @@ TextureImporter:
       HPicon: -1040599977
       MATICicon: 978627458
       ModBadge: 1138685718
+      RedCrossIcon: 1027694511
       Shieldicon: -1896410702
       TextSpriteSheet_1: -531448559
       TextSpriteSheet_2: 99473630

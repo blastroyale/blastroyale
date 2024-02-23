@@ -15,7 +15,7 @@ namespace FirstLight.Game.Ids
 		GrenadeParabolic = 8,
 		CollectableIndicator = 9,
 		GrenadeStunParabolic = 10,
-		ImpactGrenade = 11,
+		Explosion = 11,
 		ImpactGrenadeStun = 12,
 		EnergyShield = 13,
 		Airstrike = 14,
@@ -35,6 +35,10 @@ namespace FirstLight.Game.Ids
 		AmmoPickupFx = 28,
 		SpecialAndWeaponPickupFx = 29,
 		AirdropPickupFx = 30,
+		GoldenEffect = 31,
+		CoinPickupFx = 32,
+		BppPickupFx = 33,
+		Revived = 34,
 	}
 	
 	/// <summary>

@@ -62,11 +62,6 @@ namespace FirstLight.Game.Logic
 		bool UseDynamicJoystick { get; set; }
 
 		/// <summary>
-		/// If should show the real damage instead of percentage damage
-		/// </summary>
-		ref bool ShowRealDamage { get; }
-
-		/// <summary>
 		/// What kind of special cancelling system is used
 		/// </summary>
 		bool InvertSpecialCancellling { get; set; }
@@ -246,9 +241,6 @@ namespace FirstLight.Game.Logic
 				_audioFxService.IsBgmMuted = !value;
 			}
 		}
-
-		public ref bool ShowRealDamage => ref Data.ShowRealDamage;
-
 
 		/// <inheritdoc />
 		public bool IsDialogueEnabled

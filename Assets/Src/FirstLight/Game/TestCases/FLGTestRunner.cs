@@ -38,16 +38,16 @@ namespace FirstLight.Game.TestCases
 			}
 		}
 
-		private List<string> _errors = new();
+		private readonly List<string> _errors = new();
 		private bool _isGameAwaken = false;
 		private bool _failCalled = false;
 		private PlayTestCase? _runningTest;
-		private BenchmarkCollector _benchmarkCollector;
-		private TestRunnerBehaviour _testRunnerBehaviour;
-		private GameObject _runnerGameObject;
+		private BenchmarkCollector _benchmarkCollector = null!;
+		private TestRunnerBehaviour _testRunnerBehaviour = null!;
+		private GameObject _runnerGameObject = null!;
 		public bool UseBotBehaviour = false;
 		public Func<string, IEnumerator>? FailInstruction { private get; set; }
-		private FirebaseLab.TestLabManager _testLabManager = FirebaseLab.TestLabManager.Instantiate();
+		private readonly FirebaseLab.TestLabManager _testLabManager = FirebaseLab.TestLabManager.Instantiate();
 
 		/// <summary>
 		/// This is non blocking, AKA runs in background

@@ -27,7 +27,7 @@ MonoBehaviour:
         RawValue: 85197
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 70
+      AccuracySpreadAngle: 50
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -56,12 +56,12 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 1
       DecisionInterval:
-        RawValue: 163840
+        RawValue: 152917
       LookForTargetsToShootAtInterval:
         RawValue: 83012
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 63
+      AccuracySpreadAngle: 45
       ChanceToUseSpecial:
         RawValue: 3641
       SpecialAimingDeviation:
@@ -90,12 +90,12 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 2
       DecisionInterval:
-        RawValue: 163840
+        RawValue: 141995
       LookForTargetsToShootAtInterval:
         RawValue: 80828
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 57
+      AccuracySpreadAngle: 40
       ChanceToUseSpecial:
         RawValue: 7282
       SpecialAimingDeviation:
@@ -124,12 +124,12 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 3
       DecisionInterval:
-        RawValue: 163840
+        RawValue: 131072
       LookForTargetsToShootAtInterval:
         RawValue: 78643
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 50
+      AccuracySpreadAngle: 35
       ChanceToUseSpecial:
         RawValue: 10923
       SpecialAimingDeviation:
@@ -158,12 +158,12 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 4
       DecisionInterval:
-        RawValue: 163840
+        RawValue: 120149
       LookForTargetsToShootAtInterval:
         RawValue: 76459
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 43
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 14564
       SpecialAimingDeviation:
@@ -192,17 +192,17 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 5
       DecisionInterval:
-        RawValue: 163840
+        RawValue: 109227
       LookForTargetsToShootAtInterval:
         RawValue: 74274
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 37
+      AccuracySpreadAngle: 25
       ChanceToUseSpecial:
         RawValue: 18204
       SpecialAimingDeviation:
         RawValue: 116508
-      LoadoutGearNumber: 4
+      LoadoutGearNumber: 3
       LoadoutRarity: 0
       MaxAimingRange:
         RawValue: 531570
@@ -226,12 +226,12 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 6
       DecisionInterval:
-        RawValue: 163840
+        RawValue: 98304
       LookForTargetsToShootAtInterval:
         RawValue: 72090
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 30
+      AccuracySpreadAngle: 20
       ChanceToUseSpecial:
         RawValue: 21845
       SpecialAimingDeviation:
@@ -260,12 +260,12 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 7
       DecisionInterval:
-        RawValue: 163840
+        RawValue: 87381
       LookForTargetsToShootAtInterval:
         RawValue: 69905
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 23
+      AccuracySpreadAngle: 15
       ChanceToUseSpecial:
         RawValue: 25486
       SpecialAimingDeviation:
@@ -294,12 +294,12 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 8
       DecisionInterval:
-        RawValue: 163840
+        RawValue: 76459
       LookForTargetsToShootAtInterval:
         RawValue: 67721
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 17
+      AccuracySpreadAngle: 10
       ChanceToUseSpecial:
         RawValue: 29127
       SpecialAimingDeviation:
@@ -328,12 +328,12 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 9
       DecisionInterval:
-        RawValue: 163840
+        RawValue: 65536
       LookForTargetsToShootAtInterval:
         RawValue: 65536
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 10
+      AccuracySpreadAngle: 5
       ChanceToUseSpecial:
         RawValue: 32768
       SpecialAimingDeviation:
@@ -469,7 +469,7 @@ MonoBehaviour:
         RawValue: 85197
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 70
+      AccuracySpreadAngle: 50
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -498,12 +498,12 @@ MonoBehaviour:
       GameMode: Testing
       Difficulty: 0
       DecisionInterval:
-        RawValue: 163840
+        RawValue: 152917
       LookForTargetsToShootAtInterval:
         RawValue: 83012
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 63
+      AccuracySpreadAngle: 45
       ChanceToUseSpecial:
         RawValue: 3641
       SpecialAimingDeviation:

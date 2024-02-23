@@ -49,8 +49,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"speed", info.Stats[EquipmentStatType.Speed]},
 				{"armour", info.Stats[EquipmentStatType.Armor]},
 				{"damage", info.Stats[EquipmentStatType.Power]},
-				{"durability", info.CurrentDurability},
-				{"power", new List<Equipment> {info.Equipment}.GetTotalMight(_services.ConfigsProvider)}
+				{"durability", info.CurrentDurability}
 			};
 		}
 	}

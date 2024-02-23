@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -17,7 +18,7 @@ namespace FirstLight.Game.Commands
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			var logic = ctx.Logic.EquipmentLogic();
 			var info = logic.GetInfo(Item);
@@ -47,6 +48,7 @@ namespace FirstLight.Game.Commands
 				rarity = item.Rarity +1,
 				Price = cost
 			});
+            return UniTask.CompletedTask;
 		}
 	}
 }

@@ -12,7 +12,7 @@ namespace BlastRoyaleNFTPlugin
 	/// <summary>
 	/// Class that encapsulates external models and functionality needed to synchronize NFT's
 	/// </summary>
-	public class NftSynchronizer : BaseEventDataSync<PlayerDataLoadEvent>
+	public class NftSynchronizer
 	{
 		internal PluginContext _ctx;
 		internal HttpClient _client;
@@ -21,7 +21,7 @@ namespace BlastRoyaleNFTPlugin
 		protected EquipmentSync _equipmentSync;
 		protected CorpoSync _corpoSync;
 
-		public NftSynchronizer(string baseUrl, string apiKey, PluginContext ctx) : base(ctx)
+		public NftSynchronizer(string baseUrl, string apiKey, PluginContext ctx)
 		{
 			_client = new HttpClient();
 			_externalUrl = baseUrl;
@@ -35,32 +35,14 @@ namespace BlastRoyaleNFTPlugin
 		/// Function that syncrhonizes blockchain data to game data.
 		/// Will add missing NFT's and remove NFT's that are not owned anymore by the user.
 		/// </summary>
-		public override async Task<bool> SyncData(string playfabId)
+		public async Task SyncData(ServerState serverState, string playfabId)
 		{
-			try
+			var lastBlockchainUpdate = await RequestBlockchainLastUpdate(playfabId);
+			if (!serverState.Has<PlayerData>())
 			{
-				await _ctx.PlayerMutex.Lock(playfabId);
-				var serverState = await _ctx.ServerState.GetPlayerState(playfabId);
-				var lastBlockchainUpdate = await RequestBlockchainLastUpdate(playfabId);
-
-				if (!serverState.Has<PlayerData>())
-				{
-					return false;
-				}
-
-				var equipmentSync = _equipmentSync.SyncNftEquipment(playfabId, serverState, lastBlockchainUpdate);
-				var corposSync = _corpoSync.SyncCorpos(playfabId, serverState, lastBlockchainUpdate);
-				var values = await Task.WhenAll(equipmentSync, corposSync);
-				if (serverState.HasDelta())
-				{
-					await _ctx.ServerState.UpdatePlayerState(playfabId, serverState);
-				}
-				return values.All(value => value);
+				return;
 			}
-			finally
-			{
-				_ctx.PlayerMutex.Unlock(playfabId);
-			}
+			await _corpoSync.SyncCorpos(playfabId, serverState, lastBlockchainUpdate);
 		}
 
 

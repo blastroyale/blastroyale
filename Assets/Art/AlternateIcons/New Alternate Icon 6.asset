@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b7b979778f9b4a2bb64806480aec9cb, type: 3}
+  m_Name: New Alternate Icon 6
+  m_EditorClassIdentifier: 
+  iconName: AppIcon_6
+  type: 1
+  source: {fileID: 2800000, guid: 9f9e792b2eff84e6ba1087a7ca617a43, type: 3}
+  iPhoneNotification40px: {fileID: 2800000, guid: 7538b6d86b6e74f81b8988aceece2602, type: 3}
+  iPhoneNotification60px: {fileID: 2800000, guid: 73addf603926b4ba5963068e5f1b88b9, type: 3}
+  iPhoneSettings58px: {fileID: 2800000, guid: 92558b1663c584efdb26e2fef7bafdce, type: 3}
+  iPhoneSettings87px: {fileID: 2800000, guid: 07419bad6605545e89a928dbd2aa2c9b, type: 3}
+  iPhoneSpotlight80px: {fileID: 2800000, guid: 7a1a9829b6e864d509c0e309f1e87021, type: 3}
+  iPhoneSpotlight120px: {fileID: 2800000, guid: 0221af6840fe44fc8bcb21658d13ceb7, type: 3}
+  iPhoneApp120px: {fileID: 2800000, guid: 65ff77a55eb934472a9e8938e378ad7d, type: 3}
+  iPhoneApp180px: {fileID: 2800000, guid: fc7b48376b5ce4b75850b24071fe278f, type: 3}
+  iPadNotifications20px: {fileID: 2800000, guid: 836dba187cba04feda4254925a28d6c3, type: 3}
+  iPadNotifications40px: {fileID: 2800000, guid: abfb4a8d96998417ab097e466ddb1d62, type: 3}
+  iPadSettings29px: {fileID: 2800000, guid: 389f5c9697b9c480db084621314bc9c0, type: 3}
+  iPadSettings58px: {fileID: 2800000, guid: 41c441e52402146e697d976b8e810d50, type: 3}
+  iPadSpotlight40px: {fileID: 2800000, guid: d6760ec07c0f9418ea3f67016553ba97, type: 3}
+  iPadSpotlight80px: {fileID: 2800000, guid: f2c9038dbce334b69aec488107efe0e1, type: 3}
+  iPadApp76px: {fileID: 2800000, guid: e24ac3887a4c4456686432d25e58f07b, type: 3}
+  iPadApp152px: {fileID: 2800000, guid: 3f0b0b882fdeb4a859ef7e3532e697b4, type: 3}
+  iPadProApp167px: {fileID: 2800000, guid: 6b15e87592d2747a5b95c7b9f229825e, type: 3}
+  appStore1024px: {fileID: 2800000, guid: 1aac60252d3ea484ba5c5ced2441aff3, type: 3}

@@ -1,6 +1,13 @@
 
+enum VisibilityAreaType
+{
+	Bush,
+	Building
+}
+
 component VisibilityArea 
 { 
+    VisibilityAreaType AreaType;
     list<entity_ref> EntitiesIn;
 }
 

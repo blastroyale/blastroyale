@@ -20,9 +20,8 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class RewardsScreenPresenter : UiToolkitPresenterData<RewardsScreenPresenter.StateData>
 	{
-		
 		private const int MIN_ITEMS_SHOW_SKIP_ALL = 50;
-		
+
 		public struct StateData
 		{
 			public bool FameRewards;
@@ -35,6 +34,8 @@ namespace FirstLight.Game.Presenters
 		#region Dependencies
 
 		[SerializeField, Required] private AnimatedBackground _animatedBackground;
+		[SerializeField, Required] private AnimatedBackground.AnimatedBackgroundColor _genericRewardBgColor;
+		[SerializeField, Required] private AnimatedBackground.AnimatedBackgroundColor _summaryBgColor;
 
 		[SerializeField, Required, TabGroup("Animation")]
 		private PlayableDirector _genericRewardDirector;
@@ -94,10 +95,10 @@ namespace FirstLight.Game.Presenters
 			_equipmentRewardView.Init(_animations, _animatedBackground, _equipmentRewardDirector);
 
 			root.Q<VisualElement>("OneReward").Required().AttachView(this, out _genericRewardView);
-			_genericRewardView.Init(_animations, _animatedBackground, _genericRewardDirector);
+			_genericRewardView.Init(_animations, _animatedBackground, _genericRewardDirector, _genericRewardBgColor);
 
 			root.Q<VisualElement>("RewardsSummary").Required().AttachView(this, out _summaryView);
-			_summaryView.Init(_animations, _animatedBackground, Data.FameRewards ? _fameSummaryDirector : _summaryDirector, Data.FameRewards);
+			_summaryView.Init(_animations, _animatedBackground, Data.FameRewards ? _fameSummaryDirector : _summaryDirector, Data.FameRewards, _summaryBgColor);
 
 			_summaryView.CreateSummaryElements(Data.Items, Data.FameRewards);
 		}

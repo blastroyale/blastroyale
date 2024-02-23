@@ -1,0 +1,4 @@
+component EntityGroup {
+    list<entity_ref> Entities;
+    byte EntitiesToKeep;
+}

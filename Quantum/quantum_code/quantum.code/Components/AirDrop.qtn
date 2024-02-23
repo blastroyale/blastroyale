@@ -25,6 +25,7 @@ synced event OnAirDropDropped
 synced event OnAirDropLanded
 {
 	entity_ref Entity;
+	entity_ref ChestEntity;
 	AirDrop AirDrop;
 }
 

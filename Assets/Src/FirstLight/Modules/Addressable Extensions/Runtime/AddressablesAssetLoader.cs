@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.AssetImporter;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -16,16 +17,10 @@ namespace FirstLight.AddressablesExtensions
 	public class AddressablesAssetLoader : IAssetLoader, ISceneLoader
 	{
 		/// <inheritdoc />
-		public async Task<T> LoadAssetAsync<T>(object key)
+		public async UniTask<T> LoadAssetAsync<T>(object key)
 		{			
 			var operation = Addressables.LoadAssetAsync<T>(key);
-
-			if (Application.isBatchMode)
-			{
-				return operation.WaitForCompletion();
-			}
-			
-			await operation.Task;
+			await operation.ToUniTask();
 
 			if (operation.Status != AsyncOperationStatus.Succeeded)
 			{
@@ -36,13 +31,13 @@ namespace FirstLight.AddressablesExtensions
 		}
 		
 		/// <inheritdoc />
-		public async Task<GameObject> InstantiateAsync(object key, Transform parent, bool instantiateInWorldSpace)
+		public async UniTask<GameObject> InstantiateAsync(object key, Transform parent, bool instantiateInWorldSpace)
 		{
 			return await InstantiatePrefabAsync(key, new InstantiationParameters(parent, instantiateInWorldSpace));
 		}
 
 		/// <inheritdoc />
-		public async Task<GameObject> InstantiateAsync(object key, Vector3 position, Quaternion rotation, Transform parent)
+		public async UniTask<GameObject> InstantiateAsync(object key, Vector3 position, Quaternion rotation, Transform parent)
 		{
 			return await InstantiatePrefabAsync(key, new InstantiationParameters(position, rotation, parent));
 		}
@@ -54,11 +49,11 @@ namespace FirstLight.AddressablesExtensions
 		}
 
 		/// <inheritdoc />
-		public async Task<Scene> LoadSceneAsync(string path, LoadSceneMode loadMode = LoadSceneMode.Single, bool activateOnLoad = true)
+		public async UniTask<Scene> LoadSceneAsync(string path, LoadSceneMode loadMode = LoadSceneMode.Single, bool activateOnLoad = true)
 		{
 			var operation = Addressables.LoadSceneAsync(path, loadMode, activateOnLoad);
 		
-			await operation.Task;
+			await operation.Task.AsUniTask();
 
 			if (operation.Status != AsyncOperationStatus.Succeeded)
 			{
@@ -70,7 +65,7 @@ namespace FirstLight.AddressablesExtensions
 
 		}
 
-		public async Task<Scene> LoadSceneAsync(AssetReferenceScene reference, LoadSceneMode loadMode = LoadSceneMode.Single, bool activateOnLoad = true)
+		public async UniTask<Scene> LoadSceneAsync(AssetReferenceScene reference, LoadSceneMode loadMode = LoadSceneMode.Single, bool activateOnLoad = true)
 		{
 			var operation = Addressables.LoadSceneAsync(reference, loadMode, activateOnLoad);
 		
@@ -86,26 +81,16 @@ namespace FirstLight.AddressablesExtensions
 		}
 
 		/// <inheritdoc />
-		public async Task UnloadSceneAsync(Scene scene)
+		public async UniTask UnloadSceneAsync(Scene scene)
 		{
-			var operation = SceneManager.UnloadSceneAsync(scene);
-			
-			await AsyncOperation(operation);
+			await SceneManager.UnloadSceneAsync(scene).ToUniTask();
 		}
 
-		private async Task AsyncOperation(AsyncOperation operation)
-		{
-			while (operation != null && !operation.isDone)
-			{
-				await Task.Yield();
-			}
-		}
-	
-		private async Task<GameObject> InstantiatePrefabAsync(object key, InstantiationParameters instantiateParameters = new InstantiationParameters())
+		private async UniTask<GameObject> InstantiatePrefabAsync(object key, InstantiationParameters instantiateParameters = new InstantiationParameters())
 		{
 			var operation = Addressables.InstantiateAsync(key, instantiateParameters);
 
-			await operation.Task;
+			await operation.ToUniTask();
 
 			if (operation.Status != AsyncOperationStatus.Succeeded)
 			{

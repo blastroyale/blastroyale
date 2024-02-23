@@ -44,6 +44,28 @@ MonoBehaviour:
         AsAssetRef:
           Id:
             Value: 0
+    - Key: IsKnockedOut
+      Value:
+        AsBoolean: 0
+        AsByte: 0
+        AsInteger: 0
+        AsFP:
+          RawValue: 0
+        AsFPVector2:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        AsFPVector3:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        AsAssetRef:
+          Id:
+            Value: 0
     - Key: MoveSpeed
       Value:
         AsBoolean: 0

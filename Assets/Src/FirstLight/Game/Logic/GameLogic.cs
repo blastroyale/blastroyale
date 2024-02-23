@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using FirstLight.Game.Commands;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -9,7 +8,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
-using Photon.Deterministic.Protocol;
+using FirstLightServerSDK.Services;
 
 namespace FirstLight.Game.Logic
 {
@@ -267,12 +266,26 @@ namespace FirstLight.Game.Logic
 		public static ServiceContainer Build(this ServiceContainer container, IGameServices services)
 		{
 			container.Add(services.MessageBrokerService);
+
+			var store = services.IAPService;
+			container.Add(store.RemoteCatalogStore as IItemCatalog<ItemData>);
+			container.Add(store.RemoteCatalogStore);
 			return container;
 		}
 
 		public static IMessageBrokerService MessageBrokerService(this ServiceContainer c)
 		{
 			return c.Get<IMessageBrokerService>();
+		}
+		
+		public static IItemCatalog<ItemData> CatalogService(this ServiceContainer c)
+		{
+			return c.Get<IItemCatalog<ItemData>>();
+		}
+		
+		public static IStoreService StoreService(this ServiceContainer c)
+		{
+			return c.Get<IStoreService>();
 		}
 	}
 

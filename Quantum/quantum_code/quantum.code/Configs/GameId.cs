@@ -62,6 +62,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.Any, new List<GameIdGroup>
+					{
+						GameIdGroup.GameDesign
+					}.AsReadOnly()
+				},
+				{
 					GameId.RealMoney, new List<GameIdGroup>
 					{
 						GameIdGroup.Currency
@@ -190,6 +196,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.TestAssetsMap, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
 					GameId.BattlelandsMap, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
@@ -208,12 +220,31 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.Cemetery, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
+					GameId.Fortress, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
+					GameId.IslandOne, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
 					GameId.MausHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
 						GameIdGroup.Equipment,
 						GameIdGroup.Gear,
-						GameIdGroup.Simple
+						GameIdGroup.Simple,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -221,7 +252,8 @@ namespace Quantum
 					{
 						GameIdGroup.Helmet,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -229,7 +261,8 @@ namespace Quantum
 					{
 						GameIdGroup.Helmet,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -237,7 +270,8 @@ namespace Quantum
 					{
 						GameIdGroup.Helmet,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -246,7 +280,8 @@ namespace Quantum
 						GameIdGroup.Helmet,
 						GameIdGroup.Equipment,
 						GameIdGroup.Gear,
-						GameIdGroup.Simple
+						GameIdGroup.Simple,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -254,7 +289,8 @@ namespace Quantum
 					{
 						GameIdGroup.Helmet,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -262,7 +298,8 @@ namespace Quantum
 					{
 						GameIdGroup.Helmet,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -270,7 +307,8 @@ namespace Quantum
 					{
 						GameIdGroup.Helmet,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -293,7 +331,8 @@ namespace Quantum
 					GameId.ApoShotgun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -301,7 +340,8 @@ namespace Quantum
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment,
-						GameIdGroup.Simple
+						GameIdGroup.Simple,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -332,8 +372,7 @@ namespace Quantum
 					GameId.ApoMinigun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment,
-						GameIdGroup.Deprecated
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
@@ -348,24 +387,21 @@ namespace Quantum
 					GameId.ModShotgun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment,
-						GameIdGroup.Deprecated
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
 					GameId.ModMachineGun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment,
-						GameIdGroup.Deprecated
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
 					GameId.ModRifle, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment,
-						GameIdGroup.Deprecated
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
@@ -379,15 +415,15 @@ namespace Quantum
 					GameId.ModLauncher, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment,
-						GameIdGroup.Deprecated
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
 					GameId.ModHeavyMachineGun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -435,7 +471,7 @@ namespace Quantum
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment,
-						GameIdGroup.Simple
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -452,7 +488,8 @@ namespace Quantum
 						GameIdGroup.Amulet,
 						GameIdGroup.Equipment,
 						GameIdGroup.Gear,
-						GameIdGroup.Simple
+						GameIdGroup.Simple,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -460,7 +497,8 @@ namespace Quantum
 					{
 						GameIdGroup.Amulet,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -468,7 +506,8 @@ namespace Quantum
 					{
 						GameIdGroup.Amulet,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -476,7 +515,8 @@ namespace Quantum
 					{
 						GameIdGroup.Amulet,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -485,7 +525,8 @@ namespace Quantum
 						GameIdGroup.Amulet,
 						GameIdGroup.Equipment,
 						GameIdGroup.Gear,
-						GameIdGroup.Simple
+						GameIdGroup.Simple,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -494,7 +535,8 @@ namespace Quantum
 						GameIdGroup.Armor,
 						GameIdGroup.Equipment,
 						GameIdGroup.Gear,
-						GameIdGroup.Simple
+						GameIdGroup.Simple,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -502,7 +544,8 @@ namespace Quantum
 					{
 						GameIdGroup.Armor,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -510,7 +553,8 @@ namespace Quantum
 					{
 						GameIdGroup.Armor,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -518,7 +562,8 @@ namespace Quantum
 					{
 						GameIdGroup.Armor,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -527,7 +572,8 @@ namespace Quantum
 						GameIdGroup.Armor,
 						GameIdGroup.Equipment,
 						GameIdGroup.Gear,
-						GameIdGroup.Simple
+						GameIdGroup.Simple,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -535,7 +581,8 @@ namespace Quantum
 					{
 						GameIdGroup.Armor,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -543,7 +590,8 @@ namespace Quantum
 					{
 						GameIdGroup.Armor,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -552,7 +600,8 @@ namespace Quantum
 						GameIdGroup.Shield,
 						GameIdGroup.Equipment,
 						GameIdGroup.Gear,
-						GameIdGroup.Simple
+						GameIdGroup.Simple,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -560,7 +609,8 @@ namespace Quantum
 					{
 						GameIdGroup.Shield,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -568,7 +618,8 @@ namespace Quantum
 					{
 						GameIdGroup.Shield,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -576,7 +627,8 @@ namespace Quantum
 					{
 						GameIdGroup.Shield,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -585,7 +637,8 @@ namespace Quantum
 						GameIdGroup.Shield,
 						GameIdGroup.Equipment,
 						GameIdGroup.Gear,
-						GameIdGroup.Simple
+						GameIdGroup.Simple,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -684,6 +737,20 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.ChestEquipmentTutorial, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.ChestWeapon, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
 					GameId.ChestLegendary, new List<GameIdGroup>
 					{
 						GameIdGroup.Chest,
@@ -734,6 +801,12 @@ namespace Quantum
 				},
 				{
 					GameId.SpecialRadar, new List<GameIdGroup>
+					{
+						GameIdGroup.Special
+					}.AsReadOnly()
+				},
+				{
+					GameId.SpecialLandmine, new List<GameIdGroup>
 					{
 						GameIdGroup.Special
 					}.AsReadOnly()
@@ -819,29 +892,25 @@ namespace Quantum
 				{
 					GameId.Male01Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.Male02Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.Female01Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.Female02Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -865,6 +934,7 @@ namespace Quantum
 					GameId.MalePunk, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Punk,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -873,6 +943,7 @@ namespace Quantum
 					GameId.MaleSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Superstar,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -898,6 +969,7 @@ namespace Quantum
 					GameId.FemalePunk, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Punk,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -906,6 +978,7 @@ namespace Quantum
 					GameId.FemaleSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Superstar,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -918,22 +991,16 @@ namespace Quantum
 				{
 					GameId.PlayerSkinDragonBoxer, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
 					GameId.PlayerSkinTieGuy, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
 					GameId.PlayerSkinFitnessChick, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
@@ -945,6 +1012,68 @@ namespace Quantum
 					GameId.PlayerSkinXmasSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinJodie, new List<GameIdGroup>
+					{
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinMontyVonCue, new List<GameIdGroup>
+					{
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinBoudicca, new List<GameIdGroup>
+					{
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinCupid, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinPanda, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinLeprechaun, new List<GameIdGroup>
+					{
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinDragon, new List<GameIdGroup>
+					{
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinSnowboarder, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinDunePaul, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinViking, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -952,6 +1081,7 @@ namespace Quantum
 					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -959,6 +1089,7 @@ namespace Quantum
 					GameId.Falcon, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -966,6 +1097,7 @@ namespace Quantum
 					GameId.Rocket, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -989,6 +1121,7 @@ namespace Quantum
 					GameId.Demon, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -996,6 +1129,7 @@ namespace Quantum
 					GameId.Superstar, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1003,6 +1137,7 @@ namespace Quantum
 					GameId.Unicorn, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1039,7 +1174,8 @@ namespace Quantum
 					GameId.MeleeSkinDaggerOfDestiny, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1067,7 +1203,8 @@ namespace Quantum
 					GameId.MeleeSkinMicDrop, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1088,7 +1225,8 @@ namespace Quantum
 					GameId.MeleeSkinPowerPan, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1109,14 +1247,16 @@ namespace Quantum
 					GameId.MeleeSkinThunderAxe, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
 					GameId.MeleeSkinToyMelee, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1130,7 +1270,8 @@ namespace Quantum
 					GameId.MeleeSkinWheelOfPain, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1151,7 +1292,8 @@ namespace Quantum
 					GameId.MeleeSkinXmas2023, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1535,7 +1677,8 @@ namespace Quantum
 				{
 					GameIdGroup.GameDesign, new List<GameId>
 					{
-						GameId.Random
+						GameId.Random,
+						GameId.Any
 					}.AsReadOnly()
 				},
 				{
@@ -1579,9 +1722,13 @@ namespace Quantum
 						GameId.NewBRMap,
 						GameId.FtueMiniMap,
 						GameId.District,
+						GameId.TestAssetsMap,
 						GameId.BattlelandsMap,
 						GameId.IslandsMap,
-						GameId.MazeMayhem
+						GameId.MazeMayhem,
+						GameId.Cemetery,
+						GameId.Fortress,
+						GameId.IslandOne
 					}.AsReadOnly()
 				},
 				{
@@ -1686,7 +1833,6 @@ namespace Quantum
 						GameId.RoadHelmet,
 						GameId.ApoSMG,
 						GameId.ModPistol,
-						GameId.SciCannon,
 						GameId.MouseAmulet,
 						GameId.TikTokAmulet,
 						GameId.MouseArmor,
@@ -1731,21 +1877,49 @@ namespace Quantum
 				{
 					GameIdGroup.Deprecated, new List<GameId>
 					{
+						GameId.MausHelmet,
+						GameId.SoldierHelmet,
+						GameId.RiotHelmet,
+						GameId.WarriorHelmet,
+						GameId.RoadHelmet,
+						GameId.FootballHelmet,
+						GameId.BaseballHelmet,
+						GameId.HockeyHelmet,
 						GameId.ApoCrossbow,
+						GameId.ApoShotgun,
+						GameId.ApoSMG,
 						GameId.ApoRifle,
 						GameId.ApoSniper,
 						GameId.ApoRPG,
-						GameId.ApoMinigun,
-						GameId.ModShotgun,
-						GameId.ModMachineGun,
-						GameId.ModRifle,
-						GameId.ModLauncher,
+						GameId.ModHeavyMachineGun,
 						GameId.SciPistol,
 						GameId.SciBlaster,
 						GameId.SciNeedleGun,
 						GameId.SciRifle,
 						GameId.SciSniper,
-						GameId.SciMelter
+						GameId.SciCannon,
+						GameId.SciMelter,
+						GameId.MouseAmulet,
+						GameId.RiotAmulet,
+						GameId.SoldierAmulet,
+						GameId.WarriorAmulet,
+						GameId.TikTokAmulet,
+						GameId.MouseArmor,
+						GameId.RiotArmor,
+						GameId.SoldierArmor,
+						GameId.WarriorArmor,
+						GameId.RoadSignArmour,
+						GameId.BaseballArmor,
+						GameId.FootballArmor,
+						GameId.MouseShield,
+						GameId.SoldierShield,
+						GameId.WarriorShield,
+						GameId.RiotShield,
+						GameId.RoadShield,
+						GameId.Male01Avatar,
+						GameId.Male02Avatar,
+						GameId.Female01Avatar,
+						GameId.Female02Avatar
 					}.AsReadOnly()
 				},
 				{
@@ -1783,10 +1957,6 @@ namespace Quantum
 				{
 					GameIdGroup.Collection, new List<GameId>
 					{
-						GameId.Male01Avatar,
-						GameId.Male02Avatar,
-						GameId.Female01Avatar,
-						GameId.Female02Avatar,
 						GameId.MaleAssassin,
 						GameId.MaleCorpos,
 						GameId.MalePunk,
@@ -1795,10 +1965,12 @@ namespace Quantum
 						GameId.FemaleCorpos,
 						GameId.FemalePunk,
 						GameId.FemaleSuperstar,
-						GameId.PlayerSkinDragonBoxer,
-						GameId.PlayerSkinTieGuy,
-						GameId.PlayerSkinFitnessChick,
 						GameId.PlayerSkinXmasSuperstar,
+						GameId.PlayerSkinCupid,
+						GameId.PlayerSkinPanda,
+						GameId.PlayerSkinSnowboarder,
+						GameId.PlayerSkinDunePaul,
+						GameId.PlayerSkinViking,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -1900,10 +2072,29 @@ namespace Quantum
 					GameIdGroup.BotItem, new List<GameId>
 					{
 						GameId.MaleAssassin,
+						GameId.MalePunk,
+						GameId.MaleSuperstar,
 						GameId.FemaleAssassin,
+						GameId.FemalePunk,
+						GameId.FemaleSuperstar,
+						GameId.PlayerSkinXmasSuperstar,
+						GameId.PlayerSkinCupid,
+						GameId.Divinci,
+						GameId.Falcon,
+						GameId.Rocket,
 						GameId.Turbine,
 						GameId.Tombstone,
+						GameId.Demon,
+						GameId.Superstar,
+						GameId.Unicorn,
 						GameId.MeleeSkinDefault,
+						GameId.MeleeSkinDaggerOfDestiny,
+						GameId.MeleeSkinMicDrop,
+						GameId.MeleeSkinPowerPan,
+						GameId.MeleeSkinThunderAxe,
+						GameId.MeleeSkinToyMelee,
+						GameId.MeleeSkinWheelOfPain,
+						GameId.MeleeSkinXmas2023,
 						GameId.FootprintDot
 					}.AsReadOnly()
 				},
@@ -1941,6 +2132,8 @@ namespace Quantum
 						GameId.EnergyCubeLarge,
 						GameId.ChestConsumable,
 						GameId.ChestEquipment,
+						GameId.ChestEquipmentTutorial,
+						GameId.ChestWeapon,
 						GameId.ChestLegendary
 					}.AsReadOnly()
 				},
@@ -1955,6 +2148,8 @@ namespace Quantum
 					{
 						GameId.ChestConsumable,
 						GameId.ChestEquipment,
+						GameId.ChestEquipmentTutorial,
+						GameId.ChestWeapon,
 						GameId.ChestLegendary,
 						GameId.CoreRare,
 						GameId.CoreEpic,
@@ -1972,6 +2167,7 @@ namespace Quantum
 						GameId.SpecialAimingGrenade,
 						GameId.SpecialDefaultDash,
 						GameId.SpecialRadar,
+						GameId.SpecialLandmine,
 						GameId.TutorialGrenade
 					}.AsReadOnly()
 				},
@@ -2050,10 +2246,6 @@ namespace Quantum
 				{
 					GameIdGroup.PlayerSkin, new List<GameId>
 					{
-						GameId.Male01Avatar,
-						GameId.Male02Avatar,
-						GameId.Female01Avatar,
-						GameId.Female02Avatar,
 						GameId.MaleAssassin,
 						GameId.MaleCorpos,
 						GameId.MalePunk,
@@ -2062,10 +2254,12 @@ namespace Quantum
 						GameId.FemaleCorpos,
 						GameId.FemalePunk,
 						GameId.FemaleSuperstar,
-						GameId.PlayerSkinDragonBoxer,
-						GameId.PlayerSkinTieGuy,
-						GameId.PlayerSkinFitnessChick,
-						GameId.PlayerSkinXmasSuperstar
+						GameId.PlayerSkinXmasSuperstar,
+						GameId.PlayerSkinCupid,
+						GameId.PlayerSkinPanda,
+						GameId.PlayerSkinSnowboarder,
+						GameId.PlayerSkinDunePaul,
+						GameId.PlayerSkinViking
 					}.AsReadOnly()
 				},
 				{

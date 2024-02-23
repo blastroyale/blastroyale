@@ -35,6 +35,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField] private AnimationClip _collectClip;
 		[SerializeField] private Transform _pickupCircle;
 		[SerializeField] private bool _spawnAnim = true;
+		[SerializeField] private GameObject _itemGameObject;
 
 		private readonly Dictionary<EntityRef, CollectingData> _collectors = new ();
 		private EntityRef _displayedCollector;
@@ -103,6 +104,25 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (frame.TryGet<Collectable>(EntityView.EntityRef, out var collectable) &&
 				collectable.PickupRadius > FP._0)
 			{
+				// Change scale for certain weapons
+				if (collectable.GameId.IsInGroup(GameIdGroup.Weapon))
+				{
+					switch (collectable.GameId)
+					{
+						case GameId.ModPistol :
+							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
+							break;
+						case GameId.ApoSMG :
+						case GameId.ApoMinigun :
+						case GameId.ModMachineGun :
+							_itemGameObject.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+							break;
+						case GameId.ModShotgun :
+							_itemGameObject.transform.localScale = new Vector3(2f, 2f, 2f);
+							break;
+					}
+				}
+				
 				var radiusCorrected = collectable.PickupRadius.AsFloat * RADIUS_CORRECTION;
 				_pickupCircle.localScale =
 					new Vector3(radiusCorrected, radiusCorrected, 1f);
@@ -126,15 +146,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				{
 					case ConsumableType.Health:
 						QuantumEvent.Subscribe<EventOnHealthChanged>(this,
-							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Health));
+							c => RefreshIndicator(c.Game.Frames.Predicted, c.Entity, ConsumableType.Health));
 						break;
 					case ConsumableType.Ammo:
 						QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this,
-							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Ammo));
+							 c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Ammo));
 						break;
 					case ConsumableType.Shield:
 						QuantumEvent.Subscribe<EventOnShieldChanged>(this,
-							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Shield));
+							c => RefreshIndicator(c.Game.Frames.Predicted, c.Entity, ConsumableType.Shield));
 						break;
 					case ConsumableType.Special:
 						QuantumEvent.Subscribe<EventOnPlayerSpecialUpdated>(this,
@@ -155,6 +175,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void RefreshIndicator(Frame f, EntityRef entity, ConsumableType type)
 		{
+			if (Culled)
+			{
+				return;
+			}
+			
 			if (!entity.IsValid || !f.Exists(entity) || !MatchServices.IsSpectatingPlayer(entity)) return;
 
 			var stats = f.Get<Stats>(entity);
@@ -353,6 +378,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_animation.enabled = !culled;
 			base.SetCulled(culled);
+			if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
+			var frame = QuantumRunner.Default.PredictedFrame();
+			if (!culled && frame.TryGet<Consumable>(EntityView.EntityRef, out var consumable))
+			{
+				RefreshIndicator(frame, MatchServices.GetSpectatedPlayer().Entity, consumable.ConsumableType);
+			}
 		}
 
 		private struct CollectingData

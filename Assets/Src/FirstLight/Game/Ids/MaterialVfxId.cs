@@ -8,6 +8,7 @@ namespace FirstLight.Game.Ids
 		Invisibility,
 		Dissolve,
 		Invincible,
+		Golden,
 		TOTAL
 	}
 	

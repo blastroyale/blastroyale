@@ -13,14 +13,19 @@
                 <ui:VisualElement name="Content" class="window__content window__content--purchase">
                     <ui:VisualElement name="ItemSlot" class="purchase-confirmation__item-slot">
                         <ui:VisualElement name="ItemIcon" class="purchase-confirmation__item-icon" />
-                        <ui:Label tabindex="-1" text="150" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemAmount" class="purchase-confirmation__amount" />
+                        <ui:Label tabindex="-1" text="1501" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemAmount" class="purchase-confirmation__amount" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
-                    <ui:Label name="Desc" focusable="false" text="YOU ARE GOING TO BUY" class="font-style-popup purchase-confirmation__desc" />
+                    <ui:VisualElement name="DescContainer" class="purchase-confirmation__desc-container">
+                        <ui:Label name="Desc" focusable="false" text="YOU ARE GOING TO BUY PREMIUM BATTLE PASS" class="purchase-confirmation__desc-label" />
+                        <ui:VisualElement name="NotEnoughDescContainer" class="purchase-confirmation__notenough-desc-container">
+                            <ui:Label name="NotEnoughDescLabel" focusable="false" text="YOU NEED 30 MORE BLAST BUCKS " class="purchase-confirmation__notenough-desc-label" />
+                            <ui:VisualElement name="NotEnoughDescIcon" class="purchase-confirmation__notenough-desc-icon" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
                     <ui:VisualElement name="Controls" class="content__controls">
                         <FirstLight.Game.UIElements.ImageButton name="BuyButton" class="button-long button-long--yellow purchase-confirmation__item-button ">
                             <ui:Label tabindex="-1" text="200" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemPrice" class="purchase-confirmation__item-price-label" />
-                            <ui:VisualElement name="BBIcon" class="purchase-confirmation__button-icon" />
+                            <ui:VisualElement name="CostIcon" class="purchase-confirmation__button-icon" />
                         </FirstLight.Game.UIElements.ImageButton>
                     </ui:VisualElement>
                 </ui:VisualElement>

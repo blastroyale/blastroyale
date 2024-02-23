@@ -6,7 +6,6 @@
     --sprite-battlepass__bar-progress-bp: url('/Assets/Art/UI/Sprites/BattlePass/bar-progress-bp.png');
     --sprite-battlepass__buy-level-button: url('/Assets/Art/UI/Sprites/BattlePass/buy-level-button.png');
     --sprite-battlepass__buy-level-button-pressed: url('/Assets/Art/UI/Sprites/BattlePass/buy-level-button-pressed.png');
-    --sprite-battlepass__cloud-left: url('/Assets/Art/UI/Sprites/BattlePass/cloud-left.png');
     --sprite-battlepass__cloud-right: url('/Assets/Art/UI/Sprites/BattlePass/cloud-right.png');
     --sprite-battlepass__header: url('/Assets/Art/UI/Sprites/BattlePass/header.png');
     --sprite-battlepass__icon_free-pass: url('/Assets/Art/UI/Sprites/BattlePass/icon_free-pass.png');
@@ -58,12 +57,6 @@
 
 .sprite-battlepass__buy-level-button:active {
     background-image: var(--sprite-battlepass__buy-level-button-pressed);
-}
-
-.sprite-battlepass__cloud-left {
-    background-image: var(--sprite-battlepass__cloud-left);
-    width: 120px;
-    height: 98px;
 }
 
 .sprite-battlepass__cloud-right {

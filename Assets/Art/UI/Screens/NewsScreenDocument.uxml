@@ -1,0 +1,23 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="LoadingSpinnerScreenDocument" src="project://database/Assets/Art/UI/Screens/LoadingSpinnerScreenDocument.uxml?fileID=9197481963319205126&amp;guid=4b9b14257b1aeb048a45b218067f15ab&amp;type=3#LoadingSpinnerScreenDocument" />
+    <Style src="project://database/Assets/Art/UI/Screens/NewsScreenStyle.uss?fileID=7433441132597879392&amp;guid=f95e04589e64b461cae6bb2e547c06bd&amp;type=3#NewsScreenStyle" />
+    <ui:VisualElement name="root" focusable="true" class="fill-parent background">
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITShared/News" name="Header" class="news-header" />
+        <FirstLight.Game.UIElements.SafeAreaElement name="SafeAreaElement" picking-mode="Ignore" class="news-safearea">
+            <ui:VisualElement name="BottomArt" class="art" picking-mode="Ignore">
+                <ui:VisualElement name="Girl" class="art-girl">
+                    <ui:VisualElement name="Speech" class="art-girl__bubble">
+                        <ui:Label tabindex="-1" text="Tuned !" parse-escape-sequences="true" display-tooltip-when-elided="true" name="GirlSpeech" class="art-bubble-text" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="NewsPage" picking-mode="Ignore" class="news-bg">
+                <ui:VisualElement name="Categories" tabindex="5" focusable="true" class="news-categories" />
+                <ui:ScrollView name="news-scroll" picking-mode="Ignore" class="news-scroll-contents">
+                    <ui:VisualElement name="NewsContainer" class="news-container" style="-unity-background-image-tint-color: rgb(49, 45, 71);" />
+                </ui:ScrollView>
+            </ui:VisualElement>
+            <ui:Instance template="LoadingSpinnerScreenDocument" name="Loading" class="news-loading" style="display: none;" />
+        </FirstLight.Game.UIElements.SafeAreaElement>
+    </ui:VisualElement>
+</ui:UXML>

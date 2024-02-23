@@ -1,4 +1,6 @@
 using System;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -24,6 +26,13 @@ namespace FirstLight.Game.Data.DataTypes
 		
 		public void DrawIcon(VisualElement icon)
 		{
+			FLog.Verbose("Drawing CoreItem icon");
+			DrawIconAsync(icon).Forget();
+		}
+
+		private async UniTaskVoid DrawIconAsync(VisualElement icon)
+		{
+			await UniTask.NextFrame();
 			icon.RemoveSpriteClasses();
 			icon.style.backgroundImage = StyleKeyword.Null;
 #pragma warning disable CS4014

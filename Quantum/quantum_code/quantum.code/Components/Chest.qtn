@@ -5,9 +5,17 @@ component Chest
 	[HideInInspector] FP CollectTime;
 }
 
+component ChestContents
+{
+	list<SimulationItem> Items;
+}
+
+
 enum ChestType
 {
 	Consumable,
     Equipment,
     Legendary,
+    Tutorial,
+    Weapon
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1969717073681190072}
   - component: {fileID: 5006176107355488481}
   - component: {fileID: 4527445493281042505}
-  m_Layer: 18
+  m_Layer: 7
   m_Name: RocketBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -25,6 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465671954405442202}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.5809522, y: 3.5809522, z: 2.6287413}
@@ -32,7 +33,6 @@ Transform:
   m_Children:
   - {fileID: 2697000720736303735}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5006176107355488481
 MonoBehaviour:
@@ -114,7 +114,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 0
-    Layer: 18
+    Layer: 7
     CallbackFlags:
       Value: 1152
   PhysicsBody:
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 4922382568112587626}
   - component: {fileID: 7824555107552583310}
   - component: {fileID: 1212169772923130493}
-  m_Layer: 18
+  m_Layer: 7
   m_Name: BulletMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,13 +238,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 679610171287118247}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.202}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1969717073681190072}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4922382568112587626
 MeshFilter:
@@ -308,9 +308,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989e752e73faa468cbfed59db6f81a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MyBullet: {fileID: 2100000, guid: 6d2531ed6303143f3a98e5330e4df9b0, type: 2}
-  EnemyBullet: {fileID: 2100000, guid: 72ba44630bcbe4c5b8e5826fbcb2f884, type: 2}
-  Trail: {fileID: 0}
+  GoldenGunGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  NormalGunGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
 --- !u!114 &-8452382852626058855
 MonoBehaviour:
   m_ObjectHideFlags: 0

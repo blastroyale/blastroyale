@@ -53,13 +53,13 @@ public class BakeryPointLight : MonoBehaviour
 
     const float GIZMO_MAXSIZE = 0.1f;
     const float GIZMO_SCALE = 0.01f;
-    float screenRadius = GIZMO_MAXSIZE;
 
     public static int lightsChanged = 0; // 1 = const, 2 = full
 
     static GameObject objShownError;
 
 #if UNITY_EDITOR
+    float screenRadius = GIZMO_MAXSIZE;
     void OnValidate()
     {
         if (lightsChanged == 0) lightsChanged = 1;

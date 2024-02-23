@@ -58,7 +58,7 @@ namespace FirstLight.Game.Configs
 			return new List<IConfigLoadHandler>
 			{
 				new ConfigLoadDefinition<GameConfigs>(_assetLoader, AddressableId.Configs_GameConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
-				new ConfigLoadDefinition<MapGridConfigs>(_assetLoader, AddressableId.Configs_MapGridConfigs, asset => configsAdder.AddSingletonConfig(asset)),
+				new ConfigLoadDefinition<MapAreaConfigs>(_assetLoader, AddressableId.Configs_MapAreaConfigs, configsAdder.AddSingletonConfig, false),
 				new ConfigLoadDefinition<MapConfigs>(_assetLoader, AddressableId.Maps_QuantumMapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Map, asset.Configs)),
 				new ConfigLoadDefinition<MapAssetConfigs>(_assetLoader, AddressableId.Maps_MapAssetConfigs, configsAdder.AddSingletonConfig),
 				new ConfigLoadDefinition<WeaponConfigs>(_assetLoader, AddressableId.Configs_WeaponConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
@@ -84,6 +84,7 @@ namespace FirstLight.Game.Configs
 				new ConfigLoadDefinition<AdjectiveDataConfigs>(_assetLoader, AddressableId.Configs_AdjectiveDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.Adjective, asset.Configs)),
 				new ConfigLoadDefinition<GradeDataConfigs>(_assetLoader, AddressableId.Configs_GradeDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.Grade, asset.Configs)),
 				new ConfigLoadDefinition<GameModeConfigs>(_assetLoader, AddressableId.Configs_GameModeConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
+				new ConfigLoadDefinition<ReviveConfigs>(_assetLoader, AddressableId.Configs_ReviveConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<GameModeRotationConfigs>(_assetLoader, AddressableId.Configs_GameModeRotationConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<MutatorConfigs>(_assetLoader, AddressableId.Configs_MutatorConfigs, asset => configsAdder.AddConfigs(data => data.Id.GetHashCode(), asset.Configs)),
 				new ConfigLoadDefinition<ScrapConfigs>(_assetLoader, AddressableId.Configs_ScrapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Rarity, asset.Configs)),
@@ -127,19 +128,24 @@ namespace FirstLight.Game.Configs
 
 			private readonly AddressableId _id;
 			private readonly Action<TContainer> _onLoadComplete;
+			private readonly bool _unloadConfig;
 
-			public ConfigLoadDefinition(IAssetAdderService assetLoader, AddressableId id, Action<TContainer> onLoadComplete)
+			public ConfigLoadDefinition(IAssetAdderService assetLoader, AddressableId id, Action<TContainer> onLoadComplete, bool unloadConfig = true)
 			{
 				_assetLoader = assetLoader;
 				_id = id;
 				_onLoadComplete = onLoadComplete;
+				_unloadConfig = unloadConfig;
 			}
 
 			public async UniTask LoadConfigRuntime()
 			{
 				var asset = await _assetLoader.LoadAssetAsync<TContainer>(_id.GetConfig().Address);
 				_onLoadComplete(asset);
-				_assetLoader.UnloadAsset(asset);
+				if (_unloadConfig)
+				{
+					_assetLoader.UnloadAsset(asset);
+				}
 			}
 
 			public void LoadConfigEditor()

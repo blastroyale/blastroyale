@@ -3,9 +3,15 @@ synced event OnAllPlayersJoined
     UInt32 NumberOfPlayers;
 }
 
-synced event FireQuantumServerCommand 
+synced server event FireQuantumServerCommand 
 {
     player_ref Player;
+    QuantumServerCommand CommandType;
+}
+
+synced event FireLocalQuantumServerCommand 
+{
+    local player_ref Player;
     QuantumServerCommand CommandType;
 }
 

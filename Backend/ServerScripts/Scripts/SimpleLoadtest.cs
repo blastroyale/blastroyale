@@ -34,17 +34,20 @@ public class SimpleLoadtest : PlayfabScript
 {
 	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
 
-	public const int NUMBER_OF_PLAYERS = 10;
+	public const int NUMBER_OF_PLAYERS = 3;
 	
 	public override void Execute(ScriptParameters parameters)
 	{
 		Console.WriteLine($"Running for {NUMBER_OF_PLAYERS} players");
 		var tasks = new List<Task<LoginResult>>();
-		for (var x = 0; x < NUMBER_OF_PLAYERS; x++)
+		for (var x = 0; x < 10; x++)
 		{
-			tasks.Add(CreatePlayer());
+			for (var y = 0; y < NUMBER_OF_PLAYERS; y++)
+			{
+				tasks.Add(CreatePlayer());
+			}
+			Task.WaitAll(tasks.ToArray());
 		}
-		Task.WaitAll(tasks.ToArray());
 
 		var main = RunAsync(tasks.Select(t => t.Result).ToList());
 		main.Wait();
@@ -52,7 +55,7 @@ public class SimpleLoadtest : PlayfabScript
 
 	public async Task RunAsync(List<LoginResult> loggedInUsers)
 	{
-		var cmd = new EquipCollectionItemCommand() { Item = ItemFactory.Collection(GameId.Male01Avatar) };
+		var cmd = new CollectUnclaimedRewardsCommand();
 		var start = DateTime.UtcNow;
 		var tasks = new List<Task>();
 		

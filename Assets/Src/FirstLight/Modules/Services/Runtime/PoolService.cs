@@ -279,18 +279,8 @@ namespace FirstLight.Services
 
 		protected T SpawnEntity()
 		{
-			T entity = null;
-			
-			do
-			{ 
-				entity = _stack.Count == 0 ? _instantiator.Invoke(SampleEntity) : _stack.Pop();
-			} 
-			// Need to do while loop and check as parent objects could have destroyed the entity/gameobject before it could
-			// be properly disposed by pool service
-			while (entity == null); // wtf
-			
+			var entity = _stack.Count == 0 ? _instantiator.Invoke(SampleEntity) : _stack.Pop();
 			SpawnedEntities.Add(entity);
-
 			return entity;
 		}
 

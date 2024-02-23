@@ -3,11 +3,24 @@ using System.Collections.Generic;
 
 namespace Quantum
 {
+
 	/// <summary>
 	/// This class has a list of useful extensions to be used in the quantum project
 	/// </summary>
 	public static class QuantumExtensions
 	{
+
+		/// <summary>
+		/// Sends a command that will be executed in client logic.
+		/// The command will be routed via quantum server if its a quantum command to
+		/// ensure its not cheatable.
+		/// </summary>
+		public static void ServerCommand(this Frame f, PlayerRef sender, QuantumServerCommand command)
+		{
+			f.Events.FireQuantumServerCommand(sender, command); // server-only
+			f.Events.FireLocalQuantumServerCommand(sender, command); // prediction
+		}
+		
 		/// <summary>
 		/// Sorts a list of player by their <see cref="QuantumPlayerMatchData.PlayerRank"/>
 		/// </summary>
@@ -64,10 +77,12 @@ namespace Quantum
 		{
 			return type switch
 			{
-				ChestType.Equipment    => Quantum.GameId.ChestEquipment,
-				ChestType.Consumable  => Quantum.GameId.ChestConsumable,
-				ChestType.Legendary => Quantum.GameId.ChestLegendary,
-				_                   => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+				ChestType.Equipment  => Quantum.GameId.ChestEquipment,
+				ChestType.Consumable => Quantum.GameId.ChestConsumable,
+				ChestType.Legendary  => Quantum.GameId.ChestLegendary,
+				ChestType.Tutorial  => Quantum.GameId.ChestEquipmentTutorial,
+				ChestType.Weapon  => Quantum.GameId.ChestWeapon,
+				_                    => throw new ArgumentOutOfRangeException(nameof(type), type, null)
 			};
 		}
 	}

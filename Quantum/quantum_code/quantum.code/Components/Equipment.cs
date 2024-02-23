@@ -89,7 +89,7 @@ namespace Quantum
 		/// </summary>
 		public int GetTotalMight(Frame f)
 		{
-			return QuantumStatCalculator.GetMightOfItem(f.GameConfig, this);
+			return QuantumStatCalculator.GetMightOfItem(f.GameConfig, ref this);
 		}
 
 		/// <summary>
@@ -133,8 +133,7 @@ namespace Quantum
 			return new Equipment
 			{
 				GameId = id,
-				Rarity = f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _) ?
-					Constants.STANDARDISED_EQUIPMENT_RARITY : rarity,
+				Rarity = rarity,
 				Level = level
 			};
 		}

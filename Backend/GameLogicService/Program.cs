@@ -6,6 +6,7 @@ using Backend.Game;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
+using GameLogicService;
 using ServerCommon.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpLogging;
@@ -23,20 +24,14 @@ var builder = WebApplication.CreateBuilder(args);
 var binPath = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
 var env = ServerStartup.Setup(builder.Services.AddControllers().AddControllersAsServices(), binPath);
 
+builder.SetupLogging(env);
+builder.SetupMetrics(env);
+
 if (env.Standalone)
 {
 	Console.WriteLine("Initializing Standalone Server");
-
-	builder.Host.UseSerilog();
-	Log.Logger = new LoggerConfiguration()
-		.MinimumLevel.Debug()
-		.MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-		.Enrich.FromLogContext()
-		.WriteTo.Console(theme: AnsiConsoleTheme.Code).CreateLogger();
-	
 	builder.Services.AddHttpLogging(options =>
 	{
-		
 			options.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders |
 				HttpLoggingFields.RequestBody;
 	});

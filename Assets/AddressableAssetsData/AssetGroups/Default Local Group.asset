@@ -66,14 +66,7 @@ MonoBehaviour:
   - m_GUID: e8d470cf8919e4bb78638804bc4397ba
     m_Address: Maps
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GenerateIds
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0c7a161c5a66842a991358994dd6ae53
-    m_Address: Timeline
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GenerateIds
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cf2e71bde4a694081a6c35be5418d3e2
     m_Address: VFX/WeaponAim.prefab
@@ -179,6 +172,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f8b4c677be302ff44be35fb2a261cd5b
     m_Address: Assets/Art/UI/Sprites/BattlePass/icon_free-pass-no-effects.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 551588a7996664ceebac948e598c488f
+    m_Address: Assets/Art/Models/Weapons/DeWe/M_Weapons_DeWe 1.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e60c5949fa400d45802af22e47974d7
+    m_Address: Sprites/T_Projectiles_E.tga
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

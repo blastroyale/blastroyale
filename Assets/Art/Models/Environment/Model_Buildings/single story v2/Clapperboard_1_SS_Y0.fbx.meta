@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Clapperboard_1_GEO"],"padding":[11],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Clapperboard_1_GEO"],"padding":[12],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

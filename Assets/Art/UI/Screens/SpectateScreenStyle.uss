@@ -137,12 +137,6 @@
     justify-content: center;
 }
 
-.player-holder__player-rt {
-    background-image: url('project://database/Assets/Art/UI/RenderTextures/rt-spectate-player.renderTexture?fileID=8400000&guid=e747c79543c0f40b5a6c5680db4c6407&type=2#rt-spectate-player');
-    width: 400px;
-    height: 600px;
-    right: 55px;
-}
 
 .player-holder .might-display {
     margin-left: 70px;

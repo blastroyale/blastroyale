@@ -34,14 +34,8 @@ namespace GameLogicService.Services
 				StatisticName = name
 			});
 		}
-
-		private async Task GetSeasonAsync(string name, Action<int> onGetSeason)
-		{
-			var result = await GetSeasonAsync(name);
-			onGetSeason?.Invoke(result);
-		}
 		
-		public async Task<int> GetSeasonAsync(string name)
+		public async Task<int> GetSeason(string name)
 		{
 			var result = await PlayFabServerAPI.GetLeaderboardAsync(new()
 			{
@@ -57,12 +51,7 @@ namespace GameLogicService.Services
 			return result.Result.Version;
 		}
 		
-		public void GetSeason(string name, Action<int> onGetSeason, Action<string> onError)
-		{
-			_ = GetSeasonAsync(name, onGetSeason);
-		}
-		
-		public void UpdateStatistics(string user, params ValueTuple<string, int> [] stats)
+		public async Task UpdateStatistics(string user, params ValueTuple<string, int> [] stats)
 		{
 			var toUpdate = new List<StatisticUpdate>();
 			foreach(var stat in stats)
@@ -73,17 +62,15 @@ namespace GameLogicService.Services
 					StatisticName = stat.Item1
 				});
 			}
-			PlayFabServerAPI.UpdatePlayerStatisticsAsync(new UpdatePlayerStatisticsRequest()
+			var resp = await PlayFabServerAPI.UpdatePlayerStatisticsAsync(new UpdatePlayerStatisticsRequest()
 			{
 				PlayFabId = user,
 				Statistics = toUpdate,
-			}).ContinueWith(response =>
-			{
-				if (response.Result.Error != null)
-				{
-					_log.LogError(response.Result.Error.GenerateErrorReport());
-				}
 			});
+			if (resp.Error != null)
+			{
+				_log.LogError(resp.Error.GenerateErrorReport());
+			}
 		}
 		
 		public async Task<PublicPlayerProfile> GetProfile(string user)

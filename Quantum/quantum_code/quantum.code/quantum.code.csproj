@@ -98,11 +98,17 @@
     <Compile Include="AI\Functions\HFSM.CurrentFrameTimeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.TransformPositionFunction.cs" />
     <Compile Include="Commands\Cheats\Tutorial\CheatKillAllTutorialBots.cs" />
+    <Compile Include="Commands\Cheats\CheatKillAllExceptOneCommand.cs" />
     <Compile Include="Commands\TutorialSpawnSpecialCommand.cs" />
+    <Compile Include="Components\SimulationItem.cs" />
     <Compile Include="Components\CosteticsHolder.cs" />
     <Compile Include="Components\InputBake.cs" />
     <Compile Include="Components\PlayerInventory.cs" />
+    <Compile Include="Configs\Helpers\QuantumGameModePair.cs" />
+    <Compile Include="Configs\Helpers\QuantumPerGameModeConfig.cs" />
+    <Compile Include="Configs\Helpers\QuantumPair.cs" />
     <Compile Include="Configs\QuantumBotDifficultyConfigs.cs" />
+    <Compile Include="Configs\QuantumReviveConfigs.cs" />
     <Compile Include="QuantumFeatureFlags.cs" />
     <Compile Include="AI\HFSM.State.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.cs" />
@@ -211,7 +217,6 @@
     <Compile Include="Commands\TeamPositionPingCommand.cs" />
     <Compile Include="Commands\WeaponSlotSwitchCommand.cs" />
     <Compile Include="Components\AirDrop.cs" />
-    <Compile Include="Components\ChestOverride.cs" />
     <Compile Include="Components\Chest.cs" />
     <Compile Include="Components\Collectable.cs" />
     <Compile Include="Components\Destructible.cs" />
@@ -250,20 +255,17 @@
     <Compile Include="Configs\QuantumStatConfigs.cs" />
     <Compile Include="Configs\QuantumMapConfigs.cs" />
     <Compile Include="Configs\QuantumEquipmentStatConfigs.cs" />
-    <Compile Include="Configs\QuantumPair.cs" />
     <Compile Include="Configs\QuantumShrinkingCircleConfigs.cs" />
     <Compile Include="Configs\QuantumBotConfigs.cs" />
     <Compile Include="Configs\QuantumConsumableConfigs.cs" />
     <Compile Include="Configs\QuantumDestructibleConfigs.cs" />
     <Compile Include="Configs\QuantumAssetConfigs.cs" />
-    <Compile Include="Configs\QuantumGameModePair.cs" />
     <Compile Include="Configs\QuantumGameConfigs.cs" />
     <Compile Include="Configs\QuantumSpecialConfigs.cs" />
     <Compile Include="Configs\QuantumWeaponConfigs.cs" />
     <Compile Include="Core\CodeGen.cs" />
     <Compile Include="CommandSetup.cs" />
     <Compile Include="Core\Core.cs" />
-    <Compile Include="Events\ChestEvents.cs" />
     <Compile Include="Events\GameEvents.cs" />
     <Compile Include="Events\PlayerEvents.cs" />
     <Compile Include="Frame.User.cs" />
@@ -285,6 +287,10 @@
     <Compile Include="Systems\Bots\BotSetup.cs" />
     <Compile Include="Systems\Bots\BotShooting.cs" />
     <Compile Include="Systems\Bots\BotUpdateContext.cs" />
+    <Compile Include="Systems\ChestSystem.cs" />
+    <Compile Include="Systems\EntityGroupSystem.cs" />
+    <Compile Include="Systems\GameItemCollectableSystem.cs" />
+    <Compile Include="Systems\LandMineSystem.cs" />
     <Compile Include="Systems\TeamSystem.cs" />
     <Compile Include="Systems\VisibilityAreaSystem.cs" />
     <Compile Include="Systems\CommandsSystem.cs" />
@@ -312,6 +318,7 @@
     <Compile Include="Systems\ProjectileSystem.cs" />
     <Compile Include="Systems\SystemInitializer.cs" />
     <Compile Include="Systems\TriggerSystem.cs" />
+    <Compile Include="Systems\ReviveSystem.cs" />
     <Compile Include="Utils\AmmoUtils.cs" />
     <Compile Include="Utils\BitUtil.cs" />
     <Compile Include="Utils\DebugExtensions.cs" />
@@ -325,7 +332,7 @@
     <Compile Include="Utils\QuantumPlayerMatchData.cs" />
     <Compile Include="Utils\QuantumStatCalculator.cs" />
     <Compile Include="Utils\StatUtils.cs" />
-    <Compile Include="Utils\TeamHelpers.cs" />
+    <Compile Include="Utils\WeightedList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BotSDK\AI\BT\bt.qtn" />
@@ -340,6 +347,9 @@
     <Content Include="BotSDK\Core\BotSDK.qtn" />
     <Content Include="Components\AirDrop.qtn" />
     <Content Include="Components\CosmeticsHolder.qtn" />
+    <Content Include="Components\EntityGroup.qtn" />
+    <Content Include="Components\LandMine.qtn" />
+    <Content Include="Components\SimulationItem.qtn" />
     <Content Include="Components\VisibilityArea.qtn" />
     <Content Include="Components\Chest.qtn" />
     <Content Include="Components\DummyCharacter.qtn" />
@@ -369,6 +379,7 @@
     <Content Include="Components\EquipmentCollectable.qtn" />
     <Content Include="Components\Triggers.qtn" />
     <Content Include="Components\WeaponDropPool.qtn" />
+    <Content Include="Components\Revive.qtn" />
     <Content Include="Configs\Configs.qtn" />
     <Content Include="Configs\GameId.qtn" />
     <Content Include="Configs\GameModeEnums.qtn" />
@@ -376,9 +387,6 @@
     <Content Include="Events\GameEvents.qtn" />
     <Content Include="Events\PlayerEvents.qtn" />
     <EmbeddedResource Include="db.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Components\ChestOverride.qtn" />
   </ItemGroup>
   <Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec">
     <PropertyGroup>

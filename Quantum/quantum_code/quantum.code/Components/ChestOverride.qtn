@@ -1,6 +1,0 @@
-component ChestOverride
-{
-	list<GameId> ContentsOverride;
-    EquipmentRarity Rarity;
-}
-

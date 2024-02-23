@@ -155,6 +155,12 @@ namespace Quantum
 		
 		[FoldoutGroup("Endgame"), PropertyTooltip(DESC_ALLOW_EARLY_REWARDS)]
 		public bool AllowEarlyRewards;
+		
+		[FoldoutGroup("Endgame"), PropertyTooltip(DESC_COINS_MULT)]
+		public ushort MetaCoinsMultiplier = 1;
+		
+		[FoldoutGroup("Endgame"), PropertyTooltip(DESC_BPP_MULT)]
+		public ushort MetaBppMultiplier = 1;
 
 #endregion
 
@@ -221,6 +227,8 @@ namespace Quantum
 		private const string DESC_ALLOWED_MAPS = "Which maps are allowed to be played with this game mode.";
 		private const string DESC_COMPLETION_STRATEGY = "What should mark the end of a match.";
 		private const string DESC_ALLOW_EARLY_REWARDS = "Can player earn rewards mid-game ?";
+		private const string DESC_COINS_MULT = "Meta Coins multiplier";
+		private const string DESC_BPP_MULT = "Meta BPP multiplier";
 		private const string DESC_COMPLETION_KILL_COUNT = "How many kills must a player have to win the match.";
 		private const string DESC_GAME_SIMULATION_SM = "Which state machine to use for game simulation";
 		private const string DESC_AUDIO_SM = "Which state machine to use for audio.";
@@ -241,6 +249,8 @@ namespace Quantum
 
 		private IDictionary<string, QuantumGameModeConfig> _dictionary;
 
+		private object _lock = new object();
+
 		/// <summary>
 		/// Requests the <see cref="QuantumGameModeConfig"/> defined by the given <paramref name="name"/>
 		/// </summary>
@@ -248,14 +258,16 @@ namespace Quantum
 		{
 			if (_dictionary == null)
 			{
-				_dictionary = new Dictionary<string, QuantumGameModeConfig>();
-
-				for (var i = 0; i < QuantumConfigs.Count; i++)
+				lock (_lock)
 				{
-					_dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					var dictionary = new Dictionary<string, QuantumGameModeConfig>();
+					for (var i = 0; i < QuantumConfigs.Count; i++)
+					{
+						dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+					}
+					_dictionary = dictionary;
 				}
 			}
-
 			return _dictionary[name];
 		}
 	}

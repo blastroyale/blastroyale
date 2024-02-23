@@ -74,12 +74,15 @@ namespace FirstLight.Game.Services
 			Input.Enable();
 			QuantumCallback.SubscribeManual<CallbackPollInput>(this, PollInput);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
+			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(OnPlayerKnockedOut);
+			QuantumEvent.SubscribeManual<EventOnPlayerRevived>(OnPlayerRevived);
 
 			if (!isReconnect)
 			{
 				DisableSkydivingControls(true);
 			}
 		}
+		
 
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
@@ -140,6 +143,20 @@ namespace FirstLight.Game.Services
 		public void OnSpecialAim(InputAction.CallbackContext context)
 		{
 			// do nothing
+		}
+		private void OnPlayerRevived(EventOnPlayerRevived callback)
+		{
+			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+			if (callback.Entity != playerEntity) return;
+			Input.Gameplay.Aim.Enable();
+		}
+
+		private void OnPlayerKnockedOut(EventOnPlayerKnockedOut callback)
+		{
+			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+			if (callback.Entity != playerEntity) return;
+			Input.Gameplay.Aim.Disable();
+
 		}
 
 		public void OnSpecialButton0(InputAction.CallbackContext context)

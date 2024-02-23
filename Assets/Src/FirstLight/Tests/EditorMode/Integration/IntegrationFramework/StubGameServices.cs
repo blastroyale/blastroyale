@@ -58,6 +58,7 @@ namespace FirstLight.Tests.EditorMode
 		public IBattlePassService BattlePassService { get; }
 		public ITeamService TeamService { get; }
 		public IServerListService ServerListService { get; }
+		public INewsService NewsService { get; set; }
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
@@ -75,8 +76,8 @@ namespace FirstLight.Tests.EditorMode
 								IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IGameUiService uiService)
 		{
 			NetworkService = networkService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, uiService);
 			MessageBrokerService = messageBrokerService;
+			AnalyticsService = new AnalyticsService(this, gameLogic, uiService);
 			TimeService = timeService;
 			DataSaver = dataService;
 			DataService = dataService;
@@ -91,9 +92,9 @@ namespace FirstLight.Tests.EditorMode
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			PartyService = Substitute.For<IPartyService>();
-			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic.EquipmentDataProvider,
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic,
 				PartyService, gameLogic.AppDataProvider);
-			IAPService = null;
+		
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();
 			ProfileService = new PlayerProfileService(GameBackendService);
@@ -111,10 +112,12 @@ namespace FirstLight.Tests.EditorMode
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
 			RoomService = Substitute.For<IRoomService>();
 			CollectionService = Substitute.For<ICollectionService>();
+			NewsService = Substitute.For<INewsService>();
 			BattlePassService = Substitute.For<IBattlePassService>();
 			GameAppService = Substitute.For<IGameAppService>();
 			TeamService = Substitute.For<ITeamService>();
 			ServerListService = Substitute.For<IServerListService>();
+			IAPService = Substitute.For<IIAPService>();
 		}
 	}
 }

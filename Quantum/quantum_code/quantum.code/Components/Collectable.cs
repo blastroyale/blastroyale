@@ -10,7 +10,7 @@ namespace Quantum
 		/// </summary>
 		public static void DropConsumable(Frame f, GameId gameId, FPVector3 position, int angleDropStep, bool isConsiderNavMesh, int dropAngles)
 		{
-			var dropPosition = GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles);
+			var dropPosition = dropAngles == 1 ? position : GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles);
 
 			var configConsumable = f.ConsumableConfigs.GetConfig(gameId);
 			var entityConsumable = f.Create(f.FindAsset<EntityPrototype>(configConsumable.AssetRef.Id));
@@ -30,8 +30,8 @@ namespace Quantum
 				Log.Error($"Trying to drop a default item, skipping: {equipment.GameId}!");
 				return;
 			}
-
-			var dropPosition = GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles);
+			
+			var dropPosition = dropAngles == 1 ? position : GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles);
 
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity, position, 

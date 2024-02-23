@@ -3,6 +3,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
+using Quantum.Systems;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -29,7 +30,7 @@ namespace FirstLight.Game.Views.UITK
 		private PlayableDirector _blasted3Director;
 		private PlayableDirector _blastedBeastDirector;
 
-		private readonly Queue<(string, uint)> _killedPlayersQueue = new();
+		private readonly Queue<(string, uint)> _killedPlayersQueue = new ();
 
 		private int _lowHPThreshold;
 		private IVisualElementScheduledItem _lowHPAnimation;
@@ -93,12 +94,37 @@ namespace FirstLight.Game.Views.UITK
 
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
+			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
+			QuantumEvent.SubscribeManual<EventOnPlayerRevived>(this, OnPlayerRevived);
+		}
+
+		private void OnPlayerKnockedOut(EventOnPlayerKnockedOut callback)
+		{
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			_lowHPAnimation.Pause();
+			_lowHP.style.opacity = 1;
+
+		}
+
+		private void OnPlayerRevived(EventOnPlayerRevived callback)
+		{
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			_lowHPAnimation.Pause();
+			_lowHP.style.opacity = 0;
+			
 		}
 
 		private void OnHealthChanged(EventOnHealthChanged callback)
 		{
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+			if (callback.Entity != spectatedEntity) return;
 
+			// When player is knocked out the effect should always play
+			if (ReviveSystem.IsKnockedOut(callback.Game.Frames.Predicted, spectatedEntity))
+			{
+				return;
+			}
+			
 			var shouldShowLowHP = callback.CurrentHealth <= _lowHPThreshold;
 			if (shouldShowLowHP == _lowHPAnimation.isActive) return;
 

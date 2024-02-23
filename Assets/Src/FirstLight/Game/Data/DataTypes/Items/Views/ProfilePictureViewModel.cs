@@ -13,13 +13,14 @@ namespace FirstLight.Game.Data.DataTypes
 	/// </summary>
 	public class ProfilePictureViewModel : IItemViewModel
 	{
+		private const string USS_AVATAR_ROUNDED_MODIFIER = "avatar--rounded";
 		public ItemData Item { get; }
 		public GameId GameId { get; }
 		public uint Amount => 1;
 		public string DisplayName { get; }
 		public string ItemTypeDisplayName => GameIdGroup.ProfilePicture.GetGameIdGroupLocalization();
 		public string Description => null;
-		
+
 		public VisualElement ItemCard => new ProfilePictureRewardSummaryItemElement()
 		{
 			pickingMode = PickingMode.Ignore
@@ -37,14 +38,9 @@ namespace FirstLight.Game.Data.DataTypes
 			// TODO: Move to general USS
 			var sprite = await MainInstaller.ResolveServices().CollectionService.LoadCollectionItemSprite(Item);
 			icon.style.backgroundImage = new StyleBackground(sprite);
-			var w = short.MaxValue;
-			icon.style.scale = new StyleScale(new Scale(new Vector2(0.8f, 0.8f)));
-			icon.style.borderBottomLeftRadius = w;
-			icon.style.borderBottomRightRadius = w;
-			icon.style.borderTopLeftRadius = w;
-			icon.style.borderTopRightRadius = w;
+			icon.AddToClassList(USS_AVATAR_ROUNDED_MODIFIER);
 		}
-		
+
 		public ProfilePictureViewModel(ItemData item)
 		{
 			Item = item;

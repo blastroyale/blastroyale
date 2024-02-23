@@ -72,7 +72,7 @@ namespace Quantum.Systems
 		public static bool CanEntityViewEntityRaw(in Frame f, in EntityRef viewer, in EntityRef target)
 		{
 			if (!f.TryGet<InsideVisibilityArea>(target, out var targetArea)) return true;
-			if(TeamHelpers.HasSameTeam(f, viewer, target)) return true;
+			if(TeamSystem.HasSameTeam(f, viewer, target)) return true;
 			if (!f.TryGet<InsideVisibilityArea>(viewer, out var viewerArea)) return false;
 			return targetArea.Area == viewerArea.Area;
 		}
@@ -82,7 +82,7 @@ namespace Quantum.Systems
 			var result = new VisibilityCheckResult();
 			result.CanSee = true;
 			if (!f.TryGet(target, out result.TargetArea)) return result;
-			if(TeamHelpers.HasSameTeam(f, viewer, target)) return result;
+			if(TeamSystem.HasSameTeam(f, viewer, target)) return result;
 			if (!f.TryGet(viewer, out result.ViewerArea))
 			{
 				result.CanSee = false;

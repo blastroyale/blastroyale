@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -19,10 +20,11 @@ namespace FirstLight.Game.Commands.OfflineCommands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.ClientOnly;
 
 		/// <inheritdoc />
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			ctx.Logic.EquipmentLogic().Equip(Item);
 			ctx.Services.MessageBrokerService().Publish(new EquippedItemMessage(){ItemID = Item});
+			return UniTask.CompletedTask;
 		}
 	}
 }

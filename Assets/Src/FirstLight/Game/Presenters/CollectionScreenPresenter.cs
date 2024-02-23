@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -131,13 +132,11 @@ namespace FirstLight.Game.Presenters
 			SelectEquipped(_selectedCategory);
 			UpdateCollectionDetails(_selectedCategory);
 
-			Update3DObject();
+			Update3DObject().Forget();
 		}
 
-		protected override async Task OnClosed()
+		protected override UniTask OnClosed()
 		{
-			base.OnClosed();
-
 			if (_seenItems.Count > 0)
 			{
 				_services.CommandService.ExecuteCommand(new MarkEquipmentSeenCommand {Ids = _seenItems});
@@ -155,6 +154,9 @@ namespace FirstLight.Game.Presenters
 				Destroy(_anchorObject);
 				_anchorObject = null;
 			}
+
+			return base.OnClosed();
+			
 		}
 
 		private void SetupCategories()
@@ -206,7 +208,7 @@ namespace FirstLight.Game.Presenters
 				ViewOwnedItemsFromCategory(group);
 				SelectEquipped(group);
 				UpdateCollectionDetails(group);
-				Update3DObject();
+				Update3DObject().Forget();
 			}
 			else
 			{
@@ -280,8 +282,7 @@ namespace FirstLight.Game.Presenters
 					result.Add(item);
 				}
 			}
-
-			return result;
+			return result.Where(c => c.Id.IsInGroup(GameIdGroup.Collection)).ToList();
 		}
 
 		private void OnEquipClicked()
@@ -296,7 +297,8 @@ namespace FirstLight.Game.Presenters
 		{
 			if (_selectedCategory.Id == GameIdGroup.PlayerSkin)
 			{
-				_collectionObject.GetComponent<MainMenuCharacterViewComponent>().PlayAnimation();
+				// TODO mihak
+				//_collectionObject.GetComponent<MainMenuCharacterViewComponent>().PlayAnimation();
 			}
 		}
 
@@ -307,7 +309,7 @@ namespace FirstLight.Game.Presenters
 		{
 		}
 
-		private async Task Update3DObject()
+		private async UniTaskVoid Update3DObject()
 		{
 			var selectedItem = GetSelectedItem();
 			if (selectedItem == null)
@@ -499,7 +501,7 @@ namespace FirstLight.Game.Presenters
 			var newRow = newIndex / PAGE_SIZE;
 			_selectedIndex = newIndex;
 
-			Update3DObject();
+			Update3DObject().Forget();
 			UpdateCollectionDetails(_selectedCategory);
 
 			if (oldRow != newRow)

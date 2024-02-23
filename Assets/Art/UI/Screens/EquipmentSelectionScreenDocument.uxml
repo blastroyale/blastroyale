@@ -4,7 +4,6 @@
     <Style src="project://database/Assets/Art/UI/Styles/EquipmentStatBarStyle.uss?fileID=7433441132597879392&amp;guid=3f98db78bba74198b5adda7525e11796&amp;type=3#EquipmentStatBarStyle" />
     <ui:VisualElement name="root" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement>
-            <FirstLight.Game.UIElements.MightElement name="Might" class="anim-delay-0 anim-fade" />
             <ui:Label name="MissingEquipment" text="YOU HAVE NO&#10;WEAPONS" class="no-equipment-label" />
             <ui:ListView name="EquipmentList" fixed-item-height="400" selection-type="None" show-bound-collection-size="false" class="equipment-list anim-delay-0 anim-translate anim-translate--right-xxl" />
             <ui:VisualElement name="Details" picking-mode="Ignore" class="details">
@@ -30,8 +29,8 @@
                 <ui:VisualElement name="ButtonsHolder" focusable="true" class="details__buttons-holder anim-delay-0 anim-translate anim-translate--left-xxl">
                     <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/scrap" name="ScrapButton" />
                     <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/upgrade" name="UpgradeButton" />
+                    <FirstLight.Game.UIElements.PriceButton name="FuseButton" localization-key="UITEquipment/fuse" />
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/pack" name="EquipButton" class="button-long button-long--yellow" />
-                    <FirstLight.Game.UIElements.MultiPriceButton name="FuseButton" localization-key="UITEquipment/fuse" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using System.Linq;
 
 namespace Quantum
@@ -24,12 +24,11 @@ namespace Quantum
 			var cosmetics = playerData.Cosmetics != default ? f.ResolveList(playerData.Cosmetics).ToArray() : new GameId[] { };
 			return new PlayerLoadout()
 			{
-				Equipment = playerCharacter.Gear.ToList().Where(g => g.IsValid()).ToArray(),
+				Equipment = Array.Empty<Equipment>(),
 				Weapon = playerCharacter.CurrentWeapon,
 				Cosmetics = cosmetics,
 			};
 		}
-
 
 		public static GameId[] GetCosmetics(Frame f, PlayerRef player)
 		{

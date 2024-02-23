@@ -8,6 +8,7 @@ using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Quantum.Systems;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Extensions = FirstLight.Game.Utils.Extensions;
@@ -120,7 +121,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return false;
 			}
-			if (TeamHelpers.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), PlayerView.EntityRef).Count < 1)
+			if (TeamSystem.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), PlayerView.EntityRef).Count < 1)
 			{
 				return false;
 			}

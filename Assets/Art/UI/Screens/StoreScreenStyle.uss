@@ -7,7 +7,7 @@
     flex-direction: row;
     justify-content: space-around;
     width: 140%;
-    left: -500px;
+    left: auto;
 }
 
 .category-button {
@@ -116,9 +116,15 @@
     text-shadow: 8px 8px 0 rgb(0, 0, 0);
 }
 
-.unity-text-element {
-}
-
 .product-category--small {
     max-width: 1065px;
+}
+
+.currency-display-holder {
+    position: absolute;
+    right: 200px;
+    top: 34px;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    width: 502px;
 }

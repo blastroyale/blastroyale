@@ -1,0 +1,1 @@
+Just put the production key here in this file and rename it to playfab_key.txt

@@ -13,8 +13,6 @@ namespace Quantum
 		public uint playerLevel;
 		public uint trophies;
 		public int teamId = -1;
-		public Equipment[] startingEquipment;
-		public Equipment loadoutWeapon;
 		public List<Modifier> modifiers = null;
 		public uint minimumHealth = 0;
 		public CharacterController3DConfig KccConfig;
@@ -25,12 +23,12 @@ namespace Quantum
 		/// <summary>
 		/// Requests the current weapon of player character
 		/// </summary>
-		public Equipment CurrentWeapon => WeaponSlot->Weapon;
+		public Equipment CurrentWeapon => SelectedWeaponSlot->Weapon;
 		
 		/// <summary>
 		/// Requests the current weapon slot of player character
 		/// </summary>
-		public WeaponSlot* WeaponSlot => WeaponSlots.GetPointer(CurrentWeaponSlot);
+		public WeaponSlot* SelectedWeaponSlot => WeaponSlots.GetPointer(CurrentWeaponSlot);
 
 		/// <summary>
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
@@ -44,35 +42,16 @@ namespace Quantum
 			Player = setup.playerRef;
 			TeamId = setup.teamId;
 			CurrentWeaponSlot = 0;
-			DroppedLoadoutFlags = 0;
 			transform->Position = setup.spawnPosition.Position;
 			transform->Rotation = setup.spawnPosition.Rotation;
 
-			// The hammer should inherit ONLY the faction from your loadout weapon
-			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = Equipment.Create(f, GameId.Hammer, EquipmentRarity.Common, 1);
-			if (setup.loadoutWeapon.IsValid())
-			{
-				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = setup.loadoutWeapon.Faction;
-			}
-
-			var config = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId);
-			WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT)->MagazineShotCount = config.MagazineSize;
-			
-			foreach (var item in setup.startingEquipment)
-			{
-				var slot = GetGearSlot(&item);
-				Gear[slot] = item;
-				if (slot == Constants.GEAR_INDEX_WEAPON)
-				{
-					var weaponConfig = f.WeaponConfigs.GetConfig(item.GameId);
-					WeaponSlots.GetPointer(Constants.WEAPON_INDEX_PRIMARY)->MagazineShotCount = weaponConfig.MagazineSize;
-					WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon = item;
-				}
-			}
+			var weaponSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
+			weaponSlot->Weapon = Equipment.Create(f, GameId.Hammer, EquipmentRarity.Common, 1);
+			weaponSlot->MagazineShotCount = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MagazineSize;
 			
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
 			// a list of all currently registered entities and their states.
-			//BotSDKDebuggerSystem.AddToDebugger(e);
+			// BotSDKDebuggerSystem.AddToDebugger(setup.e);
 
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, setup);
@@ -131,29 +110,13 @@ namespace Quantum
 			}
 			else
 			{
-				var slot = GetDefaultWeaponSlot();
-				SetSlotWeapon(f, e, slot);
+				SetSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
 			}
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
 
 			f.Remove<DeadPlayerCharacter>(e);
-		}
-
-		private int GetDefaultWeaponSlot()
-		{
-			var slot = Constants.WEAPON_INDEX_DEFAULT;
-			for (var i = 0; i < Gear.Length; i++)
-			{
-				if (Gear[i].IsValid() && Gear[i].IsWeapon())
-				{
-					slot = Constants.WEAPON_INDEX_PRIMARY;
-					break;
-				}
-			}
-
-			return slot;
 		}
 
 		/// <summary>
@@ -163,8 +126,8 @@ namespace Quantum
 		{
 			var targetable = new Targetable {Team = TeamId};
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-
-			stats->ResetStats(f, CurrentWeapon, Gear, e);
+			
+			stats->ResetStats(f, CurrentWeapon, Array.Empty<Equipment>(), e);
 
 			var maxHealth = FPMath.RoundToInt(stats->GetStatData(StatType.Health).StatValue);
 			var currentHealth = stats->CurrentHealth;
@@ -177,7 +140,7 @@ namespace Quantum
 
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = true;
 		}
-
+		
 		/// <summary>
 		/// Kills this <see cref="PlayerCharacter"/> and mark it as done for the session
 		/// </summary>
@@ -216,7 +179,6 @@ namespace Quantum
 			}
 
 			var equipmentData = new EquipmentEventData();
-			equipmentData.Gear.CopyFixedArray(Gear);
 			equipmentData.CurrentWeapon = CurrentWeapon;
 			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker), equipmentData);
 			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker, fromRoofDamage);
@@ -229,63 +191,18 @@ namespace Quantum
 
 			if (!f.Has<BotCharacter>(e))
 			{
-				f.Events.FireQuantumServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
-			}
-		}
-
-		/// <summary>
-		/// Has the Player Character gain an <paramref name="amount"/> of energy
-		/// </summary>
-		public void GainEnergy(Frame f, EntityRef e, int amount)
-		{
-			var prevEnergyLevel = GetEnergyLevel(f);
-			if(prevEnergyLevel == f.GameConfig.PlayerMaxEnergyLevel)
-			{
-				return;
-			}
-			var prevEnergy = CurrentEnergy;
-			CurrentEnergy += (short)amount;
-			var newEnergyLevel = GetEnergyLevel(f);
-
-			f.Events.OnPlayerEnergyChanged(Player, e, prevEnergy, CurrentEnergy, amount, prevEnergyLevel);
-
-			if (newEnergyLevel > prevEnergyLevel)
-			{
-				f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
-				f.Events.OnPlayerLevelUp(Player, e, newEnergyLevel);
+				f.ServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
 			}
 		}
 		
-		/// <summary>
-		/// Returns the total energy level of the player based on <paramref name="energyCollected"/>
-		/// </summary>
-		public int GetEnergyLevel(Frame f)
-		{
-			int energyCollected = CurrentEnergy;
-			var gameconfigs = f.GameConfig;
-			for (int i = 0; i < gameconfigs.PlayerMaxEnergyLevel; i++)
-			{
-				 var requiredEnergy = FPMath.Lerp(gameconfigs.MinMaxEnergyLevelRequirement.Value1, gameconfigs.MinMaxEnergyLevelRequirement.Value2,
-					 (FP)i / gameconfigs.PlayerMaxEnergyLevel).AsInt;
-				energyCollected -= requiredEnergy;
-				if (energyCollected >= 0)
-					continue;
-				return i;
-			}
-			return (int)gameconfigs.PlayerMaxEnergyLevel;
-		}
-
 		/// <summary>
 		/// Adds a <paramref name="weapon"/> to the player's weapon slots
 		/// </summary>
 		internal void AddWeapon(Frame f, EntityRef e, ref Equipment weapon, bool primary)
 		{
-			Assert.Check(weapon.IsWeapon(), weapon);
-
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			var slot = GetWeaponEquipSlot(f, weapon, primary);
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
-			var stats = f.Unsafe.GetPointer<Stats>(e);
 
 			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
 			    weapon.Rarity > primaryWeapon.Rarity)
@@ -342,30 +259,13 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Equips a gear item to the correct gear slot (old one is replaced).
-		/// </summary>
-		internal void EquipGear(Frame f, EntityRef e, Equipment gear)
-		{
-			Assert.Check(!gear.IsWeapon(), gear);
-
-			var gearSlot = GetGearSlot(&gear);
-			
-			Gear[gearSlot] = gear;
-			
-			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
-			
-			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
-		}
-
-
-		/// <summary>
 		/// Requests if entity <paramref name="e"/> has ammo left or not
 		/// </summary>
 		public bool IsAmmoEmpty(Frame f, EntityRef e, bool includeMag = true)
 		{
 			return f.Unsafe.GetPointer<Stats>(e)->CurrentAmmoPercent == 0
 				   && !HasMeleeWeapon(f, e)
-				   && (!includeMag || WeaponSlot->MagazineShotCount == 0);
+				   && (!includeMag || SelectedWeaponSlot->MagazineShotCount == 0);
 		}
 
 		/// <summary>
@@ -373,7 +273,7 @@ namespace Quantum
 		/// </summary>
 		public void ReduceMag(Frame f, EntityRef e)
 		{
-			var slot = WeaponSlot;
+			var slot = SelectedWeaponSlot;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 
 			// reduce magazine count if your weapon uses a magazine
@@ -403,28 +303,6 @@ namespace Quantum
 		public bool HasMeleeWeapon(Frame f, EntityRef e)
 		{
 			return f.Get<AIBlackboardComponent>(e).GetBoolean(f, Constants.HasMeleeWeaponKey);
-		}
-
-		/// <summary>
-		/// Checks if we dropped a specific piece of equipment (only checks by GameIdGroup).
-		///
-		/// This does not check if this item is actually in the loadout.
-		/// </summary>
-		public bool HasDroppedLoadoutItem(Equipment* equipment)
-		{
-			var shift = GetGearSlot(equipment) + 1;
-			return (DroppedLoadoutFlags & (1 << shift)) != 0;
-		}
-
-		/// <summary>
-		/// Checks if we dropped a piece of equipment for specified slot.
-		///
-		/// This does not check if this item is actually in the loadout.
-		/// </summary>
-		public bool HasDroppedItemForSlot(int slotIndex)
-		{
-			var shift = slotIndex + 1;
-			return (DroppedLoadoutFlags & (1 << shift)) != 0;
 		}
 		
 		/// <summary>
@@ -458,101 +336,7 @@ namespace Quantum
 				_ => throw new NotSupportedException($"Could not find GameIdGroup for slot({slot})")
 			};
 		}
-
-		/// <summary>
-		/// Gets specific metadata around a specific loadout item.
-		/// Can return null if the equipment is not part of the loadout.
-		/// </summary>
-		public EquipmentSimulationMetadata? GetLoadoutMetadata(Frame f, Equipment* e)
-		{
-			var loadout = GetLoadout(f);
-			for (var i = 0; i < loadout.Length; i++)
-			{
-				if (loadout[i].GameId == e->GameId) // only compare game id for speed
-				{
-					return f.GetPlayerData(Player)?.LoadoutMetadata[i];
-				}
-			}
-			return null;
-		}
-
-		/// <summary>
-		/// Requests the player's initial setup loadout
-		/// </summary>
-		public Equipment[] GetLoadout(Frame f)
-		{
-			var loadout = f.GetPlayerData(Player)?.Loadout;
-			if (f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _))
-			{
-				for(int i = 0; i < loadout.Length; i++)
-				{
-					loadout[i].Rarity = Constants.STANDARDISED_EQUIPMENT_RARITY;
-				}
-			}
-			return loadout;
-		}
 		
-		/// <summary>
-		/// Requests the player's weapon from initial setup loadout
-		/// </summary>
-		public Equipment GetLoadoutWeapon(Frame f)
-		{
-			var weapon = f.GetPlayerData(Player)?.Weapon ?? Equipment.None;
-			if (f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _))
-			{
-				weapon.Rarity = Constants.STANDARDISED_EQUIPMENT_RARITY;
-			}
-			return weapon;
-		}
-
-		/// <summary>
-		/// Requests the player's initial loadout (only gear, weapon excluded)
-		/// </summary>
-		public Equipment[] GetLoadoutGear(Frame f)
-		{
-			var loadout = f.GetPlayerData(Player)?.Loadout.
-							Where(eq => !eq.GameId.IsInGroup(GameIdGroup.Weapon)).ToArray();
-			
-			if (f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _))
-			{
-				for(int i = 0; i < loadout.Length; i++)
-				{
-					loadout[i].Rarity = Constants.STANDARDISED_EQUIPMENT_RARITY;
-				}
-			}
-			return loadout;
-		}
-		
-		/// <summary>
-		/// Sets that we dropped a specific piece of equipment (via GameIdGroup).
-		///
-		/// This does not check if this item is actually in the loadout.
-		/// </summary>
-		internal void SetDroppedLoadoutItem(Equipment* equipment)
-		{
-			var shift = GetGearSlot(equipment) + 1;
-			DroppedLoadoutFlags |= 1 << shift;
-		}
-
-
-		/// <summary>
-		/// Checks if the player has this <paramref name="equipment"/> item equipped, based on it's
-		/// GameId and Rarity (rarity of equipped item has to be higher).
-		/// </summary>
-		internal bool HasBetterWeaponEquipped(Equipment* equipment)
-		{
-			for (int i = 0; i < WeaponSlots.Length; i++)
-			{
-				var weapon = WeaponSlots[i].Weapon;
-				if (weapon.GameId == equipment->GameId && weapon.Rarity >= equipment->Rarity)
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-
 		private int GetWeaponEquipSlot(Frame f, Equipment weapon, bool primary)
 		{
 			if (f.Context.GameModeConfig.SingleSlotMode)
@@ -570,6 +354,24 @@ namespace Quantum
 			}
 
 			return primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
+		}
+		
+		/// <summary>
+		/// Checks if the player has this <paramref name="equipment"/> item equipped, based on it's
+		/// GameId and Rarity (rarity of equipped item has to be higher).
+		/// </summary>
+		internal bool HasBetterWeaponEquipped(Equipment* equipment)
+		{
+			for (int i = 0; i < WeaponSlots.Length; i++)
+			{
+				var weapon = WeaponSlots[i].Weapon;
+				if (weapon.GameId == equipment->GameId && weapon.Rarity >= equipment->Rarity)
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		private QuantumWeaponConfig SetSlotWeapon(Frame f, EntityRef e, int slot)
@@ -593,11 +395,11 @@ namespace Quantum
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 
 			var stats = f.Unsafe.GetPointer<Stats>(e); 
-			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
+			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Array.Empty<Equipment>());
 			
 			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 			f.Events.OnPlayerAmmoChanged(Player, e, stats->GetCurrentAmmo(),
-				weaponConfig.MaxAmmo, WeaponSlot->MagazineShotCount, WeaponSlot->MagazineSize);
+				weaponConfig.MaxAmmo, SelectedWeaponSlot->MagazineShotCount, SelectedWeaponSlot->MagazineSize);
 
 			return weaponConfig;
 		}

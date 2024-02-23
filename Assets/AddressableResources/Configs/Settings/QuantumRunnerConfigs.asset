@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: QuantumRunnerConfigs
   m_EditorClassIdentifier: 
   _runtimeConfig:
-    Seed: 1250947138
+    Seed: 467865617
     Map:
       Id:
-        Value: 4344381221028547365
+        Value: 534712889589439825
     SimulationConfig:
       Id:
         Value: 1565542650131154954
@@ -71,5 +71,8 @@ MonoBehaviour:
     MutatorConfigs:
       Id:
         Value: 490727885306324360
+    ReviveConfigs:
+      Id:
+        Value: 3922240779153377466
   _deterministicConfigAsset: {fileID: 11400000, guid: f751724b9805d468883f1b6feb3bc2de, type: 2}
   _serverSettings: {fileID: 11400000, guid: 36ac09ddba67042d388dbb80f6fa2ccb, type: 2}

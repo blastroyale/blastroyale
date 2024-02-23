@@ -1,12 +1,11 @@
 using System;
-using System.IO;
 using Backend.Db;
 using Backend.Game;
 using Backend.Game.Services;
 using Backend.Plugins;
 using Backend.Models;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
-using Microsoft.Azure.WebJobs.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -16,13 +15,11 @@ using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
-using FirstLightServerSDK.Modules;
 using FirstLightServerSDK.Services;
 using GameLogicService.Game;
 using GameLogicService.Services;
 using ServerCommon;
 using ServerCommon.CommonServices;
-using IPlayerProfileService = FirstLight.Game.Services.IPlayerProfileService;
 using PluginManager = Backend.Plugins.PluginManager;
 
 namespace Backend
@@ -40,18 +37,7 @@ namespace Backend
 			var services = builder.Services;
 			DbSetup.Setup(services, envConfig);
 			var pluginManager = new PluginManager();
-
-			var insightsConnection = envConfig.TelemetryConnectionString;
-			if (insightsConnection != null)
-			{
-				services.AddApplicationInsightsTelemetry(o => o.ConnectionString = insightsConnection);
-				services.AddSingleton<IMetricsService, AppInsightsMetrics>();
-			}
-			else
-			{
-				services.AddSingleton<IMetricsService, NoMetrics>();
-			}
-
+			
 			services.AddSingleton<IPluginManager>(f => pluginManager);
 			services.AddSingleton<ShopService>();
 			services.AddSingleton<IServerAnalytics, PlaystreamAnalyticsService>();
@@ -60,7 +46,6 @@ namespace Backend
 			services.AddSingleton<IPluginLogger, ServerPluginLogger>();
 			services.AddSingleton<IGameLogicContextService, GameLogicContextService>();
 			services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
-			services.AddSingleton<IDataSynchronizer, PlayerDataSynchronizer>();
 			services.AddSingleton<IStatisticsService, PlayfabStatisticsService>();
 			services.AddSingleton<IServerStateService, PlayfabGameStateService>();
 			services.AddSingleton<IGameConfigurationService, GameConfigurationService>();
@@ -68,6 +53,8 @@ namespace Backend
 			services.AddSingleton<IEnvironmentService, ServerEnvironmentService>();
 			services.AddSingleton<IInventorySyncService, PlayfabInventorySyncService>();
 			services.AddSingleton<IPlayfabServer, PlayfabServerSettings>();
+			services.AddSingleton<IStoreService, PlayfabServerStoreService>();
+			services.AddSingleton<IItemCatalog<ItemData>, PlayfabItemCatalogService>();
 			services.AddSingleton<ILogicWebService, GameLogicWebWebService>();
 			services.AddSingleton<JsonConverter, StringEnumConverter>();
 			services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();

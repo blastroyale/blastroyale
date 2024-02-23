@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
@@ -21,7 +22,7 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			if (ctx.Logic.PlayerLogic().HasTutorialSection(Section))
 			{
@@ -32,6 +33,7 @@ namespace FirstLight.Game.Commands
 			var rewardItems = ctx.Logic.RewardLogic().GetRewardsFromTutorial(Section);
 			ctx.Logic.RewardLogic().Reward(rewardItems);
 			ctx.Services.MessageBrokerService().Publish(new CompletedTutorialSectionMessage(){Section = Section});
+			return UniTask.CompletedTask;
 		}
 	}
 }

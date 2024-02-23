@@ -48,7 +48,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private float _fullScreenPadding = 50f;
 		[SerializeField, Range(0f, 1f)] private float _viewportSize = 0.2f;
 		[SerializeField] private int _cameraHeight = 10;
-		[SerializeField] private float _maxFriendlyDistance = 50;
 
 		[SerializeField, Title("Animation")] private Ease _openCloseEase = Ease.OutSine;
 		[SerializeField, Required] private float _duration = 0.2f;
@@ -179,7 +178,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 				var ping = _pingPool.Spawn();
 				ping.ViewportPosition = pingPosition;
-				ping.LateCall(_pingDuration, () => _pingPool.Despawn(ping));
+				ping.LateCall(_pingDuration, () => _pingPool.Despawn(ping)).Forget();
 
 				_minimapImage.materialForRendering.SetVector(_pingPositionPID, pingPosition - Vector3.one / 2f);
 
@@ -276,7 +275,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			if (_config == null || _config.Step != circle.Step)
 			{
-				_config = f.Context.MapShrinkingCircleConfigs[circle.Step];
+				_config = f.Context.MapShrinkingCircleConfigs[Math.Clamp(circle.Step - 1,
+				                                                         0,
+				                                                         f.Context.MapShrinkingCircleConfigs.Count - 1)];
 			}
 
 			// Check to only draw safe area after the warning / announcement
@@ -506,6 +507,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				if (airdropView.Entity != callback.Entity) continue;
 
 				airdropView.OnLanded();
+				airdropView.Entity = callback.ChestEntity;
 				break;
 			}
 		}

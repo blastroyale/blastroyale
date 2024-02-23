@@ -14,6 +14,7 @@ using FirstLight.Server.SDK.Services;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.AdminModels;
+using PlayFab.Internal;
 using PlayFab.ServerModels;
 using AddPlayerTagRequest = PlayFab.AdminModels.AddPlayerTagRequest;
 using GetAllSegmentsRequest = PlayFab.ServerModels.GetAllSegmentsRequest;
@@ -52,6 +53,8 @@ public enum PlayfabEnvironment
 /// </summary>
 public abstract class PlayfabScript : IScript
 {
+	private static string ReadFromFile = "read_from_file";
+
 	private Dictionary<PlayfabEnvironment, PlayfabConfiguration> _envSetups = new()
 	{
 		{
@@ -84,7 +87,7 @@ public abstract class PlayfabScript : IScript
 			PlayfabEnvironment.PROD, new PlayfabConfiguration()
 			{
 				TitleId = "***REMOVED***",
-				SecretKey = "",
+				SecretKey = ReadFromFile,
 				AllPlayersSegmentId = "98523D5E0EF3941"
 			}
 		},
@@ -142,7 +145,13 @@ public abstract class PlayfabScript : IScript
 	{
 		var playfabSetup = GetPlayfabConfiguration();
 		PlayFabSettings.staticSettings.TitleId = playfabSetup.TitleId;
-		PlayFabSettings.staticSettings.DeveloperSecretKey = playfabSetup.SecretKey;
+		var key = playfabSetup.SecretKey;
+		if (key == ReadFromFile)
+		{
+			var keyPath = Path.Combine(Environment.CurrentDirectory, "playfab_key.txt");
+			key = File.ReadAllText(keyPath);
+		}
+		PlayFabSettings.staticSettings.DeveloperSecretKey = key;
 		Console.WriteLine($"Using Playfab Title {PlayFabSettings.staticSettings.TitleId}");
 	}
 
@@ -206,6 +215,7 @@ public abstract class PlayfabScript : IScript
 		{
 			return null;
 		}
+
 		if (info.Error.Error == PlayFabErrorCode.AccountNotFound)
 		{
 			return null;
@@ -232,6 +242,12 @@ public abstract class PlayfabScript : IScript
 			Statistics = updates.ToList()
 		});
 		HandleError(r.Error);
+	}
+
+	public T HandleError<T>(PlayFabResult<T> result) where T : PlayFabResultCommon
+	{
+		if (result.Error == null) return result.Result;
+		throw new Exception($"Playfab Error {result.Error.ErrorMessage}:{result.Error.GenerateErrorReport()}");
 	}
 
 	public abstract void Execute(ScriptParameters args);

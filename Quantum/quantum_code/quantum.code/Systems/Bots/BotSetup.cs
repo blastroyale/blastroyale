@@ -88,7 +88,7 @@ namespace Quantum.Systems.Bots
 				AverageTrophies = baseTrophies,
 				PlayerPrototype = f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id),
 				NavMeshAgentConfig = f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id),
-				PlayersByTeam = TeamHelpers.GetPlayersByTeam(f),
+				PlayersByTeam = TeamSystem.GetPlayersByTeam(f),
 				TotalTeamsInGameMode = f.Context.GameModeConfig.MaxPlayers /
 					(f.Context.GameModeConfig.Teams ? f.Context.GameModeConfig.MaxPlayersInTeam : 1)
 			};
@@ -295,7 +295,7 @@ namespace Quantum.Systems.Bots
 
 			var spawnerTransform = f.Get<Transform3D>(spawner.Entity);
 
-			var startingEquipment = GetBotGear(f, ref spawner);
+
 			var kccConfig = f.FindAsset<CharacterController3DConfig>(f.AssetConfigs.BotKccConfig.Id);
 			var setup = new PlayerCharacterSetup()
 			{
@@ -305,13 +305,19 @@ namespace Quantum.Systems.Bots
 				playerLevel = 1,
 				trophies = trophies,
 				teamId = teamId,
-				startingEquipment = startingEquipment,
-				loadoutWeapon = randomWeapon,
 				modifiers = modifiers,
 				KccConfig = kccConfig
 			};
+			
 			SetupBotSkins(f, botEntity);
 			playerCharacter->Init(f, setup);
+			
+			if (f.Unsafe.TryGetPointer<BotLoadout>(spawner.Entity, out var botLoadout))
+			{
+				playerCharacter->AddWeapon(f, botEntity, ref botLoadout->Weapon, true);
+				playerCharacter->EquipSlotWeapon(f, botEntity, Constants.WEAPON_INDEX_PRIMARY);
+			}
+			
 			if (GetAmmoPercentage(f, ref spawner, out var percentage))
 			{
 				f.Unsafe.GetPointer<Stats>(botEntity)->SetCurrentAmmo(f, playerCharacter, botEntity, percentage);
@@ -339,27 +345,9 @@ namespace Quantum.Systems.Bots
 		private bool GetAmmoPercentage(Frame f, ref EntityComponentPointerPair<PlayerSpawner> spawner,
 									   out FP percentage)
 		{
-			if (f.Unsafe.TryGetPointer<GearOverwrite>(spawner.Entity, out var gear))
-			{
-				percentage = gear->AmmoPercentage;
-				return true;
-			}
-
 			percentage = FP._0;
 			return false;
 		}
-
-		private Equipment[] GetBotGear(Frame f, ref EntityComponentPointerPair<PlayerSpawner> spawner)
-		{
-			if (f.Unsafe.TryGetPointer<GearOverwrite>(spawner.Entity, out var gear))
-			{
-				return f.ResolveList(gear->Gear)
-					.Select(minified => Equipment.Create(f, minified.Id, minified.Rarity, minified.Level)).ToArray();
-			}
-
-			return Array.Empty<Equipment>();
-		}
-
 
 		private static void AddBotTeams(BotSetupContext ctx)
 		{
@@ -370,8 +358,7 @@ namespace Quantum.Systems.Bots
 				ctx.PlayersByTeam.Add(Constants.TEAM_ID_START_BOT_PARTIES + i, new List<EntityRef>());
 			}
 		}
-
-
+		
 		private int GetBotTeamId(Frame frame, PlayerRef bot, Dictionary<int, List<EntityRef>> playerByTeam)
 		{
 			if (!frame.Context.GameModeConfig.Teams)

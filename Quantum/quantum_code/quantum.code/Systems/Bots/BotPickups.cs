@@ -10,13 +10,13 @@ namespace Quantum.Systems.Bots
 			public EntityRef Entity;
 			public Collectable* Component;
 		}
-		
+
 		private static bool IsInVisionRange(FP distanceSqr, ref BotCharacterSystem.BotCharacterFilter filter)
 		{
 			var visionRangeSqr = filter.BotCharacter->VisionRangeSqr;
 			return visionRangeSqr < FP._0 || distanceSqr <= visionRangeSqr;
 		}
-		
+
 		/// <summary>
 		/// Checks if a bot is currently going towards a valid collectable.
 		/// If ti is it will return true and the collectable instance
@@ -36,6 +36,7 @@ namespace Quantum.Systems.Bots
 			{
 				return f.Unsafe.TryGetPointer(filter.BotCharacter->MoveTarget, out collectable);
 			}
+
 			collectable = default;
 			return false;
 		}
@@ -49,9 +50,10 @@ namespace Quantum.Systems.Bots
 			{
 				return !filter.IsGoingTowardsValidCollectible(f, out _);
 			}
+
 			return false;
 		}
-		
+
 		// TODO: Implement chunk based spatial positioning
 		public static bool TryGoForClosestCollectable(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f, FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking)
 		{
@@ -61,10 +63,10 @@ namespace Quantum.Systems.Bots
 			var sqrDistance = FP.MaxValue;
 			var collectablePosition = FPVector3.Zero;
 			var collectableEntity = EntityRef.None;
-			
+
 			var it = f.Unsafe.FilterStruct<CollectibleFilter>();
-			it.UseCulling = true; 
-			
+			it.UseCulling = true;
+
 			var botPosition = filter.Transform->Position;
 			var stats = f.Get<Stats>(filter.Entity);
 			var maxShields = stats.Values[(int)StatType.Shield].StatValue;
@@ -76,9 +78,9 @@ namespace Quantum.Systems.Bots
 			var needShields = stats.CurrentShield < maxShields;
 			var needHealth = stats.CurrentHealth < maxHealth;
 			var needSpecials = !filter.PlayerInventory->Specials[0].IsUsable(f) ||
-							   !filter.PlayerInventory->Specials[1].IsUsable(f);
+				!filter.PlayerInventory->Specials[1].IsUsable(f);
 
-			var teamMembers = TeamHelpers.GetTeamMembers(f, filter.Entity);
+			var teamMembers = TeamSystem.GetTeamMembers(f, filter.Entity);
 			var invalidTargets = f.ResolveHashSet(filter.BotCharacter->InvalidMoveTargets);
 			var collectibleFilter = default(CollectibleFilter);
 			while (it.Next(&collectibleFilter))
@@ -123,11 +125,11 @@ namespace Quantum.Systems.Bots
 				{
 					var usefulConsumable = consumable.ConsumableType switch
 					{
-						ConsumableType.Ammo   => needAmmo,
-						ConsumableType.Shield => needShields,
-						ConsumableType.Health => needHealth,
+						ConsumableType.Ammo    => needAmmo,
+						ConsumableType.Shield  => needShields,
+						ConsumableType.Health  => needHealth,
 						ConsumableType.Special => needSpecials,
-						_                     => true
+						_                      => true
 					};
 
 					if (!usefulConsumable)
@@ -141,7 +143,7 @@ namespace Quantum.Systems.Bots
 
 				if (IsInVisionRange(newSqrDistance, ref filter)
 					&& newSqrDistance < sqrDistance
-					&& filter.IsInCircle(f, circleCenter, circleRadius, circleIsShrinking, positionCandidate))
+					&& BotState.IsInCircleWithSpareSpace(circleCenter, circleRadius, circleIsShrinking, positionCandidate))
 				{
 					sqrDistance = newSqrDistance;
 					collectablePosition = positionCandidate;

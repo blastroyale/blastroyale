@@ -14,32 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Rarity: 0
-    FragmentReward: 2
+    FragmentReward: 0
     CoinReward: 100
   - Rarity: 1
-    FragmentReward: 4
+    FragmentReward: 0
     CoinReward: 200
   - Rarity: 2
-    FragmentReward: 8
+    FragmentReward: 0
     CoinReward: 400
   - Rarity: 3
-    FragmentReward: 15
+    FragmentReward: 0
     CoinReward: 750
   - Rarity: 4
-    FragmentReward: 30
+    FragmentReward: 0
     CoinReward: 1500
   - Rarity: 5
-    FragmentReward: 60
+    FragmentReward: 0
     CoinReward: 3000
   - Rarity: 6
-    FragmentReward: 120
+    FragmentReward: 0
     CoinReward: 6000
   - Rarity: 7
-    FragmentReward: 250
+    FragmentReward: 0
     CoinReward: 12500
   - Rarity: 8
-    FragmentReward: 500
+    FragmentReward: 0
     CoinReward: 25000
   - Rarity: 9
-    FragmentReward: 1000
+    FragmentReward: 0
     CoinReward: 50000

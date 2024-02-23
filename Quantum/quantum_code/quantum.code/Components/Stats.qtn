@@ -51,12 +51,13 @@ struct Modifier
 	bool IsNegative;
 }
 
-synced event OnHealthChanged
+event OnHealthChanged
 {
 	entity_ref Entity;
 	Int32 PreviousHealth;
 	Int32 CurrentHealth;
 	Int32 MaxHealth;
+	byte SpellType;
 }
 
 synced event OnDamageBlocked
@@ -64,7 +65,7 @@ synced event OnDamageBlocked
 	entity_ref Entity;
 }
 
-synced event OnShieldChanged
+event OnShieldChanged
 {
 	entity_ref Entity;
 	Int32 PreviousShield;
@@ -73,7 +74,7 @@ synced event OnShieldChanged
 	Int32 CurrentShieldCapacity;
 }
 
-synced event OnHealthIsZeroFromAttacker
+event OnHealthIsZeroFromAttacker
 {
 	entity_ref Entity;
 	entity_ref Attacker;

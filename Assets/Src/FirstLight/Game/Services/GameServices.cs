@@ -127,6 +127,7 @@ namespace FirstLight.Game.Services
 		public ITeamService TeamService { get; }
 
 		public IServerListService ServerListService { get; }
+		public INewsService NewsService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -182,6 +183,7 @@ namespace FirstLight.Game.Services
 
 		public ITeamService TeamService { get; }
 		public IServerListService ServerListService { get; }
+		public INewsService NewsService { get; }
 		public ILeaderboardService LeaderboardService { get; }
 		public ICheatsService CheatsService { get; }
 		public IRewardService RewardService { get; }
@@ -195,8 +197,8 @@ namespace FirstLight.Game.Services
 							IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IGameUiService uiService)
 		{
 			NetworkService = networkService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, uiService);
 			MessageBrokerService = messageBrokerService;
+			AnalyticsService = new AnalyticsService(this, gameLogic, uiService);
 			TimeService = timeService;
 			DataSaver = dataService;
 			DataService = dataService;
@@ -218,7 +220,7 @@ namespace FirstLight.Game.Services
 				configsProvider);
 			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService,
 				GenericDialogService, MessageBrokerService);
-			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic.EquipmentLogic, PartyService, gameLogic.AppDataProvider);
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider);
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
@@ -230,6 +232,7 @@ namespace FirstLight.Game.Services
 			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider);
+			NewsService = new PlayfabNewsService(MessageBrokerService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 			GameUiService = uiService;

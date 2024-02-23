@@ -40,11 +40,12 @@ namespace Quantum
 		/// </summary>
 		internal void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player)
 		{
-			var playerChar = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var stats = f.Unsafe.GetPointer<Stats>(playerEntity);
 			var isTeamsMode = f.Context.GameModeConfig.Teams;
 			var team = f.Get<Targetable>(playerEntity).Team;
-
+			var collectable = f.Unsafe.GetPointer<Collectable>(entity);
+			
+			// TODO: switch to signal handlers on specific systems
 			switch (ConsumableType)
 			{
 				case ConsumableType.Health:
@@ -63,12 +64,12 @@ namespace Quantum
 				case ConsumableType.ShieldCapacity:
 					stats->GainShieldCapacity(f, playerEntity, Amount.AsInt);
 					break;
-				case ConsumableType.Energy:
-					playerChar->GainEnergy(f, playerEntity, Amount.AsInt);
-					break;
 				case ConsumableType.Special:
 					f.Unsafe.GetPointer<PlayerInventory>(playerEntity)->TryAddSpecial(f, playerEntity, player,
-						new Special(f, f.Unsafe.GetPointer<Collectable>(entity)->GameId));
+						new Special(f, collectable->GameId));
+					break;
+				case ConsumableType.GameItem:
+					// Handled in GameItemCollectableSystem
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -79,6 +80,7 @@ namespace Quantum
 				ShareCollectWithTeammates(f, playerEntity, team);
 			}
 
+			f.Signals.OnConsumableCollected(player, playerEntity, this, *collectable);
 			f.Events.OnConsumableCollected(entity, player, playerEntity);
 		}
 
@@ -109,9 +111,6 @@ namespace Quantum
 							break;
 						case ConsumableType.Shield:
 							stats->GainShield(f, teammateCandidate.Entity, Amount.AsInt);
-							break;
-						case ConsumableType.Energy:
-							playerChar->GainEnergy(f, teammateCandidate.Entity, Amount.AsInt);
 							break;
 					}
 				}

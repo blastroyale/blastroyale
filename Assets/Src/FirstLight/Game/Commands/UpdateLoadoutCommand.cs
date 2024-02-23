@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -21,11 +22,12 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			ctx.Logic.EquipmentLogic().SetLoadout(SlotsToUpdate);
 			
 			ctx.Services.MessageBrokerService().Publish(new UpdatedLoadoutMessage { SlotsUpdated = SlotsToUpdate });
+			return UniTask.CompletedTask;
 		}
 	}
 }

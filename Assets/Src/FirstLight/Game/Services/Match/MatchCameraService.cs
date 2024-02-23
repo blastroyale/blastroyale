@@ -25,19 +25,18 @@ namespace FirstLight.Game.Services
 
 		void SetCameras(CinemachineVirtualCamera adventureCamera);
 	}
-	
+
 	/// <inheritdoc />
 	public class MatchCameraService : IMatchCameraService, MatchServices.IMatchService
 	{
-		private Cooldown _screenShakeCooldown = new(System.TimeSpan.FromMilliseconds(300));
-
+		
 		private IGameDataProvider _gameDataProvider;
 		private IMatchServices _matchServices;
 
 		private CinemachineImpulseSource _impulseSource;
 		private GameObject _cameraServiceObject;
 		private CinemachineVirtualCamera _adventureCamera;
-		
+
 		public MatchCameraService(IGameDataProvider gameDataProvider, IMatchServices matchServices)
 		{
 			_gameDataProvider = gameDataProvider;
@@ -50,18 +49,34 @@ namespace FirstLight.Game.Services
 				QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
 			}
 
-			if (!_gameDataProvider.AppDataProvider.StopShootingShake)
-			{
-				QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
-			}
-			
-			
+			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
 			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnEventOnRaycastShotExplosion);
 			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnEventHazardLand);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalSkydiveEnd);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 		}
+
+		public void StartShotShake(Vector2 shotRotation = default, float strength = 0.04f)
+		{
+			if (!_gameDataProvider.AppDataProvider.UseScreenShake || _adventureCamera == null)
+				return;
+
+			var newImpulse = new CinemachineImpulseDefinition
+			{
+				m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Uniform,
+				m_ImpulseShape = CinemachineImpulseDefinition.ImpulseShapes.Bump,
+				m_ImpulseDuration = 0.08f,
+				m_DissipationDistance = 99999,
+				m_ImpactRadius = 999999,
+			};
+
+			_impulseSource.m_ImpulseDefinition = newImpulse;
+			var a = new Vector3(-shotRotation.x, 0, -shotRotation.y);
+			CinemachineImpulseManager.Instance.Clear();
+			newImpulse.CreateAndReturnEvent(this._adventureCamera.transform.position, a.normalized * strength);
+		}
+
 
 		public void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes shape, float duration, float strength, Vector3 position = default)
 		{
@@ -82,10 +97,10 @@ namespace FirstLight.Game.Services
 
 			var cameraSkew = _adventureCamera.transform.position - _adventureCamera.Follow.position;
 			position += cameraSkew;
-			
+
 			_impulseSource.GenerateImpulseAtPositionWithVelocity(position, new Vector3(vel.x, 0, vel.y) * strength);
 		}
-		
+
 
 		private void OnPlayerAttack(EventOnPlayerAttack ev)
 		{
@@ -96,14 +111,8 @@ namespace FirstLight.Game.Services
 			}
 
 			if (!ev.PlayerEntity.IsAlive(ev.Game.Frames.Predicted)) return;
-
-			if (!_screenShakeCooldown.CheckTrigger()) return;
-
-			var duration = GameConstants.Screenshake.SCREENSHAKE_SMALL_SHOT_DURATION;
-			var power = GameConstants.Screenshake.SCREENSHAKE_SMALL_SHOT_STRENGTH;
-			StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Bump,
-				duration, power,
-				ev.PlayerEntity.GetPosition(ev.Game.Frames.Predicted).ToUnityVector3());
+			var strenght = ev.WeaponConfig.AttackCooldown <= FP._0_99 ? 0.04f : 0.08f;
+			StartShotShake(ev.Direction.ToUnityVector2(), strenght);
 		}
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
@@ -131,22 +140,22 @@ namespace FirstLight.Game.Services
 			if (callback.Entity.IsAlive(f))
 			{
 				StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Rumble,
-				GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH,
-				callback.Entity.GetPosition(f).ToUnityVector3());
+					GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH,
+					callback.Entity.GetPosition(f).ToUnityVector3());
 			}
 		}
 
 		private void OnLocalSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
 		{
 			var f = callback.Game.Frames.Verified;
-			if(callback.Entity.IsAlive(f))
+			if (callback.Entity.IsAlive(f))
 			{
 				StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Rumble,
-				GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH,
-				callback.Entity.GetPosition(f).ToUnityVector3());
+					GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH,
+					callback.Entity.GetPosition(f).ToUnityVector3());
 			}
 		}
-		
+
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Explosion,
@@ -162,10 +171,10 @@ namespace FirstLight.Game.Services
 		{
 			ExplosionScreenShake(callback.sourceId, callback.HitPosition.ToUnityVector3());
 		}
-        
+
 		private void OnEntityDamaged(EventOnEntityDamaged callback)
 		{
-			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView) || 
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView) ||
 				callback.Player == PlayerRef.None) // TODO: a sound for things that are not players.
 			{
 				return;
@@ -176,7 +185,7 @@ namespace FirstLight.Game.Services
 
 			if (callback.ShieldDamage > 0 && callback.HealthDamage > 0)
 			{
-				if(damagedPlayerIsLocal)
+				if (damagedPlayerIsLocal)
 				{
 					_matchServices.MatchCameraService.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Recoil,
 						GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION, GameConstants.Screenshake.SCREENSHAKE_MEDIUM_STRENGTH,
@@ -184,7 +193,7 @@ namespace FirstLight.Game.Services
 				}
 			}
 		}
-		
+
 		private void ExplosionScreenShake(GameId sourceId, Vector3 endPosition)
 		{
 			var shake = false;
@@ -217,14 +226,12 @@ namespace FirstLight.Game.Services
 					shake = true;
 					break;
 			}
-			
-			if(shake)
+
+			if (shake)
 			{
-				StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Explosion, 
+				StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Explosion,
 					shakeDuration, shakePower, endPosition);
 			}
 		}
-
-		
 	}
 }

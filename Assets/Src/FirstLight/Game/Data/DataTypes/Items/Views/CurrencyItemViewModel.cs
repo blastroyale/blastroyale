@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -17,6 +19,14 @@ namespace FirstLight.Game.Data.DataTypes
 	{
 		private const string USS_SPRITE_REWARD = "sprite-home__reward-{0}";
 
+		private static IReadOnlyDictionary<GameId, string> _richTextIcons = new Dictionary<GameId, string>()
+		{
+			{ GameId.COIN, "Coinicon"},
+			{ GameId.BlastBuck, "Blastbuckicon"},
+			{ GameId.CS, "CraftSpiceicon"},
+		};
+		
+		
 		public ItemData Item { get; }
 		public GameId GameId => _gameId;
 		public uint Amount => _amount;
@@ -30,6 +40,16 @@ namespace FirstLight.Game.Data.DataTypes
 			pickingMode = PickingMode.Ignore
 		}.SetReward(this);
 
+		public string GetRichTextIcon()
+		{
+			if (!_richTextIcons.TryGetValue(Item.Id, out var iconName))
+			{
+				FLog.Error($"Could not read rich text icon for {Item.Id}");
+				iconName = _richTextIcons[GameId.COIN];
+			}
+			return $"<sprite name=\"{iconName}\">";
+		}
+		
 		public void DrawIcon(VisualElement icon)
 		{
 			if (MainInstaller.TryResolve<IGameServices>(out var services))
@@ -50,6 +70,7 @@ namespace FirstLight.Game.Data.DataTypes
 			
 		}
 
+		public override string ToString() => GetRichTextIcon();
 
 		private GameId _gameId;
 		private uint _amount;

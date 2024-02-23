@@ -1,4 +1,5 @@
-﻿using FirstLight.Game.Ids;
+﻿using Cysharp.Threading.Tasks;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -17,7 +18,7 @@ namespace FirstLight.Game.Commands
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
-		public void Execute(CommandExecutionContext ctx)
+		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			var logic = ctx.Logic.EquipmentLogic();
 			var info = logic.GetInfo(Item);
@@ -43,6 +44,7 @@ namespace FirstLight.Game.Commands
 				Level = item.Level + 1,
 				Price = cost
 			});
+			return UniTask.CompletedTask;
 		}
 	}
 }

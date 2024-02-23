@@ -72,7 +72,9 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			if (_config == null || _config.Step != circle.Step)
 			{
-				_config = frame.Context.MapShrinkingCircleConfigs[circle.Step];
+				_config = frame.Context.MapShrinkingCircleConfigs[Math.Clamp(circle.Step - 1,
+				                                                             0,
+				                                                             frame.Context.MapShrinkingCircleConfigs.Count - 1)];
 			}
 			
 			cachedShrinkingCircleLineTransform.position = position;

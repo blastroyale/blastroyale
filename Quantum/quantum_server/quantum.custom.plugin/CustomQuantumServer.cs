@@ -32,7 +32,7 @@ namespace Quantum
         private readonly Dictionary<int, SetPlayerData> _validPlayers;
         private readonly Dictionary<int, int> _actorNrToIndex;
         public SessionContainer gameSession;
-        private InputProvider inputProvider;
+        private RingBufferInputProvider inputProvider;
         private bool _serverSimulation = true;
 
         public readonly PhotonPlayfabSDK Playfab;
@@ -109,14 +109,20 @@ namespace Quantum
             var configsFile = new ReplayFile();
             configsFile.DeterministicConfig = _config;
             configsFile.RuntimeConfig = _runtimeConfig;
+            
+            var gameFlags = 0;
+            gameFlags |= QuantumGameFlags.Server; // ignore non-server events
+            gameFlags |= QuantumGameFlags.DisableInterpolatableStates; // no extra frame to interpolate movements
+
             gameSession = new SessionContainer(configsFile);
             var startParams = new QuantumGame.StartParameters
             {
                 AssetSerializer = _serializer,
                 ResourceManager = _resourceManager,
                 EventDispatcher = events,
+                GameFlags = gameFlags
             };
-            inputProvider = new InputProvider(_config);
+            inputProvider = new RingBufferInputProvider(_config);
             var taskRunner = new InactiveTaskRunner();
             gameSession.StartReplay(startParams, inputProvider, "server", false, taskRunner: taskRunner);
         }
@@ -362,21 +368,7 @@ namespace Quantum
                     return false;
                 }
             }
-
-            foreach (var eq in player.Loadout)
-            {
-                if (!eq.GameId.IsInGroup(GameIdGroup.Equipment))
-                {
-                    Log.Error($"Player {player.PlayerId} sent invalid equipment id {eq.GameId}");
-                    return false;
-                }
-            }
-
-            if (player.Weapon.GameId != GameId.Random && !player.Weapon.IsWeapon() && !player.Weapon.IsDefaultItem())
-            {
-                Log.Error($"Player {player.PlayerId} sent invalid weapon id {player.Weapon.GameId}");
-                return false;
-            }
+            
 
             return true;
         }
@@ -413,16 +405,6 @@ namespace Quantum
                 if (isNft || !itemTuple.Value.IsBroken())
                 {
                     validItemHashes.Add(itemTuple.Value.GetServerHashCode());
-                }
-            }
-
-            foreach (var clientEquip in clientPlayer.Loadout)
-            {
-                var clientEquiphash = clientEquip.GetServerHashCode();
-                if (!validItemHashes.Contains(clientEquiphash))
-                {
-                    Log.Error($"Player {clientPlayer.PlayerId} tried to send equipment {clientEquip.GameId} hash {clientEquiphash} which he does not own or cant be used atm");
-                    return;
                 }
             }
 

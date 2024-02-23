@@ -15,6 +15,7 @@ enum ConsumableType
     Energy,
     SpecialRefresh,
     Special,
+    GameItem,
 }
 
 synced event OnConsumableCollected

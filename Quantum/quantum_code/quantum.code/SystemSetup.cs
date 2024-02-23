@@ -33,6 +33,9 @@ namespace Quantum
 				new DummyCharacterSystem(),
 				new CollectableSystem(),
 				new VisibilityAreaSystem(), 
+				new GameItemCollectableSystem(),
+				new EntityGroupSystem(),
+				new LandMineSystem(),
 				
 				// Update systems - Update & OnInit & Signal order matters
 				new CommandsSystem(),
@@ -44,6 +47,7 @@ namespace Quantum
 				
 				new PlayerChargingSystem(),
 				new PlayerCharacterSystem(),
+				new ReviveSystem(),
 				new BotCharacterSystem(),
 				new StatSystem(),
 				new SpellSystem(),

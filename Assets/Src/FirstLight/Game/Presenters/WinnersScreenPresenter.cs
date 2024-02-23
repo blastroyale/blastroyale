@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.MonoComponent;
@@ -54,10 +55,10 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			SetupCamera();
-			UpdateCharacters();
+			UpdateCharacters().Forget();
 		}
 
-		protected override async Task OnClosed()
+		protected override async UniTask OnClosed()
 		{
 			StartMovingCharacterOut(_character1.gameObject);
 			StartMovingCharacterOut(_character2.gameObject);
@@ -92,7 +93,7 @@ namespace FirstLight.Game.Presenters
 			_camera.gameObject.SetActive(true);
 		}
 
-		private async void UpdateCharacters()
+		private async UniTaskVoid UpdateCharacters()
 		{
 			var playerData = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
 			playerData.SortByPlayerRank(false);
@@ -125,7 +126,7 @@ namespace FirstLight.Game.Presenters
 				playerNames[i].visible = false;
 			}
 
-			var tasks = new List<Task>();
+			var tasks = new List<UniTask>();
 
 			for (var i = 0; i < playerDataCount; i++)
 			{
@@ -140,7 +141,7 @@ namespace FirstLight.Game.Presenters
 					_matchServices.MatchEndDataService.PlayerMatchData[player].Gear.ToList()));
 			}
 
-			await Task.WhenAll(tasks);
+			await UniTask.WhenAll(tasks);
 
 			_character1.AnimateVictory();
 		}

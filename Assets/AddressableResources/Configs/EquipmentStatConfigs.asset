@@ -22,7 +22,7 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 5839
+        RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -30,7 +30,7 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 5751
       AmmoCapacityRatioToBaseK:
         RawValue: 0
       ShieldCapacityRatioToBaseK:
@@ -41,7 +41,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 8847
+        RawValue: 4424
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
@@ -62,7 +62,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 16456
+        RawValue: 8228
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -81,7 +81,7 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
-        RawValue: 11502
+        RawValue: 5751
       AmmoCapacityRatioToBaseK:
         RawValue: 0
       ShieldCapacityRatioToBaseK:
@@ -98,7 +98,7 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
-        RawValue: 12780
+        RawValue: 6390
       AmmoCapacityRatioToBaseK:
         RawValue: 0
       ShieldCapacityRatioToBaseK:
@@ -107,13 +107,13 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 7137
+        RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 10056
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -126,7 +126,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 10813
+        RawValue: 5407
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:

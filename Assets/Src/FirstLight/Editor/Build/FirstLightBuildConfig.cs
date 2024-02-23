@@ -43,8 +43,8 @@ namespace FirstLight.Editor.Build
 		private const string _appIdentifier = "com.firstlightgames.blastroyale";
 		private const string _firstLightAppleTeamId = "8UB22L9ZW7";
 		private const string _distributionProvisioningProfile = "1c16ed57-e352-4cca-8950-7e1c7ec1730d";
-		private const string _developmentProvisioningProfile = "ef538051-72d2-4f28-8835-adb03eed391f";
-		private const string _adHocProvisioningProfile = "a6c4afbc-5879-4031-b0d9-2b20e68b05fb";
+		private const string _developmentProvisioningProfile = "f97b416e-d6ba-4676-9d98-974eac657421";
+		private const string _adHocProvisioningProfile = "1369c3c2-10f9-4093-923d-19e50d0f3e52";
 		private const string _keystoreName = "firstlightgames.keystore";
 		private const string _apkExtension = ".apk";
 		private const string _aabExtension = ".aab";
@@ -147,6 +147,8 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.iOS.iOSManualProvisioningProfileID = _distributionProvisioningProfile;
 			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
 			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
+			PlayerSettings.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
+			PlayerSettings.SetStackTraceLogType(LogType.Warning, StackTraceLogType.None);
 			EditorUserBuildSettings.development = false;
 			EditorUserBuildSettings.buildAppBundle = true;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;

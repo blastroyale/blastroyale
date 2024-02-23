@@ -148,6 +148,11 @@ MonoBehaviour:
     m_GlyphIndex: 13
     m_Scale: 1
     m_Name: CollectionIcon
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 14
+    m_Scale: 1
+    m_Name: RedCrossIcon
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
@@ -373,4 +378,20 @@ MonoBehaviour:
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: -1037532214, guid: a8ab3985bd248420b8f28f5bc1f408f3, type: 3}
+  - m_Index: 14
+    m_Metrics:
+      m_Width: 100
+      m_Height: 100
+      m_HorizontalBearingX: -50
+      m_HorizontalBearingY: 50
+      m_HorizontalAdvance: 100
+    m_GlyphRect:
+      m_X: 400
+      m_Y: 724
+      m_Width: 100
+      m_Height: 100
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 1027694511, guid: a8ab3985bd248420b8f28f5bc1f408f3, type: 3}
   fallbackSpriteAssets: []

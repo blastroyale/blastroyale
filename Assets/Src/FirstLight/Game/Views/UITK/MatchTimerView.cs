@@ -1,4 +1,3 @@
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
@@ -21,9 +20,6 @@ namespace FirstLight.Game.Views.UITK
 
 		private IVisualElementScheduledItem _timerUpdate;
 		private ValueAnimation<float> _pingAnimation;
-
-		private int _aliveCount = -1;
-		private int _killsCount = -1;
 
 		public override void Attached(VisualElement element)
 		{

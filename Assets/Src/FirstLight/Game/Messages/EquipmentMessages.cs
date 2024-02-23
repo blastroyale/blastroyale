@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.MonoComponent.EntityViews;
@@ -14,6 +15,12 @@ namespace FirstLight.Game.Messages
 		public GameId Id;
 	}
 	
+	public struct ItemConvertedToBlastBuckMessage : IMessage
+	{
+		public List<Equipment> Items;
+		public int BlastBucks;
+	}
+	
 	public struct ItemScrappedMessage : IMessage
 	{
 		public UniqueId Id;
@@ -21,6 +28,12 @@ namespace FirstLight.Game.Messages
 		public string Name;
 		public float Durability;
 		public Pair<GameId, uint> Reward;
+	}
+	
+	public struct EquipmentInstantiatedMessage : IMessage
+	{
+		public GameObject Object;
+		public Equipment Equipment;
 	}
 	
 	public struct ItemUpgradedMessage : IMessage

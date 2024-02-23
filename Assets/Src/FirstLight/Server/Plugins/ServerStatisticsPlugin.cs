@@ -51,7 +51,8 @@ namespace Src.FirstLight.Server
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.COINS_EARNED, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.XP_EARNED, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.BPP_EARNED, true);
-
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.BP_LEVEL, false);
+			
 			var evManager = _ctx.PluginEventManager!;
 			evManager.RegisterEventListener<GameLogicMessageEvent<ClaimedRewardsMessage>>(OnClaimRewards);
 			evManager.RegisterEventListener<GameLogicMessageEvent<RewardClaimedMessage>>(OnPurchase);
@@ -106,6 +107,9 @@ namespace Src.FirstLight.Server
 
 		private async Task OnBattlePassLevel(GameLogicMessageEvent<BattlePassLevelUpMessage> ev)
 		{
+			await _ctx.Statistics.UpdateStatistics(ev.PlayerId,
+				(GameConstants.Stats.BP_LEVEL, (int) ev.Message.NewLevel));
+			
 			await TrackRewards(ev.PlayerId, ev.Message.Rewards);
 		}
 

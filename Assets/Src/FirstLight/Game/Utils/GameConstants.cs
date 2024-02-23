@@ -170,6 +170,7 @@ namespace FirstLight.Game.Utils
 			public const string FAME = "Fame";
 			public const string COINS_EARNED = "Coins Earned";
 			public const string BPP_EARNED = "BPP Earned";
+			public const string BP_LEVEL = "BP Level";
 			public const string XP_EARNED = "XP Earned";
 			public const string CS_EARNED = "CS Earned";
 			public const string COINS_TOTAL = "Coins Total";

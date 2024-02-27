@@ -317,9 +317,8 @@ namespace Quantum
 			var previousShield = CurrentShield;
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 			var maxShield = GetStatData(StatType.Shield).StatValue.AsInt;
-			var armour = GetStatData(StatType.Armour).StatValue.AsInt;
 
-			var totalDamage = Math.Max(0, ((FP._1 - (armour / FP._100)) * spell->PowerAmount).AsInt);
+			var totalDamage = (int)spell->PowerAmount;
 
 			var damageAmount = totalDamage;
 
@@ -346,12 +345,6 @@ namespace Quantum
 			{
 				shieldDamageAmount = Math.Min(previousShield, damageAmount);
 				damageAmount = FPMath.Max(0, damageAmount - shieldDamageAmount).AsInt;
-
-				// We don't do any damage to health if a player had at least 1 shields
-				if (QuantumFeatureFlags.SHIELD_CRACKING)
-				{
-					damageAmount = 0;
-				}
 
 				SetCurrentShield(f, entity, previousShield - shieldDamageAmount, GetStatData(StatType.Shield).StatValue.AsInt);
 			}

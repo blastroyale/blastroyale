@@ -64,8 +64,11 @@ namespace Quantum
 		/// </summary>
 		public static FP HealthRatio(in EntityRef e, Frame f)
 		{
-			var health = Stats.GetStatData(f, e, StatType.Health);
-			return (health.StatValue / health.BaseValue) * FP._100;
+			if(!f.TryGet<Stats>(e, out var stats))
+			{
+				return 0;
+			}
+			return stats.CurrentHealth + stats.CurrentShield / FP._200;
 		}
 
 		public static StatData GetStatData(Frame f, in EntityRef entity, StatType stat)

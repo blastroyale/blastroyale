@@ -60,15 +60,16 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Returns a range from 1.0 to 0.0 according to player health ratio
+		/// Returns a range from 1.0 to 0.0 according to player health+shields ratio
 		/// </summary>
-		public static FP HealthRatio(in EntityRef e, Frame f)
+		public static FP VitalityRatio(in EntityRef e, Frame f)
 		{
-			if(!f.TryGet<Stats>(e, out var stats))
+			if (!f.TryGet<Stats>(e, out var stats))
 			{
-				return 0;
+				return FP._0;
 			}
-			return stats.CurrentHealth + stats.CurrentShield / FP._200;
+			
+			return (stats.CurrentHealth + stats.CurrentShield) / FP._200;
 		}
 
 		public static StatData GetStatData(Frame f, in EntityRef entity, StatType stat)

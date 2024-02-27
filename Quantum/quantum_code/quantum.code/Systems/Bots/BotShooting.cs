@@ -268,6 +268,7 @@ namespace Quantum.Systems.Bots
 		// We check specials and try to use them depending on their type if possible
 		public static bool TryUseSpecials(this ref BotCharacter bot, PlayerInventory* inventory, EntityRef botEntity, Frame f)
 		{
+			// If there are no specials in this match, then no need to try using them as bots don't have them
 			if (f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
 			{
 				return false;

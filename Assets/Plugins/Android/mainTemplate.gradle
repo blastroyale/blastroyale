@@ -2,6 +2,10 @@ apply plugin: 'com.android.library'
 **APPLY_PLUGINS**
 
 dependencies {
+
+    // Android Browser for IMX integration
+    implementation('androidx.browser:browser:1.5.0')
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
     implementation 'com.android.support:appcompat-v7:28.0.0' // Packages/com.helpshift/Editor/HelpshiftDependencies.xml:7
@@ -19,7 +23,6 @@ dependencies {
 android {
   packagingOptions {
       exclude ('/lib/armeabi/*' + '*')
-      exclude ('/lib/armeabi-v7a/*' + '*')
       exclude ('/lib/mips/*' + '*')
       exclude ('/lib/mips64/*' + '*')
       exclude ('/lib/x86/*' + '*')

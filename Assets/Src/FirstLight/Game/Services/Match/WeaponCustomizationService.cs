@@ -39,9 +39,14 @@ namespace FirstLight.Game.Services.Match
 			{
 				_goldenMaterial = await _services.AssetResolverService.RequestAsset<MaterialVfxId, Material>(MaterialVfxId.Golden);
 			}
-			var rend = o.GetComponentInChildren<MeshRenderer>();
-			if (rend == null || rend.IsDestroyed()) return;
-			rend.material = _goldenMaterial;
+
+			if (o == null) return;
+			
+			var renderers = o.GetComponentsInChildren<MeshRenderer>();
+			foreach (var rend in renderers)
+			{
+				rend.material = _goldenMaterial;
+			}
 			var gunRenderer = o.GetComponentInChildren<RenderersContainerMonoComponent>();
 			var vfx = MainInstaller.ResolveServices().VfxService.Spawn(VfxId.GoldenEffect);
 			vfx.transform.SetParent(gunRenderer.transform, false);

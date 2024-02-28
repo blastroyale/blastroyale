@@ -148,7 +148,7 @@ MonoBehaviour:
       UseRangedCam: 0
     - Id: 84
       FiringMode: 0
-      WeaponType: 3
+      WeaponType: 4
       MaxAmmo: 100
       BulletPrototype:
         Id:
@@ -610,7 +610,7 @@ MonoBehaviour:
       UseRangedCam: 0
     - Id: 100
       FiringMode: 0
-      WeaponType: 3
+      WeaponType: 4
       MaxAmmo: 100
       BulletPrototype:
         Id:
@@ -862,7 +862,7 @@ MonoBehaviour:
       UseRangedCam: 0
     - Id: 93
       FiringMode: 0
-      WeaponType: 3
+      WeaponType: 4
       MaxAmmo: 100
       BulletPrototype:
         Id:

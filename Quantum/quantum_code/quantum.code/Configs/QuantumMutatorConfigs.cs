@@ -23,6 +23,7 @@ namespace Quantum
 		ConsumablesSharing,
 		SpecialsMayhem,
 		DisableRevive,
+		ARsOnly
 	}
 
 	[Serializable]

@@ -317,8 +317,9 @@ namespace Quantum
 			var previousShield = CurrentShield;
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 			var maxShield = GetStatData(StatType.Shield).StatValue.AsInt;
+			var armour = GetStatData(StatType.Armour).StatValue.AsInt;
 
-			var totalDamage = (int)spell->PowerAmount;
+			var totalDamage = Math.Max(0, ((FP._1 - (armour / FP._100)) * spell->PowerAmount).AsInt);
 
 			var damageAmount = totalDamage;
 

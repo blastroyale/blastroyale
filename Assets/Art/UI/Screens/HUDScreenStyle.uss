@@ -199,25 +199,27 @@
     justify-content: center;
 }
 
-.joystick--move {
+.joystick--left {
     left: 170px;
     bottom: 145px;
+}
+
+.joystick--right {
+    right: 149px;
+    bottom: 100px;
+}
+
+.joystick--move {
     width: 280px;
     height: 280px;
 }
 
-.skydiving .joystick--move {
-    display: none;
-}
-
 .joystick--aim {
-    right: 149px;
-    bottom: 100px;
     width: 250px;
     height: 250px;
 }
 
-.skydiving .joystick--aim {
+.skydiving .joystick {
     display: none;
 }
 

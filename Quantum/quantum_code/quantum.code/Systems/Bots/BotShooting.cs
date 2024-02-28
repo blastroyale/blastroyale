@@ -206,7 +206,7 @@ namespace Quantum.Systems.Bots
 			if (distanceSquared <= rangeSquared && bot.Target == target)
 			{
 				// If im getting my ass kicked i wont try to do combat movement ill god damn run
-				if (Stats.HealthRatio(e, f) + FP._0_50 < Stats.HealthRatio(bot.Target, f))
+				if (Stats.VitalityRatio(e, f) + FP._0_50 < Stats.VitalityRatio(bot.Target, f))
 				{
 					return false;
 				}
@@ -414,8 +414,8 @@ namespace Quantum.Systems.Bots
 				// This will set an innacurate target aim direction
 				if (targetAimDirection == FPVector2.Zero)
 				{
-					var targetHealthRatio = Stats.HealthRatio(target, f);
-					var botHealthRatio = Stats.HealthRatio(botEntity, f);
+					var targetHealthRatio = Stats.VitalityRatio(target, f);
+					var botHealthRatio = Stats.VitalityRatio(botEntity, f);
 
 					// If bot has at least 90% of the player life, 50% chance he will aim innacurately
 					if (targetHealthRatio < botHealthRatio)

@@ -107,8 +107,8 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.LeaderboardAndRewardsScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/Loading Screen.prefab
-    Layer: 9
+  - AddressableAddress: Ui/LoadingScreen.prefab
+    Layer: 0
     UiType: FirstLight.Game.Presenters.LoadingScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/LoadingSpinnerScreen.prefab

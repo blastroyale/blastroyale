@@ -270,6 +270,13 @@ namespace FirstLight.Game.Utils
 		/// When true, you will become invisible when entering bushes.
 		/// </summary>
 		public static bool ALWAYS_TOGGLE_INVISIBILITY_AREAS = false;
+
+		/// <summary>
+		/// When not null, will means the game can connect to WEB3.
+		/// When the ID is set it will be used by the client to authenticate the web3 
+		/// client.
+		/// </summary>
+		public static string IMX_ID = null;
 		
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
@@ -372,6 +379,10 @@ namespace FirstLight.Game.Utils
 			{
 				WAIT_REWARD_SYNC = waitSync;
 			}
+			if (TrySetStringFlag("IMX_ID", overrideData, out var imxId))
+			{
+				IMX_ID = imxId;
+			}
 		}
 
 		/// <summary>
@@ -440,16 +451,29 @@ namespace FirstLight.Game.Utils
 
 		private static bool TrySetFlag(string flagName, Dictionary<string, string> titleData, out bool flag)
 		{
+			if(TrySetStringFlag(flagName, titleData, out var stringFlag))
+			{
+				flag = stringFlag.ToLower() == "true";
+				return true;
+			} else
+			{
+				flag = false;
+				return false;
+			}
+		}
+
+		private static bool TrySetStringFlag(string flagName, Dictionary<string, string> titleData, out string flag)
+		{
 			if (titleData.TryGetValue(flagName, out var flagValue))
 			{
-				flag = flagValue.ToLower() == "true";
+				flag = flagValue;
 				FLog.Verbose($"Setting title flag {flagName} to {flag}");
 				return true;
 			}
 			else
 			{
 				FLog.Verbose($"Disabling flag {flagName}");
-				flag = false;
+				flag = null;
 			}
 
 			return false;

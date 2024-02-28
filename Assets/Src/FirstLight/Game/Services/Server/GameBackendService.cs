@@ -33,8 +33,25 @@ namespace FirstLight.Game.Services
 	public class BackendEnvironmentData
 	{
 		public Environment EnvironmentID;
+
+		/// <summary>
+		/// Identifies the playfab title for this environment
+		/// </summary>
 		public string TitleID;
+
+		/// <summary>
+		/// Identifies the web3 id that will be used to identify it on the web3 layer
+		/// </summary>
+		public string Web3Id;
+
+		/// <summary>
+		/// Identify the photon application id that will be used by quantum
+		/// </summary>
 		public string AppIDRealtime;
+
+		/// <summary>
+		/// Playfab template ID that contains the password recovery html template.
+		/// </summary>
 		public string RecoveryEmailTemplateID;
 	}
 
@@ -190,6 +207,7 @@ namespace FirstLight.Game.Services
 			envData.TitleID = "***REMOVED***";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
 			envData.AppIDRealtime = "***REMOVED***";
+			envData.Web3Id = "***REMOVED***";
 		}
 
 		private void SetupEnvironmentFromLocalConfig(Environment env, BackendEnvironmentData envData)
@@ -249,6 +267,7 @@ namespace FirstLight.Game.Services
 
 			if (CurrentEnvironmentData.EnvironmentID != appData.LastEnvironment)
 			{
+				FLog.Warn("Erasing APP data due to environment switch");
 				var newData = appData.CopyForNewEnvironment();
 
 				newData.LastEnvironment = CurrentEnvironmentData.EnvironmentID;

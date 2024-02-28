@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 803093299297845896}
   - component: {fileID: 803093299297845899}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShrinkingCircleSetup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3645265080736833621}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: DamageZoneRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
       propertyPath: m_IsActive
@@ -194,7 +194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7750397243111347764, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -285,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7041650430274429307, guid: 2f692fa56ce2a0a4ea8321266c802f73, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -374,7 +374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7041650430274429307, guid: 2f692fa56ce2a0a4ea8321266c802f73, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -454,6 +454,10 @@ PrefabInstance:
       value: ShrinkingCircleRingOfFireController
       objectReference: {fileID: 0}
     - target: {fileID: 5504811613422289842, guid: b19f369340d6fa543a7808a8b765df4e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504811613422289842, guid: b19f369340d6fa543a7808a8b765df4e, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -491,7 +495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5504811613519120804, guid: b19f369340d6fa543a7808a8b765df4e, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6408266066062323414, guid: b19f369340d6fa543a7808a8b765df4e, type: 3}
       propertyPath: m_IsActive

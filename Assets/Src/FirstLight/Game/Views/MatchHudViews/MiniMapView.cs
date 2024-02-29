@@ -96,6 +96,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private DateTime _radarLastUpdate;
 		private float _mapConfigCameraSize;
 		private float _currentViewportSize = 0.2f;
+		private float _cameraAngleOffset;
 
 		private void OnValidate()
 		{
@@ -252,7 +253,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void UpdatePlayerIndicator(Vector3 playerViewportPoint, Transform3D playerTransform)
 		{
 			// Rotation
-			_playerIndicator.rotation = Quaternion.Euler(0, 0, 360f - playerTransform.Rotation.AsEuler.Y.AsFloat);
+			_playerIndicator.rotation = Quaternion.Euler(0, 0, 360f - playerTransform.Rotation.AsEuler.Y.AsFloat + _cameraAngleOffset);
 
 			// Position (only relevant in opened map)
 			_playerIndicator.anchoredPosition = ViewportToMinimapPosition(playerViewportPoint, playerViewportPoint);
@@ -276,8 +277,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (_config == null || _config.Step != circle.Step)
 			{
 				_config = f.Context.MapShrinkingCircleConfigs[Math.Clamp(circle.Step - 1,
-				                                                         0,
-				                                                         f.Context.MapShrinkingCircleConfigs.Count - 1)];
+					0,
+					f.Context.MapShrinkingCircleConfigs.Count - 1)];
 			}
 
 			// Check to only draw safe area after the warning / announcement
@@ -471,8 +472,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
+			var minimapCameraTransform = _minimapCamera.GetComponent<RectTransform>();
+			_cameraAngleOffset = minimapCameraTransform.localRotation.eulerAngles.y;
 			RenderMinimap();
-
 			if (msg.IsResync)
 			{
 				_airdropPool.DespawnAll();

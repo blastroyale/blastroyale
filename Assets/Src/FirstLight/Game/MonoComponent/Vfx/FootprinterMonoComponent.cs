@@ -33,7 +33,7 @@ public class FootprinterMonoComponent : MonoBehaviour
     private Vector3 _leftStepScale;
     private EntityView _view;
     private PlayerCharacterMonoComponent _character;
-    //private bool _right;
+
     
     // Local variables to avoid GC
     private GameObject _pooledFootprint;
@@ -60,7 +60,10 @@ public class FootprinterMonoComponent : MonoBehaviour
         _character = view.GetComponent<PlayerCharacterMonoComponent>();
         _view = view;
         _skin = services.CollectionService.GetCosmeticForGroup(loadout.Cosmetics, GameIdGroup.Footprint);
-    }
+
+		_character.PlayerView.CharacterSkin.Events.OnStepLeft += OnStepLeft;
+		_character.PlayerView.CharacterSkin.Events.OnStepRight += OnStepRight;
+	}
 
     private bool CanSpawn()
 	{
@@ -68,30 +71,22 @@ public class FootprinterMonoComponent : MonoBehaviour
 			_skin.Id != GameId.Random; //&& _cooldown.CheckTrigger();
 	}
 
-	public void SpawnFootPrintRightEvent()
+	private void OnStepRight()
 	{
 		if (CanSpawn())
 		{
-		    Spawn(true).Forget();
+		    Spawn(_character.PlayerView.CharacterSkin.RightFootAnchor, true).Forget();
 		}
 	}
 	
-	public void SpawnFootPrintLeftEvent()
+	private void OnStepLeft()
 	{
 		if (CanSpawn())
 		{
-			Spawn(false).Forget();
+			Spawn(_character.PlayerView.CharacterSkin.LeftFootAnchor, false).Forget();
 		}
 	}
-
-	//private void Update()
-    //{
-        //if (CanSpawn())
-        //{
-        //    Spawn().Forget();
-        //}
-    //}
-
+	
     private Quaternion GetFootRotation()
     {
         var f = QuantumRunner.Default.Game.Frames.Predicted;
@@ -115,7 +110,7 @@ public class FootprinterMonoComponent : MonoBehaviour
     /// <summary>
     /// Spawns the footstep.
     /// </summary>
-    private async UniTaskVoid Spawn(bool right)
+    private async UniTaskVoid Spawn(Transform anchor, bool right)
     {
         if (!IsValid()) return;
         if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
@@ -132,10 +127,10 @@ public class FootprinterMonoComponent : MonoBehaviour
             _rightStepScale = _pooledFootprint.transform.localScale;
             _leftStepScale = new(-_rightStepScale.x, _rightStepScale.y, _rightStepScale.z);
         }
-        //_right = !_right;
+
         _localTransform = _view.transform;
         _localRotation = GetFootRotation();
-        _pooledFootprint.transform.position = _localTransform.position + _localPositionOffset + (_localRotation * (right ? _rightStepVariation : _leftStepVariation));
+		_pooledFootprint.transform.position = anchor.position;
         _pooledFootprint.transform.localScale = right ? _rightStepScale : _leftStepScale;
         _pooledFootprint.transform.rotation = Quaternion.Euler(90, _localRotation.eulerAngles.y, 0);
         _pooledFootprint.SetActive(true);

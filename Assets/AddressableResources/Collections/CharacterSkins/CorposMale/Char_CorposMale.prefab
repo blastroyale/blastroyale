@@ -47,7 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponAnchor: {fileID: 5245352815123216074}
   _gliderAnchor: {fileID: 483203689041346834}
+  _leftFootAnchor: {fileID: 7701176215691134729}
+  _rightFootAnchor: {fileID: 3389045867058203952}
   _animator: {fileID: 4791532250327021032}
+  _events: {fileID: 5180648992591669822}
 --- !u!1001 &1374834390610299001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,7 +134,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5180648992591669822}
   m_SourcePrefab: {fileID: 100100000, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
 --- !u!4 &483203689041346834 stripped
 Transform:
@@ -143,6 +149,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
   m_PrefabInstance: {fileID: 1374834390610299001}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2293754196448277800 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
+  m_PrefabInstance: {fileID: 1374834390610299001}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5180648992591669822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2293754196448277800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f5502b828334eaaa7cf21d50c555893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &3389045867058203952 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4891986877565647543, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
+  m_PrefabInstance: {fileID: 1374834390610299001}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &4791532250327021032 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
@@ -151,5 +179,10 @@ Animator:
 --- !u!4 &5245352815123216074 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2603265301662204237, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
+  m_PrefabInstance: {fileID: 1374834390610299001}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7701176215691134729 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8787778992651652976, guid: 03878ed50c8b048259346ed7b5814ed6, type: 3}
   m_PrefabInstance: {fileID: 1374834390610299001}
   m_PrefabAsset: {fileID: 0}

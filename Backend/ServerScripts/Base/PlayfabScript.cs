@@ -143,7 +143,12 @@ public abstract class PlayfabScript : IScript
 
 	public PlayfabScript()
 	{
-		var playfabSetup = GetPlayfabConfiguration();
+		SetEnvironment(GetEnvironment());
+	}
+
+	protected void SetEnvironment(PlayfabEnvironment environment)
+	{
+		var playfabSetup = _envSetups[environment];
 		PlayFabSettings.staticSettings.TitleId = playfabSetup.TitleId;
 		var key = playfabSetup.SecretKey;
 		if (key == ReadFromFile)
@@ -151,6 +156,7 @@ public abstract class PlayfabScript : IScript
 			var keyPath = Path.Combine(Environment.CurrentDirectory, "playfab_key.txt");
 			key = File.ReadAllText(keyPath);
 		}
+
 		PlayFabSettings.staticSettings.DeveloperSecretKey = key;
 		Console.WriteLine($"Using Playfab Title {PlayFabSettings.staticSettings.TitleId}");
 	}

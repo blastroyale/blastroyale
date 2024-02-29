@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "bgtools.de.playerprefseditor": {
+      "version": "file:PlayerPrefsEditor",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.autodesk.fbx": {
       "version": "4.2.1",
       "depth": 1,

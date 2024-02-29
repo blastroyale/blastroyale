@@ -19,14 +19,10 @@ using UnityEngine.SceneManagement;
 public class FootprinterMonoComponent : MonoBehaviour
 {
     private static Queue<GameObject> _globalPool = new(); 
-    private static readonly Vector3 _rightStepVariation = new(-0.1f, 0, 0);
-    private static readonly Vector3 _leftStepVariation = new(0.1f, 0, 0);
-
+	
     private ItemData _skin;
     private WaitForSeconds _duration = new (2.4f);
-    private Cooldown _cooldown = new (TimeSpan.FromMilliseconds(300));
-    
-    private Vector3 _localPositionOffset = new (0, 0.17f, 0);
+	
     private IGameServices _services;
     private IMatchServices _matchServices;
     private Vector3 _rightStepScale;
@@ -37,8 +33,7 @@ public class FootprinterMonoComponent : MonoBehaviour
     
     // Local variables to avoid GC
     private GameObject _pooledFootprint;
-    private Transform _localTransform;
-    private Quaternion _localRotation;
+	private Quaternion _localRotation;
 
     public bool SpawnFootprints;
     
@@ -68,7 +63,7 @@ public class FootprinterMonoComponent : MonoBehaviour
     private bool CanSpawn()
 	{
 		return _character != null && _character.PlayerView != null && _view != null && SpawnFootprints &&
-			_skin.Id != GameId.Random; //&& _cooldown.CheckTrigger();
+			_skin.Id != GameId.Random; 
 	}
 
 	private void OnStepRight()
@@ -127,8 +122,7 @@ public class FootprinterMonoComponent : MonoBehaviour
             _rightStepScale = _pooledFootprint.transform.localScale;
             _leftStepScale = new(-_rightStepScale.x, _rightStepScale.y, _rightStepScale.z);
         }
-
-        _localTransform = _view.transform;
+		
         _localRotation = GetFootRotation();
 		_pooledFootprint.transform.position = anchor.position;
         _pooledFootprint.transform.localScale = right ? _rightStepScale : _leftStepScale;

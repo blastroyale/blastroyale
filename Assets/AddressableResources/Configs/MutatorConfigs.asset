@@ -96,3 +96,9 @@ MonoBehaviour:
         RawValue: 0
       Param2:
         RawValue: 0
+    - Id: ARsOnly
+      Type: 17
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0

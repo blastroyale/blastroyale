@@ -47,6 +47,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private Ease _hideEase = Ease.InSine;
 		[SerializeField] private float _hideDuration = 0.3f;
 
+		private Vector3 _initialScale;
+
+		private void Awake()
+		{
+			_initialScale = _rectTransform.localScale;
+		}
+
 		public void OnSpawn()
 		{
 			_rectTransform.DOKill();
@@ -56,9 +63,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_timerImage.enabled = true;
 			_timerBackground.enabled = true;
 
-			var endScale = _rectTransform.localScale;
 			_rectTransform.localScale = Vector3.zero;
-			_rectTransform.DOScale(endScale, _showDuration).SetEase(_showEase);
+			_rectTransform.DOScale(_initialScale, _showDuration).SetEase(_showEase);
 		}
 
 		public void OnDespawn()

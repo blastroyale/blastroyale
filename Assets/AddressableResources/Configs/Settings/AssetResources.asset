@@ -449,11 +449,6 @@ MonoBehaviour:
         Id:
           Value: 1722351953338325886
       Address: QuantumAssets/Projectiles/HammerHit.prefab[HammerHitEntityPrototype]
-    - Path: AddressableResources/Maps/TestAssets/BinaryDataAsset
-      AssetRef:
-        Id:
-          Value: 1757640690739227388
-      Address: Maps/TestAssets/BinaryDataAsset.asset
     - Path: AddressableResources/Configs/CustomAssetConfigs
       AssetRef:
         Id:

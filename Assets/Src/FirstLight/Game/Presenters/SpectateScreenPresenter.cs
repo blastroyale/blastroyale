@@ -55,6 +55,7 @@ namespace FirstLight.Game.Presenters
 			_statusBarsView.InitAll();
 
 			_header.homeClicked += Data.OnLeaveClicked;
+			_header.backClicked += Data.OnLeaveClicked;
 
 			root.Q<LocalizedButton>("LeaveButton").clicked += Data.OnLeaveClicked;
 			root.Q<ImageButton>("ArrowLeft").clicked += OnPreviousPlayerClicked;

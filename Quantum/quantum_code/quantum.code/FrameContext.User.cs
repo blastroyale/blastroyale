@@ -49,17 +49,17 @@ namespace Quantum
 			}
 			if (TryGetMutatorByType(MutatorType.SMGsOnly, out _))
 			{
-				weaponLimitId = GameId.ApoSMG;
+				weaponLimitId = GameId.ModMachineGun;
 				return true;
 			}
 			if (TryGetMutatorByType(MutatorType.MinigunsOnly, out _))
 			{
-				weaponLimitId = GameId.ModHeavyMachineGun;
+				weaponLimitId = GameId.ApoMinigun;
 				return true;
 			}
 			if (TryGetMutatorByType(MutatorType.ShotgunsOnly, out _))
 			{
-				weaponLimitId = GameId.ApoShotgun;
+				weaponLimitId = GameId.ModShotgun;
 				return true;
 			}
 			if (TryGetMutatorByType(MutatorType.SnipersOnly, out _))
@@ -69,7 +69,12 @@ namespace Quantum
 			}
 			if (TryGetMutatorByType(MutatorType.RPGsOnly, out _))
 			{
-				weaponLimitId = GameId.SciCannon;
+				weaponLimitId = GameId.ModLauncher;
+				return true;
+			}
+			if (TryGetMutatorByType(MutatorType.ARsOnly, out _))
+			{
+				weaponLimitId = GameId.ModRifle;
 				return true;
 			}
 			

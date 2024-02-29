@@ -72,7 +72,9 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _lastRewardSprite;
 		private ScreenHeaderElement _screenHeader;
 		private ImageButton _currentReward;
-		private VisualElement _endGraphic;
+		private VisualElement _endGraphicContainer;
+		private VisualElement _endGraphicPicture;
+		private Label _endGraphicLabel;
 
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
@@ -113,7 +115,9 @@ namespace FirstLight.Game.Presenters
 			_lastRewardBaloon = root.Q("LastRewardBalloon");
 			_lastRewardBaloon.RegisterCallback<PointerDownEvent>(e => OnClickLastRewardIcon());
 			_lastRewardSprite = root.Q("LastRewardSprite");
-			_endGraphic = root.Q("LastReward").Required();
+			_endGraphicContainer = root.Q("LastReward").Required();
+			_endGraphicPicture = _endGraphicContainer.Q("RewardPicture").Required();
+			_endGraphicLabel = _endGraphicContainer.Q<Label>("RewardName").Required();
 			root.Q<CurrencyDisplayElement>("BBCurrency").AttachView(this, out CurrencyDisplayView _);
 
 			_rewardsScroll.horizontalScroller.valueChanged += OnScroll;
@@ -296,12 +300,6 @@ namespace FirstLight.Game.Presenters
 			return battlePassConfig.Season.RemovePaid;
 		}
 
-		private bool IsDisableEndGraphic()
-		{
-			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig();
-			return battlePassConfig.Season.RemoveEndGraphic;
-		}
-
 		private void InitScreen(bool update = false)
 		{
 			if (IsDisablePremium())
@@ -371,10 +369,17 @@ namespace FirstLight.Game.Presenters
 				{
 					column.DisablePaid();
 				}
-				
-				if(IsDisableEndGraphic())
+
+				if (string.IsNullOrEmpty(battlePassConfig.Season.EndGraphicImageClass))
 				{
-					_endGraphic.SetDisplay(false);
+					_endGraphicContainer.SetDisplay(false);
+				}
+				else
+				{
+					_endGraphicContainer.SetDisplay(true);
+					_endGraphicPicture.RemoveSpriteClasses();
+					_endGraphicPicture.AddToClassList(battlePassConfig.Season.EndGraphicImageClass);
+					_endGraphicLabel.text = battlePassConfig.Season.EndGraphicName;
 				}
 
 				column.SetBarData((uint) i + 1, completed, currentLevel, battlePassConfig.Season.BuyLevelPrice);

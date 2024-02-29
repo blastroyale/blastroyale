@@ -96,10 +96,6 @@ namespace FirstLight.Game.Services.Collection.Handles
 
 			var a = obj.AddComponent<RenderersContainerMonoComponent>();
 			a.UpdateRenderers();
-			var skin = obj.GetComponent<WeaponSkinMonoComponent>();
-			var animator = skin.AnimatorController != null ? skin.AnimatorController : _groupLookup[item.Id].DefaultAnimationOverwrite;
-			var component = obj.AddComponent<RuntimeAnimatorMonoComponent>();
-			component.AnimatorController = animator;
 
 			return obj;
 		}

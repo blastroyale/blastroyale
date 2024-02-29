@@ -55,7 +55,8 @@ namespace FirstLight.Game.Presenters
 			MutatorType.MinigunsOnly,
 			MutatorType.ShotgunsOnly,
 			MutatorType.SnipersOnly,
-			MutatorType.RPGsOnly
+			MutatorType.RPGsOnly,
+			MutatorType.ARsOnly
 		};
 
 		private void Awake()

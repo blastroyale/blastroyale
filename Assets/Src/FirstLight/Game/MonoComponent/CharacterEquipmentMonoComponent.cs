@@ -175,17 +175,31 @@ namespace FirstLight.Game.MonoComponent
 			}
 
 			var items = _equipment[slotType];
-
+			
 			for (var i = 0; i < items.Count; i++)
 			{
-				_renderersContainerProxy.RemoveRenderersContainer(items[i].GetComponent<RenderersContainerMonoComponent>());
-				items[i].SetActive(false);
-				Destroy(items[i]);
+				var go = items[i];
+				
+				if (go.TryGetComponent(out RenderersContainerMonoComponent renderersContainer))
+				{
+					_renderersContainerProxy.RemoveRenderersContainer(renderersContainer);
+				}
+				else if (go.transform.GetChild(0).TryGetComponent(out RenderersContainerMonoComponent c))
+				{
+					_renderersContainerProxy.RemoveRenderersContainer(c);
+				}
+				else
+				{
+					FLog.Error($"Unable to remove missing RenderersContainerMonoComponent {go.FullGameObjectPath()}");
+				}
+
+				go.SetActive(false);
+				Destroy(go);
 			}
 
 			_equipment.Remove(slotType);
 		}
-
+		
 		/// <summary>
 		/// Hide all Equipment currently equipped on a character.
 		/// </summary>

@@ -48,7 +48,7 @@ namespace FirstLight.Game.Logic
 		/// Allowed rewards for this match
 		/// </summary>
 		public List<GameId> AllowedRewards { get; set; }
-		
+
 		/// <summary>
 		/// Items the player collected during the match
 		/// </summary>
@@ -74,7 +74,7 @@ namespace FirstLight.Game.Logic
 		/// Obtains the rewards for a given tutorial step
 		/// </summary>
 		IEnumerable<ItemData> GetRewardsFromTutorial(TutorialSection section);
-		
+
 		/// <summary>
 		/// Creates an item based on a reward config.
 		/// The config is a Chest Like" structure that defines rules for item generation.
@@ -94,7 +94,7 @@ namespace FirstLight.Game.Logic
 		/// Collects all the unclaimed rewards in the player's inventory
 		/// </summary>
 		List<ItemData> ClaimUnclaimedRewards();
-		
+
 		/// <summary>
 		/// Claims specific uncolledted item. Will throw an exception if the user
 		/// does not have the item as unclaimed reward.
@@ -108,7 +108,7 @@ namespace FirstLight.Game.Logic
 		/// instead of the UnclaimedRewards inventory
 		/// </summary>
 		void Reward(IEnumerable<ItemData> items);
-		
+
 		/// <summary>
 		/// Reward items to player but instead of adding the items to the player
 		/// items directly, it will add to the player unclaimed rewards.
@@ -116,8 +116,8 @@ namespace FirstLight.Game.Logic
 		/// This is to play animations even if the user quits the game.
 		/// </summary>
 		void RewardToUnclaimedRewards(IEnumerable<ItemData> items);
-		
-		
+
+
 		/// <summary>
 		/// Generates ItemData of all given configs.
 		/// Those configs represents a "chest like" structure containing rules on how to generate items.
@@ -206,27 +206,28 @@ namespace FirstLight.Game.Logic
 			}
 
 			var allowedRewards = source.AllowedRewards ?? new List<GameId>();
-			
+
 			// We dont give rewards for quitting, but players can loose trophies
 			if (allowedRewards.Contains(GameId.Trophies))
 			{
 				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, trophyRewardConfig, out trophyChange);
 			}
-			
+
 			if (source.DidPlayerQuit || source.GamePlayerCount == 1)
 			{
 				return rewards;
 			}
-			
+
 			if (allowedRewards.Contains(GameId.BPP))
 			{
 				CalculateBPPReward(rewards, rewardConfig);
 			}
-			
+
 			if (allowedRewards.Contains(GameId.XP))
 			{
 				CalculateXPReward(rewards, rewardConfig);
 			}
+
 			CalculateCollectedRewards(rewards, source);
 			return rewards;
 		}
@@ -236,7 +237,7 @@ namespace FirstLight.Game.Logic
 			if (source.CollectedItems == null || source.CollectedItems.Count == 0) return;
 
 			var collected = new Dictionary<GameId, ushort>(source.CollectedItems);
-			
+
 			foreach (var reward in rewards)
 			{
 				if (collected.TryGetValue(reward.Id, out var collectedAmt))
@@ -245,7 +246,7 @@ namespace FirstLight.Game.Logic
 					collected.Remove(reward.Id);
 				}
 			}
-			
+
 			foreach (var (id, amt) in collected)
 			{
 				rewards.Add(ItemFactory.Currency(id, amt));
@@ -264,7 +265,7 @@ namespace FirstLight.Game.Logic
 						(int) GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.Id, (uint) meta.Amount);
 				}
 			}
-			
+
 			RewardToUnclaimedRewards(rewards);
 			return rewards;
 		}
@@ -274,7 +275,7 @@ namespace FirstLight.Game.Logic
 			if (!Data.UncollectedRewards.Remove(item)) throw new LogicException($"Could not claim reward {item}");
 			return AddItemToPlayerInventory(item);
 		}
-		
+
 		public List<ItemData> ClaimUnclaimedRewards()
 		{
 			var claimed = new List<ItemData>(Data.UncollectedRewards);
@@ -283,6 +284,7 @@ namespace FirstLight.Game.Logic
 				if (reward.Id == GameId.Random) Data.UncollectedRewards.Remove(reward);
 				else ClaimUnclaimedReward(reward);
 			}
+
 			return claimed.Where(r => r.Id != GameId.Random).ToList();
 		}
 
@@ -293,7 +295,7 @@ namespace FirstLight.Game.Logic
 				_unclaimedRewards.Add(item);
 			}
 		}
-		
+
 		public void Reward(IEnumerable<ItemData> items)
 		{
 			foreach (var item in items) AddItemToPlayerInventory(item);
@@ -309,23 +311,20 @@ namespace FirstLight.Game.Logic
 			var rewardItems = CreateItemsFromConfigs(rewardsConfigs);
 			return rewardItems;
 		}
-		
+
 		public ItemData CreateItemFromConfig(EquipmentRewardConfig config)
 		{
-			if (config.GameId.IsInGroup(GameIdGroup.Equipment))
-			{
-				var generatedEquipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(config);
-				return ItemFactory.Equipment(generatedEquipment);
-			} if (config.GameId.IsInGroup(GameIdGroup.Collection))
+			if (config.GameId.IsInGroup(GameIdGroup.Collection))
 			{
 				return ItemFactory.Collection(config.GameId);
 			}
-			if (config.GameId.IsInGroup(GameIdGroup.Core))
+
+			if (config.GameId.IsInGroup(GameIdGroup.Core) || config.GameId.IsInGroup(GameIdGroup.Equipment))
 			{
-				// TODO: Isolate opening cores into "ChestLogic"
-				var generatedEquipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(config);
-				return ItemFactory.Equipment(generatedEquipment);
+				// Cores/Equipments don't exist anymore so give some blastbucks instead
+				return ItemFactory.Currency(GameId.BlastBuck, 5);
 			}
+
 			return ItemFactory.Currency(config.GameId, config.Amount);
 		}
 
@@ -349,7 +348,7 @@ namespace FirstLight.Game.Logic
 			{
 				var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.BPP);
 				var withdrawn = (int) Math.Min(info.CurrentAmount, amount);
-				var remainingPoints = (int)GameLogic.BattlePassLogic.GetRemainingPointsOfBp();
+				var remainingPoints = (int) GameLogic.BattlePassLogic.GetRemainingPointsOfBp();
 				withdrawn = Math.Min(withdrawn, remainingPoints);
 				if (withdrawn > 0)
 				{
@@ -422,7 +421,7 @@ namespace FirstLight.Game.Logic
 				GameLogic.MessageBrokerService.Publish(new OpenedCoreMessage()
 				{
 					Core = reward,
-					Results = new [] { generated } 
+					Results = new[] {generated}
 				});
 				return generated;
 			}
@@ -449,8 +448,9 @@ namespace FirstLight.Game.Logic
 					GameLogic.CurrencyLogic.AddCurrency(reward.Id, (uint) currency.Amount);
 				}
 				else throw new LogicException($"Unknown currency '{reward.Id.ToString()}'");
-			} 
+			}
 			else throw new LogicException($"Unknown reward {reward}");
+
 			return reward;
 		}
 	}

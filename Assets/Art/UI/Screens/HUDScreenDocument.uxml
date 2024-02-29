@@ -57,9 +57,7 @@
                         </ui:VisualElement>
                     </FirstLight.Game.UIElements.RadialProgressElement>
                     <ui:VisualElement name="WeaponIconShadow" class="weapon-display__weapon-icon weapon-display__weapon-icon--shadow">
-                        <ui:VisualElement name="WeaponIcon" class="weapon-display__weapon-icon">
-                            <ui:VisualElement name="FactionIcon" class="weapon-display__weapon-faction-icon sprite-equipmentcard__card-faction-dimensional" />
-                        </ui:VisualElement>
+                        <ui:VisualElement name="WeaponIcon" class="weapon-display__weapon-icon" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:Label text="67 &lt;sprite=&quot;UISpriteAsset&quot; name=&quot;AmmoIcon&quot;&gt;&#10;&lt;size=70%&gt;/ 134" name="Ammo" class="weapon-display__ammo" />
@@ -72,15 +70,6 @@
                 <FirstLight.Game.UIElements.SquadMemberElement />
                 <FirstLight.Game.UIElements.SquadMemberElement class="player-health-shield--knockedout squad-member--knockedout" />
                 <FirstLight.Game.UIElements.SquadMemberElement />
-            </ui:VisualElement>
-            <ui:VisualElement name="EquipmentDisplay" picking-mode="Ignore" class="customizable-hud equipment-display" style="display: none;">
-                <ui:VisualElement name="Character" picking-mode="Ignore" class="equipment-display__character">
-                    <ui:VisualElement name="Armor" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--armor" />
-                    <ui:VisualElement name="Amulet" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--amulet" />
-                    <ui:VisualElement name="Helmet" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--helmet" />
-                    <ui:VisualElement name="Shield" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--shield" />
-                </ui:VisualElement>
-                <ui:Label text="0/4" name="Count" class="equipment-display__count" style="display: none;" />
             </ui:VisualElement>
             <ui:VisualElement name="PlayerCounts" class="customizable-hud player-counts">
                 <ui:VisualElement name="KillContainer" class="player-counts__kills-container">

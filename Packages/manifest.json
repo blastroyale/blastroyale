@@ -5,6 +5,7 @@
     "com.google.firebase.analytics": "file:../Google/com.google.firebase.analytics-11.2.0.tgz",
     "com.google.firebase.app": "file:../Google/com.google.firebase.app-11.2.0.tgz",
     "com.google.firebase.crashlytics": "file:../Google/com.google.firebase.crashlytics-11.2.0.tgz",
+    "com.immutable.passport": "https://github.com/immutable/unity-immutable-sdk.git?path=/src/Packages/Passport",
     "com.jetbrains.riderflow": "2023.1.0-25",
     "com.unity.2d.animation": "9.1.0",
     "com.unity.2d.sprite": "1.0.0",

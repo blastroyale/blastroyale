@@ -78,7 +78,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required, TabGroup("Input")]
 		private UnityInputScreenControl _specialCancelInput;
 
-
 		private IGameServices _gameServices;
 		private IGameDataProvider _dataProvider;
 
@@ -91,7 +90,6 @@ namespace FirstLight.Game.Presenters
 		private SpecialButtonsView _specialButtonsView;
 		private DeviceStatusView _deviceStatusView;
 		private SquadMembersView _squadMembersView;
-		private EquipmentDisplayView _equipmentDisplayView;
 		private StatusBarsView _statusBarsView;
 		private StatusNotificationsView _statusNotificationsView;
 		private PlayerCountsView _playerCountsView;
@@ -121,7 +119,6 @@ namespace FirstLight.Game.Presenters
 			root.AttachView(this, out _specialButtonsView);
 			root.Q("DeviceStatus").Required().AttachView(this, out _deviceStatusView);
 			root.Q("SquadMembers").Required().AttachView(this, out _squadMembersView);
-			// root.Q("EquipmentDisplay").Required().AttachView(this, out _equipmentDisplayView);
 			root.Q("PlayerBars").Required().AttachView(this, out _statusBarsView);
 			root.Q("StatusNotifications").Required().AttachView(this, out _statusNotificationsView);
 			root.Q("PlayerCounts").Required().AttachView(this, out _playerCountsView);

@@ -1,0 +1,6 @@
+﻿singleton component TutorialRuntimeData {
+    array<entity_ref>[2] FirstBots;
+    entity_ref GrenadeBot;
+    entity_ref FinalBot;
+    entity_ref FirstBarrier;
+}

@@ -3303,6 +3303,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3312,6 +3313,94 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Revivable: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    TutorialRuntimeData:
+    - FirstBots:
+      - SceneIndexPlusOne: 5
+      - SceneIndexPlusOne: 4
+      GrenadeBot:
+        SceneIndexPlusOne: 6
+      FinalBot:
+        SceneIndexPlusOne: 3
+      FirstBarrier:
+        SceneIndexPlusOne: 14
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D:
+    - Position:
+        X:
+          RawValue: -1356967
+        Y:
+          RawValue: 441842
+      Rotation:
+        RawValue: -21211382
+    Transform2DVertical: []
+    Transform3D: []
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -3326,6 +3415,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -3334,6 +3424,7 @@ MonoBehaviour:
     Targetable: []
     TeamMember: []
     Trigger: []
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -3381,11 +3472,14 @@ MonoBehaviour:
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
     Consumable: []
-    CosmeticsHolder: []
+    CosmeticsHolder:
+    - Cosmetics:
+      - Value: 69
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3395,6 +3489,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -3409,6 +3506,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -3417,6 +3515,7 @@ MonoBehaviour:
     Targetable: []
     TeamMember: []
     Trigger: []
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -3464,11 +3563,14 @@ MonoBehaviour:
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
     Consumable: []
-    CosmeticsHolder: []
+    CosmeticsHolder:
+    - Cosmetics:
+      - Value: 83
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3478,6 +3580,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -3492,6 +3597,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -3500,6 +3606,7 @@ MonoBehaviour:
     Targetable: []
     TeamMember: []
     Trigger: []
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -3528,7 +3635,7 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 23588528
+          RawValue: 17690288
         Z:
           RawValue: 0
     View: []
@@ -3547,11 +3654,14 @@ MonoBehaviour:
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
     Consumable: []
-    CosmeticsHolder: []
+    CosmeticsHolder:
+    - Cosmetics:
+      - Value: 77
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3561,6 +3671,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -3575,6 +3688,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -3583,6 +3697,7 @@ MonoBehaviour:
     Targetable: []
     TeamMember: []
     Trigger: []
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -3611,7 +3726,7 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 23588528
+          RawValue: 17690288
         Z:
           RawValue: 0
     View: []
@@ -3630,11 +3745,14 @@ MonoBehaviour:
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
     Consumable: []
-    CosmeticsHolder: []
+    CosmeticsHolder:
+    - Cosmetics:
+      - Value: 77
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3644,6 +3762,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -3658,6 +3779,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -3666,6 +3788,7 @@ MonoBehaviour:
     Targetable: []
     TeamMember: []
     Trigger: []
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -3694,7 +3817,7 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 23588528
+          RawValue: 17690288
         Z:
           RawValue: 0
     View: []
@@ -3730,6 +3853,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3739,6 +3863,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -3747,6 +3874,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -3755,6 +3883,7 @@ MonoBehaviour:
     Targetable: []
     TeamMember: []
     Trigger: []
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -3819,6 +3948,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3828,6 +3958,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -3836,6 +3969,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -3844,6 +3978,7 @@ MonoBehaviour:
     Targetable: []
     TeamMember: []
     Trigger: []
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -3908,6 +4043,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -3917,6 +4053,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -3925,6 +4064,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -3933,6 +4073,7 @@ MonoBehaviour:
     Targetable: []
     TeamMember: []
     Trigger: []
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -3997,6 +4138,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -4006,6 +4148,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -4014,6 +4159,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -4022,6 +4168,7 @@ MonoBehaviour:
     Targetable: []
     TeamMember: []
     Trigger: []
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -4086,6 +4233,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -4095,6 +4243,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -4103,6 +4254,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -4111,6 +4263,7 @@ MonoBehaviour:
     Targetable: []
     TeamMember: []
     Trigger: []
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -4163,6 +4316,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -4178,6 +4332,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -4186,6 +4343,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -4195,7 +4353,7 @@ MonoBehaviour:
     TeamMember: []
     Trigger:
     - Target:
-        SceneIndexPlusOne: 11
+        SceneIndexPlusOne: 12
       Data:
         _field_used_: CHESTOPENTRIGGERDATA
         PlayersAliveTriggerData:
@@ -4205,6 +4363,7 @@ MonoBehaviour:
         WeaponCollectedTriggerData:
           WeaponSpawner:
             SceneIndexPlusOne: 0
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -4293,6 +4452,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -4308,6 +4468,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -4316,6 +4479,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -4325,7 +4489,7 @@ MonoBehaviour:
     TeamMember: []
     Trigger:
     - Target:
-        SceneIndexPlusOne: 12
+        SceneIndexPlusOne: 13
       Data:
         _field_used_: PLAYERSALIVETRIGGERDATA
         PlayersAliveTriggerData:
@@ -4335,6 +4499,7 @@ MonoBehaviour:
         WeaponCollectedTriggerData:
           WeaponSpawner:
             SceneIndexPlusOne: 0
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -4440,6 +4605,7 @@ MonoBehaviour:
         Value: 72
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -4449,6 +4615,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -4457,6 +4626,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -4465,6 +4635,7 @@ MonoBehaviour:
     Targetable: []
     TeamMember: []
     Trigger: []
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -4553,6 +4724,7 @@ MonoBehaviour:
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -4568,6 +4740,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -4576,6 +4751,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -4585,7 +4761,7 @@ MonoBehaviour:
     TeamMember: []
     Trigger:
     - Target:
-        SceneIndexPlusOne: 14
+        SceneIndexPlusOne: 15
       Data:
         _field_used_: WEAPONCOLLECTEDTRIGGERDATA
         PlayersAliveTriggerData:
@@ -4594,7 +4770,8 @@ MonoBehaviour:
           _empty_prototype_dummy_field_: 0
         WeaponCollectedTriggerData:
           WeaponSpawner:
-            SceneIndexPlusOne: 7
+            SceneIndexPlusOne: 8
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -4688,7 +4865,7 @@ MonoBehaviour:
       TimeToDestroy:
         RawValue: 0
       Health:
-        RawValue: 9830400
+        RawValue: 1310720
       DamagePower:
         RawValue: 0
       SplashRadius:
@@ -4700,6 +4877,7 @@ MonoBehaviour:
         Value: 195
     DummyCharacter: []
     EntityDestroyer: []
+    EntityGroup: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
@@ -4709,6 +4887,9 @@ MonoBehaviour:
     Immunity: []
     InsideVisibilityArea: []
     Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerInventory: []
@@ -4717,6 +4898,7 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
+    Revivable: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -4725,6 +4907,7 @@ MonoBehaviour:
     Targetable: []
     TeamMember: []
     Trigger: []
+    TutorialRuntimeData: []
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []

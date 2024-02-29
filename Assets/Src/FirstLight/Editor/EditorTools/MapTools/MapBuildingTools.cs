@@ -36,5 +36,21 @@ namespace FirstLight.Editor.EditorTools.MapTools
 				coll.Size = new FPVector3(selected.localScale.x.ToFP(), FP._3, selected.localScale.z.ToFP());
 			}
 		}
+		
+		[MenuItem("FLG/Map/Create GO with a single Quantum Collider at Positions of Selected GOs &9")]
+		private static void CreateSingleQuantumCollider()
+		{
+			for (var i = 0; i < Selection.transforms.Length; i++)
+			{
+				var selected = Selection.transforms[i];
+				
+				var newGo = new GameObject(selected.gameObject.name + " Obstacle COLL", typeof(QuantumStaticBoxCollider3D));
+				newGo.transform.position = new Vector3(selected.position.x, 1.5f, selected.position.z);
+				newGo.layer = 8;
+				
+				var coll = newGo.GetComponent<QuantumStaticBoxCollider3D>();
+				coll.Size = new FPVector3(FP._1, FP._3, FP._1);
+			}
+		}
 	}
 }

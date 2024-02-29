@@ -143,6 +143,11 @@ namespace FirstLight.Game.Presenters
 
 			await UniTask.WhenAll(tasks);
 
+			if (playerDataCount > 1)
+			{
+				_character2.RandomizeAnimationStateFrame();
+			}
+
 			_character1.AnimateVictory();
 		}
 	}

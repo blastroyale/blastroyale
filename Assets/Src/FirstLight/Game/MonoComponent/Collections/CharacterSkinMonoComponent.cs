@@ -63,6 +63,12 @@ namespace FirstLight.Game.MonoComponent.Collections
 				_animator.SetFloat(P_WEAPON_TYPE_FLOAT, (float) value);
 			}
 		}
+		
+		public void RandomizeAnimationStateFrame(int layer = 0)
+		{
+			var state = _animator.GetCurrentAnimatorStateInfo(layer);
+			_animator.Play(state.fullPathHash, layer, UnityEngine.Random.Range(0f, state.length));
+		}
 
 		public void TriggerHit() => _animator.SetTrigger(P_HIT);
 		public void TriggerDie() => _animator.SetTrigger(P_DIE);

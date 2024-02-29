@@ -80,6 +80,11 @@ namespace FirstLight.Game.MonoComponent
 			_skin.TriggerVictory();
 		}
 
+		public void RandomizeAnimationStateFrame(int layer = 0)
+		{
+			_skin.RandomizeAnimationStateFrame(layer);
+		}
+
 		private void SkinLoaded(ItemData skin, GameObject instance)
 		{
 			instance.SetActive(false);

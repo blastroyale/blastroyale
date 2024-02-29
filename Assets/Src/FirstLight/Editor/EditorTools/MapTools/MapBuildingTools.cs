@@ -21,6 +21,8 @@ namespace FirstLight.Editor.EditorTools.MapTools
 		[MenuItem("FLG/Map/Create GOs with Quantum Colliders From Selected GOs &0")]
 		private static void CreateQuantumColliders()
 		{
+			var parentGo = new GameObject("Building");
+			
 			for (var i = 0; i < Selection.transforms.Length; i++)
 			{
 				var selected = Selection.transforms[i];
@@ -28,6 +30,7 @@ namespace FirstLight.Editor.EditorTools.MapTools
 				var newGo = new GameObject("Wall COLL", typeof(QuantumStaticBoxCollider3D));
 				newGo.transform.position = new Vector3(selected.position.x, 1.5f, selected.position.z);
 				newGo.layer = 8;
+				newGo.transform.SetParent(parentGo.transform);
 				
 				var coll = newGo.GetComponent<QuantumStaticBoxCollider3D>();
 				coll.Size = new FPVector3(selected.localScale.x.ToFP(), FP._3, selected.localScale.z.ToFP());

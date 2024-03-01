@@ -13,7 +13,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="InfoHolder" focusable="true" class="anim-delay-0 anim-translate anim-translate--left-xxl info-holder">
                 <ui:VisualElement name="RenderTextureHolder" class="info-holder__rt-holder">
-                    <ui:VisualElement name="RenderTexture" class="info-holder__rt" />
+                    <ui:VisualElement name="RenderTexture" class="info-holder__rt" style="width: 600px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="ButtonHolder" class="button-holder">
                     <FirstLight.Game.UIElements.PriceButton localization-key="UITCollectionScreen/buy" name="BuyButton" class="info-holder__buy-button" />

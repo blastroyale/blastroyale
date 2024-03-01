@@ -416,7 +416,7 @@ ModelImporter:
       takeName: idle
       internalID: -5252816984213320552
       firstFrame: 0
-      lastFrame: 150
+      lastFrame: 200
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -445,7 +445,7 @@ ModelImporter:
       takeName: idle_melee
       internalID: -2147170453486825819
       firstFrame: 0
-      lastFrame: 150
+      lastFrame: 200
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -474,7 +474,7 @@ ModelImporter:
       takeName: idle_gun
       internalID: 5127660736372990631
       firstFrame: 0
-      lastFrame: 150
+      lastFrame: 200
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -503,7 +503,7 @@ ModelImporter:
       takeName: idle_xlgun
       internalID: -525292058249991935
       firstFrame: 0
-      lastFrame: 150
+      lastFrame: 200
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -967,7 +967,7 @@ ModelImporter:
       takeName: victory
       internalID: 5029710099000895372
       firstFrame: 0
-      lastFrame: 85
+      lastFrame: 188
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1083,7 +1083,7 @@ ModelImporter:
       takeName: idle_snipergun
       internalID: 597758415414955154
       firstFrame: 0
-      lastFrame: 150
+      lastFrame: 200
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1112,7 +1112,7 @@ ModelImporter:
       takeName: run_snipergun
       internalID: -8064967262182476089
       firstFrame: 0
-      lastFrame: 40
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

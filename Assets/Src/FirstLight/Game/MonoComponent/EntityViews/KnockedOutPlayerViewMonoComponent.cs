@@ -1,14 +1,11 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Collections;
-using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using Photon.Deterministic;
+using FirstLight.Services;
 using Quantum;
 using Quantum.Systems;
 using Sirenix.OdinInspector;
@@ -26,17 +23,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField, Required] private Image _reviveProgressIndicator;
 		[SerializeField, Required] private Image _rangeIndicator;
 
-
 		private IGameServices _services;
 		private EntityView _view;
 		private TweenerCore<Vector3, Vector3, VectorOptions> _tweener;
 		private bool _circleActive;
 		private Quaternion _vfxInitialRotation;
+		private Vfx<VfxId> _revivingFX;
 
 		private EntityRef _entityRef => _view.EntityRef;
 		private CharacterSkinMonoComponent _skin => GetComponentInChildren<CharacterSkinMonoComponent>(); // TODO: BAD!
 		private MatchCharacterViewMonoComponent _matchCharacterView => GetComponentInChildren<MatchCharacterViewMonoComponent>();
-
 
 		private void Awake()
 		{
@@ -45,9 +41,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_view.OnEntityInstantiated.AddListener(OnEntityInstantiated);
 			_vfxInitialRotation = _indicatorsRoot.transform.rotation;
 			QuantumEvent.Subscribe<EventOnPlayerRevived>(this, OnPlayerRevived);
-			QuantumEvent.Subscribe<EventOnPlayerRevived>(this, OnPlayerRevived);
 			QuantumEvent.Subscribe<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
 			QuantumEvent.Subscribe<EventOnPlayerStartReviving>(this, OnPlayerStartReviving);
+			QuantumEvent.Subscribe<EventOnPlayerStopReviving>(this, OnPlayerStopReviving);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 			_indicatorsRoot.SetActive(false);
 		}
@@ -90,11 +86,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_view.GetComponentInChildren<MatchCharacterViewMonoComponent>()?.HideAllEquipment();
 			_skin.TriggerKnockOut();
+			EnableRevivingFX(false);
 		}
 
 		private void StartRevivingPlayer(Frame f, EntityRef entityRef)
 		{
-			if (!f.Unsafe.TryGetPointer<KnockedOut>(entityRef, out var knockedOut) || !f.Unsafe.TryGetPointer<PhysicsCollider3D>(knockedOut->ColliderEntity, out var knockedOutCollider))
+			if (!f.Unsafe.TryGetPointer<KnockedOut>(entityRef, out var knockedOut) ||
+				!f.Unsafe.TryGetPointer<PhysicsCollider3D>(knockedOut->ColliderEntity, out var knockedOutCollider))
 			{
 				return;
 			}
@@ -112,6 +110,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_skin.TriggerRestore();
 			_services.VfxService.Spawn(VfxId.Revived).transform.position = transform.position + Vector3.up;
 			_view.GetComponentInChildren<MatchCharacterViewMonoComponent>()?.ShowAllEquipment();
+			EnableRevivingFX(false);
 		}
 
 
@@ -145,7 +144,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 		}
 
-
 		private void OnPlayerKnockedOut(EventOnPlayerKnockedOut callback)
 		{
 			if (callback.Entity != _entityRef) return;
@@ -155,6 +153,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void OnPlayerStartReviving(EventOnPlayerStartReviving callback)
 		{
 			if (callback.Entity != _entityRef) return;
+
+			EnableRevivingFX(true);
+
 			// Only team mates can see revive circle
 			if (!_services.TeamService.IsSameTeamAsSpectator(callback.Entity))
 			{
@@ -163,6 +164,29 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			var f = callback.Game.Frames.Verified;
 			StartRevivingPlayer(f, callback.Entity);
+		}
+
+		private void OnPlayerStopReviving(EventOnPlayerStopReviving callback)
+		{
+			if (callback.Entity != _entityRef || _revivingFX == null) return;
+
+			EnableRevivingFX(false);
+		}
+
+		private void EnableRevivingFX(bool enable)
+		{
+			if (enable)
+			{
+				if (_revivingFX != null) return;
+				_revivingFX = _services.VfxService.Spawn(VfxId.Reviving);
+				_revivingFX.transform.SetParent(transform, false);
+			}
+			else
+			{
+				if (_revivingFX == null) return;
+				_services.VfxService.Despawn(_revivingFX);
+				_revivingFX = null;
+			}
 		}
 
 		private void OnPlayerRevived(EventOnPlayerRevived callback)

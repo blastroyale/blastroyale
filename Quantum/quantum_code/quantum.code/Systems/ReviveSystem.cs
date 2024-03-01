@@ -308,6 +308,8 @@ namespace Quantum.Systems
 				knockedOut->BackAtZero = f.Time + (timeReviving * config.ProgressDownSpeedMultiplier);
 				// Reset damage timer 
 				knockedOut->NextDamageAt = f.Time + config.DamageTickInterval;
+
+				f.Events.OnPlayerStopReviving(reviving);
 			}
 		}
 

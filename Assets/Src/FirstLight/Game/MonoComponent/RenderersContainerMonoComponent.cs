@@ -120,6 +120,24 @@ namespace FirstLight.Game.MonoComponent
 			}
 		}
 
+		public bool Enabled
+		{
+			get
+			{
+				foreach (var render in _renderers)
+				{
+					return render.enabled;
+				}
+
+				foreach (var render in _particleRenderers)
+				{
+					return render.enabled;
+				}
+
+				return false;
+			}
+		}
+
 		public void SetColor(Color c)
 		{
 			// TODO: Avoid duplicating the material

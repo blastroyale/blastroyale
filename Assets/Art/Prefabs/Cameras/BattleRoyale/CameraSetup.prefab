@@ -178,7 +178,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 32
+    FieldOfView: 8
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 200
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.46
-  m_CameraDistance: 48
+  m_CameraDistance: 156
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.46
-  m_CameraDistance: 52
+  m_CameraDistance: 175
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -589,7 +589,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 31
+  m_CameraDistance: 124
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -799,7 +799,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 16
+  m_CameraDistance: 64
   m_DeadZoneWidth: 0.1
   m_DeadZoneHeight: 0.1
   m_DeadZoneDepth: 0
@@ -875,7 +875,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 6644597904016617940}
   m_Lens:
-    FieldOfView: 30
+    FieldOfView: 7.5
     OrthographicSize: 3128.598
     NearClipPlane: 0.1
     FarClipPlane: 100
@@ -971,7 +971,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 17
+    FieldOfView: 5
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 200
@@ -1246,7 +1246,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 29
+    FieldOfView: 7.25
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 200
@@ -1438,7 +1438,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 17
+    FieldOfView: 5
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 200
@@ -1546,7 +1546,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 18
+  m_CameraDistance: 72
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0

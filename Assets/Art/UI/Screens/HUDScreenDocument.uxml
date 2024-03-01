@@ -11,11 +11,11 @@
             <FirstLight.Game.UIElements.PlayerStatusBarElement name="TempStatusBar" style="left: 1065px; top: 313px;" />
         </ui:VisualElement>
         <FirstLight.Game.UIElements.SafeAreaElement apply-right="false" class="safe-area">
-            <ui:VisualElement name="MoveJoystickArea" class="joystick-container">
-                <FirstLight.Game.UIElements.JoystickElement name="MovementJoystick" class="joystick--move" />
+            <ui:VisualElement name="LeftJoystickArea" class="joystick-container">
+                <FirstLight.Game.UIElements.JoystickElement name="LeftJoystick" class="joystick--move joystick--left" />
             </ui:VisualElement>
-            <ui:VisualElement name="AimJoystickArea" class="joystick-container">
-                <FirstLight.Game.UIElements.JoystickElement name="ShootingJoystick" class="joystick--aim" />
+            <ui:VisualElement name="RightJoystickArea" class="joystick-container">
+                <FirstLight.Game.UIElements.JoystickElement name="RightJoystick" class="joystick--aim joystick--right" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="MenuButton" class="menu-button customizable-hud">
                 <ui:VisualElement name="Icon" class="menu-button__icon" style="height: 40px;" />

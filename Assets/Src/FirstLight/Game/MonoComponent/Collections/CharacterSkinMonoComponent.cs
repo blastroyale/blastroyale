@@ -1,5 +1,4 @@
-﻿using System;
-using Quantum;
+﻿using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -28,10 +27,17 @@ namespace FirstLight.Game.MonoComponent.Collections
 
 		[SerializeField, Required] private Transform _weaponAnchor;
 		[SerializeField, Required] private Transform _gliderAnchor;
+		[SerializeField, Required] private Transform _leftFootAnchor;
+		[SerializeField, Required] private Transform _rightFootAnchor;
 		[SerializeField, Required] private Animator _animator;
+		[SerializeField, Required] private CharacterSkinEventsMonoComponent _events;
 
 		public Transform WeaponAnchor => _weaponAnchor;
 		public Transform GliderAnchor => _gliderAnchor;
+		public Transform LeftFootAnchor => _leftFootAnchor;
+		public Transform RightFootAnchor => _rightFootAnchor;
+
+		public CharacterSkinEventsMonoComponent Events => _events;
 
 		private void Start()
 		{
@@ -49,12 +55,12 @@ namespace FirstLight.Game.MonoComponent.Collections
 		{
 			set => _animator.SetBool(P_AIMING, value);
 		}
-		
+
 		public bool Meta
 		{
 			set => _animator.SetLayerWeight(_animator.GetLayerIndex("Meta"), value ? 1f : 0f);
 		}
-		
+
 		public WeaponType WeaponType
 		{
 			set

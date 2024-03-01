@@ -14,7 +14,7 @@ Preset:
   m_Properties:
   - target: {fileID: 0}
     propertyPath: m_ExternalObjects.Array.size
-    value: 2
+    value: 3
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_ExternalObjects.Array.data[0].first.type
@@ -34,7 +34,7 @@ Preset:
     objectReference: {fileID: 2100000, guid: b392a829456e542bab84d9f24c0a716f, type: 2}
   - target: {fileID: 0}
     propertyPath: m_ExternalObjects.Array.data[1].first.type
-    value: UnityEngine:Texture2D
+    value: UnityEngine:Material
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_ExternalObjects.Array.data[1].first.assembly
@@ -42,10 +42,26 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_ExternalObjects.Array.data[1].first.name
-    value: assassin_male
+    value: corpo_female
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_ExternalObjects.Array.data[1].second
+    value: 
+    objectReference: {fileID: 2100000, guid: 96dacdb5cf9854c3a98ddfc8877a8bc0, type: 2}
+  - target: {fileID: 0}
+    propertyPath: m_ExternalObjects.Array.data[2].first.type
+    value: UnityEngine:Texture2D
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ExternalObjects.Array.data[2].first.assembly
+    value: UnityEngine.CoreModule
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ExternalObjects.Array.data[2].first.name
+    value: assassin_male
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ExternalObjects.Array.data[2].second
     value: 
     objectReference: {fileID: 2800000, guid: c8d8c9b2597a54e1a9103e5be7922401, type: 3}
   - target: {fileID: 0}
@@ -142,7 +158,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_ExtraExposedTransformPaths.Array.size
-    value: 2
+    value: 4
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_ExtraExposedTransformPaths.Array.data[0]
@@ -151,6 +167,14 @@ Preset:
   - target: {fileID: 0}
     propertyPath: m_ExtraExposedTransformPaths.Array.data[1]
     value: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ExtraExposedTransformPaths.Array.data[2]
+    value: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ExtraExposedTransformPaths.Array.data[3]
+    value: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_ExtraUserProperties.Array.size

@@ -55,21 +55,16 @@ namespace FirstLight.Game.Logic
 		/// Is Haptic feedback on device enabled?
 		/// </summary>
 		bool UseOverheadUI { get; set; }
-
+		
 		/// <summary>
-		/// Requests the enable property for dynamic movement joystick
+		/// Switches the aim and movement joystick.
 		/// </summary>
-		bool UseDynamicJoystick { get; set; }
+		bool SwitchJoysticks { get; set; }
 
 		/// <summary>
 		/// What kind of special cancelling system is used
 		/// </summary>
 		bool InvertSpecialCancellling { get; set; }
-
-		/// <summary>
-		/// Requests the enable property for dynamic camera movement
-		/// </summary>
-		bool UseDynamicCamera { get; set; }
 
 		/// <summary>
 		/// Requests the enable property for screenshake
@@ -273,17 +268,10 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public bool UseDynamicJoystick
+		public bool SwitchJoysticks
 		{
-			get => Data.UseDynamicJoystick;
-			set => Data.UseDynamicJoystick = value;
-		}
-
-		/// <inheritdoc />
-		public bool UseDynamicCamera
-		{
-			get => Data.UseDynamicCamera;
-			set => Data.UseDynamicCamera = value;
+			get => Data.SwitchJoysticks;
+			set => Data.SwitchJoysticks = value;
 		}
 
 		/// <inheritdoc />

@@ -56,7 +56,7 @@ MonoBehaviour:
   _background: {fileID: 0}
   _millisecondsToClose: 0
   _collectionSpawnPosition: {x: 0, y: 10, z: -10}
-  _gliderSpawnPosition: {x: 0, y: 10.86, z: -11}
+  _gliderSpawnPosition: {x: 0, y: 10, z: -11}
   _collectionSpawnRotation: {x: 0, y: -35, z: 0}
   _gliderSpawnRotation: {x: 0, y: 135, z: 0}
   _deathMarkerSpawnRotation: {x: 0, y: 90, z: 0}

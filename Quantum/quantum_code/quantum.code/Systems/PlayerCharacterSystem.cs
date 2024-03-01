@@ -134,7 +134,8 @@ namespace Quantum.Systems
 				var consumable = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.Health, GameId.ShieldSmall);
 				consumablesToDrop.Add(consumable);
 				
-				if (!playerDead->HasMeleeWeapon(f, entity) && f.RNG->NextBool()) //also drop the target player's weapon
+				if (playerDead->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid()
+					&& f.RNG->Next(FP._0, FP._1) < Constants.CHANCE_TO_DROP_WEAPON_ON_DEATH) //also drop the target player's weapon
 				{
 					equipmentToDrop.Add(playerDead->CurrentWeapon);
 				}

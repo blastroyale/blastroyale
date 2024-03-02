@@ -131,12 +131,31 @@ namespace FirstLight.Game.Presenters
 			_faqButton.SetDisplay(false);
 #endif
 			_web3Button.clicked += Data.PassportClicked;
-			if (!MainInstaller.TryResolve<IWeb3Service>(out _))
-			{
-				_web3Button.SetDisplay(false);
-			}
-
+			_web3Button.SetDisplay(MainInstaller.TryResolve<IWeb3Service>(out _));
 			root.SetupClicks(_services);
+		}
+
+		protected override void SubscribeToEvents()
+		{
+			base.SubscribeToEvents();
+			if (MainInstaller.TryResolve<IWeb3Service>(out var web3))
+			{
+				web3.OnStateChanged += SetWebState;
+			}
+		}
+
+		protected override void UnsubscribeFromEvents()
+		{
+			base.UnsubscribeFromEvents();
+			if (MainInstaller.TryResolve<IWeb3Service>(out var web3))
+			{
+				web3.OnStateChanged -= SetWebState;
+			}
+		}
+
+		private void SetWebState(Web3State state)
+		{
+			
 		}
 
 		private void SetupToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)

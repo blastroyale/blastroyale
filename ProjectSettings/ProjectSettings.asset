@@ -17,8 +17,8 @@ PlayerSettings:
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
-  m_ShowUnitySplashScreen: 0
-  m_ShowUnitySplashLogo: 0
+  m_ShowUnitySplashScreen: 1
+  m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 1
   m_SplashScreenLogoStyle: 1
@@ -241,7 +241,7 @@ PlayerSettings:
   iOSRenderExtraFrameOnPause: 0
   iosCopyPluginsCodeInsteadOfSymlink: 0
   appleDeveloperTeamID: 8UB22L9ZW7
-  iOSManualSigningProvisioningProfileID: ef538051-72d2-4f28-8835-adb03eed391f
+  iOSManualSigningProvisioningProfileID: f97b416e-d6ba-4676-9d98-974eac657421
   tvOSManualSigningProvisioningProfileID: 
   VisionOSManualSigningProvisioningProfileID: 
   iOSManualSigningProvisioningProfileType: 1
@@ -263,7 +263,7 @@ PlayerSettings:
   useCustomGradlePropertiesTemplate: 1
   useCustomGradleSettingsTemplate: 0
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 2
+  AndroidTargetArchitectures: 3
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 2
   androidSplashScreen: {fileID: 0}
@@ -851,7 +851,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: QUANTUM_ADDRESSABLES;ENABLE_PLAYFAB_BETA;TextMeshPro;QUANTUM_REMOTE_PROFILER;LOG_LEVEL_INFO;DEVELOPMENT_BUILD;MOREMOUNTAINS_NICEVIBRATIONS;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;ODIN_INSPECTOR_EDITOR_ONLY;ODIN_VALIDATOR;ODIN_VALIDATOR_3_1;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;BAKERY_INCLUDED
+    Android: QUANTUM_ADDRESSABLES;ENABLE_PLAYFAB_BETA;TextMeshPro;QUANTUM_REMOTE_PROFILER;LOG_LEVEL_VERBOSE;DEVELOPMENT_BUILD;BAKERY_INCLUDED;ODIN_VALIDATOR;ODIN_VALIDATOR_3_1;ODIN_INSPECTOR_EDITOR_ONLY;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1
     CloudRendering: TextMeshPro;QUANTUM_ADDRESSABLES
     EmbeddedLinux: TextMeshPro
     GameCoreScarlett: TextMeshPro;QUANTUM_ADDRESSABLES
@@ -882,9 +882,10 @@ PlayerSettings:
     Android: 1
     Standalone: 0
   il2cppCompilerConfiguration:
-    Android: 2
+    Android: 0
     iPhone: 2
-  il2cppCodeGeneration: {}
+  il2cppCodeGeneration:
+    Android: 1
   managedStrippingLevel:
     Android: 1
     EmbeddedLinux: 1

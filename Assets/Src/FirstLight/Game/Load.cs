@@ -37,8 +37,6 @@ namespace FirstLight.Game
 		/// </summary>
 		public static event OnGameLoadAwakeEvent OnGameLoadAwake;
 
-		
-
 		private void Awake()
 		{
 			FLog.Init();

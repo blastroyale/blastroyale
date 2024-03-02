@@ -36,8 +36,11 @@
                             <ui:VisualElement name="Buttons" class="account-buttons">
                                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/delete_account" name="DeleteAccountButton" text="FAQ" class="button-long button-long--red account-button" />
                                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/logout" name="LogoutButton" text="FAQ" class="button-long account-button" />
-                                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/connect" name="ConnectButton" text="FAQ" class="button-long button-long--yellow account-button">
-                                    <ui:VisualElement name="ConnectNotification" class="notification-icon button-with-icon__notification" style="top: -14px; right: -11px;" />
+                                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/connect" name="ConnectButton" text="Connect" class="button-long button-long--yellow account-button">
+                                    <ui:VisualElement name="ConnectNotification" class="notification-icon button-with-icon__notification" />
+                                </FirstLight.Game.UIElements.LocalizedButton>
+                                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/connect_web3" name="Web3Button" text="Web3" class="button-long button-long--yellow account-button">
+                                    <ui:VisualElement name="ConnectWeb3Notification" class="notification-icon button-with-icon__notification" />
                                 </FirstLight.Game.UIElements.LocalizedButton>
                             </ui:VisualElement>
                         </ui:VisualElement>

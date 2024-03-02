@@ -1,4 +1,6 @@
 using System;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Services;
@@ -35,6 +37,13 @@ namespace FirstLight.Game.Utils
 		public static bool Clean<T>() where T : class
 		{
 			return _installer.Clean<T>();
+		}
+
+		public static async UniTask<T> WaitResolve<T>() where T : class
+		{
+			T t = default;
+			await UniTask.WaitUntil(() => _installer.TryResolve<T>(out t));
+			return t;
 		}
 
 		/// <inheritdoc cref="IInstaller.Clean"/>

@@ -2186,6 +2186,7 @@ namespace I2.Loc
 			public static string connect 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect"); } }
 			public static string connect_flg_id 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect_flg_id"); } }
 			public static string connect_flg_id_advice 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect_flg_id_advice"); } }
+			public static string connect_web3 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect_web3"); } }
 			public static string controls_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/controls_title"); } }
 			public static string delete_account 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/delete_account"); } }
 			public static string delete_account_request_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/delete_account_request_desc"); } }
@@ -2221,6 +2222,7 @@ namespace I2.Loc
 			public static string sound_effects 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sound_effects"); } }
 			public static string sound_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sound_title"); } }
 			public static string success 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/success"); } }
+			public static string switch_joysticks 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/switch_joysticks"); } }
 			public static string thirty 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/thirty"); } }
 			public static string usa 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/usa"); } }
 			public static string use_overhead_ui 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/use_overhead_ui"); } }
@@ -4540,6 +4542,7 @@ namespace I2.Loc
 		    public const string connect = "UITSettings/connect";
 		    public const string connect_flg_id = "UITSettings/connect_flg_id";
 		    public const string connect_flg_id_advice = "UITSettings/connect_flg_id_advice";
+		    public const string connect_web3 = "UITSettings/connect_web3";
 		    public const string controls_title = "UITSettings/controls_title";
 		    public const string delete_account = "UITSettings/delete_account";
 		    public const string delete_account_request_desc = "UITSettings/delete_account_request_desc";
@@ -4575,6 +4578,7 @@ namespace I2.Loc
 		    public const string sound_effects = "UITSettings/sound_effects";
 		    public const string sound_title = "UITSettings/sound_title";
 		    public const string success = "UITSettings/success";
+		    public const string switch_joysticks = "UITSettings/switch_joysticks";
 		    public const string thirty = "UITSettings/thirty";
 		    public const string usa = "UITSettings/usa";
 		    public const string use_overhead_ui = "UITSettings/use_overhead_ui";

@@ -25,6 +25,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnServerSelectClicked;
 			public Action OnCustomizeHudClicked;
 			public Action OnDeleteAccountClicked;
+			public Action PassportClicked;
 		}
 
 		private IGameDataProvider _gameDataProvider;
@@ -39,7 +40,9 @@ namespace FirstLight.Game.Presenters
 		private Button _logoutButton;
 		private Button _deleteAccountButton;
 		private Button _connectIdButton;
+		private Button _web3Button;
 		private Label _accountStatusLabel;
+		private VisualElement _web3Notification;
 
 		private void Awake()
 		{
@@ -58,7 +61,9 @@ namespace FirstLight.Game.Presenters
 			
 			Root.Q("AccountNotification").Required().SetDisplay(_services.AuthenticationService.IsGuest);
 			Root.Q("ConnectNotification").Required().SetDisplay(_services.AuthenticationService.IsGuest);
-			
+			_web3Notification = Root.Q("ConnectWeb3Notification").Required();
+			_web3Notification.SetDisplay(false);
+
 			// Sound
 			SetupToggle(root.Q<LocalizedToggle>("SoundEffects").Required(),
 				() => _gameDataProvider.AppDataProvider.IsSfxEnabled,
@@ -104,6 +109,7 @@ namespace FirstLight.Game.Presenters
 				val => _gameDataProvider.AppDataProvider.UseOverheadUI = val);
 
 			// Account
+			_web3Button = root.Q<Button>("Web3Button").Required();
 			_logoutButton = root.Q<Button>("LogoutButton");
 			_logoutButton.clicked += OnLogoutClicked;
 			_deleteAccountButton = root.Q<Button>("DeleteAccountButton");
@@ -124,6 +130,11 @@ namespace FirstLight.Game.Presenters
 #if UNITY_IOS && !UNITY_EDITOR
 			_faqButton.SetDisplay(false);
 #endif
+			_web3Button.clicked += Data.PassportClicked;
+			if (!MainInstaller.TryResolve<IWeb3Service>(out _))
+			{
+				_web3Button.SetDisplay(false);
+			}
 
 			root.SetupClicks(_services);
 		}

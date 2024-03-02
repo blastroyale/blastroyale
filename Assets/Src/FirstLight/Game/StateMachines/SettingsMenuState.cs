@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -123,10 +124,20 @@ namespace FirstLight.Game.StateMachines
 				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent),
 				OnCustomizeHudClicked = CustomizeHud,
 				OnDeleteAccountClicked = () =>
-					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted, null)
+					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted, null),
+				PassportClicked = OnClickWeb3
 			};
 
 			_uiService.OpenScreen<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
+		}
+
+		private void OnClickWeb3()
+		{
+			if(!MainInstaller.TryResolve<IWeb3Service>(out var web3))
+			{
+				throw new Exception("No web3 provider service registered.");
+			}
+			web3.OpenWeb3();
 		}
 
 		private void CustomizeHud()

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -48,7 +48,7 @@ namespace FirstLight.Editor.Build
 		private const string _keystoreName = "firstlightgames.keystore";
 		private const string _apkExtension = ".apk";
 		private const string _aabExtension = ".aab";
-		private const AndroidArchitecture _androidReleaseTargetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
+		private const AndroidArchitecture _targetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
 
 		private static readonly string InfoLogLevelSymbol = "LOG_LEVEL_INFO";
 		private static readonly string VerboseLogLevelSymbol = "LOG_LEVEL_VERBOSE";
@@ -85,7 +85,7 @@ namespace FirstLight.Editor.Build
 		public static void SetupDevelopmentConfig()
 		{
 			PlayerSettings.Android.useAPKExpansionFiles = false;
-			PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
+			PlayerSettings.Android.targetArchitectures = _targetArchitectures;
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightAppleTeamId;
 			PlayerSettings.iOS.iOSManualProvisioningProfileID = _developmentProvisioningProfile;
 			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Development;
@@ -113,7 +113,7 @@ namespace FirstLight.Editor.Build
 		public static void SetupReleaseConfig()
 		{
 			PlayerSettings.Android.useAPKExpansionFiles = false;
-			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
+			PlayerSettings.Android.targetArchitectures = _targetArchitectures;
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightAppleTeamId;
 			PlayerSettings.iOS.iOSManualProvisioningProfileID = _adHocProvisioningProfile;
 			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
@@ -142,7 +142,7 @@ namespace FirstLight.Editor.Build
 		public static void SetupStoreConfig()
 		{
 			PlayerSettings.Android.useAPKExpansionFiles = true;
-			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
+			PlayerSettings.Android.targetArchitectures = _targetArchitectures;
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightAppleTeamId;
 			PlayerSettings.iOS.iOSManualProvisioningProfileID = _distributionProvisioningProfile;
 			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;

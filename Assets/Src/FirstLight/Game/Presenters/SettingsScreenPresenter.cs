@@ -42,6 +42,7 @@ namespace FirstLight.Game.Presenters
 		private Button _connectIdButton;
 		private Button _web3Button;
 		private Label _accountStatusLabel;
+		private Label _web3StatusLabel;
 		private VisualElement _web3Notification;
 
 		private void Awake()
@@ -117,7 +118,9 @@ namespace FirstLight.Game.Presenters
 			_connectIdButton = root.Q<Button>("ConnectButton");
 			_connectIdButton.clicked += Data.OnConnectIdClicked;
 			_accountStatusLabel = root.Q<Label>("AccountStatusLabel");
+			_web3StatusLabel = root.Q<Label>("Web3StatusLabel");
 			UpdateAccountStatus();
+			UpdateWeb3Status();
 
 			// Footer buttons
 			_faqButton = root.Q<Button>("FAQButton");
@@ -140,7 +143,7 @@ namespace FirstLight.Game.Presenters
 			base.SubscribeToEvents();
 			if (MainInstaller.TryResolve<IWeb3Service>(out var web3))
 			{
-				web3.OnStateChanged += SetWebState;
+				web3.OnStateChanged += OnWeb3StateUpdated;
 			}
 		}
 
@@ -149,13 +152,13 @@ namespace FirstLight.Game.Presenters
 			base.UnsubscribeFromEvents();
 			if (MainInstaller.TryResolve<IWeb3Service>(out var web3))
 			{
-				web3.OnStateChanged -= SetWebState;
+				web3.OnStateChanged -= OnWeb3StateUpdated;
 			}
 		}
 
-		private void SetWebState(Web3State state)
+		private void OnWeb3StateUpdated(Web3State state)
 		{
-			
+			UpdateWeb3Status();
 		}
 
 		private void SetupToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
@@ -202,6 +205,18 @@ namespace FirstLight.Game.Presenters
 		private void Save()
 		{
 			_services.DataSaver.SaveData<AppData>();
+		}
+
+		public void UpdateWeb3Status()
+		{
+			if(MainInstaller.TryResolve<IWeb3Service>(out var web3))
+			{
+				_web3StatusLabel.text = $"{web3.State}: {web3.Web3Account ?? ""}";
+			} else
+			{
+				_web3StatusLabel.text = "Unavailable";
+			}
+
 		}
 
 		public void UpdateAccountStatus()

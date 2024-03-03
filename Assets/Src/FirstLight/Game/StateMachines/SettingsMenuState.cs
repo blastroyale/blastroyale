@@ -137,19 +137,20 @@ namespace FirstLight.Game.StateMachines
 			{
 				throw new Exception("No web3 provider service registered.");
 			}
-			_uiService.OpenUi<LoadingSpinnerScreenPresenter>();
-			var state = await web3.Web3ButtonClicked();
-			await _uiService.CloseUi<LoadingSpinnerScreenPresenter>();
 
-			FLog.Verbose($"Current Web3 State: {state}");
-			if(state != Web3State.Authenticated)
+			if(web3.State == Web3State.Authenticated)
 			{
-				_services.GenericDialogService.OpenSimpleMessage(ScriptLocalization.UITShared.error, "Could not connect to Web3");
-				FLog.Error("Could not connect to web3. Web3 State: " + state);
-			} else
-			{
-				FLog.Info("Web3 Connected !");
+				_services.GenericDialogService.OpenButtonDialog("Logout Web3", "You are logged in, do you want to log out ?", true, new GenericDialogButton()
+				{
+					ButtonOnClick = () => web3.LogoutRequested().Forget(),
+					ButtonText = "Logout"
+				});
+				return;
 			}
+
+			_uiService.OpenUi<LoadingSpinnerScreenPresenter>();
+			var state = await web3.LoginRequested();
+			await _uiService.CloseUi<LoadingSpinnerScreenPresenter>();
 		}
 
 		private void CustomizeHud()

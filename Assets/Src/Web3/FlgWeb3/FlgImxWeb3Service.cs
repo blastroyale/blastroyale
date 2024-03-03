@@ -49,10 +49,7 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 
 	public bool IsServiceAvailable => !string.IsNullOrEmpty(ImxClientId);
 
-	/// <summary>
-	/// Opens IMX login dialog async
-	/// </summary>
-	public async UniTask<Web3State> Web3ButtonClicked()
+	public async UniTask<Web3State> LoginRequested()
 	{
 		Debug.Log("[IMX] Checking Passport Status");
 		await _passport.Login();
@@ -60,6 +57,13 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 		_wallet = await GetOrCreateWallet();
 		State = Web3State.Authenticated;
 		return State;
+	}
+
+	public async UniTaskVoid LogoutRequested()
+	{
+		await _passport.Logout();
+		_wallet = null;
+		State = Web3State.Available;
 	}
 
 	public async UniTask<string> GetOrCreateWallet()

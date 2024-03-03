@@ -173,7 +173,6 @@ namespace FirstLight.Game.Presenters
 			return realError ?? error.ErrorMessage;
 		}
 
-
 		void OnRegisterFail(PlayFabError error)
 		{
 			var title = ScriptLocalization.UITSettings.failure;

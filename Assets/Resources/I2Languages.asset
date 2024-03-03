@@ -5002,9 +5002,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - LaNova
-      - LaNova
-      - LaNova
+      - 3NIG BlackNova
+      - 3NIG BlackNova
+      - 3NIG BlackNova
       - 
       - 
       Flags: 0000000000
@@ -6344,9 +6344,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Pawel
-      - Pawel
-      - Pawel
+      - "Pawe\u0142"
+      - "Pawe\u0142"
+      - "Pawe\u0142"
       - 
       - 
       Flags: 0000000000
@@ -6366,9 +6366,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MichaI
-      - MichaI
-      - MichaI
+      - "Micha\u0142"
+      - "Micha\u0142"
+      - "Micha\u0142"
       - 
       - 
       Flags: 0000000000
@@ -20728,7 +20728,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - YOU ARE ABOUT TO BUY 1 LEVEL OF BLAST PASS
+      - YOU ARE GOING TO BUY 1 LEVEL OF BLAST PASS
       - 
       - 
       - 
@@ -24186,28 +24186,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/switch_joysticks
-      TermType: 0
-      Description: 
-      Languages:
-      - Switch Joysticks
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/connect_web3
-      TermType: 0
-      Description: 
-      Languages:
-      - Connect Web3
-      - Connect Web3
-      - Conectar Web3
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITInbox/inbox_community
       TermType: 0
       Description: 
@@ -25362,7 +25340,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1709145783746
+    Google_LastUpdatedVersion: 1708472910445
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -65,6 +65,8 @@ namespace FirstLight.Game.Presenters
 		private RewardLevelPanelView _bppView;
 		private RewardLevelPanelView _levelView;
 
+		private ScreenHeaderElement _header;
+
 		private bool _showingLeaderboards;
 		private bool _showCSReward = false;
 
@@ -97,9 +99,14 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
+			base.QueryElements(root);
+			
+			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_header.backClicked += OnNextButtonClicked;
+			
 			_nextButton = root.Q<Button>("NextButton").Required();
 			_nextButton.clicked += OnNextButtonClicked;
-
+			
 			_leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
 			_leaderboardScrollView = root.Q<ScrollView>("LeaderboardScrollView").Required();
 

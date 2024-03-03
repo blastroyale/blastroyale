@@ -55,8 +55,8 @@ namespace FirstLight.Game.UIElements
 			safeAreaContainer.Add(_back = new ImageButton {name = "back"});
 			_back.AddToClassList(UssBack);
 			_back.AddToClassList(UIConstants.SFX_CLICK_BACKWARDS);
-			_back.clicked += () => backClicked?.Invoke();
-
+			_back.clicked += () => (backClicked ?? homeClicked)?.Invoke();
+			
 			safeAreaContainer.Add(_title = new Label("TITLE") {name = "title"});
 			_title.AddToClassList(UssTitle);
 
@@ -70,9 +70,9 @@ namespace FirstLight.Game.UIElements
 			safeAreaContainer.Add(_home = new ImageButton {name = "home"});
 			_home.AddToClassList(UssHome);
 			_home.AddToClassList(UIConstants.SFX_CLICK_BACKWARDS);
-			_home.clicked += () => homeClicked?.Invoke();
+			_home.clicked += () => (homeClicked ?? backClicked)?.Invoke();
 		}
-
+		
 		/// <summary>
 		/// Sets the home button visible or invisible.
 		/// </summary>

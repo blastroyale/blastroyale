@@ -63,7 +63,7 @@ namespace FirstLight.Game.Utils
 			{
 				var game = QuantumRunner.Default.Game;
 				var entity = game.GetLocalPlayerEntityRef();
-				if (!entity.IsValid) return false;
+				if (!entity.IsValid || !game.Frames.Verified.Exists(entity)) return false;
 				return !game.Frames.Verified.Get<PlayerCharacter>(entity).RealPlayer;
 			}
 

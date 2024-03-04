@@ -14,7 +14,7 @@ using LayerMask = UnityEngine.LayerMask;
 using Object = UnityEngine.Object;
 
 
-namespace FirstLight.Editor.EditorTools.ArtTools
+namespace FirstLight.Editor.EditorTools.MapTools
 {
 	public static class SpawnerTool 
 	{

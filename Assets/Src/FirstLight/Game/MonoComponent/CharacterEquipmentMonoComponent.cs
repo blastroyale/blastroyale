@@ -245,6 +245,8 @@ namespace FirstLight.Game.MonoComponent
 		private void AddEquipmentRenderersContainer(RenderersContainerMonoComponent renderersContainer)
 		{
 			renderersContainer.SetLayer(gameObject.layer);
+			renderersContainer.SetEnabled(_renderersContainerProxy.Enabled);
+			
 			_renderersContainerProxy.AddRenderersContainer(renderersContainer);
 			Color col = default;
 			if (_renderersContainerProxy.GetFirstRendererColor(ref col))

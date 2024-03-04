@@ -44,7 +44,7 @@ ModelImporter:
       takeName: run
       internalID: 6200578666267062213
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -64,28 +64,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.056
+      - time: 0.12290777
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.22133334
+      - time: 0.3659988
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.392
+      - time: 0.6180398
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.55733335
+      - time: 0.8719807
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -101,7 +101,7 @@ ModelImporter:
       takeName: run_melee
       internalID: 3926278515654612835
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -121,28 +121,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.058666665
+      - time: 0.12557444
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.224
+      - time: 0.36866546
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.38666666
+      - time: 0.6289813
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.55733335
+      - time: 0.8683641
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -158,7 +158,7 @@ ModelImporter:
       takeName: run_gun
       internalID: 4609242385013081203
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -178,28 +178,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.056
+      - time: 0.11386619
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.22666667
+      - time: 0.3677155
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.392
+      - time: 0.62708133
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.56
+      - time: 0.86922246
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -215,7 +215,7 @@ ModelImporter:
       takeName: run_aiming
       internalID: -1635214824656938056
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -235,28 +235,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.045333333
+      - time: 0.11766606
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.32
+      - time: 0.35254973
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.536
+      - time: 0.61918265
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.82133335
+      - time: 0.8773912
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -359,7 +359,7 @@ ModelImporter:
       takeName: run_xlgun
       internalID: -4765163583855099442
       firstFrame: 0
-      lastFrame: 64
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -967,7 +967,7 @@ ModelImporter:
       takeName: victory
       internalID: 5029710099000895372
       firstFrame: 0
-      lastFrame: 188
+      lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1112,7 +1112,7 @@ ModelImporter:
       takeName: run_snipergun
       internalID: -8064967262182476089
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1131,7 +1131,35 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.12296564
+        functionName: StepLeft
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.37330315
+        functionName: StepRight
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6266968
+        functionName: StepLeft
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.88009053
+        functionName: StepRight
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

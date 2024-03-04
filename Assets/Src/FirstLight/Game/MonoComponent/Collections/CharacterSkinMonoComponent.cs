@@ -64,10 +64,9 @@ namespace FirstLight.Game.MonoComponent.Collections
 			}
 		}
 		
-		public void RandomizeAnimationStateFrame(int layer = 0)
+		public void RandomizeAnimationStateFrame(string animationStateName, int layer, float startNormalisedRange, float endNormalisedRange)
 		{
-			var state = _animator.GetCurrentAnimatorStateInfo(layer);
-			_animator.Play(state.fullPathHash, layer, UnityEngine.Random.Range(0f, state.length));
+			_animator.Play(Animator.StringToHash(animationStateName), layer, UnityEngine.Random.Range(startNormalisedRange, endNormalisedRange));
 		}
 
 		public void TriggerHit() => _animator.SetTrigger(P_HIT);

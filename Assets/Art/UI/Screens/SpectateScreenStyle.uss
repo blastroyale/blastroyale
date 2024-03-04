@@ -78,6 +78,10 @@
     height: 250px;
     flex-direction: row;
     justify-content: space-between;
+    width: 816px;
+    align-self: center;
+    background-image: var(--sprite-match__gradientwhite);
+    -unity-background-image-tint-color: rgba(49, 45, 71, 0.54);
 }
 
 .player-holder__arrow {
@@ -87,7 +91,6 @@
 }
 
 .player-holder__arrow--right {
-    margin-right: 122px;
 }
 
 .player-holder__arrow-icon {
@@ -107,26 +110,27 @@
 
 .player-holder__player {
     flex-grow: 1;
+    padding-bottom: 0;
+    align-self: center;
     align-items: center;
     justify-content: center;
-    padding-bottom: 33px;
 }
 
 .player-holder__player-name {
     font-size: 50px;
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 1.2px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     margin-top: 9px;
-    margin-bottom: 17px;
+    margin-bottom: 9px;
 }
 
 .player-holder__defeated-you {
     color: rgb(231, 58, 58);
     font-size: 36px;
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
-    -unity-text-outline-width: 0;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 0.8px;
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
@@ -137,25 +141,8 @@
     justify-content: center;
 }
 
-
 .player-holder .might-display {
     margin-left: 70px;
-}
-
-.player-holder__background {
-    flex-direction: row;
-}
-
-.player-holder__background-jagged {
-    width: 388px;
-    height: 100%;
-    background-image: var(--sprite-match__pattern-jagged-vertical);
-}
-
-.player-holder__background-filler {
-    flex-grow: 1;
-    margin-left: -250px;
-    background-color: rgba(30, 21, 75, 0.4);
 }
 
 .hide-controls .button-next {

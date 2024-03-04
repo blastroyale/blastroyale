@@ -108,7 +108,7 @@ namespace FirstLight.Game.Presenters
 			
 			_playerName.text = data.GetPlayerName();
 			_playerName.style.color = nameColor;
-			_defeatedYou.SetVisibility(current.Player == _matchServices.MatchEndDataService.LocalPlayerKiller);
+			_defeatedYou.SetDisplay(current.Player == _matchServices.MatchEndDataService.LocalPlayerKiller);
 		}
 
 		private void OnNextPlayerClicked()

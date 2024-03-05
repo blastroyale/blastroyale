@@ -7,6 +7,7 @@ using FirstLight.Game.Utils;
 using System.Linq;
 using System;
 using Environment = Immutable.Passport.Model.Environment;
+using PlayFab.Public;
 
 /// <summary>
 /// Integrates IMX Passport to FLG Game
@@ -49,17 +50,24 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 
 	public bool IsServiceAvailable => !string.IsNullOrEmpty(ImxClientId);
 
-	public async UniTask<Web3State> LoginRequested()
+	public async UniTask<Web3State> OnLoginRequested()
 	{
 		Debug.Log("[IMX] Checking Passport Status");
 		await _passport.Login();
 		await _passport.ConnectEvm();
 		_wallet = await GetOrCreateWallet();
 		State = Web3State.Authenticated;
+
+#if DEBUG
+		Debug.Log($"[Imx] Token: {await _passport.GetAccessToken()}");
+		Debug.Log($"[Imx] Address: {await _passport.GetAddress()}");
+		Debug.Log($"[Imx] Email: {await _passport.GetEmail()}");
+		Debug.Log($"[Imx] IdToken: {await _passport.GetIdToken()}");
+#endif
 		return State;
 	}
 
-	public async UniTaskVoid LogoutRequested()
+	public async UniTaskVoid OnLogoutRequested()
 	{
 		await _passport.Logout();
 		_wallet = null;

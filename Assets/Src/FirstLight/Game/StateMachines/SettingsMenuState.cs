@@ -142,14 +142,14 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.GenericDialogService.OpenButtonDialog("Logout Web3", "You are logged in, do you want to log out ?", true, new GenericDialogButton()
 				{
-					ButtonOnClick = () => web3.LogoutRequested().Forget(),
+					ButtonOnClick = () => web3.OnLogoutRequested().Forget(),
 					ButtonText = "Logout"
 				});
 				return;
 			}
 
 			_uiService.OpenUi<LoadingSpinnerScreenPresenter>();
-			var state = await web3.LoginRequested();
+			var state = await web3.OnLoginRequested();
 			await _uiService.CloseUi<LoadingSpinnerScreenPresenter>();
 		}
 

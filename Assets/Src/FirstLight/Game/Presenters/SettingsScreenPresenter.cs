@@ -140,7 +140,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override void SubscribeToEvents()
 		{
-			base.SubscribeToEvents();
 			if (MainInstaller.TryResolve<IWeb3Service>(out var web3))
 			{
 				web3.OnStateChanged += OnWeb3StateUpdated;
@@ -149,7 +148,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override void UnsubscribeFromEvents()
 		{
-			base.UnsubscribeFromEvents();
 			if (MainInstaller.TryResolve<IWeb3Service>(out var web3))
 			{
 				web3.OnStateChanged -= OnWeb3StateUpdated;

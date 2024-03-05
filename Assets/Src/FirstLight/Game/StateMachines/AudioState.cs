@@ -147,6 +147,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUsed>(this, OnSpecialUsed);
 			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnEventOnRaycastShotExplosion);
 			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnEventHazardLand);
+			QuantumEvent.SubscribeManual<EventLandMineExploded>(this, OnLandMineExploded);
 			QuantumEvent.SubscribeManual<EventOnProjectileEndOfLife>(this, OnProjectileEndOfLife);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnEventOnChestOpened);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
@@ -568,6 +569,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
+
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			// If not a kill of spectated player, or spectated player committed suicide
@@ -697,6 +699,11 @@ namespace FirstLight.Game.StateMachines
 			CheckDespawnClips(nameof(EventOnHazardLand), callback.AttackerEntity);
 		}
 
+		private void OnLandMineExploded(EventLandMineExploded callback)
+		{
+			PlayExplosionSfx(GameId.SpecialLandmine, callback.Position.ToUnityVector3());
+		}
+
 
 		private void PlayExplosionSfx(GameId sourceId, Vector3 endPosition)
 		{
@@ -728,6 +735,9 @@ namespace FirstLight.Game.StateMachines
 					break;
 				case GameId.Barrel:
 					audio = AudioId.ExplosionMedium;
+					break;
+				case GameId.SpecialLandmine:
+					audio = AudioId.ExplosionSmall;
 					break;
 			}
 

@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using UnityEngine;
 using Immutable.Passport;
@@ -7,7 +6,8 @@ using FirstLight.Game.Utils;
 using System.Linq;
 using System;
 using Environment = Immutable.Passport.Model.Environment;
-using PlayFab.Public;
+using Cysharp.Threading.Tasks.CompilerServices;
+
 
 /// <summary>
 /// Integrates IMX Passport to FLG Game
@@ -19,7 +19,7 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 
 	private Web3State _state;
 	private IGameServices _services;
-	private Passport _passport;
+	public Passport Passport { get; private set; }
 	private string _wallet;
 
 	public event Action<Web3State> OnStateChanged;
@@ -41,7 +41,7 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 
 	private async UniTask InitPassport()
 	{
-		_passport = await Passport.Init(ImxClientId, EnvString, redirectUri, logoutRedirectUri);
+		Passport = await Passport.Init(ImxClientId, EnvString, redirectUri, logoutRedirectUri);
 		State = Web3State.Available;
 	}
 
@@ -53,32 +53,25 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 	public async UniTask<Web3State> OnLoginRequested()
 	{
 		Debug.Log("[IMX] Checking Passport Status");
-		await _passport.Login();
-		await _passport.ConnectEvm();
+		await Passport.Login();
+		await Passport.ConnectEvm();
 		_wallet = await GetOrCreateWallet();
 		State = Web3State.Authenticated;
-
-#if DEBUG
-		Debug.Log($"[Imx] Token: {await _passport.GetAccessToken()}");
-		Debug.Log($"[Imx] Address: {await _passport.GetAddress()}");
-		Debug.Log($"[Imx] Email: {await _passport.GetEmail()}");
-		Debug.Log($"[Imx] IdToken: {await _passport.GetIdToken()}");
-#endif
 		return State;
 	}
 
 	public async UniTaskVoid OnLogoutRequested()
 	{
-		await _passport.Logout();
+		await Passport.Logout();
 		_wallet = null;
 		State = Web3State.Available;
 	}
 
 	public async UniTask<string> GetOrCreateWallet()
 	{
-		var wallets = await _passport.ZkEvmRequestAccounts();
+		var wallets = await Passport.ZkEvmRequestAccounts();
 		Debug.Log("[IMX] User Wallets: " + string.Join(',', wallets));
-		if(wallets.Count == 0)
+		if (wallets.Count == 0)
 		{
 			throw new Exception("Something wrong with ZkEvmRequestAccounts, user should never have no wallet");
 		}
@@ -87,13 +80,14 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 
 	private void OnDeepLink(string url)
 	{
-		Debug.Log("[Imx] Deep Link Called: "+url);
+		Debug.Log("[Imx] Deep Link Called: " + url);
 		if (url.Contains("login"))
 		{
-			_services.GenericDialogService.OpenSimpleMessage("Imx", "Login Deeplink answered LOGIN "+url);
-		}else if (url.Contains("logout"))
+			_services.GenericDialogService.OpenSimpleMessage("Imx", "Login Deeplink answered LOGIN " + url);
+		}
+		else if (url.Contains("logout"))
 		{
-			_services.GenericDialogService.OpenSimpleMessage("Imx", "Login Deeplink answered LOGOUT "+url);
+			_services.GenericDialogService.OpenSimpleMessage("Imx", "Login Deeplink answered LOGOUT " + url);
 		}
 	}
 
@@ -101,9 +95,10 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 
 	public Web3State State
 	{
-		get => _state; 
-		set {
-			if(value != _state)
+		get => _state;
+		set
+		{
+			if (value != _state)
 			{
 				Debug.Log($"[Imx] State: {_state} -> {value}");
 				OnStateChanged?.Invoke(value);

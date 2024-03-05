@@ -149,7 +149,14 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			_uiService.OpenUi<LoadingSpinnerScreenPresenter>();
-			var state = await web3.OnLoginRequested();
+			try
+			{
+				var state = await web3.OnLoginRequested();
+				FLog.Info($"Web3 Login: {state}");
+			} catch(Exception e)
+			{
+				_services.GenericDialogService.OpenSimpleMessage("Web3 Error", e.Message);
+			}
 			await _uiService.CloseUi<LoadingSpinnerScreenPresenter>();
 		}
 

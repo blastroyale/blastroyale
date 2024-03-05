@@ -180,9 +180,7 @@ namespace FirstLight.Game.Services
 			}
 			
 			var sceneTask = _assetAdderService.LoadSceneAsync(config.Scene, LoadSceneMode.Additive);
-			var scene = await sceneTask;
-			
-			SceneManager.SetActiveScene(scene);
+			SceneManager.SetActiveScene(await sceneTask);
 		}
 
 		private void OnRoomPlayersChange(Player player, PlayerChangeReason reason)

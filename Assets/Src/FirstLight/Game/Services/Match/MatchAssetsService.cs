@@ -125,19 +125,18 @@ namespace FirstLight.Game.Services
 		{
 			var start = DateTime.UtcNow;
 			FLog.Info("Unloading Match Assets");
-			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;
 
 			_services.GameUiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
 
-			if (string.CompareOrdinal(scene.name, "Main") !=0)
+			var sceneCount = SceneManager.sceneCount;
+			for (var i = 0; i < sceneCount; i++)
 			{
+				var scene = SceneManager.GetSceneAt(i);
+				if (!scene.path.Contains("Maps")) continue;
 				await _services.AssetResolverService.UnloadSceneAsync(scene);
-			}
-			else
-			{
-				Debug.LogWarning("Trying to unload Match Asset: Main scene");
+				break;
 			}
 
 			_services.VfxService.DespawnAll();

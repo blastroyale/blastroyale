@@ -261,11 +261,6 @@ namespace FirstLight.Game.Utils
 		public static bool BULLET_COLORS = false;
 
 		/// <summary>
-		/// Adjust bullets visuals to fit camera better
-		/// </summary>
-		public static bool BULLET_CAMERA_ADJUSTMENT = true;
-
-		/// <summary>
 		/// Only for testing.
 		/// When true, you will become invisible when entering bushes.
 		/// </summary>
@@ -356,11 +351,6 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("BETA_VERSION", overrideData, out var beta))
 			{
 				BETA_VERSION = beta;
-			}
-			
-			if (TrySetFlag("BULLET_CAMERA_ADJUSTMENT", overrideData, out var cameraFix))
-			{
-				BULLET_CAMERA_ADJUSTMENT = cameraFix;
 			}
 			
 			if (TrySetFlag("PAUSE_FREEZE", overrideData, out var pauseFreeze))

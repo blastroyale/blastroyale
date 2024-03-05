@@ -131,7 +131,14 @@ namespace FirstLight.Game.Services
 			_services.GameUiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
 
-			await _services.AssetResolverService.UnloadSceneAsync(scene);
+			if (string.CompareOrdinal(scene.name, "Main") !=0)
+			{
+				await _services.AssetResolverService.UnloadSceneAsync(scene);
+			}
+			else
+			{
+				Debug.LogWarning("Trying to unload Match Asset: Main scene");
+			}
 
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
@@ -171,9 +178,11 @@ namespace FirstLight.Game.Services
 			{
 				throw new Exception("Asset map config not found for map " + map);
 			}
-
+			
 			var sceneTask = _assetAdderService.LoadSceneAsync(config.Scene, LoadSceneMode.Additive);
-			SceneManager.SetActiveScene(await sceneTask);
+			var scene = await sceneTask;
+			
+			SceneManager.SetActiveScene(scene);
 		}
 
 		private void OnRoomPlayersChange(Player player, PlayerChangeReason reason)

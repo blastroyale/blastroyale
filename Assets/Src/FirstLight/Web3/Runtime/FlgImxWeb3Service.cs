@@ -63,13 +63,13 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 	private string EnvString => _services.GameBackendService.IsDev() ?
 				Environment.SANDBOX : Environment.PRODUCTION;
 
-	public async UniTask<Web3State> OnLoginRequested()
+	public async UniTask<Web3State> RequestLogin()
 	{
 		if (State == Web3State.Authenticated)
 		{
 			_services.GenericDialogService.OpenButtonDialog("Logout Web3", "You are logged in, do you want to log out ?", true, new GenericDialogButton()
 			{
-				ButtonOnClick = () => OnLogoutRequested().Forget(),
+				ButtonOnClick = () => RequestLogout().Forget(),
 				ButtonText = "Logout"
 			});
 			return State;
@@ -87,7 +87,6 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 		{
 			await _services.GameUiService.CloseUi<LoadingSpinnerScreenPresenter>();
 		}
-	
 		return State;
 	}
 
@@ -107,7 +106,7 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 		return State;
 	}
 
-	public async UniTaskVoid OnLogoutRequested()
+	public async UniTaskVoid RequestLogout()
 	{
 		if (PROOF_KEY) await Passport.LogoutPKCE();
 		else await Passport.Logout();

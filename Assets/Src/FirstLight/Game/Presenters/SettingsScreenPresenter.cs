@@ -134,7 +134,7 @@ namespace FirstLight.Game.Presenters
 			_faqButton.SetDisplay(false);
 #endif
 			var web3 = MainInstaller.ResolveWeb3();
-			_web3Button.clicked += () => web3.OnLoginRequested().Forget();
+			_web3Button.clicked += () => web3.RequestLogin().Forget();
 			_web3Button.SetEnabled(web3.State != Web3State.Unavailable);
 			root.SetupClicks(_services);
 		}

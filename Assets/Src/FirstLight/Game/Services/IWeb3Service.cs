@@ -31,12 +31,12 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Called whenever user desires to login and connect to web3
 		/// </summary>
-		public UniTask<Web3State> OnLoginRequested();
+		public UniTask<Web3State> RequestLogin();
 
 		/// <summary>
 		/// Called when user wants to logout from web3 (e.g he wants to change accounts)
 		/// </summary>
-		public UniTaskVoid OnLogoutRequested();
+		public UniTaskVoid RequestLogout();
 	}
 
 	public class NoWeb3 : IWeb3Service
@@ -49,12 +49,12 @@ namespace FirstLight.Game.Services
 		public event Action<Web3State> OnStateChanged;
 #pragma warning restore CS0067
 
-		public UniTask<Web3State> OnLoginRequested()
+		public UniTask<Web3State> RequestLogin()
 		{
 			throw new NotImplementedException();
 		}
 
-		public UniTaskVoid OnLogoutRequested()
+		public UniTaskVoid RequestLogout()
 		{
 			throw new NotImplementedException();
 		}

@@ -76,6 +76,10 @@ namespace Quantum.Systems.Bots
 		// We loop through targetable entities trying to find if any is eligible to shoot at
 		public static void FindEnemiesToShootAt(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
 		{
+			if (ReviveSystem.IsKnockedOut(f,botFilter.Entity))
+			{
+				return;
+			}
 			var target = EntityRef.None;
 			// We do line/shapecasts for enemies in sight
 			// If there is a target in Sight then store this Target into the blackboard variable

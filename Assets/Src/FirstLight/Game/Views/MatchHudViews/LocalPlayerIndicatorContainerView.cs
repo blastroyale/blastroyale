@@ -153,12 +153,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public void OnMoveUpdate(Vector2 direction, bool isPressed)
 		{
-			var moveIndicatorPosition = direction;
-			if (!_data.AppDataProvider.MovespeedControl)
-			{
-				moveIndicatorPosition = direction.normalized;
-				moveIndicatorPosition /= 2;
-			}
+			var moveIndicatorPosition = direction.normalized / 2f;
 
 			_indicators[(int) IndicatorVfxId.Movement]?.SetTransformState(moveIndicatorPosition);
 			_indicators[(int) IndicatorVfxId.Movement]?.SetVisualState(isPressed);
@@ -229,7 +224,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (_services.RoomService.IsLocalPlayerSpectator) return;
 			_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) specialId, out var config);
 			if (config == null) return;
-			
+
 			if (_specialIndicators[index] != null)
 			{
 				Object.Destroy(((MonoBehaviour) _specialIndicators[index]).gameObject);

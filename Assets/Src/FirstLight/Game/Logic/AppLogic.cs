@@ -167,11 +167,6 @@ namespace FirstLight.Game.Logic
 		bool ConeAim { get; set; }
 
 		/// <summary>
-		/// Allows players to control movement using analogs
-		/// </summary>
-		bool MovespeedControl { get; }
-
-		/// <summary>
 		/// Allows players to tap an angle fo the analog to shoot
 		/// </summary>
 		bool AngleTapShoot { get; }
@@ -194,7 +189,6 @@ namespace FirstLight.Game.Logic
 		private readonly IAudioFxService<AudioId> _audioFxService;
 
 		public bool IsPlayerLoggedIn => !string.IsNullOrEmpty(Data.PlayerId);
-		public bool MovespeedControl { get; set; }
 		public bool AngleTapShoot { get; set; }
 		public bool StopShootingShake { get; set; }
 

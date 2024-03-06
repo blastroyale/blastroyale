@@ -41,7 +41,12 @@ namespace FirstLight.Game.Utils
 		private static Func<GetTitleNewsRequest, UniTask<GetTitleNewsResult>> GetNewsFunc { get; }
 			= Wrap<GetTitleNewsRequest, GetTitleNewsResult>(PlayFabClientAPI.GetTitleNews);
 
-		
+		private static Func<LoginWithCustomIDRequest, UniTask<LoginResult>> LoginCustomIdFunc { get; }
+		= Wrap<LoginWithCustomIDRequest, LoginResult>(PlayFabClientAPI.LoginWithCustomID);
+
+		private static Func<LoginWithEmailAddressRequest, UniTask<LoginResult>> LoginWithEmailFunc { get; }
+		= Wrap<LoginWithEmailAddressRequest, LoginResult>(PlayFabClientAPI.LoginWithEmailAddress);
+
 		/// <inheritdoc cref="PlayFabMultiplayerAPI.UpdateLobby"/>
 		public static UniTask<LobbyEmptyResult> UpdateLobby(UpdateLobbyRequest req)
 		{
@@ -52,7 +57,19 @@ namespace FirstLight.Game.Utils
 		{
 			return GetNewsFunc(req);
 		}
-		
+
+		/// <inheritdoc cref="PlayFabClientAPI.LoginWithCustomID"/>
+		public static UniTask<LoginResult> LoginWithCustomId(LoginWithCustomIDRequest r)
+		{
+			return LoginCustomIdFunc(r);
+		}
+
+		/// <inheritdoc cref="PlayFabClientAPI.LoginWithEmailAddress"/>
+		public static UniTask<LoginResult> LoginWithEmail(LoginWithEmailAddressRequest r)
+		{
+			return LoginWithEmailFunc(r);
+		}
+
 		/// <inheritdoc cref="PlayFabMultiplayerAPI.LeaveLobby"/>
 		public static UniTask<LobbyEmptyResult> LeaveLobby(LeaveLobbyRequest req)
 		{

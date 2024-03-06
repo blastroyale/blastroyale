@@ -1,0 +1,23 @@
+{
+    "name": "Flg.Web3",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:78c2789dfc155bf4b9e815b0ca402b9b",
+        "GUID:9fc1342f87877ac42a37b19ac1c6653c",
+        "GUID:69e6b98aed01b4e88976f0c27b7e17d1",
+        "GUID:22c6cdfa54ae844a9a9eda2f0014b020",
+        "GUID:0da6d172d18a54e4389d0dce1e1ffdf2",
+        "GUID:2385f06be155241f187357d856a0af52",
+        "GUID:4e0274c636228486ab0c943b70b2f5cc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

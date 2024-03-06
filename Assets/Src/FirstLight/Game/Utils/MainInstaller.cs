@@ -76,6 +76,11 @@ namespace FirstLight.Game.Utils
 			return Resolve<IMatchServices>();
 		}
 
+		public static IWeb3Service ResolveWeb3()
+		{
+			return Resolve<IWeb3Service>();
+		}
+
 		/// <summary>
 		/// Helper to resolve data provider
 		/// </summary>

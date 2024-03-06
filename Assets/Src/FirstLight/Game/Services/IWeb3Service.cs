@@ -38,4 +38,25 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public UniTaskVoid OnLogoutRequested();
 	}
+
+	public class NoWeb3 : IWeb3Service
+	{
+		public Web3State State => Web3State.Unavailable;
+
+		public string Web3Account => null;
+
+#pragma warning disable CS0067 // not used, but its used by plugins
+		public event Action<Web3State> OnStateChanged;
+#pragma warning restore CS0067
+
+		public UniTask<Web3State> OnLoginRequested()
+		{
+			throw new NotImplementedException();
+		}
+
+		public UniTaskVoid OnLogoutRequested()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

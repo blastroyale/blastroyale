@@ -9,6 +9,7 @@ using FirstLight.Game.UIElements;
 using I2.Loc;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
+using Cysharp.Threading.Tasks;
 
 namespace FirstLight.Game.Presenters
 {
@@ -25,7 +26,6 @@ namespace FirstLight.Game.Presenters
 			public Action OnServerSelectClicked;
 			public Action OnCustomizeHudClicked;
 			public Action OnDeleteAccountClicked;
-			public Action PassportClicked;
 		}
 
 		private IGameDataProvider _gameDataProvider;
@@ -59,7 +59,7 @@ namespace FirstLight.Game.Presenters
 			// Build Info Text
 			_buildInfoLabel = root.Q<Label>("BuildInfoLabel");
 			_buildInfoLabel.text = VersionUtils.VersionInternal;
-			
+
 			Root.Q("AccountNotification").Required().SetDisplay(_services.AuthenticationService.IsGuest);
 			Root.Q("ConnectNotification").Required().SetDisplay(_services.AuthenticationService.IsGuest);
 			_web3Notification = Root.Q("ConnectWeb3Notification").Required();
@@ -82,7 +82,7 @@ namespace FirstLight.Game.Presenters
 			//SetupToggle(root.Q<LocalizedToggle>("DynamicJoystick").Required(),
 			//	() => _gameDataProvider.AppDataProvider.UseDynamicJoystick,
 			//	val => _gameDataProvider.AppDataProvider.UseDynamicJoystick = val);
-			
+
 			SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
 				() => _gameDataProvider.AppDataProvider.IsHapticOn,
 				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
@@ -120,7 +120,7 @@ namespace FirstLight.Game.Presenters
 			_accountStatusLabel = root.Q<Label>("AccountStatusLabel");
 			_web3StatusLabel = root.Q<Label>("Web3StatusLabel");
 			UpdateAccountStatus();
-			UpdateWeb3Status();
+			UpdateWeb3State(Web3State.Unavailable);
 
 			// Footer buttons
 			_faqButton = root.Q<Button>("FAQButton");
@@ -133,30 +133,26 @@ namespace FirstLight.Game.Presenters
 #if UNITY_IOS && !UNITY_EDITOR
 			_faqButton.SetDisplay(false);
 #endif
-			_web3Button.clicked += Data.PassportClicked;
-			_web3Button.SetDisplay(MainInstaller.TryResolve<IWeb3Service>(out _));
+			var web3 = MainInstaller.ResolveWeb3();
+			_web3Button.clicked += () => web3.OnLoginRequested().Forget();
+			_web3Button.SetDisplay(web3.State != Web3State.Unavailable);
 			root.SetupClicks(_services);
 		}
 
 		protected override void SubscribeToEvents()
 		{
-			if (MainInstaller.TryResolve<IWeb3Service>(out var web3))
-			{
-				web3.OnStateChanged += OnWeb3StateUpdated;
-			}
+			MainInstaller.ResolveWeb3().OnStateChanged += UpdateWeb3State;
 		}
 
 		protected override void UnsubscribeFromEvents()
 		{
-			if (MainInstaller.TryResolve<IWeb3Service>(out var web3))
-			{
-				web3.OnStateChanged -= OnWeb3StateUpdated;
-			}
+			MainInstaller.ResolveWeb3().OnStateChanged -= UpdateWeb3State;
 		}
 
-		private void OnWeb3StateUpdated(Web3State state)
+		private void UpdateWeb3State(Web3State state)
 		{
-			UpdateWeb3Status();
+			var web3 = MainInstaller.ResolveWeb3();
+			_web3StatusLabel.text = $"{state} {web3.Web3Account ?? ""}";
 		}
 
 		private void SetupToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
@@ -205,18 +201,6 @@ namespace FirstLight.Game.Presenters
 			_services.DataSaver.SaveData<AppData>();
 		}
 
-		public void UpdateWeb3Status()
-		{
-			if(MainInstaller.TryResolve<IWeb3Service>(out var web3))
-			{
-				_web3StatusLabel.text = $"{web3.State}: {web3.Web3Account ?? ""}";
-			} else
-			{
-				_web3StatusLabel.text = "Unavailable";
-			}
-
-		}
-
 		public void UpdateAccountStatus()
 		{
 			if (_services.AuthenticationService.IsGuest)
@@ -225,7 +209,7 @@ namespace FirstLight.Game.Presenters
 				_deleteAccountButton.SetDisplay(false);
 				_logoutButton.SetDisplay(false);
 				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_not_connected,
-				                                         _gameDataProvider.AppDataProvider.DisplayName.Value);
+														 _gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
 			else
 			{
@@ -241,7 +225,7 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.OnCustomizeHudClicked();
 		}
-		
+
 		private void OpenServerSelect()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;

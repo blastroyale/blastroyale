@@ -1,0 +1,34 @@
+{
+    "name": "Flg.Web3.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f0dc6e4b289cadf42839f1496103e256",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:69e6b98aed01b4e88976f0c27b7e17d1",
+        "GUID:78c2789dfc155bf4b9e815b0ca402b9b"
+    ],
+    "includePlatforms": [
+        "Editor",
+        "macOSStandalone",
+        "PS4",
+        "PS5",
+        "QNX",
+        "Stadia",
+        "Switch",
+        "tvOS",
+        "WSA",
+        "VisionOS",
+        "WebGL",
+        "WindowsStandalone32",
+        "WindowsStandalone64",
+        "XboxOne"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

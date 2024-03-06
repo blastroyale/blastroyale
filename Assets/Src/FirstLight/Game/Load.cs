@@ -64,8 +64,10 @@ namespace FirstLight.Game
 			networkService.EnableQuantumPingCheck(true);
 			tutorialService.BindServicesAndData(gameLogic, gameServices);
 
+			MainInstaller.Bind<IWeb3Service>(new NoWeb3());
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);
+
 			FLog.Verbose($"Initialized client version {VersionUtils.VersionExternal}");
 
 			_notificationState = new NotificationStateMachine(gameLogic, gameServices);

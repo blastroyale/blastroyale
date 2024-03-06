@@ -1,12 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
 using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.CompilerServices;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using UnityEditor;
 using Debug = UnityEngine.Debug;
@@ -15,17 +8,7 @@ namespace FirstLight.Editor.EditorTools
 {
 	public class Web3EditorShortcuts
 	{
-		private static FlgImxWeb3Service Web3
-		{
-			get
-			{
-				if (!MainInstaller.TryResolve<IWeb3Service>(out var web3))
-				{
-					throw new Exception("Web3 provider not in dependency container");
-				}
-				return (FlgImxWeb3Service) web3;
-			}
-		}
+		private static FlgImxWeb3Service Web3 => (FlgImxWeb3Service) MainInstaller.ResolveWeb3();
 
 		[MenuItem("FLG/Web3/Login")]
 		private static void Login()

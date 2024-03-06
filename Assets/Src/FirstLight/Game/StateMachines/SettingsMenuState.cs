@@ -124,40 +124,10 @@ namespace FirstLight.Game.StateMachines
 				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent),
 				OnCustomizeHudClicked = CustomizeHud,
 				OnDeleteAccountClicked = () =>
-					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted, null),
-				PassportClicked = () => OnClickWeb3().Forget()
+					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted, null)
 			};
 
 			_uiService.OpenScreen<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
-		}
-
-		private async UniTaskVoid OnClickWeb3()
-		{
-			if(!MainInstaller.TryResolve<IWeb3Service>(out var web3))
-			{
-				throw new Exception("No web3 provider service registered.");
-			}
-
-			if(web3.State == Web3State.Authenticated)
-			{
-				_services.GenericDialogService.OpenButtonDialog("Logout Web3", "You are logged in, do you want to log out ?", true, new GenericDialogButton()
-				{
-					ButtonOnClick = () => web3.OnLogoutRequested().Forget(),
-					ButtonText = "Logout"
-				});
-				return;
-			}
-
-			_uiService.OpenUi<LoadingSpinnerScreenPresenter>();
-			try
-			{
-				var state = await web3.OnLoginRequested();
-				FLog.Info($"Web3 Login: {state}");
-			} catch(Exception e)
-			{
-				_services.GenericDialogService.OpenSimpleMessage("Web3 Error", e.Message);
-			}
-			await _uiService.CloseUi<LoadingSpinnerScreenPresenter>();
 		}
 
 		private void CustomizeHud()

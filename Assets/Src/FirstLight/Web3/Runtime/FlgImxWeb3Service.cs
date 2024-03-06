@@ -7,6 +7,7 @@ using System.Linq;
 using System;
 using Environment = Immutable.Passport.Model.Environment;
 using Cysharp.Threading.Tasks.CompilerServices;
+using FirstLight.Game.Presenters;
 
 
 /// <summary>
@@ -14,8 +15,13 @@ using Cysharp.Threading.Tasks.CompilerServices;
 /// </summary>
 public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 {
-	public const string redirectUri = "unitydl://callback";
-	public const string logoutRedirectUri = "unitydl://logout";
+	/// <summary>
+	/// For testing purposes, if proof key should be enabled or not
+	/// </summary>
+	public static bool PROOF_KEY = false;
+
+	public const string REDIRECT_URI = "unitydl://callback";
+	public const string LOGOUT_REDIRECT_URI = "unitydl://logout";
 
 	private Web3State _state;
 	private IGameServices _services;
@@ -33,61 +39,80 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 	private async UniTaskVoid StartAsync()
 	{
 		Debug.Log("[IMX] Initializing");
+		_services = await MainInstaller.WaitResolve<IGameServices>();
 		MainInstaller.Bind<IWeb3Service>(this);
 		Application.deepLinkActivated += OnDeepLink;
-		_services = await MainInstaller.WaitResolve<IGameServices>();
 		_services.AuthenticationService.OnLogin += e => InitPassport().Forget();
 	}
 
 	private async UniTask InitPassport()
 	{
-		Passport = await Passport.Init(ImxClientId, EnvString, redirectUri, logoutRedirectUri);
+		Passport = await Passport.Init(ImxClientId, EnvString, REDIRECT_URI, LOGOUT_REDIRECT_URI);
 		State = Web3State.Available;
 	}
 
 	private string EnvString => _services.GameBackendService.IsDev() ?
 				Environment.SANDBOX : Environment.PRODUCTION;
 
-	public bool IsServiceAvailable => !string.IsNullOrEmpty(ImxClientId);
-
 	public async UniTask<Web3State> OnLoginRequested()
 	{
-		Debug.Log("[IMX] Checking Passport Status");
-		await Passport.Login();
-		await Passport.ConnectEvm();
-		_wallet = await GetOrCreateWallet();
+		if (State == Web3State.Authenticated)
+		{
+			_services.GenericDialogService.OpenButtonDialog("Logout Web3", "You are logged in, do you want to log out ?", true, new GenericDialogButton()
+			{
+				ButtonOnClick = () => OnLogoutRequested().Forget(),
+				ButtonText = "Logout"
+			});
+			return State;
+		}
+		_services.GameUiService.OpenUi<LoadingSpinnerScreenPresenter>();
+		try
+		{
+			await OpenLoginDialog();
+		}
+		catch (Exception e)
+		{
+			_services.GenericDialogService.OpenSimpleMessage("Web3 Error", e.Message);
+			Debug.LogError(e);
+		}
+		await _services.GameUiService.CloseUi<LoadingSpinnerScreenPresenter>();
+		return State;
+	}
+
+	public async UniTask<Web3State> OpenLoginDialog()
+	{
+		Debug.Log("[IMX] Login Requested");
+		if (PROOF_KEY) await Passport.LoginPKCE();
+		else
+		{
+			await Passport.Login();
+			await Passport.ConnectEvm();
+			_wallet = await GetOrCreateWallet();
+		}
 		State = Web3State.Authenticated;
 		return State;
 	}
 
 	public async UniTaskVoid OnLogoutRequested()
 	{
-		await Passport.Logout();
+		if (PROOF_KEY) await Passport.LogoutPKCE();
+		else await Passport.Logout();
 		_wallet = null;
 		State = Web3State.Available;
 	}
 
-	public async UniTask<string> GetOrCreateWallet()
-	{
-		var wallets = await Passport.ZkEvmRequestAccounts();
-		Debug.Log("[IMX] User Wallets: " + string.Join(',', wallets));
-		if (wallets.Count == 0)
-		{
-			throw new Exception("Something wrong with ZkEvmRequestAccounts, user should never have no wallet");
-		}
-		return wallets.First();
-	}
+	public async UniTask<string> GetOrCreateWallet() => (await Passport.ZkEvmRequestAccounts()).First();
 
 	private void OnDeepLink(string url)
 	{
 		Debug.Log("[Imx] Deep Link Called: " + url);
-		if (url.Contains("login"))
+		if (PROOF_KEY && url.StartsWith(REDIRECT_URI))
 		{
-			_services.GenericDialogService.OpenSimpleMessage("Imx", "Login Deeplink answered LOGIN " + url);
-		}
-		else if (url.Contains("logout"))
-		{
-			_services.GenericDialogService.OpenSimpleMessage("Imx", "Login Deeplink answered LOGOUT " + url);
+			Passport.ConnectEvm().ContinueWith(GetOrCreateWallet).ContinueWith(wallet =>
+			{
+				_wallet = wallet;
+				State = Web3State.Authenticated;
+			});
 		}
 	}
 

@@ -22,7 +22,7 @@ namespace FirstLight.Editor.EditorTools
 	/// </summary>
 	public class EditorShortcuts
 	{
-		[MenuItem("FLG/Scene/Open FTUE Deck Scene &0")]
+		[MenuItem("FLG/Scene/Open FTUE Deck Scene")]
 		private static void OpenFtueDeckScene()
 		{
 			EditorSceneManager.OpenScene(GetScenePath("FtueDeck"));

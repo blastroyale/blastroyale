@@ -144,7 +144,10 @@ namespace FirstLight.Game.MonoComponent
 			// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/task/334
 			foreach (var render in _renderers)
 			{
-				render.material.color = c;
+				if (render.material.HasProperty(_color))
+				{
+					render.material.color = c;
+				}
 			}
 
 			for (var i=0; i<_rendererColors.Count; i++)
@@ -180,12 +183,14 @@ namespace FirstLight.Game.MonoComponent
 
 		public void SetAdditiveColor(Color c)
 		{
-			
 			// TODO: Avoid duplicating the material
 			// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/task/334
 			foreach (var render in _renderers)
 			{
-				render.material.SetColor(_additiveColor, c);
+				if (render.material.HasProperty(_additiveColor))
+				{
+					render.material.SetColor(_additiveColor, c);
+				}
 			}
 		}
 		
@@ -193,7 +198,12 @@ namespace FirstLight.Game.MonoComponent
 		{
 			for (var i = 0; i < _renderers.Count; i++)
 			{
-				_renderers[i].material.SetColor(_additiveColor, _rendererAdditiveColors[i]);
+				var render = _renderers[i];
+
+				if (render.material.HasProperty(_additiveColor))
+				{
+					render.material.SetColor(_additiveColor, _rendererAdditiveColors[i]);
+				}
 			}
 		}
 

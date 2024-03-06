@@ -8,6 +8,7 @@ using System;
 using Environment = Immutable.Passport.Model.Environment;
 using Cysharp.Threading.Tasks.CompilerServices;
 using FirstLight.Game.Presenters;
+using FirstLight.FLogger;
 
 
 /// <summary>
@@ -38,9 +39,10 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 
 	private async UniTaskVoid StartAsync()
 	{
-		Debug.Log("[IMX] Initializing");
+
 		_services = await MainInstaller.WaitResolve<IGameServices>();
 		MainInstaller.Bind<IWeb3Service>(this);
+		FLog.Info("[IMX Web3]", "Initializing");
 		Application.deepLinkActivated += OnDeepLink;
 		_services.AuthenticationService.OnLogin += e => InitPassport().Forget();
 	}
@@ -81,7 +83,7 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 
 	public async UniTask<Web3State> OpenLoginDialog()
 	{
-		Debug.Log("[IMX] Login Requested");
+		FLog.Verbose("[IMX Web3]", "Login Requested");
 		if (PROOF_KEY) await Passport.LoginPKCE();
 		else
 		{
@@ -105,7 +107,7 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 
 	private void OnDeepLink(string url)
 	{
-		Debug.Log("[Imx] Deep Link Called: " + url);
+		FLog.Verbose("[IMX Web3]", "Deep Link Called "+url);
 		if (PROOF_KEY && url.StartsWith(REDIRECT_URI))
 		{
 			Passport.ConnectEvm().ContinueWith(GetOrCreateWallet).ContinueWith(wallet =>
@@ -125,7 +127,6 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 		{
 			if (value != _state)
 			{
-				Debug.Log($"[Imx] State: {_state} -> {value}");
 				OnStateChanged?.Invoke(value);
 			}
 			_state = value;

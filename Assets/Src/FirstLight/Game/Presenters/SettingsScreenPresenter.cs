@@ -120,7 +120,7 @@ namespace FirstLight.Game.Presenters
 			_accountStatusLabel = root.Q<Label>("AccountStatusLabel");
 			_web3StatusLabel = root.Q<Label>("Web3StatusLabel");
 			UpdateAccountStatus();
-			UpdateWeb3State(Web3State.Unavailable);
+			UpdateWeb3State(MainInstaller.ResolveWeb3().State);
 
 			// Footer buttons
 			_faqButton = root.Q<Button>("FAQButton");
@@ -135,7 +135,7 @@ namespace FirstLight.Game.Presenters
 #endif
 			var web3 = MainInstaller.ResolveWeb3();
 			_web3Button.clicked += () => web3.OnLoginRequested().Forget();
-			_web3Button.SetDisplay(web3.State != Web3State.Unavailable);
+			_web3Button.SetEnabled(web3.State != Web3State.Unavailable);
 			root.SetupClicks(_services);
 		}
 

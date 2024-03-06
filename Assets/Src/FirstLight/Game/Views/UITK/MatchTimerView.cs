@@ -22,6 +22,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private IVisualElementScheduledItem _timerUpdate;
 		private ValueAnimation<float> _pingAnimation;
+		private IGameServices _services;
 
 		public override void Attached(VisualElement element)
 		{
@@ -37,6 +38,8 @@ namespace FirstLight.Game.Views.UITK
 
 			_pingAnimation = _pingElement.experimental.animation.Scale(0.6f, 1000).KeepAlive();
 			_pingAnimation.from = 1f;
+			
+			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
 		public void SetAreaShrinkingDirector(PlayableDirector director)
@@ -133,7 +136,7 @@ namespace FirstLight.Game.Views.UITK
 							ShowNotification(ScriptLocalization.UITMatch.go_to_safe_area);
 							warningNotified = true;
 							
-							MainInstaller.Resolve<IGameServices>().AudioFxService.PlayClip2D(AudioId.GoToSafeZone, GameConstants.Audio.MIXER_GROUP_SFX_2D_ID);
+							_services.AudioFxService.PlayClip2D(AudioId.GoToSafeZone, GameConstants.Audio.MIXER_GROUP_SFX_2D_ID);
 						}
 						
 						_timerLabel.text = FPMath.RoundToInt(shrinkingStartTime - currentTimeSeconds).ToString();
@@ -146,7 +149,7 @@ namespace FirstLight.Game.Views.UITK
 							ShowNotification(ScriptLocalization.UITMatch.area_shrinking);
 							shrinkingNotified = true;
 							
-							MainInstaller.Resolve<IGameServices>().AudioFxService.PlayClip2D(AudioId.CircleIsClosing, GameConstants.Audio.MIXER_GROUP_SFX_2D_ID);
+							_services.AudioFxService.PlayClip2D(AudioId.CircleIsClosing, GameConstants.Audio.MIXER_GROUP_SFX_2D_ID);
 						}
 
 						_timerLabel.text = FPMath.RoundToInt((shrinkingStartTime + shrinkingDuration) - currentTimeSeconds).ToString();

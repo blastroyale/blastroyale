@@ -1,16 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 /// <summary>
 /// Decoupled component to handle objects that produces footprints.
@@ -29,6 +27,8 @@ public class FootprinterMonoComponent : MonoBehaviour
     private Vector3 _leftStepScale;
     private EntityView _view;
     private PlayerCharacterMonoComponent _character;
+
+	private readonly Vector3 _footSpawnOffset = new(0f, 0.05f, 0f);
 
     
     // Local variables to avoid GC
@@ -124,7 +124,7 @@ public class FootprinterMonoComponent : MonoBehaviour
         }
 		
         _localRotation = GetFootRotation();
-		_pooledFootprint.transform.position = anchor.position;
+		_pooledFootprint.transform.position = anchor.position + _footSpawnOffset;
         _pooledFootprint.transform.localScale = right ? _rightStepScale : _leftStepScale;
         _pooledFootprint.transform.rotation = Quaternion.Euler(90, _localRotation.eulerAngles.y, 0);
         _pooledFootprint.SetActive(true);

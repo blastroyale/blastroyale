@@ -184,6 +184,7 @@ namespace Quantum.Systems
 			stats->SetCurrentHealthPercentage(f, entityRef, lifePercentage);
 			f.Events.OnPlayerRevived(entityRef);
 			f.Signals.OnPlayerRevived(entityRef);
+			f.Unsafe.GetPointer<Revivable>(entityRef)->RecoverMoveSpeedAfter = f.Time + GetConfig(f).ReviveAnimationDuration;
 		}
 
 		private static void ReviveAllKnockedOutPlayers(Frame f)
@@ -386,9 +387,20 @@ namespace Quantum.Systems
 
 		public static void OverwriteMaxMoveSpeed(Frame f, EntityRef player, ref FP maxMoveSpeed)
 		{
+			byte configIndex = 255;
 			if (f.Unsafe.TryGetPointer<KnockedOut>(player, out var knockedOut))
 			{
-				maxMoveSpeed *= GetConfigForKnockedOut(f, knockedOut).MoveSpeedMultiplier;
+				configIndex = knockedOut->ConfigIndex;
+			}
+
+			if (f.Unsafe.TryGetPointer<Revivable>(player, out var revivable) && revivable->RecoverMoveSpeedAfter > f.Time)
+			{
+				configIndex = (byte)(revivable->TimesKnockedOut - 1);
+			}
+
+			if (configIndex != 255)
+			{
+				maxMoveSpeed *= GetReviveConfig(f, configIndex).MoveSpeedMultiplier;
 			}
 		}
 

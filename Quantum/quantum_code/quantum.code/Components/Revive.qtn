@@ -1,5 +1,6 @@
 ﻿component Revivable {
     byte TimesKnockedOut;
+    FP RecoverMoveSpeedAfter;
 }
 
 component KnockedOut{

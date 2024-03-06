@@ -199,6 +199,8 @@ namespace FirstLight.Game.Ids
 		
 		RocketExplosion,
 		AirdropComing,
+		GoToSafeZone,
+		CircleIsClosing,
 	}
 	
 	/// <summary>

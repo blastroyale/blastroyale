@@ -1,3 +1,5 @@
+using FirstLight.Game.Ids;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
@@ -130,8 +132,10 @@ namespace FirstLight.Game.Views.UITK
 							_counterElement.SetVisibility(true);
 							ShowNotification(ScriptLocalization.UITMatch.go_to_safe_area);
 							warningNotified = true;
+							
+							MainInstaller.Resolve<IGameServices>().AudioFxService.PlayClip2D(AudioId.GoToSafeZone, GameConstants.Audio.MIXER_GROUP_SFX_2D_ID);
 						}
-
+						
 						_timerLabel.text = FPMath.RoundToInt(shrinkingStartTime - currentTimeSeconds).ToString();
 					}
 					else if (currentTimeSeconds < shrinkingStartTime + shrinkingDuration)
@@ -141,6 +145,8 @@ namespace FirstLight.Game.Views.UITK
 							_counterElement.SetVisibility(true);
 							ShowNotification(ScriptLocalization.UITMatch.area_shrinking);
 							shrinkingNotified = true;
+							
+							MainInstaller.Resolve<IGameServices>().AudioFxService.PlayClip2D(AudioId.CircleIsClosing, GameConstants.Audio.MIXER_GROUP_SFX_2D_ID);
 						}
 
 						_timerLabel.text = FPMath.RoundToInt((shrinkingStartTime + shrinkingDuration) - currentTimeSeconds).ToString();

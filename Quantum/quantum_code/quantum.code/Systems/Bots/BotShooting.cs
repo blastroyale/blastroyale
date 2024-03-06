@@ -13,7 +13,7 @@ namespace Quantum.Systems.Bots
 		/// </summary>
 		private static FP ACCURACY_LERP_TICK = FP._0_05;
 
-		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, PlayerCharacter pc, Frame f)
+		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, in PlayerCharacter pc, Frame f)
 		{
 			if (pc.HasMeleeWeapon(f, entity))
 			{

@@ -489,6 +489,7 @@ namespace FirstLight.Game.StateMachines
 			_currentClips.Add(new LoopedAudioClip(dropsFx, despawnEvents, callback.Entity));
 
 			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_AirdropComing, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+			_services.AudioFxService.PlayClip2D(AudioId.AirdropComing, GameConstants.Audio.MIXER_GROUP_SFX_2D_ID);
 		}
 
 		private void OnAirdropLanded(EventOnAirDropLanded callback)

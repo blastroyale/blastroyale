@@ -227,7 +227,7 @@ namespace Quantum.Systems.Bots
 			if (!bot->Target.IsValid)
 			{
 				if (bot->TryUseSpecials(f.Unsafe.GetPointer<PlayerInventory>(entity), entity, f)) return;
-				var botMaxRange = bot->GetMaxWeaponRange(entity, f);
+				var botMaxRange = bot->GetMaxWeaponRange(entity, f.Get<PlayerCharacter>(entity), f);
 
 				BotLogger.LogAction(entity, $"Going to kick {attacker} ass for shooting me from distance");
 

@@ -64,28 +64,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.12290777
+      - time: 0.10520866
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.3659988
+      - time: 0.35936165
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6180398
+      - time: 0.61140263
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.8719807
+      - time: 0.8587064
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -121,28 +121,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.12557444
+      - time: 0.107875325
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.36866546
+      - time: 0.36424068
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6289813
+      - time: 0.6068574
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.8683641
+      - time: 0.85951453
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -178,28 +178,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.11386619
+      - time: 0.1116538
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.3677155
+      - time: 0.35886595
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.62708133
+      - time: 0.6071698
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.86922246
+      - time: 0.8603729
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -249,14 +249,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.61918265
+      - time: 0.60590833
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.8773912
+      - time: 0.85526735
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -379,28 +379,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.055999998
+      - time: 0.104672566
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.216
+      - time: 0.35538054
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.368
+      - time: 0.60472566
         functionName: StepLeft
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.52533334
+      - time: 0.8571918
         functionName: StepRight
         data: 
         objectReferenceParameter: {instanceID: 0}

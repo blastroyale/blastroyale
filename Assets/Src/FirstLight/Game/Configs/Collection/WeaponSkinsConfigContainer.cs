@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
@@ -11,7 +8,6 @@ using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Serialization;
 
 namespace FirstLight.Game.Configs.Collection
 {
@@ -24,7 +20,6 @@ namespace FirstLight.Game.Configs.Collection
 	[Serializable]
 	public struct WeaponSkinConfigGroup
 	{
-		[Required] public RuntimeAnimatorController DefaultAnimationOverwrite;
 		[Required] public GameId DefaultSkin;
 		public List<WeaponSkinConfigEntry> Configs;
 		

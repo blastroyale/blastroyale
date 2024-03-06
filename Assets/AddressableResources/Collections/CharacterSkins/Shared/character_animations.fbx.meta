@@ -37,6 +37,8 @@ ModelImporter:
     extraExposedTransformPaths:
     - Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
     - Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+    - Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+    - Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16

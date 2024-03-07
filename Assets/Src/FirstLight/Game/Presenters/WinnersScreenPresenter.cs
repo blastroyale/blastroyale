@@ -143,6 +143,8 @@ namespace FirstLight.Game.Presenters
 
 			await UniTask.WhenAll(tasks);
 
+			await UniTask.Delay(300);
+
 			_character1.AnimateVictory();
 		}
 	}

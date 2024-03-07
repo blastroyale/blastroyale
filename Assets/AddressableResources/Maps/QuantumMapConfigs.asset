@@ -63,7 +63,7 @@ MonoBehaviour:
     - Map: 115
       MaxPlayers: 30
       IsTestMap: 0
-      IsCustomOnly: 0
+      IsCustomOnly: 1
       DropSelectionSize: 1
       MinimapCameraSize: 118
       LootingVersion: 2
@@ -90,8 +90,8 @@ MonoBehaviour:
       LootingVersion: 2
     - Map: 200
       MaxPlayers: 32
-      IsTestMap: 1
-      IsCustomOnly: 1
+      IsTestMap: 0
+      IsCustomOnly: 0
       DropSelectionSize: 1
       MinimapCameraSize: 300
       LootingVersion: 2

@@ -134,7 +134,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			StopRevivingPlayer(f, knockedOut, info.Other);
+			StopRevivingPlayer(f, knockedOut, knockedOutCollider->KnockedOutEntity, info.Other);
 		}
 
 
@@ -296,11 +296,11 @@ namespace Quantum.Systems
 			return true;
 		}
 
-		private static void StopRevivingPlayer(Frame f, KnockedOut* knockedOut, EntityRef reviving)
+		private static void StopRevivingPlayer(Frame f, KnockedOut* knockedOut, EntityRef knockedOutEntity, EntityRef revivingEntity)
 		{
 			var resolveHashSet = f.ResolveHashSet(knockedOut->PlayersReviving);
-			if (!resolveHashSet.Contains(reviving)) return;
-			resolveHashSet.Remove(reviving);
+			if (!resolveHashSet.Contains(revivingEntity)) return;
+			resolveHashSet.Remove(revivingEntity);
 			if (resolveHashSet.Count == 0)
 			{
 				var config = GetConfigForKnockedOut(f, knockedOut);
@@ -310,7 +310,7 @@ namespace Quantum.Systems
 				// Reset damage timer 
 				knockedOut->NextDamageAt = f.Time + config.DamageTickInterval;
 
-				f.Events.OnPlayerStopReviving(reviving);
+				f.Events.OnPlayerStopReviving(knockedOutEntity);
 			}
 		}
 
@@ -331,7 +331,8 @@ namespace Quantum.Systems
 
 				if (f.ResolveHashSet(teammateKnockedOut->PlayersReviving).Contains(knockedOutEntity))
 				{
-					StopRevivingPlayer(f, teammateKnockedOut, knockedOutEntity);
+					// The entities here are correct (they are not reversed)
+					StopRevivingPlayer(f, teammateKnockedOut,teamMate, knockedOutEntity);
 				}
 			}
 		}

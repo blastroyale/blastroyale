@@ -201,6 +201,7 @@ namespace FirstLight.Game.Ids
 		AirdropComing,
 		GoToSafeZone,
 		CircleIsClosing,
+		TeammateKnockedDown,
 	}
 	
 	/// <summary>

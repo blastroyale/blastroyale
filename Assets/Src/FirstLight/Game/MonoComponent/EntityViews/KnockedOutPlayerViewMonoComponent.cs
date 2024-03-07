@@ -151,6 +151,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (callback.Entity != _entityRef) return;
 			KnockoutPlayer();
 			
+			// Only team mates can hear knocked down sound
+			if (!_services.TeamService.IsSameTeamAsSpectator(callback.Entity))
+			{
+				return;
+			}
 			// This is a general notification about the event, that's why it's not in 3D space
 			_services.AudioFxService.PlayClip2D(AudioId.TeammateKnockedDown, GameConstants.Audio.MIXER_GROUP_SFX_2D_ID);
 		}

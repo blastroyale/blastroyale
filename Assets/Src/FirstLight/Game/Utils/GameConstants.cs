@@ -18,6 +18,7 @@ namespace FirstLight.Game.Utils
 		public static class Links
 		{
 			public const string FEEDBACK_FORM = "https://forms.gle/2V4ffFNmRgoVAba89";
+			public const string ZENDESK_SUPPORT_FORM = "https://firstlightgames.zendesk.com/hc/en-gb/requests/new";
 			
 			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
 			public const string YOUTUBE_LINK = "https://www.youtube.com/c/BlastRoyale22";

@@ -7,8 +7,9 @@ using FirstLight.UiService;
 using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using I2.Loc;
+using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -39,6 +40,7 @@ namespace FirstLight.Game.Presenters
 		private Button _logoutButton;
 		private Button _deleteAccountButton;
 		private Button _connectIdButton;
+		private Button _supportButton;
 		private Label _accountStatusLabel;
 
 		private void Awake()
@@ -91,6 +93,9 @@ namespace FirstLight.Game.Presenters
 				() => _gameDataProvider.AppDataProvider.SwitchJoysticks,
 				val => _gameDataProvider.AppDataProvider.SwitchJoysticks = val);
 
+			_customizeHudButton = root.Q<Button>("CustomizeHud").Required();
+			_customizeHudButton.clicked += OpenCustomizeHud;
+
 			// Graphics
 			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("FPSRBG").Required(),
 				() => _gameDataProvider.AppDataProvider.FpsTarget,
@@ -111,11 +116,9 @@ namespace FirstLight.Game.Presenters
 			UpdateAccountStatus();
 
 			// Footer buttons
-			_faqButton = root.Q<Button>("FAQButton");
-			_faqButton.clicked += _services.HelpdeskService.ShowFaq;
-			_customizeHudButton = root.Q<Button>("CustomizeHud");
-			_customizeHudButton.clicked += OpenCustomizeHud;
-			_serverButton = root.Q<Button>("ServerButton");
+			_supportButton = root.Q<Button>("SupportButton").Required();
+			_supportButton.clicked += OpenSupportService;
+			_serverButton = root.Q<Button>("ServerButton").Required();
 			_serverButton.clicked += OpenServerSelect;
 
 #if UNITY_IOS && !UNITY_EDITOR
@@ -195,6 +198,12 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.OnCustomizeHudClicked();
 		}
+		
+		private void OpenSupportService()
+		{
+			_services.CustomerSupportService.OpenCustomerSupportTicketForm();
+		}
+
 		
 		private void OpenServerSelect()
 		{

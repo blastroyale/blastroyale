@@ -148,7 +148,7 @@ namespace Quantum.Systems.Bots
 					// Already reviving wait for finish
 					if (reviving.Contains(filter.Entity))
 					{
-						filter.BotCharacter->NextDecisionTime = knockedOut->EndRevivingAt + FP._0_05;
+						filter.BotCharacter->SetNextDecisionDelay(f, filter.BotCharacter->DecisionInterval);
 						return true;
 					}
 

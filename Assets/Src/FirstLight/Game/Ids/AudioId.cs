@@ -197,7 +197,11 @@ namespace FirstLight.Game.Ids
 		Vo_CountdownGo,
 		Shells,
 		
-		RocketExplosion
+		RocketExplosion,
+		AirdropComing,
+		GoToSafeZone,
+		CircleIsClosing,
+		TeammateKnockedDown,
 	}
 	
 	/// <summary>

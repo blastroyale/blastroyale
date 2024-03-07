@@ -161,11 +161,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			var offset = playerTransform.rotation * playerCharacter->ProjectileSpawnOffset.ToUnityVector3();
 			origin += offset.ToFPVector3();
-			
-			if (FeatureFlags.BULLET_CAMERA_ADJUSTMENT)
-			{
-				origin += BulletMonoComponent.CameraCorrectionOffset.ToFPVector3();
-			}
 
 			DrawAimLine(f, _centerLineRenderer, _view.EntityRef, origin, end);
 			

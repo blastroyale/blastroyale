@@ -23,7 +23,7 @@ namespace Quantum.Systems
 
 			if (landMine->TriggerableAfter == FP._0 || landMine->TriggerableAfter > f.Time) return;
 			// The owner can't trigger the mine for 2 seconds after placing it
-			if (landMine->owner == info.Other && landMine->TriggerableAfter + FP._2 > f.Time) return;
+			if (landMine->Owner == info.Other && landMine->TriggerableAfter + FP._2 > f.Time) return;
 
 			// Triggers the mine here and wait a few seconds before exploding
 			TriggerLandMine(f, info.Entity, info.Other, landMine);
@@ -53,14 +53,14 @@ namespace Quantum.Systems
 			if (!shouldExplode)
 			{
 				return;
-			} 
+			}
 
 
-			var spell = Spell.CreateInstant(f, filter.Entity, filter.LandMine->owner, filter.Entity, filter.LandMine->Damage, knockBack,
+			var spell = Spell.CreateInstant(f, filter.Entity, filter.LandMine->Owner, filter.Entity, filter.LandMine->Damage, knockBack,
 				filter.Transform->Position, 0);
 
 			QuantumHelpers.ProcessAreaHit(f, filter.LandMine->Radius, &spell);
-			f.Events.LandMineExploded(filter.Entity);
+			f.Events.LandMineExploded(filter.Entity, filter.Transform->Position);
 			f.Destroy(filter.Entity);
 		}
 
@@ -92,6 +92,7 @@ namespace Quantum.Systems
 			mineComponent->TriggerableAfter = f.Time + FP._2;
 			mineComponent->Radius = special.Radius;
 			mineComponent->Damage = (uint)damage;
+			mineComponent->Owner = attacker;
 			mine.SetPosition(f, position);
 
 			// Check explosiont rigger

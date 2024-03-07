@@ -17,8 +17,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: cupid
-    second: {fileID: 2100000, guid: 36d368b72798349e3a20ab25aabcf595, type: 2}
+      name: corpo_female
+    second: {fileID: 2100000, guid: 96dacdb5cf9854c3a98ddfc8877a8bc0, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
@@ -52,6 +52,8 @@ ModelImporter:
     extraExposedTransformPaths:
     - Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
     - Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+    - Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+    - Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
     extraUserProperties: []
     clipAnimations: []
     isReadable: 0

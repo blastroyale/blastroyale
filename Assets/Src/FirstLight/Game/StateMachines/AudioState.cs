@@ -147,6 +147,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUsed>(this, OnSpecialUsed);
 			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnEventOnRaycastShotExplosion);
 			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnEventHazardLand);
+			QuantumEvent.SubscribeManual<EventLandMineExploded>(this, OnLandMineExploded);
 			QuantumEvent.SubscribeManual<EventOnProjectileEndOfLife>(this, OnProjectileEndOfLife);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnEventOnChestOpened);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
@@ -488,6 +489,7 @@ namespace FirstLight.Game.StateMachines
 			_currentClips.Add(new LoopedAudioClip(dropsFx, despawnEvents, callback.Entity));
 
 			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_AirdropComing, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+			_services.AudioFxService.PlayClip2D(AudioId.AirdropComing, GameConstants.Audio.MIXER_GROUP_SFX_2D_ID);
 		}
 
 		private void OnAirdropLanded(EventOnAirDropLanded callback)
@@ -567,6 +569,7 @@ namespace FirstLight.Game.StateMachines
 				_services.AudioFxService.PlayClip3D(weaponConfig.ProjectileEndOfLife, callback.EndPosition.ToUnityVector3());
 			}
 		}
+
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
@@ -697,6 +700,11 @@ namespace FirstLight.Game.StateMachines
 			CheckDespawnClips(nameof(EventOnHazardLand), callback.AttackerEntity);
 		}
 
+		private void OnLandMineExploded(EventLandMineExploded callback)
+		{
+			PlayExplosionSfx(GameId.SpecialLandmine, callback.Position.ToUnityVector3());
+		}
+
 
 		private void PlayExplosionSfx(GameId sourceId, Vector3 endPosition)
 		{
@@ -728,6 +736,9 @@ namespace FirstLight.Game.StateMachines
 					break;
 				case GameId.Barrel:
 					audio = AudioId.ExplosionMedium;
+					break;
+				case GameId.SpecialLandmine:
+					audio = AudioId.ExplosionSmall;
 					break;
 			}
 

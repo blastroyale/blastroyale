@@ -77,17 +77,10 @@ namespace FirstLight.Game.Presenters
 				val => _gameDataProvider.AppDataProvider.IsBgmEnabled = val);
 
 			// Controls
-			//TODO: enable when hooked up to floating joystick logic
-			root.Q<LocalizedToggle>("DynamicJoystick").SetDisplay(false);
-			//SetupToggle(root.Q<LocalizedToggle>("DynamicJoystick").Required(),
-			//	() => _gameDataProvider.AppDataProvider.UseDynamicJoystick,
-			//	val => _gameDataProvider.AppDataProvider.UseDynamicJoystick = val);
-
 			SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
 				() => _gameDataProvider.AppDataProvider.IsHapticOn,
 				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
 
-			//root.Q<LocalizedToggle>("InvertSpecialCancelling").SetDisplay(false);
 			SetupToggle(root.Q<LocalizedToggle>("InvertSpecialCancelling").Required(),
 				() => _gameDataProvider.AppDataProvider.InvertSpecialCancellling,
 				val => _gameDataProvider.AppDataProvider.InvertSpecialCancellling = val);
@@ -99,6 +92,10 @@ namespace FirstLight.Game.Presenters
 			SetupToggle(root.Q<Toggle>("AimBackground").Required(),
 				() => _gameDataProvider.AppDataProvider.ConeAim,
 				val => _gameDataProvider.AppDataProvider.ConeAim = val);
+			
+			SetupToggle(root.Q<Toggle>("SwitchJoysticks").Required(),
+				() => _gameDataProvider.AppDataProvider.SwitchJoysticks,
+				val => _gameDataProvider.AppDataProvider.SwitchJoysticks = val);
 
 			// Graphics
 			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("FPSRBG").Required(),

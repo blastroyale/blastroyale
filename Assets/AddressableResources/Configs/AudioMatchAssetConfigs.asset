@@ -2286,3 +2286,59 @@ MonoBehaviour:
       VolumeRandDeviation: 0.1
       PitchRandDeviation: 0
       PitchModPerLoop: 0
+  - Key: 172
+    Value:
+      AudioClips:
+      - m_AssetGUID: 8ca1bc7273fdb4041b2534ef9e756a20
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Loop: 0
+      RandomiseStartTime: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+      PitchModPerLoop: 0
+  - Key: 173
+    Value:
+      AudioClips:
+      - m_AssetGUID: acdb9787fe1e57d44b1e1994bf565947
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Loop: 0
+      RandomiseStartTime: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+      PitchModPerLoop: 0
+  - Key: 174
+    Value:
+      AudioClips:
+      - m_AssetGUID: c9c7da66ae8947645ab6eec91ba63e4b
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Loop: 0
+      RandomiseStartTime: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+      PitchModPerLoop: 0
+  - Key: 175
+    Value:
+      AudioClips:
+      - m_AssetGUID: 59c5c29c0d42ddb40b076f848edcd262
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Loop: 0
+      RandomiseStartTime: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+      PitchModPerLoop: 0

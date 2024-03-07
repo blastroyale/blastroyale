@@ -211,6 +211,7 @@ namespace Quantum.Systems.Bots
 		/// </summary>
 		public void HealthChangedFromAttacker(Frame f, EntityRef entity, EntityRef attacker, int previousHealth)
 		{
+			if (ReviveSystem.IsKnockedOut(f, entity)) return;
 			if (f.RNG->NextBool()) return; // 50% chance bots ignore
 
 			BotLogger.LogAction(entity, $"Bot took damage from {attacker}");
@@ -227,7 +228,7 @@ namespace Quantum.Systems.Bots
 			if (!bot->Target.IsValid)
 			{
 				if (bot->TryUseSpecials(f.Unsafe.GetPointer<PlayerInventory>(entity), entity, f)) return;
-				var botMaxRange = bot->GetMaxWeaponRange(entity, f);
+				var botMaxRange = bot->GetMaxWeaponRange(entity, f.Get<PlayerCharacter>(entity), f);
 
 				BotLogger.LogAction(entity, $"Going to kick {attacker} ass for shooting me from distance");
 
@@ -297,6 +298,14 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
+			// Stop bot path because it will change it speed and behaviour
+			if (f.Unsafe.TryGetPointer<NavMeshPathfinder>(knockedOutEntity, out var navMeshAgent))
+			{
+				navMeshAgent->Stop(f, knockedOutEntity, true);
+				bot->ResetTargetWaypoint(f);
+				bot->Target = EntityRef.None;
+			}
+			
 			BotShooting.StopAiming(f, bot, knockedOutEntity);
 			bot->SetNextDecisionDelay(f, 0);
 

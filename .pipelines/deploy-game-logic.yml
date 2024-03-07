@@ -90,7 +90,8 @@ stages:
 
       image: ${{ parameters.dockerImage }}
       serviceConnection: AzureRM
-      serviceName: game-logic-service
+      serviceName: game-logic-service2
+      repoName: game-logic-service
       environment: ${{ parameters.environment }}
       system: ${{ parameters.system }}
       minReplicas: ${{ parameters.minReplicas }}
@@ -100,3 +101,4 @@ stages:
       ipwhitelist: ${{ parameters.ipwhitelist }}
       helmRepoPassword: ${{ parameters.helmRepoPassword }}
       envVars: ${{ parameters.envVars }}
+      customFQDN: mainnet-prod-game-logic-service.blastroyale.com

@@ -120,7 +120,7 @@ namespace FirstLight.Game.MonoComponent
 			weaponTransform.SetParent(anchor);
 
 			weaponTransform.localPosition = new Vector3(0, 0.1f, 0); // TODO mihak: TEMP HACK
-			weaponTransform.localRotation = Quaternion.Euler(0, 115, 0); // TODO mihak: TEMP HACK
+			weaponTransform.localRotation = Quaternion.Euler(0, 155, 0); // TODO mihak: TEMP HACK
 			weaponTransform.localScale = Vector3.one;
 
 			if (weaponTransform.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
@@ -245,6 +245,8 @@ namespace FirstLight.Game.MonoComponent
 		private void AddEquipmentRenderersContainer(RenderersContainerMonoComponent renderersContainer)
 		{
 			renderersContainer.SetLayer(gameObject.layer);
+			renderersContainer.SetEnabled(_renderersContainerProxy.Enabled);
+			
 			_renderersContainerProxy.AddRenderersContainer(renderersContainer);
 			Color col = default;
 			if (_renderersContainerProxy.GetFirstRendererColor(ref col))

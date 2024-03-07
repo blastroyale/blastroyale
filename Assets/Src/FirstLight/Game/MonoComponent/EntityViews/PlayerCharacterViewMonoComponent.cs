@@ -24,7 +24,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private static readonly int _playerPos = Shader.PropertyToID("_PlayerPos");
 		private const float SPEED_THRESHOLD_SQUARED = 0.45f * 0.45f; // unity units per second	
-		private bool _moveSpeedControl = false;
+		private const float KNOCKED_OUT_SPEED_THRESHOLD_SQUARED = 0.1f * 0.1f; // unity units per second	
 
 		/// <summary>
 		/// Deprecated, should be removed.
@@ -36,7 +36,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private Coroutine _attackHideRendererCoroutine;
 		private IMatchServices _matchServices;
-		
+
 		// TODO mihak: Probably remove this
 #pragma warning disable CS0414 // Field is assigned but its value is never used
 		private bool _playerFullyGrounded;
@@ -184,11 +184,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			PlayerRef = frame.Get<PlayerCharacter>(EntityRef).Player;
 			IsLocalPlayer = game.PlayerIsLocal(PlayerRef);
-
-			if (IsLocalPlayer)
-			{
-				_moveSpeedControl = MainInstaller.Resolve<IGameDataProvider>().AppDataProvider.MovespeedControl;
-			}
 
 			if (!Services.NetworkService.JoinSource.HasResync())
 			{
@@ -402,7 +397,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			// TODO mihak: ??
 			// AnimatorWrapper.Enabled = true;
 			//AnimatorWrapper.SetTrigger(Triggers.Revive);
-			
+
 			RenderersContainerProxy.SetEnabled(true);
 		}
 
@@ -581,15 +576,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			deltaPosition.y = 0f; // falling doesn't count
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
 
-			var isMoving = sqrSpeed > SPEED_THRESHOLD_SQUARED;
-			// Speed threshold doesn't work very well with knockedout player because of low velocity, I tried to change the values but it keeps breaking
-			if (ReviveSystem.IsKnockedOut(f, EntityRef))
-			{
-				isMoving = characterController3D->Velocity.Magnitude.AsFloat > 0;
-			}
-
+			var isMoving = sqrSpeed > (ReviveSystem.IsKnockedOut(f, EntityRef) ? KNOCKED_OUT_SPEED_THRESHOLD_SQUARED : SPEED_THRESHOLD_SQUARED);
 			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey) && !knockedOut;
-			
+
 			_skin.Moving = isMoving;
 			_characterView.PrintFootsteps = isMoving && !knockedOut;
 			// TODO mihak: ???

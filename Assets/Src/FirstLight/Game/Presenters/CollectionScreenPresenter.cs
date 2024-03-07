@@ -12,6 +12,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -156,7 +157,6 @@ namespace FirstLight.Game.Presenters
 			}
 
 			return base.OnClosed();
-			
 		}
 
 		private void SetupCategories()
@@ -282,6 +282,7 @@ namespace FirstLight.Game.Presenters
 					result.Add(item);
 				}
 			}
+
 			return result.Where(c => c.Id.IsInGroup(GameIdGroup.Collection)).ToList();
 		}
 
@@ -351,6 +352,13 @@ namespace FirstLight.Game.Presenters
 				_degreesToRotate = _deathMarkerSpawnRotation.y;
 				_anchorObject.transform.localRotation = Quaternion.Euler(_deathMarkerSpawnRotation);
 			}
+			else if (_selectedCategory.Id == GameIdGroup.PlayerSkin)
+			{
+				var skin = _collectionObject.GetComponent<CharacterSkinMonoComponent>();
+				skin.Meta = true;
+				_degreesToRotate = _collectionSpawnRotation.y;
+				_anchorObject.transform.localRotation = Quaternion.Euler(_collectionSpawnRotation);
+			}
 			else
 			{
 				_degreesToRotate = _collectionSpawnRotation.y;
@@ -391,38 +399,10 @@ namespace FirstLight.Game.Presenters
 			_equipButton.text = equipped != null && selectedId == equipped.Id
 				? ScriptLocalization.General.Selected.ToUpper()
 				: ScriptLocalization.General.Equip;
-			
-			// Choose how to handle Item Label based on Collection Category
-			switch (category.Id)
-			{
-				case GameIdGroup.ProfilePicture:
-				{
-					_selectedItemLabel.text = "";
-					break;
-				}
-				default:
-				{
-					_selectedItemLabel.text = selectedItem.GetDisplayName();
-					break;
-				}
-			}
-			
-			// Choose how to handle Item Description based on Collection Category
-			switch (category.Id)
-			{
-				case GameIdGroup.MeleeSkin:
-				case GameIdGroup.ProfilePicture:
-				{
-					_selectedItemDescription.text = "";
-					break;
-				}
-				default:
-				{
-					_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
-					break;
-				}
-			}
-			
+
+			_selectedItemLabel.text = selectedItem.GetDisplayName();
+			_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
+
 			_nameLockedIcon.SetDisplay(!_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
 			_equipButton.SetDisplay(_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
 		}

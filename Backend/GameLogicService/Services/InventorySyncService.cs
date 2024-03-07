@@ -34,7 +34,7 @@ namespace GameLogicService.Services
 			_log = log;
 			_catalog = catalog;
 		}
-		
+
 		private async Task<int> SyncCurrency(string player, GetUserInventoryResult inventory, PlayerData playerData, GameId gameId)
 		{
 			var playfabName = PlayfabCurrencies.GetPlayfabCurrencyName(gameId);
@@ -54,6 +54,7 @@ namespace GameLogicService.Services
 				_log.LogInformation($"[Playfab Sync] Synced {playfabAmount} x {gameId} for user {player}");
 				return playfabAmount;
 			}
+
 			return 0;
 		}
 
@@ -72,9 +73,12 @@ namespace GameLogicService.Services
 
 				var playerData = state.DeserializeModel<PlayerData>();
 
-				consumedCurrencies[GameId.COIN] = await SyncCurrency(player, inventory, playerData, GameId.COIN);
-				consumedCurrencies[GameId.CS] = await SyncCurrency(player, inventory, playerData, GameId.CS);
-	
+				var currencies = new[] { GameId.COIN, GameId.CS, GameId.BlastBuck };
+				foreach (var gameId in currencies)
+				{
+					consumedCurrencies[gameId] = await SyncCurrency(player, inventory, playerData, gameId);
+				}
+
 				if (inventory.Inventory.Count > 0)
 				{
 					foreach (var item in inventory.Inventory)
@@ -120,8 +124,8 @@ namespace GameLogicService.Services
 					if (amt == 0) continue;
 					var res2 = await PlayFabServerAPI.AddUserVirtualCurrencyAsync(new()
 					{
-						Amount = amt, 
-						PlayFabId = player, 
+						Amount = amt,
+						PlayFabId = player,
 						VirtualCurrency = PlayfabCurrencies.GetPlayfabCurrencyName(currency)
 					});
 					if (res2.Error != null)

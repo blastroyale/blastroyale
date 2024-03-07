@@ -25,7 +25,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private static readonly int _playerPos = Shader.PropertyToID("_PlayerPos");
 		private const float SPEED_THRESHOLD_SQUARED = 0.45f * 0.45f; // unity units per second	
 		private const float KNOCKED_OUT_SPEED_THRESHOLD_SQUARED = 0.1f * 0.1f; // unity units per second	
-		private bool _moveSpeedControl = false;
 
 		/// <summary>
 		/// Deprecated, should be removed.
@@ -185,11 +184,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			PlayerRef = frame.Get<PlayerCharacter>(EntityRef).Player;
 			IsLocalPlayer = game.PlayerIsLocal(PlayerRef);
-
-			if (IsLocalPlayer)
-			{
-				_moveSpeedControl = MainInstaller.Resolve<IGameDataProvider>().AppDataProvider.MovespeedControl;
-			}
 
 			if (!Services.NetworkService.JoinSource.HasResync())
 			{

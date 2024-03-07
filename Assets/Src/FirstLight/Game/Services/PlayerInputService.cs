@@ -221,10 +221,6 @@ namespace FirstLight.Game.Services
 			if (OverwriteCallbackInput == null)
 			{
 				float moveSpeedPercentage = 100;
-				if (_dataProvider.AppDataProvider.MovespeedControl)
-				{
-					moveSpeedPercentage = Math.Min(_direction.magnitude * 100, 100);
-				}
 				_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting,
 					FP.FromFloat_UNSAFE(moveSpeedPercentage));
 			}

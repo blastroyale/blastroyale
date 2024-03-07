@@ -53,6 +53,7 @@ namespace Src.FirstLight.Server
             {
                 typeof(GiveDefaultCollectionItemsCommand),
                 typeof(InitializeBattlepassSeasonCommand),
+				typeof(CleanupOldDataCommand)
             };
         }
 

@@ -909,7 +909,7 @@ MonoBehaviour:
       MaxHealthDamage:
         RawValue: 1311
       AirdropChance:
-        RawValue: 52429
+        RawValue: 52428
       AirdropStartTimeRange:
         Value1:
           RawValue: 2490368
@@ -934,7 +934,7 @@ MonoBehaviour:
       MaxHealthDamage:
         RawValue: 1966
       AirdropChance:
-        RawValue: 52429
+        RawValue: 52428
       AirdropStartTimeRange:
         Value1:
           RawValue: 524288

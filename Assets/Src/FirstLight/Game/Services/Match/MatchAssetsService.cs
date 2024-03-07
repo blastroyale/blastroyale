@@ -125,13 +125,19 @@ namespace FirstLight.Game.Services
 		{
 			var start = DateTime.UtcNow;
 			FLog.Info("Unloading Match Assets");
-			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;
 
 			_services.GameUiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
 
-			await _services.AssetResolverService.UnloadSceneAsync(scene);
+			var sceneCount = SceneManager.sceneCount;
+			for (var i = 0; i < sceneCount; i++)
+			{
+				var scene = SceneManager.GetSceneAt(i);
+				if (!scene.path.Contains("Maps")) continue;
+				await _services.AssetResolverService.UnloadSceneAsync(scene);
+				break;
+			}
 
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
@@ -171,7 +177,7 @@ namespace FirstLight.Game.Services
 			{
 				throw new Exception("Asset map config not found for map " + map);
 			}
-
+			
 			var sceneTask = _assetAdderService.LoadSceneAsync(config.Scene, LoadSceneMode.Additive);
 			SceneManager.SetActiveScene(await sceneTask);
 		}

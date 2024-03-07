@@ -637,9 +637,9 @@ MonoBehaviour:
         Value: 2480520579551617486
     ProjectileSpawnOffset:
       X:
-        RawValue: 10944
+        RawValue: 0
       Y:
-        RawValue: 63569
+        RawValue: 36044
       Z:
         RawValue: 25362
     Player:
@@ -862,7 +862,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityView: {fileID: 9100407106362044459}
   _healthBarAnchor: {fileID: 6195588820050874286}
-  _emojiAnchor: {fileID: 8808694194117572932}
   _shadowBlob: {fileID: 8884971393132718742}
   _circleIndicator: {fileID: 272697846909594401}
 --- !u!114 &831566930108708915

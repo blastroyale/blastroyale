@@ -308,19 +308,46 @@ namespace Quantum.Systems.Bots
 				modifiers = modifiers,
 				KccConfig = kccConfig
 			};
-			
-			SetupBotSkins(f, botEntity);
+
+			SetupBotCosmetics(f, botEntity, spawner.Entity);
 			playerCharacter->Init(f, setup);
-			
+			CheckUpdateTutorialRuntimeData(f, spawner.Entity, botEntity);
 			if (f.Unsafe.TryGetPointer<BotLoadout>(spawner.Entity, out var botLoadout))
 			{
 				playerCharacter->AddWeapon(f, botEntity, ref botLoadout->Weapon, true);
 				playerCharacter->EquipSlotWeapon(f, botEntity, Constants.WEAPON_INDEX_PRIMARY);
 			}
-			
+
 			if (GetAmmoPercentage(f, ref spawner, out var percentage))
 			{
 				f.Unsafe.GetPointer<Stats>(botEntity)->SetCurrentAmmo(f, playerCharacter, botEntity, percentage);
+			}
+		}
+
+		/// <summary>
+		/// This is a hack because the spawner entity is not the same as the player who it spawns, so i change the tutorial runtime refs to the spawned player
+		/// </summary>
+		private void CheckUpdateTutorialRuntimeData(Frame f, EntityRef spawnerEntity, EntityRef botEntity)
+		{
+			if (!f.Unsafe.TryGetPointerSingleton<TutorialRuntimeData>(out var tutorialData))
+			{
+				return;
+			}
+
+			UpdateBotEntityIfMatch(ref tutorialData->FinalBot, spawnerEntity, botEntity);
+			UpdateBotEntityIfMatch(ref tutorialData->GrenadeBot, spawnerEntity, botEntity);
+
+			for (var i = 0; i < tutorialData->FirstBots.Length; i++)
+			{
+				UpdateBotEntityIfMatch(ref tutorialData->FirstBots[i], spawnerEntity, botEntity);
+			}
+		}
+
+		private void UpdateBotEntityIfMatch(ref EntityRef targetEntity, EntityRef spawnerEntity, EntityRef botEntity)
+		{
+			if (targetEntity == spawnerEntity)
+			{
+				targetEntity = botEntity;
 			}
 		}
 
@@ -330,9 +357,16 @@ namespace Quantum.Systems.Bots
 			return f.RNG->RandomElement(availableSkins);
 		}
 
-		private void SetupBotSkins(Frame f, EntityRef entity)
+		private void SetupBotCosmetics(Frame f, EntityRef entity, EntityRef spawnerEntity)
 		{
 			f.Add<CosmeticsHolder>(entity);
+			if (f.Unsafe.TryGetPointer<CosmeticsHolder>(spawnerEntity, out var cosmetics))
+			{
+				var botCosmetics = f.ResolveList(cosmetics->Cosmetics).ToArray();
+				f.Unsafe.GetPointer<CosmeticsHolder>(entity)->SetCosmetics(f, botCosmetics);
+				return;
+			}
+
 			f.Unsafe.GetPointer<CosmeticsHolder>(entity)->SetCosmetics(f, new[]
 			{
 				RandomBotCosmeticInGroup(f, GameIdGroup.PlayerSkin),
@@ -358,7 +392,7 @@ namespace Quantum.Systems.Bots
 				ctx.PlayersByTeam.Add(Constants.TEAM_ID_START_BOT_PARTIES + i, new List<EntityRef>());
 			}
 		}
-		
+
 		private int GetBotTeamId(Frame frame, PlayerRef bot, Dictionary<int, List<EntityRef>> playerByTeam)
 		{
 			if (!frame.Context.GameModeConfig.Teams)
@@ -414,8 +448,8 @@ namespace Quantum.Systems.Bots
 
 		private int GetSpawnPointForBot(Frame f, BotSetupContext ctx, QuantumBotConfig botConfig, int teamId)
 		{
-			if (GetSpecificSpawn(f, ctx, botConfig,SpawnerType.BotOfType, out var specificSpawnPoint)) return specificSpawnPoint;
-			if (GetSpecificSpawn(f, ctx, botConfig,SpawnerType.AnyBot, out var anyBotSpawn)) return anyBotSpawn;
+			if (GetSpecificSpawn(f, ctx, botConfig, SpawnerType.BotOfType, out var specificSpawnPoint)) return specificSpawnPoint;
+			if (GetSpecificSpawn(f, ctx, botConfig, SpawnerType.AnyBot, out var anyBotSpawn)) return anyBotSpawn;
 
 			if (GetSpawnClosestToTeam(f, ctx, teamId, out var spawnPointForBot)) return spawnPointForBot;
 
@@ -453,7 +487,7 @@ namespace Quantum.Systems.Bots
 			specificSpawnPoint = -1;
 			return false;
 		}
-		
+
 
 		private bool GetSpawnClosestToTeam(Frame f, BotSetupContext ctx, int teamId, out int spawnPointForBot)
 		{

@@ -16,6 +16,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Loot Screen, where players can equip items and upgrade loot.
 	/// </summary>
+	// TODO: REMOVE THIS!
 	[LoadSynchronously]
 	public class EquipmentPresenter : UiToolkitPresenterData<EquipmentPresenter.StateData>
 	{
@@ -59,7 +60,7 @@ namespace FirstLight.Game.Presenters
 
 			RefreshCategories();
 			
-			_services.MessageBrokerService.Publish(new EquipmentScreenOpenedMessage());
+			//_services.MessageBrokerService.Publish(new EquipmentScreenOpenedMessage());
 		}
 
 		private void RefreshCategories()

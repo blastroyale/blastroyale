@@ -62,7 +62,7 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 				// var weaponInstance = Instantiate(weapon, skin.WeaponAnchor);
 				var weaponChild = weaponInstance.transform.GetChild(0);
 				weaponChild.localPosition = new Vector3(0, 0.1f, 0); // TODO mihak: TEMP HACK
-				weaponChild.localRotation = Quaternion.Euler(0, 115, 0); // TODO mihak: TEMP HACK
+				weaponChild.localRotation = Quaternion.Euler(0, 155, 0); // TODO mihak: TEMP HACK
 			}
 		}
 	}

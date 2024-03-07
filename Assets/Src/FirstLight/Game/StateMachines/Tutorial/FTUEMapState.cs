@@ -29,10 +29,10 @@ namespace FirstLight.Game.StateMachines
 			public Type EventType;
 			public string EventMetaId;
 			public short EventMetaAmount;
+			public Func<Frame, bool> Completed;
 		}
 
 		public static readonly IStatechartEvent ProceedTutorialEvent = new StatechartEvent("TUTORIAL - Proceed tutorial event");
-		public static readonly IStatechartEvent GrenadeMissedTutorialEvent = new StatechartEvent("TUTORIAL - Grenade Missed");
 		public static readonly IStatechartEvent SkipTutorialEvent = new StatechartEvent("TUTORIAL - SkipTutorialEvent");
 
 		private readonly IGameServices _services;
@@ -48,10 +48,7 @@ namespace FirstLight.Game.StateMachines
 		private List<LocationPointerVfxMonoComponent> _activeLocationPointers = new ();
 		private MetaTutorialSequence _sequence;
 		private GameplayProceedEventData _currentGameplayProceedData;
-		private short _currentKillProceedProgress;
 
-		private bool _hasSpecial0;
-		private bool _hasSpecial1;
 
 		public FirstGameTutorialState(IGameDataProvider logic, IGameServices services,
 									  IInternalTutorialService tutorialService,
@@ -80,10 +77,9 @@ namespace FirstLight.Game.StateMachines
 			var pickupWeapon = stateFactory.State("Pickup Weapon");
 			var moveToDummyArea = stateFactory.State("Move to dummy area");
 			var kill2Bots = stateFactory.State("Kill 2 bots");
-			var specialDecision = stateFactory.Choice("Already Has Special?");
 			var pickupSpecial = stateFactory.State("Pickup Special");
 			var kill1BotSpecial = stateFactory.State("Kill 1 bot special");
-			var grenadeMissed = stateFactory.Choice("Grenade Missed");
+			var checkGrenadeKill = stateFactory.Choice("Check Grenade Kill");
 			var moveToGateArea = stateFactory.State("Proceed through iron gate");
 			var moveToChestArea = stateFactory.State("Move to chest area");
 			var openBox = stateFactory.State("Open box");
@@ -132,7 +128,7 @@ namespace FirstLight.Game.StateMachines
 			destroyBarrier.OnEnter(OnEnterDestroyBarrier);
 			destroyBarrier.Event(MatchState.MatchUnloadedEvent).Target(final);
 			destroyBarrier.Event(ProceedTutorialEvent).Target(pickupWeapon);
-			
+
 			SkipTutorialHook(moveJoystick, firstMove, destroyBarrier);
 			pickupWeapon.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.PickUpWeapon); });
 			pickupWeapon.OnEnter(OnEnterPickupWeapon);
@@ -147,10 +143,8 @@ namespace FirstLight.Game.StateMachines
 			kill2Bots.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.Kill2Bots); });
 			kill2Bots.OnEnter(OnEnterKill2Bots);
 			kill2Bots.Event(MatchState.MatchUnloadedEvent).Target(final);
-			kill2Bots.Event(ProceedTutorialEvent).Target(specialDecision);
+			kill2Bots.Event(ProceedTutorialEvent).Target(pickupSpecial);
 
-			specialDecision.Transition().Condition(() => _hasSpecial0 || _hasSpecial1).Target(kill1BotSpecial);
-			specialDecision.Transition().Target(pickupSpecial);
 
 			pickupSpecial.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.PickupSpecial); });
 			pickupSpecial.OnEnter(OnEnterPickupSpecial);
@@ -160,11 +154,11 @@ namespace FirstLight.Game.StateMachines
 			kill1BotSpecial.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.Kill1BotSpecial); });
 			kill1BotSpecial.OnEnter(OnEnterKill1BotSpecial);
 			kill1BotSpecial.Event(MatchState.MatchUnloadedEvent).Target(final);
-			kill1BotSpecial.Event(ProceedTutorialEvent).Target(moveToGateArea);
-			kill1BotSpecial.Event(GrenadeMissedTutorialEvent).Target(grenadeMissed);
+			kill1BotSpecial.Event(ProceedTutorialEvent).Target(checkGrenadeKill);
 
-			grenadeMissed.Transition().Condition(() => _hasSpecial0 || _hasSpecial1).Target(kill1BotSpecial);
-			grenadeMissed.Transition().Target(pickupSpecial);
+			checkGrenadeKill.Transition().Condition(() => IsGrenadeBotDead(QuantumRunner.Default.Game.Frames.Verified)).Target(moveToGateArea);
+			checkGrenadeKill.Transition().Condition(() => HasSpecial(QuantumRunner.Default.Game.Frames.Verified)).Target(kill1BotSpecial);
+			checkGrenadeKill.Transition().Target(pickupSpecial);
 
 			moveToGateArea.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveToGateArea); });
 			moveToGateArea.OnEnter(OnEnterMoveToGateArea);
@@ -193,6 +187,25 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(CloseTutorialUi);
 			final.OnEnter(_sequence.SendCurrentStepCompletedAnalytics);
 			final.OnEnter(UnsubscribeMessages);
+		}
+
+
+		private void OnUpdateSimulation(CallbackUpdateView callback)
+		{
+			var f = callback.Game.Frames.Predicted;
+			CheckProgressWithCompleteFunction(f);
+		}
+
+		private void CheckProgressWithCompleteFunction(Frame f)
+		{
+			var current = _currentGameplayProceedData;
+			if (current.Completed == null)
+			{
+				return;
+			}
+
+			if (!current.Completed(f)) return;
+			_statechartTrigger(ProceedTutorialEvent);
 		}
 
 		private void KillTutorialBots()
@@ -231,14 +244,11 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeMessages()
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
-			QuantumEvent.SubscribeManual<EventOnEquipmentCollected>(this, OnEquipmentCollected);
 			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnHazardLand);
-			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
-			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
-			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
-			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(this, OnPlayerSpecialUpdated);
+			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateSimulation);
 			_services.MessageBrokerService.Subscribe<PlayerEnteredMessageVolume>(OnPlayerEnteredMessageVolume);
 		}
+
 
 		private void DespawnPointers()
 		{
@@ -278,20 +288,6 @@ namespace FirstLight.Game.StateMachines
 			CheckGameplayProceedConditions(typeof(EventOnLocalPlayerAlive));
 		}
 
-		private async void OnEquipmentCollected(EventOnEquipmentCollected callback)
-		{
-			await Task.Yield();
-
-			if (callback.PlayerEntity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
-
-			CheckGameplayProceedConditions(typeof(EventOnEquipmentCollected));
-		}
-
-		private async void OnPlayerDead(EventOnPlayerDead callback)
-		{
-			await Task.Yield();
-			CheckGameplayProceedConditions(typeof(EventOnPlayerDead));
-		}
 
 		private async void OnHazardLand(EventOnHazardLand callback)
 		{
@@ -302,55 +298,13 @@ namespace FirstLight.Game.StateMachines
 				_statechartTrigger(SkipTutorialEvent);
 				return;
 			}
-
-			CheckGameplayProceedConditions(typeof(EventOnHazardLand), callback.sourceId.ToString());
-
-			if (callback.Hits == 0)
-			{
-				_statechartTrigger(GrenadeMissedTutorialEvent);
-			}
 		}
 
-		private async void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
-		{
-			await Task.Yield();
-
-			// Need to do this, instead of SpectatedPlayer, because when the last kill happens, spectated player
-			// gets wiped in SpectateServices, creating a race condition.
-			// Instead, just get the local player ref from the game data itself
-			var localPlayer = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
-			var localPlayerEntity = localPlayer.Entity;
-
-			if (callback.EntityKiller != localPlayerEntity) return;
-
-			_currentKillProceedProgress += 1;
-			CheckGameplayProceedConditions(typeof(EventOnPlayerKilledPlayer), "", _currentKillProceedProgress);
-		}
-
-		private void OnChestOpened(EventOnChestOpened callback)
-		{
-			CheckGameplayProceedConditions(typeof(EventOnChestOpened));
-		}
-
-		private void OnPlayerSpecialUpdated(EventOnPlayerSpecialUpdated callback)
-		{
-			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
-
-			if (callback.SpecialIndex == 0)
-			{
-				_hasSpecial0 = callback.Special.IsValid;
-			}
-			else
-			{
-				_hasSpecial1 = callback.Special.IsValid;
-			}
-
-			CheckGameplayProceedConditions(typeof(EventOnPlayerSpecialUpdated));
-		}
 
 		private void UnsubscribeMessages()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+			QuantumCallback.UnsubscribeListener(this);
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
@@ -444,8 +398,7 @@ namespace FirstLight.Game.StateMachines
 
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
-				EventType = typeof(EventOnHazardLand),
-				EventMetaId = GameId.Barrier.ToString()
+				Completed = IsBarrierDestroyed
 			};
 		}
 
@@ -458,7 +411,7 @@ namespace FirstLight.Game.StateMachines
 
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
-				EventType = typeof(EventOnEquipmentCollected)
+				Completed = DoesLocalPlayerHaveWeapon
 			};
 		}
 
@@ -482,17 +435,16 @@ namespace FirstLight.Game.StateMachines
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT1].transform.position, GetLocalPlayerView().transform);
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT2].transform.position, GetLocalPlayerView().transform);
 
-			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
-				EventType = typeof(EventOnPlayerKilledPlayer),
-				EventMetaAmount = 2
+				Completed = AreTheFirstBotsDead
 			};
 			_services.MessageBrokerService.Publish(new AdvancedFirstMatchMessage
 			{
 				State = TutorialFirstMatchStates.EnterKill2Bots
 			});
 		}
+
 
 		private void OnEnterPickupSpecial()
 		{
@@ -504,7 +456,7 @@ namespace FirstLight.Game.StateMachines
 
 			_currentGameplayProceedData = new GameplayProceedEventData
 			{
-				EventType = typeof(EventOnPlayerSpecialUpdated)
+				Completed = HasSpecial
 			};
 		}
 
@@ -514,13 +466,13 @@ namespace FirstLight.Game.StateMachines
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT3].transform.position, GetLocalPlayerView().transform);
 
-			SetFingerPosition(_hasSpecial0 ? _hud.Special0 : _hud.Special1, 90);
+			SetFingerPosition(_hud.Special0, 90);
 
-			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
-				EventType = typeof(EventOnPlayerKilledPlayer),
-				EventMetaAmount = 1
+				// Completes either when the player kills the bot or he doesn't have specials any more
+				// Then the state machine will check if the bot is dead, and if it is will redirect to "Pick grenade" state
+				Completed = f => IsGrenadeBotDead(f) || (!HasSpecial(f) && !IsGrenadeFlying(f))
 			};
 		}
 
@@ -559,7 +511,7 @@ namespace FirstLight.Game.StateMachines
 
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
-				EventType = typeof(EventOnChestOpened)
+				Completed = IsFinalChestOpened
 			};
 		}
 
@@ -569,10 +521,9 @@ namespace FirstLight.Game.StateMachines
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_ARENA_DROPDOWN].transform.position, GetLocalPlayerView().transform);
 
-			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
-				EventType = typeof(EventOnPlayerDead)
+				Completed = IsFinalBotDead
 			};
 			_services.MessageBrokerService.Publish(new AdvancedFirstMatchMessage
 			{
@@ -582,8 +533,94 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterWaitMatchFinish()
 		{
+			_currentGameplayProceedData = new GameplayProceedEventData();
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.you_made_it_look_easy, CharacterType.Female, CharacterDialogMoodType.Happy,
 				CharacterDialogPosition.TopLeft);
+		}
+
+		private bool IsBarrierDestroyed(Frame f)
+		{
+			if (!f.TryGetSingleton<TutorialRuntimeData>(out var tutorialData))
+			{
+				return false;
+			}
+
+			return !f.Exists(tutorialData.FirstBarrier);
+		}
+
+		private bool DoesLocalPlayerHaveWeapon(Frame f)
+		{
+			var playerEntity = _matchServices.SpectateService.GetSpectatedEntity();
+			if (!f.Exists(playerEntity))
+			{
+				return false;
+			}
+
+			return f.TryGet<PlayerCharacter>(playerEntity, out var playerCharacter) && playerCharacter.CurrentWeapon.IsValid();
+		}
+
+		private bool AreTheFirstBotsDead(Frame f)
+		{
+			if (!f.TryGetSingleton<TutorialRuntimeData>(out var tutorialData))
+			{
+				return false;
+			}
+
+			for (int i = 0; i < tutorialData.FirstBots.Length; i++)
+			{
+				var entityRef = tutorialData.FirstBots[i];
+				if (IsPlayerAlive(f, entityRef))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+
+		private bool HasSpecial(Frame f)
+		{
+			var localPlayer = _matchServices.SpectateService.GetSpectatedEntity();
+			return f.TryGet<PlayerInventory>(localPlayer, out var inventory) && inventory.HasAnySpecial();
+		}
+
+
+		private bool IsGrenadeFlying(Frame f)
+		{
+			return f.ComponentCount<Hazard>() > 0;
+		}
+
+
+		private bool IsGrenadeBotDead(Frame f)
+		{
+			if (!f.TryGetSingleton<TutorialRuntimeData>(out var tutorialData))
+			{
+				return false;
+			}
+
+			return !IsPlayerAlive(f, tutorialData.GrenadeBot);
+		}
+
+		private bool IsFinalChestOpened(Frame f)
+		{
+			return f.ComponentCount<Chest>() == 0;
+		}
+
+
+		private bool IsPlayerAlive(Frame f, EntityRef entityRef)
+		{
+			return f.Exists(entityRef) && f.Has<AlivePlayerCharacter>(entityRef);
+		}
+
+		private bool IsFinalBotDead(Frame f)
+		{
+			if (!f.TryGetSingleton<TutorialRuntimeData>(out var tutorialData))
+			{
+				return false;
+			}
+
+			return !IsPlayerAlive(f, tutorialData.FinalBot);
 		}
 	}
 }

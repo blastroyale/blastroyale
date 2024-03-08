@@ -147,7 +147,7 @@ namespace FirstLight.Game.Presenters
 			
 			if (playerDataCount > 1)
             {
-            	_character2.RandomizeAnimationStateFrame("IdleBT", 0, 0.25f, 0.75f);
+				_character2.RandomizeAnimationStateFrame("IdleBT", 0, 0.25f, 0.75f);
             }
 
 			await UniTask.Delay(300);

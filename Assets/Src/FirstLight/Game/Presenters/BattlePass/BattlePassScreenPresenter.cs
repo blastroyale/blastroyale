@@ -412,6 +412,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 			ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs, Data.DisableScrollAnimation);
+			_currentReward.SetDisplay(false);
 			_rewardsScroll.UnregisterCallback<GeometryChangedEvent>(OnFinishedRewardScroll);
 		}
 

@@ -54,6 +54,7 @@ ModelImporter:
     - Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
     - Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
     - Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+    - Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
     extraUserProperties: []
     clipAnimations: []
     isReadable: 0

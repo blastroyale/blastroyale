@@ -34,7 +34,6 @@ namespace FirstLight.Game.Presenters
 		private ImageButton _closeScreenButton;
 
 		private Label _buildInfoLabel;
-		private Button _faqButton;
 		private Button _serverButton;
 		private Button _customizeHudButton;
 		private Button _logoutButton;
@@ -120,10 +119,6 @@ namespace FirstLight.Game.Presenters
 			_supportButton.clicked += OpenSupportService;
 			_serverButton = root.Q<Button>("ServerButton").Required();
 			_serverButton.clicked += OpenServerSelect;
-
-#if UNITY_IOS && !UNITY_EDITOR
-			_faqButton.SetDisplay(false);
-#endif
 
 			root.SetupClicks(_services);
 		}

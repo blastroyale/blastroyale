@@ -871,6 +871,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEntityDamaged(EventOnEntityDamaged callback)
 		{
+			if (callback.Spell.Id == Spell.KnockedOut) return;
+
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView) ||
 				callback.Player == PlayerRef.None) // TODO: a sound for things that are not players.
 			{

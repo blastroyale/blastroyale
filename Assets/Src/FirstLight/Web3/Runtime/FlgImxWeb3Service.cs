@@ -39,9 +39,7 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 
 	private async UniTaskVoid StartAsync()
 	{
-
 		_services = await MainInstaller.WaitResolve<IGameServices>();
-		MainInstaller.Bind<IWeb3Service>(this);
 		FLog.Info("[IMX Web3]", "Initializing");
 		Application.deepLinkActivated += OnDeepLink;
 		_services.AuthenticationService.OnLogin += e => InitPassport().Forget();
@@ -50,19 +48,28 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 	private async UniTask InitPassport()
 	{
 		Passport = await Passport.Init(ImxClientId, EnvString, REDIRECT_URI, LOGOUT_REDIRECT_URI);
+		MainInstaller.Bind<IWeb3Service>(this);
 		State = Web3State.Available;
+		if (await Passport.HasCredentialsSaved())
+		{
+			FLog.Info("[IMX Web3]", "Imx has credentials saved, auto-logging in");
+			if (await Passport.Login(true))
+			{
+				await ConnectBlockchain();
+			}
+		}
 	}
 
 	private string EnvString => _services.GameBackendService.IsDev() ?
 				Environment.SANDBOX : Environment.PRODUCTION;
 
-	public async UniTask<Web3State> OnLoginRequested()
+	public async UniTask<Web3State> RequestLogin()
 	{
 		if (State == Web3State.Authenticated)
 		{
 			_services.GenericDialogService.OpenButtonDialog("Logout Web3", "You are logged in, do you want to log out ?", true, new GenericDialogButton()
 			{
-				ButtonOnClick = () => OnLogoutRequested().Forget(),
+				ButtonOnClick = () => RequestLogout().Forget(),
 				ButtonText = "Logout"
 			});
 			return State;
@@ -76,8 +83,10 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 		{
 			_services.GenericDialogService.OpenSimpleMessage("Web3 Error", e.Message);
 			Debug.LogError(e);
+		} finally
+		{
+			await _services.GameUiService.CloseUi<LoadingSpinnerScreenPresenter>();
 		}
-		await _services.GameUiService.CloseUi<LoadingSpinnerScreenPresenter>();
 		return State;
 	}
 
@@ -87,15 +96,17 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 		if (PROOF_KEY) await Passport.LoginPKCE();
 		else
 		{
-			await Passport.Login();
-			await Passport.ConnectEvm();
-			_wallet = await GetOrCreateWallet();
+			if(!await Passport.Login())
+			{
+				return State;
+			}
+			await ConnectBlockchain();
 		}
 		State = Web3State.Authenticated;
 		return State;
 	}
 
-	public async UniTaskVoid OnLogoutRequested()
+	public async UniTaskVoid RequestLogout()
 	{
 		if (PROOF_KEY) await Passport.LogoutPKCE();
 		else await Passport.Logout();
@@ -105,16 +116,19 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 
 	public async UniTask<string> GetOrCreateWallet() => (await Passport.ZkEvmRequestAccounts()).First();
 
+	private async UniTask ConnectBlockchain()
+	{
+		await Passport.ConnectEvm();
+		_wallet = await GetOrCreateWallet();
+		State = Web3State.Authenticated;
+	}
+
 	private void OnDeepLink(string url)
 	{
-		FLog.Verbose("[IMX Web3]", "Deep Link Called "+url);
+		FLog.Verbose("[IMX Web3]", "Deep Link Called " + url);
 		if (PROOF_KEY && url.StartsWith(REDIRECT_URI))
 		{
-			Passport.ConnectEvm().ContinueWith(GetOrCreateWallet).ContinueWith(wallet =>
-			{
-				_wallet = wallet;
-				State = Web3State.Authenticated;
-			});
+			ConnectBlockchain().Forget();
 		}
 	}
 

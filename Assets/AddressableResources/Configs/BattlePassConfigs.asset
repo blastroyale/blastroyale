@@ -43,7 +43,7 @@ MonoBehaviour:
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__bamboo-season-reward
       EndGraphicName: BAM BOO
-      Highlighted: 1,40:F,20,90
+      Highlighted: 40:F,1,20,90
     Levels:
     - RewardId: 2
       PremiumRewardId: 0

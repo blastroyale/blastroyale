@@ -99,28 +99,57 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4819223349682164798, guid: 4b870db904abb498aa995ce6198c148e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3803334795197764658, guid: 4b870db904abb498aa995ce6198c148e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2511240423080479738, guid: 4b870db904abb498aa995ce6198c148e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -1356303237341133908, guid: 4b870db904abb498aa995ce6198c148e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4b870db904abb498aa995ce6198c148e, type: 3}
       propertyPath: m_Name
       value: Char_Cupid
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4b870db904abb498aa995ce6198c148e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806455235375228090, guid: 4b870db904abb498aa995ce6198c148e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4183125698258852080, guid: 4b870db904abb498aa995ce6198c148e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 4b870db904abb498aa995ce6198c148e, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
     - target: {fileID: 5866666021909216657, guid: 4b870db904abb498aa995ce6198c148e, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 13d1b76a3cd20412baded888cc19b5be, type: 2}
     - target: {fileID: 5866666021909216657, guid: 4b870db904abb498aa995ce6198c148e, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tFrom animation clip 'idle'\n\tFrom animation clip 'idle_melee'\n\tFrom
-        animation clip 'idle_gun'\n\tFrom animation clip 'idle_xlgun'\n\tFrom animation
-        clip 'idle_snipergun'\n\tFrom animation clip 'knocked_out'\n\tFrom animation
-        clip 'knocked_out_idle'\n\tFrom animation clip 'knocked_out_move'\n\tFrom
-        animation clip 'knocked_out_revive'\n\tFrom animation clip 'die'\n\tand more
-        ..."
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 4b870db904abb498aa995ce6198c148e, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8502549445762705191, guid: 4b870db904abb498aa995ce6198c148e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

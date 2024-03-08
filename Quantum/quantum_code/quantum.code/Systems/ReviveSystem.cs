@@ -7,7 +7,8 @@ namespace Quantum.Systems
 	/// System handling knockout logic, this contains knocking out the player when he dies, knockout collider, and reviving the player.
 	/// </summary>
 	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.KnockedOutFilter>, ISignalOnTriggerEnter3D,
-									   ISignalOnTriggerExit3D, ISignalOnComponentRemoved<KnockedOut>, ISignalPlayerDead, ISignalGameEnded
+									   ISignalOnTriggerExit3D, ISignalOnComponentRemoved<KnockedOut>, ISignalPlayerDead,
+									   ISignalGameEnded
 	{
 		public struct KnockedOutFilter
 		{
@@ -75,7 +76,7 @@ namespace Quantum.Systems
 					EndTime = FP._0,
 					NextHitTime = FP._0,
 					OriginalHitPosition = filter.Transform->Position,
-					PowerAmount = (uint)FPMath.RoundToInt((FP)filter.Stats->MaxHealth * config.DamagePerTick),
+					PowerAmount = (uint) FPMath.RoundToInt((FP) filter.Stats->MaxHealth * config.DamagePerTick),
 					KnockbackAmount = 0,
 					TeamSource = 0
 				};
@@ -184,7 +185,8 @@ namespace Quantum.Systems
 			stats->SetCurrentHealthPercentage(f, entityRef, lifePercentage);
 			f.Events.OnPlayerRevived(entityRef);
 			f.Signals.OnPlayerRevived(entityRef);
-			f.Unsafe.GetPointer<Revivable>(entityRef)->RecoverMoveSpeedAfter = f.Time + GetConfig(f).ReviveAnimationDuration;
+			f.Unsafe.GetPointer<Revivable>(entityRef)->RecoverMoveSpeedAfter =
+				f.Time + GetConfig(f).ReviveAnimationDuration;
 		}
 
 		private static void ReviveAllKnockedOutPlayers(Frame f)
@@ -246,7 +248,7 @@ namespace Quantum.Systems
 
 			if (spell->Id != Spell.KnockedOut)
 			{
-				damage = FPMath.CeilToInt((FP)damage * GetConfigForKnockedOut(f, knockedout).DamagePerShot);
+				damage = FPMath.CeilToInt((FP) damage * GetConfigForKnockedOut(f, knockedout).DamagePerShot);
 				return true;
 			}
 
@@ -283,12 +285,14 @@ namespace Quantum.Systems
 			var shape3D = Shape3D.CreateSphere(config.ReviveColliderRange);
 			var colliderEntity = knockedOutComponent->ColliderEntity;
 			f.Add(colliderEntity, Transform3D.Create(transform->Position));
-			f.Add(colliderEntity, PhysicsCollider3D.Create(f, shape3D, null, true, f.Context.TargetPlayerTriggersLayerIndex));
+			f.Add(colliderEntity,
+				PhysicsCollider3D.Create(f, shape3D, null, true, f.Context.TargetPlayerTriggersLayerIndex));
 			f.Add(colliderEntity, new KnockedOutCollider()
 			{
 				KnockedOutEntity = playerEntityRef
 			});
-			f.Physics3D.SetCallbacks(colliderEntity, CallbackFlags.OnDynamicTriggerEnter | CallbackFlags.OnDynamicTriggerExit);
+			f.Physics3D.SetCallbacks(colliderEntity,
+				CallbackFlags.OnDynamicTriggerEnter | CallbackFlags.OnDynamicTriggerExit);
 			f.Events.OnPlayerKnockedOut(spell->Attacker, playerEntityRef);
 			f.Signals.OnPlayerKnockedOut(playerEntityRef);
 			CheckIsRevivingOthers(f, playerEntityRef);
@@ -296,7 +300,8 @@ namespace Quantum.Systems
 			return true;
 		}
 
-		private static void StopRevivingPlayer(Frame f, KnockedOut* knockedOut, EntityRef knockedOutEntity, EntityRef revivingEntity)
+		private static void StopRevivingPlayer(Frame f, KnockedOut* knockedOut, EntityRef knockedOutEntity,
+											   EntityRef revivingEntity)
 		{
 			var resolveHashSet = f.ResolveHashSet(knockedOut->PlayersReviving);
 			if (!resolveHashSet.Contains(revivingEntity)) return;
@@ -332,7 +337,7 @@ namespace Quantum.Systems
 				if (f.ResolveHashSet(teammateKnockedOut->PlayersReviving).Contains(knockedOutEntity))
 				{
 					// The entities here are correct (they are not reversed)
-					StopRevivingPlayer(f, teammateKnockedOut,teamMate, knockedOutEntity);
+					StopRevivingPlayer(f, teammateKnockedOut, teamMate, knockedOutEntity);
 				}
 			}
 		}
@@ -396,9 +401,10 @@ namespace Quantum.Systems
 				configIndex = knockedOut->ConfigIndex;
 			}
 
-			if (f.Unsafe.TryGetPointer<Revivable>(player, out var revivable) && revivable->RecoverMoveSpeedAfter > f.Time)
+			if (f.Unsafe.TryGetPointer<Revivable>(player, out var revivable) &&
+				revivable->RecoverMoveSpeedAfter > f.Time)
 			{
-				configIndex = (byte)(revivable->TimesKnockedOut - 1);
+				configIndex = (byte) (revivable->TimesKnockedOut - 1);
 			}
 
 			if (configIndex != 255)

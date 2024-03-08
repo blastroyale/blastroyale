@@ -118,10 +118,8 @@ namespace FirstLight.Game.MonoComponent
 			var anchor = _skin.WeaponAnchor;
 
 			weaponTransform.SetParent(anchor);
-			weaponTransform.localPosition = new Vector3(0.06f, 0.1f, 0); // TODO mihak: TEMP HACK
-			weaponTransform.localRotation = Quaternion.Euler(0, 177.6f, 0); // TODO mihak: TEMP HACK
-			
-			weaponTransform.localScale = Vector3.one;
+			weaponTransform.localPosition = Vector3.zero;
+			weaponTransform.localRotation = Quaternion.identity;
 
 			if (weaponTransform.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
 			{

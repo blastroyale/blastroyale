@@ -67,9 +67,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: stop
@@ -96,9 +188,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: run_side
@@ -125,9 +309,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: run
@@ -210,9 +486,102 @@ ModelImporter:
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
-        messageOptions: 0      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: run_gun
@@ -266,9 +635,102 @@ ModelImporter:
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
-        messageOptions: 0      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: run_snipergun
@@ -322,9 +784,102 @@ ModelImporter:
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
-        messageOptions: 0      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: run_xlgun
@@ -378,9 +933,102 @@ ModelImporter:
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
-        messageOptions: 0      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: run_aiming
@@ -434,9 +1082,102 @@ ModelImporter:
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
-        messageOptions: 0      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: idle
@@ -463,9 +1204,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: idle_melee
@@ -492,9 +1325,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: idle_gun
@@ -521,9 +1446,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: idle_snipergun
@@ -550,9 +1567,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: idle_xlgun
@@ -579,9 +1688,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: attack_punch
@@ -608,9 +1809,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: aim_melee
@@ -637,9 +1930,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: aim_gun
@@ -666,9 +2051,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: aim_snipergun
@@ -695,9 +2172,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: aim_xlgun
@@ -724,9 +2293,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: attack_gun
@@ -753,9 +2414,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: attack_snipergun
@@ -782,9 +2535,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: attack_xlgun
@@ -811,9 +2656,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: attack_melee
@@ -840,9 +2777,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: knocked_out
@@ -869,9 +2898,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: knocked_out_idle
@@ -898,9 +3019,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: knocked_out_move
@@ -927,9 +3140,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: knocked_out_die
@@ -956,9 +3261,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: knocked_out_revive
@@ -985,9 +3382,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: die
@@ -1014,9 +3503,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: fly
@@ -1043,9 +3624,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: fly_in
@@ -1072,9 +3745,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: land
@@ -1101,9 +3866,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: stun_start
@@ -1130,9 +3987,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: stun_loop
@@ -1159,9 +4108,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: hit
@@ -1188,9 +4229,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: flair
@@ -1217,9 +4350,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: victory
@@ -1246,9 +4471,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: meta_idle
@@ -1275,9 +4592,101 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Hips
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/fingers01.L/fingers02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/indexFinger01.L/indexFinger02.L/indexFinger03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L/arm.L/forearm.L/hand.L/thumb01.L/thumb02.L/thumb03.L
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/fingers01.R/fingers02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/indexFinger01.R/indexFinger02.R/indexFinger03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
+        weight: 1
+      - path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+        weight: 1
+      - path: body
+        weight: 1
+      - path: head
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: 0bfdaf4c5f5944d2cb66735ad598f4e9, type: 2}
       additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:

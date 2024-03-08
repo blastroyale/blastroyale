@@ -59,10 +59,6 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.EquipmentSelectionPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/GameCountdownScreen.prefab
-    Layer: -2
-    UiType: FirstLight.Game.Presenters.GameCountdownScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GameModeSelection.prefab
     Layer: 3
     UiType: FirstLight.Game.Presenters.GameModeSelectionPresenter, FirstLight.Game,
@@ -209,8 +205,6 @@ MonoBehaviour:
     - FirstLight.Game.Presenters.HUDScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - SetId: 3
-    UiConfigsType:
-    - FirstLight.Game.Presenters.GameCountdownScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    UiConfigsType: []
   - SetId: 4
     UiConfigsType: []

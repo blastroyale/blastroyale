@@ -71,17 +71,17 @@ MonoBehaviour:
       ConsumableType: 2
       Amount:
         Default:
-          RawValue: 3686
+          RawValue: 4587
         Keys: []
         Values: []
       ConsumableCollectTime:
         Default:
-          RawValue: 78643
+          RawValue: 65536
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 78643
+        - RawValue: 65536
         - RawValue: 13107
       CollectableConsumablePickupRadius:
         RawValue: 49152
@@ -92,7 +92,7 @@ MonoBehaviour:
       ConsumableType: 3
       Amount:
         Default:
-          RawValue: 1310720
+          RawValue: 1638400
         Keys: []
         Values: []
       ConsumableCollectTime:

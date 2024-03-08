@@ -13,8 +13,13 @@ namespace Quantum.Systems.Bots
 		/// </summary>
 		private static FP ACCURACY_LERP_TICK = FP._0_05;
 
-		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, Frame f)
+		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, in PlayerCharacter pc, Frame f)
 		{
+			if (pc.HasMeleeWeapon(f, entity))
+			{
+				return Stats.GetStat(f, entity, StatType.AttackRange);
+			}
+			
 			return FPMath.Min(Stats.GetStat(f, entity, StatType.AttackRange), bot.MaxAimingRange);
 		}
 
@@ -42,7 +47,7 @@ namespace Quantum.Systems.Bots
 				// Aim at target
 				else
 				{
-					var maxRange = filter.BotCharacter->GetMaxWeaponRange(filter.Entity, f);
+					var maxRange = filter.BotCharacter->GetMaxWeaponRange(filter.Entity, *filter.PlayerCharacter, f);
 					var team = f.Get<Targetable>(filter.Entity).Team;
 					if (filter.TryToAimAtEnemy(f, team, maxRange, target, out var targetHit))
 					{
@@ -76,14 +81,17 @@ namespace Quantum.Systems.Bots
 		// We loop through targetable entities trying to find if any is eligible to shoot at
 		public static void FindEnemiesToShootAt(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
 		{
+			if (ReviveSystem.IsKnockedOut(f,botFilter.Entity))
+			{
+				return;
+			}
 			var target = EntityRef.None;
 			// We do line/shapecasts for enemies in sight
 			// If there is a target in Sight then store this Target into the blackboard variable
 			// We check enemies one by one until we find a valid enemy in sight
 			// Note: Bots against bots use the full weapon range
 			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var weaponTargetRange = f.Get<Stats>(botFilter.Entity).GetStatData(StatType.AttackRange).StatValue;
-			var limitedTargetRange = FPMath.Min(weaponTargetRange, botFilter.BotCharacter->MaxAimingRange);
+			var limitedTargetRange = botFilter.BotCharacter->GetMaxWeaponRange(botFilter.Entity, *botFilter.PlayerCharacter, f);
 			var team = f.Get<Targetable>(botFilter.Entity).Team;
 
 			var it = f.Unsafe.FilterStruct<BotTargetFilter>();

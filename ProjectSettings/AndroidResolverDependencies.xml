@@ -1,6 +1,5 @@
 <dependencies>
   <packages>
-    <package>com.android.support:appcompat-v7:28.0.0</package>
     <package>com.google.android.gms:play-services-base:18.2.0</package>
     <package>com.google.firebase:firebase-analytics:21.3.0</package>
     <package>com.google.firebase:firebase-analytics-unity:11.2.0</package>

@@ -17,14 +17,6 @@ public class BulletMonoComponent : MonoBehaviour
 	void Awake()
 	{
 		View.OnEntityInstantiated.AddListener(SetupBulletColor);
-
-		if (FeatureFlags.BULLET_CAMERA_ADJUSTMENT)
-		{
-			foreach (var render in GetComponentsInChildren<Renderer>())
-			{
-				render.transform.Translate(CameraCorrectionOffset);
-			}
-		}
 	}
 
 	

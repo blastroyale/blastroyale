@@ -1,4 +1,3 @@
-using FirstLight.Game.Configs;
 using FirstLight.Game.Messages;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,9 +8,9 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	/// <inheritdoc cref="CharacterEquipmentMonoComponent"/>
 	public class MainMenuCharacterViewComponent : CharacterEquipmentMonoComponent, IDragHandler
 	{
-		private MainMenuCharacterAnimationConfig _animationConfig => _services.ConfigsProvider.GetConfig<MainMenuCharacterAnimationConfig>();
-
-		private float _currentIdleTime;
+		private const float MIN_FLARE_DELAY = 10f;
+		private const float MAX_FLARE_DELAY = 25f;
+		
 		private float _nextFlareTime = -1f;
 		private bool _processFlareAnimation = true;
 		private bool _playedFirstFlareAnim;
@@ -20,11 +19,8 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			base.Awake();
 
-			_nextFlareTime = Random.Range(_animationConfig.FlareAnimMinPlaybackTime / 2,
-				_animationConfig.FlareAnimMaxPlaybackTime / 2);
+			_nextFlareTime = Time.time + Random.Range(MIN_FLARE_DELAY / 2, MAX_FLARE_DELAY / 2);
 
-
-			_services.MessageBrokerService.Subscribe<EquipmentScreenOpenedMessage>(OnEquipmentScreenOpenedMessage);
 			_services.MessageBrokerService.Subscribe<PlayScreenOpenedMessage>(OnPlayScreenOpenedMessage);
 		}
 
@@ -40,25 +36,16 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				return;
 			}
 
-			if (_currentIdleTime > _nextFlareTime)
+			if (Time.time > _nextFlareTime)
 			{
 				_skin.TriggerFlair();
-				_nextFlareTime = Random.Range(_animationConfig.FlareAnimMinPlaybackTime, _animationConfig.FlareAnimMaxPlaybackTime);
-
-				_currentIdleTime = 0;
+				_nextFlareTime = Time.time + Random.Range(MIN_FLARE_DELAY, MAX_FLARE_DELAY);
 			}
-
-			_currentIdleTime += Time.deltaTime;
 		}
 
 		public void OnDrag(PointerEventData eventData)
 		{
 			transform.parent.Rotate(0, -eventData.delta.x, 0, Space.Self);
-		}
-
-		private void OnEquipmentScreenOpenedMessage(EquipmentScreenOpenedMessage message)
-		{
-			_processFlareAnimation = false;
 		}
 
 		private void OnPlayScreenOpenedMessage(PlayScreenOpenedMessage message)

@@ -39,12 +39,12 @@ MonoBehaviour:
         Values: 640000002c010000
       PlayerDefaultSpeed:
         Default:
-          RawValue: 183500
+          RawValue: 186777
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 183500
+        - RawValue: 186777
         - RawValue: 245760
       PlayerMaxShieldCapacity:
         Default: 100

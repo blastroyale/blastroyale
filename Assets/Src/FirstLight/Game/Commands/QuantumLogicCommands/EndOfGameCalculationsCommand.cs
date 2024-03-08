@@ -70,6 +70,7 @@ namespace FirstLight.Game.Commands
 
 			var executingData = PlayersMatchData[QuantumValues.ExecutingPlayer];
 			var items = frame.ResolveDictionary(executingData.Data.CollectedMetaItems);
+			EarnedGameItems = new Dictionary<GameId, ushort>();
 			foreach (var kp in items)
 			{
 				EarnedGameItems[kp.Key] = kp.Value;

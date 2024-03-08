@@ -18,6 +18,8 @@ MonoBehaviour:
       Guid:
         Value: 3922240779153377466
     FullyDisable: 0
+    ReviveAnimationDuration:
+      RawValue: 65536
     PerGameMode:
       Default:
         AllowedRevives:

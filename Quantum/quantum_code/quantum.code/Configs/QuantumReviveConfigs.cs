@@ -32,6 +32,7 @@ namespace Quantum
 	public partial class QuantumReviveConfigs
 	{
 		public bool FullyDisable;
+		public FP ReviveAnimationDuration;
 		public QuantumPerGameModeConfig<GameModeReviveConfig> PerGameMode = new QuantumPerGameModeConfig<GameModeReviveConfig>();
 	}
 }

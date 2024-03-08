@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2793088353377697673}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: HealthbarAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 4802765721559692503}
   - component: {fileID: 8571183503692433774}
   - component: {fileID: 7103228629055250795}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,6 +298,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1373796329876343882}
     m_Modifications:
+    - target: {fileID: 645536533421823033, guid: 35297c7109c65864a8f4cdae9d9c5d17, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1155749769559834429, guid: 35297c7109c65864a8f4cdae9d9c5d17, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1155749769944091590, guid: 35297c7109c65864a8f4cdae9d9c5d17, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2697967556840134076, guid: 35297c7109c65864a8f4cdae9d9c5d17, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104937314234189988, guid: 35297c7109c65864a8f4cdae9d9c5d17, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113136734207306521, guid: 35297c7109c65864a8f4cdae9d9c5d17, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290233071911331437, guid: 35297c7109c65864a8f4cdae9d9c5d17, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5565962020149622853, guid: 35297c7109c65864a8f4cdae9d9c5d17, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762412253351518672, guid: 35297c7109c65864a8f4cdae9d9c5d17, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7799200939321987721, guid: 35297c7109c65864a8f4cdae9d9c5d17, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -345,6 +381,14 @@ PrefabInstance:
     - target: {fileID: 7799200939321987722, guid: 35297c7109c65864a8f4cdae9d9c5d17, type: 3}
       propertyPath: m_Name
       value: Barrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987722, guid: 35297c7109c65864a8f4cdae9d9c5d17, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467099085672400408, guid: 35297c7109c65864a8f4cdae9d9c5d17, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

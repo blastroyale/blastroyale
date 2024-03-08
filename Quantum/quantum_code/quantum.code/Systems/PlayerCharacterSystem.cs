@@ -127,16 +127,17 @@ namespace Quantum.Systems
 			{
 				equipmentToDrop.Add(playerDead->CurrentWeapon);
 			}
-			
+
 			// We drop two items. One is always a consumable. Another can be a gun (50% chance) or consumable
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Consumables)
 			{
 				var consumable = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.Health, GameId.ShieldSmall);
 				consumablesToDrop.Add(consumable);
-				
-				if (!playerDead->HasMeleeWeapon(f, entity) && f.RNG->NextBool()) //also drop the target player's weapon
+
+				if (playerDead->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid()
+					&& f.RNG->Next(FP._0, FP._1) < Constants.CHANCE_TO_DROP_WEAPON_ON_DEATH) //also drop the target player's weapon
 				{
-					equipmentToDrop.Add(playerDead->CurrentWeapon);
+					equipmentToDrop.Add(playerDead->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon);
 				}
 				else
 				{
@@ -155,7 +156,7 @@ namespace Quantum.Systems
 					}
 				}
 			}
-			
+
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Tutorial)
 			{
 				// No need to drop anything from killed dummies
@@ -315,6 +316,7 @@ namespace Quantum.Systems
 
 		private void UpdateHealthPerSecMutator(Frame f, ref PlayerCharacterFilter filter)
 		{
+			if (!f.IsVerified) return;
 			if (!f.Context.TryGetMutatorByType(MutatorType.HealthPerSeconds, out var healthPerSecondsMutatorConfig))
 			{
 				return;
@@ -323,26 +325,23 @@ namespace Quantum.Systems
 			var health = healthPerSecondsMutatorConfig.Param1.AsInt;
 			var seconds = healthPerSecondsMutatorConfig.Param2.AsInt;
 
-			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
-
-			if (f.Time > gameContainer->MutatorsState.HealthPerSecLastTime + seconds)
+			// It will heal every x frames
+			var frames = seconds * f.UpdateRate;
+			if (f.Number % frames != 0) return;
+			
+			if (!f.Unsafe.TryGetPointer<Stats>(filter.Entity, out var stats))
 			{
-				gameContainer->MutatorsState.HealthPerSecLastTime = f.Time;
+				return;
+			}
 
-				if (!f.Unsafe.TryGetPointer<Stats>(filter.Entity, out var stats))
-				{
-					return;
-				}
-
-				var spell = new Spell() { PowerAmount = (uint)health };
-				if (health > 0)
-				{
-					stats->GainHealth(f, filter.Entity, &spell);
-				}
-				else
-				{
-					stats->ReduceHealth(f, filter.Entity, &spell);
-				}
+			var spell = new Spell() { PowerAmount = (uint)health };
+			if (health > 0)
+			{
+				stats->GainHealth(f, filter.Entity, &spell);
+			}
+			else
+			{
+				stats->ReduceHealth(f, filter.Entity, &spell);
 			}
 		}
 

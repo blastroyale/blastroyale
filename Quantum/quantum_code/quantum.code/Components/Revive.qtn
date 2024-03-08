@@ -1,5 +1,6 @@
 ﻿component Revivable {
     byte TimesKnockedOut;
+    FP RecoverMoveSpeedAfter;
 }
 
 component KnockedOut{
@@ -25,6 +26,11 @@ synced event OnPlayerKnockedOut
 }
 
 synced event OnPlayerStartReviving
+{
+	entity_ref Entity;
+}
+
+synced event OnPlayerStopReviving
 {
 	entity_ref Entity;
 }

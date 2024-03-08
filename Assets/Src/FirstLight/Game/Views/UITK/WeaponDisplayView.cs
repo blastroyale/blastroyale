@@ -27,7 +27,6 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _weaponRarity;
 		private VisualElement _weaponIcon;
 		private VisualElement _weaponShadow;
-		private VisualElement _factionIcon;
 		private VisualElement _switchIcon;
 		private RadialProgressElement _ammoProgress;
 		private VisualElement _outOfAmmoGlow;
@@ -53,7 +52,6 @@ namespace FirstLight.Game.Views.UITK
 			_weaponRarity = _weapon.Q("WeaponRarityIcon").Required();
 			_weaponIcon = _weapon.Q("WeaponIcon").Required();
 			_weaponShadow = _weapon.Q("WeaponIconShadow").Required();
-			_factionIcon = _weapon.Q("FactionIcon").Required();
 			_ammoLabel = element.Q<Label>("Ammo").Required();
 			_ammoProgress = element.Q<RadialProgressElement>("AmmoProgress").Required();
 			_outOfAmmoGlow = element.Q<VisualElement>("AmmoProgressBg").Required();
@@ -98,14 +96,13 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 			var f = QuantumRunner.Default.Game.Frames.Verified;
-			
+
 			Element.SetDisplay(!ReviveSystem.IsKnockedOut(f, playerEntity));
 			if (!f.TryGet<PlayerCharacter>(playerEntity, out var pc))
 			{
 				return;
 			}
 
-			
 
 			SetWeapon(pc.WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon);
 			SetSlot(pc.CurrentWeaponSlot);
@@ -253,7 +250,6 @@ namespace FirstLight.Game.Views.UITK
 		private async void SetWeapon(Equipment weapon)
 		{
 			_weaponRarity.RemoveSpriteClasses();
-			_factionIcon.RemoveSpriteClasses();
 			_weaponIcon.style.backgroundImage = null;
 			_weaponShadow.style.backgroundImage = null;
 
@@ -263,18 +259,11 @@ namespace FirstLight.Game.Views.UITK
 			{
 				_weaponRarity.AddToClassList(string.Format(USS_SPRITE_RARITY,
 					EquipmentRarity.Common.ToString().ToLowerInvariant()));
-
 				return;
 			}
 
 			_weaponRarity.AddToClassList(string.Format(USS_SPRITE_RARITY,
-				weapon.Rarity.ToString().Replace("Plus", "").ToLowerInvariant()));
-
-			_factionIcon.AddToClassList(string.Format(USS_SPRITE_FACTION,
-				weapon.Faction.ToString().ToLowerInvariant()));
-
-			// No need to show faction icon until we have usecase for it in a match
-			_factionIcon.SetVisibility(false);
+				(weapon.Material == EquipmentMaterial.Golden ? EquipmentRarity.Legendary : EquipmentRarity.Common).ToString().ToLowerInvariant()));
 
 			_weaponIcon.style.backgroundImage = _weaponShadow.style.backgroundImage =
 				new StyleBackground(

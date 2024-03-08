@@ -58,6 +58,19 @@ namespace FirstLight.Game.MonoComponent
 			}
 		}
 
+		public bool Enabled
+		{
+			get
+			{
+				foreach (var renderersContainer in _renderersContainers)
+				{
+					return renderersContainer.Enabled;
+				}
+
+				return false;
+			}
+		}
+
 		public void SetColor(Color color)
 		{
 			foreach (var renderersContainer in _renderersContainers)

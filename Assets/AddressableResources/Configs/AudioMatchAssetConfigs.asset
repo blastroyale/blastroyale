@@ -2309,7 +2309,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       Loop: 0
       RandomiseStartTime: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
@@ -2323,7 +2323,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       Loop: 0
       RandomiseStartTime: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
@@ -2337,7 +2337,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       Loop: 0
       RandomiseStartTime: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0

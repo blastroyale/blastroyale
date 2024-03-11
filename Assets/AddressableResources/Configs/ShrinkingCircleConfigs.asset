@@ -1522,11 +1522,11 @@ MonoBehaviour:
       Step: 1
       Map: 200
       DelayTime:
-        RawValue: 2621440
+        RawValue: 3932160
       WarningTime:
         RawValue: 1310720
       ShrinkingTime:
-        RawValue: 4259840
+        RawValue: 5242880
       ShrinkingSizeK:
         RawValue: 26214
       NewSafeSpaceAreaSizeK:
@@ -1551,7 +1551,7 @@ MonoBehaviour:
       WarningTime:
         RawValue: 786432
       ShrinkingTime:
-        RawValue: 2621440
+        RawValue: 3932160
       ShrinkingSizeK:
         RawValue: 32768
       NewSafeSpaceAreaSizeK:
@@ -1576,7 +1576,7 @@ MonoBehaviour:
       WarningTime:
         RawValue: 786432
       ShrinkingTime:
-        RawValue: 1638400
+        RawValue: 2621440
       ShrinkingSizeK:
         RawValue: 32768
       NewSafeSpaceAreaSizeK:
@@ -1601,7 +1601,7 @@ MonoBehaviour:
       WarningTime:
         RawValue: 786432
       ShrinkingTime:
-        RawValue: 983040
+        RawValue: 1310720
       ShrinkingSizeK:
         RawValue: 32768
       NewSafeSpaceAreaSizeK:
@@ -1626,7 +1626,7 @@ MonoBehaviour:
       WarningTime:
         RawValue: 786432
       ShrinkingTime:
-        RawValue: 720896
+        RawValue: 655360
       ShrinkingSizeK:
         RawValue: 32768
       NewSafeSpaceAreaSizeK:
@@ -1651,7 +1651,7 @@ MonoBehaviour:
       WarningTime:
         RawValue: 786432
       ShrinkingTime:
-        RawValue: 524288
+        RawValue: 655360
       ShrinkingSizeK:
         RawValue: 52429
       NewSafeSpaceAreaSizeK:
@@ -1676,7 +1676,7 @@ MonoBehaviour:
       WarningTime:
         RawValue: 786432
       ShrinkingTime:
-        RawValue: 393216
+        RawValue: 655360
       ShrinkingSizeK:
         RawValue: 52429
       NewSafeSpaceAreaSizeK:
@@ -1701,7 +1701,7 @@ MonoBehaviour:
       WarningTime:
         RawValue: 786432
       ShrinkingTime:
-        RawValue: 393216
+        RawValue: 655360
       ShrinkingSizeK:
         RawValue: 52429
       NewSafeSpaceAreaSizeK:
@@ -1726,7 +1726,7 @@ MonoBehaviour:
       WarningTime:
         RawValue: 786432
       ShrinkingTime:
-        RawValue: 393216
+        RawValue: 655360
       ShrinkingSizeK:
         RawValue: 52429
       NewSafeSpaceAreaSizeK:
@@ -1751,7 +1751,7 @@ MonoBehaviour:
       WarningTime:
         RawValue: 786432
       ShrinkingTime:
-        RawValue: 393216
+        RawValue: 655360
       ShrinkingSizeK:
         RawValue: 52429
       NewSafeSpaceAreaSizeK:
@@ -1776,7 +1776,7 @@ MonoBehaviour:
       WarningTime:
         RawValue: 786432
       ShrinkingTime:
-        RawValue: 393216
+        RawValue: 655360
       ShrinkingSizeK:
         RawValue: 52429
       NewSafeSpaceAreaSizeK:
@@ -1801,7 +1801,7 @@ MonoBehaviour:
       WarningTime:
         RawValue: 786432
       ShrinkingTime:
-        RawValue: 393216
+        RawValue: 655360
       ShrinkingSizeK:
         RawValue: 66
       NewSafeSpaceAreaSizeK:

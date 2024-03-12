@@ -66,7 +66,8 @@ namespace Quantum
 		Melee = 1,
 		Gun = 2,
 		XLGun = 3,
-		SniperGun = 4
+		SniperGun = 4,
+		Launcher = 5,
 	}
 
 	/// <summary>

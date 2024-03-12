@@ -31,8 +31,8 @@ MonoBehaviour:
       StartsAt: 2/11/2023
       EndsAt: 20/02/2024
       RemovePaid: 1
-      EndGraphicImageClass: 
-      EndGraphicName: 
+      EndGraphicImageClass: sprite-home__malepunk-season-reward
+      EndGraphicName: PUNK SPIKE
       Highlighted: 
     - Number: 8
       Price: 150
@@ -41,9 +41,9 @@ MonoBehaviour:
       StartsAt: 21/02/2024
       EndsAt: 30/04/2024
       RemovePaid: 0
-      EndGraphicImageClass: 
-      EndGraphicName: 
-      Highlighted: 1,40:F,20,90
+      EndGraphicImageClass: sprite-home__bamboo-season-reward
+      EndGraphicName: BAM BOO
+      Highlighted: 40:F,1,20,90
     Levels:
     - RewardId: 2
       PremiumRewardId: 0

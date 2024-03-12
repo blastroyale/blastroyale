@@ -80,6 +80,12 @@ namespace FirstLight.Game.MonoComponent
 			_skin.TriggerVictory();
 		}
 
+		//TODO: use animator state instead
+		public void RandomizeAnimationStateFrame(string animationStateName, int layer, float startNormalisedRange, float endNormalisedRange)
+		{
+			_skin.RandomizeAnimationStateFrame(animationStateName, layer, startNormalisedRange, endNormalisedRange);
+		}
+
 		private void SkinLoaded(ItemData skin, GameObject instance)
 		{
 			instance.SetActive(false);

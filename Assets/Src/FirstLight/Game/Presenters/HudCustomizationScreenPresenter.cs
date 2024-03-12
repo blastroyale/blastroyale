@@ -75,8 +75,8 @@ namespace FirstLight.Game.Presenters
 			// Joysticks are snowflakes because they handled the events on parent
 			// if we block events on parent to drag without moving them, the propagation stops
 			// and we cannot drag them
-			var joy1 = root.Q<JoystickElement>("MovementJoystick");
-			var joy2 = root.Q<JoystickElement>("ShootingJoystick");
+			var joy1 = root.Q<JoystickElement>("LeftJoystick");
+			var joy2 = root.Q<JoystickElement>("RightJoystick");
 			joy1.RemoveListeners();
 			joy2.RemoveListeners();
 			MakeCustomizable(joy1, onlyInsideParent:true);

@@ -59,10 +59,9 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 
 				var weaponInstance = (GameObject) PrefabUtility.InstantiatePrefab(weapon, skin.WeaponAnchor);
 
-				// var weaponInstance = Instantiate(weapon, skin.WeaponAnchor);
 				var weaponChild = weaponInstance.transform.GetChild(0);
-				weaponChild.localPosition = new Vector3(0, 0.1f, 0); // TODO mihak: TEMP HACK
-				weaponChild.localRotation = Quaternion.Euler(0, 155, 0); // TODO mihak: TEMP HACK
+				weaponChild.localPosition = Vector3.zero;
+				weaponChild.localRotation = Quaternion.identity;
 			}
 		}
 	}

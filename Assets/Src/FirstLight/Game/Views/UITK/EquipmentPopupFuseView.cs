@@ -62,11 +62,11 @@ namespace FirstLight.Game.Views.UITK
 			{
 				if (!EquipmentStatBarElement.CanShowStat(pair.Key, pair.Value)) continue;
 
-				var nextValue = info.NextRarityStats[pair.Key];
-				if (pair.Value < nextValue)
-				{
-					_statItems.Add(new Tuple<EquipmentStatType, float, float>(pair.Key, pair.Value, nextValue));
-				}
+				// var nextValue = info.NextRarityStats[pair.Key];
+				// if (pair.Value < nextValue)
+				// {
+				// 	_statItems.Add(new Tuple<EquipmentStatType, float, float>(pair.Key, pair.Value, nextValue));
+				// }
 			}
 
 			_statItems.Sort((x1, x2) => x1.Item1.CompareTo(x2.Item1));

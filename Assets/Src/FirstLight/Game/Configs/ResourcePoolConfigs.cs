@@ -14,7 +14,6 @@ namespace FirstLight.Game.Configs
 		public uint RestockIntervalMinutes;
 		public uint TotalRestockIntervalMinutes;
 
-		public bool UseNftData;
 		public uint BaseMaxTake;
 		public FP ScaleMultiplier;
 		public FP ShapeModifier;
@@ -22,8 +21,6 @@ namespace FirstLight.Game.Configs
 		public FP PoolCapacityDecreaseExponent;
 		public FP MaxTakeDecreaseModifier;
 		public FP TakeDecreaseExponent;
-		public FP PoolCapacityTrophiesModifier;
-		public FP TakeTrophiesModifier;
 	}
 
 	/// <summary>

@@ -92,7 +92,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the <see cref="EquipmentInfo"/> for all the inventory with the given <paramref name="filter"/>
 		/// </summary>
 		List<EquipmentInfo> GetInventoryEquipmentInfo(EquipmentFilter filter);
-        
+		
+		/// <summary>
+		/// Gets the count of equipment with a filter.
+		/// </summary>
+		int GetInventoryEquipmentCount(EquipmentFilter filter);
 
 		/// <summary>
 		/// Generates a new unique non-NFT piece of equipment from battle pass reward configs
@@ -274,9 +278,7 @@ namespace FirstLight.Game.Logic
 				IsNft = isNft,
 				MaxLevel = GetMaxLevel(equipment),
 				Manufacturer = GetManufacturer(equipment),
-				Stats = equipment.GetStats(GameLogic.ConfigsProvider),
-				NextLevelStats = nextEquipment.GetStats(GameLogic.ConfigsProvider),
-				NextRarityStats = nextRarityEquipment.GetStats(GameLogic.ConfigsProvider)
+				Stats = equipment.GetStats(GameLogic.ConfigsProvider)
 			};
 		}
 
@@ -362,7 +364,39 @@ namespace FirstLight.Game.Logic
 
 			return ret;
 		}
-		
+
+		public int GetInventoryEquipmentCount(EquipmentFilter filter)
+		{
+			var count = 0;
+			var config = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var timestamp = GameLogic.TimeService.DateTimeUtcNow.Ticks;
+
+			foreach (var (id, _) in _inventory)
+			{
+				var contains = _nftInventory.ContainsKey(id);
+				
+				if (filter == EquipmentFilter.NftOnly && !contains
+					|| filter == EquipmentFilter.NoNftOnly && contains
+					|| filter == EquipmentFilter.NftOnlyNotOnCooldown &&
+					(!contains || (TryGetNftInfo(id, out var nftInfo) && nftInfo.IsOnCooldown)))
+				{
+					continue;
+				}
+
+				var durability = _inventory[id].GetCurrentDurability(contains, config, timestamp);
+
+				if (filter == EquipmentFilter.Broken && durability > 0 ||
+					filter == EquipmentFilter.Unbroken && durability == 0)
+				{
+					continue;
+				}
+
+				count++;
+			}
+
+			return count;
+		}
+
 		public Equipment GenerateEquipmentFromConfig(EquipmentRewardConfig config)
 		{
 			if (config.Level < 1)

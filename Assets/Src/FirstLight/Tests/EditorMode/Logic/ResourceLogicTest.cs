@@ -194,9 +194,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				MaxPoolCapacityDecreaseModifier = FP.FromString("0.9"),
 				PoolCapacityDecreaseExponent = FP.FromString("0.3"),
 				MaxTakeDecreaseModifier = FP.FromString("0.11"),
-				TakeDecreaseExponent = FP.FromString("1.8"),
-				PoolCapacityTrophiesModifier = 150000,
-				TakeTrophiesModifier = 10000
+				TakeDecreaseExponent = FP.FromString("1.8")
 			};
 
 			GameLogic.PlayerLogic.Trophies.Returns(new ObservableField<uint>(1000));

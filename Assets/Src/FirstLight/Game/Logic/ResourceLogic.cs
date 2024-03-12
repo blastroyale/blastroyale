@@ -91,7 +91,7 @@ namespace FirstLight.Game.Logic
 		public ResourcePoolInfo GetResourcePoolInfo(GameId poolType)
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) poolType);
-			var capacity = GetCurrentPoolCapacity(poolType, poolConfig.UseNftData);
+			var capacity = GetCurrentPoolCapacity(poolType);
 			var pool = _resourcePools[poolType];
 			var totalRestock = poolConfig.TotalRestockIntervalMinutes / poolConfig.RestockIntervalMinutes;
 			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - pool.LastPoolRestockTime).TotalMinutes;
@@ -106,7 +106,7 @@ namespace FirstLight.Game.Logic
 				Config = poolConfig,
 				PoolCapacity = capacity,
 				CurrentAmount = Math.Min(pool.CurrentResourceAmountInPool + addAmount, capacity),
-				WinnerRewardAmount = poolConfig.UseNftData ? GetCurrentPoolReward(poolType) : 0,
+				WinnerRewardAmount = 0,
 				RestockPerInterval = restockPerInterval,
 				NextRestockTime = pool.LastPoolRestockTime.AddMinutes(nextRestockMinutes)
 			};
@@ -128,7 +128,7 @@ namespace FirstLight.Game.Logic
 			return amountWithdrawn;
 		}
 
-		private uint GetCurrentPoolCapacity(GameId poolType, bool useNftData)
+		private uint GetCurrentPoolCapacity(GameId poolType)
 		{
 			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
@@ -138,47 +138,8 @@ namespace FirstLight.Game.Logic
 			// Test calculations for this algorithm can be found at the bottom of this spreadsheet:
 			// https://docs.google.com/spreadsheets/d/1LrHGwlNi2tbb7I8xmQVNCKKbc9YgEJjYyA8EFsIFarw/edit#gid=1028779545
 
-			var inventory = GameLogic.EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.NftOnlyNotOnCooldown);
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
-
-			if (!useNftData)
-			{
-				return poolConfig.PoolCapacity;
-			}
-			
-			var nftOwned = inventory.Count;
-			var poolCapacity = (double) 0;
-			var shapeMod = (double) poolConfig.ShapeModifier;
-			var scaleMult = (double) poolConfig.ScaleMultiplier;
-			var nftAssumed = GameConfig.NftAssumedOwned;
-			var minNftOwned = GameConfig.MinNftForPoolSizeBonus;
-			var nftsm = nftAssumed * shapeMod;
-			var poolDecreaseExp = (double) poolConfig.PoolCapacityDecreaseExponent;
-			var maxPoolDecreaseMod = (double) poolConfig.MaxPoolCapacityDecreaseModifier;
-			var poolCapacityTrophiesMod = (double) poolConfig.PoolCapacityTrophiesModifier;
-
-			// ----- Set base pool capacity - based on player's owned NFT
-			var capacityMaxCalc = Math.Pow(nftsm, 2) - Math.Pow((nftsm - Math.Min(nftOwned, nftsm) + minNftOwned - 1), 2);
-			var capacityNftBonus = Math.Floor(Math.Sqrt(Math.Max(0, capacityMaxCalc)) * scaleMult);
-			
-			poolCapacity += poolConfig.PoolCapacity + capacityNftBonus;
-
-			// ----- Increase pool capacity based on owned NFT rarity and adjectives
-			poolCapacity += poolCapacity * inventory.GetAugmentedModSum(GameConfig, CapacityModSumCalculation);
-			
-			// ----- Increase pool capacity based on current player Trophies
-			var trophiesIncrease = poolCapacity * (GameLogic.PlayerLogic.Trophies.Value  / poolCapacityTrophiesMod);
-			poolCapacity += Math.Round(trophiesIncrease);
-			
-			// ----- Decrease pool capacity based on owned NFT durability
-			var totalDurability = inventory.GetAvgDurability(out var maxDurability);
-			var nftDurabilityPercent = (double)totalDurability / maxDurability;
-			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityPercent, poolDecreaseExp) * maxPoolDecreaseMod;
-			var durabilityDecrease = Math.Floor(poolCapacity * durabilityDecreaseMult);
-			
-			poolCapacity -= durabilityDecrease;
-			
-			return (uint)poolCapacity;
+			return poolConfig.PoolCapacity;
 		}
 
 		private uint GetCurrentPoolReward(GameId poolId)
@@ -191,17 +152,11 @@ namespace FirstLight.Game.Logic
 			var maxTake = poolConfig.BaseMaxTake;
 			var takeDecreaseMod = (double) poolConfig.MaxTakeDecreaseModifier;
 			var takeDecreaseExp = (double) poolConfig.TakeDecreaseExponent;
-			var takeTrophiesMod = (double) poolConfig.TakeTrophiesModifier;
 
 			// ----- Increase CS max take per grade of equipped NFTs
 			var augmentedModSum = loadoutItems.GetAugmentedModSum(GameConfig, RewardModSumCalculation);
 			
 			maxTake += (uint) Math.Round(maxTake * augmentedModSum);
-			
-			// ----- Increase CS max take based on current player Trophies
-			var trophiesIncrease = maxTake * (GameLogic.PlayerLogic.Trophies.Value  / takeTrophiesMod);
-			
-			maxTake += (uint) Math.Round(trophiesIncrease);
 			
 			// ----- Decrease CS max take based on equipped NFT durability
 			var totalDurability = loadoutItems.GetAvgDurability(out var maxDurability);

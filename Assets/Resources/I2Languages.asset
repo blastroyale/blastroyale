@@ -5002,9 +5002,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 3NIG BlackNova
-      - 3NIG BlackNova
-      - 3NIG BlackNova
+      - LaNova
+      - LaNova
+      - LaNova
       - 
       - 
       Flags: 0000000000
@@ -6344,9 +6344,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - "Pawe\u0142"
-      - "Pawe\u0142"
-      - "Pawe\u0142"
+      - Pawel
+      - Pawel
+      - Pawel
       - 
       - 
       Flags: 0000000000
@@ -6366,9 +6366,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - "Micha\u0142"
-      - "Micha\u0142"
-      - "Micha\u0142"
+      - MichaI
+      - MichaI
+      - MichaI
       - 
       - 
       Flags: 0000000000
@@ -11734,9 +11734,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Default flag
       - Darkness rises
-      - Demon Flag Description
-      - Demon Flag Description
+      - Darkness rises
       - 
       - 
       Flags: 0000000000
@@ -11779,9 +11779,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Blast Pass - Beta Season 6
       - Fly in style
-      - 
-      - 
+      - Fly in style
       - 
       - 
       Flags: 0000000000
@@ -11859,9 +11859,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Blast Pass - Beta Season 7
       - Millennium of research
-      - 
-      - 
+      - Millennium of research
       - 
       - 
       Flags: 0000000000
@@ -12003,7 +12003,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - November'23 Leadeboard
+      - November'23 Leaderboard
       - The Icon
       - The Icon
       - 
@@ -12630,6 +12630,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinAtomSlicerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinCactus
       TermType: 0
       Description: 
@@ -12637,6 +12648,17 @@ MonoBehaviour:
       - PICKY BOY
       - PICKY BOY
       - PICKY BOY
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinCactusDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -12652,6 +12674,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinDaggerOfDestinyDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - November'23 Leaderboard
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinDefault
       TermType: 0
       Description: 
@@ -12659,6 +12692,17 @@ MonoBehaviour:
       - "EL CL\xC1SICO"
       - "EL CL\xC1SICO"
       - "EL CL\xC1SICO"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinDefaultDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Default melee
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -12674,6 +12718,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinElectricSoloDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinGigaMelee
       TermType: 0
       Description: 
@@ -12681,6 +12736,17 @@ MonoBehaviour:
       - GIGAHAMMER
       - GIGAHAMMER
       - GIGAHAMMER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinGigaMeleeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -12696,6 +12762,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinHatchetDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinMicDrop
       TermType: 0
       Description: 
@@ -12703,6 +12780,17 @@ MonoBehaviour:
       - MIC DROP
       - MIC DROP
       - MIC DROP
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinMicDropDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 7
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -12718,6 +12806,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinMightySledgeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinOutOfThePark
       TermType: 0
       Description: 
@@ -12725,6 +12824,17 @@ MonoBehaviour:
       - OUT OF THE PARK
       - OUT OF THE PARK
       - OUT OF THE PARK
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinOutOfTheParkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -12740,6 +12850,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinPowerPanDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 8
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinPutter
       TermType: 0
       Description: 
@@ -12747,6 +12868,17 @@ MonoBehaviour:
       - PUTTER
       - PUTTER
       - PUTTER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinPutterDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -12762,6 +12894,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinSausageDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinSirQuacks
       TermType: 0
       Description: 
@@ -12769,6 +12912,17 @@ MonoBehaviour:
       - SIR QUACKS-A-LOT
       - SIR QUACKS-A-LOT
       - SIR QUACKS-A-LOT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinSirQuacksDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -12784,6 +12938,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinThunderAxeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 8
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinToyMelee
       TermType: 0
       Description: 
@@ -12791,6 +12956,17 @@ MonoBehaviour:
       - TOY HAMMER
       - TOY HAMMER
       - TOY HAMMER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinToyMeleeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 8
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -12806,6 +12982,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinTvTakedownDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinWheelOfPain
       TermType: 0
       Description: 
@@ -12817,6 +13004,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinWheelOfPainDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 7
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinWrench
       TermType: 0
       Description: 
@@ -12824,6 +13022,17 @@ MonoBehaviour:
       - WRENCH
       - WRENCH
       - WRENCH
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinWrenchDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -12857,6 +13066,17 @@ MonoBehaviour:
       - YOU GOT MAIL
       - YOU GOT MAIL
       - YOU GOT MAIL
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinYouGotMailDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -13395,9 +13615,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Purchase in the Shop
       - Rebel like you mean it
-      - Punk Flag Description
-      - Punk Flag Description
+      - Rebel like you mean it
       - 
       - 
       Flags: 0000000000
@@ -13615,9 +13835,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Purchase in the Shop
       - Skyrocket your entrance
-      - 
-      - 
+      - Skyrocket your entrance
       - 
       - 
       Flags: 0000000000
@@ -14593,9 +14813,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Blast Pass - Beta Season 7
       - Leave 'em beat
-      - Super Star Flag Description
-      - Super Star Flag Description
+      - Leave 'em beat
       - 
       - 
       Flags: 0000000000
@@ -14648,9 +14868,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Purchase in the Shop
       - Rebels forever
-      - A marker of a fallen Blaster
-      - A marker of a fallen Blaster
+      - Rebels forever
       - 
       - 
       Flags: 0000000000
@@ -14670,9 +14890,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Default glider
       - Turbo charge is on
-      - 
-      - 
+      - Turbo charge is on
       - 
       - 
       Flags: 0000000000
@@ -14725,9 +14945,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Blast Pass - Beta Season 8
       - See you in a fairy tale
-      - Unicorn Flag Description
-      - Unicorn Flag Description
+      - See you in a fairy tale
       - 
       - 
       Flags: 0000000000
@@ -14860,6 +15080,1106 @@ MonoBehaviour:
       - WEAPON
       - "\u041E\u0420\u0423\u0416\u0418\u0415"
       - ARMA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar1
+      TermType: 0
+      Description: 
+      Languages:
+      - DRAKE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar1Description
+      TermType: 0
+      Description: 
+      Languages:
+      - December'23 Leaderboard
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar2
+      TermType: 0
+      Description: 
+      Languages:
+      - JINGS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar2Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Default avatar
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar3
+      TermType: 0
+      Description: 
+      Languages:
+      - SERENITY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar3Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 7
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar4
+      TermType: 0
+      Description: 
+      Languages:
+      - BUNNY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar4Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 7
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar5
+      TermType: 0
+      Description: 
+      Languages:
+      - JADE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar5Description
+      TermType: 0
+      Description: 
+      Languages:
+      - January'24 Leaderboard
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarAssasinmask
+      TermType: 0
+      Description: 
+      Languages:
+      - TIGER MASK
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarAssasinmaskDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - February'24 Leaderboard
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBlastcatads
+      TermType: 0
+      Description: 
+      Languages:
+      - BLAST CAT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBlastcatadsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - February'24 Leaderboard
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSuperstarloveads
+      TermType: 0
+      Description: 
+      Languages:
+      - HEART EYES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSuperstarloveadsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - January'24 Leaderboard
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarEyesads
+      TermType: 0
+      Description: 
+      Languages:
+      - EVIL EYES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarEyesadsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - March'24 Leaderboard
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPunklogoads
+      TermType: 0
+      Description: 
+      Languages:
+      - PUNK LOGO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPunklogoadsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - March'24 Leaderboard
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarUnicornssticker
+      TermType: 0
+      Description: 
+      Languages:
+      - UNICORN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarUnicornsstickerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 8
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalepunkgraffiti
+      TermType: 0
+      Description: 
+      Languages:
+      - BUBBLE GUM ROSE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalepunkgraffitiDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 8
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalepunkfunsticker
+      TermType: 0
+      Description: 
+      Languages:
+      - LAUGHING ROSE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalepunkfunstickerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 8
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalehost
+      TermType: 0
+      Description: 
+      Languages:
+      - HOST
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalehostDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 8
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalehost
+      TermType: 0
+      Description: 
+      Languages:
+      - HOSTESS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalehostDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 8
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarCatcupads
+      TermType: 0
+      Description: 
+      Languages:
+      - CAT CUP
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarCatcupadsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 8
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarCorpomask
+      TermType: 0
+      Description: 
+      Languages:
+      - CORPO MASK
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarCorpomaskDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemaleassassinconcept
+      TermType: 0
+      Description: 
+      Languages:
+      - DARK RAVEN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemaleassassinconceptDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBurgerads
+      TermType: 0
+      Description: 
+      Languages:
+      - BURGER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBurgeradsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarCorpoads
+      TermType: 0
+      Description: 
+      Languages:
+      - RED SHADES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarCorpoadsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarCorpocrossads
+      TermType: 0
+      Description: 
+      Languages:
+      - X
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarCorpocrossadsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemaleassasinwantedads
+      TermType: 0
+      Description: 
+      Languages:
+      - MOST WANTED
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemaleassasinwantedadsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemaleassassinwhatsticker
+      TermType: 0
+      Description: 
+      Languages:
+      - OUTRAGED
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemaleassassinwhatstickerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalepunk
+      TermType: 0
+      Description: 
+      Languages:
+      - RESPY ROSE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalepunkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - April'24 Leaderboard
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalepunkgraffiti
+      TermType: 0
+      Description: 
+      Languages:
+      - RESPY SPIKE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalepunkgraffitiDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - April'24 Leaderboard
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalecorpo
+      TermType: 0
+      Description: 
+      Languages:
+      - TEA TIME CORPO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalecorpoDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalecorpoconcept
+      TermType: 0
+      Description: 
+      Languages:
+      - CORPO CONCEPT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalecorpoconceptDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalecorpophonesticker
+      TermType: 0
+      Description: 
+      Languages:
+      - CHATTING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalecorpophonestickerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalecorposticker
+      TermType: 0
+      Description: 
+      Languages:
+      - EXCITE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalecorpostickerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalepunkconcept
+      TermType: 0
+      Description: 
+      Languages:
+      - ROSE CONCEPT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalepunkconceptDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalesuperstarads
+      TermType: 0
+      Description: 
+      Languages:
+      - JADE POSTER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalesuperstaradsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalesuperstarconcept
+      TermType: 0
+      Description: 
+      Languages:
+      - JADE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalesuperstarconceptDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalesuperstardisguststicker
+      TermType: 0
+      Description: 
+      Languages:
+      - DISGUST
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalesuperstardisguststickerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalesupperstar
+      TermType: 0
+      Description: 
+      Languages:
+      - JADE SCREAM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemalesupperstarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMaleassasin
+      TermType: 0
+      Description: 
+      Languages:
+      - ARCHY SMILE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMaleassasinDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMaleassasinconcept
+      TermType: 0
+      Description: 
+      Languages:
+      - ARCHER CONCEPT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMaleassasinconceptDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMaleassasinexcitedsticker
+      TermType: 0
+      Description: 
+      Languages:
+      - ARCHER STICKER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMaleassasinexcitedstickerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMaleassasinwantedads
+      TermType: 0
+      Description: 
+      Languages:
+      - ARCHER WANTED
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMaleassasinwantedadsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalecorpoangryads
+      TermType: 0
+      Description: 
+      Languages:
+      - VICTOR ANGRY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalecorpoangryadsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalecorpoconcept
+      TermType: 0
+      Description: 
+      Languages:
+      - VICTOR CONCEPT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalecorpoconceptDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalecorposcaredsticker
+      TermType: 0
+      Description: 
+      Languages:
+      - VIC SHOCKED
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalecorposcaredstickerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalepunk
+      TermType: 0
+      Description: 
+      Languages:
+      - PUNK
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalepunkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalepunkads
+      TermType: 0
+      Description: 
+      Languages:
+      - PUNK POSTER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalepunkadsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalepunkconcept
+      TermType: 0
+      Description: 
+      Languages:
+      - PUNK CONCEPT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalepunkconceptDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalepunkhahasticker
+      TermType: 0
+      Description: 
+      Languages:
+      - PUNK LAUGH
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalepunkhahastickerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalesuperstarads
+      TermType: 0
+      Description: 
+      Languages:
+      - POSTER SINGER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalesuperstaradsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalesuperstarconcept
+      TermType: 0
+      Description: 
+      Languages:
+      - DRAKE SCREAM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalesuperstarconceptDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalesuperstarstopsticker
+      TermType: 0
+      Description: 
+      Languages:
+      - TALK TO HAND
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMalesuperstarstopstickerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMusic
+      TermType: 0
+      Description: 
+      Languages:
+      - MIC
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMusicDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarRocketads
+      TermType: 0
+      Description: 
+      Languages:
+      - ROCKET
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarRocketadsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -20728,7 +22048,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - YOU ARE GOING TO BUY 1 LEVEL OF BLAST PASS
+      - YOU ARE ABOUT TO BUY 1 LEVEL OF BLAST PASS
       - 
       - 
       - 
@@ -24186,6 +25506,39 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSettings/switch_joysticks
+      TermType: 0
+      Description: 
+      Languages:
+      - Switch Joysticks
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/connect_web3
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect Web3
+      - Connect Web3
+      - Conectar Web3
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/support
+      TermType: 0
+      Description: 
+      Languages:
+      - SUPPORT
+      - 
+      - SUPORTE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITInbox/inbox_community
       TermType: 0
       Description: 
@@ -25340,7 +26693,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1708472910445
+    Google_LastUpdatedVersion: 1709557414186
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

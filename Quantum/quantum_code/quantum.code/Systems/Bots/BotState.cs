@@ -26,7 +26,7 @@ namespace Quantum
 
 		public static bool IsLowLife(this ref BotCharacter bot, in EntityRef entity, Frame f)
 		{
-			return Stats.HealthRatio(entity, f) < FP._0_20;
+			return Stats.VitalityRatio(entity, f) < FP._0_20;
 		}
 
 		/// <summary>

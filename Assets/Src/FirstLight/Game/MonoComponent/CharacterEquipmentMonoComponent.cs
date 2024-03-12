@@ -59,7 +59,7 @@ namespace FirstLight.Game.MonoComponent
 			piece.SetParent(anchor);
 
 			piece.localPosition = Vector3.zero;
-			piece.localRotation = Quaternion.Euler(0, 90, 0); // TODO mihak: Temp hack
+			piece.localRotation = Quaternion.Euler(50, 180, 0); // TODO mihak: Temp hack
 			piece.localScale = Vector3.one;
 		}
 
@@ -118,10 +118,8 @@ namespace FirstLight.Game.MonoComponent
 			var anchor = _skin.WeaponAnchor;
 
 			weaponTransform.SetParent(anchor);
-
-			weaponTransform.localPosition = new Vector3(0, 0.1f, 0); // TODO mihak: TEMP HACK
-			weaponTransform.localRotation = Quaternion.Euler(0, 115, 0); // TODO mihak: TEMP HACK
-			weaponTransform.localScale = Vector3.one;
+			weaponTransform.localPosition = Vector3.zero;
+			weaponTransform.localRotation = Quaternion.identity;
 
 			if (weaponTransform.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
 			{
@@ -245,6 +243,8 @@ namespace FirstLight.Game.MonoComponent
 		private void AddEquipmentRenderersContainer(RenderersContainerMonoComponent renderersContainer)
 		{
 			renderersContainer.SetLayer(gameObject.layer);
+			renderersContainer.SetEnabled(_renderersContainerProxy.Enabled);
+			
 			_renderersContainerProxy.AddRenderersContainer(renderersContainer);
 			Color col = default;
 			if (_renderersContainerProxy.GetFirstRendererColor(ref col))

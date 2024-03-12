@@ -53,16 +53,14 @@ namespace Quantum
 
 			var s = this;
 			var finalDmg = PowerAmount;
-
-			if (stats->HasShield() && stats->CurrentShield < PowerAmount)
+			
+			// If the damage is higher than Shields and HP combined then we reduce it to match
+			if (stats->CurrentShield + stats->CurrentHealth < PowerAmount)
 			{
-				finalDmg = (uint)stats->CurrentShield;
+				finalDmg = (uint)(stats->CurrentShield + stats->CurrentHealth);
 			}
 
-			if (!stats->HasShield() && stats->CurrentHealth < PowerAmount)
-			{
-				finalDmg = (uint)stats->CurrentHealth;
-			}
+			PowerAmount = finalDmg;
 
 			if (Id == ShrinkingCircleId)
 			{

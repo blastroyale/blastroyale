@@ -10,9 +10,7 @@ namespace FirstLight.Game.Messages
 	public struct MainMenuOpenedMessage : IMessage { }
 	public struct PlayScreenOpenedMessage : IMessage { }
 	public struct ShopScreenOpenedMessage : IMessage { }
-	public struct SkinsScreenOpenedMessage : IMessage { }
 	public struct OnViewingRewardsFinished : IMessage { }
-	public struct EquipmentScreenOpenedMessage : IMessage { }
 	public struct SelectedEquipmentItemMessage : IMessage
 	{
 		public UniqueId ItemID;

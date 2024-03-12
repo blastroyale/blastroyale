@@ -312,7 +312,6 @@ namespace FirstLight.Game.Services
 		{
 			UnlinkDeviceID(() =>
 			{
-				_services.HelpdeskService.Logout();
 				var data = _localAccountData.GetData<AccountData>();
 				data.LastLoginEmail = null;
 				data.DeviceId = null;
@@ -424,10 +423,7 @@ namespace FirstLight.Game.Services
 				onError?.Invoke(null);
 				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
 			}
-
-			_services.HelpdeskService.Login(userId, email, userName);
-
-
+			
 			if (string.IsNullOrWhiteSpace(accountData.DeviceId) || result.InfoResultPayload.AccountInfo.PrivateInfo.Email != accountData.LastLoginEmail)
 			{
 				LinkDeviceID(null, onError);

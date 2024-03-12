@@ -49,8 +49,10 @@ namespace Quantum.Systems
 				Config = f.ChestConfigs.GetConfig(chest->ChestType),
 			};
 			var items = new List<SimulationItem>();
+			
 			RollDropTables(f, ctx, items);
-			if (f.Context.TryGetMutatorByType(MutatorType.SpecialsMayhem, out _))
+			
+			if (f.Context.TryGetMutatorByType(MutatorType.SpecialsMayhem, out _) && !f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
 			{
 				items.Add(SimulationItem.CreateSimple(Special.GetRandomSpecialId(f)));
 			}
@@ -60,6 +62,7 @@ namespace Quantum.Systems
 		private static void RollDropTables(Frame f, ChestContentsGenerationContext ctx, List<SimulationItem> items)
 		{
 			var isHammerTimeMutator = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _);
+			var dontDropSpecialsMutator = f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _);
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 			foreach (var droptable in ctx.Config.DropTables)
 			{
@@ -72,6 +75,15 @@ namespace Quantum.Systems
 				{
 					var drop = list.Next();
 					var item = SimulationItem.FromConfig(drop);
+
+					if (item.ItemType == ItemType.Simple
+						&& item.SimpleItem->Id.IsInGroup(GameIdGroup.Special)
+						&& dontDropSpecialsMutator)
+					{
+						count--;
+						continue;
+					}
+
 					if (item.ItemType == ItemType.Equipment)
 					{
 						if (isHammerTimeMutator)

@@ -46,6 +46,7 @@ namespace FirstLight.Game.Data
 		public DateTime LoginTime;
 		public bool IsFirstSession;
 		public bool UseDynamicJoystick = false;
+		public bool SwitchJoysticks = false;
 		public bool UseDynamicCamera = true;
 		public bool UseScreenShake = true;
 		public bool InvertSpecialCancellling = true;

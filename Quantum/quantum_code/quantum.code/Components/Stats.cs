@@ -60,12 +60,16 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Returns a range from 1.0 to 0.0 according to player health ratio
+		/// Returns a range from 1.0 to 0.0 according to player health+shields ratio
 		/// </summary>
-		public static FP HealthRatio(in EntityRef e, Frame f)
+		public static FP VitalityRatio(in EntityRef e, Frame f)
 		{
-			var health = Stats.GetStatData(f, e, StatType.Health);
-			return (health.StatValue / health.BaseValue) * FP._100;
+			if (!f.TryGet<Stats>(e, out var stats))
+			{
+				return FP._0;
+			}
+			
+			return (stats.CurrentHealth + stats.CurrentShield) / FP._200;
 		}
 
 		public static StatData GetStatData(Frame f, in EntityRef entity, StatType stat)
@@ -342,12 +346,6 @@ namespace Quantum
 			{
 				shieldDamageAmount = Math.Min(previousShield, damageAmount);
 				damageAmount = FPMath.Max(0, damageAmount - shieldDamageAmount).AsInt;
-
-				// We don't do any damage to health if a player had at least 1 shields
-				if (QuantumFeatureFlags.SHIELD_CRACKING)
-				{
-					damageAmount = 0;
-				}
 
 				SetCurrentShield(f, entity, previousShield - shieldDamageAmount, GetStatData(StatType.Shield).StatValue.AsInt);
 			}

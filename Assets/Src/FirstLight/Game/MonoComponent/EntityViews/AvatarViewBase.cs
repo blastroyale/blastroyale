@@ -15,7 +15,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// Polls and listens th Actor state to update this avatar animations accordingly.
 	/// Sets animation parameters for contexts shared between players and enemies.
 	/// </summary>
-	[RequireComponent(typeof(Animator), typeof(RenderersContainerProxyMonoComponent))]
+	[RequireComponent( typeof(RenderersContainerProxyMonoComponent))]
 	public abstract class AvatarViewBase : EntityMainViewBase
 	{
 		private IGameServices _services;

@@ -909,7 +909,7 @@ MonoBehaviour:
       MaxHealthDamage:
         RawValue: 1311
       AirdropChance:
-        RawValue: 52429
+        RawValue: 52428
       AirdropStartTimeRange:
         Value1:
           RawValue: 2490368
@@ -934,14 +934,14 @@ MonoBehaviour:
       MaxHealthDamage:
         RawValue: 1966
       AirdropChance:
-        RawValue: 52429
+        RawValue: 52428
       AirdropStartTimeRange:
         Value1:
-          RawValue: 131072
+          RawValue: 524288
         Value2:
-          RawValue: 327680
+          RawValue: 655360
       AirdropDropDuration:
-        RawValue: 524288
+        RawValue: 655360
       AirdropChest: 19
     - Key: 602240368
       Step: 3
@@ -959,14 +959,14 @@ MonoBehaviour:
       MaxHealthDamage:
         RawValue: 3277
       AirdropChance:
-        RawValue: 52429
+        RawValue: 26214
       AirdropStartTimeRange:
         Value1:
-          RawValue: 196608
-        Value2:
           RawValue: 524288
+        Value2:
+          RawValue: 655360
       AirdropDropDuration:
-        RawValue: 524288
+        RawValue: 655360
       AirdropChest: 19
     - Key: 1080941152
       Step: 4
@@ -984,14 +984,14 @@ MonoBehaviour:
       MaxHealthDamage:
         RawValue: 4915
       AirdropChance:
-        RawValue: 52429
+        RawValue: 6554
       AirdropStartTimeRange:
         Value1:
-          RawValue: 196608
-        Value2:
           RawValue: 524288
+        Value2:
+          RawValue: 655360
       AirdropDropDuration:
-        RawValue: 262144
+        RawValue: 655360
       AirdropChest: 19
     - Key: -2044175632
       Step: 5

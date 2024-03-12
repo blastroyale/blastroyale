@@ -13,8 +13,13 @@ namespace Quantum.Systems.Bots
 		/// </summary>
 		private static FP ACCURACY_LERP_TICK = FP._0_05;
 
-		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, Frame f)
+		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, in PlayerCharacter pc, Frame f)
 		{
+			if (pc.HasMeleeWeapon(f, entity))
+			{
+				return Stats.GetStat(f, entity, StatType.AttackRange);
+			}
+			
 			return FPMath.Min(Stats.GetStat(f, entity, StatType.AttackRange), bot.MaxAimingRange);
 		}
 
@@ -42,7 +47,7 @@ namespace Quantum.Systems.Bots
 				// Aim at target
 				else
 				{
-					var maxRange = filter.BotCharacter->GetMaxWeaponRange(filter.Entity, f);
+					var maxRange = filter.BotCharacter->GetMaxWeaponRange(filter.Entity, *filter.PlayerCharacter, f);
 					var team = f.Get<Targetable>(filter.Entity).Team;
 					if (filter.TryToAimAtEnemy(f, team, maxRange, target, out var targetHit))
 					{
@@ -76,14 +81,17 @@ namespace Quantum.Systems.Bots
 		// We loop through targetable entities trying to find if any is eligible to shoot at
 		public static void FindEnemiesToShootAt(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
 		{
+			if (ReviveSystem.IsKnockedOut(f,botFilter.Entity))
+			{
+				return;
+			}
 			var target = EntityRef.None;
 			// We do line/shapecasts for enemies in sight
 			// If there is a target in Sight then store this Target into the blackboard variable
 			// We check enemies one by one until we find a valid enemy in sight
 			// Note: Bots against bots use the full weapon range
 			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var weaponTargetRange = f.Get<Stats>(botFilter.Entity).GetStatData(StatType.AttackRange).StatValue;
-			var limitedTargetRange = FPMath.Min(weaponTargetRange, botFilter.BotCharacter->MaxAimingRange);
+			var limitedTargetRange = botFilter.BotCharacter->GetMaxWeaponRange(botFilter.Entity, *botFilter.PlayerCharacter, f);
 			var team = f.Get<Targetable>(botFilter.Entity).Team;
 
 			var it = f.Unsafe.FilterStruct<BotTargetFilter>();
@@ -206,7 +214,7 @@ namespace Quantum.Systems.Bots
 			if (distanceSquared <= rangeSquared && bot.Target == target)
 			{
 				// If im getting my ass kicked i wont try to do combat movement ill god damn run
-				if (Stats.HealthRatio(e, f) + FP._0_50 < Stats.HealthRatio(bot.Target, f))
+				if (Stats.VitalityRatio(e, f) + FP._0_50 < Stats.VitalityRatio(bot.Target, f))
 				{
 					return false;
 				}
@@ -268,6 +276,7 @@ namespace Quantum.Systems.Bots
 		// We check specials and try to use them depending on their type if possible
 		public static bool TryUseSpecials(this ref BotCharacter bot, PlayerInventory* inventory, EntityRef botEntity, Frame f)
 		{
+			// If there are no specials in this match, then no need to try using them as bots don't have them
 			if (f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
 			{
 				return false;
@@ -414,8 +423,8 @@ namespace Quantum.Systems.Bots
 				// This will set an innacurate target aim direction
 				if (targetAimDirection == FPVector2.Zero)
 				{
-					var targetHealthRatio = Stats.HealthRatio(target, f);
-					var botHealthRatio = Stats.HealthRatio(botEntity, f);
+					var targetHealthRatio = Stats.VitalityRatio(target, f);
+					var botHealthRatio = Stats.VitalityRatio(botEntity, f);
 
 					// If bot has at least 90% of the player life, 50% chance he will aim innacurately
 					if (targetHealthRatio < botHealthRatio)

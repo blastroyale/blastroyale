@@ -27,7 +27,7 @@ MonoBehaviour:
         RawValue: 85197
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 50
+      AccuracySpreadAngle: 35
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -61,7 +61,7 @@ MonoBehaviour:
         RawValue: 83012
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 45
+      AccuracySpreadAngle: 31
       ChanceToUseSpecial:
         RawValue: 3641
       SpecialAimingDeviation:
@@ -95,7 +95,7 @@ MonoBehaviour:
         RawValue: 80828
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 40
+      AccuracySpreadAngle: 28
       ChanceToUseSpecial:
         RawValue: 7282
       SpecialAimingDeviation:
@@ -129,7 +129,7 @@ MonoBehaviour:
         RawValue: 78643
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 35
+      AccuracySpreadAngle: 24
       ChanceToUseSpecial:
         RawValue: 10923
       SpecialAimingDeviation:
@@ -163,7 +163,7 @@ MonoBehaviour:
         RawValue: 76459
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 30
+      AccuracySpreadAngle: 21
       ChanceToUseSpecial:
         RawValue: 14564
       SpecialAimingDeviation:
@@ -197,7 +197,7 @@ MonoBehaviour:
         RawValue: 74274
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 25
+      AccuracySpreadAngle: 17
       ChanceToUseSpecial:
         RawValue: 18204
       SpecialAimingDeviation:
@@ -231,7 +231,7 @@ MonoBehaviour:
         RawValue: 72090
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 20
+      AccuracySpreadAngle: 14
       ChanceToUseSpecial:
         RawValue: 21845
       SpecialAimingDeviation:
@@ -265,7 +265,7 @@ MonoBehaviour:
         RawValue: 69905
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 15
+      AccuracySpreadAngle: 10
       ChanceToUseSpecial:
         RawValue: 25486
       SpecialAimingDeviation:
@@ -299,7 +299,7 @@ MonoBehaviour:
         RawValue: 67721
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 10
+      AccuracySpreadAngle: 7
       ChanceToUseSpecial:
         RawValue: 29127
       SpecialAimingDeviation:
@@ -333,7 +333,7 @@ MonoBehaviour:
         RawValue: 65536
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 5
+      AccuracySpreadAngle: 3
       ChanceToUseSpecial:
         RawValue: 32768
       SpecialAimingDeviation:
@@ -469,7 +469,7 @@ MonoBehaviour:
         RawValue: 85197
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 50
+      AccuracySpreadAngle: 35
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -503,7 +503,7 @@ MonoBehaviour:
         RawValue: 83012
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 45
+      AccuracySpreadAngle: 31
       ChanceToUseSpecial:
         RawValue: 3641
       SpecialAimingDeviation:

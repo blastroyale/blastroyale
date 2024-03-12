@@ -9,7 +9,5 @@ namespace Quantum
 		public static bool PLAYER_PUSHING = false;
 		
 		public static bool TEAM_IGNORE_COLLISION = false;
-
-		public static bool SHIELD_CRACKING = false;
 	}
 }

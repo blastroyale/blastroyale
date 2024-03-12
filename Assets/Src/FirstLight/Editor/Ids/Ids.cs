@@ -1,4 +1,4 @@
-﻿using static FirstLight.Editor.Ids.Ids.GroupSource;
+using static FirstLight.Editor.Ids.Ids.GroupSource;
 
 namespace FirstLight.Editor.Ids
 {
@@ -173,11 +173,11 @@ namespace FirstLight.Editor.Ids
 			{"DummyCharacter", 6, DummyCharacter},
 			{"WeaponPlatformSpawner", 138, Platform},
 			{"ConsumablePlatformSpawner", 140, Platform},
-			{"CoreCommon", 15, Core},
-			{"CoreUncommon", 46, Core},
-			{"CoreRare", 47, Core, IAP, Chest},
-			{"CoreEpic", 48, Core, IAP, Chest},
-			{"CoreLegendary", 59, Core, IAP, Chest},
+			{"CoreCommon", 15, Core, Deprecated},
+			{"CoreUncommon", 46, Core, Deprecated},
+			{"CoreRare", 47, Core, IAP, Chest, Deprecated},
+			{"CoreEpic", 48, Core, IAP, Chest, Deprecated},
+			{"CoreLegendary", 59, Core, IAP, Chest, Deprecated},
 
 			#region Collections
 

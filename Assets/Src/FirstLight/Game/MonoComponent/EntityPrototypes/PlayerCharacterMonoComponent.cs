@@ -20,17 +20,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	/// </summary>
 	public class PlayerCharacterMonoComponent : HealthEntityBase
 	{
-		[SerializeField, Required] private Transform _emojiAnchor;
 		[SerializeField] private GameObject _shadowBlob;
 		[SerializeField] private SpriteRenderer _circleIndicator;
 		private PlayerCharacterViewMonoComponent _playerView;
 		private IGameServices _services;
 		private IMatchServices _matchServices;
-
-		/// <summary>
-		/// The <see cref="Transform"/> anchor values to attach the avatar emoji
-		/// </summary>
-		public Transform EmojiAnchor => _emojiAnchor;
 
 		/// <summary>
 		/// The associated view of this monocomponent

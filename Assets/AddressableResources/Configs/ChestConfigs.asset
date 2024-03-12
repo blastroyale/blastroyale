@@ -693,7 +693,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 1
       - Chance:
-          RawValue: 65
+          RawValue: 16
         Amount: 1
         Pool:
         - ItemConfig:
@@ -1249,7 +1249,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 7
       - Chance:
-          RawValue: 65
+          RawValue: 32
         Amount: 1
         Pool:
         - ItemConfig:
@@ -1454,7 +1454,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 3
         - ItemConfig:
             SimpleGameId: 93
             EquipmentMetadata:
@@ -1473,7 +1473,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 3
         - ItemConfig:
             SimpleGameId: 94
             EquipmentMetadata:
@@ -1492,7 +1492,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 3
       CollectableChestPickupRadius:
         RawValue: 111411
       CollectTime:

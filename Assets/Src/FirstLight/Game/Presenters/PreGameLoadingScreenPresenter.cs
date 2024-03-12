@@ -443,7 +443,7 @@ namespace FirstLight.Game.Presenters
 			while (true)
 			{
 				yield return wait;
-				if (CurrentRoom.GameStarted) break;
+				if (CurrentRoom == null || CurrentRoom.GameStarted) break;
 				UpdateTimer();
 			}
 		}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
@@ -19,7 +20,6 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class BattlePassSeasonBannerPresenter : UiToolkitPresenter
 	{
-        
 		private Label _timeLeft;
 		private VisualElement[] _rewards;
 		private VisualElement _finalReward;
@@ -55,7 +55,7 @@ namespace FirstLight.Game.Presenters
 			s.GameUiService.CloseUi(this);
 			s.MessageBrokerService.Publish(new NewBattlePassSeasonMessage());
 		}
-		
+
 		protected override void OnOpened()
 		{
 			base.OnOpened();
@@ -63,30 +63,24 @@ namespace FirstLight.Game.Presenters
 			var data = MainInstaller.ResolveData();
 			var currentSeason = data.BattlePassDataProvider.GetCurrentSeasonConfig();
 			var endsAt = currentSeason.Season.GetEndsAtDateTime();
-			
+
 			_timeLeft.text = (endsAt - DateTime.UtcNow).ToDayAndHours(true);
 
-			var type = currentSeason.Season.RemovePaid ? PassType.Free : PassType.Paid;
-			var rewards = data.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select((_, e) => (uint)e+1), type);
-			rewards.Reverse();
-			
-			var bestReward = rewards.First();
-			rewards.Remove(bestReward);
+
+			var goodies = GetHighlightedManual();
+			if (goodies.Count < 4)
+			{
+				goodies = GetHighlightedAutomatic();
+			}
+
+			var best = goodies.Last();
+			goodies.Remove(best);
 			var lastRewardView = ItemFactory.Legacy(new LegacyItemData()
 			{
-				RewardId = bestReward.GameId,
-				Value = bestReward.Amount
+				RewardId = best.GameId,
+				Value = best.Amount
 			}).GetViewModel();
 			lastRewardView.DrawIcon(_finalReward);
-
-			var goodies = rewards.Where(ShouldShowcase).ToList();
-			foreach (var goodie in goodies) rewards.Remove(goodie);
-			while (goodies.Count < 3)
-			{
-				var reward = rewards.First();
-				goodies.Add(reward);
-				rewards.Remove(reward);
-			}
 
 			for (var x = 0; x < 3; x++)
 			{
@@ -98,6 +92,48 @@ namespace FirstLight.Game.Presenters
 				var itemView = item.GetViewModel();
 				itemView.DrawIcon(_rewards[x]);
 			}
+		}
+
+		private List<EquipmentRewardConfig> GetHighlightedManual()
+		{
+			var data = MainInstaller.ResolveData();
+			var currentSeason = data.BattlePassDataProvider.GetCurrentSeasonConfig();
+
+			var highlighted = currentSeason.Season.GetHighlighted();
+			var goodies = highlighted.Select(t => data.BattlePassDataProvider.GetRewardConfigs(new[] {t.level}, t.passType).First()).ToList();
+
+			return goodies;
+		}
+
+		private List<EquipmentRewardConfig> GetHighlightedAutomatic()
+		{
+			var data = MainInstaller.ResolveData();
+			var currentSeason = data.BattlePassDataProvider.GetCurrentSeasonConfig();
+			var type = currentSeason.Season.RemovePaid ? PassType.Free : PassType.Paid;
+
+			var rewards = data.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select((a, e) => (uint) e + 1), type);
+			rewards.Reverse();
+
+			var bestReward = rewards.First();
+			rewards.Remove(bestReward);
+			var lastRewardView = ItemFactory.Legacy(new LegacyItemData()
+			{
+				RewardId = bestReward.GameId,
+				Value = bestReward.Amount
+			}).GetViewModel();
+			lastRewardView.DrawIcon(_finalReward);
+
+			var goodies = rewards.Where(ShouldShowcase).ToList();
+			goodies.Add(bestReward);
+			foreach (var goodie in goodies) rewards.Remove(goodie);
+			while (goodies.Count < 3)
+			{
+				var reward = rewards.First();
+				goodies.Add(reward);
+				rewards.Remove(reward);
+			}
+
+			return goodies;
 		}
 
 		private bool ShouldShowcase(EquipmentRewardConfig reward)

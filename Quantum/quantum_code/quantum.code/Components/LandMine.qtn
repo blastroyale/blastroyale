@@ -1,6 +1,6 @@
 component LandMine
 {
-    entity_ref owner;
+    entity_ref Owner;
     FP TriggeredTime;
     FP TriggerableAfter;
     FP Radius; 
@@ -25,4 +25,5 @@ synced event LandMineTriggered {
 
 synced event LandMineExploded {
     entity_ref Entity;
+    FPVector3 Position;
 }

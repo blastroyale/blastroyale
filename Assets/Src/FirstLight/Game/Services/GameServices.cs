@@ -95,8 +95,8 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IThreadService"/>
 		public IThreadService ThreadService { get; }
 
-		/// <inheritdoc cref="IHelpdeskService"/>
-		public IHelpdeskService HelpdeskService { get; }
+		/// <inheritdoc cref="ICustomerSupportService"/>
+		public ICustomerSupportService CustomerSupportService { get; }
 
 		/// <inheritdoc cref="IGameModeService"/>
 		public IGameModeService GameModeService { get; }
@@ -168,7 +168,7 @@ namespace FirstLight.Game.Services
 		public ILiveopsService LiveopsService { get; }
 		public IRemoteTextureService RemoteTextureService { get; }
 		public IThreadService ThreadService { get; }
-		public IHelpdeskService HelpdeskService { get; }
+		public ICustomerSupportService CustomerSupportService { get; }
 		public IGameModeService GameModeService { get; }
 		public IMatchmakingService MatchmakingService { get; }
 		public IIAPService IAPService { get; }
@@ -210,7 +210,6 @@ namespace FirstLight.Game.Services
 			TutorialService = tutorialService;
 
 			ThreadService = new ThreadService();
-			HelpdeskService = new HelpdeskService();
 			GuidService = new GuidService();
 			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
 			GameBackendService =
@@ -259,6 +258,7 @@ namespace FirstLight.Game.Services
 			GameAppService = new GameAppService(this);
 			TeamService = new TeamService(RoomService);
 			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);
+			CustomerSupportService = new CustomerSupportService(AuthenticationService);
 		}
 
 		/// <inheritdoc />

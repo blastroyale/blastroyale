@@ -832,81 +832,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2255c91a668d043eaadc81b6a1449962
-    m_Address: Assets/Art/Animation/Humanoid/Humanoid_AnimController.controller
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: effa688dc4d574a2a9e2ebc33d8bfecd
-    m_Address: Assets/Art/Animation/Humanoid/fire_gun_shotgun.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c9aecc1da775244af8b2cfc07d9920f8
-    m_Address: Assets/Art/Animation/Humanoid/get_hit_02.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 48400ecc3d2ba1f4ca4b69042de3f9e0
-    m_Address: Assets/Art/Animation/Humanoid/ParachuteLanding.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0e2c575a2304afb40a9e04cdf8edac8c
-    m_Address: Assets/Art/Animation/Humanoid/death.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b0d8a22ad3c4819458adb78a038f0e88
-    m_Address: Assets/Art/Animation/Humanoid/Humanoid_Anims.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c1b244b97c90847ef95add73d42eff51
-    m_Address: Assets/Art/Animation/Humanoid/run.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c7c528b78802ae049a5cfa31237092fc
-    m_Address: Assets/Art/Animation/Humanoid/Inventory_Anims.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a5fb31774b00840faa2fc6c39bd95410
-    m_Address: Assets/Art/Animation/Humanoid/victory.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 323a8d754db39457f8bb3ca4d5c254a8
-    m_Address: Assets/Art/Animation/Humanoid/flair.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0439a203d121fa44bb06b6a654a3c9e7
-    m_Address: Assets/Art/Animation/Humanoid/leap.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e8aff1510b756c74690a7d96a5f10304
-    m_Address: Assets/Art/Animation/Humanoid/Skydiving.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c39bb301cf0fe9f4fa9d7eb51f49287f
-    m_Address: Assets/Art/Animation/Humanoid/crouch.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 87cc7cf0f1edbec40846a2709c28096f
-    m_Address: Assets/Art/Animation/Humanoid/idle03Expressive01.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 03f56790a6ec245d28d1d82a24d92433
-    m_Address: Assets/Art/Animation/Humanoid/aim_gun_true.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ebbbc5c2b3bf647febbd9330a1f7bd41
     m_Address: Assets/Art/Animation/Gates/GateBarrier.controller
     m_ReadOnly: 0
@@ -1012,28 +937,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 477fe0db1673cc641b03889ca0878c8d
-    m_Address: Assets/Art/Animation/Humanoid/Humanoid_AK47Override.overrideController
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8679efaf91eaaa44893d542e8510e4c5
-    m_Address: Assets/Art/Animation/Humanoid/Humanoid_BFGOverride.overrideController
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 926364ead9f1742f78f0abd2d209462b
-    m_Address: Assets/Art/Animation/Humanoid/run XL.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: be72bcfe3a76a034b8d91f3ff3a8f9e2
     m_Address: Assets/Art/Models/Weapons/DeWe/DeWe_MG_DonHoward.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3a5f4f8ace8ba25468683f320f3b7fdb
-    m_Address: Assets/Art/Animation/Humanoid/Humanoid_RPGOverride.overrideController
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1077,23 +982,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0181f92be7fd07b4ab69c60ff08227c3
-    m_Address: Assets/Art/Animation/Humanoid/Humanoid_ShotgunOverride.overrideController
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6075bb9010669da41a0e5264d7fbe378
     m_Address: Assets/Art/Models/Weapons/DeWe/DeWe_S_iBALiN.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1c7c2c20934b0af45a505af66e39413c
-    m_Address: Assets/Art/Animation/Humanoid/Humanoid_SniperRifleOverride.overrideController
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 695bee6e38b37ea49b0f95d87fe6a3a7
-    m_Address: Assets/Art/Animation/Humanoid/aim_sniper.anim
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1142,11 +1032,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: df3b81b2ca0aa094a9896f67145823d5
-    m_Address: Assets/Art/Animation/Humanoid/Humanoid_M60Override.overrideController
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a6d61949b58bef8448db5f723bb1dd93
     m_Address: Assets/Art/Models/Weapons/MajorMarkdowns/MajorMarkdowns_MG.fbx
     m_ReadOnly: 0
@@ -1154,11 +1039,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cd277ed4c1621ad4da2d5d5d5d01389f
     m_Address: Assets/Art/Models/Weapons/MajorMarkdowns/MajorMarkdowns_RKT.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 347aa5d6aee4cdd478d20045c8e545bd
-    m_Address: Assets/Art/Animation/Humanoid/Humanoid_AssaultRifleOverride.overrideController
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1204,11 +1084,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 91d0e1048affaa74ba6161089b194d5d
     m_Address: Assets/Art/Models/Items/TRM/Traffic/Trim_TRFC_A_.jpg
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fa51c6a79c46fd2479105405d4af50bc
-    m_Address: Assets/Art/Animation/Humanoid/Humanoid_LaserOverride.overrideController
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1289,26 +1164,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3bad64f7d9c604c599ef6b494a35b38c
     m_Address: Assets/Art/Textures/Noise/noise-wave.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 02cae561722a8ef429dadff05f4b7e45
-    m_Address: Assets/Art/Animation/Humanoid/Humanoid_HammerOverride.overrideController
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4c8ede3b06e504200a089dd8bfac43b4
-    m_Address: Assets/Art/Animation/Humanoid/run Hammer.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5ee95579c1f2c4368aad7ecc96fbf653
-    m_Address: Assets/Art/Animation/Humanoid/aim_hammer_02.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8162221127783b6498bd35e301aebd56
-    m_Address: Assets/Art/Animation/Humanoid/fire_hammer_02.anim
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

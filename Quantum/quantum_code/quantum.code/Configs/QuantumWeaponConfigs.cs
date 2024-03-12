@@ -65,7 +65,8 @@ namespace Quantum
 		// 0 is "no weapon" in animations so we keep the same numbering here.
 		Melee = 1,
 		Gun = 2,
-		XLGun = 3
+		XLGun = 3,
+		SniperGun = 4
 	}
 
 	/// <summary>

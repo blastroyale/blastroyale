@@ -18,6 +18,8 @@ MonoBehaviour:
       Guid:
         Value: 3922240779153377466
     FullyDisable: 0
+    ReviveAnimationDuration:
+      RawValue: 65536
     PerGameMode:
       Default:
         AllowedRevives:
@@ -26,7 +28,7 @@ MonoBehaviour:
           DamagePerTick:
             RawValue: 1966
           DamagePerShot:
-            RawValue: 19660
+            RawValue: 13107
           TimeToRevive:
             RawValue: 327680
           LifePercentageOnRevived:
@@ -44,7 +46,7 @@ MonoBehaviour:
           DamagePerTick:
             RawValue: 1966
           DamagePerShot:
-            RawValue: 19660
+            RawValue: 13107
           TimeToRevive:
             RawValue: 327680
           LifePercentageOnRevived:
@@ -62,7 +64,7 @@ MonoBehaviour:
           DamagePerTick:
             RawValue: 1966
           DamagePerShot:
-            RawValue: 19660
+            RawValue: 13107
           TimeToRevive:
             RawValue: 327680
           LifePercentageOnRevived:

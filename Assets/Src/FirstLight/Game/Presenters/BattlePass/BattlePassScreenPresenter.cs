@@ -38,7 +38,7 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action BackClicked;
 			public IGameUiService UiService;
-			public bool DisableInitialScrollAnimation;
+			public bool DisableScrollAnimation;
 		}
 
 		private const string UssBpSegmentFiller = "bp-segment-filler";
@@ -137,6 +137,9 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBoughtBpLevel(BattlePassLevelPurchasedMessage obj)
 		{
+			var d = Data;
+			d.DisableScrollAnimation = false;
+			Data = d;
 			InitScreen(true);
 		}
 
@@ -395,13 +398,22 @@ namespace FirstLight.Game.Presenters
 			SpawnScrollFiller();
 			UpdateLastRewardBubbleSprite().Forget();
 			
-			if (predictedProgress.Item1 > 1)
+			if (predictedProgress.Item1 > 1 && update)
 			{
-				ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs, Data.DisableInitialScrollAnimation && !update);
+				ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs, Data.DisableScrollAnimation);
 			}
 
 			// Disable current reward bubble
 			_currentReward.SetDisplay(false);
+			_rewardsScroll.RegisterCallback<GeometryChangedEvent>(OnFinishedRewardScroll);
+		}
+
+		private void OnFinishedRewardScroll(GeometryChangedEvent ev)
+		{
+			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+			ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs, Data.DisableScrollAnimation);
+			_currentReward.SetDisplay(false);
+			_rewardsScroll.UnregisterCallback<GeometryChangedEvent>(OnFinishedRewardScroll);
 		}
 
 		public async UniTaskVoid UpdateLastRewardBubbleSprite()
@@ -518,7 +530,7 @@ namespace FirstLight.Game.Presenters
 		private void ShowRewards(IEnumerable<ItemData> rewards)
 		{
 			var battlePassData = Data;
-			battlePassData.DisableInitialScrollAnimation = true;
+			battlePassData.DisableScrollAnimation = true;
 			Data.UiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 			{
 				SkipSummary = true,

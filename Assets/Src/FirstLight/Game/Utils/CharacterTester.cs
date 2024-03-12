@@ -64,6 +64,28 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 				weaponChild.localRotation = Quaternion.identity;
 			}
 		}
+
+		[Button]
+		private void GiveGlider(GameObject glider)
+		{
+			var skins = gameObject.transform.GetComponentsInChildren<CharacterSkinMonoComponent>();
+
+			foreach (var skin in skins)
+			{
+				skin.GliderAnchor.localScale = Vector3.one;
+
+				while (skin.GliderAnchor.childCount > 0)
+				{
+					DestroyImmediate(skin.GliderAnchor.GetChild(0).gameObject);
+				}
+
+				var weaponInstance = (GameObject) PrefabUtility.InstantiatePrefab(glider, skin.GliderAnchor);
+
+				var weaponChild = weaponInstance.transform.GetChild(0);
+				weaponChild.localPosition = Vector3.zero;
+				weaponChild.localRotation = Quaternion.identity;
+			}
+		}
 	}
 }
 #endif

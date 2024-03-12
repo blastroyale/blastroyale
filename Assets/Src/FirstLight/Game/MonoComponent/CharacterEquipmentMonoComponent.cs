@@ -59,7 +59,7 @@ namespace FirstLight.Game.MonoComponent
 			piece.SetParent(anchor);
 
 			piece.localPosition = Vector3.zero;
-			piece.localRotation = Quaternion.Euler(50, 180, 0); // TODO mihak: Temp hack
+			piece.localRotation = Quaternion.identity;
 			piece.localScale = Vector3.one;
 		}
 

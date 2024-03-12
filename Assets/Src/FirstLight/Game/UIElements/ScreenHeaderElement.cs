@@ -16,14 +16,8 @@ namespace FirstLight.Game.UIElements
 		private const string UssDisableButtonsModifier = UssBlock + "--disable-buttons";
 		private const string UssTitle = UssBlock + "__title";
 		private const string UssSubTitle = UssBlock + "__subtitle";
-		private const string UssHome = UssBlock + "__home";
 		private const string UssBack = UssBlock + "__back";
 		private const string UssSeparator = UssBlock + "__separator";
-
-		/// <summary>
-		/// Triggered when the home button is clicked.
-		/// </summary>
-		public event Action homeClicked;
 
 		/// <summary>
 		/// Triggered when the back button is clicked.
@@ -36,7 +30,6 @@ namespace FirstLight.Game.UIElements
 		private readonly Label _title;
 		private readonly Label _subTitle;
 		private readonly ImageButton _back;
-		private readonly ImageButton _home;
 
 		public ScreenHeaderElement()
 		{
@@ -55,7 +48,7 @@ namespace FirstLight.Game.UIElements
 			safeAreaContainer.Add(_back = new ImageButton {name = "back"});
 			_back.AddToClassList(UssBack);
 			_back.AddToClassList(UIConstants.SFX_CLICK_BACKWARDS);
-			_back.clicked += () => (backClicked ?? homeClicked)?.Invoke();
+			_back.clicked += () => backClicked?.Invoke();
 			
 			safeAreaContainer.Add(_title = new Label("TITLE") {name = "title"});
 			_title.AddToClassList(UssTitle);
@@ -66,23 +59,10 @@ namespace FirstLight.Game.UIElements
 			var centerContent = new VisualElement {name = "separator", pickingMode = PickingMode.Ignore};
 			centerContent.AddToClassList(UssSeparator);
 			safeAreaContainer.Add(centerContent);
-
-			safeAreaContainer.Add(_home = new ImageButton {name = "home"});
-			_home.AddToClassList(UssHome);
-			_home.AddToClassList(UIConstants.SFX_CLICK_BACKWARDS);
-			_home.clicked += () => (homeClicked ?? backClicked)?.Invoke();
-		}
-		
-		/// <summary>
-		/// Sets the home button visible or invisible.
-		/// </summary>
-		public void SetHomeVisible(bool vis)
-		{
-			_home.SetVisibility(vis);
 		}
 
 		/// <summary>
-		/// Show or hide back and home buttons based on the shouldShow parameter
+		/// Show or hide back button based on the shouldShow parameter
 		/// </summary>
 		public void SetButtonsVisibility(bool shouldShow)
 		{

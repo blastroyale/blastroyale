@@ -85,7 +85,6 @@ namespace FirstLight.Game.Presenters
 
 			var header = root.Q<ScreenHeaderElement>("Header").Required();
 			header.backClicked += Data.OnBackClicked;
-			header.homeClicked += Data.OnHomeClicked;
 
 			root.Q<CurrencyDisplayElement>("CSCurrency").SetDisplay(false);
 			root.Q<CurrencyDisplayElement>("CoinCurrency").AttachView(this, out CurrencyDisplayView _);

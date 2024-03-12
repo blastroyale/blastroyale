@@ -53,7 +53,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_buttonsSlider = root.Q<ScrollView>("ButtonsSlider").Required();
 			_header = root.Q<ScreenHeaderElement>("Header").Required();
-			_header.homeClicked += Data.OnHomeClicked;
 			_header.backClicked += Data.OnBackClicked;
 			
 			var orderNumber = 1;

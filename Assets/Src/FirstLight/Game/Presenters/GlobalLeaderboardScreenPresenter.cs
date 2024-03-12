@@ -76,7 +76,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_header = root.Q<ScreenHeaderElement>("Header").Required();
 			_header.backClicked += Data.OnBackClicked;
-			_header.homeClicked += Data.OnBackClicked;
 			_fixedLocalPlayerHolder = root.Q<VisualElement>("FixedLocalPlayerHolder").Required();
 			_leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
 			_leaderboardListView = root.Q<ListView>("LeaderboardList").Required();

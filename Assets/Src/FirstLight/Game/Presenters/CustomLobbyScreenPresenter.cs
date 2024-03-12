@@ -2,13 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using FirstLight.FLogger;
 using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.RoomService;
@@ -16,15 +12,12 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
 using I2.Loc;
-using NUnit.Framework;
 using Photon.Realtime;
-using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace FirstLight.Game.Presenters
 {
@@ -44,7 +37,6 @@ namespace FirstLight.Game.Presenters
 		public MapSelectionView mapSelectionView;
 
 		[SerializeField, Required] private Button _backButton;
-		[SerializeField, Required] private Button _homeButton;
 		[SerializeField, Required] private GameObject _rootObject;
 		[SerializeField, Required] private Button _lockRoomButton;
 		[SerializeField, Required] private Button _kickButton;
@@ -98,7 +90,6 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_backButton.onClick.AddListener(OnLeaveRoomClicked);
-			_homeButton.onClick.AddListener(OnLeaveRoomClicked);
 			_spectateToggle.onValueChanged.AddListener(OnSpectatorToggle);
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);

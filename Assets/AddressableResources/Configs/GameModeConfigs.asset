@@ -19,7 +19,7 @@ MonoBehaviour:
         Value: 1595361790544170013
     QuantumConfigs:
     - Id: BattleRoyale
-      MaxPlayers: 30
+      MaxPlayers: 48
       MinPlayers: 1
       Teams: 0
       MaxPlayersInTeam: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
       - Quantum.Systems.RoofDamageSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null
     - Id: BattleRoyaleTrios
-      MaxPlayers: 30
+      MaxPlayers: 48
       MinPlayers: 1
       Teams: 1
       MaxPlayersInTeam: 3

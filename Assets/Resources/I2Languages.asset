@@ -25528,6 +25528,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSettings/support
+      TermType: 0
+      Description: 
+      Languages:
+      - SUPPORT
+      - 
+      - SUPORTE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITInbox/inbox_community
       TermType: 0
       Description: 

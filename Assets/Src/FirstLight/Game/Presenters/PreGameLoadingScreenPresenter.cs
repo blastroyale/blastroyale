@@ -108,7 +108,7 @@ namespace FirstLight.Game.Presenters
 			_squadMembersList.makeItem = CreateSquadListEntry;
 			_squadMembersList.bindItem = BindSquadListEntry;
 
-			_header.homeClicked += OnCloseClicked;
+			_header.backClicked += OnCloseClicked;
 		}
 
 		protected override void SubscribeToEvents()

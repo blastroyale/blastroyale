@@ -89,7 +89,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_header = root.Q<ScreenHeaderElement>("Header").Required();
 			_header.backClicked += Data.OnBackClicked;
-			_header.homeClicked += Data.OnCloseClicked;
 
 			_equipmentList = root.Q<ListView>("EquipmentList").Required();
 			_equipmentList.DisableScrollbars();

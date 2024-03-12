@@ -13,13 +13,13 @@ namespace FirstLight.Editor.EditorTools
 		[MenuItem("FLG/Web3/Login")]
 		private static void Login()
 		{
-			Web3.OnLoginRequested().Forget();
+			Web3.RequestLogin().Forget();
 		}
 
 		[MenuItem("FLG/Web3/Logout")]
 		private static void Logout()
 		{
-			Web3.OnLogoutRequested().Forget();
+			Web3.RequestLogout().Forget();
 		}
 
 		[MenuItem("FLG/Web3/PrintState")]

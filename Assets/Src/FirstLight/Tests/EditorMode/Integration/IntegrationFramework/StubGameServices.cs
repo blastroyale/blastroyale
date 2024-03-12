@@ -1,4 +1,3 @@
-using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
@@ -42,7 +41,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual ILiveopsService LiveopsService { get; set; }
 		public virtual IRemoteTextureService RemoteTextureService { get; }
 		public virtual IThreadService ThreadService { get; }
-		public virtual IHelpdeskService HelpdeskService { get; }
+		public virtual ICustomerSupportService CustomerSupportService { get; }
 		public virtual IGameModeService GameModeService { get; }
 		public virtual IMatchmakingService MatchmakingService { get; }
 		public virtual IIAPService IAPService { get; }
@@ -90,7 +89,7 @@ namespace FirstLight.Tests.EditorMode
 			GameLogic = gameLogic;
 
 			ThreadService = new ThreadService();
-			HelpdeskService = new HelpdeskService();
+			
 			PartyService = Substitute.For<IPartyService>();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic,
 				PartyService, gameLogic.AppDataProvider);
@@ -118,6 +117,7 @@ namespace FirstLight.Tests.EditorMode
 			TeamService = Substitute.For<ITeamService>();
 			ServerListService = Substitute.For<IServerListService>();
 			IAPService = Substitute.For<IIAPService>();
+			CustomerSupportService = new CustomerSupportService(AuthenticationService);
 		}
 	}
 }

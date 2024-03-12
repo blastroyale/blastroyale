@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 8
     OrthographicSize: 10
-    NearClipPlane: 0.1
+    NearClipPlane: 10
     FarClipPlane: 200
     Dutch: 0
     ModeOverride: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 45
     OrthographicSize: 10
-    NearClipPlane: 0.1
+    NearClipPlane: 10
     FarClipPlane: 100
     Dutch: 5
     ModeOverride: 0
@@ -877,7 +877,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 7.5
     OrthographicSize: 3128.598
-    NearClipPlane: 0.1
+    NearClipPlane: 10
     FarClipPlane: 100
     Dutch: 0
     ModeOverride: 0
@@ -973,7 +973,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 5
     OrthographicSize: 10
-    NearClipPlane: 0.1
+    NearClipPlane: 10
     FarClipPlane: 200
     Dutch: 0
     ModeOverride: 0
@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 30
     OrthographicSize: 3128.598
-    NearClipPlane: 0.1
+    NearClipPlane: 10
     FarClipPlane: 500
     Dutch: 25
     ModeOverride: 0
@@ -1248,7 +1248,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 7.25
     OrthographicSize: 10
-    NearClipPlane: 0.1
+    NearClipPlane: 10
     FarClipPlane: 200
     Dutch: 0
     ModeOverride: 0
@@ -1344,7 +1344,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 30
     OrthographicSize: 10
-    NearClipPlane: 0.1
+    NearClipPlane: 10
     FarClipPlane: 100
     Dutch: -21
     ModeOverride: 0
@@ -1440,7 +1440,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 5
     OrthographicSize: 10
-    NearClipPlane: 0.1
+    NearClipPlane: 10
     FarClipPlane: 200
     Dutch: 0
     ModeOverride: 0

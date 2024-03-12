@@ -122,7 +122,6 @@ namespace FirstLight.Game.Presenters
 
 			_rewardsScroll.horizontalScroller.valueChanged += OnScroll;
 			_screenHeader.backClicked += Data.BackClicked;
-			_screenHeader.homeClicked += Data.BackClicked;
 			//_fullScreenClaimButton.clicked += OnClaimClicked;
 			//_claimButton.clicked += OnClaimClicked;
 			_activateButton.clicked += ActivateClicked;
@@ -412,6 +411,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 			ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs, Data.DisableScrollAnimation);
+			_currentReward.SetDisplay(false);
 			_rewardsScroll.UnregisterCallback<GeometryChangedEvent>(OnFinishedRewardScroll);
 		}
 

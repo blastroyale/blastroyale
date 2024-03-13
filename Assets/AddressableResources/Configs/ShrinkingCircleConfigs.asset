@@ -1562,9 +1562,9 @@ MonoBehaviour:
         RawValue: 13107
       AirdropStartTimeRange:
         Value1:
-          RawValue: 1179648
+          RawValue: 393216
         Value2:
-          RawValue: 1310720
+          RawValue: 524288
       AirdropDropDuration:
         RawValue: 655360
       AirdropChest: 19
@@ -1587,9 +1587,9 @@ MonoBehaviour:
         RawValue: 52429
       AirdropStartTimeRange:
         Value1:
-          RawValue: 1179648
+          RawValue: 393216
         Value2:
-          RawValue: 1310720
+          RawValue: 524288
       AirdropDropDuration:
         RawValue: 655360
       AirdropChest: 19
@@ -1612,11 +1612,11 @@ MonoBehaviour:
         RawValue: 0
       AirdropStartTimeRange:
         Value1:
-          RawValue: 1179648
+          RawValue: 0
         Value2:
-          RawValue: 1310720
+          RawValue: 0
       AirdropDropDuration:
-        RawValue: 655360
+        RawValue: 0
       AirdropChest: 19
     - Key: 1689716288
       Step: 5

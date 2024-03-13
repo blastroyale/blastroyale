@@ -28,11 +28,18 @@ namespace FirstLight.Game.Services.Match
 			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
+			QuantumEvent.SubscribeManual<EventOnAllPlayersJoined>(this, OnAllPlayersJoined);
 		}
 
+		private void OnAllPlayersJoined(EventOnAllPlayersJoined callback)
+		{
+			_localPlayerEntity = callback.Game.GetLocalPlayerData(true, out _).Entity;
+		}
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
+			// only handles reconnection
+			if (!isReconnect) return;
 			_localPlayerEntity = game.GetLocalPlayerData(true, out _).Entity;
 		}
 

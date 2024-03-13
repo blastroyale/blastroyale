@@ -1,13 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
+using FirstLight.UiService;
 using I2.Loc;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -19,7 +17,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles server selection in the main menu
 	/// </summary>
-	public class ServerSelectScreenPresenter : AnimatedUiPresenterData<ServerSelectScreenPresenter.StateData>
+	public class ServerSelectScreenPresenter : UiPresenterData<ServerSelectScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
@@ -47,6 +45,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
+			base.OnOpened();
 			_statusText.SetText("Pinging servers...");
 			_selectorAndButtonsContainer.SetActive(false);
 			WaitForRegionPing().Forget();

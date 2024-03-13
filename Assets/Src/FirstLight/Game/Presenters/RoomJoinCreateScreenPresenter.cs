@@ -69,7 +69,6 @@ namespace FirstLight.Game.Presenters
 		{
 			var header = root.Q<ScreenHeaderElement>("Header").Required();
 			header.backClicked += Data.BackClicked;
-			header.homeClicked += Data.CloseClicked;
 			_playtestButton = root.Q<Button>("PlaytestButton");
 			_playtestButton.clicked += PlaytestClicked;
 			_playtestButton.SetDisplay(_services.GameBackendService.IsDev());

@@ -39,7 +39,6 @@ namespace FirstLight.Game.Presenters.News
 			_indicator = new VisualElement();
 			_indicator.AddToClassList(USS_CATEGORY_INDICATOR);
 			root.Q<ImageButton>("back").Required().clicked += Data.OnBack;
-			root.Q<ImageButton>("home").Required().clicked += Data.OnBack;
 		}
 
 		protected override void OnOpened()

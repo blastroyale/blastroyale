@@ -62,12 +62,6 @@
         "com.google.firebase.app": "11.2.0"
       }
     },
-    "com.helpshift": {
-      "version": "file:Helpshift",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
     "com.heurekagames.assethunterpro": {
       "version": "file:com.heurekagames.assethunterpro",
       "depth": 0,

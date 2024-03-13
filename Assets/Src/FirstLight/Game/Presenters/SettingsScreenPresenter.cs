@@ -7,6 +7,8 @@ using FirstLight.UiService;
 using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using I2.Loc;
+using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 using Cysharp.Threading.Tasks;
@@ -34,13 +36,13 @@ namespace FirstLight.Game.Presenters
 		private ImageButton _closeScreenButton;
 
 		private Label _buildInfoLabel;
-		private Button _faqButton;
 		private Button _serverButton;
 		private Button _customizeHudButton;
 		private Button _logoutButton;
 		private Button _deleteAccountButton;
 		private Button _connectIdButton;
 		private Button _web3Button;
+		private Button _supportButton;
 		private Label _accountStatusLabel;
 		private Label _web3StatusLabel;
 		private VisualElement _web3Notification;
@@ -97,6 +99,9 @@ namespace FirstLight.Game.Presenters
 				() => _gameDataProvider.AppDataProvider.SwitchJoysticks,
 				val => _gameDataProvider.AppDataProvider.SwitchJoysticks = val);
 
+			_customizeHudButton = root.Q<Button>("CustomizeHud").Required();
+			_customizeHudButton.clicked += OpenCustomizeHud;
+
 			// Graphics
 			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("FPSRBG").Required(),
 				() => _gameDataProvider.AppDataProvider.FpsTarget,
@@ -120,16 +125,11 @@ namespace FirstLight.Game.Presenters
 			UpdateWeb3State(MainInstaller.ResolveWeb3().State);
 
 			// Footer buttons
-			_faqButton = root.Q<Button>("FAQButton");
-			_faqButton.clicked += _services.HelpdeskService.ShowFaq;
-			_customizeHudButton = root.Q<Button>("CustomizeHud");
-			_customizeHudButton.clicked += OpenCustomizeHud;
-			_serverButton = root.Q<Button>("ServerButton");
+			_supportButton = root.Q<Button>("SupportButton").Required();
+			_supportButton.clicked += OpenSupportService;
+			_serverButton = root.Q<Button>("ServerButton").Required();
 			_serverButton.clicked += OpenServerSelect;
 
-#if UNITY_IOS && !UNITY_EDITOR
-			_faqButton.SetDisplay(false);
-#endif
 			var web3 = MainInstaller.ResolveWeb3();
 			_web3Button.clicked += () => web3.RequestLogin().Forget();
 			_web3Button.SetEnabled(web3.State != Web3State.Unavailable);
@@ -221,6 +221,11 @@ namespace FirstLight.Game.Presenters
 		private void OpenCustomizeHud()
 		{
 			Data.OnCustomizeHudClicked();
+		}
+
+		private void OpenSupportService()
+		{
+			_services.CustomerSupportService.OpenCustomerSupportTicketForm();
 		}
 
 		private void OpenServerSelect()

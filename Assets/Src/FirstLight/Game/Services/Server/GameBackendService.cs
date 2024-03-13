@@ -251,6 +251,8 @@ namespace FirstLight.Game.Services
 			{
 				var newData = appData.CopyForNewEnvironment();
 
+				_services.AuthenticationService.SetLinkedDevice(false);
+
 				newData.LastEnvironment = CurrentEnvironmentData.EnvironmentID;
 
 				_dataService.AddData(newData, true);

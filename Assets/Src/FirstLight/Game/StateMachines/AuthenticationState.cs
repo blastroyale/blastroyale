@@ -244,20 +244,21 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			FLog.Info("Error: "+error.Error);
+			
+			if (!recoverable)
+			{
+				_services.AuthenticationService.SetLinkedDevice(false);
+			}
 
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = () =>
 				{
-					if (!recoverable)
-					{
-						_services.AuthenticationService.SetLinkedDevice(false);
-					}
-
 					_services.QuitGame("OnLoginError " + error.GenerateErrorReport());
 				}
 			};
+
 			var message = error.ErrorMessage;
 			if (!recoverable)
 			{

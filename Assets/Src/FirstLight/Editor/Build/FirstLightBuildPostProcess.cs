@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using I2.Loc;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -18,57 +15,14 @@ namespace FirstLight.Editor.Build
 	public class FirstLightBuildPostProcess : IPostprocessBuildWithReport
 	{
 		public int callbackOrder => 1000;
-		
+
 		/// <inheritdoc />
 		public void OnPostprocessBuild(BuildReport report)
 		{
 			Debug.Log("FirstLightBuildPostProcess.OnPostprocessBuild Executing");
-			
-			if (report.summary.platform == BuildTarget.iOS)
-			{
-				ConfigureXcode(report);
-			}
-			
 			WriteBuildPropertiesFile();
 		}
 
-		private static void ConfigureXcode(BuildReport buildReport)
-		{
-#if UNITY_IOS
-			var projectPath = UnityEditor.iOS.Xcode.PBXProject.GetPBXProjectPath(buildReport.summary.outputPath);
-			var schemePath = buildReport.summary.outputPath + "/Unity-iPhone.xcodeproj/xcshareddata/xcschemes/Unity-iPhone.xcscheme";
-			var plistPath = buildReport.summary.outputPath + "/Info.plist";
-			var pbxProject = new UnityEditor.iOS.Xcode.PBXProject();
-			var scheme = new UnityEditor.iOS.Xcode.XcScheme();
-			var plist = new UnityEditor.iOS.Xcode.PlistDocument();
-
-			pbxProject.ReadFromFile(projectPath);
-
-			var mainTargetGuid = pbxProject.GetUnityMainTargetGuid();
-			var frameworkTargetGuid = pbxProject.GetUnityFrameworkTargetGuid();
-
-			scheme.ReadFromFile(schemePath);
-			scheme.SetDebugExecutable(false);
-			scheme.WriteToFile(schemePath);
-			
-			plist.ReadFromFile(plistPath);
-			plist.root.SetString("NSUserTrackingUsageDescription", ScriptLocalization.General.ATTDescription);
-			plist.WriteToFile(plistPath);
-
-			pbxProject.SetBuildProperty(frameworkTargetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "NO");
-			pbxProject.SetBuildProperty(mainTargetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "YES");
-			pbxProject.SetBuildProperty(mainTargetGuid, "SWIFT_VERSION", "5.1");
-
-			// Xcode 15 fix
-			pbxProject.AddBuildProperty(frameworkTargetGuid, "OTHER_LDFLAGS", "-ld64");
-			
-			// Disable bitcode
-			pbxProject.SetBuildProperty(mainTargetGuid, "ENABLE_BITCODE", "NO");
-			pbxProject.SetBuildProperty(frameworkTargetGuid, "ENABLE_BITCODE", "NO");
-
-			pbxProject.WriteToFile(projectPath);
-#endif
-		}
 
 		/// <summary>
 		/// Write a properties file containing useful information that an external process
@@ -77,7 +31,7 @@ namespace FirstLight.Editor.Build
 		private static void WriteBuildPropertiesFile()
 		{
 			const string fileName = "build-output.properties";
-			
+
 			var lines = new List<string>();
 			var serializedVersionData = VersionEditorUtils.LoadVersionDataSerializedSync();
 			var versionData = JsonUtility.FromJson<VersionUtils.VersionData>(serializedVersionData);
@@ -91,15 +45,15 @@ namespace FirstLight.Editor.Build
 			var iOSVersionCode = PlayerSettings.iOS.buildNumber;
 			var obbName = $"main.{androidVersionCode.ToString()}.{appIdentifier}.obb";
 			var filePath = Path.Combine(Application.dataPath, "..", fileName);
-			
+
 			internalVersionFilename.Replace('/', '_');
 			internalVersionFilename.Replace('\\', '_');
-			
+
 			foreach (var invalidChar in invalidChars)
 			{
 				internalVersionFilename.Replace(invalidChar, '_');
 			}
-			
+
 			lines.Add($"FL_EXTERNAL_VERSION={PlayerSettings.bundleVersion}");
 			lines.Add($"FL_INTERNAL_VERSION={internalVersion}");
 			lines.Add($"FL_INTERNAL_VERSION_FILENAME={internalVersionFilename}");
@@ -108,10 +62,10 @@ namespace FirstLight.Editor.Build
 			lines.Add($"FL_ANDROID_VERSION_CODE={androidVersionCode.ToString()}");
 			lines.Add($"FL_OBB_NAME={obbName}");
 			lines.Add($"FL_IOS_VERSION_CODE={iOSVersionCode}");
-			
+
 			Debug.Log($"Writing build properties file: {filePath}");
 			Debug.Log(string.Join("\n", lines));
-			
+
 			File.WriteAllLines(filePath, lines, Encoding.ASCII);
 		}
 	}

@@ -16364,13 +16364,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - This identifier will be used to measure advertising efficiency.
-      - "\u042D\u0442\u043E\u0442 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u0431\u0443\u0434\u0435\u0442 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C\u0441\u044F
-        \u0434\u043B\u044F \u0438\u0437\u043C\u0435\u0440\u0435\u043D\u0438\u044F
-        \u044D\u0444\u0444\u0435\u043A\u0442\u0438\u0432\u043D\u043E\u0441\u0442\u0438
-        \u0440\u0435\u043A\u043B\u0430\u043C\u044B."
-      - "Esse identificador ser\xE1 usado para medir a efici\xEAncia da publicidade."
+      - Your data will help us find relevant players for Blast Royale.
+      - Your data will help us find relevant players for Blast Royale.
+      - Your data will help us find relevant players for Blast Royale.
       - 
       - 
       Flags: 0000000000
@@ -26693,7 +26689,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1709557414186
+    Google_LastUpdatedVersion: 1710333064744
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

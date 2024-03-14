@@ -328,12 +328,6 @@ namespace FirstLight.Game.Services.RoomService
 				maxPlayers += GetMaxSpectators(type);
 			}
 
-			// Quantum development servers only allow 20 players :(
-			if (_backendService.IsDev())
-			{
-				maxPlayers = Math.Min(20, maxPlayers);
-			}
-
 			return (byte) maxPlayers;
 		}
 

@@ -432,8 +432,7 @@ namespace Best.HTTP.Shared.Compression.Zlib
         ///
         /// <para>
         ///   The <c>GZipStream</c> will use the default compression level. If you want
-        ///   to specify the compression level, see <see cref="GZipStream(Stream,
-        ///   CompressionMode, CompressionLevel, bool)"/>.
+        ///   to specify the compression level, see <see cref="GZipStream(Stream,CompressionMode, CompressionLevel, bool)"/>.
         /// </para>
         ///
         /// <para>

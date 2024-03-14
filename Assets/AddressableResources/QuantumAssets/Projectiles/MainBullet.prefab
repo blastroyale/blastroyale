@@ -239,8 +239,8 @@ Transform:
   m_GameObject: {fileID: 3009301768106876208}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.11}
-  m_LocalScale: {x: 1, y: 1.2771066, z: 3.26}
+  m_LocalPosition: {x: 0, y: 0, z: -1.158}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1969717073681190072}
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GoldenGunGradient:
     serializedVersion: 2
-    key0: {r: 0.8931885, g: 0, b: 1, a: 0.6901961}
+    key0: {r: 1, g: 0.39124364, b: 0, a: 0.6901961}
     key1: {r: 0.99215686, g: 1, b: 0.7058824, a: 1}
     key2: {r: 0.99335337, g: 1, b: 0.7075472, a: 1}
     key3: {r: 0, g: 0, b: 0, a: 0}
@@ -284,7 +284,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_ColorSpace: -1
+    m_ColorSpace: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 3
   NormalGunGradient:
@@ -361,7 +361,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0.7}
+  - {x: 0, y: 0, z: 2}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -369,8 +369,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.00308609
-        value: 0.3806228
+        time: 0.022441398
+        value: 0.45469585
         inSlope: 0
         outSlope: 0
         tangentMode: 0

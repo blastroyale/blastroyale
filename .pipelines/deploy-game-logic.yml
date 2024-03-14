@@ -101,4 +101,4 @@ stages:
       ipwhitelist: ${{ parameters.ipwhitelist }}
       helmRepoPassword: ${{ parameters.helmRepoPassword }}
       envVars: ${{ parameters.envVars }}
-      customFQDN: mainnet-prod-game-logic-service.blastroyale.com
+      customFQDN: ${{ parameters.environment }}-game-logic-service.blastroyale.com

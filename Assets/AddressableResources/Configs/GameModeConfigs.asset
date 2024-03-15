@@ -19,7 +19,7 @@ MonoBehaviour:
         Value: 1595361790544170013
     QuantumConfigs:
     - Id: BattleRoyale
-      MaxPlayers: 30
+      MaxPlayers: 48
       MinPlayers: 1
       Teams: 0
       MaxPlayersInTeam: 0

@@ -14,7 +14,7 @@ namespace Quantum
 
 #region Matchmaking & Room
 
-		[FoldoutGroup("Matchmaking & Room"), PropertyRange(1, 30), ValidateInput("@MaxPlayers >= MinPlayers"),
+		[FoldoutGroup("Matchmaking & Room"), PropertyRange(1, 48), ValidateInput("@MaxPlayers >= MinPlayers"),
 		 PropertyTooltip(DESC_MAX_PLAYERS)]
 		public uint MaxPlayers;
 

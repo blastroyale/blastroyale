@@ -12,21 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 021a6033ed744e9ebd4a403020b29dca, type: 3}
   m_Name: LiveopsSegmentActionConfigs
   m_EditorClassIdentifier: 
-  _configs:
-  - ActionIdentifier: 2
-    PlayerSegment: EarlyEngagedPlayers
-    Action: 0
-    ActionParameter:
-    - BLAST NEWS
-    - <size=120%><br>You're a natural!<br><br>Want to take your skills to the next
-      level?<br><b>Join our Discord</b> for daily <b>challenges</b>, <b>tournaments</b>,
-      and to earn <b>epic prizes</b>!<br><br>Just hit the <b>Discord</b> icon in
-      the <b>top right corner</b>.<br>
-  - ActionIdentifier: 3
-    PlayerSegment: EngagedWithNoNFTs
-    Action: 0
-    ActionParameter:
-    - BLAST NEWS
-    - <size=120%><br>Did you know you can buy <b>tradable equipment</b> from other
-      players on the <b>Blast Hub</b>?<br><br>Buy from players, own the gear, and
-      earn Craft Spice.<br>Level up your game!<br><br>Check it out at the:<br><size=150%>hub.blastroyale.com<br>
+  _configs: []

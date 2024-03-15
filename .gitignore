@@ -150,4 +150,6 @@ Assets/Libs/Photon/Quantum/Assemblies/quantum.core.dll
 Assets/Libs/Photon/Quantum/Assemblies/PhotonDeterministic.dll
 Quantum/quantum_code/quantum.code/Core/CodeGen.cs
 
+# Remote addressables
+/ServerData/
 

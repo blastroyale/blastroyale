@@ -33,63 +33,63 @@ MonoBehaviour:
       MinimapCameraSize: 0
       LootingVersion: 2
     - Map: 65
-      MaxPlayers: 30
+      MaxPlayers: 48
       IsTestMap: 1
       IsCustomOnly: 0
       DropSelectionSize: 1
       MinimapCameraSize: 112
       LootingVersion: 2
     - Map: 108
-      MaxPlayers: 30
+      MaxPlayers: 48
       IsTestMap: 0
       IsCustomOnly: 1
       DropSelectionSize: 1
       MinimapCameraSize: 87
       LootingVersion: 2
     - Map: 113
-      MaxPlayers: 30
+      MaxPlayers: 48
       IsTestMap: 0
       IsCustomOnly: 1
       DropSelectionSize: 1
       MinimapCameraSize: 115
       LootingVersion: 2
     - Map: 114
-      MaxPlayers: 30
+      MaxPlayers: 48
       IsTestMap: 0
       IsCustomOnly: 1
       DropSelectionSize: 1
       MinimapCameraSize: 112
       LootingVersion: 2
     - Map: 115
-      MaxPlayers: 30
+      MaxPlayers: 48
       IsTestMap: 0
       IsCustomOnly: 1
       DropSelectionSize: 1
       MinimapCameraSize: 118
       LootingVersion: 2
     - Map: 197
-      MaxPlayers: 30
+      MaxPlayers: 48
       IsTestMap: 0
       IsCustomOnly: 1
       DropSelectionSize: 1
       MinimapCameraSize: 38
       LootingVersion: 2
     - Map: 198
-      MaxPlayers: 30
+      MaxPlayers: 48
       IsTestMap: 0
       IsCustomOnly: 1
       DropSelectionSize: 1
       MinimapCameraSize: 45
       LootingVersion: 2
     - Map: 1009
-      MaxPlayers: 30
+      MaxPlayers: 48
       IsTestMap: 1
       IsCustomOnly: 1
       DropSelectionSize: 1
       MinimapCameraSize: 45
       LootingVersion: 2
     - Map: 200
-      MaxPlayers: 32
+      MaxPlayers: 48
       IsTestMap: 0
       IsCustomOnly: 0
       DropSelectionSize: 1

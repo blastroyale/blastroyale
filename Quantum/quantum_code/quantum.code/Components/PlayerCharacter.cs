@@ -16,6 +16,7 @@ namespace Quantum
 		public List<Modifier> modifiers = null;
 		public uint minimumHealth = 0;
 		public CharacterController3DConfig KccConfig;
+		public GameId deathFlagID;
 	}
 	
 	public unsafe partial struct PlayerCharacter

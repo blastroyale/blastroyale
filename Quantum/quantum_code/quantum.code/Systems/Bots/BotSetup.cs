@@ -306,7 +306,8 @@ namespace Quantum.Systems.Bots
 				trophies = trophies,
 				teamId = teamId,
 				modifiers = modifiers,
-				KccConfig = kccConfig
+				KccConfig = kccConfig,
+				deathFlagID = botCharacter.DeathMarker
 			};
 
 			SetupBotCosmetics(f, botEntity, spawner.Entity);

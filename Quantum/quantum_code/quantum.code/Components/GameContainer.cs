@@ -24,6 +24,7 @@ namespace Quantum
 			data.PlayerLevel = (ushort)setup.playerLevel;
 			data.PlayerTrophies = setup.trophies;
 			data.TeamId = setup.teamId;
+			data.DeathFlag = setup.deathFlagID;
 			data.BotNameIndex = isBot ? (short)bot.BotNameIndex : (short)0;
 			var skins = f.ResolveList(data.Cosmetics);
 			if (f.TryGet<CosmeticsHolder>(setup.e, out var cosmeticsHolder))
@@ -104,6 +105,7 @@ namespace Quantum
 		/// <summary>
 		/// Request all players match data.
 		/// Battle Royale Ranking: More frags == higher rank and Dead longer == lower rank
+		/// 
 		/// Deathmatch Ranking: More frags == higher rank and Same frags && more deaths == lower rank 
 		/// </summary>
 		public List<QuantumPlayerMatchData> GeneratePlayersMatchData(Frame f, out PlayerRef leader, out int leaderTeam)

@@ -19,6 +19,7 @@ struct PlayerMatchData
 	UInt16 CurrentKillStreak;
 	UInt16 CurrentMultiKill;
 	FP MultiKillResetTime;
+	GameId DeathFlag;
 	
 	[AllocateOnComponentAdded, FreeOnComponentRemoved]
     list<GameId> Cosmetics;

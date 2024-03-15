@@ -19,7 +19,7 @@ MonoBehaviour:
         Value: 1595361790544170013
     QuantumConfigs:
     - Id: BattleRoyale
-      MaxPlayers: 48
+      MaxPlayers: 30
       MinPlayers: 1
       Teams: 0
       MaxPlayersInTeam: 0
@@ -66,98 +66,6 @@ MonoBehaviour:
         PublicKeyToken=null
       - Quantum.Systems.RoofDamageSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null
-    - Id: BattleRoyaleTrios
-      MaxPlayers: 48
-      MinPlayers: 1
-      Teams: 1
-      MaxPlayersInTeam: 3
-      MinPlayersInTeam: 1
-      AllowedMaps: 6c00000041000000710000007200000073000000c5000000c6000000c8000000
-      RankSorter: 1
-      RankProcessor: 1
-      ShowUIMinimap: 1
-      ShowUITimer: 1
-      ShowUIStandingsExtraInfo: 1
-      ShowWeaponSlots: 1
-      SingleSlotMode: 1
-      DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
-      ShowTeamCount: 1
-      Lives: 1
-      DropWeaponOnPickup: 1
-      AirdropNearPlayer: 0
-      ShrinkingCircleCenteredOnPlayer: 0
-      SpawnWithGear: 0
-      SpawnWithWeapon: 0
-      SkydiveSpawn: 1
-      SpawnSelection: 1
-      SpawnPattern: 0
-      DeathDropStrategy: 4
-      DeathMarker: 1
-      MinimumHealth: 0
-      InstantLoad: 0
-      AllowBots: 1
-      UseBotsFromGamemode: BattleRoyale
-      BotSearchForCrates: 1
-      BotRespawn: 0
-      BotWeaponSearchStrategy: 1
-      BotsTeamOverride: 0
-      GameSimulationStateMachine: 1
-      AudioStateMachine: 1
-      CompletionStrategy: 1
-      CompletionKillCount: 0
-      AllowEarlyRewards: 1
-      MetaCoinsMultiplier: 100
-      MetaBppMultiplier: 3
-      IsDebugOnly: 0
-      Systems:
-      - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
-        PublicKeyToken=null
-      - Quantum.Systems.RoofDamageSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
-        PublicKeyToken=null
-    - Id: Deathmatch
-      MaxPlayers: 10
-      MinPlayers: 1
-      Teams: 0
-      MaxPlayersInTeam: 0
-      MinPlayersInTeam: 0
-      AllowedMaps: 89000000070000008f0000009000000008000000
-      RankSorter: 1
-      RankProcessor: 1
-      ShowUIMinimap: 0
-      ShowUITimer: 0
-      ShowUIStandingsExtraInfo: 0
-      ShowWeaponSlots: 1
-      SingleSlotMode: 1
-      DescriptionLocalisationKey: MainMenu/DeathmatchDescription
-      ShowTeamCount: 0
-      Lives: 0
-      DropWeaponOnPickup: 0
-      AirdropNearPlayer: 0
-      ShrinkingCircleCenteredOnPlayer: 0
-      SpawnWithGear: 1
-      SpawnWithWeapon: 0
-      SkydiveSpawn: 0
-      SpawnSelection: 0
-      SpawnPattern: 0
-      DeathDropStrategy: 0
-      DeathMarker: 0
-      MinimumHealth: 0
-      InstantLoad: 0
-      AllowBots: 1
-      UseBotsFromGamemode: 
-      BotSearchForCrates: 0
-      BotRespawn: 1
-      BotWeaponSearchStrategy: 2
-      BotsTeamOverride: 0
-      GameSimulationStateMachine: 0
-      AudioStateMachine: 0
-      CompletionStrategy: 2
-      CompletionKillCount: 10
-      AllowEarlyRewards: 0
-      MetaCoinsMultiplier: 1
-      MetaBppMultiplier: 1
-      IsDebugOnly: 1
-      Systems: []
     - Id: Testing
       MaxPlayers: 4
       MinPlayers: 1
@@ -289,54 +197,6 @@ MonoBehaviour:
       MetaCoinsMultiplier: 100
       MetaBppMultiplier: 1
       IsDebugOnly: 1
-      Systems:
-      - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
-        PublicKeyToken=null
-      - Quantum.Systems.RoofDamageSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
-        PublicKeyToken=null
-    - Id: BattleRoyaleDuos
-      MaxPlayers: 30
-      MinPlayers: 1
-      Teams: 1
-      MaxPlayersInTeam: 2
-      MinPlayersInTeam: 1
-      AllowedMaps: 6c00000041000000710000007200000073000000c5000000c6000000c8000000
-      RankSorter: 1
-      RankProcessor: 1
-      ShowUIMinimap: 1
-      ShowUITimer: 1
-      ShowUIStandingsExtraInfo: 1
-      ShowWeaponSlots: 1
-      SingleSlotMode: 1
-      DescriptionLocalisationKey: MainMenu/BattleRoyaleDuosDescription
-      ShowTeamCount: 1
-      Lives: 1
-      DropWeaponOnPickup: 1
-      AirdropNearPlayer: 0
-      ShrinkingCircleCenteredOnPlayer: 0
-      SpawnWithGear: 0
-      SpawnWithWeapon: 0
-      SkydiveSpawn: 1
-      SpawnSelection: 1
-      SpawnPattern: 0
-      DeathDropStrategy: 4
-      DeathMarker: 1
-      MinimumHealth: 0
-      InstantLoad: 0
-      AllowBots: 1
-      UseBotsFromGamemode: BattleRoyale
-      BotSearchForCrates: 1
-      BotRespawn: 0
-      BotWeaponSearchStrategy: 1
-      BotsTeamOverride: 0
-      GameSimulationStateMachine: 1
-      AudioStateMachine: 1
-      CompletionStrategy: 1
-      CompletionKillCount: 0
-      AllowEarlyRewards: 1
-      MetaCoinsMultiplier: 100
-      MetaBppMultiplier: 1
-      IsDebugOnly: 0
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null

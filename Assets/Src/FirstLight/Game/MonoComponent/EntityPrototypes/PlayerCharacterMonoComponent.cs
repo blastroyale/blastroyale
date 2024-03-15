@@ -80,35 +80,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			if (HasRenderedView()) return;
 			var frame = game.Frames.Verified;
-			_ = InstantiateAvatar(game, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player);
+			InstantiateAvatar(game, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player).Forget();
 		}
-
-		protected override void OnEntityDestroyed(QuantumGame game)
-		{
-			var f = game?.Frames?.Verified;
-
-			if (f == null || _playerView == null) return;
-
-			var cosmeticIds = PlayerLoadout.GetCosmetics(f, _playerView.PlayerRef);
-			var marker = _services.CollectionService.GetCosmeticForGroup(cosmeticIds, GameIdGroup.DeathMarker);
-			
-			_ = SpawnDeathMarker(marker);
-		}
-
-		private async UniTaskVoid SpawnDeathMarker(ItemData marker)
-		{ 
-			var position = transform.position;
-			var obj = await Services.CollectionService.LoadCollectionItem3DModel(marker);
-			if (!QuantumRunner.Default.IsDefinedAndRunning())
-			{
-				Destroy(obj);
-				return;
-			}
-
-			obj.transform.position = position;
-		}
-
-
+		
 		public bool ShouldDisplayColorTag()
 		{
 			if (PlayerView == null || this.IsDestroyed() || PlayerView.IsEntityDestroyed())

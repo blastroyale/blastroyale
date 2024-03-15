@@ -24,7 +24,7 @@ namespace FirstLight.Game.Views
 
 		public GameModeInfo GameModeInfo { get; private set; }
 		public event Action<GameModeSelectionButtonView> Clicked;
-		
+
 		public bool Selected
 		{
 			get => _selected;
@@ -42,20 +42,28 @@ namespace FirstLight.Game.Views
 				}
 			}
 		}
-		
+
+		public bool Disabled
+		{
+			get => _disabled;
+			set
+			{
+				_disabled = value;
+				_button.SetEnabled(!_disabled);
+			}
+		}
+
 		private IGameServices _services;
 		private Button _button;
 		private Label _gameModeLabel;
 		private Label _gameModeDescriptionLabel;
 		private Label _gameModeTimerLabel;
 		private bool _selected;
+		private bool _disabled;
 		private Coroutine _timerCoroutine;
 
 		private VisualElement _mutatorsPanel;
 		private List<VisualElement> _mutatorLines;
-
-		private List<string> _gameModes = new (){"deathmatch", "battleroyale", "battleroyaletrios", "battleroyaleduos"};
-		private List<string> _matchTypes = new (){"matchmaking", "forced", "custom"};
 
 		public GameModeSelectionButtonView()
 		{
@@ -66,7 +74,7 @@ namespace FirstLight.Game.Views
 		{
 			base.Attached(element);
 			_button = element.Q<Button>().Required();
-			
+
 			var dataPanel = element.Q<VisualElement>("DataPanel");
 			_gameModeLabel = dataPanel.Q<VisualElement>("Title").Q<Label>("Label").Required();
 			_gameModeDescriptionLabel = dataPanel.Q<Label>("Description");
@@ -74,7 +82,7 @@ namespace FirstLight.Game.Views
 
 			_mutatorsPanel = element.Q<VisualElement>("Mutators");
 			_mutatorLines = _mutatorsPanel.Query<VisualElement>("MutatorLine").ToList();
-			
+
 			_button.clicked += () => Clicked?.Invoke(this);
 		}
 
@@ -111,35 +119,33 @@ namespace FirstLight.Game.Views
 		public void SetData(GameModeInfo gameModeInfo)
 		{
 			GameModeInfo = gameModeInfo;
-			
+
 			RemoveClasses();
-			
+
 			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.MatchType.ToString().ToLowerInvariant()}");
 			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.GameModeId.ToLowerInvariant()}");
+			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.ImageModifier}");
 
-			_gameModeLabel.text = LocalizationUtils.GetTranslationForGameModeId(GameModeInfo.Entry.GameModeId);
-
-			UpdateDescription();
+			UpdateTitleAndDescription();
 			UpdateMutators();
 		}
 
 		private void RemoveClasses()
 		{
-			_gameModes.ForEach(mode => _button.RemoveFromClassList($"{GameModeButtonBase}--{mode}"));
-			_matchTypes.ForEach(type => _button.RemoveFromClassList($"{GameModeButtonBase}--{type}"));
+			_button.RemoveModifiers();
 		}
 
-		private void UpdateDescription()
+		private void UpdateTitleAndDescription()
 		{
 			if (GameModeInfo.Entry.GameModeId == GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME)
 			{
+				_gameModeLabel.text = ScriptLocalization.MainMenu.CustomGame;
 				_gameModeDescriptionLabel.text = ScriptLocalization.UITGameModeSelection.custom_game_description;
 				return;
 			}
 
-			var gameModeId = GameModeInfo.Entry.GameModeId;
-			var descLocalisationKey = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId).DescriptionLocalisationKey;
-			_gameModeDescriptionLabel.text = LocalizationManager.GetTranslation(descLocalisationKey);
+			_gameModeLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.TitleTranslationKey);
+			_gameModeDescriptionLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.DescriptionTranslationKey);
 		}
 
 		private void UpdateMutators()
@@ -149,7 +155,7 @@ namespace FirstLight.Game.Views
 				_mutatorsPanel.SetDisplay(false);
 				return;
 			}
-			
+
 			_mutatorsPanel.SetDisplay(true);
 
 			for (var mutatorIndex = 0; mutatorIndex < _mutatorLines.Count; mutatorIndex++)

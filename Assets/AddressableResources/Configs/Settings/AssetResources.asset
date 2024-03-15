@@ -104,6 +104,11 @@ MonoBehaviour:
         Id:
           Value: 434800705800386188
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CurrentFrameTimeFunction_4]
+    - Path: AddressableResources/QuantumAssets/Others/DeathFlagPrototype|EntityView
+      AssetRef:
+        Id:
+          Value: 452268884930367831
+      Address: QuantumAssets/Others/DeathFlagPrototype.prefab[DeathFlagPrototypeEntityView]
     - Path: AddressableResources/Configs/MutatorConfigs
       AssetRef:
         Id:
@@ -694,6 +699,11 @@ MonoBehaviour:
         Id:
           Value: 2838018030188143315
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[GetMagShotCountFunction_15]
+    - Path: AddressableResources/QuantumAssets/Others/DeathFlagPrototype|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 2926812260290138366
+      Address: QuantumAssets/Others/DeathFlagPrototype.prefab[DeathFlagPrototypeEntityPrototype]
     - Path: AddressableResources/Configs/EquipmentMaterialStatConfigs
       AssetRef:
         Id:
@@ -1114,4 +1124,9 @@ MonoBehaviour:
   AssetBundlesGroup:
     _resources: []
   ResourcesGroup:
-    _resources: []
+    _resources:
+    - Path: AddressableResources/NestedAssetType|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 1971798902115397569
+      ResourcePath: NestedAssetType

@@ -162,14 +162,14 @@
     right: 5%;
     align-items: center;
     justify-content: center;
-    top: 0;
-    bottom: 99px;
-    width: 850px;
+    top: 5%;
+    bottom: 100px;
+    width: 1024px;
 }
 
 .map {
-    width: 850px;
-    height: 850px;
+    width: 1024px;
+    height: 1024px;
     background-image: none;
     align-items: center;
     justify-content: center;
@@ -215,13 +215,13 @@
 }
 
 .map__title-bg {
-    width: 115%;
-    height: 275px;
+    width: 100%;
+    height: 100px;
     background-image: var(--sprite-home__banner-mapselection);
     align-items: center;
     justify-content: center;
     position: absolute;
-    bottom: -150px;
+    bottom: 15px;
     display: flex;
     -unity-background-scale-mode: scale-to-fit;
 }

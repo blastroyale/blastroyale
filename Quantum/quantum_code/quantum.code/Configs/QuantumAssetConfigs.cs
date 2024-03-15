@@ -15,6 +15,7 @@ namespace Quantum
 		public AssetRefEntityPrototype ChestPrototype;
 		public AssetRefEntityPrototype AirDropPrototype;
 		public AssetRefEntityPrototype LandMinePrototype;
+		public AssetRefEntityPrototype DeathFlagPrototype;
 		public AssetRefNavMeshAgentConfig BotNavMeshConfig;
 		public AssetRefCharacterController3DConfig BotKccConfig;
 	}

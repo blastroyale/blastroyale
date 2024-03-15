@@ -14,8 +14,8 @@ namespace FirstLight.Game.Services.Party
 		private const string LevelProperty = "bpp_level";
 		private const string TrophiesProperty = "trophies";
 		private const int CodeDigits = 4;
-		private const int MaxMembers = 2;
-		private const string JoinCodeAllowedCharacters = "23456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		private const int MaxMembers = 4;
+
 
 		private static readonly List<string> _memberRemovedReasons = new ()
 		{
@@ -41,16 +41,16 @@ namespace FirstLight.Game.Services.Party
 				PlayFabErrorCode.LobbyBadRequest, new Dictionary<string, PartyErrors>()
 				{
 					{"User is not lobby owner or member or server", PartyErrors.UserIsNotMember},
+					{"User is not lobby owner or member", PartyErrors.UserIsNotMember},
 					{"Cannot get lobby details since user is not lobby owner or member", PartyErrors.TryingToGetDetailsOfNonMemberParty}
 				}
-			},	
+			},
 			{
 				PlayFabErrorCode.LobbyNotJoinable, new Dictionary<string, PartyErrors>()
 				{
 					{"The lobby is full", PartyErrors.PartyFull}
 				}
 			},
-			
 		};
 	}
 }

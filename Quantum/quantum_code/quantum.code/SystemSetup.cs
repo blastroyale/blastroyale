@@ -51,6 +51,7 @@ namespace Quantum
 				new BotCharacterSystem(),
 				new StatSystem(),
 				new SpellSystem(),
+				new DeathFlagSystem(),
 				new GateSystem(),
 				new TriggerSystem(),
 				new DestructibleSystem(),

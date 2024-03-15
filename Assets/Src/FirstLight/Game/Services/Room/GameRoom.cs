@@ -25,6 +25,7 @@ namespace FirstLight.Game.Services.RoomService
 		private bool _pause;
 
 		public bool GameStarted => Properties.GameStarted.Value;
+		public bool IsTeamGame => Properties.TeamSize.Value > 1;
 		public QuantumMapConfig MapConfig => _roomService.GetMapConfig(Properties.MapId.Value.GetHashCode());
 		public QuantumGameModeConfig GameModeConfig => _roomService.GetGameModeConfig(Properties.GameModeId.Value);
 		public Dictionary<int, Player> Players => _room.Players;
@@ -185,6 +186,7 @@ namespace FirstLight.Game.Services.RoomService
 			runtimeConfig.GameModeId = Properties.GameModeId.Value;
 			runtimeConfig.Mutators = Properties.Mutators.Value.ToArray();
 			runtimeConfig.BotOverwriteDifficulty = Properties.BotDifficultyOverwrite.HasValue ? Properties.BotDifficultyOverwrite.Value : -1;
+			runtimeConfig.TeamSize = Properties.TeamSize.Value;
 		}
 
 

@@ -35,7 +35,7 @@ namespace Quantum.Systems
 		public void AllPlayersJoined(Frame f)
 		{
 			Dictionary<int, int> teamsByPlayer;
-			if (f.Context.GameModeConfig.Teams)
+			if (f.GetTeamSize() > 1)
 			{
 				teamsByPlayer = GeneratePlayerTeamIds(f);
 			}
@@ -113,7 +113,8 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-
+			
+			
 			var deathPosition = f.Get<Transform3D>(entity).Position;
 			var gameModeConfig = f.Context.GameModeConfig;
 			var equipmentToDrop = new List<Equipment>();
@@ -162,7 +163,7 @@ namespace Quantum.Systems
 				// No need to drop anything from killed dummies
 				// they don't even shoot anymore (first ones)
 			}
-
+			
 			var anglesToDrop = equipmentToDrop.Count + consumablesToDrop.Count;
 			var step = 0;
 			foreach (var drop in equipmentToDrop)
@@ -200,7 +201,8 @@ namespace Quantum.Systems
 				teamId = teamId,
 				modifiers = null,
 				minimumHealth = f.Context.GameModeConfig.MinimumHealth,
-				KccConfig = kccConfig
+				KccConfig = kccConfig,
+				deathFlagID = playerData.DeathFlagID
 			};
 			// Skin stuff
 			f.Add<CosmeticsHolder>(playerEntity);

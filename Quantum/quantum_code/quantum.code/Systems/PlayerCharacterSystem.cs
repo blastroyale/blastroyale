@@ -35,7 +35,7 @@ namespace Quantum.Systems
 		public void AllPlayersJoined(Frame f)
 		{
 			Dictionary<int, int> teamsByPlayer;
-			if (f.Context.GameModeConfig.Teams)
+			if (f.GetTeamSize() > 1)
 			{
 				teamsByPlayer = GeneratePlayerTeamIds(f);
 			}

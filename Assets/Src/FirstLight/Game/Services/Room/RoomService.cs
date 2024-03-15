@@ -123,14 +123,7 @@ namespace FirstLight.Game.Services.RoomService
 		/// Used for Playfab matchmaking, because with playfab matchmaking we know the name of the room, so a random player will create it and the others will join
 		/// </remarks>
 		bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null, string[] expectedPlayers = null);
-
-		/// <summary>
-		/// Joins a random room of matching parameters if it exists, or creates a new one if it doesn't
-		/// </summary>
-		/// <returns>True if the operation was sent successfully</returns>
-		/// <remarks>This is used for the "OLD" matchmaking, we don't have the room name so it will try to match a match with same properties</remarks>
-		bool JoinOrCreateRandomRoom(MatchRoomSetup setup);
-
+		
 		/// <summary>
 		/// Leaves the current room that local player is in
 		/// </summary>
@@ -266,33 +259,6 @@ namespace FirstLight.Game.Services.RoomService
 			_networkService.LastDisconnectLocation = LastDisconnectionLocation.None;
 			return _networkService.QuantumClient.OpRejoinRoom(room);
 		}
-
-
-		/// <summary>
-		/// This is used for the "OLD" matchmaking, we don't have the room name so it will try to match a match with same properties
-		/// </summary>
-		/// <returns></returns>
-		public bool JoinOrCreateRandomRoom(MatchRoomSetup setup)
-		{
-			FLog.Verbose("Is player in room "+InRoom);
-			if (InRoom) return false;
-
-			FLog.Info($"JoinOrCreateRandomRoom: {setup}");
-
-			var createParams = _parameters.GetRoomCreateParams(setup);
-			var joinRandomParams = _parameters.GetJoinRandomRoomParams(setup);
-
-			FLog.Verbose(ModelSerializer.PrettySerialize(createParams));
-			FLog.Verbose(ModelSerializer.PrettySerialize(joinRandomParams));
-			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
-
-			ResetLocalPlayerProperties();
-			_networkService.LastDisconnectLocation = LastDisconnectionLocation.None;
-			_networkService.LastUsedSetup.Value = setup;
-
-			return _networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, createParams);
-		}
-
 
 		public bool LeaveRoom(bool becomeInactive = false)
 		{
@@ -446,7 +412,7 @@ namespace FirstLight.Game.Services.RoomService
 			// We don't have server time yet lets wait
 			if (time == 0) return;
 			CurrentRoom.Properties.LoadingStartServerTime.Value = _networkService.ServerTimeInMilliseconds;
-			CurrentRoom.Properties.SecondsToStart.Value = Configs.SecondsToStartOldMatchmakingRoom;
+			CurrentRoom.Properties.SecondsToStart.Value = Configs.MatchmakingLoadingTimeout;
 		}
 
 		private void SubscribeToPropertyChangeEvents(GameRoom room)
@@ -518,7 +484,7 @@ namespace FirstLight.Game.Services.RoomService
 			}
 
 			// Check if players loaded assets, give them 5 more seconds then start game
-			if (!CurrentRoom.AreAllPlayersReady() && CurrentRoom.GameStartsAt() + (Configs.SecondsLoadingTimeout * 1000) >
+			if (!CurrentRoom.AreAllPlayersReady() && CurrentRoom.GameStartsAt() >
 				_networkService.ServerTimeInMilliseconds)
 			{
 				return;

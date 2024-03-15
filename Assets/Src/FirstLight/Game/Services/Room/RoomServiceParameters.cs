@@ -61,6 +61,11 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			// !!!NOTE!!!
 			// If you add anything here you must also add the key in GetCreateRoomPropertiesForLobby!
+			var teamSize = 1;
+			if (setup.PlayfabQueue != null && setup.PlayfabQueue.TeamSize > 1)
+			{
+				teamSize = setup.PlayfabQueue.TeamSize;
+			}
 			return new RoomProperties
 			{
 				MatchType = {Value = setup.MatchType},
@@ -69,7 +74,8 @@ namespace FirstLight.Game.Services.RoomService
 				GameModeId = {Value = setup.GameModeId},
 				Mutators = {Value = setup.Mutators.ToList()},
 				GameStarted = {Value = false},
-				AllowedRewards = {Value = setup.AllowedRewards}
+				AllowedRewards = {Value = setup.AllowedRewards},
+				TeamSize = {Value = teamSize}
 			};
 		}
 
@@ -81,14 +87,13 @@ namespace FirstLight.Game.Services.RoomService
 			var gamemodeConfig = _service.GetGameModeConfig(setup.GameModeId);
 			var mapConfig = _service.GetMapConfig(setup.MapId);
 
-			var isRandomMatchmaking = setup.MatchType == MatchType.Matchmaking && !gamemodeConfig.ShouldUsePlayfabMatchmaking();
 
 			var roomNameFinal = string.IsNullOrEmpty(setup.RoomIdentifier) ? null : setup.RoomIdentifier;
 			// In offline games we need to create the room with the correct TTL as we cannot update TTL
 			// mid games. If we don't we won't be able to reconnect to the room unless we use a frame snapshot which is tricky.
 			var emptyTtl = offline ? GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS : 0;
 
-			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
+			if (FeatureFlags.COMMIT_VERSION_LOCK)
 			{
 				roomNameFinal += RoomCommitLockData;
 			}
@@ -116,11 +121,11 @@ namespace FirstLight.Game.Services.RoomService
 					Plugins = null,
 					SuppressRoomEvents = false,
 					SuppressPlayerInfo = false,
-					PublishUserId = gamemodeConfig.ShouldUsePlayfabMatchmaking(),
+					PublishUserId = setup.MatchType == MatchType.Matchmaking,
 					DeleteNullProperties = true,
 					EmptyRoomTtl = emptyTtl,
 					IsOpen = true,
-					IsVisible = isRandomMatchmaking && !offline,
+					IsVisible = setup.MatchType == MatchType.Custom,
 					MaxPlayers = _service.GetMaxPlayers(gamemodeConfig, mapConfig, setup.MatchType),
 					PlayerTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS
 				},

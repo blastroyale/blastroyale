@@ -46,7 +46,8 @@ namespace FirstLight.Game.Commands
 				DidPlayerQuit = false,
 				GamePlayerCount = matchData.Count,
 				AllowedRewards = QuantumValues.AllowedRewards,
-				CollectedItems = EarnedGameItems ?? new ()
+				CollectedItems = EarnedGameItems ?? new (),
+				TeamSize = TeamSize
 			};
 			
 			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);
@@ -66,7 +67,7 @@ namespace FirstLight.Game.Commands
 			PlayersMatchData = gameContainer.GeneratePlayersMatchData(frame, out _, out _);
 			
 			QuantumValues = quantumValues;
-			TeamSize = frame.Context.GameModeConfig.MaxPlayersInTeam;
+			TeamSize = (uint)frame.GetTeamSize();
 
 			var executingData = PlayersMatchData[QuantumValues.ExecutingPlayer];
 			var items = frame.ResolveDictionary(executingData.Data.CollectedMetaItems);

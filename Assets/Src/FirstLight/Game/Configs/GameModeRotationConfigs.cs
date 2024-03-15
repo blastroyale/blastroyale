@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
+using Newtonsoft.Json;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FirstLight.Game.Configs
 {
@@ -18,6 +20,14 @@ namespace FirstLight.Game.Configs
 		public List<SlotWrapper> Slots;
 
 		[Serializable]
+		public class PlayfabQueue
+		{
+			[Required] public string QueueName;
+			[Required] public int TeamSize;
+			[Required] public int TimeoutTimeInSeconds;
+		}
+
+		[Serializable]
 		public struct GameModeEntry : IEquatable<GameModeEntry>
 		{
 			public static string InvalidRewardsMessage = "You can only select the following values: " +
@@ -26,22 +36,17 @@ namespace FirstLight.Game.Configs
 			public string GameModeId;
 			public MatchType MatchType;
 			public List<string> Mutators;
-			public bool Squads;
-			public bool NFT;
+			public PlayfabQueue PlayfabQueue;
+			[JsonIgnore]
+			public int TeamSize => PlayfabQueue.TeamSize;
 
 			[Required] [ValidateInput("ValidateAllowedRewards", "$InvalidRewardsMessage")]
 			public List<GameId> AllowedRewards;
 
-			public GameModeEntry(string gameModeId, MatchType matchType, List<string> mutators, bool isSquads,
-								 bool needNft, List<GameId> allowedRewards)
-			{
-				GameModeId = gameModeId;
-				MatchType = matchType;
-				Mutators = mutators;
-				Squads = isSquads;
-				NFT = needNft;
-				AllowedRewards = allowedRewards;
-			}
+			[FoldoutGroup("Screen")] public string TitleTranslationKey;
+			[FoldoutGroup("Screen")] public string DescriptionTranslationKey;
+			[FoldoutGroup("Screen")] public string ImageModifier;
+
 
 			private bool ValidateAllowedRewards(List<GameId> ids)
 			{
@@ -52,7 +57,7 @@ namespace FirstLight.Game.Configs
 			public override string ToString()
 			{
 				return
-					$"{GameModeId}, {MatchType}{(Squads ? ", Squads" : "")}, Mutators({string.Join(",", Mutators)}){(NFT ? ", NFT" : "")}";
+					$"{GameModeId}, {MatchType} TeamSize:{PlayfabQueue.TeamSize}, Mutators({string.Join(",", Mutators)})";
 			}
 
 			public bool Equals(GameModeEntry other)
@@ -60,9 +65,8 @@ namespace FirstLight.Game.Configs
 				return GameModeId == other.GameModeId &&
 					MatchType == other.MatchType &&
 					Mutators.SequenceEqual(other.Mutators) &&
-					Squads == other.Squads &&
-					NFT == other.NFT
-					&& IsAllowedRewardsEqual(other.AllowedRewards);
+					PlayfabQueue.Equals(other.PlayfabQueue) &&
+					IsAllowedRewardsEqual(other.AllowedRewards);
 			}
 
 			private bool IsAllowedRewardsEqual(List<GameId> two)
@@ -85,7 +89,7 @@ namespace FirstLight.Game.Configs
 
 			public override int GetHashCode()
 			{
-				return HashCode.Combine(GameModeId, (int) MatchType, Mutators, Squads, NFT);
+				return HashCode.Combine(GameModeId, (int) MatchType, Mutators, PlayfabQueue);
 			}
 
 			public static bool operator !=(GameModeEntry obj1, GameModeEntry obj2) => !(obj1.Equals(obj2));

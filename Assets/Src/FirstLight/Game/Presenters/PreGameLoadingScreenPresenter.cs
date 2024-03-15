@@ -133,7 +133,7 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshPartyList()
 		{
-			var isSquadGame = CurrentRoom.GameModeConfig.Teams;
+			var isSquadGame = CurrentRoom.IsTeamGame;
 
 			if (isSquadGame)
 			{

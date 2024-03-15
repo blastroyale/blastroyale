@@ -41,7 +41,7 @@ namespace Quantum
 		internal void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player)
 		{
 			var stats = f.Unsafe.GetPointer<Stats>(playerEntity);
-			var isTeamsMode = f.Context.GameModeConfig.Teams;
+			var isTeamsMode = f.GetTeamSize() > 1;
 			var team = f.Get<Targetable>(playerEntity).Team;
 			var collectable = f.Unsafe.GetPointer<Collectable>(entity);
 			

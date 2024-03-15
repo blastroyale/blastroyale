@@ -28,12 +28,6 @@ namespace FirstLight.Game.Services
 			EndTime = endTime;
 		}
 
-		public GameModeInfo(string gameModeId, MatchType matchType, List<string> mutators, bool isSquads, bool needNft, List<GameId> allowedRewards,
-							DateTime endTime = default)
-		{
-			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators, isSquads, needNft, allowedRewards);
-			EndTime = endTime;
-		}
 
 		public override string ToString()
 		{
@@ -79,6 +73,9 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IGameModeService"/>
 	public class GameModeService : IGameModeService
 	{
+		private const string SelectedQueueLobbyProperty = "selected_queue";
+
+
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IThreadService _threadService;
 		private readonly IPartyService _partyService;
@@ -105,8 +102,12 @@ namespace FirstLight.Game.Services
 			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
 			SelectedGameMode.Observe(OnGameModeSet);
-			_partyService.HasParty.Observe((_, _) => { OnPartyUpdate(); });
+			_partyService.Members.Observe(OnPartyMemberUpdate);
+			_partyService.HasParty.Observe((_, hasParty) => { OnHasPartyUpdate(hasParty); });
+			_partyService.OnLobbyPropertiesCreated += AddGameModeToPartyProperties;
+			_partyService.LobbyProperties.Observe(SelectedQueueLobbyProperty, OnLeaderChangedGameMode);
 		}
+
 
 		public void Init()
 		{
@@ -142,8 +143,32 @@ namespace FirstLight.Game.Services
 			{
 				MainInstaller.Resolve<IGameServices>().DataSaver.SaveData<AppData>();
 			}
+
+			if (_partyService.HasParty.Value && _partyService.GetLocalMember().Leader)
+			{
+				_partyService.SetLobbyProperty(SelectedQueueLobbyProperty, current.Entry.PlayfabQueue.QueueName);
+			}
 		}
-		
+
+		private void AddGameModeToPartyProperties(Dictionary<string,string> _, Dictionary<string, string> lobbyData)
+		{
+			lobbyData[SelectedQueueLobbyProperty] = SelectedGameMode.Value.Entry.PlayfabQueue.QueueName;
+		}
+
+		private void OnLeaderChangedGameMode(string key, string previous, string current, ObservableUpdateType type)
+		{
+			var selected = SelectedGameMode.Value.Entry.PlayfabQueue.QueueName;
+			if (selected == current)
+			{
+				return;
+			}
+
+			var newValue = _slots.FirstOrDefault(a => a.Entry.PlayfabQueue.QueueName == current);
+			if (newValue.Entry.PlayfabQueue?.QueueName == null) return;
+			SelectedGameMode.Value = newValue;
+		}
+
+
 		/// <summary>
 		/// Returns the current map in rotation, used for creating rooms with maps in rotation
 		/// </summary>
@@ -157,7 +182,7 @@ namespace FirstLight.Game.Services
 				Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.Balance.MAP_ROTATION_TIME_MINUTES);
 
 			var mapConfigs = services.ConfigsProvider.GetConfigsDictionary<QuantumMapConfig>();
-			
+
 			foreach (var mapId in gameModeConfig.AllowedMaps)
 			{
 				if (!mapConfigs.TryGetValue((int) mapId, out var mapConfig))
@@ -165,6 +190,7 @@ namespace FirstLight.Game.Services
 					FLog.Error($"Could not find map config for map {mapId} - maybe outdated AppData ?");
 					continue;
 				}
+
 				if (!mapConfig.IsTestMap && !mapConfig.IsCustomOnly)
 				{
 					compatibleMaps.Add(mapConfig);
@@ -179,36 +205,43 @@ namespace FirstLight.Game.Services
 			return compatibleMaps[timeSegmentIndex];
 		}
 
-		public void OnPartyUpdate()
+		private void OnPartyMemberUpdate(int index, PartyMember before, PartyMember after, ObservableUpdateType type)
 		{
-			bool hasParty = _partyService.HasParty.Value;
-			if (hasParty && !SelectedGameMode.Value.Entry.Squads)
+			if (type == ObservableUpdateType.Added || type == ObservableUpdateType.Removed)
 			{
-				SelectedGameMode.Value = FindModeWithSquads(true);
+				AutoSelectGameModeForTeamSize(_partyService.Members.Count);
+			}
+		}
+
+		public void OnHasPartyUpdate(bool hasParty)
+		{
+			// Player left party
+			if (!hasParty)
+			{
+				AutoSelectGameModeForTeamSize(1, true);
 				return;
 			}
 
-			// If the player have NFT he can play squads alone so there is no need to change back
-			if (!CanSelectGameMode(SelectedGameMode.Value.Entry))
+			AutoSelectGameModeForTeamSize(_partyService.Members.Count);
+		}
+
+		private void AutoSelectGameModeForTeamSize(int size, bool forceMinSize = false)
+		{
+			if (SelectedGameMode.Value.Entry.TeamSize >= size && !forceMinSize)
 			{
-				this.SelectDefaultRankedMode();
+				// Already have a proper selected gamemode
+				return;
 			}
+
+			var firstThatFits = _slots.OrderBy(g => g.Entry.TeamSize)
+				.First(g => g.Entry.TeamSize >= size);
+
+			SelectedGameMode.Value = firstThatFits;
 		}
 
 		private bool CanSelectGameMode(GameModeRotationConfig.GameModeEntry gameMode)
 		{
-			bool hasParty = _partyService.HasParty.Value;
-			if (gameMode.Squads && !hasParty && !_gameDataProvider.HasNfts())
-			{
-				return false;
-			}
-
 			return IsInRotation(gameMode);
-		}
-
-		private GameModeInfo FindModeWithSquads(bool squads)
-		{
-			return _slots.First(gm => gm.Entry.Squads == squads);
 		}
 
 		public bool IsInRotation(GameModeRotationConfig.GameModeEntry gameMode)

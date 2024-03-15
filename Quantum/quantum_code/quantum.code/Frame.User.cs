@@ -50,18 +50,19 @@ namespace Quantum
 		internal QuantumMapConfigs MapConfigs => FindAsset<QuantumMapConfigs>(RuntimeConfig.MapConfigs.Id);
 		internal QuantumGameModeConfigs GameModeConfigs => FindAsset<QuantumGameModeConfigs>(RuntimeConfig.GameModeConfigs.Id);
 		internal QuantumWeaponConfigs WeaponConfigs => FindAsset<QuantumWeaponConfigs>(RuntimeConfig.WeaponConfigs.Id);
-		
+
 		internal QuantumStatConfigs StatConfigs =>
 			FindAsset<QuantumStatConfigs>(RuntimeConfig.StatConfigs.Id);
+
 		internal QuantumBaseEquipmentStatConfigs BaseEquipmentStatConfigs =>
 			FindAsset<QuantumBaseEquipmentStatConfigs>(RuntimeConfig.BaseEquipmentStatConfigs.Id);
-		
+
 		internal QuantumEquipmentStatConfigs EquipmentStatConfigs =>
 			FindAsset<QuantumEquipmentStatConfigs>(RuntimeConfig.EquipmentStatConfigs.Id);
 
 		internal QuantumEquipmentMaterialStatConfigs EquipmentMaterialStatConfigs =>
 			FindAsset<QuantumEquipmentMaterialStatConfigs>(RuntimeConfig.EquipmentMaterialStatConfigs.Id);
-		
+
 		internal QuantumConsumableConfigs ConsumableConfigs =>
 			FindAsset<QuantumConsumableConfigs>(RuntimeConfig.ConsumableConfigs.Id);
 
@@ -72,15 +73,15 @@ namespace Quantum
 
 		internal QuantumAssetConfigs AssetConfigs => FindAsset<QuantumAssetConfigs>(RuntimeConfig.AssetConfigs.Id);
 		internal QuantumBotConfigs BotConfigs => FindAsset<QuantumBotConfigs>(RuntimeConfig.BotConfigs.Id);
-		
+
 		internal QuantumBotDifficultyConfigs BotDifficultyConfigs => FindAsset<QuantumBotDifficultyConfigs>(RuntimeConfig.BotDifficultyConfigs.Id);
 
 
 		internal QuantumShrinkingCircleConfigs ShrinkingCircleConfigs =>
 			FindAsset<QuantumShrinkingCircleConfigs>(RuntimeConfig.ShrinkingCircleConfigs.Id);
-		
+
 		internal QuantumMutatorConfigs MutatorConfigs => FindAsset<QuantumMutatorConfigs>(RuntimeConfig.MutatorConfigs.Id);
-		
+
 		/// <summary>
 		/// Requests the list of <typeparamref name="T"/> pointers that can be iterated over.
 		/// Use this with caution because creates garbage. A good use is to allow indexing on a execution loop
@@ -96,7 +97,7 @@ namespace Quantum
 
 			return list;
 		}
-		
+
 		/// <summary>
 		/// Returns all player datas
 		/// </summary>
@@ -106,6 +107,11 @@ namespace Quantum
 			return _playerData.Iterator()
 				.Select(kp => kp.Value.Player)
 				.Where(p => p != null);
+		}
+		
+		public int GetTeamSize()
+		{
+			return _runtimeConfig.TeamSize;
 		}
 	}
 }

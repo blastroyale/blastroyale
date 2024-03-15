@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
@@ -22,11 +23,11 @@ namespace FirstLight.Game.Services.Party
 		private string _lobbyTopic;
 		private string _subscribedLobbyId;
 		private uint _lobbyChangeNumber = 0;
-		private SemaphoreSlim _pubSubSemaphore = new(1, 1);
+		private SemaphoreSlim _pubSubSemaphore = new (1, 1);
 		private int listenForLobbyUpdateFails = 0;
 
 
-		private async Task OnReconnectPubSub()
+		private async UniTaskVoid OnReconnectPubSub()
 		{
 			if (!HasParty.Value) return;
 			try
@@ -47,11 +48,11 @@ namespace FirstLight.Game.Services.Party
 			else
 			{
 				// User still on the lobby so lets reconnect
-				await ListenForLobbyUpdates(_lobbyId);
+				await ConnectToPubSub(_lobbyId);
 			}
 		}
 
-		private async Task ListenForLobbyUpdates(string lobbyId)
+		private async UniTask ConnectToPubSub(string lobbyId)
 		{
 			try
 			{
@@ -86,6 +87,12 @@ namespace FirstLight.Game.Services.Party
 					var result = await AsyncPlayfabAPI.SubscribeToLobbyResource(subscribeReq);
 					// This whole process of creating an websocket subscribing to resource can take a a considerable time(+- 5s)
 					// So we may have missed some messages and this results in a broke state
+					if (lobbyId != _lobbyId)
+					{
+						// If the player left the party before the get connection handle function returned just ignore it
+						return;
+					}
+
 					await FetchPartyAndUpdateState();
 					_lobbyTopic = result.Topic;
 					_subscribedLobbyId = lobbyId;
@@ -97,11 +104,11 @@ namespace FirstLight.Game.Services.Party
 					var err = ConvertErrors(ex);
 					if (err == PartyErrors.UserIsNotMember)
 					{
-							// This means that the player got kicked before getting the connection handler of the lobby
-							Members.Remove(LocalPartyMember());
-							ResetPubSubState();
-							LocalPlayerKicked();
-							return;
+						// This means that the player got kicked before getting the connection handler of the lobby
+						Members.Remove(LocalPartyMember());
+						ResetPubSubState();
+						LocalPlayerKicked();
+						return;
 					}
 
 					throw;
@@ -166,16 +173,16 @@ namespace FirstLight.Game.Services.Party
 		private void LobbyMessageHandler(LobbyPayloadMessage obj)
 		{
 			// Let executes async so we can wait for fetch party and use semaphore properly
-#pragma warning disable CS4014
-			UpdateLobbyState(obj);
-#pragma warning restore CS4014
+			UpdateLobbyState(obj).Forget();
 		}
 
-		private async Task UpdateLobbyState(LobbyPayloadMessage obj)
+
+		private async UniTask UpdateLobbyState(LobbyPayloadMessage obj)
 		{
 			try
 			{
 				await _accessSemaphore.WaitAsync();
+				if (_lobbyId == null) return;
 				foreach (var change in obj.lobbyChanges)
 				{
 					if (_lobbyChangeNumber >= change.changeNumber) continue;
@@ -230,7 +237,7 @@ namespace FirstLight.Game.Services.Party
 
 		private void ApplyLobbyChangeIntoMembers(LobbyChange change)
 		{
-			HashSet<string> invokeUpdates = new();
+			HashSet<string> invokeUpdates = new ();
 			if (change.memberToDelete != null)
 			{
 				var member = Members.FirstOrDefault(m => m.PlayfabID == change.memberToDelete.memberEntity.Id);
@@ -239,9 +246,7 @@ namespace FirstLight.Game.Services.Party
 					Members.Remove(member);
 					if (member.Local)
 					{
-#pragma warning disable CS4014
-						UnsubscribeToLobbyUpdates();
-#pragma warning restore CS4014
+						UnsubscribeToLobbyUpdates().Forget();
 						LocalPlayerKicked();
 						return;
 					}
@@ -304,9 +309,7 @@ namespace FirstLight.Game.Services.Party
 					// Let the leader kick it
 					if (LocalPartyMember() is {Leader: true})
 					{
-#pragma warning disable CS4014 // This is a websocket and we do not need to wait for this
-						KickDisconnectedPlayer(disconnectedMember.PlayfabID);
-#pragma warning restore CS4014
+						KickDisconnectedPlayer(disconnectedMember.PlayfabID).Forget();
 					}
 				}
 			}
@@ -323,7 +326,7 @@ namespace FirstLight.Game.Services.Party
 			}
 		}
 
-		private async Task KickDisconnectedPlayer(string playfabId)
+		private async UniTaskVoid KickDisconnectedPlayer(string playfabId)
 		{
 			try
 			{
@@ -336,12 +339,13 @@ namespace FirstLight.Game.Services.Party
 			}
 		}
 
-		private async Task UnsubscribeToLobbyUpdates()
+		private async UniTask UnsubscribeToLobbyUpdates()
 		{
 			if (_pubSubState != PartySubscriptionState.Connected || _subscribedLobbyId == null)
 			{
 				return;
 			}
+
 			try
 			{
 				await _pubSubSemaphore.WaitAsync();

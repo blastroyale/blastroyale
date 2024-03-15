@@ -530,8 +530,9 @@ namespace FirstLight.Game.Presenters
 		private void UpdateGameModeButton()
 		{
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
-			_gameModeLabel.text = LocalizationUtils.GetTranslationForGameModeId(current.GameModeId);
-			_gameModeButton.SetEnabled(!_partyService.HasParty.Value && !_partyService.OperationInProgress.Value);
+			var isMemberNotLeader = _services.PartyService.HasParty.Value && !_services.PartyService.GetLocalMember().Leader;
+			_gameModeLabel.text = LocalizationManager.GetTranslation(current.TitleTranslationKey);
+			_gameModeButton.SetEnabled(!isMemberNotLeader && !_partyService.OperationInProgress.Value);
 		}
 
 		private void UpdatePlayButton(bool forceLoading = false)

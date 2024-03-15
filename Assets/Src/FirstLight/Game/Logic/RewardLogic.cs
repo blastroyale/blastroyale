@@ -53,6 +53,11 @@ namespace FirstLight.Game.Logic
 		/// Items the player collected during the match
 		/// </summary>
 		public Dictionary<GameId, ushort> CollectedItems { get; set; }
+
+		/// <summary>
+		/// Team size of the match the player played
+		/// </summary>
+		public uint TeamSize { get; set; }
 	}
 
 	/// <summary>
@@ -163,7 +168,7 @@ namespace FirstLight.Game.Logic
 
 			var gameModeConfig =
 				GameLogic.ConfigsProvider.GetConfig<QuantumGameModeConfig>(localMatchData.GameModeId);
-			var teamSize = Math.Max(1, gameModeConfig.MaxPlayersInTeam);
+			var teamSize = Math.Max(1, source.TeamSize);
 			var maxTeamsInMatch = gameModeConfig.MaxPlayers / teamSize;
 
 			// Always perform ordering operation on the configs.

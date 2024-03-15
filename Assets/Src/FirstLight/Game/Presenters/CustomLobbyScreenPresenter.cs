@@ -160,12 +160,12 @@ namespace FirstLight.Game.Presenters
 			_kickButton.gameObject.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.GetMaxPlayers(false).ToString()}";
-			_squadContainer.SetActive(gameModeConfig.Teams);
-			_topTitleHolder.SetActive(!gameModeConfig.Teams);
+			_squadContainer.SetActive(room.IsTeamGame);
+			_topTitleHolder.SetActive(!room.IsTeamGame);
 			_squadIdText.text = _squadId.ToString();
 
 			// TODO: Sets the initial TeamID. Hacky, should be somewhere else, but it should do for custom games for now.
-			if (gameModeConfig.Teams)
+			if (room.IsTeamGame)
 			{
 				CurrentRoom.LocalPlayerProperties.TeamId.Value = $"{GameConstants.Network.MANUAL_TEAM_ID_PREFIX}{_squadId}";
 			}

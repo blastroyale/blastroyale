@@ -40,7 +40,6 @@ namespace Quantum
 			PlayersData[setup.playerRef] = data;
 		}
 
-		
 
 		/// <summary>
 		/// Remove an existing PlayerMatchData from the container that is linked to a specific PlayerRef.
@@ -111,9 +110,8 @@ namespace Quantum
 		public List<QuantumPlayerMatchData> GeneratePlayersMatchData(Frame f, out PlayerRef leader, out int leaderTeam)
 		{
 			var data = PlayersData;
-			var gameModeConfig = f.Context.GameModeConfig;
-			var sorter = GetSorter(gameModeConfig.RankSorter);
-			var rankProcessor = GetProcessor(gameModeConfig.RankProcessor);
+			var sorter = GetSorter();
+			var rankProcessor = GetProcessor();
 
 			var playersMatchData = new List<PlayerMatchData>(data.Length);
 			for (var i = 0; i < f.PlayerCount; i++)
@@ -161,26 +159,14 @@ namespace Quantum
 
 		#region Player Rank Sorters
 
-		private static IRankSorter GetSorter(RankSorter sorter)
+		private static IRankSorter GetSorter()
 		{
-			return sorter switch
-			{
-				RankSorter.BattleRoyale       => new BattleRoyaleSorter(),
-				RankSorter.BattleRoyaleSquads => new BattleRoyaleSquadsSorter(),
-				RankSorter.Deathmatch         => new DeathmatchSorter(),
-				_                             => throw new ArgumentOutOfRangeException(nameof(sorter), sorter, null)
-			};
+			return new BattleRoyaleSorter();
 		}
 
-		private static IRankProcessor GetProcessor(RankProcessor processor)
+		private static IRankProcessor GetProcessor()
 		{
-			return processor switch
-			{
-				RankProcessor.General    => new GeneralRankProcessor(),
-				RankProcessor.Squads     => new SquadsRankProcessor(),
-				RankProcessor.Deathmatch => new DeathMatchRankProcessor(),
-				_                        => throw new ArgumentOutOfRangeException(nameof(processor), processor, null)
-			};
+			return new GeneralRankProcessor();
 		}
 
 		internal interface IRankSorter : IComparer<QuantumPlayerMatchData>
@@ -191,21 +177,7 @@ namespace Quantum
 		{
 			public uint ProcessRank(IReadOnlyList<QuantumPlayerMatchData> playersData, int i, IRankSorter sorter);
 		}
-
-		private class DeathMatchRankProcessor : IRankProcessor
-		{
-			public uint ProcessRank(IReadOnlyList<QuantumPlayerMatchData> playersData, int i, IRankSorter sorter)
-			{
-				var rank = (uint)i + 1;
-
-				if (i > 0 && sorter.Compare(playersData[i], playersData[i - 1]) == 0)
-				{
-					rank = playersData[i - 1].PlayerRank;
-				}
-
-				return rank;
-			}
-		}
+		
 
 		private class GeneralRankProcessor : IRankProcessor
 		{
@@ -228,10 +200,6 @@ namespace Quantum
 			}
 		}
 
-		private class SquadsRankProcessor : GeneralRankProcessor
-		{
-			// TODO: Add proper logic for the squads rank processor
-		}
 
 		private class BattleRoyaleSorter : IRankSorter
 		{

@@ -206,18 +206,9 @@ namespace FirstLight.Game.StateMachines
 			_gameDataProvider.AppDataProvider.LastFrameSnapshot.Value = default;
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 
-			var config = _services.RoomService.GetGameModeConfig(setup.GameModeId);
-			if (config.ShouldUsePlayfabMatchmaking())
-			{
-				FLog.Verbose("Using playfab matchmaking!");
-				_networkService.LastUsedSetup.Value = setup;
-				_services.MatchmakingService.JoinMatchmaking(setup);
-			}
-			else
-			{
-				FLog.Verbose("Using old matchmaking to join or create room!");
-				_services.RoomService.JoinOrCreateRandomRoom(setup);
-			}
+			FLog.Verbose("Using playfab matchmaking!");
+			_networkService.LastUsedSetup.Value = setup;
+			_services.MatchmakingService.JoinMatchmaking(setup);
 		}
 
 		private void JoinRoom(string roomName, bool resetLastDcLocation = true)
@@ -535,7 +526,8 @@ namespace FirstLight.Game.StateMachines
 				GameModeId = gameModeId,
 				Mutators = mutators,
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
-				AllowedRewards = selectedGameMode.Entry.AllowedRewards
+				AllowedRewards = selectedGameMode.Entry.AllowedRewards,
+				PlayfabQueue = selectedGameMode.Entry.PlayfabQueue
 			};
 
 			StartRandomMatchmaking(matchmakingSetup);

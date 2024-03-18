@@ -22,7 +22,7 @@ MonoBehaviour:
         Value: 1494014866598569848
     DefaultBulletPrototype:
       Id:
-        Value: 727426939994474453
+        Value: 148021496798672150
     DummyCharacterPrototype:
       Id:
         Value: 754640765234653046
@@ -44,6 +44,9 @@ MonoBehaviour:
     LandMinePrototype:
       Id:
         Value: 182712282339768594
+    DeathFlagPrototype:
+      Id:
+        Value: 2926812260290138366
     BotNavMeshConfig:
       Id:
         Value: 1093005050644660195

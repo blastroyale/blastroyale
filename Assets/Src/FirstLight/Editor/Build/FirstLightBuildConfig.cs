@@ -40,6 +40,10 @@ namespace FirstLight.Editor.Build
 		/// </summary>
 		public const string StoreSymbol = "STORE_BUILD";
 
+		public const string CCDEnvironmentDev = "Development";
+		public const string CCDEnvironmentStaging = "Staging";
+		public const string CCDEnvironmentProd = "Production";
+
 		private const string _appIdentifier = "com.firstlightgames.blastroyale";
 		private const string _firstLightAppleTeamId = "8UB22L9ZW7";
 		private const string _distributionProvisioningProfile = "1c16ed57-e352-4cca-8950-7e1c7ec1730d";

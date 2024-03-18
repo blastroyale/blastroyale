@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3827043269603127047}
   - component: {fileID: 2411999766638953780}
   - component: {fileID: -8505516016042732057}
-  - component: {fileID: 1241055035642028174}
   - component: {fileID: 8505038003009141685}
+  - component: {fileID: 7157478521854293122}
   m_Layer: 0
   m_Name: DeathFlagPrototype
   m_TagString: Untagged
@@ -226,21 +226,6 @@ MonoBehaviour:
   OnEntityDestroyed:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1241055035642028174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5405802136149382042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c461d46fc5614614eb7d9a90e70b7355, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prototype:
-    ID:
-      Value: 0
 --- !u!114 &8505038003009141685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +238,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37eecaa7993445a88e03382b9edfa29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _entityView: {fileID: -8505516016042732057}
+  EntityView: {fileID: -8505516016042732057}
+--- !u!114 &7157478521854293122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405802136149382042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 933df24fc3c0ee24c9ee5dfdd61f0704, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    ID:
+      Value: 25
 --- !u!114 &-3107729907178575119
 MonoBehaviour:
   m_ObjectHideFlags: 0

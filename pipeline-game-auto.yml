@@ -66,6 +66,18 @@ parameters:
     displayName: "[DEBUG] Skip IOS build"
     type: boolean
     default: false
+  - name: param_ccd_environment
+    displayName: Select CCD Environment
+    type: string
+    default: Development
+    values:
+      - Development
+      - Staging
+      - Production
+  - name: param_release_ccd # In theory this should make androids builds faster, because there is nothing running in parallel
+    displayName: "Release CCD"
+    type: boolean
+    default: true
 
 variables:
 - group: Secrets
@@ -110,10 +122,17 @@ variables:
         value: "apk"
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
         value: "aab"
+    - name: ccdEnvironment
+      ${{  if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/develop'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'))  }}:
+        value: "Development"
+      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
+        value: "Production"
     - name: useAccelerator
       value: true
     - name: runTestLab
       value: false
+    - name: ccdRelease
+      value: true
   # Manual setup
 - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
     - ${{  if eq(parameters['param_build_type'], 'DEVELOPMENT_BUILD') }}:
@@ -141,6 +160,11 @@ variables:
       value: ${{ parameters.param_use_accelerator }}      
     - name: runTestLab
       value: ${{ parameters.param_run_testlab }}
+    - name: ccdEnvironment
+      value: ${{ parameters.param_ccd_environment }}
+    - name: ccdRelease
+      value: ${{ parameters.param_release_ccd }}
+
 pool: macos
 
 stages:
@@ -263,6 +287,8 @@ stages:
               useUnityAccelerator: ${{ variables.useAccelerator }}
               runTestLab: ${{ variables.runTestLab }}
               publishDlls: true
+              ccdEnvironment: ${{ variables.ccdEnvironment }}
+              ccdRelease: ${{ variables.ccdRelease }}
             
       - job: iOSBuild
         timeoutInMinutes: 90
@@ -307,6 +333,8 @@ stages:
             useUnityAccelerator: ${{ variables.useAccelerator }}
             runTestLab: ${{ variables.runTestLab }}
             publishDlls: false
+            ccdEnvironment: ${{ variables.ccdEnvironment }}
+            ccdRelease: ${{ variables.ccdRelease }}
 
 
 # GAME LOGIC
@@ -348,7 +376,7 @@ stages:
           vmImage: 'windows-latest'
         # Run just for staging from now
         dependsOn: AndroidBuild
-        condition: | 
+        condition: |
           and(
               eq('${{ variables.server_environment }}', 'STAGE_SERVER'),
               eq(dependencies.AndroidBuild.result, 'Succeeded')

@@ -102,12 +102,6 @@ namespace FirstLight.Game.Presenters
 			customGameView.Disabled = _services.PartyService.HasParty.Value;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
-
-			// Add Coming soon button
-			var comingSoonGameButton = _comingSoonAsset.Instantiate();
-			var comingSoonButtonRoot = comingSoonGameButton.Q<VisualElement>("ComingSoonGameModeButton");
-			comingSoonButtonRoot.AddToClassList(GetVisibleClass(orderNumber++));
-			_buttonsSlider.Add(comingSoonGameButton);
 		}
 
 		private string GetVisibleClass(int orderNumber)

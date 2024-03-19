@@ -404,24 +404,19 @@ namespace FirstLight.Editor.EditorTools
 			}
 		}
 
+		public static Dictionary<string, string> GetAllGeneratedClassNames()
+		{
+			return GetSpritesGroupedByDirectory()
+				.SelectMany(GetGeneratedClasses)
+				.ToDictionary(k => k.Key, v => v.Value);
+		}
+
 		[MenuItem("FLG/Generators/Generate Sprite USS")]
 		private static void GenerateSpriteUss()
 		{
-			const string SPRITES_FOLDER = "Assets/Art/UI/Sprites/";
 			const string STYLES_FOLDER = "Assets/Art/UI/Styles/";
 
-			foreach (var grouping in AssetDatabase.GetAllAssetPaths()
-						 .OrderBy(s => s)
-						 .Where(path =>
-							 path.StartsWith(SPRITES_FOLDER) && !Directory.Exists(path) &&
-							 AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(Texture2D))
-						 .Select(s =>
-						 {
-							 Debug.Log(
-								 $"Path: {s} type: {AssetDatabase.GetMainAssetTypeAtPath(s) == typeof(Texture2D)}");
-							 return s;
-						 })
-						 .GroupBy(str => str.Split('/')[4]))
+			foreach (var grouping in GetSpritesGroupedByDirectory())
 			{
 				Debug.Log($"Generating USS: {grouping.Key}");
 				var uss = GenerateSpriteUss(grouping);
@@ -439,6 +434,43 @@ namespace FirstLight.Editor.EditorTools
 
 			EditorUtility.UnloadUnusedAssetsImmediate();
 			Debug.Log($"Sprite USS generation finished.");
+		}
+
+		private static IEnumerable<IGrouping<string, string>> GetSpritesGroupedByDirectory()
+		{
+			const string SPRITES_FOLDER = "Assets/Art/UI/Sprites/";
+
+			return AssetDatabase.GetAllAssetPaths()
+				.OrderBy(s => s)
+				.Where(path =>
+					path.StartsWith(SPRITES_FOLDER) && !Directory.Exists(path) &&
+					AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(Texture2D))
+				.Select(s =>
+				{
+					Debug.Log(
+						$"Path: {s} type: {AssetDatabase.GetMainAssetTypeAtPath(s) == typeof(Texture2D)}");
+					return s;
+				})
+				.GroupBy(str => str.Split('/')[4]);
+		}
+
+		private static Dictionary<string, string> GetGeneratedClasses(IGrouping<string, string> arg)
+		{
+			var names = new Dictionary<string, string>();
+
+			// Generate classes
+			foreach (var path in arg)
+			{
+				names[path] = $"sprite-{GetCleanAtlasName(arg.Key)}__{Path.GetFileNameWithoutExtension(path)}";
+			}
+
+			return names;
+		}
+
+		public static string GetClassForSprite(string path)
+		{
+			var folder = path.Split('/')[4];
+			return $"sprite-{GetCleanAtlasName(folder)}__{Path.GetFileNameWithoutExtension(path)}";
 		}
 
 		private static string GenerateSpriteUss(IGrouping<string, string> arg)
@@ -500,6 +532,7 @@ namespace FirstLight.Editor.EditorTools
 
 			return sb.ToString();
 		}
+
 
 		private static string GenerateSpriteVar(string atlas, string path, bool full)
 		{

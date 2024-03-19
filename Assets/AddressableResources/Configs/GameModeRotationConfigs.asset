@@ -27,7 +27,8 @@ MonoBehaviour:
         AllowedRewards: 030000000c000000160000001a000000
         TitleTranslationKey: UITGameModeSelection/br_solo_title
         DescriptionTranslationKey: UITGameModeSelection/br_solo_description
-        ImageModifier: 
+        ImageModifier: battleroyale-solo
+        IconSpriteClass: sprite-shared__icon-gamemode-solo
     - Entries:
       - GameModeId: BattleRoyale
         MatchType: 1
@@ -39,7 +40,8 @@ MonoBehaviour:
         AllowedRewards: 030000000c000000160000001a000000
         TitleTranslationKey: UITGameModeSelection/br_duos_title
         DescriptionTranslationKey: UITGameModeSelection/br_duos_description
-        ImageModifier: battleroyaleduos
+        ImageModifier: battleroyale-duos
+        IconSpriteClass: sprite-shared__icon-gamemode-duos
     - Entries:
       - GameModeId: BattleRoyale
         MatchType: 1
@@ -51,4 +53,5 @@ MonoBehaviour:
         AllowedRewards: 030000000c000000160000001a000000
         TitleTranslationKey: UITGameModeSelection/br_quads_title
         DescriptionTranslationKey: UITGameModeSelection/br_quads_description
-        ImageModifier: battleroyaleduos
+        ImageModifier: battleroyale-quads
+        IconSpriteClass: sprite-shared__icon-gamemode-squads

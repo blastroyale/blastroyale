@@ -33,9 +33,12 @@
                 </ui:VisualElement>
                 <FirstLight.Game.UIElements.ImageButton name="GameModeButton" class="sfx-click-forwards anim-delay-1 anim-translate anim-translate--left-l game-mode-button">
                     <ui:VisualElement name="GameModeOverlay" class="game-mode-button__overlay" />
-                    <ui:VisualElement name="LabelHolder" class="game-mode-button__label-holder">
-                        <ui:Label text="BATTLE ROYALE" name="GameModeLabel" class="game-mode-button__mode" />
-                        <ui:VisualElement name="Icon" class="game-mode-button__icon" />
+                    <ui:VisualElement name="ContentContainer" class="game-mode-button__content-container" style="">
+                        <ui:VisualElement name="SelectedContainer" class="game-mode-button__selected-container">
+                            <ui:VisualElement name="GameModeIcon" class="game-mode-button__icon sprite-shared__icon-gamemode-solo" />
+                            <ui:Label text="DUOS" name="GameModeLabel" class="game-mode-button__selected-mode" />
+                        </ui:VisualElement>
+                        <ui:Label text="MODE" name="Mode" class="game-mode-button__mode" />
                     </ui:VisualElement>
                     <ui:VisualElement name="Dimmer" class="game-mode-button__dimmer fill-parent" />
                 </FirstLight.Game.UIElements.ImageButton>

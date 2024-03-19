@@ -1,12 +1,12 @@
 .game-mode-button {
-    width: 529px;
+    width: auto;
     height: 763px;
-    margin-left: 30px;
+    margin-left: -60px;
     margin-right: 0;
     margin-top: 120px;
     margin-bottom: 100px;
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 0px;
+    padding-right: 0px;
     padding-top: 0;
     padding-bottom: 0;
     background-color: rgba(76, 76, 76, 0);
@@ -25,18 +25,24 @@
     overflow: visible;
 }
 
+.game-mode-button--selected {
+    width: auto;
+    margin-left: 20px;
+}
+
 .game-mode-button__scalable {
     transition-duration: 0.15s;
     transition-property: scale;
     transition-timing-function: ease;
     transition-delay: 0s;
-    scale: 0.9 0.9;
+    scale: 0.8 0.8;
     width: 529px;
     height: 763px;
 }
 
 .game-mode-button--selected .game-mode-button__scalable {
-    scale: 1 1;
+    scale: 0.9 0.9;
+    width: 595px;
     transition-property: scale;
     transition-duration: 0.15s;
     transition-timing-function: ease;
@@ -86,21 +92,6 @@
     visibility: visible;
 }
 
-.game-mode-button--battleroyale .game-mode-button__top {
-    background-image: var(--sprite-home__background-gamemode-deathmatch);
-}
-
-.game-mode-button--battleroyaletrios .game-mode-button__top {
-    background-image: var(--sprite-home__background-gamemode-deathmatch);
-}
-
-.game-mode-button--battleroyaleduos .game-mode-button__top {
-    background-image: var(--sprite-home__background-gamemode-battleroyale);
-}
-
-.game-mode-button--deathmatch .game-mode-button__top {
-    background-image: var(--sprite-home__background-gamemode-deathmatch);
-}
 
 .game-mode-button--custom .game-mode-button__top {
     background-image: var(--sprite-home__background-gamemode-custom);
@@ -120,37 +111,42 @@
     position: absolute;
 }
 
-.game-mode-button--battleroyale .game-mode-button__top-image {
+.game-mode-button--battleroyale-solo .game-mode-button__top {
+    background-image: var(--sprite-home__background-gamemode-battleroyale-solo);
+}
+
+.game-mode-button--battleroyale-solo .game-mode-button__top-image {
     width: 491px;
     height: 466px;
     top: 51px;
     left: -5px;
-    background-image: var(--sprite-home__background-gamemode-deathmatch-top);
+    background-image: var(--sprite-home__background-gamemode-battleroyale-solo-top);
 }
 
-.game-mode-button--battleroyaletrios .game-mode-button__top-image {
-    background-image: var(--sprite-home__background-gamemode-deathmatch-top);
+.game-mode-button--battleroyale-duos .game-mode-button__top {
+    background-image: var(--sprite-home__background-gamemode-battleroyale-duos);
+}
+
+.game-mode-button--battleroyale-duos .game-mode-button__top-image {
+    background-image: none;
     width: 491px;
     height: 466px;
     top: 48px;
     left: -5px;
 }
 
-.game-mode-button--battleroyaleduos .game-mode-button__top-image {
-    width: 491px;
-    height: 466px;
-    top: 48px;
-    left: -5px;
-    background-image: var(--sprite-home__background-gamemode-battleroyale-top);
+.game-mode-button--battleroyale-quads .game-mode-button__top {
+    background-image: var(--sprite-home__background-gamemode-battleroyale-quads);
 }
 
-.game-mode-button--deathmatch .game-mode-button__top-image {
-    background-image: var(--sprite-home__background-gamemode-deathmatch-top);
+.game-mode-button--battleroyale-quads .game-mode-button__top-image {
+    background-image: var(--sprite-home__background-gamemode-battleroyale-quads-top);
     width: 491px;
     height: 466px;
     top: 48px;
     left: -5px;
 }
+
 
 .game-mode-button--custom .game-mode-button__icon {
     background-image: var(--sprite-home__icon-gamemode-custom);
@@ -219,14 +215,14 @@
 }
 
 .game-mode-button__label {
-    font-size: 50px;
+    font-size: 68px;
     margin-left: 5px;
     -unity-text-align: middle-left;
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    color: rgb(0, 0, 0);
+    color: rgb(9, 20, 55);
 }
 
 .game-mode-button-trios__label {
@@ -242,12 +238,14 @@
 }
 
 .game-mode-button__description {
-    color: rgb(0, 0, 0);
+    color: rgb(84, 103, 141);
     font-size: 30px;
-    -unity-text-align: upper-left;
-    padding-left: 40px;
     white-space: normal;
     padding-right: 4px;
+    -unity-font-style: normal;
+    width: 437px;
+    -unity-text-align: upper-center;
+    padding-left: 10px;
 }
 
 .game-mode-button--matchmaking .game-mode-button__description {
@@ -428,6 +426,38 @@
 .game-mode-button__title {
     flex-direction: row;
     margin-top: 30px;
+    -unity-text-align: middle-center;
+    justify-content: center;
+    height: 60px;
+}
+
+.game-mode-button__team-size {
+    flex-grow: 1;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right: 41px;
+    padding-top: 0;
+    margin-top: 0;
+    margin-bottom: 16px;
+    align-self: auto;
+    top: 9px;
+}
+
+.game-mode-button__team-size-label {
+    font-size: 48px;
+    -unity-text-outline-width: 1px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+}
+
+.game-mode-button__team-size-icon {
+    flex-grow: 0;
+    width: 55px;
+    height: 55px;
+    -unity-background-scale-mode: scale-to-fit;
+    flex-shrink: 0;
 }
 
 .coming-soon-button__title {

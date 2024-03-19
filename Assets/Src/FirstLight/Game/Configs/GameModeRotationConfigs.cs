@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Editor.Inspector;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using Newtonsoft.Json;
@@ -37,15 +38,19 @@ namespace FirstLight.Game.Configs
 			public MatchType MatchType;
 			public List<string> Mutators;
 			public PlayfabQueue PlayfabQueue;
-			[JsonIgnore]
-			public int TeamSize => PlayfabQueue.TeamSize;
+			[JsonIgnore] public int TeamSize => PlayfabQueue.TeamSize;
 
 			[Required] [ValidateInput("ValidateAllowedRewards", "$InvalidRewardsMessage")]
 			public List<GameId> AllowedRewards;
 
-			[FoldoutGroup("Screen")] public string TitleTranslationKey;
-			[FoldoutGroup("Screen")] public string DescriptionTranslationKey;
+			[FoldoutGroup("Screen"), LocalizationTerm]
+			public string TitleTranslationKey;
+
+			[FoldoutGroup("Screen"), LocalizationTerm]
+			public string DescriptionTranslationKey;
+
 			[FoldoutGroup("Screen")] public string ImageModifier;
+			[FoldoutGroup("Screen"), SpriteClass] public string IconSpriteClass;
 
 
 			private bool ValidateAllowedRewards(List<GameId> ids)

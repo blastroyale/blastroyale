@@ -56,8 +56,9 @@ namespace FirstLight.Game.Views
 		private IGameServices _services;
 		private Button _button;
 		private Label _gameModeLabel;
+		private Label _teamSizeLabel;
+		private VisualElement _teamSizeIcon;
 		private Label _gameModeDescriptionLabel;
-		private Label _gameModeTimerLabel;
 		private bool _selected;
 		private bool _disabled;
 		private Coroutine _timerCoroutine;
@@ -78,7 +79,8 @@ namespace FirstLight.Game.Views
 			var dataPanel = element.Q<VisualElement>("DataPanel");
 			_gameModeLabel = dataPanel.Q<VisualElement>("Title").Q<Label>("Label").Required();
 			_gameModeDescriptionLabel = dataPanel.Q<Label>("Description");
-			_gameModeTimerLabel = dataPanel.Q<Label>("Timer");
+			_teamSizeIcon = dataPanel.Q<VisualElement>("TeamSizeIcon").Required();
+			_teamSizeLabel = dataPanel.Q<Label>("TeamSizeLabel").Required();
 
 			_mutatorsPanel = element.Q<VisualElement>("Mutators");
 			_mutatorLines = _mutatorsPanel.Query<VisualElement>("MutatorLine").ToList();
@@ -88,7 +90,6 @@ namespace FirstLight.Game.Views
 
 		public override void SubscribeToEvents()
 		{
-			UpdateTimer();
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -122,12 +123,37 @@ namespace FirstLight.Game.Views
 
 			RemoveClasses();
 
-			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.MatchType.ToString().ToLowerInvariant()}");
 			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.GameModeId.ToLowerInvariant()}");
 			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.ImageModifier}");
 
+			if (IsCustomGame())
+			{
+				_button.AddToClassList($"{GameModeButtonBase}--custom");
+			}
+
+			UpdateTeamSize(gameModeInfo);
 			UpdateTitleAndDescription();
 			UpdateMutators();
+		}
+
+		private bool IsCustomGame()
+		{
+			return GameModeInfo.Entry.GameModeId == GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME;
+		}
+
+		private void UpdateTeamSize(GameModeInfo gameModeInfo)
+		{
+			if (IsCustomGame())
+			{
+				_teamSizeIcon.RemoveSpriteClasses();
+				_teamSizeLabel.SetDisplay(false);
+				_teamSizeIcon.SetDisplay(false);
+				return;
+			}
+
+			_teamSizeIcon.RemoveSpriteClasses();
+			_teamSizeIcon.AddToClassList(gameModeInfo.Entry.IconSpriteClass);
+			_teamSizeLabel.text = gameModeInfo.Entry.PlayfabQueue.TeamSize + "";
 		}
 
 		private void RemoveClasses()
@@ -137,7 +163,7 @@ namespace FirstLight.Game.Views
 
 		private void UpdateTitleAndDescription()
 		{
-			if (GameModeInfo.Entry.GameModeId == GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME)
+			if (IsCustomGame())
 			{
 				_gameModeLabel.text = ScriptLocalization.MainMenu.CustomGame;
 				_gameModeDescriptionLabel.text = ScriptLocalization.UITGameModeSelection.custom_game_description;
@@ -179,31 +205,6 @@ namespace FirstLight.Game.Views
 			mutatorLine.AddToClassList(mutator.ToLowerInvariant() + "-mutator");
 			var mutatorTitle = mutatorLine.Q<Label>("Title").Required();
 			mutatorTitle.text = mutator.ToUpperInvariant();
-		}
-
-		private void UpdateTimer()
-		{
-			_gameModeTimerLabel.text = "";
-			if (!GameModeInfo.IsFixed)
-			{
-				if (_timerCoroutine != null)
-				{
-					_services.CoroutineService.StopCoroutine(_timerCoroutine);
-				}
-
-				_timerCoroutine = _services.CoroutineService.StartCoroutine(UpdateTimerCoroutine());
-			}
-		}
-
-		private IEnumerator UpdateTimerCoroutine()
-		{
-			var wait = new WaitForSeconds(1);
-			while (true)
-			{
-				var timeLeft = GameModeInfo.EndTime - DateTime.UtcNow;
-				_gameModeTimerLabel.text = timeLeft.ToString(@"hh\:mm\:ss");
-				yield return wait;
-			}
 		}
 	}
 }

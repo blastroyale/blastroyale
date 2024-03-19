@@ -103,7 +103,7 @@ namespace FirstLight.Editor.Build
 		}
 
 		[MenuItem("FLG/Build/Store Azure Build")]
-		public static void EditorBuild()
+		public static void AzureEditorStoreBuild()
 		{
 			var args = "-flBuildSymbol STORE_BUILD -flBuildServer TESTNET_SERVER -flBuildNumber 3000 -flBuildFileName app -flCCDEnvironment Staging".Split(" ");
 			ConfigureBuild(args);
@@ -111,7 +111,7 @@ namespace FirstLight.Editor.Build
 		}
 		
 		[MenuItem("FLG/Build/Dev Azure Build")]
-		public static void EditorBuild2()
+		public static void AzureEditorDevBuild()
 		{
 			var args = "-flBuildSymbol DEVELOPMENT_BUILD -flBuildServer DEVELOPMENT_SERVER -flBuildNumber 1 -flBuildFileName app -flCCDEnvironment Development".Split(" ");
 			ConfigureBuild(args);

@@ -38,7 +38,7 @@ namespace FirstLight.Game.Views.UITK
 
 			_pingAnimation = _pingElement.experimental.animation.Scale(0.6f, 1000).KeepAlive();
 			_pingAnimation.from = 1f;
-			
+
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
@@ -106,11 +106,6 @@ namespace FirstLight.Game.Views.UITK
 			var warningNotified = false;
 			var delayPhaseStarted = false;
 
-			// FLog.Info("PACO",
-			// 	"StartCountdown: delayTime: " + delayTimeMs + " warningTimeMs: " + warningTimeMs + " shrinkingTimeMs: " + shrinkingTimeMs +
-			// 	" initialDelayMs: " + initialDelayMs + " delaySeconds: " + delaySeconds + " warningSeconds: " + warningSeconds +
-			// 	" shrinkingSeconds: " + shrinkingSeconds + " shrinkingNotified: " + shrinkingNotified + " warningNotified: " + warningNotified + "");
-
 			_timerUpdate?.Pause();
 			_timerUpdate = Element.schedule.Execute(() =>
 				{
@@ -135,10 +130,10 @@ namespace FirstLight.Game.Views.UITK
 							_counterElement.SetVisibility(true);
 							ShowNotification(ScriptLocalization.UITMatch.go_to_safe_area);
 							warningNotified = true;
-							
+
 							_services.AudioFxService.PlayClip2D(AudioId.GoToSafeZone, GameConstants.Audio.MIXER_GROUP_SFX_2D_ID);
 						}
-						
+
 						_timerLabel.text = FPMath.RoundToInt(shrinkingStartTime - currentTimeSeconds).ToString();
 					}
 					else if (currentTimeSeconds < shrinkingStartTime + shrinkingDuration)
@@ -148,7 +143,7 @@ namespace FirstLight.Game.Views.UITK
 							_counterElement.SetVisibility(true);
 							ShowNotification(ScriptLocalization.UITMatch.area_shrinking);
 							shrinkingNotified = true;
-							
+
 							_services.AudioFxService.PlayClip2D(AudioId.CircleIsClosing, GameConstants.Audio.MIXER_GROUP_SFX_2D_ID);
 						}
 

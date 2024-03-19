@@ -77,9 +77,7 @@ namespace FirstLight.Game.Views
 			Debug.Log("initializing with analytics enabled = " + _permissions.IsTrackingAccepted());
 
 			await InitUnityServices();
-
-			Debug.Log("PACO RemoteConfig BetaVersion = " + RemoteConfigs.Instance.BetaVersion);
-
+			
 			await StartAnalytics();
 			if (_permissions.IsTrackingAccepted())
 			{

@@ -42,12 +42,12 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Check if the current game is over
 		/// </summary>
-		public static bool IsGameOver(this QuantumGame game)
+		public static unsafe bool IsGameOver(this QuantumGame game)
 		{
 			var f = game.Frames.Verified;
-			var container = f.GetSingleton<GameContainer>();
+			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
 
-			return container.IsGameOver;
+			return container->IsGameOver;
 		}
 
 		public static bool HasGameContainer(this QuantumGame game)

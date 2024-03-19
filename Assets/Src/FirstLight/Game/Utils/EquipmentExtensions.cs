@@ -161,27 +161,6 @@ namespace FirstLight.Game.Utils
 			return stats;
 		}
 
-		/// <summary>
-		/// Calculate equipment stats given a configuration.
-		/// And use the format logic to be more user friendly to be displayed
-		/// This is used across other backend services (game-logic service, blockchain service)
-		/// </summary>
-		public static Dictionary<EquipmentStatType, string> GetStatsFormatted(this Equipment equipment, IConfigsProvider configs)
-		{
-			var formattedStats = new Dictionary<EquipmentStatType, string>();
-			var stats = GetStats(equipment, configs);
-
-			foreach (EquipmentStatType type in Enum.GetValues(typeof(EquipmentStatType)))
-			{
-				if (stats.ContainsKey(type) && (type.IsSpecial() || CanShowStat(type, stats[type])))
-				{
-					formattedStats.Add(type, stats[type].ToString(GetValueFormat(type)));
-				}
-			}
-
-			return formattedStats;
-		}
-
 		public static bool CanShowStat(EquipmentStatType type, float value)
 		{
 			if (!MAX_VALUES.TryGetValue(type, out var maxValue)) return false;

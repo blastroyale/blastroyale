@@ -669,8 +669,8 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			// Removing non-nft equipments
-			var nonNfts = _gameDataProvider.EquipmentDataProvider.GetInventoryEquipmentInfo(EquipmentFilter.NoNftOnly);
-			if (nonNfts.Count > 0)
+			var nonNfts = _gameDataProvider.EquipmentDataProvider.GetInventoryEquipmentCount(EquipmentFilter.NoNftOnly);
+			if (nonNfts > 0)
 			{
 				FLog.Info("Converting non-nfts to blast bucks");
 				_services.CommandService.ExecuteCommand(new NonNftConvertCommand());

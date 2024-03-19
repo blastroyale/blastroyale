@@ -51,8 +51,6 @@ namespace FirstLight.Game.Infos
 		public bool IsNft;
 		public int MaxLevel;
 		public Dictionary<EquipmentStatType, float> Stats;
-		public Dictionary<EquipmentStatType, float> NextLevelStats;
-		public Dictionary<EquipmentStatType, float> NextRarityStats;
 
 		/// <summary>
 		/// Check if the item is broken or not
@@ -61,7 +59,7 @@ namespace FirstLight.Game.Infos
 
 		public override string ToString()
 		{
-			return $"{nameof(Id)}: {Id}, {nameof(Equipment)}: {Equipment}, {nameof(Manufacturer)}: {Manufacturer}, {nameof(ScrappingValue)}: {ScrappingValue}, {nameof(UpgradeCost)}: {UpgradeCost}, {nameof(FuseCost)}: {FuseCost}, {nameof(RepairCost)}: {RepairCost}, {nameof(CurrentDurability)}: {CurrentDurability}, {nameof(IsEquipped)}: {IsEquipped}, {nameof(IsNft)}: {IsNft}, {nameof(MaxLevel)}: {MaxLevel}, {nameof(Stats)}: {Stats}, {nameof(NextLevelStats)}: {NextLevelStats}, {nameof(NextRarityStats)}: {NextRarityStats}, {nameof(IsBroken)}: {IsBroken}";
+			return $"{nameof(Id)}: {Id}, {nameof(Equipment)}: {Equipment}, {nameof(Manufacturer)}: {Manufacturer}, {nameof(ScrappingValue)}: {ScrappingValue}, {nameof(UpgradeCost)}: {UpgradeCost}, {nameof(FuseCost)}: {FuseCost}, {nameof(RepairCost)}: {RepairCost}, {nameof(CurrentDurability)}: {CurrentDurability}, {nameof(IsEquipped)}: {IsEquipped}, {nameof(IsNft)}: {IsNft}, {nameof(MaxLevel)}: {MaxLevel}, {nameof(Stats)}: {Stats}, {nameof(IsBroken)}: {IsBroken}";
 		}
 	}
 

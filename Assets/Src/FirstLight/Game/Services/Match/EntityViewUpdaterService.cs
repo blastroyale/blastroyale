@@ -79,9 +79,6 @@ namespace FirstLight.Game.Services
 		protected override EntityView CreateEntityViewInstance(EntityViewAsset asset, Vector3? position = null,
 															   Quaternion? rotation = null)
 		{
-
-			Debug.Log("YOLO CREATE " + asset.name);
-
 			if (_inactiveBullets.TryGetValue(asset.AssetObject.Guid.Value, out var inactiveList) && inactiveList.Count > 0)
 			{
 				var bullet = inactiveList[0];
@@ -124,7 +121,7 @@ namespace FirstLight.Game.Services
 			_gameServices.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 		}
 
-		private unsafe void OnMatchStartedMessage(MatchStartedMessage msg)
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
 			if (!msg.IsResync) return;
 
@@ -132,7 +129,7 @@ namespace FirstLight.Game.Services
 
 			if (!f.Context.GameModeConfig.DeathMarker) return;
 
-			var data = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
+			var data = f.GetSingleton<GameContainer>().PlayersData;
 			for (var i = 0; i < data.Length; i++)
 			{
 				var playerData = data[i];
@@ -199,8 +196,6 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
-
-			Debug.Log("YOLO DESTROY " + view.name);
 
 			if (view.ManualDisposal)
 			{

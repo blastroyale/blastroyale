@@ -133,10 +133,16 @@ namespace Quantum.Systems.Bots
 			}
 
 
-			// Distribute bot processing in 15 frames
+			// Distribute bot processing in 30 frames
 			if (filter.BotCharacter->BotNameIndex % 30 == f.Number % 30)
 			{
 				return;
+			}
+
+			if (filter.BotCharacter->IsMoveSpeedReseted && f.Unsafe.GetPointer<Revivable>(filter.Entity)->RecoverMoveSpeedAfter < f.Time)
+			{
+				filter.StopAiming(f);
+				filter.BotCharacter->IsMoveSpeedReseted = false;
 			}
 
 			bool isTakingCircleDamage = filter.AlivePlayerCharacter->TakingCircleDamage;
@@ -281,8 +287,9 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
+			bot->IsMoveSpeedReseted = true;			
 			bot->SetNextDecisionDelay(f, 0);
-
+			
 			if (f.Unsafe.TryGetPointer<AIBlackboardComponent>(entity, out var bb))
 			{
 				bb->Set(f, Constants.IsKnockedOut, false);

@@ -10,7 +10,9 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
+using Unity.Services.Authentication;
 using Unity.Services.Core;
+using Unity.Services.Core.Environments;
 
 #pragma warning disable CS1998
 
@@ -53,9 +55,9 @@ namespace FirstLight.Game.Views
 		private async UniTask PermissionRequestHack()
 		{
 			await UniTask.Delay(500);
-			if(!_permissions.IsPermissionsAnswered()) _permissions.RequestPermissions();
+			if (!_permissions.IsPermissionsAnswered()) _permissions.RequestPermissions();
 			await UniTask.Delay(1500);
-			if(!_permissions.IsPermissionsAnswered()) _permissions.RequestPermissions();
+			if (!_permissions.IsPermissionsAnswered()) _permissions.RequestPermissions();
 		}
 
 		private async UniTask StartTask()
@@ -66,14 +68,18 @@ namespace FirstLight.Game.Views
 
 			InitializePlugins();
 
-			Shader.SetGlobalVector(Shader.PropertyToID("_PhysicalScreenSize"), new Vector4(Screen.width / Screen.dpi, Screen.height / Screen.dpi, Screen.dpi, 69));
-			
+			Shader.SetGlobalVector(Shader.PropertyToID("_PhysicalScreenSize"),
+				new Vector4(Screen.width / Screen.dpi, Screen.height / Screen.dpi, Screen.dpi, 69));
+
 			_ = PermissionRequestHack();
 			await _permissions.PermissionResponseAwaitTask();
 
 			Debug.Log("initializing with analytics enabled = " + _permissions.IsTrackingAccepted());
-			
-			await UnityServices.InitializeAsync().AsUniTask();
+
+			await InitUnityServices();
+
+			Debug.Log("PACO RemoteConfig BetaVersion = " + RemoteConfigs.Instance.BetaVersion);
+
 			await StartAnalytics();
 			if (_permissions.IsTrackingAccepted())
 			{
@@ -81,13 +87,24 @@ namespace FirstLight.Game.Views
 					SingularSDK.InitializeSingularSDK();
 #endif
 			}
+
 			StartSplashScreen();
 			await MergeScenes(asyncOperation);
 		}
 
+		private async UniTask InitUnityServices()
+		{
+			var initOpts = new InitializationOptions();
+
+			initOpts.SetEnvironmentName(UnityCloudEnvironment.CURRENT);
+
+			await UnityServices.InitializeAsync(initOpts).AsUniTask();
+			await RemoteConfigs.Init();
+		}
+
 		private void OnApplicationFocus(bool hasFocus)
 		{
-			if(hasFocus) _permissions.RequestPermissions();
+			if (hasFocus) _permissions.RequestPermissions();
 		}
 
 		private async UniTask WaitForInstaller()
@@ -119,10 +136,10 @@ namespace FirstLight.Game.Views
 			var json = PlayerPrefs.GetString(nameof(AppData), "");
 			var isSoundEnabled = string.IsNullOrEmpty(json) || JsonConvert.DeserializeObject<AppData>(json).SfxEnabled;
 
-			#if !UNITY_EDITOR_LINUX
+#if !UNITY_EDITOR_LINUX
 			SplashScreen.Begin();
 			SplashScreen.Draw();
-			#endif
+#endif
 
 			if (isSoundEnabled)
 			{
@@ -145,7 +162,7 @@ namespace FirstLight.Game.Views
 			}
 
 			await WaitForInstaller();
-			
+
 			SceneManager.MergeScenes(SceneManager.GetSceneByName(_bootSceneName),
 				SceneManager.GetSceneByName(_mainSceneName));
 			Destroy(gameObject);

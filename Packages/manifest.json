@@ -26,6 +26,7 @@
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.probuilder": "5.2.2",
     "com.unity.purchasing": "4.10.0",
+    "com.unity.remote-config": "4.0.0",
     "com.unity.render-pipelines.universal": "14.0.10",
     "com.unity.test-framework": "2.0.1-pre.18",
     "com.unity.textmeshpro": "3.0.7",

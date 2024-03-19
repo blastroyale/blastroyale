@@ -193,6 +193,19 @@ namespace FirstLight.Editor.Build
 		}
 
 		/// <summary>
+		/// Generates the version CS file for the Unity Cloud environment.
+		/// </summary>
+		public static void GenerateUCEnvironment(string environment)
+		{
+			var path = Path.Combine(Application.dataPath, "Src", "FirstLight", "Game", "Utils", "UnityCloudEnvironment.cs");
+			var content =
+				$"namespace FirstLight.Game.Utils\n{{\n\tpublic static class UnityCloudEnvironment\n\t{{\n\t\tpublic const string CURRENT = \"{environment}\";\n\t}}\n}}";
+			File.WriteAllText(path, content);
+
+			AssetDatabase.ImportAsset(Path.Combine("Assets", "Src", "FirstLight", "Game", "Utils", "UnityCloudEnvironment.cs"));
+		}
+
+		/// <summary>
 		/// Sets the defining symbols defined by this build in the player settings mapping list
 		/// </summary>
 		public static void SetScriptingDefineSymbols(BuildTargetGroup targetGroup, params string[] buildSymbols)

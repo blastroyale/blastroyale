@@ -176,6 +176,9 @@ namespace FirstLight.Editor.Build
 			AddressableAssetSettingsDefaultObject.Settings.activeProfileId = profileId;
 			AssetDatabase.Refresh();
 			AddressableAssetSettings.BuildPlayerContent();
+			
+			// UnityServices environment
+			FirstLightBuildConfig.GenerateUCEnvironment(ccdEnv);
 
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(buildTarget, fileName, buildSymbol);
 			var buildReport = BuildPipeline.BuildPlayer(options);

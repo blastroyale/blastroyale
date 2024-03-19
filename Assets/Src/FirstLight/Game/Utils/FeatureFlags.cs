@@ -121,11 +121,6 @@ namespace FirstLight.Game.Utils
 		/// If false, player can create/join rooms not locked by commit
 		/// </summary>
 		public static bool COMMIT_VERSION_LOCK = true;
-
-		/// <summary>
-		/// When true will display "BETA" in loading screen
-		/// </summary>
-		public static bool BETA_VERSION = false;
 		
 		/// <summary>
 		/// When true, will send end of match commands using quantum server consensus algorithm.
@@ -353,11 +348,6 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("BULLET_COLORS", overrideData, out var bulletCollors))
 			{
 				BULLET_COLORS = bulletCollors;
-			}
-			
-			if (TrySetFlag("BETA_VERSION", overrideData, out var beta))
-			{
-				BETA_VERSION = beta;
 			}
 			
 			if (TrySetFlag("PAUSE_FREEZE", overrideData, out var pauseFreeze))

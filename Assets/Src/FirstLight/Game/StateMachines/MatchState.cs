@@ -241,17 +241,17 @@ namespace FirstLight.Game.StateMachines
 			return _matchServices.MatchEndDataService.LeftBeforeMatchFinished;
 		}
 
-		private bool HasValidPlayer()
+		private unsafe bool HasValidPlayer()
 		{
-			var players = QuantumRunner.Default?.Game?.Frames?.Verified?.GetSingleton<GameContainer>().PlayersData;
-			if (!players.HasValue)
-			{
-				return false;
-			}
+			var f = QuantumRunner.Default?.Game?.Frames?.Verified;
 
-			for (var x = 0; x < players.Value.Length; x++)
+			if (f == null) return false;
+
+			var players = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
+
+			for (var x = 0; x < players.Length; x++)
 			{
-				if (players.Value[x].IsValid)
+				if (players[x].IsValid)
 				{
 					return true;
 				}

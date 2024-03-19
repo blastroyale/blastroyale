@@ -19,7 +19,7 @@ namespace FirstLight.Game.Presenters
 	/// This is responsible for displaying the screen during spectate mode,
 	/// that follows your killer around.
 	/// </summary>
-	public class SpectateScreenPresenter : UiToolkitPresenterData<SpectateScreenPresenter.StateData>
+	public unsafe class SpectateScreenPresenter : UiToolkitPresenterData<SpectateScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
@@ -89,7 +89,7 @@ namespace FirstLight.Game.Presenters
 		private void OnSpectatedPlayerChanged(SpectatedPlayer _, SpectatedPlayer current)
 		{
 			var f = QuantumRunner.Default.Game.Frames.Predicted;
-			var playersData = f.GetSingleton<GameContainer>().PlayersData;
+			var playersData = f.Unsafe.GetPointerSingleton<GameContainer>().PlayersData;
 
 			if (!current.Player.IsValid)
 			{

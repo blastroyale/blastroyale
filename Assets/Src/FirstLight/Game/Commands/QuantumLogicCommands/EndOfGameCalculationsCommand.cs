@@ -14,7 +14,7 @@ namespace FirstLight.Game.Commands
 	/// <summary>
 	/// Updates player trophies, restocks resource pools, and gives end-of-match rewards
 	/// </summary>
-	public class EndOfGameCalculationsCommand : IQuantumCommand, IGameCommand
+	public unsafe class EndOfGameCalculationsCommand : IQuantumCommand, IGameCommand
 	{
 		public Dictionary<GameId, ushort> EarnedGameItems;
 		public List<QuantumPlayerMatchData> PlayersMatchData;
@@ -62,8 +62,8 @@ namespace FirstLight.Game.Commands
 
 		public void FromFrame(Frame frame, QuantumValues quantumValues)
 		{
-			var gameContainer = frame.GetSingleton<GameContainer>();
-			PlayersMatchData = gameContainer.GeneratePlayersMatchData(frame, out _, out _);
+			var gameContainer = frame.Unsafe.GetPointerSingleton<GameContainer>();
+			PlayersMatchData = gameContainer->GeneratePlayersMatchData(frame, out _, out _);
 			
 			QuantumValues = quantumValues;
 			TeamSize = frame.Context.GameModeConfig.MaxPlayersInTeam;

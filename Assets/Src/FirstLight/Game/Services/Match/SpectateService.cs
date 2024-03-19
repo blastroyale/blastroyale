@@ -267,11 +267,11 @@ namespace FirstLight.Game.Services
 			SetSpectatedEntity(callback.Game.Frames.Verified, callback.Entity, callback.Player);
 		}
 
-		private bool SetSpectatedEntity(Frame f, EntityRef entity, PlayerRef player, bool safe = false)
+		private unsafe bool SetSpectatedEntity(Frame f, EntityRef entity, PlayerRef player, bool safe = false)
 		{
 			if (f != null && _matchServices.EntityViewUpdaterService.TryGetView(entity, out var view))
 			{
-				var team = f.TryGet<TeamMember>(entity, out var t) ? t.TeamId : -1;
+				var team = f.Unsafe.TryGetPointer<TeamMember>(entity, out var t) ? t->TeamId : -1;
 				_spectatedPlayer.Value = new SpectatedPlayer(entity, player, team, view.transform);
 
 				return true;
@@ -291,13 +291,13 @@ namespace FirstLight.Game.Services
 			return false;
 		}
 
-		private List<Quantum.PlayerMatchData> GetLivingTeamMembers(QuantumGame game)
+		private unsafe List<Quantum.PlayerMatchData> GetLivingTeamMembers(QuantumGame game)
 		{
 			var localPlayer = game.GetLocalPlayerData(true, out var f);
 			var localTeamId = localPlayer.TeamId;
 
-			var container = f.GetSingleton<GameContainer>();
-			var playersData = container.PlayersData;
+			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
+			var playersData = container->PlayersData;
 
 			var teamMembers = new List<Quantum.PlayerMatchData>();
 			for (int i = 0; i < playersData.Length; i++)
@@ -317,7 +317,7 @@ namespace FirstLight.Game.Services
 		{
 			var f = game.Frames.Verified;
 			var players = new List<Pair<EntityRef, PlayerRef>>();
-			var container = f.GetSingleton<GameContainer>();
+			var container = f.Unsafe.<GameContainer>();
 
 			var validPlayers = GetLivingTeamMembers(game);
 			if (validPlayers.Count == 0)

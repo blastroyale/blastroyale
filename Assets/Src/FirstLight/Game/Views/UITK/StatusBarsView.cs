@@ -183,10 +183,10 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public void InitAll()
+		public unsafe void InitAll()
 		{
 			var f = QuantumRunner.Default.Game.Frames.Verified;
-			var dataArray = f.GetSingleton<GameContainer>().PlayersData;
+			var dataArray = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
 			for (int i = 0; i < f.PlayerCount; i++)
 			{
 				var p = dataArray[i];

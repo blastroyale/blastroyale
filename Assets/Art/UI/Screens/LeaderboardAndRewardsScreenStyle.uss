@@ -293,8 +293,8 @@
 }
 
 .bpp {
-    top: 701px;
-    left: 100px;
+    top: 527px;
+    left: 150px;
     width: 619px;
     height: 162px;
     position: absolute;

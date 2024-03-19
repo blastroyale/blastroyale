@@ -141,7 +141,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 					{"mutators", _mutators},
 					{"player_level", _gameData.PlayerDataProvider.Level.Value.ToString()},
 					{"total_players", totalPlayers.ToString()},
-					{"total_bots", (room.GetMaxPlayers(false) - totalPlayers).ToString()},
+					{"total_bots", (room.GetMaxPlayers() - totalPlayers).ToString()},
 					{"map_id", _gameIdsLookup[config.Map]},
 					{"team_size", room.Properties.TeamSize.Value},
 					{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value.ToString()},

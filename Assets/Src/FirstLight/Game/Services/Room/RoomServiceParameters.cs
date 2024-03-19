@@ -30,8 +30,7 @@ namespace FirstLight.Game.Services.RoomService
 			return new OpJoinRandomRoomParams
 			{
 				ExpectedCustomRoomProperties = GetJoinRoomProperties(setup).ToHashTable(),
-				ExpectedMaxPlayers = _service.GetMaxPlayers(_service.GetGameModeConfig(setup.GameModeId), _service.GetMapConfig(setup.MapId),
-					setup.MatchType),
+				ExpectedMaxPlayers = _service.GetMaxPlayers(setup),
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
 				SqlLobbyFilter = "",
@@ -126,7 +125,7 @@ namespace FirstLight.Game.Services.RoomService
 					EmptyRoomTtl = emptyTtl,
 					IsOpen = true,
 					IsVisible = setup.MatchType == MatchType.Custom,
-					MaxPlayers = _service.GetMaxPlayers(gamemodeConfig, mapConfig, setup.MatchType),
+					MaxPlayers = _service.GetMaxPlayers(setup),
 					PlayerTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS
 				},
 			};

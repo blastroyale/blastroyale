@@ -42,6 +42,8 @@ namespace FirstLight.Game.Presenters
 		private LocalizedDropDown _mapDropDown;
 		private LocalizedDropDown[] _mutatorModeDropDown;
 		private LocalizedSliderInt _botDifficultyDropDown;
+		private LocalizedSliderInt _customPlayersNumberDropDown;
+		private LocalizedDropDown _teamSizeDropDown;
 		private Button _joinRoomButton;
 		private Button _playtestButton;
 		private Button _createRoomButton;
@@ -82,6 +84,7 @@ namespace FirstLight.Game.Presenters
 			_gameModeDropDown = root.Q<LocalizedDropDown>("GameMode").Required();
 			_gameModeDropDown.RegisterValueChangedCallback(GameModeDropDownChanged);
 			_mapDropDown = root.Q<LocalizedDropDown>("Map").Required();
+			_mapDropDown.RegisterValueChangedCallback(MapDropDownChanged);
 			_mutatorModeDropDown = new LocalizedDropDown[2];
 			_mutatorModeDropDown[0] = root.Q<LocalizedDropDown>("Mutator1").Required();
 			_mutatorModeDropDown[0].value = ScriptLocalization.MainMenu.None;
@@ -90,13 +93,17 @@ namespace FirstLight.Game.Presenters
 			_mutatorModeDropDown[1].value = ScriptLocalization.MainMenu.None;
 			_mutatorModeDropDown[1].RegisterValueChangedCallback(MutatorDropDownChanged);
 			_botDifficultyDropDown = root.Q<LocalizedSliderInt>("BotDifficulty").Required();
+			_customPlayersNumberDropDown = root.Q<LocalizedSliderInt>("CustomPlayersNumber").Required();
 			_weaponLimitDropDown = root.Q<LocalizedDropDown>("WeaponLimiter").Required();
+			_teamSizeDropDown = root.Q<LocalizedDropDown>("TeamSize").Required();
 
 			FillGameModesSelectionList();
 			FillMapSelectionList(0);
 			FillMutatorsSelectionList();
 			FillBotDifficultySelectionList();
 			FillWeaponLimitSelectionList();
+			FillPlayersNumberSelectionList();
+			FillTeamSizeSelectionList();
 			SetPreviouslyUsedValues();
 		}
 
@@ -104,6 +111,11 @@ namespace FirstLight.Game.Presenters
 		{
 			FillMapSelectionList(_gameModeDropDown.index);
 			_mapDropDown.index = 0;
+		}
+
+		private void MapDropDownChanged(ChangeEvent<string> evt)
+		{
+			FillPlayersNumberSelectionList();
 		}
 
 		private void MutatorDropDownChanged(ChangeEvent<string> evt)
@@ -139,6 +151,8 @@ namespace FirstLight.Game.Presenters
 				{
 					_weaponLimitDropDown.value = lastUsedOptions.WeaponLimiter;
 				}
+
+				_teamSizeDropDown.index = lastUsedOptions.TeamSize - 1;
 			}
 		}
 
@@ -169,7 +183,9 @@ namespace FirstLight.Game.Presenters
 				Mutators = GetMutatorsList(),
 				MapIndex = _mapDropDown.index,
 				BotDifficulty = SlideToDifficulty(_botDifficultyDropDown.value),
-				WeaponLimiter = _weaponLimitDropDown.value
+				WeaponLimiter = _weaponLimitDropDown.value,
+				PlayersNumber = _customPlayersNumberDropDown.value,
+				TeamSize = _teamSizeDropDown.index + 1,
 			};
 		}
 
@@ -178,13 +194,13 @@ namespace FirstLight.Game.Presenters
 			var gameModeConfig = _quantumGameModeConfigs[_gameModeDropDown.index];
 			var mapConfig = _quantumMapConfigs[_mapDropDown.index];
 			var roomName = GameConstants.Network.ROOM_NAME_PLAYTEST;
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			if (FeatureFlags.GetLocalConfiguration().AppendMinuteToPlaytest)
 			{
 				var date = new DateTime(1999, 9, 12, 22, 00, 00);
-				roomName += Math.Floor((DateTime.Now  - date).TotalMinutes);
+				roomName += Math.Floor((DateTime.Now - date).TotalMinutes);
 			}
-			#endif
+#endif
 			var message = new PlayCreateRoomClickedMessage
 			{
 				RoomName = roomName,
@@ -340,6 +356,32 @@ namespace FirstLight.Game.Presenters
 			_botDifficultyDropDown.highValue = difficulties.Configs.Count - 1;
 			_botDifficultyDropDown.lowValue = -1;
 			_botDifficultyDropDown.value = 0;
+		}
+
+		private void FillPlayersNumberSelectionList()
+		{
+			_customPlayersNumberDropDown.highValue = 48;
+			_customPlayersNumberDropDown.lowValue = 2;
+
+			if (_mapDropDown.index < 0 || _mapDropDown.index >= _quantumMapConfigs.Count)
+			{
+				return;
+			}
+
+			var mapConfig = _quantumMapConfigs[_mapDropDown.index];
+			_customPlayersNumberDropDown.value = mapConfig.MaxPlayers; // This is a "recommended" value for the chosen map
+		}
+
+		private void FillTeamSizeSelectionList()
+		{
+			var teamSizeChoices = new List<string>();
+			teamSizeChoices.Add("SOLO");
+			teamSizeChoices.Add("DUOS");
+			teamSizeChoices.Add("TRIOS");
+			teamSizeChoices.Add("QUADS");
+
+			_teamSizeDropDown.choices = teamSizeChoices;
+			_teamSizeDropDown.SetValueWithoutNotify(teamSizeChoices[0]);
 		}
 
 		private int SlideToDifficulty(int slideValue)

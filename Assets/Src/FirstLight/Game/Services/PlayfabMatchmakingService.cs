@@ -87,6 +87,7 @@ namespace FirstLight.Game.Services
 		// Required at creation
 		public int MapId;
 		public string GameModeId;
+	    public int OverwriteMaxPlayers;
 		public MatchType MatchType;
 		public IReadOnlyList<string> Mutators;
 		public string RoomIdentifier = "";

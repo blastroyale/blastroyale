@@ -33,6 +33,9 @@ namespace FirstLight.Game.Services.RoomService
 		// Set the game map Id for the same matchmaking
 		public QuantumProperty<GameId> MapId;
 
+		public QuantumProperty<Dictionary<string, string>> OverwriteTeams;
+		public QuantumProperty<bool> AutoBalanceTeams;
+
 		public RoomProperties()
 		{
 			// keys here do not matter, it should be short and unique.
@@ -49,7 +52,9 @@ namespace FirstLight.Game.Services.RoomService
 			LoadingStartServerTime = Create<int>("loading");
 			BotDifficultyOverwrite = Create<int>("botdif");
 			StartCustomGame = Create<bool>("cstart");
-			TeamSize = Create<int>("TeamSize");
+			TeamSize = Create<int>("teamsize");
+			OverwriteTeams = CreateDictionary("overwriteteams");
+			AutoBalanceTeams = Create<bool>("autobalance");
 		}
 	}
 }

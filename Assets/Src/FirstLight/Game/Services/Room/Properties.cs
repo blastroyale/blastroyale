@@ -60,6 +60,7 @@ namespace FirstLight.Game.Services.RoomService
 				SetInternal(default);
 				return;
 			}
+
 			SetInternal((T) value);
 		}
 
@@ -71,7 +72,7 @@ namespace FirstLight.Game.Services.RoomService
 		protected void SetInternal(T value)
 		{
 			HasValue = true;
-			var changed = !Equals(_currentValue,value);
+			var changed = !Equals(_currentValue, value);
 			_currentValue = value;
 			if (changed)
 			{
@@ -96,6 +97,7 @@ namespace FirstLight.Game.Services.RoomService
 		{
 		}
 	}
+
 	public class ListEnumQuantumProperty<T> : QuantumProperty<List<T>> where T : struct, Enum
 	{
 		public ListEnumQuantumProperty(string key, bool expose) : base(key, expose)
@@ -118,7 +120,6 @@ namespace FirstLight.Game.Services.RoomService
 			{
 				if (!Enum.TryParse<T>(enumKey, out var enumValue)) throw new Exception("Enum value not found for key " + enumKey);
 				convertedList.Add(enumValue);
-
 			}
 
 			SetInternal(convertedList);
@@ -154,16 +155,48 @@ namespace FirstLight.Game.Services.RoomService
 			return string.Join(",", _currentValue);
 		}
 	}
-	
+
+	public class DictionaryQuantumProperty : QuantumProperty<Dictionary<string, string>>
+	{
+		public DictionaryQuantumProperty(string key, bool expose) : base(key, expose)
+		{
+		}
+
+		public override void FromRaw(object value)
+		{
+			var str = (string) value;
+			if (string.IsNullOrEmpty(str.Trim()))
+			{
+				SetInternal(new Dictionary<string, string>());
+				return;
+			}
+
+			var list = str.Split(",");
+			var dict = new Dictionary<string, string>();
+			foreach (var entry in list)
+			{
+				var split = entry.Split(":");
+				dict[split[0]] = split[1];
+			}
+
+			SetInternal(dict);
+		}
+
+		public override object ToRaw()
+		{
+			return string.Join(",", _currentValue.Select(kv => kv.Key + ":" + kv.Value));
+		}
+	}
+
 	public class PropertiesHolder
 	{
-		private List<IQuantumProperty> _allProperties = new();
-        
+		private List<IQuantumProperty> _allProperties = new ();
+
 
 		public delegate void OnSetPropertyCallback(string key, object value);
 
 		public event OnSetPropertyCallback OnLocalPlayerSetProperty;
-        
+
 
 		private void InitProperty<T>(QuantumProperty<T> property)
 		{
@@ -188,6 +221,13 @@ namespace FirstLight.Game.Services.RoomService
 		protected ListQuantumProperty CreateList(string key, bool expose = false)
 		{
 			var property = new ListQuantumProperty(key, expose);
+			InitProperty(property);
+			return property;
+		}
+
+		protected DictionaryQuantumProperty CreateDictionary(string key, bool expose = false)
+		{
+			var property = new DictionaryQuantumProperty(key, expose);
 			InitProperty(property);
 			return property;
 		}
@@ -241,7 +281,7 @@ namespace FirstLight.Game.Services.RoomService
 				}
 			}
 		}
-		
+
 		/// <summary>
 		/// Conversion from a photon hash table
 		/// </summary>

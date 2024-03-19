@@ -81,9 +81,9 @@ namespace FirstLight.Game.Services.RoomService
 			return GameStartsAt() < _roomService._networkService.ServerTimeInMilliseconds;
 		}
 
-		public byte GetMaxPlayers(bool includeSpectators = true)
+		public int GetMaxPlayers()
 		{
-			return _roomService.GetMaxPlayers(GameModeConfig, MapConfig, Properties.MatchType.Value);
+			return _room.MaxPlayers - GetMaxSpectators();
 		}
 
 		public int GetMaxSpectators()
@@ -259,6 +259,19 @@ namespace FirstLight.Game.Services.RoomService
 		public void PauseTimer()
 		{
 			_pause = true;
+		}
+
+
+		public string GetTeamForPlayer(Player player)
+		{
+			var playerTeam = Properties.OverwriteTeams.Value;
+			if (playerTeam != null)
+				if (playerTeam.TryGetValue(player.ActorNumber.ToString(), out var team))
+				{
+					return team;
+				}
+
+			return GetPlayerProperties(player).TeamId.Value;
 		}
 
 		public void ResumeTimer(int secondsToStart = -1)

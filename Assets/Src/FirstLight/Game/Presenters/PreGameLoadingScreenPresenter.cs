@@ -137,11 +137,11 @@ namespace FirstLight.Game.Presenters
 
 			if (isSquadGame)
 			{
-				var teamId = CurrentRoom.LocalPlayerProperties.TeamId.Value;
+				var teamId = CurrentRoom.GetTeamForPlayer(CurrentRoom.LocalPlayer);
 
 				_squadContainer.SetDisplay(true);
 				_squadMembers = CurrentRoom.Players.Values
-					.Where(p => CurrentRoom.GetPlayerProperties(p).TeamId.Value == teamId)
+					.Where(p => CurrentRoom.GetTeamForPlayer(p) == teamId)
 					.ToList();
 
 				_squadMembersList.itemsSource = _squadMembers;

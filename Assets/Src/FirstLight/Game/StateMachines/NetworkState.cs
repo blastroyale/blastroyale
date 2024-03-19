@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -573,6 +574,12 @@ namespace FirstLight.Game.StateMachines
 				MatchType = MatchType.Custom,
 				RoomIdentifier = msg.RoomName,
 				BotDifficultyOverwrite = msg.CustomGameOptions.BotDifficulty,
+				PlayfabQueue = new GameModeRotationConfig.PlayfabQueue()
+				{
+					//TODO: Carlos remove team size from playfab queue, it should be outside
+					TeamSize = msg.CustomGameOptions.TeamSize
+				},
+				OverwriteMaxPlayers = msg.CustomGameOptions.PlayersNumber
 			};
 			var offlineMatch = msg.MapConfig.IsTestMap;
 			if (msg.JoinIfExists)

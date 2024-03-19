@@ -26,6 +26,7 @@ namespace FirstLight.Game.Input
 		public ButtonControl Special1PointerDown { get; private set; }
 		public ButtonControl CancelPointerDown { get; private set; }
 		public ButtonControl SwitchWeaponButton { get; private set; }
+		public ButtonControl ToggleMinimapButton { get; private set; }
 		public Vector2Control TeamPositionPing { get; private set; }
 
 		public static OnScreenControlsDevice Current { get; internal set; }
@@ -69,6 +70,7 @@ namespace FirstLight.Game.Input
 			Special1PointerDown = GetChildControl<ButtonControl>("Special1PointerDown");
 			CancelPointerDown = GetChildControl<ButtonControl>("CancelPointerDown");
 			SwitchWeaponButton = GetChildControl<ButtonControl>("SwitchWeaponButton");
+			ToggleMinimapButton = GetChildControl<ButtonControl>("ToggleMinimapButton");
 			
 			TeamPositionPing = GetChildControl<Vector2Control>("TeamPositionPing");
 		}
@@ -85,7 +87,7 @@ namespace FirstLight.Game.Input
 	/// <summary>
 	/// Onscreen controls state layout for Unity's input system.
 	/// </summary>
-	[StructLayout(LayoutKind.Explicit, Size = 56)]
+	[StructLayout(LayoutKind.Explicit, Size = 60)]
 	public struct OnScreenControlsState : IInputStateTypeInfo
 	{
 		public FourCC format => new('O', 'S', 'C', 'D');
@@ -116,8 +118,11 @@ namespace FirstLight.Game.Input
 
 		[InputControl(layout = "Button"), FieldOffset(44)]
 		public float SwitchWeaponButton;
+		
+		[InputControl(layout = "Button"), FieldOffset(48)]
+		public float ToggleMinimapButton;
 
-		[InputControl(layout = "Vector2"), FieldOffset(48)]
+		[InputControl(layout = "Vector2"), FieldOffset(52)]
 		public Vector2 TeamPositionPing;
 	}
 }

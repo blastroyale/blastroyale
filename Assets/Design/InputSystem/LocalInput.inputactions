@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleMinimapButton",
+                    "type": "Button",
+                    "id": "5c9e297a-76ad-43bf-9749-8a723b359334",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -503,6 +512,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "TeamPositionPing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "09250f0c-64f2-44cf-90f2-5206c2ab8fbf",
+                    "path": "<OnScreenControlsDevice>/ToggleMinimapButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleMinimapButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c477b7c-972c-469e-8989-bfd1735516c4",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleMinimapButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

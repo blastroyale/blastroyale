@@ -32,10 +32,10 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly IConfigsLoader _configsLoader;
 		private readonly IDataService _dataService;
-		
-		public InitialLoadingState(IGameServices services, IGameUiServiceInit uiService, 
-		                           IAssetAdderService assetService, IDataService dataService, IConfigsAdder configsAdder, 
-		                           IVfxInternalService<VfxId> vfxService, Action<IStatechartEvent> statechartTrigger)
+
+		public InitialLoadingState(IGameServices services, IGameUiServiceInit uiService,
+								   IAssetAdderService assetService, IDataService dataService, IConfigsAdder configsAdder,
+								   IVfxInternalService<VfxId> vfxService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_uiService = uiService;
@@ -60,11 +60,11 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(downloadData);
 			initial.OnExit(GameLoadStartAnalyticsEvent);
 			initial.OnExit(SubscribeEvents);
-			
+
 			downloadData.WaitingFor(DownloadData).Target(assetLoading);
 
 			assetLoading.WaitingFor(LoadInitialAssets).Target(final);
-			
+
 			final.OnEnter(UnsubscribeEvents);
 			final.OnEnter(InitialLoadingCompleteAnalyticsEvent);
 		}
@@ -78,7 +78,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services?.AnalyticsService.SessionCalls.GameLoadStart();
 		}
-		
+
 		private void InitialLoadingCompleteAnalyticsEvent()
 		{
 			var dic = new Dictionary<string, object>
@@ -99,61 +99,40 @@ namespace FirstLight.Game.StateMachines
 		{
 			//await Addressables.DownloadDependenciesAsync(AddressableLabel.Label_Quantum.ToLabelString(), true).Task;
 			await Addressables.InitializeAsync().Task.AsUniTask();
-			
+
 			await Resources.UnloadUnusedAssets();
 		}
 
 		private async UniTask LoadInitialAssets()
 		{
 			var configProvider = _services.ConfigsProvider;
-			
+
 			var tasks = new List<UniTask>();
 
 			tasks.Add(LoadErrorAssets());
 			tasks.AddRange(_configsLoader.LoadConfigTasks(_configsAdder));
 			tasks.AddRange(LoadAssetConfigs());
-			
-			await UniTask.WhenAll(tasks);
-			
-			if (FeatureFlags.REMOTE_CONFIGURATION)
-			{
-				var appData = _dataService.GetData<AppData>();
-				while (appData.TitleData.Count == 0)
-				{
-					await UniTask.Delay(1);
-				}
 
-				if (!appData.TitleData.TryGetValue(PlayfabConfigKeys.ConfigName, out var remoteStringConfig))
-				{
-					throw new Exception("Remote Configs is ON but no remote configs found. Please upload.");
-				}
-				var serializer = new ConfigsSerializer();
-				var remoteConfig = serializer.Deserialize<ConfigsProvider>(remoteStringConfig);
-				_services.MessageBrokerService.Publish(new ConfigurationUpdate()
-				{
-					NewConfig = remoteConfig,
-					OldConfig = _configsAdder
-				});
-				_configsAdder.UpdateTo(remoteConfig.Version, remoteConfig.GetAllConfigs());
-			}
-			
+			await UniTask.WhenAll(tasks);
+
 			var audioTasks = new List<UniTask>();
-			
+
 			audioTasks.Add(_services.AudioFxService
-			                        .LoadAudioMixers(configProvider.GetConfig<AudioMixerConfigs>().ConfigsDictionary));
-			
+				.LoadAudioMixers(configProvider.GetConfig<AudioMixerConfigs>().ConfigsDictionary));
+
 			audioTasks.Add(_services.AudioFxService
-			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary));
-			
+				.LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary));
+
 			await UniTask.WhenAll(audioTasks);
-			
+
 			LoadVfx();
 		}
 
 		private async UniTask LoadErrorAssets()
 		{
-			await _configsLoader.LoadConfig<CustomAssetConfigs>(AddressableId.Configs_CustomAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset));
-			
+			await _configsLoader.LoadConfig<CustomAssetConfigs>(AddressableId.Configs_CustomAssetConfigs,
+				asset => _configsAdder.AddSingletonConfig(asset));
+
 			var customConfigs = _configsAdder.GetConfig<CustomAssetConfigs>();
 			var errorSprite = customConfigs.ErrorSprite.LoadAssetAsync();
 			var errorCube = customConfigs.ErrorCube.LoadAssetAsync();
@@ -161,7 +140,7 @@ namespace FirstLight.Game.StateMachines
 			var errorClip = customConfigs.ErrorClip.LoadAssetAsync();
 
 			await Task.WhenAll(errorSprite.Task, errorCube.Task, errorMaterial.Task, errorClip.Task);
-			
+
 			_assetService.AddDebugConfigs(errorSprite.Result, errorCube.Result, errorMaterial.Result, errorClip.Result);
 		}
 
@@ -169,22 +148,33 @@ namespace FirstLight.Game.StateMachines
 		{
 			return new List<UniTask>
 			{
-				_configsLoader.LoadConfig<AudioMixerConfigs>(AddressableId.Configs_AudioMixerConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<AudioMatchAssetConfigs>(AddressableId.Configs_AudioMatchAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<AudioMainMenuAssetConfigs>(AddressableId.Configs_AudioMainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<AudioSharedAssetConfigs>(AddressableId.Configs_AudioSharedAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<MatchAssetConfigs>(AddressableId.Configs_AdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<MainMenuAssetConfigs>(AddressableId.Configs_MainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<DummyAssetConfigs>(AddressableId.Configs_DummyAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<AudioMixerConfigs>(AddressableId.Configs_AudioMixerConfigs,
+					asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<AudioMatchAssetConfigs>(AddressableId.Configs_AudioMatchAssetConfigs,
+					asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<AudioMainMenuAssetConfigs>(AddressableId.Configs_AudioMainMenuAssetConfigs,
+					asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<AudioSharedAssetConfigs>(AddressableId.Configs_AudioSharedAssetConfigs,
+					asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<MatchAssetConfigs>(AddressableId.Configs_AdventureAssetConfigs,
+					asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<MainMenuAssetConfigs>(AddressableId.Configs_MainMenuAssetConfigs,
+					asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<DummyAssetConfigs>(AddressableId.Configs_DummyAssetConfigs,
+					asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<SceneAssetConfigs>(AddressableId.Configs_SceneAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<SpriteAssetConfigs>(AddressableId.Configs_SpriteAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				_configsLoader.LoadConfig<SpecialMoveAssetConfigs>(AddressableId.Configs_SpecialMoveAssetConfigs, asset => _assetService.AddConfigs(asset)),
+				_configsLoader.LoadConfig<SpecialMoveAssetConfigs>(AddressableId.Configs_SpecialMoveAssetConfigs,
+					asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<VfxAssetConfigs>(AddressableId.Configs_VfxConfigs, asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<MaterialVfxConfigs>(AddressableId.Configs_MaterialVfxConfigs, asset => _assetService.AddConfigs(asset)),
-				_configsLoader.LoadConfig<IndicatorVfxAssetConfigs>(AddressableId.Configs_IndicatorVfxAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				_configsLoader.LoadConfig<EquipmentRarityAssetConfigs>(AddressableId.Configs_EquipmentRarityAssetConfigs, asset => _assetService.AddConfigs(asset)),
+				_configsLoader.LoadConfig<IndicatorVfxAssetConfigs>(AddressableId.Configs_IndicatorVfxAssetConfigs,
+					asset => _assetService.AddConfigs(asset)),
+				_configsLoader.LoadConfig<EquipmentRarityAssetConfigs>(AddressableId.Configs_EquipmentRarityAssetConfigs,
+					asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<VideoAssetConfigs>(AddressableId.Configs_VideoAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				_configsLoader.LoadConfig<PlayerRankAssetConfigs>(AddressableId.Configs_PlayerRankAssetConfigs, asset => _assetService.AddConfigs(asset)),
+				_configsLoader.LoadConfig<PlayerRankAssetConfigs>(AddressableId.Configs_PlayerRankAssetConfigs,
+					asset => _assetService.AddConfigs(asset)),
 			};
 		}
 
@@ -202,6 +192,5 @@ namespace FirstLight.Game.StateMachines
 				_vfxService.AddPool(reference);
 			}
 		}
-
 	}
 }

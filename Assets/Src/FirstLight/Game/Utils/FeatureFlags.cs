@@ -12,18 +12,15 @@ using Environment = FirstLight.Game.Services.Environment;
 
 namespace FirstLight.Game.Utils
 {
-
 	public enum FlagOverwrite
 	{
 		None,
 		True,
 		False
-
 	}
 
 	public static class FlagOverwriteExt
 	{
-
 		public static bool Bool(this FlagOverwrite flag)
 		{
 			return flag switch
@@ -70,36 +67,36 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		[Description("Force Authentication Connection Error")]
 		public bool ForceAuthError = false;
-		
+
 		/// <summary>
 		/// Force authentication connection error
 		/// </summary>
 		[Description("Dev QOL/Disable Pause Behaviour")]
 		public bool DisablePauseBehaviour = false;
-		
+
 		/// <summary>
 		/// Requests will be routed to local backend. To run, run "StandaloneServer" on backend project.
 		/// </summary>
 		[Description("Dev QOL/Offline mode")] public bool OfflineMode = false;
-		
+
 		/// <summary>
 		/// If automatically starts the test game mode after the game boot up
 		/// </summary>
 		[Description("Dev QOL/Autostart test game")]
 		public bool StartTestGameAutomatically = false;
-		
+
 		/// <summary>
 		/// If we should consider if the player has NFTs even if he doens't
 		/// </summary>
 		[Description("Dev QOL/Unlock all fame stuff")]
 		public bool UnlockAllFameStuff = false;
-		
+
 		/// <summary>
 		/// If we should consider if the player has NFTs even if he doens't
 		/// </summary>
 		[Description("Dev QOL/Disable Reconnection")]
 		public bool DisableReconnection = false;
-		
+
 		/// <summary>
 		/// Force authentication connection error
 		/// </summary>
@@ -121,7 +118,7 @@ namespace FirstLight.Game.Utils
 		/// If false, player can create/join rooms not locked by commit
 		/// </summary>
 		public static bool COMMIT_VERSION_LOCK = true;
-		
+
 		/// <summary>
 		/// When true, will send end of match commands using quantum server consensus algorithm.
 		/// When false commands will go directly to our backend. 
@@ -129,13 +126,6 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool QUANTUM_CUSTOM_SERVER = false;
 
-		public static bool RANKED_BORDERS = false;
-		
-		/// <summary>
-		/// If true will load game configurations from remote server
-		/// </summary>
-		public static bool REMOTE_CONFIGURATION = false;
-		
 		/// <summary>
 		/// When true will wait rewards to be synced before allowing players to continue playing
 		/// </summary>
@@ -145,7 +135,7 @@ namespace FirstLight.Game.Utils
 		/// Forces to stop the game when pausing
 		/// </summary>
 		public static bool PAUSE_FREEZE = true;
-		
+
 		/// <summary>
 		/// Enables / disables item durability checks for Non NFTs
 		/// </summary>
@@ -157,15 +147,10 @@ namespace FirstLight.Game.Utils
 		public static bool ITEM_DURABILITY_NFTS = false;
 
 		/// <summary>
-		/// If true all matches will be handled as ranked matches
-		/// </summary>
-		public static bool FORCE_RANKED = false;
-
-		/// <summary>
 		/// Enables / disables the store button in the home screen
 		/// </summary>
 		public static bool STORE_ENABLED = false;
-		
+
 		/// <summary>
 		/// Enables / disables the player stats button in the home screen
 		/// </summary>
@@ -175,11 +160,6 @@ namespace FirstLight.Game.Utils
 		/// Will try to detect and raise any desyncs server/client finds.
 		/// </summary>
 		public static bool DESYNC_DETECTION = false;
-
-		/// <summary>
-		/// Will try to detect and raise any desyncs server/client finds.
-		/// </summary>
-		public static bool SQUAD_PINGS = true;
 
 		/// <summary>
 		/// If the tutorial is active, useful for testing
@@ -192,16 +172,6 @@ namespace FirstLight.Game.Utils
 		public static bool SYSTEM_LOCKS = true;
 
 		/// <summary>
-		/// If the tutorial is active, useful for testing
-		/// </summary>
-		public static bool ALLOW_SKIP_TUTORIAL = true;
-
-		/// <summary>
-		/// If should have specific tutorial battle pass for newbies
-		/// </summary>
-		public static bool TUTORIAL_BATTLE_PASS = true;
-
-		/// <summary>
 		/// If the squads button is enabled in the UI
 		/// </summary>
 		public static bool DISPLAY_SQUADS_BUTTON = true;
@@ -210,18 +180,18 @@ namespace FirstLight.Game.Utils
 		/// When enabled will enable aiming deadzone to avoid missfires
 		/// </summary>
 		public static bool AIM_DEADZONE = true;
-		
+
 		/// <summary>
 		/// Will replace map music by ambience sound effects
 		/// </summary>
 		public static bool NEW_SFX = true;
-		
+
 		/// <summary>
 		/// If true will be slightly more delayed aim but will be precise to Quantum inputs
 		/// If false it will be more accurate visually but not necessarily shoot where you aim
 		/// </summary>
 		public static bool QUANTUM_PREDICTED_AIM = false;
-		
+
 		/// <summary>
 		/// Should specials use new input system
 		/// </summary>
@@ -238,24 +208,6 @@ namespace FirstLight.Game.Utils
 		public static bool REMOTE_COLLECTIONS = false;
 
 		/// <summary>
-		/// Checks if quantum preloads all its assets.
-		/// Causes loading slowdown.
-		/// </summary>
-		public static bool PRELOAD_QUANTUM_ASSETS = false;
-
-		/// <summary>
-		/// Can the client record frame snapshots to be restored when server do not know the game anymore ?
-		/// Default disabled as this is not good practice for the live game as we have a server
-		/// This is mainly useful when you don't have a quantum server - but we cant afford to maintain this feature.
-		/// </summary>
-		public static bool RESTORE_SNAPSHOT_GAMES = false;
-		
-		/// <summary>
-		/// Should bullets change colors if they come from enemies/allies ?
-		/// </summary>
-		public static bool BULLET_COLORS = false;
-
-		/// <summary>
 		/// Only for testing.
 		/// When true, you will become invisible when entering bushes.
 		/// </summary>
@@ -267,7 +219,7 @@ namespace FirstLight.Game.Utils
 		/// client.
 		/// </summary>
 		public static string IMX_ID = null;
-		
+
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
 		/// Keys of the dictionary will be matched as title feature flag keys referenced on the attributes.
@@ -285,16 +237,6 @@ namespace FirstLight.Game.Utils
 				COMMIT_VERSION_LOCK = commitVersionLock;
 			}
 
-			if (TrySetFlag("REMOTE_CONFIGURATION", overrideData, out var remoteConfig))
-			{
-				REMOTE_CONFIGURATION = remoteConfig;
-			}
-
-			if (TrySetFlag("FORCE_RANKED", overrideData, out var forceRanked))
-			{
-				FORCE_RANKED = forceRanked;
-			}
-
 			if (TrySetFlag("ITEM_DURABILITY_NON_NFTS", overrideData, out var itemDurabilityNonNFTs))
 			{
 				ITEM_DURABILITY_NON_NFTS = itemDurabilityNonNFTs;
@@ -309,7 +251,7 @@ namespace FirstLight.Game.Utils
 			{
 				STORE_ENABLED = storeEnabled;
 			}
-			
+
 			if (TrySetFlag("PLAYER_STATS_ENABLED", overrideData, out var playerStatsEnabled))
 			{
 				PLAYER_STATS_ENABLED = playerStatsEnabled;
@@ -318,16 +260,6 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("DESYNC_DETECTION", overrideData, out var desyncDetection))
 			{
 				DESYNC_DETECTION = desyncDetection;
-			}
-			
-			if (TrySetFlag("RANKED_BORDERS", overrideData, out var rankedBorders))
-			{
-				RANKED_BORDERS = rankedBorders;
-			}
-
-			if (TrySetFlag("SQUAD_PINGS", overrideData, out var squadPings))
-			{
-				SQUAD_PINGS = squadPings;
 			}
 
 			if (TrySetFlag("TUTORIAL", overrideData, out var tutorial))
@@ -340,25 +272,16 @@ namespace FirstLight.Game.Utils
 				DISPLAY_SQUADS_BUTTON = displaySquadsButton;
 			}
 
-			if (TrySetFlag("PRELOAD_QUANTUM_ASSETS", overrideData, out var preloadQuantumAssets))
-			{
-				PRELOAD_QUANTUM_ASSETS = preloadQuantumAssets;
-			}
-			
-			if (TrySetFlag("BULLET_COLORS", overrideData, out var bulletCollors))
-			{
-				BULLET_COLORS = bulletCollors;
-			}
-			
 			if (TrySetFlag("PAUSE_FREEZE", overrideData, out var pauseFreeze))
 			{
 				PAUSE_FREEZE = pauseFreeze;
 			}
-			
+
 			if (TrySetFlag("WAIT_REWARD_SYNC", overrideData, out var waitSync))
 			{
 				WAIT_REWARD_SYNC = waitSync;
 			}
+
 			if (TrySetStringFlag("IMX_ID", overrideData, out var imxId))
 			{
 				IMX_ID = imxId;
@@ -371,22 +294,16 @@ namespace FirstLight.Game.Utils
 		public static void ParseLocalFeatureFlags()
 		{
 			LoadLocalConfig();
-			if (_localConfig.UseLocalConfigs)
-			{
-				REMOTE_CONFIGURATION = false;
-			}
 
 			if (_localConfig.UseLocalServer)
 			{
 				PlayFabSettings.LocalApiServer = "http://localhost:7274";
 			}
 
-			if (_localConfig.Tutorial!=FlagOverwrite.None)
+			if (_localConfig.Tutorial != FlagOverwrite.None)
 			{
 				TUTORIAL = _localConfig.Tutorial.Bool();
 			}
-
-			
 		}
 
 		/// <summary>
@@ -426,16 +343,17 @@ namespace FirstLight.Game.Utils
 				return;
 			}
 #endif
-			_localConfig = new();
+			_localConfig = new ();
 		}
 
 		private static bool TrySetFlag(string flagName, Dictionary<string, string> titleData, out bool flag)
 		{
-			if(TrySetStringFlag(flagName, titleData, out var stringFlag))
+			if (TrySetStringFlag(flagName, titleData, out var stringFlag))
 			{
 				flag = stringFlag.ToLower() == "true";
 				return true;
-			} else
+			}
+			else
 			{
 				flag = false;
 				return false;

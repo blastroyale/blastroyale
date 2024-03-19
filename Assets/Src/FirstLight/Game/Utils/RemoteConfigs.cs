@@ -8,7 +8,7 @@ namespace FirstLight.Game.Utils
 {
 	public class RemoteConfigs
 	{
-		public readonly bool BetaVersion;
+		public readonly bool BetaVersion = false;
 
 		public struct UserAttributes
 		{

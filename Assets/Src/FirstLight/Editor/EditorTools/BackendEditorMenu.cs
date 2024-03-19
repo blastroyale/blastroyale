@@ -87,50 +87,6 @@ namespace FirstLight.Editor.EditorTools
 		/// Generates and copies a gameTranslations.json to be shared to the backend
 		/// and moves the file to the backend directory.
 		/// </summary>
-		[MenuItem("FLG/Backend/ValidateConfigs")]
-		public static void TestConfigs()
-		{
-			FeatureFlags.REMOTE_CONFIGURATION = false;
-			var serializer = new ConfigsSerializer();
-			var allConfigs = new ConfigsProvider();
-			var configsLoader = new GameConfigsLoader(new AssetResolverService());
-			configsLoader.LoadConfigEditor(allConfigs);
-
-			FeatureFlags.REMOTE_CONFIGURATION = true;
-			var onlyClientConfigs = new ConfigsProvider();
-			configsLoader.LoadConfigEditor(onlyClientConfigs);
-
-			var serverConfigs = new ConfigsProvider();
-			var serializedConfigs = serializer.Serialize(allConfigs, "test");
-			serializer.Deserialize(serializedConfigs, serverConfigs);
-
-			var inBoth = new List<Type>();
-			foreach (var config in allConfigs.GetAllConfigs().Keys)
-			{
-				if (serverConfigs.GetAllConfigs().ContainsKey(config))
-				{
-					if (onlyClientConfigs.GetAllConfigs().ContainsKey(config))
-					{
-						inBoth.Add(config);
-					}
-				}
-			}
-
-			if (inBoth.Count > 0)
-			{
-				Debug.Log("Configs in both server & client (bad): ");
-				Debug.Log(string.Join(",", inBoth.Select(t => t.Name)));
-			}
-			else
-			{
-				Debug.Log("All Good");
-			}
-		}
-
-		/// <summary>
-		/// Generates and copies a gameTranslations.json to be shared to the backend
-		/// and moves the file to the backend directory.
-		/// </summary>
 		[MenuItem("FLG/Backend/Copy Server Translations")]
 		public static void CopyTranslations()
 		{

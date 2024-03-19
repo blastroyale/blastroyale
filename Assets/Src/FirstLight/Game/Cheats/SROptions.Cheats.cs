@@ -521,15 +521,6 @@ public partial class SROptions
 	}
 
 	[Category("Progression")]
-	private void PrintLevelXP()
-	{
-		var dataProvider = MainInstaller.Resolve<IGameDataProvider>();
-
-		FLog.Info("PACO", $"Level: {dataProvider.PlayerDataProvider.Level}");
-		FLog.Info("PACO", $"XP: {dataProvider.PlayerDataProvider.XP}");
-	}
-
-	[Category("Progression")]
 	public void Add5000Coins()
 	{
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;

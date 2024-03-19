@@ -109,12 +109,6 @@ ProjectSettings/GvhProjectSettings.xml
 [Aa]ssets/Editor Default Resources.meta
 [Aa]ssets/Build/
 [Aa]ssets/Build.meta
-[Aa]ssets/AddressableAssetsData/iOS/
-[Aa]ssets/AddressableAssetsData/iOS.meta
-[Aa]ssets/AddressableAssetsData/Android/
-[Aa]ssets/AddressableAssetsData/Android.meta
-[Aa]ssets/AddressableAssetsData/link.xml
-[Aa]ssets/AddressableAssetsData/link.xml.meta
 !Quantum/**/*.csproj
 !Quantum/**/*.pdb
 !Quantum/quantum_code/quantum_code.sln
@@ -150,4 +144,6 @@ Assets/Libs/Photon/Quantum/Assemblies/quantum.core.dll
 Assets/Libs/Photon/Quantum/Assemblies/PhotonDeterministic.dll
 Quantum/quantum_code/quantum.code/Core/CodeGen.cs
 
-
+# Remote addressables
+/RemoteAddressables/
+/ServerData/

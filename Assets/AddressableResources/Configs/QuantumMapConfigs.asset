@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/Maps/QuantumMapConfigs
+      Path: AddressableResources/Configs/QuantumMapConfigs
       Guid:
         Value: 3072854346747122385
     QuantumConfigs:

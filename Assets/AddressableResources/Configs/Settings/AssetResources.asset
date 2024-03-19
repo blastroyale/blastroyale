@@ -740,11 +740,11 @@ MonoBehaviour:
         Id:
           Value: 3059267041051081090
       Address: QuantumAssets/Destructibles/Barrel.prefab[BarrelEntityView]
-    - Path: AddressableResources/Maps/QuantumMapConfigs
+    - Path: AddressableResources/Configs/QuantumMapConfigs
       AssetRef:
         Id:
           Value: 3072854346747122385
-      Address: Maps/QuantumMapConfigs.asset
+      Address: Configs/QuantumMapConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_11
       AssetRef:
         Id:
@@ -1124,9 +1124,4 @@ MonoBehaviour:
   AssetBundlesGroup:
     _resources: []
   ResourcesGroup:
-    _resources:
-    - Path: AddressableResources/NestedAssetType|EntityPrototype
-      AssetRef:
-        Id:
-          Value: 1971798902115397569
-      ResourcePath: NestedAssetType
+    _resources: []

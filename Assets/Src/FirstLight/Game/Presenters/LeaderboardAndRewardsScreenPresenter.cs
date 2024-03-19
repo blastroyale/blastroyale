@@ -55,12 +55,10 @@ namespace FirstLight.Game.Presenters
 		private Label _playerNameText;
 		private Label _fameTitle;
 		private VisualElement _rewardsPanel;
-		private VisualElement _craftSpice;
 		private VisualElement _trophies;
 		private VisualElement _bpp;
 		private VisualElement _fame;
 
-		private RewardPanelView _craftSpiceView;
 		private RewardPanelView _trophiesView;
 		private RewardLevelPanelView _bppView;
 		private RewardLevelPanelView _levelView;
@@ -68,7 +66,6 @@ namespace FirstLight.Game.Presenters
 		private ScreenHeaderElement _header;
 
 		private bool _showingLeaderboards;
-		private bool _showCSReward = false;
 
 		protected override void OnInitialized()
 		{
@@ -114,8 +111,6 @@ namespace FirstLight.Game.Presenters
 			_playerNameText = _playerName.Q<Label>("Text").Required();
 
 			_rewardsPanel = root.Q<VisualElement>("RewardsPanel").Required();
-			_craftSpice = _rewardsPanel.Q<VisualElement>("CraftSpice").Required();
-			_craftSpice.AttachView(this, out _craftSpiceView);
 			_trophies = _rewardsPanel.Q<VisualElement>("Trophies").Required();
 			_trophies.AttachView(this, out _trophiesView);
 			_bpp = _rewardsPanel.Q<VisualElement>("BPP").Required();
@@ -165,29 +160,12 @@ namespace FirstLight.Game.Presenters
 			await UniTask.Delay(300);
 			await _levelView.Animate();
 			await _trophiesView.Animate();
-			if (_showCSReward)
-			{
-				await _craftSpiceView.Animate();
-			}
 			await _bppView.Animate();
 		}
 
 		private void UpdateRewards()
 		{
 			var rewards = ProcessRewards();
-
-			// craft spice
-			var csReward = 0;
-			if (rewards.TryGetValue(GameId.CS, out var reward))
-			{
-				csReward = reward;
-
-				if (csReward > 0)
-				{
-					_craftSpiceView.SetData(csReward, (int) _matchServices.MatchEndDataService.CSBeforeChange);
-				}
-			}
-			_showCSReward = csReward != 0;
 
 			// Trophies
 			var trophiesReward = 0;

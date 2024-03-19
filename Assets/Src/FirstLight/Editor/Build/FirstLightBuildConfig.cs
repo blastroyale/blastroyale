@@ -40,9 +40,9 @@ namespace FirstLight.Editor.Build
 		/// </summary>
 		public const string StoreSymbol = "STORE_BUILD";
 
-		public const string CCDEnvironmentDev = "Development";
-		public const string CCDEnvironmentStaging = "Staging";
-		public const string CCDEnvironmentProd = "Production";
+		public const string CCDEnvironmentDev = "development";
+		public const string CCDEnvironmentStaging = "staging";
+		public const string CCDEnvironmentProd = "production";
 
 		private const string _appIdentifier = "com.firstlightgames.blastroyale";
 		private const string _firstLightAppleTeamId = "8UB22L9ZW7";
@@ -57,23 +57,27 @@ namespace FirstLight.Editor.Build
 		private static readonly string InfoLogLevelSymbol = "LOG_LEVEL_INFO";
 		private static readonly string VerboseLogLevelSymbol = "LOG_LEVEL_VERBOSE";
 
-		private static readonly string[] CommonSymbols = {
+		private static readonly string[] CommonSymbols =
+		{
 			"QUANTUM_ADDRESSABLES",
 			"ENABLE_PLAYFAB_BETA",
 			"TextMeshPro",
 		};
 
-		private static readonly string[] DebugSymbols = {
+		private static readonly string[] DebugSymbols =
+		{
 			"QUANTUM_REMOTE_PROFILER",
 			VerboseLogLevelSymbol
 		};
 
-		private static readonly string[] StoreReleaseSymbols = {
+		private static readonly string[] StoreReleaseSymbols =
+		{
 			"DISABLE_SRDEBUGGER",
 			InfoLogLevelSymbol
 		};
 
-		private static readonly string[] ReleaseSymbols = {
+		private static readonly string[] ReleaseSymbols =
+		{
 			"DISABLE_SRDEBUGGER",
 			VerboseLogLevelSymbol
 		};

@@ -84,7 +84,7 @@ MonoBehaviour:
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     - m_InheritedParent: 
       m_Id: c054830b311bc48ce993e41075e6d8d7
-      m_ProfileName: CCD-Development-iOS
+      m_ProfileName: CCD-development-iOS
       m_Values:
       - m_Id: aca0d754c35474bfababd9868dc6c9e5
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
@@ -98,7 +98,7 @@ MonoBehaviour:
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     - m_InheritedParent: 
       m_Id: 6539d3dfeb1004095aba7d4e4a5b35dc
-      m_ProfileName: CCD-Staging-iOS
+      m_ProfileName: CCD-staging-iOS
       m_Values:
       - m_Id: aca0d754c35474bfababd9868dc6c9e5
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
@@ -112,7 +112,7 @@ MonoBehaviour:
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     - m_InheritedParent: 
       m_Id: 48820814c930543f7a5e18f4b73468b7
-      m_ProfileName: CCD-Production-iOS
+      m_ProfileName: CCD-production-iOS
       m_Values:
       - m_Id: aca0d754c35474bfababd9868dc6c9e5
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
@@ -126,7 +126,7 @@ MonoBehaviour:
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     - m_InheritedParent: 
       m_Id: 611e22c580a0b4b1884c8a48308bb9bd
-      m_ProfileName: CCD-Development-Android
+      m_ProfileName: CCD-development-Android
       m_Values:
       - m_Id: aca0d754c35474bfababd9868dc6c9e5
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
@@ -140,7 +140,7 @@ MonoBehaviour:
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     - m_InheritedParent: 
       m_Id: b98e8c508e492476792ba835d4416636
-      m_ProfileName: CCD-Staging-Android
+      m_ProfileName: CCD-staging-Android
       m_Values:
       - m_Id: aca0d754c35474bfababd9868dc6c9e5
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
@@ -154,7 +154,7 @@ MonoBehaviour:
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     - m_InheritedParent: 
       m_Id: d26b6157d8da54a6d8f66edd562f18d1
-      m_ProfileName: CCD-Production-Android
+      m_ProfileName: CCD-production-Android
       m_Values:
       - m_Id: aca0d754c35474bfababd9868dc6c9e5
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'

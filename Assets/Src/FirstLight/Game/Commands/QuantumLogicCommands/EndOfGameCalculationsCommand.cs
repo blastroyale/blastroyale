@@ -14,7 +14,7 @@ namespace FirstLight.Game.Commands
 	/// <summary>
 	/// Updates player trophies, restocks resource pools, and gives end-of-match rewards
 	/// </summary>
-	public class EndOfGameCalculationsCommand : IQuantumCommand, IGameCommand
+	public unsafe class EndOfGameCalculationsCommand : IQuantumCommand, IGameCommand
 	{
 		public Dictionary<GameId, ushort> EarnedGameItems;
 		public List<QuantumPlayerMatchData> PlayersMatchData;
@@ -63,8 +63,8 @@ namespace FirstLight.Game.Commands
 
 		public void FromFrame(Frame frame, QuantumValues quantumValues)
 		{
-			var gameContainer = frame.GetSingleton<GameContainer>();
-			PlayersMatchData = gameContainer.GeneratePlayersMatchData(frame, out _, out _);
+			var gameContainer = frame.Unsafe.GetPointerSingleton<GameContainer>();
+			PlayersMatchData = gameContainer->GeneratePlayersMatchData(frame, out _, out _);
 			
 			QuantumValues = quantumValues;
 			TeamSize = (uint)frame.GetTeamSize();
@@ -79,8 +79,8 @@ namespace FirstLight.Game.Commands
 			// TODO: Find better way to determine tutorial mode. GameConstants ID perhaps? Something that backend has access to
 			RunningTutorialMode = frame.Context.GameModeConfig.Id.Contains("Tutorial");
 				
-			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
-				!gameContainer.IsGameOver)
+			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer->IsGameCompleted &&
+				!gameContainer->IsGameOver)
 			{
 				ValidRewardsFromFrame = false;
 			}

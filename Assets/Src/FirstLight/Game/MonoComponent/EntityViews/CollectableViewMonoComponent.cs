@@ -173,7 +173,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 		}
 
-		private void RefreshIndicator(Frame f, EntityRef entity, ConsumableType type)
+		private unsafe void RefreshIndicator(Frame f, EntityRef entity, ConsumableType type)
 		{
 			if (Culled)
 			{
@@ -182,7 +182,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			if (!entity.IsValid || !f.Exists(entity) || !MatchServices.IsSpectatingPlayer(entity)) return;
 
-			var stats = f.Get<Stats>(entity);
+			var stats = f.Unsafe.GetPointer<Stats>(entity);
 			bool filled;
 			if (type == ConsumableType.Special)
 			{
@@ -190,7 +190,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			else
 			{
-				filled = stats.IsConsumableStatFilled(type);
+				filled = stats->IsConsumableStatFilled(type);
 			}
 			_pickupCircle.gameObject.SetActive(!filled);
 		}
@@ -374,15 +374,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			rend.material.SetColor("_Color", color);
 		}
 
-		public override void SetCulled(bool culled)
+		public unsafe override void SetCulled(bool culled)
 		{
 			_animation.enabled = !culled;
 			base.SetCulled(culled);
 			if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
 			var frame = QuantumRunner.Default.PredictedFrame();
-			if (!culled && frame.TryGet<Consumable>(EntityView.EntityRef, out var consumable))
+			if (!culled && frame.Unsafe.TryGetPointer<Consumable>(EntityView.EntityRef, out var consumable))
 			{
-				RefreshIndicator(frame, MatchServices.GetSpectatedPlayer().Entity, consumable.ConsumableType);
+				RefreshIndicator(frame, MatchServices.GetSpectatedPlayer().Entity, consumable->ConsumableType);
 			}
 		}
 

@@ -12,13 +12,13 @@ namespace FirstLight.Game.Utils
 		/// In addition to giving the results of <see cref="GameContainer.GeneratePlayersMatchData"/> this also
 		/// determined if the local player should be considered a winner (e.g. is part of the winning team).
 		/// </summary>
-		public static List<QuantumPlayerMatchData> GeneratePlayersMatchDataLocal(
+		public unsafe static List<QuantumPlayerMatchData> GeneratePlayersMatchDataLocal(
 			this QuantumGame game, out PlayerRef leader, out bool localWinner)
 		{
 			var f = game.Frames.Verified;
-			var container = f.GetSingleton<GameContainer>();
+			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
 
-			var matchData = container.GeneratePlayersMatchData(f, out leader, out var leaderTeam);
+			var matchData = container->GeneratePlayersMatchData(f, out leader, out var leaderTeam);
 
 			localWinner = false;
 
@@ -42,7 +42,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Check if the current game is over
 		/// </summary>
-		public static unsafe bool IsGameOver(this QuantumGame game)
+		public unsafe static bool IsGameOver(this QuantumGame game)
 		{
 			var f = game.Frames.Verified;
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
@@ -50,13 +50,6 @@ namespace FirstLight.Game.Utils
 			return container->IsGameOver;
 		}
 
-		public static bool HasGameContainer(this QuantumGame game)
-		{
-			var f = game.Frames.Verified;
-			if (f == null) return false;
-			return f.TryGetSingleton<GameContainer>(out _);
-		}
-		
 		public static bool IsLocalPlayerNotPresent()
 		{
 			if (QuantumRunner.Default != null && QuantumRunner.Default.Game != null)

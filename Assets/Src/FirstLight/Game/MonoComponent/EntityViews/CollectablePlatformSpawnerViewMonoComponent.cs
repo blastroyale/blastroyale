@@ -36,7 +36,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.SetCulled(culled);
 		}
 
-		private new void OnUpdateView(CallbackUpdateView callback)
+		private unsafe new void OnUpdateView(CallbackUpdateView callback)
 		{
 			var frame = callback.Game.Frames.Verified;
 
@@ -45,13 +45,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var spawner = frame.Get<CollectablePlatformSpawner>(EntityRef);
-			var remaining = spawner.NextSpawnTime.AsFloat - frame.Time.AsFloat;
+			var spawner = frame.Unsafe.GetPointer<CollectablePlatformSpawner>(EntityRef);
+			var remaining = spawner->NextSpawnTime.AsFloat - frame.Time.AsFloat;
 
-			if (remaining > 0 && !spawner.Disabled)
+			if (remaining > 0 && !spawner->Disabled)
 			{
 				_canvas?.gameObject.SetActive(true);
-				var intervalTime = spawner.IntervalTime.AsFloat;
+				var intervalTime = spawner->IntervalTime.AsFloat;
 				var normalizedValue = remaining / intervalTime;
 				var sec = intervalTime * normalizedValue;
 

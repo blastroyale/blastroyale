@@ -117,11 +117,11 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 		
-		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		private unsafe void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			var frame = callback.Game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var playersLeft = (container.TargetProgress+1) - container.CurrentProgress;
+			var container = frame.Unsafe.GetPointerSingleton<GameContainer>();
+			var playersLeft = (container->TargetProgress+1) - container->CurrentProgress;
 			// CurrentProgress+1 because BR always has 1 player left alive at the end
 
 			if (!_aliveTenPlayed && playersLeft == 10)
@@ -156,11 +156,11 @@ namespace FirstLight.Game.StateMachines
 			return CurrentMatchTime < GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD;
 		}
 		
-		private bool IsMidIntensityPhase()
+		private unsafe bool IsMidIntensityPhase()
 		{
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var playersLeft = container.TargetProgress - container.CurrentProgress;
+			var container = frame.Unsafe.GetPointerSingleton<GameContainer>();
+			var playersLeft = container->TargetProgress - container->CurrentProgress;
 			
 			return CurrentMatchTime < GameConstants.Audio.BR_HIGH_PHASE_SECONDS_THRESHOLD && playersLeft > 2;
 		}

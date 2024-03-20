@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Quantum;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var collectable = GetComponentData<Collectable>(game);
 			if (HasRenderedView()) return;
-			Services.AssetResolverService.RequestAsset<GameId, GameObject>(collectable.GameId, true, true, OnLoaded);
+			Services.AssetResolverService.RequestAsset<GameId, GameObject>(collectable.GameId, true, true, OnLoaded).Forget();
 		}
 
 		protected override string GetName(QuantumGame game)

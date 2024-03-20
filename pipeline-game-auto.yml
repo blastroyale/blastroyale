@@ -74,10 +74,6 @@ parameters:
       - development
       - staging
       - production
-  - name: param_release_ccd
-    displayName: "Release CCD"
-    type: boolean
-    default: true
 
 variables:
 - group: Secrets
@@ -131,8 +127,6 @@ variables:
       value: true
     - name: runTestLab
       value: false
-    - name: ccdRelease
-      value: true
   # Manual setup
 - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
     - ${{  if eq(parameters['param_build_type'], 'DEVELOPMENT_BUILD') }}:
@@ -162,8 +156,6 @@ variables:
       value: ${{ parameters.param_run_testlab }}
     - name: ccdEnvironment
       value: ${{ parameters.param_ccd_environment }}
-    - name: ccdRelease
-      value: ${{ parameters.param_release_ccd }}
 
 pool: macos
 
@@ -288,7 +280,6 @@ stages:
               runTestLab: ${{ variables.runTestLab }}
               publishDlls: true
               ccdEnvironment: ${{ variables.ccdEnvironment }}
-              ccdRelease: ${{ variables.ccdRelease }}
             
       - job: iOSBuild
         timeoutInMinutes: 90
@@ -334,7 +325,6 @@ stages:
             runTestLab: ${{ variables.runTestLab }}
             publishDlls: false
             ccdEnvironment: ${{ variables.ccdEnvironment }}
-            ccdRelease: ${{ variables.ccdRelease }}
 
 
 # GAME LOGIC

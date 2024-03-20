@@ -313,18 +313,18 @@ namespace FirstLight.Game.Services
 			return teamMembers;
 		}
 
-		private List<Quantum.PlayerMatchData> GetPlayerList(QuantumGame game, out int currentIndex)
+		private unsafe List<Quantum.PlayerMatchData> GetPlayerList(QuantumGame game, out int currentIndex)
 		{
 			var f = game.Frames.Verified;
 			var players = new List<Pair<EntityRef, PlayerRef>>();
-			var container = f.Unsafe.<GameContainer>();
+			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
 
 			var validPlayers = GetLivingTeamMembers(game);
 			if (validPlayers.Count == 0)
 			{
-				for (int i = 0; i < container.PlayersData.Length; i++)
+				for (int i = 0; i < container->PlayersData.Length; i++)
 				{
-					var data = container.PlayersData[i];
+					var data = container->PlayersData[i];
 					if (data.IsValid && data.Entity.IsAlive(f))
 					{
 						validPlayers.Add(data);

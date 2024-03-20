@@ -79,8 +79,8 @@ namespace FirstLight.Game.Commands
 			// TODO: Find better way to determine tutorial mode. GameConstants ID perhaps? Something that backend has access to
 			RunningTutorialMode = frame.Context.GameModeConfig.Id.Contains("Tutorial");
 				
-			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
-				!gameContainer.IsGameOver)
+			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer->IsGameCompleted &&
+				!gameContainer->IsGameOver)
 			{
 				ValidRewardsFromFrame = false;
 			}

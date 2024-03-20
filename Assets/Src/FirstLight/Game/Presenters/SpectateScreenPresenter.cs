@@ -89,7 +89,7 @@ namespace FirstLight.Game.Presenters
 		private void OnSpectatedPlayerChanged(SpectatedPlayer _, SpectatedPlayer current)
 		{
 			var f = QuantumRunner.Default.Game.Frames.Predicted;
-			var playersData = f.Unsafe.GetPointerSingleton<GameContainer>().PlayersData;
+			var playersData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
 
 			if (!current.Player.IsValid)
 			{

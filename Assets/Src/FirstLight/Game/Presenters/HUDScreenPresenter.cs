@@ -8,6 +8,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using Quantum;
@@ -29,6 +30,7 @@ namespace FirstLight.Game.Presenters
 		private const string USS_SKYDIVING = "skydiving";
 
 		[SerializeField, Required] private GameObject _legacyMinimap;
+		[SerializeField, Required] private MiniMapView _legacyMinimapView;
 
 		[SerializeField, Required, TabGroup("Animation")]
 		private PlayableDirector _areaShrinkingDirector;
@@ -77,6 +79,9 @@ namespace FirstLight.Game.Presenters
 
 		[SerializeField, Required, TabGroup("Input")]
 		private UnityInputScreenControl _specialCancelInput;
+		
+		[SerializeField, Required, TabGroup("Input")]
+		private UnityInputScreenControl _minimapToggleInput;
 
 		private IGameServices _gameServices;
 		private IGameDataProvider _dataProvider;
@@ -167,6 +172,7 @@ namespace FirstLight.Game.Presenters
 			_shootingJoystick.OnClick += e => InputState.Change(_aimDownJoystickInput.control, e);
 
 			_weaponDisplayView.OnClick += e => InputState.Change(_weaponSwitchInput.control, e);
+			_legacyMinimapView.OnClick += e => InputState.Change(_minimapToggleInput.control, e);
 
 			_specialButtonsView.OnSpecial0Pressed += e => InputState.Change(_special0PressedInput.control, e);
 			_specialButtonsView.OnSpecial1Pressed += e => InputState.Change(_special1PressedInput.control, e);

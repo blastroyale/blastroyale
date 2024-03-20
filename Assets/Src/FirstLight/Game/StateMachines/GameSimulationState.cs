@@ -209,7 +209,7 @@ namespace FirstLight.Game.StateMachines
 
 		private string GetTeamId()
 		{
-			return _services.RoomService.CurrentRoom.LocalPlayerProperties.TeamId.Value;
+			return _services.RoomService.CurrentRoom.GetTeamForPlayer(_services.RoomService.CurrentRoom.LocalPlayer);
 		}
 
 
@@ -390,7 +390,7 @@ namespace FirstLight.Game.StateMachines
 				_services.AnalyticsService.MatchCalls.MatchStart();
 				SetPlayerMatchData(game);
 			}
-			
+
 			_services.MessageBrokerService.Publish(new MatchStartedMessage {Game = game, IsResync = isResync});
 		}
 
@@ -400,6 +400,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				return;
 			}
+
 			var spawnPosition = _services.RoomService.CurrentRoom.LocalPlayerProperties.DropPosition.Value;
 			var equippedCosmetics = _gameDataProvider.CollectionDataProvider
 				.GetCollectionsCategories()
@@ -407,7 +408,7 @@ namespace FirstLight.Game.StateMachines
 				.Where(data => data != null)
 				.Select(data => data.Id)
 				.ToArray();
-			
+
 			var config = _services.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
 			var avatarUrl = AvatarHelpers.GetAvatarUrl(_gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE),
 				config);

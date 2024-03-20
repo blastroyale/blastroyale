@@ -60,7 +60,9 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private PlayerListHolderView _spectatorListHolder;
 		[SerializeField, Required] private UiToggleButtonView _botsToggle;
 		[SerializeField, Required] private UiToggleButtonView _spectateToggle;
+		[SerializeField, Required] private UiToggleButtonView _autoBalanceToggle;
 		[SerializeField, Required] private GameObject _botsToggleObjectRoot;
+		[SerializeField, Required] private GameObject _autoBalanceObjectRoot;
 		[SerializeField, Required] private GameObject _spectateToggleObjectRoot;
 		[SerializeField] private Color _spectateDisabledColor;
 
@@ -95,6 +97,7 @@ namespace FirstLight.Game.Presenters
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 			_kickButton.onClick.AddListener(ActivateKickOverlay);
 			_botsToggle.onValueChanged.AddListener(OnBotsToggleChanged);
+			_autoBalanceToggle.onValueChanged.AddListener(OnAutoBalanceToggleChanged);
 			_cancelKickButton.onClick.AddListener(DeactivateKickOverlay);
 			_squadIdDownButton.onClick.AddListener(OnSquadIdDown);
 			_squadIdUpButton.onClick.AddListener(OnSquadIdUp);
@@ -103,6 +106,7 @@ namespace FirstLight.Game.Presenters
 			_services.RoomService.OnMasterChanged += Update;
 			_services.RoomService.OnPlayerPropertiesUpdated += Update;
 		}
+
 
 		private void OnDestroy()
 		{
@@ -123,17 +127,19 @@ namespace FirstLight.Game.Presenters
 			var room = CurrentRoom;
 			var gameModeConfig = room.GameModeConfig;
 
+			CurrentRoom.Properties.AutoBalanceTeams.OnValueChanged += OnAutoBalanceValueChanged;
 
 			mapSelectionView.SetupMapView(room.Properties.GameModeId.Value, room.Properties.MapId.Value.GetHashCode());
 
 			if (RejoiningRoom)
 			{
-				_playerListHolder.Init(room.GetMaxPlayers(false), RequestKickPlayer);
+				_playerListHolder.Init((uint) room.GetMaxPlayers(), RequestKickPlayer);
 				_spectatorListHolder.Init((uint) room.GetMaxSpectators(), RequestKickPlayer);
 
 				_kickButton.gameObject.SetActive(false);
 				_spectateToggleObjectRoot.SetActive(false);
 				_botsToggleObjectRoot.SetActive(false);
+				_autoBalanceObjectRoot.SetActive(false);
 				_lockRoomButton.gameObject.SetActive(false);
 				_loadingText.SetActive(true);
 				_squadContainer.SetActive(false);
@@ -155,17 +161,20 @@ namespace FirstLight.Game.Presenters
 			_findingPlayersText.gameObject.SetActive(true);
 			_botsToggle.SetInitialValue(true);
 			_botsToggleObjectRoot.SetActive(false);
+			_autoBalanceObjectRoot.SetActive(true);
+			_autoBalanceToggle.SetInitialValue(false);
+			SetAutoBalanceInteractable(false);
 			_spectateToggle.SetInitialValue(false);
 			_spectateToggleObjectRoot.SetActive(false);
 			_kickButton.gameObject.SetActive(false);
 			_loadingText.SetActive(true);
-			_playersFoundText.text = $"{0}/{room.GetMaxPlayers(false).ToString()}";
-			_squadContainer.SetActive(gameModeConfig.Teams);
-			_topTitleHolder.SetActive(!gameModeConfig.Teams);
+			_playersFoundText.text = $"{0}/{room.GetMaxPlayers().ToString()}";
+			_squadContainer.SetActive(AllowTeamSelection());
+			_topTitleHolder.SetActive(!AllowTeamSelection());
 			_squadIdText.text = _squadId.ToString();
 
 			// TODO: Sets the initial TeamID. Hacky, should be somewhere else, but it should do for custom games for now.
-			if (gameModeConfig.Teams)
+			if (AllowTeamSelection())
 			{
 				CurrentRoom.LocalPlayerProperties.TeamId.Value = $"{GameConstants.Network.MANUAL_TEAM_ID_PREFIX}{_squadId}";
 			}
@@ -180,7 +189,7 @@ namespace FirstLight.Game.Presenters
 			UpdateRoomPlayerCounts();
 
 
-			_playerListHolder.Init(room.GetMaxPlayers(false), RequestKickPlayer);
+			_playerListHolder.Init((uint) room.GetMaxPlayers(), RequestKickPlayer);
 			_spectatorListHolder.Init((uint) room.GetMaxSpectators(), RequestKickPlayer);
 
 			_playerListHolder.gameObject.SetActive(true);
@@ -195,6 +204,16 @@ namespace FirstLight.Game.Presenters
 			_spectateToggleObjectRoot.SetActive(true);
 
 			Update();
+		}
+
+		private void OnAutoBalanceValueChanged(QuantumProperty<bool> obj)
+		{
+			_playerListHolder.UpdateAllPlayers();
+		}
+
+		private bool AllowTeamSelection()
+		{
+			return CurrentRoom.IsTeamGame && !CurrentRoom.Properties.AutoBalanceTeams.Value;
 		}
 
 		public void Update()
@@ -224,12 +243,18 @@ namespace FirstLight.Game.Presenters
 
 			CheckPlayersToRemove(_spectatorListHolder);
 			CheckPlayersToRemove(_playerListHolder);
+
+			_autoBalanceObjectRoot.SetActive(CurrentRoom.IsTeamGame);
+			_autoBalanceToggle.SetInitialValue(CurrentRoom.Properties.AutoBalanceTeams.Value);
+			_squadContainer.SetActive(AllowTeamSelection());
+			_topTitleHolder.SetActive(!AllowTeamSelection());
 			// Update master options
 			if (CurrentRoom.LocalPlayer.IsMasterClient)
 			{
 				_kickButton.gameObject.SetActive(true);
 				_lockRoomButton.gameObject.SetActive(true);
 				_botsToggleObjectRoot.SetActive(CurrentRoom.GameModeConfig.AllowBots);
+				SetAutoBalanceInteractable(true);
 			}
 			else
 			{
@@ -342,6 +367,20 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		private void SetAutoBalanceInteractable(bool interactable)
+		{
+			_autoBalanceToggle.interactable = interactable;
+
+			if (interactable)
+			{
+				_autoBalanceToggle.SetTargetCustomGraphicsColor(Color.white);
+			}
+			else
+			{
+				_autoBalanceToggle.SetTargetCustomGraphicsColor(_spectateDisabledColor);
+			}
+		}
+
 
 		private IEnumerator TimeoutSpectatorToggleCoroutine()
 		{
@@ -364,7 +403,7 @@ namespace FirstLight.Game.Presenters
 		{
 			ReadyToPlay();
 			CurrentRoom.Properties.HasBots.Value = _botsToggle.isOn;
-			_services.RoomService.StartCustomGameLoading();
+			_services.RoomService.StartCustomGameLoading(CurrentRoom.Properties.AutoBalanceTeams.Value);
 		}
 
 		private void OnLeaveRoomClicked()
@@ -411,6 +450,14 @@ namespace FirstLight.Game.Presenters
 		private void OnBotsToggleChanged(bool _)
 		{
 			CheckEnableLockRoomButton();
+		}
+
+		private void OnAutoBalanceToggleChanged(bool value)
+		{
+			if (CurrentRoom.LocalPlayer.IsMasterClient)
+			{
+				CurrentRoom.Properties.AutoBalanceTeams.Value = value;
+			}
 		}
 
 		private void DeactivateKickOverlay()

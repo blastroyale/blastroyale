@@ -1,3 +1,4 @@
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using Photon.Realtime;
@@ -31,11 +32,11 @@ namespace FirstLight.Game.Messages
 	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
 	public struct PlayMatchmakingReadyMessage : IMessage { }
 	public struct MatchmakingCancelMessage : IMessage { }
-	public struct SelectedGameModeMessage : IMessage { }
 	public struct PlayMapClickedMessage : IMessage
 	{
 		public int MapId;
 	}
+	
 	public struct PlayCreateRoomClickedMessage : IMessage
 	{
 		public string RoomName;

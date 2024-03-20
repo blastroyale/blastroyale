@@ -1125,10 +1125,18 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 3531530397261182469, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
+    m_Threshold: 5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
   m_BlendParameter: weapon_type_float
   m_BlendParameterY: weapon_type_float
   m_MinThreshold: 0
-  m_MaxThreshold: 4
+  m_MaxThreshold: 5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -1559,10 +1567,18 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 1950801504048153089, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
+    m_Threshold: 5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
   m_BlendParameter: weapon_type_float
   m_BlendParameterY: weapon_type_float
   m_MinThreshold: 0
-  m_MaxThreshold: 4
+  m_MaxThreshold: 5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -1606,10 +1622,18 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 6041999947737556882, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
+    m_Threshold: 5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
   m_BlendParameter: weapon_type_float
   m_BlendParameterY: weapon_type_float
   m_MinThreshold: 1
-  m_MaxThreshold: 4
+  m_MaxThreshold: 5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -2021,10 +2045,18 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 2387173319167216519, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
+    m_Threshold: 5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
   m_BlendParameter: weapon_type_float
   m_BlendParameterY: weapon_type_float
   m_MinThreshold: 1
-  m_MaxThreshold: 4
+  m_MaxThreshold: 5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -2134,7 +2166,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RunBT
-  m_Speed: 0.9
+  m_Speed: 1.05
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4766829137049235848}

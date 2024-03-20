@@ -20,13 +20,38 @@ MonoBehaviour:
       - GameModeId: BattleRoyale
         MatchType: 1
         Mutators: []
-        Squads: 0
-        NFT: 0
+        PlayfabQueue:
+          QueueName: battleroyale_1
+          TeamSize: 1
+          TimeoutTimeInSeconds: 15
         AllowedRewards: 030000000c000000160000001a000000
+        TitleTranslationKey: UITGameModeSelection/br_solo_title
+        DescriptionTranslationKey: UITGameModeSelection/br_solo_description
+        ImageModifier: battleroyale-solo
+        IconSpriteClass: sprite-shared__icon-gamemode-solo
     - Entries:
-      - GameModeId: BattleRoyaleDuos
+      - GameModeId: BattleRoyale
         MatchType: 1
         Mutators: []
-        Squads: 1
-        NFT: 0
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TeamSize: 2
+          TimeoutTimeInSeconds: 30
         AllowedRewards: 030000000c000000160000001a000000
+        TitleTranslationKey: UITGameModeSelection/br_duos_title
+        DescriptionTranslationKey: UITGameModeSelection/br_duos_description
+        ImageModifier: battleroyale-duos
+        IconSpriteClass: sprite-shared__icon-gamemode-duos
+    - Entries:
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators: []
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TeamSize: 4
+          TimeoutTimeInSeconds: 40
+        AllowedRewards: 030000000c000000160000001a000000
+        TitleTranslationKey: UITGameModeSelection/br_quads_title
+        DescriptionTranslationKey: UITGameModeSelection/br_quads_description
+        ImageModifier: battleroyale-quads
+        IconSpriteClass: sprite-shared__icon-gamemode-squads

@@ -59,8 +59,8 @@ namespace FirstLight.Game.Configs
 			{
 				new ConfigLoadDefinition<GameConfigs>(_assetLoader, AddressableId.Configs_GameConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<MapAreaConfigs>(_assetLoader, AddressableId.Configs_MapAreaConfigs, configsAdder.AddSingletonConfig, false),
-				new ConfigLoadDefinition<MapConfigs>(_assetLoader, AddressableId.Maps_QuantumMapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Map, asset.Configs)),
-				new ConfigLoadDefinition<MapAssetConfigs>(_assetLoader, AddressableId.Maps_MapAssetConfigs, configsAdder.AddSingletonConfig),
+				new ConfigLoadDefinition<MapConfigs>(_assetLoader, AddressableId.Configs_QuantumMapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Map, asset.Configs)),
+				new ConfigLoadDefinition<MapAssetConfigs>(_assetLoader, AddressableId.Configs_MapAssetConfigs, configsAdder.AddSingletonConfig),
 				new ConfigLoadDefinition<WeaponConfigs>(_assetLoader, AddressableId.Configs_WeaponConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				new ConfigLoadDefinition<PlayerLevelConfigs>(_assetLoader, AddressableId.Configs_PlayerLevelConfigs, asset => configsAdder.AddConfigs(data => (int) data.LevelStart, asset.Configs)),
 				new ConfigLoadDefinition<SpecialConfigs>(_assetLoader, AddressableId.Configs_SpecialConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),

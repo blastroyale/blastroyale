@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
@@ -20,23 +21,23 @@ namespace FirstLight.Game.Presenters
 	public class GameModeSelectionPresenter : UiToolkitPresenterData<GameModeSelectionPresenter.StateData>
 	{
 		private const string VISIBLE_GAMEMODE_BUTTON = "visible-gamemodebutton";
-		
+
 		public struct StateData
 		{
 			public Action<GameModeInfo> GameModeChosen;
 			public Action CustomGameChosen;
-			
+
 			public Action OnHomeClicked;
 			public Action OnBackClicked;
 		}
-		
+
 		[SerializeField] private VisualTreeAsset _buttonAsset;
 		[SerializeField] private VisualTreeAsset _comingSoonAsset;
-		
+
 		private Button _closeButton;
 		private ScrollView _buttonsSlider;
 		private ScreenHeaderElement _header;
-		
+
 		private List<GameModeSelectionButtonView> _buttonViews;
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -45,32 +46,47 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_services.GameModeService.Slots.Observe(OnSlotUpdated);
-			_buttonViews = new List<GameModeSelectionButtonView>();
 		}
-		
+
+		protected override void SubscribeToEvents()
+		{
+			base.SubscribeToEvents();
+			_services.GameModeService.Slots.Observe(OnSlotUpdated);
+			_services.GameModeService.SelectedGameMode.Observe(OnGameModeUpdated);
+			_services.PartyService.Members.Observe(OnPartyMembersChanged);
+		}
+
+		protected override void UnsubscribeFromEvents()
+		{
+			base.UnsubscribeFromEvents();
+			_services.GameModeService.Slots.StopObserving(OnSlotUpdated);
+			_services.GameModeService.SelectedGameMode.StopObserving(OnGameModeUpdated);
+			_services.PartyService.Members.StopObserving(OnPartyMembersChanged);
+		}
+
+
 		protected override void QueryElements(VisualElement root)
 		{
+			_buttonViews = new List<GameModeSelectionButtonView>();
 			_buttonsSlider = root.Q<ScrollView>("ButtonsSlider").Required();
 			_header = root.Q<ScreenHeaderElement>("Header").Required();
 			_header.backClicked += Data.OnBackClicked;
-			
+
 			var orderNumber = 1;
-			var canUseSquads = _gameDataProvider.HasNfts();
-			
+
 			// Add game modes buttons
 			foreach (var slot in _services.GameModeService.Slots)
 			{
-				if(slot.Entry.NFT && !canUseSquads) continue;
 				var button = _buttonAsset.Instantiate();
 				button.userData = slot;
 				button.AttachView(this, out GameModeSelectionButtonView view);
-				view.SetData("GameModeButton"+orderNumber, GetVisibleClass(orderNumber++), slot);
+				view.SetData("GameModeButton" + orderNumber, GetVisibleClass(orderNumber++), slot);
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
 
+				view.Disabled = slot.Entry.TeamSize < _services.PartyService.GetCurrentGroupSize();
 				view.Selected = _services.GameModeService.SelectedGameMode.Value.Equals(slot);
-				
+
 				_buttonsSlider.Add(button);
 			}
 
@@ -83,14 +99,9 @@ namespace FirstLight.Game.Presenters
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
 			customGameView.SetData("CustomGameButton", GetVisibleClass(orderNumber++), gameModeInfo);
 			customGameView.Clicked += OnCustomGameClicked;
+			customGameView.Disabled = _services.PartyService.HasParty.Value;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
-			
-			// Add Coming soon button
-			var comingSoonGameButton = _comingSoonAsset.Instantiate();
-			var comingSoonButtonRoot = comingSoonGameButton.Q<VisualElement>("ComingSoonGameModeButton");
-			comingSoonButtonRoot.AddToClassList(GetVisibleClass(orderNumber++));
-			_buttonsSlider.Add(comingSoonGameButton);
 		}
 
 		private string GetVisibleClass(int orderNumber)
@@ -108,11 +119,25 @@ namespace FirstLight.Game.Presenters
 		{
 			_buttonViews[index].SetData(current);
 		}
-		
+
+		private void OnPartyMembersChanged(int index, PartyMember before, PartyMember after, ObservableUpdateType type)
+		{
+			if (type != ObservableUpdateType.Added && type != ObservableUpdateType.Removed)
+			{
+				return;
+			}
+
+			foreach (var view in _buttonViews)
+			{
+				if (view.GameModeInfo.Entry.MatchType == MatchType.Custom) continue;
+				if (view.GameModeInfo.Entry.PlayfabQueue == null) continue;
+				view.Disabled = view.GameModeInfo.Entry.PlayfabQueue.TeamSize < _services.PartyService.GetCurrentGroupSize();
+			}
+		}
+
 		private void OnModeButtonClicked(GameModeSelectionButtonView info)
 		{
 			SelectButton(info);
-
 			StartCoroutine(ChangeGameModeCoroutine(info));
 		}
 
@@ -129,8 +154,19 @@ namespace FirstLight.Game.Presenters
 			{
 				buttonView.Selected = false;
 			}
-			
+
 			info.Selected = true;
+		}
+
+		/// <summary>
+		/// Listen for selected gamemode changes, when party size changes it selects a proper gamemode matching the team size
+		/// </summary>
+		private void OnGameModeUpdated(GameModeInfo _, GameModeInfo newGamemode)
+		{
+			foreach (var buttonView in _buttonViews)
+			{
+				buttonView.Selected = buttonView.GameModeInfo.Entry == newGamemode.Entry;
+			}
 		}
 	}
 }

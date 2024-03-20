@@ -32,9 +32,9 @@
 
 .roomjoin-options {
     position: absolute;
-    width: 60%;
+    width: 70%;
     height: 50%;
-    left: 50px;
+    left: 25px;
     top: 200px;
     bottom: 0;
     flex-direction: row;
@@ -48,17 +48,18 @@
 .roomjoin-button-holder {
     width: 359px;
     right: auto; 
-    left: 1800px; 
+    left: 80%;
     bottom: -260px;
 }
 
 .room-slider {
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 15px;
-    margin-top: 15px;
+    margin-bottom: 30px;
+    margin-top: 30px;
     flex-direction: column;
 }
+
 .room-slider .unity-base-field__label {
     flex-grow: 1;
     flex-shrink: 0;
@@ -66,6 +67,27 @@
     font-size: 50px;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     align-self: center;
+}
+
+.room-slider .unity-base-field__input {
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+}
+
+.room-slider .unity-base-slider__text-field {
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    width: 75px;
+}
+.room-slider .unity-base-slider__text-field .unity-base-text-field__input {
+    padding:10px;
+    align-self: center;
+    -unity-text-align: middle-center;
+}
+.room-slider .unity-base-slider__input {
+    padding:10px;
+    align-content: center;
+    align-items: center;
 }
 
 .room-slider .unity-base-popup-field__text {

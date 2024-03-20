@@ -8,10 +8,8 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace FirstLight.Game.Services.RoomService
 {
-
 	public class RoomProperties : PropertiesHolder
 	{
-
 		// The commit should guarantee the same Quantum build version + App version etc.
 		public QuantumProperty<string> Commit;
 
@@ -24,6 +22,7 @@ namespace FirstLight.Game.Services.RoomService
 		public QuantumProperty<int> LoadingStartServerTime;
 		public QuantumProperty<int> SecondsToStart;
 		public QuantumProperty<int> BotDifficultyOverwrite;
+		public QuantumProperty<int> TeamSize;
 
 		// For matchmaking, rooms are segregated by casual/ranked.
 		public QuantumProperty<MatchType> MatchType;
@@ -33,7 +32,10 @@ namespace FirstLight.Game.Services.RoomService
 
 		// Set the game map Id for the same matchmaking
 		public QuantumProperty<GameId> MapId;
-		
+
+		public QuantumProperty<Dictionary<string, string>> OverwriteTeams;
+		public QuantumProperty<bool> AutoBalanceTeams;
+
 		public RoomProperties()
 		{
 			// keys here do not matter, it should be short and unique.
@@ -50,7 +52,9 @@ namespace FirstLight.Game.Services.RoomService
 			LoadingStartServerTime = Create<int>("loading");
 			BotDifficultyOverwrite = Create<int>("botdif");
 			StartCustomGame = Create<bool>("cstart");
+			TeamSize = Create<int>("teamsize");
+			OverwriteTeams = CreateDictionary("overwriteteams");
+			AutoBalanceTeams = Create<bool>("autobalance");
 		}
-        
 	}
 }

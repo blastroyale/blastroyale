@@ -19,14 +19,6 @@
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
             <ui:VisualElement name="RewardsPanel" picking-mode="Ignore" class="rewards-panel">
-                <ui:VisualElement name="CraftSpice" class="craft-spice">
-                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/craft_spice" class="craft-spice__title" />
-                    <ui:VisualElement name="LogoTop" class="craft-spice__logo-top" />
-                    <ui:VisualElement name="PinkBand" />
-                    <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="craft-spice__gained" />
-                    <ui:VisualElement name="LogoTotal" class="craft-spice__logo-total" />
-                    <ui:Label text="1023" display-tooltip-when-elided="true" name="Total" class="craft-spice__total" />
-                </ui:VisualElement>
                 <ui:VisualElement name="Trophies" class="trophies">
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/trophies" class="trophies__title" />
                     <ui:VisualElement name="LogoTop" class="trophies__logo-top" />

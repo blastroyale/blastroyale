@@ -17,30 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: af2aacc928c4fa64797568970db41854
   m_SerializeEntries:
-  - m_GUID: b90e44e25fcba3f4c8dbc9f2d7f2a66e
-    m_Address: Maps/MapAssetConfigs.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GenerateIds
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f0d9bcc08e239214b9f652458396205c
-    m_Address: Maps/QuantumMapConfigs.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GenerateIds
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: aa9c5497372c14d9ea5dab0d6be12609
     m_Address: Configs
     m_ReadOnly: 0
     m_SerializedLabels:
     - Quantum
-    - GenerateIds
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 43ad42752dc9a4852a54f13c2fd5acec
-    m_Address: Collections/ProfilePicture/AvatarCollectableConfigs.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - ScriptableObjectsOnly
     - GenerateIds
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0

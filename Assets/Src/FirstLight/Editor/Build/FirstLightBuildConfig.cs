@@ -40,6 +40,10 @@ namespace FirstLight.Editor.Build
 		/// </summary>
 		public const string StoreSymbol = "STORE_BUILD";
 
+		public const string CCDEnvironmentDev = "development";
+		public const string CCDEnvironmentStaging = "staging";
+		public const string CCDEnvironmentProd = "production";
+
 		private const string _appIdentifier = "com.firstlightgames.blastroyale";
 		private const string _firstLightAppleTeamId = "8UB22L9ZW7";
 		private const string _distributionProvisioningProfile = "1c16ed57-e352-4cca-8950-7e1c7ec1730d";
@@ -53,23 +57,27 @@ namespace FirstLight.Editor.Build
 		private static readonly string InfoLogLevelSymbol = "LOG_LEVEL_INFO";
 		private static readonly string VerboseLogLevelSymbol = "LOG_LEVEL_VERBOSE";
 
-		private static readonly string[] CommonSymbols = {
+		private static readonly string[] CommonSymbols =
+		{
 			"QUANTUM_ADDRESSABLES",
 			"ENABLE_PLAYFAB_BETA",
 			"TextMeshPro",
 		};
 
-		private static readonly string[] DebugSymbols = {
+		private static readonly string[] DebugSymbols =
+		{
 			"QUANTUM_REMOTE_PROFILER",
 			VerboseLogLevelSymbol
 		};
 
-		private static readonly string[] StoreReleaseSymbols = {
+		private static readonly string[] StoreReleaseSymbols =
+		{
 			"DISABLE_SRDEBUGGER",
 			InfoLogLevelSymbol
 		};
 
-		private static readonly string[] ReleaseSymbols = {
+		private static readonly string[] ReleaseSymbols =
+		{
 			"DISABLE_SRDEBUGGER",
 			VerboseLogLevelSymbol
 		};
@@ -182,6 +190,19 @@ namespace FirstLight.Editor.Build
 		public static void SetupFirebase()
 		{
 			SetupDevelopmentConfig();
+		}
+
+		/// <summary>
+		/// Generates the version CS file for the Unity Cloud environment.
+		/// </summary>
+		public static void GenerateUCEnvironment(string environment)
+		{
+			var path = Path.Combine(Application.dataPath, "Src", "FirstLight", "Game", "Utils", "UnityCloudEnvironment.cs");
+			var content =
+				$"namespace FirstLight.Game.Utils\n{{\n\tpublic static class UnityCloudEnvironment\n\t{{\n\t\tpublic const string CURRENT = \"{environment}\";\n\t}}\n}}";
+			File.WriteAllText(path, content);
+
+			AssetDatabase.ImportAsset(Path.Combine("Assets", "Src", "FirstLight", "Game", "Utils", "UnityCloudEnvironment.cs"));
 		}
 
 		/// <summary>

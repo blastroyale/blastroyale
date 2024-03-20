@@ -554,7 +554,7 @@
     margin-bottom: 14px;
 }
 
-.game-mode-button:active > .game-mode-button__label-holder {
+.game-mode-button:active > .game-mode-button__content-container {
     left: 10px;
     top: 10px;
 }
@@ -595,17 +595,54 @@
     top: 27px;
 }
 
-.game-mode-button__label-holder {
-    padding-bottom: 60px;
+.game-mode-button__content-container {
     align-items: flex-start;
     transform-origin: left top;
-    margin-right: 0;
     -unity-text-outline-width: 0;
+    padding-bottom: 0;
+    margin-bottom: 18px;
+    padding-right: 0;
+    padding-left: 33px;
+    height: auto;
+    margin-right: 43px;
 }
+
+.game-mode-button__selected-container {
+    flex-grow: 1;
+    flex-direction: row;
+    align-self: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    top: -106px;
+    left: 26px;
+}
+
 
 .game-mode-button__mode {
     padding-bottom: 0;
-    font-size: 45px;
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72);
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    overflow: visible;
+    -unity-text-align: middle-right;
+    scale: 1 1;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
+    right: auto;
+    font-size: 44px;
+    top: -76px;
+    position: absolute;
+    justify-content: space-around;
+    align-items: stretch;
+    align-self: stretch;
+    left: 229px;
+    letter-spacing: -4px;
+}
+
+.game-mode-button__selected-mode {
+    padding-bottom: 0;
     text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72);
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
@@ -613,14 +650,16 @@
     overflow: visible;
     -unity-text-align: middle-right;
     align-items: center;
-    letter-spacing: -2px;
     scale: 1 1;
     top: -52px;
-    position: absolute;
-    right: 109px;
     padding-top: 0;
     padding-right: 0;
     padding-left: 0;
+    top: auto;
+    right: auto;
+    position: relative;
+    letter-spacing: -4px;
+    font-size: 50px;
 }
 
 .game-mode-button__mode--multiple-line {
@@ -652,15 +691,15 @@
 }
 
 .game-mode-button__icon {
-    background-image: var(--sprite-home__icon-gamemode-battleroyale-shadow);
-    margin-left: 10px;
     margin-top: 0;
-    margin-right: 0;
-    position: absolute;
     width: 55px;
     height: 55px;
-    bottom: 65px;
-    right: 48px;
+    right: auto;
+    bottom: auto;
+    margin-left: auto;
+    position: relative;
+    margin-right: 8px;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .resource-pool {

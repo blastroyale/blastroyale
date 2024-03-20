@@ -90,6 +90,9 @@ component BotCharacter
 	
 	// Next time bot is allowed to use special, this is to track state
 	FP NextAllowedSpecialUseTime;
+	
+	// Flag used to reset bots movement speed after revive
+	bool IsMoveSpeedReseted;
 }
 
 

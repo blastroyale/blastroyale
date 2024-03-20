@@ -157,8 +157,9 @@ namespace FirstLight.Game.StateMachines
 				accountData.LastLoginEmail = appData.LastLoginEmail;
 				appData.DeviceId = null;
 				appData.LastLoginEmail = null;
-				_services.DataSaver.SaveData<AppData>();
-				_services.DataSaver.SaveData<AccountData>();
+				_services.DataService.AddData(appData, true);
+				_services.DataService.SaveData<AppData>();
+				_services.DataService.SaveData<AccountData>();
 			}
 #pragma warning restore CS0612
 		} 

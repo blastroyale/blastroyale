@@ -19919,13 +19919,35 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreatePlayersNumber
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAYERS NUMBER
+      - PLAYERS NUMBER
+      - PLAYERS NUMBER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateTeamSize
+      TermType: 0
+      Description: 
+      Languages:
+      - TEAM SIZE
+      - TEAM SIZE
+      - TEAM SIZE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MainMenu/RoomJoinCreateBotDifficulty
       TermType: 0
       Description: 
       Languages:
       - BOT SKILL
-      - 
-      - 
+      - BOT SKILL
+      - BOT SKILL
       - 
       - 
       Flags: 0000000000
@@ -23706,6 +23728,94 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITGameModeSelection/br_solo_title
+      TermType: 0
+      Description: 
+      Languages:
+      - SOLO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_solo_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Play Battle Royale vs everyone
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_duos_title
+      TermType: 0
+      Description: 
+      Languages:
+      - DUOS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_duos_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Play Battle Royale in a team of 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_trios_title
+      TermType: 0
+      Description: 
+      Languages:
+      - TRIOS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_trios_descrption
+      TermType: 0
+      Description: 
+      Languages:
+      - Play Battle Royale in a team of 3
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_quads_title
+      TermType: 0
+      Description: 
+      Languages:
+      - QUADS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_quads_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Play Battle Royale in a team of 4
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/blast_pass
       TermType: 0
       Description: 
@@ -26689,7 +26799,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1710333064744
+    Google_LastUpdatedVersion: 1710519264905
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

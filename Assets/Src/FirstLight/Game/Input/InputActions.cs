@@ -109,6 +109,15 @@ namespace FirstLight.Game.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleMinimapButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""5c9e297a-76ad-43bf-9749-8a723b359334"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -529,6 +538,28 @@ namespace FirstLight.Game.Input
                     ""action"": ""TeamPositionPing"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""09250f0c-64f2-44cf-90f2-5206c2ab8fbf"",
+                    ""path"": ""<OnScreenControlsDevice>/ToggleMinimapButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMinimapButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7c477b7c-972c-469e-8989-bfd1735516c4"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMinimapButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -546,6 +577,7 @@ namespace FirstLight.Game.Input
             m_Gameplay_CancelButton = m_Gameplay.FindAction("Cancel Button", throwIfNotFound: true);
             m_Gameplay_SwitchWeaponButton = m_Gameplay.FindAction("Switch Weapon Button", throwIfNotFound: true);
             m_Gameplay_TeamPositionPing = m_Gameplay.FindAction("TeamPositionPing", throwIfNotFound: true);
+            m_Gameplay_ToggleMinimapButton = m_Gameplay.FindAction("ToggleMinimapButton", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -616,6 +648,7 @@ namespace FirstLight.Game.Input
         private readonly InputAction m_Gameplay_CancelButton;
         private readonly InputAction m_Gameplay_SwitchWeaponButton;
         private readonly InputAction m_Gameplay_TeamPositionPing;
+        private readonly InputAction m_Gameplay_ToggleMinimapButton;
         public struct GameplayActions
         {
             private @LocalInput m_Wrapper;
@@ -629,6 +662,7 @@ namespace FirstLight.Game.Input
             public InputAction @CancelButton => m_Wrapper.m_Gameplay_CancelButton;
             public InputAction @SwitchWeaponButton => m_Wrapper.m_Gameplay_SwitchWeaponButton;
             public InputAction @TeamPositionPing => m_Wrapper.m_Gameplay_TeamPositionPing;
+            public InputAction @ToggleMinimapButton => m_Wrapper.m_Gameplay_ToggleMinimapButton;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -665,6 +699,9 @@ namespace FirstLight.Game.Input
                 @TeamPositionPing.started += instance.OnTeamPositionPing;
                 @TeamPositionPing.performed += instance.OnTeamPositionPing;
                 @TeamPositionPing.canceled += instance.OnTeamPositionPing;
+                @ToggleMinimapButton.started += instance.OnToggleMinimapButton;
+                @ToggleMinimapButton.performed += instance.OnToggleMinimapButton;
+                @ToggleMinimapButton.canceled += instance.OnToggleMinimapButton;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -696,6 +733,9 @@ namespace FirstLight.Game.Input
                 @TeamPositionPing.started -= instance.OnTeamPositionPing;
                 @TeamPositionPing.performed -= instance.OnTeamPositionPing;
                 @TeamPositionPing.canceled -= instance.OnTeamPositionPing;
+                @ToggleMinimapButton.started -= instance.OnToggleMinimapButton;
+                @ToggleMinimapButton.performed -= instance.OnToggleMinimapButton;
+                @ToggleMinimapButton.canceled -= instance.OnToggleMinimapButton;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -724,6 +764,7 @@ namespace FirstLight.Game.Input
             void OnCancelButton(InputAction.CallbackContext context);
             void OnSwitchWeaponButton(InputAction.CallbackContext context);
             void OnTeamPositionPing(InputAction.CallbackContext context);
+            void OnToggleMinimapButton(InputAction.CallbackContext context);
         }
     }
 }

@@ -65,8 +65,6 @@ namespace FirstLight.Game.Services
 
 			Input = new LocalInput();
 			Input.Gameplay.SetCallbacks(this);
-
-			// TODO: Setup input enable / disable for specials based on current weapon
 		}
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
@@ -213,6 +211,10 @@ namespace FirstLight.Game.Services
 		}
 
 		public void OnTeamPositionPing(InputAction.CallbackContext context)
+		{
+		}
+
+		public void OnToggleMinimapButton(InputAction.CallbackContext context)
 		{
 		}
 

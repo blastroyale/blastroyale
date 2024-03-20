@@ -7,12 +7,16 @@
                 <ui:VisualElement name="OptionsHolderColumnOne" class="roomjoin-options-column">
                     <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/GameMode" name="GameMode" class="room-dropdown" />
                     <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateMapSelect" name="Map" class="room-dropdown" />
-                    <FirstLight.Game.UIElements.LocalizedSliderInt label="BOT SKILL" localization-key="MainMenu/RoomJoinCreateBotDifficulty" name="BotDifficulty" show-input-field="false" high-value="1" class="room-slider" />
+                    <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateTeamSize" name="TeamSize" class="room-dropdown" />
                 </ui:VisualElement>
                 <ui:VisualElement name="OptionsHolderColumnTwo" class="roomjoin-options-column">
                     <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateMutatorOneSelect" name="Mutator1" class="room-dropdown" />
                     <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateMutatorTwoSelect" name="Mutator2" class="room-dropdown" />
                     <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateWeaponLimiterSelect" name="WeaponLimiter" class="room-dropdown" />
+                </ui:VisualElement>
+                <ui:VisualElement name="OptionsHolderColumnThree" class="roomjoin-options-column">
+                    <FirstLight.Game.UIElements.LocalizedSliderInt label="PLAYERS NUMBER" localization-key="MainMenu/RoomJoinCreatePlayersNumber" name="CustomPlayersNumber" show-input-field="true" high-value="48" low-value="48" class="room-slider" />
+                    <FirstLight.Game.UIElements.LocalizedSliderInt label="BOT SKILL" localization-key="MainMenu/RoomJoinCreateBotDifficulty" name="BotDifficulty" show-input-field="false" high-value="1" class="room-slider" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="CreateJoinHolder" focusable="true" class="roomjoin-button-holder">

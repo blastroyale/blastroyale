@@ -111,8 +111,10 @@ namespace Best.HTTP.Response
 
                 if (this._segments.TryDequeue(out var segment) && segment.Count > 0)
                 {
-                    Interlocked.Add(ref base._length, -segment.Count);
-                    this._bufferAvailableHandler?.BufferAvailable(this);
+#pragma warning disable CS0197 // Using a field of a marshal-by-reference class as a ref or out value or taking its address may cause a runtime exception
+					Interlocked.Add(ref base._length, -segment.Count);
+#pragma warning restore CS0197 // Using a field of a marshal-by-reference class as a ref or out value or taking its address may cause a runtime exception
+					this._bufferAvailableHandler?.BufferAvailable(this);
                     return segment;
                 }
 

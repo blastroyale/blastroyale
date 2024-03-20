@@ -1798,6 +1798,8 @@ namespace I2.Loc
 			public static string RoomJoinCreateMapSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateMapSelect"); } }
 			public static string RoomJoinCreateMutatorOneSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateMutatorOneSelect"); } }
 			public static string RoomJoinCreateMutatorTwoSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateMutatorTwoSelect"); } }
+			public static string RoomJoinCreatePlayersNumber 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreatePlayersNumber"); } }
+			public static string RoomJoinCreateTeamSize 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateTeamSize"); } }
 			public static string RoomJoinCreateTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateTitle"); } }
 			public static string RoomJoinCreateWeaponLimiterSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateWeaponLimiterSelect"); } }
 			public static string RoomLeaveButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomLeaveButton"); } }
@@ -2125,6 +2127,14 @@ namespace I2.Loc
 
 		public static class UITGameModeSelection
 		{
+			public static string br_duos_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_duos_description"); } }
+			public static string br_duos_title 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_duos_title"); } }
+			public static string br_quads_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_quads_description"); } }
+			public static string br_quads_title 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_quads_title"); } }
+			public static string br_solo_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_solo_description"); } }
+			public static string br_solo_title 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_solo_title"); } }
+			public static string br_trios_descrption 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_trios_descrption"); } }
+			public static string br_trios_title 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_trios_title"); } }
 			public static string choose_a_mode 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/choose_a_mode"); } }
 			public static string custom_game_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/custom_game_description"); } }
 			public static string tap_to_choose 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/tap_to_choose"); } }
@@ -2342,6 +2352,7 @@ namespace I2.Loc
 			public static string sound_effects 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sound_effects"); } }
 			public static string sound_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sound_title"); } }
 			public static string success 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/success"); } }
+			public static string support 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/support"); } }
 			public static string switch_joysticks 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/switch_joysticks"); } }
 			public static string thirty 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/thirty"); } }
 			public static string usa 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/usa"); } }
@@ -4274,6 +4285,8 @@ namespace I2.Loc
 		    public const string RoomJoinCreateMapSelect = "MainMenu/RoomJoinCreateMapSelect";
 		    public const string RoomJoinCreateMutatorOneSelect = "MainMenu/RoomJoinCreateMutatorOneSelect";
 		    public const string RoomJoinCreateMutatorTwoSelect = "MainMenu/RoomJoinCreateMutatorTwoSelect";
+		    public const string RoomJoinCreatePlayersNumber = "MainMenu/RoomJoinCreatePlayersNumber";
+		    public const string RoomJoinCreateTeamSize = "MainMenu/RoomJoinCreateTeamSize";
 		    public const string RoomJoinCreateTitle = "MainMenu/RoomJoinCreateTitle";
 		    public const string RoomJoinCreateWeaponLimiterSelect = "MainMenu/RoomJoinCreateWeaponLimiterSelect";
 		    public const string RoomLeaveButton = "MainMenu/RoomLeaveButton";
@@ -4601,6 +4614,14 @@ namespace I2.Loc
 
 		public static class UITGameModeSelection
 		{
+		    public const string br_duos_description = "UITGameModeSelection/br_duos_description";
+		    public const string br_duos_title = "UITGameModeSelection/br_duos_title";
+		    public const string br_quads_description = "UITGameModeSelection/br_quads_description";
+		    public const string br_quads_title = "UITGameModeSelection/br_quads_title";
+		    public const string br_solo_description = "UITGameModeSelection/br_solo_description";
+		    public const string br_solo_title = "UITGameModeSelection/br_solo_title";
+		    public const string br_trios_descrption = "UITGameModeSelection/br_trios_descrption";
+		    public const string br_trios_title = "UITGameModeSelection/br_trios_title";
 		    public const string choose_a_mode = "UITGameModeSelection/choose_a_mode";
 		    public const string custom_game_description = "UITGameModeSelection/custom_game_description";
 		    public const string tap_to_choose = "UITGameModeSelection/tap_to_choose";
@@ -4818,6 +4839,7 @@ namespace I2.Loc
 		    public const string sound_effects = "UITSettings/sound_effects";
 		    public const string sound_title = "UITSettings/sound_title";
 		    public const string success = "UITSettings/success";
+		    public const string support = "UITSettings/support";
 		    public const string switch_joysticks = "UITSettings/switch_joysticks";
 		    public const string thirty = "UITSettings/thirty";
 		    public const string usa = "UITSettings/usa";

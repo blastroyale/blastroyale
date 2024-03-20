@@ -25,6 +25,7 @@ namespace FirstLight.Game.Services.RoomService
 		private bool _pause;
 
 		public bool GameStarted => Properties.GameStarted.Value;
+		public bool IsTeamGame => Properties.TeamSize.Value > 1;
 		public QuantumMapConfig MapConfig => _roomService.GetMapConfig(Properties.MapId.Value.GetHashCode());
 		public QuantumGameModeConfig GameModeConfig => _roomService.GetGameModeConfig(Properties.GameModeId.Value);
 		public Dictionary<int, Player> Players => _room.Players;
@@ -80,9 +81,9 @@ namespace FirstLight.Game.Services.RoomService
 			return GameStartsAt() < _roomService._networkService.ServerTimeInMilliseconds;
 		}
 
-		public byte GetMaxPlayers(bool includeSpectators = true)
+		public int GetMaxPlayers()
 		{
-			return _roomService.GetMaxPlayers(GameModeConfig, MapConfig, Properties.MatchType.Value);
+			return _room.MaxPlayers - GetMaxSpectators();
 		}
 
 		public int GetMaxSpectators()
@@ -185,6 +186,7 @@ namespace FirstLight.Game.Services.RoomService
 			runtimeConfig.GameModeId = Properties.GameModeId.Value;
 			runtimeConfig.Mutators = Properties.Mutators.Value.ToArray();
 			runtimeConfig.BotOverwriteDifficulty = Properties.BotDifficultyOverwrite.HasValue ? Properties.BotDifficultyOverwrite.Value : -1;
+			runtimeConfig.TeamSize = Properties.TeamSize.Value;
 		}
 
 
@@ -257,6 +259,19 @@ namespace FirstLight.Game.Services.RoomService
 		public void PauseTimer()
 		{
 			_pause = true;
+		}
+
+
+		public string GetTeamForPlayer(Player player)
+		{
+			var playerTeam = Properties.OverwriteTeams.Value;
+			if (playerTeam != null)
+				if (playerTeam.TryGetValue(player.ActorNumber.ToString(), out var team))
+				{
+					return team;
+				}
+
+			return GetPlayerProperties(player).TeamId.Value;
 		}
 
 		public void ResumeTimer(int secondsToStart = -1)

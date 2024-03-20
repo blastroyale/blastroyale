@@ -10,6 +10,7 @@ using PlayFab;
 using PlayFab.MultiplayerModels;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.Party;
@@ -43,21 +44,6 @@ namespace FirstLight.Game.Services
 		public void LeaveMatchmaking();
 
 		/// <summary>
-		/// Obtains a given matchmaking ticket the ticket information
-		/// </summary>
-		public void GetTicket(string ticket, Action<GetMatchmakingTicketResult> callback);
-
-		/// <summary>
-		/// Get a list of all my current active tickets
-		/// </summary>
-		public void GetMyTickets(Action<ListMatchmakingTicketsForPlayerResult> callback);
-
-		/// <summary>
-		/// Get a match object, this contains members with team ids
-		/// </summary>
-		public void GetMatch(string matchId, Action<GetMatchResult> callback);
-
-		/// <summary>
 		/// Joins matchmaking queue
 		/// </summary>
 		public void JoinMatchmaking(MatchRoomSetup setup);
@@ -88,6 +74,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public event OnMatchmakingCancelledHandler OnMatchmakingCancelled;
 	}
+	
 
 	/// <summary>
 	/// Represents a match join settings
@@ -100,11 +87,14 @@ namespace FirstLight.Game.Services
 		// Required at creation
 		public int MapId;
 		public string GameModeId;
+	    public int OverwriteMaxPlayers;
 		public MatchType MatchType;
 		public IReadOnlyList<string> Mutators;
 		public string RoomIdentifier = "";
 		public int BotDifficultyOverwrite = -1;
 		public List<GameId> AllowedRewards = new ();
+		public GameModeRotationConfig.PlayfabQueue PlayfabQueue = new ();
+		
 		public override string ToString() => ModelSerializer.Serialize(this).Value;
 	}
 
@@ -144,10 +134,8 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IMatchmakingService"/>
 	public class PlayfabMatchmakingService : IMatchmakingService
 	{
-		private static string QUEUE_NAME = "flgduos"; // TODO: Drive from outside for multiple q 
 		private const string LOBBY_TICKET_PROPERTY = "mm_match";
 		private const string CANCELLED_KEY = "cancelled";
-		public int TicketTimeout => _configsProvider.GetConfig<MatchmakingAndRoomConfig>().PlayfabTicketTimeout;
 
 
 		private readonly IGameDataProvider _dataProvider;
@@ -156,7 +144,8 @@ namespace FirstLight.Game.Services
 		private readonly IGameNetworkService _networkService;
 		private readonly IGameBackendService _backendService;
 		internal readonly IConfigsProvider _configsProvider;
-
+		private readonly IDataService _localMatchmakingData;
+		private MatchmakingData _localData;
 		private MatchmakingPooling _pooling;
 		private ObservableField<bool> _isMatchmaking;
 
@@ -178,6 +167,8 @@ namespace FirstLight.Game.Services
 			_party = party;
 			_isMatchmaking = new ObservableField<bool>(false);
 
+			_localMatchmakingData = new DataService();
+			_localData = _localMatchmakingData.LoadData<MatchmakingData>();
 			_party.LobbyProperties.Observe(LOBBY_TICKET_PROPERTY, OnLobbyPropertyUpdate);
 			_party.Members.Observe((i, before, after, type) =>
 			{
@@ -239,7 +230,7 @@ namespace FirstLight.Game.Services
 
 			var req = new JoinMatchmakingTicketRequest()
 			{
-				QueueName = QUEUE_NAME,
+				QueueName = model.RoomSetup.PlayfabQueue.QueueName,
 				TicketId = model.TicketId,
 				Member = CreateLocalMatchmakingPlayer()
 			};
@@ -283,9 +274,10 @@ namespace FirstLight.Game.Services
 
 		public void LeaveMatchmaking()
 		{
+			if (string.IsNullOrEmpty(_localData.LastQueue)) return;
 			PlayFabMultiplayerAPI.CancelAllMatchmakingTicketsForPlayer(new CancelAllMatchmakingTicketsForPlayerRequest()
 			{
-				QueueName = QUEUE_NAME
+				QueueName = _localData.LastQueue
 			}, null, ErrorCallback("CancellAllTickets"));
 			FLog.Info("Left Matchmaking");
 			if (_pooling != null)
@@ -301,31 +293,31 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public void GetTicket(string ticket, Action<GetMatchmakingTicketResult> callback)
+		public void GetTicket(string ticket, string queue, Action<GetMatchmakingTicketResult> callback)
 		{
 			PlayFabMultiplayerAPI.GetMatchmakingTicket(new GetMatchmakingTicketRequest()
 			{
-				QueueName = QUEUE_NAME,
+				QueueName = queue,
 				TicketId = ticket
 			}, callback, ErrorCallback("GetTicket"));
 		}
 
 
-		public void GetMyTickets(Action<ListMatchmakingTicketsForPlayerResult> callback)
+		public void GetMyTickets(string queue, Action<ListMatchmakingTicketsForPlayerResult> callback)
 		{
 			PlayFabMultiplayerAPI.ListMatchmakingTicketsForPlayer(new ListMatchmakingTicketsForPlayerRequest()
 			{
-				QueueName = QUEUE_NAME
+				QueueName = queue
 			}, callback, ErrorCallback("GetMyTickets"));
 		}
 
-		public void GetMatch(string matchId, Action<GetMatchResult> callback)
+		public void GetMatch(string matchId, string queue, Action<GetMatchResult> callback)
 		{
 			PlayFabMultiplayerAPI.GetMatch(new GetMatchRequest()
 			{
 				ReturnMemberAttributes = true,
 				MatchId = matchId,
-				QueueName = QUEUE_NAME
+				QueueName = queue,
 			}, callback, ErrorCallback("GetMatch"));
 		}
 
@@ -362,8 +354,8 @@ namespace FirstLight.Game.Services
 			PlayFabMultiplayerAPI.CreateMatchmakingTicket(new CreateMatchmakingTicketRequest()
 			{
 				MembersToMatchWith = members,
-				QueueName = QUEUE_NAME,
-				GiveUpAfterSeconds = TicketTimeout,
+				QueueName = setup.PlayfabQueue.QueueName,
+				GiveUpAfterSeconds = setup.PlayfabQueue.TimeoutTimeInSeconds,
 				Creator = CreateLocalMatchmakingPlayer()
 			}, r =>
 			{
@@ -411,6 +403,8 @@ namespace FirstLight.Game.Services
 
 		private void InvokeJoinedMatchmaking(JoinedMatchmaking mm)
 		{
+			_localData.LastQueue = mm.RoomSetup.PlayfabQueue.QueueName;
+			_localMatchmakingData.SaveData<MatchmakingData>();
 			OnMatchmakingJoined?.Invoke(mm);
 			_isMatchmaking.Value = true;
 			FLog.Info("OnMatchmakingJoined invoked");
@@ -485,7 +479,7 @@ namespace FirstLight.Game.Services
 
 		private void HandleMatched(GetMatchmakingTicketResult ticket)
 		{
-			_service.GetMatch(ticket.MatchId, result =>
+			_service.GetMatch(ticket.MatchId, ticket.QueueName, result =>
 			{
 				FLog.Info($"Found match {ModelSerializer.Serialize(result).Value}");
 				// Distribute teams
@@ -494,9 +488,8 @@ namespace FirstLight.Game.Services
 						player => player.TeamId
 					);
 
-				var gamemodeConfig = _service._configsProvider.GetConfig<QuantumGameModeConfig>(_setup.GameModeId);
 				// This distribution should be deterministic and used in the server to validate if anyone is exploiting
-				membersWithTeam = TeamDistribution.Distribute(membersWithTeam, gamemodeConfig.MaxPlayersInTeam);
+				membersWithTeam = TeamDistribution.Distribute(membersWithTeam, (uint)_setup.PlayfabQueue.TeamSize);
 
 				_service.InvokeMatchFound(new GameMatched()
 				{
@@ -519,7 +512,7 @@ namespace FirstLight.Game.Services
 			_pooling = true;
 			while (_pooling)
 			{
-				_service.GetTicket(Ticket, ticket =>
+				_service.GetTicket(Ticket, _setup.PlayfabQueue.QueueName, ticket =>
 				{
 					FLog.Info($"Ticket pooling {ModelSerializer.Serialize(ticket).Value}");
 					// TODO: Check when ticket expired and expose event
@@ -542,7 +535,7 @@ namespace FirstLight.Game.Services
 				// If playfab timeout doesn't work, so the player won't get stuck in the matchmaking screen
 				waiting += delay;
 				FLog.Info($"Already waited {waiting}s for matchmaking!");
-				var maxWait = _service.TicketTimeout + 15;
+				var maxWait = _setup.PlayfabQueue.TimeoutTimeInSeconds + 15;
 				if (waiting >= maxWait)
 				{
 					FLog.Info($"Canceling ticket because it take longer then {maxWait} seconds!");

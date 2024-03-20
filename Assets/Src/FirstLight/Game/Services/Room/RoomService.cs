@@ -50,7 +50,7 @@ namespace FirstLight.Game.Services.RoomService
 		/// Do you need docs ?
 		/// </summary>
 		event Action OnMasterChanged;
-		
+
 		event Action OnJoinedRoom;
 
 		/// <summary>
@@ -72,16 +72,14 @@ namespace FirstLight.Game.Services.RoomService
 		public bool IsLocalPlayerSpectator { get; }
 		byte GetMaxSpectators(MatchType matchType);
 
-		byte GetMaxPlayers(QuantumGameModeConfig gameModeConfig,
-						   QuantumMapConfig mapConfig,
-						   MatchType type,
+		byte GetMaxPlayers(MatchRoomSetup setup,
 						   bool spectators = true);
 
 		/// <summary>
 		///  Used for custom games owner clicks to start, it will move players to load screen
 		/// </summary>
 		/// <returns></returns>
-		void StartCustomGameLoading();
+		void StartCustomGameLoading(bool autoBalance);
 
 		QuantumGameModeConfig GetGameModeConfig(string gameModeId);
 
@@ -123,13 +121,6 @@ namespace FirstLight.Game.Services.RoomService
 		/// Used for Playfab matchmaking, because with playfab matchmaking we know the name of the room, so a random player will create it and the others will join
 		/// </remarks>
 		bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null, string[] expectedPlayers = null);
-
-		/// <summary>
-		/// Joins a random room of matching parameters if it exists, or creates a new one if it doesn't
-		/// </summary>
-		/// <returns>True if the operation was sent successfully</returns>
-		/// <remarks>This is used for the "OLD" matchmaking, we don't have the room name so it will try to match a match with same properties</remarks>
-		bool JoinOrCreateRandomRoom(MatchRoomSetup setup);
 
 		/// <summary>
 		/// Leaves the current room that local player is in
@@ -210,7 +201,7 @@ namespace FirstLight.Game.Services.RoomService
 
 			var enterParams = _parameters.GetRoomEnterParams(roomName);
 			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
-            
+
 			ResetLocalPlayerProperties();
 			_networkService.LastUsedSetup.Value = null;
 
@@ -267,33 +258,6 @@ namespace FirstLight.Game.Services.RoomService
 			return _networkService.QuantumClient.OpRejoinRoom(room);
 		}
 
-
-		/// <summary>
-		/// This is used for the "OLD" matchmaking, we don't have the room name so it will try to match a match with same properties
-		/// </summary>
-		/// <returns></returns>
-		public bool JoinOrCreateRandomRoom(MatchRoomSetup setup)
-		{
-			FLog.Verbose("Is player in room "+InRoom);
-			if (InRoom) return false;
-
-			FLog.Info($"JoinOrCreateRandomRoom: {setup}");
-
-			var createParams = _parameters.GetRoomCreateParams(setup);
-			var joinRandomParams = _parameters.GetJoinRandomRoomParams(setup);
-
-			FLog.Verbose(ModelSerializer.PrettySerialize(createParams));
-			FLog.Verbose(ModelSerializer.PrettySerialize(joinRandomParams));
-			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
-
-			ResetLocalPlayerProperties();
-			_networkService.LastDisconnectLocation = LastDisconnectionLocation.None;
-			_networkService.LastUsedSetup.Value = setup;
-
-			return _networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, createParams);
-		}
-
-
 		public bool LeaveRoom(bool becomeInactive = false)
 		{
 			if (!InRoom) return false;
@@ -317,15 +281,13 @@ namespace FirstLight.Game.Services.RoomService
 				: (byte) GameConstants.Data.MATCH_SPECTATOR_SPOTS;
 		}
 
-		public byte GetMaxPlayers(QuantumGameModeConfig gameModeConfig,
-								  QuantumMapConfig mapConfig,
-								  MatchType type,
+		public byte GetMaxPlayers(MatchRoomSetup setup,
 								  bool spectators = true)
 		{
-			var maxPlayers = Math.Min(gameModeConfig.MaxPlayers, mapConfig.MaxPlayers);
+			var maxPlayers = setup.OverwriteMaxPlayers > 0 ? setup.OverwriteMaxPlayers : GetMapConfig(setup.MapId).MaxPlayers;
 			if (spectators)
 			{
-				maxPlayers += GetMaxSpectators(type);
+				maxPlayers += GetMaxSpectators(setup.MatchType);
 			}
 
 			return (byte) maxPlayers;
@@ -360,7 +322,7 @@ namespace FirstLight.Game.Services.RoomService
 		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
 		{
 			if (!InRoom) return;
-			FLog.Info("Received properties update "+propertiesThatChanged);
+			FLog.Info("Received properties update " + propertiesThatChanged);
 			foreach (var entry in propertiesThatChanged)
 			{
 				CurrentRoom.Properties.OnReceivedPropertyChange(entry.Key.ToString(), entry.Value);
@@ -375,6 +337,7 @@ namespace FirstLight.Game.Services.RoomService
 			{
 				return;
 			}
+
 			CurrentRoom = new GameRoom(this, _networkService.QuantumClient.CurrentRoom);
 			LastRoom = CurrentRoom;
 			// Fill room properties
@@ -446,7 +409,7 @@ namespace FirstLight.Game.Services.RoomService
 			// We don't have server time yet lets wait
 			if (time == 0) return;
 			CurrentRoom.Properties.LoadingStartServerTime.Value = _networkService.ServerTimeInMilliseconds;
-			CurrentRoom.Properties.SecondsToStart.Value = Configs.SecondsToStartOldMatchmakingRoom;
+			CurrentRoom.Properties.SecondsToStart.Value = Configs.MatchmakingLoadingTimeout;
 		}
 
 		private void SubscribeToPropertyChangeEvents(GameRoom room)
@@ -518,7 +481,7 @@ namespace FirstLight.Game.Services.RoomService
 			}
 
 			// Check if players loaded assets, give them 5 more seconds then start game
-			if (!CurrentRoom.AreAllPlayersReady() && CurrentRoom.GameStartsAt() + (Configs.SecondsLoadingTimeout * 1000) >
+			if (!CurrentRoom.AreAllPlayersReady() && CurrentRoom.GameStartsAt() >
 				_networkService.ServerTimeInMilliseconds)
 			{
 				return;
@@ -532,11 +495,16 @@ namespace FirstLight.Game.Services.RoomService
 		///  Used for custom games owner clicks to start, it will move players to load screen
 		/// </summary>
 		/// <returns></returns>
-		public void StartCustomGameLoading()
+		public void StartCustomGameLoading(bool autoBalance)
 		{
 			if (!_networkService.LocalPlayer.IsMasterClient)
 			{
 				return;
+			}
+
+			if (autoBalance)
+			{
+				AutoBalanceTeams();
 			}
 
 			_networkService.CurrentRoom.IsOpen = false;
@@ -544,6 +512,18 @@ namespace FirstLight.Game.Services.RoomService
 				_networkService.ServerTimeInMilliseconds;
 			CurrentRoom.Properties.SecondsToStart.Value = Configs.SecondsToLoadCustomGames;
 			CurrentRoom.Properties.StartCustomGame.Value = true;
+		}
+
+		private void AutoBalanceTeams()
+		{
+			var playerTeam = new Dictionary<string, string>();
+			foreach (var playersValue in CurrentRoom.Players.Values)
+			{
+				playerTeam[playersValue.ActorNumber + ""] = "t_" + playersValue.ActorNumber;
+			}
+
+			playerTeam = TeamDistribution.Distribute(playerTeam, (uint) CurrentRoom.Properties.TeamSize.Value);
+			CurrentRoom.Properties.OverwriteTeams.Value = playerTeam;
 		}
 
 		private void StartGame()
@@ -620,7 +600,7 @@ namespace FirstLight.Game.Services.RoomService
 				preloadIds.AddRange(_dataProvider.EquipmentDataProvider.Loadout
 					.Select(item => _dataProvider.EquipmentDataProvider.Inventory[item.Value])
 					.Select(equipmentDataInfo => equipmentDataInfo.GameId));
-				preloadIds.Add(_dataProvider.CollectionDataProvider.GetEquipped(new(GameIdGroup.PlayerSkin)).Id);
+				preloadIds.Add(_dataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id);
 			}
 
 			var props = new PlayerProperties

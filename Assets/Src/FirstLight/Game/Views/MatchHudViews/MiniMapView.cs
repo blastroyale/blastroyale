@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -97,6 +98,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private float _mapConfigCameraSize;
 		private float _currentViewportSize = 0.2f;
 		private float _cameraAngleOffset;
+		
+		public event Action<float> OnClick;
 
 		private void OnValidate()
 		{
@@ -137,9 +140,18 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
-			_button.onClick.AddListener(OnClick);
-			_fullScreenButton.onClick.AddListener(OnClick);
+			_button.onClick.AddListener(OnButtonClicked);
+			_fullScreenButton.onClick.AddListener(OnButtonClicked);
 			SetupCameraSize();
+			
+			_matchServices.PlayerInputService.Input.Gameplay.ToggleMinimapButton.performed += _ => Toggle();
+		}
+
+		private void OnButtonClicked()
+		{
+			// Both have to be sent so the input system resets the click state
+			OnClick?.Invoke(1.0f);
+			OnClick?.Invoke(0.0f);
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer current)
@@ -428,7 +440,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
-		private void OnClick()
+		private void Toggle()
 		{
 			if (_opened)
 			{

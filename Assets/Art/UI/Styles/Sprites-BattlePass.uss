@@ -85,8 +85,8 @@
 
 .sprite-battlepass__icon_premium-pass {
     background-image: var(--sprite-battlepass__icon_premium-pass);
-    width: 459px;
-    height: 447px;
+    width: 460px;
+    height: 448px;
 }
 
 .sprite-battlepass__icon_premium-pass-gradient {

@@ -82,6 +82,7 @@ namespace FirstLight.Game.Presenters
 		
 		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
+		private VisualElement _gameModeIcon;
 
 		private Label _csAmountLabel;
 		private Label _blstAmountLabel;
@@ -148,6 +149,7 @@ namespace FirstLight.Game.Presenters
 			_avatar = root.Q<PlayerAvatarElement>("Avatar").Required();
 
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
+			_gameModeIcon = root.Q<VisualElement>("GameModeIcon").Required();
 			_gameModeButton = root.Q<ImageButton>("GameModeButton").Required();
 
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
@@ -278,7 +280,7 @@ namespace FirstLight.Game.Presenters
 #else
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
-			_betaLabel.SetDisplay(FeatureFlags.BETA_VERSION);
+			_betaLabel.SetDisplay(RemoteConfigs.Instance.BetaVersion);
 			
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
@@ -530,8 +532,11 @@ namespace FirstLight.Game.Presenters
 		private void UpdateGameModeButton()
 		{
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
-			_gameModeLabel.text = LocalizationUtils.GetTranslationForGameModeId(current.GameModeId);
-			_gameModeButton.SetEnabled(!_partyService.HasParty.Value && !_partyService.OperationInProgress.Value);
+			var isMemberNotLeader = _services.PartyService.HasParty.Value && !_services.PartyService.GetLocalMember().Leader;
+			_gameModeLabel.text = LocalizationManager.GetTranslation(current.TitleTranslationKey);
+			_gameModeButton.SetEnabled(!isMemberNotLeader && !_partyService.OperationInProgress.Value);
+			_gameModeIcon.RemoveSpriteClasses();
+			_gameModeIcon.AddToClassList(current.IconSpriteClass);
 		}
 
 		private void UpdatePlayButton(bool forceLoading = false)

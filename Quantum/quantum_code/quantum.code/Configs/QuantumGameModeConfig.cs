@@ -14,7 +14,7 @@ namespace Quantum
 
 #region Matchmaking & Room
 
-		[FoldoutGroup("Matchmaking & Room"), PropertyRange(1, 30), ValidateInput("@MaxPlayers >= MinPlayers"),
+		[FoldoutGroup("Matchmaking & Room"), PropertyRange(1, 48), ValidateInput("@MaxPlayers >= MinPlayers"),
 		 PropertyTooltip(DESC_MAX_PLAYERS)]
 		public uint MaxPlayers;
 
@@ -22,23 +22,11 @@ namespace Quantum
 		 DisableIf("@true"), PropertyTooltip("NOT IMPLEMENTED | " + DESC_MIN_PLAYERS)]
 		public uint MinPlayers;
 
-		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@true"), PropertyTooltip(DESC_TEAMS)]
-		public bool Teams;
-
 		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@false"), PropertyTooltip(DESC_MAX_PLAYERS_IN_TEAM)]
-		public uint MaxPlayersInTeam;
-
-		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@false"), PropertyTooltip(DESC_MIN_PLAYERS_IN_TEAM)]
-		public uint MinPlayersInTeam;
+		public uint MaxAllowedPlayersPerTeam;
 		
 		[PropertyTooltip(DESC_ALLOWED_MAPS)]
 		public List<GameId> AllowedMaps;
-
-		[FoldoutGroup("Ranking"), PropertyTooltip(DESC_RANK_SORTER)]
-		public RankSorter RankSorter;
-
-		[FoldoutGroup("Ranking"), PropertyTooltip(DESC_RANK_PROCESSOR)]
-		public RankProcessor RankProcessor;
 
 #endregion
 

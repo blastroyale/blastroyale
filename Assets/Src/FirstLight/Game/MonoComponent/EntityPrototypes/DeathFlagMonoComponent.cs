@@ -17,10 +17,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var deathFlagId = GetComponentData<DeathFlag>(game).ID;
 
-			var services = MainInstaller.ResolveServices();
-			var marker = services.CollectionService.GetCosmeticForGroup(new []{deathFlagId}, GameIdGroup.DeathMarker);
-			
-			var obj = await services.CollectionService.LoadCollectionItem3DModel(marker);
+			var marker = Services.CollectionService.GetCosmeticForGroup(new []{deathFlagId}, GameIdGroup.DeathMarker);
+			var obj = await Services.CollectionService.LoadCollectionItem3DModel(marker);
 			
 			OnLoaded(deathFlagId, obj, true);
 		}

@@ -39,9 +39,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		private string _gameModeId;
 		private string _mapId;
 
-		private Dictionary<GameId, string> _gameIdsLookup = new();
+		private Dictionary<GameId, string> _gameIdsLookup = new ();
 
-		private List<AnalyticsMatchQueuedEvent> _queue = new();
+		private List<AnalyticsMatchQueuedEvent> _queue = new ();
 
 		private int _playerNumAttacks;
 
@@ -96,7 +96,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"team_size", gameModeConfig.MaxPlayersInTeam},
+				{"team_size", room.Properties.TeamSize},
 				{"is_spectator", IsSpectator().ToString()},
 				{"playfab_player_id", _gameData.AppDataProvider.PlayerId} // must be named PlayFabPlayerId or will create error
 			};
@@ -141,9 +141,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 					{"mutators", _mutators},
 					{"player_level", _gameData.PlayerDataProvider.Level.Value.ToString()},
 					{"total_players", totalPlayers.ToString()},
-					{"total_bots", (room.GetMaxPlayers(false) - totalPlayers).ToString()},
+					{"total_bots", (room.GetMaxPlayers() - totalPlayers).ToString()},
 					{"map_id", _gameIdsLookup[config.Map]},
-					{"team_size", gameModeConfig.MaxPlayersInTeam},
+					{"team_size", room.Properties.TeamSize.Value},
 					{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value.ToString()},
 					{"item_weapon", weaponId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[weaponId]]},
 					{"item_helmet", helmetId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[helmetId]]},
@@ -204,7 +204,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_time", f.Time.ToString()},
 				{"player_rank", playerRank.ToString()},
 				{"team_id", localPlayerData.Data.TeamId},
-				{"team_size", f.Context.GameModeConfig.MaxPlayersInTeam},
+				{"team_size", f.GetTeamSize()},
 				{"player_attacks", _playerNumAttacks.ToString()}
 			};
 
@@ -257,7 +257,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"player_rank", playerRank.ToString()},
 				{"player_attacks", _playerNumAttacks.ToString()},
 				{"team_id", localPlayerData.Data.TeamId},
-				{"team_size", f.Context.GameModeConfig.MaxPlayersInTeam}
+				{"team_size", f.GetTeamSize()}
 			};
 
 			_analyticsService.LogEvent(AnalyticsEvents.MatchEnd, data);

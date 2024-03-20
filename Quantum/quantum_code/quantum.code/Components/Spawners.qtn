@@ -8,6 +8,7 @@ component CollectablePlatformSpawner
 	GameId GameId;
 	Int32 RarityModifier;
 	bool Disabled;
+	bool DoNotDestroy;
 }
 
 enum SpawnerType

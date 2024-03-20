@@ -66,6 +66,11 @@ namespace Quantum.Systems
 			}
 				
 			filter.Spawner->Spawn(f, filter.Entity);
+			
+			if (!filter.Spawner->DoNotDestroy)
+			{
+				f.Destroy(filter.Entity);
+			}
 		}
 	}
 }

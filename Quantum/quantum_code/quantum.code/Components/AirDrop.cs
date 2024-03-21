@@ -54,6 +54,7 @@ namespace Quantum
 			var found = false;
 			var closestPoint = FPVector3.Zero;
 			var shortestDist = FP.MaxValue;
+			var spawnerEntity = EntityRef.None;
 
 			foreach(var spawner in f.Unsafe.GetComponentBlockIterator<AirDropSpawner>())
 			{
@@ -68,10 +69,17 @@ namespace Quantum
 					closestPoint = spawnerPos;
 
 					found = true;
-				}	
+					spawnerEntity = spawner.Entity;
+				}
 			}
 
 			dropPosition = closestPoint;
+
+			// We remove component to prevent the second use of the same airdrop spawner
+			if (found)
+			{
+				f.Remove<AirDropSpawner>(spawnerEntity);
+			}
 
 			return found;
 		}

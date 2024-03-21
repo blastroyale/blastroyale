@@ -2,10 +2,6 @@
     <Style src="project://database/Assets/Art/UI/Screens/LeaderboardAndRewardsScreenStyle.uss?fileID=7433441132597879392&amp;guid=671410c7fc8b44ebebe2e36a0f17d624&amp;type=3#LeaderboardAndRewardsScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/PlayerAvatarStyle.uss?fileID=7433441132597879392&amp;guid=38b557c69f774f2983d0aded8a5e3b0d&amp;type=3#PlayerAvatarStyle" />
     <ui:VisualElement name="root" class="fill-parent">
-        <ui:VisualElement name="PlayerName" class="player-name">
-            <ui:VisualElement name="Badge" class="player-name__badge" />
-            <ui:Label text="9. PLAYERNAME" display-tooltip-when-elided="true" name="Text" class="player-name__text" />
-        </ui:VisualElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/standings" subtitle-key="UITLeaderboards/battleroyale" name="Header" class="screen-header--no-navigation" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent">
             <ui:VisualElement name="LeaderboardPanel" picking-mode="Ignore" class="leaderboard-panel" style="display: none;">

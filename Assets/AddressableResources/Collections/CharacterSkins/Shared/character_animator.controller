@@ -1064,13 +1064,13 @@ AnimatorStateMachine:
   - {fileID: 127418375942518799}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: 7840163810359972742}
-    second:
-    - {fileID: -3890465922920977437}
   - first: {fileID: -7687792945197628734}
     second: []
   - first: {fileID: 650447998188526516}
     second: []
+  - first: {fileID: 7840163810359972742}
+    second:
+    - {fileID: -3890465922920977437}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 720, y: 610, z: 0}
   m_EntryPosition: {x: 1410, y: 200, z: 0}
@@ -1336,7 +1336,10 @@ AnimatorController:
     - serializedVersion: 2
       m_State: {fileID: -7406247346596159523}
       m_Motion: {fileID: 35824370627024207, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
-    m_Behaviours: []
+    m_Behaviours:
+    - m_State: {fileID: -2362159556542937164}
+      m_StateMachineBehaviours:
+      - {fileID: 5427604285738385235}
     m_BlendingMode: 0
     m_SyncedLayerIndex: 0
     m_DefaultWeight: 0
@@ -1855,6 +1858,18 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &5427604285738385235
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c7b2236254249239c7894e3fadb3f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1102 &5547350182969834532
 AnimatorState:
   serializedVersion: 6

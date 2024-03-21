@@ -637,7 +637,7 @@
 .unity-scroller--vertical {
     width: 60px;
     border-left-width: 2px;
-   
+
 }
 
 .unity-scroller--vertical > .unity-scroller__high-button {
@@ -652,7 +652,7 @@
     border-width: 0;
     width: 12px;
     right: 20px;
-    
+
 }
 
 .unity-scroller--vertical > .unity-scroller__slider {
@@ -675,4 +675,28 @@
     align-self: center;
     background-color: white;
     border-radius: 10px;
+}
+
+.player-name {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    -unity-text-align: upper-center;
+    flex-direction: row;
+    align-items: center;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+    align-self: flex-start;
+    font-size: 60px;
+    -unity-font-style: bold;
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.player-name--small {
+    font-size: 48;
 }

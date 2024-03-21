@@ -1,4 +1,5 @@
-﻿using Quantum;
+﻿using FirstLight.Game.Utils;
+using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -69,7 +70,7 @@ namespace FirstLight.Game.MonoComponent.Collections
 				_animator.SetFloat(P_WEAPON_TYPE_FLOAT, (float) value);
 			}
 		}
-		
+
 		public void RandomizeAnimationStateFrame(string animationStateName, int layer, float startNormalisedRange, float endNormalisedRange)
 		{
 			_animator.Play(Animator.StringToHash(animationStateName), layer, UnityEngine.Random.Range(startNormalisedRange, endNormalisedRange));

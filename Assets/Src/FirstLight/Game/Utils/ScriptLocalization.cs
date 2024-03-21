@@ -2287,6 +2287,7 @@ namespace I2.Loc
 		{
 			public static string profile 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/profile"); } }
 			public static string username_invalid_characters 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/username_invalid_characters"); } }
+			public static string username_profanity 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/username_profanity"); } }
 			public static string username_too_long 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/username_too_long"); } }
 			public static string username_too_short 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/username_too_short"); } }
 		}
@@ -4786,6 +4787,7 @@ namespace I2.Loc
 		{
 		    public const string profile = "UITProfileScreen/profile";
 		    public const string username_invalid_characters = "UITProfileScreen/username_invalid_characters";
+		    public const string username_profanity = "UITProfileScreen/username_profanity";
 		    public const string username_too_long = "UITProfileScreen/username_too_long";
 		    public const string username_too_short = "UITProfileScreen/username_too_short";
 		}

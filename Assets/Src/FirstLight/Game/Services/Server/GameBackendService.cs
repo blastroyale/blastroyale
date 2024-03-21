@@ -283,7 +283,17 @@ namespace FirstLight.Game.Services
 		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError)
 		{
 			var request = new UpdateUserTitleDisplayNameRequest { DisplayName = newNickname };
-			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
+			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, e =>
+			{
+				if (e.Error == PlayFabErrorCode.ProfaneDisplayName)
+				{
+					onError(e);
+				}
+				else
+				{
+					HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
+				}
+			});
 
 			void OnSuccess(UpdateUserTitleDisplayNameResult result)
 			{

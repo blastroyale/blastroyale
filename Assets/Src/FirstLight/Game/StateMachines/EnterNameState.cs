@@ -136,7 +136,10 @@ namespace FirstLight.Game.StateMachines
 
 			if (newNameTrimmed != _dataProvider.AppDataProvider.DisplayNameTrimmed)
 			{
-				_services.GameBackendService.UpdateDisplayName(newNameTrimmed, null, null);
+				_services.GameBackendService.UpdateDisplayName(newNameTrimmed, null, e =>
+				{
+					_services.GenericDialogService.OpenSimpleMessage(ScriptLocalization.UITShared.error, ScriptLocalization.UITProfileScreen.username_profanity);
+				});
 			}
 
 			_statechartTrigger(NameSetEvent);

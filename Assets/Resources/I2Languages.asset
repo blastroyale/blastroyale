@@ -22579,6 +22579,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITProfileScreen/username_profanity
+      TermType: 0
+      Description: 
+      Languages:
+      - The name must not contain profanity!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITDisconnected/connection_lost
       TermType: 0
       Description: 

@@ -203,7 +203,7 @@
 }
 
 .map__title {
-    font-size: 70px;
+    font-size: 48px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(108, 8, 40);
@@ -215,13 +215,13 @@
 }
 
 .map__title-bg {
-    width: 100%;
-    height: 100px;
+    width: 80%;
+    height: 191px;
     background-image: var(--sprite-home__banner-mapselection);
     align-items: center;
     justify-content: center;
     position: absolute;
-    bottom: 15px;
+    bottom: -5%;
     display: flex;
     -unity-background-scale-mode: scale-to-fit;
 }

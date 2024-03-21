@@ -13,7 +13,7 @@ namespace FirstLight.Game.Presenters
 		private bool _skippedCurrentAnimation;
 		private float _skipToTime;
 
-		internal void StartAnimation(PlayableDirector director, float allowSkipBefore, float skipToTime = 0)
+		internal void StartAnimation(PlayableDirector director, float allowSkipBefore, float skipToTime = 0, float startTime = 0)
 		{
 			if (_currentAnimation != null && _currentAnimation.state == PlayState.Playing)
 			{
@@ -24,7 +24,7 @@ namespace FirstLight.Game.Presenters
 			_skippedCurrentAnimation = false;
 			_currentAnimationSkippableBefore = Time.time + allowSkipBefore;
 			_currentAnimation = director;
-			_currentAnimation!.time = 0;
+			_currentAnimation.time = startTime;
 			_currentAnimation.Play();
 		}
 

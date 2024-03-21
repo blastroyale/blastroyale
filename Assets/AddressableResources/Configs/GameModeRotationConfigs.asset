@@ -23,7 +23,7 @@ MonoBehaviour:
         PlayfabQueue:
           QueueName: battleroyale_1
           TeamSize: 1
-          TimeoutTimeInSeconds: 15
+          TimeoutTimeInSeconds: 10
         AllowedRewards: 030000000c000000160000001a000000
         TitleTranslationKey: UITGameModeSelection/br_solo_title
         DescriptionTranslationKey: UITGameModeSelection/br_solo_description
@@ -36,7 +36,7 @@ MonoBehaviour:
         PlayfabQueue:
           QueueName: battleroyale_2
           TeamSize: 2
-          TimeoutTimeInSeconds: 30
+          TimeoutTimeInSeconds: 25
         AllowedRewards: 030000000c000000160000001a000000
         TitleTranslationKey: UITGameModeSelection/br_duos_title
         DescriptionTranslationKey: UITGameModeSelection/br_duos_description

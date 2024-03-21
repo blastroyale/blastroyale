@@ -16184,6 +16184,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/IslandOne
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB ISLAND
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIdGroups/Collection
       TermType: 0
       Description: 
@@ -23693,18 +23704,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITGameModeSelection/custom_game_description
-      TermType: 0
-      Description: 
-      Languages:
-      - Create your own game
-      - "\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u0441\u0432\u043E\u044E
-        \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u0443\u044E \u0438\u0433\u0440\u0443"
-      - "Crie seu pr\xF3prio jogo"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITGameModeSelection/tap_to_choose
       TermType: 0
       Description: 
@@ -23812,6 +23811,29 @@ MonoBehaviour:
       - Play Battle Royale in a team of 4
       - 
       - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/custom_game_title
+      TermType: 0
+      Description: 
+      Languages:
+      - CUSTOM GAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/custom_game_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Create your own game
+      - "\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u0441\u0432\u043E\u044E
+        \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u0443\u044E \u0438\u0433\u0440\u0443"
+      - "Crie seu pr\xF3prio jogo"
       - 
       - 
       Flags: 0000000000
@@ -25627,9 +25649,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Connect Web3
-      - Connect Web3
-      - Conectar Web3
+      - CONNECT WEB3
+      - CONNECT WEB3
+      - CONNECTAR_WEB3
       - 
       - 
       Flags: 0000000000
@@ -25641,6 +25663,39 @@ MonoBehaviour:
       - SUPPORT
       - 
       - SUPORTE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/login
+      TermType: 0
+      Description: 
+      Languages:
+      - LOGIN
+      - LOGIN
+      - LOGAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/old_players
+      TermType: 0
+      Description: 
+      Languages:
+      - For old players
+      - For old players
+      - For old players
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/web3
+      TermType: 0
+      Description: 
+      Languages:
+      - WEB3
+      - WEB3
+      - WEB3
       - 
       - 
       Flags: 0000000000
@@ -26799,7 +26854,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1710519264905
+    Google_LastUpdatedVersion: 1710944151015
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

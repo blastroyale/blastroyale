@@ -1,5 +1,5 @@
 using System;
-using FirstLight.FLogger;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 
 
-			SetWeapon(pc.WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon);
+			SetWeapon(pc.WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon).Forget();
 			SetSlot(pc.CurrentWeaponSlot);
 			_ammoLabel.text = "0";
 			UpdateAmmo(f, playerEntity);
@@ -120,7 +120,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
 
-			SetWeapon(callback.Weapon);
+			SetWeapon(callback.Weapon).Forget();
 		}
 
 		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
@@ -247,7 +247,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		private async void SetWeapon(Equipment weapon)
+		private async UniTaskVoid SetWeapon(Equipment weapon)
 		{
 			_weaponRarity.RemoveSpriteClasses();
 			_weaponIcon.style.backgroundImage = null;
@@ -265,10 +265,8 @@ namespace FirstLight.Game.Views.UITK
 			_weaponRarity.AddToClassList(string.Format(USS_SPRITE_RARITY,
 				(weapon.Material == EquipmentMaterial.Golden ? EquipmentRarity.Legendary : EquipmentRarity.Common).ToString().ToLowerInvariant()));
 
-			_weaponIcon.style.backgroundImage = _weaponShadow.style.backgroundImage =
-				new StyleBackground(
-					await _services.AssetResolverService.RequestAsset<GameId, Sprite>(weapon.GameId, instantiate: false)
-				);
+			var weaponSprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(weapon.GameId, instantiate: false);
+			_weaponIcon.style.backgroundImage = _weaponShadow.style.backgroundImage = new StyleBackground(weaponSprite);
 		}
 	}
 }

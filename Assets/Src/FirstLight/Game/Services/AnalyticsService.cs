@@ -132,6 +132,9 @@ namespace FirstLight.Game.Services
 			
 			try
 			{
+				// Unity Analytics
+				Analytics.CustomEvent(eventName, parameters);
+				
 				//PlayFab Analytics
 				if (PlayFabSettings.staticPlayer.IsClientLoggedIn())
 				{
@@ -143,8 +146,6 @@ namespace FirstLight.Game.Services
 				{
 					// Firebase
 					FirebaseAnalytics.LogEvent(eventName);
-					// Unity
-					Analytics.CustomEvent(eventName);
 					return;
 				}
 

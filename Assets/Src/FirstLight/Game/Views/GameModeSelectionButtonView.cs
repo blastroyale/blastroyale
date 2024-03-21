@@ -50,6 +50,9 @@ namespace FirstLight.Game.Views
 			{
 				_disabled = value;
 				_button.SetEnabled(!_disabled);
+				_disabledContainer.SetDisplay(_disabled);
+				if (!_disabled) return;
+				_disabledLabel.text = GameModeInfo.Entry.GameModeId == GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME ? ScriptLocalization.UITGameModeSelection.custom_blocked_for_party : ScriptLocalization.UITGameModeSelection.too_many_players;
 			}
 		}
 
@@ -59,6 +62,8 @@ namespace FirstLight.Game.Views
 		private Label _teamSizeLabel;
 		private VisualElement _teamSizeIcon;
 		private Label _gameModeDescriptionLabel;
+		private VisualElement _disabledContainer;
+		private Label _disabledLabel;
 		private bool _selected;
 		private bool _disabled;
 		private Coroutine _timerCoroutine;
@@ -81,6 +86,8 @@ namespace FirstLight.Game.Views
 			_gameModeDescriptionLabel = dataPanel.Q<Label>("Description");
 			_teamSizeIcon = dataPanel.Q<VisualElement>("TeamSizeIcon").Required();
 			_teamSizeLabel = dataPanel.Q<Label>("TeamSizeLabel").Required();
+			_disabledContainer = element.Q<VisualElement>("Disabled").Required();
+			_disabledLabel = element.Q<Label>("DisabledLabel").Required();
 
 			_mutatorsPanel = element.Q<VisualElement>("Mutators");
 			_mutatorLines = _mutatorsPanel.Query<VisualElement>("MutatorLine").ToList();
@@ -123,12 +130,13 @@ namespace FirstLight.Game.Views
 
 			RemoveClasses();
 
-			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.GameModeId.ToLowerInvariant()}");
-			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.ImageModifier}");
-
 			if (IsCustomGame())
 			{
 				_button.AddToClassList($"{GameModeButtonBase}--custom");
+			}
+			else
+			{
+				_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.ImageModifier}");
 			}
 
 			UpdateTeamSize(gameModeInfo);
@@ -163,13 +171,6 @@ namespace FirstLight.Game.Views
 
 		private void UpdateTitleAndDescription()
 		{
-			if (IsCustomGame())
-			{
-				_gameModeLabel.text = ScriptLocalization.MainMenu.CustomGame;
-				_gameModeDescriptionLabel.text = ScriptLocalization.UITGameModeSelection.custom_game_description;
-				return;
-			}
-
 			_gameModeLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.TitleTranslationKey);
 			_gameModeDescriptionLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.DescriptionTranslationKey);
 		}

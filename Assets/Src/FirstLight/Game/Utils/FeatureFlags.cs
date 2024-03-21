@@ -120,6 +120,11 @@ namespace FirstLight.Game.Utils
 		public static bool COMMIT_VERSION_LOCK = true;
 
 		/// <summary>
+		/// When true will display "BETA" in loading screen
+		/// </summary>
+		public static bool BETA_VERSION = false;
+
+		/// <summary>
 		/// When true, will send end of match commands using quantum server consensus algorithm.
 		/// When false commands will go directly to our backend. 
 		/// To use this in our backend the backend needs to be compiled with this flag being False.
@@ -285,6 +290,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetStringFlag("IMX_ID", overrideData, out var imxId))
 			{
 				IMX_ID = imxId;
+			}
+
+			if (TrySetFlag("BETA_VERSION", overrideData, out var beta))
+			{
+				BETA_VERSION = beta;
 			}
 		}
 

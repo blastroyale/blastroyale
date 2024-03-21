@@ -97,7 +97,8 @@ namespace FirstLight.Game.Views
 			initOpts.SetEnvironmentName(UnityCloudEnvironment.CURRENT);
 
 			await UnityServices.InitializeAsync(initOpts).AsUniTask();
-			await RemoteConfigs.Init();
+			// TODO: Disabled for release so we don't create unlinked anon accounts
+			// await RemoteConfigs.Init();
 		}
 
 		private void OnApplicationFocus(bool hasFocus)

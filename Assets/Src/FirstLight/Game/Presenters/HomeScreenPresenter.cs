@@ -280,7 +280,7 @@ namespace FirstLight.Game.Presenters
 #else
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
-			_betaLabel.SetDisplay(RemoteConfigs.Instance.BetaVersion);
+			_betaLabel.SetDisplay(FeatureFlags.BETA_VERSION);
 			
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);

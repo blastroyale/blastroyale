@@ -19,7 +19,8 @@ namespace Tests.Stubs
 		public bool RemoteGameConfiguration { get; set; }
 		public string BuildCommit { get; set; }
 		public string BuildNumber { get; set; }
-		
-		
+		public string UnityCloudAuthToken { get; }
+		public string UnityCloudEnvironmentName { get; }
+		public string UnityCloudEnvironmentID { get; }
 	}
 }

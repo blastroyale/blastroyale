@@ -22,7 +22,10 @@
         "API_URL": "***REMOVED***",
         "API_BLOCKCHAIN_SERVICE": "br-blockchain/blast-royale-equipment",
         "API_KEY": "devkey",
-        "APPLICATION_ENVIRONMENT": "dev"
+        "APPLICATION_ENVIRONMENT": "dev",
+        "UNITY_CLOUD_AUTH_TOKEN": "***REMOVED***",
+        "UNITY_CLOUD_ENVIRONMENT_NAME": "development",
+        "UNITY_CLOUD_ENVIRONMENT_ID": "***REMOVED***"
       },
       "IIS Express": {
         "commandName": "IISExpress",
@@ -46,7 +49,10 @@
         "API_URL": "***REMOVED***",
         "API_BLOCKCHAIN_SERVICE": "br-blockchain/blast-royale-equipment",
         "API_KEY": "stagingkey",
-        "APPLICATION_ENVIRONMENT": "dev"
+        "APPLICATION_ENVIRONMENT": "dev",
+        "UNITY_CLOUD_AUTH_TOKEN": "***REMOVED***",
+        "UNITY_CLOUD_ENVIRONMENT_NAME": "staging",
+        "UNITY_CLOUD_ENVIRONMENT_ID": "***REMOVED***"
       }
     }
   }

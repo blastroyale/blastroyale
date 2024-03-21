@@ -491,24 +491,48 @@ namespace FirstLight.Game.Services
 			{
 				VersionUtils.ServerBuildCommit = buildCommit;
 			}
-			
-			if(data.TryGetValue("idToken", out var idToken) && data.TryGetValue("sessionToken", out var sessionToken))
-			{
-				AuthenticationService.Instance.ProcessAuthenticationTokens(idToken, sessionToken);
-			}
-			else
-			{
-				FLog.Warn("Could not login to Unity, missing tokens.");
-			}
 
 			VersionUtils.ValidateServer();
 
-			_services.GameBackendService.FetchServerState(state =>
+			AuthenticateUnity(() =>
 			{
-				FLog.Verbose("Downloaded state from playfab");
-				UpdatePlayerDataAndLogic(state, previouslyLoggedIn).Forget();
-				AuthenticateGameNetwork(loginData, onSuccess, onError);
-			}, onError);
+				_services.GameBackendService.FetchServerState(state =>
+				{
+					FLog.Verbose("Downloaded state from playfab");
+					UpdatePlayerDataAndLogic(state, previouslyLoggedIn).Forget();
+					AuthenticateGameNetwork(loginData, onSuccess, onError);
+				}, onError);
+			}, onError).Forget();
+		}
+
+		private async UniTask AuthenticateUnity(Action onSuccess, Action<PlayFabError> onError)
+		{
+			if (AuthenticationService.Instance.SessionTokenExists)
+			{
+				FLog.Info("UnityCloudAuth", "Session token exists!");
+				// This call will sign in the cached player.
+				await AuthenticationService.Instance.SignInAnonymouslyAsync();
+				FLog.Info("UnityCloudAuth", "Cached user sign in succeeded!");
+
+				onSuccess();
+			}
+			else
+			{
+				FLog.Info("UnityCloudAuth", "Requesting session token!");
+
+				_services.GameBackendService.CallFunction("AuthenticateUnity",
+					(res) =>
+					{
+						var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
+						var data = serverResult.Result.Data;
+
+						FLog.Verbose("UnityCloudAuth", $"Session token received: idToken: {data["idToken"]}, sessionToken: {data["sessionToken"]}!");
+
+						AuthenticationService.Instance.ProcessAuthenticationTokens(data["idToken"], data["sessionToken"]);
+						onSuccess();
+					},
+					e => { _services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login); });
+			}
 		}
 
 		public async UniTaskVoid UpdatePlayerDataAndLogic(Dictionary<string, string> state, bool previouslyLoggedIn)
@@ -537,7 +561,7 @@ namespace FirstLight.Game.Services
 					FLog.Error("Error reading data type " + typeFullName, e);
 				}
 			}
-			
+
 			await RemoteConfigs.Init();
 
 			if (previouslyLoggedIn)

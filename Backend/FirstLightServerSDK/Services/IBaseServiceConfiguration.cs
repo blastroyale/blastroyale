@@ -75,5 +75,20 @@ namespace FirstLight.Server.SDK.Services
 		/// Devops build number used to build
 		/// </summary>
 		string BuildNumber { get; }
+		
+		/// <summary>
+		/// The basic auth token for the Unity Token Exchange API
+		/// </summary>
+		public string UnityCloudAuthToken {get;}
+		
+		/// <summary>
+		/// The name of the environment in Unity Cloud (development, staging, production)
+		/// </summary>
+		public string UnityCloudEnvironmentName {get;}
+		
+		/// <summary>
+		/// The ID of the environment in Unity Cloud.
+		/// </summary>
+		public string UnityCloudEnvironmentID {get;}
 	}
 }

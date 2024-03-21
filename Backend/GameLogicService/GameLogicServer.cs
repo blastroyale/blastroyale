@@ -1,14 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Backend.Game;
-using Backend.Game.Services;
-using Backend.Models;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using Microsoft.Extensions.Logging;
@@ -16,11 +10,9 @@ using PlayFab;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
 using FirstLightServerSDK.Services;
 using GameLogicService.Game;
-using Newtonsoft.Json;
 
 namespace Backend
 {
@@ -53,11 +45,6 @@ namespace Backend
 
 	public class GameLogicWebWebService : ILogicWebService
 	{
-		private const string PROJECT_ID = "***REMOVED***";
-		private const string ENV_PROD = "***REMOVED***";
-		private const string ENV_DEV = "***REMOVED***";
-		private const string ENV_STAGING = "***REMOVED***";
-
 		private readonly ILogger _log;
 		private readonly IPlayerSetupService _setupService;
 		private readonly IServerStateService _stateService;
@@ -66,10 +53,6 @@ namespace Backend
 		private readonly IEventManager _eventManager;
 		private readonly IStatisticsService _statistics;
 		private readonly IServerMutex _mutex;
-		internal HttpClient _client;
-
-		private string _unityAccessToken = null;
-		private DateTime _unityAccessTokenExpiration;
 
 		public GameLogicWebWebService(IEventManager eventManager, ILogger log,
 									  IPlayerSetupService service, IServerStateService stateService, GameServer server,
@@ -82,11 +65,6 @@ namespace Backend
 			_mutex = mutex;
 			_eventManager = eventManager;
 			_log = log;
-
-			_client = new HttpClient();
-			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
-				"***REMOVED***");
-			_client.DefaultRequestHeaders.Add("UnityEnvironment", "development");
 		}
 
 		public async Task<PlayFabResult<BackendLogicResult>> RunLogic(string playerId, LogicRequest request)
@@ -107,24 +85,6 @@ namespace Backend
 			try
 			{
 				await _mutex.Lock(playerId);
-
-				if (string.IsNullOrEmpty(_unityAccessToken) || _unityAccessTokenExpiration < DateTime.Now)
-				{
-					var tokenExchangeResponse = await _client.PostAsync($"https://services.api.unity.com/auth/v1/token-exchange?projectId={PROJECT_ID}&environmentId={ENV_DEV}", null);
-					if (tokenExchangeResponse.StatusCode != HttpStatusCode.Created)
-					{
-						throw new Exception("Unity Token Exchange API call failed.");
-					}
-
-					var tokenExchangeStr = await tokenExchangeResponse.Content.ReadAsStringAsync();
-
-					_unityAccessToken = JsonConvert.DeserializeObject<TokenExchangeResponse>(tokenExchangeStr)!.accessToken;
-					_unityAccessTokenExpiration = DateTime.Now.AddMinutes(45);
-					_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _unityAccessToken);
-				}
-
-				var customIdTask = _client.PostAsync($"https://player-auth.services.api.unity.com/v1/projects/{PROJECT_ID}/authentication/server/custom-id", JsonContent.Create(new {externalId = playerId, signInOnly = false}));
-
 				var state = await _stateService.GetPlayerState(playerId);
 				if (!_setupService.IsSetup(state))
 				{
@@ -138,23 +98,11 @@ namespace Backend
 				{
 					await _stateService.UpdatePlayerState(playerId, state.GetOnlyUpdatedState());
 				}
-
-				var customIdResponse = await customIdTask;
-				if (customIdResponse.StatusCode != HttpStatusCode.OK)
-				{
-					throw new Exception("Unity Custom ID API call failed.");
-				}
-
-				var customID =
-					JsonConvert.DeserializeObject<CustomIDResponse>(await customIdResponse.Content
-						.ReadAsStringAsync())!;
-
+				
 				return Playfab.Result(playerId, new Dictionary<string, string>
 				{
 					{"BuildNumber", _serviceConfiguration.BuildNumber},
 					{"BuildCommit", _serviceConfiguration.BuildCommit},
-					{"idToken", customID.idToken},
-					{"sessionToken", customID.sessionToken},
 				});
 			}
 			catch (Exception e)
@@ -217,17 +165,6 @@ namespace Backend
 				},
 				Result = errorResult
 			};
-		}
-
-		private class TokenExchangeResponse
-		{
-			public string accessToken { get; set; }
-		}
-
-		private class CustomIDResponse
-		{
-			public string idToken { get; set; }
-			public string sessionToken { get; set; }
 		}
 	}
 }

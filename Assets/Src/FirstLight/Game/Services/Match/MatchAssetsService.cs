@@ -17,6 +17,7 @@ using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.Services
 {
@@ -84,8 +85,10 @@ namespace FirstLight.Game.Services
 			_optionalAssets.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());
 			_optionalAssets.Add(_assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>());
 			_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(GameId.Hammer, true, false));
-			LoadOptionalGroup(GameIdGroup.Consumable);
-			LoadOptionalGroup(GameIdGroup.BotItem);
+			LoadOptionalGroup<GameObject>(GameIdGroup.Collectable);
+			LoadOptionalGroup<GameObject>(GameIdGroup.Weapon);
+			LoadOptionalGroup<Sprite>(GameIdGroup.Weapon);
+			LoadOptionalGroup<GameObject>(GameIdGroup.BotItem);
 		}
 
 		public void StartMandatoryAssetLoad()
@@ -150,17 +153,19 @@ namespace FirstLight.Game.Services
 			FLog.Verbose($"Unloading match assets took {(DateTime.UtcNow - start).TotalMilliseconds} ms");
 		}
 
-		private void LoadOptionalGroup(GameIdGroup group)
+		private void LoadOptionalGroup<T>(GameIdGroup group) where T: Object
 		{
 			foreach (var id in group.GetIds())
 			{
+				if(id.IsInGroup(GameIdGroup.Deprecated)) continue;
+				
 				if (id.IsInGroup(GameIdGroup.Collection))
 				{
 					_optionalAssets.Add(_services.CollectionService.LoadCollectionItem3DModel(ItemFactory.Collection(id), false, false));
 				}
 				else
 				{
-					_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
+					_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, T>(id, true, false));
 				}
 			}
 		}

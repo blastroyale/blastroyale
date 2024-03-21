@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
@@ -21,10 +22,10 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			_collectableView.SetEntityView(game, EntityView);
 
-			TryShowEquipment(collectable.Item);
+			TryShowEquipment(collectable.Item).Forget();
 		}
 
-		private async void TryShowEquipment(Equipment item)
+		private async UniTaskVoid TryShowEquipment(Equipment item)
 		{
 			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(item.GameId);
 

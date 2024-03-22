@@ -171,10 +171,21 @@ namespace Quantum.Systems
 				Collectable.DropEquipment(f, drop, deathPosition, step, true, anglesToDrop);
 				step++;
 			}
+			
+			var noHealthNoShields = f.Context.TryGetMutatorByType(MutatorType.Hardcore, out _);
 
 			foreach (var drop in consumablesToDrop)
 			{
-				Collectable.DropConsumable(f, drop, deathPosition, step, true, anglesToDrop);
+				if (noHealthNoShields &&
+					(drop == GameId.Health ||
+					 drop == GameId.ShieldSmall))
+				{
+					// Don't drop Health and Shields with Hardcore mutator
+				}
+				else
+				{
+					Collectable.DropConsumable(f, drop, deathPosition, step, true, anglesToDrop);
+				}
 				step++;
 			}
 		}

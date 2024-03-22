@@ -31,6 +31,8 @@ namespace FirstLight.Editor.Build
 			SetupDevelopmentBuild(isDevelopmentBuild, ref buildConfig);
 			SetupAddressables(environment, buildTarget);
 			SetupServerDefines(environment, ref buildConfig);
+			
+			AssetDatabase.Refresh();
 
 			// Additional build options
 			buildConfig.target = buildTarget;

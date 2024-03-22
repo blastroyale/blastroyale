@@ -39,13 +39,9 @@ namespace FirstLight.Editor.Build.Utils
 		public static BuildTarget GetBuildTarget()
 		{
 			var buildTarget = BuildTarget.NoTarget;
-			Debug.Log("PACO BUILD TARGET NONE");
-
 #if UNITY_ANDROID
 			buildTarget = BuildTarget.Android;
-			Debug.Log("PACO BUILD TARGET ANDROID");
 #elif UNITY_IOS
-			Debug.Log("PACO BUILD TARGET iOS");
 			buildTarget = BuildTarget.iOS;
 #endif
 
@@ -54,8 +50,8 @@ namespace FirstLight.Editor.Build.Utils
 		
 		private static string GetCMDArgument(string argumentName)
 		{
-			string[] args = Environment.GetCommandLineArgs();
-			for (int i = 0; i < args.Length; i++)
+			var args = Environment.GetCommandLineArgs();
+			for (var i = 0; i < args.Length; i++)
 			{
 				if (args[i] == argumentName && args.Length > i + 1)
 				{

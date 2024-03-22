@@ -21,13 +21,13 @@ namespace FirstLight.Editor.Build
 	/// </summary>
 	public class FirstLightBuildProcess : IPostprocessBuildWithReport, IPreprocessBuildWithReport
 	{
-		public int callbackOrder => 1000;
+		public int callbackOrder => 0;
 
 		public void OnPreprocessBuild(BuildReport report)
 		{
 			Debug.Log("FirstLightBuildPostProcess.OnPostprocessBuild OnPreprocessBuild");
 
-			var environment = Environment.GetEnvironmentVariable("FL_ENVIRONMENT") ?? BuildUtils.ENV_DEV;
+			var environment = BuildUtils.GetEnvironment();
 
 			PrepareFirebase(environment);
 			VersionEditorUtils.SetAndSaveInternalVersion(environment);

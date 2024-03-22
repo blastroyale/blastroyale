@@ -3300,6 +3300,7 @@ MonoBehaviour:
     Consumable: []
     CosmeticsHolder: []
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -3385,6 +3386,7 @@ MonoBehaviour:
     Consumable: []
     CosmeticsHolder: []
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -3476,6 +3478,7 @@ MonoBehaviour:
     - Cosmetics:
       - Value: 69
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -3567,6 +3570,7 @@ MonoBehaviour:
     - Cosmetics:
       - Value: 83
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -3658,6 +3662,7 @@ MonoBehaviour:
     - Cosmetics:
       - Value: 77
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -3749,6 +3754,7 @@ MonoBehaviour:
     - Cosmetics:
       - Value: 77
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -3846,10 +3852,13 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 0
+      DoNotDestroy:
+        Value: 1
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -3941,10 +3950,13 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 0
+      DoNotDestroy:
+        Value: 1
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -4036,10 +4048,13 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 0
+      DoNotDestroy:
+        Value: 1
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -4131,10 +4146,13 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 1
+      DoNotDestroy:
+        Value: 1
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -4226,10 +4244,13 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 0
+      DoNotDestroy:
+        Value: 1
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -4313,6 +4334,7 @@ MonoBehaviour:
     Consumable: []
     CosmeticsHolder: []
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -4449,6 +4471,7 @@ MonoBehaviour:
     Consumable: []
     CosmeticsHolder: []
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -4585,6 +4608,7 @@ MonoBehaviour:
     Consumable: []
     CosmeticsHolder: []
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible:
     - IsDestructing:
         Value: 0
@@ -4721,6 +4745,7 @@ MonoBehaviour:
     Consumable: []
     CosmeticsHolder: []
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
@@ -4857,6 +4882,7 @@ MonoBehaviour:
     Consumable: []
     CosmeticsHolder: []
     DeadPlayerCharacter: []
+    DeathFlag: []
     Destructible:
     - IsDestructing:
         Value: 0

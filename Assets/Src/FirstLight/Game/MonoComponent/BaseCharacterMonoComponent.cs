@@ -77,6 +77,7 @@ namespace FirstLight.Game.MonoComponent
 
 		public void AnimateVictory()
 		{
+			if (_skin == null) return;
 			_skin.TriggerVictory();
 		}
 

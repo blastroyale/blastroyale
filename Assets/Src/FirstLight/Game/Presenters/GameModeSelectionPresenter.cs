@@ -9,6 +9,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UiService;
+using I2.Loc;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -94,6 +95,8 @@ namespace FirstLight.Game.Presenters
 			var gameModeInfo = new GameModeInfo();
 			gameModeInfo.Entry.GameModeId = GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME;
 			gameModeInfo.Entry.MatchType = MatchType.Custom;
+			gameModeInfo.Entry.TitleTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_title;
+			gameModeInfo.Entry.DescriptionTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_description;
 			gameModeInfo.Entry.Mutators = new List<string>();
 			var createGameButton = _buttonAsset.Instantiate();
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
@@ -143,9 +146,9 @@ namespace FirstLight.Game.Presenters
 
 		private IEnumerator ChangeGameModeCoroutine(GameModeSelectionButtonView info)
 		{
-			yield return new WaitForSeconds(0.3f);
 			_services.GameModeService.SelectedGameMode.Value = info.GameModeInfo;
 			Data.GameModeChosen(info.GameModeInfo);
+			yield return null;
 		}
 
 		private void SelectButton(GameModeSelectionButtonView info)

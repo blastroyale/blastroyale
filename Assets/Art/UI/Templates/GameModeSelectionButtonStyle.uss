@@ -25,6 +25,35 @@
     overflow: visible;
 }
 
+.game-mode-button__disabled {
+    flex-grow: 1;
+    position: absolute;
+    width: 526px;
+    height: 753px;
+    background-image: url("project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&amp;guid=396868652aab04b298372850f07f4a48&amp;type=3#ModeButton");
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgba(84, 84, 84, 0.84);
+    -unity-background-scale-mode: scale-and-crop;
+    top: -2px;
+    left: -2px;
+    justify-content: center;
+}
+
+.game-mode-button__disabled-label {
+    font-size: 48px;
+    -unity-text-outline-width: 1px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    width: 80%;
+    align-self: center;
+    white-space: normal;
+}
+
+.game-mode-button:disabled {
+    opacity: 1;
+}
+
 .game-mode-button--selected {
     width: auto;
     margin-left: 20px;
@@ -107,44 +136,18 @@
     -unity-background-image-tint-color: rgba(255, 255, 255, 0);
 }
 
-.game-mode-button__top-image {
-    position: absolute;
-}
-
 .game-mode-button--battleroyale-solo .game-mode-button__top {
     background-image: var(--sprite-home__background-gamemode-battleroyale-solo);
 }
 
-.game-mode-button--battleroyale-solo .game-mode-button__top-image {
-    width: 491px;
-    height: 466px;
-    top: 51px;
-    left: -5px;
-    background-image: var(--sprite-home__background-gamemode-battleroyale-solo-top);
-}
 
 .game-mode-button--battleroyale-duos .game-mode-button__top {
     background-image: var(--sprite-home__background-gamemode-battleroyale-duos);
 }
 
-.game-mode-button--battleroyale-duos .game-mode-button__top-image {
-    background-image: none;
-    width: 491px;
-    height: 466px;
-    top: 48px;
-    left: -5px;
-}
 
 .game-mode-button--battleroyale-quads .game-mode-button__top {
     background-image: var(--sprite-home__background-gamemode-battleroyale-quads);
-}
-
-.game-mode-button--battleroyale-quads .game-mode-button__top-image {
-    background-image: var(--sprite-home__background-gamemode-battleroyale-quads-top);
-    width: 491px;
-    height: 466px;
-    top: 48px;
-    left: -5px;
 }
 
 
@@ -225,20 +228,12 @@
     color: rgb(9, 20, 55);
 }
 
-.game-mode-button-trios__label {
-    font-size: 42px;
-}
-
-.game-mode-button--matchmaking .game-mode-button__label {
-    color: rgb(71, 18, 2);
-}
-
-.game-mode-button--casual .game-mode-button__label {
-    color: rgb(8, 20, 58);
+.game-mode-button--custom .game-mode-button__label {
+    font-size: 48px;
 }
 
 .game-mode-button__description {
-    color: rgb(84, 103, 141);
+    color: #103B89;
     font-size: 30px;
     white-space: normal;
     padding-right: 4px;
@@ -248,17 +243,6 @@
     padding-left: 10px;
 }
 
-.game-mode-button--matchmaking .game-mode-button__description {
-    color: rgb(120, 3, 23);
-}
-
-.game-mode-button--casual .game-mode-button__description {
-    color: rgb(16, 59, 137);
-}
-
-.game-mode-button--custom .game-mode-button__description {
-    color: rgb(104, 100, 138);
-}
 
 .game-mode-button__timer {
     color: rgb(0, 0, 0);
@@ -273,13 +257,8 @@
     right: 30px;
 }
 
-.game-mode-button--matchmaking .game-mode-button__timer {
-    color: rgb(155, 47, 38);
-}
 
-.game-mode-button--casual .game-mode-button__timer {
-    color: rgb(16, 59, 137);
-}
+
 
 .game-mode-button__mutators {
     width: 270px;
@@ -373,13 +352,6 @@
     -unity-text-outline-width: 2px;
 }
 
-.game-mode-button--matchmaking .game-mode-button__mode-tag-title {
-    -unity-text-outline-color: rgb(177, 46, 0);
-}
-
-.game-mode-button--casual .game-mode-button__mode-tag-title {
-    -unity-text-outline-color: rgb(0, 74, 158);
-}
 
 .game-mode-button--selected .game-mode-button__glow {
     position: absolute;
@@ -392,20 +364,6 @@
     rotate: 5deg;
 }
 
-.comming-soon-image {
-    width: 448px;
-    height: 650px;
-    background-image: var(--sprite-home__background-modeselection-comingsoon);
-}
-
-.coming-soon-button {
-    height: 763px;
-    width: 529px;
-    margin-left: 30px;
-    margin-top: 120px;
-    margin-bottom: 100px;
-    justify-content: center;
-}
 
 .visible-gamemodebutton1 {
     transition-delay: 0.1s, 0.1s;

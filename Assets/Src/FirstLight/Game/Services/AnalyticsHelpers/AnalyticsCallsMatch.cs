@@ -78,7 +78,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			// We create lookups so we don't have boxing situations happening during the gameplay
 			_matchId = _services.NetworkService.QuantumClient.CurrentRoom.Name;
 			_mutators = string.Join(",", room.Properties.Mutators.Value);
-			_matchType = room.Properties.MatchType.ToString();
+			_matchType = room.Properties.MatchType.Value.ToString();
 			var rewards = room.Properties.AllowedRewards.Value ?? new List<GameId>();
 			if (room.Properties.MatchType.Value == MatchType.Matchmaking)
 			{
@@ -96,7 +96,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"team_size", room.Properties.TeamSize},
+				{"team_size", room.Properties.TeamSize.Value},
 				{"is_spectator", IsSpectator().ToString()},
 				{"playfab_player_id", _gameData.AppDataProvider.PlayerId} // must be named PlayFabPlayerId or will create error
 			};

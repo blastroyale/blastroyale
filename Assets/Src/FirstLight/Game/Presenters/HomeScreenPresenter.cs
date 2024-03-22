@@ -79,7 +79,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _settingsNotification;
 		private VisualElement _newsNotification;
 		private VisualElement _newsNotificationShine;
-		
+
 		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
 		private VisualElement _gameModeIcon;
@@ -89,6 +89,7 @@ namespace FirstLight.Game.Presenters
 
 		private ImageButton _battlePassButton;
 		private Label _battlePassProgressLabel;
+		private Label _battlePassNextLevelLabel;
 		private VisualElement _battlePassProgressElement;
 		private VisualElement _battlePassRarity;
 
@@ -118,7 +119,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			root.Q<ImageButton>("ProfileButton").clicked += () => 
+			root.Q<ImageButton>("ProfileButton").clicked += () =>
 			{
 				if (FeatureFlags.PLAYER_STATS_ENABLED)
 				{
@@ -158,7 +159,7 @@ namespace FirstLight.Game.Presenters
 			_newsNotification = root.Q<VisualElement>("NewsNotification").Required();
 			_newsNotificationShine = root.Q("NewsShine").Required();
 			_newsNotificationShine.AddRotatingEffect(1, 1);
-			
+
 			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
 			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
 			_bppPoolRestockTimeLabel = _bppPoolContainer.Q<Label>("RestockLabelTime").Required();
@@ -168,15 +169,16 @@ namespace FirstLight.Game.Presenters
 			_battlePassProgressElement = _battlePassButton.Q<VisualElement>("BattlePassProgressElement").Required();
 			_battlePassProgressLabel = _battlePassButton.Q<Label>("BPProgressText").Required();
 			_battlePassRarity = _battlePassButton.Q<VisualElement>("BPRarity").Required();
+			_battlePassNextLevelLabel = _battlePassButton.Q<Label>("BarLevelLabel").Required();
 
 			root.Q<ImageButton>("NewsButton").clicked += Data.NewsClicked;
-			
+
 			QueryElementsSquads(root);
 
 			_playButtonContainer = root.Q("PlayButtonHolder");
 			_playButton = root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
-		
+
 			root.Q<CurrencyDisplayElement>("CoinCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
@@ -185,7 +187,8 @@ namespace FirstLight.Game.Presenters
 				.SetAnimationOrigin(_playButton);
 			root.Q<CurrencyDisplayElement>("BlastBuckCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
-				.SetAnimationOrigin(_playButton);;
+				.SetAnimationOrigin(_playButton);
+			;
 
 
 			// TODO: Uncomment when we use Fragments
@@ -225,21 +228,21 @@ namespace FirstLight.Game.Presenters
 				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.YoutubeLink);
 				Data.OnYoutubeClicked();
 			};
-			
+
 			var instagramButton = root.Q<Button>("InstagramButton");
 			instagramButton.clicked += () =>
 			{
 				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.InstagramLink);
 				Data.OnInstagramClicked();
 			};
-			
+
 			var tiktokButton = root.Q<Button>("TiktokButton");
 			tiktokButton.clicked += () =>
 			{
 				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.TiktokLink);
 				Data.OnTiktokClicked();
 			};
-			
+
 			root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
 
@@ -280,8 +283,8 @@ namespace FirstLight.Game.Presenters
 #else
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
-			_betaLabel.SetDisplay(RemoteConfigs.Instance.BetaVersion);
-			
+			_betaLabel.SetDisplay(FeatureFlags.BETA_VERSION);
+
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
 		}
@@ -365,7 +368,7 @@ namespace FirstLight.Game.Presenters
 				_playerTrophiesLabel.text = current.ToString();
 			}
 		}
-		
+
 		private void OnClaimedRewards(ClaimedRewardsMessage msg)
 		{
 			Data.OnRewardsReceived(msg.Rewards);
@@ -589,7 +592,7 @@ namespace FirstLight.Game.Presenters
 			if (!string.IsNullOrEmpty(buttonClass)) _playButton.AddToClassList(buttonClass);
 			_playButton.Localize(translationKey);
 		}
-		
+
 		private void UpdateBattlePassReward()
 		{
 			var nextLevel = _dataProvider.BattlePassDataProvider.CurrentLevel.Value + 1;
@@ -619,11 +622,12 @@ namespace FirstLight.Game.Presenters
 				{
 					var predictedLevelAndPoints =
 						_dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
+					_battlePassNextLevelLabel.text = predictedLevelAndPoints.Item1.ToString();
 					var requiredPoints =
 						_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(
 							(int) predictedLevelAndPoints.Item1);
 
-					_battlePassProgressElement.style.flexGrow = Mathf.Clamp01((float) points / requiredPoints);
+					_battlePassProgressElement.style.width = Length.Percent((float) points / requiredPoints * 100);
 					_battlePassProgressLabel.text = $"{points}/{requiredPoints}";
 				}
 			}

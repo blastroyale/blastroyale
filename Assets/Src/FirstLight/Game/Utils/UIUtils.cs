@@ -214,6 +214,7 @@ namespace FirstLight.Game.Utils
 					FLog.Warn($"Skipping nulling element {visualElement?.name} as its not valid");
 					continue;
 				}
+
 				visualElement.style.backgroundImage = null;
 			}
 
@@ -225,6 +226,7 @@ namespace FirstLight.Game.Utils
 					FLog.Warn($"Skipping updating element background element {visualElement?.name} as its not valid");
 					continue;
 				}
+
 				visualElement.style.backgroundImage = new StyleBackground(sprite);
 			}
 		}
@@ -254,6 +256,19 @@ namespace FirstLight.Game.Utils
 			var spriteTask = gameServices.CollectionService.LoadCollectionItemSprite(itemData);
 
 			element.LoadFromTask(spriteTask).Forget();
+		}
+
+		/// <summary>
+		/// Set the transform.position of an UIToolkit element to be at the same place of a given position in the 3D world
+		/// </summary>
+		public static void SetPositionBasedOnWorldPosition(this VisualElement element, Vector3 worldPosition)
+		{
+			var flgCamera = FLGCamera.Instance.MainCamera;
+
+			var screenPoint = flgCamera.WorldToScreenPoint(worldPosition);
+			screenPoint.y = flgCamera.pixelHeight - screenPoint.y;
+			var panelPos = RuntimePanelUtils.ScreenToPanel(element.panel, screenPoint);
+			element.transform.position = panelPos;
 		}
 	}
 }

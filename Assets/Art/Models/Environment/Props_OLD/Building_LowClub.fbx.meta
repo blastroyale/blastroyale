@@ -38,7 +38,7 @@ ModelImporter:
     extraUserProperties:
     - '#BAKERY{"meshName":["SatDish","Paving","Main","Airial","ACduct","AC"],"padding":[79,29,9,148,37,64],"unwrapper":[0,0,0,0,0,0]}'
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

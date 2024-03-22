@@ -1,41 +1,29 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 8763448719fd59c4d8f144dd551e3ea0
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Superstar_Amulet_LowPoly_mat
-    second:
-      fileID: 2100000
-      guid: 0684775ccf57aea4dbd9205304465d25
-      type: 2
+    second: {fileID: 2100000, guid: 0684775ccf57aea4dbd9205304465d25, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Superstar_Armor_LowPoly_mat
-    second:
-      fileID: 2100000
-      guid: 5d7f0e3182409a748bac0945d1b02abf
-      type: 2
+    second: {fileID: 2100000, guid: 5d7f0e3182409a748bac0945d1b02abf, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Superstar_Headgear_LowPoly_mat
-    second:
-      fileID: 2100000
-      guid: 88e83052962140d4eaf3b7706a9a268c
-      type: 2
+    second: {fileID: 2100000, guid: 88e83052962140d4eaf3b7706a9a268c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Superstar_Shield_LowPoly_mat
-    second:
-      fileID: 2100000
-      guid: f975c61657dd6dc459f7d22003b1b2ed
-      type: 2
+    second: {fileID: 2100000, guid: f975c61657dd6dc459f7d22003b1b2ed, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -64,7 +52,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -72,6 +60,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -99,6 +88,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -125,13 +115,13 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource:
-    instanceID: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

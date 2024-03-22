@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties:
     - '#BAKERY{"meshName":["Prop_TrafficLight_GEO"],"padding":[128],"unwrapper":[0]}'
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

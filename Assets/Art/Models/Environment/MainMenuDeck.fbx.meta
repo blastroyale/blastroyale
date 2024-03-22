@@ -1,57 +1,39 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: e7fa2924a18da4b41806dbc381c56ec5
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: ColorGrads
-    second:
-      fileID: 2100000
-      guid: bc31393375bdcce478995e048d720af2
-      type: 2
+    second: {fileID: 2100000, guid: bc31393375bdcce478995e048d720af2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: ColorGrads2
-    second:
-      fileID: 2100000
-      guid: 482a7c90cef1e2040809546e21672a29
-      type: 2
+    second: {fileID: 2100000, guid: 482a7c90cef1e2040809546e21672a29, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: ColorGradsMet
-    second:
-      fileID: 2100000
-      guid: 482a7c90cef1e2040809546e21672a29
-      type: 2
+    second: {fileID: 2100000, guid: 482a7c90cef1e2040809546e21672a29, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: PostGlow1
-    second:
-      fileID: 2100000
-      guid: 629df2219af10674db37e4b8014bac65
-      type: 2
+    second: {fileID: 2100000, guid: 629df2219af10674db37e4b8014bac65, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Screen3
-    second:
-      fileID: 2100000
-      guid: 20ab21e59f7e96542b06f4005371525b
-      type: 2
+    second: {fileID: 2100000, guid: 20ab21e59f7e96542b06f4005371525b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert1
-    second:
-      fileID: 2100000
-      guid: 8cfb2472d6ca73d49a503682b1bbc573
-      type: 2
+    second: {fileID: 2100000, guid: 8cfb2472d6ca73d49a503682b1bbc573, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -80,7 +62,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -88,6 +70,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -115,6 +98,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -141,13 +125,13 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource:
-    instanceID: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

@@ -1,49 +1,34 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: c311b40ff33eaf741a253d889831656a
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: PunkAmulet
-    second:
-      fileID: 2100000
-      guid: 7bf0bff35a8bf2c49953819a5171ba4b
-      type: 2
+    second: {fileID: 2100000, guid: 7bf0bff35a8bf2c49953819a5171ba4b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: PunkMelee
-    second:
-      fileID: 2100000
-      guid: 8d409e27471aba540b676fd898dc318f
-      type: 2
+    second: {fileID: 2100000, guid: 8d409e27471aba540b676fd898dc318f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: PunkShield
-    second:
-      fileID: 2100000
-      guid: 0a1ab40a825add2479c12a09b46b1c81
-      type: 2
+    second: {fileID: 2100000, guid: 0a1ab40a825add2479c12a09b46b1c81, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Punk_Armor_LowPoly_mat
-    second:
-      fileID: 2100000
-      guid: 50094d2dd1d4fcb48b3424897830f145
-      type: 2
+    second: {fileID: 2100000, guid: 50094d2dd1d4fcb48b3424897830f145, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Punk_Headgear_LowPoly_mat
-    second:
-      fileID: 2100000
-      guid: 20eb3a07a255a754ca5b6d722b55e314
-      type: 2
+    second: {fileID: 2100000, guid: 20eb3a07a255a754ca5b6d722b55e314, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -72,7 +57,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -80,6 +65,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -107,6 +93,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -133,13 +120,13 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource:
-    instanceID: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

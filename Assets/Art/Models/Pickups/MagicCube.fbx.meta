@@ -1,41 +1,29 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 944c6192ee781394f8a07fe7761d4bae
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_DropObjects
-    second:
-      fileID: 2100000
-      guid: dc0965fd198565245af04cdd8aee35d4
-      type: 2
+    second: {fileID: 2100000, guid: dc0965fd198565245af04cdd8aee35d4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_VDU
-    second:
-      fileID: 2100000
-      guid: 9114898b77805ac4793397af4bddc44b
-      type: 2
+    second: {fileID: 2100000, guid: 9114898b77805ac4793397af4bddc44b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: main
-    second:
-      fileID: 2100000
-      guid: dc0965fd198565245af04cdd8aee35d4
-      type: 2
+    second: {fileID: 2100000, guid: dc0965fd198565245af04cdd8aee35d4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: screen
-    second:
-      fileID: 2100000
-      guid: 9114898b77805ac4793397af4bddc44b
-      type: 2
+    second: {fileID: 2100000, guid: 9114898b77805ac4793397af4bddc44b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -64,7 +52,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -72,6 +60,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -99,6 +88,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -125,13 +115,14 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource:
-    instanceID: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

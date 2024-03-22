@@ -1977,11 +1977,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f622cd3d0b6fb4e3183f866053e0307b
-    m_Address: Assets/Art/UI/Sprites/Home/background-gamemode-deathmatch.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 41e9422d6ea0fb54c8039b5b7fcb471d
     m_Address: Assets/Art/UI/Sprites/Home/vfx-rewards-rays.png
     m_ReadOnly: 0
@@ -2352,11 +2347,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 550c896610e0c478ea587216b78ee7f3
-    m_Address: Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b3b57d56d8d364db99645707a4f33405
     m_Address: Assets/Art/UI/Sprites/Home/progress-stats.png
     m_ReadOnly: 0
@@ -2627,11 +2617,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6339c6b0a31c24805b10881f10e793c3
-    m_Address: Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-top.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c353a5b0b54fa1a428fbd490ac07c187
     m_Address: Assets/Art/UI/Sprites/Home/pattern-rewardglow-uncommon.png
     m_ReadOnly: 0
@@ -2654,11 +2639,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bb3c9b50f762955b2a65f5ebdf6242d5
     m_Address: Assets/Art/UI/Sprites/Home/button-play-disabled.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7ffb27509a1d146a8957bdb2a5922475
-    m_Address: Assets/Art/UI/Sprites/Home/background-gamemode-deathmatch-top.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

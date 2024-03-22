@@ -360,9 +360,11 @@
 .battle-pass-button__progress {
     padding: 2px;
     flex-direction: row;
-    background-image: var(--sprite-home__progress-battlepassbtn);
     -unity-background-scale-mode: stretch-to-fill;
-    flex-grow: 0.5;
+    width: 26%;
+    flex-shrink: 0;
+    flex-grow: 0;
+    background-image: var(--sprite-shared__progress-battlepass-rewards-bpp);
 }
 
 .battle-pass-button__bpp-icon {
@@ -385,10 +387,10 @@
 
 .battle-pass-button__reward {
     position: absolute;
-    right: 40px;
-    bottom: 26px;
     width: 132px;
     height: 142px;
+    right: -8px;
+    bottom: 62px;
     background-image: var(--sprite-home__background-bpchestreward);
 }
 
@@ -397,8 +399,8 @@
     background-image: var(--sprite-home__vfx-lightrays-reward);
     width: 346px;
     height: 198px;
-    right: -70px;
-    bottom: 71px;
+    right: -110px;
+    bottom: 94px;
     position: absolute;
 }
 
@@ -617,7 +619,6 @@
     left: 26px;
 }
 
-
 .game-mode-button__mode {
     padding-bottom: 0;
     text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72);
@@ -700,6 +701,59 @@
     position: relative;
     margin-right: 8px;
     -unity-background-scale-mode: scale-to-fit;
+}
+
+.battle-pass-button--claimreward .game-mode-button__next-level {
+    display: none;
+}
+
+.battle-pass-button--completed .game-mode-button__next-level {
+    display: none;
+}
+
+.game-mode-button__next-level {
+    flex-grow: 0;
+    background-color: rgb(48, 6, 109);
+    height: 70px;
+    width: 70px;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-image: none;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-color: rgb(98, 204, 202);
+    border-width: 4px;
+    border-top-left-radius: 35px;
+    border-bottom-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
+    align-items: center;
+    min-height: auto;
+    margin-left: 0;
+    margin-right: 0;
+    position: absolute;
+    bottom: auto;
+    justify-content: center;
+    align-self: center;
+    right: auto;
+    translate: 50% 0;
+    border-left-color: rgb(73, 212, 212);
+    border-right-color: rgb(73, 212, 212);
+    border-top-color: rgb(73, 212, 212);
+    border-bottom-color: rgb(73, 212, 212);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    top: 77px;
+    left: 350px;
+}
+
+.game-mode-button__next-level-label {
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
 
 .resource-pool {

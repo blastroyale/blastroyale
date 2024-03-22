@@ -1,4 +1,7 @@
-Shader "FLG/FastToonShader"
+//
+// Per vertex 
+
+Shader "FLG/FastLambertShader"
 {
     Properties
     {
@@ -27,17 +30,17 @@ Shader "FLG/FastToonShader"
 
             struct Attributes
             {
-                half4 position : POSITION;
-                half2 uv : TEXCOORD0;
-                half3 normal : NORMAL;
+                float4 position : POSITION;
+                float2 uv : TEXCOORD0;
+                float3 normal : NORMAL;
             };
 
             struct Varyings
             {
-                half4 position : SV_POSITION;
-                half2 uv : TEXCOORD0;
-                half3 normal : TEXCOORD1;
-                half3 lambert : TEXCOORD2;
+                float4 position : SV_POSITION;
+                float2 uv : TEXCOORD0;
+                float3 normal : TEXCOORD1;
+                float3 lambert : TEXCOORD2;
             };
 
             TEXTURE2D(_MainTex);
@@ -48,13 +51,7 @@ Shader "FLG/FastToonShader"
             CBUFFER_END
 
             static half3 lightDir = float3(-1, 1, 0);
-            static half3 lightColor = float3(0.6, 0.6, 0.6);
-            static half3 grayScale = float3(0.299, 0.587, 0.114);
-
-            half3 lambert(half3 lightColor, half3 lightDir, half3 normal)
-            {
-                return lightColor * dot(normal, lightDir);
-            }
+            static half3 lightPower = 0.2;
 
             Varyings vert(Attributes IN)
             {
@@ -62,23 +59,14 @@ Shader "FLG/FastToonShader"
                 OUT.position = TransformObjectToHClip(IN.position.xyz);
                 OUT.normal = TransformObjectToWorldNormal(IN.normal);
                 OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
-                OUT.lambert = lambert(lightColor, lightDir, OUT.normal);
+                OUT.lambert = dot(OUT.normal, lightDir) * lightPower;
                 return OUT;
             }
 
             half4 frag(const Varyings IN) : SV_Target
             {
                 half4 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
-                
-                // Fast Toon shade
-                color.rgb  
-                
-                    // Light shining (front part)
-                    += lerp(0.1, 0.22, smoothstep(0.48, 0.51, IN.lambert))
-
-                    // Shadow (back part)
-                    - lerp(0.2, 0.05, smoothstep(0, 0.03, IN.lambert));
-
+                color.rgb += IN.lambert;
                 return color;
             }
             ENDHLSL

@@ -17,7 +17,6 @@ using FirstLight.Game.Views;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
-using UnityEditor.Graphs;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;

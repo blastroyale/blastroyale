@@ -137,6 +137,7 @@ Assets/InitTestScene*.unity
 Assets/InitTestScene*.unity.meta
 Assets/UnityDefaultRuntimeTheme.tss.meta
 Assets/UnityDefaultRuntimeTheme.tss
+/BuildArtifacts/
 
 # DLLs
 Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll

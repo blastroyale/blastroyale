@@ -278,7 +278,7 @@ namespace FirstLight.Game.Presenters
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
 			SetHasNewsNotification(false);
 			_services.NewsService.HasNotSeenNews().ContinueWith(SetHasNewsNotification);
-#if !STORE_BUILD && !UNITY_EDITOR
+#if DEVELOPMENT_BUILD && !UNITY_EDITOR
 			_outOfSyncWarningLabel.SetDisplay(VersionUtils.IsOutOfSync());
 #else
 			_outOfSyncWarningLabel.SetDisplay(false);

@@ -189,7 +189,7 @@ MonoBehaviour:
       - m_Id: c0b8c4f3712014b66b946895576ed012
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 98403f15505af4449befcb5aa59b4183
-        m_Value: RemoteAddressables
+        m_Value: ServerData/[BuildTarget]
       - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
         m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/development/buckets/***REMOVED***/release_by_badge/latest/entry_by_path/content/?path=/[BuildTarget]
       - m_Id: b2d80958694564964b68b1dc52b8801b

@@ -23,7 +23,7 @@ resources:
 parameters:
   - name: param_dev_build
     displayName: Development Build
-    type: bool
+    type: boolean
     default: true
   - name: param_environment
     displayName: Select Target Environment
@@ -87,7 +87,7 @@ variables:
         value: true
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
         value: false
-    - name: server_environment
+    - name: environment
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
         value: "development"
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
@@ -99,7 +99,7 @@ variables:
     - ${{  if eq(parameters['param_dev_build'], 'true') }}:
         - name: configuration
           value: "Debug"
-    - ${{  if eq(parameters['param_build_type'], 'false') }}:
+    - ${{  if eq(parameters['param_dev_build'], 'false') }}:
         - name: configuration
           value: "Release"
     - name: dev_build
@@ -122,8 +122,8 @@ stages:
         - checkout: none
         - bash: |
             echo "Build Reason: $(Build.Reason)"
-            echo "Server Environment: $(server_environment)"
-            echo "Build Type: $(build_type)"
+            echo "Environment: $(environment)"
+            echo "Development build: $(dev_build)"
             echo "Configuration: $(configuration)"
             echo "Android File Type: $(androidFileType)"
             echo "Use Accelerator: $(useAccelerator)"
@@ -139,14 +139,20 @@ stages:
             else
               echo "##vso[task.setvariable variable=deploy_game_logic;]false"
             fi
-            echo "##vso[build.addbuildtag]$(server_environment)"
-            echo "##vso[build.addbuildtag]$(build_type)"
+            echo "##vso[build.addbuildtag]ENV-$(environment)"
+
+
+            if [ "${{ parameters.param_dev_build }}" == "True" ]; then
+              echo "##vso[build.addbuildtag]DEVELOPMENT_BUILD"
+            else
+              echo "##vso[build.addbuildtag]RELEASE_BUILD"
+            fi
           displayName: "Add Tags"
         - powershell: |
             $json = @"
             {
-            "server_environment": "$(server_environment)",
-            "build_type": "$(build_type)",
+            "environment": "$(environment)",
+            "dev_build": "$(dev_build)",
             "deploy_game_logic": "$(deploy_game_logic)"
             }
             "@
@@ -266,7 +272,6 @@ stages:
             unity_serial: $(unity_serial)
             workingDirectory: .
             branchName: $(branchName)
-            server_environment: ${{ variables.server_environment }}
             slackToken: $(slackToken)
             kuttKey: $(kuttKey)
             developmentiOSCertPwd: $(developmentiOSCertPwd)
@@ -318,7 +323,7 @@ stages:
         dependsOn: AndroidBuild
         condition: |
           and(
-              eq('${{ variables.server_environment }}', 'STAGE_SERVER'),
+              eq('${{ variables.environment }}', 'STAGE_SERVER'),
               eq(dependencies.AndroidBuild.result, 'Succeeded')
           )
         steps:

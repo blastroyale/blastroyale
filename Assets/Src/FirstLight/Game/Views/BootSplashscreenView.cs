@@ -13,6 +13,7 @@ using Sirenix.OdinInspector;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
+using AnalyticsService = Unity.Services.Analytics.AnalyticsService;
 
 #pragma warning disable CS1998
 
@@ -77,7 +78,7 @@ namespace FirstLight.Game.Views
 			Debug.Log("initializing with analytics enabled = " + _permissions.IsTrackingAccepted());
 
 			await InitUnityServices();
-			
+
 			await StartAnalytics();
 			if (_permissions.IsTrackingAccepted())
 			{
@@ -126,6 +127,11 @@ namespace FirstLight.Game.Views
 
 			FirebaseApp.Create();
 			FirebaseAnalytics.SetAnalyticsCollectionEnabled(_permissions.IsTrackingAccepted());
+
+			if (_permissions.IsTrackingAccepted())
+			{
+				AnalyticsService.Instance.StartDataCollection();
+			}
 		}
 
 		private void StartSplashScreen()

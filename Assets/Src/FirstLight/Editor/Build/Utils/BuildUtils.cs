@@ -28,7 +28,7 @@ namespace FirstLight.Editor.Build.Utils
 
 		public static int GetBuildNumber()
 		{
-			return int.Parse(Environment.GetEnvironmentVariable(ENVAR_BUILD_NUMBER) ?? GetCMDArgument(ARG_BUILD_NUMBER) ?? "0");
+			return int.Parse(Environment.GetEnvironmentVariable(ENVAR_BUILD_NUMBER) ?? GetCMDArgument(ARG_BUILD_NUMBER) ?? "1");
 		}
 
 		public static bool GetIsDevelopmentBuild()

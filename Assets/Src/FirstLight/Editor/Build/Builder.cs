@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.IO;
 using FirstLight.Editor.Build.Utils;
 using JetBrains.Annotations;
 using UnityEditor;
@@ -5,6 +7,7 @@ using UnityEditor.AddressableAssets;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Debug = UnityEngine.Debug;
 
 namespace FirstLight.Editor.Build
 {
@@ -31,7 +34,8 @@ namespace FirstLight.Editor.Build
 			SetupDevelopmentBuild(isDevelopmentBuild, ref buildConfig);
 			SetupAddressables(environment, buildTarget);
 			SetupServerDefines(environment, ref buildConfig);
-			
+			SetupAndroidKeystore();
+
 			AssetDatabase.Refresh();
 
 			// Additional build options
@@ -104,6 +108,17 @@ namespace FirstLight.Editor.Build
 					EditorApplication.Exit(1);
 					break;
 			}
+		}
+
+		[Conditional("UNITY_ANDROID")]
+		public static void SetupAndroidKeystore()
+		{
+			PlayerSettings.Android.useCustomKeystore = true;
+			PlayerSettings.Android.keystoreName =
+				Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Certificates", "firstlightgames.keystore"));
+			PlayerSettings.Android.keystorePass = "***REMOVED***";
+			PlayerSettings.Android.keyaliasName = "blastroyale";
+			PlayerSettings.Android.keyaliasPass = "***REMOVED***";
 		}
 	}
 }

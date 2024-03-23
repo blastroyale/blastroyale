@@ -12,7 +12,6 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
-using Environment = System.Environment;
 
 namespace FirstLight.Editor.Build
 {

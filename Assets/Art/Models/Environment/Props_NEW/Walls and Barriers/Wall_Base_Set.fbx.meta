@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties:
     - '#BAKERY{"meshName":["Wall_Base_Straight_GEO","Wall_Base_Corner_Long_GEO","Wall_Base_Corner_Short_GEO"],"padding":[38,23,32],"unwrapper":[0,0,0]}'
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

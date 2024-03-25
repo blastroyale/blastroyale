@@ -38,7 +38,7 @@ ModelImporter:
     extraUserProperties:
     - '#BAKERY{"meshName":["Barrier_Wild_Logs01"],"padding":[38],"unwrapper":[0]}'
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

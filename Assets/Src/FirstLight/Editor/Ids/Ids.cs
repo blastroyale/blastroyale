@@ -262,6 +262,10 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinWrench", 318, MeleeSkin, Collection},
 			{"MeleeSkinYouGotMail", 319, MeleeSkin, Collection},
 			{"MeleeSkinXmas2023", 320, MeleeSkin, Collection, BotItem},
+			{"MeleeSkinBaton", 129, MeleeSkin, Collection},
+			{"MeleeSkinKatana", 206, MeleeSkin, Collection},
+			{"MeleeSkinKeyboard", 207, MeleeSkin, Collection},
+			{"MeleeSkinMagicalShillelagh", 208, MeleeSkin, Collection},
 			
 			#endregion
 

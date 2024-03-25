@@ -16,7 +16,6 @@ MonoBehaviour:
     Groups:
     - Key: 38
       Value:
-        DefaultAnimationOverwrite: {fileID: 22100000, guid: 02cae561722a8ef429dadff05f4b7e45, type: 2}
         DefaultSkin: 300
         Configs:
         - SkinId: 300
@@ -257,6 +256,50 @@ MonoBehaviour:
             m_EditorAssetChanged: 0
           Sprite:
             m_AssetGUID: 67aa28c95d8df4e219b4758800bf3b87
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 129
+          Prefab:
+            m_AssetGUID: 5735c2128809b4b21bd236d8ff50c4fa
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 845a2ac59e12c0d4db3dba32a535fa5c
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 196
+          Prefab:
+            m_AssetGUID: f2884e7aef209425cbecdd9747fada23
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 845a2ac59e12c0d4db3dba32a535fa5c
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 199
+          Prefab:
+            m_AssetGUID: afb4cba65aa914403a137340c2a1d8c1
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 845a2ac59e12c0d4db3dba32a535fa5c
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 201
+          Prefab:
+            m_AssetGUID: bb3c5cd06f4cb481b849918aecb8f3c1
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 845a2ac59e12c0d4db3dba32a535fa5c
             m_SubObjectName: 
             m_SubObjectType: 
             m_EditorAssetChanged: 0

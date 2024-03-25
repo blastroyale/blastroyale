@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using FirstLight.Editor.Build.Utils;
 using JetBrains.Annotations;
 using UnityEditor;
@@ -35,6 +37,7 @@ namespace FirstLight.Editor.Build
 			SetupAddressables(environment, buildTarget);
 			SetupServerDefines(environment, ref buildConfig);
 			SetupAndroidKeystore();
+			SetupScenes(ref buildConfig);
 
 			AssetDatabase.Refresh();
 
@@ -49,6 +52,11 @@ namespace FirstLight.Editor.Build
 			{
 				EditorApplication.Exit(1);
 			}
+		}
+
+		private static void SetupScenes(ref BuildPlayerOptions buildConfig)
+		{
+			buildConfig.scenes = (from editorScene in EditorBuildSettings.scenes where editorScene.enabled select editorScene.path).ToArray();
 		}
 
 		private static void SetupDevelopmentBuild(bool isDevelopmentBuild, ref BuildPlayerOptions buildOptions)

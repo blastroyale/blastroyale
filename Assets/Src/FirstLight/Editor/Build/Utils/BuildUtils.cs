@@ -9,6 +9,7 @@ namespace FirstLight.Editor.Build.Utils
 	/// </summary>
 	public static class BuildUtils
 	{
+		// TODO: This should be somewhere else - need to unify environment with backend service.
 		public const string ENV_DEV = "development";
 		public const string ENV_STAGING = "staging";
 		public const string ENV_PROD = "production";

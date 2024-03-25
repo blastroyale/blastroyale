@@ -38,19 +38,32 @@ namespace FirstLight.Editor.Build
 			SetupServerDefines(environment, ref buildConfig);
 			SetupAndroidKeystore();
 			SetupScenes(ref buildConfig);
+			SetupPath(ref buildConfig, buildTarget);
 
 			AssetDatabase.Refresh();
 
 			// Additional build options
 			buildConfig.target = buildTarget;
 			buildConfig.options |= BuildOptions.CompressWithLz4HC;
-			buildConfig.locationPathName = "app";
 
 			var buildReport = BuildPipeline.BuildPlayer(buildConfig);
 
 			if (buildReport.summary.result != BuildResult.Succeeded)
 			{
 				EditorApplication.Exit(1);
+			}
+		}
+
+		private static void SetupPath(ref BuildPlayerOptions buildConfig, BuildTarget buildTarget)
+		{
+			switch (buildTarget)
+			{
+				case BuildTarget.Android:
+					buildConfig.locationPathName = "app.apk";
+					break;
+				case BuildTarget.iOS:
+					buildConfig.locationPathName = "app";
+					break;
 			}
 		}
 

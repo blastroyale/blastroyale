@@ -132,6 +132,18 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				loadout.TryGetValue(GameIdGroup.Shield, out var shieldId);
 				loadout.TryGetValue(GameIdGroup.Armor, out var armorId);
 				loadout.TryGetValue(GameIdGroup.Amulet, out var amuletId);
+				
+				_matchId = _services.NetworkService.QuantumClient.CurrentRoom.Name;
+				_mutators = string.Join(",", room.Properties.Mutators.Value);
+				_matchType = room.Properties.MatchType.Value.ToString();
+				var rewards = room.Properties.AllowedRewards.Value ?? new List<GameId>();
+				if (room.Properties.MatchType.Value == MatchType.Matchmaking)
+				{
+					_matchType = rewards.Contains(GameId.Trophies) ? "Ranked" : "Casual";
+				}
+
+				_gameModeId = room.Properties.GameModeId.Value;
+				_mapId = ((int) config.Map).ToString();
 
 				var data = new Dictionary<string, object>
 				{

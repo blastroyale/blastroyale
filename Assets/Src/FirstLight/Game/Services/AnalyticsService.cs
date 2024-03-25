@@ -84,7 +84,7 @@ namespace FirstLight.Game.Services
 		/// Logs an analytics event with the given <paramref name="eventName"/>.
 		/// <paramref name="isCriticalEvent"/> represents data that are critical to send to any data end point no matter what
 		/// </summary>
-		void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true);
+		void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true, bool ignoreForUnity = false);
 
 		/// <summary>
 		/// Logs a crash with the given <paramref name="message"/>
@@ -127,17 +127,23 @@ namespace FirstLight.Game.Services
 
 
 		/// <inheritdoc />
-		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true)
+		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true, bool ignoreForUnity = false)
 		{
 			if (!AppPermissions.Get().IsTrackingAccepted()) return;
 
 			try
 			{
-				var unityEvent = new CustomEvent(eventName);
-				if (parameters != null)
-					foreach (var (key, value) in parameters)
-						unityEvent[key] = value;
-				Unity.Services.Analytics.AnalyticsService.Instance.RecordEvent(unityEvent);
+				if (!ignoreForUnity)
+				{
+					// Lovely little waterfall of analytics 👉👈
+					var unityEvent = new CustomEvent(eventName);
+					if (parameters != null)
+						foreach (var (key, value) in parameters)
+							if(key is not "custom_event_timestamp")
+								unityEvent[key] = value;
+
+					Unity.Services.Analytics.AnalyticsService.Instance.RecordEvent(unityEvent);
+				}
 
 				//PlayFab Analytics
 				if (PlayFabSettings.staticPlayer.IsClientLoggedIn())

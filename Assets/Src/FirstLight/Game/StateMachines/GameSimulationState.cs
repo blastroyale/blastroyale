@@ -70,7 +70,6 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 
 			var battleRoyale = stateFactory.Nest("Battle Royale Mode");
-			var modeCheck = stateFactory.Choice("Game Mode Check");
 			var startSimulation = stateFactory.State("Start Simulation");
 			var stopSimulationForDisconnection = stateFactory.State("Stop Simulation");
 			var simulationInitializationError = stateFactory.Choice("Stop Simulation Initialization Error");
@@ -81,16 +80,12 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 
 			startSimulation.OnEnter(StartSimulation);
-			startSimulation.Event(SimulationStartedEvent).Target(modeCheck);
+			startSimulation.Event(SimulationStartedEvent).Target(battleRoyale);
 			startSimulation.Event(SimulationDestroyedEvent).Target(simulationInitializationError);
 			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
 			startSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
 			startSimulation.OnExit(CloseSwipeTransition);
 
-			//modeCheck.OnEnter(OpenAdventureWorldHud);
-			// TODO: modeCheck.OnEnter(OpenLowConnectionScreen);
-			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
-			modeCheck.Transition().Target(battleRoyale);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
@@ -210,13 +205,6 @@ namespace FirstLight.Game.StateMachines
 		private string GetTeamId()
 		{
 			return _services.RoomService.CurrentRoom.GetTeamForPlayer(_services.RoomService.CurrentRoom.LocalPlayer);
-		}
-
-
-		private bool ShouldUseBattleRoyaleSM()
-		{
-			return _services.RoomService.CurrentRoom.GameModeConfig.AudioStateMachine ==
-				AudioStateMachine.BattleRoyale;
 		}
 
 		private void OnGameStart(CallbackGameStarted callback)

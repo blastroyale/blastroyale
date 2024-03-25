@@ -46,7 +46,7 @@ namespace Quantum.Systems.Bots
 			var playerLimit = f.PlayerCount;
 			var botIds = new List<PlayerRef>();
 
-			var maxPlayers = Math.Min(f.Context.MapConfig.MaxPlayers, f.Context.GameModeConfig.MaxPlayers);
+			var maxPlayers = f.Context.MapConfig.MaxPlayers;
 			if (playerLimit == 1 && maxPlayers > 1) // offline game with bots
 			{
 				playerLimit = (int)maxPlayers;
@@ -87,7 +87,7 @@ namespace Quantum.Systems.Bots
 				PlayerPrototype = f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id),
 				NavMeshAgentConfig = f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id),
 				PlayersByTeam = TeamSystem.GetPlayersByTeam(f),
-				TotalTeamsInGameMode = f.Context.GameModeConfig.MaxPlayers / (uint)f.GetTeamSize()
+				TotalTeamsInGameMode = (uint)f.PlayerCount / (uint)f.GetTeamSize()
 			};
 			AddBotTeams(ctx);
 			return ctx;

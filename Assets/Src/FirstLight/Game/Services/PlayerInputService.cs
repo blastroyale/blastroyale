@@ -80,7 +80,7 @@ namespace FirstLight.Game.Services
 				DisableSkydivingControls(true);
 			}
 		}
-		
+
 
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
@@ -142,6 +142,7 @@ namespace FirstLight.Game.Services
 		{
 			// do nothing
 		}
+
 		private void OnPlayerRevived(EventOnPlayerRevived callback)
 		{
 			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
@@ -154,7 +155,6 @@ namespace FirstLight.Game.Services
 			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 			if (callback.Entity != playerEntity) return;
 			Input.Gameplay.Aim.Disable();
-
 		}
 
 		public void OnSpecialButton0(InputAction.CallbackContext context)
@@ -216,6 +216,12 @@ namespace FirstLight.Game.Services
 
 		public void OnToggleMinimapButton(InputAction.CallbackContext context)
 		{
+		}
+
+		public void OnSpeedHack(InputAction.CallbackContext context)
+		{
+			if (!Debug.isDebugBuild) return;
+			QuantumRunner.Default.Game.SendCommand(new CheatMoveSpeedCommand());
 		}
 
 		private void PollInput(CallbackPollInput callback)

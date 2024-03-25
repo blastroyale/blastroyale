@@ -21,6 +21,7 @@ namespace Quantum.Systems.Bots
 		private BotSetup _botSetup = new BotSetup();
 		private BattleRoyaleBot _battleRoyaleBot = new BattleRoyaleBot();
 		private WanderAndShootBot _wanderAndShootBot = new WanderAndShootBot();
+		private StaticShootingBot _staticShootingBot = new StaticShootingBot();
 		private BotUpdateGlobalContext _updateContext = new BotUpdateGlobalContext();
 
 		public struct BotCharacterFilter
@@ -90,18 +91,6 @@ namespace Quantum.Systems.Bots
 		private void Update(Frame f, BotUpdateGlobalContext botCtx, ref BotCharacterFilter filter)
 		{
 			if (QuantumFeatureFlags.FREEZE_BOTS) return;
-			// If it's a deathmatch game mode and a bot is dead then we process respawn behaviour
-			if (f.Context.GameModeConfig.BotRespawn && f.TryGet<DeadPlayerCharacter>(filter.Entity, out var deadBot))
-			{
-				// If the bot is dead and it's not yet the time to respawn then we skip the update
-				if (f.Time < deadBot.TimeOfDeath + f.GameConfig.PlayerRespawnTime)
-				{
-					return;
-				}
-
-				var agent = f.Unsafe.GetPointer<HFSMAgent>(filter.Entity);
-				HFSMManager.TriggerEvent(f, &agent->Data, filter.Entity, Constants.RespawnEvent);
-			}
 
 			// If a bot is not alive OR a bot is stunned 
 			// then we don't go further with the behaviour
@@ -167,12 +156,17 @@ namespace Quantum.Systems.Bots
 
 			// Static bots don't move so no need to process anything else
 			if (filter.BotCharacter->BehaviourType == BotBehaviourType.Static) return;
+			if (filter.BotCharacter->BehaviourType == BotBehaviourType.StaticShooting)
+			{
+				_staticShootingBot.Update(f, ref filter, botCtx);
+			}
 
 			if (filter.BotCharacter->BehaviourType == BotBehaviourType.WanderAndShoot)
 			{
 				_wanderAndShootBot.Update(f, ref filter, botCtx);
 				return;
 			}
+
 
 			_battleRoyaleBot.Update(f, ref filter, isTakingCircleDamage, botCtx);
 		}
@@ -222,7 +216,7 @@ namespace Quantum.Systems.Bots
 
 			BotLogger.LogAction(entity, $"Bot took damage from {attacker}");
 			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot)) return;
-			if (bot->BehaviourType == BotBehaviourType.Static) return;
+			if (bot->IsStaticMovement()) return;
 			if (attacker == bot->Target) return;
 			if (!f.Unsafe.TryGetPointer<Transform3D>(attacker, out var attackerLocation)) return;
 			if (!f.Unsafe.TryGetPointer<Transform3D>(entity, out var botLocation)) return;
@@ -287,9 +281,9 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
-			bot->IsMoveSpeedReseted = true;			
+			bot->IsMoveSpeedReseted = true;
 			bot->SetNextDecisionDelay(f, 0);
-			
+
 			if (f.Unsafe.TryGetPointer<AIBlackboardComponent>(entity, out var bb))
 			{
 				bb->Set(f, Constants.IsKnockedOut, false);
@@ -312,7 +306,7 @@ namespace Quantum.Systems.Bots
 				bot->ResetTargetWaypoint(f);
 				bot->Target = EntityRef.None;
 			}
-			
+
 			BotShooting.StopAiming(f, bot, knockedOutEntity);
 			bot->SetNextDecisionDelay(f, 0);
 

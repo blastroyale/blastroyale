@@ -192,8 +192,12 @@ namespace FirstLight.Editor.EditorTools
 		private static void SimulateLag()
 		{
 			var client = MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient;
-			client.LoadBalancingPeer.NetworkSimulationSettings.IncomingLossPercentage = 25;
-			client.LoadBalancingPeer.NetworkSimulationSettings.OutgoingLossPercentage = 25;
+			client.LoadBalancingPeer.NetworkSimulationSettings.IncomingLossPercentage = 3;
+			client.LoadBalancingPeer.NetworkSimulationSettings.OutgoingLossPercentage = 3;
+			client.LoadBalancingPeer.NetworkSimulationSettings.OutgoingLag = 100;
+			client.LoadBalancingPeer.NetworkSimulationSettings.IncomingLag = 100;
+			client.LoadBalancingPeer.NetworkSimulationSettings.IncomingJitter = 10;
+			client.LoadBalancingPeer.NetworkSimulationSettings.OutgoingJitter = 10;
 			client.LoadBalancingPeer.IsSimulationEnabled = true;
 		}
 
@@ -406,7 +410,7 @@ namespace FirstLight.Editor.EditorTools
 
 		public static Dictionary<string, string> GetAllGeneratedClassNames()
 		{
-			return GetSpritesGroupedByDirectory()
+			return GetSpritesGroupedByDirectory(false)
 				.SelectMany(GetGeneratedClasses)
 				.ToDictionary(k => k.Key, v => v.Value);
 		}
@@ -436,7 +440,7 @@ namespace FirstLight.Editor.EditorTools
 			Debug.Log($"Sprite USS generation finished.");
 		}
 
-		private static IEnumerable<IGrouping<string, string>> GetSpritesGroupedByDirectory()
+		private static IEnumerable<IGrouping<string, string>> GetSpritesGroupedByDirectory(bool log = true)
 		{
 			const string SPRITES_FOLDER = "Assets/Art/UI/Sprites/";
 
@@ -447,8 +451,9 @@ namespace FirstLight.Editor.EditorTools
 					AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(Texture2D))
 				.Select(s =>
 				{
-					Debug.Log(
-						$"Path: {s} type: {AssetDatabase.GetMainAssetTypeAtPath(s) == typeof(Texture2D)}");
+					if (log)
+						Debug.Log(
+							$"Path: {s} type: {AssetDatabase.GetMainAssetTypeAtPath(s) == typeof(Texture2D)}");
 					return s;
 				})
 				.GroupBy(str => str.Split('/')[4]);

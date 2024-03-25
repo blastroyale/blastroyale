@@ -19,7 +19,7 @@ namespace Quantum.Systems.Bots
 			{
 				return Stats.GetStat(f, entity, StatType.AttackRange);
 			}
-			
+
 			return FPMath.Min(Stats.GetStat(f, entity, StatType.AttackRange), bot.MaxAimingRange);
 		}
 
@@ -32,6 +32,8 @@ namespace Quantum.Systems.Bots
 			{
 				return EntityRef.None;
 			}
+
+			if (filter.BotCharacter->BehaviourType == BotBehaviourType.StaticShooting) return EntityRef.None;
 
 			var target = filter.BotCharacter->Target;
 			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
@@ -81,10 +83,13 @@ namespace Quantum.Systems.Bots
 		// We loop through targetable entities trying to find if any is eligible to shoot at
 		public static void FindEnemiesToShootAt(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
 		{
-			if (ReviveSystem.IsKnockedOut(f,botFilter.Entity))
+			if (ReviveSystem.IsKnockedOut(f, botFilter.Entity))
 			{
 				return;
 			}
+
+			if (botFilter.BotCharacter->BehaviourType == BotBehaviourType.StaticShooting) return;
+
 			var target = EntityRef.None;
 			// We do line/shapecasts for enemies in sight
 			// If there is a target in Sight then store this Target into the blackboard variable
@@ -117,8 +122,8 @@ namespace Quantum.Systems.Bots
 
 		public static bool IsGoingTowardsEnemy(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
 		{
-			return botFilter.BotCharacter->MoveTarget.IsValid 
-				&& botFilter.BotCharacter->MoveTarget != botFilter.Entity 
+			return botFilter.BotCharacter->MoveTarget.IsValid
+				&& botFilter.BotCharacter->MoveTarget != botFilter.Entity
 				&& f.Has<PlayerCharacter>(botFilter.BotCharacter->MoveTarget);
 		}
 
@@ -143,6 +148,7 @@ namespace Quantum.Systems.Bots
 					botFilter.NavMeshAgent->Stop(f, botFilter.Entity, true);
 				}
 			}
+
 			botFilter.BotCharacter->Target = EntityRef.None;
 		}
 
@@ -191,7 +197,7 @@ namespace Quantum.Systems.Bots
 		/// </summary>
 		public static bool TryCombatMovement(this ref BotCharacter bot, in EntityRef e, Frame f, in FPVector3 botPosition, in EntityRef target, in FPVector3 targetPosition, in FP rangeSquared, in FP distanceSquared)
 		{
-			if (bot.IsLowLife(e, f) || bot.BehaviourType == BotBehaviourType.Static) return false;
+			if (bot.IsLowLife(e, f) || bot.IsStaticMovement()) return false;
 			if (!bot.Target.IsValid && bot.HasWaypoint(e, f)) return false; // if im not combating and moving ill ignore
 			if (!bot.GetCanTakeDecision(f)) return false;
 

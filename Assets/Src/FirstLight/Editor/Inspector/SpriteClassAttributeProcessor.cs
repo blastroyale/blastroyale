@@ -8,21 +8,25 @@ using UnityEditor;
 
 namespace FirstLight.Editor.Inspector
 {
-	[InitializeOnLoad]
 	public class SpriteClassAttributeProcessor : OdinAttributeProcessor
 	{
-		public static ValueDropdownList<string> cachedClasses;
+		private static ValueDropdownList<string> _cachedClasses;
 
 
-		static SpriteClassAttributeProcessor()
+		private static ValueDropdownList<string> GetClasses()
 		{
-			cachedClasses = new ValueDropdownList<string>();
-			foreach (var kv in EditorShortcuts.GetAllGeneratedClassNames())
+			if (_cachedClasses == null || _cachedClasses.Count == 0)
 			{
-				cachedClasses.Add(kv.Key, kv.Value);
+				_cachedClasses = new ValueDropdownList<string>();
+				foreach (var kv in EditorShortcuts.GetAllGeneratedClassNames())
+				{
+					_cachedClasses.Add(kv.Key, kv.Value);
+				}
 			}
+
+			return _cachedClasses;
 		}
-		
+
 		public override bool CanProcessSelfAttributes(InspectorProperty property)
 		{
 			return property.GetAttribute<SpriteClassAttribute>() != null;
@@ -31,7 +35,7 @@ namespace FirstLight.Editor.Inspector
 		public override void ProcessSelfAttributes(InspectorProperty property, List<Attribute> attributes)
 		{
 			attributes.Add(new ValueDropdownAttribute($"@{nameof(SpriteClassAttributeProcessor)}.{nameof(GetSprites)}()"));
-			attributes.Add(new InfoBoxAttribute($"@{nameof(SpriteClassAttributeProcessor)}.GetClassName($property)"));
+			attributes.Add(new InfoBoxAttribute($"@{nameof(SpriteClassAttributeProcessor)}.{nameof(GetClassName)}($property)"));
 			base.ProcessSelfAttributes(property, attributes);
 		}
 
@@ -42,8 +46,7 @@ namespace FirstLight.Editor.Inspector
 
 		private static IEnumerable GetSprites()
 		{
-			return cachedClasses;
+			return GetClasses();
 		}
 	}
-	
 }

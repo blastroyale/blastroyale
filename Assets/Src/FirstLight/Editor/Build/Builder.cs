@@ -26,7 +26,7 @@ namespace FirstLight.Editor.Build
 		public static void ConfigureServer()
 		{
 			BackendMenu.MoveBackendDlls();
-			BackendMenu.ExportQuantumAssets();
+			BackendMenu.CopyLocalQuantumFiles();
 		}
 
 		public static void SetBasicPlayerSettings()

@@ -14,14 +14,6 @@ namespace Quantum
 
 #region Matchmaking & Room
 
-		[FoldoutGroup("Matchmaking & Room"), PropertyRange(1, 48), ValidateInput("@MaxPlayers >= MinPlayers"),
-		 PropertyTooltip(DESC_MAX_PLAYERS)]
-		public uint MaxPlayers;
-
-		[FoldoutGroup("Matchmaking & Room"), PropertyRange(1, "MaxPlayers"), ValidateInput("@MaxPlayers >= MinPlayers"),
-		 DisableIf("@true"), PropertyTooltip("NOT IMPLEMENTED | " + DESC_MIN_PLAYERS)]
-		public uint MinPlayers;
-
 		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@false"), PropertyTooltip(DESC_MAX_PLAYERS_IN_TEAM)]
 		public uint MaxAllowedPlayersPerTeam;
 		
@@ -50,17 +42,10 @@ namespace Quantum
 		
 		[FoldoutGroup("UI"), PropertyTooltip(DESC_DESCRIPTION_LOCALISATION_KEY)]
 		public string DescriptionLocalisationKey;
-		
-		[FoldoutGroup("UI"), PropertyTooltip(DESC_SHOW_TEAM_COUNT)]
-		public bool ShowTeamCount;
 
 #endregion
 
 #region Player
-
-		[FoldoutGroup("Player"), PropertyTooltip(DESC_LIVES),
-		 InfoBox("Currently this only works for 1, every other value means infinite lives.", InfoMessageType.Warning)]
-		public uint Lives;
 
 		[FoldoutGroup("Player"), PropertyTooltip(DESC_DROP_WEAPON_ON_PICKUP)]
 		public bool DropWeaponOnPickup;
@@ -70,21 +55,12 @@ namespace Quantum
 		
 		[FoldoutGroup("Player"), PropertyTooltip(DESC_SHRINKING_CIRCLE_CENTERED_ON_PLAYER)]
 		public bool ShrinkingCircleCenteredOnPlayer;
-		
-		[HorizontalGroup("Player/H1"), BoxGroup("Player/H1/Spawning"), PropertyTooltip(DESC_SPAWN_WITH_GEAR)]
-		public bool SpawnWithGear;
-
-		[HorizontalGroup("Player/H1"), BoxGroup("Player/H1/Spawning"), PropertyTooltip(DESC_SPAWN_WITH_WEAPON)]
-		public bool SpawnWithWeapon;
 
 		[BoxGroup("Player/H1/Spawning"), PropertyTooltip(DESC_SKYDIVE_SPAWN)]
 		public bool SkydiveSpawn;
 
 		[BoxGroup("Player/H1/Spawning"), PropertyTooltip(DESC_SPAWN_SELECTION)]
 		public bool SpawnSelection;
-
-		[BoxGroup("Player/H1/Spawning"), ShowIf("SpawnSelection"), PropertyTooltip(DESC_SPAWN_PATTERN)]
-		public bool SpawnPattern;
 
 		[BoxGroup("Player/H1/Death drops"), PropertyTooltip(DESC_DEATH_DROP_STRATEGY)]
 		public DeathDropsStrategy DeathDropStrategy;
@@ -111,24 +87,8 @@ namespace Quantum
 		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_USE_ANOTHER_MODE_BOTS)]
 		public string UseBotsFromGamemode;
 
-		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_SEARCH_FOR_CRATES)]
-		public bool BotSearchForCrates;
-
-		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_RESPAWN)]
-		public bool BotRespawn;
-
-		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_WEAPON_SEARCH_STRATEGY)]
-		public BotWeaponSearchStrategy BotWeaponSearchStrategy;
-
 		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_TEAM_OVERRIDE)]
 		public int BotsTeamOverride;
-
-#endregion
-
-#region State Machines
-
-		[FoldoutGroup("State Machines"), PropertyTooltip(DESC_GAME_SIMULATION_SM)] public GameSimulationStateMachine GameSimulationStateMachine;
-		[FoldoutGroup("State Machines"), PropertyTooltip(DESC_AUDIO_SM)] public AudioStateMachine AudioStateMachine;
 
 #endregion
 
@@ -190,8 +150,6 @@ namespace Quantum
 		private const string DESC_SHOW_WEAPON_SLOTS = "Displays weapon slots and enables the player to switch between weapons.";
 		private const string DESC_SINGLE_SLOT_MODE = "Only shows the melee slot and the first weapon slot";
 		private const string DESC_DESCRIPTION_LOCALISATION_KEY = "Localisation key for the description of this game mode";
-		private const string DESC_SHOW_TEAM_COUNT = "Displays the number of teams lef";
-		private const string DESC_LIVES = "How many lives does the player have. Use 0 for infinite lives";
 		private const string DESC_MINIMUM_HEALTH = "Health will not fall below this value. Not for bots.";
 		private const string DESC_DROP_WEAPON_ON_PICKUP = "Drops the player's equipped weapon if they pick up a better one.";
 		private const string DESC_AIRDROP_NEAR_PLAYER = "Airdrop will spawn near player.";

@@ -89,11 +89,11 @@ MonoBehaviour:
         Id:
           Value: 376634616520152049
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckIntDecision_4]
-    - Path: AddressableResources/QuantumAssets/Projectiles/FireExplosionHit|EntityPrototype
+    - Path: AddressableResources/QuantumAssets/Projectiles/RocketExplosion|EntityPrototype
       AssetRef:
         Id:
           Value: 382184530423860433
-      Address: QuantumAssets/Projectiles/FireExplosionHit.prefab[FireExplosionHitEntityPrototype]
+      Address: QuantumAssets/Projectiles/RocketExplosion.prefab[RocketExplosionEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPVector3SumFunction_7
       AssetRef:
         Id:
@@ -219,11 +219,11 @@ MonoBehaviour:
         Id:
           Value: 735283581775416184
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TrueDecision_46]
-    - Path: AddressableResources/QuantumAssets/Projectiles/FireExplosionHit|EntityView
+    - Path: AddressableResources/QuantumAssets/Projectiles/RocketExplosion|EntityView
       AssetRef:
         Id:
           Value: 737112216968780775
-      Address: QuantumAssets/Projectiles/FireExplosionHit.prefab[FireExplosionHitEntityView]
+      Address: QuantumAssets/Projectiles/RocketExplosion.prefab[RocketExplosionEntityView]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_39
       AssetRef:
         Id:

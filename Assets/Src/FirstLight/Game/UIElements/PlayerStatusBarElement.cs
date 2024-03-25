@@ -5,7 +5,6 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.UIElements
 {
@@ -14,7 +13,7 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class PlayerStatusBarElement : VisualElement
 	{
-		private const int DAMAGE_NUMBER_MAX_POOL_SIZE = 5;
+		private const int DAMAGE_NUMBER_MAX_POOL_SIZE = 12;
 		private const int DAMAGE_NUMBER_ANIM_DURATION = 1000;
 
 		private const float SMALL_DAMAGE = 32;
@@ -31,19 +30,20 @@ namespace FirstLight.Game.UIElements
 		private const string USS_NOTIFICATION_WOUNDED = USS_NOTIFICATION + "--wounded";
 		private const string USS_DAMAGE_HOLDER = USS_BLOCK + "__damage-holder";
 		private const string USS_DAMAGE_NUMBER = USS_BLOCK + "__damage-number";
-		
+
 		private readonly PlayerHealthShieldElement _healthShield;
 		private readonly Label _notificationLabel;
 		private readonly Label[] _damageNumbersPool = new Label[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private readonly ValueAnimation<float>[] _damageNumberAnims = new ValueAnimation<float>[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private readonly float[] _damageNumberAnimOffsets = new float[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private readonly float[] _damageNumberAnimValues = new float[DAMAGE_NUMBER_MAX_POOL_SIZE];
+		private readonly EventKey[] _damageEventKeys = new EventKey[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private int _damageNumberIndex;
 		private float _maxHealth;
 		private bool _isFriendly;
 		private readonly IVisualElementScheduledItem _notificationHandle;
 		private readonly StyleColor _defaultPingDmgColor = new (new Color(1f, 1f, 1f));
-		
+
 		private bool _barsEnabled = true;
 
 		public PlayerStatusBarElement()
@@ -51,7 +51,7 @@ namespace FirstLight.Game.UIElements
 			usageHints = UsageHints.DynamicTransform;
 
 			AddToClassList(USS_BLOCK);
-			
+
 			Add(_notificationLabel = new Label("MAX") {name = "notification-label"});
 			_notificationLabel.AddToClassList(USS_NOTIFICATION);
 			_notificationLabel.AddToClassList(USS_NOTIFICATION_HEALTH);
@@ -66,6 +66,8 @@ namespace FirstLight.Game.UIElements
 			damageHolder.AddToClassList(USS_DAMAGE_HOLDER);
 			damageHolder.usageHints = UsageHints.GroupTransform;
 			{
+				float maxOffset = 15;
+				var divisions = 3;
 				for (int i = 0; i < DAMAGE_NUMBER_MAX_POOL_SIZE; i++)
 				{
 					// Create damage label
@@ -73,7 +75,8 @@ namespace FirstLight.Game.UIElements
 					damageHolder.Add(damageNumber);
 					damageNumber.AddToClassList(USS_DAMAGE_NUMBER);
 					damageNumber.userData = i; // Save index to userData
-					_damageNumberAnimOffsets[i] = Random.Range(-5f, 5f);
+					var multiplier = (float) i % divisions/(divisions-1);
+					_damageNumberAnimOffsets[i] = -maxOffset + multiplier * maxOffset * 2;
 					_damageNumbersPool[i] = damageNumber;
 					// Create animation
 					var anim = damageNumber.experimental.animation.Start(0f, 1f, DAMAGE_NUMBER_ANIM_DURATION, AnimateDamageNumber);
@@ -86,21 +89,35 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// If the bar is not friendly, display it for some amount of time.
 		/// </summary>
-		public void PingDamage(uint damage, StyleColor? color = null)
+		public void PingDamage(uint damage, EventKey eventKey, StyleColor? color = null)
 		{
 			_damageNumberIndex = (_damageNumberIndex + 1) % DAMAGE_NUMBER_MAX_POOL_SIZE;
 			var damageNumberLabel = _damageNumbersPool[_damageNumberIndex];
 			var damageNumberAnim = _damageNumberAnims[_damageNumberIndex];
 			_damageNumberAnimValues[_damageNumberIndex] = damage;
+			_damageEventKeys[_damageNumberIndex] = eventKey;
 			damageNumberLabel.style.color = color ?? _defaultPingDmgColor;
-
 			damageNumberLabel.text = damage.ToString();
-
 			damageNumberLabel.BringToFront();
 			damageNumberAnim.Stop();
 			damageNumberAnim.Start();
 		}
-		
+
+		public void OnEventCancelled(EventKey cancelledEvent)
+		{
+			var index = Array.IndexOf(_damageEventKeys, cancelledEvent);
+
+			if (index < 0)
+			{
+				return;
+			}
+
+			var animation = _damageNumberAnims[index];
+			var label = _damageNumbersPool[index];
+			label.style.opacity = 0;
+			animation.Stop();
+		}
+
 		/// <summary>
 		/// Enables or disables the health / shield status bars.
 		/// </summary>

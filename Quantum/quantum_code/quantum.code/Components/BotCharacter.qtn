@@ -3,6 +3,7 @@ enum BotBehaviourType
     Static,
     WanderAndShoot,
 	BattleRoyale,
+    StaticShooting,
 }
 
 component BotLoadout {

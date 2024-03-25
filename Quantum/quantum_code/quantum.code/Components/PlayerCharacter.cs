@@ -18,14 +18,14 @@ namespace Quantum
 		public CharacterController3DConfig KccConfig;
 		public GameId deathFlagID;
 	}
-	
+
 	public unsafe partial struct PlayerCharacter
 	{
 		/// <summary>
 		/// Requests the current weapon of player character
 		/// </summary>
 		public Equipment CurrentWeapon => SelectedWeaponSlot->Weapon;
-		
+
 		/// <summary>
 		/// Requests the current weapon slot of player character
 		/// </summary>
@@ -49,7 +49,7 @@ namespace Quantum
 			var weaponSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
 			weaponSlot->Weapon = Equipment.Create(f, GameId.Hammer, EquipmentRarity.Common, 1);
 			weaponSlot->MagazineShotCount = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MagazineSize;
-			
+
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
 			// a list of all currently registered entities and their states.
 			// BotSDKDebuggerSystem.AddToDebugger(setup.e);
@@ -70,7 +70,7 @@ namespace Quantum
 					stats->AddModifier(f, setup.e, modifier);
 				}
 			}
-			
+
 			stats->MinimumHealth = (int)setup.minimumHealth;
 
 			f.Add<HFSMAgent>(setup.e);
@@ -91,9 +91,10 @@ namespace Quantum
 				{
 					continue;
 				}
+
 				WeaponSlots[i] = default;
 			}
-			
+
 			var isRespawning = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[Player].DeathCount > 0;
 			var pi = f.Unsafe.GetPointer<PlayerInventory>(e);
 			if (isRespawning)
@@ -106,7 +107,7 @@ namespace Quantum
 
 					pi->Specials[i] = special;
 				}
-				
+
 				EquipSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
 			}
 			else
@@ -125,9 +126,9 @@ namespace Quantum
 		/// </summary>
 		internal void Activate(Frame f, EntityRef e)
 		{
-			var targetable = new Targetable {Team = TeamId};
+			var targetable = new Targetable { Team = TeamId };
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			
+
 			stats->ResetStats(f, CurrentWeapon, Array.Empty<Equipment>(), e);
 
 			var maxHealth = FPMath.RoundToInt(stats->GetStatData(StatType.Health).StatValue);
@@ -141,14 +142,14 @@ namespace Quantum
 
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = true;
 		}
-		
+
 		/// <summary>
 		/// Kills this <see cref="PlayerCharacter"/> and mark it as done for the session
 		/// </summary>
 		internal void Dead(Frame f, EntityRef e, EntityRef attacker, QBoolean fromRoofDamage)
 		{
 			f.TryGet<PlayerCharacter>(attacker, out var killerPlayer);
-			
+
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
 
 			var deadPlayer = new DeadPlayerCharacter
@@ -164,15 +165,13 @@ namespace Quantum
 				navMeshPathfinder->Stop(f, e, true);
 			}
 
-			if (f.Context.GameModeConfig.Lives == 1)
-			{
-				f.Add<EntityDestroyer>(e);
-			}
+
+			f.Add<EntityDestroyer>(e);
 
 			f.Add(e, deadPlayer);
 			f.Remove<Targetable>(e);
 			f.Remove<AlivePlayerCharacter>(e);
-			
+
 			if (killerPlayer.Player.IsValid)
 			{
 				f.Signals.PlayerKilledPlayer(Player, e, killerPlayer.Player, attacker);
@@ -195,7 +194,7 @@ namespace Quantum
 				f.ServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
 			}
 		}
-		
+
 		/// <summary>
 		/// Adds a <paramref name="weapon"/> to the player's weapon slots
 		/// </summary>
@@ -206,7 +205,7 @@ namespace Quantum
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
 
 			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
-			    weapon.Rarity > primaryWeapon.Rarity)
+				weapon.Rarity > primaryWeapon.Rarity)
 			{
 				slot = Constants.WEAPON_INDEX_PRIMARY;
 			}
@@ -255,7 +254,7 @@ namespace Quantum
 					return true;
 				}
 			}
-			
+
 			return false;
 		}
 
@@ -265,8 +264,8 @@ namespace Quantum
 		public bool IsAmmoEmpty(Frame f, EntityRef e, bool includeMag = true)
 		{
 			return f.Unsafe.GetPointer<Stats>(e)->CurrentAmmoPercent == 0
-				   && !HasMeleeWeapon(f, e)
-				   && (!includeMag || SelectedWeaponSlot->MagazineShotCount == 0);
+				&& !HasMeleeWeapon(f, e)
+				&& (!includeMag || SelectedWeaponSlot->MagazineShotCount == 0);
 		}
 
 		/// <summary>
@@ -305,7 +304,7 @@ namespace Quantum
 		{
 			return f.Get<AIBlackboardComponent>(e).GetBoolean(f, Constants.HasMeleeWeaponKey);
 		}
-		
+
 		/// <summary>
 		/// Returns the slot index of <paramref name="equipment"/> for <see cref="Gear"/>.
 		/// </summary>
@@ -316,9 +315,9 @@ namespace Quantum
 				GameIdGroup.Weapon => Constants.GEAR_INDEX_WEAPON,
 				GameIdGroup.Helmet => Constants.GEAR_INDEX_HELMET,
 				GameIdGroup.Amulet => Constants.GEAR_INDEX_AMULET,
-				GameIdGroup.Armor => Constants.GEAR_INDEX_ARMOR,
+				GameIdGroup.Armor  => Constants.GEAR_INDEX_ARMOR,
 				GameIdGroup.Shield => Constants.GEAR_INDEX_SHIELD,
-				_ => throw new NotSupportedException($"Could not find Gear index for GameId({equipment->GameId})")
+				_                  => throw new NotSupportedException($"Could not find Gear index for GameId({equipment->GameId})")
 			};
 		}
 
@@ -332,12 +331,12 @@ namespace Quantum
 				Constants.GEAR_INDEX_WEAPON => GameIdGroup.Weapon,
 				Constants.GEAR_INDEX_HELMET => GameIdGroup.Helmet,
 				Constants.GEAR_INDEX_AMULET => GameIdGroup.Amulet,
-				Constants.GEAR_INDEX_ARMOR => GameIdGroup.Armor,
+				Constants.GEAR_INDEX_ARMOR  => GameIdGroup.Armor,
 				Constants.GEAR_INDEX_SHIELD => GameIdGroup.Shield,
-				_ => throw new NotSupportedException($"Could not find GameIdGroup for slot({slot})")
+				_                           => throw new NotSupportedException($"Could not find GameIdGroup for slot({slot})")
 			};
 		}
-		
+
 		private int GetWeaponEquipSlot(Frame f, Equipment weapon, bool primary)
 		{
 			if (f.Context.GameModeConfig.SingleSlotMode)
@@ -356,7 +355,7 @@ namespace Quantum
 
 			return primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
 		}
-		
+
 		/// <summary>
 		/// Checks if the player has this <paramref name="equipment"/> item equipped, based on it's
 		/// GameId and Rarity (rarity of equipped item has to be higher).
@@ -381,7 +380,7 @@ namespace Quantum
 
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId);
-			
+
 			//the total time it takes for a burst to complete should be divded by the burst_interval_divider
 			//if we are only firing one shot, burst interval is 0
 			var burstCooldown = weaponConfig.NumberOfBursts > 1 ? weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER / (weaponConfig.NumberOfBursts - 1) : 0;
@@ -395,9 +394,9 @@ namespace Quantum
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 
-			var stats = f.Unsafe.GetPointer<Stats>(e); 
+			var stats = f.Unsafe.GetPointer<Stats>(e);
 			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Array.Empty<Equipment>());
-			
+
 			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 			f.Events.OnPlayerAmmoChanged(Player, e, stats->GetCurrentAmmo(),
 				weaponConfig.MaxAmmo, SelectedWeaponSlot->MagazineShotCount, SelectedWeaponSlot->MagazineSize);

@@ -1,12 +1,12 @@
 component AirDrop
 {
-	[HideInInspector] FPVector3 Position;
-	[HideInInspector] FPVector2 Direction;
-	[HideInInspector] FP StartTime;
-	[HideInInspector] FP Delay;
-	[HideInInspector] FP Duration;
-	[HideInInspector] AirDropStage Stage;
-	[HideInInspector] GameId Chest;
+	FPVector3 Position;
+	FPVector2 Direction;
+	FP StartTime;
+	FP Delay;
+	FP Duration;
+	AirDropStage Stage;
+	GameId Chest;
 }
 
 enum AirDropStage

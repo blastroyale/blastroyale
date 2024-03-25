@@ -17,12 +17,20 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void OnInit(Frame f)
 		{
-			if (!f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _)) return;
+			var hammerTime = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _);
+			var noHealthNoShields = f.Context.TryGetMutatorByType(MutatorType.Hardcore, out _);
+			
+			if (!hammerTime && !noHealthNoShields) return;
 			
 			foreach (var pair in f.Unsafe.GetComponentBlockIterator<CollectablePlatformSpawner>())
 			{
 				//TODO: instead of comparing to the weapon group, check against the hammertime params to see which drops to leave
-				if (pair.Component->GameId == GameId.Random || pair.Component->GameId.IsInGroup(GameIdGroup.Weapon))
+				if (hammerTime && (pair.Component->GameId == GameId.Random || pair.Component->GameId.IsInGroup(GameIdGroup.Weapon)))
+				{
+					f.Destroy(pair.Entity);
+				}
+				else if (noHealthNoShields && (pair.Component->GameId == GameId.Health ||
+											   pair.Component->GameId == GameId.ShieldSmall))
 				{
 					f.Destroy(pair.Entity);
 				}

@@ -47,7 +47,7 @@ namespace FirstLight.Game.Commands
 				GamePlayerCount = matchData.Count,
 				AllowedRewards = QuantumValues.AllowedRewards,
 				CollectedItems = EarnedGameItems ?? new (),
-				TeamSize = TeamSize
+				TeamSize = TeamSize,
 			};
 			
 			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);

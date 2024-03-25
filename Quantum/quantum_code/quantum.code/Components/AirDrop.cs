@@ -8,18 +8,20 @@ namespace Quantum
 		/// Initializes this <see cref="AirDrop"/> with values from <see cref="QuantumShrinkingCircleConfig"/>
 		/// </summary>
 		public static EntityRef Create(Frame f, ref QuantumShrinkingCircleConfig config,
-		                               FPVector3 positionOverride = new FPVector3())
+									   FPVector3 positionOverride = new FPVector3())
 		{
-			var circle = f.GetSingleton<ShrinkingCircle>();
-			
 			var dropPosition = positionOverride;
-			if (dropPosition == FPVector3.Zero && !GetDropPosition(f, &circle, out dropPosition))
+			if (dropPosition == FPVector3.Zero)
 			{
-				return EntityRef.None;
+				var circle = f.GetSingleton<ShrinkingCircle>();
+				if (!GetDropPosition(f, &circle, out dropPosition))
+				{
+					return EntityRef.None;
+				}
 			}
-			
+
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.AirDropPrototype.Id));
-			
+
 			// Move entity to the drop position at a predetermined height
 			var transform = f.Unsafe.GetPointer<Transform3D>(entity);
 			transform->Position = dropPosition + FPVector3.Up * f.GameConfig.AirdropHeight;
@@ -44,19 +46,19 @@ namespace Quantum
 			var radialDir = f.RNG->Next(0, FP.Rad_180 * 2);
 			var radius = FPMath.Lerp(circle->TargetRadius, circle->CurrentRadius, f.GameConfig.AirdropPositionOffsetMultiplier);
 			var areaCenter = FPVector2.Lerp(circle->TargetCircleCenter, circle->CurrentCircleCenter,
-			                                f.GameConfig.AirdropPositionOffsetMultiplier);
+				f.GameConfig.AirdropPositionOffsetMultiplier);
 			var areaCenterV3 = new FPVector3(areaCenter.X, 0, areaCenter.Y);
 			var x = radius * FPMath.Sin(radialDir) + areaCenter.X;
 			var y = radius * FPMath.Cos(radialDir) + areaCenter.Y;
 			var pos = new FPVector3(x, 0, y);
 			var squareRadiusArea = radius * radius;
-			
+
 			var found = false;
 			var closestPoint = FPVector3.Zero;
 			var shortestDist = FP.MaxValue;
 			var spawnerEntity = EntityRef.None;
 
-			foreach(var spawner in f.Unsafe.GetComponentBlockIterator<AirDropSpawner>())
+			foreach (var spawner in f.Unsafe.GetComponentBlockIterator<AirDropSpawner>())
 			{
 				var spawnerPos = spawner.Entity.GetPosition(f);
 				var distanceToSpawner = FPVector3.DistanceSquared(pos, spawnerPos);

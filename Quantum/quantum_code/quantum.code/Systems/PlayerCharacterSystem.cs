@@ -171,10 +171,21 @@ namespace Quantum.Systems
 				Collectable.DropEquipment(f, drop, deathPosition, step, true, anglesToDrop);
 				step++;
 			}
+			
+			var noHealthNoShields = f.Context.TryGetMutatorByType(MutatorType.Hardcore, out _);
 
 			foreach (var drop in consumablesToDrop)
 			{
-				Collectable.DropConsumable(f, drop, deathPosition, step, true, anglesToDrop);
+				if (noHealthNoShields &&
+					(drop == GameId.Health ||
+					 drop == GameId.ShieldSmall))
+				{
+					// Don't drop Health and Shields with Hardcore mutator
+				}
+				else
+				{
+					Collectable.DropConsumable(f, drop, deathPosition, step, true, anglesToDrop);
+				}
 				step++;
 			}
 		}
@@ -245,7 +256,7 @@ namespace Quantum.Systems
 			var rotation = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
 			var prevRotation = bb->GetVector2(f, Constants.AimDirectionKey);
-
+			
 			var isKnockedOut = ReviveSystem.IsKnockedOut(f, filter.Entity);
 			var direction = input->Direction;
 			var aim = input->AimingDirection;
@@ -253,6 +264,7 @@ namespace Quantum.Systems
 			var lastShotAt = bb->GetFP(f, Constants.LastShotAt);
 			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
 			var attackCooldown = f.Time < lastShotAt + (weaponConfig.IsMeleeWeapon ? FP._0_33 : FP._0_20);
+			
 			if (direction != FPVector2.Zero)
 			{
 				movedirection = direction;
@@ -276,6 +288,11 @@ namespace Quantum.Systems
 			if (rotation == FPVector2.Zero && bb->GetBoolean(f, Constants.IsShootingKey))
 			{
 				rotation = prevRotation;
+			}
+			
+			if (isKnockedOut)
+			{
+				rotation = direction;
 			}
 
 			var wasShooting = bb->GetBoolean(f, Constants.IsAimPressedKey);

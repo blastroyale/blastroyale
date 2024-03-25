@@ -298,6 +298,11 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			QueueEvent(AnalyticsEvents.MatchKillAction, data);
 		}
 
+		private bool IsTesting()
+		{
+			return _services.RoomService.LastRoom.Properties.GameModeId.Value == GameConstants.GameModeId.TESTING;
+		}
+
 		/// <summary>
 		/// Logs when a player dies
 		/// </summary>
@@ -308,6 +313,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
+
+			if (IsTesting()) return;
 
 			var frame = playerDeadEvent.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();

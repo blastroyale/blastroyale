@@ -1,9 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/WinnersScreenStyle.uss?fileID=7433441132597879392&amp;guid=1b8399f713a08466282bd37caf45866d&amp;type=3#WinnersScreenStyle" />
     <ui:VisualElement name="root" class="fill-parent">
+        <ui:VisualElement name="NameContainer" class="player-name-container" />
         <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent safe-area">
-            <ui:VisualElement name="NameContainer" class="player-name-container">
-            </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITWinners/winners" subtitle-key="UITHomeScreen/gamemode_BattleRoyale" class="screen-header--no-navigation" />

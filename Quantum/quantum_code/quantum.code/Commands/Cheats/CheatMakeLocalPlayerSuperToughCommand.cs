@@ -23,7 +23,7 @@ namespace Quantum.Commands
 			{
 				Id = ++f.Global->ModifierIdCount,
 				Type = StatType.Health,
-				OpType = OperationType.Multiply,
+				OpType = OperationType.Add,
 				Power = FP._1000,
 				Duration = FP.MaxValue,
 				StartTime = FP._0,
@@ -31,7 +31,7 @@ namespace Quantum.Commands
 			};
 			
 			stats->AddModifier(f, entity, healthModifier);
-			stats->GainShield(f, entity, int.MaxValue);
+			stats->GainShield(f, entity, 2000);
 			var spell = new Spell {PowerAmount = uint.MaxValue};
 			stats->GainHealth(f, entity, &spell);
 #else

@@ -5,7 +5,7 @@ Shader "FLG/FastLambertShader"
 {
     Properties
     {
-        _MainTex("Base Map", 2D) = "white"
+        _MainTex("Base Map", 2D) = "white" {}
     }
 
     SubShader
@@ -13,34 +13,33 @@ Shader "FLG/FastLambertShader"
         Tags
         {
             "RenderType" = "Opaque"
-            "RenderPipeline" = "UniversalRenderPipeline"
+            "RenderPipeline" = "UniversalPipeline"
+            "IgnoreProjector" = "True"
         }
+
+        Lighting Off
 
         Pass
         {
             HLSLPROGRAM
             #pragma vertex vert
-            #pragma exclude_renderers gles xbox360 ps3
-            #pragma exclude_renderers xbox360 ps3
-            #pragma exclude_renderers gles xbox360 ps3
-            #pragma exclude_renderers xbox360 ps3
             #pragma fragment frag
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             struct Attributes
             {
-                float4 position : POSITION;
-                float2 uv : TEXCOORD0;
-                float3 normal : NORMAL;
+                half4 position : POSITION;
+                half2 uv : TEXCOORD0;
+                half3 normal : NORMAL;
             };
 
             struct Varyings
             {
-                float4 position : SV_POSITION;
-                float2 uv : TEXCOORD0;
-                float3 normal : TEXCOORD1;
-                float3 lambert : TEXCOORD2;
+                half4 position : SV_POSITION;
+                half2 uv : TEXCOORD0;
+                half3 normal : TEXCOORD1;
+                half lambert : TEXCOORD2;
             };
 
             TEXTURE2D(_MainTex);
@@ -50,8 +49,8 @@ Shader "FLG/FastLambertShader"
             half4 _MainTex_ST;
             CBUFFER_END
 
-            static half3 lightDir = float3(-1, 1, 0);
-            static half3 lightPower = 0.2;
+            static const half3 lightDir = float3(-1, 1, 0);
+            static const half3 lightPower = 0.2;
 
             Varyings vert(Attributes IN)
             {

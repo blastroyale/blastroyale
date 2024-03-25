@@ -118,6 +118,15 @@ namespace FirstLight.Game.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpeedHack"",
+                    ""type"": ""Button"",
+                    ""id"": ""97a54048-7c06-4e60-86f4-1ef675043d27"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -560,6 +569,28 @@ namespace FirstLight.Game.Input
                     ""action"": ""ToggleMinimapButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85fa6f1a-a299-4431-b03e-81989a54bfb4"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedHack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a22f45e6-7e52-472a-898b-5dc3a0baa72f"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedHack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -578,6 +609,7 @@ namespace FirstLight.Game.Input
             m_Gameplay_SwitchWeaponButton = m_Gameplay.FindAction("Switch Weapon Button", throwIfNotFound: true);
             m_Gameplay_TeamPositionPing = m_Gameplay.FindAction("TeamPositionPing", throwIfNotFound: true);
             m_Gameplay_ToggleMinimapButton = m_Gameplay.FindAction("ToggleMinimapButton", throwIfNotFound: true);
+            m_Gameplay_SpeedHack = m_Gameplay.FindAction("SpeedHack", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -649,6 +681,7 @@ namespace FirstLight.Game.Input
         private readonly InputAction m_Gameplay_SwitchWeaponButton;
         private readonly InputAction m_Gameplay_TeamPositionPing;
         private readonly InputAction m_Gameplay_ToggleMinimapButton;
+        private readonly InputAction m_Gameplay_SpeedHack;
         public struct GameplayActions
         {
             private @LocalInput m_Wrapper;
@@ -663,6 +696,7 @@ namespace FirstLight.Game.Input
             public InputAction @SwitchWeaponButton => m_Wrapper.m_Gameplay_SwitchWeaponButton;
             public InputAction @TeamPositionPing => m_Wrapper.m_Gameplay_TeamPositionPing;
             public InputAction @ToggleMinimapButton => m_Wrapper.m_Gameplay_ToggleMinimapButton;
+            public InputAction @SpeedHack => m_Wrapper.m_Gameplay_SpeedHack;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -702,6 +736,9 @@ namespace FirstLight.Game.Input
                 @ToggleMinimapButton.started += instance.OnToggleMinimapButton;
                 @ToggleMinimapButton.performed += instance.OnToggleMinimapButton;
                 @ToggleMinimapButton.canceled += instance.OnToggleMinimapButton;
+                @SpeedHack.started += instance.OnSpeedHack;
+                @SpeedHack.performed += instance.OnSpeedHack;
+                @SpeedHack.canceled += instance.OnSpeedHack;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -736,6 +773,9 @@ namespace FirstLight.Game.Input
                 @ToggleMinimapButton.started -= instance.OnToggleMinimapButton;
                 @ToggleMinimapButton.performed -= instance.OnToggleMinimapButton;
                 @ToggleMinimapButton.canceled -= instance.OnToggleMinimapButton;
+                @SpeedHack.started -= instance.OnSpeedHack;
+                @SpeedHack.performed -= instance.OnSpeedHack;
+                @SpeedHack.canceled -= instance.OnSpeedHack;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -765,6 +805,7 @@ namespace FirstLight.Game.Input
             void OnSwitchWeaponButton(InputAction.CallbackContext context);
             void OnTeamPositionPing(InputAction.CallbackContext context);
             void OnToggleMinimapButton(InputAction.CallbackContext context);
+            void OnSpeedHack(InputAction.CallbackContext context);
         }
     }
 }

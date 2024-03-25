@@ -33,10 +33,7 @@ namespace FirstLight.Editor.EditorTools
 			$"{Application.dataPath}/../Assets/Libs/Photon/Quantum/Assemblies/";
 
 		private static string _backendPath => $"{Application.dataPath}/../Backend";
-
-		private static string _quantumServerPath =>
-			$"{Application.dataPath}/../Quantum/quantum_server/Photon-Server/deploy/Plugins/DeterministicPlugin/bin/";
-
+		
 		private static string _backendLibsPath => $"{_backendPath}/Lib";
 		private static string _backendResources => $"{_backendPath}/ServerCommon/Resources";
 
@@ -50,7 +47,7 @@ namespace FirstLight.Editor.EditorTools
 			}
 		}
 
-		[MenuItem("FLG/Backend/Copy Local Quantum Files")]
+		[MenuItem("FLG/Backend/Export Asset DB to Quantum Local Server")]
 		public static void CopyLocalQuantumFiles()
 		{
 			var qtnPluginFolder = $"{Application.dataPath}/../Quantum/quantum_server/quantum.custom.plugin/";
@@ -65,12 +62,6 @@ namespace FirstLight.Editor.EditorTools
 
 			CopyConfigs(); // also copy configs to ensure everything is updated
 			CopyTranslations();
-		}
-
-		[MenuItem("FLG/Backend/Generate Quantum Assets")]
-		public static void ExportQuantumAssets()
-		{
-			ArtifactCopier.QuantumAssetDBArtifact.CopyTo(_quantumServerPath);
 		}
 
 		/// <summary>

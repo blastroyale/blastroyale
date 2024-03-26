@@ -245,13 +245,13 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public async UniTask<TAsset> RequestAsset<TId, TAsset>(TId id, bool loadAsynchronously = true,
+		public UniTask<TAsset> RequestAsset<TId, TAsset>(TId id, bool loadAsynchronously = true,
 															   bool instantiate = true,
 															   Action<TId, TAsset, bool> onLoadCallback = null)
 			where TId : struct
 			where TAsset : Object
 		{
-			return await RequestAsset<TId, TAsset, int>(id, 0, loadAsynchronously, instantiate,
+			return RequestAsset<TId, TAsset, int>(id, 0, loadAsynchronously, instantiate,
 				(arg1, arg2, _, arg4) =>
 					onLoadCallback?.Invoke(arg1, arg2, arg4));
 		}

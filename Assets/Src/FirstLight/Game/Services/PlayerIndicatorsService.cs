@@ -43,7 +43,7 @@ namespace FirstLight.Game.Services
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
 			_inputs = _matchServices.PlayerInputService.Input.Gameplay;
-			_indicatorContainerView.InstantiateAllIndicators();
+			_indicatorContainerView.InstantiateAllIndicators().Forget(); // TODO: Not great need to rethink indicators
 			RegisterListeners();
 			if (_services.RoomService.IsLocalPlayerSpectator || !isReconnect)
 			{

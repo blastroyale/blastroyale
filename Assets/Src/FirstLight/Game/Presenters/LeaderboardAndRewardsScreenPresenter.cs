@@ -76,8 +76,8 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 			SetupCamera();
 
-			UpdateCharacter();
 			UpdatePlayerName();
+			UpdateCharacter();
 			UpdateLeaderboard();
 			UpdateRewards();
 			ShowLeaderboards();
@@ -376,19 +376,8 @@ namespace FirstLight.Game.Presenters
 
 			var skinId = _gameServices.CollectionService.GetCosmeticForGroup(playerData.Cosmetics, GameIdGroup.PlayerSkin);
 			await _character.UpdateSkin(skinId, playerData.Gear.ToList());
-
-			var targetPosition = _character.transform.position;
-			var initialPosition = targetPosition;
-			initialPosition.x += 20f;
-			_character.transform.position = initialPosition;
-
-			_character.transform.DOMove(targetPosition, 0.4f).SetEase(Ease.Linear).onUpdate += OnUpdateCharacterPosition;
-		}
-
-
-		private void OnUpdateCharacterPosition()
-		{
 			_playerName.SetPositionBasedOnWorldPosition(_character.transform.position);
+
 		}
 	}
 }

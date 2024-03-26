@@ -151,8 +151,8 @@ namespace FirstLight.Game.Presenters
 				{
 					_weaponLimitDropDown.value = lastUsedOptions.WeaponLimiter;
 				}
-
-				_teamSizeDropDown.index = lastUsedOptions.TeamSize - 1;
+				
+				_teamSizeDropDown.index = Math.Clamp(lastUsedOptions.TeamSize - 1, 0, 3);
 			}
 		}
 

@@ -74,7 +74,7 @@ event OnShieldChanged
 	Int32 CurrentShieldCapacity;
 }
 
-event OnHealthIsZeroFromAttacker
+synced event OnHealthIsZeroFromAttacker
 {
 	entity_ref Entity;
 	entity_ref Attacker;

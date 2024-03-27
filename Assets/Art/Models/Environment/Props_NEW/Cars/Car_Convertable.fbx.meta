@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties:
     - '#BAKERY{"meshName":["Car_Convertable_Green_GEO","Car_Convertable_Orange_GEO","Car_Convertable_Blue_GEO","Car_Convertable_Pink_GEO"],"padding":[34,26,26,34],"unwrapper":[0,0,0,0]}'
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

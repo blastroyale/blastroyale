@@ -217,17 +217,18 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			// Delays one frame just to guarantee that the game objects are created before anything else
-
-			_services.CoroutineService.StartCoroutine(GameStartCoroutine(callback.Game));
+			GameStartAsync(callback.Game).Forget();
 			FLog.Verbose("Waiting for all players to join");
 		}
 
-		private IEnumerator GameStartCoroutine(QuantumGame game)
+		private async UniTaskVoid GameStartAsync(QuantumGame game)
 		{
-			yield return new WaitForSeconds(0.1f);
+			await UniTask.Delay(100); // tech debt, leftover shall eb removed
+			await UniTask.WaitUntil(QuantumRunner.Default.IsDefinedAndRunning);
 			PublishMatchStartedMessage(game, false);
-			yield return new WaitForSeconds(1f);
+			await UniTask.Delay(1000); // tech debt, leftover shall eb removed
+			await UniTask.WaitUntil(_services.GameUiService.HasUiPresenter<HUDScreenPresenter>);
+
 			var f = game.Frames.Verified;
 			var entityRef = game.GetLocalPlayerEntityRef();
 			if (f != null && entityRef.IsValid && f.TryGet<PlayerCharacter>(entityRef, out var pc))
@@ -263,8 +264,10 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTaskVoid ResyncCoroutine()
 		{
-			await UniTask.NextFrame();
+			await UniTask.WaitUntil(QuantumRunner.Default.IsDefinedAndRunning);
 			PublishMatchStartedMessage(QuantumRunner.Default.Game, true);
+			await UniTask.WaitUntil(_services.GameUiService.HasUiPresenter<HUDScreenPresenter>);
+
 			_statechartTrigger(SimulationStartedEvent);
 			CloseMatchmakingScreen().Forget();
 		}

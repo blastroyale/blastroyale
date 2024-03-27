@@ -1,7 +1,7 @@
 //
 // Per vertex 
 
-Shader "FLG/FastLambertShader"
+Shader "FLG/Lit/FastLambert"
 {
     Properties
     {

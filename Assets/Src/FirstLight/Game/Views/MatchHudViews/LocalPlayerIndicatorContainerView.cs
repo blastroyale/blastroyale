@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -36,6 +37,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private float _shrinkingCircleRadius = -1;
 		private Vector2 _shrinkCircleCenter;
 		private int _shrinkingCircleStartTime;
+
+		private bool _localPlayerDropped;
+		private bool _localPlayerLanded;
 
 		public LocalPlayerIndicatorContainerView()
 		{
@@ -88,12 +92,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
 		{
-			GetIndicator((int) IndicatorVfxId.Movement).SetVisualProperties(1, -1, -1);
+			if (!IsInitialized() ) return;
+			_localPlayerLanded = true;
+			GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(1, -1, -1);
 		}
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
 		{
-			GetIndicator((int) IndicatorVfxId.Movement).SetVisualProperties(0, -1, -1);
+			_localPlayerDropped = true;
+			GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(0, -1, -1);
 		}
 
 		/// <summary>
@@ -162,7 +169,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		///  Instantiates all possible indicators
 		/// </summary>
-		public async void InstantiateAllIndicators()
+		public async UniTaskVoid InstantiateAllIndicators()
 		{
 			var loader = _services.AssetResolverService;
 
@@ -178,6 +185,20 @@ namespace FirstLight.Game.Views.MatchHudViews
 					.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId) i, false, true);
 
 				_indicators[i] = obj.GetComponent<IIndicator>();
+			}
+			
+			OnIndicatorsLoaded();
+		}
+
+		private void OnIndicatorsLoaded()
+		{
+			if (_localPlayerLanded)
+			{
+				GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(1, -1, -1);
+			} 
+			else if (_localPlayerDropped)
+			{
+				GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(0, -1, -1);
 			}
 		}
 

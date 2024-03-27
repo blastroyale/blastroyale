@@ -61,28 +61,7 @@ namespace FirstLight.Game.Presenters
 
 			UpdateCharacters().Forget();
 		}
-
-		protected override async UniTask OnClosed()
-		{
-			var positions = _characters[_usedCharactersIndex].Values;
-			for (var i = 0; i < positions.Length; i++)
-			{
-				StartMovingCharacterOut(positions[i].gameObject, _nameLabels[i]);
-			}
-
-
-			await base.OnClosed();
-		}
-
-		private void StartMovingCharacterOut(GameObject character, Label label)
-		{
-			var targetPosition = character.transform.position;
-			targetPosition.x -= 60f;
-			character.transform.DOMove(targetPosition, 0.5f).SetEase(Ease.Linear).onUpdate += () =>
-			{
-				label.SetPositionBasedOnWorldPosition(character.transform.position);
-			};
-		}
+		
 
 		protected override void QueryElements(VisualElement root)
 		{

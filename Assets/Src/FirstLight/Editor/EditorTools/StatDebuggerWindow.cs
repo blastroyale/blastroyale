@@ -45,10 +45,12 @@ namespace FirstLight.Editor.EditorTools
 		{
 			GetWindow<StatDebuggerWindow>("Stat Debugger").Show();
 		}
+		
+		
 
-		protected override void OnGUI()
+		protected override void OnImGUI()
 		{
-			base.OnGUI();
+			base.OnImGUI();
 
 			if (Application.isPlaying && !_Initialized)
 			{

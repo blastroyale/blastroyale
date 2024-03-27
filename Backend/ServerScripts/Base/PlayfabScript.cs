@@ -14,8 +14,10 @@ using FirstLight.Server.SDK.Services;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.AdminModels;
+using PlayFab.AuthenticationModels;
 using PlayFab.Internal;
 using PlayFab.ServerModels;
+using Scripts.Base;
 using AddPlayerTagRequest = PlayFab.AdminModels.AddPlayerTagRequest;
 using GetAllSegmentsRequest = PlayFab.ServerModels.GetAllSegmentsRequest;
 using GetPlayerProfileRequest = PlayFab.ServerModels.GetPlayerProfileRequest;
@@ -159,6 +161,14 @@ public abstract class PlayfabScript : IScript
 
 		PlayFabSettings.staticSettings.DeveloperSecretKey = key;
 		Console.WriteLine($"Using Playfab Title {PlayFabSettings.staticSettings.TitleId}");
+	}
+
+	protected async Task AuthenticateServer()
+	{
+		await PlayFabAuthenticationAPI.GetEntityTokenAsync(new GetEntityTokenRequest()
+		{
+			AuthenticationContext = new PlayFabAuthenticationContext()
+		}).HandleError();
 	}
 
 	public abstract PlayfabEnvironment GetEnvironment();

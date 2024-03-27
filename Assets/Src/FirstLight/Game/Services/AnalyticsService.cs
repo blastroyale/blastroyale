@@ -11,6 +11,7 @@ using FirstLight.UiService;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
+using Unity.Services.Analytics;
 using UnityEngine;
 using UnityEngine.Analytics;
 
@@ -47,12 +48,12 @@ namespace FirstLight.Game.Services
 		public static readonly string LoadCoreAssetsComplete = "load_core_assets_complete";
 		public static readonly string LoadMatchAssetsComplete = "load_match_assets_complete";
 		public static readonly string TutorialStepCompleted = "tutorial_step_completed";
-		
+
 		//BlastPass Analytics Events
 		public static readonly string BlastPassLevelUp = "player_bp_levelup";
 		public static readonly string BlastPassCompleted = "player_bp_completed";
 	}
-	
+
 	/// <summary>
 	/// The analytics service is an endpoint in the game to log custom events to Game's analytics console
 	/// </summary>
@@ -60,22 +61,22 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc cref="AnalyticsCallsSession"/>
 		public AnalyticsCallsSession SessionCalls { get; }
-		
+
 		/// <inheritdoc cref="AnalyticsCallsMatch"/>
 		public AnalyticsCallsMatch MatchCalls { get; }
-		
+
 		/// <inheritdoc cref="AnalyticsCallsEconomy"/>
 		public AnalyticsCallsEconomy EconomyCalls { get; }
-		
+
 		/// <inheritdoc cref="AnalyticsCallsErrors"/>
 		public AnalyticsCallsErrors ErrorsCalls { get; }
-		
+
 		/// <inheritdoc cref="AnalyticsCallsUi"/>
 		public AnalyticsCallsUi UiCalls { get; }
-		
+
 		/// <inheritdoc cref="AnalyticsCallsEquipment"/>
 		public AnalyticsCallsEquipment EquipmentCalls { get; }
-		
+
 		/// <inheritdoc cref="AnalyticsCallsTutorial"/>
 		public AnalyticsCallsTutorial TutorialCalls { get; }
 
@@ -83,19 +84,19 @@ namespace FirstLight.Game.Services
 		/// Logs an analytics event with the given <paramref name="eventName"/>.
 		/// <paramref name="isCriticalEvent"/> represents data that are critical to send to any data end point no matter what
 		/// </summary>
-		void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true);
-		
+		void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true, bool ignoreForUnity = false);
+
 		/// <summary>
 		/// Logs a crash with the given <paramref name="message"/>
 		/// </summary>
 		void CrashLog(string message);
-		
+
 		/// <summary>
 		/// Logs a crash with the given <paramref name="exception"/>
 		/// </summary>
 		void CrashLog(Exception exception);
 	}
-	
+
 	/// <inheritdoc />
 	public class AnalyticsService : IAnalyticsService
 	{
@@ -106,11 +107,11 @@ namespace FirstLight.Game.Services
 		public AnalyticsCallsErrors ErrorsCalls { get; }
 		public AnalyticsCallsUi UiCalls { get; }
 		public AnalyticsCallsEquipment EquipmentCalls { get; }
-		
+
 		public AnalyticsCallLeveling LevelingCalls { get; }
 
 		public AnalyticsService(IGameServices services,
-		                        IGameDataProvider gameDataProvider,
+								IGameDataProvider gameDataProvider,
 								IUiService uiService)
 		{
 			SessionCalls = new AnalyticsCallsSession(this, services, gameDataProvider);
@@ -126,15 +127,24 @@ namespace FirstLight.Game.Services
 
 
 		/// <inheritdoc />
-		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true)
+		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true, bool ignoreForUnity = false)
 		{
 			if (!AppPermissions.Get().IsTrackingAccepted()) return;
-			
+
 			try
 			{
-				// Unity Analytics
-				Analytics.CustomEvent(eventName, parameters);
-				
+				if (!ignoreForUnity)
+				{
+					// Lovely little waterfall of analytics 👉👈
+					var unityEvent = new CustomEvent(eventName);
+					if (parameters != null)
+						foreach (var (key, value) in parameters)
+							if(key is not "custom_event_timestamp")
+								unityEvent[key] = value;
+
+					Unity.Services.Analytics.AnalyticsService.Instance.RecordEvent(unityEvent);
+				}
+
 				//PlayFab Analytics
 				if (PlayFabSettings.staticPlayer.IsClientLoggedIn())
 				{
@@ -164,7 +174,7 @@ namespace FirstLight.Game.Services
 							"Analytics null parameter '" + parameter.Key + "' in event '" + eventName + "'");
 						continue;
 					}
-					
+
 					switch (parameter.Value)
 					{
 						// Firebase
@@ -199,7 +209,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void CrashLog(Exception exception)
 		{
-			ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session, "CrashLog:"+exception.Message);
+			ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session, "CrashLog:" + exception.Message);
 			Debug.LogException(exception);
 		}
 	}

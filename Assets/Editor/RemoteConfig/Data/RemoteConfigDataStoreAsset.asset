@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"b13156af-ba7e-4a06-bb6a-2e5eb1261fac\"\n   
+  _rsKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"9fe3e60f-f0f9-4de0-b3a4-cb33e6c2aed1\"\n   
     },\n    \"rs\": {\n      \"key\": \"BetaVersion\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"40d8bc6b-6461-4696-b5db-b46ed9c40dbf\"\n   
-    },\n    \"rs\": {\n      \"key\": \"LeaderboardConfigs\",\n      \"type\": \"json\",\n     
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"b63b3dd9-4d67-48f1-8810-0d59fb399263\"\n   
+    },\n    \"rs\": {\n      \"key\": \"LeaderboardsConfig\",\n      \"type\": \"json\",\n     
     \"schemaId\": \"leaderboards\",\n      \"value\": {\n        \"Trophies Ladder\":
     {\n          \"1\": {\n            \"Name\": \"TROPHIES\",\n            \"Icon\":
     \"trophies-icon\",\n            \"Desc\": \"<size=120%>Play games to earn Trophies\",\n           
@@ -54,11 +54,23 @@ MonoBehaviour:
     \"Rewards\": \"Top 5: Character Skin + 1K Craft Spice<br><br>Top 6-10: 500 Craft
     Spice + 500 Coins<br><br>Top 11-50: 500 Coins<br><br>Top 51-200: 250 Coins\",\n           
     \"ManualEndTime\": \"25/12/2030\",\n            \"Visible\": false\n         
-    }\n        }\n      }\n    }\n  }\n]"
-  _rsLastCachedKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"b13156af-ba7e-4a06-bb6a-2e5eb1261fac\"\n   
+    }\n        }\n      }\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\":
+    \"bbfb6e94-2458-4947-9cec-467f9ecb5671\"\n    },\n    \"rs\": {\n      \"key\":
+    \"DesyncDetection\",\n      \"type\": \"bool\",\n      \"value\": true\n    }\n 
+    },\n  {\n    \"metadata\": {\n      \"entityId\": \"d5684532-20ce-4342-9078-25caff81c4c1\"\n   
+    },\n    \"rs\": {\n      \"key\": \"SystemLockingEnabled\",\n      \"type\":
+    \"bool\",\n      \"value\": false\n    }\n  },\n  {\n    \"metadata\": {\n     
+    \"entityId\": \"5fc1025b-d821-48e0-9a6e-29633ff0baf3\"\n    },\n    \"rs\": {\n     
+    \"key\": \"StoreEnabled\",\n      \"type\": \"bool\",\n      \"value\": true\n   
+    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"1b2c3f91-a70e-4bc6-942e-78f083792d25\"\n   
+    },\n    \"rs\": {\n      \"key\": \"TutorialEnabled\",\n      \"type\": \"bool\",\n     
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"af909596-f896-44c0-9998-39b3ab6652a6\"\n   
+    },\n    \"rs\": {\n      \"key\": \"CommitVersionLock\",\n      \"type\": \"bool\",\n     
+    \"value\": true\n    }\n  }\n]"
+  _rsLastCachedKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"9fe3e60f-f0f9-4de0-b3a4-cb33e6c2aed1\"\n   
     },\n    \"rs\": {\n      \"key\": \"BetaVersion\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"40d8bc6b-6461-4696-b5db-b46ed9c40dbf\"\n   
-    },\n    \"rs\": {\n      \"key\": \"LeaderboardConfigs\",\n      \"type\": \"json\",\n     
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"b63b3dd9-4d67-48f1-8810-0d59fb399263\"\n   
+    },\n    \"rs\": {\n      \"key\": \"LeaderboardsConfig\",\n      \"type\": \"json\",\n     
     \"schemaId\": \"leaderboards\",\n      \"value\": {\n        \"Trophies Ladder\":
     {\n          \"1\": {\n            \"Name\": \"TROPHIES\",\n            \"Icon\":
     \"trophies-icon\",\n            \"Desc\": \"<size=120%>Play games to earn Trophies\",\n           
@@ -97,7 +109,19 @@ MonoBehaviour:
     \"Rewards\": \"Top 5: Character Skin + 1K Craft Spice<br><br>Top 6-10: 500 Craft
     Spice + 500 Coins<br><br>Top 11-50: 500 Coins<br><br>Top 51-200: 250 Coins\",\n           
     \"ManualEndTime\": \"25/12/2030\",\n            \"Visible\": false\n         
-    }\n        }\n      }\n    }\n  }\n]"
+    }\n        }\n      }\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\":
+    \"bbfb6e94-2458-4947-9cec-467f9ecb5671\"\n    },\n    \"rs\": {\n      \"key\":
+    \"DesyncDetection\",\n      \"type\": \"bool\",\n      \"value\": true\n    }\n 
+    },\n  {\n    \"metadata\": {\n      \"entityId\": \"d5684532-20ce-4342-9078-25caff81c4c1\"\n   
+    },\n    \"rs\": {\n      \"key\": \"SystemLockingEnabled\",\n      \"type\":
+    \"bool\",\n      \"value\": false\n    }\n  },\n  {\n    \"metadata\": {\n     
+    \"entityId\": \"5fc1025b-d821-48e0-9a6e-29633ff0baf3\"\n    },\n    \"rs\": {\n     
+    \"key\": \"StoreEnabled\",\n      \"type\": \"bool\",\n      \"value\": true\n   
+    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"1b2c3f91-a70e-4bc6-942e-78f083792d25\"\n   
+    },\n    \"rs\": {\n      \"key\": \"TutorialEnabled\",\n      \"type\": \"bool\",\n     
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"af909596-f896-44c0-9998-39b3ab6652a6\"\n   
+    },\n    \"rs\": {\n      \"key\": \"CommitVersionLock\",\n      \"type\": \"bool\",\n     
+    \"value\": true\n    }\n  }\n]"
   _environments: "[\n  {\n    \"projectId\": \"***REMOVED***\",\n   
     \"name\": \"production\",\n    \"id\": \"***REMOVED***\",\n   
     \"isDefault\": true,\n    \"createdAt\": \"2021-11-23T11:42:53Z\",\n    \"updatedAt\":

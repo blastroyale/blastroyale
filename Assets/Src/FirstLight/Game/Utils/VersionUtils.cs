@@ -125,9 +125,9 @@ namespace FirstLight.Game.Utils
 		{
 			string version = $"{Application.version}-{data.BuildNumber}.{data.BranchName}.{data.Commit}";
 
-			if (!string.IsNullOrEmpty(data.BuildType))
+			if (!string.IsNullOrEmpty(data.Environment))
 			{
-				version += $".{data.BuildType}";
+				version += $".{data.Environment}";
 			}
 
 			return version;
@@ -143,7 +143,7 @@ namespace FirstLight.Game.Utils
 		{
 			public string Commit;
 			public string BranchName;
-			public string BuildType;
+			public string Environment;
 			public string BuildNumber;
 		}
 

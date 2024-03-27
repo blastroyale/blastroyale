@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Editor.Build.Utils;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using UnityEditor;
@@ -20,11 +21,11 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Set the internal version before building the app.
 		/// </summary>
-		public static void SetAndSaveInternalVersion(bool isStoreBuild)
+		public static void SetAndSaveInternalVersion(string environment)
 		{
-			var newVersionData = GenerateInternalVersionSuffix(isStoreBuild);
+			var newVersionData = GenerateInternalVersionSuffix(environment);
 			var newVersionDataSerialized = JsonUtility.ToJson(newVersionData);
-			var oldVersionDataSerialized = VersionEditorUtils.LoadVersionDataSerializedSync();
+			var oldVersionDataSerialized = LoadVersionDataSerializedSync();
 			if (newVersionDataSerialized.Equals(oldVersionDataSerialized, StringComparison.Ordinal))
 			{
 				return;
@@ -57,10 +58,10 @@ namespace FirstLight.Editor.Build
 		[InitializeOnLoadMethod]
 		private static void OnEditorLoad()
 		{
-			SetAndSaveInternalVersion(false);
+			SetAndSaveInternalVersion("development");
 		}
 
-		private static VersionUtils.VersionData GenerateInternalVersionSuffix(bool isStoreBuild)
+		private static VersionUtils.VersionData GenerateInternalVersionSuffix(string environment)
 		{
 			var data = new VersionUtils.VersionData();
 			
@@ -103,23 +104,9 @@ namespace FirstLight.Editor.Build
 			}
 
 			data.BuildNumber = PlayerSettings.iOS.buildNumber;
-			data.BuildType = isStoreBuild ? "prod" : "dev";
+			data.Environment = environment;
 
 			return data;
-		}
-		
-		/// <summary>
-		/// If unity has started in batch mode try and set the version code of the build
-		/// </summary>
-		public static void TrySetBuildNumberFromCommandLineArgs(string[] args)
-		{
-			if (!FirstLightBuildUtil.TryGetBuildNumberFromCommandLineArgs(out var buildNumber, args))
-			{
-				return;
-			}
-
-			PlayerSettings.Android.bundleVersionCode = buildNumber;
-			PlayerSettings.iOS.buildNumber = buildNumber.ToString();
 		}
 		
 		/// <summary>

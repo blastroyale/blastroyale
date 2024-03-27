@@ -41,7 +41,7 @@ MonoBehaviour:
   m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
-  m_BuildAddressablesWithPlayerBuild: 2
+  m_BuildAddressablesWithPlayerBuild: 1
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
   - {fileID: 11400000, guid: 9245a4260ad6e4fec8b5547beadd03c2, type: 2}
@@ -83,90 +83,6 @@ MonoBehaviour:
       - m_Id: b2d80958694564964b68b1dc52b8801b
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     - m_InheritedParent: 
-      m_Id: c054830b311bc48ce993e41075e6d8d7
-      m_ProfileName: CCD-development-iOS
-      m_Values:
-      - m_Id: aca0d754c35474bfababd9868dc6c9e5
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
-      - m_Id: c0b8c4f3712014b66b946895576ed012
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
-      - m_Id: 98403f15505af4449befcb5aa59b4183
-        m_Value: RemoteAddressables
-      - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/development/buckets/a54bd66c-a2ca-45a9-b9e8-4b7c2c632151/release_by_badge/latest/entry_by_path/content/?path=
-      - m_Id: b2d80958694564964b68b1dc52b8801b
-        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
-    - m_InheritedParent: 
-      m_Id: 6539d3dfeb1004095aba7d4e4a5b35dc
-      m_ProfileName: CCD-staging-iOS
-      m_Values:
-      - m_Id: aca0d754c35474bfababd9868dc6c9e5
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
-      - m_Id: c0b8c4f3712014b66b946895576ed012
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
-      - m_Id: 98403f15505af4449befcb5aa59b4183
-        m_Value: RemoteAddressables
-      - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/staging/buckets/c843819d-be7b-46cd-80a6-1491e7c5834d/release_by_badge/latest/entry_by_path/content/?path=
-      - m_Id: b2d80958694564964b68b1dc52b8801b
-        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
-    - m_InheritedParent: 
-      m_Id: 48820814c930543f7a5e18f4b73468b7
-      m_ProfileName: CCD-production-iOS
-      m_Values:
-      - m_Id: aca0d754c35474bfababd9868dc6c9e5
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
-      - m_Id: c0b8c4f3712014b66b946895576ed012
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
-      - m_Id: 98403f15505af4449befcb5aa59b4183
-        m_Value: RemoteAddressables
-      - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/production/buckets/55368626-cbf9-4dce-8198-0df42914fef7/release_by_badge/public/entry_by_path/content/?path=
-      - m_Id: b2d80958694564964b68b1dc52b8801b
-        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
-    - m_InheritedParent: 
-      m_Id: 611e22c580a0b4b1884c8a48308bb9bd
-      m_ProfileName: CCD-development-Android
-      m_Values:
-      - m_Id: aca0d754c35474bfababd9868dc6c9e5
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
-      - m_Id: c0b8c4f3712014b66b946895576ed012
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
-      - m_Id: 98403f15505af4449befcb5aa59b4183
-        m_Value: RemoteAddressables
-      - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/development/buckets/a92232d6-91eb-4db4-8358-d06c6adc5006/release_by_badge/latest/entry_by_path/content/?path=
-      - m_Id: b2d80958694564964b68b1dc52b8801b
-        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
-    - m_InheritedParent: 
-      m_Id: b98e8c508e492476792ba835d4416636
-      m_ProfileName: CCD-staging-Android
-      m_Values:
-      - m_Id: aca0d754c35474bfababd9868dc6c9e5
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
-      - m_Id: c0b8c4f3712014b66b946895576ed012
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
-      - m_Id: 98403f15505af4449befcb5aa59b4183
-        m_Value: RemoteAddressables
-      - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/staging/buckets/fc259eb9-20a7-4651-886a-1dd63541dc36/release_by_badge/latest/entry_by_path/content/?path=
-      - m_Id: b2d80958694564964b68b1dc52b8801b
-        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
-    - m_InheritedParent: 
-      m_Id: d26b6157d8da54a6d8f66edd562f18d1
-      m_ProfileName: CCD-production-Android
-      m_Values:
-      - m_Id: aca0d754c35474bfababd9868dc6c9e5
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
-      - m_Id: c0b8c4f3712014b66b946895576ed012
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
-      - m_Id: 98403f15505af4449befcb5aa59b4183
-        m_Value: RemoteAddressables
-      - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/production/buckets/b9eb7bd8-7b69-4f3b-8b84-0e85806721ff/release_by_badge/public/entry_by_path/content/?path=
-      - m_Id: b2d80958694564964b68b1dc52b8801b
-        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
-    - m_InheritedParent: 
       m_Id: 4e21db4b4eec549fc904e67103c2038d
       m_ProfileName: EditorHosted
       m_Values:
@@ -178,6 +94,48 @@ MonoBehaviour:
         m_Value: ServerData/[BuildTarget]
       - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
         m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+      - m_Id: b2d80958694564964b68b1dc52b8801b
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+    - m_InheritedParent: 
+      m_Id: bb17786f4bf93499fad85cd561d9d6d5
+      m_ProfileName: CCD-development
+      m_Values:
+      - m_Id: aca0d754c35474bfababd9868dc6c9e5
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: c0b8c4f3712014b66b946895576ed012
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 98403f15505af4449befcb5aa59b4183
+        m_Value: ServerData/[BuildTarget]
+      - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
+        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/development/buckets/***REMOVED***/release_by_badge/latest/entry_by_path/content/?path=/[BuildTarget]
+      - m_Id: b2d80958694564964b68b1dc52b8801b
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+    - m_InheritedParent: 
+      m_Id: 2a963e432b09a4d8bbbe64ed385cbd90
+      m_ProfileName: CCD-staging
+      m_Values:
+      - m_Id: aca0d754c35474bfababd9868dc6c9e5
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: c0b8c4f3712014b66b946895576ed012
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 98403f15505af4449befcb5aa59b4183
+        m_Value: ServerData/[BuildTarget]
+      - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
+        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/staging/buckets/***REMOVED***/release_by_badge/public/entry_by_path/content/?path=/[BuildTarget]
+      - m_Id: b2d80958694564964b68b1dc52b8801b
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+    - m_InheritedParent: 
+      m_Id: 8a0b657a8900b4beaab7b0bc9d94dc34
+      m_ProfileName: CCD-production
+      m_Values:
+      - m_Id: aca0d754c35474bfababd9868dc6c9e5
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: c0b8c4f3712014b66b946895576ed012
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 98403f15505af4449befcb5aa59b4183
+        m_Value: ServerData/[BuildTarget]
+      - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
+        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/production/buckets/***REMOVED***/release_by_badge/public/entry_by_path/content/?path=/[BuildTarget]
       - m_Id: b2d80958694564964b68b1dc52b8801b
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     m_ProfileEntryNames:
@@ -233,7 +191,7 @@ MonoBehaviour:
           m_Key: HostingServiceUploadSpeed
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
-          m_Data: Library/com.unity.addressables/aa/Android/Android
+          m_Data: Library/com.unity.addressables/aa/iOS/iOS
           m_Key: ContentRoot
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Boolean

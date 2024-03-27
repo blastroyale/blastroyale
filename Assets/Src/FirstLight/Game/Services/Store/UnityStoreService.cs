@@ -73,7 +73,8 @@ namespace FirstLight.Game.Services
 #else
 			var module = StandardPurchasingModule.Instance();
 #endif
-#if !STORE_BUILD
+
+#if DEVELOPMENT_BUILD
 			var useFakeStore = PlayerPrefs.GetInt("Debug.UseFakeStore", 1) == 1;
 			var fakeStoreUiMode =
 				Enum.Parse<FakeStoreUIMode>(PlayerPrefs.GetString("Debug.FakeStoreUiMode",

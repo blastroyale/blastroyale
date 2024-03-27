@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using Backend.Db;
 using Backend.Game;
 using Backend.Game.Services;
@@ -60,6 +61,8 @@ namespace Backend
 			services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
 			services.AddSingleton<GameServer>();
 			services.AddSingleton<IStateMigrator<ServerState>, StateMigrations>();
+			services.AddSingleton<UnityAuthService>();
+			services.AddHttpClient();
 			services.AddSingleton<IEventManager, PluginEventManager>(p =>
 			{
 				var pluginLogger = p.GetService<IPluginLogger>();

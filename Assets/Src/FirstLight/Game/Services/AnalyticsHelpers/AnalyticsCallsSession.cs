@@ -61,7 +61,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		public void SessionEnd(string reason)
 		{
 			var dic = new Dictionary<string, object> { { "reason", reason } };
-			_analyticsService.LogEvent(AnalyticsEvents.SessionEnd, dic);
+			_analyticsService.LogEvent(AnalyticsEvents.SessionEnd, dic, ignoreForUnity: true);
 		}
 
 		/// <summary>
@@ -82,7 +82,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				};
 			}
 
-			_analyticsService.LogEvent(AnalyticsEvents.SessionHeartbeat, parameters, false);
+			_analyticsService.LogEvent(AnalyticsEvents.SessionHeartbeat, parameters, false, true);
 		}
 
 		public void Disconnection(bool critical)
@@ -176,7 +176,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 #endif
 				{ "language", Application.systemLanguage.ToString() },
 				{ "os", SystemInfo.operatingSystem },
-				{ "battery_status", SystemInfo.batteryStatus },
+				{ "battery_status", SystemInfo.batteryStatus.ToString() },
 				{ "memory_readable", SRFileUtil.GetBytesReadable((long)SystemInfo.systemMemorySize * 1024 * 1024) },
 			};
 

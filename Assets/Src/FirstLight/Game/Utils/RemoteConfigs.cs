@@ -22,14 +22,7 @@ namespace FirstLight.Game.Utils
 
 		public static async UniTask Init()
 		{
-			// Remote config requires authentication for managing environment information
-			if (!AuthenticationService.Instance.IsSignedIn)
-			{
-				await AuthenticationService.Instance.SignInAnonymouslyAsync().AsUniTask();
-			}
-
 			var rc = await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
-
 			Instance = JsonConvert.DeserializeObject<RemoteConfigs>(rc.config.ToString());
 		}
 	}

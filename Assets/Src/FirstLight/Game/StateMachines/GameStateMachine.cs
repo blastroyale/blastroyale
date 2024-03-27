@@ -70,7 +70,7 @@ namespace FirstLight.Game.StateMachines
 				services.AnalyticsService.LogEvent("state-time", new AnalyticsData()
 				{
 					{"state", state},
-					{"milliseconds", millis},
+					{"total_time", millis},
 					{"device-memory-mb", SystemInfo.systemMemorySize},
 					{"device-model", SystemInfo.deviceModel},
 					{"device-name", SystemInfo.deviceName},

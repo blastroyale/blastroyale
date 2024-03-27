@@ -231,7 +231,7 @@ namespace FirstLight.Game.Services
 
 		private void SetupEnvironmentFromCompilerFlags(BackendEnvironmentData envData)
 		{
-#if LIVE_SERVER
+#if PROD_SERVER
 			SetupLive(envData);
 #elif LIVE_TESTNET_SERVER
 			SetupTestnet(envData);

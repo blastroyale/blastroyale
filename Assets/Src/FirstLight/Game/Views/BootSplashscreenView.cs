@@ -4,15 +4,15 @@ using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Analytics;
-using FirstLight.FLogger;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
-using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
+using Unity.Services.RemoteConfig;
+using AnalyticsService = Unity.Services.Analytics.AnalyticsService;
 
 #pragma warning disable CS1998
 
@@ -23,9 +23,9 @@ namespace FirstLight.Game.Views
 	/// </summary>
 	public class BootSplashscreenView : MonoBehaviour
 	{
-		private const string _bootSceneName = "Boot";
-		private const string _mainSceneName = "Main";
-		private AppPermissions _permissions = new ();
+		private const string BOOT_SCENE_NAME = "Boot";
+		private const string MAIN_SCENE_NAME = "Main";
+		private readonly AppPermissions _permissions = new ();
 
 		[SerializeField, Required] private AudioSource _audioSource;
 
@@ -62,7 +62,7 @@ namespace FirstLight.Game.Views
 
 		private async UniTask StartTask()
 		{
-			var asyncOperation = SceneManager.LoadSceneAsync(_mainSceneName, LoadSceneMode.Additive);
+			var asyncOperation = SceneManager.LoadSceneAsync(MAIN_SCENE_NAME, LoadSceneMode.Additive);
 
 			asyncOperation.allowSceneActivation = false;
 
@@ -77,7 +77,7 @@ namespace FirstLight.Game.Views
 			Debug.Log("initializing with analytics enabled = " + _permissions.IsTrackingAccepted());
 
 			await InitUnityServices();
-			
+
 			await StartAnalytics();
 			if (_permissions.IsTrackingAccepted())
 			{
@@ -95,10 +95,9 @@ namespace FirstLight.Game.Views
 			var initOpts = new InitializationOptions();
 
 			initOpts.SetEnvironmentName(UnityCloudEnvironment.CURRENT);
+			RemoteConfigService.Instance.SetEnvironmentID(UnityCloudEnvironment.CURRENT);
 
 			await UnityServices.InitializeAsync(initOpts).AsUniTask();
-			// TODO: Disabled for release so we don't create unlinked anon accounts
-			// await RemoteConfigs.Init();
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
@@ -128,6 +127,11 @@ namespace FirstLight.Game.Views
 
 			FirebaseApp.Create();
 			FirebaseAnalytics.SetAnalyticsCollectionEnabled(_permissions.IsTrackingAccepted());
+
+			if (_permissions.IsTrackingAccepted())
+			{
+				AnalyticsService.Instance.StartDataCollection();
+			}
 		}
 
 		private void StartSplashScreen()
@@ -162,8 +166,8 @@ namespace FirstLight.Game.Views
 
 			await WaitForInstaller();
 
-			SceneManager.MergeScenes(SceneManager.GetSceneByName(_bootSceneName),
-				SceneManager.GetSceneByName(_mainSceneName));
+			SceneManager.MergeScenes(SceneManager.GetSceneByName(BOOT_SCENE_NAME),
+				SceneManager.GetSceneByName(MAIN_SCENE_NAME));
 			Destroy(gameObject);
 		}
 

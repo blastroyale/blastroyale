@@ -33,13 +33,15 @@ namespace ServerCommon.Cloudscript
 		private ILogicWebService _logicServer;
 		private ShopService _shop;
 		private IEventManager _events;
+		private UnityAuthService _unityAuthService;
 
-		public CloudscriptController(ILogicWebService logicServer, ShopService shop, IEventManager events, IStatisticsService stats)
+		public CloudscriptController(ILogicWebService logicServer, ShopService shop, IEventManager events, IStatisticsService stats, UnityAuthService unityAuthService)
 		{
 			_logicServer = logicServer;
 			_shop = shop;
 			_events = events;
 			_statistics = stats;
+			_unityAuthService = unityAuthService;
 		}
 		
 		[HttpPost]
@@ -74,6 +76,14 @@ namespace ServerCommon.Cloudscript
 		public async Task<IActionResult> GetPlayerData([FromBody] CloudscriptRequest<LogicRequest> request)
 		{
 			return Ok(new CloudscriptResponse(await _logicServer.GetPlayerData(request.PlayfabId)));
+		}
+		
+		[HttpPost]
+		[RequiresApiKey]
+		[Route("AuthenticateUnity")]
+		public async Task<IActionResult> AuthenticateUnity([FromBody] CloudscriptRequest<LogicRequest> request)
+		{
+			return Ok(new CloudscriptResponse(await _unityAuthService.Authenticate(request.PlayfabId)));
 		}
 		
 		[HttpPost]

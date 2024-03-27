@@ -82,7 +82,7 @@ variables:
         value: "Debug"
       ${{  if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))  }}:
         value: "Release"
-    - name: development_build
+    - name: dev_build
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
         value: true
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:

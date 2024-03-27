@@ -171,10 +171,7 @@ namespace FirstLight.Game.Logic
 
 			if (DefaultEquipped.TryGetValue(group, out var defaultEquipped))
 			{
-				if (IsItemOwned(defaultEquipped))
-				{
-					return defaultEquipped;
-				}
+				return defaultEquipped;
 			}
 
 			var owned = GetOwnedCollection(group);

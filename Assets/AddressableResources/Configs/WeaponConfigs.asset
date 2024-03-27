@@ -44,7 +44,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 49152
       PowerToDamageRatio:
-        RawValue: 6147
+        RawValue: 8113
       AttackHitSpeed:
         RawValue: 0
       MinAttackAngle: 60

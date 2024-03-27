@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -34,7 +33,7 @@ namespace FirstLight.Editor.Build
 
 			SetupBuildNumber(buildNumber);
 			SetupDevelopmentBuild(isDevelopmentBuild, ref buildConfig);
-			SetupAddressables(environment, buildTarget);
+			SetupAddressables(environment);
 			SetupServerDefines(environment, ref buildConfig);
 			SetupAndroidKeystore();
 			SetupScenes(ref buildConfig);
@@ -80,11 +79,11 @@ namespace FirstLight.Editor.Build
 			}
 		}
 
-		private static void SetupAddressables(string environment, BuildTarget buildTarget)
+		private static void SetupAddressables(string environment)
 		{
 			var addressableSettings = AddressableAssetSettingsDefaultObject.Settings;
 
-			var profileName = $"CCD-{environment}-{buildTarget.ToString()}";
+			var profileName = $"CCD-{environment}";
 			var profileId = addressableSettings.profileSettings.GetProfileId(profileName);
 			if (string.IsNullOrEmpty(profileId))
 			{
@@ -132,7 +131,7 @@ namespace FirstLight.Editor.Build
 		}
 
 		[Conditional("UNITY_ANDROID")]
-		public static void SetupAndroidKeystore()
+		private static void SetupAndroidKeystore()
 		{
 			PlayerSettings.Android.useCustomKeystore = true;
 			PlayerSettings.Android.keystoreName =

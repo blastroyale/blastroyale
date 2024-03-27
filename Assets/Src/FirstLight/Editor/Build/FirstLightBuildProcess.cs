@@ -52,7 +52,7 @@ namespace FirstLight.Editor.Build
 		/// </summary>
 		private static void WriteBuildPropertiesFile()
 		{
-			const string fileName = "build-output.properties";
+			const string FILE_NAME = "build-output.properties";
 
 			var lines = new List<string>();
 			var serializedVersionData = VersionEditorUtils.LoadVersionDataSerializedSync();
@@ -62,11 +62,11 @@ namespace FirstLight.Editor.Build
 			var invalidChars = Path.GetInvalidFileNameChars();
 			var appIdentifier = PlayerSettings.applicationIdentifier;
 			var split = appIdentifier.Split('.');
-			var shortAppIdentifier = split[split.Length - 1];
+			var shortAppIdentifier = split[^1];
 			var androidVersionCode = PlayerSettings.Android.bundleVersionCode;
 			var iOSVersionCode = PlayerSettings.iOS.buildNumber;
 			var obbName = $"main.{androidVersionCode.ToString()}.{appIdentifier}.obb";
-			var filePath = Path.Combine(Application.dataPath, "..", fileName);
+			var filePath = Path.Combine(Application.dataPath, "..", FILE_NAME);
 
 			internalVersionFilename.Replace('/', '_');
 			internalVersionFilename.Replace('\\', '_');

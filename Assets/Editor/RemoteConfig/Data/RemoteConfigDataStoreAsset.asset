@@ -12,6 +12,123 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: '[]'
-  _rsLastCachedKeyList: '[]'
-  _environments: '[]'
+  _rsKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"9fe3e60f-f0f9-4de0-b3a4-cb33e6c2aed1\"\n   
+    },\n    \"rs\": {\n      \"key\": \"BetaVersion\",\n      \"type\": \"bool\",\n     
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"b63b3dd9-4d67-48f1-8810-0d59fb399263\"\n   
+    },\n    \"rs\": {\n      \"key\": \"LeaderboardsConfig\",\n      \"type\": \"json\",\n     
+    \"schemaId\": \"leaderboards\",\n      \"value\": {\n        \"Trophies Ladder\":
+    {\n          \"1\": {\n            \"Name\": \"TROPHIES\",\n            \"Icon\":
+    \"trophies-icon\",\n            \"Desc\": \"<size=120%>Play games to earn Trophies\",\n           
+    \"RewardsTitle\": \"<br><size=120%>Season Rewards\",\n            \"Rewards\":
+    \"<size=120%>Top 50: <sprite name=\\\"Blastbuckicon\\\"> 40<br><br>Top 200: <sprite
+    name=\\\"Blastbuckicon\\\"> 20<br><br>Top 500: <sprite name=\\\"Blastbuckicon\\\">
+    10<br><br>Top 1000: <sprite name=\\\"Blastbuckicon\\\"> 5\",\n            \"Visible\":
+    true\n          }\n        },\n        \"Ranked Kills\": {\n          \"1\":
+    {\n            \"Name\": \"KILLS\",\n            \"Icon\": \"kills-icon\",\n           
+    \"Desc\": \"<size=120%>Kill Players in games\",\n            \"RewardsTitle\":
+    \"<br><size=120%>Season Rewards\",\n            \"Rewards\": \"<size=120%>Top
+    50: <sprite name=\\\"Coinicon\\\"> 3000<br><br>Top 200: <sprite name=\\\"Coinicon\\\">
+    1500<br><br>Top 500: <sprite name=\\\"Coinicon\\\"> 750\",\n            \"Visible\":
+    true\n          }\n        },\n        \"Ranked Games Won\": {\n          \"1\":
+    {\n            \"Name\": \"WINS\",\n            \"Icon\": \"wins-icon\",\n           
+    \"Desc\": \"<size=120%>Win games\",\n            \"RewardsTitle\": \"<br><size=120%>Season
+    Rewards\",\n            \"Rewards\": \"<size=120%>Top 500:<br><sprite name=\\\"CollectionIcon\\\"> 
+    Bo (Character)<br><br>Top 1000:<br><sprite name=\\\"CollectionIcon\\\">  Drake
+    (Avatar)\",\n            \"Visible\": true\n          }\n        },\n       
+    \"Games Played\": {\n          \"1\": {\n            \"Name\": \"Matches Played\",\n           
+    \"Icon\": \"games-icon\",\n            \"Desc\": \"<size=120%>Play matches\",\n           
+    \"RewardsTitle\": \"<br><size=120%>Daily Rewards\",\n            \"Rewards\":
+    \"Top 50: 2000 BPPs<br>51-100: 1700 BPPs<br>101-200: 1400 BPPs<br>201-300: 1100
+    BPPs<br>301-500: 800 BPPs<br>501-700: 500 BPPs<br>701-1000: 200 BPPs\",\n           
+    \"Visible\": true\n          }\n        },\n        \"Kills\": {\n          \"1\":
+    {\n            \"Name\": \"KILLS (EVENT)\",\n            \"Icon\": \"kills-icon\",\n           
+    \"Desc\": \"<size=120%>Kill Players in games\",\n            \"RewardsTitle\":
+    \"<br><size=120%>XMax Event Rewards\",\n            \"Rewards\": \"<size=120%>Top
+    2500:<br><sprite name=\\\"CollectionIcon\\\">  Drake Claus (Character)<br><sprite
+    name=\\\"CollectionIcon\\\">  Candy Crusher (Melee)<br><br>Top 5000:<br><sprite
+    name=\\\"CollectionIcon\\\">  Candy Crusher (Melee)\",\n            \"ManualEndTime\":
+    \"17/12/2023\",\n            \"Visible\": false\n          }\n        },\n       
+    \"Games Won\": {\n          \"1\": {\n            \"Name\": \"Victories\",\n           
+    \"Icon\": \"wins-icon\",\n            \"Desc\": \"Win any matches, compete for
+    the prize!\",\n            \"RewardsTitle\": \"<br>Get victories, get prizes!<br>\",\n           
+    \"Rewards\": \"Top 5: Character Skin + 1K Craft Spice<br><br>Top 6-10: 500 Craft
+    Spice + 500 Coins<br><br>Top 11-50: 500 Coins<br><br>Top 51-200: 250 Coins\",\n           
+    \"ManualEndTime\": \"25/12/2030\",\n            \"Visible\": false\n         
+    }\n        }\n      }\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\":
+    \"bbfb6e94-2458-4947-9cec-467f9ecb5671\"\n    },\n    \"rs\": {\n      \"key\":
+    \"DesyncDetection\",\n      \"type\": \"bool\",\n      \"value\": true\n    }\n 
+    },\n  {\n    \"metadata\": {\n      \"entityId\": \"d5684532-20ce-4342-9078-25caff81c4c1\"\n   
+    },\n    \"rs\": {\n      \"key\": \"SystemLockingEnabled\",\n      \"type\":
+    \"bool\",\n      \"value\": false\n    }\n  },\n  {\n    \"metadata\": {\n     
+    \"entityId\": \"5fc1025b-d821-48e0-9a6e-29633ff0baf3\"\n    },\n    \"rs\": {\n     
+    \"key\": \"StoreEnabled\",\n      \"type\": \"bool\",\n      \"value\": true\n   
+    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"1b2c3f91-a70e-4bc6-942e-78f083792d25\"\n   
+    },\n    \"rs\": {\n      \"key\": \"TutorialEnabled\",\n      \"type\": \"bool\",\n     
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"af909596-f896-44c0-9998-39b3ab6652a6\"\n   
+    },\n    \"rs\": {\n      \"key\": \"CommitVersionLock\",\n      \"type\": \"bool\",\n     
+    \"value\": true\n    }\n  }\n]"
+  _rsLastCachedKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"9fe3e60f-f0f9-4de0-b3a4-cb33e6c2aed1\"\n   
+    },\n    \"rs\": {\n      \"key\": \"BetaVersion\",\n      \"type\": \"bool\",\n     
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"b63b3dd9-4d67-48f1-8810-0d59fb399263\"\n   
+    },\n    \"rs\": {\n      \"key\": \"LeaderboardsConfig\",\n      \"type\": \"json\",\n     
+    \"schemaId\": \"leaderboards\",\n      \"value\": {\n        \"Trophies Ladder\":
+    {\n          \"1\": {\n            \"Name\": \"TROPHIES\",\n            \"Icon\":
+    \"trophies-icon\",\n            \"Desc\": \"<size=120%>Play games to earn Trophies\",\n           
+    \"RewardsTitle\": \"<br><size=120%>Season Rewards\",\n            \"Rewards\":
+    \"<size=120%>Top 50: <sprite name=\\\"Blastbuckicon\\\"> 40<br><br>Top 200: <sprite
+    name=\\\"Blastbuckicon\\\"> 20<br><br>Top 500: <sprite name=\\\"Blastbuckicon\\\">
+    10<br><br>Top 1000: <sprite name=\\\"Blastbuckicon\\\"> 5\",\n            \"Visible\":
+    true\n          }\n        },\n        \"Ranked Kills\": {\n          \"1\":
+    {\n            \"Name\": \"KILLS\",\n            \"Icon\": \"kills-icon\",\n           
+    \"Desc\": \"<size=120%>Kill Players in games\",\n            \"RewardsTitle\":
+    \"<br><size=120%>Season Rewards\",\n            \"Rewards\": \"<size=120%>Top
+    50: <sprite name=\\\"Coinicon\\\"> 3000<br><br>Top 200: <sprite name=\\\"Coinicon\\\">
+    1500<br><br>Top 500: <sprite name=\\\"Coinicon\\\"> 750\",\n            \"Visible\":
+    true\n          }\n        },\n        \"Ranked Games Won\": {\n          \"1\":
+    {\n            \"Name\": \"WINS\",\n            \"Icon\": \"wins-icon\",\n           
+    \"Desc\": \"<size=120%>Win games\",\n            \"RewardsTitle\": \"<br><size=120%>Season
+    Rewards\",\n            \"Rewards\": \"<size=120%>Top 500:<br><sprite name=\\\"CollectionIcon\\\"> 
+    Bo (Character)<br><br>Top 1000:<br><sprite name=\\\"CollectionIcon\\\">  Drake
+    (Avatar)\",\n            \"Visible\": true\n          }\n        },\n       
+    \"Games Played\": {\n          \"1\": {\n            \"Name\": \"Matches Played\",\n           
+    \"Icon\": \"games-icon\",\n            \"Desc\": \"<size=120%>Play matches\",\n           
+    \"RewardsTitle\": \"<br><size=120%>Daily Rewards\",\n            \"Rewards\":
+    \"Top 50: 2000 BPPs<br>51-100: 1700 BPPs<br>101-200: 1400 BPPs<br>201-300: 1100
+    BPPs<br>301-500: 800 BPPs<br>501-700: 500 BPPs<br>701-1000: 200 BPPs\",\n           
+    \"Visible\": true\n          }\n        },\n        \"Kills\": {\n          \"1\":
+    {\n            \"Name\": \"KILLS (EVENT)\",\n            \"Icon\": \"kills-icon\",\n           
+    \"Desc\": \"<size=120%>Kill Players in games\",\n            \"RewardsTitle\":
+    \"<br><size=120%>XMax Event Rewards\",\n            \"Rewards\": \"<size=120%>Top
+    2500:<br><sprite name=\\\"CollectionIcon\\\">  Drake Claus (Character)<br><sprite
+    name=\\\"CollectionIcon\\\">  Candy Crusher (Melee)<br><br>Top 5000:<br><sprite
+    name=\\\"CollectionIcon\\\">  Candy Crusher (Melee)\",\n            \"ManualEndTime\":
+    \"17/12/2023\",\n            \"Visible\": false\n          }\n        },\n       
+    \"Games Won\": {\n          \"1\": {\n            \"Name\": \"Victories\",\n           
+    \"Icon\": \"wins-icon\",\n            \"Desc\": \"Win any matches, compete for
+    the prize!\",\n            \"RewardsTitle\": \"<br>Get victories, get prizes!<br>\",\n           
+    \"Rewards\": \"Top 5: Character Skin + 1K Craft Spice<br><br>Top 6-10: 500 Craft
+    Spice + 500 Coins<br><br>Top 11-50: 500 Coins<br><br>Top 51-200: 250 Coins\",\n           
+    \"ManualEndTime\": \"25/12/2030\",\n            \"Visible\": false\n         
+    }\n        }\n      }\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\":
+    \"bbfb6e94-2458-4947-9cec-467f9ecb5671\"\n    },\n    \"rs\": {\n      \"key\":
+    \"DesyncDetection\",\n      \"type\": \"bool\",\n      \"value\": true\n    }\n 
+    },\n  {\n    \"metadata\": {\n      \"entityId\": \"d5684532-20ce-4342-9078-25caff81c4c1\"\n   
+    },\n    \"rs\": {\n      \"key\": \"SystemLockingEnabled\",\n      \"type\":
+    \"bool\",\n      \"value\": false\n    }\n  },\n  {\n    \"metadata\": {\n     
+    \"entityId\": \"5fc1025b-d821-48e0-9a6e-29633ff0baf3\"\n    },\n    \"rs\": {\n     
+    \"key\": \"StoreEnabled\",\n      \"type\": \"bool\",\n      \"value\": true\n   
+    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"1b2c3f91-a70e-4bc6-942e-78f083792d25\"\n   
+    },\n    \"rs\": {\n      \"key\": \"TutorialEnabled\",\n      \"type\": \"bool\",\n     
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"af909596-f896-44c0-9998-39b3ab6652a6\"\n   
+    },\n    \"rs\": {\n      \"key\": \"CommitVersionLock\",\n      \"type\": \"bool\",\n     
+    \"value\": true\n    }\n  }\n]"
+  _environments: "[\n  {\n    \"projectId\": \"***REMOVED***\",\n   
+    \"name\": \"production\",\n    \"id\": \"***REMOVED***\",\n   
+    \"isDefault\": true,\n    \"createdAt\": \"2021-11-23T11:42:53Z\",\n    \"updatedAt\":
+    \"2021-11-23T11:42:53Z\"\n  },\n  {\n    \"projectId\": \"***REMOVED***\",\n   
+    \"name\": \"development\",\n    \"id\": \"***REMOVED***\",\n   
+    \"isDefault\": false,\n    \"createdAt\": \"2022-05-07T22:47:12Z\",\n    \"updatedAt\":
+    \"2022-05-07T22:47:12Z\"\n  },\n  {\n    \"projectId\": \"***REMOVED***\",\n   
+    \"name\": \"staging\",\n    \"id\": \"***REMOVED***\",\n   
+    \"isDefault\": false,\n    \"createdAt\": \"2022-12-05T19:41:03Z\",\n    \"updatedAt\":
+    \"2022-12-05T19:41:03Z\"\n  }\n]"

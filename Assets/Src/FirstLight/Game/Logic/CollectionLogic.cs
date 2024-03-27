@@ -127,6 +127,7 @@ namespace FirstLight.Game.Logic
 			{CollectionCategories.GRAVE, ItemFactory.Collection(GameId.Demon)},
 			{CollectionCategories.MELEE_SKINS, ItemFactory.Collection(GameId.MeleeSkinDefault)},
 			{CollectionCategories.PROFILE_PICTURE, ItemFactory.Collection(GameId.Avatar2)},
+			{CollectionCategories.PLAYER_SKINS, ItemFactory.Collection(GameId.MaleAssassin)},
 		};
 		
 		public IReadOnlyDictionary<CollectionCategory, List<ItemData>> DefaultCollectionItems => Logic.DefaultCollectionItems.Items;

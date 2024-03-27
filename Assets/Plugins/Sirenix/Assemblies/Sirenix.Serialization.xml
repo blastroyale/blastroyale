@@ -6094,6 +6094,8 @@
         <member name="M:Sirenix.Serialization.SerializationUtility.CreateCopy(System.Object)">
             <summary>
             Creates a deep copy of an object. Returns null if null. All Unity objects references will remain the same - they will not get copied.
+            Similarly, strings are not copied, nor are reflection types such as System.Type, or types derived from System.Reflection.MemberInfo,
+            System.Reflection.Assembly or System.Reflection.Module.
             </summary>
         </member>
         <member name="T:Sirenix.Serialization.TwoWaySerializationBinder">
@@ -7220,6 +7222,46 @@
             <param name="reader">The reader to use.</param>
         </member>
         <member name="M:Sirenix.Serialization.Vector4Formatter.Write(UnityEngine.Vector4@,Sirenix.Serialization.IDataWriter)">
+            <summary>
+            Writes from the specified value using the specified writer.
+            </summary>
+            <param name="value">The value to write from.</param>
+            <param name="writer">The writer to use.</param>
+        </member>
+        <member name="T:Sirenix.Serialization.Vector2IntFormatter">
+            <summary>
+            Custom formatter for the <see cref="T:UnityEngine.Vector2Int"/> type.
+            </summary>
+            <seealso cref="!:Sirenix.Serialization.MinimalBaseFormatter&lt;UnityEngine.Vector2Int&gt;" />
+        </member>
+        <member name="M:Sirenix.Serialization.Vector2IntFormatter.Read(UnityEngine.Vector2Int@,Sirenix.Serialization.IDataReader)">
+            <summary>
+            Reads into the specified value using the specified reader.
+            </summary>
+            <param name="value">The value to read into.</param>
+            <param name="reader">The reader to use.</param>
+        </member>
+        <member name="M:Sirenix.Serialization.Vector2IntFormatter.Write(UnityEngine.Vector2Int@,Sirenix.Serialization.IDataWriter)">
+            <summary>
+            Writes from the specified value using the specified writer.
+            </summary>
+            <param name="value">The value to write from.</param>
+            <param name="writer">The writer to use.</param>
+        </member>
+        <member name="T:Sirenix.Serialization.Vector3IntFormatter">
+            <summary>
+            Custom formatter for the <see cref="T:UnityEngine.Vector3Int"/> type.
+            </summary>
+            <seealso cref="!:Sirenix.Serialization.MinimalBaseFormatter&lt;UnityEngine.Vector3Int&gt;" />
+        </member>
+        <member name="M:Sirenix.Serialization.Vector3IntFormatter.Read(UnityEngine.Vector3Int@,Sirenix.Serialization.IDataReader)">
+            <summary>
+            Reads into the specified value using the specified reader.
+            </summary>
+            <param name="value">The value to read into.</param>
+            <param name="reader">The reader to use.</param>
+        </member>
+        <member name="M:Sirenix.Serialization.Vector3IntFormatter.Write(UnityEngine.Vector3Int@,Sirenix.Serialization.IDataWriter)">
             <summary>
             Writes from the specified value using the specified writer.
             </summary>

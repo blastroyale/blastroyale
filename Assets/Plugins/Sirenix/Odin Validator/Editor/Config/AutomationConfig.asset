@@ -19,19 +19,15 @@ MonoBehaviour:
   OnPlayModeFlashScreen: 0
   OnPlayModeSetup:
     Profile: 0
-    SessionConfigData:
-      Include: []
-      Exclude: []
-  OnBuild: 0
-  OnBuildIfWarnings: 0
+    ProfileAsset: {fileID: 0}
+  OnBuild: 1
+  OnBuildIfWarnings: 4
   OnBuildIfErrors: 3
   OnBuildAlwaysCompleteValidationFully: 0
   OnBuildFlashScreen: 0
   OnBuildSetup:
     Profile: 0
-    SessionConfigData:
-      Include: []
-      Exclude: []
+    ProfileAsset: {fileID: 0}
   OnProjectStartup: 0
   OnProjectStartupIfWarnings: 0
   OnProjectStartupIfErrors: 1
@@ -39,6 +35,4 @@ MonoBehaviour:
   OnProjectStartupFlashScreen: 0
   OnProjectStartupSetup:
     Profile: 0
-    SessionConfigData:
-      Include: []
-      Exclude: []
+    ProfileAsset: {fileID: 0}

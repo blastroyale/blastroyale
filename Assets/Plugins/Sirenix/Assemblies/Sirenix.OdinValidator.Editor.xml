@@ -19,10 +19,21 @@
             Defines the ODIN_VALIDATOR symbol.
             </summary>
         </member>
-        <member name="P:Sirenix.OdinInspector.Editor.GettingStarted.NextOdinGettingStartedWindow.OdinBg">
+        <member name="T:Sirenix.OdinInspector.Editor.Validation.RegisterValidationRuleAttribute">
             <summary>
-            Gets a texture of an odin bg symbol.
+            <para>
+            Apply this to an assembly to register validation rules for the validation system.
+            This enables locating of all relevant validator types very quickly.
+            </para>
+            <para>
+            Only use this to register types derived from Validator! It is important to understand
+            that a rule is simply a serialized Validator instance that can be enabled, disabled, 
+            and have its contained values modified from the rules management GUI in the Odin Validator
+            window.
+            </para>
+            <para>Read our Odin Validator tutorials for more information.</para>
             </summary>
+            <seealso cref="T:Sirenix.OdinInspector.Editor.Validation.RegisterValidatorAttribute"/>
         </member>
     </members>
 </doc>

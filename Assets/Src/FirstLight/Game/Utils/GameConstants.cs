@@ -19,12 +19,12 @@ namespace FirstLight.Game.Utils
 		{
 			public const string FEEDBACK_FORM = "https://forms.gle/2V4ffFNmRgoVAba89";
 			public const string ZENDESK_SUPPORT_FORM = "https://firstlightgames.zendesk.com/hc/en-gb/requests/new";
-			
+
 			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
 			public const string YOUTUBE_LINK = "https://www.youtube.com/c/BlastRoyale22";
 			public const string INSTAGRAM_LINK = "https://www.instagram.com/blastroyale";
 			public const string TIKTOK_LINK = "https://www.tiktok.com/@blastroyale";
-			
+
 			public const string APP_STORE_IOS = "https://apps.apple.com/app/blast-royale/id1621071488";
 			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.blastroyale";
 #if LIVE_SERVER
@@ -117,10 +117,10 @@ namespace FirstLight.Game.Utils
 			public const int PLAYER_NAME_MIN_LENGTH = 3;
 			public const int PLAYER_NAME_MAX_LENGTH = 20;
 			public const string DEFAULT_PLAYER_NAME = "Player Name";
-			public static readonly Color GOLD_COLOR = new (247/255f, 198/255f, 46/255f);
-			public static readonly Color SILVER_COLOR = new (247/255f, 198/255f, 46/255f);
-			public static readonly Color BRONZE_COLOR = new (247/255f, 198/255f, 46/255f); 
-			public static readonly Color DEFAULT_COLOR = new (233/255f, 226/255f, 225/255f);
+			public static readonly Color GOLD_COLOR = new (247 / 255f, 198 / 255f, 46 / 255f);
+			public static readonly Color SILVER_COLOR = new (247 / 255f, 198 / 255f, 46 / 255f);
+			public static readonly Color BRONZE_COLOR = new (247 / 255f, 198 / 255f, 46 / 255f);
+			public static readonly Color DEFAULT_COLOR = new (233 / 255f, 226 / 255f, 225 / 255f);
 		}
 
 		public static class Data
@@ -199,9 +199,14 @@ namespace FirstLight.Game.Utils
 
 			// Time control values
 			public const int PLAYER_GAME_TTL_MS = 99999999;
+#if UNITY_EDITOR
+			public const int EMPTY_ROOM_GAME_TTL_MS = 1000 * 60 * 1; // 1 minute
+#else
 			public const int EMPTY_ROOM_GAME_TTL_MS = 1000 * 60 * 5; // 5 minutes
+
+#endif
 			public const int TIMEOUT_SNAPSHOT_SECONDS = EMPTY_ROOM_GAME_TTL_MS / 1000;
-            
+
 
 			// Room properties
 			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";
@@ -274,6 +279,8 @@ namespace FirstLight.Game.Utils
 		public static class GameModeId
 		{
 			public static string FAKEGAMEMODE_CUSTOMGAME = "Custom Game";
+			public static string TESTING = "Testing";
+			
 		}
 	}
 }

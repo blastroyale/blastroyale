@@ -21,6 +21,9 @@
     --sprite-shared__icon-equipmentcategory-helmet: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-helmet.png');
     --sprite-shared__icon-equipmentcategory-shield: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-shield.png');
     --sprite-shared__icon-equipmentcategory-weapon: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-weapon.png');
+    --sprite-shared__icon-gamemode-duos: url('/Assets/Art/UI/Sprites/Shared/icon-gamemode-duos.png');
+    --sprite-shared__icon-gamemode-solo: url('/Assets/Art/UI/Sprites/Shared/icon-gamemode-solo.png');
+    --sprite-shared__icon-gamemode-squads: url('/Assets/Art/UI/Sprites/Shared/icon-gamemode-squads.png');
     --sprite-shared__icon-lowconnection: url('/Assets/Art/UI/Sprites/Shared/icon-lowconnection.png');
     --sprite-shared__icon-medal-1st: url('/Assets/Art/UI/Sprites/Shared/icon-medal-1st.png');
     --sprite-shared__icon-medal-2nd: url('/Assets/Art/UI/Sprites/Shared/icon-medal-2nd.png');
@@ -167,6 +170,24 @@
     background-image: var(--sprite-shared__icon-equipmentcategory-weapon);
     width: 54px;
     height: 54px;
+}
+
+.sprite-shared__icon-gamemode-duos {
+    background-image: var(--sprite-shared__icon-gamemode-duos);
+    width: 44px;
+    height: 48px;
+}
+
+.sprite-shared__icon-gamemode-solo {
+    background-image: var(--sprite-shared__icon-gamemode-solo);
+    width: 34px;
+    height: 48px;
+}
+
+.sprite-shared__icon-gamemode-squads {
+    background-image: var(--sprite-shared__icon-gamemode-squads);
+    width: 44px;
+    height: 48px;
 }
 
 .sprite-shared__icon-lowconnection {

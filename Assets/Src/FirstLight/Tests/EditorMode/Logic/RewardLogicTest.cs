@@ -283,7 +283,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 			InitConfigData(new QuantumGameConfig
 				{TrophiesPerKill = FP._1_50, TrophyEloK = 4, TrophyEloRange = 400, TrophyMinChange = FP._0_05});
 
-			InitConfigData(new QuantumGameModeConfig() {MaxPlayers = 30, MaxPlayersInTeam = 1});
 
 			InitConfigData(config => config.Placement,
 				new MatchRewardConfig

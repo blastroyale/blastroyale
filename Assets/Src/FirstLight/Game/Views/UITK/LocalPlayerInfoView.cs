@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
@@ -8,6 +9,7 @@ using FirstLight.UiService;
 using Photon.Deterministic;
 using Quantum;
 using Quantum.Systems;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
@@ -22,6 +24,7 @@ namespace FirstLight.Game.Views.UITK
 		private IGameServices _gameServices;
 		private IMatchServices _matchServices;
 		private IGameDataProvider _dataProvider;
+		private HashSet<EventKey> _localPlayerEvents = new ();
 
 		public override void Attached(VisualElement element)
 		{
@@ -44,7 +47,10 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnTeamAssigned>(this, OnTeamAssigned);
+			QuantumCallback.SubscribeManual<CallbackEventCanceled>(this, OnEventCanceled);
+			QuantumCallback.SubscribeManual<CallbackEventConfirmed>(this, OnEventConfirmed);
 		}
+
 
 		public override void UnsubscribeFromEvents()
 		{
@@ -57,14 +63,7 @@ namespace FirstLight.Game.Views.UITK
 			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 			var f = QuantumRunner.Default.Game.Frames.Verified;
 
-			if (f.TryGet<Stats>(playerEntity, out var stats))
-			{
-				var maxHealth = FPMath.RoundToInt(stats.GetStatData(StatType.Health).StatValue);
-				var maxShield = FPMath.RoundToInt(stats.GetStatData(StatType.Shield).StatValue);
-
-				_healthShield.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, maxHealth);
-				_healthShield.UpdateShield(stats.CurrentShield, stats.CurrentShield, maxShield);
-			}
+			UpdateHealthAndShieldFromFrame(f);
 
 			if (f.TryGet<PlayerCharacter>(playerEntity, out var pc))
 			{
@@ -83,6 +82,19 @@ namespace FirstLight.Game.Views.UITK
 			_ = LoadPFP();
 		}
 
+		private void UpdateHealthAndShieldFromFrame(Frame f)
+		{
+			var playerEntity = _matchServices.SpectateService.GetSpectatedEntity();
+			if (f.TryGet<Stats>(playerEntity, out var stats))
+			{
+				var maxHealth = FPMath.RoundToInt(stats.GetStatData(StatType.Health).StatValue);
+				var maxShield = FPMath.RoundToInt(stats.GetStatData(StatType.Shield).StatValue);
+
+				_healthShield.UpdateHealth(stats.CurrentHealth, stats.CurrentHealth, maxHealth);
+				_healthShield.UpdateShield(stats.CurrentShield, stats.CurrentShield, maxShield);
+			}
+		}
+
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			UpdateFromLatestVerifiedFrame();
@@ -97,12 +109,14 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
 			_healthShield.UpdateShield(callback.PreviousShield, callback.CurrentShield, callback.CurrentShieldCapacity);
+			_localPlayerEvents.Add(callback);
 		}
 
 		private void OnHealthChanged(EventOnHealthChanged callback)
 		{
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
 			_healthShield.UpdateHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
+			_localPlayerEvents.Add(callback);
 		}
 
 		private void UpdateTeamColor()
@@ -132,6 +146,20 @@ namespace FirstLight.Game.Views.UITK
 			var itemData = _dataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
 			var sprite = await _gameServices.CollectionService.LoadCollectionItemSprite(itemData);
 			_pfp.style.backgroundImage = new StyleBackground(sprite);
+		}
+
+
+		private void OnEventCanceled(CallbackEventCanceled callback)
+		{
+			if (!_localPlayerEvents.Contains(callback.EventKey)) return;
+
+			UpdateHealthAndShieldFromFrame(callback.Game.Frames.Verified);
+			_localPlayerEvents.Remove(callback.EventKey);
+		}
+
+		private void OnEventConfirmed(CallbackEventConfirmed callback)
+		{
+			_localPlayerEvents.Remove(callback.EventKey);
 		}
 	}
 }

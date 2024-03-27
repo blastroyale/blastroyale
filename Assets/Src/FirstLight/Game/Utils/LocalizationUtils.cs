@@ -213,7 +213,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetTranslationForGameModeId(string gameModeId)
 		{
-			var term = $"{nameof(ScriptTerms.UITHomeScreen)}/gamemode_{gameModeId}";
+			var term = $"{nameof(ScriptTerms.UITShared)}/gamemode_{gameModeId}";
 			if (LocalizationManager.TryGetTranslation(term, out var translation))
 			{
 				return translation;
@@ -221,6 +221,26 @@ namespace FirstLight.Game.Utils
 
 			return gameModeId.ToUpperInvariant();
 		}
+
+		/// <summary>
+		/// Requests the localized text representing the given <paramref name="gameModeId"/> as a string
+		/// </summary>
+		public static string GetTranslationForTeamSize(int teamSize)
+		{
+			var term = $"{nameof(ScriptTerms.UITShared)}/team_size_{teamSize}";
+			if (LocalizationManager.TryGetTranslation(term, out var translation))
+			{
+				return translation;
+			}
+
+			return teamSize.ToString();
+		}
+
+		public static string GetTranslationForGameModeAndTeamSize(string gameMode, int teamSize, string separator = " ")
+		{
+			return GetTranslationForGameModeId(gameMode) + separator + GetTranslationForTeamSize(teamSize);
+		}
+
 
 		public static string GetTranslation(this UnlockSystem unlockSystem)
 		{

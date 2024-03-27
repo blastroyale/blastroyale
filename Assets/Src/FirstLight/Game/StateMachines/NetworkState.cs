@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -206,18 +207,9 @@ namespace FirstLight.Game.StateMachines
 			_gameDataProvider.AppDataProvider.LastFrameSnapshot.Value = default;
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 
-			var config = _services.RoomService.GetGameModeConfig(setup.GameModeId);
-			if (config.ShouldUsePlayfabMatchmaking())
-			{
-				FLog.Verbose("Using playfab matchmaking!");
-				_networkService.LastUsedSetup.Value = setup;
-				_services.MatchmakingService.JoinMatchmaking(setup);
-			}
-			else
-			{
-				FLog.Verbose("Using old matchmaking to join or create room!");
-				_services.RoomService.JoinOrCreateRandomRoom(setup);
-			}
+			FLog.Verbose("Using playfab matchmaking!");
+			_networkService.LastUsedSetup.Value = setup;
+			_services.MatchmakingService.JoinMatchmaking(setup);
 		}
 
 		private void JoinRoom(string roomName, bool resetLastDcLocation = true)
@@ -535,7 +527,8 @@ namespace FirstLight.Game.StateMachines
 				GameModeId = gameModeId,
 				Mutators = mutators,
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
-				AllowedRewards = selectedGameMode.Entry.AllowedRewards
+				AllowedRewards = selectedGameMode.Entry.AllowedRewards,
+				PlayfabQueue = selectedGameMode.Entry.PlayfabQueue
 			};
 
 			StartRandomMatchmaking(matchmakingSetup);
@@ -581,6 +574,12 @@ namespace FirstLight.Game.StateMachines
 				MatchType = MatchType.Custom,
 				RoomIdentifier = msg.RoomName,
 				BotDifficultyOverwrite = msg.CustomGameOptions.BotDifficulty,
+				PlayfabQueue = new GameModeRotationConfig.PlayfabQueue()
+				{
+					//TODO: Carlos remove team size from playfab queue, it should be outside
+					TeamSize = msg.CustomGameOptions.TeamSize
+				},
+				OverwriteMaxPlayers = msg.CustomGameOptions.PlayersNumber
 			};
 			var offlineMatch = msg.MapConfig.IsTestMap;
 			if (msg.JoinIfExists)

@@ -96,6 +96,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventGameItemCollected>(this, OnCollected);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
+			QuantumCallback.SubscribeManual<CallbackEventCanceled>(this, OnEventCancelled);
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -183,10 +184,10 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public void InitAll()
+		public unsafe void InitAll()
 		{
 			var f = QuantumRunner.Default.Game.Frames.Verified;
-			var dataArray = f.GetSingleton<GameContainer>().PlayersData;
+			var dataArray = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
 			for (int i = 0; i < f.PlayerCount; i++)
 			{
 				var p = dataArray[i];
@@ -389,7 +390,7 @@ namespace FirstLight.Game.Views.UITK
 			if ((callback.PlayerTeamId == spectatedPlayer.Team || callback.HitEntity == spectatedPlayer.Entity) &&
 				_visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
 			{
-				playerBar.PingDamage(callback.TotalDamage, callback.isShieldDmg ? _defaultShieldDmgColor : null);
+				playerBar.PingDamage(callback.TotalDamage, callback, callback.isShieldDmg ? _defaultShieldDmgColor : null);
 			}
 		}
 
@@ -398,7 +399,20 @@ namespace FirstLight.Game.Views.UITK
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 			if (callback.HitEntity == spectatedPlayer.Entity && _visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
 			{
-				playerBar.PingDamage(callback.TotalDamage);
+				playerBar.PingDamage(callback.TotalDamage, callback);
+			}
+		}
+
+		private void OnEventCancelled(CallbackEventCanceled callback)
+		{
+			var eventId = callback.EventKey.Id;
+			if (eventId is EventOnShrinkingCircleDmg.ID or EventOnPlayerAttackHit.ID)
+			{
+				var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
+				if (_visiblePlayers.TryGetValue(spectatedPlayer.Entity, out var playerBar))
+				{
+					playerBar.OnEventCancelled(callback.EventKey);
+				}
 			}
 		}
 	}

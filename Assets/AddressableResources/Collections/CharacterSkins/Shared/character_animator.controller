@@ -362,7 +362,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 35824370627024207, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
+  m_Motion: {fileID: 35824370627024207, guid: d0302e79c5f6d4229ab918095deea886, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1064,13 +1064,13 @@ AnimatorStateMachine:
   - {fileID: 127418375942518799}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: 7840163810359972742}
-    second:
-    - {fileID: -3890465922920977437}
   - first: {fileID: -7687792945197628734}
     second: []
   - first: {fileID: 650447998188526516}
     second: []
+  - first: {fileID: 7840163810359972742}
+    second:
+    - {fileID: -3890465922920977437}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 720, y: 610, z: 0}
   m_EntryPosition: {x: 1410, y: 200, z: 0}
@@ -1125,10 +1125,18 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 3531530397261182469, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
+    m_Threshold: 5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
   m_BlendParameter: weapon_type_float
   m_BlendParameterY: weapon_type_float
   m_MinThreshold: 0
-  m_MaxThreshold: 4
+  m_MaxThreshold: 5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -1324,11 +1332,14 @@ AnimatorController:
     m_Motions:
     - serializedVersion: 2
       m_State: {fileID: -2362159556542937164}
-      m_Motion: {fileID: 6812070206710037758, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
+      m_Motion: {fileID: 6812070206710037758, guid: a7d6f41f7844e4cc5aa5b8bce9feb9c1, type: 3}
     - serializedVersion: 2
       m_State: {fileID: -7406247346596159523}
-      m_Motion: {fileID: 35824370627024207, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
-    m_Behaviours: []
+      m_Motion: {fileID: 35824370627024207, guid: d0302e79c5f6d4229ab918095deea886, type: 3}
+    m_Behaviours:
+    - m_State: {fileID: -2362159556542937164}
+      m_StateMachineBehaviours:
+      - {fileID: 5427604285738385235}
     m_BlendingMode: 0
     m_SyncedLayerIndex: 0
     m_DefaultWeight: 0
@@ -1559,10 +1570,18 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 1950801504048153089, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
+    m_Threshold: 5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
   m_BlendParameter: weapon_type_float
   m_BlendParameterY: weapon_type_float
   m_MinThreshold: 0
-  m_MaxThreshold: 4
+  m_MaxThreshold: 5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -1606,10 +1625,18 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 6041999947737556882, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
+    m_Threshold: 5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
   m_BlendParameter: weapon_type_float
   m_BlendParameterY: weapon_type_float
   m_MinThreshold: 1
-  m_MaxThreshold: 4
+  m_MaxThreshold: 5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -1831,6 +1858,18 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &5427604285738385235
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c7b2236254249239c7894e3fadb3f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1102 &5547350182969834532
 AnimatorState:
   serializedVersion: 6
@@ -2021,10 +2060,18 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 2387173319167216519, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
+    m_Threshold: 5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
   m_BlendParameter: weapon_type_float
   m_BlendParameterY: weapon_type_float
   m_MinThreshold: 1
-  m_MaxThreshold: 4
+  m_MaxThreshold: 5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -2134,7 +2181,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RunBT
-  m_Speed: 0.9
+  m_Speed: 1.05
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4766829137049235848}

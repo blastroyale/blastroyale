@@ -19,6 +19,7 @@ namespace FirstLight.Game.Presenters
 	{
 		private const float SKIP_ANIMATION_TIME = 0.2f;
 		private const float FAME_MIDDLE_SKIP_TIME = 4.7f;
+		private const float FAME_START_OFFSET = 1.7f;
 		private const int MANY_REWARDS_AMOUNT = 5;
 		private const string USS_REWARD_SUMMARY_CONTAINER_MANY_REWARDS_MODIFIER = "rewards-summary__rewards-container--manyrewards";
 		private const string USS_FAME_REWARDS_SUMMARY = "rewards-summary--fame";
@@ -97,7 +98,7 @@ namespace FirstLight.Game.Presenters
 			_animatedBackground.SetColor(_summaryBgColor);
 			if (_isFame)
 			{
-				_animationController.StartAnimation(_animationDirector, FAME_MIDDLE_SKIP_TIME, FAME_MIDDLE_SKIP_TIME);
+				_animationController.StartAnimation(_animationDirector, FAME_MIDDLE_SKIP_TIME, FAME_MIDDLE_SKIP_TIME, FAME_START_OFFSET);
 			}
 			else
 			{

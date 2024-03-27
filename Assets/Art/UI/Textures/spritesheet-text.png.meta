@@ -438,7 +438,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -446,6 +446,69 @@ TextureImporter:
       bones: []
       spriteID: b25d0ec3b47344d48ad750a53aad742b
       internalID: 1027694511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BadgePlace3
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a436f06d3251984287297eb41930f61
+      internalID: -2140602434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BadgePlace2
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 824
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3eb55bd0fbea8c49ad29595c5ee9825
+      internalID: -448797168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BadgePlace1
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 724
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ac68668d32dc804595808cdd4f7b86b
+      internalID: -702431576
       vertices: []
       indices: 
       edges: []
@@ -461,24 +524,27 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ammoicon: -597092786
-      BPicon: -890671015
-      Blastbuckicon: 2068562051
-      Checked: 1859312832
-      Coinicon: -163695951
-      CollectionIcon: -1037532214
-      CraftSpiceicon: 1236277509
-      Crown: 1226512841
-      EnergylevelIcon: 1684124606
-      FLGBadge: 1659913812
-      HPicon: -1040599977
-      MATICicon: 978627458
-      ModBadge: 1138685718
-      RedCrossIcon: 1027694511
-      Shieldicon: -1896410702
-      TextSpriteSheet_1: -531448559
-      TextSpriteSheet_2: 99473630
-      TextSpriteSheet_3: -1173784429
+      Ammoicon: -69452386
+      BPicon: 1114762273
+      BadgePlace1: -702431576
+      BadgePlace2: -448797168
+      BadgePlace3: -2140602434
+      Blastbuckicon: -293577173
+      Checked: 629293485
+      Coinicon: 1531515103
+      CollectionIcon: 114395148
+      CraftSpiceicon: -2079736262
+      Crown: 1930290386
+      EnergylevelIcon: -624212523
+      FLGBadge: -1477479967
+      HPicon: -283004889
+      MATICicon: 130259644
+      ModBadge: -1992110180
+      RedCrossIcon: -1167842861
+      Shieldicon: -939049774
+      TextSpriteSheet_1: -867704838
+      TextSpriteSheet_2: -2062587647
+      TextSpriteSheet_3: 1785650691
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -97,6 +98,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private float _mapConfigCameraSize;
 		private float _currentViewportSize = 0.2f;
 		private float _cameraAngleOffset;
+		
+		public event Action<float> OnClick;
 
 		private void OnValidate()
 		{
@@ -137,9 +140,18 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
-			_button.onClick.AddListener(OnClick);
-			_fullScreenButton.onClick.AddListener(OnClick);
+			_button.onClick.AddListener(OnButtonClicked);
+			_fullScreenButton.onClick.AddListener(OnButtonClicked);
 			SetupCameraSize();
+			
+			_matchServices.PlayerInputService.Input.Gameplay.ToggleMinimapButton.performed += _ => Toggle();
+		}
+
+		private void OnButtonClicked()
+		{
+			// Both have to be sent so the input system resets the click state
+			OnClick?.Invoke(1.0f);
+			OnClick?.Invoke(0.0f);
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer current)
@@ -217,23 +229,24 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		private void UpdateView(CallbackUpdateView callback)
+		private unsafe void UpdateView(CallbackUpdateView callback)
 		{
 			var f = callback.Game.Frames.Predicted;
 			var spectate = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 
-			if (!f.TryGet<Transform3D>(spectate, out var transform3D))
+			if (!f.Unsafe.TryGetPointer<Transform3D>(spectate, out var transform3D))
 			{
 				return;
 			}
 
-			var playerViewportPoint = _minimapCamera.WorldToViewportPoint(transform3D.Position.ToUnityVector3());
+			var playerViewportPoint = _minimapCamera.WorldToViewportPoint(transform3D->Position.ToUnityVector3());
 
-			UpdatePlayerIndicator(playerViewportPoint, transform3D);
+			var transformComponent = *transform3D;
+			UpdatePlayerIndicator(playerViewportPoint, transformComponent);
 			UpdateAirdropIndicators(playerViewportPoint, f.Time);
 			UpdateFriendlyIndicators(playerViewportPoint);
 			UpdatePingIndicators(playerViewportPoint);
-			UpdateMap(f, playerViewportPoint, transform3D);
+			UpdateMap(f, playerViewportPoint, transformComponent);
 		}
 
 		private void UpdateMinimapSize(float f)
@@ -250,7 +263,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_currentViewportSize = Mathf.Lerp(_viewportSize, 1f, f);
 		}
 
-		private void UpdatePlayerIndicator(Vector3 playerViewportPoint, Transform3D playerTransform)
+		private void UpdatePlayerIndicator(in Vector3 playerViewportPoint, in Transform3D playerTransform)
 		{
 			// Rotation
 			_playerIndicator.rotation = Quaternion.Euler(0, 0, 360f - playerTransform.Rotation.AsEuler.Y.AsFloat + _cameraAngleOffset);
@@ -259,30 +272,30 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_playerIndicator.anchoredPosition = ViewportToMinimapPosition(playerViewportPoint, playerViewportPoint);
 		}
 
-		private void UpdateMap(Frame f, Vector3 playerViewportPoint, Transform3D playerTransform3D)
+		private unsafe void UpdateMap(Frame f, in Vector3 playerViewportPoint, in Transform3D playerTransform3D)
 		{
-			if (!f.TryGetSingleton<ShrinkingCircle>(out var circle))
+			if (!f.Unsafe.TryGetPointerSingleton<ShrinkingCircle>(out var circle))
 			{
 				return;
 			}
 
-			circle.GetMovingCircle(f, out var centerFp, out var radiusFp);
+			circle->GetMovingCircle(f, out var centerFp, out var radiusFp);
 
 			var dangerRadius = radiusFp.AsFloat / _minimapCamera.orthographicSize;
 			var dangerCenter = _minimapCamera.WorldToViewportPoint(centerFp.XOY.ToUnityVector3()) - Vector3.one / 2f;
-			var safeRadius = circle.TargetRadius.AsFloat / _minimapCamera.orthographicSize;
-			var safeCenter = _minimapCamera.WorldToViewportPoint(circle.TargetCircleCenter.XOY.ToUnityVector3()) -
+			var safeRadius = circle->TargetRadius.AsFloat / _minimapCamera.orthographicSize;
+			var safeCenter = _minimapCamera.WorldToViewportPoint(circle->TargetCircleCenter.XOY.ToUnityVector3()) -
 				Vector3.one / 2f;
 
-			if (_config == null || _config.Step != circle.Step)
+			if (_config == null || _config.Step != circle->Step)
 			{
-				_config = f.Context.MapShrinkingCircleConfigs[Math.Clamp(circle.Step - 1,
+				_config = f.Context.MapShrinkingCircleConfigs[Math.Clamp(circle->Step - 1,
 					0,
 					f.Context.MapShrinkingCircleConfigs.Count - 1)];
 			}
 
 			// Check to only draw safe area after the warning / announcement
-			_safeAreaSet = f.Time > circle.ShrinkingStartTime - _config.WarningTime;
+			_safeAreaSet = f.Time > circle->ShrinkingStartTime - _config.WarningTime;
 
 			// Danger ring / area
 			_minimapImage.materialForRendering.SetFloat(_dangerAreaSizePID, dangerRadius);
@@ -298,8 +311,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_currentViewportSize, _currentViewportSize);
 			_minimapImage.materialForRendering.SetVector(_uvRectPID, uvRect);
 
-			UpdateSafeAreaArrow(playerTransform3D, circle.TargetCircleCenter.ToUnityVector3(),
-				circle.TargetRadius.AsFloat);
+			UpdateSafeAreaArrow(playerTransform3D, circle->TargetCircleCenter.ToUnityVector3(),
+				circle->TargetRadius.AsFloat);
 			UpdateRadar(f, playerTransform3D.Position.ToUnityVector3());
 		}
 
@@ -427,7 +440,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
-		private void OnClick()
+		private void Toggle()
 		{
 			if (_opened)
 			{

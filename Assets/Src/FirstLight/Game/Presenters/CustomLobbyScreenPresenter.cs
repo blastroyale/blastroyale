@@ -2,13 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using FirstLight.FLogger;
 using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.RoomService;
@@ -16,15 +12,12 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
 using I2.Loc;
-using NUnit.Framework;
 using Photon.Realtime;
-using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace FirstLight.Game.Presenters
 {
@@ -44,7 +37,6 @@ namespace FirstLight.Game.Presenters
 		public MapSelectionView mapSelectionView;
 
 		[SerializeField, Required] private Button _backButton;
-		[SerializeField, Required] private Button _homeButton;
 		[SerializeField, Required] private GameObject _rootObject;
 		[SerializeField, Required] private Button _lockRoomButton;
 		[SerializeField, Required] private Button _kickButton;
@@ -59,6 +51,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _spectatorCountText;
 		[SerializeField, Required] private TextMeshProUGUI _topTitleText;
 		[SerializeField, Required] private TextMeshProUGUI _selectDropZoneText;
+		[SerializeField, Required] private TextMeshProUGUI _gameModeText;
 		[SerializeField, Required] private GameObject[] _kickOverlayObjects;
 		[SerializeField, Required] private GameObject _loadingText;
 		[SerializeField, Required] private GameObject _playerMatchmakingRootObject;
@@ -68,7 +61,9 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private PlayerListHolderView _spectatorListHolder;
 		[SerializeField, Required] private UiToggleButtonView _botsToggle;
 		[SerializeField, Required] private UiToggleButtonView _spectateToggle;
+		[SerializeField, Required] private UiToggleButtonView _autoBalanceToggle;
 		[SerializeField, Required] private GameObject _botsToggleObjectRoot;
+		[SerializeField, Required] private GameObject _autoBalanceObjectRoot;
 		[SerializeField, Required] private GameObject _spectateToggleObjectRoot;
 		[SerializeField] private Color _spectateDisabledColor;
 
@@ -98,12 +93,12 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_backButton.onClick.AddListener(OnLeaveRoomClicked);
-			_homeButton.onClick.AddListener(OnLeaveRoomClicked);
 			_spectateToggle.onValueChanged.AddListener(OnSpectatorToggle);
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 			_kickButton.onClick.AddListener(ActivateKickOverlay);
 			_botsToggle.onValueChanged.AddListener(OnBotsToggleChanged);
+			_autoBalanceToggle.onValueChanged.AddListener(OnAutoBalanceToggleChanged);
 			_cancelKickButton.onClick.AddListener(DeactivateKickOverlay);
 			_squadIdDownButton.onClick.AddListener(OnSquadIdDown);
 			_squadIdUpButton.onClick.AddListener(OnSquadIdUp);
@@ -112,6 +107,7 @@ namespace FirstLight.Game.Presenters
 			_services.RoomService.OnMasterChanged += Update;
 			_services.RoomService.OnPlayerPropertiesUpdated += Update;
 		}
+
 
 		private void OnDestroy()
 		{
@@ -132,17 +128,19 @@ namespace FirstLight.Game.Presenters
 			var room = CurrentRoom;
 			var gameModeConfig = room.GameModeConfig;
 
+			CurrentRoom.Properties.AutoBalanceTeams.OnValueChanged += OnAutoBalanceValueChanged;
 
 			mapSelectionView.SetupMapView(room.Properties.GameModeId.Value, room.Properties.MapId.Value.GetHashCode());
 
 			if (RejoiningRoom)
 			{
-				_playerListHolder.Init(room.GetMaxPlayers(false), RequestKickPlayer);
+				_playerListHolder.Init((uint) room.GetMaxPlayers(), RequestKickPlayer);
 				_spectatorListHolder.Init((uint) room.GetMaxSpectators(), RequestKickPlayer);
 
 				_kickButton.gameObject.SetActive(false);
 				_spectateToggleObjectRoot.SetActive(false);
 				_botsToggleObjectRoot.SetActive(false);
+				_autoBalanceObjectRoot.SetActive(false);
 				_lockRoomButton.gameObject.SetActive(false);
 				_loadingText.SetActive(true);
 				_squadContainer.SetActive(false);
@@ -158,23 +156,27 @@ namespace FirstLight.Game.Presenters
 
 			_selectDropZoneTextRootObject.SetActive(gameModeConfig.SpawnSelection);
 			_selectDropZoneText.text = room.Properties.MapId.Value.GetLocalization();
+			_gameModeText.text = LocalizationUtils.GetTranslationForGameModeAndTeamSize(room.Properties.GameModeId.Value, room.Properties.TeamSize.Value);
 			_lockRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			_playersFoundText.gameObject.SetActive(true);
 			_findingPlayersText.gameObject.SetActive(true);
 			_botsToggle.SetInitialValue(true);
 			_botsToggleObjectRoot.SetActive(false);
+			_autoBalanceObjectRoot.SetActive(true);
+			_autoBalanceToggle.SetInitialValue(false);
+			SetAutoBalanceInteractable(false);
 			_spectateToggle.SetInitialValue(false);
 			_spectateToggleObjectRoot.SetActive(false);
 			_kickButton.gameObject.SetActive(false);
 			_loadingText.SetActive(true);
-			_playersFoundText.text = $"{0}/{room.GetMaxPlayers(false).ToString()}";
-			_squadContainer.SetActive(gameModeConfig.Teams);
-			_topTitleHolder.SetActive(!gameModeConfig.Teams);
+			_playersFoundText.text = $"{0}/{room.GetMaxPlayers().ToString()}";
+			_squadContainer.SetActive(AllowTeamSelection());
+			_topTitleHolder.SetActive(!AllowTeamSelection());
 			_squadIdText.text = _squadId.ToString();
 
 			// TODO: Sets the initial TeamID. Hacky, should be somewhere else, but it should do for custom games for now.
-			if (gameModeConfig.Teams)
+			if (AllowTeamSelection())
 			{
 				CurrentRoom.LocalPlayerProperties.TeamId.Value = $"{GameConstants.Network.MANUAL_TEAM_ID_PREFIX}{_squadId}";
 			}
@@ -189,7 +191,7 @@ namespace FirstLight.Game.Presenters
 			UpdateRoomPlayerCounts();
 
 
-			_playerListHolder.Init(room.GetMaxPlayers(false), RequestKickPlayer);
+			_playerListHolder.Init((uint) room.GetMaxPlayers(), RequestKickPlayer);
 			_spectatorListHolder.Init((uint) room.GetMaxSpectators(), RequestKickPlayer);
 
 			_playerListHolder.gameObject.SetActive(true);
@@ -204,6 +206,16 @@ namespace FirstLight.Game.Presenters
 			_spectateToggleObjectRoot.SetActive(true);
 
 			Update();
+		}
+
+		private void OnAutoBalanceValueChanged(QuantumProperty<bool> obj)
+		{
+			_playerListHolder.UpdateAllPlayers();
+		}
+
+		private bool AllowTeamSelection()
+		{
+			return CurrentRoom.IsTeamGame && !CurrentRoom.Properties.AutoBalanceTeams.Value;
 		}
 
 		public void Update()
@@ -233,12 +245,18 @@ namespace FirstLight.Game.Presenters
 
 			CheckPlayersToRemove(_spectatorListHolder);
 			CheckPlayersToRemove(_playerListHolder);
+
+			_autoBalanceObjectRoot.SetActive(CurrentRoom.IsTeamGame);
+			_autoBalanceToggle.SetInitialValue(CurrentRoom.Properties.AutoBalanceTeams.Value);
+			_squadContainer.SetActive(AllowTeamSelection());
+			_topTitleHolder.SetActive(!AllowTeamSelection());
 			// Update master options
 			if (CurrentRoom.LocalPlayer.IsMasterClient)
 			{
 				_kickButton.gameObject.SetActive(true);
 				_lockRoomButton.gameObject.SetActive(true);
 				_botsToggleObjectRoot.SetActive(CurrentRoom.GameModeConfig.AllowBots);
+				SetAutoBalanceInteractable(true);
 			}
 			else
 			{
@@ -351,6 +369,20 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		private void SetAutoBalanceInteractable(bool interactable)
+		{
+			_autoBalanceToggle.interactable = interactable;
+
+			if (interactable)
+			{
+				_autoBalanceToggle.SetTargetCustomGraphicsColor(Color.white);
+			}
+			else
+			{
+				_autoBalanceToggle.SetTargetCustomGraphicsColor(_spectateDisabledColor);
+			}
+		}
+
 
 		private IEnumerator TimeoutSpectatorToggleCoroutine()
 		{
@@ -373,7 +405,7 @@ namespace FirstLight.Game.Presenters
 		{
 			ReadyToPlay();
 			CurrentRoom.Properties.HasBots.Value = _botsToggle.isOn;
-			_services.RoomService.StartCustomGameLoading();
+			_services.RoomService.StartCustomGameLoading(CurrentRoom.Properties.AutoBalanceTeams.Value);
 		}
 
 		private void OnLeaveRoomClicked()
@@ -420,6 +452,14 @@ namespace FirstLight.Game.Presenters
 		private void OnBotsToggleChanged(bool _)
 		{
 			CheckEnableLockRoomButton();
+		}
+
+		private void OnAutoBalanceToggleChanged(bool value)
+		{
+			if (CurrentRoom.LocalPlayer.IsMasterClient)
+			{
+				CurrentRoom.Properties.AutoBalanceTeams.Value = value;
+			}
 		}
 
 		private void DeactivateKickOverlay()

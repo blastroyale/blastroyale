@@ -158,7 +158,7 @@ namespace FirstLight.Game.StateMachines
 
 			news.OnEnter(OnEnterNews);
 			news.Event(_backButtonClicked).Target(homeCheck);
-			
+
 			homeCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			homeCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
@@ -167,7 +167,7 @@ namespace FirstLight.Game.StateMachines
 				.OnTransition(() => _services.RoomService.LeaveRoom())
 				.Target(homeMenu);
 			homeCheck.Transition().Target(homeMenu);
-			
+
 			homeMenu.OnEnter(OpenHomeScreen);
 			homeMenu.OnEnter(TryClaimUncollectedRewards);
 			homeMenu.Event(PlayClickedEvent).Target(playClickedCheck);
@@ -193,6 +193,7 @@ namespace FirstLight.Game.StateMachines
 
 			playClickedCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			playClickedCheck.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
+			playClickedCheck.Transition().Condition(CheckInvalidTeamSize).OnTransition(() => _services.GenericDialogService.OpenSimpleMessage("Error", "Invalid party size!")).Target(homeCheck);
 			playClickedCheck.Transition().Condition(IsInRoom).Target(homeCheck);
 			playClickedCheck.Transition().Condition(CheckIsNotPartyLeader).OnTransition(() => TogglePartyReadyStatus().Forget())
 				.Target(homeCheck);
@@ -260,6 +261,7 @@ namespace FirstLight.Game.StateMachines
 				Log.Warn("Trying to open matchmaking screen but home screen already closed");
 				return;
 			}
+
 			_uiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(true);
 		}
 
@@ -282,7 +284,7 @@ namespace FirstLight.Game.StateMachines
 
 			var itemView = ItemFactory.Currency(GameId.BlastBuck, m.BlastBucks).GetViewModel();
 			_services.GenericDialogService.OpenSimpleMessage(
-				ScriptLocalization.UITGeneric.items_converted, 
+				ScriptLocalization.UITGeneric.items_converted,
 				string.Format(ScriptLocalization.UITGeneric.items_converted_msg, $"{m.BlastBucks} {itemView}", m.Items.Count)
 			);
 		}
@@ -420,6 +422,12 @@ namespace FirstLight.Game.StateMachines
 				!_services.PartyService.PartyReady.Value;
 		}
 
+		private bool CheckInvalidTeamSize()
+		{
+			return _services.PartyService.GetCurrentGroupSize() > _services.GameModeService.SelectedGameMode.Value.Entry.TeamSize;
+		}
+        
+
 		private async UniTaskVoid TogglePartyReadyStatus()
 		{
 			var local = _services.PartyService.GetLocalMember();
@@ -468,11 +476,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new GameModeSelectionPresenter.StateData
 			{
-				GameModeChosen = _ =>
-				{
-					_services.MessageBrokerService.Publish(new SelectedGameModeMessage());
-					_statechartTrigger(_gameModeSelectedFinishedEvent);
-				},
+				GameModeChosen = _ => _statechartTrigger(_gameModeSelectedFinishedEvent),
 				CustomGameChosen = () => _statechartTrigger(_roomJoinCreateClickedEvent),
 				OnBackClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent),
 				OnHomeClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent)
@@ -541,7 +545,7 @@ namespace FirstLight.Game.StateMachines
 		private void OpenHomeScreen()
 		{
 			if (_uiService.IsOpen<HomeScreenPresenter>()) return;
-			
+
 			var data = new HomeScreenPresenter.StateData
 			{
 				OnPlayButtonClicked = PlayButtonClicked,
@@ -570,7 +574,7 @@ namespace FirstLight.Game.StateMachines
 		private void FinishRewardSequence()
 		{
 			if (_services.RoomService.InRoom) return;
-			
+
 			OpenHomeScreen();
 			_services.MessageBrokerService.Publish(new OnViewingRewardsFinished());
 		}
@@ -594,7 +598,7 @@ namespace FirstLight.Game.StateMachines
 		private void OpenLevelUpScreen()
 		{
 			if (_services.RoomService.InRoom) return;
-			
+
 			var levelRewards = _gameDataProvider.PlayerDataProvider.GetRewardsForFameLevel(
 				_gameDataProvider.PlayerDataProvider.Level.Value - 1
 			);
@@ -663,10 +667,10 @@ namespace FirstLight.Game.StateMachines
 					Item = _gameDataProvider.CollectionDataProvider.DefaultCollectionItems[CollectionCategories.PLAYER_SKINS].First()
 				});
 			}
-			
+
 			// Removing non-nft equipments
-			var nonNfts = _gameDataProvider.EquipmentDataProvider.GetInventoryEquipmentInfo(EquipmentFilter.NoNftOnly);
-			if (nonNfts.Count > 0)
+			var nonNfts = _gameDataProvider.EquipmentDataProvider.GetInventoryEquipmentCount(EquipmentFilter.NoNftOnly);
+			if (nonNfts > 0)
 			{
 				FLog.Info("Converting non-nfts to blast bucks");
 				_services.CommandService.ExecuteCommand(new NonNftConvertCommand());

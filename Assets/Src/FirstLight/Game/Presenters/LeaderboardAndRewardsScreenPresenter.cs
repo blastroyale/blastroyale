@@ -29,11 +29,7 @@ namespace FirstLight.Game.Presenters
 	public class LeaderboardAndRewardsScreenPresenter :
 		UiToolkitPresenterData<LeaderboardAndRewardsScreenPresenter.StateData>
 	{
-		private const string UssPlayerName = "player-name";
-		private const string UssFirst = UssPlayerName + "--first";
-		private const string UssSecond = UssPlayerName + "--second";
-		private const string UssThird = UssPlayerName + "--third";
-		private const string UssSpectator = "spectator";
+		private const string BADGE_SPRITE_PREFIX = "BadgePlace";
 
 		[SerializeField] private BaseCharacterMonoComponent _character;
 		[SerializeField] private CinemachineVirtualCamera _camera;
@@ -51,22 +47,20 @@ namespace FirstLight.Game.Presenters
 		private Button _nextButton;
 		private VisualElement _leaderboardPanel;
 		private ScrollView _leaderboardScrollView;
-		private VisualElement _playerName;
-		private Label _playerNameText;
 		private Label _fameTitle;
+		private Label _playerName;
 		private VisualElement _rewardsPanel;
-		private VisualElement _craftSpice;
 		private VisualElement _trophies;
 		private VisualElement _bpp;
 		private VisualElement _fame;
 
-		private RewardPanelView _craftSpiceView;
 		private RewardPanelView _trophiesView;
 		private RewardLevelPanelView _bppView;
 		private RewardLevelPanelView _levelView;
 
+		private ScreenHeaderElement _header;
+
 		private bool _showingLeaderboards;
-		private bool _showCSReward = false;
 
 		protected override void OnInitialized()
 		{
@@ -80,11 +74,10 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-
 			SetupCamera();
 
-			UpdateCharacter();
 			UpdatePlayerName();
+			UpdateCharacter();
 			UpdateLeaderboard();
 			UpdateRewards();
 			ShowLeaderboards();
@@ -97,18 +90,19 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
+			base.QueryElements(root);
+
+			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_header.backClicked += OnNextButtonClicked;
+
 			_nextButton = root.Q<Button>("NextButton").Required();
 			_nextButton.clicked += OnNextButtonClicked;
 
 			_leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
 			_leaderboardScrollView = root.Q<ScrollView>("LeaderboardScrollView").Required();
 
-			_playerName = root.Q<VisualElement>("PlayerName").Required();
-			_playerNameText = _playerName.Q<Label>("Text").Required();
 
 			_rewardsPanel = root.Q<VisualElement>("RewardsPanel").Required();
-			_craftSpice = _rewardsPanel.Q<VisualElement>("CraftSpice").Required();
-			_craftSpice.AttachView(this, out _craftSpiceView);
 			_trophies = _rewardsPanel.Q<VisualElement>("Trophies").Required();
 			_trophies.AttachView(this, out _trophiesView);
 			_bpp = _rewardsPanel.Q<VisualElement>("BPP").Required();
@@ -118,7 +112,7 @@ namespace FirstLight.Game.Presenters
 			_fame.AttachView(this, out _levelView);
 			_levelView.HideFinalLevel();
 			_fameTitle = root.Q<Label>("FameTitle").Required();
-			
+
 			root.Q<PlayerAvatarElement>("Avatar").Required().SetLocalPlayerData(_gameDataProvider, _gameServices);
 		}
 
@@ -158,29 +152,12 @@ namespace FirstLight.Game.Presenters
 			await UniTask.Delay(300);
 			await _levelView.Animate();
 			await _trophiesView.Animate();
-			if (_showCSReward)
-			{
-				await _craftSpiceView.Animate();
-			}
 			await _bppView.Animate();
 		}
 
 		private void UpdateRewards()
 		{
 			var rewards = ProcessRewards();
-
-			// craft spice
-			var csReward = 0;
-			if (rewards.TryGetValue(GameId.CS, out var reward))
-			{
-				csReward = reward;
-
-				if (csReward > 0)
-				{
-					_craftSpiceView.SetData(csReward, (int) _matchServices.MatchEndDataService.CSBeforeChange);
-				}
-			}
-			_showCSReward = csReward != 0;
 
 			// Trophies
 			var trophiesReward = 0;
@@ -212,12 +189,12 @@ namespace FirstLight.Game.Presenters
 			var nextLevel = (uint) Math.Clamp(_gameDataProvider.PlayerDataProvider.Level.Value, 1, maxLevel);
 			var currentLevel = nextLevel;
 			//var configs = _gameServices.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
-			
+
 			do
 			{
 				var levelRewardInfo = new RewardLevelPanelView.LevelLevelRewardInfo();
 
-				levelRewardInfo.MaxLevel = (int)maxLevel;
+				levelRewardInfo.MaxLevel = (int) maxLevel;
 
 				// If it's the next level to the current one, we might have already some points in there
 				if (nextLevel == currentLevel)
@@ -225,8 +202,8 @@ namespace FirstLight.Game.Presenters
 					levelRewardInfo.Start = (int) _matchServices.MatchEndDataService.XPBeforeChange;
 				}
 
-				levelRewardInfo.MaxForLevel = (int)_gameDataProvider.PlayerDataProvider.GetXpNeededForLevel(currentLevel);
-				levelRewardInfo.NextLevel = (int)currentLevel;
+				levelRewardInfo.MaxForLevel = (int) _gameDataProvider.PlayerDataProvider.GetXpNeededForLevel(currentLevel);
+				levelRewardInfo.NextLevel = (int) currentLevel;
 
 				var amountToMax = levelRewardInfo.MaxForLevel - levelRewardInfo.Start;
 				if (amountToMax < gainedLeft)
@@ -239,6 +216,7 @@ namespace FirstLight.Game.Presenters
 					levelRewardInfo.Total = gainedLeft;
 					gainedLeft = 0;
 				}
+
 				levelsInfo.Add(levelRewardInfo);
 				currentLevel++;
 			} while (gainedLeft > 0 && currentLevel < maxLevel);
@@ -303,42 +281,34 @@ namespace FirstLight.Game.Presenters
 				? _matchServices.MatchEndDataService.Leader
 				: _matchServices.MatchEndDataService.LocalPlayer;
 
+			_playerName = new Label();
+			_playerName.AddToClassList(UIConstants.USS_PLAYER_LABEL);
+			Root.Add(_playerName);
 			if (playerRef == PlayerRef.None)
 			{
-				_playerNameText.text = "";
 				return;
 			}
 
-			// Cleanup in case the screen is re-used
-			_playerName.RemoveModifiers();
 
 			var playerData = _matchServices.MatchEndDataService.PlayerMatchData;
 			var localPlayerData = playerData[playerRef];
 
-			_playerNameText.text = "";
 
+			string playerPrefix;
 			// If the player is in the top 3 we show a badge
 			if (localPlayerData.QuantumPlayerMatchData.PlayerRank <= 3)
 			{
-				var rankClass = localPlayerData.QuantumPlayerMatchData.PlayerRank switch
-				{
-					1 => UssFirst,
-					2 => UssSecond,
-					3 => UssThird,
-					_ => ""
-				};
-				_playerName.AddToClassList(rankClass);
+				playerPrefix = $"<sprite name=\"{BADGE_SPRITE_PREFIX + localPlayerData.QuantumPlayerMatchData.PlayerRank}\"> ";
 			}
 			else
 			{
-				_playerNameText.text = localPlayerData.QuantumPlayerMatchData.PlayerRank + ". ";
+				playerPrefix = localPlayerData.QuantumPlayerMatchData.PlayerRank + ". ";
 			}
-			
-			var rankColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int)localPlayerData.QuantumPlayerMatchData.LeaderboardRank);
+
+			var rankColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) localPlayerData.QuantumPlayerMatchData.LeaderboardRank);
 			var playerName = localPlayerData.QuantumPlayerMatchData.GetPlayerName();
-			_playerNameText.text += playerName;
+			_playerName.text = playerPrefix + playerName;
 			_fameTitle.text = playerName;
-			_playerNameText.style.color = rankColor;
 			_fameTitle.style.color = rankColor;
 		}
 
@@ -351,7 +321,7 @@ namespace FirstLight.Game.Presenters
 			foreach (var entry in entries)
 			{
 				var newEntry = _leaderboardEntryAsset.Instantiate();
-				var borderColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int)entry.LeaderboardRank);
+				var borderColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) entry.LeaderboardRank);
 				newEntry.AttachView(this, out LeaderboardEntryView view);
 				view.SetData((int) entry.PlayerRank, entry.GetPlayerName(), (int) entry.Data.PlayersKilledCount,
 					(int) entry.Data.PlayerTrophies,
@@ -372,8 +342,10 @@ namespace FirstLight.Game.Presenters
 				{
 					dictionary.Add(id, 0);
 				}
+
 				dictionary[id] += meta.Amount;
 			}
+
 			return dictionary;
 		}
 
@@ -404,13 +376,8 @@ namespace FirstLight.Game.Presenters
 
 			var skinId = _gameServices.CollectionService.GetCosmeticForGroup(playerData.Cosmetics, GameIdGroup.PlayerSkin);
 			await _character.UpdateSkin(skinId, playerData.Gear.ToList());
+			_playerName.SetPositionBasedOnWorldPosition(_character.transform.position);
 
-			var targetPosition = _character.transform.position;
-			var initialPosition = targetPosition;
-			initialPosition.x += 20f;
-			_character.transform.position = initialPosition;
-
-			_character.transform.DOMove(targetPosition, 0.4f).SetEase(Ease.Linear);
 		}
 	}
 }

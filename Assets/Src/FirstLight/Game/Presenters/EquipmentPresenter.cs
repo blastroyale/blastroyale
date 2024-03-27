@@ -49,7 +49,6 @@ namespace FirstLight.Game.Presenters
 
 			var header = root.Q<ScreenHeaderElement>("Header").Required();
 			header.backClicked += Data.OnBackClicked;
-			header.homeClicked += Data.OnHomeClicked;
 
 			root.SetupClicks(_services);
 		}

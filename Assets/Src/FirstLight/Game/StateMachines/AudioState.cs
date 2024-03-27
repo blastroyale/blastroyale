@@ -349,13 +349,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
-
-			// Respawnable game-mode
-			if (_services.RoomService.CurrentRoom.GameModeConfig.Lives is 0 or > 1)
-			{
-				_services.AudioFxService.PlayClip3D(AudioId.PlayerRespawnLightningBolt, entityView.transform.position);
-				CheckDespawnClips(nameof(EventOnPlayerAlive), callback.Entity);
-			}
 		}
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
@@ -364,15 +357,6 @@ namespace FirstLight.Game.StateMachines
 
 			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
-
-			// Respawnable game-mode
-			if (gameModeConfig.Lives is 0 or > 1)
-			{
-				var despawnEvents = new[] {nameof(EventOnPlayerAlive)};
-				var audioSource =
-					_services.AudioFxService.PlayClip3D(AudioId.PlayerRespawnShine, entityView.transform.position);
-				_currentClips.Add(new LoopedAudioClip(audioSource, despawnEvents, callback.Entity));
-			}
 		}
 
 		private void OnPlayerSkydiveDrop(EventOnPlayerSkydiveDrop callback)

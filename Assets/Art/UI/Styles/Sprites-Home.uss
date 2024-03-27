@@ -10,11 +10,12 @@
     --sprite-home__background-bundle-image-gradient: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-gradient.png');
     --sprite-home__background-bundle-image-small: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-small.png');
     --sprite-home__background-dots-effect: url('/Assets/Art/UI/Sprites/Home/background-dots-effect.png');
-    --sprite-home__background-gamemode-battleroyale: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale.png');
-    --sprite-home__background-gamemode-battleroyale-top: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-top.png');
+    --sprite-home__background-gamemode-battleroyale-duos: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-duos.png');
+    --sprite-home__background-gamemode-battleroyale-quads: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-quads.png');
+    --sprite-home__background-gamemode-battleroyale-quads-top: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-quads-top.png');
+    --sprite-home__background-gamemode-battleroyale-solo: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-solo.png');
+    --sprite-home__background-gamemode-battleroyale-solo-top: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-solo-top.png');
     --sprite-home__background-gamemode-custom: url('/Assets/Art/UI/Sprites/Home/background-gamemode-custom.png');
-    --sprite-home__background-gamemode-deathmatch: url('/Assets/Art/UI/Sprites/Home/background-gamemode-deathmatch.png');
-    --sprite-home__background-gamemode-deathmatch-top: url('/Assets/Art/UI/Sprites/Home/background-gamemode-deathmatch-top.png');
     --sprite-home__background-inputfield: url('/Assets/Art/UI/Sprites/Home/background-inputfield.png');
     --sprite-home__background-matchmakingstatus: url('/Assets/Art/UI/Sprites/Home/background-matchmakingstatus.png');
     --sprite-home__background-modeselection-casual: url('/Assets/Art/UI/Sprites/Home/background-modeselection-casual.png');
@@ -267,34 +268,40 @@
     height: 412px;
 }
 
-.sprite-home__background-gamemode-battleroyale {
-    background-image: var(--sprite-home__background-gamemode-battleroyale);
+.sprite-home__background-gamemode-battleroyale-duos {
+    background-image: var(--sprite-home__background-gamemode-battleroyale-duos);
     width: 430px;
     height: 461px;
 }
 
-.sprite-home__background-gamemode-battleroyale-top {
-    background-image: var(--sprite-home__background-gamemode-battleroyale-top);
+.sprite-home__background-gamemode-battleroyale-quads {
+    background-image: var(--sprite-home__background-gamemode-battleroyale-quads);
+    width: 430px;
+    height: 461px;
+}
+
+.sprite-home__background-gamemode-battleroyale-quads-top {
+    background-image: var(--sprite-home__background-gamemode-battleroyale-quads-top);
     width: 491px;
     height: 466px;
+}
+
+.sprite-home__background-gamemode-battleroyale-solo {
+    background-image: var(--sprite-home__background-gamemode-battleroyale-solo);
+    width: 430px;
+    height: 461px;
+}
+
+.sprite-home__background-gamemode-battleroyale-solo-top {
+    background-image: var(--sprite-home__background-gamemode-battleroyale-solo-top);
+    width: 470px;
+    height: 436px;
 }
 
 .sprite-home__background-gamemode-custom {
     background-image: var(--sprite-home__background-gamemode-custom);
     width: 430px;
     height: 461px;
-}
-
-.sprite-home__background-gamemode-deathmatch {
-    background-image: var(--sprite-home__background-gamemode-deathmatch);
-    width: 430px;
-    height: 461px;
-}
-
-.sprite-home__background-gamemode-deathmatch-top {
-    background-image: var(--sprite-home__background-gamemode-deathmatch-top);
-    width: 470px;
-    height: 436px;
 }
 
 .sprite-home__background-inputfield {

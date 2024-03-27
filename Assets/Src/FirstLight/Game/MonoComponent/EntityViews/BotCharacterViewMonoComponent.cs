@@ -14,16 +14,16 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	/// </summary>
 	public class BotCharacterViewMonoComponent : EntityViewBase
 	{
-		void LateUpdate()
+		unsafe void LateUpdate()
 		{
 			if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
 			var f = QuantumRunner.Default.Game.Frames.Predicted;
-			if (!f.TryGet<BotCharacter>(EntityRef, out var bot)) return;
-			if (!f.TryGet<AIBlackboardComponent>(EntityRef, out var bb)) return;
-			var aiming = bb.GetBoolean(f, Constants.IsAimPressedKey);
-			if (bot.Target.IsValid && aiming)
+			if (!f.Unsafe.TryGetPointer<BotCharacter>(EntityRef, out var bot)) return;
+			if (!f.Unsafe.TryGetPointer<AIBlackboardComponent>(EntityRef, out var bb)) return;
+			var aiming = bb->GetBoolean(f, Constants.IsAimPressedKey);
+			if (bot->Target.IsValid && aiming)
 			{
-				transform.rotation = Quaternion.LookRotation(bb.GetVector2(f, Constants.AimDirectionKey).ToUnityVector3());
+				transform.rotation = Quaternion.LookRotation(bb->GetVector2(f, Constants.AimDirectionKey).ToUnityVector3());
 			}
 			else if(transform.localRotation != Quaternion.identity)
 			{

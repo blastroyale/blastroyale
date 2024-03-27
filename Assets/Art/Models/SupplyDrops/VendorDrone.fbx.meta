@@ -1,33 +1,24 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 8557b113f8c73d9458a560b9c609b30e
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_DropObjects
-    second:
-      fileID: 2100000
-      guid: bed2e826e6edc914eae459c94ff34bc0
-      type: 2
+    second: {fileID: 2100000, guid: bed2e826e6edc914eae459c94ff34bc0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Vendor
-    second:
-      fileID: 2100000
-      guid: bed2e826e6edc914eae459c94ff34bc0
-      type: 2
+    second: {fileID: 2100000, guid: bed2e826e6edc914eae459c94ff34bc0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_VendorFace
-    second:
-      fileID: 2100000
-      guid: 92ee4f058e6a66a4091e19b0a50aab97
-      type: 2
+    second: {fileID: 2100000, guid: 92ee4f058e6a66a4091e19b0a50aab97, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -56,7 +47,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -64,6 +55,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -91,6 +83,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -117,13 +110,14 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource:
-    instanceID: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

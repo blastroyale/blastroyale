@@ -70,7 +70,6 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 
 			var battleRoyale = stateFactory.Nest("Battle Royale Mode");
-			var modeCheck = stateFactory.Choice("Game Mode Check");
 			var startSimulation = stateFactory.State("Start Simulation");
 			var stopSimulationForDisconnection = stateFactory.State("Stop Simulation");
 			var simulationInitializationError = stateFactory.Choice("Stop Simulation Initialization Error");
@@ -81,16 +80,12 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 
 			startSimulation.OnEnter(StartSimulation);
-			startSimulation.Event(SimulationStartedEvent).Target(modeCheck);
+			startSimulation.Event(SimulationStartedEvent).Target(battleRoyale);
 			startSimulation.Event(SimulationDestroyedEvent).Target(simulationInitializationError);
 			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
 			startSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
 			startSimulation.OnExit(CloseSwipeTransition);
 
-			//modeCheck.OnEnter(OpenAdventureWorldHud);
-			// TODO: modeCheck.OnEnter(OpenLowConnectionScreen);
-			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
-			modeCheck.Transition().Target(battleRoyale);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
@@ -209,14 +204,7 @@ namespace FirstLight.Game.StateMachines
 
 		private string GetTeamId()
 		{
-			return _services.RoomService.CurrentRoom.LocalPlayerProperties.TeamId.Value;
-		}
-
-
-		private bool ShouldUseBattleRoyaleSM()
-		{
-			return _services.RoomService.CurrentRoom.GameModeConfig.AudioStateMachine ==
-				AudioStateMachine.BattleRoyale;
+			return _services.RoomService.CurrentRoom.GetTeamForPlayer(_services.RoomService.CurrentRoom.LocalPlayer);
 		}
 
 		private void OnGameStart(CallbackGameStarted callback)
@@ -229,17 +217,18 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			// Delays one frame just to guarantee that the game objects are created before anything else
-
-			_services.CoroutineService.StartCoroutine(GameStartCoroutine(callback.Game));
+			GameStartAsync(callback.Game).Forget();
 			FLog.Verbose("Waiting for all players to join");
 		}
 
-		private IEnumerator GameStartCoroutine(QuantumGame game)
+		private async UniTaskVoid GameStartAsync(QuantumGame game)
 		{
-			yield return new WaitForSeconds(0.1f);
+			await UniTask.Delay(100); // tech debt, leftover shall eb removed
+			await UniTask.WaitUntil(QuantumRunner.Default.IsDefinedAndRunning);
 			PublishMatchStartedMessage(game, false);
-			yield return new WaitForSeconds(1f);
+			await UniTask.Delay(1000); // tech debt, leftover shall eb removed
+			await UniTask.WaitUntil(_services.GameUiService.HasUiPresenter<HUDScreenPresenter>);
+
 			var f = game.Frames.Verified;
 			var entityRef = game.GetLocalPlayerEntityRef();
 			if (f != null && entityRef.IsValid && f.TryGet<PlayerCharacter>(entityRef, out var pc))
@@ -275,8 +264,10 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTaskVoid ResyncCoroutine()
 		{
-			await UniTask.NextFrame();
+			await UniTask.WaitUntil(QuantumRunner.Default.IsDefinedAndRunning);
 			PublishMatchStartedMessage(QuantumRunner.Default.Game, true);
+			await UniTask.WaitUntil(_services.GameUiService.HasUiPresenter<HUDScreenPresenter>);
+
 			_statechartTrigger(SimulationStartedEvent);
 			CloseMatchmakingScreen().Forget();
 		}
@@ -390,7 +381,7 @@ namespace FirstLight.Game.StateMachines
 				_services.AnalyticsService.MatchCalls.MatchStart();
 				SetPlayerMatchData(game);
 			}
-			
+
 			_services.MessageBrokerService.Publish(new MatchStartedMessage {Game = game, IsResync = isResync});
 		}
 
@@ -400,6 +391,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				return;
 			}
+
 			var spawnPosition = _services.RoomService.CurrentRoom.LocalPlayerProperties.DropPosition.Value;
 			var equippedCosmetics = _gameDataProvider.CollectionDataProvider
 				.GetCollectionsCategories()
@@ -407,7 +399,7 @@ namespace FirstLight.Game.StateMachines
 				.Where(data => data != null)
 				.Select(data => data.Id)
 				.ToArray();
-			
+
 			var config = _services.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
 			var avatarUrl = AvatarHelpers.GetAvatarUrl(_gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE),
 				config);
@@ -416,6 +408,7 @@ namespace FirstLight.Game.StateMachines
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
 				PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
 				Cosmetics = equippedCosmetics,
+				DeathFlagID = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.GRAVE)!.Id,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),

@@ -1240,6 +1240,7 @@ namespace I2.Loc
 			public static string HockeyHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HockeyHelmet"); } }
 			public static string Invincible 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Invincible"); } }
 			public static string Invisibility 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Invisibility"); } }
+			public static string IslandOne 		{ get{ return LocalizationManager.GetTranslation ("GameIds/IslandOne"); } }
 			public static string IslandsMap 		{ get{ return LocalizationManager.GetTranslation ("GameIds/IslandsMap"); } }
 			public static string LegendaryBox 		{ get{ return LocalizationManager.GetTranslation ("GameIds/LegendaryBox"); } }
 			public static string LegendaryCore 		{ get{ return LocalizationManager.GetTranslation ("GameIds/LegendaryCore"); } }
@@ -1798,6 +1799,8 @@ namespace I2.Loc
 			public static string RoomJoinCreateMapSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateMapSelect"); } }
 			public static string RoomJoinCreateMutatorOneSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateMutatorOneSelect"); } }
 			public static string RoomJoinCreateMutatorTwoSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateMutatorTwoSelect"); } }
+			public static string RoomJoinCreatePlayersNumber 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreatePlayersNumber"); } }
+			public static string RoomJoinCreateTeamSize 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateTeamSize"); } }
 			public static string RoomJoinCreateTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateTitle"); } }
 			public static string RoomJoinCreateWeaponLimiterSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateWeaponLimiterSelect"); } }
 			public static string RoomLeaveButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomLeaveButton"); } }
@@ -2125,9 +2128,20 @@ namespace I2.Loc
 
 		public static class UITGameModeSelection
 		{
+			public static string br_duos_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_duos_description"); } }
+			public static string br_duos_title 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_duos_title"); } }
+			public static string br_quads_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_quads_description"); } }
+			public static string br_quads_title 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_quads_title"); } }
+			public static string br_solo_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_solo_description"); } }
+			public static string br_solo_title 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_solo_title"); } }
+			public static string br_trios_descrption 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_trios_descrption"); } }
+			public static string br_trios_title 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_trios_title"); } }
 			public static string choose_a_mode 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/choose_a_mode"); } }
+			public static string custom_blocked_for_party 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/custom_blocked_for_party"); } }
 			public static string custom_game_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/custom_game_description"); } }
+			public static string custom_game_title 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/custom_game_title"); } }
 			public static string tap_to_choose 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/tap_to_choose"); } }
+			public static string too_many_players 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/too_many_players"); } }
 			public static string zombies_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/zombies_description"); } }
 		}
 
@@ -2273,6 +2287,7 @@ namespace I2.Loc
 		{
 			public static string profile 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/profile"); } }
 			public static string username_invalid_characters 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/username_invalid_characters"); } }
+			public static string username_profanity 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/username_profanity"); } }
 			public static string username_too_long 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/username_too_long"); } }
 			public static string username_too_short 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/username_too_short"); } }
 		}
@@ -2326,6 +2341,7 @@ namespace I2.Loc
 			public static string haptic_feedback 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/haptic_feedback"); } }
 			public static string high 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/high"); } }
 			public static string hud_customization 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/hud_customization"); } }
+			public static string login 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/login"); } }
 			public static string logout 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout"); } }
 			public static string logout_confirm_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_confirm_desc"); } }
 			public static string logout_success_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_success_desc"); } }
@@ -2333,6 +2349,7 @@ namespace I2.Loc
 			public static string low 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/low"); } }
 			public static string medium 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/medium"); } }
 			public static string off 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/off"); } }
+			public static string old_players 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/old_players"); } }
 			public static string on 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/on"); } }
 			public static string screenshake 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/screenshake"); } }
 			public static string server 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/server"); } }
@@ -2342,10 +2359,12 @@ namespace I2.Loc
 			public static string sound_effects 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sound_effects"); } }
 			public static string sound_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sound_title"); } }
 			public static string success 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/success"); } }
+			public static string support 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/support"); } }
 			public static string switch_joysticks 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/switch_joysticks"); } }
 			public static string thirty 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/thirty"); } }
 			public static string usa 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/usa"); } }
 			public static string use_overhead_ui 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/use_overhead_ui"); } }
+			public static string web3 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/web3"); } }
 		}
 
 		public static class UITShared
@@ -2361,6 +2380,7 @@ namespace I2.Loc
 			public static string confirmation 		{ get{ return LocalizationManager.GetTranslation ("UITShared/confirmation"); } }
 			public static string deathmatch 		{ get{ return LocalizationManager.GetTranslation ("UITShared/deathmatch"); } }
 			public static string error 		{ get{ return LocalizationManager.GetTranslation ("UITShared/error"); } }
+			public static string gamemode_battleroyale 		{ get{ return LocalizationManager.GetTranslation ("UITShared/gamemode_battleroyale"); } }
 			public static string got_it 		{ get{ return LocalizationManager.GetTranslation ("UITShared/got_it"); } }
 			public static string hide 		{ get{ return LocalizationManager.GetTranslation ("UITShared/hide"); } }
 			public static string info 		{ get{ return LocalizationManager.GetTranslation ("UITShared/info"); } }
@@ -2372,6 +2392,10 @@ namespace I2.Loc
 			public static string or 		{ get{ return LocalizationManager.GetTranslation ("UITShared/or"); } }
 			public static string ranked 		{ get{ return LocalizationManager.GetTranslation ("UITShared/ranked"); } }
 			public static string show 		{ get{ return LocalizationManager.GetTranslation ("UITShared/show"); } }
+			public static string team_size_1 		{ get{ return LocalizationManager.GetTranslation ("UITShared/team_size_1"); } }
+			public static string team_size_2 		{ get{ return LocalizationManager.GetTranslation ("UITShared/team_size_2"); } }
+			public static string team_size_3 		{ get{ return LocalizationManager.GetTranslation ("UITShared/team_size_3"); } }
+			public static string team_size_4 		{ get{ return LocalizationManager.GetTranslation ("UITShared/team_size_4"); } }
 			public static string waiting 		{ get{ return LocalizationManager.GetTranslation ("UITShared/waiting"); } }
 		}
 
@@ -3716,6 +3740,7 @@ namespace I2.Loc
 		    public const string HockeyHelmet = "GameIds/HockeyHelmet";
 		    public const string Invincible = "GameIds/Invincible";
 		    public const string Invisibility = "GameIds/Invisibility";
+		    public const string IslandOne = "GameIds/IslandOne";
 		    public const string IslandsMap = "GameIds/IslandsMap";
 		    public const string LegendaryBox = "GameIds/LegendaryBox";
 		    public const string LegendaryCore = "GameIds/LegendaryCore";
@@ -4274,6 +4299,8 @@ namespace I2.Loc
 		    public const string RoomJoinCreateMapSelect = "MainMenu/RoomJoinCreateMapSelect";
 		    public const string RoomJoinCreateMutatorOneSelect = "MainMenu/RoomJoinCreateMutatorOneSelect";
 		    public const string RoomJoinCreateMutatorTwoSelect = "MainMenu/RoomJoinCreateMutatorTwoSelect";
+		    public const string RoomJoinCreatePlayersNumber = "MainMenu/RoomJoinCreatePlayersNumber";
+		    public const string RoomJoinCreateTeamSize = "MainMenu/RoomJoinCreateTeamSize";
 		    public const string RoomJoinCreateTitle = "MainMenu/RoomJoinCreateTitle";
 		    public const string RoomJoinCreateWeaponLimiterSelect = "MainMenu/RoomJoinCreateWeaponLimiterSelect";
 		    public const string RoomLeaveButton = "MainMenu/RoomLeaveButton";
@@ -4601,9 +4628,20 @@ namespace I2.Loc
 
 		public static class UITGameModeSelection
 		{
+		    public const string br_duos_description = "UITGameModeSelection/br_duos_description";
+		    public const string br_duos_title = "UITGameModeSelection/br_duos_title";
+		    public const string br_quads_description = "UITGameModeSelection/br_quads_description";
+		    public const string br_quads_title = "UITGameModeSelection/br_quads_title";
+		    public const string br_solo_description = "UITGameModeSelection/br_solo_description";
+		    public const string br_solo_title = "UITGameModeSelection/br_solo_title";
+		    public const string br_trios_descrption = "UITGameModeSelection/br_trios_descrption";
+		    public const string br_trios_title = "UITGameModeSelection/br_trios_title";
 		    public const string choose_a_mode = "UITGameModeSelection/choose_a_mode";
+		    public const string custom_blocked_for_party = "UITGameModeSelection/custom_blocked_for_party";
 		    public const string custom_game_description = "UITGameModeSelection/custom_game_description";
+		    public const string custom_game_title = "UITGameModeSelection/custom_game_title";
 		    public const string tap_to_choose = "UITGameModeSelection/tap_to_choose";
+		    public const string too_many_players = "UITGameModeSelection/too_many_players";
 		    public const string zombies_description = "UITGameModeSelection/zombies_description";
 		}
 
@@ -4749,6 +4787,7 @@ namespace I2.Loc
 		{
 		    public const string profile = "UITProfileScreen/profile";
 		    public const string username_invalid_characters = "UITProfileScreen/username_invalid_characters";
+		    public const string username_profanity = "UITProfileScreen/username_profanity";
 		    public const string username_too_long = "UITProfileScreen/username_too_long";
 		    public const string username_too_short = "UITProfileScreen/username_too_short";
 		}
@@ -4802,6 +4841,7 @@ namespace I2.Loc
 		    public const string haptic_feedback = "UITSettings/haptic_feedback";
 		    public const string high = "UITSettings/high";
 		    public const string hud_customization = "UITSettings/hud_customization";
+		    public const string login = "UITSettings/login";
 		    public const string logout = "UITSettings/logout";
 		    public const string logout_confirm_desc = "UITSettings/logout_confirm_desc";
 		    public const string logout_success_desc = "UITSettings/logout_success_desc";
@@ -4809,6 +4849,7 @@ namespace I2.Loc
 		    public const string low = "UITSettings/low";
 		    public const string medium = "UITSettings/medium";
 		    public const string off = "UITSettings/off";
+		    public const string old_players = "UITSettings/old_players";
 		    public const string on = "UITSettings/on";
 		    public const string screenshake = "UITSettings/screenshake";
 		    public const string server = "UITSettings/server";
@@ -4818,10 +4859,12 @@ namespace I2.Loc
 		    public const string sound_effects = "UITSettings/sound_effects";
 		    public const string sound_title = "UITSettings/sound_title";
 		    public const string success = "UITSettings/success";
+		    public const string support = "UITSettings/support";
 		    public const string switch_joysticks = "UITSettings/switch_joysticks";
 		    public const string thirty = "UITSettings/thirty";
 		    public const string usa = "UITSettings/usa";
 		    public const string use_overhead_ui = "UITSettings/use_overhead_ui";
+		    public const string web3 = "UITSettings/web3";
 		}
 
 		public static class UITShared
@@ -4837,6 +4880,7 @@ namespace I2.Loc
 		    public const string confirmation = "UITShared/confirmation";
 		    public const string deathmatch = "UITShared/deathmatch";
 		    public const string error = "UITShared/error";
+		    public const string gamemode_battleroyale = "UITShared/gamemode_battleroyale";
 		    public const string got_it = "UITShared/got_it";
 		    public const string hide = "UITShared/hide";
 		    public const string info = "UITShared/info";
@@ -4848,6 +4892,10 @@ namespace I2.Loc
 		    public const string or = "UITShared/or";
 		    public const string ranked = "UITShared/ranked";
 		    public const string show = "UITShared/show";
+		    public const string team_size_1 = "UITShared/team_size_1";
+		    public const string team_size_2 = "UITShared/team_size_2";
+		    public const string team_size_3 = "UITShared/team_size_3";
+		    public const string team_size_4 = "UITShared/team_size_4";
 		    public const string waiting = "UITShared/waiting";
 		}
 

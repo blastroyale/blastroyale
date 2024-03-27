@@ -19,51 +19,6 @@
     translate: 200px 0;
 }
 
-.player-name {
-    position: absolute;
-    left: 13%;
-    bottom: 10%;
-    flex-direction: row;
-    align-items: center;
-    transition-property: opacity;
-    transition-duration: 0.3s;
-}
-
-.hidden .player-name {
-    opacity: 0;
-}
-
-.player-name__badge {
-    display: none;
-    width: 70px;
-    height: 65px;
-    margin-right: 10px;
-}
-
-.player-name__text {
-    font-size: 60px;
-    -unity-font-style: bold;
-    text-shadow: 5px 5px 0 rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-}
-
-.player-name--first .player-name__badge {
-    background-image: var(--sprite-shared__icon-medal-1st);
-    display: flex;
-}
-
-.player-name--second .player-name__badge {
-    background-image: var(--sprite-shared__icon-medal-2nd);
-    display: flex;
-}
-
-.player-name--third .player-name__badge {
-    background-image: var(--sprite-shared__icon-medal-3rd);
-    display: flex;
-}
-
 .leaderboard-panel {
     width: 1270px;
     position: absolute;
@@ -293,8 +248,8 @@
 }
 
 .bpp {
-    top: 701px;
-    left: 100px;
+    top: 527px;
+    left: 150px;
     width: 619px;
     height: 162px;
     position: absolute;

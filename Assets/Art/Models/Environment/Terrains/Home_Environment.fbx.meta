@@ -1,49 +1,34 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 7b928bae4158820449b78b99a6f77d11
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Floor
-    second:
-      fileID: 2100000
-      guid: 6c4afde3a6a44ba41a9f1bde21e4549e
-      type: 2
+    second: {fileID: 2100000, guid: 6c4afde3a6a44ba41a9f1bde21e4549e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_PropsColorAtlas
-    second:
-      fileID: 2100000
-      guid: bc31393375bdcce478995e048d720af2
-      type: 2
+    second: {fileID: 2100000, guid: bc31393375bdcce478995e048d720af2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_PropsColorAtlas1
-    second:
-      fileID: 2100000
-      guid: bc31393375bdcce478995e048d720af2
-      type: 2
+    second: {fileID: 2100000, guid: bc31393375bdcce478995e048d720af2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Water1
-    second:
-      fileID: 2100000
-      guid: cd00f9dbef000a74eb29aa6a91ba8ece
-      type: 2
+    second: {fileID: 2100000, guid: cd00f9dbef000a74eb29aa6a91ba8ece, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: terrain
-    second:
-      fileID: 2100000
-      guid: c5ff8a2c01148e44e9ec4982739bcdb2
-      type: 2
+    second: {fileID: 2100000, guid: c5ff8a2c01148e44e9ec4982739bcdb2, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -72,7 +57,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -80,6 +65,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -107,6 +93,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -133,13 +120,14 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource:
-    instanceID: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

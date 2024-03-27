@@ -10,6 +10,8 @@ using I2.Loc;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
+using Cysharp.Threading.Tasks;
 
 namespace FirstLight.Game.Presenters
 {
@@ -39,8 +41,11 @@ namespace FirstLight.Game.Presenters
 		private Button _logoutButton;
 		private Button _deleteAccountButton;
 		private Button _connectIdButton;
+		private Button _web3Button;
 		private Button _supportButton;
 		private Label _accountStatusLabel;
+		private Label _web3StatusLabel;
+		private VisualElement _web3Notification;
 
 		private void Awake()
 		{
@@ -56,10 +61,12 @@ namespace FirstLight.Game.Presenters
 			// Build Info Text
 			_buildInfoLabel = root.Q<Label>("BuildInfoLabel");
 			_buildInfoLabel.text = VersionUtils.VersionInternal;
-			
+
 			Root.Q("AccountNotification").Required().SetDisplay(_services.AuthenticationService.IsGuest);
 			Root.Q("ConnectNotification").Required().SetDisplay(_services.AuthenticationService.IsGuest);
-			
+			_web3Notification = Root.Q("ConnectWeb3Notification").Required();
+			_web3Notification.SetDisplay(false);
+
 			// Sound
 			SetupToggle(root.Q<LocalizedToggle>("SoundEffects").Required(),
 				() => _gameDataProvider.AppDataProvider.IsSfxEnabled,
@@ -105,6 +112,7 @@ namespace FirstLight.Game.Presenters
 				val => _gameDataProvider.AppDataProvider.UseOverheadUI = val);
 
 			// Account
+			_web3Button = root.Q<Button>("Web3Button").Required();
 			_logoutButton = root.Q<Button>("LogoutButton");
 			_logoutButton.clicked += OnLogoutClicked;
 			_deleteAccountButton = root.Q<Button>("DeleteAccountButton");
@@ -112,7 +120,9 @@ namespace FirstLight.Game.Presenters
 			_connectIdButton = root.Q<Button>("ConnectButton");
 			_connectIdButton.clicked += Data.OnConnectIdClicked;
 			_accountStatusLabel = root.Q<Label>("AccountStatusLabel");
+			_web3StatusLabel = root.Q<Label>("Web3StatusLabel");
 			UpdateAccountStatus();
+			UpdateWeb3State(MainInstaller.ResolveWeb3().State);
 
 			// Footer buttons
 			_supportButton = root.Q<Button>("SupportButton").Required();
@@ -120,7 +130,26 @@ namespace FirstLight.Game.Presenters
 			_serverButton = root.Q<Button>("ServerButton").Required();
 			_serverButton.clicked += OpenServerSelect;
 
+			var web3 = MainInstaller.ResolveWeb3();
+			_web3Button.clicked += () => web3.RequestLogin().Forget();
+			_web3Button.SetEnabled(web3.State != Web3State.Unavailable);
 			root.SetupClicks(_services);
+		}
+
+		protected override void SubscribeToEvents()
+		{
+			MainInstaller.ResolveWeb3().OnStateChanged += UpdateWeb3State;
+		}
+
+		protected override void UnsubscribeFromEvents()
+		{
+			MainInstaller.ResolveWeb3().OnStateChanged -= UpdateWeb3State;
+		}
+
+		private void UpdateWeb3State(Web3State state)
+		{
+			var web3 = MainInstaller.ResolveWeb3();
+			_web3StatusLabel.text = $"{state} {web3.Web3Account ?? ""}";
 		}
 
 		private void SetupToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
@@ -177,7 +206,7 @@ namespace FirstLight.Game.Presenters
 				_deleteAccountButton.SetDisplay(false);
 				_logoutButton.SetDisplay(false);
 				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_not_connected,
-				                                         _gameDataProvider.AppDataProvider.DisplayName.Value);
+														 _gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
 			else
 			{
@@ -193,13 +222,12 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.OnCustomizeHudClicked();
 		}
-		
+
 		private void OpenSupportService()
 		{
 			_services.CustomerSupportService.OpenCustomerSupportTicketForm();
 		}
 
-		
 		private void OpenServerSelect()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;

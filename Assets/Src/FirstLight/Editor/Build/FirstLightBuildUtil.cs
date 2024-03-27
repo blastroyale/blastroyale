@@ -12,6 +12,7 @@ namespace FirstLight.Editor.Build
 		private const string _buildSymbolOption = "-flBuildSymbol";
 		private const string _buildServerOption = "-flBuildServer";
 		private const string _buildFileNameOption = "-flBuildFileName";
+		private const string _buildCCDEnvironment = "-flCCDEnvironment";
 
 		/// <summary>
 		/// Requests the build number from the batch mode command with the flag -flBuildNumber
@@ -52,6 +53,27 @@ namespace FirstLight.Editor.Build
 			    buildSymbol !=FirstLightBuildConfig.StoreSymbol)
 			{
 				Debug.LogError($"Build symbol not recognised: {buildSymbol}");
+				return false;
+			}
+			
+			return true;
+		}
+		
+		/// <summary>
+		/// Requests the build number from the batch mode command with the flag -flBuildSymbol
+		/// </summary>
+		public static bool TryGetCCDEnvironmentFromCommandLineArgs(out string ccdEnv, params string[] args)
+		{
+			if (!TryGetCommandLineOption(_buildCCDEnvironment, out ccdEnv, args))
+			{
+				return false;
+			}
+
+			if (ccdEnv != FirstLightBuildConfig.CCDEnvironmentDev &&
+			    ccdEnv != FirstLightBuildConfig.CCDEnvironmentStaging &&
+				ccdEnv != FirstLightBuildConfig.CCDEnvironmentProd)
+			{
+				Debug.LogError($"CCD environment not recognized: {ccdEnv}");
 				return false;
 			}
 			

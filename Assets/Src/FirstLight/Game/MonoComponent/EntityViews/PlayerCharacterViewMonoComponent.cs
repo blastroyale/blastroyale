@@ -554,7 +554,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private unsafe void HandleUpdateView(CallbackUpdateView callback)
 		{
 			var f = callback.Game.Frames.Predicted;
-			if (!f.TryGet<AIBlackboardComponent>(EntityRef, out var bb))
+			if (!f.Unsafe.TryGetPointer<AIBlackboardComponent>(EntityRef, out var bb))
 			{
 				return;
 			}
@@ -577,7 +577,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
 
 			var isMoving = sqrSpeed > (ReviveSystem.IsKnockedOut(f, EntityRef) ? KNOCKED_OUT_SPEED_THRESHOLD_SQUARED : SPEED_THRESHOLD_SQUARED);
-			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey) && !knockedOut;
+			var isAiming = bb->GetBoolean(f, Constants.IsAimPressedKey) && !knockedOut;
 
 			_skin.Moving = isMoving;
 			_characterView.PrintFootsteps = isMoving && !knockedOut;

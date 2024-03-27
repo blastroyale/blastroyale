@@ -1,5 +1,6 @@
 using System;
 using FirstLight.FLogger;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -48,8 +49,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (setup != null)
 			{
-				var gamemodeConfig = _configsProvider.GetConfig<QuantumGameModeConfig>(setup.GameModeId);
-				if (gamemodeConfig.ShouldUsePlayfabMatchmaking())
+				if (setup.MatchType == MatchType.Matchmaking)
 				{
 					_matchmakingText.Localize(ScriptTerms.UITHomeScreen.matchmaking);
 					_closeButton.SetDisplay(true);

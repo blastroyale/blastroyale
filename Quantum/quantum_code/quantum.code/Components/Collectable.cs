@@ -11,6 +11,12 @@ namespace Quantum
 		public static void DropConsumable(Frame f, GameId gameId, FPVector3 position, int angleDropStep, bool isConsiderNavMesh, int dropAngles)
 		{
 			var dropPosition = dropAngles == 1 ? position : GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles);
+			
+			// Setting Y to a fixed value to avoid consumable being too low or too high 
+			if (f.Context.GameModeConfig.Id != "Tutorial") // TODO: Remove this after we make a new flat tutorial level
+			{
+				dropPosition.Y = Constants.DROP_Y_POSITION;
+			}
 
 			var configConsumable = f.ConsumableConfigs.GetConfig(gameId);
 			var entityConsumable = f.Create(f.FindAsset<EntityPrototype>(configConsumable.AssetRef.Id));
@@ -33,6 +39,12 @@ namespace Quantum
 			
 			var dropPosition = dropAngles == 1 ? position : GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles);
 
+			// Setting Y to a fixed value to avoid weapon being too low or too high 
+			if (f.Context.GameModeConfig.Id != "Tutorial") // TODO: Remove this after we make a new flat tutorial level
+			{
+				dropPosition.Y = Constants.DROP_Y_POSITION;
+			}
+			
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity, position, 
 																	ref equipment, EntityRef.None, owner);

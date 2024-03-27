@@ -76,11 +76,6 @@ namespace FirstLight.Game.Utils
 		{
 			return runner.Game.Frames.Verified;
 		}
-
-
-		public static bool ShouldUsePlayfabMatchmaking(this QuantumGameModeConfig config)
-		{
-			return config.Teams;
-		}
+		
 	}
 }

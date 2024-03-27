@@ -15,9 +15,10 @@ namespace Quantum.Systems.Bots
 				bot.WanderDirection = !bot.WanderDirection;
 				return bot.TryWanderInsideCircle(botEntity, f, circleCenter, circleRadius, bot.WanderDirection);
 			}
+
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Checks if the bot waypoint is destroyed, and if so, cleans current waypoint
 		/// </summary>
@@ -30,7 +31,12 @@ namespace Quantum.Systems.Bots
 				filter.NavMeshAgent->Stop(f, filter.Entity, true);
 			}
 		}
-		
+
+		public static bool IsStaticMovement(this ref BotCharacter botCharacter)
+		{
+			return botCharacter.BehaviourType == BotBehaviourType.Static || botCharacter.BehaviourType == BotBehaviourType.StaticShooting;
+		}
+
 		/// <summary>
 		/// Randomizes a position inside a circle for the bot to move to
 		/// </summary>
@@ -42,7 +48,7 @@ namespace Quantum.Systems.Bots
 			var distanceToCenter = FPVector2.Distance(position, circleCenter);
 			var direction = position - circleCenter;
 			var currentAngle = FPMath.Atan2(direction.Y, direction.X);
-			
+
 			// Let the player wander between 0 and 45º around the circle 
 			// a bot has a fixed angle increase so doesn't keep going back to the same position, always going around the circle
 			var randomizedAngle = currentAngle + f.RNG->NextInclusive(FP._0_20, FP._0_75) * (clockwise ? FP._1 : FP.Minus_1);
@@ -52,7 +58,7 @@ namespace Quantum.Systems.Bots
 			var playerTargetRadius = FPMath.Abs(distanceToCenter + radiusVariation);
 			// and to be safe do not let the player go too close to the border
 			var randomizedRadius = FPMath.Min(circleRadius * (FP._0_75), playerTargetRadius);
-			
+
 			var x = circleCenter.X + randomizedRadius * FPMath.Cos(randomizedAngle);
 			var y = circleCenter.Y + randomizedRadius * FPMath.Sin(randomizedAngle);
 			BotLogger.LogAction(botEntity, @$"From angle {FP.Rad2Deg * currentAngle} target angle: {FP.Rad2Deg * randomizedAngle}
@@ -62,7 +68,7 @@ From position {position} to position ({x},{y})
 
 			return MoveToLocation(f, botEntity, new FPVector3(x, FP._0, y));
 		}
-		
+
 		/// <summary>
 		/// Set's the navmesh agent of the given entity's target position to as closest as possible
 		/// </summary>
@@ -71,13 +77,14 @@ From position {position} to position ({x},{y})
 			var agent = f.Unsafe.GetPointer<NavMeshPathfinder>(e);
 			var config = f.FindAsset<NavMeshAgentConfig>(agent->ConfigId);
 			var navMesh = f.NavMesh;
-			
-			if (navMesh.FindRandomPointOnNavmesh(destination, config.AutomaticTargetCorrectionRadius, f.RNG, 
+
+			if (navMesh.FindRandomPointOnNavmesh(destination, config.AutomaticTargetCorrectionRadius, f.RNG,
 					agent->RegionMask, out var closestPosition))
 			{
 				agent->SetTarget(f, closestPosition, navMesh);
 				return true;
 			}
+
 			return false;
 		}
 	}

@@ -450,28 +450,6 @@ namespace FirstLight.Game.Utils
 			yield return chunk;
 		}
 
-		/// <summary>
-		/// Check if the player have NFTs
-		/// </summary>
-		/// <param name="equipmentLogic"></param>
-		[Obsolete("Please use iGameLogic.HasNfts")]
-		public static bool HasNfts(this IEquipmentDataProvider equipmentLogic)
-		{
-			return MainInstaller.Resolve<IGameDataProvider>().HasNfts();
-		}
-
-		/// <summary>
-		/// Check if the player have NFTs
-		/// </summary>
-		/// <param name="equipmentLogic"></param>
-		public static bool HasNfts(this IGameDataProvider data)
-		{
-			var profilePictures =
-				data.CollectionDataProvider.GetOwnedCollection(CollectionCategories.PROFILE_PICTURE);
-			return profilePictures.Count > 0 || data.EquipmentDataProvider.NftInventory.Count > 0;
-		}
-
-
 		public static void SelectDefaultRankedMode(this IGameModeService service)
 		{
 			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Matchmaking);

@@ -2,6 +2,10 @@ apply plugin: 'com.android.library'
 **APPLY_PLUGINS**
 
 dependencies {
+
+    // Android Browser for IMX integration
+    implementation('androidx.browser:browser:1.5.0')
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
     implementation 'com.google.android.gms:play-services-base:18.2.0' // Packages/com.google.firebase.app/Firebase/Editor/AppDependencies.xml:17

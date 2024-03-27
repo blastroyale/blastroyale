@@ -19,7 +19,8 @@ namespace FirstLight.Game.Utils
 
 			foreach (var kv in sorted)
 			{
-				var team = kv.Value;
+				// If the team is null it means the player doesn't have a team (solo game)
+				var team = kv.Value ?? kv.Key;
 				if (!playersByTeam.TryGetValue(team, out var members))
 				{
 					members = new();

@@ -6,6 +6,8 @@ using FirstLight.Editor.Artifacts;
 using FirstLight.Editor.EditorTools;
 using Photon.Realtime;
 using UnityEditor;
+using UnityEditor.AddressableAssets;
+using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
@@ -24,7 +26,7 @@ namespace FirstLight.Editor.Build
 		public static void ConfigureServer()
 		{
 			BackendMenu.MoveBackendDlls();
-			BackendMenu.ExportQuantumAssets();
+			BackendMenu.CopyLocalQuantumFiles();
 		}
 
 		public static void SetBasicPlayerSettings()
@@ -102,13 +104,23 @@ namespace FirstLight.Editor.Build
 		}
 
 		[MenuItem("FLG/Build/Store Azure Build")]
-		public static void EditorBuild()
+		public static void AzureEditorStoreBuild()
 		{
-			var args = "-flBuildSymbol STORE_BUILD -flBuildServer TESTNET_SERVER -flBuildNumber 3000 -flBuildFileName app".Split(" ");
+			var args = "-flBuildSymbol STORE_BUILD -flBuildServer TESTNET_SERVER -flBuildNumber 3000 -flBuildFileName app -flCCDEnvironment Staging"
+				.Split(" ");
 			ConfigureBuild(args);
 			JenkinsBuild(args, false);
 		}
 
+		[MenuItem("FLG/Build/Dev Azure Build")]
+		public static void AzureEditorDevBuild()
+		{
+			var args =
+				"-flBuildSymbol DEVELOPMENT_BUILD -flBuildServer DEVELOPMENT_SERVER -flBuildNumber 1 -flBuildFileName app -flCCDEnvironment Development"
+					.Split(" ");
+			ConfigureBuild(args);
+			JenkinsBuild(args, false);
+		}
 
 		/// <summary>
 		/// Execute method for Jenkins builds
@@ -138,7 +150,13 @@ namespace FirstLight.Editor.Build
 				Debug.LogError("Could not get app file name from command line args.");
 				EditorApplication.Exit(1);
 			}
-			
+
+			if (!FirstLightBuildUtil.TryGetCCDEnvironmentFromCommandLineArgs(out var ccdEnv, arguments))
+			{
+				Debug.LogError("Could not get app file name from command line args.");
+				EditorApplication.Exit(1);
+			}
+
 			// Copy Dlls to a folder that will be publish as a pipeline artifact
 			ArtifactCopier.Copy($"{Application.dataPath}/../BuildArtifacts/", ArtifactCopier.All);
 
@@ -148,7 +166,30 @@ namespace FirstLight.Editor.Build
 			// Search all generic implementations to pre-compile them with IL2CPP
 			PlayerSettings.SetAdditionalIl2CppArgs("--generic-virtual-method-iterations=10");
 
+			// Addressables
+			var addressableSettings = AddressableAssetSettingsDefaultObject.Settings;
+
+			var profileName = $"CCD-{ccdEnv}-{buildTarget.ToString()}";
+			var profileId = addressableSettings.profileSettings.GetProfileId(profileName);
+			if (string.IsNullOrEmpty(profileId))
+			{
+				Debug.LogError($"Could not find Addressable profile: {profileName}");
+				EditorApplication.Exit(1);
+			}
+
+			AddressableAssetSettingsDefaultObject.Settings.activeProfileId = profileId;
+
+			// On dev we have unique catalogs (with null it generates a timestamp suffix)
+			if (ccdEnv == FirstLightBuildConfig.CCDEnvironmentDev)
+			{
+				AddressableAssetSettingsDefaultObject.Settings.OverridePlayerVersion = null;
+			}
+
+			AssetDatabase.Refresh();
 			AddressableAssetSettings.BuildPlayerContent();
+
+			// UnityServices environment
+			FirstLightBuildConfig.GenerateUCEnvironment(ccdEnv);
 
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(buildTarget, fileName, buildSymbol);
 			var buildReport = BuildPipeline.BuildPlayer(options);

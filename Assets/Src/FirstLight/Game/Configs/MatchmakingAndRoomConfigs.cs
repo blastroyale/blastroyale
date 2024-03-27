@@ -4,23 +4,18 @@ using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FirstLight.Game.Configs
 {
 	[Serializable]
 	public struct MatchmakingAndRoomConfig
 	{
-		[SerializeField, Required, MinValue(0),InfoBox("How much time the OLD matchmaking room have on the timer before the game starts")]
-		public int SecondsToStartOldMatchmakingRoom;
+		[SerializeField, Required, MinValue(0),InfoBox("How much time is waited before starting a matchmaking game")]
+		public int MatchmakingLoadingTimeout;
 
 		[SerializeField, Required, MinValue(0),InfoBox("How much time players can select the dropzone after the custom game room locks")]
 		public int SecondsToLoadCustomGames;
-
-		[SerializeField, Required, MinValue(0), InfoBox("How much time wait if somebody didn't load after time timer finishes.")]
-		public int SecondsLoadingTimeout;
-		
-		[SerializeField, Required, MinValue(0), InfoBox("Playfab ticket timeout!")]
-		public int PlayfabTicketTimeout;
 	}
 
 	/// <summary>

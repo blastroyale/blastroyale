@@ -8,15 +8,16 @@
                     <ui:VisualElement name="TopMask" class="game-mode-button__top-mask">
                         <ui:VisualElement name="Top" class="game-mode-button__top" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="TopImage" class="game-mode-button__top-image" />
                     <ui:VisualElement name="BottomMask" class="game-mode-button_bottom-mask">
                         <ui:VisualElement name="DataPanel" class="game-mode-button__data-panel">
                             <ui:VisualElement name="Title" class="game-mode-button__title">
-                                <ui:VisualElement name="Icon" class="game-mode-button__icon" />
-                                <ui:Label text="BATTLE ROYALE" display-tooltip-when-elided="true" name="Label" class="game-mode-button__label" />
+                                <ui:Label text="DUOS" display-tooltip-when-elided="true" name="Label" class="game-mode-button__label" />
                             </ui:VisualElement>
-                            <ui:Label text="Infinite respawns, time-limited Whoever get most kills wins" name="Description" class="game-mode-button__description" />
-                            <ui:Label text="29D 30H" name="Timer" class="game-mode-button__timer" />
+                            <ui:Label text="Play Battle royale in team of 2" name="Description" class="game-mode-button__description font-bold" />
+                            <ui:VisualElement name="TeamSize" class="game-mode-button__team-size">
+                                <ui:Label tabindex="-1" text="2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TeamSizeLabel" class="game-mode-button__team-size-label" />
+                                <ui:VisualElement name="TeamSizeIcon" class="sprite-shared__icon-gamemode-solo game-mode-button__team-size-icon" />
+                            </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="Mutators" class="game-mode-button__mutators">
                             <ui:VisualElement name="MutatorLine" class="speedup-mutator game-mode-button__mutator-line">
@@ -28,6 +29,9 @@
                                 <ui:Label text="MUTATOR 1" display-tooltip-when-elided="true" name="Title" class="game-mode-button__mutators__title" />
                             </ui:VisualElement>
                         </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Disabled" class="game-mode-button__disabled" style="display: none;">
+                        <ui:Label tabindex="-1" text="TOO MANY PLAYERS IN THE SQUAD" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DisabledLabel" class="game-mode-button__disabled-label" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

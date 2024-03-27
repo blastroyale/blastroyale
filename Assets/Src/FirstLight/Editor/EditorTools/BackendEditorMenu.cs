@@ -33,10 +33,7 @@ namespace FirstLight.Editor.EditorTools
 			$"{Application.dataPath}/../Assets/Libs/Photon/Quantum/Assemblies/";
 
 		private static string _backendPath => $"{Application.dataPath}/../Backend";
-
-		private static string _quantumServerPath =>
-			$"{Application.dataPath}/../Quantum/quantum_server/Photon-Server/deploy/Plugins/DeterministicPlugin/bin/";
-
+		
 		private static string _backendLibsPath => $"{_backendPath}/Lib";
 		private static string _backendResources => $"{_backendPath}/ServerCommon/Resources";
 
@@ -50,7 +47,7 @@ namespace FirstLight.Editor.EditorTools
 			}
 		}
 
-		[MenuItem("FLG/Backend/Copy Local Quantum Files")]
+		[MenuItem("FLG/Backend/Export Asset DB to Quantum Local Server")]
 		public static void CopyLocalQuantumFiles()
 		{
 			var qtnPluginFolder = $"{Application.dataPath}/../Quantum/quantum_server/quantum.custom.plugin/";
@@ -67,12 +64,6 @@ namespace FirstLight.Editor.EditorTools
 			CopyTranslations();
 		}
 
-		[MenuItem("FLG/Backend/Generate Quantum Assets")]
-		public static void ExportQuantumAssets()
-		{
-			ArtifactCopier.QuantumAssetDBArtifact.CopyTo(_quantumServerPath);
-		}
-
 		/// <summary>
 		/// Generates and copies a gameConfig.json with needed game configs to be shared to the backend
 		/// and moves the config file to the backend.
@@ -81,50 +72,6 @@ namespace FirstLight.Editor.EditorTools
 		public static void CopyConfigs()
 		{
 			ArtifactCopier.GameConfigs.CopyTo(_backendResources);
-		}
-
-		/// <summary>
-		/// Generates and copies a gameTranslations.json to be shared to the backend
-		/// and moves the file to the backend directory.
-		/// </summary>
-		[MenuItem("FLG/Backend/ValidateConfigs")]
-		public static void TestConfigs()
-		{
-			FeatureFlags.REMOTE_CONFIGURATION = false;
-			var serializer = new ConfigsSerializer();
-			var allConfigs = new ConfigsProvider();
-			var configsLoader = new GameConfigsLoader(new AssetResolverService());
-			configsLoader.LoadConfigEditor(allConfigs);
-
-			FeatureFlags.REMOTE_CONFIGURATION = true;
-			var onlyClientConfigs = new ConfigsProvider();
-			configsLoader.LoadConfigEditor(onlyClientConfigs);
-
-			var serverConfigs = new ConfigsProvider();
-			var serializedConfigs = serializer.Serialize(allConfigs, "test");
-			serializer.Deserialize(serializedConfigs, serverConfigs);
-
-			var inBoth = new List<Type>();
-			foreach (var config in allConfigs.GetAllConfigs().Keys)
-			{
-				if (serverConfigs.GetAllConfigs().ContainsKey(config))
-				{
-					if (onlyClientConfigs.GetAllConfigs().ContainsKey(config))
-					{
-						inBoth.Add(config);
-					}
-				}
-			}
-
-			if (inBoth.Count > 0)
-			{
-				Debug.Log("Configs in both server & client (bad): ");
-				Debug.Log(string.Join(",", inBoth.Select(t => t.Name)));
-			}
-			else
-			{
-				Debug.Log("All Good");
-			}
 		}
 
 		/// <summary>

@@ -20,7 +20,10 @@ namespace Quantum
 			{
 				if (player->CurrentWeapon.Material == EquipmentMaterial.Golden)
 				{
-					dmg *= f.WeaponConfigs.GoldenGunDamageModifier;
+					var goldenDmg = dmg * f.WeaponConfigs.GoldenGunDamageModifier;
+					
+					// We ensure that golden weapon deals at least +1 more damage per bullet
+					dmg = (goldenDmg - dmg) < FP._1 ? dmg + FP._1 : goldenDmg;
 				}
 			}
 

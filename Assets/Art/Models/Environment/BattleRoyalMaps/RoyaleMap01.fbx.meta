@@ -1,137 +1,89 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 85b70f3b7a4105e4c90d72b9a7f59696
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: GroundGreen
-    second:
-      fileID: 2100000
-      guid: 24d5a4307f550e6488f703446c1e57a8
-      type: 2
+    second: {fileID: 2100000, guid: 24d5a4307f550e6488f703446c1e57a8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Ground_Desert
-    second:
-      fileID: 2100000
-      guid: c112d356a55fb7e40b883a406210febc
-      type: 2
+    second: {fileID: 2100000, guid: c112d356a55fb7e40b883a406210febc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Apc
-    second:
-      fileID: 2100000
-      guid: 1827869761088354d9d48372016f2ce8
-      type: 2
+    second: {fileID: 2100000, guid: 1827869761088354d9d48372016f2ce8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_ApcAlt
-    second:
-      fileID: 2100000
-      guid: caa89ac44d59b2b4da14d9f2f4944b5a
-      type: 2
+    second: {fileID: 2100000, guid: caa89ac44d59b2b4da14d9f2f4944b5a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_ApcVeh
-    second:
-      fileID: 2100000
-      guid: 7ac3bbbbdec37f74fb7fa1719c09ac4a
-      type: 2
+    second: {fileID: 2100000, guid: 7ac3bbbbdec37f74fb7fa1719c09ac4a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_BR
-    second:
-      fileID: 2100000
-      guid: 2b070fc2713e7de46a871350bf5c6644
-      type: 2
+    second: {fileID: 2100000, guid: 2b070fc2713e7de46a871350bf5c6644, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Collision
-    second:
-      fileID: 2100000
-      guid: 8cfb2472d6ca73d49a503682b1bbc573
-      type: 2
+    second: {fileID: 2100000, guid: 8cfb2472d6ca73d49a503682b1bbc573, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_ColorAtlas
-    second:
-      fileID: 2100000
-      guid: bc31393375bdcce478995e048d720af2
-      type: 2
+    second: {fileID: 2100000, guid: bc31393375bdcce478995e048d720af2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Glass
-    second:
-      fileID: 2100000
-      guid: 4b10abe931b4e104ea703e265261351b
-      type: 2
+    second: {fileID: 2100000, guid: 4b10abe931b4e104ea703e265261351b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Lava
-    second:
-      fileID: 2100000
-      guid: ce054cda6d2ea6549a47bd5d1390c960
-      type: 2
+    second: {fileID: 2100000, guid: ce054cda6d2ea6549a47bd5d1390c960, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Nature
-    second:
-      fileID: 2100000
-      guid: ba3a910668858004a995bf9e88018aa9
-      type: 2
+    second: {fileID: 2100000, guid: ba3a910668858004a995bf9e88018aa9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Plane
-    second:
-      fileID: 2100000
-      guid: bae14410fa5f9d14998122797694ac0e
-      type: 2
+    second: {fileID: 2100000, guid: bae14410fa5f9d14998122797694ac0e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Road
-    second:
-      fileID: 2100000
-      guid: 26b222bad5ecbe54594fb7b17ebc555b
-      type: 2
+    second: {fileID: 2100000, guid: 26b222bad5ecbe54594fb7b17ebc555b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Water
-    second:
-      fileID: 2100000
-      guid: 5b342733bb40f5940a367b14c7632f26
-      type: 2
+    second: {fileID: 2100000, guid: 5b342733bb40f5940a367b14c7632f26, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert1
-    second:
-      fileID: 2100000
-      guid: 8cfb2472d6ca73d49a503682b1bbc573
-      type: 2
+    second: {fileID: 2100000, guid: 8cfb2472d6ca73d49a503682b1bbc573, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert2
-    second:
-      fileID: 2100000
-      guid: 8cfb2472d6ca73d49a503682b1bbc573
-      type: 2
+    second: {fileID: 2100000, guid: 8cfb2472d6ca73d49a503682b1bbc573, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -160,7 +112,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -168,6 +120,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -195,6 +148,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -221,13 +175,13 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource:
-    instanceID: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

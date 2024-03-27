@@ -125,7 +125,6 @@ namespace FirstLight.Game.Services
 		public IGameAppService GameAppService { get; }
 		public IBattlePassService BattlePassService { get; }
 		public ITeamService TeamService { get; }
-
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; }
 
@@ -260,6 +259,8 @@ namespace FirstLight.Game.Services
 			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);
 			CustomerSupportService = new CustomerSupportService(AuthenticationService);
 		}
+
+
 
 		/// <inheritdoc />
 		public void QuitGame(string reason)

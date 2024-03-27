@@ -162,14 +162,14 @@
     right: 5%;
     align-items: center;
     justify-content: center;
-    top: 0;
-    bottom: 99px;
-    width: 850px;
+    top: 5%;
+    bottom: 100px;
+    width: 1024px;
 }
 
 .map {
-    width: 850px;
-    height: 850px;
+    width: 1024px;
+    height: 1024px;
     background-image: none;
     align-items: center;
     justify-content: center;
@@ -203,7 +203,7 @@
 }
 
 .map__title {
-    font-size: 70px;
+    font-size: 48px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(108, 8, 40);
@@ -215,13 +215,13 @@
 }
 
 .map__title-bg {
-    width: 115%;
-    height: 275px;
+    width: 80%;
+    height: 191px;
     background-image: var(--sprite-home__banner-mapselection);
     align-items: center;
     justify-content: center;
     position: absolute;
-    bottom: -150px;
+    bottom: -5%;
     display: flex;
     -unity-background-scale-mode: scale-to-fit;
 }

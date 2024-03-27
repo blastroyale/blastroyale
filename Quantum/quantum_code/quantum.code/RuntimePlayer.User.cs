@@ -17,6 +17,7 @@ namespace Quantum
 		public string AvatarUrl;
 		public bool UseBotBehaviour;
 		public byte TeamColor;
+		public GameId DeathFlagID;
 
 		partial void SerializeUserData(BitStream stream)
 		{
@@ -37,6 +38,10 @@ namespace Quantum
 				stream.Serialize(ref skinId);
 				Cosmetics[i] = (GameId)skinId;
 			}
+
+			var deathFlagID = (int)DeathFlagID;
+			stream.Serialize(ref deathFlagID);
+			DeathFlagID = (GameId) deathFlagID;
 		}
 	}
 }

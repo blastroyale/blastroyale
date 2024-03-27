@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Cinemachine;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
@@ -22,25 +20,32 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class WinnersScreenPresenter : UiToolkitPresenterData<WinnersScreenPresenter.StateData>
 	{
-		[SerializeField] private BaseCharacterMonoComponent _character1;
-		[SerializeField] private BaseCharacterMonoComponent _character2;
-		[SerializeField] private BaseCharacterMonoComponent _character3;
-		[SerializeField] private CinemachineVirtualCamera _camera;
 
 		public struct StateData
 		{
 			public Action ContinueClicked;
 		}
 
-		private Button _nextButton;
-		private Label _playerName1;
-		private Label _playerName2;
-		private Label _playerName3;
-		private VisualElement _playerBadge1;
-		private VisualElement _playerBadge2;
-		private VisualElement _playerBadge3;
+
+		[Serializable]
+		public class CharacterList
+		{
+			[SerializeField] private BaseCharacterMonoComponent[] _values;
+
+			public BaseCharacterMonoComponent[] Values => _values;
+		}
+
+
+		[SerializeField] private CharacterList[] _characters;
+
+
 		private IMatchServices _matchServices;
 		private IGameServices _gameServices;
+
+		private Button _nextButton;
+		private VisualElement _nameContainer;
+		private int _usedCharactersIndex = 0;
+		private Label[] _nameLabels;
 
 		protected override void OnInitialized()
 		{
@@ -54,105 +59,73 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
-			SetupCamera();
 			UpdateCharacters().Forget();
 		}
-
-		protected override async UniTask OnClosed()
-		{
-			StartMovingCharacterOut(_character1.gameObject);
-			StartMovingCharacterOut(_character2.gameObject);
-			StartMovingCharacterOut(_character3.gameObject);
-
-			await base.OnClosed();
-		}
-
-		private void StartMovingCharacterOut(GameObject character)
-		{
-			var targetPosition = character.transform.position;
-			targetPosition.x -= 60f;
-			character.transform.DOMove(targetPosition, 0.5f).SetEase(Ease.Linear);
-		}
+		
 
 		protected override void QueryElements(VisualElement root)
 		{
 			_nextButton = root.Q<Button>("NextButton").Required();
 			_nextButton.clicked += Data.ContinueClicked;
-
-			_playerName1 = root.Q<Label>("PlayerName1").Required();
-			_playerName2 = root.Q<Label>("PlayerName2").Required();
-			_playerName3 = root.Q<Label>("PlayerName3").Required();
-
-			_playerBadge1 = root.Q("Player1").Q("Badge").Required();
-			_playerBadge2 = root.Q("Player2").Q("Badge").Required();
-			_playerBadge3 = root.Q("Player3").Q("Badge").Required();
+			_nameContainer = root.Q<VisualElement>("NameContainer").Required();
 		}
 
-		private void SetupCamera()
-		{
-			_camera.gameObject.SetActive(true);
-		}
 
 		private async UniTaskVoid UpdateCharacters()
 		{
-			var playerData = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
-			playerData.SortByPlayerRank(false);
+			// Wait 1 frame so the virtual camera activates and we can fetch the proper position of the characters on screen
+			await UniTask.DelayFrame(1);
+			var playersData = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
+			playersData.SortByPlayerRank(false);
+			var firstPosition = playersData.Where(data => data.PlayerRank == 1).Take(4).ToList();
 
-			var playerDataCount = Math.Min(playerData.Count, 3);
-			var playerNames = new[] {_playerName1, _playerName2, _playerName3};
-			var playerBadges = new[] {_playerBadge1, _playerBadge2, _playerBadge3};
-			var characters = new[] {_character1, _character2, _character3};
-
-			for (var i = 0; i < characters.Length; i++)
+			// we don't have a setup configured for that many players
+			if (_characters.Length < firstPosition.Count)
 			{
-				if (i < playerDataCount)
-				{
-					var player = playerData[i];
-					var rankColor =
-						_gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) player.LeaderboardRank);
-
-					characters[i].gameObject.SetActive(true);
-					playerNames[i].visible = true;
-					playerNames[i].text = player.GetPlayerName();
-					playerNames[i].style.color = rankColor;
-
-					playerBadges[i].RemoveModifiers();
-					playerBadges[i].AddToClassList($"player__badge--position-{player.PlayerRank}");
-
-					continue;
-				}
-
-				characters[i].gameObject.SetActive(false);
-				playerNames[i].visible = false;
+				return;
 			}
 
-			var tasks = new List<UniTask>();
+			_usedCharactersIndex = firstPosition.Count - 1;
+			var slots = _characters[_usedCharactersIndex].Values;
 
-			for (var i = 0; i < playerDataCount; i++)
+
+			var tasks = new List<UniTask>();
+			_nameLabels = new Label[slots.Length];
+			for (var i = 0; i < slots.Length; i++)
 			{
-				var player = playerData[i].Data.Player;
-				if (!player.IsValid || !_matchServices.MatchEndDataService.PlayerMatchData.ContainsKey(player))
+				var player = firstPosition[i];
+				var rankColor =
+					_gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) player.LeaderboardRank);
+
+
+				var playerNameLabel = new Label();
+				playerNameLabel.AddToClassList(UIConstants.USS_PLAYER_LABEL);
+				playerNameLabel.style.color = rankColor;
+				playerNameLabel.text = player.GetPlayerName();
+				_nameContainer.Add(playerNameLabel);
+				_nameLabels[i] = playerNameLabel;
+				playerNameLabel.SetPositionBasedOnWorldPosition(slots[i].transform.position);
+
+
+				var playerData = player.Data.Player;
+				if (!playerData.IsValid || !_matchServices.MatchEndDataService.PlayerMatchData.ContainsKey(playerData))
 				{
 					continue;
 				}
 
-				var skin = _gameServices.CollectionService.GetCosmeticForGroup(_matchServices.MatchEndDataService.PlayerMatchData[player].Cosmetics, GameIdGroup.PlayerSkin);
-				tasks.Add(characters[i].UpdateSkin(skin,
-					_matchServices.MatchEndDataService.PlayerMatchData[player].Gear.ToList()));
+				var skin = _gameServices.CollectionService.GetCosmeticForGroup(_matchServices.MatchEndDataService.PlayerMatchData[playerData].Cosmetics, GameIdGroup.PlayerSkin);
+				tasks.Add(slots[i].UpdateSkin(skin,
+					_matchServices.MatchEndDataService.PlayerMatchData[playerData].Gear.ToList()));
 			}
 
 			await UniTask.WhenAll(tasks);
-			
-			_character1.RandomizeAnimationStateFrame("IdleBT", 0, 0f, 0.25f);
-			
-			if (playerDataCount > 1) 
-			{
-				_character2.RandomizeAnimationStateFrame("IdleBT", 0, 0.25f, 0.75f); 
-			}
-
 			await UniTask.Delay(300);
-
-			_character1.AnimateVictory();
+			foreach (var t in slots)
+			{
+				if (t.IsDestroyed()) continue;
+				t.AnimateVictory();
+				await UniTask.Delay(500);
+			}
 		}
 	}
 }

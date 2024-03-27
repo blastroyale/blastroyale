@@ -644,8 +644,6 @@ namespace Quantum
 				{
 					GameId.Rage, new List<GameIdGroup>
 					{
-						GameIdGroup.Consumable,
-						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
@@ -698,8 +696,6 @@ namespace Quantum
 				{
 					GameId.EnergyCubeLarge, new List<GameIdGroup>
 					{
-						GameIdGroup.Consumable,
-						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
@@ -766,49 +762,57 @@ namespace Quantum
 				{
 					GameId.SpecialAimingStunGrenade, new List<GameIdGroup>
 					{
-						GameIdGroup.Special
+						GameIdGroup.Special,
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.SpecialShieldSelf, new List<GameIdGroup>
 					{
-						GameIdGroup.Special
+						GameIdGroup.Special,
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.SpecialSkyLaserBeam, new List<GameIdGroup>
 					{
-						GameIdGroup.Special
+						GameIdGroup.Special,
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.SpecialShieldedCharge, new List<GameIdGroup>
 					{
-						GameIdGroup.Special
+						GameIdGroup.Special,
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.SpecialAimingGrenade, new List<GameIdGroup>
 					{
-						GameIdGroup.Special
+						GameIdGroup.Special,
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.SpecialDefaultDash, new List<GameIdGroup>
 					{
-						GameIdGroup.Special
+						GameIdGroup.Special,
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.SpecialRadar, new List<GameIdGroup>
 					{
-						GameIdGroup.Special
+						GameIdGroup.Special,
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.SpecialLandmine, new List<GameIdGroup>
 					{
-						GameIdGroup.Special
+						GameIdGroup.Special,
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
@@ -856,13 +860,15 @@ namespace Quantum
 				{
 					GameId.CoreCommon, new List<GameIdGroup>
 					{
-						GameIdGroup.Core
+						GameIdGroup.Core,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.CoreUncommon, new List<GameIdGroup>
 					{
-						GameIdGroup.Core
+						GameIdGroup.Core,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -870,7 +876,8 @@ namespace Quantum
 					{
 						GameIdGroup.Core,
 						GameIdGroup.IAP,
-						GameIdGroup.Chest
+						GameIdGroup.Chest,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -878,7 +885,8 @@ namespace Quantum
 					{
 						GameIdGroup.Core,
 						GameIdGroup.IAP,
-						GameIdGroup.Chest
+						GameIdGroup.Chest,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -886,7 +894,8 @@ namespace Quantum
 					{
 						GameIdGroup.Core,
 						GameIdGroup.IAP,
-						GameIdGroup.Chest
+						GameIdGroup.Chest,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -1916,6 +1925,11 @@ namespace Quantum
 						GameId.WarriorShield,
 						GameId.RiotShield,
 						GameId.RoadShield,
+						GameId.CoreCommon,
+						GameId.CoreUncommon,
+						GameId.CoreRare,
+						GameId.CoreEpic,
+						GameId.CoreLegendary,
 						GameId.Male01Avatar,
 						GameId.Male02Avatar,
 						GameId.Female01Avatar,
@@ -2115,26 +2129,30 @@ namespace Quantum
 				{
 					GameIdGroup.Consumable, new List<GameId>
 					{
-						GameId.Rage,
 						GameId.Health,
 						GameId.AmmoSmall,
-						GameId.ShieldSmall,
-						GameId.EnergyCubeLarge
+						GameId.ShieldSmall
 					}.AsReadOnly()
 				},
 				{
 					GameIdGroup.Collectable, new List<GameId>
 					{
-						GameId.Rage,
 						GameId.Health,
 						GameId.AmmoSmall,
 						GameId.ShieldSmall,
-						GameId.EnergyCubeLarge,
 						GameId.ChestConsumable,
 						GameId.ChestEquipment,
 						GameId.ChestEquipmentTutorial,
 						GameId.ChestWeapon,
-						GameId.ChestLegendary
+						GameId.ChestLegendary,
+						GameId.SpecialAimingStunGrenade,
+						GameId.SpecialShieldSelf,
+						GameId.SpecialSkyLaserBeam,
+						GameId.SpecialShieldedCharge,
+						GameId.SpecialAimingGrenade,
+						GameId.SpecialDefaultDash,
+						GameId.SpecialRadar,
+						GameId.SpecialLandmine
 					}.AsReadOnly()
 				},
 				{

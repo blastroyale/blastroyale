@@ -2,12 +2,8 @@
     <Style src="project://database/Assets/Art/UI/Screens/LeaderboardAndRewardsScreenStyle.uss?fileID=7433441132597879392&amp;guid=671410c7fc8b44ebebe2e36a0f17d624&amp;type=3#LeaderboardAndRewardsScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/PlayerAvatarStyle.uss?fileID=7433441132597879392&amp;guid=38b557c69f774f2983d0aded8a5e3b0d&amp;type=3#PlayerAvatarStyle" />
     <ui:VisualElement name="root" class="fill-parent">
-        <ui:VisualElement name="PlayerName" class="player-name">
-            <ui:VisualElement name="Badge" class="player-name__badge" />
-            <ui:Label text="9. PLAYERNAME" display-tooltip-when-elided="true" name="Text" class="player-name__text" />
-        </ui:VisualElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/standings" subtitle-key="UITLeaderboards/battleroyale" class="screen-header--no-navigation" />
-        <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent">
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/standings" subtitle-key="UITLeaderboards/battleroyale" name="Header" class="screen-header--no-navigation" />
+        <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent">
             <ui:VisualElement name="LeaderboardPanel" picking-mode="Ignore" class="leaderboard-panel" style="display: none;">
                 <ui:VisualElement name="LeaderboardHeader" class="leaderboard-header">
                     <ui:Label text="#" display-tooltip-when-elided="true" name="RankNumber" class="header-label leaderboard-header__rank-number" />
@@ -19,14 +15,6 @@
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
             <ui:VisualElement name="RewardsPanel" picking-mode="Ignore" class="rewards-panel">
-                <ui:VisualElement name="CraftSpice" class="craft-spice">
-                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/craft_spice" class="craft-spice__title" />
-                    <ui:VisualElement name="LogoTop" class="craft-spice__logo-top" />
-                    <ui:VisualElement name="PinkBand" />
-                    <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="craft-spice__gained" />
-                    <ui:VisualElement name="LogoTotal" class="craft-spice__logo-total" />
-                    <ui:Label text="1023" display-tooltip-when-elided="true" name="Total" class="craft-spice__total" />
-                </ui:VisualElement>
                 <ui:VisualElement name="Trophies" class="trophies">
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/trophies" class="trophies__title" />
                     <ui:VisualElement name="LogoTop" class="trophies__logo-top" />

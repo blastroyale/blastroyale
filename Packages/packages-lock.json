@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "bgtools.de.playerprefseditor": {
+      "version": "file:PlayerPrefsEditor",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.autodesk.fbx": {
       "version": "4.2.1",
       "depth": 1,
@@ -67,6 +73,16 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
+    },
+    "com.immutable.passport": {
+      "version": "https://github.com/immutable/unity-immutable-sdk.git?path=/src/Packages/Passport",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.0",
+        "com.cysharp.unitask": "2.3.3"
+      },
+      "hash": "7d0a15d5658df6747d9ee5ecba310cbe783d463f"
     },
     "com.jetbrains.riderflow": {
       "version": "2023.1.0-25",
@@ -180,11 +196,11 @@
       "dependencies": {}
     },
     "com.unity.addressables": {
-      "version": "1.21.19",
+      "version": "1.21.20",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.scriptablebuildpipeline": "1.21.21",
+        "com.unity.scriptablebuildpipeline": "1.21.22",
         "com.unity.modules.assetbundle": "1.0.0",
         "com.unity.modules.imageconversion": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0",
@@ -383,6 +399,30 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.remote-config": {
+      "version": "4.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.0.2",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.remote-config-runtime": "4.0.1"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.remote-config-runtime": {
+      "version": "4.0.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.0.2",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.unityanalytics": "1.0.0",
+        "com.unity.services.core": "1.8.1",
+        "com.unity.services.authentication": "2.2.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.render-pipelines.core": {
       "version": "14.0.10",
       "depth": 1,
@@ -415,7 +455,7 @@
       }
     },
     "com.unity.scriptablebuildpipeline": {
-      "version": "1.21.21",
+      "version": "1.21.22",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -426,6 +466,18 @@
       "depth": 2,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.services.authentication": {
+      "version": "2.7.2",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.unity.services.core": "1.10.1",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.ugui": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.services.core": {

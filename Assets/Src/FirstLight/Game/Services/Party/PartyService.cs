@@ -128,12 +128,21 @@ namespace FirstLight.Game.Services.Party
 		/// </summary>
 		PartyMember GetLocalMember();
 
+		/// <summary>
+		/// Return the current group size, if the player is not in a party returns 1
+		/// </summary>
+		int GetCurrentGroupSize();
+
 		public delegate void OnLocalPlayerKickedHandler();
+
+		public delegate void OnLobbyPropertiesCreatedHandler(Dictionary<string, string> searchData, Dictionary<string, string> data);
 
 		/// <summary>
 		/// Event handler that notifies when the local player got kicked
 		/// </summary>
 		public event OnLocalPlayerKickedHandler OnLocalPlayerKicked;
+		
+		public event OnLobbyPropertiesCreatedHandler OnLobbyPropertiesCreated;
 	}
 
 
@@ -207,9 +216,7 @@ namespace FirstLight.Game.Services.Party
 			msgBroker.Subscribe<SuccessAuthentication>(OnSuccessAuthentication);
 			_pubsub.OnReconnected += () =>
 			{
-#pragma warning disable CS4014
-				OnReconnectPubSub();
-#pragma warning restore CS4014
+				OnReconnectPubSub().Forget();
 			};
 			msgBroker.Subscribe<ChangedServerRegionMessage>(OnChangedPhotonServer);
 		}
@@ -230,9 +237,7 @@ namespace FirstLight.Game.Services.Party
 			if (HasParty.Value)
 			{
 				FLog.Warn("Should leave party");
-#pragma warning disable CS4014
-				LeaveParty();
-#pragma warning restore CS4014
+				LeaveParty().Forget();
 			}
 		}
 
@@ -252,18 +257,22 @@ namespace FirstLight.Game.Services.Party
 				// TODO Check if lobby doesn't exist with the generated code
 				var server = _appDataProvider.ConnectionRegion.Value;
 
+				var searchData = new Dictionary<string, string>()
+				{
+					{CodeSearchProperty, code},
+					{ServerProperty, server},
+					{LobbyCommitProperty, VersionUtils.Commit != null ? VersionUtils.Commit : "editor"},
+				};
+				var data = new Dictionary<string, string>();
+				OnLobbyPropertiesCreated?.Invoke(searchData, data);
 				CreateLobbyRequest req = new CreateLobbyRequest()
 				{
 					Owner = LocalEntityKey(),
 					AccessPolicy = AccessPolicy.Public,
 					MaxPlayers = MaxMembers,
 					OwnerMigrationPolicy = OwnerMigrationPolicy.Automatic,
-					SearchData = new Dictionary<string, string>()
-					{
-						{CodeSearchProperty, code},
-						{ServerProperty, server},
-						{LobbyCommitProperty, VersionUtils.Commit != null ? VersionUtils.Commit : "editor"}
-					},
+					SearchData = searchData,
+					LobbyData = data,
 					UseConnections = true,
 					Members = new List<Member> {CreateLocalMember()}
 				};
@@ -271,10 +280,12 @@ namespace FirstLight.Game.Services.Party
 				_lobbyId = result.LobbyId;
 				usedPlayfabContext.CopyFrom(PlayFabSettings.staticPlayer);
 				await FetchPartyAndUpdateState();
-#pragma warning disable CS4014
-				// Don't wait for the websocket connection, it is slow to connect, and the player is already in the party.
-				ListenForLobbyUpdates(_lobbyId);
-#pragma warning restore CS4014
+				// Somehow the user is not a member anymore
+				if (_lobbyId == null)
+				{
+					return;
+				}
+				ConnectToPubSub(_lobbyId).Forget();
 				PartyCode.Value = code;
 				PartyID.Value = _lobbyId;
 				HasParty.Value = true;
@@ -372,10 +383,7 @@ namespace FirstLight.Game.Services.Party
 				}
 
 				await FetchPartyAndUpdateState();
-#pragma warning disable CS4014
-				// Dont wait for the websocket connection, it is slow to connect, and the player is already in the party.
-				ListenForLobbyUpdates(_lobbyId);
-#pragma warning restore CS4014
+				ConnectToPubSub(_lobbyId).Forget();
 				HasParty.Value = true;
 				PartyCode.Value = normalizedCode;
 				PartyID.Value = _lobbyId;
@@ -575,6 +583,7 @@ namespace FirstLight.Game.Services.Party
 					// If player try to leaves the lobby but he is not on the lobby or the lobby doesn't exists ignore the error and reset state
 					if (errors is PartyErrors.UserIsNotMember or PartyErrors.TryingToGetDetailsOfNonMemberParty or PartyErrors.PartyNotFound or PartyErrors.MemberNotFound)
 					{
+						ResetState();
 						return;
 					}
 
@@ -610,7 +619,13 @@ namespace FirstLight.Game.Services.Party
 			return LocalPartyMember();
 		}
 
+		public int GetCurrentGroupSize()
+		{
+			return HasParty.Value ? Members.Count : 1;
+		}
+
 		public event IPartyService.OnLocalPlayerKickedHandler OnLocalPlayerKicked;
+		public event IPartyService.OnLobbyPropertiesCreatedHandler OnLobbyPropertiesCreated;
 
 		private void CheckPartyReadyStatus()
 		{
@@ -631,6 +646,20 @@ namespace FirstLight.Game.Services.Party
 				UpdateMembers(result.Lobby);
 				UpdateProperties(result.Lobby);
 				_lobbyChangeNumber = result.Lobby.ChangeNumber;
+			}
+			catch (WrappedPlayFabException ex)
+			{
+				var err = ConvertErrors(ex);
+				if (err == PartyErrors.UserIsNotMember)
+				{
+					// This means that the player got kicked before getting the connection handler of the lobby
+					Members.Remove(LocalPartyMember());
+					ResetPubSubState();
+					LocalPlayerKicked();
+					return;
+				}
+
+				throw;
 			}
 			catch (Exception ex)
 			{
@@ -679,10 +708,8 @@ namespace FirstLight.Game.Services.Party
 					Members.Remove(partyMember);
 					if (partyMember.Local)
 					{
-#pragma warning disable CS4014
 						// We don't care about this result
-						UnsubscribeToLobbyUpdates();
-#pragma warning restore CS4014
+						UnsubscribeToLobbyUpdates().Forget();
 						LocalPlayerKicked();
 						return;
 					}

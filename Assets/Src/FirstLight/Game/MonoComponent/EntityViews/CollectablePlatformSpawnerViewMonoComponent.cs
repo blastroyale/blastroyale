@@ -24,6 +24,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_progressIndicator.fillAmount = 0f;
 			_canvas = GetComponentInChildren<Canvas>();
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView, onlyIfActiveAndEnabled: true);
+			EntityView.OnEntityDestroyed.AddListener(HandleOnEntityDestroyed);
 		}
 
 		public override void SetCulled(bool culled)
@@ -36,7 +37,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.SetCulled(culled);
 		}
 
-		private new void OnUpdateView(CallbackUpdateView callback)
+		private unsafe new void OnUpdateView(CallbackUpdateView callback)
 		{
 			var frame = callback.Game.Frames.Verified;
 
@@ -45,13 +46,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var spawner = frame.Get<CollectablePlatformSpawner>(EntityRef);
-			var remaining = spawner.NextSpawnTime.AsFloat - frame.Time.AsFloat;
+			var spawner = frame.Unsafe.GetPointer<CollectablePlatformSpawner>(EntityRef);
+			var remaining = spawner->NextSpawnTime.AsFloat - frame.Time.AsFloat;
 
-			if (remaining > 0 && !spawner.Disabled)
+			if (remaining > 0 && !spawner->Disabled)
 			{
 				_canvas?.gameObject.SetActive(true);
-				var intervalTime = spawner.IntervalTime.AsFloat;
+				var intervalTime = spawner->IntervalTime.AsFloat;
 				var normalizedValue = remaining / intervalTime;
 				var sec = intervalTime * normalizedValue;
 
@@ -64,6 +65,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				_text.text = "";
 				_progressIndicator.fillAmount = 0f;
 			}
+		}
+
+		private void HandleOnEntityDestroyed(QuantumGame game)
+		{
+			GameObject.Destroy(gameObject.transform.parent.gameObject);
 		}
 	}
 }

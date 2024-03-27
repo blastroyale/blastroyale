@@ -32,17 +32,17 @@ namespace FirstLight.Game.Services
 		private IGameBackendService _gameBackend;
 		private Queue<ServerCommandQueueEntry> _queue;
 		private IGameServices _services;
-		
+
 		public ServerCommandQueue(IDataService data, IGameLogic logic, IGameBackendService gameBackend, IGameServices services)
 		{
 			_data = data;
 			_logic = logic;
 			_logicInitializer = logic as IGameLogicInitializer;
 			_gameBackend = gameBackend;
-			_queue = new();
+			_queue = new ();
 			_services = services;
 		}
-		
+
 		/// <summary>
 		/// Get a StateDelta object with all the hashes from the data stored in <paramref name="data"/>
 		/// TODO: Move to server when IDataProvider moves to server
@@ -83,7 +83,7 @@ namespace FirstLight.Game.Services
 
 			return invalid;
 		}
-		
+
 
 		/// <summary>
 		/// Adds a given command to the "to send to server queue".
@@ -95,6 +95,7 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
+
 			var entry = new ServerCommandQueueEntry(GetClientDelta(_data), command);
 			_queue.Enqueue(entry);
 			if (_queue.Count == 1)
@@ -113,7 +114,8 @@ namespace FirstLight.Game.Services
 			var logicResult = JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
 			if (logicResult.Result.Command != current.GameCommand.GetType().FullName)
 			{
-				throw new LogicException($"Queue waiting for {current.GameCommand.GetType().FullName} command but {logicResult.Result.Command} was received");
+				throw new LogicException(
+					$"Queue waiting for {current.GameCommand.GetType().FullName} command but {logicResult.Result.Command} was received");
 			}
 
 			// Command returned 200 but a expected logic exception happened due
@@ -123,22 +125,6 @@ namespace FirstLight.Game.Services
 			}
 
 			var desynchs = GetDesynchedDeltas(current.ClientDelta, logicResult.Result.Data);
-			
-			if (FeatureFlags.REMOTE_CONFIGURATION &&
-			    logicResult.Result.Data.TryGetValue(CommandFields.ConfigurationVersion, out var serverConfigVersion))
-			{
-				var serverVersionNumber = ulong.Parse(serverConfigVersion);
-				if (serverVersionNumber > _logic.ConfigsProvider.Version)
-				{
-					FLog.Verbose("Client configs outdated, updating !");
-					UpdateConfiguration(serverVersionNumber, current);
-					if (desynchs.Count > 0)
-					{
-						RollbackToServerState(current.GameCommand, desynchs);
-						return;
-					}
-				}
-			}
 
 			if (FeatureFlags.DESYNC_DETECTION)
 			{
@@ -147,11 +133,12 @@ namespace FirstLight.Game.Services
 #if !DISABLE_SRDEBUGGER && !UNITY_EDITOR
 					SROptions.Current.SendQuietBugReport($"models desynched {string.Join(',', desynchs)}");
 #endif
-					
+
 					OnCommandException($"Models desynched: {string.Join(',', desynchs)}");
 					// TODO: Do a json diff and show which data exactly is different
 				}
 			}
+
 			OnServerExecutionFinished();
 		}
 
@@ -226,18 +213,20 @@ namespace FirstLight.Game.Services
 				foreach (var typeFullName in state.Keys)
 				{
 					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
-					if(desynced.Contains(type))
+					if (desynced.Contains(type))
 					{
 						rolledBack = true;
 						_data.AddData(type, ModelSerializer.DeserializeFromData(type, state));
 					}
 				}
+
 				FLog.Verbose("Fetched user state from server");
 				if (rolledBack)
 				{
 					FLog.Info("Rolling back client UI");
 					_logicInitializer.ReInit();
 				}
+
 				OnServerExecutionFinished();
 			}, null);
 		}
@@ -276,15 +265,15 @@ namespace FirstLight.Game.Services
 				Platform = Application.platform.ToString(),
 				Data = new Dictionary<string, string>
 				{
-					{ CommandFields.Command, ModelSerializer.Serialize(command).Value },
-					{ CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString() },
-					{ CommandFields.ClientVersion, VersionUtils.VersionExternal },
-					{ CommandFields.ConfigurationVersion, _logic.ConfigsProvider.Version.ToString() }
+					{CommandFields.Command, ModelSerializer.Serialize(command).Value},
+					{CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()},
+					{CommandFields.ClientVersion, VersionUtils.VersionExternal},
+					{CommandFields.ConfigurationVersion, _logic.ConfigsProvider.Version.ToString()}
 				}
 			};
 			_gameBackend.CallFunction("ExecuteCommand", OnCommandSuccess, OnCommandError, request);
 		}
-		
+
 
 		private class ServerCommandQueueEntry
 		{
@@ -292,6 +281,7 @@ namespace FirstLight.Game.Services
 			/// Snapshot of client delta after executing this command locally
 			/// </summary>
 			public StateDelta ClientDelta { get; }
+
 			/// <summary>
 			/// Command to execute in the server
 			/// </summary>
@@ -304,6 +294,5 @@ namespace FirstLight.Game.Services
 				GameCommand = gameCommand;
 			}
 		}
-		
 	}
 }

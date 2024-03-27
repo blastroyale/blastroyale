@@ -8,6 +8,7 @@ namespace Quantum
 	{
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)
 		{
+			var noHealthNoShields = f.Context.TryGetMutatorByType(MutatorType.Hardcore, out _);
 			var chestPosition = f.Get<Transform3D>(e).Position;
 			var config = f.ChestConfigs.GetConfig(ChestType);
 			List<SimulationItem> contents = null;
@@ -27,7 +28,16 @@ namespace Quantum
 					Collectable.DropEquipment(f, *drop.EquipmentItem, chestPosition, step, true, contents.Count);
 				} else if (drop.ItemType == ItemType.Simple)
 				{
-					Collectable.DropConsumable(f, drop.SimpleItem->Id, chestPosition, step, true, contents.Count);
+					if (noHealthNoShields &&
+						(drop.SimpleItem->Id == GameId.Health ||
+						 drop.SimpleItem->Id == GameId.ShieldSmall))
+					{
+						// Don't drop Health and Shields with Hardcore mutator
+					}
+					else
+					{
+						Collectable.DropConsumable(f, drop.SimpleItem->Id, chestPosition, step, true, contents.Count);
+					}
 				}
 				step++;
 			}

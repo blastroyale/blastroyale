@@ -108,7 +108,7 @@ namespace FirstLight.Game.Presenters
 			_squadMembersList.makeItem = CreateSquadListEntry;
 			_squadMembersList.bindItem = BindSquadListEntry;
 
-			_header.homeClicked += OnCloseClicked;
+			_header.backClicked += OnCloseClicked;
 		}
 
 		protected override void SubscribeToEvents()
@@ -133,15 +133,15 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshPartyList()
 		{
-			var isSquadGame = CurrentRoom.GameModeConfig.Teams;
+			var isSquadGame = CurrentRoom.IsTeamGame;
 
 			if (isSquadGame)
 			{
-				var teamId = CurrentRoom.LocalPlayerProperties.TeamId.Value;
+				var teamId = CurrentRoom.GetTeamForPlayer(CurrentRoom.LocalPlayer);
 
 				_squadContainer.SetDisplay(true);
 				_squadMembers = CurrentRoom.Players.Values
-					.Where(p => CurrentRoom.GetPlayerProperties(p).TeamId.Value == teamId)
+					.Where(p => CurrentRoom.GetTeamForPlayer(p) == teamId)
 					.ToList();
 
 				_squadMembersList.itemsSource = _squadMembers;
@@ -262,7 +262,7 @@ namespace FirstLight.Game.Presenters
 			var modeDesc = GetGameModeDescriptions(gameModeConfig.CompletionStrategy);
 
 			_locationLabel.text = mapConfig.Map.GetLocalization();
-			_header.SetTitle(gameModeConfig.Id.GetTranslationGameIdString()?.ToUpper(), matchType.GetLocalization().ToUpper());
+			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, CurrentRoom.Properties.TeamSize.Value), matchType.GetLocalization().ToUpper());
 
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];

@@ -12,7 +12,6 @@ namespace Quantum.Systems.Bots
 	{
 		private class BotSetupContext
 		{
-			public int TeamSize;
 			public List<EntityComponentPointerPair<PlayerSpawner>> AllSpawners;
 			public List<EntityComponentPointerPair<PlayerSpawner>> AvailableSpawners;
 			public List<int> BotNamesIndices;
@@ -47,7 +46,7 @@ namespace Quantum.Systems.Bots
 			var playerLimit = f.PlayerCount;
 			var botIds = new List<PlayerRef>();
 
-			var maxPlayers = Math.Min(f.Context.MapConfig.MaxPlayers, f.Context.GameModeConfig.MaxPlayers);
+			var maxPlayers = f.Context.MapConfig.MaxPlayers;
 			if (playerLimit == 1 && maxPlayers > 1) // offline game with bots
 			{
 				playerLimit = (int)maxPlayers;
@@ -75,7 +74,6 @@ namespace Quantum.Systems.Bots
 			var spawners = GetFreeSpawnPoints(f);
 			var ctx = new BotSetupContext()
 			{
-				TeamSize = f.Context.GameModeConfig.Teams ? (int)f.Context.GameModeConfig.MaxPlayersInTeam : 1,
 				AvailableSpawners = spawners.ToList(),
 				AllSpawners = spawners.ToList(),
 				BotNamesIndices = Enumerable.Range(1, f.GameConfig.BotsNameCount).ToList(),
@@ -89,8 +87,7 @@ namespace Quantum.Systems.Bots
 				PlayerPrototype = f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id),
 				NavMeshAgentConfig = f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id),
 				PlayersByTeam = TeamSystem.GetPlayersByTeam(f),
-				TotalTeamsInGameMode = f.Context.GameModeConfig.MaxPlayers /
-					(f.Context.GameModeConfig.Teams ? f.Context.GameModeConfig.MaxPlayersInTeam : 1)
+				TotalTeamsInGameMode = (uint)f.PlayerCount / (uint)f.GetTeamSize()
 			};
 			AddBotTeams(ctx);
 			return ctx;
@@ -209,7 +206,6 @@ namespace Quantum.Systems.Bots
 				LoadoutRarity = config.LoadoutRarity,
 				MaxAimingRange = config.MaxAimingRange,
 				MovementSpeedMultiplier = config.MovementSpeedMultiplier,
-				TeamSize = ctx.TeamSize,
 				MaxDistanceToTeammateSquared = config.MaxDistanceToTeammateSquared,
 				DamageTakenMultiplier = config.DamageTakenMultiplier,
 				DamageDoneMultiplier = config.DamageDoneMultiplier,
@@ -306,7 +302,8 @@ namespace Quantum.Systems.Bots
 				trophies = trophies,
 				teamId = teamId,
 				modifiers = modifiers,
-				KccConfig = kccConfig
+				KccConfig = kccConfig,
+				deathFlagID = botCharacter.DeathMarker
 			};
 
 			SetupBotCosmetics(f, botEntity, spawner.Entity);
@@ -395,7 +392,7 @@ namespace Quantum.Systems.Bots
 
 		private int GetBotTeamId(Frame frame, PlayerRef bot, Dictionary<int, List<EntityRef>> playerByTeam)
 		{
-			if (!frame.Context.GameModeConfig.Teams)
+			if (frame.GetTeamSize() == 1)
 			{
 				return bot;
 			}
@@ -406,7 +403,7 @@ namespace Quantum.Systems.Bots
 				return @override;
 			}
 
-			var maxPlayers = frame.Context.GameModeConfig.MaxPlayersInTeam;
+			var maxPlayers = frame.RuntimeConfig.TeamSize;
 			foreach (var kv in playerByTeam)
 			{
 				if (kv.Value.Count < maxPlayers)
@@ -491,7 +488,7 @@ namespace Quantum.Systems.Bots
 
 		private bool GetSpawnClosestToTeam(Frame f, BotSetupContext ctx, int teamId, out int spawnPointForBot)
 		{
-			if (ctx.TeamSize <= 1)
+			if (f.GetTeamSize() <= 1)
 			{
 				spawnPointForBot = 0;
 				return false;

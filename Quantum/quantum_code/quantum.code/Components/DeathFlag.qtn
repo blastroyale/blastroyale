@@ -1,0 +1,4 @@
+component DeathFlag
+{
+    GameId ID;
+}

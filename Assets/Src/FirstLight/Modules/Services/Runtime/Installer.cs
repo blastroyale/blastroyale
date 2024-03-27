@@ -67,7 +67,7 @@ namespace FirstLight.Services
 				throw new ArgumentException($"Cannot bind {instance} because {type} is not an interface");
 			}
 
-			_bindings.Add(type, instance);
+			_bindings[type] = instance;
 		}
 
 		/// <inheritdoc />

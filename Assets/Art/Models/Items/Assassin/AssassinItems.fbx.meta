@@ -1,49 +1,34 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 6ee701921b9309e40b3198b5aaa1cd09
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: AssassinAmulet1
-    second:
-      fileID: 2100000
-      guid: 17e3aaff4f04a4e469bd25458079aadb
-      type: 2
+    second: {fileID: 2100000, guid: 17e3aaff4f04a4e469bd25458079aadb, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: AssassinAromr
-    second:
-      fileID: 2100000
-      guid: cd9d1222ce3f4394b8e387e99655bf6a
-      type: 2
+    second: {fileID: 2100000, guid: cd9d1222ce3f4394b8e387e99655bf6a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: AssassinHeadgear1
-    second:
-      fileID: 2100000
-      guid: 9e9f8df660cc56f4091798d99a7c0d84
-      type: 2
+    second: {fileID: 2100000, guid: 9e9f8df660cc56f4091798d99a7c0d84, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: AssassinMelee
-    second:
-      fileID: 2100000
-      guid: 98f69085ad71d254bbaba53166fbaf18
-      type: 2
+    second: {fileID: 2100000, guid: 98f69085ad71d254bbaba53166fbaf18, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: AssassinShield1
-    second:
-      fileID: 2100000
-      guid: ee4f23aa38a6e664f9b7990d1bfbffd4
-      type: 2
+    second: {fileID: 2100000, guid: ee4f23aa38a6e664f9b7990d1bfbffd4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -72,7 +57,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -80,6 +65,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -107,6 +93,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -133,13 +120,13 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource:
-    instanceID: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties:
     - '#BAKERY{"meshName":["Car_Chevvy_Yellow_GEO","Car_Chevvy_Purple_GEO","Car_Chevvy_Red_GEO","Car_Chevvy_Blue_GEO","Car_Chevvy_Green_GEO"],"padding":[37,37,37,37,30],"unwrapper":[0,0,0,0,0]}'
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

@@ -24,5 +24,10 @@ namespace FirstLight.Game.UIElements
 		/// Adds the backwards click SFX to the element (on pointer down).
 		/// </summary>
 		public const string SFX_CLICK_BACKWARDS = "sfx-click-backwards";
+
+		/// <summary>
+		/// Class to use labels to display the player name, this is usually used bellow characters
+		/// </summary>
+		public const string USS_PLAYER_LABEL = "player-name";
 	}
 }

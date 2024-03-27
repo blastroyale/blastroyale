@@ -122,7 +122,6 @@ namespace FirstLight.Game.Presenters
 
 			_rewardsScroll.horizontalScroller.valueChanged += OnScroll;
 			_screenHeader.backClicked += Data.BackClicked;
-			_screenHeader.homeClicked += Data.BackClicked;
 			//_fullScreenClaimButton.clicked += OnClaimClicked;
 			//_claimButton.clicked += OnClaimClicked;
 			_activateButton.clicked += ActivateClicked;

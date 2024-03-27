@@ -70,6 +70,18 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 		}
 
+		public void UpdateAllPlayers()
+		{
+			foreach (var playerNameEntryView in _activePlayerEntries)
+			{
+				if (playerNameEntryView.Player != null)
+				{
+					AddOrUpdatePlayer(playerNameEntryView.Player, false);
+				}
+			}
+		}
+
+
 		/// <summary>
 		/// Adds a player to the list, or updates them if already there
 		/// </summary>
@@ -78,7 +90,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.Player == player);
 			var props = _services.RoomService.CurrentRoom.GetPlayerProperties(player);
 			var rank = props.Rank.Value;
-			var teamId = props.TeamId.Value;
+			var teamId = !_services.RoomService.CurrentRoom.Properties.AutoBalanceTeams.Value ? props.TeamId.Value : "";
 			var color = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, rank);
 			if (existingEntry != null)
 			{

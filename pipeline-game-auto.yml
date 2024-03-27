@@ -17,7 +17,7 @@ resources:
   - repository: self
   - repository: templates
     type: git
-    ref: feature/build_pipeline_update
+    ref: unity_cloud
     name: Infrastructure/core-templates
 
 parameters:

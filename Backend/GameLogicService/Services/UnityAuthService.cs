@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Server.SDK.Services;
 using GameLogicService.Game;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PlayFab;
 
@@ -21,13 +22,15 @@ public class UnityAuthService
 
 	private HttpClient _client;
 	private IBaseServiceConfiguration _config;
+	private ILogger _log;
 
 	private string _unityAccessToken = null;
 	private DateTime _unityAccessTokenExpiration;
 
-	public UnityAuthService(IHttpClientFactory clientFactory, IBaseServiceConfiguration config)
+	public UnityAuthService(IHttpClientFactory clientFactory, IBaseServiceConfiguration config, ILogger log)
 	{
 		_config = config;
+		_log = log;
 		_client = clientFactory.CreateClient();
 		_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", _config.UnityCloudAuthToken);
 		_client.DefaultRequestHeaders.Add("UnityEnvironment", _config.UnityCloudEnvironmentName);
@@ -41,7 +44,9 @@ public class UnityAuthService
 				await _client.PostAsync(string.Format(URL_TOKEN_EXCHANGE, PROJECT_ID, _config.UnityCloudEnvironmentID), null);
 			if (tokenExchangeResponse.StatusCode != HttpStatusCode.Created)
 			{
-				throw new Exception("Unity Token Exchange API call failed.");
+				var msg = tokenExchangeResponse.RequestMessage?.Content?.ReadAsStringAsync();
+				_log.LogError($"Unity Token Exchange API call failed with: {tokenExchangeResponse.StatusCode} - {msg}");
+				throw new Exception($"Unity Token Exchange API call failed with: {tokenExchangeResponse.StatusCode} - {msg}");
 			}
 
 			var tokenExchangeStr = await tokenExchangeResponse.Content.ReadAsStringAsync();
@@ -56,7 +61,9 @@ public class UnityAuthService
 
 		if (customIdResponse.StatusCode != HttpStatusCode.OK)
 		{
-			throw new Exception("Unity Custom ID API call failed.");
+			var msg = customIdResponse.RequestMessage?.Content?.ReadAsStringAsync();
+			_log.LogError($"Unity Custom ID API call failed with: {customIdResponse.StatusCode} - {msg}");
+			throw new Exception($"Unity Custom ID API call failed with: {customIdResponse.StatusCode}");
 		}
 
 		var customID =

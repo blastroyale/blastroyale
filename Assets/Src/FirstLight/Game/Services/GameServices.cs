@@ -7,7 +7,6 @@ using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Utils;
-using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLightServerSDK.Modules.RemoteCollection;
@@ -70,9 +69,6 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IAudioFxService{T}"/>
 		IAudioFxService<AudioId> AudioFxService { get; }
-
-		/// <inheritdoc cref="INotificationService"/>
-		INotificationService NotificationService { get; }
 
 		/// <inheritdoc cref="IGameBackendService"/>
 		IGameBackendService GameBackendService { get; }
@@ -158,7 +154,6 @@ namespace FirstLight.Game.Services
 		public IGenericDialogService GenericDialogService { get; }
 		public IVfxService<VfxId> VfxService { get; }
 		public IAudioFxService<AudioId> AudioFxService { get; }
-		public INotificationService NotificationService { get; }
 		public IGameBackendService GameBackendService { get; }
 		public IGameAppService GameAppService { get; }
 		public IPlayerProfileService ProfileService { get; }
@@ -234,19 +229,6 @@ namespace FirstLight.Game.Services
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 			GameUiService = uiService;
-			NotificationService = new MobileNotificationService(
-				new
-					GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL,
-						GameConstants.Notifications
-							.NOTIFICATION_BOXES_CHANNEL,
-						GameConstants.Notifications
-							.NOTIFICATION_BOXES_CHANNEL),
-				new
-					GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_IDLE_BOXES_CHANNEL,
-						GameConstants.Notifications
-							.NOTIFICATION_IDLE_BOXES_CHANNEL,
-						GameConstants.Notifications
-							.NOTIFICATION_IDLE_BOXES_CHANNEL));
 
 			var environmentService = new EnvironmentService(MessageBrokerService);
 			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic,

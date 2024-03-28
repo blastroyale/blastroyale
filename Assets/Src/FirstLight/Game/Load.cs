@@ -1,11 +1,6 @@
-using System;
-using System.Collections;
-using System.Threading.Tasks;
 using FirstLight.FLogger;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Serializers;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
@@ -15,8 +10,6 @@ using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.UiService;
-using PlayFab;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
 
@@ -27,7 +20,6 @@ namespace FirstLight.Game
 	/// </summary>
 	public class Load : MonoBehaviour
 	{
-		private NotificationStateMachine _notificationState;
 		private GameStateMachine _gameState;
 
 		public delegate void OnGameLoadAwakeEvent();
@@ -70,7 +62,6 @@ namespace FirstLight.Game
 
 			FLog.Verbose($"Initialized client version {VersionUtils.VersionExternal}");
 
-			_notificationState = new NotificationStateMachine(gameLogic, gameServices);
 			_gameState = new GameStateMachine(gameLogic, gameServices, uiService, networkService,
 				tutorialService,
 				configsProvider, assetResolver, dataService, vfxService);
@@ -98,7 +89,6 @@ namespace FirstLight.Game
 			TouchSimulation.Enable();
 			EnhancedTouchSupport.Enable();
 
-			_notificationState.Run();
 			_gameState.Run();
 		}
 

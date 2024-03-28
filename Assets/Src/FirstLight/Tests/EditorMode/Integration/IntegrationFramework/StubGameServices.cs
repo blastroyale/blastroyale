@@ -5,7 +5,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
-using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -33,7 +32,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IGenericDialogService GenericDialogService { get; }
 		public virtual IVfxService<VfxId> VfxService { get; }
 		public virtual IAudioFxService<AudioId> AudioFxService { get; }
-		public virtual INotificationService NotificationService { get; }
 		public virtual IGameBackendService GameBackendService { get; }
 		public virtual IPlayerProfileService ProfileService { get; }
 		public virtual IAuthenticationService AuthenticationService { get; set; }
@@ -107,7 +105,6 @@ namespace FirstLight.Tests.EditorMode
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService,
 				MessageBrokerService, NetworkService, GameBackendService,ConfigsProvider);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
-			NotificationService = Substitute.For<INotificationService>();
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
 			RoomService = Substitute.For<IRoomService>();
 			CollectionService = Substitute.For<ICollectionService>();

@@ -106,12 +106,6 @@ namespace FirstLight.Game.Utils
 			public const float SCREENSHAKE_LARGE_DURATION = 0.8f;
 		}
 
-		public static class Notifications
-		{
-			public const string NOTIFICATION_IDLE_BOXES_CHANNEL = "idle_boxes";
-			public const string NOTIFICATION_BOXES_CHANNEL = "loot_boxes";
-		}
-
 		public static class PlayerName
 		{
 			public const int PLAYER_NAME_MIN_LENGTH = 3;

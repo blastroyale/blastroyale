@@ -306,7 +306,11 @@ namespace FirstLight.Game.Services
 
 			var loginData = new LoginData() {IsGuest = false};
 			PlayFabClientAPI.LoginWithEmailAddress(login,
-				(res) => ProcessAuthentication(res, loginData, onSuccess, onError, previouslyLoggedIn),
+				(res) =>
+				{
+					AuthenticationService.Instance.SignOut(true);
+					ProcessAuthentication(res, loginData, onSuccess, onError, previouslyLoggedIn);
+				},
 				e => { _services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login); });
 		}
 

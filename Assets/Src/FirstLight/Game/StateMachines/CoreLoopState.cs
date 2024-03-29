@@ -29,21 +29,19 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IInternalGameNetworkService _networkService;
-		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		
 		private Coroutine _csPoolTimerCoroutine;
 
-		public CoreLoopState(ReconnectionState reconnection, IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, IGameUiService uiService, UIService2 uiService2, IGameLogic gameLogic, 
+		public CoreLoopState(ReconnectionState reconnection, IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, IGameLogic gameLogic, 
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger, IRoomService roomService)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
 			_networkService = networkService;
-			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
-			_matchState = new MatchState(services, dataService, networkService, uiService, gameLogic, assetAdderService, statechartTrigger,roomService);
-			_mainMenuState = new MainMenuState(services, uiService, uiService2, gameLogic, assetAdderService, statechartTrigger);
+			_matchState = new MatchState(services, dataService, networkService, gameLogic, assetAdderService, statechartTrigger,roomService);
+			_mainMenuState = new MainMenuState(services, gameLogic, assetAdderService, statechartTrigger);
 			_reconnection = reconnection;
 		}
 
@@ -138,8 +136,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask TransitionScreen()
 		{
-			await SwipeScreenPresenter.StartSwipe();
-			await _uiService.CloseUi<LoadingScreenPresenter>();
+			await _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
 		}
 
 		private async UniTask AcceptPrivacyDialog()

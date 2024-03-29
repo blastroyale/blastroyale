@@ -51,14 +51,13 @@ namespace FirstLight.Game.StateMachines
 		private IMatchServices _matchServices;
 
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IInternalGameNetworkService networkService,
-								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
+								   Action<IStatechartEvent> statechartTrigger)
 		{
 			_gameDataProvider = gameDataProvider;
 			_services = services;
 			_networkService = networkService;
-			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
-			_battleRoyaleState = new BattleRoyaleState(services, uiService, statechartTrigger);
+			_battleRoyaleState = new BattleRoyaleState(services, statechartTrigger);
 		}
 
 		/// <summary>
@@ -111,7 +110,7 @@ namespace FirstLight.Game.StateMachines
 		/// </summary>
 		private void CloseSwipeTransition()
 		{
-			_ = SwipeScreenPresenter.Finish();
+			_services.UIService.CloseScreen<SwipeTransitionScreenPresenter>().Forget();
 		}
 
 		private void SubscribeEvents()

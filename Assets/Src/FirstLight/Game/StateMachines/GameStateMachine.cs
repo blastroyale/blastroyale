@@ -43,9 +43,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IDataService _dataService;
 		private readonly IConfigsAdder _configsAdder;
-		private readonly IGameUiServiceInit _uiService;
 
-		public GameStateMachine(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, UIService2 uiService2,
+		public GameStateMachine(GameLogic gameLogic, IGameServices services,
 								IInternalGameNetworkService networkService, IInternalTutorialService tutorialService,
 								IConfigsAdder configsAdder,
 								IAssetAdderService assetAdderService, IDataService dataService,
@@ -54,15 +53,14 @@ namespace FirstLight.Game.StateMachines
 			_dataService = dataService;
 			_gameLogic = gameLogic;
 			_services = services;
-			_uiService = uiService;
 			_configsAdder = configsAdder;
-			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, dataService, configsAdder, vfxService, Trigger);
-			_authenticationState = new AuthenticationState(services, uiService, dataService, Trigger);
+			_initialLoadingState = new InitialLoadingState(services, assetAdderService, dataService, configsAdder, vfxService, Trigger);
+			_authenticationState = new AuthenticationState(services, dataService, Trigger);
 			_audioState = new AudioState(gameLogic, services, Trigger);
-			_reconnection = new ReconnectionState(services, gameLogic, networkService, uiService, Trigger);
+			_reconnection = new ReconnectionState(services, gameLogic, networkService, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
 			_tutorialState = new TutorialState(gameLogic, services, tutorialService, Trigger);
-			_coreLoopState = new CoreLoopState(_reconnection, services, gameLogic, dataService, networkService, uiService, uiService2, gameLogic, assetAdderService, Trigger, services.RoomService);
+			_coreLoopState = new CoreLoopState(_reconnection, services, gameLogic, dataService, networkService, gameLogic, assetAdderService, Trigger, services.RoomService);
 			_statechart = new Statechart.Statechart(Setup);
 #if DEVELOPMENT_BUILD
 			Statechart.Statechart.OnStateTimed += (state, millis) =>

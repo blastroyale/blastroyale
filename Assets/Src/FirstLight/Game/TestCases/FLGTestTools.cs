@@ -56,7 +56,7 @@ namespace FirstLight.Game.TestCases
 
 		public static void ClickCustomGameButton()
 		{
-			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<GameModeSelectionPresenter>().GetComponent<UIDocument>(), "CustomGameButton");
+			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<GameModeScreenPresenter>().GetComponent<UIDocument>(), "CustomGameButton");
 		}
 
 		public static void ClickCreateRoom()

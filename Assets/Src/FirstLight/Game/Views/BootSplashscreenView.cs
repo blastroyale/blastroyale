@@ -139,11 +139,6 @@ namespace FirstLight.Game.Views
 			var json = PlayerPrefs.GetString(nameof(AppData), "");
 			var isSoundEnabled = string.IsNullOrEmpty(json) || JsonConvert.DeserializeObject<AppData>(json).SfxEnabled;
 
-#if !UNITY_EDITOR_LINUX
-			SplashScreen.Begin();
-			SplashScreen.Draw();
-#endif
-
 			if (isSoundEnabled)
 			{
 				_audioSource.Play();

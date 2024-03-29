@@ -18,15 +18,12 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _localPlayerNextEvent = new StatechartEvent("Local Player Next");
 
 		private readonly IGameServices _services;
-		private readonly IGameUiService _uiService;
 		private IMatchServices _matchServices;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		public BattleRoyaleState(IGameServices services, IGameUiService uiService,
-								 Action<IStatechartEvent> statechartTrigger)
+		public BattleRoyaleState(IGameServices services, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
 		}
 
@@ -79,7 +76,7 @@ namespace FirstLight.Game.StateMachines
 			dead.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
 			dead.OnExit(() =>
 			{
-				_uiService.CloseUi<MatchEndScreenPresenter>();
+				_services.GameUiService.CloseUi<MatchEndScreenPresenter>();
 			});
 			
 			spectating.OnEnter(OpenSpectateScreen);
@@ -152,12 +149,12 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseMatchHud()
 		{
-			_uiService.CloseUi<HUDScreenPresenter>();
+			_services.GameUiService.CloseUi<HUDScreenPresenter>();
 		}
 		
 		private void OpenMatchHud()
 		{
-			_uiService.OpenUi<HUDScreenPresenter>();
+			_services.GameUiService.OpenUi<HUDScreenPresenter>();
 		}
 		
 		private void OpenMatchEndScreen()
@@ -170,7 +167,7 @@ namespace FirstLight.Game.StateMachines
 				},
 			};
 
-			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
+			_services.GameUiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
 		}
 
 		private void OpenSpectateScreen()
@@ -184,7 +181,7 @@ namespace FirstLight.Game.StateMachines
 				}
 			};
 
-			_uiService.OpenScreen<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(data);
+			_services.GameUiService.OpenScreen<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(data);
 
 			_services.MessageBrokerService.Publish(new SpectateStartedMessage());
 		}

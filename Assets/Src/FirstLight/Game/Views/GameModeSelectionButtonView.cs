@@ -5,6 +5,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// This class manages the visual components of the GameModeSelectionButton elements in the GameModeSelectionScreen
 	/// </summary>
-	public class GameModeSelectionButtonView : UIView
+	public class GameModeSelectionButtonView : UIView2
 	{
 		private const string GameModeButtonBase = "game-mode-button";
 		private const string GameModeButtonSelectedModifier = GameModeButtonBase + "--selected";

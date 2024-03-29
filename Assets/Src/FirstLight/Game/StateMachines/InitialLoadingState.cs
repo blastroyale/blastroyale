@@ -25,7 +25,6 @@ namespace FirstLight.Game.StateMachines
 	internal class InitialLoadingState
 	{
 		private readonly IGameServices _services;
-		private readonly IGameUiServiceInit _uiService;
 		private readonly IAssetAdderService _assetService;
 		private readonly IConfigsAdder _configsAdder;
 		private readonly IVfxInternalService<VfxId> _vfxService;
@@ -33,12 +32,11 @@ namespace FirstLight.Game.StateMachines
 		private readonly IConfigsLoader _configsLoader;
 		private readonly IDataService _dataService;
 
-		public InitialLoadingState(IGameServices services, IGameUiServiceInit uiService,
+		public InitialLoadingState(IGameServices services,
 								   IAssetAdderService assetService, IDataService dataService, IConfigsAdder configsAdder,
 								   IVfxInternalService<VfxId> vfxService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_uiService = uiService;
 			_assetService = assetService;
 			_configsAdder = configsAdder;
 			_vfxService = vfxService;

@@ -9,6 +9,7 @@ using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using FirstLight.UIService;
 using FirstLightServerSDK.Modules.RemoteCollection;
 
 namespace FirstLight.Game.Services
@@ -191,7 +192,7 @@ namespace FirstLight.Game.Services
 							ITimeService timeService, IDataService dataService, IConfigsAdder configsProvider,
 							IGameLogic gameLogic, IGenericDialogService genericDialogService,
 							IAssetResolverService assetResolverService, ITutorialService tutorialService,
-							IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IGameUiService uiService)
+							IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IGameUiService uiService, UIService2 uiService2)
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
@@ -231,7 +232,7 @@ namespace FirstLight.Game.Services
 			NewsService = new PlayfabNewsService(MessageBrokerService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
-			UIService = new UIService.UIService2();
+			UIService = uiService2;
 
 			var environmentService = new EnvironmentService(MessageBrokerService);
 			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic,

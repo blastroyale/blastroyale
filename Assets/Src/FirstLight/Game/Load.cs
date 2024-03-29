@@ -1,6 +1,8 @@
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Serializers;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
@@ -47,12 +49,13 @@ namespace FirstLight.Game
 			var networkService = new GameNetworkService(configsProvider);
 			var tutorialService = new TutorialService(uiService);
 			var uiService2 = new UIService2();
+			uiService2.OpenScreen<LoadingScreenPresenter>().Forget();
 
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
 			var genericDialogService = new GenericDialogService(uiService, gameLogic.CurrencyDataProvider);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
 				configsProvider, gameLogic, genericDialogService, assetResolver, tutorialService, vfxService,
-				audioFxService, uiService);
+				audioFxService, uiService, uiService2);
 
 			networkService.StartNetworking(gameLogic, gameServices);
 			networkService.EnableQuantumPingCheck(true);
@@ -64,7 +67,7 @@ namespace FirstLight.Game
 
 			FLog.Verbose($"Initialized client version {VersionUtils.VersionExternal}");
 
-			_gameState = new GameStateMachine(gameLogic, gameServices, uiService, uiService2, networkService,
+			_gameState = new GameStateMachine(gameLogic, gameServices, networkService,
 				tutorialService,
 				configsProvider, assetResolver, dataService, vfxService);
 

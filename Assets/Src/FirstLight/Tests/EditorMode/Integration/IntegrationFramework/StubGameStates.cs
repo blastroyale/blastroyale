@@ -10,10 +10,10 @@ namespace FirstLight.Tests.EditorMode
 {
 	public class StubGameStates : GameStateMachine
 	{
-		public StubGameStates(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, UIService2 uiService2,
+		public StubGameStates(GameLogic gameLogic, IGameServices services,
 							  IInternalGameNetworkService networkService, IInternalTutorialService tutorialService, IConfigsAdder configsAdder,
 							  IAssetAdderService assetAdderService, IDataService dataService,
-							  IVfxInternalService<VfxId> vfxService) : base(gameLogic, services, uiService, uiService2,
+							  IVfxInternalService<VfxId> vfxService) : base(gameLogic, services,
 			networkService, tutorialService, configsAdder, assetAdderService, dataService, vfxService)
 		{
 		}

@@ -19,6 +19,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
 using FirstLight.Statechart;
+using FirstLight.UIService;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
@@ -43,6 +44,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IInternalGameNetworkService _networkService;
 		private readonly IGameUiService _uiService;
+		private readonly UIService2 _uiService2;
 		private readonly MatchState _matchState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
@@ -51,14 +53,14 @@ namespace FirstLight.Game.StateMachines
 
 		private Coroutine _csPoolTimerCoroutine;
 
-		public ReconnectionState(IGameServices services, IGameDataProvider dataProvider,
-								 IInternalGameNetworkService networkService, IGameUiService uiService,
+		public ReconnectionState(IGameServices services, IGameDataProvider dataProvider, IInternalGameNetworkService networkService,
 								 Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
 			_networkService = networkService;
-			_uiService = uiService;
+			_uiService = services.GameUiService;
+			_uiService2 = services.UIService;
 			_statechartTrigger = statechartTrigger;
 		}
 
@@ -133,13 +135,13 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasPendingMatch()
 		{
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			if (FeatureFlags.GetLocalConfiguration().DisableReconnection)
 			{
 				ClearSnapshot();
 				return false;
 			}
-			#endif
+#endif
 			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
 			var isTutorial = snapShot.Setup is {GameModeId: GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID};
 			var canRestoreFromSnapshot = _services.GameBackendService.RunsSimulationOnServer() || snapShot.Offline || snapShot.AmtPlayers > 1;
@@ -150,7 +152,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				ClearSnapshot();
 				return false;
-			} 
+			}
 
 			if (canRestoreFromSnapshot && !snapShot.Expired())
 			{
@@ -164,8 +166,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTaskVoid MatchTransition()
 		{
-			await SwipeScreenPresenter.StartSwipe();
-			await _uiService.CloseUi<LoadingScreenPresenter>();
+			await _uiService2.OpenScreen<SwipeTransitionScreenPresenter>();
 		}
 
 		private void JoinPendingMatch()

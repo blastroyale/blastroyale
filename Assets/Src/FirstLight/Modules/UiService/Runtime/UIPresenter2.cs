@@ -2,18 +2,18 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.UIElements;
 
 namespace FirstLight.UIService
 {
+	
 	public abstract class UIPresenter2 : MonoBehaviour
 	{
 		[SerializeField, Required] private UIDocument _document;
 
 		protected VisualElement Root { private set; get; }
 
-		internal UIService2.UILayer CurrentLayer { set; get; }
+		internal UIService2.UILayer Layer { set; get; }
 		internal object Data { set; get; }
 
 		private readonly List<UIView2> _views = new ();
@@ -29,6 +29,11 @@ namespace FirstLight.UIService
 			}
 
 			OnScreenOpenedInternal(true).Forget();
+		}
+
+		private void OnValidate()
+		{
+			_document.sortingOrder = (int) Layer;
 		}
 
 		/// <summary>

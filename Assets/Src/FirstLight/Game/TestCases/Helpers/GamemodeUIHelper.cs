@@ -18,7 +18,7 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator ClickCustomRoom()
 		{
-			yield return _uiHelper.WaitForPresenter<GameModeSelectionPresenter>(0.5f, 10);
+			yield return _uiHelper.WaitForPresenter2<GameModeScreenPresenter>(0.5f, 10);
 			yield return _uiHelper.TouchOnElementByName("CustomGameButton");
 		}
 

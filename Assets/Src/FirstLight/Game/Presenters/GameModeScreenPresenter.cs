@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -9,6 +10,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -18,12 +20,11 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This presenter is responsible to select the game mode to start the match
 	/// </summary>
-	[LoadSynchronously]
-	public class GameModeSelectionPresenter : UiToolkitPresenterData<GameModeSelectionPresenter.StateData>
+	public class GameModeScreenPresenter : UIPresenterData2<GameModeScreenPresenter.StateData>
 	{
 		private const string VISIBLE_GAMEMODE_BUTTON = "visible-gamemodebutton";
 
-		public struct StateData
+		public class StateData
 		{
 			public Action<GameModeInfo> GameModeChosen;
 			public Action CustomGameChosen;
@@ -41,36 +42,18 @@ namespace FirstLight.Game.Presenters
 
 		private List<GameModeSelectionButtonView> _buttonViews;
 		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
 
-		private void Awake()
+		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			MainInstaller.Resolve<IGameDataProvider>();
 		}
 
-		protected override void SubscribeToEvents()
-		{
-			base.SubscribeToEvents();
-			_services.GameModeService.Slots.Observe(OnSlotUpdated);
-			_services.GameModeService.SelectedGameMode.Observe(OnGameModeUpdated);
-			_services.PartyService.Members.Observe(OnPartyMembersChanged);
-		}
-
-		protected override void UnsubscribeFromEvents()
-		{
-			base.UnsubscribeFromEvents();
-			_services.GameModeService.Slots.StopObserving(OnSlotUpdated);
-			_services.GameModeService.SelectedGameMode.StopObserving(OnGameModeUpdated);
-			_services.PartyService.Members.StopObserving(OnPartyMembersChanged);
-		}
-
-
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
 			_buttonViews = new List<GameModeSelectionButtonView>();
-			_buttonsSlider = root.Q<ScrollView>("ButtonsSlider").Required();
-			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_buttonsSlider = Root.Q<ScrollView>("ButtonsSlider").Required();
+			_header = Root.Q<ScreenHeaderElement>("Header").Required();
 			_header.backClicked += Data.OnBackClicked;
 
 			var orderNumber = 1;
@@ -80,7 +63,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var button = _buttonAsset.Instantiate();
 				button.userData = slot;
-				button.AttachView(this, out GameModeSelectionButtonView view);
+				button.AttachView2(this, out GameModeSelectionButtonView view);
 				view.SetData("GameModeButton" + orderNumber, GetVisibleClass(orderNumber++), slot);
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
@@ -99,12 +82,28 @@ namespace FirstLight.Game.Presenters
 			gameModeInfo.Entry.DescriptionTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_description;
 			gameModeInfo.Entry.Mutators = new List<string>();
 			var createGameButton = _buttonAsset.Instantiate();
-			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
+			createGameButton.AttachView2(this, out GameModeSelectionButtonView customGameView);
 			customGameView.SetData("CustomGameButton", GetVisibleClass(orderNumber++), gameModeInfo);
 			customGameView.Clicked += OnCustomGameClicked;
 			customGameView.Disabled = _services.PartyService.HasParty.Value;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
+		}
+		
+		protected override UniTask OnScreenOpen(bool reload)
+		{
+			_services.GameModeService.Slots.Observe(OnSlotUpdated);
+			_services.GameModeService.SelectedGameMode.Observe(OnGameModeUpdated);
+			_services.PartyService.Members.Observe(OnPartyMembersChanged);
+			return base.OnScreenOpen(reload);
+		}
+
+		protected override UniTask OnScreenClosed()
+		{
+			_services.GameModeService.Slots.StopObserving(OnSlotUpdated);
+			_services.GameModeService.SelectedGameMode.StopObserving(OnGameModeUpdated);
+			_services.PartyService.Members.StopObserving(OnPartyMembersChanged);
+			return base.OnScreenClosed();
 		}
 
 		private string GetVisibleClass(int orderNumber)

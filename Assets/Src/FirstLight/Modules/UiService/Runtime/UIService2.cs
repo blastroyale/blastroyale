@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Modules.UIService.Runtime;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
@@ -44,13 +46,16 @@ namespace FirstLight.UIService
 			Object.DontDestroyOnLoad(_root);
 		}
 
-		public async UniTask<T> OpenScreen<T>(object data = null, UILayer layer = UILayer.Default) where T : UIPresenter2
+		public async UniTask<T> OpenScreen<T>(object data = null) where T : UIPresenter2
 		{
-			FLog.Info($"Opening screen {typeof(T).Name}");
-			if (_openedScreensType.ContainsKey(typeof(T)))
+			var screenType = typeof(T);
+			FLog.Info($"Opening screen {screenType.Name}");
+			if (_openedScreensType.ContainsKey(screenType))
 			{
-				throw new InvalidOperationException($"Screen {typeof(T).Name} is already opened");
+				throw new InvalidOperationException($"Screen {screenType.Name} is already opened");
 			}
+
+			var layer = screenType.GetAttribute<UILayerAttribute>()?.Layer ?? UILayer.Default;
 
 			if (_openedScreensLayer.TryGetValue(layer, out var openedScreen))
 			{
@@ -62,7 +67,7 @@ namespace FirstLight.UIService
 			var screen = go.GetComponent<UIPresenter2>();
 			var uiDocument = go.GetComponent<UIDocument>();
 
-			screen.CurrentLayer = layer;
+			screen.Layer = layer;
 			screen.Data = data;
 			uiDocument.sortingOrder = (int) layer;
 
@@ -76,14 +81,32 @@ namespace FirstLight.UIService
 
 		public async UniTask CloseScreen<T>() where T : UIPresenter2
 		{
-			FLog.Info($"Closing screen {typeof(T).Name}");
-			await CloseScreen(_openedScreensType[typeof(T)]);
+			if (_openedScreensType.TryGetValue(typeof(T), out var screen))
+			{
+				FLog.Info($"Closing screen {typeof(T).Name}");
+				await CloseScreen(screen);
+			}
+			else
+			{
+				throw new InvalidOperationException($"Screen {typeof(T).Name} is not opened!");
+			}
 		}
 
 		public async UniTask CloseScreen(UILayer layer)
 		{
 			FLog.Info($"Closing layer {layer}");
 			await CloseScreen(_openedScreensLayer[layer]);
+
+
+			if (_openedScreensLayer.TryGetValue(layer, out var screen))
+			{
+				FLog.Info($"Closing layer {layer}");
+				await CloseScreen(screen);
+			}
+			else
+			{
+				throw new InvalidOperationException($"Layer {layer} is empty!");
+			}
 		}
 
 		private async UniTask CloseScreen(UIPresenter2 presenter)
@@ -91,7 +114,7 @@ namespace FirstLight.UIService
 			await presenter.OnScreenClosedInternal();
 
 			_openedScreensType.Remove(presenter.GetType());
-			_openedScreensLayer.Remove(presenter.CurrentLayer);
+			_openedScreensLayer.Remove(presenter.Layer);
 
 			Addressables.ReleaseInstance(presenter.gameObject);
 		}

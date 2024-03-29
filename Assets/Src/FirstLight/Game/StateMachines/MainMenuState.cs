@@ -53,8 +53,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _brokenItemsCloseEvent = new StatechartEvent("Broken Items Close Event");
 		private readonly IStatechartEvent _brokenItemsRepairEvent = new StatechartEvent("Broken Items Repair Event");
 
-		private readonly IGameUiService _uiService;
-		private readonly UIService2 _uiService2;
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IAssetAdderService _assetAdderService;
@@ -66,19 +64,16 @@ namespace FirstLight.Game.StateMachines
 
 		private int _unclaimedCountCheck;
 
-		public MainMenuState(IGameServices services, IGameUiService uiService, UIService2 uiService2, IGameLogic gameLogic,
-							 IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
+		public MainMenuState(IGameServices services, IGameLogic gameLogic, IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_uiService = uiService;
-			_uiService2 = uiService2;
 			_gameDataProvider = gameLogic;
 			_assetAdderService = assetAdderService;
 			_statechartTrigger = statechartTrigger;
-			_equipmentMenuState = new EquipmentMenuState(services, uiService, gameLogic, statechartTrigger);
-			_collectionMenuState = new CollectionMenuState(services, uiService, gameLogic, statechartTrigger);
-			_enterNameState = new EnterNameState(services, uiService, gameLogic, statechartTrigger);
-			_settingsMenuState = new SettingsMenuState(gameLogic, services, gameLogic, uiService, statechartTrigger);
+			_equipmentMenuState = new EquipmentMenuState(services, services.GameUiService, gameLogic, statechartTrigger);
+			_collectionMenuState = new CollectionMenuState(services, services.GameUiService, gameLogic, statechartTrigger);
+			_enterNameState = new EnterNameState(services, services.GameUiService, gameLogic, statechartTrigger);
+			_settingsMenuState = new SettingsMenuState(gameLogic, services, gameLogic, services.GameUiService, statechartTrigger);
 		}
 
 		/// <summary>
@@ -88,7 +83,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var mainMenuLoading = stateFactory.State("Main Menu Loading");
+			var mainMenuLoading = stateFactory.TaskWait("Main Menu Loading");
 			var mainMenuUnloading = stateFactory.TaskWait("Main Menu Unloading");
 			var mainMenu = stateFactory.Nest("Main Menu Screen");
 			var mainMenuTransition = stateFactory.Transition("Main Transition");
@@ -99,8 +94,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 
 			mainMenuLoading.OnEnter(BeforeLoadingMenu);
-			mainMenuLoading.OnEnter(() => LoadMainMenu().Forget());
-			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
+			mainMenuLoading.WaitingFor(LoadMainMenu).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
 
 			mainMenu.OnEnter(OnMainMenuLoaded);
@@ -250,7 +244,7 @@ namespace FirstLight.Game.StateMachines
 		private void HideMatchmaking()
 		{
 			// TODO mihak:
-			// _uiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(false);
+			// _services.GameUiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(false);
 		}
 
 		private void OnBackClicked()
@@ -261,13 +255,13 @@ namespace FirstLight.Game.StateMachines
 		private void ShowMatchmaking()
 		{
 			// TODO mihak:
-			// if (!_uiService.HasUiPresenter<HomeScreenPresenter>())
+			// if (!_services.GameUiService.HasUiPresenter<HomeScreenPresenter>())
 			// {
 			// 	Log.Warn("Trying to open matchmaking screen but home screen already closed");
 			// 	return;
 			// }
 			//
-			// _uiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(true);
+			// _services.GameUiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(true);
 		}
 
 		private void SubscribeEvents()
@@ -470,17 +464,17 @@ namespace FirstLight.Game.StateMachines
 				PopupMode = EquipmentPopupPresenter.Mode.Rusted
 			};
 
-			await _uiService.OpenUiAsync<EquipmentPopupPresenter, EquipmentPopupPresenter.StateData>(data);
+			await _services.GameUiService.OpenUiAsync<EquipmentPopupPresenter, EquipmentPopupPresenter.StateData>(data);
 		}
 
 		private void CloseBrokenItemsPopUp()
 		{
-			_uiService.CloseUi<EquipmentPopupPresenter>();
+			_services.GameUiService.CloseUi<EquipmentPopupPresenter>();
 		}
 
 		private void OpenGameModeSelectionUI()
 		{
-			var data = new GameModeSelectionPresenter.StateData
+			var data = new GameModeScreenPresenter.StateData
 			{
 				GameModeChosen = _ => _statechartTrigger(_gameModeSelectedFinishedEvent),
 				CustomGameChosen = () => _statechartTrigger(_roomJoinCreateClickedEvent),
@@ -488,7 +482,7 @@ namespace FirstLight.Game.StateMachines
 				OnHomeClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent)
 			};
 
-			_uiService.OpenScreen<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
+			_services.UIService.OpenScreen<GameModeScreenPresenter>(data).Forget();
 		}
 
 		private void OpenLeaderboardUI(IWaitActivity activity)
@@ -498,7 +492,7 @@ namespace FirstLight.Game.StateMachines
 				OnBackClicked = () => { activity.Complete(); }
 			};
 
-			_uiService.OpenScreen<GlobalLeaderboardScreenPresenter, GlobalLeaderboardScreenPresenter.StateData>(data);
+			_services.GameUiService.OpenScreen<GlobalLeaderboardScreenPresenter, GlobalLeaderboardScreenPresenter.StateData>(data);
 		}
 
 		private void OnBattlePassNewSeason(NewBattlePassSeasonMessage msg)
@@ -513,10 +507,10 @@ namespace FirstLight.Game.StateMachines
 			var data = new BattlePassScreenPresenter.StateData
 			{
 				BackClicked = () => { cacheActivity.Complete(); },
-				UiService = _uiService
+				UiService = _services.GameUiService
 			};
 
-			_uiService2.OpenScreen<BattlePassScreenPresenter>(data).Forget();
+			_services.UIService.OpenScreen<BattlePassScreenPresenter>(data).Forget();
 		}
 
 		private void OpenStore(IWaitActivity activity)
@@ -527,7 +521,7 @@ namespace FirstLight.Game.StateMachines
 				OnHomeClicked = () => { activity.Complete(); },
 				OnPurchaseItem = PurchaseItem,
 			};
-			_uiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
+			_services.GameUiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new ShopScreenOpenedMessage());
 		}
 
@@ -545,7 +539,7 @@ namespace FirstLight.Game.StateMachines
 				PlayClicked = PlayButtonClicked
 			};
 
-			_uiService.OpenScreen<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
+			_services.GameUiService.OpenScreen<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
 		}
 
 		private async UniTaskVoid OpenHomeScreen()
@@ -571,7 +565,7 @@ namespace FirstLight.Game.StateMachines
 				NewsClicked = () => _statechartTrigger(_newsClickedEvent)
 			};
 
-			await _uiService2.OpenScreen<HomeScreenPresenter>(data);
+			await _services.UIService.OpenScreen<HomeScreenPresenter>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
 
@@ -591,7 +585,7 @@ namespace FirstLight.Game.StateMachines
 			var rewardsCopy = items.Where(item => !item.Id.IsInGroup(GameIdGroup.Currency) && item.Id is not (GameId.XP or GameId.BPP or GameId.Trophies)).ToList();
 			if (rewardsCopy.Count > 0)
 			{
-				_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
+				_services.GameUiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 				{
 					Items = rewardsCopy,
 					OnFinish = FinishRewardSequence
@@ -606,7 +600,7 @@ namespace FirstLight.Game.StateMachines
 			var levelRewards = _gameDataProvider.PlayerDataProvider.GetRewardsForFameLevel(
 				_gameDataProvider.PlayerDataProvider.Level.Value - 1
 			);
-			_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData
+			_services.GameUiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData
 			{
 				FameRewards = true,
 				Items = levelRewards,
@@ -621,28 +615,18 @@ namespace FirstLight.Game.StateMachines
 				ReconnectClicked = () => _services.MessageBrokerService.Publish(new AttemptManualReconnectionMessage())
 			};
 
-			_uiService.OpenScreen<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
+			_services.GameUiService.OpenScreen<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
 		}
 
 		private void LoadingComplete()
 		{
-			CloseTransitions();
-		}
-
-		private void CloseTransitions()
-		{
-			_ = SwipeScreenPresenter.Finish();
-
-			if (_uiService.HasUiPresenter<LoadingScreenPresenter>())
-			{
-				_uiService.CloseUi<LoadingScreenPresenter>(true);
-			}
+			_services.UIService.CloseScreen<SwipeTransitionScreenPresenter>().Forget();
 		}
 
 		private void OpenUiVfxPresenter()
 		{
 			// TODO mihak
-			//_uiService.OpenUi<UiVfxPresenter>();
+			//_services.GameUiService.OpenUi<UiVfxPresenter>();
 		}
 
 		private void PlayButtonClicked()
@@ -662,6 +646,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void BeforeLoadingMenu()
 		{
+			_services.UIService.OpenScreen<SwipeTransitionScreenPresenter>().Forget();
+			
 			// Removing invalid skins
 			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS);
 			if (skin != null && !skin.Id.IsInGroup(GameIdGroup.PlayerSkin))
@@ -682,7 +668,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private async UniTaskVoid LoadMainMenu()
+		private async UniTask LoadMainMenu()
 		{
 			var uiVfxService = new UiVfxService(_services.AssetResolverService);
 			var mainMenuServices = new MainMenuServices(uiVfxService, _services.RemoteTextureService);
@@ -696,9 +682,9 @@ namespace FirstLight.Game.StateMachines
 				.ConfigsDictionary);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
 
-			// await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
+			// await _services.GameUiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
 
-			//uiVfxService.Init(_uiService);
+			//uiVfxService.Init(_services.GameUiService);
 
 			_statechartTrigger(MainMenuLoadedEvent);
 
@@ -707,12 +693,12 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask UnloadMenuTask()
 		{
-			await SwipeScreenPresenter.StartSwipe();
+			await _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
 			FLGCamera.Instance.PhysicsRaycaster.enabled = false;
 
 			var configProvider = _services.ConfigsProvider;
 
-			_uiService.UnloadUiSet((int) UiSetId.MainMenuUi);
+			_services.GameUiService.UnloadUiSet((int) UiSetId.MainMenuUi);
 			_services.AudioFxService.DetachAudioListener();
 
 			_services.VfxService.DespawnAll();

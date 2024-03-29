@@ -16,6 +16,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Services;
 using FirstLight.Statechart;
+using FirstLight.UIService;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
@@ -48,13 +49,12 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IInternalGameNetworkService _networkService;
 		private readonly IRoomService _roomService;
-		private readonly IGameUiService _uiService;
 		private readonly IDataService _dataService;
 		private readonly IAssetAdderService _assetAdderService;
 		private IMatchServices _matchServices;
 		private Action<IStatechartEvent> _statechartTrigger;
 
-		public MatchState(IGameServices services, IDataService dataService, IInternalGameNetworkService networkService, IGameUiService uiService,
+		public MatchState(IGameServices services, IDataService dataService, IInternalGameNetworkService networkService,
 						  IGameDataProvider gameDataProvider,
 						  IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger, IRoomService roomService)
 		{
@@ -64,9 +64,8 @@ namespace FirstLight.Game.StateMachines
 			_dataProvider = gameDataProvider;
 			_networkService = networkService;
 			_dataService = dataService;
-			_uiService = uiService;
 			_assetAdderService = assetAdderService;
-			_gameSimulationState = new GameSimulationState(gameDataProvider, services, networkService, uiService, statechartTrigger);
+			_gameSimulationState = new GameSimulationState(gameDataProvider, services, networkService, statechartTrigger);
 
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 			_roomService.OnMatchStarted += () =>
@@ -233,7 +232,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseMatchHud()
 		{
-			_uiService.CloseUi<HUDScreenPresenter>();
+			_services.GameUiService.CloseUi<HUDScreenPresenter>();
 		}
 
 		private bool HasLeftBeforeMatchEnded()
@@ -298,7 +297,7 @@ namespace FirstLight.Game.StateMachines
 				OnTimeToLeave = () => _statechartTrigger(MatchEndedExitEvent),
 			};
 
-			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
+			_services.GameUiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
 			_matchServices.FrameSnapshotService.ClearFrameSnapshot();
 		}
 
@@ -309,7 +308,7 @@ namespace FirstLight.Game.StateMachines
 				ContinueClicked = () => _statechartTrigger(MatchCompleteExitEvent)
 			};
 
-			_uiService.OpenScreen<WinnerScreenPresenter, WinnerScreenPresenter.StateData>(data);
+			_services.GameUiService.OpenScreen<WinnerScreenPresenter, WinnerScreenPresenter.StateData>(data);
 			_matchServices.FrameSnapshotService.ClearFrameSnapshot();
 		}
 
@@ -328,8 +327,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Warn("Disconnected during final preload");
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.FinalPreload;
-			_uiService.CloseUi<CustomLobbyScreenPresenter>();
-			_uiService.CloseUi<PreGameLoadingScreenPresenter>();
+			_services.GameUiService.CloseUi<CustomLobbyScreenPresenter>();
+			_services.GameUiService.CloseUi<PreGameLoadingScreenPresenter>();
 		}
 
 		private void OnCriticalDisconnectDuringSimulation()
@@ -341,7 +340,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseCurrentScreen()
 		{
-			_uiService.CloseCurrentScreen();
+			_services.GameUiService.CloseCurrentScreen();
 		}
 
 		private bool HasDisconnectedDuringMatchmaking()
@@ -420,7 +419,7 @@ namespace FirstLight.Game.StateMachines
 
 			StopSimulation();
 
-			await SwipeScreenPresenter.StartSwipe();
+			await _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
 			await UnloadAllMatchAssets();
 
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MainMenuAssetConfigs>());
@@ -475,7 +474,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var cacheActivity = activity;
 			var data = new WinnersScreenPresenter.StateData {ContinueClicked = () => cacheActivity.Complete()};
-			_uiService.OpenScreenAsync<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
+			_services.GameUiService.OpenScreenAsync<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
 		}
 
 		private void OpenLeaderboardAndRewardsScreen(IWaitActivity activity)
@@ -486,13 +485,13 @@ namespace FirstLight.Game.StateMachines
 				ContinueClicked = () => cacheActivity.Complete()
 			};
 
-			_uiService.OpenScreen<LeaderboardAndRewardsScreenPresenter, LeaderboardAndRewardsScreenPresenter.StateData>(data);
+			_services.GameUiService.OpenScreen<LeaderboardAndRewardsScreenPresenter, LeaderboardAndRewardsScreenPresenter.StateData>(data);
 		}
 
 		private async UniTask OpenSwipeTransition()
 		{
-			_uiService.CloseCurrentScreen();
-			await SwipeScreenPresenter.StartSwipe();
+			_services.GameUiService.CloseCurrentScreen();
+			await _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
 		}
 
 		private async UniTask OpenPreGameScreen()
@@ -509,7 +508,7 @@ namespace FirstLight.Game.StateMachines
 				LeaveRoomClicked = () => _statechartTrigger(LeaveRoomClicked)
 			};
 
-			await _uiService.OpenScreenAsync<PreGameLoadingScreenPresenter, PreGameLoadingScreenPresenter.StateData>(data);
+			await _services.GameUiService.OpenScreenAsync<PreGameLoadingScreenPresenter, PreGameLoadingScreenPresenter.StateData>(data);
 		}
 
 		private async UniTask OpenCustomLobbyScreen()
@@ -518,7 +517,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				LeaveRoomClicked = () => _statechartTrigger(LeaveRoomClicked)
 			};
-			await _uiService.OpenScreenAsync<CustomLobbyScreenPresenter, CustomLobbyScreenPresenter.StateData>(data);
+			await _services.GameUiService.OpenScreenAsync<CustomLobbyScreenPresenter, CustomLobbyScreenPresenter.StateData>(data);
 		}
 
 		private void OnLocalPlayerKicked()
@@ -533,7 +532,7 @@ namespace FirstLight.Game.StateMachines
 				ScriptLocalization.MainMenu.MatchmakingKickedNotification.ToUpper(), false, confirmButton);
 		}
 
-		private void CloseSwipeTransition() => _ = SwipeScreenPresenter.Finish();
+		private void CloseSwipeTransition() => _ = _services.UIService.CloseScreen<SwipeTransitionScreenPresenter>();
 
 		#endregion
 	}

@@ -71,9 +71,9 @@ namespace FirstLight.Game.StateMachines
 			_assetAdderService = assetAdderService;
 			_statechartTrigger = statechartTrigger;
 			_equipmentMenuState = new EquipmentMenuState(services, services.GameUiService, gameLogic, statechartTrigger);
-			_collectionMenuState = new CollectionMenuState(services, services.GameUiService, gameLogic, statechartTrigger);
+			_collectionMenuState = new CollectionMenuState(services, gameLogic, statechartTrigger);
 			_enterNameState = new EnterNameState(services, services.GameUiService, gameLogic, statechartTrigger);
-			_settingsMenuState = new SettingsMenuState(gameLogic, services, gameLogic, services.GameUiService, statechartTrigger);
+			_settingsMenuState = new SettingsMenuState(gameLogic, services, gameLogic, statechartTrigger);
 		}
 
 		/// <summary>

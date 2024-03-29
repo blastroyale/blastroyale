@@ -19,6 +19,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -32,7 +33,7 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the Collection Screen, where players can equip skins, death markers, gliders, etc.
 	/// </summary>
 	[LoadSynchronously]
-	public class CollectionScreenPresenter : UiToolkitPresenterData<CollectionScreenPresenter.StateData>
+	public class CollectionScreenPresenter : UIPresenterData2<CollectionScreenPresenter.StateData>
 	{
 		[SerializeField] private Vector3 _collectionSpawnPosition;
 		[SerializeField] private Vector3 _gliderSpawnPosition;
@@ -42,7 +43,7 @@ namespace FirstLight.Game.Presenters
 
 		private static readonly int PAGE_SIZE = 3;
 
-		public struct StateData
+		public class StateData
 		{
 			public Action OnHomeClicked;
 			public Action OnBackClicked;
@@ -78,55 +79,52 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			_collectionList = root.Q<ListView>("CollectionList").Required();
+			_collectionList = Root.Q<ListView>("CollectionList").Required();
 			_collectionList.DisableScrollbars();
 
-			var header = root.Q<ScreenHeaderElement>("Header").Required();
+			var header = Root.Q<ScreenHeaderElement>("Header").Required();
 			header.backClicked += Data.OnBackClicked;
 
-			root.Q<CurrencyDisplayElement>("CSCurrency").SetDisplay(false);
-			// TODO mihak:
-			// root.Q<CurrencyDisplayElement>("CoinCurrency").AttachView(this, out CurrencyDisplayView _);
+			Root.Q<CurrencyDisplayElement>("CSCurrency").SetDisplay(false);
+			Root.Q<CurrencyDisplayElement>("CoinCurrency").AttachView2(this, out CurrencyDisplayView _);
 
 			_collectionList.selectionType = SelectionType.Single;
 			_collectionList.makeItem = MakeCollectionListItem;
 			_collectionList.bindItem = BindCollectionListItem;
 			_collectionList.ClearSelection();
 
-			_renderTexture = root.Q<VisualElement>("RenderTexture");
+			_renderTexture = Root.Q<VisualElement>("RenderTexture");
 
-			_comingSoonLabel = root.Q<LocalizedLabel>("ComingSoon").Required();
+			_comingSoonLabel = Root.Q<LocalizedLabel>("ComingSoon").Required();
 			_comingSoonLabel.visible = false;
 
-			_selectedItemLabel = root.Q<Label>("ItemName").Required();
-			_selectedItemDescription = root.Q<Label>("ItemDescription").Required();
-			_nameLockedIcon = root.Q<VisualElement>("ItemNameLocked").Required();
+			_selectedItemLabel = Root.Q<Label>("ItemName").Required();
+			_selectedItemDescription = Root.Q<Label>("ItemDescription").Required();
+			_nameLockedIcon = Root.Q<VisualElement>("ItemNameLocked").Required();
 
-			_equipButton = root.Q<Button>("EquipButton").Required();
+			_equipButton = Root.Q<Button>("EquipButton").Required();
 			_equipButton.clicked += OnEquipClicked;
 
 			// This is a debug button for internal builds to allow us to fast check animations on characters.
-			_changeAnimButton = root.Q<Button>("ChangeButton").Required();
+			_changeAnimButton = Root.Q<Button>("ChangeButton").Required();
 			_changeAnimButton.clicked += OnChangeAnimClicked;
 			_changeAnimButton.text = "PLAY ANIM";
 			_changeAnimButton.visible = false;
 
-			_buyButton = root.Q<PriceButton>("BuyButton").Required();
+			_buyButton = Root.Q<PriceButton>("BuyButton").Required();
 			_buyButton.clicked += OnBuyClicked;
 			_buyButton.visible = false;
 
-			_categoriesRoot = root.Q<VisualElement>("CategoryHolder").Required();
+			_categoriesRoot = Root.Q<VisualElement>("CategoryHolder").Required();
 			_categoriesRoot.Clear();
 			SetupCategories();
-			root.SetupClicks(_services);
+			Root.SetupClicks(_services);
 		}
 
-		protected override void OnOpened()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			base.OnOpened();
-
 			_degreesToRotate = 0f;
 
 			ViewOwnedItemsFromCategory(_selectedCategory);
@@ -134,9 +132,11 @@ namespace FirstLight.Game.Presenters
 			UpdateCollectionDetails(_selectedCategory);
 
 			Update3DObject().Forget();
+
+			return base.OnScreenOpen(reload);
 		}
 
-		protected override UniTask OnClosed()
+		protected override UniTask OnScreenClosed()
 		{
 			if (_seenItems.Count > 0)
 			{
@@ -156,7 +156,7 @@ namespace FirstLight.Game.Presenters
 				_anchorObject = null;
 			}
 
-			return base.OnClosed();
+			return base.OnScreenClosed();
 		}
 
 		private void SetupCategories()

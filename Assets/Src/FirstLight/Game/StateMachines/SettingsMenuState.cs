@@ -40,13 +40,10 @@ namespace FirstLight.Game.StateMachines
 
 		private Coroutine _csPoolTimerCoroutine;
 
-		public SettingsMenuState(IGameDataProvider data, IGameServices services, IGameLogic gameLogic,
-								 IGameUiService uiService,
-								 Action<IStatechartEvent> statechartTrigger)
+		public SettingsMenuState(IGameDataProvider data, IGameServices services, IGameLogic gameLogic, Action<IStatechartEvent> statechartTrigger)
 		{
 			_data = data;
 			_services = services;
-			_uiService = uiService;
 			_appLogic = gameLogic.AppLogic;
 			_statechartTrigger = statechartTrigger;
 		}
@@ -90,10 +87,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void UpdateAccountStatus()
 		{
-			if (_uiService.HasUiPresenter<SettingsScreenPresenter>())
-			{
-				_uiService.GetUi<SettingsScreenPresenter>().UpdateAccountStatus();
-			}
+			// TODO mihak
+			// if (_uiService.HasUiPresenter<SettingsScreenPresenter>())
+			// {
+			// 	_uiService.GetUi<SettingsScreenPresenter>().UpdateAccountStatus();
+			// }
 		}
 
 		private void CloseSettingsScreen()
@@ -124,24 +122,21 @@ namespace FirstLight.Game.StateMachines
 					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted, null)
 			};
 
-			_uiService.OpenScreen<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
+			_services.UIService.OpenScreen<SettingsScreenPresenter>(data).Forget();
 		}
 
 		private void CustomizeHud()
 		{
-			_uiService.CloseUi<SettingsScreenPresenter>();
 			_uiService.OpenScreen<HudCustomizationScreenPresenter, HudCustomizationScreenPresenter.StateData>(new ()
 			{
 				OnClose = () =>
 				{
-					_uiService.CloseUi<SettingsScreenPresenter>(true);
-					_uiService.OpenScreen<SettingsScreenPresenter>();
+					_services.UIService.OpenScreen<SettingsScreenPresenter>().Forget();
 				},
 				OnSave = e =>
 				{
 					_services.ControlsSetup.SaveControlsPositions(e);
-					_uiService.CloseUi<SettingsScreenPresenter>(true);
-					_uiService.OpenScreen<SettingsScreenPresenter>();
+					_services.UIService.OpenScreen<SettingsScreenPresenter>().Forget();
 				}
 			});
 		}

@@ -18,7 +18,7 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator ClickToClaimFirstBattlePassReward()
 		{
-			yield return _uiHelper.WaitForPresenter<BattlePassScreenPresenter>();
+			yield return _uiHelper.WaitForPresenter2<BattlePassScreenPresenter>();
 			var searchResult = _uiHelper.SearchForElementGlobally("RewardsScroll", builder => builder.Children<VisualElement>());
 			if (searchResult == null)
 			{

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1971436955827305704}
   - component: {fileID: 1473390233}
   m_Layer: 0
-  m_Name: GameModeSelection
+  m_Name: GameModeSelectionScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

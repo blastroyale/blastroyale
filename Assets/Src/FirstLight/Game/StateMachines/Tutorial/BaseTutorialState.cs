@@ -60,11 +60,13 @@ namespace FirstLight.Game.StateMachines
 			metaAndMatchTutorial.OnExit(() => SendSectionCompleted(TutorialSection.META_GUIDE_AND_MATCH));
 		}
 
-		private async UniTask OpenTutorialScreens()
+		private UniTask OpenTutorialScreens()
 		{
-			await _services.GameUiService.OpenUiAsync<TutorialUtilsScreenPresenter>();
-			await _services.GameUiService.OpenUiAsync<CharacterDialogScreenPresenter>();
-			await _services.GameUiService.OpenUiAsync<GuideHandPresenter>();
+			// TODO mihak
+			// await _services.GameUiService.OpenUiAsync<TutorialUtilsScreenPresenter>();
+			// await _services.GameUiService.OpenUiAsync<CharacterDialogScreenPresenter>();
+			// await _services.GameUiService.OpenUiAsync<GuideHandPresenter>();
+			return UniTask.CompletedTask;
 		}
 
 		private void SetCurrentSection(TutorialSection section)

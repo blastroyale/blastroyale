@@ -67,11 +67,12 @@ namespace FirstLight.Game.Presenters.Store
 			_scroll = root.Q<ScrollView>("ProductScrollView").Required();
 			_header.backClicked += Data.OnBackClicked;
 
-			root.Q<CurrencyDisplayElement>("Coins")
-				.AttachView(this, out CurrencyDisplayView _);
-
-			root.Q<CurrencyDisplayElement>("BlastBucks")
-				.AttachView(this, out CurrencyDisplayView _);
+			// TODO mihak:
+			// root.Q<CurrencyDisplayElement>("Coins")
+			// 	.AttachView(this, out CurrencyDisplayView _);
+			//
+			// root.Q<CurrencyDisplayElement>("BlastBucks")
+			// 	.AttachView(this, out CurrencyDisplayView _);
 
 			_categoriesElements.Clear();
 			foreach (var category in _gameServices.IAPService.AvailableProductCategories)

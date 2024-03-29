@@ -10,6 +10,7 @@ using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
 
@@ -45,6 +46,7 @@ namespace FirstLight.Game
 			var configsProvider = new ConfigsProvider();
 			var networkService = new GameNetworkService(configsProvider);
 			var tutorialService = new TutorialService(uiService);
+			var uiService2 = new UIService2();
 
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
 			var genericDialogService = new GenericDialogService(uiService, gameLogic.CurrencyDataProvider);
@@ -62,7 +64,7 @@ namespace FirstLight.Game
 
 			FLog.Verbose($"Initialized client version {VersionUtils.VersionExternal}");
 
-			_gameState = new GameStateMachine(gameLogic, gameServices, uiService, networkService,
+			_gameState = new GameStateMachine(gameLogic, gameServices, uiService, uiService2, networkService,
 				tutorialService,
 				configsProvider, assetResolver, dataService, vfxService);
 

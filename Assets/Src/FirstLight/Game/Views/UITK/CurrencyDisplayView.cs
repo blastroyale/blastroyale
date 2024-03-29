@@ -3,6 +3,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
@@ -11,7 +12,7 @@ namespace FirstLight.Game.Views.UITK
 	/// Handles currency display on the screen. Because of legacy reasons all the logic
 	/// is still handled in the CurrencyDisplayElement.
 	/// </summary>
-	public class CurrencyDisplayView : UIView
+	public class CurrencyDisplayView : UIView2
 	{
 		private CurrencyDisplayElement _currency;
 

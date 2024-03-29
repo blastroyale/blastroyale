@@ -7,6 +7,7 @@ using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using UnityEngine.UIElements;
 
@@ -15,7 +16,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles the party window on the home screen.
 	/// </summary>
-	public class HomePartyView : UIView
+	public class HomePartyView : UIView2
 	{
 		private const string UssPartyHidden = "squad-container--hidden";
 

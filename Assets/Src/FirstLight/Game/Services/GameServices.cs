@@ -108,6 +108,8 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IPlayfabPubSubService"/>
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
+		
+		public UIService.UIService2 UIService { get; }
 
 		public IGameUiService GameUiService { get; }
 
@@ -169,6 +171,7 @@ namespace FirstLight.Game.Services
 		public IPartyService PartyService { get; }
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public IGameUiService GameUiService { get; }
+		public UIService.UIService2 UIService { get; }
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; }
@@ -228,7 +231,7 @@ namespace FirstLight.Game.Services
 			NewsService = new PlayfabNewsService(MessageBrokerService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
-			GameUiService = uiService;
+			UIService = new UIService.UIService2();
 
 			var environmentService = new EnvironmentService(MessageBrokerService);
 			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic,

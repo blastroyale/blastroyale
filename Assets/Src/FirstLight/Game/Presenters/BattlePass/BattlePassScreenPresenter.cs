@@ -17,6 +17,7 @@ using FirstLight.Game.Views;
 using FirstLight.Game.Views.UITK;
 using FirstLight.Services;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -32,9 +33,9 @@ namespace FirstLight.Game.Presenters
 	/// This presenter handles the BattlePass screen - displays the current / next level, the progress, and
 	/// shows reward popups when you receive them.
 	/// </summary>
-	public class BattlePassScreenPresenter : UiToolkitPresenterData<BattlePassScreenPresenter.StateData>
+	public class BattlePassScreenPresenter : UIPresenterData2<BattlePassScreenPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action BackClicked;
 			public IGameUiService UiService;
@@ -53,7 +54,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _rightContent;
 		private VisualElement _seasonHeader;
 		private VisualElement _columnHolder;
-		private VisualElement _root;
+		private VisualElement _Root;
 		private VisualElement _bppProgressBackground;
 		private VisualElement _bppProgressFill;
 		private VisualElement _nextLevelRoot;
@@ -87,38 +88,37 @@ namespace FirstLight.Game.Presenters
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			base.QueryElements(root);
 			_levelElements = new Dictionary<int, BattlepassLevelColumnElement>();
-			_leftBar = root.Q<VisualElement>("LeftBar").Required();
-			_rightContent = root.Q<VisualElement>("RightContent").Required();
-			_currentReward = root.Q<ImageButton>("CurrentReward").Required();
-			_seasonHeader = root.Q<VisualElement>("SeasonHeader").Required();
-			_rewardsScroll = root.Q<ScrollView>("RewardsScroll").Required();
-			_screenHeader = root.Q<ScreenHeaderElement>("Header").Required();
-			_claimButton = root.Q<LocalizedButton>("ClaimButton").Required();
-			_fullScreenClaimButton = root.Q<ImageButton>("FullScreenClaim").Required();
-			_nextLevelValueLabel = root.Q<Label>("NextLevelLabel").Required();
-			_seasonNumber = root.Q<Label>("SeasonNumber").Required();
-			_bppProgressLabel = root.Q<Label>("BppProgressLabel").Required();
-			_bppProgressBackground = root.Q("BppBackground").Required();
-			_bppProgressFill = root.Q("BppProgress").Required();
-			_nextLevelRoot = root.Q("NextLevel").Required();
-			_columnHolder = root.Q("ColumnHolder").Required();
-			_premiumLock = root.Q("PremiumLock").Required();
-			_activateButton = root.Q<Button>("ActivateButton").Required();
-			_timeLeftLabel = root.Q<Label>("TimeLeftLabel").Required();
-			_premiumTitle = root.Q<Label>("PremiumTitle").Required();
-			_freeTitle = root.Q<Label>("FreeTitle").Required();
-			_seasonEndsLabel = root.Q<LocalizedLabel>("SeasonEndsLabel").Required();
-			_lastRewardBaloon = root.Q("LastRewardBalloon");
+			_leftBar = Root.Q<VisualElement>("LeftBar").Required();
+			_rightContent = Root.Q<VisualElement>("RightContent").Required();
+			_currentReward = Root.Q<ImageButton>("CurrentReward").Required();
+			_seasonHeader = Root.Q<VisualElement>("SeasonHeader").Required();
+			_rewardsScroll = Root.Q<ScrollView>("RewardsScroll").Required();
+			_screenHeader = Root.Q<ScreenHeaderElement>("Header").Required();
+			_claimButton = Root.Q<LocalizedButton>("ClaimButton").Required();
+			_fullScreenClaimButton = Root.Q<ImageButton>("FullScreenClaim").Required();
+			_nextLevelValueLabel = Root.Q<Label>("NextLevelLabel").Required();
+			_seasonNumber = Root.Q<Label>("SeasonNumber").Required();
+			_bppProgressLabel = Root.Q<Label>("BppProgressLabel").Required();
+			_bppProgressBackground = Root.Q("BppBackground").Required();
+			_bppProgressFill = Root.Q("BppProgress").Required();
+			_nextLevelRoot = Root.Q("NextLevel").Required();
+			_columnHolder = Root.Q("ColumnHolder").Required();
+			_premiumLock = Root.Q("PremiumLock").Required();
+			_activateButton = Root.Q<Button>("ActivateButton").Required();
+			_timeLeftLabel = Root.Q<Label>("TimeLeftLabel").Required();
+			_premiumTitle = Root.Q<Label>("PremiumTitle").Required();
+			_freeTitle = Root.Q<Label>("FreeTitle").Required();
+			_seasonEndsLabel = Root.Q<LocalizedLabel>("SeasonEndsLabel").Required();
+			_lastRewardBaloon = Root.Q("LastRewardBalloon");
 			_lastRewardBaloon.RegisterCallback<PointerDownEvent>(e => OnClickLastRewardIcon());
-			_lastRewardSprite = root.Q("LastRewardSprite");
-			_endGraphicContainer = root.Q("LastReward").Required();
+			_lastRewardSprite = Root.Q("LastRewardSprite");
+			_endGraphicContainer = Root.Q("LastReward").Required();
 			_endGraphicPicture = _endGraphicContainer.Q("RewardPicture").Required();
 			_endGraphicLabel = _endGraphicContainer.Q<Label>("RewardName").Required();
-			root.Q<CurrencyDisplayElement>("BBCurrency").AttachView(this, out CurrencyDisplayView _);
+			// TODO mihak: Root.Q<CurrencyDisplayElement>("BBCurrency").AttachView(this, out CurrencyDisplayView _);
 
 			_rewardsScroll.horizontalScroller.valueChanged += OnScroll;
 			_screenHeader.backClicked += Data.BackClicked;
@@ -128,17 +128,15 @@ namespace FirstLight.Game.Presenters
 			_currentReward.clicked += GoToCurrentReward;
 
 			_fullScreenClaimButton.SetDisplay(false);
-			root.Q("RewardShineBlue").Required().AddRotatingEffect(3, 10);
-			root.Q("RewardShineYellow").Required().AddRotatingEffect(5, 10);
+			Root.Q("RewardShineBlue").Required().AddRotatingEffect(3, 10);
+			Root.Q("RewardShineYellow").Required().AddRotatingEffect(5, 10);
 			_services.MessageBrokerService.Subscribe<BattlePassPurchasedMessage>(OnBpPurchase);
 			_services.MessageBrokerService.Subscribe<BattlePassLevelPurchasedMessage>(OnBoughtBpLevel);
 		}
 
 		private void OnBoughtBpLevel(BattlePassLevelPurchasedMessage obj)
 		{
-			var d = Data;
-			d.DisableScrollAnimation = false;
-			Data = d;
+			Data.DisableScrollAnimation = false;
 			InitScreen(true);
 		}
 
@@ -147,11 +145,23 @@ namespace FirstLight.Game.Presenters
 			ShowRewards(new[] {ItemFactory.Unlock(UnlockSystem.PaidBattlePass)});
 		}
 
-		protected override void OnOpened()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			base.OnOpened();
 			InitScreenAndSegments();
 			FixSafeZone();
+			
+			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
+			_dataProvider.BattlePassDataProvider.CurrentPoints.Observe(OnBpPointsChanged);
+			
+			return base.OnScreenOpen(reload);
+		}
+
+		protected override UniTask OnScreenClosed()
+		{
+			_services.MessageBrokerService.UnsubscribeAll(this);
+			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObservingAll(this);
+			
+			return base.OnScreenClosed();
 		}
 
 		private void OnClickLastRewardIcon()
@@ -232,21 +242,6 @@ namespace FirstLight.Game.Presenters
 				});
 		}
 
-		protected override void SubscribeToEvents()
-		{
-			base.SubscribeToEvents();
-			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
-			_dataProvider.BattlePassDataProvider.CurrentPoints.Observe(OnBpPointsChanged);
-		}
-
-		protected override void UnsubscribeFromEvents()
-		{
-			base.UnsubscribeFromEvents();
-
-			_services.MessageBrokerService.UnsubscribeAll(this);
-			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObservingAll(this);
-		}
-
 		private void UpdateTimeLeft()
 		{
 			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig();
@@ -306,7 +301,7 @@ namespace FirstLight.Game.Presenters
 		{
 			if (IsDisablePremium())
 			{
-				Root.AddToClassList("screen-root--no-paid");
+				Root.AddToClassList("screen-Root--no-paid");
 			}
 
 			_segmentData = new ()
@@ -537,7 +532,7 @@ namespace FirstLight.Game.Presenters
 				OnFinish = () =>
 				{
 					_services.MessageBrokerService.Publish(new FinishedClaimingBpRewardsMessage());
-					_uiService.OpenScreen<BattlePassScreenPresenter, StateData>(battlePassData);
+					_services.UIService.OpenScreen<BattlePassScreenPresenter>(battlePassData).Forget();
 				}
 			});
 		}

@@ -68,15 +68,13 @@ namespace FirstLight.Game.Presenters
 			_rustedContent = root.Q<VisualElement>("Rusted").Required().AttachView(this, out _rustedView);
 			_fusingContent = root.Q<VisualElement>("Fusion").Required().AttachView(this, out _fuseView);
 
-			var csCounter = root.Q<CurrencyDisplayElement>("CSCurrency").Required();
-			csCounter.AttachView(this, out CurrencyDisplayView _);
-			csCounter.SetDisplay(false);
+
 			
-			root.Q<CurrencyDisplayElement>("CoinCurrency").Required().AttachView(this, out CurrencyDisplayView _);
-			
-			var fragmentsCounter = root.Q<CurrencyDisplayElement>("FragmentsCurrency").Required();
-			fragmentsCounter.AttachView(this, out CurrencyDisplayView _);
-			fragmentsCounter.SetDisplay(false);
+			// root.Q<CurrencyDisplayElement>("CoinCurrency").Required().AttachView(this, out CurrencyDisplayView _);
+			//
+			// var fragmentsCounter = root.Q<CurrencyDisplayElement>("FragmentsCurrency").Required();
+			// // fragmentsCounter.AttachView(this, out CurrencyDisplayView _);
+			// fragmentsCounter.SetDisplay(false);
 
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
 			root.Q<VisualElement>("Background")

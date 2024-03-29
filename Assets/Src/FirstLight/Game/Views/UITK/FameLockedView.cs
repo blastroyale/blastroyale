@@ -4,6 +4,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,7 +14,7 @@ namespace FirstLight.Game.Views.UITK
 	/// Handles locked elements.
 	/// TODO: This should really be a custom visual element that wraps the original button.
 	/// </summary>
-	public class FameLockedView : UIView
+	public class FameLockedView : UIView2
 	{
 		private const string USS_FAME_LOCK = "fame-lock";
 		private const string USS_FAME_LOCK_HOLDER = USS_FAME_LOCK + "__holder";

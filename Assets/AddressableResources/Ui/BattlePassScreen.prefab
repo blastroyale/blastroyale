@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 7388267820579563775}
   - component: {fileID: 8975103402664290368}
   m_Layer: 5
-  m_Name: BattlepassScreenPresenter
+  m_Name: BattlePassScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

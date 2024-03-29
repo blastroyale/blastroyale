@@ -12,6 +12,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -240,7 +241,19 @@ namespace FirstLight.Game.Utils
 			where TElement : VisualElement
 			where TPData : struct
 		{
-			element.AttachView(presenter, out FameLockedView storeLockedView);
+			//element.AttachView(presenter, out FameLockedView storeLockedView);
+			//storeLockedView.Init(unlockSystem, root, unlockedCallback);
+		}
+		
+		/// <summary>
+		/// Locks an element behind a level. unlockedCallback is triggered when this element isn't locked and is pressed.
+		/// </summary>
+		public static void LevelLock2<TElement>(this TElement element,
+												UIPresenter2 presenter, VisualElement root, UnlockSystem unlockSystem,
+												Action unlockedCallback)
+			where TElement : VisualElement
+		{
+			element.AttachView2(presenter, out FameLockedView storeLockedView);
 			storeLockedView.Init(unlockSystem, root, unlockedCallback);
 		}
 

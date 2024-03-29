@@ -15,7 +15,7 @@ using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -30,8 +30,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Home Screen.
 	/// </summary>
-	[LoadSynchronously]
-	public partial class HomeScreenPresenter : UiToolkitPresenterData<HomeScreenPresenter.StateData>
+	public partial class HomeScreenPresenter : UIPresenterData2<HomeScreenPresenter.StateData>
 	{
 		private const float TROPHIES_COUNT_DELAY = 0.8f;
 
@@ -40,7 +39,7 @@ namespace FirstLight.Game.Presenters
 
 		private const string USS_AVATAR_NFT = "player-header__avatar--nft";
 
-		public struct StateData
+		public class StateData
 		{
 			public Action OnPlayButtonClicked;
 			public Action OnSettingsButtonClicked;
@@ -112,14 +111,15 @@ namespace FirstLight.Game.Presenters
 			_partyService = _services.PartyService;
 		}
 
-		private async void OpenStats(PlayerStatisticsPopupPresenter.StateData data)
+		private void OpenStats(PlayerStatisticsPopupPresenter.StateData data)
 		{
-			await _uiService.OpenUiAsync<PlayerStatisticsPopupPresenter, PlayerStatisticsPopupPresenter.StateData>(data);
+			// TODO mihak
+			// _services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(data).Forget();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			root.Q<ImageButton>("ProfileButton").clicked += () =>
+			Root.Q<ImageButton>("ProfileButton").clicked += () =>
 			{
 				if (FeatureFlags.PLAYER_STATS_ENABLED)
 				{
@@ -128,7 +128,8 @@ namespace FirstLight.Game.Presenters
 						PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
 						OnCloseClicked = () =>
 						{
-							_uiService.CloseUi<PlayerStatisticsPopupPresenter>();
+							// TODO mihak
+							// _services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();
 						},
 						OnEditNameClicked = () =>
 						{
@@ -144,109 +145,109 @@ namespace FirstLight.Game.Presenters
 				}
 			};
 
-			_playerNameLabel = root.Q<Label>("PlayerName").Required();
-			_playerTrophiesLabel = root.Q<Label>("TrophiesAmount").Required();
+			_playerNameLabel = Root.Q<Label>("PlayerName").Required();
+			_playerTrophiesLabel = Root.Q<Label>("TrophiesAmount").Required();
 
-			_avatar = root.Q<PlayerAvatarElement>("Avatar").Required();
+			_avatar = Root.Q<PlayerAvatarElement>("Avatar").Required();
 
-			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
-			_gameModeIcon = root.Q<VisualElement>("GameModeIcon").Required();
-			_gameModeButton = root.Q<ImageButton>("GameModeButton").Required();
+			_gameModeLabel = Root.Q<Label>("GameModeLabel").Required();
+			_gameModeIcon = Root.Q<VisualElement>("GameModeIcon").Required();
+			_gameModeButton = Root.Q<ImageButton>("GameModeButton").Required();
 
-			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
-			_collectionNotification = root.Q<VisualElement>("CollectionNotification").Required();
-			_settingsNotification = root.Q<VisualElement>("SettingsNotification").Required();
-			_newsNotification = root.Q<VisualElement>("NewsNotification").Required();
-			_newsNotificationShine = root.Q("NewsShine").Required();
+			_equipmentNotification = Root.Q<VisualElement>("EquipmentNotification").Required();
+			_collectionNotification = Root.Q<VisualElement>("CollectionNotification").Required();
+			_settingsNotification = Root.Q<VisualElement>("SettingsNotification").Required();
+			_newsNotification = Root.Q<VisualElement>("NewsNotification").Required();
+			_newsNotificationShine = Root.Q("NewsShine").Required();
 			_newsNotificationShine.AddRotatingEffect(1, 1);
 
-			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
+			_bppPoolContainer = Root.Q<VisualElement>("BPPPoolContainer").Required();
 			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
 			_bppPoolRestockTimeLabel = _bppPoolContainer.Q<Label>("RestockLabelTime").Required();
 			_bppPoolRestockAmountLabel = _bppPoolContainer.Q<Label>("RestockLabelAmount").Required();
 
-			_battlePassButton = root.Q<ImageButton>("BattlePassButton").Required();
+			_battlePassButton = Root.Q<ImageButton>("BattlePassButton").Required();
 			_battlePassProgressElement = _battlePassButton.Q<VisualElement>("BattlePassProgressElement").Required();
 			_battlePassProgressLabel = _battlePassButton.Q<Label>("BPProgressText").Required();
 			_battlePassRarity = _battlePassButton.Q<VisualElement>("BPRarity").Required();
 			_battlePassNextLevelLabel = _battlePassButton.Q<Label>("BarLevelLabel").Required();
 
-			root.Q<ImageButton>("NewsButton").clicked += Data.NewsClicked;
+			Root.Q<ImageButton>("NewsButton").clicked += Data.NewsClicked;
 
-			QueryElementsSquads(root);
+			QueryElementsSquads(Root);
 
-			_playButtonContainer = root.Q("PlayButtonHolder");
-			_playButton = root.Q<LocalizedButton>("PlayButton");
+			_playButtonContainer = Root.Q("PlayButtonHolder");
+			_playButton = Root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
-			root.Q<CurrencyDisplayElement>("CoinCurrency")
-				.AttachView(this, out CurrencyDisplayView _)
+			Root.Q<CurrencyDisplayElement>("CoinCurrency")
+				.AttachView2(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
-			root.Q<CurrencyDisplayElement>("FragmentsCurrency")
-				.AttachView(this, out CurrencyDisplayView _)
+			Root.Q<CurrencyDisplayElement>("FragmentsCurrency")
+				.AttachView2(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
-			root.Q<CurrencyDisplayElement>("BlastBuckCurrency")
-				.AttachView(this, out CurrencyDisplayView _)
+			Root.Q<CurrencyDisplayElement>("BlastBuckCurrency")
+				.AttachView2(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
 			;
 
 
 			// TODO: Uncomment when we use Fragments
-			root.Q<CurrencyDisplayElement>("FragmentsCurrency").SetDisplay(false);
+			Root.Q<CurrencyDisplayElement>("FragmentsCurrency").SetDisplay(false);
 
-			_outOfSyncWarningLabel = root.Q<Label>("OutOfSyncWarning").Required();
-			_betaLabel = root.Q<Label>("BetaWarning").Required();
+			_outOfSyncWarningLabel = Root.Q<Label>("OutOfSyncWarning").Required();
+			_betaLabel = Root.Q<Label>("BetaWarning").Required();
 
-			root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
-			root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
+			Root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
+			Root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
 
-			_gameModeButton.LevelLock(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
-			var leaderBoardButton = root.Q<ImageButton>("LeaderboardsButton");
-			leaderBoardButton.LevelLock(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
-			var equipmentButton = root.Q<Button>("EquipmentButton");
-			equipmentButton.LevelLock(this, Root, UnlockSystem.Equipment, Data.OnLootButtonClicked);
-			var collectionButton = root.Q<Button>("CollectionButton");
-			collectionButton.LevelLock(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
+			_gameModeButton.LevelLock2(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
+			var leaderBoardButton = Root.Q<ImageButton>("LeaderboardsButton");
+			leaderBoardButton.LevelLock2(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
+			var equipmentButton = Root.Q<Button>("EquipmentButton");
+			equipmentButton.LevelLock2(this, Root, UnlockSystem.Equipment, Data.OnLootButtonClicked);
+			var collectionButton = Root.Q<Button>("CollectionButton");
+			collectionButton.LevelLock2(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
 
-			var storeButton = root.Q<Button>("StoreButton");
+			var storeButton = Root.Q<Button>("StoreButton");
 			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
 			if (FeatureFlags.STORE_ENABLED)
 			{
-				storeButton.LevelLock(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
+				storeButton.LevelLock2(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
 			}
 
-			var discordButton = root.Q<Button>("DiscordButton");
+			var discordButton = Root.Q<Button>("DiscordButton");
 			discordButton.clicked += () =>
 			{
 				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.DiscordLink);
 				Data.OnDiscordClicked();
 			};
 
-			var youtubeButton = root.Q<Button>("YoutubeButton");
+			var youtubeButton = Root.Q<Button>("YoutubeButton");
 			youtubeButton.clicked += () =>
 			{
 				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.YoutubeLink);
 				Data.OnYoutubeClicked();
 			};
 
-			var instagramButton = root.Q<Button>("InstagramButton");
+			var instagramButton = Root.Q<Button>("InstagramButton");
 			instagramButton.clicked += () =>
 			{
 				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.InstagramLink);
 				Data.OnInstagramClicked();
 			};
 
-			var tiktokButton = root.Q<Button>("TiktokButton");
+			var tiktokButton = Root.Q<Button>("TiktokButton");
 			tiktokButton.clicked += () =>
 			{
 				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.TiktokLink);
 				Data.OnTiktokClicked();
 			};
 
-			root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
+			Root.Q("Matchmaking").AttachView2(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
 
-			root.SetupClicks(_services);
+			Root.SetupClicks(_services);
 			OnAnyPartyUpdate();
 			UpdateSquadsButtonVisibility();
 		}
@@ -270,9 +271,8 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		protected override void OnOpened()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			base.OnOpened();
 			_settingsNotification.SetDisplay(_services.AuthenticationService.IsGuest);
 			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
@@ -287,27 +287,7 @@ namespace FirstLight.Game.Presenters
 
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
-		}
 
-		private void OnRankingUpdateHandler(PlayerLeaderboardEntry leaderboardEntry)
-		{
-			UpdatePlayerNameColor(leaderboardEntry.Position);
-		}
-
-		private void UpdatePlayerNameColor(int leaderboardRank)
-		{
-			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, leaderboardRank);
-			_playerNameLabel.style.color = nameColor;
-		}
-
-		private void UpdatePFP()
-		{
-			_avatar.SetLocalPlayerData(_dataProvider, _services);
-		}
-
-		protected override void SubscribeToEvents()
-		{
-			base.SubscribeToEvents();
 			_dataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
 			_dataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
 			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.BPP, OnPoolChanged);
@@ -320,11 +300,12 @@ namespace FirstLight.Game.Presenters
 			_services.LeaderboardService.OnRankingUpdate += OnRankingUpdateHandler;
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
+
+			return base.OnScreenOpen(reload);
 		}
 
-		protected override void UnsubscribeFromEvents()
+		protected override UniTask OnScreenClosed()
 		{
-			base.UnsubscribeFromEvents();
 			_dataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
 			_dataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
 			_services.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
@@ -344,6 +325,24 @@ namespace FirstLight.Game.Presenters
 				_services.CoroutineService.StopCoroutine(_updatePoolsCoroutine);
 				_updatePoolsCoroutine = null;
 			}
+
+			return base.OnScreenClosed();
+		}
+
+		private void OnRankingUpdateHandler(PlayerLeaderboardEntry leaderboardEntry)
+		{
+			UpdatePlayerNameColor(leaderboardEntry.Position);
+		}
+
+		private void UpdatePlayerNameColor(int leaderboardRank)
+		{
+			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, leaderboardRank);
+			_playerNameLabel.style.color = nameColor;
+		}
+
+		private void UpdatePFP()
+		{
+			_avatar.SetLocalPlayerData(_dataProvider, _services);
 		}
 
 		private void OnPlayButtonClicked()

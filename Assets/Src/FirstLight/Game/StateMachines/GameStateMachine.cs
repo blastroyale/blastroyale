@@ -15,6 +15,7 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using UnityEngine;
 
@@ -44,7 +45,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IConfigsAdder _configsAdder;
 		private readonly IGameUiServiceInit _uiService;
 
-		public GameStateMachine(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService,
+		public GameStateMachine(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, UIService2 uiService2,
 								IInternalGameNetworkService networkService, IInternalTutorialService tutorialService,
 								IConfigsAdder configsAdder,
 								IAssetAdderService assetAdderService, IDataService dataService,
@@ -61,7 +62,7 @@ namespace FirstLight.Game.StateMachines
 			_reconnection = new ReconnectionState(services, gameLogic, networkService, uiService, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
 			_tutorialState = new TutorialState(gameLogic, services, tutorialService, Trigger);
-			_coreLoopState = new CoreLoopState(_reconnection, services, gameLogic, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger, services.RoomService);
+			_coreLoopState = new CoreLoopState(_reconnection, services, gameLogic, dataService, networkService, uiService, uiService2, gameLogic, assetAdderService, Trigger, services.RoomService);
 			_statechart = new Statechart.Statechart(Setup);
 #if DEVELOPMENT_BUILD
 			Statechart.Statechart.OnStateTimed += (state, millis) =>
@@ -226,28 +227,10 @@ namespace FirstLight.Game.StateMachines
 			_services.AssetResolverService.UnloadAsset(liveopsFeatureFlags);
 		}
 
-		private async UniTask LoadCoreAssets()
+		private UniTask LoadCoreAssets()
 		{
-			var time = Time.realtimeSinceStartup;
-			var uiAddress = AddressableId.Configs_Settings_UiConfigs.GetConfig().Address;
-			var asset = await _services.AssetResolverService.LoadAssetAsync<UiConfigs>(uiAddress);
-			_uiService.Init(asset);
-
-			_services.AssetResolverService.UnloadAsset(asset);
-
-			await _uiService.LoadUiAsync<GenericDialogPresenter>();
-			await _uiService.LoadUiAsync<GenericPurchaseDialogPresenter>();
-			await _uiService.LoadUiAsync<GenericInputDialogPresenter>();
-			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
-			await UniTask.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
-			
-			var dic = new Dictionary<string, object>
-			{
-				{"client_version", VersionUtils.VersionInternal},
-				{"total_time", Time.realtimeSinceStartup - time},
-				{"vendor_id", SystemInfo.deviceUniqueIdentifier}
-			};
-			_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadCoreAssetsComplete, dic);
+			// TODO: Remove me
+			return UniTask.CompletedTask;
 		}
 	}
 }

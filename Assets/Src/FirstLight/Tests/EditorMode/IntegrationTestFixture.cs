@@ -13,6 +13,7 @@ using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using NUnit.Framework;
 using PlayFab;
 using Src.FirstLight.Server.ServerServices;
@@ -38,6 +39,7 @@ namespace FirstLight.Tests.EditorMode
 		protected ConfigsProvider TestConfigs;
 		protected GameStateMachine TestStates;
 		protected IGameUiServiceInit TestUI;
+		protected UIService2 TestUI2;
 		protected GameNetworkService TestNetwork;
 		protected TutorialService TestTutorial;
 		protected AssetResolverService TestAssetResolver = new ();
@@ -60,6 +62,7 @@ namespace FirstLight.Tests.EditorMode
 			var messageBroker = new InMemoryMessageBrokerService();
 			TimeService = new TimeService();
 			TestUI = new GameUiService(new UiAssetLoader());
+			TestUI2 = new UIService2();
 			TestNetwork = new GameNetworkService(TestConfigs);
 			TestTutorial = new TutorialService(TestUI);
 			TestTutorial.BindServicesAndData(TestLogic, TestServices);
@@ -78,7 +81,7 @@ namespace FirstLight.Tests.EditorMode
 			TestNetwork.StartNetworking(TestLogic, TestServices);
 			TestLogic.Init();
 
-			TestStates = new GameStateMachine(TestLogic, TestServices, TestUI, TestNetwork, TestTutorial,
+			TestStates = new GameStateMachine(TestLogic, TestServices, TestUI, TestUI2, TestNetwork, TestTutorial,
 			                                  TestConfigs, TestAssetResolver, TestData, TestVfx);
 #if DEVELOPMENT_BUILD
 			Statechart.Statechart.OnStateTimed = null;

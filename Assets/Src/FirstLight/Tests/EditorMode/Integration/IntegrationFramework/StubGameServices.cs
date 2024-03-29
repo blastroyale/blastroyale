@@ -9,6 +9,7 @@ using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using FirstLight.UIService;
 using FirstLightServerSDK.Modules.RemoteCollection;
 using NSubstitute;
 
@@ -45,6 +46,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IIAPService IAPService { get; }
 		public virtual IPartyService PartyService { get; }
 		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
+		public UIService2 UIService { get; }
 		public IGameUiService GameUiService { get; }
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }

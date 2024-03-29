@@ -6,6 +6,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
@@ -16,6 +17,16 @@ namespace FirstLight.Game.TestCases.Helpers
 	public class UIHelper : TestHelper
 	{
 		public IEnumerator WaitForPresenter<T>(float waitAfterCreation = 0.5f, float timeout = 30) where T : UiPresenter
+		{
+			Log("Waiting for screen " + typeof(T).Name + " to open!");
+			yield return TestTools.UntilObjectOfType<T>(timeout);
+			// Wait a little bit more to make sure the screen had time to open
+			Log("Detected " + typeof(T).Name + " screen! Continuing!");
+
+			yield return new WaitForSeconds(waitAfterCreation);
+		}
+		
+		public IEnumerator WaitForPresenter2<T>(float waitAfterCreation = 0.5f, float timeout = 30) where T : UIPresenter2
 		{
 			Log("Waiting for screen " + typeof(T).Name + " to open!");
 			yield return TestTools.UntilObjectOfType<T>(timeout);

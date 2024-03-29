@@ -144,8 +144,9 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
 
 			_tutorialUtilsUi.Unblock();
-			await _tutorialUtilsUi.BlockAround<HomeScreenPresenter>("play-button");
-			_tutorialUtilsUi.Highlight<HomeScreenPresenter>("play-button");
+			// TODO mihak:
+			// await _tutorialUtilsUi.BlockAround<HomeScreenPresenter>("play-button");
+			// _tutorialUtilsUi.Highlight<HomeScreenPresenter>("play-button");
 		}
 
 		private void OnPlayGameExit()

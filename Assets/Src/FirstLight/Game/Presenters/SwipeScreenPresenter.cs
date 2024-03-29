@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,27 +14,29 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Presenter for the swipe transition 
 	/// </summary>
-	public class SwipeScreenPresenter : UiToolkitPresenter
+	public class SwipeScreenPresenter : UIPresenter2
 	{
 		private VisualElement _swipeParent;
 		public bool TransitionFinished { get; private set; }
 		
 		
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			_swipeParent = root.Q<VisualElement>("SwipeParent").Required();
+			_swipeParent = Root.Q<VisualElement>("SwipeParent").Required();
 			_swipeParent.RegisterCallback<TransitionEndEvent>(_ => TransitionFinished = true);
 			_swipeParent.RegisterCallback<TransitionStartEvent>(_ => TransitionFinished = false);
+		}
+
+		protected override UniTask OnScreenOpen(bool reload)
+		{
+			_swipeParent.RemoveFromClassList("hidden-start");
+			
+			return base.OnScreenOpen(reload);
 		}
 
 		public async UniTask WaitTransition()
 		{
 			await UniTask.WaitUntil(() => TransitionFinished);
-		}
-
-		protected override void OnTransitionsReady()
-		{
-			_swipeParent.RemoveFromClassList("hidden-start");
 		}
 
 		/// <summary>
@@ -44,7 +47,7 @@ namespace FirstLight.Game.Presenters
 		public static async UniTask StartSwipe()
 		{
 			var service = MainInstaller.ResolveServices();
-			var swipe = await service.GameUiService.OpenUiAsync<SwipeScreenPresenter>();
+			var swipe = await service.UIService.OpenScreen<SwipeScreenPresenter>();
 			await swipe.WaitTransition();
 		}
 
@@ -54,16 +57,20 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public static async UniTask Finish()
 		{
+			
+			
 			var service = MainInstaller.ResolveServices();
-			if (!service.GameUiService.HasUiPresenter<SwipeScreenPresenter>()) return;
-			var ui = service.GameUiService.GetUi<SwipeScreenPresenter>();
-			if (ui == null) return;
-			ui._swipeParent.AddToClassList("hidden-end");
-			await ui.WaitTransition();
-			// concurrency check
-			ui = service.GameUiService.GetUi<SwipeScreenPresenter>();
-			if (ui == null || !service.GameUiService.IsOpen<SwipeScreenPresenter>()) return;
-			await service.GameUiService.CloseUi<SwipeScreenPresenter>(true);
+			await service.UIService.CloseScreen<SwipeScreenPresenter>();
+			
+			// if (!service.GameUiService.HasUiPresenter<SwipeScreenPresenter>()) return;
+			// var ui = service.GameUiService.GetUi<SwipeScreenPresenter>();
+			// if (ui == null) return;
+			// ui._swipeParent.AddToClassList("hidden-end");
+			// await ui.WaitTransition();
+			// // concurrency check
+			// ui = service.GameUiService.GetUi<SwipeScreenPresenter>();
+			// if (ui == null || !service.GameUiService.IsOpen<SwipeScreenPresenter>()) return;
+			// await service.GameUiService.CloseUi<SwipeScreenPresenter>(true);
 		}
 	}
 }

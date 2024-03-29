@@ -11,6 +11,7 @@ using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using FirstLight.Statechart;
+using FirstLight.UIService;
 using Photon.Realtime;
 using UnityEngine;
 
@@ -33,7 +34,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private Coroutine _csPoolTimerCoroutine;
 
-		public CoreLoopState(ReconnectionState reconnection, IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, IGameUiService uiService, IGameLogic gameLogic, 
+		public CoreLoopState(ReconnectionState reconnection, IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, IGameUiService uiService, UIService2 uiService2, IGameLogic gameLogic, 
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger, IRoomService roomService)
 		{
 			_services = services;
@@ -42,7 +43,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
 			_matchState = new MatchState(services, dataService, networkService, uiService, gameLogic, assetAdderService, statechartTrigger,roomService);
-			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, statechartTrigger);
+			_mainMenuState = new MainMenuState(services, uiService, uiService2, gameLogic, assetAdderService, statechartTrigger);
 			_reconnection = reconnection;
 		}
 

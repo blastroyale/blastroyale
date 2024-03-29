@@ -6,6 +6,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Shows the matchmaking status on the HomeScreen
 	/// </summary>
-	public class MatchmakingStatusView : UIView
+	public class MatchmakingStatusView : UIView2
 	{
 		private const string UssContainerHidden = "matchmaking-container--hidden";
 

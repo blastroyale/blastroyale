@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8194070184663584234}
   - component: {fileID: 8109163405775159547}
   m_Layer: 5
-  m_Name: CollectionMenuScreen
+  m_Name: CollectionScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

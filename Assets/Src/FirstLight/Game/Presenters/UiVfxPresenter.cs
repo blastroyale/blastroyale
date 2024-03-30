@@ -1,8 +1,10 @@
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.Game.Views.MainMenuViews;
+using FirstLight.Modules.UIService.Runtime;
 using FirstLight.Services;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,7 +15,8 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the VFX for the UI by:
 	/// - Player new VFX animations
 	/// </summary>
-	public class UiVfxPresenter : UiPresenter
+	[UILayer(UIService2.UILayer.LegacyVFXHack)]
+	public class UiVfxPresenter : UIPresenter2
 	{
 		[SerializeField, Required] private UiVfxImage _imageRef;
 		[SerializeField, Required] private Transform _defaultFloatingTextTransform;
@@ -63,6 +66,10 @@ namespace FirstLight.Game.Presenters
 			floatingText.SetText(text);
 
 			this.LateCall(floatingText.AnimationLength, () => _floatingTextPool.Despawn(floatingText)).Forget();
+		}
+
+		protected override void QueryElements()
+		{
 		}
 	}
 }

@@ -11,7 +11,8 @@ namespace FirstLight.UIService
 	[RequireComponent(typeof(UIDocument))]
 	public abstract class UIPresenter2 : MonoBehaviour
 	{
-		[SerializeField, Required] private UIDocument _document;
+		// TODO: Add Required attribute when no more legacy screens are present
+		[SerializeField] private UIDocument _document;
 
 		public VisualElement Root { private set; get; }
 
@@ -54,28 +55,31 @@ namespace FirstLight.UIService
 		{
 			// Assert.AreEqual(typeof(T), Data.GetType(), $"Screen opened with incorrect data type {Data.GetType()} instead of {typeof(T)}");
 
-			Root = _document.rootVisualElement.Q(UIService2.ID_ROOT);
-			QueryElements();
-
-			if (reload)
+			if (_document != null) // TODO: Only here to support legacy lobby screen, remove when it's UITK
 			{
-				// We still skip a frame there so OnScreenOpened is always called on the second frame
-				await UniTask.NextFrame();
-			}
-			else
-			{
-				Root.EnableInClassList(UIService2.CLASS_HIDDEN, true);
+				Root = _document.rootVisualElement.Q(UIService2.ID_ROOT);
+				QueryElements();
 
-				// We need to wait for next frame to trigger the CLASS_HIDDEN transition
-				await UniTask.NextFrame();
+				if (reload)
+				{
+					// We still skip a frame there so OnScreenOpened is always called on the second frame
+					await UniTask.NextFrame();
+				}
+				else
+				{
+					Root.EnableInClassList(UIService2.CLASS_HIDDEN, true);
 
-				Root.EnableInClassList(UIService2.CLASS_HIDDEN, false);
-			}
+					// We need to wait for next frame to trigger the CLASS_HIDDEN transition
+					await UniTask.NextFrame();
 
-			foreach (var view in _views)
-			{
-				// TODO mihak: Rename to OnScreenOpen
-				view.SubscribeToEvents();
+					Root.EnableInClassList(UIService2.CLASS_HIDDEN, false);
+				}
+
+				foreach (var view in _views)
+				{
+					// TODO mihak: Rename to OnScreenOpen
+					view.SubscribeToEvents();
+				}
 			}
 
 			await OnScreenOpen(reload);
@@ -83,12 +87,15 @@ namespace FirstLight.UIService
 
 		internal async UniTask OnScreenClosedInternal()
 		{
-			Root.EnableInClassList(UIService2.CLASS_HIDDEN, true);
-
-			foreach (var view in _views)
+			if (_document != null)
 			{
-				// TODO mihak: Rename to OnScreenOpen
-				view.UnsubscribeFromEvents();
+				Root.EnableInClassList(UIService2.CLASS_HIDDEN, true);
+
+				foreach (var view in _views)
+				{
+					// TODO mihak: Rename to OnScreenOpen
+					view.UnsubscribeFromEvents();
+				}
 			}
 
 			await OnScreenClose();

@@ -3,6 +3,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -10,9 +11,10 @@ using Button = UnityEngine.UIElements.Button;
 namespace FirstLight.Game.Presenters
 {
 	/// <inheritdoc />
-	public class EquipmentRewardDialogPresenter : UiToolkitPresenterData<EquipmentRewardDialogPresenter.StateData>
+	/// TODO: Is this still used?
+	public class EquipmentRewardDialogPresenter : UIPresenterData2<EquipmentRewardDialogPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action ConfirmClicked;
 			public Equipment Equipment;
@@ -21,10 +23,10 @@ namespace FirstLight.Game.Presenters
 		private EquipmentCardElement _equipmentCard;
 		private Button _confirmButton;
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			_equipmentCard = root.Q<EquipmentCardElement>("EquipmentCard").Required();
-			_confirmButton = root.Q<Button>("ConfirmButton").Required();
+			_equipmentCard = Root.Q<EquipmentCardElement>("EquipmentCard").Required();
+			_confirmButton = Root.Q<Button>("ConfirmButton").Required();
 			
 			_confirmButton.clicked += Data.ConfirmClicked;
 		}

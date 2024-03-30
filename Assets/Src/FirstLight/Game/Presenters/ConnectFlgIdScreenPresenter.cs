@@ -1,11 +1,14 @@
 using System;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Modules.UIService.Runtime;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Newtonsoft.Json;
 using PlayFab;
@@ -15,11 +18,11 @@ namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// This presenter handles showing the register screen
-	/// </summary>	
-	[LoadSynchronously]
-	public class ConnectFlgIdScreenPresenter : UiToolkitPresenterData<ConnectFlgIdScreenPresenter.StateData>
+	/// </summary>
+	[UILayer(UIService2.UILayer.Popup)]
+	public class ConnectFlgIdScreenPresenter : UIPresenterData2<ConnectFlgIdScreenPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action AuthLoginSuccess;
 			public Action AuthRegisterSuccess;
@@ -52,14 +55,14 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			_loginPopupRoot = root.Q("LoginPopup").Required();
-			_registerPopupRoot = root.Q("RegisterPopup").Required();
-			_closeButton = root.Q<ImageButton>("CloseButton").Required();
-			_switchScreenButton = root.Q<Button>("SwitchScreenButton").Required();
-			_switchScreenDesc = root.Q<Label>("SwitchScreenDesc").Required();
-			_resetPasswordButton = root.Q<Button>("ResetPasswordButton").Required();
+			_loginPopupRoot = Root.Q("LoginPopup").Required();
+			_registerPopupRoot = Root.Q("RegisterPopup").Required();
+			_closeButton = Root.Q<ImageButton>("CloseButton").Required();
+			_switchScreenButton = Root.Q<Button>("SwitchScreenButton").Required();
+			_switchScreenDesc = Root.Q<Label>("SwitchScreenDesc").Required();
+			_resetPasswordButton = Root.Q<Button>("ResetPasswordButton").Required();
 			
 			_loginButton = _loginPopupRoot.Q<Button>("LoginButton").Required();
 			_loginEmailField = _loginPopupRoot.Q<TextField>("EmailTextField").Required();
@@ -76,7 +79,7 @@ namespace FirstLight.Game.Presenters
 			_resetPasswordButton.clicked += OpenPasswordRecoveryPopup;
 			_closeButton.clicked += OnCloseClicked;
 
-			root.SetupClicks(_services);
+			Root.SetupClicks(_services);
 
 			ShowRegisterScreen();
 		}
@@ -131,7 +134,7 @@ namespace FirstLight.Game.Presenters
 			    && AuthenticationUtils.IsEmailFieldValid(email)
 			    && AuthenticationUtils.IsPasswordFieldValid(password))
 			{
-				_uiService.OpenUi<LoadingSpinnerScreenPresenter>();
+				_services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>().Forget();
 				_services.AuthenticationService.AttachLoginDataToAccount(email, username, password, OnRegisterSuccess, OnRegisterFail);
 			}
 			else
@@ -163,7 +166,7 @@ namespace FirstLight.Game.Presenters
 			};
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 				
-			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+			_services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 			Data.AuthRegisterSuccess();
 		}
 		
@@ -185,7 +188,7 @@ namespace FirstLight.Game.Presenters
 			};
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 				
-			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+			_services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 			Data.AuthRegisterFail?.Invoke();
 		}
 		
@@ -193,7 +196,7 @@ namespace FirstLight.Game.Presenters
 		{
 			if (AuthenticationUtils.IsEmailFieldValid(email) && AuthenticationUtils.IsPasswordFieldValid(password))
 			{
-				_uiService.OpenUi<LoadingSpinnerScreenPresenter>();
+				_services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>().Forget();
 				
 				// We need to disconnect photon to re-authenticate and re-generate an auth token
 				// when logging in with a different user
@@ -229,7 +232,7 @@ namespace FirstLight.Game.Presenters
 			};
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 				
-			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+			_services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 			Data.AuthLoginSuccess();
 		}
 
@@ -245,7 +248,7 @@ namespace FirstLight.Game.Presenters
 			};
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 				
-			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+			_services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 			Data.AuthLoginFail?.Invoke();
 		}
 		

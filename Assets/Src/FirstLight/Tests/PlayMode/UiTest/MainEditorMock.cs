@@ -1,5 +1,6 @@
 using FirstLight.Game;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -26,7 +27,7 @@ namespace FirstLight.Tests.PlayMode
 			ui.GetComponent(config.UiType).SendMessage("OnOpened");
 		}
 
-		public void Close(UiPresenter presenter)
+		public void Close(UIPresenter2 presenter)
 		{
 			presenter.SendMessage("OnClosed");
 		}
@@ -56,7 +57,7 @@ namespace FirstLight.Tests.PlayMode
 			}
 			if (GUILayout.Button("Close Opened UiConfig"))
 			{
-				helper.Close(FindObjectOfType<UiPresenter>());
+				helper.Close(FindObjectOfType<UIPresenter2>());
 			}
 		}
 	}

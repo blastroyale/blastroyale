@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -8,6 +9,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -20,10 +22,9 @@ namespace FirstLight.Game.Presenters
 	/// - Reconnect to the Adventure
 	/// - Leave the Adventure to the Main menu
 	/// </summary>
-	[LoadSynchronously]
-	public class DisconnectedScreenPresenter : UiToolkitPresenterData<DisconnectedScreenPresenter.StateData>
+	public class DisconnectedScreenPresenter : UIPresenterData2<DisconnectedScreenPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action ReconnectClicked;
 			public Action BackClicked;
@@ -41,20 +42,19 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			_dimElement = root.Q("Dim").Required();
-			_menuButton = root.Q<Button>("MenuButton").Required();
-			_reconnectButton = root.Q<Button>("ReconnectButton").Required();
+			_dimElement = Root.Q("Dim").Required();
+			_menuButton = Root.Q<Button>("MenuButton").Required();
+			_reconnectButton = Root.Q<Button>("ReconnectButton").Required();
 
 			_reconnectButton.clicked += OnReconnectClicked;
 			_menuButton.clicked += OnLeaveClicked;
 		}
 
-		protected override void OnOpened()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			base.OnOpened();
-
+			
 			SetFrontDimBlockerActive(false);
 
 			_services.AudioFxService.PlayClip2D(AudioId.DisconnectScreenAppear);
@@ -66,7 +66,7 @@ namespace FirstLight.Game.Presenters
 
 			// Disconnecting in main menu, players should only be able to reconnect
 			if (_services.NetworkService.LastDisconnectLocation is LastDisconnectionLocation.Menu
-			    or LastDisconnectionLocation.Matchmaking or LastDisconnectionLocation.None)
+				or LastDisconnectionLocation.Matchmaking or LastDisconnectionLocation.None)
 			{
 				_menuButton.SetDisplay(false);
 				_reconnectButton.SetDisplay(true);
@@ -84,6 +84,7 @@ namespace FirstLight.Game.Presenters
 				_menuButton.SetDisplay(_services.RoomService.LastMatchPlayerAmount <= 1);
 				_reconnectButton.SetDisplay(true);
 			}
+			return base.OnScreenOpen(reload);
 		}
 
 		/// <summary>

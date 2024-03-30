@@ -128,7 +128,7 @@ namespace FirstLight.UIService
 			}
 		}
 
-		private async UniTask CloseScreen(UIPresenter2 presenter)
+		public async UniTask CloseScreen(UIPresenter2 presenter)
 		{
 			Assert.IsTrue(_openedScreensType.ContainsKey(presenter.GetType()), "Trying to close presenter that isn't open, how did you manage that?");
 
@@ -150,7 +150,9 @@ namespace FirstLight.UIService
 			Background = -1,
 			Default = 0,
 			Popup = 1,
-			Foreground = 2
+			Foreground = 2,
+			
+			LegacyVFXHack = 10,
 		}
 	}
 }

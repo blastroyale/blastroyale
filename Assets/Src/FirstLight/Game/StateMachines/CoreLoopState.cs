@@ -122,7 +122,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask TutorialJoinTask(bool transition = false)
 		{
-			await _services.GameUiService.CloseUi<PrivacyDialogPresenter>();
+			await _services.UIService.CloseScreen<PrivacyDialogPresenter>();
 			if (transition)
 			{
 				await TransitionScreen();
@@ -146,7 +146,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				OnAccept = AcceptTerms
 			};
-			await _services.GameUiService.OpenUiAsync<PrivacyDialogPresenter, PrivacyDialogPresenter.StateData>(data);
+			await _services.UIService.OpenScreen<PrivacyDialogPresenter>(data);
 		}
 
 		private void AcceptTerms()

@@ -10,6 +10,7 @@ using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -24,9 +25,9 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Custom Game Creation Menu.
 	/// </summary>
-	public class RoomJoinCreateScreenPresenter : UiToolkitPresenterData<RoomJoinCreateScreenPresenter.StateData>
+	public class RoomJoinCreateScreenPresenter : UIPresenterData2<RoomJoinCreateScreenPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action CloseClicked;
 			public Action BackClicked;
@@ -67,35 +68,35 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			var header = root.Q<ScreenHeaderElement>("Header").Required();
+			var header = Root.Q<ScreenHeaderElement>("Header").Required();
 			header.backClicked += Data.BackClicked;
-			_playtestButton = root.Q<Button>("PlaytestButton");
+			_playtestButton = Root.Q<Button>("PlaytestButton");
 			_playtestButton.clicked += PlaytestClicked;
 			_playtestButton.SetDisplay(_services.GameBackendService.IsDev());
 
-			_joinRoomButton = root.Q<Button>("JoinButton");
+			_joinRoomButton = Root.Q<Button>("JoinButton");
 			_joinRoomButton.clicked += JoinRoomClicked;
 
-			_createRoomButton = root.Q<Button>("CreateButton");
+			_createRoomButton = Root.Q<Button>("CreateButton");
 			_createRoomButton.clicked += CreateRoomClicked;
 
-			_gameModeDropDown = root.Q<LocalizedDropDown>("GameMode").Required();
+			_gameModeDropDown = Root.Q<LocalizedDropDown>("GameMode").Required();
 			_gameModeDropDown.RegisterValueChangedCallback(GameModeDropDownChanged);
-			_mapDropDown = root.Q<LocalizedDropDown>("Map").Required();
+			_mapDropDown = Root.Q<LocalizedDropDown>("Map").Required();
 			_mapDropDown.RegisterValueChangedCallback(MapDropDownChanged);
 			_mutatorModeDropDown = new LocalizedDropDown[2];
-			_mutatorModeDropDown[0] = root.Q<LocalizedDropDown>("Mutator1").Required();
+			_mutatorModeDropDown[0] = Root.Q<LocalizedDropDown>("Mutator1").Required();
 			_mutatorModeDropDown[0].value = ScriptLocalization.MainMenu.None;
 			_mutatorModeDropDown[0].RegisterValueChangedCallback(MutatorDropDownChanged);
-			_mutatorModeDropDown[1] = root.Q<LocalizedDropDown>("Mutator2").Required();
+			_mutatorModeDropDown[1] = Root.Q<LocalizedDropDown>("Mutator2").Required();
 			_mutatorModeDropDown[1].value = ScriptLocalization.MainMenu.None;
 			_mutatorModeDropDown[1].RegisterValueChangedCallback(MutatorDropDownChanged);
-			_botDifficultyDropDown = root.Q<LocalizedSliderInt>("BotDifficulty").Required();
-			_customPlayersNumberDropDown = root.Q<LocalizedSliderInt>("CustomPlayersNumber").Required();
-			_weaponLimitDropDown = root.Q<LocalizedDropDown>("WeaponLimiter").Required();
-			_teamSizeDropDown = root.Q<LocalizedDropDown>("TeamSize").Required();
+			_botDifficultyDropDown = Root.Q<LocalizedSliderInt>("BotDifficulty").Required();
+			_customPlayersNumberDropDown = Root.Q<LocalizedSliderInt>("CustomPlayersNumber").Required();
+			_weaponLimitDropDown = Root.Q<LocalizedDropDown>("WeaponLimiter").Required();
+			_teamSizeDropDown = Root.Q<LocalizedDropDown>("TeamSize").Required();
 
 			FillGameModesSelectionList();
 			FillMapSelectionList(0);

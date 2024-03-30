@@ -1,4 +1,5 @@
-﻿using FirstLight.Game.Commands;
+﻿using Cysharp.Threading.Tasks;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
@@ -52,7 +53,7 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			_services.GameUiService.OpenUiAsync<BattlePassSeasonBannerPresenter>();
+			_services.UIService.OpenScreen<BattlePassSeasonBannerPresenter>().Forget();
 			_services.CommandService.ExecuteCommand(new BattlepassMarkSeenBanner());
 		}
 	}

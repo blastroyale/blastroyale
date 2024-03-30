@@ -188,7 +188,6 @@ namespace FirstLight.Game.TestCases
 			var uiHelper = new UIHelper(this);
 			testInstaller.Bind(uiHelper);
 			testInstaller.Bind(new BattlePassUIHelper(this, uiHelper));
-			testInstaller.Bind(new EquipmentUIHelper(this, uiHelper));
 			testInstaller.Bind(new GameUIHelper(this, uiHelper));
 			testInstaller.Bind(new HomeUIHelper(this, uiHelper));
 			testInstaller.Bind(new GamemodeUIHelper(this, uiHelper));

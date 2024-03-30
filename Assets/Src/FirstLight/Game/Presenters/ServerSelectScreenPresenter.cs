@@ -4,8 +4,10 @@ using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Modules.UIService.Runtime;
 using FirstLight.NativeUi;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -17,9 +19,10 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles server selection in the main menu
 	/// </summary>
-	public class ServerSelectScreenPresenter : UiPresenterData<ServerSelectScreenPresenter.StateData>
+	[UILayer(UIService2.UILayer.Popup)]
+	public class ServerSelectScreenPresenter : UIPresenterData2<ServerSelectScreenPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action<bool> OnExit;
 		}
@@ -43,12 +46,16 @@ namespace FirstLight.Game.Presenters
 			_backButton.onClick.AddListener(OnBackClicked);
 		}
 
-		protected override void OnOpened()
+		protected override void QueryElements()
 		{
-			base.OnOpened();
+		}
+
+		protected override UniTask OnScreenOpen(bool reload)
+		{
 			_statusText.SetText("Pinging servers...");
 			_selectorAndButtonsContainer.SetActive(false);
 			WaitForRegionPing().Forget();
+			return base.OnScreenOpen(reload);
 		}
 
 		private async UniTaskVoid WaitForRegionPing()
@@ -98,7 +105,7 @@ namespace FirstLight.Game.Presenters
 		private void CloseSeverSelect(bool changedServer)
 		{
 			Data.OnExit.Invoke(changedServer);
-			Close(true);
+			_services.UIService.CloseScreen<ServerSelectScreenPresenter>().Forget();
 		}
 
 		private void OnBackClicked()

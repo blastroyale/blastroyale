@@ -16,6 +16,7 @@ namespace FirstLight.Game.TestCases.Helpers
 {
 	public class UIHelper : TestHelper
 	{
+		[Obsolete]
 		public IEnumerator WaitForPresenter<T>(float waitAfterCreation = 0.5f, float timeout = 30) where T : UiPresenter
 		{
 			Log("Waiting for screen " + typeof(T).Name + " to open!");
@@ -64,6 +65,7 @@ namespace FirstLight.Game.TestCases.Helpers
 			Log("Detected one of the " + types + " screen! Continuing!");
 		}
 
+		[Obsolete]
 		public T GetPresenter<T>() where T : UiPresenter
 		{
 			return Object.FindObjectOfType<T>();
@@ -121,7 +123,7 @@ namespace FirstLight.Game.TestCases.Helpers
 			foreach (var type in Services.GameUiService.GetAllVisibleUi())
 			{
 				var foundObject = Object.FindObjectOfType(type);
-				if (foundObject == null || foundObject is not UiPresenter presenter || presenter.GetComponent<UIDocument>() == null)
+				if (foundObject == null || foundObject is not UIPresenter2 presenter || presenter.GetComponent<UIDocument>() == null)
 				{
 					continue;
 				}

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -32,28 +33,26 @@ namespace FirstLight.Game.Services
 	/// </remarks>
 	public interface IUiVfxInternalService : IUiVfxService
 	{
-		/// <summary>
-		/// Initializes the <see cref="IUiVfxService"/> with all it's necessary data
-		/// </summary>
-		void Init(IUiService service);
+
 	}
 	
 	/// <inheritdoc />
 	public class UiVfxService : IUiVfxInternalService
 	{
 		private readonly IAssetResolverService _assetResolver;
+		private readonly IGameServices _services;
 		
 		private UiVfxPresenter _presenter;
 		
-		public UiVfxService(IAssetResolverService assetResolverService)
+		public UiVfxService(IGameServices gameServices, IAssetResolverService assetResolverService)
 		{
 			_assetResolver = assetResolverService;
+			_services = gameServices;
 		}
 
-		/// <inheritdoc />
-		public void Init(IUiService service)
+		public async UniTask Init()
 		{
-			_presenter = service.GetUi<UiVfxPresenter>();
+			_presenter = await _services.UIService.OpenScreen<UiVfxPresenter>();
 		}
 
 		/// <inheritdoc />

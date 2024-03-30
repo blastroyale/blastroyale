@@ -185,8 +185,8 @@ namespace FirstLight.Game.StateMachines
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(transitionToMenu);
 
 			postDisconnectCheck.Transition().Condition(HasDisconnectedDuringMatchmaking).Target(roomCheck);
-			postDisconnectCheck.Transition().Condition(HasDisconnectedDuringSimulation).OnTransition(CloseCurrentScreen).Target(roomCheck);
-			postDisconnectCheck.Transition().OnTransition(CloseCurrentScreen).Target(transitionToMenu);
+			postDisconnectCheck.Transition().Condition(HasDisconnectedDuringSimulation).Target(roomCheck);
+			postDisconnectCheck.Transition().Target(transitionToMenu);
 
 			matchStateEnding.WaitingFor(a => _ = MatchStateEndTrigger(a)).Target(final);
 			matchStateEnding.OnExit(UnloadMainMenuAssetConfigs);
@@ -329,11 +329,6 @@ namespace FirstLight.Game.StateMachines
 			PublishMatchEnded(true, false, null);
 		}
 
-		private void CloseCurrentScreen()
-		{
-			_services.GameUiService.CloseCurrentScreen();
-		}
-
 		private bool HasDisconnectedDuringMatchmaking()
 		{
 			return _networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking;
@@ -407,7 +402,6 @@ namespace FirstLight.Game.StateMachines
 		private async UniTask UnloadMatchAndTransition()
 		{
 			FLog.Verbose("[MatchState] Unloading Match State");
-			CloseCurrentScreen();
 
 			StopSimulation();
 
@@ -457,16 +451,11 @@ namespace FirstLight.Game.StateMachines
 
 		#region UI Handling
 
-		private void DismissGenericPopups()
-		{
-			_services.GenericDialogService.CloseDialog();
-		}
-
 		private void OpenWinnersScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new WinnersScreenPresenter.StateData {ContinueClicked = () => cacheActivity.Complete()};
-			_services.GameUiService.OpenScreenAsync<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
+			_services.UIService.OpenScreen<WinnersScreenPresenter>(data).Forget();
 		}
 
 		private void OpenLeaderboardAndRewardsScreen(IWaitActivity activity)
@@ -505,7 +494,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				LeaveRoomClicked = () => _statechartTrigger(LeaveRoomClicked)
 			};
-			await _services.GameUiService.OpenScreenAsync<CustomLobbyScreenPresenter, CustomLobbyScreenPresenter.StateData>(data);
+			await _services.UIService.OpenScreen<CustomLobbyScreenPresenter>(data);
 		}
 
 		private void OnLocalPlayerKicked()

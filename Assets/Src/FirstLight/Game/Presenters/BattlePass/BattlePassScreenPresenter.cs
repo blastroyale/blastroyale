@@ -38,7 +38,6 @@ namespace FirstLight.Game.Presenters
 		public class StateData
 		{
 			public Action BackClicked;
-			public IGameUiService UiService;
 			public bool DisableScrollAnimation;
 		}
 
@@ -525,7 +524,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var battlePassData = Data;
 			battlePassData.DisableScrollAnimation = true;
-			Data.UiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
+			_services.UIService.OpenScreen<RewardsScreenPresenter>(new RewardsScreenPresenter.StateData()
 			{
 				SkipSummary = true,
 				Items = rewards,
@@ -534,7 +533,7 @@ namespace FirstLight.Game.Presenters
 					_services.MessageBrokerService.Publish(new FinishedClaimingBpRewardsMessage());
 					_services.UIService.OpenScreen<BattlePassScreenPresenter>(battlePassData).Forget();
 				}
-			});
+			}).Forget();
 		}
 	}
 }

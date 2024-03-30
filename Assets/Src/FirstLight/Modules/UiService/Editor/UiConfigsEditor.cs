@@ -8,6 +8,7 @@ using UnityEditor.AddressableAssets.Settings;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+#pragma warning disable CS0612 // Type or member is obsolete
 
 // ReSharper disable once CheckNamespace
 

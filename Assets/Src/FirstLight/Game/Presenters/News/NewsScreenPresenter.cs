@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters.News
 {
-	public class NewsScreenPresenter : UiToolkitPresenterData<NewsScreenPresenter.NewsScreenData>
+	public class NewsScreenPresenter : UIPresenterData2<NewsScreenPresenter.NewsScreenData>
 	{
-		public struct NewsScreenData
+		public class NewsScreenData
 		{
 			public Action OnBack;
 		}
@@ -21,6 +23,8 @@ namespace FirstLight.Game.Presenters.News
 		private const string USS_CATEGORY_BUTTON = "category-button";
 		private const string USS_CATEGORY_BUTTON_HIGHLIGHT = "category-button--highlight";
 		private const string USS_CATEGORY_INDICATOR = "category-button__indicator";
+
+		private IGameServices _services;
 		
 		private VisualElement _categoriesContainer;
 		private VisualElement _container;
@@ -29,23 +33,27 @@ namespace FirstLight.Game.Presenters.News
 		private Dictionary<string, Button> _categories;
 		private VisualElement _indicator;
 		private string _selectedCategory = "Game";
-		
-		protected override void QueryElements(VisualElement root)
+
+		private void Awake()
 		{
-			base.QueryElements(root);
-			_container = root.Q("NewsContainer").Required();
-			_loading = root.Q("Loading").Required();
-			_categoriesContainer = root.Q("Categories");
-			_indicator = new VisualElement();
-			_indicator.AddToClassList(USS_CATEGORY_INDICATOR);
-			root.Q<ImageButton>("back").Required().clicked += Data.OnBack;
+			_services = MainInstaller.ResolveServices();
 		}
 
-		protected override void OnOpened()
+		protected override void QueryElements()
 		{
-			base.OnOpened();
+			_container = Root.Q("NewsContainer").Required();
+			_loading = Root.Q("Loading").Required();
+			_categoriesContainer = Root.Q("Categories");
+			_indicator = new VisualElement();
+			_indicator.AddToClassList(USS_CATEGORY_INDICATOR);
+			Root.Q<ImageButton>("back").Required().clicked += Data.OnBack;
+		}
+
+		protected override UniTask OnScreenOpen(bool reload)
+		{
 			_loading.SetDisplay(true);
 			Fillnews().ContinueWith(OnFilledNews).Forget();
+			return base.OnScreenOpen(reload);
 		}
 
 		private void OnFilledNews()
@@ -93,8 +101,9 @@ namespace FirstLight.Game.Presenters.News
 		{
 			_allNews = new List<TitleNews>();
 			_categories = new Dictionary<string, Button>();
-			var news = await MainInstaller.ResolveServices().NewsService.GetNews();
-			if (!IsOpen) return;
+			var news = await _services.NewsService.GetNews();
+			// TODO: Possible race condition if screen is closed and opened quickly
+			if (!_services.UIService.IsScreenOpen<NewsScreenPresenter>()) return;
 			if (!isActiveAndEnabled) return;
 			foreach (var newsItem in news)
 			{

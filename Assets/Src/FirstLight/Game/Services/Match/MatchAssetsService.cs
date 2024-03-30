@@ -128,7 +128,6 @@ namespace FirstLight.Game.Services
 			FLog.Info("Unloading Match Assets");
 			var configProvider = _services.ConfigsProvider;
 
-			_services.GameUiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
 
 			var sceneCount = SceneManager.sceneCount;

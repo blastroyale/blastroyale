@@ -126,7 +126,7 @@ namespace FirstLight.Game.Presenters
 					JoinParty = OnJoinPartyButtonClicked,
 					CreateParty = OnCreateSquadButtonClicked
 				};
-				await _services.GameUiService.OpenUiAsync<PartyDialogPresenter, PartyDialogPresenter.StateData>(data);
+				await _services.UIService.OpenScreen<PartyDialogPresenter>(data);
 			}
 		}
 

@@ -6,12 +6,13 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
-	public class HudCustomizationScreenPresenter : UiToolkitPresenterData<HudCustomizationScreenPresenter.StateData>
+	public class HudCustomizationScreenPresenter : UIPresenterData2<HudCustomizationScreenPresenter.StateData>
 	{
 		private readonly float MIN_SIZE = 0.2f;
 		private readonly float MIN_OPACITY = 0.05f;
@@ -41,48 +42,48 @@ namespace FirstLight.Game.Presenters
 		private bool _open = true;
 		private List<VisualElement> _disabled = new();
 		
-		public struct StateData
+		public class StateData
 		{
 			public Action<IReadOnlyCollection<VisualElement>> OnSave;
 			public Action OnClose;
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_opacity = root.Q<Slider>("OpacitySlider").Required();
-			_size = root.Q<Slider>("SizeSlider").Required();
+			_opacity = Root.Q<Slider>("OpacitySlider").Required();
+			_size = Root.Q<Slider>("SizeSlider").Required();
 			_opacity.RegisterValueChangedCallback(OnOpacityChange);
 			_size.RegisterValueChangedCallback(OnSizeChange);
-			_options = root.Q("MenuOptions").Required();
-			_openCloseIcon = root.Q("OpenCloseIcon").Required();
-			_openButton = root.Q<ImageButton>("OpenCloseButton").Required();
-			_opacityLabel = root.Q<Label>("OpacityValue").Required();
-			_reset = root.Q<Button>("ResetButton").Required();
-			_save = root.Q<Button>("SaveButton").Required();
-			_close = root.Q<Button>("CloseButton").Required();
-			_menu = root.Q("Menu").Required();
+			_options = Root.Q("MenuOptions").Required();
+			_openCloseIcon = Root.Q("OpenCloseIcon").Required();
+			_openButton = Root.Q<ImageButton>("OpenCloseButton").Required();
+			_opacityLabel = Root.Q<Label>("OpacityValue").Required();
+			_reset = Root.Q<Button>("ResetButton").Required();
+			_save = Root.Q<Button>("SaveButton").Required();
+			_close = Root.Q<Button>("CloseButton").Required();
+			_menu = Root.Q("Menu").Required();
 
 			_openButton.clicked += ToggleOpen;
 			_close.clicked += Data.OnClose;
 			_save.clicked += () => Data.OnSave(_customizable);
 			_reset.clicked += Reset;
 
-			_disabled = root.Query(className: USS_DISABLED).Build().ToList();
-			root.Query(className: USS_NON_CUSTOMIZABLE_ELEMENT).Build().ForEach(Remove);
-			root.Query(className:  USS_CUSTOMIZABLE_ELEMENT).Build().ForEach(MakeCustomizable);
+			_disabled = Root.Query(className: USS_DISABLED).Build().ToList();
+			Root.Query(className: USS_NON_CUSTOMIZABLE_ELEMENT).Build().ForEach(Remove);
+			Root.Query(className:  USS_CUSTOMIZABLE_ELEMENT).Build().ForEach(MakeCustomizable);
 
 			// Joysticks are snowflakes because they handled the events on parent
 			// if we block events on parent to drag without moving them, the propagation stops
 			// and we cannot drag them
-			var joy1 = root.Q<JoystickElement>("LeftJoystick");
-			var joy2 = root.Q<JoystickElement>("RightJoystick");
+			var joy1 = Root.Q<JoystickElement>("LeftJoystick");
+			var joy2 = Root.Q<JoystickElement>("RightJoystick");
 			joy1.RemoveListeners();
 			joy2.RemoveListeners();
 			MakeCustomizable(joy1, onlyInsideParent:true);
 			MakeCustomizable(joy2, onlyInsideParent:true);
 			
-			_services.ControlsSetup.SetControlPositions(root);
+			_services.ControlsSetup.SetControlPositions(Root);
 		}
 		
 		private void EnableAll()

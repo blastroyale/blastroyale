@@ -14,6 +14,7 @@ namespace FirstLight.Game.Presenters
 	/// <remarks>
 	/// Allows this Presenter to have an intro and outro animation when opened and closed to provide feedback and joy for players.
 	/// </remarks>
+	[Obsolete]
 	public abstract class AnimatedUiPresenter : UiCloseActivePresenter
 	{
 		[SerializeField, Required] protected Animation _animation;
@@ -119,6 +120,7 @@ namespace FirstLight.Game.Presenters
 	/// Allows this Presenter to have an intro and outro animation when opened and closed to provide feedback and joy for players.
 	/// </remarks>
 	[RequireComponent(typeof(CanvasGroup))]
+	[Obsolete]
 	public abstract class AnimatedUiPresenterData<T> : UiCloseActivePresenterData<T> where T : struct
 	{
 		[SerializeField] protected Animation _animation;

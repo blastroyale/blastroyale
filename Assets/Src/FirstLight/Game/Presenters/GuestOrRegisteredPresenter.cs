@@ -3,6 +3,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
@@ -12,10 +13,9 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This presenter handles showing the GuestOrRegistered screen
 	/// </summary>
-	[LoadSynchronously]
-	public class GuestOrRegisteredPresenter : UiToolkitPresenterData<GuestOrRegisteredPresenter.StateData>
+	public class GuestOrRegisteredPresenter : UIPresenterData2<GuestOrRegisteredPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action GoToLoginClicked;
 			public Action PlayAsGuestClicked;
@@ -28,11 +28,11 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			root.Q<Button>("RegisterLoginButton").clicked += OnLoginRegisterClicked;
-			root.Q<Button>("GuestButton").clicked += OnPlayAsGuestButtonClicked;
-			root.SetupClicks(_services);
+			Root.Q<Button>("RegisterLoginButton").clicked += OnLoginRegisterClicked;
+			Root.Q<Button>("GuestButton").clicked += OnPlayAsGuestButtonClicked;
+			Root.SetupClicks(_services);
 		}
 		
 		private void OnLoginRegisterClicked()

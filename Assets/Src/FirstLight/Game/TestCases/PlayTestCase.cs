@@ -26,7 +26,6 @@ namespace FirstLight.Game.TestCases
 		protected FeatureFlagsHelper FeatureFlags => _installer.Resolve<FeatureFlagsHelper>();
 		protected UIHelper UIGeneric => _installer.Resolve<UIHelper>();
 		protected BattlePassUIHelper UIBattlepass => _installer.Resolve<BattlePassUIHelper>();
-		protected EquipmentUIHelper UIEquipment => _installer.Resolve<EquipmentUIHelper>();
 		protected GameUIHelper UIGame => _installer.Resolve<GameUIHelper>();
 		protected HomeUIHelper UIHome => _installer.Resolve<HomeUIHelper>();
 		protected GamemodeUIHelper UIGamemode => _installer.Resolve<GamemodeUIHelper>();

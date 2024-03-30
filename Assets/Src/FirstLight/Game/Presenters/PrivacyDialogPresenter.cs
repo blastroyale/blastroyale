@@ -6,16 +6,19 @@ using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Modules.UIService.Runtime;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine.Networking;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
-	public class PrivacyDialogPresenter : UiToolkitPresenterData<PrivacyDialogPresenter.StateData>
+	[UILayer(UIService2.UILayer.Popup)]
+	public class PrivacyDialogPresenter : UIPresenterData2<PrivacyDialogPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action OnAccept;
 		}
@@ -28,15 +31,13 @@ namespace FirstLight.Game.Presenters
 		private const string DEFAULT_TERMS = "https://static.blastroyale.com/tos/TermsOfService.rtf";
 		private const string DEFAULT_POLICY = "https://static.blastroyale.com/tos/PrivacyPolicy.rtf";
 		
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
 			_services = MainInstaller.ResolveServices();
-			_terms = root.Q<Button>("TermsOfServiceButton");
-			_privacy = root.Q<Button>("PrivacyButton");
+			_terms = Root.Q<Button>("TermsOfServiceButton");
+			_privacy = Root.Q<Button>("PrivacyButton");
 			
-			_services.GameUiService.LoadUiAsync<GenericScrollingTextDialogPresenter>();
-			
-			_confirm = root.Q<Button>("ConfirmButton").Required();
+			_confirm = Root.Q<Button>("ConfirmButton").Required();
 			_confirm.clicked += Data.OnAccept;
 			var data = _services.DataService.GetData<AppData>().TitleData;
 
@@ -52,20 +53,13 @@ namespace FirstLight.Game.Presenters
 				DownloadAndShow("Privacy Policy", termsUrl, HardCodedTexts.PRIVACY_POLICY).Forget();
 			};
 		}
-
-		protected override async UniTask OnClosed()
-		{
-			await base.OnClosed();
-			await _services.GameUiService.CloseUi<GenericScrollingTextDialogPresenter>(true);
-			_services.GameUiService.UnloadUi<GenericScrollingTextDialogPresenter>();
-		}
 		
 		private async UniTaskVoid DownloadAndShow(string title, string url, string defaultValue)
 		{
 			var data = new GenericScrollingTextDialogPresenter.StateData()
 			{
 				Title = title,
-				OnConfirm = () => _services.GameUiService.CloseUi<GenericScrollingTextDialogPresenter>()
+				OnConfirm = () => _services.UIService.OpenScreen<PrivacyDialogPresenter>().Forget()
 			};
 			if (url == null)
 			{
@@ -87,7 +81,7 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 		
-			await _services.GameUiService.OpenUiAsync<GenericScrollingTextDialogPresenter, GenericScrollingTextDialogPresenter.StateData>(data);
+			await _services.UIService.OpenScreen<GenericScrollingTextDialogPresenter>(data);
 		}
 
 			

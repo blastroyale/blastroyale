@@ -10,7 +10,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
@@ -182,7 +181,7 @@ namespace FirstLight.Game.Presenters.Store
 		private void OnCoresOpened(OpenedCoreMessage msg)
 		{
 			FLog.Verbose("Store Screen", $"Viewing Opening Core {msg.Core}");
-			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(
+			_gameServices.UIService.OpenScreen<RewardsScreenPresenter>(
 				new RewardsScreenPresenter.StateData()
 				{
 					ParentItem = msg.Core,
@@ -192,7 +191,7 @@ namespace FirstLight.Game.Presenters.Store
 					{
 						_gameServices.UIService.OpenScreen<StoreScreenPresenter>(Data).Forget();
 					}
-				});
+				}).Forget();
 		}
 
 		private void OnItemRewarded(ItemRewardedMessage msg)
@@ -200,7 +199,7 @@ namespace FirstLight.Game.Presenters.Store
 			// Cores are handled above separately
 			FLog.Verbose("Store Screen", $"Viewing Reward {msg.Item}");
 			if (!msg.Item.Id.IsInGroup(GameIdGroup.Currency) && !msg.Item.Id.IsInGroup(GameIdGroup.Collection)) return;
-			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(
+			_gameServices.UIService.OpenScreen<RewardsScreenPresenter>(
 				new RewardsScreenPresenter.StateData()
 				{
 					Items = new List<ItemData> {msg.Item},
@@ -209,7 +208,7 @@ namespace FirstLight.Game.Presenters.Store
 					{
 						_gameServices.UIService.OpenScreen<StoreScreenPresenter>(Data).Forget();
 					}
-				});
+				}).Forget();
 		}
 
 		private void BuyItem(GameProduct product)

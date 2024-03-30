@@ -38,12 +38,6 @@ namespace FirstLight.Game.TestCases.Helpers
 			yield return _uiHelper.WaitForPresenter2<SpectateScreenPresenter>();
 		}
 
-
-		public IEnumerator WaitForWinnersScreen()
-		{
-			yield return _uiHelper.WaitForPresenter<WinnersScreenPresenter>();
-		}
-
 		public IEnumerator WaitForLeaderboardAndRewards()
 		{
 			yield return _uiHelper.WaitForPresenter2<LeaderboardAndRewardsScreenPresenter>();

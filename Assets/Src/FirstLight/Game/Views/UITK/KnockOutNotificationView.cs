@@ -1,12 +1,10 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
-using FirstLight.UiService;
-using I2.Loc;
+using FirstLight.UIService;
 using Quantum;
 using Quantum.Systems;
 using Sirenix.OdinInspector;
@@ -20,7 +18,7 @@ namespace FirstLight.Game.Views.UITK
 	/// Handles the knockout notifications, the and the label
 	/// </summary>
 	[Serializable]
-	public class KnockOutNotificationView : UIView
+	public class KnockOutNotificationView : UIView2
 	{
 		[Required, SerializeField] private PlayableDirector _friendKnockedOutPlayable;
 		[Required, SerializeField] private PlayableDirector _knockedOutPlayable;

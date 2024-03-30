@@ -4,7 +4,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Photon.Deterministic;
 using Quantum;
 using Quantum.Systems;
@@ -15,7 +15,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles displaying the squad members on the screen, if there are any.
 	/// </summary>
-	public class SquadMembersView : UIView
+	public class SquadMembersView : UIView2
 	{
 		private const int MAX_SQUAD_MEMBERS = 3;
 

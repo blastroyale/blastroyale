@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using UnityEngine.UIElements;
 
@@ -11,7 +11,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Shows players that have been killed and by whom.
 	/// </summary>
-	public class KillFeedView : UIView
+	public class KillFeedView : UIView2
 	{
 		private const long SHOWN_DURATION = 5000;
 		private const long RELEASE_DELAY = 1000;

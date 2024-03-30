@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -216,8 +217,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void GetTutorialUiRefs()
 		{
-			_dialogUi = _services.GameUiService.GetUi<CharacterDialogScreenPresenter>();
-			_guideHandUi = _services.GameUiService.GetUi<GuideHandPresenter>();
+			_dialogUi = _services.UIService.GetScreen<CharacterDialogScreenPresenter>();
+			_guideHandUi = _services.UIService.GetScreen<GuideHandPresenter>();
 		}
 
 		private void GetGroundIndicatorRefs()
@@ -339,17 +340,17 @@ namespace FirstLight.Game.StateMachines
 
 		private void SetFingerPosition(VisualElement element, float angle = 45)
 		{
-			var root = _hud.Document.rootVisualElement;
+			var root = _hud.Root;
 			var elementPosition = element.GetPositionOnScreen(root);
 			_guideHandUi.SetScreenPosition(elementPosition, angle);
 		}
 
-		private async Task OnEnterMoveJoystickAsync()
+		private async UniTask OnEnterMoveJoystickAsync()
 		{
 			_matchServices.PlayerInputService.OnQuantumInputSent += OnInput;
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral);
-			_hud = _services.GameUiService.GetUi<HUDScreenPresenter>();
-			await _hud.EnsureOpen();
+			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
+			_hud = _services.UIService.GetScreen<HUDScreenPresenter>();
 			SetFingerPosition(_hud.MovementJoystick);
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{

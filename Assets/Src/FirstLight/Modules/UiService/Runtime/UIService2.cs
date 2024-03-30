@@ -50,8 +50,11 @@ namespace FirstLight.UIService
 		{
 			var screenType = typeof(T);
 			FLog.Info($"Opening screen {screenType.Name}");
-			if (_openedScreensType.ContainsKey(screenType))
+			if (_openedScreensType.TryGetValue(screenType, out var existingScreen))
 			{
+				// FLog.Error($"Screen {typeof(T).Name} is already opened!");
+				// return (T) existingScreen;
+
 				throw new InvalidOperationException($"Screen {screenType.Name} is already opened");
 			}
 
@@ -79,17 +82,32 @@ namespace FirstLight.UIService
 			return (T) screen;
 		}
 
-		public async UniTask CloseScreen<T>() where T : UIPresenter2
+		public bool IsScreenOpen<T>() where T : UIPresenter2
+		{
+			return _openedScreensType.ContainsKey(typeof(T));
+		}
+
+		public T GetScreen<T>() where T : UIPresenter2
+		{
+			var screenType = typeof(T);
+			if (!_openedScreensType.TryGetValue(screenType, out var screen))
+			{
+				throw new InvalidOperationException($"Screen {screenType.Name} is not opened!");
+			}
+
+			return (T) screen;
+		}
+
+		public UniTask CloseScreen<T>() where T : UIPresenter2
 		{
 			if (_openedScreensType.TryGetValue(typeof(T), out var screen))
 			{
 				FLog.Info($"Closing screen {typeof(T).Name}");
-				await CloseScreen(screen);
+				return CloseScreen(screen);
 			}
-			else
-			{
-				throw new InvalidOperationException($"Screen {typeof(T).Name} is not opened!");
-			}
+
+			// FLog.Error($"Screen {typeof(T).Name} is not opened!");
+			throw new InvalidOperationException($"Screen {typeof(T).Name} is not opened!");
 		}
 
 		public async UniTask CloseScreen(UILayer layer)
@@ -111,12 +129,15 @@ namespace FirstLight.UIService
 
 		private async UniTask CloseScreen(UIPresenter2 presenter)
 		{
+			FLog.Info($"Closing screen Start: {presenter.GetType().Name}");
 			await presenter.OnScreenClosedInternal();
+			FLog.Info($"Closing screen End1: {presenter.GetType().Name}");
 
 			_openedScreensType.Remove(presenter.GetType());
 			_openedScreensLayer.Remove(presenter.Layer);
 
 			Addressables.ReleaseInstance(presenter.gameObject);
+			FLog.Info($"Closing screen End2: {presenter.GetType().Name}");
 		}
 
 		private static string GetAddress<T>() where T : UIPresenter2

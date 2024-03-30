@@ -36,11 +36,12 @@ namespace FirstLight.Game.TestCases.Helpers
 			yield return new WaitForSeconds(waitAfterCreation);
 		}
 
-		public UiPresenter GetFirstOpenScreen(Type[] types)
+		// Wtf is this
+		public UIPresenter2 GetFirstOpenScreen(Type[] types)
 		{
 			foreach (var type in types)
 			{
-				var screen = Object.FindObjectOfType(type) as UiPresenter;
+				var screen = Object.FindObjectOfType(type) as UIPresenter2;
 				if (screen != null && screen.gameObject.activeSelf)
 				{
 					return screen;
@@ -68,6 +69,10 @@ namespace FirstLight.Game.TestCases.Helpers
 			return Object.FindObjectOfType<T>();
 		}
 
+		public T GetPresenter2<T>() where T : UIPresenter2
+		{
+			return Object.FindObjectOfType<T>();
+		}
 
 		public IEnumerator WaitForGenericDialog(float timeout = 30f, string title = "")
 		{

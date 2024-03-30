@@ -1,7 +1,7 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Photon.Deterministic;
 using Quantum;
@@ -11,7 +11,7 @@ using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class MatchTimerView : UIView
+	public class MatchTimerView : UIView2
 	{
 		private Label _timerLabel;
 		private VisualElement _pingElement;

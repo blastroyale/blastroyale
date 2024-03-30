@@ -5,7 +5,7 @@ using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -17,7 +17,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles displaying the player bars on the screen.
 	/// </summary>
-	public class StatusBarsView : UIView
+	public class StatusBarsView : UIView2
 	{
 		private const bool SHOW_ENEMY_BARS = false;
 

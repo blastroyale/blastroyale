@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using Quantum.Systems;
 using UnityEngine;
@@ -12,7 +12,7 @@ using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class WeaponDisplayView : UIView
+	public class WeaponDisplayView : UIView2
 	{
 		private const string USS_SPRITE_RARITY = "sprite-equipmentcard__card-rarity-{0}";
 		private const string USS_SPRITE_FACTION = "sprite-equipmentcard__card-faction-{0}";

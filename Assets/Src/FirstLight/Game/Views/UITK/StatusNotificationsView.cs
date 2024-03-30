@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using Quantum.Systems;
 using UnityEngine;
@@ -13,7 +13,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles all status notifications on the match HUD screen.
 	/// </summary>
-	public class StatusNotificationsView : UIView
+	public class StatusNotificationsView : UIView2
 	{
 		private const float LOW_HP_BLINK_SPEED = 1f;
 

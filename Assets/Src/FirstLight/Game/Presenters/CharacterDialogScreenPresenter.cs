@@ -4,6 +4,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -14,7 +15,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the character dialog system
 	/// </summary>
-	public class CharacterDialogScreenPresenter : UiToolkitPresenter
+	public class CharacterDialogScreenPresenter : UIPresenter2
 	{
 		private const string CHARACTER_LEFT = "back_avatar--left";
 		private const string CHARACTER_RIGHT = "back_avatar--right";
@@ -55,17 +56,17 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			_backAvatarMale = root.Q<VisualElement>("BackAvatarMale").Required();
-			_characterMale = root.Q<VisualElement>("MaleCharacter").Required();
-			_bubbleMale = root.Q<VisualElement>("MaleBubble").Required();
-			_localizedLabelMale = root.Q<Label>("MaleLabel").Required();
+			_backAvatarMale = Root.Q<VisualElement>("BackAvatarMale").Required();
+			_characterMale = Root.Q<VisualElement>("MaleCharacter").Required();
+			_bubbleMale = Root.Q<VisualElement>("MaleBubble").Required();
+			_localizedLabelMale = Root.Q<Label>("MaleLabel").Required();
 
-			_backAvatarFemale = root.Q<VisualElement>("BackAvatarFemale").Required();
-			_characterFemale = root.Q<VisualElement>("FemaleCharacter").Required();
-			_bubbleFemale = root.Q<VisualElement>("FemaleBubble").Required();
-			_localizedLabelFemale = root.Q<Label>("FemaleLabel").Required();
+			_backAvatarFemale = Root.Q<VisualElement>("BackAvatarFemale").Required();
+			_characterFemale = Root.Q<VisualElement>("FemaleCharacter").Required();
+			_bubbleFemale = Root.Q<VisualElement>("FemaleBubble").Required();
+			_localizedLabelFemale = Root.Q<Label>("FemaleLabel").Required();
 
 			//setup ref dictionary
 			_characters = new Dictionary<CharacterType, VisualElement[]>
@@ -74,7 +75,7 @@ namespace FirstLight.Game.Presenters
 				{CharacterType.Male, new[] {_characterMale, _bubbleMale, _localizedLabelMale, _backAvatarMale}}
 			};
 			
-			root.SetupClicks(_services);
+			Root.SetupClicks(_services);
 		}
 
 		/// <summary>

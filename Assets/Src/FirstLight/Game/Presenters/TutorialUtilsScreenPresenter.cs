@@ -7,6 +7,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Services;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Vector3 = UnityEngine.Vector3;
@@ -16,7 +17,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Tutorial utils
 	/// </summary>
-	public class TutorialUtilsScreenPresenter : UiToolkitPresenter
+	public class TutorialUtilsScreenPresenter : UIPresenter2
 	{
 		private const string BLOCKER_ELEMENT_STYLE = "blocker-element-blocker";
 		private const string HIGHLIGHT_ELEMENT_STYLE = "highlight-element";
@@ -42,10 +43,10 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
 			Root.AddToClassList(PARENT_ELEMENT_STYLE);
-			root.SetupClicks(_services);
+			Root.SetupClicks(_services);
 		}
 
 		/// <summary>
@@ -76,21 +77,21 @@ namespace FirstLight.Game.Presenters
 		/// Creates blocker elements around ui element object on the <typeparamref name="T"/> presenter.
 		/// </summary>
 		public async UniTask BlockAround<T>(string className = null, string elementName = null)
-			where T : UiPresenter, IUIDocumentPresenter
+			where T : UIPresenter2
 		{
-			await UniTask.WaitUntil(() => _uiService.HasUiPresenter<T>());
-			var doc = _uiService.GetUi<T>().Document;
-			var element = doc.rootVisualElement.Q(elementName, className);
+			await UniTask.WaitUntil(() => _services.UIService.IsScreenOpen<T>());
+			var root = _services.UIService.GetScreen<T>().Root;
+			var element = root.Q(elementName, className);
 			
 			CreateBlockers(element);
 		}
 
 		public async UniTask EnsurePresenterElement<T>(string className = null, string elementName = null)
-			where T : UiPresenter, IUIDocumentPresenter
+			where T : UIPresenter2
 		{
-			await UniTask.WaitUntil(() => _uiService.HasUiPresenter<T>());
-			var doc = _uiService.GetUi<PreGameLoadingScreenPresenter>().Document;
-			var element = doc.rootVisualElement.Q(elementName, className);
+			await UniTask.WaitUntil(() => _services.UIService.IsScreenOpen<T>());
+			var root = _services.UIService.GetScreen<T>().Root;
+			var element = root.Q(elementName, className);
 
 			while (element.worldBound is {width: 0, height: 0})
 			{
@@ -119,10 +120,10 @@ namespace FirstLight.Game.Presenters
 		/// <typeparam name="T"></typeparam>
 		/// <exception cref="Exception"></exception>
 		public void Highlight<T>(string className = null, string elementName = null, float sizeMultiplier = 1)
-			where T : UiPresenter, IUIDocumentPresenter
+			where T : UIPresenter2
 		{
-			var doc = _uiService.GetUi<T>().Document;
-			var element = doc.rootVisualElement.Q(elementName, className);
+			var root = _services.UIService.GetScreen<T>().Root;
+			var element = root.Q(elementName, className);
 			
 			CreateHighlight(element, sizeMultiplier);
 		}

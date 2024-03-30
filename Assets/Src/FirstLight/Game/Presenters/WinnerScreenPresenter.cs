@@ -1,5 +1,5 @@
 using System;
-using Cinemachine;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Messages;
@@ -7,9 +7,8 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Timeline;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -20,9 +19,9 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This presenter shows the match winner.
 	/// </summary>
-	public class WinnerScreenPresenter : UiToolkitPresenterData<WinnerScreenPresenter.StateData>, INotificationReceiver
+	public class WinnerScreenPresenter : UIPresenterData2<WinnerScreenPresenter.StateData>, INotificationReceiver
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action ContinueClicked;
 		}
@@ -34,7 +33,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _winnerBanner;
 		private Label _nameLabel;
 		private Button _nextButton;
-		
+
 		private Transform _entityViewTransform;
 
 		private bool _isSpectator;
@@ -45,23 +44,22 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			_nameLabel = root.Q<Label>("NameLabel").Required();
-			_winnerBanner = root.Q("WinnerBanner");
+			_nameLabel = Root.Q<Label>("NameLabel").Required();
+			_winnerBanner = Root.Q("WinnerBanner");
 
-			root.Q<LocalizedButton>("NextButton").clicked += OnNextClicked;
+			Root.Q<LocalizedButton>("NextButton").clicked += OnNextClicked;
 		}
 
-		protected override void OnOpened()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			base.OnOpened();
-
 			if (!QuantumRunner.Default.IsDefinedAndRunning())
 			{
 				FLog.Error("Screen was about to read simulation data while it's not in memory.");
-				return;
+				return base.OnScreenOpen(reload);
 			}
+
 			var game = QuantumRunner.Default.Game;
 			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
 			var playerWinner = localWinner ? playerData[game.GetLocalPlayerRef()] : playerData[leader];
@@ -70,22 +68,25 @@ namespace FirstLight.Game.Presenters
 			{
 				_playerWinnerEntity = playerWinner.Data.Entity;
 				_nameLabel.text = playerWinner.GetPlayerName();
-				
-				var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, (int)playerWinner.LeaderboardRank);
+
+				var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, (int) playerWinner.LeaderboardRank);
 				_nameLabel.style.color = nameColor;
 			}
 			else
 			{
 				_nameLabel.text = "No one"; // TODO: Localize!!!!
 			}
+
 			_winnerBanner.SetDisplay(_services.TutorialService.CurrentRunningTutorial.Value != TutorialSection.FIRST_GUIDE_MATCH);
 
 			if (_matchService.EntityViewUpdaterService.TryGetView(_playerWinnerEntity, out var entityView))
 			{
 				_entityViewTransform = entityView.transform;
-				
+
 				_services.MessageBrokerService.Publish(new WinnerSetCameraMessage {WinnerTrasform = _entityViewTransform});
 			}
+
+			return base.OnScreenOpen(reload);
 		}
 
 		public void OnNotify(Playable origin, INotification notification, object context)
@@ -97,7 +98,7 @@ namespace FirstLight.Game.Presenters
 				_services.VfxService.Spawn(playVfxMarker.Vfx).transform.position = _entityViewTransform.position;
 			}
 		}
-		
+
 		private void OnNextClicked()
 		{
 			Data.ContinueClicked.Invoke();

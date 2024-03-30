@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class PlayerCountsView : UIView
+	public class PlayerCountsView : UIView2
 	{
 		private Label _aliveCountLabel;
 		private VisualElement _aliveCountPing;

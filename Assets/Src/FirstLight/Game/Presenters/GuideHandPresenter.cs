@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,7 +12,7 @@ using UnityEngine.UIElements;
 /// TEMPORARY uGUI-based guide hand. Displays a guide hand at a certain position.
 /// To be removed and replaced with a generic UITK system when whole UI is refactored to UITK 
 /// </summary>
-public class GuideHandPresenter : UiPresenter
+public class GuideHandPresenter : UIPresenter2
 {
 	[SerializeField] private GameObject _animRoot;
 	[SerializeField] private Animator _animator;
@@ -31,12 +33,16 @@ public class GuideHandPresenter : UiPresenter
 			_animRoot.transform.rotation = Quaternion.Euler(0, 0, _rotationDegreeDegreesOffset - _artRotation);
 		}
 	}
-	
-	protected override void OnOpened()
+
+	protected override void QueryElements()
 	{
-		base.OnOpened();
 		
+	}
+
+	protected override UniTask OnScreenOpen(bool reload)
+	{
 		Hide();
+		return base.OnScreenOpen(reload);
 	}
 	
 	public void Show()

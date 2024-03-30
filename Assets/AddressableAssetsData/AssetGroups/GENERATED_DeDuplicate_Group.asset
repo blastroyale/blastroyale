@@ -2677,11 +2677,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c91f1aee7012e4686ae8c14fc85514a6
-    m_Address: Assets/Art/UI/Sprites/Shared/icon-lowconnection.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a586a1ae1408749e9b1267b30f1bc628
     m_Address: Assets/Art/UI/Sprites/Shared/avatar-default.png
     m_ReadOnly: 0

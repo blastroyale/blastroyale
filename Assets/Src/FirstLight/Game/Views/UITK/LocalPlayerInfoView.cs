@@ -5,16 +5,15 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Photon.Deterministic;
 using Quantum;
 using Quantum.Systems;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class LocalPlayerInfoView : UIView
+	public class LocalPlayerInfoView : UIView2
 	{
 		private PlayerHealthShieldElement _healthShield;
 		private VisualElement _teamColor;

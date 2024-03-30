@@ -2,7 +2,7 @@ using System;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using Quantum.Systems;
 using UnityEngine;
@@ -13,7 +13,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles displaying the special buttons and their state.
 	/// </summary>
-	public class SpecialButtonsView : UIView
+	public class SpecialButtonsView : UIView2
 	{
 		internal SpecialButtonElement _special0Button;
 		internal SpecialButtonElement _special1Button;

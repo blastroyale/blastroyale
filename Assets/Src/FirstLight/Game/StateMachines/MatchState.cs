@@ -87,11 +87,12 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var loading = stateFactory.Transition("Loading Assets");
+			var loading = stateFactory.TaskWait("Loading Assets");
 			var openLoadingScreen = stateFactory.TaskWait("Open Pre Game Screen");
 			var openCustomGameScreen = stateFactory.TaskWait("Open CustomGame Screen");
 			var roomCheck = stateFactory.Choice("Room Check");
 			var gameLoading = stateFactory.State("Matchmaking");
+			var openHud = stateFactory.TaskWait("Open HUD");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
 			var disconnected = stateFactory.State("Disconnected");
 			var postDisconnectCheck = stateFactory.Choice("Post Reload Check");
@@ -121,15 +122,12 @@ namespace FirstLight.Game.StateMachines
 
 			openCustomGameScreen.WaitingFor(OpenCustomLobbyScreen).Target(customGameLobby);
 
-			customGameLobby.OnEnter(CloseSwipeTransition);
 			customGameLobby.Event(NetworkState.LeftRoomEvent).Target(randomLeftRoom);
 			customGameLobby.Event(CustomGameLoadStart).Target(openLoadingScreen);
 
 			openLoadingScreen.WaitingFor(OpenPreGameScreen).Target(loading);
-			openLoadingScreen.OnExit(CloseSwipeTransition);
 
-			loading.OnEnter(StartMatchLoading);
-			loading.Transition().Target(roomCheck);
+			loading.WaitingFor(LoadMatchAssets).Target(roomCheck);
 
 			roomCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(transitionToMenu);
 			roomCheck.Transition().Condition(IsGameStarted).Target(gameSimulation);
@@ -142,7 +140,9 @@ namespace FirstLight.Game.StateMachines
 			randomLeftRoom.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(disconnected);
 			randomLeftRoom.Transition().Target(transitionToMenu);
 			checkInactivePlayer.Transition().Condition(() => !_services.RoomService.InRoom).Target(transitionToMenu);
-			checkInactivePlayer.Transition().Target(gameSimulation);
+			checkInactivePlayer.Transition().Target(openHud);
+
+			openHud.WaitingFor(OpenHUD).Target(gameSimulation);
 			// This state makes a fork and both default OnTransition and gameSimulation.Event(MatchErrorEvent).Target(transitionToMenu); executes
 			// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/2737
 			gameSimulation.Nest(_gameSimulationState.Setup).OnTransition(() => HandleSimulationEnd(false)).Target(gameEndedChoice);
@@ -152,7 +152,6 @@ namespace FirstLight.Game.StateMachines
 			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnCriticalDisconnectDuringSimulation)
 				.Target(disconnected);
 
-			gameEndedChoice.OnEnter(CloseMatchHud);
 			gameEndedChoice.Transition().Condition(IsSimulationBroken).Target(final);
 			gameEndedChoice.Transition().Condition(HasLeftBeforeMatchEnded).Target(transitionToGameResults);
 			gameEndedChoice.Transition().Target(gameEnded);
@@ -196,6 +195,11 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnsubscribeEvents);
 		}
 
+		private async UniTask OpenHUD()
+		{
+			await _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
+			await _services.UIService.OpenScreen<HUDScreenPresenter>();
+		}
 
 		private bool IsInstantLoad()
 		{
@@ -228,11 +232,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 			QuantumEvent.UnsubscribeListener(this);
-		}
-
-		private void CloseMatchHud()
-		{
-			_services.GameUiService.CloseUi<HUDScreenPresenter>();
 		}
 
 		private bool HasLeftBeforeMatchEnded()
@@ -297,7 +296,7 @@ namespace FirstLight.Game.StateMachines
 				OnTimeToLeave = () => _statechartTrigger(MatchEndedExitEvent),
 			};
 
-			_services.GameUiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
+			_services.UIService.OpenScreen<MatchEndScreenPresenter>(data).Forget();
 			_matchServices.FrameSnapshotService.ClearFrameSnapshot();
 		}
 
@@ -308,7 +307,7 @@ namespace FirstLight.Game.StateMachines
 				ContinueClicked = () => _statechartTrigger(MatchCompleteExitEvent)
 			};
 
-			_services.GameUiService.OpenScreen<WinnerScreenPresenter, WinnerScreenPresenter.StateData>(data);
+			_services.UIService.OpenScreen<WinnerScreenPresenter>(data).Forget();
 			_matchServices.FrameSnapshotService.ClearFrameSnapshot();
 		}
 
@@ -321,14 +320,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnDisconnectDuringMatchmaking()
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Matchmaking;
-		}
-
-		private void OnDisconnectDuringFinalPreload()
-		{
-			FLog.Warn("Disconnected during final preload");
-			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.FinalPreload;
-			_services.GameUiService.CloseUi<CustomLobbyScreenPresenter>();
-			_services.GameUiService.CloseUi<PreGameLoadingScreenPresenter>();
 		}
 
 		private void OnCriticalDisconnectDuringSimulation()
@@ -354,14 +345,15 @@ namespace FirstLight.Game.StateMachines
 		}
 
 
-		private void StartMatchLoading()
+		private async UniTask LoadMatchAssets()
 		{
+			await _services.UIService.CloseScreen<SwipeTransitionScreenPresenter>();
 			var entityService = new GameObject(nameof(EntityViewUpdaterService))
 				.AddComponent<EntityViewUpdaterService>();
 			_matchServices = new MatchServices(entityService, _services, _dataProvider, _dataService);
 			MainInstaller.Bind(_matchServices);
-			_matchServices.MatchAssetService.StartMandatoryAssetLoad();
-			_matchServices.MatchAssetService.StartOptionalAssetLoad();
+			await _matchServices.MatchAssetService.LoadMandatoryAssets();
+			_matchServices.MatchAssetService.LoadOptionalAssets().Forget(); // Don't wait for optional assets
 		}
 
 		private async UniTask UnloadAllMatchAssets()
@@ -423,7 +415,7 @@ namespace FirstLight.Game.StateMachines
 			await UnloadAllMatchAssets();
 
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MainMenuAssetConfigs>());
-			
+
 			FLog.Verbose("[MatchState] Finished Unloading Match State");
 		}
 
@@ -488,15 +480,11 @@ namespace FirstLight.Game.StateMachines
 			_services.GameUiService.OpenScreen<LeaderboardAndRewardsScreenPresenter, LeaderboardAndRewardsScreenPresenter.StateData>(data);
 		}
 
-		private async UniTask OpenSwipeTransition()
-		{
-			_services.GameUiService.CloseCurrentScreen();
-			await _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
-		}
+		private UniTask OpenSwipeTransition() => _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
+		private void CloseSwipeTransition() => _services.UIService.CloseScreen<SwipeTransitionScreenPresenter>().Forget();
 
 		private async UniTask OpenPreGameScreen()
 		{
-			await OpenSwipeTransition();
 			FLog.Verbose("Entering Match State");
 			_services.AnalyticsService.MatchCalls.MatchInitiate();
 
@@ -508,7 +496,7 @@ namespace FirstLight.Game.StateMachines
 				LeaveRoomClicked = () => _statechartTrigger(LeaveRoomClicked)
 			};
 
-			await _services.GameUiService.OpenScreenAsync<PreGameLoadingScreenPresenter, PreGameLoadingScreenPresenter.StateData>(data);
+			await _services.UIService.OpenScreen<PreGameLoadingScreenPresenter>(data);
 		}
 
 		private async UniTask OpenCustomLobbyScreen()
@@ -531,8 +519,6 @@ namespace FirstLight.Game.StateMachines
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
 				ScriptLocalization.MainMenu.MatchmakingKickedNotification.ToUpper(), false, confirmButton);
 		}
-
-		private void CloseSwipeTransition() => _ = _services.UIService.CloseScreen<SwipeTransitionScreenPresenter>();
 
 		#endregion
 	}

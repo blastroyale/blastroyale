@@ -6,18 +6,19 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
+using FirstLight.Modules.UIService.Runtime;
 using FirstLight.UiService;
-using I2.Loc;
+using FirstLight.UIService;
 using Quantum;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
-
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// Season change banner
 	/// </summary>
+	[UILayer(UIService2.UILayer.Popup)]
 	public class BattlePassSeasonBannerPresenter : UiToolkitPresenter
 	{
 		private Label _timeLeft;

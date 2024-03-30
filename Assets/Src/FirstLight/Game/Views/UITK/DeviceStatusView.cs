@@ -1,6 +1,6 @@
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,7 +9,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Displays device status information such as battery, wifi, and latency.
 	/// </summary>
-	public class DeviceStatusView : UIView
+	public class DeviceStatusView : UIView2
 	{
 		private const long UPDATE_INTERVAL = 1000;
 

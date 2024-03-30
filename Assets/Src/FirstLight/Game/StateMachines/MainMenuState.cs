@@ -243,8 +243,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void HideMatchmaking()
 		{
-			// TODO mihak:
-			// _services.GameUiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(false);
+			// TODO mihak: Move matchmaking into it's own screen
+			_services.UIService.GetScreen<HomeScreenPresenter>().ShowMatchmaking(false);
 		}
 
 		private void OnBackClicked()
@@ -254,14 +254,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void ShowMatchmaking()
 		{
-			// TODO mihak:
-			// if (!_services.GameUiService.HasUiPresenter<HomeScreenPresenter>())
-			// {
-			// 	Log.Warn("Trying to open matchmaking screen but home screen already closed");
-			// 	return;
-			// }
-			//
-			// _services.GameUiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(true);
+			// TODO mihak: Move matchmaking into it's own screen
+			 _services.UIService.GetScreen<HomeScreenPresenter>().ShowMatchmaking(true);
 		}
 
 		private void SubscribeEvents()
@@ -698,7 +692,6 @@ namespace FirstLight.Game.StateMachines
 
 			var configProvider = _services.ConfigsProvider;
 
-			_services.GameUiService.UnloadUiSet((int) UiSetId.MainMenuUi);
 			_services.AudioFxService.DetachAudioListener();
 
 			_services.VfxService.DespawnAll();

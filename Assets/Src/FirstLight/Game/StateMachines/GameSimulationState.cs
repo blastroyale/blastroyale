@@ -28,6 +28,7 @@ using Photon.Deterministic;
 using Quantum;
 using Quantum.Commands;
 using UnityEngine;
+using Assert = UnityEngine.Assertions.Assert;
 
 
 namespace FirstLight.Game.StateMachines
@@ -83,8 +84,7 @@ namespace FirstLight.Game.StateMachines
 			startSimulation.Event(SimulationDestroyedEvent).Target(simulationInitializationError);
 			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
 			startSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
-			startSimulation.OnExit(CloseSwipeTransition);
-
+			startSimulation.OnExit(() => CloseSwipeTransition().Forget());
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
@@ -99,7 +99,6 @@ namespace FirstLight.Game.StateMachines
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(disconnectedCritical);
 
-			final.OnEnter(UnloadSimulationUi);
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -108,9 +107,10 @@ namespace FirstLight.Game.StateMachines
 		/// closing at matchmaking screen opening in matchState. This is to avoid visual glitches with MM screen
 		/// still persisting on screen for a second before game simulation
 		/// </summary>
-		private void CloseSwipeTransition()
+		private async UniTaskVoid CloseSwipeTransition()
 		{
-			_services.UIService.CloseScreen<SwipeTransitionScreenPresenter>().Forget();
+			await UniTask.NextFrame();
+			await _services.UIService.CloseScreen<SwipeTransitionScreenPresenter>();
 		}
 
 		private void SubscribeEvents()
@@ -144,32 +144,6 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void UnloadSimulationUi()
-		{
-			if (_uiService.HasUiPresenter<LowConnectionPresenter>())
-			{
-				_uiService.UnloadUi<LowConnectionPresenter>();
-			}
-		}
-
-		private void OpenLowConnectionScreen()
-		{
-			_uiService.LoadUiAsync<LowConnectionPresenter>(true);
-		}
-
-		private void OpenDisconnectedMatchEndDialog()
-		{
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = _services.GenericDialogService.CloseDialog
-			};
-
-			StopSimulation();
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
-				ScriptLocalization.MainMenu.DisconnectedMatchEndInfo.ToUpper(), false, confirmButton);
-		}
-
 		private void OnGameDestroyed(CallbackGameDestroyed cb)
 		{
 			FLog.Verbose("Game Destroyed");
@@ -189,11 +163,9 @@ namespace FirstLight.Game.StateMachines
 			return true;
 		}
 
-		private async UniTaskVoid CloseMatchmakingScreen()
+		private async UniTaskVoid WaitForCamera()
 		{
 			await WaitForCameraOnPlayer();
-			await _uiService.CloseUi<CustomLobbyScreenPresenter>();
-			await _uiService.CloseUi<PreGameLoadingScreenPresenter>();
 		}
 
 		private bool IsSpectator()
@@ -226,7 +198,7 @@ namespace FirstLight.Game.StateMachines
 			await UniTask.WaitUntil(QuantumRunner.Default.IsDefinedAndRunning);
 			PublishMatchStartedMessage(game, false);
 			await UniTask.Delay(1000); // tech debt, leftover shall eb removed
-			await UniTask.WaitUntil(_services.GameUiService.HasUiPresenter<HUDScreenPresenter>);
+			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
 
 			var f = game.Frames.Verified;
 			var entityRef = game.GetLocalPlayerEntityRef();
@@ -250,7 +222,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			_statechartTrigger(SimulationStartedEvent);
-			_ = CloseMatchmakingScreen();
+			WaitForCamera().Forget();
 		}
 
 		private void OnGameResync(CallbackGameResynced callback)
@@ -265,10 +237,10 @@ namespace FirstLight.Game.StateMachines
 		{
 			await UniTask.WaitUntil(QuantumRunner.Default.IsDefinedAndRunning);
 			PublishMatchStartedMessage(QuantumRunner.Default.Game, true);
-			await UniTask.WaitUntil(_services.GameUiService.HasUiPresenter<HUDScreenPresenter>);
+			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
 
 			_statechartTrigger(SimulationStartedEvent);
-			CloseMatchmakingScreen().Forget();
+			WaitForCamera().Forget();
 		}
 
 		private void OnQuitGameScreenClickedMessage(QuitGameClickedMessage message)
@@ -303,10 +275,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartSimulation()
 		{
-			if (QuantumRunner.Default != null)
-			{
-				FLog.Error("Starting simulation while another still active");
-			}
+			Assert.IsNull(QuantumRunner.Default, "Simulation already running");
 
 			FLog.Info($"Starting simulation from source {_services.NetworkService.JoinSource.ToString()}");
 

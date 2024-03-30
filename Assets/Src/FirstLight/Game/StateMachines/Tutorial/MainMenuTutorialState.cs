@@ -103,8 +103,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void GetTutorialScreenRefs()
 		{
-			_dialogUi = _services.GameUiService.GetUi<CharacterDialogScreenPresenter>();
-			_tutorialUtilsUi = _services.GameUiService.GetUi<TutorialUtilsScreenPresenter>();
+			_dialogUi = _services.UIService.GetScreen<CharacterDialogScreenPresenter>();
+			_tutorialUtilsUi = _services.UIService.GetScreen<TutorialUtilsScreenPresenter>();
 		}
 
 		private void CloseTutorialUi()

@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using FirstLight.Modules.UIService.Runtime;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.UIService
 {
-	
+	[RequireComponent(typeof(UIDocument))]
 	public abstract class UIPresenter2 : MonoBehaviour
 	{
 		[SerializeField, Required] private UIDocument _document;
 
-		protected VisualElement Root { private set; get; }
+		public VisualElement Root { private set; get; }
 
 		internal UIService2.UILayer Layer { set; get; }
 		internal object Data { set; get; }
@@ -33,7 +35,10 @@ namespace FirstLight.UIService
 
 		private void OnValidate()
 		{
-			_document.sortingOrder = (int) Layer;
+			if (_document != null)
+			{
+				_document.sortingOrder = (int) (GetType().GetAttribute<UILayerAttribute>()?.Layer ?? UIService2.UILayer.Default);
+			}
 		}
 
 		/// <summary>
@@ -67,12 +72,24 @@ namespace FirstLight.UIService
 				Root.EnableInClassList(UIService2.CLASS_HIDDEN, false);
 			}
 
+			foreach (var view in _views)
+			{
+				// TODO mihak: Rename to OnScreenOpen
+				view.SubscribeToEvents();
+			}
+
 			await OnScreenOpen(reload);
 		}
 
 		internal async UniTask OnScreenClosedInternal()
 		{
 			Root.EnableInClassList(UIService2.CLASS_HIDDEN, true);
+
+			foreach (var view in _views)
+			{
+				// TODO mihak: Rename to OnScreenOpen
+				view.UnsubscribeFromEvents();
+			}
 
 			await OnScreenClosed();
 		}

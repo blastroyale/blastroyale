@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
@@ -50,7 +51,6 @@ namespace FirstLight.Game.StateMachines
 			spectateCheck.Transition().Condition(IsSpectator).Target(spectating);
 			spectateCheck.Transition().Target(resyncCheck);
 
-			resyncCheck.OnEnter(OpenMatchHud);
 			resyncCheck.Transition().Condition(IsNotOnline).Target(final);
 			resyncCheck.Transition().Condition(IsRejoining).Target(resyncChecks);
 			resyncCheck.Transition().Target(spawning);
@@ -69,15 +69,10 @@ namespace FirstLight.Game.StateMachines
 			deadCheck.Transition().Condition(IsMatchEnding).Target(final);
 			deadCheck.Transition().Target(dead);
 			
-			dead.OnEnter(CloseMatchHud);
 			dead.OnEnter(MatchEndAnalytics);
 			dead.OnEnter(OpenMatchEndScreen);
 			dead.Event(_localPlayerNextEvent).Target(spectating);
 			dead.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
-			dead.OnExit(() =>
-			{
-				_services.GameUiService.CloseUi<MatchEndScreenPresenter>();
-			});
 			
 			spectating.OnEnter(OpenSpectateScreen);
 			spectating.Event(GameSimulationState.LocalPlayerExitEvent).Target(final);
@@ -146,16 +141,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
-
-		private void CloseMatchHud()
-		{
-			_services.GameUiService.CloseUi<HUDScreenPresenter>();
-		}
-		
-		private void OpenMatchHud()
-		{
-			_services.GameUiService.OpenUi<HUDScreenPresenter>();
-		}
 		
 		private void OpenMatchEndScreen()
 		{
@@ -167,7 +152,7 @@ namespace FirstLight.Game.StateMachines
 				},
 			};
 
-			_services.GameUiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
+			_services.UIService.OpenScreen<MatchEndScreenPresenter>(data).Forget();
 		}
 
 		private void OpenSpectateScreen()
@@ -181,7 +166,7 @@ namespace FirstLight.Game.StateMachines
 				}
 			};
 
-			_services.GameUiService.OpenScreen<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(data);
+			_services.UIService.OpenScreen<SpectateScreenPresenter>(data).Forget();
 
 			_services.MessageBrokerService.Publish(new SpectateStartedMessage());
 		}

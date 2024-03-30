@@ -140,10 +140,10 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
-		protected override UniTask OnScreenClosed()
+		protected override UniTask OnScreenClose()
 		{
 			MainInstaller.ResolveWeb3().OnStateChanged -= UpdateWeb3State;
-			return base.OnScreenClosed();
+			return base.OnScreenClose();
 		}
 
 		private void UpdateWeb3State(Web3State state)

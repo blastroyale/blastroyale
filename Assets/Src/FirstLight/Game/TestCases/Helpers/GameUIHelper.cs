@@ -46,7 +46,7 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator WaitForLeaderboardAndRewards()
 		{
-			yield return _uiHelper.WaitForPresenter<LeaderboardAndRewardsScreenPresenter>();
+			yield return _uiHelper.WaitForPresenter2<LeaderboardAndRewardsScreenPresenter>();
 		}
 
 		public IEnumerator WaitForGameToEndAndGoToMenu(float gameTimeout = 60 * 5)

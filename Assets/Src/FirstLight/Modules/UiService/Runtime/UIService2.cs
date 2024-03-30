@@ -6,6 +6,7 @@ using FirstLight.Modules.UIService.Runtime;
 using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Assertions;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
@@ -129,15 +130,14 @@ namespace FirstLight.UIService
 
 		private async UniTask CloseScreen(UIPresenter2 presenter)
 		{
-			FLog.Info($"Closing screen Start: {presenter.GetType().Name}");
+			Assert.IsTrue(_openedScreensType.ContainsKey(presenter.GetType()), "Trying to close presenter that isn't open, how did you manage that?");
+
 			await presenter.OnScreenClosedInternal();
-			FLog.Info($"Closing screen End1: {presenter.GetType().Name}");
 
 			_openedScreensType.Remove(presenter.GetType());
 			_openedScreensLayer.Remove(presenter.Layer);
 
 			Addressables.ReleaseInstance(presenter.gameObject);
-			FLog.Info($"Closing screen End2: {presenter.GetType().Name}");
 		}
 
 		private static string GetAddress<T>() where T : UIPresenter2

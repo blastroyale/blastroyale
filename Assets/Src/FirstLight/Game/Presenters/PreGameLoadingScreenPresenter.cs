@@ -125,7 +125,7 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
-		protected override UniTask OnScreenClosed()
+		protected override UniTask OnScreenClose()
 		{
 			if (_gameStartTimerCoroutine != null)
 			{
@@ -134,7 +134,7 @@ namespace FirstLight.Game.Presenters
 
 			_services.MessageBrokerService.Unsubscribe<WaitingMandatoryMatchAssetsMessage>(OnWaitingMandatoryMatchAssets);
 
-			return base.OnScreenClosed();
+			return base.OnScreenClose();
 		}
 
 		private void RefreshPartyList()

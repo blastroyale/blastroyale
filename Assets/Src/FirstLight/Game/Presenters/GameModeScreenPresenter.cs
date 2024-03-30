@@ -98,12 +98,12 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
-		protected override UniTask OnScreenClosed()
+		protected override UniTask OnScreenClose()
 		{
 			_services.GameModeService.Slots.StopObserving(OnSlotUpdated);
 			_services.GameModeService.SelectedGameMode.StopObserving(OnGameModeUpdated);
 			_services.PartyService.Members.StopObserving(OnPartyMembersChanged);
-			return base.OnScreenClosed();
+			return base.OnScreenClose();
 		}
 
 		private string GetVisibleClass(int orderNumber)

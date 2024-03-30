@@ -1,13 +1,14 @@
 ﻿using System;
 using FirstLight.Game.Services;
-using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Modules.UIService.Runtime;
+using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
-	/// <inheritdoc />
+	[UILayer(UIService2.UILayer.Popup)]
 	public class GenericInputDialogPresenter : GenericDialogPresenterBase
 	{
 		private GenericDialogButton<string> _confirmButton;
@@ -20,19 +21,17 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
-		
-		protected override void QueryElements(VisualElement root)
+
+		protected override void QueryElements()
 		{
-			base.QueryElements(root);
-			
-			_inputField = root.Q<TextField>().Required();
+			_inputField = Root.Q<TextField>().Required();
 
 			_closeCallback = null;
 			_confirmButton = new GenericDialogButton<string>();
-			
-			root.SetupClicks(_services);
+
+			Root.SetupClicks(_services);
 		}
-		
+
 		/// <summary>
 		/// Shows the input text field
 		/// If defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
@@ -53,7 +52,7 @@ namespace FirstLight.Game.Presenters
 			_confirmButton = button;
 			_closeCallback = closeCallback;
 			_inputField.keyboardType = keyboardType;
-			
+
 			SetBaseInfo(title, desc, showCloseButton, confirmButton, OnCloseButtonClicked);
 		}
 
@@ -68,4 +67,3 @@ namespace FirstLight.Game.Presenters
 		}
 	}
 }
-

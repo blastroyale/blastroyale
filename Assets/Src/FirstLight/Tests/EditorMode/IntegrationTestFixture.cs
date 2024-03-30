@@ -73,7 +73,7 @@ namespace FirstLight.Tests.EditorMode
 			TestData = SetupPlayer(TestConfigs);
 			TestLogic = new GameLogic(messageBroker, TimeService, TestData, TestConfigs,
 				audioFxService);
-			var genericDialogService = new GenericDialogService(TestUI, TestLogic.CurrencyDataProvider);
+			var genericDialogService = new GenericDialogService(TestUI2, TestLogic.CurrencyDataProvider);
 
 			TestServices = new StubGameServices(TestNetwork, messageBroker, TimeService, TestData,
 			                                    TestConfigs, TestLogic, TestData, genericDialogService,

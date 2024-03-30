@@ -4,6 +4,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -13,7 +14,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Handles the equipment reward part of the rewards screen
 	/// </summary>
-	public class EquipmentRewardView : UIView
+	public class EquipmentRewardView : UIView2
 	{
 		private const float SKIP_ANIMATION_TIME = 2.5f;
 		private const string USS_REWARD_EQUIPMENT_BLOCK = "rewards-equipment";

@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Modules.UIService.Runtime;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -12,8 +14,11 @@ namespace FirstLight.Game.Presenters
 	/// Creates a Generic Dialog for showing information to the player usually for yes / no choices.
 	/// Usually used for pointing out something informative to players.
 	/// </summary>
-	public abstract class GenericDialogPresenterBase :  UiToolkitPresenter
+	[UILayer(UIService2.UILayer.Popup)]
+	public abstract class GenericDialogPresenterBase :  UIPresenter2
 	{
+		private IGameServices _services;
+		
 		private Label _titleLabel;
 		private Label _descLabel;
 		private Button _confirmButton;
@@ -23,41 +28,35 @@ namespace FirstLight.Game.Presenters
 		private Action _closeCallback;
 		private Action _confirmCallback;
 
-		public string Title => _titleLabel?.text; 
+		public string Title => _titleLabel?.text;
 
-		private void CloseRequested()
+		private void Awake()
 		{
-			Close(false);
-		}
-		
-		protected override void Close(bool destroy)
-		{
-			// TODO - check if IsOpenedComplete check needs to be added to prevent "closing too early" edge cases
-			base.Close(destroy);
-				
-			_confirmButton.clicked -= CloseRequested;
-			_cancelButton.clicked -= CloseRequested;
-			_blockerButton.clicked -= CloseRequested;
-			_confirmButton.clicked -= _confirmCallback;
+			_services = MainInstaller.ResolveServices();
 		}
 
-		protected override UniTask OnClosed()
+		protected override void QueryElements()
 		{
-			_closeCallback?.Invoke();
-			return base.OnClosed();
-		}
+			_titleLabel = Root.Q<Label>("Title").Required();
+			_descLabel = Root.Q<Label>("Desc").Required();
 
-		protected override void QueryElements(VisualElement root)
-		{
-			_titleLabel = root.Q<Label>("Title").Required();
-			_descLabel = root.Q<Label>("Desc").Required();
-
-			_confirmButton = root.Q<Button>("ConfirmButton").Required();
-			_cancelButton = root.Q<Button>("CancelButton").Required();
-			_blockerButton = root.Q<Button>("BlockerButton").Required();
+			_confirmButton = Root.Q<Button>("ConfirmButton").Required();
+			_cancelButton = Root.Q<Button>("CancelButton").Required();
+			_blockerButton = Root.Q<Button>("BlockerButton").Required();
 
 			_confirmCallback = null;
 			_closeCallback = null;
+		}
+
+		protected override UniTask OnScreenOpen(bool reload)
+		{
+			return base.OnScreenOpen(reload);
+		}
+
+		protected override UniTask OnScreenClose()
+		{
+			_closeCallback?.Invoke();
+			return base.OnScreenClose();
 		}
 
 		protected void SetBaseInfo(string title, string desc, bool showCloseButton, GenericDialogButton button, Action closeCallback)
@@ -86,6 +85,11 @@ namespace FirstLight.Game.Presenters
 				_cancelButton.clicked += CloseRequested;
 				_blockerButton.clicked += CloseRequested;
 			}
+		}
+
+		private void CloseRequested()
+		{
+			_services.UIService.CloseScreen(UIService2.UILayer.Popup).Forget();
 		}
 	}
 }

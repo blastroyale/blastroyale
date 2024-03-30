@@ -7,7 +7,9 @@ using FirstLight.Game.Presenters.Store;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Modules.UIService.Runtime;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -19,8 +21,25 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Handles purchase confirmations
 	/// </summary>
-	public class GenericPurchaseDialogPresenter : UiToolkitPresenter
+	[UILayer(UIService2.UILayer.Popup)]
+	public class GenericPurchaseDialogPresenter : UIPresenterData2<GenericPurchaseDialogPresenter.StateData>
 	{
+		
+		public class StateData
+		{
+			public GameId Currency = GameId.BlastBuck;
+			public uint Value;
+			public ulong OwnedCurrency;
+			public ItemData Item;
+			public string OverwriteTitle;
+			public string OverwriteItemName;
+			public Action OnConfirm;
+			public Action OnExit;
+			public Sprite ItemSprite;
+		}
+		
+		private IGameServices _services;
+		
 		private Label _itemPrice;
 		private Label _itemAmount;
 		private Label _title;
@@ -35,37 +54,36 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _costIcon;
 
 
-		private GenericPurchaseOptions _options;
 		private Action _closeCallback;
 		private Action _confirmCallback;
 
-		private void CloseRequested()
+		private void Awake()
 		{
-			Close(false);
+			_services = MainInstaller.ResolveServices();
 		}
 
-		protected override UniTask OnClosed()
+		protected override UniTask OnScreenClose()
 		{
 			_closeCallback?.Invoke();
-			return base.OnClosed();
+			return base.OnScreenClose();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			_itemDisplayName = root.Q<Label>("Desc").Required();
-			_title = root.Q<Label>("Title").Required();
-			_itemAmount = root.Q<Label>("ItemAmount").Required();
-			_itemIcon = root.Q<VisualElement>("ItemIcon").Required();
-			_itemPrice = root.Q<Label>("ItemPrice").Required();
-			_costIcon = root.Q("CostIcon").Required();
+			_itemDisplayName = Root.Q<Label>("Desc").Required();
+			_title = Root.Q<Label>("Title").Required();
+			_itemAmount = Root.Q<Label>("ItemAmount").Required();
+			_itemIcon = Root.Q<VisualElement>("ItemIcon").Required();
+			_itemPrice = Root.Q<Label>("ItemPrice").Required();
+			_costIcon = Root.Q("CostIcon").Required();
 
-			_buyButton = root.Q<ImageButton>("BuyButton").Required();
-			_closeButton = root.Q<ImageButton>("CloseButton").Required();
-			_blockerButton = root.Q<Button>("BlockerButton").Required();
+			_buyButton = Root.Q<ImageButton>("BuyButton").Required();
+			_closeButton = Root.Q<ImageButton>("CloseButton").Required();
+			_blockerButton = Root.Q<Button>("BlockerButton").Required();
 
-			_notEnoughIcon = root.Q<VisualElement>("NotEnoughDescIcon").Required();
-			_notEnoughText = root.Q<Label>("NotEnoughDescLabel").Required();
-			_notEnoughContainer = root.Q<VisualElement>("NotEnoughDescContainer").Required();
+			_notEnoughIcon = Root.Q<VisualElement>("NotEnoughDescIcon").Required();
+			_notEnoughText = Root.Q<Label>("NotEnoughDescLabel").Required();
+			_notEnoughContainer = Root.Q<VisualElement>("NotEnoughDescContainer").Required();
 
 
 			_confirmCallback = null;
@@ -76,39 +94,30 @@ namespace FirstLight.Game.Presenters
 			_closeButton.clicked += CloseRequested;
 
 			FLog.Verbose("Generic Purchase Dialog", "Opened and registered callbacks");
-			base.QueryElements(root);
 		}
 
-		private void OnBuyButtonClicked()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			FLog.Verbose("Generic Purchase Dialog", "Buy Clicked");
-			_confirmCallback.Invoke();
-			CloseRequested();
-		}
-
-		public void SetOptions(GenericPurchaseOptions options)
-		{
-			_options = options;
-			var notEnough = options.OwnedCurrency < options.Value;
+			var notEnough = Data.OwnedCurrency < Data.Value;
 			_title.text = ScriptLocalization.UITGeneric.purchase_title;
-			if (!string.IsNullOrEmpty(options.OverwriteTitle))
+			if (!string.IsNullOrEmpty(Data.OverwriteTitle))
 			{
-				_title.text = options.OverwriteTitle;
+				_title.text = Data.OverwriteTitle;
 			}
 
 			// amnt 0 to always show default currency icon
-			var costIcon = ItemFactory.Currency(options.Currency, 0);
+			var costIcon = ItemFactory.Currency(Data.Currency, 0);
 			costIcon.GetViewModel().DrawIcon(_costIcon);
 
 			_itemAmount.text = "";
 
-			if (!string.IsNullOrEmpty(options.OverwriteItemName))
+			if (!string.IsNullOrEmpty(Data.OverwriteItemName))
 			{
-				_itemDisplayName.text = options.OverwriteItemName;
+				_itemDisplayName.text = Data.OverwriteItemName;
 			}
-			else if (options.Item != null)
+			else if (Data.Item != null)
 			{
-				var itemView = options.Item.GetViewModel();
+				var itemView = Data.Item.GetViewModel();
 				_itemDisplayName.text = ScriptLocalization.UITGeneric.purchase_about_to_buy + " ";
 				if (itemView.Amount > 1)
 				{
@@ -119,64 +128,65 @@ namespace FirstLight.Game.Presenters
 				_itemDisplayName.text += itemView.DisplayName;
 			}
 
-			if (options.ItemSprite != null)
+			if (Data.ItemSprite != null)
 			{
-				_itemIcon.style.backgroundImage = new StyleBackground(options.ItemSprite);
+				_itemIcon.style.backgroundImage = new StyleBackground(Data.ItemSprite);
 			}
 			else
 			{
-				var itemView = options.Item.GetViewModel();
+				var itemView = Data.Item.GetViewModel();
 				_itemIcon.style.backgroundImage = StyleKeyword.Null;
 				itemView.DrawIcon(_itemIcon);
 			}
 
-			_itemPrice.text = options.Value.ToString();
+			_itemPrice.text = Data.Value.ToString();
 
-			_closeCallback = options.OnExit;
-			_confirmCallback = options.OnConfirm;
+			_closeCallback = Data.OnExit;
+			_confirmCallback = Data.OnConfirm;
 
 			_notEnoughContainer.SetDisplay(notEnough);
 			_costIcon.SetDisplay(!notEnough);
 			if (!notEnough)
 			{
-				return;
+				return base.OnScreenOpen(reload);
 			}
 
 			costIcon.GetViewModel().DrawIcon(_notEnoughIcon);
-			var missing = options.Value - options.OwnedCurrency;
-			_notEnoughText.text = string.Format(ScriptLocalization.UITGeneric.purchase_you_need_currency, missing, options.Currency.GetCurrencyLocalization(missing).ToUpperInvariant());
-			_itemPrice.text = string.Format(ScriptLocalization.UITGeneric.purchase_get_currency, options.Currency.GetCurrencyLocalization(2).ToUpperInvariant());
-			_closeCallback = options.OnExit;
+			var missing = Data.Value - Data.OwnedCurrency;
+			_notEnoughText.text = string.Format(ScriptLocalization.UITGeneric.purchase_you_need_currency, missing, Data.Currency.GetCurrencyLocalization(missing).ToUpperInvariant());
+			_itemPrice.text = string.Format(ScriptLocalization.UITGeneric.purchase_get_currency, Data.Currency.GetCurrencyLocalization(2).ToUpperInvariant());
+			_closeCallback = Data.OnExit;
 			_confirmCallback = GoToShop;
+			
+			return base.OnScreenOpen(reload);
 		}
 
+		private void CloseRequested()
+		{
+			_services.UIService.CloseScreen<GenericPurchaseDialogPresenter>();
+		}
+
+		private void OnBuyButtonClicked()
+		{
+			FLog.Verbose("Generic Purchase Dialog", "Buy Clicked");
+			_confirmCallback.Invoke();
+			CloseRequested();
+		}
 
 		private void GoToShop()
 		{
 			FLog.Verbose("Generic Purchase Dialog", "Go To Shop");
-			if (_uiService.GetCurrentOpenedScreen().GetType() != typeof(StoreScreenPresenter))
+			if (!_services.UIService.IsScreenOpen<StoreScreenPresenter>())
 			{
 				MainInstaller.ResolveServices().IAPService.RequiredToViewStore = true;
 			}
 			else
 			{
-				((StoreScreenPresenter) _uiService.GetCurrentOpenedScreen()).GoToCategoryWithProduct(_options.Currency);
+				// TODO: This seems hacky
+				_services.UIService.GetScreen<StoreScreenPresenter>().GoToCategoryWithProduct(Data.Currency);
 			}
 
 			CloseRequested();
-		}
-
-		public class GenericPurchaseOptions
-		{
-			public GameId Currency = GameId.BlastBuck;
-			public uint Value;
-			public ulong OwnedCurrency;
-			public ItemData Item;
-			public string OverwriteTitle;
-			public string OverwriteItemName;
-			public Action OnConfirm;
-			public Action OnExit;
-			public Sprite ItemSprite;
 		}
 	}
 }

@@ -43,7 +43,7 @@ namespace FirstLight.Game.Services.Party
 			if (!HasParty.Value)
 			{
 				// TODO: Translation
-				_genericDialogService.OpenButtonDialog("Squad", "You left your squad due to timeout", true, new GenericDialogButton());
+				_genericDialogService.OpenButtonDialog("Squad", "You left your squad due to timeout", true, new GenericDialogButton()).Forget();
 			}
 			else
 			{
@@ -130,7 +130,7 @@ namespace FirstLight.Game.Services.Party
 				}
 
 				_genericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, PartyErrors.Unknown.GetTranslation(), true,
-					new GenericDialogButton());
+					new GenericDialogButton()).Forget();
 				FLog.Error($"failed subscribing to lobby notifications: {ex.Message}", ex);
 				// Lets leave the party so the player can try again
 				try

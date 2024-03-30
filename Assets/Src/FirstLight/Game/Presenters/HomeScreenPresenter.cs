@@ -304,7 +304,7 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
-		protected override UniTask OnScreenClosed()
+		protected override UniTask OnScreenClose()
 		{
 			_dataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
 			_dataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
@@ -326,7 +326,7 @@ namespace FirstLight.Game.Presenters
 				_updatePoolsCoroutine = null;
 			}
 
-			return base.OnScreenClosed();
+			return base.OnScreenClose();
 		}
 
 		private void OnRankingUpdateHandler(PlayerLeaderboardEntry leaderboardEntry)

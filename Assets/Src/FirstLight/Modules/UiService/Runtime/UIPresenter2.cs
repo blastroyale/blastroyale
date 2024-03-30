@@ -91,7 +91,7 @@ namespace FirstLight.UIService
 				view.UnsubscribeFromEvents();
 			}
 
-			await OnScreenClosed();
+			await OnScreenClose();
 		}
 
 		protected abstract void QueryElements();
@@ -101,7 +101,7 @@ namespace FirstLight.UIService
 			return UniTask.CompletedTask;
 		}
 
-		protected virtual UniTask OnScreenClosed()
+		protected virtual UniTask OnScreenClose()
 		{
 			return UniTask.CompletedTask;
 		}

@@ -71,7 +71,7 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 			{
 				ButtonOnClick = () => RequestLogout().Forget(),
 				ButtonText = "Logout"
-			});
+			}).Forget();
 			return State;
 		}
 		_services.GameUiService.OpenUi<LoadingSpinnerScreenPresenter>();
@@ -81,7 +81,7 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 		}
 		catch (Exception e)
 		{
-			_services.GenericDialogService.OpenSimpleMessage("Web3 Error", e.Message);
+			_services.GenericDialogService.OpenSimpleMessage("Web3 Error", e.Message).Forget();
 			Debug.LogError(e);
 		} finally
 		{

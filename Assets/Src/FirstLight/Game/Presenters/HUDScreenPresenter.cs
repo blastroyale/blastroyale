@@ -217,12 +217,12 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
-		protected override UniTask OnScreenClosed()
+		protected override UniTask OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			QuantumCallback.UnsubscribeListener(this);
 			_legacyMinimap.SetActive(false);
-			return base.OnScreenClosed();
+			return base.OnScreenClose();
 		}
 
 		// A hack to show the minimap after the transition screen is closed since the minimap is old UI and shows over it

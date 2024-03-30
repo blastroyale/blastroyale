@@ -360,7 +360,7 @@ namespace FirstLight.Game.StateMachines
 					ButtonText = "OK",
 					ButtonOnClick = () => _services.QuitGame("Desync")
 				};
-				_services.GenericDialogService.OpenButtonDialog("Server Error", "Desync", false, confirmButton);
+				_services.GenericDialogService.OpenButtonDialog("Server Error", "Desync", false, confirmButton).Forget();
 #else
 				FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, "Error", "Desync",
 					new FirstLight.NativeUi.AlertButton
@@ -378,7 +378,7 @@ namespace FirstLight.Game.StateMachines
 				_services.GenericDialogService.OpenButtonDialog(
 					ScriptLocalization.UITHomeScreen.waitforrewards_popup_title,
 					ScriptLocalization.UITHomeScreen.waitforrewards_popup_description,
-					false, new GenericDialogButton());
+					false, new GenericDialogButton()).Forget();
 			}
 
 			_unclaimedCountCheck++;
@@ -486,7 +486,7 @@ namespace FirstLight.Game.StateMachines
 				OnBackClicked = () => { activity.Complete(); }
 			};
 
-			_services.GameUiService.OpenScreen<GlobalLeaderboardScreenPresenter, GlobalLeaderboardScreenPresenter.StateData>(data);
+			_services.UIService.OpenScreen<GlobalLeaderboardScreenPresenter>(data).Forget();
 		}
 
 		private void OnBattlePassNewSeason(NewBattlePassSeasonMessage msg)
@@ -509,13 +509,18 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenStore(IWaitActivity activity)
 		{
+			OpenStoreAsync(activity).Forget();
+		}
+		
+		private async UniTaskVoid OpenStoreAsync(IWaitActivity activity)
+		{
 			var data = new StoreScreenPresenter.StateData
 			{
 				OnBackClicked = () => { activity.Complete(); },
 				OnHomeClicked = () => { activity.Complete(); },
 				OnPurchaseItem = PurchaseItem,
 			};
-			_services.GameUiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
+			await _services.UIService.OpenScreen<StoreScreenPresenter>(data);
 			_services.MessageBrokerService.Publish(new ShopScreenOpenedMessage());
 		}
 

@@ -136,7 +136,7 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
-		protected override UniTask OnScreenClosed()
+		protected override UniTask OnScreenClose()
 		{
 			if (_seenItems.Count > 0)
 			{
@@ -156,7 +156,7 @@ namespace FirstLight.Game.Presenters
 				_anchorObject = null;
 			}
 
-			return base.OnScreenClosed();
+			return base.OnScreenClose();
 		}
 
 		private void SetupCategories()

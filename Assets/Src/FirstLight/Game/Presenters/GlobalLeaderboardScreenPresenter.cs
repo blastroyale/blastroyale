@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq; 
+using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
@@ -11,6 +12,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using JetBrains.Annotations;
 using PlayFab.ClientModels;
 using UnityEngine;
@@ -21,9 +23,9 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Presenter for the Global Leaderboards Screen
 	/// </summary>
-	public class GlobalLeaderboardScreenPresenter : UiToolkitPresenterData<GlobalLeaderboardScreenPresenter.StateData>
+	public class GlobalLeaderboardScreenPresenter : UIPresenterData2<GlobalLeaderboardScreenPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action OnBackClicked;
 			[CanBeNull] public GameLeaderboard ShowSpecificLeaderboard;
@@ -72,27 +74,33 @@ namespace FirstLight.Game.Presenters
 		private readonly Dictionary<VisualElement, LeaderboardEntryView> _leaderboardEntryMap = new();
 		private readonly List<PlayerLeaderboardEntry> _playfabLeaderboardEntries = new();
 
-		protected override void QueryElements(VisualElement root)
+		private void Awake()
 		{
-			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_services = MainInstaller.Resolve<IGameServices>();
+			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
+		}
+		
+		protected override void QueryElements()
+		{
+			_header = Root.Q<ScreenHeaderElement>("Header").Required();
 			_header.backClicked += Data.OnBackClicked;
-			_fixedLocalPlayerHolder = root.Q<VisualElement>("FixedLocalPlayerHolder").Required();
-			_leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
-			_leaderboardListView = root.Q<ListView>("LeaderboardList").Required();
-			_loadingSpinner = root.Q<AnimatedImageElement>("LoadingSpinner").Required();
-			_pointsName = root.Q<LocalizedLabel>("Trophies").Required();
-			_descriptionContainer = root.Q("LeaderboardDescription").Required();
-			_leaderboardOptions = root.Q<VisualElement>("LeaderboardOptions").Required();
-			_leaderboardDescription = root.Q<Label>("DescText").Required();
-			_leaderboardTitle = root.Q<Label>("LeaderboardTitle").Required();
-			_headerIcon = root.Q("LeaderboardIcon").Required();
-			_endsIn = root.Q<Label>("EndsInText").Required();
-			_endsInContainer = root.Q<VisualElement>("EndsInContainer").Required();
-			_discordButton = root.Q<Button>("DiscordButton").Required();
-			_rewardsText = root.Q<Label>("RewardsText").Required();
-			_rewardsWidget = root.Q("RewardsWidget").Required();
-			_rewardsTitle = root.Q<Label>("LeaderboardTitleDesc").Required();
-			_infoButton = root.Q<Button>("InfoButton").Required();
+			_fixedLocalPlayerHolder = Root.Q<VisualElement>("FixedLocalPlayerHolder").Required();
+			_leaderboardPanel = Root.Q<VisualElement>("LeaderboardPanel").Required();
+			_leaderboardListView = Root.Q<ListView>("LeaderboardList").Required();
+			_loadingSpinner = Root.Q<AnimatedImageElement>("LoadingSpinner").Required();
+			_pointsName = Root.Q<LocalizedLabel>("Trophies").Required();
+			_descriptionContainer = Root.Q("LeaderboardDescription").Required();
+			_leaderboardOptions = Root.Q<VisualElement>("LeaderboardOptions").Required();
+			_leaderboardDescription = Root.Q<Label>("DescText").Required();
+			_leaderboardTitle = Root.Q<Label>("LeaderboardTitle").Required();
+			_headerIcon = Root.Q("LeaderboardIcon").Required();
+			_endsIn = Root.Q<Label>("EndsInText").Required();
+			_endsInContainer = Root.Q<VisualElement>("EndsInContainer").Required();
+			_discordButton = Root.Q<Button>("DiscordButton").Required();
+			_rewardsText = Root.Q<Label>("RewardsText").Required();
+			_rewardsWidget = Root.Q("RewardsWidget").Required();
+			_rewardsTitle = Root.Q<Label>("LeaderboardTitleDesc").Required();
+			_infoButton = Root.Q<Button>("InfoButton").Required();
 			_headerIcon.SetVisibility(false);
 			_leaderboardListView.DisableScrollbars();
 			_leaderboardListView.SetVisibility(false);
@@ -110,18 +118,11 @@ namespace FirstLight.Game.Presenters
 			_discordButton.clicked += () => Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
 			_leaderboardListView.makeItem = CreateLeaderboardEntry;
 			_leaderboardListView.bindItem = BindLeaderboardEntry;
-			root.SetupClicks(_services);
-		}
-		
-		private void Awake()
-		{
-			_services = MainInstaller.Resolve<IGameServices>();
-			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			Root.SetupClicks(_services);
 		}
 
-		protected override void OnOpened()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			base.OnOpened();
 			if (Data.ShowSpecificLeaderboard != null)
 			{
 				DisplayLeaderboard(Data.ShowSpecificLeaderboard);
@@ -132,6 +133,7 @@ namespace FirstLight.Game.Presenters
 				SetupButtons();
 				DisplayLeaderboard(_services.LeaderboardService.Leaderboards.First());
 			}
+			return base.OnScreenOpen(reload);
 		}
 
 		private void SetupButtons()
@@ -172,7 +174,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement CreateLeaderboardEntry()
 		{
 			var newEntry = _leaderboardEntryAsset.Instantiate();
-			newEntry.AttachView(this, out LeaderboardEntryView view);
+			newEntry.AttachView2(this, out LeaderboardEntryView view);
 			newEntry.AddToClassList(UssLeaderboardEntryGlobal);
 			_leaderboardEntryMap[newEntry] = view;
 			return newEntry;
@@ -303,7 +305,7 @@ namespace FirstLight.Game.Presenters
 		{
 
 			var newEntry = _leaderboardEntryAsset.Instantiate();
-			newEntry.AttachView(this, out LeaderboardEntryView view);
+			newEntry.AttachView2(this, out LeaderboardEntryView view);
 			var leaderboardEntry = result.Leaderboard[0];
 
 			int trophies = leaderboardEntry.StatValue == 0 ? DefaultTrophies : leaderboardEntry.StatValue;

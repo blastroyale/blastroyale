@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+#pragma warning disable CS0612 // Type or member is obsolete
 
 // ReSharper disable CheckNamespace
 

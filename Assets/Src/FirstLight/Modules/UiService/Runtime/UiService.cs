@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using UnityEngine;
+#pragma warning disable CS0612 // Type or member is obsolete
 
 // ReSharper disable CheckNamespace
 

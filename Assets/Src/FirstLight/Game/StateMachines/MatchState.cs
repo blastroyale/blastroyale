@@ -477,7 +477,7 @@ namespace FirstLight.Game.StateMachines
 				ContinueClicked = () => cacheActivity.Complete()
 			};
 
-			_services.GameUiService.OpenScreen<LeaderboardAndRewardsScreenPresenter, LeaderboardAndRewardsScreenPresenter.StateData>(data);
+			_services.UIService.OpenScreen<LeaderboardAndRewardsScreenPresenter>(data).Forget();
 		}
 
 		private UniTask OpenSwipeTransition() => _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();

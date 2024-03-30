@@ -36,7 +36,7 @@ namespace FirstLight.Game.Presenters
 			FLog.Info("UIServiceSwipe", "Swipe Open End");
 		}
 
-		protected override async UniTask OnScreenClosed()
+		protected override async UniTask OnScreenClose()
 		{
 			FLog.Info("UIServiceSwipe", "Swipe Close Start");
 			_swipeParent.AddToClassList("hidden-end");

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using UnityEngine.UIElements;
@@ -13,7 +14,7 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// View for the simple rewards in the rewards match end screen
 	/// </summary>
-	public class RewardLevelPanelView : UIView
+	public class RewardLevelPanelView : UIView2
 	{
 		public struct LevelLevelRewardInfo
 		{

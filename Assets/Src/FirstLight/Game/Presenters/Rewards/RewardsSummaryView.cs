@@ -7,6 +7,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
@@ -15,7 +16,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Handles the summary part of the rewards screen
 	/// </summary>
-	public class RewardsSummaryView : UIView
+	public class RewardsSummaryView : UIView2
 	{
 		private const float SKIP_ANIMATION_TIME = 0.2f;
 		private const float FAME_MIDDLE_SKIP_TIME = 4.7f;

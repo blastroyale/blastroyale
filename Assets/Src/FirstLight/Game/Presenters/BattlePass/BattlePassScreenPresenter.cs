@@ -156,12 +156,12 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
-		protected override UniTask OnScreenClosed()
+		protected override UniTask OnScreenClose()
 		{
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObservingAll(this);
 			
-			return base.OnScreenClosed();
+			return base.OnScreenClose();
 		}
 
 		private void OnClickLastRewardIcon()
@@ -199,7 +199,7 @@ namespace FirstLight.Game.Presenters
 			var price = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig().Season.Price;
 
 			_services.GenericDialogService.OpenPurchaseOrNotEnough(
-				new GenericPurchaseDialogPresenter.GenericPurchaseOptions()
+				new GenericPurchaseDialogPresenter.StateData
 				{
 					ItemSprite = _battlepassPremiumSprite,
 					OverwriteItemName = ScriptLocalization.UITBattlePass.buy_premium_batttlepass_popup_item_name,
@@ -223,7 +223,7 @@ namespace FirstLight.Game.Presenters
 			var price = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig().Season.BuyLevelPrice;
 
 			_services.GenericDialogService.OpenPurchaseOrNotEnough(
-				new GenericPurchaseDialogPresenter.GenericPurchaseOptions()
+				new GenericPurchaseDialogPresenter.StateData
 				{
 					Value = price,
 					ItemSprite = _battlepassLevelSprite,

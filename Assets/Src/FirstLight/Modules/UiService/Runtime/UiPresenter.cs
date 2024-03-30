@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace FirstLight.UiService
 	/// The root base of the UI Presenter of the <seealso cref="IUiService"/>
 	/// Implement this abstract class in order to execute the proper UI life cycle
 	/// </summary>
+	[Obsolete]
 	public abstract class UiPresenter : MonoBehaviour
 	{
 		protected IUiService _uiService;
@@ -106,6 +108,7 @@ namespace FirstLight.UiService
 	/// The intention is for developers to implement subclasses with behaviour that turns off the game object after completing
 	/// some behaviour first, e.g. playing an animation or timeline.
 	/// </summary>
+	[Obsolete]
 	public abstract class UiCloseActivePresenter : UiPresenter
 	{
 		internal override async UniTask InternalClose(bool destroy)
@@ -125,6 +128,7 @@ namespace FirstLight.UiService
 	/// Tags the <see cref="UiPresenter"/> as a <see cref="UiPresenterData{T}"/> to allow defining a specific state when
 	/// opening the UI via the <see cref="UiService"/>
 	/// </summary>
+	[Obsolete]
 	public interface IUiPresenterData
 	{
 	}
@@ -132,6 +136,7 @@ namespace FirstLight.UiService
 	/// <summary>
 	/// A temporary interface to allow access to the Document of UI Toolkit presenters
 	/// </summary>
+	[Obsolete]
 	public interface IUIDocumentPresenter
 	{
 		public UIDocument Document { get; }
@@ -141,6 +146,7 @@ namespace FirstLight.UiService
 	/// <remarks>
 	/// Extends the <see cref="UiPresenter"/> behaviour with defined data of type <typeparamref name="T"/>
 	/// </remarks>
+	[Obsolete]
 	public abstract class UiPresenterData<T> : UiPresenter, IUiPresenterData where T : struct
 	{
 		/// <summary>
@@ -167,6 +173,7 @@ namespace FirstLight.UiService
 	/// Tags the <see cref="UiCloseActivePresenter"/> as a <see cref="UiCloseActivePresenterData{T}"/> to allow defining a specific state when
 	/// opening the UI via the <see cref="UiService"/>
 	/// </summary>
+	[Obsolete]
 	public abstract class UiCloseActivePresenterData<T> : UiPresenterData<T> where T : struct
 	{
 		internal override async UniTask InternalClose(bool destroy)
@@ -185,7 +192,7 @@ namespace FirstLight.UiService
 	/// <summary>
 	/// This class is the UiToolkit implementation of UiCloseActivePresenterData
 	/// </summary>
-	[LoadSynchronously]
+	[Obsolete]
 	public abstract class UiToolkitPresenterData<T> : UiCloseActivePresenterData<T>, IUIDocumentPresenter
 		where T : struct
 	{
@@ -287,6 +294,7 @@ namespace FirstLight.UiService
 	/// This is an implementation of UiToolkitPresenterData that allows instantiation of a UiToolkitPresenterData
 	/// without a StateData parameter as constructor 
 	/// </summary>
+	[Obsolete]
 	public abstract class UiToolkitPresenter : UiToolkitPresenterData<UiToolkitPresenter.StateData>
 	{
 		public struct StateData

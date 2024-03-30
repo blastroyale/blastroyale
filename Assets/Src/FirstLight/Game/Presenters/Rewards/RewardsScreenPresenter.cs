@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -8,6 +9,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -18,11 +20,11 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Display a list of rewards, currently used inside the Battlepass Screen, but can be used anywhere. 
 	/// </summary>
-	public class RewardsScreenPresenter : UiToolkitPresenterData<RewardsScreenPresenter.StateData>
+	public class RewardsScreenPresenter : UIPresenterData2<RewardsScreenPresenter.StateData>
 	{
 		private const int MIN_ITEMS_SHOW_SKIP_ALL = 50;
 
-		public struct StateData
+		public class StateData
 		{
 			public bool FameRewards;
 			public IEnumerable<ItemData> Items;
@@ -77,27 +79,27 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.ResolveServices();
 
 			_animations = new RewardsAnimationController();
-			_remainingRoot = root.Q<VisualElement>("RewardsRemaining").Required();
-			_blocker = root.Q<VisualElement>("Blocker").Required();
-			_skipAllButton = root.Q<Button>("SkipAllButton").Required();
+			_remainingRoot = Root.Q<VisualElement>("RewardsRemaining").Required();
+			_blocker = Root.Q<VisualElement>("Blocker").Required();
+			_skipAllButton = Root.Q<Button>("SkipAllButton").Required();
 			_skipAllButton.clicked += OnSkipAllClicked;
 			_remainingNumber = _remainingRoot.Q<Label>("NumberLabel").Required();
 
 			_blocker.RegisterCallback<ClickEvent>(OnClick);
 
-			root.Q<VisualElement>("EquipmentReward").Required().AttachView(this, out _equipmentRewardView);
+			Root.Q<VisualElement>("EquipmentReward").Required().AttachView2(this, out _equipmentRewardView);
 			_equipmentRewardView.Init(_animations, _animatedBackground, _equipmentRewardDirector);
 
-			root.Q<VisualElement>("OneReward").Required().AttachView(this, out _genericRewardView);
+			Root.Q<VisualElement>("OneReward").Required().AttachView2(this, out _genericRewardView);
 			_genericRewardView.Init(_animations, _animatedBackground, _genericRewardDirector, _genericRewardBgColor);
 
-			root.Q<VisualElement>("RewardsSummary").Required().AttachView(this, out _summaryView);
+			Root.Q<VisualElement>("RewardsSummary").Required().AttachView2(this, out _summaryView);
 			_summaryView.Init(_animations, _animatedBackground, Data.FameRewards ? _fameSummaryDirector : _summaryDirector, Data.FameRewards, _summaryBgColor);
 
 			_summaryView.CreateSummaryElements(Data.Items, Data.FameRewards);
@@ -109,9 +111,8 @@ namespace FirstLight.Game.Presenters
 			Move();
 		}
 
-		protected override void OnOpened()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			base.OnOpened();
 			if (Data.FameRewards)
 			{
 				_remaining = new Queue<ItemData>();
@@ -123,6 +124,7 @@ namespace FirstLight.Game.Presenters
 				_remaining = new Queue<ItemData>(Data.Items);
 				Move();
 			}
+			return base.OnScreenOpen(reload);
 		}
 
 		public void OnClick(ClickEvent evt)
@@ -154,15 +156,13 @@ namespace FirstLight.Game.Presenters
 			_finished = true;
 			if (_services.RewardService.TryGetUnseenCore(out var unseen))
 			{
-				_services.GameUiService.CloseCurrentScreen();
-				_services.GameUiService.OpenScreenAsync<RewardsScreenPresenter, StateData>(new StateData()
+				_services.UIService.OpenScreen<RewardsScreenPresenter>(new StateData()
 				{
 					Items = unseen.Results,
 					FameRewards = false,
 					ParentItem = unseen.Core,
 					OnFinish = Data.OnFinish
-				});
-				return;
+				}).Forget();
 			}
 
 			Data.OnFinish?.Invoke();
@@ -208,7 +208,7 @@ namespace FirstLight.Game.Presenters
 			SetDisplays(_summaryView);
 		}
 
-		private void SetDisplays(UIView view)
+		private void SetDisplays(UIView2 view)
 		{
 			_genericRewardView.Element.SetDisplay(view == _genericRewardView);
 			_summaryView.Element.SetDisplay(view == _summaryView);

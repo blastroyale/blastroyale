@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using Newtonsoft.Json;
 using Quantum;
 using UnityEngine;
@@ -14,7 +16,7 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// This class manages the visual components of the LeaderboardEntry elements in the LeaderboardAndRewardsScreen
 	/// </summary>
-	public class LeaderboardEntryView : UIView
+	public class LeaderboardEntryView : UIView2
 	{
 		private const string USS_LEADERBOARD_ENTRY = "leaderboard-entry";
 		private const string USS_LEADERBOARD_ENTRY_FIRST = USS_LEADERBOARD_ENTRY + "--first";
@@ -68,10 +70,10 @@ namespace FirstLight.Game.Views
 		private void OnClick(MouseDownEvent e)
 		{
 			if (_playerId == null) return;
-			_services.GameUiService.OpenUiAsync<PlayerStatisticsPopupPresenter, PlayerStatisticsPopupPresenter.StateData>(new ()
+			_services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new PlayerStatisticsPopupPresenter.StateData()
 			{
 				PlayerId = _playerId
-			});
+			}).Forget();
 		}
 		
 		public VisualElement MetricIcon => _metricIcon;

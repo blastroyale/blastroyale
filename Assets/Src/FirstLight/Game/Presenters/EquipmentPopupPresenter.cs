@@ -62,11 +62,11 @@ namespace FirstLight.Game.Presenters
 			_card = root.Q<EquipmentCardElement>("Card").Required();
 			_blastHubContainer = root.Q<VisualElement>("BHContainer").Required();
 
-			_scrappingContent = root.Q<VisualElement>("Scrapping").Required().AttachView(this, out _scrapView);
-			_upgradingContent = root.Q<VisualElement>("Upgrading").Required().AttachView(this, out _upgradeView);
-			_repairingContent = root.Q<VisualElement>("Repairing").Required().AttachView(this, out _repairView);
-			_rustedContent = root.Q<VisualElement>("Rusted").Required().AttachView(this, out _rustedView);
-			_fusingContent = root.Q<VisualElement>("Fusion").Required().AttachView(this, out _fuseView);
+			// _scrappingContent = root.Q<VisualElement>("Scrapping").Required().AttachView(this, out _scrapView);
+			// _upgradingContent = root.Q<VisualElement>("Upgrading").Required().AttachView(this, out _upgradeView);
+			// _repairingContent = root.Q<VisualElement>("Repairing").Required().AttachView(this, out _repairView);
+			// _rustedContent = root.Q<VisualElement>("Rusted").Required().AttachView(this, out _rustedView);
+			// _fusingContent = root.Q<VisualElement>("Fusion").Required().AttachView(this, out _fuseView);
 
 
 			

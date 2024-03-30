@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views
@@ -9,7 +10,7 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// View for the simple rewards in the rewards match end screen
 	/// </summary>
-	public class RewardPanelView : UIView
+	public class RewardPanelView : UIView2
 	{
 		private Label _gainedLabel;
 		private Label _totalLabel;

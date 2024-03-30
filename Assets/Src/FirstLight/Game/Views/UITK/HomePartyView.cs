@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
@@ -103,7 +104,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				_genericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, pe.Error.GetTranslation(),
 					true,
-					new GenericDialogButton());
+					new GenericDialogButton()).Forget();
 				FLog.Warn("Error on kicking squad member", pe);
 			}
 		}

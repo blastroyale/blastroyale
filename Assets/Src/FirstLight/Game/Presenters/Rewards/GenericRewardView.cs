@@ -1,6 +1,7 @@
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -10,7 +11,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Handles the generic reward part of the RewardsScreen (ex Coins)
 	/// </summary>
-	public class GenericRewardView : UIView
+	public class GenericRewardView : UIView2
 	{
 		private const float SKIP_ANIMATION_TIME = 0.2f;
 

@@ -52,7 +52,7 @@ namespace FirstLight.Game
 			uiService2.OpenScreen<LoadingScreenPresenter>().Forget();
 
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
-			var genericDialogService = new GenericDialogService(uiService, gameLogic.CurrencyDataProvider);
+			var genericDialogService = new GenericDialogService(uiService2, gameLogic.CurrencyDataProvider);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
 				configsProvider, gameLogic, genericDialogService, assetResolver, tutorialService, vfxService,
 				audioFxService, uiService, uiService2);

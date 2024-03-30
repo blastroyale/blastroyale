@@ -73,10 +73,10 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
-		protected override UniTask OnScreenClosed()
+		protected override UniTask OnScreenClose()
 		{
 			_matchServices.SpectateService.SpectatedPlayer.StopObservingAll(this);
-			return base.OnScreenClosed();
+			return base.OnScreenClose();
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer _, SpectatedPlayer current)

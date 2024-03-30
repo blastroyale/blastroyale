@@ -26,7 +26,7 @@ namespace FirstLight.Game.Presenters.Store
 	/// <summary>
 	/// Manages the IAP store.
 	/// </summary>
-	public class StoreScreenPresenter : UIPresenterData2<StoreScreenPresenter.StateData>
+	public class StoreScreenPresenter : UIPresenterData<StoreScreenPresenter.StateData>
 	{
 		public class StateData
 		{
@@ -68,10 +68,10 @@ namespace FirstLight.Game.Presenters.Store
 			_header.backClicked += Data.OnBackClicked;
 
 			Root.Q<CurrencyDisplayElement>("Coins")
-				.AttachView2(this, out CurrencyDisplayView _);
+				.AttachView(this, out CurrencyDisplayView _);
 
 			Root.Q<CurrencyDisplayElement>("BlastBucks")
-				.AttachView2(this, out CurrencyDisplayView _);
+				.AttachView(this, out CurrencyDisplayView _);
 
 			_categoriesElements.Clear();
 			foreach (var category in _gameServices.IAPService.AvailableProductCategories)

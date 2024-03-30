@@ -15,8 +15,8 @@ using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
-	[UILayer(UIService2.UILayer.Popup)]
-	public class PrivacyDialogPresenter : UIPresenterData2<PrivacyDialogPresenter.StateData>
+	[UILayer(UIService.UIService.UILayer.Popup)]
+	public class PrivacyDialogPresenter : UIPresenterData<PrivacyDialogPresenter.StateData>
 	{
 		public class StateData
 		{

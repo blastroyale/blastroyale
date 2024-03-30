@@ -20,8 +20,8 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Season change banner
 	/// </summary>
-	[UILayer(UIService2.UILayer.Popup)]
-	public class BattlePassSeasonBannerPresenter : UIPresenter2
+	[UILayer(UIService.UIService.UILayer.Popup)]
+	public class BattlePassSeasonBannerPresenter : UIPresenter
 	{
 		private IGameServices _services;
 

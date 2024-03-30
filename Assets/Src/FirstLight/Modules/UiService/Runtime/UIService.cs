@@ -12,7 +12,7 @@ using Object = UnityEngine.Object;
 
 namespace FirstLight.UIService
 {
-	public class UIService2
+	public class UIService
 	{
 		/// <summary>
 		/// The name that should be set to the root VisualElement in a screen.
@@ -44,16 +44,16 @@ namespace FirstLight.UIService
 
 		private readonly GameObject _root;
 
-		private readonly Dictionary<Type, UIPresenter2> _openedScreensType = new ();
-		private readonly Dictionary<UILayer, UIPresenter2> _openedScreensLayer = new ();
+		private readonly Dictionary<Type, UIPresenter> _openedScreensType = new ();
+		private readonly Dictionary<UILayer, UIPresenter> _openedScreensLayer = new ();
 
-		public UIService2()
+		public UIService()
 		{
 			_root = new GameObject("UI");
 			Object.DontDestroyOnLoad(_root);
 		}
 
-		public async UniTask<T> OpenScreen<T>(object data = null) where T : UIPresenter2
+		public async UniTask<T> OpenScreen<T>(object data = null) where T : UIPresenter
 		{
 			var screenType = typeof(T);
 			FLog.Info($"Opening screen {screenType.Name}");
@@ -74,7 +74,7 @@ namespace FirstLight.UIService
 
 			var handle = Addressables.InstantiateAsync(GetAddress<T>(), _root.transform);
 			var go = handle.WaitForCompletion(); // Sync loading is intentional here
-			var screen = go.GetComponent<UIPresenter2>();
+			var screen = go.GetComponent<UIPresenter>();
 			var uiDocument = go.GetComponent<UIDocument>();
 
 			screen.Layer = layer;
@@ -89,12 +89,12 @@ namespace FirstLight.UIService
 			return (T) screen;
 		}
 
-		public bool IsScreenOpen<T>() where T : UIPresenter2
+		public bool IsScreenOpen<T>() where T : UIPresenter
 		{
 			return _openedScreensType.ContainsKey(typeof(T));
 		}
 
-		public T GetScreen<T>() where T : UIPresenter2
+		public T GetScreen<T>() where T : UIPresenter
 		{
 			var screenType = typeof(T);
 			if (!_openedScreensType.TryGetValue(screenType, out var screen))
@@ -105,7 +105,7 @@ namespace FirstLight.UIService
 			return (T) screen;
 		}
 
-		public UniTask CloseScreen<T>() where T : UIPresenter2
+		public UniTask CloseScreen<T>() where T : UIPresenter
 		{
 			if (_openedScreensType.TryGetValue(typeof(T), out var screen))
 			{
@@ -134,7 +134,7 @@ namespace FirstLight.UIService
 			}
 		}
 
-		public async UniTask CloseScreen(UIPresenter2 presenter)
+		public async UniTask CloseScreen(UIPresenter presenter)
 		{
 			Assert.IsTrue(_openedScreensType.ContainsKey(presenter.GetType()), "Trying to close presenter that isn't open, how did you manage that?");
 
@@ -146,7 +146,7 @@ namespace FirstLight.UIService
 			Addressables.ReleaseInstance(presenter.gameObject);
 		}
 
-		private static string GetAddress<T>() where T : UIPresenter2
+		private static string GetAddress<T>() where T : UIPresenter
 		{
 			return $"UI/{typeof(T).Name.Replace("Presenter", "")}.prefab";
 		}

@@ -6,9 +6,9 @@ namespace FirstLight.Modules.UIService.Runtime
 	[AttributeUsage(AttributeTargets.Class)]
 	public class UILayerAttribute : Attribute
 	{
-		public UIService2.UILayer Layer { get; private set; }
+		public FirstLight.UIService.UIService.UILayer Layer { get; private set; }
 
-		public UILayerAttribute(UIService2.UILayer layer)
+		public UILayerAttribute(FirstLight.UIService.UIService.UILayer layer)
 		{
 			Layer = layer;
 		}

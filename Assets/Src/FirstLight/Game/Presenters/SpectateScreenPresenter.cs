@@ -15,7 +15,7 @@ namespace FirstLight.Game.Presenters
 	/// This is responsible for displaying the screen during spectate mode,
 	/// that follows your killer around.
 	/// </summary>
-	public unsafe class SpectateScreenPresenter : UIPresenterData2<SpectateScreenPresenter.StateData>
+	public unsafe class SpectateScreenPresenter : UIPresenterData<SpectateScreenPresenter.StateData>
 	{
 		public class StateData
 		{
@@ -46,7 +46,7 @@ namespace FirstLight.Game.Presenters
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
 			_playerName = Root.Q<Label>("PlayerName").Required();
 			_defeatedYou = Root.Q<VisualElement>("DefeatedYou").Required();
-			Root.Q("StatusBars").Required().AttachView2(this, out _statusBarsView);
+			Root.Q("StatusBars").Required().AttachView(this, out _statusBarsView);
 			_statusBarsView.ForceOverheadUI();
 			_statusBarsView.InitAll();
 

@@ -20,7 +20,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Display a list of rewards, currently used inside the Battlepass Screen, but can be used anywhere. 
 	/// </summary>
-	public class RewardsScreenPresenter : UIPresenterData2<RewardsScreenPresenter.StateData>
+	public class RewardsScreenPresenter : UIPresenterData<RewardsScreenPresenter.StateData>
 	{
 		private const int MIN_ITEMS_SHOW_SKIP_ALL = 50;
 
@@ -93,13 +93,13 @@ namespace FirstLight.Game.Presenters
 
 			_blocker.RegisterCallback<ClickEvent>(OnClick);
 
-			Root.Q<VisualElement>("EquipmentReward").Required().AttachView2(this, out _equipmentRewardView);
+			Root.Q<VisualElement>("EquipmentReward").Required().AttachView(this, out _equipmentRewardView);
 			_equipmentRewardView.Init(_animations, _animatedBackground, _equipmentRewardDirector);
 
-			Root.Q<VisualElement>("OneReward").Required().AttachView2(this, out _genericRewardView);
+			Root.Q<VisualElement>("OneReward").Required().AttachView(this, out _genericRewardView);
 			_genericRewardView.Init(_animations, _animatedBackground, _genericRewardDirector, _genericRewardBgColor);
 
-			Root.Q<VisualElement>("RewardsSummary").Required().AttachView2(this, out _summaryView);
+			Root.Q<VisualElement>("RewardsSummary").Required().AttachView(this, out _summaryView);
 			_summaryView.Init(_animations, _animatedBackground, Data.FameRewards ? _fameSummaryDirector : _summaryDirector, Data.FameRewards, _summaryBgColor);
 
 			_summaryView.CreateSummaryElements(Data.Items, Data.FameRewards);
@@ -208,7 +208,7 @@ namespace FirstLight.Game.Presenters
 			SetDisplays(_summaryView);
 		}
 
-		private void SetDisplays(UIView2 view)
+		private void SetDisplays(UIView view)
 		{
 			_genericRewardView.Element.SetDisplay(view == _genericRewardView);
 			_summaryView.Element.SetDisplay(view == _summaryView);

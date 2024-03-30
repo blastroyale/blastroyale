@@ -20,7 +20,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This presenter is responsible to select the game mode to start the match
 	/// </summary>
-	public class GameModeScreenPresenter : UIPresenterData2<GameModeScreenPresenter.StateData>
+	public class GameModeScreenPresenter : UIPresenterData<GameModeScreenPresenter.StateData>
 	{
 		private const string VISIBLE_GAMEMODE_BUTTON = "visible-gamemodebutton";
 
@@ -63,7 +63,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var button = _buttonAsset.Instantiate();
 				button.userData = slot;
-				button.AttachView2(this, out GameModeSelectionButtonView view);
+				button.AttachView(this, out GameModeSelectionButtonView view);
 				view.SetData("GameModeButton" + orderNumber, GetVisibleClass(orderNumber++), slot);
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
@@ -82,7 +82,7 @@ namespace FirstLight.Game.Presenters
 			gameModeInfo.Entry.DescriptionTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_description;
 			gameModeInfo.Entry.Mutators = new List<string>();
 			var createGameButton = _buttonAsset.Instantiate();
-			createGameButton.AttachView2(this, out GameModeSelectionButtonView customGameView);
+			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
 			customGameView.SetData("CustomGameButton", GetVisibleClass(orderNumber++), gameModeInfo);
 			customGameView.Clicked += OnCustomGameClicked;
 			customGameView.Disabled = _services.PartyService.HasParty.Value;

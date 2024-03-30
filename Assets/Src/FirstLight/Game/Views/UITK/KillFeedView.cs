@@ -11,7 +11,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Shows players that have been killed and by whom.
 	/// </summary>
-	public class KillFeedView : UIView2
+	public class KillFeedView : UIView
 	{
 		private const long SHOWN_DURATION = 5000;
 		private const long RELEASE_DELAY = 1000;
@@ -33,12 +33,12 @@ namespace FirstLight.Game.Views.UITK
 			_gameServices = MainInstaller.Resolve<IGameServices>();
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}

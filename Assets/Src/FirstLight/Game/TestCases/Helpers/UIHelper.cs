@@ -16,7 +16,7 @@ namespace FirstLight.Game.TestCases.Helpers
 {
 	public class UIHelper : TestHelper
 	{
-		public IEnumerator WaitForPresenter2<T>(float waitAfterCreation = 0.5f, float timeout = 30) where T : UIPresenter2
+		public IEnumerator WaitForPresenter2<T>(float waitAfterCreation = 0.5f, float timeout = 30) where T : UIPresenter
 		{
 			Log("Waiting for screen " + typeof(T).Name + " to open!");
 			yield return TestTools.UntilObjectOfType<T>(timeout);
@@ -27,11 +27,11 @@ namespace FirstLight.Game.TestCases.Helpers
 		}
 
 		// Wtf is this
-		public UIPresenter2 GetFirstOpenScreen(Type[] types)
+		public UIPresenter GetFirstOpenScreen(Type[] types)
 		{
 			foreach (var type in types)
 			{
-				var screen = Object.FindObjectOfType(type) as UIPresenter2;
+				var screen = Object.FindObjectOfType(type) as UIPresenter;
 				if (screen != null && screen.gameObject.activeSelf)
 				{
 					return screen;
@@ -54,7 +54,7 @@ namespace FirstLight.Game.TestCases.Helpers
 			Log("Detected one of the " + types + " screen! Continuing!");
 		}
 
-		public T GetPresenter2<T>() where T : UIPresenter2
+		public T GetPresenter2<T>() where T : UIPresenter
 		{
 			return Object.FindObjectOfType<T>();
 		}
@@ -104,7 +104,7 @@ namespace FirstLight.Game.TestCases.Helpers
 		public (VisualElement, VisualElement)? SearchForElementGlobally(
 			string name, Func<UQueryBuilder<VisualElement>, UQueryBuilder<VisualElement>> queryProcessor = null)
 		{
-			foreach (var foundObject in Object.FindObjectsOfType<UIPresenter2>())
+			foreach (var foundObject in Object.FindObjectsOfType<UIPresenter>())
 			{
 				var root = foundObject.Root;
 

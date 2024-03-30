@@ -12,7 +12,7 @@ namespace FirstLight.Game.Views.UITK
 	/// Handles currency display on the screen. Because of legacy reasons all the logic
 	/// is still handled in the CurrencyDisplayElement.
 	/// </summary>
-	public class CurrencyDisplayView : UIView2
+	public class CurrencyDisplayView : UIView
 	{
 		private CurrencyDisplayElement _currency;
 
@@ -26,12 +26,12 @@ namespace FirstLight.Game.Views.UITK
 				MainInstaller.Resolve<IGameServices>());
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			_currency.SubscribeToEvents();
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			_currency.UnsubscribeFromEvents();
 		}

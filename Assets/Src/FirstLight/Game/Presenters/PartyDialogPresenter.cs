@@ -15,8 +15,8 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Displays a dialog where you can create or join a party.
 	/// </summary>
-	[UILayer(UIService2.UILayer.Popup)]
-	public class PartyDialogPresenter : UIPresenterData2<PartyDialogPresenter.StateData>
+	[UILayer(UIService.UIService.UILayer.Popup)]
+	public class PartyDialogPresenter : UIPresenterData<PartyDialogPresenter.StateData>
 	{
 		public class StateData
 		{

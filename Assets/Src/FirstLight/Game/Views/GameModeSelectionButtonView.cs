@@ -17,7 +17,7 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// This class manages the visual components of the GameModeSelectionButton elements in the GameModeSelectionScreen
 	/// </summary>
-	public class GameModeSelectionButtonView : UIView2
+	public class GameModeSelectionButtonView : UIView
 	{
 		private const string GameModeButtonBase = "game-mode-button";
 		private const string GameModeButtonSelectedModifier = GameModeButtonBase + "--selected";
@@ -96,11 +96,11 @@ namespace FirstLight.Game.Views
 			_button.clicked += () => Clicked?.Invoke(this);
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			if (_timerCoroutine != null)
 			{

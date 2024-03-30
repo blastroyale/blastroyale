@@ -13,7 +13,7 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class LocalPlayerInfoView : UIView2
+	public class LocalPlayerInfoView : UIView
 	{
 		private PlayerHealthShieldElement _healthShield;
 		private VisualElement _teamColor;
@@ -39,9 +39,8 @@ namespace FirstLight.Game.Views.UITK
 			_name = element.Q<Label>("LocalPlayerName").Required();
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
-			base.SubscribeToEvents();
 			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
 			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
@@ -51,9 +50,9 @@ namespace FirstLight.Game.Views.UITK
 		}
 
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
-			base.UnsubscribeFromEvents();
+			base.OnScreenClose();
 			QuantumEvent.UnsubscribeListener(this);
 		}
 

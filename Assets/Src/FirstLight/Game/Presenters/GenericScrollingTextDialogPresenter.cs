@@ -9,8 +9,8 @@ using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
-	[UILayer(UIService2.UILayer.Popup)]
-	public class GenericScrollingTextDialogPresenter : UIPresenterData2<GenericScrollingTextDialogPresenter.StateData>
+	[UILayer(UIService.UIService.UILayer.Popup)]
+	public class GenericScrollingTextDialogPresenter : UIPresenterData<GenericScrollingTextDialogPresenter.StateData>
 	{
 		public class StateData
 		{

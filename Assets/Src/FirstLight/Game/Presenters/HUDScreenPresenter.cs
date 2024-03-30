@@ -22,7 +22,7 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
-	public class HUDScreenPresenter : UIPresenter2
+	public class HUDScreenPresenter : UIPresenter
 	{
 		private const string USS_SKYDIVING = "skydiving";
 
@@ -115,16 +115,16 @@ namespace FirstLight.Game.Presenters
 
 			_gameServices.ControlsSetup.SetControlPositions(Root);
 
-			Root.Q("WeaponDisplay").Required().AttachView2(this, out _weaponDisplayView);
-			Root.Q("KillFeed").Required().AttachView2(this, out _killFeedView);
-			Root.Q("MatchStatus").Required().AttachView2(this, out _matchTimerView);
-			Root.AttachView2(this, out _specialButtonsView);
-			Root.Q("DeviceStatus").Required().AttachView2(this, out _deviceStatusView);
-			Root.Q("SquadMembers").Required().AttachView2(this, out _squadMembersView);
-			Root.Q("PlayerBars").Required().AttachView2(this, out _statusBarsView);
-			Root.Q("StatusNotifications").Required().AttachView2(this, out _statusNotificationsView);
-			Root.Q("PlayerCounts").Required().AttachView2(this, out _playerCountsView);
-			Root.AttachExistingView2(this, _knockOutNotificationView);
+			Root.Q("WeaponDisplay").Required().AttachView(this, out _weaponDisplayView);
+			Root.Q("KillFeed").Required().AttachView(this, out _killFeedView);
+			Root.Q("MatchStatus").Required().AttachView(this, out _matchTimerView);
+			Root.AttachView(this, out _specialButtonsView);
+			Root.Q("DeviceStatus").Required().AttachView(this, out _deviceStatusView);
+			Root.Q("SquadMembers").Required().AttachView(this, out _squadMembersView);
+			Root.Q("PlayerBars").Required().AttachView(this, out _statusBarsView);
+			Root.Q("StatusNotifications").Required().AttachView(this, out _statusNotificationsView);
+			Root.Q("PlayerCounts").Required().AttachView(this, out _playerCountsView);
+			Root.AttachExistingView(this, _knockOutNotificationView);
 
 			var localPlayerInfo = Root.Q("LocalPlayerInfo").Required();
 			if (_dataProvider.AppDataProvider.UseOverheadUI)
@@ -133,7 +133,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				localPlayerInfo.AttachView2(this, out _localPlayerInfoView);
+				localPlayerInfo.AttachView(this, out _localPlayerInfoView);
 			}
 
 			_weaponDisplayView.OutOfAmmoColors = _outOfAmmoGradient;

@@ -9,7 +9,7 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the Loading Screen UI by:
 	/// - Showing the loading status
 	/// </summary>
-	public class LoadingScreenPresenter : UIPresenter2
+	public class LoadingScreenPresenter : UIPresenter
 	{
 		protected override void QueryElements()
 		{

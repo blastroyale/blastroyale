@@ -21,8 +21,8 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Handles purchase confirmations
 	/// </summary>
-	[UILayer(UIService2.UILayer.Popup)]
-	public class GenericPurchaseDialogPresenter : UIPresenterData2<GenericPurchaseDialogPresenter.StateData>
+	[UILayer(UIService.UIService.UILayer.Popup)]
+	public class GenericPurchaseDialogPresenter : UIPresenterData<GenericPurchaseDialogPresenter.StateData>
 	{
 		
 		public class StateData

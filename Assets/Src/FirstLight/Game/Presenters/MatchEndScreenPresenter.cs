@@ -18,7 +18,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This screen is shown when a player is killed / the match ends.
 	/// </summary>
-	public class MatchEndScreenPresenter : UIPresenterData2<MatchEndScreenPresenter.StateData>
+	public class MatchEndScreenPresenter : UIPresenterData<MatchEndScreenPresenter.StateData>
 	{
 		public class StateData
 		{

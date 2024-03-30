@@ -22,7 +22,7 @@ namespace FirstLight.Game.Presenters
 	/// - Reconnect to the Adventure
 	/// - Leave the Adventure to the Main menu
 	/// </summary>
-	public class DisconnectedScreenPresenter : UIPresenterData2<DisconnectedScreenPresenter.StateData>
+	public class DisconnectedScreenPresenter : UIPresenterData<DisconnectedScreenPresenter.StateData>
 	{
 		public class StateData
 		{

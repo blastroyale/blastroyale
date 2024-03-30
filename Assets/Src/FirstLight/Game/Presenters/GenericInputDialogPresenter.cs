@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
-	[UILayer(UIService2.UILayer.Popup)]
+	[UILayer(UIService.UIService.UILayer.Popup)]
 	public class GenericInputDialogPresenter : GenericDialogPresenterBase
 	{
 		private GenericDialogButton<string> _confirmButton;

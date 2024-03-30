@@ -11,7 +11,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Handles the generic reward part of the RewardsScreen (ex Coins)
 	/// </summary>
-	public class GenericRewardView : UIView2
+	public class GenericRewardView : UIView
 	{
 		private const float SKIP_ANIMATION_TIME = 0.2f;
 

@@ -10,8 +10,8 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Presenter for the swipe transition 
 	/// </summary>
-	[UILayer(UIService2.UILayer.Foreground)]
-	public class SwipeTransitionScreenPresenter : UIPresenter2
+	[UILayer(UIService.UIService.UILayer.Foreground)]
+	public class SwipeTransitionScreenPresenter : UIPresenter
 	{
 		private VisualElement _swipeParent;
 		//private bool _transitionFinished;

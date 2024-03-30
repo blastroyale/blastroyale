@@ -14,7 +14,7 @@ namespace FirstLight.Game.Views.UITK
 	/// Handles locked elements.
 	/// TODO: This should really be a custom visual element that wraps the original button.
 	/// </summary>
-	public class FameLockedView : UIView2
+	public class FameLockedView : UIView
 	{
 		private const string USS_FAME_LOCK = "fame-lock";
 		private const string USS_FAME_LOCK_HOLDER = USS_FAME_LOCK + "__holder";
@@ -51,7 +51,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			_dataProvider.PlayerDataProvider.Level.InvokeObserve(OnFameUpdated);
 		}
@@ -78,7 +78,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			_dataProvider.PlayerDataProvider.Level.StopObserving(OnFameUpdated);
 		}

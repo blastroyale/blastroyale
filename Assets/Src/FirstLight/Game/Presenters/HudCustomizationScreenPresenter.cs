@@ -12,7 +12,7 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
-	public class HudCustomizationScreenPresenter : UIPresenterData2<HudCustomizationScreenPresenter.StateData>
+	public class HudCustomizationScreenPresenter : UIPresenterData<HudCustomizationScreenPresenter.StateData>
 	{
 		private readonly float MIN_SIZE = 0.2f;
 		private readonly float MIN_OPACITY = 0.05f;

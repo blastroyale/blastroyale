@@ -30,7 +30,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Home Screen.
 	/// </summary>
-	public partial class HomeScreenPresenter : UIPresenterData2<HomeScreenPresenter.StateData>
+	public partial class HomeScreenPresenter : UIPresenterData<HomeScreenPresenter.StateData>
 	{
 		private const float TROPHIES_COUNT_DELAY = 0.8f;
 
@@ -181,13 +181,13 @@ namespace FirstLight.Game.Presenters
 			_playButton.clicked += OnPlayButtonClicked;
 
 			Root.Q<CurrencyDisplayElement>("CoinCurrency")
-				.AttachView2(this, out CurrencyDisplayView _)
+				.AttachView(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
 			Root.Q<CurrencyDisplayElement>("FragmentsCurrency")
-				.AttachView2(this, out CurrencyDisplayView _)
+				.AttachView(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
 			Root.Q<CurrencyDisplayElement>("BlastBuckCurrency")
-				.AttachView2(this, out CurrencyDisplayView _)
+				.AttachView(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
 			;
 
@@ -244,7 +244,7 @@ namespace FirstLight.Game.Presenters
 				Data.OnTiktokClicked();
 			};
 
-			Root.Q("Matchmaking").AttachView2(this, out _matchmakingStatusView);
+			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
 
 			Root.SetupClicks(_services);

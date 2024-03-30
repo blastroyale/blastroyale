@@ -28,7 +28,7 @@ namespace FirstLight.Game.Presenters
 	/// Presenter for the Leaderboards and Rewards Screen
 	/// </summary>
 	public class LeaderboardAndRewardsScreenPresenter :
-		UIPresenterData2<LeaderboardAndRewardsScreenPresenter.StateData>
+		UIPresenterData<LeaderboardAndRewardsScreenPresenter.StateData>
 	{
 		private const string BADGE_SPRITE_PREFIX = "BadgePlace";
 
@@ -96,12 +96,12 @@ namespace FirstLight.Game.Presenters
 
 			_rewardsPanel = Root.Q<VisualElement>("RewardsPanel").Required();
 			_trophies = _rewardsPanel.Q<VisualElement>("Trophies").Required();
-			_trophies.AttachView2(this, out _trophiesView);
+			_trophies.AttachView(this, out _trophiesView);
 			_bpp = _rewardsPanel.Q<VisualElement>("BPP").Required();
-			_bpp.AttachView2(this, out _bppView);
+			_bpp.AttachView(this, out _bppView);
 
 			_fame = _rewardsPanel.Q<VisualElement>("Fame").Required();
-			_fame.AttachView2(this, out _levelView);
+			_fame.AttachView(this, out _levelView);
 			_levelView.HideFinalLevel();
 			_fameTitle = Root.Q<Label>("FameTitle").Required();
 
@@ -274,7 +274,7 @@ namespace FirstLight.Game.Presenters
 				: _matchServices.MatchEndDataService.LocalPlayer;
 
 			_playerName = new Label();
-			_playerName.AddToClassList(UIService2.USS_PLAYER_LABEL);
+			_playerName.AddToClassList(UIService.UIService.USS_PLAYER_LABEL);
 			Root.Add(_playerName);
 			if (playerRef == PlayerRef.None)
 			{
@@ -314,7 +314,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var newEntry = _leaderboardEntryAsset.Instantiate();
 				var borderColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) entry.LeaderboardRank);
-				newEntry.AttachView2(this, out LeaderboardEntryView view);
+				newEntry.AttachView(this, out LeaderboardEntryView view);
 				view.SetData((int) entry.PlayerRank, entry.GetPlayerName(), (int) entry.Data.PlayersKilledCount,
 					(int) entry.Data.PlayerTrophies,
 					_matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player, entry.AvatarUrl, null, borderColor);

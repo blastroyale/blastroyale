@@ -16,7 +16,7 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// This class manages the visual components of the LeaderboardEntry elements in the LeaderboardAndRewardsScreen
 	/// </summary>
-	public class LeaderboardEntryView : UIView2
+	public class LeaderboardEntryView : UIView
 	{
 		private const string USS_LEADERBOARD_ENTRY = "leaderboard-entry";
 		private const string USS_LEADERBOARD_ENTRY_FIRST = USS_LEADERBOARD_ENTRY + "--first";
@@ -157,7 +157,7 @@ namespace FirstLight.Game.Views
 			}
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
 		}

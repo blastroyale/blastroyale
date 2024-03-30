@@ -16,7 +16,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Handles the summary part of the rewards screen
 	/// </summary>
-	public class RewardsSummaryView : UIView2
+	public class RewardsSummaryView : UIView
 	{
 		private const float SKIP_ANIMATION_TIME = 0.2f;
 		private const float FAME_MIDDLE_SKIP_TIME = 4.7f;

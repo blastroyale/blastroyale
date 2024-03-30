@@ -15,8 +15,8 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the VFX for the UI by:
 	/// - Player new VFX animations
 	/// </summary>
-	[UILayer(UIService2.UILayer.LegacyVFXHack)]
-	public class UiVfxPresenter : UIPresenter2
+	[UILayer(UIService.UIService.UILayer.LegacyVFXHack)]
+	public class UiVfxPresenter : UIPresenter
 	{
 		[SerializeField, Required] private UiVfxImage _imageRef;
 		[SerializeField, Required] private Transform _defaultFloatingTextTransform;

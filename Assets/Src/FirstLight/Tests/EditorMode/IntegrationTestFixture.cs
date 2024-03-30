@@ -38,7 +38,7 @@ namespace FirstLight.Tests.EditorMode
 		protected DataService TestData;
 		protected ConfigsProvider TestConfigs;
 		protected GameStateMachine TestStates;
-		protected UIService2 TestUI2;
+		protected UIService.UIService TestUI2;
 		protected GameNetworkService TestNetwork;
 		protected TutorialService TestTutorial;
 		protected AssetResolverService TestAssetResolver = new ();
@@ -60,7 +60,7 @@ namespace FirstLight.Tests.EditorMode
 		{
 			var messageBroker = new InMemoryMessageBrokerService();
 			TimeService = new TimeService();
-			TestUI2 = new UIService2();
+			TestUI2 = new UIService.UIService();
 			TestNetwork = new GameNetworkService(TestConfigs);
 			TestTutorial = new TutorialService();
 			TestTutorial.BindServicesAndData(TestLogic, TestServices);

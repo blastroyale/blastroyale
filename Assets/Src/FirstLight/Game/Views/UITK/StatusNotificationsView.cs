@@ -13,7 +13,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles all status notifications on the match HUD screen.
 	/// </summary>
-	public class StatusNotificationsView : UIView2
+	public class StatusNotificationsView : UIView
 	{
 		private const float LOW_HP_BLINK_SPEED = 1f;
 
@@ -88,10 +88,8 @@ namespace FirstLight.Game.Views.UITK
 			_lowHPAnimation.Pause();
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
-			base.SubscribeToEvents();
-
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
@@ -140,9 +138,9 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
-			base.UnsubscribeFromEvents();
+			base.OnScreenClose();
 
 			QuantumEvent.UnsubscribeListener(this);
 		}

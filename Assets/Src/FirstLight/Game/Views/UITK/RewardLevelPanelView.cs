@@ -14,7 +14,7 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// View for the simple rewards in the rewards match end screen
 	/// </summary>
-	public class RewardLevelPanelView : UIView2
+	public class RewardLevelPanelView : UIView
 	{
 		public struct LevelLevelRewardInfo
 		{

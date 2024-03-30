@@ -19,8 +19,8 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This presenter handles showing the register screen
 	/// </summary>
-	[UILayer(UIService2.UILayer.Popup)]
-	public class ConnectFlgIdScreenPresenter : UIPresenterData2<ConnectFlgIdScreenPresenter.StateData>
+	[UILayer(UIService.UIService.UILayer.Popup)]
+	public class ConnectFlgIdScreenPresenter : UIPresenterData<ConnectFlgIdScreenPresenter.StateData>
 	{
 		public class StateData
 		{

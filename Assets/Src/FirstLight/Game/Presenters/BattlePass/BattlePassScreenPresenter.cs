@@ -33,7 +33,7 @@ namespace FirstLight.Game.Presenters
 	/// This presenter handles the BattlePass screen - displays the current / next level, the progress, and
 	/// shows reward popups when you receive them.
 	/// </summary>
-	public class BattlePassScreenPresenter : UIPresenterData2<BattlePassScreenPresenter.StateData>
+	public class BattlePassScreenPresenter : UIPresenterData<BattlePassScreenPresenter.StateData>
 	{
 		public class StateData
 		{

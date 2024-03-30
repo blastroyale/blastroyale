@@ -12,7 +12,7 @@ using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class WeaponDisplayView : UIView2
+	public class WeaponDisplayView : UIView
 	{
 		private const string USS_SPRITE_RARITY = "sprite-equipmentcard__card-rarity-{0}";
 		private const string USS_SPRITE_FACTION = "sprite-equipmentcard__card-faction-{0}";
@@ -65,7 +65,7 @@ namespace FirstLight.Game.Views.UITK
 			};
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerWeaponAdded>(OnPlayerWeaponAdded);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
@@ -87,7 +87,7 @@ namespace FirstLight.Game.Views.UITK
 			UpdateFromLatestVerifiedFrame();
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}

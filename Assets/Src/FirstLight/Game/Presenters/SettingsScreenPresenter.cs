@@ -16,7 +16,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Shop Menu.
 	/// </summary>
-	public class SettingsScreenPresenter : UIPresenterData2<SettingsScreenPresenter.StateData>
+	public class SettingsScreenPresenter : UIPresenterData<SettingsScreenPresenter.StateData>
 	{
 		public class StateData
 		{

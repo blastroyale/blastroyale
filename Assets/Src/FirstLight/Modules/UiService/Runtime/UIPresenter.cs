@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Modules.UIService.Runtime;
-using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,17 +8,17 @@ using UnityEngine.UIElements;
 namespace FirstLight.UIService
 {
 	[RequireComponent(typeof(UIDocument))]
-	public abstract class UIPresenter2 : MonoBehaviour
+	public abstract class UIPresenter : MonoBehaviour
 	{
 		// TODO: Add Required attribute when no more legacy screens are present
 		[SerializeField] private UIDocument _document;
 
 		public VisualElement Root { private set; get; }
 
-		internal UIService2.UILayer Layer { set; get; }
+		internal UIService.UILayer Layer { set; get; }
 		internal object Data { set; get; }
 
-		private readonly List<UIView2> _views = new ();
+		private readonly List<UIView> _views = new ();
 		private bool _enableTriggered;
 
 		private void OnEnable()
@@ -38,14 +37,14 @@ namespace FirstLight.UIService
 		{
 			if (_document != null)
 			{
-				_document.sortingOrder = (int) (GetType().GetAttribute<UILayerAttribute>()?.Layer ?? UIService2.UILayer.Default);
+				_document.sortingOrder = (int) (GetType().GetAttribute<UILayerAttribute>()?.Layer ?? UIService.UILayer.Default);
 			}
 		}
 
 		/// <summary>
-		/// Adds a <see cref="UIView2"/> view to the list of views, and handles it's lifecycle events.
+		/// Adds a <see cref="UIView"/> view to the list of views, and handles it's lifecycle events.
 		/// </summary>
-		public void AddView(VisualElement element, UIView2 view)
+		public void AddView(VisualElement element, UIView view)
 		{
 			_views.Add(view);
 			view.Attached(element);
@@ -57,7 +56,7 @@ namespace FirstLight.UIService
 
 			if (_document != null) // TODO: Only here to support legacy lobby screen, remove when it's UITK
 			{
-				Root = _document.rootVisualElement.Q(UIService2.ID_ROOT);
+				Root = _document.rootVisualElement.Q(UIService.ID_ROOT);
 				QueryElements();
 
 				if (reload)
@@ -67,18 +66,17 @@ namespace FirstLight.UIService
 				}
 				else
 				{
-					Root.EnableInClassList(UIService2.CLASS_HIDDEN, true);
+					Root.EnableInClassList(UIService.CLASS_HIDDEN, true);
 
 					// We need to wait for next frame to trigger the CLASS_HIDDEN transition
 					await UniTask.NextFrame();
 
-					Root.EnableInClassList(UIService2.CLASS_HIDDEN, false);
+					Root.EnableInClassList(UIService.CLASS_HIDDEN, false);
 				}
 
 				foreach (var view in _views)
 				{
-					// TODO mihak: Rename to OnScreenOpen
-					view.SubscribeToEvents();
+					view.OnScreenOpen(reload);
 				}
 			}
 
@@ -89,12 +87,11 @@ namespace FirstLight.UIService
 		{
 			if (_document != null)
 			{
-				Root.EnableInClassList(UIService2.CLASS_HIDDEN, true);
+				Root.EnableInClassList(UIService.CLASS_HIDDEN, true);
 
 				foreach (var view in _views)
 				{
-					// TODO mihak: Rename to OnScreenOpen
-					view.UnsubscribeFromEvents();
+					view.OnScreenClose();
 				}
 			}
 

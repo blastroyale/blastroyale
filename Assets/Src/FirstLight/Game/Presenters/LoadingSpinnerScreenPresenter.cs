@@ -6,8 +6,8 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This presenter handles showing generic loading spinner screen
 	/// </summary>	
-	[UILayer(UIService2.UILayer.Foreground)]
-	public class LoadingSpinnerScreenPresenter : UIPresenter2
+	[UILayer(UIService.UIService.UILayer.Foreground)]
+	public class LoadingSpinnerScreenPresenter : UIPresenter
 	{
 		protected override void QueryElements()
 		{

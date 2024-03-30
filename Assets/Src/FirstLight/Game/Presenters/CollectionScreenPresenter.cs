@@ -26,7 +26,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Collection Screen, where players can equip skins, death markers, gliders, etc.
 	/// </summary>
-	public class CollectionScreenPresenter : UIPresenterData2<CollectionScreenPresenter.StateData>
+	public class CollectionScreenPresenter : UIPresenterData<CollectionScreenPresenter.StateData>
 	{
 		[SerializeField] private Vector3 _collectionSpawnPosition;
 		[SerializeField] private Vector3 _gliderSpawnPosition;
@@ -81,7 +81,7 @@ namespace FirstLight.Game.Presenters
 			header.backClicked += Data.OnBackClicked;
 
 			Root.Q<CurrencyDisplayElement>("CSCurrency").SetDisplay(false);
-			Root.Q<CurrencyDisplayElement>("CoinCurrency").AttachView2(this, out CurrencyDisplayView _);
+			Root.Q<CurrencyDisplayElement>("CoinCurrency").AttachView(this, out CurrencyDisplayView _);
 
 			_collectionList.selectionType = SelectionType.Single;
 			_collectionList.makeItem = MakeCollectionListItem;

@@ -19,8 +19,8 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Handles the player statistics screen.
 	/// </summary>
-	[UILayer(UIService2.UILayer.Popup)]
-	public class PlayerStatisticsPopupPresenter : UIPresenterData2<PlayerStatisticsPopupPresenter.StateData>
+	[UILayer(UIService.UIService.UILayer.Popup)]
+	public class PlayerStatisticsPopupPresenter : UIPresenterData<PlayerStatisticsPopupPresenter.StateData>
 	{
 		public class StateData
 		{

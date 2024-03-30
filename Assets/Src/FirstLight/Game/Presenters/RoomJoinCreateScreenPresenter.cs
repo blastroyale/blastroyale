@@ -25,7 +25,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Custom Game Creation Menu.
 	/// </summary>
-	public class RoomJoinCreateScreenPresenter : UIPresenterData2<RoomJoinCreateScreenPresenter.StateData>
+	public class RoomJoinCreateScreenPresenter : UIPresenterData<RoomJoinCreateScreenPresenter.StateData>
 	{
 		public class StateData
 		{

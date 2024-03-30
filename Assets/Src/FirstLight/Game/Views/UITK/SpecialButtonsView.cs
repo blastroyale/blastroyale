@@ -13,7 +13,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles displaying the special buttons and their state.
 	/// </summary>
-	public class SpecialButtonsView : UIView2
+	public class SpecialButtonsView : UIView
 	{
 		internal SpecialButtonElement _special0Button;
 		internal SpecialButtonElement _special1Button;
@@ -56,7 +56,7 @@ namespace FirstLight.Game.Views.UITK
 			_matchServices = MainInstaller.ResolveMatchServices();
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUsed>(OnLocalPlayerSpecialUsed);
@@ -92,7 +92,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}

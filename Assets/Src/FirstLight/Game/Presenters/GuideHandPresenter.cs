@@ -12,7 +12,7 @@ using UnityEngine.UIElements;
 /// TEMPORARY uGUI-based guide hand. Displays a guide hand at a certain position.
 /// To be removed and replaced with a generic UITK system when whole UI is refactored to UITK 
 /// </summary>
-public class GuideHandPresenter : UIPresenter2
+public class GuideHandPresenter : UIPresenter
 {
 	[SerializeField] private GameObject _animRoot;
 	[SerializeField] private Animator _animator;

@@ -2,7 +2,7 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.UIService
 {
-	public class UIView2
+	public class UIView
 	{
 		/// <summary>
 		/// The element this view is attached to.
@@ -21,14 +21,15 @@ namespace FirstLight.UIService
 		/// <summary>
 		/// Called when runtime logic should be initialized (subscribing to events etc...)
 		/// </summary>
-		public virtual void SubscribeToEvents()
+		/// <param name="reload"></param>
+		public virtual void OnScreenOpen(bool reload)
 		{
 		}
 
 		/// <summary>
 		/// Called when runtime logic should be initialized (subscribing to events etc...)
 		/// </summary>
-		public virtual void UnsubscribeFromEvents()
+		public virtual void OnScreenClose()
 		{
 		}
 	}

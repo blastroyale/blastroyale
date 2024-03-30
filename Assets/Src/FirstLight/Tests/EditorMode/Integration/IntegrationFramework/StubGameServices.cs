@@ -46,7 +46,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IIAPService IAPService { get; }
 		public virtual IPartyService PartyService { get; }
 		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
-		public UIService2 UIService { get; }
+		public UIService.UIService UIService { get; }
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; set; }

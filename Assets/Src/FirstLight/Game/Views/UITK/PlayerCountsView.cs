@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class PlayerCountsView : UIView2
+	public class PlayerCountsView : UIView
 	{
 		private Label _aliveCountLabel;
 		private VisualElement _aliveCountPing;
@@ -48,13 +48,13 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			_matchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);

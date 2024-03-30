@@ -23,7 +23,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Presenter for the Global Leaderboards Screen
 	/// </summary>
-	public class GlobalLeaderboardScreenPresenter : UIPresenterData2<GlobalLeaderboardScreenPresenter.StateData>
+	public class GlobalLeaderboardScreenPresenter : UIPresenterData<GlobalLeaderboardScreenPresenter.StateData>
 	{
 		public class StateData
 		{
@@ -174,7 +174,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement CreateLeaderboardEntry()
 		{
 			var newEntry = _leaderboardEntryAsset.Instantiate();
-			newEntry.AttachView2(this, out LeaderboardEntryView view);
+			newEntry.AttachView(this, out LeaderboardEntryView view);
 			newEntry.AddToClassList(UssLeaderboardEntryGlobal);
 			_leaderboardEntryMap[newEntry] = view;
 			return newEntry;
@@ -305,7 +305,7 @@ namespace FirstLight.Game.Presenters
 		{
 
 			var newEntry = _leaderboardEntryAsset.Instantiate();
-			newEntry.AttachView2(this, out LeaderboardEntryView view);
+			newEntry.AttachView(this, out LeaderboardEntryView view);
 			var leaderboardEntry = result.Leaderboard[0];
 
 			int trophies = leaderboardEntry.StatValue == 0 ? DefaultTrophies : leaderboardEntry.StatValue;

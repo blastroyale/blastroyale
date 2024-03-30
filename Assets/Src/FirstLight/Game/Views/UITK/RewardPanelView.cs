@@ -10,7 +10,7 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// View for the simple rewards in the rewards match end screen
 	/// </summary>
-	public class RewardPanelView : UIView2
+	public class RewardPanelView : UIView
 	{
 		private Label _gainedLabel;
 		private Label _totalLabel;

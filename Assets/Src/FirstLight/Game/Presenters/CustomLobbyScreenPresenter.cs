@@ -26,7 +26,7 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the Players Waiting Screen UI by:
 	/// - Showing the loading status
 	/// </summary>
-	public class CustomLobbyScreenPresenter : UIPresenterData2<CustomLobbyScreenPresenter.StateData>
+	public class CustomLobbyScreenPresenter : UIPresenterData<CustomLobbyScreenPresenter.StateData>
 	{
 		public class StateData
 		{

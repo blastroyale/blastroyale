@@ -22,7 +22,7 @@ namespace FirstLight.Game.Presenters
 
 		private void QueryElementsSquads(VisualElement root)
 		{
-			_partyContainer = root.Q("PartyContainer").Required().AttachView2(this, out _partyView);
+			_partyContainer = root.Q("PartyContainer").Required().AttachView(this, out _partyView);
 			_partyView.SetRoot(root);
 			_partyButton = root.Q<LocalizedButton>("PartyButton").Required();
 			_partyButton.LevelLock2(this, root, Configs.UnlockSystem.Squads, OnPartyClicked);

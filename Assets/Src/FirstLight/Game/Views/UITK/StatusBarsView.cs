@@ -17,7 +17,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles displaying the player bars on the screen.
 	/// </summary>
-	public class StatusBarsView : UIView2
+	public class StatusBarsView : UIView
 	{
 		private const bool SHOW_ENEMY_BARS = false;
 
@@ -81,7 +81,7 @@ namespace FirstLight.Game.Views.UITK
 				false, 3);
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
@@ -99,7 +99,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumCallback.SubscribeManual<CallbackEventCanceled>(this, OnEventCancelled);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			QuantumCallback.UnsubscribeListener(this);

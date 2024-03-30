@@ -27,7 +27,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IInternalGameNetworkService _networkService;
-		private readonly UIService2 _uiService2;
+		private readonly UIService.UIService _uiService2;
 		private readonly MatchState _matchState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 

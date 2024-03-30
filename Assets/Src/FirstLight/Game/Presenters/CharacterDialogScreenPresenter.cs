@@ -15,7 +15,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the character dialog system
 	/// </summary>
-	public class CharacterDialogScreenPresenter : UIPresenter2
+	public class CharacterDialogScreenPresenter : UIPresenter
 	{
 		private const string CHARACTER_LEFT = "back_avatar--left";
 		private const string CHARACTER_RIGHT = "back_avatar--right";

@@ -19,8 +19,8 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles server selection in the main menu
 	/// </summary>
-	[UILayer(UIService2.UILayer.Popup)]
-	public class ServerSelectScreenPresenter : UIPresenterData2<ServerSelectScreenPresenter.StateData>
+	[UILayer(UIService.UIService.UILayer.Popup)]
+	public class ServerSelectScreenPresenter : UIPresenterData<ServerSelectScreenPresenter.StateData>
 	{
 		public class StateData
 		{

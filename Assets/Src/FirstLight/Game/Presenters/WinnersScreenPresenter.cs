@@ -19,7 +19,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Presenter for the winners screen, which shows who are the top 3 winners of the game
 	/// </summary>
-	public class WinnersScreenPresenter : UIPresenterData2<WinnersScreenPresenter.StateData>
+	public class WinnersScreenPresenter : UIPresenterData<WinnersScreenPresenter.StateData>
 	{
 
 		public class StateData
@@ -95,7 +95,7 @@ namespace FirstLight.Game.Presenters
 
 
 				var playerNameLabel = new Label();
-				playerNameLabel.AddToClassList(UIService2.USS_PLAYER_LABEL);
+				playerNameLabel.AddToClassList(UIService.UIService.USS_PLAYER_LABEL);
 				playerNameLabel.style.color = rankColor;
 				playerNameLabel.text = player.GetPlayerName();
 				_nameContainer.Add(playerNameLabel);

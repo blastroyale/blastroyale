@@ -13,7 +13,7 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters.News
 {
-	public class NewsScreenPresenter : UIPresenterData2<NewsScreenPresenter.NewsScreenData>
+	public class NewsScreenPresenter : UIPresenterData<NewsScreenPresenter.NewsScreenData>
 	{
 		public class NewsScreenData
 		{

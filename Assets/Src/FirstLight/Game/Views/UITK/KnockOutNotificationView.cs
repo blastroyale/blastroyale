@@ -18,7 +18,7 @@ namespace FirstLight.Game.Views.UITK
 	/// Handles the knockout notifications, the and the label
 	/// </summary>
 	[Serializable]
-	public class KnockOutNotificationView : UIView2
+	public class KnockOutNotificationView : UIView
 	{
 		[Required, SerializeField] private PlayableDirector _friendKnockedOutPlayable;
 		[Required, SerializeField] private PlayableDirector _knockedOutPlayable;
@@ -46,19 +46,19 @@ namespace FirstLight.Game.Views.UITK
 			base.Attached(element);
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
 			QuantumEvent.SubscribeManual<EventOnPlayerRevived>(this, OnPlayerRevived);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			QuantumCallback.UnsubscribeListener(this);
 			_services.MessageBrokerService.UnsubscribeAll(this);
-			base.UnsubscribeFromEvents();
+			base.OnScreenClose();
 		}
 
 		private void OnMatchStarted(MatchStartedMessage obj)

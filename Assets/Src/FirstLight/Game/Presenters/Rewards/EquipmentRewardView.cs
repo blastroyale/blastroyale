@@ -14,7 +14,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Handles the equipment reward part of the rewards screen
 	/// </summary>
-	public class EquipmentRewardView : UIView2
+	public class EquipmentRewardView : UIView
 	{
 		private const float SKIP_ANIMATION_TIME = 2.5f;
 		private const string USS_REWARD_EQUIPMENT_BLOCK = "rewards-equipment";

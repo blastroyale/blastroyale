@@ -17,7 +17,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Shows the matchmaking status on the HomeScreen
 	/// </summary>
-	public class MatchmakingStatusView : UIView2
+	public class MatchmakingStatusView : UIView
 	{
 		private const string UssContainerHidden = "matchmaking-container--hidden";
 

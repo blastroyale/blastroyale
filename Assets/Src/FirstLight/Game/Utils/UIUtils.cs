@@ -44,7 +44,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static void SetupClicks(this VisualElement root, IGameServices gameServices)
 		{
-			foreach (var ve in root.Query(null, UIService2.SFX_CLICK_FORWARDS).Build())
+			foreach (var ve in root.Query(null, UIService.UIService.SFX_CLICK_FORWARDS).Build())
 			{
 				ve.RegisterCallback<PointerDownEvent, IGameServices>(
 					(_, service) => { service.AudioFxService.PlayClip2D(AudioId.ButtonClickForward); },
@@ -52,7 +52,7 @@ namespace FirstLight.Game.Utils
 					TrickleDown.TrickleDown);
 			}
 
-			foreach (var ve in root.Query(null, UIService2.SFX_CLICK_BACKWARDS).Build())
+			foreach (var ve in root.Query(null, UIService.UIService.SFX_CLICK_BACKWARDS).Build())
 			{
 				ve.RegisterCallback<PointerDownEvent, IGameServices>(
 					(_, service) => { service.AudioFxService.PlayClip2D(AudioId.ButtonClickBackward); },
@@ -236,7 +236,7 @@ namespace FirstLight.Game.Utils
 		/// Locks an element behind a level. unlockedCallback is triggered when this element isn't locked and is pressed.
 		/// </summary>
 		public static void LevelLock<TElement, TPData>(this TElement element,
-													   UIPresenterData2<TPData> presenter, VisualElement root, UnlockSystem unlockSystem,
+													   UIPresenterData<TPData> presenter, VisualElement root, UnlockSystem unlockSystem,
 													   Action unlockedCallback)
 			where TElement : VisualElement
 			where TPData : class
@@ -249,11 +249,11 @@ namespace FirstLight.Game.Utils
 		/// Locks an element behind a level. unlockedCallback is triggered when this element isn't locked and is pressed.
 		/// </summary>
 		public static void LevelLock2<TElement>(this TElement element,
-												UIPresenter2 presenter, VisualElement root, UnlockSystem unlockSystem,
+												UIPresenter presenter, VisualElement root, UnlockSystem unlockSystem,
 												Action unlockedCallback)
 			where TElement : VisualElement
 		{
-			element.AttachView2(presenter, out FameLockedView storeLockedView);
+			element.AttachView(presenter, out FameLockedView storeLockedView);
 			storeLockedView.Init(unlockSystem, root, unlockedCallback);
 		}
 

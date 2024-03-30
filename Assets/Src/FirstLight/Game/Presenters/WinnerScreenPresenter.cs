@@ -19,7 +19,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This presenter shows the match winner.
 	/// </summary>
-	public class WinnerScreenPresenter : UIPresenterData2<WinnerScreenPresenter.StateData>, INotificationReceiver
+	public class WinnerScreenPresenter : UIPresenterData<WinnerScreenPresenter.StateData>, INotificationReceiver
 	{
 		public class StateData
 		{

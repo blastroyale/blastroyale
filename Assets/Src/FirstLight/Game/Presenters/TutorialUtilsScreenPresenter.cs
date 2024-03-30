@@ -17,7 +17,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Tutorial utils
 	/// </summary>
-	public class TutorialUtilsScreenPresenter : UIPresenter2
+	public class TutorialUtilsScreenPresenter : UIPresenter
 	{
 		private const string BLOCKER_ELEMENT_STYLE = "blocker-element-blocker";
 		private const string HIGHLIGHT_ELEMENT_STYLE = "highlight-element";
@@ -77,7 +77,7 @@ namespace FirstLight.Game.Presenters
 		/// Creates blocker elements around ui element object on the <typeparamref name="T"/> presenter.
 		/// </summary>
 		public async UniTask BlockAround<T>(string className = null, string elementName = null)
-			where T : UIPresenter2
+			where T : UIPresenter
 		{
 			await UniTask.WaitUntil(() => _services.UIService.IsScreenOpen<T>());
 			var root = _services.UIService.GetScreen<T>().Root;
@@ -87,7 +87,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		public async UniTask EnsurePresenterElement<T>(string className = null, string elementName = null)
-			where T : UIPresenter2
+			where T : UIPresenter
 		{
 			await UniTask.WaitUntil(() => _services.UIService.IsScreenOpen<T>());
 			var root = _services.UIService.GetScreen<T>().Root;
@@ -120,7 +120,7 @@ namespace FirstLight.Game.Presenters
 		/// <typeparam name="T"></typeparam>
 		/// <exception cref="Exception"></exception>
 		public void Highlight<T>(string className = null, string elementName = null, float sizeMultiplier = 1)
-			where T : UIPresenter2
+			where T : UIPresenter
 		{
 			var root = _services.UIService.GetScreen<T>().Root;
 			var element = root.Q(elementName, className);

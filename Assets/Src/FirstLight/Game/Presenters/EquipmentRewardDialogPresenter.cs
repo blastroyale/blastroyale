@@ -12,7 +12,7 @@ namespace FirstLight.Game.Presenters
 {
 	/// <inheritdoc />
 	/// TODO: Is this still used?
-	public class EquipmentRewardDialogPresenter : UIPresenterData2<EquipmentRewardDialogPresenter.StateData>
+	public class EquipmentRewardDialogPresenter : UIPresenterData<EquipmentRewardDialogPresenter.StateData>
 	{
 		public class StateData
 		{

@@ -31,7 +31,7 @@ namespace FirstLight.Game.Presenters
 	/// In future iteration with new custom lobby screen, this screen will become a loading screen for both
 	/// matchmaking and custom lobby, just before players are dropped into the match.
 	/// </summary>
-	public class PreGameLoadingScreenPresenter : UIPresenterData2<PreGameLoadingScreenPresenter.StateData>
+	public class PreGameLoadingScreenPresenter : UIPresenterData<PreGameLoadingScreenPresenter.StateData>
 	{
 		private const int TIMER_PADDING_MS = 2000;
 		private const int DISABLE_LEAVE_AFTER = 3;

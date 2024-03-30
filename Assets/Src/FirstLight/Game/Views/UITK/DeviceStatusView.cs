@@ -9,7 +9,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Displays device status information such as battery, wifi, and latency.
 	/// </summary>
-	public class DeviceStatusView : UIView2
+	public class DeviceStatusView : UIView
 	{
 		private const long UPDATE_INTERVAL = 1000;
 
@@ -40,12 +40,12 @@ namespace FirstLight.Game.Views.UITK
 			_latency = element.Q<Label>("LatencyLabel").Required();
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			_tickScheduledItem = Element.schedule.Execute(Tick).Every(UPDATE_INTERVAL);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			// Probably not strictly necessary, but just in case
 			_tickScheduledItem.Pause();

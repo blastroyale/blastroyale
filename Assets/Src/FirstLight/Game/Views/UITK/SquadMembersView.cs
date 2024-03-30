@@ -15,7 +15,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles displaying the squad members on the screen, if there are any.
 	/// </summary>
-	public class SquadMembersView : UIView2
+	public class SquadMembersView : UIView
 	{
 		private const int MAX_SQUAD_MEMBERS = 3;
 
@@ -34,7 +34,7 @@ namespace FirstLight.Game.Views.UITK
 			element.Clear(); // Clears development-time child elements.
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
@@ -47,7 +47,7 @@ namespace FirstLight.Game.Views.UITK
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			_services.MessageBrokerService.UnsubscribeAll(this);

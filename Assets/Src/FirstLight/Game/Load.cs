@@ -47,7 +47,7 @@ namespace FirstLight.Game
 			var configsProvider = new ConfigsProvider();
 			var networkService = new GameNetworkService(configsProvider);
 			var tutorialService = new TutorialService();
-			var uiService2 = new UIService2();
+			var uiService2 = new UIService.UIService();
 			uiService2.OpenScreen<LoadingScreenPresenter>().Forget();
 
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);

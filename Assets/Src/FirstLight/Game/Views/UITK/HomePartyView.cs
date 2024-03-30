@@ -17,7 +17,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles the party window on the home screen.
 	/// </summary>
-	public class HomePartyView : UIView2
+	public class HomePartyView : UIView
 	{
 		private const string UssPartyHidden = "squad-container--hidden";
 
@@ -109,7 +109,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			_partyService.HasParty.InvokeObserve(OnHasPartyChanged);
 			_partyService.PartyCode.InvokeObserve(OnPartyCodeChanged);
@@ -133,7 +133,7 @@ namespace FirstLight.Game.Views.UITK
 			_container.EnableInClassList(UssPartyHidden, !hasParty);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			_partyService.HasParty.StopObservingAll(this);
 		}

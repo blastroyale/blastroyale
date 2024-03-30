@@ -78,10 +78,10 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc />
 	public class GenericDialogService : IGenericDialogService
 	{
-		private readonly UIService2 _uiService;
+		private readonly UIService.UIService _uiService;
 		private readonly ICurrencyDataProvider _currencyDataProvider;
 		
-		public GenericDialogService(UIService2 uiService, ICurrencyDataProvider currencyDataProvider)
+		public GenericDialogService(UIService.UIService uiService, ICurrencyDataProvider currencyDataProvider)
 		{
 			_uiService = uiService;
 			_currencyDataProvider = currencyDataProvider;
@@ -130,7 +130,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void CloseDialog()
 		{
-			_uiService.CloseScreen(UIService2.UILayer.Popup).Forget();
+			_uiService.CloseScreen(UIService.UIService.UILayer.Popup).Forget();
 		}
 	}
 }

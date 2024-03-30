@@ -11,7 +11,7 @@ using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class MatchTimerView : UIView2
+	public class MatchTimerView : UIView
 	{
 		private Label _timerLabel;
 		private VisualElement _pingElement;
@@ -48,7 +48,7 @@ namespace FirstLight.Game.Views.UITK
 		}
 
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpawned>(this, OnPlayerSpawned);
@@ -60,7 +60,7 @@ namespace FirstLight.Game.Views.UITK
 			ShowNotification(ScriptLocalization.UITMatch.airdrop_landing);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}

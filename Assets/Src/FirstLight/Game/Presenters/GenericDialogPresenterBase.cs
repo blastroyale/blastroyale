@@ -14,8 +14,8 @@ namespace FirstLight.Game.Presenters
 	/// Creates a Generic Dialog for showing information to the player usually for yes / no choices.
 	/// Usually used for pointing out something informative to players.
 	/// </summary>
-	[UILayer(UIService2.UILayer.Popup)]
-	public abstract class GenericDialogPresenterBase :  UIPresenter2
+	[UILayer(UIService.UIService.UILayer.Popup)]
+	public abstract class GenericDialogPresenterBase :  UIPresenter
 	{
 		private IGameServices _services;
 		
@@ -89,7 +89,7 @@ namespace FirstLight.Game.Presenters
 
 		private void CloseRequested()
 		{
-			_services.UIService.CloseScreen(UIService2.UILayer.Popup).Forget();
+			_services.UIService.CloseScreen(UIService.UIService.UILayer.Popup).Forget();
 		}
 	}
 }

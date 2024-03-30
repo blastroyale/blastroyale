@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 4129183337993711194}
   - component: {fileID: 5684069254530388031}
   m_Layer: 5
-  m_Name: BattlePassSeasonBannerPresenter
+  m_Name: BattlePassSeasonBanner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

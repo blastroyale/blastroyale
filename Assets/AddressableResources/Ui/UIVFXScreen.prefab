@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 3877131081941758645}
   - component: {fileID: 6693089326795539678}
   m_Layer: 5
-  m_Name: UiVfxContainerScreen
+  m_Name: UIVFXScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

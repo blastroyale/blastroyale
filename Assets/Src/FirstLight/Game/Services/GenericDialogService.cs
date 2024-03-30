@@ -36,7 +36,7 @@ namespace FirstLight.Game.Services
 
 	/// <summary>
 	/// This service provides a direct reference to UI Generic dialogs to any system in the game.
-	/// This are the <see cref="GenericDialogPresenter"/>, <see cref="GenericDialogVideoPresenter"/>, etc
+	/// This are the <see cref="GenericButtonDialogPresenter"/>, <see cref="GenericDialogVideoPresenter"/>, etc
 	/// </summary>
 	// TODO: All of this needs to be refactored
 	public interface IGenericDialogService
@@ -70,7 +70,7 @@ namespace FirstLight.Game.Services
 
 
 		/// <summary>
-		/// Closes the <see cref="GenericDialogPresenter"/> if opened
+		/// Closes the <see cref="GenericButtonDialogPresenter"/> if opened
 		/// </summary>
 		void CloseDialog();
 	}
@@ -92,7 +92,7 @@ namespace FirstLight.Game.Services
 									 GenericDialogButton button = new GenericDialogButton(),
 									 Action closeCallback = null)
 		{
-			var ui = await _uiService.OpenScreen<GenericDialogPresenter>();
+			var ui = await _uiService.OpenScreen<GenericButtonDialogPresenter>();
 			ui.SetInfo(title, desc, showCloseButton, button, closeCallback);
 		}
 

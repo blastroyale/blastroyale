@@ -4,7 +4,7 @@ using FirstLight.Game.Services;
 namespace FirstLight.Game.Presenters
 {
 	/// <inheritdoc />
-	public class GenericDialogPresenter : GenericDialogPresenterBase
+	public class GenericButtonDialogPresenter : GenericDialogPresenterBase
 	{
 		/// <summary>
 		/// Shows the Generic Dialog PopUp with the given <paramref name="title"/> and the <paramref name="button"/> information.

@@ -13,7 +13,7 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface IUiVfxService
 	{
-		/// <inheritdoc cref="UiVfxPresenter.PlayAnimation(UnityEngine.Sprite,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Events.UnityAction)"/>
+		/// <inheritdoc cref="UIVFXScreenPresenter.PlayAnimation(UnityEngine.Sprite,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Events.UnityAction)"/>
 		void PlayVfx(GameId id, float delay, Vector3 originWorldPosition, Vector3 targetWorldPosition, UnityAction onCompleteCallback);
 
 		/// <summary>
@@ -42,7 +42,7 @@ namespace FirstLight.Game.Services
 		private readonly IAssetResolverService _assetResolver;
 		private readonly IGameServices _services;
 		
-		private UiVfxPresenter _presenter;
+		private UIVFXScreenPresenter _presenter;
 		
 		public UiVfxService(IGameServices gameServices, IAssetResolverService assetResolverService)
 		{
@@ -52,7 +52,7 @@ namespace FirstLight.Game.Services
 
 		public async UniTask Init()
 		{
-			_presenter = await _services.UIService.OpenScreen<UiVfxPresenter>();
+			_presenter = await _services.UIService.OpenScreen<UIVFXScreenPresenter>();
 		}
 
 		/// <inheritdoc />
@@ -61,20 +61,20 @@ namespace FirstLight.Game.Services
 		{
 			var sprite = await _assetResolver.RequestAsset<GameId, Sprite>(id);
 
-			_presenter.Validate<UiVfxPresenter>()?.PlayAnimation(sprite, delay, originWorldPosition, targetWorldPosition, 
+			_presenter.Validate<UIVFXScreenPresenter>()?.PlayAnimation(sprite, delay, originWorldPosition, targetWorldPosition, 
 			                                                     onCompleteCallback);
 		}
 
 		/// <inheritdoc />
 		public void PlayFloatingText(string text)
 		{
-			_presenter.Validate<UiVfxPresenter>()?.PlayFloatingText(text);
+			_presenter.Validate<UIVFXScreenPresenter>()?.PlayFloatingText(text);
 		}
 		
 		/// <inheritdoc />
 		public void PlayFloatingTextAtPosition(string text, Vector3 position)
 		{
-			_presenter.Validate<UiVfxPresenter>()?.PlayFloatingText(text, position);
+			_presenter.Validate<UIVFXScreenPresenter>()?.PlayFloatingText(text, position);
 		}
 	}
 }

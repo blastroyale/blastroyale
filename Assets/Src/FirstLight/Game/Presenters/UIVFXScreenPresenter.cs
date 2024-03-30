@@ -16,7 +16,7 @@ namespace FirstLight.Game.Presenters
 	/// - Player new VFX animations
 	/// </summary>
 	[UILayer(UIService.UIService.UILayer.LegacyVFXHack)]
-	public class UiVfxPresenter : UIPresenter
+	public class UIVFXScreenPresenter : UIPresenter
 	{
 		[SerializeField, Required] private UiVfxImage _imageRef;
 		[SerializeField, Required] private Transform _defaultFloatingTextTransform;

@@ -13,7 +13,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This presenter handles showing the GuestOrRegistered screen
 	/// </summary>
-	public class GuestOrRegisteredPresenter : UIPresenterData<GuestOrRegisteredPresenter.StateData>
+	public class GuestOrRegisteredScreenPresenter : UIPresenterData<GuestOrRegisteredScreenPresenter.StateData>
 	{
 		public class StateData
 		{

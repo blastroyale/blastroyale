@@ -63,7 +63,7 @@ namespace FirstLight.Game.TestCases.Helpers
 		{
 			yield return TestTools.Until(() =>
 				{
-					var dialog = Object.FindObjectOfType<GenericDialogPresenter>();
+					var dialog = Object.FindObjectOfType<GenericButtonDialogPresenter>();
 					return dialog != null && dialog.gameObject.activeSelf && (title == "" || dialog.Title == title);
 				},
 				timeout,

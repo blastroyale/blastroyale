@@ -60,7 +60,7 @@ namespace FirstLight.Tests.EditorMode
 		{
 			var messageBroker = new InMemoryMessageBrokerService();
 			TimeService = new TimeService();
-			TestUI2 = new UIService.UIService();
+			TestUI2 = null; // TODO ?
 			TestNetwork = new GameNetworkService(TestConfigs);
 			TestTutorial = new TutorialService();
 			TestTutorial.BindServicesAndData(TestLogic, TestServices);

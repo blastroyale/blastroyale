@@ -37,8 +37,7 @@ namespace FirstLight.Game.UIElements
 		
 		/* Services, providers etc... */
 		private IGameDataProvider _gameDataProvider;
-		private IMainMenuServices _mainMenuServices;
-		private IGameServices _gameServices;
+		private IGameServices _services;
 		private CurrencyItemViewModel _currencyView;
 		
 		/* Other private variables */
@@ -74,11 +73,10 @@ namespace FirstLight.Game.UIElements
 			this.OpenTooltip(panel.visualTree, currency.GetDescriptionLocalization());
 		}
 
-		public void Init(IGameDataProvider gameDataProvider, IMainMenuServices mainMenuServices, IGameServices gameServices)
+		public void Init(IGameDataProvider gameDataProvider, IGameServices gameServices)
 		{
 			_gameDataProvider = gameDataProvider;
-			_mainMenuServices = mainMenuServices;
-			_gameServices = gameServices;
+			_services = gameServices;
 		}
 
 		public void SubscribeToEvents()
@@ -121,14 +119,14 @@ namespace FirstLight.Game.UIElements
 						? _originElement.GetPositionOnScreen(GetRoot())
 						: GetRoot().GetPositionOnScreen(GetRoot()) + Random.insideUnitCircle * 100;
 
-					_mainMenuServices.UiVfxService.PlayVfx(currency,
+					_services.UIVFXService.PlayVfx(currency,
 						i * 0.1f,
 						originPosition,
 						_label.GetPositionOnScreen(GetRoot()),
 						() =>
 						{
 							DOVirtual.Float(previous, current, 0.3f, val => { _label.text = val.ToString("F0"); });
-							_gameServices.AudioFxService.PlayClip2D(AudioId.CounterTick1);
+							_services.AudioFxService.PlayClip2D(AudioId.CounterTick1);
 						});
 				}
 				_playingAnimation = false;

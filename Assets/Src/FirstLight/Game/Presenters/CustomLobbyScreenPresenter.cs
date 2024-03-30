@@ -84,6 +84,8 @@ namespace FirstLight.Game.Presenters
 		private int _squadId = 1;
 		private Tween _squadIdUpdateDelayed = null;
 
+		private bool _isReadyToPlay = false;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -91,7 +93,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements()
 		{
-			
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
@@ -423,6 +424,10 @@ namespace FirstLight.Game.Presenters
 
 		private void ReadyToPlay()
 		{
+			if(_isReadyToPlay) return;
+			_isReadyToPlay = true;
+			_services.UIService.OpenScreen<SwipeTransitionScreenPresenter>().Forget();
+
 			mapSelectionView.SelectionEnabled = false;
 
 			DeactivateKickOverlay();

@@ -11,7 +11,6 @@ using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using FirstLight.Statechart;
-using FirstLight.UIService;
 using Photon.Realtime;
 using UnityEngine;
 
@@ -134,15 +133,15 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
 		}
 
-		private async UniTask TransitionScreen()
+		private UniTask TransitionScreen()
 		{
-			await _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
+			return _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
 		}
 
 		private async UniTask AcceptPrivacyDialog()
 		{
 			await TransitionScreen();
-			var data = new PrivacyDialogPresenter.StateData()
+			var data = new PrivacyDialogPresenter.StateData
 			{
 				OnAccept = AcceptTerms
 			};

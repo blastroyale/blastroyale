@@ -22,7 +22,6 @@ namespace FirstLight.Game.Views.UITK
 			_currency = (CurrencyDisplayElement) element;
 
 			_currency.Init(MainInstaller.Resolve<IGameDataProvider>(),
-				MainInstaller.Resolve<IMainMenuServices>(),
 				MainInstaller.Resolve<IGameServices>());
 		}
 

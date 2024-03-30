@@ -171,10 +171,8 @@ namespace FirstLight.Game.StateMachines
 			transitionToWinners.WaitingFor(UnloadMatchAndTransition).Target(winners);
 			transitionToGameResults.WaitingFor(UnloadMatchAndTransition).Target(gameResults);
 
-			winners.OnEnter(CloseSwipeTransition);
 			winners.WaitingFor(OpenWinnersScreen).Target(gameResults);
 
-			gameResults.OnEnter(CloseSwipeTransition);
 			gameResults.WaitingFor(OpenLeaderboardAndRewardsScreen).Target(matchStateEnding);
 			gameResults.OnExit(DisposeMatchServices);
 			gameResults.OnExit(() => _ = OpenSwipeTransition());
@@ -456,6 +454,7 @@ namespace FirstLight.Game.StateMachines
 			var cacheActivity = activity;
 			var data = new WinnersScreenPresenter.StateData {ContinueClicked = () => cacheActivity.Complete()};
 			_services.UIService.OpenScreen<WinnersScreenPresenter>(data).Forget();
+			_services.UIService.CloseScreen<SwipeTransitionScreenPresenter>(false).Forget();
 		}
 
 		private void OpenLeaderboardAndRewardsScreen(IWaitActivity activity)
@@ -466,7 +465,8 @@ namespace FirstLight.Game.StateMachines
 				ContinueClicked = () => cacheActivity.Complete()
 			};
 
-			_services.UIService.OpenScreen<LeaderboardAndRewardsScreenPresenter>(data).Forget();
+			_services.UIService.OpenScreen<LeaderboardAndRewardsScreenPresenter>(data).Forget(); // TODO: Should await on this
+			_services.UIService.CloseScreen<SwipeTransitionScreenPresenter>(false).Forget();
 		}
 
 		private UniTask OpenSwipeTransition() => _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
@@ -495,6 +495,8 @@ namespace FirstLight.Game.StateMachines
 				LeaveRoomClicked = () => _statechartTrigger(LeaveRoomClicked)
 			};
 			await _services.UIService.OpenScreen<CustomLobbyScreenPresenter>(data);
+			await UniTask.NextFrame(); // Custom lobby is old UI screen so let's give it a bit to initialize
+			await _services.UIService.CloseScreen<SwipeTransitionScreenPresenter>();
 		}
 
 		private void OnLocalPlayerKicked()

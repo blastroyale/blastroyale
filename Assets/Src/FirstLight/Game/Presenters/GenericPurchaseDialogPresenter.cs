@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
@@ -8,7 +7,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Modules.UIService.Runtime;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;

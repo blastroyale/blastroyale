@@ -147,7 +147,6 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			initial.Transition().Target(homeCheck);
-			initial.OnExit(OpenUiVfxPresenter);
 			initial.OnExit(() => FLGCamera.Instance.PhysicsRaycaster.enabled = true);
 
 			news.OnEnter(OnEnterNews);
@@ -485,28 +484,32 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTaskVoid OpenHomeScreen()
 		{
-			var data = new HomeScreenPresenter.StateData
+			if (!_services.UIService.IsScreenOpen<HomeScreenPresenter>())
 			{
-				OnPlayButtonClicked = PlayButtonClicked,
-				OnSettingsButtonClicked = () => _statechartTrigger(_settingsMenuClickedEvent),
-				OnLootButtonClicked = () => _statechartTrigger(_equipmentClickedEvent),
-				OnCollectionsClicked = () => _statechartTrigger(_collectionClickedEvent),
-				OnProfileClicked = () => _statechartTrigger(_nameChangeClickedEvent),
-				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
-				OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent),
-				OnBattlePassClicked = () => _statechartTrigger(BattlePassClickedEvent),
-				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
-				OnDiscordClicked = DiscordButtonClicked,
-				OnYoutubeClicked = YoutubeButtonClicked,
-				OnInstagramClicked = InstagramButtonClicked,
-				OnTiktokClicked = TiktokButtonClicked,
-				OnMatchmakingCancelClicked = SendCancelMatchmakingMessage,
-				OnLevelUp = OpenLevelUpScreen,
-				OnRewardsReceived = OnRewardsReceived,
-				NewsClicked = () => _statechartTrigger(_newsClickedEvent)
-			};
+				var data = new HomeScreenPresenter.StateData
+				{
+					OnPlayButtonClicked = PlayButtonClicked,
+					OnSettingsButtonClicked = () => _statechartTrigger(_settingsMenuClickedEvent),
+					OnLootButtonClicked = () => _statechartTrigger(_equipmentClickedEvent),
+					OnCollectionsClicked = () => _statechartTrigger(_collectionClickedEvent),
+					OnProfileClicked = () => _statechartTrigger(_nameChangeClickedEvent),
+					OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
+					OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent),
+					OnBattlePassClicked = () => _statechartTrigger(BattlePassClickedEvent),
+					OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
+					OnDiscordClicked = DiscordButtonClicked,
+					OnYoutubeClicked = YoutubeButtonClicked,
+					OnInstagramClicked = InstagramButtonClicked,
+					OnTiktokClicked = TiktokButtonClicked,
+					OnMatchmakingCancelClicked = SendCancelMatchmakingMessage,
+					OnLevelUp = OpenLevelUpScreen,
+					OnRewardsReceived = OnRewardsReceived,
+					NewsClicked = () => _statechartTrigger(_newsClickedEvent)
+				};
 
-			await _services.UIService.OpenScreen<HomeScreenPresenter>(data);
+				await _services.UIService.OpenScreen<HomeScreenPresenter>(data);
+			}
+
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
 
@@ -565,12 +568,6 @@ namespace FirstLight.Game.StateMachines
 			_services.UIService.CloseScreen<SwipeTransitionScreenPresenter>().Forget();
 		}
 
-		private void OpenUiVfxPresenter()
-		{
-			// TODO mihak
-			//_services.GameUiService.OpenUi<UiVfxPresenter>();
-		}
-
 		private void PlayButtonClicked()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
@@ -588,7 +585,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void BeforeLoadingMenu()
 		{
-			_services.UIService.OpenScreen<SwipeTransitionScreenPresenter>().Forget();
+			if (!_services.UIService.IsScreenOpen<SwipeTransitionScreenPresenter>()) // Legacy check because this is opened from two places
+			{
+				_services.UIService.OpenScreen<SwipeTransitionScreenPresenter>().Forget();
+			}
 
 			// Removing invalid skins
 			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS);
@@ -612,8 +612,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask LoadMainMenu()
 		{
-			var uiVfxService = new UiVfxService(_services, _services.AssetResolverService);
-			var mainMenuServices = new MainMenuServices(uiVfxService, _services.RemoteTextureService);
+			var mainMenuServices = new MainMenuServices(_services.RemoteTextureService);
 			var configProvider = _services.ConfigsProvider;
 
 			MainInstaller.Bind<IMainMenuServices>(mainMenuServices);
@@ -624,7 +623,6 @@ namespace FirstLight.Game.StateMachines
 				.ConfigsDictionary);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
 
-			await uiVfxService.Init();
 
 			_statechartTrigger(MainMenuLoadedEvent);
 

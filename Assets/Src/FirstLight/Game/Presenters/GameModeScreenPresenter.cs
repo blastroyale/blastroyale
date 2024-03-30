@@ -43,10 +43,9 @@ namespace FirstLight.Game.Presenters
 		private List<GameModeSelectionButtonView> _buttonViews;
 		private IGameServices _services;
 
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			MainInstaller.Resolve<IGameDataProvider>();
 		}
 
 		protected override void QueryElements()
@@ -89,7 +88,7 @@ namespace FirstLight.Game.Presenters
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
 		}
-		
+
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_services.GameModeService.Slots.Observe(OnSlotUpdated);

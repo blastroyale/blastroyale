@@ -15,9 +15,7 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator WaitHomePresenter(float timeout = 30,float waitAfterCreation = 0.5f)
 		{
-			// TODO mihak:
-			// yield return _uiHelper.WaitForPresenter<HomeScreenPresenter>(waitAfterCreation, timeout);
-			return null;
+			 return _uiHelper.WaitForPresenter2<HomeScreenPresenter>(waitAfterCreation, timeout);
 		}
 
 		public IEnumerator ClickBattlePassButton()

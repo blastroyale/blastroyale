@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
@@ -111,6 +112,7 @@ namespace FirstLight.Game.Services
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		
 		public UIService.UIService UIService { get; }
+		public UIVFXService UIVFXService { get; }
 
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
@@ -170,6 +172,8 @@ namespace FirstLight.Game.Services
 		public IPartyService PartyService { get; }
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
+		public UIVFXService UIVFXService { get; }
+		public UIVFXService UiVfxService { get; }
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; }
@@ -230,6 +234,8 @@ namespace FirstLight.Game.Services
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 			UIService = uiService2;
+			UiVfxService = new UIVFXService(this, assetResolverService);
+			UiVfxService.Init().Forget();
 
 			var environmentService = new EnvironmentService(MessageBrokerService);
 			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic,

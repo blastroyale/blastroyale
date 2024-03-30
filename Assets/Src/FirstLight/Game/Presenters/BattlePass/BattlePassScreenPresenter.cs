@@ -117,7 +117,7 @@ namespace FirstLight.Game.Presenters
 			_endGraphicContainer = Root.Q("LastReward").Required();
 			_endGraphicPicture = _endGraphicContainer.Q("RewardPicture").Required();
 			_endGraphicLabel = _endGraphicContainer.Q<Label>("RewardName").Required();
-			// TODO mihak: Root.Q<CurrencyDisplayElement>("BBCurrency").AttachView(this, out CurrencyDisplayView _);
+			Root.Q<CurrencyDisplayElement>("BBCurrency").AttachView(this, out CurrencyDisplayView _);
 
 			_rewardsScroll.horizontalScroller.valueChanged += OnScroll;
 			_screenHeader.backClicked += Data.BackClicked;

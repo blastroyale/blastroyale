@@ -9,7 +9,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.UIElements;
 using FirstLight.Modules.UIService.Runtime;
 using FirstLight.Server.SDK.Models;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using UnityEngine.UIElements;

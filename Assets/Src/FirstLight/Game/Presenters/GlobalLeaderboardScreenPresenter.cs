@@ -11,7 +11,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using JetBrains.Annotations;
 using PlayFab.ClientModels;

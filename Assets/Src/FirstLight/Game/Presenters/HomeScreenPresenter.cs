@@ -113,8 +113,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenStats(PlayerStatisticsPopupPresenter.StateData data)
 		{
-			// TODO mihak
-			// _services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(data).Forget();
+			_services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(data).Forget();
 		}
 
 		protected override void QueryElements()
@@ -128,8 +127,7 @@ namespace FirstLight.Game.Presenters
 						PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
 						OnCloseClicked = () =>
 						{
-							// TODO mihak
-							// _services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();
+							_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();
 						},
 						OnEditNameClicked = () =>
 						{
@@ -404,7 +402,7 @@ namespace FirstLight.Game.Presenters
 
 			for (int i = 0; i < Mathf.Clamp((current - previous) / 5, 3, 10); i++)
 			{
-				_mainMenuServices.UiVfxService.PlayVfx(id,
+				_services.UIVFXService.PlayVfx(id,
 					i * 0.05f,
 					Root.GetPositionOnScreen(Root) + Random.insideUnitCircle * 100,
 					label.GetPositionOnScreen(Root),
@@ -514,7 +512,7 @@ namespace FirstLight.Game.Presenters
 				var points = (int) previous + totalSegmentPointsRedeemed;
 				var wasRedeemable = _dataProvider.BattlePassDataProvider.HasUnclaimedRewards((int) previous);
 
-				_mainMenuServices.UiVfxService.PlayVfx(id,
+				_services.UIVFXService.PlayVfx(id,
 					segmentIndex * 0.05f,
 					_playButton.GetPositionOnScreen(Root),
 					_battlePassProgressElement.GetPositionOnScreen(Root),

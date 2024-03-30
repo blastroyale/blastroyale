@@ -59,9 +59,6 @@ namespace FirstLight.UIService
 			FLog.Info($"Opening screen {screenType.Name}");
 			if (_openedScreensType.TryGetValue(screenType, out var existingScreen))
 			{
-				// FLog.Error($"Screen {typeof(T).Name} is already opened!");
-				// return (T) existingScreen;
-
 				throw new InvalidOperationException($"Screen {screenType.Name} is already opened");
 			}
 
@@ -97,41 +94,38 @@ namespace FirstLight.UIService
 		public T GetScreen<T>() where T : UIPresenter
 		{
 			var screenType = typeof(T);
-			if (!_openedScreensType.TryGetValue(screenType, out var screen))
+			if (_openedScreensType.TryGetValue(screenType, out var screen))
 			{
-				throw new InvalidOperationException($"Screen {screenType.Name} is not opened!");
+				return (T) screen;
 			}
 
-			return (T) screen;
+			throw new InvalidOperationException($"Screen {screenType.Name} is not opened!");
 		}
 
-		public UniTask CloseScreen<T>() where T : UIPresenter
+		public UniTask CloseScreen<T>(bool checkOpened = true) where T : UIPresenter
 		{
+			FLog.Info($"Closing screen {typeof(T).Name}");
+
 			if (_openedScreensType.TryGetValue(typeof(T), out var screen))
 			{
-				FLog.Info($"Closing screen {typeof(T).Name}");
 				return CloseScreen(screen);
 			}
 
-			// FLog.Error($"Screen {typeof(T).Name} is not opened!");
-			throw new InvalidOperationException($"Screen {typeof(T).Name} is not opened!");
+			if (checkOpened) throw new InvalidOperationException($"Screen {typeof(T).Name} is not opened!");
+
+			return UniTask.CompletedTask;
 		}
 
 		public async UniTask CloseScreen(UILayer layer)
 		{
 			FLog.Info($"Closing layer {layer}");
-			await CloseScreen(_openedScreensLayer[layer]);
-
 
 			if (_openedScreensLayer.TryGetValue(layer, out var screen))
 			{
-				FLog.Info($"Closing layer {layer}");
 				await CloseScreen(screen);
 			}
-			else
-			{
-				throw new InvalidOperationException($"Layer {layer} is empty!");
-			}
+
+			// throw new InvalidOperationException($"Layer {layer} is empty!");
 		}
 
 		public async UniTask CloseScreen(UIPresenter presenter)

@@ -132,7 +132,6 @@ namespace FirstLight.Game.Ids
 		{
 			{"GenerateIds", new List<AddressableConfig>
 				{
-					new AddressableConfig(0, "Configs/Settings/UiConfigs.asset", "Assets/AddressableResources/Configs/Settings/UiConfigs.asset", typeof(FirstLight.UiService.UiConfigs), new [] {"Quantum","GenerateIds"}),
 					new AddressableConfig(1, "Configs/Settings/SimulationConfig.asset", "Assets/AddressableResources/Configs/Settings/SimulationConfig.asset", typeof(SimulationConfigAsset), new [] {"Quantum","GenerateIds"}),
 					new AddressableConfig(2, "Configs/Settings/QuantumRunnerConfigs.asset", "Assets/AddressableResources/Configs/Settings/QuantumRunnerConfigs.asset", typeof(FirstLight.Game.Configs.QuantumRunnerConfigs), new [] {"Quantum","GenerateIds"}),
 					new AddressableConfig(3, "Configs/Settings/PhotonServerSettings.asset", "Assets/AddressableResources/Configs/Settings/PhotonServerSettings.asset", typeof(PhotonServerSettings), new [] {"Quantum","GenerateIds"}),
@@ -278,7 +277,6 @@ namespace FirstLight.Game.Ids
 			new AddressableConfig(67, "Configs/Settings/PhotonServerSettings.asset", "Assets/AddressableResources/Configs/Settings/PhotonServerSettings.asset", typeof(PhotonServerSettings), new [] {"Quantum","GenerateIds"}),
 			new AddressableConfig(68, "Configs/Settings/QuantumRunnerConfigs.asset", "Assets/AddressableResources/Configs/Settings/QuantumRunnerConfigs.asset", typeof(FirstLight.Game.Configs.QuantumRunnerConfigs), new [] {"Quantum","GenerateIds"}),
 			new AddressableConfig(69, "Configs/Settings/SimulationConfig.asset", "Assets/AddressableResources/Configs/Settings/SimulationConfig.asset", typeof(SimulationConfigAsset), new [] {"Quantum","GenerateIds"}),
-			new AddressableConfig(70, "Configs/Settings/UiConfigs.asset", "Assets/AddressableResources/Configs/Settings/UiConfigs.asset", typeof(FirstLight.UiService.UiConfigs), new [] {"Quantum","GenerateIds"})
 		}.AsReadOnly();
 	}
 }

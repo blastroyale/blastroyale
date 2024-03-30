@@ -36,6 +36,12 @@ namespace FirstLight.UIService
 		// TODO: Shouldn't be here
 		public const string SFX_CLICK_BACKWARDS = "sfx-click-backwards";
 
+		/// <summary>
+		/// Class to use labels to display the player name, this is usually used bellow characters
+		/// </summary>
+		// TODO: Shouldn't be here
+		public const string USS_PLAYER_LABEL = "player-name";
+
 		private readonly GameObject _root;
 
 		private readonly Dictionary<Type, UIPresenter2> _openedScreensType = new ();
@@ -151,7 +157,7 @@ namespace FirstLight.UIService
 			Default = 0,
 			Popup = 1,
 			Foreground = 2,
-			
+
 			LegacyVFXHack = 10,
 		}
 	}

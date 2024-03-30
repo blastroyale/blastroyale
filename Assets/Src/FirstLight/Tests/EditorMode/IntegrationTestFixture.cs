@@ -38,7 +38,6 @@ namespace FirstLight.Tests.EditorMode
 		protected DataService TestData;
 		protected ConfigsProvider TestConfigs;
 		protected GameStateMachine TestStates;
-		protected IGameUiServiceInit TestUI;
 		protected UIService2 TestUI2;
 		protected GameNetworkService TestNetwork;
 		protected TutorialService TestTutorial;
@@ -61,10 +60,9 @@ namespace FirstLight.Tests.EditorMode
 		{
 			var messageBroker = new InMemoryMessageBrokerService();
 			TimeService = new TimeService();
-			TestUI = new GameUiService(new UiAssetLoader());
 			TestUI2 = new UIService2();
 			TestNetwork = new GameNetworkService(TestConfigs);
-			TestTutorial = new TutorialService(TestUI);
+			TestTutorial = new TutorialService();
 			TestTutorial.BindServicesAndData(TestLogic, TestServices);
 			var audioFxService = new GameAudioFxService(TestAssetResolver);
 			
@@ -77,7 +75,7 @@ namespace FirstLight.Tests.EditorMode
 
 			TestServices = new StubGameServices(TestNetwork, messageBroker, TimeService, TestData,
 			                                    TestConfigs, TestLogic, TestData, genericDialogService,
-			                                    TestAssetResolver, TestTutorial, TestVfx, audioFxService, TestUI);
+			                                    TestAssetResolver, TestTutorial, TestVfx, audioFxService);
 			TestNetwork.StartNetworking(TestLogic, TestServices);
 			TestLogic.Init();
 

@@ -44,7 +44,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static void SetupClicks(this VisualElement root, IGameServices gameServices)
 		{
-			foreach (var ve in root.Query(null, UIConstants.SFX_CLICK_FORWARDS).Build())
+			foreach (var ve in root.Query(null, UIService2.SFX_CLICK_FORWARDS).Build())
 			{
 				ve.RegisterCallback<PointerDownEvent, IGameServices>(
 					(_, service) => { service.AudioFxService.PlayClip2D(AudioId.ButtonClickForward); },
@@ -52,7 +52,7 @@ namespace FirstLight.Game.Utils
 					TrickleDown.TrickleDown);
 			}
 
-			foreach (var ve in root.Query(null, UIConstants.SFX_CLICK_BACKWARDS).Build())
+			foreach (var ve in root.Query(null, UIService2.SFX_CLICK_BACKWARDS).Build())
 			{
 				ve.RegisterCallback<PointerDownEvent, IGameServices>(
 					(_, service) => { service.AudioFxService.PlayClip2D(AudioId.ButtonClickBackward); },

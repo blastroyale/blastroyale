@@ -44,7 +44,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly BattleRoyaleState _battleRoyaleState;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameServices _services;
-		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly IGameNetworkService _network;
 		private readonly IInternalGameNetworkService _networkService;

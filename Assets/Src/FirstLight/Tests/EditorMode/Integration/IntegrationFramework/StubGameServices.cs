@@ -47,7 +47,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IPartyService PartyService { get; }
 		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService2 UIService { get; }
-		public IGameUiService GameUiService { get; }
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; set; }
@@ -72,11 +71,11 @@ namespace FirstLight.Tests.EditorMode
 								IGameLogic gameLogic, IDataProvider dataProvider,
 								IGenericDialogService genericDialogService,
 								IAssetResolverService assetResolverService, IInternalTutorialService tutorialService,
-								IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IGameUiService uiService)
+								IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, uiService);
+			AnalyticsService = new AnalyticsService(this, gameLogic);
 			TimeService = timeService;
 			DataSaver = dataService;
 			DataService = dataService;
@@ -101,7 +100,6 @@ namespace FirstLight.Tests.EditorMode
 				dataService, networkService, gameLogic, (IConfigsAdder) configsProvider);
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();
-			GameUiService = uiService;
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService,

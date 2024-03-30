@@ -274,7 +274,7 @@ namespace FirstLight.Game.Presenters
 				: _matchServices.MatchEndDataService.LocalPlayer;
 
 			_playerName = new Label();
-			_playerName.AddToClassList(UIConstants.USS_PLAYER_LABEL);
+			_playerName.AddToClassList(UIService2.USS_PLAYER_LABEL);
 			Root.Add(_playerName);
 			if (playerRef == PlayerRef.None)
 			{

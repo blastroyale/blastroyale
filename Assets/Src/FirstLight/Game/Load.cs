@@ -41,13 +41,12 @@ namespace FirstLight.Game
 			var messageBroker = new InMemoryMessageBrokerService();
 			var timeService = new TimeService();
 			var dataService = new DataService();
-			var uiService = new GameUiService(new UiAssetLoader());
 			var assetResolver = new AssetResolverService();
 			var audioFxService = new GameAudioFxService(assetResolver);
 			var vfxService = new VfxService<VfxId>();
 			var configsProvider = new ConfigsProvider();
 			var networkService = new GameNetworkService(configsProvider);
-			var tutorialService = new TutorialService(uiService);
+			var tutorialService = new TutorialService();
 			var uiService2 = new UIService2();
 			uiService2.OpenScreen<LoadingScreenPresenter>().Forget();
 
@@ -55,7 +54,7 @@ namespace FirstLight.Game
 			var genericDialogService = new GenericDialogService(uiService2, gameLogic.CurrencyDataProvider);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
 				configsProvider, gameLogic, genericDialogService, assetResolver, tutorialService, vfxService,
-				audioFxService, uiService, uiService2);
+				audioFxService, uiService2);
 
 			networkService.StartNetworking(gameLogic, gameServices);
 			networkService.EnableQuantumPingCheck(true);

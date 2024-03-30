@@ -1,30 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using DG.DemiLib;
 using FirstLight.FLogger;
-using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Server.SDK.Modules;
-using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UIService;
-using I2.Loc;
-using Photon.Realtime;
-using Quantum;
 using UnityEngine;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -43,13 +27,11 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IInternalGameNetworkService _networkService;
-		private readonly IGameUiService _uiService;
 		private readonly UIService2 _uiService2;
 		private readonly MatchState _matchState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		public static readonly IStatechartEvent ReconnectToRoomEvent = new StatechartEvent("Reconnect To Snapshot");
-		public static readonly IStatechartEvent NoReconnection = new StatechartEvent("Reconnect To Snapshot");
 
 		private Coroutine _csPoolTimerCoroutine;
 
@@ -59,7 +41,6 @@ namespace FirstLight.Game.StateMachines
 			_services = services;
 			_dataProvider = dataProvider;
 			_networkService = networkService;
-			_uiService = services.GameUiService;
 			_uiService2 = services.UIService;
 			_statechartTrigger = statechartTrigger;
 		}

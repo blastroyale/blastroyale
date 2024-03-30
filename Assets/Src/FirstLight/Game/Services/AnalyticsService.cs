@@ -110,9 +110,7 @@ namespace FirstLight.Game.Services
 
 		public AnalyticsCallLeveling LevelingCalls { get; }
 
-		public AnalyticsService(IGameServices services,
-								IGameDataProvider gameDataProvider,
-								IUiService uiService)
+		public AnalyticsService(IGameServices services, IGameDataProvider gameDataProvider)
 		{
 			SessionCalls = new AnalyticsCallsSession(this, services, gameDataProvider);
 			MatchCalls = new AnalyticsCallsMatch(this, services, gameDataProvider);
@@ -120,7 +118,7 @@ namespace FirstLight.Game.Services
 			EquipmentCalls = new AnalyticsCallsEquipment(this, services);
 			TutorialCalls = new AnalyticsCallsTutorial(this);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
-			UiCalls = new AnalyticsCallsUi(this, uiService);
+			UiCalls = new AnalyticsCallsUi(this);
 			EquipmentCalls = new AnalyticsCallsEquipment(this, services);
 			LevelingCalls = new AnalyticsCallLeveling(this, services);
 		}
@@ -139,7 +137,7 @@ namespace FirstLight.Game.Services
 					var unityEvent = new CustomEvent(eventName);
 					if (parameters != null)
 						foreach (var (key, value) in parameters)
-							if(key is not "custom_event_timestamp")
+							if (key is not "custom_event_timestamp")
 								unityEvent[key] = value;
 
 					Unity.Services.Analytics.AnalyticsService.Instance.RecordEvent(unityEvent);

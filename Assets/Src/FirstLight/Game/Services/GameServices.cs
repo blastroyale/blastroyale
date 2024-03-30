@@ -110,9 +110,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IPlayfabPubSubService"/>
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		
-		public UIService.UIService2 UIService { get; }
-
-		public IGameUiService GameUiService { get; }
+		public UIService2 UIService { get; }
 
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
@@ -171,8 +169,7 @@ namespace FirstLight.Game.Services
 		public IIAPService IAPService { get; }
 		public IPartyService PartyService { get; }
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
-		public IGameUiService GameUiService { get; }
-		public UIService.UIService2 UIService { get; }
+		public UIService2 UIService { get; }
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; }
@@ -192,11 +189,11 @@ namespace FirstLight.Game.Services
 							ITimeService timeService, IDataService dataService, IConfigsAdder configsProvider,
 							IGameLogic gameLogic, IGenericDialogService genericDialogService,
 							IAssetResolverService assetResolverService, ITutorialService tutorialService,
-							IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IGameUiService uiService, UIService2 uiService2)
+							IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, UIService2 uiService2)
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, uiService);
+			AnalyticsService = new AnalyticsService(this, gameLogic);
 			TimeService = timeService;
 			DataSaver = dataService;
 			DataService = dataService;

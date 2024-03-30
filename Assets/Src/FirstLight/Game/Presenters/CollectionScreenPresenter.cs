@@ -1,24 +1,18 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
@@ -32,7 +26,6 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Collection Screen, where players can equip skins, death markers, gliders, etc.
 	/// </summary>
-	[LoadSynchronously]
 	public class CollectionScreenPresenter : UIPresenterData2<CollectionScreenPresenter.StateData>
 	{
 		[SerializeField] private Vector3 _collectionSpawnPosition;

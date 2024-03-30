@@ -65,7 +65,6 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="ITutorialService"/>
 	public class TutorialService : IInternalTutorialService
 	{
-		private readonly IGameUiService _uiService;
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 
@@ -75,10 +74,8 @@ namespace FirstLight.Game.Services
 
 		IObservableFieldReader<TutorialSection> ITutorialService.CurrentRunningTutorial => CurrentRunningTutorial;
 
-		public TutorialService(IGameUiService uiService)
+		public TutorialService()
 		{
-			_uiService = uiService;
-
 			CurrentRunningTutorial = new ObservableField<TutorialSection>(TutorialSection.NONE);
 		}
 

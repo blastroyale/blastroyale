@@ -16,17 +16,6 @@ namespace FirstLight.Game.TestCases.Helpers
 {
 	public class UIHelper : TestHelper
 	{
-		[Obsolete]
-		public IEnumerator WaitForPresenter<T>(float waitAfterCreation = 0.5f, float timeout = 30) where T : UiPresenter
-		{
-			Log("Waiting for screen " + typeof(T).Name + " to open!");
-			yield return TestTools.UntilObjectOfType<T>(timeout);
-			// Wait a little bit more to make sure the screen had time to open
-			Log("Detected " + typeof(T).Name + " screen! Continuing!");
-
-			yield return new WaitForSeconds(waitAfterCreation);
-		}
-		
 		public IEnumerator WaitForPresenter2<T>(float waitAfterCreation = 0.5f, float timeout = 30) where T : UIPresenter2
 		{
 			Log("Waiting for screen " + typeof(T).Name + " to open!");
@@ -63,12 +52,6 @@ namespace FirstLight.Game.TestCases.Helpers
 			yield return TestTools.Until(() => GetFirstOpenScreen(types) != null, timeout, "Cannot find screen presenters " + types.ToString());
 			// Wait a little bit more to make sure the screen had time to open
 			Log("Detected one of the " + types + " screen! Continuing!");
-		}
-
-		[Obsolete]
-		public T GetPresenter<T>() where T : UiPresenter
-		{
-			return Object.FindObjectOfType<T>();
 		}
 
 		public T GetPresenter2<T>() where T : UIPresenter2
@@ -117,19 +100,13 @@ namespace FirstLight.Game.TestCases.Helpers
 			yield return new WaitForSeconds(1);
 		}
 
-
-		public (UIDocument, VisualElement)? SearchForElementGlobally(string name, Func<UQueryBuilder<VisualElement>, UQueryBuilder<VisualElement>> queryProcessor = null)
+		// TODO: THIS IS SO LAZY!
+		public (VisualElement, VisualElement)? SearchForElementGlobally(
+			string name, Func<UQueryBuilder<VisualElement>, UQueryBuilder<VisualElement>> queryProcessor = null)
 		{
-			foreach (var type in Services.GameUiService.GetAllVisibleUi())
+			foreach (var foundObject in Object.FindObjectsOfType<UIPresenter2>())
 			{
-				var foundObject = Object.FindObjectOfType(type);
-				if (foundObject == null || foundObject is not UIPresenter2 presenter || presenter.GetComponent<UIDocument>() == null)
-				{
-					continue;
-				}
-
-				var document = presenter.GetComponent<UIDocument>();
-				var root = document.rootVisualElement;
+				var root = foundObject.Root;
 
 				var builder = root.Query(name);
 				if (queryProcessor != null)
@@ -144,7 +121,7 @@ namespace FirstLight.Game.TestCases.Helpers
 					continue;
 				}
 
-				return (document, el);
+				return (root, el);
 			}
 
 			return null;
@@ -161,7 +138,7 @@ namespace FirstLight.Game.TestCases.Helpers
 				yield break;
 			}
 
-			yield return TouchOnElement(searchResult.Value.Item1.rootVisualElement, searchResult.Value.Item2);
+			yield return TouchOnElement(searchResult.Value.Item1, searchResult.Value.Item2);
 		}
 
 		public IEnumerator TouchOnElement(VisualElement root, VisualElement element)

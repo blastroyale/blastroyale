@@ -95,7 +95,7 @@ namespace FirstLight.Game.Presenters
 
 
 				var playerNameLabel = new Label();
-				playerNameLabel.AddToClassList(UIConstants.USS_PLAYER_LABEL);
+				playerNameLabel.AddToClassList(UIService2.USS_PLAYER_LABEL);
 				playerNameLabel.style.color = rankColor;
 				playerNameLabel.text = player.GetPlayerName();
 				_nameContainer.Add(playerNameLabel);

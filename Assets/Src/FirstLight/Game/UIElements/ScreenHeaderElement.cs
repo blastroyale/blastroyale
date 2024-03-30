@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Utils;
+using FirstLight.UIService;
 using Photon.Realtime;
 using UnityEngine.UIElements;
 
@@ -47,7 +48,7 @@ namespace FirstLight.Game.UIElements
 
 			safeAreaContainer.Add(_back = new ImageButton {name = "back"});
 			_back.AddToClassList(UssBack);
-			_back.AddToClassList(UIConstants.SFX_CLICK_BACKWARDS);
+			_back.AddToClassList(UIService2.SFX_CLICK_BACKWARDS);
 			_back.clicked += () => backClicked?.Invoke();
 			
 			safeAreaContainer.Add(_title = new Label("TITLE") {name = "title"});

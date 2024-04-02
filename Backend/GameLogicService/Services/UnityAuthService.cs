@@ -44,7 +44,7 @@ public class UnityAuthService
 				await _client.PostAsync(string.Format(URL_TOKEN_EXCHANGE, PROJECT_ID, _config.UnityCloudEnvironmentID), null);
 			if (tokenExchangeResponse.StatusCode != HttpStatusCode.Created)
 			{
-				var msg = tokenExchangeResponse.RequestMessage?.Content?.ReadAsStringAsync();
+				var msg = await tokenExchangeResponse.RequestMessage?.Content?.ReadAsStringAsync();
 				_log.LogError($"Unity Token Exchange API call failed with: {tokenExchangeResponse.StatusCode} - {msg}");
 				throw new Exception($"Unity Token Exchange API call failed with: {tokenExchangeResponse.StatusCode} - {msg}");
 			}
@@ -61,7 +61,7 @@ public class UnityAuthService
 
 		if (customIdResponse.StatusCode != HttpStatusCode.OK)
 		{
-			var msg = customIdResponse.RequestMessage?.Content?.ReadAsStringAsync();
+			var msg = await customIdResponse.RequestMessage?.Content?.ReadAsStringAsync();
 			_log.LogError($"Unity Custom ID API call failed with: {customIdResponse.StatusCode} - {msg}");
 			throw new Exception($"Unity Custom ID API call failed with: {customIdResponse.StatusCode}");
 		}

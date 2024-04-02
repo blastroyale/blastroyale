@@ -12,6 +12,9 @@ using Object = UnityEngine.Object;
 
 namespace FirstLight.UIService
 {
+	/// <summary>
+	/// Handles all of our common UI loading / layering logic (opening / closing screens).
+	/// </summary>
 	public class UIService
 	{
 		/// <summary>
@@ -53,6 +56,13 @@ namespace FirstLight.UIService
 			Object.DontDestroyOnLoad(_root);
 		}
 
+		/// <summary>
+		/// Opens a new screen of type <typeparamref name="T"/>. If a screen is already opened on the same layer it will be closed.
+		/// </summary>
+		/// <param name="data">Optional data when using UIPresenterData</param>
+		/// <typeparam name="T">The type of screen to open.</typeparam>
+		/// <returns>A new UniTask that returns the presenter when it's finished.</returns>
+		/// <exception cref="InvalidOperationException">Thrown if the same screen type is already opened.</exception>
 		public async UniTask<T> OpenScreen<T>(object data = null) where T : UIPresenter
 		{
 			var screenType = typeof(T);
@@ -86,11 +96,21 @@ namespace FirstLight.UIService
 			return (T) screen;
 		}
 
+		/// <summary>
+		/// Checks if a screen of type <typeparamref name="T"/> is open.
+		/// </summary>
 		public bool IsScreenOpen<T>() where T : UIPresenter
 		{
 			return _openedScreensType.ContainsKey(typeof(T));
 		}
 
+		/// <summary>
+		/// Returns the screen of type <typeparamref name="T"/> if it's open.
+		///
+		/// NOTE: This should not really be used, it's here for legacy reasons, think hard if you really need this.
+		/// </summary>
+		/// <typeparam name="T">The type of screen to get.</typeparam>
+		/// <exception cref="InvalidOperationException">Thrown if the screen you're trying to get is not opened</exception>
 		public T GetScreen<T>() where T : UIPresenter
 		{
 			var screenType = typeof(T);
@@ -102,6 +122,12 @@ namespace FirstLight.UIService
 			throw new InvalidOperationException($"Screen {screenType.Name} is not opened!");
 		}
 
+		/// <summary>
+		/// Close a screen of type <typeparamref name="T"/> if it's open.
+		/// </summary>
+		/// <param name="checkOpened">FOR LEGACY ONLY: If true will throw an exception when the screen is closed already.</param>
+		/// <typeparam name="T">The type of screen to close</typeparam>
+		/// <exception cref="InvalidOperationException">Thrown if the screen is not opened.</exception>
 		public UniTask CloseScreen<T>(bool checkOpened = true) where T : UIPresenter
 		{
 			FLog.Info($"Closing screen {typeof(T).Name}");
@@ -116,6 +142,10 @@ namespace FirstLight.UIService
 			return UniTask.CompletedTask;
 		}
 
+		/// <summary>
+		/// Closes a screen on the given layer.
+		/// </summary>
+		/// <param name="layer">The layer to close.</param>
 		public async UniTask CloseScreen(UILayer layer)
 		{
 			FLog.Info($"Closing layer {layer}");
@@ -128,6 +158,10 @@ namespace FirstLight.UIService
 			// throw new InvalidOperationException($"Layer {layer} is empty!");
 		}
 
+		/// <summary>
+		/// LEGACY ONLY: Closes the provided screen.
+		/// </summary>
+		/// <param name="presenter">The presenter to close.</param>
 		public async UniTask CloseScreen(UIPresenter presenter)
 		{
 			Assert.IsTrue(_openedScreensType.ContainsKey(presenter.GetType()), "Trying to close presenter that isn't open, how did you manage that?");

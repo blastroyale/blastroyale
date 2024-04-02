@@ -47,14 +47,14 @@ namespace FirstLight.Game
 			var configsProvider = new ConfigsProvider();
 			var networkService = new GameNetworkService(configsProvider);
 			var tutorialService = new TutorialService();
-			var uiService2 = new UIService.UIService();
-			uiService2.OpenScreen<LoadingScreenPresenter>().Forget();
+			var uiService = new UIService.UIService();
+			uiService.OpenScreen<LoadingScreenPresenter>().Forget();
 
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
-			var genericDialogService = new GenericDialogService(uiService2, gameLogic.CurrencyDataProvider);
+			var genericDialogService = new GenericDialogService(uiService, gameLogic.CurrencyDataProvider);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
 				configsProvider, gameLogic, genericDialogService, assetResolver, tutorialService, vfxService,
-				audioFxService, uiService2);
+				audioFxService, uiService);
 
 			networkService.StartNetworking(gameLogic, gameServices);
 			networkService.EnableQuantumPingCheck(true);

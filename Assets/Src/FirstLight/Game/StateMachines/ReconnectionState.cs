@@ -27,7 +27,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IInternalGameNetworkService _networkService;
-		private readonly UIService.UIService _uiService2;
+		private readonly UIService.UIService _uiService;
 		private readonly MatchState _matchState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
@@ -41,7 +41,7 @@ namespace FirstLight.Game.StateMachines
 			_services = services;
 			_dataProvider = dataProvider;
 			_networkService = networkService;
-			_uiService2 = services.UIService;
+			_uiService = services.UIService;
 			_statechartTrigger = statechartTrigger;
 		}
 
@@ -147,7 +147,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTaskVoid MatchTransition()
 		{
-			await _uiService2.OpenScreen<SwipeTransitionScreenPresenter>();
+			await _uiService.OpenScreen<SwipeTransitionScreenPresenter>();
 		}
 
 		private void JoinPendingMatch()

@@ -46,11 +46,6 @@ namespace FirstLight.Game.Services
 		/// Unloads all loaded assets
 		/// </summary>
 		UniTask UnloadAllMatchAssets();
-
-		/// <summary>
-		/// Waits for all mandatory assets to have completed loading
-		/// </summary>
-		UniTask WaitMandatoryComplete();
 	}
 
 	public class MatchAssetsService : IMatchAssetsService, MatchServices.IMatchService
@@ -58,19 +53,14 @@ namespace FirstLight.Game.Services
 		private readonly IGameServices _services;
 		private readonly IAssetAdderService _assetAdderService;
 		private readonly IGameDataProvider _data;
-		private readonly AsyncTaskTracker _mandatoryAssets;
-		private readonly AsyncTaskTracker _optionalAssets;
 
 		public MatchAssetsService()
 		{
 			_services = MainInstaller.ResolveServices();
 			_assetAdderService = _services.AssetResolverService as IAssetAdderService;
 			_data = MainInstaller.Resolve<IGameDataProvider>();
-			_mandatoryAssets = new AsyncTaskTracker();
-			_optionalAssets = new AsyncTaskTracker();
 			_services.RoomService.OnPlayersChange += OnRoomPlayersChange;
 		}
-
 
 		public async UniTask LoadOptionalAssets()
 		{
@@ -166,12 +156,6 @@ namespace FirstLight.Game.Services
 				}
 			}
 		}
-
-		public async UniTask WaitMandatoryComplete()
-		{
-			await _mandatoryAssets.WaitForCompletion();
-		}
-
 
 		private async UniTask LoadScene(GameId map)
 		{

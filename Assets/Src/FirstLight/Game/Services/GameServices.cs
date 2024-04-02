@@ -193,7 +193,7 @@ namespace FirstLight.Game.Services
 							ITimeService timeService, IDataService dataService, IConfigsAdder configsProvider,
 							IGameLogic gameLogic, IGenericDialogService genericDialogService,
 							IAssetResolverService assetResolverService, ITutorialService tutorialService,
-							IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, UIService.UIService uiService2)
+							IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, UIService.UIService uiService)
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
@@ -233,7 +233,7 @@ namespace FirstLight.Game.Services
 			NewsService = new PlayfabNewsService(MessageBrokerService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
-			UIService = uiService2;
+			UIService = uiService;
 			UiVfxService = new UIVFXService(this, assetResolverService);
 			UiVfxService.Init().Forget();
 

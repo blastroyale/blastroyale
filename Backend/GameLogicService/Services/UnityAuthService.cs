@@ -42,32 +42,30 @@ public class UnityAuthService
 		{
 			var tokenExchangeResponse =
 				await _client.PostAsync(string.Format(URL_TOKEN_EXCHANGE, PROJECT_ID, _config.UnityCloudEnvironmentID), null);
+			var tokenExchangeResponseStr = await tokenExchangeResponse.Content.ReadAsStringAsync();
 			if (tokenExchangeResponse.StatusCode != HttpStatusCode.Created)
 			{
-				var msg = await tokenExchangeResponse.RequestMessage?.Content?.ReadAsStringAsync();
-				_log.LogError($"Unity Token Exchange API call failed with: {tokenExchangeResponse.StatusCode} - {msg}");
-				throw new Exception($"Unity Token Exchange API call failed with: {tokenExchangeResponse.StatusCode} - {msg}");
+				_log.LogError($"Unity Token Exchange API call failed with: {tokenExchangeResponse.StatusCode} - {tokenExchangeResponseStr}");
+				throw new Exception($"Unity Token Exchange API call failed with: {tokenExchangeResponse.StatusCode} - {tokenExchangeResponseStr}");
 			}
 
-			var tokenExchangeStr = await tokenExchangeResponse.Content.ReadAsStringAsync();
 
-			_unityAccessToken = JsonConvert.DeserializeObject<TokenExchangeResponse>(tokenExchangeStr)!.accessToken;
+			_unityAccessToken = JsonConvert.DeserializeObject<TokenExchangeResponse>(tokenExchangeResponseStr)!.accessToken;
 			_unityAccessTokenExpiration = DateTime.Now.AddMinutes(45);
 			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _unityAccessToken);
 		}
 
 		var customIdResponse = await _client.PostAsync(string.Format(URL_CUSTOM_ID, PROJECT_ID),
 			JsonContent.Create(new {externalId = playerId, signInOnly = false}));
+		var customIdResponseStr = await customIdResponse.Content.ReadAsStringAsync();
 
 		if (customIdResponse.StatusCode != HttpStatusCode.OK)
 		{
-			var msg = await customIdResponse.RequestMessage?.Content?.ReadAsStringAsync();
-			_log.LogError($"Unity Custom ID API call failed with: {customIdResponse.StatusCode} - {msg}");
+			_log.LogError($"Unity Custom ID API call failed with: {customIdResponse.StatusCode} - {customIdResponseStr}");
 			throw new Exception($"Unity Custom ID API call failed with: {customIdResponse.StatusCode}");
 		}
 
-		var customID =
-			JsonConvert.DeserializeObject<CustomIDResponse>(await customIdResponse.Content.ReadAsStringAsync())!;
+		var customID = JsonConvert.DeserializeObject<CustomIDResponse>(customIdResponseStr)!;
 		return Playfab.Result(playerId, new Dictionary<string, string>
 		{
 			{

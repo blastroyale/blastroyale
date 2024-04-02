@@ -20,7 +20,8 @@ public class UnityAuthService
 	private const string URL_CUSTOM_ID = "https://player-auth.services.api.unity.com/v1/projects/{0}/authentication/server/custom-id";
 	private const string PROJECT_ID = "***REMOVED***";
 
-	private HttpClient _client;
+	private HttpClient _tokenExchangeClient;
+	private HttpClient _customIDClient;
 	private IBaseServiceConfiguration _config;
 	private ILogger _log;
 
@@ -31,17 +32,19 @@ public class UnityAuthService
 	{
 		_config = config;
 		_log = log;
-		_client = clientFactory.CreateClient();
-		_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", _config.UnityCloudAuthToken);
-		_client.DefaultRequestHeaders.Add("UnityEnvironment", _config.UnityCloudEnvironmentName);
+		
+		_tokenExchangeClient = clientFactory.CreateClient("UnityTokenExchange");
+		_tokenExchangeClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", _config.UnityCloudAuthToken);
+		
+		_customIDClient = clientFactory.CreateClient("UnityCustomID");
+		_customIDClient.DefaultRequestHeaders.Add("UnityEnvironment", _config.UnityCloudEnvironmentName);
 	}
 
 	public async Task<PlayFabResult<BackendLogicResult>> Authenticate(string playerId)
 	{
 		if (string.IsNullOrEmpty(_unityAccessToken) || _unityAccessTokenExpiration < DateTime.Now)
 		{
-			var tokenExchangeResponse =
-				await _client.PostAsync(string.Format(URL_TOKEN_EXCHANGE, PROJECT_ID, _config.UnityCloudEnvironmentID), null);
+			var tokenExchangeResponse = await _tokenExchangeClient.PostAsync(string.Format(URL_TOKEN_EXCHANGE, PROJECT_ID, _config.UnityCloudEnvironmentID), null);
 			var tokenExchangeResponseStr = await tokenExchangeResponse.Content.ReadAsStringAsync();
 			if (tokenExchangeResponse.StatusCode != HttpStatusCode.Created)
 			{
@@ -49,14 +52,12 @@ public class UnityAuthService
 				throw new Exception($"Unity Token Exchange API call failed with: {tokenExchangeResponse.StatusCode} - {tokenExchangeResponseStr}");
 			}
 
-
 			_unityAccessToken = JsonConvert.DeserializeObject<TokenExchangeResponse>(tokenExchangeResponseStr)!.accessToken;
 			_unityAccessTokenExpiration = DateTime.Now.AddMinutes(45);
-			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _unityAccessToken);
+			_customIDClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _unityAccessToken);
 		}
 
-		var customIdResponse = await _client.PostAsync(string.Format(URL_CUSTOM_ID, PROJECT_ID),
-			JsonContent.Create(new {externalId = playerId, signInOnly = false}));
+		var customIdResponse = await _customIDClient.PostAsync(string.Format(URL_CUSTOM_ID, PROJECT_ID), JsonContent.Create(new {externalId = playerId, signInOnly = false}));
 		var customIdResponseStr = await customIdResponse.Content.ReadAsStringAsync();
 
 		if (customIdResponse.StatusCode != HttpStatusCode.OK)

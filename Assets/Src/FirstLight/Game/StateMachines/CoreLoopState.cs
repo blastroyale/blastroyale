@@ -66,7 +66,6 @@ namespace FirstLight.Game.StateMachines
 			reconnection.Nest(_reconnection.Setup).Target(firstMatchCheck);
 
 			firstMatchCheck.Transition().Condition(InRoom).Target(match);
-			firstMatchCheck.Transition().Condition(CheckSkipTutorial).Target(mainMenu);
 			firstMatchCheck.Transition().Condition(HasCompletedFirstGameTutorial).Target(mainMenu);
 			firstMatchCheck.Transition().Target(joinTutorialRoom);
 			
@@ -95,33 +94,9 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		/// <summary>
-		/// If player already have items equipped, he does not need to do tutorial
-		/// This is to allow players to skip tutorial if they are not new as we implement more tutorial steps.
-		///
-		/// The main reason is to easily avoid edge cases e.g a player which item on slot 1 in inventory equipped but
-		/// meta tutorial will ask player to equip while blocking the UI, soft locking the game.
-		/// </summary>
-		private bool CheckSkipTutorial()
-		{
-			if (_dataProvider.EquipmentDataProvider.Loadout.Count >= 1)
-			{
-				if (!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH))
-				{
-					_services.CommandService.ExecuteCommand(new CompleteTutorialSectionCommand()
-					{
-						Section = TutorialSection.FIRST_GUIDE_MATCH
-					});
-				}
-
-				return true;
-			}
-			return false;
-		}
-
 		private async UniTask TutorialJoinTask(bool transition = false)
 		{
-			await _services.UIService.CloseScreen<PrivacyDialogPresenter>();
+			await _services.UIService.CloseScreen<PrivacyDialogPresenter>(false);
 			if (transition)
 			{
 				await TransitionScreen();
@@ -140,7 +115,6 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask AcceptPrivacyDialog()
 		{
-			await TransitionScreen();
 			var data = new PrivacyDialogPresenter.StateData
 			{
 				OnAccept = AcceptTerms
@@ -150,18 +124,17 @@ namespace FirstLight.Game.StateMachines
 
 		private void AcceptTerms()
 		{
-			
-			_ = TutorialJoinTask();
+			TutorialJoinTask().Forget();
 		}
 
 		private void AttemptJoinTutorialRoom()
 		{
 			if (_dataProvider.AppDataProvider.IsFirstSession)
 			{
-				_ = AcceptPrivacyDialog();
+				AcceptPrivacyDialog().Forget();
 				return;
 			}
-			_ = TutorialJoinTask(true);
+			TutorialJoinTask(true).Forget();
 		}
 
 		private void SubscribeEvents()
@@ -176,7 +149,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasCompletedFirstGameTutorial()
 		{
-			return !FeatureFlags.TUTORIAL ||_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH);
+			return _services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH);
 		}
 	}
 }

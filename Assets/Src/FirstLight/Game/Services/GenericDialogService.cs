@@ -1,11 +1,9 @@
 using System;
 using Cysharp.Threading.Tasks;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
 using FirstLight.UIService;
 using I2.Loc;
-using Quantum;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -93,6 +91,7 @@ namespace FirstLight.Game.Services
 									 Action closeCallback = null)
 		{
 			var ui = await _uiService.OpenScreen<GenericButtonDialogPresenter>();
+			await UniTask.NextFrame(); // TODO: Hacky, this data should be passed with StateData, now we need to wait for a frame :(
 			ui.SetInfo(title, desc, showCloseButton, button, closeCallback);
 		}
 
@@ -104,6 +103,7 @@ namespace FirstLight.Game.Services
 											 TouchScreenKeyboardType keyboardType = TouchScreenKeyboardType.Default)
 		{
 			var ui = await _uiService.OpenScreen<GenericInputDialogPresenter>();
+			await UniTask.NextFrame(); // TODO: Hacky, this data should be passed with StateData, now we need to wait for a frame :(
 			ui.SetInfo(title, desc, initialInputText, button, showCloseButton, closeCallback, keyboardType);
 		}
 
@@ -130,7 +130,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void CloseDialog()
 		{
-			_uiService.CloseScreen(UIService.UIService.UILayer.Popup).Forget();
+			_uiService.CloseScreen(UILayer.Popup).Forget();
 		}
 	}
 }

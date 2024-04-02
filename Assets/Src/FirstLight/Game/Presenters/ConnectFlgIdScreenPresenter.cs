@@ -6,8 +6,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.Modules.UIService.Runtime;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Newtonsoft.Json;
@@ -19,7 +17,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This presenter handles showing the register screen
 	/// </summary>
-	[UILayer(UIService.UIService.UILayer.Popup)]
+	[UILayer(UILayer.Popup)]
 	public class ConnectFlgIdScreenPresenter : UIPresenterData<ConnectFlgIdScreenPresenter.StateData>
 	{
 		public class StateData

@@ -8,8 +8,6 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Modules.UIService.Runtime;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using Quantum;
 using UnityEngine.UIElements;
@@ -20,7 +18,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Season change banner
 	/// </summary>
-	[UILayer(UIService.UIService.UILayer.Popup)]
+	[UILayer(UILayer.Popup)]
 	public class BattlePassSeasonBannerPresenter : UIPresenter
 	{
 		private IGameServices _services;

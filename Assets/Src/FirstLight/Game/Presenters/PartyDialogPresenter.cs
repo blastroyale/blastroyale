@@ -1,11 +1,8 @@
 using System;
 using Cysharp.Threading.Tasks;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.Modules.UIService.Runtime;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using UnityEngine.UIElements;
@@ -15,7 +12,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Displays a dialog where you can create or join a party.
 	/// </summary>
-	[UILayer(UIService.UIService.UILayer.Popup)]
+	[UILayer(UILayer.Popup)]
 	public class PartyDialogPresenter : UIPresenterData<PartyDialogPresenter.StateData>
 	{
 		public class StateData

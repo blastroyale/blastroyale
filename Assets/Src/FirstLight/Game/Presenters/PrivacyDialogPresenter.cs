@@ -1,13 +1,10 @@
 using System;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Modules.UIService.Runtime;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using UnityEngine.Networking;
 using UnityEngine.UIElements;
@@ -15,7 +12,7 @@ using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
-	[UILayer(UIService.UIService.UILayer.Popup)]
+	[UILayer(UILayer.Foreground)]
 	public class PrivacyDialogPresenter : UIPresenterData<PrivacyDialogPresenter.StateData>
 	{
 		public class StateData

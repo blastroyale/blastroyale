@@ -71,7 +71,7 @@ namespace FirstLight.Game.Views
 			Shader.SetGlobalVector(Shader.PropertyToID("_PhysicalScreenSize"),
 				new Vector4(Screen.width / Screen.dpi, Screen.height / Screen.dpi, Screen.dpi, 69));
 
-			_ = PermissionRequestHack();
+			PermissionRequestHack().Forget();
 			await _permissions.PermissionResponseAwaitTask();
 
 			Debug.Log("initializing with analytics enabled = " + _permissions.IsTrackingAccepted());

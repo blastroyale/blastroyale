@@ -2,14 +2,13 @@ using System;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Modules.UIService.Runtime;
 using FirstLight.UIService;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
-	[UILayer(UIService.UIService.UILayer.Popup)]
+	[UILayer(UILayer.Popup)]
 	public class GenericScrollingTextDialogPresenter : UIPresenterData<GenericScrollingTextDialogPresenter.StateData>
 	{
 		public class StateData

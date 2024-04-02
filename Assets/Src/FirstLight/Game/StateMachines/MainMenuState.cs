@@ -299,8 +299,7 @@ namespace FirstLight.Game.StateMachines
 		private bool MetaTutorialConditionsCheck()
 		{
 			// If meta/match tutorial not completed, and tutorial not running
-			return FeatureFlags.TUTORIAL &&
-				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH) &&
+			return !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH) &&
 				!_services.TutorialService.IsTutorialRunning;
 		}
 
@@ -565,7 +564,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void LoadingComplete()
 		{
-			_services.UIService.CloseScreen<SwipeTransitionScreenPresenter>().Forget();
+			_services.UIService.CloseScreen<SwipeTransitionScreenPresenter>(false).Forget();
 		}
 
 		private void PlayButtonClicked()
@@ -577,19 +576,17 @@ namespace FirstLight.Game.StateMachines
 
 		private void RequestStartMetaMatchTutorial()
 		{
-			if (FeatureFlags.TUTORIAL)
-			{
-				_services.MessageBrokerService.Publish(new RequestStartMetaMatchTutorialMessage());
-			}
+			RequestDelayed().Forget();
+		}
+		
+		private async UniTask RequestDelayed()
+		{
+			await UniTask.NextFrame(); // TODO: Hack because we get into a loop and Unity freezes without it
+			_services.MessageBrokerService.Publish(new RequestStartMetaMatchTutorialMessage());
 		}
 
 		private void BeforeLoadingMenu()
 		{
-			if (!_services.UIService.IsScreenOpen<SwipeTransitionScreenPresenter>()) // Legacy check because this is opened from two places
-			{
-				_services.UIService.OpenScreen<SwipeTransitionScreenPresenter>().Forget();
-			}
-
 			// Removing invalid skins
 			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS);
 			if (skin != null && !skin.Id.IsInGroup(GameIdGroup.PlayerSkin))
@@ -622,7 +619,6 @@ namespace FirstLight.Game.StateMachines
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
-
 
 			_statechartTrigger(MainMenuLoadedEvent);
 

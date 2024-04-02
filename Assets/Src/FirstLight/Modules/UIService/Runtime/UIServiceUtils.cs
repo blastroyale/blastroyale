@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Reflection;
 using UnityEngine.UIElements;
 
 namespace FirstLight.UIService
@@ -26,6 +29,12 @@ namespace FirstLight.UIService
 		{
 			presenter.AddView(element, view);
 			return element;
+		}
+
+		internal static T GetAttribute<T>(this ICustomAttributeProvider member) where T : Attribute
+		{
+			var attributes = member.GetCustomAttributes(typeof(T), false).Cast<T>().ToArray();
+			return attributes.Length != 0 ? attributes[0] : default;
 		}
 	}
 }

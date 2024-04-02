@@ -6,7 +6,6 @@ using FirstLight.Game.Presenters.Store;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.Modules.UIService.Runtime;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
@@ -19,7 +18,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Handles purchase confirmations
 	/// </summary>
-	[UILayer(UIService.UIService.UILayer.Popup)]
+	[UILayer(UILayer.Popup)]
 	public class GenericPurchaseDialogPresenter : UIPresenterData<GenericPurchaseDialogPresenter.StateData>
 	{
 		

@@ -86,11 +86,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void UpdateAccountStatus()
 		{
-			// TODO mihak
-			// if (_uiService.HasUiPresenter<SettingsScreenPresenter>())
-			// {
-			// 	_uiService.GetUi<SettingsScreenPresenter>().UpdateAccountStatus();
-			// }
+			if (_services.UIService.IsScreenOpen<SettingsScreenPresenter>())
+			{
+				_services.UIService.GetScreen<SettingsScreenPresenter>().UpdateAccountStatus();
+			}
 		}
 
 		private void SubscribeEvents()

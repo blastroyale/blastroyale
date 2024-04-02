@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
-using FirstLight.Modules.UIService.Runtime;
-using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Assertions;
@@ -66,8 +64,9 @@ namespace FirstLight.UIService
 		public async UniTask<T> OpenScreen<T>(object data = null) where T : UIPresenter
 		{
 			var screenType = typeof(T);
+
 			FLog.Info($"Opening screen {screenType.Name}");
-			if (_openedScreensType.TryGetValue(screenType, out var existingScreen))
+			if (_openedScreensType.ContainsKey(screenType))
 			{
 				throw new InvalidOperationException($"Screen {screenType.Name} is already opened");
 			}
@@ -97,29 +96,21 @@ namespace FirstLight.UIService
 		}
 
 		/// <summary>
-		/// Checks if a screen of type <typeparamref name="T"/> is open.
+		/// LEGACY ONLY: Closes the provided screen.
 		/// </summary>
-		public bool IsScreenOpen<T>() where T : UIPresenter
+		/// <param name="presenter">The presenter to close.</param>
+		public async UniTask CloseScreen(UIPresenter presenter)
 		{
-			return _openedScreensType.ContainsKey(typeof(T));
-		}
+			var screenType = presenter.GetType();
 
-		/// <summary>
-		/// Returns the screen of type <typeparamref name="T"/> if it's open.
-		///
-		/// NOTE: This should not really be used, it's here for legacy reasons, think hard if you really need this.
-		/// </summary>
-		/// <typeparam name="T">The type of screen to get.</typeparam>
-		/// <exception cref="InvalidOperationException">Thrown if the screen you're trying to get is not opened</exception>
-		public T GetScreen<T>() where T : UIPresenter
-		{
-			var screenType = typeof(T);
-			if (_openedScreensType.TryGetValue(screenType, out var screen))
-			{
-				return (T) screen;
-			}
+			Assert.IsTrue(_openedScreensType.ContainsKey(screenType), "Trying to close presenter that isn't open, how did you manage that?");
 
-			throw new InvalidOperationException($"Screen {screenType.Name} is not opened!");
+			await presenter.OnScreenClosedInternal();
+
+			_openedScreensType.Remove(screenType);
+			_openedScreensLayer.Remove(presenter.Layer);
+
+			Addressables.ReleaseInstance(presenter.gameObject);
 		}
 
 		/// <summary>
@@ -146,47 +137,48 @@ namespace FirstLight.UIService
 		/// Closes a screen on the given layer.
 		/// </summary>
 		/// <param name="layer">The layer to close.</param>
-		public async UniTask CloseScreen(UILayer layer)
+		public UniTask CloseScreen(UILayer layer)
 		{
 			FLog.Info($"Closing layer {layer}");
 
 			if (_openedScreensLayer.TryGetValue(layer, out var screen))
 			{
-				await CloseScreen(screen);
+				return CloseScreen(screen);
 			}
 
-			// throw new InvalidOperationException($"Layer {layer} is empty!");
+			throw new InvalidOperationException($"Layer {layer} is empty!");
 		}
 
 		/// <summary>
-		/// LEGACY ONLY: Closes the provided screen.
+		/// Returns the screen of type <typeparamref name="T"/> if it's open.
+		///
+		/// NOTE: This should not really be used, it's here for legacy reasons, think hard if you really need this.
 		/// </summary>
-		/// <param name="presenter">The presenter to close.</param>
-		public async UniTask CloseScreen(UIPresenter presenter)
+		/// <typeparam name="T">The type of screen to get.</typeparam>
+		/// <exception cref="InvalidOperationException">Thrown if the screen you're trying to get is not opened</exception>
+		public T GetScreen<T>() where T : UIPresenter
 		{
-			Assert.IsTrue(_openedScreensType.ContainsKey(presenter.GetType()), "Trying to close presenter that isn't open, how did you manage that?");
+			var screenType = typeof(T);
+			if (_openedScreensType.TryGetValue(screenType, out var screen))
+			{
+				return (T) screen;
+			}
 
-			await presenter.OnScreenClosedInternal();
+			throw new InvalidOperationException($"Screen {screenType.Name} is not opened!");
+		}
 
-			_openedScreensType.Remove(presenter.GetType());
-			_openedScreensLayer.Remove(presenter.Layer);
 
-			Addressables.ReleaseInstance(presenter.gameObject);
+		/// <summary>
+		/// Checks if a screen of type <typeparamref name="T"/> is open.
+		/// </summary>
+		public bool IsScreenOpen<T>() where T : UIPresenter
+		{
+			return _openedScreensType.ContainsKey(typeof(T));
 		}
 
 		private static string GetAddress<T>() where T : UIPresenter
 		{
 			return $"UI/{typeof(T).Name.Replace("Presenter", "")}.prefab";
-		}
-
-		public enum UILayer
-		{
-			Background = -1,
-			Default = 0,
-			Popup = 1,
-			Foreground = 2,
-
-			LegacyVFXHack = 10,
 		}
 	}
 }

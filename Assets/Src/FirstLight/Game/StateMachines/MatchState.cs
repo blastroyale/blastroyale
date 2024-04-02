@@ -340,7 +340,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask LoadMatchAssets()
 		{
-			await _services.UIService.CloseScreen<SwipeTransitionScreenPresenter>();
+			await _services.UIService.CloseScreen<SwipeTransitionScreenPresenter>(false);
 			var entityService = new GameObject(nameof(EntityViewUpdaterService))
 				.AddComponent<EntityViewUpdaterService>();
 			_matchServices = new MatchServices(entityService, _services, _dataProvider, _dataService);

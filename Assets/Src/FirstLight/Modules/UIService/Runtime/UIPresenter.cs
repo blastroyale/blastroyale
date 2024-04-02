@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using FirstLight.Modules.UIService.Runtime;
-using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,7 +13,7 @@ namespace FirstLight.UIService
 
 		public VisualElement Root { private set; get; }
 
-		internal UIService.UILayer Layer { set; get; }
+		internal UILayer Layer { set; get; }
 		internal object Data { set; get; }
 
 		private readonly List<UIView> _views = new ();
@@ -37,7 +35,8 @@ namespace FirstLight.UIService
 		{
 			if (_document != null)
 			{
-				_document.sortingOrder = (int) (GetType().GetAttribute<UILayerAttribute>()?.Layer ?? UIService.UILayer.Default);
+				// Not really necessary as we set this at runtime but just so it's clear in the editor
+				_document.sortingOrder = (int) (GetType().GetAttribute<UILayerAttribute>()?.Layer ?? UILayer.Default);
 			}
 		}
 

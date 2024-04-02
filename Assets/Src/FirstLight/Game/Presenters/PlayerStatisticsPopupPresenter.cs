@@ -7,7 +7,6 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.UIElements;
-using FirstLight.Modules.UIService.Runtime;
 using FirstLight.Server.SDK.Models;
 using FirstLight.UIService;
 using I2.Loc;
@@ -18,7 +17,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Handles the player statistics screen.
 	/// </summary>
-	[UILayer(UIService.UIService.UILayer.Popup)]
+	[UILayer(UILayer.Popup)]
 	public class PlayerStatisticsPopupPresenter : UIPresenterData<PlayerStatisticsPopupPresenter.StateData>
 	{
 		public class StateData

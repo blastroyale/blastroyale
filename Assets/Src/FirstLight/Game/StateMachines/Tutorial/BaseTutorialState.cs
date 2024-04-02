@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -37,13 +38,18 @@ namespace FirstLight.Game.StateMachines
 		public void Setup(IStateFactory stateFactory)
 		{
 			var initial = stateFactory.Initial("Initial");
+			var tutorialCompletedCheck = stateFactory.Choice("Tutorial Completed Check");
 			var loadTutorialUi = stateFactory.TaskWait("Load tutorial UI");
 			var idle = stateFactory.State("TUTORIAL - Idle");
 			var firstGameTutorial = stateFactory.Nest("TUTORIAL - First Game Tutorial");
 			var metaAndMatchTutorial = stateFactory.Nest("TUTORIAL - Equipment BP Tutorial");
+			var final = stateFactory.Final("Final");
 
-			initial.Transition().Target(loadTutorialUi);
+			initial.Transition().Target(tutorialCompletedCheck);
 			initial.OnExit(SubscribeMessages);
+
+			tutorialCompletedCheck.Transition().Condition(() => _services.TutorialService.HasCompletedTutorial()).Target(final);
+			tutorialCompletedCheck.Transition().Target(loadTutorialUi);
 
 			loadTutorialUi.WaitingFor(OpenTutorialScreens).Target(idle);
 
@@ -56,17 +62,20 @@ namespace FirstLight.Game.StateMachines
 			firstGameTutorial.OnExit(() => SendSectionCompleted(TutorialSection.FIRST_GUIDE_MATCH));
 
 			metaAndMatchTutorial.OnEnter(() => SetCurrentSection(TutorialSection.META_GUIDE_AND_MATCH));
-			metaAndMatchTutorial.Nest(_metaAndMatchTutorialState.Setup).Target(idle);
+			metaAndMatchTutorial.Nest(_metaAndMatchTutorialState.Setup).Target(final);
 			metaAndMatchTutorial.OnExit(() => SendSectionCompleted(TutorialSection.META_GUIDE_AND_MATCH));
+
+			final.OnEnter(CloseTutorialScreens);
 		}
 
-		private UniTask OpenTutorialScreens()
+		private async UniTask OpenTutorialScreens()
 		{
-			// TODO mihak
-			// await _services.GameUiService.OpenUiAsync<TutorialUtilsScreenPresenter>();
-			// await _services.GameUiService.OpenUiAsync<CharacterDialogScreenPresenter>();
-			// await _services.GameUiService.OpenUiAsync<GuideHandPresenter>();
-			return UniTask.CompletedTask;
+			await _services.UIService.OpenScreen<TutorialOverlayPresenter>();
+		}
+
+		private void CloseTutorialScreens()
+		{
+			_services.UIService.CloseScreen<TutorialOverlayPresenter>(false).Forget();
 		}
 
 		private void SetCurrentSection(TutorialSection section)

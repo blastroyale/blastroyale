@@ -1,10 +1,7 @@
 using System;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Modules.UIService.Runtime;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using UnityEngine.UIElements;
 
@@ -14,10 +11,10 @@ namespace FirstLight.Game.Presenters
 	/// Creates a Generic Dialog for showing information to the player usually for yes / no choices.
 	/// Usually used for pointing out something informative to players.
 	/// </summary>
-	[UILayer(UIService.UIService.UILayer.Popup)]
+	[UILayer(UILayer.Popup)]
 	public abstract class GenericDialogPresenterBase :  UIPresenter
 	{
-		private IGameServices _services;
+		protected IGameServices _services;
 		
 		private Label _titleLabel;
 		private Label _descLabel;
@@ -46,11 +43,6 @@ namespace FirstLight.Game.Presenters
 
 			_confirmCallback = null;
 			_closeCallback = null;
-		}
-
-		protected override UniTask OnScreenOpen(bool reload)
-		{
-			return base.OnScreenOpen(reload);
 		}
 
 		protected override UniTask OnScreenClose()
@@ -89,7 +81,7 @@ namespace FirstLight.Game.Presenters
 
 		private void CloseRequested()
 		{
-			_services.UIService.CloseScreen(UIService.UIService.UILayer.Popup).Forget();
+			_services.UIService.CloseScreen(UILayer.Popup).Forget();
 		}
 	}
 }

@@ -33,6 +33,12 @@ namespace FirstLight.Game.Services
 		/// Requests to check if a tutorial step has been completed
 		/// </summary>
 		bool HasCompletedTutorialSection(TutorialSection section);
+
+		/// <summary>
+		/// If the player has completed the entire tutorial.
+		/// </summary>
+		/// <returns></returns>
+		bool HasCompletedTutorial();
 	}
 
 	/// <inheritdoc cref="ITutorialService"/>
@@ -68,7 +74,7 @@ namespace FirstLight.Game.Services
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 
-		bool ITutorialService.IsTutorialRunning => FeatureFlags.TUTORIAL && CurrentRunningTutorial.Value != TutorialSection.NONE;
+		bool ITutorialService.IsTutorialRunning => CurrentRunningTutorial.Value != TutorialSection.NONE;
 
 		public IObservableField<TutorialSection> CurrentRunningTutorial { get; }
 
@@ -146,7 +152,13 @@ namespace FirstLight.Game.Services
 
 		public bool HasCompletedTutorialSection(TutorialSection section)
 		{
-			return _dataProvider.PlayerDataProvider.HasTutorialSection(section);
+			return !FeatureFlags.TUTORIAL || _dataProvider.PlayerDataProvider.HasTutorialSection(section);
+		}
+
+		public bool HasCompletedTutorial()
+		{
+			return HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH) &&
+				   HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH);
 		}
 	}
 }

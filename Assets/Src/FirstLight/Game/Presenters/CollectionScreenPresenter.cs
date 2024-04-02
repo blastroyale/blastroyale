@@ -48,7 +48,6 @@ namespace FirstLight.Game.Presenters
 		private Label _selectedItemLabel;
 		private Label _selectedItemDescription;
 		private Button _equipButton;
-		private Button _changeAnimButton;
 		private PriceButton _buyButton;
 		private VisualElement _nameLockedIcon;
 		private VisualElement _renderTexture;
@@ -99,12 +98,6 @@ namespace FirstLight.Game.Presenters
 
 			_equipButton = Root.Q<Button>("EquipButton").Required();
 			_equipButton.clicked += OnEquipClicked;
-
-			// This is a debug button for internal builds to allow us to fast check animations on characters.
-			_changeAnimButton = Root.Q<Button>("ChangeButton").Required();
-			_changeAnimButton.clicked += OnChangeAnimClicked;
-			_changeAnimButton.text = "PLAY ANIM";
-			_changeAnimButton.visible = false;
 
 			_buyButton = Root.Q<PriceButton>("BuyButton").Required();
 			_buyButton.clicked += OnBuyClicked;
@@ -285,15 +278,6 @@ namespace FirstLight.Game.Presenters
 			_services.CommandService.ExecuteCommand(new EquipCollectionItemCommand() {Item = item});
 			UpdateCollectionDetails(_selectedCategory);
 			SelectEquipped(_selectedCategory);
-		}
-
-		private void OnChangeAnimClicked()
-		{
-			if (_selectedCategory.Id == GameIdGroup.PlayerSkin)
-			{
-				// TODO mihak
-				//_collectionObject.GetComponent<MainMenuCharacterViewComponent>().PlayAnimation();
-			}
 		}
 
 		/// <summary>

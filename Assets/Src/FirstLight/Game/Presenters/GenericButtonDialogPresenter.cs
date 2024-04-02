@@ -1,10 +1,10 @@
 ﻿using System;
 using FirstLight.Game.Services;
-using FirstLight.Modules.UIService.Runtime;
+using FirstLight.UIService;
 
 namespace FirstLight.Game.Presenters
 {
-	[UILayer(UIService.UIService.UILayer.Popup)]
+	[UILayer(UILayer.Popup)]
 	public class GenericButtonDialogPresenter : GenericDialogPresenterBase
 	{
 		/// <summary>

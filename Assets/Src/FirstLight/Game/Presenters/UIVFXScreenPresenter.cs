@@ -1,9 +1,7 @@
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.Game.Views.MainMenuViews;
-using FirstLight.Modules.UIService.Runtime;
 using FirstLight.Services;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -15,7 +13,7 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the VFX for the UI by:
 	/// - Player new VFX animations
 	/// </summary>
-	[UILayer(UIService.UIService.UILayer.LegacyVFXHack)]
+	[UILayer(UILayer.LegacyVFXHack)]
 	public class UIVFXScreenPresenter : UIPresenter
 	{
 		[SerializeField, Required] private UiVfxImage _imageRef;

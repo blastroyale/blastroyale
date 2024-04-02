@@ -1,21 +1,17 @@
-using System;
 using System.Collections.Generic;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Services;
-using FirstLight.Game.UIElements;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Presenters
 {
-
 	/// <summary>
 	/// This Presenter handles the character dialog system
 	/// </summary>
-	public class CharacterDialogScreenPresenter : UIPresenter
+	// TODO mihak: Move this to views
+	public class CharacterDialogView : UIView
 	{
 		private const string CHARACTER_LEFT = "back_avatar--left";
 		private const string CHARACTER_RIGHT = "back_avatar--right";
@@ -51,22 +47,19 @@ namespace FirstLight.Game.Presenters
 
 		private IGameServices _services;
 
-		void Awake()
+		public override void Attached(VisualElement element)
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-		}
+			
+			_backAvatarMale = element.Q<VisualElement>("BackAvatarMale").Required();
+			_characterMale = element.Q<VisualElement>("MaleCharacter").Required();
+			_bubbleMale = element.Q<VisualElement>("MaleBubble").Required();
+			_localizedLabelMale = element.Q<Label>("MaleLabel").Required();
 
-		protected override void QueryElements()
-		{
-			_backAvatarMale = Root.Q<VisualElement>("BackAvatarMale").Required();
-			_characterMale = Root.Q<VisualElement>("MaleCharacter").Required();
-			_bubbleMale = Root.Q<VisualElement>("MaleBubble").Required();
-			_localizedLabelMale = Root.Q<Label>("MaleLabel").Required();
-
-			_backAvatarFemale = Root.Q<VisualElement>("BackAvatarFemale").Required();
-			_characterFemale = Root.Q<VisualElement>("FemaleCharacter").Required();
-			_bubbleFemale = Root.Q<VisualElement>("FemaleBubble").Required();
-			_localizedLabelFemale = Root.Q<Label>("FemaleLabel").Required();
+			_backAvatarFemale = element.Q<VisualElement>("BackAvatarFemale").Required();
+			_characterFemale = element.Q<VisualElement>("FemaleCharacter").Required();
+			_bubbleFemale = element.Q<VisualElement>("FemaleBubble").Required();
+			_localizedLabelFemale = element.Q<Label>("FemaleLabel").Required();
 
 			//setup ref dictionary
 			_characters = new Dictionary<CharacterType, VisualElement[]>
@@ -75,7 +68,7 @@ namespace FirstLight.Game.Presenters
 				{CharacterType.Male, new[] {_characterMale, _bubbleMale, _localizedLabelMale, _backAvatarMale}}
 			};
 			
-			Root.SetupClicks(_services);
+			element.SetupClicks(_services);
 		}
 
 		/// <summary>

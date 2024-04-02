@@ -1,29 +1,22 @@
 ﻿using System;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Modules.UIService.Runtime;
 using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
-	[UILayer(UIService.UIService.UILayer.Popup)]
+	[UILayer(UILayer.Popup)]
 	public class GenericInputDialogPresenter : GenericDialogPresenterBase
 	{
 		private GenericDialogButton<string> _confirmButton;
 		private Action<string> _closeCallback;
 		private TextField _inputField;
 
-		private IGameServices _services;
-
-		private void Awake()
-		{
-			_services = MainInstaller.Resolve<IGameServices>();
-		}
-
 		protected override void QueryElements()
 		{
+			base.QueryElements();
 			_inputField = Root.Q<TextField>().Required();
 
 			_closeCallback = null;

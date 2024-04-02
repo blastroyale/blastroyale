@@ -4,9 +4,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Modules.UIService.Runtime;
 using FirstLight.NativeUi;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Sirenix.OdinInspector;
@@ -19,7 +17,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles server selection in the main menu
 	/// </summary>
-	[UILayer(UIService.UIService.UILayer.Popup)]
+	[UILayer(UILayer.Popup)]
 	public class ServerSelectScreenPresenter : UIPresenterData<ServerSelectScreenPresenter.StateData>
 	{
 		public class StateData

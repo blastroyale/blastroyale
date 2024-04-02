@@ -1,12 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Services;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -17,7 +13,8 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Tutorial utils
 	/// </summary>
-	public class TutorialUtilsScreenPresenter : UIPresenter
+	[UILayer(UILayer.TutorialOverlay)]
+	public class TutorialOverlayPresenter : UIPresenter
 	{
 		private const string BLOCKER_ELEMENT_STYLE = "blocker-element-blocker";
 		private const string HIGHLIGHT_ELEMENT_STYLE = "highlight-element";
@@ -25,18 +22,41 @@ namespace FirstLight.Game.Presenters
 		
 		private const float CIRCLE_DEFAULT_SIZE = 32;
 		private const float SQUARE_DEFAULT_SIZE = 512;
+		
+		[SerializeField] private GameObject _guideHandRoot;
+		[SerializeField] private Animator _guideHandAnimator;
+
+		public CharacterDialogView Dialog;
 
 		private float _initialScale;
 		private float _highlightedScale;
 
 		private IGameServices _services;
 
+		private VisualElement _blockerRoot;
 		private VisualElement _blockerElementRight;
 		private VisualElement _blockerElementLeft;
 		private VisualElement _blockerElementBottom;
 		private VisualElement _blockerElementTop;
 
 		private VisualElement _highlighterElement;
+		
+		private readonly float _guideHandRotation = 45; // rotation that already is from the art image
+		private float _guideHandRotationDegreeDegreesOffset;
+
+		/// <summary>
+		/// Controls the animation rotation so we can
+		/// make the hand drag into any direction we think fit
+		/// </summary>
+		public float RotationDegreeOffset
+		{
+			get => _guideHandRotationDegreeDegreesOffset;
+			set
+			{
+				_guideHandRotationDegreeDegreesOffset = value;
+				_guideHandRoot.transform.rotation = Quaternion.Euler(0, 0, _guideHandRotationDegreeDegreesOffset - _guideHandRotation);
+			}
+		}
 
 		private void Awake()
 		{
@@ -47,6 +67,9 @@ namespace FirstLight.Game.Presenters
 		{
 			Root.AddToClassList(PARENT_ELEMENT_STYLE);
 			Root.SetupClicks(_services);
+
+			Root.Q<VisualElement>("Dialog").AttachView(this, out Dialog);
+			_blockerRoot = Root.Q("BlockerRoot");
 		}
 
 		/// <summary>
@@ -56,21 +79,21 @@ namespace FirstLight.Game.Presenters
 		{
 			_blockerElementRight = new VisualElement();
 			_blockerElementRight.AddToClassList(BLOCKER_ELEMENT_STYLE);
-			Root.Add(_blockerElementRight);
+			_blockerRoot.Add(_blockerElementRight);
 			SetBlockerValues(_blockerElementRight,
-				Root.resolvedStyle.height * 2,
-				Root.resolvedStyle.width * 2,
+				_blockerRoot.resolvedStyle.height * 2,
+				_blockerRoot.resolvedStyle.width * 2,
 				0,
 				0);
 
 			_blockerElementLeft = new VisualElement();
-			Root.Add(_blockerElementLeft);
+			_blockerRoot.Add(_blockerElementLeft);
 
 			_blockerElementBottom = new VisualElement();
-			Root.Add(_blockerElementBottom);
+			_blockerRoot.Add(_blockerElementBottom);
 
 			_blockerElementTop = new VisualElement();
-			Root.Add(_blockerElementTop);
+			_blockerRoot.Add(_blockerElementTop);
 		}
 
 		/// <summary>
@@ -79,6 +102,7 @@ namespace FirstLight.Game.Presenters
 		public async UniTask BlockAround<T>(string className = null, string elementName = null)
 			where T : UIPresenter
 		{
+			FLog.Info("PACO", $"BlockAround: {className} - {typeof(T)}");
 			await UniTask.WaitUntil(() => _services.UIService.IsScreenOpen<T>());
 			var root = _services.UIService.GetScreen<T>().Root;
 			var element = root.Q(elementName, className);
@@ -133,48 +157,70 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void RemoveHighlight()
 		{
+			FLog.Info("PACO", "RemoveHighlight");
 			_highlighterElement.experimental.animation.Scale(_initialScale, GameConstants.Tutorial.TIME_HIGHLIGHT_FADE)
 				.OnCompleted(DeleteHighLightElement);
+		}
+		
+		public void ShowGuideHand()
+		{
+			FLog.Info("PACO", "ShowGuideHand");
+			_guideHandRoot.SetActive(true);
+			_guideHandAnimator.enabled = true;
+		}
+
+		public void HideGuideHand()
+		{
+			FLog.Info("PACO", "HideGuideHand");
+			_guideHandRoot.SetActive(false);
+			_guideHandAnimator.enabled = false;
+		}
+		
+		public void SetGuideHandScreenPosition(Vector2 screenPosition, float fingerRotation = 45)
+		{
+			_guideHandRoot.transform.position = screenPosition;
+			RotationDegreeOffset = fingerRotation;
+			ShowGuideHand();
 		}
 
 		private void DeleteHighLightElement()
 		{
-			Root.Remove(_highlighterElement);
+			_blockerRoot.Remove(_highlighterElement);
 		}
 
 		private void CreateBlockers(VisualElement objElement)
 		{
 			_blockerElementRight = new VisualElement();
 			_blockerElementRight.AddToClassList(BLOCKER_ELEMENT_STYLE);
-			Root.Add(_blockerElementRight);
+			_blockerRoot.Add(_blockerElementRight);
 			SetBlockerValues(_blockerElementRight,
-				Root.resolvedStyle.height * 2,
-				Root.resolvedStyle.width,
-				objElement.worldBound.y - Root.resolvedStyle.height,
+				_blockerRoot.resolvedStyle.height * 2,
+				_blockerRoot.resolvedStyle.width,
+				objElement.worldBound.y - _blockerRoot.resolvedStyle.height,
 				objElement.worldBound.x + objElement.worldBound.width);
 
 			_blockerElementLeft = new VisualElement();
 			_blockerElementLeft.AddToClassList(BLOCKER_ELEMENT_STYLE);
-			Root.Add(_blockerElementLeft);
+			_blockerRoot.Add(_blockerElementLeft);
 			SetBlockerValues(_blockerElementLeft,
-				Root.resolvedStyle.height * 2,
-				Root.resolvedStyle.width,
-				objElement.worldBound.y - Root.resolvedStyle.height,
-				objElement.worldBound.x - Root.worldBound.width);
+				_blockerRoot.resolvedStyle.height * 2,
+				_blockerRoot.resolvedStyle.width,
+				objElement.worldBound.y - _blockerRoot.resolvedStyle.height,
+				objElement.worldBound.x - _blockerRoot.worldBound.width);
 
 			_blockerElementBottom = new VisualElement();
 			_blockerElementBottom.AddToClassList(BLOCKER_ELEMENT_STYLE);
-			Root.Add(_blockerElementBottom);
-			SetBlockerValues(_blockerElementBottom, Root.resolvedStyle.height,
+			_blockerRoot.Add(_blockerElementBottom);
+			SetBlockerValues(_blockerElementBottom, _blockerRoot.resolvedStyle.height,
 				objElement.resolvedStyle.width,
 				objElement.worldBound.y + objElement.worldBound.height,
 				objElement.worldBound.x);
 
 			_blockerElementTop = new VisualElement();
-			Root.Add(_blockerElementTop);
+			_blockerRoot.Add(_blockerElementTop);
 			_blockerElementTop.AddToClassList(BLOCKER_ELEMENT_STYLE);
-			SetBlockerValues(_blockerElementTop, Root.resolvedStyle.height, objElement.resolvedStyle.width,
-				objElement.worldBound.y - Root.worldBound.height, objElement.worldBound.x);
+			SetBlockerValues(_blockerElementTop, _blockerRoot.resolvedStyle.height, objElement.resolvedStyle.width,
+				objElement.worldBound.y - _blockerRoot.worldBound.height, objElement.worldBound.x);
 		}
 
 		private void SetBlockerValues(VisualElement blocker, float height, float width, float top, float left)
@@ -189,7 +235,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_highlighterElement = new VisualElement();
 
-			Root.Add(_highlighterElement);
+			_blockerRoot.Add(_highlighterElement);
 			_highlighterElement.AddToClassList(HIGHLIGHT_ELEMENT_STYLE);
 			_highlighterElement.pickingMode = PickingMode.Ignore;
 			_highlighterElement.SetDisplay(false);
@@ -202,7 +248,7 @@ namespace FirstLight.Game.Presenters
 
 			float circleHighlightingSize = objSize;
 			
-			_initialScale = Root.worldBound.width * 2 / CIRCLE_DEFAULT_SIZE;
+			_initialScale = _blockerRoot.worldBound.width * 2 / CIRCLE_DEFAULT_SIZE;
 			_highlightedScale = circleHighlightingSize / CIRCLE_DEFAULT_SIZE;
 			_highlighterElement.style.top = objElement.worldBound.y - SQUARE_DEFAULT_SIZE / 2 + objElement.resolvedStyle.height / 2;
 			_highlighterElement.style.left = objElement.worldBound.x - SQUARE_DEFAULT_SIZE / 2 + objElement.resolvedStyle.width / 2;

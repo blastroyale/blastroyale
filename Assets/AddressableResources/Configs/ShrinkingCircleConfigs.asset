@@ -1530,7 +1530,7 @@ MonoBehaviour:
       ShrinkingSizeK:
         RawValue: 26214
       NewSafeSpaceAreaSizeK:
-        RawValue: 32768
+        RawValue: 45875
       MaxHealthDamage:
         RawValue: 2163
       AirdropChance:
@@ -1555,7 +1555,7 @@ MonoBehaviour:
       ShrinkingSizeK:
         RawValue: 32768
       NewSafeSpaceAreaSizeK:
-        RawValue: 114688
+        RawValue: 131072
       MaxHealthDamage:
         RawValue: 3277
       AirdropChance:
@@ -1580,7 +1580,7 @@ MonoBehaviour:
       ShrinkingSizeK:
         RawValue: 32768
       NewSafeSpaceAreaSizeK:
-        RawValue: 114688
+        RawValue: 131072
       MaxHealthDamage:
         RawValue: 5243
       AirdropChance:

@@ -622,7 +622,7 @@ namespace FirstLight.Game.Presenters
 				{
 					var predictedLevelAndPoints =
 						_dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
-					_battlePassNextLevelLabel.text = predictedLevelAndPoints.Item1.ToString();
+					_battlePassNextLevelLabel.text = (predictedLevelAndPoints.Item1 + 1).ToString();
 					var requiredPoints =
 						_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(
 							(int) predictedLevelAndPoints.Item1);

@@ -45,7 +45,7 @@ namespace FirstLight.Game.Services
 		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
 		/// </summary>
 		UniTask OpenButtonDialog(string title, string desc, bool showCloseButton, GenericDialogButton button,
-							  Action closeCallback = null);
+								 Action closeCallback = null);
 
 		/// <summary>
 		/// Shows an input field dialog box for the player to write specific string data.
@@ -78,7 +78,7 @@ namespace FirstLight.Game.Services
 	{
 		private readonly UIService.UIService _uiService;
 		private readonly ICurrencyDataProvider _currencyDataProvider;
-		
+
 		public GenericDialogService(UIService.UIService uiService, ICurrencyDataProvider currencyDataProvider)
 		{
 			_uiService = uiService;
@@ -87,8 +87,8 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc />
 		public async UniTask OpenButtonDialog(string title, string desc, bool showCloseButton = true,
-									 GenericDialogButton button = new GenericDialogButton(),
-									 Action closeCallback = null)
+											  GenericDialogButton button = new GenericDialogButton(),
+											  Action closeCallback = null)
 		{
 			var ui = await _uiService.OpenScreen<GenericButtonDialogPresenter>();
 			await UniTask.NextFrame(); // TODO: Hacky, this data should be passed with StateData, now we need to wait for a frame :(
@@ -130,7 +130,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void CloseDialog()
 		{
-			_uiService.CloseScreen(UILayer.Popup).Forget();
+			_uiService.CloseScreen(UILayer.Popup, false).Forget();
 		}
 	}
 }

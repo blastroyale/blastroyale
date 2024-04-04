@@ -34,16 +34,14 @@ namespace FirstLight.Game.StateMachines
 		private readonly MainMenuState _mainMenuState;
 		private readonly IGameDataProvider _data;
 		private readonly IGameServices _services;
-		private readonly IAppLogic _appLogic;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private Coroutine _csPoolTimerCoroutine;
 
-		public SettingsMenuState(IGameDataProvider data, IGameServices services, IGameLogic gameLogic, Action<IStatechartEvent> statechartTrigger)
+		public SettingsMenuState(IGameDataProvider data, IGameServices services, Action<IStatechartEvent> statechartTrigger)
 		{
 			_data = data;
 			_services = services;
-			_appLogic = gameLogic.AppLogic;
 			_statechartTrigger = statechartTrigger;
 		}
 
@@ -144,7 +142,7 @@ namespace FirstLight.Game.StateMachines
 					{
 						_services.MessageBrokerService.Publish(new ChangedServerRegionMessage());
 						_services.GenericDialogService.OpenSimpleMessage("Server",
-							"Connected to " + _appLogic.ConnectionRegion.Value.GetPhotonRegionTranslation() + " server!");
+							"Connected to " + _data.AppDataProvider.ConnectionRegion.Value.GetPhotonRegionTranslation() + " server!");
 					}
 
 					_statechartTrigger(_exitedSelectServer);

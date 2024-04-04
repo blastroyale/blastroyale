@@ -21,7 +21,7 @@ namespace Src.FirstLight.Server
         /// </summary>
         public FlgServerConfig()
         {
-            FlgCustomSerializers.RegisterSerializers();
+            FLGCustomSerializers.RegisterSerializers();
         }
 
         public Assembly GetCommandsAssembly()

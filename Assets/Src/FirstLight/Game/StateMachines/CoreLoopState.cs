@@ -32,15 +32,15 @@ namespace FirstLight.Game.StateMachines
 		
 		private Coroutine _csPoolTimerCoroutine;
 
-		public CoreLoopState(ReconnectionState reconnection, IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, IGameLogic gameLogic, 
+		public CoreLoopState(ReconnectionState reconnection, IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, 
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger, IRoomService roomService)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
-			_matchState = new MatchState(services, dataService, networkService, gameLogic, assetAdderService, statechartTrigger,roomService);
-			_mainMenuState = new MainMenuState(services, gameLogic, assetAdderService, statechartTrigger);
+			_matchState = new MatchState(services, dataService, networkService, dataProvider, assetAdderService, statechartTrigger,roomService);
+			_mainMenuState = new MainMenuState(services, dataProvider, assetAdderService, statechartTrigger);
 			_reconnection = reconnection;
 		}
 

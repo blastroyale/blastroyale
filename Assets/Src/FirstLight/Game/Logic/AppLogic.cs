@@ -178,7 +178,7 @@ namespace FirstLight.Game.Logic
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
-	public interface IAppLogic : IAppDataProvider, IGameLogicInitializer
+	public interface IAppLogic : IAppDataProvider
 	{
 	}
 
@@ -323,11 +323,7 @@ namespace FirstLight.Game.Logic
 			base(gameLogic, dataProvider)
 		{
 			_audioFxService = audioFxService;
-		}
-
-		/// <inheritdoc />
-		public void Init()
-		{
+			
 			IsSfxEnabled = Data.SfxEnabled;
 			IsBgmEnabled = Data.BgmEnabled;
 			IsDialogueEnabled = Data.DialogueEnabled;
@@ -336,6 +332,8 @@ namespace FirstLight.Game.Logic
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			LastFrameSnapshot = new ObservableResolverField<FrameSnapshot>(() => Data.LastCapturedFrameSnapshot,
 				snap => Data.LastCapturedFrameSnapshot = snap);
+			
+			SetFpsTarget();
 		}
 
 		public void ReInit()

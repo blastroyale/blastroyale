@@ -339,6 +339,7 @@ namespace FirstLight.Services
 			AudioListener = new GameObject("Audio Listener").AddComponent<AudioListenerMonoComponent>();
 			AudioListener.transform.SetParent(_audioPoolParent.transform);
 			AudioListener.Listener = AudioListener.gameObject.AddComponent<AudioListener>();
+			AudioListener.Listener.enabled = true; // Probably not needed
 			AudioListener.SetFollowTarget(null, Vector3.zero, Quaternion.identity);
 
 			var pool = new GameObjectPool<AudioSourceMonoComponent>(50, audioPlayer);

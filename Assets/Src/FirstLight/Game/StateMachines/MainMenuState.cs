@@ -63,7 +63,7 @@ namespace FirstLight.Game.StateMachines
 
 		private int _unclaimedCountCheck;
 
-		public MainMenuState(IGameServices services, IGameLogic gameLogic, IAssetAdderService assetAdderService,
+		public MainMenuState(IGameServices services, IGameDataProvider gameLogic, IAssetAdderService assetAdderService,
 							 Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
@@ -72,7 +72,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger = statechartTrigger;
 			_collectionMenuState = new CollectionMenuState(services, gameLogic, statechartTrigger);
 			_enterNameState = new EnterNameState(services, gameLogic, statechartTrigger);
-			_settingsMenuState = new SettingsMenuState(gameLogic, services, gameLogic, statechartTrigger);
+			_settingsMenuState = new SettingsMenuState(gameLogic, services, statechartTrigger);
 		}
 
 		/// <summary>

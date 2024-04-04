@@ -18,21 +18,15 @@ namespace FirstLight.Game.StateMachines
 		private static readonly IStatechartEvent _selectedMapPointEvent = new StatechartEvent("TUTORIAL - Selected map point event");
 
 		private readonly IGameServices _services;
-		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private readonly IInternalTutorialService _tutorialService;
 
 		private IMatchServices _matchServices;
 		private TutorialOverlayPresenter _tutorialOverlay;
-		private MetaTutorialSequence _sequence;
+		private readonly MetaTutorialSequence _sequence;
 
-		public MetaAndMatchTutorialState(IGameDataProvider logic, IGameServices services,
-										 IInternalTutorialService tutorialService,
-										 Action<IStatechartEvent> statechartTrigger)
+		public MetaAndMatchTutorialState(IGameServices services, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_dataProvider = logic;
-			_tutorialService = tutorialService;
 			_statechartTrigger = statechartTrigger;
 			_sequence = new MetaTutorialSequence(_services, TutorialSection.FIRST_GUIDE_MATCH);
 		}
@@ -96,7 +90,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartSecondTutorialMatch()
 		{
-			_tutorialService.CreateJoinSecondTutorialRoom();
+			_services.TutorialService.CreateJoinSecondTutorialRoom();
 		}
 
 		private void GetTutorialScreenRefs()

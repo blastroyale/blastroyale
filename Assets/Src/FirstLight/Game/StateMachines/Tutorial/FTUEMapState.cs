@@ -37,9 +37,7 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent SkipTutorialEvent = new StatechartEvent("TUTORIAL - SkipTutorialEvent");
 
 		private readonly IGameServices _services;
-		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private readonly IInternalTutorialService _tutorialService;
 
 		private IMatchServices _matchServices;
 		private TutorialOverlayPresenter _tutorialOverlay;
@@ -50,13 +48,9 @@ namespace FirstLight.Game.StateMachines
 		private GameplayProceedEventData _currentGameplayProceedData;
 
 
-		public FirstGameTutorialState(IGameDataProvider logic, IGameServices services,
-									  IInternalTutorialService tutorialService,
-									  Action<IStatechartEvent> statechartTrigger)
+		public FirstGameTutorialState(IGameServices services, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_dataProvider = logic;
-			_tutorialService = tutorialService;
 			_statechartTrigger = statechartTrigger;
 			_sequence = new MetaTutorialSequence(services, TutorialSection.FIRST_GUIDE_MATCH);
 		}
@@ -222,7 +216,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void GetGroundIndicatorRefs()
 		{
-			foreach (var indicator in _tutorialService.FindTutorialObjects(GameConstants.Tutorial.TAG_INDICATORS))
+			foreach (var indicator in _services.TutorialService.FindTutorialObjects(GameConstants.Tutorial.TAG_INDICATORS))
 			{
 				_tutorialObjectRefs.Add(indicator.name, indicator);
 			}
@@ -310,7 +304,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartFirstTutorialMatch()
 		{
-			_tutorialService.CreateJoinFirstTutorialRoom();
+			_services.TutorialService.CreateJoinFirstTutorialRoom();
 		}
 
 		private void CheckGameplayProceedConditions(Type eventType, string metaId = "", short metaAmount = 0)

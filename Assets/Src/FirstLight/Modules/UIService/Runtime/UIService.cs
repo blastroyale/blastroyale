@@ -137,7 +137,7 @@ namespace FirstLight.UIService
 		/// Closes a screen on the given layer.
 		/// </summary>
 		/// <param name="layer">The layer to close.</param>
-		public UniTask CloseScreen(UILayer layer)
+		public UniTask CloseScreen(UILayer layer, bool checkOpened = true)
 		{
 			FLog.Info($"Closing layer {layer}");
 
@@ -146,7 +146,9 @@ namespace FirstLight.UIService
 				return CloseScreen(screen);
 			}
 
-			throw new InvalidOperationException($"Layer {layer} is empty!");
+			if (checkOpened) throw new InvalidOperationException($"Layer {layer} is empty!");
+
+			return UniTask.CompletedTask;
 		}
 
 		/// <summary>

@@ -38,7 +38,6 @@ namespace FirstLight.Tests.EditorMode
 		protected DataService TestData;
 		protected ConfigsProvider TestConfigs;
 		protected GameStateMachine TestStates;
-		protected UIService.UIService TestUI2;
 		protected GameNetworkService TestNetwork;
 		protected TutorialService TestTutorial;
 		protected AssetResolverService TestAssetResolver = new ();
@@ -60,10 +59,7 @@ namespace FirstLight.Tests.EditorMode
 		{
 			var messageBroker = new InMemoryMessageBrokerService();
 			TimeService = new TimeService();
-			TestUI2 = null; // TODO ?
 			TestNetwork = new GameNetworkService(TestConfigs);
-			TestTutorial = new TutorialService();
-			TestTutorial.BindServicesAndData(TestLogic, TestServices);
 			var audioFxService = new GameAudioFxService(TestAssetResolver);
 			
 			TestVfx = new VfxService<VfxId>();
@@ -71,16 +67,14 @@ namespace FirstLight.Tests.EditorMode
 			TestData = SetupPlayer(TestConfigs);
 			TestLogic = new GameLogic(messageBroker, TimeService, TestData, TestConfigs,
 				audioFxService);
-			var genericDialogService = new GenericDialogService(TestUI2, TestLogic.CurrencyDataProvider);
 
 			TestServices = new StubGameServices(TestNetwork, messageBroker, TimeService, TestData,
-			                                    TestConfigs, TestLogic, TestData, genericDialogService,
+			                                    TestConfigs, TestLogic, TestData,
 			                                    TestAssetResolver, TestTutorial, TestVfx, audioFxService);
 			TestNetwork.StartNetworking(TestLogic, TestServices);
 			TestLogic.Init();
 
-			TestStates = new GameStateMachine(TestLogic, TestServices, TestNetwork, TestTutorial,
-			                                  TestConfigs, TestAssetResolver, TestData, TestVfx);
+			TestStates = new GameStateMachine(TestLogic, TestServices, TestNetwork, TestAssetResolver);
 #if DEVELOPMENT_BUILD
 			Statechart.Statechart.OnStateTimed = null;
 #endif

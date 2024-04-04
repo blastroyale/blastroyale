@@ -70,7 +70,6 @@ namespace FirstLight.Tests.EditorMode
 		public StubGameServices(IInternalGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 								ITimeService timeService, IDataService dataService, IConfigsProvider configsProvider,
 								IGameLogic gameLogic, IDataProvider dataProvider,
-								IGenericDialogService genericDialogService,
 								IAssetResolverService assetResolverService, IInternalTutorialService tutorialService,
 								IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
 		{
@@ -82,7 +81,7 @@ namespace FirstLight.Tests.EditorMode
 			DataService = dataService;
 			ConfigsProvider = configsProvider;
 			AssetResolverService = assetResolverService;
-			GenericDialogService = genericDialogService;
+			GenericDialogService = new GenericDialogService(UIService, gameLogic.CurrencyDataProvider);
 			TutorialService = tutorialService;
 			AudioFxService = audioFxService;
 			VfxService = vfxService;

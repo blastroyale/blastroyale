@@ -76,7 +76,7 @@
 
 .back_avatar--right {
     right: 20px;
-    scale: -1, 1;
+    scale: -1 1;
 }
 
 .bubble {
@@ -92,7 +92,7 @@
 
 .bubble--right {
     right: 280px;
-    scale: -1, 1;
+    scale: -1 1;
 }
 
 .bubble--top {
@@ -117,10 +117,11 @@
     font-size: 36px;
     -unity-text-align: middle-center;
     rotate: -3deg;
-    scale: 1, 1;
+    scale: 1 1;
     white-space: normal;
+    color: black;
 }
 
 .bubble__text--right {
-    scale: -1, 1;
+    scale: -1 1;
 }

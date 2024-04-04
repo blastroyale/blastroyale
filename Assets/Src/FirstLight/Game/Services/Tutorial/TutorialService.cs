@@ -6,7 +6,9 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
@@ -19,10 +21,6 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface ITutorialService
 	{
-		/// <summary>
-		/// Requests the current running tutorial step
-		/// </summary>
-		IObservableFieldReader<TutorialSection> CurrentRunningTutorial { get; }
 
 		/// <summary>
 		/// Requests check if a tutorial is currently in progress
@@ -33,13 +31,17 @@ namespace FirstLight.Game.Services
 		/// Requests to check if a tutorial step has been completed
 		/// </summary>
 		bool HasCompletedTutorialSection(TutorialSection section);
-	}
 
-	/// <inheritdoc cref="ITutorialService"/>
-	public interface IInternalTutorialService : ITutorialService
-	{
-		/// <inheritdoc cref="ITutorialService.CurrentRunningTutorial" />
-		new IObservableField<TutorialSection> CurrentRunningTutorial { get; }
+		/// <summary>
+		/// If the player has completed the entire tutorial.
+		/// </summary>
+		/// <returns></returns>
+		bool HasCompletedTutorial();
+		
+		/// <summary>
+		/// Requests the current running tutorial step
+		/// </summary>
+		 IObservableField<TutorialSection> CurrentRunningTutorial { get; }
 
 		/// <summary>
 		/// Marks tutorial step completed, to be used at the end of a tutorial sequence
@@ -63,38 +65,37 @@ namespace FirstLight.Game.Services
 	}
 
 	/// <inheritdoc cref="ITutorialService"/>
+	public interface IInternalTutorialService : ITutorialService
+	{
+
+	}
+
+	/// <inheritdoc cref="ITutorialService"/>
 	public class TutorialService : IInternalTutorialService
 	{
-		private readonly IGameUiService _uiService;
-		private IGameServices _services;
+		private IRoomService _roomService;
+		private IGameCommandService _commandService;
 		private IGameDataProvider _dataProvider;
+		private IConfigsProvider _configsProvider;
 
-		bool ITutorialService.IsTutorialRunning => FeatureFlags.TUTORIAL && CurrentRunningTutorial.Value != TutorialSection.NONE;
+		bool ITutorialService.IsTutorialRunning => CurrentRunningTutorial.Value != TutorialSection.NONE;
 
 		public IObservableField<TutorialSection> CurrentRunningTutorial { get; }
 
-		IObservableFieldReader<TutorialSection> ITutorialService.CurrentRunningTutorial => CurrentRunningTutorial;
+		IObservableField<TutorialSection> ITutorialService.CurrentRunningTutorial => CurrentRunningTutorial;
 
-		public TutorialService(IGameUiService uiService)
+		public TutorialService(IRoomService roomService, IGameCommandService commandService, IConfigsProvider configsProvider, IGameDataProvider dataProvider)
 		{
-			_uiService = uiService;
-
-			CurrentRunningTutorial = new ObservableField<TutorialSection>(TutorialSection.NONE);
-		}
-
-		/// <summary>
-		/// Binds services and data to the object, and starts starts ticking quantum client.
-		/// Done here, instead of constructor because things are initialized in a particular order in Main.cs
-		/// </summary>
-		public void BindServicesAndData(IGameDataProvider dataProvider, IGameServices services)
-		{
-			_services = services;
+			_roomService = roomService;
+			_commandService = commandService;
 			_dataProvider = dataProvider;
+			_configsProvider = configsProvider;
+			CurrentRunningTutorial = new ObservableField<TutorialSection>(TutorialSection.NONE);
 		}
 
 		public void CompleteTutorialSection(TutorialSection section)
 		{
-			_services.CommandService.ExecuteCommand(new CompleteTutorialSectionCommand()
+			_commandService.ExecuteCommand(new CompleteTutorialSectionCommand()
 			{
 				Section = section
 			});
@@ -114,13 +115,13 @@ namespace FirstLight.Game.Services
 				AllowedRewards = new ()
 			};
 
-			_services.RoomService.CreateRoom(roomSetup, true);
+			_roomService.CreateRoom(roomSetup, true);
 		}
 
 		public void CreateJoinSecondTutorialRoom()
 		{
 			var gameModeId = GameConstants.Tutorial.SECOND_BOT_MODE_ID;
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
+			var gameModeConfig = _configsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
 
 			var setup = new MatchRoomSetup()
 			{
@@ -132,7 +133,7 @@ namespace FirstLight.Game.Services
 				AllowedRewards = GameConstants.Data.AllowedGameRewards
 			};
 
-			_services.RoomService.JoinOrCreateRoom(setup);
+			_roomService.JoinOrCreateRoom(setup);
 		}
 
 		public GameObject[] FindTutorialObjects(string referenceTag)
@@ -149,7 +150,13 @@ namespace FirstLight.Game.Services
 
 		public bool HasCompletedTutorialSection(TutorialSection section)
 		{
-			return _dataProvider.PlayerDataProvider.HasTutorialSection(section);
+			return !FeatureFlags.TUTORIAL || _dataProvider.PlayerDataProvider.HasTutorialSection(section);
+		}
+
+		public bool HasCompletedTutorial()
+		{
+			return HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH) &&
+				   HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH);
 		}
 	}
 }

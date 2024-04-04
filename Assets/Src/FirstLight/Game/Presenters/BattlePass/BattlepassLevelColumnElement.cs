@@ -1,17 +1,9 @@
 using System;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views;
-using FirstLight.UiService;
-using Quantum;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
-using Vector3 = System.Numerics.Vector3;
 
 namespace FirstLight.Game.Presenters.BattlePass
 {

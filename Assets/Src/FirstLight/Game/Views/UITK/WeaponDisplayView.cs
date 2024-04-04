@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using Quantum.Systems;
 using UnityEngine;
@@ -65,7 +65,7 @@ namespace FirstLight.Game.Views.UITK
 			};
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerWeaponAdded>(OnPlayerWeaponAdded);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
@@ -87,7 +87,7 @@ namespace FirstLight.Game.Views.UITK
 			UpdateFromLatestVerifiedFrame();
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}

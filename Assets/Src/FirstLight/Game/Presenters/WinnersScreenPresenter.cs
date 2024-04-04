@@ -8,6 +8,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -18,10 +19,10 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Presenter for the winners screen, which shows who are the top 3 winners of the game
 	/// </summary>
-	public class WinnersScreenPresenter : UiToolkitPresenterData<WinnersScreenPresenter.StateData>
+	public class WinnersScreenPresenter : UIPresenterData<WinnersScreenPresenter.StateData>
 	{
 
-		public struct StateData
+		public class StateData
 		{
 			public Action ContinueClicked;
 		}
@@ -47,31 +48,26 @@ namespace FirstLight.Game.Presenters
 		private int _usedCharactersIndex = 0;
 		private Label[] _nameLabels;
 
-		protected override void OnInitialized()
+		private void Awake()
 		{
-			base.OnInitialized();
-
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_gameServices = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override void OnOpened()
+		protected override void QueryElements()
 		{
-			base.OnOpened();
-
-			UpdateCharacters().Forget();
-		}
-		
-
-		protected override void QueryElements(VisualElement root)
-		{
-			_nextButton = root.Q<Button>("NextButton").Required();
+			_nextButton = Root.Q<Button>("NextButton").Required();
 			_nextButton.clicked += Data.ContinueClicked;
-			_nameContainer = root.Q<VisualElement>("NameContainer").Required();
+			_nameContainer = Root.Q<VisualElement>("NameContainer").Required();
 		}
 
+		protected override UniTask OnScreenOpen(bool reload)
+		{
+			// TODO Might have to forget this. If it works delete this comment
+			return UpdateCharacters();
+		}
 
-		private async UniTaskVoid UpdateCharacters()
+		private async UniTask UpdateCharacters()
 		{
 			// Wait 1 frame so the virtual camera activates and we can fetch the proper position of the characters on screen
 			await UniTask.DelayFrame(1);
@@ -99,7 +95,7 @@ namespace FirstLight.Game.Presenters
 
 
 				var playerNameLabel = new Label();
-				playerNameLabel.AddToClassList(UIConstants.USS_PLAYER_LABEL);
+				playerNameLabel.AddToClassList(UIService.UIService.USS_PLAYER_LABEL);
 				playerNameLabel.style.color = rankColor;
 				playerNameLabel.text = player.GetPlayerName();
 				_nameContainer.Add(playerNameLabel);

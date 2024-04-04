@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Configs;
@@ -9,10 +8,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
-using PlayFab;
-using PlayFab.ClientModels;
-using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.Logic
 {
@@ -72,11 +67,6 @@ namespace FirstLight.Game.Logic
 		bool UseScreenShake { get; set; }
 
 		/// <summary>
-		/// Requests the current detail level of the game
-		/// </summary>
-		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
-
-		/// <summary>
 		/// Requests the current FPS target
 		/// </summary>
 		FpsTarget FpsTarget { get; set; }
@@ -130,16 +120,6 @@ namespace FirstLight.Game.Logic
 		string GetDisplayName(bool trimmed = true, bool tagged = true);
 
 		/// <summary>
-		/// Sets the resolution mode for the 3D rendering of the app
-		/// </summary>
-		void SetDetailLevel();
-
-		/// <summary>
-		/// Sets the app's FPS target
-		/// </summary>
-		void SetFpsTarget();
-
-		/// <summary>
 		/// Sets last custom game options
 		/// </summary>
 		/// <param name="options"></param>
@@ -178,7 +158,7 @@ namespace FirstLight.Game.Logic
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
-	public interface IAppLogic : IAppDataProvider, IGameLogicInitializer
+	public interface IAppLogic : IAppDataProvider
 	{
 	}
 
@@ -276,24 +256,12 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public GraphicsConfig.DetailLevel CurrentDetailLevel
-		{
-			get => Data.CurrentDetailLevel;
-			set
-			{
-				Data.CurrentDetailLevel = value;
-				SetDetailLevel();
-			}
-		}
-
-		/// <inheritdoc />
 		public FpsTarget FpsTarget
 		{
 			get => Data.FpsTarget;
 			set
 			{
 				Data.FpsTarget = value;
-				SetFpsTarget();
 			}
 		}
 
@@ -323,11 +291,7 @@ namespace FirstLight.Game.Logic
 			base(gameLogic, dataProvider)
 		{
 			_audioFxService = audioFxService;
-		}
-
-		/// <inheritdoc />
-		public void Init()
-		{
+			
 			IsSfxEnabled = Data.SfxEnabled;
 			IsBgmEnabled = Data.BgmEnabled;
 			IsDialogueEnabled = Data.DialogueEnabled;
@@ -393,33 +357,6 @@ namespace FirstLight.Game.Logic
 			}
 
 			return name;
-		}
-
-		/// <inheritdoc />
-		public void SetDetailLevel()
-		{
-			var detailLevelConf = GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().DetailLevels
-				.Find(detailLevelConf => detailLevelConf.Name == CurrentDetailLevel);
-
-			FLog.Verbose("Setting detail level to " + detailLevelConf.DetailLevelIndex);
-			QualitySettings.SetQualityLevel(detailLevelConf.DetailLevelIndex);
-		}
-
-		/// <inheritdoc />
-		public void SetFpsTarget()
-		{
-			// Disable Vsync for unlimited fps, otherwise will be fixed at screen refresh rate
-			if (FpsTarget == FpsTarget.Unlimited)
-			{
-				QualitySettings.vSyncCount = 0;
-			}
-
-			Application.targetFrameRate = FpsTarget switch
-			{
-				FpsTarget.Unlimited => 500,
-				FpsTarget.High      => 60,
-				_                   => 30
-			};
 		}
 	}
 }

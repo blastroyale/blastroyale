@@ -1,9 +1,9 @@
 using System;
-using FirstLight.Game.Logic;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using UnityEngine.UIElements;
 
@@ -12,33 +12,30 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Displays a dialog where you can create or join a party.
 	/// </summary>
-	public class PartyDialogPresenter : UiToolkitPresenterData<PartyDialogPresenter.StateData>
+	[UILayer(UILayer.Popup)]
+	public class PartyDialogPresenter : UIPresenterData<PartyDialogPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action CreateParty;
 			public Action<string> JoinParty;
 		}
 
 		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			base.QueryElements(root);
-
-			root.Q<LocalizedLabel>("PartyDescription").Localize(ScriptTerms.UITHomeScreen.party_popup_desc);
-			root.Q<LocalizedButton>("CreatePartyButton").SetDisplay(true);
+			Root.Q<LocalizedLabel>("PartyDescription").Localize(ScriptTerms.UITHomeScreen.party_popup_desc);
+			Root.Q<LocalizedButton>("CreatePartyButton").SetDisplay(true);
 			
-			root.Q<LocalizedButton>("CreatePartyButton").clicked += OnCreateParty;
-			root.Q<LocalizedButton>("JoinPartyButton").clicked += OnJoinParty;
-			root.Q<ImageButton>("BlockerButton").clicked += () => Close(true);
+			Root.Q<LocalizedButton>("CreatePartyButton").clicked += OnCreateParty;
+			Root.Q<LocalizedButton>("JoinPartyButton").clicked += OnJoinParty;
+			Root.Q<ImageButton>("BlockerButton").clicked += () => _services.UIService.CloseScreen<PartyDialogPresenter>().Forget();
 		}
 
 		private void OnJoinParty()
@@ -52,14 +49,14 @@ namespace FirstLight.Game.Presenters
 			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.party_id,
 				ScriptLocalization.UITHomeScreen.party_id_desc, "", btn, true);
 
-			Close(true);
+			_services.UIService.CloseScreen<PartyDialogPresenter>().Forget();
 		}
 
 		private void OnCreateParty()
 		{
 			Data.CreateParty();
 
-			Close(true);
+			_services.UIService.CloseScreen<PartyDialogPresenter>().Forget();
 		}
 	}
 }

@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -16,9 +18,9 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This screen is shown when a player is killed / the match ends.
 	/// </summary>
-	public class MatchEndScreenPresenter : UiToolkitPresenterData<MatchEndScreenPresenter.StateData>
+	public class MatchEndScreenPresenter : UIPresenterData<MatchEndScreenPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action OnTimeToLeave;
 		}
@@ -41,20 +43,17 @@ namespace FirstLight.Game.Presenters
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			base.QueryElements(root);
-			_matchEndTitle = root.Q<VisualElement>("MatchEndedTitle").Required();
-			_blastedTitle = root.Q<VisualElement>("BlastedTitle").Required();
-			_bustedTitle = root.Q<VisualElement>("BustedTitle").Required();
-			_youWinTitle = root.Q<VisualElement>("YouWinTitle").Required();
-			_youChoseDeathTitle = root.Q<VisualElement>("YouChoseDeathTitle").Required();
+			_matchEndTitle = Root.Q<VisualElement>("MatchEndedTitle").Required();
+			_blastedTitle = Root.Q<VisualElement>("BlastedTitle").Required();
+			_bustedTitle = Root.Q<VisualElement>("BustedTitle").Required();
+			_youWinTitle = Root.Q<VisualElement>("YouWinTitle").Required();
+			_youChoseDeathTitle = Root.Q<VisualElement>("YouChoseDeathTitle").Required();
 		}
 
-		protected override void OnOpened()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			base.OnOpened();
-
 			_matchEndTitle.SetDisplay(false);
 			_youChoseDeathTitle.SetDisplay(false);
 			_bustedTitle.SetDisplay(false);
@@ -63,7 +62,7 @@ namespace FirstLight.Game.Presenters
 			if (!QuantumRunner.Default.IsDefinedAndRunning())
 			{
 				Data.OnTimeToLeave?.Invoke();
-				return; // reconnection edge case to avoid soft-lock
+				return base.OnScreenOpen(reload); // reconnection edge case to avoid soft-lock
 			}
 
 			var game = QuantumRunner.Default.Game;
@@ -97,6 +96,8 @@ namespace FirstLight.Game.Presenters
 			}
 
 			StartCoroutine(WaitToLeave());
+			
+			return base.OnScreenOpen(reload);
 		}
 
 		private IEnumerator WaitToLeave()

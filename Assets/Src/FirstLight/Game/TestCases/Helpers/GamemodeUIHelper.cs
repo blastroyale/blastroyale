@@ -18,13 +18,13 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator ClickCustomRoom()
 		{
-			yield return _uiHelper.WaitForPresenter<GameModeSelectionPresenter>(0.5f, 10);
+			yield return _uiHelper.WaitForPresenter2<GameModeScreenPresenter>(0.5f, 10);
 			yield return _uiHelper.TouchOnElementByName("CustomGameButton");
 		}
 
 		public IEnumerator SelectGamemodeWithName(string name)
 		{
-			yield return _uiHelper.WaitForPresenter<RoomJoinCreateScreenPresenter>(0.5f, 10f);
+			yield return _uiHelper.WaitForPresenter2<RoomJoinCreateScreenPresenter>(0.5f, 10f);
 			var el = _uiHelper.SearchForElementGlobally("GameMode");
 			var dropdown = (LocalizedDropDown) el.Value.Item2;
 
@@ -34,7 +34,7 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator ClickCreate()
 		{
-			yield return _uiHelper.WaitForPresenter<RoomJoinCreateScreenPresenter>(0.5f, 10f);
+			yield return _uiHelper.WaitForPresenter2<RoomJoinCreateScreenPresenter>(0.5f, 10f);
 			yield return _uiHelper.TouchOnElementByName("CreateButton");
 		}
 	}

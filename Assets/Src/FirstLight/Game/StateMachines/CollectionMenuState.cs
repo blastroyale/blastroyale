@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -21,18 +22,16 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _closeButtonClickedEvent =
 			new StatechartEvent("Equipment Close Button Clicked Event");
 
-		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private GameIdGroup _equipmentSlotTypePicked;
 
-		public CollectionMenuState(IGameServices services, IGameUiService uiService, IGameDataProvider gameDataProvider,
+		public CollectionMenuState(IGameServices services, IGameDataProvider gameDataProvider,
 								   Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_uiService = uiService;
 			_gameDataProvider = gameDataProvider;
 			_statechartTrigger = statechartTrigger;
 		}
@@ -54,11 +53,6 @@ namespace FirstLight.Game.StateMachines
 			
 			final.OnEnter(SendLoadoutUpdateCommand);
 		}
-		
-		private void CloseCollectionScreen()
-		{
-			_uiService.CloseUi<CollectionScreenPresenter>();
-		}
 
 		private void OpenCollectionScreen()
 		{
@@ -68,7 +62,7 @@ namespace FirstLight.Game.StateMachines
 				OnBackClicked = () => _statechartTrigger(_backButtonClickedEvent),
 			};
 
-			_uiService.OpenScreen<CollectionScreenPresenter, CollectionScreenPresenter.StateData>(data);
+			_services.UIService.OpenScreen<CollectionScreenPresenter>(data).Forget();
 		}
 
 		private void SendLoadoutUpdateCommand()

@@ -57,6 +57,8 @@ namespace FirstLight.Game.Configs
 		{
 			return new List<IConfigLoadHandler>
 			{
+				new ConfigLoadDefinition<QuantumRunnerConfigs>(_assetLoader, AddressableId.Configs_Settings_QuantumRunnerConfigs, configsAdder.AddSingletonConfig),
+				new ConfigLoadDefinition<LiveopsFeatureFlagConfigs>(_assetLoader, AddressableId.Configs_LiveopsFeatureFlagConfigs, asset => configsAdder.AddConfigs(data => data.UniqueIdentifier(), asset.Configs)),
 				new ConfigLoadDefinition<GameConfigs>(_assetLoader, AddressableId.Configs_GameConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<MapAreaConfigs>(_assetLoader, AddressableId.Configs_MapAreaConfigs, configsAdder.AddSingletonConfig, false),
 				new ConfigLoadDefinition<MapConfigs>(_assetLoader, AddressableId.Configs_QuantumMapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Map, asset.Configs)),

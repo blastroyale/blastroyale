@@ -5,5 +5,4 @@ namespace FirstLight.Game.Messages
 {
 	public struct SuccessAuthentication : IMessage { }
 	public struct DataReinitializedMessage : IMessage { }
-	public struct GameLogicInitialized : IMessage { }
 }

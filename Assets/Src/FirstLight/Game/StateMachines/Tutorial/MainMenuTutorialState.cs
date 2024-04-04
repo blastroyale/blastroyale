@@ -18,22 +18,15 @@ namespace FirstLight.Game.StateMachines
 		private static readonly IStatechartEvent _selectedMapPointEvent = new StatechartEvent("TUTORIAL - Selected map point event");
 
 		private readonly IGameServices _services;
-		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private readonly IInternalTutorialService _tutorialService;
 
 		private IMatchServices _matchServices;
-		private TutorialUtilsScreenPresenter _tutorialUtilsUi;
-		private CharacterDialogScreenPresenter _dialogUi;
-		private MetaTutorialSequence _sequence;
+		private TutorialOverlayPresenter _tutorialOverlay;
+		private readonly MetaTutorialSequence _sequence;
 
-		public MetaAndMatchTutorialState(IGameDataProvider logic, IGameServices services,
-										 IInternalTutorialService tutorialService,
-										 Action<IStatechartEvent> statechartTrigger)
+		public MetaAndMatchTutorialState(IGameServices services, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_dataProvider = logic;
-			_tutorialService = tutorialService;
 			_statechartTrigger = statechartTrigger;
 			_sequence = new MetaTutorialSequence(_services, TutorialSection.FIRST_GUIDE_MATCH);
 		}
@@ -58,7 +51,6 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(_services.GameModeService.SelectDefaultRankedMode);
 			initial.OnExit(GetTutorialScreenRefs);
 
-			enterName.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.EnterName); });
 			enterName.OnEnter(OnEnterNameEnter);
 			enterName.Event(EnterNameState.NameSetEvent).Target(completionCheck);
 			enterName.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
@@ -98,19 +90,18 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartSecondTutorialMatch()
 		{
-			_tutorialService.CreateJoinSecondTutorialRoom();
+			_services.TutorialService.CreateJoinSecondTutorialRoom();
 		}
 
 		private void GetTutorialScreenRefs()
 		{
-			_dialogUi = _services.GameUiService.GetUi<CharacterDialogScreenPresenter>();
-			_tutorialUtilsUi = _services.GameUiService.GetUi<TutorialUtilsScreenPresenter>();
+			_tutorialOverlay = _services.UIService.GetScreen<TutorialOverlayPresenter>();
 		}
 
 		private void CloseTutorialUi()
 		{
-			_tutorialUtilsUi.Unblock();
-			_tutorialUtilsUi.RemoveHighlight();
+			_tutorialOverlay.Unblock();
+			_tutorialOverlay.RemoveHighlight();
 		}
 
 		private void SubscribeMessages()
@@ -129,51 +120,51 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterNameEnter()
 		{
-			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.enter_your_name, CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopLeft);
+			_tutorialOverlay.Dialog.ShowDialog(ScriptLocalization.UITTutorial.enter_your_name, CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopLeft);
 		}
 
 		private void OnEnterNameExit()
 		{
-			_tutorialUtilsUi.BlockFullScreen();
+			_tutorialOverlay.BlockFullScreen();
 		}
 
 		private async UniTaskVoid OnPlayGameEnter()
 		{
 			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 
-			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
+			_tutorialOverlay.Dialog.ShowDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
 
-			_tutorialUtilsUi.Unblock();
-			await _tutorialUtilsUi.BlockAround<HomeScreenPresenter>("play-button");
-			_tutorialUtilsUi.Highlight<HomeScreenPresenter>("play-button");
+			_tutorialOverlay.Unblock();
+			await _tutorialOverlay.BlockAround<HomeScreenPresenter>("play-button");
+			_tutorialOverlay.Highlight<HomeScreenPresenter>("play-button");
 		}
 
 		private void OnPlayGameExit()
 		{
 			CloseTutorialUi();
-			_dialogUi.HideDialog(CharacterType.Female);
+			_tutorialOverlay.Dialog.HideDialog(CharacterType.Female);
 		}
 
 		private async UniTaskVoid OnMapSelectEnter()
 		{
 			_services.RoomService.CurrentRoom.ResumeTimer(GameConstants.Tutorial.SECONDS_TO_START_SECOND_MATCH);
 
-			_tutorialUtilsUi.BlockFullScreen();
+			_tutorialOverlay.BlockFullScreen();
 
-			await _tutorialUtilsUi.EnsurePresenterElement<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
+			await _tutorialOverlay.EnsurePresenterElement<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
 			await UniTask.Delay(GameConstants.Tutorial.TIME_1000MS);
 
-			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.select_map_position, CharacterType.Female, CharacterDialogMoodType.Happy,
+			_tutorialOverlay.Dialog.ShowDialog(ScriptLocalization.UITTutorial.select_map_position, CharacterType.Female, CharacterDialogMoodType.Happy,
 				CharacterDialogPosition.TopLeft);
-			_tutorialUtilsUi.Unblock();
-			await _tutorialUtilsUi.BlockAround<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
-			_tutorialUtilsUi.Highlight<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
+			_tutorialOverlay.Unblock();
+			await _tutorialOverlay.BlockAround<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
+			_tutorialOverlay.Highlight<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
 		}
 
 		private void OnMapSelectExit()
 		{
 			CloseTutorialUi();
-			_dialogUi.HideDialog(CharacterType.Female);
+			_tutorialOverlay.Dialog.HideDialog(CharacterType.Female);
 		}
 	}
 }

@@ -1,29 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using DG.DemiLib;
 using FirstLight.FLogger;
-using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Server.SDK.Modules;
-using FirstLight.Services;
 using FirstLight.Statechart;
-using I2.Loc;
-using Photon.Realtime;
-using Quantum;
+using FirstLight.UIService;
 using UnityEngine;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -42,23 +27,21 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IInternalGameNetworkService _networkService;
-		private readonly IGameUiService _uiService;
+		private readonly UIService.UIService _uiService;
 		private readonly MatchState _matchState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		public static readonly IStatechartEvent ReconnectToRoomEvent = new StatechartEvent("Reconnect To Snapshot");
-		public static readonly IStatechartEvent NoReconnection = new StatechartEvent("Reconnect To Snapshot");
 
 		private Coroutine _csPoolTimerCoroutine;
 
-		public ReconnectionState(IGameServices services, IGameDataProvider dataProvider,
-								 IInternalGameNetworkService networkService, IGameUiService uiService,
+		public ReconnectionState(IGameServices services, IGameDataProvider dataProvider, IInternalGameNetworkService networkService,
 								 Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
 			_networkService = networkService;
-			_uiService = uiService;
+			_uiService = services.UIService;
 			_statechartTrigger = statechartTrigger;
 		}
 
@@ -133,13 +116,13 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasPendingMatch()
 		{
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			if (FeatureFlags.GetLocalConfiguration().DisableReconnection)
 			{
 				ClearSnapshot();
 				return false;
 			}
-			#endif
+#endif
 			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
 			var isTutorial = snapShot.Setup is {GameModeId: GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID};
 			var canRestoreFromSnapshot = _services.GameBackendService.RunsSimulationOnServer() || snapShot.Offline || snapShot.AmtPlayers > 1;
@@ -150,7 +133,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				ClearSnapshot();
 				return false;
-			} 
+			}
 
 			if (canRestoreFromSnapshot && !snapShot.Expired())
 			{
@@ -164,8 +147,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTaskVoid MatchTransition()
 		{
-			await SwipeScreenPresenter.StartSwipe();
-			await _uiService.CloseUi<LoadingScreenPresenter>();
+			await _uiService.OpenScreen<SwipeTransitionScreenPresenter>();
 		}
 
 		private void JoinPendingMatch()

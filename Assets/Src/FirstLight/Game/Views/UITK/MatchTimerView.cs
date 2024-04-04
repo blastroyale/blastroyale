@@ -1,7 +1,7 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Photon.Deterministic;
 using Quantum;
@@ -48,7 +48,7 @@ namespace FirstLight.Game.Views.UITK
 		}
 
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpawned>(this, OnPlayerSpawned);
@@ -60,7 +60,7 @@ namespace FirstLight.Game.Views.UITK
 			ShowNotification(ScriptLocalization.UITMatch.airdrop_landing);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}

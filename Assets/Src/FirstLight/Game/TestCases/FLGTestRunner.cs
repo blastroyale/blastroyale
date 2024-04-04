@@ -44,6 +44,7 @@ namespace FirstLight.Game.TestCases
 		private PlayTestCase? _runningTest;
 		private BenchmarkCollector _benchmarkCollector = null!;
 		private TestRunnerBehaviour _testRunnerBehaviour = null!;
+		private TestInstaller? _helpers = null;
 		private GameObject _runnerGameObject = null!;
 		public bool UseBotBehaviour = false;
 		public Func<string, IEnumerator>? FailInstruction { private get; set; }
@@ -108,6 +109,19 @@ namespace FirstLight.Game.TestCases
 			Debug.LogError("Test failed with reason: " + reason);
 		}
 
+		public void OnGameAwaken()
+		{
+			if (_helpers == null || _runningTest == null) return;
+			
+			_helpers.OnGameAwaken();
+			_runningTest.OnGameAwaken();
+			_isGameAwaken = true;
+			MainInstaller.ResolveServices().AnalyticsService.LogEvent("test_started",
+				new Dictionary<string, object>()
+				{
+					{"name", _runningTest.GetType().Name},
+				});
+		}
 
 		private void Setup(PlayTestCase testCase)
 		{
@@ -118,22 +132,10 @@ namespace FirstLight.Game.TestCases
 			Object.DontDestroyOnLoad(_runnerGameObject);
 			_benchmarkCollector = _runnerGameObject.AddComponent<BenchmarkCollector>();
 			_testRunnerBehaviour = _runnerGameObject.AddComponent<TestRunnerBehaviour>();
-			var helpers = SetupHelpers();
-			_runningTest.SetInstaller(helpers);
-			Load.OnGameLoadAwake += () =>
-			{
-				helpers.OnGameAwaken();
-				_runningTest.OnGameAwaken();
-				_isGameAwaken = true;
-				MainInstaller.ResolveServices().AnalyticsService.LogEvent("test_started",
-					new Dictionary<string, object>()
-					{
-						{"name", _runningTest.GetType().Name},
-					});
-			};
+			_helpers = SetupHelpers();
+			_runningTest.SetInstaller(_helpers);
 			Application.logMessageReceived += OnLogReceived;
 		}
-
 
 		private IEnumerator Run(PlayTestCase testCase, bool onTests = true)
 		{
@@ -188,7 +190,6 @@ namespace FirstLight.Game.TestCases
 			var uiHelper = new UIHelper(this);
 			testInstaller.Bind(uiHelper);
 			testInstaller.Bind(new BattlePassUIHelper(this, uiHelper));
-			testInstaller.Bind(new EquipmentUIHelper(this, uiHelper));
 			testInstaller.Bind(new GameUIHelper(this, uiHelper));
 			testInstaller.Bind(new HomeUIHelper(this, uiHelper));
 			testInstaller.Bind(new GamemodeUIHelper(this, uiHelper));

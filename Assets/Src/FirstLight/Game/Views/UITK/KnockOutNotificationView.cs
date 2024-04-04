@@ -1,12 +1,10 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
-using FirstLight.UiService;
-using I2.Loc;
+using FirstLight.UIService;
 using Quantum;
 using Quantum.Systems;
 using Sirenix.OdinInspector;
@@ -48,19 +46,19 @@ namespace FirstLight.Game.Views.UITK
 			base.Attached(element);
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
 			QuantumEvent.SubscribeManual<EventOnPlayerRevived>(this, OnPlayerRevived);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			QuantumCallback.UnsubscribeListener(this);
 			_services.MessageBrokerService.UnsubscribeAll(this);
-			base.UnsubscribeFromEvents();
+			base.OnScreenClose();
 		}
 
 		private void OnMatchStarted(MatchStartedMessage obj)

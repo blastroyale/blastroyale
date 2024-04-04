@@ -37,22 +37,7 @@ namespace FirstLight.Game.TestCases.Helpers
 				_inputManipulator?.Stop();
 			});
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, callback => { _localPlayerDead = true; });
-			Services.GameUiService.ScreenStartOpening += OnScreenOpened;
 		}
-
-		private void OnScreenOpened(Type type)
-		{
-			if (typeof(MatchEndScreenPresenter) == type)
-			{
-				// This is the exact moment the user loses the input hability, when the match end screen open
-				if (_inputManipulator != null)
-				{
-					MatchServices.PlayerInputService.OverwriteCallbackInput = null;
-					_inputManipulator.Stop();
-				}
-			}
-		}
-
 
 		public IEnumerator WaitForGameToFinish()
 		{

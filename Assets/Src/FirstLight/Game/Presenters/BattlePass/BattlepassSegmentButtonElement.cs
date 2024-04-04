@@ -4,10 +4,8 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views;
 using Quantum;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters.BattlePass

@@ -9,6 +9,7 @@ using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using FirstLight.UIService;
 using FirstLightServerSDK.Modules.RemoteCollection;
 using NSubstitute;
 
@@ -45,7 +46,8 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IIAPService IAPService { get; }
 		public virtual IPartyService PartyService { get; }
 		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
-		public IGameUiService GameUiService { get; }
+		public UIService.UIService UIService { get; }
+		public UIVFXService UIVFXService { get; }
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; set; }
@@ -68,19 +70,18 @@ namespace FirstLight.Tests.EditorMode
 		public StubGameServices(IInternalGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 								ITimeService timeService, IDataService dataService, IConfigsProvider configsProvider,
 								IGameLogic gameLogic, IDataProvider dataProvider,
-								IGenericDialogService genericDialogService,
 								IAssetResolverService assetResolverService, IInternalTutorialService tutorialService,
-								IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IGameUiService uiService)
+								IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, uiService);
+			AnalyticsService = new AnalyticsService(this, gameLogic);
 			TimeService = timeService;
 			DataSaver = dataService;
 			DataService = dataService;
 			ConfigsProvider = configsProvider;
 			AssetResolverService = assetResolverService;
-			GenericDialogService = genericDialogService;
+			GenericDialogService = new GenericDialogService(UIService, gameLogic.CurrencyDataProvider);
 			TutorialService = tutorialService;
 			AudioFxService = audioFxService;
 			VfxService = vfxService;
@@ -99,7 +100,6 @@ namespace FirstLight.Tests.EditorMode
 				dataService, networkService, gameLogic, (IConfigsAdder) configsProvider);
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();
-			GameUiService = uiService;
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService,

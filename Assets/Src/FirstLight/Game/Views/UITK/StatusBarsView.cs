@@ -5,7 +5,7 @@ using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -81,7 +81,7 @@ namespace FirstLight.Game.Views.UITK
 				false, 3);
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
@@ -99,7 +99,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumCallback.SubscribeManual<CallbackEventCanceled>(this, OnEventCancelled);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			QuantumCallback.UnsubscribeListener(this);

@@ -33,17 +33,15 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _nameInvalidAcknowledgedEvent = new StatechartEvent("Name Invalid Acknowledged Event");
 
 		private readonly IGameServices _services;
-		private readonly IGameUiService _uiService;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private string _nameInvalidStatus = "";
 
-		public EnterNameState(IGameServices services, IGameUiService uiService, IGameDataProvider dataProvider,
+		public EnterNameState(IGameServices services, IGameDataProvider dataProvider,
 							  Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_uiService = uiService;
 			_dataProvider = dataProvider;
 			_statechartTrigger = statechartTrigger;
 		}

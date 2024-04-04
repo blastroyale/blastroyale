@@ -25,7 +25,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private Action<Player> _kickPlayerCallback;
 		private IGameServices _services;
 
-		void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.ResolveServices();
 		}

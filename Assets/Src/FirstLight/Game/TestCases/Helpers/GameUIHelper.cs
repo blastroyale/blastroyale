@@ -17,12 +17,12 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator WaitDropZoneSelectScreen()
 		{
-			yield return _uiHelper.WaitForPresenter<PreGameLoadingScreenPresenter>();
+			yield return _uiHelper.WaitForPresenter2<PreGameLoadingScreenPresenter>();
 		}
 
 		public IEnumerator SelectPosition(float x, float y)
 		{
-			var presenter = _uiHelper.GetPresenter<PreGameLoadingScreenPresenter>();
+			var presenter = _uiHelper.GetPresenter2<PreGameLoadingScreenPresenter>();
 			presenter.SelectDropZone(x, y);
 			yield break;
 		}
@@ -35,20 +35,13 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator WaitForSpectateScreen()
 		{
-			yield return _uiHelper.WaitForPresenter<SpectateScreenPresenter>();
-		}
-
-
-		public IEnumerator WaitForWinnersScreen()
-		{
-			yield return _uiHelper.WaitForPresenter<WinnersScreenPresenter>();
+			yield return _uiHelper.WaitForPresenter2<SpectateScreenPresenter>();
 		}
 
 		public IEnumerator WaitForLeaderboardAndRewards()
 		{
-			yield return _uiHelper.WaitForPresenter<LeaderboardAndRewardsScreenPresenter>();
+			yield return _uiHelper.WaitForPresenter2<LeaderboardAndRewardsScreenPresenter>();
 		}
-
 
 		public IEnumerator WaitForGameToEndAndGoToMenu(float gameTimeout = 60 * 5)
 		{
@@ -90,12 +83,12 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator WaitForEndGameScreen(float timeout = 60)
 		{
-			yield return _uiHelper.WaitForPresenter<MatchEndScreenPresenter>(0.5f, timeout);
+			yield return _uiHelper.WaitForPresenter2<MatchEndScreenPresenter>(0.5f, timeout);
 		}
 
 		public IEnumerator WaitForWinnerScreen()
 		{
-			yield return _uiHelper.WaitForPresenter<WinnerScreenPresenter>();
+			yield return _uiHelper.WaitForPresenter2<WinnerScreenPresenter>();
 		}
 
 		public IEnumerator LeaveSpectator()

@@ -42,7 +42,7 @@ namespace FirstLight.Editor.Artifacts
 
 		public static readonly DllArtifacts Odin = new ()
 		{
-			SourceDir = $"{Application.dataPath}/../Assets/Libs/Odin/Plugins/Sirenix/Assemblies/",
+			SourceDir = $"{Application.dataPath}/../Assets/Plugins/Sirenix/Assemblies/",
 			Dlls = new[]
 			{
 				"Sirenix.OdinInspector.Attributes.dll"

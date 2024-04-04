@@ -54,11 +54,11 @@ namespace FirstLight.Game.StateMachines
 		private Coroutine _tickReconnectAttemptCoroutine;
 		private bool _requiresManualRoomReconnection;
 
-		public NetworkState(IGameLogic gameLogic, IGameServices services,
+		public NetworkState(IGameDataProvider dataProvider, IGameServices services,
 							IInternalGameNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_gameDataProvider = gameLogic;
+			_gameDataProvider = dataProvider;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
 			_networkService.QuantumClient.AddCallbackTarget(this);

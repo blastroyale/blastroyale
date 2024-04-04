@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -36,13 +37,10 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent SkipTutorialEvent = new StatechartEvent("TUTORIAL - SkipTutorialEvent");
 
 		private readonly IGameServices _services;
-		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private readonly IInternalTutorialService _tutorialService;
 
 		private IMatchServices _matchServices;
-		private CharacterDialogScreenPresenter _dialogUi;
-		private GuideHandPresenter _guideHandUi;
+		private TutorialOverlayPresenter _tutorialOverlay;
 		private HUDScreenPresenter _hud;
 		private Dictionary<string, GameObject> _tutorialObjectRefs = new ();
 		private List<LocationPointerVfxMonoComponent> _activeLocationPointers = new ();
@@ -50,13 +48,9 @@ namespace FirstLight.Game.StateMachines
 		private GameplayProceedEventData _currentGameplayProceedData;
 
 
-		public FirstGameTutorialState(IGameDataProvider logic, IGameServices services,
-									  IInternalTutorialService tutorialService,
-									  Action<IStatechartEvent> statechartTrigger)
+		public FirstGameTutorialState(IGameServices services, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_dataProvider = logic;
-			_tutorialService = tutorialService;
 			_statechartTrigger = statechartTrigger;
 			_sequence = new MetaTutorialSequence(services, TutorialSection.FIRST_GUIDE_MATCH);
 		}
@@ -216,13 +210,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void GetTutorialUiRefs()
 		{
-			_dialogUi = _services.GameUiService.GetUi<CharacterDialogScreenPresenter>();
-			_guideHandUi = _services.GameUiService.GetUi<GuideHandPresenter>();
+			_tutorialOverlay = _services.UIService.GetScreen<TutorialOverlayPresenter>();
+			//_services.UIService.OpenScreen<SwipeTransitionScreenPresenter>().Forget();
 		}
 
 		private void GetGroundIndicatorRefs()
 		{
-			foreach (var indicator in _tutorialService.FindTutorialObjects(GameConstants.Tutorial.TAG_INDICATORS))
+			foreach (var indicator in _services.TutorialService.FindTutorialObjects(GameConstants.Tutorial.TAG_INDICATORS))
 			{
 				_tutorialObjectRefs.Add(indicator.name, indicator);
 			}
@@ -230,8 +224,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseTutorialUi()
 		{
-			_dialogUi.HideDialog(CharacterType.Female);
-			_guideHandUi.Hide();
+			_tutorialOverlay.Dialog.HideDialog(CharacterType.Female);
+			_tutorialOverlay.HideGuideHand();
 		}
 
 		private EntityView GetLocalPlayerView()
@@ -273,7 +267,7 @@ namespace FirstLight.Game.StateMachines
 			if (msg.VolumeId == GameConstants.Tutorial.TRIGGER_ARENA_AREA)
 			{
 				DespawnPointers();
-				_dialogUi.HideDialog(CharacterType.Female);
+				_tutorialOverlay.Dialog.HideDialog(CharacterType.Female);
 			}
 		}
 
@@ -310,7 +304,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartFirstTutorialMatch()
 		{
-			_tutorialService.CreateJoinFirstTutorialRoom();
+			_services.TutorialService.CreateJoinFirstTutorialRoom();
 		}
 
 		private void CheckGameplayProceedConditions(Type eventType, string metaId = "", short metaAmount = 0)
@@ -328,7 +322,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterStartedSimulation()
 		{
-			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.welcome_to_wastelands, CharacterType.Female, CharacterDialogMoodType.Happy,
+			_tutorialOverlay.Dialog.ShowDialog(ScriptLocalization.UITTutorial.welcome_to_wastelands, CharacterType.Female, CharacterDialogMoodType.Happy,
 				CharacterDialogPosition.TopLeft);
 
 			_currentGameplayProceedData = new GameplayProceedEventData()
@@ -339,17 +333,17 @@ namespace FirstLight.Game.StateMachines
 
 		private void SetFingerPosition(VisualElement element, float angle = 45)
 		{
-			var root = _hud.Document.rootVisualElement;
+			var root = _hud.Root;
 			var elementPosition = element.GetPositionOnScreen(root);
-			_guideHandUi.SetScreenPosition(elementPosition, angle);
+			_tutorialOverlay.SetGuideHandScreenPosition(elementPosition, angle);
 		}
 
-		private async Task OnEnterMoveJoystickAsync()
+		private async UniTask OnEnterMoveJoystickAsync()
 		{
 			_matchServices.PlayerInputService.OnQuantumInputSent += OnInput;
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral);
-			_hud = _services.GameUiService.GetUi<HUDScreenPresenter>();
-			await _hud.EnsureOpen();
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
+			_hud = _services.UIService.GetScreen<HUDScreenPresenter>();
 			SetFingerPosition(_hud.MovementJoystick);
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -377,10 +371,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterFirstMove()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.move_forward, CharacterType.Female, CharacterDialogMoodType.Happy);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.move_forward, CharacterType.Female, CharacterDialogMoodType.Happy);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_FIRST_MOVE].transform.position, GetLocalPlayerView().transform);
-			_guideHandUi.Hide();
+			_tutorialOverlay.HideGuideHand();
 
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -391,7 +385,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterDestroyBarrier()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.shoot_barrier, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.shoot_barrier, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_WOODEN_BARRIER].transform.position, GetLocalPlayerView().transform);
 			SetFingerPosition(_hud.ShootingJoystick, 90);
@@ -404,10 +398,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterPickupWeapon()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_weapon, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_weapon, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_FIRST_WEAPON].transform.position, GetLocalPlayerView().transform);
-			_guideHandUi.Hide();
+			_tutorialOverlay.HideGuideHand();
 
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -417,7 +411,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterMoveToDummyArea()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.nice_proceed_dummy_area, CharacterType.Female, CharacterDialogMoodType.Shocked);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.nice_proceed_dummy_area, CharacterType.Female, CharacterDialogMoodType.Shocked);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT_AREA].transform.position, GetLocalPlayerView().transform);
 
@@ -430,7 +424,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterKill2Bots()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.shoot_dummies, CharacterType.Female, CharacterDialogMoodType.Happy);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.shoot_dummies, CharacterType.Female, CharacterDialogMoodType.Happy);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT1].transform.position, GetLocalPlayerView().transform);
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT2].transform.position, GetLocalPlayerView().transform);
@@ -449,10 +443,10 @@ namespace FirstLight.Game.StateMachines
 		private void OnEnterPickupSpecial()
 		{
 			QuantumRunner.Default.Game.SendCommand(new TutorialSpawnSpecialCommand());
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_special, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_special, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_SPECIAL_PICKUP].transform.position, GetLocalPlayerView().transform);
-			_guideHandUi.Hide();
+			_tutorialOverlay.HideGuideHand();
 
 			_currentGameplayProceedData = new GameplayProceedEventData
 			{
@@ -462,7 +456,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterKill1BotSpecial()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_grenade, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.use_grenade, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT3].transform.position, GetLocalPlayerView().transform);
 
@@ -478,10 +472,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterMoveToGateArea()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.proceed_iron_gate, CharacterType.Female, CharacterDialogMoodType.Happy);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.proceed_iron_gate, CharacterType.Female, CharacterDialogMoodType.Happy);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_IRON_GATE].transform.position, GetLocalPlayerView().transform);
-			_guideHandUi.Hide();
+			_tutorialOverlay.HideGuideHand();
 
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -492,7 +486,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterMoveToChestArea()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.nice_proceed_chest_area, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.nice_proceed_chest_area, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_TOP_PLATFORM].transform.position, GetLocalPlayerView().transform);
 
@@ -505,7 +499,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterOpenBox()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.open_chest, CharacterType.Female, CharacterDialogMoodType.Happy);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.open_chest, CharacterType.Female, CharacterDialogMoodType.Happy);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_EQUIPMENT_CHEST].transform.position, GetLocalPlayerView().transform);
 
@@ -517,7 +511,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterKillFinalBot()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.drop_down_to_arena, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.drop_down_to_arena, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_ARENA_DROPDOWN].transform.position, GetLocalPlayerView().transform);
 
@@ -534,7 +528,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnEnterWaitMatchFinish()
 		{
 			_currentGameplayProceedData = new GameplayProceedEventData();
-			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.you_made_it_look_easy, CharacterType.Female, CharacterDialogMoodType.Happy,
+			_tutorialOverlay.Dialog.ShowDialog(ScriptLocalization.UITTutorial.you_made_it_look_easy, CharacterType.Female, CharacterDialogMoodType.Happy,
 				CharacterDialogPosition.TopLeft);
 		}
 

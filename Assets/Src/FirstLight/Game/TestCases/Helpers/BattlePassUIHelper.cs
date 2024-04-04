@@ -18,7 +18,7 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator ClickToClaimFirstBattlePassReward()
 		{
-			yield return _uiHelper.WaitForPresenter<BattlePassScreenPresenter>();
+			yield return _uiHelper.WaitForPresenter2<BattlePassScreenPresenter>();
 			var searchResult = _uiHelper.SearchForElementGlobally("RewardsScroll", builder => builder.Children<VisualElement>());
 			if (searchResult == null)
 			{
@@ -26,12 +26,12 @@ namespace FirstLight.Game.TestCases.Helpers
 				yield break;
 			}
 
-			yield return _uiHelper.TouchOnElement(searchResult.Value.Item1.rootVisualElement, searchResult.Value.Item2);
+			yield return _uiHelper.TouchOnElement(searchResult.Value.Item1, searchResult.Value.Item2);
 		}
 
 		public IEnumerator WaitRewardDialogAndClaimIt()
 		{
-			yield return _uiHelper.WaitForPresenter<EquipmentRewardDialogPresenter>();
+			yield return _uiHelper.WaitForPresenter2<EquipmentRewardDialogPresenter>();
 			yield return new WaitForSeconds(1f);
 			yield return _uiHelper.TouchOnElementByName("ConfirmButton");
 			yield return new WaitForSeconds(1f);

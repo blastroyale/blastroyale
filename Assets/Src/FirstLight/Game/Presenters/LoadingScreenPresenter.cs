@@ -1,8 +1,6 @@
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -11,18 +9,15 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the Loading Screen UI by:
 	/// - Showing the loading status
 	/// </summary>
-	public class LoadingScreenPresenter : UiToolkitPresenter
+	public class LoadingScreenPresenter : UIPresenter
 	{
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			var labelsContainer = root.Q("LabelsContainer").Required();
+			var labelsContainer = Root.Q("LabelsContainer").Required();
 			labelsContainer.Clear();
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-
-			var services = MainInstaller.Resolve<IGameServices>();
-
-			labelsContainer.Add(new Label(services.GameBackendService.CurrentEnvironmentData.EnvironmentID.ToString()));
+			labelsContainer.Add(new Label(UnityCloudEnvironment.CURRENT));
 
 			var config = FeatureFlags.GetLocalConfiguration();
 			if (config.UseLocalServer)
@@ -34,7 +29,7 @@ namespace FirstLight.Game.Presenters
 			{
 				labelsContainer.Add(new Label($"Tutorial: {config.Tutorial.Bool()}"));
 			}
-			
+
 #endif
 
 			labelsContainer.Add(new Label($"v{VersionUtils.VersionExternal}"));

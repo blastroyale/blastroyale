@@ -7,6 +7,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 

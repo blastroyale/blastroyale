@@ -4,7 +4,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Photon.Deterministic;
 using Quantum;
 using Quantum.Systems;
@@ -34,7 +34,7 @@ namespace FirstLight.Game.Views.UITK
 			element.Clear(); // Clears development-time child elements.
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
@@ -47,7 +47,7 @@ namespace FirstLight.Game.Views.UITK
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			_services.MessageBrokerService.UnsubscribeAll(this);

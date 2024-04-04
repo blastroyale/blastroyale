@@ -19,9 +19,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 	/// </summary>
 	public class AnalyticsCallsUi : AnalyticsCalls
 	{
-		public AnalyticsCallsUi(IAnalyticsService analyticsService, IUiService uiService) : base(analyticsService)
+		public AnalyticsCallsUi(IAnalyticsService analyticsService) : base(analyticsService)
 		{
-			uiService.ScreenStartOpening += t => ScreenView(t.ToString());
+			
 		}
 		
 		/// <summary>

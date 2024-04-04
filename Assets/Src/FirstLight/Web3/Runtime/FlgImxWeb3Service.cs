@@ -60,33 +60,36 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 		}
 	}
 
-	private string EnvString => _services.GameBackendService.IsDev() ?
-				Environment.SANDBOX : Environment.PRODUCTION;
+	private string EnvString => _services.GameBackendService.IsDev() ? Environment.SANDBOX : Environment.PRODUCTION;
 
 	public async UniTask<Web3State> RequestLogin()
 	{
 		if (State == Web3State.Authenticated)
 		{
-			_services.GenericDialogService.OpenButtonDialog("Logout Web3", "You are logged in, do you want to log out ?", true, new GenericDialogButton()
-			{
-				ButtonOnClick = () => RequestLogout().Forget(),
-				ButtonText = "Logout"
-			});
+			_services.GenericDialogService.OpenButtonDialog("Logout Web3", "You are logged in, do you want to log out ?", true,
+				new GenericDialogButton()
+				{
+					ButtonOnClick = () => RequestLogout().Forget(),
+					ButtonText = "Logout"
+				}).Forget();
 			return State;
 		}
-		_services.GameUiService.OpenUi<LoadingSpinnerScreenPresenter>();
+
+		await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 		try
 		{
 			await OpenLoginDialog();
 		}
 		catch (Exception e)
 		{
-			_services.GenericDialogService.OpenSimpleMessage("Web3 Error", e.Message);
+			_services.GenericDialogService.OpenSimpleMessage("Web3 Error", e.Message).Forget();
 			Debug.LogError(e);
-		} finally
-		{
-			await _services.GameUiService.CloseUi<LoadingSpinnerScreenPresenter>();
 		}
+		finally
+		{
+			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
+		}
+
 		return State;
 	}
 
@@ -96,12 +99,14 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 		if (PROOF_KEY) await Passport.LoginPKCE();
 		else
 		{
-			if(!await Passport.Login())
+			if (!await Passport.Login())
 			{
 				return State;
 			}
+
 			await ConnectBlockchain();
 		}
+
 		State = Web3State.Authenticated;
 		return State;
 	}
@@ -143,10 +148,10 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 			{
 				OnStateChanged?.Invoke(value);
 			}
+
 			_state = value;
 		}
 	}
 
 	public string Web3Account => _wallet;
 }
-

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using Quantum.Systems;
 using UnityEngine;
@@ -88,10 +88,8 @@ namespace FirstLight.Game.Views.UITK
 			_lowHPAnimation.Pause();
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
-			base.SubscribeToEvents();
-
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
@@ -140,9 +138,9 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
-			base.UnsubscribeFromEvents();
+			base.OnScreenClose();
 
 			QuantumEvent.UnsubscribeListener(this);
 		}

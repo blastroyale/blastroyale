@@ -1,19 +1,17 @@
 using System;
-using FirstLight.FLogger;
-using FirstLight.Game.Data;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
-using UnityEngine;
-using UnityEngine.Device;
+using FirstLight.UIService;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
-	public class GenericScrollingTextDialogPresenter : UiToolkitPresenterData<GenericScrollingTextDialogPresenter.StateData>
+	[UILayer(UILayer.Popup)]
+	public class GenericScrollingTextDialogPresenter : UIPresenterData<GenericScrollingTextDialogPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public string Title;
 			public string Text;
@@ -27,23 +25,23 @@ namespace FirstLight.Game.Presenters
 		private Label _title;
 		private IGameServices _services;
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
 			_services = MainInstaller.ResolveServices();
-			_text = root.Q<Label>("PopupText").Required();
-			_title = root.Q<Label>("Title").Required();
+			_text = Root.Q<Label>("PopupText").Required();
+			_title = Root.Q<Label>("Title").Required();
 			_text.text = Data.Text;
 			_title.text = Data.Title;
-			_confirm = root.Q<Button>("ConfirmButton").Required();
+			_confirm = Root.Q<Button>("ConfirmButton").Required();
 			_confirm.clicked += Data.OnConfirm;
 		}
 
-		protected override void OnOpened()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			base.OnOpened();
-			if (_text == null) return; // no idea first time opening happens
+			if (_text == null) return UniTask.CompletedTask; // no idea first time opening happens
 			_text.text = Data.Text;
 			_title.text = Data.Title;
+			return base.OnScreenOpen(reload);
 		}
 	}
 }

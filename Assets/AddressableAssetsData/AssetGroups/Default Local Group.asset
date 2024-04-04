@@ -47,11 +47,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b905d4b46c36744f087748d11391932d
-    m_Address: Ui
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bb2c68c2697e4e4428ad4dddf3390ba4
     m_Address: QuantumAssets
     m_ReadOnly: 0
@@ -95,16 +90,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 350f086b55bb35148aa6c056929e28e1
     m_Address: Audio/Match/WalkLoops/PlayerWalkRoad2.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7669ba84d914e42d5ae78492e4327270
-    m_Address: Ui/PrivacyDialog.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6b7d5050f53ec40958e62a007ccbb00f
-    m_Address: Ui/GenericScrollingTextDialog.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

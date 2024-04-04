@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
@@ -9,6 +10,7 @@ using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using FirstLight.UIService;
 using FirstLightServerSDK.Modules.RemoteCollection;
 
 namespace FirstLight.Game.Services
@@ -108,8 +110,9 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IPlayfabPubSubService"/>
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
-
-		public IGameUiService GameUiService { get; }
+		
+		public UIService.UIService UIService { get; }
+		public UIVFXService UIVFXService { get; }
 
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
@@ -168,7 +171,9 @@ namespace FirstLight.Game.Services
 		public IIAPService IAPService { get; }
 		public IPartyService PartyService { get; }
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
-		public IGameUiService GameUiService { get; }
+		public UIService.UIService UIService { get; }
+		public UIVFXService UIVFXService { get; }
+		public UIVFXService UiVfxService { get; }
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; }
@@ -186,22 +191,24 @@ namespace FirstLight.Game.Services
 
 		public GameServices(IInternalGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 							ITimeService timeService, IDataService dataService, IConfigsAdder configsProvider,
-							IGameLogic gameLogic, IGenericDialogService genericDialogService,
-							IAssetResolverService assetResolverService, ITutorialService tutorialService,
-							IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IGameUiService uiService)
+							IGameLogic gameLogic,
+							IAssetResolverService assetResolverService, IAudioFxService<AudioId> audioFxService)
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, uiService);
+			AnalyticsService = new AnalyticsService(this, gameLogic);
 			TimeService = timeService;
 			DataSaver = dataService;
 			DataService = dataService;
 			ConfigsProvider = configsProvider;
 			AssetResolverService = assetResolverService;
-			GenericDialogService = genericDialogService;
 			AudioFxService = audioFxService;
-			VfxService = vfxService;
-			TutorialService = tutorialService;
+			VfxService = new VfxService<VfxId>();
+
+			UIService = new UIService.UIService();
+			GenericDialogService = new GenericDialogService(UIService, gameLogic.CurrencyDataProvider);
+			UiVfxService = new UIVFXService(this, assetResolverService);
+			UiVfxService.Init().Forget();
 
 			ThreadService = new ThreadService();
 			GuidService = new GuidService();
@@ -228,12 +235,11 @@ namespace FirstLight.Game.Services
 			NewsService = new PlayfabNewsService(MessageBrokerService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
-			GameUiService = uiService;
 
 			var environmentService = new EnvironmentService(MessageBrokerService);
-			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic,
-				tutorialService);
 			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);
+			TutorialService = new TutorialService(RoomService, CommandService, ConfigsProvider, gameLogic);
+			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic, TutorialService);
 			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
 			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, this);
 			GameAppService = new GameAppService(this);

@@ -18,7 +18,6 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
-using Unity.Advertisement.IosSupport;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
 using Unity.Services.RemoteConfig;
@@ -40,8 +39,6 @@ namespace FirstLight.Game
 
 		private void Start()
 		{
-			OhYeah();
-
 			Screen.sleepTimeout = SleepTimeout.NeverSleep; // Should be somewhere else
 
 			StartTask().Forget();
@@ -56,7 +53,7 @@ namespace FirstLight.Game
 			InitPlugins();
 			InitGlobalShaderData();
 
-			await RequestATTPermission();
+			await ATTrackingUtils.RequestATTPermission();
 			await InitUnityServices();
 			await InitAnalytics();
 
@@ -70,6 +67,7 @@ namespace FirstLight.Game
 			await VersionUtils.LoadVersionDataAsync();
 			var services = await InitFLGServices();
 			await services.UIService.OpenScreen<LoadingScreenPresenter>();
+			OhYeah();
 
 			InitAppEventsListener();
 
@@ -160,19 +158,6 @@ namespace FirstLight.Game
 			return gameServices;
 		}
 
-#pragma warning disable CS1998
-		private static async UniTask RequestATTPermission()
-#pragma warning restore CS1998
-		{
-#if UNITY_IOS && !UNITY_EDITOR
-			await UniTask.NextFrame(); // We wait for one frame because we had problems with the request in the past apparently
-			ATTrackingStatusBinding.RequestAuthorizationTracking();
-
-			await UniTask.WaitUntil(() =>
-				ATTrackingStatusBinding.GetAuthorizationTrackingStatus() != ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED);
-#endif
-		}
-
 		private async UniTask InitUnityServices()
 		{
 			var initOpts = new InitializationOptions();
@@ -186,11 +171,9 @@ namespace FirstLight.Game
 
 		private async UniTask InitAnalytics()
 		{
-			var trackingAllowed = ATTrackingStatusBinding.GetAuthorizationTrackingStatus() ==
-				ATTrackingStatusBinding.AuthorizationTrackingStatus.AUTHORIZED;
+			var trackingAllowed = ATTrackingUtils.IsTrackingAllowed();
 
 			var dependencyStatus = FirebaseApp.CheckAndFixDependenciesAsync().AsUniTask();
-
 			await dependencyStatus;
 
 			if (dependencyStatus.Status != UniTaskStatus.Succeeded)

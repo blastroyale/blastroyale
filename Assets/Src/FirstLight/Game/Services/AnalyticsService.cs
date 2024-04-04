@@ -5,16 +5,10 @@ using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
-using FirstLight.Server.SDK.Models;
-using FirstLight.Services;
-using FirstLight.UiService;
-using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
-using Unity.Advertisement.IosSupport;
 using Unity.Services.Analytics;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 namespace FirstLight.Game.Services
 {
@@ -128,9 +122,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true, bool ignoreForUnity = false)
 		{
-#if UNITY_IOS
-			if (ATTrackingStatusBinding.GetAuthorizationTrackingStatus() != ATTrackingStatusBinding.AuthorizationTrackingStatus.AUTHORIZED) return;
-#endif
+			if (!ATTrackingUtils.IsTrackingAllowed()) return;
 
 			try
 			{

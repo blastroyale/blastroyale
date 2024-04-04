@@ -115,6 +115,10 @@ public class SingularSDK : MonoBehaviour {
     public static void InitializeSingularSDK() {
         if (Initialized)
             return;
+		
+		if (Application.isEditor) {
+			return;
+		}
 
         if (!instance) {
             Debug.LogError("SingularSDK InitializeSingularSDK, no instance available - cannot initialize");
@@ -122,10 +126,6 @@ public class SingularSDK : MonoBehaviour {
         }
 
         Debug.Log(string.Format("SingularSDK InitializeSingularSDK, APIKey={0}", instance.SingularAPIKey));
-
-        if (Application.isEditor) {
-            return;
-        }
 
         SingularConfig config = BuildSingularConfig();
 

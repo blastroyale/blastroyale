@@ -11,7 +11,7 @@ namespace Quantum.Systems.Bots
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="BotCharacter"/>
 	/// </summary>
-	public unsafe class BotCharacterSystem : SystemMainThreadFilter<BotCharacterSystem.BotCharacterFilter>,
+	public unsafe class BotCharacterSystem : SystemMainThread,
 											 ISignalHealthChangedFromAttacker,
 											 ISignalAllPlayersSpawned, ISignalOnNavMeshWaypointReached,
 											 ISignalOnNavMeshSearchFailed, ISignalOnComponentRemoved<BotCharacter>,
@@ -53,9 +53,16 @@ namespace Quantum.Systems.Bots
 			_botSetup.InitializeBots(f, averagePlayerTrophies);
 		}
 
-		public override void Update(Frame f, ref BotCharacterFilter filter)
+		public override void Update(Frame f)
 		{
-			Update(f, CreateGlobalContext(f), ref filter);
+			var it = f.Unsafe.FilterStruct<BotCharacterFilter>();
+			it.UseCulling = true;
+			var filter = default(BotCharacterFilter);
+			var botCtx = CreateGlobalContext(f);
+			while (it.Next(&filter))
+			{
+				Update(f, botCtx, ref filter);
+			}
 		}
 
 		private BotUpdateGlobalContext CreateGlobalContext(Frame f)

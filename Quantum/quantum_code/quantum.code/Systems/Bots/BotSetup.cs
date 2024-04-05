@@ -315,10 +315,7 @@ namespace Quantum.Systems.Bots
 				playerCharacter->EquipSlotWeapon(f, botEntity, Constants.WEAPON_INDEX_PRIMARY);
 			}
 
-			if (GetAmmoPercentage(f, ref spawner, out var percentage))
-			{
-				f.Unsafe.GetPointer<Stats>(botEntity)->SetCurrentAmmo(f, playerCharacter, botEntity, percentage);
-			}
+			f.Destroy(spawner.Entity);
 		}
 
 		/// <summary>
@@ -373,12 +370,6 @@ namespace Quantum.Systems.Bots
 			});
 		}
 
-		private bool GetAmmoPercentage(Frame f, ref EntityComponentPointerPair<PlayerSpawner> spawner,
-									   out FP percentage)
-		{
-			percentage = FP._0;
-			return false;
-		}
 
 		private static void AddBotTeams(BotSetupContext ctx)
 		{
@@ -422,15 +413,6 @@ namespace Quantum.Systems.Bots
 
 			foreach (var pair in f.Unsafe.GetComponentBlockIterator<PlayerSpawner>())
 			{
-				if (f.Time < pair.Component->ActivationTime)
-				{
-					entity = !entity.IsValid ||
-						f.Get<PlayerSpawner>(entity).ActivationTime > pair.Component->ActivationTime
-							? pair.Entity
-							: entity;
-					continue;
-				}
-
 				list.Add(pair);
 			}
 

@@ -109,20 +109,20 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				{
 					switch (collectable.GameId)
 					{
-						case GameId.ModPistol :
+						case GameId.ModPistol:
 							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
 							break;
-						case GameId.ApoSMG :
-						case GameId.ApoMinigun :
-						case GameId.ModMachineGun :
+						case GameId.ApoSMG:
+						case GameId.ApoMinigun:
+						case GameId.ModMachineGun:
 							_itemGameObject.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
 							break;
-						case GameId.ModShotgun :
+						case GameId.ModShotgun:
 							_itemGameObject.transform.localScale = new Vector3(2f, 2f, 2f);
 							break;
 					}
 				}
-				
+
 				var radiusCorrected = collectable.PickupRadius.AsFloat * RADIUS_CORRECTION;
 				_pickupCircle.localScale =
 					new Vector3(radiusCorrected, radiusCorrected, 1f);
@@ -150,7 +150,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 						break;
 					case ConsumableType.Ammo:
 						QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this,
-							 c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Ammo));
+							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Ammo));
 						break;
 					case ConsumableType.Shield:
 						QuantumEvent.Subscribe<EventOnShieldChanged>(this,
@@ -179,19 +179,20 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-			
+
 			if (!entity.IsValid || !f.Exists(entity) || !MatchServices.IsSpectatingPlayer(entity)) return;
 
 			var stats = f.Unsafe.GetPointer<Stats>(entity);
 			bool filled;
 			if (type == ConsumableType.Special)
 			{
-				filled =!f.Get<PlayerInventory>(entity).HasSpaceForSpecial();
+				filled = !f.Get<PlayerInventory>(entity).HasSpaceForSpecial();
 			}
 			else
 			{
 				filled = stats->IsConsumableStatFilled(type);
 			}
+
 			_pickupCircle.gameObject.SetActive(!filled);
 		}
 
@@ -245,11 +246,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var startTime = callback.Game.Frames.Predicted.Time.AsFloat;
-			var endTime = callback.Collectable.CollectorsEndTime[callback.Player].AsFloat;
+			var f = callback.Game.Frames.Predicted;
+			var startTime = f.Time.AsFloat;
+			if (!callback.Collectable.TryGetCollectingEndTime(f, callback.CollectorEntity, out var endTime))
+			{
+				return;
+			}
+
 			var isLargeCollectable = callback.Collectable.PickupRadius > FP._1_25;
 
-			_collectors[callback.PlayerEntity] = new CollectingData(startTime, endTime, isLargeCollectable);
+			_collectors[callback.CollectorEntity] = new CollectingData(startTime, endTime.AsFloat, isLargeCollectable);
 
 			RefreshVfx(MatchServices.SpectateService.SpectatedPlayer.Value);
 		}
@@ -263,7 +269,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			_collectors.Remove(callback.PlayerEntity);
+			_collectors.Remove(callback.CollectorEntity);
 			RefreshVfx(MatchServices.SpectateService.SpectatedPlayer.Value);
 		}
 
@@ -271,7 +277,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (EntityView.EntityRef != callback.CollectableEntity) return;
 
-			_collectors.Remove(callback.PlayerEntity);
+			_collectors.Remove(callback.CollectorEntity);
 
 			if (_collectingVfx != null)
 			{

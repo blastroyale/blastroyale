@@ -785,7 +785,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (!callback.Game.PlayerIsLocal(callback.Player)) return;
+			if (!_matchServices.IsSpectatingPlayer(callback.CollectorEntity)) return;
 			CheckDespawnClips(nameof(EventOnCollectableCollected), callback.CollectableEntity);
 
 			var audio = AudioId.None;
@@ -826,7 +826,7 @@ namespace FirstLight.Game.StateMachines
 				audio = AudioId.LargeAmmoPickup;
 			}
 
-			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView) &&
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.CollectableEntity, out var entityView) &&
 				audio != AudioId.None)
 			{
 				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);

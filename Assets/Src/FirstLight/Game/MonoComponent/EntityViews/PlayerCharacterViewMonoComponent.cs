@@ -338,7 +338,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleOnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (Culled || EntityView.EntityRef != callback.PlayerEntity)
+			if (Culled || EntityView.EntityRef != callback.CollectorEntity)
 			{
 				return;
 			}

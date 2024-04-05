@@ -54,10 +54,19 @@ namespace Quantum.Systems
 					? teamsByPlayer[i]
 					: Constants.TEAM_ID_START_PLAYERS + i;
 
-				InstantiatePlayer(f, i, playerData, teamId);
+				InstantiateRealPlayer(f, i, playerData, teamId);
 			}
 
-			f.Signals.AllPlayersSpawned();
+			f.Signals.AllPlayersSpawned(); // Bots are added here
+			DeleteSpawners(f);
+		}
+
+		private void DeleteSpawners(Frame f)
+		{
+			foreach (var entityComponentPointerPair in f.Unsafe.GetComponentBlockIterator<PlayerSpawner>())
+			{
+				f.Destroy(entityComponentPointerPair.Entity);
+			}
 		}
 
 		/// <summary>
@@ -113,8 +122,8 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-			
-			
+
+
 			var deathPosition = f.Get<Transform3D>(entity).Position;
 			var gameModeConfig = f.Context.GameModeConfig;
 			var equipmentToDrop = new List<Equipment>();
@@ -163,7 +172,7 @@ namespace Quantum.Systems
 				// No need to drop anything from killed dummies
 				// they don't even shoot anymore (first ones)
 			}
-			
+
 			var anglesToDrop = equipmentToDrop.Count + consumablesToDrop.Count;
 			var step = 0;
 			foreach (var drop in equipmentToDrop)
@@ -171,14 +180,14 @@ namespace Quantum.Systems
 				Collectable.DropEquipment(f, drop, deathPosition, step, true, anglesToDrop);
 				step++;
 			}
-			
+
 			var noHealthNoShields = f.Context.TryGetMutatorByType(MutatorType.Hardcore, out _);
 
 			foreach (var drop in consumablesToDrop)
 			{
 				if (noHealthNoShields &&
 					(drop == GameId.Health ||
-					 drop == GameId.ShieldSmall))
+						drop == GameId.ShieldSmall))
 				{
 					// Don't drop Health and Shields with Hardcore mutator
 				}
@@ -186,11 +195,12 @@ namespace Quantum.Systems
 				{
 					Collectable.DropConsumable(f, drop, deathPosition, step, true, anglesToDrop);
 				}
+
 				step++;
 			}
 		}
 
-		private void InstantiatePlayer(Frame f, PlayerRef playerRef, RuntimePlayer playerData, int teamId)
+		private void InstantiateRealPlayer(Frame f, PlayerRef playerRef, RuntimePlayer playerData, int teamId)
 		{
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
@@ -199,8 +209,9 @@ namespace Quantum.Systems
 			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
 				new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
 					f.RNG->Next(-gridSquareSize, gridSquareSize));
-			var spawnTransform = new Transform3D { Position = FPVector3.Zero, Rotation = FPQuaternion.Identity };
-			spawnTransform.Position = spawnPosition.XOY;
+			var spawner = QuantumHelpers.GetPlayerSpawnPosition(f, spawnPosition);
+			var spawnTransform = new Transform3D { Position = spawner.Component->Position, Rotation = spawner.Component->Rotation };
+
 			var kccConfig = f.FindAsset<CharacterController3DConfig>(playerCharacter->KccConfigRef.Id);
 			var setup = new PlayerCharacterSetup()
 			{
@@ -219,6 +230,9 @@ namespace Quantum.Systems
 			f.Add<CosmeticsHolder>(playerEntity);
 			f.Unsafe.GetPointer<CosmeticsHolder>(playerEntity)->SetCosmetics(f, playerData.Cosmetics);
 			playerCharacter->Init(f, setup);
+
+			// Remove used spawner
+			f.Destroy(spawner.Entity);
 		}
 
 		/// <summary>
@@ -256,7 +270,7 @@ namespace Quantum.Systems
 			var rotation = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
 			var prevRotation = bb->GetVector2(f, Constants.AimDirectionKey);
-			
+
 			var isKnockedOut = ReviveSystem.IsKnockedOut(f, filter.Entity);
 			var direction = input->Direction;
 			var aim = input->AimingDirection;
@@ -264,7 +278,7 @@ namespace Quantum.Systems
 			var lastShotAt = bb->GetFP(f, Constants.LastShotAt);
 			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
 			var attackCooldown = f.Time < lastShotAt + (weaponConfig.IsMeleeWeapon ? FP._0_33 : FP._0_20);
-			
+
 			if (direction != FPVector2.Zero)
 			{
 				movedirection = direction;
@@ -289,7 +303,7 @@ namespace Quantum.Systems
 			{
 				rotation = prevRotation;
 			}
-			
+
 			if (isKnockedOut)
 			{
 				rotation = direction;
@@ -347,7 +361,7 @@ namespace Quantum.Systems
 			// It will heal every x frames
 			var frames = seconds * f.UpdateRate;
 			if (f.Number % frames != 0) return;
-			
+
 			if (!f.Unsafe.TryGetPointer<Stats>(filter.Entity, out var stats))
 			{
 				return;

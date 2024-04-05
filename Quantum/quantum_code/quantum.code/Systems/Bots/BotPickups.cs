@@ -100,7 +100,7 @@ namespace Quantum.Systems.Bots
 				// If team mate is collecting ignore it!
 				foreach (var member in teamMembers)
 				{
-					if (collectibleFilter.Component->IsCollecting(member.Component->Player))
+					if (collectibleFilter.Component->IsCollecting(f, member.Entity))
 					{
 						teamCollecting = true;
 						break;

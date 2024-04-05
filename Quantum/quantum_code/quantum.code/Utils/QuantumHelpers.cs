@@ -282,45 +282,31 @@ namespace Quantum
 		/// It also activates the return spawn point
 		/// It also changes the bot's Behaviour type if the spawn point has ForceStatic
 		/// </summary>
-		public static EntityComponentPair<Transform3D> GetPlayerSpawnTransform(Frame f, EntityRef playerEntity, bool sortByDistance, FPVector3 positionToCompare)
+		public static EntityComponentPointerPair<Transform3D> GetPlayerSpawnPosition(Frame f, FPVector2 positionToCompare)
 		{
-			var spawners = new List<EntityComponentPointerPair<PlayerSpawner>>();
+			var closest = new EntityComponentPointerPair<PlayerSpawner>();
+			var closestDistance = FP._0;
 
-			foreach (var pair in f.Unsafe.GetComponentBlockIterator<PlayerSpawner>())
+			foreach (var current in f.Unsafe.GetComponentBlockIterator<PlayerSpawner>())
 			{
-				if (f.Time < pair.Component->ActivationTime)
+				if (current.Component->SpawnerType != SpawnerType.Player && current.Component->SpawnerType != SpawnerType.Any)
 				{
 					continue;
 				}
 
-				spawners.Add(pair);
+				var currentPosition = f.Unsafe.GetPointer<Transform3D>(current.Entity)->Position.XZ;
+				var distance = FPVector2.DistanceSquared(currentPosition, positionToCompare);
+				if (!closest.Entity.IsValid || distance < closestDistance)
+				{
+					closest = current;
+					closestDistance = distance;
+				}
 			}
-
-			BotCharacter* botCharacter = null;
-			var isBot = f.Has<BotCharacter>(playerEntity);
-			if (isBot)
+			
+			return new EntityComponentPointerPair<Transform3D>
 			{
-				// Bots have to spawn in the specific spawner position, because they differ (ex one spawner has equipment and the other don't)
-				botCharacter = f.Unsafe.GetPointer<BotCharacter>(playerEntity);
-				positionToCompare = f.Unsafe.GetPointer<Transform3D>(playerEntity)->Position;
-				sortByDistance = true;
-			}
-
-			spawners.Sort(PlayerSpawnerPlayerTypeComparison(f, isBot, botCharacter, sortByDistance, positionToCompare));
-
-			if (spawners.Count == 0)
-			{
-				Log.Error($"There is no {nameof(PlayerSpawner)} active to spawn new a player");
-			}
-
-			var entity = spawners[0].Entity;
-
-			f.Unsafe.GetPointer<PlayerSpawner>(entity)->ActivationTime = f.Time + Constants.SPAWNER_INACTIVE_TIME;
-
-			return new EntityComponentPair<Transform3D>
-			{
-				Component = f.Get<Transform3D>(entity),
-				Entity = entity
+				Component = f.Unsafe.GetPointer<Transform3D>(closest.Entity),
+				Entity = closest.Entity
 			};
 		}
 
@@ -416,7 +402,7 @@ namespace Quantum
 		/// <summary>
 		/// Used to sort spawners based on relevancy to the type of player that is spawning. If it's a bot, it will first provide spawners specifically for bots, and so on.
 		/// </summary>
-		private static Comparison<EntityComponentPointerPair<PlayerSpawner>> PlayerSpawnerPlayerTypeComparison(Frame f, bool isBot, BotCharacter* botCharacter, bool sortByDistance, FPVector3 positionToCompare)
+		private static Comparison<EntityComponentPointerPair<PlayerSpawner>> PlayerSpawnerPlayerTypeComparison(Frame f, FPVector3 positionToCompare)
 		{
 			return (pair, pointerPair) =>
 			{
@@ -424,46 +410,13 @@ namespace Quantum
 				if (pair.Component->SpawnerType == pointerPair.Component->SpawnerType &&
 					(pair.Component->SpawnerType != SpawnerType.BotOfType || pair.Component->BehaviourType == pointerPair.Component->BehaviourType))
 				{
-					if (sortByDistance)
-					{
-						var pos1 = f.Get<Transform3D>(pair.Entity).Position;
-						var pos2 = f.Get<Transform3D>(pointerPair.Entity).Position;
+					var pos1 = f.Get<Transform3D>(pair.Entity).Position;
+					var pos2 = f.Get<Transform3D>(pointerPair.Entity).Position;
 
-						return FPVector3.DistanceSquared(pos1, positionToCompare) <
-							FPVector3.DistanceSquared(pos2, positionToCompare)
-								? -1
-								: 1;
-					}
-
-					// Making it random for the similar ones, will make it so they are randomly sorted between them, making the next one random
-					return f.RNG->Next(-1, 2);
-				}
-
-				if (!isBot)
-				{
-					if (pair.Component->SpawnerType == SpawnerType.Player)
-					{
-						return -1;
-					}
-				}
-				else
-				{
-					if (pointerPair.Component->SpawnerType == SpawnerType.Player)
-						return -1;
-					if (pair.Component->SpawnerType == SpawnerType.BotOfType)
-					{
-						return pair.Component->BehaviourType == botCharacter->BehaviourType ? -1 : 1;
-					}
-
-					if (pointerPair.Component->SpawnerType == SpawnerType.BotOfType)
-					{
-						return pointerPair.Component->BehaviourType == botCharacter->BehaviourType ? 1 : -1;
-					}
-
-					if (pair.Component->SpawnerType == SpawnerType.AnyBot)
-					{
-						return -1;
-					}
+					return FPVector3.DistanceSquared(pos1, positionToCompare) <
+						FPVector3.DistanceSquared(pos2, positionToCompare)
+							? -1
+							: 1;
 				}
 
 				return 1;

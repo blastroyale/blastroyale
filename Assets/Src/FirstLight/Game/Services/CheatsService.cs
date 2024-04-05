@@ -34,7 +34,6 @@ namespace FirstLight.Game.Services
 			_brokerService = brokerService;
 			_gameDataProvider = gameDataProvider;
 			_tutorialService = tutorialService;
-			_brokerService.Subscribe<MainMenuOpenedMessage>(OnMainMenuOpened);
 		}
 
 		private bool ShouldExecute()
@@ -42,47 +41,5 @@ namespace FirstLight.Game.Services
 			return _environmentService.Environment == Environment.TESTNET;
 		}
 
-		private void Unsubscribe()
-		{
-			_brokerService.Unsubscribe<MainMenuOpenedMessage>(OnMainMenuOpened);
-
-		}
-		private void OnMainMenuOpened(MainMenuOpenedMessage obj)
-		{
-			if (!ShouldExecute()
-				// Nasty workaround if player scraps all the items it will receive it again, but this only works in community build anyway
-				||  _gameDataProvider.EquipmentDataProvider.Inventory.Count >= 5) 
-			{
-				Unsubscribe();
-				return;
-			}
-			
-			// Only give items after the tutorial is finished
-			if(!_tutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH))
-			{
-				return;
-			}
-
-			var confirmButton = new GenericDialogButton { ButtonText = ScriptLocalization.General.OK, ButtonOnClick = _genericDialogService.CloseDialog };
-
-			_genericDialogService.OpenButtonDialog(
-				"Welcome to Testing",
-				@"You are on a test environment
-<color=#c9221c>Any progress may be lost</color>
-
-You are receiving some test equipment
-<sprite name=""Crown""><color=#2bab4d> Have fun Blaster </color><sprite name=""Crown"">",
-				false,
-				confirmButton
-			);
-			GiveAllEquipments();
-			Unsubscribe();
-		}
-
-
-		private void GiveAllEquipments()
-		{
-			_commandService.ExecuteCommand(new GiveAllEquipmentCommand());
-		}
 	}
 }

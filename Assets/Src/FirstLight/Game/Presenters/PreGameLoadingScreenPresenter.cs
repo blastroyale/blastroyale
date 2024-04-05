@@ -132,6 +132,10 @@ namespace FirstLight.Game.Presenters
 				_services.CoroutineService.StopCoroutine(_gameStartTimerCoroutine);
 			}
 
+			_services.RoomService.OnPlayersChange -= OnPlayersChanged;
+			_services.RoomService.OnMasterChanged -= UpdateMasterClient;
+			_services.RoomService.OnPlayerPropertiesUpdated -= OnPlayerPropertiesUpdate;
+
 			_services.MessageBrokerService.Unsubscribe<WaitingMandatoryMatchAssetsMessage>(OnWaitingMandatoryMatchAssets);
 
 			return base.OnScreenClose();
@@ -206,14 +210,16 @@ namespace FirstLight.Game.Presenters
 
 		/// <summary>
 		///  Select the drop zone based on percentages of the map
+		/// Range of the input is 0 to 1
 		/// </summary>
 		public void SelectDropZone(float x, float y)
 		{
 			var mapWidth = _mapImage.contentRect.width;
+			var mapHeight = _mapImage.contentRect.height;
 
-			if (TrySetMarkerPosition(new Vector2(x * mapWidth, y * mapWidth)))
+			if (TrySetMarkerPosition(new Vector2(x * mapWidth, y * mapHeight)))
 			{
-				ConfirmMarkerPosition(new Vector2(x * mapWidth, y * mapWidth), false);
+				ConfirmMarkerPosition(_markerLocalPosition, false);
 			}
 			else
 			{
@@ -285,6 +291,7 @@ namespace FirstLight.Game.Presenters
 
 			await LoadMapAsset(mapConfig);
 			InitSkydiveSpawnMapData();
+			RefreshPartyList();
 		}
 
 		private void InitSkydiveSpawnMapData()
@@ -360,6 +367,11 @@ namespace FirstLight.Game.Presenters
 			return true;
 		}
 
+		/// <summary>
+		/// Accepts the position in the canvas (-mapWidth/2, -mapHeight/2) to (mapWidth/2, mapHeight/2)
+		/// </summary>
+		/// <param name="localPos"></param>
+		/// <param name="sendEvent"></param>
 		private void ConfirmMarkerPosition(Vector2 localPos, bool sendEvent)
 		{
 			if (!_services.RoomService.InRoom) return;

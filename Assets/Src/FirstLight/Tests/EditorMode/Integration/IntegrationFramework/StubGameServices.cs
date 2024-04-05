@@ -105,7 +105,7 @@ namespace FirstLight.Tests.EditorMode
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService,
-				MessageBrokerService, NetworkService, GameBackendService,ConfigsProvider);
+				MessageBrokerService, NetworkService, GameBackendService,ConfigsProvider, LocalPrefsService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
 			RoomService = Substitute.For<IRoomService>();

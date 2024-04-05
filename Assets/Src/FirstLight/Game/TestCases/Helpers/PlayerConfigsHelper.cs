@@ -1,5 +1,3 @@
-using FirstLight.Game.Data;
-
 namespace FirstLight.Game.TestCases.Helpers
 {
 	public class PlayerConfigsHelper : TestHelper
@@ -13,9 +11,9 @@ namespace FirstLight.Game.TestCases.Helpers
 			RunWhenAuthenticated(() => { Services.LocalPrefsService.IsFPSLimitEnabled.Value = enabled; });
 		}
 
-		public void SetTargetServer(string server)
+		public void SetServerRegion(string server)
 		{
-			RunWhenAuthenticated(() => { DataProviders.AppDataProvider.ConnectionRegion.Value = server; });
+			RunWhenAuthenticated(() => { Services.LocalPrefsService.ServerRegion.Value = server; });
 		}
 	}
 }

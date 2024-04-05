@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Ids;
 using FirstLight.Services;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.MultiplayerModels;
 using FirstLight.FLogger;
@@ -14,16 +12,13 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.Party;
-using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using PlayFab.Json;
 using Quantum;
-using SRF;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace FirstLight.Game.Services
 {
@@ -143,6 +138,7 @@ namespace FirstLight.Game.Services
 		private readonly IPartyService _party;
 		private readonly IGameNetworkService _networkService;
 		private readonly IGameBackendService _backendService;
+		private readonly LocalPrefsService _localPrefsService;
 		internal readonly IConfigsProvider _configsProvider;
 		private readonly IDataService _localMatchmakingData;
 		private MatchmakingData _localData;
@@ -157,7 +153,7 @@ namespace FirstLight.Game.Services
 
 		public PlayfabMatchmakingService(IGameDataProvider dataProviderProvider, ICoroutineService coroutines,
 										 IPartyService party, IMessageBrokerService broker, IGameNetworkService networkService,
-										 IGameBackendService backendService, IConfigsProvider configsProvider)
+										 IGameBackendService backendService, IConfigsProvider configsProvider, LocalPrefsService localPrefsService)
 		{
 			_networkService = networkService;
 			_dataProvider = dataProviderProvider;
@@ -166,6 +162,7 @@ namespace FirstLight.Game.Services
 			_coroutines = coroutines;
 			_party = party;
 			_isMatchmaking = new ObservableField<bool>(false);
+			_localPrefsService = localPrefsService;
 
 			_localMatchmakingData = new DataService();
 			_localData = _localMatchmakingData.LoadData<MatchmakingData>();
@@ -332,7 +329,7 @@ namespace FirstLight.Game.Services
 				},
 				Attributes = new CustomMatchmakingPlayerProperties()
 				{
-					Server = _dataProvider.AppDataProvider.ConnectionRegion.Value,
+					Server = _localPrefsService.ServerRegion.Value,
 					MasterPlayerId = _networkService.UserId
 				}.Encode()
 			};

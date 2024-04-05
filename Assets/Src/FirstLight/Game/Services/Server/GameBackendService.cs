@@ -268,13 +268,12 @@ namespace FirstLight.Game.Services
 			if (CurrentEnvironmentData.EnvironmentID != appData.LastEnvironment)
 			{
 				FLog.Warn("Erasing APP data due to environment switch");
-				var newData = appData.CopyForNewEnvironment();
 
 				_services.AuthenticationService.SetLinkedDevice(false);
 
-				newData.LastEnvironment = CurrentEnvironmentData.EnvironmentID;
+				appData.LastEnvironment = CurrentEnvironmentData.EnvironmentID;
 
-				_dataService.AddData(newData, true);
+				_dataService.AddData(appData, true);
 				_dataService.SaveData<AppData>();
 			}
 		}

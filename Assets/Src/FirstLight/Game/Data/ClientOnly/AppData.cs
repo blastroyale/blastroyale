@@ -39,7 +39,6 @@ namespace FirstLight.Game.Data
 		public bool IsFirstSession;
 
 		public Environment LastEnvironment;
-		public string ConnectionRegion;
 
 		// Moved to AccountData, this is here for backwards compatibility
 		[Obsolete]
@@ -57,19 +56,6 @@ namespace FirstLight.Game.Data
 		public CustomGameOptions LastCustomGameOptions = new();
 		
 		[NonSerialized] public Dictionary<string, string> TitleData;
-		
-		/// <summary>
-		/// Copies base values for when user logs in to a new environment.
-		/// We want to maintain a few settings across environments, those settings
-		/// should be added to this copy method.
-		/// </summary>
-		public AppData CopyForNewEnvironment()
-		{
-			return new AppData
-			{
-				ConnectionRegion = this.ConnectionRegion,
-			};
-		}
 	}
 
 

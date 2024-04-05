@@ -87,7 +87,7 @@ namespace FirstLight.Game.Presenters
 
 				_serverSelectDropdown.options.Add(new DropdownMenuOption(regionTitle, region));
 
-				if (_gameDataProvider.AppDataProvider.ConnectionRegion.Value == region.ServerCode)
+				if (_services.LocalPrefsService.ServerRegion.Value == region.ServerCode)
 				{
 					currentRegion = i;
 				}
@@ -126,7 +126,7 @@ namespace FirstLight.Game.Presenters
 		private async UniTaskVoid Connect(IServerListService.ServerPing server)
 		{
 			// No need to reconnect if it is the same server
-			if (_gameDataProvider.AppDataProvider.ConnectionRegion.Value == server.ServerCode)
+			if (_services.LocalPrefsService.ServerRegion.Value == server.ServerCode)
 			{
 				CloseSeverSelect(false);
 				return;

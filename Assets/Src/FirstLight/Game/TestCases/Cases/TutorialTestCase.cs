@@ -17,7 +17,7 @@ namespace FirstLight.Game.TestCases
 		public override void OnGameAwaken()
 		{
 			FeatureFlags.SetTutorial(true);
-			PlayerConfigs.SetTargetServer("us");
+			PlayerConfigs.SetServerRegion("us");
 			PlayerConfigs.SetEnableFPSLimit(false);
 			Account.FreshGameInstallation();
 		}

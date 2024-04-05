@@ -49,9 +49,14 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public ObservableField<bool> IsFPSLimitEnabled { get; } = CreateBoolSetting(nameof(IsFPSLimitEnabled), false);
 
-		private static ObservableField<bool> CreateBoolSetting(string id, bool defaultValue)
+		/// <summary>
+		/// The current server region.
+		/// </summary>
+		public ObservableField<string> ServerRegion { get; } = CreateStringSetting(nameof(ServerRegion), string.Empty);
+
+		private static ObservableField<bool> CreateBoolSetting(string key, bool defaultValue)
 		{
-			return new ObservableResolverField<bool>(() => GetBool(id, defaultValue), val => SetBool(id, val));
+			return new ObservableResolverField<bool>(() => GetBool(key, defaultValue), val => SetBool(key, val));
 
 			static bool GetBool(string key, bool defaultValue)
 			{
@@ -61,6 +66,22 @@ namespace FirstLight.Game.Services
 			static void SetBool(string key, bool value)
 			{
 				PlayerPrefs.SetInt(ConstructKey(key), value ? 1 : 0);
+				PlayerPrefs.Save();
+			}
+		}
+
+		private static ObservableField<string> CreateStringSetting(string key, string defaultValue)
+		{
+			return new ObservableResolverField<string>(() => GetString(key, defaultValue), val => SetString(key, val));
+
+			static string GetString(string key, string defaultValue)
+			{
+				return PlayerPrefs.GetString(ConstructKey(key), defaultValue);
+			}
+
+			static void SetString(string key, string value)
+			{
+				PlayerPrefs.SetString(ConstructKey(key), value);
 				PlayerPrefs.Save();
 			}
 		}

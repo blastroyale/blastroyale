@@ -48,11 +48,6 @@ namespace FirstLight.Game.Logic
 		/// Gets last current custom game options used
 		/// </summary>
 		CustomGameOptions LastCustomGameOptions { get; }
-
-		/// <summary>
-		/// Requests the last region that player was connected to
-		/// </summary>
-		IObservableField<string> ConnectionRegion { get; }
 		
 		/// <summary>
 		/// Requests the player's title display name (including appended numbers)
@@ -127,9 +122,6 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public IObservableField<string> ConnectionRegion { get; private set; }
-
-		/// <inheritdoc />
 		public IObservableField<string> DisplayName { get; private set; }
 
 		public IObservableField<FrameSnapshot> LastFrameSnapshot { get; private set; }
@@ -146,7 +138,6 @@ namespace FirstLight.Game.Logic
 			base(gameLogic, dataProvider)
 		{
 			DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
-			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			LastFrameSnapshot = new ObservableResolverField<FrameSnapshot>(() => Data.LastCapturedFrameSnapshot,
 				snap => Data.LastCapturedFrameSnapshot = snap);
 		}
@@ -159,15 +150,8 @@ namespace FirstLight.Game.Logic
 				DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
 				DisplayName.AddObservers(listeners);
 			}
-
-			{
-				var listeners = ConnectionRegion.GetObservers();
-				ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
-				ConnectionRegion.AddObservers(listeners);
-			}
 			
 			DisplayName.InvokeUpdate();
-			ConnectionRegion.InvokeUpdate();
 		}
 
 		public void SetLastCustomGameOptions(CustomGameOptions options)

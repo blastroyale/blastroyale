@@ -220,7 +220,7 @@ namespace FirstLight.Game.Services
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic,
 				configsProvider);
 			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService,
-				GenericDialogService, MessageBrokerService);
+				GenericDialogService, MessageBrokerService, LocalPrefsService);
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider);
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
@@ -232,7 +232,7 @@ namespace FirstLight.Game.Services
 			ControlsSetup = new ControlSetupService();
 			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService,
-				GameBackendService, ConfigsProvider);
+				GameBackendService, ConfigsProvider, LocalPrefsService);
 			NewsService = new PlayfabNewsService(MessageBrokerService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);

@@ -142,7 +142,7 @@ namespace FirstLight.Game.StateMachines
 					{
 						_services.MessageBrokerService.Publish(new ChangedServerRegionMessage());
 						_services.GenericDialogService.OpenSimpleMessage("Server",
-							"Connected to " + _data.AppDataProvider.ConnectionRegion.Value.GetPhotonRegionTranslation() + " server!");
+							"Connected to " + _services.LocalPrefsService.ServerRegion.Value.GetPhotonRegionTranslation() + " server!");
 					}
 
 					_statechartTrigger(_exitedSelectServer);

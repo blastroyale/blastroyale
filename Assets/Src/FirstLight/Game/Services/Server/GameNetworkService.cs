@@ -1,16 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
@@ -355,11 +352,9 @@ namespace FirstLight.Game.Services
 
 		private void OnPingRegions(PingedRegionsMessage msg)
 		{
-			var appData = _services.DataService.GetData<AppData>();
-			if (string.IsNullOrEmpty(appData.ConnectionRegion))
+			if (string.IsNullOrEmpty(_services.LocalPrefsService.ServerRegion.Value))
 			{
-				appData.ConnectionRegion = msg.RegionHandler.BestRegion.Code;
-				_services.DataSaver.SaveData<AppData>();
+				_services.LocalPrefsService.ServerRegion.Value = msg.RegionHandler.BestRegion.Code;
 				FLog.Info("Setting player default region to " + msg.RegionHandler.BestRegion.Code);
 			}
 		}
@@ -422,7 +417,7 @@ namespace FirstLight.Game.Services
 
 		public void ChangeServerRegionAndReconnect(string serverCode)
 		{
-			_dataProvider.AppDataProvider.ConnectionRegion.Value = serverCode;
+			_services.LocalPrefsService.ServerRegion.Value = serverCode;
 			_services.DataService.SaveData<AppData>();
 			DisconnectPhoton();
 			FLog.Info("Changing region to " + serverCode);
@@ -435,10 +430,10 @@ namespace FirstLight.Game.Services
 			var settings = QuantumRunnerConfigs.PhotonServerSettings.AppSettings;
 			if (QuantumClient.LoadBalancingPeer.PeerState == PeerStateValue.Connected && QuantumClient.Server == ServerConnection.NameServer)
 			{
-				if (settings.FixedRegion == null && !string.IsNullOrEmpty(_dataProvider.AppDataProvider.ConnectionRegion.Value))
+				if (settings.FixedRegion == null && !string.IsNullOrEmpty(_services.LocalPrefsService.ServerRegion.Value))
 				{
 					FLog.Info("Server already in nameserver, connecting to master");
-					ConnectPhotonToRegionMaster(_dataProvider.AppDataProvider.ConnectionRegion.Value);
+					ConnectPhotonToRegionMaster(_services.LocalPrefsService.ServerRegion.Value);
 					return true;
 				}
 			}
@@ -450,10 +445,10 @@ namespace FirstLight.Game.Services
 			}
 
 
-			if (!string.IsNullOrEmpty(_dataProvider.AppDataProvider.ConnectionRegion.Value))
+			if (!string.IsNullOrEmpty(_services.LocalPrefsService.ServerRegion.Value))
 			{
-				FLog.Info("Connecting directly to master using region " + _dataProvider.AppDataProvider.ConnectionRegion.Value);
-				settings.FixedRegion = _dataProvider.AppDataProvider.ConnectionRegion.Value;
+				FLog.Info("Connecting directly to master using region " + _services.LocalPrefsService.ServerRegion.Value);
+				settings.FixedRegion = _services.LocalPrefsService.ServerRegion.Value;
 			}
 			else
 			{
@@ -506,7 +501,7 @@ namespace FirstLight.Game.Services
 			}
 			else
 			{
-				var settingsRegion = _dataProvider.AppDataProvider.ConnectionRegion.Value;
+				var settingsRegion = _services.LocalPrefsService.ServerRegion.Value;
 				if (settingsRegion != QuantumClient.CloudRegion)
 				{
 					FLog.Info("ReconnectPhoton - ReconnectToMaster changing region ");

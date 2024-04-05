@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Services;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -301,7 +302,7 @@ namespace FirstLight.Services
 		public bool IsMusicPlaying => _activeMusicSource.Source.isPlaying || _transitionMusicSource.Source.isPlaying;
 		public bool IsAmbiencePlaying => _activeAmbienceSource.Source.isPlaying || _transitionAmbienceSource.Source.isPlaying;
 		
-		public AudioFxService(float spatial3DThreshold, int soundQueueBreakMs)
+		public AudioFxService(LocalPrefsService localPrefsService, int soundQueueBreakMs)
 		{
 			_mixerSnapshots = new Dictionary<string, AudioMixerSnapshot>();
 			_mixerGroups = new Dictionary<string, AudioMixerGroup>();
@@ -346,6 +347,10 @@ namespace FirstLight.Services
 
 			pool.DespawnToSampleParent = true;
 			_sfxPlayerPool = pool;
+			
+			localPrefsService.IsBGMEnabled.InvokeObserve((_, enabled) => IsBgmMuted = !enabled);
+			localPrefsService.IsSFXEnabled.InvokeObserve((_, enabled) => IsSfxMuted = !enabled);
+			localPrefsService.IsDialogueEnabled.InvokeObserve((_, enabled) => IsDialogueMuted = !enabled);
 		}
 
 		/// <inheritdoc />

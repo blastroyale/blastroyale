@@ -66,48 +66,22 @@ namespace FirstLight.Game.Presenters
 			_web3Notification.SetDisplay(false);
 
 			// Sound
-			SetupToggle(Root.Q<LocalizedToggle>("SoundEffects").Required(),
-				() => _gameDataProvider.AppDataProvider.IsSfxEnabled,
-				val => _gameDataProvider.AppDataProvider.IsSfxEnabled = val);
-			SetupToggle(Root.Q<LocalizedToggle>("Announcer").Required(),
-				() => _gameDataProvider.AppDataProvider.IsDialogueEnabled,
-				val => _gameDataProvider.AppDataProvider.IsDialogueEnabled = val);
-			SetupToggle(Root.Q<LocalizedToggle>("BGMusic").Required(),
-				() => _gameDataProvider.AppDataProvider.IsBgmEnabled,
-				val => _gameDataProvider.AppDataProvider.IsBgmEnabled = val);
+			SetupToggle(Root.Q<LocalizedToggle>("SoundEffects").Required(), _services.LocalPrefsService.IsSFXEnabled);
+			SetupToggle(Root.Q<LocalizedToggle>("Announcer").Required(), _services.LocalPrefsService.IsDialogueEnabled);
+			SetupToggle(Root.Q<LocalizedToggle>("BGMusic").Required(), _services.LocalPrefsService.IsBGMEnabled);
 
 			// Controls
-			SetupToggle(Root.Q<LocalizedToggle>("HapticFeedback").Required(),
-				() => _gameDataProvider.AppDataProvider.IsHapticOn,
-				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
-
-			SetupToggle(Root.Q<LocalizedToggle>("InvertSpecialCancelling").Required(),
-				() => _gameDataProvider.AppDataProvider.InvertSpecialCancellling,
-				val => _gameDataProvider.AppDataProvider.InvertSpecialCancellling = val);
-
-			SetupToggle(Root.Q<LocalizedToggle>("ScreenShake").Required(),
-				() => _gameDataProvider.AppDataProvider.UseScreenShake,
-				val => _gameDataProvider.AppDataProvider.UseScreenShake = val);
-
-			SetupToggle(Root.Q<Toggle>("AimBackground").Required(),
-				() => _gameDataProvider.AppDataProvider.ConeAim,
-				val => _gameDataProvider.AppDataProvider.ConeAim = val);
-			
-			SetupToggle(Root.Q<Toggle>("SwitchJoysticks").Required(),
-				() => _gameDataProvider.AppDataProvider.SwitchJoysticks,
-				val => _gameDataProvider.AppDataProvider.SwitchJoysticks = val);
+			SetupToggle(Root.Q<LocalizedToggle>("HapticFeedback").Required(), _services.LocalPrefsService.IsHapticsEnabled);
+			SetupToggle(Root.Q<LocalizedToggle>("InvertSpecialCancelling").Required(), _services.LocalPrefsService.InvertSpecialCanceling);
+			SetupToggle(Root.Q<LocalizedToggle>("ScreenShake").Required(), _services.LocalPrefsService.IsScreenShakeEnabled);
+			SetupToggle(Root.Q<Toggle>("SwitchJoysticks").Required(), _services.LocalPrefsService.SwapJoysticks);
 
 			_customizeHudButton = Root.Q<Button>("CustomizeHud").Required();
 			_customizeHudButton.clicked += OpenCustomizeHud;
 
 			// Graphics
-			SetupRadioButtonGroup(Root.Q<LocalizedRadioButtonGroup>("FPSRBG").Required(),
-				() => _gameDataProvider.AppDataProvider.FpsTarget,
-				val => _gameDataProvider.AppDataProvider.FpsTarget = val,
-				FpsTarget.Normal, FpsTarget.High);
-			SetupToggle(Root.Q<Toggle>("UseOverheadUI").Required(),
-				() => _gameDataProvider.AppDataProvider.UseOverheadUI,
-				val => _gameDataProvider.AppDataProvider.UseOverheadUI = val);
+			SetupToggle(Root.Q<LocalizedToggle>("FPSLimit").Required(), _services.LocalPrefsService.IsFPSLimitEnabled);
+			SetupToggle(Root.Q<Toggle>("UseOverheadUI").Required(), _services.LocalPrefsService.UseOverheadUI);
 
 			// Account
 			_web3Button = Root.Q<Button>("Web3Button").Required();
@@ -152,14 +126,14 @@ namespace FirstLight.Game.Presenters
 			_web3StatusLabel.text = $"{state} {web3.Web3Account ?? ""}";
 		}
 
-		private void SetupToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
+		private void SetupToggle(Toggle toggle, ObservableField<bool> observable)
 		{
-			toggle.value = getter();
-			toggle.RegisterCallback<ChangeEvent<bool>, Action<bool>>((e, s) =>
+			toggle.value = observable.Value;
+			toggle.RegisterCallback<ChangeEvent<bool>, ObservableField<bool>>((e, o) =>
 			{
-				s(e.newValue);
+				o.Value = e.newValue;
 				Save();
-			}, setter);
+			}, observable);
 		}
 
 		private void SetupRadioButtonGroup<T>(RadioButtonGroup group, Func<T> getter, Action<T> setter, params T[] validValues)
@@ -206,7 +180,7 @@ namespace FirstLight.Game.Presenters
 				_deleteAccountButton.SetDisplay(false);
 				_logoutButton.SetDisplay(false);
 				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_not_connected,
-														 _gameDataProvider.AppDataProvider.DisplayName.Value);
+					_gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
 			else
 			{

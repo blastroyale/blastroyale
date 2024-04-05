@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.SDK.Services;
@@ -197,13 +196,13 @@ namespace FirstLight.Game.Logic
 		public ICollectionLogic CollectionLogic { get; }
 
 		public GameLogic(IMessageBrokerService messageBroker, ITimeService timeService, IDataProvider dataProvider,
-						 IConfigsProvider configsProvider, IAudioFxService<AudioId> audioFxService)
+						 IConfigsProvider configsProvider)
 		{
 			MessageBrokerService = messageBroker;
 			TimeService = timeService;
 			ConfigsProvider = configsProvider;
 
-			AppLogic = new AppLogic(this, dataProvider, audioFxService);
+			AppLogic = new AppLogic(this, dataProvider);
 			UniqueIdLogic = new UniqueIdLogic(this, dataProvider);
 			RngLogic = new RngLogic(this, dataProvider);
 			CurrencyLogic = new CurrencyLogic(this, dataProvider);

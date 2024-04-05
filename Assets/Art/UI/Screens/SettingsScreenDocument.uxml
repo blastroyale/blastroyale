@@ -22,12 +22,11 @@
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/haptic_feedback" name="HapticFeedback" class="settings-toggle" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Graphics" class="settings-container">
-                            <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/fps" name="FPSRBG" choices="Normal, High" class="settings-radio-button-group" />
+                            <FirstLight.Game.UIElements.LocalizedToggle value="0" localization-key="UITSettings/fps" name="FPSLimit" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/use_overhead_ui" name="UseOverheadUI" class="settings-toggle" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Controls" class="settings-container">
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/screenshake" name="ScreenShake" class="settings-toggle" />
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/cone_aim" name="AimBackground" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/InvertSpecialCancel" name="InvertSpecialCancelling" label="Invert Special Cancelling" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/switch_joysticks" name="SwitchJoysticks" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/hud_customization" name="CustomizeHud" class="button-long sfx-click-forwards" />

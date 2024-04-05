@@ -58,6 +58,7 @@ namespace FirstLight.Tests.EditorMode
 		public ITeamService TeamService { get; }
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; set; }
+		public LocalPrefsService LocalPrefsService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
@@ -71,7 +72,7 @@ namespace FirstLight.Tests.EditorMode
 								ITimeService timeService, IDataService dataService, IConfigsProvider configsProvider,
 								IGameLogic gameLogic, IDataProvider dataProvider,
 								IAssetResolverService assetResolverService, IInternalTutorialService tutorialService,
-								IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
+								IVfxService<VfxId> vfxService)
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
@@ -83,9 +84,10 @@ namespace FirstLight.Tests.EditorMode
 			AssetResolverService = assetResolverService;
 			GenericDialogService = new GenericDialogService(UIService, gameLogic.CurrencyDataProvider);
 			TutorialService = tutorialService;
-			AudioFxService = audioFxService;
 			VfxService = vfxService;
 			GameLogic = gameLogic;
+			LocalPrefsService = new LocalPrefsService();
+			AudioFxService = new GameAudioFxService(assetResolverService, LocalPrefsService);
 
 			ThreadService = new ThreadService();
 			

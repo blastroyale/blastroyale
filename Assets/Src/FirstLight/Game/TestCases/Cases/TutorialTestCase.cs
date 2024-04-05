@@ -18,7 +18,7 @@ namespace FirstLight.Game.TestCases
 		{
 			FeatureFlags.SetTutorial(true);
 			PlayerConfigs.SetTargetServer("us");
-			PlayerConfigs.SetFpsTarget(FpsTarget.Unlimited);
+			PlayerConfigs.SetEnableFPSLimit(false);
 			Account.FreshGameInstallation();
 		}
 

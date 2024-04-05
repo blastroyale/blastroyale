@@ -50,7 +50,7 @@ namespace FirstLight.Game.Views.UITK
 			_gameServices = MainInstaller.ResolveServices();
 			_data = MainInstaller.ResolveData();
 
-			_useOverheadUi = _data.AppDataProvider.UseOverheadUI;
+			_useOverheadUi = _gameServices.LocalPrefsService.UseOverheadUI.Value;
 
 			element.Clear();
 

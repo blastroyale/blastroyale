@@ -1,6 +1,5 @@
 using System;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
@@ -19,7 +18,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 	public class LocalPlayerIndicatorContainerView : IDisposable
 	{
 		private readonly IGameServices _services;
-		private readonly IGameDataProvider _data;
 		private EntityRef _localPlayerEntity;
 		private EntityView _playerView;
 		private QuantumWeaponConfig _weaponConfig;
@@ -44,7 +42,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public LocalPlayerIndicatorContainerView()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_data = MainInstaller.Resolve<IGameDataProvider>();
 
 			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, HandleOnLocalPlayerAmmoEmpty);
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
@@ -210,17 +207,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
 			ShootIndicator?.SetVisualState(false);
 			_weaponAim.gameObject.SetActive(false);
-			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
+			if (_weaponConfig.IsMeleeWeapon)
 			{
-				if (_weaponConfig.MinAttackAngle == 0)
-				{
-					_shootIndicatorId = IndicatorVfxId.Line;
-				}
-				else
-				{
-					_shootIndicatorId = IndicatorVfxId.Cone;
-				}
-
+				_shootIndicatorId = _weaponConfig.MinAttackAngle == 0 ? IndicatorVfxId.Line : IndicatorVfxId.Cone;
 				ShootIndicator?.SetVisualState(ShootIndicator.VisualState);
 			}
 			else
@@ -231,7 +220,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void DestroyIndicator(IIndicator i)
 		{
-			if (i != null && i is MonoBehaviour component && component != null && !component.IsDestroyed())
+			if (i is MonoBehaviour component && !component.IsDestroyed())
 			{
 				Object.Destroy(component);
 			}
@@ -312,7 +301,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			if (!_localPlayerEntity.IsAlive(f)) return;
 
-			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
+			if (_weaponConfig.IsMeleeWeapon)
 			{
 				LegacyConeAim(f, aim, shooting);
 			}

@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Services;
 
 namespace FirstLight.Game.Logic
 {
@@ -25,51 +23,6 @@ namespace FirstLight.Game.Logic
 		/// Requests the information if the game was or not yet reviewed
 		/// </summary>
 		bool IsGameReviewed { get; }
-		
-		/// <summary>
-		/// Are Sound Effects enabled?
-		/// </summary>
-		bool IsSfxEnabled { get; set; }
-
-		/// <summary>
-		/// Is Background Music enabled?
-		/// </summary>
-		bool IsBgmEnabled { get; set; }
-
-		/// <summary>
-		/// Is dialogue enabled?
-		/// </summary>
-		bool IsDialogueEnabled { get; set; }
-
-		/// <summary>
-		/// Is Haptic feedback on device enabled?
-		/// </summary>
-		bool IsHapticOn { get; set; }
-
-		/// <summary>
-		/// Is Haptic feedback on device enabled?
-		/// </summary>
-		bool UseOverheadUI { get; set; }
-		
-		/// <summary>
-		/// Switches the aim and movement joystick.
-		/// </summary>
-		bool SwitchJoysticks { get; set; }
-
-		/// <summary>
-		/// What kind of special cancelling system is used
-		/// </summary>
-		bool InvertSpecialCancellling { get; set; }
-
-		/// <summary>
-		/// Requests the enable property for screenshake
-		/// </summary>
-		bool UseScreenShake { get; set; }
-
-		/// <summary>
-		/// Requests the current FPS target
-		/// </summary>
-		FpsTarget FpsTarget { get; set; }
 
 		/// <summary>
 		/// Requests the player's title display name (excluding appended numbers)
@@ -140,21 +93,6 @@ namespace FirstLight.Game.Logic
 		/// This ensures his app data is enriched with his player data
 		/// </summary>
 		bool IsPlayerLoggedIn { get; }
-
-		/// <summary>
-		/// Displays cone aim instead of line aim
-		/// </summary>
-		bool ConeAim { get; set; }
-
-		/// <summary>
-		/// Allows players to tap an angle fo the analog to shoot
-		/// </summary>
-		bool AngleTapShoot { get; }
-
-		/// <summary>
-		/// Prevents screen shaking when shooting
-		/// </summary>
-		bool StopShootingShake { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -166,7 +104,6 @@ namespace FirstLight.Game.Logic
 	public class AppLogic : AbstractBaseLogic<AppData>, IAppLogic
 	{
 		private readonly DateTime _defaultZeroTime = new (2020, 1, 1);
-		private readonly IAudioFxService<AudioId> _audioFxService;
 
 		public bool IsPlayerLoggedIn => !string.IsNullOrEmpty(Data.PlayerId);
 		public bool AngleTapShoot { get; set; }
@@ -190,82 +127,6 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public bool IsSfxEnabled
-		{
-			get => Data.SfxEnabled;
-			set
-			{
-				Data.SfxEnabled = value;
-				_audioFxService.IsSfxMuted = !value;
-			}
-		}
-
-		/// <inheritdoc />
-		public bool IsBgmEnabled
-		{
-			get => Data.BgmEnabled;
-			set
-			{
-				Data.BgmEnabled = value;
-				_audioFxService.IsBgmMuted = !value;
-			}
-		}
-
-		/// <inheritdoc />
-		public bool IsDialogueEnabled
-		{
-			get => Data.DialogueEnabled;
-			set
-			{
-				Data.DialogueEnabled = value;
-				_audioFxService.IsDialogueMuted = !value;
-			}
-		}
-
-		/// <inheritdoc />
-		public bool IsHapticOn
-		{
-			get => Data.HapticEnabled;
-			set { Data.HapticEnabled = value; }
-		}
-
-		public bool UseOverheadUI
-		{
-			get => Data.UseOverheadUI;
-			set => Data.UseOverheadUI = value;
-		}
-
-		public bool InvertSpecialCancellling
-		{
-			get => Data.InvertSpecialCancellling;
-			set { Data.InvertSpecialCancellling = value; }
-		}
-
-		/// <inheritdoc />
-		public bool SwitchJoysticks
-		{
-			get => Data.SwitchJoysticks;
-			set => Data.SwitchJoysticks = value;
-		}
-
-		/// <inheritdoc />
-		public bool UseScreenShake
-		{
-			get => Data.UseScreenShake;
-			set => Data.UseScreenShake = value;
-		}
-
-		/// <inheritdoc />
-		public FpsTarget FpsTarget
-		{
-			get => Data.FpsTarget;
-			set
-			{
-				Data.FpsTarget = value;
-			}
-		}
-
-		/// <inheritdoc />
 		public IObservableField<string> ConnectionRegion { get; private set; }
 
 		/// <inheritdoc />
@@ -281,21 +142,9 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public string PlayerId => Data.PlayerId;
 
-		public bool ConeAim
-		{
-			get => Data.ConeAim;
-			set => Data.ConeAim = value;
-		}
-
-		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
+		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider) :
 			base(gameLogic, dataProvider)
 		{
-			_audioFxService = audioFxService;
-			
-			IsSfxEnabled = Data.SfxEnabled;
-			IsBgmEnabled = Data.BgmEnabled;
-			IsDialogueEnabled = Data.DialogueEnabled;
-
 			DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			LastFrameSnapshot = new ObservableResolverField<FrameSnapshot>(() => Data.LastCapturedFrameSnapshot,
@@ -304,9 +153,6 @@ namespace FirstLight.Game.Logic
 
 		public void ReInit()
 		{
-			IsSfxEnabled = Data.SfxEnabled;
-			IsBgmEnabled = Data.BgmEnabled;
-			IsDialogueEnabled = Data.DialogueEnabled;
 
 			{
 				var listeners = DisplayName.GetObservers();

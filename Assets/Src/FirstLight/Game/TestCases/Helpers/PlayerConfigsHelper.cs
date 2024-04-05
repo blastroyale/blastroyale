@@ -8,10 +8,9 @@ namespace FirstLight.Game.TestCases.Helpers
 		{
 		}
 
-
-		public void SetFpsTarget(FpsTarget target)
+		public void SetEnableFPSLimit(bool enabled)
 		{
-			RunWhenAuthenticated(() => { DataProviders.AppDataProvider.FpsTarget = target; });
+			RunWhenAuthenticated(() => { Services.LocalPrefsService.IsFPSLimitEnabled.Value = enabled; });
 		}
 
 		public void SetTargetServer(string server)

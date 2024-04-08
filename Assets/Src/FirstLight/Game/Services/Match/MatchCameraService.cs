@@ -32,15 +32,17 @@ namespace FirstLight.Game.Services
 		
 		private IGameDataProvider _gameDataProvider;
 		private IMatchServices _matchServices;
+		private IGameServices _services;
 
 		private CinemachineImpulseSource _impulseSource;
 		private GameObject _cameraServiceObject;
 		private CinemachineVirtualCamera _adventureCamera;
 
-		public MatchCameraService(IGameDataProvider gameDataProvider, IMatchServices matchServices)
+		public MatchCameraService(IGameDataProvider gameDataProvider, IMatchServices matchServices, IGameServices services)
 		{
 			_gameDataProvider = gameDataProvider;
 			_matchServices = matchServices;
+			_services = services;
 			_cameraServiceObject = new GameObject("CameraService", typeof(CinemachineImpulseSource));
 			_impulseSource = _cameraServiceObject.GetComponent<CinemachineImpulseSource>();
 
@@ -59,7 +61,7 @@ namespace FirstLight.Game.Services
 
 		public void StartShotShake(Vector2 shotRotation = default, float strength = 0.04f)
 		{
-			if (!_gameDataProvider.AppDataProvider.UseScreenShake || _adventureCamera == null)
+			if (!_services.LocalPrefsService.IsScreenShakeEnabled.Value || _adventureCamera == null)
 				return;
 
 			var newImpulse = new CinemachineImpulseDefinition
@@ -80,7 +82,7 @@ namespace FirstLight.Game.Services
 
 		public void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes shape, float duration, float strength, Vector3 position = default)
 		{
-			if (!_gameDataProvider.AppDataProvider.UseScreenShake || _adventureCamera == null)
+			if (!_services.LocalPrefsService.IsScreenShakeEnabled.Value || _adventureCamera == null)
 				return;
 
 			var newImpulse = new CinemachineImpulseDefinition

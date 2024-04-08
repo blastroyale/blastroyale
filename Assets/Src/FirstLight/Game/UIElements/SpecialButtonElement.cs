@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
@@ -64,7 +65,7 @@ namespace FirstLight.Game.UIElements
 			// TODO This shouldn't be here - we should not resolve services in custom elements as they are instantiated at edit time
 			if (Application.isPlaying)
 			{
-				_invertedSpecialCancel = MainInstaller.Resolve<IGameDataProvider>().AppDataProvider.InvertSpecialCancellling;
+				_invertedSpecialCancel = MainInstaller.Resolve<IGameServices>().LocalPrefsService.InvertSpecialCanceling;
 			}
 
 			AddToClassList(USS_BLOCK);

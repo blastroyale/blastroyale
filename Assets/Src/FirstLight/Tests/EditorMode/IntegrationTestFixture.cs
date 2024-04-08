@@ -60,17 +60,15 @@ namespace FirstLight.Tests.EditorMode
 			var messageBroker = new InMemoryMessageBrokerService();
 			TimeService = new TimeService();
 			TestNetwork = new GameNetworkService(TestConfigs);
-			var audioFxService = new GameAudioFxService(TestAssetResolver);
 			
 			TestVfx = new VfxService<VfxId>();
 
 			TestData = SetupPlayer(TestConfigs);
-			TestLogic = new GameLogic(messageBroker, TimeService, TestData, TestConfigs,
-				audioFxService);
+			TestLogic = new GameLogic(messageBroker, TimeService, TestData, TestConfigs);
 
 			TestServices = new StubGameServices(TestNetwork, messageBroker, TimeService, TestData,
 			                                    TestConfigs, TestLogic, TestData,
-			                                    TestAssetResolver, TestTutorial, TestVfx, audioFxService);
+			                                    TestAssetResolver, TestTutorial, TestVfx);
 			TestNetwork.StartNetworking(TestLogic, TestServices);
 			TestLogic.Init();
 

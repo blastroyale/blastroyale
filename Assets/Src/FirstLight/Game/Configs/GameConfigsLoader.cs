@@ -78,7 +78,6 @@ namespace FirstLight.Game.Configs
 				new ConfigLoadDefinition<EquipmentMaterialStatConfigs>(_assetLoader, AddressableId.Configs_EquipmentMaterialStatConfigs, asset => configsAdder.AddConfigs(data => data.GetKey(), asset.Configs)),
 				new ConfigLoadDefinition<BaseEquipmentStatConfigs>(_assetLoader, AddressableId.Configs_BaseEquipmentStatConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				new ConfigLoadDefinition<StatConfigs>(_assetLoader, AddressableId.Configs_StatConfigs, asset => configsAdder.AddConfigs(data => (int) data.StatType, asset.Configs)),
-				new ConfigLoadDefinition<GraphicsConfig>(_assetLoader, AddressableId.Configs_GraphicsConfig, asset => configsAdder.AddSingletonConfig(asset)),
 				new ConfigLoadDefinition<BattlePassConfigs>(_assetLoader, AddressableId.Configs_BattlePassConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<EquipmentRewardConfigs>(_assetLoader, AddressableId.Configs_EquipmentRewardConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				new ConfigLoadDefinition<RarityDataConfigs>(_assetLoader, AddressableId.Configs_RarityDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.Rarity, asset.Configs)),

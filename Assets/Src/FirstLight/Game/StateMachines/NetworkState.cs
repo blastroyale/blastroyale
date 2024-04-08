@@ -267,7 +267,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (cause == DisconnectCause.InvalidRegion || cause == DisconnectCause.InvalidAuthentication)
 			{
-				if (!string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.ConnectionRegion.Value))
+				if (!string.IsNullOrEmpty(_services.LocalPrefsService.ServerRegion.Value))
 				{
 					FLog.Info("Invalid region, retrying");
 					_statechartTrigger(PhotonInvalidServer);

@@ -39,8 +39,6 @@ namespace FirstLight.Game
 
 		private void Start()
 		{
-			Screen.sleepTimeout = SleepTimeout.NeverSleep; // Should be somewhere else
-
 			StartTask().Forget();
 		}
 
@@ -69,6 +67,7 @@ namespace FirstLight.Game
 			await services.UIService.OpenScreen<LoadingScreenPresenter>();
 			OhYeah();
 
+			InitSettings();
 			InitAppEventsListener();
 
 			StartGameStateMachine();
@@ -137,13 +136,11 @@ namespace FirstLight.Game
 			var dataService = new DataService();
 			dataService.LoadData<AppData>();
 			var assetResolver = new AssetResolverService();
-			var audioFxService = new GameAudioFxService(assetResolver);
 			var configsProvider = new ConfigsProvider();
 			var networkService = new GameNetworkService(configsProvider);
 
-			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
-			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService, configsProvider, gameLogic, assetResolver,
-				audioFxService);
+			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider);
+			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService, configsProvider, gameLogic, assetResolver);
 
 			networkService.StartNetworking(gameLogic, gameServices);
 			networkService.EnableQuantumPingCheck(true);
@@ -194,13 +191,9 @@ namespace FirstLight.Game
 
 		private void OhYeah()
 		{
-			// Disgusting hack to play the sound only if it's enabled
-			var json = PlayerPrefs.GetString(nameof(AppData), "");
-			var isSoundEnabled = string.IsNullOrEmpty(json) || JsonConvert.DeserializeObject<AppData>(json).SfxEnabled;
-			_audioSource.Play();
-			if (isSoundEnabled)
+			if (MainInstaller.ResolveServices().LocalPrefsService.IsSFXEnabled)
 			{
-				//_audioSource.Play();
+				_audioSource.Play();
 			}
 		}
 
@@ -221,6 +214,17 @@ namespace FirstLight.Game
 			// Used for DPI-based scaling in shaders
 			Shader.SetGlobalVector(Shader.PropertyToID("_PhysicalScreenSize"),
 				new Vector4(Screen.width / Screen.dpi, Screen.height / Screen.dpi, Screen.dpi, 69));
+		}
+
+		private void InitSettings()
+		{
+			Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
+			// Probably not the best place for this
+			MainInstaller.ResolveServices().LocalPrefsService.IsFPSLimitEnabled.InvokeObserve((_, limitEnabled) =>
+			{
+				Application.targetFrameRate = limitEnabled ? 30 : 60;
+			});
 		}
 	}
 }

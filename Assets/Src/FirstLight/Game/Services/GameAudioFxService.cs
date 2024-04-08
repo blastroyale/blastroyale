@@ -34,7 +34,7 @@ namespace FirstLight.Game.Services
 		private readonly IAssetResolverService _assetResolver;
 		private readonly IGameServices _services;
 
-		public GameAudioFxService(IAssetResolverService assetResolver) : base(GameConstants.Audio.SPATIAL_3D_THRESHOLD, GameConstants.Audio.SOUND_QUEUE_BREAK_MS)
+		public GameAudioFxService(IAssetResolverService assetResolver, LocalPrefsService localPrefsService) : base(localPrefsService, GameConstants.Audio.SOUND_QUEUE_BREAK_MS)
 		{
 			_assetResolver = assetResolver;
 		}

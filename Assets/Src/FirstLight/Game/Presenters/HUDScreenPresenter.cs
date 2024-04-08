@@ -127,7 +127,7 @@ namespace FirstLight.Game.Presenters
 			Root.AttachExistingView(this, _knockOutNotificationView);
 
 			var localPlayerInfo = Root.Q("LocalPlayerInfo").Required();
-			if (_dataProvider.AppDataProvider.UseOverheadUI)
+			if (_gameServices.LocalPrefsService.UseOverheadUI)
 			{
 				localPlayerInfo.SetDisplay(false);
 			}
@@ -141,7 +141,7 @@ namespace FirstLight.Game.Presenters
 			_statusNotificationsView.Init(_blasted1Director, _blasted2Director, _blasted3Director, _blastedBeastDirector, _lowHPThreshold);
 			
 			// TODO: Move all the joystick stuff into a view
-			if (_dataProvider.AppDataProvider.SwitchJoysticks)
+			if (_gameServices.LocalPrefsService.SwapJoysticks)
 			{
 				_movementJoystick = Root.Q<JoystickElement>("RightJoystick").Required();
 				_shootingJoystick = Root.Q<JoystickElement>("LeftJoystick").Required();

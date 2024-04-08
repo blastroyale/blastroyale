@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponAnchor: {fileID: 2763411989640996696}
+  _weaponXLMeleeAnchor: {fileID: 4752843910991451691}
   _gliderAnchor: {fileID: 7504702570689925248}
   _leftFootAnchor: {fileID: 320515332478195355}
   _rightFootAnchor: {fileID: 4727353862134586530}
@@ -124,6 +125,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: 13d1b76a3cd20412baded888cc19b5be, type: 2}
     - target: {fileID: 5866666021909216657, guid: fcb98fe921e1b4a7884738e94dbb4c73, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tFrom animation clip 'idle'\n\tFrom animation clip 'idle_melee'\n\tFrom
+        animation clip 'idle_gun'\n\tFrom animation clip 'idle_xlgun'\n\tFrom animation
+        clip 'idle_snipergun'\n\tFrom animation clip 'idle_launcher'\n\tFrom animation
+        clip 'knocked_out'\n\tFrom animation clip 'knocked_out_idle'\n\tFrom animation
+        clip 'knocked_out_move'\n\tFrom animation clip 'knocked_out_revive'\n\tand
+        more ..."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: fcb98fe921e1b4a7884738e94dbb4c73, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
@@ -157,6 +169,11 @@ Animator:
 --- !u!4 &4727353862134586530 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4891986877565647543, guid: fcb98fe921e1b4a7884738e94dbb4c73, type: 3}
+  m_PrefabInstance: {fileID: 9045133024589093355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4752843910991451691 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4356030645492748224, guid: fcb98fe921e1b4a7884738e94dbb4c73, type: 3}
   m_PrefabInstance: {fileID: 9045133024589093355}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7504702570689925248 stripped

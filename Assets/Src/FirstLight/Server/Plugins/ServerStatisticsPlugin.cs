@@ -121,7 +121,6 @@ namespace Src.FirstLight.Server
 		private async Task OnEndGameCalculations(string userId, EndOfGameCalculationsCommand endGameCmd, ServerState state)
 		{
 			var toSend = new List<ValueTuple<string, int>>();
-			var trophies = (int) state.DeserializeModel<PlayerData>().Trophies;
 			var thisPlayerData = endGameCmd.PlayersMatchData[endGameCmd.QuantumValues.ExecutingPlayer];
 			var firstPlayer = endGameCmd.PlayersMatchData.FirstOrDefault(p => p.PlayerRank == 1);
 			var isWin = false;
@@ -161,8 +160,11 @@ namespace Src.FirstLight.Server
 			toSend.Add((GameConstants.Stats.GAMES_PLAYED, 1));
 			toSend.Add((GameConstants.Stats.KILLS, (int) thisPlayerData.Data.PlayersKilledCount));
 			toSend.Add((GameConstants.Stats.DEATHS, (int) thisPlayerData.Data.DeathCount));
+			
+			var trophies = (int) state.DeserializeModel<PlayerData>().Trophies;
 			trophies = (int) await CheckUpdateTrophiesState(userId, state);
 			toSend.Add((GameConstants.Stats.LEADERBOARD_LADDER_NAME, trophies));
+			
 			await _ctx.Statistics.UpdateStatistics(userId, toSend.ToArray());
 		}
 
@@ -219,7 +221,9 @@ namespace Src.FirstLight.Server
 				return 0;
 			}
 
-			return data.Trophies;
+
+			var unclaimedTrophies = data.UncollectedRewards.Where(g => g.HasMetadata<CurrencyMetadata>() && g.Id == GameId.Trophies).Sum(g => g.GetMetadata<CurrencyMetadata>().Amount);
+			return (uint) (data.Trophies + unclaimedTrophies);
 		}
 	}
 }

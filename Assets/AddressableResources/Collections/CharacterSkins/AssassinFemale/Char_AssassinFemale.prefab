@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponAnchor: {fileID: 4275788077377256848}
+  _weaponXLMeleeAnchor: {fileID: 0}
   _gliderAnchor: {fileID: 8442337473444416072}
   _leftFootAnchor: {fileID: 1836774809910725715}
   _rightFootAnchor: {fileID: 6671472896363906666}

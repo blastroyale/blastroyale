@@ -1,11 +1,14 @@
-﻿using FirstLight.Game.Utils;
-using Quantum;
+﻿using Quantum;
 using Sirenix.OdinInspector;
+using SRF;
+using UnityEditor;
+using UnityEditor.Animations;
 using UnityEngine;
+using LayerMask = UnityEngine.LayerMask;
 
 namespace FirstLight.Game.MonoComponent.Collections
 {
-	public class CharacterSkinMonoComponent : MonoBehaviour
+	public class CharacterSkinMonoComponent : MonoBehaviour, ISelfValidator
 	{
 		// ReSharper disable InconsistentNaming
 		private readonly int P_MOVING = Animator.StringToHash("moving");
@@ -26,26 +29,21 @@ namespace FirstLight.Game.MonoComponent.Collections
 		private readonly int P_WEAPON_TYPE_FLOAT = Animator.StringToHash("weapon_type_float");
 		// ReSharper restore InconsistentNaming
 
-		[SerializeField, Required] private Transform _weaponAnchor;
-		[SerializeField, Required] private Transform _gliderAnchor;
-		[SerializeField, Required] private Transform _leftFootAnchor;
-		[SerializeField, Required] private Transform _rightFootAnchor;
-		[SerializeField, Required] private Animator _animator;
-		[SerializeField, Required] private CharacterSkinEventsMonoComponent _events;
+		[SerializeField] private Transform _weaponAnchor;
+		[SerializeField] private Transform _weaponXLMeleeAnchor;
+		[SerializeField] private Transform _gliderAnchor;
+		[SerializeField] private Transform _leftFootAnchor;
+		[SerializeField] private Transform _rightFootAnchor;
+		[SerializeField] private Animator _animator;
+		[SerializeField] private CharacterSkinEventsMonoComponent _events;
 
 		public Transform WeaponAnchor => _weaponAnchor;
+		public Transform WeaponXLMeleeAnchor => _weaponXLMeleeAnchor;
 		public Transform GliderAnchor => _gliderAnchor;
 		public Transform LeftFootAnchor => _leftFootAnchor;
 		public Transform RightFootAnchor => _rightFootAnchor;
 
 		public CharacterSkinEventsMonoComponent Events => _events;
-
-		private void Start()
-		{
-			// TODO mihak: TEMPORARY!!!
-			_weaponAnchor.localScale = Vector3.one;
-			_gliderAnchor.localScale = Vector3.one;
-		}
 
 		public bool Moving
 		{
@@ -71,11 +69,6 @@ namespace FirstLight.Game.MonoComponent.Collections
 			}
 		}
 
-		public void RandomizeAnimationStateFrame(string animationStateName, int layer, float startNormalisedRange, float endNormalisedRange)
-		{
-			_animator.Play(Animator.StringToHash(animationStateName), layer, UnityEngine.Random.Range(startNormalisedRange, endNormalisedRange));
-		}
-
 		public void TriggerHit() => _animator.SetTrigger(P_HIT);
 		public void TriggerDie() => _animator.SetTrigger(P_DIE);
 		public void TriggerRestore() => _animator.SetTrigger(P_RESTORE);
@@ -86,5 +79,41 @@ namespace FirstLight.Game.MonoComponent.Collections
 		public void TriggerSkydive() => _animator.SetTrigger(P_SKYDIVE);
 		public void TriggerKnockOut() => _animator.SetTrigger(P_KNOCK_OUT);
 		public void TriggerFlair() => _animator.SetTrigger(P_FLAIR);
+
+		public void Validate(SelfValidationResult result)
+		{
+			// Anchors and components
+			if (_weaponAnchor == null)
+				result.AddError("Missing weapon anchor!").WithFix(() => _weaponAnchor = transform.Find($"{name}/weapon"));
+			if (_weaponXLMeleeAnchor == null)
+				result.AddError("Missing weapon XL anchor!").WithFix(() => _weaponXLMeleeAnchor = transform.Find($"{name}/weapon_xlmelee"));
+			if (_gliderAnchor == null)
+				result.AddError("Missing glider anchor!").WithFix(() => _gliderAnchor = transform.Find($"{name}/glider"));
+			if (_leftFootAnchor == null)
+				result.AddError("Missing left foot anchor!").WithFix(() => _leftFootAnchor = transform.Find($"{name}/Foot.L"));
+			if (_rightFootAnchor == null)
+				result.AddError("Missing right foot anchor!").WithFix(() => _rightFootAnchor = transform.Find($"{name}/Foot.R"));
+			if (_animator == null)
+			{
+				result.AddError("Missing animator!").WithFix(() => _animator = gameObject.GetComponentInChildren<Animator>());
+			}
+			else 
+			{
+				if (_animator.applyRootMotion)
+					result.AddError("Animator should not apply root motion!").WithFix(() => _animator.applyRootMotion = false);
+				if(_animator.runtimeAnimatorController == null)
+					result.AddError("Missing animator controller!").WithFix(() => _animator.runtimeAnimatorController = AssetDatabase.LoadAssetAtPath<AnimatorController>("Assets/AddressableResources/Collections/CharacterSkins/Shared/character_animator.controller"));
+					
+			}
+
+			if (_events == null)
+				result.AddError("Missing events component!")
+					.WithFix(() => _events = gameObject.GetComponentInChildren<CharacterSkinEventsMonoComponent>());
+
+			// Layer TODO: Does not check if all children are on the right layer
+			var playersLayer = LayerMask.NameToLayer("Players");
+			if (gameObject.layer != playersLayer)
+				result.AddError("Character skin should be on the Players layer!").WithFix(() => gameObject.SetLayerRecursive(playersLayer));
+		}
 	}
 }

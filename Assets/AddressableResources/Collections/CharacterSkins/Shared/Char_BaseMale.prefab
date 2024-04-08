@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponAnchor: {fileID: 734657339989735646}
+  _weaponXLMeleeAnchor: {fileID: 9137062494226619450}
   _gliderAnchor: {fileID: 4921754192735686406}
   _leftFootAnchor: {fileID: 2889385279004477725}
   _rightFootAnchor: {fileID: 7922242068258849572}
@@ -117,7 +118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
       propertyPath: m_Name
-      value: character_animations
+      value: Char_BaseMale
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
       propertyPath: m_Layer
@@ -196,5 +197,10 @@ MonoBehaviour:
 --- !u!4 &7922242068258849572 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4891986877565647543, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
+  m_PrefabInstance: {fileID: 5903479094588884589}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9137062494226619450 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -5827654512964904361, guid: c4e986a8fb14e4e319d27b0b26e22b7c, type: 3}
   m_PrefabInstance: {fileID: 5903479094588884589}
   m_PrefabAsset: {fileID: 0}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5d17a21594effb4e9591490b009e7aa, type: 3}
-  m_Name: Collection_CharacterSkins_Default_BundledAssetGroupSchema
+  m_Name: Collections_Characters_BundledAssetGroupSchema
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: 8a2dacb6b0766074c9b8dff0ac1853d9, type: 2}
   m_InternalBundleIdMode: 1

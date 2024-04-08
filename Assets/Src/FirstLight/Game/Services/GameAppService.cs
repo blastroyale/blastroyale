@@ -2,11 +2,9 @@ using System;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Presenters;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.TestCases;
 using FirstLight.Game.Utils;
-using UnityEditor;
 using UnityEngine;
 using Application = UnityEngine.Device.Application;
 
@@ -69,7 +67,7 @@ namespace FirstLight.Game.Services
 			if (!_services.AuthenticationService.State.LoggedIn || _services.NetworkService.QuantumClient == null) return;
 			if (!Application.isPlaying) return;
 #if UNITY_EDITOR
-			if (EditorApplication.isPaused) return;
+			if (UnityEditor.EditorApplication.isPaused) return;
 #endif
 			if (!_paused) return;
 			if (DateTime.UtcNow - _pauseTime > _maxPauseTime)

@@ -1,14 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Configs.Collection;
-using FirstLight.Game.Ids;
-using Quantum;
-using Sirenix.OdinInspector;
-using UnityEditor;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace FirstLight.Game.MonoComponent.Collections
 {

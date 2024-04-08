@@ -1,8 +1,5 @@
-using NUnit.Framework.Internal;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]

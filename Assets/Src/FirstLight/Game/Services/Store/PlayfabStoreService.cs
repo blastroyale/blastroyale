@@ -198,7 +198,7 @@ namespace FirstLight.Game.Services
 				PurchasePrice = (int) price,
 				ReceiptData = payload
 			};
-			PlayFabClientAPI.ValidateIOSReceipt(request, _ => onValidated(cacheProduct), OnError);
+			PlayFabClientAPI.ValidateIOSReceipt(request, _ => onValidated(cacheProduct), HandlePlayfabRequestError);
 #else
 			var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(payload);
 			var request = new ValidateGooglePlayPurchaseRequest

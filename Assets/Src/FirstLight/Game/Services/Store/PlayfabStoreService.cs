@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLightServerSDK.Services;
 using Newtonsoft.Json;
@@ -70,7 +72,6 @@ namespace FirstLight.Game.Services
 		public const string STORE_NAME = "MainShop";
 		
 		private IGameBackendService _backend;
-		private IGameCommandService _commands;
 
 		/// <summary>
 		/// Catalogs hold information of each item (like item data to make an ItemData instance)
@@ -87,32 +88,60 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		private Dictionary<string, PlayfabProductConfig> _products = new ();
 
-		public PlayfabStoreService(IGameBackendService backend, IGameCommandService commands)
+		/// <summary>
+		/// Represents a cooldown mechanism for managing the rate of store reloading
+		/// </summary>
+		private readonly Cooldown _storeLoadCooldown;
+		
+		public PlayfabStoreService(IGameBackendService backend)
 		{
 			_backend = backend;
-			_commands = commands;
+			_storeLoadCooldown = new Cooldown(TimeSpan.FromMinutes(30));
 		}
 		
 		public void Init()
 		{
-			PlayFabClientAPI.GetCatalogItems(new () {CatalogVersion = CATALOG_NAME }, OnCatalogResult, OnError);
-			PlayFabClientAPI.GetStoreItems(new () {CatalogVersion = CATALOG_NAME, StoreId = STORE_NAME}, OnShopResult, OnError);
+			TryLoadStore();
+		}
+
+		public void TryLoadStore()
+		{
+			if (!_storeLoadCooldown.IsCooldown())
+			{
+				LoadPlayfabCatalogsAndStoreItems().Forget();
+			}
+		}
+
+		private async UniTaskVoid LoadPlayfabCatalogsAndStoreItems()
+		{
+			var catalogItemsTask = AsyncPlayfabAPI.GetCatalogItems(new GetCatalogItemsRequest {CatalogVersion = CATALOG_NAME});
+			var storeItemsTask = AsyncPlayfabAPI.GetStoreItems(new GetStoreItemsRequest { CatalogVersion = CATALOG_NAME, StoreId = STORE_NAME });
+			
+			var (catalogItemResult, storeItemsResult) = await UniTask.WhenAll(catalogItemsTask, storeItemsTask).Timeout(TimeSpan.FromSeconds(10));
+			
+			OnCatalogStoreItemsLoadResult(catalogItemResult, storeItemsResult);
+			
+			_storeLoadCooldown.Trigger();
+		}
+
+		private void OnCatalogStoreItemsLoadResult(GetCatalogItemsResult getCatalogItemsResult, GetStoreItemsResult getStoreItemsResult)
+		{
+			if (getCatalogItemsResult.Catalog.Count == 0 || getStoreItemsResult.Store.Count == 0)
+			{
+				return;
+			}
+			
+			_catalogItems = getCatalogItemsResult.Catalog.ToDictionary(i => i.ItemId, i => i);
+			_storeItems = getStoreItemsResult.Store.ToDictionary(i => i.ItemId, i => i);
+			
+			OnLoaded();
 		}
 		
-		private void OnShopResult(GetStoreItemsResult res)
-		{
-			_storeItems = res.Store.ToDictionary(i => i.ItemId, i => i);
-			if (_catalogItems.Count > 0) OnLoaded();
-		}
-		
-		private void OnCatalogResult(GetCatalogItemsResult result)
-		{
-			_catalogItems = result.Catalog.ToDictionary(i => i.ItemId, i => i);
-			if(_storeItems.Count > 0) OnLoaded();
-		}
 
 		private void OnLoaded()
 		{
+			_products.Clear();
+			
 			foreach (var (itemId, storeItem) in _storeItems)
 			{
 				_products[itemId] = new PlayfabProductConfig()
@@ -125,10 +154,11 @@ namespace FirstLight.Game.Services
 			OnStoreLoaded?.Invoke(_products.Values.ToList());
 		}
 
-		private void OnError(PlayFabError error)
+		private void HandlePlayfabRequestError(PlayFabError error)
 		{
 			_backend.HandleError(error, null, AnalyticsCallsErrors.ErrorType.Recoverable);
 		}
+
 
 		public void AskBackendForItem(Product product, Action<Product, ItemData> onRewarded)
 		{
@@ -150,7 +180,7 @@ namespace FirstLight.Game.Services
 					JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
 				var item = ModelSerializer.DeserializeFromData<ItemData>(logicResult!.Result.Data);
 				onRewarded.Invoke(product, item);
-			}, OnError, request);
+			}, HandlePlayfabRequestError, request);
 		}
 		
 		public void ValidateReceipt(Product product, Action<Product> onValidated)
@@ -178,7 +208,7 @@ namespace FirstLight.Game.Services
 				ReceiptJson = (string) data["json"],
 				Signature = (string) data["signature"]
 			};
-			PlayFabClientAPI.ValidateGooglePlayPurchase(request, r => onValidated(cacheProduct), OnError);
+			PlayFabClientAPI.ValidateGooglePlayPurchase(request, r => onValidated(cacheProduct), HandlePlayfabRequestError);
 #endif
 		}
 

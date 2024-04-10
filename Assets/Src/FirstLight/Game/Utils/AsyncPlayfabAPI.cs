@@ -46,7 +46,27 @@ namespace FirstLight.Game.Utils
 
 		private static Func<LoginWithEmailAddressRequest, UniTask<LoginResult>> LoginWithEmailFunc { get; }
 		= Wrap<LoginWithEmailAddressRequest, LoginResult>(PlayFabClientAPI.LoginWithEmailAddress);
+		
+		private static Func<GetCatalogItemsRequest, UniTask<GetCatalogItemsResult>> GetCatalogItemsFunc { get; }
+			= Wrap<GetCatalogItemsRequest, GetCatalogItemsResult>(PlayFabClientAPI.GetCatalogItems);
 
+		private static Func<GetStoreItemsRequest, UniTask<GetStoreItemsResult>> GetStoreItemsFunc { get; }
+			= Wrap<GetStoreItemsRequest, GetStoreItemsResult>(PlayFabClientAPI.GetStoreItems);
+		
+		
+		/// <inheritdoc cref="PlayFabClientAPI.GetCatalogItems"/>
+		public static UniTask<GetCatalogItemsResult> GetCatalogItems(GetCatalogItemsRequest req)
+		{
+			return GetCatalogItemsFunc(req);
+		}
+
+		/// <inheritdoc cref="PlayFabClientAPI.GetStoreItems"/>
+		public static UniTask<GetStoreItemsResult> GetStoreItems(GetStoreItemsRequest req)
+		{
+			return GetStoreItemsFunc(req);
+		}
+
+		
 		/// <inheritdoc cref="PlayFabMultiplayerAPI.UpdateLobby"/>
 		public static UniTask<LobbyEmptyResult> UpdateLobby(UpdateLobbyRequest req)
 		{

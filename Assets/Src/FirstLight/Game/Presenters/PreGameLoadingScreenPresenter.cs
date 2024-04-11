@@ -117,7 +117,6 @@ namespace FirstLight.Game.Presenters
 			_services.RoomService.OnPlayersChange += OnPlayersChanged;
 			_services.RoomService.OnMasterChanged += UpdateMasterClient;
 			_services.RoomService.OnPlayerPropertiesUpdated += OnPlayerPropertiesUpdate;
-			_services.MessageBrokerService.Subscribe<WaitingMandatoryMatchAssetsMessage>(OnWaitingMandatoryMatchAssets);
 
 			RefreshPartyList();
 			UpdateMasterClient();
@@ -136,7 +135,6 @@ namespace FirstLight.Game.Presenters
 			_services.RoomService.OnMasterChanged -= UpdateMasterClient;
 			_services.RoomService.OnPlayerPropertiesUpdated -= OnPlayerPropertiesUpdate;
 
-			_services.MessageBrokerService.Unsubscribe<WaitingMandatoryMatchAssetsMessage>(OnWaitingMandatoryMatchAssets);
 
 			return base.OnScreenClose();
 		}
@@ -286,7 +284,7 @@ namespace FirstLight.Game.Presenters
 
 			if (RejoiningRoom)
 			{
-				OnWaitingMandatoryMatchAssets(new WaitingMandatoryMatchAssetsMessage());
+				OnWaitingMandatoryMatchAssets();
 			}
 
 			await LoadMapAsset(mapConfig);
@@ -398,7 +396,7 @@ namespace FirstLight.Game.Presenters
 			RefreshPartyList();
 		}
 
-		private void OnWaitingMandatoryMatchAssets(WaitingMandatoryMatchAssetsMessage obj)
+		private void OnWaitingMandatoryMatchAssets()
 		{
 			if (_gameStartTimerCoroutine != null)
 			{

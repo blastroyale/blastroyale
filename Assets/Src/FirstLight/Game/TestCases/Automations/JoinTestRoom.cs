@@ -16,7 +16,7 @@ namespace FirstLight.Game.TestCases
 	{
 		public override bool IsAutomation => true;
 
-		public override void OnGameAwaken()
+		public override void AfterGameAwaken()
 		{
 			FeatureFlags.SetTutorial(false);
 		}

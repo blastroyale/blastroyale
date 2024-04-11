@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Presenters;
-using FirstLight.Game.UIElements;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -19,7 +17,15 @@ namespace FirstLight.Game.TestCases.Helpers
 		public IEnumerator WaitForPresenter2<T>(float waitAfterCreation = 0.5f, float timeout = 30) where T : UIPresenter
 		{
 			Log("Waiting for screen " + typeof(T).Name + " to open!");
-			yield return TestTools.UntilObjectOfType<T>(timeout);
+			yield return TestTools.Until(() =>
+			{
+				if (MainInstaller.TryResolve<IGameServices>(out var gameServices))
+				{
+					return gameServices.UIService.IsScreenOpen<T>();
+				}
+
+				return false;
+			}, timeout);
 			// Wait a little bit more to make sure the screen had time to open
 			Log("Detected " + typeof(T).Name + " screen! Continuing!");
 
@@ -49,7 +55,7 @@ namespace FirstLight.Game.TestCases.Helpers
 		/// <returns></returns>
 		public IEnumerator WaitForAny(Type[] types, float timeout = 30)
 		{
-			yield return TestTools.Until(() => GetFirstOpenScreen(types) != null, timeout, "Cannot find screen presenters " + types.ToString());
+			yield return TestTools.Until(() => GetFirstOpenScreen(types) != null, timeout, "Cannot find screen presenters " + string.Join(",", types.Select(t => t.Name)));
 			// Wait a little bit more to make sure the screen had time to open
 			Log("Detected one of the " + types + " screen! Continuing!");
 		}
@@ -85,10 +91,11 @@ namespace FirstLight.Game.TestCases.Helpers
 			var dialogRoot = presenter.GetComponent<UIDocument>().rootVisualElement;
 			var input = dialogRoot.Q<TextField>();
 			input.Focus();
-
 			yield return new WaitForSeconds(1);
 			input.value = inputText;
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(0.5f);
+			input.Blur();
+			yield return new WaitForSeconds(0.5f);
 			yield return TouchOnElementByName("ConfirmButton");
 			yield return new WaitForSeconds(1);
 		}

@@ -42,7 +42,9 @@ namespace FirstLight.UIService
 		/// </summary>
 		// TODO: Shouldn't be here
 		public const string USS_PLAYER_LABEL = "player-name";
-
+		
+		public event Action<Type> OnScreenOpened;
+		
 		private readonly GameObject _root;
 
 		private readonly Dictionary<Type, UIPresenter> _openedScreensType = new ();
@@ -91,7 +93,7 @@ namespace FirstLight.UIService
 			_openedScreensLayer.Add(layer, screen);
 
 			await screen.OnScreenOpenedInternal();
-
+			OnScreenOpened?.Invoke(typeof(T));
 			return (T) screen;
 		}
 

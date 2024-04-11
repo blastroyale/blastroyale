@@ -79,6 +79,7 @@ namespace FirstLight.Editor.Build
 			}
 		}
 
+
 		private static void SetupAddressables(string environment)
 		{
 			var addressableSettings = AddressableAssetSettingsDefaultObject.Settings;

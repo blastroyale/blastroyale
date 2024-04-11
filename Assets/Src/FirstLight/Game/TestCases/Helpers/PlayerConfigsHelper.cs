@@ -8,7 +8,10 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public void SetEnableFPSLimit(bool enabled)
 		{
-			RunWhenAuthenticated(() => { Services.LocalPrefsService.IsFPSLimitEnabled.Value = enabled; });
+			RunWhenAuthenticated(() =>
+			{
+				Services.LocalPrefsService.IsFPSLimitEnabled.Value = enabled;
+			});
 		}
 
 		public void SetServerRegion(string server)

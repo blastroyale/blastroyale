@@ -167,8 +167,6 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_services.UIService.OpenScreen<SpectateScreenPresenter>(data).Forget();
-
-			_services.MessageBrokerService.Publish(new SpectateStartedMessage());
 		}
 	}
 }

@@ -38,17 +38,16 @@ namespace FirstLight.Game.TestCases
 			}
 		}
 
-		private readonly List<string> _errors = new();
+		private readonly List<string> _errors = new ();
 		private bool _isGameAwaken = false;
 		private bool _failCalled = false;
 		private PlayTestCase? _runningTest;
-		private BenchmarkCollector _benchmarkCollector = null!;
 		private TestRunnerBehaviour _testRunnerBehaviour = null!;
-		private TestInstaller? _helpers = null;
 		private GameObject _runnerGameObject = null!;
 		public bool UseBotBehaviour = false;
 		public Func<string, IEnumerator>? FailInstruction { private get; set; }
 		private readonly FirebaseLab.TestLabManager _testLabManager = FirebaseLab.TestLabManager.Instantiate();
+		private TestInstaller? _helpers;
 
 		/// <summary>
 		/// This is non blocking, AKA runs in background
@@ -64,11 +63,6 @@ namespace FirstLight.Game.TestCases
 		{
 			Setup(testCase);
 			yield return Run(testCase, true);
-		}
-
-		public BenchmarkCollector.TimeFrameCollected CollectPerformance()
-		{
-			return _benchmarkCollector.Collect();
 		}
 
 		private void PublishTestResult(bool success, string message)
@@ -96,6 +90,7 @@ namespace FirstLight.Game.TestCases
 			}
 
 			_failCalled = true;
+			_testLabManager.AppendResult(false, reason);
 			PublishTestResult(false, reason);
 
 			// Idk what happens with metrics if quit instant
@@ -109,19 +104,6 @@ namespace FirstLight.Game.TestCases
 			Debug.LogError("Test failed with reason: " + reason);
 		}
 
-		public void OnGameAwaken()
-		{
-			if (_helpers == null || _runningTest == null) return;
-			
-			_helpers.OnGameAwaken();
-			_runningTest.OnGameAwaken();
-			_isGameAwaken = true;
-			MainInstaller.ResolveServices().AnalyticsService.LogEvent("test_started",
-				new Dictionary<string, object>()
-				{
-					{"name", _runningTest.GetType().Name},
-				});
-		}
 
 		private void Setup(PlayTestCase testCase)
 		{
@@ -130,12 +112,14 @@ namespace FirstLight.Game.TestCases
 			_runningTest = testCase;
 			_runnerGameObject = new GameObject();
 			Object.DontDestroyOnLoad(_runnerGameObject);
-			_benchmarkCollector = _runnerGameObject.AddComponent<BenchmarkCollector>();
 			_testRunnerBehaviour = _runnerGameObject.AddComponent<TestRunnerBehaviour>();
+			var benchmarkCollector = new BenchmarkCollector(_testLabManager, testCase);
+			benchmarkCollector.Start();
 			_helpers = SetupHelpers();
 			_runningTest.SetInstaller(_helpers);
 			Application.logMessageReceived += OnLogReceived;
 		}
+
 
 		private IEnumerator Run(PlayTestCase testCase, bool onTests = true)
 		{
@@ -155,6 +139,7 @@ namespace FirstLight.Game.TestCases
 			}
 
 			PublishTestResult(true, _errors.Count > 0 ? "Test finished with exceptions!" : "Success test!");
+			_testLabManager.AppendResult(true, _errors.Count > 0 ? "Test finished with exceptions!" : "Success test!");
 
 
 			MainInstaller.ResolveServices().QuitGame("Success Test");
@@ -164,6 +149,7 @@ namespace FirstLight.Game.TestCases
 		{
 			if (type is LogType.Error or LogType.Exception)
 			{
+				_testLabManager.AppendException(logMessage);
 				_errors.Add(logMessage);
 			}
 		}
@@ -193,6 +179,7 @@ namespace FirstLight.Game.TestCases
 			testInstaller.Bind(new GameUIHelper(this, uiHelper));
 			testInstaller.Bind(new HomeUIHelper(this, uiHelper));
 			testInstaller.Bind(new GamemodeUIHelper(this, uiHelper));
+			testInstaller.Bind(new GameConfigHelper(this));
 			return testInstaller;
 		}
 
@@ -205,10 +192,15 @@ namespace FirstLight.Game.TestCases
 				PlayTestCase testCase = _testLabManager.ScenarioNumber switch
 				{
 					1 => new TenMatchesInARow(),
+					2 => new TwoMatchesInARow(),
 					_ => new TutorialTestCase()
 				};
 				RunInsideCoroutine(testCase);
 			}
+
+			if (_runningTest == null) return;
+
+			_runningTest.BeforeGameAwaken();
 		}
 
 		public bool IsRunning()
@@ -229,6 +221,26 @@ namespace FirstLight.Game.TestCases
 				RunInsideCoroutine(new JoinTestRoom());
 			}
 #endif
+		}
+
+		public void BeforeGameAwaken()
+		{
+			if (_runningTest == null) return;
+
+			_runningTest.BeforeGameAwaken();
+		}
+
+		public void AfterGameAwaken()
+		{
+			if (_runningTest == null) return;
+			_helpers?.OnGameAwaken();
+			_runningTest.AfterGameAwaken();
+			_isGameAwaken = true;
+			MainInstaller.ResolveServices().AnalyticsService.LogEvent("test_started",
+				new Dictionary<string, object>()
+				{
+					{"name", _runningTest.GetType().Name},
+				});
 		}
 	}
 }

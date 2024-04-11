@@ -70,17 +70,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		public void Heartbeat()
 		{
 			Dictionary<string, object> parameters = null;
-			if (FLGTestRunner.Instance.IsRunning())
-			{
-				var collect = FLGTestRunner.Instance.CollectPerformance();
-				parameters = new()
-				{
-					{ "fps_min", collect.MinFps() },
-					{ "fps_avg", collect.AvgFps() },
-					{ "mem_total", collect.TotalMemory() },
-					{ "mem_used", collect.MaxMemoryInMB() },
-				};
-			}
 
 			_analyticsService.LogEvent(AnalyticsEvents.SessionHeartbeat, parameters, false, true);
 		}

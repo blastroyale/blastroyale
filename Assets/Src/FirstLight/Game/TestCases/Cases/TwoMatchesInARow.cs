@@ -1,42 +1,37 @@
 using System.Collections;
-using System.Linq;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Presenters;
-using FirstLight.Game.TestCases.Helpers;
 using I2.Loc;
-using Photon.Deterministic;
-using Quantum;
-using UnityEngine;
-using Application = UnityEngine.Device.Application;
 
 namespace FirstLight.Game.TestCases
 
 {
-	public class TenMatchesInARow : PlayTestCase
+	public class TwoMatchesInARow : PlayTestCase
 	{
 		public override void BeforeGameAwaken()
 		{
+			Account.FreshGameInstallation();
+		}
+
+		public override void AfterGameAwaken()
+		{
 			FeatureFlags.SetTutorial(false);
+			PlayerConfigs.SetEnableFPSLimit(false);
 			Account.FreshGameInstallation();
 		}
 
 		public override IEnumerator Run()
 		{
-			
-			yield return UIHome.WaitHomePresenter(60);
 			yield return UIGeneric.WaitForGenericInputDialogAndInput("Chupacabra", ScriptLocalization.UITHomeScreen.enter_your_name);
+			yield return UIHome.WaitHomePresenter(60);
 
-
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 2; i++)
 			{
-				yield return UIHome.WaitHomePresenter(10);
+				yield return GameConfigHelper.DecreaseMatchmakingTime();
 				yield return Quantum.UseBotBehaviourForNextMatch();
+				yield return Quantum.DecreaseCircleTimesForNextMatch();
 				yield return UIHome.ClickPlayButton();
 				yield return UIGame.WaitDropZoneSelectScreen();
-				yield return UIGame.SelectPosition(0.6f, 0.6f);
 				yield return Quantum.WaitForSimulationToStart();
 				yield return UIGame.WaitForGameToEndAndGoToMenu(6 * 60);
-
 			}
 		}
 	}

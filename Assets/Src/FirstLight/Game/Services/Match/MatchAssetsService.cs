@@ -80,6 +80,7 @@ namespace FirstLight.Game.Services
 			await LoadOptionalGroup<GameObject>(GameIdGroup.Weapon);
 			await LoadOptionalGroup<Sprite>(GameIdGroup.Weapon);
 			await LoadOptionalGroup<GameObject>(GameIdGroup.BotItem);
+			_services.MessageBrokerService.Publish(new BenchmarkLoadedOptionalMatchAssets());
 		}
 
 		public async UniTask LoadMandatoryAssets()
@@ -89,6 +90,10 @@ namespace FirstLight.Game.Services
 			FLog.Verbose("Starting mandatory asset load");
 			var time = Time.realtimeSinceStartup;
 			var map = _services.RoomService.CurrentRoom.Properties.MapId.Value;
+			_services.MessageBrokerService.Publish(new BenchmarkStartedLoadingMatchAssets
+			{
+				Map = map.ToString()
+			});
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
 			_services.RoomService.CurrentRoom.SetRuntimeConfig();
 			await LoadQuantumAssets(map);
@@ -104,6 +109,7 @@ namespace FirstLight.Game.Services
 			};
 			_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadMatchAssetsComplete, dic);
 			FLog.Verbose("Completed loading all core assets");
+			_services.MessageBrokerService.Publish(new BenchmarkLoadedMandatoryMatchAssets());
 
 			if (_services.RoomService.InRoom)
 			{

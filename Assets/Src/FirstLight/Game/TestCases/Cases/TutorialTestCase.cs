@@ -14,7 +14,7 @@ namespace FirstLight.Game.TestCases
 		private static readonly WaitForSeconds _tutorialTransitionWait = new(4f);
 		private static readonly WaitForSeconds _oneSec = new(1f);
 
-		public override void OnGameAwaken()
+		public override void BeforeGameAwaken()
 		{
 			FeatureFlags.SetTutorial(true);
 			PlayerConfigs.SetServerRegion("us");

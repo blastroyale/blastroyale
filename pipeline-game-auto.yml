@@ -127,7 +127,7 @@ stages:
             echo "Configuration: $(configuration)"
             echo "Android File Type: $(androidFileType)"
             echo "Use Accelerator: $(useAccelerator)"
-            echo "Run TestLabs: $(runTestLabs)"
+            echo "Run TestLabs: $(runTestLab)"
             echo "Run Tests: $(runUnitTests)"
           displayName: "Print variables"
         # This step adds a tag to the build, the Game Logic CD uses it to decide if should run or not
@@ -153,7 +153,8 @@ stages:
             {
             "environment": "$(environment)",
             "dev_build": "$(dev_build)",
-            "deploy_game_logic": "$(deploy_game_logic)"
+            "deploy_game_logic": "$(deploy_game_logic)",
+            "run_test_lab": "$(runTestLab)"
             }
             "@
             $json | Out-File $(Build.ArtifactStagingDirectory)\parameters.json
@@ -233,7 +234,6 @@ stages:
               branchName: $(branchName)
               slackToken: $(slackToken)
               kuttKey: $(kuttKey)
-              runTestLab: ${{ variables.runTestLab }}
               publishDlls: true
               environment: ${{ variables.environment }}
               dev_build: ${{ variables.dev_build }}
@@ -276,7 +276,6 @@ stages:
             kuttKey: $(kuttKey)
             developmentiOSCertPwd: $(developmentiOSCertPwd)
             distributioniOSCertPwd: $(distributioniOSCertPwd)
-            runTestLab: ${{ variables.runTestLab }}
             publishDlls: false
             environment: ${{ variables.environment }}
             dev_build: ${{ variables.dev_build }}

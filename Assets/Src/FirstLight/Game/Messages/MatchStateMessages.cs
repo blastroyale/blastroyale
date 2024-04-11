@@ -10,19 +10,23 @@ namespace FirstLight.Game.Messages
 {
 	public enum SimulationEndReason
 	{
-		Finished, Disconnected
+		Finished,
+		Disconnected
 	}
-	
+
 	/// <summary>
 	/// When simulation initializes. Not necessarily when its running but when initialized the runner.
 	/// </summary>
-	public struct MatchSimulationStartedMessage : IMessage { }
+	public struct MatchSimulationStartedMessage : IMessage
+	{
+	}
 
 	public struct SimulationEndedMessage : IMessage
 	{
 		public SimulationEndReason Reason;
 		public QuantumGame Game;
 	}
+
 	public struct MatchStartedMessage : IMessage
 	{
 		public QuantumGame Game;
@@ -41,7 +45,7 @@ namespace FirstLight.Game.Messages
 		public EntityView View;
 		public EntityBase Entity;
 	}
-	
+
 	public struct PlayerCharacterInstantiated : IMessage
 	{
 		public PlayerCharacterMonoComponent Character;
@@ -52,32 +56,47 @@ namespace FirstLight.Game.Messages
 		public EntityRef Entity;
 		public bool CanSee;
 	}
-	
-	public struct WaitingMandatoryMatchAssetsMessage : IMessage { }
-    
-	public struct SpectateStartedMessage : IMessage { }
-	public struct SpectateSetCameraMessage : IMessage { public int CameraId; }
+
+	public struct BenchmarkStartedLoadingMatchAssets : IMessage
+	{
+		public string Map;
+	}
+
+	public struct BenchmarkLoadedMandatoryMatchAssets : IMessage
+	{
+	}
+
+	public struct BenchmarkLoadedOptionalMatchAssets : IMessage
+	{
+	}
 
 	public struct WinnerSetCameraMessage : IMessage
 	{
 		public Transform WinnerTrasform;
 	}
-	
-	public struct LeftBeforeMatchFinishedMessage : IMessage { }
-	public struct MatchCountdownStartedMessage : IMessage { }
+
+	public struct LeftBeforeMatchFinishedMessage : IMessage
+	{
+	}
+
+	public struct MatchCountdownStartedMessage : IMessage
+	{
+	}
 
 	public struct PlayerEnteredMessageVolume : IMessage
 	{
 		public string VolumeId;
 	}
 
-	public struct PlayerUsedMovementJoystick : IMessage { }
-	
+	public struct PlayerUsedMovementJoystick : IMessage
+	{
+	}
+
 	public struct PlayerEnteredAmbienceMessage : IMessage
 	{
 		public AmbienceType Ambience;
 	}
-	
+
 	public struct PlayerLeftAmbienceMessage : IMessage
 	{
 		public AmbienceType Ambience;

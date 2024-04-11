@@ -44,11 +44,12 @@ namespace FirstLight.Game
 
 		private async UniTask StartTask()
 		{
-			FLGTestRunner.Instance.CheckFirebaseRun();
-			FLGTestRunner.Instance.CheckAutomations();
-
 			InitTaskLogging();
 			InitPlugins();
+
+			FLGTestRunner.Instance.CheckAutomations();
+			FLGTestRunner.Instance.CheckFirebaseRun();
+
 			InitGlobalShaderData();
 
 			await ATTrackingUtils.RequestATTPermission();
@@ -72,7 +73,7 @@ namespace FirstLight.Game
 
 			StartGameStateMachine();
 
-			FLGTestRunner.Instance.OnGameAwaken();
+			FLGTestRunner.Instance.AfterGameAwaken();
 
 			Destroy(gameObject);
 		}

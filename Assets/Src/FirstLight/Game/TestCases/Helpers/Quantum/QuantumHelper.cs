@@ -24,7 +24,7 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public QuantumHelper(FLGTestRunner testRunner, MessageBrokerHelper messageBrokerHelper) : base(testRunner)
 		{
-			this._messageBrokerHelper = messageBrokerHelper;
+			_messageBrokerHelper = messageBrokerHelper;
 			RunWhenGameAwake(SubscribeToQuantumEvents);
 		}
 
@@ -33,6 +33,7 @@ namespace FirstLight.Game.TestCases.Helpers
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, callback =>
 			{
 				FLGTestRunner.Instance.UseBotBehaviour = false;
+				QuantumCallback.UnsubscribeListener<CallbackUpdateView>(this);
 				_gameEnded = true;
 				_inputManipulator?.Stop();
 			});
@@ -69,10 +70,32 @@ namespace FirstLight.Game.TestCases.Helpers
 				MatchServices.PlayerInputService.OverwriteCallbackInput = _inputManipulator.ChangeInput;
 			});
 		}
+
 		public IEnumerator UseBotBehaviourForNextMatch()
 		{
 			FLGTestRunner.Instance.UseBotBehaviour = true;
 			yield break;
+		}
+
+		public IEnumerator DecreaseCircleTimesForNextMatch()
+		{
+			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, UpdateViewEvent);
+			yield break;
+		}
+
+		public void UpdateViewEvent(CallbackUpdateView ev)
+		{
+			var f = ev.Game.Frames.Predicted;
+			var mapRadius = f.Map.WorldSize / FP._2;
+			var previousRadius = mapRadius;
+			foreach (var quantumShrinkingCircleConfig in f.Context.MapShrinkingCircleConfigs.Values)
+			{
+				quantumShrinkingCircleConfig.ShrinkingTime = (previousRadius - (previousRadius * quantumShrinkingCircleConfig.ShrinkingSizeK)) / FP._3;
+				quantumShrinkingCircleConfig.DelayTime = FP._1;
+				quantumShrinkingCircleConfig.WarningTime = FP._5;
+				previousRadius *= quantumShrinkingCircleConfig.ShrinkingSizeK;
+
+			}
 		}
 
 

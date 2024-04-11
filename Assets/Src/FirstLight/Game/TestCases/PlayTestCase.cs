@@ -30,8 +30,9 @@ namespace FirstLight.Game.TestCases
 		protected HomeUIHelper UIHome => _installer.Resolve<HomeUIHelper>();
 		protected GamemodeUIHelper UIGamemode => _installer.Resolve<GamemodeUIHelper>();
 		protected PlayerConfigsHelper PlayerConfigs => _installer.Resolve<PlayerConfigsHelper>();
-
-
+		protected GameConfigHelper GameConfigHelper => _installer.Resolve<GameConfigHelper>();
+		
+		
 		// Game stuff
 		protected MessageBrokerHelper MessageBroker => _installer.Resolve<MessageBrokerHelper>();
 		protected IGameServices Services => MainInstaller.ResolveServices();
@@ -40,7 +41,11 @@ namespace FirstLight.Game.TestCases
 
 		public abstract IEnumerator Run();
 
-		public virtual void OnGameAwaken()
+		public virtual void AfterGameAwaken()
+		{
+		}
+
+		public virtual void BeforeGameAwaken()
 		{
 		}
 	}

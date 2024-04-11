@@ -68,7 +68,7 @@ namespace FirstLight.Game.TestCases.Helpers
 			yield return _uiHelper.WaitForAny(possibleScreens);
 			screen = _uiHelper.GetFirstOpenScreen(possibleScreens);
 			yield return oneSec;
-			if (screen is WinnerScreenPresenter)
+			if (screen is WinnersScreenPresenter)
 			{
 				yield return _uiHelper.ClickNextButton();
 

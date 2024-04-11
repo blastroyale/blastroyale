@@ -31,9 +31,9 @@ namespace FirstLight.Tests.PlayTests
 
 
 		[UnityTest]
-		[TestCase(typeof(TutorialTestCase), ExpectedResult = null)]
+		//[TestCase(typeof(TutorialTestCase), ExpectedResult = null)]
 		//[TestCase(typeof(TenMatchesInARow), ExpectedResult = null)]
-		//[TestCase(typeof(SingleMatchWithoutTutorial), ExpectedResult = null)]
+		[TestCase(typeof(TwoMatchesInARow), ExpectedResult = null)]
 		[Timeout(1000 * 60 * 10)]
 		public IEnumerator RunCase(Type testCase)
 		{

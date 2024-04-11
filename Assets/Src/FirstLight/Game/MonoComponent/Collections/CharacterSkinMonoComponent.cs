@@ -1,8 +1,6 @@
 ﻿using Quantum;
 using Sirenix.OdinInspector;
 using SRF;
-using UnityEditor;
-using UnityEditor.Animations;
 using UnityEngine;
 using LayerMask = UnityEngine.LayerMask;
 
@@ -82,6 +80,7 @@ namespace FirstLight.Game.MonoComponent.Collections
 
 		public void Validate(SelfValidationResult result)
 		{
+#if UNITY_EDITOR
 			// Anchors and components
 			if (_weaponAnchor == null)
 				result.AddError("Missing weapon anchor!").WithFix(() => _weaponAnchor = transform.Find($"{name}/weapon"));
@@ -97,13 +96,15 @@ namespace FirstLight.Game.MonoComponent.Collections
 			{
 				result.AddError("Missing animator!").WithFix(() => _animator = gameObject.GetComponentInChildren<Animator>());
 			}
-			else 
+			else
 			{
 				if (_animator.applyRootMotion)
 					result.AddError("Animator should not apply root motion!").WithFix(() => _animator.applyRootMotion = false);
-				if(_animator.runtimeAnimatorController == null)
-					result.AddError("Missing animator controller!").WithFix(() => _animator.runtimeAnimatorController = AssetDatabase.LoadAssetAtPath<AnimatorController>("Assets/AddressableResources/Collections/CharacterSkins/Shared/character_animator.controller"));
-					
+				if (_animator.runtimeAnimatorController == null)
+					result.AddError("Missing animator controller!").WithFix(() =>
+						_animator.runtimeAnimatorController =
+							UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEditor.Animations.AnimatorController>(
+								"Assets/AddressableResources/Collections/CharacterSkins/Shared/character_animator.controller"));
 			}
 
 			if (_events == null)
@@ -114,6 +115,7 @@ namespace FirstLight.Game.MonoComponent.Collections
 			var playersLayer = LayerMask.NameToLayer("Players");
 			if (gameObject.layer != playersLayer)
 				result.AddError("Character skin should be on the Players layer!").WithFix(() => gameObject.SetLayerRecursive(playersLayer));
+#endif
 		}
 	}
 }

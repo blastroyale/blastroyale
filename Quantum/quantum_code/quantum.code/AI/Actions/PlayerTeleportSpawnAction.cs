@@ -13,11 +13,6 @@ namespace Quantum
 		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			var transform = f.Unsafe.GetPointer<Transform3D>(e);
-			var spawnPoint = QuantumHelpers.GetPlayerSpawnTransform(f, e, false, FPVector3.Zero);
-
-			transform->Position = spawnPoint.Component.Position;
-
 			player->Spawn(f, e);
 		}
 	}

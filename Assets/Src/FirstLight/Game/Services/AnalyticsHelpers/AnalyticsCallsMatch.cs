@@ -387,7 +387,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void MatchPickupAction(EventOnCollectableCollected callback)
 		{
-			if (!(callback.Game.PlayerIsLocal(callback.Player)))
+			var playerData = callback.Game.GetLocalPlayerData(true, out _);
+
+			if (playerData.Entity != callback.CollectorEntity)
 			{
 				return;
 			}

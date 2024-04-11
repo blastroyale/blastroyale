@@ -21,7 +21,6 @@ enum SpawnerType
 
 component PlayerSpawner
 {
-	[HideInInspector] FP ActivationTime;
 	SpawnerType SpawnerType;
 	BotBehaviourType BehaviourType;
 }

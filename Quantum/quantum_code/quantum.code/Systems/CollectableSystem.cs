@@ -24,9 +24,11 @@ namespace Quantum.Systems
 				return;
 			}
 
+			var playerEntity = info.Other;
+
 			// We try to start collecting here because collectable may be allowed to
 			// become collected after it already triggered with a player
-			if (!collectable->IsCollecting(player.Player) && f.Time >= collectable->AllowedToPickupTime)
+			if (!collectable->IsCollecting(f, playerEntity) && f.Time >= collectable->AllowedToPickupTime)
 			{
 				if (!TryStartCollecting(f, info, false))
 				{
@@ -34,8 +36,7 @@ namespace Quantum.Systems
 				}
 			}
 
-			var endTime = collectable->CollectorsEndTime[player.Player];
-			if (endTime == FP._0 || f.Time < endTime)
+			if (!collectable->TryGetCollectingEndTime(f, playerEntity, out var endTime) || f.Time < endTime)
 			{
 				return;
 			}
@@ -110,24 +111,22 @@ namespace Quantum.Systems
 			}
 		}
 
-		private bool StartCollecting(Frame f, PlayerRef player, EntityRef playerEntity, Collectable* collectable,
+		private bool StartCollecting(Frame f, PlayerRef player, EntityRef collector, Collectable* collectable,
 									 EntityRef collectableEntity)
 		{
-			if (collectable->IsCollecting(player)) return false;
-
-			collectable->CollectorsEndTime[player] = GetEndTime(f, collectableEntity, playerEntity);
-			f.Events.OnStartedCollecting(collectableEntity, *collectable, player, playerEntity);
+			if (collectable->IsCollecting(f, collector)) return false;
+			collectable->StartCollecting(f, collector, GetCollectDuration(f, collectableEntity, collector));
+			f.Events.OnStartedCollecting(collectableEntity, *collectable, collector);
 
 			return true;
 		}
 
-		private void StopCollecting(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player,
+		private void StopCollecting(Frame f, EntityRef entity, EntityRef collector, PlayerRef player,
 									Collectable* collectable)
 		{
-			if (!collectable->IsCollecting(player)) return;
-
-			collectable->CollectorsEndTime[player] = FP._0;
-			f.Events.OnStoppedCollecting(entity, player, playerEntity);
+			if (!collectable->IsCollecting(f, collector)) return;
+			collectable->StopCollecting(f, collector);
+			f.Events.OnStoppedCollecting(entity, collector);
 		}
 
 		private void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player,
@@ -138,9 +137,9 @@ namespace Quantum.Systems
 			if (f.Unsafe.TryGetPointer<EquipmentCollectable>(entity, out var equipment))
 			{
 				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
-				
+
 				equipment->Collect(f, entity, playerEntity, player);
-				
+
 				// We restore ammo to initial level if it was lower
 				var statsPointer = f.Unsafe.GetPointer<Stats>(playerEntity);
 				if (statsPointer->CurrentAmmoPercent < Constants.INITIAL_AMMO_FILLED)
@@ -165,12 +164,12 @@ namespace Quantum.Systems
 				throw new NotSupportedException($"Trying to collect an unsupported / missing collectable on {entity}.");
 			}
 
-			f.Signals.CollectableCollected(gameId, entity, player, playerEntity, collectable->Spawner);
-			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity, collectable->Spawner,
+			f.Signals.CollectableCollected(gameId, entity, playerEntity, collectable->Spawner);
+			f.Events.OnCollectableCollected(gameId, entity, playerEntity, collectable->Spawner,
 				f.Get<Transform3D>(entity).Position);
 		}
 
-		private FP GetEndTime(Frame f, EntityRef consumableEntity, EntityRef playerEntity)
+		private FP GetCollectDuration(Frame f, EntityRef consumableEntity, EntityRef playerEntity)
 		{
 			var timeMod = f.Get<Stats>(playerEntity).GetStatData(StatType.PickupSpeed).StatValue;
 
@@ -189,7 +188,7 @@ namespace Quantum.Systems
 
 			endTime = FPMath.Max(Constants.PICKUP_SPEED_MINIMUM, (FP._1 - (timeMod / FP._100)) * endTime);
 
-			return f.Time + endTime;
+			return endTime;
 		}
 
 		public void PlayerColliderDisabled(Frame f, EntityRef playerEntity)

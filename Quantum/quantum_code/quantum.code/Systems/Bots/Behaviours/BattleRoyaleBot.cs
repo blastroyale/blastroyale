@@ -57,10 +57,10 @@ namespace Quantum.Systems.Bots
 			// If bot is collecting something at the moment then let this bot finish collection before doing anything else
 			if (filter.BotCharacter->MoveTarget != EntityRef.None &&
 				f.TryGet<Collectable>(filter.BotCharacter->MoveTarget, out var collectable) &&
-				collectable.IsCollecting(filter.PlayerCharacter->Player))
+				collectable.TryGetCollectingEndTime(f, filter.Entity, out var collectionTime))
 			{
 				BotLogger.LogAction(ref filter, "is collecting item");
-				filter.BotCharacter->NextDecisionTime = collectable.CollectorsEndTime[filter.PlayerCharacter->Player] + FP._0_50;
+				filter.BotCharacter->NextDecisionTime = collectionTime + FP._0_10;
 				return;
 			}
 

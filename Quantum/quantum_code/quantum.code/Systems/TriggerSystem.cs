@@ -30,8 +30,9 @@ namespace Quantum.Systems
 			}
 		}
 		
-		public void CollectableCollected(Frame f, GameId collectableId, EntityRef collectableEntity, PlayerRef player,
-										 EntityRef playerEntity, EntityRef spawner)
+		
+		public void CollectableCollected(Frame f, GameId collectableId, EntityRef collectableEntity,
+										 EntityRef collectorEntity, EntityRef spawner)
 		{
 			if (collectableId.IsInGroup(GameIdGroup.Weapon))
 			{
@@ -57,5 +58,7 @@ namespace Quantum.Systems
 		{
 			return f.ComponentCount<AlivePlayerCharacter>();
 		}
+
+
 	}
 }

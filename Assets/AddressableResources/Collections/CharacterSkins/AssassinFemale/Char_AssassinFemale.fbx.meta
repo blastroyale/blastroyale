@@ -60,6 +60,7 @@ ModelImporter:
     - Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
     - Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
     - Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
+    - Armature/weapon_xlmelee
     extraUserProperties: []
     clipAnimations: []
     isReadable: 0
@@ -108,7 +109,7 @@ ModelImporter:
     blendShapeNormalImportMode: 0
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 0
+  importAnimation: 1
   humanDescription:
     serializedVersion: 3
     human:

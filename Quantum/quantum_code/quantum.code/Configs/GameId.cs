@@ -1056,11 +1056,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.PlayerSkinLeprechaun, new List<GameIdGroup>
-					{
-					}.AsReadOnly()
-				},
-				{
 					GameId.PlayerSkinDragon, new List<GameIdGroup>
 					{
 					}.AsReadOnly()
@@ -1081,6 +1076,62 @@ namespace Quantum
 				},
 				{
 					GameId.PlayerSkinViking, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinLeprechaun, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinEGirl, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinPoliceFemale, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinNinja, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinBrandFemale, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinBrandMale, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinGearedApe, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinPlagueDoctor, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
 						GameIdGroup.Collection
@@ -1985,6 +2036,14 @@ namespace Quantum
 						GameId.PlayerSkinSnowboarder,
 						GameId.PlayerSkinDunePaul,
 						GameId.PlayerSkinViking,
+						GameId.PlayerSkinLeprechaun,
+						GameId.PlayerSkinEGirl,
+						GameId.PlayerSkinPoliceFemale,
+						GameId.PlayerSkinNinja,
+						GameId.PlayerSkinBrandFemale,
+						GameId.PlayerSkinBrandMale,
+						GameId.PlayerSkinGearedApe,
+						GameId.PlayerSkinPlagueDoctor,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -2277,7 +2336,15 @@ namespace Quantum
 						GameId.PlayerSkinPanda,
 						GameId.PlayerSkinSnowboarder,
 						GameId.PlayerSkinDunePaul,
-						GameId.PlayerSkinViking
+						GameId.PlayerSkinViking,
+						GameId.PlayerSkinLeprechaun,
+						GameId.PlayerSkinEGirl,
+						GameId.PlayerSkinPoliceFemale,
+						GameId.PlayerSkinNinja,
+						GameId.PlayerSkinBrandFemale,
+						GameId.PlayerSkinBrandMale,
+						GameId.PlayerSkinGearedApe,
+						GameId.PlayerSkinPlagueDoctor
 					}.AsReadOnly()
 				},
 				{

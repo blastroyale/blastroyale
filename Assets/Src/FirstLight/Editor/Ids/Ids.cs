@@ -206,11 +206,18 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinBoudicca", 139}, // placeholder ID for the future skin
 			{"PlayerSkinCupid", 142, PlayerSkin, BotItem, Collection},
 			{"PlayerSkinPanda", 400, PlayerSkin, Collection},
-			{"PlayerSkinLeprechaun", 401}, // placeholder ID for the future skin
 			{"PlayerSkinDragon", 402}, // placeholder ID for the future skin
 			{"PlayerSkinSnowboarder", 403, PlayerSkin, Collection},
 			{"PlayerSkinDunePaul", 404, PlayerSkin, Collection},
 			{"PlayerSkinViking", 405, PlayerSkin, Collection},
+			{"PlayerSkinLeprechaun", 401, PlayerSkin, Collection},
+			{"PlayerSkinEGirl", 196, PlayerSkin, Collection},
+			{"PlayerSkinPoliceFemale", 199, PlayerSkin, Collection},
+			{"PlayerSkinNinja", 201, PlayerSkin, Collection},
+			{"PlayerSkinBrandFemale", 202, PlayerSkin, Collection},
+			{"PlayerSkinBrandMale", 203, PlayerSkin, Collection},
+			{"PlayerSkinGearedApe", 204, PlayerSkin, Collection},
+			{"PlayerSkinPlagueDoctor", 205, PlayerSkin, Collection},
 
 			#endregion Player skins
 

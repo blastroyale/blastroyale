@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponAnchor: {fileID: 1948745368106145361}
+  _weaponXLMeleeAnchor: {fileID: 8982349590241666850}
   _gliderAnchor: {fileID: 6157764566887686537}
   _leftFootAnchor: {fileID: 4116426370074093458}
   _rightFootAnchor: {fileID: 8991478767749082539}
@@ -183,6 +184,11 @@ MonoBehaviour:
 --- !u!4 &6157764566887686537 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7664902634877843093, guid: 0b664bf9f86344ac7ac551ddcecba0ba, type: 3}
+  m_PrefabInstance: {fileID: 4671373653163993314}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8982349590241666850 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4356030645492748224, guid: 0b664bf9f86344ac7ac551ddcecba0ba, type: 3}
   m_PrefabInstance: {fileID: 4671373653163993314}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8991478767749082539 stripped

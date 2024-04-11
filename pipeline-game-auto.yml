@@ -93,7 +93,10 @@ variables:
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
         value: "production"
     - name: runTestLab
-      value: false
+      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
+        value: true
+      ${{ else }}:
+        value: false
   # Manual setup
 - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
     - ${{  if eq(parameters['param_dev_build'], 'true') }}:

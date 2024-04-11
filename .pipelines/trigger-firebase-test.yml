@@ -7,10 +7,7 @@ resources:
   pipelines:
     - pipeline: build
       source: 'Game-Builds'
-      trigger: 
-        branches:
-          include:
-            - develop
+      trigger: true
   repositories:
     - repository: templates
       type: git
@@ -19,7 +16,7 @@ resources:
 
 pool:
   vmImage: "ubuntu-latest"
-  
+
 steps:
   - task: DownloadSecureFile@1
     name: firebaseKey
@@ -43,34 +40,33 @@ steps:
       fi
     name: CheckIfSkip
   - powershell: |
-     $shouldSkip = "$env:skipTests"
-       if ($shouldSkip -eq "true") {
-        Write-Host "Skipping tests!"
-        exit
-      }
+      $shouldSkip = "$env:SKIPTESTS"
+        if ($shouldSkip -eq "true") {
+          Write-Host "##vso[build.updatebuildnumber]SKIPPED-${env:BUILD_BUILDID}-GameBuild_${env:RESOURCES_PIPELINE_BUILD_RUNNAME}"
+          Write-Host "Skipping tests!"
+          exit
+       }
+       Write-Host "##vso[build.updatebuildnumber]${env:BUILD_BUILDID}-GameBuild_${env:RESOURCES_PIPELINE_BUILD_RUNNAME}"
       
+       $file_content = Get-Content $(Pipeline.Workspace)/build/download-link-Android/downloadLinkAndroid.properties
+       $file_content = $file_content -join [Environment]::NewLine
       
-      $file_content = Get-Content $(Pipeline.Workspace)/build/download-link-Android/downloadLinkAndroid.properties
-      $file_content = $file_content -join [Environment]::NewLine
+       $configuration = ConvertFrom-StringData($file_content)
+       $downloadLink = $configuration.SHORT_LINK
+       Write-Host "Download link: $downloadLink"
+       Invoke-WebRequest $downloadLink -OutFile .\app.apk
       
-      $configuration = ConvertFrom-StringData($file_content)
-      $downloadLink = $configuration.SHORT_LINK
-      Write-Host "Download link: $downloadLink"
-      Invoke-WebRequest $downloadLink -OutFile .\app.apk
-
-      $fileName = "app.apk"
-      $modelArgs = "--device=model=cactus,orientation=landscape,version=27"
+       $fileName = "app.apk"
       
-      gcloud auth activate-service-account --key-file=$(firebaseKey.secureFilePath)
-      $response = gcloud firebase test android run --app $fileName  `
-        --quiet `
-        --project=blast-royale-dev `
-        --type=game-loop `
-        --scenario-numbers=2 `
-        --timeout=7m `
-        $modelArgs  `
-        --format json | ConvertFrom-Json
-
-      Write-Host "##vso[task.setvariable variable=testLabLink;]$response"
+       gcloud auth activate-service-account --key-file=$(firebaseKey.secureFilePath)
+       gcloud firebase test android run --app $fileName  `
+         --quiet `
+         --project=blast-royale-dev `
+         --type=game-loop `
+         --scenario-numbers=${env:ANDROID_SCENARIOS} `
+         --timeout=${env:ANDROID_TIMEOUT} `
+         --client-details=matrixLabel="GameBuild_${env:RESOURCES_PIPELINE_BUILD_RUNNAME}" `
+         ${env:ANDROID_MODELS_PARAMETERS} `
+         --format json 
     displayName: 'Trigger TestLab'
     

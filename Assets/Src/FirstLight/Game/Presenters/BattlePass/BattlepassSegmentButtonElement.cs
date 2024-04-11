@@ -156,7 +156,7 @@ namespace FirstLight.Game.Presenters.BattlePass
 			private readonly UxmlEnumAttributeDescription<GameId> _rewardId = new ()
 			{
 				name = "reward",
-				defaultValue = GameId.MaleAssassin,
+				defaultValue = GameId.PlayerSkinBrandMale,
 			};
 
 			private readonly UxmlEnumAttributeDescription<PassType> _passType = new ()

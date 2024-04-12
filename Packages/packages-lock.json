@@ -26,33 +26,33 @@
       "dependencies": {}
     },
     "com.google.external-dependency-manager": {
-      "version": "file:../Google/com.google.external-dependency-manager-1.2.176.tgz",
+      "version": "file:../Google/com.google.external-dependency-manager-1.2.179.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
     },
     "com.google.firebase.analytics": {
-      "version": "file:../Google/com.google.firebase.analytics-11.2.0.tgz",
+      "version": "file:../Google/com.google.firebase.analytics-11.8.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "11.2.0"
+        "com.google.firebase.app": "11.8.0"
       }
     },
     "com.google.firebase.app": {
-      "version": "file:../Google/com.google.firebase.app-11.2.0.tgz",
+      "version": "file:../Google/com.google.firebase.app-11.8.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.external-dependency-manager": "1.2.176"
+        "com.google.external-dependency-manager": "1.2.177"
       }
     },
     "com.google.firebase.crashlytics": {
-      "version": "file:../Google/com.google.firebase.crashlytics-11.2.0.tgz",
+      "version": "file:../Google/com.google.firebase.crashlytics-11.8.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "11.2.0"
+        "com.google.firebase.app": "11.8.0"
       }
     },
     "com.immutable.passport": {

@@ -1357,6 +1357,34 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.MeleeSkinBaton, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinKatana, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinKeyboard, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinMagicalShillelagh, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Avatar1, new List<GameIdGroup>
 					{
 						GameIdGroup.ProfilePicture,
@@ -2073,6 +2101,10 @@ namespace Quantum
 						GameId.MeleeSkinWrench,
 						GameId.MeleeSkinYouGotMail,
 						GameId.MeleeSkinXmas2023,
+						GameId.MeleeSkinBaton,
+						GameId.MeleeSkinKatana,
+						GameId.MeleeSkinKeyboard,
+						GameId.MeleeSkinMagicalShillelagh,
 						GameId.Avatar1,
 						GameId.Avatar2,
 						GameId.Avatar3,
@@ -2317,7 +2349,11 @@ namespace Quantum
 						GameId.MeleeSkinWheelOfPain,
 						GameId.MeleeSkinWrench,
 						GameId.MeleeSkinYouGotMail,
-						GameId.MeleeSkinXmas2023
+						GameId.MeleeSkinXmas2023,
+						GameId.MeleeSkinBaton,
+						GameId.MeleeSkinKatana,
+						GameId.MeleeSkinKeyboard,
+						GameId.MeleeSkinMagicalShillelagh
 					}.AsReadOnly()
 				},
 				{

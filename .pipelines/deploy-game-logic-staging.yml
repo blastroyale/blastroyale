@@ -27,7 +27,6 @@ stages:
         --set autoscaling.minReplicas=1 \
         --set autoscaling.targetCPUUtilizationPercentage=190 \
         --set autoscaling.targetMemoryUtilizationPercentage=230 \
-
         --set env.API_KEY=$(STAGING-COMMON-API-KEY) \
         --set env.API_URL="https://staging-hub-blockchain-service.blastroyale.com" \
         --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(STAGING-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \

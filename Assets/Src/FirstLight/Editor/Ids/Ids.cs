@@ -214,8 +214,8 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinEGirl", 196, PlayerSkin, Collection},
 			{"PlayerSkinPoliceFemale", 199, PlayerSkin, Collection},
 			{"PlayerSkinNinja", 201, PlayerSkin, Collection},
-			{"PlayerSkinBrandFemale", 202, PlayerSkin, Collection},
-			{"PlayerSkinBrandMale", 203, PlayerSkin, Collection},
+			{"PlayerSkinBrandFemale", 202, PlayerSkin, Collection, BotItem},
+			{"PlayerSkinBrandMale", 203, PlayerSkin, Collection, BotItem},
 			{"PlayerSkinGearedApe", 204, PlayerSkin, Collection},
 			{"PlayerSkinPlagueDoctor", 205, PlayerSkin, Collection},
 

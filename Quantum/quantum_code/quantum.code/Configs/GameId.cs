@@ -1113,14 +1113,16 @@ namespace Quantum
 					GameId.PlayerSkinBrandFemale, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
 					GameId.PlayerSkinBrandMale, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -2152,6 +2154,8 @@ namespace Quantum
 						GameId.FemaleSuperstar,
 						GameId.PlayerSkinXmasSuperstar,
 						GameId.PlayerSkinCupid,
+						GameId.PlayerSkinBrandFemale,
+						GameId.PlayerSkinBrandMale,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,

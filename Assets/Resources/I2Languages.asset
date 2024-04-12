@@ -13601,7 +13601,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Default character
+      - Purchase in the Shop
       - Hunt, Target, Kill
       - Hunt, Target, Kill
       - 
@@ -14572,7 +14572,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Blast Pass - Beta Season 8
+      - Blast Pass - Beta Season 9
       - "It\u2019s my lucky day!"
       - "It\u2019s my lucky day!"
       - 
@@ -14707,6 +14707,160 @@ MonoBehaviour:
       - 2023 Xmas Event
       - 2023 Xmas Event
       - 2023 Xmas Event
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinEGirl
+      TermType: 0
+      Description: 
+      Languages:
+      - CASSIE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinEGirlDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPoliceFemale
+      TermType: 0
+      Description: 
+      Languages:
+      - SOFIA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPoliceFemaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinNinja
+      TermType: 0
+      Description: 
+      Languages:
+      - GOJI
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinNinjaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrandFemale
+      TermType: 0
+      Description: 
+      Languages:
+      - ZOE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrandFemaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Default character
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrandMale
+      TermType: 0
+      Description: 
+      Languages:
+      - MAX
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrandMaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Default character
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinGearedApe
+      TermType: 0
+      Description: 
+      Languages:
+      - NOA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinGearedApeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPlagueDoctor
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAGUE DOCTOR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPlagueDoctorDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Own any Plague Doctor to unlock
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -26964,7 +27118,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1711041383830
+    Google_LastUpdatedVersion: 1712860825253
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

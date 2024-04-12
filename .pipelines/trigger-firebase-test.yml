@@ -33,7 +33,7 @@ steps:
       run_test_lab=$(echo "$json" | jq -r '.run_test_lab')
       echo "Should run tests: $run_test_lab"
 
-      if [ "$run_test_lab" != "True" ]; then
+      if [ "${run_test_lab,,}" != "true" ]; then
         echo "Skip deploy because run_test_lab != true"
         echo "##vso[task.setvariable variable=skipTests]true"
         exit

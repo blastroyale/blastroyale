@@ -175,10 +175,11 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 01aa15896d13cf540a04a81d603fa54e
+        m_AssetGUID: a79d4529d9506084dacf50cff48c2a38
         m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 1
+        m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_EditorAssetChanged: 0
     - GameId: 196
       Prefab:
         m_AssetGUID: a25a244ec489a454dad0cb442add1d81
@@ -186,7 +187,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: c699654b9ca3efe4897334728fd24798
+        m_AssetGUID: dbf8024a12006414d9e7c21f4a247618
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -197,7 +198,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: c699654b9ca3efe4897334728fd24798
+        m_AssetGUID: 43b7aea93ab6ccf4db8057f263a40aec
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -208,7 +209,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: c699654b9ca3efe4897334728fd24798
+        m_AssetGUID: 759699db299dced46a9c460f5114b6cc
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -219,7 +220,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: c699654b9ca3efe4897334728fd24798
+        m_AssetGUID: 988ce872ad67f294ca55afecff39782c
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -230,7 +231,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: c699654b9ca3efe4897334728fd24798
+        m_AssetGUID: b59f7107c3685414986dc13317bc6282
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -241,7 +242,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: c699654b9ca3efe4897334728fd24798
+        m_AssetGUID: b49083c5d54fa8e40ad5676918baa9f0
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -252,7 +253,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: c699654b9ca3efe4897334728fd24798
+        m_AssetGUID: ede02fa7c709c054f8dffca3e78aa0c8
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

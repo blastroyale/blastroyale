@@ -99,10 +99,10 @@ variables:
         value: false
   # Manual setup
 - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-    - ${{  if eq(parameters['param_dev_build'], 'true') }}:
+    - ${{  if eq(lower(parameters['param_dev_build']), 'true') }}:
         - name: configuration
           value: "Debug"
-    - ${{  if eq(parameters['param_dev_build'], 'false') }}:
+    - ${{  if eq(lower(parameters['param_dev_build']), 'false') }}:
         - name: configuration
           value: "Release"
     - name: dev_build
@@ -132,6 +132,7 @@ stages:
             echo "Use Accelerator: $(useAccelerator)"
             echo "Run TestLabs: $(runTestLab)"
             echo "Run Tests: $(runUnitTests)"
+            echo "Configuration: $(configuration)"
           displayName: "Print variables"
         # This step adds a tag to the build, the Game Logic CD uses it to decide if should run or not
         # So we just want to run for automatic builds or if manually ticked 
@@ -181,7 +182,7 @@ stages:
         - checkout: self
           lfs: true
           submodules: true
-        - template: pipelines/unity-tests.yml@templates
+        - template: .pipelines/unity-tests.yml
           parameters:
             testPlatform: EditMode 
         dependsOn: DisplayAndTagBuild  
@@ -226,7 +227,7 @@ stages:
           - checkout: self
             lfs: true
             fetchTags: false
-          - template: pipelines/unity-build.yml@templates
+          - template: .pipelines/unity-build.yml
             parameters:
               configuration: $(configuration)
               platform: Android
@@ -266,7 +267,7 @@ stages:
         - checkout: self
           lfs: true
           fetchTags: false
-        - template: pipelines/unity-build.yml@templates
+        - template: .pipelines/unity-build.yml
           parameters:
             configuration: $(configuration)
             platform: iOS

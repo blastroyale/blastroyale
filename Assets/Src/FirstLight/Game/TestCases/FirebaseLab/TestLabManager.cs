@@ -160,7 +160,7 @@ namespace FirstLight.Game.TestCases.FirebaseLab
 			WriteLine($"{DateTime.Now.ToString("O")}," +
 				$"exception," +
 				$"0," +
-				$"{message.Replace(",", ":")}," +
+				$"{message.Replace(",", ":").Replace("\n", "  ")}," +
 				$"0," +
 				$"0," +
 				$"0," +

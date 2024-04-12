@@ -13,7 +13,7 @@ namespace Quantum
 			factories.Add(new CheatMakeLocalPlayerSuperToughCommand());
 			factories.Add(new CheatRefillAmmoAndSpecials());
 			factories.Add(new CheatSpawnAirDropCommand());
-			factories.Add(new CheatKillAllExceptOneCommand());
+			factories.Add(new CheatKillAllExceptCommand());
 			factories.Add(new PlayerQuitCommand());
 			factories.Add(new SpecialUsedCommand());
 			factories.Add(new PlayerEmojiCommand());

@@ -35,6 +35,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _youChoseDeathTitle;
 
 		private IMatchServices _matchServices;
+		private Coroutine _leaveCoroutine;
 
 		private float _waitTime = 2f;
 
@@ -95,9 +96,15 @@ namespace FirstLight.Game.Presenters
 				_waitTime = (float) _blastedDirector.duration;
 			}
 
-			StartCoroutine(WaitToLeave());
+			_leaveCoroutine = StartCoroutine(WaitToLeave());
 			
 			return base.OnScreenOpen(reload);
+		}
+
+		protected override UniTask OnScreenClose()
+		{
+			StopCoroutine(_leaveCoroutine);
+			return UniTask.CompletedTask;
 		}
 
 		private IEnumerator WaitToLeave()

@@ -99,7 +99,7 @@
     <Compile Include="AI\Functions\HFSM.TransformPositionFunction.cs" />
     <Compile Include="Commands\Cheats\CheatMoveSpeedCommand.cs" />
     <Compile Include="Commands\Cheats\Tutorial\CheatKillAllTutorialBots.cs" />
-    <Compile Include="Commands\Cheats\CheatKillAllExceptOneCommand.cs" />
+    <Compile Include="Commands\Cheats\CheatKillAllExceptCommand.cs" />
     <Compile Include="Commands\TutorialSpawnSpecialCommand.cs" />
     <Compile Include="Components\SimulationItem.cs" />
     <Compile Include="Components\CosteticsHolder.cs" />

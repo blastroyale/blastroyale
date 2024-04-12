@@ -156,7 +156,7 @@ namespace FirstLight.Game.StateMachines
 			gameEndedChoice.Transition().Condition(HasLeftBeforeMatchEnded).Target(transitionToGameResults);
 			gameEndedChoice.Transition().Target(gameEnded);
 
-			gameEnded.OnEnter(OpenMatchEndScreen);
+			gameEnded.OnEnter(() => OpenMatchEndScreen().Forget());
 			gameEnded.Event(MatchEndedExitEvent).Target(showWinner);
 			gameEnded.Event(MatchCompleteExitEvent).Target(transitionToWinners);
 
@@ -287,15 +287,17 @@ namespace FirstLight.Game.StateMachines
 			_services.CommandService.ExecuteCommand(command as IGameCommand);
 		}
 
-		private void OpenMatchEndScreen()
+		private async UniTaskVoid OpenMatchEndScreen()
 		{
 			var data = new MatchEndScreenPresenter.StateData
 			{
 				OnTimeToLeave = () => _statechartTrigger(MatchEndedExitEvent),
 			};
 
-			_services.UIService.OpenScreen<MatchEndScreenPresenter>(data).Forget();
 			_matchServices.FrameSnapshotService.ClearFrameSnapshot();
+			if (_services.UIService.IsScreenOpen<MatchEndScreenPresenter>())
+				await _services.UIService.CloseScreen<MatchEndScreenPresenter>();
+			await _services.UIService.OpenScreen<MatchEndScreenPresenter>(data);
 		}
 
 		private void OpenWinnerScreen()

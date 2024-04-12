@@ -14,22 +14,23 @@ namespace FirstLight.Game.TestCases.Helpers
 {
 	public class UIHelper : TestHelper
 	{
-		public IEnumerator WaitForPresenter2<T>(float waitAfterCreation = 0.5f, float timeout = 30) where T : UIPresenter
+		public IEnumerator WaitForPresenter<T>(float waitAfterCreation = 0.5f, float timeout = 30) where T : UIPresenter
 		{
 			Log("Waiting for screen " + typeof(T).Name + " to open!");
-			yield return TestTools.Until(() =>
-			{
-				if (MainInstaller.TryResolve<IGameServices>(out var gameServices))
-				{
-					return gameServices.UIService.IsScreenOpen<T>();
-				}
-
-				return false;
-			}, timeout);
+			yield return TestTools.Until(IsOpened<T>, timeout);
 			// Wait a little bit more to make sure the screen had time to open
 			Log("Detected " + typeof(T).Name + " screen! Continuing!");
 
 			yield return new WaitForSeconds(waitAfterCreation);
+		}
+		public bool IsOpened<T>() where T : UIPresenter
+		{
+			if (MainInstaller.TryResolve<IGameServices>(out var gameServices))
+			{
+				return gameServices.UIService.IsScreenOpen<T>();
+			}
+
+			return false;
 		}
 
 		// Wtf is this

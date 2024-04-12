@@ -87,7 +87,25 @@ public partial class SROptions
 			return;
 		}
 		
-		game.SendCommand(new CheatKillAllExceptOneCommand());
+		game.SendCommand(new CheatKillAllExceptCommand()
+		{
+			Amount = 1
+		});
+	}
+	[Category("Gameplay")]
+	public void KillAllExceptTwo()
+	{
+		var game = QuantumRunner.Default.Game;
+		if (game == null)
+		{
+			Debug.LogWarning("Simulation is not running yet");
+			return;
+		}
+		
+		game.SendCommand(new CheatKillAllExceptCommand()
+		{
+			Amount = 2
+		});
 	}
 	
 	[Category("Gameplay")]

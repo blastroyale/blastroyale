@@ -17,7 +17,7 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator WaitDropZoneSelectScreen()
 		{
-			yield return _uiHelper.WaitForPresenter2<PreGameLoadingScreenPresenter>();
+			yield return _uiHelper.WaitForPresenter<PreGameLoadingScreenPresenter>();
 		}
 
 		public IEnumerator SelectPosition(float x, float y)
@@ -35,19 +35,19 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator WaitForSpectateScreen()
 		{
-			yield return _uiHelper.WaitForPresenter2<SpectateScreenPresenter>();
+			yield return _uiHelper.WaitForPresenter<SpectateScreenPresenter>();
 		}
 
 		public IEnumerator WaitForLeaderboardAndRewards()
 		{
-			yield return _uiHelper.WaitForPresenter2<LeaderboardAndRewardsScreenPresenter>();
+			yield return _uiHelper.WaitForPresenter<LeaderboardAndRewardsScreenPresenter>();
 		}
 
 		public IEnumerator WaitForGameToEndAndGoToMenu(float gameTimeout = 60 * 5)
 		{
 			var oneSec = new WaitForSeconds(1);
 			yield return WaitForEndGameScreen(gameTimeout);
-			var possibleScreens = new[] { typeof(SpectateScreenPresenter), typeof(WinnerScreenPresenter) };
+			var possibleScreens = new[] {typeof(SpectateScreenPresenter), typeof(WinnerScreenPresenter)};
 
 			yield return _uiHelper.WaitForAny(possibleScreens);
 			var screen = _uiHelper.GetFirstOpenScreen(possibleScreens);
@@ -55,7 +55,15 @@ namespace FirstLight.Game.TestCases.Helpers
 			if (screen is SpectateScreenPresenter)
 			{
 				yield return new WaitForSeconds(4);
-				yield return LeaveSpectator();
+				// Game may have ended here, so lets check if SPECTATE screen is open
+				if (_uiHelper.IsOpened<SpectateScreenPresenter>())
+				{
+					yield return LeaveSpectator();
+				}
+				else
+				{
+					yield return _uiHelper.ClickNextButton();
+				}
 			}
 			else
 			{
@@ -63,7 +71,7 @@ namespace FirstLight.Game.TestCases.Helpers
 				yield return _uiHelper.ClickNextButton();
 			}
 
-			possibleScreens = new[] { typeof(WinnersScreenPresenter), typeof(LeaderboardAndRewardsScreenPresenter) };
+			possibleScreens = new[] {typeof(WinnersScreenPresenter), typeof(LeaderboardAndRewardsScreenPresenter)};
 
 			yield return _uiHelper.WaitForAny(possibleScreens);
 			screen = _uiHelper.GetFirstOpenScreen(possibleScreens);
@@ -83,12 +91,12 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator WaitForEndGameScreen(float timeout = 60)
 		{
-			yield return _uiHelper.WaitForPresenter2<MatchEndScreenPresenter>(0.5f, timeout);
+			yield return _uiHelper.WaitForPresenter<MatchEndScreenPresenter>(0.5f, timeout);
 		}
 
 		public IEnumerator WaitForWinnerScreen()
 		{
-			yield return _uiHelper.WaitForPresenter2<WinnerScreenPresenter>();
+			yield return _uiHelper.WaitForPresenter<WinnerScreenPresenter>();
 		}
 
 		public IEnumerator LeaveSpectator()

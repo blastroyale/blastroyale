@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfb2d134f0fd8e447b08e569da2a1031, type: 3}
-  m_Name: IslandOne_NavMesh
+  m_Name: IslandOne_Navmesh Baking
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/Maps/IslandOne/IslandOne_NavMesh
+      Path: AddressableResources/Maps/IslandOne/IslandOne_Navmesh Baking
       Guid:
-        Value: 4499516975046161500
-    Name: NavMesh
+        Value: 4343785826901058006
+    Name: Navmesh Baking
     DataAsset:
       Id:
-        Value: 1919838176174387320
+        Value: 2284101304238230590
     DataFilepath: 
     GridSizeX: 28
     GridSizeY: 28
@@ -31,4 +31,4 @@ MonoBehaviour:
       Y:
         RawValue: -14680064
     MinAgentRadius:
-      RawValue: 32768
+      RawValue: 22937

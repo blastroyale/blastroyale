@@ -206,7 +206,7 @@ namespace FirstLight.Game
 				SRDebug.Init();
 			}
 #endif
-
+			Debug.developerConsoleEnabled = false;
 			FLog.Init();
 		}
 

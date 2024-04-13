@@ -22,7 +22,7 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 0
       DecisionInterval:
-        RawValue: 163840
+        RawValue: 131072
       LookForTargetsToShootAtInterval:
         RawValue: 85197
       VisionRangeSqr:
@@ -35,7 +35,7 @@ MonoBehaviour:
       LoadoutGearNumber: 0
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 458752
+        RawValue: 589824
       MovementSpeedMultiplier:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
@@ -43,7 +43,7 @@ MonoBehaviour:
       DamageDoneMultiplier:
         RawValue: 32768
       DamageTakenMultiplier:
-        RawValue: 131072
+        RawValue: 98304
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:
@@ -56,7 +56,7 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 1
       DecisionInterval:
-        RawValue: 152917
+        RawValue: 123790
       LookForTargetsToShootAtInterval:
         RawValue: 83012
       VisionRangeSqr:
@@ -69,7 +69,7 @@ MonoBehaviour:
       LoadoutGearNumber: 1
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 473316
+        RawValue: 589824
       MovementSpeedMultiplier:
         RawValue: 52429
       MaxDistanceToTeammateSquared:
@@ -77,7 +77,7 @@ MonoBehaviour:
       DamageDoneMultiplier:
         RawValue: 39322
       DamageTakenMultiplier:
-        RawValue: 111411
+        RawValue: 88474
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:
@@ -90,7 +90,7 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 2
       DecisionInterval:
-        RawValue: 141995
+        RawValue: 116508
       LookForTargetsToShootAtInterval:
         RawValue: 80828
       VisionRangeSqr:
@@ -103,7 +103,7 @@ MonoBehaviour:
       LoadoutGearNumber: 2
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 487879
+        RawValue: 589824
       MovementSpeedMultiplier:
         RawValue: 58982
       MaxDistanceToTeammateSquared:
@@ -111,7 +111,7 @@ MonoBehaviour:
       DamageDoneMultiplier:
         RawValue: 45875
       DamageTakenMultiplier:
-        RawValue: 91750
+        RawValue: 75366
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:
@@ -124,7 +124,7 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 3
       DecisionInterval:
-        RawValue: 131072
+        RawValue: 109227
       LookForTargetsToShootAtInterval:
         RawValue: 78643
       VisionRangeSqr:
@@ -137,15 +137,15 @@ MonoBehaviour:
       LoadoutGearNumber: 3
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 502443
+        RawValue: 589824
       MovementSpeedMultiplier:
         RawValue: 62259
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 49152
+        RawValue: 52429
       DamageTakenMultiplier:
-        RawValue: 78643
+        RawValue: 65536
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:
@@ -158,7 +158,7 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 4
       DecisionInterval:
-        RawValue: 120149
+        RawValue: 101945
       LookForTargetsToShootAtInterval:
         RawValue: 76459
       VisionRangeSqr:
@@ -171,13 +171,13 @@ MonoBehaviour:
       LoadoutGearNumber: 3
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 517006
+        RawValue: 589824
       MovementSpeedMultiplier:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 52429
+        RawValue: 58982
       DamageTakenMultiplier:
         RawValue: 65536
       MinSpecialCooldown:
@@ -192,7 +192,7 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 5
       DecisionInterval:
-        RawValue: 109227
+        RawValue: 94663
       LookForTargetsToShootAtInterval:
         RawValue: 74274
       VisionRangeSqr:
@@ -205,13 +205,13 @@ MonoBehaviour:
       LoadoutGearNumber: 3
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 531570
+        RawValue: 589824
       MovementSpeedMultiplier:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 55706
+        RawValue: 65536
       DamageTakenMultiplier:
         RawValue: 65536
       MinSpecialCooldown:
@@ -226,7 +226,7 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 6
       DecisionInterval:
-        RawValue: 98304
+        RawValue: 87381
       LookForTargetsToShootAtInterval:
         RawValue: 72090
       VisionRangeSqr:
@@ -239,13 +239,13 @@ MonoBehaviour:
       LoadoutGearNumber: 4
       LoadoutRarity: 2
       MaxAimingRange:
-        RawValue: 546133
+        RawValue: 589824
       MovementSpeedMultiplier:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 58982
+        RawValue: 65536
       DamageTakenMultiplier:
         RawValue: 65536
       MinSpecialCooldown:
@@ -260,7 +260,7 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 7
       DecisionInterval:
-        RawValue: 87381
+        RawValue: 80100
       LookForTargetsToShootAtInterval:
         RawValue: 69905
       VisionRangeSqr:
@@ -273,13 +273,13 @@ MonoBehaviour:
       LoadoutGearNumber: 4
       LoadoutRarity: 4
       MaxAimingRange:
-        RawValue: 560697
+        RawValue: 589824
       MovementSpeedMultiplier:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 62259
+        RawValue: 65536
       DamageTakenMultiplier:
         RawValue: 65536
       MinSpecialCooldown:
@@ -294,7 +294,7 @@ MonoBehaviour:
       GameMode: BattleRoyale
       Difficulty: 8
       DecisionInterval:
-        RawValue: 76459
+        RawValue: 72818
       LookForTargetsToShootAtInterval:
         RawValue: 67721
       VisionRangeSqr:
@@ -307,7 +307,7 @@ MonoBehaviour:
       LoadoutGearNumber: 4
       LoadoutRarity: 6
       MaxAimingRange:
-        RawValue: 575260
+        RawValue: 589824
       MovementSpeedMultiplier:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
@@ -464,7 +464,7 @@ MonoBehaviour:
       GameMode: BattleRoyale First Game
       Difficulty: 0
       DecisionInterval:
-        RawValue: 163840
+        RawValue: 131072
       LookForTargetsToShootAtInterval:
         RawValue: 85197
       VisionRangeSqr:
@@ -477,7 +477,7 @@ MonoBehaviour:
       LoadoutGearNumber: 0
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 458752
+        RawValue: 589824
       MovementSpeedMultiplier:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
@@ -485,7 +485,7 @@ MonoBehaviour:
       DamageDoneMultiplier:
         RawValue: 32768
       DamageTakenMultiplier:
-        RawValue: 131072
+        RawValue: 98304
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:
@@ -498,7 +498,7 @@ MonoBehaviour:
       GameMode: Testing
       Difficulty: 0
       DecisionInterval:
-        RawValue: 152917
+        RawValue: 123790
       LookForTargetsToShootAtInterval:
         RawValue: 83012
       VisionRangeSqr:
@@ -511,7 +511,7 @@ MonoBehaviour:
       LoadoutGearNumber: 1
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 473316
+        RawValue: 589824
       MovementSpeedMultiplier:
         RawValue: 52429
       MaxDistanceToTeammateSquared:
@@ -532,7 +532,7 @@ MonoBehaviour:
       GameMode: Testing
       Difficulty: 0
       DecisionInterval:
-        RawValue: 141995
+        RawValue: 116508
       LookForTargetsToShootAtInterval:
         RawValue: 80828
       VisionRangeSqr:
@@ -545,7 +545,7 @@ MonoBehaviour:
       LoadoutGearNumber: 2
       LoadoutRarity: 0
       MaxAimingRange:
-        RawValue: 487879
+        RawValue: 589824
       MovementSpeedMultiplier:
         RawValue: 58982
       MaxDistanceToTeammateSquared:

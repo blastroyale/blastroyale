@@ -100,6 +100,8 @@ namespace FirstLight.Editor.AssetImporters
 		{
 			foreach (var asset in importedAssets)
 			{
+				if (asset.StartsWith(CHAR_PATH)) continue;
+
 				// Check if any of the imported FBX's are new characters
 				var filename = Path.GetFileName(asset);
 				if (filename.StartsWith("Char_") && filename.EndsWith(".fbx"))
@@ -108,7 +110,8 @@ namespace FirstLight.Editor.AssetImporters
 
 					if (AssetDatabase.IsValidFolder(Path.Combine(CHAR_PATH, characterName)))
 					{
-						// Update existing FBX
+						// TODO: Update existing FBX
+						Debug.LogError("Updating existing character is not supported yet.");
 					}
 					else
 					{

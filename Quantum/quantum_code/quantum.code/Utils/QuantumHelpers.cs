@@ -81,7 +81,7 @@ namespace Quantum
 			if (f.Has<Destructible>(two)) return true;
 			if (f.TryGet<Transform3D>(one, out var onePosition) && f.TryGet<Transform3D>(two, out var twoPosition))
 			{
-				return HasLineOfSight(f, onePosition.Position + LINE_OF_SIGHT_OFFSET, twoPosition.Position + LINE_OF_SIGHT_OFFSET, f.Context.TargetAllLayerMask, QueryOptions.HitStatics, out _);
+				return HasLineOfSight(f, onePosition.Position + LINE_OF_SIGHT_OFFSET, twoPosition.Position + LINE_OF_SIGHT_OFFSET, f.Context.TargetMapOnlyLayerMask, QueryOptions.HitStatics, out _);
 			}
 
 			return true;

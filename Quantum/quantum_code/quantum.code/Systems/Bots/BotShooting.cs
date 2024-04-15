@@ -372,7 +372,7 @@ namespace Quantum.Systems.Bots
 			{
 				var hit = f.Physics3D.Linecast(botPosition,
 					targetPosition,
-					f.Context.TargetAllLayerMask,
+					f.Context.TargetPlayerLineOfSightLayerMask,
 					QueryOptions.HitDynamics | QueryOptions.HitStatics |
 					QueryOptions.HitKinematics);
 

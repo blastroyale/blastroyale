@@ -5,7 +5,6 @@ using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using Sirenix.OdinInspector;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -29,9 +28,9 @@ namespace FirstLight.Game.Configs.Collection
 		{
 			for (var i = 0; i < Configs.Count; i++)
 			{	var skinConfigEntry = Configs[i];
-				var path = AssetDatabase.GetAssetPath(skinConfigEntry.Prefab.editorAsset);
+				var path = UnityEditor.AssetDatabase.GetAssetPath(skinConfigEntry.Prefab.editorAsset);
 				var spritePath = Path.GetDirectoryName(path)+"/sprite_automatic.png";
-				skinConfigEntry.Sprite = new AssetReferenceSprite(AssetDatabase.AssetPathToGUID(spritePath));
+				skinConfigEntry.Sprite = new AssetReferenceSprite(UnityEditor.AssetDatabase.AssetPathToGUID(spritePath));
 				Configs[i] = skinConfigEntry;
 			}
 		}
@@ -43,8 +42,7 @@ namespace FirstLight.Game.Configs.Collection
 	{
 		[Required] public GameId SkinId;
 
-		[Required, RequirePrefabComponent(typeof(WeaponSkinMonoComponent))]
-		public AssetReferenceGameObject Prefab;
+		[Required] public AssetReferenceGameObject Prefab;
 
 		[Required] public AssetReferenceSprite Sprite;
         

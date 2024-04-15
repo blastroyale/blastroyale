@@ -37,6 +37,7 @@
     --sprite-home__background-tooltip-topleft: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topleft.png');
     --sprite-home__background-tooltip-topright: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topright.png');
     --sprite-home__bamboo-season-reward: url('/Assets/Art/UI/Sprites/Home/bamboo-season-reward.png');
+    --sprite-home__goji-season-reward: url('/Assets/Art/UI/Sprites/Home/goji-season-reward.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__blastroyale-logo: url('/Assets/Art/UI/Sprites/Home/blastroyale-logo.png');
     --sprite-home__button-battlepass: url('/Assets/Art/UI/Sprites/Home/button-battlepass.png');
@@ -424,6 +425,12 @@
 
 .sprite-home__bamboo-season-reward {
     background-image: var(--sprite-home__bamboo-season-reward);
+    width: 494px;
+    height: 760px;
+}
+
+.sprite-home__goji-season-reward {
+    background-image: var(--sprite-home__goji-season-reward);
     width: 494px;
     height: 760px;
 }

@@ -2666,3 +2666,706 @@ MonoBehaviour:
     Level: 0
     Generation: 0
     Amount: 1
+  - Id: 70
+    GameId: 105
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 4
+  - Id: 71
+    GameId: 199
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 72
+    GameId: 196
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 73
+    GameId: 201
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 74
+    GameId: 202
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 75
+    GameId: 203
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 76
+    GameId: 204
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 77
+    GameId: 205
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 78
+    GameId: 129
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 79
+    GameId: 206
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 80
+    GameId: 207
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 81
+    GameId: 208
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 82
+    GameId: 502
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 83
+    GameId: 503
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 84
+    GameId: 504
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 85
+    GameId: 505
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 86
+    GameId: 506
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 87
+    GameId: 507
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 88
+    GameId: 508
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1

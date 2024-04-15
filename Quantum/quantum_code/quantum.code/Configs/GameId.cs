@@ -1359,6 +1359,34 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.MeleeSkinBaton, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinKatana, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinKeyboard, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinMagicalShillelagh, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Avatar1, new List<GameIdGroup>
 					{
 						GameIdGroup.ProfilePicture,
@@ -1725,6 +1753,69 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.AvatarBrandfemale, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarBrandmale, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarEgirl, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarGearedape, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarLeprechaun, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarNinja, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarNinjaalternative, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarPolicefemale, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarPlaguedoctormystery, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.FootprintDot, new List<GameIdGroup>
 					{
 						GameIdGroup.Footprint,
@@ -2075,6 +2166,10 @@ namespace Quantum
 						GameId.MeleeSkinWrench,
 						GameId.MeleeSkinYouGotMail,
 						GameId.MeleeSkinXmas2023,
+						GameId.MeleeSkinBaton,
+						GameId.MeleeSkinKatana,
+						GameId.MeleeSkinKeyboard,
+						GameId.MeleeSkinMagicalShillelagh,
 						GameId.Avatar1,
 						GameId.Avatar2,
 						GameId.Avatar3,
@@ -2126,7 +2221,16 @@ namespace Quantum
 						GameId.AvatarPunklogoads,
 						GameId.AvatarRocketads,
 						GameId.AvatarSuperstarloveads,
-						GameId.AvatarUnicornssticker
+						GameId.AvatarUnicornssticker,
+						GameId.AvatarBrandfemale,
+						GameId.AvatarBrandmale,
+						GameId.AvatarEgirl,
+						GameId.AvatarGearedape,
+						GameId.AvatarLeprechaun,
+						GameId.AvatarNinja,
+						GameId.AvatarNinjaalternative,
+						GameId.AvatarPolicefemale,
+						GameId.AvatarPlaguedoctormystery
 					}.AsReadOnly()
 				},
 				{
@@ -2321,7 +2425,11 @@ namespace Quantum
 						GameId.MeleeSkinWheelOfPain,
 						GameId.MeleeSkinWrench,
 						GameId.MeleeSkinYouGotMail,
-						GameId.MeleeSkinXmas2023
+						GameId.MeleeSkinXmas2023,
+						GameId.MeleeSkinBaton,
+						GameId.MeleeSkinKatana,
+						GameId.MeleeSkinKeyboard,
+						GameId.MeleeSkinMagicalShillelagh
 					}.AsReadOnly()
 				},
 				{
@@ -2423,7 +2531,16 @@ namespace Quantum
 						GameId.AvatarPunklogoads,
 						GameId.AvatarRocketads,
 						GameId.AvatarSuperstarloveads,
-						GameId.AvatarUnicornssticker
+						GameId.AvatarUnicornssticker,
+						GameId.AvatarBrandfemale,
+						GameId.AvatarBrandmale,
+						GameId.AvatarEgirl,
+						GameId.AvatarGearedape,
+						GameId.AvatarLeprechaun,
+						GameId.AvatarNinja,
+						GameId.AvatarNinjaalternative,
+						GameId.AvatarPolicefemale,
+						GameId.AvatarPlaguedoctormystery
 					}.AsReadOnly()
 				},
 				{

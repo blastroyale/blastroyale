@@ -323,6 +323,16 @@ namespace FirstLight.Editor.Ids
 			{"AvatarRocketads", 192, ProfilePicture, Collection},
 			{"AvatarSuperstarloveads", 193, ProfilePicture, Collection},
 			{"AvatarUnicornssticker", 194, ProfilePicture, Collection},
+			{"AvatarBrandfemale", 500, ProfilePicture, Collection},
+			{"AvatarBrandmale", 501, ProfilePicture, Collection},
+			{"AvatarEgirl", 502, ProfilePicture, Collection},
+			{"AvatarGearedape", 503, ProfilePicture, Collection},
+			{"AvatarLeprechaun", 504, ProfilePicture, Collection},
+			{"AvatarNinja", 505, ProfilePicture, Collection},
+			{"AvatarNinjaalternative", 506, ProfilePicture, Collection},
+			{"AvatarPolicefemale", 507, ProfilePicture, Collection},
+			{"AvatarPlaguedoctormystery", 508, ProfilePicture, Collection},
+
 
 			#endregion
 

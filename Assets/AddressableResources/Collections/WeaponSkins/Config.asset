@@ -270,7 +270,7 @@ MonoBehaviour:
             m_SubObjectName: 
             m_SubObjectType: 
             m_EditorAssetChanged: 0
-        - SkinId: 196
+        - SkinId: 206
           Prefab:
             m_AssetGUID: f2884e7aef209425cbecdd9747fada23
             m_SubObjectName: 
@@ -281,7 +281,7 @@ MonoBehaviour:
             m_SubObjectName: 
             m_SubObjectType: 
             m_EditorAssetChanged: 0
-        - SkinId: 199
+        - SkinId: 207
           Prefab:
             m_AssetGUID: afb4cba65aa914403a137340c2a1d8c1
             m_SubObjectName: 
@@ -292,7 +292,7 @@ MonoBehaviour:
             m_SubObjectName: 
             m_SubObjectType: 
             m_EditorAssetChanged: 0
-        - SkinId: 201
+        - SkinId: 208
           Prefab:
             m_AssetGUID: bb3c5cd06f4cb481b849918aecb8f3c1
             m_SubObjectName: 

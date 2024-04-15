@@ -1268,6 +1268,8 @@ namespace I2.Loc
 			public static string MazeMayhem 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MazeMayhem"); } }
 			public static string MeleeSkinAtomSlicer 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinAtomSlicer"); } }
 			public static string MeleeSkinAtomSlicerDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinAtomSlicerDescription"); } }
+			public static string MeleeSkinBaton 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinBaton"); } }
+			public static string MeleeSkinBatonDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinBatonDescription"); } }
 			public static string MeleeSkinCactus 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinCactus"); } }
 			public static string MeleeSkinCactusDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinCactusDescription"); } }
 			public static string MeleeSkinDaggerOfDestiny 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinDaggerOfDestiny"); } }
@@ -1280,6 +1282,12 @@ namespace I2.Loc
 			public static string MeleeSkinGigaMeleeDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinGigaMeleeDescription"); } }
 			public static string MeleeSkinHatchet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinHatchet"); } }
 			public static string MeleeSkinHatchetDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinHatchetDescription"); } }
+			public static string MeleeSkinKatana 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinKatana"); } }
+			public static string MeleeSkinKatanaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinKatanaDescription"); } }
+			public static string MeleeSkinKeyboard 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinKeyboard"); } }
+			public static string MeleeSkinKeyboardDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinKeyboardDescription"); } }
+			public static string MeleeSkinMagicalShillelagh 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinMagicalShillelagh"); } }
+			public static string MeleeSkinMagicalShillelaghDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinMagicalShillelaghDescription"); } }
 			public static string MeleeSkinMicDrop 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinMicDrop"); } }
 			public static string MeleeSkinMicDropDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinMicDropDescription"); } }
 			public static string MeleeSkinMightySledge 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinMightySledge"); } }
@@ -1831,9 +1839,6 @@ namespace I2.Loc
 			public static string SendPasswordEmail 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SendPasswordEmail"); } }
 			public static string SendPasswordEmailConfirm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SendPasswordEmailConfirm"); } }
 			public static string ServerCurrent 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerCurrent"); } }
-			public static string ServerNameEu 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerNameEu"); } }
-			public static string ServerNameHk 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerNameHk"); } }
-			public static string ServerNameUs 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerNameUs"); } }
 			public static string ServerSelectButtonConnect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerSelectButtonConnect"); } }
 			public static string ServerSelectOption 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerSelectOption"); } }
 			public static string ServerSelectTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerSelectTitle"); } }
@@ -2324,6 +2329,22 @@ namespace I2.Loc
 		public static class UITSettings
 		{
 			public static string InvertSpecialCancel 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/InvertSpecialCancel"); } }
+			public static string ServerNameAsia 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameAsia"); } }
+			public static string ServerNameAu 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameAu"); } }
+			public static string ServerNameCae 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameCae"); } }
+			public static string ServerNameCn 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameCn"); } }
+			public static string ServerNameEu 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameEu"); } }
+			public static string ServerNameHk 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameHk"); } }
+			public static string ServerNameIn 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameIn"); } }
+			public static string ServerNameJp 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameJp"); } }
+			public static string ServerNameKr 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameKr"); } }
+			public static string ServerNameSa 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameSa"); } }
+			public static string ServerNameTurkey 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameTurkey"); } }
+			public static string ServerNameUae 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameUae"); } }
+			public static string ServerNameUs 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameUs"); } }
+			public static string ServerNameUssc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameUssc"); } }
+			public static string ServerNameUsw 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameUsw"); } }
+			public static string ServerNameZa 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameZa"); } }
 			public static string account_deleted_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_deleted_desc"); } }
 			public static string account_deleted_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_deleted_title"); } }
 			public static string account_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_title"); } }
@@ -3783,6 +3804,8 @@ namespace I2.Loc
 		    public const string MazeMayhem = "GameIds/MazeMayhem";
 		    public const string MeleeSkinAtomSlicer = "GameIds/MeleeSkinAtomSlicer";
 		    public const string MeleeSkinAtomSlicerDescription = "GameIds/MeleeSkinAtomSlicerDescription";
+		    public const string MeleeSkinBaton = "GameIds/MeleeSkinBaton";
+		    public const string MeleeSkinBatonDescription = "GameIds/MeleeSkinBatonDescription";
 		    public const string MeleeSkinCactus = "GameIds/MeleeSkinCactus";
 		    public const string MeleeSkinCactusDescription = "GameIds/MeleeSkinCactusDescription";
 		    public const string MeleeSkinDaggerOfDestiny = "GameIds/MeleeSkinDaggerOfDestiny";
@@ -3795,6 +3818,12 @@ namespace I2.Loc
 		    public const string MeleeSkinGigaMeleeDescription = "GameIds/MeleeSkinGigaMeleeDescription";
 		    public const string MeleeSkinHatchet = "GameIds/MeleeSkinHatchet";
 		    public const string MeleeSkinHatchetDescription = "GameIds/MeleeSkinHatchetDescription";
+		    public const string MeleeSkinKatana = "GameIds/MeleeSkinKatana";
+		    public const string MeleeSkinKatanaDescription = "GameIds/MeleeSkinKatanaDescription";
+		    public const string MeleeSkinKeyboard = "GameIds/MeleeSkinKeyboard";
+		    public const string MeleeSkinKeyboardDescription = "GameIds/MeleeSkinKeyboardDescription";
+		    public const string MeleeSkinMagicalShillelagh = "GameIds/MeleeSkinMagicalShillelagh";
+		    public const string MeleeSkinMagicalShillelaghDescription = "GameIds/MeleeSkinMagicalShillelaghDescription";
 		    public const string MeleeSkinMicDrop = "GameIds/MeleeSkinMicDrop";
 		    public const string MeleeSkinMicDropDescription = "GameIds/MeleeSkinMicDropDescription";
 		    public const string MeleeSkinMightySledge = "GameIds/MeleeSkinMightySledge";
@@ -4346,9 +4375,6 @@ namespace I2.Loc
 		    public const string SendPasswordEmail = "MainMenu/SendPasswordEmail";
 		    public const string SendPasswordEmailConfirm = "MainMenu/SendPasswordEmailConfirm";
 		    public const string ServerCurrent = "MainMenu/ServerCurrent";
-		    public const string ServerNameEu = "MainMenu/ServerNameEu";
-		    public const string ServerNameHk = "MainMenu/ServerNameHk";
-		    public const string ServerNameUs = "MainMenu/ServerNameUs";
 		    public const string ServerSelectButtonConnect = "MainMenu/ServerSelectButtonConnect";
 		    public const string ServerSelectOption = "MainMenu/ServerSelectOption";
 		    public const string ServerSelectTitle = "MainMenu/ServerSelectTitle";
@@ -4839,6 +4865,22 @@ namespace I2.Loc
 		public static class UITSettings
 		{
 		    public const string InvertSpecialCancel = "UITSettings/InvertSpecialCancel";
+		    public const string ServerNameAsia = "UITSettings/ServerNameAsia";
+		    public const string ServerNameAu = "UITSettings/ServerNameAu";
+		    public const string ServerNameCae = "UITSettings/ServerNameCae";
+		    public const string ServerNameCn = "UITSettings/ServerNameCn";
+		    public const string ServerNameEu = "UITSettings/ServerNameEu";
+		    public const string ServerNameHk = "UITSettings/ServerNameHk";
+		    public const string ServerNameIn = "UITSettings/ServerNameIn";
+		    public const string ServerNameJp = "UITSettings/ServerNameJp";
+		    public const string ServerNameKr = "UITSettings/ServerNameKr";
+		    public const string ServerNameSa = "UITSettings/ServerNameSa";
+		    public const string ServerNameTurkey = "UITSettings/ServerNameTurkey";
+		    public const string ServerNameUae = "UITSettings/ServerNameUae";
+		    public const string ServerNameUs = "UITSettings/ServerNameUs";
+		    public const string ServerNameUssc = "UITSettings/ServerNameUssc";
+		    public const string ServerNameUsw = "UITSettings/ServerNameUsw";
+		    public const string ServerNameZa = "UITSettings/ServerNameZa";
 		    public const string account_deleted_desc = "UITSettings/account_deleted_desc";
 		    public const string account_deleted_title = "UITSettings/account_deleted_title";
 		    public const string account_title = "UITSettings/account_title";

@@ -220,7 +220,6 @@ namespace FirstLight.Game.Presenters
 				ButtonText = ScriptLocalization.UITSettings.logout,
 				ButtonOnClick = Data.LogoutClicked
 			};
-
 			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
 		}
 

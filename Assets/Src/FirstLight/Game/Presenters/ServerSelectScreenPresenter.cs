@@ -34,7 +34,6 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
-
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -73,7 +72,7 @@ namespace FirstLight.Game.Presenters
 		/// <summary>
 		/// Activates and populates the server selection list
 		/// </summary>
-		public void UpdateServerList()
+		private void UpdateServerList()
 		{
 			var regions = _services.ServerListService.PingsByServer;
 			_serverSelectDropdown.options.Clear();
@@ -86,12 +85,10 @@ namespace FirstLight.Game.Presenters
 					region.ServerCode.GetPhotonRegionTranslation().ToUpper(), region.ReceivedPing ? region.Ping : "");
 
 				_serverSelectDropdown.options.Add(new DropdownMenuOption(regionTitle, region));
-
 				if (_services.LocalPrefsService.ServerRegion.Value == region.ServerCode)
 				{
 					currentRegion = i;
 				}
-
 				i++;
 			}
 

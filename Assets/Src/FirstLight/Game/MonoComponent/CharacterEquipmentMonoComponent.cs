@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
@@ -21,7 +20,8 @@ namespace FirstLight.Game.MonoComponent
 		private RenderersContainerProxyMonoComponent _renderersContainerProxy;
 		protected CharacterSkinMonoComponent _skin;
 
-		private IDictionary<GameIdGroup, IList<GameObject>> _equipment;
+		private GameObject _weaponGun;
+		private GameObject _weaponMelee;
 		protected IGameServices _services;
 
 		private GameId[] _cosmetics = { };
@@ -35,7 +35,6 @@ namespace FirstLight.Game.MonoComponent
 		protected virtual void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_equipment = new Dictionary<GameIdGroup, IList<GameObject>>();
 			_skin = GetComponent<CharacterSkinMonoComponent>();
 			_renderersContainerProxy = GetComponent<RenderersContainerProxyMonoComponent>();
 		}
@@ -63,7 +62,23 @@ namespace FirstLight.Game.MonoComponent
 			piece.localScale = Vector3.one;
 		}
 
-		protected async UniTask<GameObject> InstantiateWeapon(Equipment equip)
+		public async UniTask<GameObject> InstantiateMelee()
+		{
+			var anchor = _skin.WeaponMeleeAnchor; // TODO: Support XL melee
+
+			var skinId = _services.CollectionService.GetCosmeticForGroup(_cosmetics, GameIdGroup.MeleeSkin);
+			var weapon = await _services.CollectionService.LoadCollectionItem3DModel(skinId);
+			var weaponTransform = weapon.transform;
+
+			weaponTransform.SetParent(anchor);
+			weaponTransform.localPosition = Vector3.zero;
+			weaponTransform.localRotation = Quaternion.identity;
+			weaponTransform.localScale = Vector3.one;
+
+			return weapon;
+		}
+
+		private async UniTask<GameObject> InstantiateWeapon(Equipment equip)
 		{
 			// TODO Generic GameId to GameIDGroup skin converter
 			var gameId = equip.GameId;
@@ -90,7 +105,6 @@ namespace FirstLight.Game.MonoComponent
 			var gameId = equip.GameId;
 			var slot = gameId.GetSlot();
 
-
 			var instance = await InstantiateWeapon(equip);
 
 			if (this.IsDestroyed())
@@ -99,9 +113,9 @@ namespace FirstLight.Game.MonoComponent
 				return instance;
 			}
 
-			if (_equipment.ContainsKey(slot))
+			if (_weaponGun != null)
 			{
-				UnequipItem(slot);
+				UnequipWeapon(_weaponGun);
 			}
 
 			_services.MessageBrokerService.Publish(new ItemEquippedMessage()
@@ -134,7 +148,8 @@ namespace FirstLight.Game.MonoComponent
 				FLog.Error($"Unable to find RenderersContainerMonoComponent for {gameId}");
 			}
 
-			_equipment.Add(slot, new[] {instance}); // TODO: Ugly temporary thing
+			_weaponGun = instance;
+
 			_services.MessageBrokerService.Publish(new EquipmentInstantiatedMessage()
 			{
 				Equipment = equip,
@@ -142,7 +157,7 @@ namespace FirstLight.Game.MonoComponent
 			});
 			return instance;
 		}
-		
+
 		/// <summary>
 		/// Destroy an item currently equipped on the character.
 		/// </summary>
@@ -164,52 +179,31 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// UnEquip an equipment slot destroying any game object references.
 		/// </summary>
-		public void UnequipItem(GameIdGroup slotType)
+		private void UnequipWeapon(GameObject weapon)
 		{
-			if (!_equipment.ContainsKey(slotType))
+			if (weapon.TryGetComponent(out RenderersContainerMonoComponent renderersContainer))
 			{
-				Debug.LogWarning($"Cannot unequip item of type {slotType} - _equipment does not contain Key of this type");
-				return;
+				_renderersContainerProxy.RemoveRenderersContainer(renderersContainer);
+			}
+			else if (weapon.transform.GetChild(0).TryGetComponent(out RenderersContainerMonoComponent c))
+			{
+				_renderersContainerProxy.RemoveRenderersContainer(c);
+			}
+			else
+			{
+				FLog.Error($"Unable to remove missing RenderersContainerMonoComponent {weapon.FullGameObjectPath()}");
 			}
 
-			var items = _equipment[slotType];
-			
-			for (var i = 0; i < items.Count; i++)
-			{
-				var go = items[i];
-				
-				if (go.TryGetComponent(out RenderersContainerMonoComponent renderersContainer))
-				{
-					_renderersContainerProxy.RemoveRenderersContainer(renderersContainer);
-				}
-				else if (go.transform.GetChild(0).TryGetComponent(out RenderersContainerMonoComponent c))
-				{
-					_renderersContainerProxy.RemoveRenderersContainer(c);
-				}
-				else
-				{
-					FLog.Error($"Unable to remove missing RenderersContainerMonoComponent {go.FullGameObjectPath()}");
-				}
-
-				go.SetActive(false);
-				Destroy(go);
-			}
-
-			_equipment.Remove(slotType);
+			Destroy(weapon);
 		}
-		
+
 		/// <summary>
 		/// Hide all Equipment currently equipped on a character.
 		/// </summary>
 		public void HideAllEquipment()
 		{
-			foreach (var items in _equipment.Values)
-			{
-				for (var i = 0; i < items.Count; i++)
-				{
-					items[i].SetActive(false);
-				}
-			}
+			if(_weaponGun != null) _weaponGun.SetActive(false);
+			if(_weaponMelee != null) _weaponMelee.SetActive(false);
 		}
 
 		/// <summary>
@@ -217,13 +211,8 @@ namespace FirstLight.Game.MonoComponent
 		/// </summary>
 		public void ShowAllEquipment()
 		{
-			foreach (var items in _equipment.Values)
-			{
-				for (var i = 0; i < items.Count; i++)
-				{
-					items[i].SetActive(true);
-				}
-			}
+			if(_weaponGun != null) _weaponGun.SetActive(true);
+			if(_weaponMelee != null) _weaponMelee.SetActive(true);
 		}
 
 		/// <summary>
@@ -231,20 +220,29 @@ namespace FirstLight.Game.MonoComponent
 		/// </summary>
 		public async UniTask<GameObject> EquipWeapon(Equipment equip)
 		{
-			var weapon = await EquipWeaponInternal(equip);
+			if (equip.GameId == GameId.Hammer)
+			{
+				_skin.TriggerEquipMelee();
+				return null;
+			}
+			else
+			{
+				var weapon = await EquipWeaponInternal(equip);
+				weapon.transform.GetChild(0).localPosition = Vector3.zero;
+				_skin.TriggerEquipGun();
+			return weapon;
+			}
 
 			// We set the first child to 0 pos because that's the actual weapon and that offset is
 			// there for the spawners as they use the same prefab.
-			weapon.transform.GetChild(0).localPosition = Vector3.zero;
 
-			return weapon;
 		}
 
 		private void AddEquipmentRenderersContainer(RenderersContainerMonoComponent renderersContainer)
 		{
 			renderersContainer.SetLayer(gameObject.layer);
 			renderersContainer.SetEnabled(_renderersContainerProxy.Enabled);
-			
+
 			_renderersContainerProxy.AddRenderersContainer(renderersContainer);
 			Color col = default;
 			if (_renderersContainerProxy.GetFirstRendererColor(ref col))

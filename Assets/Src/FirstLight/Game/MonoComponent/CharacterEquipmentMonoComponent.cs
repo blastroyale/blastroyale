@@ -25,6 +25,7 @@ namespace FirstLight.Game.MonoComponent
 		protected IGameServices _services;
 
 		private GameId[] _cosmetics = { };
+		private WeaponType _equippedGunType;
 
 		public GameId[] Cosmetics
 		{
@@ -78,57 +79,46 @@ namespace FirstLight.Game.MonoComponent
 			return weapon;
 		}
 
-		private async UniTask<GameObject> InstantiateWeapon(Equipment equip)
+		public async UniTask<GameObject> InstantiateWeapon(Equipment equip)
 		{
-			// TODO Generic GameId to GameIDGroup skin converter
-			var gameId = equip.GameId;
-			GameObject obj;
-			if (gameId == GameId.Hammer)
-			{
-				var skinId = _services.CollectionService.GetCosmeticForGroup(_cosmetics, GameIdGroup.MeleeSkin);
-				obj = await _services.CollectionService.LoadCollectionItem3DModel(skinId, false, true);
-			}
-			else
-			{
-				obj = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
-			}
-
-			obj.name = gameId.ToString();
-			return obj;
-		}
-
-		/// <summary>
-		/// Equip characters equipment slot with an asset loaded by unique id.
-		/// </summary>
-		private async UniTask<GameObject> EquipWeaponInternal(Equipment equip)
-		{
-			var gameId = equip.GameId;
-			var slot = gameId.GetSlot();
-
-			var instance = await InstantiateWeapon(equip);
+			var weapon = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(equip.GameId);
+			weapon.name = equip.GameId.ToString();
 
 			if (this.IsDestroyed())
 			{
-				Destroy(instance);
-				return instance;
+				Destroy(weapon);
+				return null;
 			}
 
 			if (_weaponGun != null)
 			{
-				UnequipWeapon(_weaponGun);
+				if (weapon.TryGetComponent(out RenderersContainerMonoComponent renderersContainer))
+				{
+					_renderersContainerProxy.RemoveRenderersContainer(renderersContainer);
+				}
+				else if (weapon.transform.GetChild(0).TryGetComponent(out RenderersContainerMonoComponent c))
+				{
+					_renderersContainerProxy.RemoveRenderersContainer(c);
+				}
+				else
+				{
+					FLog.Error($"Unable to remove missing RenderersContainerMonoComponent {weapon.FullGameObjectPath()}");
+				}
+
+				Destroy(weapon);
 			}
 
 			_services.MessageBrokerService.Publish(new ItemEquippedMessage()
 			{
 				Character = gameObject.GetComponent<PlayerCharacterViewMonoComponent>(),
-				Item = instance,
-				Id = gameId
+				Item = weapon,
+				Id = equip.GameId
 			});
 
 			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) equip.GameId);
-			_skin.WeaponType = config.WeaponType;
+			_equippedGunType = config.WeaponType;
 
-			var weaponTransform = instance.transform;
+			var weaponTransform = weapon.transform;
 			var anchor = _skin.WeaponAnchor;
 
 			weaponTransform.SetParent(anchor);
@@ -145,17 +135,18 @@ namespace FirstLight.Game.MonoComponent
 			}
 			else
 			{
-				FLog.Error($"Unable to find RenderersContainerMonoComponent for {gameId}");
+				FLog.Error($"Unable to find RenderersContainerMonoComponent for {equip.GameId}");
 			}
 
-			_weaponGun = instance;
+			_weaponGun = weapon;
 
 			_services.MessageBrokerService.Publish(new EquipmentInstantiatedMessage()
 			{
 				Equipment = equip,
-				Object = instance
+				Object = weapon
 			});
-			return instance;
+
+			return weapon;
 		}
 
 		/// <summary>
@@ -177,33 +168,12 @@ namespace FirstLight.Game.MonoComponent
 		}
 
 		/// <summary>
-		/// UnEquip an equipment slot destroying any game object references.
-		/// </summary>
-		private void UnequipWeapon(GameObject weapon)
-		{
-			if (weapon.TryGetComponent(out RenderersContainerMonoComponent renderersContainer))
-			{
-				_renderersContainerProxy.RemoveRenderersContainer(renderersContainer);
-			}
-			else if (weapon.transform.GetChild(0).TryGetComponent(out RenderersContainerMonoComponent c))
-			{
-				_renderersContainerProxy.RemoveRenderersContainer(c);
-			}
-			else
-			{
-				FLog.Error($"Unable to remove missing RenderersContainerMonoComponent {weapon.FullGameObjectPath()}");
-			}
-
-			Destroy(weapon);
-		}
-
-		/// <summary>
 		/// Hide all Equipment currently equipped on a character.
 		/// </summary>
 		public void HideAllEquipment()
 		{
-			if(_weaponGun != null) _weaponGun.SetActive(false);
-			if(_weaponMelee != null) _weaponMelee.SetActive(false);
+			if (_weaponGun != null) _weaponGun.SetActive(false);
+			if (_weaponMelee != null) _weaponMelee.SetActive(false);
 		}
 
 		/// <summary>
@@ -211,31 +181,25 @@ namespace FirstLight.Game.MonoComponent
 		/// </summary>
 		public void ShowAllEquipment()
 		{
-			if(_weaponGun != null) _weaponGun.SetActive(true);
-			if(_weaponMelee != null) _weaponMelee.SetActive(true);
+			if (_weaponGun != null) _weaponGun.SetActive(true);
+			if (_weaponMelee != null) _weaponMelee.SetActive(true);
 		}
 
 		/// <summary>
 		/// Equip a weapon using a GameId
 		/// </summary>
-		public async UniTask<GameObject> EquipWeapon(Equipment equip)
+		public void EquipWeapon(Equipment equip)
 		{
 			if (equip.GameId == GameId.Hammer)
 			{
+				_skin.WeaponType = WeaponType.Melee;
 				_skin.TriggerEquipMelee();
-				return null;
 			}
 			else
 			{
-				var weapon = await EquipWeaponInternal(equip);
-				weapon.transform.GetChild(0).localPosition = Vector3.zero;
+				_skin.WeaponType = _equippedGunType;
 				_skin.TriggerEquipGun();
-			return weapon;
 			}
-
-			// We set the first child to 0 pos because that's the actual weapon and that offset is
-			// there for the spawners as they use the same prefab.
-
 		}
 
 		private void AddEquipmentRenderersContainer(RenderersContainerMonoComponent renderersContainer)

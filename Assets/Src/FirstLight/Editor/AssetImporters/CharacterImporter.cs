@@ -59,11 +59,24 @@ namespace FirstLight.Editor.AssetImporters
 		private void OnPreprocessTexture()
 		{
 			if (!assetPath.StartsWith(CHAR_PATH)) return;
-			if (!Path.GetFileName(assetPath).StartsWith("T_Char_")) return;
 
 			var importer = (TextureImporter) assetImporter;
-			var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/CharacterTexture.preset");
-			preset.ApplyTo(importer);
+			var filename = Path.GetFileName(assetPath);
+
+			if (filename.StartsWith("T_Char_"))
+			{
+				var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/CharacterTexture.preset");
+				preset.ApplyTo(importer);
+			}
+			else if (filename.StartsWith("Icon_Char_"))
+			{
+				var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/CharacterIcon.preset");
+				preset.ApplyTo(importer);
+			}
+			else
+			{
+				context.LogImportWarning($"Unknown texture in characters folder: {assetPath}");
+			}
 		}
 
 		private void OnPreprocessMaterialDescription(MaterialDescription description, Material material, AnimationClip[] animations)

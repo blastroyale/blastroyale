@@ -121,11 +121,14 @@ namespace FirstLight.Editor.AssetImporters
 				if (filename.StartsWith("Char_") && filename.EndsWith(".fbx"))
 				{
 					var characterName = filename.Substring(5, filename.Length - 9);
+					var destFolder = Path.Combine(CHAR_PATH, characterName);
 
-					if (AssetDatabase.IsValidFolder(Path.Combine(CHAR_PATH, characterName)))
+					if (AssetDatabase.IsValidFolder(destFolder))
 					{
-						// TODO: Update existing FBX
-						Debug.LogError("Updating existing character is not supported yet.");
+						var destFile = Path.Combine(destFolder, filename);
+						File.Copy(asset, destFile, true);
+						AssetDatabase.ImportAsset(destFile);
+						AssetDatabase.DeleteAsset(asset);
 					}
 					else
 					{

@@ -33,10 +33,9 @@ namespace FirstLight.Editor.AssetImporters
 			if (!assetPath.StartsWith(CHAR_PATH)) return;
 
 			// Set defaults for character animation clips.
-
 			var importer = (ModelImporter) assetImporter;
 
-			var clips = importer.clipAnimations;
+			var clips = importer.defaultClipAnimations;
 			foreach (var anim in clips)
 			{
 				anim.lockRootRotation = true;

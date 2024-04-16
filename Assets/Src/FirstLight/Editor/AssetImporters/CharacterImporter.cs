@@ -116,7 +116,6 @@ namespace FirstLight.Editor.AssetImporters
 			{
 				if (asset.StartsWith(CHAR_PATH)) continue;
 
-				// Check if any of the imported FBX's are new characters
 				var filename = Path.GetFileName(asset);
 				if (filename.StartsWith("Char_") && filename.EndsWith(".fbx"))
 				{
@@ -125,6 +124,7 @@ namespace FirstLight.Editor.AssetImporters
 
 					if (AssetDatabase.IsValidFolder(destFolder))
 					{
+						// Update existing character
 						var destFile = Path.Combine(destFolder, filename);
 						File.Copy(asset, destFile, true);
 						AssetDatabase.ImportAsset(destFile);
@@ -132,6 +132,7 @@ namespace FirstLight.Editor.AssetImporters
 					}
 					else
 					{
+						// Create new character
 						var folderGuid = AssetDatabase.CreateFolder(CHAR_PATH, characterName);
 						if (string.IsNullOrEmpty(folderGuid))
 						{
@@ -142,6 +143,24 @@ namespace FirstLight.Editor.AssetImporters
 						var destinationPath = $"{CHAR_PATH}/{characterName}/{filename}";
 						AssetDatabase.MoveAsset(asset, destinationPath);
 						AssetDatabase.ImportAsset(destinationPath);
+					}
+				}
+				else if (filename.StartsWith("Icon_Char_"))
+				{
+					var characterName = filename.Substring(10, filename.Length - 14);
+					var destFolder = Path.Combine(CHAR_PATH, characterName);
+
+					if (AssetDatabase.IsValidFolder(destFolder))
+					{
+						// Move to correct folder
+						var destFile = Path.Combine(destFolder, filename);
+						File.Copy(asset, destFile, true);
+						AssetDatabase.ImportAsset(destFile);
+						AssetDatabase.DeleteAsset(asset);
+					}
+					else
+					{
+						Debug.LogWarning("Icon_Char_ file found without corresponding character folder. Ignoring.");
 					}
 				}
 			}

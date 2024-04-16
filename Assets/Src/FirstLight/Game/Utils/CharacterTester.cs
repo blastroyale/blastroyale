@@ -14,7 +14,7 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 			const float SPACING = 1.5f;
 			const int ROWS = 3;
 
-			var assets = AssetDatabase.FindAssets("t:Model Char_", new[] {"Assets/AddressableResources/Collections/CharacterSkins"});
+			var assets = AssetDatabase.FindAssets("t:Model t:Prefab Char_", new[] {"Assets/AddressableResources/Collections/CharacterSkins"});
 
 			// Destroy kids
 			while (transform.childCount > 0)

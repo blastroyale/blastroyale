@@ -25,13 +25,14 @@ namespace FirstLight.Editor.Collections
 
 			// Characters
 			tree.Add("Characters", new CharactersGroup());
-			var characterPrefabs = AssetDatabase.FindAssets("t:Prefab Char_", new[] {PATH_CHARACTERS});
+			var characterPrefabs = AssetDatabase.FindAssets("t:Model t:Prefab Char_", new[] {PATH_CHARACTERS});
 			foreach (var guid in characterPrefabs)
 			{
 				var path = AssetDatabase.GUIDToAssetPath(guid);
-				var iconPath = path.Replace(".prefab", ".png").Replace("Char_", "Icon_Char_");
-				var characterName = Path.GetFileName(path).Replace("Char_", "").Replace(".prefab", "");
+				var iconPath = path.Replace(".prefab", ".png").Replace(".fbx", ".png").Replace("Char_", "Icon_Char_");
+				var characterName = Path.GetFileName(path).Replace("Char_", "").Replace(".prefab", "").Replace(".fbx", "");
 				var icon = AssetDatabase.LoadAssetAtPath<Sprite>(iconPath);
+				Debug.Log($"IconPath({characterName}): {iconPath}");
 
 				tree.Add($"Characters/{characterName}", new CharacterSkinWrapper(path, icon), icon);
 			}
@@ -77,12 +78,6 @@ namespace FirstLight.Editor.Collections
 			[PreviewField(ObjectFieldAlignment.Left)]
 			[BoxGroup("Model/Split/Left/Assets")]
 			[DisableIf("@true")]
-			private Material Material { get; set; }
-
-			[ShowInInspector]
-			[PreviewField(ObjectFieldAlignment.Left)]
-			[BoxGroup("Model/Split/Left/Assets")]
-			[DisableIf("@true")]
 			private Texture2D Texture { get; set; }
 
 			[BoxGroup("Model/Split/Preview")]
@@ -108,8 +103,7 @@ namespace FirstLight.Editor.Collections
 				ID = Path.GetFileNameWithoutExtension(PrefabPath);
 				Prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
 				Skin = Prefab.GetComponent<CharacterSkinMonoComponent>();
-				Material = AssetDatabase.LoadAssetAtPath<Material>(PrefabPath.Replace("Char_", "M_Char_").Replace(".prefab", ".mat"));
-				Texture = AssetDatabase.LoadAssetAtPath<Texture2D>(PrefabPath.Replace("Char_", "T_Char_").Replace(".prefab", ".png"));
+				Texture = AssetDatabase.LoadAssetAtPath<Texture2D>(PrefabPath.Replace("Char_", "T_Char_").Replace(".fbx", ".png").Replace(".prefab", ".png"));
 			}
 		}
 

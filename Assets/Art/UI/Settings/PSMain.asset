@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19101, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: PSMatch
+  m_Name: PSMain
   m_EditorClassIdentifier: 
   themeUss: {fileID: -4733365628477956816, guid: c36ea4b7ac30145cfa494f5312ce40e7, type: 3}
   m_TargetTexture: {fileID: 0}
@@ -22,7 +22,7 @@ MonoBehaviour:
   m_ReferenceResolution: {x: 2340, y: 1080}
   m_ScreenMatchMode: 0
   m_Match: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
   m_ClearDepthStencil: 1
   m_ClearColor: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
   m_DynamicAtlasSettings:
     m_MinAtlasSize: 1024
     m_MaxAtlasSize: 2048
-    m_MaxSubTextureSize: 64
+    m_MaxSubTextureSize: 256
     m_ActiveFilters: -1
   m_AtlasBlitShader: {fileID: 9101, guid: 0000000000000000f000000000000000, type: 0}
   m_RuntimeShader: {fileID: 9100, guid: 0000000000000000f000000000000000, type: 0}

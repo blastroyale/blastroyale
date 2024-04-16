@@ -1,4 +1,5 @@
 using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
@@ -23,6 +24,7 @@ namespace FirstLight.Game.Views.UITK
 		private IVisualElementScheduledItem _timerUpdate;
 		private ValueAnimation<float> _pingAnimation;
 		private IGameServices _services;
+		private int _lastKnownStep = 0;
 
 		public override void Attached(VisualElement element)
 		{
@@ -42,66 +44,70 @@ namespace FirstLight.Game.Views.UITK
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
+
+		public override void OnScreenOpen(bool reload)
+		{
+			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
+			QuantumEvent.SubscribeManual<EventOnAirDropDropped>(this, OnAirDropDropped);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
+		}
+
+		public override void OnScreenClose()
+		{
+			QuantumEvent.UnsubscribeListener(this);
+			_services.MessageBrokerService.UnsubscribeAll(this);
+		}
+
+		private void OnMatchStarted(MatchStartedMessage msg)
+		{
+			var game = msg.Game;
+			var f = game.Frames.Verified;
+			UpdateCircleBasedOnFrame(f);
+		}
+
 		public void SetAreaShrinkingDirector(PlayableDirector director)
 		{
 			_notificationDirector = director;
 		}
 
 
-		public override void OnScreenOpen(bool reload)
-		{
-			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
-			QuantumEvent.SubscribeManual<EventOnPlayerSpawned>(this, OnPlayerSpawned);
-			QuantumEvent.SubscribeManual<EventOnAirDropDropped>(this, OnAirDropDropped);
-		}
-
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
 		{
 			ShowNotification(ScriptLocalization.UITMatch.airdrop_landing);
 		}
 
-		public override void OnScreenClose()
-		{
-			QuantumEvent.UnsubscribeListener(this);
-		}
 
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
-			if (!callback.Game.Frames.Verified.Context.GameModeConfig.ShowUITimer)
-			{
-				return;
-			}
-
-			var warningStart = callback.ShrinkingCircle.ShrinkingStartTime - callback.ShrinkingCircle.ShrinkingWarningTime;
-			var shrinkingStart = callback.ShrinkingCircle.ShrinkingStartTime;
-			var shrinkingDuration = callback.ShrinkingCircle.ShrinkingDurationTime;
-
-			StartCountdown(warningStart, shrinkingStart, shrinkingDuration);
+			UpdateCircleBasedOnFrame(callback.Game.Frames.Verified);
 		}
 
-		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+
+		private void UpdateCircleBasedOnFrame(Frame f)
 		{
-			if (!callback.Game.Frames.Verified.Context.GameModeConfig.ShowUITimer)
+			if (!f.Context.GameModeConfig.ShowUITimer)
 			{
 				_counterElement.SetVisibility(false);
 				return;
 			}
 
 			_counterElement.SetVisibility(true);
-			if (_timerUpdate == null && callback.Game.Frames.Predicted.TryGetSingleton<ShrinkingCircle>(out var circle))
-			{
-				var warningStart = circle.ShrinkingStartTime - circle.ShrinkingWarningTime;
-				var shrinkingStart = circle.ShrinkingStartTime;
-				var shrinkingDuration = circle.ShrinkingDurationTime;
-
-				StartCountdown(warningStart, shrinkingStart, shrinkingDuration);
-			}
+			if (!f.TryGetSingleton<ShrinkingCircle>(out var circle)) return;
+			if (_lastKnownStep >= circle.Step) return;
+			
+			_lastKnownStep = circle.Step;
+			StartCountdown(circle);
 		}
+
 
 		// This method does the countdowns on Unity side with Unity's timers, so it might not be 100% accurate
 		// If that proves to be an issue we may need to rather recalculate the time left using Quantum's Frame.Time.
-		private void StartCountdown(int warningStartTime, int shrinkingStartTime, int shrinkingDuration)
+		private void StartCountdown(ShrinkingCircle circle)
 		{
+			var warningStartTime = circle.ShrinkingStartTime - circle.ShrinkingWarningTime;
+			var shrinkingStartTime = circle.ShrinkingStartTime;
+			var shrinkingDuration = circle.ShrinkingDurationTime;
+
 			var shrinkingNotified = false;
 			var warningNotified = false;
 			var delayPhaseStarted = false;

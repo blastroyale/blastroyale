@@ -12,6 +12,8 @@ namespace FirstLight.Editor.AssetImporters
 	{
 		private const string CHAR_PATH = "Assets/AddressableResources/Collections/CharacterSkins";
 
+		public override int GetPostprocessOrder() => 100;
+
 		private void OnPreprocessModel()
 		{
 			if (!assetPath.StartsWith(CHAR_PATH)) return;
@@ -101,8 +103,9 @@ namespace FirstLight.Editor.AssetImporters
 
 			g.AddComponent<CharacterSkinMonoComponent>().SetupReferences();
 
-			g.GetComponent<Animator>().applyRootMotion = false;
-			g.GetComponent<Animator>().runtimeAnimatorController =
+			var animator = g.GetComponent<Animator>();
+			animator.applyRootMotion = false;
+			animator.runtimeAnimatorController =
 				AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>($"{CHAR_PATH}/Shared/character_animator.controller");
 
 			g.SetLayer(LayerMask.NameToLayer("Players"));

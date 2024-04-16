@@ -1057,6 +1057,10 @@ namespace I2.Loc
 			public static string AvatarAssasinmaskDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarAssasinmaskDescription"); } }
 			public static string AvatarBlastcatads 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBlastcatads"); } }
 			public static string AvatarBlastcatadsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBlastcatadsDescription"); } }
+			public static string AvatarBrandfemale 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBrandfemale"); } }
+			public static string AvatarBrandfemaleDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBrandfemaleDescription"); } }
+			public static string AvatarBrandmale 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBrandmale"); } }
+			public static string AvatarBrandmaleDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBrandmaleDescription"); } }
 			public static string AvatarBurgerads 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBurgerads"); } }
 			public static string AvatarBurgeradsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBurgeradsDescription"); } }
 			public static string AvatarCatcupads 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarCatcupads"); } }
@@ -1067,6 +1071,8 @@ namespace I2.Loc
 			public static string AvatarCorpocrossadsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarCorpocrossadsDescription"); } }
 			public static string AvatarCorpomask 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarCorpomask"); } }
 			public static string AvatarCorpomaskDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarCorpomaskDescription"); } }
+			public static string AvatarEgirl 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarEgirl"); } }
+			public static string AvatarEgirlDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarEgirlDescription"); } }
 			public static string AvatarEyesads 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarEyesads"); } }
 			public static string AvatarEyesadsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarEyesadsDescription"); } }
 			public static string AvatarFemaleassasinwantedads 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarFemaleassasinwantedads"); } }
@@ -1101,6 +1107,10 @@ namespace I2.Loc
 			public static string AvatarFemalesuperstardisguststickerDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarFemalesuperstardisguststickerDescription"); } }
 			public static string AvatarFemalesupperstar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarFemalesupperstar"); } }
 			public static string AvatarFemalesupperstarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarFemalesupperstarDescription"); } }
+			public static string AvatarGearedape 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarGearedape"); } }
+			public static string AvatarGearedapeDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarGearedapeDescription"); } }
+			public static string AvatarLeprechaun 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarLeprechaun"); } }
+			public static string AvatarLeprechaunDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarLeprechaunDescription"); } }
 			public static string AvatarMaleassasin 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarMaleassasin"); } }
 			public static string AvatarMaleassasinDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarMaleassasinDescription"); } }
 			public static string AvatarMaleassasinconcept 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarMaleassasinconcept"); } }
@@ -1135,6 +1145,14 @@ namespace I2.Loc
 			public static string AvatarMalesuperstarstopstickerDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarMalesuperstarstopstickerDescription"); } }
 			public static string AvatarMusic 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarMusic"); } }
 			public static string AvatarMusicDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarMusicDescription"); } }
+			public static string AvatarNinja 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarNinja"); } }
+			public static string AvatarNinjaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarNinjaDescription"); } }
+			public static string AvatarNinjaalternative 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarNinjaalternative"); } }
+			public static string AvatarNinjaalternativeDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarNinjaalternativeDescription"); } }
+			public static string AvatarPlaguedoctormystery 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarPlaguedoctormystery"); } }
+			public static string AvatarPlaguedoctormysteryDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarPlaguedoctormysteryDescription"); } }
+			public static string AvatarPolicefemale 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarPolicefemale"); } }
+			public static string AvatarPolicefemaleDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarPolicefemaleDescription"); } }
 			public static string AvatarPunklogoads 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarPunklogoads"); } }
 			public static string AvatarPunklogoadsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarPunklogoadsDescription"); } }
 			public static string AvatarRocketads 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarRocketads"); } }
@@ -3593,6 +3611,10 @@ namespace I2.Loc
 		    public const string AvatarAssasinmaskDescription = "GameIds/AvatarAssasinmaskDescription";
 		    public const string AvatarBlastcatads = "GameIds/AvatarBlastcatads";
 		    public const string AvatarBlastcatadsDescription = "GameIds/AvatarBlastcatadsDescription";
+		    public const string AvatarBrandfemale = "GameIds/AvatarBrandfemale";
+		    public const string AvatarBrandfemaleDescription = "GameIds/AvatarBrandfemaleDescription";
+		    public const string AvatarBrandmale = "GameIds/AvatarBrandmale";
+		    public const string AvatarBrandmaleDescription = "GameIds/AvatarBrandmaleDescription";
 		    public const string AvatarBurgerads = "GameIds/AvatarBurgerads";
 		    public const string AvatarBurgeradsDescription = "GameIds/AvatarBurgeradsDescription";
 		    public const string AvatarCatcupads = "GameIds/AvatarCatcupads";
@@ -3603,6 +3625,8 @@ namespace I2.Loc
 		    public const string AvatarCorpocrossadsDescription = "GameIds/AvatarCorpocrossadsDescription";
 		    public const string AvatarCorpomask = "GameIds/AvatarCorpomask";
 		    public const string AvatarCorpomaskDescription = "GameIds/AvatarCorpomaskDescription";
+		    public const string AvatarEgirl = "GameIds/AvatarEgirl";
+		    public const string AvatarEgirlDescription = "GameIds/AvatarEgirlDescription";
 		    public const string AvatarEyesads = "GameIds/AvatarEyesads";
 		    public const string AvatarEyesadsDescription = "GameIds/AvatarEyesadsDescription";
 		    public const string AvatarFemaleassasinwantedads = "GameIds/AvatarFemaleassasinwantedads";
@@ -3637,6 +3661,10 @@ namespace I2.Loc
 		    public const string AvatarFemalesuperstardisguststickerDescription = "GameIds/AvatarFemalesuperstardisguststickerDescription";
 		    public const string AvatarFemalesupperstar = "GameIds/AvatarFemalesupperstar";
 		    public const string AvatarFemalesupperstarDescription = "GameIds/AvatarFemalesupperstarDescription";
+		    public const string AvatarGearedape = "GameIds/AvatarGearedape";
+		    public const string AvatarGearedapeDescription = "GameIds/AvatarGearedapeDescription";
+		    public const string AvatarLeprechaun = "GameIds/AvatarLeprechaun";
+		    public const string AvatarLeprechaunDescription = "GameIds/AvatarLeprechaunDescription";
 		    public const string AvatarMaleassasin = "GameIds/AvatarMaleassasin";
 		    public const string AvatarMaleassasinDescription = "GameIds/AvatarMaleassasinDescription";
 		    public const string AvatarMaleassasinconcept = "GameIds/AvatarMaleassasinconcept";
@@ -3671,6 +3699,14 @@ namespace I2.Loc
 		    public const string AvatarMalesuperstarstopstickerDescription = "GameIds/AvatarMalesuperstarstopstickerDescription";
 		    public const string AvatarMusic = "GameIds/AvatarMusic";
 		    public const string AvatarMusicDescription = "GameIds/AvatarMusicDescription";
+		    public const string AvatarNinja = "GameIds/AvatarNinja";
+		    public const string AvatarNinjaDescription = "GameIds/AvatarNinjaDescription";
+		    public const string AvatarNinjaalternative = "GameIds/AvatarNinjaalternative";
+		    public const string AvatarNinjaalternativeDescription = "GameIds/AvatarNinjaalternativeDescription";
+		    public const string AvatarPlaguedoctormystery = "GameIds/AvatarPlaguedoctormystery";
+		    public const string AvatarPlaguedoctormysteryDescription = "GameIds/AvatarPlaguedoctormysteryDescription";
+		    public const string AvatarPolicefemale = "GameIds/AvatarPolicefemale";
+		    public const string AvatarPolicefemaleDescription = "GameIds/AvatarPolicefemaleDescription";
 		    public const string AvatarPunklogoads = "GameIds/AvatarPunklogoads";
 		    public const string AvatarPunklogoadsDescription = "GameIds/AvatarPunklogoadsDescription";
 		    public const string AvatarRocketads = "GameIds/AvatarRocketads";

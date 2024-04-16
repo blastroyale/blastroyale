@@ -238,6 +238,15 @@ enum GameId
 	AvatarRocketads = 192,
 	AvatarSuperstarloveads = 193,
 	AvatarUnicornssticker = 194,
+	AvatarBrandfemale = 500,
+	AvatarBrandmale = 501,
+	AvatarEgirl = 502,
+	AvatarGearedape = 503,
+	AvatarLeprechaun = 504,
+	AvatarNinja = 505,
+	AvatarNinjaalternative = 506,
+	AvatarPolicefemale = 507,
+	AvatarPlaguedoctormystery = 508,
 	FootprintDot = 111,
 }
 

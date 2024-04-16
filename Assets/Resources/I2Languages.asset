@@ -11237,7 +11237,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Default avatar
+      - Available to OG players only
       - 
       - 
       - 
@@ -12294,6 +12294,204 @@ MonoBehaviour:
       Description: 
       Languages:
       - Blast Pass - Beta Season 8
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBrandfemale
+      TermType: 0
+      Description: 
+      Languages:
+      - ZOE MOE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBrandfemaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Default avatar
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBrandmale
+      TermType: 0
+      Description: 
+      Languages:
+      - MAX HARPER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBrandmaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Default avatar
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarEgirl
+      TermType: 0
+      Description: 
+      Languages:
+      - CASSIE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarEgirlDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarGearedape
+      TermType: 0
+      Description: 
+      Languages:
+      - NOA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarGearedapeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLeprechaun
+      TermType: 0
+      Description: 
+      Languages:
+      - PATRICK CLOVER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLeprechaunDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarNinja
+      TermType: 0
+      Description: 
+      Languages:
+      - FEARLESS GOJI
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarNinjaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarNinjaalternative
+      TermType: 0
+      Description: 
+      Languages:
+      - GOJI
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarNinjaalternativeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPolicefemale
+      TermType: 0
+      Description: 
+      Languages:
+      - SOFIA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPolicefemaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPlaguedoctormystery
+      TermType: 0
+      Description: 
+      Languages:
+      - MYSTERY DOCTOR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPlaguedoctormysteryDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
       - 
       - 
       - 
@@ -27338,7 +27536,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1712929031626
+    Google_LastUpdatedVersion: 1713185381408
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

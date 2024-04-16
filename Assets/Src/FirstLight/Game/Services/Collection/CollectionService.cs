@@ -46,7 +46,7 @@ namespace FirstLight.Game.Services.Collection
 			{GameIdGroup.Glider, GameId.Turbine},
 			{GameIdGroup.DeathMarker, GameId.Demon},
 			{GameIdGroup.Footprint, GameId.FootprintDot},
-			{GameIdGroup.ProfilePicture, GameId.Avatar2},
+			{GameIdGroup.ProfilePicture, GameId.AvatarBrandmale},
 		};
 
 

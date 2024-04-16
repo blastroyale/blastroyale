@@ -85,7 +85,8 @@ namespace FirstLight.Game.Logic
 			{
 				CollectionCategories.PROFILE_PICTURE, new List<ItemData>()
 				{
-					ItemFactory.Collection(GameId.Avatar2)
+					ItemFactory.Collection(GameId.AvatarBrandmale),
+					ItemFactory.Collection(GameId.AvatarBrandfemale),
 				}
 			},
 			{
@@ -127,7 +128,7 @@ namespace FirstLight.Game.Logic
 			{CollectionCategories.GLIDERS, ItemFactory.Collection(GameId.Turbine)},
 			{CollectionCategories.GRAVE, ItemFactory.Collection(GameId.Demon)},
 			{CollectionCategories.MELEE_SKINS, ItemFactory.Collection(GameId.MeleeSkinDefault)},
-			{CollectionCategories.PROFILE_PICTURE, ItemFactory.Collection(GameId.Avatar2)},
+			{CollectionCategories.PROFILE_PICTURE, ItemFactory.Collection(GameId.AvatarBrandmale)},
 			{CollectionCategories.PLAYER_SKINS, ItemFactory.Collection(GameId.PlayerSkinBrandMale)},
 		};
 		

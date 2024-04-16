@@ -1753,6 +1753,69 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.AvatarBrandfemale, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarBrandmale, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarEgirl, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarGearedape, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarLeprechaun, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarNinja, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarNinjaalternative, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarPolicefemale, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarPlaguedoctormystery, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.FootprintDot, new List<GameIdGroup>
 					{
 						GameIdGroup.Footprint,
@@ -2158,7 +2221,16 @@ namespace Quantum
 						GameId.AvatarPunklogoads,
 						GameId.AvatarRocketads,
 						GameId.AvatarSuperstarloveads,
-						GameId.AvatarUnicornssticker
+						GameId.AvatarUnicornssticker,
+						GameId.AvatarBrandfemale,
+						GameId.AvatarBrandmale,
+						GameId.AvatarEgirl,
+						GameId.AvatarGearedape,
+						GameId.AvatarLeprechaun,
+						GameId.AvatarNinja,
+						GameId.AvatarNinjaalternative,
+						GameId.AvatarPolicefemale,
+						GameId.AvatarPlaguedoctormystery
 					}.AsReadOnly()
 				},
 				{
@@ -2459,7 +2531,16 @@ namespace Quantum
 						GameId.AvatarPunklogoads,
 						GameId.AvatarRocketads,
 						GameId.AvatarSuperstarloveads,
-						GameId.AvatarUnicornssticker
+						GameId.AvatarUnicornssticker,
+						GameId.AvatarBrandfemale,
+						GameId.AvatarBrandmale,
+						GameId.AvatarEgirl,
+						GameId.AvatarGearedape,
+						GameId.AvatarLeprechaun,
+						GameId.AvatarNinja,
+						GameId.AvatarNinjaalternative,
+						GameId.AvatarPolicefemale,
+						GameId.AvatarPlaguedoctormystery
 					}.AsReadOnly()
 				},
 				{

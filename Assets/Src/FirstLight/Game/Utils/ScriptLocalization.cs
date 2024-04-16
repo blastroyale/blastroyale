@@ -2375,6 +2375,8 @@ namespace I2.Loc
 			public static string connect_flg_id 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect_flg_id"); } }
 			public static string connect_flg_id_advice 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect_flg_id_advice"); } }
 			public static string connect_web3 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect_web3"); } }
+			public static string connected_to_server_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connected_to_server_desc"); } }
+			public static string connected_to_server_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connected_to_server_title"); } }
 			public static string controls_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/controls_title"); } }
 			public static string delete_account 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/delete_account"); } }
 			public static string delete_account_request_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/delete_account_request_desc"); } }
@@ -4929,6 +4931,8 @@ namespace I2.Loc
 		    public const string connect_flg_id = "UITSettings/connect_flg_id";
 		    public const string connect_flg_id_advice = "UITSettings/connect_flg_id_advice";
 		    public const string connect_web3 = "UITSettings/connect_web3";
+		    public const string connected_to_server_desc = "UITSettings/connected_to_server_desc";
+		    public const string connected_to_server_title = "UITSettings/connected_to_server_title";
 		    public const string controls_title = "UITSettings/controls_title";
 		    public const string delete_account = "UITSettings/delete_account";
 		    public const string delete_account_request_desc = "UITSettings/delete_account_request_desc";

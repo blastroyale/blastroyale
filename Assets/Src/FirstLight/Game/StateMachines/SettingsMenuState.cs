@@ -27,8 +27,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _connectIdBackEvent = new StatechartEvent("Connect ID Back Event");
 		private readonly IStatechartEvent _connectIdLoginSuccessEvent = new StatechartEvent("Connect ID login success event");
 		private readonly IStatechartEvent _connectIdRegisterSuccessEvent = new StatechartEvent("Connect ID register success event");
-		private readonly IStatechartEvent _connectIdFailedEvent = new StatechartEvent("Connect ID failed event");
-		private readonly IStatechartEvent _exitedSelectServer = new StatechartEvent("Exited Select Server");
 
 		private readonly MatchState _matchState;
 		private readonly MainMenuState _mainMenuState;
@@ -54,7 +52,6 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var connectId = stateFactory.State("Connect ID Screen");
-			var serverSelect = stateFactory.State("Server Select");
 			var logoutWait = stateFactory.State("Wait For Logout");
 
 			initial.Transition().Target(settingsMenu);
@@ -64,17 +61,12 @@ namespace FirstLight.Game.StateMachines
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(final);
 			settingsMenu.Event(_logoutConfirmClickedEvent).Target(logoutWait);
 			settingsMenu.Event(_connectIdClickedEvent).Target(connectId);
-			settingsMenu.Event(NetworkState.OpenServerSelectScreenEvent).Target(serverSelect);
 
 			connectId.OnEnter(OpenConnectIdUI);
 			connectId.Event(_connectIdBackEvent).Target(settingsMenu);
 			connectId.Event(_connectIdRegisterSuccessEvent).OnTransition(UpdateAccountStatus).Target(settingsMenu);
 			connectId.Event(_connectIdLoginSuccessEvent).OnTransition(UpdateAccountStatus).Target(settingsMenu);
-			connectId.Event(_connectIdFailedEvent).Target(settingsMenu);
 			connectId.OnExit(CloseConnectUI);
-
-			serverSelect.OnEnter(() => _ = OpenServerSelectUI());
-			serverSelect.Event(_exitedSelectServer).Target(settingsMenu);
 
 			logoutWait.OnEnter(TryLogOut);
 			logoutWait.Event(_logoutFailedEvent).Target(final);
@@ -106,7 +98,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				LogoutClicked = TryLogOut,
 				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent),
-				OnServerSelectClicked = () => _statechartTrigger(NetworkState.OpenServerSelectScreenEvent),
 				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent),
 				OnCustomizeHudClicked = CustomizeHud,
 				OnDeleteAccountClicked = () =>
@@ -132,25 +123,6 @@ namespace FirstLight.Game.StateMachines
 			}).Forget();
 		}
 
-		private async UniTaskVoid OpenServerSelectUI()
-		{
-			var data = new ServerSelectScreenPresenter.StateData
-			{
-				OnExit = (changed) =>
-				{
-					if (changed)
-					{
-						_services.MessageBrokerService.Publish(new ChangedServerRegionMessage());
-						_services.GenericDialogService.OpenSimpleMessage("Server",
-							"Connected to " + _services.LocalPrefsService.ServerRegion.Value.GetPhotonRegionTranslation() + " server!");
-					}
-
-					_statechartTrigger(_exitedSelectServer);
-				},
-			};
-
-			await _services.UIService.OpenScreen<ServerSelectScreenPresenter>(data);
-		}
 
 		private async void OpenConnectIdUI()
 		{
@@ -158,7 +130,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				CloseClicked = () => _statechartTrigger(_connectIdBackEvent),
 				AuthLoginSuccess = () => _statechartTrigger(_connectIdLoginSuccessEvent),
-				AuthLoginFail = () => _statechartTrigger(_connectIdFailedEvent),
 				AuthRegisterSuccess = () => _statechartTrigger(_connectIdRegisterSuccessEvent)
 			};
 

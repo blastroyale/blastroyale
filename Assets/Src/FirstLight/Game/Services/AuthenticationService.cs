@@ -311,7 +311,7 @@ namespace FirstLight.Game.Services
 					AuthenticationService.Instance.SignOut(true);
 					ProcessAuthentication(res, loginData, onSuccess, onError, previouslyLoggedIn);
 				},
-				e => { _services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login); });
+				onError);
 		}
 
 		public void Logout(Action onSuccess, Action<PlayFabError> onError)

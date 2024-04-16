@@ -110,8 +110,7 @@ namespace FirstLight.Game.Presenters
 				}
 
 				var skin = _gameServices.CollectionService.GetCosmeticForGroup(_matchServices.MatchEndDataService.PlayerMatchData[playerData].Cosmetics, GameIdGroup.PlayerSkin);
-				tasks.Add(slots[i].UpdateSkin(skin,
-					_matchServices.MatchEndDataService.PlayerMatchData[playerData].Gear.ToList()));
+				tasks.Add(slots[i].UpdateSkin(skin));
 			}
 
 			await UniTask.WhenAll(tasks);

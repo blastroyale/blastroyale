@@ -17,15 +17,12 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This presenter handles showing the register screen
 	/// </summary>
-	[UILayer(UILayer.Popup)]
 	public class ConnectFlgIdScreenPresenter : UIPresenterData<ConnectFlgIdScreenPresenter.StateData>
 	{
 		public class StateData
 		{
 			public Action AuthLoginSuccess;
 			public Action AuthRegisterSuccess;
-			public Action AuthLoginFail;
-			public Action AuthRegisterFail;
 			public Action CloseClicked;
 		}
 
@@ -43,7 +40,7 @@ namespace FirstLight.Game.Presenters
 		private Button _switchScreenButton;
 		private Button _resetPasswordButton;
 		private Label _switchScreenDesc;
-		
+
 		private IGameServices _services;
 
 		private bool _showingRegisterScreen = false;
@@ -61,11 +58,11 @@ namespace FirstLight.Game.Presenters
 			_switchScreenButton = Root.Q<Button>("SwitchScreenButton").Required();
 			_switchScreenDesc = Root.Q<Label>("SwitchScreenDesc").Required();
 			_resetPasswordButton = Root.Q<Button>("ResetPasswordButton").Required();
-			
+
 			_loginButton = _loginPopupRoot.Q<Button>("LoginButton").Required();
 			_loginEmailField = _loginPopupRoot.Q<TextField>("EmailTextField").Required();
 			_loginPasswordField = _loginPopupRoot.Q<TextField>("PasswordTextField").Required();
-			
+
 			_registerButton = _registerPopupRoot.Q<Button>("RegisterButton").Required();
 			_registerEmailField = _registerPopupRoot.Q<TextField>("EmailTextField").Required();
 			_registerPasswordField = _registerPopupRoot.Q<TextField>("PasswordTextField").Required();
@@ -97,7 +94,7 @@ namespace FirstLight.Game.Presenters
 		private void ShowLoginScreen()
 		{
 			_showingRegisterScreen = false;
-			
+
 			_loginPopupRoot.SetDisplay(true);
 			_registerPopupRoot.SetDisplay(false);
 
@@ -108,7 +105,7 @@ namespace FirstLight.Game.Presenters
 		private void ShowRegisterScreen()
 		{
 			_showingRegisterScreen = true;
-			
+
 			_loginPopupRoot.SetDisplay(false);
 			_registerPopupRoot.SetDisplay(true);
 
@@ -125,12 +122,12 @@ namespace FirstLight.Game.Presenters
 		{
 			RegisterClicked(_registerEmailField.text.Trim(), _registerUsernameField.text.Trim(), _registerPasswordField.text.Trim());
 		}
-		
+
 		private void RegisterClicked(string email, string username, string password)
 		{
 			if (AuthenticationUtils.IsUsernameFieldValid(username)
-			    && AuthenticationUtils.IsEmailFieldValid(email)
-			    && AuthenticationUtils.IsPasswordFieldValid(password))
+				&& AuthenticationUtils.IsEmailFieldValid(email)
+				&& AuthenticationUtils.IsPasswordFieldValid(password))
 			{
 				_services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>().Forget();
 				_services.AuthenticationService.AttachLoginDataToAccount(email, username, password, OnRegisterSuccess, OnRegisterFail);
@@ -151,23 +148,23 @@ namespace FirstLight.Game.Presenters
 					confirmButton);
 			}
 		}
-		
+
 		private void OnRegisterSuccess(LoginData data)
 		{
 			var title = ScriptLocalization.UITSettings.success;
 			var desc = ScriptLocalization.UITSettings.flg_id_connect_register_success;
-			
+
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
-				
+
 			_services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 			Data.AuthRegisterSuccess();
 		}
-		
+
 		private string GetErrorString(PlayFabError error)
 		{
 			var realError = error.ErrorDetails?.Values.FirstOrDefault()?.FirstOrDefault();
@@ -178,24 +175,22 @@ namespace FirstLight.Game.Presenters
 		{
 			var title = ScriptLocalization.UITSettings.failure;
 			var desc = string.Format(ScriptLocalization.UITSettings.flg_id_register_fail, GetErrorString(error));
-			
+
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
-			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
-				
 			_services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
-			Data.AuthRegisterFail?.Invoke();
+			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 		}
-		
+
 		private void LoginClicked(string email, string password)
 		{
 			if (AuthenticationUtils.IsEmailFieldValid(email) && AuthenticationUtils.IsPasswordFieldValid(password))
 			{
 				_services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>().Forget();
-				
+
 				// We need to disconnect photon to re-authenticate and re-generate an auth token
 				// when logging in with a different user
 				_services.NetworkService.DisconnectPhoton();
@@ -217,19 +212,19 @@ namespace FirstLight.Game.Presenters
 					confirmButton);
 			}
 		}
-		
+
 		void OnLoginSuccess(LoginData data)
 		{
 			var title = ScriptLocalization.UITSettings.success;
 			var desc = ScriptLocalization.UITSettings.flg_id_connect_login_success;
-			
+
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
-				
+
 			_services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 			Data.AuthLoginSuccess();
 		}
@@ -238,18 +233,17 @@ namespace FirstLight.Game.Presenters
 		{
 			var title = ScriptLocalization.UITSettings.failure;
 			var desc = string.Format(ScriptLocalization.UITSettings.flg_id_login_fail, GetErrorString(error));
-			
+
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
-			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
-				
+			_loginPasswordField.value = "";
 			_services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
-			Data.AuthLoginFail?.Invoke();
+			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 		}
-		
+
 		private void OpenPasswordRecoveryPopup()
 		{
 			var confirmButton = new GenericDialogButton<string>
@@ -270,7 +264,7 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.CloseClicked();
 		}
-		
+
 		private void OnRecoveryEmailSuccess()
 		{
 			_services.GenericDialogService.CloseDialog();

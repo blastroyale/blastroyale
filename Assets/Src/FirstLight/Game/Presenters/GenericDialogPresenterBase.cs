@@ -12,16 +12,16 @@ namespace FirstLight.Game.Presenters
 	/// Usually used for pointing out something informative to players.
 	/// </summary>
 	[UILayer(UILayer.Popup)]
-	public abstract class GenericDialogPresenterBase :  UIPresenter
+	public abstract class GenericDialogPresenterBase : UIPresenter
 	{
 		protected IGameServices _services;
-		
+
 		private Label _titleLabel;
 		private Label _descLabel;
 		private Button _confirmButton;
 		private Button _cancelButton;
 		private Button _blockerButton;
-		
+
 		private Action _closeCallback;
 		private Action _confirmCallback;
 
@@ -57,7 +57,7 @@ namespace FirstLight.Game.Presenters
 			_descLabel.text = desc;
 			_closeCallback = closeCallback;
 			_cancelButton.SetDisplay(showCloseButton);
-			
+
 			if (button.IsEmpty)
 			{
 				_confirmButton.SetDisplay(false);
@@ -81,7 +81,7 @@ namespace FirstLight.Game.Presenters
 
 		private void CloseRequested()
 		{
-			_services.UIService.CloseScreen(UILayer.Popup).Forget();
+			_services.UIService.CloseScreen(UILayer.Popup, false).Forget();
 		}
 	}
 }

@@ -9,6 +9,7 @@ using I2.Loc;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Messages;
 using FirstLight.UIService;
 
 namespace FirstLight.Game.Presenters
@@ -23,7 +24,6 @@ namespace FirstLight.Game.Presenters
 			public Action LogoutClicked;
 			public Action OnClose;
 			public Action OnConnectIdClicked;
-			public Action OnServerSelectClicked;
 			public Action OnCustomizeHudClicked;
 			public Action OnDeleteAccountClicked;
 		}
@@ -206,7 +206,8 @@ namespace FirstLight.Game.Presenters
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
 
-			Data.OnServerSelectClicked();
+
+			_services.UIService.OpenScreen<ServerSelectScreenPresenter>().Forget();
 		}
 
 		private void OnLogoutClicked()

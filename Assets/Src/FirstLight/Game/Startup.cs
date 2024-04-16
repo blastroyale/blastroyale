@@ -16,7 +16,6 @@ using FirstLight.Game.Utils;
 using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
-using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
@@ -24,6 +23,7 @@ using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.Rendering;
 using AnalyticsService = Unity.Services.Analytics.AnalyticsService;
 using Debug = UnityEngine.Debug;
 using GameObject = UnityEngine.GameObject;
@@ -207,6 +207,7 @@ namespace FirstLight.Game
 			}
 #endif
 			Debug.developerConsoleEnabled = false;
+			DebugManager.instance.enableRuntimeUI = false;
 			FLog.Init();
 		}
 

@@ -431,8 +431,8 @@
 
 .sprite-home__goji-season-reward {
     background-image: var(--sprite-home__goji-season-reward);
-    width: 494px;
-    height: 760px;
+    width: 454px;
+    height: 732px;
 }
 
 .sprite-home__banner-mapselection {

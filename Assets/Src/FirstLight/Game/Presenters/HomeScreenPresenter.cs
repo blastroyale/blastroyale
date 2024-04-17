@@ -20,7 +20,6 @@ using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
-using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;

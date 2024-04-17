@@ -7,6 +7,7 @@ using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using SRF;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent
@@ -72,9 +73,7 @@ namespace FirstLight.Game.MonoComponent
 			var weaponTransform = weapon.transform;
 
 			weaponTransform.SetParent(anchor);
-			weaponTransform.localPosition = Vector3.zero;
-			weaponTransform.localRotation = Quaternion.identity;
-			weaponTransform.localScale = Vector3.one;
+			weaponTransform.ResetLocal();
 
 			return weapon;
 		}
@@ -122,8 +121,8 @@ namespace FirstLight.Game.MonoComponent
 			var anchor = _skin.WeaponAnchor;
 
 			weaponTransform.SetParent(anchor);
-			weaponTransform.localPosition = Vector3.zero;
-			weaponTransform.localRotation = Quaternion.identity;
+			weaponTransform.ResetLocal();
+			weaponTransform.GetChild(0).ResetLocal();
 
 			if (weaponTransform.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
 			{

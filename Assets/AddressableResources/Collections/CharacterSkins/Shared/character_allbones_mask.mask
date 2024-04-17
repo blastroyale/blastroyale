@@ -93,9 +93,13 @@ AvatarMask:
     m_Weight: 1
   - m_Path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
     m_Weight: 1
-  - m_Path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
-    m_Weight: 1
   - m_Path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
+    m_Weight: 1
+  - m_Path: Armature/weapon_melee
+    m_Weight: 1
+  - m_Path: Armature/weapon_xlmelee
+    m_Weight: 1
+  - m_Path: Armature/weapon
     m_Weight: 1
   - m_Path: body
     m_Weight: 1

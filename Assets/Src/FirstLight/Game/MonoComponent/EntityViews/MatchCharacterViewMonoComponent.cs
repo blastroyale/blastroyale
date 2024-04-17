@@ -6,6 +6,7 @@ using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Assert = UnityEngine.Assertions.Assert;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -22,8 +23,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				_footsteps.SpawnFootprints = value;
 			}
 		}
-        
-		
+
 
 		/// <summary>
 		/// Initializes the Adventure character view with the given player data
@@ -34,18 +34,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_footsteps = gameObject.AddComponent<FootprinterMonoComponent>();
 			_footsteps.Init(entityView, loadout);
 
-			var weaponTask = EquipWeapon(loadout.Weapon);
-			var list = new List<UniTask>();
+			// TODO: Very ugly hack
+			var meleeWeapon = await InstantiateMelee();
 
 			var isSkydiving = frame.Get<AIBlackboardComponent>(entityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
 
 			if (isSkydiving)
 			{
 				var glider = _services.CollectionService.GetCosmeticForGroup(Cosmetics, GameIdGroup.Glider);
-				list.Add(InstantiateGlider(glider));
+				await InstantiateGlider(glider);
 			}
 
-			await UniTask.WhenAll(list);
 
 			var runner = QuantumRunner.Default;
 
@@ -53,17 +52,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
+			
+			// TODO: Ugly
+			var components = meleeWeapon.GetComponents<EntityViewBase>();
 
-			var weapon = await weaponTask;
-
-			if (weapon != null) // Not sure why this null check is here
+			foreach (var entityViewBase in components)
 			{
-				var components = weapon.GetComponents<EntityViewBase>();
-
-				foreach (var entityViewBase in components)
-				{
-					entityViewBase.SetEntityView(runner.Game, entityView);
-				}
+				entityViewBase.SetEntityView(runner.Game, entityView);
 			}
 
 			if (isSkydiving)

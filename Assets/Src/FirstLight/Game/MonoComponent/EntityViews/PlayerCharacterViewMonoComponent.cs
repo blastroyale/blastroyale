@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
@@ -78,6 +79,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnShieldedChargeUsed>(this, HandleOnShieldedChargeUsed);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, HandleOnGameEnded);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandlePlayerWeaponChanged);
+			QuantumEvent.Subscribe<EventOnPlayerWeaponAdded>(this, HandlePlayerWeaponAdded);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveFullyGrounded>(this, HandlePlayerSkydiveFullyGrounded);
@@ -264,10 +266,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleOnStunGrenadeUsed(EventOnStunGrenadeUsed callback)
 		{
-			if (callback.HazardData.Attacker != EntityView.EntityRef)
-			{
-				return;
-			}
+			if (callback.HazardData.Attacker != EntityView.EntityRef) return;
 
 			var time = callback.Game.Frames.Verified.Time;
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
@@ -284,10 +283,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleOnGrenadeUsed(EventOnGrenadeUsed callback)
 		{
-			if (callback.HazardData.Attacker != EntityView.EntityRef)
-			{
-				return;
-			}
+			if (callback.HazardData.Attacker != EntityView.EntityRef) return;
 
 			var time = callback.Game.Frames.Verified.Time;
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
@@ -338,10 +334,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleOnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (Culled || EntityView.EntityRef != callback.CollectorEntity)
-			{
-				return;
-			}
+			if (Culled || EntityView.EntityRef != callback.CollectorEntity) return;
 
 			switch (callback.CollectableId)
 			{
@@ -387,43 +380,24 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleOnPlayerAlive(EventOnPlayerAlive callback)
 		{
-			if (callback.Entity != EntityView.EntityRef)
-			{
-				return;
-			}
-#if DEBUG_BOTS
-			AddDebugCylinder(callback.Game.Frames.Verified);
-#endif
+			if (EntityView.EntityRef != callback.Entity) return;
 
-			// TODO mihak: ??
-			// AnimatorWrapper.Enabled = true;
-			//AnimatorWrapper.SetTrigger(Triggers.Revive);
+			AddDebugCylinder(callback.Game.Frames.Verified);
 
 			RenderersContainerProxy.SetEnabled(true);
 		}
 
 		private void HandleOnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
-			if (callback.Entity != EntityView.EntityRef)
-			{
-				return;
-			}
-
-			// TODO mihak: ??
-			// if (callback.HasRespawned)
-			// {
-			// 	AnimatorWrapper.SetTrigger(Triggers.Revive);
-			// }
+			if (EntityView.EntityRef != callback.Entity) return;
 
 			RenderersContainerProxy.SetEnabled(false);
 		}
 
 		private void HandleOnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			if (callback.PlayerEntity != EntityRef)
-			{
-				return;
-			}
+			if (EntityView.EntityRef != callback.PlayerEntity) return;
+
 
 			_skin.TriggerAttack();
 			TryStartAttackWithinVisVolume();
@@ -431,10 +405,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleOnPlayerSpecialUsed(EventOnPlayerSpecialUsed callback)
 		{
-			if (callback.Entity != EntityView.EntityRef)
-			{
-				return;
-			}
+			if (EntityView.EntityRef != callback.Entity) return;
+
 
 			//TODO: bespoke animation for each special 
 			//AnimatorWrapper.SetTrigger(Triggers.Special);
@@ -459,27 +431,32 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandlePlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
 		{
-			if (EntityView.EntityRef != callback.Entity)
-			{
-				return;
-			}
+			if (EntityView.EntityRef != callback.Entity) return;
 
-			var task = _characterView.EquipWeapon(callback.Weapon);
-			task.ContinueWith(weapon =>
-			{
-				var f = callback.Game.Frames.Verified;
-				if (!f.Exists(EntityView.EntityRef))
+			_characterView.EquipWeapon(callback.Weapon);
+		}
+
+		private void HandlePlayerWeaponAdded(EventOnPlayerWeaponAdded callback)
+		{
+			if (EntityView.EntityRef != callback.Entity) return;
+
+			_characterView.InstantiateWeapon(callback.Weapon)
+				.ContinueWith(weapon =>
 				{
-					return;
-				}
+					var f = callback.Game.Frames.Verified;
+					if (!f.Exists(EntityView.EntityRef))
+					{
+						return;
+					}
 
-				var components = weapon.GetComponentsInChildren<EntityViewBase>();
+					if (weapon == null) return;
+					var components = weapon.GetComponentsInChildren<EntityViewBase>();
 
-				foreach (var entityViewBase in components)
-				{
-					entityViewBase.SetEntityView(callback.Game, EntityView);
-				}
-			});
+					foreach (var entityViewBase in components)
+					{
+						entityViewBase.SetEntityView(callback.Game, EntityView);
+					}
+				}).Forget();
 		}
 
 		private void HandleOnAirstrikeUsed(EventOnAirstrikeUsed callback)
@@ -635,6 +612,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_characterView.DestroyGlider();
 		}
 
+		[Conditional("DEBUG_BOTS")]
 		private void AddDebugCylinder(Frame frame)
 		{
 			var playerCharacter = frame.Get<PlayerCharacter>(EntityRef);

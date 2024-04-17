@@ -20,6 +20,7 @@ using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -178,21 +179,18 @@ namespace FirstLight.Game.Presenters
 			_playButton = Root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
+
 			Root.Q<CurrencyDisplayElement>("CoinCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
-				.SetAnimationOrigin(_playButton);
-			Root.Q<CurrencyDisplayElement>("FragmentsCurrency")
-				.AttachView(this, out CurrencyDisplayView _)
-				.SetAnimationOrigin(_playButton);
+				.SetData(_playButton);
 			Root.Q<CurrencyDisplayElement>("BlastBuckCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
-				.SetAnimationOrigin(_playButton);
-			;
-
-
-			// TODO: Uncomment when we use Fragments
-			Root.Q<CurrencyDisplayElement>("FragmentsCurrency").SetDisplay(false);
-
+				.SetData(_playButton);
+			Root.Q<CurrencyDisplayElement>("NOOBCurrency")
+				.AttachView(this, out CurrencyDisplayView _)
+				.SetData(_playButton, true);
+			
+			
 			_outOfSyncWarningLabel = Root.Q<Label>("OutOfSyncWarning").Required();
 			_betaLabel = Root.Q<Label>("BetaWarning").Required();
 

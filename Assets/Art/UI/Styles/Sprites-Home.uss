@@ -37,7 +37,6 @@
     --sprite-home__background-tooltip-topleft: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topleft.png');
     --sprite-home__background-tooltip-topright: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topright.png');
     --sprite-home__bamboo-season-reward: url('/Assets/Art/UI/Sprites/Home/bamboo-season-reward.png');
-    --sprite-home__goji-season-reward: url('/Assets/Art/UI/Sprites/Home/goji-season-reward.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__blastroyale-logo: url('/Assets/Art/UI/Sprites/Home/blastroyale-logo.png');
     --sprite-home__button-battlepass: url('/Assets/Art/UI/Sprites/Home/button-battlepass.png');
@@ -106,6 +105,7 @@
     --sprite-home__glider-falcon: url('/Assets/Art/UI/Sprites/Home/glider-falcon.png');
     --sprite-home__glider-rocket: url('/Assets/Art/UI/Sprites/Home/glider-rocket.png');
     --sprite-home__glider-turbine: url('/Assets/Art/UI/Sprites/Home/glider-turbine.png');
+    --sprite-home__goji-season-reward: url('/Assets/Art/UI/Sprites/Home/goji-season-reward.png');
     --sprite-home__header-back: url('/Assets/Art/UI/Sprites/Home/header-back.png');
     --sprite-home__header-back-pressed: url('/Assets/Art/UI/Sprites/Home/header-back-pressed.png');
     --sprite-home__header-home: url('/Assets/Art/UI/Sprites/Home/header-home.png');
@@ -427,12 +427,6 @@
     background-image: var(--sprite-home__bamboo-season-reward);
     width: 494px;
     height: 760px;
-}
-
-.sprite-home__goji-season-reward {
-    background-image: var(--sprite-home__goji-season-reward);
-    width: 454px;
-    height: 732px;
 }
 
 .sprite-home__banner-mapselection {
@@ -797,6 +791,12 @@
     background-image: var(--sprite-home__glider-turbine);
     width: 512px;
     height: 512px;
+}
+
+.sprite-home__goji-season-reward {
+    background-image: var(--sprite-home__goji-season-reward);
+    width: 454px;
+    height: 732px;
 }
 
 .sprite-home__header-back {

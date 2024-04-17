@@ -52,3 +52,9 @@ MonoBehaviour:
         SpriteByMinAmount:
           _keyData: 
           _valueData: []
+    - Key: 209
+      Value:
+        DefaultSprite: sprite-currencies__noob-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []

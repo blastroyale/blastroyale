@@ -173,7 +173,6 @@ namespace FirstLight.Game.Services
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
 		public UIVFXService UIVFXService { get; }
-		public UIVFXService UiVfxService { get; }
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; }
@@ -208,8 +207,8 @@ namespace FirstLight.Game.Services
 
 			UIService = new UIService.UIService();
 			GenericDialogService = new GenericDialogService(UIService, gameLogic.CurrencyDataProvider);
-			UiVfxService = new UIVFXService(this, assetResolverService);
-			UiVfxService.Init().Forget();
+			UIVFXService = new UIVFXService(this, assetResolverService);
+			UIVFXService.Init().Forget();
 
 			ThreadService = new ThreadService();
 			GuidService = new GuidService();

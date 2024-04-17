@@ -8,6 +8,7 @@ enum GameId
 	BlastBuck = 105,
 	BLST = 14,
 	Fragments = 112,
+	NOOB = 209,
 	CS = 12,
 	XP = 3,
 	Trophies = 22,

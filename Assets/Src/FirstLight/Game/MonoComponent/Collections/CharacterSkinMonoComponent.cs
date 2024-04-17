@@ -37,6 +37,20 @@ namespace FirstLight.Game.MonoComponent.Collections
 		[SerializeField] private Transform _rightFootAnchor;
 		[SerializeField] private Animator _animator;
 
+		private static RuntimeAnimatorController _animatorController;
+
+		private void Awake()
+		{
+			// For some reason we can't store this reference in the serialized field if it's set from
+			// the importer so this is a (hopefully) temporary workaround.
+			if (_animatorController == null)
+			{
+				_animatorController = Resources.Load<RuntimeAnimatorController>("character_animator");
+			}
+
+			_animator.runtimeAnimatorController = _animatorController;
+		}
+
 		public Transform WeaponAnchor => _weaponAnchor;
 		public Transform WeaponMeleeAnchor => _weaponMeleeAnchor;
 		public Transform WeaponXLMeleeAnchor => _weaponXLMeleeAnchor;

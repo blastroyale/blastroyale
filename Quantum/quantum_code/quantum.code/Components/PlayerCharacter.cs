@@ -43,6 +43,7 @@ namespace Quantum
 			Player = setup.playerRef;
 			TeamId = setup.teamId;
 			CurrentWeaponSlot = 0;
+			TimeCounterNoInput = FP._0;
 			transform->Position = setup.spawnPosition.Position;
 			transform->Rotation = setup.spawnPosition.Rotation;
 

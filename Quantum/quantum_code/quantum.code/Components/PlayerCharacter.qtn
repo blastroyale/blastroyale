@@ -44,7 +44,9 @@ component PlayerCharacter
 	[HideInInspector] Int32 TeamId;
 	[HideInInspector] Int32 CurrentWeaponSlot;
 	[HideInInspector] array<WeaponSlot>[MAX_WEAPONS] WeaponSlots;
-    bool RealPlayer;
+	bool RealPlayer;
+	Int32 InputSnapshot;
+	FP TimeCounterNoInput;
 }
 
 component PlayerInventory {

@@ -267,6 +267,29 @@ namespace Quantum.Systems
 			}
 
 			var input = f.GetPlayerInput(filter.Player->Player);
+
+			if (f.Time < Constants.NO_INPUT_STOP_CHECKING)
+			{
+				if (filter.Player->InputSnapshot == input->GetHashCode())
+				{
+					filter.Player->TimeCounterNoInput += f.DeltaTime;
+					if (filter.Player->TimeCounterNoInput > Constants.NO_INPUT_KILL_TIME)
+					{
+						f.Unsafe.GetPointer<Stats>(filter.Entity)->Kill(f, filter.Entity);
+					}
+					else if (filter.Player->TimeCounterNoInput > Constants.NO_INPUT_WARNING_TIME)
+					{
+						// Warn a player about inactivity
+					}
+				}
+				else
+				{
+					filter.Player->TimeCounterNoInput = FP._0;
+				}
+				
+				filter.Player->InputSnapshot = input->GetHashCode();
+			}
+			
 			var rotation = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
 			var prevRotation = bb->GetVector2(f, Constants.AimDirectionKey);

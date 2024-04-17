@@ -104,7 +104,7 @@ namespace FirstLight.Game.MonoComponent
 					FLog.Error($"Unable to remove missing RenderersContainerMonoComponent {weapon.FullGameObjectPath()}");
 				}
 
-				Destroy(weapon);
+				Destroy(_weaponGun);
 			}
 
 			_services.MessageBrokerService.Publish(new ItemEquippedMessage()
@@ -193,11 +193,13 @@ namespace FirstLight.Game.MonoComponent
 			{
 				_skin.WeaponType = WeaponType.Melee;
 				_skin.TriggerEquipMelee();
+				if (_weaponGun != null) _weaponGun.GetComponentInChildren<WeaponViewMonoComponent>().ActiveWeapon = false; // TODO: Refac the weapon components
 			}
 			else
 			{
 				_skin.WeaponType = _equippedGunType;
 				_skin.TriggerEquipGun();
+				_weaponGun.GetComponentInChildren<WeaponViewMonoComponent>().ActiveWeapon = true; // TODO: Refac the weapon components
 			}
 		}
 

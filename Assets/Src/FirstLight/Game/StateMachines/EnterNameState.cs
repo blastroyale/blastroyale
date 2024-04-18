@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
+using Cysharp.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
@@ -29,14 +31,12 @@ namespace FirstLight.Game.StateMachines
 	public class EnterNameState
 	{
 		public static readonly IStatechartEvent NameSetEvent = new StatechartEvent("Name Set Event");
-		private readonly IStatechartEvent _nameSetInvalidEvent = new StatechartEvent("Name Set Invalid Event");
-		private readonly IStatechartEvent _nameInvalidAcknowledgedEvent = new StatechartEvent("Name Invalid Acknowledged Event");
+		private readonly IStatechartEvent _invalidNameEvent = new StatechartEvent("Name Set Invalid Event");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		private string _nameInvalidStatus = "";
 
 		public EnterNameState(IGameServices services, IGameDataProvider dataProvider,
 							  Action<IStatechartEvent> statechartTrigger)
@@ -54,17 +54,16 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var nameEntry = stateFactory.State("Name Entry");
-			var nameInvalid = stateFactory.State("Name Invalid");
+			var invalidName = stateFactory.Transition("Invalid Name");
 
 			initial.Transition().Target(nameEntry);
 			initial.OnExit(SubscribeEvents);
 
+
 			nameEntry.OnEnter(OpenEnterNameDialog);
 			nameEntry.Event(NameSetEvent).Target(final);
-			nameEntry.Event(_nameSetInvalidEvent).Target(nameInvalid);
-
-			nameInvalid.OnEnter(OpenNameInvalidDialog);
-			nameInvalid.Event(_nameInvalidAcknowledgedEvent).Target(nameEntry);
+			nameEntry.Event(_invalidNameEvent).Target(invalidName);
+			invalidName.Transition().Target(nameEntry);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -92,60 +91,69 @@ namespace FirstLight.Game.StateMachines
 				confirmButton, false);
 		}
 
-		private void OpenNameInvalidDialog()
-		{
-			var okButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = OnNameInvalidAcknowledged
-			};
-
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, _nameInvalidStatus, false, okButton);
-		}
-
 		private void OnNameSet(string newName)
 		{
 			var newNameTrimmed = newName.Trim();
 
+			string errorMessage = null;
 			if (newNameTrimmed.Length < GameConstants.PlayerName.PLAYER_NAME_MIN_LENGTH)
 			{
-				_nameInvalidStatus = string.Format(ScriptLocalization.UITProfileScreen.username_too_short,
+				errorMessage = string.Format(ScriptLocalization.UITProfileScreen.username_too_short,
 					GameConstants.PlayerName.PLAYER_NAME_MIN_LENGTH);
-
-				_statechartTrigger(_nameSetInvalidEvent);
-				return;
 			}
-
-			if (newNameTrimmed.Length > GameConstants.PlayerName.PLAYER_NAME_MAX_LENGTH)
+			else if (newNameTrimmed.Length > GameConstants.PlayerName.PLAYER_NAME_MAX_LENGTH)
 			{
-				_nameInvalidStatus = string.Format(ScriptLocalization.UITProfileScreen.username_too_long,
+				errorMessage = string.Format(ScriptLocalization.UITProfileScreen.username_too_long,
 					GameConstants.PlayerName.PLAYER_NAME_MAX_LENGTH);
+			}
+			else if (new Regex("[^a-zA-Z0-9 _-\uA421]+").IsMatch(newNameTrimmed))
+			{
+				errorMessage = ScriptLocalization.UITProfileScreen.username_invalid_characters;
+			}
 
-				_statechartTrigger(_nameSetInvalidEvent);
+			if (errorMessage != null)
+			{
+				OnSetNameError(errorMessage).Forget();
 				return;
 			}
 
-			if (new Regex("[^a-zA-Z0-9 _-\uA421]+").IsMatch(newNameTrimmed))
+			if (newNameTrimmed == _dataProvider.AppDataProvider.DisplayNameTrimmed)
 			{
-				_nameInvalidStatus = ScriptLocalization.UITProfileScreen.username_invalid_characters;
-				_statechartTrigger(_nameSetInvalidEvent);
+				_statechartTrigger(NameSetEvent);
 				return;
 			}
 
-			if (newNameTrimmed != _dataProvider.AppDataProvider.DisplayNameTrimmed)
+			_services.GameBackendService.UpdateDisplayName(newNameTrimmed, (_) => _statechartTrigger(NameSetEvent), e =>
 			{
-				_services.GameBackendService.UpdateDisplayName(newNameTrimmed, null, e =>
+				var description = GetErrorString(e);
+				if (e.Error == PlayFabErrorCode.ProfaneDisplayName)
 				{
-					_services.GenericDialogService.OpenSimpleMessage(ScriptLocalization.UITShared.error, ScriptLocalization.UITProfileScreen.username_profanity);
-				});
-			}
+					description = ScriptLocalization.UITProfileScreen.username_profanity;
+				}
 
-			_statechartTrigger(NameSetEvent);
+				OnSetNameError(description).Forget();
+			});
 		}
 
-		private void OnNameInvalidAcknowledged()
+		private async UniTaskVoid OnSetNameError(string errorMessage)
 		{
-			_statechartTrigger(_nameInvalidAcknowledgedEvent);
+			// HACK: When you open a generic dialog in a close action of another generic dialog it will not work.
+			// Because the ui.CloseLayer will be called after the close callback, closing it immediately 
+			await UniTask.WaitUntil(() => !_services.UIService.IsScreenOpen<GenericButtonDialogPresenter>());
+			await _services.GenericDialogService.OpenSimpleMessage(ScriptLocalization.UITShared.error, errorMessage, () => TriggerNameSetInvalid().Forget());
+		}
+
+		private async UniTaskVoid TriggerNameSetInvalid()
+		{
+			// HACK
+			await UniTask.WaitUntil(() => !_services.UIService.IsScreenOpen<GenericButtonDialogPresenter>());
+			_statechartTrigger(_invalidNameEvent);
+		}
+
+		private string GetErrorString(PlayFabError error)
+		{
+			var realError = error.ErrorDetails?.Values.FirstOrDefault()?.FirstOrDefault();
+			return realError ?? error.ErrorMessage;
 		}
 	}
 }

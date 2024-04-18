@@ -42,9 +42,9 @@ namespace FirstLight.UIService
 		/// </summary>
 		// TODO: Shouldn't be here
 		public const string USS_PLAYER_LABEL = "player-name";
-		
+
 		public event Action<Type> OnScreenOpened;
-		
+
 		private readonly GameObject _root;
 
 		private readonly Dictionary<Type, UIPresenter> _openedScreensType = new ();
@@ -130,7 +130,16 @@ namespace FirstLight.UIService
 				return CloseScreen(screen);
 			}
 
-			if (checkOpened) throw new InvalidOperationException($"Screen {typeof(T).Name} is not opened!");
+			if (checkOpened)
+			{
+				var msg = $"Screen {typeof(T).Name} is not opened!";
+#if DEVELOPMENT_BUILD
+				throw new InvalidOperationException(msg);
+#else
+				FLog.Warn(msg);
+				return UniTask.CompletedTask;
+#endif
+			}
 
 			return UniTask.CompletedTask;
 		}
@@ -148,7 +157,15 @@ namespace FirstLight.UIService
 				return CloseScreen(screen);
 			}
 
-			if (checkOpened) throw new InvalidOperationException($"Layer {layer} is empty!");
+			if (checkOpened)
+			{
+				var msg = $"Layer {layer} is empty!";
+#if DEVELOPMENT_BUILD
+				throw new InvalidOperationException(msg);
+#else
+				FLog.Warn(msg);
+#endif
+			}
 
 			return UniTask.CompletedTask;
 		}

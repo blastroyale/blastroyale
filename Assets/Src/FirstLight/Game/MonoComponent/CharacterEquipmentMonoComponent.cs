@@ -92,11 +92,11 @@ namespace FirstLight.Game.MonoComponent
 
 			if (_weaponGun != null)
 			{
-				if (weapon.TryGetComponent(out RenderersContainerMonoComponent renderersContainer))
+				if (_weaponGun.TryGetComponent(out RenderersContainerMonoComponent renderersContainer))
 				{
 					_renderersContainerProxy.RemoveRenderersContainer(renderersContainer);
 				}
-				else if (weapon.transform.GetChild(0).TryGetComponent(out RenderersContainerMonoComponent c))
+				else if (_weaponGun.transform.GetChild(0).TryGetComponent(out RenderersContainerMonoComponent c))
 				{
 					_renderersContainerProxy.RemoveRenderersContainer(c);
 				}

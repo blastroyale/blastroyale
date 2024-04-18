@@ -75,6 +75,19 @@ namespace FirstLight.Game.MonoComponent
 			
 			weaponTransform.SetParent(anchor);
 			weaponTransform.ResetLocal();
+			
+			if (weaponTransform.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
+			{
+				AddEquipmentRenderersContainer(renderContainer);
+			}
+			else if (weaponTransform.GetChild(0).TryGetComponent<RenderersContainerMonoComponent>(out var c))
+			{
+				AddEquipmentRenderersContainer(c);
+			}
+			else
+			{
+				FLog.Error($"Unable to find RenderersContainerMonoComponent for {skinId.Id}");
+			}
 
 			return weapon;
 		}

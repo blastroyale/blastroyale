@@ -26,7 +26,7 @@ namespace FirstLight.Game.Services
 	{
 		DEV,
 		STAGING,
-		TESTNET,
+		COMMUNITY,
 		PROD
 	}
 
@@ -185,9 +185,9 @@ namespace FirstLight.Game.Services
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
 		}
 
-		private void SetupTestnet(BackendEnvironmentData envData)
+		private void SetupCommunity(BackendEnvironmentData envData)
 		{
-			envData.EnvironmentID = Environment.TESTNET;
+			envData.EnvironmentID = Environment.COMMUNITY;
 			envData.TitleID = "***REMOVED***";
 			envData.AppIDRealtime = "***REMOVED***";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
@@ -220,8 +220,8 @@ namespace FirstLight.Game.Services
 				case Environment.STAGING:
 					SetupStaging(envData);
 					break;
-				case Environment.TESTNET:
-					SetupTestnet(envData);
+				case Environment.COMMUNITY:
+					SetupCommunity(envData);
 					break;
 				default:
 					SetupDev(envData);
@@ -233,8 +233,8 @@ namespace FirstLight.Game.Services
 		{
 #if PROD_SERVER
 			SetupLive(envData);
-#elif LIVE_TESTNET_SERVER
-			SetupTestnet(envData);
+#elif COMMUNITY_SERVER
+			SetupCommunity(envData);
 #elif STAGE_SERVER
 			SetupStaging(envData);
 #else

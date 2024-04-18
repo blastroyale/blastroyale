@@ -119,7 +119,7 @@ steps:
       buildScriptType: existing
       scriptExecuteMethod: FirstLight.Editor.Build.Builder.BatchBuild
       outputPath: $(Build.BinariesDirectory)
-      additionalCmdArgs: -FLEnvironment ${{ parameters.environment }} -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -username ${{ parameters.unity_username }} -password ${{ parameters.unity_password }} -EnableCacheServer -cacheServerEndpoint localhost:10080
+      additionalCmdArgs: -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -username ${{ parameters.unity_username }} -password ${{ parameters.unity_password }} -EnableCacheServer -cacheServerEndpoint localhost:10080
 
   - task: PowerShell@2
     inputs:
@@ -229,6 +229,13 @@ steps:
       ucd entries sync $(System.DefaultWorkingDirectory)/ServerData --environment ***REMOVED***
     condition: and(eq('${{ parameters.environment }}', 'staging'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Staging'
+
+  - script: |
+      ucd auth login ***REMOVED***
+      ucd config set bucket ***REMOVED*** --environment ***REMOVED***
+      ucd entries sync $(System.DefaultWorkingDirectory)/ServerData --environment ***REMOVED***
+    condition: and(eq('${{ parameters.environment }}', 'community'), not(or(failed(), canceled())))
+    displayName: 'Unity CCD Community'
 
   - script: |
       ucd auth login ***REMOVED***

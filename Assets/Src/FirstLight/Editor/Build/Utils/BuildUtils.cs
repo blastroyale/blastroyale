@@ -1,6 +1,5 @@
 using System;
 using UnityEditor;
-using UnityEngine;
 
 namespace FirstLight.Editor.Build.Utils
 {
@@ -12,6 +11,7 @@ namespace FirstLight.Editor.Build.Utils
 		// TODO: This should be somewhere else - need to unify environment with backend service.
 		public const string ENV_DEV = "development";
 		public const string ENV_STAGING = "staging";
+		public const string ENV_COMMUNITY = "community";
 		public const string ENV_PROD = "production";
 		
 		private const string ENVAR_BUILD_NUMBER = "FL_BUILD_NUMBER";

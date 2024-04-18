@@ -138,6 +138,7 @@ namespace FirstLight.Editor.Build
 				"development" => "***REMOVED***",
 				"staging"     => "***REMOVED***",
 				"production"  => "***REMOVED***",
+				"community"   => "***REMOVED***",
 				_             => throw new ArgumentOutOfRangeException(nameof(environment), environment, null)
 			};
 			

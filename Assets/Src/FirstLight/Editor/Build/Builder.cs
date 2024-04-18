@@ -121,6 +121,9 @@ namespace FirstLight.Editor.Build
 				case BuildUtils.ENV_STAGING:
 					buildOptions.extraScriptingDefines = new[] {"STAGE_SERVER"};
 					break;
+				case BuildUtils.ENV_COMMUNITY:
+					buildOptions.extraScriptingDefines = new[] {"COMMUNITY_SERVER"};
+					break;
 				case BuildUtils.ENV_PROD:
 					buildOptions.extraScriptingDefines = new[] {"PROD_SERVER"};
 					break;

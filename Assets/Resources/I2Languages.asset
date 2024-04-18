@@ -22892,6 +22892,19 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITMatch/no_input_warning
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Warning! You are inactive.
+
+        You will be disconnected from the match.'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCollectionScreen/buy
       TermType: 0
       Description: 
@@ -27599,7 +27612,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1713360910178
+    Google_LastUpdatedVersion: 1713436129797
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

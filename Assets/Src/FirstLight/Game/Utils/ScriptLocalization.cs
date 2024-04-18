@@ -1350,6 +1350,9 @@ namespace I2.Loc
 			public static string MouseShield 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MouseShield"); } }
 			public static string MouseShieldDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MouseShieldDescription"); } }
 			public static string Multishot 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Multishot"); } }
+			public static string NOOB 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NOOB"); } }
+			public static string NOOBDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NOOBDescription"); } }
+			public static string NOOB_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NOOB_Plural"); } }
 			public static string NewBRMap 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NewBRMap"); } }
 			public static string Philadelphia 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Philadelphia"); } }
 			public static string PhiladelphiaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PhiladelphiaDescription"); } }
@@ -2301,6 +2304,7 @@ namespace I2.Loc
 			public static string go_to_safe_area 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/go_to_safe_area"); } }
 			public static string lvl_up 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/lvl_up"); } }
 			public static string max 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/max"); } }
+			public static string no_input_warning 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/no_input_warning"); } }
 		}
 
 		public static class UITMatchmaking
@@ -3906,6 +3910,9 @@ namespace I2.Loc
 		    public const string MouseShield = "GameIds/MouseShield";
 		    public const string MouseShieldDescription = "GameIds/MouseShieldDescription";
 		    public const string Multishot = "GameIds/Multishot";
+		    public const string NOOB = "GameIds/NOOB";
+		    public const string NOOBDescription = "GameIds/NOOBDescription";
+		    public const string NOOB_Plural = "GameIds/NOOB_Plural";
 		    public const string NewBRMap = "GameIds/NewBRMap";
 		    public const string Philadelphia = "GameIds/Philadelphia";
 		    public const string PhiladelphiaDescription = "GameIds/PhiladelphiaDescription";
@@ -4857,6 +4864,7 @@ namespace I2.Loc
 		    public const string go_to_safe_area = "UITMatch/go_to_safe_area";
 		    public const string lvl_up = "UITMatch/lvl_up";
 		    public const string max = "UITMatch/max";
+		    public const string no_input_warning = "UITMatch/no_input_warning";
 		}
 
 		public static class UITMatchmaking

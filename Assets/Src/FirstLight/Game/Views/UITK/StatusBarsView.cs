@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
+using I2.Loc;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -94,6 +95,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(this, OnPlayerSpecialUpdated);
 			QuantumEvent.SubscribeManual<EventOnPlayerWeaponAdded>(this, OnPlayerWeaponAdded);
 			QuantumEvent.SubscribeManual<EventGameItemCollected>(this, OnCollected);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerNoInput>(this, OnLocalPlayerNoInput);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 			QuantumCallback.SubscribeManual<CallbackEventCanceled>(this, OnEventCancelled);
@@ -414,6 +416,14 @@ namespace FirstLight.Game.Views.UITK
 					playerBar.OnEventCancelled(callback.EventKey);
 				}
 			}
+		}
+
+		private void OnLocalPlayerNoInput(EventOnLocalPlayerNoInput callback)
+		{
+			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
+			
+			
+			bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, ScriptLocalization.UITMatch.no_input_warning);
 		}
 	}
 }

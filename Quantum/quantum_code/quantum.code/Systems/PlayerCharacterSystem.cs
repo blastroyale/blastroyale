@@ -277,9 +277,13 @@ namespace Quantum.Systems
 					{
 						f.Unsafe.GetPointer<Stats>(filter.Entity)->Kill(f, filter.Entity);
 					}
-					else if (filter.Player->TimeCounterNoInput > Constants.NO_INPUT_WARNING_TIME)
+					else if (filter.Player->TimeCounterNoInput > Constants.NO_INPUT_WARNING_TIME
+							 && filter.Player->TimeCounterNoInput < Constants.NO_INPUT_WARNING_TIME + FP._1)
 					{
-						// Warn a player about inactivity
+						f.Events.OnLocalPlayerNoInput(f.Get<PlayerCharacter>(filter.Entity).Player, filter.Entity);
+						
+						// A hack with a time counter to avoid sending more than a single event
+						filter.Player->TimeCounterNoInput += FP._1_50;
 					}
 				}
 				else

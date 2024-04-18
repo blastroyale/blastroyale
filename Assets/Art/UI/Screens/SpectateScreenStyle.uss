@@ -149,5 +149,9 @@
     display: none;
 }
 
+.hide-controls .screen-header__back {
+    display: none;
+}
+
 .screen-header--no-back {
 }

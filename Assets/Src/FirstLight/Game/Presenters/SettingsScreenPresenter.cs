@@ -25,6 +25,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnClose;
 			public Action OnConnectIdClicked;
 			public Action OnCustomizeHudClicked;
+			public Action OnServerSelectClicked;
 			public Action OnDeleteAccountClicked;
 		}
 
@@ -53,7 +54,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements()
 		{
-			_closeScreenButton = Root.Q<ImageButton>("CloseButton");
+			_closeScreenButton = Root.Q<ImageButton>("CloseButton").Required();
 			_closeScreenButton.clicked += Data.OnClose;
 
 			// Build Info Text
@@ -194,7 +195,18 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenCustomizeHud()
 		{
-			Data.OnCustomizeHudClicked();
+			_services.UIService.OpenScreen<HudCustomizationScreenPresenter>(new HudCustomizationScreenPresenter.StateData()
+			{
+				OnClose = () =>
+				{
+					_services.UIService.OpenScreen<SettingsScreenPresenter>(Data).Forget();
+				},
+				OnSave = e =>
+				{
+					_services.ControlsSetup.SaveControlsPositions(e);
+					_services.UIService.OpenScreen<SettingsScreenPresenter>(Data).Forget();
+				}
+			}).Forget();
 		}
 
 		private void OpenSupportService()

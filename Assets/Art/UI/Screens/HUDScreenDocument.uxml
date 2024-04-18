@@ -53,14 +53,14 @@
                     <ui:VisualElement name="GlowBlockCircle" class="weapon-display__out-of-ammo-bg-block" />
                     <FirstLight.Game.UIElements.RadialProgressElement name="AmmoProgress" progress="0.69" class="weapon-display__ammo-progress">
                         <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-weapon">
-                            <ui:VisualElement name="WeaponRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-uncommon" />
+                            <ui:VisualElement name="WeaponRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-common" />
                         </ui:VisualElement>
                     </FirstLight.Game.UIElements.RadialProgressElement>
                     <ui:VisualElement name="WeaponIconShadow" class="weapon-display__weapon-icon weapon-display__weapon-icon--shadow">
                         <ui:VisualElement name="WeaponIcon" class="weapon-display__weapon-icon" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:Label text="67 &lt;sprite=&quot;UISpriteAsset&quot; name=&quot;AmmoIcon&quot;&gt;&#10;&lt;size=70%&gt;/ 134" name="Ammo" class="weapon-display__ammo" />
+                <ui:Label text="67" name="Ammo" class="weapon-display__ammo" />
             </FirstLight.Game.UIElements.ImageButton>
             <ui:VisualElement name="KillFeed" picking-mode="Ignore" class="customizable-hud kill-feed">
                 <FirstLight.Game.UIElements.DeathNotificationElement class="death-notification--suicide" />

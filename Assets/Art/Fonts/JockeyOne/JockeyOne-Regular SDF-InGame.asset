@@ -2621,7 +2621,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: JockeyOne-Regular SDF-InGame Material
-  m_Shader: {fileID: 4800000, guid: 1ef35b67e47a54aa794c768731359434, type: 3}
+  m_Shader: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

@@ -99,7 +99,6 @@ namespace FirstLight.Game.StateMachines
 				LogoutClicked = TryLogOut,
 				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent),
 				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent),
-				OnCustomizeHudClicked = CustomizeHud,
 				OnDeleteAccountClicked = () =>
 					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted, null)
 			};
@@ -107,21 +106,6 @@ namespace FirstLight.Game.StateMachines
 			_services.UIService.OpenScreen<SettingsScreenPresenter>(data).Forget();
 		}
 
-		private void CustomizeHud()
-		{
-			_services.UIService.OpenScreen<HudCustomizationScreenPresenter>(new HudCustomizationScreenPresenter.StateData()
-			{
-				OnClose = () =>
-				{
-					_services.UIService.OpenScreen<SettingsScreenPresenter>().Forget();
-				},
-				OnSave = e =>
-				{
-					_services.ControlsSetup.SaveControlsPositions(e);
-					_services.UIService.OpenScreen<SettingsScreenPresenter>().Forget();
-				}
-			}).Forget();
-		}
 
 
 		private async void OpenConnectIdUI()

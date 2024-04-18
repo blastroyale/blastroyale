@@ -137,7 +137,6 @@ namespace FirstLight.UIService
 				throw new InvalidOperationException(msg);
 #else
 				FLog.Warn(msg);
-				return UniTask.CompletedTask;
 #endif
 			}
 

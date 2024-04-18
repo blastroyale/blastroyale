@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK;
@@ -47,6 +46,7 @@ namespace Src.FirstLight.Server
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.BROKEN_ITEMS, false);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.CS_TOTAL, false);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.NOOB_TOTAL, false);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.COINS_TOTAL, false);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.CS_EARNED, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.COINS_EARNED, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.XP_EARNED, true);
@@ -75,32 +75,56 @@ namespace Src.FirstLight.Server
 
 		private async Task OnClaimRewards(GameLogicMessageEvent<ClaimedRewardsMessage> ev)
 		{
-			await TrackRewards(ev.PlayerId, ev.Message.Rewards);
+			await TrackRewards(ev.PlayerId, "ClaimedRewardsMessage", ev.Message.Rewards);
 		}
 
-		private async Task TrackRewards(string playerId, IEnumerable<ItemData> rewards)
+		private async Task TrackRewards(string playerId, string source, IEnumerable<ItemData> rewards)
 		{
 			var coins = 0;
-			var cs = 0;
-			var equipments = 0;
 			var xp = 0;
 			var bpp = 0;
 
+			var eventData = new Dictionary<string, int>();
 			foreach (var item in rewards)
 			{
 				if (item.Id == GameId.COIN) coins += item.GetMetadata<CurrencyMetadata>().Amount;
-				if (item.Id == GameId.CS) cs += item.GetMetadata<CurrencyMetadata>().Amount;
 				if (item.Id == GameId.XP) xp += item.GetMetadata<CurrencyMetadata>().Amount;
 				if (item.Id == GameId.BPP) bpp += item.GetMetadata<CurrencyMetadata>().Amount;
+
+				eventData.TryGetValue(item.Id.ToString(), out var currentValue);
+				int amount;
+				if (item.HasMetadata<CurrencyMetadata>())
+				{
+					amount = item.GetMetadata<CurrencyMetadata>().Amount;
+					_ctx.Metrics.EmitMetric($"Reward_Currency_{item.Id}", amount);
+				}
+				else
+				{
+					amount = 1;
+					_ctx.Metrics.EmitMetric($"Reward_Generic_{item.Id}", 1);
+				}
+
+				eventData[item.Id.ToString()] = currentValue + amount;
 			}
 
-			if (cs == 0 && coins == 0 && equipments == 0 && xp == 0 && bpp == 0) return;
+
+			if (eventData.Count > 0)
+			{
+				var joinedRewards = $"[{string.Join(",", eventData.Select(kv => $"\"{kv.Key}\":{kv.Value}"))}]";
+				_ctx.Metrics.EmitEvent("Rewards", new Dictionary<string, string>()
+				{
+					{"source", source},
+					{"rewards", joinedRewards}
+				});
+			}
+
+
+			if (coins == 0 && xp == 0 && bpp == 0) return;
 
 			await _ctx.Statistics.UpdateStatistics(playerId,
 				(GameConstants.Stats.COINS_EARNED, coins),
 				(GameConstants.Stats.XP_EARNED, xp),
-				(GameConstants.Stats.BPP_EARNED, bpp),
-				(GameConstants.Stats.CS_EARNED, cs));
+				(GameConstants.Stats.BPP_EARNED, bpp));
 		}
 
 		private async Task OnBattlePassLevel(GameLogicMessageEvent<BattlePassLevelUpMessage> ev)
@@ -108,7 +132,7 @@ namespace Src.FirstLight.Server
 			await _ctx.Statistics.UpdateStatistics(ev.PlayerId,
 				(GameConstants.Stats.BP_LEVEL, (int) ev.Message.NewLevel));
 
-			await TrackRewards(ev.PlayerId, ev.Message.Rewards);
+			await TrackRewards(ev.PlayerId, "BattlePassLevelUpMessage", ev.Message.Rewards);
 		}
 
 		private async Task OnPurchase(GameLogicMessageEvent<RewardClaimedMessage> ev)
@@ -206,6 +230,14 @@ namespace Src.FirstLight.Server
 			data.CurrenciesSeasons.TryGetValue(currencyId, out var playerSeason);
 			if (playerSeason != leaderboardSeason)
 			{
+				data.Currencies.TryGetValue(currencyId, out var oldCurrencyValue);
+				_ctx.Metrics.EmitEvent("CurrencySeasonReset", new Dictionary<string, string>()
+				{
+					{"playerId", userId},
+					{"oldSeason", playerSeason.ToString()},
+					{"newSeason", leaderboardSeason.ToString()},
+					{"currentCurrency", oldCurrencyValue.ToString()},
+				});
 				_ctx.Log.LogInformation($"Wiping Currency {currencyId} {userId} from s{playerSeason} to {leaderboardSeason}");
 				data.CurrenciesSeasons[currencyId] = (uint) leaderboardSeason;
 				data.Currencies[currencyId] = 0;
@@ -248,6 +280,13 @@ namespace Src.FirstLight.Server
 			}
 			else if (currentSeason != data.TrophySeason)
 			{
+				_ctx.Metrics.EmitEvent("TrophySeasonReset", new Dictionary<string, string>()
+				{
+					{"playerId", userId},
+					{"oldSeason", data.TrophySeason.ToString()},
+					{"newSeason", currentSeason.ToString()},
+					{"currentTrophies", data.Trophies.ToString()},
+				});
 				_ctx.Log.LogInformation($"Wiping Trophy {userId} s{data.TrophySeason} to s{currentSeason}");
 				data.TrophySeason = (uint) currentSeason;
 				data.Trophies = 0;

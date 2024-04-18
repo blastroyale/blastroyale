@@ -41,9 +41,7 @@ namespace GameLogicService.Services
 			inventory.VirtualCurrency.TryGetValue(playfabName, out var playfabAmount);
 			if (playfabAmount > 0)
 			{
-				playerData.Currencies.TryGetValue(gameId, out var currentAmt);
-				currentAmt += (uint) playfabAmount;
-				playerData.Currencies[gameId] = currentAmt;
+				playerData.UncollectedRewards.Add(ItemFactory.Currency(gameId, playfabAmount));
 				var res = await PlayFabServerAPI.SubtractUserVirtualCurrencyAsync(new()
 				{
 					Amount = playfabAmount,

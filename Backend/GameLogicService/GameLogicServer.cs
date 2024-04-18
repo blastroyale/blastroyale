@@ -53,10 +53,11 @@ namespace Backend
 		private readonly IEventManager _eventManager;
 		private readonly IStatisticsService _statistics;
 		private readonly IServerMutex _mutex;
+		private readonly IMetricsService _metrics;
 
 		public GameLogicWebWebService(IEventManager eventManager, ILogger log,
 									  IPlayerSetupService service, IServerStateService stateService, GameServer server,
-									  IBaseServiceConfiguration serviceConfiguration, IServerMutex mutex)
+									  IBaseServiceConfiguration serviceConfiguration, IServerMutex mutex, IMetricsService metricsService)
 		{
 			_setupService = service;
 			_stateService = stateService;
@@ -65,6 +66,7 @@ namespace Backend
 			_mutex = mutex;
 			_eventManager = eventManager;
 			_log = log;
+			_metrics = metricsService;
 		}
 
 		public async Task<PlayFabResult<BackendLogicResult>> RunLogic(string playerId, LogicRequest request)
@@ -98,16 +100,18 @@ namespace Backend
 				{
 					await _stateService.UpdatePlayerState(playerId, state.GetOnlyUpdatedState());
 				}
-				
+
+				_metrics.EmitMetric("RouteGetPlayerData", 1);
 				return Playfab.Result(playerId, new Dictionary<string, string>
 				{
-					{"BuildNumber", _serviceConfiguration.BuildNumber},
-					{"BuildCommit", _serviceConfiguration.BuildCommit},
+					{ "BuildNumber", _serviceConfiguration.BuildNumber },
+					{ "BuildCommit", _serviceConfiguration.BuildCommit },
 				});
 			}
 			catch (Exception e)
 			{
 				var errorResult = _server.GetErrorResult(null, e);
+				_metrics.EmitException(e,"GetPlayerData");
 				return GetPlayfabError(errorResult);
 			}
 			finally
@@ -158,7 +162,7 @@ namespace Backend
 						{
 							"Exception",
 							errorResult.Error != null
-								? new[] {errorResult.Error.StackTrace}
+								? new[] { errorResult.Error.StackTrace }
 								: errorResult?.Data?.Values.ToArray()
 						}
 					}

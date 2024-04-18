@@ -1,22 +1,16 @@
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
-using Unity.Services.Authentication;
 using Unity.Services.RemoteConfig;
-using UnityEngine;
+
+// ReSharper disable ConvertToConstant.Global
+// ReSharper disable FieldCanBeMadeReadOnly.Global
+// ReSharper disable InconsistentNaming
 
 namespace FirstLight.Game.Utils
 {
 	public class RemoteConfigs
 	{
-		public readonly bool BetaVersion = false;
-
-		public struct UserAttributes
-		{
-		}
-
-		public struct AppAttributes
-		{
-		}
+		public bool BetaVersion = false;
 
 		public static RemoteConfigs Instance { get; private set; }
 
@@ -24,6 +18,14 @@ namespace FirstLight.Game.Utils
 		{
 			var rc = await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
 			Instance = JsonConvert.DeserializeObject<RemoteConfigs>(rc.config.ToString());
+		}
+
+		private struct UserAttributes
+		{
+		}
+
+		private struct AppAttributes
+		{
 		}
 	}
 }

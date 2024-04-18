@@ -6,5 +6,6 @@ namespace FirstLight.Game.Utils
 	public static class UnityCloudEnvironment
 	{
 		public const string CURRENT = "development";
+		public const string CURRENT_ID = "***REMOVED***";
 	}
 }

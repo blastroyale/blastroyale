@@ -503,7 +503,7 @@ namespace FirstLight.Game.Services
 				_services.GameBackendService.FetchServerState(state =>
 				{
 					FLog.Verbose("Downloaded state from playfab");
-					UpdatePlayerDataAndLogic(state, previouslyLoggedIn).Forget();
+					UpdatePlayerDataAndLogic(state, previouslyLoggedIn);
 					AuthenticateGameNetwork(loginData, onSuccess, onError);
 				}, onError);
 			}, onError).Forget();
@@ -517,6 +517,8 @@ namespace FirstLight.Game.Services
 				// This call will sign in the cached player.
 				await AuthenticationService.Instance.SignInAnonymouslyAsync();
 				FLog.Info("UnityCloudAuth", "Cached user sign in succeeded!");
+
+				await RemoteConfigs.Init();
 
 				onSuccess();
 			}
@@ -533,13 +535,21 @@ namespace FirstLight.Game.Services
 						FLog.Verbose("UnityCloudAuth", $"Session token received: idToken: {data["idToken"]}, sessionToken: {data["sessionToken"]}!");
 
 						AuthenticationService.Instance.ProcessAuthenticationTokens(data["idToken"], data["sessionToken"]);
-						onSuccess();
+
+						SuccessCall().Forget();
+						return;
+
+						async UniTaskVoid SuccessCall()
+						{
+							await RemoteConfigs.Init();
+							onSuccess();
+						}
 					},
 					e => { _services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login); });
 			}
 		}
 
-		public async UniTaskVoid UpdatePlayerDataAndLogic(Dictionary<string, string> state, bool previouslyLoggedIn)
+		private void UpdatePlayerDataAndLogic(Dictionary<string, string> state, bool previouslyLoggedIn)
 		{
 			foreach (var typeFullName in state.Keys)
 			{
@@ -565,8 +575,6 @@ namespace FirstLight.Game.Services
 					FLog.Error("Error reading data type " + typeFullName, e);
 				}
 			}
-
-			await RemoteConfigs.Init();
 
 			if (previouslyLoggedIn)
 			{

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400000}
   - component: {fileID: -4905031729971264494}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Candy-Cane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1132894311848378937}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 3088230238547486084}
   - component: {fileID: 4431815693933757086}
   - component: {fileID: 7208444413953675520}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

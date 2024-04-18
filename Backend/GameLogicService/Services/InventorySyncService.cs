@@ -73,7 +73,7 @@ namespace GameLogicService.Services
 
 				var playerData = state.DeserializeModel<PlayerData>();
 
-				var currencies = new[] { GameId.COIN, GameId.CS, GameId.BlastBuck };
+				var currencies = new[] { GameId.COIN, GameId.CS, GameId.BlastBuck, GameId.NOOB };
 				foreach (var gameId in currencies)
 				{
 					consumedCurrencies[gameId] = await SyncCurrency(player, inventory, playerData, gameId);

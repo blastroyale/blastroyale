@@ -46,13 +46,13 @@ namespace Src.FirstLight.Server
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.NON_NFTS, false);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.BROKEN_ITEMS, false);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.CS_TOTAL, false);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.COINS_TOTAL, false);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.NOOB_TOTAL, false);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.CS_EARNED, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.COINS_EARNED, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.XP_EARNED, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.BPP_EARNED, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.BP_LEVEL, false);
-			
+
 			var evManager = _ctx.PluginEventManager!;
 			evManager.RegisterEventListener<GameLogicMessageEvent<ClaimedRewardsMessage>>(OnClaimRewards);
 			evManager.RegisterEventListener<GameLogicMessageEvent<RewardClaimedMessage>>(OnPurchase);
@@ -91,7 +91,6 @@ namespace Src.FirstLight.Server
 				if (item.Id == GameId.COIN) coins += item.GetMetadata<CurrencyMetadata>().Amount;
 				if (item.Id == GameId.CS) cs += item.GetMetadata<CurrencyMetadata>().Amount;
 				if (item.Id == GameId.XP) xp += item.GetMetadata<CurrencyMetadata>().Amount;
-				if (item.Id.IsInGroup(GameIdGroup.Equipment)) equipments += 1;
 				if (item.Id == GameId.BPP) bpp += item.GetMetadata<CurrencyMetadata>().Amount;
 			}
 
@@ -101,15 +100,14 @@ namespace Src.FirstLight.Server
 				(GameConstants.Stats.COINS_EARNED, coins),
 				(GameConstants.Stats.XP_EARNED, xp),
 				(GameConstants.Stats.BPP_EARNED, bpp),
-				(GameConstants.Stats.CS_EARNED, cs),
-				(GameConstants.Stats.ITEMS_OBTAINED, equipments));
+				(GameConstants.Stats.CS_EARNED, cs));
 		}
 
 		private async Task OnBattlePassLevel(GameLogicMessageEvent<BattlePassLevelUpMessage> ev)
 		{
 			await _ctx.Statistics.UpdateStatistics(ev.PlayerId,
 				(GameConstants.Stats.BP_LEVEL, (int) ev.Message.NewLevel));
-			
+
 			await TrackRewards(ev.PlayerId, ev.Message.Rewards);
 		}
 
@@ -160,11 +158,11 @@ namespace Src.FirstLight.Server
 			toSend.Add((GameConstants.Stats.GAMES_PLAYED, 1));
 			toSend.Add((GameConstants.Stats.KILLS, (int) thisPlayerData.Data.PlayersKilledCount));
 			toSend.Add((GameConstants.Stats.DEATHS, (int) thisPlayerData.Data.DeathCount));
-			
-			var trophies = (int) state.DeserializeModel<PlayerData>().Trophies;
-			trophies = (int) await CheckUpdateTrophiesState(userId, state);
+
+			var trophies = (int) await CheckUpdateTrophiesState(userId, state);
 			toSend.Add((GameConstants.Stats.LEADERBOARD_LADDER_NAME, trophies));
-			
+			toSend.Add((GameConstants.Stats.NOOB_TOTAL, await UpdatePlayerDataCurrencySeasonAndReset(userId, state, GameConstants.Stats.NOOB_TOTAL, GameId.NOOB)));
+
 			await _ctx.Statistics.UpdateStatistics(userId, toSend.ToArray());
 		}
 
@@ -176,25 +174,61 @@ namespace Src.FirstLight.Server
 			}
 
 			var state = playerLoadEvent.PlayerState;
-			var equipmentData = state.DeserializeModel<EquipmentData>();
 			var playerData = state.DeserializeModel<PlayerData>();
 			playerData.Currencies.TryGetValue(GameId.CS, out var cs);
 			playerData.Currencies.TryGetValue(GameId.COIN, out var coins);
-		
+
 			var newTrophies = await CheckUpdateTrophiesState(playerLoadEvent.PlayerId, state);
+			// TODO: Check possible bug here, i think we are duplicating the trophies
 			if (newTrophies != playerData.Trophies)
 			{
 				playerData.Trophies = newTrophies;
 				state.UpdateModel(playerData);
 			}
 
+			var newNoobies = await UpdatePlayerDataCurrencySeasonAndReset(playerLoadEvent.PlayerId, state, GameConstants.Stats.NOOB_TOTAL, GameId.NOOB);
 			await _ctx.Statistics.UpdateStatistics(playerLoadEvent.PlayerId,
-				(GameConstants.Stats.NFT_ITEMS, equipmentData.NftInventory.Count),
-				(GameConstants.Stats.NON_NFTS, equipmentData.Inventory.Count - equipmentData.NftInventory.Count),
 				(GameConstants.Stats.CS_TOTAL, (int) cs),
 				(GameConstants.Stats.COINS_TOTAL, (int) coins),
-				(GameConstants.Stats.FAME, (int) playerData.Level),
-				(GameConstants.Stats.BROKEN_ITEMS, equipmentData.Inventory.Values.Count(e => e.IsBroken())));
+				(GameConstants.Stats.NOOB_TOTAL, newNoobies),
+				(GameConstants.Stats.FAME, (int) playerData.Level)
+			);
+		}
+
+		/// <summary>
+		/// Update the player season if needs to and reset the PlayerData value,
+		/// and returns how much currency the player have
+		/// </summary>
+		private async Task<int> UpdatePlayerDataCurrencySeasonAndReset(string userId, ServerState state, string metric, GameId currencyId)
+		{
+			var data = state.DeserializeModel<PlayerData>();
+			var leaderboardSeason = await _ctx.Statistics.GetSeason(metric);
+			data.CurrenciesSeasons.TryGetValue(currencyId, out var playerSeason);
+			if (playerSeason != leaderboardSeason)
+			{
+				_ctx.Log.LogInformation($"Wiping Currency {currencyId} {userId} from s{playerSeason} to {leaderboardSeason}");
+				data.CurrenciesSeasons[currencyId] = (uint) leaderboardSeason;
+				data.Currencies[currencyId] = 0;
+				state.UpdateModel(data);
+				return 0;
+			}
+
+			var unclaimedCurrency = data.UncollectedRewards.Where(g => g.HasMetadata<CurrencyMetadata>() && g.Id == currencyId).Sum(g => g.GetMetadata<CurrencyMetadata>().Amount);
+			data.Currencies.TryGetValue(currencyId, out var currentValue);
+			int intValue = 0;
+			try
+			{
+				checked
+				{
+					intValue = (int) currentValue;
+				}
+			}
+			catch (OverflowException ex)
+			{
+				_ctx.Log.LogError(ex);
+			}
+
+			return unclaimedCurrency + intValue;
 		}
 
 		/// <summary>

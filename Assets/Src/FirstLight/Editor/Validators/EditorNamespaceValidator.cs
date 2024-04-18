@@ -21,10 +21,11 @@ namespace FirstLight.Editor.Validators
 			{
 				var path = AssetDatabase.GUIDToAssetPath(guid);
 				var scriptAsset = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
-				if (scriptAsset.text.Contains("using UnityEditor") && !scriptAsset.text.StartsWith("#if UNITY_EDITOR"))
+				if ((scriptAsset.text.Contains("using UnityEditor") || scriptAsset.text.Contains("using Sirenix.Utilities"))
+					&& !scriptAsset.text.StartsWith("#if UNITY_EDITOR"))
 				{
 					Debug.Log(scriptAsset.text);
-					result.AddError($"Script {scriptAsset.name} contains UnityEditor reference.")
+					result.AddError($"Script {scriptAsset.name} contains editor only reference.")
 						.WithButton("Open Script", () => { AssetDatabase.OpenAsset(scriptAsset); });
 				}
 

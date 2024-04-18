@@ -169,6 +169,7 @@ namespace FirstLight.Game.Utils
 			public const string XP_EARNED = "XP Earned";
 			public const string CS_EARNED = "CS Earned";
 			public const string COINS_TOTAL = "Coins Total";
+			public const string NOOB_TOTAL = "NOOB Total";
 			public const string CS_TOTAL = "CS Total";
 			public const string ITEMS_OBTAINED = "Items Obtained";
 			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";

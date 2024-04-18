@@ -58,8 +58,8 @@ public class FootprinterMonoComponent : MonoBehaviour
 		_view = view;
 		_skin = services.CollectionService.GetCosmeticForGroup(loadout.Cosmetics, GameIdGroup.Footprint);
 
-		_character.PlayerView.CharacterSkin.Events.OnStepLeft += OnStepLeft;
-		_character.PlayerView.CharacterSkin.Events.OnStepRight += OnStepRight;
+		_character.PlayerView.CharacterSkin.OnStepLeft += OnStepLeft;
+		_character.PlayerView.CharacterSkin.OnStepRight += OnStepRight;
 	}
 
 	private bool CanSpawn()

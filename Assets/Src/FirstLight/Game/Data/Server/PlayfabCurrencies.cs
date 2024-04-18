@@ -15,7 +15,8 @@ namespace FirstLight.Models
 			{ GameId.CS, "CS" },
 			{ GameId.BlastBuck, "BB" },
 			{ GameId.XP, "XP" },
-			{ GameId.RealMoney, "RM" }
+			{ GameId.RealMoney, "RM" },
+			{ GameId.NOOB, "NB" }
 		};
 
 		/// <summary>

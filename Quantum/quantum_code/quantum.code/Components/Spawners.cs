@@ -26,7 +26,7 @@ namespace Quantum
 		internal void Spawn(Frame f, EntityRef e)
 		{
 			var transform = f.Get<Transform3D>(e);
-			if (GameId.IsInGroup(GameIdGroup.Consumable) || GameId.IsInGroup(GameIdGroup.Special))
+			if (GameId.IsInGroup(GameIdGroup.Consumable) || GameId.IsInGroup(GameIdGroup.Special) || GameId.IsInGroup(GameIdGroup.Currency))
 			{
 				Collectable = SpawnConsumable(f, GameId, &transform, e);
 			}

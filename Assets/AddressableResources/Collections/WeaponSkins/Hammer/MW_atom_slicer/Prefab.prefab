@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8013064559667604108}
   - component: {fileID: 3344988653766595975}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,6 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6843702215640539492}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,7 +32,6 @@ Transform:
   m_Children:
   - {fileID: 2431212316413742162}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3344988653766595975
 MonoBehaviour:
@@ -113,6 +113,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 12d1366c9c236d847b3350cdfb5d9356, type: 3}
       propertyPath: m_Name
       value: MW_atom_slicer
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 12d1366c9c236d847b3350cdfb5d9356, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

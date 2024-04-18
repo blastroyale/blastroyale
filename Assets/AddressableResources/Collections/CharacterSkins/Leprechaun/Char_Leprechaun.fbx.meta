@@ -3,7 +3,12 @@ guid: d38c372b6190d40688722550d5e22909
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Char_Leprechaun
+    second: {fileID: 2100000, guid: 876feaaa9fb674379af397e684e418e2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

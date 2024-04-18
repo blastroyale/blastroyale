@@ -25,9 +25,9 @@ namespace FirstLight.Editor.AssetImporters
 			var folder = assetPath.Remove(assetPath.LastIndexOf('/'));
 			importer.ExtractTextures(folder);
 
-			// Apply preset
-			var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/CharacterFBX.preset");
-			preset.ApplyTo(importer);
+			// Apply preset TODO: Fix this
+			// var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/CharacterFBX.preset");
+			// preset.ApplyTo(importer);
 		}
 
 		private void OnPreprocessAnimation()
@@ -82,15 +82,16 @@ namespace FirstLight.Editor.AssetImporters
 
 		private void OnPreprocessMaterialDescription(MaterialDescription description, Material material, AnimationClip[] animations)
 		{
-			if (!assetPath.StartsWith(CHAR_PATH)) return;
-			if (!Path.GetFileName(assetPath).StartsWith("Char_")) return;
-
-			material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
-
-			if (description.TryGetProperty("DiffuseColor", out TexturePropertyDescription diffuseColor))
-			{
-				material.SetTexture(Shader.PropertyToID("_MainTex"), diffuseColor.texture);
-			}
+			// TODO: Fix this
+			// if (!assetPath.StartsWith(CHAR_PATH)) return;
+			// if (!Path.GetFileName(assetPath).StartsWith("Char_")) return;
+			//
+			// material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
+			//
+			// if (description.TryGetProperty("DiffuseColor", out TexturePropertyDescription diffuseColor))
+			// {
+			// 	material.SetTexture(Shader.PropertyToID("_MainTex"), diffuseColor.texture);
+			// }
 		}
 
 		/// <summary>

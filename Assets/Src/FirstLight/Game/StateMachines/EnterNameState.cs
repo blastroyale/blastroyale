@@ -65,7 +65,14 @@ namespace FirstLight.Game.StateMachines
 			nameEntry.Event(_invalidNameEvent).Target(invalidName);
 			invalidName.Transition().Target(nameEntry);
 
+			final.OnEnter(CloseLoading);
 			final.OnEnter(UnsubscribeEvents);
+		}
+
+		private void CloseLoading()
+		{
+			_services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>(false).Forget();
+
 		}
 
 		private void SubscribeEvents()
@@ -123,6 +130,7 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
+			_services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>().Forget();
 			_services.GameBackendService.UpdateDisplayName(newNameTrimmed, (_) => _statechartTrigger(NameSetEvent), e =>
 			{
 				var description = GetErrorString(e);
@@ -137,6 +145,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTaskVoid OnSetNameError(string errorMessage)
 		{
+			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>(false);
 			// HACK: When you open a generic dialog in a close action of another generic dialog it will not work.
 			// Because the ui.CloseLayer will be called after the close callback, closing it immediately 
 			await UniTask.WaitUntil(() => !_services.UIService.IsScreenOpen<GenericButtonDialogPresenter>());

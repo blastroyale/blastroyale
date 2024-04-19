@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"21b5bef3-257b-4fb9-ad9b-36470bc6d9d7\"\n   
+  _rsKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"c77fce82-caef-45e2-b04e-aff084d453cd\"\n   
     },\n    \"rs\": {\n      \"key\": \"BetaVersion\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"d594039a-70ad-4e1e-879f-ce823d0d9872\"\n   
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"a54b0909-dbe6-4e8d-ac9c-2a669b5c2ea8\"\n   
     },\n    \"rs\": {\n      \"key\": \"LeaderboardsConfig\",\n      \"type\": \"json\",\n     
     \"schemaId\": \"leaderboards\",\n      \"value\": {\n        \"Trophies Ladder\":
     {\n          \"1\": {\n            \"Name\": \"TROPHIES\",\n            \"Icon\":
@@ -55,21 +55,21 @@ MonoBehaviour:
     Spice + 500 Coins<br><br>Top 11-50: 500 Coins<br><br>Top 51-200: 250 Coins\",\n           
     \"ManualEndTime\": \"25/12/2030\",\n            \"Visible\": false\n         
     }\n        }\n      }\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\":
-    \"ed1d612d-3499-4004-b341-3f64f28085fa\"\n    },\n    \"rs\": {\n      \"key\":
+    \"d06913df-b07a-44ac-a00e-8d2947c14164\"\n    },\n    \"rs\": {\n      \"key\":
     \"DesyncDetection\",\n      \"type\": \"bool\",\n      \"value\": true\n    }\n 
-    },\n  {\n    \"metadata\": {\n      \"entityId\": \"ed2ad47f-1f47-49f1-9491-874393a7f937\"\n   
+    },\n  {\n    \"metadata\": {\n      \"entityId\": \"400b9f53-d500-4f8b-9242-60488911c0f4\"\n   
     },\n    \"rs\": {\n      \"key\": \"SystemLockingEnabled\",\n      \"type\":
     \"bool\",\n      \"value\": false\n    }\n  },\n  {\n    \"metadata\": {\n     
-    \"entityId\": \"9ea4a0bb-d968-4cac-8aa9-955050872146\"\n    },\n    \"rs\": {\n     
+    \"entityId\": \"838d1707-3f0d-4b16-98ea-eaa99ce1750e\"\n    },\n    \"rs\": {\n     
     \"key\": \"TutorialEnabled\",\n      \"type\": \"bool\",\n      \"value\": true\n   
-    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"495f58a1-0324-4865-9a3f-0bd6a9a16091\"\n   
+    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"e30c1747-c757-41a8-b025-271aaffef221\"\n   
     },\n    \"rs\": {\n      \"key\": \"CommitVersionLock\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"31f6ac6d-a2f6-4434-81a2-f890c826ec25\"\n   
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"bd203b37-0745-4678-95c9-830c62849f07\"\n   
     },\n    \"rs\": {\n      \"key\": \"NoobEnabled\",\n      \"type\": \"bool\",\n     
     \"value\": true\n    }\n  }\n]"
-  _rsLastCachedKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"21b5bef3-257b-4fb9-ad9b-36470bc6d9d7\"\n   
+  _rsLastCachedKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"c77fce82-caef-45e2-b04e-aff084d453cd\"\n   
     },\n    \"rs\": {\n      \"key\": \"BetaVersion\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"d594039a-70ad-4e1e-879f-ce823d0d9872\"\n   
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"a54b0909-dbe6-4e8d-ac9c-2a669b5c2ea8\"\n   
     },\n    \"rs\": {\n      \"key\": \"LeaderboardsConfig\",\n      \"type\": \"json\",\n     
     \"schemaId\": \"leaderboards\",\n      \"value\": {\n        \"Trophies Ladder\":
     {\n          \"1\": {\n            \"Name\": \"TROPHIES\",\n            \"Icon\":
@@ -110,19 +110,22 @@ MonoBehaviour:
     Spice + 500 Coins<br><br>Top 11-50: 500 Coins<br><br>Top 51-200: 250 Coins\",\n           
     \"ManualEndTime\": \"25/12/2030\",\n            \"Visible\": false\n         
     }\n        }\n      }\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\":
-    \"ed1d612d-3499-4004-b341-3f64f28085fa\"\n    },\n    \"rs\": {\n      \"key\":
+    \"d06913df-b07a-44ac-a00e-8d2947c14164\"\n    },\n    \"rs\": {\n      \"key\":
     \"DesyncDetection\",\n      \"type\": \"bool\",\n      \"value\": true\n    }\n 
-    },\n  {\n    \"metadata\": {\n      \"entityId\": \"ed2ad47f-1f47-49f1-9491-874393a7f937\"\n   
+    },\n  {\n    \"metadata\": {\n      \"entityId\": \"400b9f53-d500-4f8b-9242-60488911c0f4\"\n   
     },\n    \"rs\": {\n      \"key\": \"SystemLockingEnabled\",\n      \"type\":
     \"bool\",\n      \"value\": false\n    }\n  },\n  {\n    \"metadata\": {\n     
-    \"entityId\": \"9ea4a0bb-d968-4cac-8aa9-955050872146\"\n    },\n    \"rs\": {\n     
+    \"entityId\": \"838d1707-3f0d-4b16-98ea-eaa99ce1750e\"\n    },\n    \"rs\": {\n     
     \"key\": \"TutorialEnabled\",\n      \"type\": \"bool\",\n      \"value\": true\n   
-    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"495f58a1-0324-4865-9a3f-0bd6a9a16091\"\n   
+    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"e30c1747-c757-41a8-b025-271aaffef221\"\n   
     },\n    \"rs\": {\n      \"key\": \"CommitVersionLock\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"31f6ac6d-a2f6-4434-81a2-f890c826ec25\"\n   
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"bd203b37-0745-4678-95c9-830c62849f07\"\n   
     },\n    \"rs\": {\n      \"key\": \"NoobEnabled\",\n      \"type\": \"bool\",\n     
     \"value\": true\n    }\n  }\n]"
   _environments: "[\n  {\n    \"projectId\": \"***REMOVED***\",\n   
+    \"name\": \"community\",\n    \"id\": \"***REMOVED***\",\n   
+    \"isDefault\": false,\n    \"createdAt\": \"2024-04-18T16:33:45Z\",\n    \"updatedAt\":
+    \"2024-04-18T16:33:45Z\"\n  },\n  {\n    \"projectId\": \"***REMOVED***\",\n   
     \"name\": \"production\",\n    \"id\": \"***REMOVED***\",\n   
     \"isDefault\": true,\n    \"createdAt\": \"2021-11-23T11:42:53Z\",\n    \"updatedAt\":
     \"2021-11-23T11:42:53Z\"\n  },\n  {\n    \"projectId\": \"***REMOVED***\",\n   
@@ -131,7 +134,4 @@ MonoBehaviour:
     \"2022-05-07T22:47:12Z\"\n  },\n  {\n    \"projectId\": \"***REMOVED***\",\n   
     \"name\": \"staging\",\n    \"id\": \"***REMOVED***\",\n   
     \"isDefault\": false,\n    \"createdAt\": \"2022-12-05T19:41:03Z\",\n    \"updatedAt\":
-    \"2022-12-05T19:41:03Z\"\n  },\n  {\n    \"projectId\": \"***REMOVED***\",\n   
-    \"name\": \"community\",\n    \"id\": \"***REMOVED***\",\n   
-    \"isDefault\": false,\n    \"createdAt\": \"2024-04-18T16:33:45Z\",\n    \"updatedAt\":
-    \"2024-04-18T16:33:45Z\"\n  }\n]"
+    \"2022-12-05T19:41:03Z\"\n  }\n]"

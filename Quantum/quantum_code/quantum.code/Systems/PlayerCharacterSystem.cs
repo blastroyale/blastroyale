@@ -270,28 +270,7 @@ namespace Quantum.Systems
 
 			if (f.Time < Constants.NO_INPUT_STOP_CHECKING)
 			{
-				if (filter.Player->InputSnapshot == input->GetHashCode())
-				{
-					filter.Player->TimeCounterNoInput += f.DeltaTime;
-					if (filter.Player->TimeCounterNoInput > Constants.NO_INPUT_KILL_TIME)
-					{
-						f.Unsafe.GetPointer<Stats>(filter.Entity)->Kill(f, filter.Entity);
-					}
-					else if (filter.Player->TimeCounterNoInput > Constants.NO_INPUT_WARNING_TIME
-							 && filter.Player->TimeCounterNoInput < Constants.NO_INPUT_WARNING_TIME + FP._1)
-					{
-						f.Events.OnLocalPlayerNoInput(f.Get<PlayerCharacter>(filter.Entity).Player, filter.Entity);
-						
-						// A hack with a time counter to avoid sending more than a single event
-						filter.Player->TimeCounterNoInput += FP._1_50;
-					}
-				}
-				else
-				{
-					filter.Player->TimeCounterNoInput = FP._0;
-				}
-				
-				filter.Player->InputSnapshot = input->GetHashCode();
+				ProcessNoInputWarning(f, ref filter, input->GetHashCode());
 			}
 			
 			var rotation = FPVector2.Zero;
@@ -372,6 +351,31 @@ namespace Quantum.Systems
 			kcc->Velocity = velocity;
 
 			kcc->Move(f, filter.Entity, moveDirection, this);
+		}
+
+		private void ProcessNoInputWarning(Frame f, ref PlayerCharacterFilter filter, int inputHashCode)
+		{
+			if (filter.Player->InputSnapshot == inputHashCode)
+			{
+				if (f.Time - filter.Player->LastNoInputTimeSnapshot > Constants.NO_INPUT_KILL_TIME)
+				{
+					f.Unsafe.GetPointer<Stats>(filter.Entity)->Kill(f, filter.Entity);
+				}
+				else if (f.Time - filter.Player->LastNoInputTimeSnapshot > Constants.NO_INPUT_WARNING_TIME
+						 && f.Time - filter.Player->LastNoInputTimeSnapshot < Constants.NO_INPUT_WARNING_TIME + FP._1)
+				{
+					f.Events.OnLocalPlayerNoInput(f.Get<PlayerCharacter>(filter.Entity).Player, filter.Entity);
+						
+					// A hack with a time counter to avoid sending more than a single event
+					filter.Player->LastNoInputTimeSnapshot -= FP._1_50;
+				}
+			}
+			else
+			{
+				filter.Player->LastNoInputTimeSnapshot = f.Time;
+			}
+			
+			filter.Player->InputSnapshot = inputHashCode;
 		}
 
 		private void UpdateHealthPerSecMutator(Frame f, ref PlayerCharacterFilter filter)

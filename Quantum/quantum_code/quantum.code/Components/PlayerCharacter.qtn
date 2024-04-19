@@ -46,7 +46,7 @@ component PlayerCharacter
 	[HideInInspector] array<WeaponSlot>[MAX_WEAPONS] WeaponSlots;
 	bool RealPlayer;
 	Int32 InputSnapshot;
-	FP TimeCounterNoInput;
+	FP LastNoInputTimeSnapshot;
 }
 
 component PlayerInventory {

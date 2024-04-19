@@ -148,7 +148,7 @@ namespace FirstLight.Editor.Build
 #if UNITY_CLOUD_BUILD
     public static void PreExport(UnityEngine.CloudBuild.BuildManifestObject manifest)
     {
-        var buildNumber = int.Parse(manifest.GetValue("buildNumber", "0")) + 10000;
+        var buildNumber = manifest.GetValue<int>("buildNumber") + 10000;
         Debug.Log("Setting build number to " + buildNumber);
         PlayerSettings.Android.bundleVersionCode = buildNumber;
         PlayerSettings.iOS.buildNumber = buildNumber.ToString();

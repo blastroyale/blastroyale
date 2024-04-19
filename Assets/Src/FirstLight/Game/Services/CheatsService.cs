@@ -38,7 +38,7 @@ namespace FirstLight.Game.Services
 
 		private bool ShouldExecute()
 		{
-			return _environmentService.Environment == Environment.TESTNET;
+			return _environmentService.Environment == Environment.COMMUNITY;
 		}
 
 	}

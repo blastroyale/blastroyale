@@ -59,7 +59,7 @@ namespace FirstLight.Game.Commands.Cheats
 
 		public Enum[] AllowedEnvironments()
 		{
-			return new Enum[] { Services.Environment.TESTNET, Services.Environment.DEV, };
+			return new Enum[] { Services.Environment.COMMUNITY, Services.Environment.DEV, };
 		}
 	}
 }

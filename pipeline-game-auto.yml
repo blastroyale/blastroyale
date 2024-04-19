@@ -32,6 +32,7 @@ parameters:
     values:
       - development
       - staging
+      - community
       - production
   - name: param_run_unity_tests
     displayName: Run Unit Tests

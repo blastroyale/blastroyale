@@ -367,13 +367,13 @@ UpdateSelectionEnvironmentOverride();
 			return currentValue.ToString() != "STAGING";
 		}
 
-		[MenuItem("FLG/Local Flags/EnvironmentOverride/TESTNET",false, 18)]
+		[MenuItem("FLG/Local Flags/EnvironmentOverride/COMMUNITY",false, 18)]
 		private static void ToggleEnvironmentOverrideTESTNET()
 		{
 			
-			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = FirstLight.Game.Services.Environment.TESTNET;
+			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = FirstLight.Game.Services.Environment.COMMUNITY;
 			FeatureFlags.SaveLocalConfig();
-			Debug.Log("Setting EnvironmentOverride to FirstLight.Game.Services.Environment.TESTNET");
+			Debug.Log("Setting EnvironmentOverride to FirstLight.Game.Services.Environment.COMMUNITY");
 			EditorApplication.delayCall += UpdateSelectionEnvironmentOverride; ;
 		}
 

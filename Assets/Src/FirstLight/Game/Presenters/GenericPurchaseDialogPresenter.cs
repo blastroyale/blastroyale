@@ -21,7 +21,6 @@ namespace FirstLight.Game.Presenters
 	[UILayer(UILayer.Popup)]
 	public class GenericPurchaseDialogPresenter : UIPresenterData<GenericPurchaseDialogPresenter.StateData>
 	{
-		
 		public class StateData
 		{
 			public GameId Currency = GameId.BlastBuck;
@@ -34,9 +33,9 @@ namespace FirstLight.Game.Presenters
 			public Action OnExit;
 			public Sprite ItemSprite;
 		}
-		
+
 		private IGameServices _services;
-		
+
 		private Label _itemPrice;
 		private Label _itemAmount;
 		private Label _title;
@@ -154,7 +153,7 @@ namespace FirstLight.Game.Presenters
 			_itemPrice.text = string.Format(ScriptLocalization.UITGeneric.purchase_get_currency, Data.Currency.GetCurrencyLocalization(2).ToUpperInvariant());
 			_closeCallback = Data.OnExit;
 			_confirmCallback = GoToShop;
-			
+
 			return base.OnScreenOpen(reload);
 		}
 
@@ -182,8 +181,6 @@ namespace FirstLight.Game.Presenters
 				// TODO: This seems hacky
 				_services.UIService.GetScreen<StoreScreenPresenter>().GoToCategoryWithProduct(Data.Currency);
 			}
-
-			CloseRequested();
 		}
 	}
 }

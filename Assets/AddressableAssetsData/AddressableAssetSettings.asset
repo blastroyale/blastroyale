@@ -122,7 +122,7 @@ MonoBehaviour:
       - m_Id: 98403f15505af4449befcb5aa59b4183
         m_Value: ServerData/[BuildTarget]
       - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/staging/buckets/***REMOVED***/release_by_badge/public/entry_by_path/content/?path=/[BuildTarget]
+        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/staging/buckets/***REMOVED***/release_by_badge/public/entry_by_path/content/?path=/ServerData/[BuildTarget]
       - m_Id: b2d80958694564964b68b1dc52b8801b
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     - m_InheritedParent: 
@@ -136,7 +136,7 @@ MonoBehaviour:
       - m_Id: 98403f15505af4449befcb5aa59b4183
         m_Value: ServerData/[BuildTarget]
       - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/production/buckets/***REMOVED***/release_by_badge/public/entry_by_path/content/?path=/[BuildTarget]
+        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/production/buckets/***REMOVED***/release_by_badge/public/entry_by_path/content/?path=/ServerData/[BuildTarget]
       - m_Id: b2d80958694564964b68b1dc52b8801b
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     - m_InheritedParent: 
@@ -150,7 +150,7 @@ MonoBehaviour:
       - m_Id: 98403f15505af4449befcb5aa59b4183
         m_Value: ServerData/[BuildTarget]
       - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/community/buckets/***REMOVED***/release_by_badge/public/entry_by_path/content/?path=/[BuildTarget]
+        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/community/buckets/***REMOVED***/release_by_badge/public/entry_by_path/content/?path=/ServerData/[BuildTarget]
       - m_Id: b2d80958694564964b68b1dc52b8801b
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     m_ProfileEntryNames:

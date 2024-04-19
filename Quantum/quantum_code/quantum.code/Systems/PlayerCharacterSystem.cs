@@ -165,6 +165,11 @@ namespace Quantum.Systems
 							break;
 					}
 				}
+
+				if (f.RNG->Next(FP._0, FP._1) < f.GameConfig.ChanceToDropNoobOnKill)
+				{
+					consumablesToDrop.Add(GameId.NOOB);
+				}
 			}
 
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Tutorial)

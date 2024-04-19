@@ -260,7 +260,7 @@ namespace FirstLight.Game.Services
 
 			FLog.Info($"Using environment: {envData.EnvironmentID.ToString()}");
 
-			_messageBrokerService.Publish(new EnvironmentChanged() { NewEnvironment = envData.EnvironmentID });
+			_messageBrokerService.Publish(new EnvironmentChanged() {NewEnvironment = envData.EnvironmentID});
 			CurrentEnvironmentData = envData;
 			PlayFabSettings.TitleId = CurrentEnvironmentData.TitleID;
 			quantumSettings.AppSettings.AppIdRealtime = CurrentEnvironmentData.AppIDRealtime;
@@ -281,29 +281,19 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError)
 		{
-			var request = new UpdateUserTitleDisplayNameRequest { DisplayName = newNickname };
-			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, e =>
-			{
-				if (e.Error == PlayFabErrorCode.ProfaneDisplayName)
-				{
-					onError(e);
-				}
-				else
-				{
-					HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
-				}
-			});
+			var request = new UpdateUserTitleDisplayNameRequest {DisplayName = newNickname};
 
-			void OnSuccess(UpdateUserTitleDisplayNameResult result)
+			void OnSuccessWrapper(UpdateUserTitleDisplayNameResult result)
 			{
 				_dataProvider.AppDataProvider.DisplayName.Value = result.DisplayName;
 				onSuccess?.Invoke(result);
 			}
+			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccessWrapper, onError);
 		}
 
 		public void CheckIfRewardsMatch(Action<bool> onSuccess, Action<PlayFabError> onError)
 		{
-			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest() { Keys = new List<string>() { typeof(PlayerData).FullName } }, result =>
+			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest() {Keys = new List<string>() {typeof(PlayerData).FullName}}, result =>
 			{
 				var modelJson = result.Data[typeof(PlayerData).FullName].Value;
 				var model = ModelSerializer.Deserialize<PlayerData>(modelJson);
@@ -322,13 +312,11 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		
-
 		/// <inheritdoc />
 		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
 								 Action<PlayFabError> onError, object parameter = null)
 		{
-			var request = new ExecuteFunctionRequest { FunctionName = functionName, GeneratePlayStreamEvent = true, FunctionParameter = parameter, AuthenticationContext = PlayFabSettings.staticPlayer };
+			var request = new ExecuteFunctionRequest {FunctionName = functionName, GeneratePlayStreamEvent = true, FunctionParameter = parameter, AuthenticationContext = PlayFabSettings.staticPlayer};
 
 			PlayFabCloudScriptAPI.ExecuteFunction(request, res =>
 			{
@@ -364,7 +352,7 @@ namespace FirstLight.Game.Services
 
 			_services.AnalyticsService.ErrorsCalls.ReportError(errorType, error.ErrorMessage);
 
-			_services.MessageBrokerService?.Publish(new ServerHttpErrorMessage() { ErrorCode = (HttpStatusCode)error.HttpCode, Message = descriptiveError });
+			_services.MessageBrokerService?.Publish(new ServerHttpErrorMessage() {ErrorCode = (HttpStatusCode) error.HttpCode, Message = descriptiveError});
 
 			callback?.Invoke(error);
 		}
@@ -436,7 +424,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public void GetTitleData(string key, Action<string> onSuccess, Action<PlayFabError> onError)
 		{
-			PlayFabClientAPI.GetTitleData(new GetTitleDataRequest() { Keys = new List<string>() { key } }, res =>
+			PlayFabClientAPI.GetTitleData(new GetTitleDataRequest() {Keys = new List<string>() {key}}, res =>
 			{
 				if (!res.Data.TryGetValue(key, out var data))
 				{

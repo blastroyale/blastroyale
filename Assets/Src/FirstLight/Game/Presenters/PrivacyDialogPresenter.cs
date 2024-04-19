@@ -12,7 +12,7 @@ using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
-	[UILayer(UILayer.Foreground)]
+	[UILayer(UILayer.Popup)]
 	public class PrivacyDialogPresenter : UIPresenterData<PrivacyDialogPresenter.StateData>
 	{
 		public class StateData
@@ -25,15 +25,13 @@ namespace FirstLight.Game.Presenters
 		private Button _confirm;
 		private IGameServices _services;
 
-		private const string DEFAULT_TERMS = "https://static.blastroyale.com/tos/TermsOfService.rtf";
-		private const string DEFAULT_POLICY = "https://static.blastroyale.com/tos/PrivacyPolicy.rtf";
-		
+
 		protected override void QueryElements()
 		{
 			_services = MainInstaller.ResolveServices();
 			_terms = Root.Q<Button>("TermsOfServiceButton");
 			_privacy = Root.Q<Button>("PrivacyButton");
-			
+
 			_confirm = Root.Q<Button>("ConfirmButton").Required();
 			_confirm.clicked += Data.OnAccept;
 			var data = _services.DataService.GetData<AppData>().TitleData;
@@ -43,20 +41,20 @@ namespace FirstLight.Game.Presenters
 				data.TryGetValue("TERMS_OF_SERVICE_URL", out var termsUrl);
 				DownloadAndShow("Terms of Service", termsUrl, HardCodedTexts.TERMS_OF_SERVICE).Forget();
 			};
-			
+
 			_privacy.clicked += () =>
 			{
 				data.TryGetValue("PRIVACY_POLICY_URL", out var termsUrl);
 				DownloadAndShow("Privacy Policy", termsUrl, HardCodedTexts.PRIVACY_POLICY).Forget();
 			};
 		}
-		
+
 		private async UniTaskVoid DownloadAndShow(string title, string url, string defaultValue)
 		{
 			var data = new GenericScrollingTextDialogPresenter.StateData()
 			{
 				Title = title,
-				OnConfirm = () => _services.UIService.OpenScreen<PrivacyDialogPresenter>().Forget()
+				OnConfirm = () => _services.UIService.OpenScreen<PrivacyDialogPresenter>(Data).Forget()
 			};
 			if (url == null)
 			{
@@ -77,20 +75,19 @@ namespace FirstLight.Game.Presenters
 					data.Text = defaultValue;
 				}
 			}
-		
+
 			await _services.UIService.OpenScreen<GenericScrollingTextDialogPresenter>(data);
 		}
 
-			
-		private string RemoveUnicodeAndColorCodes(string text) {
+
+		private string RemoveUnicodeAndColorCodes(string text)
+		{
 			string cleanedText = Regex.Replace(text, @"\p{Cs}", ""); // Remove Unicode characters
 			cleanedText = Regex.Replace(cleanedText, @"\u001B\[\d{1,2}m", ""); // Remove color codes (e.g., \u001B[32m)
 			return cleanedText;
 		}
-		
 	}
 
-	
 
 	public static class HardCodedTexts
 	{
@@ -148,8 +145,8 @@ CONTACT US
 If you have any questions about this Policy, please contact us at admin@firstlight.games
 ";
 
-		public readonly static string TERMS_OF_SERVICE = 
-@"<b>Terms of Service</b>  General These terms and conditions (“Terms”) govern the use of the Website (defined below) and the Services (defined below). These Terms also include any guidelines, announcements, additional terms, policies, and disclaimers made available or issued by us from time to time. These Terms constitute a binding and enforceable legal contract between Fun Dimensions Limited and its affiliates (“Company”, “Blast Royale”, “we”, “us”) and you, an end user of the services (“you” or “User”) at https://blastroyale.com/ (“Services”). By accessing, using or clicking on our website (and all related subdomains) or its mobile applications (“Website”) or accessing, using or attempting to use the Services, you agree that you have read, understood, and to are bound by these Terms and that you comply with the requirements listed herein. If you do not agree to all of these Terms or comply with the requirements herein, please do not access or use the Website or the Services. In addition, when using some features of the Services, you may be subject to specific additional terms and conditions applicable to those features. We may modify, suspend or discontinue the Website or the Services at any time and without notifying you. We may also change, update, add or remove provisions of these Terms from time to time. Any and all modifications or changes to these Terms will become effective upon publication on our Website or release to Users. Therefore, your continued use of our Services is deemed your acceptance of the modified Terms and rules. If you do not agree to any changes to these Terms, please do not access or use the Website or the Services. We note that these Terms between you and us do not enumerate or cover all rights and obligations of each party, and do not guarantee full alignment with needs arising from future development. Therefore, our privacy policy, platform rules, guidelines and all other agreements entered into separately between you and us are deemed supplementary terms that are an integral part of these Terms and shall have the same legal effect. Your use of the Website or Services is deemed your acceptance of any supplementary terms too.
+		public readonly static string TERMS_OF_SERVICE =
+			@"<b>Terms of Service</b>  General These terms and conditions (“Terms”) govern the use of the Website (defined below) and the Services (defined below). These Terms also include any guidelines, announcements, additional terms, policies, and disclaimers made available or issued by us from time to time. These Terms constitute a binding and enforceable legal contract between Fun Dimensions Limited and its affiliates (“Company”, “Blast Royale”, “we”, “us”) and you, an end user of the services (“you” or “User”) at https://blastroyale.com/ (“Services”). By accessing, using or clicking on our website (and all related subdomains) or its mobile applications (“Website”) or accessing, using or attempting to use the Services, you agree that you have read, understood, and to are bound by these Terms and that you comply with the requirements listed herein. If you do not agree to all of these Terms or comply with the requirements herein, please do not access or use the Website or the Services. In addition, when using some features of the Services, you may be subject to specific additional terms and conditions applicable to those features. We may modify, suspend or discontinue the Website or the Services at any time and without notifying you. We may also change, update, add or remove provisions of these Terms from time to time. Any and all modifications or changes to these Terms will become effective upon publication on our Website or release to Users. Therefore, your continued use of our Services is deemed your acceptance of the modified Terms and rules. If you do not agree to any changes to these Terms, please do not access or use the Website or the Services. We note that these Terms between you and us do not enumerate or cover all rights and obligations of each party, and do not guarantee full alignment with needs arising from future development. Therefore, our privacy policy, platform rules, guidelines and all other agreements entered into separately between you and us are deemed supplementary terms that are an integral part of these Terms and shall have the same legal effect. Your use of the Website or Services is deemed your acceptance of any supplementary terms too.
 
 2.
 Eligibility By accessing, using or clicking on our Website and using or attempting to use our Services, you represent and warrant that: (a) as an individual, legal person, or other organization, you have full legal capacity and authority to agree and bind yourself to these Terms; (b) you are at least 18 or are of legal age to form a binding contract under applicable laws; (c) your use of the Services is not prohibited by applicable law, and at all times compliant with applicable law, including but not limited to regulations on anti-money laundering, anti-corruption, and counter- terrorist financing (“CTF”); (d) you have not been previously suspended or removed from using our Services; (e) if you act as an employee or agent of a legal entity, and enter into these Terms on their behalf, you represent and warrant that you have all the necessary rights and authorizations to bind such legal entity; and (f) you are solely responsible for use of the Services and, if applicable, for all activities that occur on or through your user account.

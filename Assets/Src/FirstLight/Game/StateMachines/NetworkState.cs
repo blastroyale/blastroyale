@@ -15,6 +15,7 @@ using FirstLight.Statechart;
 using I2.Loc;
 using Photon.Realtime;
 using PlayFab;
+using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ErrorCode = Photon.Realtime.ErrorCode;

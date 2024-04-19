@@ -187,6 +187,7 @@ namespace FirstLight.Game.Services.RoomService
 			runtimeConfig.Mutators = Properties.Mutators.Value.ToArray();
 			runtimeConfig.BotOverwriteDifficulty = Properties.BotDifficultyOverwrite.HasValue ? Properties.BotDifficultyOverwrite.Value : -1;
 			runtimeConfig.TeamSize = Properties.TeamSize.Value;
+			runtimeConfig.AllowedRewards = Properties.AllowedRewards.Value?.Select(id => (int) id).ToArray() ?? Array.Empty<int>();
 		}
 
 

@@ -136,7 +136,8 @@ namespace FirstLight.Game.Utils
 				GameId.XP,
 				GameId.CS,
 				GameId.BPP,
-				GameId.Trophies
+				GameId.Trophies,
+				GameId.NOOB,
 			};
 		}
 
@@ -275,7 +276,6 @@ namespace FirstLight.Game.Utils
 		{
 			public static string FAKEGAMEMODE_CUSTOMGAME = "Custom Game";
 			public static string TESTING = "Testing";
-			
 		}
 	}
 }

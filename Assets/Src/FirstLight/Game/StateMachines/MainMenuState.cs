@@ -195,7 +195,7 @@ namespace FirstLight.Game.StateMachines
 			waitMatchmaking.Event(NetworkState.JoinedRoomEvent).Target(final);
 			waitMatchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(HideMatchmaking).Target(homeCheck);
 			waitMatchmaking.Event(NetworkState.JoinRoomFailedEvent).OnTransition(HideMatchmaking).Target(homeCheck);
-			waitMatchmaking.Event(NetworkState.CreateRoomFailedEvent).Target(homeCheck);
+			waitMatchmaking.Event(NetworkState.CreateRoomFailedEvent).OnTransition(HideMatchmaking).Target(homeCheck);
 			waitMatchmaking.Event(NetworkState.CanceledMatchmakingEvent)
 				.OnTransition(HideMatchmaking)
 				.Target(homeCheck);

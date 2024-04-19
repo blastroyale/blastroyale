@@ -70,44 +70,67 @@ namespace Quantum
 		/// </summary>
 		public override void OnCreateGame(ICreateGameCallInfo info)
 		{
-			if (FlgConfig.DebugMode)
+			try
 			{
-				Log.Info($"Actor {info.Request.ActorNr} created & joined with userId {info.UserId}");
-			}
-			base.OnCreateGame(info);
-			if (!info.CreateOptions.TryGetValue("CustomProperties", out var propsObject))
-			{
-				Log.Debug("No Custom Properties");
-				return;
-			}
-			var customProperties = propsObject as Hashtable;
-			if (customProperties == null)
-			{
-				Log.Error("Game without custom properties");
-				return;
-			}
-			
-			_roomProps = new RoomProperties();
-			
-			// TODO: Not working for some reason
-			//_roomProps.FromSystemHashTable(customProperties);
-			//
-			var allowedRewards = new List<GameId>();
-			foreach (var idString in ((string) customProperties["alrewards"]).Split(','))
-			{
-				if(!string.IsNullOrEmpty(idString) && Enum.TryParse(idString, true, out GameId id))
+
+				if (FlgConfig.DebugMode)
 				{
-					allowedRewards.Add(id);
+					Log.Info($"Actor {info.Request.ActorNr} created & joined with userId {info.UserId}");
 				}
+
+				if (!info.CreateOptions.TryGetValue("CustomProperties", out var propsObject))
+				{
+					base.OnCreateGame(info);
+					Log.Debug("No Custom Properties");
+					return;
+				}
+
+				var customProperties = propsObject as Hashtable;
+				if (customProperties == null)
+				{
+					base.OnCreateGame(info);
+					Log.Error("Game without custom properties");
+					return;
+				}
+
+				_roomProps = new RoomProperties();
+
+				// TODO: Not working for some reason
+				//_roomProps.FromSystemHashTable(customProperties);
+				//
+				var allowedRewards = new List<GameId>();
+				foreach (var idString in ((string)customProperties["alrewards"]).Split(','))
+				{
+					if (!string.IsNullOrEmpty(idString) && Enum.TryParse(idString, true, out GameId id))
+					{
+						allowedRewards.Add(id);
+					}
+				}
+
+				// TODO: Validate if game is valid ranked using playfab matchmaking api, not hard to do 
+				_roomProps.AllowedRewards.Value = allowedRewards;
+				_roomProps.MatchType.Value = (MatchType)Enum.Parse(typeof(MatchType), (string)customProperties["mt"], true);
+
+				// somebody trying to get noob from custom games fuck it!
+				if (_roomProps.MatchType.Value == MatchType.Custom && _roomProps.AllowedRewards.Value.Contains(Quantum.GameId.NOOB))
+				{
+					info.Fail("invalid rewards");
+					return;
+					
+				}
+				
+				if (FlgConfig.DebugMode)
+				{
+					Log.Info($"Created {_roomProps.MatchType.Value.ToString()} game");
+					Log.Info($"Allowed Rewards: {string.Join(",", _roomProps.AllowedRewards.Value)}");
+				}
+
+				base.OnCreateGame(info);
 			}
-			_roomProps.AllowedRewards.Value = allowedRewards;
-			_roomProps.MatchType.Value = (MatchType)Enum.Parse(typeof(MatchType), (string)customProperties["mt"], true);
-			// REMOVE ABOVE AND USE FROM HASH TABLE WHEN POSSIBLE
-			
-			if (FlgConfig.DebugMode)
+			catch (Exception ex)
 			{
-				Log.Info($"Created {_roomProps.MatchType.Value.ToString()} game");
-				Log.Info($"Allowed Rewards: {string.Join(",", _roomProps.AllowedRewards.Value)}");
+				LogError(ex.ToString());
+				info.Fail();
 			}
 		}
 

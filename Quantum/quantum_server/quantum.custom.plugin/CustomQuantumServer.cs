@@ -45,7 +45,7 @@ namespace Quantum
             _receivedPlayers = new Dictionary<string, SetPlayerData>();
             _validPlayers = new Dictionary<int, SetPlayerData>();
             _actorNrToIndex = new Dictionary<int, int>();
-            FlgCustomSerializers.RegisterSerializers();
+            FLGCustomSerializers.RegisterSerializers();
             if (photonConfig.TryGetValue("simulation", out var runSim) && runSim == "false")
             {
                 _serverSimulation = false;

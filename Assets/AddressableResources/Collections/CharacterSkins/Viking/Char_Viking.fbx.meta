@@ -3,7 +3,12 @@ guid: d2c186874ddd943768a665bb867a4777
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Char_Viking
+    second: {fileID: 2100000, guid: 6f771307a9dd84055bc07c73182a7373, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

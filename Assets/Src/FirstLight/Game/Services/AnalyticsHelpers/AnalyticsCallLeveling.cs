@@ -37,7 +37,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			for (uint i = msg.PreviousLevel; i < msg.NewLevel; ++i)
 			{
 				_analyticsService.LogEvent(AnalyticsEvents.BlastPassLevelUp, new Dictionary<string, object>(){
-					{"bpp_level", i+1}
+					{"bpp_level", (int)i+1}
 				});
 			}
 		}

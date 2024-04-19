@@ -27,6 +27,7 @@ namespace FirstLight.Game.MonoComponent
 
 		private GameId[] _cosmetics = { };
 		private WeaponType _equippedGunType;
+		private bool _isMeleeXL;
 
 		public GameId[] Cosmetics
 		{
@@ -66,14 +67,27 @@ namespace FirstLight.Game.MonoComponent
 
 		public async UniTask<GameObject> InstantiateMelee()
 		{
-			var anchor = _skin.WeaponMeleeAnchor; // TODO: Support XL melee
-
 			var skinId = _services.CollectionService.GetCosmeticForGroup(_cosmetics, GameIdGroup.MeleeSkin);
 			var weapon = await _services.CollectionService.LoadCollectionItem3DModel(skinId);
 			var weaponTransform = weapon.transform;
-
+			_isMeleeXL = weapon.GetComponent<WeaponSkinMonoComponent>().XLMelee;
+			var anchor = _isMeleeXL ? _skin.WeaponXLMeleeAnchor : _skin.WeaponMeleeAnchor;
+			
 			weaponTransform.SetParent(anchor);
 			weaponTransform.ResetLocal();
+			
+			if (weaponTransform.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
+			{
+				AddEquipmentRenderersContainer(renderContainer);
+			}
+			else if (weaponTransform.GetChild(0).TryGetComponent<RenderersContainerMonoComponent>(out var c))
+			{
+				AddEquipmentRenderersContainer(c);
+			}
+			else
+			{
+				FLog.Error($"Unable to find RenderersContainerMonoComponent for {skinId.Id}");
+			}
 
 			return weapon;
 		}
@@ -91,11 +105,11 @@ namespace FirstLight.Game.MonoComponent
 
 			if (_weaponGun != null)
 			{
-				if (weapon.TryGetComponent(out RenderersContainerMonoComponent renderersContainer))
+				if (_weaponGun.TryGetComponent(out RenderersContainerMonoComponent renderersContainer))
 				{
 					_renderersContainerProxy.RemoveRenderersContainer(renderersContainer);
 				}
-				else if (weapon.transform.GetChild(0).TryGetComponent(out RenderersContainerMonoComponent c))
+				else if (_weaponGun.transform.GetChild(0).TryGetComponent(out RenderersContainerMonoComponent c))
 				{
 					_renderersContainerProxy.RemoveRenderersContainer(c);
 				}
@@ -191,7 +205,7 @@ namespace FirstLight.Game.MonoComponent
 		{
 			if (equip.GameId == GameId.Hammer)
 			{
-				_skin.WeaponType = WeaponType.Melee;
+				_skin.WeaponType = _isMeleeXL ? WeaponType.XLMelee : WeaponType.Melee;
 				_skin.TriggerEquipMelee();
 				if (_weaponGun != null) _weaponGun.GetComponentInChildren<WeaponViewMonoComponent>().ActiveWeapon = false; // TODO: Refac the weapon components
 			}
@@ -199,7 +213,7 @@ namespace FirstLight.Game.MonoComponent
 			{
 				_skin.WeaponType = _equippedGunType;
 				_skin.TriggerEquipGun();
-				_weaponGun.GetComponentInChildren<WeaponViewMonoComponent>().ActiveWeapon = true; // TODO: Refac the weapon components
+				if (_weaponGun != null) _weaponGun.GetComponentInChildren<WeaponViewMonoComponent>().ActiveWeapon = true; // TODO: Refac the weapon components
 			}
 		}
 

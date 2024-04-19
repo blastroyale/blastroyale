@@ -459,7 +459,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -480,7 +480,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -496,12 +496,12 @@ TextureImporter:
       name: BadgePlace1
       rect:
         serializedVersion: 2
-        x: 499
+        x: 500
         y: 724
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -509,6 +509,27 @@ TextureImporter:
       bones: []
       spriteID: 5ac68668d32dc804595808cdd4f7b86b
       internalID: -702431576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NOOBIcon
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 724
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 312b1d0c40f72234c8e274461265cc3e
+      internalID: 1978585534
       vertices: []
       indices: 
       edges: []
@@ -540,6 +561,7 @@ TextureImporter:
       HPicon: -283004889
       MATICicon: 130259644
       ModBadge: -1992110180
+      NOOBIcon: 1978585534
       RedCrossIcon: -1167842861
       Shieldicon: -939049774
       TextSpriteSheet_1: -867704838

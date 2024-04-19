@@ -22,7 +22,7 @@ namespace FirstLight.Game.Data.DataTypes
 			{GameId.COIN, "Coinicon"},
 			{GameId.BlastBuck, "Blastbuckicon"},
 			{GameId.CS, "CraftSpiceicon"},
-			{GameId.NOOB, "EnergylevelIcon"},
+			{GameId.NOOB, "NOOBIcon"},
 		};
 
 

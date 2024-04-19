@@ -48,7 +48,10 @@ namespace FirstLight.Game.MonoComponent.Collections
 				_animatorController = Resources.Load<RuntimeAnimatorController>("character_animator");
 			}
 
-			_animator.runtimeAnimatorController = _animatorController;
+			if (_animator.runtimeAnimatorController == null)
+			{
+				_animator.runtimeAnimatorController = _animatorController;
+			}
 		}
 
 		public Transform WeaponAnchor => _weaponAnchor;

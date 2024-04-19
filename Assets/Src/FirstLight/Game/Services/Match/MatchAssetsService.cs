@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -9,8 +8,6 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Presenters;
-using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using Photon.Realtime;
@@ -148,19 +145,23 @@ namespace FirstLight.Game.Services
 
 		private async UniTask LoadOptionalGroup<T>(GameIdGroup group) where T : Object
 		{
+			var loadTasks = new List<UniTask>();
+
 			foreach (var id in group.GetIds())
 			{
 				if (id.IsInGroup(GameIdGroup.Deprecated)) continue;
 
 				if (id.IsInGroup(GameIdGroup.Collection))
 				{
-					await _services.CollectionService.LoadCollectionItem3DModel(ItemFactory.Collection(id), false, false);
+					loadTasks.Add(_services.CollectionService.LoadCollectionItem3DModel(ItemFactory.Collection(id), false, false));
 				}
 				else
 				{
-					await _services.AssetResolverService.RequestAsset<GameId, T>(id, true, false);
+					loadTasks.Add(_services.AssetResolverService.RequestAsset<GameId, T>(id, true, false));
 				}
 			}
+
+			await UniTask.WhenAll(loadTasks);
 		}
 
 		private async UniTask LoadScene(GameId map)
@@ -184,17 +185,23 @@ namespace FirstLight.Game.Services
 
 		private async UniTask LoadGameIds(List<GameId> ids)
 		{
+			var loadTasks = new List<UniTask>();
+
 			foreach (var id in ids)
 			{
-				await _services.CollectionService.LoadCollectionItem3DModel(ItemFactory.Collection(id), false, false);
+				loadTasks.Add(_services.CollectionService.LoadCollectionItem3DModel(ItemFactory.Collection(id), false, false));
 			}
+
+			await UniTask.WhenAll(loadTasks);
 		}
 
 		private async UniTask LoadQuantumAssets(GameId map)
 		{
+			var loadTasks = new List<UniTask<AssetBase>>();
+
 			if (_services.ConfigsProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
 			{
-				await _assetAdderService.LoadAssetAsync<AssetBase>(config.QuantumMap);
+				loadTasks.Add(_assetAdderService.LoadAssetAsync<AssetBase>(config.QuantumMap));
 			}
 
 			var assets = UnityDB.CollectAddressableAssets();
@@ -207,8 +214,10 @@ namespace FirstLight.Game.Services
 				}
 
 				FLog.Verbose("Preloading Quantum Asset " + asset.Item1);
-				await _assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1);
+				loadTasks.Add(_assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1));
 			}
+
+			await UniTask.WhenAll(loadTasks);
 		}
 
 		public void Dispose()

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using FirstLight.Server.SDK.Models;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.Metrics;
+using Microsoft.Extensions.Logging;
 
 namespace ServerCommon.CommonServices
 {
@@ -11,14 +13,16 @@ namespace ServerCommon.CommonServices
 	/// </summary>
 	public class NoMetrics : IMetricsService
 	{
-		public void EmitEvent(string metricName)
+		public void EmitEvent(string metricName, Dictionary<string, string>? data = null)
 		{
-		
 		}
 
 		public void EmitException(Exception e, string failure)
 		{
-			
+		}
+
+		public void EmitMetric(string metricName, int value)
+		{
 		}
 	}
 
@@ -33,19 +37,23 @@ namespace ServerCommon.CommonServices
 		{
 			_client = new TelemetryClient(TelemetryConfiguration.CreateDefault());
 		}
-	
-		public void EmitEvent(string metricName)
+
+		public void EmitEvent(string eventName, Dictionary<string, string>? data)
 		{
-			_client.TrackEvent(metricName);
+			_client.TrackEvent(eventName, data);
+		}
+
+		public void EmitMetric(string metricName, int value)
+		{
+			_client.GetMetric(metricName).TrackValue(value);
 		}
 
 		public void EmitException(Exception e, string failure)
 		{
 			_client.TrackException(e, new Dictionary<string, string>()
 			{
-				{ "Message", failure }
+				{ "CustomMessage", failure }
 			});
 		}
 	}
 }
-

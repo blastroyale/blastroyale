@@ -12,6 +12,7 @@
       "commandName": "Project",
       "applicationUrl": "http://localhost:7274;",
       "environmentVariables": {
+        "APPLICATIONINSIGHTS_CONNECTION_STRING": "InstrumentationKey=***REMOVED***;IngestionEndpoint=https://northeurope-2.in.applicationinsights.azure.com/;LiveEndpoint=https://northeurope.livediagnostics.monitor.azure.com/;ApplicationId=***REMOVED***",
         "SqlConnectionString": "Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "PLAYFAB_DEV_SECRET_KEY": "***REMOVED***",

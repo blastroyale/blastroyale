@@ -3,7 +3,12 @@ guid: ade70a36eb0914018b4d7fb1492263f3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Char_PlagueDoctor
+    second: {fileID: 2100000, guid: 217aecc6451bf4c1db05bba73f6bb010, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

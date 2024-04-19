@@ -56,6 +56,7 @@ namespace Backend.Game
 		{
 			var cmdType = logicRequest.Command;
 			var requestData = logicRequest.Data;
+			var savedDataAmount = 0;
 			try
 			{
 				if (!requestData.TryGetValue(CommandFields.Command, out var commandData))
@@ -73,7 +74,9 @@ namespace Backend.Game
 
 				if (newState.HasDelta())
 				{
-					await _state.UpdatePlayerState(playerId, newState.GetOnlyUpdatedState());
+					var onlyUpdatedState = newState.GetOnlyUpdatedState();
+					await _state.UpdatePlayerState(playerId, onlyUpdatedState);
+					savedDataAmount = onlyUpdatedState.Count;
 				}
 
 				var response = new Dictionary<string, string>();
@@ -97,7 +100,12 @@ namespace Backend.Game
 			finally
 			{
 				_mutex.Unlock(playerId);
-				_metrics.EmitEvent($"Command {logicRequest.Command}");
+				_metrics.EmitEvent("GameCommand", new Dictionary<string, string>()
+				{
+					{ "command", logicRequest.Command },
+					{ "playerId", playerId },
+					{ "savedDeltas", savedDataAmount.ToString() },
+				});
 			}
 		}
 

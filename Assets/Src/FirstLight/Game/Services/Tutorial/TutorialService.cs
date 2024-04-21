@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
@@ -21,7 +22,6 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface ITutorialService
 	{
-
 		/// <summary>
 		/// Requests check if a tutorial is currently in progress
 		/// </summary>
@@ -37,11 +37,11 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		/// <returns></returns>
 		bool HasCompletedTutorial();
-		
+
 		/// <summary>
 		/// Requests the current running tutorial step
 		/// </summary>
-		 IObservableField<TutorialSection> CurrentRunningTutorial { get; }
+		IObservableField<TutorialSection> CurrentRunningTutorial { get; }
 
 		/// <summary>
 		/// Marks tutorial step completed, to be used at the end of a tutorial sequence
@@ -67,7 +67,6 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="ITutorialService"/>
 	public interface IInternalTutorialService : ITutorialService
 	{
-
 	}
 
 	/// <inheritdoc cref="ITutorialService"/>
@@ -123,6 +122,8 @@ namespace FirstLight.Game.Services
 			var gameModeId = GameConstants.Tutorial.SECOND_BOT_MODE_ID;
 			var gameModeConfig = _configsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
 
+			var rewards = GameConstants.Data.AllowedGameRewards.ToList();
+			rewards.Remove(GameId.NOOB);
 			var setup = new MatchRoomSetup()
 			{
 				GameModeId = gameModeId,
@@ -130,7 +131,7 @@ namespace FirstLight.Game.Services
 				RoomIdentifier = Guid.NewGuid().ToString(),
 				Mutators = Array.Empty<string>(),
 				MatchType = MatchType.Forced,
-				AllowedRewards = GameConstants.Data.AllowedGameRewards
+				AllowedRewards = rewards
 			};
 
 			_roomService.JoinOrCreateRoom(setup);
@@ -156,7 +157,7 @@ namespace FirstLight.Game.Services
 		public bool HasCompletedTutorial()
 		{
 			return HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH) &&
-				   HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH);
+				HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH);
 		}
 	}
 }

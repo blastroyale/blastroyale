@@ -61,6 +61,7 @@ namespace FirstLight.Game.StateMachines
 			metaAndMatchTutorial.Nest(_metaAndMatchTutorialState.Setup).Target(final);
 			metaAndMatchTutorial.OnExit(() => SendSectionCompleted(TutorialSection.META_GUIDE_AND_MATCH));
 
+			final.OnEnter(() => SetCurrentSection(TutorialSection.NONE));
 			final.OnEnter(CloseTutorialScreens);
 		}
 

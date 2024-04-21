@@ -17,7 +17,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// If the dialogue is enabled.
 		/// </summary>
-		public ObservableField<bool> IsDialogueEnabled { get; } = CreateBoolSetting(nameof(IsDialogueEnabled), true);
+		public ObservableField<bool> IsDialogueEnabled { get; } = CreateBoolSetting(nameof(IsDialogueEnabled), false);
 
 		/// <summary>
 		/// If the haptics (vibrations) are enabled.

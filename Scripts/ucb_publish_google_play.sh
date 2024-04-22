@@ -20,4 +20,4 @@ echo $PLAYSTORE_KEY
 # Also, you could put the "draft" and "internal" into environment variables if you want to never have to modify the script
 # again and just control it with environment variables.
 # Add to auto release to track: --release-status draft --track internal
-fastlane supply --package_name "$PACKAGE_NAME" --aab "$UNITY_PLAYER_PATH" --json_key_data "$KEY_WITH_NEWLINES"
+fastlane supply --package_name "$PACKAGE_NAME" --aab "$UNITY_PLAYER_PATH" --json_key_data "$KEY_WITH_NEWLINES" --track internal --release_status completed

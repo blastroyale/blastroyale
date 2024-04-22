@@ -22,4 +22,4 @@ echo $KEY_WITH_NEWLINES > api_key.json
 # Also, you could put the "draft" and "internal" into environment variables if you want to never have to modify the script
 # again and just control it with environment variables.
 # Add to auto release to track: --release-status draft --track internal
-fastlane deliver --ipa "$UNITY_PLAYER_PATH" --api_key_path api_key.json
+fastlane deliver --ipa "$UNITY_PLAYER_PATH" --api_key_path api_key.json --submission_information "{\"export_compliance_uses_encryption\": false }" --force

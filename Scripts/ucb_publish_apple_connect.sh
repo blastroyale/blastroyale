@@ -1,25 +1,12 @@
 #!/bin/bash
  
-# Passed in as environment variables from CI, you must get this from Google and put
-# it in the environment variable PLAYSTORE_KEY in the Unity build config.
-# $PLAYSTORE_KEY - The JSON file with the credentials for the Google Developer account
- 
-# You can also just hardcode your package name, e.g. com.candycrush.game or whatever here...
-PACKAGE_NAME=$(cat "$WORKSPACE/build.json" | jq -j '.[].bundleid')
- 
+echo "Publishing to Apple Connect"
+
 # Unity environment variables replace the "\n" signs from the private key with spaces for some reason,
 # so we replaces spaces with "\n" signs again so it works properly.
 KEY_WITH_NEWLINES=$(echo $APPLE_CONNECT_KEY | jq '.key |= sub(" (?!PRIVATE|KEY)"; "\n"; "g")' -c -j)
 
-echo "DEBUG PRINT KEYS"
-echo $KEY_WITH_NEWLINES
-echo $APPLE_CONNECT_KEY
-
 echo $KEY_WITH_NEWLINES > api_key.json
  
-# You could also use shorter argument names here, but DO NOT use -e for --release-status, there's some error there where
-# fastlane thinks -e should mean the -env option and fails.
-# Also, you could put the "draft" and "internal" into environment variables if you want to never have to modify the script
-# again and just control it with environment variables.
-# Add to auto release to track: --release-status draft --track internal
+# The force option skips a manual approval check you'd otherwise need to do
 fastlane deliver --ipa "$UNITY_PLAYER_PATH" --api_key_path api_key.json --submission_information "{\"export_compliance_uses_encryption\": false }" --force

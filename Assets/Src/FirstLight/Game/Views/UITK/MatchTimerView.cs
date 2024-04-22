@@ -164,7 +164,7 @@ namespace FirstLight.Game.Views.UITK
 				.StartingIn((FPMath.Fraction(QuantumRunner.Default.Game.Frames.Predicted.Time) * FP._1000).AsLong +
 					100) // 100ms offset so we don't skip numbers because we round down.
 				.Every(1000)
-				.Until(() => !QuantumRunner.Default.IsDefinedAndRunning() ||
+				.Until(() => QuantumRunner.Default == null || !QuantumRunner.Default.IsRunning ||
 					QuantumRunner.Default.Game.Frames.Predicted.Time > shrinkingStartTime + shrinkingDuration);
 		}
 

@@ -177,6 +177,7 @@ namespace FirstLight.Editor.Build
 
 			plist.ReadFromFile(plistPath);
 			plist.root.SetString("NSUserTrackingUsageDescription", ScriptLocalization.General.ATTDescription);
+			plist.root.SetBoolean("ITSAppUsesNonExemptEncryption", false);
 			plist.WriteToFile(plistPath);
 
 			pbxProject.SetBuildProperty(frameworkTargetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "NO");

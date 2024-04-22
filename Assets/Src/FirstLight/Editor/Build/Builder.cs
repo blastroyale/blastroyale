@@ -6,6 +6,7 @@ using FirstLight.Editor.Build.Utils;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
+using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -39,6 +40,8 @@ namespace FirstLight.Editor.Build
 			SetupAndroidKeystore();
 			SetupScenes(ref buildConfig);
 			SetupPath(ref buildConfig, buildTarget);
+
+			BuildAddressables();
 
 			AssetDatabase.Refresh();
 
@@ -100,8 +103,15 @@ namespace FirstLight.Editor.Build
 			{
 				AddressableAssetSettingsDefaultObject.Settings.OverridePlayerVersion = null;
 			}
+		}
 
-			AssetDatabase.Refresh();
+		private static void BuildAddressables()
+		{
+			AddressableAssetSettings.BuildPlayerContent(out var result);
+			if (!string.IsNullOrEmpty(result.Error))
+			{
+				throw new Exception(result.Error);
+			}
 		}
 
 		private static void SetupBuildNumber(int buildNumber)
@@ -145,7 +155,7 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.Android.keyaliasName = "blastroyale";
 			PlayerSettings.Android.keyaliasPass = "***REMOVED***";
 		}
-		
+
 #if UNITY_CLOUD_BUILD
     public static void PreExport(UnityEngine.CloudBuild.BuildManifestObject manifest)
     {

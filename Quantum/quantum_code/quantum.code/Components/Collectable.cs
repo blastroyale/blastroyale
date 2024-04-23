@@ -12,7 +12,15 @@ namespace Quantum
 		/// </summary>
 		public static void DropConsumable(Frame f, GameId gameId, FPVector3 position, int angleDropStep, bool isConsiderNavMesh, int dropAngles)
 		{
-			var dropPosition = dropAngles == 1 ? position : GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles);
+			DropConsumable(f, gameId, position, angleDropStep, isConsiderNavMesh, dropAngles, Constants.DROP_OFFSET_RADIUS);
+		}
+
+		/// <summary>
+		/// Drops a consumable of the given <paramref name="gameId"/> in the given <paramref name="position"/>
+		/// </summary>
+		public static void DropConsumable(Frame f, GameId gameId, FPVector3 position, int angleDropStep, bool isConsiderNavMesh, int dropAngles, FP offsetRadius)
+		{
+			var dropPosition = dropAngles == 1 ? position : GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles, offsetRadius);
 
 			// Setting Y to a fixed value to avoid consumable being too low or too high 
 			if (f.Context.GameModeConfig.Id != "Tutorial") // TODO: Remove this after we make a new flat tutorial level
@@ -40,7 +48,7 @@ namespace Quantum
 				return;
 			}
 
-			var dropPosition = dropAngles == 1 ? position : GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles);
+			var dropPosition = dropAngles == 1 ? position : GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles, Constants.DROP_OFFSET_RADIUS);
 
 			// Setting Y to a fixed value to avoid weapon being too low or too high 
 			if (f.Context.GameModeConfig.Id != "Tutorial") // TODO: Remove this after we make a new flat tutorial level
@@ -94,14 +102,14 @@ namespace Quantum
 			dict.Remove(collector);
 		}
 
-		private static FPVector3 GetPointOnNavMesh(Frame f, FPVector3 position, int angleDropStep, bool isConsiderNavMesh, int dropAngles)
+		private static FPVector3 GetPointOnNavMesh(Frame f, FPVector3 position, int angleDropStep, bool isConsiderNavMesh, int dropAngles, FP radiusOffset)
 		{
 			var angleLevel = (angleDropStep / dropAngles);
 			var angleGranularity = FP.PiTimes2 / dropAngles;
 			var angleStep = FPVector2.Rotate(FPVector2.Left,
 				(angleGranularity * angleDropStep) +
 				(angleLevel % 2) * angleGranularity / 2);
-			var dropPosition = (angleStep * Constants.DROP_OFFSET_RADIUS * (angleLevel + 1)).XOY + position;
+			var dropPosition = (angleStep * radiusOffset * (angleLevel + 1)).XOY + position;
 
 			if (!isConsiderNavMesh || f.NavMesh.Contains(dropPosition, NavMeshRegionMask.Default, true))
 			{

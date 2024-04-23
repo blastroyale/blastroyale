@@ -1,4 +1,5 @@
 using System.Collections;
+using FirstLight.Game.Services.RoomService;
 using I2.Loc;
 
 namespace FirstLight.Game.TestCases
@@ -25,6 +26,7 @@ namespace FirstLight.Game.TestCases
 
 			for (int i = 0; i < 2; i++)
 			{
+				RoomService.AutoStartWhenLoaded = true;
 				yield return GameConfigHelper.DecreaseMatchmakingTime();
 				yield return Quantum.UseBotBehaviourForNextMatch();
 				yield return Quantum.DecreaseCircleTimesForNextMatch();

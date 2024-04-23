@@ -131,6 +131,7 @@ namespace FirstLight.Game.Utils
 				GameId.BPP,
 				GameId.Trophies,
 				GameId.NOOB,
+				GameId.COIN,
 			};
 		}
 

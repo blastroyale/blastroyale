@@ -72,6 +72,7 @@ namespace FirstLight.Game.Services.RoomService
 		public bool ShouldGameStart()
 		{
 			if (GameModeConfig.InstantLoad) return true;
+			if (RoomService.AutoStartWhenLoaded && AreAllPlayersReady()) return true;
 			if (_pause) return false;
 			if (!Properties.LoadingStartServerTime.HasValue)
 			{

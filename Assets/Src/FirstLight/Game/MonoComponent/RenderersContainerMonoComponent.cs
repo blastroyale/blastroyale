@@ -173,9 +173,12 @@ namespace FirstLight.Game.MonoComponent
 		{
 			foreach (var render in _renderers)
 			{
-				color = render.material.color;
+				if (render.material.HasProperty(_color))
+				{
+					color = render.material.color;
 
-				return true;
+					return true;
+				}
 			}
 			
 			return false;

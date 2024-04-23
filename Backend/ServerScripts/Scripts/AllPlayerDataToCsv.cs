@@ -10,6 +10,7 @@ using FirstLight.Game.Utils;
 using PlayFab;
 using PlayFab.ServerModels;
 using FirstLight.Server.SDK.Modules;
+using Scripts.Base;
 
 /// <summary>
 /// Read all players from playfab and generate a csv
@@ -36,7 +37,7 @@ public class AllPlayerDataToCsv : PlayfabScript
 			}
 		}
 		var path = Path.GetDirectoryName(typeof(AllPlayerDataToCsv).Assembly.Location) + "/export.csv";
-		Export(path, csvData);
+		FileUtil.ExportToCsv(path, csvData);
 		Console.WriteLine($"Saved {csvData.Count} players data to {path}");
 	}
 
@@ -52,7 +53,6 @@ public class AllPlayerDataToCsv : PlayfabScript
 		var userDataJson = userDataResult.Result.Data.ToDictionary(
 		                                                           entry => entry.Key,
 		                                                           entry => entry.Value.Value);
-
 		var analyticsData = new Dictionary<string, string>();
 		analyticsData["id"] = profile.PlayerId;
 		analyticsData["name"] = profile.DisplayName;
@@ -69,28 +69,5 @@ public class AllPlayerDataToCsv : PlayfabScript
 			Console.WriteLine($"Error deserializing player {profile.PlayerId} - {e.Message}");
 		}
 		return analyticsData;
-	}
-
-	private void Export(string path, List<Dictionary<string, string>> data)
-	{
-		using (var writer = new StreamWriter(path))
-		using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-		{
-			var headings = new List<string>(data.First().Keys);
-			foreach (var heading in headings)
-			{
-				csv.WriteField(heading);
-			}
-
-			csv.NextRecord();
-			foreach (var item in data)
-			{
-				foreach (var heading in headings)
-				{
-					csv.WriteField(item[heading]);
-				}
-				csv.NextRecord();
-			}
-		}
 	}
 }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"69ff327d-c937-4336-8d7b-74f3527301bc\"\n   
+  _rsKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"43f21ade-8af8-4ea0-b2cc-ac923b7e8be9\"\n   
     },\n    \"rs\": {\n      \"key\": \"BetaVersion\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"33a5f106-5cb3-4362-ae20-2e82d5a881d1\"\n   
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"9a49f392-1fe0-469f-8098-6a4e3ce30896\"\n   
     },\n    \"rs\": {\n      \"key\": \"LeaderboardConfigs\",\n      \"type\": \"json\",\n     
     \"schemaId\": \"leaderboards\",\n      \"value\": {\n        \"Trophies Ladder\":
     {\n          \"1\": {\n            \"Name\": \"TROPHIES\",\n            \"Icon\":
@@ -55,9 +55,9 @@ MonoBehaviour:
     Spice + 500 Coins<br><br>Top 11-50: 500 Coins<br><br>Top 51-200: 250 Coins\",\n           
     \"ManualEndTime\": \"25/12/2030\",\n            \"Visible\": false\n         
     }\n        }\n      }\n    }\n  }\n]"
-  _rsLastCachedKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"69ff327d-c937-4336-8d7b-74f3527301bc\"\n   
+  _rsLastCachedKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"43f21ade-8af8-4ea0-b2cc-ac923b7e8be9\"\n   
     },\n    \"rs\": {\n      \"key\": \"BetaVersion\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"33a5f106-5cb3-4362-ae20-2e82d5a881d1\"\n   
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"9a49f392-1fe0-469f-8098-6a4e3ce30896\"\n   
     },\n    \"rs\": {\n      \"key\": \"LeaderboardConfigs\",\n      \"type\": \"json\",\n     
     \"schemaId\": \"leaderboards\",\n      \"value\": {\n        \"Trophies Ladder\":
     {\n          \"1\": {\n            \"Name\": \"TROPHIES\",\n            \"Icon\":

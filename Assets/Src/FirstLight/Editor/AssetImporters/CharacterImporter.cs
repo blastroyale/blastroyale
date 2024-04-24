@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.Utils;
 using UnityEditor;
@@ -40,6 +41,11 @@ namespace FirstLight.Editor.AssetImporters
 			var clips = importer.defaultClipAnimations;
 			foreach (var anim in clips)
 			{
+				var currentOne = importer.clipAnimations.FirstOrDefault(clip => clip.name == anim.name);
+				if (currentOne != null)
+				{
+					anim.events = currentOne.events;
+				}
 				anim.lockRootRotation = true;
 				anim.lockRootHeightY = true;
 				anim.lockRootPositionXZ = true;

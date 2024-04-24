@@ -42,7 +42,7 @@ MonoBehaviour:
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 2
-  m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
+  m_overridePlayerVersion: '[FirstLight.Editor.Build.Utils.BuildUtils.AddressableVersionOverride]'
   m_GroupAssets:
   - {fileID: 11400000, guid: 9245a4260ad6e4fec8b5547beadd03c2, type: 2}
   - {fileID: 11400000, guid: e33e6b6055ee74186b9296c112ce4dea, type: 2}
@@ -83,6 +83,8 @@ MonoBehaviour:
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: b2d80958694564964b68b1dc52b8801b
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: ba9f3ed42903c42f0b5e8daacc084067
+        m_Value: latest
     - m_InheritedParent: 
       m_Id: 4e21db4b4eec549fc904e67103c2038d
       m_ProfileName: EditorHosted
@@ -97,6 +99,8 @@ MonoBehaviour:
         m_Value: http://[PrivateIpAddress]:[HostingServicePort]
       - m_Id: b2d80958694564964b68b1dc52b8801b
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: ba9f3ed42903c42f0b5e8daacc084067
+        m_Value: latest
     - m_InheritedParent: 
       m_Id: bb17786f4bf93499fad85cd561d9d6d5
       m_ProfileName: CCD-development
@@ -108,9 +112,11 @@ MonoBehaviour:
       - m_Id: 98403f15505af4449befcb5aa59b4183
         m_Value: ServerData/[BuildTarget]
       - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/development/buckets/***REMOVED***/release_by_badge/latest/entry_by_path/content/?path=/[BuildTarget]
+        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/development/buckets/***REMOVED***/release_by_badge/[Badge]/entry_by_path/content/?path=/[BuildTarget]
       - m_Id: b2d80958694564964b68b1dc52b8801b
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: ba9f3ed42903c42f0b5e8daacc084067
+        m_Value: latest
     - m_InheritedParent: 
       m_Id: 2a963e432b09a4d8bbbe64ed385cbd90
       m_ProfileName: CCD-staging
@@ -122,9 +128,11 @@ MonoBehaviour:
       - m_Id: 98403f15505af4449befcb5aa59b4183
         m_Value: ServerData/[BuildTarget]
       - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/staging/buckets/***REMOVED***/release_by_badge/public/entry_by_path/content/?path=/ServerData/[BuildTarget]
+        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/staging/buckets/***REMOVED***/release_by_badge/[Badge]/entry_by_path/content/?path=/ServerData/[BuildTarget]
       - m_Id: b2d80958694564964b68b1dc52b8801b
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: ba9f3ed42903c42f0b5e8daacc084067
+        m_Value: '[FirstLight.Editor.Build.Utils.BuildUtils.AddressableBadge]'
     - m_InheritedParent: 
       m_Id: 8a0b657a8900b4beaab7b0bc9d94dc34
       m_ProfileName: CCD-production
@@ -136,9 +144,11 @@ MonoBehaviour:
       - m_Id: 98403f15505af4449befcb5aa59b4183
         m_Value: ServerData/[BuildTarget]
       - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/production/buckets/***REMOVED***/release_by_badge/public/entry_by_path/content/?path=/ServerData/[BuildTarget]
+        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/production/buckets/***REMOVED***/release_by_badge/[Badge]/entry_by_path/content/?path=/ServerData/[BuildTarget]
       - m_Id: b2d80958694564964b68b1dc52b8801b
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: ba9f3ed42903c42f0b5e8daacc084067
+        m_Value: '[FirstLight.Editor.Build.Utils.BuildUtils.AddressableBadge]'
     - m_InheritedParent: 
       m_Id: 412f73b0e90a8492a8818816cac97594
       m_ProfileName: CCD-community
@@ -150,9 +160,11 @@ MonoBehaviour:
       - m_Id: 98403f15505af4449befcb5aa59b4183
         m_Value: ServerData/[BuildTarget]
       - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/community/buckets/***REMOVED***/release_by_badge/public/entry_by_path/content/?path=/ServerData/[BuildTarget]
+        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/community/buckets/***REMOVED***/release_by_badge/[Badge]/entry_by_path/content/?path=/ServerData/[BuildTarget]
       - m_Id: b2d80958694564964b68b1dc52b8801b
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: ba9f3ed42903c42f0b5e8daacc084067
+        m_Value: '[FirstLight.Editor.Build.Utils.BuildUtils.AddressableBadge]'
     m_ProfileEntryNames:
     - m_Id: aca0d754c35474bfababd9868dc6c9e5
       m_Name: Local.BuildPath
@@ -168,6 +180,9 @@ MonoBehaviour:
       m_InlineUsage: 0
     - m_Id: b2d80958694564964b68b1dc52b8801b
       m_Name: BuildTarget
+      m_InlineUsage: 0
+    - m_Id: ba9f3ed42903c42f0b5e8daacc084067
+      m_Name: Badge
       m_InlineUsage: 0
     m_ProfileVersion: 1
   m_LabelTable:
@@ -206,7 +221,7 @@ MonoBehaviour:
           m_Key: HostingServiceUploadSpeed
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
-          m_Data: Library/com.unity.addressables/aa/iOS/iOS
+          m_Data: Library/com.unity.addressables/aa/Android/Android
           m_Key: ContentRoot
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Boolean

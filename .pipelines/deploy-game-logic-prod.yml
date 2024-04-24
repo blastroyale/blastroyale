@@ -31,7 +31,7 @@ stages:
         --set env.API_URL=https://mainnet-prod-hub-blockchain-service.blastroyale.com \
         --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(MAINNET-PROD-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
         --set env.APPLICATION_ENVIRONMENT=mainnet-prod \
-        --set env.REMOTE_CONFIGURATION=true \
+        --set env.REMOTE_CONFIGURATION=false \
         --set env.CONNECTION_STRING="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
         --set env.DEV_MODE=false \
         --set env.NFT_SYNC=true \

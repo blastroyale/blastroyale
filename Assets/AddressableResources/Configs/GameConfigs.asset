@@ -138,4 +138,4 @@ MonoBehaviour:
       CollectableEquipmentPickupRadius:
         RawValue: 65536
       ChanceToDropNoobOnKill:
-        RawValue: 65536
+        RawValue: 655

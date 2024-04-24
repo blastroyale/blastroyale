@@ -39,7 +39,7 @@ MonoBehaviour:
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 400
       StartsAt: 21/02/2024
-      EndsAt: 13/04/2024
+      EndsAt: 30/04/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__bamboo-season-reward
       EndGraphicName: BAM BOO
@@ -48,7 +48,7 @@ MonoBehaviour:
       Price: 150
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 400
-      StartsAt: 14/04/2024
+      StartsAt: 01/05/2024
       EndsAt: 30/06/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__goji-season-reward

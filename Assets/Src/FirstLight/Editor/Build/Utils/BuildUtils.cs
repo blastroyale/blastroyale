@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using UnityEditor;
 
 namespace FirstLight.Editor.Build.Utils
@@ -21,6 +22,18 @@ namespace FirstLight.Editor.Build.Utils
 		private const string ARG_ENVIRONMENT = "-FLEnvironment";
 		private const string ARG_BUILD_NUMBER = "-FLBuildNumber";
 		private const string ARG_DEV_BUILD = "-FLDevelopmentBuild";
+		
+		/// <summary>
+		/// The version with dashes instead of dots, used for Addressables.
+		/// </summary>
+		[UsedImplicitly]
+		public static string AddressableBadge => PlayerSettings.bundleVersion.Replace(".", "_");
+        
+		/// <summary>
+		/// The version override for the addressable catalog.
+		/// </summary>
+		[UsedImplicitly]
+		public static string AddressableVersionOverride => GetEnvironment() == ENV_DEV ? null : PlayerSettings.bundleVersion;
 
 		public static string GetEnvironment()
 		{

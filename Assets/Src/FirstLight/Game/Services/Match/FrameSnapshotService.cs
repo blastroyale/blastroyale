@@ -125,7 +125,7 @@ namespace FirstLight.Game.Services
 
 		private unsafe bool CanGameBeReconnected()
 		{
-			if (QuantumRunner.Default == null || !QuantumRunner.Default.IsDefinedAndRunning()) return false;
+			if (QuantumRunner.Default == null || !QuantumRunner.Default.IsDefinedAndRunning(false)) return false;
 			if(!QuantumRunner.Default.Game.Frames.Verified.Unsafe.TryGetPointerSingleton<GameContainer>(out var container)) return false;
 			if (container->IsGameOver) return false;
 			return true;

@@ -54,7 +54,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			if (!QuantumRunner.Default.IsDefinedAndRunning())
+			if (!QuantumRunner.Default.IsDefinedAndRunning(false))
 			{
 				FLog.Error("Screen was about to read simulation data while it's not in memory.");
 				return base.OnScreenOpen(reload);

@@ -94,7 +94,7 @@ namespace FirstLight.Game.Views.UITK
 			_counterElement.SetVisibility(true);
 			if (!f.TryGetSingleton<ShrinkingCircle>(out var circle)) return;
 			if (_lastKnownStep >= circle.Step) return;
-			
+
 			_lastKnownStep = circle.Step;
 			StartCountdown(circle);
 		}
@@ -115,7 +115,7 @@ namespace FirstLight.Game.Views.UITK
 			_timerUpdate?.Pause();
 			_timerUpdate = Element.schedule.Execute(() =>
 				{
-					if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
+					if (!QuantumRunner.Default.IsDefinedAndRunning(false)) return;
 
 					var currentTime = QuantumRunner.Default.Game.Frames.Predicted.Time;
 					var currentTimeSeconds = FPMath.FloorToInt(currentTime);
@@ -164,7 +164,7 @@ namespace FirstLight.Game.Views.UITK
 				.StartingIn((FPMath.Fraction(QuantumRunner.Default.Game.Frames.Predicted.Time) * FP._1000).AsLong +
 					100) // 100ms offset so we don't skip numbers because we round down.
 				.Every(1000)
-				.Until(() => QuantumRunner.Default == null || !QuantumRunner.Default.IsRunning ||
+				.Until(() => !QuantumRunner.Default.IsDefinedAndRunning(false) ||
 					QuantumRunner.Default.Game.Frames.Predicted.Time > shrinkingStartTime + shrinkingDuration);
 		}
 

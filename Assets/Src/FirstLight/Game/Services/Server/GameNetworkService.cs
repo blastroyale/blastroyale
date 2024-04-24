@@ -346,7 +346,7 @@ namespace FirstLight.Game.Services
 		{
 			// We should always tick during offline simulations, otherwise the connection to quantum will timeout
 			var isOffline = _services.RoomService.CurrentRoom?.IsOffline ?? false;
-			if (!isOffline && QuantumRunner.Default.IsDefinedAndRunning()) return;
+			if (!isOffline && QuantumRunner.Default.IsDefinedAndRunning(false)) return;
 			QuantumClient.Service();
 		}
 

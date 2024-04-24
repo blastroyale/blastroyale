@@ -191,9 +191,11 @@ namespace FirstLight.Game.TestCases
 				FLog.Info("Detected case scenario: " + _testLabManager.ScenarioNumber);
 				PlayTestCase testCase = _testLabManager.ScenarioNumber switch
 				{
-					1 => new TenMatchesInARow(),
-					2 => new TwoMatchesInARow(),
-					_ => new TutorialTestCase()
+					1  => new PlayMatch(1),
+					2  => new PlayMatch(2),
+					5  => new PlayMatch(5),
+					10 => new PlayMatch(10),
+					_  => new TutorialTestCase()
 				};
 				RunInsideCoroutine(testCase);
 			}

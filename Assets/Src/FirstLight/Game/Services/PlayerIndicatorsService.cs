@@ -101,7 +101,7 @@ namespace FirstLight.Game.Services
 			_indicatorContainerView?.Dispose();
 		}
 
-		private bool CanListen() => QuantumRunner.Default.IsDefinedAndRunning() &&
+		private bool CanListen() => QuantumRunner.Default.IsDefinedAndRunning(false) &&
 			_indicatorContainerView != null && _indicatorContainerView.IsInitialized();
 
 		private void OnAim(InputAction.CallbackContext c)
@@ -185,7 +185,7 @@ namespace FirstLight.Game.Services
 
 		private void OnShooting(InputAction.CallbackContext c)
 		{
-			if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
+			if (!QuantumRunner.Default.IsDefinedAndRunning(false)) return;
 			var newValue = c.ReadValueAsButton();
 			if (newValue != _shooting && _shooting)
 			{
@@ -235,7 +235,7 @@ namespace FirstLight.Game.Services
 
 		private void InitializeLocalPlayer(QuantumGame game)
 		{
-			if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
+			if (!QuantumRunner.Default.IsDefinedAndRunning(false)) return;
 			var localPlayer = game.GetLocalPlayerData(true, out var f);
 			if (!localPlayer.IsValid || !localPlayer.Entity.IsValid || !localPlayer.Entity.IsAlive(f))
 			{

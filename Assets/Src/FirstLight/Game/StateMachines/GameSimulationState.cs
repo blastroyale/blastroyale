@@ -156,7 +156,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsSpectatingPlayer()
 		{
-			if (!QuantumRunner.Default.IsDefinedAndRunning() || _matchServices == null) return false;
+			if (!QuantumRunner.Default.IsDefinedAndRunning(false) || _matchServices == null) return false;
 			var spectated = _matchServices.SpectateService.SpectatedPlayer.Value;
 			if (!spectated.Entity.IsValid) return false;
 			return true;
@@ -194,7 +194,7 @@ namespace FirstLight.Game.StateMachines
 		private async UniTaskVoid GameStartAsync(QuantumGame game)
 		{
 			await UniTask.Delay(100); // tech debt, leftover shall eb removed
-			await UniTask.WaitUntil(QuantumRunner.Default.IsDefinedAndRunning);
+			await UniTask.WaitUntil(() => QuantumRunner.Default.IsDefinedAndRunning());
 			PublishMatchStartedMessage(game, false);
 			await UniTask.Delay(1000); // tech debt, leftover shall eb removed
 			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
@@ -234,7 +234,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTaskVoid ResyncCoroutine()
 		{
-			await UniTask.WaitUntil(QuantumRunner.Default.IsDefinedAndRunning);
+			await UniTask.WaitUntil(() => QuantumRunner.Default.IsDefinedAndRunning());
 			PublishMatchStartedMessage(QuantumRunner.Default.Game, true);
 			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
 

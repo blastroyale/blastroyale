@@ -133,7 +133,7 @@ namespace FirstLight.Game.StateMachines
 		private async UniTask WaitSimulationFinish()
 		{
 			FLog.Verbose("Waiting for simulation to finish");
-			while (QuantumRunner.Default.IsDefinedAndRunning())
+			while (QuantumRunner.Default.IsDefinedAndRunning(false))
 				await UniTask.Delay(5);
 			FLog.Verbose("Simulation ended, advancing network action");
 		}

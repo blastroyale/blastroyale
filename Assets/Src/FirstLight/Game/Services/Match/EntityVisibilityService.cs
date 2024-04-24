@@ -81,7 +81,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		
 		private void OnSpectateChange(SpectatedPlayer oldView, SpectatedPlayer newView)
 		{
-			if (!QuantumRunner.Default.IsDefinedAndRunning())
+			if (!QuantumRunner.Default.IsDefinedAndRunning(false))
 			{
 				Log.Error("Tried to change spectator while quantum game was not running");
 				return;

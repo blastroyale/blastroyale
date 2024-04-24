@@ -237,7 +237,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 
 			SendQueue();
 
-			if (!QuantumRunner.Default.IsDefinedAndRunning())
+			if (!QuantumRunner.Default.IsDefinedAndRunning(false))
 			{
 				return;
 			}

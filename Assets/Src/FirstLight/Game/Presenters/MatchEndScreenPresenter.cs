@@ -60,7 +60,7 @@ namespace FirstLight.Game.Presenters
 			_bustedTitle.SetDisplay(false);
 			_waitTime = 2f;
 
-			if (!QuantumRunner.Default.IsDefinedAndRunning())
+			if (!QuantumRunner.Default.IsDefinedAndRunning(false))
 			{
 				Data.OnTimeToLeave?.Invoke();
 				return base.OnScreenOpen(reload); // reconnection edge case to avoid soft-lock
@@ -97,13 +97,14 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_leaveCoroutine = StartCoroutine(WaitToLeave());
-			
+
 			return base.OnScreenOpen(reload);
 		}
 
 		protected override UniTask OnScreenClose()
 		{
-			StopCoroutine(_leaveCoroutine);
+			if (_leaveCoroutine != null)
+				StopCoroutine(_leaveCoroutine);
 			return UniTask.CompletedTask;
 		}
 

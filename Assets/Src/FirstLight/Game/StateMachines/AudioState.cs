@@ -742,6 +742,7 @@ namespace FirstLight.Game.StateMachines
 
 			switch (callback.Special.SpecialType)
 			{
+				case SpecialType.Landmine:
 				case SpecialType.Grenade:
 					audio = AudioId.Dash;
 					pos = entityView.transform.position;
@@ -810,6 +811,9 @@ namespace FirstLight.Game.StateMachines
 				case GameId.BPP:
 					audio = AudioId.LargeShieldPickup;
 					break;
+				case GameId.NOOB:
+					audio = AudioId.NoobPickup;
+					break;
 			}
 
 
@@ -829,7 +833,7 @@ namespace FirstLight.Game.StateMachines
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.CollectableEntity, out var entityView) &&
 				audio != AudioId.None)
 			{
-				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				 _services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 			}
 		}
 

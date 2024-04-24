@@ -5,8 +5,18 @@ using I2.Loc;
 namespace FirstLight.Game.TestCases
 
 {
-	public class TwoMatchesInARow : PlayTestCase
+	public class PlayMatch : PlayTestCase
 	{
+		private int _matches;
+		private bool _speedUp;
+
+		public PlayMatch(int matches, bool speedUp = true)
+		{
+			_matches = matches;
+			_speedUp = speedUp;
+		}
+
+
 		public override void BeforeGameAwaken()
 		{
 			Account.FreshGameInstallation();
@@ -21,15 +31,19 @@ namespace FirstLight.Game.TestCases
 
 		public override IEnumerator Run()
 		{
-			yield return UIGeneric.WaitForGenericInputDialogAndInput("Chupacabra", ScriptLocalization.UITHomeScreen.enter_your_name);
+			yield return UIGeneric.WaitForGenericInputDialogAndInput("Pentelinho", ScriptLocalization.UITHomeScreen.enter_your_name);
 			yield return UIHome.WaitHomePresenter(60);
 
-			for (int i = 0; i < 2; i++)
+			for (int i = 0; i < _matches; i++)
 			{
-				RoomService.AutoStartWhenLoaded = true;
-				yield return GameConfigHelper.DecreaseMatchmakingTime();
+				if (_speedUp)
+				{
+					RoomService.AutoStartWhenLoaded = true;
+					yield return GameConfigHelper.DecreaseMatchmakingTime();
+					yield return Quantum.DecreaseCircleTimesForNextMatch();
+				}
+
 				yield return Quantum.UseBotBehaviourForNextMatch();
-				yield return Quantum.DecreaseCircleTimesForNextMatch();
 				yield return UIHome.ClickPlayButton();
 				yield return UIGame.WaitDropZoneSelectScreen();
 				yield return Quantum.WaitForSimulationToStart();

@@ -216,9 +216,14 @@ steps:
       artifact: 'AddressablesBuild_${{ parameters.platform }}'
 
   - script: |
+      mkdir -p $(System.DefaultWorkingDirectory)/ServerDataUCD/ServerData
+      mv $(System.DefaultWorkingDirectory)/ServerData/* $(System.DefaultWorkingDirectory)/ServerDataUCD/ServerData
+    displayName: 'Move CCD Files'
+
+  - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
-      ucd entries sync $(System.DefaultWorkingDirectory)/ServerData --environment ***REMOVED***
+      ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
       ucd releases create -b ***REMOVED*** --environment ***REMOVED***
     condition: and(eq('${{ parameters.environment }}', 'development'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Development'
@@ -226,21 +231,21 @@ steps:
   - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
-      ucd entries sync $(System.DefaultWorkingDirectory)/ServerData --environment ***REMOVED***
+      ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
     condition: and(eq('${{ parameters.environment }}', 'staging'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Staging'
 
   - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
-      ucd entries sync $(System.DefaultWorkingDirectory)/ServerData --environment ***REMOVED***
+      ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
     condition: and(eq('${{ parameters.environment }}', 'community'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Community'
 
   - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
-      ucd entries sync $(System.DefaultWorkingDirectory)/ServerData --environment ***REMOVED***
+      ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
     condition: and(eq('${{ parameters.environment }}', 'production'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Production'
 

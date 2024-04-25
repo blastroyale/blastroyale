@@ -64,10 +64,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 		}
 
-		/// <summary>
-		/// Logs when we entered the matchmaking room
-		/// </summary>
-		public void MatchInitiate()
+		private void FetchPropertiesFromRoom()
 		{
 			var room = _services.RoomService.CurrentRoom;
 			if (room == null)
@@ -89,6 +86,16 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var config = room.MapConfig;
 			var gameModeConfig = room.GameModeConfig;
 			_mapId = ((int) config.Map).ToString();
+		}
+
+		/// <summary>
+		/// Logs when we entered the matchmaking room
+		/// </summary>
+		public void MatchInitiate()
+		{
+			var room = _services.RoomService.CurrentRoom;
+			if (room == null) return;
+			FetchPropertiesFromRoom();
 
 			var data = new Dictionary<string, object>
 			{
@@ -132,18 +139,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				loadout.TryGetValue(GameIdGroup.Shield, out var shieldId);
 				loadout.TryGetValue(GameIdGroup.Armor, out var armorId);
 				loadout.TryGetValue(GameIdGroup.Amulet, out var amuletId);
-				
-				_matchId = _services.NetworkService.QuantumClient.CurrentRoom.Name;
-				_mutators = string.Join(",", room.Properties.Mutators.Value);
-				_matchType = room.Properties.MatchType.Value.ToString();
-				var rewards = room.Properties.AllowedRewards.Value ?? new List<GameId>();
-				if (room.Properties.MatchType.Value == MatchType.Matchmaking)
-				{
-					_matchType = rewards.Contains(GameId.Trophies) ? "Ranked" : "Casual";
-				}
 
-				_gameModeId = room.Properties.GameModeId.Value;
-				_mapId = ((int) config.Map).ToString();
+				FetchPropertiesFromRoom();
 
 				var data = new Dictionary<string, object>
 				{
@@ -188,7 +185,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
-
+			
+			FetchPropertiesFromRoom();
 			SendQueue();
 
 			var f = game.Frames.Verified;
@@ -254,6 +252,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				}
 			}
 
+			FetchPropertiesFromRoom();
+
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},
@@ -289,6 +289,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				return;
 			}
 
+			FetchPropertiesFromRoom();
 			var killerData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerKiller];
 
 			// We send fixed name in case of offline Tutorial match
@@ -328,10 +329,11 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 
 			if (IsTesting()) return;
 
+			FetchPropertiesFromRoom();
+
 			var frame = playerDeadEvent.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			var playerData = container.GeneratePlayersMatchData(frame, out _, out _);
-
 			var deadData = playerData[playerDeadEvent.Player];
 
 			string killerName = "";
@@ -368,6 +370,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				return;
 			}
 
+			FetchPropertiesFromRoom();
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},
@@ -393,7 +396,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
-
+			FetchPropertiesFromRoom();
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},

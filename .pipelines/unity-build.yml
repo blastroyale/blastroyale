@@ -119,7 +119,7 @@ steps:
       buildScriptType: existing
       scriptExecuteMethod: FirstLight.Editor.Build.Builder.BatchBuild
       outputPath: $(Build.BinariesDirectory)
-      additionalCmdArgs: -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -username ${{ parameters.unity_username }} -password ${{ parameters.unity_password }} -EnableCacheServer -cacheServerEndpoint localhost:10080
+      additionalCmdArgs: -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -FLDevelopmentBuild ${{ parameters.dev_build }} -username ${{ parameters.unity_username }} -password ${{ parameters.unity_password }} -EnableCacheServer -cacheServerEndpoint localhost:10080
 
   - task: PowerShell@2
     inputs:

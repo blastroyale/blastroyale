@@ -2,16 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using FirstLight.FLogger;
-using Sirenix.Utilities.Editor;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Windows;
 
 // ReSharper disable CheckNamespace
 

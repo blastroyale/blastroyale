@@ -374,7 +374,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SendPlayReadyMessage()
 		{
-			_services.MessageBrokerService.Publish(new PlayMatchmakingReadyMessage());
+			_services.MessageBrokerService.Publish(new LocalPlayerClickedPlayMessage());
 		}
 
 		private void SendCancelMatchmakingMessage()

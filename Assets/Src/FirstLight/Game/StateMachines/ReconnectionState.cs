@@ -140,7 +140,7 @@ namespace FirstLight.Game.StateMachines
 				return true;
 			}
 
-			FLog.Verbose($"Snapshot expired or tutorial({isTutorial})");
+			FLog.Verbose($"Snapshot expired ({new DateTime(snapShot.ExpiresAt)}) or tutorial({isTutorial})");
 			_dataProvider.AppDataProvider.LastFrameSnapshot.Value = default;
 			return false;
 		}

@@ -4,7 +4,9 @@ using Sirenix.OdinInspector.Editor.Validation;
 using UnityEditor;
 using UnityEngine;
 
-[assembly: RegisterValidationRule(typeof(EditorNamespaceValidator), Name = "Editor Namespace Validator", Description = "Checks if there are any UnityEditor references where there shouldn't be.")]
+[assembly:
+	RegisterValidationRule(typeof(EditorNamespaceValidator), Name = "Editor Namespace Validator",
+		Description = "Checks if there are any UnityEditor references where there shouldn't be.")]
 
 namespace FirstLight.Editor.Validators
 {
@@ -21,7 +23,8 @@ namespace FirstLight.Editor.Validators
 			{
 				var path = AssetDatabase.GUIDToAssetPath(guid);
 				var scriptAsset = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
-				if ((scriptAsset.text.Contains("using UnityEditor") || scriptAsset.text.Contains("using Sirenix.Utilities"))
+				if ((scriptAsset.text.Contains("using UnityEditor") || scriptAsset.text.Contains("using Sirenix.Utilities") ||
+						scriptAsset.text.Contains("using Quantum.Editor") || scriptAsset.text.Contains("using Sirenix.Utilities.Editor"))
 					&& !scriptAsset.text.StartsWith("#if UNITY_EDITOR"))
 				{
 					Debug.Log(scriptAsset.text);

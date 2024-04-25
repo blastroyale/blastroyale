@@ -226,6 +226,11 @@ namespace FirstLight.Game.Utils
 		public static string IMX_ID = null;
 
 		/// <summary>
+		/// Feature flag to toggle noob in the game
+		/// </summary>
+		public static bool ENABLE_NOOB = false;
+
+		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
 		/// Keys of the dictionary will be matched as title feature flag keys referenced on the attributes.
 		/// Values will be converted to boolean ('true' or 'false)
@@ -295,6 +300,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("BETA_VERSION", overrideData, out var beta))
 			{
 				BETA_VERSION = beta;
+			}
+
+			if (TrySetFlag("ENABLE_NOOB", overrideData, out var enableNoob))
+			{
+				ENABLE_NOOB = enableNoob;
 			}
 		}
 

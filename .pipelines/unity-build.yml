@@ -119,7 +119,7 @@ steps:
       buildScriptType: existing
       scriptExecuteMethod: FirstLight.Editor.Build.Builder.BatchBuild
       outputPath: $(Build.BinariesDirectory)
-      additionalCmdArgs: -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -username ${{ parameters.unity_username }} -password ${{ parameters.unity_password }} -EnableCacheServer -cacheServerEndpoint localhost:10080
+      additionalCmdArgs: -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -FLDevelopmentBuild ${{ parameters.dev_build }} -username ${{ parameters.unity_username }} -password ${{ parameters.unity_password }} -EnableCacheServer -cacheServerEndpoint localhost:10080
 
   - task: PowerShell@2
     inputs:
@@ -154,7 +154,7 @@ steps:
     displayName: 'List build output properties'
 
   - task: InstallAppleCertificate@2
-    condition: and(eq('${{ parameters.platform }}', 'iOS'), eq('${{ parameters.dev_build }}', 'true'),not(or(failed(), canceled())))
+    condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))
     displayName: 'Install development certificate'
     inputs:
       certSecureFile: development_cert.p12
@@ -162,7 +162,7 @@ steps:
       keychain: 'temp'
 
   - task: InstallAppleProvisioningProfile@1
-    condition: and(eq('${{ parameters.platform }}', 'iOS'), eq('${{ parameters.dev_build }}', 'true'),not(or(failed(), canceled())))
+    condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))
     displayName: 'Install development provisioning profile'
     inputs:
       provisioningProfileLocation: 'secureFiles'
@@ -187,7 +187,7 @@ steps:
 
   - script: |
       wget -O ExportOptions.plist https://prodflgbuildstorage.blob.core.windows.net/public/ExportOptions_Development.plist
-    condition: and(eq('${{ parameters.platform }}', 'iOS'), eq('${{ parameters.dev_build }}', 'true'),not(or(failed(), canceled())))
+    condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))
     displayName: 'Download ExportOptions plist for Development'
   
   #  No adhoc builds for now
@@ -196,10 +196,10 @@ steps:
   #   condition: and(eq('${{ parameters.platform }}', 'iOS'), eq('${{ parameters.build_type }}', 'RELEASE_BUILD'),not(or(failed(), canceled())))
   #   displayName: 'Download ExportOptions plist for AdHoc'
 
-  - script: |
-      wget -O ExportOptions.plist https://prodflgbuildstorage.blob.core.windows.net/public/ExportOptions_Distribution.plist
-    condition: and(eq('${{ parameters.platform }}', 'iOS'), eq('${{ parameters.dev_build }}', 'false'),not(or(failed(), canceled())))
-    displayName: 'Download ExportOptions plist for Distribution'
+  # - script: |
+  #     wget -O ExportOptions.plist https://prodflgbuildstorage.blob.core.windows.net/public/ExportOptions_Distribution.plist
+  #   condition: and(eq('${{ parameters.platform }}', 'iOS'), eq('${{ parameters.dev_build }}', 'false'),not(or(failed(), canceled())))
+  #   displayName: 'Download ExportOptions plist for Distribution'
 
   - script: |
       /usr/bin/xcodebuild \
@@ -216,9 +216,14 @@ steps:
       artifact: 'AddressablesBuild_${{ parameters.platform }}'
 
   - script: |
+      mkdir -p $(System.DefaultWorkingDirectory)/ServerDataUCD/ServerData
+      mv $(System.DefaultWorkingDirectory)/ServerData/* $(System.DefaultWorkingDirectory)/ServerDataUCD/ServerData
+    displayName: 'Move CCD Files'
+
+  - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
-      ucd entries sync $(System.DefaultWorkingDirectory)/ServerData --environment ***REMOVED***
+      ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
       ucd releases create -b ***REMOVED*** --environment ***REMOVED***
     condition: and(eq('${{ parameters.environment }}', 'development'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Development'
@@ -226,21 +231,21 @@ steps:
   - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
-      ucd entries sync $(System.DefaultWorkingDirectory)/ServerData --environment ***REMOVED***
+      ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
     condition: and(eq('${{ parameters.environment }}', 'staging'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Staging'
 
   - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
-      ucd entries sync $(System.DefaultWorkingDirectory)/ServerData --environment ***REMOVED***
+      ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
     condition: and(eq('${{ parameters.environment }}', 'community'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Community'
 
   - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
-      ucd entries sync $(System.DefaultWorkingDirectory)/ServerData --environment ***REMOVED***
+      ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
     condition: and(eq('${{ parameters.environment }}', 'production'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Production'
 

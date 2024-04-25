@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Map_MazeMayhem_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: a1eb09da9104d6247b3dd598ae809987, type: 2}
-  m_StaticContent: 0
+  m_StaticContent: 1

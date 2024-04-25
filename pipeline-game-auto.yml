@@ -86,13 +86,13 @@ variables:
     - name: dev_build
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
         value: true
-      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
+      ${{  if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))  }}:
         value: false
     - name: environment
-      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
-        value: "development"
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
         value: "production"
+      ${{ else }}:
+        value: "development"
     - name: runTestLab
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
         value: true

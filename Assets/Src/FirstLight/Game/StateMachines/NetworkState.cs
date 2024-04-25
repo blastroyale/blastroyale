@@ -102,7 +102,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnSimulationStart);
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuitMessage);
 			_services.MessageBrokerService.Subscribe<SimulationEndedMessage>(OnMatchSimulationEndedMessage);
-			_services.MessageBrokerService.Subscribe<PlayMatchmakingReadyMessage>(OnPlayMatchmakingReadyMessage);
+			_services.MessageBrokerService.Subscribe<LocalPlayerClickedPlayMessage>(OnPlayerClickedPlay);
 			_services.MessageBrokerService.Subscribe<MatchmakingCancelMessage>(OnMatchmakingCancelMessage);
 			_services.MessageBrokerService.Subscribe<PlayMapClickedMessage>(OnPlayMapClickedMessage);
 			_services.MessageBrokerService.Subscribe<PlayJoinRoomClickedMessage>(OnPlayJoinRoomClickedMessage);
@@ -506,7 +506,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)
+		private void OnPlayerClickedPlay(LocalPlayerClickedPlayMessage msg)
 		{
 			FLog.Verbose("Received play ready matchmaking at network state");
 			// If running the equipment/BP menu tutorial, the room is handled through the EquipmentBpTutorialState.cs
@@ -521,6 +521,12 @@ namespace FirstLight.Game.StateMachines
 			var gameModeId = selectedGameMode.Entry.GameModeId;
 			var mutators = selectedGameMode.Entry.Mutators;
 			var mapConfig = _services.GameModeService.GetRotationMapConfig(gameModeId);
+			var rewards = selectedGameMode.Entry.AllowedRewards;
+
+			if (!FeatureFlags.ENABLE_NOOB)
+			{
+				rewards.Remove(GameId.NOOB);
+			}
 
 			var matchmakingSetup = new MatchRoomSetup()
 			{

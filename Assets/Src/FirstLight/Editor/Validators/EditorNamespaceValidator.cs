@@ -21,7 +21,7 @@ namespace FirstLight.Editor.Validators
 			{
 				var path = AssetDatabase.GUIDToAssetPath(guid);
 				var scriptAsset = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
-				if ((scriptAsset.text.Contains("using UnityEditor") || scriptAsset.text.Contains("using Sirenix.Utilities"))
+				if ((scriptAsset.text.Contains("using UnityEditor") || scriptAsset.text.Contains("using Sirenix.Utilities") || scriptAsset.text.Contains("using Quantum.Editor"))
 					&& !scriptAsset.text.StartsWith("#if UNITY_EDITOR"))
 				{
 					Debug.Log(scriptAsset.text);

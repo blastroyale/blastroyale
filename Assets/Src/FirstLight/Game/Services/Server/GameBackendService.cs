@@ -288,6 +288,7 @@ namespace FirstLight.Game.Services
 				_dataProvider.AppDataProvider.DisplayName.Value = result.DisplayName;
 				onSuccess?.Invoke(result);
 			}
+
 			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccessWrapper, onError);
 		}
 
@@ -403,7 +404,14 @@ namespace FirstLight.Game.Services
 
 		public bool RunsSimulationOnServer()
 		{
-			return CurrentEnvironmentData.EnvironmentID == Environment.STAGING || CurrentEnvironmentData.EnvironmentID == Environment.PROD;
+#if UNITY_EDITOR
+			var qtnConfig = MainInstaller.ResolveServices().ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			if (!qtnConfig.PhotonServerSettings.AppSettings.UseNameServer)
+			{
+				return true;
+			}
+#endif
+			return FeatureFlags.QUANTUM_CUSTOM_SERVER;
 		}
 
 		public Environment? EnvironmentRedirect { get; set; } = null;

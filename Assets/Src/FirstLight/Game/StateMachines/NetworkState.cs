@@ -235,7 +235,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnSimulationStart(MatchSimulationStartedMessage message)
 		{
-			if (FeatureFlags.QUANTUM_CUSTOM_SERVER)
+			if (_services.GameBackendService.RunsSimulationOnServer())
 			{
 				_networkService.SendPlayerToken(PlayFabSettings.staticPlayer.EntityToken);
 			}

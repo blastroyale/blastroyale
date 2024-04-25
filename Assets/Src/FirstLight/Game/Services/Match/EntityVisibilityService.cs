@@ -32,9 +32,9 @@ namespace FirstLight.Game.MonoComponent.Match
 	{
 		private IGameServices _gameServices;
 		private IMatchServices _matchServices;
-		private HashSet<EntityRef> _waitingLoad = new();
-		private HashSet<RenderersContainerProxyMonoComponent> _clientHidden = new();
-		private readonly Color _inBushColor = new Color(110/255f, 150/255f, 110/255f, 1);
+		private HashSet<EntityRef> _waitingLoad = new ();
+		private HashSet<RenderersContainerProxyMonoComponent> _clientHidden = new ();
+		private readonly Color _inBushColor = new Color(110 / 255f, 150 / 255f, 110 / 255f, 1);
 
 		public EntityVisibilityService(IMatchServices s, IGameServices gameServices)
 		{
@@ -44,9 +44,9 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.SubscribeManual<EventOnLeaveVisibilityArea>(this, OnLeaveVisibilityArea);
 			_gameServices.MessageBrokerService.Subscribe<EntityViewLoaded>(OnEntityViewLoad);
 			_gameServices.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnItemEquipped);
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateChange); 
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateChange);
 		}
-		
+
 		public void Dispose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
@@ -56,14 +56,16 @@ namespace FirstLight.Game.MonoComponent.Match
 		public VisibilityCheckResult CheckSpectatorVisibility(EntityRef entity)
 		{
 			var spectator = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
-			var result = VisibilityAreaSystem.CanEntityViewEntity(QuantumRunner.Default.Game.Frames.Verified, spectator, entity);;
+			var result = VisibilityAreaSystem.CanEntityViewEntity(QuantumRunner.Default.Game.Frames.Verified, spectator, entity);
+			;
 			if (result.TargetArea.Area.IsValid && FeatureFlags.ALWAYS_TOGGLE_INVISIBILITY_AREAS)
 			{
 				result.CanSee = false;
 			}
+
 			return result;
 		}
-		
+
 		public bool CanSpectatedPlayerSee(EntityRef entity)
 		{
 			if (!FeatureFlags.ALWAYS_TOGGLE_INVISIBILITY_AREAS && _matchServices.SpectateService.GetSpectatedEntity() == entity) return true;
@@ -78,7 +80,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				rend?.SetEnabled(false);
 			}
 		}
-		
+
 		private void OnSpectateChange(SpectatedPlayer oldView, SpectatedPlayer newView)
 		{
 			if (!QuantumRunner.Default.IsDefinedAndRunning(false))
@@ -86,13 +88,15 @@ namespace FirstLight.Game.MonoComponent.Match
 				Log.Error("Tried to change spectator while quantum game was not running");
 				return;
 			}
+
 			if (newView.Entity == QuantumRunner.Default.Game.GetLocalPlayerEntityRef()) return;
 			if (!newView.Entity.IsValid || !oldView.Entity.IsValid) return;
-			
+
 			foreach (var hidden in _clientHidden)
 			{
 				if (!hidden.IsDestroyed()) Reset(hidden);
 			}
+
 			UpdateLocalPlayerViewOn(newView.Entity);
 			var area = GetInvisibilityArea(newView.Entity);
 			if (area.HasValue)
@@ -100,7 +104,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				UpdateSpectatedArea(QuantumRunner.Default.Game.Frames.Verified, area.Value.Area);
 			}
 		}
-		
+
 		/// <summary>
 		/// On some entities we do not attach the renderer directly on the object.
 		/// We load it via addressables. That means an entity can load while being inside a visibility volume and
@@ -121,16 +125,17 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				UpdateSpectatedArea(ev.Game.Frames.Verified, ev.Area);
 			}
-			
+
 			UpdateLocalPlayerViewOn(ev.Entity);
 		}
-		
+
 		private void OnLeaveVisibilityArea(EventOnLeaveVisibilityArea ev)
 		{
 			if (InterestedInAreaUpdate(ev.Entity))
 			{
 				UpdateSpectatedArea(ev.Game.Frames.Verified, ev.Area);
 			}
+
 			UpdateLocalPlayerViewOn(ev.Entity);
 		}
 
@@ -156,7 +161,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (!f.TryGet<VisibilityArea>(area, out var areaComponent)) return;
 			foreach (var entityRef in f.ResolveList(areaComponent.EntitiesIn))
 			{
-				if(!IsSpectator(entityRef)) UpdateLocalPlayerViewOn(entityRef);
+				if (!IsSpectator(entityRef)) UpdateLocalPlayerViewOn(entityRef);
 			}
 		}
 
@@ -170,18 +175,18 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				return;
 			}
-			
+
 			var renderer = FindRenderer(view.gameObject);
-			if(renderer == null)
+			if (renderer == null)
 			{
 				_waitingLoad.Add(towardsEntity);
 				return;
 			}
-			
+
 			var visibility = CheckSpectatorVisibility(towardsEntity);
 			FLog.Verbose($"[EntityVisibility] Setting {view.EntityRef} render to {visibility.CanSee}");
 			renderer.SetEnabled(visibility.CanSee);
-			if(view.gameObject.TryGetComponent<PlayerCharacterMonoComponent>( out var PCC))
+			if (view.gameObject.TryGetComponent<PlayerCharacterMonoComponent>(out var PCC))
 			{
 				PCC.SwitchShadowVisibility(visibility.CanSee);
 			}
@@ -192,7 +197,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (IsSpectator(towardsEntity))
 			{
 				var f = QuantumRunner.Default.Game.Frames.Verified;
-				
+
 				if (visibility.TargetArea.Area.IsValid && f.TryGet<VisibilityArea>(visibility.TargetArea.Area, out var visibilityArea))
 				{
 					if (visibilityArea.AreaType == VisibilityAreaType.Bush)
@@ -205,7 +210,7 @@ namespace FirstLight.Game.MonoComponent.Match
 					renderer.ResetColor();
 				}
 			}
-			
+
 			_gameServices.MessageBrokerService.Publish(new LocalPlayerEntityVisibilityUpdate()
 			{
 				Entity = towardsEntity,
@@ -228,13 +233,14 @@ namespace FirstLight.Game.MonoComponent.Match
 			renderer.ResetColor();
 			renderer.SetEnabled(true);
 		}
-		
+
 		public InsideVisibilityArea? GetInvisibilityArea(EntityRef entity)
 		{
 			if (!QuantumRunner.Default.Game.Frames.Verified.TryGet<InsideVisibilityArea>(entity, out var area))
 			{
 				return null;
 			}
+
 			return area;
 		}
 
@@ -245,6 +251,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				return view.GetComponentInChildren<RenderersContainerProxyMonoComponent>(true);
 			}
+
 			return viewBase;
 		}
 
@@ -255,7 +262,13 @@ namespace FirstLight.Game.MonoComponent.Match
 				if (!hidden.IsDestroyed()) Reset(hidden);
 			}
 		}
-		
-		public void OnMatchStarted(QuantumGame game, bool isReconnect){ }
+
+		public void OnMatchStarted(QuantumGame game, bool isReconnect)
+		{
+			if (isReconnect)
+			{
+				UpdateLocalPlayerViewOn(_matchServices.SpectateService.GetSpectatedEntity());
+			}
+		}
 	}
 }

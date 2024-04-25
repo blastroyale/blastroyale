@@ -368,7 +368,12 @@ namespace Quantum
                     return false;
                 }
             }
-            
+
+            if (player.UseBotBehaviour)
+            {
+                Log.Error($"Player {player.PlayerId} trying to use bot behaviour!");
+                return false;
+            }
 
             return true;
         }

@@ -36,7 +36,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			// TODO: Very ugly hack
 			var meleeWeapon = await InstantiateMelee();
-
 			var isSkydiving = frame.Get<AIBlackboardComponent>(entityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
 
 			if (isSkydiving)
@@ -52,13 +51,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-			
-			// TODO: Ugly
-			var components = meleeWeapon.GetComponents<EntityViewBase>();
 
-			foreach (var entityViewBase in components)
+			if (loadout.Weapon.IsValid() && loadout.Weapon.GameId != GameId.Hammer)
 			{
-				entityViewBase.SetEntityView(runner.Game, entityView);
+				var weapon = await InstantiateWeapon(loadout.Weapon);
+				if (weapon == null) return;
+				var components = weapon.GetComponentsInChildren<EntityViewBase>();
+
+				foreach (var entityViewBase in components)
+				{
+					entityViewBase.SetEntityView(runner.Game, entityView);
+				}
+				EquipWeapon(loadout.Weapon);
+				
 			}
 
 			if (isSkydiving)

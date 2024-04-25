@@ -109,7 +109,7 @@ namespace FirstLight.Game.StateMachines
 		private async UniTaskVoid CloseSwipeTransition()
 		{
 			await UniTask.NextFrame();
-			await _services.UIService.CloseScreen<SwipeTransitionScreenPresenter>();
+			await _services.UIService.CloseScreen<SwipeTransitionScreenPresenter>(false);
 		}
 
 		private void SubscribeEvents()
@@ -229,16 +229,17 @@ namespace FirstLight.Game.StateMachines
 			FLog.Verbose(
 				$"Game Resync {callback.Game.Frames.Verified.Number} vs {_gameDataProvider.AppDataProvider.LastFrameSnapshot.Value.FrameNumber}");
 
-			_ = ResyncCoroutine();
+			ResyncCoroutine().Forget();
 		}
 
 		private async UniTaskVoid ResyncCoroutine()
 		{
 			await UniTask.WaitUntil(() => QuantumRunner.Default.IsDefinedAndRunning());
+			_statechartTrigger(SimulationStartedEvent);
+
 			PublishMatchStartedMessage(QuantumRunner.Default.Game, true);
 			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
 
-			_statechartTrigger(SimulationStartedEvent);
 			WaitForCamera().Forget();
 		}
 

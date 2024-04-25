@@ -130,7 +130,7 @@ namespace FirstLight.Game.StateMachines
 			loading.WaitingFor(LoadMatchAssets).Target(roomCheck);
 
 			roomCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(transitionToMenu);
-			roomCheck.Transition().Condition(IsGameStarted).Target(gameSimulation);
+			roomCheck.Transition().Condition(IsGameStarted).Target(checkInactivePlayer);
 			roomCheck.Transition().Target(gameLoading);
 
 			gameLoading.Event(RoomGameStartEvent).Target(checkInactivePlayer);

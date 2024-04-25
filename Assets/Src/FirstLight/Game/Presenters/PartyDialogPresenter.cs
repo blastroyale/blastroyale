@@ -49,7 +49,10 @@ namespace FirstLight.Game.Presenters
 			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.party_id,
 				ScriptLocalization.UITHomeScreen.party_id_desc, "", btn, true);
 
-			_services.UIService.CloseScreen<PartyDialogPresenter>().Forget();
+			if (_services.UIService.IsScreenOpen<PartyDialogPresenter>())
+			{
+				_services.UIService.CloseScreen<PartyDialogPresenter>().Forget();
+			}
 		}
 
 		private void OnCreateParty()

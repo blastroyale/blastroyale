@@ -43,7 +43,7 @@ namespace FirstLight.Game.Services.Party
 			if (!HasParty.Value)
 			{
 				// TODO: Translation
-				_genericDialogService.OpenButtonDialog("Squad", "You left your squad due to timeout", true, new GenericDialogButton());
+				_genericDialogService.OpenButtonDialog("Squad", "You left your squad due to timeout", true, new GenericDialogButton()).Forget();
 			}
 			else
 			{
@@ -105,7 +105,7 @@ namespace FirstLight.Game.Services.Party
 					if (err == PartyErrors.UserIsNotMember)
 					{
 						// This means that the player got kicked before getting the connection handler of the lobby
-						Members.Remove(LocalPartyMember());
+						
 						ResetPubSubState();
 						LocalPlayerKicked();
 						return;
@@ -130,7 +130,7 @@ namespace FirstLight.Game.Services.Party
 				}
 
 				_genericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, PartyErrors.Unknown.GetTranslation(), true,
-					new GenericDialogButton());
+					new GenericDialogButton()).Forget();
 				FLog.Error($"failed subscribing to lobby notifications: {ex.Message}", ex);
 				// Lets leave the party so the player can try again
 				try
@@ -159,7 +159,6 @@ namespace FirstLight.Game.Services.Party
 		{
 			if (obj.Status == "unsubscribeSuccess" && _memberRemovedReasons.Contains(obj.UnsubscribeReason))
 			{
-				Members.Remove(LocalPartyMember());
 				LocalPlayerKicked();
 				ResetPubSubState();
 			}
@@ -243,13 +242,13 @@ namespace FirstLight.Game.Services.Party
 				var member = Members.FirstOrDefault(m => m.PlayfabID == change.memberToDelete.memberEntity.Id);
 				if (member != null)
 				{
-					Members.Remove(member);
 					if (member.Local)
 					{
 						UnsubscribeToLobbyUpdates().Forget();
 						LocalPlayerKicked();
 						return;
 					}
+					Members.Remove(member);
 				}
 			}
 

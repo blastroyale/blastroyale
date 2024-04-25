@@ -1,4 +1,3 @@
-using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using Lofelt.NiceVibrations;
 using Quantum;
@@ -11,19 +10,11 @@ namespace FirstLight.Game.Services.Match
 
 	public class HapticsService : IHapticsService, MatchServices.IMatchService
 	{
-		private readonly IGameServices _gameServices;
-		private readonly IMatchServices _matchServices;
-		private readonly IGameDataProvider _dataProvider;
-
 		private EntityRef _localPlayerEntity;
 
-		public HapticsService(IGameServices gameServices, IMatchServices matchServices, IGameDataProvider dataProvider)
+		public HapticsService(LocalPrefsService prefsService)
 		{
-			_gameServices = gameServices;
-			_matchServices = matchServices;
-			_dataProvider = dataProvider;
-
-			if (!_dataProvider.AppDataProvider.IsHapticOn) return;
+			if (!prefsService.IsHapticsEnabled.Value) return;
 
 			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);

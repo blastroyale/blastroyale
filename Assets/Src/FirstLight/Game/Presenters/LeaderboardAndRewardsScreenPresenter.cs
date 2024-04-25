@@ -15,6 +15,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -27,7 +28,7 @@ namespace FirstLight.Game.Presenters
 	/// Presenter for the Leaderboards and Rewards Screen
 	/// </summary>
 	public class LeaderboardAndRewardsScreenPresenter :
-		UiToolkitPresenterData<LeaderboardAndRewardsScreenPresenter.StateData>
+		UIPresenterData<LeaderboardAndRewardsScreenPresenter.StateData>
 	{
 		private const string BADGE_SPRITE_PREFIX = "BadgePlace";
 
@@ -35,7 +36,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private CinemachineVirtualCamera _camera;
 		[SerializeField] private VisualTreeAsset _leaderboardEntryAsset;
 
-		public struct StateData
+		public class StateData
 		{
 			public Action ContinueClicked;
 		}
@@ -62,18 +63,15 @@ namespace FirstLight.Game.Presenters
 
 		private bool _showingLeaderboards;
 
-		protected override void OnInitialized()
+		private void Awake()
 		{
-			base.OnInitialized();
-
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_gameServices = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override void OnOpened()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			base.OnOpened();
 			SetupCamera();
 
 			UpdatePlayerName();
@@ -81,28 +79,22 @@ namespace FirstLight.Game.Presenters
 			UpdateLeaderboard();
 			UpdateRewards();
 			ShowLeaderboards();
+			return base.OnScreenOpen(reload);
 		}
 
-		protected override void OnTransitionsReady()
+		protected override void QueryElements()
 		{
-			SetupCamera();
-		}
-
-		protected override void QueryElements(VisualElement root)
-		{
-			base.QueryElements(root);
-
-			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_header = Root.Q<ScreenHeaderElement>("Header").Required();
 			_header.backClicked += OnNextButtonClicked;
 
-			_nextButton = root.Q<Button>("NextButton").Required();
+			_nextButton = Root.Q<Button>("NextButton").Required();
 			_nextButton.clicked += OnNextButtonClicked;
 
-			_leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
-			_leaderboardScrollView = root.Q<ScrollView>("LeaderboardScrollView").Required();
+			_leaderboardPanel = Root.Q<VisualElement>("LeaderboardPanel").Required();
+			_leaderboardScrollView = Root.Q<ScrollView>("LeaderboardScrollView").Required();
 
 
-			_rewardsPanel = root.Q<VisualElement>("RewardsPanel").Required();
+			_rewardsPanel = Root.Q<VisualElement>("RewardsPanel").Required();
 			_trophies = _rewardsPanel.Q<VisualElement>("Trophies").Required();
 			_trophies.AttachView(this, out _trophiesView);
 			_bpp = _rewardsPanel.Q<VisualElement>("BPP").Required();
@@ -111,9 +103,9 @@ namespace FirstLight.Game.Presenters
 			_fame = _rewardsPanel.Q<VisualElement>("Fame").Required();
 			_fame.AttachView(this, out _levelView);
 			_levelView.HideFinalLevel();
-			_fameTitle = root.Q<Label>("FameTitle").Required();
+			_fameTitle = Root.Q<Label>("FameTitle").Required();
 
-			root.Q<PlayerAvatarElement>("Avatar").Required().SetLocalPlayerData(_gameDataProvider, _gameServices);
+			Root.Q<PlayerAvatarElement>("Avatar").Required().SetLocalPlayerData(_gameDataProvider, _gameServices);
 		}
 
 		private void OnNextButtonClicked()
@@ -282,7 +274,7 @@ namespace FirstLight.Game.Presenters
 				: _matchServices.MatchEndDataService.LocalPlayer;
 
 			_playerName = new Label();
-			_playerName.AddToClassList(UIConstants.USS_PLAYER_LABEL);
+			_playerName.AddToClassList(UIService.UIService.USS_PLAYER_LABEL);
 			Root.Add(_playerName);
 			if (playerRef == PlayerRef.None)
 			{
@@ -375,7 +367,7 @@ namespace FirstLight.Game.Presenters
 			var playerData = _matchServices.MatchEndDataService.PlayerMatchData[playerRef];
 
 			var skinId = _gameServices.CollectionService.GetCosmeticForGroup(playerData.Cosmetics, GameIdGroup.PlayerSkin);
-			await _character.UpdateSkin(skinId, playerData.Gear.ToList());
+			await _character.UpdateSkin(skinId);
 			_playerName.SetPositionBasedOnWorldPosition(_character.transform.position);
 
 		}

@@ -19,8 +19,7 @@ MonoBehaviour:
   - {fileID: 885056138359398334}
   - {fileID: 9028061014631790061}
   - {fileID: 9221496244039334092}
-  - {fileID: 546579869138733740}
-  m_RendererFeatureMap: bedf305dde59480ced35aefba81d4a7dcc3890f3f955f97facca64bd7ed79507
+  m_RendererFeatureMap: bedf305dde59480ced35aefba81d4a7dcc3890f3f955f97f
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 0}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -59,48 +58,6 @@ MonoBehaviour:
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 0
---- !u!114 &546579869138733740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
-  m_Name: Dynamic Outline
-  m_EditorClassIdentifier: 
-  m_Active: 0
-  settings:
-    passTag: Dynamic Outline
-    Event: 300
-    filterSettings:
-      RenderQueueType: 0
-      LayerMask:
-        serializedVersion: 2
-        m_Bits: 64
-      PassNames: []
-    overrideMaterial: {fileID: 2100000, guid: 07615abaf823e410189c9db3b7b3956f, type: 2}
-    overrideMaterialPassIndex: 0
-    overrideShader: {fileID: 0}
-    overrideShaderPassIndex: 0
-    overrideMode: 1
-    overrideDepthState: 0
-    depthCompareFunction: 8
-    enableWrite: 1
-    stencilSettings:
-      overrideStencilState: 0
-      stencilReference: 1
-      stencilCompareFunction: 6
-      passOperation: 0
-      failOperation: 0
-      zFailOperation: 0
-    cameraSettings:
-      overrideCamera: 0
-      restoreCamera: 1
-      offset: {x: 0, y: 0, z: 0, w: 0}
-      cameraFieldOfView: 60
 --- !u!114 &885056138359398334
 MonoBehaviour:
   m_ObjectHideFlags: 0

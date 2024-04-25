@@ -65,7 +65,7 @@ namespace FirstLight.Game.Services
 		private void OnOpenedCore(OpenedCoreMessage opened)
 		{
 			// Store still handles itself, for now
-			if (_services.GameUiService.IsOpen<StoreScreenPresenter>()) return;
+			if (_services.UIService.IsScreenOpen<StoreScreenPresenter>()) return;
 			_unseenCores.Enqueue(opened);
 		}
 

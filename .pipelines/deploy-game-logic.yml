@@ -54,7 +54,7 @@ stages:
         - script: |
             json=$(cat "$(Pipeline.Workspace)/build/parameters/parameters.json" | jq -c '.')
             deploy_game_logic=$(echo "$json" | jq -r '.deploy_game_logic')
-            server_environment=$(echo "$json" | jq -r '.server_environment')
+            server_environment=$(echo "$json" | jq -r '.environment')
             echo "Server environment of the build is: $server_environment"
             echo "Deploy Game Logic: $deploy_game_logic"
             echo "Json Value: $json"

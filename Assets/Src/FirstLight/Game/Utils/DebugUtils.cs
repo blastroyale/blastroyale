@@ -16,13 +16,6 @@ namespace FirstLight.Game.Utils
 	/// </summary>
 	public static class DebugUtils
 	{
-		/// <summary>
-		/// Class to put any bool flag that helps with testing the app
-		/// </summary>
-		public static class DebugFlags
-		{
-			public static bool OverrideCurrencyChangedIsCollecting;
-		}
 
 		public static void SaveState(IGameBackendService gameBackend, IDataProvider dataProvider, Action doneCallback)
 		{

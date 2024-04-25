@@ -23,11 +23,16 @@ stages:
       ipwhitelist: 0.0.0.0/0
       helmRepoPassword: ${{ parameters.helmRepoPassword }}
       envVars: |
+        --set autoscaling.enabled=true \
+        --set autoscaling.minReplicas=1 \
+        --set autoscaling.targetCPUUtilizationPercentage=190 \
+        --set autoscaling.targetMemoryUtilizationPercentage=230 \
         --set env.API_KEY=$(TESTNET-PROD-COMMON-API-KEY) \
         --set env.API_URL="https://testnet-prod-blockchain-service.blastroyale.com" \
         --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(TESTNET-PROD-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
         --set env.APPLICATION_ENVIRONMENT=testnet-prod \
         --set env.CONNECTION_STRING="$(TESTNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
+        --set env.REMOTE_CONFIGURATION=false \
         --set env.DEV_MODE=false \
         --set env.NFT_SYNC=false \
         --set env.PLAYFAB_DEV_SECRET_KEY=$(TESTNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \

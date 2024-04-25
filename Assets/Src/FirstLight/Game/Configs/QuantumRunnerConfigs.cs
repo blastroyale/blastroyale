@@ -1,18 +1,6 @@
-using System;
-using System.Collections.Generic;
-using ExitGames.Client.Photon;
-using FirstLight.FLogger;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
-using Photon.Deterministic;
-using Photon.Realtime;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
-using Quantum.Core;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Configs
 {
@@ -20,6 +8,7 @@ namespace FirstLight.Game.Configs
 	/// Scriptable object with the necessary config data to start the <see cref="QuantumRunner"/>
 	/// </summary>
 	[CreateAssetMenu(fileName = "QuantumRunner Configs", menuName = "ScriptableObjects/QuantumRunner Configs")]
+	[IgnoreServerSerialization]
 	public class QuantumRunnerConfigs : ScriptableObject
 	{
 		

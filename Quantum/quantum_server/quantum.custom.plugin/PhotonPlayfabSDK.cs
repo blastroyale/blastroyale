@@ -32,6 +32,7 @@ namespace quantum.custom.plugin
 			PlayFabSettings.staticSettings.DeveloperSecretKey = photonConfig["PlayfabKey"];
 			if (photonConfig.TryGetValue("LocalLogicServer", out var localLogicServer) && localLogicServer == "true")
 			{
+				Log.Info("Using local gamelogic server!");
 				HttpWrapper.ServerAddress = "http://localhost:7274";
 			}
 		}

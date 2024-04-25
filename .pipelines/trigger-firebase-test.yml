@@ -1,0 +1,72 @@
+# Pipeline to release new containers on container apps
+pr: none
+trigger: none
+# This pipeline doesn't use the current branch to deploy, it uses an image as parameter so it makes no sense to append the commit message to the run
+appendCommitMessageToRunName: false
+resources:
+  pipelines:
+    - pipeline: build
+      source: 'Game-Builds'
+      trigger: true
+  repositories:
+    - repository: templates
+      type: git
+      ref: main
+      name: Infrastructure/core-templates
+
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+  - task: DownloadSecureFile@1
+    name: firebaseKey
+    displayName: 'Download Firebase Key'
+    inputs:
+      secureFile: firebase-key-fb177f497a1b.json
+  - checkout: none
+  - download: build
+    artifact: download-link-Android
+  - download: build
+    artifact: parameters
+  - script: |
+      json=$(cat "$(Pipeline.Workspace)/build/parameters/parameters.json" | jq -c '.')
+      run_test_lab=$(echo "$json" | jq -r '.run_test_lab')
+      echo "Should run tests: $run_test_lab"
+
+      if [ "${run_test_lab,,}" != "true" ]; then
+        echo "Skip deploy because run_test_lab != true"
+        echo "##vso[task.setvariable variable=skipTests]true"
+        exit
+      fi
+    name: CheckIfSkip
+  - powershell: |
+      $shouldSkip = "$env:SKIPTESTS"
+        if ($shouldSkip -eq "true") {
+          Write-Host "##vso[build.updatebuildnumber]SKIPPED-${env:BUILD_BUILDID}-GameBuild_${env:RESOURCES_PIPELINE_BUILD_RUNNAME}"
+          Write-Host "Skipping tests!"
+          exit
+       }
+       Write-Host "##vso[build.updatebuildnumber]${env:BUILD_BUILDID}-GameBuild_${env:RESOURCES_PIPELINE_BUILD_RUNNAME}"
+      
+       $file_content = Get-Content $(Pipeline.Workspace)/build/download-link-Android/downloadLinkAndroid.properties
+       $file_content = $file_content -join [Environment]::NewLine
+      
+       $configuration = ConvertFrom-StringData($file_content)
+       $downloadLink = $configuration.SHORT_LINK
+       Write-Host "Download link: $downloadLink"
+       Invoke-WebRequest $downloadLink -OutFile .\app.apk
+      
+       $fileName = "app.apk"
+      
+       gcloud auth activate-service-account --key-file=$(firebaseKey.secureFilePath)
+       gcloud firebase test android run --app $fileName  `
+         --quiet `
+         --project=blast-royale-dev `
+         --type=game-loop `
+         --scenario-numbers=${env:ANDROID_SCENARIOS} `
+         --timeout=${env:ANDROID_TIMEOUT} `
+         --client-details=matrixLabel="GameBuild_${env:RESOURCES_PIPELINE_BUILD_RUNNAME}" `
+         ${env:ANDROID_MODELS_PARAMETERS} `
+         --format json 
+    displayName: 'Trigger TestLab'
+    

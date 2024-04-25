@@ -12,12 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace FirstLight.Game.TestCases.FirebaseLab {
-  // Dummy class to handle non-Android platform.  This class is instantiated instead to avoid having
-  // to wrap code in #if blocks.
-  internal class DummyTestLabManager : TestLabManager {
-    public override void NotifyHarnessTestIsComplete() {
-      // do nothing!
-    }
-  }
+using System;
+using System.IO;
+using FirstLight.FLogger;
+using FirstLight.Server.SDK.Modules;
+using UnityEngine;
+
+namespace FirstLight.Game.TestCases.FirebaseLab
+{
+	// Dummy class to handle non-Android platform.  This class is instantiated instead to avoid having
+	// to wrap code in #if blocks.
+	internal class DummyTestLabManager : TestLabManager
+	{
+		private StreamWriter _fileStream;
+
+		public override void NotifyHarnessTestIsComplete()
+		{
+			// do nothing!
+		}
+
+
+		public DummyTestLabManager()
+		{
+			var persistentDataPath = Application.persistentDataPath + "/testLog.csv";
+			_fileStream = File.CreateText(persistentDataPath);
+			_fileStream.AutoFlush = true;
+			Debug.Log("Dummy test log at " + persistentDataPath);
+		}
+		
+
+		public override void WriteLine(string line)
+		{
+			_fileStream.WriteLine(line);
+		}
+	}
 }

@@ -499,11 +499,6 @@ MonoBehaviour:
         Id:
           Value: 1907932267063602682
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckBlackboardBool_19]
-    - Path: AddressableResources/Maps/IslandOne/IslandOne_NavMesh_data
-      AssetRef:
-        Id:
-          Value: 1919838176174387320
-      Address: Maps/IslandOne/IslandOne_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFPDecision_7
       AssetRef:
         Id:
@@ -604,6 +599,11 @@ MonoBehaviour:
         Id:
           Value: 2283147842969910057
       Address: AdventureAssets/MapObjects/VisVolume.prefab[VisVolumeEntityView]
+    - Path: AddressableResources/Maps/IslandOne/IslandOne_Navmesh Baking_data
+      AssetRef:
+        Id:
+          Value: 2284101304238230590
+      Address: Maps/IslandOne/IslandOne_Navmesh Baking_data.asset
     - Path: AddressableResources/AdventureAssets/MapObjects/VisVolume|EntityPrototype
       AssetRef:
         Id:
@@ -1036,6 +1036,11 @@ MonoBehaviour:
         Id:
           Value: 4318130223778477555
       Address: Maps/IslandOne/IslandOne.asset
+    - Path: AddressableResources/Maps/IslandOne/IslandOne_Navmesh Baking
+      AssetRef:
+        Id:
+          Value: 4343785826901058006
+      Address: Maps/IslandOne/IslandOne_Navmesh Baking.asset
     - Path: AddressableResources/Maps/District/District
       AssetRef:
         Id:
@@ -1096,11 +1101,6 @@ MonoBehaviour:
         Id:
           Value: 4487114524772037996
       Address: Maps/Cemetery/Cemetery.asset
-    - Path: AddressableResources/Maps/IslandOne/IslandOne_NavMesh
-      AssetRef:
-        Id:
-          Value: 4499516975046161500
-      Address: Maps/IslandOne/IslandOne_NavMesh.asset
     - Path: AddressableResources/Maps/TestAssets/NavMeshAsset
       AssetRef:
         Id:

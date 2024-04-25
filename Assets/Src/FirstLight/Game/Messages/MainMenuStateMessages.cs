@@ -30,7 +30,7 @@ namespace FirstLight.Game.Messages
 		public bool AddBots;
 	}
 	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
-	public struct PlayMatchmakingReadyMessage : IMessage { }
+	public struct LocalPlayerClickedPlayMessage : IMessage { }
 	public struct MatchmakingCancelMessage : IMessage { }
 	public struct PlayMapClickedMessage : IMessage
 	{

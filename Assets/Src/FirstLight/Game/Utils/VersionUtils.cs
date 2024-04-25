@@ -61,13 +61,27 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static async UniTask LoadVersionDataAsync()
 		{
+			if (_loaded) return;
 			var source = new TaskCompletionSource<TextAsset>();
 			var request = Resources.LoadAsync<TextAsset>(VersionDataFilename);
-			
+
 			request.completed += _ => source.SetResult(request.asset as TextAsset);
-			
+
 			var textAsset = await source.Task.AsUniTask();
-			
+			LoadVersionData(textAsset);
+			Resources.UnloadAsset(textAsset);
+		}
+		
+		public static void LoadVersionData()
+		{
+			if (_loaded) return;
+			var textAsset = Resources.Load<TextAsset>(VersionDataFilename);
+			LoadVersionData(textAsset);
+			Resources.UnloadAsset(textAsset);
+		}
+
+		private static void LoadVersionData(TextAsset textAsset)
+		{
 			if (!textAsset)
 			{
 				Debug.LogError("Could not async load version data from Resources.");
@@ -84,10 +98,8 @@ namespace FirstLight.Game.Utils
 				SRDebug.Instance.AddSystemInfo(SRDebugger.InfoEntry.Create("Version", VersionUtils.VersionInternal), "Game");
 			}
 #endif
-
-			Resources.UnloadAsset(textAsset);
 		}
-		
+
 		/// <summary>
 		/// Requests to check if the provided version is newer compared to the local app version
 		/// </summary>
@@ -95,13 +107,13 @@ namespace FirstLight.Game.Utils
 		{
 			var appVersion = VersionExternal.Split('.');
 			var otherVersion = version.Split('.');
-			
+
 			var majorApp = int.Parse(appVersion[0]);
 			var majorOther = int.Parse(otherVersion[0]);
-			
+
 			var minorApp = int.Parse(appVersion[1]);
 			var minorOther = int.Parse(otherVersion[1]);
-			
+
 			var patchApp = int.Parse(appVersion[2]);
 			var patchOther = int.Parse(otherVersion[2]);
 
@@ -125,9 +137,9 @@ namespace FirstLight.Game.Utils
 		{
 			string version = $"{Application.version}-{data.BuildNumber}.{data.BranchName}.{data.Commit}";
 
-			if (!string.IsNullOrEmpty(data.BuildType))
+			if (!string.IsNullOrEmpty(data.Environment))
 			{
-				version += $".{data.BuildType}";
+				version += $".{data.Environment}";
 			}
 
 			return version;
@@ -137,20 +149,20 @@ namespace FirstLight.Game.Utils
 		{
 			return _loaded ? true : throw new Exception("Version Data not loaded.");
 		}
-		
+
 		[Serializable]
 		public struct VersionData
 		{
 			public string Commit;
 			public string BranchName;
-			public string BuildType;
+			public string Environment;
 			public string BuildNumber;
 		}
 
 		public static void ValidateServer()
 		{
-			FLog.Info("Server commit: "+ServerBuildCommit);
-			FLog.Info("Client commit: "+Commit);
+			FLog.Info("Server commit: " + ServerBuildCommit);
+			FLog.Info("Client commit: " + Commit);
 #if !UNITY_EDITOR
 			if (IsOutOfSync() && !FLGTestRunner.Instance.IsRunning())
 			{

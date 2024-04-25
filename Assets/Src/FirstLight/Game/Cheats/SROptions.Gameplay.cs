@@ -21,10 +21,10 @@ public partial class SROptions
 			Debug.LogWarning("Simulation is not running yet");
 			return;
 		}
-		
+
 		game.SendCommand(new CheatLocalPlayerKillCommand());
 	}
-	
+
 	[Category("Gameplay")]
 	public void WinLocalPlayer()
 	{
@@ -34,10 +34,10 @@ public partial class SROptions
 			Debug.LogWarning("Simulation is not running yet");
 			return;
 		}
-		
-		game.SendCommand(new CheatCompleteKillCountCommand { IsLocalWinner = true });
+
+		game.SendCommand(new CheatCompleteKillCountCommand {IsLocalWinner = true});
 	}
-	
+
 	[Category("Gameplay")]
 	public void WinOtherPlayer()
 	{
@@ -47,10 +47,10 @@ public partial class SROptions
 			Debug.LogWarning("Simulation is not running yet");
 			return;
 		}
-		
+
 		game.SendCommand(new CheatCompleteKillCountCommand());
 	}
-	
+
 	[Category("Gameplay")]
 	public void RefillAmmoAndSpecials()
 	{
@@ -60,10 +60,10 @@ public partial class SROptions
 			Debug.LogWarning("Simulation is not running yet");
 			return;
 		}
-		
+
 		game.SendCommand(new CheatRefillAmmoAndSpecials());
 	}
-	
+
 	[Category("Gameplay")]
 	public void MakeLocalPlayerSuperTough()
 	{
@@ -73,10 +73,10 @@ public partial class SROptions
 			Debug.LogWarning("Simulation is not running yet");
 			return;
 		}
-		
+
 		game.SendCommand(new CheatMakeLocalPlayerSuperToughCommand());
 	}
-	
+
 	[Category("Gameplay")]
 	public void KillAllExceptOne()
 	{
@@ -86,16 +86,35 @@ public partial class SROptions
 			Debug.LogWarning("Simulation is not running yet");
 			return;
 		}
-		
-		game.SendCommand(new CheatKillAllExceptOneCommand());
+
+		game.SendCommand(new CheatKillAllExceptCommand()
+		{
+			Amount = 1
+		});
 	}
-	
+
+	[Category("Gameplay")]
+	public void KillAllExceptTwo()
+	{
+		var game = QuantumRunner.Default.Game;
+		if (game == null)
+		{
+			Debug.LogWarning("Simulation is not running yet");
+			return;
+		}
+
+		game.SendCommand(new CheatKillAllExceptCommand()
+		{
+			Amount = 2
+		});
+	}
+
 	[Category("Gameplay")]
 	public void SkipTutorialSection()
 	{
 		Object.FindObjectOfType<PlayableDirector>().playableGraph.PlayTimeline();
 	}
-	
+
 	[Category("Gameplay")]
 	public void SpawnAirDropHere()
 	{
@@ -105,7 +124,7 @@ public partial class SROptions
 			Debug.LogWarning("Simulation is not running yet");
 			return;
 		}
-		
+
 		game.SendCommand(new CheatSpawnAirDropCommand {OnPlayerPosition = true});
 	}
 
@@ -123,6 +142,19 @@ public partial class SROptions
 	}
 
 	[Category("Gameplay")]
+	public void SpawnSpecials()
+	{
+		var game = QuantumRunner.Default.Game;
+		if (game == null)
+		{
+			Debug.LogWarning("Simulation is not running yet");
+			return;
+		}
+
+		game.SendCommand(new CheatSpawnAllSpecialsCommand());
+	}
+
+	[Category("Gameplay")]
 	public void SendTeamPingSelf()
 	{
 		QuantumRunner.Default.Game.SendCommand(new TeamPositionPingCommand()
@@ -137,10 +169,10 @@ public partial class SROptions
 	{
 		Utils.ForceCrash(ForcedCrashCategory.FatalError);
 	}
-	
+
 #endif
-	
-	
+
+
 #if UNITY_EDITOR
 	private bool _isRaycastGizmoShowing;
 
@@ -168,7 +200,7 @@ public partial class SROptions
 	{
 		var runner = QuantumRunner.Default;
 		var f = runner == null ? null : runner.Game?.Frames?.PredictedPrevious;
-		
+
 		if (f == null)
 		{
 			Debug.LogWarning("Simulation is not running yet");
@@ -177,14 +209,14 @@ public partial class SROptions
 
 		var raycasts = f.Filter<RaycastShots>();
 
-		while(raycasts.Next(out var entityRef, out var shot))
+		while (raycasts.Next(out var entityRef, out var shot))
 		{
 			var speed = shot.Speed;
 			var deltaTime = runner.Game.Frames.Predicted.Time - shot.StartTime;
 			var previousTime = shot.PreviousTime - shot.StartTime;
-			
+
 			// We increase number of shots on 1 to count angleStep for gaps rather than for shots
-			var angleStep = shot.AttackAngle / (FP)(shot.NumberOfShots + 1);
+			var angleStep = shot.AttackAngle / (FP) (shot.NumberOfShots + 1);
 			var angle = -(int) shot.AttackAngle / FP._2;
 			angle += shot.AccuracyModifier;
 
@@ -193,18 +225,16 @@ public partial class SROptions
 				speed = FP._1;
 				deltaTime = shot.Range / speed;
 			}
-			
+
 			for (var i = 0; i < shot.NumberOfShots; i++)
 			{
-
 				angle += angleStep;
 
 				var direction = FPVector2.Rotate(shot.Direction, angle * FP.Deg2Rad).XOY * speed;
 				var previousPosition = shot.SpawnPosition + direction * previousTime;
 				var currentPosition = shot.SpawnPosition + direction * deltaTime;
-				
+
 				Debug.DrawLine(previousPosition.ToUnityVector3(), currentPosition.ToUnityVector3(), Color.magenta, dt);
-				
 			}
 		}
 	}

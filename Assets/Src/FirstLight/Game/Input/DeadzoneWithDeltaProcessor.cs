@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,7 +5,7 @@ namespace FirstLight.Game.Input
 {
 	
 #if UNITY_EDITOR
-	[InitializeOnLoad]
+	[UnityEditor.InitializeOnLoad]
 #endif
 
 	/// <summary>

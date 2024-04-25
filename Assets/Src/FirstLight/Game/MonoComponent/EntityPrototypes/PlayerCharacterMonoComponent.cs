@@ -1,4 +1,3 @@
-
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
@@ -72,6 +71,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				_playerView.GetComponent<MatchCharacterViewMonoComponent>()?.ShowAllEquipment();
 			}
+
 			_shadowBlob.SetActive(true);
 			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
 		}
@@ -80,19 +80,21 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			if (HasRenderedView()) return;
 			var frame = game.Frames.Verified;
-			InstantiateAvatar(game, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player).Forget();
+			InstantiateAvatar(game, frame, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player).Forget();
 		}
-		
+
 		public bool ShouldDisplayColorTag()
 		{
 			if (PlayerView == null || this.IsDestroyed() || PlayerView.IsEntityDestroyed())
 			{
 				return false;
 			}
+
 			if (TeamSystem.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), PlayerView.EntityRef).Count < 1)
 			{
 				return false;
 			}
+
 			return !PlayerView.IsSkydiving && _services.TeamService.IsSameTeamAsSpectator(EntityView.EntityRef);
 		}
 
@@ -109,13 +111,14 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				AddLegacyCollider(obj);
 			}
+
 			obj.AddComponent<RenderersContainerProxyMonoComponent>();
 			obj.AddComponent<MatchCharacterViewMonoComponent>();
 			obj.AddComponent<PlayerCharacterViewMonoComponent>();
 			OnLoaded(skin.Id, obj, true);
 			return obj;
 		}
-		
+
 		private void AddLegacyCollider(GameObject obj)
 		{
 			// Legacy collider for old visibility volumes
@@ -126,10 +129,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			newCollider.direction = 1; // Y axis
 			newCollider.isTrigger = true;
 		}
-		
-		private async UniTaskVoid InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)
+
+		private async UniTaskVoid InstantiateAvatar(QuantumGame quantumGame, Frame frame, PlayerRef player)
 		{
-			var frame = quantumGame.Frames.Verified;
 			var stats = frame.Get<Stats>(EntityView.EntityRef);
 			var loadout = PlayerLoadout.GetLoadout(frame, EntityView.EntityRef);
 			var skinInstance = await LoadCharacterSkin(loadout.Cosmetics);

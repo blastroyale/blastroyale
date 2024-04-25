@@ -14,8 +14,10 @@ using FirstLight.Server.SDK.Services;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.AdminModels;
+using PlayFab.AuthenticationModels;
 using PlayFab.Internal;
 using PlayFab.ServerModels;
+using Scripts.Base;
 using AddPlayerTagRequest = PlayFab.AdminModels.AddPlayerTagRequest;
 using GetAllSegmentsRequest = PlayFab.ServerModels.GetAllSegmentsRequest;
 using GetPlayerProfileRequest = PlayFab.ServerModels.GetPlayerProfileRequest;
@@ -35,6 +37,8 @@ public class PlayfabConfiguration
 	public string TitleId;
 	public string SecretKey;
 	public string AllPlayersSegmentId;
+	public string ServerSecretKey;
+	public string ServerBaseEndpoint;
 }
 
 /// <summary>
@@ -54,6 +58,9 @@ public enum PlayfabEnvironment
 public abstract class PlayfabScript : IScript
 {
 	private static string ReadFromFile = "read_from_file";
+	private static string PlayFabSecretFilename = "playfab_key.txt";
+	private static string ServerSecretFilename = "server_key.txt";
+	
 
 	private Dictionary<PlayfabEnvironment, PlayfabConfiguration> _envSetups = new()
 	{
@@ -62,7 +69,9 @@ public abstract class PlayfabScript : IScript
 			{
 				TitleId = "***REMOVED***",
 				SecretKey = "***REMOVED***",
-				AllPlayersSegmentId = "97EC6C2DE051B678"
+				AllPlayersSegmentId = "97EC6C2DE051B678",
+				ServerBaseEndpoint = "https://dev-hub-account-service.blastroyale.com/", 
+				ServerSecretKey = "devkey"
 			}
 		},
 
@@ -71,7 +80,9 @@ public abstract class PlayfabScript : IScript
 			{
 				TitleId = "***REMOVED***",
 				SecretKey = "***REMOVED***",
-				AllPlayersSegmentId = "1ECB17662366E940"
+				AllPlayersSegmentId = "1ECB17662366E940",
+				ServerBaseEndpoint = "https://dev-hub-account-service.blastroyale.com/", 
+				ServerSecretKey = "stagingkey"
 			}
 		},
 		{
@@ -79,7 +90,9 @@ public abstract class PlayfabScript : IScript
 			{
 				TitleId = "***REMOVED***",
 				SecretKey = "***REMOVED***",
-				AllPlayersSegmentId = "	4F3220F8011EE630"
+				AllPlayersSegmentId = "	4F3220F8011EE630",
+				ServerBaseEndpoint = "https://dev-hub-account-service.blastroyale.com/", 
+				ServerSecretKey = "testnetkey"
 			}
 		},
 
@@ -88,7 +101,9 @@ public abstract class PlayfabScript : IScript
 			{
 				TitleId = "***REMOVED***",
 				SecretKey = ReadFromFile,
-				AllPlayersSegmentId = "98523D5E0EF3941"
+				AllPlayersSegmentId = "98523D5E0EF3941",
+				ServerBaseEndpoint = "https://mainnet-prod-hub-account-service.blastroyale.com/", 
+				ServerSecretKey = ReadFromFile
 			}
 		},
 	};
@@ -150,15 +165,40 @@ public abstract class PlayfabScript : IScript
 	{
 		var playfabSetup = _envSetups[environment];
 		PlayFabSettings.staticSettings.TitleId = playfabSetup.TitleId;
-		var key = playfabSetup.SecretKey;
-		if (key == ReadFromFile)
-		{
-			var keyPath = Path.Combine(Environment.CurrentDirectory, "playfab_key.txt");
-			key = File.ReadAllText(keyPath);
-		}
+		var key = ResolveSecretKey(playfabSetup.SecretKey, PlayFabSecretFilename);
+		var serverKey = ResolveSecretKey(playfabSetup.ServerSecretKey, ServerSecretFilename);
 
 		PlayFabSettings.staticSettings.DeveloperSecretKey = key;
+		ConfigRegistry.Set("ServerSecretKey", serverKey);
+		ConfigRegistry.Set("ServerBaseEndpoint", playfabSetup.ServerBaseEndpoint);
+		
 		Console.WriteLine($"Using Playfab Title {PlayFabSettings.staticSettings.TitleId}");
+	}
+	
+	private string ResolveSecretKey(string key, string fileName)
+	{
+		if (key == ReadFromFile)
+		{
+			try
+			{
+				var keyPath = Path.Combine(Environment.CurrentDirectory, fileName);
+				return File.ReadAllText(keyPath);
+			}
+			catch (IOException ex)
+			{
+				Console.Error.WriteLine($"Error reading file {fileName}: {ex.Message}");
+				return null;  // or throw, depending on how critical this failure is
+			}
+		}
+		return key;
+	}
+
+	protected async Task AuthenticateServer()
+	{
+		await PlayFabAuthenticationAPI.GetEntityTokenAsync(new GetEntityTokenRequest()
+		{
+			AuthenticationContext = new PlayFabAuthenticationContext()
+		}).HandleError();
 	}
 
 	public abstract PlayfabEnvironment GetEnvironment();

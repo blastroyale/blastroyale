@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using Quantum.Systems;
 using UnityEngine;
@@ -88,10 +88,8 @@ namespace FirstLight.Game.Views.UITK
 			_lowHPAnimation.Pause();
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
-			base.SubscribeToEvents();
-
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
@@ -103,7 +101,6 @@ namespace FirstLight.Game.Views.UITK
 			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 			_lowHPAnimation.Pause();
 			_lowHP.style.opacity = 1;
-
 		}
 
 		private void OnPlayerRevived(EventOnPlayerRevived callback)
@@ -111,7 +108,6 @@ namespace FirstLight.Game.Views.UITK
 			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 			_lowHPAnimation.Pause();
 			_lowHP.style.opacity = 0;
-			
 		}
 
 		private void OnHealthChanged(EventOnHealthChanged callback)
@@ -124,7 +120,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				return;
 			}
-			
+
 			var shouldShowLowHP = callback.CurrentHealth <= _lowHPThreshold;
 			if (shouldShowLowHP == _lowHPAnimation.isActive) return;
 
@@ -140,9 +136,9 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
-			base.UnsubscribeFromEvents();
+			base.OnScreenClose();
 
 			QuantumEvent.UnsubscribeListener(this);
 		}
@@ -165,6 +161,11 @@ namespace FirstLight.Game.Views.UITK
 
 			var notification = _killedPlayersQueue.Dequeue();
 			var killstreak = notification.Item2;
+
+			if (!Element.IsAttached())
+			{
+				return;
+			}
 
 			if (killstreak == 2)
 			{

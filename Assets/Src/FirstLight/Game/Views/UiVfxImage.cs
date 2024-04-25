@@ -23,7 +23,7 @@ namespace FirstLight.Game.Views
 		}
 
 		public void Play(Sprite sprite, float delay, Vector3 originWorldPosition, Vector3 targetWorldPosition,
-			Action onComplete)
+						 Action onComplete)
 		{
 			_image.sprite = sprite;
 			_image.enabled = false;

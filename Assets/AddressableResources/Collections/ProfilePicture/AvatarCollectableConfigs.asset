@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Config:
     GameIdUrlDictionary:
-      _keyData: 7400000075000000760000007800000079000000960000009700000098000000990000009A0000009B0000009C0000009D0000009E0000009F000000A0000000A1000000A2000000A3000000A4000000A5000000A6000000A7000000A8000000A9000000AA000000AB000000AC000000AD000000AE000000AF000000B0000000B1000000B2000000B3000000B4000000B5000000B6000000B7000000B8000000B9000000BA000000BB000000BC000000BD000000BE000000BF000000C0000000C1000000C2000000
+      _keyData: 7400000075000000760000007800000079000000960000009700000098000000990000009a0000009b0000009c0000009d0000009e0000009f000000a0000000a1000000a2000000a3000000a4000000a5000000a6000000a7000000a8000000a9000000aa000000ab000000ac000000ad000000ae000000af000000b0000000b1000000b2000000b3000000b4000000b5000000b6000000b7000000b8000000b9000000ba000000bb000000bc000000bd000000be000000bf000000c0000000c1000000c2000000f4010000f5010000f6010000f7010000f8010000f9010000fa010000fb010000fc010000
       _valueData:
       - https://prodflgimagestorage.blob.core.windows.net/avatars/Avatar1.png
       - https://prodflgimagestorage.blob.core.windows.net/avatars/Avatar2.png
@@ -66,4 +66,12 @@ MonoBehaviour:
       - https://prodflgimagestorage.blob.core.windows.net/avatars/rocketads.png
       - https://prodflgimagestorage.blob.core.windows.net/avatars/superstarloveads.png
       - https://prodflgimagestorage.blob.core.windows.net/avatars/unicornssticker.png
-
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/brandfemale.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/brandmale.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/egirl.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/gearedape.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/leprechaun.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/ninja.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/ninjaalternative.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/policefemale.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/plaguedoctormystery.png

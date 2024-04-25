@@ -28,21 +28,19 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IInternalGameNetworkService _networkService;
-		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		
 		private Coroutine _csPoolTimerCoroutine;
 
-		public CoreLoopState(ReconnectionState reconnection, IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, IGameUiService uiService, IGameLogic gameLogic, 
+		public CoreLoopState(ReconnectionState reconnection, IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, 
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger, IRoomService roomService)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
 			_networkService = networkService;
-			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
-			_matchState = new MatchState(services, dataService, networkService, uiService, gameLogic, assetAdderService, statechartTrigger,roomService);
-			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, statechartTrigger);
+			_matchState = new MatchState(services, dataService, networkService, dataProvider, assetAdderService, statechartTrigger,roomService);
+			_mainMenuState = new MainMenuState(services, dataProvider, assetAdderService, statechartTrigger);
 			_reconnection = reconnection;
 		}
 
@@ -68,7 +66,6 @@ namespace FirstLight.Game.StateMachines
 			reconnection.Nest(_reconnection.Setup).Target(firstMatchCheck);
 
 			firstMatchCheck.Transition().Condition(InRoom).Target(match);
-			firstMatchCheck.Transition().Condition(CheckSkipTutorial).Target(mainMenu);
 			firstMatchCheck.Transition().Condition(HasCompletedFirstGameTutorial).Target(mainMenu);
 			firstMatchCheck.Transition().Target(joinTutorialRoom);
 			
@@ -97,33 +94,9 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		/// <summary>
-		/// If player already have items equipped, he does not need to do tutorial
-		/// This is to allow players to skip tutorial if they are not new as we implement more tutorial steps.
-		///
-		/// The main reason is to easily avoid edge cases e.g a player which item on slot 1 in inventory equipped but
-		/// meta tutorial will ask player to equip while blocking the UI, soft locking the game.
-		/// </summary>
-		private bool CheckSkipTutorial()
-		{
-			if (_dataProvider.EquipmentDataProvider.Loadout.Count >= 1)
-			{
-				if (!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH))
-				{
-					_services.CommandService.ExecuteCommand(new CompleteTutorialSectionCommand()
-					{
-						Section = TutorialSection.FIRST_GUIDE_MATCH
-					});
-				}
-
-				return true;
-			}
-			return false;
-		}
-
 		private async UniTask TutorialJoinTask(bool transition = false)
 		{
-			await _services.GameUiService.CloseUi<PrivacyDialogPresenter>();
+			await _services.UIService.CloseScreen<PrivacyDialogPresenter>(false);
 			if (transition)
 			{
 				await TransitionScreen();
@@ -135,36 +108,33 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
 		}
 
-		private async UniTask TransitionScreen()
+		private UniTask TransitionScreen()
 		{
-			await SwipeScreenPresenter.StartSwipe();
-			await _uiService.CloseUi<LoadingScreenPresenter>();
+			return _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
 		}
 
 		private async UniTask AcceptPrivacyDialog()
 		{
-			await TransitionScreen();
-			var data = new PrivacyDialogPresenter.StateData()
+			var data = new PrivacyDialogPresenter.StateData
 			{
 				OnAccept = AcceptTerms
 			};
-			await _services.GameUiService.OpenUiAsync<PrivacyDialogPresenter, PrivacyDialogPresenter.StateData>(data);
+			await _services.UIService.OpenScreen<PrivacyDialogPresenter>(data);
 		}
 
 		private void AcceptTerms()
 		{
-			
-			_ = TutorialJoinTask();
+			TutorialJoinTask().Forget();
 		}
 
 		private void AttemptJoinTutorialRoom()
 		{
 			if (_dataProvider.AppDataProvider.IsFirstSession)
 			{
-				_ = AcceptPrivacyDialog();
+				AcceptPrivacyDialog().Forget();
 				return;
 			}
-			_ = TutorialJoinTask(true);
+			TutorialJoinTask(true).Forget();
 		}
 
 		private void SubscribeEvents()
@@ -179,7 +149,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasCompletedFirstGameTutorial()
 		{
-			return !FeatureFlags.TUTORIAL ||_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH);
+			return _services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH);
 		}
 	}
 }

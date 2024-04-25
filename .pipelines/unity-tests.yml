@@ -1,0 +1,70 @@
+parameters:
+  - name: testPlatform
+    type: string
+    displayName: Edit or Play tests
+    default: 'EditMode'
+
+steps:
+  - script: |
+      msbuild \
+      ./Quantum/quantum_code/quantum_code.sln \
+      -restore \
+      -p:Configuration=Debug \
+      -p:RestorePackagesConfig=true
+    displayName: 'Quantum Build'
+
+  - task: UnityGetProjectVersionTask@1
+    name: projectversion
+
+  - task: UnityTestTask@1
+    name: unitytest
+    inputs:
+      unityProjectPath: $(System.DefaultWorkingDirectory)
+      testResultsPath: $(System.DefaultWorkingDirectory)/TestResults
+      unityVersion: $(projectversion.projectVersion)
+      testMode: editMode
+      testCategory: '!PlayMode'
+      additionalCmdArgs: -EnableCacheServer -cacheServerEndpoint localhost:10080
+
+  - task: UnityCMDTask@1
+    name: unitycmd
+    inputs:
+      unityVersion: $(projectversion.projectVersion)
+      unityProjectPath: $(System.DefaultWorkingDirectory)
+      cmdArgs: -executeMethod FirstLight.Editor.EditorTools.BackendMenu.MoveBackendDlls -quit -quitTimeout 300 -EnableCacheServer -cacheServerEndpoint localhost:10080
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'NUnit'
+      testResultsFiles: '$(System.DefaultWorkingDirectory)/TestResults/*.xml' # string. Required. Test results files. Default: **/TEST-*.xml.
+    displayName: 'Publish Test Results'
+    condition: always()
+  
+  # Having issues with the below tasks, logged here:
+  # https://github.com/Dinomite-Studios/unity-azure-pipelines-tasks/issues/219
+  # These will need to stay commented out until the above issue is resolved.
+  # The compromise is that the above three tasks will work in the meantime, but the below three are preferred.
+  # - task: UnityTestTask@1
+  #   name: unitytest
+  #   inputs:
+  #     testMode: ${{ parameters.testPlatform }}
+  
+  # - script: |
+  #     echo "Outputting test results to: $(unitytest.testResultsOutputPathAndFileName)"
+  
+  # - task: PublishTestResults@2
+  #   inputs:
+  #     testResultsFormat: 'NUnit'
+  #     testResultsFiles: $(unitytest.testResultsOutputPathAndFileName) # string. Required. Test results files. Default: **/TEST-*.xml.
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Agent.TempDirectory)'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/AgentTempDirectory/'
+    displayName: 'Copy Agent.TempDirectory to drop'
+    condition: eq(variables['system.debug'], 'true')
+
+  - publish: $(Build.ArtifactStagingDirectory)/AgentTempDirectory/
+    artifact: AgentTempDirectory
+    condition: eq(variables['system.debug'], 'true')

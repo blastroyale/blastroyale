@@ -67,12 +67,13 @@ namespace FirstLight.Editor.Ids
 			{"COIN", 61, Currency},
 			{"BlastBuck", 105, Currency},
 			{"BLST", 14, Currency},
-			{"Fragments", 112, Currency},
+			{"Fragments", 112, Currency, Deprecated},
+			{"NOOB", 209, Currency},
 			{"CS", 12, Currency, ResourcePool},
 			{"XP", 3, Resource},
 			{"Trophies", 22, Resource},
 			{"BPP", 26, Resource, ResourcePool},
-			{"FloodCity", 137, Map},
+			{"FloodCity", 137, Map, Deprecated},
 			{"MainDeck", 143, Map},
 			{"FtueDeck", 5, Map},
 			{"SmallWilderness", 144, Map},
@@ -206,11 +207,18 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinBoudicca", 139}, // placeholder ID for the future skin
 			{"PlayerSkinCupid", 142, PlayerSkin, BotItem, Collection},
 			{"PlayerSkinPanda", 400, PlayerSkin, Collection},
-			{"PlayerSkinLeprechaun", 401}, // placeholder ID for the future skin
 			{"PlayerSkinDragon", 402}, // placeholder ID for the future skin
 			{"PlayerSkinSnowboarder", 403, PlayerSkin, Collection},
 			{"PlayerSkinDunePaul", 404, PlayerSkin, Collection},
 			{"PlayerSkinViking", 405, PlayerSkin, Collection},
+			{"PlayerSkinLeprechaun", 401, PlayerSkin, Collection},
+			{"PlayerSkinEGirl", 196, PlayerSkin, Collection},
+			{"PlayerSkinPoliceFemale", 199, PlayerSkin, Collection},
+			{"PlayerSkinNinja", 201, PlayerSkin, Collection},
+			{"PlayerSkinBrandFemale", 202, PlayerSkin, Collection, BotItem},
+			{"PlayerSkinBrandMale", 203, PlayerSkin, Collection, BotItem},
+			{"PlayerSkinGearedApe", 204, PlayerSkin, Collection},
+			{"PlayerSkinPlagueDoctor", 205, PlayerSkin, Collection},
 
 			#endregion Player skins
 
@@ -255,6 +263,10 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinWrench", 318, MeleeSkin, Collection},
 			{"MeleeSkinYouGotMail", 319, MeleeSkin, Collection},
 			{"MeleeSkinXmas2023", 320, MeleeSkin, Collection, BotItem},
+			{"MeleeSkinBaton", 129, MeleeSkin, Collection},
+			{"MeleeSkinKatana", 206, MeleeSkin, Collection},
+			{"MeleeSkinKeyboard", 207, MeleeSkin, Collection},
+			{"MeleeSkinMagicalShillelagh", 208, MeleeSkin, Collection},
 			
 			#endregion
 
@@ -312,6 +324,16 @@ namespace FirstLight.Editor.Ids
 			{"AvatarRocketads", 192, ProfilePicture, Collection},
 			{"AvatarSuperstarloveads", 193, ProfilePicture, Collection},
 			{"AvatarUnicornssticker", 194, ProfilePicture, Collection},
+			{"AvatarBrandfemale", 500, ProfilePicture, Collection},
+			{"AvatarBrandmale", 501, ProfilePicture, Collection},
+			{"AvatarEgirl", 502, ProfilePicture, Collection},
+			{"AvatarGearedape", 503, ProfilePicture, Collection},
+			{"AvatarLeprechaun", 504, ProfilePicture, Collection},
+			{"AvatarNinja", 505, ProfilePicture, Collection},
+			{"AvatarNinjaalternative", 506, ProfilePicture, Collection},
+			{"AvatarPolicefemale", 507, ProfilePicture, Collection},
+			{"AvatarPlaguedoctormystery", 508, ProfilePicture, Collection},
+
 
 			#endregion
 

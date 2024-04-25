@@ -85,13 +85,15 @@ namespace FirstLight.Game.Logic
 			{
 				CollectionCategories.PROFILE_PICTURE, new List<ItemData>()
 				{
-					ItemFactory.Collection(GameId.Avatar2)
+					ItemFactory.Collection(GameId.AvatarBrandmale),
+					ItemFactory.Collection(GameId.AvatarBrandfemale),
 				}
 			},
 			{
 				CollectionCategories.PLAYER_SKINS, new List<ItemData>
 				{
-					ItemFactory.Collection(GameId.MaleAssassin),
+					ItemFactory.Collection(GameId.PlayerSkinBrandMale),
+					ItemFactory.Collection(GameId.PlayerSkinBrandFemale),
 				}
 			},
 			{
@@ -126,8 +128,8 @@ namespace FirstLight.Game.Logic
 			{CollectionCategories.GLIDERS, ItemFactory.Collection(GameId.Turbine)},
 			{CollectionCategories.GRAVE, ItemFactory.Collection(GameId.Demon)},
 			{CollectionCategories.MELEE_SKINS, ItemFactory.Collection(GameId.MeleeSkinDefault)},
-			{CollectionCategories.PROFILE_PICTURE, ItemFactory.Collection(GameId.Avatar2)},
-			{CollectionCategories.PLAYER_SKINS, ItemFactory.Collection(GameId.MaleAssassin)},
+			{CollectionCategories.PROFILE_PICTURE, ItemFactory.Collection(GameId.AvatarBrandmale)},
+			{CollectionCategories.PLAYER_SKINS, ItemFactory.Collection(GameId.PlayerSkinBrandMale)},
 		};
 		
 		public IReadOnlyDictionary<CollectionCategory, List<ItemData>> DefaultCollectionItems => Logic.DefaultCollectionItems.Items;

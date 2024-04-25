@@ -7,32 +7,32 @@ AvatarMask:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: character_attack_mask
-  m_Mask: 00000000010000000100000000000000000000000100000001000000010000000100000000000000000000000100000001000000
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
   m_Elements:
   - m_Path: 
     m_Weight: 1
   - m_Path: Armature
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Hips
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Hips/UpLeg.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Hips/UpLeg.L/Leg.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L/toe.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Hips/UpLeg.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Hips/UpLeg.R/Leg.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R/toe.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Hips/Spine
     m_Weight: 1
   - m_Path: Armature/Root/Hips/Spine/Chest
@@ -42,6 +42,8 @@ AvatarMask:
   - m_Path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck
     m_Weight: 1
   - m_Path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head
+    m_Weight: 1
+  - m_Path: Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
     m_Weight: 1
   - m_Path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.L
     m_Weight: 1
@@ -91,17 +93,15 @@ AvatarMask:
     m_Weight: 1
   - m_Path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/thumb01.R/thumb02.R/thumb03.R
     m_Weight: 1
-  - m_Path: Armature/Root/Hips/Spine/Chest/Upper_Chest/shoulder.R/arm.R/forearm.R/hand.R/weapon
-    m_Weight: 1
   - m_Path: Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
     m_Weight: 1
+  - m_Path: Armature/Root/Hips/Spine/weapon_melee
+    m_Weight: 1
+  - m_Path: Armature/Root/Hips/Spine/weapon_xlmelee
+    m_Weight: 1
+  - m_Path: Armature/Root/Hips/Spine/weapon
+    m_Weight: 1
   - m_Path: body
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: head
-    m_Weight: 1
-  - m_Path: melee
-    m_Weight: 1
-  - m_Path: gun
-    m_Weight: 1
-  - m_Path: XLgun
-    m_Weight: 1
+    m_Weight: 0

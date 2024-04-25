@@ -4,6 +4,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -50,7 +51,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			_dataProvider.PlayerDataProvider.Level.InvokeObserve(OnFameUpdated);
 		}
@@ -77,7 +78,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			_dataProvider.PlayerDataProvider.Level.StopObserving(OnFameUpdated);
 		}

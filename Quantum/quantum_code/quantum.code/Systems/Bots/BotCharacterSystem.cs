@@ -11,7 +11,7 @@ namespace Quantum.Systems.Bots
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="BotCharacter"/>
 	/// </summary>
-	public unsafe class BotCharacterSystem : SystemMainThreadFilter<BotCharacterSystem.BotCharacterFilter>,
+	public unsafe class BotCharacterSystem : SystemMainThread,
 											 ISignalHealthChangedFromAttacker,
 											 ISignalAllPlayersSpawned, ISignalOnNavMeshWaypointReached,
 											 ISignalOnNavMeshSearchFailed, ISignalOnComponentRemoved<BotCharacter>,
@@ -53,9 +53,16 @@ namespace Quantum.Systems.Bots
 			_botSetup.InitializeBots(f, averagePlayerTrophies);
 		}
 
-		public override void Update(Frame f, ref BotCharacterFilter filter)
+		public override void Update(Frame f)
 		{
-			Update(f, CreateGlobalContext(f), ref filter);
+			var it = f.Unsafe.FilterStruct<BotCharacterFilter>();
+			it.UseCulling = true;
+			var filter = default(BotCharacterFilter);
+			var botCtx = CreateGlobalContext(f);
+			while (it.Next(&filter))
+			{
+				Update(f, botCtx, ref filter);
+			}
 		}
 
 		private BotUpdateGlobalContext CreateGlobalContext(Frame f)
@@ -212,7 +219,9 @@ namespace Quantum.Systems.Bots
 		public void HealthChangedFromAttacker(Frame f, EntityRef entity, EntityRef attacker, int previousHealth)
 		{
 			if (ReviveSystem.IsKnockedOut(f, entity)) return;
-			if (f.RNG->NextBool()) return; // 50% chance bots ignore
+			
+			// Test change. Bots ALWAYS react on getting damaged
+			//if (f.RNG->NextBool()) return; // 50% chance bots ignore
 
 			BotLogger.LogAction(entity, $"Bot took damage from {attacker}");
 			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot)) return;
@@ -246,12 +255,25 @@ namespace Quantum.Systems.Bots
 				}
 				else
 				{
-					bot->SetHasWaypoint(entity, f);
-					bot->MoveTarget = attacker;
-					bot->SetNextDecisionDelay(f, FP._3);
-					bot->NextLookForTargetsToShootAtTime = f.Time;
-					BotMovement.MoveToLocation(f, entity, attackerLocation->Position);
-					BotLogger.LogAction(entity, $"Attacker too distant, coming closer");
+					// A bot goes to the attacker if a bot has a gun. Otherwise - run away
+					if (!f.Get<PlayerCharacter>(entity).HasMeleeWeapon(f, entity))
+					{
+						bot->SetHasWaypoint(entity, f);
+						bot->MoveTarget = attacker;
+						bot->SetNextDecisionDelay(f, FP._3);
+						bot->NextLookForTargetsToShootAtTime = f.Time;
+						BotMovement.MoveToLocation(f, entity, attackerLocation->Position);
+						BotLogger.LogAction(entity, $"Attacker too distant, coming closer");
+					}
+					else
+					{
+						var runawayPoint = (attackerLocation->Position - botLocation->Position).Normalized * FP._10;
+						if (BotMovement.MoveToLocation(f, entity, runawayPoint))
+						{
+							bot->SetNextDecisionDelay(f, bot->DecisionInterval);
+							BotLogger.LogAction(entity, $"Attacker too distant, but I have melee; running away");
+						}
+					}
 				}
 			}
 			else // bot already has a valid target

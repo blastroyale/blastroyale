@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using UnityEngine.UIElements;
 
@@ -102,12 +104,12 @@ namespace FirstLight.Game.Views.UITK
 			{
 				_genericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, pe.Error.GetTranslation(),
 					true,
-					new GenericDialogButton());
+					new GenericDialogButton()).Forget();
 				FLog.Warn("Error on kicking squad member", pe);
 			}
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			_partyService.HasParty.InvokeObserve(OnHasPartyChanged);
 			_partyService.PartyCode.InvokeObserve(OnPartyCodeChanged);
@@ -131,7 +133,7 @@ namespace FirstLight.Game.Views.UITK
 			_container.EnableInClassList(UssPartyHidden, !hasParty);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			_partyService.HasParty.StopObservingAll(this);
 		}

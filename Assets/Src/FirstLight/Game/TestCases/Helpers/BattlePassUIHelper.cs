@@ -26,7 +26,7 @@ namespace FirstLight.Game.TestCases.Helpers
 				yield break;
 			}
 
-			yield return _uiHelper.TouchOnElement(searchResult.Value.Item1.rootVisualElement, searchResult.Value.Item2);
+			yield return _uiHelper.TouchOnElement(searchResult.Value.Item1, searchResult.Value.Item2);
 		}
 
 		public IEnumerator WaitRewardDialogAndClaimIt()

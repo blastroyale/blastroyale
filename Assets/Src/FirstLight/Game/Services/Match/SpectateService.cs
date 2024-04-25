@@ -181,17 +181,19 @@ namespace FirstLight.Game.Services
 		{
 			var game = callback.Game;
 
+			var entityIsValid = _spectatedPlayer.Value.Entity.IsValid;
+			
 			// This stupidity along with all the TryGetNextPlayer nonsense is needed because apparently Quantum lags
 			// behind when we're in Spectate mode, meaning that we aren't able to fetch the initial spectated player
 			// on the first frame the same way we can in normal mode. SMH.
-			if (!_spectatedPlayer.Value.Entity.IsValid &&
+			if (!entityIsValid &&
 				_gameServices.RoomService.IsLocalPlayerSpectator &&
 				TryGetNextPlayer(game, out var player))
 			{
 				SetSpectatedEntity(callback.Game.Frames.Verified, player.Entity, player.Player, true);
 			}
 
-			if (_spectatedPlayer.Value.Entity.IsValid && game.Frames.Predicted.Unsafe.TryGetPointer<Transform3D>(_spectatedPlayer.Value.Entity,
+			if (entityIsValid && game.Frames.Predicted.Unsafe.TryGetPointer<Transform3D>(_spectatedPlayer.Value.Entity,
 					out var transform3D))
 			{
 				game.SetPredictionArea(transform3D->Position, _playerVisionRange);

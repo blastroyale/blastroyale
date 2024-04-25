@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7875166284286133813}
   - component: {fileID: 3688755901375138552}
   - component: {fileID: 6247810007438976043}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4850,7 +4850,7 @@ GameObject:
   - component: {fileID: 1013405764868694880}
   - component: {fileID: 5175459293846547935}
   - component: {fileID: 8189157762390310043}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: VFX_MuzzleStandard
   m_TagString: Untagged
   m_Icon: {fileID: 0}

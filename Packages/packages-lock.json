@@ -6,13 +6,6 @@
       "source": "embedded",
       "dependencies": {}
     },
-    "com.autodesk.fbx": {
-      "version": "4.2.1",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "com.bakery": {
       "version": "file:Bakery",
       "depth": 0,
@@ -33,46 +26,34 @@
       "dependencies": {}
     },
     "com.google.external-dependency-manager": {
-      "version": "file:../Google/com.google.external-dependency-manager-1.2.176.tgz",
+      "version": "file:../Google/com.google.external-dependency-manager-1.2.179.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
     },
     "com.google.firebase.analytics": {
-      "version": "file:../Google/com.google.firebase.analytics-11.2.0.tgz",
+      "version": "file:../Google/com.google.firebase.analytics-11.8.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "11.2.0"
+        "com.google.firebase.app": "11.8.0"
       }
     },
     "com.google.firebase.app": {
-      "version": "file:../Google/com.google.firebase.app-11.2.0.tgz",
+      "version": "file:../Google/com.google.firebase.app-11.8.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.external-dependency-manager": "1.2.176"
+        "com.google.external-dependency-manager": "1.2.177"
       }
     },
     "com.google.firebase.crashlytics": {
-      "version": "file:../Google/com.google.firebase.crashlytics-11.2.0.tgz",
+      "version": "file:../Google/com.google.firebase.crashlytics-11.8.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "11.2.0"
+        "com.google.firebase.app": "11.8.0"
       }
-    },
-    "com.heurekagames.assethunterpro": {
-      "version": "file:com.heurekagames.assethunterpro",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
-    "com.heurekagames.utils": {
-      "version": "file:com.heurekagames.utils",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
     },
     "com.immutable.passport": {
       "version": "https://github.com/immutable/unity-immutable-sdk.git?path=/src/Packages/Passport",
@@ -84,21 +65,8 @@
       },
       "hash": "7d0a15d5658df6747d9ee5ecba310cbe783d463f"
     },
-    "com.jetbrains.riderflow": {
-      "version": "2023.1.0-25",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://npm.pkg.jetbrains.space/public/p/jetbrains-gamedev/jetbrains-gamedev"
-    },
     "com.l2": {
       "version": "file:I2",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
-    "com.osa": {
-      "version": "file:OSA",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
@@ -285,18 +253,8 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.formats.fbx": {
-      "version": "4.2.1",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.timeline": "1.7.1",
-        "com.autodesk.fbx": "4.2.1"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.ide.rider": {
-      "version": "3.0.27",
+      "version": "3.0.28",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -311,13 +269,6 @@
       "dependencies": {
         "com.unity.test-framework": "1.1.9"
       },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.ide.vscode": {
-      "version": "1.2.5",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
@@ -352,15 +303,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.mobile.notifications": {
-      "version": "2.3.1",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.androidjni": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.2.1",
       "depth": 0,
@@ -387,7 +329,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.purchasing": {
-      "version": "4.10.0",
+      "version": "4.11.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -468,13 +410,24 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.services.analytics": {
+      "version": "5.1.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.services.core": "1.10.1"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.services.authentication": {
-      "version": "2.7.2",
-      "depth": 2,
+      "version": "3.3.0",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.2.1",
-        "com.unity.services.core": "1.10.1",
+        "com.unity.services.core": "1.12.2",
         "com.unity.modules.unitywebrequest": "1.0.0",
         "com.unity.ugui": "1.0.0"
       },
@@ -587,12 +540,6 @@
       "source": "git",
       "dependencies": {},
       "hash": "48cbd360031104245ab583b8eb83420de070c610"
-    },
-    "unity-dependencies-hunter": {
-      "version": "file:DependenciesHunter",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

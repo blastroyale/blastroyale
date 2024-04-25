@@ -115,16 +115,14 @@ namespace FirstLight.Game.Services
 		public PlayerRef PlayerRef { get; }
 		public QuantumPlayerMatchData QuantumPlayerMatchData;
 		public Equipment Weapon { get; }
-		public Equipment [] Gear { get; }
-		public GameId [] Cosmetics { get; }
+		public GameId[] Cosmetics { get; }
 
 		public ClientCachedPlayerMatchData(PlayerRef playerRef, QuantumPlayerMatchData quantumData, Equipment weapon,
-							   Equipment [] gear, GameId [] cosmetics)
+										   GameId[] cosmetics)
 		{
 			PlayerRef = playerRef;
 			QuantumPlayerMatchData = quantumData;
 			Weapon = weapon;
-			Gear = gear;
 			Cosmetics = cosmetics;
 		}
 	}
@@ -141,7 +139,7 @@ namespace FirstLight.Game.Services
 		public QuantumPlayerMatchData LocalPlayerMatchData { get; private set; }
 		public PlayerRef LocalPlayerKiller { get; private set; }
 		public bool DiedFromRoofDamage { get; private set; }
-		public Dictionary<PlayerRef, ClientCachedPlayerMatchData> PlayerMatchData { get; private set; } = new();
+		public Dictionary<PlayerRef, ClientCachedPlayerMatchData> PlayerMatchData { get; private set; } = new ();
 		public List<ItemData> Rewards { get; private set; }
 		public int TrophiesChange { get; private set; }
 		public uint TrophiesBeforeChange { get; private set; }
@@ -214,6 +212,7 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
+
 			var frame = game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			LocalPlayer = game.GetLocalPlayerRef();
@@ -231,9 +230,9 @@ namespace FirstLight.Game.Services
 				}
 
 				var frameData = frame.GetPlayerData(quantumPlayerData.Data.Player);
-				
+
 				Equipment weapon = Equipment.None;
-				
+
 				if (PlayersFinalEquipment.ContainsKey(quantumPlayerData.Data.Player))
 				{
 					var equipmentData = PlayersFinalEquipment[quantumPlayerData.Data.Player];
@@ -246,7 +245,7 @@ namespace FirstLight.Game.Services
 				}
 
 				var cosmetics = PlayerLoadout.GetCosmetics(frame, quantumPlayerData.Data.Player);
-				var playerData = new ClientCachedPlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, Array.Empty<Equipment>(), cosmetics);
+				var playerData = new ClientCachedPlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, cosmetics);
 
 				if (game.PlayerIsLocal(playerData.PlayerRef))
 				{
@@ -303,6 +302,7 @@ namespace FirstLight.Game.Services
 			{
 				metaEarned[id] = amt;
 			}
+
 			var rewardSource = new RewardSource()
 			{
 				MatchData = QuantumPlayerMatchData,

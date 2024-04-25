@@ -12,7 +12,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[SetUp]
 		public void Init()
 		{
-			_appLogic = new AppLogic(GameLogic, DataService, AudioFxService);
+			_appLogic = new AppLogic(GameLogic, DataService);
 		}
 
 		// [Test]

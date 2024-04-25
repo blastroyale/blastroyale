@@ -12,9 +12,7 @@
     --sprite-home__background-dots-effect: url('/Assets/Art/UI/Sprites/Home/background-dots-effect.png');
     --sprite-home__background-gamemode-battleroyale-duos: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-duos.png');
     --sprite-home__background-gamemode-battleroyale-quads: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-quads.png');
-    --sprite-home__background-gamemode-battleroyale-quads-top: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-quads-top.png');
     --sprite-home__background-gamemode-battleroyale-solo: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-solo.png');
-    --sprite-home__background-gamemode-battleroyale-solo-top: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-solo-top.png');
     --sprite-home__background-gamemode-custom: url('/Assets/Art/UI/Sprites/Home/background-gamemode-custom.png');
     --sprite-home__background-inputfield: url('/Assets/Art/UI/Sprites/Home/background-inputfield.png');
     --sprite-home__background-matchmakingstatus: url('/Assets/Art/UI/Sprites/Home/background-matchmakingstatus.png');
@@ -107,6 +105,7 @@
     --sprite-home__glider-falcon: url('/Assets/Art/UI/Sprites/Home/glider-falcon.png');
     --sprite-home__glider-rocket: url('/Assets/Art/UI/Sprites/Home/glider-rocket.png');
     --sprite-home__glider-turbine: url('/Assets/Art/UI/Sprites/Home/glider-turbine.png');
+    --sprite-home__goji-season-reward: url('/Assets/Art/UI/Sprites/Home/goji-season-reward.png');
     --sprite-home__header-back: url('/Assets/Art/UI/Sprites/Home/header-back.png');
     --sprite-home__header-back-pressed: url('/Assets/Art/UI/Sprites/Home/header-back-pressed.png');
     --sprite-home__header-home: url('/Assets/Art/UI/Sprites/Home/header-home.png');
@@ -280,22 +279,10 @@
     height: 461px;
 }
 
-.sprite-home__background-gamemode-battleroyale-quads-top {
-    background-image: var(--sprite-home__background-gamemode-battleroyale-quads-top);
-    width: 491px;
-    height: 466px;
-}
-
 .sprite-home__background-gamemode-battleroyale-solo {
     background-image: var(--sprite-home__background-gamemode-battleroyale-solo);
     width: 430px;
     height: 461px;
-}
-
-.sprite-home__background-gamemode-battleroyale-solo-top {
-    background-image: var(--sprite-home__background-gamemode-battleroyale-solo-top);
-    width: 470px;
-    height: 436px;
 }
 
 .sprite-home__background-gamemode-custom {
@@ -804,6 +791,12 @@
     background-image: var(--sprite-home__glider-turbine);
     width: 512px;
     height: 512px;
+}
+
+.sprite-home__goji-season-reward {
+    background-image: var(--sprite-home__goji-season-reward);
+    width: 454px;
+    height: 732px;
 }
 
 .sprite-home__header-back {

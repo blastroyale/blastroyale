@@ -12,6 +12,7 @@
       "commandName": "Project",
       "applicationUrl": "http://localhost:7274;",
       "environmentVariables": {
+        "APPLICATIONINSIGHTS_CONNECTION_STRING": "InstrumentationKey=***REMOVED***;IngestionEndpoint=https://northeurope-2.in.applicationinsights.azure.com/;LiveEndpoint=https://northeurope.livediagnostics.monitor.azure.com/;ApplicationId=***REMOVED***",
         "SqlConnectionString": "Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "PLAYFAB_DEV_SECRET_KEY": "***REMOVED***",
@@ -22,7 +23,10 @@
         "API_URL": "***REMOVED***",
         "API_BLOCKCHAIN_SERVICE": "br-blockchain/blast-royale-equipment",
         "API_KEY": "devkey",
-        "APPLICATION_ENVIRONMENT": "dev"
+        "APPLICATION_ENVIRONMENT": "dev",
+        "UNITY_CLOUD_AUTH_TOKEN": "***REMOVED***",
+        "UNITY_CLOUD_ENVIRONMENT_NAME": "development",
+        "UNITY_CLOUD_ENVIRONMENT_ID": "***REMOVED***"
       },
       "IIS Express": {
         "commandName": "IISExpress",
@@ -46,7 +50,10 @@
         "API_URL": "***REMOVED***",
         "API_BLOCKCHAIN_SERVICE": "br-blockchain/blast-royale-equipment",
         "API_KEY": "stagingkey",
-        "APPLICATION_ENVIRONMENT": "dev"
+        "APPLICATION_ENVIRONMENT": "dev",
+        "UNITY_CLOUD_AUTH_TOKEN": "***REMOVED***",
+        "UNITY_CLOUD_ENVIRONMENT_NAME": "staging",
+        "UNITY_CLOUD_ENVIRONMENT_ID": "***REMOVED***"
       }
     }
   }

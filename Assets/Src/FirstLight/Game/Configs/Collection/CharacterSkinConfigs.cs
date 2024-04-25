@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -20,8 +19,7 @@ namespace FirstLight.Game.Configs
 	{
 		[Required] public GameId GameId;
 
-		[Required, RequirePrefabComponent(typeof(CharacterSkinMonoComponent))]
-		public AssetReferenceGameObject Prefab;
+		[Required] public AssetReferenceGameObject Prefab;
 
 		[Required] public AssetReferenceSprite Sprite;
 	}

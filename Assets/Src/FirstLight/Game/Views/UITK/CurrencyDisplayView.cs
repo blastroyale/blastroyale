@@ -3,6 +3,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
@@ -21,16 +22,15 @@ namespace FirstLight.Game.Views.UITK
 			_currency = (CurrencyDisplayElement) element;
 
 			_currency.Init(MainInstaller.Resolve<IGameDataProvider>(),
-				MainInstaller.Resolve<IMainMenuServices>(),
 				MainInstaller.Resolve<IGameServices>());
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			_currency.SubscribeToEvents();
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			_currency.UnsubscribeFromEvents();
 		}

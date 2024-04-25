@@ -15,6 +15,7 @@ using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
@@ -30,13 +31,12 @@ namespace FirstLight.Game.Presenters
 	/// In future iteration with new custom lobby screen, this screen will become a loading screen for both
 	/// matchmaking and custom lobby, just before players are dropped into the match.
 	/// </summary>
-	[LoadSynchronously]
-	public class PreGameLoadingScreenPresenter : UiToolkitPresenterData<PreGameLoadingScreenPresenter.StateData>
+	public class PreGameLoadingScreenPresenter : UIPresenterData<PreGameLoadingScreenPresenter.StateData>
 	{
 		private const int TIMER_PADDING_MS = 2000;
 		private const int DISABLE_LEAVE_AFTER = 3;
 
-		public struct StateData
+		public class StateData
 		{
 			public Action LeaveRoomClicked;
 		}
@@ -84,25 +84,23 @@ namespace FirstLight.Game.Presenters
 			_services?.NetworkService?.QuantumClient?.RemoveCallbackTarget(this);
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			base.QueryElements(root);
-
-			_mapHolder = root.Q("Map").Required();
-			_mapImage = root.Q("MapImage").Required();
-			_mapMarker = root.Q("MapMarker").Required();
-			_mapMarkerTitle = root.Q<Label>("MapMarkerTitle").Required();
-			_mapTitleBg = root.Q("MapTitleBg").Required();
-			_loadStatusLabel = root.Q<Label>("LoadStatusLabel").Required();
-			_locationLabel = root.Q<Label>("LocationLabel").Required();
-			_header = root.Q<ScreenHeaderElement>("Header").Required();
-			_modeDescTopLabel = root.Q<Label>("ModeDescTop").Required();
-			_modeDescBotLabel = root.Q<Label>("ModeDescBot").Required();
-			_debugPlayerCountLabel = root.Q<Label>("DebugPlayerCount").Required();
-			_debugMasterClient = root.Q<Label>("DebugMasterClient").Required();
-			_squadContainer = root.Q("SquadContainer").Required();
-			_squadMembersList = root.Q<ListView>("SquadList").Required();
-			_partyMarkers = root.Q("PartyMarkers").Required();
+			_mapHolder = Root.Q("Map").Required();
+			_mapImage = Root.Q("MapImage").Required();
+			_mapMarker = Root.Q("MapMarker").Required();
+			_mapMarkerTitle = Root.Q<Label>("MapMarkerTitle").Required();
+			_mapTitleBg = Root.Q("MapTitleBg").Required();
+			_loadStatusLabel = Root.Q<Label>("LoadStatusLabel").Required();
+			_locationLabel = Root.Q<Label>("LocationLabel").Required();
+			_header = Root.Q<ScreenHeaderElement>("Header").Required();
+			_modeDescTopLabel = Root.Q<Label>("ModeDescTop").Required();
+			_modeDescBotLabel = Root.Q<Label>("ModeDescBot").Required();
+			_debugPlayerCountLabel = Root.Q<Label>("DebugPlayerCount").Required();
+			_debugMasterClient = Root.Q<Label>("DebugMasterClient").Required();
+			_squadContainer = Root.Q("SquadContainer").Required();
+			_squadMembersList = Root.Q<ListView>("SquadList").Required();
+			_partyMarkers = Root.Q("PartyMarkers").Required();
 
 			_squadMembersList.DisableScrollbars();
 			_squadMembersList.makeItem = CreateSquadListEntry;
@@ -111,24 +109,34 @@ namespace FirstLight.Game.Presenters
 			_header.backClicked += OnCloseClicked;
 		}
 
-		protected override void SubscribeToEvents()
-		{
-			base.SubscribeToEvents();
 
+		protected override UniTask OnScreenOpen(bool reload)
+		{
 			_mapHolder.RegisterCallback<GeometryChangedEvent>(InitMap);
 
 			_services.RoomService.OnPlayersChange += OnPlayersChanged;
 			_services.RoomService.OnMasterChanged += UpdateMasterClient;
 			_services.RoomService.OnPlayerPropertiesUpdated += OnPlayerPropertiesUpdate;
-			_services.MessageBrokerService.Subscribe<WaitingMandatoryMatchAssetsMessage>(OnWaitingMandatoryMatchAssets);
-		}
 
-
-		protected override void OnOpened()
-		{
-			base.OnOpened();
 			RefreshPartyList();
 			UpdateMasterClient();
+
+			return base.OnScreenOpen(reload);
+		}
+
+		protected override UniTask OnScreenClose()
+		{
+			if (_gameStartTimerCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_gameStartTimerCoroutine);
+			}
+
+			_services.RoomService.OnPlayersChange -= OnPlayersChanged;
+			_services.RoomService.OnMasterChanged -= UpdateMasterClient;
+			_services.RoomService.OnPlayerPropertiesUpdated -= OnPlayerPropertiesUpdate;
+
+
+			return base.OnScreenClose();
 		}
 
 		private void RefreshPartyList()
@@ -198,28 +206,18 @@ namespace FirstLight.Game.Presenters
 			return label;
 		}
 
-		protected override void UnsubscribeFromEvents()
-		{
-			base.UnsubscribeFromEvents();
-
-			if (_gameStartTimerCoroutine != null)
-			{
-				_services.CoroutineService.StopCoroutine(_gameStartTimerCoroutine);
-			}
-
-			_services.MessageBrokerService.Unsubscribe<WaitingMandatoryMatchAssetsMessage>(OnWaitingMandatoryMatchAssets);
-		}
-
 		/// <summary>
 		///  Select the drop zone based on percentages of the map
+		/// Range of the input is 0 to 1
 		/// </summary>
 		public void SelectDropZone(float x, float y)
 		{
 			var mapWidth = _mapImage.contentRect.width;
+			var mapHeight = _mapImage.contentRect.height;
 
-			if (TrySetMarkerPosition(new Vector2(x * mapWidth, y * mapWidth)))
+			if (TrySetMarkerPosition(new Vector2(x * mapWidth, y * mapHeight)))
 			{
-				ConfirmMarkerPosition(new Vector2(x * mapWidth, y * mapWidth), false);
+				ConfirmMarkerPosition(_markerLocalPosition, false);
 			}
 			else
 			{
@@ -262,7 +260,8 @@ namespace FirstLight.Game.Presenters
 			var modeDesc = GetGameModeDescriptions(gameModeConfig.CompletionStrategy);
 
 			_locationLabel.text = mapConfig.Map.GetLocalization();
-			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, CurrentRoom.Properties.TeamSize.Value), matchType.GetLocalization().ToUpper());
+			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, CurrentRoom.Properties.TeamSize.Value),
+				matchType.GetLocalization().ToUpper());
 
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
@@ -285,11 +284,12 @@ namespace FirstLight.Game.Presenters
 
 			if (RejoiningRoom)
 			{
-				OnWaitingMandatoryMatchAssets(new WaitingMandatoryMatchAssetsMessage());
+				OnWaitingMandatoryMatchAssets();
 			}
 
 			await LoadMapAsset(mapConfig);
 			InitSkydiveSpawnMapData();
+			RefreshPartyList();
 		}
 
 		private void InitSkydiveSpawnMapData()
@@ -365,6 +365,11 @@ namespace FirstLight.Game.Presenters
 			return true;
 		}
 
+		/// <summary>
+		/// Accepts the position in the canvas (-mapWidth/2, -mapHeight/2) to (mapWidth/2, mapHeight/2)
+		/// </summary>
+		/// <param name="localPos"></param>
+		/// <param name="sendEvent"></param>
 		private void ConfirmMarkerPosition(Vector2 localPos, bool sendEvent)
 		{
 			if (!_services.RoomService.InRoom) return;
@@ -391,7 +396,7 @@ namespace FirstLight.Game.Presenters
 			RefreshPartyList();
 		}
 
-		private void OnWaitingMandatoryMatchAssets(WaitingMandatoryMatchAssetsMessage obj)
+		private void OnWaitingMandatoryMatchAssets()
 		{
 			if (_gameStartTimerCoroutine != null)
 			{

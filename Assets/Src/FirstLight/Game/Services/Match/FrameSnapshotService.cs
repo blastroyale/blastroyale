@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
@@ -35,13 +37,12 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface IFrameSnapshotService
 	{
-
 		/// <summary>
 		/// Takes a local snapshot of the current game state.
 		/// Saves the current snapshot (RoomSetup + Frame Data) in AppData
 		/// </summary>
 		void TakeSnapshot(QuantumGame game);
-		
+
 		/// <summary>
 		/// Clears last frame snapshot from AppData.
 		/// </summary>
@@ -56,7 +57,7 @@ namespace FirstLight.Game.Services
 	{
 		public byte AmtPlayers;
 		public bool Offline;
-		public long TimeInTicks;
+		public long ExpiresAt;
 		public string RoomName;
 		public byte[] SnapshotBytes;
 		public int FrameNumber;
@@ -66,15 +67,14 @@ namespace FirstLight.Game.Services
 		{
 			return $"<Snapshot Frame={FrameNumber} Setup={Setup} Room={RoomName} Offline={Offline} QtdPlayers={AmtPlayers}>";
 		}
-		
+
 		/// <summary>
 		/// Checks if the given snapshot can still be re-used. Even if failed when trying it should be ok
 		/// We just check for expiry to save the hassle.
 		/// </summary>
 		public bool Expired()
 		{
-			return AmtPlayers == 0 || 
-				TimeSpan.FromTicks(DateTime.UtcNow.Ticks - TimeInTicks).TotalSeconds > GameConstants.Network.TIMEOUT_SNAPSHOT_SECONDS;
+			return AmtPlayers == 0 || DateTime.UtcNow.Ticks > ExpiresAt;
 		}
 	}
 
@@ -83,6 +83,9 @@ namespace FirstLight.Game.Services
 		private readonly IDataService _dataService;
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _data;
+
+
+		private readonly CancellationTokenSource _disposeCancelation = new CancellationTokenSource();
 
 		public FrameSnapshotService(IDataService dataService)
 		{
@@ -104,29 +107,21 @@ namespace FirstLight.Game.Services
 				ClearFrameSnapshot();
 			}
 		}
-		 
+
+
 		private void OnMatchStarted(MatchStartedMessage msg)
 		{
 			if (QuantumRunner.Default != null && QuantumRunner.Default.Game?.Frames.Verified != null)
 			{
-				TakeSnapshot(QuantumRunner.Default.Game);
+				SnapshotRoutine(_disposeCancelation.Token).Forget();
 			}
 		}
 
-		/// <summary>
-		/// On live, snapshots are requests to server no need to take em on client unless its an offline game
-		/// </summary>
-		private bool ShouldAddFrameData()
-		{
-			if (_services.NetworkService.LastConnectedRoom == null)
-				return false;
-			return QuantumRunner.Default != null && QuantumRunner.Default.Game?.Frames.Verified != null && _services.NetworkService.LastConnectedRoom.CanBeRestoredWithLocalSnapshot();
-		}
 
 		private unsafe bool CanGameBeReconnected()
 		{
-			if (QuantumRunner.Default == null || !QuantumRunner.Default.IsDefinedAndRunning()) return false;
-			if(!QuantumRunner.Default.Game.Frames.Verified.Unsafe.TryGetPointerSingleton<GameContainer>(out var container)) return false;
+			if (QuantumRunner.Default == null || !QuantumRunner.Default.IsDefinedAndRunning(false)) return false;
+			if (!QuantumRunner.Default.Game.Frames.Verified.Unsafe.TryGetPointerSingleton<GameContainer>(out var container)) return false;
 			if (container->IsGameOver) return false;
 			return true;
 		}
@@ -134,12 +129,13 @@ namespace FirstLight.Game.Services
 		public void TakeSnapshot(QuantumGame game)
 		{
 			if (!CanGameBeReconnected()) return;
-			
+
 			var lastRoom = _services.RoomService.LastRoom;
-			var snapshot = new FrameSnapshot()
+			var timeToEndGame = TimeSpan.FromSeconds(GameConstants.Network.TIMEOUT_SNAPSHOT_SECONDS);
+			var snapshot = new FrameSnapshot
 			{
 				RoomName = lastRoom?.Name,
-				TimeInTicks = DateTime.UtcNow.Ticks,
+				ExpiresAt = DateTime.UtcNow.Ticks + timeToEndGame.Ticks,
 				Offline = lastRoom?.IsOffline ?? false,
 				Setup = lastRoom?.ToMatchSetup(),
 				AmtPlayers = (byte) lastRoom?.GetRealPlayerAmount(),
@@ -160,9 +156,20 @@ namespace FirstLight.Game.Services
 			}
 		}
 
+		public async UniTaskVoid SnapshotRoutine(CancellationToken ctsToken)
+		{
+			while (QuantumRunner.Default.IsDefinedAndRunning(false) && !ctsToken.IsCancellationRequested)
+			{
+				TakeSnapshot(QuantumRunner.Default.Game);
+				await UniTask.WaitForSeconds(30, cancellationToken: ctsToken);
+			}
+		}
+
 		/// <inheritdoc />
 		public void Dispose()
 		{
+			_disposeCancelation.Cancel();
+			_disposeCancelation.Dispose();
 			QuantumCallback.UnsubscribeListener(this);
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}

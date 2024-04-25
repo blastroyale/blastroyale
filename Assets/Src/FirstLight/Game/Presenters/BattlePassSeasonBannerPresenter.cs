@@ -1,40 +1,48 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
-using I2.Loc;
+using FirstLight.UIService;
 using Quantum;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
-
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// Season change banner
 	/// </summary>
-	public class BattlePassSeasonBannerPresenter : UiToolkitPresenter
+	[UILayer(UILayer.Popup)]
+	public class BattlePassSeasonBannerPresenter : UIPresenter
 	{
+		private IGameServices _services;
+
 		private Label _timeLeft;
 		private VisualElement[] _rewards;
 		private VisualElement _finalReward;
 		private Cooldown _closeCooldown;
 
-		protected override void QueryElements(VisualElement root)
+
+		private void Awake()
 		{
-			base.QueryElements(root);
-			var rewards = root.Q("Rewards").Required();
-			_timeLeft = root.Q<Label>("TimeLeft").Required();
+			_services = MainInstaller.ResolveServices();
+		}
+
+		protected override void QueryElements()
+		{
+			var rewards = Root.Q("Rewards").Required();
+			_timeLeft = Root.Q<Label>("TimeLeft").Required();
 			_rewards = rewards.Children().Select(r => r.Q("RewardIcon").Required()).ToArray();
-			_finalReward = root.Q("FinalRewardIcon").Required();
-			root.Q<Button>("StartButton").Required().clicked += OnClick;
-			root.Q<Button>("CloseButton").clicked += ClosePopup;
-			root.Q<VisualElement>("Blocker").RegisterCallback<PointerDownEvent>(ClickedOutside);
+			_finalReward = Root.Q("FinalRewardIcon").Required();
+			Root.Q<Button>("StartButton").Required().clicked += OnClick;
+			Root.Q<Button>("CloseButton").clicked += ClosePopup;
+			Root.Q<VisualElement>("Blocker").RegisterCallback<PointerDownEvent>(ClickedOutside);
 			_closeCooldown = new Cooldown(TimeSpan.FromSeconds(2));
 		}
 
@@ -46,19 +54,18 @@ namespace FirstLight.Game.Presenters
 
 		private void ClosePopup()
 		{
-			Close(true);
+			_services.UIService.CloseScreen(this).Forget();
 		}
 
 		private void OnClick()
 		{
 			var s = MainInstaller.ResolveServices();
-			s.GameUiService.CloseUi(this);
+			ClosePopup();
 			s.MessageBrokerService.Publish(new NewBattlePassSeasonMessage());
 		}
 
-		protected override void OnOpened()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			base.OnOpened();
 			_closeCooldown.Trigger();
 			var data = MainInstaller.ResolveData();
 			var currentSeason = data.BattlePassDataProvider.GetCurrentSeasonConfig();
@@ -92,6 +99,8 @@ namespace FirstLight.Game.Presenters
 				var itemView = item.GetViewModel();
 				itemView.DrawIcon(_rewards[x]);
 			}
+
+			return base.OnScreenOpen(reload);
 		}
 
 		private List<EquipmentRewardConfig> GetHighlightedManual()

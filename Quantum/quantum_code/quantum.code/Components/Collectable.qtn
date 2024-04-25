@@ -1,7 +1,7 @@
 component Collectable
 {
 	[HideInInspector] GameId GameId;
-	[HideInInspector] array<FP>[PLAYER_COUNT] CollectorsEndTime;
+	[HideInInspector, AllocateOnComponentAdded, FreeOnComponentRemoved] dictionary<EntityRef, FP> CollectorsEndTime;
 	[HideInInspector] EntityRef Spawner;
 	[HideInInspector] FP PickupRadius;  
 	[HideInInspector] FPVector3 OriginPosition;
@@ -12,24 +12,21 @@ synced event OnStartedCollecting
 {
 	entity_ref CollectableEntity;
 	Collectable Collectable;
-	player_ref Player;
-	entity_ref PlayerEntity;
+	entity_ref CollectorEntity;
 }
 
 synced event OnStoppedCollecting
 {
 	entity_ref CollectableEntity;
-	player_ref Player;
-	entity_ref PlayerEntity;
+	entity_ref CollectorEntity;
 }
 
-signal CollectableCollected(GameId CollectableId, entity_ref CollectableEntity, player_ref Player, entity_ref PlayerEntity, entity_ref Spawner);
+signal CollectableCollected(GameId CollectableId, entity_ref CollectableEntity, entity_ref CollectorEntity, entity_ref Spawner);
 synced event OnCollectableCollected
 {
 	GameId CollectableId;
 	entity_ref CollectableEntity;
-	player_ref Player;
-	entity_ref PlayerEntity;
+	entity_ref CollectorEntity;
 	entity_ref Spawner;
 	FPVector3 CollectablePosition;
 }

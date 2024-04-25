@@ -16,6 +16,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField, Required] private int _shells;
 		private IGameServices _services;
 
+		public bool ActiveWeapon { get; set; }
+
 		protected override void OnAwake()
 		{
 			_particleSystem.Stop();
@@ -27,15 +29,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnEventOnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			if (EntityRef != callback.PlayerEntity)
-			{
-				return;
-			}
-
-			if (callback.Game.Frames.Predicted.IsCulled(EntityRef))
-			{
-				return;
-			}
+			if (EntityRef != callback.PlayerEntity) return;
+			if (callback.Game.Frames.Predicted.IsCulled(EntityRef)) return;
+			if (!ActiveWeapon) return; // For offhand weapons
 
 			_particleSystem.Stop();
 			_particleSystem.time = 0;
@@ -54,10 +50,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnEventOnPlayerStopAttack(EventOnPlayerStopAttack callback)
 		{
-			if (EntityRef != callback.PlayerEntity)
-			{
-				return;
-			}
+			if (EntityRef != callback.PlayerEntity) return;
+			if (!ActiveWeapon) return; // For offhand weapons
 
 			_particleSystem.Stop();
 		}

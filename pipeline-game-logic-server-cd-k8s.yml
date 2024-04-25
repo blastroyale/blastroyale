@@ -32,7 +32,7 @@ stages:
   - template: .pipelines/deploy-game-logic-dev.yml
     parameters:
       helmRepoPassword: $(HELM-REPO-PASSWORD)
-      autoDeployIfServer: DEVELOPMENT_SERVER
+      autoDeployIfServer: development
       dockerImage:
       
   - template: .pipelines/deploy-game-logic-testnet.yml
@@ -44,12 +44,12 @@ stages:
   - template: .pipelines/deploy-game-logic-staging.yml
     parameters:
       helmRepoPassword: $(HELM-REPO-PASSWORD)
-      autoDeployIfServer: STAGE_SERVER
+      autoDeployIfServer: staging
       dockerImage:
         
   - template: .pipelines/deploy-game-logic-prod.yml
     parameters:
       helmRepoPassword: $(HELM-REPO-PASSWORD)
-      autoDeployIfServer: LIVE_SERVER
+      autoDeployIfServer: production
       dockerImage:
 

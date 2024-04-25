@@ -108,14 +108,6 @@ namespace FirstLight.Services
 		List<Vfx<T>> Clear();
 		/// <inheritdoc cref="IPoolService.HasPool"/>
 		bool HasPool(T vfxId);
-	}
-
-	/// <inheritdoc />
-	/// <remarks>
-	/// Used only on internal creation data and should not be exposed to the views
-	/// </remarks>
-	public interface IVfxInternalService<T> : IVfxService<T> where T : struct, Enum
-	{
 		/// <inheritdoc cref="IPoolService.AddPool{T}"/>
 		void AddPool(Vfx<T> reference, uint initialSize = 5);
 		/// <inheritdoc cref="IPoolService.AddPool{T}"/>
@@ -125,7 +117,7 @@ namespace FirstLight.Services
 	}
 	
 	/// <inheritdoc />
-	public class VfxService<T> : IVfxInternalService<T> where T : struct, Enum
+	public class VfxService<T> : IVfxService<T> where T : struct, Enum
 	{
 		/// <summary>
 		/// Use this container when instantiating new VFX elements

@@ -23,15 +23,22 @@ stages:
       memory: 2Gi
       ipwhitelist: 0.0.0.0/0
       envVars: |
+        --set autoscaling.enabled=true \
+        --set autoscaling.minReplicas=1 \
+        --set autoscaling.targetCPUUtilizationPercentage=190 \
+        --set autoscaling.targetMemoryUtilizationPercentage=230 \
         --set env.API_KEY=$(MAINNET-PROD-COMMON-API-KEY) \
         --set env.API_URL=https://mainnet-prod-hub-blockchain-service.blastroyale.com \
         --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(MAINNET-PROD-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
         --set env.APPLICATION_ENVIRONMENT=mainnet-prod \
-        --set env.REMOTE_CONFIGURATION=true \
+        --set env.REMOTE_CONFIGURATION=false \
         --set env.CONNECTION_STRING="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
         --set env.DEV_MODE=false \
         --set env.NFT_SYNC=true \
         --set env.PLAYFAB_DEV_SECRET_KEY=$(MAINNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
         --set env.PLAYFAB_SECRET_KEY=$(MAINNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
         --set env.PLAYFAB_TITLE=***REMOVED*** \
-        --set env.SqlConnectionString="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
+        --set env.SqlConnectionString="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
+        --set env.UNITY_CLOUD_AUTH_TOKEN="$(UNITY-CLOUD-JWT)" \
+        --set env.UNITY_CLOUD_ENVIRONMENT_NAME="production" \
+        --set env.UNITY_CLOUD_ENVIRONMENT_ID="***REMOVED***"

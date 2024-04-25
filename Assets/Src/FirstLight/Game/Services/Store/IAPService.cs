@@ -117,7 +117,7 @@ namespace FirstLight.Game.Services
 						  IGameDataProvider gameDataProvider)
 		{
 			_unityStore = new UnityStoreService(ProcessPurchase);
-			_playfab = new PlayfabStoreService(gameBackendService, commandService);
+			_playfab = new PlayfabStoreService(gameBackendService);
 			_commandService = commandService;
 			_gameBackendService = gameBackendService;
 			_msgBroker = messageBroker;
@@ -129,6 +129,8 @@ namespace FirstLight.Game.Services
 		private void OnShopOpened(ShopScreenOpenedMessage msg)
 		{
 			RequiredToViewStore = false;
+
+			TryUpdateStoreCatalog(); 
 		}
 
 		public void Init()
@@ -137,6 +139,12 @@ namespace FirstLight.Game.Services
 			_playfab.OnStoreLoaded += playfabProducts =>
 			{
 				_unityStore.InitializeUnityCatalog(playfabProducts.Select(i => i.CatalogItem.ItemId).ToHashSet());
+				
+				foreach (var categoryList in _availableProducts.Values)
+				{
+					categoryList.Products.Clear();
+				}
+				
 				foreach (var playfabProduct in playfabProducts)
 				{
 					var category = string.IsNullOrEmpty(playfabProduct.StoreItemData.Category) ? "General" : playfabProduct.StoreItemData.Category;
@@ -154,7 +162,12 @@ namespace FirstLight.Game.Services
 				}
 			};
 		}
-
+		
+		private void TryUpdateStoreCatalog()
+		{
+			_playfab.TryLoadStore();
+		}
+		
 		private bool IsRealMoney(GameProduct product)
 		{
 			return product.PlayfabProductConfig.StoreItem.VirtualCurrencyPrices.Keys.Contains("RM");

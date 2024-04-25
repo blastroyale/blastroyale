@@ -3,30 +3,29 @@ using System.Linq;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
 using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using I2.Loc;
-using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Messages;
+using FirstLight.UIService;
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// This Presenter handles the Shop Menu.
 	/// </summary>
-	public class SettingsScreenPresenter : UiToolkitPresenterData<SettingsScreenPresenter.StateData>
+	public class SettingsScreenPresenter : UIPresenterData<SettingsScreenPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action LogoutClicked;
 			public Action OnClose;
 			public Action OnConnectIdClicked;
-			public Action OnServerSelectClicked;
 			public Action OnCustomizeHudClicked;
+			public Action OnServerSelectClicked;
 			public Action OnDeleteAccountClicked;
 		}
 
@@ -53,13 +52,13 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			_closeScreenButton = root.Q<ImageButton>("CloseButton");
+			_closeScreenButton = Root.Q<ImageButton>("CloseButton").Required();
 			_closeScreenButton.clicked += Data.OnClose;
 
 			// Build Info Text
-			_buildInfoLabel = root.Q<Label>("BuildInfoLabel");
+			_buildInfoLabel = Root.Q<Label>("BuildInfoLabel");
 			_buildInfoLabel.text = VersionUtils.VersionInternal;
 
 			Root.Q("AccountNotification").Required().SetDisplay(_services.AuthenticationService.IsGuest);
@@ -68,82 +67,58 @@ namespace FirstLight.Game.Presenters
 			_web3Notification.SetDisplay(false);
 
 			// Sound
-			SetupToggle(root.Q<LocalizedToggle>("SoundEffects").Required(),
-				() => _gameDataProvider.AppDataProvider.IsSfxEnabled,
-				val => _gameDataProvider.AppDataProvider.IsSfxEnabled = val);
-			SetupToggle(root.Q<LocalizedToggle>("Announcer").Required(),
-				() => _gameDataProvider.AppDataProvider.IsDialogueEnabled,
-				val => _gameDataProvider.AppDataProvider.IsDialogueEnabled = val);
-			SetupToggle(root.Q<LocalizedToggle>("BGMusic").Required(),
-				() => _gameDataProvider.AppDataProvider.IsBgmEnabled,
-				val => _gameDataProvider.AppDataProvider.IsBgmEnabled = val);
+			SetupToggle(Root.Q<LocalizedToggle>("SoundEffects").Required(), _services.LocalPrefsService.IsSFXEnabled);
+			SetupToggle(Root.Q<LocalizedToggle>("Announcer").Required(), _services.LocalPrefsService.IsDialogueEnabled);
+			SetupToggle(Root.Q<LocalizedToggle>("BGMusic").Required(), _services.LocalPrefsService.IsBGMEnabled);
 
 			// Controls
-			SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
-				() => _gameDataProvider.AppDataProvider.IsHapticOn,
-				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
+			SetupToggle(Root.Q<LocalizedToggle>("HapticFeedback").Required(), _services.LocalPrefsService.IsHapticsEnabled);
+			SetupToggle(Root.Q<LocalizedToggle>("InvertSpecialCancelling").Required(), _services.LocalPrefsService.InvertSpecialCanceling);
+			SetupToggle(Root.Q<LocalizedToggle>("ScreenShake").Required(), _services.LocalPrefsService.IsScreenShakeEnabled);
+			SetupToggle(Root.Q<Toggle>("SwitchJoysticks").Required(), _services.LocalPrefsService.SwapJoysticks);
 
-			SetupToggle(root.Q<LocalizedToggle>("InvertSpecialCancelling").Required(),
-				() => _gameDataProvider.AppDataProvider.InvertSpecialCancellling,
-				val => _gameDataProvider.AppDataProvider.InvertSpecialCancellling = val);
-
-			SetupToggle(root.Q<LocalizedToggle>("ScreenShake").Required(),
-				() => _gameDataProvider.AppDataProvider.UseScreenShake,
-				val => _gameDataProvider.AppDataProvider.UseScreenShake = val);
-
-			SetupToggle(root.Q<Toggle>("AimBackground").Required(),
-				() => _gameDataProvider.AppDataProvider.ConeAim,
-				val => _gameDataProvider.AppDataProvider.ConeAim = val);
-			
-			SetupToggle(root.Q<Toggle>("SwitchJoysticks").Required(),
-				() => _gameDataProvider.AppDataProvider.SwitchJoysticks,
-				val => _gameDataProvider.AppDataProvider.SwitchJoysticks = val);
-
-			_customizeHudButton = root.Q<Button>("CustomizeHud").Required();
+			_customizeHudButton = Root.Q<Button>("CustomizeHud").Required();
 			_customizeHudButton.clicked += OpenCustomizeHud;
 
 			// Graphics
-			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("FPSRBG").Required(),
-				() => _gameDataProvider.AppDataProvider.FpsTarget,
-				val => _gameDataProvider.AppDataProvider.FpsTarget = val,
-				FpsTarget.Normal, FpsTarget.High);
-			SetupToggle(root.Q<Toggle>("UseOverheadUI").Required(),
-				() => _gameDataProvider.AppDataProvider.UseOverheadUI,
-				val => _gameDataProvider.AppDataProvider.UseOverheadUI = val);
+			SetupToggle(Root.Q<LocalizedToggle>("FPSLimit").Required(), _services.LocalPrefsService.IsFPSLimitEnabled);
+			SetupToggle(Root.Q<Toggle>("UseOverheadUI").Required(), _services.LocalPrefsService.UseOverheadUI);
 
 			// Account
-			_web3Button = root.Q<Button>("Web3Button").Required();
-			_logoutButton = root.Q<Button>("LogoutButton");
+			_web3Button = Root.Q<Button>("Web3Button").Required();
+			_logoutButton = Root.Q<Button>("LogoutButton");
 			_logoutButton.clicked += OnLogoutClicked;
-			_deleteAccountButton = root.Q<Button>("DeleteAccountButton");
+			_deleteAccountButton = Root.Q<Button>("DeleteAccountButton");
 			_deleteAccountButton.clicked += OnDeleteAccountClicked;
-			_connectIdButton = root.Q<Button>("ConnectButton");
+			_connectIdButton = Root.Q<Button>("ConnectButton");
 			_connectIdButton.clicked += Data.OnConnectIdClicked;
-			_accountStatusLabel = root.Q<Label>("AccountStatusLabel");
-			_web3StatusLabel = root.Q<Label>("Web3StatusLabel");
+			_accountStatusLabel = Root.Q<Label>("AccountStatusLabel");
+			_web3StatusLabel = Root.Q<Label>("Web3StatusLabel");
 			UpdateAccountStatus();
 			UpdateWeb3State(MainInstaller.ResolveWeb3().State);
 
 			// Footer buttons
-			_supportButton = root.Q<Button>("SupportButton").Required();
+			_supportButton = Root.Q<Button>("SupportButton").Required();
 			_supportButton.clicked += OpenSupportService;
-			_serverButton = root.Q<Button>("ServerButton").Required();
+			_serverButton = Root.Q<Button>("ServerButton").Required();
 			_serverButton.clicked += OpenServerSelect;
 
 			var web3 = MainInstaller.ResolveWeb3();
 			_web3Button.clicked += () => web3.RequestLogin().Forget();
 			_web3Button.SetEnabled(web3.State != Web3State.Unavailable);
-			root.SetupClicks(_services);
+			Root.SetupClicks(_services);
 		}
 
-		protected override void SubscribeToEvents()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
 			MainInstaller.ResolveWeb3().OnStateChanged += UpdateWeb3State;
+			return base.OnScreenOpen(reload);
 		}
 
-		protected override void UnsubscribeFromEvents()
+		protected override UniTask OnScreenClose()
 		{
 			MainInstaller.ResolveWeb3().OnStateChanged -= UpdateWeb3State;
+			return base.OnScreenClose();
 		}
 
 		private void UpdateWeb3State(Web3State state)
@@ -152,14 +127,14 @@ namespace FirstLight.Game.Presenters
 			_web3StatusLabel.text = $"{state} {web3.Web3Account ?? ""}";
 		}
 
-		private void SetupToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
+		private void SetupToggle(Toggle toggle, ObservableField<bool> observable)
 		{
-			toggle.value = getter();
-			toggle.RegisterCallback<ChangeEvent<bool>, Action<bool>>((e, s) =>
+			toggle.value = observable.Value;
+			toggle.RegisterCallback<ChangeEvent<bool>, ObservableField<bool>>((e, o) =>
 			{
-				s(e.newValue);
+				o.Value = e.newValue;
 				Save();
-			}, setter);
+			}, observable);
 		}
 
 		private void SetupRadioButtonGroup<T>(RadioButtonGroup group, Func<T> getter, Action<T> setter, params T[] validValues)
@@ -206,7 +181,7 @@ namespace FirstLight.Game.Presenters
 				_deleteAccountButton.SetDisplay(false);
 				_logoutButton.SetDisplay(false);
 				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_not_connected,
-														 _gameDataProvider.AppDataProvider.DisplayName.Value);
+					_gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
 			else
 			{
@@ -220,7 +195,18 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenCustomizeHud()
 		{
-			Data.OnCustomizeHudClicked();
+			_services.UIService.OpenScreen<HudCustomizationScreenPresenter>(new HudCustomizationScreenPresenter.StateData()
+			{
+				OnClose = () =>
+				{
+					_services.UIService.OpenScreen<SettingsScreenPresenter>(Data).Forget();
+				},
+				OnSave = e =>
+				{
+					_services.ControlsSetup.SaveControlsPositions(e);
+					_services.UIService.OpenScreen<SettingsScreenPresenter>(Data).Forget();
+				}
+			}).Forget();
 		}
 
 		private void OpenSupportService()
@@ -232,7 +218,8 @@ namespace FirstLight.Game.Presenters
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
 
-			Data.OnServerSelectClicked();
+
+			_services.UIService.OpenScreen<ServerSelectScreenPresenter>().Forget();
 		}
 
 		private void OnLogoutClicked()
@@ -246,7 +233,6 @@ namespace FirstLight.Game.Presenters
 				ButtonText = ScriptLocalization.UITSettings.logout,
 				ButtonOnClick = Data.LogoutClicked
 			};
-
 			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
 		}
 

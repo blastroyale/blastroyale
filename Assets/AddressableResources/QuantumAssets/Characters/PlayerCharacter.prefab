@@ -802,6 +802,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prototype:
     TimesKnockedOut: 0
+    RecoverMoveSpeedAfter:
+      RawValue: 0
 --- !u!114 &9100407106362044459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,6 +889,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9100407106362044455}
     m_Modifications:
+    - target: {fileID: 2286063052466646567, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
       propertyPath: m_RootOrder
       value: 3

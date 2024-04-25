@@ -135,7 +135,7 @@ namespace FirstLight.Game.Serializers
 	/// <summary>
 	/// Manipulates the custom serializers implemented
 	/// </summary>
-	public static class FlgCustomSerializers
+	public static class FLGCustomSerializers
 	{
 		/// <summary>
 		/// Registers specific type serializers that are shared between the client and server.

@@ -5,11 +5,10 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Photon.Deterministic;
 using Quantum;
 using Quantum.Systems;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
@@ -40,9 +39,8 @@ namespace FirstLight.Game.Views.UITK
 			_name = element.Q<Label>("LocalPlayerName").Required();
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
-			base.SubscribeToEvents();
 			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
 			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
@@ -52,9 +50,9 @@ namespace FirstLight.Game.Views.UITK
 		}
 
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
-			base.UnsubscribeFromEvents();
+			base.OnScreenClose();
 			QuantumEvent.UnsubscribeListener(this);
 		}
 

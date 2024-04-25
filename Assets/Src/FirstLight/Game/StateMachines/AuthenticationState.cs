@@ -38,18 +38,15 @@ namespace FirstLight.Game.StateMachines
 			new StatechartEvent("Authentication Fail Account Deleted Event");
 
 		private readonly IGameServices _services;
-		private readonly IGameUiServiceInit _uiService;
 		private readonly IDataService _dataService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private IConfigsAdder _configsAdder;
 		private UniTask _asyncLogin;
 		private bool _usingAsyncLogin;
 
-		public AuthenticationState(IGameServices services, IGameUiServiceInit uiService,
-								   IDataService dataService, Action<IStatechartEvent> statechartTrigger)
+		public AuthenticationState(IGameServices services, IDataService dataService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_uiService = uiService;
 			_dataService = dataService;
 			_statechartTrigger = statechartTrigger;
 		}
@@ -243,8 +240,8 @@ namespace FirstLight.Game.StateMachines
 				FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
 			}
 
-			FLog.Info("Error: "+error.Error);
-			
+			FLog.Info("Error: " + error.Error);
+
 			if (!recoverable)
 			{
 				_services.AuthenticationService.SetLinkedDevice(false);
@@ -266,7 +263,8 @@ namespace FirstLight.Game.StateMachines
 			}
 			else
 			{
-				message = $"{message}\n\nIf this keeps happening please contact us at <color=blue><u><a href=\"{GameConstants.Links.DISCORD_SERVER}\">Discord</a></u></color>";
+				message =
+					$"{message}\n\nIf this keeps happening please contact us at <color=blue><u><a href=\"{GameConstants.Links.DISCORD_SERVER}\">Discord</a></u></color>";
 			}
 
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, message,
@@ -330,11 +328,12 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLoadingScreen()
 		{
-			_uiService.OpenUi<LoadingScreenPresenter>();
+			_services.UIService.OpenScreen<LoadingScreenPresenter>().Forget();
 		}
 
 		private void OnApplicationQuit(ApplicationQuitMessage msg)
 		{
+			// TODO ??? Wat
 			OpenLoadingScreen();
 		}
 

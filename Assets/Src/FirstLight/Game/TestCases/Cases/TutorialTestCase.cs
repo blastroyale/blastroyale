@@ -1,16 +1,10 @@
 using System.Collections;
-using System.Linq;
 using FirstLight.Game.Data;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Presenters;
-using FirstLight.Game.TestCases.Helpers;
 using I2.Loc;
-using Photon.Deterministic;
 using Quantum;
 using Quantum.Commands;
 using UnityEngine;
-using Application = UnityEngine.Device.Application;
 
 namespace FirstLight.Game.TestCases
 
@@ -20,11 +14,11 @@ namespace FirstLight.Game.TestCases
 		private static readonly WaitForSeconds _tutorialTransitionWait = new(4f);
 		private static readonly WaitForSeconds _oneSec = new(1f);
 
-		public override void OnGameAwaken()
+		public override void BeforeGameAwaken()
 		{
 			FeatureFlags.SetTutorial(true);
-			PlayerConfigs.SetTargetServer("us");
-			PlayerConfigs.SetFpsTarget(FpsTarget.Unlimited);
+			PlayerConfigs.SetServerRegion("us");
+			PlayerConfigs.SetEnableFPSLimit(false);
 			Account.FreshGameInstallation();
 		}
 
@@ -33,7 +27,6 @@ namespace FirstLight.Game.TestCases
 			yield return FinishInitialTutorialMatch();
 			yield return UIGeneric.WaitForGenericInputDialogAndInput("Marvin", ScriptLocalization.UITHomeScreen.enter_your_name);
 			yield return FinishBattlepassTutorial();
-			yield return EquipTutorialItem();
 			yield return PlayCasualMatch();
 		}
 
@@ -77,19 +70,6 @@ namespace FirstLight.Game.TestCases
 
 			// Wait for automatic transitions and equipment tooltip
 			yield return new WaitForSeconds(3);
-		}
-
-		private IEnumerator EquipTutorialItem()
-		{
-			yield return UIHome.ClickEquipmentButton();
-			yield return _tutorialTransitionWait;
-			yield return UIEquipment.OpenEquipmentSlot(GameIdGroup.Weapon);
-			yield return _tutorialTransitionWait;
-			var onlyEquipment = DataProvider.EquipmentDataProvider.GetInventoryEquipmentInfo(EquipmentFilter.All).First().Id;
-			yield return UIEquipment.SelectEquipmentAtSelectionScreen(onlyEquipment);
-			yield return _tutorialTransitionWait;
-			yield return UIEquipment.ClickEquipButton();
-			yield return _tutorialTransitionWait;
 		}
 
 		private IEnumerator PlayCasualMatch()

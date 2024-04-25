@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using Newtonsoft.Json;
 using Quantum;
 using UnityEngine;
@@ -68,10 +70,10 @@ namespace FirstLight.Game.Views
 		private void OnClick(MouseDownEvent e)
 		{
 			if (_playerId == null) return;
-			_services.GameUiService.OpenUiAsync<PlayerStatisticsPopupPresenter, PlayerStatisticsPopupPresenter.StateData>(new ()
+			_services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new PlayerStatisticsPopupPresenter.StateData()
 			{
 				PlayerId = _playerId
-			});
+			}).Forget();
 		}
 		
 		public VisualElement MetricIcon => _metricIcon;
@@ -155,7 +157,7 @@ namespace FirstLight.Game.Views
 			}
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
 		}

@@ -10,8 +10,8 @@ namespace FirstLight.Game.UIElements
 	public sealed class LocalizedLabel : TextElement
 	{
 		private string localizationKey { get; set; }
-		
-		public LocalizedLabel() : this(string.Empty)
+
+		public LocalizedLabel()
 		{
 		}
 
@@ -28,8 +28,9 @@ namespace FirstLight.Game.UIElements
 			if (!LocalizationManager.TryGetTranslation(key, out var translation))
 			{
 				translation = key;
-				Debug.LogWarning($"Could not find translation for key {key}");
+				Debug.LogWarning($"Could not find translation for key {key} in element " + name);
 			}
+
 			localizationKey = key;
 			text = translation;
 		}
@@ -40,7 +41,7 @@ namespace FirstLight.Game.UIElements
 
 		public new class UxmlTraits : TextElement.UxmlTraits
 		{
-			UxmlStringAttributeDescription _localizationKeyAttribute = new()
+			UxmlStringAttributeDescription _localizationKeyAttribute = new ()
 			{
 				name = "localization-key",
 				use = UxmlAttributeDescription.Use.Required

@@ -12,7 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.Net.Mime;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using FirstLight.Game.Utils;
 using UnityEngine;
 
 namespace FirstLight.Game.TestCases.FirebaseLab
@@ -37,18 +40,133 @@ namespace FirstLight.Game.TestCases.FirebaseLab
 
 		public static TestLabManager Instantiate()
 		{
+			TestLabManager manager;
 #if UNITY_ANDROID && !UNITY_EDITOR
-      return new AndroidTestLabManager();
+      manager = new AndroidTestLabManager();
 #elif UNITY_IOS
-		return new iOSTestLabManager();
+		manager = new iOSTestLabManager();
 #else
-			return new DummyTestLabManager();
+			manager = new DummyTestLabManager();
 #endif // UNITY_ANDROID
+			return manager;
 		}
 
 		public virtual void EarlyQuitApp()
 		{
 			Application.Quit();
+		}
+
+		public string Version()
+		{
+			return VersionUtils.BuildNumber == "0" ? VersionUtils.Commit : VersionUtils.BuildNumber;
+		}
+
+		public virtual void WriteLine(string text)
+		{
+			Debug.LogError("TesterLog: " + text);
+		}
+
+		public void WriteHeaders()
+		{
+			WriteLine(
+				"timestamp," +
+				"eventName," +
+				"minFpsOrResultBool," +
+				"avgFpsOrResultMessage," +
+				"memoryUsed," +
+				"memoryAllocated," +
+				"monoUsed," +
+				"monoAllocated," +
+				"location"
+			);
+		}
+
+
+		public void AppendBenchmark(BenchmarkCollector.TimeFrameCollected benchmark, string location)
+		{
+			WriteLine(
+				$"{DateTime.Now.ToString("O")}," +
+				"benchmark," +
+				$"{benchmark.fps.Min()}," +
+				$"{Math.Floor(benchmark.fps.Average())}," +
+				$"{benchmark.memory.Select(m => m.AllocatedUsed).Max()}," +
+				$"{benchmark.memory.Select(m => m.AllocatedTotal).Max()}," +
+				$"{benchmark.memory.Select(m => m.MonoUsed).Max()}," +
+				$"{benchmark.memory.Select(m => m.MonoTotal).Max()}," +
+				$"{location}"
+			);
+		}
+
+		public void AppendGeneralInfo(string testCase)
+		{
+			var data = new Dictionary<string, string>();
+			data.Add("Commit", VersionUtils.Commit);
+			data.Add("Branch", VersionUtils.Branch);
+			data.Add("Build", VersionUtils.BuildNumber);
+			data.Add("DeviceModel", SystemInfo.deviceModel);
+			data.Add("DeviceType", SystemInfo.deviceType.ToString());
+			data.Add("DeviceUniqueId", SystemInfo.deviceUniqueIdentifier);
+			data.Add("GraphicsDeviceName", SystemInfo.graphicsDeviceName);
+			data.Add("ProcessorCount", SystemInfo.processorCount.ToString());
+			data.Add("ProcessorType", SystemInfo.processorType);
+			data.Add("SystemMemorySize", SystemInfo.systemMemorySize.ToString());
+			data.Add("GraphicsMemorySize", SystemInfo.graphicsMemorySize.ToString());
+			data.Add("TestCase", testCase);
+			var props = string.Join(";", data.Select(a => a.Key + ":" + a.Value.Replace(",", ".")));
+			WriteLine(
+				$"{DateTime.Now.ToString("O")}," +
+				$"generalInfo," +
+				$"0," +
+				$"{props}," +
+				$"0," +
+				$"0," +
+				$"0," +
+				$"0," +
+				$"0"
+			);
+		}
+
+		public void AppendEvent(string eventName, string location)
+		{
+			WriteLine(
+				$"{DateTime.Now.ToString("O")}," +
+				$"{eventName.Replace(",", ".")}," +
+				$"0," +
+				$"0," +
+				$"0," +
+				$"0," +
+				$"0," +
+				$"0," +
+				$"{location}"
+			);
+		}
+
+		public void AppendResult(bool succeeded, string message)
+		{
+			WriteLine($"{DateTime.Now.ToString("O")}," +
+				$"result," +
+				$"{succeeded}," +
+				$"{message.Replace(",", ":")}," +
+				$"0," +
+				$"0," +
+				$"0," +
+				$"0," +
+				$"0"
+			);
+		}
+
+		public void AppendException(string message)
+		{
+			WriteLine($"{DateTime.Now.ToString("O")}," +
+				$"exception," +
+				$"0," +
+				$"{message.Replace(",", ":").Replace("\n", "  ")}," +
+				$"0," +
+				$"0," +
+				$"0," +
+				$"0," +
+				$"0"
+			);
 		}
 	}
 }

@@ -13,6 +13,7 @@ using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using NUnit.Framework;
 using PlayFab;
 using Src.FirstLight.Server.ServerServices;
@@ -37,7 +38,6 @@ namespace FirstLight.Tests.EditorMode
 		protected DataService TestData;
 		protected ConfigsProvider TestConfigs;
 		protected GameStateMachine TestStates;
-		protected IGameUiServiceInit TestUI;
 		protected GameNetworkService TestNetwork;
 		protected TutorialService TestTutorial;
 		protected AssetResolverService TestAssetResolver = new ();
@@ -59,27 +59,20 @@ namespace FirstLight.Tests.EditorMode
 		{
 			var messageBroker = new InMemoryMessageBrokerService();
 			TimeService = new TimeService();
-			TestUI = new GameUiService(new UiAssetLoader());
 			TestNetwork = new GameNetworkService(TestConfigs);
-			TestTutorial = new TutorialService(TestUI);
-			TestTutorial.BindServicesAndData(TestLogic, TestServices);
-			var audioFxService = new GameAudioFxService(TestAssetResolver);
 			
 			TestVfx = new VfxService<VfxId>();
 
 			TestData = SetupPlayer(TestConfigs);
-			TestLogic = new GameLogic(messageBroker, TimeService, TestData, TestConfigs,
-				audioFxService);
-			var genericDialogService = new GenericDialogService(TestUI, TestLogic.CurrencyDataProvider);
+			TestLogic = new GameLogic(messageBroker, TimeService, TestData, TestConfigs);
 
 			TestServices = new StubGameServices(TestNetwork, messageBroker, TimeService, TestData,
-			                                    TestConfigs, TestLogic, TestData, genericDialogService,
-			                                    TestAssetResolver, TestTutorial, TestVfx, audioFxService, TestUI);
+			                                    TestConfigs, TestLogic, TestData,
+			                                    TestAssetResolver, TestTutorial, TestVfx);
 			TestNetwork.StartNetworking(TestLogic, TestServices);
 			TestLogic.Init();
 
-			TestStates = new GameStateMachine(TestLogic, TestServices, TestUI, TestNetwork, TestTutorial,
-			                                  TestConfigs, TestAssetResolver, TestData, TestVfx);
+			TestStates = new GameStateMachine(TestLogic, TestServices, TestNetwork, TestAssetResolver);
 #if DEVELOPMENT_BUILD
 			Statechart.Statechart.OnStateTimed = null;
 #endif

@@ -16,7 +16,7 @@ namespace Src.FirstLight.Server.ServerServices
 	{
 		private static readonly List<GameId> _initialSkins = new List<GameId>
 		{
-			GameId.MaleAssassin
+			GameId.PlayerSkinBrandMale
 		};
 		
 		private static IConfigsProvider _configsProvider;

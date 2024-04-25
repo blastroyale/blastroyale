@@ -1,0 +1,127 @@
+.blocker-root {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: rgba(0, 0, 0, 0);
+}
+
+.blocker-element-blocker {
+    display: flex;
+    position: absolute;
+}
+
+.highlight-element {
+    display: flex;
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Vectors/TransparentCircleDark.svg?fileID=7388822144124034973&guid=dbe45e562db28194f9621b6f0f3c8d9e&type=3#TransparentCircleDark');
+    background-color: rgba(0, 0, 0, 0);
+    width: 512px;
+    height: 512px;
+    -unity-background-image-tint-color: rgba(85, 0, 135, 0.81);
+}
+
+.edge-container {
+    flex-direction: row;
+    height: 218px;
+}
+
+.edge-container--bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.subcontainer {
+    width: 50%;
+    flex-direction: row;
+}
+
+.subcontainer--right {
+    width: 50%;
+    flex-direction: row-reverse;
+}
+
+.subcontainer__center {
+    position: absolute;
+    left: 39%;
+    top: 39%;
+    height: 218px;
+    align-items: stretch;
+    flex-direction: row;
+}
+
+.back_avatar {
+    position: absolute;
+    display: none;
+}
+
+.back_avatar--top {
+    top: 0;
+}
+
+.back_avatar--bottom {
+    bottom: 0;
+}
+
+.back_avatar--center {
+    top: 38%;
+    left: 33%;
+}
+
+.back_avatar--left {
+    left: 20px;
+}
+
+.back_avatar--right {
+    right: 20px;
+    scale: -1 1;
+}
+
+.bubble {
+    position: absolute;
+    display: none;
+    width: 544px;
+    height: 344px;
+}
+
+.bubble--left {
+    left: 280px;
+}
+
+.bubble--right {
+    right: 280px;
+    scale: -1 1;
+}
+
+.bubble--top {
+    top: 30px;
+}
+
+.bubble--bottom {
+    bottom: -4px;
+}
+
+.bubble--center {
+    top: 42%;
+    left: 46%;
+}
+
+.bubble__text {
+    position: absolute;
+    left: 68px;
+    top: 63px;
+    right: 79px;
+    bottom: 98px;
+    font-size: 36px;
+    -unity-text-align: middle-center;
+    rotate: -3deg;
+    scale: 1 1;
+    white-space: normal;
+    color: black;
+}
+
+.bubble__text--right {
+    scale: -1 1;
+}

@@ -11237,7 +11237,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Default avatar
+      - Available to OG players only
       - 
       - 
       - 
@@ -12300,6 +12300,204 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/AvatarBrandfemale
+      TermType: 0
+      Description: 
+      Languages:
+      - ZOE MOE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBrandfemaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Default avatar
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBrandmale
+      TermType: 0
+      Description: 
+      Languages:
+      - MAX HARPER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBrandmaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Default avatar
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarEgirl
+      TermType: 0
+      Description: 
+      Languages:
+      - CASSIE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarEgirlDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarGearedape
+      TermType: 0
+      Description: 
+      Languages:
+      - NOA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarGearedapeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLeprechaun
+      TermType: 0
+      Description: 
+      Languages:
+      - PATRICK CLOVER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLeprechaunDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarNinja
+      TermType: 0
+      Description: 
+      Languages:
+      - FEARLESS GOJI
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarNinjaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarNinjaalternative
+      TermType: 0
+      Description: 
+      Languages:
+      - GOJI
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarNinjaalternativeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPolicefemale
+      TermType: 0
+      Description: 
+      Languages:
+      - SOFIA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPolicefemaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPlaguedoctormystery
+      TermType: 0
+      Description: 
+      Languages:
+      - MYSTERY DOCTOR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPlaguedoctormysteryDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/BLSTDescription
       TermType: 0
       Description: 
@@ -12624,6 +12822,47 @@ MonoBehaviour:
       Description: 
       Languages:
       - Craft Spice
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/NOOB
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/NOOB_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOBS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/NOOBDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Get NOOB tokens by owning noobs.
+
+        Follow our socials, join Discord
+        and
+
+        stay tuned for event announcements
+
+        to get the ultimate
+        NOOB rewards!'
       - 
       - 
       - 
@@ -13601,7 +13840,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Default character
+      - Purchase in the Shop
       - Hunt, Target, Kill
       - Hunt, Target, Kill
       - 
@@ -14192,6 +14431,94 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinBaton
+      TermType: 0
+      Description: 
+      Languages:
+      - BATON
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinBatonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinKatana
+      TermType: 0
+      Description: 
+      Languages:
+      - KATANA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinKatanaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinKeyboard
+      TermType: 0
+      Description: 
+      Languages:
+      - KEYBOARD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinKeyboardDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinMagicalShillelagh
+      TermType: 0
+      Description: 
+      Languages:
+      - SHILLELAGH
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinMagicalShillelaghDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/ModHeavyMachineGun
       TermType: 0
       Description: 
@@ -14572,7 +14899,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Blast Pass - Beta Season 8
+      - Blast Pass - Beta Season 9
       - "It\u2019s my lucky day!"
       - "It\u2019s my lucky day!"
       - 
@@ -14707,6 +15034,160 @@ MonoBehaviour:
       - 2023 Xmas Event
       - 2023 Xmas Event
       - 2023 Xmas Event
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinEGirl
+      TermType: 0
+      Description: 
+      Languages:
+      - CASSIE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinEGirlDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPoliceFemale
+      TermType: 0
+      Description: 
+      Languages:
+      - SOFIA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPoliceFemaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinNinja
+      TermType: 0
+      Description: 
+      Languages:
+      - GOJI
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinNinjaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 9
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrandFemale
+      TermType: 0
+      Description: 
+      Languages:
+      - ZOE MOE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrandFemaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Default character
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrandMale
+      TermType: 0
+      Description: 
+      Languages:
+      - MAX HARPER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrandMaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Default character
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinGearedApe
+      TermType: 0
+      Description: 
+      Languages:
+      - NOA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinGearedApeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPlagueDoctor
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAGUE DOCTOR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPlagueDoctorDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Own any Plague Doctor to unlock
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -20201,39 +20682,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: MainMenu/ServerNameEu
-      TermType: 0
-      Description: 
-      Languages:
-      - Europe
-      - "\u0415\u0432\u0440\u043E\u043F\u0430"
-      - Europa
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/ServerNameHk
-      TermType: 0
-      Description: 
-      Languages:
-      - Asia
-      - "\u0410\u0437\u0438\u044F"
-      - "\xC1sia"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/ServerNameUs
-      TermType: 0
-      Description: 
-      Languages:
-      - America
-      - "\u0410\u043C\u0435\u0440\u0438\u043A\u0430"
-      - "Am\xE9rica"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: MainMenu/ServerSelectButtonConnect
       TermType: 0
       Description: 
@@ -22586,17 +23034,6 @@ MonoBehaviour:
         \u043A\u0430\u043A \u043C\u0438\u043D\u0438\u043C\u0443\u043C {0} \u0434\u043E\u043F\u0443\u0441\u0442\u0438\u043C\u044B\u0445
         \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432."
       - "O nome deve conter pelo menos {0} caracteres v\xE1lidos."
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITProfileScreen/username_profanity
-      TermType: 0
-      Description: 
-      Languages:
-      - The name must not contain profanity!
-      - 
-      - 
       - 
       - 
       Flags: 0000000000
@@ -25413,7 +25850,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - FPS
+      - Limit FPS
       - 
       - 
       - 
@@ -25740,6 +26177,204 @@ MonoBehaviour:
       - WEB3
       - WEB3
       - WEB3
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/connected_to_server_title
+      TermType: 0
+      Description: 
+      Languages:
+      - Server
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/connected_to_server_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - Connected to {0} server!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameEu
+      TermType: 0
+      Description: 
+      Languages:
+      - Europe
+      - "\u0415\u0432\u0440\u043E\u043F\u0430"
+      - Europa
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameHk
+      TermType: 0
+      Description: 
+      Languages:
+      - Hong Kong
+      - Hong Kong
+      - Hong Kong
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameUs
+      TermType: 0
+      Description: 
+      Languages:
+      - America
+      - "\u0410\u043C\u0435\u0440\u0438\u043A\u0430"
+      - "Am\xE9rica"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameAsia
+      TermType: 0
+      Description: 
+      Languages:
+      - Asia
+      - "\u0410\u0437\u0438\u044F"
+      - "\xC1sia"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameAu
+      TermType: 0
+      Description: 
+      Languages:
+      - Australia
+      - Australia
+      - Australia
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameCae
+      TermType: 0
+      Description: 
+      Languages:
+      - Canada
+      - Canada
+      - Canada
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameCn
+      TermType: 0
+      Description: 
+      Languages:
+      - China
+      - China
+      - China
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameIn
+      TermType: 0
+      Description: 
+      Languages:
+      - India
+      - India
+      - India
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameJp
+      TermType: 0
+      Description: 
+      Languages:
+      - Japan
+      - Japan
+      - Japan
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameZa
+      TermType: 0
+      Description: 
+      Languages:
+      - South Africa
+      - South Africa
+      - South Africa
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameSa
+      TermType: 0
+      Description: 
+      Languages:
+      - Sao Paulo
+      - Sao Paulo
+      - Sao Paulo
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameUae
+      TermType: 0
+      Description: 
+      Languages:
+      - Dubai
+      - Dubai
+      - Dubai
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameUsw
+      TermType: 0
+      Description: 
+      Languages:
+      - America West
+      - America West
+      - America West
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameUssc
+      TermType: 0
+      Description: 
+      Languages:
+      - South US
+      - South US
+      - South US
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameKr
+      TermType: 0
+      Description: 
+      Languages:
+      - Korea
+      - Korea
+      - Korea
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/ServerNameTurkey
+      TermType: 0
+      Description: 
+      Languages:
+      - Turkey
+      - Turkey
+      - Turkey
       - 
       - 
       Flags: 0000000000
@@ -26964,7 +27599,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1711041383830
+    Google_LastUpdatedVersion: 1713360910178
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

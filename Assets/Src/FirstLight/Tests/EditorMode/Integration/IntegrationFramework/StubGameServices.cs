@@ -5,11 +5,11 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
-using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using FirstLight.UIService;
 using FirstLightServerSDK.Modules.RemoteCollection;
 using NSubstitute;
 
@@ -33,7 +33,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IGenericDialogService GenericDialogService { get; }
 		public virtual IVfxService<VfxId> VfxService { get; }
 		public virtual IAudioFxService<AudioId> AudioFxService { get; }
-		public virtual INotificationService NotificationService { get; }
 		public virtual IGameBackendService GameBackendService { get; }
 		public virtual IPlayerProfileService ProfileService { get; }
 		public virtual IAuthenticationService AuthenticationService { get; set; }
@@ -47,7 +46,8 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IIAPService IAPService { get; }
 		public virtual IPartyService PartyService { get; }
 		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
-		public IGameUiService GameUiService { get; }
+		public UIService.UIService UIService { get; }
+		public UIVFXService UIVFXService { get; }
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; set; }
@@ -58,6 +58,7 @@ namespace FirstLight.Tests.EditorMode
 		public ITeamService TeamService { get; }
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; set; }
+		public LocalPrefsService LocalPrefsService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
@@ -70,23 +71,23 @@ namespace FirstLight.Tests.EditorMode
 		public StubGameServices(IInternalGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 								ITimeService timeService, IDataService dataService, IConfigsProvider configsProvider,
 								IGameLogic gameLogic, IDataProvider dataProvider,
-								IGenericDialogService genericDialogService,
 								IAssetResolverService assetResolverService, IInternalTutorialService tutorialService,
-								IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IGameUiService uiService)
+								IVfxService<VfxId> vfxService)
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, uiService);
+			AnalyticsService = new AnalyticsService(this, gameLogic);
 			TimeService = timeService;
 			DataSaver = dataService;
 			DataService = dataService;
 			ConfigsProvider = configsProvider;
 			AssetResolverService = assetResolverService;
-			GenericDialogService = genericDialogService;
+			GenericDialogService = new GenericDialogService(UIService, gameLogic.CurrencyDataProvider);
 			TutorialService = tutorialService;
-			AudioFxService = audioFxService;
 			VfxService = vfxService;
 			GameLogic = gameLogic;
+			LocalPrefsService = new LocalPrefsService();
+			AudioFxService = new GameAudioFxService(assetResolverService, LocalPrefsService);
 
 			ThreadService = new ThreadService();
 			
@@ -101,13 +102,11 @@ namespace FirstLight.Tests.EditorMode
 				dataService, networkService, gameLogic, (IConfigsAdder) configsProvider);
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();
-			GameUiService = uiService;
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService,
-				MessageBrokerService, NetworkService, GameBackendService,ConfigsProvider);
+				MessageBrokerService, NetworkService, GameBackendService,ConfigsProvider, LocalPrefsService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
-			NotificationService = Substitute.For<INotificationService>();
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
 			RoomService = Substitute.For<IRoomService>();
 			CollectionService = Substitute.For<ICollectionService>();

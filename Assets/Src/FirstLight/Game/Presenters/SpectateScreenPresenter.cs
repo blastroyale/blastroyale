@@ -1,16 +1,12 @@
 using System;
-using System.Collections.Generic;
-using Cinemachine;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
-using FirstLight.Game.Infos;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -19,15 +15,15 @@ namespace FirstLight.Game.Presenters
 	/// This is responsible for displaying the screen during spectate mode,
 	/// that follows your killer around.
 	/// </summary>
-	public unsafe class SpectateScreenPresenter : UiToolkitPresenterData<SpectateScreenPresenter.StateData>
+	public unsafe class SpectateScreenPresenter : UIPresenterData<SpectateScreenPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action OnLeaveClicked;
 		}
 
-		private const string UssHideControls = "hide-controls";
-		
+		private const string USS_HIDE_CONTROLS = "hide-controls";
+
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 
@@ -45,45 +41,42 @@ namespace FirstLight.Game.Presenters
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			_header = root.Q<ScreenHeaderElement>("Header").Required();
-			_playerName = root.Q<Label>("PlayerName").Required();
-			_defeatedYou = root.Q<VisualElement>("DefeatedYou").Required();
-			root.Q("StatusBars").Required().AttachView(this, out _statusBarsView);
+			_header = Root.Q<ScreenHeaderElement>("Header").Required();
+			_playerName = Root.Q<Label>("PlayerName").Required();
+			_defeatedYou = Root.Q<VisualElement>("DefeatedYou").Required();
+			Root.Q("StatusBars").Required().AttachView(this, out _statusBarsView);
 			_statusBarsView.ForceOverheadUI();
 			_statusBarsView.InitAll();
 
 			_header.backClicked += Data.OnLeaveClicked;
 
-			root.Q<LocalizedButton>("LeaveButton").clicked += Data.OnLeaveClicked;
-			root.Q<ImageButton>("ArrowLeft").clicked += OnPreviousPlayerClicked;
-			root.Q<ImageButton>("ArrowRight").clicked += OnNextPlayerClicked;
+			Root.Q<LocalizedButton>("LeaveButton").clicked += Data.OnLeaveClicked;
+			Root.Q<ImageButton>("ArrowLeft").clicked += OnPreviousPlayerClicked;
+			Root.Q<ImageButton>("ArrowRight").clicked += OnNextPlayerClicked;
 
-			root.Q<VisualElement>("ShowHide").RegisterCallback<ClickEvent, VisualElement>((_, r) =>
-				r.ToggleInClassList(UssHideControls), root);
+			Root.Q<VisualElement>("ShowHide").RegisterCallback<ClickEvent, VisualElement>((_, r) =>
+				r.ToggleInClassList(USS_HIDE_CONTROLS), Root);
 
-			root.SetupClicks(_services);
+			Root.SetupClicks(_services);
 		}
 
-		protected override void OnOpened()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			base.OnOpened();
 			// TODO: Use proper localization
-			var gamemodeID = _services.RoomService.CurrentRoom.Properties.GameModeId.Value;
-			_header.SetSubtitle(gamemodeID.ToUpper());
-		}
+			var gameModeID = _services.RoomService.CurrentRoom.Properties.GameModeId.Value;
+			_header.SetSubtitle(gameModeID.ToUpper());
 
-		protected override void SubscribeToEvents()
-		{
-			base.SubscribeToEvents();
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
+
+			return base.OnScreenOpen(reload);
 		}
 
-		protected override void UnsubscribeFromEvents()
+		protected override UniTask OnScreenClose()
 		{
-			base.UnsubscribeFromEvents();
 			_matchServices.SpectateService.SpectatedPlayer.StopObservingAll(this);
+			return base.OnScreenClose();
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer _, SpectatedPlayer current)
@@ -96,15 +89,15 @@ namespace FirstLight.Game.Presenters
 				FLog.Warn($"Invalid player entity {current.Entity} being spectated");
 				return;
 			}
-			
-			if (!f.TryGet<PlayerCharacter>(current.Entity, out var playerCharacter))
+
+			if (!f.TryGet<PlayerCharacter>(current.Entity, out var _))
 			{
 				return;
 			}
 
 			var data = new QuantumPlayerMatchData(f, playersData[current.Player]);
 			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, (int) data.LeaderboardRank);
-			
+
 			_playerName.text = data.GetPlayerName();
 			_playerName.style.color = nameColor;
 			_defeatedYou.SetDisplay(current.Player == _matchServices.MatchEndDataService.LocalPlayerKiller);

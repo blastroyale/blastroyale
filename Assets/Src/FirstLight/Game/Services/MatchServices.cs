@@ -98,12 +98,12 @@ namespace FirstLight.Game.Services
 			SpectateService = Configure(new SpectateService(services, this));
 			FrameSnapshotService = Configure(new FrameSnapshotService(dataService));
 			MatchEndDataService = Configure(new MatchEndDataService(_gameServices, _dataProvider));
-			MatchCameraService = Configure(new MatchCameraService(dataProvider, this));
+			MatchCameraService = Configure(new MatchCameraService(dataProvider, this, services));
 			PlayerInputService = Configure(new PlayerInputService(_gameServices, this, _dataProvider));
 			PlayerIndicatorService = Configure(new PlayerIndicatorsService(this, _gameServices));
 			EntityVisibilityService = Configure(new EntityVisibilityService(this, _gameServices));
 			BulletService = Configure(new BulletService(_gameServices, this));
-			HapticsService = Configure(new HapticsService(_gameServices, this, _dataProvider));
+			HapticsService = Configure(new HapticsService(_gameServices.LocalPrefsService));
 			MatchAssetService = Configure(new MatchAssetsService());
 			WeaponCustomization = Configure(new WeaponCustomizationService(services));
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
@@ -143,12 +143,12 @@ namespace FirstLight.Game.Services
 			if (!CanTriggerMessage()) return;
 			_isReconnect = message.IsResync;
 			_matchStarted = true;
-			_runOnMatchStart?.Invoke(_isReconnect);
-			_runOnMatchStart = null;
 			foreach (var service in _services)
 			{
 				service.OnMatchStarted(message.Game, message.IsResync);
 			}
+			_runOnMatchStart?.Invoke(_isReconnect);
+			_runOnMatchStart = null;
 		}
 
 		private void OnMatchEnd(MatchEndedMessage message)

@@ -6,6 +6,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;

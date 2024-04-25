@@ -1,7 +1,5 @@
 using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
@@ -10,9 +8,8 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.UIElements;
 using FirstLight.Server.SDK.Models;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -20,10 +17,10 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Handles the player statistics screen.
 	/// </summary>
-	[LoadSynchronously]
-	public class PlayerStatisticsPopupPresenter : UiToolkitPresenterData<PlayerStatisticsPopupPresenter.StateData>
+	[UILayer(UILayer.Popup)]
+	public class PlayerStatisticsPopupPresenter : UIPresenterData<PlayerStatisticsPopupPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public string PlayerId;
 			public Action OnCloseClicked;
@@ -52,68 +49,58 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
 
-		protected override void SubscribeToEvents()
-		{
-			base.SubscribeToEvents();
-			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
-		}
-
-		protected override void UnsubscribeFromEvents()
-		{
-			base.UnsubscribeFromEvents();
-			_gameDataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
-		}
-
 		private void OnDisplayNameChanged(string _, string current)
 		{
 			_nameLabel.text = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
 			_statLabels = new Label[StatisticMaxSize];
 			_statValues = new Label[StatisticMaxSize];
 			_statContainers = new VisualElement[StatisticMaxSize];
 
-			root.Q<ImageButton>("EditNameButton").clicked += () => Data.OnEditNameClicked();
-			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
-			root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
+			Root.Q<ImageButton>("EditNameButton").clicked += () => Data.OnEditNameClicked();
+			Root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
+			Root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
 
-			_pfpImage = root.Q<PlayerAvatarElement>("Avatar").Required();
-			_content = root.Q<VisualElement>("Content").Required();
-			_nameLabel = root.Q<Label>("NameLabel").Required();
-			_loadingSpinner = root.Q<AnimatedImageElement>("LoadingSpinner").Required();
+			_pfpImage = Root.Q<PlayerAvatarElement>("Avatar").Required();
+			_content = Root.Q<VisualElement>("Content").Required();
+			_nameLabel = Root.Q<Label>("NameLabel").Required();
+			_loadingSpinner = Root.Q<AnimatedImageElement>("LoadingSpinner").Required();
 
 			for (int i = 0; i < StatisticMaxSize; i++)
 			{
-				_statContainers[i] = root.Q<VisualElement>($"StatsContainer{i}").Required();
+				_statContainers[i] = Root.Q<VisualElement>($"StatsContainer{i}").Required();
 				_statContainers[i].visible = false;
 
-				_statLabels[i] = root.Q<Label>($"StatName{i}").Required();
-				_statValues[i] = root.Q<Label>($"StatValue{i}").Required();
+				_statLabels[i] = Root.Q<Label>($"StatName{i}").Required();
+				_statValues[i] = Root.Q<Label>($"StatValue{i}").Required();
 			}
 			
 			// Hiding 2 more stats slots. Will be used later
-			root.Q<VisualElement>($"StatsWidget4").Required().SetDisplay(false);
-			root.Q<VisualElement>($"StatsWidget5").Required().SetDisplay(false);
+			Root.Q<VisualElement>($"StatsWidget4").Required().SetDisplay(false);
+			Root.Q<VisualElement>($"StatsWidget5").Required().SetDisplay(false);
 
 			_content.visible = false;
 			_loadingSpinner.visible = true;
 
-			root.SetupClicks(_services);
+			Root.SetupClicks(_services);
 		}
 
-		protected override void OnOpened()
-		{
-			base.OnOpened();
 
+		protected override UniTask OnScreenOpen(bool reload)
+		{
+			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
 			SetupPopup();
+			return base.OnScreenOpen(reload);
 		}
 
-		protected override UniTask OnClosed()
+		protected override UniTask OnScreenClose()
 		{
+			_gameDataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
-			return base.OnClosed();
+			return base.OnScreenClose();
 		}
 
 		private void SetStatInfo(int index, PublicPlayerProfile result, string statName, string statLoc)
@@ -125,14 +112,14 @@ namespace FirstLight.Game.Presenters
 			_statContainers[index].parent.RegisterCallback<MouseDownEvent>(e => OpenLeaderboard(statLoc, statName));
 		}
 
-		private void OpenLeaderboard(string name, string metric)
+		private void OpenLeaderboard(string leaderboardName, string metric)
 		{
-			_services.GameUiService.CloseUi<PlayerStatisticsPopupPresenter>();
-			_services.GameUiService.OpenScreen<GlobalLeaderboardScreenPresenter, GlobalLeaderboardScreenPresenter.StateData>(new ()
+			_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>();
+			_services.UIService.OpenScreen<GlobalLeaderboardScreenPresenter>(new GlobalLeaderboardScreenPresenter.StateData()
 			{
 				OnBackClicked = () => _services.MessageBrokerService.Publish(new MainMenuShouldReloadMessage()),
-				ShowSpecificLeaderboard = new GameLeaderboard(name, metric)
-			});
+				ShowSpecificLeaderboard = new GameLeaderboard(leaderboardName, metric)
+			}).Forget();
 		}
 
 		private void SetupPopup()
@@ -141,7 +128,8 @@ namespace FirstLight.Game.Presenters
 			_loadingSpinner.visible = true;
 			_services.ProfileService.GetPlayerPublicProfile(Data.PlayerId, (result) =>
 			{
-				if (!IsOpen) return;
+				// TODO: Race condition if you close and quickly reopen the popup
+				if (!_services.UIService.IsScreenOpen<PlayerStatisticsPopupPresenter>()) return;
 
 				_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
 

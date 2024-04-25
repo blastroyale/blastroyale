@@ -11,10 +11,9 @@ namespace FirstLight.Game.Services
 	/// <remarks>
 	/// Follows the "Service Locator Pattern" <see cref="https://www.geeksforgeeks.org/service-locator-pattern/"/>
 	/// </remarks>
+	// TODO mihak: Remove all this
 	public interface IMainMenuServices : IDisposable
 	{
-		/// <inheritdoc cref="IUiVfxService"/>
-		IUiVfxService UiVfxService { get; }
 
 		/// <inheritdoc cref="IRemoteTextureService"/>
 		IRemoteTextureService RemoteTextureService { get; }
@@ -24,13 +23,10 @@ namespace FirstLight.Game.Services
 	public class MainMenuServices : IMainMenuServices
 	{
 		/// <inheritdoc />
-		public IUiVfxService UiVfxService { get; }
-		/// <inheritdoc />
 		public IRemoteTextureService RemoteTextureService { get; }
 
-		public MainMenuServices(IUiVfxInternalService uiVfxService, IRemoteTextureService remoteTextureService)
+		public MainMenuServices(IRemoteTextureService remoteTextureService)
 		{
-			UiVfxService = uiVfxService;
 			RemoteTextureService = remoteTextureService;
 		}
 

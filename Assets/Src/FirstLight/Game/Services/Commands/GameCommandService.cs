@@ -63,7 +63,7 @@ namespace FirstLight.Game.Services
 				switch (command.ExecutionMode())
 				{
 					case CommandExecutionMode.Quantum:
-						if (!FeatureFlags.QUANTUM_CUSTOM_SERVER)
+						if (!_services.GameBackendService.RunsSimulationOnServer())
 						{
 							_serverCommandQueue.EnqueueCommand(command);
 						}

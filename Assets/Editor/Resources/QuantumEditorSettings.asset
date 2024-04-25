@@ -22,6 +22,7 @@ MonoBehaviour:
   SearchEditorAssemblies:
   - Assembly-CSharp-Editor
   - Assembly-CSharp-Editor-firstpass
+  - FirstLight.Editor
   PhysicsGridColor: {r: 0, g: 0.7, b: 1, a: 0}
   NavMeshGridColor: {r: 0.4, g: 1, b: 0.7, a: 0.2509804}
   GizmoIconScale:
@@ -74,6 +75,7 @@ MonoBehaviour:
   UsePhotonAppVersionsPostprocessor: 1
   EntityComponentInspectorMode: 0
   FPDisplayPrecision: 5
+  MaxArraySizeForInspector: 1000
   AutoBuildOnSceneSave: 0
   AutoBuildOnPlaymodeChanged: 0
   AutoBuildOnBuild: 0

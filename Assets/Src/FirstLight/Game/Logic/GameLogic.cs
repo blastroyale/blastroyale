@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.SDK.Services;
@@ -197,13 +196,13 @@ namespace FirstLight.Game.Logic
 		public ICollectionLogic CollectionLogic { get; }
 
 		public GameLogic(IMessageBrokerService messageBroker, ITimeService timeService, IDataProvider dataProvider,
-						 IConfigsProvider configsProvider, IAudioFxService<AudioId> audioFxService)
+						 IConfigsProvider configsProvider)
 		{
 			MessageBrokerService = messageBroker;
 			TimeService = timeService;
 			ConfigsProvider = configsProvider;
 
-			AppLogic = new AppLogic(this, dataProvider, audioFxService);
+			AppLogic = new AppLogic(this, dataProvider);
 			UniqueIdLogic = new UniqueIdLogic(this, dataProvider);
 			RngLogic = new RngLogic(this, dataProvider);
 			CurrencyLogic = new CurrencyLogic(this, dataProvider);
@@ -216,7 +215,6 @@ namespace FirstLight.Game.Logic
 			CollectionLogic = new CollectionLogic(this, dataProvider);
 			_logicInitializers = new List<IGameLogicInitializer>();
 
-			_logicInitializers.Add(AppLogic);
 			_logicInitializers.Add(UniqueIdLogic as IGameLogicInitializer);
 			_logicInitializers.Add(CurrencyLogic as IGameLogicInitializer);
 			_logicInitializers.Add(ResourceLogic as IGameLogicInitializer);
@@ -226,15 +224,6 @@ namespace FirstLight.Game.Logic
 			_logicInitializers.Add(BattlePassLogic as IGameLogicInitializer);
 			_logicInitializers.Add(LiveopsLogic as IGameLogicInitializer);
 			_logicInitializers.Add(CollectionLogic as IGameLogicInitializer);
-		}
-
-		/// <summary>
-		/// Initializes the local-only Game Logic state to it's default values
-		/// </summary>
-		public void InitLocal()
-		{
-			// AppLogic is initialized separately, earlier than rest of logic which requires data after auth
-			AppLogic.Init();
 		}
 
 		/// <inheritdoc />

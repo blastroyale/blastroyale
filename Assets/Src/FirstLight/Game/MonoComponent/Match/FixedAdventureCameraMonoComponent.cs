@@ -45,7 +45,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices.MatchCameraService.SetCameras(_adventureCamera);
 
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
-			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			_services.MessageBrokerService.Subscribe<WinnerSetCameraMessage>(OnWinnerSetCamera);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
@@ -109,11 +108,6 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			var useLongRangeCam = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) callback.Weapon.GameId).UseRangedCam;
 			SetActiveCamera(useLongRangeCam ? _specialAimCamera : _adventureCamera);
-		}
-
-		private void OnSpectateSetCameraMessage(SpectateSetCameraMessage obj)
-		{
-			SetActiveCamera(_spectateCameras[obj.CameraId]);
 		}
 
 		private void OnMatchStarted(MatchStartedMessage obj)

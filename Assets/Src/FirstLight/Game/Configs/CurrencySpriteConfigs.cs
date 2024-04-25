@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Editor.Inspector;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
@@ -11,6 +12,7 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct CurrencySpriteConfigEntry
 	{
+		[SpriteClass]
 		public string DefaultSprite;
 		[SerializeField] public SerializedDictionary<int, string> SpriteByMinAmount;
 

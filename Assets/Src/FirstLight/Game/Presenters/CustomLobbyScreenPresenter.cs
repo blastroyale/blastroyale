@@ -11,6 +11,7 @@ using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Photon.Realtime;
 using Sirenix.OdinInspector;
@@ -25,9 +26,9 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the Players Waiting Screen UI by:
 	/// - Showing the loading status
 	/// </summary>
-	public class CustomLobbyScreenPresenter : UiPresenterData<CustomLobbyScreenPresenter.StateData>
+	public class CustomLobbyScreenPresenter : UIPresenterData<CustomLobbyScreenPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action LeaveRoomClicked;
 		}
@@ -83,10 +84,19 @@ namespace FirstLight.Game.Presenters
 		private int _squadId = 1;
 		private Tween _squadIdUpdateDelayed = null;
 
+		private bool _isReadyToPlay = false;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+		}
 
+		protected override void QueryElements()
+		{
+		}
+
+		protected override UniTask OnScreenOpen(bool reload)
+		{
 			foreach (var image in _playersWaitingImage)
 			{
 				image.gameObject.SetActive(false);
@@ -106,22 +116,9 @@ namespace FirstLight.Game.Presenters
 			_services.RoomService.OnRoomPropertiesChanged += Update;
 			_services.RoomService.OnMasterChanged += Update;
 			_services.RoomService.OnPlayerPropertiesUpdated += Update;
-		}
 
 
-		private void OnDestroy()
-		{
-			_services.RoomService.OnRoomPropertiesChanged -= Update;
-			_services.RoomService.OnMasterChanged -= Update;
-			_services.RoomService.OnPlayerPropertiesUpdated -= Update;
-			_services?.NetworkService?.QuantumClient?.RemoveCallbackTarget(this);
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
-		}
-
-		/// <inheritdoc />
-		protected override void OnOpened()
-		{
-			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH) return;
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH) return base.OnScreenOpen(reload);
 
 			_rootObject.SetActive(true);
 
@@ -151,12 +148,13 @@ namespace FirstLight.Game.Presenters
 					AddOrUpdatePlayerInList(playerKvp.Value);
 				}
 
-				return;
+				return UniTask.CompletedTask;
 			}
 
 			_selectDropZoneTextRootObject.SetActive(gameModeConfig.SpawnSelection);
 			_selectDropZoneText.text = room.Properties.MapId.Value.GetLocalization();
-			_gameModeText.text = LocalizationUtils.GetTranslationForGameModeAndTeamSize(room.Properties.GameModeId.Value, room.Properties.TeamSize.Value);
+			_gameModeText.text =
+				LocalizationUtils.GetTranslationForGameModeAndTeamSize(room.Properties.GameModeId.Value, room.Properties.TeamSize.Value);
 			_lockRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			_playersFoundText.gameObject.SetActive(true);
@@ -206,6 +204,17 @@ namespace FirstLight.Game.Presenters
 			_spectateToggleObjectRoot.SetActive(true);
 
 			Update();
+			return base.OnScreenOpen(reload);
+		}
+
+		protected override UniTask OnScreenClose()
+		{
+			_services.RoomService.OnRoomPropertiesChanged -= Update;
+			_services.RoomService.OnMasterChanged -= Update;
+			_services.RoomService.OnPlayerPropertiesUpdated -= Update;
+			_services?.NetworkService?.QuantumClient?.RemoveCallbackTarget(this);
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			return base.OnScreenClose();
 		}
 
 		private void OnAutoBalanceValueChanged(QuantumProperty<bool> obj)
@@ -220,11 +229,6 @@ namespace FirstLight.Game.Presenters
 
 		public void Update()
 		{
-			if (!IsOpen)
-			{
-				return;
-			}
-
 			if (CurrentRoom == null)
 			{
 				return;
@@ -289,13 +293,6 @@ namespace FirstLight.Game.Presenters
 				view.RemovePlayer(player);
 			}
 		}
-
-		protected override UniTask OnClosed()
-		{
-			_rootObject.SetActive(true);
-			return UniTask.CompletedTask;
-		}
-
 
 		private void AddOrUpdatePlayerInList(Player player)
 		{
@@ -427,6 +424,10 @@ namespace FirstLight.Game.Presenters
 
 		private void ReadyToPlay()
 		{
+			if(_isReadyToPlay) return;
+			_isReadyToPlay = true;
+			_services.UIService.OpenScreen<SwipeTransitionScreenPresenter>().Forget();
+
 			mapSelectionView.SelectionEnabled = false;
 
 			DeactivateKickOverlay();

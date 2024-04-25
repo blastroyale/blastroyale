@@ -1,4 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/TutorialUtilsScreenStyle.uss?fileID=7433441132597879392&amp;guid=82a5b6ad311d9ab489d55a70a0052279&amp;type=3#TutorialUtilsScreenStyle" />
-    <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent" style="background-color: rgba(0, 0, 0, 0);" />
-</ui:UXML>

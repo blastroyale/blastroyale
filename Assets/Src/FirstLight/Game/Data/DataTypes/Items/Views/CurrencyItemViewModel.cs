@@ -17,16 +17,15 @@ namespace FirstLight.Game.Data.DataTypes
 	/// </summary>
 	public class CurrencyItemViewModel : IItemViewModel
 	{
-		private const string USS_SPRITE_REWARD = "sprite-home__reward-{0}";
-
 		private static IReadOnlyDictionary<GameId, string> _richTextIcons = new Dictionary<GameId, string>()
 		{
-			{ GameId.COIN, "Coinicon"},
-			{ GameId.BlastBuck, "Blastbuckicon"},
-			{ GameId.CS, "CraftSpiceicon"},
+			{GameId.COIN, "Coinicon"},
+			{GameId.BlastBuck, "Blastbuckicon"},
+			{GameId.CS, "CraftSpiceicon"},
+			{GameId.NOOB, "NOOBIcon"},
 		};
-		
-		
+
+
 		public ItemData Item { get; }
 		public GameId GameId => _gameId;
 		public uint Amount => _amount;
@@ -47,9 +46,10 @@ namespace FirstLight.Game.Data.DataTypes
 				FLog.Error($"Could not read rich text icon for {Item.Id}");
 				iconName = _richTextIcons[GameId.COIN];
 			}
+
 			return $"<sprite name=\"{iconName}\">";
 		}
-		
+
 		public void DrawIcon(VisualElement icon)
 		{
 			if (MainInstaller.TryResolve<IGameServices>(out var services))
@@ -67,7 +67,6 @@ namespace FirstLight.Game.Data.DataTypes
 
 				throw new Exception("Unable to set icon for currency " + GameId);
 			}
-			
 		}
 
 		public override string ToString() => GetRichTextIcon();

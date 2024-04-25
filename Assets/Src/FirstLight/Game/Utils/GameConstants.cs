@@ -27,13 +27,6 @@ namespace FirstLight.Game.Utils
 
 			public const string APP_STORE_IOS = "https://apps.apple.com/app/blast-royale/id1621071488";
 			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.blastroyale";
-#if LIVE_SERVER
-				public const string MARKETPLACE_URL = "https://marketplace.blastroyale.com/";
-#elif STAGE_SERVER
-				public const string MARKETPLACE_URL = "https://marketplace-staging.blastroyale.com/";
-#else
-			public const string MARKETPLACE_URL = "https://marketplace-dev.blastroyale.com/";
-#endif
 		}
 
 		public static class Balance
@@ -106,12 +99,6 @@ namespace FirstLight.Game.Utils
 			public const float SCREENSHAKE_LARGE_DURATION = 0.8f;
 		}
 
-		public static class Notifications
-		{
-			public const string NOTIFICATION_IDLE_BOXES_CHANNEL = "idle_boxes";
-			public const string NOTIFICATION_BOXES_CHANNEL = "loot_boxes";
-		}
-
 		public static class PlayerName
 		{
 			public const int PLAYER_NAME_MIN_LENGTH = 3;
@@ -142,7 +129,9 @@ namespace FirstLight.Game.Utils
 				GameId.XP,
 				GameId.CS,
 				GameId.BPP,
-				GameId.Trophies
+				GameId.Trophies,
+				GameId.NOOB,
+				GameId.COIN,
 			};
 		}
 
@@ -175,6 +164,7 @@ namespace FirstLight.Game.Utils
 			public const string XP_EARNED = "XP Earned";
 			public const string CS_EARNED = "CS Earned";
 			public const string COINS_TOTAL = "Coins Total";
+			public const string NOOB_TOTAL = "NOOB Total";
 			public const string CS_TOTAL = "CS Total";
 			public const string ITEMS_OBTAINED = "Items Obtained";
 			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
@@ -280,7 +270,6 @@ namespace FirstLight.Game.Utils
 		{
 			public static string FAKEGAMEMODE_CUSTOMGAME = "Custom Game";
 			public static string TESTING = "Testing";
-			
 		}
 	}
 }

@@ -101,14 +101,12 @@ namespace FirstLight.Editor.EditorTools.MapTools
 				{
 					Debug.Log("RightShader ? " + rightShader + " isFloor ? " + isFloor);
 				}
-
 			}
 		}
 
 		[MenuItem("FLG/Map/Disable Non Lightmapped")]
 		private static void DisableNonLightmapped()
 		{
-
 			foreach (var o in GameObject.FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None))
 			{
 				var rend = o.GetComponent<MeshRenderer>();

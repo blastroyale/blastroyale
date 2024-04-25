@@ -5,6 +5,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -95,11 +96,11 @@ namespace FirstLight.Game.Views
 			_button.clicked += () => Clicked?.Invoke(this);
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			if (_timerCoroutine != null)
 			{

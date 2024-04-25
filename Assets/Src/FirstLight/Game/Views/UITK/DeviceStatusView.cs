@@ -1,6 +1,6 @@
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -40,12 +40,12 @@ namespace FirstLight.Game.Views.UITK
 			_latency = element.Q<Label>("LatencyLabel").Required();
 		}
 
-		public override void SubscribeToEvents()
+		public override void OnScreenOpen(bool reload)
 		{
 			_tickScheduledItem = Element.schedule.Execute(Tick).Every(UPDATE_INTERVAL);
 		}
 
-		public override void UnsubscribeFromEvents()
+		public override void OnScreenClose()
 		{
 			// Probably not strictly necessary, but just in case
 			_tickScheduledItem.Pause();

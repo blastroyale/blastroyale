@@ -24,7 +24,6 @@
     --sprite-shared__icon-gamemode-duos: url('/Assets/Art/UI/Sprites/Shared/icon-gamemode-duos.png');
     --sprite-shared__icon-gamemode-solo: url('/Assets/Art/UI/Sprites/Shared/icon-gamemode-solo.png');
     --sprite-shared__icon-gamemode-squads: url('/Assets/Art/UI/Sprites/Shared/icon-gamemode-squads.png');
-    --sprite-shared__icon-lowconnection: url('/Assets/Art/UI/Sprites/Shared/icon-lowconnection.png');
     --sprite-shared__icon-medal-1st: url('/Assets/Art/UI/Sprites/Shared/icon-medal-1st.png');
     --sprite-shared__icon-medal-2nd: url('/Assets/Art/UI/Sprites/Shared/icon-medal-2nd.png');
     --sprite-shared__icon-medal-3rd: url('/Assets/Art/UI/Sprites/Shared/icon-medal-3rd.png');
@@ -188,12 +187,6 @@
     background-image: var(--sprite-shared__icon-gamemode-squads);
     width: 44px;
     height: 48px;
-}
-
-.sprite-shared__icon-lowconnection {
-    background-image: var(--sprite-shared__icon-lowconnection);
-    width: 98px;
-    height: 72px;
 }
 
 .sprite-shared__icon-medal-1st {

@@ -11,6 +11,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using Quantum;
 using Quantum.Systems;
 using Sirenix.OdinInspector;
@@ -21,12 +22,8 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
-	public class HUDScreenPresenter : UiToolkitPresenterData<HUDScreenPresenter.StateData>
+	public class HUDScreenPresenter : UIPresenter
 	{
-		public struct StateData
-		{
-		}
-
 		private const string USS_SKYDIVING = "skydiving";
 
 		[SerializeField, Required] private GameObject _legacyMinimap;
@@ -111,26 +108,26 @@ namespace FirstLight.Game.Presenters
 		private bool _shooting;
 		private Quantum.Input _quantumInput;
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
 			_gameServices = MainInstaller.Resolve<IGameServices>();
 			_dataProvider = MainInstaller.ResolveData();
 
 			_gameServices.ControlsSetup.SetControlPositions(Root);
 
-			root.Q("WeaponDisplay").Required().AttachView(this, out _weaponDisplayView);
-			root.Q("KillFeed").Required().AttachView(this, out _killFeedView);
-			root.Q("MatchStatus").Required().AttachView(this, out _matchTimerView);
-			root.AttachView(this, out _specialButtonsView);
-			root.Q("DeviceStatus").Required().AttachView(this, out _deviceStatusView);
-			root.Q("SquadMembers").Required().AttachView(this, out _squadMembersView);
-			root.Q("PlayerBars").Required().AttachView(this, out _statusBarsView);
-			root.Q("StatusNotifications").Required().AttachView(this, out _statusNotificationsView);
-			root.Q("PlayerCounts").Required().AttachView(this, out _playerCountsView);
-			root.AttachExistingView(this, _knockOutNotificationView);
+			Root.Q("WeaponDisplay").Required().AttachView(this, out _weaponDisplayView);
+			Root.Q("KillFeed").Required().AttachView(this, out _killFeedView);
+			Root.Q("MatchStatus").Required().AttachView(this, out _matchTimerView);
+			Root.AttachView(this, out _specialButtonsView);
+			Root.Q("DeviceStatus").Required().AttachView(this, out _deviceStatusView);
+			Root.Q("SquadMembers").Required().AttachView(this, out _squadMembersView);
+			Root.Q("PlayerBars").Required().AttachView(this, out _statusBarsView);
+			Root.Q("StatusNotifications").Required().AttachView(this, out _statusNotificationsView);
+			Root.Q("PlayerCounts").Required().AttachView(this, out _playerCountsView);
+			Root.AttachExistingView(this, _knockOutNotificationView);
 
-			var localPlayerInfo = root.Q("LocalPlayerInfo").Required();
-			if (_dataProvider.AppDataProvider.UseOverheadUI)
+			var localPlayerInfo = Root.Q("LocalPlayerInfo").Required();
+			if (_gameServices.LocalPrefsService.UseOverheadUI)
 			{
 				localPlayerInfo.SetDisplay(false);
 			}
@@ -144,15 +141,15 @@ namespace FirstLight.Game.Presenters
 			_statusNotificationsView.Init(_blasted1Director, _blasted2Director, _blasted3Director, _blastedBeastDirector, _lowHPThreshold);
 			
 			// TODO: Move all the joystick stuff into a view
-			if (_dataProvider.AppDataProvider.SwitchJoysticks)
+			if (_gameServices.LocalPrefsService.SwapJoysticks)
 			{
-				_movementJoystick = root.Q<JoystickElement>("RightJoystick").Required();
-				_shootingJoystick = root.Q<JoystickElement>("LeftJoystick").Required();
+				_movementJoystick = Root.Q<JoystickElement>("RightJoystick").Required();
+				_shootingJoystick = Root.Q<JoystickElement>("LeftJoystick").Required();
 			}
 			else
 			{
-				_movementJoystick = root.Q<JoystickElement>("LeftJoystick").Required();
-				_shootingJoystick = root.Q<JoystickElement>("RightJoystick").Required();
+				_movementJoystick = Root.Q<JoystickElement>("LeftJoystick").Required();
+				_shootingJoystick = Root.Q<JoystickElement>("RightJoystick").Required();
 			}
 
 			// I can't find a cleaner way to do this
@@ -163,7 +160,7 @@ namespace FirstLight.Game.Presenters
 			_shootingJoystick.AddToClassList("joystick--aim");
 			_movementJoystick.AddToClassList("joystick--move");
 
-			_menuButton = root.Q<ImageButton>("MenuButton").Required();
+			_menuButton = Root.Q<ImageButton>("MenuButton").Required();
 
 			_menuButton.clicked += OnMenuClicked;
 			_movementJoystick.OnMove += e => InputState.Change(_moveDirectionJoystickInput.control, e);
@@ -178,6 +175,8 @@ namespace FirstLight.Game.Presenters
 			_specialButtonsView.OnSpecial1Pressed += e => InputState.Change(_special1PressedInput.control, e);
 			_specialButtonsView.OnDrag += e => InputState.Change(_specialAimInput.control, e);
 			_specialButtonsView.OnCancel += e => InputState.Change(_specialCancelInput.control, e);
+			
+			_legacyMinimap.SetActive(false);
 		}
 
 		public JoystickElement MovementJoystick => _movementJoystick;
@@ -185,33 +184,13 @@ namespace FirstLight.Game.Presenters
 		public SpecialButtonElement Special0 => _specialButtonsView._special0Button;
 		public SpecialButtonElement Special1 => _specialButtonsView._special1Button;
 
-		protected override void SubscribeToEvents()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			base.SubscribeToEvents();
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, _ => HideControls(true));
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, _ => HideControls(false));
 			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(OnPlayerKnockedOut);
 			QuantumEvent.SubscribeManual<EventOnPlayerRevived>(OnPlayerRevived);
-		}
 
-
-		protected override void UnsubscribeFromEvents()
-		{
-			base.UnsubscribeFromEvents();
-			QuantumEvent.UnsubscribeListener(this);
-			QuantumCallback.UnsubscribeListener(this);
-		}
-
-		private bool IsMenuVisible()
-		{
-			return _gameServices.RoomService.CurrentRoom.GameModeConfig.Id == GameConstants.Tutorial.SECOND_BOT_MODE_ID ||
-				_gameServices.RoomService.CurrentRoom.Properties.MatchType.Value == MatchType.Custom;
-		}
-
-		protected override void OnOpened()
-		{
-			base.OnOpened();
-			_legacyMinimap.SetActive(_gameServices.RoomService.CurrentRoom.GameModeConfig.ShowUIMinimap);
 			_menuButton.SetVisibility(IsMenuVisible());
 			MainInstaller.ResolveMatchServices().RunOnMatchStart((isReconnect) =>
 			{
@@ -232,13 +211,36 @@ namespace FirstLight.Game.Presenters
 				_statusBarsView.InitAll();
 				SetKnockedOutStatus(ReviveSystem.IsKnockedOut(f, playerEntity));
 			});
+			
+			ShowMinimapDelayed().Forget();
+			
+			return base.OnScreenOpen(reload);
 		}
 
-		protected override UniTask OnClosed()
+		protected override UniTask OnScreenClose()
 		{
+			QuantumEvent.UnsubscribeListener(this);
+			QuantumCallback.UnsubscribeListener(this);
 			_legacyMinimap.SetActive(false);
+			return base.OnScreenClose();
+		}
 
-			return base.OnClosed();
+		// A hack to show the minimap after the transition screen is closed since the minimap is old UI and shows over it
+		private async UniTaskVoid ShowMinimapDelayed()
+		{
+			await UniTask.WaitUntil(() => !_gameServices.UIService.IsScreenOpen<SwipeTransitionScreenPresenter>());
+			// TECH DEBT, when reconnecting dead players will first open the HUD (this screen) then open the spectator in the 
+			// next frame, so this is no longer visible
+			// Ideally we would not open the hud if the player is dead, but currently we open the hud before starting the simulation
+			// so we don't know if the player is dead or alive
+			if (!Root.IsAttached()) return;
+			_legacyMinimap.SetActive(_gameServices.RoomService.CurrentRoom.GameModeConfig.ShowUIMinimap);
+		}
+
+		private bool IsMenuVisible()
+		{
+			return _gameServices.RoomService.CurrentRoom.GameModeConfig.Id == GameConstants.Tutorial.SECOND_BOT_MODE_ID ||
+				_gameServices.RoomService.CurrentRoom.Properties.MatchType.Value == MatchType.Custom;
 		}
 
 		private void OnMenuClicked()

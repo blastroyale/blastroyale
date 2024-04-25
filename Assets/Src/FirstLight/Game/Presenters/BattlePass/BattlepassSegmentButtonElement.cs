@@ -4,10 +4,8 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views;
 using Quantum;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters.BattlePass
@@ -158,7 +156,7 @@ namespace FirstLight.Game.Presenters.BattlePass
 			private readonly UxmlEnumAttributeDescription<GameId> _rewardId = new ()
 			{
 				name = "reward",
-				defaultValue = GameId.MaleAssassin,
+				defaultValue = GameId.PlayerSkinBrandMale,
 			};
 
 			private readonly UxmlEnumAttributeDescription<PassType> _passType = new ()

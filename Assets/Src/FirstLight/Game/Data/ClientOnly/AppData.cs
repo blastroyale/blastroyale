@@ -25,16 +25,6 @@ namespace FirstLight.Game.Data
 	}
 	
 	/// <summary>
-	/// The FPS values we support.
-	/// </summary>
-	public enum FpsTarget
-	{
-		Normal = 30,
-		High = 60,
-		Unlimited = 0,
-	}
-	
-	/// <summary>
 	/// Contains all the data in the scope of the Game's App
 	/// </summary>
 	[Serializable]
@@ -47,14 +37,8 @@ namespace FirstLight.Game.Data
 		public DateTime LastLoginTime;
 		public DateTime LoginTime;
 		public bool IsFirstSession;
-		public bool UseDynamicJoystick = false;
-		public bool SwitchJoysticks = false;
-		public bool UseDynamicCamera = true;
-		public bool UseScreenShake = true;
-		public bool InvertSpecialCancellling = true;
 
 		public Environment LastEnvironment;
-		public string ConnectionRegion;
 
 		// Moved to AccountData, this is here for backwards compatibility
 		[Obsolete]
@@ -66,50 +50,12 @@ namespace FirstLight.Game.Data
 		public DateTime GameReviewDate;
 		
 		public FrameSnapshot LastCapturedFrameSnapshot;
-
-		public bool SfxEnabled = true;
-		public bool BgmEnabled = true;
-		public bool HapticEnabled = true;
-		public bool UseOverheadUI = false;
 		
-		public bool DialogueEnabled = false;
-		public FpsTarget FpsTarget = FpsTarget.High;
 
-		public GraphicsConfig.DetailLevel CurrentDetailLevel
-		{
-			get => GraphicsConfig.DetailLevel.Low;
-			set { }
-		}
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public CustomGameOptions LastCustomGameOptions = new();
-		public bool ConeAim;
-		public bool MovespeedControl;
-		public bool AngleTapShoot;
-		public bool StopShootingShake;
-		
 		
 		[NonSerialized] public Dictionary<string, string> TitleData;
-		
-		/// <summary>
-		/// Copies base values for when user logs in to a new environment.
-		/// We want to maintain a few settings across environments, those settings
-		/// should be added to this copy method.
-		/// </summary>
-		public AppData CopyForNewEnvironment()
-		{
-			return new AppData
-			{
-				SfxEnabled = this.SfxEnabled,
-				BgmEnabled = this.BgmEnabled,
-				HapticEnabled = this.HapticEnabled,
-				CurrentDetailLevel = this.CurrentDetailLevel,
-				UseDynamicJoystick = this.UseDynamicJoystick,
-				UseDynamicCamera = this.UseDynamicCamera,
-				DialogueEnabled = this.DialogueEnabled,
-				ConnectionRegion = this.ConnectionRegion,
-				FpsTarget = this.FpsTarget
-			};
-		}
 	}
 
 

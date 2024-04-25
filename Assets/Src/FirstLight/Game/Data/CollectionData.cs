@@ -127,7 +127,7 @@ namespace FirstLight.Game.Data
 		[JsonProperty] [JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, ItemData>))]
 		public readonly Dictionary<CollectionCategory, ItemData> Equipped = new ()
 		{
-			{CollectionCategories.PLAYER_SKINS, ItemFactory.Collection(GameId.MaleAssassin)},
+			{CollectionCategories.PLAYER_SKINS, ItemFactory.Collection(GameId.PlayerSkinBrandMale)},
 		};
 
 		public ulong LastUpdateTimestamp;

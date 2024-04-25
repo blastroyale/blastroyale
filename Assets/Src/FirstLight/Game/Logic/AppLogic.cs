@@ -1,18 +1,11 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.FLogger;
 using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Services;
-using PlayFab;
-using PlayFab.ClientModels;
-using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.Logic
 {
@@ -30,56 +23,6 @@ namespace FirstLight.Game.Logic
 		/// Requests the information if the game was or not yet reviewed
 		/// </summary>
 		bool IsGameReviewed { get; }
-		
-		/// <summary>
-		/// Are Sound Effects enabled?
-		/// </summary>
-		bool IsSfxEnabled { get; set; }
-
-		/// <summary>
-		/// Is Background Music enabled?
-		/// </summary>
-		bool IsBgmEnabled { get; set; }
-
-		/// <summary>
-		/// Is dialogue enabled?
-		/// </summary>
-		bool IsDialogueEnabled { get; set; }
-
-		/// <summary>
-		/// Is Haptic feedback on device enabled?
-		/// </summary>
-		bool IsHapticOn { get; set; }
-
-		/// <summary>
-		/// Is Haptic feedback on device enabled?
-		/// </summary>
-		bool UseOverheadUI { get; set; }
-		
-		/// <summary>
-		/// Switches the aim and movement joystick.
-		/// </summary>
-		bool SwitchJoysticks { get; set; }
-
-		/// <summary>
-		/// What kind of special cancelling system is used
-		/// </summary>
-		bool InvertSpecialCancellling { get; set; }
-
-		/// <summary>
-		/// Requests the enable property for screenshake
-		/// </summary>
-		bool UseScreenShake { get; set; }
-
-		/// <summary>
-		/// Requests the current detail level of the game
-		/// </summary>
-		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
-
-		/// <summary>
-		/// Requests the current FPS target
-		/// </summary>
-		FpsTarget FpsTarget { get; set; }
 
 		/// <summary>
 		/// Requests the player's title display name (excluding appended numbers)
@@ -105,11 +48,6 @@ namespace FirstLight.Game.Logic
 		/// Gets last current custom game options used
 		/// </summary>
 		CustomGameOptions LastCustomGameOptions { get; }
-
-		/// <summary>
-		/// Requests the last region that player was connected to
-		/// </summary>
-		IObservableField<string> ConnectionRegion { get; }
 		
 		/// <summary>
 		/// Requests the player's title display name (including appended numbers)
@@ -128,16 +66,6 @@ namespace FirstLight.Game.Logic
 		/// <param name="tagged">Appends tags to the name (sprite sheet references).</param>
 		/// <returns></returns>
 		string GetDisplayName(bool trimmed = true, bool tagged = true);
-
-		/// <summary>
-		/// Sets the resolution mode for the 3D rendering of the app
-		/// </summary>
-		void SetDetailLevel();
-
-		/// <summary>
-		/// Sets the app's FPS target
-		/// </summary>
-		void SetFpsTarget();
 
 		/// <summary>
 		/// Sets last custom game options
@@ -160,25 +88,10 @@ namespace FirstLight.Game.Logic
 		/// This ensures his app data is enriched with his player data
 		/// </summary>
 		bool IsPlayerLoggedIn { get; }
-
-		/// <summary>
-		/// Displays cone aim instead of line aim
-		/// </summary>
-		bool ConeAim { get; set; }
-
-		/// <summary>
-		/// Allows players to tap an angle fo the analog to shoot
-		/// </summary>
-		bool AngleTapShoot { get; }
-
-		/// <summary>
-		/// Prevents screen shaking when shooting
-		/// </summary>
-		bool StopShootingShake { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
-	public interface IAppLogic : IAppDataProvider, IGameLogicInitializer
+	public interface IAppLogic : IAppDataProvider
 	{
 	}
 
@@ -186,7 +99,6 @@ namespace FirstLight.Game.Logic
 	public class AppLogic : AbstractBaseLogic<AppData>, IAppLogic
 	{
 		private readonly DateTime _defaultZeroTime = new (2020, 1, 1);
-		private readonly IAudioFxService<AudioId> _audioFxService;
 
 		public bool IsPlayerLoggedIn => !string.IsNullOrEmpty(Data.PlayerId);
 		public bool AngleTapShoot { get; set; }
@@ -210,97 +122,6 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public bool IsSfxEnabled
-		{
-			get => Data.SfxEnabled;
-			set
-			{
-				Data.SfxEnabled = value;
-				_audioFxService.IsSfxMuted = !value;
-			}
-		}
-
-		/// <inheritdoc />
-		public bool IsBgmEnabled
-		{
-			get => Data.BgmEnabled;
-			set
-			{
-				Data.BgmEnabled = value;
-				_audioFxService.IsBgmMuted = !value;
-			}
-		}
-
-		/// <inheritdoc />
-		public bool IsDialogueEnabled
-		{
-			get => Data.DialogueEnabled;
-			set
-			{
-				Data.DialogueEnabled = value;
-				_audioFxService.IsDialogueMuted = !value;
-			}
-		}
-
-		/// <inheritdoc />
-		public bool IsHapticOn
-		{
-			get => Data.HapticEnabled;
-			set { Data.HapticEnabled = value; }
-		}
-
-		public bool UseOverheadUI
-		{
-			get => Data.UseOverheadUI;
-			set => Data.UseOverheadUI = value;
-		}
-
-		public bool InvertSpecialCancellling
-		{
-			get => Data.InvertSpecialCancellling;
-			set { Data.InvertSpecialCancellling = value; }
-		}
-
-		/// <inheritdoc />
-		public bool SwitchJoysticks
-		{
-			get => Data.SwitchJoysticks;
-			set => Data.SwitchJoysticks = value;
-		}
-
-		/// <inheritdoc />
-		public bool UseScreenShake
-		{
-			get => Data.UseScreenShake;
-			set => Data.UseScreenShake = value;
-		}
-
-		/// <inheritdoc />
-		public GraphicsConfig.DetailLevel CurrentDetailLevel
-		{
-			get => Data.CurrentDetailLevel;
-			set
-			{
-				Data.CurrentDetailLevel = value;
-				SetDetailLevel();
-			}
-		}
-
-		/// <inheritdoc />
-		public FpsTarget FpsTarget
-		{
-			get => Data.FpsTarget;
-			set
-			{
-				Data.FpsTarget = value;
-				SetFpsTarget();
-			}
-		}
-
-		/// <inheritdoc />
-		public IObservableField<string> ConnectionRegion { get; private set; }
-
-		/// <inheritdoc />
 		public IObservableField<string> DisplayName { get; private set; }
 
 		public IObservableField<FrameSnapshot> LastFrameSnapshot { get; private set; }
@@ -313,51 +134,24 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public string PlayerId => Data.PlayerId;
 
-		public bool ConeAim
-		{
-			get => Data.ConeAim;
-			set => Data.ConeAim = value;
-		}
-
-		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
+		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider) :
 			base(gameLogic, dataProvider)
 		{
-			_audioFxService = audioFxService;
-		}
-
-		/// <inheritdoc />
-		public void Init()
-		{
-			IsSfxEnabled = Data.SfxEnabled;
-			IsBgmEnabled = Data.BgmEnabled;
-			IsDialogueEnabled = Data.DialogueEnabled;
-
 			DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
-			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			LastFrameSnapshot = new ObservableResolverField<FrameSnapshot>(() => Data.LastCapturedFrameSnapshot,
 				snap => Data.LastCapturedFrameSnapshot = snap);
 		}
 
 		public void ReInit()
 		{
-			IsSfxEnabled = Data.SfxEnabled;
-			IsBgmEnabled = Data.BgmEnabled;
-			IsDialogueEnabled = Data.DialogueEnabled;
 
 			{
 				var listeners = DisplayName.GetObservers();
 				DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
 				DisplayName.AddObservers(listeners);
 			}
-
-			{
-				var listeners = ConnectionRegion.GetObservers();
-				ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
-				ConnectionRegion.AddObservers(listeners);
-			}
 			
 			DisplayName.InvokeUpdate();
-			ConnectionRegion.InvokeUpdate();
 		}
 
 		public void SetLastCustomGameOptions(CustomGameOptions options)
@@ -393,33 +187,6 @@ namespace FirstLight.Game.Logic
 			}
 
 			return name;
-		}
-
-		/// <inheritdoc />
-		public void SetDetailLevel()
-		{
-			var detailLevelConf = GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().DetailLevels
-				.Find(detailLevelConf => detailLevelConf.Name == CurrentDetailLevel);
-
-			FLog.Verbose("Setting detail level to " + detailLevelConf.DetailLevelIndex);
-			QualitySettings.SetQualityLevel(detailLevelConf.DetailLevelIndex);
-		}
-
-		/// <inheritdoc />
-		public void SetFpsTarget()
-		{
-			// Disable Vsync for unlimited fps, otherwise will be fixed at screen refresh rate
-			if (FpsTarget == FpsTarget.Unlimited)
-			{
-				QualitySettings.vSyncCount = 0;
-			}
-
-			Application.targetFrameRate = FpsTarget switch
-			{
-				FpsTarget.Unlimited => 500,
-				FpsTarget.High      => 60,
-				_                   => 30
-			};
 		}
 	}
 }

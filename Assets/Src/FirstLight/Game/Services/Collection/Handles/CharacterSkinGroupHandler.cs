@@ -45,8 +45,10 @@ namespace FirstLight.Game.Services.Collection.Handles
 			{
 				var text = component.material.mainTexture as Texture2D;
 				if (text != null)
+				{
 					text.ClearRequestedMipmapLevel();
 					text.requestedMipmapLevel = level;
+				}
 			}
 
 			return obj;

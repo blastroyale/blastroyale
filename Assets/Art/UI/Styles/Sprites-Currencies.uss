@@ -14,6 +14,8 @@
     --sprite-currencies__cs: url('/Assets/Art/UI/Sprites/Currencies/cs.png');
     --sprite-currencies__cs-reward: url('/Assets/Art/UI/Sprites/Currencies/cs-reward.png');
     --sprite-currencies__fragments-default: url('/Assets/Art/UI/Sprites/Currencies/fragments-default.png');
+    --sprite-currencies__noob-1: url('/Assets/Art/UI/Sprites/Currencies/noob-1.png');
+    --sprite-currencies__noob-default: url('/Assets/Art/UI/Sprites/Currencies/noob-default.png');
 }
 
 .sprite-currencies__blastbuck-1 {
@@ -98,5 +100,17 @@
     background-image: var(--sprite-currencies__fragments-default);
     width: 40px;
     height: 40px;
+}
+
+.sprite-currencies__noob-1 {
+    background-image: var(--sprite-currencies__noob-1);
+    width: 938px;
+    height: 838px;
+}
+
+.sprite-currencies__noob-default {
+    background-image: var(--sprite-currencies__noob-default);
+    width: 100px;
+    height: 100px;
 }
 

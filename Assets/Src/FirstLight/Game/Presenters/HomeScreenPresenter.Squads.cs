@@ -5,6 +5,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using UnityEngine.UIElements;
 
@@ -24,7 +25,7 @@ namespace FirstLight.Game.Presenters
 			_partyContainer = root.Q("PartyContainer").Required().AttachView(this, out _partyView);
 			_partyView.SetRoot(root);
 			_partyButton = root.Q<LocalizedButton>("PartyButton").Required();
-			_partyButton.LevelLock(this, root, Configs.UnlockSystem.Squads, OnPartyClicked);
+			_partyButton.LevelLock2(this, root, Configs.UnlockSystem.Squads, OnPartyClicked);
 		}
 
 		private void UpdateSquadsButtonVisibility()
@@ -125,7 +126,7 @@ namespace FirstLight.Game.Presenters
 					JoinParty = OnJoinPartyButtonClicked,
 					CreateParty = OnCreateSquadButtonClicked
 				};
-				await _uiService.OpenUiAsync<PartyDialogPresenter, PartyDialogPresenter.StateData>(data);
+				await _services.UIService.OpenScreen<PartyDialogPresenter>(data);
 			}
 		}
 

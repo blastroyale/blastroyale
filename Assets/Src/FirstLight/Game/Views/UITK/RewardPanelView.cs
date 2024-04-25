@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.UIService;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views

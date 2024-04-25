@@ -15,7 +15,8 @@ namespace GameLogicService.Game
 	{
 		public ServerEnvironmentService(IBaseServiceConfiguration configuration)
 		{
-			var mapping = new Dictionary<string, EnvironmentList>() { { "dev", EnvironmentList.DEV }, { "staging", EnvironmentList.STAGING }, { "testnet-prod", EnvironmentList.TESTNET }, { "mainnet-prod", EnvironmentList.PROD } };
+			// TODO: Change testnet-prod to community
+			var mapping = new Dictionary<string, EnvironmentList>() { { "dev", EnvironmentList.DEV }, { "staging", EnvironmentList.STAGING }, { "testnet-prod", EnvironmentList.COMMUNITY }, { "mainnet-prod", EnvironmentList.PROD } };
 
 			if (!mapping.TryGetValue(configuration.ApplicationEnvironment, out var environment))
 			{

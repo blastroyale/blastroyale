@@ -2,10 +2,11 @@ using System;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -17,13 +18,9 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles server selection in the main menu
 	/// </summary>
-	public class ServerSelectScreenPresenter : UiPresenterData<ServerSelectScreenPresenter.StateData>
+	[UILayer(UILayer.Popup)]
+	public class ServerSelectScreenPresenter : UIPresenter
 	{
-		public struct StateData
-		{
-			public Action<bool> OnExit;
-		}
-
 		[SerializeField, Required] private GameObject _selectorAndButtonsContainer;
 		[SerializeField, Required] private TMP_Text _statusText;
 		[SerializeField, Required] private Button _connectButton;
@@ -31,24 +28,25 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TMP_Dropdown _serverSelectDropdown;
 
 		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
-
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
 			_connectButton.onClick.AddListener(OnConnectClicked);
 			_backButton.onClick.AddListener(OnBackClicked);
 		}
 
-		protected override void OnOpened()
+		protected override void QueryElements()
 		{
-			base.OnOpened();
+		}
+
+		protected override UniTask OnScreenOpen(bool reload)
+		{
 			_statusText.SetText("Pinging servers...");
 			_selectorAndButtonsContainer.SetActive(false);
 			WaitForRegionPing().Forget();
+			return base.OnScreenOpen(reload);
 		}
 
 		private async UniTaskVoid WaitForRegionPing()
@@ -56,7 +54,7 @@ namespace FirstLight.Game.Presenters
 			await UniTask.WaitUntil(() => _services.ServerListService.State is IServerListService.ServerListState.FetchedPings or IServerListService.ServerListState.Failed);
 			if (_services.ServerListService.State == IServerListService.ServerListState.Failed)
 			{
-				CloseSeverSelect(false);
+				CloseServerSelect(false);
 				return;
 			}
 
@@ -68,7 +66,7 @@ namespace FirstLight.Game.Presenters
 		/// <summary>
 		/// Activates and populates the server selection list
 		/// </summary>
-		public void UpdateServerList()
+		private void UpdateServerList()
 		{
 			var regions = _services.ServerListService.PingsByServer;
 			_serverSelectDropdown.options.Clear();
@@ -81,8 +79,7 @@ namespace FirstLight.Game.Presenters
 					region.ServerCode.GetPhotonRegionTranslation().ToUpper(), region.ReceivedPing ? region.Ping : "");
 
 				_serverSelectDropdown.options.Add(new DropdownMenuOption(regionTitle, region));
-
-				if (_gameDataProvider.AppDataProvider.ConnectionRegion.Value == region.ServerCode)
+				if (_services.LocalPrefsService.ServerRegion.Value == region.ServerCode)
 				{
 					currentRegion = i;
 				}
@@ -93,17 +90,23 @@ namespace FirstLight.Game.Presenters
 			_serverSelectDropdown.SetValueWithoutNotify(currentRegion);
 			_serverSelectDropdown.RefreshShownValue();
 		}
-		
 
-		private void CloseSeverSelect(bool changedServer)
+
+		private void CloseServerSelect(bool changedServer)
 		{
-			Data.OnExit.Invoke(changedServer);
-			Close(true);
+			_services.UIService.CloseScreen<ServerSelectScreenPresenter>().Forget();
+
+			if (changedServer)
+			{
+				_services.MessageBrokerService.Publish(new ChangedServerRegionMessage());
+				_services.GenericDialogService.OpenSimpleMessage(ScriptLocalization.UITSettings.connected_to_server_title,
+					string.Format(ScriptLocalization.UITSettings.connected_to_server_desc, _services.LocalPrefsService.ServerRegion.Value.GetPhotonRegionTranslation()));
+			}
 		}
 
 		private void OnBackClicked()
 		{
-			CloseSeverSelect(false);
+			CloseServerSelect(false);
 		}
 
 		private void OnConnectClicked()
@@ -121,11 +124,12 @@ namespace FirstLight.Game.Presenters
 		private async UniTaskVoid Connect(IServerListService.ServerPing server)
 		{
 			// No need to reconnect if it is the same server
-			if (_gameDataProvider.AppDataProvider.ConnectionRegion.Value == server.ServerCode)
+			if (_services.LocalPrefsService.ServerRegion.Value == server.ServerCode)
 			{
-				CloseSeverSelect(false);
+				CloseServerSelect(false);
 				return;
 			}
+
 			_statusText.SetText("Connecting...");
 			_selectorAndButtonsContainer.SetActive(false);
 			FLog.Info("Connecting to " + server.ServerCode);
@@ -136,7 +140,7 @@ namespace FirstLight.Game.Presenters
 				FLog.Error("Failed to change region!");
 			}
 
-			CloseSeverSelect(connected);
+			CloseServerSelect(connected);
 			FLog.Info("Should close this");
 		}
 

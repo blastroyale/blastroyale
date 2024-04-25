@@ -68,6 +68,7 @@ namespace Quantum
 		XLGun = 3,
 		SniperGun = 4,
 		Launcher = 5,
+		XLMelee = 6,
 	}
 
 	/// <summary>

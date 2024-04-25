@@ -176,6 +176,7 @@ namespace FirstLight.Game.Services.Party
 		private IAppDataProvider _appDataProvider;
 		private IGameBackendService _backendService;
 		private IGenericDialogService _genericDialogService;
+		private LocalPrefsService _localPrefsService;
 
 		// State
 		private string _lobbyId;
@@ -198,13 +199,15 @@ namespace FirstLight.Game.Services.Party
 							IAppDataProvider appDataProvider,
 							IGameBackendService backendService,
 							IGenericDialogService genericDialogService,
-							IMessageBrokerService msgBroker)
+							IMessageBrokerService msgBroker,
+							LocalPrefsService localPrefsService)
 		{
 			_playerDataProvider = playerDataProvider;
 			_appDataProvider = appDataProvider;
 			_pubsub = pubsub;
 			_backendService = backendService;
 			_genericDialogService = genericDialogService;
+			_localPrefsService = localPrefsService;
 			Members = new ObservableList<PartyMember>(new ());
 			HasParty = new ObservableField<bool>(false);
 			PartyReady = new ObservableField<bool>(false);
@@ -255,7 +258,7 @@ namespace FirstLight.Game.Services.Party
 
 				var code = JoinCodeUtils.GenerateCode(CodeDigits);
 				// TODO Check if lobby doesn't exist with the generated code
-				var server = _appDataProvider.ConnectionRegion.Value;
+				var server = _localPrefsService.ServerRegion;
 
 				var searchData = new Dictionary<string, string>()
 				{
@@ -340,7 +343,7 @@ namespace FirstLight.Game.Services.Party
 
 				if (lobby.SearchData.TryGetValue(ServerProperty, out var lobbyServer))
 				{
-					var server = _appDataProvider.ConnectionRegion.Value;
+					var server = _localPrefsService.ServerRegion.Value;
 					if (lobbyServer != server)
 					{
 						throw new PartyException(PartyErrors.PartyUsingOtherServer);
@@ -653,7 +656,6 @@ namespace FirstLight.Game.Services.Party
 				if (err == PartyErrors.UserIsNotMember)
 				{
 					// This means that the player got kicked before getting the connection handler of the lobby
-					Members.Remove(LocalPartyMember());
 					ResetPubSubState();
 					LocalPlayerKicked();
 					return;
@@ -705,14 +707,14 @@ namespace FirstLight.Game.Services.Party
 				bool exists = lobby.Members.Exists(m => m.MemberEntity.Id == partyMember.PlayfabID);
 				if (!exists)
 				{
-					Members.Remove(partyMember);
 					if (partyMember.Local)
 					{
 						// We don't care about this result
 						UnsubscribeToLobbyUpdates().Forget();
 						LocalPlayerKicked();
 						return;
-					}
+					} 
+					Members.Remove(partyMember);
 				}
 			}
 

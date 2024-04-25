@@ -943,9 +943,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 1
       BehaviourType:
         Value: 0
@@ -1033,9 +1031,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -1123,9 +1119,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -1213,9 +1207,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -1303,9 +1295,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -1393,9 +1383,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -1483,9 +1471,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -1573,9 +1559,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -1663,9 +1647,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -1753,9 +1735,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -1843,9 +1823,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -1933,9 +1911,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -2023,9 +1999,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -2113,9 +2087,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -2203,9 +2175,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -2293,9 +2263,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -2383,9 +2351,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -2473,9 +2439,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -2563,9 +2527,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -2653,9 +2615,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -2743,9 +2703,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -2833,9 +2791,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -2923,9 +2879,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 0
@@ -3015,9 +2969,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 3
       BehaviourType:
         Value: 3
@@ -3130,9 +3082,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 3
       BehaviourType:
         Value: 3
@@ -3245,9 +3195,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 3
       BehaviourType:
         Value: 3
@@ -3360,9 +3308,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 3
       BehaviourType:
         Value: 3
@@ -3475,9 +3421,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 3
       BehaviourType:
         Value: 3
@@ -3590,9 +3534,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 3
       BehaviourType:
         Value: 3
@@ -3705,9 +3647,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 3
       BehaviourType:
         Value: 3
@@ -3820,9 +3760,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 3
       BehaviourType:
         Value: 3
@@ -3910,9 +3848,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 2
@@ -4000,9 +3936,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 2
@@ -4090,9 +4024,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 2
@@ -4180,9 +4112,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 2
       BehaviourType:
         Value: 2
@@ -4256,6 +4186,8 @@ MonoBehaviour:
         Value: 20
       RarityModifier: 0
       Disabled:
+        Value: 0
+      DoNotDestroy:
         Value: 0
     CompoundBTAgent: []
     Consumable: []
@@ -4353,6 +4285,8 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 0
+      DoNotDestroy:
+        Value: 0
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4448,6 +4382,8 @@ MonoBehaviour:
         Value: 127
       RarityModifier: 0
       Disabled:
+        Value: 0
+      DoNotDestroy:
         Value: 0
     CompoundBTAgent: []
     Consumable: []
@@ -4545,6 +4481,8 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 0
+      DoNotDestroy:
+        Value: 0
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4640,6 +4578,8 @@ MonoBehaviour:
         Value: 85
       RarityModifier: 0
       Disabled:
+        Value: 0
+      DoNotDestroy:
         Value: 0
     CompoundBTAgent: []
     Consumable: []
@@ -4737,6 +4677,8 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 0
+      DoNotDestroy:
+        Value: 0
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4832,6 +4774,8 @@ MonoBehaviour:
         Value: 119
       RarityModifier: 0
       Disabled:
+        Value: 0
+      DoNotDestroy:
         Value: 0
     CompoundBTAgent: []
     Consumable: []
@@ -4929,6 +4873,8 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 0
+      DoNotDestroy:
+        Value: 0
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5024,6 +4970,8 @@ MonoBehaviour:
         Value: 141
       RarityModifier: 0
       Disabled:
+        Value: 0
+      DoNotDestroy:
         Value: 0
     CompoundBTAgent: []
     Consumable: []
@@ -5121,6 +5069,8 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 0
+      DoNotDestroy:
+        Value: 0
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5216,6 +5166,8 @@ MonoBehaviour:
         Value: 89
       RarityModifier: 0
       Disabled:
+        Value: 0
+      DoNotDestroy:
         Value: 0
     CompoundBTAgent: []
     Consumable: []
@@ -5313,6 +5265,8 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 0
+      DoNotDestroy:
+        Value: 0
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5408,6 +5362,8 @@ MonoBehaviour:
         Value: 91
       RarityModifier: 0
       Disabled:
+        Value: 0
+      DoNotDestroy:
         Value: 0
     CompoundBTAgent: []
     Consumable: []
@@ -5505,6 +5461,8 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 0
+      DoNotDestroy:
+        Value: 0
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5600,6 +5558,8 @@ MonoBehaviour:
         Value: 90
       RarityModifier: 0
       Disabled:
+        Value: 0
+      DoNotDestroy:
         Value: 0
     CompoundBTAgent: []
     Consumable: []
@@ -5697,6 +5657,8 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 0
+      DoNotDestroy:
+        Value: 0
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5792,6 +5754,8 @@ MonoBehaviour:
         Value: 94
       RarityModifier: 0
       Disabled:
+        Value: 0
+      DoNotDestroy:
         Value: 0
     CompoundBTAgent: []
     Consumable: []
@@ -5889,6 +5853,8 @@ MonoBehaviour:
       RarityModifier: 0
       Disabled:
         Value: 0
+      DoNotDestroy:
+        Value: 0
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5952,6 +5918,398 @@ MonoBehaviour:
           RawValue: 0
         Z:
           RawValue: -2580287
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 10
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 209
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+      DoNotDestroy:
+        Value: 0
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    DeathFlag: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Revivable: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    TutorialRuntimeData: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -207355
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1867775
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 10
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 209
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+      DoNotDestroy:
+        Value: 0
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    DeathFlag: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Revivable: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    TutorialRuntimeData: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -316145
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1607598
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 10
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 209
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+      DoNotDestroy:
+        Value: 0
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    DeathFlag: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Revivable: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    TutorialRuntimeData: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 448004
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1578762
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 10
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 209
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+      DoNotDestroy:
+        Value: 0
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    DeathFlag: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Revivable: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    TutorialRuntimeData: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 698352
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -2034893
       Rotation:
         X:
           RawValue: 0

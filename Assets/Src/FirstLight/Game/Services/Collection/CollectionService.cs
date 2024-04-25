@@ -41,12 +41,12 @@ namespace FirstLight.Game.Services.Collection
 		// Used if the player doesn't have any skin equipped, this should never be the case is a fallback to always render something
 		private static readonly Dictionary<GameIdGroup, GameId> DefaultSkins = new ()
 		{
-			{GameIdGroup.PlayerSkin, GameId.MaleAssassin},
+			{GameIdGroup.PlayerSkin, GameId.PlayerSkinBrandMale},
 			{GameIdGroup.MeleeSkin, GameId.MeleeSkinDefault},
 			{GameIdGroup.Glider, GameId.Turbine},
 			{GameIdGroup.DeathMarker, GameId.Demon},
 			{GameIdGroup.Footprint, GameId.FootprintDot},
-			{GameIdGroup.ProfilePicture, GameId.Avatar2},
+			{GameIdGroup.ProfilePicture, GameId.AvatarBrandmale},
 		};
 
 

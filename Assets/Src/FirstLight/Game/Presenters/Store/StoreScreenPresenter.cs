@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -9,7 +10,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
-using FirstLight.UiService;
+using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -25,19 +26,18 @@ namespace FirstLight.Game.Presenters.Store
 	/// <summary>
 	/// Manages the IAP store.
 	/// </summary>
-	[LoadSynchronously]
-	public class StoreScreenPresenter : UiToolkitPresenterData<StoreScreenPresenter.StateData>
+	public class StoreScreenPresenter : UIPresenterData<StoreScreenPresenter.StateData>
 	{
-		public struct StateData
+		public class StateData
 		{
 			public Action<GameProduct> OnPurchaseItem;
 			public Action OnHomeClicked;
 			public Action OnBackClicked;
 		}
 
-		public const string UssCategory = "product-category";
-		public const string UssCategoryLabel = "category-label";
-		public const string UssCategoryButton = "category-button";
+		public const string USS_CATEGORY = "product-category";
+		public const string USS_CATEGORY_LABEL = "category-label";
+		public const string USS_CATEGORY_BUTTON = "category-button";
 
 		[SerializeField] private VisualTreeAsset _StoreProductView;
 
@@ -57,20 +57,20 @@ namespace FirstLight.Game.Presenters.Store
 			_data = MainInstaller.ResolveData();
 		}
 
-		protected override void QueryElements(VisualElement root)
+		protected override void QueryElements()
 		{
-			_blocker = root.Q("Blocker").Required();
+			_blocker = Root.Q("Blocker").Required();
 
-			_header = root.Q<ScreenHeaderElement>("Header").Required();
-			_productList = root.Q("ProductList").Required();
-			_categoryList = root.Q("Categories").Required();
-			_scroll = root.Q<ScrollView>("ProductScrollView").Required();
+			_header = Root.Q<ScreenHeaderElement>("Header").Required();
+			_productList = Root.Q("ProductList").Required();
+			_categoryList = Root.Q("Categories").Required();
+			_scroll = Root.Q<ScrollView>("ProductScrollView").Required();
 			_header.backClicked += Data.OnBackClicked;
 
-			root.Q<CurrencyDisplayElement>("Coins")
+			Root.Q<CurrencyDisplayElement>("Coins")
 				.AttachView(this, out CurrencyDisplayView _);
 
-			root.Q<CurrencyDisplayElement>("BlastBucks")
+			Root.Q<CurrencyDisplayElement>("BlastBucks")
 				.AttachView(this, out CurrencyDisplayView _);
 
 			_categoriesElements.Clear();
@@ -93,19 +93,35 @@ namespace FirstLight.Game.Presenters.Store
 						productElement.OnClicked = BuyItem;
 					}
 
-					productElement.SetData(product, flags, root);
+					productElement.SetData(product, flags, Root);
 				}
 
 				_productList.Add(categoryElement);
 				var categoryButton = new Button();
 				categoryButton.text = category.Name;
-				categoryButton.AddToClassList(UssCategoryButton);
+				categoryButton.AddToClassList(USS_CATEGORY_BUTTON);
 				categoryButton.clicked += () => SelectCategory(categoryElement);
 				_categoryList.Add(categoryButton);
 				_categoriesElements[category.Name] = categoryElement;
 			}
+		}
 
-			base.QueryElements(root);
+		protected override UniTask OnScreenOpen(bool reload)
+		{
+			_gameServices.MessageBrokerService.Subscribe<OpenedCoreMessage>(OnCoresOpened);
+			_gameServices.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
+			_gameServices.IAPService.UnityStore.OnPurchaseFailure += OnPurchaseFailed;
+			_gameServices.IAPService.PurchaseFinished += OnPurchaseFinished;
+
+			return base.OnScreenOpen(reload);
+		}
+
+		protected override UniTask OnScreenClose()
+		{
+			_gameServices.MessageBrokerService.UnsubscribeAll(this);
+			_gameServices.IAPService.UnityStore.OnPurchaseFailure -= OnPurchaseFailed;
+			_gameServices.IAPService.PurchaseFinished -= OnPurchaseFinished;
+			return base.OnScreenClose();
 		}
 
 		/// <summary>
@@ -140,15 +156,6 @@ namespace FirstLight.Game.Presenters.Store
 			}
 		}
 
-		protected override void SubscribeToEvents()
-		{
-			base.SubscribeToEvents();
-			_gameServices.MessageBrokerService.Subscribe<OpenedCoreMessage>(OnCoresOpened);
-			_gameServices.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
-			_gameServices.IAPService.UnityStore.OnPurchaseFailure += OnPurchaseFailed;
-			_gameServices.IAPService.PurchaseFinished += OnPurchaseFinished;
-		}
-
 		private void OnPurchaseFinished(ItemData item, bool success)
 		{
 			_blocker.style.display = DisplayStyle.None;
@@ -160,7 +167,7 @@ namespace FirstLight.Game.Presenters.Store
 			_blocker.style.display = DisplayStyle.None;
 			if (reason is PurchaseFailureReason.UserCancelled or PurchaseFailureReason.PaymentDeclined) return;
 
-#if UNITY_EDITOR
+
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.UITShared.ok,
@@ -169,31 +176,22 @@ namespace FirstLight.Game.Presenters.Store
 
 			_gameServices.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error,
 				string.Format(ScriptLocalization.UITStore.iap_error, reason.ToString()), false, confirmButton);
-#else
-			var button = new FirstLight.NativeUi.AlertButton
-			{
-				Style = FirstLight.NativeUi.AlertButtonStyle.Positive,
-				Text = ScriptLocalization.UITShared.ok
-			};
-
-			FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.ErrorGeneric, reason.ToString(),
-				button);
-#endif
 		}
 
 		private void OnCoresOpened(OpenedCoreMessage msg)
 		{
 			FLog.Verbose("Store Screen", $"Viewing Opening Core {msg.Core}");
-			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
-			{
-				ParentItem = msg.Core,
-				Items = msg.Results,
-				FameRewards = false,
-				OnFinish = () =>
+			_gameServices.UIService.OpenScreen<RewardsScreenPresenter>(
+				new RewardsScreenPresenter.StateData()
 				{
-					_gameServices.GameUiService.OpenScreenAsync<StoreScreenPresenter, StateData>(Data);
-				}
-			});
+					ParentItem = msg.Core,
+					Items = msg.Results,
+					FameRewards = false,
+					OnFinish = () =>
+					{
+						_gameServices.UIService.OpenScreen<StoreScreenPresenter>(Data).Forget();
+					}
+				}).Forget();
 		}
 
 		private void OnItemRewarded(ItemRewardedMessage msg)
@@ -201,23 +199,16 @@ namespace FirstLight.Game.Presenters.Store
 			// Cores are handled above separately
 			FLog.Verbose("Store Screen", $"Viewing Reward {msg.Item}");
 			if (!msg.Item.Id.IsInGroup(GameIdGroup.Currency) && !msg.Item.Id.IsInGroup(GameIdGroup.Collection)) return;
-			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
-			{
-				Items = new List<ItemData> {msg.Item},
-				FameRewards = false,
-				OnFinish = () =>
+			_gameServices.UIService.OpenScreen<RewardsScreenPresenter>(
+				new RewardsScreenPresenter.StateData()
 				{
-					_gameServices.GameUiService.OpenScreenAsync<StoreScreenPresenter, StateData>(Data);
-				}
-			});
-		}
-
-		protected override void UnsubscribeFromEvents()
-		{
-			base.UnsubscribeFromEvents();
-			_gameServices.MessageBrokerService.UnsubscribeAll(this);
-			_gameServices.IAPService.UnityStore.OnPurchaseFailure -= OnPurchaseFailed;
-			_gameServices.IAPService.PurchaseFinished -= OnPurchaseFinished;
+					Items = new List<ItemData> {msg.Item},
+					FameRewards = false,
+					OnFinish = () =>
+					{
+						_gameServices.UIService.OpenScreen<StoreScreenPresenter>(Data).Forget();
+					}
+				}).Forget();
 		}
 
 		private void BuyItem(GameProduct product)

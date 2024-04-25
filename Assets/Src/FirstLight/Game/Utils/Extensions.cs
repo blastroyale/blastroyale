@@ -67,13 +67,13 @@ namespace FirstLight.Game.Utils
 			switch (regionKey)
 			{
 				case "eu":
-					return ScriptLocalization.MainMenu.ServerNameEu;
+					return ScriptLocalization.UITSettings.ServerNameEu;
 				case "us":
-					return ScriptLocalization.MainMenu.ServerNameUs;
+					return ScriptLocalization.UITSettings.ServerNameUs;
 				case "hk":
 				case "asia":
 				case "in":
-					return ScriptLocalization.MainMenu.ServerNameHk;
+					return ScriptLocalization.UITSettings.ServerNameHk;
 				default:
 					return "";
 			}

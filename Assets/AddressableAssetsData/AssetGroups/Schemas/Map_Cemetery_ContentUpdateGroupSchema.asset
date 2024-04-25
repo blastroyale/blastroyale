@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Map_Cemetery_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: 05412102a70240345a0750b18e8bf421, type: 2}
-  m_StaticContent: 0
+  m_StaticContent: 1

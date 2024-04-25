@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -9,8 +8,6 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Presenters;
-using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using Photon.Realtime;
@@ -32,7 +29,7 @@ namespace FirstLight.Game.Services
 		/// This can be loaded in background during matchmaking, just need to ensure
 		/// all players loaded before starting the game
 		/// </summary>
-		void StartMandatoryAssetLoad();
+		UniTask LoadMandatoryAssets();
 
 		/// <summary>
 		/// This method will start loading the optional assets, and hopefully the game starts when all are loaded.
@@ -40,17 +37,12 @@ namespace FirstLight.Game.Services
 		/// of the load is also ok.
 		/// In case they are not loaded the game will run just fine and assets will be loaded during the game.
 		/// </summary>
-		void StartOptionalAssetLoad();
+		UniTask LoadOptionalAssets();
 
 		/// <summary>
 		/// Unloads all loaded assets
 		/// </summary>
 		UniTask UnloadAllMatchAssets();
-
-		/// <summary>
-		/// Waits for all mandatory assets to have completed loading
-		/// </summary>
-		UniTask WaitMandatoryComplete();
 	}
 
 	public class MatchAssetsService : IMatchAssetsService, MatchServices.IMatchService
@@ -58,69 +50,68 @@ namespace FirstLight.Game.Services
 		private readonly IGameServices _services;
 		private readonly IAssetAdderService _assetAdderService;
 		private readonly IGameDataProvider _data;
-		private readonly AsyncTaskTracker _mandatoryAssets;
-		private readonly AsyncTaskTracker _optionalAssets;
 
 		public MatchAssetsService()
 		{
 			_services = MainInstaller.ResolveServices();
 			_assetAdderService = _services.AssetResolverService as IAssetAdderService;
 			_data = MainInstaller.Resolve<IGameDataProvider>();
-			_mandatoryAssets = new AsyncTaskTracker();
-			_optionalAssets = new AsyncTaskTracker();
 			_services.RoomService.OnPlayersChange += OnRoomPlayersChange;
 		}
 
-
-		public void StartOptionalAssetLoad()
+		public async UniTask LoadOptionalAssets()
 		{
 			FLog.Verbose("Starting optional match asset load");
 			var localPlayerLoadout = _services.RoomService.CurrentRoom.LocalPlayerProperties.Loadout.Value;
 			if (localPlayerLoadout != null)
 			{
-				LoadGameIds(localPlayerLoadout);
+				await LoadGameIds(localPlayerLoadout);
 			}
 
-			_optionalAssets.Add(_assetAdderService.LoadAllAssets<MaterialVfxId, Material>());
-			_optionalAssets.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());
-			_optionalAssets.Add(_assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>());
-			_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(GameId.Hammer, true, false));
-			LoadOptionalGroup<GameObject>(GameIdGroup.Collectable);
-			LoadOptionalGroup<GameObject>(GameIdGroup.Weapon);
-			LoadOptionalGroup<Sprite>(GameIdGroup.Weapon);
-			LoadOptionalGroup<GameObject>(GameIdGroup.BotItem);
+			await _assetAdderService.LoadAllAssets<MaterialVfxId, Material>();
+			await _assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>();
+			await _assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>();
+			await _services.AssetResolverService.RequestAsset<GameId, GameObject>(GameId.Hammer, true, false);
+
+			await LoadOptionalGroup<GameObject>(GameIdGroup.Collectable);
+			await LoadOptionalGroup<GameObject>(GameIdGroup.Weapon);
+			await LoadOptionalGroup<Sprite>(GameIdGroup.Weapon);
+			await LoadOptionalGroup<GameObject>(GameIdGroup.BotItem);
+			_services.MessageBrokerService.Publish(new BenchmarkLoadedOptionalMatchAssets());
 		}
 
-		public void StartMandatoryAssetLoad()
+		public async UniTask LoadMandatoryAssets()
 		{
 			if (!_services.NetworkService.InRoom) return;
+
 			FLog.Verbose("Starting mandatory asset load");
 			var time = Time.realtimeSinceStartup;
 			var map = _services.RoomService.CurrentRoom.Properties.MapId.Value;
+			_services.MessageBrokerService.Publish(new BenchmarkStartedLoadingMatchAssets
+			{
+				Map = map.ToString()
+			});
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
 			_services.RoomService.CurrentRoom.SetRuntimeConfig();
-			LoadQuantumAssets(map);
-			_mandatoryAssets.Add(LoadScene(map));
-			_mandatoryAssets.Add(
-				_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary));
-			_mandatoryAssets.Add(_services.GameUiService.LoadUiAsync<HUDScreenPresenter>());
-			_mandatoryAssets.OnCompleteAll(() =>
-			{
-				var dic = new Dictionary<string, object>
-				{
-					{"client_version", VersionUtils.VersionInternal},
-					{"total_time", Time.realtimeSinceStartup - time},
-					{"vendor_id", SystemInfo.deviceUniqueIdentifier},
-					{"playfab_player_id", _data.AppDataProvider.PlayerId}
-				};
-				_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadMatchAssetsComplete, dic);
-				FLog.Verbose("Completed loading all core assets");
+			await LoadQuantumAssets(map);
+			await LoadScene(map);
+			await _services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
 
-				if (_services.RoomService.InRoom)
-				{
-					_services.RoomService.CurrentRoom.LocalPlayerProperties.CoreLoaded.Value = true;
-				}
-			});
+			var dic = new Dictionary<string, object>
+			{
+				{"client_version", VersionUtils.VersionInternal},
+				{"total_time", Time.realtimeSinceStartup - time},
+				{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+				{"playfab_player_id", _data.AppDataProvider.PlayerId}
+			};
+			_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadMatchAssetsComplete, dic);
+			FLog.Verbose("Completed loading all core assets");
+			_services.MessageBrokerService.Publish(new BenchmarkLoadedMandatoryMatchAssets());
+
+			if (_services.RoomService.InRoom)
+			{
+				_services.RoomService.CurrentRoom.LocalPlayerProperties.CoreLoaded.Value = true;
+			}
 		}
 
 
@@ -130,7 +121,6 @@ namespace FirstLight.Game.Services
 			FLog.Info("Unloading Match Assets");
 			var configProvider = _services.ConfigsProvider;
 
-			_services.GameUiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
 
 			var sceneCount = SceneManager.sceneCount;
@@ -148,33 +138,31 @@ namespace FirstLight.Game.Services
 			_services.AssetResolverService.UnloadAssets<IndicatorVfxId, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets<MaterialVfxId, Material>(false);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());
-			
+
 			await Resources.UnloadUnusedAssets().ToUniTask();
 			FLog.Verbose($"Unloading match assets took {(DateTime.UtcNow - start).TotalMilliseconds} ms");
 		}
 
-		private void LoadOptionalGroup<T>(GameIdGroup group) where T: Object
+		private async UniTask LoadOptionalGroup<T>(GameIdGroup group) where T : Object
 		{
+			var loadTasks = new List<UniTask>();
+
 			foreach (var id in group.GetIds())
 			{
-				if(id.IsInGroup(GameIdGroup.Deprecated)) continue;
-				
+				if (id.IsInGroup(GameIdGroup.Deprecated)) continue;
+
 				if (id.IsInGroup(GameIdGroup.Collection))
 				{
-					_optionalAssets.Add(_services.CollectionService.LoadCollectionItem3DModel(ItemFactory.Collection(id), false, false));
+					loadTasks.Add(_services.CollectionService.LoadCollectionItem3DModel(ItemFactory.Collection(id), false, false));
 				}
 				else
 				{
-					_optionalAssets.Add(_services.AssetResolverService.RequestAsset<GameId, T>(id, true, false));
+					loadTasks.Add(_services.AssetResolverService.RequestAsset<GameId, T>(id, true, false));
 				}
 			}
-		}
 
-		public async UniTask WaitMandatoryComplete()
-		{
-			await _mandatoryAssets.WaitForCompletion();
+			await UniTask.WhenAll(loadTasks);
 		}
-
 
 		private async UniTask LoadScene(GameId map)
 		{
@@ -182,7 +170,7 @@ namespace FirstLight.Game.Services
 			{
 				throw new Exception("Asset map config not found for map " + map);
 			}
-			
+
 			var sceneTask = _assetAdderService.LoadSceneAsync(config.Scene, LoadSceneMode.Additive);
 			SceneManager.SetActiveScene(await sceneTask);
 		}
@@ -191,23 +179,29 @@ namespace FirstLight.Game.Services
 		{
 			if (reason == PlayerChangeReason.Join)
 			{
-				LoadGameIds(_services.RoomService.CurrentRoom.GetPlayerProperties(player).Loadout.Value);
+				LoadGameIds(_services.RoomService.CurrentRoom.GetPlayerProperties(player).Loadout.Value).Forget();
 			}
 		}
 
-		private void LoadGameIds(List<GameId> ids)
+		private async UniTask LoadGameIds(List<GameId> ids)
 		{
+			var loadTasks = new List<UniTask>();
+
 			foreach (var id in ids)
 			{
-				_optionalAssets.Add(_services.CollectionService.LoadCollectionItem3DModel(ItemFactory.Collection(id), false, false));
+				loadTasks.Add(_services.CollectionService.LoadCollectionItem3DModel(ItemFactory.Collection(id), false, false));
 			}
+
+			await UniTask.WhenAll(loadTasks);
 		}
 
-		private void LoadQuantumAssets(GameId map)
+		private async UniTask LoadQuantumAssets(GameId map)
 		{
+			var loadTasks = new List<UniTask<AssetBase>>();
+
 			if (_services.ConfigsProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
 			{
-				_optionalAssets.Add(_assetAdderService.LoadAssetAsync<AssetBase>(config.QuantumMap));
+				loadTasks.Add(_assetAdderService.LoadAssetAsync<AssetBase>(config.QuantumMap));
 			}
 
 			var assets = UnityDB.CollectAddressableAssets();
@@ -220,8 +214,10 @@ namespace FirstLight.Game.Services
 				}
 
 				FLog.Verbose("Preloading Quantum Asset " + asset.Item1);
-				_optionalAssets.Add(_assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1));
+				loadTasks.Add(_assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1));
 			}
+
+			await UniTask.WhenAll(loadTasks);
 		}
 
 		public void Dispose()

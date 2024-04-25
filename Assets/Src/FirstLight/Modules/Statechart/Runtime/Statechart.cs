@@ -57,6 +57,7 @@ namespace FirstLight.Statechart
 		private IStateInternal _currentState;
 		private readonly IStateFactoryInternal _stateFactory;
 
+		public static Action<string> OnStateEntered;
 #if DEVELOPMENT_BUILD
 		public Stopwatch StateWatch = new ();
 		public static Action<string, long> OnStateTimed;
@@ -153,7 +154,7 @@ namespace FirstLight.Statechart
 		{
 			if (_currentState is IStateDebug debug)
 			{
-				return "<color=orange>State Machine Debug LOG!!!!!!</color>\n"+debug.CurrentStateDebug();
+				return "<color=orange>State Machine Debug LOG!!!!!!</color>\n" + debug.CurrentStateDebug();
 			}
 
 			return _currentState.Name;
@@ -174,6 +175,7 @@ namespace FirstLight.Statechart
 				StateWatch.Start();
 #endif
 				_currentState = nextState;
+				OnStateEntered?.Invoke(_currentState.Name);
 				nextState = _currentState.Trigger(null);
 			}
 		}

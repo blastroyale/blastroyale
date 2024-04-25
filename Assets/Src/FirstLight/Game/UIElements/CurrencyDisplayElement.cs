@@ -25,22 +25,22 @@ namespace FirstLight.Game.UIElements
 		private const string UssIconOutline = UssBlock + "__icon-outline";
 		private const string LabelUssClassName = UssBlock + "__label";
 
-		private const string UssSpriteCurrency = "sprite-shared__icon-currency-{0}";
 
 		/* UXML attributes */
-		private GameId currency { get; set; }
+		private GameId Currency { get; set; }
+		private bool _hideIfPlayerDoesntHaveIt = false;
+
 
 		/* VisualElements created within this element */
 		private readonly VisualElement _icon;
 		private readonly VisualElement _iconOutline;
 		private readonly Label _label;
-		
+
 		/* Services, providers etc... */
 		private IGameDataProvider _gameDataProvider;
-		private IMainMenuServices _mainMenuServices;
-		private IGameServices _gameServices;
+		private IGameServices _services;
 		private CurrencyItemViewModel _currencyView;
-		
+
 		/* Other private variables */
 		private Tween _animationTween;
 		private VisualElement _originElement;
@@ -69,24 +69,45 @@ namespace FirstLight.Game.UIElements
 			RegisterCallback<ClickEvent>(OnClicked);
 		}
 
-		private void OnClicked(ClickEvent evt)
+		public void SetCurrency(GameId gameId)
 		{
-			this.OpenTooltip(panel.visualTree, currency.GetDescriptionLocalization());
+			Currency = gameId;
+			UpdateCurrencyView();
 		}
 
-		public void Init(IGameDataProvider gameDataProvider, IMainMenuServices mainMenuServices, IGameServices gameServices)
+		private void UpdateCurrencyView()
+		{
+			_currencyView = (CurrencyItemViewModel) ItemFactory.Currency(Currency, 0).GetViewModel();
+
+			_icon.ClearClassList();
+			_icon.AddToClassList(UssIcon);
+			_currencyView.DrawIcon(_icon);
+
+			_iconOutline.ClearClassList();
+			_iconOutline.AddToClassList(UssIconOutline);
+			_currencyView.DrawIcon(_iconOutline);
+		}
+
+		private void OnClicked(ClickEvent evt)
+		{
+			this.OpenTooltip(panel.visualTree, Currency.GetDescriptionLocalization());
+		}
+
+		public void Init(IGameDataProvider gameDataProvider, IGameServices gameServices)
 		{
 			_gameDataProvider = gameDataProvider;
-			_mainMenuServices = mainMenuServices;
-			_gameServices = gameServices;
+			_services = gameServices;
 		}
+
 
 		public void SubscribeToEvents()
 		{
-			_gameDataProvider.CurrencyDataProvider.Currencies.Observe(currency, OnCurrencyChanged);
-			var amount = _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(currency);
+			_gameDataProvider.CurrencyDataProvider.Currencies.Observe(Currency, OnCurrencyChanged);
+			var amount = _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(Currency);
+			this.SetDisplay(amount > 0 || !_hideIfPlayerDoesntHaveIt);
 			_label.text = amount.ToString();
 		}
+
 
 		public void UnsubscribeFromEvents()
 		{
@@ -97,13 +118,15 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the origin of the currency flying animation starting at another visual element
 		/// </summary>
-		public void SetAnimationOrigin(VisualElement originElement)
+		public void SetData(VisualElement animationOrigin, bool hideIfPlayerDoesntHaveIt = false)
 		{
-			_originElement = originElement;
+			_originElement = animationOrigin;
+			_hideIfPlayerDoesntHaveIt = hideIfPlayerDoesntHaveIt;
 		}
 
 		private void OnCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType type)
 		{
+			this.SetDisplay(current > 0 || !_hideIfPlayerDoesntHaveIt);
 			if (!_playingAnimation && current > previous) AnimateCurrency(previous, current);
 			else _label.text = current.ToString();
 		}
@@ -121,16 +144,17 @@ namespace FirstLight.Game.UIElements
 						? _originElement.GetPositionOnScreen(GetRoot())
 						: GetRoot().GetPositionOnScreen(GetRoot()) + Random.insideUnitCircle * 100;
 
-					_mainMenuServices.UiVfxService.PlayVfx(currency,
+					_services.UIVFXService.PlayVfx(Currency,
 						i * 0.1f,
 						originPosition,
 						_label.GetPositionOnScreen(GetRoot()),
 						() =>
 						{
 							DOVirtual.Float(previous, current, 0.3f, val => { _label.text = val.ToString("F0"); });
-							_gameServices.AudioFxService.PlayClip2D(AudioId.CounterTick1);
+							_services.AudioFxService.PlayClip2D(AudioId.CounterTick1);
 						});
 				}
+
 				_playingAnimation = false;
 			});
 		}
@@ -156,12 +180,12 @@ namespace FirstLight.Game.UIElements
 		public new class UxmlTraits : VisualElement.UxmlTraits
 		{
 			/* This is a custom attribute (that can be set from UXML / UI Builder. In this example it's a GameID enum for Currency */
-			private readonly UxmlEnumAttributeDescription<GameId> _currencyAttribute = new()
+			private readonly UxmlEnumAttributeDescription<GameId> _currencyAttribute = new ()
 			{
 				name = "currency",
 				defaultValue = GameId.CS,
 				restriction = new UxmlEnumeration
-					{ values = GameIdGroup.Currency.GetIds().Select(id => id.ToString()).ToArray() },
+					{values = GameIdGroup.Currency.GetIds().Select(id => id.ToString()).ToArray()},
 				use = UxmlAttributeDescription.Use.Required
 			};
 
@@ -177,18 +201,8 @@ namespace FirstLight.Game.UIElements
 				base.Init(ve, bag, cc);
 
 				var cde = (CurrencyDisplayElement) ve;
-				
-				cde.currency = _currencyAttribute.GetValueFromBag(bag, cc);
 
-				cde._currencyView = (CurrencyItemViewModel)ItemFactory.Currency(cde.currency, 0).GetViewModel();
-				
-				cde._icon.ClearClassList();
-				cde._icon.AddToClassList(UssIcon);
-				cde._currencyView.DrawIcon(cde._icon);
-
-				cde._iconOutline.ClearClassList();
-				cde._iconOutline.AddToClassList(UssIconOutline);
-				cde._currencyView.DrawIcon(cde._iconOutline);
+				cde.SetCurrency(_currencyAttribute.GetValueFromBag(bag, cc));
 			}
 		}
 	}

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Game;
-using Backend.Game.Services;
-using Backend.Models;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using Microsoft.Extensions.Logging;
@@ -12,7 +10,6 @@ using PlayFab;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
 using FirstLightServerSDK.Services;
 using GameLogicService.Game;
@@ -56,9 +53,11 @@ namespace Backend
 		private readonly IEventManager _eventManager;
 		private readonly IStatisticsService _statistics;
 		private readonly IServerMutex _mutex;
+		private readonly IMetricsService _metrics;
 
 		public GameLogicWebWebService(IEventManager eventManager, ILogger log,
-									  IPlayerSetupService service, IServerStateService stateService, GameServer server, IBaseServiceConfiguration serviceConfiguration, IServerMutex mutex)
+									  IPlayerSetupService service, IServerStateService stateService, GameServer server,
+									  IBaseServiceConfiguration serviceConfiguration, IServerMutex mutex, IMetricsService metricsService)
 		{
 			_setupService = service;
 			_stateService = stateService;
@@ -67,6 +66,7 @@ namespace Backend
 			_mutex = mutex;
 			_eventManager = eventManager;
 			_log = log;
+			_metrics = metricsService;
 		}
 
 		public async Task<PlayFabResult<BackendLogicResult>> RunLogic(string playerId, LogicRequest request)
@@ -93,6 +93,7 @@ namespace Backend
 					_log.LogInformation($"Setting up player {playerId}");
 					await SetupPlayer(playerId);
 				}
+
 				state = await _server.RunInitializationCommands(playerId, state);
 				await _eventManager.CallEvent(new PlayerDataLoadEvent(playerId, state));
 				if (state.HasDelta())
@@ -100,15 +101,17 @@ namespace Backend
 					await _stateService.UpdatePlayerState(playerId, state.GetOnlyUpdatedState());
 				}
 
-				return Playfab.Result(playerId, new Dictionary<string, string>()
+				_metrics.EmitMetric("RouteGetPlayerData", 1);
+				return Playfab.Result(playerId, new Dictionary<string, string>
 				{
 					{ "BuildNumber", _serviceConfiguration.BuildNumber },
-					{ "BuildCommit", _serviceConfiguration.BuildCommit }
+					{ "BuildCommit", _serviceConfiguration.BuildCommit },
 				});
 			}
 			catch (Exception e)
 			{
 				var errorResult = _server.GetErrorResult(null, e);
+				_metrics.EmitException(e,"GetPlayerData");
 				return GetPlayfabError(errorResult);
 			}
 			finally

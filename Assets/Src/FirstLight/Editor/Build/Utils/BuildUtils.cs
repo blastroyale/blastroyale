@@ -36,16 +36,25 @@ namespace FirstLight.Editor.Build.Utils
 		public static string AddressableVersionOverride =>
 			GetEnvironment() == ENV_DEV ? DateTime.UtcNow.ToString("yyyy.MM.dd.hh.mm.ss") : PlayerSettings.bundleVersion;
 
+		/// <summary>
+		/// Gets the current UCS / Backend environment, defaults to development.
+		/// </summary>
 		public static string GetEnvironment()
 		{
 			return Environment.GetEnvironmentVariable(ENVAR_ENVIRONMENT) ?? GetCMDArgument(ARG_ENVIRONMENT) ?? "development";
 		}
 
+		/// <summary>
+		/// Gets the current build number. In UCS DevOps this is ADDED to the DevOps build number.
+		/// </summary>
 		public static int GetBuildNumber()
 		{
 			return int.Parse(Environment.GetEnvironmentVariable(ENVAR_BUILD_NUMBER) ?? GetCMDArgument(ARG_BUILD_NUMBER) ?? "1");
 		}
 
+		/// <summary>
+		/// Gets whether the current build should be a development build.
+		/// </summary>
 		public static bool GetIsDevelopmentBuild()
 		{
 			return bool.Parse(Environment.GetEnvironmentVariable(ENVAR_DEVELOPMENT_BUILD) ?? GetCMDArgument(ARG_DEV_BUILD) ?? "true");

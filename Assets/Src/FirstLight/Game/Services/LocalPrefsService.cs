@@ -17,7 +17,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// If the dialogue is enabled.
 		/// </summary>
-		public ObservableField<bool> IsDialogueEnabled { get; } = CreateBoolSetting(nameof(IsDialogueEnabled), true);
+		public ObservableField<bool> IsDialogueEnabled { get; } = CreateBoolSetting(nameof(IsDialogueEnabled), false);
 
 		/// <summary>
 		/// If the haptics (vibrations) are enabled.
@@ -32,7 +32,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Which specials canceling system is used.
 		/// </summary>
-		public ObservableField<bool> InvertSpecialCanceling { get; } = CreateBoolSetting(nameof(InvertSpecialCanceling), false);
+		public ObservableField<bool> InvertSpecialCanceling { get; } = CreateBoolSetting(nameof(InvertSpecialCanceling), true);
 
 		/// <summary>
 		/// If the Aim and Move joysticks are swapped.

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1112948520478388819}
   - component: {fileID: 6609297592621284676}
   - component: {fileID: 6671044932016379133}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Wep_Minigun_02_Apc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 581295853275894912}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Weapon_Minigun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 335867925761748138, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 699189905435078329, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_Name
@@ -126,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 699189905435078329, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1013405764868694880, guid: 3ab9b9da03aa940d7902a03587ce4240, type: 3}
       propertyPath: m_RootOrder
@@ -251,7 +251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6208502038820993046, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6208502038820993046, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_IsActive
@@ -263,11 +263,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2508648685871570079, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2508648685871570079, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_IsActive

@@ -55,6 +55,7 @@ namespace Quantum
 		public FP RoofDamageCooldown;
 		public bool HardAngleAim;
 		public FP CollectableEquipmentPickupRadius;
+		public FP ChanceToDropNoobOnKill;
 	}
 
 	/// <summary>

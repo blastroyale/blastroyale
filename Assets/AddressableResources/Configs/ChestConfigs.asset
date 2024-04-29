@@ -716,7 +716,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 1
       - Chance:
-          RawValue: 65536
+          RawValue: 3276
         Amount: 1
         Pool:
         - ItemConfig:
@@ -1295,7 +1295,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 1
       - Chance:
-          RawValue: 65536
+          RawValue: 32768
         Amount: 2
         Pool:
         - ItemConfig:

@@ -48,7 +48,7 @@ namespace FirstLight.Game.TestCases
 			Wrap<SuccessAuthentication>();
 			Wrap<MatchSimulationStartedMessage>();
 			Wrap<SimulationEndedMessage>();
-			Wrap<PlayMatchmakingReadyMessage>();
+			Wrap<LocalPlayerClickedPlayMessage>();
 			Wrap<GameCompletedRewardsMessage>();
 			Wrap<ItemRewardedMessage>();
 			Wrap<ClaimedRewardsMessage>();

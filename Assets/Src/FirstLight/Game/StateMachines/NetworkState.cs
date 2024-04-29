@@ -15,6 +15,7 @@ using FirstLight.Statechart;
 using I2.Loc;
 using Photon.Realtime;
 using PlayFab;
+using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ErrorCode = Photon.Realtime.ErrorCode;
@@ -101,7 +102,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnSimulationStart);
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuitMessage);
 			_services.MessageBrokerService.Subscribe<SimulationEndedMessage>(OnMatchSimulationEndedMessage);
-			_services.MessageBrokerService.Subscribe<PlayMatchmakingReadyMessage>(OnPlayMatchmakingReadyMessage);
+			_services.MessageBrokerService.Subscribe<LocalPlayerClickedPlayMessage>(OnPlayerClickedPlay);
 			_services.MessageBrokerService.Subscribe<MatchmakingCancelMessage>(OnMatchmakingCancelMessage);
 			_services.MessageBrokerService.Subscribe<PlayMapClickedMessage>(OnPlayMapClickedMessage);
 			_services.MessageBrokerService.Subscribe<PlayJoinRoomClickedMessage>(OnPlayJoinRoomClickedMessage);
@@ -132,7 +133,7 @@ namespace FirstLight.Game.StateMachines
 		private async UniTask WaitSimulationFinish()
 		{
 			FLog.Verbose("Waiting for simulation to finish");
-			while (QuantumRunner.Default.IsDefinedAndRunning())
+			while (QuantumRunner.Default.IsDefinedAndRunning(false))
 				await UniTask.Delay(5);
 			FLog.Verbose("Simulation ended, advancing network action");
 		}
@@ -234,7 +235,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnSimulationStart(MatchSimulationStartedMessage message)
 		{
-			if (FeatureFlags.QUANTUM_CUSTOM_SERVER)
+			if (_services.GameBackendService.RunsSimulationOnServer())
 			{
 				_networkService.SendPlayerToken(PlayFabSettings.staticPlayer.EntityToken);
 			}
@@ -505,7 +506,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)
+		private void OnPlayerClickedPlay(LocalPlayerClickedPlayMessage msg)
 		{
 			FLog.Verbose("Received play ready matchmaking at network state");
 			// If running the equipment/BP menu tutorial, the room is handled through the EquipmentBpTutorialState.cs
@@ -520,6 +521,12 @@ namespace FirstLight.Game.StateMachines
 			var gameModeId = selectedGameMode.Entry.GameModeId;
 			var mutators = selectedGameMode.Entry.Mutators;
 			var mapConfig = _services.GameModeService.GetRotationMapConfig(gameModeId);
+			var rewards = selectedGameMode.Entry.AllowedRewards;
+
+			if (!FeatureFlags.ENABLE_NOOB)
+			{
+				rewards.Remove(GameId.NOOB);
+			}
 
 			var matchmakingSetup = new MatchRoomSetup()
 			{

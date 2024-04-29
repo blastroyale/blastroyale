@@ -1,7 +1,6 @@
-using System.Collections.Generic;
+using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,116 +9,50 @@ namespace FirstLight.Editor.EditorTools
 	/// <summary>
 	/// Remove empty folders automatically.
 	/// </summary>
-	public class RemoveEmptyFolders : UnityEditor.AssetModificationProcessor
+	public class RemoveEmptyFolders
 	{
-		private const string _kMenuText = "Tools/Remove Empty Folders";
-		
-		private static readonly StringBuilder _log = new StringBuilder();
-		private static readonly List<DirectoryInfo> _results = new List<DirectoryInfo>();
-		private static readonly List<string> _blacklistFileOrDirectory = new List<string> { "Vendor"};
-
 		/// <summary>
-		/// Raises the initialize on load method event.
+		/// Use this flag to simulate a run, before really deleting any folders.
 		/// </summary>
-		[InitializeOnLoadMethod]
-		private static void OnInitializeOnLoadMethod()
+		private static bool dryRun = false;
+
+		[MenuItem("Tools/Remove empty folders")]
+		private static void RemoveEmptyFoldersMenuItem()
 		{
-			EditorApplication.delayCall += () => Valid();
-		}
+			var index = Application.dataPath.IndexOf("/Assets", StringComparison.Ordinal);
+			var projectSubfolders = Directory.GetDirectories(Application.dataPath, "*", SearchOption.AllDirectories);
 
-		/// <summary>
-		/// Toggles the menu.
-		/// </summary>
-		[MenuItem(_kMenuText)]
-		private static void OnClickMenu()
-		{
-			// Check/Uncheck menu.
-			bool isChecked = !Menu.GetChecked(_kMenuText);
-			Menu.SetChecked(_kMenuText, isChecked);
+			// Create a list of all the empty subfolders under Assets.
+			var emptyFolders = projectSubfolders.Where(IsEmptyRecursive).ToArray();
 
-			// Save to EditorPrefs.
-			EditorPrefs.SetBool(_kMenuText, isChecked);
-
-			OnWillSaveAssets(null);
-		}
-
-		[MenuItem(_kMenuText, true)]
-		private static bool Valid()
-		{
-			// Check/Uncheck menu from EditorPrefs.
-			Menu.SetChecked(_kMenuText, EditorPrefs.GetBool(_kMenuText, false));
-			return true;
-		}
-
-		/// <summary>
-		/// Raises the will save assets event.
-		/// </summary>
-		private static string[] OnWillSaveAssets(string[] paths)
-		{
-			// If menu is unchecked, do nothing.
-			if (!EditorPrefs.GetBool(_kMenuText, false))
-				return paths;
-	
-			// Get empty directories in Assets directory
-			_results.Clear();
-			var assetsDir = Application.dataPath + Path.DirectorySeparatorChar;
-			GetEmptyDirectories(new DirectoryInfo(assetsDir), _results);
-
-			// When empty directories has detected, remove the directory.
-			if (0 < _results.Count)
+			foreach (var folder in emptyFolders)
 			{
-				_log.Length = 0;
-				_log.AppendFormat("Remove {0} empty directories as following:\n", _results.Count);
-				foreach (var d in _results)
+				// Verify that the folder exists (may have been already removed).
+				if (Directory.Exists(folder))
 				{
-					_log.AppendFormat("- {0}\n", d.FullName.Replace(assetsDir, ""));
-					FileUtil.DeleteFileOrDirectory(d.FullName);
-				}
+					var assetPath = folder.Substring(index + 1);
+					Debug.Log($"Deleting: {assetPath}");
 
-				// UNITY BUG: Debug.Log can not set about more than 15000 characters.
-				_log.Length = Mathf.Min(_log.Length, 15000);
-				Debug.Log(_log.ToString());
-				_log.Length = 0;
-
-				AssetDatabase.Refresh();
-			}
-			return paths;
-		}
-
-		/// <summary>
-		/// Get empty directories.
-		/// </summary>
-		private static bool GetEmptyDirectories(DirectoryInfo dir, List<DirectoryInfo> results)
-		{
-			bool isEmpty = true;
-			try
-			{
-				isEmpty = dir.GetDirectories().Count(x => !GetEmptyDirectories(x, results)) == 0 && // Are sub directories empty?
-					dir.GetFiles("*.*").All(x => x.Extension == ".meta") && // No file exist?
-					!IsBlackListed(dir);
-			}
-			catch
-			{
-				// ignored
-			}
-
-			// Store empty directory to results.
-			if (isEmpty)
-				results.Add(dir);
-			return isEmpty;
-		}
-
-		private static bool IsBlackListed(DirectoryInfo dir)
-		{
-			foreach (var fileOrDirectory in _blacklistFileOrDirectory)
-			{
-				if (dir.FullName.Contains(fileOrDirectory))
-				{
-					return true;
+					if (!dryRun)
+					{
+						// Delete
+						AssetDatabase.DeleteAsset(assetPath);
+					}
 				}
 			}
 
-			return false;
+			// Refresh the asset database once we're done.
+			AssetDatabase.Refresh();
+		}
+
+		/// <summary>
+		/// A helper method for determining if a folder is empty or not.
+		/// </summary>
+		private static bool IsEmptyRecursive(string path)
+		{
+			// A folder is empty if it (and all its subdirs) have no files (ignore .meta files)
+			return Directory.GetFiles(path).Length == 0 || !Directory.GetFiles(path).Select(file => !file.EndsWith(".meta")).Any()
+				&& Directory.GetDirectories(path, string.Empty, SearchOption.AllDirectories).All(IsEmptyRecursive);
 		}
 	}
 }

@@ -656,7 +656,6 @@ namespace FirstLight.Game.Services.Party
 				if (err == PartyErrors.UserIsNotMember)
 				{
 					// This means that the player got kicked before getting the connection handler of the lobby
-					Members.Remove(LocalPartyMember());
 					ResetPubSubState();
 					LocalPlayerKicked();
 					return;
@@ -708,14 +707,14 @@ namespace FirstLight.Game.Services.Party
 				bool exists = lobby.Members.Exists(m => m.MemberEntity.Id == partyMember.PlayfabID);
 				if (!exists)
 				{
-					Members.Remove(partyMember);
 					if (partyMember.Local)
 					{
 						// We don't care about this result
 						UnsubscribeToLobbyUpdates().Forget();
 						LocalPlayerKicked();
 						return;
-					}
+					} 
+					Members.Remove(partyMember);
 				}
 			}
 

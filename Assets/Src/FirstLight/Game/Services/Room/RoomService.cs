@@ -150,8 +150,8 @@ namespace FirstLight.Game.Services.RoomService
 
 		private RoomServiceParameters _parameters;
 		private RoomServiceCommands _commands;
-
-
+		
+		public static bool AutoStartWhenLoaded = false;
 		public event Action<Player, PlayerChangeReason> OnPlayersChange;
 		public event Action OnRoomPropertiesChanged;
 		public event Action OnMatchStarted;

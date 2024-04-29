@@ -141,7 +141,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.19.0
+  bundleVersion: 0.20.0
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -290,7 +290,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 7e450d757d15b44a3a1bb9b48f4d68df, type: 3}
+      m_Icon: {fileID: 2800000, guid: f21b81c0f79174506b3a246fcfa7c980, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
@@ -298,8 +298,8 @@ PlayerSettings:
   - m_BuildTarget: Android
     m_Icons:
     - m_Textures:
-      - {fileID: 2800000, guid: 475287212e85a4700ad64c3f9d9523ab, type: 3}
-      - {fileID: 2800000, guid: d4a2f7b2c4054402bb6dbe92a74d5e1c, type: 3}
+      - {fileID: 2800000, guid: 2aecba9a849054603aea68e045a315ae, type: 3}
+      - {fileID: 2800000, guid: 8d3abd79add204a8ebac8b4b14ec5b8e, type: 3}
       m_Width: 432
       m_Height: 432
       m_Kind: 2
@@ -330,63 +330,73 @@ PlayerSettings:
       m_Kind: 2
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 586c94dc8c3a14cfab62ccd05128f188, type: 3}
+      - {fileID: 2800000, guid: a4f1fab5a43a44b4d8868a95d77baa25, type: 3}
       m_Width: 192
       m_Height: 192
       m_Kind: 1
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 144
       m_Height: 144
       m_Kind: 1
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 96
       m_Height: 96
       m_Kind: 1
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 72
       m_Height: 72
       m_Kind: 1
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 48
       m_Height: 48
       m_Kind: 1
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 36
       m_Height: 36
       m_Kind: 1
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 586c94dc8c3a14cfab62ccd05128f188, type: 3}
+      - {fileID: 2800000, guid: a4f1fab5a43a44b4d8868a95d77baa25, type: 3}
       m_Width: 192
       m_Height: 192
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 144
       m_Height: 144
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 96
       m_Height: 96
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 72
       m_Height: 72
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 48
       m_Height: 48
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 36
       m_Height: 36
       m_Kind: 0
@@ -850,25 +860,20 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: QUANTUM_ADDRESSABLES;ENABLE_PLAYFAB_BETA;TextMeshPro;QUANTUM_REMOTE_PROFILER;LOG_LEVEL_INFO;DEVELOPMENT_BUILD;MOREMOUNTAINS_NICEVIBRATIONS;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;ODIN_VALIDATOR;ODIN_VALIDATOR_3_1;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;BAKERY_INCLUDED;ODIN_INSPECTOR_3_2;ODIN_INSPECTOR_3_3;ODIN_VALIDATOR_3_2;ODIN_VALIDATOR_3_3;ODIN_INSPECTOR_EDITOR_ONLY
-    CloudRendering: TextMeshPro;QUANTUM_ADDRESSABLES
+    Android: QUANTUM_ADDRESSABLES;TextMeshPro;LOG_LEVEL_INFO;MOREMOUNTAINS_NICEVIBRATIONS;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;ODIN_VALIDATOR;ODIN_INSPECTOR;BAKERY_INCLUDED;ODIN_INSPECTOR_3_3;ODIN_VALIDATOR_3_3;ODIN_INSPECTOR_EDITOR_ONLY;ODIN_VALIDATOR_3_1;ODIN_VALIDATOR_3_2;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2
     EmbeddedLinux: TextMeshPro
-    GameCoreScarlett: TextMeshPro;QUANTUM_ADDRESSABLES
-    GameCoreXboxOne: TextMeshPro;QUANTUM_ADDRESSABLES
-    LinuxHeadlessSimulation: TextMeshPro
-    Lumin: TextMeshPro;QUANTUM_ADDRESSABLES
-    Nintendo Switch: TextMeshPro;QUANTUM_ADDRESSABLES
-    PS4: TextMeshPro;QUANTUM_ADDRESSABLES
-    PS5: TextMeshPro;QUANTUM_ADDRESSABLES
+    GameCoreXboxOne: TextMeshPro
+    Nintendo Switch: TextMeshPro
+    PS4: TextMeshPro
+    PS5: TextMeshPro
     QNX: TextMeshPro
-    Stadia: TextMeshPro;QUANTUM_ADDRESSABLES
-    Standalone: TextMeshPro;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFAB_BETA;DEVELOPMENT_BUILD;QUANTUM_ADDRESSABLES;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;MOREMOUNTAINS_NICEVIBRATIONS;ODIN_INSPECTOR_EDITOR_ONLY;ODIN_VALIDATOR;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;LOG_LEVEL_VERBOSE;ODIN_VALIDATOR_3_1;BAKERY_INCLUDED;UNITY_ANDROID
+    Stadia: TextMeshPro
+    Standalone: QUANTUM_ADDRESSABLES;TextMeshPro;LOG_LEVEL_INFO;MOREMOUNTAINS_NICEVIBRATIONS;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;ODIN_VALIDATOR;ODIN_INSPECTOR;BAKERY_INCLUDED;ODIN_INSPECTOR_3_3;ODIN_VALIDATOR_3_3;ODIN_INSPECTOR_EDITOR_ONLY
     VisionOS: TextMeshPro
-    WebGL: TextMeshPro;QUANTUM_ADDRESSABLES
-    Windows Store Apps: TextMeshPro;QUANTUM_ADDRESSABLES
-    XboxOne: TextMeshPro;QUANTUM_ADDRESSABLES
-    iPhone: QUANTUM_ADDRESSABLES;QUANTUM_REMOTE_PROFILER;ENABLE_PLAYFAB_BETA;TextMeshPro;DEVELOPMENT_BUILD;MOREMOUNTAINS_NICEVIBRATIONS;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;ODIN_INSPECTOR_EDITOR_ONLY;ODIN_VALIDATOR;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_VALIDATOR_3_1;ENABLE_PLAYFABADMIN_API;LOG_LEVEL_INFO;BAKERY_INCLUDED;ODIN_VALIDATOR_3_2;ODIN_VALIDATOR_3_3;ODIN_INSPECTOR_3_2;ODIN_INSPECTOR_3_3
-    tvOS: TextMeshPro;QUANTUM_ADDRESSABLES
+    WebGL: TextMeshPro
+    XboxOne: TextMeshPro
+    iPhone: QUANTUM_ADDRESSABLES;TextMeshPro;LOG_LEVEL_INFO;MOREMOUNTAINS_NICEVIBRATIONS;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;ODIN_VALIDATOR;ODIN_INSPECTOR;BAKERY_INCLUDED;ODIN_INSPECTOR_3_3;ODIN_VALIDATOR_3_3;ODIN_INSPECTOR_EDITOR_ONLY;ODIN_VALIDATOR_3_1;ODIN_VALIDATOR_3_2;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2
+    tvOS: TextMeshPro
   additionalCompilerArguments:
     Android:
     - -warnaserror+

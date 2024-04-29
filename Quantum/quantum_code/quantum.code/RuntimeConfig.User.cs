@@ -12,6 +12,7 @@ namespace Quantum
 		[NonSerialized] public string[] Mutators;
 		[NonSerialized] public int BotOverwriteDifficulty;
 		[NonSerialized] public int TeamSize;
+		[NonSerialized] public int[] AllowedRewards;
 		
 		public AssetRefQuantumGameConfigs GameConfigs;
 		public AssetRefQuantumMapConfigs MapConfigs;
@@ -43,6 +44,11 @@ namespace Quantum
 			}
 			stream.Serialize(ref BotOverwriteDifficulty);
 			stream.Serialize(ref TeamSize);
+			stream.SerializeArrayLength(ref AllowedRewards);
+			for (var i = 0; i < AllowedRewards.Length; i++)
+			{
+				stream.Serialize(ref AllowedRewards[i]);
+			}
 			stream.Serialize(ref GameConfigs);
 			stream.Serialize(ref MapConfigs);
 			stream.Serialize(ref GameModeConfigs);

@@ -3,32 +3,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using FirstLight.FLogger;
-using FirstLight.Game;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Server.SDK.Modules;
-using FirstLight.Server.SDK.Modules.GameConfiguration;
-using FirstLight.Services;
-using Photon.Realtime;
 using PlayFab;
 using Quantum;
-using SRDebugger;
 using UnityEngine;
-using UnityEngine.UI;
-using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 public partial class SROptions
 {
+#if !DISABLE_SRDEBUGGER
 #if DEVELOPMENT_BUILD
 #if ENABLE_PLAYFABADMIN_API
 	[Category("Reset Player")]
@@ -77,14 +65,14 @@ public partial class SROptions
 #endif
 
 	private static uint _currencyValue = 100;
-
+	
 	private static void AddCurrencyCheats()
 	{
 		var category = "Currencies";
 		var sort = 10;
-		var container = new DynamicOptionContainer();
+		var container = new SRDebugger.DynamicOptionContainer();
 		// Create a mutable option
-		var input = OptionDefinition.Create(
+		var input = SRDebugger.OptionDefinition.Create(
 			"Currency Amount",
 			() => _currencyValue,
 			(newValue) => _currencyValue = newValue,
@@ -104,7 +92,7 @@ public partial class SROptions
 		};
 		foreach (var kv in values)
 		{
-			container.AddOption(OptionDefinition.FromMethod("Give " + kv.Key, () =>
+			container.AddOption(SRDebugger.OptionDefinition.FromMethod("Give " + kv.Key, () =>
 				{
 					var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 					var services = MainInstaller.Resolve<IGameServices>();
@@ -209,5 +197,6 @@ public partial class SROptions
 	}
 
 
+#endif
 #endif
 }

@@ -229,6 +229,11 @@ namespace FirstLight.Game.Presenters
 		private async UniTaskVoid ShowMinimapDelayed()
 		{
 			await UniTask.WaitUntil(() => !_gameServices.UIService.IsScreenOpen<SwipeTransitionScreenPresenter>());
+			// TECH DEBT, when reconnecting dead players will first open the HUD (this screen) then open the spectator in the 
+			// next frame, so this is no longer visible
+			// Ideally we would not open the hud if the player is dead, but currently we open the hud before starting the simulation
+			// so we don't know if the player is dead or alive
+			if (!Root.IsAttached()) return;
 			_legacyMinimap.SetActive(_gameServices.RoomService.CurrentRoom.GameModeConfig.ShowUIMinimap);
 		}
 

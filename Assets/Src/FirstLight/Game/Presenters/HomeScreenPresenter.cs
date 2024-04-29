@@ -312,6 +312,7 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnIsMatchmakingChanged);
 			_services.LeaderboardService.OnRankingUpdate -= OnRankingUpdateHandler;
+			_dataProvider.PlayerDataProvider.Level.StopObserving(OnFameChanged);
 
 			UnsubscribeFromSquadEvents();
 

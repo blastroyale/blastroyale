@@ -137,3 +137,5 @@ MonoBehaviour:
       HardAngleAim: 0
       CollectableEquipmentPickupRadius:
         RawValue: 65536
+      ChanceToDropNoobOnKill:
+        RawValue: 655

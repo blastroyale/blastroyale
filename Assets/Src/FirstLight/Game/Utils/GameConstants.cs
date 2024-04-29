@@ -27,13 +27,6 @@ namespace FirstLight.Game.Utils
 
 			public const string APP_STORE_IOS = "https://apps.apple.com/app/blast-royale/id1621071488";
 			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.blastroyale";
-#if LIVE_SERVER
-				public const string MARKETPLACE_URL = "https://marketplace.blastroyale.com/";
-#elif STAGE_SERVER
-				public const string MARKETPLACE_URL = "https://marketplace-staging.blastroyale.com/";
-#else
-			public const string MARKETPLACE_URL = "https://marketplace-dev.blastroyale.com/";
-#endif
 		}
 
 		public static class Balance
@@ -136,7 +129,9 @@ namespace FirstLight.Game.Utils
 				GameId.XP,
 				GameId.CS,
 				GameId.BPP,
-				GameId.Trophies
+				GameId.Trophies,
+				GameId.NOOB,
+				GameId.COIN,
 			};
 		}
 
@@ -275,7 +270,6 @@ namespace FirstLight.Game.Utils
 		{
 			public static string FAKEGAMEMODE_CUSTOMGAME = "Custom Game";
 			public static string TESTING = "Testing";
-			
 		}
 	}
 }

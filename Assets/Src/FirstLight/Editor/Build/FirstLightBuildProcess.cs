@@ -8,7 +8,6 @@ using FirstLight.Editor.Build.Utils;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using UnityEditor;
-using UnityEditor.AddressableAssets;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
@@ -32,7 +31,6 @@ namespace FirstLight.Editor.Build
 			PrepareFirebase(environment);
 			VersionEditorUtils.SetAndSaveInternalVersion(environment);
 			GenerateUCEnvironment(environment);
-			SetAddressableCatalogOverride(environment);
 			ConfigureQuantum();
 
 			// Probably not needed but why not
@@ -138,6 +136,7 @@ namespace FirstLight.Editor.Build
 				"development" => "***REMOVED***",
 				"staging"     => "***REMOVED***",
 				"production"  => "***REMOVED***",
+				"community"   => "***REMOVED***",
 				_             => throw new ArgumentOutOfRangeException(nameof(environment), environment, null)
 			};
 			
@@ -145,14 +144,6 @@ namespace FirstLight.Editor.Build
 			var content =
 				$"namespace FirstLight.Game.Utils\n{{\n\tpublic static class UnityCloudEnvironment\n\t{{\n\t\tpublic const string CURRENT = \"{environment}\";\n\tpublic const string CURRENT_ID = \"{environmentId}\";\n\t}}\n}}";
 			File.WriteAllText(path, content);
-		}
-
-		private static void SetAddressableCatalogOverride(string environment)
-		{
-			if (environment == BuildUtils.ENV_DEV)
-			{
-				AddressableAssetSettingsDefaultObject.Settings.OverridePlayerVersion = null;
-			}
 		}
 		
 		[Conditional("UNITY_IOS")]
@@ -176,6 +167,7 @@ namespace FirstLight.Editor.Build
 
 			plist.ReadFromFile(plistPath);
 			plist.root.SetString("NSUserTrackingUsageDescription", ScriptLocalization.General.ATTDescription);
+			plist.root.SetBoolean("ITSAppUsesNonExemptEncryption", false);
 			plist.WriteToFile(plistPath);
 
 			pbxProject.SetBuildProperty(frameworkTargetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "NO");

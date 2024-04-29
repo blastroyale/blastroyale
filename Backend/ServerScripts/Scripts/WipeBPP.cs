@@ -36,15 +36,19 @@ public class WipeBPP : PlayfabScript
 	private async Task Proccess(PlayerProfile profile)
 	{
 		var state = await ReadUserState(profile.PlayerId);
-		var playerData = state.DeserializeModel<BattlePassData>();
-		if (playerData.Seasons.TryGetValue(SEASON_TO_WIPE, out var season))
+
+		if (state != null)
 		{
-			season.Level = 0;
-			season.Points = 0;
+			var playerData = state.DeserializeModel<BattlePassData>();
+			if (playerData.Seasons.TryGetValue(SEASON_TO_WIPE, out var season))
+			{
+				season.Level = 0;
+				season.Points = 0;
+			}
+
+			state.UpdateModel(playerData);
+			await SetUserState(profile.PlayerId, state);
+			Console.WriteLine($"Wiped BPP for player {profile.PlayerId}");
 		}
-		
-		state.UpdateModel(playerData);
-		await SetUserState(profile.PlayerId, state);
-		Console.WriteLine($"Wiped BPP for player {profile.PlayerId}");
 	}
 }

@@ -329,12 +329,12 @@ namespace FirstLight.Services
 			
 			_activeAmbienceSource = new GameObject("Ambience Source 1").AddComponent<AudioSourceMonoComponent>();
 			_activeAmbienceSource.transform.SetParent(_audioPoolParent.transform);
-			_activeAmbienceSource.Source = _activeMusicSource.gameObject.AddComponent<AudioSource>();
+			_activeAmbienceSource.Source = _activeAmbienceSource.gameObject.AddComponent<AudioSource>();
 			_activeAmbienceSource.Source.playOnAwake = false;
 
 			_transitionAmbienceSource = new GameObject("Ambience Source 2").AddComponent<AudioSourceMonoComponent>();
 			_transitionAmbienceSource.transform.SetParent(_audioPoolParent.transform);
-			_transitionAmbienceSource.Source = _transitionMusicSource.gameObject.AddComponent<AudioSource>();
+			_transitionAmbienceSource.Source = _transitionAmbienceSource.gameObject.AddComponent<AudioSource>();
 			_transitionAmbienceSource.Source.playOnAwake = false;
 
 			AudioListener = new GameObject("Audio Listener").AddComponent<AudioListenerMonoComponent>();

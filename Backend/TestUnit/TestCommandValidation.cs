@@ -150,7 +150,7 @@ public class TestCommandValidation
 
 		public Enum[] AllowedEnvironments()
 		{
-			return new Enum[] { Environment.TESTNET };
+			return new Enum[] { Environment.COMMUNITY };
 		}
 	}
 

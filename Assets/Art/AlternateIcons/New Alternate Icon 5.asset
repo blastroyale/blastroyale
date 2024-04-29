@@ -14,22 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconName: AppIcon_5
   type: 1
-  source: {fileID: 2800000, guid: 27b3585a4b5e14151bee2f40d16051ba, type: 3}
-  iPhoneNotification40px: {fileID: 2800000, guid: 4514c579e91a94e2ba479800a6f5a252, type: 3}
-  iPhoneNotification60px: {fileID: 2800000, guid: a7529a70787cd4e139a62679dc92e6be, type: 3}
-  iPhoneSettings58px: {fileID: 2800000, guid: 679d7bfb0e22f4ea2a982d969081cae6, type: 3}
-  iPhoneSettings87px: {fileID: 2800000, guid: 9d6b336f47cf04e109ded724d2cc5dc3, type: 3}
-  iPhoneSpotlight80px: {fileID: 2800000, guid: 17a6b56b5b1ed46358188f3af147b3bc, type: 3}
-  iPhoneSpotlight120px: {fileID: 2800000, guid: 314815978245c4ad6af3aad08f613902, type: 3}
-  iPhoneApp120px: {fileID: 2800000, guid: 2cde4ecf34e3a4df7854b5feb2fd663b, type: 3}
-  iPhoneApp180px: {fileID: 2800000, guid: 438c4ae38dfde4bf6a1b06e40ea7e681, type: 3}
-  iPadNotifications20px: {fileID: 2800000, guid: eeb5169a2f8614121b98d391c9c8e656, type: 3}
-  iPadNotifications40px: {fileID: 2800000, guid: 1982c156ad07243e5a708515d55fafeb, type: 3}
-  iPadSettings29px: {fileID: 2800000, guid: 264832af10fc7419784449e2f887e1c2, type: 3}
-  iPadSettings58px: {fileID: 2800000, guid: 1c8be51d7fce84703bd0a28bf9a81d1a, type: 3}
-  iPadSpotlight40px: {fileID: 2800000, guid: 52b7c94b228e94bb1891c6211afddfa6, type: 3}
-  iPadSpotlight80px: {fileID: 2800000, guid: b4b6587fb0872434780757614624b3b9, type: 3}
-  iPadApp76px: {fileID: 2800000, guid: e2ca181b9d19b4f52a9c9d792c8fb5ce, type: 3}
-  iPadApp152px: {fileID: 2800000, guid: 62192ba9c2b994101929c2a49dc249f1, type: 3}
-  iPadProApp167px: {fileID: 2800000, guid: 5d81005bc1e1842d1a8491fc957a2cf1, type: 3}
-  appStore1024px: {fileID: 2800000, guid: 354b324d58db942fe968ea08a3591284, type: 3}
+  source: {fileID: 2800000, guid: f21b81c0f79174506b3a246fcfa7c980, type: 3}
+  iPhoneNotification40px: {fileID: 2800000, guid: c83eb7e8335f24ff0b8f938671960b57, type: 3}
+  iPhoneNotification60px: {fileID: 2800000, guid: 366b22ae673ea4ba49d26060e7198367, type: 3}
+  iPhoneSettings58px: {fileID: 2800000, guid: b7215c4a1e8fb4603b39ea0efc7885a0, type: 3}
+  iPhoneSettings87px: {fileID: 2800000, guid: 4dd7f5df5b3554a63b1eea31325afd7a, type: 3}
+  iPhoneSpotlight80px: {fileID: 2800000, guid: 2bd9e5894f7b14e4d908c3c31a1051c8, type: 3}
+  iPhoneSpotlight120px: {fileID: 2800000, guid: 145cf49dd39154b8e95bfd531ef23565, type: 3}
+  iPhoneApp120px: {fileID: 2800000, guid: 77e5fceb6db3b4ba3987d9ac6ef1b78e, type: 3}
+  iPhoneApp180px: {fileID: 2800000, guid: c99dd19ce0afe405bba08c9809529585, type: 3}
+  iPadNotifications20px: {fileID: 2800000, guid: e0a533745f359469e962cdee0a342d16, type: 3}
+  iPadNotifications40px: {fileID: 2800000, guid: 020b6d9d030a843e7b0692b6b7b19b96, type: 3}
+  iPadSettings29px: {fileID: 2800000, guid: 14bf2e8b483d549c78c4352820b01f84, type: 3}
+  iPadSettings58px: {fileID: 2800000, guid: 4447039d41b0147708a8b71faf3fcba7, type: 3}
+  iPadSpotlight40px: {fileID: 2800000, guid: 2e69b0266fa65482ebb3fbe9ac0cbe80, type: 3}
+  iPadSpotlight80px: {fileID: 2800000, guid: 5e374da25a69b41a588c634cf2ad07cb, type: 3}
+  iPadApp76px: {fileID: 2800000, guid: 541e2525f7ffd492c90fa19ffd4a81bd, type: 3}
+  iPadApp152px: {fileID: 2800000, guid: 5847120d67fad4db2884b400249ad969, type: 3}
+  iPadProApp167px: {fileID: 2800000, guid: 37f00ebe07eb745189a1ed294854b5bb, type: 3}
+  appStore1024px: {fileID: 2800000, guid: f94a3018f0a664bef98c370b543f2854, type: 3}

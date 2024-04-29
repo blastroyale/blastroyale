@@ -98,6 +98,7 @@
     <Compile Include="AI\Functions\HFSM.CurrentFrameTimeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.TransformPositionFunction.cs" />
     <Compile Include="Commands\Cheats\CheatMoveSpeedCommand.cs" />
+    <Compile Include="Commands\Cheats\CheatSpawnAllSpecialsCommand.cs" />
     <Compile Include="Commands\Cheats\Tutorial\CheatKillAllTutorialBots.cs" />
     <Compile Include="Commands\Cheats\CheatKillAllExceptCommand.cs" />
     <Compile Include="Commands\TutorialSpawnSpecialCommand.cs" />

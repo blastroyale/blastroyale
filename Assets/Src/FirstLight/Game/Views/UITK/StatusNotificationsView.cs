@@ -101,7 +101,6 @@ namespace FirstLight.Game.Views.UITK
 			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 			_lowHPAnimation.Pause();
 			_lowHP.style.opacity = 1;
-
 		}
 
 		private void OnPlayerRevived(EventOnPlayerRevived callback)
@@ -109,7 +108,6 @@ namespace FirstLight.Game.Views.UITK
 			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 			_lowHPAnimation.Pause();
 			_lowHP.style.opacity = 0;
-			
 		}
 
 		private void OnHealthChanged(EventOnHealthChanged callback)
@@ -122,7 +120,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				return;
 			}
-			
+
 			var shouldShowLowHP = callback.CurrentHealth <= _lowHPThreshold;
 			if (shouldShowLowHP == _lowHPAnimation.isActive) return;
 
@@ -163,6 +161,11 @@ namespace FirstLight.Game.Views.UITK
 
 			var notification = _killedPlayersQueue.Dequeue();
 			var killstreak = notification.Item2;
+
+			if (!Element.IsAttached())
+			{
+				return;
+			}
 
 			if (killstreak == 2)
 			{

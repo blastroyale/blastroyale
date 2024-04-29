@@ -32,6 +32,7 @@ stages:
         --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(DEV-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
         --set env.APPLICATION_ENVIRONMENT=dev \
         --set env.CONNECTION_STRING="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
+        --set env.REMOTE_CONFIGURATION=false \
         --set env.DEV_MODE=TRUE \
         --set env.NFT_SYNC=true \
         --set env.PLAYFAB_DEV_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY) \

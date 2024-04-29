@@ -195,7 +195,7 @@ namespace FirstLight.Game.StateMachines
 			waitMatchmaking.Event(NetworkState.JoinedRoomEvent).Target(final);
 			waitMatchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(HideMatchmaking).Target(homeCheck);
 			waitMatchmaking.Event(NetworkState.JoinRoomFailedEvent).OnTransition(HideMatchmaking).Target(homeCheck);
-			waitMatchmaking.Event(NetworkState.CreateRoomFailedEvent).Target(homeCheck);
+			waitMatchmaking.Event(NetworkState.CreateRoomFailedEvent).OnTransition(HideMatchmaking).Target(homeCheck);
 			waitMatchmaking.Event(NetworkState.CanceledMatchmakingEvent)
 				.OnTransition(HideMatchmaking)
 				.Target(homeCheck);
@@ -374,7 +374,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SendPlayReadyMessage()
 		{
-			_services.MessageBrokerService.Publish(new PlayMatchmakingReadyMessage());
+			_services.MessageBrokerService.Publish(new LocalPlayerClickedPlayMessage());
 		}
 
 		private void SendCancelMatchmakingMessage()

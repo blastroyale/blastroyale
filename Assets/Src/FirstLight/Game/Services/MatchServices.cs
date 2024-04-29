@@ -143,12 +143,12 @@ namespace FirstLight.Game.Services
 			if (!CanTriggerMessage()) return;
 			_isReconnect = message.IsResync;
 			_matchStarted = true;
-			_runOnMatchStart?.Invoke(_isReconnect);
-			_runOnMatchStart = null;
 			foreach (var service in _services)
 			{
 				service.OnMatchStarted(message.Game, message.IsResync);
 			}
+			_runOnMatchStart?.Invoke(_isReconnect);
+			_runOnMatchStart = null;
 		}
 
 		private void OnMatchEnd(MatchEndedMessage message)

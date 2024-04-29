@@ -31,22 +31,35 @@ namespace FirstLight.Tests.PlayTests
 
 
 		[UnityTest]
-		//[TestCase(typeof(TutorialTestCase), ExpectedResult = null)]
-		//[TestCase(typeof(TenMatchesInARow), ExpectedResult = null)]
-		[TestCase(typeof(TwoMatchesInARow), ExpectedResult = null)]
 		[Timeout(1000 * 60 * 10)]
-		public IEnumerator RunCase(Type testCase)
+		public IEnumerator TwoMatches()
+		{
+			return RunTestCase(new PlayMatch(2));
+		}
+
+		[UnityTest]
+		[Timeout(1000 * 60 * 20)]
+		public IEnumerator TenMatches()
+		{
+			yield return RunTestCase(new PlayMatch(10));
+		}
+
+		[UnityTest]
+		[Timeout(1000 * 60 * 60 * 12)]
+		public IEnumerator HundredMatches()
+		{
+			yield return RunTestCase(new PlayMatch(100, false));
+		}
+
+
+		private IEnumerator RunTestCase(PlayTestCase instance)
 		{
 			MainInstaller.Clean();
 			var runner = FLGTestRunner.Instance;
 			runner.FailInstruction = Fail;
-			var instance = Activator.CreateInstance(testCase);
-			yield return runner.RunInUnitTest((PlayTestCase)instance);
+			yield return runner.RunInUnitTest(instance);
 			yield return new ExitPlayMode();
 		}
-		
-
-		
 
 		public BuildPlayerOptions ModifyOptions(BuildPlayerOptions playerOptions)
 		{

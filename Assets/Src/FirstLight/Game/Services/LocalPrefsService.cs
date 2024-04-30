@@ -53,6 +53,11 @@ namespace FirstLight.Game.Services
 		/// The current server region.
 		/// </summary>
 		public ObservableField<string> ServerRegion { get; } = CreateStringSetting(nameof(ServerRegion), string.Empty);
+		
+		/// <summary>
+		/// If we show the latency during the game
+		/// </summary>
+		public ObservableField<bool> ShowLatency { get; } = CreateBoolSetting(nameof(ShowLatency), false);
 
 		private static ObservableField<bool> CreateBoolSetting(string key, bool defaultValue)
 		{

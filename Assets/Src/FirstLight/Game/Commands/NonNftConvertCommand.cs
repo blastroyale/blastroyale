@@ -33,11 +33,7 @@ namespace FirstLight.Game.Commands
 		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			var logic = ctx.Logic.EquipmentLogic();
-			foreach (var kp in logic.Loadout.ReadOnlyDictionary.ToList())
-			{
-				if (!kp.Value.IsValid) continue;
-				logic.Unequip(kp.Value);
-			}
+			logic.RemoveAllFromLoadout();
 
 			var removed = new List<Equipment>();
 			foreach (var i in logic.Inventory.ReadOnlyDictionary!.ToList())

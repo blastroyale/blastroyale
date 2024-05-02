@@ -182,7 +182,6 @@ namespace FirstLight.Game.Services
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; }
 		public ILeaderboardService LeaderboardService { get; }
-		public ICheatsService CheatsService { get; }
 		public IRewardService RewardService { get; }
 		public LocalPrefsService LocalPrefsService { get; }
 		
@@ -236,10 +235,8 @@ namespace FirstLight.Game.Services
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 
-			var environmentService = new EnvironmentService(MessageBrokerService);
 			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);
 			TutorialService = new TutorialService(RoomService, CommandService, ConfigsProvider, gameLogic);
-			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic, TutorialService);
 			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
 			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, this);
 			GameAppService = new GameAppService(this);

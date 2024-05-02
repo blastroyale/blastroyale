@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Server.SDK.Modules.Commands;
 using Quantum;
@@ -15,7 +12,7 @@ namespace FirstLight.Game.Commands.Cheats
 	/// Give Equipment to the player, and equip it!
 	/// Requires admin permission on server.
 	/// </summary>
-	public class GiveAllEquipmentCommand : IGameCommand, IEnvironmentLock
+	public class GiveAllEquipmentCommand : IGameCommand
 	{
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
@@ -54,12 +51,6 @@ namespace FirstLight.Game.Commands.Cheats
 			// Add some coins as well to repair and upgrade
 			ctx.Logic.CurrencyLogic().AddCurrency(GameId.COIN, 1_000_000);
 			return UniTask.CompletedTask;
-		}
-
-
-		public Enum[] AllowedEnvironments()
-		{
-			return new Enum[] { Services.Environment.COMMUNITY, Services.Environment.DEV, };
 		}
 	}
 }

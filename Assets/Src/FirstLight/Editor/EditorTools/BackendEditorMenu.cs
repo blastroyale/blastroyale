@@ -1,24 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using FirstLight.Editor.Artifacts;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Server.SDK.Modules;
-using FirstLight.Server.SDK.Modules.GameConfiguration;
-using FirstLight.Services;
-using I2.Loc;
 using PlayFab;
-using Quantum.Editor;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Purchasing;
-using Environment = FirstLight.Game.Services.Environment;
 
 namespace FirstLight.Editor.EditorTools
 {

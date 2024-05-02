@@ -26220,8 +26220,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Europe1
       - Europe
-      - "\u0415\u0432\u0440\u043E\u043F\u0430"
       - Europa
       - 
       - 
@@ -26231,7 +26231,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Hong Kong
+      - Asia1
       - Hong Kong
       - Hong Kong
       - 
@@ -26242,8 +26242,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - America1
       - America
-      - "\u0410\u043C\u0435\u0440\u0438\u043A\u0430"
       - "Am\xE9rica"
       - 
       - 
@@ -26253,8 +26253,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Asia2
       - Asia
-      - "\u0410\u0437\u0438\u044F"
       - "\xC1sia"
       - 
       - 
@@ -26264,7 +26264,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Australia
+      - Asia3
       - Australia
       - Australia
       - 
@@ -26275,7 +26275,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Canada
+      - America2
       - Canada
       - Canada
       - 
@@ -26286,7 +26286,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - China
+      - Asia4
       - China
       - China
       - 
@@ -26297,7 +26297,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - India
+      - Asia5
       - India
       - India
       - 
@@ -26308,7 +26308,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Japan
+      - Asia6
       - Japan
       - Japan
       - 
@@ -26319,7 +26319,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - South Africa
+      - Africa1
       - South Africa
       - South Africa
       - 
@@ -26330,7 +26330,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sao Paulo
+      - America3
       - Sao Paulo
       - Sao Paulo
       - 
@@ -26341,7 +26341,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Dubai
+      - Africa2
       - Dubai
       - Dubai
       - 
@@ -26352,7 +26352,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - America West
+      - America4
       - America West
       - America West
       - 
@@ -26363,7 +26363,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - South US
+      - America5
       - South US
       - South US
       - 
@@ -26374,7 +26374,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Korea
+      - Asia7
       - Korea
       - Korea
       - 
@@ -26385,9 +26385,20 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Europe2
       - Turkey
       - Turkey
-      - Turkey
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/show_latency
+      TermType: 0
+      Description: 
+      Languages:
+      - Show Latency
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -27612,7 +27623,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1713436129797
+    Google_LastUpdatedVersion: 1714475576435
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

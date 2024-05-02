@@ -51,6 +51,7 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+*.sublime-workspace
 
 # Rider Generated
 .idea

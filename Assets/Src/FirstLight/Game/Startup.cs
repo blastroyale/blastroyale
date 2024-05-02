@@ -203,10 +203,7 @@ namespace FirstLight.Game
 		private void InitPlugins()
 		{
 #if !DISABLE_SRDEBUGGER
-			if (Debug.isDebugBuild)
-			{
-				SRDebug.Init();
-			}
+			SRDebug.Init();
 #endif
 			Debug.developerConsoleEnabled = false;
 			DebugManager.instance.enableRuntimeUI = false;

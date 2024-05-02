@@ -7,6 +7,7 @@ using FirstLight.Editor.Artifacts;
 using FirstLight.Editor.Build.Utils;
 using FirstLight.Game.Utils;
 using I2.Loc;
+using SRDebugger.Editor;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -32,6 +33,7 @@ namespace FirstLight.Editor.Build
 			VersionEditorUtils.SetAndSaveInternalVersion(environment);
 			GenerateEnvironment(environment);
 			ConfigureQuantum();
+			SetupSRDebugger();
 
 			// Probably not needed but why not
 			AssetDatabase.Refresh();
@@ -176,6 +178,14 @@ namespace FirstLight.Editor.Build
 			pbxProject.SetBuildProperty(frameworkTargetGuid, "ENABLE_BITCODE", "NO");
 
 			pbxProject.WriteToFile(projectPath);
+		}
+
+
+		private static void SetupSRDebugger()
+		{
+#if !DEVELOPMENT_BUILD
+			SRDebugEditor.SetEnabled(false);
+#endif
 		}
 	}
 }

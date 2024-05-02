@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
@@ -19,6 +20,7 @@ using FirstLight.Services;
 using Sirenix.OdinInspector;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
+using Unity.Services.PushNotifications;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -73,6 +75,7 @@ namespace FirstLight.Game
 
 			InitSettings();
 			InitAppEventsListener();
+			await InitPushNotifications();
 
 			StartGameStateMachine();
 
@@ -86,6 +89,25 @@ namespace FirstLight.Game
 			var go = new GameObject("AppEventsListener");
 			go.AddComponent<AppEventsListener>();
 			DontDestroyOnLoad(go);
+		}
+
+		private async UniTask InitPushNotifications()
+		{
+			PushNotificationsService.Instance.OnRemoteNotificationReceived += PushNotificationReceived;
+
+			var token = await PushNotificationsService.Instance.RegisterForPushNotificationsAsync().AsUniTask();
+			FLog.Info($"The push notification token is {token}");
+			return;
+
+			// Only for testing for now
+			void PushNotificationReceived(Dictionary<string, object> notificationData)
+			{
+				FLog.Info("Notification received!");
+				foreach (var (key, value) in notificationData)
+				{
+					FLog.Info($"Notification data item: {key} - {value}");
+				}
+			}
 		}
 
 		private void InitTaskLogging()

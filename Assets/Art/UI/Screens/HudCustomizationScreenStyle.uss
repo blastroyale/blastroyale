@@ -97,6 +97,7 @@
     border-color: black;
     width: 50px;
     height: 50px;
+    top: 0px;
 }
 
 .menu__slider .item-disabled .unity-base-slider__dragger {
@@ -113,9 +114,9 @@
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     flex-direction: row;
-    height: 30px;
-    max-height: 30px;
-    min-height: 30px;
+    height: 64px;
+    max-height: 64px;
+    min-height: 64px;
     align-self: auto;
     justify-content: space-between;
     align-items: center;

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using Backend.Game;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Utils;
 using NUnit.Framework;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
 using Tests.Stubs;
 using Assert = NUnit.Framework.Assert;
-using Environment = FirstLight.Game.Services.Environment;
 
 public class TestCommandValidation
 {
@@ -148,9 +148,9 @@ public class TestCommandValidation
 			return UniTask.CompletedTask;
 		}
 
-		public Enum[] AllowedEnvironments()
+		public string[] AllowedEnvironments()
 		{
-			return new Enum[] { Environment.COMMUNITY };
+			return new[] { "community" };
 		}
 	}
 

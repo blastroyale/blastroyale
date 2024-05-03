@@ -51,11 +51,6 @@ namespace FirstLight.Game.Utils
 		[Description("Tutorial")] public FlagOverwrite Tutorial = FlagOverwrite.None;
 
 		/// <summary>
-		/// Which environment to connect
-		/// </summary>
-		// public Environment EnvironmentOverride = Environment.DEV;
-
-		/// <summary>
 		/// Record quantum input and save on simulation end
 		/// </summary>
 		[Description("Record quantum input")] public bool RecordQuantumInput = false;

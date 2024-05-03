@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.Commands;
 using Quantum;
 using Quantum.Prototypes;
@@ -12,7 +13,7 @@ namespace FirstLight.Game.Commands.Cheats
 	/// Give Equipment to the player, and equip it!
 	/// Requires admin permission on server.
 	/// </summary>
-	public class GiveAllEquipmentCommand : IGameCommand
+	public class GiveAllEquipmentCommand : IGameCommand, IEnvironmentLock
 	{
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
@@ -22,7 +23,11 @@ namespace FirstLight.Game.Commands.Cheats
 		{
 			var rarity = EquipmentRarity.RarePlus;
 
-			var factions = new EquipmentFaction_Prototype[] { EquipmentFaction.Celestial, EquipmentFaction.Chaos, EquipmentFaction.Dark, EquipmentFaction.Organic, EquipmentFaction.Dimensional, EquipmentFaction.Order, EquipmentFaction.Shadow, };
+			var factions = new EquipmentFaction_Prototype[]
+			{
+				EquipmentFaction.Celestial, EquipmentFaction.Chaos, EquipmentFaction.Dark, EquipmentFaction.Organic, EquipmentFaction.Dimensional,
+				EquipmentFaction.Order, EquipmentFaction.Shadow,
+			};
 
 			var equips = GameIdGroup.Equipment.GetIds().Where(id => id != GameId.Hammer)
 				.Select(id => new Equipment(id,
@@ -52,5 +57,7 @@ namespace FirstLight.Game.Commands.Cheats
 			ctx.Logic.CurrencyLogic().AddCurrency(GameId.COIN, 1_000_000);
 			return UniTask.CompletedTask;
 		}
+
+		public string[] AllowedEnvironments() => new[] {FLEnvironment.DEVELOPMENT.Name, FLEnvironment.COMMUNITY.Name};
 	}
 }

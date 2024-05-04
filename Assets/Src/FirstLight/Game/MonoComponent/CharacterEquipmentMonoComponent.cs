@@ -72,6 +72,12 @@ namespace FirstLight.Game.MonoComponent
 			var weaponTransform = weapon.transform;
 			_isMeleeXL = weapon.GetComponent<WeaponSkinMonoComponent>().XLMelee;
 			var anchor = _isMeleeXL ? _skin.WeaponXLMeleeAnchor : _skin.WeaponMeleeAnchor;
+
+			// TODO: Not a great fix but sometimes EquipMelee is called before the weapon is loaded and we need to set the weapon type again if it's a melee weapon
+			if (_skin.WeaponType is WeaponType.XLMelee or WeaponType.Melee)
+			{
+				_skin.WeaponType = _isMeleeXL ? WeaponType.XLMelee : WeaponType.Melee;
+			}
 			
 			weaponTransform.SetParent(anchor);
 			weaponTransform.ResetLocal();

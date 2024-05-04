@@ -312,11 +312,13 @@
 .icon-battery {
     width: 34px;
     height: 16px;
+    margin-left: 25px;
 }
 
 .icon-wifi {
     width: 34px;
     height: 26px;
+    margin-left: 25px;
 }
 
 .latency-label {
@@ -347,7 +349,7 @@
     top: 35px;
     flex-direction: row-reverse;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 187px;
 }
 

@@ -64,9 +64,12 @@ namespace FirstLight.Game
 			FeatureFlags.ParseLocalFeatureFlags();
 
 			await VersionUtils.LoadVersionDataAsync();
-			var services = await InitFLGServices();
+			// This uglyness is here because we need to show the loading screen before loading configs, which need this tuple
+			var (services, assetResolver, configsProvider) = InitFLGServices();
 			await services.UIService.OpenScreen<LoadingScreenPresenter>();
 			OhYeah();
+
+			await StartupLoadingHelper.LoadConfigs(services, assetResolver, configsProvider);
 
 			InitSettings();
 			InitAppEventsListener();
@@ -130,7 +133,8 @@ namespace FirstLight.Game
 			MainInstaller.Resolve<IGameStateMachine>().Run();
 		}
 
-		private async UniTask<IGameServices> InitFLGServices()
+		// TODO: This should not return the tuple, but we need UI Service before we await config loading
+		private (IGameServices, IAssetAdderService, IConfigsAdder) InitFLGServices()
 		{
 			var messageBroker = new InMemoryMessageBrokerService();
 			var timeService = new TimeService();
@@ -151,9 +155,7 @@ namespace FirstLight.Game
 			MainInstaller.Bind<IGameServices>(gameServices);
 			MainInstaller.Bind<IGameStateMachine>(new GameStateMachine(gameLogic, gameServices, networkService, assetResolver));
 
-			await StartupLoadingHelper.LoadConfigs(gameServices, assetResolver, configsProvider); // This should probably be done sooner
-
-			return gameServices;
+			return (gameServices, assetResolver, configsProvider);
 		}
 
 		private async UniTask InitUnityServices()

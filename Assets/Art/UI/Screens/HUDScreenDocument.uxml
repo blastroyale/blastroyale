@@ -34,7 +34,6 @@
             </ui:VisualElement>
             <ui:VisualElement name="DeviceStatus" picking-mode="Ignore" class="customizable-hud device-status-bar">
                 <ui:VisualElement name="BatteryIcon" class="icon-battery sprite-match__icon-battery-medium" />
-                <ui:VisualElement name="WifiIcon" class="icon-wifi sprite-match__icon-wifi-medium" />
                 <ui:Label text="49 ms" name="LatencyLabel" class="latency-label" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="WeaponDisplay" class="weapon-display customizable-hud">

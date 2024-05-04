@@ -9,7 +9,6 @@ using I2.Loc;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 using Cysharp.Threading.Tasks;
-using FirstLight.Game.Messages;
 using FirstLight.UIService;
 
 namespace FirstLight.Game.Presenters
@@ -83,6 +82,7 @@ namespace FirstLight.Game.Presenters
 			// Graphics
 			SetupToggle(Root.Q<LocalizedToggle>("FPSLimit").Required(), _services.LocalPrefsService.IsFPSLimitEnabled);
 			SetupToggle(Root.Q<Toggle>("UseOverheadUI").Required(), _services.LocalPrefsService.UseOverheadUI);
+			SetupToggle(Root.Q<Toggle>("ShowLatency").Required(), _services.LocalPrefsService.ShowLatency);
 
 			// Account
 			_web3Button = Root.Q<Button>("Web3Button").Required();

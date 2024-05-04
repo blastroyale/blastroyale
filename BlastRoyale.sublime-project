@@ -1,0 +1,22 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"file_exclude_patterns": ["*.csproj", "*.sln", "*.DotSettings", "*.DotSettings.user"],
+			"folder_exclude_patterns": [".idea", ".vscode", "Library", "Logs", "Temp", "UserSettings", "MemoryCaptures", "obj", "SerializedBuildInfo"],
+			"index_exclude_patterns": ["*.meta"]
+		}
+	],
+	"build_systems":
+    [
+        {
+            "name": "Build Quantum Debug",
+            "shell_cmd": "msbuild ./Quantum/quantum_code/quantum_code.sln -restore -p:Configuration=Debug -p:RestorePackagesConfig=true"
+        },
+        {
+            "name": "Build Quantum Release",
+            "shell_cmd": "msbuild ./Quantum/quantum_code/quantum_code.sln -restore -p:Configuration=Release -p:RestorePackagesConfig=true"
+        }
+    ]
+}

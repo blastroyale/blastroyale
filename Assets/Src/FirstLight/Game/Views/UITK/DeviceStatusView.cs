@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
@@ -16,17 +18,19 @@ namespace FirstLight.Game.Views.UITK
 		private const float BATTERY_FULL = 0.7f;
 		private const float BATTERY_MEDIUM = 0.3f;
 
-		private const int HIGH_LATENCY = 100;
+		private const int HIGH_LATENCY = 150;
+		private const int LATENCY_WINDOW_SIZE = 5;
+		private const double LATENCY_MODIFIER = 0.7;
 
 		private const string USS_LATENCY_HIGH = "latency-label--high";
 		private const string USS_SPRITE_BATTERY = "sprite-match__icon-battery-{0}";
-		private const string USS_SPRITE_WIFI = "sprite-match__icon-wifi-{0}";
 
 		private IGameServices _gameServices;
 
 		private VisualElement _batteryIcon;
-		private VisualElement _wifiIcon;
 		private Label _latency;
+
+		private readonly Queue<int> _latencySamples = new (LATENCY_WINDOW_SIZE);
 
 		private IVisualElementScheduledItem _tickScheduledItem;
 
@@ -36,8 +40,9 @@ namespace FirstLight.Game.Views.UITK
 			_gameServices = MainInstaller.Resolve<IGameServices>();
 
 			_batteryIcon = element.Q("BatteryIcon").Required();
-			_wifiIcon = element.Q("WifiIcon").Required();
 			_latency = element.Q<Label>("LatencyLabel").Required();
+			
+			_latency.SetDisplay(_gameServices.LocalPrefsService.ShowLatency.Value);
 		}
 
 		public override void OnScreenOpen(bool reload)
@@ -54,13 +59,13 @@ namespace FirstLight.Game.Views.UITK
 		private void Tick()
 		{
 			UpdateBattery();
-			UpdateWifi();
 			UpdateLatency();
 		}
 
 		private void UpdateLatency()
 		{
-			int latency = _gameServices.NetworkService.QuantumClient.LoadBalancingPeer.LastRoundTripTime;
+			var latency = GetCurrentLatency();
+
 			_latency.text = $"{latency} ms";
 
 			if (latency >= HIGH_LATENCY && !_latency.ClassListContains(USS_LATENCY_HIGH))
@@ -71,11 +76,6 @@ namespace FirstLight.Game.Views.UITK
 			{
 				_latency.RemoveFromClassList(USS_LATENCY_HIGH);
 			}
-		}
-
-		private void UpdateWifi()
-		{
-			// TODO: How? Might not be possible.
 		}
 
 		private void UpdateBattery()
@@ -99,6 +99,38 @@ namespace FirstLight.Game.Views.UITK
 				_batteryIcon.RemoveSpriteClasses();
 				_batteryIcon.AddToClassList(className);
 			}
+		}
+
+		private int GetCurrentLatency()
+		{
+// TODO: Uncomment when feature is tested
+// #if DEVELOPMENT_BUILD || UNITY_EDITOR
+// 			return _gameServices.NetworkService.QuantumClient.LoadBalancingPeer.LastRoundTripTime
+// #else
+			// Latency displayed is calculated as a moving average of the last 5 samples. When the current latency is lower than the average,
+			// the average is reset to the current latency. In effect this means that latency drops are reflected immediately, while increases
+			// are smoothed out over time.
+			var currentLatency = _gameServices.NetworkService.QuantumClient.LoadBalancingPeer.LastRoundTripTime;
+			var currentAverage = _latencySamples.Count > 0 ? (int) _latencySamples.Average() : int.MaxValue;
+
+			if (currentLatency < currentAverage)
+			{
+				_latencySamples.Clear();
+				_latencySamples.Enqueue(currentLatency);
+			}
+			else if (_latencySamples.Count >= LATENCY_WINDOW_SIZE)
+			{
+				_latencySamples.Dequeue();
+				_latencySamples.Enqueue(_gameServices.NetworkService.QuantumClient.LoadBalancingPeer.LastRoundTripTime);
+			}
+			else
+			{
+				_latencySamples.Enqueue(_gameServices.NetworkService.QuantumClient.LoadBalancingPeer.LastRoundTripTime);
+			}
+
+			// We add a sneaky modifier because players don't like seeing high numbers :)
+			return (int) (_latencySamples.Average() * LATENCY_MODIFIER);
+//#endif
 		}
 	}
 }

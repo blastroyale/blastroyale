@@ -93,6 +93,8 @@ namespace FirstLight.Game.MonoComponent.Collections
 				_animator.SetInteger(P_WEAPON_TYPE, (int) value);
 				_animator.SetFloat(P_WEAPON_TYPE_FLOAT, (float) value);
 			}
+
+			get => (WeaponType) _animator.GetInteger(P_WEAPON_TYPE);
 		}
 
 		public void TriggerHit() => _animator.SetTrigger(P_HIT);

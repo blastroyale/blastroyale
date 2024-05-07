@@ -442,6 +442,7 @@ namespace FirstLight.Game.StateMachines
 			var data = new BattlePassScreenPresenter.StateData
 			{
 				BackClicked = () => { cacheActivity.Complete(); },
+				DisableScrollAnimation = true
 			};
 
 			_services.UIService.OpenScreen<BattlePassScreenPresenter>(data).Forget();

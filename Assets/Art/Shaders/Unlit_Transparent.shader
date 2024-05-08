@@ -15,6 +15,7 @@ SubShader {
 	LOD 100
 	
     ZTest Off
+    ZWrite Off
     Blend SrcAlpha OneMinusSrcAlpha 
 	
 	Pass {  

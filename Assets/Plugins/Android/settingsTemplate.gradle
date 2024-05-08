@@ -25,7 +25,7 @@ dependencyResolutionManagement {
             url "https://maven.google.com" // Assets/Push Notifications/Editor/Android/PushSDKDependencies.xml:8
         }
         maven {
-            url (unityProjectPath + "/Assets/GeneratedLocalRepo/Firebase/m2repository") // Packages/com.google.firebase.app/Firebase/Editor/AppDependencies.xml:22, Packages/com.google.firebase.crashlytics/Firebase/Editor/CrashlyticsDependencies.xml:20, Packages/com.google.firebase.analytics/Firebase/Editor/AnalyticsDependencies.xml:18
+            url (unityProjectPath + "/Assets/GeneratedLocalRepo/Firebase/m2repository") // Packages/com.google.firebase.app/Firebase/Editor/AppDependencies.xml:22, Packages/com.google.firebase.analytics/Firebase/Editor/AnalyticsDependencies.xml:18
         }
         mavenLocal()
 // Android Resolver Repos End

@@ -95,6 +95,8 @@ crashlytics-build.properties
 [Aa]ssets/Plugins/Android/com.google.games.*
 ProjectSettings/AndroidResolverDependencies.xml
 ProjectSettings/GvhProjectSettings.xml
+Assets/GeneratedLocalRepo.meta
+Assets/GeneratedLocalRepo/*
 
 # Credential files:
 # **/GoogleService-Info*.plist*

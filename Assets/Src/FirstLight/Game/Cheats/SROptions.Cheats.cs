@@ -62,8 +62,9 @@ public partial class SROptions
 	}
 #endif
 
+#if !DISABLE_SRDEBUGGER
 	private static uint _currencyValue = 100;
-	
+
 	private static void AddCurrencyCheats()
 	{
 		var category = "Currencies";
@@ -110,6 +111,7 @@ public partial class SROptions
 
 		SRDebug.Instance.AddOptionContainer(container);
 	}
+#endif
 
 	private void UnlockCollectionItem(GameId item, IGameLogic gameLogic, IGameServices services)
 	{

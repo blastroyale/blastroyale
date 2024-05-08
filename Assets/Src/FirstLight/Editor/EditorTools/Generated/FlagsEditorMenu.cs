@@ -38,7 +38,6 @@ Menu.SetChecked("FLG/Local Flags/Dev QOL/Append Minute to Playtest room", IsAppe
 				Menu.SetChecked("FLG/Local Flags/Symbols/Enable bot debug visuals", IsBotDebug);
 
 				UpdateSelectionTutorial();
-UpdateSelectionEnvironmentOverride();
 			};
 
 		}
@@ -321,86 +320,6 @@ UpdateSelectionEnvironmentOverride();
 			var currentValue = FeatureFlags.GetLocalConfiguration().Tutorial;
 			return currentValue.ToString() != "False";
 		}
-
-			
-			private static void UpdateSelectionEnvironmentOverride()
-		{
-			var currentValue = FeatureFlags.GetLocalConfiguration().EnvironmentOverride;
-
-			foreach (var name in Enum.GetNames(typeof(FirstLight.Game.Services.Environment)))
-			{
-				var menuPath = $"FLG/Local Flags/EnvironmentOverride/{name}";
-				Menu.SetChecked(menuPath, currentValue.ToString() == name);
-			}
-		}
-		[MenuItem("FLG/Local Flags/EnvironmentOverride/DEV",false, 18)]
-		private static void ToggleEnvironmentOverrideDEV()
-		{
-			
-			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = FirstLight.Game.Services.Environment.DEV;
-			FeatureFlags.SaveLocalConfig();
-			Debug.Log("Setting EnvironmentOverride to FirstLight.Game.Services.Environment.DEV");
-			EditorApplication.delayCall += UpdateSelectionEnvironmentOverride; ;
-		}
-
-	[MenuItem("FLG/Local Flags/EnvironmentOverride/DEV",true,18)]
-		private static bool ValidateEnvironmentOverrideDEV()
-		{
-			var currentValue = FeatureFlags.GetLocalConfiguration().EnvironmentOverride;
-			return currentValue.ToString() != "DEV";
-		}
-
-		[MenuItem("FLG/Local Flags/EnvironmentOverride/STAGING",false, 18)]
-		private static void ToggleEnvironmentOverrideSTAGING()
-		{
-			
-			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = FirstLight.Game.Services.Environment.STAGING;
-			FeatureFlags.SaveLocalConfig();
-			Debug.Log("Setting EnvironmentOverride to FirstLight.Game.Services.Environment.STAGING");
-			EditorApplication.delayCall += UpdateSelectionEnvironmentOverride; ;
-		}
-
-	[MenuItem("FLG/Local Flags/EnvironmentOverride/STAGING",true,18)]
-		private static bool ValidateEnvironmentOverrideSTAGING()
-		{
-			var currentValue = FeatureFlags.GetLocalConfiguration().EnvironmentOverride;
-			return currentValue.ToString() != "STAGING";
-		}
-
-		[MenuItem("FLG/Local Flags/EnvironmentOverride/COMMUNITY",false, 18)]
-		private static void ToggleEnvironmentOverrideTESTNET()
-		{
-			
-			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = FirstLight.Game.Services.Environment.COMMUNITY;
-			FeatureFlags.SaveLocalConfig();
-			Debug.Log("Setting EnvironmentOverride to FirstLight.Game.Services.Environment.COMMUNITY");
-			EditorApplication.delayCall += UpdateSelectionEnvironmentOverride; ;
-		}
-
-	[MenuItem("FLG/Local Flags/EnvironmentOverride/TESTNET",true,18)]
-		private static bool ValidateEnvironmentOverrideTESTNET()
-		{
-			var currentValue = FeatureFlags.GetLocalConfiguration().EnvironmentOverride;
-			return currentValue.ToString() != "TESTNET";
-		}
-
-		[MenuItem("FLG/Local Flags/EnvironmentOverride/PROD",false, 18)]
-		private static void ToggleEnvironmentOverridePROD()
-		{
-			
-			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = FirstLight.Game.Services.Environment.PROD;
-			FeatureFlags.SaveLocalConfig();
-			Debug.Log("Setting EnvironmentOverride to FirstLight.Game.Services.Environment.PROD");
-			EditorApplication.delayCall += UpdateSelectionEnvironmentOverride; ;
-		}
-
-	[MenuItem("FLG/Local Flags/EnvironmentOverride/PROD",true,18)]
-		private static bool ValidateEnvironmentOverridePROD()
-		{
-			var currentValue = FeatureFlags.GetLocalConfiguration().EnvironmentOverride;
-			return currentValue.ToString() != "PROD";
-		}
-
 
 	}
 }

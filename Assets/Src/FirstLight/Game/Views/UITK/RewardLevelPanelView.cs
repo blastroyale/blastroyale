@@ -100,7 +100,7 @@ namespace FirstLight.Game.Views
 			{
 				var levelGained = levelRewardInfo.Start;
 
-				_nextLevelLabel.text = (levelRewardInfo.NextLevel+1).ToString();
+				_nextLevelLabel.text = (levelRewardInfo.NextLevel).ToString();
 				_totalLabel.text = levelGained + "/" + levelRewardInfo.MaxForLevel;
 				var nextPointsPercentage = (int)(100 * ((float) (levelRewardInfo.Start+levelRewardInfo.Total) / levelRewardInfo.MaxForLevel));
 				_newPointsBar.style.width = Length.Percent(nextPointsPercentage);

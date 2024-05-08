@@ -1,19 +1,8 @@
 using System.ComponentModel;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using Photon.Deterministic;
-using Quantum;
-using Quantum.Commands;
-using UnityEngine;
-using UnityEngine.Diagnostics;
-using UnityEngine.Playables;
 
 public partial class SROptions
 {
-
-#if DEVELOPMENT_BUILD
-
 	[Category("Controls")]
 	public bool EnableAimDeadzone
 	{
@@ -27,12 +16,11 @@ public partial class SROptions
 		get => FeatureFlags.QUANTUM_PREDICTED_AIM;
 		set => FeatureFlags.QUANTUM_PREDICTED_AIM = !FeatureFlags.QUANTUM_PREDICTED_AIM;
 	}
-	
+
 	[Category("Controls")]
 	public bool SpecialsUseEnhancedTouch
 	{
 		get => FeatureFlags.SPECIAL_NEW_INPUT;
 		set => FeatureFlags.SPECIAL_NEW_INPUT = !FeatureFlags.SPECIAL_NEW_INPUT;
 	}
-#endif
 }

@@ -7,6 +7,8 @@ using FirstLight.Editor.Artifacts;
 using FirstLight.Editor.Build.Utils;
 using FirstLight.Game.Utils;
 using I2.Loc;
+using SRDebugger.Editor;
+using Unity.Services.PushNotifications;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -27,14 +29,30 @@ namespace FirstLight.Editor.Build
 			Debug.Log("FirstLightBuildPostProcess.OnPostprocessBuild OnPreprocessBuild");
 
 			var environment = BuildUtils.GetEnvironment();
+			var environmentDefinition = FLEnvironment.FromName(environment);
 
 			PrepareFirebase(environment);
 			VersionEditorUtils.SetAndSaveInternalVersion(environment);
-			GenerateUCEnvironment(environment);
+			GenerateEnvironment(environment);
 			ConfigureQuantum();
+			SetupSRDebugger();
+			SetupPushNotifications(environmentDefinition);
 
 			// Probably not needed but why not
 			AssetDatabase.Refresh();
+		}
+
+		private void SetupPushNotifications(FLEnvironment.Definition environment)
+		{
+			var settings = AssetDatabase.LoadAssetAtPath<PushNotificationSettings>("Assets/Resources/pushNotificationsSettings.asset");
+
+			settings.firebaseAppID = environment.FirebaseAppID;
+			settings.firebaseProjectID = environment.FirebaseProjectID;
+			settings.firebaseProjectNumber = environment.FirebaseProjectNumber;
+			settings.firebaseWebApiKey = environment.FirebaseWebApiKey;
+			
+			EditorUtility.SetDirty(settings);
+			AssetDatabase.SaveAssetIfDirty(settings);
 		}
 
 		public void OnPostprocessBuild(BuildReport report)
@@ -129,23 +147,17 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Generates the version CS file for the Unity Cloud environment.
 		/// </summary>
-		private static void GenerateUCEnvironment(string environment)
+		private static void GenerateEnvironment(string environment)
 		{
-			var environmentId = environment switch
-			{
-				"development" => "***REMOVED***",
-				"staging"     => "***REMOVED***",
-				"production"  => "***REMOVED***",
-				"community"   => "***REMOVED***",
-				_             => throw new ArgumentOutOfRangeException(nameof(environment), environment, null)
-			};
-			
-			var path = Path.Combine(Application.dataPath, "Src", "FirstLight", "Game", "Utils", "UnityCloudEnvironment.cs");
-			var content =
-				$"namespace FirstLight.Game.Utils\n{{\n\tpublic static class UnityCloudEnvironment\n\t{{\n\t\tpublic const string CURRENT = \"{environment}\";\n\tpublic const string CURRENT_ID = \"{environmentId}\";\n\t}}\n}}";
+			var path = Path.Combine(Application.dataPath, "Src", "FirstLight", "Game", "Utils", "FLEnvironment.cs");
+			var content = File.ReadAllText(path).Replace(
+				" = GetCurrentEditorEnvironment();",
+				$" = {environment.ToUpperInvariant()};"
+			);
+
 			File.WriteAllText(path, content);
 		}
-		
+
 		[Conditional("UNITY_IOS")]
 		private static void ConfigureXcode(string pathToXcode)
 		{
@@ -182,6 +194,14 @@ namespace FirstLight.Editor.Build
 			pbxProject.SetBuildProperty(frameworkTargetGuid, "ENABLE_BITCODE", "NO");
 
 			pbxProject.WriteToFile(projectPath);
+		}
+
+
+		private static void SetupSRDebugger()
+		{
+#if !DEVELOPMENT_BUILD
+			SRDebugEditor.SetEnabled(false);
+#endif
 		}
 	}
 }

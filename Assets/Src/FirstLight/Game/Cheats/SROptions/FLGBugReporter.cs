@@ -2,10 +2,8 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.FLogger;
-using FirstLight.Game.Logic;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
-using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using PlayFab;
 using SRDebugger;
@@ -27,7 +25,7 @@ namespace FirstLight.Game.Cheats.SROptions
 
 			// Send device in description to be easy spotable
 			report.UserDescription += "\n";
-			report.UserDescription += "\nEnv: " + MainInstaller.ResolveServices().GameBackendService.CurrentEnvironmentData.EnvironmentID.ToString();
+			report.UserDescription += "\nEnv: " + FLEnvironment.Current.Name;
 			report.UserDescription += "\nOs: " + SystemInfo.operatingSystem;
 			report.UserDescription += "\nModel: " + SystemInfo.deviceModel;
 

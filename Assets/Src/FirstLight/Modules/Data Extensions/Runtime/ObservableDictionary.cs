@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 // ReSharper disable once CheckNamespace
 
@@ -115,6 +116,11 @@ namespace FirstLight
 		/// This invokes all update methods on all keys of this dictionary
 		/// </remarks>
 		void InvokeUpdate();
+
+		/// <remarks>
+		/// This invokes all remove methods on all keys of this dictionary
+		/// </remarks>
+		void Clear();
 	}
 
 	/// <inheritdoc />
@@ -193,6 +199,16 @@ namespace FirstLight
 			for (var i = 0; i < _updateActions.Count; i++)
 			{
 				_updateActions[i](key, default, value, ObservableUpdateType.Added);
+			}
+		}
+
+		public void Clear()
+		{
+			var keys = Dictionary.Keys.ToArray();
+
+			foreach (var key in keys)
+			{
+				Remove(key);
 			}
 		}
 

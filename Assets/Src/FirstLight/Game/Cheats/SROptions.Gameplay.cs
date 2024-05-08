@@ -10,8 +10,6 @@ using UnityEngine.Playables;
 
 public partial class SROptions
 {
-#if DEVELOPMENT_BUILD
-
 	[Category("Gameplay")]
 	public void KillLocalPlayer()
 	{
@@ -169,8 +167,6 @@ public partial class SROptions
 	{
 		Utils.ForceCrash(ForcedCrashCategory.FatalError);
 	}
-
-#endif
 
 
 #if UNITY_EDITOR

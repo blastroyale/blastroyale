@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Services;
 using Photon.Realtime;
@@ -104,7 +105,7 @@ namespace FirstLight.Game.Services
 
 		public void FetchServersAndPing()
 		{
-			_client = new LoadBalancingClient("", _backendService.CurrentEnvironmentData.AppIDRealtime, "");
+			_client = new LoadBalancingClient("", FLEnvironment.Current.PhotonAppIDRealtime, "");
 			_client.AddCallbackTarget(this);
 			if (_fetching)
 			{

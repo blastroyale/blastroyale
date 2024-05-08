@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
@@ -19,6 +20,7 @@ using FirstLight.Services;
 using Sirenix.OdinInspector;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
+using Unity.Services.PushNotifications;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -64,12 +66,16 @@ namespace FirstLight.Game
 			FeatureFlags.ParseLocalFeatureFlags();
 
 			await VersionUtils.LoadVersionDataAsync();
-			var services = await InitFLGServices();
+			// This uglyness is here because we need to show the loading screen before loading configs, which need this tuple
+			var (services, assetResolver, configsProvider) = InitFLGServices();
 			await services.UIService.OpenScreen<LoadingScreenPresenter>();
 			OhYeah();
 
+			await StartupLoadingHelper.LoadConfigs(services, assetResolver, configsProvider);
+
 			InitSettings();
 			InitAppEventsListener();
+			await InitPushNotifications();
 
 			StartGameStateMachine();
 
@@ -83,6 +89,25 @@ namespace FirstLight.Game
 			var go = new GameObject("AppEventsListener");
 			go.AddComponent<AppEventsListener>();
 			DontDestroyOnLoad(go);
+		}
+
+		private async UniTask InitPushNotifications()
+		{
+			PushNotificationsService.Instance.OnRemoteNotificationReceived += PushNotificationReceived;
+
+			var token = await PushNotificationsService.Instance.RegisterForPushNotificationsAsync().AsUniTask();
+			FLog.Info($"The push notification token is {token}");
+			return;
+
+			// Only for testing for now
+			void PushNotificationReceived(Dictionary<string, object> notificationData)
+			{
+				FLog.Info("Notification received!");
+				foreach (var (key, value) in notificationData)
+				{
+					FLog.Info($"Notification data item: {key} - {value}");
+				}
+			}
 		}
 
 		private void InitTaskLogging()
@@ -130,7 +155,8 @@ namespace FirstLight.Game
 			MainInstaller.Resolve<IGameStateMachine>().Run();
 		}
 
-		private async UniTask<IGameServices> InitFLGServices()
+		// TODO: This should not return the tuple, but we need UI Service before we await config loading
+		private (IGameServices, IAssetAdderService, IConfigsAdder) InitFLGServices()
 		{
 			var messageBroker = new InMemoryMessageBrokerService();
 			var timeService = new TimeService();
@@ -151,17 +177,15 @@ namespace FirstLight.Game
 			MainInstaller.Bind<IGameServices>(gameServices);
 			MainInstaller.Bind<IGameStateMachine>(new GameStateMachine(gameLogic, gameServices, networkService, assetResolver));
 
-			await StartupLoadingHelper.LoadConfigs(gameServices, assetResolver, configsProvider); // This should probably be done sooner
-
-			return gameServices;
+			return (gameServices, assetResolver, configsProvider);
 		}
 
 		private async UniTask InitUnityServices()
 		{
 			var initOpts = new InitializationOptions();
 
-			initOpts.SetEnvironmentName(UnityCloudEnvironment.CURRENT);
-			RemoteConfigService.Instance.SetEnvironmentID(UnityCloudEnvironment.CURRENT_ID);
+			initOpts.SetEnvironmentName(FLEnvironment.Current.UCSEnvironmentName);
+			RemoteConfigService.Instance.SetEnvironmentID(FLEnvironment.Current.UCSEnvironmentID);
 
 			await UnityServices.InitializeAsync(initOpts).AsUniTask();
 			await Addressables.InitializeAsync().Task.AsUniTask();
@@ -201,10 +225,7 @@ namespace FirstLight.Game
 		private void InitPlugins()
 		{
 #if !DISABLE_SRDEBUGGER
-			if (Debug.isDebugBuild)
-			{
-				SRDebug.Init();
-			}
+			SRDebug.Init();
 #endif
 			Debug.developerConsoleEnabled = false;
 			DebugManager.instance.enableRuntimeUI = false;

@@ -10,7 +10,6 @@
         "Unity.Timeline.Editor",
         "FirstLight.DataExtensions.Editor",
         "FirstLight.UiService",
-        "FirstLight.UiService.Editor",
         "FirstLight.AssetImporter.Editor",
         "FirstLight.AssetImporter",
         "FirstLight.GoogleSheetImporter",
@@ -22,13 +21,14 @@
         "PlayFab",
         "PhotonQuantum",
         "Localization",
-        "MoreMountains.NiceVibrations.Haptics",
         "FirstLight.FLogger",
         "PlayFabEditorExtensions",
         "UnityEngine.Purchasing.Stores",
         "PhotonQuantumEditor",
         "PhotonRealtime",
-        "UniTask"
+        "UniTask",
+        "StompyRobot.SRDebugger.Editor",
+        "Unity.Services.PushNotifications"
     ],
     "includePlatforms": [
         "Editor"

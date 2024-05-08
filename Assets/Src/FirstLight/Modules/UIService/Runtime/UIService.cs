@@ -68,9 +68,12 @@ namespace FirstLight.UIService
 			var screenType = typeof(T);
 
 			FLog.Info($"Opening screen {screenType.Name}");
-			if (_openedScreensType.ContainsKey(screenType))
+			if (_openedScreensType.TryGetValue(screenType, out var openedScreenType))
 			{
-				throw new InvalidOperationException($"Screen {screenType.Name} is already opened");
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+				FLog.Error($"Screen {screenType.Name} is already opened!");
+				return (T) openedScreenType;
+#endif
 			}
 
 			var layer = screenType.GetAttribute<UILayerAttribute>()?.Layer ?? UILayer.Default;
@@ -130,15 +133,9 @@ namespace FirstLight.UIService
 				return CloseScreen(screen);
 			}
 
-			if (checkOpened)
-			{
-				var msg = $"Screen {typeof(T).Name} is not opened!";
-#if DEVELOPMENT_BUILD
-				throw new InvalidOperationException(msg);
-#else
-				FLog.Warn(msg);
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+			if (checkOpened) FLog.Error($"Screen {typeof(T).Name} is not opened!");
 #endif
-			}
 
 			return UniTask.CompletedTask;
 		}
@@ -147,6 +144,7 @@ namespace FirstLight.UIService
 		/// Closes a screen on the given layer.
 		/// </summary>
 		/// <param name="layer">The layer to close.</param>
+		/// <param name="checkOpened">If we should log an error when this screen is not opened.</param>
 		public UniTask CloseScreen(UILayer layer, bool checkOpened = true)
 		{
 			FLog.Info($"Closing layer {layer}");
@@ -156,15 +154,9 @@ namespace FirstLight.UIService
 				return CloseScreen(screen);
 			}
 
-			if (checkOpened)
-			{
-				var msg = $"Layer {layer} is empty!";
-#if DEVELOPMENT_BUILD
-				throw new InvalidOperationException(msg);
-#else
-				FLog.Warn(msg);
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+			if (checkOpened) FLog.Error($"Layer {layer} is empty!");
 #endif
-			}
 
 			return UniTask.CompletedTask;
 		}

@@ -36,7 +36,6 @@ namespace FirstLight.Editor.Build
 			SetupBuildNumber(buildNumber);
 			SetupDevelopmentBuild(isDevelopmentBuild, ref buildConfig);
 			SetupAddressables(environment);
-			SetupServerDefines(environment, ref buildConfig);
 			SetupAndroidKeystore();
 			SetupScenes(ref buildConfig);
 			SetupPath(ref buildConfig, buildTarget);
@@ -83,7 +82,6 @@ namespace FirstLight.Editor.Build
 			}
 		}
 
-
 		private static void SetupAddressables(string environment)
 		{
 			var addressableSettings = AddressableAssetSettingsDefaultObject.Settings;
@@ -120,31 +118,6 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.iOS.buildNumber = buildNumber.ToString();
 		}
 
-		private static void SetupServerDefines(string environment, ref BuildPlayerOptions buildOptions)
-		{
-			Assert.IsNull(buildOptions.extraScriptingDefines, "Scripting defines should be null here!");
-
-			switch (environment)
-			{
-				case BuildUtils.ENV_DEV:
-					buildOptions.extraScriptingDefines = new[] {"DEV_SERVER"};
-					break;
-				case BuildUtils.ENV_STAGING:
-					buildOptions.extraScriptingDefines = new[] {"STAGE_SERVER"};
-					break;
-				case BuildUtils.ENV_COMMUNITY:
-					buildOptions.extraScriptingDefines = new[] {"COMMUNITY_SERVER"};
-					break;
-				case BuildUtils.ENV_PROD:
-					buildOptions.extraScriptingDefines = new[] {"PROD_SERVER"};
-					break;
-				default:
-					Debug.LogError($"Unrecognised environment: {environment}");
-					EditorApplication.Exit(1);
-					break;
-			}
-		}
-
 		[Conditional("UNITY_ANDROID")]
 		private static void SetupAndroidKeystore()
 		{
@@ -159,7 +132,8 @@ namespace FirstLight.Editor.Build
 #if UNITY_CLOUD_BUILD
     public static void PreExport(UnityEngine.CloudBuild.BuildManifestObject manifest)
     {
-        var buildNumber = manifest.GetValue<int>("buildNumber") + BuildUtils.GetBuildNumber(); // In UCS DevOps we add the ENV build number to the cloud build number
+		// In UCS DevOps we add the ENV build number to the cloud build number
+        var buildNumber = manifest.GetValue<int>("buildNumber") + BuildUtils.GetBuildNumber();
         Debug.Log("Setting build number to " + buildNumber);
         PlayerSettings.Android.bundleVersionCode = buildNumber;
         PlayerSettings.iOS.buildNumber = buildNumber.ToString();

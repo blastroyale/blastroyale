@@ -26403,6 +26403,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSettings/show_latency
+      TermType: 0
+      Description: 
+      Languages:
+      - Show Latency
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITInbox/inbox_community
       TermType: 0
       Description: 

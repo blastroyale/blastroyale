@@ -98,13 +98,6 @@ ProjectSettings/GvhProjectSettings.xml
 Assets/GeneratedLocalRepo.meta
 Assets/GeneratedLocalRepo/*
 
-# Credential files:
-# **/GoogleService-Info*.plist*
-# **/google-services*.json*
-# [Aa]ssets/StreamingAssets*
-# [Aa]ssets/StreamingAssets/
-# [Aa]ssets/StreamingAssets.meta
-
 #Project Specific
 [Aa]ssets/BuildReports/
 [Aa]ssets/BuildReports.meta
@@ -138,9 +131,9 @@ blast_royale_BackUpThisFolder_ButDontShipItWithYourGame
 blast_royale_BurstDebugInformation_DoNotShip
 Assets/InitTestScene*.unity
 Assets/InitTestScene*.unity.meta
-Assets/UnityDefaultRuntimeTheme.tss.meta
-Assets/UnityDefaultRuntimeTheme.tss
 /BuildArtifacts/
+Assets/Resources/version-data.txt
+Assets/Resources/version-data.txt.meta
 
 # DLLs
 # Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll

@@ -99,22 +99,27 @@ namespace Quantum.Systems
 			circle->ShrinkingWarningTime = config.WarningTime.AsInt; // TODO: Storing configs in components isn't ideal
 
 			var fitRadius = circle->CurrentRadius - circle->TargetRadius;
-			var radiusDiff = circle->CurrentRadius - fitRadius;
-			var radiusToPickNewCenter = FP._0;
-
-			if (config.NewSafeSpaceAreaSizeK > FP._1)
+			var radiusToPickNewCenter = FPMath.Max(0, fitRadius * config.NewSafeSpaceAreaSizeK);
+			var halfWorldSize = f.Map.WorldSize / FP._2;
+			
+			// We use mathematical randomization to find a potential new center
+			var targetPos = new FPVector3(circle->CurrentCircleCenter.X + f.RNG->Next(-radiusToPickNewCenter, radiusToPickNewCenter),
+										  FP._0,
+										  circle->CurrentCircleCenter.Y - f.RNG->Next(-radiusToPickNewCenter, radiusToPickNewCenter));
+			
+			// Then we ensure that this center is not outside of map boundaries
+			targetPos.X = FPMath.Clamp(targetPos.X, -halfWorldSize, halfWorldSize);
+			targetPos.Z = FPMath.Clamp(targetPos.Z, -halfWorldSize, halfWorldSize);
+			
+			// Then we correct this potential new center so it's on the NavMesh
+			// we skip early steps whose circles are big enough to not require correction
+			if (config.Step > 1)
 			{
-				radiusToPickNewCenter = FPMath.Min(circle->CurrentRadius,
-					fitRadius + radiusDiff * (config.NewSafeSpaceAreaSizeK - FP._1));
+				QuantumHelpers.TryFindPosOnNavMesh(f, targetPos,
+												   circle->TargetRadius,
+												   out targetPos);
 			}
-			else
-			{
-				radiusToPickNewCenter = FPMath.Max(0, fitRadius * config.NewSafeSpaceAreaSizeK);
-			}
-
-			QuantumHelpers.TryFindPosOnNavMesh(f, circle->CurrentCircleCenter.XOY,
-				radiusToPickNewCenter,
-				out var targetPos);
+			
 			circle->TargetCircleCenter = targetPos.XZ;
 
 			// When we change a step of a circle, we need to remove current spell from all players

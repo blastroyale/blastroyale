@@ -10,7 +10,11 @@ namespace FirstLight.Game.Utils
 			"***REMOVED***",
 			"***REMOVED***",
 			"***REMOVED***",
-			"development"
+			"development",
+			"***REMOVED***",
+			"blast-royale-dev",
+			"***REMOVED***",
+			"***REMOVED***4"
 		);
 
 		public static readonly Definition STAGING = new (
@@ -19,7 +23,11 @@ namespace FirstLight.Game.Utils
 			null,
 			"***REMOVED***",
 			"***REMOVED***",
-			"staging"
+			"staging",
+			DEVELOPMENT.FirebaseAppID,
+			DEVELOPMENT.FirebaseProjectID,
+			DEVELOPMENT.FirebaseProjectNumber,
+			DEVELOPMENT.FirebaseWebApiKey
 		);
 
 		public static readonly Definition COMMUNITY = new (
@@ -28,7 +36,11 @@ namespace FirstLight.Game.Utils
 			null,
 			"***REMOVED***",
 			"***REMOVED***",
-			"community"
+			"community",
+			DEVELOPMENT.FirebaseAppID, // TODO: We need a new environment / firebase app for community
+			DEVELOPMENT.FirebaseProjectID,
+			DEVELOPMENT.FirebaseProjectNumber,
+			DEVELOPMENT.FirebaseWebApiKey
 		);
 
 		public static readonly Definition PRODUCTION = new (
@@ -37,7 +49,11 @@ namespace FirstLight.Game.Utils
 			null,
 			"***REMOVED***",
 			"***REMOVED***",
-			"production"
+			"production",
+			"***REMOVED***",
+			"blast-royale",
+			"***REMOVED***",
+			"***REMOVED***"
 		);
 
 		/// <summary>
@@ -84,8 +100,28 @@ namespace FirstLight.Game.Utils
 			/// </summary>
 			public readonly string UCSEnvironmentName;
 
+			/// <summary>
+			/// The Firebase app ID.
+			/// </summary>
+			public readonly string FirebaseAppID;
+
+			/// <summary>
+			/// The Firebase project ID.
+			/// </summary>
+			public readonly string FirebaseProjectID;
+			
+			/// <summary>
+			/// The Firebase project number.
+			/// </summary>
+			public readonly string FirebaseProjectNumber;
+			
+			/// <summary>
+			/// The Firebase web API key.
+			/// </summary>
+			public readonly string FirebaseWebApiKey;
+
 			public Definition(string playFabTitleID, string playFabRecoveryEmailTemplateID, string web3Id, string photonAppIDRealtime,
-							  string ucsEnvironmentID, string ucsEnvironmentName)
+							  string ucsEnvironmentID, string ucsEnvironmentName, string firebaseAppID, string firebaseProjectID, string firebaseProjectNumber, string firebaseWebApiKey)
 			{
 				PlayFabTitleID = playFabTitleID;
 				PlayFabRecoveryEmailTemplateID = playFabRecoveryEmailTemplateID;
@@ -93,6 +129,10 @@ namespace FirstLight.Game.Utils
 				PhotonAppIDRealtime = photonAppIDRealtime;
 				UCSEnvironmentID = ucsEnvironmentID;
 				UCSEnvironmentName = ucsEnvironmentName;
+				FirebaseAppID = firebaseAppID;
+				FirebaseProjectID = firebaseProjectID;
+				FirebaseProjectNumber = firebaseProjectNumber;
+				FirebaseWebApiKey = firebaseWebApiKey;
 			}
 		}
 
@@ -102,9 +142,9 @@ namespace FirstLight.Game.Utils
 
 		private const string ENV_KEY = "FLG_ENVIRONMENT";
 
-		private static Definition GetCurrentEditorEnvironment()
+		public static Definition FromName(string environment)
 		{
-			return UnityEditor.EditorPrefs.GetString(ENV_KEY, "development") switch
+			return environment switch
 			{
 				"development" => DEVELOPMENT,
 				"staging"     => STAGING,
@@ -112,6 +152,11 @@ namespace FirstLight.Game.Utils
 				"production"  => PRODUCTION,
 				_             => throw new NotSupportedException("Invalid environment type")
 			};
+		}
+
+		private static Definition GetCurrentEditorEnvironment()
+		{
+			return FromName(UnityEditor.EditorPrefs.GetString(ENV_KEY, "development"));
 		}
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/development", false, 18)]

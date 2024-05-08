@@ -1,4 +1,3 @@
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using UnityEngine.UIElements;
@@ -17,7 +16,7 @@ namespace FirstLight.Game.Presenters
 			labelsContainer.Clear();
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-			labelsContainer.Add(new Label(UnityCloudEnvironment.CURRENT));
+			labelsContainer.Add(new Label(FLEnvironment.Current.Name));
 
 			var config = FeatureFlags.GetLocalConfiguration();
 			if (config.UseLocalServer)

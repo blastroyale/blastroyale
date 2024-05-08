@@ -1,7 +1,5 @@
-using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.SDK.Services;
-using FirstLight.Server.SDK.Models;
 
 namespace FirstLight.Game.Messages
 {
@@ -25,10 +23,7 @@ namespace FirstLight.Game.Messages
 		public IConfigsProvider OldConfig;
 	}
 
-	public struct EnvironmentChanged : IMessage
+	public struct FeatureFlagsChanged : IMessage
 	{
-		public Environment NewEnvironment;
 	}
-		public struct FeatureFlagsChanged : IMessage { }
-
 }

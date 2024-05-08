@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using FirstLight.FLogger;
-using FirstLight.Game.Configs;
 using FirstLight.Server.SDK.Modules;
 using PlayFab;
 using UnityEngine;
-using Environment = FirstLight.Game.Services.Environment;
 
 // ReSharper disable RedundantDefaultMemberInitializer
 
@@ -51,11 +49,6 @@ namespace FirstLight.Game.Utils
 		/// If the tutorial should be skipped
 		/// </summary>
 		[Description("Tutorial")] public FlagOverwrite Tutorial = FlagOverwrite.None;
-
-		/// <summary>
-		/// Which environment to connect
-		/// </summary>
-		public Environment EnvironmentOverride = Environment.DEV;
 
 		/// <summary>
 		/// Record quantum input and save on simulation end

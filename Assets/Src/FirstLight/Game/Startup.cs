@@ -162,8 +162,8 @@ namespace FirstLight.Game
 		{
 			var initOpts = new InitializationOptions();
 
-			initOpts.SetEnvironmentName(UnityCloudEnvironment.CURRENT);
-			RemoteConfigService.Instance.SetEnvironmentID(UnityCloudEnvironment.CURRENT_ID);
+			initOpts.SetEnvironmentName(FLEnvironment.Current.UCSEnvironmentName);
+			RemoteConfigService.Instance.SetEnvironmentID(FLEnvironment.Current.UCSEnvironmentID);
 
 			await UnityServices.InitializeAsync(initOpts).AsUniTask();
 			await Addressables.InitializeAsync().Task.AsUniTask();
@@ -203,10 +203,7 @@ namespace FirstLight.Game
 		private void InitPlugins()
 		{
 #if !DISABLE_SRDEBUGGER
-			if (Debug.isDebugBuild)
-			{
-				SRDebug.Init();
-			}
+			SRDebug.Init();
 #endif
 			Debug.developerConsoleEnabled = false;
 			DebugManager.instance.enableRuntimeUI = false;

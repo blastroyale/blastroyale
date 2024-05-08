@@ -153,62 +153,11 @@ steps:
     condition: eq(variables['system.debug'], 'true')
     displayName: 'List build output properties'
 
-  - task: InstallAppleCertificate@2
-    condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))
-    displayName: 'Install development certificate'
-    inputs:
-      certSecureFile: development_cert.p12
-      certPwd: $(developmentiOSCertPwd)
-      keychain: 'temp'
-
-  - task: InstallAppleProvisioningProfile@1
-    condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))
-    displayName: 'Install development provisioning profile'
-    inputs:
-      provisioningProfileLocation: 'secureFiles'
-      provProfileSecureFile: Blast_Royale_Development.mobileprovision
-      removeProfile: false
-
   - script: |
-      /usr/bin/xcodebuild \
-      -sdk iphoneos \
-      -configuration Release \
-      -workspace app/Unity-iPhone.xcworkspace \
-      -scheme Unity-iPhone \
-      -archivePath $(System.DefaultWorkingDirectory)/Build \
-      -derivedDataPath $(System.DefaultWorkingDirectory)/Build \
-      archive \
-      CODE_SIGN_STYLE=Manual \
-      CODE_SIGN_IDENTITY='$(APPLE_CERTIFICATE_SIGNING_IDENTITY)' \
-      PROVISIONING_PROFILE_APP='$(APPLE_PROV_PROFILE_UUID)' \
-      "OTHER_CODE_SIGN_FLAGS=--keychain $(agent.TempDirectory)/ios_signing_temp.keychain"
+      cd app
+      fastlane gym --output_directory "$(System.DefaultWorkingDirectory)" --export_method development
     condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))
-    displayName: 'Xcode Archive'
-
-  - script: |
-      wget -O ExportOptions.plist https://prodflgbuildstorage.blob.core.windows.net/public/ExportOptions_Development.plist
-    condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))
-    displayName: 'Download ExportOptions plist for Development'
-  
-  #  No adhoc builds for now
-  # - script: |
-  #     wget -O ExportOptions.plist https://prodflgbuildstorage.blob.core.windows.net/public/ExportOptions_AdHoc.plist
-  #   condition: and(eq('${{ parameters.platform }}', 'iOS'), eq('${{ parameters.build_type }}', 'RELEASE_BUILD'),not(or(failed(), canceled())))
-  #   displayName: 'Download ExportOptions plist for AdHoc'
-
-  # - script: |
-  #     wget -O ExportOptions.plist https://prodflgbuildstorage.blob.core.windows.net/public/ExportOptions_Distribution.plist
-  #   condition: and(eq('${{ parameters.platform }}', 'iOS'), eq('${{ parameters.dev_build }}', 'false'),not(or(failed(), canceled())))
-  #   displayName: 'Download ExportOptions plist for Distribution'
-
-  - script: |
-      /usr/bin/xcodebuild \
-      -archivePath $(System.DefaultWorkingDirectory)/Build.xcarchive \
-      -exportPath $(System.DefaultWorkingDirectory) \
-      -exportOptionsPlist ExportOptions.plist \
-      -exportArchive
-    condition: and(eq('${{ parameters.platform }}', 'iOS'),not(or(failed(), canceled())))
-    displayName: 'Xcode Export IPA'
+    displayName: 'Fastlane iOS Build'
 
   - task: PublishPipelineArtifact@1
     inputs:

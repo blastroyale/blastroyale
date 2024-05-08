@@ -17,7 +17,7 @@ resources:
   - repository: self
   - repository: templates
     type: git
-    ref: unity_cloud
+    ref: main
     name: Infrastructure/core-templates
 
 parameters:

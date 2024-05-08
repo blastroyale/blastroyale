@@ -1,0 +1,8 @@
+{
+    "fastfile": "Scripts/FastfileDev",
+    "gymfile": "Scripts/GymfileDev",
+    "lanes": {
+        "pre_build": "use_notificationservice_profile",
+        "post_build": ""
+    }
+}

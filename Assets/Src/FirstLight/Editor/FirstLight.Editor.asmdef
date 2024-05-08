@@ -27,7 +27,8 @@
         "PhotonQuantumEditor",
         "PhotonRealtime",
         "UniTask",
-        "StompyRobot.SRDebugger.Editor"
+        "StompyRobot.SRDebugger.Editor",
+        "Unity.Services.PushNotifications"
     ],
     "includePlatforms": [
         "Editor"

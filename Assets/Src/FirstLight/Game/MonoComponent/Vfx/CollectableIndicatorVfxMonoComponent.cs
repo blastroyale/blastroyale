@@ -39,10 +39,6 @@ namespace FirstLight.Game.MonoComponent.Vfx
 
 		private void UpdateView(CallbackUpdateView callback)
 		{
-			if (callback.Game.Frames.Predicted.Culled(_entity))
-			{
-				return;
-			}
 			UpdateIndicator(callback.Game.Frames.Predicted.Time.AsFloat);
 		}
 

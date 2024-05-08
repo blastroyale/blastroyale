@@ -268,7 +268,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-
+			
 			_collectors.Remove(callback.CollectorEntity);
 			RefreshVfx(MatchServices.SpectateService.SpectatedPlayer.Value);
 		}
@@ -325,10 +325,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					? VfxId.CollectableIndicatorLarge
 					: VfxId.CollectableIndicator;
 				_collectingVfx = (CollectableIndicatorVfxMonoComponent) Services.VfxService.Spawn(vfxId);
-				var position = _collectableIndicatorAnchor.position +
-					new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
-
-
+				
 				UpdateVfxPosition();
 				_collectingVfx.transform.rotation = Quaternion.AngleAxis(145, Vector3.up);
 				_collectingVfx.transform.localScale = new Vector3(_pickupCircle.localScale.x * 2.5f, 1f,

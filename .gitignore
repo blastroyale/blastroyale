@@ -97,11 +97,11 @@ ProjectSettings/AndroidResolverDependencies.xml
 ProjectSettings/GvhProjectSettings.xml
 
 # Credential files:
-**/GoogleService-Info*.plist*
-**/google-services*.json*
-[Aa]ssets/StreamingAssets*
-[Aa]ssets/StreamingAssets/
-[Aa]ssets/StreamingAssets.meta
+# **/GoogleService-Info*.plist*
+# **/google-services*.json*
+# [Aa]ssets/StreamingAssets*
+# [Aa]ssets/StreamingAssets/
+# [Aa]ssets/StreamingAssets.meta
 
 #Project Specific
 [Aa]ssets/BuildReports/

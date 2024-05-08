@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -111,8 +110,6 @@ namespace FirstLight.Editor.Build
 		private static void ConfigureQuantum()
 		{
 #if !DEVELOPMENT_BUILD
-			Debug.Log("IS NOT DEVELOPMENT BUILD");
-
 			var guids = AssetDatabase.FindAssets($"t:{nameof(DeterministicSessionConfigAsset)}");
 			var path = AssetDatabase.GUIDToAssetPath(guids[0]);
 			var deterministicConfig = AssetDatabase.LoadAssetAtPath<DeterministicSessionConfigAsset>(path);
@@ -127,21 +124,18 @@ namespace FirstLight.Editor.Build
 
 		private static void PrepareFirebase(string environment)
 		{
-			var suffix = environment == BuildUtils.ENV_PROD ? "-prod" : "-dev";
-			var origPath = Path.Combine(Path.GetDirectoryName(Application.dataPath)!, "Configs");
-			var destPath = Application.streamingAssetsPath;
-			var iosOrig = Path.Combine(origPath, $"GoogleService-Info{suffix}.plist");
-			var iosDest = Path.Combine(destPath, "GoogleService-Info.plist");
-			var androidOrig = Path.Combine(origPath, $"google-services{suffix}.json");
-			var androidDest = Path.Combine(destPath, "google-services.json");
+			var configDirectory = Path.Combine(Application.dataPath, "Configs");
 
-			if (!Directory.Exists(destPath))
-			{
-				Directory.CreateDirectory(destPath);
-			}
+			// Force dev for all environments except production (for now)
+			if (environment != BuildUtils.ENV_PROD) environment = BuildUtils.ENV_DEV;
 
-			File.Copy(iosOrig, iosDest, true);
-			File.Copy(androidOrig, androidDest, true);
+			// iOS
+			File.Copy(Path.Combine(configDirectory, $"GoogleService-Info-{environment}.plist"),
+				Path.Combine(Application.streamingAssetsPath, "GoogleService-Info.plist"), true);
+
+			// Android
+			File.Copy(Path.Combine(configDirectory, $"google-services-{environment}.json"),
+				Path.Combine(Application.streamingAssetsPath, "google-services.plist"), true);
 		}
 
 		/// <summary>
@@ -195,7 +189,6 @@ namespace FirstLight.Editor.Build
 
 			pbxProject.WriteToFile(projectPath);
 		}
-
 
 		private static void SetupSRDebugger()
 		{

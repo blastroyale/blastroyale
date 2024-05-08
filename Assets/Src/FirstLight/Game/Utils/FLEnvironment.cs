@@ -109,19 +109,20 @@ namespace FirstLight.Game.Utils
 			/// The Firebase project ID.
 			/// </summary>
 			public readonly string FirebaseProjectID;
-			
+
 			/// <summary>
 			/// The Firebase project number.
 			/// </summary>
 			public readonly string FirebaseProjectNumber;
-			
+
 			/// <summary>
 			/// The Firebase web API key.
 			/// </summary>
 			public readonly string FirebaseWebApiKey;
 
 			public Definition(string playFabTitleID, string playFabRecoveryEmailTemplateID, string web3Id, string photonAppIDRealtime,
-							  string ucsEnvironmentID, string ucsEnvironmentName, string firebaseAppID, string firebaseProjectID, string firebaseProjectNumber, string firebaseWebApiKey)
+							  string ucsEnvironmentID, string ucsEnvironmentName, string firebaseAppID, string firebaseProjectID,
+							  string firebaseProjectNumber, string firebaseWebApiKey)
 			{
 				PlayFabTitleID = playFabTitleID;
 				PlayFabRecoveryEmailTemplateID = playFabRecoveryEmailTemplateID;
@@ -195,6 +196,8 @@ namespace FirstLight.Game.Utils
 			UnityEditor.EditorPrefs.SetString(ENV_KEY, environment);
 		}
 
+#else
+		private static Definition GetCurrentEditorEnvironment() => throw new NotSupportedException("Invalid environment type");
 #endif
 
 		#endregion

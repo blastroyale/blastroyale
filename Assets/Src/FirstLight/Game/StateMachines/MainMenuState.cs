@@ -403,8 +403,8 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTaskVoid TogglePartyReadyStatus()
 		{
-			var local = _services.PartyService.GetLocalMember();
-			await _services.PartyService.Ready(!local?.Ready ?? false);
+			var isReady = _services.PartyService.LocalReadyStatus.Value;
+			await _services.PartyService.BufferedReady(!isReady);
 		}
 
 		private void OpenGameModeSelectionUI()
@@ -579,7 +579,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			RequestDelayed().Forget();
 		}
-		
+
 		private async UniTask RequestDelayed()
 		{
 			await UniTask.NextFrame(); // TODO: Hack because we get into a loop and Unity freezes without it

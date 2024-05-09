@@ -47,13 +47,12 @@ namespace FirstLight.Game.Presenters
 			_summaryBgColor = summaryBgColor;
 		}
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
-			_container = element.Q<VisualElement>("RewardsContainer").Required();
-			_avatar = element.Q<PlayerAvatarElement>("Avatar").Required();
+			_container = Element.Q<VisualElement>("RewardsContainer").Required();
+			_avatar = Element.Q<PlayerAvatarElement>("Avatar").Required();
 			_reachLevelLabel = Element.Q<Label>("ReachLevelToGetRewards").Required();
 
 			SetupAvatarAndLevels();

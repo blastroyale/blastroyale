@@ -31,10 +31,8 @@ namespace FirstLight.Game.Views.UITK
 		private uint _currentLevel;
 		private bool _locked;
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
-
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
 			if (Element is ImageButton ib)
@@ -59,11 +57,11 @@ namespace FirstLight.Game.Views.UITK
 		private void OnClick()
 		{
 
-			var dir = TooltipDirection.TopLeft;
+			var dir = TipDirection.TopLeft;
 			var pos = TooltipPosition.BottomRight;
 			if (Element.GetPositionOnScreen(_root).x > (Screen.width / 2))
 			{
-				dir = TooltipDirection.TopRight;
+				dir = TipDirection.TopRight;
 				pos = TooltipPosition.BottomLeft;
 			}
 			if (_locked)

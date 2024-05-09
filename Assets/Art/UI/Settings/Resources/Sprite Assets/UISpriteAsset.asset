@@ -173,6 +173,11 @@ MonoBehaviour:
     m_GlyphIndex: 18
     m_Scale: 1
     m_Name: NOOBIcon
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 19
+    m_Scale: 1
+    m_Name: TrophyIcon
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
@@ -478,4 +483,20 @@ MonoBehaviour:
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: 1978585534, guid: a8ab3985bd248420b8f28f5bc1f408f3, type: 3}
+  - m_Index: 19
+    m_Metrics:
+      m_Width: 100
+      m_Height: 100
+      m_HorizontalBearingX: -9
+      m_HorizontalBearingY: 80
+      m_HorizontalAdvance: 80
+    m_GlyphRect:
+      m_X: 600
+      m_Y: 824
+      m_Width: 100
+      m_Height: 100
+    m_Scale: 1.5
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 1513400146, guid: a8ab3985bd248420b8f28f5bc1f408f3, type: 3}
   fallbackSpriteAssets: []

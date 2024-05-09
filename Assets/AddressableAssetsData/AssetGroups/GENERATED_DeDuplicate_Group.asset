@@ -2272,11 +2272,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 36e49cd75c11647259f49fcd8852500a
-    m_Address: Assets/Art/UI/Sprites/Home/background-tooltip-bottomright.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3e5652b7ecea04363b108b5a07a418e9
     m_Address: Assets/Art/UI/Sprites/Home/icon-arrow-settingstab.png
     m_ReadOnly: 0
@@ -2304,11 +2299,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 69d1c717616e62905a4e7d2ea243fc93
     m_Address: Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale-shadow.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c5fdc517c1bd0428e8e0078e971803e4
-    m_Address: Assets/Art/UI/Sprites/Home/background-tooltip-topright.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2362,11 +2352,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e2b9de165d9124934a6ea3fb095badcf
-    m_Address: Assets/Art/UI/Sprites/Home/background-tooltip-topleft.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 72419216a9ea9408490671f87a6ed198
     m_Address: Assets/Art/UI/Sprites/Home/vfx-glitch-triangle1.png
     m_ReadOnly: 0
@@ -2399,11 +2384,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 924e9a658b38a417982f18d0ba0dc4e4
     m_Address: Assets/Art/UI/Sprites/Home/background-settingstab.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 71f6a045524114e68a5e7294e0b95a6c
-    m_Address: Assets/Art/UI/Sprites/Home/background-tooltip-bottomleft.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -41,21 +41,20 @@ namespace FirstLight.Game.Views
 
 		private int _pfpRequestHandle = -1;
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
 			_services = MainInstaller.Resolve<IGameServices>();
 
-			_leaderboardEntry = element.Q<VisualElement>("LeaderboardEntryParent").Required();
+			_leaderboardEntry = Element.Q<VisualElement>("LeaderboardEntryParent").Required();
 			_leaderboardEntry.RegisterCallback<MouseDownEvent>(OnClick);
-			_rankNumber = element.Q<Label>("RankNumber").Required();
-			_playerName = element.Q<Label>("PlayerName").Required();
-			_insideMetric = element.Q<Label>("Kills").Required();
-			_mainMetric = element.Q<Label>("TrophiesAmount").Required();
-			_pfp = element.Q("PFP").Required();
-			_pfpImage = element.Q("PFPImage").Required();
-			_metricIcon = element.Q("TrophiesIcon").Required();
-			_border = element.Q("PfpFrameColor").Required();
+			_rankNumber = Element.Q<Label>("RankNumber").Required();
+			_playerName = Element.Q<Label>("PlayerName").Required();
+			_insideMetric = Element.Q<Label>("Kills").Required();
+			_mainMetric = Element.Q<Label>("TrophiesAmount").Required();
+			_pfp = Element.Q("PFP").Required();
+			_pfpImage = Element.Q("PFPImage").Required();
+			_metricIcon = Element.Q("TrophiesIcon").Required();
+			_border = Element.Q("PfpFrameColor").Required();
 		}
 
 		public void SetIcon(string iconClass)

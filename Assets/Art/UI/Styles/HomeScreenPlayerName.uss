@@ -1,0 +1,77 @@
+.player-name-container {
+    flex-grow: 1;
+    position: absolute;
+    translate: 0 0;
+    top: 0;
+    left: -182px;
+    justify-content: center;
+    align-items: center;
+    width: 365px;
+}
+
+.player-name-container__icon {
+    flex-grow: 1;
+    width: 64px;
+    height: 32px;
+    -unity-background-scale-mode: scale-to-fit;
+    display: flex;
+    position: absolute;
+    top: -27px;
+}
+
+.player-name-container__name-label {
+    color: rgb(255, 255, 255);
+    font-size: 32px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    letter-spacing: -4px;
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Stawix-Italic-Dynamic.asset?fileID=11400000&amp;guid=e9b95b0e9aa0b48e08bd5e26c6365ddc&amp;type=2#Stawix-Italic-Dynamic");
+    padding-top: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.player-name-container__ready-status {
+    flex-grow: 1;
+    text-shadow: 0 0 0 rgb(0, 0, 0);
+    flex-direction: row;
+    left: auto;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    align-self: center;
+    top: -6px;
+    display: flex;
+}
+
+.player-name-container__ready-status__label {
+    color: rgb(103, 198, 50);
+    font-size: 28px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    letter-spacing: -4px;
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Stawix-Italic-Dynamic.asset?fileID=11400000&amp;guid=e9b95b0e9aa0b48e08bd5e26c6365ddc&amp;type=2#Stawix-Italic-Dynamic");
+    align-self: flex-start;
+    -unity-text-align: upper-left;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.player-name-container__not-ready-status {
+    margin-top: 5px;
+}

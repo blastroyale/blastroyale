@@ -1,4 +1,5 @@
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -27,7 +28,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private void Start()
 		{
-			InitAllComponents();
+			UpdateLocalPlayerSkin().Forget();
 		}
 
 		private void OnDestroy()
@@ -36,31 +37,33 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_gameDataProvider?.EquipmentDataProvider?.Loadout?.StopObservingAll(this);
 		}
 
-		private async void InitAllComponents()
-		{
-			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin));
-
-			await UpdateSkin(skin);
-		}
 
 		private void OnDataReinitializedMessage(DataReinitializedMessage obj)
 		{
-			InitAllComponents();
+			UpdateLocalPlayerSkin().Forget();
 		}
 
+		private async UniTaskVoid UpdateLocalPlayerSkin()
+		{
+			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS);
+			var melee = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.MELEE_SKINS);
 
-		private async void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage msg)
+			await UpdateSkin(skin);
+			await UpdateMeleeSkin(melee);
+			_characterViewComponent.EnableRotation();
+		}
+
+		private void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage msg)
 		{
 			if (msg.Category != new CollectionCategory(GameIdGroup.PlayerSkin)) return;
 
-			if (_characterViewComponent != null)
+			if (CharacterViewComponent != null)
 			{
-				Destroy(_characterViewComponent.gameObject);
+				Destroy(CharacterViewComponent.gameObject);
 			}
 
 			if (msg.EquippedItem == null) return;
-
-			await UpdateSkin(msg.EquippedItem);
+			UpdateLocalPlayerSkin().Forget();
 		}
 	}
 }

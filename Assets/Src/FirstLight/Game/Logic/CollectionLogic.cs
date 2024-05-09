@@ -36,7 +36,6 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Get equipped item from a collection
 		/// </summary>
-		[CanBeNull]
 		ItemData GetEquipped(CollectionCategory group);
 
 		/// <summary>
@@ -164,7 +163,6 @@ namespace FirstLight.Game.Logic
 			return DefaultCollectionItems.SelectMany(category => category.Value).All(IsItemOwned);
 		}
 
-		[CanBeNull]
 		public ItemData GetEquipped(CollectionCategory group)
 		{
 			if (Data.Equipped.TryGetValue(group, out var equipped))

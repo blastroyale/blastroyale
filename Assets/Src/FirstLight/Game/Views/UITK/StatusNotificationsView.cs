@@ -36,25 +36,23 @@ namespace FirstLight.Game.Views.UITK
 		private IVisualElementScheduledItem _lowHPAnimation;
 		private float _lowHPAnimationStartTime;
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
-
 			_matchServices = MainInstaller.ResolveMatchServices();
 
-			var blasted1Notification = element.Q("BlastedNotification").Required();
+			var blasted1Notification = Element.Q("BlastedNotification").Required();
 			_blasted1PlayerName = blasted1Notification.Q<Label>("PlayerNameLabel").Required();
 
-			var blasted2Notification = element.Q("DoubleBlastNotification").Required();
+			var blasted2Notification = Element.Q("DoubleBlastNotification").Required();
 			_blasted2PlayerName = blasted2Notification.Q<Label>("PlayerNameLabel").Required();
 
-			var blasted3Notification = element.Q("TripleBlastNotification").Required();
+			var blasted3Notification = Element.Q("TripleBlastNotification").Required();
 			_blasted3PlayerName = blasted3Notification.Q<Label>("PlayerNameLabel").Required();
 
-			var blastedBeastNotification = element.Q("BeastBlastNotification").Required();
+			var blastedBeastNotification = Element.Q("BeastBlastNotification").Required();
 			_blastedBeastPlayerName = blastedBeastNotification.Q<Label>("PlayerNameLabel").Required();
 
-			_lowHP = element.Q("LowHP").Required();
+			_lowHP = Element.Q("LowHP").Required();
 
 			blasted1Notification.SetDisplay(false);
 			blasted2Notification.SetDisplay(false);

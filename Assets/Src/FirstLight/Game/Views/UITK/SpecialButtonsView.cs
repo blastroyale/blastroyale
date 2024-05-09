@@ -40,11 +40,10 @@ namespace FirstLight.Game.Views.UITK
 
 		private IMatchServices _matchServices;
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
-			_special0Button = element.Q<SpecialButtonElement>("Special0").Required();
-			_special1Button = element.Q<SpecialButtonElement>("Special1").Required();
+			_special0Button = Element.Q<SpecialButtonElement>("Special0").Required();
+			_special1Button = Element.Q<SpecialButtonElement>("Special1").Required();
 
 			_special0Button.OnPress += val => OnSpecial0Pressed?.Invoke(val);
 			_special1Button.OnPress += val => OnSpecial1Pressed?.Invoke(val);

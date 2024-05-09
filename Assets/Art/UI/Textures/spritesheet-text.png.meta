@@ -534,6 +534,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: TrophyIcon
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 824
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08a8f47c190b5c341883b71de707dfa1
+      internalID: 1513400146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -567,6 +588,7 @@ TextureImporter:
       TextSpriteSheet_1: -867704838
       TextSpriteSheet_2: -2062587647
       TextSpriteSheet_3: 1785650691
+      TrophyIcon: 1513400146
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

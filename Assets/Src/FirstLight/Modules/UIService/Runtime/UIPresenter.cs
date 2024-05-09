@@ -46,7 +46,7 @@ namespace FirstLight.UIService
 		public void AddView(VisualElement element, UIView view)
 		{
 			_views.Add(view);
-			view.Attached(element);
+			view.AttachedInternal(element, this);
 		}
 
 		internal async UniTask OnScreenOpenedInternal(bool reload = false)

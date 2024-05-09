@@ -32,12 +32,11 @@ namespace FirstLight.Game.Presenters
 			_genericBgColor = genericBgColor;
 		}
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
-			_name = element.Q<Label>("RewardName");
-			_amount = element.Q<Label>("RewardAmount");
-			_icon = element.Q<VisualElement>("RewardIcon");
+			_name = Element.Q<Label>("RewardName");
+			_amount = Element.Q<Label>("RewardAmount");
+			_icon = Element.Q<VisualElement>("RewardIcon");
 		}
 
 		public void ShowReward(IItemViewModel itemViewModel)

@@ -34,13 +34,12 @@ namespace FirstLight.Game.Views.UITK
 
 		private IVisualElementScheduledItem _tickScheduledItem;
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
 			_gameServices = MainInstaller.Resolve<IGameServices>();
 
-			_batteryIcon = element.Q("BatteryIcon").Required();
-			_latency = element.Q<Label>("LatencyLabel").Required();
+			_batteryIcon = Element.Q("BatteryIcon").Required();
+			_latency = Element.Q<Label>("LatencyLabel").Required();
 			
 			_latency.SetDisplay(_gameServices.LocalPrefsService.ShowLatency.Value);
 		}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
@@ -146,7 +147,7 @@ namespace FirstLight.Game.Services
 
 			if (_partyService.HasParty.Value && _partyService.GetLocalMember().Leader)
 			{
-				_partyService.SetLobbyProperty(SelectedQueueLobbyProperty, current.Entry.PlayfabQueue.QueueName);
+				_partyService.SetLobbyProperty(SelectedQueueLobbyProperty, current.Entry.PlayfabQueue.QueueName,true).Forget();
 			}
 		}
 

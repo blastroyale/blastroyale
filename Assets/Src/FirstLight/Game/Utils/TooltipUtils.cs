@@ -1,11 +1,27 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using FirstLight.Game.UIElements;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Utils
 {
+	public enum PlayerButtonContextStyle
+	{
+		Normal,
+		Red
+	}
+
+	public class PlayerContextButton
+	{
+		public PlayerButtonContextStyle ContextStyle;
+		public string Text;
+		public Action OnClick;
+	}
+
 	/// <summary>
 	/// Contains logic for displaying tooltips.
 	/// </summary>
@@ -15,12 +31,12 @@ namespace FirstLight.Game.Utils
 		/// Opens a tooltip with a string content.
 		/// </summary>
 		public static void OpenTooltip(this VisualElement element, VisualElement root, string content,
-									   TooltipDirection direction = TooltipDirection.TopRight,
+									   TipDirection direction = TipDirection.TopRight,
 									   TooltipPosition position = TooltipPosition.BottomLeft,
 									   int offsetX = 0, int offsetY = 0)
 
 		{
-			var tooltip = OpenTooltip(element, root, direction, position, offsetX, offsetY);
+			var tooltip = OpenTooltip(element.worldBound, root, direction, position, offsetX, offsetY);
 
 			var label = new Label(content);
 			label.AddToClassList("tooltip__label");
@@ -28,16 +44,43 @@ namespace FirstLight.Game.Utils
 			tooltip.Add(label);
 		}
 
+		public static void OpenPlayerContextOptions(VisualElement element, VisualElement root, string playerName, IEnumerable<PlayerContextButton> buttons)
+		{
+			var tooltip = OpenTooltip(element.worldBound, root, TipDirection.Bottom, TooltipPosition.Top);
+
+			tooltip.AddToClassList("player-context-menu");
+			var playerNameLabel = new Label(playerName);
+			playerNameLabel.AddToClassList("player-context-menu__player-name");
+			tooltip.Add(playerNameLabel);
+
+			var buttonsHolder = new VisualElement();
+			buttonsHolder.AddToClassList("player-context-menu__button-container");
+			tooltip.Add(buttonsHolder);
+
+			foreach (var playerContextButton in buttons)
+			{
+				var buttonElement = new Button(playerContextButton.OnClick);
+				buttonElement.AddToClassList("player-context-menu__button");
+				if (playerContextButton.ContextStyle == PlayerButtonContextStyle.Red)
+				{
+					buttonElement.AddToClassList("player-context-menu__button--red");
+				}
+
+				buttonElement.text = playerContextButton.Text;
+				buttonsHolder.Add(buttonElement);
+			}
+		}
+
 		/// <summary>
 		/// Opens a tooltip with a string content.
 		/// </summary>
 		public static void OpenTooltip(this VisualElement element, VisualElement root, IEnumerable<string> tags,
-									   TooltipDirection direction = TooltipDirection.TopRight,
+									   TipDirection direction = TipDirection.TopRight,
 									   TooltipPosition position = TooltipPosition.BottomLeft,
 									   int offsetX = 0, int offsetY = 0)
 
 		{
-			var tooltip = OpenTooltip(element, root, direction, position, offsetX, offsetY);
+			var tooltip = OpenTooltip(element.worldBound, root, direction, position, offsetX, offsetY);
 			tooltip.AddToClassList("tooltip--tags");
 
 			foreach (var tag in tags)
@@ -48,27 +91,27 @@ namespace FirstLight.Game.Utils
 				tooltip.Add(label);
 			}
 		}
-		
+
 		/// <summary>
 		/// Opens a tooltip with a string content.
 		/// </summary>
 		public static void OpenTooltip(this VisualElement element, VisualElement root, VisualElement content,
-									   TooltipDirection direction = TooltipDirection.TopRight,
+									   TipDirection direction = TipDirection.TopRight,
 									   TooltipPosition position = TooltipPosition.BottomLeft,
 									   int offsetX = 0, int offsetY = 0)
 
 		{
-			var tooltip = OpenTooltip(element, root, direction, position, offsetX, offsetY);
+			var tooltip = OpenTooltip(element.worldBound, root, direction, position, offsetX, offsetY);
 			tooltip.Add(content);
 		}
 
 		/// <summary>
 		/// Opens a tooltip with any custom VisualElement content.
 		/// </summary>
-		private static VisualElement OpenTooltip(this VisualElement element, VisualElement root,
-												 TooltipDirection direction = TooltipDirection.TopRight,
-												 TooltipPosition position = TooltipPosition.BottomLeft,
-												 int offsetX = 0, int offsetY = 0)
+		public static VisualElement OpenTooltip(Rect sourcePos, VisualElement root,
+												TipDirection direction = TipDirection.TopRight,
+												TooltipPosition position = TooltipPosition.BottomLeft,
+												int offsetX = 0, int offsetY = 0)
 
 		{
 			var blocker = new VisualElement();
@@ -77,55 +120,80 @@ namespace FirstLight.Game.Utils
 			blocker.RegisterCallback<ClickEvent, VisualElement>((_, ve) => { ve.RemoveFromHierarchy(); }, blocker,
 				TrickleDown.TrickleDown);
 
-			var tooltip = new VisualElement();
-
-			tooltip.AddToClassList("tooltip");
-			tooltip.AddToClassList($"tooltip--{direction.ToString().ToLowerInvariant()}");
+			var tooltip = new TooltipElement(direction);
+			bool trigerred = false;
 			tooltip.RegisterCallback<GeometryChangedEvent>(ev =>
 			{
 				var rootBound = root.worldBound;
-				var elBound = element.worldBound;
 				var ttBound = ev.newRect;
 
 				var pos = position switch
 				{
-					TooltipPosition.Center => elBound.position + new Vector2(elBound.width / 2f, -elBound.height / 2f),
-					TooltipPosition.CenterLeft => elBound.position + new Vector2(0f, -elBound.height / 2f),
-					TooltipPosition.TopLeft => elBound.position + new Vector2(0f, -elBound.height),
-					TooltipPosition.TopRight => elBound.position + new Vector2(elBound.width, -elBound.height),
-					TooltipPosition.BottomLeft => elBound.position,
-					TooltipPosition.BottomRight => elBound.position + new Vector2(elBound.width, 0f),
+					TooltipPosition.Center      => sourcePos.position + new Vector2(sourcePos.width / 2f, -sourcePos.height / 2f),
+					TooltipPosition.CenterLeft  => sourcePos.position + new Vector2(0f, -sourcePos.height / 2f),
+					TooltipPosition.TopLeft     => sourcePos.position + new Vector2(0f, -sourcePos.height),
+					TooltipPosition.TopRight    => sourcePos.position + new Vector2(sourcePos.width, -sourcePos.height),
+					TooltipPosition.BottomLeft  => sourcePos.position,
+					TooltipPosition.BottomRight => sourcePos.position + new Vector2(sourcePos.width, 0f),
+					TooltipPosition.Top => sourcePos.position +
+						new Vector2(sourcePos.width / 2f, -sourcePos.height) +
+						new Vector2(ttBound.width / 2, 0),
 					_ => throw new ArgumentOutOfRangeException(nameof(position), position, null)
 				};
 
 				pos.x -= rootBound.width - offsetX;
-				pos.y += element.worldBound.height - offsetY;
+				pos.y += sourcePos.height - offsetY;
 
 				switch (direction)
 				{
-					case TooltipDirection.TopLeft:
+					case TipDirection.TopLeft:
 						pos.x += ttBound.width;
 						break;
-					case TooltipDirection.TopRight:
+					case TipDirection.TopRight:
 						// Do nothing
 						break;
-					case TooltipDirection.BottomLeft:
+					case TipDirection.BottomLeft:
 						pos.x += ttBound.width;
 						pos.y -= ttBound.height;
 						break;
-					case TooltipDirection.BottomRight:
+					case TipDirection.BottomRight:
 						pos.y -= ttBound.height;
 						break;
+					case TipDirection.Right:
+						pos.x += ttBound.width;
+						break;
+					case TipDirection.Left:
+						pos.x += ttBound.width;
+						break;
+					case TipDirection.Top:
+						pos.x += ttBound.width;
+						break;
+					case TipDirection.Bottom:
+						pos.y -= ttBound.height;
+						break;
+
 					default:
 						throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
 				}
 
 				tooltip.transform.position = pos;
+				if (trigerred) return;
+				trigerred = true;
+				if (direction == TipDirection.Bottom)
+				{
+					var originalHeight = tooltip.contentRect.height;
+					tooltip.experimental.animation.Start(0, 1, 200, (ve, val) =>
+					{
+						tooltip.style.height = originalHeight * val;
+					}).Ease( Easing.OutBack).OnCompleted(() => { });
+					return;
+				}
+
+				tooltip.experimental.animation
+					.Start(0f, 1f, 200, (ve, val) => ve.style.opacity = val)
+					.Ease(Easing.Linear);
 			});
 
-			tooltip.experimental.animation
-				.Start(0f, 1f, 200, (ve, val) => ve.style.opacity = val)
-				.Ease(Easing.Linear);
 
 			blocker.Add(tooltip);
 
@@ -136,15 +204,8 @@ namespace FirstLight.Game.Utils
 	public enum TooltipPosition
 	{
 		Center,
+		Top,
 		CenterLeft,
-		TopLeft,
-		TopRight,
-		BottomLeft,
-		BottomRight,
-	}
-
-	public enum TooltipDirection
-	{
 		TopLeft,
 		TopRight,
 		BottomLeft,

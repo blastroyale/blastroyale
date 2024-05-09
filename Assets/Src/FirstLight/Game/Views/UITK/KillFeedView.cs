@@ -23,11 +23,10 @@ namespace FirstLight.Game.Views.UITK
 
 		private readonly List<DeathNotificationElement> _visibleNotifications = new ();
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
 			// Clean feed items added during development
-			element.Clear();
+			Element.Clear();
 
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_gameServices = MainInstaller.Resolve<IGameServices>();

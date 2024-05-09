@@ -32,10 +32,6 @@
     --sprite-home__background-settingstab-chosen: url('/Assets/Art/UI/Sprites/Home/background-settingstab-chosen.png');
     --sprite-home__background-small-bundle: url('/Assets/Art/UI/Sprites/Home/background-small-bundle.png');
     --sprite-home__background-textbubble-yellow: url('/Assets/Art/UI/Sprites/Home/background-textbubble-yellow.png');
-    --sprite-home__background-tooltip-bottomleft: url('/Assets/Art/UI/Sprites/Home/background-tooltip-bottomleft.png');
-    --sprite-home__background-tooltip-bottomright: url('/Assets/Art/UI/Sprites/Home/background-tooltip-bottomright.png');
-    --sprite-home__background-tooltip-topleft: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topleft.png');
-    --sprite-home__background-tooltip-topright: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topright.png');
     --sprite-home__bamboo-season-reward: url('/Assets/Art/UI/Sprites/Home/bamboo-season-reward.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__blastroyale-logo: url('/Assets/Art/UI/Sprites/Home/blastroyale-logo.png');
@@ -133,6 +129,7 @@
     --sprite-home__icon-core-epic: url('/Assets/Art/UI/Sprites/Home/icon-core-epic.png');
     --sprite-home__icon-core-legendary: url('/Assets/Art/UI/Sprites/Home/icon-core-legendary.png');
     --sprite-home__icon-core-rare: url('/Assets/Art/UI/Sprites/Home/icon-core-rare.png');
+    --sprite-home__icon-crown: url('/Assets/Art/UI/Sprites/Home/icon-crown.png');
     --sprite-home__icon-crown-ranked: url('/Assets/Art/UI/Sprites/Home/icon-crown-ranked.png');
     --sprite-home__icon-customgame: url('/Assets/Art/UI/Sprites/Home/icon-customgame.png');
     --sprite-home__icon-discord: url('/Assets/Art/UI/Sprites/Home/icon-discord.png');
@@ -397,30 +394,6 @@
     background-image: var(--sprite-home__background-textbubble-yellow);
     width: 372px;
     height: 130px;
-}
-
-.sprite-home__background-tooltip-bottomleft {
-    background-image: var(--sprite-home__background-tooltip-bottomleft);
-    width: 82px;
-    height: 62px;
-}
-
-.sprite-home__background-tooltip-bottomright {
-    background-image: var(--sprite-home__background-tooltip-bottomright);
-    width: 82px;
-    height: 62px;
-}
-
-.sprite-home__background-tooltip-topleft {
-    background-image: var(--sprite-home__background-tooltip-topleft);
-    width: 82px;
-    height: 62px;
-}
-
-.sprite-home__background-tooltip-topright {
-    background-image: var(--sprite-home__background-tooltip-topright);
-    width: 82px;
-    height: 62px;
 }
 
 .sprite-home__bamboo-season-reward {
@@ -953,6 +926,12 @@
     background-image: var(--sprite-home__icon-core-rare);
     width: 280px;
     height: 280px;
+}
+
+.sprite-home__icon-crown {
+    background-image: var(--sprite-home__icon-crown);
+    width: 56px;
+    height: 56px;
 }
 
 .sprite-home__icon-crown-ranked {

@@ -90,11 +90,8 @@ namespace FirstLight.Tests.EditorMode
 			AudioFxService = new GameAudioFxService(assetResolverService, LocalPrefsService);
 
 			ThreadService = new ThreadService();
-			
-			PartyService = Substitute.For<IPartyService>();
-			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic,
-				PartyService, gameLogic.AppDataProvider);
-		
+
+
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();
 			ProfileService = new PlayerProfileService(GameBackendService);
@@ -104,8 +101,11 @@ namespace FirstLight.Tests.EditorMode
 			PoolService = new PoolService();
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
+			PartyService = Substitute.For<IPartyService>();
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic,
+				PartyService, gameLogic.AppDataProvider);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService,
-				MessageBrokerService, NetworkService, GameBackendService,ConfigsProvider, LocalPrefsService);
+				MessageBrokerService, NetworkService, GameBackendService, ConfigsProvider, LocalPrefsService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
 			RoomService = Substitute.For<IRoomService>();

@@ -89,7 +89,7 @@ namespace ServerCommon.Cloudscript
 		[HttpPost]
 		[RequiresApiKey]
 		[Route("RemovePlayerData")]
-		public async Task<IActionResult> DeletePlayerData([FromBody] CloudscriptRequest<LogicRequest> request)
+		public async Task<IActionResult> RemovePlayerData([FromBody] CloudscriptRequest<LogicRequest> request)
 		{
 			return Ok(new CloudscriptResponse(await _logicServer.RemovePlayerData(request.PlayfabId)));
 		}
@@ -97,7 +97,7 @@ namespace ServerCommon.Cloudscript
 		[HttpPost]
 		[RequiresApiKey]
 		[Route("GetPublicProfile")]
-		public async Task<IActionResult> GetUserProfile([FromBody] CloudscriptRequest<LogicRequest> request)
+		public async Task<IActionResult> GetPublicProfile([FromBody] CloudscriptRequest<LogicRequest> request)
 		{
 			var result = Playfab.Result(request.PlayfabId, await _statistics.GetProfile(request.FunctionArgument!.Command));
 			return Ok(new CloudscriptResponse(result));

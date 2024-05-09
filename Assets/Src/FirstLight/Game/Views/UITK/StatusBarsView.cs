@@ -41,10 +41,8 @@ namespace FirstLight.Game.Views.UITK
 
 		private bool _useOverheadUi;
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
-
 			_camera = FLGCamera.Instance.MainCamera;
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_gameServices = MainInstaller.ResolveServices();
@@ -52,7 +50,7 @@ namespace FirstLight.Game.Views.UITK
 
 			_useOverheadUi = _gameServices.LocalPrefsService.UseOverheadUI.Value;
 
-			element.Clear();
+			Element.Clear();
 
 			_playerBarPool = new ObjectPool<PlayerStatusBarElement>(
 				() =>

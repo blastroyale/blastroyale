@@ -40,24 +40,23 @@ namespace FirstLight.Game.Views.UITK
 
 		public event Action<float> OnClick;
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
-			_melee = element.Q("Melee").Required();
-			_weapon = element.Q("Boomstick").Required();
-			_switchIcon = element.Q("SwitchIcon").Required();
+			_melee = Element.Q("Melee").Required();
+			_weapon = Element.Q("Boomstick").Required();
+			_switchIcon = Element.Q("SwitchIcon").Required();
 			_weaponRarity = _weapon.Q("WeaponRarityIcon").Required();
 			_weaponIcon = _weapon.Q("WeaponIcon").Required();
 			_weaponShadow = _weapon.Q("WeaponIconShadow").Required();
-			_ammoLabel = element.Q<Label>("Ammo").Required();
-			_ammoProgress = element.Q<RadialProgressElement>("AmmoProgress").Required();
-			_outOfAmmoGlow = element.Q<VisualElement>("AmmoProgressBg").Required();
+			_ammoLabel = Element.Q<Label>("Ammo").Required();
+			_ammoProgress = Element.Q<RadialProgressElement>("AmmoProgress").Required();
+			_outOfAmmoGlow = Element.Q<VisualElement>("AmmoProgressBg").Required();
 			_ammoProgress.Progress = 0f;
 
-			((ImageButton) element).clicked += () =>
+			((ImageButton) Element).clicked += () =>
 			{
 				// Both have to be sent so the input system resets the click state
 				OnClick?.Invoke(1.0f);

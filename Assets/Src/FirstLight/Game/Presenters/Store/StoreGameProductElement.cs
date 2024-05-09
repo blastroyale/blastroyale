@@ -92,7 +92,7 @@ namespace FirstLight.Game.Presenters.Store
 		private void OnClickInfo()
 		{
 			var desc = _product.PlayfabProductConfig.StoreItemData.Description;
-			_infoButton.OpenTooltip(_root, desc, TooltipDirection.BottomLeft, TooltipPosition.TopRight);
+			_infoButton.OpenTooltip(_root, desc, TipDirection.BottomLeft, TooltipPosition.TopRight);
 		}
 
 		public void SetData(GameProduct product, ProductFlags flags, VisualElement rootDocument)

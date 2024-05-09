@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "***REMOVED***",
+    "project_id": "blast-royale-dev",
+    "storage_bucket": "blast-royale-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "***REMOVED***",
+        "android_client_info": {
+          "package_name": "com.firstlightgames.blastroyale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "***REMOVED***-t9khrjai07ni21cd3kjducn2jktr0tqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "***REMOVED***4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "***REMOVED***-t9khrjai07ni21cd3kjducn2jktr0tqu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "***REMOVED***-afq5r3520fr7hvb7gcfd7nqolmobju66.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.firstlightgames.phoenixenterprise"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:***REMOVED***:android:c878574959d598233eccf9",
+        "android_client_info": {
+          "package_name": "com.firstlightgames.blastroyaleenterprise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "***REMOVED***-t9khrjai07ni21cd3kjducn2jktr0tqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "***REMOVED***4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "***REMOVED***-t9khrjai07ni21cd3kjducn2jktr0tqu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "***REMOVED***-afq5r3520fr7hvb7gcfd7nqolmobju66.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.firstlightgames.phoenixenterprise"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

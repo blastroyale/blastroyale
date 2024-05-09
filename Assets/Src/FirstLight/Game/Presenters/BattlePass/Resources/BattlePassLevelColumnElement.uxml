@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Template name="BattlePassLevelBar" src="project://database/Assets/BattlePassLevelBar.uxml?fileID=9197481963319205126&amp;guid=dcd6238cca50f4181b0953d56e9abee6&amp;type=3#BattlePassLevelBar" />
+    <ui:Template name="BattlePassLevelBar" src="project://database/Assets/Art/UI/Templates/BattlePassLevelBar.uxml?fileID=9197481963319205126&amp;guid=dcd6238cca50f4181b0953d56e9abee6&amp;type=3#BattlePassLevelBar" />
     <Style src="project://database/Assets/Art/UI/Screens/BattlePassScreenStyle.uss?fileID=7433441132597879392&amp;guid=dc4d7d108099c400695438f2df23550d&amp;type=3#BattlePassScreenStyle" />
     <ui:VisualElement style="flex-grow: 0; width: 450px; align-self: flex-end; justify-content: flex-start; align-items: flex-end;">
         <FirstLight.Game.Presenters.BattlePass.BattlepassSegmentButtonElement name="PaidReward" pass-type="Paid" style="" />

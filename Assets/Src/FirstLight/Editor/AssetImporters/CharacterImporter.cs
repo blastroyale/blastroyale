@@ -1,14 +1,19 @@
+using System;
 using System.IO;
 using System.Linq;
+using FirstLight.Game.Configs;
 using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.Utils;
+using Quantum;
 using Sirenix.Utilities;
-using Unity.AssetManager.Editor;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEditor.AssetImporters;
 using UnityEditor.Presets;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using LayerMask = UnityEngine.LayerMask;
+using Object = UnityEngine.Object;
 
 namespace FirstLight.Editor.AssetImporters
 {
@@ -127,6 +132,8 @@ namespace FirstLight.Editor.AssetImporters
 		private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
 												   string[] movedFromAssetPaths)
 		{
+			var charactersAdded = false;
+
 			foreach (var assetPath in importedAssets)
 			{
 				if (AssetDatabase.IsValidFolder(assetPath) && assetPath.StartsWith(ASSET_MANAGER_PATH))
@@ -182,11 +189,23 @@ namespace FirstLight.Editor.AssetImporters
 							continue;
 						}
 
-						// TODO: If we move the character here it loses the Asset Manager link
+						charactersAdded = true;
+
+
 						// AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ImportRecursive);
 						// MoveCharacters();
 					}
 				}
+			}
+
+			// TODO: If we move the character directly here it loses the Asset Manager link, this is a workaround
+			if (charactersAdded)
+			{
+				DelayedEditorCall.DelayedCall(() =>
+				{
+					MoveCharacters();
+					RefreshConfigs();
+				}, 0.5f);
 			}
 		}
 
@@ -212,6 +231,99 @@ namespace FirstLight.Editor.AssetImporters
 				}
 
 				AssetDatabase.ImportAsset(destination, ImportAssetOptions.ImportRecursive);
+			}
+		}
+
+		[MenuItem("FLG/Collections/Refresh Character Configs")]
+		public static void RefreshConfigs()
+		{
+			var configAsset = AssetDatabase.LoadAssetAtPath<CharacterSkinConfigs>(CHARACTERS_CONFIG);
+			var config = configAsset.Config;
+
+			config.Skins.Clear();
+
+			var folders = AssetDatabase.GetSubFolders(CHARACTERS_DIR);
+			foreach (var folder in folders)
+			{
+				var directoryName = Path.GetFileName(folder);
+
+				if (directoryName == "Shared") continue; // Ignore shared folder
+
+				Debug.Log($"Adding character to config: {directoryName}");
+
+				var characterFileName = $"{CHARACTER_PREFIX}{directoryName}";
+
+				var gameId = NameToGameId(directoryName);
+
+				if (!gameId.HasValue)
+				{
+					Debug.LogWarning("Missing GameID for character: " + directoryName);
+				}
+
+				config.Skins.Add(new CharacterSkinConfigEntry
+				{
+					GameId = gameId ?? GameId.Random,
+					Prefab = new AssetReferenceGameObject(AssetDatabase.GUIDFromAssetPath(Path.Combine(folder, $"{characterFileName}.prefab"))
+						.ToString()),
+					Sprite = new AssetReferenceSprite(AssetDatabase.GUIDFromAssetPath(Path.Combine(folder, $"Icon_{characterFileName}.png"))
+						.ToString()),
+				});
+			}
+
+			configAsset.Config = config;
+			EditorUtility.SetDirty(configAsset);
+			AssetDatabase.SaveAssetIfDirty(configAsset);
+		}
+
+
+		private static GameId? NameToGameId(string name)
+		{
+			if (Enum.TryParse(typeof(GameId), $"PlayerSkin{name}", true, out var gid))
+			{
+				return (GameId) gid;
+			}
+
+			return name switch
+			{
+				"AssassinMale"       => GameId.MaleAssassin,
+				"AssassinFemale"     => GameId.FemaleAssassin,
+				"CorposFemale"       => GameId.FemaleCorpos,
+				"CorposMale"         => GameId.MaleCorpos,
+				"PunkFemale"         => GameId.FemalePunk,
+				"PunkMale"           => GameId.MalePunk,
+				"SuperstarFemale"    => GameId.FemaleSuperstar,
+				"SuperstarMale"      => GameId.MaleSuperstar,
+				"SuperstarMale_Xmas" => GameId.PlayerSkinXmasSuperstar,
+				_                    => null
+			};
+		}
+
+
+		private class DelayedEditorCall
+		{
+			private readonly Action _action;
+			private readonly float _executeTime;
+
+			private DelayedEditorCall(Action action, float delay)
+			{
+				_action = action;
+				_executeTime = Time.realtimeSinceStartup + delay;
+			}
+
+			private void Run()
+			{
+				Debug.Log($"RUN: {Time.realtimeSinceStartup} < {_executeTime}");
+				if (Time.realtimeSinceStartup < _executeTime) return;
+
+				_action();
+
+				EditorApplication.update -= Run;
+			}
+
+			public static void DelayedCall(Action action, float delay)
+			{
+				var obj = new DelayedEditorCall(action, delay);
+				EditorApplication.update += obj.Run;
 			}
 		}
 	}

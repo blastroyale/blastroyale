@@ -93,6 +93,8 @@ namespace FirstLight.Game
 
 		private static async UniTask InitPushNotifications()
 		{
+			if (Application.isEditor) return;
+
 			PushNotificationsService.Instance.OnRemoteNotificationReceived += PushNotificationReceived;
 
 			var token = await PushNotificationsService.Instance.RegisterForPushNotificationsAsync().AsUniTask();

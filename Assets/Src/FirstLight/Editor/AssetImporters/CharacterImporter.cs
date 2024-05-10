@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Linq;
+using FirstLight.Editor.EditorTools;
+using FirstLight.Editor.Ids;
 using FirstLight.Game.Configs;
 using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.Utils;
@@ -9,6 +11,7 @@ using Sirenix.Utilities;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEditor.AssetImporters;
+using UnityEditor.Compilation;
 using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -190,10 +193,6 @@ namespace FirstLight.Editor.AssetImporters
 						}
 
 						charactersAdded = true;
-
-
-						// AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ImportRecursive);
-						// MoveCharacters();
 					}
 				}
 			}
@@ -209,8 +208,7 @@ namespace FirstLight.Editor.AssetImporters
 			}
 		}
 
-		[MenuItem("FLG/Collections/Move Characters")]
-		public static void MoveCharacters()
+		private static void MoveCharacters()
 		{
 			var folders = AssetDatabase.GetSubFolders(ASSET_MANAGER_PATH);
 
@@ -235,14 +233,16 @@ namespace FirstLight.Editor.AssetImporters
 		}
 
 		[MenuItem("FLG/Collections/Refresh Character Configs")]
-		public static void RefreshConfigs()
+		private static void RefreshConfigs()
 		{
 			var configAsset = AssetDatabase.LoadAssetAtPath<CharacterSkinConfigs>(CHARACTERS_CONFIG);
 			var config = configAsset.Config;
+			var gameIdCandidates = GameIDGenerator.GenerateNewGameIDs();
 
 			config.Skins.Clear();
 
 			var folders = AssetDatabase.GetSubFolders(CHARACTERS_DIR);
+			var idsGenerated = false;
 			foreach (var folder in folders)
 			{
 				var directoryName = Path.GetFileName(folder);
@@ -258,6 +258,14 @@ namespace FirstLight.Editor.AssetImporters
 				if (!gameId.HasValue)
 				{
 					Debug.LogWarning("Missing GameID for character: " + directoryName);
+					var createGameID = EditorUtility.DisplayDialog("Missing GameID!",
+						$"No GameID was found for the character {directoryName}. Would you like to create one?\n", "DA", "NYET");
+
+					if (createGameID)
+					{
+						GameIDGenerator.AddNewCharacterGameID(directoryName, gameIdCandidates);
+						idsGenerated = true;
+					}
 				}
 
 				config.Skins.Add(new CharacterSkinConfigEntry
@@ -270,11 +278,18 @@ namespace FirstLight.Editor.AssetImporters
 				});
 			}
 
+			if (idsGenerated)
+			{
+				EditorUtility.DisplayDialog("Rebuild required.",
+					"New GameIDs have been generated. Please regenerate the QTN files, rebuild Quantum, and run FLG/Collections/Refresh Character Configs.",
+					"Ajde");
+				CompilationPipeline.RequestScriptCompilation();
+			}
+
 			configAsset.Config = config;
 			EditorUtility.SetDirty(configAsset);
 			AssetDatabase.SaveAssetIfDirty(configAsset);
 		}
-
 
 		private static GameId? NameToGameId(string name)
 		{

@@ -3,31 +3,54 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Quantum;
 using UnityEditor;
-using UnityEngine;
 using Application = UnityEngine.Device.Application;
 
 namespace FirstLight.Editor.Ids
 {
-	public class Generator
+	public class GameIDGenerator
 	{
 		private const string _name = "GameId";
 		private const string _nameGroup = "GameIdGroup";
 		private const string _namespace = "FirstLight.Game.Ids";
+		
+		/// <summary>
+		/// Adds a new character to the game ids. Project needs to be rebuilt after this
+		/// </summary>
+		public static void AddNewCharacterGameID(string characterName, List<int> ids)
+		{
+			var path = Path.Combine(Application.dataPath, "Src", "FirstLight", "Editor", "Ids", "Ids.cs");
+			var id = ids[0];
+			ids.RemoveAt(0);
+			
+			var content = File.ReadAllText(path).Replace(
+				"// SKINS GENERATION TOKEN KEEP THIS HERE",
+				$"{{\"PlayerSkin{characterName}\", {id}, PlayerSkin, Collection}},\n\t\t\t// SKINS GENERATION TOKEN KEEP THIS HERE"
+			);
 
-		[MenuItem("FLG/Generators/Next Game Id",priority = 20)]
+			File.WriteAllText(path, content);
+			AssetDatabase.ImportAsset(path);
+		}
+
+		[MenuItem("FLG/Generators/Next Game Id", priority = 20)]
 		public static void NextId()
+		{
+			var nextIds = GenerateNewGameIDs();
+
+			EditorUtility.DisplayDialog("Success!", "Next ids are " + string.Join(" , ", nextIds), "Ok");
+		}
+
+		public static List<int> GenerateNewGameIDs()
 		{
 			int idsAmount = 10;
 			var maximumId = Ids.GameIds.InternalList.Max(i => i.Id) + idsAmount;
-			List<string> nextIds = new List<string>();
+			var nextIds = new List<int>();
 			for (int x = 0; x <= maximumId; x++)
 			{
 				var exists = Ids.GameIds.InternalList.Exists(i => i.Id == x);
 				if (!exists)
 				{
-					nextIds.Add(x.ToString());
+					nextIds.Add(x);
 				}
 
 				if (nextIds.Count == idsAmount)
@@ -36,30 +59,8 @@ namespace FirstLight.Editor.Ids
 				}
 			}
 
-			EditorUtility.DisplayDialog("Success!", "Next ids are " + string.Join(" , ", nextIds), "Ok");
+			return nextIds;
 		}
-
-		/*[MenuItem("FLG/GOOOOOO")]
-		 Used for converting the current game ids to the new format
-		public static void GenerateBootstrap()
-		{
-			var values = SortByEnumOrder(Enum.GetValues(typeof(GameId)).Cast<GameId>());
-
-			var str = new StringBuilder();
-			foreach (var id in values)
-			{
-				var groups = string.Join(',', id.GetGroups().Select(g => "GroupSource." + g));
-				if (groups != "")
-				{
-					groups = ", " + groups;
-				}
-
-				str.AppendLine($"{{\"{id}\", {(int) id} {groups}}},");
-			}
-
-			Debug.Log(str);
-		}*/
-
 
 		[MenuItem("FLG/Generators/Generate GameIds.qtn and GameIds.cs", priority = 20)]
 		public static void GenerateIds()

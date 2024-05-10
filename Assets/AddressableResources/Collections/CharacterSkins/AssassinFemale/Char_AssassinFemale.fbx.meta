@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 70e51c38c3e344bfbacc54d605fe59fa
+guid: ce84028fedabc45a9b771db8e7f1e5ea
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: assassin_female
-    second: {fileID: 2100000, guid: e5e0408f70c9d4b9aa206e388f4a6daf, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -1,0 +1,73 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "d25fd5c525aba4d11ba9029136e66ff7",
+            "OriginalPath": "Char_Leprechaun.fbx"
+        },
+        {
+            "Guid": "aff11c10f14544cdeac490a347d11584",
+            "OriginalPath": "Icon_Char_Leprechaun.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": ".fbx",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"ids\":{\"organizationId\":\"5772581095989\",\"projectId\":\"***REMOVED***\",\"assetId\":\"663e1b132d3d9bc95c834bef\",\"assetVersion\":\"f75561e4-161c-4226-87a3-cac09117b1da\"},\"data\":{\"assetId\":\"663e1b132d3d9bc95c834bef\",\"assetVersion\":\"f75561e4-161c-4226-87a3-cac09117b1da\",\"status\":\"Draft\",\"isFrozen\":false,\"created\":\"2024-05-10T13:03:15.049Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:21:54.112Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_isoFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy8yYjY3NTRiOC00MjM0LTQxYTAtYjk3OC0wM2MwMzE3MTIzYjYvOTM3NmZhZDIzMzBjMWE2YjNhYjljODdlNTRiNmY4MzUvcHJldmlld19pc29Gcm9udExlZnRUb3AucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T13:05:17Z&ske=2024-05-13T13:05:17Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-13T13:05:17Z&sr=b&sp=r&sig=MuY1B8NLGVBC7F6YWFY4grK8pzdHAVLQcOYwaDkwIfw%3D\",\"files\":[{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:30.742Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:38.977Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/00bea0e1-5f53-447a-b424-d2440ab9a3c1/c2a5e0a9c5175b5a77b9bbc00881248d/Char_Leprechaun.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=JIpbxyAGxhJIXYmQeMgzUtZcpWJsvlSd4joX52%2BNZOY%3D\",\"filePath\":\"Char_Leprechaun.fbx\",\"fileSize\":1046300,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:31.094Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:03:33.054Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/00bea0e1-5f53-447a-b424-d2440ab9a3c1/d1efdf1549799e2064eb08bb47a9041a/Icon_Char_Leprechaun.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=5gt50Cx2pXj%2BpJ3ZJQlMOHPmXMHgj9hZDlJlKXwcPnI%3D\",\"filePath\":\"Icon_Char_Leprechaun.png\",\"fileSize\":242407,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:37.607Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:38.331Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/b92e7e98-ec61-4f60-b017-7a3360528711/abad6c2d3fe8115120c727c5b00926bf/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=1%2BtQluc8K4q26ianM%2FEeAUP4OA9FfDFGa6WyWci51xM%3D\",\"filePath\":\"preview.glb\",\"fileSize\":1307372,\"userChecksum\":\"48d2105e46daba5670973dc4e3ca3eb4\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:37.834Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:38.615Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/2b6754b8-4234-41a0-b978-03c0317123b6/27668e9ee0a564baf21ee6f1a358b134/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=2aKJgQGyFqcF6YFvFE%2F1RLdbRCzA0JiEHlhrBWxl4vE%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":486861,\"userChecksum\":\"916af7138baf6c1190bca599cf9dd936\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:37.841Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:38.875Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/2b6754b8-4234-41a0-b978-03c0317123b6/9376fad2330c1a6b3ab9c87e54b6f835/preview_isoFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=sOcHvT71MR6FZ7XO0W%2Bbp1mko4qWGjUg5Ri3znPMppM%3D\",\"filePath\":\"preview_isoFrontLeftTop.png\",\"fileSize\":475471,\"userChecksum\":\"b88aa208ee4ed029c6ee39f259a5ef67\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:37.849Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:39.358Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/2b6754b8-4234-41a0-b978-03c0317123b6/9368e02a2fa962a600ac61fdb93d0199/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=fD%2FCtSxVCOuu4jTqfpqcMOY0BcRukVQ4st1mKbfOILw%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":354867,\"userChecksum\":\"d9e7b82fd0605034dda206e1602db1ef\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:37.856Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:39.638Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/2b6754b8-4234-41a0-b978-03c0317123b6/ced073e53fc102811b7db57fc410fb14/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=5NtRicypdsPcgDIEk%2FMVBDHSw1%2BtxqpBroBJWZrzr3s%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":361190,\"userChecksum\":\"f600cc38e424d6db8c413d225b751c9a\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:38.104Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:38.104Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/223606cc-ff0b-41b9-af14-5d8a8a235f9b/1a8a266e9e4d294bacefdf7cb5a73842/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=Nz29nD6gzvlfg6dpOdvqgRaqEz2nb%2BmOo2sRpRKh%2Fng%3D\",\"filePath\":\"metadata.json\",\"fileSize\":286,\"userChecksum\":\"14235e1ff6feedd75312f5db22a9fee4\",\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"00bea0e1-5f53-447a-b424-d2440ab9a3c1\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:15.054Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:03:33.174Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"69fa492f-ed12-4ac0-8854-05bf812eb019\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:15.06Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:39.645Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"2b6754b8-4234-41a0-b978-03c0317123b6\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:33.557Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:37.863Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"b92e7e98-ec61-4f60-b017-7a3360528711\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:34.087Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:37.612Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"223606cc-ff0b-41b9-af14-5d8a8a235f9b\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:34.52Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:38.109Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Char_Leprechaun\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\",\"metadata\":{}}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy8yYjY3NTRiOC00MjM0LTQxYTAtYjk3OC0wM2MwMzE3MTIzYjYvOTM3NmZhZDIzMzBjMWE2YjNhYjljODdlNTRiNmY4MzUvcHJldmlld19pc29Gcm9udExlZnRUb3AucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T13:05:17Z&ske=2024-05-13T13:05:17Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-13T13:05:17Z&sr=b&sp=r&sig=MuY1B8NLGVBC7F6YWFY4grK8pzdHAVLQcOYwaDkwIfw%3D",
+                    "m_SourceFiles": [
+                        {
+                            "rid": 1001
+                        },
+                        {
+                            "rid": 1002
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Char_Leprechaun.fbx",
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 1046300,
+                    "m_Guid": ""
+                }
+            },
+            {
+                "rid": 1002,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Icon_Char_Leprechaun.png",
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 242407,
+                    "m_Guid": ""
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,73 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "5927f0d9e9a8546f98910d984dbdcb37",
+            "OriginalPath": "Icon_Char_CorposFemale.png"
+        },
+        {
+            "Guid": "63800e6d77e5b40b789f05c016fbf1f9",
+            "OriginalPath": "Char_CorposFemale.fbx"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": ".fbx",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"ids\":{\"organizationId\":\"5772581095989\",\"projectId\":\"***REMOVED***\",\"assetId\":\"663e1b13372c66fc81b492d8\",\"assetVersion\":\"dc400ea1-bf7d-48eb-85f7-c3acd1139214\"},\"data\":{\"assetId\":\"663e1b13372c66fc81b492d8\",\"assetVersion\":\"dc400ea1-bf7d-48eb-85f7-c3acd1139214\",\"status\":\"Draft\",\"isFrozen\":false,\"created\":\"2024-05-10T13:03:15.094Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:22:29.648Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_isoFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy81M2VjYmNmZi1kY2MxLTRmN2EtOTcyZS01YTUxNWE0MzgzY2UvZWZkMWE2ZTFhNDY2Njg3Zjk5MzQ1NzljOThhZGFkOTEvcHJldmlld19pc29Gcm9udExlZnRUb3AucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T13:05:18Z&ske=2024-05-13T13:05:18Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-13T13:05:18Z&sr=b&sp=r&sig=eYDUCoFEcY4ZChxsn%2BL2WDYfHK0beDvLU%2BsMfzSsJbs%3D\",\"files\":[{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:17.558Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:03:20.087Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/52202d4b-153f-4031-90ab-326f5768c3fe/84c4a43327f9d30953b9bbf281fd17b7/Icon_Char_CorposFemale.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=hYICwNIzIfyqi0MlMJ8%2B5j9tDU8dTjeDk5kJymL8%2FmU%3D\",\"filePath\":\"Icon_Char_CorposFemale.png\",\"fileSize\":209388,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:18.354Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:26.673Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/52202d4b-153f-4031-90ab-326f5768c3fe/655b4f78240d2604e40c20f71183e6a7/Char_CorposFemale.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=7E%2FX1wKTbmM8jJj%2B3L%2F3Bork1KGRhRky3VNkyS4MV7Q%3D\",\"filePath\":\"Char_CorposFemale.fbx\",\"fileSize\":858732,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:22.941Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:23.187Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/53ecbcff-dcc1-4f7a-972e-5a515a4383ce/786e1ccf86e3b24543c7786407bd3cd7/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=gU0xxffG4NKaiPuX6iwoUJ%2F74CCdGFVy3GvOqBh8Mew%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":444762,\"userChecksum\":\"30517126561d98118419443dbb9bae1b\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:22.947Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:23.448Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/53ecbcff-dcc1-4f7a-972e-5a515a4383ce/efd1a6e1a466687f9934579c98adad91/preview_isoFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=yBkXq3kKeG3UYC1FZ1xgKbQhxZpCwoxa%2Fg5gt7nzD5s%3D\",\"filePath\":\"preview_isoFrontLeftTop.png\",\"fileSize\":457482,\"userChecksum\":\"43fb70f8cf3bb12233eb41475cc6327e\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:22.953Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:23.722Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/53ecbcff-dcc1-4f7a-972e-5a515a4383ce/02a547e88c606ddc3566158c8b134572/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=wIGNsOTaaQ2l5mebi6H1HdiPdeKpNa%2FB%2BafSAgWdD5Y%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":348071,\"userChecksum\":\"6e94fa50a6714ef383999d953b7c066e\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:22.958Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:23.978Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/53ecbcff-dcc1-4f7a-972e-5a515a4383ce/98e1d9772fb36b416ed1775cc94a32ff/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=9hQ3RtlY%2Fpwb5KoF9y0ZDkNCAPO%2Bwl37DYI7kpRwVEk%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":282209,\"userChecksum\":\"2719abae7a54327506297b172df071a3\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:24.387Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:24.689Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/db58534a-8aa0-4aa7-a0db-6b81905bc534/a17ad8f90592e4993a40fef07f8b978c/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=VNtIgEWl5m7FKXX1ORwFI7fK95QEP2fmLqYgwEYbUlc%3D\",\"filePath\":\"preview.glb\",\"fileSize\":921984,\"userChecksum\":\"4f52be3b6675a1a209472e516742ed72\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:26.351Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:26.351Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/6d520647-066d-48cf-8cd8-ca197d058d2a/91ca3c269aaf26256233ffda6b06eac8/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=qHD6P%2Fb44A%2Bjmao79nJG9utai79UtbmrMff6zqysAVM%3D\",\"filePath\":\"metadata.json\",\"fileSize\":288,\"userChecksum\":\"6b2c4a29c601736258b294346ffc5685\",\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"52202d4b-153f-4031-90ab-326f5768c3fe\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:15.098Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:03:20.737Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"c0513537-3045-48e6-abcb-cb2ee5eacb42\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:15.104Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:22:27.258Z\",\"filesOrder\":[\"preview_isoFrontLeftTop.png\",\"preview_front.png\",\"preview_left.png\",\"preview_top.png\",\"preview.glb\"],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"53ecbcff-dcc1-4f7a-972e-5a515a4383ce\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:21.15Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:22.964Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"db58534a-8aa0-4aa7-a0db-6b81905bc534\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:21.814Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:24.393Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"6d520647-066d-48cf-8cd8-ca197d058d2a\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:22.28Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:26.359Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Char_CorposFemale\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy81M2VjYmNmZi1kY2MxLTRmN2EtOTcyZS01YTUxNWE0MzgzY2UvZWZkMWE2ZTFhNDY2Njg3Zjk5MzQ1NzljOThhZGFkOTEvcHJldmlld19pc29Gcm9udExlZnRUb3AucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T13:05:18Z&ske=2024-05-13T13:05:18Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-13T13:05:18Z&sr=b&sp=r&sig=eYDUCoFEcY4ZChxsn%2BL2WDYfHK0beDvLU%2BsMfzSsJbs%3D",
+                    "m_SourceFiles": [
+                        {
+                            "rid": 1001
+                        },
+                        {
+                            "rid": 1002
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Char_CorposFemale.fbx",
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 858732,
+                    "m_Guid": ""
+                }
+            },
+            {
+                "rid": 1002,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Icon_Char_CorposFemale.png",
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 209388,
+                    "m_Guid": ""
+                }
+            }
+        ]
+    }
+}

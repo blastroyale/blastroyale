@@ -1,0 +1,73 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "8f91c1c52fa1942debd0f67f4ad73df6",
+            "OriginalPath": "Icon_Char_PoliceFemale.png"
+        },
+        {
+            "Guid": "10a53b83d88e243c08db1e8a843070fd",
+            "OriginalPath": "Char_PoliceFemale.fbx"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": ".fbx",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"ids\":{\"organizationId\":\"5772581095989\",\"projectId\":\"***REMOVED***\",\"assetId\":\"663e1b13a634652894dd57e7\",\"assetVersion\":\"2021463f-3ba3-4c09-ab93-943f909417ae\"},\"data\":{\"assetId\":\"663e1b13a634652894dd57e7\",\"assetVersion\":\"2021463f-3ba3-4c09-ab93-943f909417ae\",\"status\":\"Draft\",\"isFrozen\":false,\"created\":\"2024-05-10T13:03:15.119Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:21:26.824Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_isoFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy80MzBiZTdkOS1hMmNkLTQ0YTAtOTlhNC0wZDRjZGM1NzU0NTAvZDIzMjA1NjFlYjhhMjQzNDE5ZWE2MTY4MDVmMGUwZDEvcHJldmlld19pc29Gcm9udExlZnRUb3AucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T13:05:17Z&ske=2024-05-13T13:05:17Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-13T13:05:17Z&sr=b&sp=r&sig=4c4uX57ahKMFiZaXBTt9oonGZGofeSfpF0KR6ZAnNiY%3D\",\"files\":[{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:27.188Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:03:29.009Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/652d8be9-5f1f-4fc1-bd03-0f617ce84ee5/fd124e551af3f24c3eaf9fd283daad72/Icon_Char_PoliceFemale.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=nsEHJWprnEKb5d7Ahi5tTnx5rvR9VdR53HuxbzyFdQk%3D\",\"filePath\":\"Icon_Char_PoliceFemale.png\",\"fileSize\":207995,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:27.529Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:36.304Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/652d8be9-5f1f-4fc1-bd03-0f617ce84ee5/7c5fd08ed988cd0803c1fc6018be6ea3/Char_PoliceFemale.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=wvIxe6fmHX1oovArIePyLS9YglePkTnNqReEP0dxNFA%3D\",\"filePath\":\"Char_PoliceFemale.fbx\",\"fileSize\":918348,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:33.368Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:34.132Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/430be7d9-a2cd-44a0-99a4-0d4cdc575450/872b39db1e026f9ed703a5b9aee44ffa/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=w7GOzUPDNWCai68v9N8WCW%2F4bKx6BTo6HCEknbxsnCc%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":357523,\"userChecksum\":\"52e5c19f9969f91252f19f570434607f\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:33.374Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:34.402Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/430be7d9-a2cd-44a0-99a4-0d4cdc575450/d2320561eb8a243419ea616805f0e0d1/preview_isoFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=DOR7FHY3nY6TtkEriZJZ9Z0RQQkTdyiVkoWGi7h6zds%3D\",\"filePath\":\"preview_isoFrontLeftTop.png\",\"fileSize\":373519,\"userChecksum\":\"404facab0f1cbe54efbe4cd86fc5337e\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:33.382Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:34.666Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/430be7d9-a2cd-44a0-99a4-0d4cdc575450/b8233161f7ed614dccd0442496a31a1b/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=sBhrZ3jpvbOUOK3tdMaw2J7ZqxRLHLcVoMZqcmdf%2F20%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":332223,\"userChecksum\":\"51f7fa6a0c595959e79312dc92611e10\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:33.39Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:34.956Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/430be7d9-a2cd-44a0-99a4-0d4cdc575450/a8753927c616329e9057cfceb0b22cb5/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=mbWy0MDQjGTxXovF86Bj%2FWHNlkQwC05zWiLfO4UbjXA%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":269957,\"userChecksum\":\"518236c021f6460a3bdc5ebc09989d65\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:33.676Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:33.919Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/048a6484-1c26-4d31-ad14-a56320b13f0b/a21f3ba69dc0530318465890373d9064/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=lcNSmd833O4yA0QoURxDei6hWf%2FLvFTeeS5NYk3xNdM%3D\",\"filePath\":\"preview.glb\",\"fileSize\":952496,\"userChecksum\":\"270c7d03e3346069af21a37cc988c93e\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:04:35.348Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:35.348Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/6cfcbf81-28fe-4d56-badd-74fc75b0970f/b1c3b34fd2ea52c62bf520d735607b16/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T16:55:24Z&ske=2024-05-10T17:05:24Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-10T17:05:24Z&sr=b&sp=r&sig=kT%2B4SKzXjRpfoCeXe295sD1t%2BuyS1VcP%2FUElKZD2CwQ%3D\",\"filePath\":\"metadata.json\",\"fileSize\":287,\"userChecksum\":\"413d162f282b746894e9f3fb8684d3da\",\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"652d8be9-5f1f-4fc1-bd03-0f617ce84ee5\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:15.124Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:03:30.066Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"40236f26-a1eb-4a13-923e-063a1f378505\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:15.134Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:34.962Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"430be7d9-a2cd-44a0-99a4-0d4cdc575450\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:30.432Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:33.398Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"048a6484-1c26-4d31-ad14-a56320b13f0b\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:31.069Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:33.682Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"6cfcbf81-28fe-4d56-badd-74fc75b0970f\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-10T13:03:31.594Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-10T13:04:35.356Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Char_PoliceFemale\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\",\"metadata\":{}}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy80MzBiZTdkOS1hMmNkLTQ0YTAtOTlhNC0wZDRjZGM1NzU0NTAvZDIzMjA1NjFlYjhhMjQzNDE5ZWE2MTY4MDVmMGUwZDEvcHJldmlld19pc29Gcm9udExlZnRUb3AucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-10T13:05:17Z&ske=2024-05-13T13:05:17Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-13T13:05:17Z&sr=b&sp=r&sig=4c4uX57ahKMFiZaXBTt9oonGZGofeSfpF0KR6ZAnNiY%3D",
+                    "m_SourceFiles": [
+                        {
+                            "rid": 1001
+                        },
+                        {
+                            "rid": 1002
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Char_PoliceFemale.fbx",
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 918348,
+                    "m_Guid": ""
+                }
+            },
+            {
+                "rid": 1002,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Icon_Char_PoliceFemale.png",
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 207995,
+                    "m_Guid": ""
+                }
+            }
+        ]
+    }
+}

@@ -16,23 +16,23 @@ MonoBehaviour:
     Skins:
     - GameId: 68
       Prefab:
-        m_AssetGUID: da0b0c5ff52fe4604a0dd55b408910d2
+        m_AssetGUID: 2a318c3a0c54a4e399c9b116748e5b26
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: c699654b9ca3efe4897334728fd24798
+        m_AssetGUID: 14c4b0be64314480e8fd4868862a0ce8
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
     - GameId: 81
       Prefab:
-        m_AssetGUID: 70e51c38c3e344bfbacc54d605fe59fa
+        m_AssetGUID: 65d58d9cf93f64594a82e8d315c99f09
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 7cdf8b844857a474c9eed60ec3663f49
+        m_AssetGUID: 6cd15135c358d44808af6e8536dc3a83
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -215,23 +215,23 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 203
       Prefab:
-        m_AssetGUID: fd7b6bcce9b0846499709f21fcd560ef
+        m_AssetGUID: 92e36d82c525443bcab08e0fa80354a3
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 988ce872ad67f294ca55afecff39782c
+        m_AssetGUID: be4159d7bc20049408a6baf322fe0f0b
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
     - GameId: 202
       Prefab:
-        m_AssetGUID: 760e8e188a7ff49499c53c573c4aaa75
+        m_AssetGUID: 010f2adeeef8e4241a86d9dec1da5a27
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: b59f7107c3685414986dc13317bc6282
+        m_AssetGUID: 22b34efbbbc0a44bf98a2cf68d8d4a73
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: f415d7180d4d947a49e504d9413e4e11
+guid: f881fce875ad24b93be717325de7dcaa
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Char_Ninja
-    second: {fileID: 2100000, guid: 96d43cf103bcb49549bb66a50281c034, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -74,9 +69,9 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: meta_idle_loop
-      takeName: meta_idle_loop
-      internalID: -2813654194492519390
+      name: meta_idle1_loop
+      takeName: meta_idle1_loop
+      internalID: -1533404506062787293
       firstFrame: 0
       lastFrame: 420
       wrapMode: 0

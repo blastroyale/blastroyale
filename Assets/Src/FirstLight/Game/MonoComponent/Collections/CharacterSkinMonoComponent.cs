@@ -39,21 +39,6 @@ namespace FirstLight.Game.MonoComponent.Collections
 
 		private static RuntimeAnimatorController _animatorController;
 
-		private void Awake()
-		{
-			// For some reason we can't store this reference in the serialized field if it's set from
-			// the importer so this is a (hopefully) temporary workaround.
-			if (_animatorController == null)
-			{
-				_animatorController = Resources.Load<RuntimeAnimatorController>("character_animator");
-			}
-
-			if (_animator.runtimeAnimatorController == null)
-			{
-				_animator.runtimeAnimatorController = _animatorController;
-			}
-		}
-
 		public Transform WeaponAnchor => _weaponAnchor;
 		public Transform WeaponMeleeAnchor => _weaponMeleeAnchor;
 		public Transform WeaponXLMeleeAnchor => _weaponXLMeleeAnchor;
@@ -62,12 +47,12 @@ namespace FirstLight.Game.MonoComponent.Collections
 		public Transform RightFootAnchor => _rightFootAnchor;
 
 		/// <summary>
-		/// When the left foot steps / is on the ground.
+		/// When the left footsteps / is on the ground.
 		/// </summary>
 		public event Action OnStepLeft;
 
 		/// <summary>
-		/// When the right foot steps / is on the ground.
+		/// When the right footsteps / is on the ground.
 		/// </summary>
 		public event Action OnStepRight;
 

@@ -2,7 +2,10 @@ using System.IO;
 using System.Linq;
 using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.Utils;
+using Sirenix.Utilities;
+using Unity.AssetManager.Editor;
 using UnityEditor;
+using UnityEditor.Animations;
 using UnityEditor.AssetImporters;
 using UnityEditor.Presets;
 using UnityEngine;
@@ -11,13 +14,16 @@ namespace FirstLight.Editor.AssetImporters
 {
 	public class CharacterImporter : AssetPostprocessor
 	{
-		private const string CHAR_PATH = "Assets/AddressableResources/Collections/CharacterSkins";
+		private const string CHARACTERS_DIR = "Assets/AddressableResources/Collections/CharacterSkins";
+		private const string ASSET_MANAGER_PATH = "Assets/Asset Manager";
+		private const string CHARACTER_PREFIX = "Char_";
+		private const string CHARACTERS_CONFIG = "Assets/AddressableResources/Collections/CharacterSkins/Config.asset";
+		private const string ANIMATION_CONTROLLER_PATH = CHARACTERS_DIR + "/Shared/character_animator.controller";
 
 		public override int GetPostprocessOrder() => 100;
 
 		private void OnPreprocessModel()
 		{
-			if (!assetPath.StartsWith(CHAR_PATH)) return;
 			if (!Path.GetFileName(assetPath).StartsWith("Char_")) return;
 
 			var importer = (ModelImporter) assetImporter;
@@ -26,14 +32,14 @@ namespace FirstLight.Editor.AssetImporters
 			var folder = assetPath.Remove(assetPath.LastIndexOf('/'));
 			importer.ExtractTextures(folder);
 
-			// Apply preset TODO: Fix this
-			// var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/CharacterFBX.preset");
-			// preset.ApplyTo(importer);
+			// Apply preset
+			var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/CharacterFBX.preset");
+			preset.ApplyTo(importer);
 		}
 
 		private void OnPreprocessAnimation()
 		{
-			if (!assetPath.StartsWith(CHAR_PATH)) return;
+			if (!assetPath.StartsWith(CHARACTERS_DIR)) return;
 
 			// Set defaults for character animation clips.
 			var importer = (ModelImporter) assetImporter;
@@ -46,6 +52,7 @@ namespace FirstLight.Editor.AssetImporters
 				{
 					anim.events = currentOne.events;
 				}
+
 				anim.lockRootRotation = true;
 				anim.lockRootHeightY = true;
 				anim.lockRootPositionXZ = true;
@@ -65,7 +72,7 @@ namespace FirstLight.Editor.AssetImporters
 
 		private void OnPreprocessTexture()
 		{
-			if (!assetPath.StartsWith(CHAR_PATH)) return;
+			if (!assetPath.StartsWith(CHARACTERS_DIR)) return;
 
 			var importer = (TextureImporter) assetImporter;
 			var filename = Path.GetFileName(assetPath);
@@ -89,15 +96,14 @@ namespace FirstLight.Editor.AssetImporters
 		private void OnPreprocessMaterialDescription(MaterialDescription description, Material material, AnimationClip[] animations)
 		{
 			// TODO: Fix this
-			// if (!assetPath.StartsWith(CHAR_PATH)) return;
-			// if (!Path.GetFileName(assetPath).StartsWith("Char_")) return;
-			//
-			// material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
-			//
-			// if (description.TryGetProperty("DiffuseColor", out TexturePropertyDescription diffuseColor))
-			// {
-			// 	material.SetTexture(Shader.PropertyToID("_MainTex"), diffuseColor.texture);
-			// }
+			if (!Path.GetFileName(assetPath).StartsWith("Char_")) return;
+
+			material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
+
+			if (description.TryGetProperty("DiffuseColor", out TexturePropertyDescription diffuseColor))
+			{
+				material.SetTexture(Shader.PropertyToID("_MainTex"), diffuseColor.texture);
+			}
 		}
 
 		/// <summary>
@@ -105,15 +111,15 @@ namespace FirstLight.Editor.AssetImporters
 		/// </summary>
 		private void OnPostprocessModel(GameObject g)
 		{
-			if (!assetPath.StartsWith(CHAR_PATH)) return;
-			if (!Path.GetFileName(assetPath).StartsWith("Char_")) return;
+			if (!Path.GetFileName(assetPath).StartsWith(CHARACTER_PREFIX)) return;
 
 			g.AddComponent<CharacterSkinMonoComponent>().SetupReferences();
 
 			var animator = g.GetComponent<Animator>();
 			animator.applyRootMotion = false;
-			animator.runtimeAnimatorController =
-				AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>($"{CHAR_PATH}/Shared/character_animator.controller");
+
+			// This doesn't work here unfortunately
+			// animator.runtimeAnimatorController = (AnimatorController) AssetDatabase.LoadMainAssetAtPath(ANIMATION_CONTROLLER_PATH);
 
 			g.SetLayer(LayerMask.NameToLayer("Players"));
 		}
@@ -121,57 +127,91 @@ namespace FirstLight.Editor.AssetImporters
 		private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
 												   string[] movedFromAssetPaths)
 		{
-			foreach (var asset in importedAssets)
+			foreach (var assetPath in importedAssets)
 			{
-				if (asset.StartsWith(CHAR_PATH)) continue;
-
-				var filename = Path.GetFileName(asset);
-				if (filename.StartsWith("Char_") && filename.EndsWith(".fbx"))
+				if (AssetDatabase.IsValidFolder(assetPath) && assetPath.StartsWith(ASSET_MANAGER_PATH))
 				{
-					var characterName = filename.Substring(5, filename.Length - 9);
-					var destFolder = Path.Combine(CHAR_PATH, characterName);
+					// New asset has been imported
+					var directoryName = Path.GetFileName(assetPath)!;
 
-					if (AssetDatabase.IsValidFolder(destFolder))
+					if (directoryName.StartsWith(CHARACTER_PREFIX))
 					{
-						// Update existing character
-						var destFile = Path.Combine(destFolder, filename);
-						File.Copy(asset, destFile, true);
-						AssetDatabase.ImportAsset(destFile);
-						AssetDatabase.DeleteAsset(asset);
-					}
-					else
-					{
-						// Create new character
-						var folderGuid = AssetDatabase.CreateFolder(CHAR_PATH, characterName);
-						if (string.IsNullOrEmpty(folderGuid))
+						var characterName = directoryName[CHARACTER_PREFIX.Length..];
+						var characterFBXFilename = $"{CHARACTER_PREFIX}{characterName}.fbx";
+						var characterFBXPath = Path.Combine(assetPath, characterFBXFilename);
+						var characterPrefabFilename = $"{CHARACTER_PREFIX}{characterName}.prefab";
+						var characterFBX = (GameObject) AssetDatabase.LoadMainAssetAtPath(characterFBXPath);
+						var animations = AssetDatabase.LoadAllAssetRepresentationsAtPath(characterFBXPath).FilterCast<AnimationClip>().ToArray();
+						var animatorController = (AnimatorController) AssetDatabase.LoadMainAssetAtPath(ANIMATION_CONTROLLER_PATH);
+
+						Debug.Log($"Importing new character: {characterName}");
+
+						// We need to create a variant because for some reason when we set the animator controller
+						// directly on the FBX it loses the reference.
+						var characterPrefab = (GameObject) PrefabUtility.InstantiatePrefab(characterFBX);
+						var characterAnimator = characterPrefab.GetComponent<Animator>();
+
+						if (animations.Length > 0)
 						{
-							Debug.LogError($"Failed to create folder for character {characterName}");
-							return;
+							Debug.Log($"Character {characterName} has custom animations.");
+							// If character has custom animations we create an override controller
+							var overrideController = new AnimatorOverrideController(animatorController);
+
+							foreach (var clip in animations)
+							{
+								overrideController[clip.name] = clip;
+							}
+
+							AssetDatabase.CreateAsset(overrideController,
+								Path.Combine(assetPath, $"{CHARACTER_PREFIX}{characterName}_animator.overrideController"));
+							characterAnimator.runtimeAnimatorController = overrideController;
+						}
+						else
+						{
+							characterAnimator.runtimeAnimatorController = animatorController;
 						}
 
-						var destinationPath = $"{CHAR_PATH}/{characterName}/{filename}";
-						AssetDatabase.MoveAsset(asset, destinationPath);
-						AssetDatabase.ImportAsset(destinationPath);
-					}
-				}
-				else if (filename.StartsWith("Icon_Char_"))
-				{
-					var characterName = filename.Substring(10, filename.Length - 14);
-					var destFolder = Path.Combine(CHAR_PATH, characterName);
+						// Create prefab variant
+						PrefabUtility.SaveAsPrefabAssetAndConnect(characterPrefab, Path.Combine(assetPath, characterPrefabFilename),
+							InteractionMode.AutomatedAction, out var success);
+						Object.DestroyImmediate(characterPrefab);
 
-					if (AssetDatabase.IsValidFolder(destFolder))
-					{
-						// Move to correct folder
-						var destFile = Path.Combine(destFolder, filename);
-						File.Copy(asset, destFile, true);
-						AssetDatabase.ImportAsset(destFile);
-						AssetDatabase.DeleteAsset(asset);
-					}
-					else
-					{
-						Debug.LogWarning("Icon_Char_ file found without corresponding character folder. Ignoring.");
+						if (!success)
+						{
+							Debug.LogError($"Error creating prefab for character {characterName}.");
+							continue;
+						}
+
+						// TODO: If we move the character here it loses the Asset Manager link
+						// AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ImportRecursive);
+						// MoveCharacters();
 					}
 				}
+			}
+		}
+
+		[MenuItem("FLG/Collections/Move Characters")]
+		public static void MoveCharacters()
+		{
+			var folders = AssetDatabase.GetSubFolders(ASSET_MANAGER_PATH);
+
+			foreach (var folder in folders)
+			{
+				var directoryName = Path.GetFileName(folder);
+				var characterName = directoryName[CHARACTER_PREFIX.Length..];
+
+				if (!directoryName.StartsWith(CHARACTER_PREFIX)) continue;
+
+				Debug.Log($"Moving character: {directoryName}");
+
+				var destination = Path.Combine(CHARACTERS_DIR, $"{characterName}");
+				var result = AssetDatabase.MoveAsset(folder, destination);
+				if (!string.IsNullOrEmpty(result))
+				{
+					Debug.LogError($"Error moving character {characterName}: {result}");
+				}
+
+				AssetDatabase.ImportAsset(destination, ImportAssetOptions.ImportRecursive);
 			}
 		}
 	}

@@ -13,9 +13,9 @@ namespace Quantum.Systems.Bots
 		/// </summary>
 		private static FP ACCURACY_LERP_TICK = FP._0_05;
 
-		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, in PlayerCharacter pc, Frame f)
+		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, PlayerCharacter* pc, Frame f)
 		{
-			if (pc.HasMeleeWeapon(f, entity))
+			if (pc->HasMeleeWeapon(f, entity))
 			{
 				return Stats.GetStat(f, entity, StatType.AttackRange);
 			}
@@ -49,13 +49,13 @@ namespace Quantum.Systems.Bots
 				// Aim at target
 				else
 				{
-					var maxRange = filter.BotCharacter->GetMaxWeaponRange(filter.Entity, *filter.PlayerCharacter, f);
-					var team = f.Get<Targetable>(filter.Entity).Team;
+					var maxRange = filter.BotCharacter->GetMaxWeaponRange(filter.Entity, filter.PlayerCharacter, f);
+					var team = f.Unsafe.GetPointer<Targetable>(filter.Entity)->Team;
 					if (filter.TryToAimAtEnemy(f, team, maxRange, target, out var targetHit))
 					{
 						var speedUpMutatorExists =
 							f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
-						var speed = f.Get<Stats>(filter.Entity).Values[(int)StatType.Speed].StatValue;
+						var speed = f.Unsafe.GetPointer<Stats>(filter.Entity)->Values[(int)StatType.Speed].StatValue;
 						speed *= filter.BotCharacter->MovementSpeedMultiplier;
 						speed *= weaponConfig.AimingMovementSpeed;
 						var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
@@ -96,8 +96,8 @@ namespace Quantum.Systems.Bots
 			// We check enemies one by one until we find a valid enemy in sight
 			// Note: Bots against bots use the full weapon range
 			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var limitedTargetRange = botFilter.BotCharacter->GetMaxWeaponRange(botFilter.Entity, *botFilter.PlayerCharacter, f);
-			var team = f.Get<Targetable>(botFilter.Entity).Team;
+			var limitedTargetRange = botFilter.BotCharacter->GetMaxWeaponRange(botFilter.Entity, botFilter.PlayerCharacter, f);
+			var team = f.Unsafe.GetPointer<Targetable>(botFilter.Entity)->Team;
 
 			var it = f.Unsafe.FilterStruct<BotTargetFilter>();
 			it.UseCulling = true;
@@ -154,7 +154,7 @@ namespace Quantum.Systems.Bots
 
 		public static void StopAiming(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
 		{
-			var speed = f.Get<Stats>(botFilter.Entity).Values[(int)StatType.Speed].StatValue;
+			var speed = f.Unsafe.GetPointer<Stats>(botFilter.Entity)->Values[(int)StatType.Speed].StatValue;
 			speed *= botFilter.BotCharacter->MovementSpeedMultiplier;
 
 			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
@@ -173,7 +173,7 @@ namespace Quantum.Systems.Bots
 
 		public static void StopAiming(Frame f, BotCharacter* botCharacter, EntityRef entity)
 		{
-			var speed = f.Get<Stats>(entity).Values[(int)StatType.Speed].StatValue;
+			var speed = f.Unsafe.GetPointer<Stats>(entity)->Values[(int)StatType.Speed].StatValue;
 			speed *= botCharacter->MovementSpeedMultiplier;
 
 			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
@@ -361,7 +361,7 @@ namespace Quantum.Systems.Bots
 			var botPosition = botEntity.GetPosition(f);
 			botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 
-			var targetPosition = f.Get<Transform3D>(targetToCheck).Position;
+			var targetPosition = f.Unsafe.GetPointer<Transform3D>(targetToCheck)->Position;
 			targetPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 
 			if (bot.TryCombatMovement(botEntity, f, botPosition, targetToCheck, targetPosition, maxRangeSquared, distanceSquared))

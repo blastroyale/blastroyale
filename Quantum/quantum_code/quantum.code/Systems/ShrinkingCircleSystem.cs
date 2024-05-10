@@ -42,8 +42,8 @@ namespace Quantum.Systems
 
 				foreach (var pair in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
 				{
-					var transform = f.Get<Transform3D>(pair.Entity);
-					var position = transform.Position;
+					var transform = f.Unsafe.GetPointer<Transform3D>(pair.Entity);
+					var position = transform->Position;
 					var isInside = (position.XZ - center).SqrMagnitude < radius * radius;
 
 					if (pair.Component->TakingCircleDamage && isInside)
@@ -151,7 +151,7 @@ namespace Quantum.Systems
 
 			var newSpell = f.Create();
 			var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
-			var damage = f.Get<Stats>(playerEntity).GetStatData(StatType.Health).StatValue * circle->Damage;
+			var damage = f.Unsafe.GetPointer<Stats>(playerEntity)->GetStatData(StatType.Health).StatValue * circle->Damage;
 
 			f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects).Add(newSpell);
 			var spell = new Spell

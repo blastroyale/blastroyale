@@ -103,7 +103,7 @@ namespace Quantum.Systems
 
 		private void OnProjectileHit(Frame f, in EntityRef targetHit, in EntityRef projectileEntity, in Projectile projectile)
 		{
-			var position = f.Get<Transform3D>(projectileEntity).Position;
+			var position = f.Unsafe.GetPointer<Transform3D>(projectileEntity)->Position;
 			var isTeamHit = TeamSystem.HasSameTeam(f, projectile.Attacker, targetHit);
 			var spawnSubOnEof = projectile.ShouldPerformSubProjectileOnEndOfLifetime(f);
 
@@ -233,7 +233,7 @@ namespace Quantum.Systems
 				StunDuration = 0,
 				Target = EntityRef.None,
 				Iteration = 0,
-				TeamSource = (byte)f.Get<Targetable>(shooter).Team
+				TeamSource = (byte)f.Unsafe.GetPointer<Targetable>(shooter)->Team
 			};
 			
 			var projectileEntity = f.Create(f.FindAsset<EntityPrototype>(weaponConfig.BulletPrototype != null

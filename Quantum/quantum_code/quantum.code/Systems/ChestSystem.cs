@@ -50,7 +50,7 @@ namespace Quantum.Systems
 			};
 			var items = new List<SimulationItem>();
 			
-			RollDropTables(f, ctx, items);
+			RollDropTables(f, ref ctx, items);
 			
 			if (f.Context.TryGetMutatorByType(MutatorType.SpecialsMayhem, out _) && !f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
 			{
@@ -59,7 +59,7 @@ namespace Quantum.Systems
 			return items;
 		}
 
-		private static void RollDropTables(Frame f, ChestContentsGenerationContext ctx, List<SimulationItem> items)
+		private static void RollDropTables(Frame f, ref ChestContentsGenerationContext ctx, List<SimulationItem> items)
 		{
 			var isHammerTimeMutator = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _);
 			var dontDropSpecialsMutator = f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _);

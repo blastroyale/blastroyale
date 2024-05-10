@@ -24,3 +24,5 @@ synced event OnConsumableCollected
 	player_ref Player;
 	entity_ref PlayerEntity;
 }
+
+signal OnConsumableCollected(PlayerRef PlayerRef EntityRef EntityRef ConsumableType ConsumableType GameId CollectableGameId);

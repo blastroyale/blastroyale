@@ -51,7 +51,7 @@ namespace Quantum
 			BotLogger.LogAction(bot, "Set Waypoint");
 			bot.MoveTarget = entity;
 			bot.SetNextDecisionDelay(f, bot.DecisionInterval);
-			bot.StuckDetectionPosition = f.Get<Transform3D>(entity).Position.XZ;
+			bot.StuckDetectionPosition = f.Unsafe.GetPointer<Transform3D>(entity)->Position.XZ;
 		}
 
 		/// <summary>
@@ -86,14 +86,14 @@ namespace Quantum
 			// are trying to Wander or GoToSafeArea; it's not happening really when bots go for Consumables, so potentially
 			// the issue is somewhere where we convert randomly chosen position into navmesh position
 			if (bot.StuckDetectionPosition != FPVector2.Zero
-				&& FPVector2.DistanceSquared(bot.StuckDetectionPosition, f.Get<Transform3D>(entity).Position.XZ)
+				&& FPVector2.DistanceSquared(bot.StuckDetectionPosition, f.Unsafe.GetPointer<Transform3D>(entity)->Position.XZ)
 				< Constants.BOT_STUCK_DETECTION_SQR_DISTANCE)
 			{
 				bot.ResetTargetWaypoint(f);
 				return false;
 			}
 
-			bot.StuckDetectionPosition = f.Get<Transform3D>(entity).Position.XZ;
+			bot.StuckDetectionPosition = f.Unsafe.GetPointer<Transform3D>(entity)->Position.XZ;
 			//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 			return bot.MoveTarget.IsValid;
@@ -120,7 +120,7 @@ namespace Quantum
 			bb->Set(f, Constants.IsAimPressedKey, true);
 			if (bot.Target != target)
 			{
-				PlayerCharacterSystem.OnStartAiming(f, bb, weaponConfig);
+				PlayerCharacterSystem.OnStartAiming(f, bb, ref weaponConfig);
 			}
 
 			bot.Target = target;

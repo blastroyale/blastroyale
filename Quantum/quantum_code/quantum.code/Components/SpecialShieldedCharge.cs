@@ -10,7 +10,7 @@ namespace Quantum
 		public static unsafe bool Use(Frame f, EntityRef e, ref Special special, FPVector2 aimInput, FP maxRange)
 		{
 			var targetPosition = FPVector3.Zero;
-			var attackerPosition = f.Get<Transform3D>(e).Position;
+			var attackerPosition = f.Unsafe.GetPointer<Transform3D>(e)->Position;
 			attackerPosition.Y += Constants.SPECIAL_CHARGE_Y_OFFSET;
 
 			if (!f.TryGet<Targetable>(e, out var targetable))
@@ -30,7 +30,7 @@ namespace Quantum
 						continue;
 					}
 					
-					targetPosition = f.Get<Transform3D>(target.Entity).Position;
+					targetPosition = f.Unsafe.GetPointer<Transform3D>(target.Entity)->Position;
 					
 					break;
 				}

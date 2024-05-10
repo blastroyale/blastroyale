@@ -3,7 +3,7 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
-	public partial struct Spell
+	public unsafe partial struct Spell
 	{
 		public const byte DefaultId = 0;
 		public const byte ShrinkingCircleId = 1;
@@ -35,7 +35,7 @@ namespace Quantum
 				OriginalHitPosition = position,
 				PowerAmount = powerAmount,
 				KnockbackAmount = knockbackAmount,
-				TeamSource = f.Get<Targetable>(attacker).Team
+				TeamSource = f.Unsafe.GetPointer<Targetable>(attacker)->Team
 			};
 		}
 

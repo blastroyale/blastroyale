@@ -25,22 +25,23 @@ namespace Quantum
 		/// </summary>
 		internal void Spawn(Frame f, EntityRef e)
 		{
-			var transform = f.Get<Transform3D>(e);
+			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			
 			if (GameId.IsInGroup(GameIdGroup.Consumable) || GameId.IsInGroup(GameIdGroup.Special) || GameId.IsInGroup(GameIdGroup.Currency))
 			{
-				Collectable = SpawnConsumable(f, GameId, &transform, e);
+				Collectable = SpawnConsumable(f, GameId, transform, e);
 			}
 			else if (GameId.IsInGroup(GameIdGroup.Chest))
 			{
-				Collectable = SpawnChest(f, GameId, transform.Position, e);
+				Collectable = SpawnChest(f, GameId, transform->Position, e);
 			}
 			else if (GameId == GameId.Random || GameId.IsInGroup(GameIdGroup.Weapon))
 			{
-				Collectable = SpawnWeapon(f, GameId, &transform, e);
+				Collectable = SpawnWeapon(f, GameId, transform, e);
 			}
 			else if (GameId.IsInGroup(GameIdGroup.Equipment))
 			{
-				Collectable = SpawnGear(f, GameId, &transform, e);
+				Collectable = SpawnGear(f, GameId, transform, e);
 			}
 			else
 			{

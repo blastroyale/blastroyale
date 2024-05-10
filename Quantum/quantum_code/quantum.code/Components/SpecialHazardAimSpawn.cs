@@ -15,9 +15,9 @@ namespace Quantum
 			}
 			
 			var targetPosition = FPVector3.Zero;
-			var attackerPosition = f.Get<Transform3D>(e).Position;
+			var attackerPosition = f.Unsafe.GetPointer<Transform3D>(e)->Position;
 			attackerPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
-			var team = f.Get<Targetable>(e).Team;
+			var team = f.Unsafe.GetPointer<Targetable>(e)->Team;
 			
 			if (f.TryGet<BotCharacter>(e, out var bot))
 			{
@@ -31,7 +31,7 @@ namespace Quantum
 						continue;
 					}
 					
-					targetPosition = f.Get<Transform3D>(target.Entity).Position;
+					targetPosition = f.Unsafe.GetPointer<Transform3D>(target.Entity)->Position;
 					
 					break;
 				}
@@ -62,7 +62,7 @@ namespace Quantum
 				Knockback = special.Knockback,
 			};
 			
-			var hazard = Hazard.Create(f, hazardData, targetPosition);
+			var hazard = Hazard.Create(f, ref hazardData, targetPosition);
 			
 			f.Events.OnSkyBeamUsed(hazard, targetPosition, hazardData);
 			

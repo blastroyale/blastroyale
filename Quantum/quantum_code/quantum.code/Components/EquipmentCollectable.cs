@@ -34,10 +34,11 @@ namespace Quantum
 		/// </summary>
 		internal void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef playerRef)
 		{
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);
 			if (Item.IsWeapon())
 			{
+				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+				
 				var primaryWeapon = isBot || 
 										Owner == playerRef ||
 										// If you don't have a weapon in loadout and you don't already have a weapon in slot 1

@@ -74,9 +74,9 @@ namespace Quantum.Systems
 
 			var attackerTransform = f.Unsafe.GetPointer<Transform3D>(attacker);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(attacker);
-			var stats = f.Get<Stats>(attacker);
+			var stats = f.Unsafe.GetPointer<Stats>(attacker);
 			// Dirty ugly workaround to get the health in percentage, gets the value from the owner percentage
-			var targetHP = stats.GetStatData(StatType.Health).BaseValue;
+			var targetHP = stats->GetStatData(StatType.Health).BaseValue;
 			var damage = targetHP * special.SpecialPower;
 
 			var aimInput = FPVector2.ClampMagnitude(aimDirection, FP._1);

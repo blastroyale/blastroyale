@@ -124,7 +124,7 @@ namespace Quantum.Systems
 			}
 
 
-			var deathPosition = f.Get<Transform3D>(entity).Position;
+			var deathPosition = f.Unsafe.GetPointer<Transform3D>(entity)->Position;
 			var gameModeConfig = f.Context.GameModeConfig;
 			var equipmentToDrop = new List<Equipment>();
 			var consumablesToDrop = new List<GameId>();
@@ -243,7 +243,7 @@ namespace Quantum.Systems
 		/// <summary>
 		/// When player starts to aim, there is an initial delay for when a bullet needs to be fired.
 		/// </summary>
-		public static void OnStartAiming(Frame f, AIBlackboardComponent* bb, QuantumWeaponConfig weaponConfig)
+		public static void OnStartAiming(Frame f, AIBlackboardComponent* bb, ref QuantumWeaponConfig weaponConfig)
 		{
 			if (weaponConfig.IsMeleeWeapon) return; // melee weapons are instant
 			var nextShotTime = bb->GetFP(f, nameof(Constants.NextShotTime));
@@ -323,7 +323,7 @@ namespace Quantum.Systems
 
 			if (!wasShooting && shooting)
 			{
-				OnStartAiming(f, bb, weaponConfig);
+				OnStartAiming(f, bb, ref weaponConfig);
 			}
 
 			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
@@ -390,9 +390,9 @@ namespace Quantum.Systems
 			if (blockMovement && f.TryGet<CharacterController3D>(hit.Entity, out var enemyKcc) &&
 				f.TryGet<CharacterController3D>(character, out var myKcc))
 			{
-				var myTransform = f.Get<Transform3D>(character);
+				var myTransform = f.Unsafe.GetPointer<Transform3D>(character);
 				var enemyTransform = f.Unsafe.GetPointer<Transform3D>(hit.Entity);
-				var pushAngle = (myTransform.Position - enemyTransform->Position).Normalized;
+				var pushAngle = (myTransform->Position - enemyTransform->Position).Normalized;
 				pushAngle.Y = 0;
 				enemyKcc.Move(f, hit.Entity, pushAngle);
 			}

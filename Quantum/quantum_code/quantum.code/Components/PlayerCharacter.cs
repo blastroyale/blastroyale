@@ -201,7 +201,7 @@ namespace Quantum
 		internal void AddWeapon(Frame f, EntityRef e, ref Equipment weapon, bool primary)
 		{
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
-			var slot = GetWeaponEquipSlot(f, weapon, primary);
+			var slot = GetWeaponEquipSlot(f, ref weapon, primary);
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
 
 			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
@@ -217,7 +217,7 @@ namespace Quantum
 				WeaponSlots[slot].Weapon.IsValid() &&
 				WeaponSlots[slot].Weapon.GameId != weapon.GameId)
 			{
-				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
+				var dropPosition = f.Unsafe.GetPointer<Transform3D>(e)->Position + FPVector3.Forward;
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0, true, 1);
 			}
 
@@ -302,7 +302,7 @@ namespace Quantum
 		/// </summary>
 		public bool HasMeleeWeapon(Frame f, EntityRef e)
 		{
-			return f.Get<AIBlackboardComponent>(e).GetBoolean(f, Constants.HasMeleeWeaponKey);
+			return f.Unsafe.GetPointer<AIBlackboardComponent>(e)->GetBoolean(f, Constants.HasMeleeWeaponKey);
 		}
 
 		/// <summary>
@@ -337,7 +337,7 @@ namespace Quantum
 			};
 		}
 
-		private int GetWeaponEquipSlot(Frame f, Equipment weapon, bool primary)
+		private int GetWeaponEquipSlot(Frame f, ref Equipment weapon, bool primary)
 		{
 			if (f.Context.GameModeConfig.SingleSlotMode)
 			{
@@ -395,7 +395,8 @@ namespace Quantum
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Array.Empty<Equipment>());
+			var gear = Array.Empty<Equipment>();
+			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, ref gear);
 
 			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 			f.Events.OnPlayerAmmoChanged(Player, e, stats->GetCurrentAmmo(),

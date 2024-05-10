@@ -165,12 +165,12 @@ namespace Quantum.Systems.Bots
 			if (filter.BotCharacter->BehaviourType == BotBehaviourType.Static) return;
 			if (filter.BotCharacter->BehaviourType == BotBehaviourType.StaticShooting)
 			{
-				_staticShootingBot.Update(f, ref filter, botCtx);
+				_staticShootingBot.Update(f, ref filter);
 			}
 
 			if (filter.BotCharacter->BehaviourType == BotBehaviourType.WanderAndShoot)
 			{
-				_wanderAndShootBot.Update(f, ref filter, botCtx);
+				_wanderAndShootBot.Update(f, ref filter);
 				return;
 			}
 
@@ -237,7 +237,7 @@ namespace Quantum.Systems.Bots
 			if (!bot->Target.IsValid)
 			{
 				if (bot->TryUseSpecials(f.Unsafe.GetPointer<PlayerInventory>(entity), entity, f)) return;
-				var botMaxRange = bot->GetMaxWeaponRange(entity, f.Get<PlayerCharacter>(entity), f);
+				var botMaxRange = bot->GetMaxWeaponRange(entity, f.Unsafe.GetPointer<PlayerCharacter>(entity), f);
 
 				BotLogger.LogAction(entity, $"Going to kick {attacker} ass for shooting me from distance");
 
@@ -256,7 +256,7 @@ namespace Quantum.Systems.Bots
 				else
 				{
 					// A bot goes to the attacker if a bot has a gun. Otherwise - run away
-					if (!f.Get<PlayerCharacter>(entity).HasMeleeWeapon(f, entity))
+					if (!f.Unsafe.GetPointer<PlayerCharacter>(entity)->HasMeleeWeapon(f, entity))
 					{
 						bot->SetHasWaypoint(entity, f);
 						bot->MoveTarget = attacker;

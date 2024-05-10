@@ -7,7 +7,7 @@ namespace Quantum.Systems.Bots
 	public unsafe class StaticShootingBot
 	{
 
-		internal void Update(Frame f, ref BotCharacterFilter filter, in BotUpdateGlobalContext botCtx)
+		internal void Update(Frame f, ref BotCharacterFilter filter)
 		{
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
 			var stats = f.Unsafe.GetPointer<Stats>(filter.Entity);
@@ -19,7 +19,7 @@ namespace Quantum.Systems.Bots
 			}
 
 			var weaponConfig = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
-			PlayerCharacterSystem.OnStartAiming(f, bb, weaponConfig);
+			PlayerCharacterSystem.OnStartAiming(f, bb, ref weaponConfig);
 			bb->Set(f, Constants.IsAimPressedKey, true);
 		}
 	}

@@ -11,12 +11,19 @@ namespace Quantum
 
 		public override unsafe bool Decide(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
-			var blackboard = frame.Has<AIBlackboardComponent>(entity) ? frame.Get<AIBlackboardComponent>(entity) : default;
-
 			var agent = frame.Unsafe.GetPointer<HFSMAgent>(entity);
 			var aiConfig = agent->GetConfig(frame);
 
-			FP requiredTime = TimeToTrueState.Resolve(frame, entity, &blackboard, aiConfig, ref aiContext);
+			FP requiredTime;
+			if (frame.Has<AIBlackboardComponent>(entity))
+			{
+				requiredTime = TimeToTrueState.Resolve(frame, entity, frame.Unsafe.GetPointer<AIBlackboardComponent>(entity), aiConfig, ref aiContext);
+			}
+			else
+			{
+				AIBlackboardComponent aiBlackboardComponent = default;
+				requiredTime = TimeToTrueState.Resolve(frame, entity, &aiBlackboardComponent, aiConfig, ref aiContext);
+			}
 
 			var hfsmData = &agent->Data;
 			return hfsmData->Time >= requiredTime;

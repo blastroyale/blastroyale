@@ -10,12 +10,12 @@ namespace Quantum
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false,
 	                   GenerateAssetResetMethod = false)]
-	public class TransformPositionFunction : AIFunction<FPVector3>
+	public unsafe class TransformPositionFunction : AIFunction<FPVector3>
 	{
 		/// <inheritdoc />
 		public override FPVector3 Execute(Frame f, EntityRef e, ref AIContext aiContext)
 		{
-			return f.Get<Transform3D>(e).Position;
+			return f.Unsafe.GetPointer<Transform3D>(e)->Position;
 		}
 	}
 }

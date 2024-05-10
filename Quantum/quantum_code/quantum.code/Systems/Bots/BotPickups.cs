@@ -68,15 +68,15 @@ namespace Quantum.Systems.Bots
 			it.UseCulling = true;
 
 			var botPosition = filter.Transform->Position;
-			var stats = f.Get<Stats>(filter.Entity);
-			var maxShields = stats.Values[(int)StatType.Shield].StatValue;
-			var currentAmmo = stats.CurrentAmmoPercent;
-			var maxHealth = stats.Values[(int)StatType.Health].StatValue;
+			var stats = f.Unsafe.GetPointer<Stats>(filter.Entity);
+			var maxShields = stats->Values[(int)StatType.Shield].StatValue;
+			var currentAmmo = stats->CurrentAmmoPercent;
+			var maxHealth = stats->Values[(int)StatType.Health].StatValue;
 
 			var needWeapon = filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) || currentAmmo < FP.SmallestNonZero;
 			var needAmmo = currentAmmo < FP._0_99;
-			var needShields = stats.CurrentShield < maxShields;
-			var needHealth = stats.CurrentHealth < maxHealth;
+			var needShields = stats->CurrentShield < maxShields;
+			var needHealth = stats->CurrentHealth < maxHealth;
 			var needSpecials = !filter.PlayerInventory->Specials[0].IsUsable(f) ||
 				!filter.PlayerInventory->Specials[1].IsUsable(f);
 
@@ -138,7 +138,7 @@ namespace Quantum.Systems.Bots
 					}
 				}
 
-				var positionCandidate = f.Get<Transform3D>(collectibleFilter.Entity).Position;
+				var positionCandidate = f.Unsafe.GetPointer<Transform3D>(collectibleFilter.Entity)->Position;
 				var newSqrDistance = (positionCandidate - botPosition).SqrMagnitude;
 
 				if (IsInVisionRange(newSqrDistance, ref filter)

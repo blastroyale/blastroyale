@@ -181,7 +181,7 @@ namespace Quantum.Systems
 				QuantumHelpers.LookAt2d(transform, aimDirection, FP._0);
 			}
 			var position = transform->Position + (transform->Rotation * playerCharacter->ProjectileSpawnOffset);
-			var aimingDirection = QuantumHelpers.GetAimDirection(aimDirection, ref transform->Rotation).Normalized;
+			var aimingDirection = QuantumHelpers.GetAimDirection(aimDirection, transform->Rotation).Normalized;
 			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
 			playerCharacter->ReduceMag(f, e); //consume a shot from your magazine
 			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);
@@ -205,7 +205,7 @@ namespace Quantum.Systems
 			}
 		}
 		
-		private static void CreateProjectile(Frame f, in EntityRef shooter, in FP range, in FPVector2 aimingDirection, FPVector3 projectileStartPosition, QuantumWeaponConfig weaponConfig)
+		private static void CreateProjectile(Frame f, in EntityRef shooter, in FP range, in FPVector2 aimingDirection, FPVector3 projectileStartPosition, in QuantumWeaponConfig weaponConfig)
 		{
 			FP accuracyMod = FP._0;
 			if(weaponConfig.MinAttackAngle > FP._0 && !weaponConfig.IsMeleeWeapon && !(weaponConfig.NumberOfShots > 1))

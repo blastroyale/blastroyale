@@ -82,17 +82,17 @@ namespace Quantum
 			switch (SpecialType)
 			{
 				case SpecialType.Airstrike:
-					return SpecialAirstrike.Use(f, entity, ref this, aimInput, MaxRange);
+					return SpecialAirstrike.Use(f, entity, this, aimInput, MaxRange);
 				case SpecialType.ShieldSelfStatus:
 					return SpecialSelfStatusModifier.Use(f, entity, ref this);
 				case SpecialType.StunGrenade:
-					return SpecialStunGrenade.Use(f, entity, ref this, aimInput, MaxRange);
+					return SpecialStunGrenade.Use(f, entity, this, aimInput, MaxRange);
 				case SpecialType.HazardAimSpawn:
-					return SpecialHazardAimSpawn.Use(f, entity, ref this, aimInput, MaxRange);
+					return SpecialHazardAimSpawn.Use(f, entity, this, aimInput, MaxRange);
 				case SpecialType.ShieldedCharge:
-					return SpecialShieldedCharge.Use(f, entity, ref this, aimInput, MaxRange);
+					return SpecialShieldedCharge.Use(f, entity, this, aimInput, MaxRange);
 				case SpecialType.Grenade:
-					return SpecialGrenade.Use(f, entity, ref this, aimInput, MaxRange);
+					return SpecialGrenade.Use(f, entity, this, aimInput, MaxRange);
 				case SpecialType.Radar:
 					return SpecialRadar.Use(f, entity, playerRef, ref this);
 				case SpecialType.Landmine:

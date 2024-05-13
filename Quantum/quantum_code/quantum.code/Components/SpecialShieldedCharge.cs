@@ -7,7 +7,7 @@ namespace Quantum
 	/// </summary>
 	public static class SpecialShieldedCharge
 	{
-		public static unsafe bool Use(Frame f, EntityRef e, ref Special special, FPVector2 aimInput, FP maxRange)
+		public static unsafe bool Use(Frame f, EntityRef e, in Special special, FPVector2 aimInput, FP maxRange)
 		{
 			var targetPosition = FPVector3.Zero;
 			var attackerPosition = f.Unsafe.GetPointer<Transform3D>(e)->Position;

@@ -311,7 +311,7 @@ namespace Quantum.Systems.Bots
 			CheckUpdateTutorialRuntimeData(f, spawner.Entity, botEntity);
 			if (f.Unsafe.TryGetPointer<BotLoadout>(spawner.Entity, out var botLoadout))
 			{
-				playerCharacter->AddWeapon(f, botEntity, ref botLoadout->Weapon, true);
+				playerCharacter->AddWeapon(f, botEntity, botLoadout->Weapon, true);
 				playerCharacter->EquipSlotWeapon(f, botEntity, Constants.WEAPON_INDEX_PRIMARY);
 			}
 

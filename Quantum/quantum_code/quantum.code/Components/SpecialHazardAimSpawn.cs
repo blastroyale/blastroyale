@@ -7,7 +7,7 @@ namespace Quantum
 	/// </summary>
 	public static class SpecialHazardAimSpawn
 	{
-		public static unsafe bool Use(Frame f, EntityRef e, ref Special special, FPVector2 aimInput, FP maxRange)
+		public static unsafe bool Use(Frame f, EntityRef e, in Special special, FPVector2 aimInput, FP maxRange)
 		{
 			if (!f.Exists(e) || f.Has<DeadPlayerCharacter>(e))
 			{

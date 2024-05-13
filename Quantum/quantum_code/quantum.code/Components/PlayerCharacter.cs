@@ -198,10 +198,10 @@ namespace Quantum
 		/// <summary>
 		/// Adds a <paramref name="weapon"/> to the player's weapon slots
 		/// </summary>
-		internal void AddWeapon(Frame f, EntityRef e, ref Equipment weapon, bool primary)
+		internal void AddWeapon(Frame f, EntityRef e, in Equipment weapon, bool primary)
 		{
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
-			var slot = GetWeaponEquipSlot(f, ref weapon, primary);
+			var slot = GetWeaponEquipSlot(f, weapon, primary);
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
 
 			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
@@ -337,7 +337,7 @@ namespace Quantum
 			};
 		}
 
-		private int GetWeaponEquipSlot(Frame f, ref Equipment weapon, bool primary)
+		private int GetWeaponEquipSlot(Frame f, in Equipment weapon, bool primary)
 		{
 			if (f.Context.GameModeConfig.SingleSlotMode)
 			{

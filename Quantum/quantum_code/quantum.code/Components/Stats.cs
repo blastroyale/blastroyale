@@ -243,15 +243,16 @@ namespace Quantum
 			var statData = GetStatData(StatType.Shield);
 			var previousShieldCapacity = statData.StatValue;
 			var maxShieldCapacity = statData.BaseValue;
-			var modifierPower = (FP)amount / maxShieldCapacity;
-			var newCapacityValue = previousShieldCapacity + (maxShieldCapacity * modifierPower);
-
+			
 			if (previousShieldCapacity.AsInt == maxShieldCapacity.AsInt)
 			{
 				SetCurrentShield(f, entity, CurrentShield + amount, previousShieldCapacity.AsInt);
 				return;
 			}
 
+			var modifierPower = (FP)amount / maxShieldCapacity;
+			var newCapacityValue = previousShieldCapacity + (maxShieldCapacity * modifierPower);
+			
 			if (newCapacityValue > maxShieldCapacity)
 			{
 				modifierPower = (maxShieldCapacity - previousShieldCapacity) / maxShieldCapacity;

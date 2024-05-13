@@ -359,8 +359,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-
-			var health = healthPerSecondsMutatorConfig.Param1.AsInt;
+			
 			var seconds = healthPerSecondsMutatorConfig.Param2.AsInt;
 
 			// It will heal every x frames
@@ -372,6 +371,8 @@ namespace Quantum.Systems
 				return;
 			}
 
+			var health = healthPerSecondsMutatorConfig.Param1.AsInt;
+			
 			var spell = new Spell() { PowerAmount = (uint)health };
 			if (health > 0)
 			{

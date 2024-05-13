@@ -49,7 +49,7 @@ namespace FirstLight.Editor.Build
 			settings.firebaseProjectID = environment.FirebaseProjectID;
 			settings.firebaseProjectNumber = environment.FirebaseProjectNumber;
 			settings.firebaseWebApiKey = environment.FirebaseWebApiKey;
-			
+
 			EditorUtility.SetDirty(settings);
 			AssetDatabase.SaveAssetIfDirty(settings);
 		}
@@ -138,19 +138,11 @@ namespace FirstLight.Editor.Build
 				Path.Combine(Application.streamingAssetsPath, "google-services.plist"), true);
 		}
 
-		/// <summary>
-		/// Generates the version CS file for the Unity Cloud environment.
-		/// </summary>
 		private static void GenerateEnvironment(string environment)
 		{
-			var path = Path.Combine(Application.dataPath, "Src", "FirstLight", "Game", "Utils", "FLEnvironment.cs");
-			var content = File.ReadAllText(path).Replace(
-				" = GetCurrentEditorEnvironment();",
-				$" = {environment.ToUpperInvariant()};"
-			);
-
-			File.WriteAllText(path, content);
-			AssetDatabase.ImportAsset(path);
+			var envAsset = AssetDatabase.LoadAssetAtPath<FLEnvironmentAsset>("Assets/Resources/FLEnvironmentAsset.asset");
+			envAsset.EnvironmentName = environment;
+			EditorUtility.SetDirty(envAsset);
 		}
 
 		[Conditional("UNITY_IOS")]

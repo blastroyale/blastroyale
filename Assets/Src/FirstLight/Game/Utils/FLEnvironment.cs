@@ -4,6 +4,8 @@ namespace FirstLight.Game.Utils
 {
 	public static class FLEnvironment
 	{
+		private const string ENV_KEY = "FLG_ENVIRONMENT";
+
 		public static readonly Definition DEVELOPMENT = new (
 			"***REMOVED***",
 			"***REMOVED***",
@@ -65,7 +67,8 @@ namespace FirstLight.Game.Utils
 		///
 		/// NOTE: This line is regenerated on build, so don't change it.
 		/// </summary>
-		public static Definition Current { get; set; } = DEVELOPMENT;
+		public static Definition Current { get; set; } = FromName(UnityEngine.PlayerPrefs.GetString(ENV_KEY,
+			UnityEngine.Resources.Load<FLEnvironmentAsset>("FLEnvironmentAsset").EnvironmentName));
 
 		public struct Definition
 		{
@@ -103,7 +106,7 @@ namespace FirstLight.Game.Utils
 			/// The name of the Unity Cloud Services environment.
 			/// </summary>
 			public readonly string UCSEnvironmentName;
-			
+
 			/// <summary>
 			/// The ID of the CCD bucket for this environment.
 			/// </summary>
@@ -147,12 +150,6 @@ namespace FirstLight.Game.Utils
 			}
 		}
 
-		#region EditorHelpers
-
-#if UNITY_EDITOR
-
-		private const string ENV_KEY = "FLG_ENVIRONMENT";
-
 		public static Definition FromName(string environment)
 		{
 			return environment switch
@@ -165,31 +162,30 @@ namespace FirstLight.Game.Utils
 			};
 		}
 
-		private static Definition GetCurrentEditorEnvironment()
-		{
-			return FromName(UnityEditor.EditorPrefs.GetString(ENV_KEY, "development"));
-		}
+		#region EditorHelpers
+
+#if UNITY_EDITOR
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/development", false, 18)]
-		private static void ToggleEnvironmentDevelopment() => ToggleEnvironment("development");
+		private static void ToggleEnvironmentDevelopment() => SetEnvironment("development");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/development", true, 18)]
 		private static bool ValidateEnvironmentDevelopment() => ValidateEnvironment("development");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/staging", false, 18)]
-		private static void ToggleEnvironmentStaging() => ToggleEnvironment("staging");
+		private static void ToggleEnvironmentStaging() => SetEnvironment("staging");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/staging", true, 18)]
 		private static bool ValidateEnvironmentStaging() => ValidateEnvironment("staging");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/community", false, 18)]
-		private static void ToggleEnvironmentCommunity() => ToggleEnvironment("community");
+		private static void ToggleEnvironmentCommunity() => SetEnvironment("community");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/community", true, 18)]
 		private static bool ValidateEnvironmentCommunity() => ValidateEnvironment("community");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/production", false, 18)]
-		private static void ToggleEnvironmentProduction() => ToggleEnvironment("production");
+		private static void ToggleEnvironmentProduction() => SetEnvironment("production");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/production", true, 18)]
 		private static bool ValidateEnvironmentProduction() => ValidateEnvironment("production");
@@ -197,13 +193,13 @@ namespace FirstLight.Game.Utils
 		private static bool ValidateEnvironment(string environment)
 		{
 			UnityEditor.Menu.SetChecked($"FLG/Local Flags/Environment/{environment}",
-				UnityEditor.EditorPrefs.GetString(ENV_KEY, "development") == environment);
+				UnityEngine.PlayerPrefs.GetString(ENV_KEY, "development") == environment);
 			return true;
 		}
 
-		private static void ToggleEnvironment(string environment)
+		private static void SetEnvironment(string environment)
 		{
-			UnityEditor.EditorPrefs.SetString(ENV_KEY, environment);
+			UnityEngine.PlayerPrefs.SetString(ENV_KEY, environment);
 		}
 
 #endif

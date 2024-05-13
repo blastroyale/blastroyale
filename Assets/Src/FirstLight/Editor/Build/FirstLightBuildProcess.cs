@@ -150,7 +150,7 @@ namespace FirstLight.Editor.Build
 			);
 
 			File.WriteAllText(path, content);
-			// AssetDatabase.ImportAsset(path);
+			AssetDatabase.ImportAsset(path);
 		}
 
 		[Conditional("UNITY_IOS")]
@@ -194,7 +194,7 @@ namespace FirstLight.Editor.Build
 		private static void SetupSRDebugger()
 		{
 #if !DEVELOPMENT_BUILD
-			// SRDebugEditor.SetEnabled(false);
+			SRDebugEditor.SetEnabled(false);
 #endif
 		}
 	}

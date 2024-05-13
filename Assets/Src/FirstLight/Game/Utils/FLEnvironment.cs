@@ -65,7 +65,7 @@ namespace FirstLight.Game.Utils
 		///
 		/// NOTE: This line is regenerated on build, so don't change it.
 		/// </summary>
-		public static Definition Current { get; set; } = GetCurrentEditorEnvironment();
+		public static Definition Current { get; set; } = DEVELOPMENT;
 
 		public struct Definition
 		{

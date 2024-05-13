@@ -274,6 +274,12 @@ namespace Quantum
 		/// </summary>
 		public void ReduceMag(Frame f, EntityRef e)
 		{
+			// No need to process for melee
+			if (CurrentWeaponSlot == 0)
+			{
+				return;
+			}
+			
 			var slot = SelectedWeaponSlot;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 
@@ -287,6 +293,11 @@ namespace Quantum
 			else // reduce ammo directly if your weapon does not use an ammo count
 			{
 				stats->ReduceAmmo(f, e, 1);
+			}
+			
+			if ( stats->GetCurrentAmmo() <= 0 && slot->MagazineShotCount <= 0)
+			{
+				f.Unsafe.GetPointer<PlayerCharacter>(e)->EquipSlotWeapon(f, e, 0);
 			}
 		}
 

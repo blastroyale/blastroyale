@@ -396,7 +396,7 @@ namespace Quantum
 
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			var gear = Array.Empty<Equipment>();
-			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, ref gear);
+			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, gear);
 
 			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 			f.Events.OnPlayerAmmoChanged(Player, e, stats->GetCurrentAmmo(),

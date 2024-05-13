@@ -84,7 +84,7 @@ namespace Quantum
 				case SpecialType.Airstrike:
 					return SpecialAirstrike.Use(f, entity, this, aimInput, MaxRange);
 				case SpecialType.ShieldSelfStatus:
-					return SpecialSelfStatusModifier.Use(f, entity, ref this);
+					return SpecialSelfStatusModifier.Use(f, entity, this);
 				case SpecialType.StunGrenade:
 					return SpecialStunGrenade.Use(f, entity, this, aimInput, MaxRange);
 				case SpecialType.HazardAimSpawn:
@@ -94,7 +94,7 @@ namespace Quantum
 				case SpecialType.Grenade:
 					return SpecialGrenade.Use(f, entity, this, aimInput, MaxRange);
 				case SpecialType.Radar:
-					return SpecialRadar.Use(f, entity, playerRef, ref this);
+					return SpecialRadar.Use(f, entity, playerRef, this);
 				case SpecialType.Landmine:
 					f.Signals.UseGenericSpecial(this, entity, aimInput, MaxRange);
 					return true;

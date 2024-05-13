@@ -95,7 +95,7 @@ namespace Quantum.Systems.Bots
 		}
 
 		/// <inheritdoc />
-		private void Update(Frame f, BotUpdateGlobalContext botCtx, ref BotCharacterFilter filter)
+		private void Update(Frame f, in BotUpdateGlobalContext botCtx, ref BotCharacterFilter filter)
 		{
 			if (QuantumFeatureFlags.FREEZE_BOTS) return;
 

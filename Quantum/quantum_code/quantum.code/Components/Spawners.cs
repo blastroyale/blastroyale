@@ -64,7 +64,7 @@ namespace Quantum
 				             : configs.GetConfig(id);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
 
-			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform->Position, transform->Rotation, ref config, spawnerEntityRef, transform->Position);
+			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform->Position, transform->Rotation, config, spawnerEntityRef, transform->Position);
 
 			return entity;
 		}

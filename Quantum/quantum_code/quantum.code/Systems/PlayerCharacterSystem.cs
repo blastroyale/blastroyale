@@ -243,7 +243,7 @@ namespace Quantum.Systems
 		/// <summary>
 		/// When player starts to aim, there is an initial delay for when a bullet needs to be fired.
 		/// </summary>
-		public static void OnStartAiming(Frame f, AIBlackboardComponent* bb, ref QuantumWeaponConfig weaponConfig)
+		public static void OnStartAiming(Frame f, AIBlackboardComponent* bb, in QuantumWeaponConfig weaponConfig)
 		{
 			if (weaponConfig.IsMeleeWeapon) return; // melee weapons are instant
 			var nextShotTime = bb->GetFP(f, nameof(Constants.NextShotTime));
@@ -323,7 +323,7 @@ namespace Quantum.Systems
 
 			if (!wasShooting && shooting)
 			{
-				OnStartAiming(f, bb, ref weaponConfig);
+				OnStartAiming(f, bb, weaponConfig);
 			}
 
 			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);

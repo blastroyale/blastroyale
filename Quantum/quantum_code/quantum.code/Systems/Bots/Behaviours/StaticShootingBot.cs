@@ -19,7 +19,7 @@ namespace Quantum.Systems.Bots
 			}
 
 			var weaponConfig = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
-			PlayerCharacterSystem.OnStartAiming(f, bb, ref weaponConfig);
+			PlayerCharacterSystem.OnStartAiming(f, bb, weaponConfig);
 			bb->Set(f, Constants.IsAimPressedKey, true);
 		}
 	}

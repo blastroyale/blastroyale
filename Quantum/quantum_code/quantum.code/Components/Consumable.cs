@@ -10,7 +10,7 @@ namespace Quantum
 		/// Initializes this Consumable with all the necessary data
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation,
-						   ref QuantumConsumableConfig config, EntityRef spawner, FPVector3 originPos)
+						   in QuantumConsumableConfig config, EntityRef spawner, FPVector3 originPos)
 		{
 			var collectable = new Collectable
 			{

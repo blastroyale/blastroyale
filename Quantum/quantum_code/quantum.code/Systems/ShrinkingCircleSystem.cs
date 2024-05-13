@@ -34,7 +34,7 @@ namespace Quantum.Systems
 				if (circle->Step < 0)
 				{
 					var config = f.Context.MapShrinkingCircleConfigs[0];
-					SetShrinkingCircleData(f, circle, ref config);
+					SetShrinkingCircleData(f, circle, config);
 				}
 
 				ProcessShrinkingCircle(f, circle);
@@ -79,10 +79,10 @@ namespace Quantum.Systems
 			circle->CurrentRadius = circle->TargetRadius;
 
 			var config = f.Context.MapShrinkingCircleConfigs[circle->Step];
-			SetShrinkingCircleData(f, circle, ref config);
+			SetShrinkingCircleData(f, circle, config);
 		}
 
-		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, ref QuantumShrinkingCircleConfig config)
+		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, in QuantumShrinkingCircleConfig config)
 		{
 			if (f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer)
 			{
@@ -134,7 +134,7 @@ namespace Quantum.Systems
 			// Air drop
 			if (config.AirdropChance > 0 && f.RNG->Next() <= config.AirdropChance + circle->AirDropChance)
 			{
-				AirDrop.Create(f, ref config);
+				AirDrop.Create(f, config);
 			}
 			else
 			{

@@ -120,7 +120,7 @@ namespace Quantum
 			bb->Set(f, Constants.IsAimPressedKey, true);
 			if (bot.Target != target)
 			{
-				PlayerCharacterSystem.OnStartAiming(f, bb, ref weaponConfig);
+				PlayerCharacterSystem.OnStartAiming(f, bb, weaponConfig);
 			}
 
 			bot.Target = target;

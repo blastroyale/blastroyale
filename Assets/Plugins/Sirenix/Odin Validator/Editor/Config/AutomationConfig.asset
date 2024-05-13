@@ -27,7 +27,7 @@ MonoBehaviour:
   OnBuildFlashScreen: 0
   OnBuildSetup:
     Profile: 0
-    ProfileAsset: {fileID: 0}
+    ProfileAsset: {fileID: 11400000, guid: 4c43a487c452b4ebf822de5641a53274, type: 2}
   OnProjectStartup: 0
   OnProjectStartupIfWarnings: 0
   OnProjectStartupIfErrors: 1

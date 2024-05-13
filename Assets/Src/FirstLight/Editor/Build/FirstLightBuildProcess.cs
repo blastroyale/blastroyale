@@ -182,7 +182,7 @@ namespace FirstLight.Editor.Build
 			pbxProject.SetBuildProperty(mainTargetGuid, "SWIFT_VERSION", "5.1");
 
 			// Xcode 15 fix
-			pbxProject.AddBuildProperty(frameworkTargetGuid, "OTHER_LDFLAGS", "-ld64");
+			// pbxProject.AddBuildProperty(frameworkTargetGuid, "OTHER_LDFLAGS", "-ld64");
 
 			// Disable bitcode
 			pbxProject.SetBuildProperty(mainTargetGuid, "ENABLE_BITCODE", "NO");
@@ -194,7 +194,7 @@ namespace FirstLight.Editor.Build
 		private static void SetupSRDebugger()
 		{
 #if !DEVELOPMENT_BUILD
-			SRDebugEditor.SetEnabled(false);
+			// SRDebugEditor.SetEnabled(false);
 #endif
 		}
 	}

@@ -206,8 +206,6 @@ namespace FirstLight.Game.Utils
 			UnityEditor.EditorPrefs.SetString(ENV_KEY, environment);
 		}
 
-#else
-		private static Definition GetCurrentEditorEnvironment() => throw new NotSupportedException("Invalid environment type");
 #endif
 
 		#endregion

@@ -4,6 +4,8 @@ namespace FirstLight.Game.Utils
 {
 	public static class FLEnvironment
 	{
+		private const string ENV_KEY = "FLG_ENVIRONMENT";
+
 		public static readonly Definition DEVELOPMENT = new (
 			"***REMOVED***",
 			"***REMOVED***",
@@ -11,6 +13,7 @@ namespace FirstLight.Game.Utils
 			"***REMOVED***",
 			"***REMOVED***",
 			"development",
+			"***REMOVED***",
 			"***REMOVED***",
 			"blast-royale-dev",
 			"***REMOVED***",
@@ -24,6 +27,7 @@ namespace FirstLight.Game.Utils
 			"***REMOVED***",
 			"***REMOVED***",
 			"staging",
+			"***REMOVED***",
 			DEVELOPMENT.FirebaseAppID,
 			DEVELOPMENT.FirebaseProjectID,
 			DEVELOPMENT.FirebaseProjectNumber,
@@ -37,6 +41,7 @@ namespace FirstLight.Game.Utils
 			"***REMOVED***",
 			"***REMOVED***",
 			"community",
+			"***REMOVED***",
 			DEVELOPMENT.FirebaseAppID, // TODO: We need a new environment / firebase app for community
 			DEVELOPMENT.FirebaseProjectID,
 			DEVELOPMENT.FirebaseProjectNumber,
@@ -51,6 +56,7 @@ namespace FirstLight.Game.Utils
 			"***REMOVED***",
 			"production",
 			"***REMOVED***",
+			"***REMOVED***",
 			"blast-royale",
 			"***REMOVED***",
 			"***REMOVED***"
@@ -61,7 +67,8 @@ namespace FirstLight.Game.Utils
 		///
 		/// NOTE: This line is regenerated on build, so don't change it.
 		/// </summary>
-		public static Definition Current { get; set; } = GetCurrentEditorEnvironment();
+		public static Definition Current { get; set; } = FromName(UnityEngine.PlayerPrefs.GetString(ENV_KEY,
+			UnityEngine.Resources.Load<FLEnvironmentAsset>("FLEnvironmentAsset").EnvironmentName));
 
 		public struct Definition
 		{
@@ -101,6 +108,11 @@ namespace FirstLight.Game.Utils
 			public readonly string UCSEnvironmentName;
 
 			/// <summary>
+			/// The ID of the CCD bucket for this environment.
+			/// </summary>
+			public readonly string UCSBucketID;
+
+			/// <summary>
 			/// The Firebase app ID.
 			/// </summary>
 			public readonly string FirebaseAppID;
@@ -121,7 +133,7 @@ namespace FirstLight.Game.Utils
 			public readonly string FirebaseWebApiKey;
 
 			public Definition(string playFabTitleID, string playFabRecoveryEmailTemplateID, string web3Id, string photonAppIDRealtime,
-							  string ucsEnvironmentID, string ucsEnvironmentName, string firebaseAppID, string firebaseProjectID,
+							  string ucsEnvironmentID, string ucsEnvironmentName, string ucsBucketID, string firebaseAppID, string firebaseProjectID,
 							  string firebaseProjectNumber, string firebaseWebApiKey)
 			{
 				PlayFabTitleID = playFabTitleID;
@@ -130,18 +142,13 @@ namespace FirstLight.Game.Utils
 				PhotonAppIDRealtime = photonAppIDRealtime;
 				UCSEnvironmentID = ucsEnvironmentID;
 				UCSEnvironmentName = ucsEnvironmentName;
+				UCSBucketID = ucsBucketID;
 				FirebaseAppID = firebaseAppID;
 				FirebaseProjectID = firebaseProjectID;
 				FirebaseProjectNumber = firebaseProjectNumber;
 				FirebaseWebApiKey = firebaseWebApiKey;
 			}
 		}
-
-		#region EditorHelpers
-
-#if UNITY_EDITOR
-
-		private const string ENV_KEY = "FLG_ENVIRONMENT";
 
 		public static Definition FromName(string environment)
 		{
@@ -155,31 +162,30 @@ namespace FirstLight.Game.Utils
 			};
 		}
 
-		private static Definition GetCurrentEditorEnvironment()
-		{
-			return FromName(UnityEditor.EditorPrefs.GetString(ENV_KEY, "development"));
-		}
+		#region EditorHelpers
+
+#if UNITY_EDITOR
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/development", false, 18)]
-		private static void ToggleEnvironmentDevelopment() => ToggleEnvironment("development");
+		private static void ToggleEnvironmentDevelopment() => SetEnvironment("development");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/development", true, 18)]
 		private static bool ValidateEnvironmentDevelopment() => ValidateEnvironment("development");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/staging", false, 18)]
-		private static void ToggleEnvironmentStaging() => ToggleEnvironment("staging");
+		private static void ToggleEnvironmentStaging() => SetEnvironment("staging");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/staging", true, 18)]
 		private static bool ValidateEnvironmentStaging() => ValidateEnvironment("staging");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/community", false, 18)]
-		private static void ToggleEnvironmentCommunity() => ToggleEnvironment("community");
+		private static void ToggleEnvironmentCommunity() => SetEnvironment("community");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/community", true, 18)]
 		private static bool ValidateEnvironmentCommunity() => ValidateEnvironment("community");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/production", false, 18)]
-		private static void ToggleEnvironmentProduction() => ToggleEnvironment("production");
+		private static void ToggleEnvironmentProduction() => SetEnvironment("production");
 
 		[UnityEditor.MenuItem("FLG/Local Flags/Environment/production", true, 18)]
 		private static bool ValidateEnvironmentProduction() => ValidateEnvironment("production");
@@ -187,17 +193,15 @@ namespace FirstLight.Game.Utils
 		private static bool ValidateEnvironment(string environment)
 		{
 			UnityEditor.Menu.SetChecked($"FLG/Local Flags/Environment/{environment}",
-				UnityEditor.EditorPrefs.GetString(ENV_KEY, "development") == environment);
+				UnityEngine.PlayerPrefs.GetString(ENV_KEY, "development") == environment);
 			return true;
 		}
 
-		private static void ToggleEnvironment(string environment)
+		private static void SetEnvironment(string environment)
 		{
-			UnityEditor.EditorPrefs.SetString(ENV_KEY, environment);
+			UnityEngine.PlayerPrefs.SetString(ENV_KEY, environment);
 		}
 
-#else
-		private static Definition GetCurrentEditorEnvironment() => throw new NotSupportedException("Invalid environment type");
 #endif
 
 		#endregion

@@ -21,6 +21,7 @@ using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
+using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
@@ -102,8 +103,7 @@ namespace FirstLight.Game.Presenters
 		private Label _betaLabel;
 		private MatchmakingStatusView _matchmakingStatusView;
 
-		[SerializeField]
-		private HomeCharacterView _homeCharacterView = new ();
+		[SerializeField] private HomeCharacterView _homeCharacterView = new ();
 
 		private Coroutine _updatePoolsCoroutine;
 		private HashSet<GameId> _currentAnimations = new ();
@@ -126,27 +126,20 @@ namespace FirstLight.Game.Presenters
 		{
 			Root.Q<ImageButton>("ProfileButton").clicked += () =>
 			{
-				if (FeatureFlags.PLAYER_STATS_ENABLED)
+				var data = new PlayerStatisticsPopupPresenter.StateData
 				{
-					var data = new PlayerStatisticsPopupPresenter.StateData
+					PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
+					OnCloseClicked = () =>
 					{
-						PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
-						OnCloseClicked = () =>
-						{
-							_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();
-						},
-						OnEditNameClicked = () =>
-						{
-							Data.OnProfileClicked();
-						}
-					};
+						_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();
+					},
+					OnEditNameClicked = () =>
+					{
+						Data.OnProfileClicked();
+					}
+				};
 
-					OpenStats(data);
-				}
-				else
-				{
-					Data.OnProfileClicked();
-				}
+				OpenStats(data);
 			};
 
 			_playerNameLabel = Root.Q<Label>("PlayerName").Required();
@@ -194,8 +187,8 @@ namespace FirstLight.Game.Presenters
 			Root.Q<CurrencyDisplayElement>("NOOBCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetData(_playButton, true);
-			
-			
+
+
 			Root.Q<VisualElement>("PartyMemberNames").Required()
 				.AttachExistingView(this, _homeCharacterView);
 
@@ -253,7 +246,6 @@ namespace FirstLight.Game.Presenters
 
 			Root.SetupClicks(_services);
 			OnAnyPartyUpdate();
-			UpdateSquadsButtonVisibility();
 		}
 
 		private void OnItemRewarded(ItemRewardedMessage msg)
@@ -287,7 +279,7 @@ namespace FirstLight.Game.Presenters
 #else
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
-			_betaLabel.SetDisplay(FeatureFlags.BETA_VERSION);
+			_betaLabel.SetDisplay(RemoteConfigs.Instance.ShowBetaLabel);
 
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);

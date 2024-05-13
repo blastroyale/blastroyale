@@ -134,6 +134,15 @@ Assets/InitTestScene*.unity.meta
 /BuildArtifacts/
 Assets/Resources/version-data.txt
 Assets/Resources/version-data.txt.meta
+com.Tivadar.Best.HTTP.xml
+com.Tivadar.Best.TLSSecurity.xml
+com.Tivadar.Best.SignalR.xml
+com.Tivadar.Best.WebSockets.xml
+Assets/StreamingAssets/google-services.plist
+Assets/StreamingAssets/google-services.plist.meta
+Assets/AddressableAssetsData/link.xml
+Assets/AddressableAssetsData/link.xml.meta
+bakery-times.log
 
 # DLLs
 # Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll

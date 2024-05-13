@@ -1,6 +1,8 @@
 using System;
+using System.Diagnostics;
 using JetBrains.Annotations;
 using UnityEditor;
+using Debug = UnityEngine.Debug;
 
 namespace FirstLight.Editor.Build.Utils
 {
@@ -33,8 +35,7 @@ namespace FirstLight.Editor.Build.Utils
 		/// The version override for the addressable catalog.
 		/// </summary>
 		[UsedImplicitly]
-		public static string AddressableVersionOverride =>
-			GetEnvironment() == ENV_DEV ? DateTime.UtcNow.ToString("yyyy.MM.dd.hh.mm.ss") : PlayerSettings.bundleVersion;
+		public static string AddressableVersionOverride => PlayerSettings.bundleVersion;
 
 		/// <summary>
 		/// Gets the current UCS / Backend environment, defaults to development.
@@ -84,6 +85,17 @@ namespace FirstLight.Editor.Build.Utils
 			}
 
 			return null;
+		}
+
+		[UsedImplicitly]
+		[Conditional("UNITY_CLOUD_BUILD")]
+		public static void PreExport(UnityEngine.CloudBuild.BuildManifestObject manifest)
+		{
+			// In UCS DevOps we add the ENV build number to the cloud build number
+			var buildNumber = manifest.GetValue<int>("buildNumber") + GetBuildNumber();
+			Debug.Log("Setting build number to " + buildNumber);
+			PlayerSettings.Android.bundleVersionCode = buildNumber;
+			PlayerSettings.iOS.buildNumber = buildNumber.ToString();
 		}
 	}
 }

@@ -49,7 +49,7 @@ namespace FirstLight.Editor.Build
 			settings.firebaseProjectID = environment.FirebaseProjectID;
 			settings.firebaseProjectNumber = environment.FirebaseProjectNumber;
 			settings.firebaseWebApiKey = environment.FirebaseWebApiKey;
-			
+
 			EditorUtility.SetDirty(settings);
 			AssetDatabase.SaveAssetIfDirty(settings);
 		}
@@ -109,22 +109,23 @@ namespace FirstLight.Editor.Build
 
 		private static void ConfigureQuantum()
 		{
-#if !DEVELOPMENT_BUILD
-			var guids = AssetDatabase.FindAssets($"t:{nameof(DeterministicSessionConfigAsset)}");
-			var path = AssetDatabase.GUIDToAssetPath(guids[0]);
-			var deterministicConfig = AssetDatabase.LoadAssetAtPath<DeterministicSessionConfigAsset>(path);
+			if (!EditorUserBuildSettings.development)
+			{
+				var guids = AssetDatabase.FindAssets($"t:{nameof(DeterministicSessionConfigAsset)}");
+				var path = AssetDatabase.GUIDToAssetPath(guids[0]);
+				var deterministicConfig = AssetDatabase.LoadAssetAtPath<DeterministicSessionConfigAsset>(path);
 
-			deterministicConfig.Config.ChecksumInterval = 0;
-			deterministicConfig.Config.ChecksumCrossPlatformDeterminism = false;
+				deterministicConfig.Config.ChecksumInterval = 0;
+				deterministicConfig.Config.ChecksumCrossPlatformDeterminism = false;
 
-			EditorUtility.SetDirty(deterministicConfig);
-			AssetDatabase.SaveAssets();
-#endif
+				EditorUtility.SetDirty(deterministicConfig);
+				AssetDatabase.SaveAssets();
+			}
 		}
 
 		private static void PrepareFirebase(string environment)
 		{
-			var configDirectory = Path.Combine(Application.dataPath, "Configs");
+			var configDirectory = Path.Combine(Application.dataPath, "../", "Configs");
 
 			// Force dev for all environments except production (for now)
 			if (environment != BuildUtils.ENV_PROD) environment = BuildUtils.ENV_DEV;
@@ -138,18 +139,11 @@ namespace FirstLight.Editor.Build
 				Path.Combine(Application.streamingAssetsPath, "google-services.plist"), true);
 		}
 
-		/// <summary>
-		/// Generates the version CS file for the Unity Cloud environment.
-		/// </summary>
 		private static void GenerateEnvironment(string environment)
 		{
-			var path = Path.Combine(Application.dataPath, "Src", "FirstLight", "Game", "Utils", "FLEnvironment.cs");
-			var content = File.ReadAllText(path).Replace(
-				" = GetCurrentEditorEnvironment();",
-				$" = {environment.ToUpperInvariant()};"
-			);
-
-			File.WriteAllText(path, content);
+			var envAsset = AssetDatabase.LoadAssetAtPath<FLEnvironmentAsset>("Assets/Resources/FLEnvironmentAsset.asset");
+			envAsset.EnvironmentName = environment;
+			EditorUtility.SetDirty(envAsset);
 		}
 
 		[Conditional("UNITY_IOS")]
@@ -181,7 +175,7 @@ namespace FirstLight.Editor.Build
 			pbxProject.SetBuildProperty(mainTargetGuid, "SWIFT_VERSION", "5.1");
 
 			// Xcode 15 fix
-			pbxProject.AddBuildProperty(frameworkTargetGuid, "OTHER_LDFLAGS", "-ld64");
+			// pbxProject.AddBuildProperty(frameworkTargetGuid, "OTHER_LDFLAGS", "-ld64");
 
 			// Disable bitcode
 			pbxProject.SetBuildProperty(mainTargetGuid, "ENABLE_BITCODE", "NO");
@@ -192,9 +186,10 @@ namespace FirstLight.Editor.Build
 
 		private static void SetupSRDebugger()
 		{
-#if !DEVELOPMENT_BUILD
-			SRDebugEditor.SetEnabled(false);
-#endif
+			if (!EditorUserBuildSettings.development)
+			{
+				SRDebugEditor.SetEnabled(false);
+			}
 		}
 	}
 }

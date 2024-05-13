@@ -221,22 +221,19 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			var isLocalPlayerLeader = _partyService.GetLocalMember()?.Leader ?? false;
 			var playerContextButtons = new List<PlayerContextButton>();
-			if (FeatureFlags.PLAYER_STATS_ENABLED)
+			playerContextButtons.Add(new PlayerContextButton
 			{
-				playerContextButtons.Add(new PlayerContextButton
+				Text = "Open profile",
+				OnClick = () =>
 				{
-					Text = "Open profile",
-					OnClick = () =>
+					var data = new PlayerStatisticsPopupPresenter.StateData
 					{
-						var data = new PlayerStatisticsPopupPresenter.StateData
-						{
-							PlayerId = member.ProfileMasterId,
-							OnCloseClicked = () => _services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget()
-						};
-						_services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(data).Forget();
-					}
-				});
-			}
+						PlayerId = member.ProfileMasterId,
+						OnCloseClicked = () => _services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget()
+					};
+					_services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(data).Forget();
+				}
+			});
 
 			if (isLocalPlayerLeader)
 			{

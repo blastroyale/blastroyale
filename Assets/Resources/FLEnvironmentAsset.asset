@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1465085449, guid: 3781f2218eef4d5a823dba406baa434b, type: 3}
-  m_Name: CrashlyticsSettings
+  m_Script: {fileID: 11500000, guid: 3a5f6718bab246838f527a530f81fa0f, type: 3}
+  m_Name: FLEnvironmentAsset
   m_EditorClassIdentifier: 
-  configuration:
-    stringProperties: []
-    intProperties: []
-    floatProperties: []
-    booleanProperties: []
+  EnvironmentName: development

@@ -50,7 +50,7 @@ Shader "FLG/Lit/FastLambert"
             CBUFFER_END
 
             static const half3 lightDir = float3(-1, 1, 0);
-            static const half3 lightPower = 0.2;
+            static const half lightPower = 0.2;
 
             Varyings vert(Attributes IN)
             {
@@ -58,7 +58,7 @@ Shader "FLG/Lit/FastLambert"
                 OUT.position = TransformObjectToHClip(IN.position.xyz);
                 OUT.normal = TransformObjectToWorldNormal(IN.normal);
                 OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
-                OUT.lambert = dot(OUT.normal, lightDir) * lightPower;
+                OUT.lambert = (half) dot(OUT.normal, lightDir) * lightPower;
                 return OUT;
             }
 

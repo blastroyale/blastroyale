@@ -63,7 +63,7 @@ Shader "FLG/Lit/FastLambertBush"
             CBUFFER_END
 
             static const half3 lightDir = float3(-1, 1, 0);
-            static const half3 lightPower = 0.2;
+            static const half lightPower = 0.2;
 
              float3 ApplySway(float3 vertexWorldPos)
             {

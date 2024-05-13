@@ -33,8 +33,7 @@ namespace FirstLight.Editor.Build.Utils
 		/// The version override for the addressable catalog.
 		/// </summary>
 		[UsedImplicitly]
-		public static string AddressableVersionOverride =>
-			GetEnvironment() == ENV_DEV ? DateTime.UtcNow.ToString("yyyy.MM.dd.hh.mm.ss") : PlayerSettings.bundleVersion;
+		public static string AddressableVersionOverride => PlayerSettings.bundleVersion;
 
 		/// <summary>
 		/// Gets the current UCS / Backend environment, defaults to development.

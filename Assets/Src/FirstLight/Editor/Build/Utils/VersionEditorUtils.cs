@@ -30,8 +30,7 @@ namespace FirstLight.Editor.Build
 			{
 				return;
 			}
-			
-			Debug.Log($"Saving new version data: {newVersionDataSerialized}");
+
 			SaveVersionData(newVersionDataSerialized);
 		}
 

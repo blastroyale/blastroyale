@@ -134,6 +134,10 @@ Assets/InitTestScene*.unity.meta
 /BuildArtifacts/
 Assets/Resources/version-data.txt
 Assets/Resources/version-data.txt.meta
+com.Tivadar.Best.HTTP.xml
+com.Tivadar.Best.TLSSecurity.xml
+com.Tivadar.Best.SignalR.xml
+com.Tivadar.Best.WebSockets.xml
 
 # DLLs
 # Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll

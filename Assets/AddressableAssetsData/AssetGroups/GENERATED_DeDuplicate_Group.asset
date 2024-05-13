@@ -632,11 +632,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ba2966107d34c6e4f8cb75f0aa350aee
-    m_Address: Assets/Art/Shaders/Legacy/SG_Lightning.shadergraph
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d920b2b7b66a0bb4c8fd1d1954ec2aab
     m_Address: Assets/Art/Textures/Particles/T_Circle01.png
     m_ReadOnly: 0
@@ -649,11 +644,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 76d8254ddca2780438f55ab908910af5
     m_Address: Assets/Art/Textures/Shared/T_ColorAtlas_E.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 183ee337cc83db746a2aebb477df911a
-    m_Address: Assets/Art/Shaders/Legacy/SG_FresnelGlow.shadergraph
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2970,11 +2960,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b1c232149a34aa44a81c5ee554981050
     m_Address: Assets/Art/Textures/Environment/Voronoi2.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fd184367f15ab6e479ffcda85ef452ba
-    m_Address: Assets/Art/Shaders/Legacy/SG_WaterToon.shadergraph
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

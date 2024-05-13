@@ -93,7 +93,7 @@ namespace FirstLight.Game.Services.RoomService
 			// mid games. If we don't we won't be able to reconnect to the room unless we use a frame snapshot which is tricky.
 			var emptyTtl = offline ? GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS : 0;
 
-			if (RemoteConfigs.Instance.CommitVersionLock)
+			if (RemoteConfigs.Instance.EnableCommitVersionLock)
 			{
 				roomNameFinal += RoomCommitLockData;
 			}
@@ -141,7 +141,7 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			var roomNameFinal = roomName;
 
-			if (RemoteConfigs.Instance.CommitVersionLock)
+			if (RemoteConfigs.Instance.EnableCommitVersionLock)
 			{
 				roomNameFinal += RoomCommitLockData;
 			}

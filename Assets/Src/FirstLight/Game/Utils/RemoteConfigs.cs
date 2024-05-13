@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using Newtonsoft.Json;
 using Unity.Services.RemoteConfig;
-using UnityEngine;
 
 // ReSharper disable ConvertToConstant.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Global
@@ -13,17 +12,18 @@ namespace FirstLight.Game.Utils
 	public class RemoteConfigs
 	{
 		private const string CCD_CONFIG_KEY = "CCD_CONFIG_KEY";
+		private const string CCD_CONFIG_TYPE = "ccd";
 
 		/// <summary>
 		/// Shows or hides the BETA tag on home screen.
 		/// </summary>
-		public bool BetaVersion = false;
+		public bool ShowBetaLabel = false;
 
 		/// <summary>
 		/// If rooms should be created with a commit lock (only clients on the same commit
 		/// can play together).
 		/// </summary>
-		public bool CommitVersionLock = true;
+		public bool EnableCommitVersionLock = false;
 
 		public static RemoteConfigs Instance { get; private set; }
 
@@ -32,9 +32,8 @@ namespace FirstLight.Game.Utils
 			var rc = await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
 			Instance = JsonConvert.DeserializeObject<RemoteConfigs>(rc.config.ToString());
 
-
-			var rcCCD = await RemoteConfigService.Instance.FetchConfigsAsync("ccd", new UserAttributes(), new AppAttributes());
-
+			// Init configs for CCD Game Overrides
+			var rcCCD = await RemoteConfigService.Instance.FetchConfigsAsync(CCD_CONFIG_TYPE, new UserAttributes(), new AppAttributes());
 			if (rcCCD.HasKey(CCD_CONFIG_KEY))
 			{
 				var ccdConfigJson = rcCCD.GetJson(CCD_CONFIG_KEY);

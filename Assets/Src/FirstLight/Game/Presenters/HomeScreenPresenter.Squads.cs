@@ -27,12 +27,6 @@ namespace FirstLight.Game.Presenters
 			_partyButton = root.Q<LocalizedButton>("PartyButton").Required();
 			_partyButton.LevelLock2(this, root, Configs.UnlockSystem.Squads, OnPartyClicked);
 			UpdatePartyCode();
-			
-		}
-
-		private void UpdateSquadsButtonVisibility()
-		{
-			_partyButton.SetVisibility(FeatureFlags.DISPLAY_SQUADS_BUTTON);
 		}
 
 		private void SubscribeToSquadEvents()

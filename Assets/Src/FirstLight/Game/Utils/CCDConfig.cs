@@ -1,4 +1,4 @@
-using UnityEditor;
+using UnityEngine;
 using UnityEngine.Scripting;
 
 namespace FirstLight.Game.Utils
@@ -17,7 +17,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// The current badge for CCD, defaults to version.
 		/// </summary>
-		[Preserve] public static string CCDBadgeName = PlayerSettings.bundleVersion.Replace(".", "_");
+		[Preserve] public static string CCDBadgeName = Application.version.Replace(".", "_");
 
 		/// <summary>
 		/// The current environment for CCD.

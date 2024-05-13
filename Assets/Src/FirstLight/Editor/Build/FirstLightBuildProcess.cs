@@ -124,7 +124,7 @@ namespace FirstLight.Editor.Build
 
 		private static void PrepareFirebase(string environment)
 		{
-			var configDirectory = Path.Combine(Application.dataPath, "Configs");
+			var configDirectory = Path.Combine(Application.dataPath, "../", "Configs");
 
 			// Force dev for all environments except production (for now)
 			if (environment != BuildUtils.ENV_PROD) environment = BuildUtils.ENV_DEV;
@@ -150,6 +150,7 @@ namespace FirstLight.Editor.Build
 			);
 
 			File.WriteAllText(path, content);
+			// AssetDatabase.ImportAsset(path);
 		}
 
 		[Conditional("UNITY_IOS")]

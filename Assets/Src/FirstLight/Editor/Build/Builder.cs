@@ -116,16 +116,5 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.Android.keyaliasName = "blastroyale";
 			PlayerSettings.Android.keyaliasPass = "***REMOVED***";
 		}
-
-#if UNITY_CLOUD_BUILD
-    public static void PreExport(UnityEngine.CloudBuild.BuildManifestObject manifest)
-    {
-		// In UCS DevOps we add the ENV build number to the cloud build number
-        var buildNumber = manifest.GetValue<int>("buildNumber") + BuildUtils.GetBuildNumber();
-        Debug.Log("Setting build number to " + buildNumber);
-        PlayerSettings.Android.bundleVersionCode = buildNumber;
-        PlayerSettings.iOS.buildNumber = buildNumber.ToString();
-    }
-#endif
 	}
 }

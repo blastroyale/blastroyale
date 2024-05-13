@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 4b870db904abb498aa995ce6198c148e
+guid: 08771843ccd5648c7a04ec64b76f13de
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Char_Cupid
-    second: {fileID: 2100000, guid: 054be4024b9504871b1d40ed8cb60768, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -195,6 +195,17 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.asset-manager-for-unity": {
+      "version": "0.6.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.settings-manager": "1.0.2",
+        "com.unity.cloud.assets": "1.0.0",
+        "com.unity.cloud.identity": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.burst": {
       "version": "1.8.12",
       "depth": 1,
@@ -211,6 +222,36 @@
       "source": "registry",
       "dependencies": {
         "com.unity.test-framework": "1.1.31"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.cloud.assets": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.cloud.common": "1.0.0",
+        "com.unity.editorcoroutines": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.cloud.common": {
+      "version": "1.0.0",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.imgui": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.cloud.identity": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.cloud.common": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },

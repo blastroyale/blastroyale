@@ -10,10 +10,10 @@ namespace Quantum.Systems.Bots
 		internal void Update(Frame f, ref BotCharacterFilter filter)
 		{
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
-			var stats = f.Unsafe.GetPointer<Stats>(filter.Entity);
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(filter.Entity);
 			if (bb->GetBoolean(f, Constants.IsAimPressedKey))
 			{
+				var stats = f.Unsafe.GetPointer<Stats>(filter.Entity);
 				stats->SetCurrentAmmo(f, player, filter.Entity, FP._1);
 				return;
 			}

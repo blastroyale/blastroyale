@@ -115,11 +115,11 @@ namespace Quantum
 		public static void SetAttackTarget(this ref BotCharacter bot, in EntityRef botEntity, Frame f, in EntityRef target)
 		{
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botEntity);
-			var player = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
-			var weaponConfig = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
 			bb->Set(f, Constants.IsAimPressedKey, true);
 			if (bot.Target != target)
 			{
+				var player = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
+				var weaponConfig = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
 				PlayerCharacterSystem.OnStartAiming(f, bb, weaponConfig);
 			}
 

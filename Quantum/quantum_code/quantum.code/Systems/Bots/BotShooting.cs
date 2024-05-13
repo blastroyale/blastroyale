@@ -36,7 +36,6 @@ namespace Quantum.Systems.Bots
 			if (filter.BotCharacter->BehaviourType == BotBehaviourType.StaticShooting) return EntityRef.None;
 
 			var target = filter.BotCharacter->Target;
-			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
 
 			if (target != EntityRef.None)
 			{
@@ -49,6 +48,7 @@ namespace Quantum.Systems.Bots
 				// Aim at target
 				else
 				{
+					var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
 					var maxRange = filter.BotCharacter->GetMaxWeaponRange(filter.Entity, filter.PlayerCharacter, f);
 					var team = f.Unsafe.GetPointer<Targetable>(filter.Entity)->Team;
 					if (filter.TryToAimAtEnemy(f, team, maxRange, target, out var targetHit))

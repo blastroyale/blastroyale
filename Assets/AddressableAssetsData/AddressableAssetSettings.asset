@@ -32,7 +32,7 @@ MonoBehaviour:
   m_ShaderBundleNaming: 0
   m_ShaderBundleCustomNaming: 
   m_MonoScriptBundleNaming: 0
-  m_CheckForContentUpdateRestrictionsOption: 2
+  m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
     m_Id: 98403f15505af4449befcb5aa59b4183
@@ -118,9 +118,9 @@ MonoBehaviour:
       - m_Id: c0b8c4f3712014b66b946895576ed012
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 98403f15505af4449befcb5aa59b4183
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+        m_Value: ServerData/[BuildTarget]
       - m_Id: e9a3f4a7c6a06480fba582756b1a3f2e
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+        m_Value: https://***REMOVED***.client-api.unity3dusercontent.com/client_api/v1/environments/[Environment]/buckets/[Bucket]/release_by_badge/[Badge]/entry_by_path/content/?path=/ServerData/[BuildTarget]
       - m_Id: b2d80958694564964b68b1dc52b8801b
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
       - m_Id: ba9f3ed42903c42f0b5e8daacc084067

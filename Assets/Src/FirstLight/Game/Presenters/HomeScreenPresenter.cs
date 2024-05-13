@@ -21,6 +21,7 @@ using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
+using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
@@ -287,7 +288,7 @@ namespace FirstLight.Game.Presenters
 #else
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
-			_betaLabel.SetDisplay(FeatureFlags.BETA_VERSION);
+			_betaLabel.SetDisplay(RemoteConfigs.Instance.BetaVersion);
 
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);

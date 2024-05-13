@@ -107,17 +107,6 @@ namespace FirstLight.Game.Utils
 		private static LocalFeatureFlagConfig _localConfig = null;
 
 		/// <summary>
-		/// If true, rooms created/joined will be locked by commit
-		/// If false, player can create/join rooms not locked by commit
-		/// </summary>
-		public static bool COMMIT_VERSION_LOCK = true;
-
-		/// <summary>
-		/// When true will display "BETA" in loading screen
-		/// </summary>
-		public static bool BETA_VERSION = false;
-
-		/// <summary>
 		/// When true, will send end of match commands using quantum server consensus algorithm.
 		/// When false commands will go directly to our backend. 
 		/// To use this in our backend the backend needs to be compiled with this flag being False.
@@ -235,11 +224,6 @@ namespace FirstLight.Game.Utils
 				QUANTUM_CUSTOM_SERVER = customServer;
 			}
 
-			if (TrySetFlag("COMMIT_VERSION_LOCK", overrideData, out var commitVersionLock))
-			{
-				COMMIT_VERSION_LOCK = commitVersionLock;
-			}
-
 			if (TrySetFlag("ITEM_DURABILITY_NON_NFTS", overrideData, out var itemDurabilityNonNFTs))
 			{
 				ITEM_DURABILITY_NON_NFTS = itemDurabilityNonNFTs;
@@ -288,11 +272,6 @@ namespace FirstLight.Game.Utils
 			if (TrySetStringFlag("IMX_ID", overrideData, out var imxId))
 			{
 				IMX_ID = imxId;
-			}
-
-			if (TrySetFlag("BETA_VERSION", overrideData, out var beta))
-			{
-				BETA_VERSION = beta;
 			}
 
 			if (TrySetFlag("ENABLE_NOOB", overrideData, out var enableNoob))

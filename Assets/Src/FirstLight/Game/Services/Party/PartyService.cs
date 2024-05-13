@@ -399,7 +399,7 @@ namespace FirstLight.Game.Services.Party
 					}
 				}
 
-				if (FeatureFlags.COMMIT_VERSION_LOCK && lobby.SearchData.TryGetValue(LobbyCommitProperty, out var lobbyCommit))
+				if (RemoteConfigs.Instance.CommitVersionLock && lobby.SearchData.TryGetValue(LobbyCommitProperty, out var lobbyCommit))
 				{
 					if (lobbyCommit != VersionUtils.Commit)
 					{

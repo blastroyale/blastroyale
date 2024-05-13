@@ -1,6 +1,8 @@
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using Newtonsoft.Json;
 using Unity.Services.RemoteConfig;
+using UnityEngine;
 
 // ReSharper disable ConvertToConstant.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Global
@@ -10,7 +12,18 @@ namespace FirstLight.Game.Utils
 {
 	public class RemoteConfigs
 	{
+		private const string CCD_CONFIG_KEY = "CCD_CONFIG_KEY";
+
+		/// <summary>
+		/// Shows or hides the BETA tag on home screen.
+		/// </summary>
 		public bool BetaVersion = false;
+
+		/// <summary>
+		/// If rooms should be created with a commit lock (only clients on the same commit
+		/// can play together).
+		/// </summary>
+		public bool CommitVersionLock = true;
 
 		public static RemoteConfigs Instance { get; private set; }
 
@@ -18,14 +31,44 @@ namespace FirstLight.Game.Utils
 		{
 			var rc = await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
 			Instance = JsonConvert.DeserializeObject<RemoteConfigs>(rc.config.ToString());
+
+
+			var rcCCD = await RemoteConfigService.Instance.FetchConfigsAsync("ccd", new UserAttributes(), new AppAttributes());
+
+			if (rcCCD.HasKey(CCD_CONFIG_KEY))
+			{
+				var ccdConfigJson = rcCCD.GetJson(CCD_CONFIG_KEY);
+				var ccdConfig = JsonConvert.DeserializeObject<CCDConfig>(ccdConfigJson);
+
+				Utils.CCDConfig.CCDBadgeName = ccdConfig.badgeName;
+				Utils.CCDConfig.CCDBucketID = ccdConfig.bucketId;
+
+				FLog.Info("CCD", $"Using CCD override - Badge: {ccdConfig.badgeName}, Bucket: {ccdConfig.bucketId}");
+			}
 		}
 
+		/// <summary>
+		/// Additional user attributes for JEXL expressions.
+		/// </summary>
 		private struct UserAttributes
 		{
 		}
 
+		/// <summary>
+		/// Additional user attributes for JEXL expressions.
+		/// </summary>
 		private struct AppAttributes
 		{
+		}
+
+		/// <summary>
+		/// CCD override config.
+		/// </summary>
+		private struct CCDConfig
+		{
+			public string bucketId;
+			public string bucketName;
+			public string badgeName;
 		}
 	}
 }

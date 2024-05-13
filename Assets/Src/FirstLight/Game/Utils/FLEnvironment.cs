@@ -12,6 +12,7 @@ namespace FirstLight.Game.Utils
 			"***REMOVED***",
 			"development",
 			"***REMOVED***",
+			"***REMOVED***",
 			"blast-royale-dev",
 			"***REMOVED***",
 			"***REMOVED***4"
@@ -24,6 +25,7 @@ namespace FirstLight.Game.Utils
 			"***REMOVED***",
 			"***REMOVED***",
 			"staging",
+			"***REMOVED***",
 			DEVELOPMENT.FirebaseAppID,
 			DEVELOPMENT.FirebaseProjectID,
 			DEVELOPMENT.FirebaseProjectNumber,
@@ -37,6 +39,7 @@ namespace FirstLight.Game.Utils
 			"***REMOVED***",
 			"***REMOVED***",
 			"community",
+			"***REMOVED***",
 			DEVELOPMENT.FirebaseAppID, // TODO: We need a new environment / firebase app for community
 			DEVELOPMENT.FirebaseProjectID,
 			DEVELOPMENT.FirebaseProjectNumber,
@@ -50,6 +53,7 @@ namespace FirstLight.Game.Utils
 			"***REMOVED***",
 			"***REMOVED***",
 			"production",
+			"***REMOVED***",
 			"***REMOVED***",
 			"blast-royale",
 			"***REMOVED***",
@@ -99,6 +103,11 @@ namespace FirstLight.Game.Utils
 			/// The name of the Unity Cloud Services environment.
 			/// </summary>
 			public readonly string UCSEnvironmentName;
+			
+			/// <summary>
+			/// The ID of the CCD bucket for this environment.
+			/// </summary>
+			public readonly string UCSBucketID;
 
 			/// <summary>
 			/// The Firebase app ID.
@@ -121,7 +130,7 @@ namespace FirstLight.Game.Utils
 			public readonly string FirebaseWebApiKey;
 
 			public Definition(string playFabTitleID, string playFabRecoveryEmailTemplateID, string web3Id, string photonAppIDRealtime,
-							  string ucsEnvironmentID, string ucsEnvironmentName, string firebaseAppID, string firebaseProjectID,
+							  string ucsEnvironmentID, string ucsEnvironmentName, string ucsBucketID, string firebaseAppID, string firebaseProjectID,
 							  string firebaseProjectNumber, string firebaseWebApiKey)
 			{
 				PlayFabTitleID = playFabTitleID;
@@ -130,6 +139,7 @@ namespace FirstLight.Game.Utils
 				PhotonAppIDRealtime = photonAppIDRealtime;
 				UCSEnvironmentID = ucsEnvironmentID;
 				UCSEnvironmentName = ucsEnvironmentName;
+				UCSBucketID = ucsBucketID;
 				FirebaseAppID = firebaseAppID;
 				FirebaseProjectID = firebaseProjectID;
 				FirebaseProjectNumber = firebaseProjectNumber;

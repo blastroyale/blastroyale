@@ -109,17 +109,18 @@ namespace FirstLight.Editor.Build
 
 		private static void ConfigureQuantum()
 		{
-#if !DEVELOPMENT_BUILD
-			var guids = AssetDatabase.FindAssets($"t:{nameof(DeterministicSessionConfigAsset)}");
-			var path = AssetDatabase.GUIDToAssetPath(guids[0]);
-			var deterministicConfig = AssetDatabase.LoadAssetAtPath<DeterministicSessionConfigAsset>(path);
+			if (!EditorUserBuildSettings.development)
+			{
+				var guids = AssetDatabase.FindAssets($"t:{nameof(DeterministicSessionConfigAsset)}");
+				var path = AssetDatabase.GUIDToAssetPath(guids[0]);
+				var deterministicConfig = AssetDatabase.LoadAssetAtPath<DeterministicSessionConfigAsset>(path);
 
-			deterministicConfig.Config.ChecksumInterval = 0;
-			deterministicConfig.Config.ChecksumCrossPlatformDeterminism = false;
+				deterministicConfig.Config.ChecksumInterval = 0;
+				deterministicConfig.Config.ChecksumCrossPlatformDeterminism = false;
 
-			EditorUtility.SetDirty(deterministicConfig);
-			AssetDatabase.SaveAssets();
-#endif
+				EditorUtility.SetDirty(deterministicConfig);
+				AssetDatabase.SaveAssets();
+			}
 		}
 
 		private static void PrepareFirebase(string environment)
@@ -185,9 +186,10 @@ namespace FirstLight.Editor.Build
 
 		private static void SetupSRDebugger()
 		{
-#if !DEVELOPMENT_BUILD
-			SRDebugEditor.SetEnabled(false);
-#endif
+			if (!EditorUserBuildSettings.development)
+			{
+				SRDebugEditor.SetEnabled(false);
+			}
 		}
 	}
 }

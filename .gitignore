@@ -138,6 +138,8 @@ com.Tivadar.Best.HTTP.xml
 com.Tivadar.Best.TLSSecurity.xml
 com.Tivadar.Best.SignalR.xml
 com.Tivadar.Best.WebSockets.xml
+Assets/StreamingAssets/google-services.plist
+Assets/StreamingAssets/google-services.plist.meta
 
 # DLLs
 # Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll

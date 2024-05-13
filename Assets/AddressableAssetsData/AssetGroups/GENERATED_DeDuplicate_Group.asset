@@ -62,11 +62,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 88d90665ab6e6bf40bae08f53208bdb9
-    m_Address: Assets/Art/SpriteAtlas/AdventureHud.spriteatlas
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f72f4e9f33524419caa8e91fdea624a5
     m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/SmearHighlighted.png
     m_ReadOnly: 0
@@ -1669,11 +1664,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 05da328e932a243eca6e44e2a1c91e40
     m_Address: Assets/Art/UI/Sprites/Equipment Card/card-category-amulet.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e1cb0e7d59bde4759ae05103ce26c50d
-    m_Address: Assets/Art/UI/Sprites/Equipment Card Atlas LowRes.spriteatlas
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

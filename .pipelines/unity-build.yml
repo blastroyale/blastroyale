@@ -90,6 +90,15 @@ steps:
       echo $lower
       echo "##vso[task.setvariable variable=platformLower;]$lower"
     displayName: 'Set Variables'
+
+  - script: |
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+
+      if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+        export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+        export PATH=`gem environment gemdir`/bin:$PATH
+      fi
+    displayName: 'Setup Homebrew Environment'
   
   # Send building status
   - template: tasks/update-slack-message.yml@templates
@@ -156,12 +165,6 @@ steps:
   # The security thing is because apple is apple and we need to unlock (or something) the login keychain
   - script: |
       cd app
-      eval "$(/opt/homebrew/bin/brew shellenv)"
-
-      if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
-        export PATH=/opt/homebrew/opt/ruby/bin:$PATH
-        export PATH=`gem environment gemdir`/bin:$PATH
-      fi
       security set-key-partition-list -S apple: -s -k EgfTpS6F login.keychain
       fastlane gym --output_directory "$(System.DefaultWorkingDirectory)" --export_method development
     condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))

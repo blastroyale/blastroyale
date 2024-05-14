@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>../../../Assets/Libs/Photon/Quantum/Assemblies</OutputPath>
+    <OutputPath>../../BlastRoyale/Assets/Libs/Photon/Quantum/Assemblies</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -30,7 +30,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>../../../Assets/Libs/Photon/Quantum/Assemblies</OutputPath>
+    <OutputPath>../../BlastRoyale/Assets/Libs/Photon/Quantum/Assemblies</OutputPath>
     <DefineConstants>
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -56,25 +56,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\CodeGen.cs" />
-    <Compile Include="CommandSetup.cs" />
-    <Compile Include="Core\Core.cs" />
-    <Compile Include="Frame.User.cs" />
-    <Compile Include="FrameContext.User.cs" />
-    <Compile Include="RuntimeConfig.User.cs" />
-    <Compile Include="RuntimePlayer.User.cs" />
-    <Compile Include="SimulationConfig.User.cs" />
-    <Compile Include="SystemSetup.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="quantum.code\Core\CodeGen.cs" />
+    <Compile Include="quantum.code\CommandSetup.cs" />
+    <Compile Include="quantum.code\Core\Core.cs" />
+    <Compile Include="quantum.code\Frame.User.cs" />
+    <Compile Include="quantum.code\FrameContext.User.cs" />
+    <Compile Include="quantum.code\RuntimeConfig.User.cs" />
+    <Compile Include="quantum.code\RuntimePlayer.User.cs" />
+    <Compile Include="quantum.code\SimulationConfig.User.cs" />
+    <Compile Include="quantum.code\SystemSetup.cs" />
+    <Compile Include="quantum.code\Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="db.json" />
+    <EmbeddedResource Include="quantum.code\db.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)\quantum.code.dll" "$(ProjectDir)../../../Assets/Libs"</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)\quantum.code.dll" "$(ProjectDir)../../../BlastRoyale/Assets/Libs"</PostBuildEvent>
     <PreBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen\quantum.codegen.host.exe" "$(ProjectPath)"</PreBuildEvent>
-    <PostBuildEvent Condition="'$(OS)' != 'Windows_NT'">mono "$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)\quantum.code.dll" "$(ProjectDir)../../../Assets/Libs"</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' != 'Windows_NT'">mono "$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)\quantum.code.dll" "$(ProjectDir)../../../BlastRoyale/Assets/Libs"</PostBuildEvent>
     <PreBuildEvent Condition="'$(OS)' != 'Windows_NT'">mono "$(ProjectDir)..\..\tools\codegen\quantum.codegen.host.exe" "$(ProjectPath)"</PreBuildEvent>
   </PropertyGroup>
 </Project>

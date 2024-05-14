@@ -43,6 +43,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 			{
 				return;
 			}
+			
 			UpdateIndicator(callback.Game.Frames.Predicted.Time.AsFloat);
 		}
 

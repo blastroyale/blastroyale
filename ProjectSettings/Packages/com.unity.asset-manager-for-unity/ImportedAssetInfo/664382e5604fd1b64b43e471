@@ -1,0 +1,51 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "2b872e51a059b4599ac2803dfede4b40",
+            "OriginalPath": "Weapon_Pistol.fbx"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": ".fbx",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"ids\":{\"organizationId\":\"5772581095989\",\"projectId\":\"***REMOVED***\",\"assetId\":\"664382e5604fd1b64b43e471\",\"assetVersion\":\"fc276398-92a5-481b-ba4e-9353b7c686df\"},\"data\":{\"assetId\":\"664382e5604fd1b64b43e471\",\"assetVersion\":\"fc276398-92a5-481b-ba4e-9353b7c686df\",\"status\":\"Draft\",\"isFrozen\":false,\"created\":\"2024-05-14T15:27:33.37Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-05-14T15:28:46.051Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_isoFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9hYTAxYzc1MS00ODQ4LTQ4MzctYWJmZi0wNDA0Mjg0ZmNlNDAvZDVlZmQwZGY5YmNlY2RhMWE0OWM3YWM0ZjVmMGIxZjkvcHJldmlld19pc29Gcm9udExlZnRUb3AucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-14T15:36:41Z&ske=2024-05-17T15:36:41Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-17T15:36:41Z&sr=b&sp=r&sig=kC4Pu2s20eRoEO7qxH%2F%2FBRhJG80eg%2BL8%2B6kX5n6IuRg%3D\",\"files\":[{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-14T15:27:35.219Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-14T15:28:46.051Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/0f469bb6-3625-4aa9-9b09-7a0ab056f3cd/c1f3ebd4d91169ffb7e020ab07262b2c/Weapon_Pistol.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-14T15:52:08Z&ske=2024-05-14T16:02:08Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-14T16:02:08Z&sr=b&sp=r&sig=tCE2IqDPToe1QGjCPTPOMJPTOLn3js8zQmEpqoXQ9mQ%3D\",\"filePath\":\"Weapon_Pistol.fbx\",\"fileSize\":55152,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-14T15:28:39.731Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-14T15:28:39.968Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/aa01c751-4848-4837-abff-0404284fce40/cbc1a024bff43dfcba6c3eddce327c2a/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-14T15:52:08Z&ske=2024-05-14T16:02:08Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-14T16:02:08Z&sr=b&sp=r&sig=Roo2jxACmYnE3kQ7xVD9sngeiLuHkUb1m92gJixCHSY%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":70175,\"userChecksum\":\"913b9e745ea716ef8c7a83a1cd00c920\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-14T15:28:39.738Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-14T15:28:40.219Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/aa01c751-4848-4837-abff-0404284fce40/d5efd0df9bcecda1a49c7ac4f5f0b1f9/preview_isoFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-14T15:52:08Z&ske=2024-05-14T16:02:08Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-14T16:02:08Z&sr=b&sp=r&sig=Q7mifRct5uw8EcNL7Z06QKiF2N5Biz%2FfmiCm%2BHT1CRw%3D\",\"filePath\":\"preview_isoFrontLeftTop.png\",\"fileSize\":131270,\"userChecksum\":\"82f70803f8f4dab7b0626826d9aaf81b\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-14T15:28:39.745Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-14T15:28:40.485Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/aa01c751-4848-4837-abff-0404284fce40/f4a0cff15796c23dac1eae3246700b63/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-14T15:52:08Z&ske=2024-05-14T16:02:08Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-14T16:02:08Z&sr=b&sp=r&sig=HWOzLW%2BHY5iECchUGqLAbcQ%2FfoA9giLuwIXESOCGdPQ%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":139757,\"userChecksum\":\"d038173b3400ead6646a5fac0d336af1\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-14T15:28:39.753Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-14T15:28:40.734Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/aa01c751-4848-4837-abff-0404284fce40/c14ec427d1b55274ada0f459d8505da5/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-14T15:52:08Z&ske=2024-05-14T16:02:08Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-14T16:02:08Z&sr=b&sp=r&sig=WI8UYCFoSL%2B0Gi1JS%2Fr%2B22KGXUf9LN3dDE3fp%2FTawt8%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":79196,\"userChecksum\":\"e51b9e7ac8eb59c3fda9b6e35ff168be\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-14T15:28:42.16Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-14T15:28:42.442Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/9f453071-48d7-489c-a39c-ae881e013910/49f9d8eead9b6f8348c92400650833b8/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-14T15:52:08Z&ske=2024-05-14T16:02:08Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-14T16:02:08Z&sr=b&sp=r&sig=atVIt3Axzk62oYGNp%2BLPAAQVlj2EdVjNLIVdnDjSzQs%3D\",\"filePath\":\"preview.glb\",\"fileSize\":58196,\"userChecksum\":\"ad16e27c00b1b83d434b818dad84344f\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-05-14T15:28:45.648Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-14T15:28:45.648Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/6a84108f-89e2-4f12-968e-bb971741e9fd/300e44b78f8abc67fcc65667756d7aa4/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-05-14T15:52:08Z&ske=2024-05-14T16:02:08Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-05-14T16:02:08Z&sr=b&sp=r&sig=jOSgyHX4garvcrMpuSxZAgvGHha2aEUyymMrmTguyew%3D\",\"filePath\":\"metadata.json\",\"fileSize\":265,\"userChecksum\":\"5c2bfead46407d2e1d86fa5a55e55021\",\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"0f469bb6-3625-4aa9-9b09-7a0ab056f3cd\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-14T15:27:33.374Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-14T15:27:37.614Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"c7ed59d8-9917-4231-90db-172271e06010\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-14T15:27:33.382Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-14T15:28:42.446Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"aa01c751-4848-4837-abff-0404284fce40\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-14T15:27:37.819Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-14T15:28:39.761Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"9f453071-48d7-489c-a39c-ae881e013910\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-14T15:27:38.43Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-14T15:28:42.166Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"6a84108f-89e2-4f12-968e-bb971741e9fd\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-05-14T15:27:38.922Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-05-14T15:28:45.656Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Weapon_Pistol\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\",\"metadata\":{}}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [
+                        {
+                            "rid": 1001
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Weapon_Pistol.fbx",
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 55152,
+                    "m_Guid": ""
+                }
+            }
+        ]
+    }
+}

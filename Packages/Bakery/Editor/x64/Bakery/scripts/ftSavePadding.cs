@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 public class ftSavePaddingMenu
 {
-    [MenuItem("Bakery/Utilities/Save UV padding to asset", false, 60)]
+    [MenuItem("Tools/Bakery/Utilities/Save UV padding to asset", false, 60)]
     private static void RestorePadding()
     {
         var bakeryRuntimePath = ftLightmaps.GetRuntimePath();

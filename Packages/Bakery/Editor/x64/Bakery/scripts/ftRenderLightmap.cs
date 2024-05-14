@@ -11045,7 +11045,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         LoadRenderSettings();
     }
 
-	[MenuItem ("Bakery/Render lightmap...", false, 0)]
+	[MenuItem("Tools/Bakery/Render lightmap...", false, 0)]
 	public static void RenderLightmap ()
     {
         instance = (ftRenderLightmap)GetWindow(typeof(ftRenderLightmap));

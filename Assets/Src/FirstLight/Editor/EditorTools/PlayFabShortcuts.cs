@@ -120,7 +120,7 @@ namespace FirstLight.Editor.EditorTools
 			}
 		}
 		
-		[MenuItem("PlayFab/Open Current Account")]
+		[MenuItem("Tools/PlayFab/Open Current Account")]
 		private static void OpenCurrentAccount()
 		{
 			var data = new DataService();

@@ -6,7 +6,6 @@ using FirstLight.Editor.Artifacts;
 using FirstLight.Editor.Build.Utils;
 using FirstLight.Game.Utils;
 using I2.Loc;
-using SRDebugger.Editor;
 using Unity.Services.PushNotifications;
 using UnityEditor;
 using UnityEditor.Build;
@@ -128,7 +127,7 @@ namespace FirstLight.Editor.Build
 			var configDirectory = Path.Combine(Application.dataPath, "../", "Configs");
 
 			// Force dev for all environments except production (for now)
-			if (environment != BuildUtils.ENV_PROD) environment = BuildUtils.ENV_DEV;
+			if (environment != FLEnvironment.PRODUCTION.Name) environment = FLEnvironment.DEVELOPMENT.Name;
 
 			// iOS
 			File.Copy(Path.Combine(configDirectory, $"GoogleService-Info-{environment}.plist"),

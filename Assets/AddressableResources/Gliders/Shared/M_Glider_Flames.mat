@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_JetFlame_Hot
+  m_Name: M_Glider_Flames
   m_Shader: {fileID: -6465566751694194690, guid: 86ed5edd807264a45b4d9c62e47f486d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0

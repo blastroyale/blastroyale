@@ -7,12 +7,12 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Mat_Falcon_Glider
+      name: M_Glider_Falcon
     second: {fileID: 2100000, guid: 0f0026af46ee67e4fb3502815b0e23e3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Thrusters
+      name: M_Glider_Flames
     second: {fileID: 2100000, guid: 6ee8ac752d4bd4d98b838492c8d16e57, type: 2}
   materials:
     materialImportMode: 2

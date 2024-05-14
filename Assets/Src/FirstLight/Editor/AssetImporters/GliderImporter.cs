@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEditor;
+using UnityEditor.Presets;
 using UnityEngine;
 
 namespace FirstLight.Editor.AssetImporters
@@ -12,21 +13,20 @@ namespace FirstLight.Editor.AssetImporters
 
 		public override int GetPostprocessOrder() => 100;
 
-		// private void OnPreprocessModel()
-		// {
-		// if (!Path.GetFileName(assetPath).StartsWith(GLIDER_PREFIX)) return;
-		//
-		// var importer = (ModelImporter) assetImporter;
+		private void OnPreprocessModel()
+		{
+			if (!Path.GetFileName(assetPath).StartsWith(GLIDER_PREFIX)) return;
 
-		// TODO: Add this when we have new gliders
-		// Extract textures
-		// var folder = assetPath.Remove(assetPath.LastIndexOf('/'));
-		// importer.ExtractTextures(folder);
+			var importer = (ModelImporter) assetImporter;
 
-		// Apply preset
-		// var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/GliderFBX.preset");
-		// preset.ApplyTo(importer);
-		// }
+			// Extract textures
+			var folder = assetPath.Remove(assetPath.LastIndexOf('/'));
+			importer.ExtractTextures(folder);
+
+			// Apply preset
+			// var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/GliderFBX.preset");
+			// preset.ApplyTo(importer);
+		}
 
 		private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
 												   string[] movedFromAssetPaths)

@@ -12,8 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: '[]'
-  _rsLastCachedKeyList: '[]'
+  _rsKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"228c14d2-e414-4093-af9b-f121cd77c243\"\n   
+    },\n    \"rs\": {\n      \"key\": \"ShowBetaLabel\",\n      \"type\": \"bool\",\n     
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"e4f760c7-cc73-4266-a796-96c1487c260a\"\n   
+    },\n    \"rs\": {\n      \"key\": \"EnableCommitVersionLock\",\n      \"type\":
+    \"bool\",\n      \"value\": true\n    }\n  }\n]"
+  _rsLastCachedKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"228c14d2-e414-4093-af9b-f121cd77c243\"\n   
+    },\n    \"rs\": {\n      \"key\": \"ShowBetaLabel\",\n      \"type\": \"bool\",\n     
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"e4f760c7-cc73-4266-a796-96c1487c260a\"\n   
+    },\n    \"rs\": {\n      \"key\": \"EnableCommitVersionLock\",\n      \"type\":
+    \"bool\",\n      \"value\": true\n    }\n  }\n]"
   _environments: "[\n  {\n    \"projectId\": \"***REMOVED***\",\n   
     \"name\": \"community\",\n    \"id\": \"***REMOVED***\",\n   
     \"isDefault\": false,\n    \"createdAt\": \"2024-04-18T16:33:45Z\",\n    \"updatedAt\":

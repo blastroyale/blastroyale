@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Mat_Rocket_Glider
-    second: {fileID: 2100000, guid: 12f278efa5231934da04b57b78111e58, type: 2}
+      name: M_Glider_Flames
+    second: {fileID: 2100000, guid: 6ee8ac752d4bd4d98b838492c8d16e57, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Thrusters
-    second: {fileID: 2100000, guid: 6ee8ac752d4bd4d98b838492c8d16e57, type: 2}
+      name: M_Glider_Rocket
+    second: {fileID: 2100000, guid: 12f278efa5231934da04b57b78111e58, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

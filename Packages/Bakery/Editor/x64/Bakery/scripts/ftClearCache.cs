@@ -12,7 +12,7 @@ public class ftClearCache
         for(int i=0; i<files.Length; i++) File.Delete(files[i]);
     }
 
-    [MenuItem("Bakery/Utilities/Clear cache", false, 51)]
+    [MenuItem("Tools/Bakery/Utilities/Clear cache", false, 51)]
     private static void ClearCache()
     {
         var list = new HashSet<string>();

@@ -110,7 +110,7 @@ public class ftSceneView
         LightmapSettings.lightmaps = existingLmaps.ToArray();
     }
 
-    //[MenuItem("Bakery/Checker/Toggle")]
+    //[MenuItem("Tools/Bakery/Checker/Toggle")]
     public static void ToggleChecker()
     {
         var sceneView = SceneView.lastActiveSceneView;
@@ -158,7 +158,7 @@ public class ftSceneView
         sceneView.Repaint();
     }
 
-    //[MenuItem("Bakery/Checker/Refresh")]
+    //[MenuItem("Tools/Bakery/Checker/Refresh")]
     public static void RefreshChecker()
     {
         if (!enabled) return;

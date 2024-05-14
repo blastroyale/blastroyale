@@ -52,6 +52,8 @@ namespace Src.FirstLight.Server
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.XP_EARNED, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.BPP_EARNED, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.BP_LEVEL, false);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DAMAGE_DONE, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DAMAGE_DONE_EVER, true);
 
 			var evManager = _ctx.PluginEventManager!;
 			evManager.RegisterEventListener<GameLogicMessageEvent<ClaimedRewardsMessage>>(OnClaimRewards);
@@ -175,8 +177,12 @@ namespace Src.FirstLight.Server
 				toSend.Add((GameConstants.Stats.RANKED_DEATHS_EVER, (int) thisPlayerData.Data.DeathCount));
 				toSend.Add((GameConstants.Stats.RANKED_GAMES_PLAYED, 1));
 				toSend.Add((GameConstants.Stats.RANKED_KILLS, (int) thisPlayerData.Data.PlayersKilledCount));
+				toSend.Add((GameConstants.Stats.RANKED_DAMAGE_DONE_EVER, (int)thisPlayerData.Data.DamageDone));
+				toSend.Add((GameConstants.Stats.RANKED_DAMAGE_DONE, (int)thisPlayerData.Data.DamageDone));
 			}
 
+			toSend.Add((GameConstants.Stats.DAMAGE_DONE_EVER, (int)thisPlayerData.Data.DamageDone));
+			toSend.Add((GameConstants.Stats.DAMAGE_DONE, (int)thisPlayerData.Data.DamageDone));
 			toSend.Add((GameConstants.Stats.GAMES_PLAYED_EVER, 1));
 			toSend.Add((GameConstants.Stats.KILLS_EVER, (int) thisPlayerData.Data.PlayersKilledCount));
 			toSend.Add((GameConstants.Stats.GAMES_PLAYED, 1));

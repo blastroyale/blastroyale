@@ -43,6 +43,7 @@ namespace Quantum
 			Player = setup.playerRef;
 			TeamId = setup.teamId;
 			CurrentWeaponSlot = 0;
+			LastNoInputTimeSnapshot = FP._0;
 			transform->Position = setup.spawnPosition.Position;
 			transform->Rotation = setup.spawnPosition.Rotation;
 
@@ -198,7 +199,7 @@ namespace Quantum
 		/// <summary>
 		/// Adds a <paramref name="weapon"/> to the player's weapon slots
 		/// </summary>
-		internal void AddWeapon(Frame f, EntityRef e, ref Equipment weapon, bool primary)
+		internal void AddWeapon(Frame f, EntityRef e, in Equipment weapon, bool primary)
 		{
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			var slot = GetWeaponEquipSlot(f, weapon, primary);
@@ -217,7 +218,7 @@ namespace Quantum
 				WeaponSlots[slot].Weapon.IsValid() &&
 				WeaponSlots[slot].Weapon.GameId != weapon.GameId)
 			{
-				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
+				var dropPosition = f.Unsafe.GetPointer<Transform3D>(e)->Position + FPVector3.Forward;
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0, true, 1);
 			}
 
@@ -302,7 +303,7 @@ namespace Quantum
 		/// </summary>
 		public bool HasMeleeWeapon(Frame f, EntityRef e)
 		{
-			return f.Get<AIBlackboardComponent>(e).GetBoolean(f, Constants.HasMeleeWeaponKey);
+			return f.Unsafe.GetPointer<AIBlackboardComponent>(e)->GetBoolean(f, Constants.HasMeleeWeaponKey);
 		}
 
 		/// <summary>
@@ -337,7 +338,7 @@ namespace Quantum
 			};
 		}
 
-		private int GetWeaponEquipSlot(Frame f, Equipment weapon, bool primary)
+		private int GetWeaponEquipSlot(Frame f, in Equipment weapon, bool primary)
 		{
 			if (f.Context.GameModeConfig.SingleSlotMode)
 			{
@@ -395,7 +396,8 @@ namespace Quantum
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Array.Empty<Equipment>());
+			var gear = Array.Empty<Equipment>();
+			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, gear);
 
 			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 			f.Events.OnPlayerAmmoChanged(Player, e, stats->GetCurrentAmmo(),

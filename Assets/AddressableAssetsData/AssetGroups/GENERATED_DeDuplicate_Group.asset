@@ -62,11 +62,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 88d90665ab6e6bf40bae08f53208bdb9
-    m_Address: Assets/Art/SpriteAtlas/AdventureHud.spriteatlas
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f72f4e9f33524419caa8e91fdea624a5
     m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/SmearHighlighted.png
     m_ReadOnly: 0
@@ -632,11 +627,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ba2966107d34c6e4f8cb75f0aa350aee
-    m_Address: Assets/Art/Shaders/Legacy/SG_Lightning.shadergraph
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d920b2b7b66a0bb4c8fd1d1954ec2aab
     m_Address: Assets/Art/Textures/Particles/T_Circle01.png
     m_ReadOnly: 0
@@ -649,11 +639,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 76d8254ddca2780438f55ab908910af5
     m_Address: Assets/Art/Textures/Shared/T_ColorAtlas_E.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 183ee337cc83db746a2aebb477df911a
-    m_Address: Assets/Art/Shaders/Legacy/SG_FresnelGlow.shadergraph
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1682,11 +1667,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e1cb0e7d59bde4759ae05103ce26c50d
-    m_Address: Assets/Art/UI/Sprites/Equipment Card Atlas LowRes.spriteatlas
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 67238e7d3e45d4b4880d1104b691d32f
     m_Address: Assets/Art/UI/Sprites/Equipment Card/card-faction-dark.png
     m_ReadOnly: 0
@@ -2272,11 +2252,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 36e49cd75c11647259f49fcd8852500a
-    m_Address: Assets/Art/UI/Sprites/Home/background-tooltip-bottomright.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3e5652b7ecea04363b108b5a07a418e9
     m_Address: Assets/Art/UI/Sprites/Home/icon-arrow-settingstab.png
     m_ReadOnly: 0
@@ -2304,11 +2279,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 69d1c717616e62905a4e7d2ea243fc93
     m_Address: Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale-shadow.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c5fdc517c1bd0428e8e0078e971803e4
-    m_Address: Assets/Art/UI/Sprites/Home/background-tooltip-topright.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2362,11 +2332,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e2b9de165d9124934a6ea3fb095badcf
-    m_Address: Assets/Art/UI/Sprites/Home/background-tooltip-topleft.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 72419216a9ea9408490671f87a6ed198
     m_Address: Assets/Art/UI/Sprites/Home/vfx-glitch-triangle1.png
     m_ReadOnly: 0
@@ -2399,11 +2364,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 924e9a658b38a417982f18d0ba0dc4e4
     m_Address: Assets/Art/UI/Sprites/Home/background-settingstab.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 71f6a045524114e68a5e7294e0b95a6c
-    m_Address: Assets/Art/UI/Sprites/Home/background-tooltip-bottomleft.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2990,11 +2950,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b1c232149a34aa44a81c5ee554981050
     m_Address: Assets/Art/Textures/Environment/Voronoi2.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fd184367f15ab6e479ffcda85ef452ba
-    m_Address: Assets/Art/Shaders/Legacy/SG_WaterToon.shadergraph
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

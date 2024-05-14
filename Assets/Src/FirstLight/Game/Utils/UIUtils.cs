@@ -244,7 +244,7 @@ namespace FirstLight.Game.Utils
 			//element.AttachView(presenter, out FameLockedView storeLockedView);
 			//storeLockedView.Init(unlockSystem, root, unlockedCallback);
 		}
-		
+
 		/// <summary>
 		/// Locks an element behind a level. unlockedCallback is triggered when this element isn't locked and is pressed.
 		/// </summary>
@@ -271,17 +271,27 @@ namespace FirstLight.Game.Utils
 			element.LoadFromTask(spriteTask).Forget();
 		}
 
+
+		/// <summary>
+		/// Get the position inside the Panel of a World Position
+		/// Example: Damage numbers: get the position of the player in the world, call this function, and then use 
+		/// the result to set the element inside the panel  
+		/// </summary>
+		public static Vector2 WorldPositionToPanel(IPanel panel, Vector3 worldPosition)
+		{
+			var flgCamera = FLGCamera.Instance.MainCamera;
+			var screenPoint = flgCamera.WorldToScreenPoint(worldPosition);
+			screenPoint.y = flgCamera.pixelHeight - screenPoint.y;
+			return RuntimePanelUtils.ScreenToPanel(panel, screenPoint);
+		}
+
+
 		/// <summary>
 		/// Set the transform.position of an UIToolkit element to be at the same place of a given position in the 3D world
 		/// </summary>
 		public static void SetPositionBasedOnWorldPosition(this VisualElement element, Vector3 worldPosition)
 		{
-			var flgCamera = FLGCamera.Instance.MainCamera;
-
-			var screenPoint = flgCamera.WorldToScreenPoint(worldPosition);
-			screenPoint.y = flgCamera.pixelHeight - screenPoint.y;
-			var panelPos = RuntimePanelUtils.ScreenToPanel(element.panel, screenPoint);
-			element.transform.position = panelPos;
+			element.transform.position = WorldPositionToPanel(element.panel, worldPosition);
 		}
 	}
 }

@@ -5,7 +5,7 @@ namespace Quantum
 	/// </summary>
 	public static unsafe class SpecialSelfStatusModifier
 	{
-		public static bool Use(Frame f, EntityRef e, ref Special special)
+		public static bool Use(Frame f, EntityRef e, in Special special)
 		{
 			var duration = special.SpecialPower;
 			

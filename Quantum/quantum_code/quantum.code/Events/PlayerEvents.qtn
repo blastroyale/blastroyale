@@ -280,3 +280,9 @@ synced event OnLocalPlayerRoofDetected
 	local player_ref Player;
 	bool OnRoof;
 }
+
+synced event OnLocalPlayerNoInput
+{
+	local player_ref Player;
+	entity_ref Entity;
+}

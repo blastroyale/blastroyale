@@ -38,7 +38,7 @@ namespace Quantum.Commands
 				AirdropDropDuration = FP._10,
 				AirdropChest = Chest
 			};
-			AirDrop.Create(f, ref config , position);
+			AirDrop.Create(f, config , position);
 #else
 		Log.Error($"Trying to use Cheat command {this.GetType().Name} in Release build of Quantum Code");
 #endif

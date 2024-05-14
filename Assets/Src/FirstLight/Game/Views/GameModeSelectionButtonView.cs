@@ -77,20 +77,19 @@ namespace FirstLight.Game.Views
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
-			_button = element.Q<Button>().Required();
+			_button = Element.Q<Button>().Required();
 
-			var dataPanel = element.Q<VisualElement>("DataPanel");
+			var dataPanel = Element.Q<VisualElement>("DataPanel");
 			_gameModeLabel = dataPanel.Q<VisualElement>("Title").Q<Label>("Label").Required();
 			_gameModeDescriptionLabel = dataPanel.Q<Label>("Description");
 			_teamSizeIcon = dataPanel.Q<VisualElement>("TeamSizeIcon").Required();
 			_teamSizeLabel = dataPanel.Q<Label>("TeamSizeLabel").Required();
-			_disabledContainer = element.Q<VisualElement>("Disabled").Required();
-			_disabledLabel = element.Q<Label>("DisabledLabel").Required();
+			_disabledContainer = Element.Q<VisualElement>("Disabled").Required();
+			_disabledLabel = Element.Q<Label>("DisabledLabel").Required();
 
-			_mutatorsPanel = element.Q<VisualElement>("Mutators");
+			_mutatorsPanel = Element.Q<VisualElement>("Mutators");
 			_mutatorLines = _mutatorsPanel.Query<VisualElement>("MutatorLine").ToList();
 
 			_button.clicked += () => Clicked?.Invoke(this);

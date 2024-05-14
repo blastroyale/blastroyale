@@ -34,15 +34,18 @@ namespace FirstLight.Game.TestCases.FirebaseLab
 
 		public DummyTestLabManager()
 		{
-			var persistentDataPath = Application.persistentDataPath + "/testLog.csv";
-			_fileStream = File.CreateText(persistentDataPath);
-			_fileStream.AutoFlush = true;
-			Debug.Log("Dummy test log at " + persistentDataPath);
 		}
 		
 
 		public override void WriteLine(string line)
 		{
+			if (_fileStream == null)
+			{
+				var persistentDataPath = Application.persistentDataPath + "/testLog.csv";
+				_fileStream = File.CreateText(persistentDataPath);
+				_fileStream.AutoFlush = true;
+				Debug.Log("Dummy test log at " + persistentDataPath);
+			}
 			_fileStream.WriteLine(line);
 		}
 	}

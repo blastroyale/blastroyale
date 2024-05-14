@@ -34,7 +34,7 @@ namespace Quantum.Systems
 				if (circle->Step < 0)
 				{
 					var config = f.Context.MapShrinkingCircleConfigs[0];
-					SetShrinkingCircleData(f, circle, ref config);
+					SetShrinkingCircleData(f, circle, config);
 				}
 
 				ProcessShrinkingCircle(f, circle);
@@ -42,8 +42,8 @@ namespace Quantum.Systems
 
 				foreach (var pair in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
 				{
-					var transform = f.Get<Transform3D>(pair.Entity);
-					var position = transform.Position;
+					var transform = f.Unsafe.GetPointer<Transform3D>(pair.Entity);
+					var position = transform->Position;
 					var isInside = (position.XZ - center).SqrMagnitude < radius * radius;
 
 					if (pair.Component->TakingCircleDamage && isInside)
@@ -79,10 +79,10 @@ namespace Quantum.Systems
 			circle->CurrentRadius = circle->TargetRadius;
 
 			var config = f.Context.MapShrinkingCircleConfigs[circle->Step];
-			SetShrinkingCircleData(f, circle, ref config);
+			SetShrinkingCircleData(f, circle, config);
 		}
 
-		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, ref QuantumShrinkingCircleConfig config)
+		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, in QuantumShrinkingCircleConfig config)
 		{
 			if (f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer)
 			{
@@ -134,7 +134,7 @@ namespace Quantum.Systems
 			// Air drop
 			if (config.AirdropChance > 0 && f.RNG->Next() <= config.AirdropChance + circle->AirDropChance)
 			{
-				AirDrop.Create(f, ref config);
+				AirDrop.Create(f, config);
 			}
 			else
 			{
@@ -151,7 +151,7 @@ namespace Quantum.Systems
 
 			var newSpell = f.Create();
 			var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
-			var damage = f.Get<Stats>(playerEntity).GetStatData(StatType.Health).StatValue * circle->Damage;
+			var damage = f.Unsafe.GetPointer<Stats>(playerEntity)->GetStatData(StatType.Health).StatValue * circle->Damage;
 
 			f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects).Add(newSpell);
 			var spell = new Spell

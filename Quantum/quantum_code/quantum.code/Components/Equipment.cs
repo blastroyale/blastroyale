@@ -89,7 +89,7 @@ namespace Quantum
 		/// </summary>
 		public int GetTotalMight(Frame f)
 		{
-			return QuantumStatCalculator.GetMightOfItem(f.GameConfig, ref this);
+			return QuantumStatCalculator.GetMightOfItem(f.GameConfig, this);
 		}
 
 		/// <summary>

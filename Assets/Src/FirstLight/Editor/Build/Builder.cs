@@ -35,7 +35,7 @@ namespace FirstLight.Editor.Build
 
 			SetupBuildNumber(buildNumber);
 			SetupDevelopmentBuild(isDevelopmentBuild, ref buildConfig);
-			SetupAddressables(environment);
+			SetupAddressables();
 			SetupAndroidKeystore();
 			SetupScenes(ref buildConfig);
 			SetupPath(ref buildConfig, buildTarget);
@@ -82,25 +82,13 @@ namespace FirstLight.Editor.Build
 			}
 		}
 
-		private static void SetupAddressables(string environment)
+		private static void SetupAddressables()
 		{
 			var addressableSettings = AddressableAssetSettingsDefaultObject.Settings;
 
-			var profileName = $"CCD-{environment}";
-			var profileId = addressableSettings.profileSettings.GetProfileId(profileName);
-			if (string.IsNullOrEmpty(profileId))
-			{
-				Debug.LogError($"Could not find Addressable profile: {profileName}");
-				EditorApplication.Exit(1);
-			}
+			var profileId = addressableSettings.profileSettings.GetProfileId("CCD");
 
 			AddressableAssetSettingsDefaultObject.Settings.activeProfileId = profileId;
-
-			// On dev we have unique catalogs (with null it generates a timestamp suffix)
-			if (environment == BuildUtils.ENV_DEV)
-			{
-				AddressableAssetSettingsDefaultObject.Settings.OverridePlayerVersion = null;
-			}
 		}
 
 		private static void BuildAddressables()
@@ -128,16 +116,5 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.Android.keyaliasName = "blastroyale";
 			PlayerSettings.Android.keyaliasPass = "***REMOVED***";
 		}
-
-#if UNITY_CLOUD_BUILD
-    public static void PreExport(UnityEngine.CloudBuild.BuildManifestObject manifest)
-    {
-		// In UCS DevOps we add the ENV build number to the cloud build number
-        var buildNumber = manifest.GetValue<int>("buildNumber") + BuildUtils.GetBuildNumber();
-        Debug.Log("Setting build number to " + buildNumber);
-        PlayerSettings.Android.bundleVersionCode = buildNumber;
-        PlayerSettings.iOS.buildNumber = buildNumber.ToString();
-    }
-#endif
 	}
 }

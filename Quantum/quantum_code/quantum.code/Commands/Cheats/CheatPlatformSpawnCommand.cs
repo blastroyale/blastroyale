@@ -29,7 +29,7 @@ namespace Quantum.Commands
 
 			var equipment = Equipment.Create(f, config.Id, EquipmentRarity.Common, 1);
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, Position, FPQuaternion.Identity, Position,
-				ref equipment, EntityRef.None);
+				equipment, EntityRef.None);
 		}
 	}
 }

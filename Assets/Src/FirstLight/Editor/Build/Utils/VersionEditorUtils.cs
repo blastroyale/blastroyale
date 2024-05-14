@@ -30,8 +30,7 @@ namespace FirstLight.Editor.Build
 			{
 				return;
 			}
-			
-			Debug.Log($"Saving new version data: {newVersionDataSerialized}");
+
 			SaveVersionData(newVersionDataSerialized);
 		}
 
@@ -116,7 +115,7 @@ namespace FirstLight.Editor.Build
 		private static void SaveVersionData(string serializedData)
 		{
 			const string assets = "Assets";
-			const string resources = "Build/Resources";
+			const string resources = "Resources";
 			
 			var absDirPath = Path.Combine(Application.dataPath, resources);
 			if (!Directory.Exists(absDirPath))

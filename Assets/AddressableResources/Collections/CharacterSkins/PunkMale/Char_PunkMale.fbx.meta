@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 12d81b6e142424aa2b27bcebf8b79ebc
+guid: 742b410119b3b4c3f8b1797592425a4f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Char_PunkMale
-    second: {fileID: 2100000, guid: f947fe7b7bca346f19322004e1b983f6, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

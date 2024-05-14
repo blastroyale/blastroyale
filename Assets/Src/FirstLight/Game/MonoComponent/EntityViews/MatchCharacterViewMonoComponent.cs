@@ -62,7 +62,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				{
 					entityViewBase.SetEntityView(runner.Game, entityView);
 				}
-				EquipWeapon(loadout.Weapon);
+				EquipWeapon(loadout.Weapon.GameId);
 				
 			}
 

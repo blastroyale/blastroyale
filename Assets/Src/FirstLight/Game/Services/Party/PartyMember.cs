@@ -2,39 +2,51 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Utils;
+using PlayFab;
 using PlayFab.MultiplayerModels;
 
 namespace FirstLight.Game.Services.Party
 {
 	public class PartyMember
 	{
-		public string PlayfabID { get; }
+		public const string DISPLAY_NAME_MEMBER_PROPERTY = "display_name";
+		public const string CHARACTER_SKIN_PROPERTY = "character_skin";
+		public const string MELEE_SKIN_PROPERTY = "melee_skin";
+		public const string READY_MEMBER_PROPERTY = "ready";
+		public const string TROPHIES_PROPERTY = "trophies";
+		public const string PROFILE_MASTER_ID = "profile_master_id";
+
+		private string _playfabId;
+		private bool _leader;
+
+		public string PlayfabID
+		{
+			get => _playfabId;
+			set => _playfabId = value;
+		}
+
+		public bool Leader
+		{
+			get => _leader;
+			set => _leader = value;
+		}
 
 		private string EntityType = PlayFabConstants.TITLE_PLAYER_ENTITY_TYPE;
-		public string DisplayName { get; set; }
-		public uint BPPLevel { get; set; }
-		public uint Trophies { get; set; }
-		public bool Leader { get; set; }
-		public bool Local { get; }
-		public bool Ready { get; set; }
+
+		public string DisplayName => RawProperties[DISPLAY_NAME_MEMBER_PROPERTY];
+		public string CharacterSkin => RawProperties[CHARACTER_SKIN_PROPERTY];
+		public string MeleeSkin => RawProperties[MELEE_SKIN_PROPERTY];
+		public string ReadyVersion => RawProperties[READY_MEMBER_PROPERTY];
+		public string Trophies => RawProperties[TROPHIES_PROPERTY];
+		public string ProfileMasterId => RawProperties[PROFILE_MASTER_ID];
+
+		public bool Local => PlayFabSettings.staticPlayer.EntityId == _playfabId;
 
 		public Dictionary<string, string> RawProperties;
 
-		public PartyMember(string playfabID, string displayName, uint bppLevel, uint trophies, bool leader, bool local, bool ready, Dictionary<string, string> rawProperties)
-		{
-			PlayfabID = playfabID;
-			DisplayName = displayName;
-			BPPLevel = bppLevel;
-			Trophies = trophies;
-			Leader = leader;
-			Local = local;
-			Ready = ready;
-			RawProperties = rawProperties;
-		}
-
 		protected bool Equals(PartyMember other)
 		{
-			return RawProperties.Count == other.RawProperties.Count && !RawProperties.Except(other.RawProperties).Any() && PlayfabID == other.PlayfabID && DisplayName == other.DisplayName && BPPLevel == other.BPPLevel && Trophies == other.Trophies && Leader == other.Leader && Local == other.Local && Ready == other.Ready;
+			return RawProperties.Count == other.RawProperties.Count && !RawProperties.Except(other.RawProperties).Any() && PlayfabID == other.PlayfabID && DisplayName == other.DisplayName && Leader == other.Leader;
 		}
 
 		public override bool Equals(object obj)
@@ -47,12 +59,12 @@ namespace FirstLight.Game.Services.Party
 
 		public override int GetHashCode()
 		{
-			return HashCode.Combine(RawProperties, PlayfabID, DisplayName, BPPLevel, Trophies, Leader, Local, Ready);
+			return HashCode.Combine(RawProperties, PlayfabID, DisplayName, Leader);
 		}
 
 		public override string ToString()
 		{
-			return $"PartyMember({nameof(PlayfabID)}: {PlayfabID}, {nameof(DisplayName)}: {DisplayName}, {nameof(BPPLevel)}: {BPPLevel}, {nameof(Trophies)}: {Trophies}, {nameof(Leader)}: {Leader}, {nameof(Local)}: {Local}, {nameof(Ready)}: {Ready})";
+			return $"PartyMember({nameof(PlayfabID)}: {PlayfabID}, {nameof(DisplayName)}: {DisplayName}, {nameof(Leader)}: {Leader}, {nameof(Local)}: {Local}";
 		}
 
 		public EntityKey ToEntityKey()

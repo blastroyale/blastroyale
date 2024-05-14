@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -50,7 +49,7 @@ namespace FirstLight.Editor.Build
 			settings.firebaseProjectID = environment.FirebaseProjectID;
 			settings.firebaseProjectNumber = environment.FirebaseProjectNumber;
 			settings.firebaseWebApiKey = environment.FirebaseWebApiKey;
-			
+
 			EditorUtility.SetDirty(settings);
 			AssetDatabase.SaveAssetIfDirty(settings);
 		}
@@ -110,52 +109,41 @@ namespace FirstLight.Editor.Build
 
 		private static void ConfigureQuantum()
 		{
-#if !DEVELOPMENT_BUILD
-			Debug.Log("IS NOT DEVELOPMENT BUILD");
+			if (!EditorUserBuildSettings.development)
+			{
+				var guids = AssetDatabase.FindAssets($"t:{nameof(DeterministicSessionConfigAsset)}");
+				var path = AssetDatabase.GUIDToAssetPath(guids[0]);
+				var deterministicConfig = AssetDatabase.LoadAssetAtPath<DeterministicSessionConfigAsset>(path);
 
-			var guids = AssetDatabase.FindAssets($"t:{nameof(DeterministicSessionConfigAsset)}");
-			var path = AssetDatabase.GUIDToAssetPath(guids[0]);
-			var deterministicConfig = AssetDatabase.LoadAssetAtPath<DeterministicSessionConfigAsset>(path);
+				deterministicConfig.Config.ChecksumInterval = 0;
+				deterministicConfig.Config.ChecksumCrossPlatformDeterminism = false;
 
-			deterministicConfig.Config.ChecksumInterval = 0;
-			deterministicConfig.Config.ChecksumCrossPlatformDeterminism = false;
-
-			EditorUtility.SetDirty(deterministicConfig);
-			AssetDatabase.SaveAssets();
-#endif
+				EditorUtility.SetDirty(deterministicConfig);
+				AssetDatabase.SaveAssets();
+			}
 		}
 
 		private static void PrepareFirebase(string environment)
 		{
-			var suffix = environment == BuildUtils.ENV_PROD ? "-prod" : "-dev";
-			var origPath = Path.Combine(Path.GetDirectoryName(Application.dataPath)!, "Configs");
-			var destPath = Application.streamingAssetsPath;
-			var iosOrig = Path.Combine(origPath, $"GoogleService-Info{suffix}.plist");
-			var iosDest = Path.Combine(destPath, "GoogleService-Info.plist");
-			var androidOrig = Path.Combine(origPath, $"google-services{suffix}.json");
-			var androidDest = Path.Combine(destPath, "google-services.json");
+			var configDirectory = Path.Combine(Application.dataPath, "../", "Configs");
 
-			if (!Directory.Exists(destPath))
-			{
-				Directory.CreateDirectory(destPath);
-			}
+			// Force dev for all environments except production (for now)
+			if (environment != BuildUtils.ENV_PROD) environment = BuildUtils.ENV_DEV;
 
-			File.Copy(iosOrig, iosDest, true);
-			File.Copy(androidOrig, androidDest, true);
+			// iOS
+			File.Copy(Path.Combine(configDirectory, $"GoogleService-Info-{environment}.plist"),
+				Path.Combine(Application.streamingAssetsPath, "GoogleService-Info.plist"), true);
+
+			// Android
+			File.Copy(Path.Combine(configDirectory, $"google-services-{environment}.json"),
+				Path.Combine(Application.streamingAssetsPath, "google-services.plist"), true);
 		}
 
-		/// <summary>
-		/// Generates the version CS file for the Unity Cloud environment.
-		/// </summary>
 		private static void GenerateEnvironment(string environment)
 		{
-			var path = Path.Combine(Application.dataPath, "Src", "FirstLight", "Game", "Utils", "FLEnvironment.cs");
-			var content = File.ReadAllText(path).Replace(
-				" = GetCurrentEditorEnvironment();",
-				$" = {environment.ToUpperInvariant()};"
-			);
-
-			File.WriteAllText(path, content);
+			var envAsset = AssetDatabase.LoadAssetAtPath<FLEnvironmentAsset>("Assets/Resources/FLEnvironmentAsset.asset");
+			envAsset.EnvironmentName = environment;
+			EditorUtility.SetDirty(envAsset);
 		}
 
 		[Conditional("UNITY_IOS")]
@@ -187,7 +175,7 @@ namespace FirstLight.Editor.Build
 			pbxProject.SetBuildProperty(mainTargetGuid, "SWIFT_VERSION", "5.1");
 
 			// Xcode 15 fix
-			pbxProject.AddBuildProperty(frameworkTargetGuid, "OTHER_LDFLAGS", "-ld64");
+			// pbxProject.AddBuildProperty(frameworkTargetGuid, "OTHER_LDFLAGS", "-ld64");
 
 			// Disable bitcode
 			pbxProject.SetBuildProperty(mainTargetGuid, "ENABLE_BITCODE", "NO");
@@ -196,12 +184,12 @@ namespace FirstLight.Editor.Build
 			pbxProject.WriteToFile(projectPath);
 		}
 
-
 		private static void SetupSRDebugger()
 		{
-#if !DEVELOPMENT_BUILD
-			SRDebugEditor.SetEnabled(false);
-#endif
+			if (!EditorUserBuildSettings.development)
+			{
+				SRDebugEditor.SetEnabled(false);
+			}
 		}
 	}
 }

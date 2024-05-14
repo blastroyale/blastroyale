@@ -25,18 +25,16 @@ namespace FirstLight.Game.Views.UITK
 		private IGameDataProvider _dataProvider;
 		private HashSet<EventKey> _localPlayerEvents = new ();
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
-
 			_gameServices = MainInstaller.ResolveServices();
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_dataProvider = MainInstaller.ResolveData();
 
-			_healthShield = element.Q<PlayerHealthShieldElement>("LocalPlayerHealthShield").Required();
-			_teamColor = element.Q("TeamColor").Required();
-			_pfp = element.Q("PlayerAvatar").Required();
-			_name = element.Q<Label>("LocalPlayerName").Required();
+			_healthShield = Element.Q<PlayerHealthShieldElement>("LocalPlayerHealthShield").Required();
+			_teamColor = Element.Q("TeamColor").Required();
+			_pfp = Element.Q("PlayerAvatar").Required();
+			_name = Element.Q<Label>("LocalPlayerName").Required();
 		}
 
 		public override void OnScreenOpen(bool reload)

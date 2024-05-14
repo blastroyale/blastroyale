@@ -16,10 +16,9 @@ namespace FirstLight.Game.Views.UITK
 	{
 		private CurrencyDisplayElement _currency;
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
-			_currency = (CurrencyDisplayElement) element;
+			_currency = (CurrencyDisplayElement) Element;
 
 			_currency.Init(MainInstaller.Resolve<IGameDataProvider>(),
 				MainInstaller.Resolve<IGameServices>());

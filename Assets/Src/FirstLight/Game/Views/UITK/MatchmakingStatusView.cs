@@ -33,15 +33,14 @@ namespace FirstLight.Game.Views.UITK
 		public event Action CloseClicked;
 
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
 			var services = MainInstaller.ResolveServices();
 			_gameNetworkService = services.NetworkService;
 			_configsProvider = services.ConfigsProvider;
-			_timeLabel = element.Q<Label>("Time").Required();
-			_matchmakingText = element.Q<LocalizedLabel>("MatchmakingText").Required();
-			_closeButton = element.Q<ImageButton>("MatchmakingCloseButton").Required();
+			_timeLabel = Element.Q<Label>("Time").Required();
+			_matchmakingText = Element.Q<LocalizedLabel>("MatchmakingText").Required();
+			_closeButton = Element.Q<ImageButton>("MatchmakingCloseButton").Required();
 			_closeButton.clicked += () => CloseClicked?.Invoke();
 			_gameNetworkService.LastUsedSetup.InvokeObserve(OnLastRoomSetupUpdate);
 		}

@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
+using I2.Loc;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -41,10 +42,8 @@ namespace FirstLight.Game.Views.UITK
 
 		private bool _useOverheadUi;
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
-
 			_camera = FLGCamera.Instance.MainCamera;
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_gameServices = MainInstaller.ResolveServices();
@@ -52,7 +51,7 @@ namespace FirstLight.Game.Views.UITK
 
 			_useOverheadUi = _gameServices.LocalPrefsService.UseOverheadUI.Value;
 
-			element.Clear();
+			Element.Clear();
 
 			_playerBarPool = new ObjectPool<PlayerStatusBarElement>(
 				() =>
@@ -94,6 +93,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUpdated>(this, OnPlayerSpecialUpdated);
 			QuantumEvent.SubscribeManual<EventOnPlayerWeaponAdded>(this, OnPlayerWeaponAdded);
 			QuantumEvent.SubscribeManual<EventGameItemCollected>(this, OnCollected);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerNoInput>(this, OnLocalPlayerNoInput);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 			QuantumCallback.SubscribeManual<CallbackEventCanceled>(this, OnEventCancelled);
@@ -414,6 +414,14 @@ namespace FirstLight.Game.Views.UITK
 					playerBar.OnEventCancelled(callback.EventKey);
 				}
 			}
+		}
+
+		private void OnLocalPlayerNoInput(EventOnLocalPlayerNoInput callback)
+		{
+			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
+			
+			
+			bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, ScriptLocalization.UITMatch.no_input_warning);
 		}
 	}
 }

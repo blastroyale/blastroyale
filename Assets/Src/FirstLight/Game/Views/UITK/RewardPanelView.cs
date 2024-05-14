@@ -17,12 +17,11 @@ namespace FirstLight.Game.Views
 
 		private int _gained;
 		private int _total;
-		
-		public override void Attached(VisualElement element)
+
+		protected override void Attached()
 		{
-			base.Attached(element);
-			_gainedLabel = element.Q<Label>("Gained").Required();
-			_totalLabel = element.Q<Label>("Total").Required();
+			_gainedLabel = Element.Q<Label>("Gained").Required();
+			_totalLabel = Element.Q<Label>("Total").Required();
 
 			HidePanel();
 		}

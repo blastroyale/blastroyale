@@ -46,19 +46,18 @@ namespace FirstLight.Game.Presenters
 			_configsProvider = MainInstaller.ResolveServices().ConfigsProvider;
 		}
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
-			_card = element.Q<EquipmentCardElement>("EquipmentRewardCard").Required();
-			_icon = element.Q<VisualElement>("EquipmentIcon").Required();
-			_name = element.Q<Label>("EquipmentName").Required();
-			_rarity = element.Q<Label>("EquipmentRarityLabel").Required();
-			_range = element.Q<LocalizedLabel>("EquipmentRangeLabel").Required();
-			_gradient = element.Q<VisualElement>("RaysGradient").Required();
-			_gradientStronger = element.Q<VisualElement>("RaysStrongerGradient").Required();
-			_rays = element.Q<VisualElement>("RaysEquipment").Required();
-			_parentItemIcon = element.Q<VisualElement>("ParentItem").Required();
-			_parentItemName = element.Q<Label>("ParentItemName").Required();
+			_card = Element.Q<EquipmentCardElement>("EquipmentRewardCard").Required();
+			_icon = Element.Q<VisualElement>("EquipmentIcon").Required();
+			_name = Element.Q<Label>("EquipmentName").Required();
+			_rarity = Element.Q<Label>("EquipmentRarityLabel").Required();
+			_range = Element.Q<LocalizedLabel>("EquipmentRangeLabel").Required();
+			_gradient = Element.Q<VisualElement>("RaysGradient").Required();
+			_gradientStronger = Element.Q<VisualElement>("RaysStrongerGradient").Required();
+			_rays = Element.Q<VisualElement>("RaysEquipment").Required();
+			_parentItemIcon = Element.Q<VisualElement>("ParentItem").Required();
+			_parentItemName = Element.Q<Label>("ParentItemName").Required();
 		}
 		
 		public void SetItemParent(IItemViewModel parent)

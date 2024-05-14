@@ -26,33 +26,25 @@
       "dependencies": {}
     },
     "com.google.external-dependency-manager": {
-      "version": "file:../Google/com.google.external-dependency-manager-1.2.179.tgz",
+      "version": "file:com.google.external-dependency-manager-1.2.179.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
     },
     "com.google.firebase.analytics": {
-      "version": "file:../Google/com.google.firebase.analytics-11.8.0.tgz",
+      "version": "file:com.google.firebase.analytics-11.9.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "11.8.0"
+        "com.google.firebase.app": "11.9.0"
       }
     },
     "com.google.firebase.app": {
-      "version": "file:../Google/com.google.firebase.app-11.8.0.tgz",
+      "version": "file:com.google.firebase.app-11.9.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
         "com.google.external-dependency-manager": "1.2.177"
-      }
-    },
-    "com.google.firebase.crashlytics": {
-      "version": "file:../Google/com.google.firebase.crashlytics-11.8.0.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {
-        "com.google.firebase.app": "11.8.0"
       }
     },
     "com.immutable.passport": {
@@ -203,6 +195,17 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.asset-manager-for-unity": {
+      "version": "0.6.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.settings-manager": "1.0.2",
+        "com.unity.cloud.assets": "1.0.0",
+        "com.unity.cloud.identity": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.burst": {
       "version": "1.8.12",
       "depth": 1,
@@ -219,6 +222,36 @@
       "source": "registry",
       "dependencies": {
         "com.unity.test-framework": "1.1.31"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.cloud.assets": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.cloud.common": "1.0.0",
+        "com.unity.editorcoroutines": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.cloud.common": {
+      "version": "1.0.0",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.imgui": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.cloud.identity": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.cloud.common": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -297,7 +330,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.mobile.android-logcat": {
-      "version": "1.4.0",
+      "version": "1.4.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -420,30 +453,30 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.services.analytics": {
-      "version": "5.1.0",
+      "version": "5.1.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.ugui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0",
-        "com.unity.services.core": "1.10.1"
+        "com.unity.services.core": "1.12.5"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.services.authentication": {
-      "version": "3.3.0",
+      "version": "3.3.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.2.1",
-        "com.unity.services.core": "1.12.2",
+        "com.unity.services.core": "1.12.5",
         "com.unity.modules.unitywebrequest": "1.0.0",
         "com.unity.ugui": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.services.core": {
-      "version": "1.12.2",
+      "version": "1.12.5",
       "depth": 1,
       "source": "registry",
       "dependencies": {

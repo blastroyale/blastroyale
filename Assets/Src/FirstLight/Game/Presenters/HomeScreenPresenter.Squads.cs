@@ -17,20 +17,16 @@ namespace FirstLight.Game.Presenters
 		// IN THE FUTURE WE SHOULD REORGANIZE THE HOME SCREEN PRESENTER WITH MORE COMPOSITIONS
 
 		private LocalizedButton _partyButton;
-		private VisualElement _partyContainer;
-		private HomePartyView _partyView;
+		private VisualElement _partyHeader;
+		private Label _partyRoomCode;
 
 		private void QueryElementsSquads(VisualElement root)
 		{
-			_partyContainer = root.Q("PartyContainer").Required().AttachView(this, out _partyView);
-			_partyView.SetRoot(root);
+			_partyHeader = root.Q("PartyHeader").Required();
+			_partyRoomCode = root.Q<Label>("PartyRoomCode").Required();
 			_partyButton = root.Q<LocalizedButton>("PartyButton").Required();
 			_partyButton.LevelLock2(this, root, Configs.UnlockSystem.Squads, OnPartyClicked);
-		}
-
-		private void UpdateSquadsButtonVisibility()
-		{
-			_partyButton.SetVisibility(FeatureFlags.DISPLAY_SQUADS_BUTTON);
+			UpdatePartyCode();
 		}
 
 		private void SubscribeToSquadEvents()
@@ -39,16 +35,40 @@ namespace FirstLight.Game.Presenters
 			_partyService.PartyReady.InvokeObserve(OnPartyReadyChanged);
 			_partyService.Members.Observe(OnMembersChanged);
 			_partyService.OperationInProgress.InvokeObserve(OnPartyLoadingProgress);
+			_partyService.LocalReadyStatus.Observe(OnLocalPlayerStatusChanged);
+			_partyService.PartyCode.Observe(OnPartyCodeChanged);
 			_partyService.OnLocalPlayerKicked += OnLocalPlayerKicked;
 		}
 
 		private void UnsubscribeFromSquadEvents()
 		{
 			_partyService.HasParty.StopObserving(OnHasPartyChanged);
+			_partyService.PartyCode.StopObserving(OnPartyCodeChanged);
 			_partyService.PartyReady.StopObserving(OnPartyReadyChanged);
 			_partyService.Members.StopObserving(OnMembersChanged);
+			_partyService.LocalReadyStatus.StopObserving(OnLocalPlayerStatusChanged);
 			_partyService.OperationInProgress.StopObserving(OnPartyLoadingProgress);
 			_partyService.OnLocalPlayerKicked -= OnLocalPlayerKicked;
+		}
+
+		private void OnPartyCodeChanged(string arg1, string arg2)
+		{
+			UpdatePartyCode();
+		}
+
+		private void UpdatePartyCode()
+		{
+			var hasParty = _partyService.HasParty.Value;
+			_partyHeader.EnableInClassList("squad-container__header--hidden", !hasParty);
+			if (hasParty)
+			{
+				_partyRoomCode.text = _partyService.PartyCode.Value;
+			}
+		}
+
+		private void OnLocalPlayerStatusChanged(bool arg1, bool arg2)
+		{
+			OnAnyPartyUpdate();
 		}
 
 		private async void OnCreateSquadButtonClicked()
@@ -88,6 +108,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_partyButton.Localize(hasParty ? ScriptTerms.UITHomeScreen.leave_party : ScriptTerms.UITHomeScreen.party);
 			OnAnyPartyUpdate();
+			UpdatePartyCode();
 		}
 
 		private void OnPartyReadyChanged(bool _, bool isReady)

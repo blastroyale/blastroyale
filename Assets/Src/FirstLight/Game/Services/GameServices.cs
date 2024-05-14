@@ -104,7 +104,6 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IIAPService"/>
 		public IIAPService IAPService { get; }
 
-		/// <inheritdoc cref="IPartyService"/>
 		public IPartyService PartyService { get; }
 
 		/// <inheritdoc cref="IPlayfabPubSubService"/>
@@ -217,7 +216,7 @@ namespace FirstLight.Game.Services
 			ProfileService = new PlayerProfileService(GameBackendService);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic,
 				configsProvider);
-			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService,
+			PartyService = new PartyService(PlayfabPubSubService, gameLogic.AppDataProvider, GameBackendService,
 				GenericDialogService, MessageBrokerService, LocalPrefsService);
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider);
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);

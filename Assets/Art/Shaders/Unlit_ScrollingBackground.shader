@@ -72,7 +72,7 @@ Shader "FLG/Unlit/Scrolling Background"
                 const float gradient_scaled = saturate(lerp(-_GradientSize, 1 + _GradientSize, gradient));
                 const float4 gradientColor = lerp(_ColorBottom, _ColorTop, gradient_scaled);
 
-                const float4 gradientTexColor = float4(gradientColor * (1 - texColor.a) + texColor.rgb * texColor.a, 1);
+                const float4 gradientTexColor = float4(gradientColor.rgb * (1 - texColor.a) + texColor.rgb * texColor.a, 1);
 
                 const float4 finalColor = tex == 1 ? gradientColor : gradientTexColor;
 

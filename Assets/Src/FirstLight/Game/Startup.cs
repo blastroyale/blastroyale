@@ -84,15 +84,17 @@ namespace FirstLight.Game
 			Destroy(gameObject);
 		}
 
-		private void InitAppEventsListener()
+		private static void InitAppEventsListener()
 		{
 			var go = new GameObject("AppEventsListener");
 			go.AddComponent<AppEventsListener>();
 			DontDestroyOnLoad(go);
 		}
 
-		private async UniTask InitPushNotifications()
+		private static async UniTask InitPushNotifications()
 		{
+			if (Application.isEditor) return;
+
 			PushNotificationsService.Instance.OnRemoteNotificationReceived += PushNotificationReceived;
 
 			var token = await PushNotificationsService.Instance.RegisterForPushNotificationsAsync().AsUniTask();
@@ -150,13 +152,13 @@ namespace FirstLight.Game
 			};
 		}
 
-		private void StartGameStateMachine()
+		private static void StartGameStateMachine()
 		{
 			MainInstaller.Resolve<IGameStateMachine>().Run();
 		}
 
 		// TODO: This should not return the tuple, but we need UI Service before we await config loading
-		private (IGameServices, IAssetAdderService, IConfigsAdder) InitFLGServices()
+		private static (IGameServices, IAssetAdderService, IConfigsAdder) InitFLGServices()
 		{
 			var messageBroker = new InMemoryMessageBrokerService();
 			var timeService = new TimeService();
@@ -180,7 +182,7 @@ namespace FirstLight.Game
 			return (gameServices, assetResolver, configsProvider);
 		}
 
-		private async UniTask InitUnityServices()
+		private static async UniTask InitUnityServices()
 		{
 			var initOpts = new InitializationOptions();
 
@@ -191,21 +193,21 @@ namespace FirstLight.Game
 			await Addressables.InitializeAsync().Task.AsUniTask();
 		}
 
-		private async UniTask InitAnalytics()
+		private static async UniTask InitAnalytics()
 		{
 			var trackingAllowed = ATTrackingUtils.IsTrackingAllowed();
 
-			var dependencyStatus = FirebaseApp.CheckAndFixDependenciesAsync().AsUniTask();
-			await dependencyStatus;
+			var dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync().AsUniTask();
 
-			if (dependencyStatus.Status != UniTaskStatus.Succeeded)
+			if (dependencyStatus == DependencyStatus.Available)
 			{
-				throw new InitializationException(InitResult.FailedMissingDependency,
-					$"Firebase could not be initialized properly. Status: {dependencyStatus}");
+				FirebaseApp.Create();
+				FirebaseAnalytics.SetAnalyticsCollectionEnabled(trackingAllowed);
 			}
-
-			FirebaseApp.Create();
-			FirebaseAnalytics.SetAnalyticsCollectionEnabled(trackingAllowed);
+			else
+			{
+				FLog.Warn($"Firebase could not be initialized properly. Status: {dependencyStatus}");
+			}
 
 			if (trackingAllowed)
 			{
@@ -222,7 +224,7 @@ namespace FirstLight.Game
 			}
 		}
 
-		private void InitPlugins()
+		private static void InitPlugins()
 		{
 #if !DISABLE_SRDEBUGGER
 			SRDebug.Init();
@@ -232,14 +234,14 @@ namespace FirstLight.Game
 			FLog.Init();
 		}
 
-		private void InitGlobalShaderData()
+		private static void InitGlobalShaderData()
 		{
 			// Used for DPI-based scaling in shaders
 			Shader.SetGlobalVector(Shader.PropertyToID("_PhysicalScreenSize"),
 				new Vector4(Screen.width / Screen.dpi, Screen.height / Screen.dpi, Screen.dpi, 69));
 		}
 
-		private void InitSettings()
+		private static void InitSettings()
 		{
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
 

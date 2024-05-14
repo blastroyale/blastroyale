@@ -26,15 +26,13 @@ namespace FirstLight.Game.Views.UITK
 		private IGameServices _services;
 		private int _lastKnownStep = 0;
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
+			_pingElement = Element.Q<VisualElement>("PingBG").Required();
+			_timerLabel = Element.Q<Label>("TimerText").Required();
+			_counterElement = Element.Q<VisualElement>("Counter");
 
-			_pingElement = element.Q<VisualElement>("PingBG").Required();
-			_timerLabel = element.Q<Label>("TimerText").Required();
-			_counterElement = element.Q<VisualElement>("Counter");
-
-			_notificationLabel = element.Q<Label>("NotificationText").Required();
+			_notificationLabel = Element.Q<Label>("NotificationText").Required();
 
 			_notificationLabel.SetDisplay(false);
 

@@ -29,7 +29,7 @@ namespace FirstLight.Game.Services.Party
 
 		private async UniTaskVoid OnReconnectPubSub()
 		{
-			if (!HasParty.Value) return;
+			if (!_hasParty.Value) return;
 			try
 			{
 				await FetchPartyAndUpdateState();
@@ -40,7 +40,7 @@ namespace FirstLight.Game.Services.Party
 			}
 
 			// play lost party while was disconnected
-			if (!HasParty.Value)
+			if (!_hasParty.Value)
 			{
 				// TODO: Translation
 				_genericDialogService.OpenButtonDialog("Squad", "You left your squad due to timeout", true, new GenericDialogButton()).Forget();
@@ -84,6 +84,12 @@ namespace FirstLight.Game.Services.Party
 
 				try
 				{
+					if (lobbyId != _lobbyId)
+					{
+						// If the player left the party before the get connection handle function returned just ignore it
+						return;
+					}
+
 					var result = await AsyncPlayfabAPI.SubscribeToLobbyResource(subscribeReq);
 					// This whole process of creating an websocket subscribing to resource can take a a considerable time(+- 5s)
 					// So we may have missed some messages and this results in a broke state
@@ -212,9 +218,9 @@ namespace FirstLight.Game.Services.Party
 			{
 				foreach (var s in change.lobbyDataToDelete)
 				{
-					if (LobbyProperties.ReadOnlyDictionary.ContainsKey(s))
+					if (_lobbyProperties.ReadOnlyDictionary.ContainsKey(s))
 					{
-						LobbyProperties.Remove(s);
+						_lobbyProperties.Remove(s);
 					}
 				}
 			}
@@ -223,13 +229,13 @@ namespace FirstLight.Game.Services.Party
 
 			foreach (var (key, value) in change.lobbyData)
 			{
-				if (LobbyProperties.ReadOnlyDictionary.ContainsKey(key))
+				if (_lobbyProperties.ReadOnlyDictionary.ContainsKey(key))
 				{
-					LobbyProperties[key] = value;
+					_lobbyProperties[key] = value;
 				}
 				else
 				{
-					LobbyProperties.Add(key, value);
+					_lobbyProperties.Add(key, value);
 				}
 			}
 		}
@@ -239,7 +245,7 @@ namespace FirstLight.Game.Services.Party
 			HashSet<string> invokeUpdates = new ();
 			if (change.memberToDelete != null)
 			{
-				var member = Members.FirstOrDefault(m => m.PlayfabID == change.memberToDelete.memberEntity.Id);
+				var member = _members.FirstOrDefault(m => m.PlayfabID == change.memberToDelete.memberEntity.Id);
 				if (member != null)
 				{
 					if (member.Local)
@@ -248,7 +254,7 @@ namespace FirstLight.Game.Services.Party
 						LocalPlayerKicked();
 						return;
 					}
-					Members.Remove(member);
+					_members.Remove(member);
 				}
 			}
 
@@ -256,14 +262,14 @@ namespace FirstLight.Game.Services.Party
 			// Let's check to add players to the party
 			if (change.memberToMerge != null)
 			{
-				var currentOwner = Members.FirstOrDefault(m => m.Leader)?.PlayfabID;
+				var currentOwner = _members.FirstOrDefault(m => m.Leader)?.PlayfabID;
 				var owner = change.owner != null ? change.owner.Id : (currentOwner ?? "");
-				var localMember = Members.ReadOnlyList.FirstOrDefault(m => m.PlayfabID == change.memberToMerge.memberEntity.Id);
+				var localMember = _members.ReadOnlyList.FirstOrDefault(m => m.PlayfabID == change.memberToMerge.memberEntity.Id);
 
 				if (localMember == null)
 				{
 					var newMember = ToPartyMember(change.memberToMerge, owner == change.memberToMerge.memberEntity.Id);
-					Members.Add(newMember);
+					_members.Add(newMember);
 				}
 				else
 				{
@@ -282,7 +288,7 @@ namespace FirstLight.Game.Services.Party
 			if (change.owner != null)
 			{
 				// Search of old owner
-				var currentOwner = Members.ReadOnlyList.FirstOrDefault(m => m.Leader);
+				var currentOwner = _members.ReadOnlyList.FirstOrDefault(m => m.Leader);
 				if (currentOwner != null && currentOwner.PlayfabID != change.owner.Id)
 				{
 					currentOwner.Leader = false;
@@ -290,10 +296,9 @@ namespace FirstLight.Game.Services.Party
 				}
 
 				// Lets find the new owner
-				var newOwner = Members.ReadOnlyList.FirstOrDefault(m => m.PlayfabID == change.owner.Id);
+				var newOwner = _members.ReadOnlyList.FirstOrDefault(m => m.PlayfabID == change.owner.Id);
 				if (newOwner is {Leader: false})
 				{
-					newOwner.Ready = false;
 					newOwner.Leader = true;
 					invokeUpdates.Add(newOwner.PlayfabID);
 				}
@@ -302,7 +307,7 @@ namespace FirstLight.Game.Services.Party
 			// Player lost connection 
 			if (change.memberToMerge is {noPubSubConnectionHandle: true})
 			{
-				var disconnectedMember = Members.FirstOrDefault(m => m.PlayfabID == change.memberToMerge.memberEntity.Id);
+				var disconnectedMember = _members.FirstOrDefault(m => m.PlayfabID == change.memberToMerge.memberEntity.Id);
 				if (disconnectedMember != null)
 				{
 					// Let the leader kick it
@@ -315,13 +320,13 @@ namespace FirstLight.Game.Services.Party
 
 			foreach (var invokeUpdate in invokeUpdates)
 			{
-				var member = Members.FirstOrDefault(m => m.PlayfabID == invokeUpdate);
+				var member = _members.FirstOrDefault(m => m.PlayfabID == invokeUpdate);
 				if (member == null)
 				{
 					continue;
 				}
 
-				Members.InvokeUpdate(Members.IndexOf(member));
+				_members.InvokeUpdate(_members.IndexOf(member));
 			}
 		}
 

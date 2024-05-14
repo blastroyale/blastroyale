@@ -107,17 +107,6 @@ namespace FirstLight.Game.Utils
 		private static LocalFeatureFlagConfig _localConfig = null;
 
 		/// <summary>
-		/// If true, rooms created/joined will be locked by commit
-		/// If false, player can create/join rooms not locked by commit
-		/// </summary>
-		public static bool COMMIT_VERSION_LOCK = true;
-
-		/// <summary>
-		/// When true will display "BETA" in loading screen
-		/// </summary>
-		public static bool BETA_VERSION = false;
-
-		/// <summary>
 		/// When true, will send end of match commands using quantum server consensus algorithm.
 		/// When false commands will go directly to our backend. 
 		/// To use this in our backend the backend needs to be compiled with this flag being False.
@@ -148,11 +137,11 @@ namespace FirstLight.Game.Utils
 		/// Enables / disables the store button in the home screen
 		/// </summary>
 		public static bool STORE_ENABLED = false;
-
-		/// <summary>
-		/// Enables / disables the player stats button in the home screen
-		/// </summary>
-		public static bool PLAYER_STATS_ENABLED = true;
+		//
+		// /// <summary>
+		// /// Enables / disables the player stats button in the home screen
+		// /// </summary>
+		// public static bool PLAYER_STATS_ENABLED = true;
 
 		/// <summary>
 		/// Will try to detect and raise any desyncs server/client finds.
@@ -169,31 +158,31 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool SYSTEM_LOCKS = true;
 
-		/// <summary>
-		/// If the squads button is enabled in the UI
-		/// </summary>
-		public static bool DISPLAY_SQUADS_BUTTON = true;
+		// /// <summary>
+		// /// If the squads button is enabled in the UI
+		// /// </summary>
+		// public static bool DISPLAY_SQUADS_BUTTON = true;
 
-		/// <summary>
-		/// When enabled will enable aiming deadzone to avoid missfires
-		/// </summary>
-		public static bool AIM_DEADZONE = true;
+		// /// <summary>
+		// /// When enabled will enable aiming deadzone to avoid missfires
+		// /// </summary>
+		// public static bool AIM_DEADZONE = true;
+		//
+		// /// <summary>
+		// /// Will replace map music by ambience sound effects
+		// /// </summary>
+		// public static bool NEW_SFX = true;
 
-		/// <summary>
-		/// Will replace map music by ambience sound effects
-		/// </summary>
-		public static bool NEW_SFX = true;
-
-		/// <summary>
-		/// If true will be slightly more delayed aim but will be precise to Quantum inputs
-		/// If false it will be more accurate visually but not necessarily shoot where you aim
-		/// </summary>
-		public static bool QUANTUM_PREDICTED_AIM = false;
+		// /// <summary>
+		// /// If true will be slightly more delayed aim but will be precise to Quantum inputs
+		// /// If false it will be more accurate visually but not necessarily shoot where you aim
+		// /// </summary>
+		// public static bool QUANTUM_PREDICTED_AIM = false;
 
 		/// <summary>
 		/// Should specials use new input system
 		/// </summary>
-		public static bool SPECIAL_NEW_INPUT = true;
+		// public static bool SPECIAL_NEW_INPUT = true;
 
 		/// <summary>
 		/// Camera shake when player receives damage
@@ -235,11 +224,6 @@ namespace FirstLight.Game.Utils
 				QUANTUM_CUSTOM_SERVER = customServer;
 			}
 
-			if (TrySetFlag("COMMIT_VERSION_LOCK", overrideData, out var commitVersionLock))
-			{
-				COMMIT_VERSION_LOCK = commitVersionLock;
-			}
-
 			if (TrySetFlag("ITEM_DURABILITY_NON_NFTS", overrideData, out var itemDurabilityNonNFTs))
 			{
 				ITEM_DURABILITY_NON_NFTS = itemDurabilityNonNFTs;
@@ -255,11 +239,6 @@ namespace FirstLight.Game.Utils
 				STORE_ENABLED = storeEnabled;
 			}
 
-			if (TrySetFlag("PLAYER_STATS_ENABLED", overrideData, out var playerStatsEnabled))
-			{
-				PLAYER_STATS_ENABLED = playerStatsEnabled;
-			}
-
 			if (TrySetFlag("DESYNC_DETECTION", overrideData, out var desyncDetection))
 			{
 				DESYNC_DETECTION = desyncDetection;
@@ -268,11 +247,6 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("TUTORIAL", overrideData, out var tutorial))
 			{
 				TUTORIAL = tutorial;
-			}
-
-			if (TrySetFlag("DISPLAY_SQUADS_BUTTON", overrideData, out var displaySquadsButton))
-			{
-				DISPLAY_SQUADS_BUTTON = displaySquadsButton;
 			}
 
 			if (TrySetFlag("PAUSE_FREEZE", overrideData, out var pauseFreeze))
@@ -288,11 +262,6 @@ namespace FirstLight.Game.Utils
 			if (TrySetStringFlag("IMX_ID", overrideData, out var imxId))
 			{
 				IMX_ID = imxId;
-			}
-
-			if (TrySetFlag("BETA_VERSION", overrideData, out var beta))
-			{
-				BETA_VERSION = beta;
 			}
 
 			if (TrySetFlag("ENABLE_NOOB", overrideData, out var enableNoob))

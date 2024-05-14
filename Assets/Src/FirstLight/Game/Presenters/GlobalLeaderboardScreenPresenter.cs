@@ -111,7 +111,7 @@ namespace FirstLight.Game.Presenters
 			_infoButton.clicked += () =>
 			{
 				// TODO: Language not working for some reason
-				_endsInContainer.OpenTooltip(Root, "Progress will be reset at the end of the season", TooltipDirection.TopRight,
+				_endsInContainer.OpenTooltip(Root, "Progress will be reset at the end of the season", TipDirection.TopRight,
 				                             TooltipPosition.BottomLeft, 20, 20);
 			};
 			_discordButton.clicked += () => Application.OpenURL(GameConstants.Links.DISCORD_SERVER);

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6912255391006841738}
   - component: {fileID: 7443210117792232840}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: MainLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1222675313181038564}
   - component: {fileID: 6876810773400489571}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: UpperAngle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8879011889032827835}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: OpenAngle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8557400643398808397}
   - component: {fileID: 1449540010297745253}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: WeaponAim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6562337865347195684}
   - component: {fileID: 6933204162843134229}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: LowerAngle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -80,9 +80,9 @@ namespace Quantum
 		/// <summary>
 		/// Requests the total might for the full equipment set
 		/// </summary>
-		public static int GetTotalMight(QuantumGameConfig gameConfig, ref Equipment weapon, Equipment [] gear)
+		public static int GetTotalMight(QuantumGameConfig gameConfig, in Equipment weapon, in Equipment[] gear)
 		{
-			var might = GetMightOfItem(gameConfig, ref weapon);
+			var might = GetMightOfItem(gameConfig, weapon);
 			
 			for (var i = 0; i < gear.Length; i++)
 			{
@@ -91,7 +91,7 @@ namespace Quantum
 					continue;
 				}
 				
-				might += GetMightOfItem(gameConfig, ref gear[i]);
+				might += GetMightOfItem(gameConfig, gear[i]);
 			}
 			
 			return might;
@@ -100,7 +100,7 @@ namespace Quantum
 		/// <summary>
 		/// Requests the might for a single item
 		/// </summary>
-		public static int GetMightOfItem(QuantumGameConfig gameConfig, ref Equipment item)
+		public static int GetMightOfItem(QuantumGameConfig gameConfig, in Equipment item)
 		{
 			var baseValue = gameConfig.MightBaseValue;
 			var rarityM = gameConfig.MightRarityMultiplier;

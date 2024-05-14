@@ -186,9 +186,10 @@ namespace FirstLight.Editor.Build
 
 		private static void SetupSRDebugger()
 		{
+			// TODO mihak: Fix this before release
 			if (!EditorUserBuildSettings.development)
 			{
-				SRDebugEditor.SetEnabled(false);
+				// SRDebugEditor.SetEnabled(false);
 			}
 		}
 	}

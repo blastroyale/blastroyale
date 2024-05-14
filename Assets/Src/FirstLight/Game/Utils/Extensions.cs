@@ -4,18 +4,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using ExitGames.Client.Photon;
-using FirstLight.FLogger;
-using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
-using FirstLight.Game.Logic;
-using FirstLight.Server.SDK.Modules.GameConfiguration;
-using FirstLight.Server.SDK.Modules;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
@@ -23,8 +15,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
-using EventBase = Quantum.EventBase;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 using PlayerMatchData = Quantum.PlayerMatchData;
 
 namespace FirstLight.Game.Utils
@@ -64,16 +54,23 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetPhotonRegionTranslation(this string regionKey)
 		{
+			if (LocalizationManager.TryGetTranslation("UITSettings/region_" + regionKey.ToLowerInvariant(), out var translation))
+			{
+				return translation;
+			}
+			
 			switch (regionKey)
 			{
 				case "eu":
-					return ScriptLocalization.UITSettings.ServerNameEu;
+					return ScriptLocalization.UITSettings.region_eu;
 				case "us":
-					return ScriptLocalization.UITSettings.ServerNameUs;
+					return ScriptLocalization.UITSettings.region_us;
 				case "hk":
+					return ScriptLocalization.UITSettings.region_hk;
 				case "asia":
+					return ScriptLocalization.UITSettings.region_asia;
 				case "in":
-					return ScriptLocalization.UITSettings.ServerNameHk;
+					return ScriptLocalization.UITSettings.region_in;
 				default:
 					return "";
 			}

@@ -26216,7 +26216,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameEu
+    - Term: UITSettings/region_eu
       TermType: 0
       Description: 
       Languages:
@@ -26227,7 +26227,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameHk
+    - Term: UITSettings/region_hk
       TermType: 0
       Description: 
       Languages:
@@ -26238,7 +26238,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameUs
+    - Term: UITSettings/region_us
       TermType: 0
       Description: 
       Languages:
@@ -26249,7 +26249,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameAsia
+    - Term: UITSettings/region_asia
       TermType: 0
       Description: 
       Languages:
@@ -26260,7 +26260,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameAu
+    - Term: UITSettings/region_au
       TermType: 0
       Description: 
       Languages:
@@ -26271,7 +26271,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameCae
+    - Term: UITSettings/region_cae
       TermType: 0
       Description: 
       Languages:
@@ -26282,7 +26282,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameCn
+    - Term: UITSettings/region_cn
       TermType: 0
       Description: 
       Languages:
@@ -26293,7 +26293,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameIn
+    - Term: UITSettings/region_in
       TermType: 0
       Description: 
       Languages:
@@ -26304,7 +26304,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameJp
+    - Term: UITSettings/region_jp
       TermType: 0
       Description: 
       Languages:
@@ -26315,7 +26315,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameZa
+    - Term: UITSettings/region_za
       TermType: 0
       Description: 
       Languages:
@@ -26326,7 +26326,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameSa
+    - Term: UITSettings/region_sa
       TermType: 0
       Description: 
       Languages:
@@ -26337,7 +26337,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameUae
+    - Term: UITSettings/region_uae
       TermType: 0
       Description: 
       Languages:
@@ -26348,7 +26348,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameUsw
+    - Term: UITSettings/region_usw
       TermType: 0
       Description: 
       Languages:
@@ -26359,7 +26359,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameUssc
+    - Term: UITSettings/region_ussc
       TermType: 0
       Description: 
       Languages:
@@ -26370,7 +26370,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameKr
+    - Term: UITSettings/region_kr
       TermType: 0
       Description: 
       Languages:
@@ -26381,24 +26381,13 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameTurkey
+    - Term: UITSettings/region_tr
       TermType: 0
       Description: 
       Languages:
       - Europe2
       - Turkey
       - Turkey
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/show_latency
-      TermType: 0
-      Description: 
-      Languages:
-      - Show Latency
-      - 
-      - 
       - 
       - 
       Flags: 0000000000
@@ -27634,7 +27623,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1714475576435
+    Google_LastUpdatedVersion: 1715421747828
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

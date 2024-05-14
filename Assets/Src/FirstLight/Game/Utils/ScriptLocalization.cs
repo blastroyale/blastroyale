@@ -2351,22 +2351,6 @@ namespace I2.Loc
 		public static class UITSettings
 		{
 			public static string InvertSpecialCancel 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/InvertSpecialCancel"); } }
-			public static string ServerNameAsia 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameAsia"); } }
-			public static string ServerNameAu 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameAu"); } }
-			public static string ServerNameCae 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameCae"); } }
-			public static string ServerNameCn 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameCn"); } }
-			public static string ServerNameEu 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameEu"); } }
-			public static string ServerNameHk 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameHk"); } }
-			public static string ServerNameIn 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameIn"); } }
-			public static string ServerNameJp 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameJp"); } }
-			public static string ServerNameKr 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameKr"); } }
-			public static string ServerNameSa 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameSa"); } }
-			public static string ServerNameTurkey 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameTurkey"); } }
-			public static string ServerNameUae 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameUae"); } }
-			public static string ServerNameUs 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameUs"); } }
-			public static string ServerNameUssc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameUssc"); } }
-			public static string ServerNameUsw 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameUsw"); } }
-			public static string ServerNameZa 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/ServerNameZa"); } }
 			public static string account_deleted_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_deleted_desc"); } }
 			public static string account_deleted_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_deleted_title"); } }
 			public static string account_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_title"); } }
@@ -2410,9 +2394,26 @@ namespace I2.Loc
 			public static string off 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/off"); } }
 			public static string old_players 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/old_players"); } }
 			public static string on 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/on"); } }
+			public static string region_asia 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_asia"); } }
+			public static string region_au 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_au"); } }
+			public static string region_cae 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_cae"); } }
+			public static string region_cn 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_cn"); } }
+			public static string region_eu 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_eu"); } }
+			public static string region_hk 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_hk"); } }
+			public static string region_in 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_in"); } }
+			public static string region_jp 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_jp"); } }
+			public static string region_kr 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_kr"); } }
+			public static string region_sa 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_sa"); } }
+			public static string region_tr 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_tr"); } }
+			public static string region_uae 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_uae"); } }
+			public static string region_us 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_us"); } }
+			public static string region_ussc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_ussc"); } }
+			public static string region_usw 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_usw"); } }
+			public static string region_za 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_za"); } }
 			public static string screenshake 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/screenshake"); } }
 			public static string server 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/server"); } }
 			public static string settings_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/settings_title"); } }
+			public static string show_latency 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/show_latency"); } }
 			public static string show_real_damage 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/show_real_damage"); } }
 			public static string sixty 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sixty"); } }
 			public static string sound_effects 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sound_effects"); } }
@@ -4911,22 +4912,6 @@ namespace I2.Loc
 		public static class UITSettings
 		{
 		    public const string InvertSpecialCancel = "UITSettings/InvertSpecialCancel";
-		    public const string ServerNameAsia = "UITSettings/ServerNameAsia";
-		    public const string ServerNameAu = "UITSettings/ServerNameAu";
-		    public const string ServerNameCae = "UITSettings/ServerNameCae";
-		    public const string ServerNameCn = "UITSettings/ServerNameCn";
-		    public const string ServerNameEu = "UITSettings/ServerNameEu";
-		    public const string ServerNameHk = "UITSettings/ServerNameHk";
-		    public const string ServerNameIn = "UITSettings/ServerNameIn";
-		    public const string ServerNameJp = "UITSettings/ServerNameJp";
-		    public const string ServerNameKr = "UITSettings/ServerNameKr";
-		    public const string ServerNameSa = "UITSettings/ServerNameSa";
-		    public const string ServerNameTurkey = "UITSettings/ServerNameTurkey";
-		    public const string ServerNameUae = "UITSettings/ServerNameUae";
-		    public const string ServerNameUs = "UITSettings/ServerNameUs";
-		    public const string ServerNameUssc = "UITSettings/ServerNameUssc";
-		    public const string ServerNameUsw = "UITSettings/ServerNameUsw";
-		    public const string ServerNameZa = "UITSettings/ServerNameZa";
 		    public const string account_deleted_desc = "UITSettings/account_deleted_desc";
 		    public const string account_deleted_title = "UITSettings/account_deleted_title";
 		    public const string account_title = "UITSettings/account_title";
@@ -4970,9 +4955,26 @@ namespace I2.Loc
 		    public const string off = "UITSettings/off";
 		    public const string old_players = "UITSettings/old_players";
 		    public const string on = "UITSettings/on";
+		    public const string region_asia = "UITSettings/region_asia";
+		    public const string region_au = "UITSettings/region_au";
+		    public const string region_cae = "UITSettings/region_cae";
+		    public const string region_cn = "UITSettings/region_cn";
+		    public const string region_eu = "UITSettings/region_eu";
+		    public const string region_hk = "UITSettings/region_hk";
+		    public const string region_in = "UITSettings/region_in";
+		    public const string region_jp = "UITSettings/region_jp";
+		    public const string region_kr = "UITSettings/region_kr";
+		    public const string region_sa = "UITSettings/region_sa";
+		    public const string region_tr = "UITSettings/region_tr";
+		    public const string region_uae = "UITSettings/region_uae";
+		    public const string region_us = "UITSettings/region_us";
+		    public const string region_ussc = "UITSettings/region_ussc";
+		    public const string region_usw = "UITSettings/region_usw";
+		    public const string region_za = "UITSettings/region_za";
 		    public const string screenshake = "UITSettings/screenshake";
 		    public const string server = "UITSettings/server";
 		    public const string settings_title = "UITSettings/settings_title";
+		    public const string show_latency = "UITSettings/show_latency";
 		    public const string show_real_damage = "UITSettings/show_real_damage";
 		    public const string sixty = "UITSettings/sixty";
 		    public const string sound_effects = "UITSettings/sound_effects";

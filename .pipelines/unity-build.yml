@@ -153,8 +153,10 @@ steps:
     condition: eq(variables['system.debug'], 'true')
     displayName: 'List build output properties'
 
+  # The security thing is because apple is apple and we need to unlock (or something) the login keychain
   - script: |
       cd app
+      security set-key-partition-list -S apple: -s -k EgfTpS6F login.keychain
       fastlane gym --output_directory "$(System.DefaultWorkingDirectory)" --export_method development
     condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))
     displayName: 'Fastlane iOS Build'

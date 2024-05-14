@@ -18,7 +18,7 @@ namespace FirstLight.Game.Views.UITK
 	{
 		public Action OnClicked;
 
-		private Vector3 _worldAnchor;
+		private Transform _worldAnchor;
 		private readonly float _labelScale;
 
 		private VisualElement _crownElement;
@@ -26,12 +26,11 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _notReadyElement;
 		public Label PlayerNameLabel { private set; get; }
 
-		public HomePartyNameView(Vector3 worldAnchor, float labelScale)
+		public HomePartyNameView(Transform worldAnchor, float labelScale)
 		{
 			_worldAnchor = worldAnchor;
 			_labelScale = labelScale;
 		}
-
 
 		protected override void Attached()
 		{
@@ -64,12 +63,10 @@ namespace FirstLight.Game.Views.UITK
 			_notReadyElement.SetDisplay(!isReady && !leader);
 		}
 
-
 		public void UpdatePosition()
 		{
-			Element.SetPositionBasedOnWorldPosition(_worldAnchor);
+			Element.SetPositionBasedOnWorldPosition(_worldAnchor.position);
 		}
-
 
 		private void OnPlayerNameClicked(ClickEvent evt)
 		{

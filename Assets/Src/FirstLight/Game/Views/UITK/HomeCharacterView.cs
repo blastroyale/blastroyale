@@ -34,21 +34,53 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	}
 
 	[Serializable]
+	public class LocalPlayerMember : MenuPartyMember
+	{
+		public Transform PartyPosition;
+		[NonSerialized] public Vector3 InitialPosition;
+		[NonSerialized] public Quaternion InitialRotation;
+
+		public void SaveInitialPosition()
+		{
+			InitialPosition = SlotRoot.transform.position;
+			InitialRotation = SlotRoot.transform.rotation;
+		}
+
+		public void ApplyInitialPosition()
+		{
+			SlotRoot.transform.SetPositionAndRotation(InitialPosition, InitialRotation);
+		}
+
+		public void ApplyPartyPosition()
+		{
+			SlotRoot.transform.SetPositionAndRotation(PartyPosition.position, PartyPosition.rotation);
+		}
+	}
+
+	[Serializable]
 	public class HomeCharacterView : UIView
 	{
 		[SerializeField] private MenuPartyMember[] _teamMatePositions;
-		[SerializeField] private MenuPartyMember _localPlayer;
+		[SerializeField] private LocalPlayerMember _localPlayer;
 		[SerializeField] private VisualTreeAsset _playerNameTemplate;
 
 		private IGameServices _services;
 		private IPartyService _partyService;
 		private readonly SemaphoreSlim _lock = new (1, 1);
 
-
 		protected override void Attached()
 		{
 			_services = MainInstaller.ResolveServices();
 			_partyService = _services.PartyService;
+
+			_localPlayer.SaveInitialPosition();
+			// Create labels before so they are ready for OnScreeOpen, because we can't add new views inside OnScreenOpen
+			foreach (var teamMatePosition in _teamMatePositions)
+			{
+				CreateLabelFor(teamMatePosition);
+			}
+
+			CreateLabelFor(_localPlayer);
 		}
 
 		public override void OnScreenOpen(bool reload)
@@ -58,11 +90,9 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_partyService.LobbyProperties.Observe(OnLobbyPropertiesChanged);
 			_partyService.LocalReadyStatus.Observe(OnLocalStatusChanged);
 
-
 			CleanAll();
 			UpdateMembers().Forget();
 		}
-
 
 		public override void OnScreenClose()
 		{
@@ -87,6 +117,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			if (!newValue)
 			{
 				_localPlayer.NameView?.Disable();
+				_localPlayer.ApplyInitialPosition();
 				CleanAll();
 				return;
 			}
@@ -105,6 +136,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			try
 			{
 				var partyMembers = _partyService.Members.ToList();
+				//var partyMembers = GetFakeMembers();
 				if (!_partyService.HasParty.Value)
 				{
 					CleanAll();
@@ -150,20 +182,28 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
-
 		public async UniTask UpdateSlot(MenuPartyMember slot, PartyMember member)
 		{
-			CreateLabelFor(slot);
 			slot.PlayerId = member.PlayfabID;
 			// Update ui
 			slot.NameView.Enable(member.DisplayName, member.Leader, _partyService.IsReady(member));
-			slot.NameView.UpdatePosition();
 			// Local player is always on screen so we don't have to load their skin
 			if (member.Local)
 			{
+				if (_partyService.Members.Count > 1)
+				{
+					((LocalPlayerMember) slot).ApplyPartyPosition();
+				}
+				else
+				{
+					((LocalPlayerMember) slot).ApplyInitialPosition();
+				}
+
+				slot.NameView.UpdatePosition();
 				return;
 			}
 
+			slot.NameView.UpdatePosition();
 			slot.NameView.OnClicked = () => OpenPlayerOptions(slot, member);
 
 			var playerSkin = GameId.MaleAssassin;
@@ -192,8 +232,9 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			if (slot.NameView != null) return;
 			var playerNameElement = _playerNameTemplate.Instantiate();
 			Element.Add(playerNameElement);
-			slot.NameView = new HomePartyNameView(slot.NameAnchor.position, slot.LabelScale);
+			slot.NameView = new HomePartyNameView(slot.NameAnchor, slot.LabelScale);
 			playerNameElement.AttachExistingView(Presenter, slot.NameView);
+			slot.NameView.Disable();
 		}
 
 		private void CleanAll()
@@ -291,5 +332,66 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				FLog.Warn("Error on promoting squad member", pe);
 			}
 		}
+
+#if UNITY_EDITOR
+		private List<PartyMember> GetFakeMembers()
+		{
+			return new List<PartyMember>()
+			{
+				new ()
+				{
+					Leader = true,
+					PlayfabID = PlayFab.PlayFabSettings.staticPlayer.EntityId,
+					RawProperties = new Dictionary<string, string>()
+					{
+						{PartyMember.PROFILE_MASTER_ID, PlayFab.PlayFabSettings.staticPlayer.PlayFabId},
+						{PartyMember.TROPHIES_PROPERTY, "4242"},
+						{PartyMember.CHARACTER_SKIN_PROPERTY, GameId.PlayerSkinEGirl.ToString()},
+						{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, "Local Player"},
+						{PartyMember.READY_MEMBER_PROPERTY, "false"}
+					}
+				},
+				new ()
+				{
+					Leader = false,
+					PlayfabID = "FE254F35877468D3",
+					RawProperties = new Dictionary<string, string>()
+					{
+						{PartyMember.PROFILE_MASTER_ID, "6BED68CD7667A34E"},
+						{PartyMember.TROPHIES_PROPERTY, "4242"},
+						{PartyMember.CHARACTER_SKIN_PROPERTY, GameId.PlayerSkinGearedApe.ToString()},
+						{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, "Member1"},
+						{PartyMember.READY_MEMBER_PROPERTY, "false"}
+					}
+				},
+				new ()
+				{
+					Leader = false,
+					PlayfabID = "7C47BE0F485E1157",
+					RawProperties = new Dictionary<string, string>()
+					{
+						{PartyMember.PROFILE_MASTER_ID, "643C1C2F2926C934"},
+						{PartyMember.TROPHIES_PROPERTY, "423"},
+						{PartyMember.CHARACTER_SKIN_PROPERTY, GameId.PlayerSkinNinja.ToString()},
+						{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, "Member2"},
+						{PartyMember.READY_MEMBER_PROPERTY, "false"}
+					}
+				},
+				new ()
+				{
+					Leader = false,
+					PlayfabID = "313AC847A0DC6817",
+					RawProperties = new Dictionary<string, string>()
+					{
+						{PartyMember.PROFILE_MASTER_ID, "313AC847A0DC6817"},
+						{PartyMember.TROPHIES_PROPERTY, "4242"},
+						{PartyMember.CHARACTER_SKIN_PROPERTY, GameId.PlayerSkinLeprechaun.ToString()},
+						{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, "Member3"},
+						{PartyMember.READY_MEMBER_PROPERTY, "false"}
+					}
+				}
+			};
+		}
+#endif
 	}
 }

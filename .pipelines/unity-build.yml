@@ -119,16 +119,21 @@ steps:
       -p:RestorePackagesConfig=true
     displayName: 'Quantum Build'
 
-  - task: UnityBuildTask@3
-    name: unitybuildaccelerated
-    displayName: 'Unity Build'
+  - script: |
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+
+      if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+        export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+        export PATH=`gem environment gemdir`/bin:$PATH
+      fi
+
+      /Applications/Unity/Hub/Editor/2022.3.19f1/Unity.app/Contents/MacOS/Unity \
+      -batchmode -buildTarget ${{ parameters.platform }} -projectPath $(System.DefaultWorkingDirectory) \
+      -logfile - -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -FLDevelopmentBuild ${{ parameters.dev_build }} \
+      -username ${{ parameters.unity_username }} -password ${{ parameters.unity_password }} \
+      -EnableCacheServer -cacheServerEndpoint localhost:10080 -executeMethod FirstLight.Editor.Build.Builder.BatchBuild -quit
     condition: not(or(failed(), canceled()))
-    inputs:
-      buildTarget: ${{ parameters.platform }}
-      buildScriptType: existing
-      scriptExecuteMethod: FirstLight.Editor.Build.Builder.BatchBuild
-      outputPath: $(Build.BinariesDirectory)
-      additionalCmdArgs: -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -FLDevelopmentBuild ${{ parameters.dev_build }} -username ${{ parameters.unity_username }} -password ${{ parameters.unity_password }} -EnableCacheServer -cacheServerEndpoint localhost:10080
+    displayName: 'Unity Build'
 
   - task: PowerShell@2
     inputs:
@@ -164,6 +169,13 @@ steps:
 
   # The security thing is because apple is apple and we need to unlock (or something) the login keychain
   - script: |
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+
+      if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+        export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+        export PATH=`gem environment gemdir`/bin:$PATH
+      fi
+
       cd app
       security set-key-partition-list -S apple: -s -k EgfTpS6F login.keychain
       fastlane gym --output_directory "$(System.DefaultWorkingDirectory)" --export_method development

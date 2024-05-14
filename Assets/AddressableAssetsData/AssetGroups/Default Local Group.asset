@@ -175,23 +175,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 31f2a8fc0eec9482b890471d75ccaee5
-    m_Address: Assets/AddressableResources/Gliders/Glider_Falcon.prefab
+  - m_GUID: fa861bc1e98024abcb664233179fcdb2
+    m_Address: Assets/AddressableResources/Gliders/Divinci/Glider_Divinci.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 18709606e98e8459cb5f8bb69eaa3b94
-    m_Address: Assets/AddressableResources/Gliders/Glider_Rocket.prefab
+  - m_GUID: 942576c79c1084f2aae780de3e558fd4
+    m_Address: Assets/AddressableResources/Gliders/Turbine/Glider_Turbine.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 170701ac8589843fe9e2b31df179b490
-    m_Address: Assets/AddressableResources/Gliders/Glider_Divinci.prefab
+  - m_GUID: dfaa234ed67534e65ac8136d5d3387a7
+    m_Address: Assets/AddressableResources/Gliders/Falcon/Glider_Falcon.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7d7d4b63d57c847bfb0fccf965df7024
-    m_Address: Assets/AddressableResources/Gliders/Glider_Turbine.prefab
+  - m_GUID: ed6fd1588abc74d7fb1f30d63ab8f7bf
+    m_Address: Assets/AddressableResources/Gliders/Rocket/Glider_Rocket.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

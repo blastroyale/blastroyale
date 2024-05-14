@@ -84,9 +84,13 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 
 				var weaponInstance = (GameObject) PrefabUtility.InstantiatePrefab(_weapon, skin.WeaponAnchor);
 
-				var weaponChild = weaponInstance.transform.GetChild(0);
-				weaponChild.localPosition = Vector3.zero;
-				weaponChild.localRotation = Quaternion.identity;
+				// TODO: Temporary if, new weapons don't have a child
+				if (weaponInstance.transform.childCount > 0)
+				{
+					var weaponChild = weaponInstance.transform.GetChild(0);
+					weaponChild.localPosition = Vector3.zero;
+					weaponChild.localRotation = Quaternion.identity;
+				}
 			}
 		}
 

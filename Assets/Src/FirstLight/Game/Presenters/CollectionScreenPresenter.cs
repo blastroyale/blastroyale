@@ -322,7 +322,6 @@ namespace FirstLight.Game.Presenters
 			{
 				_degreesToRotate = _gliderSpawnRotation.y;
 				_anchorObject.transform.localRotation = Quaternion.Euler(_gliderSpawnRotation);
-				_collectionObject.GetComponent<MainMenuGliderViewComponent>().ActivateParticleEffects(false);
 			}
 			else if (_selectedCategory.Id == GameIdGroup.DeathMarker)
 			{

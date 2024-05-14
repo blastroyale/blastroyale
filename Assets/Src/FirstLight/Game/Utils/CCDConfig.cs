@@ -17,7 +17,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// The current badge for CCD, defaults to version.
 		/// </summary>
-		[Preserve] public static string CCDBadgeName = Application.version.Replace(".", "_");
+		[Preserve] public static string CCDBadgeName = FLEnvironment.Current.UCSEnvironmentName == "development" ? "latest" : Application.version.Replace(".", "_");
 
 		/// <summary>
 		/// The current environment for CCD.

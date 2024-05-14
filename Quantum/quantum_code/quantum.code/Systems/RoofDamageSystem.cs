@@ -43,7 +43,7 @@ namespace Quantum.Systems
 			apc->AboveGroundIllegally = true;
 
 			var spell = f.Create();
-			var damage = f.Get<Stats>(playerEntity).GetStatData(StatType.Health).StatValue *
+			var damage = f.Unsafe.GetPointer<Stats>(playerEntity)->GetStatData(StatType.Health).StatValue *
 				f.GameConfig.RoofDamageAmount;
 
 			f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects).Add(spell);

@@ -96,8 +96,8 @@ namespace Quantum.Systems
 					return !f.Unsafe.GetPointer<PlayerInventory>(player)->HasSpaceForSpecial();
 				}
 
-				var stats = f.Get<Stats>(player);
-				return stats.IsConsumableStatFilled(consumable->ConsumableType);
+				var stats = f.Unsafe.GetPointer<Stats>(player);
+				return stats->IsConsumableStatFilled(consumable->ConsumableType);
 			}
 
 			return false;
@@ -166,12 +166,12 @@ namespace Quantum.Systems
 
 			f.Signals.CollectableCollected(gameId, entity, playerEntity, collectable->Spawner);
 			f.Events.OnCollectableCollected(gameId, entity, playerEntity, collectable->Spawner,
-				f.Get<Transform3D>(entity).Position);
+				f.Unsafe.GetPointer<Transform3D>(entity)->Position);
 		}
 
 		private FP GetCollectDuration(Frame f, EntityRef consumableEntity, EntityRef playerEntity)
 		{
-			var timeMod = f.Get<Stats>(playerEntity).GetStatData(StatType.PickupSpeed).StatValue;
+			var timeMod = f.Unsafe.GetPointer<Stats>(playerEntity)->GetStatData(StatType.PickupSpeed).StatValue;
 
 			// We default to global collect time
 			var endTime = f.GameConfig.CollectableCollectTime.Get(f);

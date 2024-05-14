@@ -5,7 +5,7 @@ namespace Quantum
 	/// </summary>
 	public static unsafe class SpecialRadar
 	{
-		public static bool Use(Frame f, EntityRef e, PlayerRef player, ref Special special)
+		public static bool Use(Frame f, EntityRef e, PlayerRef player, in Special special)
 		{
 			if (!f.Exists(e) || f.Has<DeadPlayerCharacter>(e))
 			{

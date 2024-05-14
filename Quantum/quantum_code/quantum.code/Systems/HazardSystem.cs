@@ -97,11 +97,11 @@ namespace Quantum.Systems
 
 		private void OnHit(Frame f, Spell* spell)
 		{
-			var source = f.Get<Hazard>(spell->SpellSource);
+			var source = f.Unsafe.GetPointer<Hazard>(spell->SpellSource);
 
-			if (source.StunDuration > FP._0)
+			if (source->StunDuration > FP._0)
 			{
-				StatusModifiers.AddStatusModifierToEntity(f, spell->Victim, StatusModifierType.Stun, source.StunDuration);
+				StatusModifiers.AddStatusModifierToEntity(f, spell->Victim, StatusModifierType.Stun, source->StunDuration);
 			}
 
 			f.Events.OnHazardHit(spell->Attacker, spell->Victim, spell->OriginalHitPosition);

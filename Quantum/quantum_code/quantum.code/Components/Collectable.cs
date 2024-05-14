@@ -33,13 +33,13 @@ namespace Quantum
 			var entityConsumable = f.Create(f.FindAsset<EntityPrototype>(configConsumable.AssetRef.Id));
 
 			f.Unsafe.GetPointer<Consumable>(entityConsumable)->Init(f, entityConsumable, dropPosition,
-				FPQuaternion.Identity, ref configConsumable, EntityRef.None, position);
+				FPQuaternion.Identity, configConsumable, EntityRef.None, position);
 		}
 
 		/// <summary>
 		/// Drops an equipment item (weapon / gear) from <paramref name="equipment"/> in the given <paramref name="position"/>
 		/// </summary>
-		public static void DropEquipment(Frame f, Equipment equipment, FPVector3 position, int angleDropStep, bool isConsiderNavMesh,
+		public static void DropEquipment(Frame f, in Equipment equipment, FPVector3 position, int angleDropStep, bool isConsiderNavMesh,
 										 int dropAngles, PlayerRef owner = new PlayerRef())
 		{
 			if (equipment.IsDefaultItem())
@@ -58,7 +58,7 @@ namespace Quantum
 
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity, position,
-				ref equipment, EntityRef.None, owner);
+				equipment, EntityRef.None, owner);
 		}
 
 		/// <summary>

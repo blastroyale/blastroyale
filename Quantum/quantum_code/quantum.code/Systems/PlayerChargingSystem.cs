@@ -50,7 +50,7 @@ namespace Quantum.Systems
 				var damage = targetMaxHP * charging.PowerAmount;
 
 				var spell = Spell.CreateInstant(f, targetHit, attacker, attacker, (uint)damage, 0,
-											f.Get<Transform3D>(targetHit).Position);
+											f.Unsafe.GetPointer<Transform3D>(targetHit)->Position);
 				QuantumHelpers.ProcessHit(f, &spell);
 			}
 

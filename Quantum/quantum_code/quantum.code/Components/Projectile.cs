@@ -13,8 +13,9 @@ namespace Quantum
 		/// </summary>
 		public readonly FP GetPower(in Frame f)
 		{
-			var weaponConfig = f.WeaponConfigs.GetConfig(SourceId);
 			if (!f.TryGet<Stats>(Attacker, out var stats)) return 0;
+			
+			var weaponConfig = f.WeaponConfigs.GetConfig(SourceId);
 			var dmg = stats.GetStatData(StatType.Power).StatValue * weaponConfig.PowerToDamageRatio;
 			if (f.Unsafe.TryGetPointer<PlayerCharacter>(Attacker, out var player))
 			{

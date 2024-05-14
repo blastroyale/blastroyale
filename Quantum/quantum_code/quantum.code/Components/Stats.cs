@@ -118,7 +118,7 @@ namespace Quantum
 		/// <summary>
 		/// Removes all modifiers, removes immunity, resets health and shields
 		/// </summary>
-		internal void ResetStats(Frame f, Equipment weapon, Equipment[] gear, EntityRef e)
+		internal void ResetStats(Frame f, in Equipment weapon, in Equipment[] gear, EntityRef e)
 		{
 			CurrentStatusModifierDuration = FP._0;
 			CurrentStatusModifierEndTime = FP._0;
@@ -136,7 +136,7 @@ namespace Quantum
 				}
 			}
 
-			CalculateStatsFrom(f, ref weapon, gear, e);
+			CalculateStatsFrom(f, weapon, gear, e);
 
 			CurrentHealth = GetStatData(StatType.Health).StatValue.AsInt;
 			if (CurrentAmmoPercent == 0)
@@ -243,15 +243,16 @@ namespace Quantum
 			var statData = GetStatData(StatType.Shield);
 			var previousShieldCapacity = statData.StatValue;
 			var maxShieldCapacity = statData.BaseValue;
-			var modifierPower = (FP)amount / maxShieldCapacity;
-			var newCapacityValue = previousShieldCapacity + (maxShieldCapacity * modifierPower);
-
+			
 			if (previousShieldCapacity.AsInt == maxShieldCapacity.AsInt)
 			{
 				SetCurrentShield(f, entity, CurrentShield + amount, previousShieldCapacity.AsInt);
 				return;
 			}
 
+			var modifierPower = (FP)amount / maxShieldCapacity;
+			var newCapacityValue = previousShieldCapacity + (maxShieldCapacity * modifierPower);
+			
 			if (newCapacityValue > maxShieldCapacity)
 			{
 				modifierPower = (maxShieldCapacity - previousShieldCapacity) / maxShieldCapacity;
@@ -427,17 +428,17 @@ namespace Quantum
 			SetCurrentHealth(f, e, health, Spell.DefaultId);
 		}
 
-		private int CalculateStatsFrom(Frame f, ref Equipment weapon, Equipment[] gear, EntityRef e)
+		private int CalculateStatsFrom(Frame f, in Equipment weapon, in Equipment[] gear, EntityRef e)
 		{
 			var maxShields = f.GameConfig.PlayerMaxShieldCapacity.Get(f);
 			var startingShields = f.GameConfig.PlayerStartingShieldCapacity.Get(f);
 			var modifiers = f.ResolveList(Modifiers);
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 
-			GetLoadoutStats(f, ref weapon, gear, e, out var armour, out var health, out var speed, out var power,
+			GetLoadoutStats(f, weapon, gear, e, out var armour, out var health, out var speed, out var power,
 				out var attackRange, out var pickupSpeed, out var ammoCapacity, out var shieldCapacity);
 
-			var might = QuantumStatCalculator.GetTotalMight(f.GameConfig, ref weapon, gear);
+			var might = QuantumStatCalculator.GetTotalMight(f.GameConfig, weapon, gear);
 
 			//TODO: Move default (health, speed, shields) values into StatData configs
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
@@ -471,12 +472,12 @@ namespace Quantum
 		/// <summary>
 		/// Refresh the <paramref name="player"/> stats based on the given loadout data
 		/// </summary>
-		internal void RefreshEquipmentStats(Frame f, PlayerRef player, EntityRef e, Equipment weapon, Equipment[] gear)
+		internal void RefreshEquipmentStats(Frame f, PlayerRef player, EntityRef e, in Equipment weapon, in Equipment[] gear)
 		{
 			var previousStats = this;
 			var previousMaxHeath = GetStatData(StatType.Health).StatValue.AsInt;
 			var previousMaxShield = GetStatData(StatType.Shield).StatValue.AsInt;
-			var might = CalculateStatsFrom(f, ref weapon, gear, e);
+			var might = CalculateStatsFrom(f, weapon, gear, e);
 
 			var newMaxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 			var newHealthAmount = Math.Min(CurrentHealth + Math.Max(newMaxHealth - previousMaxHeath, 0), newMaxHealth);
@@ -488,7 +489,7 @@ namespace Quantum
 			f.Events.OnPlayerEquipmentStatsChanged(player, e, previousStats, this, might);
 		}
 
-		private void GetLoadoutStats(Frame f, ref Equipment weapon, Equipment[] gear, EntityRef e, out int armour,
+		private void GetLoadoutStats(Frame f, in Equipment weapon, in Equipment[] gear, EntityRef e, out int armour,
 									 out int health, out FP speed, out FP power, out FP attackRange, out FP pickupSpeed,
 									 out FP ammoCapacity, out FP shieldCapacity)
 		{

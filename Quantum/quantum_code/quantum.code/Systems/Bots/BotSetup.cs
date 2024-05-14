@@ -117,7 +117,7 @@ namespace Quantum.Systems.Bots
 			{
 				var botConfig = f.RNG->RandomElement(ctx.BotConfigs);
 
-				AddBot(f, ctx, playerRef, botConfig, true);
+				AddBot(f, ctx, playerRef, ref botConfig, true);
 			}
 		}
 
@@ -165,11 +165,11 @@ namespace Quantum.Systems.Bots
 				}
 
 
-				AddBot(f, ctx, playerRef, botConfig);
+				AddBot(f, ctx, playerRef, ref botConfig);
 			}
 		}
 
-		private void AddBot(Frame f, BotSetupContext ctx, PlayerRef id, QuantumBotConfig config,
+		private void AddBot(Frame f, BotSetupContext ctx, PlayerRef id, ref QuantumBotConfig config,
 							bool realPlayer = false)
 		{
 			var teamId = GetBotTeamId(f, id, ctx.PlayersByTeam);
@@ -279,7 +279,7 @@ namespace Quantum.Systems.Bots
 			EntityComponentPointerPair<PlayerSpawner> spawner;
 			if (ctx.AvailableSpawners.Count > 0)
 			{
-				var rngSpawnIndex = GetSpawnPointForBot(f, ctx, config, teamId);
+				var rngSpawnIndex = GetSpawnPointForBot(f, ctx, ref config, teamId);
 				spawner = ctx.AvailableSpawners[rngSpawnIndex];
 				ctx.AvailableSpawners.RemoveAt(rngSpawnIndex);
 			}
@@ -311,7 +311,7 @@ namespace Quantum.Systems.Bots
 			CheckUpdateTutorialRuntimeData(f, spawner.Entity, botEntity);
 			if (f.Unsafe.TryGetPointer<BotLoadout>(spawner.Entity, out var botLoadout))
 			{
-				playerCharacter->AddWeapon(f, botEntity, ref botLoadout->Weapon, true);
+				playerCharacter->AddWeapon(f, botEntity, botLoadout->Weapon, true);
 				playerCharacter->EquipSlotWeapon(f, botEntity, Constants.WEAPON_INDEX_PRIMARY);
 			}
 
@@ -425,10 +425,10 @@ namespace Quantum.Systems.Bots
 			return list;
 		}
 
-		private int GetSpawnPointForBot(Frame f, BotSetupContext ctx, QuantumBotConfig botConfig, int teamId)
+		private int GetSpawnPointForBot(Frame f, BotSetupContext ctx, ref QuantumBotConfig botConfig, int teamId)
 		{
-			if (GetSpecificSpawn(f, ctx, botConfig, SpawnerType.BotOfType, out var specificSpawnPoint)) return specificSpawnPoint;
-			if (GetSpecificSpawn(f, ctx, botConfig, SpawnerType.AnyBot, out var anyBotSpawn)) return anyBotSpawn;
+			if (GetSpecificSpawn(f, ctx, ref botConfig, SpawnerType.BotOfType, out var specificSpawnPoint)) return specificSpawnPoint;
+			if (GetSpecificSpawn(f, ctx, ref botConfig, SpawnerType.AnyBot, out var anyBotSpawn)) return anyBotSpawn;
 
 			if (GetSpawnClosestToTeam(f, ctx, teamId, out var spawnPointForBot)) return spawnPointForBot;
 
@@ -437,7 +437,7 @@ namespace Quantum.Systems.Bots
 		}
 
 
-		private bool GetSpecificSpawn(Frame f, BotSetupContext ctx, QuantumBotConfig botConfig, SpawnerType type,
+		private bool GetSpecificSpawn(Frame f, BotSetupContext ctx, ref QuantumBotConfig botConfig, SpawnerType type,
 									  out int specificSpawnPoint)
 		{
 			// Try to find spawners that are specific to the type of bot

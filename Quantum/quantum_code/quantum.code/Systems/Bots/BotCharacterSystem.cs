@@ -95,7 +95,7 @@ namespace Quantum.Systems.Bots
 		}
 
 		/// <inheritdoc />
-		private void Update(Frame f, BotUpdateGlobalContext botCtx, ref BotCharacterFilter filter)
+		private void Update(Frame f, in BotUpdateGlobalContext botCtx, ref BotCharacterFilter filter)
 		{
 			if (QuantumFeatureFlags.FREEZE_BOTS) return;
 
@@ -165,12 +165,13 @@ namespace Quantum.Systems.Bots
 			if (filter.BotCharacter->BehaviourType == BotBehaviourType.Static) return;
 			if (filter.BotCharacter->BehaviourType == BotBehaviourType.StaticShooting)
 			{
-				_staticShootingBot.Update(f, ref filter, botCtx);
+				_staticShootingBot.Update(f, ref filter);
+				return;
 			}
 
 			if (filter.BotCharacter->BehaviourType == BotBehaviourType.WanderAndShoot)
 			{
-				_wanderAndShootBot.Update(f, ref filter, botCtx);
+				_wanderAndShootBot.Update(f, ref filter);
 				return;
 			}
 
@@ -229,15 +230,13 @@ namespace Quantum.Systems.Bots
 			if (attacker == bot->Target) return;
 			if (!f.Unsafe.TryGetPointer<Transform3D>(attacker, out var attackerLocation)) return;
 			if (!f.Unsafe.TryGetPointer<Transform3D>(entity, out var botLocation)) return;
-
-			var distanceToAttacker =
-				FPVector2.DistanceSquared(botLocation->Position.XZ, attackerLocation->Position.XZ);
-
+			
+			
 			// If player attacks a bot that has no target, the bot will try to answer
 			if (!bot->Target.IsValid)
 			{
 				if (bot->TryUseSpecials(f.Unsafe.GetPointer<PlayerInventory>(entity), entity, f)) return;
-				var botMaxRange = bot->GetMaxWeaponRange(entity, f.Get<PlayerCharacter>(entity), f);
+				var botMaxRange = bot->GetMaxWeaponRange(entity, f.Unsafe.GetPointer<PlayerCharacter>(entity), f);
 
 				BotLogger.LogAction(entity, $"Going to kick {attacker} ass for shooting me from distance");
 
@@ -245,6 +244,8 @@ namespace Quantum.Systems.Bots
 				botMaxRange *= botMaxRange;
 				bot->Target = attacker;
 
+				var distanceToAttacker = FPVector2.DistanceSquared(botLocation->Position.XZ, attackerLocation->Position.XZ);
+				
 				// when in range, ill just target back
 				if (distanceToAttacker < botMaxRange)
 				{
@@ -256,7 +257,7 @@ namespace Quantum.Systems.Bots
 				else
 				{
 					// A bot goes to the attacker if a bot has a gun. Otherwise - run away
-					if (!f.Get<PlayerCharacter>(entity).HasMeleeWeapon(f, entity))
+					if (!f.Unsafe.GetPointer<PlayerCharacter>(entity)->HasMeleeWeapon(f, entity))
 					{
 						bot->SetHasWaypoint(entity, f);
 						bot->MoveTarget = attacker;
@@ -283,6 +284,8 @@ namespace Quantum.Systems.Bots
 					return;
 				}
 
+				var distanceToAttacker = FPVector2.DistanceSquared(botLocation->Position.XZ, attackerLocation->Position.XZ);
+				
 				// If the attacker is closer to the bot than the current bot target, 50% swap chance
 				if (f.RNG->NextBool() &&
 					distanceToAttacker <

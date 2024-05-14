@@ -15,7 +15,7 @@ namespace Quantum.Systems
 			var dataPointer = gameContainer->PlayersData.GetPointer(playerDead);
 			
 			dataPointer->DeathCount++;
-			dataPointer->LastDeathPosition = f.Get<Transform3D>(entityDead).Position;
+			dataPointer->LastDeathPosition = f.Unsafe.GetPointer<Transform3D>(entityDead)->Position;
 
 			if (dataPointer->FirstDeathTime == FP._0)
 			{
@@ -64,20 +64,20 @@ namespace Quantum.Systems
 				return;
 			}
 
-			var stats = f.Get<Stats>(entity);
+			var stats = f.Unsafe.GetPointer<Stats>(entity);
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 			
 			if (f.TryGet<PlayerCharacter>(attacker, out var playerAttacker))
 			{
 				var data = gameContainer->PlayersData.GetPointer(playerAttacker.Player);
 				
-				if (stats.CurrentHealth < previousHealth)
+				if (stats->CurrentHealth < previousHealth)
 				{
-					data->DamageDone += (uint) (previousHealth - stats.CurrentHealth);
+					data->DamageDone += (uint) (previousHealth - stats->CurrentHealth);
 				}
 				else if(f.Has<PlayerCharacter>(entity))
 				{
-					data->HealingDone += (uint) (stats.CurrentHealth - previousHealth);
+					data->HealingDone += (uint) (stats->CurrentHealth - previousHealth);
 				}
 			}
 
@@ -85,13 +85,13 @@ namespace Quantum.Systems
 			{
 				var data = gameContainer->PlayersData.GetPointer(playerHit.Player);
 				
-				if (stats.CurrentHealth < previousHealth)
+				if (stats->CurrentHealth < previousHealth)
 				{
-					data->DamageReceived += (uint) (previousHealth - stats.CurrentHealth);
+					data->DamageReceived += (uint) (previousHealth - stats->CurrentHealth);
 				}
 				else if(attacker.IsValid && f.Has<PlayerCharacter>(entity))
 				{
-					data->HealingReceived += (uint) (stats.CurrentHealth - previousHealth);
+					data->HealingReceived += (uint) (stats->CurrentHealth - previousHealth);
 				}
 			}
 		}

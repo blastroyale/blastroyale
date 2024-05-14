@@ -42,7 +42,7 @@ namespace Quantum
 			return i;
 		}
 
-		public static SimulationItem FromConfig(SimulationItemConfig config)
+		public static SimulationItem FromConfig(in SimulationItemConfig config)
 		{
 			if (config.EquipmentMetadata.IsValid())
 			{

@@ -7,7 +7,7 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this <see cref="AirDrop"/> with values from <see cref="QuantumShrinkingCircleConfig"/>
 		/// </summary>
-		public static EntityRef Create(Frame f, ref QuantumShrinkingCircleConfig config,
+		public static EntityRef Create(Frame f, in QuantumShrinkingCircleConfig config,
 									   FPVector3 positionOverride = new FPVector3())
 		{
 			var dropPosition = positionOverride;

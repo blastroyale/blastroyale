@@ -103,7 +103,7 @@ namespace Quantum.Systems
 
 		private void OnProjectileHit(Frame f, in EntityRef targetHit, in EntityRef projectileEntity, in Projectile projectile)
 		{
-			var position = f.Get<Transform3D>(projectileEntity).Position;
+			var position = f.Unsafe.GetPointer<Transform3D>(projectileEntity)->Position;
 			var isTeamHit = TeamSystem.HasSameTeam(f, projectile.Attacker, targetHit);
 			var spawnSubOnEof = projectile.ShouldPerformSubProjectileOnEndOfLifetime(f);
 
@@ -181,7 +181,7 @@ namespace Quantum.Systems
 				QuantumHelpers.LookAt2d(transform, aimDirection, FP._0);
 			}
 			var position = transform->Position + (transform->Rotation * playerCharacter->ProjectileSpawnOffset);
-			var aimingDirection = QuantumHelpers.GetAimDirection(aimDirection, ref transform->Rotation).Normalized;
+			var aimingDirection = QuantumHelpers.GetAimDirection(aimDirection, transform->Rotation).Normalized;
 			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
 			playerCharacter->ReduceMag(f, e); //consume a shot from your magazine
 			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);
@@ -205,7 +205,7 @@ namespace Quantum.Systems
 			}
 		}
 		
-		private static void CreateProjectile(Frame f, in EntityRef shooter, in FP range, in FPVector2 aimingDirection, FPVector3 projectileStartPosition, QuantumWeaponConfig weaponConfig)
+		private static void CreateProjectile(Frame f, in EntityRef shooter, in FP range, in FPVector2 aimingDirection, FPVector3 projectileStartPosition, in QuantumWeaponConfig weaponConfig)
 		{
 			FP accuracyMod = FP._0;
 			if(weaponConfig.MinAttackAngle > FP._0 && !weaponConfig.IsMeleeWeapon && !(weaponConfig.NumberOfShots > 1))
@@ -233,7 +233,7 @@ namespace Quantum.Systems
 				StunDuration = 0,
 				Target = EntityRef.None,
 				Iteration = 0,
-				TeamSource = (byte)f.Get<Targetable>(shooter).Team
+				TeamSource = (byte)f.Unsafe.GetPointer<Targetable>(shooter)->Team
 			};
 			
 			var projectileEntity = f.Create(f.FindAsset<EntityPrototype>(weaponConfig.BulletPrototype != null

@@ -10,7 +10,7 @@ namespace Quantum
 		/// Initializes this Consumable with all the necessary data
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation,
-						   ref QuantumConsumableConfig config, EntityRef spawner, FPVector3 originPos)
+						   in QuantumConsumableConfig config, EntityRef spawner, FPVector3 originPos)
 		{
 			var collectable = new Collectable
 			{
@@ -42,7 +42,7 @@ namespace Quantum
 		{
 			var stats = f.Unsafe.GetPointer<Stats>(playerEntity);
 			var isTeamsMode = f.GetTeamSize() > 1;
-			var team = f.Get<Targetable>(playerEntity).Team;
+			var team = f.Unsafe.GetPointer<Targetable>(playerEntity)->Team;
 			var collectable = f.Unsafe.GetPointer<Collectable>(entity);
 			
 			// TODO: switch to signal handlers on specific systems
@@ -80,7 +80,7 @@ namespace Quantum
 				ShareCollectWithTeammates(f, playerEntity, team);
 			}
 
-			f.Signals.OnConsumableCollected(player, playerEntity, this, *collectable);
+			f.Signals.OnConsumableCollected(player, playerEntity, ConsumableType, collectable->GameId);
 			f.Events.OnConsumableCollected(entity, player, playerEntity);
 		}
 

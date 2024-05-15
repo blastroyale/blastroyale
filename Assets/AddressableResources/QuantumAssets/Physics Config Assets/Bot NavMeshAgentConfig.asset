@@ -17,7 +17,7 @@ MonoBehaviour:
       Path: AddressableResources/QuantumAssets/Physics Config Assets/Bot NavMeshAgentConfig
       Guid:
         Value: 1093005050644660195
-    UpdateInterval: 2
+    UpdateInterval: 5
     PathQuality: 0
     CachedWaypointCount: 3
     MaxRepathTimeout:
@@ -59,7 +59,7 @@ MonoBehaviour:
       RawValue: 32768
     AvoidanceLayer: 0
     AvoidanceMask:
-      BitMask: 33591
+      BitMask: 2871
     MaxAvoidanceCandidates: 64
     ReduceAvoidanceAtWaypoints: 0
     ReduceAvoidanceFactor:

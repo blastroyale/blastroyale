@@ -32,7 +32,7 @@ namespace FirstLight.Editor.Build.Utils
 		/// </summary>
 		public static string GetEnvironment()
 		{
-			return Environment.GetEnvironmentVariable(ENVAR_ENVIRONMENT) ?? GetCMDArgument(ARG_ENVIRONMENT) ?? "development";
+			return Environment.GetEnvironmentVariable(ENVAR_ENVIRONMENT) ?? GetCMDArgument(ARG_ENVIRONMENT) ?? FLEnvironment.DEVELOPMENT.Name;
 		}
 
 		/// <summary>

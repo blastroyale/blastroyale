@@ -32,12 +32,12 @@ namespace FirstLight.Editor.AssetImporters
 
 		private void OnPreprocessModel()
 		{
-			if (!Path.GetFileName(assetPath).StartsWith("Char_")) return;
+			if (!Path.GetFileName(assetPath).StartsWith(CHARACTER_PREFIX)) return;
 
 			var importer = (ModelImporter) assetImporter;
 
 			// Extract textures
-			var folder = assetPath.Remove(assetPath.LastIndexOf('/'));
+			var folder = assetPath!.Remove(assetPath.LastIndexOf('/'));
 			importer.ExtractTextures(folder);
 
 			// Apply preset
@@ -104,7 +104,7 @@ namespace FirstLight.Editor.AssetImporters
 		private void OnPreprocessMaterialDescription(MaterialDescription description, Material material, AnimationClip[] animations)
 		{
 			// TODO: Fix this
-			if (!Path.GetFileName(assetPath).StartsWith("Char_")) return;
+			if (!Path.GetFileName(assetPath).StartsWith(CHARACTER_PREFIX)) return;
 
 			material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
 

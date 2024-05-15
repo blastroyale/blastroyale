@@ -143,6 +143,7 @@ Assets/StreamingAssets/google-services.plist.meta
 Assets/AddressableAssetsData/link.xml
 Assets/AddressableAssetsData/link.xml.meta
 bakery-times.log
+mono_crash.*
 
 # DLLs
 # Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll

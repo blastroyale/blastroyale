@@ -20,7 +20,7 @@ namespace FirstLight.Editor.AssetImporters
 			var importer = (ModelImporter) assetImporter;
 
 			// Extract textures
-			var folder = assetPath.Remove(assetPath.LastIndexOf('/'));
+			var folder = assetPath!.Remove(assetPath.LastIndexOf('/'));
 			importer.ExtractTextures(folder);
 
 			// Apply preset

@@ -16,6 +16,7 @@ using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using SRF;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -314,8 +315,7 @@ namespace FirstLight.Game.Presenters
 			_anchorObject = new GameObject("Collection 3D Object Anchor");
 			_anchorObject.transform.position = _selectedCategory.Id == GameIdGroup.Glider ? _gliderSpawnPosition : _collectionSpawnPosition;
 			_collectionObject.transform.SetParent(_anchorObject.transform);
-			_collectionObject.transform.localPosition = Vector3.zero;
-			_collectionObject.transform.localRotation = Quaternion.identity;
+			_collectionObject.transform.ResetLocal();
 			_renderTexture.visible = true;
 
 			if (_selectedCategory.Id == GameIdGroup.Glider)

@@ -86,7 +86,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 3932
       PowerToDamageRatio:
-        RawValue: 3061
+        RawValue: 3716
       AttackHitSpeed:
         RawValue: 1310720
       MinAttackAngle: 10
@@ -266,7 +266,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 81920
       SplashDamageRatio:
-        RawValue: 3014656
+        RawValue: 4456448
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:

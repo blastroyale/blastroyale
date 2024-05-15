@@ -149,7 +149,7 @@ namespace FirstLight.Game.Presenters
 				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);
 				SetStatInfo(1, result, GameConstants.Stats.RANKED_GAMES_WON_EVER, ScriptLocalization.MainMenu.RankedGamesWon);
 				SetStatInfo(2, result, GameConstants.Stats.RANKED_KILLS_EVER, ScriptLocalization.MainMenu.RankedKills);
-				SetStatInfo(3, result, GameConstants.Stats.RANKED_DEATHS_EVER, ScriptLocalization.MainMenu.RankedDeaths);
+				SetStatInfo(3, result, GameConstants.Stats.RANKED_DAMAGE_DONE_EVER, ScriptLocalization.MainMenu.RankedDamageDone);
 
 				_pfpImage.SetAvatar(result.AvatarUrl);
 				if (IsLocalPlayer)

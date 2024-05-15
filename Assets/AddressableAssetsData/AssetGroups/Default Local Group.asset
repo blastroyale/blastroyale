@@ -175,6 +175,26 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa861bc1e98024abcb664233179fcdb2
+    m_Address: Assets/AddressableResources/Gliders/Divinci/Glider_Divinci.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 942576c79c1084f2aae780de3e558fd4
+    m_Address: Assets/AddressableResources/Gliders/Turbine/Glider_Turbine.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dfaa234ed67534e65ac8136d5d3387a7
+    m_Address: Assets/AddressableResources/Gliders/Falcon/Glider_Falcon.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed6fd1588abc74d7fb1f30d63ab8f7bf
+    m_Address: Assets/AddressableResources/Gliders/Rocket/Glider_Rocket.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

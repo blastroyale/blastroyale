@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: be72bcfe3a76a034b8d91f3ff3a8f9e2
+guid: 854bcaa4817cd42b6a2c256713c7fe07
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Weapon_Mat_Flame
-    second: {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
       name: Weapon_Mat_Flame2
-    second: {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
+    second: {fileID: 2100000, guid: 131409319b68ac944b348112d1efa06e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -24,7 +19,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    removeConstantScaleCurves: 1
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -34,7 +29,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -111,7 +106,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
-  importBlendShapeDeformPercent: 0
+  importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

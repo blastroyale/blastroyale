@@ -75,7 +75,7 @@ namespace FirstLight.Game.Utils
 			/// <summary>
 			/// A generic name for the environment.
 			/// </summary>
-			public string Name => Current.UCSEnvironmentName;
+			public string Name => UCSEnvironmentName;
 
 			/// <summary>
 			/// Identifies the playfab title for this environment.

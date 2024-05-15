@@ -32,12 +32,12 @@ namespace FirstLight.Editor.AssetImporters
 
 		private void OnPreprocessModel()
 		{
-			if (!Path.GetFileName(assetPath).StartsWith("Char_")) return;
+			if (!Path.GetFileName(assetPath).StartsWith(CHARACTER_PREFIX)) return;
 
 			var importer = (ModelImporter) assetImporter;
 
 			// Extract textures
-			var folder = assetPath.Remove(assetPath.LastIndexOf('/'));
+			var folder = assetPath!.Remove(assetPath.LastIndexOf('/'));
 			importer.ExtractTextures(folder);
 
 			// Apply preset
@@ -103,8 +103,7 @@ namespace FirstLight.Editor.AssetImporters
 
 		private void OnPreprocessMaterialDescription(MaterialDescription description, Material material, AnimationClip[] animations)
 		{
-			// TODO: Fix this
-			if (!Path.GetFileName(assetPath).StartsWith("Char_")) return;
+			if (!Path.GetFileName(assetPath).StartsWith(CHARACTER_PREFIX)) return;
 
 			material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
 
@@ -311,35 +310,6 @@ namespace FirstLight.Editor.AssetImporters
 				"SuperstarMale_Xmas" => GameId.PlayerSkinXmasSuperstar,
 				_                    => null
 			};
-		}
-
-
-		private class DelayedEditorCall
-		{
-			private readonly Action _action;
-			private readonly float _executeTime;
-
-			private DelayedEditorCall(Action action, float delay)
-			{
-				_action = action;
-				_executeTime = Time.realtimeSinceStartup + delay;
-			}
-
-			private void Run()
-			{
-				Debug.Log($"RUN: {Time.realtimeSinceStartup} < {_executeTime}");
-				if (Time.realtimeSinceStartup < _executeTime) return;
-
-				_action();
-
-				EditorApplication.update -= Run;
-			}
-
-			public static void DelayedCall(Action action, float delay)
-			{
-				var obj = new DelayedEditorCall(action, delay);
-				EditorApplication.update += obj.Run;
-			}
 		}
 	}
 }

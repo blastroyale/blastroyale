@@ -837,11 +837,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 05733f9c591a1f64e87dae22b8c3f30b
-    m_Address: Assets/Art/Models/Items/Glider_Divinci_Geo.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6ee8ac752d4bd4d98b838492c8d16e57
     m_Address: Assets/Art/Models/Items/M_JetFlame_Hot.mat
     m_ReadOnly: 0
@@ -857,48 +852,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0326e9fe89efde44aa5d1fd9f4709451
-    m_Address: Assets/Art/Textures/Gliders/Davinci_Gliders/T_DavinciGlider_OldTech_C.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1ef35b67e47a54aa794c768731359434
     m_Address: Assets/Art/Shaders/Legacy_FastLit.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 47658e601cafd0c46adcc2f2027e31cd
-    m_Address: Assets/Art/Models/Items/Glider_Falcon_Geo.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 229f0ad4970002f43800e13e446c2ca3
-    m_Address: Assets/Art/Textures/Gliders/Falcon_Gliders/T_FaclonGlider_C.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9a3017e0b76b7b24da011ea3c1e148b6
     m_Address: Assets/Art/Models/Items/M_JetFlame_Cool.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 24611e2998710cf4ea0542b71dac4c33
-    m_Address: Assets/Art/Models/Items/Glider_Rocket_Geo.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 991cd1aefa3cd184380b242075e914b2
-    m_Address: Assets/Art/Textures/Gliders/Rocket_Gliders/T_RocketGlider_C.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 11abe004ca1ebb64c98579814e26402f
-    m_Address: Assets/Art/Models/Items/Glider_Turbine_Geo.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1179742f49506644f89854844914f0b8
-    m_Address: Assets/Art/Textures/Gliders/jet_gliders/jet glideer obj_M_JetGlider_AlbedoTransparency.tga
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -909,21 +869,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bcfa53303780f39419cc7a8ef6924b34
     m_Address: Assets/Art/Models/Weapons/DeWe/DeWe_CB_L_R_P_BUFF.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bfa7c28799dd24a419d1a78e5812cb02
-    m_Address: Assets/Art/Models/Weapons/DeWe/M_Weapons_DeWe.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 58641e0a0df3d3f428114b98d912d0aa
-    m_Address: Assets/Art/Models/Weapons/DeWe/T_DeWe_flames_C.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: be72bcfe3a76a034b8d91f3ff3a8f9e2
-    m_Address: Assets/Art/Models/Weapons/DeWe/DeWe_MG_DonHoward.fbx
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1019,36 +964,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a6d61949b58bef8448db5f723bb1dd93
     m_Address: Assets/Art/Models/Weapons/MajorMarkdowns/MajorMarkdowns_MG.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cd277ed4c1621ad4da2d5d5d5d01389f
-    m_Address: Assets/Art/Models/Weapons/MajorMarkdowns/MajorMarkdowns_RKT.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dfe2bed8df09622419a061a07036a7fd
-    m_Address: Assets/Art/Models/Weapons/MajorMarkdowns/MajorMarkdowns_SMG.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e88fd43c3a23ad84db116f5775a6208d
-    m_Address: Assets/Art/Models/Weapons/MajorMarkdowns/MajorMarkdowns_PST.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ce0c8e2d6003fb6408c86d3112de2d64
-    m_Address: Assets/Art/Models/Weapons/MajorMarkdowns/MajorMarkdowns_AR.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a1261087fc443264e93ce442dde875e4
-    m_Address: Assets/Art/Models/Weapons/MajorMarkdowns/MajorMarkdowns_SG.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 274a2af799d4e5d4a8fb854aeb6f79ab
-    m_Address: Assets/Art/Models/Weapons/MajorMarkdowns/MajorMarkdowns_SNP.fbx
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

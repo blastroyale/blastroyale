@@ -65,7 +65,7 @@ MonoBehaviour:
     - Id: 87
       FiringMode: 0
       WeaponType: 3
-      MaxAmmo: 600
+      MaxAmmo: 700
       BulletPrototype:
         Id:
           Value: 3582668498530828953
@@ -82,16 +82,16 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 36045
       TapCooldown:
-        RawValue: 55706
+        RawValue: 3932
       AttackCooldown:
-        RawValue: 55706
+        RawValue: 3932
       PowerToDamageRatio:
-        RawValue: 3716
+        RawValue: 3061
       AttackHitSpeed:
         RawValue: 1310720
-      MinAttackAngle: 5
+      MinAttackAngle: 10
       NumberOfShots: 1
-      NumberOfBursts: 6
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 458752
       CanHitSameTarget: 1
@@ -233,7 +233,7 @@ MonoBehaviour:
     - Id: 94
       FiringMode: 0
       WeaponType: 5
-      MaxAmmo: 100
+      MaxAmmo: 80
       BulletPrototype:
         Id:
           Value: 1613285068775141220

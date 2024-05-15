@@ -60,7 +60,6 @@ namespace FirstLight.Game.Presenters
 			_header.backClicked += Data.OnBackClicked;
 			_mapDropDown = Root.Q<LocalizedDropDown>("Map").Required();
 			FillMapSelectionList();
-			_mapDropDown.index = 0;
 
 			var orderNumber = 1;
 
@@ -199,7 +198,21 @@ namespace FirstLight.Game.Presenters
 						}
 					}
 					
+					if (_services.GameModeService.SelectedMap == 0)
+					{
+						_mapDropDown.index = 1;
+					}
+					
 					_mapDropDown.choices = menuChoices;
+					
+					for (var i = 0; i < _mapGameIds.Count; i++)
+					{
+						if (_mapGameIds[i] == _services.GameModeService.SelectedMap)
+						{
+							_mapDropDown.index = i;
+							break;
+						}
+					}
 				}
 			}
 		}

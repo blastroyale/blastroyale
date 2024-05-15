@@ -136,6 +136,18 @@ namespace FirstLight.Game.Services
 			{
 				this.SelectDefaultRankedMode();
 			}
+			
+			// Try to set the saved map
+			var lastSelectedMap = _appDataProvider.LastSelectedRankedMap;
+			if (lastSelectedMap > 0)
+			{
+				SelectedMap = (GameId) lastSelectedMap;
+			}
+			else
+			{
+				// TODO: We should set here the map that is used in the first fake match game mode
+				SelectedMap = GameId.MazeMayhem;
+			}
 		}
 
 		private void OnGameModeSet(GameModeInfo _, GameModeInfo current)
@@ -160,6 +172,9 @@ namespace FirstLight.Game.Services
 				}
 				_partyService.SetLobbyProperty(SelectedQueueLobbyProperty, newQueueName, true).Forget();
 			}
+			
+			// TODO: Maybe it should be saved when we change the map, not when we set the game mode
+			_appDataProvider.LastSelectedRankedMap = (int) SelectedMap;
 		}
 
 		private void AddGameModeToPartyProperties(Dictionary<string, string> _, Dictionary<string, string> lobbyData)

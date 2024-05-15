@@ -45,6 +45,11 @@ namespace FirstLight.Game.Logic
 		GameModeRotationConfig.GameModeEntry LastGameMode { get; set; }
 
 		/// <summary>
+		/// Returns the last ranked map user has selected
+		/// </summary>
+		int LastSelectedRankedMap { get; set; }
+		
+		/// <summary>
 		/// Gets last current custom game options used
 		/// </summary>
 		CustomGameOptions LastCustomGameOptions { get; }
@@ -121,6 +126,12 @@ namespace FirstLight.Game.Logic
 			set => Data.LastGameMode = value;
 		}
 
+		public int LastSelectedRankedMap
+		{
+			get => Data.LastSelectedRankedMap;
+			set => Data.LastSelectedRankedMap = value;
+		}
+		
 		/// <inheritdoc />
 		public IObservableField<string> DisplayName { get; private set; }
 

@@ -520,7 +520,7 @@ namespace FirstLight.Game.StateMachines
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
 			var gameModeId = selectedGameMode.Entry.GameModeId;
 			var mutators = selectedGameMode.Entry.Mutators;
-			var mapConfig = _services.GameModeService.GetRotationMapConfig(gameModeId);
+			var map = _services.GameModeService.SelectedMap;
 			var rewards = selectedGameMode.Entry.AllowedRewards;
 
 			if (!FeatureFlags.ENABLE_NOOB)
@@ -530,7 +530,7 @@ namespace FirstLight.Game.StateMachines
 
 			var matchmakingSetup = new MatchRoomSetup()
 			{
-				MapId = (int) mapConfig.Map,
+				MapId = (int) map,
 				GameModeId = gameModeId,
 				Mutators = mutators,
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,

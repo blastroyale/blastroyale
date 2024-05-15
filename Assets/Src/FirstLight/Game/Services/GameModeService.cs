@@ -52,6 +52,11 @@ namespace FirstLight.Game.Services
 		IObservableField<GameModeInfo> SelectedGameMode { get; }
 
 		/// <summary>
+		/// The currently selected Map.
+		/// </summary>
+		GameId SelectedMap { set; get; }
+		
+		/// <summary>
 		/// Provides a list of currently available game modes which is automatically updated when
 		/// rotating game modes change.
 		/// </summary>
@@ -85,6 +90,8 @@ namespace FirstLight.Game.Services
 
 		public IObservableField<GameModeInfo> SelectedGameMode { get; }
 
+		public GameId SelectedMap { set; get; }
+		
 		public IObservableListReader<GameModeInfo> Slots => _slots;
 
 		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService,

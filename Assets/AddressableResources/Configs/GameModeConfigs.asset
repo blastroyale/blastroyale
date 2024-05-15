@@ -108,7 +108,7 @@ MonoBehaviour:
       Systems: []
     - Id: BattleRoyale First Game
       MaxAllowedPlayersPerTeam: 0
-      AllowedMaps: c8000000
+      AllowedMaps: 73000000
       ShowUIMinimap: 1
       ShowUITimer: 1
       ShowUIStandingsExtraInfo: 1

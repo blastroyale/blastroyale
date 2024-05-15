@@ -148,10 +148,10 @@ namespace FirstLight.Game.Presenters
 		{
 			InitScreenAndSegments();
 			FixSafeZone();
-			
+
 			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.Observe(OnBpPointsChanged);
-			
+
 			return base.OnScreenOpen(reload);
 		}
 
@@ -159,7 +159,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObservingAll(this);
-			
+
 			return base.OnScreenClose();
 		}
 
@@ -219,26 +219,43 @@ namespace FirstLight.Game.Presenters
 
 		private void BuyLevelClicked()
 		{
-			var price = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig().Season.BuyLevelPrice;
+			var blastBucks = _dataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.BlastBuck);
+			var canBuy = _dataProvider.BattlePassDataProvider.GetMaxPurchasableLevels(blastBucks);
 
-			_services.GenericDialogService.OpenPurchaseOrNotEnough(
-				new GenericPurchaseDialogPresenter.StateData
+			void OnExit()
+			{
+				if (_services.IAPService.RequiredToViewStore)
 				{
-					Value = price,
-					ItemSprite = _battlepassLevelSprite,
-					OverwriteItemName = ScriptLocalization.UITBattlePass.buy_level_popup_item_name,
-					OnConfirm = () =>
+					Data.BackClicked.Invoke();
+				}
+			}
+
+			if (canBuy <= 1)
+			{
+				_services.GenericDialogService.OpenPurchaseOrNotEnough(
+					new GenericPurchaseDialogPresenter.StateData
 					{
-						_services.CommandService.ExecuteCommand(new BuyBattlepassLevelCommand());
-					},
-					OnExit = () =>
-					{
-						if (_services.IAPService.RequiredToViewStore)
+						Value = _dataProvider.BattlePassDataProvider.GetPriceForBuying(1),
+						ItemSprite = _battlepassLevelSprite,
+						OverwriteItemName = ScriptLocalization.UITBattlePass.buy_level_popup_item_name,
+						OnConfirm = () =>
 						{
-							Data.BackClicked.Invoke();
-						}
-					}
-				});
+							_services.CommandService.ExecuteCommand(new BuyBattlepassLevelCommand {Levels = 1});
+						},
+						OnExit = OnExit
+					});
+				return;
+			}
+
+			_services.UIService.OpenScreen<BuyBattlepassLevelPopupPresenter>(new BuyBattlepassLevelPopupPresenter.StateData
+			{
+				OwnedCurrency = blastBucks,
+				OnConfirm = levels =>
+				{
+					_services.CommandService.ExecuteCommand(new BuyBattlepassLevelCommand {Levels = (uint) levels});
+				},
+				OnExit = OnExit
+			});
 		}
 
 		private void UpdateTimeLeft()
@@ -390,7 +407,7 @@ namespace FirstLight.Game.Presenters
 
 			SpawnScrollFiller();
 			UpdateLastRewardBubbleSprite().Forget();
-			
+
 			if (predictedProgress.Item1 > 1 && update)
 			{
 				ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs, Data.DisableScrollAnimation);
@@ -414,7 +431,7 @@ namespace FirstLight.Game.Presenters
 			// Go ahead miha, you can yell at me
 			var currentSeason = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig();
 			var type = currentSeason.Season.RemovePaid ? PassType.Free : PassType.Paid;
-			var rewards = _dataProvider.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select((_, e) => (uint)e+1), type);
+			var rewards = _dataProvider.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select((_, e) => (uint) e + 1), type);
 			rewards.Reverse();
 			var bestReward = rewards.First();
 			var itemData = _dataProvider.RewardDataProvider.CreateItemFromConfig(bestReward);
@@ -456,7 +473,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateGoToCurrentRewardButton()
 		{
-			var level = Math.Min((int) _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1, (int)_dataProvider.BattlePassDataProvider.MaxLevel-1);
+			var level = Math.Min((int) _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1, (int) _dataProvider.BattlePassDataProvider.MaxLevel - 1);
 			var isCurrentLevelOnScreen = _levelElements[level].IsInScreen(_rightContent);
 			if (isCurrentLevelOnScreen)
 			{

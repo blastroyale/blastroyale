@@ -14,6 +14,7 @@
 @import url("/Assets/Art/UI/Styles/PasswordFieldElementStyle.uss");
 @import url("/Assets/Art/UI/Styles/PopupElementStyle.uss");
 @import url("/Assets/Art/UI/Styles/TooltipStyle.uss");
+@import url("/Assets/Art/UI/Styles/SliderIntWithButtons.uss");
 @import url("/Assets/Art/UI/Screens/DropdownStyle.uss");
 
 

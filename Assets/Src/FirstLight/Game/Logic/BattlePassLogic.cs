@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Server.SDK.Models;
 using Quantum;
@@ -24,7 +24,6 @@ namespace FirstLight.Game.Logic
 	/// </summary>
 	public interface IBattlePassDataProvider
 	{
-		
 		/// <summary>
 		/// The current BP level.
 		/// </summary>
@@ -91,7 +90,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Checks if a given player has enough currency to purchase season
 		/// </summary>
-		bool HasCurrencyForPurchase();
+		bool HasCurrencyForPremiumPurchase();
 
 		/// <summary>
 		/// Checks if the current user saw the current season number
@@ -102,7 +101,23 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Checks if a given player has enough currency to purchase a level
 		/// </summary>
-		bool HasCurrencyForLevelPurchase();
+		bool HasCurrencyForLevelPurchase(uint levels);
+
+		/// <summary>
+		/// Get the remaining levels a player can complete in the pass
+		/// </summary>
+		uint GetRemainingLevels();
+
+		/// <summary>
+		/// Return the amount of blastbucks to buy the given amount of levels
+		/// </summary>
+		uint GetPriceForBuying(uint levels);
+
+		/// <summary>
+		/// Max amount of levels the local player can buy with the owned currency
+		/// </summary>
+		/// <returns></returns>
+		uint GetMaxPurchasableLevels(ulong ownedBlastbucks);
 
 		/// <summary>
 		/// Sets the last level the player claimed rewards for the given pass
@@ -166,8 +181,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Purchase a battlepass level.
 		/// </summary>
-		bool PurchaseLevel();
-
+		bool PurchaseLevel(uint levels);
 
 		/// <summary>
 		/// Mark the banner for the current season as seen
@@ -201,7 +215,7 @@ namespace FirstLight.Game.Logic
 
 		private IObservableField<uint> _currentLevel;
 		private IObservableField<uint> _currentPoints;
-		
+
 		public IObservableFieldReader<uint> CurrentLevel => _currentLevel;
 
 		public IObservableFieldReader<uint> CurrentPoints => _currentPoints;
@@ -218,7 +232,6 @@ namespace FirstLight.Game.Logic
 			_currentLevel = new ObservableResolverField<uint>(() => GetCurrentSeasonData().Level, val => GetCurrentSeasonData().Level = val);
 			_currentPoints = new ObservableResolverField<uint>(() => GetCurrentSeasonData().Points, val => GetCurrentSeasonData().Points = val);
 		}
-
 
 		public void ReInit()
 		{
@@ -324,6 +337,18 @@ namespace FirstLight.Game.Logic
 			_currentPoints.Value = points;
 		}
 
+		public uint GetPriceForBuying(uint levels)
+		{
+			return levels * GetCurrentSeasonConfig().Season.BuyLevelPrice;
+		}
+
+		public uint GetMaxPurchasableLevels(ulong ownedBlastbucks)
+		{
+			var hasCurrency = (int) Math.Floor(ownedBlastbucks / (double) GetCurrentSeasonConfig().Season.BuyLevelPrice);
+			var max = GetRemainingLevels();
+			return (uint) Math.Min(max, hasCurrency);
+		}
+
 		public void SetLastLevelClaimed(uint lastLevel, PassType type)
 		{
 			GetCurrentSeasonData().LastLevelsClaimed[type] = lastLevel;
@@ -339,12 +364,10 @@ namespace FirstLight.Game.Logic
 			return GetRewardConfigs(levelsCompleted, type);
 		}
 
-
 		public EquipmentRewardConfig GetRewardForLevel(uint level, PassType type)
 		{
 			return _currentSeason.GetRewardForLevel(level, type);
 		}
-
 
 		public uint GetRemainingPointsOfBp()
 		{
@@ -372,8 +395,7 @@ namespace FirstLight.Game.Logic
 			return maxAvailablePoints - totalAccumulatedPoints;
 		}
 
-
-		public bool HasCurrencyForPurchase()
+		public bool HasCurrencyForPremiumPurchase()
 		{
 			var config = GetCurrentSeasonConfig();
 			var currentBB = GameLogic.CurrencyLogic.GetCurrencyAmount(GameId.BlastBuck);
@@ -391,11 +413,12 @@ namespace FirstLight.Game.Logic
 			return GetCurrentSeasonData().SeenBanner;
 		}
 
-		public bool HasCurrencyForLevelPurchase()
+		public bool HasCurrencyForLevelPurchase(uint levels)
 		{
 			var config = GetCurrentSeasonConfig();
 			var currentBB = GameLogic.CurrencyLogic.GetCurrencyAmount(GameId.BlastBuck);
-			if (config.Season.BuyLevelPrice > currentBB || _currentSeason.CompletedPass())
+			var price = config.Season.BuyLevelPrice * levels;
+			if (price > currentBB || _currentSeason.CompletedPass())
 			{
 				return false;
 			}
@@ -403,13 +426,36 @@ namespace FirstLight.Game.Logic
 			return true;
 		}
 
-		public bool PurchaseLevel()
+		public uint GetRemainingLevels()
+		{
+			var (predictedLevel, _) = GetPredictedLevelAndPoints();
+			return MaxLevel - predictedLevel;
+		}
+
+		public bool PurchaseLevel(uint levels)
 		{
 			var config = GetCurrentSeasonConfig();
-			if (!HasCurrencyForLevelPurchase()) return false;
-			GameLogic.CurrencyLogic.DeductCurrency(GameId.BlastBuck, config.Season.BuyLevelPrice);
+			if (!HasCurrencyForLevelPurchase(levels))
+			{
+				throw new LogicException("Player doesn't have currency to buy BP level!");
+			}
+
 			var (predictedLevel, predictedPoints) = GetPredictedLevelAndPoints();
-			var newPoints = GetCurrentSeasonData().Points + (_currentSeason.GetRequiredPointsForLevel((int) predictedLevel) - predictedPoints);
+
+			if (predictedLevel + levels > MaxLevel)
+			{
+				throw new LogicException("Player trying to buy more levels then available!");
+			}
+
+			var price = levels * config.Season.BuyLevelPrice;
+			GameLogic.CurrencyLogic.DeductCurrency(GameId.BlastBuck, price);
+			uint neededPoints = 0;
+			for (var x = (int) predictedLevel; x < predictedLevel + levels; x++)
+			{
+				neededPoints += _currentSeason.GetRequiredPointsForLevel(x);
+			}
+
+			var newPoints = GetCurrentSeasonData().Points + neededPoints - predictedPoints;
 			GetCurrentSeasonData().Points = newPoints;
 			GameLogic.MessageBrokerService.Publish(new BattlePassLevelPurchasedMessage());
 			return true;
@@ -424,7 +470,7 @@ namespace FirstLight.Game.Logic
 		public bool Purchase()
 		{
 			var config = GetCurrentSeasonConfig();
-			if (!HasCurrencyForPurchase()) return false;
+			if (!HasCurrencyForPremiumPurchase()) return false;
 			if (config.Season.RemovePaid) return false;
 			GameLogic.CurrencyLogic.DeductCurrency(GameId.BlastBuck, config.Season.Price);
 			GetCurrentSeasonData().Purchased = true;
@@ -446,7 +492,6 @@ namespace FirstLight.Game.Logic
 			_currentLevel.Value = 0;
 		}
 
-
 		public bool HasUnclaimedRewards(int pointOverride = -1)
 		{
 			int points = pointOverride >= 0 ? pointOverride : (int) _currentPoints.Value;
@@ -466,7 +511,6 @@ namespace FirstLight.Game.Logic
 		{
 			return _currentSeason.GetClaimableLevels(out points, type);
 		}
-
 
 		public Tuple<uint, uint> GetPredictedLevelAndPoints(int pointOverride = -1)
 		{
@@ -508,7 +552,6 @@ namespace FirstLight.Game.Logic
 				_logic = battlePassLogic;
 				_season = seasonNumber;
 			}
-
 
 			public BattlePassSeasonData GetData()
 			{

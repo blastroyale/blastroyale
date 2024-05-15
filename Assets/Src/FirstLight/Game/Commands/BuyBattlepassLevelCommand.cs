@@ -8,13 +8,14 @@ namespace FirstLight.Game.Commands
 {
 	public class BuyBattlepassLevelCommand : IGameCommand
 	{
+		public uint Levels;
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		public UniTask Execute(CommandExecutionContext ctx)
 		{
-			ctx.Logic.BattlePassLogic().PurchaseLevel();
+			ctx.Logic.BattlePassLogic().PurchaseLevel(Levels);
 			return UniTask.CompletedTask;
 		}
 	}

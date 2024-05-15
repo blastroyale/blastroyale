@@ -703,3 +703,7 @@
     -unity-text-outline-width: 1px;
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
 }
+
+.full-width {
+    width: 100%;
+}

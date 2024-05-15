@@ -43,6 +43,7 @@
     --sprite-shared__progress-battlepass-bpp-yellow: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-yellow.png');
     --sprite-shared__progress-battlepass-rewards: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards.png');
     --sprite-shared__progress-battlepass-rewards-bpp: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards-bpp.png');
+    --sprite-shared__white-angled-tooltip: url('/Assets/Art/UI/Sprites/Shared/white-angled-tooltip.png');
 }
 
 .sprite-shared__arrow {
@@ -301,5 +302,11 @@
     background-image: var(--sprite-shared__progress-battlepass-rewards-bpp);
     width: 22px;
     height: 30px;
+}
+
+.sprite-shared__white-angled-tooltip {
+    background-image: var(--sprite-shared__white-angled-tooltip);
+    width: 296px;
+    height: 136px;
 }
 

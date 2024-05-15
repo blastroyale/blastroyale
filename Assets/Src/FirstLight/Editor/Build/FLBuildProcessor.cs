@@ -30,14 +30,11 @@ namespace FirstLight.Editor.Build
 
 		private static void ConfigureQuantum(bool developmentBuild)
 		{
-			if (developmentBuild) return;
-
 			var guids = AssetDatabase.FindAssets($"t:{nameof(DeterministicSessionConfigAsset)}");
 			var path = AssetDatabase.GUIDToAssetPath(guids[0]);
 			var deterministicConfig = AssetDatabase.LoadAssetAtPath<DeterministicSessionConfigAsset>(path);
 
-			deterministicConfig.Config.ChecksumInterval = 0;
-			deterministicConfig.Config.ChecksumCrossPlatformDeterminism = false;
+			deterministicConfig.Config.ChecksumInterval = developmentBuild ? 60 : 0;
 
 			EditorUtility.SetDirty(deterministicConfig);
 			AssetDatabase.SaveAssets();
@@ -68,10 +65,7 @@ namespace FirstLight.Editor.Build
 
 		private static void SetupSRDebugger(bool developmentBuild)
 		{
-			if (!developmentBuild)
-			{
-				SRDebugEditor.SetEnabled(false);
-			}
+			SRDebugEditor.SetEnabled(developmentBuild);
 		}
 
 		private void SetupPushNotifications(FLEnvironment.Definition environment)

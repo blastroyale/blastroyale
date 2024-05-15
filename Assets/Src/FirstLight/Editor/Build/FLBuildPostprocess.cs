@@ -3,10 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using FirstLight.Editor.Artifacts;
-using FirstLight.Editor.Build.Utils;
 using FirstLight.Game.Utils;
 using I2.Loc;
-using Unity.Services.PushNotifications;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -18,40 +16,9 @@ namespace FirstLight.Editor.Build
 	/// <summary>
 	/// Stuff we want to do AFTER every build.
 	/// </summary>
-	public class FirstLightBuildProcess : IPostprocessBuildWithReport, IPreprocessBuildWithReport
+	public class FLBuildPostprocess : IPostprocessBuildWithReport
 	{
 		public int callbackOrder => 0;
-
-		public void OnPreprocessBuild(BuildReport report)
-		{
-			Debug.Log("FirstLightBuildPostProcess.OnPostprocessBuild OnPreprocessBuild");
-
-			var environment = BuildUtils.GetEnvironment();
-			var environmentDefinition = FLEnvironment.FromName(environment);
-
-			PrepareFirebase(environment);
-			VersionEditorUtils.SetAndSaveInternalVersion(environment);
-			GenerateEnvironment(environment);
-			ConfigureQuantum();
-			SetupSRDebugger();
-			SetupPushNotifications(environmentDefinition);
-
-			// Probably not needed but why not
-			AssetDatabase.Refresh();
-		}
-
-		private void SetupPushNotifications(FLEnvironment.Definition environment)
-		{
-			var settings = AssetDatabase.LoadAssetAtPath<PushNotificationSettings>("Assets/Resources/pushNotificationsSettings.asset");
-
-			settings.firebaseAppID = environment.FirebaseAppID;
-			settings.firebaseProjectID = environment.FirebaseProjectID;
-			settings.firebaseProjectNumber = environment.FirebaseProjectNumber;
-			settings.firebaseWebApiKey = environment.FirebaseWebApiKey;
-
-			EditorUtility.SetDirty(settings);
-			AssetDatabase.SaveAssetIfDirty(settings);
-		}
 
 		public void OnPostprocessBuild(BuildReport report)
 		{
@@ -106,45 +73,6 @@ namespace FirstLight.Editor.Build
 			File.WriteAllLines(filePath, lines, Encoding.ASCII);
 		}
 
-		private static void ConfigureQuantum()
-		{
-			if (!EditorUserBuildSettings.development)
-			{
-				var guids = AssetDatabase.FindAssets($"t:{nameof(DeterministicSessionConfigAsset)}");
-				var path = AssetDatabase.GUIDToAssetPath(guids[0]);
-				var deterministicConfig = AssetDatabase.LoadAssetAtPath<DeterministicSessionConfigAsset>(path);
-
-				deterministicConfig.Config.ChecksumInterval = 0;
-				deterministicConfig.Config.ChecksumCrossPlatformDeterminism = false;
-
-				EditorUtility.SetDirty(deterministicConfig);
-				AssetDatabase.SaveAssets();
-			}
-		}
-
-		private static void PrepareFirebase(string environment)
-		{
-			var configDirectory = Path.Combine(Application.dataPath, "../", "Configs");
-
-			// Force dev for all environments except production (for now)
-			if (environment != FLEnvironment.PRODUCTION.Name) environment = FLEnvironment.DEVELOPMENT.Name;
-
-			// iOS
-			File.Copy(Path.Combine(configDirectory, $"GoogleService-Info-{environment}.plist"),
-				Path.Combine(Application.streamingAssetsPath, "GoogleService-Info.plist"), true);
-
-			// Android
-			File.Copy(Path.Combine(configDirectory, $"google-services-{environment}.json"),
-				Path.Combine(Application.streamingAssetsPath, "google-services.plist"), true);
-		}
-
-		private static void GenerateEnvironment(string environment)
-		{
-			var envAsset = AssetDatabase.LoadAssetAtPath<FLEnvironmentAsset>("Assets/Resources/FLEnvironmentAsset.asset");
-			envAsset.EnvironmentName = environment;
-			EditorUtility.SetDirty(envAsset);
-		}
-
 		[Conditional("UNITY_IOS")]
 		private static void ConfigureXcode(string pathToXcode)
 		{
@@ -181,15 +109,6 @@ namespace FirstLight.Editor.Build
 			pbxProject.SetBuildProperty(frameworkTargetGuid, "ENABLE_BITCODE", "NO");
 
 			pbxProject.WriteToFile(projectPath);
-		}
-
-		private static void SetupSRDebugger()
-		{
-			// TODO mihak: Fix this before release
-			if (!EditorUserBuildSettings.development)
-			{
-				// SRDebugEditor.SetEnabled(false);
-			}
 		}
 	}
 }

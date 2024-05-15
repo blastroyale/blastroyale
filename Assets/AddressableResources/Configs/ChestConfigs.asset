@@ -189,7 +189,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 4
+          Weight: 5
         - ItemConfig:
             SimpleGameId: 89
             EquipmentMetadata:
@@ -208,7 +208,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 4
+          Weight: 5
         - ItemConfig:
             SimpleGameId: 110
             EquipmentMetadata:
@@ -227,7 +227,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 4
         - ItemConfig:
             SimpleGameId: 102
             EquipmentMetadata:
@@ -246,7 +246,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 4
         - ItemConfig:
             SimpleGameId: 119
             EquipmentMetadata:
@@ -265,7 +265,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 4
         - ItemConfig:
             SimpleGameId: 85
             EquipmentMetadata:
@@ -284,7 +284,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 4
+          Weight: 5
         - ItemConfig:
             SimpleGameId: 666
             EquipmentMetadata:
@@ -303,7 +303,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 4
+          Weight: 5
         - ItemConfig:
             SimpleGameId: 4
             EquipmentMetadata:
@@ -322,7 +322,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 1
+          Weight: 4
         - ItemConfig:
             SimpleGameId: 20
             EquipmentMetadata:
@@ -341,7 +341,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 1
+          Weight: 4
         - ItemConfig:
             SimpleGameId: 127
             EquipmentMetadata:
@@ -360,7 +360,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 1
+          Weight: 4
       - Chance:
           RawValue: 65536
         Amount: 1
@@ -444,7 +444,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 11
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 91
             EquipmentMetadata:
@@ -463,7 +463,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 9
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 87
             EquipmentMetadata:
@@ -482,7 +482,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 12
+          Weight: 68
         - ItemConfig:
             SimpleGameId: 92
             EquipmentMetadata:
@@ -501,7 +501,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 15
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 90
             EquipmentMetadata:
@@ -520,7 +520,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 17
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 93
             EquipmentMetadata:
@@ -539,7 +539,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 17
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 94
             EquipmentMetadata:
@@ -558,7 +558,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 4
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 88
             EquipmentMetadata:
@@ -577,7 +577,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 6
+          Weight: 41
         - ItemConfig:
             SimpleGameId: 91
             EquipmentMetadata:
@@ -596,7 +596,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 6
+          Weight: 41
         - ItemConfig:
             SimpleGameId: 87
             EquipmentMetadata:
@@ -615,7 +615,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 6
+          Weight: 25
         - ItemConfig:
             SimpleGameId: 92
             EquipmentMetadata:
@@ -634,7 +634,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 5
+          Weight: 41
         - ItemConfig:
             SimpleGameId: 90
             EquipmentMetadata:
@@ -653,7 +653,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 3
+          Weight: 41
         - ItemConfig:
             SimpleGameId: 93
             EquipmentMetadata:
@@ -672,7 +672,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 3
+          Weight: 41
         - ItemConfig:
             SimpleGameId: 94
             EquipmentMetadata:
@@ -829,7 +829,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 89
             EquipmentMetadata:
@@ -848,7 +848,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 110
             EquipmentMetadata:
@@ -867,7 +867,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 6
+          Weight: 3
         - ItemConfig:
             SimpleGameId: 102
             EquipmentMetadata:
@@ -886,7 +886,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 6
+          Weight: 3
         - ItemConfig:
             SimpleGameId: 119
             EquipmentMetadata:
@@ -905,7 +905,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 6
+          Weight: 3
         - ItemConfig:
             SimpleGameId: 85
             EquipmentMetadata:
@@ -924,7 +924,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 666
             EquipmentMetadata:
@@ -943,7 +943,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 4
             EquipmentMetadata:
@@ -1023,7 +1023,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 0
         - ItemConfig:
             SimpleGameId: 91
             EquipmentMetadata:
@@ -1042,7 +1042,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 0
         - ItemConfig:
             SimpleGameId: 87
             EquipmentMetadata:
@@ -1061,7 +1061,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 29
         - ItemConfig:
             SimpleGameId: 92
             EquipmentMetadata:
@@ -1080,7 +1080,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 2
+          Weight: 0
         - ItemConfig:
             SimpleGameId: 90
             EquipmentMetadata:
@@ -1099,7 +1099,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 4
+          Weight: 0
         - ItemConfig:
             SimpleGameId: 93
             EquipmentMetadata:
@@ -1118,7 +1118,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 4
+          Weight: 0
         - ItemConfig:
             SimpleGameId: 94
             EquipmentMetadata:
@@ -1137,7 +1137,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 6
+          Weight: 290
         - ItemConfig:
             SimpleGameId: 88
             EquipmentMetadata:
@@ -1194,7 +1194,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 10
+          Weight: 145
         - ItemConfig:
             SimpleGameId: 92
             EquipmentMetadata:
@@ -1213,7 +1213,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 13
+          Weight: 10
         - ItemConfig:
             SimpleGameId: 90
             EquipmentMetadata:
@@ -1232,7 +1232,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 15
+          Weight: 10
         - ItemConfig:
             SimpleGameId: 93
             EquipmentMetadata:
@@ -1251,7 +1251,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 15
+          Weight: 10
         - ItemConfig:
             SimpleGameId: 94
             EquipmentMetadata:
@@ -1270,9 +1270,9 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 15
+          Weight: 60
       - Chance:
-          RawValue: 32
+          RawValue: 65
         Amount: 1
         Pool:
         - ItemConfig:
@@ -1424,7 +1424,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 24
+          Weight: 100
         - ItemConfig:
             SimpleGameId: 91
             EquipmentMetadata:
@@ -1443,7 +1443,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 24
+          Weight: 100
         - ItemConfig:
             SimpleGameId: 87
             EquipmentMetadata:
@@ -1462,7 +1462,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 24
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 92
             EquipmentMetadata:
@@ -1481,7 +1481,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 20
+          Weight: 100
         - ItemConfig:
             SimpleGameId: 90
             EquipmentMetadata:
@@ -1500,7 +1500,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 15
+          Weight: 100
         - ItemConfig:
             SimpleGameId: 93
             EquipmentMetadata:
@@ -1519,7 +1519,7 @@ MonoBehaviour:
               ReplicationCounter: 0
               TotalRestoredDurability: 0
               Tuning: 0
-          Weight: 15
+          Weight: 100
         - ItemConfig:
             SimpleGameId: 94
             EquipmentMetadata:

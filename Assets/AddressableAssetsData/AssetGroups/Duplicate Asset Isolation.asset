@@ -1,0 +1,1761 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Duplicate Asset Isolation
+  m_EditorClassIdentifier: 
+  m_GroupName: Duplicate Asset Isolation
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f3be786a079ef4b8789aa75efb830275
+  m_SerializeEntries:
+  - m_GUID: 0406db5a14f94604a8c57ccfbc9f3b46
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Particles/ParticlesUnlit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6e9a19c3678ded42a3bc431ebef7dbd
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36e335017ad71d54fbb10842863188ae
+    m_Address: Packages/com.unity.render-pipelines.core/Runtime/RenderPipelineResources/FallbackShader.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 650dd9526735d5b46b79224bc6e94025
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Unlit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 933532a4fcc9baf4fa0491de14d08ed7
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d40657fe19ef4e468e2d46f08c0936d
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/CollectableDynamicIndicator.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9e3930d6bdec4d2ea3b7fa7fc8c98fd
+    m_Address: Assets/Art/SpriteAtlas/AdventureHud.spriteatlasv2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f72f4e9f33524419caa8e91fdea624a5
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/SmearHighlighted.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a521189fe15b84d0d90d7796ac5f9c61
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/SquadCircle.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ddaf3b2f1f5294775bf485c5459fd521
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/RadiusDirectionLine.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 23beb82f33697664a8e8e12ace7b93f5
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/HUD_AdventureCoin.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd5d2d0f52715473ca58a463cc941357
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/PlayerIndicatorFaceKO.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5abba8fe7cf9d48a8b95b6f82d82773d
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/RaritiesNameTemp.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16af00de8cfad4fefb09acb32ea6e68c
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/SmearNewShadow.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 113fd59e86fa6524a972547df6cc8459
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/PlayerLeft.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 26ba52ed9051d423dbfe823488a7abfc
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/SpecialButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 180175cdb09ebfa4ab18a10e0596d957
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/CollectableStaticIndicator.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8e06afad60bdde94084d77a92cd0f4c7
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/Quests/QuestBar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1ffdc9ad31db7a1488f4e5225bb3f750
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/Quests/QuestTitleFrame.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82591b8dbfe25e64b95fd25fd184e568
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/PlayerAvatarGeneric.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 557f203d3134fc043b30d3a5242e9a2a
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/RIP_Icon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 25a1920dd444f5a4d9ed9d2530f805fe
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/NearDeathVignette.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c5d752fc5fa5d5b4fa3a069a455059cf
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/PlayerAvatarKO.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f335cbcc9213a4dd292ffabe22ccf9c4
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/Joystick_Handle_Move.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 00d895ccfbba141c19d851d2646007a6
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/BossIndicatorInside.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 237b0bbc2afe0ab4bbb66369316b5361
+    m_Address: Assets/Art/Textures/Ui/GuideHand/hand_spritesheet.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0f00a1acb69574ad2a5863ef52275252
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/CheqFlag.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d8dbbd9cdfb68ee459f6306669bba21b
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/CollectableDynamicIndicatorLarge.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f1c8127c6813d4d4ca98d60991269065
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/AirdropIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3cf5e3cdd4314e8ca4f90d654141bc8
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/EnemyIndicatorFace.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 523d402cd81de4cdc9fb5aaee7712622
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/HealthBar/HealthBar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c4fa85fbe87b6f84c9eea5af0eca2341
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/PowerPill.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41e813cbb15b2406db58a4022b6efcca
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/LootIndicatorBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4cdc926b1dcce4247827b4a62daf35d3
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/ParachuteIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 715dca5ba7c7456438d4c122a0801205
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/EnemyRadialIndicator.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97826b1bcd8e6c04ca7aeb7b79cca1f9
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/BossArrow.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f399e6aa82350064fbf740f138c0f9c6
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/Quests/QuestBarQuestFill.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae74559a0e1790b4e8f8019c57128d83
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/Male01Avatar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f80be77a76765442ea265f828dea7888
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/SkullKillCount.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2bdca20ab19094317ac8141735f1517f
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/PlayerIndicator.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b67aef998e104d9ba413a8802c6d8d3
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/1Countdown.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 21c78af9a15cc1a4191a60ce7e351b1d
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickAutoAimBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0728f4e9144eb4d108dd24d2c71d79b7
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/Joystick_Handle_Aim.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4358f599f237f4186a501d2d73007520
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/SpecialButtonDirectional.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1eebf889d9952494995383a7a0401e09
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/SkullKing.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0655db597a744f2499c7bf098e161522
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickThumbLeft.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a988dd399d737497f8f2a7ffb9814be7
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/LightRaysColor.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8fb0ec6870d0c4c3f89a81afe077ea90
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/TimerBack.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 734058f7d1ddca14da41f2d56d253dd0
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/Female02Avatar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f26621d71421141298a9a8cf0dc80574
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/DiagonalWiper.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b5ab2e571ea004f279c320f066bb3105
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/3Countdown.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bec95047e2f276844b0419ffbf07b7c4
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/Armour.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 21a62b37e8f323f479b3a5896e49171b
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/HealthPill.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e38a2727d5e515f498bf59ce2542bd9e
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickManualAim.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 002ac4862f155463fb4d52d5b177e0ce
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/PlayerIndicatorBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6899dd6601172446d9df3f5033afabe6
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/GOCountdown.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 055d5ef54e3ec4ee6b338a4867b7c641
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/SmearSpecial.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 33cb72d57497e456cbd2b35f73065735
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/EnemyIndicatorBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: efcf9e958d69a4957955f85f86cc38fa
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/LightRays.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b8a9e85985ce4a449bd7f89d4887897
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/ReviveArrow.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a2d40756fab94e739899ed2cf53eb0a
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/TimerBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e825a725434e94dbb91dbdecdc6572bb
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/SmallArrow.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af51e505dca254a45a2f80602f9da72b
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/Joystick_Background.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a3451f4b261249adbe672242c3c5331
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/2Countdown.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ccf5dc46a77943c1bf581cbaa659694
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/SmearNewWhite.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b4f7eea4c12960a4f8ecb113e57816cd
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/WhiteRound.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65a52d6474f8f414e96c8973ab997b49
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/Timer.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 26a1063432a2745b0a994e82a0bc9845
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/SpecialRing.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eea4c914f098743eb80820aef94b95ac
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/HealthBar/HealthBarShine.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: abae18041ec2b3a4d8d16772af05241d
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/HUD_Coin.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b08a43c373d843e4d9dca5d5df2f1571
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/1unitDiameterCircle.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2ba2d5a3829f2844da9780a46bde1f63
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/Male02Avatar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d39f12438282f3f4582fc4dbd4bed85d
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/Female01Avatar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 07ff8b0340c7df94f8a4257a1a776eb7
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/CircleWipe.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 015fefd294d197c47a6200192ed61102
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickThumbRight.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 526a739286f93464497b3041da810a0f
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/AirplaneIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 710393722a6aea44a91958ec48faf1df
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickAutoAim.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fffcdc323b176c44685847bb11a5ad2b
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/MovementIndicatorStar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d66d92d1e501e4d12b64f78788cdada0
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/PlayerIndicatorFace.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 04395511ad9f3fa4caca419869ec6ba5
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/Quests/QuestBarFill.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b6bea0173d97c744befc64bceab542e
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/SpeedPill.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f5bb9c04ad71274097f42d6b1bb830a
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/HUDRankBackground.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 388f5070d8df04c05ac878003ea3a704
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/WeaponNameBg.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 657537604173846308db848529b8e666
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/BossIndicatorOutside.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a9877810cf8dfcf45a22db5765ea87d1
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/LootIndicatorIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d533b2002939d42b09f93ea5c5640482
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/DefaultIndicatorBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a9a5b541d60c3f46888c3f6f4a121e5
+    m_Address: Assets/Art/Prefabs/LEGACY/Particles/Dustclouds/M_DefaultDustCloud.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b7839dad95683814aa64166edc107ae2
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Particles/ParticlesLit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8516d7a69675844a7a0b7095af7c46af
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Particles/ParticlesSimpleLit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f85ef73c9b817964887dfe8e57ad8299
+    m_Address: Assets/Art/Textures/Particles/T_DustClouds.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b49d2fe5bf084ac1ac401639f1da0c3
+    m_Address: Assets/Art/Shaders/Unlit_DynamicObject.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 11d1dc8b31de19c449cb43b0465526e1
+    m_Address: Assets/Art/Textures/Shared/T_ColorAtlas_C.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a8304f2684c134886a94a005cd56e72d
+    m_Address: Assets/Art/Shaders/Legacy/UI/UI_Circle.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4bfb98f75d984d828b6a7ed22f7330f7
+    m_Address: Assets/Art/Shaders/UI_Circle.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0a7899fab8cbac447928dd072fb6dc1f
+    m_Address: Assets/Art/UI/Sprites/Match/health-particle.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9703450dfb82ed84cba13dcd159b2bf4
+    m_Address: Assets/Art/UI/Sprites/Match/gradientwhiteintense.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 022e85dee57a41549a4592437135d884
+    m_Address: Assets/Art/Models/Weapons/MuzzleFlash_Geo.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a49be92fdecf54e4ebae741388eb08a5
+    m_Address: Assets/Art/UI/Sprites/Home/pattern-rewardglow-common.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0710c80079862e74abc737ca63c36ad7
+    m_Address: Assets/Art/UI/Sprites/Match/bullet-shell.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b2b2faeca4fd4854e923d9f4ff245b3f
+    m_Address: Assets/Art/Materials/M_Vfx_Sparks.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1eb815601ac601447b33dd98954e53e5
+    m_Address: Assets/Art/Textures/Particles/sparkles-sheet.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 31321ba15b8f8eb4c954353edc038b1d
+    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36dd19547f7e8d74598850cf72c2ffa2
+    m_Address: Assets/Art/UI/Sprites/Home/AirdropIconOnfield.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a6f9a4383ead428196a808761d3d495
+    m_Address: Assets/Art/Textures/Pickups/BR_GradientAtlas.psd
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1bc049a4117a9674b8cc09293e34fe58
+    m_Address: Assets/Art/UI/Sprites/Match/DarkGrenade.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 95eb43e1b24cc4d43ab0a22712fd1db1
+    m_Address: Assets/Art/UI/Sprites/Match/DarkShieldedCharge.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 78025e8d6c7b68d41aa336a60a8025a5
+    m_Address: Assets/Art/UI/Sprites/Match/DarkHazardAimSpawn.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d6b48138d2d005746bf0f2ad37bf0bef
+    m_Address: Assets/Art/UI/Sprites/Match/DarkShieldSelfStatus.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ad9cb38785943143aefd973f325d709
+    m_Address: Assets/Art/UI/Sprites/Match/DarkStunGrenade.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 85945f053e6c0d14884141e2b4f8d89b
+    m_Address: Assets/Art/UI/Sprites/Match/DarkRadar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5d4f80cf68e2b41bf8db5e2e9224de45
+    m_Address: Assets/Art/UI/Sprites/Match/DarkLandmineIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b6e721c850e845908724637f718a62a5
+    m_Address: Assets/Art/Shaders/Baked_StaticObject.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ebbbc5c2b3bf647febbd9330a1f7bd41
+    m_Address: Assets/Art/Animation/Gates/GateBarrier.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f78cb215f0601e640b7cec0ec410b0ef
+    m_Address: Assets/Art/Animation/Gates/GateBarrierSlide.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 468253c0d866b4040a21d2a3010d8ecc
+    m_Address: Assets/Art/Animation/Gates/GateBarrierOpenWide.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 731d2870ad32140168158ea8bcaedc8a
+    m_Address: Assets/Art/Animation/Gates/GateBarrierOpen.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 31fecccc7573541ec90182bd6e8e5253
+    m_Address: Assets/Art/Models/Environment/single bush.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88d02c5f6700a4b818733c8181483866
+    m_Address: Assets/Art/Materials/M_Bush.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3bad64f7d9c604c599ef6b494a35b38c
+    m_Address: Assets/Art/Textures/Noise/noise-wave.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 661d0ae204784f8181b1a21e86a81e75
+    m_Address: Assets/Art/Shaders/Lit_FastLambert_Bush.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 486834317ceb7fb4586677a741d7331d
+    m_Address: Assets/Art/Materials/Legacy/Airdops/M_Parachute.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e256a66a5a5bf79488f31c721b56db85
+    m_Address: Assets/Art/Shaders/Legacy/SG_DisplaceAndDissolve.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 833fa4244ad64194cab4d777071dce43
+    m_Address: Assets/Art/Materials/Legacy/Airdops/T_ParachuteLogo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c8e38b091419ad40905c6f342206c6e
+    m_Address: Assets/Art/Models/SupplyDrops/LootDropParachute.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e1dd70d4a399d6445a111a8ea5f4a015
+    m_Address: Assets/Art/Animation/ParachuteDissolve.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7f93ff50dce7ad4cb897029ac85f594
+    m_Address: Assets/Art/Fonts/JockeyOne/JockeyOne-Regular SDF-InGame.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe393ace9b354375a9cb14cdbbc28be4
+    m_Address: Packages/com.textmeshproflg/Shaders/TMP_SDF-Mobile.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d2bb70cbf9db8d4da26e15b26e74248
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/SimpleLit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1ef35b67e47a54aa794c768731359434
+    m_Address: Assets/Art/Shaders/Lit_FastLambert.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 958626dbd35094e5d98703802369a31a
+    m_Address: Assets/Art/UI/Sprites/BattlePass/icon_premium-pass.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c709a527dcc84effb4acf8d96656258
+    m_Address: Assets/Art/UI/Styles/ProfilePictures.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 383af2f3fddfd49a28a8e090f2857a24
+    m_Address: Assets/Art/UI/Vectors/ProfileBgShapeNft.svg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9abc186c83592ff419ca692f8c9f531b
+    m_Address: Assets/Art/UI/Sprites/Match/icon-star.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 557657056a3d9b44dbbbb666ec2fc9d9
+    m_Address: Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards-bpp.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 673c12c48bbd04ac29382b53acd8c5bb
+    m_Address: Assets/Art/UI/Vectors/SwipeAnimation.svg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9701a4b122d774f5abadb31755ff50ee
+    m_Address: Assets/Art/UI/Sprites/Shared/arrow.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86ed5edd807264a45b4d9c62e47f486d
+    m_Address: Assets/Art/Shaders/ShaderGraph/SG_DoorFrame.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b9e77bc19a4cc5347876bb42eeaf60f7
+    m_Address: Assets/Art/Textures/Particles/Noise10.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 24d5a4307f550e6488f703446c1e57a8
+    m_Address: Assets/Art/Models/Environment/BattleRoyalMaps/M_BRGround_Grass.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 04af6b6032008134e857eb11b6e96dcb
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Materials/SimpleFarm.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f1ee66e02dd379a44b212dc708607e75
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/ATM_A.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 00d63a21ce6cdd143a92a529b5ce7d1b
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/VendingMachine_B.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 829b32624e3ef7a449ad7761b9662842
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/Dumpster_B.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 097165a271456df44992064343c8edd6
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/ATM_B.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8419f6d293f40a04984307de494ada7a
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/CardboardBox.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 747a1fd3a3c1c0748b17d7eeefc80027
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/post_Box_a.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed3e6f24b7f0bf845a910ed72c2982eb
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Materials/SimpleTempleMaterial.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4de913a45b38b5849ab8b0fd2dbeaaf6
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/Cart_Hotdog.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fafdf9a4479be944c8e7535404d43e32
+    m_Address: Assets/Art/Materials/Legacy/Forcefields/M_DamageZone.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4da753f5d0c2d2746a3df8bf5096745d
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/Props_mix_A.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 400dbbe60e397e74daf033b6e903382c
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/VendingMachine_A.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dceb1017b0c3640f9961a442b218de63
+    m_Address: Assets/Art/Materials/Legacy/m_shrinkingDamageCircle.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 54f0c67733e9bfc4a85c9457e0ec8eb8
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/Paper_Box_A.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf75bbe88de8a7e4db86bccf7258ec20
+    m_Address: Assets/Art/Materials/M_Water.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9218511aca6af49c0910f11ff14e4199
+    m_Address: Assets/Art/Materials/Legacy/m_shrinkingSafeCircle.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dadfe8ea4218b4e48ad294b08e8f04cb
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/Dumpster_C.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aadd9dab667b0cf4d97f7d06df4816c4
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/Bush.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1087ffab35ea5b14bbeda6d7181e943b
+    m_Address: Assets/Art/Materials/M_Vfx_Shrinking_Circle_Fire.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3f3e67ce658def4cbbbe7bd28b8ef6c
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/Dumpster_A.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f99bac7c78756ef4180bf488e5e8811f
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/Paper_Box_B.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82a6d6ec8f744e74c986d00b212cdd15
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/Cart_IceCream.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d7c41e8d2cadc3f4abf9ee11589f6514
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/phonebooth_UK_A.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 03175aed98e015b478836dcb96285188
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/VendingMachine_C.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3224db1e7e4268b4a8f12abc80eb25c8
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/Toilet.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46f69b2efbd76a744906e46f98d0e35b
+    m_Address: Assets/Art/AssetPacks/SimplePort/Materials/SimplePort.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 28f9c1cf61547634cadfe13b8b905ddb
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/Cart_Donut.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 140f88d6751587c429b2fe791155636e
+    m_Address: Assets/BakeryLightmaps/DistrictScene_LM0_final.hdr
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 475e095e62bc2194b824e7569c627c36
+    m_Address: Assets/BakeryLightmaps/DistrictScene_LMA1_final.hdr
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e6e3d70110b628439d8bca9936f9043
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_Sailboat_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 741472a084aff044ba6adb690dc8febd
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Trough.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74e500d0b07240142a7384f992e023c5
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_CraneMedium_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d638fd08a2602c44915c12fcf55cd37
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Tree_Lemon.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 253cc5118c2a9b5448be225ae30974e2
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/atm_Blue.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46dd69217ad515d47a0f2e43b071393e
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_ContainerShip_05.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9f3c8051f5f4d0e4887f471d33b80627
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Chicken_Coop_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 09f5b2719c8935345b9f5ffcd0e9334e
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/VendingMachine_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d99d00123ee7d9b4fb0c52669a80da5f
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/playground_Large.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4dc15412b64f4e14e9d25ae8c6a06d6f
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Prop_FuelSilo_01_Medium.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2ca8f3724bda5324e9ece515a2defcf4
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Env_Block_03.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 09322c7254681e14e9f16c08085970a3
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Fence_Gate_Brown.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b16ef892527e8494b9ca82b616ab36cc
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Env_Tree_Green_03.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8cd7db927ee57e64c973e47cae707b5c
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/spa_Square.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b9b8b0c207a472c4bb1cc55e93b8c2ab
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Env_Wharf.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 931bd0c20371d6944a0177b690edeab6
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Building_Boatshed_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b7eaff2683a1c7439f933e0e92c8cac
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/gardenShed_Metal.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cfed9e23e0cb0c64f9715f3e657964dc
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Env_Tree_Green_05.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf2495432a1183a49b308aa2a5d6e84b
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Prop_Container_02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d368774378f8a304ea9da04126773a9e
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Environment/Env_Crop_Corn_Young.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e86676331787734baf9cc4ec68dceaa
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Buildings/Building_Shed_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74bf057349adbb74cb2ec622b4df7ef5
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_ContainerShip_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c9be0e7310c1e0643a251b24ec2d26ee
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Vehicles/Vehicle_Tracktor_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc5811932945bfa43bae8a43cbcca390
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Building_Power_Main_02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8870c7e31cc063a49b8954f860c96728
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/PortableToilet.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: daec2014a01411d46a1d5f0b5b14ce1d
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_FishingBoat_04.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e64f6334568d90641933df9b62d61d55
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Prop_Tyre_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2384df84c3b61984ab68d7df4e56bf27
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Environment/Env_Crop_Carrot.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c42576942f18c034aafa66126f8bf78f
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_Barge_03.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f1b121a49419a104485c54adbd88f317
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Env_Railing_Pillar_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d6c4aa058bfda9e478e3241fdef858c1
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/whiteFence.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5470db05ea3030e4180c23c06a46e82d
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Buildings/Building_Outhouse.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 45497115766c5144a8d5577717d22d76
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Prop_Container_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b9b3ee553da16524faf6950e93790589
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Buildings/Building_Cottage_02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9e8237580f9ede4e9ad4bf587f7a652
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/CardboardBox_02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f2467952f2fe494687756b43529b3e5
+    m_Address: Assets/Art/Models/Environment/DamageZone.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: afade0e5238f3dd409b76db5bc924989
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Prop_WoodPile_Small.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4841db264a9d97341b30280c7af7a897
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_TankerShip_03.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd599c26fe80cbc4d8370f255594e0f3
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/parkPlanter_Square.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c398a5368ba82194a930744255249f85
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Prop_BoatProp_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8197fd56b8996e34d8471b3c868cc944
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/sandpit.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 18d04976926977b48abeb6209b8e8bc1
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Prop_Statue_Large_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 931880d671d467a41a4d6e3707f534ff
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Haybale_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d92077e6adc38484bbde798bc820511c
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Env_Tree_Green_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16a1b3f6da8018748a87d4c3478e3737
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Vehicles/Vehicle_Tracktor_New_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2fd328f672f83fd4eb922f5b544a1258
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Building_Boatshed_04.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f5c34027ae6f8df4ca73421171b3bcf6
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_SuperYacht_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41451227a1fb5344ab10eb07720d8481
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_SuperYacht_03.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa0a49273b490514c90b8180ed7eb433
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/paperStand_Blue.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ccb55837715ede0449df10f54969200d
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Building_SmokeStack_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 94dcc6472c1afa943a3162af1253faaf
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Letter_Box1.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6d5d4267d6d0eb84baacb7fc084e42ea
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Well.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3048387639bac240bcb1503eca34952
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/parkLight_Single.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec4a79c7f47d990408df848221191db7
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_FishingBoat_05.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a50d9d7e2f81f544bc68742b780b828
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Vehicles/Vehicle_Farm_Ute_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 566755e7573463d409089bd8393acc42
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/Planter_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 04bc6f18e5f551a47b6e9d7ead7e9f77
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_PoliceBoat_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 63f635289f517554a8de9e7c5c6a9980
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Pig_Pen.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 718e563863262ad4996cdcabc984bad6
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_ContainerShip_02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a5cdee38f08232843b3ea2aafa1ee51e
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/postBox.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bcc786a810a29224b862bc10ba827a9f
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/VendingMachine_02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 028eeaa8e0307d44396563c098265e0b
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_FishingBoat_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d3cf7d8a40ca374bbbf7a9cbc4dff7f
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/Dumpster_open.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0462829cf4c65a4c99b732891f2afd5
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/pool_Large.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 78dfdf3987def2c4a8f4d62d4525b25a
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Fence_Brown.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9801dd494c67032408639df8cb69b660
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/spa_Round.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb00db591563b414ba3913fe989a7713
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Prop_Container_04.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7933fb69cc4111544b4eab9c8bf4762d
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_Sailboat_02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cae8f179732f2eb49a6039aad3ef8fe6
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Building_SmokeStack_02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 87af97799a3abdc47b70c16391bafbcb
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/fountain_Full.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d492a9b9cbc1514459a27857ef5d8c09
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Buildings/Building_Barn_Medium_02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 69598cc9b04cafd4a9df97dc303b6742
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Buildings/Building_Barn_Small_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ddb56d95e4b0e8429bd241f195f1e4e
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Fence_White.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4007a40a5a955c841bb49a199c7ca4b9
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/playground_Small.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5ef1651a685762c4e83e6a49796c7e64
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Haybale_Stack.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d5bd08ac83c9f6458e756daad8e03ea
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/fountain_Empty.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e82e358ad204269408d581fc15b7c859
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Building_Boatshed_Ramp.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f6cd88abdb84e042be2e1a19bda9b9a
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/hotDog_Cart.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88ef3d9a3fb541d48a15ba7f1b992a21
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Env_Block_Grass_02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a9ec61ba9c010154f85723432396bc2c
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Prop_Statue_03.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 78de89baa9d18c74895ac876bf359d02
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/donut_Cart.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dea4c5dae0ad9914298dc8b8a6f6e6ab
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/parkLight_Double.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d80b8fa623a0c54aa3cc295905e20d3
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Building_Lighthouse_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af0f251b552831d47a1dca71def36422
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Environment/Env_Dirt_Plough.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e937a62bde8c33d4c9df3ba96cc8ec23
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Water_Tower.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5141495bd5fcfa54ca7a10587c6ac7a1
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_Barge_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: adef488bbb3780a4f9dcbd18d4aa8251
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/phoneBooth_Uk.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 859677ab9a126154a97155750b0ce0b6
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Env_Block_05.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da6890cb79c40e04d8a07ba4ffab0954
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Prop_WoodPile_Medium.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aab9eecbe03bb644f9641801a099c928
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Prop_Idol_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 06cf370cc6eb1d5489ea1a28342227cd
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_Sailboat_03.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5ca8412c882fcaa4483cad5c3bc3aa5e
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Prop_Container_03.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b622763cb4911414fb1841dfec180c95
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Building_LoadingBay_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fdb0893c4e41ba3458e821e1a998bfa0
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/busStop.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75b3074c94a9d9447966a08d654f7d78
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Prop_Transformer.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c902a5c98ca6d343873e74f63a63503
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Vehicles/Vehicle_Trackor_Classic_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f1f15a7caa4f8774380afad369eab503
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/gardenShed_Wood.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1105428c826cc384fa89378551c684e7
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Prop_Stone_Coffin_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2bb4060d52027e14abcdbeb435fcc0b7
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Tree_Orange.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d633576dd7a6c144d859857ade3423c8
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Building_Power_Main_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e697676da5bedce4ba41074aecd32681
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Prop_BoatProp_03.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bb5d8b8d5eaee224cb6e86243cc0d3a2
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_FishingBoat_06.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7162f0adaf068044590ec8f8804d6af4
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Env_Pillar_Raised_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 77f7c7ad380993743bacfad7dec61da6
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/iceCream_Cart.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44ea0acdb709f6042afc8a9725469283
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Prop_Lifesaver_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d071dc5e39d598b4f915127e27aec594
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Fence_Ranch_Sign.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16cf567e7a9e93444a4d53c12497c965
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_FishingBoat_07.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8571fbfe758549541b788b51b1bd1296
+    m_Address: Assets/Art/AssetPacks/SimplePort/Models/Prop_FuelSilo_02_Small.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c54f461fa0224ba4fa626a049007b8c3
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Env_Tree_Green_04.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f26414fe4d32394985740b5f7db45ef
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Env_Tree_Huge_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 15e31e7f45956fb42a3c7b91add8ddae
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Buildings/Building_Windmill.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d641ae7fcd1ca0849836f8632defec9a
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/atm_Green.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89745b8ff505d464d9cbf3c9e42b3d29
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Env_Tree_Green_02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dddab2cfb41f6674a9601c45a88bad6a
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Models/paperStand_Red.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 93c14ecfa694cea49a53cacabd0114c4
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Props/Prop_Chicken_Coop_02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ce865dac3c53f184d84f9f8d7024b20c
+    m_Address: Assets/Art/Settings/Lighting Settings_Subtractive.lighting
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 69ce8388f6785dd4c8c39915efece2f4
+    m_Address: Packages/com.unity.cinemachine/Presets/Noise/6D Shake.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d15a52087d24a1891afa8933fae3245
+    m_Address: Assets/Art/Shaders/Unlit_Water.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 04667040b8d111645aa83ed058874cfe
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/props_mix_a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0a9fa2703024a4a4b9ddd9b125b9fff7
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/toilet_a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bc161db0b1f3af84bbab07ec2e5dade7
+    m_Address: Assets/Art/Textures/Particles/Vfx_Flames.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e8685d0924076d448269cf73c9c8004
+    m_Address: Assets/Art/AssetPacks/SimpleFarm/Textures/SimpleFarm.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a474385100e5abd41b3e73ddbd9d7047
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/Dumpster_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: df2deaf2c3281e24eae35c5407613966
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/Bush.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 25fcfcf36a6cfff4ba55998eed78f2b4
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/Dumpster_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 77b20605296ff724fa16a023b5f6f045
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/VendingMachine_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 39b28b27ed76929439a56df14cc23f03
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/paper_Box_a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 59f780d7e6a1794468edec41f40147e2
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/VendingMachine_03.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe3307083f381de47b481a6902e95224
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/atm_B.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eddd954894fbf3c42aedd49856d24e81
+    m_Address: Assets/Art/AssetPacks/SimplePort/Textures/SimplePort.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9498f588e2774244cb9612479ae0eb57
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/donut_Cart_a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c53bb6b8c40b02141be3fdec5cc582e9
+    m_Address: Assets/Art/Textures/Noise/WaterDistortion.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 84175be9dac169b45929d0a37162a0a3
+    m_Address: Assets/Art/AssetPacks/SimpleTemple/Textures/SimpleTempleTexture.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5e77095a335d490428ad32b3b479f92b
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/CardboardBox.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46feca0ce87f8884cab4320db188303f
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/VendingMachine_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9b4daacd664f6e4c84b29dbd344e1cd
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/Dumpster_03.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6be2ffec5e48aee45ad506afc23a8958
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/icecream_Cart_a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e585c71d8756f194084fbb1b0649e155
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/paper_Box_b.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e182ac5d3b797044fb29f3fa2acc3708
+    m_Address: Assets/Art/Textures/Noise/PerlinNoise.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c4eb4b6d2818e9c498f7fad91c18753e
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/atm_A.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ef53a2e61fa5db4ba33f590257559b0
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/hotdog_Cart_a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 423993aee89ccaf40a323205718ea22d
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/post_Box_a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aac2cf1ff20d6be49ab3953423c799ac
+    m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/phonebooth_UK_a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ff40c23389a5e74191cc748616c84ca
+    m_Address: Assets/Art/Materials/M_Baked_GradientAtlas.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f200e224654a3b4a88319b2a990a840
+    m_Address: Assets/Art/Models/Environment/Terrains/M_GroundRoad.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8cfb2472d6ca73d49a503682b1bbc573
+    m_Address: Assets/Art/Models/Environment/BattleRoyalMaps/M_Collision.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2b070fc2713e7de46a871350bf5c6644
+    m_Address: Assets/Art/Models/Environment/BattleRoyalMaps/M_BR_Atlas01.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bc31393375bdcce478995e048d720af2
+    m_Address: Assets/Art/Materials/Legacy/M_EnvironmentProps.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 85819ac46da0acb498e85ac18964f4e7
+    m_Address: Assets/Art/Materials/Legacy/m_RedUnlit.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c112d356a55fb7e40b883a406210febc
+    m_Address: Assets/Art/Models/Environment/BattleRoyalMaps/M_BRGroundDesert.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1827869761088354d9d48372016f2ce8
+    m_Address: Assets/Art/Models/Environment/BattleRoyalMaps/M_Apc_Atlas01.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f44b653b61581ad429e18f398fe76d86
+    m_Address: Assets/Art/Models/Environment/M_DoorGlow.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d49ad62f98347d04b9ae6d98ff9d1b96
+    m_Address: Assets/Art/Materials/M_Baked_DecalAtlas.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0afce520e4ceee04d8117d8a4828c8b8
+    m_Address: Assets/Art/Models/Environment/Props_NEW/Cars/Car_Chevvy.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 358ab1843752a2f458b1032d85a23b78
+    m_Address: Assets/Art/Models/Environment/Props_OLD/Containers.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cac035c6fcf399947ae763974a750cf4
+    m_Address: Assets/Art/Models/Environment/Props_NEW/Cars/Car_Convertable.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 78a6763f41365d445b0e8e7fdcd09929
+    m_Address: Assets/Art/Models/Environment/DoorGlow.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2da55f569784d42deb613bf769c80593
+    m_Address: Assets/Art/Models/Environment/Animations/BuildingTopRemoval.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66c3ab413f2b26c4d94e782c8d5b73e8
+    m_Address: Assets/Art/Models/Environment/BattleRoyalMaps/T_Apocalypse_Texture_01_A.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f3726dc42d05e374f933617a4466f14d
+    m_Address: Assets/Art/Models/Environment/Textures/BRMap_Decal_Atlas.psd
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66a73467112654eef93391a94a6a1b3b
+    m_Address: Assets/Art/Models/Environment/Animations/BuildingTopOff.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d36a06b40d855e40977e5ce3c59a3b3
+    m_Address: Assets/Art/Models/Environment/BattleRoyalMaps/T_BattleRoyale_Texture_01_A.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9cf62cb87d14499ab37d22558219104
+    m_Address: Assets/Art/Models/Environment/Animations/BuildingTopOn.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 19b5749ff2f988740adad95a10cb2af5
+    m_Address: Assets/Art/Textures/Environment/tarmac simple white.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7126f4d5f0c56ec43b81222b6f1e86fd
+    m_Address: Assets/Art/Models/Environment/Terrains/M_GroundUrban.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 712e3bfba0ecb084fac0198914c0d25c
+    m_Address: Assets/Art/Models/Environment/Terrains/M_GroundVolcanic.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a18f37ac528733142a9b88762f8af958
+    m_Address: Assets/Art/Materials/M_Bush_Desert.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 974333072fe496d49858f48a2fdf211f
+    m_Address: Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/Wall_Base_Set.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 87e6c101cb5831440b287c1a6e5aceca
+    m_Address: Assets/Art/Prefabs/Environment/Tiles/Materials/MatTarmac2.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9478b00245a20a6459754d31e04fb287
+    m_Address: Assets/Art/Prefabs/Environment/Tiles/Materials/MatTarmac4.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4fc456b84ad305f4cbdfb676d06b5376
+    m_Address: Assets/Art/Prefabs/Environment/Tiles/Materials/MatGrass2.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ea0785b2cc85764489e33c26aeb91b6
+    m_Address: Assets/Art/Prefabs/Environment/Tiles/Materials/MatGrass4.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 12e1337b2d9449a49894dde87b03c071
+    m_Address: Assets/Art/Prefabs/Environment/Tiles/Materials/MatGrass3.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0c61216d1c378ae4ba3b97280a180807
+    m_Address: Assets/Art/Prefabs/Environment/Tiles/Materials/MatTarmac3.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0ef94bbdc9f15cf409858af4ae33d3b7
+    m_Address: Assets/Art/Prefabs/Environment/Tiles/Materials/MatTarmac1.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3a97a59e128ca894ea58bf787a85a3d3
+    m_Address: Assets/Art/Prefabs/Environment/Tiles/Materials/MatGrass1.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 484f6f80de24fe448952d594fc338bc0
+    m_Address: Assets/Art/Models/Environment/Props_NEW/District creation assets/Egypt/Models/Egypt_assets.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 33b361a1f5926964eaed43f7f27d5c99
+    m_Address: Assets/Art/Models/Environment/Props_NEW/District creation assets/Fantasy
+      and graveyard/models/Fantasy_and_Graveyard_assets.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e49d290250b121441b8b64769562a657
+    m_Address: Assets/Art/Models/Environment/Props_NEW/Prop_Water_Fountain.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3b373bfb14a0341828738abf27912baa, type: 2}
+    - {fileID: 11400000, guid: d8786b758e9ad43b087f3752d5d0cac1, type: 2}

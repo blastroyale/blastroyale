@@ -272,8 +272,11 @@ namespace Quantum.Systems
 			}
 
 			var input = f.GetPlayerInput(filter.Player->Player);
-
-			if (f.Time < Constants.NO_INPUT_STOP_CHECKING)
+			
+			// Check inactivity only up to certain time and only in ranked matches
+			if (f.Time < Constants.NO_INPUT_STOP_CHECKING &&
+				f.RuntimeConfig.AllowedRewards != null &&
+				f.RuntimeConfig.AllowedRewards.Contains((int)GameId.Trophies))
 			{
 				ProcessNoInputWarning(f, ref filter, input->GetHashCode());
 			}
@@ -364,6 +367,7 @@ namespace Quantum.Systems
 			{
 				if (f.Time - filter.Player->LastNoInputTimeSnapshot > Constants.NO_INPUT_KILL_TIME)
 				{
+					f.Signals.PlayerKilledByBeingAFK(filter.Player->Player);
 					f.Unsafe.GetPointer<Stats>(filter.Entity)->Kill(f, filter.Entity);
 				}
 				else if (f.Time - filter.Player->LastNoInputTimeSnapshot > Constants.NO_INPUT_WARNING_TIME

@@ -166,8 +166,11 @@ namespace FirstLight.Game.Logic
 				throw new MatchDataEmptyLogicException();
 			}
 
-			var gameModeConfig =
-				GameLogic.ConfigsProvider.GetConfig<QuantumGameModeConfig>(localMatchData.GameModeId);
+			if (localMatchData.Data.KilledByBeingAFK)
+			{
+				return rewards;
+			}
+			
 			var teamSize = Math.Max(1, source.TeamSize);
 			var maxTeamsInMatch = source.GamePlayerCount / teamSize;
 

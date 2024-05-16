@@ -1376,7 +1376,7 @@ MonoBehaviour:
         Amount: 1
         Pool:
         - ItemConfig:
-            SimpleGameId: 91
+            SimpleGameId: 92
             EquipmentMetadata:
               Adjective: 0
               Edition: 0

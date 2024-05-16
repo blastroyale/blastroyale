@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a3c5d64ac83548c09dd1678b9f6f1cd, type: 3}
-  m_Name: Packed Assets
+  m_Name: Local Assets
   m_EditorClassIdentifier: 
   m_SchemaObjects:
   - {fileID: 6463234417131747212}
   - {fileID: 4393105415412265759}
-  m_Description: Pack assets into asset bundles.
+  m_Description: For groups that are bundled with the game.
   m_Settings: {fileID: 0}
 --- !u!114 &4393105415412265759
 MonoBehaviour:
@@ -56,7 +56,7 @@ MonoBehaviour:
     m_AssemblyName: Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     m_ClassName: UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider
   m_ForceUniqueProvider: 0
-  m_UseAssetBundleCache: 1
+  m_UseAssetBundleCache: 0
   m_UseAssetBundleCrc: 0
   m_UseAssetBundleCrcForCachedBundles: 1
   m_UseUWRForLocalBundles: 1
@@ -65,10 +65,10 @@ MonoBehaviour:
   m_RedirectLimit: -1
   m_RetryCount: 0
   m_BuildPath:
-    m_Id: 
+    m_Id: aca0d754c35474bfababd9868dc6c9e5
   m_LoadPath:
-    m_Id: 
-  m_BundleMode: 1
+    m_Id: c0b8c4f3712014b66b946895576ed012
+  m_BundleMode: 0
   m_AssetBundleProviderType:
     m_AssemblyName: Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     m_ClassName: UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider

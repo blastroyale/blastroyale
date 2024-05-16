@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Collection_WeaponSkins_Default
+  m_Name: Collection_WeaponSkins
   m_EditorClassIdentifier: 
-  m_GroupName: Collection_WeaponSkins_Default
+  m_GroupName: Collection_WeaponSkins
   m_Data:
     m_SerializedData: []
   m_GUID: 2b2c07ef86c2d484a814745aa2dd6d8c

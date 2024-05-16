@@ -619,7 +619,9 @@ namespace FirstLight.Game.StateMachines
 
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
-			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
+			
+			await SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+			SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainMenu"));
 
 			_statechartTrigger(MainMenuLoadedEvent);
 
@@ -640,7 +642,7 @@ namespace FirstLight.Game.StateMachines
 				.ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
 
-			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
+			await SceneManager.UnloadSceneAsync("MainMenu");
 
 			await Resources.UnloadUnusedAssets();
 			MainInstaller.CleanDispose<IMainMenuServices>();

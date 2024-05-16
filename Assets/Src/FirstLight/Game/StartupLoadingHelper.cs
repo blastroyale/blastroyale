@@ -73,7 +73,6 @@ namespace FirstLight.Game
 					asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<DummyAssetConfigs>(AddressableId.Configs_DummyAssetConfigs,
 					asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<SceneAssetConfigs>(AddressableId.Configs_SceneAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<SpriteAssetConfigs>(AddressableId.Configs_SpriteAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<SpecialMoveAssetConfigs>(AddressableId.Configs_SpecialMoveAssetConfigs,
 					asset => _assetService.AddConfigs(asset)),

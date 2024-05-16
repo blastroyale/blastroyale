@@ -6,6 +6,7 @@ using FirstLight.Editor.Build.Utils;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
+using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
@@ -19,6 +20,12 @@ namespace FirstLight.Editor.Build
 	/// </summary>
 	public static class Builder
 	{
+		public static void BuildAddressablesUpdate()
+		{
+			SetupAddressables();
+			ContentUpdateScript.BuildContentUpdate(AddressableAssetSettingsDefaultObject.Settings, "ServerData/iOS/addressables_content_state.bin");
+		}
+		
 		/// <summary>
 		/// Combines the configure and build steps
 		/// </summary>

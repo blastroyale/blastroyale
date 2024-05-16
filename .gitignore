@@ -127,8 +127,6 @@ Assets/Plugins/Android/com.*
 Assets/Plugins/Android/javax.*
 Assets/Plugins/Android/org.*
 Assets/Plugins/Android/FirebaseCrashlytics.*
-blast_royale_BackUpThisFolder_ButDontShipItWithYourGame
-blast_royale_BurstDebugInformation_DoNotShip
 Assets/InitTestScene*.unity
 Assets/InitTestScene*.unity.meta
 /BuildArtifacts/
@@ -144,6 +142,9 @@ Assets/AddressableAssetsData/link.xml
 Assets/AddressableAssetsData/link.xml.meta
 bakery-times.log
 mono_crash.*
+app/
+app_BackUpThisFolder_ButDontShipItWithYourGame/
+app_BurstDebugInformation_DoNotShip/
 
 # DLLs
 # Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll

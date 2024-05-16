@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Map_Fortress_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: 6204f4be061e5214f932489f422b865a, type: 2}
-  m_StaticContent: 1
+  m_StaticContent: 0

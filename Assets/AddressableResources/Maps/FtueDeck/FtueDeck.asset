@@ -3407,9 +3407,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 1
       BehaviourType:
         Value: 0
@@ -3455,7 +3453,7 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 23588528
+          RawValue: 11792048
         Z:
           RawValue: 0
     View: []
@@ -3499,9 +3497,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 3
       BehaviourType:
         Value: 1
@@ -3591,9 +3587,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 3
       BehaviourType:
         Value: 0
@@ -3683,9 +3677,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 3
       BehaviourType:
         Value: 0
@@ -3775,9 +3767,7 @@ MonoBehaviour:
     PlayerCharging: []
     PlayerInventory: []
     PlayerSpawner:
-    - ActivationTime:
-        RawValue: 0
-      SpawnerType:
+    - SpawnerType:
         Value: 3
       BehaviourType:
         Value: 0

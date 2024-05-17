@@ -84,6 +84,11 @@ namespace FirstLight.Game.Logic
 		bool TryGetNftInfo(UniqueId id, out NftEquipmentInfo nftEquipmentInfo);
 
 		/// <summary>
+		/// Returns if Nft info is valid.
+		/// </summary>
+		bool IsNftInfoValid(UniqueId id);
+
+		/// <summary>
 		/// Requests the <see cref="EquipmentInfo"/> for all the loadout with the given <paramref name="filter"/>
 		/// </summary>
 		List<EquipmentInfo> GetLoadoutEquipmentInfo(EquipmentFilter filter);
@@ -285,6 +290,11 @@ namespace FirstLight.Game.Logic
 				Manufacturer = GetManufacturer(equipment),
 				Stats = equipment.GetStats(GameLogic.ConfigsProvider)
 			};
+		}
+
+		public bool IsNftInfoValid(UniqueId id)
+		{
+			return _nftInventory.TryGetValue(id, out var _);
 		}
 
 		public bool TryGetNftInfo(UniqueId id, out NftEquipmentInfo nftEquipmentInfo)

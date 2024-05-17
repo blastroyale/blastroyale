@@ -1,7 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -287,10 +286,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 				size = _weaponConfig.SplashRadius.AsFloat * 2f;
 			}
 
-			var isAiming = shooting || aim != FPVector2.Zero;
-
 			ShootIndicator.SetTransformState(aimDirection);
-			ShootIndicator.SetVisualState(isAiming, isEmptied || reloading);
+			ShootIndicator.SetVisualState(shooting, isEmptied || reloading);
 			ShootIndicator.SetVisualProperties(size, 0, rangeStat);
 		}
 

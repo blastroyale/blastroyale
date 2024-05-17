@@ -195,7 +195,11 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask OpenHUD()
 		{
-			await _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
+			// Here for the tutorial, because it's already opened.
+			if (!_services.UIService.IsScreenOpen<SwipeTransitionScreenPresenter>())
+			{
+				await _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
+			}
 			await _services.UIService.OpenScreen<HUDScreenPresenter>();
 		}
 
@@ -342,7 +346,12 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask LoadMatchAssets()
 		{
-			await _services.UIService.CloseScreen<SwipeTransitionScreenPresenter>(false);
+			// We don't want to close the swipe scrceen during first tutorial because there's no "dropzone selection"
+			if (_services.TutorialService.CurrentRunningTutorial.Value != TutorialSection.FIRST_GUIDE_MATCH)
+			{
+				await _services.UIService.CloseScreen<SwipeTransitionScreenPresenter>(false);
+			}
+
 			var entityService = new GameObject(nameof(EntityViewUpdaterService))
 				.AddComponent<EntityViewUpdaterService>();
 			_matchServices = new MatchServices(entityService, _services, _dataProvider, _dataService);

@@ -94,7 +94,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private async UniTask TutorialJoinTask(bool transition = false)
+		private async UniTask TutorialJoinTask(bool transition = true)
 		{
 			await _services.UIService.CloseScreen<PrivacyDialogPresenter>(false);
 			if (transition)
@@ -136,7 +136,7 @@ namespace FirstLight.Game.StateMachines
 				AcceptPrivacyDialog().Forget();
 				return;
 			}
-			TutorialJoinTask(true).Forget();
+			TutorialJoinTask().Forget();
 		}
 
 		private void SubscribeEvents()

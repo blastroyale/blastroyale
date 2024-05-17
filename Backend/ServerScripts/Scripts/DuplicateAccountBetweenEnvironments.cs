@@ -16,7 +16,7 @@ using StatisticUpdate = PlayFab.ServerModels.StatisticUpdate;
 using UpdatePlayerStatisticsRequest = PlayFab.ServerModels.UpdatePlayerStatisticsRequest;
 
 
-public class DuplicateAccountFromProduction : PlayfabScript
+public class DuplicateAccountBetweenEnvironments : PlayfabScript
 {
 	private GetPlayerCombinedInfoRequestParams StandardLoginInfoRequestParams =>
 		new()
@@ -31,16 +31,37 @@ public class DuplicateAccountFromProduction : PlayfabScript
 
 	public override void Execute(ScriptParameters parameters)
 	{
-		Console.WriteLine("Input the account id");
-		var account = Console.ReadLine();
-		RunAsync(account).Wait();
+
+		RunAsync().Wait();
 	}
 
-	public async Task RunAsync(string baseAccount)
+	public async Task RunAsync()
 	{
-		var copyFrom = PlayfabEnvironment.PROD;
-		var copyTo = PlayfabEnvironment.STAGING;
+		var availableEnvironments = string.Join(", ", Enum.GetNames<PlayfabEnvironment>());
 
+		// Source
+		Console.WriteLine();
+		Console.WriteLine("Available Environments: " + availableEnvironments);
+		Console.WriteLine("Input the environment to copy from: ");
+		var targetString = Console.ReadLine();
+		if (!Enum.TryParse<PlayfabEnvironment>(targetString?.Trim().ToUpperInvariant(), out var copyFrom))
+		{
+			Console.WriteLine("Invalid environment, available ones: " + availableEnvironments);
+			return;
+		}
+		
+		// Target
+		Console.WriteLine();
+		Console.WriteLine("Input the environment to copy to: ");
+		targetString = Console.ReadLine();
+		if (!Enum.TryParse<PlayfabEnvironment>(targetString?.Trim().ToUpperInvariant(), out var copyTo))
+		{
+			Console.WriteLine("Invalid environment, available ones: " + availableEnvironments);
+			return;
+		}
+		Console.WriteLine("Input the account id");
+		var baseAccount = Console.ReadLine();
+		
 		SetEnvironment(copyFrom);
 
 		// Get User State

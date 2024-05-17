@@ -66,7 +66,6 @@ namespace FirstLight.Game.TestCases
 			yield return UIHome.ClickBattlePassButton();
 			yield return _tutorialTransitionWait;
 			yield return UIBattlepass.ClickToClaimFirstBattlePassReward();
-			yield return UIBattlepass.WaitRewardDialogAndClaimIt();
 
 			// Wait for automatic transitions and equipment tooltip
 			yield return new WaitForSeconds(3);

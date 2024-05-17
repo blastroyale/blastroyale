@@ -490,6 +490,19 @@
     bottom: -10px;
 }
 
+.weapon-display__rarity-icon {
+    width: 239px;
+    height: 192px;
+    position: absolute;
+    left: -14px;
+    bottom: -10px;
+    background-image: var(--sprite-match__weapon-bg);
+}
+
+.weapon-display__rarity-icon--golden {
+    background-image: var(--sprite-match__weapon-bg-golden);
+}
+
 .weapon-display__weapon-icon {
     background-image: url('project://database/Assets/AddressableResources/Sprites/Equipment/Weapon/ApoRifle.png?fileID=2800000&guid=0e7be45b515adb143963175b1b63f76e&type=3#ApoRifle');
     width: 170px;
@@ -514,18 +527,21 @@
 
 .weapon-display__melee-icon {
     background-image: url('project://database/Assets/AddressableResources/Sprites/Equipment/Weapon/Hammer.png?fileID=2800000&guid=3b5db8c4fa149744a9add284a006ca9a&type=3#Hammer');
-    width: 110px;
-    height: 110px;
+    width: 150px;
+    height: 150px;
     position: absolute;
     -unity-background-scale-mode: scale-to-fit;
     top: -4px;
     left: -4px;
     opacity: 0.4;
 }
+.weapon-display__melee-icon--default {
+    background-image: url('project://database/Assets/AddressableResources/Sprites/Equipment/Weapon/Hammer.png?fileID=2800000&guid=3b5db8c4fa149744a9add284a006ca9a&type=3#Hammer');
+}
 
-.weapon-display__melee-icon--shadow {
-    top: 13px;
-    left: 23px;
+.weapon-display__melee-icon__shadow {
+    top: 0;
+    left: 0;
     -unity-background-image-tint-color: rgb(35, 32, 46);
     transition-property: opacity;
     transition-duration: var(--weapon-switch-animation-duration);
@@ -534,14 +550,6 @@
 
 .weapon-display--melee .weapon-display__melee-icon {
     opacity: 1;
-}
-
-.weapon-display__weapon-faction-icon {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    left: 15px;
-    bottom: 37px;
 }
 
 .weapon-display__ammo {

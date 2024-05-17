@@ -22,7 +22,6 @@ namespace FirstLight.Game.Configs
 		Shop,
 		Collection,
 		Leaderboards,
-		Equipment,
 		GameModes,
 		Squads,
 		PaidBattlePass

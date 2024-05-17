@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -14,8 +15,7 @@ namespace FirstLight.Game.Views.UITK
 {
 	public class WeaponDisplayView : UIView
 	{
-		private const string USS_SPRITE_RARITY = "sprite-equipmentcard__card-rarity-{0}";
-		private const string USS_SPRITE_FACTION = "sprite-equipmentcard__card-faction-{0}";
+		private const string USS_GOLDEN_MODIFIER = "weapon-display__rarity-icon--golden";
 		private const string USS_MELEE_WEAPON = "weapon-display--melee";
 		private const float LOW_AMMO_PERCENTAGE = 0.1f;
 		private const float DESATURATION_PERCENTAGE_AMMO_RADIAL_TRACK_ON_BACKGROUND = 0.5f;
@@ -23,6 +23,8 @@ namespace FirstLight.Game.Views.UITK
 		public Gradient OutOfAmmoColors { get; set; }
 
 		private VisualElement _melee;
+		private VisualElement _meleeIcon;
+		private VisualElement _meleeIconShadow;
 		private VisualElement _weapon;
 		private VisualElement _weaponRarity;
 		private VisualElement _weaponIcon;
@@ -34,7 +36,6 @@ namespace FirstLight.Game.Views.UITK
 		private IValueAnimation _ammoLabelAnimation;
 		private IValueAnimation _outOfAmmoProgressAnimation;
 
-
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 
@@ -45,6 +46,8 @@ namespace FirstLight.Game.Views.UITK
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
+			_meleeIconShadow = Element.Q("MeleeIconShadow").Required();
+			_meleeIcon = Element.Q("MeleeIcon").Required();
 			_melee = Element.Q("Melee").Required();
 			_weapon = Element.Q("Boomstick").Required();
 			_switchIcon = Element.Q("SwitchIcon").Required();
@@ -102,11 +105,22 @@ namespace FirstLight.Game.Views.UITK
 				return;
 			}
 
+			var loadout = PlayerLoadout.GetLoadout(f, playerEntity);
+			var item = _services.CollectionService.GetCosmeticForGroup(loadout.Cosmetics, GameIdGroup.MeleeSkin);
+			SetMeeleSkin(item).Forget();
 
 			SetWeapon(pc.WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon).Forget();
 			SetSlot(pc.CurrentWeaponSlot);
 			_ammoLabel.text = "0";
 			UpdateAmmo(f, playerEntity);
+		}
+
+		private async UniTaskVoid SetMeeleSkin(ItemData skin)
+		{
+			var sprite = _services.CollectionService.LoadCollectionItemSprite(skin);
+			await UIUtils.SetSprite(sprite, _meleeIcon, _meleeIconShadow);
+			_meleeIcon.RemoveModifiers();
+			_meleeIconShadow.RemoveModifiers();
 		}
 
 		// ReSharper disable Unity.PerformanceAnalysis
@@ -178,12 +192,10 @@ namespace FirstLight.Game.Views.UITK
 			return percentage <= LOW_AMMO_PERCENTAGE;
 		}
 
-
 		public void SetLowAmmo(bool value)
 		{
 			_outOfAmmoGlow.SetVisibility(value);
 		}
-
 
 		private void StopOutOfAmmoAnimation(bool resetColor = false)
 		{
@@ -256,14 +268,11 @@ namespace FirstLight.Game.Views.UITK
 			_switchIcon.SetVisibility(weapon.IsValid());
 			if (!weapon.IsValid())
 			{
-				_weaponRarity.AddToClassList(string.Format(USS_SPRITE_RARITY,
-					EquipmentRarity.Common.ToString().ToLowerInvariant()));
+				_weaponRarity.RemoveModifiers();
 				return;
 			}
 
-			_weaponRarity.AddToClassList(string.Format(USS_SPRITE_RARITY,
-				(weapon.Material == EquipmentMaterial.Golden ? EquipmentRarity.Legendary : EquipmentRarity.Common).ToString().ToLowerInvariant()));
-
+			_weaponRarity.EnableInClassList(USS_GOLDEN_MODIFIER, weapon.Material == EquipmentMaterial.Golden);
 			var weaponSprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(weapon.GameId, instantiate: false);
 			_weaponIcon.style.backgroundImage = _weaponShadow.style.backgroundImage = new StyleBackground(weaponSprite);
 		}

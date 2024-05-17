@@ -53,10 +53,6 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="LeftButtons" class="main-buttons main-buttons--left">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="sfx-click-forwards button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl main-button-margin fame-locked-button hidden">
-                    <ui:VisualElement name="EquipmentIcon" class="button-with-icon__icon" />
-                    <ui:VisualElement name="EquipmentNotification" class="notification-icon button-with-icon__notification" />
-                </FirstLight.Game.UIElements.LocalizedButton>
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/collection" name="CollectionButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl main-button-margin">
                     <ui:VisualElement name="CollectionIcon" class="button-with-icon__icon" />
                     <ui:VisualElement name="CollectionNotification" class="notification-icon button-with-icon__notification" />

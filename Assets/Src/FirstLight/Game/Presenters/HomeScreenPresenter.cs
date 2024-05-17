@@ -76,7 +76,6 @@ namespace FirstLight.Game.Presenters
 		private Label _playerTrophiesLabel;
 		private PlayerAvatarElement _avatar;
 
-		private VisualElement _equipmentNotification;
 		private VisualElement _collectionNotification;
 		private VisualElement _settingsNotification;
 		private VisualElement _newsNotification;
@@ -151,7 +150,6 @@ namespace FirstLight.Game.Presenters
 			_gameModeIcon = Root.Q<VisualElement>("GameModeIcon").Required();
 			_gameModeButton = Root.Q<ImageButton>("GameModeButton").Required();
 
-			_equipmentNotification = Root.Q<VisualElement>("EquipmentNotification").Required();
 			_collectionNotification = Root.Q<VisualElement>("CollectionNotification").Required();
 			_settingsNotification = Root.Q<VisualElement>("SettingsNotification").Required();
 			_newsNotification = Root.Q<VisualElement>("NewsNotification").Required();
@@ -201,8 +199,6 @@ namespace FirstLight.Game.Presenters
 			_gameModeButton.LevelLock2(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
 			var leaderBoardButton = Root.Q<ImageButton>("LeaderboardsButton");
 			leaderBoardButton.LevelLock2(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
-			var equipmentButton = Root.Q<Button>("EquipmentButton");
-			equipmentButton.LevelLock2(this, Root, UnlockSystem.Equipment, Data.OnLootButtonClicked);
 			var collectionButton = Root.Q<Button>("CollectionButton");
 			collectionButton.LevelLock2(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
 
@@ -270,7 +266,6 @@ namespace FirstLight.Game.Presenters
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_settingsNotification.SetDisplay(_services.AuthenticationService.IsGuest);
-			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
 			SetHasNewsNotification(false);
 			_services.NewsService.HasNotSeenNews().ContinueWith(SetHasNewsNotification);

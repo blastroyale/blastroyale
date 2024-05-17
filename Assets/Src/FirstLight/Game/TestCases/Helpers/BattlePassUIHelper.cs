@@ -28,13 +28,5 @@ namespace FirstLight.Game.TestCases.Helpers
 
 			yield return _uiHelper.TouchOnElement(searchResult.Value.Item1, searchResult.Value.Item2);
 		}
-
-		public IEnumerator WaitRewardDialogAndClaimIt()
-		{
-			yield return _uiHelper.WaitForPresenter<EquipmentRewardDialogPresenter>();
-			yield return new WaitForSeconds(1f);
-			yield return _uiHelper.TouchOnElementByName("ConfirmButton");
-			yield return new WaitForSeconds(1f);
-		}
 	}
 }

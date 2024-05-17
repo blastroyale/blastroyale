@@ -1,6 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Styles/EquipmentCardStyle.uss?fileID=7433441132597879392&amp;guid=1cc2b13c5be2a42cc84a1b72e0c15b89&amp;type=3#EquipmentCardStyle" />
-    <ui:VisualElement class="fill-parent" style="align-items: center; justify-content: space-around;">
-        <FirstLight.Game.UIElements.EquipmentCardElement name="Card" class="equipment-card--marketplace" />
-    </ui:VisualElement>
-</ui:UXML>

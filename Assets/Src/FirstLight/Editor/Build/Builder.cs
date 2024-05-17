@@ -20,12 +20,25 @@ namespace FirstLight.Editor.Build
 	/// </summary>
 	public static class Builder
 	{
-		public static void BuildAddressablesUpdate()
+		/// <summary>
+		/// Builds an addressable update - for testing only.
+		/// </summary>
+		public static void BuildAddressablesUpdateIOS()
 		{
 			SetupAddressables();
 			ContentUpdateScript.BuildContentUpdate(AddressableAssetSettingsDefaultObject.Settings, "ServerData/iOS/addressables_content_state.bin");
 		}
-		
+
+		/// <summary>
+		/// Builds an addressable update - for testing only.
+		/// </summary>
+		public static void BuildAddressablesUpdateAndroid()
+		{
+			SetupAddressables();
+			ContentUpdateScript.BuildContentUpdate(AddressableAssetSettingsDefaultObject.Settings,
+				"ServerData/Android/addressables_content_state.bin");
+		}
+
 		/// <summary>
 		/// Combines the configure and build steps
 		/// </summary>

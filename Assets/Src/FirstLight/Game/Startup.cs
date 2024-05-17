@@ -68,7 +68,6 @@ namespace FirstLight.Game
 			await VersionUtils.LoadVersionDataAsync();
 			// This uglyness is here because we need to show the loading screen before loading configs, which need this tuple
 			var (services, assetResolver, configsProvider) = InitFLGServices();
-			await services.UIService.OpenScreen<LoadingScreenPresenter>();
 			OhYeah();
 
 			await StartupLoadingHelper.LoadConfigs(services, assetResolver, configsProvider);

@@ -65,3 +65,4 @@ component PlayerCharging
 signal PlayerDead(player_ref playerDead, entity_ref entityDead);
 signal PlayerKilledPlayer(player_ref playerDead, entity_ref entityDead, player_ref playerKiller, entity_ref entityKiller);
 signal PlayerColliderDisabled(entity_ref playerEntity);
+signal PlayerKilledByBeingAFK(player_ref player);

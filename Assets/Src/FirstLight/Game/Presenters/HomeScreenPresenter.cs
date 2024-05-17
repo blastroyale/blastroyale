@@ -103,7 +103,7 @@ namespace FirstLight.Game.Presenters
 		private Label _betaLabel;
 		private MatchmakingStatusView _matchmakingStatusView;
 
-		[SerializeField] private HomeCharacterView _homeCharacterView = new ();
+		[SerializeField] private HomePartyCharacterView _homePartyCharacterView = new ();
 
 		private Coroutine _updatePoolsCoroutine;
 		private HashSet<GameId> _currentAnimations = new ();
@@ -190,7 +190,7 @@ namespace FirstLight.Game.Presenters
 
 
 			Root.Q<VisualElement>("PartyMemberNames").Required()
-				.AttachExistingView(this, _homeCharacterView);
+				.AttachExistingView(this, _homePartyCharacterView);
 
 			_outOfSyncWarningLabel = Root.Q<Label>("OutOfSyncWarning").Required();
 			_betaLabel = Root.Q<Label>("BetaWarning").Required();

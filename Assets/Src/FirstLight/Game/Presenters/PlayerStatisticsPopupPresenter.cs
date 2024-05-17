@@ -45,6 +45,8 @@ namespace FirstLight.Game.Presenters
 
 		private const int StatisticMaxSize = 4;
 
+		private bool IsLocalPlayer => Data.PlayerId == PlayFabSettings.staticPlayer.PlayFabId;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -63,7 +65,7 @@ namespace FirstLight.Game.Presenters
 			_statContainers = new VisualElement[StatisticMaxSize];
 
 			var editNameButton = Root.Q<ImageButton>("EditNameButton");
-			if (Data.PlayerId == PlayFabSettings.staticPlayer.PlayFabId)
+			if (IsLocalPlayer)
 			{
 				editNameButton.clicked += () => Data.OnEditNameClicked();
 			}
@@ -71,7 +73,6 @@ namespace FirstLight.Game.Presenters
 			{
 				editNameButton.SetVisibility(false);
 			}
-
 
 			Root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
 			Root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
@@ -99,7 +100,6 @@ namespace FirstLight.Game.Presenters
 
 			Root.SetupClicks(_services);
 		}
-
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
@@ -152,7 +152,16 @@ namespace FirstLight.Game.Presenters
 				SetStatInfo(3, result, GameConstants.Stats.RANKED_DEATHS_EVER, ScriptLocalization.MainMenu.RankedDeaths);
 
 				_pfpImage.SetAvatar(result.AvatarUrl);
-				_pfpImage.SetLevel(_gameDataProvider.PlayerDataProvider.Level.Value);
+				if (IsLocalPlayer)
+				{
+					_pfpImage.SetLevel(_gameDataProvider.PlayerDataProvider.Level.Value);
+				}
+				else
+				{
+					var stat = result.Statistics.FirstOrDefault(s => s.Name == GameConstants.Stats.FAME);
+					_pfpImage.SetLevel((uint) stat.Value);
+				}
+
 				_pfpImage.RegisterCallback<MouseDownEvent>(e => OpenLeaderboard(ScriptLocalization.General.Level, GameConstants.Stats.FAME));
 				_content.visible = true;
 				_loadingSpinner.visible = false;

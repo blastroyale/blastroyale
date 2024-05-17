@@ -425,7 +425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _document: {fileID: 6137259420522652925}
-  _homeCharacterView:
+  _homePartyCharacterView:
     _teamMatePositions:
     - SlotRoot: {fileID: 1525368271705331963}
       Character: {fileID: 6270429400295697516}

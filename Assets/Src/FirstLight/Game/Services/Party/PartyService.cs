@@ -182,7 +182,7 @@ namespace FirstLight.Game.Services.Party
 		private string _lobbyId;
 		private PlayFabAuthenticationContext _usedPlayfabContext;
 		SemaphoreSlim _accessSemaphore = new (1, 1);
-		
+
 		private readonly IObservableField<bool> _hasParty;
 		public IObservableFieldReader<bool> HasParty => _hasParty;
 
@@ -200,7 +200,7 @@ namespace FirstLight.Game.Services.Party
 
 		private readonly IObservableDictionary<string, string> _lobbyProperties;
 		public IObservableDictionaryReader<string, string> LobbyProperties => _lobbyProperties;
-		
+
 		private readonly IObservableField<bool> _localReadyStatus;
 		IObservableFieldReader<bool> IPartyService.LocalReadyStatus => _localReadyStatus;
 
@@ -232,7 +232,19 @@ namespace FirstLight.Game.Services.Party
 			msgBroker.Subscribe<ChangedServerRegionMessage>(OnChangedPhotonServer);
 			msgBroker.Subscribe<CollectionItemEquippedMessage>(OnCharacterSkinUpdatedMessage);
 			msgBroker.Subscribe<TrophiesUpdatedMessage>(OnTrophiesUpdateMessage);
+			_appDataProvider.DisplayName.Observe(OnDisplayNameChanged);
+
 			_lobbyProperties.Observe(ReadyVersion, OnReadyVersionChanged);
+		}
+
+		private void OnDisplayNameChanged(string _, string _2)
+		{
+			if (!_hasParty.Value)
+			{
+				return;
+			}
+
+			SetMemberProperty(PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, _appDataProvider.GetDisplayName()).Forget();
 		}
 
 		private void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage obj)
@@ -263,12 +275,10 @@ namespace FirstLight.Game.Services.Party
 			SetMemberProperty(PartyMember.TROPHIES_PROPERTY, obj.NewValue.ToString()).Forget();
 		}
 
-
 		private void OnChangedPhotonServer(ChangedServerRegionMessage obj)
 		{
 			LeavePartyAndForget();
 		}
-
 
 		private void OnSuccessAuthentication(SuccessAuthentication obj)
 		{
@@ -407,7 +417,6 @@ namespace FirstLight.Game.Services.Party
 					}
 				}
 
-
 				var localMember = CreateLocalMember();
 				// Now join it
 				var joinRequest = new JoinLobbyRequest()
@@ -500,7 +509,6 @@ namespace FirstLight.Game.Services.Party
 				LobbyDataToDelete = new List<string> {key}
 			});
 		}
-
 
 		/// <inheritdoc/>
 		public async UniTask SetMemberProperty(string key, string value)
@@ -633,7 +641,6 @@ namespace FirstLight.Game.Services.Party
 			SendAnalyticsAction("PromoteMember");
 		}
 
-
 		/// <summary>
 		/// Leave a previous joined/created party <see cref="CreateParty"/>
 		/// </summary>
@@ -650,7 +657,6 @@ namespace FirstLight.Game.Services.Party
 				{
 					throw new PartyException(PartyErrors.NoParty);
 				}
-
 
 				var req = new LeaveLobbyRequest()
 				{
@@ -903,7 +909,6 @@ namespace FirstLight.Game.Services.Party
 			OnLocalPlayerKicked?.Invoke();
 		}
 
-
 		private void ResetState()
 		{
 			_lobbyId = null;
@@ -927,7 +932,6 @@ namespace FirstLight.Game.Services.Party
 			}
 		}
 
-
 		private void SendAnalyticsAction(string action, string overwriteLobbyId = null, string overwriteMembersString = null)
 		{
 			var lobby = overwriteLobbyId ?? _lobbyId;
@@ -940,7 +944,6 @@ namespace FirstLight.Game.Services.Party
 			{
 				members = MembersAsString();
 			}
-
 
 			MainInstaller.Resolve<IGameServices>().AnalyticsService.LogEvent("team_action", new AnalyticsData()
 			{

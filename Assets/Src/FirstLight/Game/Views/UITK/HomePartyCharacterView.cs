@@ -37,28 +37,33 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	public class LocalPlayerMember : MenuPartyMember
 	{
 		public Transform PartyPosition;
-		[NonSerialized] public Vector3 InitialPosition;
-		[NonSerialized] public Quaternion InitialRotation;
+		[NonSerialized] private Vector3 _initialPosition;
+		[NonSerialized] private Quaternion _initialRotation;
+		[NonSerialized] private bool _isUsingPartyPosition;
 
 		public void SaveInitialPosition()
 		{
-			InitialPosition = SlotRoot.transform.position;
-			InitialRotation = SlotRoot.transform.rotation;
+			_initialPosition = SlotRoot.transform.position;
+			_initialRotation = SlotRoot.transform.rotation;
 		}
 
 		public void ApplyInitialPosition()
 		{
-			SlotRoot.transform.SetPositionAndRotation(InitialPosition, InitialRotation);
+			if (!_isUsingPartyPosition) return;
+			_isUsingPartyPosition = false;
+			SlotRoot.transform.SetPositionAndRotation(_initialPosition, _initialRotation);
 		}
 
 		public void ApplyPartyPosition()
 		{
+			if (_isUsingPartyPosition) return;
+			_isUsingPartyPosition = true;
 			SlotRoot.transform.SetPositionAndRotation(PartyPosition.position, PartyPosition.rotation);
 		}
 	}
 
 	[Serializable]
-	public class HomeCharacterView : UIView
+	public class HomePartyCharacterView : UIView
 	{
 		[SerializeField] private MenuPartyMember[] _teamMatePositions;
 		[SerializeField] private LocalPlayerMember _localPlayer;
@@ -68,41 +73,65 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private IPartyService _partyService;
 		private readonly SemaphoreSlim _lock = new (1, 1);
 
+		private List<MenuPartyMember> AllMembers
+		{
+			get
+			{
+				var list = _teamMatePositions.ToList();
+				list.Add(_localPlayer);
+				return list;
+			}
+		}
+
 		protected override void Attached()
 		{
 			_services = MainInstaller.ResolveServices();
 			_partyService = _services.PartyService;
 
 			_localPlayer.SaveInitialPosition();
-			// Create labels before so they are ready for OnScreeOpen, because we can't add new views inside OnScreenOpen
-			foreach (var teamMatePosition in _teamMatePositions)
+			// Create labels before so they are ready for OnScreenOpen, because we can't add new views inside there
+			foreach (var teamMatePosition in AllMembers)
 			{
 				CreateLabelFor(teamMatePosition);
 			}
-
-			CreateLabelFor(_localPlayer);
 		}
 
 		public override void OnScreenOpen(bool reload)
 		{
+			_services.MatchmakingService.IsMatchmaking.Observe(OnMatchmaking);
 			_partyService.Members.Observe(OnPartyUpdate);
 			_partyService.HasParty.Observe(OnHasPartyChanged);
 			_partyService.LobbyProperties.Observe(OnLobbyPropertiesChanged);
 			_partyService.LocalReadyStatus.Observe(OnLocalStatusChanged);
+			Element.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
 
-			CleanAll();
+			CleanAllRemote();
 			UpdateMembers().Forget();
 		}
 
 		public override void OnScreenClose()
 		{
+			_services.MatchmakingService.IsMatchmaking.StopObserving(OnMatchmaking);
 			_partyService.LocalReadyStatus.StopObserving(OnLocalStatusChanged);
 			_partyService.HasParty.StopObserving(OnHasPartyChanged);
 			_partyService.Members.StopObserving(OnPartyUpdate);
 			_partyService.LobbyProperties.StopObserving(OnLobbyPropertiesChanged);
 		}
 
+		private void OnGeometryChanged(GeometryChangedEvent evt)
+		{
+			foreach (var menuPartyMember in AllMembers.Where(m => m.IsUsed))
+			{
+				menuPartyMember.NameView.UpdatePosition();
+			}
+		}
+
 		private void OnLobbyPropertiesChanged(string arg1, string arg2, string arg3, ObservableUpdateType arg4)
+		{
+			UpdateMembers().Forget();
+		}
+
+		private void OnMatchmaking(bool _, bool _2)
 		{
 			UpdateMembers().Forget();
 		}
@@ -118,7 +147,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			{
 				_localPlayer.NameView?.Disable();
 				_localPlayer.ApplyInitialPosition();
-				CleanAll();
+				CleanAllRemote();
 				return;
 			}
 
@@ -139,7 +168,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				//var partyMembers = GetFakeMembers();
 				if (!_partyService.HasParty.Value)
 				{
-					CleanAll();
+					CleanAllRemote();
 				}
 
 				// Remove old members
@@ -186,7 +215,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			slot.PlayerId = member.PlayfabID;
 			// Update ui
-			slot.NameView.Enable(member.DisplayName, member.Leader, _partyService.IsReady(member));
+			slot.NameView.Enable(member.DisplayName, member.Leader, _partyService.IsReady(member) || _services.MatchmakingService.IsMatchmaking.Value);
 			// Local player is always on screen so we don't have to load their skin
 			if (member.Local)
 			{
@@ -237,7 +266,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			slot.NameView.Disable();
 		}
 
-		private void CleanAll()
+		private void CleanAllRemote()
 		{
 			foreach (var teamMatePosition in _teamMatePositions)
 			{

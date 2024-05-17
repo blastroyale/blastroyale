@@ -29,7 +29,6 @@ namespace FirstLight.Game.Services
 			EndTime = endTime;
 		}
 
-
 		public override string ToString()
 		{
 			return $"Entry({Entry}), EndTime({EndTime}), IsFixed({IsFixed})";
@@ -76,7 +75,6 @@ namespace FirstLight.Game.Services
 	{
 		private const string SelectedQueueLobbyProperty = "selected_queue";
 
-
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IThreadService _threadService;
 		private readonly IPartyService _partyService;
@@ -88,7 +86,6 @@ namespace FirstLight.Game.Services
 		public IObservableField<GameModeInfo> SelectedGameMode { get; }
 
 		public IObservableListReader<GameModeInfo> Slots => _slots;
-
 
 		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService,
 							   IGameDataProvider gameDataProvider, IPartyService partyService,
@@ -108,7 +105,6 @@ namespace FirstLight.Game.Services
 			_partyService.OnLobbyPropertiesCreated += AddGameModeToPartyProperties;
 			_partyService.LobbyProperties.Observe(SelectedQueueLobbyProperty, OnLeaderChangedGameMode);
 		}
-
 
 		public void Init()
 		{
@@ -147,11 +143,19 @@ namespace FirstLight.Game.Services
 
 			if (_partyService.HasParty.Value && _partyService.GetLocalMember().Leader)
 			{
-				_partyService.SetLobbyProperty(SelectedQueueLobbyProperty, current.Entry.PlayfabQueue.QueueName,true).Forget();
+				var newQueueName = current.Entry.PlayfabQueue.QueueName;
+				if (_partyService.LobbyProperties.TryGetValue(SelectedQueueLobbyProperty, out var currentPartyQueue))
+				{
+					if (currentPartyQueue == newQueueName)
+					{
+						return;
+					}
+				}
+				_partyService.SetLobbyProperty(SelectedQueueLobbyProperty, newQueueName, true).Forget();
 			}
 		}
 
-		private void AddGameModeToPartyProperties(Dictionary<string,string> _, Dictionary<string, string> lobbyData)
+		private void AddGameModeToPartyProperties(Dictionary<string, string> _, Dictionary<string, string> lobbyData)
 		{
 			lobbyData[SelectedQueueLobbyProperty] = SelectedGameMode.Value.Entry.PlayfabQueue.QueueName;
 		}
@@ -168,7 +172,6 @@ namespace FirstLight.Game.Services
 			if (newValue.Entry.PlayfabQueue?.QueueName == null) return;
 			SelectedGameMode.Value = newValue;
 		}
-
 
 		/// <summary>
 		/// Returns the current map in rotation, used for creating rooms with maps in rotation

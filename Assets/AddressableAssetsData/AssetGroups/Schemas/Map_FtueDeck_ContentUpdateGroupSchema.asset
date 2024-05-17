@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Map_FtueDeck_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: aa52fa8135387524facc7c3ffe541ad6, type: 2}
-  m_StaticContent: 1
+  m_StaticContent: 0

@@ -22,6 +22,7 @@ using I2.Loc;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = System.Object;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -400,7 +401,6 @@ namespace FirstLight.Game.StateMachines
 			return _services.PartyService.GetCurrentGroupSize() > _services.GameModeService.SelectedGameMode.Value.Entry.TeamSize;
 		}
 
-
 		private async UniTaskVoid TogglePartyReadyStatus()
 		{
 			var isReady = _services.PartyService.LocalReadyStatus.Value;
@@ -486,6 +486,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!_services.UIService.IsScreenOpen<HomeScreenPresenter>())
 			{
+				LoadingScreenPresenter.Destroy();
+
 				var data = new HomeScreenPresenter.StateData
 				{
 					OnPlayButtonClicked = PlayButtonClicked,
@@ -619,7 +621,9 @@ namespace FirstLight.Game.StateMachines
 
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
-			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
+
+			await SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+			SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainMenu"));
 
 			_statechartTrigger(MainMenuLoadedEvent);
 
@@ -640,7 +644,7 @@ namespace FirstLight.Game.StateMachines
 				.ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
 
-			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
+			await SceneManager.UnloadSceneAsync("MainMenu");
 
 			await Resources.UnloadUnusedAssets();
 			MainInstaller.CleanDispose<IMainMenuServices>();

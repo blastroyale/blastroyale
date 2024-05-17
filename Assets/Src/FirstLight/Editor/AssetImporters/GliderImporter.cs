@@ -25,23 +25,25 @@ namespace FirstLight.Editor.AssetImporters
 			importer.ExtractTextures(folder);
 
 			// Apply preset
-			var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/GliderFBX.preset");
-			preset.ApplyTo(importer);
+			// TODO mihak: Add back when the materials are fixed
+			// var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/GliderFBX.preset");
+			// preset.ApplyTo(importer);
 		}
 
 		private void OnPreprocessMaterialDescription(MaterialDescription description, Material material, AnimationClip[] animations)
 		{
-			if (!Path.GetFileName(assetPath).StartsWith(GLIDER_PREFIX)) return;
-
-			// We set the flames material manually in the preset
-			if (description.materialName == "M_Glider_Flames") return;
-
-			material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
-
-			if (description.TryGetProperty("DiffuseColor", out TexturePropertyDescription diffuseColor))
-			{
-				material.SetTexture(Shader.PropertyToID("_MainTex"), diffuseColor.texture);
-			}
+			// TODO mihak: Fix this, produces "inconsistent results" on reimport
+			// if (!Path.GetFileName(assetPath).StartsWith(GLIDER_PREFIX)) return;
+			//
+			// // We set the flames material manually in the preset
+			// if (description.materialName == "M_Glider_Flames") return;
+			//
+			// material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
+			//
+			// if (description.TryGetProperty("DiffuseColor", out TexturePropertyDescription diffuseColor))
+			// {
+			// 	material.SetTexture(Shader.PropertyToID("_MainTex"), diffuseColor.texture);
+			// }
 		}
 
 		private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,

@@ -73,11 +73,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f318fba89b3c7cf4ab1ae49325ca033d
-    m_Address: Scenes/MainMenu.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 63d6b329b3bdf0e4d85a7007440de5eb
     m_Address: Sprites/Specials/InvisibilityAimAreaStatus.png
     m_ReadOnly: 0

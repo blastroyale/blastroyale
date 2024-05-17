@@ -41,8 +41,9 @@ namespace FirstLight.Editor.AssetImporters
 			importer.ExtractTextures(folder);
 
 			// Apply preset
-			var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/CharacterFBX.preset");
-			preset.ApplyTo(importer);
+			// TODO mihak: Add back when the materials are fixed
+			// var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/CharacterFBX.preset");
+			// preset.ApplyTo(importer);
 		}
 
 		private void OnPreprocessAnimation()
@@ -103,14 +104,15 @@ namespace FirstLight.Editor.AssetImporters
 
 		private void OnPreprocessMaterialDescription(MaterialDescription description, Material material, AnimationClip[] animations)
 		{
-			if (!Path.GetFileName(assetPath).StartsWith(CHARACTER_PREFIX)) return;
-
-			material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
-
-			if (description.TryGetProperty("DiffuseColor", out TexturePropertyDescription diffuseColor))
-			{
-				material.SetTexture(Shader.PropertyToID("_MainTex"), diffuseColor.texture);
-			}
+			// TODO mihak: Fix this, produces "inconsistent results" on reimport
+			// if (!Path.GetFileName(assetPath).StartsWith(CHARACTER_PREFIX)) return;
+			//
+			// material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
+			//
+			// if (description.TryGetProperty("DiffuseColor", out TexturePropertyDescription diffuseColor))
+			// {
+			// 	material.SetTexture(Shader.PropertyToID("_MainTex"), diffuseColor.texture);
+			// }
 		}
 
 		/// <summary>

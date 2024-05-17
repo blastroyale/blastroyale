@@ -157,49 +157,6 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 			
 			Debug.Log("Finished scene export");
 		}
-
-		[Button("Generate Asset Configs")]
-		private void GenerateAssetConfigs()
-		{
-			var sceneAssetConfigs = AssetDatabase.LoadAssetAtPath<SceneAssetConfigs>("Assets/AddressableResources/Configs/SceneAssetConfigs.asset");
-			if (sceneAssetConfigs == null)
-			{
-				Debug.LogError("Scene Asset Configs reference invalid");
-				
-				return;
-			}
-			
-			if (Enum.TryParse<SceneId>(_mapGameId.ToString(), out var sceneId))
-			{
-				for (int i = 0; i < sceneAssetConfigs.Configs.Count(); i++)
-				{
-					if (sceneAssetConfigs.Configs[i].Key == sceneId)
-					{
-						sceneAssetConfigs.Configs.RemoveAt(i);
-						break;
-					}
-				}
-				sceneAssetConfigs.Configs.Add(new Pair<SceneId, AssetReference>(sceneId, _assetReference));
-				
-				EditorUtility.SetDirty(sceneAssetConfigs);
-				
-				var importers = AssetsToolImporter.GetAllImporters();
-				var importData = importers.FirstOrDefault(e => e.Type == typeof(SceneAssetConfigsImporter));
-				
-				importData.Importer.Import();
-				
-				GenerateMapAssetConfigs();
-				
-				AssetDatabase.SaveAssets();
-				AssetDatabase.Refresh();
-				
-				Debug.Log("Finished generating scene asset configs");
-			}
-			else
-			{
-				Debug.LogError($"Cannot parse SceneId {_mapGameId}");
-			}
-		}
 		
 		private void GenerateMapAssetConfigs()
 		{

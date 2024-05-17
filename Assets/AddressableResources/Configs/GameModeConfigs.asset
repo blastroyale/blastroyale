@@ -20,7 +20,7 @@ MonoBehaviour:
     QuantumConfigs:
     - Id: BattleRoyale
       MaxAllowedPlayersPerTeam: 0
-      AllowedMaps: 6c00000041000000710000007200000073000000c5000000c6000000c8000000
+      AllowedMaps: 6c000000710000007200000073000000c5000000c6000000c8000000
       ShowUIMinimap: 1
       ShowUITimer: 1
       ShowUIStandingsExtraInfo: 1

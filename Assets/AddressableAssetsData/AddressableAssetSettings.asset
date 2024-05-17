@@ -29,7 +29,7 @@ MonoBehaviour:
   m_ContiguousBundles: 1
   m_StripUnityVersionFromBundleBuild: 0
   m_DisableVisibleSubAssetRepresentations: 0
-  m_ShaderBundleNaming: 0
+  m_ShaderBundleNaming: 1
   m_ShaderBundleCustomNaming: 
   m_MonoScriptBundleNaming: 0
   m_CheckForContentUpdateRestrictionsOption: 0
@@ -52,16 +52,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 73eeb616f2ac2cd4293d8200293d2a2b, type: 2}
   - {fileID: 11400000, guid: aa52fa8135387524facc7c3ffe541ad6, type: 2}
   - {fileID: 11400000, guid: 256c58fe4d72a6a44aefc46c801e99b6, type: 2}
-  - {fileID: 11400000, guid: 8a7755577e631f246affac64d4671b4c, type: 2}
   - {fileID: 11400000, guid: a1eb09da9104d6247b3dd598ae809987, type: 2}
   - {fileID: 11400000, guid: 29b87d3cd535cf64c963a6c96814d01d, type: 2}
   - {fileID: 11400000, guid: 144cd501090bbfa4f9436f0c2b31e743, type: 2}
   - {fileID: 11400000, guid: b711acac052017344b5081f6707509d6, type: 2}
-  - {fileID: 11400000, guid: cead01183c8ed47b5ba14aba23dc9f08, type: 2}
   - {fileID: 11400000, guid: 05412102a70240345a0750b18e8bf421, type: 2}
   - {fileID: 11400000, guid: 6204f4be061e5214f932489f422b865a, type: 2}
   - {fileID: 11400000, guid: c9cea16fa6b6ae64aacfa9817d580964, type: 2}
   - {fileID: 11400000, guid: 3b56f4caa1bf641519fb75bf8aa62faa, type: 2}
+  - {fileID: 11400000, guid: ed400e3276a974c459056751817d41a5, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -164,6 +163,7 @@ MonoBehaviour:
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 1e1411d15bd0747d08255cbe53d40e15, type: 2}
+  - {fileID: 11400000, guid: 38c017411ed5f4daea5bc0126001364f, type: 2}
   m_InitializationObjects: []
   m_CertificateHandlerType:
     m_AssemblyName: 

@@ -3,7 +3,12 @@ guid: 8d29f4545b9ef4875bece4f778c1d1aa
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Char_PlagueDoctor
+    second: {fileID: 2100000, guid: 0deedd7aad4b546c28355a454decac2c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -44,7 +49,7 @@ ModelImporter:
       takeName: meta_flair
       internalID: -4311744423893859263
       firstFrame: 0
-      lastFrame: 153
+      lastFrame: 151
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -69,9 +74,9 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: meta_idle1_loop
-      takeName: meta_idle1_loop
-      internalID: -1533404506062787293
+      name: meta_idle_loop
+      takeName: meta_idle_loop
+      internalID: -2813654194492519390
       firstFrame: 0
       lastFrame: 360
       wrapMode: 0

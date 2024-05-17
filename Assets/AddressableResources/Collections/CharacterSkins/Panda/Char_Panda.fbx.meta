@@ -3,7 +3,12 @@ guid: 182779267486f4b3fa844212d50fd10c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Char_Panda
+    second: {fileID: 2100000, guid: 30c2aa1ead0954f15a8471e35d396c45, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

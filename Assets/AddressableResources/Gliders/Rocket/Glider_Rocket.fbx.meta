@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: M_Glider_Flames
     second: {fileID: 2100000, guid: 6ee8ac752d4bd4d98b838492c8d16e57, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Glider_Rocket
+    second: {fileID: 2100000, guid: 93753490f13544679b449f4a3e20b043, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

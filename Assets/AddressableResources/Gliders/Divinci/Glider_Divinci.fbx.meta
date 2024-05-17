@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_Glider_Divinci
+    second: {fileID: 2100000, guid: 90dd00f56b5a746f4a3f50624d34d69e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: M_Glider_Flames
     second: {fileID: 2100000, guid: 6ee8ac752d4bd4d98b838492c8d16e57, type: 2}
   materials:

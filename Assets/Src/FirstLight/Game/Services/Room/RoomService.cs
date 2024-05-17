@@ -594,15 +594,10 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			_networkService.QuantumClient.NickName = _dataProvider.AppDataProvider.DisplayNameTrimmed;
 			var preloadIds = new List<GameId>();
-
-			if (_dataProvider.EquipmentDataProvider.Loadout != null)
-			{
-				preloadIds.AddRange(_dataProvider.EquipmentDataProvider.Loadout
-					.Select(item => _dataProvider.EquipmentDataProvider.Inventory[item.Value])
-					.Select(equipmentDataInfo => equipmentDataInfo.GameId));
-				preloadIds.Add(_dataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id);
-			}
-
+			
+			preloadIds.Add(_dataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id);
+			preloadIds.Add(_dataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.MeleeSkin)).Id);
+			
 			var props = new PlayerProperties
 			{
 				Loadout = {Value = preloadIds},

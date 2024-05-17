@@ -30,8 +30,8 @@
 
 .selectors-options-column {
     position: absolute;
-    top: 2%;
-    left: 65%;
+    top: 25px;
     width: 400;
     flex-grow: 1;
+    right: 267px;
 }

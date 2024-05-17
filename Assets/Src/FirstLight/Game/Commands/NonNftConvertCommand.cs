@@ -38,7 +38,7 @@ namespace FirstLight.Game.Commands
 			var removed = new List<Equipment>();
 			foreach (var i in logic.Inventory.ReadOnlyDictionary!.ToList())
 			{
-				if (logic.TryGetNftInfo(i.Key, out var _)) continue;
+				if (logic.IsValidNftInfo(i.Key)) continue;
 				logic.RemoveFromInventory(i.Key);
 				removed.Add(i.Value);
 			}

@@ -199,7 +199,13 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			GameLogic.PlayerLogic.Trophies.Returns(new ObservableField<uint>(1000));
 			GameLogic.EquipmentLogic.Loadout.Count.Returns(nftList.Count);
-			
+			EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.NftOnlyNotOnCooldown).Returns(nftList);
+			EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnlyNotOnCooldown).Returns(nftList);
+			EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.NoNftOnly).Returns(nonNftList);
+			EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.NoNftOnly).Returns(nonNftList);
+			EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.All).Returns(bothList);
+			EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.All).Returns(bothList);
+
 			InitConfigData(_poolConfig);
 			InitConfigData(new QuantumGameConfig
 			{

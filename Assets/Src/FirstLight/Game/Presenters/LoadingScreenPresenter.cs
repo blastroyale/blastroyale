@@ -14,8 +14,11 @@ namespace FirstLight.Game.Presenters
 	{
 		[SerializeField] private UIDocument _document;
 
+		private static GameObject Instance;
+
 		private void Start()
 		{
+			Instance = gameObject;
 			var root = _document.rootVisualElement;
 
 			var labelsContainer = root.Q("LabelsContainer").Required();
@@ -42,10 +45,10 @@ namespace FirstLight.Game.Presenters
 
 		public static void Destroy()
 		{
-			var go = FindObjectOfType<LoadingScreenPresenter>()?.gameObject;
-			if (go != null)
+			if (Instance != null)
 			{
-				Destroy(go);
+				Destroy(Instance);
+				Instance = null;
 			}
 		}
 	}

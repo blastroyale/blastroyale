@@ -47,16 +47,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e9e3930d6bdec4d2ea3b7fa7fc8c98fd
-    m_Address: Assets/Art/SpriteAtlas/AdventureHud.spriteatlasv2
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f72f4e9f33524419caa8e91fdea624a5
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/SmearHighlighted.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a521189fe15b84d0d90d7796ac5f9c61
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/SquadCircle.png
     m_ReadOnly: 0
@@ -67,73 +57,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 23beb82f33697664a8e8e12ace7b93f5
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/HUD_AdventureCoin.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bd5d2d0f52715473ca58a463cc941357
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/PlayerIndicatorFaceKO.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5abba8fe7cf9d48a8b95b6f82d82773d
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/RaritiesNameTemp.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 16af00de8cfad4fefb09acb32ea6e68c
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/SmearNewShadow.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 113fd59e86fa6524a972547df6cc8459
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/PlayerLeft.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 26ba52ed9051d423dbfe823488a7abfc
-    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/SpecialButton.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 180175cdb09ebfa4ab18a10e0596d957
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/CollectableStaticIndicator.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8e06afad60bdde94084d77a92cd0f4c7
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/Quests/QuestBar.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1ffdc9ad31db7a1488f4e5225bb3f750
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/Quests/QuestTitleFrame.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 82591b8dbfe25e64b95fd25fd184e568
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/PlayerAvatarGeneric.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 557f203d3134fc043b30d3a5242e9a2a
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/RIP_Icon.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 25a1920dd444f5a4d9ed9d2530f805fe
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/NearDeathVignette.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c5d752fc5fa5d5b4fa3a069a455059cf
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/PlayerAvatarKO.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f335cbcc9213a4dd292ffabe22ccf9c4
-    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/Joystick_Handle_Move.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -144,11 +74,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 237b0bbc2afe0ab4bbb66369316b5361
     m_Address: Assets/Art/Textures/Ui/GuideHand/hand_spritesheet.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0f00a1acb69574ad2a5863ef52275252
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/CheqFlag.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -167,16 +92,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 523d402cd81de4cdc9fb5aaee7712622
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/HealthBar/HealthBar.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c4fa85fbe87b6f84c9eea5af0eca2341
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/PowerPill.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 41e813cbb15b2406db58a4022b6efcca
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/LootIndicatorBase.png
     m_ReadOnly: 0
@@ -192,63 +107,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 97826b1bcd8e6c04ca7aeb7b79cca1f9
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/BossArrow.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f399e6aa82350064fbf740f138c0f9c6
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/Quests/QuestBarQuestFill.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ae74559a0e1790b4e8f8019c57128d83
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/Male01Avatar.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f80be77a76765442ea265f828dea7888
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/SkullKillCount.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2bdca20ab19094317ac8141735f1517f
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/PlayerIndicator.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3b67aef998e104d9ba413a8802c6d8d3
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/1Countdown.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 21c78af9a15cc1a4191a60ce7e351b1d
-    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickAutoAimBase.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0728f4e9144eb4d108dd24d2c71d79b7
-    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/Joystick_Handle_Aim.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4358f599f237f4186a501d2d73007520
-    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/SpecialButtonDirectional.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1eebf889d9952494995383a7a0401e09
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/SkullKing.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0655db597a744f2499c7bf098e161522
-    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickThumbLeft.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a988dd399d737497f8f2a7ffb9814be7
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/LightRaysColor.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -257,33 +117,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 734058f7d1ddca14da41f2d56d253dd0
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/Female02Avatar.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f26621d71421141298a9a8cf0dc80574
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/DiagonalWiper.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b5ab2e571ea004f279c320f066bb3105
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/3Countdown.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bec95047e2f276844b0419ffbf07b7c4
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/Armour.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 21a62b37e8f323f479b3a5896e49171b
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/HealthPill.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e38a2727d5e515f498bf59ce2542bd9e
-    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickManualAim.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -292,33 +127,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6899dd6601172446d9df3f5033afabe6
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/GOCountdown.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 055d5ef54e3ec4ee6b338a4867b7c641
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/SmearSpecial.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 33cb72d57497e456cbd2b35f73065735
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/EnemyIndicatorBase.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: efcf9e958d69a4957955f85f86cc38fa
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/LightRays.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3b8a9e85985ce4a449bd7f89d4887897
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/ReviveArrow.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2a2d40756fab94e739899ed2cf53eb0a
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/TimerBase.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -327,43 +137,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: af51e505dca254a45a2f80602f9da72b
-    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/Joystick_Background.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8a3451f4b261249adbe672242c3c5331
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/2Countdown.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9ccf5dc46a77943c1bf581cbaa659694
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/SmearNewWhite.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b4f7eea4c12960a4f8ecb113e57816cd
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/WhiteRound.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 65a52d6474f8f414e96c8973ab997b49
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/Timer.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 26a1063432a2745b0a994e82a0bc9845
-    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/SpecialRing.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: eea4c914f098743eb80820aef94b95ac
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/HealthBar/HealthBarShine.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: abae18041ec2b3a4d8d16772af05241d
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/HUD_Coin.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -372,33 +147,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2ba2d5a3829f2844da9780a46bde1f63
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/Male02Avatar.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d39f12438282f3f4582fc4dbd4bed85d
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/Female01Avatar.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 07ff8b0340c7df94f8a4257a1a776eb7
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/CircleWipe.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 015fefd294d197c47a6200192ed61102
-    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickThumbRight.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 526a739286f93464497b3041da810a0f
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/AirplaneIcon.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 710393722a6aea44a91958ec48faf1df
-    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickAutoAim.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -409,26 +164,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d66d92d1e501e4d12b64f78788cdada0
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/PlayerIndicatorFace.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 04395511ad9f3fa4caca419869ec6ba5
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/Quests/QuestBarFill.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8b6bea0173d97c744befc64bceab542e
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/SpeedPill.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4f5bb9c04ad71274097f42d6b1bb830a
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/HUDRankBackground.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 388f5070d8df04c05ac878003ea3a704
-    m_Address: Assets/Art/Textures/Ui/AdventureHud/WeaponHolder/WeaponNameBg.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

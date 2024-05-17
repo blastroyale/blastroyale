@@ -12,8 +12,10 @@ using FirstLight.Game.Views;
 using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
+using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -39,6 +41,8 @@ namespace FirstLight.Game.Presenters
 		private Button _closeButton;
 		private ScrollView _buttonsSlider;
 		private ScreenHeaderElement _header;
+		private LocalizedDropDown _mapDropDown;
+		private List<GameId> _mapGameIds;
 
 		private List<GameModeSelectionButtonView> _buttonViews;
 		private IGameServices _services;
@@ -54,6 +58,8 @@ namespace FirstLight.Game.Presenters
 			_buttonsSlider = Root.Q<ScrollView>("ButtonsSlider").Required();
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
 			_header.backClicked += Data.OnBackClicked;
+			_mapDropDown = Root.Q<LocalizedDropDown>("Map").Required();
+			FillMapSelectionList();
 
 			var orderNumber = 1;
 
@@ -145,6 +151,8 @@ namespace FirstLight.Game.Presenters
 		private IEnumerator ChangeGameModeCoroutine(GameModeSelectionButtonView info)
 		{
 			_services.GameModeService.SelectedGameMode.Value = info.GameModeInfo;
+			_services.GameModeService.SelectedMap = _mapGameIds[_mapDropDown.index]; 
+			
 			Data.GameModeChosen(info.GameModeInfo);
 			yield return null;
 		}
@@ -167,6 +175,45 @@ namespace FirstLight.Game.Presenters
 			foreach (var buttonView in _buttonViews)
 			{
 				buttonView.Selected = buttonView.GameModeInfo.Entry == newGamemode.Entry;
+			}
+		}
+		
+		private void FillMapSelectionList()
+		{
+			var gameModeConfigs = _services.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>();
+			var menuChoices = new List<string>();
+			_mapGameIds = new List<GameId>();
+
+			foreach (var gameModeConfig in gameModeConfigs)
+			{
+				if (gameModeConfig.Id == "BattleRoyale")
+				{
+					foreach (var mapId in gameModeConfig.AllowedMaps)
+					{
+						var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) mapId);
+						if (!mapConfig.IsTestMap && !mapConfig.IsCustomOnly)
+						{
+							menuChoices.Add(mapId.GetLocalization());
+							_mapGameIds.Add(mapId);
+						}
+					}
+					
+					if (_services.GameModeService.SelectedMap == 0)
+					{
+						_mapDropDown.index = 1;
+					}
+					
+					_mapDropDown.choices = menuChoices;
+					
+					for (var i = 0; i < _mapGameIds.Count; i++)
+					{
+						if (_mapGameIds[i] == _services.GameModeService.SelectedMap)
+						{
+							_mapDropDown.index = i;
+							break;
+						}
+					}
+				}
 			}
 		}
 	}

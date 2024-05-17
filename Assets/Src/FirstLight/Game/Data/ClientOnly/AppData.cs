@@ -50,6 +50,7 @@ namespace FirstLight.Game.Data
 
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public CustomGameOptions LastCustomGameOptions = new();
+		public int LastSelectedRankedMap;
 		
 		[NonSerialized] public Dictionary<string, string> TitleData;
 	}

@@ -1,12 +1,13 @@
-using FirstLight.FLogger;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Server.SDK.Models;
 using FirstLight.Statechart;
 using I2.Loc;
-using UnityEngine;
+using Unity.Services.UserReporting;
+using Unity.Services.UserReporting.Client;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -43,7 +44,8 @@ namespace FirstLight.Game.StateMachines
 			_reconnection = new ReconnectionState(services, gameLogic, networkService, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
 			_tutorialState = new TutorialState(services, Trigger);
-			_coreLoopState = new CoreLoopState(_reconnection, services, gameLogic, services.DataService, networkService, assetAdderService, Trigger, services.RoomService);
+			_coreLoopState = new CoreLoopState(_reconnection, services, gameLogic, services.DataService, networkService, assetAdderService, Trigger,
+				services.RoomService);
 			_statechart = new Statechart.Statechart(Setup);
 #if DEVELOPMENT_BUILD
 			Statechart.Statechart.OnStateTimed += (state, millis) =>
@@ -61,7 +63,6 @@ namespace FirstLight.Game.StateMachines
 			};
 #endif
 		}
-
 
 		/// <inheritdoc cref="IStatechart.Run"/>
 		public void Run()
@@ -93,7 +94,7 @@ namespace FirstLight.Game.StateMachines
 
 			internetCheck.Transition().Condition(NetworkUtils.IsOffline).OnTransition(OpenNoInternetPopUp).Target(final);
 			internetCheck.Transition().Target(authentication);
-			
+
 			authentication.Nest(_authenticationState.Setup).Target(core);
 			authentication.OnExit(InitializeRemainingLogic);
 
@@ -120,7 +121,7 @@ namespace FirstLight.Game.StateMachines
 				_services.DataService.SaveData<AccountData>();
 			}
 #pragma warning restore CS0612
-		} 
+		}
 
 		private void InitializeRemainingLogic()
 		{
@@ -128,6 +129,7 @@ namespace FirstLight.Game.StateMachines
 			_services.GameModeService.Init();
 			_services.IAPService.Init();
 			_services.AnalyticsService.SessionCalls.GameLoaded();
+			InitUserReporting(_services).Forget(); // TODO: Move this to Startup when we can await for auth there
 		}
 
 		private void OpenNoInternetPopUp()
@@ -154,5 +156,14 @@ namespace FirstLight.Game.StateMachines
 #endif
 		}
 
+		private static async UniTaskVoid InitUserReporting(IGameServices services)
+		{
+			if (!RemoteConfigs.Instance.ShowBugReportButton) return;
+
+			var customConfig = new UserReportingClientConfiguration();
+			UserReportingService.Instance.Configure(customConfig);
+
+			await services.UIService.OpenScreen<UserReportScreenPresenter>();
+		}
 	}
 }

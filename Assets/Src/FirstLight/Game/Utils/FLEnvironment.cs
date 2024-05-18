@@ -70,7 +70,7 @@ namespace FirstLight.Game.Utils
 		public static Definition Current { get; set; } = FromName(UnityEngine.PlayerPrefs.GetString(ENV_KEY,
 			UnityEngine.Resources.Load<FLEnvironmentAsset>("FLEnvironmentAsset").EnvironmentName));
 
-		public struct Definition
+		public readonly struct Definition
 		{
 			/// <summary>
 			/// A generic name for the environment.
@@ -147,6 +147,31 @@ namespace FirstLight.Game.Utils
 				FirebaseProjectID = firebaseProjectID;
 				FirebaseProjectNumber = firebaseProjectNumber;
 				FirebaseWebApiKey = firebaseWebApiKey;
+			}
+
+			public bool Equals(Definition other)
+			{
+				return UCSEnvironmentID == other.UCSEnvironmentID;
+			}
+
+			public override bool Equals(object obj)
+			{
+				return obj is Definition other && Equals(other);
+			}
+
+			public override int GetHashCode()
+			{
+				return UCSEnvironmentID != null ? UCSEnvironmentID.GetHashCode() : 0;
+			}
+
+			public static bool operator ==(Definition left, Definition right)
+			{
+				return left.Equals(right);
+			}
+
+			public static bool operator !=(Definition left, Definition right)
+			{
+				return !left.Equals(right);
 			}
 		}
 

@@ -110,7 +110,6 @@
     --sprite-match__vfx-killstreak-skullpart8: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart8.png');
     --sprite-match__vfx-killstreak-skullpart9: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart9.png');
     --sprite-match__weapon-bg: url('/Assets/Art/UI/Sprites/Match/weapon-bg.png');
-    --sprite-match__weapon-bg-golden: url('/Assets/Art/UI/Sprites/Match/weapon-bg-golden.png');
     --sprite-match__win-gradient: url('/Assets/Art/UI/Sprites/Match/win-gradient.png');
     --sprite-match__winLight: url('/Assets/Art/UI/Sprites/Match/winLight.png');
 }
@@ -769,12 +768,6 @@
 
 .sprite-match__weapon-bg {
     background-image: var(--sprite-match__weapon-bg);
-    width: 478px;
-    height: 385px;
-}
-
-.sprite-match__weapon-bg-golden {
-    background-image: var(--sprite-match__weapon-bg-golden);
     width: 478px;
     height: 385px;
 }

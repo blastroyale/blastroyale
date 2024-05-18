@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace FirstLight.FLogger
 {
@@ -15,6 +17,8 @@ namespace FirstLight.FLogger
 	{
 		private static FLogFormatter _formatter;
 		private static List<IFLogWriter> _writers;
+		
+		private static FileFLogWriter _fileWriter;
 
 		/// <summary>
 		/// Initializes the logger with the default writers (Unity and File),
@@ -34,8 +38,15 @@ namespace FirstLight.FLogger
 
 			_writers = new List<IFLogWriter>(2)
 			{
-				new UnityFLogWriter(),
-				new FileFLogWriter()
+				new UnityFLogWriter()
+			};
+
+			_fileWriter = new FileFLogWriter();
+			_fileWriter.Init();
+			
+			Application.logMessageReceivedThreaded += (log, stackTrace, type) =>
+			{
+				_fileWriter.Write(type.ToFLogLevel(), log);
 			};
 		}
 
@@ -139,6 +150,14 @@ namespace FirstLight.FLogger
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		[Conditional("LOG_LEVEL_VERBOSE")]
 		public static void Spank() => WriteToAll(FLogLevel.Verbose, "Slap!!!");
+
+		/// <summary>
+		/// Returns the path of the current (latest) log file.
+		/// </summary>
+		public static string GetCurrentLogFilePath()
+		{
+			return _writers.Where(c => c is FileFLogWriter).Select(c => ((FileFLogWriter) c).CurrentLogPath).FirstOrDefault();
+		}
 
 		private static void WriteToAll(FLogLevel level, string log)
 		{

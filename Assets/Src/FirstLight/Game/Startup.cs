@@ -96,8 +96,16 @@ namespace FirstLight.Game
 
 			PushNotificationsService.Instance.OnRemoteNotificationReceived += PushNotificationReceived;
 
-			var token = await PushNotificationsService.Instance.RegisterForPushNotificationsAsync().AsUniTask();
-			FLog.Info($"The push notification token is {token}");
+			try
+			{
+				var token = await PushNotificationsService.Instance.RegisterForPushNotificationsAsync().AsUniTask();
+				FLog.Info($"Registered for push notifications with token: {token}");
+			}
+			catch (Exception e)
+			{
+				FLog.Warn("Failed to register for push notifications: ", e);
+			}
+
 			return;
 
 			// Only for testing for now

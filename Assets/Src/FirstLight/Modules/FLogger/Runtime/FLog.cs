@@ -146,7 +146,6 @@ namespace FirstLight.FLogger
 		[Conditional("LOG_LEVEL_VERBOSE")]
 		public static void VerboseToJson(object o) => WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, o.GetType().Name, JsonUtility.ToJson(o, true)));
 
-
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		[Conditional("LOG_LEVEL_VERBOSE")]
 		public static void Spank() => WriteToAll(FLogLevel.Verbose, "Slap!!!");
@@ -154,10 +153,7 @@ namespace FirstLight.FLogger
 		/// <summary>
 		/// Returns the path of the current (latest) log file.
 		/// </summary>
-		public static string GetCurrentLogFilePath()
-		{
-			return _writers.Where(c => c is FileFLogWriter).Select(c => ((FileFLogWriter) c).CurrentLogPath).FirstOrDefault();
-		}
+		public static string GetCurrentLogFilePath() => _fileWriter.CurrentLogPath;
 
 		private static void WriteToAll(FLogLevel level, string log)
 		{

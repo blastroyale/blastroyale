@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
@@ -12,7 +13,6 @@ using Unity.Services.Authentication;
 using Unity.Services.UserReporting;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.Windows;
 
 namespace FirstLight.Game.Presenters
 {
@@ -114,7 +114,7 @@ namespace FirstLight.Game.Presenters
 
 			var playfabId = MainInstaller.ResolveServices().NetworkService.UserId;
 			var ucsId = AuthenticationService.Instance.PlayerId;
-			var logFileBytes = File.ReadAllBytes(FLog.GetCurrentLogFilePath());
+			var logFileBytes = await File.ReadAllBytesAsync(FLog.GetCurrentLogFilePath());
 			var playerDataBytes =
 				Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_services.DataService.GetData<PlayerData>(), Formatting.Indented));
 			var appDataBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_services.DataService.GetData<AppData>(), Formatting.Indented));

@@ -50,15 +50,15 @@ namespace FirstLight.Game.StateMachines
 #if DEVELOPMENT_BUILD
 			Statechart.Statechart.OnStateTimed += (state, millis) =>
 			{
-				FLog.Info($"[State Time] {state} took {millis}ms");
-				services.AnalyticsService.LogEvent("state-time", new AnalyticsData()
+				FirstLight.FLogger.FLog.Info($"[State Time] {state} took {millis}ms");
+				services.AnalyticsService.LogEvent("state-time", new FirstLight.Server.SDK.Models.AnalyticsData()
 				{
 					{"state", state},
 					{"total_time", millis},
-					{"device-memory-mb", SystemInfo.systemMemorySize},
-					{"device-model", SystemInfo.deviceModel},
-					{"device-name", SystemInfo.deviceName},
-					{"cpu", SystemInfo.processorType}
+					{"device-memory-mb", UnityEngine.Device.SystemInfo.systemMemorySize},
+					{"device-model", UnityEngine.Device.SystemInfo.deviceModel},
+					{"device-name", UnityEngine.Device.SystemInfo.deviceName},
+					{"cpu", UnityEngine.Device.SystemInfo.processorType}
 				});
 			};
 #endif

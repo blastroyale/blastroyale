@@ -72,7 +72,7 @@ namespace FirstLight.Editor.Build
 		{
 			var settings = AssetDatabase.LoadAssetAtPath<PushNotificationSettings>("Assets/Resources/pushNotificationsSettings.asset");
 
-			settings.firebaseAppID = environment.FirebaseAppID;
+			settings.firebaseAppID = environment.FirebaseAndroidAppID;
 			settings.firebaseProjectID = environment.FirebaseProjectID;
 			settings.firebaseProjectNumber = environment.FirebaseProjectNumber;
 			settings.firebaseWebApiKey = environment.FirebaseWebApiKey;

@@ -44,8 +44,8 @@ namespace FirstLight.Editor.Build
 		{
 			var configDirectory = Path.Combine(Application.dataPath, "../", "Configs");
 
-			// Force dev for all environments except production (for now)
-			if (environment != FLEnvironment.PRODUCTION.Name) environment = FLEnvironment.DEVELOPMENT.Name;
+			// We force DEV environment on staging
+			if (environment == FLEnvironment.STAGING.Name) environment = FLEnvironment.DEVELOPMENT.Name;
 
 			// iOS
 			File.Copy(Path.Combine(configDirectory, $"GoogleService-Info-{environment}.plist"),

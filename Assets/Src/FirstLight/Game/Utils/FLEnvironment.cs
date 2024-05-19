@@ -42,10 +42,10 @@ namespace FirstLight.Game.Utils
 			"***REMOVED***",
 			"community",
 			"***REMOVED***",
-			DEVELOPMENT.FirebaseAppID, // TODO: We need a new environment / firebase app for community
-			DEVELOPMENT.FirebaseProjectID,
-			DEVELOPMENT.FirebaseProjectNumber,
-			DEVELOPMENT.FirebaseWebApiKey
+			"***REMOVED***",
+			"blast-royale-community",
+			"***REMOVED***",
+			"***REMOVED***"
 		);
 
 		public static readonly Definition PRODUCTION = new (

@@ -35,6 +35,11 @@ namespace FirstLight.Game.Logic
 		IObservableFieldReader<uint> CurrentPoints { get; }
 
 		/// <summary>
+		/// The current BattlePass season number.
+		/// </summary>
+		int CurrentSeason { get; }
+
+		/// <summary>
 		/// Gets the level and points that would be if current BPP was redeemed
 		/// </summary>
 		Tuple<uint, uint> GetPredictedLevelAndPoints(int pointOverride = -1);
@@ -219,6 +224,8 @@ namespace FirstLight.Game.Logic
 		public IObservableFieldReader<uint> CurrentLevel => _currentLevel;
 
 		public IObservableFieldReader<uint> CurrentPoints => _currentPoints;
+
+		public int CurrentSeason => (int) _currentSeason.Season;
 
 		public uint MaxLevel => _currentSeason.MaxLevel;
 

@@ -26,10 +26,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 		}
 
-		public string PresentedMapPath { get; set; }
-		public Vector2IntSerializable DefaultDropPosition { get; set; }
-		public Vector2IntSerializable SelectedDropPosition { get; set; }
-
 		private IGameServices _services;
 		private IGameDataProvider _gameData;
 
@@ -38,9 +34,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		private string _matchType;
 		private string _gameModeId;
 		private string _mapId;
-
-		private Dictionary<GameId, string> _gameIdsLookup = new ();
-
+		
 		private List<AnalyticsMatchQueuedEvent> _queue = new ();
 
 		private int _playerNumAttacks;
@@ -57,11 +51,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, MatchChestOpenAction);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(MatchPickupAction);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(TrackPlayerAttack);
-
-			foreach (var gameId in (GameId[]) Enum.GetValues(typeof(GameId)))
-			{
-				_gameIdsLookup.Add(gameId, gameId.ToString());
-			}
 		}
 
 		private void FetchPropertiesFromRoom()
@@ -85,7 +74,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_gameModeId = room.Properties.GameModeId.Value;
 			var config = room.MapConfig;
 			var gameModeConfig = room.GameModeConfig;
-			_mapId = ((int) config.Map).ToString();
+			_mapId = config.Map.ToString();
 		}
 
 		/// <summary>
@@ -104,7 +93,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
 				{"team_size", room.Properties.TeamSize.Value},
-				{"is_spectator", IsSpectator().ToString()},
+				{"is_spectator", IsSpectator()},
 				{"playfab_player_id", _gameData.AppDataProvider.PlayerId} // must be named PlayFabPlayerId or will create error
 			};
 
@@ -129,16 +118,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 
 				var room = _services.RoomService.CurrentRoom;
 				var config = room.MapConfig;
-				var gameModeConfig = room.GameModeConfig;
 				var totalPlayers = room.PlayerCount;
-				var loadout = _gameData.EquipmentDataProvider.Loadout;
-				var ids = _gameData.UniqueIdDataProvider.Ids;
-
-				loadout.TryGetValue(GameIdGroup.Weapon, out var weaponId);
-				loadout.TryGetValue(GameIdGroup.Helmet, out var helmetId);
-				loadout.TryGetValue(GameIdGroup.Shield, out var shieldId);
-				loadout.TryGetValue(GameIdGroup.Armor, out var armorId);
-				loadout.TryGetValue(GameIdGroup.Amulet, out var amuletId);
 
 				FetchPropertiesFromRoom();
 
@@ -148,25 +128,13 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 					{"match_type", _matchType},
 					{"game_mode", _gameModeId},
 					{"mutators", _mutators},
-					{"player_level", _gameData.PlayerDataProvider.Level.Value.ToString()},
-					{"total_players", totalPlayers.ToString()},
-					{"total_bots", (room.GetMaxPlayers() - totalPlayers).ToString()},
-					{"map_id", _gameIdsLookup[config.Map]},
+					{"player_level", (int) _gameData.PlayerDataProvider.Level.Value},
+					{"total_players", totalPlayers},
+					{"total_bots", room.GetMaxPlayers() - totalPlayers},
+					{"map_id", config.Map.ToString()},
 					{"team_size", room.Properties.TeamSize.Value},
-					{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value.ToString()},
-					{"item_weapon", weaponId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[weaponId]]},
-					{"item_helmet", helmetId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[helmetId]]},
-					{"item_shield", shieldId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[shieldId]]},
-					{"item_armour", armorId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[armorId]]},
-					{"item_amulet", amuletId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[amuletId]]},
-					{"drop_location_default", JsonConvert.SerializeObject(DefaultDropPosition)},
-					{"drop_location_final", JsonConvert.SerializeObject(SelectedDropPosition)}
+					{"trophies_start", (int) _gameData.PlayerDataProvider.Trophies.Value},
 				};
-
-				if (PresentedMapPath != null)
-				{
-					data.Add("drop_open_grid", PresentedMapPath);
-				}
 
 				_analyticsService.LogEvent(AnalyticsEvents.MatchStart, data);
 			}
@@ -185,7 +153,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
-			
+
 			FetchPropertiesFromRoom();
 			SendQueue();
 
@@ -208,14 +176,15 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
 				{"map_id", _mapId},
-				{"players_left", totalPlayers.ToString()},
-				{"suicide", localPlayerData.Data.SuicideCount.ToString()},
-				{"kills", localPlayerData.Data.PlayersKilledCount.ToString()},
-				{"match_time", f.Time.ToString()},
-				{"player_rank", playerRank.ToString()},
+				{"map_nome", _mapId},
+				{"players_left", totalPlayers},
+				{"suicide", localPlayerData.Data.SuicideCount > 0},
+				{"kills", (int) localPlayerData.Data.PlayersKilledCount},
+				{"match_time", f.Time},
+				{"player_rank", (int) playerRank},
 				{"team_id", localPlayerData.Data.TeamId},
 				{"team_size", f.GetTeamSize()},
-				{"player_attacks", _playerNumAttacks.ToString()}
+				{"player_attacks", _playerNumAttacks}
 			};
 
 			_analyticsService.LogEvent(AnalyticsEvents.MatchEndBattleRoyalePlayerDead, data);
@@ -261,13 +230,13 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
 				{"map_id", _mapId},
-				{"players_left", totalPlayers.ToString()},
-				{"suicide", localPlayerData.Data.SuicideCount.ToString()},
-				{"kills", localPlayerData.Data.PlayersKilledCount.ToString()},
+				{"players_left", totalPlayers},
+				{"suicide",  localPlayerData.Data.SuicideCount > 0},
+				{"kills", (int) localPlayerData.Data.PlayersKilledCount},
 				{"end_state", playerQuit ? "quit" : "ended"},
-				{"match_time", f.Time.ToString()},
-				{"player_rank", playerRank.ToString()},
-				{"player_attacks", _playerNumAttacks.ToString()},
+				{"match_time", f.Time.AsFloat},
+				{"player_rank", (int) playerRank},
+				{"player_attacks", _playerNumAttacks},
 				{"team_id", localPlayerData.Data.TeamId},
 				{"team_size", f.GetTeamSize()}
 			};
@@ -359,7 +328,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			QueueEvent(AnalyticsEvents.MatchDeadAction, data);
 		}
 
-
 		/// <summary>
 		/// Logs when a chest is opened
 		/// </summary>
@@ -377,7 +345,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"chest_type", _gameIdsLookup[callback.ChestType]},
+				{"chest_type", callback.ChestType.ToString()},
 				{"chest_coordinates", callback.ChestPosition.ToString()},
 				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed}
 			};
@@ -396,6 +364,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
+
 			FetchPropertiesFromRoom();
 			var data = new Dictionary<string, object>
 			{
@@ -403,7 +372,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"item_type", _gameIdsLookup[callback.CollectableId]},
+				{"item_type", callback.CollectableId.ToString()},
 				{"amount", "1"},
 				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed}
 			};

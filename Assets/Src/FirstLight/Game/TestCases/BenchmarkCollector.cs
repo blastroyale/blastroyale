@@ -66,7 +66,7 @@ namespace FirstLight.Game.TestCases
 			{
 				currentLocation = "MainMenu";
 			});
-			services.UIService.OnScreenOpened += (type) => LogMessage("OpenScreen " + type.Name);
+			services.UIService.OnScreenOpened += (screen, layer) => LogMessage("OpenScreen " + screen);
 			services.MatchmakingService.OnGameMatched += (g) => LogMessage("OnGameMatched");
 			services.MatchmakingService.OnMatchmakingJoined += (g) => LogMessage("OnMatchmakingJoined");
 			services.AuthenticationService.OnLogin += (g) => LogMessage("OnLogin");

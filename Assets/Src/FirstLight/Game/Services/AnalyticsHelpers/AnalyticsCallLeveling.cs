@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using UnityEngine;
 
@@ -7,13 +8,15 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 	public class AnalyticsCallLeveling : AnalyticsCalls
 	{
 		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
 
 		private const uint BP_RELEVANT_LEVEL_AMOUNT = 5;
 		
-		public AnalyticsCallLeveling(IAnalyticsService analyticsService, IGameServices services) : base(analyticsService)
+		public AnalyticsCallLeveling(IAnalyticsService analyticsService, IGameServices services, IGameDataProvider dataProvider) : base(analyticsService)
 		{
 			_analyticsService = analyticsService;
 			_services = services;
+			_dataProvider = dataProvider;
 			_services?.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUpMessage);
 		}
 
@@ -28,7 +31,10 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		{
 			if (msg.Completed)
 			{
-				_analyticsService.LogEvent(AnalyticsEvents.BlastPassCompleted);	
+				_analyticsService.LogEvent(AnalyticsEvents.BlastPassCompleted, new Dictionary<string, object>()
+				{
+					{"bp_season", _dataProvider.BattlePassDataProvider.CurrentSeason}
+				});	
 			}
 		}
 

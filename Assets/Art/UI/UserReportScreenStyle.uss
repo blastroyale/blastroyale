@@ -4,8 +4,9 @@
     top: 0;
     right: 0;
     bottom: 0;
-    align-items: center;
+    align-items: flex-end;
     flex-direction: row;
+    justify-content: flex-end;
 }
 
 .bug-icon {
@@ -15,6 +16,9 @@
     -unity-background-image-tint-color: rgba(49, 47, 70, 0.38);
     -unity-background-scale-mode: scale-to-fit;
     margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .bug-icon:active {

@@ -11,24 +11,19 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		public static readonly string YoutubeLink = "youtube_link";
 		public static readonly string InstagramLink = "instagram_link";
 		public static readonly string TiktokLink = "tiktok_link";
-		public static readonly string Login = "login";
 	}
-	
+
 	/// <summary>
 	/// Analytics helper class regarding UI events
 	/// </summary>
 	public class AnalyticsCallsUi : AnalyticsCalls
 	{
-		public AnalyticsCallsUi(IAnalyticsService analyticsService) : base(analyticsService)
+		public AnalyticsCallsUi(IAnalyticsService analyticsService, UIService.UIService uiService) : base(analyticsService)
 		{
-			
+			uiService.OnScreenOpened += ScreenView;
 		}
-		
-		/// <summary>
-		/// Logs when the user opens a screen
-		/// </summary>
-		/// <param name="screenName">A name that identifies the screen we opened</param>
-		public void ScreenView(string screenName)
+
+		private void ScreenView(string screenName, string layerName)
 		{
 			screenName = screenName.Replace("FirstLight.Game.Presenters.", "");
 			screenName = screenName.Replace("Presenter", "");
@@ -37,7 +32,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				{"screen_name", screenName}
 			};
-			
+
 			_analyticsService.LogEvent(AnalyticsEvents.ScreenView, data);
 		}
 
@@ -51,7 +46,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				{"button", buttonName}
 			};
-			
+
 			_analyticsService.LogEvent(AnalyticsEvents.ButtonAction, data);
 		}
 	}

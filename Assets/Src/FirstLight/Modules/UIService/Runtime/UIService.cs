@@ -43,7 +43,7 @@ namespace FirstLight.UIService
 		// TODO: Shouldn't be here
 		public const string USS_PLAYER_LABEL = "player-name";
 
-		public event Action<Type> OnScreenOpened;
+		public event Action< /* screen name */string, /* layer name */string> OnScreenOpened;
 
 		private readonly GameObject _root;
 
@@ -96,7 +96,7 @@ namespace FirstLight.UIService
 			_openedScreensLayer.Add(layer, screen);
 
 			await screen.OnScreenOpenedInternal();
-			OnScreenOpened?.Invoke(typeof(T));
+			OnScreenOpened?.Invoke(typeof(T).Name.Replace("Presenter", ""), layer.ToString());
 			return (T) screen;
 		}
 
@@ -178,7 +178,6 @@ namespace FirstLight.UIService
 
 			throw new InvalidOperationException($"Screen {screenType.Name} is not opened!");
 		}
-
 
 		/// <summary>
 		/// Checks if a screen of type <typeparamref name="T"/> is open.

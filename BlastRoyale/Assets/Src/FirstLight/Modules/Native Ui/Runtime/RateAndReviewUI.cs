@@ -27,7 +27,11 @@ private PlayReviewInfo _playReviewInfo;
 		public void RateReview()
 		{
 #if UNITY_IOS
-			Device.RequestStoreReview();
+			var success = Device.RequestStoreReview();
+			if (!success)
+			{
+				Debug.Log("iOS version is too low or StoreKit framework was not linked.");
+			}
 #elif UNITY_ANDROID
 			_reviewManager = new ReviewManager();
 			StartCoroutine(ReviewCoroutine());

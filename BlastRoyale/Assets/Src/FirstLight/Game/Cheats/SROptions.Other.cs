@@ -4,9 +4,11 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.NativeUi;
 using Quantum;
 
 public partial class SROptions
@@ -21,6 +23,12 @@ public partial class SROptions
 	public void OpenBattlePassBanner()
 	{
 		MainInstaller.ResolveServices().UIService.OpenScreen<BattlePassSeasonBannerPresenter>().Forget();
+	}
+
+	[Category("Other")]
+	public void OpenReviewAndRateDialog()
+	{
+		RateAndReview.Instance.RateReview();
 	}
 
 	[Category("Other")]

@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "com.google.play.review": "https://github.com/google-unity/in-app-review.git#1.8.1",
+    "com.google.play.core": "https://github.com/google-unity/google-play-core.git#1.8.1",
+    "com.google.play.common": "https://github.com/google-unity/google-play-common.git#1.8.1",
+    "com.google.android.appbundle": "https://github.com/google-unity/android-app-bundle.git#1.8.0",
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.google.external-dependency-manager": "file:com.google.external-dependency-manager-1.2.179.tgz",
     "com.google.firebase.analytics": "file:com.google.firebase.analytics-11.9.0.tgz",

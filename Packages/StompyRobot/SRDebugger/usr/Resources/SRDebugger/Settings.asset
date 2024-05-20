@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Settings
   m_EditorClassIdentifier: 
   _isEnabled: 0
+  _disableWelcomePopup: 0
   _uiInputMode: 0
   _defaultTab: 0
   _triggerEnableMode: 0
@@ -46,6 +47,7 @@ MonoBehaviour:
   _keyboardModifierShift: 1
   _keyboardEscapeClose: 1
   _enableBackgroundTransparency: 1
+  _backgroundTransparency: 0.9
   _collapseDuplicateLogEntries: 1
   _richTextInConsole: 1
   _requireEntryCode: 0
@@ -55,7 +57,7 @@ MonoBehaviour:
   _debugLayer: 5
   _debugCameraDepth: 100
   _apiKey: 067927c153774aea8ea37922786967c9
-  _enableBugReporter: 1
+  _enableBugReporter: 0
   _enableBugReportScreenshot: 1
   _disabledTabs: 
   _profilerAlignment: 2

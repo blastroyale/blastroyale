@@ -160,7 +160,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!RemoteConfigs.Instance.ShowBugReportButton) return;
 
-			var customConfig = new UserReportingClientConfiguration();
+			var customConfig = new UserReportingClientConfiguration(100, 300, 60, 1);
 			UserReportingService.Instance.Configure(customConfig);
 
 			await services.UIService.OpenScreen<UserReportScreenPresenter>();

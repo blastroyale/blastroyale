@@ -75,7 +75,6 @@ namespace FirstLight.Tests.EditorMode
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, UIService);
 			TimeService = timeService;
 			DataSaver = dataService;
 			DataService = dataService;
@@ -87,7 +86,6 @@ namespace FirstLight.Tests.EditorMode
 			GameLogic = gameLogic;
 			LocalPrefsService = new LocalPrefsService();
 			AudioFxService = new GameAudioFxService(assetResolverService, LocalPrefsService);
-
 			ThreadService = new ThreadService();
 
 

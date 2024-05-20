@@ -465,6 +465,25 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.services.cloud-build": {
+      "version": "1.0.5",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.services.core": "1.7.0",
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.services.cloud-diagnostics": {
+      "version": "1.0.9",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.services.core": "1.12.5"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.services.core": {
       "version": "1.12.5",
       "depth": 1,
@@ -598,6 +617,15 @@
       "source": "git",
       "dependencies": {},
       "hash": "48cbd360031104245ab583b8eb83420de070c610"
+    },
+    "io.backtrace.unity": {
+      "version": "3.8.7",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.screencapture": "1.0.0"
+      },
+      "url": "https://package.openupm.com"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

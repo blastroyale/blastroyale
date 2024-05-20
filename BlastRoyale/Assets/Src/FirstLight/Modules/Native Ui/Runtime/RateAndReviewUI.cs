@@ -45,6 +45,7 @@ private IEnumerator ReviewCoroutine()
 	yield return requestFlowOperation;
 	if (requestFlowOperation.Error != ReviewErrorCode.NoError)
 	{
+		Debug.LogError($"requestFlowOperation {requestFlowOperation.Error}");
 		// Log error. For example, using requestFlowOperation.Error.ToString().
 		yield break;
 	}
@@ -54,6 +55,7 @@ private IEnumerator ReviewCoroutine()
 	_playReviewInfo = null;
 	if (launchFlowOperation.Error != ReviewErrorCode.NoError)
 	{
+		Debug.LogError($"launchFlowOperation {launchFlowOperation.Error}");
 		// Log error. For example, using requestFlowOperation.Error.ToString().
 		yield break;
 	}

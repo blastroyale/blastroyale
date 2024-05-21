@@ -37,7 +37,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IPlayerProfileService ProfileService { get; }
 		public virtual IAuthenticationService AuthenticationService { get; set; }
 		public virtual ITutorialService TutorialService { get; }
-		public virtual ILiveopsService LiveopsService { get; set; }
 		public virtual IRemoteTextureService RemoteTextureService { get; }
 		public virtual IThreadService ThreadService { get; }
 		public virtual ICustomerSupportService CustomerSupportService { get; }
@@ -76,7 +75,6 @@ namespace FirstLight.Tests.EditorMode
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
-			AnalyticsService = new AnalyticsService(this, gameLogic);
 			TimeService = timeService;
 			DataSaver = dataService;
 			DataService = dataService;
@@ -88,7 +86,6 @@ namespace FirstLight.Tests.EditorMode
 			GameLogic = gameLogic;
 			LocalPrefsService = new LocalPrefsService();
 			AudioFxService = new GameAudioFxService(assetResolverService, LocalPrefsService);
-
 			ThreadService = new ThreadService();
 
 

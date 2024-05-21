@@ -25,13 +25,17 @@
     "com.unity.render-pipelines.universal": "14.0.10",
     "com.unity.services.analytics": "5.1.1",
     "com.unity.services.authentication": "3.3.1",
+    "com.unity.services.cloud-build": "1.0.5",
+    "com.unity.services.cloud-diagnostics": "1.0.9",
     "com.unity.services.push-notifications": "4.0.0-pre.1",
+    "com.unity.services.user-reporting": "2.0.11",
     "com.unity.test-framework": "2.0.1-pre.18",
     "com.unity.textmeshpro": "3.0.7",
     "com.unity.timeline": "1.7.6",
     "com.unity.ugui": "1.0.0",
     "com.unity.vectorgraphics": "2.0.0-preview.24",
     "dev.kyubuns.appiconchangerunity": "https://github.com/kyubuns/AppIconChangerUnity.git?path=Assets/AppIconChanger",
+    "io.backtrace.unity": "3.8.7",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
@@ -70,6 +74,13 @@
       "url": "https://npm.pkg.jetbrains.space/public/p/jetbrains-gamedev/jetbrains-gamedev/",
       "scopes": [
         "com.jetbrains"
+      ]
+    },
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "io.backtrace.unity"
       ]
     }
   ]

@@ -28,10 +28,10 @@ namespace FirstLight.Game.Utils
 			"***REMOVED***",
 			"staging",
 			"***REMOVED***",
-			DEVELOPMENT.FirebaseAppID,
-			DEVELOPMENT.FirebaseProjectID,
-			DEVELOPMENT.FirebaseProjectNumber,
-			DEVELOPMENT.FirebaseWebApiKey
+			"***REMOVED***",
+			"blast-royale-staging",
+			"***REMOVED***",
+			"***REMOVED***"
 		);
 
 		public static readonly Definition COMMUNITY = new (
@@ -42,10 +42,10 @@ namespace FirstLight.Game.Utils
 			"***REMOVED***",
 			"community",
 			"***REMOVED***",
-			DEVELOPMENT.FirebaseAppID, // TODO: We need a new environment / firebase app for community
-			DEVELOPMENT.FirebaseProjectID,
-			DEVELOPMENT.FirebaseProjectNumber,
-			DEVELOPMENT.FirebaseWebApiKey
+			"***REMOVED***",
+			"blast-royale-community",
+			"***REMOVED***",
+			"***REMOVED***"
 		);
 
 		public static readonly Definition PRODUCTION = new (
@@ -70,7 +70,7 @@ namespace FirstLight.Game.Utils
 		public static Definition Current { get; set; } = FromName(UnityEngine.PlayerPrefs.GetString(ENV_KEY,
 			UnityEngine.Resources.Load<FLEnvironmentAsset>("FLEnvironmentAsset").EnvironmentName));
 
-		public struct Definition
+		public readonly struct Definition
 		{
 			/// <summary>
 			/// A generic name for the environment.
@@ -115,7 +115,7 @@ namespace FirstLight.Game.Utils
 			/// <summary>
 			/// The Firebase app ID.
 			/// </summary>
-			public readonly string FirebaseAppID;
+			public readonly string FirebaseAndroidAppID;
 
 			/// <summary>
 			/// The Firebase project ID.
@@ -133,7 +133,8 @@ namespace FirstLight.Game.Utils
 			public readonly string FirebaseWebApiKey;
 
 			public Definition(string playFabTitleID, string playFabRecoveryEmailTemplateID, string web3Id, string photonAppIDRealtime,
-							  string ucsEnvironmentID, string ucsEnvironmentName, string ucsBucketID, string firebaseAppID, string firebaseProjectID,
+							  string ucsEnvironmentID, string ucsEnvironmentName, string ucsBucketID, string firebaseAndroidAppID,
+							  string firebaseProjectID,
 							  string firebaseProjectNumber, string firebaseWebApiKey)
 			{
 				PlayFabTitleID = playFabTitleID;
@@ -143,10 +144,35 @@ namespace FirstLight.Game.Utils
 				UCSEnvironmentID = ucsEnvironmentID;
 				UCSEnvironmentName = ucsEnvironmentName;
 				UCSBucketID = ucsBucketID;
-				FirebaseAppID = firebaseAppID;
+				FirebaseAndroidAppID = firebaseAndroidAppID;
 				FirebaseProjectID = firebaseProjectID;
 				FirebaseProjectNumber = firebaseProjectNumber;
 				FirebaseWebApiKey = firebaseWebApiKey;
+			}
+
+			public bool Equals(Definition other)
+			{
+				return UCSEnvironmentID == other.UCSEnvironmentID;
+			}
+
+			public override bool Equals(object obj)
+			{
+				return obj is Definition other && Equals(other);
+			}
+
+			public override int GetHashCode()
+			{
+				return UCSEnvironmentID != null ? UCSEnvironmentID.GetHashCode() : 0;
+			}
+
+			public static bool operator ==(Definition left, Definition right)
+			{
+				return left.Equals(right);
+			}
+
+			public static bool operator !=(Definition left, Definition right)
+			{
+				return !left.Equals(right);
 			}
 		}
 

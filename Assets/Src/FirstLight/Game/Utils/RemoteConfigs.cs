@@ -25,6 +25,11 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public bool EnableCommitVersionLock = false;
 
+		/// <summary>
+		/// Shows the persistent bug report button.
+		/// </summary>
+		public bool ShowBugReportButton = true;
+
 		public static RemoteConfigs Instance { get; private set; }
 
 		public static async UniTask Init()

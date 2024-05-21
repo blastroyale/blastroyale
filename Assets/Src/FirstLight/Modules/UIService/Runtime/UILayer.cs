@@ -15,5 +15,7 @@ namespace FirstLight.UIService
 		Foreground = 6,
 
 		LegacyVFXHack = 10,
+		
+		Debug = 100,
 	}
 }

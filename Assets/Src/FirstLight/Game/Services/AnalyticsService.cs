@@ -40,7 +40,6 @@ namespace FirstLight.Game.Services
 		public static readonly string Purchase = "purchase";
 		public static readonly string ItemEquipAction = "item_equip_action";
 		public static readonly string InitialLoadingComplete = "initial_loading_complete";
-		public static readonly string LoadCoreAssetsComplete = "load_core_assets_complete";
 		public static readonly string LoadMatchAssetsComplete = "load_match_assets_complete";
 		public static readonly string TutorialStepCompleted = "tutorial_step_completed";
 
@@ -105,7 +104,7 @@ namespace FirstLight.Game.Services
 
 		public AnalyticsCallLeveling LevelingCalls { get; }
 
-		public AnalyticsService(IGameServices services, IGameDataProvider gameDataProvider)
+		public AnalyticsService(IGameServices services, IGameDataProvider gameDataProvider, UIService.UIService uiService)
 		{
 			SessionCalls = new AnalyticsCallsSession(this, services, gameDataProvider);
 			MatchCalls = new AnalyticsCallsMatch(this, services, gameDataProvider);
@@ -113,9 +112,9 @@ namespace FirstLight.Game.Services
 			EquipmentCalls = new AnalyticsCallsEquipment(this, services);
 			TutorialCalls = new AnalyticsCallsTutorial(this);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
-			UiCalls = new AnalyticsCallsUi(this);
+			UiCalls = new AnalyticsCallsUi(this, uiService);
 			EquipmentCalls = new AnalyticsCallsEquipment(this, services);
-			LevelingCalls = new AnalyticsCallLeveling(this, services);
+			LevelingCalls = new AnalyticsCallLeveling(this, services, gameDataProvider);
 		}
 
 

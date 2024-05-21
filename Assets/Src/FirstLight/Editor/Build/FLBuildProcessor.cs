@@ -44,9 +44,6 @@ namespace FirstLight.Editor.Build
 		{
 			var configDirectory = Path.Combine(Application.dataPath, "../", "Configs");
 
-			// Force dev for all environments except production (for now)
-			if (environment != FLEnvironment.PRODUCTION.Name) environment = FLEnvironment.DEVELOPMENT.Name;
-
 			// iOS
 			File.Copy(Path.Combine(configDirectory, $"GoogleService-Info-{environment}.plist"),
 				Path.Combine(Application.streamingAssetsPath, "GoogleService-Info.plist"), true);
@@ -72,7 +69,7 @@ namespace FirstLight.Editor.Build
 		{
 			var settings = AssetDatabase.LoadAssetAtPath<PushNotificationSettings>("Assets/Resources/pushNotificationsSettings.asset");
 
-			settings.firebaseAppID = environment.FirebaseAppID;
+			settings.firebaseAppID = environment.FirebaseAndroidAppID;
 			settings.firebaseProjectID = environment.FirebaseProjectID;
 			settings.firebaseProjectNumber = environment.FirebaseProjectNumber;
 			settings.firebaseWebApiKey = environment.FirebaseWebApiKey;

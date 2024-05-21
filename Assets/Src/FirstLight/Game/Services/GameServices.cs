@@ -83,9 +83,6 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="ITutorialService"/>
 		ITutorialService TutorialService { get; }
 
-		/// <inheritdoc cref="IPlayfabService"/>
-		ILiveopsService LiveopsService { get; }
-
 		/// <inheritdoc cref="IRemoteTextureService"/>
 		public IRemoteTextureService RemoteTextureService { get; }
 
@@ -161,7 +158,6 @@ namespace FirstLight.Game.Services
 		public IPlayerProfileService ProfileService { get; }
 		public IAuthenticationService AuthenticationService { get; }
 		public ITutorialService TutorialService { get; }
-		public ILiveopsService LiveopsService { get; }
 		public IRemoteTextureService RemoteTextureService { get; }
 		public IThreadService ThreadService { get; }
 		public ICustomerSupportService CustomerSupportService { get; }
@@ -193,7 +189,6 @@ namespace FirstLight.Game.Services
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
-			AnalyticsService = new AnalyticsService(this, gameLogic);
 			TimeService = timeService;
 			DataSaver = dataService;
 			DataService = dataService;
@@ -208,6 +203,8 @@ namespace FirstLight.Game.Services
 			UIVFXService = new UIVFXService(this, assetResolverService);
 			UIVFXService.Init().Forget();
 
+			AnalyticsService = new AnalyticsService(this, gameLogic, UIService);
+
 			ThreadService = new ThreadService();
 			GuidService = new GuidService();
 			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
@@ -219,7 +216,6 @@ namespace FirstLight.Game.Services
 			PartyService = new PartyService(PlayfabPubSubService, gameLogic.AppDataProvider, GameBackendService,
 				GenericDialogService, MessageBrokerService, LocalPrefsService);
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider);
-			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			RewardService = new RewardService(this, gameLogic);

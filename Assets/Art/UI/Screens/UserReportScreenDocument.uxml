@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/UserReportScreenStyle.uss?fileID=7433441132597879392&amp;guid=ea4ed02627a114da2937e4475e228b8a&amp;type=3#UserReportScreenStyle" />
+    <ui:VisualElement name="root" picking-mode="Ignore" class="root">
+        <FirstLight.Game.UIElements.ImageButton name="Icon" class="bug-icon" />
+        <FirstLight.Game.UIElements.ImageButton name="ReportContainer" class="report-container" style="display: flex;">
+            <ui:VisualElement name="Popup" class="popup">
+                <ui:Label text="BUG REPORT" name="Title" class="title" />
+                <ui:VisualElement name="Separator" class="line-separator" />
+                <ui:DropdownField label="Category" name="CategoryDropdown" />
+                <ui:TextField picking-mode="Ignore" label="Summary" name="SummaryInput" />
+                <ui:TextField picking-mode="Ignore" label="Description" multiline="true" name="DescriptionInput" max-length="1000" class="description-input" />
+                <ui:VisualElement class="bottom-bar">
+                    <ui:Label text="Screenshot" class="screenshot-label" />
+                    <ui:VisualElement name="Screenshot" class="screenshot" />
+                    <ui:ProgressBar value="0.5" title="Sending..." high-value="1" name="ProgressBar" class="unity-progress-bar" />
+                    <ui:Button text="SEND" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SendButton" class="send-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <FirstLight.Game.UIElements.ImageButton name="ExitButton" class="exit-button">
+                <ui:VisualElement class="exit-button__icon" />
+            </FirstLight.Game.UIElements.ImageButton>
+        </FirstLight.Game.UIElements.ImageButton>
+    </ui:VisualElement>
+</ui:UXML>

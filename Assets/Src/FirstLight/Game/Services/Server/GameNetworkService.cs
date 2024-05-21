@@ -15,6 +15,7 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Photon.Realtime;
 using UnityEngine;
 using Quantum;
+using Unity.Services.UserReporting;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace FirstLight.Game.Services
@@ -348,6 +349,7 @@ namespace FirstLight.Game.Services
 			var isOffline = _services.RoomService.CurrentRoom?.IsOffline ?? false;
 			if (!isOffline && QuantumRunner.Default.IsDefinedAndRunning(false)) return;
 			QuantumClient.Service();
+			UserReportingService.Instance.SampleMetric("Quantum.LastRoundTripTime", QuantumClient.LoadBalancingPeer.LastRoundTripTime);
 		}
 
 		private void OnPingRegions(PingedRegionsMessage msg)

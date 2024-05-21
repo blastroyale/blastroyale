@@ -10,6 +10,7 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.UiService;
 using Quantum;
+using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.Analytics;
 
@@ -147,6 +148,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			FirebaseAnalytics.SetUserId(id);
 			SingularSDK.SetCustomUserId(id);
 			UnityEngine.CrashReportHandler.CrashReportHandler.SetUserMetadata("playfab_id", id);
+			UnityEngine.CrashReportHandler.CrashReportHandler.SetUserMetadata("ugs_player_id", AuthenticationService.Instance.PlayerId);
 
 			var loginData = new Dictionary<string, object>
 			{

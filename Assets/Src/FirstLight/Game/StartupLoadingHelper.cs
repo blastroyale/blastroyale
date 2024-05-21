@@ -49,9 +49,7 @@ namespace FirstLight.Game
 
 			_services.AnalyticsService.LogEvent(AnalyticsEvents.InitialLoadingComplete, new Dictionary<string, object>
 			{
-				{"client_version", VersionUtils.VersionInternal},
-				{"boot_time", Time.realtimeSinceStartup},
-				{"vendor_id", SystemInfo.deviceUniqueIdentifier}
+				{"boot_time", Time.realtimeSinceStartup}
 			});
 		}
 

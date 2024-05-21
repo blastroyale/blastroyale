@@ -157,7 +157,8 @@ public class FootprinterMonoComponent : MonoBehaviour
 
 	private void Despawn(GameObject o)
 	{
-		if (o is not {activeSelf: true}) return;
+		if (o == null || !o.activeSelf) return;
+
 		o.SetActive(false);
 		_globalPool.Enqueue(o);
 	}

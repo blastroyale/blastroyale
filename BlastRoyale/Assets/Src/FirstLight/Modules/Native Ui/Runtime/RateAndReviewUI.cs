@@ -17,9 +17,9 @@ namespace FirstLight.NativeUi
 private ReviewManager _reviewManager;
 private PlayReviewInfo _playReviewInfo;
 #endif
-		public static RateAndReview Instance;
+		public static RateAndReview Instance { get; private set; }
 
-		private void Start()
+		private void Awake()
 		{
 			Instance = this;
 		}

@@ -195,6 +195,11 @@ namespace FirstLight.Game.Utils
 		public static bool REMOTE_COLLECTIONS = false;
 
 		/// <summary>
+		/// Should game show a review prompt
+		/// </summary>
+		public static bool REVIEW_PROMPT_ENABLED = false;
+		
+		/// <summary>
 		/// Only for testing.
 		/// When true, you will become invisible when entering bushes.
 		/// </summary>
@@ -262,6 +267,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetStringFlag("IMX_ID", overrideData, out var imxId))
 			{
 				IMX_ID = imxId;
+			}
+			
+			if (TrySetFlag("REVIEW_PROMPT_ENABLED", overrideData, out var reviewPromptEnabled))
+			{
+				REVIEW_PROMPT_ENABLED = reviewPromptEnabled;
 			}
 
 			if (TrySetFlag("ENABLE_NOOB", overrideData, out var enableNoob))

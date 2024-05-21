@@ -139,3 +139,9 @@ MonoBehaviour:
         RawValue: 65536
       ChanceToDropNoobOnKill:
         RawValue: 655
+      NoInputWarningTime:
+        RawValue: 983040
+      NoInputKillTime:
+        RawValue: 1310720
+      NoInputStopChecking:
+        RawValue: 3932160

@@ -274,7 +274,7 @@ namespace Quantum.Systems
 			var input = f.GetPlayerInput(filter.Player->Player);
 			
 			// Check inactivity only up to certain time and only in ranked matches
-			if (f.Time < Constants.NO_INPUT_STOP_CHECKING &&
+			if (f.Time < f.GameConfig.NoInputStopChecking &&
 				f.RuntimeConfig.AllowedRewards != null &&
 				f.RuntimeConfig.AllowedRewards.Contains((int)GameId.Trophies))
 			{
@@ -365,13 +365,13 @@ namespace Quantum.Systems
 		{
 			if (filter.Player->InputSnapshot == inputHashCode)
 			{
-				if (f.Time - filter.Player->LastNoInputTimeSnapshot > Constants.NO_INPUT_KILL_TIME)
+				if (f.Time - filter.Player->LastNoInputTimeSnapshot > f.GameConfig.NoInputKillTime)
 				{
 					f.Signals.PlayerKilledByBeingAFK(filter.Player->Player);
 					f.Unsafe.GetPointer<Stats>(filter.Entity)->Kill(f, filter.Entity);
 				}
-				else if (f.Time - filter.Player->LastNoInputTimeSnapshot > Constants.NO_INPUT_WARNING_TIME
-						 && f.Time - filter.Player->LastNoInputTimeSnapshot < Constants.NO_INPUT_WARNING_TIME + FP._1)
+				else if (f.Time - filter.Player->LastNoInputTimeSnapshot > f.GameConfig.NoInputWarningTime
+						 && f.Time - filter.Player->LastNoInputTimeSnapshot < f.GameConfig.NoInputWarningTime + FP._1)
 				{
 					f.Events.OnLocalPlayerNoInput(f.Get<PlayerCharacter>(filter.Entity).Player, filter.Entity);
 						

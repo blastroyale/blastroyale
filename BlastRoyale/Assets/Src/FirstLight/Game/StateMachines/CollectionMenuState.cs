@@ -6,6 +6,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 
@@ -54,12 +55,37 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(SendLoadoutUpdateCommand);
 		}
 
+		private void CheckForOpenRateAndReviewPromptUI(bool equippedNonDefaultItem)
+		{
+			if (FeatureFlags.REVIEW_PROMPT_ENABLED 
+				&& equippedNonDefaultItem
+				&& _services.LocalPrefsService.GamesPlayed.Value >= 4)
+			{
+				_services.MessageBrokerService.Publish(new OpenRateAndReviewPromptMessage());
+			}
+		}
+
 		private void OpenCollectionScreen()
 		{
+			var equippedNonDefaultItem = false;
 			var data = new CollectionScreenPresenter.StateData
 			{
-				OnHomeClicked = () => _statechartTrigger(_closeButtonClickedEvent),
-				OnBackClicked = () => _statechartTrigger(_backButtonClickedEvent),
+				OnHomeClicked = () =>
+				{
+					CheckForOpenRateAndReviewPromptUI(equippedNonDefaultItem);
+					
+					_statechartTrigger(_closeButtonClickedEvent);
+				},
+				OnBackClicked = () =>
+				{
+					CheckForOpenRateAndReviewPromptUI(equippedNonDefaultItem);
+					
+					_statechartTrigger(_backButtonClickedEvent);
+				},
+				EquippedNonDefaultItem = () =>
+				{
+					equippedNonDefaultItem = true;
+				}
 			};
 
 			_services.UIService.OpenScreen<CollectionScreenPresenter>(data).Forget();

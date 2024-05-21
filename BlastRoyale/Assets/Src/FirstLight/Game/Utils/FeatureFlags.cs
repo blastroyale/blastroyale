@@ -197,7 +197,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Should game show a review prompt
 		/// </summary>
-		public static bool REVIEW_PROMPT_ENABLED = false;
+		public static bool REVIEW_PROMPT_ENABLED = true;
 		
 		/// <summary>
 		/// Only for testing.

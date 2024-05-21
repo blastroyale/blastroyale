@@ -28,7 +28,7 @@ public partial class SROptions
 	[Category("Other")]
 	public void OpenReviewAndRateDialog()
 	{
-		RateAndReview.Instance.RateReview();
+		MainInstaller.Resolve<IGameServices>().MessageBrokerService.Publish(new OpenRateAndReviewPromptMessage());
 	}
 
 	[Category("Other")]

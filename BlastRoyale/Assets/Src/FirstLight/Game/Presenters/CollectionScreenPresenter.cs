@@ -41,6 +41,7 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action OnHomeClicked;
 			public Action OnBackClicked;
+			public Action EquippedNonDefaultItem;
 		}
 
 		private ListView _collectionList;
@@ -279,6 +280,11 @@ namespace FirstLight.Game.Presenters
 			_services.CommandService.ExecuteCommand(new EquipCollectionItemCommand() {Item = item});
 			UpdateCollectionDetails(_selectedCategory);
 			SelectEquipped(_selectedCategory);
+
+			if (!_services.CollectionService.IsDefaultItem(item.Id))
+			{
+				Data.EquippedNonDefaultItem();
+			}
 		}
 
 		/// <summary>

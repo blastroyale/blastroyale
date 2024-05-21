@@ -17,18 +17,11 @@ namespace FirstLight.NativeUi
 private ReviewManager _reviewManager;
 private PlayReviewInfo _playReviewInfo;
 #endif
-		public static RateAndReview Instance { get; private set; }
-
-		private void Awake()
-		{
-			Instance = this;
-		}
-
+		
 		public void RateReview()
 		{
 #if UNITY_IOS
-			var success = Device.RequestStoreReview();
-			if (!success)
+			if (!Device.RequestStoreReview())
 			{
 				Debug.Log("iOS version is too low or StoreKit framework was not linked.");
 			}

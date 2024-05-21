@@ -64,6 +64,13 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public ObservableField<bool> ShowLatency { get; } = CreateBoolSetting(nameof(ShowLatency), false);
 
+		/// <summary>
+		/// If we show the rate and review prompt
+		/// </summary>
+		public ObservableField<bool> RateAndReviewPromptShown { get; } = CreateBoolSetting(nameof(RateAndReviewPromptShown), false);
+
+		public ObservableField<int> GamesPlayed { get; } = CreateIntSetting(nameof(GamesPlayed), 0);
+		
 		private static ObservableField<bool> CreateBoolSetting(string key, bool defaultValue)
 		{
 			return new ObservableResolverField<bool>(() => GetBool(key, defaultValue), val => SetBool(key, val));
@@ -76,6 +83,22 @@ namespace FirstLight.Game.Services
 			static void SetBool(string key, bool value)
 			{
 				PlayerPrefs.SetInt(ConstructKey(key), value ? 1 : 0);
+				PlayerPrefs.Save();
+			}
+		}
+		
+		private static ObservableField<int> CreateIntSetting(string key, int defaultValue)
+		{
+			return new ObservableResolverField<int>(() => GetInt(key, defaultValue), val => SetInt(key, val));
+
+			static int GetInt(string key, int defaultValue)
+			{
+				return PlayerPrefs.GetInt(ConstructKey(key), defaultValue);
+			}
+
+			static void SetInt(string key, int value)
+			{
+				PlayerPrefs.SetInt(ConstructKey(key), value);
 				PlayerPrefs.Save();
 			}
 		}

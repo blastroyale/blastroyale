@@ -16,6 +16,8 @@ namespace FirstLight.Game.Services.Collection
 {
 	public interface ICollectionService
 	{
+		bool IsDefaultItem(GameId gameId);
+		
 		UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true);
 		UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true);
 
@@ -73,7 +75,12 @@ namespace FirstLight.Game.Services.Collection
 				new WeaponSkinCollectionHandler(_configsProvider, _assetResolver)
 			};
 		}
-		
+
+		public bool IsDefaultItem(GameId gameId)
+		{
+			return DefaultSkins.ContainsValue(gameId);
+		}
+
 
 		public ItemData GetCosmeticForGroup(IEnumerable<GameId> cosmeticLoadout, GameIdGroup group, bool returnDefault = true)
 		{

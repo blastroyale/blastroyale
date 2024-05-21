@@ -162,7 +162,6 @@ namespace FirstLight.Game.StateMachines
 			homeCheck.Transition().Target(homeMenu);
 
 			homeMenu.OnEnter(() => OpenHomeScreen().Forget());
-			homeMenu.OnEnter(TryClaimUncollectedRewards);
 			homeMenu.Event(PlayClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(homeCheck);
@@ -511,6 +510,8 @@ namespace FirstLight.Game.StateMachines
 
 				await _services.UIService.OpenScreen<HomeScreenPresenter>(data);
 			}
+
+			TryClaimUncollectedRewards();
 
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}

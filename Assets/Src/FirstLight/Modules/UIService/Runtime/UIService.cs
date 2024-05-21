@@ -43,7 +43,12 @@ namespace FirstLight.UIService
 		// TODO: Shouldn't be here
 		public const string USS_PLAYER_LABEL = "player-name";
 
-		public event Action< /* screen name */string, /* layer name */string> OnScreenOpened;
+		/// <summary>
+		/// Triggered when any screen is opened by this service.
+		/// </summary>
+		public event OnScreenOpenedDelegate OnScreenOpened;
+
+		public delegate void OnScreenOpenedDelegate(string screenName, string layerName);
 
 		private readonly GameObject _root;
 

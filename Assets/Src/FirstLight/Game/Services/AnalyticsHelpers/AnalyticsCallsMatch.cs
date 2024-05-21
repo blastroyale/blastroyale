@@ -4,7 +4,6 @@ using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
-using Newtonsoft.Json;
 using Quantum;
 
 namespace FirstLight.Game.Services.AnalyticsHelpers
@@ -176,7 +175,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
 				{"map_id", _mapId},
-				{"map_nome", _mapId},
+				{"map_name", _mapId},
 				{"players_left", totalPlayers},
 				{"suicide", localPlayerData.Data.SuicideCount > 0},
 				{"kills", (int) localPlayerData.Data.PlayersKilledCount},
@@ -230,6 +229,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
 				{"map_id", _mapId},
+				{"map_name", _mapId},
 				{"players_left", totalPlayers},
 				{"suicide",  localPlayerData.Data.SuicideCount > 0},
 				{"kills", (int) localPlayerData.Data.PlayersKilledCount},

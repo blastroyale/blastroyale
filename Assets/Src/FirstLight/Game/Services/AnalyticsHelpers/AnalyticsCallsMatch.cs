@@ -33,7 +33,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		private string _matchType;
 		private string _gameModeId;
 		private string _mapId;
-		
+
 		private List<AnalyticsMatchQueuedEvent> _queue = new ();
 
 		private int _playerNumAttacks;
@@ -175,15 +175,14 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
 				{"map_id", _mapId},
-				{"map_name", _mapId},
 				{"players_left", totalPlayers},
 				{"suicide", localPlayerData.Data.SuicideCount > 0},
 				{"kills", (int) localPlayerData.Data.PlayersKilledCount},
-				{"match_time", f.Time},
+				{"match_time", f.Time.AsFloat},
 				{"player_rank", (int) playerRank},
+				{"player_attacks", _playerNumAttacks},
 				{"team_id", localPlayerData.Data.TeamId},
-				{"team_size", f.GetTeamSize()},
-				{"player_attacks", _playerNumAttacks}
+				{"team_size", f.GetTeamSize()}
 			};
 
 			_analyticsService.LogEvent(AnalyticsEvents.MatchEndBattleRoyalePlayerDead, data);
@@ -228,10 +227,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"map_id", _mapId},
 				{"map_name", _mapId},
 				{"players_left", totalPlayers},
-				{"suicide",  localPlayerData.Data.SuicideCount > 0},
+				{"suicide", localPlayerData.Data.SuicideCount > 0},
 				{"kills", (int) localPlayerData.Data.PlayersKilledCount},
 				{"end_state", playerQuit ? "quit" : "ended"},
 				{"match_time", f.Time.AsFloat},

@@ -2181,6 +2181,7 @@ namespace I2.Loc
 			public static string custom_blocked_for_party 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/custom_blocked_for_party"); } }
 			public static string custom_game_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/custom_game_description"); } }
 			public static string custom_game_title 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/custom_game_title"); } }
+			public static string random_map 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/random_map"); } }
 			public static string select_map 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/select_map"); } }
 			public static string tap_to_choose 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/tap_to_choose"); } }
 			public static string too_many_players 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/too_many_players"); } }
@@ -4744,6 +4745,7 @@ namespace I2.Loc
 		    public const string custom_blocked_for_party = "UITGameModeSelection/custom_blocked_for_party";
 		    public const string custom_game_description = "UITGameModeSelection/custom_game_description";
 		    public const string custom_game_title = "UITGameModeSelection/custom_game_title";
+		    public const string random_map = "UITGameModeSelection/random_map";
 		    public const string select_map = "UITGameModeSelection/select_map";
 		    public const string tap_to_choose = "UITGameModeSelection/tap_to_choose";
 		    public const string too_many_players = "UITGameModeSelection/too_many_players";

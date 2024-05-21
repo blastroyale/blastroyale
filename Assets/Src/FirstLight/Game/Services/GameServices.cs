@@ -215,7 +215,7 @@ namespace FirstLight.Game.Services
 				configsProvider);
 			PartyService = new PartyService(PlayfabPubSubService, gameLogic.AppDataProvider, GameBackendService,
 				GenericDialogService, MessageBrokerService, LocalPrefsService);
-			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider);
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider, LocalPrefsService);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			RewardService = new RewardService(this, gameLogic);

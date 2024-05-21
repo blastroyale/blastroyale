@@ -413,7 +413,6 @@ namespace FirstLight.Game.StateMachines
 				GameModeChosen = _ => _statechartTrigger(_gameModeSelectedFinishedEvent),
 				CustomGameChosen = () => _statechartTrigger(_roomJoinCreateClickedEvent),
 				OnBackClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent),
-				OnHomeClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent)
 			};
 
 			_services.UIService.OpenScreen<GameModeScreenPresenter>(data).Forget();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PlayFab;
@@ -8,7 +9,7 @@ using Scripts.Base;
 
 public class DuplicateQueueBetweenEnvironments : PlayfabScript
 {
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.PROD;
+	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
 
 	public override void Execute(ScriptParameters parameters)
 	{
@@ -21,7 +22,7 @@ public class DuplicateQueueBetweenEnvironments : PlayfabScript
 		Console.WriteLine("Available Environments: " + availableEnvironments);
 		Console.WriteLine("Input the environment to copy from: ");
 		var sourceEnv = Console.ReadLine();
-		if (!Enum.TryParse<PlayfabEnvironment>(sourceEnv?.Trim(), out var source))
+		if (!Enum.TryParse<PlayfabEnvironment>(sourceEnv?.Trim().ToUpperInvariant(), out var source))
 		{
 			Console.WriteLine("Invalid environment, available ones: " + availableEnvironments);
 			return;
@@ -40,16 +41,25 @@ public class DuplicateQueueBetweenEnvironments : PlayfabScript
 			.ForEach(Console.WriteLine);
 		Console.WriteLine();
 		Console.WriteLine("Input the queue name (you can input multiple with commas): ");
-		var queueInput = Console.ReadLine();
-		if (!availableQueues.Contains(queueInput))
+		var input = Console.ReadLine();
+		var inputQueues = input.Split(",");
+		var sourceQueues = new Dictionary<string, GetMatchmakingQueueResult>();
+		// Validate all
+		foreach (var inputQueueName in inputQueues)
 		{
-			Console.WriteLine("Queue not found!");
-			return;
+			var trimmedQueue = inputQueueName.Trim();
+			if (!availableQueues.Contains(trimmedQueue))
+			{
+				Console.WriteLine($"Queue {trimmedQueue} not found!");
+				return;
+			}
+
+			var sourceQueue = await PlayFabMultiplayerAPI.GetMatchmakingQueueAsync(new GetMatchmakingQueueRequest()
+			{
+				QueueName = trimmedQueue
+			}).HandleError();
+			sourceQueues[trimmedQueue] = sourceQueue;
 		}
-		var sourceQueue = await PlayFabMultiplayerAPI.GetMatchmakingQueueAsync(new GetMatchmakingQueueRequest()
-		{
-			QueueName = queueInput
-		}).HandleError();
 
 		// Target
 		Console.WriteLine();
@@ -65,26 +75,29 @@ public class DuplicateQueueBetweenEnvironments : PlayfabScript
 		SetEnvironment(target);
 		await AuthenticateServer();
 
-		var existingQueue = await PlayFabMultiplayerAPI.GetMatchmakingQueueAsync(new GetMatchmakingQueueRequest()
+		foreach (var (queueName, value) in sourceQueues)
 		{
-			QueueName = queueInput
-		});
-		if (existingQueue.Error == null || existingQueue.Error.Error != PlayFabErrorCode.MatchmakingQueueNotFound)
-		{
-			Console.WriteLine();
-			Console.WriteLine("Queue already exists in target environment, do you want to overwrite it? (Y/N)");
-			var shouldOverwrite = Console.ReadLine();
-			if (!shouldOverwrite.Trim().ToLowerInvariant().Equals("y"))
+			var existingQueue = await PlayFabMultiplayerAPI.GetMatchmakingQueueAsync(new GetMatchmakingQueueRequest()
 			{
-				Console.WriteLine("OK BYE BYE");
-				return;
+				QueueName = queueName
+			});
+			if (existingQueue.Error == null || existingQueue.Error.Error != PlayFabErrorCode.MatchmakingQueueNotFound)
+			{
+				Console.WriteLine();
+				Console.WriteLine($"Queue {queueName} already exists in target environment, do you want to overwrite it? (Y/N)");
+				var shouldOverwrite = Console.ReadLine();
+				if (!shouldOverwrite.Trim().ToLowerInvariant().Equals("y"))
+				{
+					Console.WriteLine("OK BYE BYE");
+					return;
+				}
 			}
-		}
 
-		await PlayFabMultiplayerAPI.SetMatchmakingQueueAsync(new SetMatchmakingQueueRequest()
-		{
-			MatchmakingQueue = sourceQueue.MatchmakingQueue
-		}).HandleError();
-		Console.WriteLine($"Copied queue {queueInput} from {source} to {target}!");
+			await PlayFabMultiplayerAPI.SetMatchmakingQueueAsync(new SetMatchmakingQueueRequest()
+			{
+				MatchmakingQueue = value.MatchmakingQueue
+			}).HandleError();
+			Console.WriteLine($"Copied queue {queueName} from {source} to {target}!");
+		}
 	}
 }

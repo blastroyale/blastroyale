@@ -55,7 +55,12 @@ namespace FirstLight.Game.Services
 		/// The currently selected Map.
 		/// </summary>
 		GameId SelectedMap { set; get; }
-		
+
+		/// <summary>
+		/// Allowed maps to be chosen on matchmaking
+		/// </summary>
+		List<GameId> ValidMatchmakingMaps { get; }
+
 		/// <summary>
 		/// Provides a list of currently available game modes which is automatically updated when
 		/// rotating game modes change.
@@ -85,24 +90,61 @@ namespace FirstLight.Game.Services
 		private readonly IPartyService _partyService;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IAppDataProvider _appDataProvider;
+		private readonly LocalPrefsService _localPrefsService;
 
 		private readonly IObservableList<GameModeInfo> _slots;
+		private GameId _selectedMap;
 
 		public IObservableField<GameModeInfo> SelectedGameMode { get; }
 
-		public GameId SelectedMap { set; get; }
-		
+		public GameId SelectedMap
+		{
+			set => _localPrefsService.SelectedRankedMap.Value = (int)value;
+			get
+			{
+				if (_localPrefsService.SelectedRankedMap.Value == 0)
+				{
+					return GameId.MazeMayhem;
+				}
+
+				return (GameId) _localPrefsService.SelectedRankedMap.Value;
+			}
+		}
+
+		public List<GameId> ValidMatchmakingMaps
+		{
+			get
+			{
+				var gameModeConfigs = _configsProvider.GetConfigsList<QuantumGameModeConfig>();
+				var validMaps = new List<GameId>();
+				foreach (var gameModeConfig in gameModeConfigs.Where(gameModeConfig => gameModeConfig.Id == "BattleRoyale"))
+				{
+					foreach (var mapId in gameModeConfig.AllowedMaps)
+					{
+						var mapConfig = _configsProvider.GetConfig<QuantumMapConfig>((int) mapId);
+						if (!mapConfig.IsTestMap && !mapConfig.IsCustomOnly)
+						{
+							validMaps.Add(mapId);
+						}
+					}
+				}
+
+				return validMaps;
+			}
+		}
+
 		public IObservableListReader<GameModeInfo> Slots => _slots;
 
 		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService,
 							   IGameDataProvider gameDataProvider, IPartyService partyService,
-							   IAppDataProvider appDataProvider)
+							   IAppDataProvider appDataProvider,LocalPrefsService localPrefsService)
 		{
 			_configsProvider = configsProvider;
 			_threadService = threadService;
 			_gameDataProvider = gameDataProvider;
 			_partyService = partyService;
 			_appDataProvider = appDataProvider;
+			_localPrefsService = localPrefsService;
 
 			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
@@ -136,18 +178,6 @@ namespace FirstLight.Game.Services
 			{
 				this.SelectDefaultRankedMode();
 			}
-			
-			// Try to set the saved map
-			var lastSelectedMap = _appDataProvider.LastSelectedRankedMap;
-			if (lastSelectedMap > 0)
-			{
-				SelectedMap = (GameId) lastSelectedMap;
-			}
-			else
-			{
-				// TODO: We should set here the map that is used in the first fake match game mode
-				SelectedMap = GameId.MazeMayhem;
-			}
 		}
 
 		private void OnGameModeSet(GameModeInfo _, GameModeInfo current)
@@ -172,9 +202,6 @@ namespace FirstLight.Game.Services
 				}
 				_partyService.SetLobbyProperty(SelectedQueueLobbyProperty, newQueueName, true).Forget();
 			}
-			
-			// TODO: Maybe it should be saved when we change the map, not when we set the game mode
-			_appDataProvider.LastSelectedRankedMap = (int) SelectedMap;
 		}
 
 		private void AddGameModeToPartyProperties(Dictionary<string, string> _, Dictionary<string, string> lobbyData)

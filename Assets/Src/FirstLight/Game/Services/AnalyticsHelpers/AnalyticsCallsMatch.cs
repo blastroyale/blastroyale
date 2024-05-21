@@ -371,7 +371,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
 				{"item_type", callback.CollectableId.ToString()},
-				{"amount", "1"},
 				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed}
 			};
 

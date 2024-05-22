@@ -60,6 +60,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnMatchmakingCancelClicked;
 			public Action OnLevelUp;
 			public Action NewsClicked;
+			public Action FriendsClicked;
 			public Action<List<ItemData>> OnRewardsReceived;
 		}
 
@@ -235,6 +236,11 @@ namespace FirstLight.Game.Presenters
 			{
 				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.TiktokLink);
 				Data.OnTiktokClicked();
+			};
+			
+			Root.Q<Button>("FriendsButton").Required().clicked += () =>
+			{
+				Data.FriendsClicked();
 			};
 
 			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);

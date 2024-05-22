@@ -21,6 +21,7 @@
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBuckCurrency" currency="BlastBuck" class="anim-delay-3 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
+                <ui:Button text="Friends" parse-escape-sequences="true" display-tooltip-when-elided="true" name="FriendsButton" style="margin-bottom: 91px; font-size: 76px; background-color: rgb(185, 185, 185);" />
                 <ui:VisualElement name="PartyButtonHolder" class="anim-delay-2 anim-translate anim-translate--left-xl party-button-holder">
                     <ui:VisualElement name="PartyHeaderContainer" class="squad-container">
                         <ui:VisualElement name="PartyHeader" class="squad-container__header">

@@ -28,6 +28,8 @@ using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
+using Unity.Services.Friends;
+using Unity.Services.Friends.Options;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -499,9 +501,7 @@ namespace FirstLight.Game.Services
 				await AuthenticationService.Instance.SignInAnonymouslyAsync();
 				FLog.Info("UnityCloudAuth", "Cached user sign in succeeded!");
 
-				await RemoteConfigs.Init();
-
-				onSuccess();
+				await PostUnityAuth(onSuccess);
 			}
 			else
 			{
@@ -517,17 +517,22 @@ namespace FirstLight.Game.Services
 
 						AuthenticationService.Instance.ProcessAuthenticationTokens(data["idToken"], data["sessionToken"]);
 
-						SuccessCall().Forget();
-						return;
-
-						async UniTaskVoid SuccessCall()
-						{
-							await RemoteConfigs.Init();
-							onSuccess();
-						}
+						PostUnityAuth(onSuccess).Forget();
 					},
 					e => { _services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login); });
 			}
+		}
+
+		private async UniTask PostUnityAuth(Action onComplete)
+		{
+			await RemoteConfigs.Init();
+			var friendsInitOpts = new InitializeOptions()
+				.WithEvents(true)
+				.WithMemberPresence(true)
+				.WithMemberProfile(true);
+			await FriendsService.Instance.InitializeAsync(friendsInitOpts).AsUniTask();
+
+			onComplete();
 		}
 
 		private void UpdatePlayerDataAndLogic(Dictionary<string, string> state, bool previouslyLoggedIn)

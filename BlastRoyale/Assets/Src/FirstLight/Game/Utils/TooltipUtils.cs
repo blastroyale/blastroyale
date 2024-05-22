@@ -20,6 +20,17 @@ namespace FirstLight.Game.Utils
 		public PlayerButtonContextStyle ContextStyle;
 		public string Text;
 		public Action OnClick;
+
+		public PlayerContextButton()
+		{
+		}
+
+		public PlayerContextButton(PlayerButtonContextStyle contextStyle, string text, Action onClick)
+		{
+			ContextStyle = contextStyle;
+			Text = text;
+			OnClick = onClick;
+		}
 	}
 
 	/// <summary>
@@ -44,9 +55,9 @@ namespace FirstLight.Game.Utils
 			tooltip.Add(label);
 		}
 
-		public static void OpenPlayerContextOptions(VisualElement element, VisualElement root, string playerName, IEnumerable<PlayerContextButton> buttons)
+		public static void OpenPlayerContextOptions(VisualElement element, VisualElement root, string playerName, IEnumerable<PlayerContextButton> buttons, TipDirection direction = TipDirection.Bottom, TooltipPosition position = TooltipPosition.Top)
 		{
-			var tooltip = OpenTooltip(element.worldBound, root, TipDirection.Bottom, TooltipPosition.Top);
+			var tooltip = OpenTooltip(element.worldBound, root, direction, position);
 
 			tooltip.AddToClassList("player-context-menu");
 			var playerNameLabel = new Label(playerName);
@@ -131,6 +142,7 @@ namespace FirstLight.Game.Utils
 				{
 					TooltipPosition.Center      => sourcePos.position + new Vector2(sourcePos.width / 2f, -sourcePos.height / 2f),
 					TooltipPosition.CenterLeft  => sourcePos.position + new Vector2(0f, -sourcePos.height / 2f),
+					TooltipPosition.CenterRight => sourcePos.position + new Vector2(sourcePos.width, -sourcePos.height / 2f),
 					TooltipPosition.TopLeft     => sourcePos.position + new Vector2(0f, -sourcePos.height),
 					TooltipPosition.TopRight    => sourcePos.position + new Vector2(sourcePos.width, -sourcePos.height),
 					TooltipPosition.BottomLeft  => sourcePos.position,
@@ -151,6 +163,7 @@ namespace FirstLight.Game.Utils
 						break;
 					case TipDirection.TopRight:
 						// Do nothing
+						//pos.x -= ttBound.width;
 						break;
 					case TipDirection.BottomLeft:
 						pos.x += ttBound.width;
@@ -206,6 +219,7 @@ namespace FirstLight.Game.Utils
 		Center,
 		Top,
 		CenterLeft,
+		CenterRight,
 		TopLeft,
 		TopRight,
 		BottomLeft,

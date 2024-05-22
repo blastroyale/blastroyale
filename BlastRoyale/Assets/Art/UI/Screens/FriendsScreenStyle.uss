@@ -1,0 +1,113 @@
+.unity-tabbed-view__tabs-container {
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.unity-tabbed-view__content-container {
+    flex-grow: 1;
+}
+
+.unity-tab-button {
+    background-color: rgb(30, 31, 51);
+    font-size: 70px;
+    color: rgb(255, 255, 255);
+}
+
+.unity-tab-button--active {
+    background-color: rgb(255, 255, 0);
+    color: rgb(26, 35, 72);
+}
+
+.unity-list-view {
+    flex-grow: 1;
+}
+
+.friend-list-element {
+}
+
+.friend-list-element__player-bar-container {
+    height: 160px;
+    background-color: rgba(82, 82, 82, 0.88);
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.friend-list-element__avatar {
+    width: 188px;
+    align-self: stretch;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    background-color: rgb(120, 19, 19);
+}
+
+.friend-list-element__name-and-trophies {
+    -unity-text-align: middle-left;
+    color: rgb(255, 255, 255);
+    font-size: 40px;
+    flex-grow: 1;
+}
+
+.friend-list-element__activity {
+    -unity-text-align: middle-right;
+    font-size: 32px;
+    color: rgb(179, 77, 231);
+}
+
+.friend-list-element__main-action-button {
+    font-size: 44px;
+}
+
+.friend-list-element__more-actions-button {
+    width: 50px;
+    height: 50px;
+    background-color: purple;
+}
+
+.friend-list-element__header {
+    font-size: 44px;
+    color: rgb(255, 255, 255);
+}
+
+.friend-list-element__online-indicator {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 40px;
+    height: 40px;
+    background-color: dimgrey;
+    color: rgb(255, 255, 255);
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.friend-list-element__online-indicator--online {
+    background-color: rgb(0, 255, 0);
+}
+
+.friend-list-element__accept-decline-container {
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.friend-list-element__accept-button {
+    font-size: 44px;
+    background-color: green;
+}
+
+.friend-list-element__decline-button {
+    font-size: 44px;
+    background-color: orangered;
+}

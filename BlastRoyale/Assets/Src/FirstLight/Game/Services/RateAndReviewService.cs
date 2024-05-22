@@ -22,8 +22,7 @@ namespace FirstLight.Game.Services
 		private RateAndReview _rateAndReviewComponent;
 		private LocalPrefsService _localPrefsService;
 		
-		public RateAndReviewService(IMessageBrokerService msgBroker,
-									LocalPrefsService localPrefsService)
+		public RateAndReviewService(IMessageBrokerService msgBroker, LocalPrefsService localPrefsService)
 		{
 			if (!FeatureFlags.REVIEW_PROMPT_ENABLED)
 			{

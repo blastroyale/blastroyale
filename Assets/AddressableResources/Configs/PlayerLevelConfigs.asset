@@ -19,14 +19,14 @@ MonoBehaviour:
     Rewards:
       _keyData: 3d000000
       _valueData: 19000000
-    Systems: 04000000
+    Systems: 03000000
   - LevelStart: 2
     LevelEnd: 2
     LevelUpXP: 200
     Rewards:
       _keyData: 3d000000
       _valueData: 32000000
-    Systems: 05000000
+    Systems: 04000000
   - LevelStart: 3
     LevelEnd: 3
     LevelUpXP: 200

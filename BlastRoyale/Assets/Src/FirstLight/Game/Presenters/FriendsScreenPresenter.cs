@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
@@ -63,8 +64,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_yourIDField.value = AuthenticationService.Instance.PlayerId;
 
-			RefreshAll();
-
 			// TODO: Temporary, we just always refresh all lists
 			FriendsService.Instance.RelationshipDeleted += rde =>
 			{
@@ -84,7 +83,6 @@ namespace FirstLight.Game.Presenters
 			FriendsService.Instance.MessageReceived += mre =>
 			{
 				FLog.Info($"Message received from: {mre.UserId}");
-				RefreshAll();
 			};
 
 			return base.OnScreenOpen(reload);
@@ -92,22 +90,34 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshAll()
 		{
+			RefreshFriends();
+			RefreshRequests();
+			RefreshBlocked();
+		}
+
+		private void RefreshFriends()
+		{
 			_friends = FriendsService.Instance.Friends.ToList();
 			// Sort by last seen so online friends are at the top
 			_friends.Sort((a, b) => a.Member.Presence.LastSeen.CompareTo(b.Member.Presence.LastSeen));
 			_friendsList.itemsSource = _friends;
 			_friendsList.RefreshItems();
+		}
 
-			_blocked = FriendsService.Instance.Blocks.ToList();
+		private void RefreshRequests()
+		{
 			var incomingRequests = FriendsService.Instance.IncomingFriendRequests.ToList();
 			var outgoingRequests = FriendsService.Instance.OutgoingFriendRequests.ToList();
 			_allRequests = incomingRequests.Concat(outgoingRequests).ToList();
-
-			_blockedList.itemsSource = _blocked;
 			_requestsList.itemsSource = _allRequests;
-
-			_blockedList.RefreshItems();
 			_requestsList.RefreshItems();
+		}
+
+		private void RefreshBlocked()
+		{
+			_blocked = FriendsService.Instance.Blocks.ToList();
+			_blockedList.itemsSource = _blocked;
+			_blockedList.RefreshItems();
 		}
 
 		private VisualElement OnMakeListItem()
@@ -151,10 +161,7 @@ namespace FirstLight.Game.Presenters
 			((FriendListElement) element).SetData(relationship, header, null, null,
 				sentRequest ? null : r => AcceptRequest(r).Forget(),
 				sentRequest ? null : r => DeclineRequest(r).Forget(),
-				(v, r) =>
-				{
-					FLog.Info($"More clicked: {r.Id}");
-				});
+				OpenRequestsTooltip);
 		}
 
 		private void OnBlockedBindItem(VisualElement element, int index)
@@ -169,9 +176,17 @@ namespace FirstLight.Game.Presenters
 			TooltipUtils.OpenPlayerContextOptions(element, Root, relationship.Member.Profile.Name, new[]
 			{
 				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile", () => FLog.Info($"Open profile: {relationship.Member.Id}")),
-				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Report", () => FLog.Info($"Report clicked: {relationship.Member.Id}")),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, "Block", () => BlockPlayer(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, "Remove friend", () => RemoveFriend(relationship.Member.Id).Forget())
+			}, TipDirection.TopRight, TooltipPosition.Center);
+		}
+
+		private void OpenRequestsTooltip(VisualElement element, Relationship relationship)
+		{
+			TooltipUtils.OpenPlayerContextOptions(element, Root, relationship.Member.Profile.Name, new[]
+			{
+				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile", () => FLog.Info($"Open profile: {relationship.Member.Id}")),
+				new PlayerContextButton(PlayerButtonContextStyle.Red, "Block", () => BlockPlayer(relationship.Member.Id).Forget()),
 			}, TipDirection.TopRight, TooltipPosition.Center);
 		}
 
@@ -182,7 +197,8 @@ namespace FirstLight.Game.Presenters
 				FLog.Info($"Accepting friend request: {r.Member.Id}");
 				await FriendsService.Instance.AddFriendAsync(r.Member.Id).AsUniTask();
 				FLog.Info($"Friend request accepted: {r.Member.Id}");
-				RefreshAll();
+				RefreshRequests();
+				RefreshFriends();
 			}
 			catch (Exception e)
 			{
@@ -197,7 +213,7 @@ namespace FirstLight.Game.Presenters
 				FLog.Info($"Deleting friend request: {r.Member.Id}");
 				await FriendsService.Instance.DeleteIncomingFriendRequestAsync(r.Member.Id).AsUniTask();
 				FLog.Info($"Friend request deleted: {r.Member.Id}");
-				RefreshAll();
+				RefreshRequests();
 			}
 			catch (Exception e)
 			{
@@ -215,7 +231,8 @@ namespace FirstLight.Game.Presenters
 				FLog.Info($"Sending friend request: {playerId}");
 				await FriendsService.Instance.AddFriendAsync(playerId).AsUniTask();
 				FLog.Info($"Friend request sent: {playerId}");
-				RefreshAll();
+				RefreshRequests();
+				RefreshFriends(); // In case they already had a request from that friend, it accepts it
 			}
 			catch (Exception e)
 			{
@@ -233,7 +250,7 @@ namespace FirstLight.Game.Presenters
 				FLog.Info($"Removing friend: {playerID}");
 				await FriendsService.Instance.DeleteFriendAsync(playerID).AsUniTask();
 				FLog.Info($"Friend removed: {playerID}");
-				RefreshAll();
+				RefreshFriends();
 			}
 			catch (Exception e)
 			{
@@ -263,7 +280,7 @@ namespace FirstLight.Game.Presenters
 				FLog.Info($"Unblocking player: {r.Member.Id}");
 				await FriendsService.Instance.DeleteBlockAsync(r.Member.Id).AsUniTask();
 				FLog.Info($"Player unblocked: {r.Member.Id}");
-				RefreshAll();
+				RefreshAll(); // Figure out if needed
 			}
 			catch (Exception e)
 			{

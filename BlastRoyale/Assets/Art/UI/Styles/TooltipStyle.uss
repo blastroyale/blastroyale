@@ -75,7 +75,10 @@
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;
     font-size: 36px;
-    text-shadow: 2.7px 2.7px 0 rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    overflow: hidden;
+    -unity-text-overflow-position: end;
+    text-overflow: ellipsis;
     letter-spacing: -2px;
     margin-top: 0;
     padding-top: 0;
@@ -92,10 +95,14 @@
     border-top-right-radius: 28px;
     border-bottom-right-radius: 28px;
     border-bottom-left-radius: 28px;
-    width: 310px;
+    width: 100%;
     margin-bottom: 16px;
 }
 
 .unity-button.player-context-menu__button--red {
     color: rgb(255, 74, 74);
+}
+
+.player-context-menu .tooltip-element__content {
+    width: 320px;
 }

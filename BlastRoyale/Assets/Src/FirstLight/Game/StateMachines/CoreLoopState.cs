@@ -12,6 +12,8 @@ using FirstLight.Game.Utils;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using Photon.Realtime;
+using Unity.Services.Friends;
+using Unity.Services.Friends.Models;
 using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
@@ -29,17 +31,18 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IInternalGameNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		
+
 		private Coroutine _csPoolTimerCoroutine;
 
-		public CoreLoopState(ReconnectionState reconnection, IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, 
-		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger, IRoomService roomService)
+		public CoreLoopState(ReconnectionState reconnection, IGameServices services, IGameDataProvider dataProvider, IDataService dataService,
+							 IInternalGameNetworkService networkService,
+							 IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger, IRoomService roomService)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
-			_matchState = new MatchState(services, dataService, networkService, dataProvider, assetAdderService, statechartTrigger,roomService);
+			_matchState = new MatchState(services, dataService, networkService, dataProvider, assetAdderService, statechartTrigger, roomService);
 			_mainMenuState = new MainMenuState(services, dataProvider, assetAdderService, statechartTrigger);
 			_reconnection = reconnection;
 		}
@@ -57,10 +60,10 @@ namespace FirstLight.Game.StateMachines
 			var mainMenu = stateFactory.Nest("Main Menu");
 			var joinTutorialRoom = stateFactory.State("Room Join Wait");
 			var connectionWait = stateFactory.TaskWait("Connection Wait");
-			
+
 			initial.Transition().Target(connectionWait);
 			initial.OnExit(SubscribeEvents);
-			
+
 			connectionWait.WaitingFor(WaitForPhotonConnection).Target(reconnection);
 
 			reconnection.Nest(_reconnection.Setup).Target(firstMatchCheck);
@@ -68,27 +71,36 @@ namespace FirstLight.Game.StateMachines
 			firstMatchCheck.Transition().Condition(InRoom).Target(match);
 			firstMatchCheck.Transition().Condition(HasCompletedFirstGameTutorial).Target(mainMenu);
 			firstMatchCheck.Transition().Target(joinTutorialRoom);
-			
+
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
+			mainMenu.OnEnter(() =>
+			{
+				FriendsService.Instance.SetPresenceAsync(Availability.Online, new PlayerActivity {Status = "In main menu"}).AsUniTask().Forget();
+			});
 
 			match.Nest(_matchState.Setup).Target(mainMenu);
+			match.OnEnter(() =>
+			{
+				FriendsService.Instance.SetPresenceAsync(Availability.Online, new PlayerActivity {Status = "Playing a match"}).AsUniTask().Forget();
+			});
 
 			// TODO - Decide what to do if join room fails
 			joinTutorialRoom.OnEnter(AttemptJoinTutorialRoom);
 			joinTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(match);
-			
+
 			final.OnEnter(UnsubscribeEvents);
 		}
 
 		private bool InRoom()
 		{
-			FLog.Info("InRoom: "+_networkService.QuantumClient.InRoom+" Status: "+_networkService.QuantumClient.State);
+			FLog.Info("InRoom: " + _networkService.QuantumClient.InRoom + " Status: " + _networkService.QuantumClient.State);
 			return _networkService.InRoom;
 		}
 
 		private async UniTask WaitForPhotonConnection()
 		{
-			while (!_services.NetworkService.QuantumClient.IsConnectedAndReady || _services.NetworkService.QuantumClient.Server == ServerConnection.NameServer)
+			while (!_services.NetworkService.QuantumClient.IsConnectedAndReady ||
+				   _services.NetworkService.QuantumClient.Server == ServerConnection.NameServer)
 			{
 				await UniTask.Yield();
 			}
@@ -106,6 +118,7 @@ namespace FirstLight.Game.StateMachines
 				await UniTask.Delay(GameConstants.Tutorial.TIME_1000MS);
 				
 			}
+
 			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
 		}
 
@@ -135,12 +148,12 @@ namespace FirstLight.Game.StateMachines
 				AcceptPrivacyDialog().Forget();
 				return;
 			}
+
 			TutorialJoinTask().Forget();
 		}
 
 		private void SubscribeEvents()
 		{
-			
 		}
 
 		private void UnsubscribeEvents()

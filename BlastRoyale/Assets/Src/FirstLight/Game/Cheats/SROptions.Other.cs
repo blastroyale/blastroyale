@@ -8,7 +8,6 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.NativeUi;
 using Quantum;
 
 public partial class SROptions

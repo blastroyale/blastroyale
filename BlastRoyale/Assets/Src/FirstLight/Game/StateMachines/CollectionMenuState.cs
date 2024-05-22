@@ -57,9 +57,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void CheckForOpenRateAndReviewPromptUI(bool equippedNonDefaultItem)
 		{
-			if (FeatureFlags.REVIEW_PROMPT_ENABLED 
-				&& equippedNonDefaultItem
-				&& _services.LocalPrefsService.GamesPlayed.Value >= 4)
+			if (_services.RateAndReviewService.ShouldShowPrompt
+				&& equippedNonDefaultItem)
 			{
 				_services.MessageBrokerService.Publish(new OpenRateAndReviewPromptMessage());
 			}

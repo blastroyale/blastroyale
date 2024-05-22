@@ -312,12 +312,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
 		{
-			if (FeatureFlags.REVIEW_PROMPT_ENABLED && !_services.LocalPrefsService.RateAndReviewPromptShown)
-			{
-				_services.LocalPrefsService.GamesPlayed.Value += 1;
-				Debug.Log($"LocalPrefsService.GamesPlayed.Value {_services.LocalPrefsService.GamesPlayed.Value}");
-			}
-
 			_statechartTrigger(_gameCompletedCheatEvent);
 		}
 
@@ -455,9 +449,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				BackClicked = () =>
 				{
-					if (FeatureFlags.REVIEW_PROMPT_ENABLED 
-						&& claimedRewards
-						&& _services.LocalPrefsService.GamesPlayed.Value >= 4)
+					if (_services.RateAndReviewService.ShouldShowPrompt
+						&& claimedRewards)
 					{
 						_services.MessageBrokerService.Publish(new OpenRateAndReviewPromptMessage());
 					}

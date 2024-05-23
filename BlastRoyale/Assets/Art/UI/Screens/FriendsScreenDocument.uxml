@@ -1,19 +1,27 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/FriendsScreenStyle.uss?fileID=7433441132597879392&amp;guid=ba1f0a1f15b1341029c691e8c160c114&amp;type=3#FriendsScreenStyle" />
-    <ui:VisualElement name="reference" class="fill-parent" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Art/UI/References/Friends.png?fileID=2800000&amp;guid=dc759aece3b0f4fa480de8ae9f209171&amp;type=3#Friends&apos;); opacity: 0.39; display: none;" />
+    <ui:VisualElement name="reference" class="fill-parent" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Art/UI/References/Friends.png?fileID=2800000&amp;guid=dc759aece3b0f4fa480de8ae9f209171&amp;type=3#Friends&apos;); opacity: 0.58; display: none;" />
     <ui:VisualElement name="root" style="flex-grow: 1; overflow: hidden;">
         <FirstLight.Game.UIElements.SafeAreaElement name="SafeArea" apply-bottom="false" style="flex-direction: row;">
-            <ui:VisualElement name="LeftBar" picking-mode="Ignore" style="justify-content: center; align-items: center; width: 851px;">
-                <ui:VisualElement name="Background" style="position: absolute; width: 150%; align-self: flex-end; height: 150%; transform-origin: right; rotate: 4deg; background-color: rgb(62, 0, 89);" />
-                <ui:TextField picking-mode="Ignore" label="YOUR ID" name="YourID" />
-                <ui:TextField picking-mode="Ignore" label="ENTER FRIEND ID" name="AddFriendID" />
-                <ui:Button text="ADD FRIEND" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AddFriendButton" style="width: 322px; height: 147px; font-size: 60px; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; background-color: rgb(152, 152, 152);" />
+            <ui:VisualElement name="LeftBar" picking-mode="Ignore" style="justify-content: center; align-items: center; width: 773px;">
+                <ui:VisualElement name="Background" style="position: absolute; width: 150%; align-self: flex-end; height: 150%; transform-origin: right; rotate: 4deg; background-color: rgba(9, 8, 14, 0.45); padding-right: 10px;">
+                    <ui:VisualElement name="Center" style="flex-grow: 1; background-color: rgb(36, 32, 55); border-right-color: rgb(0, 0, 0); border-right-width: 3px;" />
+                </ui:VisualElement>
+                <ui:TextField picking-mode="Ignore" label="YOUR ID" name="YourID" value="JwaSqdKILS3YAOAfitjKQRDBtVAd" readonly="true" hide-mobile-input="true" class="your-id-input">
+                    <FirstLight.Game.UIElements.ImageButton name="CopyButton" class="button-copy" />
+                </ui:TextField>
+                <ui:TextField picking-mode="Ignore" label="ENTER FRIEND ID" name="AddFriendID" max-length="50" />
+                <ui:Button text="ADD FRIEND" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AddFriendButton" class="button-long button-long--purple" style="margin-top: 28px;" />
             </ui:VisualElement>
             <ui:VisualElement name="Content" picking-mode="Ignore" style="flex-grow: 1;">
                 <FirstLight.Game.UIElements.TabbedView class="settings-tabbed-view" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+                    <FirstLight.Game.UIElements.TabButton target="SQUAD" focusable="true" text="SQUAD" />
                     <FirstLight.Game.UIElements.TabButton target="FRIENDS" focusable="true" text="FRIENDS" />
                     <FirstLight.Game.UIElements.TabButton target="REQUESTS" focusable="true" text="REQUESTS" />
                     <FirstLight.Game.UIElements.TabButton target="BLOCKED" focusable="true" text="BLOCKED" />
+                    <ui:VisualElement name="SQUAD">
+                        <ui:Label text="Coming soon..." style="font-size: 36px; color: rgb(255, 255, 255); -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 3px 3px 0 rgb(0, 0, 0);" />
+                    </ui:VisualElement>
                     <ui:VisualElement name="FRIENDS">
                         <ui:ListView name="FriendsList" virtualization-method="DynamicHeight" />
                     </ui:VisualElement>

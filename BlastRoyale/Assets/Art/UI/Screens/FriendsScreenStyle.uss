@@ -1,21 +1,33 @@
 .unity-tabbed-view__tabs-container {
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    margin-top: 45px;
 }
 
 .unity-tabbed-view__content-container {
     flex-grow: 1;
+    margin-top: 55px;
+    margin-left: 174px;
+    margin-right: 132px;
 }
 
 .unity-tab-button {
-    background-color: rgb(30, 31, 51);
-    font-size: 70px;
+    font-size: 36px;
     color: rgb(255, 255, 255);
+    background-image: var(--sprite-home__background-tab-friends);
+    width: 311px;
+    height: 69px;
+    -unity-text-align: middle-center;
+    padding-top: 5px;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
 }
 
 .unity-tab-button--active {
-    background-color: rgb(255, 255, 0);
-    color: rgb(26, 35, 72);
+    color: rgb(0, 0, 0);
+    background-image: var(--sprite-home__background-tab-friends-selected);
 }
 
 .unity-list-view {
@@ -26,58 +38,111 @@
 }
 
 .friend-list-element__player-bar-container {
-    height: 160px;
-    background-color: rgba(82, 82, 82, 0.88);
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
 }
 
+.friend-list-element__background {
+    background-image: var(--sprite-home__background-friends-player);
+    overflow: hidden;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 55px;
+    padding-left: 55px;
+}
+
+.friend-list-element__background-pattern {
+    background-image: var(--sprite-home__pattern-friends-dots);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 230px;
+}
+
 .friend-list-element__avatar {
-    width: 188px;
+    width: 112px;
     align-self: stretch;
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
     border-bottom-left-radius: 50%;
     background-color: rgb(120, 19, 19);
+    background-image: var(--sprite-shared__avatar-default);
+    -unity-background-scale-mode: scale-to-fit;
+    height: 112px;
+    margin-right: 27px;
 }
 
 .friend-list-element__name-and-trophies {
     -unity-text-align: middle-left;
     color: rgb(255, 255, 255);
-    font-size: 40px;
+    font-size: 36px;
     flex-grow: 1;
+    text-shadow: 3px 4px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 33px;
+    margin-bottom: 0;
+    margin-left: 0;
 }
 
 .friend-list-element__activity {
     -unity-text-align: middle-right;
     font-size: 32px;
-    color: rgb(179, 77, 231);
+    color: rgb(157, 131, 216);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 4px 0 rgb(0, 0, 0);
+    margin-top: 0;
+    margin-right: 29px;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
 }
 
 .friend-list-element__main-action-button {
-    font-size: 44px;
+    font-size: 32px;
+    width: 214px;
+    height: 69px;
+    color: rgb(255, 255, 255);
+    margin-right: 30px;
+    text-shadow: 2px 2px 0 rgb(156, 36, 12);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(156, 36, 12);
+    margin-bottom: 0;
 }
 
 .friend-list-element__more-actions-button {
-    width: 50px;
-    height: 50px;
-    background-color: purple;
+    width: 73px;
+    height: 73px;
+    background-image: var(--sprite-home__button-more-actions);
 }
 
 .friend-list-element__header {
-    font-size: 44px;
+    font-size: 32px;
     color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
 }
 
 .friend-list-element__online-indicator {
     position: absolute;
     right: 0;
     bottom: 0;
-    width: 40px;
-    height: 40px;
-    background-color: dimgrey;
+    width: 26px;
+    height: 26px;
+    background-color: rgb(144, 144, 144);
     color: rgb(255, 255, 255);
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
@@ -94,20 +159,62 @@
 }
 
 .friend-list-element__online-indicator--online {
-    background-color: rgb(0, 255, 0);
+    background-color: rgb(121, 237, 56);
 }
 
 .friend-list-element__accept-decline-container {
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
+    padding-top: 5px;
 }
 
-.friend-list-element__accept-button {
-    font-size: 44px;
-    background-color: green;
+.friend-list-element__accept-decline-container > * {
+    margin-right: 40px;
+    margin-left: 40px;
 }
 
-.friend-list-element__decline-button {
-    font-size: 44px;
-    background-color: orangered;
+.unity-text-field {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 400px;
+    height: auto;
+    margin-top: 50px;
+}
+
+.unity-text-field__label {
+    -unity-text-align: upper-left;
+    color: rgb(157, 131, 216);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 4px 0 rgb(0, 0, 0);
+    margin-left: 14px;
+}
+
+.unity-text-field__input {
+    background-image: none;
+    background-color: rgb(22, 20, 38);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    color: rgb(255, 255, 255);
+    height: 92px;
+}
+
+
+.your-id-input > .unity-text-field__input {
+    padding-right: 100px;
+}
+
+.button-copy {
+    position: absolute;
+    right: 7px;
+    bottom: 7px;
+    width: 78px;
+    height: 78px;
+    background-image: var(--sprite-home__button-copy);
+}
+
+.button-copy:active {
+    -unity-background-image-tint-color: #aaaaaa;
 }

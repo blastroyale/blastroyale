@@ -10,6 +10,7 @@
     --sprite-home__background-bundle-image-gradient: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-gradient.png');
     --sprite-home__background-bundle-image-small: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-small.png');
     --sprite-home__background-dots-effect: url('/Assets/Art/UI/Sprites/Home/background-dots-effect.png');
+    --sprite-home__background-friends-player: url('/Assets/Art/UI/Sprites/Home/background-friends-player.png');
     --sprite-home__background-gamemode-battleroyale-duos: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-duos.png');
     --sprite-home__background-gamemode-battleroyale-quads: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-quads.png');
     --sprite-home__background-gamemode-battleroyale-solo: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-solo.png');
@@ -31,6 +32,8 @@
     --sprite-home__background-settingstab: url('/Assets/Art/UI/Sprites/Home/background-settingstab.png');
     --sprite-home__background-settingstab-chosen: url('/Assets/Art/UI/Sprites/Home/background-settingstab-chosen.png');
     --sprite-home__background-small-bundle: url('/Assets/Art/UI/Sprites/Home/background-small-bundle.png');
+    --sprite-home__background-tab-friends: url('/Assets/Art/UI/Sprites/Home/background-tab-friends.png');
+    --sprite-home__background-tab-friends-selected: url('/Assets/Art/UI/Sprites/Home/background-tab-friends-selected.png');
     --sprite-home__background-textbubble-yellow: url('/Assets/Art/UI/Sprites/Home/background-textbubble-yellow.png');
     --sprite-home__bamboo-season-reward: url('/Assets/Art/UI/Sprites/Home/bamboo-season-reward.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
@@ -47,6 +50,7 @@
     --sprite-home__button-collection-tab: url('/Assets/Art/UI/Sprites/Home/button-collection-tab.png');
     --sprite-home__button-collection-tab-pressed: url('/Assets/Art/UI/Sprites/Home/button-collection-tab-pressed.png');
     --sprite-home__button-collection-tab-selected: url('/Assets/Art/UI/Sprites/Home/button-collection-tab-selected.png');
+    --sprite-home__button-copy: url('/Assets/Art/UI/Sprites/Home/button-copy.png');
     --sprite-home__button-gamemode: url('/Assets/Art/UI/Sprites/Home/button-gamemode.png');
     --sprite-home__button-gamemode-overlay-battleroyale: url('/Assets/Art/UI/Sprites/Home/button-gamemode-overlay-battleroyale.png');
     --sprite-home__button-gamemode-pressed: url('/Assets/Art/UI/Sprites/Home/button-gamemode-pressed.png');
@@ -67,6 +71,7 @@
     --sprite-home__button-main-purple-pressed: url('/Assets/Art/UI/Sprites/Home/button-main-purple-pressed.png');
     --sprite-home__button-main-yellow: url('/Assets/Art/UI/Sprites/Home/button-main-yellow.png');
     --sprite-home__button-main-yellow-pressed: url('/Assets/Art/UI/Sprites/Home/button-main-yellow-pressed.png');
+    --sprite-home__button-more-actions: url('/Assets/Art/UI/Sprites/Home/button-more-actions.png');
     --sprite-home__button-play: url('/Assets/Art/UI/Sprites/Home/button-play.png');
     --sprite-home__button-play-disabled: url('/Assets/Art/UI/Sprites/Home/button-play-disabled.png');
     --sprite-home__button-play-pressed: url('/Assets/Art/UI/Sprites/Home/button-play-pressed.png');
@@ -160,6 +165,7 @@
     --sprite-home__pattern-circle-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-circle-gradient.png');
     --sprite-home__pattern-dots-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-dots-gradient.png');
     --sprite-home__pattern-dots-rotated: url('/Assets/Art/UI/Sprites/Home/pattern-dots-rotated.png');
+    --sprite-home__pattern-friends-dots: url('/Assets/Art/UI/Sprites/Home/pattern-friends-dots.png');
     --sprite-home__pattern-glow-chosengamemode: url('/Assets/Art/UI/Sprites/Home/pattern-glow-chosengamemode.png');
     --sprite-home__pattern-glow-crownlight: url('/Assets/Art/UI/Sprites/Home/pattern-glow-crownlight.png');
     --sprite-home__pattern-jagged-horizontal: url('/Assets/Art/UI/Sprites/Home/pattern-jagged-horizontal.png');
@@ -251,6 +257,12 @@
     background-image: var(--sprite-home__background-dots-effect);
     width: 370px;
     height: 412px;
+}
+
+.sprite-home__background-friends-player {
+    background-image: var(--sprite-home__background-friends-player);
+    width: 1191px;
+    height: 238px;
 }
 
 .sprite-home__background-gamemode-battleroyale-duos {
@@ -379,6 +391,18 @@
     height: 458px;
 }
 
+.sprite-home__background-tab-friends {
+    background-image: var(--sprite-home__background-tab-friends);
+    width: 311px;
+    height: 69px;
+}
+
+.sprite-home__background-tab-friends-selected {
+    background-image: var(--sprite-home__background-tab-friends-selected);
+    width: 311px;
+    height: 70px;
+}
+
 .sprite-home__background-textbubble-yellow {
     background-image: var(--sprite-home__background-textbubble-yellow);
     width: 372px;
@@ -463,6 +487,12 @@
     background-image: var(--sprite-home__button-collection-tab-selected);
     width: 486px;
     height: 164px;
+}
+
+.sprite-home__button-copy {
+    background-image: var(--sprite-home__button-copy);
+    width: 78px;
+    height: 78px;
 }
 
 .sprite-home__button-gamemode {
@@ -567,6 +597,12 @@
 
 .sprite-home__button-main-yellow:active {
     background-image: var(--sprite-home__button-main-yellow-pressed);
+}
+
+.sprite-home__button-more-actions {
+    background-image: var(--sprite-home__button-more-actions);
+    width: 73px;
+    height: 73px;
 }
 
 .sprite-home__button-play {
@@ -1113,6 +1149,12 @@
     background-image: var(--sprite-home__pattern-dots-rotated);
     width: 602px;
     height: 604px;
+}
+
+.sprite-home__pattern-friends-dots {
+    background-image: var(--sprite-home__pattern-friends-dots);
+    width: 1182px;
+    height: 230px;
 }
 
 .sprite-home__pattern-glow-chosengamemode {

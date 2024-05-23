@@ -775,8 +775,8 @@
 
 .sprite-match__weapon-bg-golden {
     background-image: var(--sprite-match__weapon-bg-golden);
-    width: 478px;
-    height: 385px;
+    width: 128px;
+    height: 103px;
 }
 
 .sprite-match__win-gradient {

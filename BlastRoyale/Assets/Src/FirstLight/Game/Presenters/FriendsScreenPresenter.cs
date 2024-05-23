@@ -10,6 +10,7 @@ using FirstLight.UIService;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -50,6 +51,7 @@ namespace FirstLight.Game.Presenters
 			_addFriendButton = Root.Q<Button>("AddFriendButton").Required();
 
 			_addFriendButton.clicked += () => AddFriend(_addFriendIDField.value).Forget();
+			Root.Q<ImageButton>("CopyButton").Required().clicked += CopyPlayerID;
 
 			_friendsList.bindItem = OnFriendsBindItem;
 			_requestsList.bindItem = OnRequestsBindItem;
@@ -286,6 +288,17 @@ namespace FirstLight.Game.Presenters
 			{
 				FLog.Error("Error unblocking player.", e);
 			}
+		}
+		
+		private void CopyPlayerID()
+		{
+			// Copy the player ID to the clipboard
+			var te = new TextEditor
+			{
+				text = _yourIDField.value
+			};
+			te.SelectAll();
+			te.Copy();
 		}
 	}
 }

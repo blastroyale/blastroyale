@@ -92,7 +92,7 @@ namespace FirstLight.Game.Presenters
 
 			_leaderboardPanel = Root.Q<VisualElement>("LeaderboardPanel").Required();
 			_leaderboardScrollView = Root.Q<ScrollView>("LeaderboardScrollView").Required();
-			
+
 			_rewardsPanel = Root.Q<VisualElement>("RewardsPanel").Required();
 			_trophies = _rewardsPanel.Q<VisualElement>("Trophies").Required();
 			_trophies.AttachView(this, out _trophiesView);
@@ -227,8 +227,8 @@ namespace FirstLight.Game.Presenters
 			var bppPoolInfo = _gameDataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.BPP);
 			var gainedLeft = bppReward;
 			var levelsInfo = new List<RewardLevelPanelView.LevelLevelRewardInfo>();
-			var bppBefore = _matchServices.MatchEndDataService.CachedRewards.Before.Currencies.TryGetValue(GameId.BPP, out var bpp) ? bpp : 0;
-			var nextLevel = (int) Math.Clamp(bppBefore + 1, 0, maxLevel);
+			var (bpLevelBefore, bpPointsBefore) = _matchServices.MatchEndDataService.CachedRewards.BattlePassBefore;
+			var nextLevel = (int) Math.Clamp(bpLevelBefore + 1, 0, maxLevel);
 			var currentLevel = nextLevel;
 
 			do
@@ -240,7 +240,7 @@ namespace FirstLight.Game.Presenters
 				// If it's the next level to the current one, we might have already some points in there
 				if (nextLevel == currentLevel)
 				{
-					levelRewardInfo.Start = (int) bppBefore;
+					levelRewardInfo.Start = (int) bpPointsBefore;
 				}
 
 				levelRewardInfo.MaxForLevel =
@@ -281,10 +281,8 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-
 			var playerData = _matchServices.MatchEndDataService.PlayerMatchData;
 			var localPlayerData = playerData[playerRef];
-
 
 			string playerPrefix;
 			// If the player is in the top 3 we show a badge
@@ -369,7 +367,6 @@ namespace FirstLight.Game.Presenters
 			var skinId = _gameServices.CollectionService.GetCosmeticForGroup(playerData.Cosmetics, GameIdGroup.PlayerSkin);
 			await _character.UpdateSkin(skinId);
 			_playerName.SetPositionBasedOnWorldPosition(_character.transform.position);
-
 		}
 	}
 }

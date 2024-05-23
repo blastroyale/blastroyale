@@ -25,7 +25,7 @@ namespace FirstLight.Game.Services
 		/// List of all the QuantumPlayerData at the end of the game. Used in the places that need the frame.GetSingleton<GameContainer>().GeneratePlayersMatchData
 		/// </summary>
 		List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; }
-		
+
 		/// <summary>
 		/// LocalPlayer at the end of the game. Will be PlayerRef.None if we're spectators
 		/// </summary>
@@ -58,7 +58,7 @@ namespace FirstLight.Game.Services
 		/// This data point is available before the match ends
 		/// </summary>
 		public bool LeftBeforeMatchFinished { get; }
-		
+
 		/// <summary>
 		/// In-Memory cache of player rewards and states to be used in reward screen
 		/// </summary>
@@ -92,7 +92,8 @@ namespace FirstLight.Game.Services
 
 	public class RewardDataCache
 	{
-		public PlayerData Before = new();
+		public PlayerData Before = new ();
+		public Tuple<uint, uint> BattlePassBefore = new (0, 0);
 		public List<ItemData> ReceivedInCommand { get; set; } = new ();
 	}
 
@@ -156,6 +157,7 @@ namespace FirstLight.Game.Services
 			if (msg.Type != QuantumServerCommand.EndOfGameRewards) return;
 			CachedRewards = new RewardDataCache();
 			CachedRewards.Before = CopyPlayerData();
+			CachedRewards.BattlePassBefore = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 		}
 
 		/// <inheritdoc />

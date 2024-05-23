@@ -118,6 +118,16 @@ namespace Quantum
 					return;
 					
 				}
+
+				if (CustomServer.ServerSimulation && _roomProps.MatchType.Value == MatchType.Custom)
+				{
+					if (FlgConfig.DebugMode)
+					{
+						Log.Info("Disabling simulation because custom game!");
+					}
+
+					CustomServer.ServerSimulation = false;
+				}
 				
 				if (FlgConfig.DebugMode)
 				{

@@ -30,6 +30,7 @@ namespace FirstLight.Game.Presenters
 		private TextField _yourIDField;
 		private TextField _addFriendIDField;
 		private Button _addFriendButton;
+		private Label _requestsCount;
 
 		private List<Relationship> _friends;
 		private List<Relationship> _blocked;
@@ -49,6 +50,7 @@ namespace FirstLight.Game.Presenters
 			_yourIDField = Root.Q<TextField>("YourID").Required();
 			_addFriendIDField = Root.Q<TextField>("AddFriendID").Required();
 			_addFriendButton = Root.Q<Button>("AddFriendButton").Required();
+			_requestsCount = Root.Q<Label>("RequestsCount").Required();
 
 			_addFriendButton.clicked += () => AddFriend(_addFriendIDField.value).Forget();
 			Root.Q<ImageButton>("CopyButton").Required().clicked += CopyPlayerID;
@@ -65,6 +67,7 @@ namespace FirstLight.Game.Presenters
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_yourIDField.value = AuthenticationService.Instance.PlayerId;
+			RefreshAll();
 
 			// TODO: Temporary, we just always refresh all lists
 			FriendsService.Instance.RelationshipDeleted += rde =>
@@ -101,7 +104,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_friends = FriendsService.Instance.Friends.ToList();
 			// Sort by last seen so online friends are at the top
-			_friends.Sort((a, b) => a.Member.Presence.LastSeen.CompareTo(b.Member.Presence.LastSeen));
+			_friends.Sort((a, b) => b.Member.Presence.Availability.CompareTo(a.Member.Presence.Availability));
 			_friendsList.itemsSource = _friends;
 			_friendsList.RefreshItems();
 		}
@@ -113,6 +116,9 @@ namespace FirstLight.Game.Presenters
 			_allRequests = incomingRequests.Concat(outgoingRequests).ToList();
 			_requestsList.itemsSource = _allRequests;
 			_requestsList.RefreshItems();
+			
+			_requestsCount.SetVisibility(incomingRequests.Count > 0);
+			_requestsCount.text = incomingRequests.Count.ToString();
 		}
 
 		private void RefreshBlocked()
@@ -137,7 +143,10 @@ namespace FirstLight.Game.Presenters
 			// Show header if first item or if the previous item has a different status
 			if (index == 0 || ((_friends[index - 1].Member.Presence.Availability == Availability.Online) != online))
 			{
-				header = online ? "ONLINE" : "OFFLINE";
+				var count = online ? _friends.Count(r => r.Member.Presence.Availability == Availability.Online) : 
+					_friends.Count(r => r.Member.Presence.Availability != Availability.Online);
+				
+				header = online ? $"ONLINE({count})" : $"OFFLINE({count})";
 			}
 
 			((FriendListElement) element).SetData(relationship, header, "INVITE", !online
@@ -151,13 +160,14 @@ namespace FirstLight.Game.Presenters
 		private void OnRequestsBindItem(VisualElement element, int index)
 		{
 			var relationship = _allRequests[index];
+			FLog.Info("PACO", $"BingRequest({index}): {relationship.Member.Role}");
 			var sentRequest = relationship.Member.Role == MemberRole.Target; // If we sent this request or received it
 
 			string header = null;
 
-			if (index == 0 || _friends[index - 1].Member.Role != relationship.Member.Role)
+			if (index == 0 || (_allRequests[index - 1].Member.Role == MemberRole.Target) != sentRequest)
 			{
-				header = relationship.Member.Role == MemberRole.Source ? "RECEIVED" : "PENDING";
+				header = relationship.Member.Role == MemberRole.Target ? "PENDING" : "RECEIVED";
 			}
 
 			((FriendListElement) element).SetData(relationship, header, null, null,
@@ -177,7 +187,7 @@ namespace FirstLight.Game.Presenters
 		{
 			TooltipUtils.OpenPlayerContextOptions(element, Root, relationship.Member.Profile.Name, new[]
 			{
-				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile", () => FLog.Info($"Open profile: {relationship.Member.Id}")),
+				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile", () => OpenProfile(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, "Block", () => BlockPlayer(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, "Remove friend", () => RemoveFriend(relationship.Member.Id).Forget())
 			}, TipDirection.TopRight, TooltipPosition.Center);
@@ -299,6 +309,18 @@ namespace FirstLight.Game.Presenters
 			};
 			te.SelectAll();
 			te.Copy();
+		}
+
+		private UniTask OpenProfile(string playerID)
+		{
+			FLog.Info($"Opening profile (not implemented yet): {playerID}");
+			// var data = new PlayerStatisticsPopupPresenter.StateData
+			// {
+			// 	PlayerId = member.ProfileMasterId,
+			// 	OnCloseClicked = () => _services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget()
+			// };
+			// _services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(data).Forget();
+			return UniTask.CompletedTask;
 		}
 	}
 }

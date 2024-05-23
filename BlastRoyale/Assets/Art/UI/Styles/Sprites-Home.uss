@@ -60,6 +60,9 @@
     --sprite-home__button-info-pressed: url('/Assets/Art/UI/Sprites/Home/button-info-pressed.png');
     --sprite-home__button-long-darkblue: url('/Assets/Art/UI/Sprites/Home/button-long-darkblue.png');
     --sprite-home__button-long-darkblue-pressed: url('/Assets/Art/UI/Sprites/Home/button-long-darkblue-pressed.png');
+    --sprite-home__button-long-disabled: url('/Assets/Art/UI/Sprites/Home/button-long-disabled.png');
+    --sprite-home__button-long-green: url('/Assets/Art/UI/Sprites/Home/button-long-green.png');
+    --sprite-home__button-long-green-pressed: url('/Assets/Art/UI/Sprites/Home/button-long-green-pressed.png');
     --sprite-home__button-long-purple: url('/Assets/Art/UI/Sprites/Home/button-long-purple.png');
     --sprite-home__button-long-purple-pressed: url('/Assets/Art/UI/Sprites/Home/button-long-purple-pressed.png');
     --sprite-home__button-long-red: url('/Assets/Art/UI/Sprites/Home/button-long-red.png');
@@ -543,10 +546,26 @@
     background-image: var(--sprite-home__button-long-darkblue-pressed);
 }
 
+.sprite-home__button-long-disabled {
+    background-image: var(--sprite-home__button-long-disabled);
+    width: 218px;
+    height: 73px;
+}
+
+.sprite-home__button-long-green {
+    background-image: var(--sprite-home__button-long-green);
+    width: 218px;
+    height: 73px;
+}
+
+.sprite-home__button-long-green:active {
+    background-image: var(--sprite-home__button-long-green-pressed);
+}
+
 .sprite-home__button-long-purple {
     background-image: var(--sprite-home__button-long-purple);
-    width: 306px;
-    height: 88px;
+    width: 218px;
+    height: 73px;
 }
 
 .sprite-home__button-long-purple:active {
@@ -555,8 +574,8 @@
 
 .sprite-home__button-long-red {
     background-image: var(--sprite-home__button-long-red);
-    width: 306px;
-    height: 88px;
+    width: 218px;
+    height: 73px;
 }
 
 .sprite-home__button-long-red:active {
@@ -565,8 +584,8 @@
 
 .sprite-home__button-long-yellow {
     background-image: var(--sprite-home__button-long-yellow);
-    width: 306px;
-    height: 88px;
+    width: 218px;
+    height: 73px;
 }
 
 .sprite-home__button-long-yellow:active {

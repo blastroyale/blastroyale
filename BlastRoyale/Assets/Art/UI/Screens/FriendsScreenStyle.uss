@@ -19,7 +19,7 @@
     width: 311px;
     height: 69px;
     -unity-text-align: middle-center;
-    padding-top: 5px;
+    padding-top: 8px;
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
@@ -32,6 +32,14 @@
 
 .unity-list-view {
     flex-grow: 1;
+}
+
+.unity-list-view__item {
+    padding-bottom: 20px;
+}
+
+.unity-scroll-view__content-viewport {
+    margin-right: 70px;
 }
 
 .friend-list-element {
@@ -134,6 +142,7 @@
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    margin-bottom: 15px;
 }
 
 .friend-list-element__online-indicator {
@@ -201,7 +210,6 @@
     height: 92px;
 }
 
-
 .your-id-input > .unity-text-field__input {
     padding-right: 100px;
 }
@@ -216,5 +224,28 @@
 }
 
 .button-copy:active {
-    -unity-background-image-tint-color: #aaaaaa;
+    -unity-background-image-tint-color: rgb(170, 170, 170);
+}
+
+.requests-count {
+    font-size: 36px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(255, 0, 43);
+    width: 50px;
+    height: 50px;
+    top: -17px;
+    right: -11px;
+    position: absolute;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    padding-top: 0;
+    padding-right: 2px;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
 }

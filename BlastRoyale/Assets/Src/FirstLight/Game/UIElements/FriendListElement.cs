@@ -47,7 +47,7 @@ namespace FirstLight.Game.UIElements
 
 			Add(_header = new Label("ONLINE (2)"));
 			_header.AddToClassList(USS_HEADER);
-			
+
 			var background = new VisualElement {name = "background"};
 			Add(background);
 			background.AddToClassList(USS_BACKGROUND);
@@ -55,7 +55,7 @@ namespace FirstLight.Game.UIElements
 				var backgroundPattern = new VisualElement {name = "background-pattern"};
 				background.Add(backgroundPattern);
 				backgroundPattern.AddToClassList(USS_BACKGROUND_PATTERN);
-				
+
 				var playerBarContainer = new VisualElement {name = "player-bar-container"};
 				background.Add(playerBarContainer);
 				playerBarContainer.AddToClassList(USS_PLAYER_BAR_CONTAINER);
@@ -67,7 +67,8 @@ namespace FirstLight.Game.UIElements
 						_onlineIndicator.AddToClassList(USS_ONLINE_INDICATOR);
 					}
 
-					playerBarContainer.Add(_nameAndTrophiesLabel = new Label("PlayerWithALongName\n<color=#FFC700>12345") {name = "name-and-trophies"});
+					playerBarContainer.Add(
+						_nameAndTrophiesLabel = new Label("PlayerWithALongName\n<color=#FFC700>12345") {name = "name-and-trophies"});
 					_nameAndTrophiesLabel.AddToClassList(USS_NAME_AND_TROPHIES);
 
 					playerBarContainer.Add(_activityLabel = new Label("Player last seend\n30 minutes ago") {name = "activity"});
@@ -88,7 +89,7 @@ namespace FirstLight.Game.UIElements
 				{
 					_acceptDeclineContainer.Add(_acceptButton = new Button {name = "accept-button"});
 					_acceptButton.AddToClassList("button-long");
-					_acceptButton.AddToClassList("button-long--purple"); // TODO mihak: Change to green
+					_acceptButton.AddToClassList("button-long--green"); // TODO mihak: Change to green
 					_acceptButton.text = "ACCEPT";
 					_acceptDeclineContainer.Add(_declineButton = new Button {name = "decline-button"});
 					_declineButton.AddToClassList("button-long");
@@ -108,15 +109,22 @@ namespace FirstLight.Game.UIElements
 							Action<VisualElement, Relationship> moreActionsAction)
 		{
 			_relationship = relationship;
-			_nameAndTrophiesLabel.text = $"{relationship.Member.Profile.Name}\n{222} T";
+			_nameAndTrophiesLabel.text = $"{relationship.Member.Profile.Name}\n{12234} <sprite name=\"TrophyIcon\">";
 
 			_header.SetDisplay(header != null);
 			_header.text = header;
 
 			if (relationship.Type == RelationshipType.FriendRequest)
 			{
-				_activityLabel.SetVisibility(true);
-				_activityLabel.text = "Has sent you a friend request";
+				if (relationship.Member.Role == MemberRole.Source)
+				{
+					_activityLabel.SetVisibility(true);
+					_activityLabel.text = "Has sent you a friend request";
+				}
+				else
+				{
+					_activityLabel.SetVisibility(false);
+				}
 			}
 			else if (relationship.Member.Presence != null)
 			{
@@ -126,7 +134,7 @@ namespace FirstLight.Game.UIElements
 				_onlineIndicator.EnableInClassList(USS_ONLINE_INDICATOR_ONLINE, availability == Availability.Online);
 
 				_activityLabel.SetVisibility(true);
-				_activityLabel.text = relationship.Member.Presence.GetActivity<PlayerActivity>().Status;
+				_activityLabel.text = relationship.Member.Presence.GetActivity<PlayerActivity>()?.Status;
 			}
 			else
 			{

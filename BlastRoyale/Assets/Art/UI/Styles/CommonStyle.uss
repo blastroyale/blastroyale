@@ -321,18 +321,20 @@
 
 .button-long:disabled {
     background-color: rgba(0, 0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-color: rgb(0, 0, 0);
-    background-image: var(--sprite-home__button-long-grey);
+    color: #928C9F;
+    background-image: var(--sprite-home__button-long-disabled);
     -unity-text-align: middle-center;
     padding-bottom: 0;
 }
 
 .button-long:disabled.button-long:active {
     background-color: rgba(0, 0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-color: rgb(0, 0, 0);
-    background-image: var(--sprite-home__button-long-grey);
+    color: #928C9F;
+    background-image: var(--sprite-home__button-long-disabled);
     -unity-text-align: middle-center;
     padding-bottom: 0;
 }
@@ -361,6 +363,14 @@
 
 .button-long--red:active {
     background-image: var(--sprite-home__button-long-red-pressed);
+}
+
+.button-long--green {
+    background-image: var(--sprite-home__button-long-green);
+}
+
+.button-long--green:active {
+    background-image: var(--sprite-home__button-long-green-pressed);
 }
 
 .button-long--price {

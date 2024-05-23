@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6617736739649731963}
   - component: {fileID: 5119619773078226448}
   m_Layer: 0
-  m_Name: Left
+  m_Name: Left Far Behind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -431,14 +431,14 @@ MonoBehaviour:
       Character: {fileID: 6270429400295697516}
       NameAnchor: {fileID: 2800138511601746704}
       LabelScale: 1.2
-    - SlotRoot: {fileID: 989285732172489987}
-      Character: {fileID: 5119619773078226448}
-      NameAnchor: {fileID: 6156093126417509730}
-      LabelScale: 1
     - SlotRoot: {fileID: 7096713103998530445}
       Character: {fileID: 6804651637125060487}
       NameAnchor: {fileID: 6255623686478188116}
       LabelScale: 1.2
+    - SlotRoot: {fileID: 989285732172489987}
+      Character: {fileID: 5119619773078226448}
+      NameAnchor: {fileID: 6156093126417509730}
+      LabelScale: 1
     _localPlayer:
       SlotRoot: {fileID: 6479911904834348504}
       Character: {fileID: 4935213202812832816}
@@ -869,7 +869,7 @@ GameObject:
   - component: {fileID: 5751533156593501265}
   - component: {fileID: 6804651637125060487}
   m_Layer: 0
-  m_Name: Left 2
+  m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

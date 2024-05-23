@@ -104,8 +104,7 @@ namespace FirstLight.Game.StateMachines
 				// before the event of starting the match is fireds causing an infinite loop and crash.
 				// This can still happen on some devices so this hack needs to be solved.
 				await UniTask.Delay(GameConstants.Tutorial.TIME_1000MS);
-
-				LoadingScreenPresenter.Destroy();
+				
 			}
 			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
 		}

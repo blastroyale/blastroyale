@@ -195,6 +195,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask OpenHUD()
 		{
+			LoadingScreenPresenter.Destroy();
 			// Here for the tutorial, because it's already opened.
 			if (!_services.UIService.IsScreenOpen<SwipeTransitionScreenPresenter>())
 			{

@@ -24,7 +24,7 @@ namespace FirstLight.Game.Services
 		
 		public RateAndReviewService(IMessageBrokerService msgBroker, LocalPrefsService localPrefsService)
 		{
-			if (!FeatureFlags.REVIEW_PROMPT_ENABLED)
+			if (!FeatureFlags.REVIEW_PROMPT_ENABLED || localPrefsService.RateAndReviewPromptShown)
 			{
 				return;
 			}
@@ -36,6 +36,8 @@ namespace FirstLight.Game.Services
 			_localPrefsService = localPrefsService;
 			_messageBrokerService.Subscribe<OpenRateAndReviewPromptMessage>(OnOpenRateAndReviewPromptMessage);
 			_messageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
+			
+			Debug.Log($"RateAndReviewService->Setup");
 		}
 
 		public bool ShouldShowPrompt => FeatureFlags.REVIEW_PROMPT_ENABLED && !_localPrefsService.RateAndReviewPromptShown && _localPrefsService.GamesPlayed.Value >= 4;
@@ -51,12 +53,13 @@ namespace FirstLight.Game.Services
 			_localPrefsService.RateAndReviewPromptShown.Value = true;
 			_messageBrokerService.Unsubscribe<OpenRateAndReviewPromptMessage>(OnOpenRateAndReviewPromptMessage);
 			_messageBrokerService.Unsubscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
+			Debug.Log($"RateAndReviewService->OnOpenRateAndReviewPromptMessage");
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
 		{
 			_localPrefsService.GamesPlayed.Value += 1;
-			//Debug.Log($"LocalPrefsService.GamesPlayed.Value {_localPrefsService.GamesPlayed.Value}");
+			Debug.Log($"RateAndReviewService->OnGameCompletedRewardsMessage LocalPrefsService.GamesPlayed.Value {_localPrefsService.GamesPlayed.Value}");
 		}
 	}
 }

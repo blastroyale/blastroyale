@@ -8,6 +8,7 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Statechart;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -56,6 +57,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void CheckForOpenRateAndReviewPromptUI(bool equippedNonDefaultItem)
 		{
+			Debug.Log($"CollectionMenuState->CheckForOpenRateAndReviewPromptUI {equippedNonDefaultItem}");
+			
 			if (_services.RateAndReviewService.ShouldShowPrompt
 				&& equippedNonDefaultItem)
 			{
@@ -82,6 +85,7 @@ namespace FirstLight.Game.StateMachines
 				},
 				EquippedNonDefaultItem = () =>
 				{
+					Debug.Log("CollectionMenuState->EquippedNonDefaultItem event");
 					equippedNonDefaultItem = true;
 				}
 			};

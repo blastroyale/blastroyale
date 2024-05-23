@@ -92,8 +92,7 @@ namespace FirstLight.Game.Presenters
 
 			_leaderboardPanel = Root.Q<VisualElement>("LeaderboardPanel").Required();
 			_leaderboardScrollView = Root.Q<ScrollView>("LeaderboardScrollView").Required();
-
-
+			
 			_rewardsPanel = Root.Q<VisualElement>("RewardsPanel").Required();
 			_trophies = _rewardsPanel.Q<VisualElement>("Trophies").Required();
 			_trophies.AttachView(this, out _trophiesView);
@@ -158,7 +157,7 @@ namespace FirstLight.Game.Presenters
 				trophiesReward = r;
 			}
 
-			_trophiesView.SetData(trophiesReward, (int) _matchServices.MatchEndDataService.TrophiesBeforeChange);
+			_trophiesView.SetData(trophiesReward, (int) _matchServices.MatchEndDataService.CachedRewards.Before.Trophies);
 
 			// BPP
 			SetBPPReward(rewards);
@@ -191,7 +190,7 @@ namespace FirstLight.Game.Presenters
 				// If it's the next level to the current one, we might have already some points in there
 				if (nextLevel == currentLevel)
 				{
-					levelRewardInfo.Start = (int) _matchServices.MatchEndDataService.XPBeforeChange;
+					levelRewardInfo.Start = (int) _matchServices.MatchEndDataService.CachedRewards.Before.Xp;
 				}
 
 				levelRewardInfo.MaxForLevel = (int) _gameDataProvider.PlayerDataProvider.GetXpNeededForLevel(currentLevel);
@@ -228,7 +227,8 @@ namespace FirstLight.Game.Presenters
 			var bppPoolInfo = _gameDataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.BPP);
 			var gainedLeft = bppReward;
 			var levelsInfo = new List<RewardLevelPanelView.LevelLevelRewardInfo>();
-			var nextLevel = (int) Math.Clamp(_matchServices.MatchEndDataService.BPLevelBeforeChange + 1, 0, maxLevel);
+			var bppBefore = _matchServices.MatchEndDataService.CachedRewards.Before.Currencies.TryGetValue(GameId.BPP, out var bpp) ? bpp : 0;
+			var nextLevel = (int) Math.Clamp(bppBefore + 1, 0, maxLevel);
 			var currentLevel = nextLevel;
 
 			do
@@ -240,7 +240,7 @@ namespace FirstLight.Game.Presenters
 				// If it's the next level to the current one, we might have already some points in there
 				if (nextLevel == currentLevel)
 				{
-					levelRewardInfo.Start = (int) _matchServices.MatchEndDataService.BPPBeforeChange;
+					levelRewardInfo.Start = (int) bppBefore;
 				}
 
 				levelRewardInfo.MaxForLevel =
@@ -325,7 +325,7 @@ namespace FirstLight.Game.Presenters
 		private Dictionary<GameId, int> ProcessRewards()
 		{
 			var dictionary = new Dictionary<GameId, int>();
-			var rewards = _matchServices.MatchEndDataService.Rewards;
+			var rewards = _matchServices.MatchEndDataService.CachedRewards.ReceivedInCommand;
 			for (var i = 0; i < rewards.Count; i++)
 			{
 				var id = rewards[i].Id;

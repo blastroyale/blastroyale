@@ -1,12 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules;
+using FirstLight.Services;
 using Quantum;
 using UnityEngine;
+using UnityEngine.Rendering.LookDev;
+using IDataProvider = FirstLight.Server.SDK.Models.IDataProvider;
 
 namespace FirstLight.Game.Services
 {
@@ -20,14 +25,7 @@ namespace FirstLight.Game.Services
 		/// List of all the QuantumPlayerData at the end of the game. Used in the places that need the frame.GetSingleton<GameContainer>().GeneratePlayersMatchData
 		/// </summary>
 		List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; }
-
-		Dictionary<PlayerRef, EquipmentEventData> PlayersFinalEquipment { get; }
-
-		/// <summary>
-		/// Config value used to know if the match end leaderboard should show the extra info
-		/// </summary>
-		bool ShowUIStandingsExtraInfo { get; }
-
+		
 		/// <summary>
 		/// LocalPlayer at the end of the game. Will be PlayerRef.None if we're spectators
 		/// </summary>
@@ -56,50 +54,15 @@ namespace FirstLight.Game.Services
 		Dictionary<PlayerRef, ClientCachedPlayerMatchData> PlayerMatchData { get; }
 
 		/// <summary>
-		/// List of rewards
-		/// </summary>
-		public List<ItemData> Rewards { get; }
-
-		/// <summary>
-		/// How trophies total changed
-		/// </summary>
-		public int TrophiesChange { get; }
-
-		/// <summary>
-		/// How many trophies player had before change
-		/// </summary>
-		public uint TrophiesBeforeChange { get; }
-
-		/// <summary>
-		/// How much CS the player had before the change
-		/// </summary>
-		public uint CSBeforeChange { get; }
-
-		/// <summary>
-		/// How much BPP the player had before the change
-		/// </summary>
-		public uint BPPBeforeChange { get; }
-
-		/// <summary>
-		/// What level was the player in BP before the change
-		/// </summary>
-		public uint BPLevelBeforeChange { get; }
-
-		/// <summary>
-		/// How much BPP the player had before the change
-		/// </summary>
-		public uint LevelBeforeChange { get; }
-
-		/// <summary>
-		/// What level was the player in BP before the change
-		/// </summary>
-		public uint XPBeforeChange { get; }
-
-		/// <summary>
 		/// Has local player left the match before it ended (either through menu UI, or during spectate)
 		/// This data point is available before the match ends
 		/// </summary>
 		public bool LeftBeforeMatchFinished { get; }
+		
+		/// <summary>
+		/// In-Memory cache of player rewards and states to be used in reward screen
+		/// </summary>
+		public RewardDataCache CachedRewards { get; }
 
 		/// <summary>
 		/// Read all data from simulation. Just in case we missed something for a reconnecting player
@@ -127,10 +90,18 @@ namespace FirstLight.Game.Services
 		}
 	}
 
+	public class RewardDataCache
+	{
+		public PlayerData Before = new();
+		public List<ItemData> ReceivedInCommand { get; set; } = new ();
+	}
+
 	public class MatchEndDataService : IMatchEndDataService, MatchServices.IMatchService
 	{
 		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; private set; }
 
+		public bool LeftBeforeMatchFinished { get; set; }
+		public RewardDataCache CachedRewards { get; private set; }
 		public PlayerRef Leader { get; private set; }
 
 		public Dictionary<PlayerRef, EquipmentEventData> PlayersFinalEquipment { get; private set; }
@@ -140,15 +111,6 @@ namespace FirstLight.Game.Services
 		public PlayerRef LocalPlayerKiller { get; private set; }
 		public bool DiedFromRoofDamage { get; private set; }
 		public Dictionary<PlayerRef, ClientCachedPlayerMatchData> PlayerMatchData { get; private set; } = new ();
-		public List<ItemData> Rewards { get; private set; }
-		public int TrophiesChange { get; private set; }
-		public uint TrophiesBeforeChange { get; private set; }
-		public uint CSBeforeChange { get; private set; }
-		public uint BPPBeforeChange { get; private set; }
-		public uint BPLevelBeforeChange { get; private set; }
-		public uint LevelBeforeChange { get; private set; }
-		public uint XPBeforeChange { get; private set; }
-		public bool LeftBeforeMatchFinished { get; private set; }
 
 		public void Reload()
 		{
@@ -164,19 +126,36 @@ namespace FirstLight.Game.Services
 			_dataProvider = dataProvider;
 			PlayersFinalEquipment = new Dictionary<PlayerRef, EquipmentEventData>();
 			_services.MessageBrokerService.Subscribe<LeftBeforeMatchFinishedMessage>(OnLeftBeforeMatchFinishedMessage);
+			_services.MessageBrokerService.Subscribe<BeforeSimulationCommand>(OnBeforeSimulationCommand);
+			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameRewards);
 		}
 
 		private void ReadInitialValues(QuantumGame game)
 		{
-			TrophiesBeforeChange = _dataProvider.PlayerDataProvider.Trophies.Value;
-			CSBeforeChange = (uint) _dataProvider.CurrencyDataProvider.Currencies[GameId.CS];
 			ShowUIStandingsExtraInfo = game.Frames.Verified.Context.GameModeConfig.ShowUIStandingsExtraInfo;
 			LocalPlayer = game.GetLocalPlayerRef();
 			PlayerMatchData = new Dictionary<PlayerRef, ClientCachedPlayerMatchData>();
 			LocalPlayerKiller = PlayerRef.None;
 			PlayersFinalEquipment.Clear();
-			LevelBeforeChange = _dataProvider.PlayerDataProvider.Level.Value;
-			XPBeforeChange = _dataProvider.PlayerDataProvider.XP.Value;
+		}
+
+		private PlayerData CopyPlayerData()
+		{
+			var pd = _services.DataService.GetData<PlayerData>();
+			var serialized = ModelSerializer.Serialize(pd);
+			return ModelSerializer.Deserialize<PlayerData>(serialized.Value);
+		}
+
+		private void OnGameRewards(GameCompletedRewardsMessage msg)
+		{
+			CachedRewards.ReceivedInCommand = msg.Rewards;
+		}
+
+		private void OnBeforeSimulationCommand(BeforeSimulationCommand msg)
+		{
+			if (msg.Type != QuantumServerCommand.EndOfGameRewards) return;
+			CachedRewards = new RewardDataCache();
+			CachedRewards.Before = CopyPlayerData();
 		}
 
 		/// <inheritdoc />
@@ -206,7 +185,7 @@ namespace FirstLight.Game.Services
 			DiedFromRoofDamage = callback.FromRoofDamage;
 		}
 
-		public void ReadMatchDataForEndingScreens(QuantumGame game)
+		public unsafe void ReadMatchDataForEndingScreens(QuantumGame game)
 		{
 			if (game == null || game.Frames.Verified == null)
 			{
@@ -214,9 +193,9 @@ namespace FirstLight.Game.Services
 			}
 
 			var frame = game.Frames.Verified;
-			var gameContainer = frame.GetSingleton<GameContainer>();
+			var gameContainer = frame.Unsafe.GetPointerSingleton<GameContainer>();
 			LocalPlayer = game.GetLocalPlayerRef();
-			QuantumPlayerMatchData = gameContainer.GeneratePlayersMatchData(frame, out var leader, out _);
+			QuantumPlayerMatchData = gameContainer->GeneratePlayersMatchData(frame, out var leader, out _);
 
 			Leader = leader;
 
@@ -254,8 +233,6 @@ namespace FirstLight.Game.Services
 
 				PlayerMatchData.Add(playerData.PlayerRef, playerData);
 			}
-
-			GetRewards(frame, gameContainer);
 		}
 
 		/// <inheritdoc />
@@ -275,46 +252,6 @@ namespace FirstLight.Game.Services
 		private void OnLeftBeforeMatchFinishedMessage(LeftBeforeMatchFinishedMessage msg)
 		{
 			LeftBeforeMatchFinished = true;
-		}
-
-		private void GetRewards(Frame frame, GameContainer gameContainer)
-		{
-			var playerRef = LocalPlayer == PlayerRef.None
-				? Leader
-				: LocalPlayer;
-
-			var room = _services.RoomService.CurrentRoom ?? _services.RoomService.LastRoom;
-			var matchType = room?.Properties?.MatchType?.Value ?? _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
-
-			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
-				!gameContainer.IsGameOver)
-			{
-				return;
-			}
-
-			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
-			BPPBeforeChange = predictedProgress.Item2;
-			BPLevelBeforeChange = predictedProgress.Item1;
-
-			var metaEarned = new Dictionary<GameId, ushort>();
-			var metaItems = frame.ResolveDictionary(gameContainer.PlayersData[playerRef].CollectedMetaItems);
-			foreach (var (id, amt) in metaItems)
-			{
-				metaEarned[id] = amt;
-			}
-
-			var rewardSource = new RewardSource()
-			{
-				MatchData = QuantumPlayerMatchData,
-				ExecutingPlayer = playerRef,
-				MatchType = matchType,
-				DidPlayerQuit = false,
-				GamePlayerCount = QuantumPlayerMatchData.Count(),
-				AllowedRewards = room?.Properties?.AllowedRewards.Value,
-				CollectedItems = metaEarned
-			};
-			Rewards = _dataProvider.RewardDataProvider.CalculateMatchRewards(rewardSource, out var trophyChange);
-			TrophiesChange = trophyChange;
 		}
 
 		/// <inheritdoc />

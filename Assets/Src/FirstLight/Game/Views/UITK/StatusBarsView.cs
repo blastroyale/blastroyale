@@ -421,7 +421,7 @@ namespace FirstLight.Game.Views.UITK
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 			
 			
-			bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, ScriptLocalization.UITMatch.no_input_warning);
+			bar.ShowNotification(PlayerStatusBarElement.NotificationType.NoInputWarning, ScriptLocalization.UITMatch.no_input_warning);
 		}
 	}
 }

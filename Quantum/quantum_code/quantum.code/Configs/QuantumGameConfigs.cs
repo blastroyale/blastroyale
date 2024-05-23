@@ -58,6 +58,7 @@ namespace Quantum
 		public FP ChanceToDropNoobOnKill;
 		public FP NoInputWarningTime;
 		public FP NoInputKillTime;
+		public FP NoInputStartChecking;
 		public FP NoInputStopChecking;
 	}
 

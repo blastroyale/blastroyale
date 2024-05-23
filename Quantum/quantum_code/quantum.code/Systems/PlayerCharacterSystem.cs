@@ -274,7 +274,8 @@ namespace Quantum.Systems
 			var input = f.GetPlayerInput(filter.Player->Player);
 			
 			// Check inactivity only up to certain time and only in ranked matches
-			if (f.Time < f.GameConfig.NoInputStopChecking &&
+			if (f.Time > f.GameConfig.NoInputStartChecking &&
+				f.Time < f.GameConfig.NoInputStopChecking &&
 				f.RuntimeConfig.AllowedRewards != null &&
 				f.RuntimeConfig.AllowedRewards.Contains((int)GameId.Trophies))
 			{

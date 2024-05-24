@@ -143,5 +143,7 @@ MonoBehaviour:
         RawValue: 983040
       NoInputKillTime:
         RawValue: 1310720
+      NoInputStartChecking:
+        RawValue: 655360
       NoInputStopChecking:
-        RawValue: 3932160
+        RawValue: 4915200

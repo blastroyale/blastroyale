@@ -33,7 +33,7 @@ namespace Quantum
         private readonly Dictionary<int, int> _actorNrToIndex;
         public SessionContainer gameSession;
         private RingBufferInputProvider inputProvider;
-        private bool _serverSimulation = true;
+        public bool ServerSimulation = true;
 
         public readonly PhotonPlayfabSDK Playfab;
         public Action<EventFireQuantumServerCommand> OnSimulationCommand;
@@ -48,7 +48,7 @@ namespace Quantum
             FLGCustomSerializers.RegisterSerializers();
             if (photonConfig.TryGetValue("simulation", out var runSim) && runSim == "false")
             {
-                _serverSimulation = false;
+                ServerSimulation = false;
             }
         }
 
@@ -56,7 +56,7 @@ namespace Quantum
 
         public override void OnDeterministicStartSession()
         {
-            if (!_serverSimulation)
+            if (!ServerSimulation)
             {
                 return;
             }
@@ -84,7 +84,7 @@ namespace Quantum
         /// This would transform the event into a logic server command.
         private void OnServerCommand(EventFireQuantumServerCommand ev)
         {
-            if (!_serverSimulation)
+            if (!ServerSimulation)
             {
                 return;
             }
@@ -99,7 +99,7 @@ namespace Quantum
 
         public void StartServerSimulation()
         {
-            if (!_serverSimulation)
+            if (!ServerSimulation)
             {
                 return;
             }
@@ -195,7 +195,7 @@ namespace Quantum
 		/// </summary>
 		public override void OnDeterministicInputConfirmed(DeterministicPluginClient client, int tick, int playerIndex, DeterministicTickInput input)
 		{
-			if (!_serverSimulation)
+			if (!ServerSimulation)
 			{
 				return;
 			}
@@ -208,7 +208,7 @@ namespace Quantum
         /// </summary>
         public override void OnDeterministicUpdate()
         {
-            if (!_serverSimulation)
+            if (!ServerSimulation)
             {
                 return;
             }
@@ -246,7 +246,7 @@ namespace Quantum
         /// </summary>
         public override Boolean OnDeterministicSnapshotRequested(ref Int32 tick, ref byte[] data)
         {
-            if (!_serverSimulation)
+            if (!ServerSimulation)
             {
                 return false;
             }

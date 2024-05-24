@@ -71,7 +71,6 @@ namespace FirstLight.Game.Services
 		public event OnMatchmakingCancelledHandler OnMatchmakingCancelled;
 	}
 
-
 	/// <summary>
 	/// Represents a match join settings
 	/// This object is passed down through the network to all party players so please be careful
@@ -107,6 +106,9 @@ namespace FirstLight.Game.Services
 		public string MasterPlayerId;
 		public string Server;
 
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string Map;
+
 		public MatchmakingPlayerAttributes Encode()
 		{
 			return new MatchmakingPlayerAttributes()
@@ -132,7 +134,6 @@ namespace FirstLight.Game.Services
 	{
 		private const string LOBBY_TICKET_PROPERTY = "mm_match";
 		private const string CANCELLED_KEY = "cancelled";
-
 
 		private readonly IGameDataProvider _dataProvider;
 		private readonly ICoroutineService _coroutines;
@@ -225,12 +226,11 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-
 			var req = new JoinMatchmakingTicketRequest()
 			{
 				QueueName = model.RoomSetup.PlayfabQueue.QueueName,
 				TicketId = model.TicketId,
-				Member = CreateLocalMatchmakingPlayer()
+				Member = CreateLocalMatchmakingPlayer(model.RoomSetup)
 			};
 			PlayFabMultiplayerAPI.JoinMatchmakingTicket(req, result =>
 			{
@@ -295,7 +295,6 @@ namespace FirstLight.Game.Services
 			}, callback, ErrorCallback("GetTicket"));
 		}
 
-
 		public void GetMyTickets(string queue, Action<ListMatchmakingTicketsForPlayerResult> callback)
 		{
 			PlayFabMultiplayerAPI.ListMatchmakingTicketsForPlayer(new ListMatchmakingTicketsForPlayerRequest()
@@ -314,7 +313,7 @@ namespace FirstLight.Game.Services
 			}, callback, ErrorCallback("GetMatch"));
 		}
 
-		private MatchmakingPlayer CreateLocalMatchmakingPlayer()
+		private MatchmakingPlayer CreateLocalMatchmakingPlayer(MatchRoomSetup roomSetup)
 		{
 			var mp = new MatchmakingPlayer()
 			{
@@ -326,6 +325,8 @@ namespace FirstLight.Game.Services
 				Attributes = new CustomMatchmakingPlayerProperties()
 				{
 					Server = _localPrefsService.ServerRegion.Value,
+					// We need to send the map as null so it can be matched with everyone else
+					Map = roomSetup.MapId != (int) GameId.Any ? roomSetup.MapId.ToString() : null,
 					MasterPlayerId = _networkService.UserId
 				}.Encode()
 			};
@@ -349,7 +350,7 @@ namespace FirstLight.Game.Services
 				MembersToMatchWith = members,
 				QueueName = setup.PlayfabQueue.QueueName,
 				GiveUpAfterSeconds = setup.PlayfabQueue.TimeoutTimeInSeconds,
-				Creator = CreateLocalMatchmakingPlayer()
+				Creator = CreateLocalMatchmakingPlayer(setup)
 			}, r =>
 			{
 				FLog.Info($"Matchmaking ticket {r.TicketId} created!");
@@ -397,7 +398,6 @@ namespace FirstLight.Game.Services
 			_isMatchmaking.Value = true;
 			FLog.Info("OnMatchmakingJoined invoked");
 		}
-
 
 		private Action<PlayFabError> ErrorCallback(string operation)
 		{
@@ -479,10 +479,20 @@ namespace FirstLight.Game.Services
 				// This distribution should be deterministic and used in the server to validate if anyone is exploiting
 				membersWithTeam = TeamDistribution.Distribute(membersWithTeam, (uint) _setup.PlayfabQueue.TeamSize);
 
+				var decodedPlayers = result.Members
+					.Select(m => CustomMatchmakingPlayerProperties.Decode(m.Attributes))
+					.ToArray();
+
+				// Select map
+				var map = decodedPlayers
+					.Select(m => m.Map).Distinct()
+					.FirstOrDefault(id => id != ((int) GameId.Any).ToString()) ?? ((int) GameId.Any).ToString();
+
+				_setup.MapId = int.Parse(map);
 				_service.InvokeMatchFound(new GameMatched()
 				{
-					ExpectedPlayers = result.Members
-						.Select(m => CustomMatchmakingPlayerProperties.Decode(m.Attributes).MasterPlayerId)
+					ExpectedPlayers = decodedPlayers
+						.Select(m => m.MasterPlayerId)
 						.ToArray(),
 					MatchIdentifier = ticket.MatchId,
 					RoomSetup = _setup,
@@ -490,7 +500,6 @@ namespace FirstLight.Game.Services
 				});
 			});
 		}
-
 
 		private IEnumerator Runnable()
 		{

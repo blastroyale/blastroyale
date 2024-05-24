@@ -127,7 +127,7 @@ namespace FirstLight.Game.Services
 			var setup = new MatchRoomSetup()
 			{
 				GameModeId = gameModeId,
-				MapId = gameModeConfig.AllowedMaps[0].GetHashCode(),
+				MapId = GameId.MazeMayhem.GetHashCode(),
 				RoomIdentifier = Guid.NewGuid().ToString(),
 				Mutators = Array.Empty<string>(),
 				MatchType = MatchType.Forced,

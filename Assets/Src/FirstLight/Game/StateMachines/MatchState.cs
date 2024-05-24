@@ -195,6 +195,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask OpenHUD()
 		{
+			LoadingScreenPresenter.Destroy();
 			// Here for the tutorial, because it's already opened.
 			if (!_services.UIService.IsScreenOpen<SwipeTransitionScreenPresenter>())
 			{
@@ -279,6 +280,13 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			FLog.Verbose("Quantum Logic Command Received: " + ev.CommandType.ToString());
+			
+			_services.MessageBrokerService.Publish(new BeforeSimulationCommand()
+			{
+				Game = game,
+				Type = ev.CommandType
+			});
+			
 			var command = QuantumLogicCommandFactory.BuildFromEvent(ev);
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			command.FromFrame(game.Frames.Verified, new QuantumValues()

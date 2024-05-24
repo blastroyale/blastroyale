@@ -3,13 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
@@ -31,7 +29,6 @@ namespace FirstLight.Game.Presenters
 			public Action<GameModeInfo> GameModeChosen;
 			public Action CustomGameChosen;
 
-			public Action OnHomeClicked;
 			public Action OnBackClicked;
 		}
 
@@ -60,6 +57,7 @@ namespace FirstLight.Game.Presenters
 			_header.backClicked += Data.OnBackClicked;
 			_mapDropDown = Root.Q<LocalizedDropDown>("Map").Required();
 			FillMapSelectionList();
+			_mapDropDown.RegisterValueChangedCallback(OnMapSelected);
 
 			var orderNumber = 1;
 
@@ -93,6 +91,13 @@ namespace FirstLight.Game.Presenters
 			customGameView.Disabled = _services.PartyService.HasParty.Value;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
+		}
+
+		private void OnMapSelected(ChangeEvent<string> evt)
+		{
+			var index = _mapDropDown.index;
+			var selected = _mapGameIds[index];
+			_services.GameModeService.SelectedMap = selected;
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
@@ -151,8 +156,6 @@ namespace FirstLight.Game.Presenters
 		private IEnumerator ChangeGameModeCoroutine(GameModeSelectionButtonView info)
 		{
 			_services.GameModeService.SelectedGameMode.Value = info.GameModeInfo;
-			_services.GameModeService.SelectedMap = _mapGameIds[_mapDropDown.index]; 
-			
 			Data.GameModeChosen(info.GameModeInfo);
 			yield return null;
 		}
@@ -177,44 +180,35 @@ namespace FirstLight.Game.Presenters
 				buttonView.Selected = buttonView.GameModeInfo.Entry == newGamemode.Entry;
 			}
 		}
-		
+
 		private void FillMapSelectionList()
 		{
-			var gameModeConfigs = _services.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>();
 			var menuChoices = new List<string>();
 			_mapGameIds = new List<GameId>();
+			int selectedIndex = 0;
+			int index = 0;
 
-			foreach (var gameModeConfig in gameModeConfigs)
+			foreach (var mapId in _services.GameModeService.ValidMatchmakingMaps)
 			{
-				if (gameModeConfig.Id == "BattleRoyale")
+				menuChoices.Add(mapId.GetLocalization());
+				_mapGameIds.Add(mapId);
+				if (_services.GameModeService.SelectedMap == mapId)
 				{
-					foreach (var mapId in gameModeConfig.AllowedMaps)
-					{
-						var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) mapId);
-						if (!mapConfig.IsTestMap && !mapConfig.IsCustomOnly)
-						{
-							menuChoices.Add(mapId.GetLocalization());
-							_mapGameIds.Add(mapId);
-						}
-					}
-					
-					if (_services.GameModeService.SelectedMap == 0)
-					{
-						_mapDropDown.index = 1;
-					}
-					
-					_mapDropDown.choices = menuChoices;
-					
-					for (var i = 0; i < _mapGameIds.Count; i++)
-					{
-						if (_mapGameIds[i] == _services.GameModeService.SelectedMap)
-						{
-							_mapDropDown.index = i;
-							break;
-						}
-					}
+					selectedIndex = index;
 				}
+
+				index++;
 			}
+
+			menuChoices.Add(ScriptLocalization.UITGameModeSelection.random_map);
+			_mapGameIds.Add(GameId.Any);
+			if (_services.GameModeService.SelectedMap == GameId.Any)
+			{
+				selectedIndex = index;
+			}
+
+			_mapDropDown.choices = menuChoices;
+			_mapDropDown.index = selectedIndex;
 		}
 	}
 }

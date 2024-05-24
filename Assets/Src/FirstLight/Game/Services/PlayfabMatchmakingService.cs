@@ -105,6 +105,7 @@ namespace FirstLight.Game.Services
 	{
 		public string MasterPlayerId;
 		public string Server;
+		public int PlayerCount;
 
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string Map;
@@ -327,7 +328,8 @@ namespace FirstLight.Game.Services
 					Server = _localPrefsService.ServerRegion.Value,
 					// We need to send the map as null so it can be matched with everyone else
 					Map = roomSetup.MapId != (int) GameId.Any ? roomSetup.MapId.ToString() : null,
-					MasterPlayerId = _networkService.UserId
+					MasterPlayerId = _networkService.UserId,
+					PlayerCount = 1
 				}.Encode()
 			};
 

@@ -34,16 +34,14 @@ namespace FirstLight.Game.Views.UITK
 		private PlayerHealthShieldElement _localPlayerHealthShield;
 
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_services = MainInstaller.ResolveServices();
-			_knockedOut = element.Q<VisualElement>("KnockedOutNotification").Required();
-			_friendKnockedOut = element.Q<VisualElement>("NeedshelpNotification").Required();
-			_knockoutLabel = element.Q<VisualElement>("KnockedOutLabel").Required();
-			_localPlayerHealthShield = element.Q<PlayerHealthShieldElement>("LocalPlayerHealthShield").Required();
-
-			base.Attached(element);
+			_knockedOut = Element.Q<VisualElement>("KnockedOutNotification").Required();
+			_friendKnockedOut = Element.Q<VisualElement>("NeedshelpNotification").Required();
+			_knockoutLabel = Element.Q<VisualElement>("KnockedOutLabel").Required();
+			_localPlayerHealthShield = Element.Q<PlayerHealthShieldElement>("LocalPlayerHealthShield").Required();
 		}
 
 		public override void OnScreenOpen(bool reload)

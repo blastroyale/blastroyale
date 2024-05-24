@@ -15,11 +15,11 @@ MonoBehaviour:
   _configs:
   - LevelStart: 1
     LevelEnd: 1
-    LevelUpXP: 200
+    LevelUpXP: 100
     Rewards:
       _keyData: 3d000000
       _valueData: 19000000
-    Systems: 02000000
+    Systems: 03000000
   - LevelStart: 2
     LevelEnd: 2
     LevelUpXP: 200
@@ -33,7 +33,7 @@ MonoBehaviour:
     Rewards:
       _keyData: 3d000000
       _valueData: 32000000
-    Systems: 05000000
+    Systems: 02000000
   - LevelStart: 4
     LevelEnd: 4
     LevelUpXP: 200
@@ -43,7 +43,7 @@ MonoBehaviour:
     Systems: 
   - LevelStart: 5
     LevelEnd: 5
-    LevelUpXP: 500
+    LevelUpXP: 600
     Rewards:
       _keyData: 3d000000
       _valueData: 64000000

@@ -1,0 +1,14 @@
+<!--Auto-generated file to be used by the External Dependency Manager for Unity (EDM4U) or the Mobile Dependency Resolver (MDR). 
+ Please do not modify by hand.-->
+<dependencies>
+  <androidPackages>
+    <repositories>
+      <repository>https://repo.maven.apache.org/maven2</repository>
+      <repository>https://maven.google.com</repository>
+    </repositories>
+    <androidPackage spec="com.google.firebase:firebase-messaging-ktx:22.0.0" />
+    <settings>
+      <setting name="useAndroidX" value="true" />
+    </settings>
+  </androidPackages>
+</dependencies>

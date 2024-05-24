@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Server.SDK.Modules.GameConfiguration;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
-using Environment = FirstLight.Game.Services.Environment;
 
 namespace FirstLight.Tests.EditorMode
 {
@@ -17,8 +15,7 @@ namespace FirstLight.Tests.EditorMode
 	/// </summary>
 	public class StubGameBackendService : IGameBackendService
 	{
-		public List<string> FunctionsCalled = new();
-		public BackendEnvironmentData CurrentEnvironmentData { get; }
+		public List<string> FunctionsCalled = new ();
 
 		public bool IsGameInMaintenance()
 		{
@@ -37,17 +34,14 @@ namespace FirstLight.Tests.EditorMode
 
 		public void HandleError(PlayFabError error, Action<PlayFabError> callback, AnalyticsCallsErrors.ErrorType errorType)
 		{
-			
 		}
 
 		public void HandleUnrecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType)
 		{
-			
 		}
 
 		public void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable)
 		{
-			
 		}
 
 		public bool IsDev()
@@ -60,56 +54,49 @@ namespace FirstLight.Tests.EditorMode
 			return false;
 		}
 
-		public void SetupBackendEnvironment(Environment? force)
+		public void SetupBackendEnvironment(FLEnvironment.Definition? force)
 		{
-
 		}
-		
+
 		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> onSuccess, Action<PlayFabError> onError)
 		{
-
 		}
 
 		public void GetPlayerSegments(Action<List<GetSegmentResult>> onSuccess, Action<PlayFabError> onError)
 		{
-
 		}
 
-		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null)
+		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null,
+									  Action<PlayFabError> onError = null)
 		{
-
 		}
 
 		public void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess = null, Action<PlayFabError> onError = null)
 		{
-
 		}
 
-		public void GetNeighborRankLeaderboard(int amountOfEntries, Action<GetLeaderboardAroundPlayerResult> onSuccess = null, Action<PlayFabError> onError = null)
+		public void GetNeighborRankLeaderboard(int amountOfEntries, Action<GetLeaderboardAroundPlayerResult> onSuccess = null,
+											   Action<PlayFabError> onError = null)
 		{
-
 		}
 
-		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess = null, Action<PlayFabError> onError = null, object parameter = null)
+		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess = null, Action<PlayFabError> onError = null,
+								 object parameter = null)
 		{
 			FunctionsCalled.Add(functionName);
-			onSuccess ?.Invoke(new ExecuteFunctionResult());
+			onSuccess?.Invoke(new ExecuteFunctionResult());
 		}
 
 		public void GetTitleData(string key, Action<string> onSuccess, Action<PlayFabError> onError)
 		{
-
 		}
 
 		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)
 		{
-
 		}
 
 		public void CheckIfRewardsMatch(Action<bool> onSuccess, Action<PlayFabError> onError)
 		{
-
 		}
 	}
-
 }

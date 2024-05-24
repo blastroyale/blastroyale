@@ -102,7 +102,6 @@ namespace FirstLight.Game.Presenters
 		public async UniTask BlockAround<T>(string className = null, string elementName = null)
 			where T : UIPresenter
 		{
-			FLog.Info("PACO", $"BlockAround: {className} - {typeof(T)}");
 			await UniTask.WaitUntil(() => _services.UIService.IsScreenOpen<T>());
 			var root = _services.UIService.GetScreen<T>().Root;
 			var element = root.Q(elementName, className);
@@ -157,21 +156,18 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void RemoveHighlight()
 		{
-			FLog.Info("PACO", "RemoveHighlight");
 			_highlighterElement.experimental.animation.Scale(_initialScale, GameConstants.Tutorial.TIME_HIGHLIGHT_FADE)
 				.OnCompleted(DeleteHighLightElement);
 		}
 		
 		public void ShowGuideHand()
 		{
-			FLog.Info("PACO", "ShowGuideHand");
 			_guideHandRoot.SetActive(true);
 			_guideHandAnimator.enabled = true;
 		}
 
 		public void HideGuideHand()
 		{
-			FLog.Info("PACO", "HideGuideHand");
 			_guideHandRoot.SetActive(false);
 			_guideHandAnimator.enabled = false;
 		}

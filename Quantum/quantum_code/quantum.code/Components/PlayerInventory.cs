@@ -2,7 +2,7 @@ namespace Quantum
 {
 	public partial struct PlayerInventory
 	{
-		public bool TryAddSpecial(Frame f, EntityRef playerEntity, PlayerRef player, Special special)
+		public bool TryAddSpecial(Frame f, EntityRef playerEntity, PlayerRef player, in Special special)
 		{
 			for (var i = 0; i < Specials.Length; i++)
 			{

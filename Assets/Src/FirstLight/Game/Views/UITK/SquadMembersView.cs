@@ -25,13 +25,12 @@ namespace FirstLight.Game.Views.UITK
 
 		private readonly Dictionary<EntityRef, SquadMemberElement> _squadMembers = new ();
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_services = MainInstaller.ResolveServices();
 			_dataProvider = MainInstaller.ResolveData();
-			element.Clear(); // Clears development-time child elements.
+			Element.Clear(); // Clears development-time child elements.
 		}
 
 		public override void OnScreenOpen(bool reload)

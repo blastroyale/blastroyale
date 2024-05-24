@@ -6,6 +6,7 @@ using FirstLight.Editor.Build.Utils;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
+using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
@@ -19,6 +20,25 @@ namespace FirstLight.Editor.Build
 	/// </summary>
 	public static class Builder
 	{
+		/// <summary>
+		/// Builds an addressable update - for testing only.
+		/// </summary>
+		public static void BuildAddressablesUpdateIOS()
+		{
+			SetupAddressables();
+			ContentUpdateScript.BuildContentUpdate(AddressableAssetSettingsDefaultObject.Settings, "ServerData/iOS/addressables_content_state.bin");
+		}
+
+		/// <summary>
+		/// Builds an addressable update - for testing only.
+		/// </summary>
+		public static void BuildAddressablesUpdateAndroid()
+		{
+			SetupAddressables();
+			ContentUpdateScript.BuildContentUpdate(AddressableAssetSettingsDefaultObject.Settings,
+				"ServerData/Android/addressables_content_state.bin");
+		}
+
 		/// <summary>
 		/// Combines the configure and build steps
 		/// </summary>
@@ -35,8 +55,7 @@ namespace FirstLight.Editor.Build
 
 			SetupBuildNumber(buildNumber);
 			SetupDevelopmentBuild(isDevelopmentBuild, ref buildConfig);
-			SetupAddressables(environment);
-			SetupServerDefines(environment, ref buildConfig);
+			SetupAddressables();
 			SetupAndroidKeystore();
 			SetupScenes(ref buildConfig);
 			SetupPath(ref buildConfig, buildTarget);
@@ -83,26 +102,13 @@ namespace FirstLight.Editor.Build
 			}
 		}
 
-
-		private static void SetupAddressables(string environment)
+		private static void SetupAddressables()
 		{
 			var addressableSettings = AddressableAssetSettingsDefaultObject.Settings;
 
-			var profileName = $"CCD-{environment}";
-			var profileId = addressableSettings.profileSettings.GetProfileId(profileName);
-			if (string.IsNullOrEmpty(profileId))
-			{
-				Debug.LogError($"Could not find Addressable profile: {profileName}");
-				EditorApplication.Exit(1);
-			}
+			var profileId = addressableSettings.profileSettings.GetProfileId("CCD");
 
 			AddressableAssetSettingsDefaultObject.Settings.activeProfileId = profileId;
-
-			// On dev we have unique catalogs (with null it generates a timestamp suffix)
-			if (environment == BuildUtils.ENV_DEV)
-			{
-				AddressableAssetSettingsDefaultObject.Settings.OverridePlayerVersion = null;
-			}
 		}
 
 		private static void BuildAddressables()
@@ -120,31 +126,6 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.iOS.buildNumber = buildNumber.ToString();
 		}
 
-		private static void SetupServerDefines(string environment, ref BuildPlayerOptions buildOptions)
-		{
-			Assert.IsNull(buildOptions.extraScriptingDefines, "Scripting defines should be null here!");
-
-			switch (environment)
-			{
-				case BuildUtils.ENV_DEV:
-					buildOptions.extraScriptingDefines = new[] {"DEV_SERVER"};
-					break;
-				case BuildUtils.ENV_STAGING:
-					buildOptions.extraScriptingDefines = new[] {"STAGE_SERVER"};
-					break;
-				case BuildUtils.ENV_COMMUNITY:
-					buildOptions.extraScriptingDefines = new[] {"COMMUNITY_SERVER"};
-					break;
-				case BuildUtils.ENV_PROD:
-					buildOptions.extraScriptingDefines = new[] {"PROD_SERVER"};
-					break;
-				default:
-					Debug.LogError($"Unrecognised environment: {environment}");
-					EditorApplication.Exit(1);
-					break;
-			}
-		}
-
 		[Conditional("UNITY_ANDROID")]
 		private static void SetupAndroidKeystore()
 		{
@@ -155,15 +136,5 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.Android.keyaliasName = "blastroyale";
 			PlayerSettings.Android.keyaliasPass = "***REMOVED***";
 		}
-
-#if UNITY_CLOUD_BUILD
-    public static void PreExport(UnityEngine.CloudBuild.BuildManifestObject manifest)
-    {
-        var buildNumber = manifest.GetValue<int>("buildNumber") + BuildUtils.GetBuildNumber(); // In UCS DevOps we add the ENV build number to the cloud build number
-        Debug.Log("Setting build number to " + buildNumber);
-        PlayerSettings.Android.bundleVersionCode = buildNumber;
-        PlayerSettings.iOS.buildNumber = buildNumber.ToString();
-    }
-#endif
 	}
 }

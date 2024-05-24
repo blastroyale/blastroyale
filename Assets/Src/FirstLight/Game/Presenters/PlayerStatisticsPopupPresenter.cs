@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -10,6 +11,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Server.SDK.Models;
 using FirstLight.UIService;
 using I2.Loc;
+using PlayFab;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -40,9 +42,11 @@ namespace FirstLight.Game.Presenters
 		private VisualElement[] _statContainers;
 
 		private int _pfpRequestHandle = -1;
-		
+
 		private const int StatisticMaxSize = 4;
-		
+
+		private bool IsLocalPlayer => Data.PlayerId == PlayFabSettings.staticPlayer.PlayFabId;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -60,7 +64,16 @@ namespace FirstLight.Game.Presenters
 			_statValues = new Label[StatisticMaxSize];
 			_statContainers = new VisualElement[StatisticMaxSize];
 
-			Root.Q<ImageButton>("EditNameButton").clicked += () => Data.OnEditNameClicked();
+			var editNameButton = Root.Q<ImageButton>("EditNameButton");
+			if (IsLocalPlayer)
+			{
+				editNameButton.clicked += () => Data.OnEditNameClicked();
+			}
+			else
+			{
+				editNameButton.SetVisibility(false);
+			}
+
 			Root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
 			Root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
 
@@ -77,7 +90,7 @@ namespace FirstLight.Game.Presenters
 				_statLabels[i] = Root.Q<Label>($"StatName{i}").Required();
 				_statValues[i] = Root.Q<Label>($"StatValue{i}").Required();
 			}
-			
+
 			// Hiding 2 more stats slots. Will be used later
 			Root.Q<VisualElement>($"StatsWidget4").Required().SetDisplay(false);
 			Root.Q<VisualElement>($"StatsWidget5").Required().SetDisplay(false);
@@ -87,7 +100,6 @@ namespace FirstLight.Game.Presenters
 
 			Root.SetupClicks(_services);
 		}
-
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
@@ -126,6 +138,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_content.visible = false;
 			_loadingSpinner.visible = true;
+			FLog.Info("Downloading profile for " + Data.PlayerId);
 			_services.ProfileService.GetPlayerPublicProfile(Data.PlayerId, (result) =>
 			{
 				// TODO: Race condition if you close and quickly reopen the popup
@@ -136,10 +149,19 @@ namespace FirstLight.Game.Presenters
 				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);
 				SetStatInfo(1, result, GameConstants.Stats.RANKED_GAMES_WON_EVER, ScriptLocalization.MainMenu.RankedGamesWon);
 				SetStatInfo(2, result, GameConstants.Stats.RANKED_KILLS_EVER, ScriptLocalization.MainMenu.RankedKills);
-				SetStatInfo(3, result, GameConstants.Stats.RANKED_DEATHS_EVER, ScriptLocalization.MainMenu.RankedDeaths);
-				
+				SetStatInfo(3, result, GameConstants.Stats.RANKED_DAMAGE_DONE_EVER, ScriptLocalization.MainMenu.RankedDamageDone);
+
 				_pfpImage.SetAvatar(result.AvatarUrl);
-				_pfpImage.SetLevel(_gameDataProvider.PlayerDataProvider.Level.Value);
+				if (IsLocalPlayer)
+				{
+					_pfpImage.SetLevel(_gameDataProvider.PlayerDataProvider.Level.Value);
+				}
+				else
+				{
+					var stat = result.Statistics.FirstOrDefault(s => s.Name == GameConstants.Stats.FAME);
+					_pfpImage.SetLevel((uint) stat.Value);
+				}
+
 				_pfpImage.RegisterCallback<MouseDownEvent>(e => OpenLeaderboard(ScriptLocalization.General.Level, GameConstants.Stats.FAME));
 				_content.visible = true;
 				_loadingSpinner.visible = false;

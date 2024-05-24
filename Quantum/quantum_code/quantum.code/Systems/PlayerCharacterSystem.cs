@@ -124,7 +124,7 @@ namespace Quantum.Systems
 			}
 
 
-			var deathPosition = f.Get<Transform3D>(entity).Position;
+			var deathPosition = f.Unsafe.GetPointer<Transform3D>(entity)->Position;
 			var gameModeConfig = f.Context.GameModeConfig;
 			var equipmentToDrop = new List<Equipment>();
 			var consumablesToDrop = new List<GameId>();
@@ -243,7 +243,7 @@ namespace Quantum.Systems
 		/// <summary>
 		/// When player starts to aim, there is an initial delay for when a bullet needs to be fired.
 		/// </summary>
-		public static void OnStartAiming(Frame f, AIBlackboardComponent* bb, QuantumWeaponConfig weaponConfig)
+		public static void OnStartAiming(Frame f, AIBlackboardComponent* bb, in QuantumWeaponConfig weaponConfig)
 		{
 			if (weaponConfig.IsMeleeWeapon) return; // melee weapons are instant
 			var nextShotTime = bb->GetFP(f, nameof(Constants.NextShotTime));
@@ -272,6 +272,16 @@ namespace Quantum.Systems
 			}
 
 			var input = f.GetPlayerInput(filter.Player->Player);
+			
+			// Check inactivity only up to certain time and only in ranked matches
+			if (f.Time > f.GameConfig.NoInputStartChecking &&
+				f.Time < f.GameConfig.NoInputStopChecking &&
+				f.RuntimeConfig.AllowedRewards != null &&
+				f.RuntimeConfig.AllowedRewards.Contains((int)GameId.Trophies))
+			{
+				ProcessNoInputWarning(f, ref filter, input->GetHashCode());
+			}
+			
 			var rotation = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
 			var prevRotation = bb->GetVector2(f, Constants.AimDirectionKey);
@@ -352,6 +362,32 @@ namespace Quantum.Systems
 			kcc->Move(f, filter.Entity, moveDirection, this);
 		}
 
+		private void ProcessNoInputWarning(Frame f, ref PlayerCharacterFilter filter, int inputHashCode)
+		{
+			if (filter.Player->InputSnapshot == inputHashCode)
+			{
+				if (f.Time - filter.Player->LastNoInputTimeSnapshot > f.GameConfig.NoInputKillTime)
+				{
+					f.Signals.PlayerKilledByBeingAFK(filter.Player->Player);
+					f.Unsafe.GetPointer<Stats>(filter.Entity)->Kill(f, filter.Entity);
+				}
+				else if (f.Time - filter.Player->LastNoInputTimeSnapshot > f.GameConfig.NoInputWarningTime
+						 && f.Time - filter.Player->LastNoInputTimeSnapshot < f.GameConfig.NoInputWarningTime + FP._1)
+				{
+					f.Events.OnLocalPlayerNoInput(f.Get<PlayerCharacter>(filter.Entity).Player, filter.Entity);
+						
+					// A hack with a time counter to avoid sending more than a single event
+					filter.Player->LastNoInputTimeSnapshot -= FP._1_50;
+				}
+			}
+			else
+			{
+				filter.Player->LastNoInputTimeSnapshot = f.Time;
+			}
+			
+			filter.Player->InputSnapshot = inputHashCode;
+		}
+
 		private void UpdateHealthPerSecMutator(Frame f, ref PlayerCharacterFilter filter)
 		{
 			if (!f.IsVerified) return;
@@ -359,8 +395,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-
-			var health = healthPerSecondsMutatorConfig.Param1.AsInt;
+			
 			var seconds = healthPerSecondsMutatorConfig.Param2.AsInt;
 
 			// It will heal every x frames
@@ -372,6 +407,8 @@ namespace Quantum.Systems
 				return;
 			}
 
+			var health = healthPerSecondsMutatorConfig.Param1.AsInt;
+			
 			var spell = new Spell() { PowerAmount = (uint)health };
 			if (health > 0)
 			{
@@ -390,9 +427,9 @@ namespace Quantum.Systems
 			if (blockMovement && f.TryGet<CharacterController3D>(hit.Entity, out var enemyKcc) &&
 				f.TryGet<CharacterController3D>(character, out var myKcc))
 			{
-				var myTransform = f.Get<Transform3D>(character);
+				var myTransform = f.Unsafe.GetPointer<Transform3D>(character);
 				var enemyTransform = f.Unsafe.GetPointer<Transform3D>(hit.Entity);
-				var pushAngle = (myTransform.Position - enemyTransform->Position).Normalized;
+				var pushAngle = (myTransform->Position - enemyTransform->Position).Normalized;
 				pushAngle.Y = 0;
 				enemyKcc.Move(f, hit.Entity, pushAngle);
 			}

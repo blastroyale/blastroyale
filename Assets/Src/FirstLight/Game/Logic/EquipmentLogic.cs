@@ -84,6 +84,11 @@ namespace FirstLight.Game.Logic
 		bool TryGetNftInfo(UniqueId id, out NftEquipmentInfo nftEquipmentInfo);
 
 		/// <summary>
+		/// Returns if Nft info is valid.
+		/// </summary>
+		bool IsNftInfoValid(UniqueId id);
+
+		/// <summary>
 		/// Requests the <see cref="EquipmentInfo"/> for all the loadout with the given <paramref name="filter"/>
 		/// </summary>
 		List<EquipmentInfo> GetLoadoutEquipmentInfo(EquipmentFilter filter);
@@ -126,6 +131,11 @@ namespace FirstLight.Game.Logic
 		/// Removes a given equipment from inventory.
 		/// </summary>
 		void RemoveFromInventory(UniqueId id);
+
+		/// <summary>
+		/// Removes all entry equipment from Loadout.
+		/// </summary>
+		void RemoveAllFromLoadout();
 
 		/// <summary>
 		/// Sets the loadout for each slot in given <paramref name="newLoadout"/>
@@ -280,6 +290,11 @@ namespace FirstLight.Game.Logic
 				Manufacturer = GetManufacturer(equipment),
 				Stats = equipment.GetStats(GameLogic.ConfigsProvider)
 			};
+		}
+
+		public bool IsNftInfoValid(UniqueId id)
+		{
+			return _nftInventory.TryGetValue(id, out var _);
 		}
 
 		public bool TryGetNftInfo(UniqueId id, out NftEquipmentInfo nftEquipmentInfo)
@@ -508,7 +523,7 @@ namespace FirstLight.Game.Logic
 				_loadout.Add(slot, itemId);
 			}
 		}
-
+		
 		public void Unequip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
@@ -644,6 +659,11 @@ namespace FirstLight.Game.Logic
 			}
 
 			throw new LogicException("Dictionary weighted random could not return a valid index.");
+		}
+
+		public void RemoveAllFromLoadout()
+		{
+			_loadout.Clear();
 		}
 
 		public void RemoveFromInventory(UniqueId equipment)

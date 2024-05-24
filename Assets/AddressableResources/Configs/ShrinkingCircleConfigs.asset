@@ -32,7 +32,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 1638
+        RawValue: 1966
       AirdropChance:
         RawValue: 32768
       AirdropStartTimeRange:
@@ -82,7 +82,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 5898
+        RawValue: 4588
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -107,7 +107,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 13107
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -132,7 +132,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 1638
+        RawValue: 1966
       AirdropChance:
         RawValue: 39322
       AirdropStartTimeRange:
@@ -207,7 +207,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 6554
+        RawValue: 5243
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -232,7 +232,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 13107
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -257,7 +257,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 49152
       MaxHealthDamage:
-        RawValue: 1311
+        RawValue: 1966
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -282,7 +282,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 98304
       MaxHealthDamage:
-        RawValue: 1966
+        RawValue: 2621
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -307,7 +307,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 3277
+        RawValue: 3932
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -332,7 +332,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 4915
+        RawValue: 5243
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -382,7 +382,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 7864
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -407,7 +407,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 98304
       MaxHealthDamage:
-        RawValue: 9830
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -432,7 +432,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 13107
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -457,7 +457,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 1638
+        RawValue: 1966
       AirdropChance:
         RawValue: 32768
       AirdropStartTimeRange:
@@ -532,7 +532,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 6554
+        RawValue: 5243
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -557,7 +557,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 13107
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -582,7 +582,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 49152
       MaxHealthDamage:
-        RawValue: 2163
+        RawValue: 1966
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -607,7 +607,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 98304
       MaxHealthDamage:
-        RawValue: 3277
+        RawValue: 2621
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -632,7 +632,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 5243
+        RawValue: 3932
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -657,7 +657,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 8192
+        RawValue: 5243
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -682,7 +682,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 11141
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -707,7 +707,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -732,7 +732,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -757,7 +757,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 147456
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -782,7 +782,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 163840
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -807,7 +807,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 196608
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -832,7 +832,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 196608
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -857,7 +857,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 196608
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -882,7 +882,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -907,7 +907,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 49152
       MaxHealthDamage:
-        RawValue: 1311
+        RawValue: 1966
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -932,7 +932,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 98304
       MaxHealthDamage:
-        RawValue: 1966
+        RawValue: 2621
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -957,7 +957,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 3277
+        RawValue: 3932
       AirdropChance:
         RawValue: 26214
       AirdropStartTimeRange:
@@ -982,7 +982,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 4915
+        RawValue: 5243
       AirdropChance:
         RawValue: 6554
       AirdropStartTimeRange:
@@ -1032,7 +1032,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 7864
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1057,7 +1057,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 9830
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1082,7 +1082,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 147456
       MaxHealthDamage:
-        RawValue: 9830
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1107,7 +1107,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 163840
       MaxHealthDamage:
-        RawValue: 9830
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1132,7 +1132,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 196608
       MaxHealthDamage:
-        RawValue: 9830
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1157,7 +1157,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 196608
       MaxHealthDamage:
-        RawValue: 9830
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1182,7 +1182,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 196608
       MaxHealthDamage:
-        RawValue: 9830
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1207,7 +1207,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 13107
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1232,7 +1232,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 1638
+        RawValue: 1966
       AirdropChance:
         RawValue: 32768
       AirdropStartTimeRange:
@@ -1257,7 +1257,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 3277
+        RawValue: 2621
       AirdropChance:
         RawValue: 32768
       AirdropStartTimeRange:
@@ -1282,7 +1282,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 6554
+        RawValue: 3932
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1307,7 +1307,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 9830
+        RawValue: 5243
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1332,7 +1332,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 13107
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1357,7 +1357,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 13107
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1382,7 +1382,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 1638
+        RawValue: 1966
       AirdropChance:
         RawValue: 32768
       AirdropStartTimeRange:
@@ -1407,7 +1407,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 3277
+        RawValue: 2621
       AirdropChance:
         RawValue: 32768
       AirdropStartTimeRange:
@@ -1432,7 +1432,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 6554
+        RawValue: 3932
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1457,7 +1457,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 9830
+        RawValue: 5243
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1482,7 +1482,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 13107
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1507,7 +1507,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 13107
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1530,9 +1530,9 @@ MonoBehaviour:
       ShrinkingSizeK:
         RawValue: 26214
       NewSafeSpaceAreaSizeK:
-        RawValue: 45875
+        RawValue: 58982
       MaxHealthDamage:
-        RawValue: 2163
+        RawValue: 1966
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -1557,7 +1557,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 3277
+        RawValue: 2621
       AirdropChance:
         RawValue: 13107
       AirdropStartTimeRange:
@@ -1582,7 +1582,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 5243
+        RawValue: 3932
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -1607,7 +1607,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 8192
+        RawValue: 5243
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1632,7 +1632,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 11141
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1657,7 +1657,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1682,7 +1682,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1707,7 +1707,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1732,7 +1732,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1757,7 +1757,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1782,7 +1782,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1807,7 +1807,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1832,7 +1832,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 16384
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:

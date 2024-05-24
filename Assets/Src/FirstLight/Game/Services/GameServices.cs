@@ -83,9 +83,6 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="ITutorialService"/>
 		ITutorialService TutorialService { get; }
 
-		/// <inheritdoc cref="IPlayfabService"/>
-		ILiveopsService LiveopsService { get; }
-
 		/// <inheritdoc cref="IRemoteTextureService"/>
 		public IRemoteTextureService RemoteTextureService { get; }
 
@@ -104,7 +101,6 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IIAPService"/>
 		public IIAPService IAPService { get; }
 
-		/// <inheritdoc cref="IPartyService"/>
 		public IPartyService PartyService { get; }
 
 		/// <inheritdoc cref="IPlayfabPubSubService"/>
@@ -162,7 +158,6 @@ namespace FirstLight.Game.Services
 		public IPlayerProfileService ProfileService { get; }
 		public IAuthenticationService AuthenticationService { get; }
 		public ITutorialService TutorialService { get; }
-		public ILiveopsService LiveopsService { get; }
 		public IRemoteTextureService RemoteTextureService { get; }
 		public IThreadService ThreadService { get; }
 		public ICustomerSupportService CustomerSupportService { get; }
@@ -182,7 +177,6 @@ namespace FirstLight.Game.Services
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; }
 		public ILeaderboardService LeaderboardService { get; }
-		public ICheatsService CheatsService { get; }
 		public IRewardService RewardService { get; }
 		public LocalPrefsService LocalPrefsService { get; }
 		
@@ -195,7 +189,6 @@ namespace FirstLight.Game.Services
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
-			AnalyticsService = new AnalyticsService(this, gameLogic);
 			TimeService = timeService;
 			DataSaver = dataService;
 			DataService = dataService;
@@ -210,6 +203,8 @@ namespace FirstLight.Game.Services
 			UIVFXService = new UIVFXService(this, assetResolverService);
 			UIVFXService.Init().Forget();
 
+			AnalyticsService = new AnalyticsService(this, gameLogic, UIService);
+
 			ThreadService = new ThreadService();
 			GuidService = new GuidService();
 			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
@@ -218,10 +213,9 @@ namespace FirstLight.Game.Services
 			ProfileService = new PlayerProfileService(GameBackendService);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic,
 				configsProvider);
-			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService,
+			PartyService = new PartyService(PlayfabPubSubService, gameLogic.AppDataProvider, GameBackendService,
 				GenericDialogService, MessageBrokerService, LocalPrefsService);
-			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider);
-			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider, LocalPrefsService);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			RewardService = new RewardService(this, gameLogic);
@@ -236,10 +230,8 @@ namespace FirstLight.Game.Services
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 
-			var environmentService = new EnvironmentService(MessageBrokerService);
 			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);
 			TutorialService = new TutorialService(RoomService, CommandService, ConfigsProvider, gameLogic);
-			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic, TutorialService);
 			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
 			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, this);
 			GameAppService = new GameAppService(this);

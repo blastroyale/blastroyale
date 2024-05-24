@@ -377,6 +377,7 @@
 }
 
 .dots-pattern {
+    -unity-background-image-tint-color: rgb(105, 67, 195);
 }
 
 .height-spacer {

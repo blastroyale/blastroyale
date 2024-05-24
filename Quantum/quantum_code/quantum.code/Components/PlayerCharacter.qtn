@@ -44,7 +44,9 @@ component PlayerCharacter
 	[HideInInspector] Int32 TeamId;
 	[HideInInspector] Int32 CurrentWeaponSlot;
 	[HideInInspector] array<WeaponSlot>[MAX_WEAPONS] WeaponSlots;
-    bool RealPlayer;
+	bool RealPlayer;
+	Int32 InputSnapshot;
+	FP LastNoInputTimeSnapshot;
 }
 
 component PlayerInventory {
@@ -63,3 +65,4 @@ component PlayerCharging
 signal PlayerDead(player_ref playerDead, entity_ref entityDead);
 signal PlayerKilledPlayer(player_ref playerDead, entity_ref entityDead, player_ref playerKiller, entity_ref entityKiller);
 signal PlayerColliderDisabled(entity_ref playerEntity);
+signal PlayerKilledByBeingAFK(player_ref player);

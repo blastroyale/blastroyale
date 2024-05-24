@@ -9,6 +9,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Services.Party;
@@ -20,7 +21,9 @@ using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
+using Unity.Services.RemoteConfig;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 using Random = UnityEngine.Random;
@@ -73,7 +76,6 @@ namespace FirstLight.Game.Presenters
 		private Label _playerTrophiesLabel;
 		private PlayerAvatarElement _avatar;
 
-		private VisualElement _equipmentNotification;
 		private VisualElement _collectionNotification;
 		private VisualElement _settingsNotification;
 		private VisualElement _newsNotification;
@@ -99,6 +101,9 @@ namespace FirstLight.Game.Presenters
 		private Label _outOfSyncWarningLabel;
 		private Label _betaLabel;
 		private MatchmakingStatusView _matchmakingStatusView;
+
+		[SerializeField] private HomePartyCharacterView _homePartyCharacterView = new ();
+
 		private Coroutine _updatePoolsCoroutine;
 		private HashSet<GameId> _currentAnimations = new ();
 		private HashSet<GameId> _initialized = new ();
@@ -120,27 +125,20 @@ namespace FirstLight.Game.Presenters
 		{
 			Root.Q<ImageButton>("ProfileButton").clicked += () =>
 			{
-				if (FeatureFlags.PLAYER_STATS_ENABLED)
+				var data = new PlayerStatisticsPopupPresenter.StateData
 				{
-					var data = new PlayerStatisticsPopupPresenter.StateData
+					PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
+					OnCloseClicked = () =>
 					{
-						PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
-						OnCloseClicked = () =>
-						{
-							_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();
-						},
-						OnEditNameClicked = () =>
-						{
-							Data.OnProfileClicked();
-						}
-					};
+						_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();
+					},
+					OnEditNameClicked = () =>
+					{
+						Data.OnProfileClicked();
+					}
+				};
 
-					OpenStats(data);
-				}
-				else
-				{
-					Data.OnProfileClicked();
-				}
+				OpenStats(data);
 			};
 
 			_playerNameLabel = Root.Q<Label>("PlayerName").Required();
@@ -152,7 +150,6 @@ namespace FirstLight.Game.Presenters
 			_gameModeIcon = Root.Q<VisualElement>("GameModeIcon").Required();
 			_gameModeButton = Root.Q<ImageButton>("GameModeButton").Required();
 
-			_equipmentNotification = Root.Q<VisualElement>("EquipmentNotification").Required();
 			_collectionNotification = Root.Q<VisualElement>("CollectionNotification").Required();
 			_settingsNotification = Root.Q<VisualElement>("SettingsNotification").Required();
 			_newsNotification = Root.Q<VisualElement>("NewsNotification").Required();
@@ -188,8 +185,11 @@ namespace FirstLight.Game.Presenters
 			Root.Q<CurrencyDisplayElement>("NOOBCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetData(_playButton, true);
-			
-			
+
+
+			Root.Q<VisualElement>("PartyMemberNames").Required()
+				.AttachExistingView(this, _homePartyCharacterView);
+
 			_outOfSyncWarningLabel = Root.Q<Label>("OutOfSyncWarning").Required();
 			_betaLabel = Root.Q<Label>("BetaWarning").Required();
 
@@ -199,8 +199,6 @@ namespace FirstLight.Game.Presenters
 			_gameModeButton.LevelLock2(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
 			var leaderBoardButton = Root.Q<ImageButton>("LeaderboardsButton");
 			leaderBoardButton.LevelLock2(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
-			var equipmentButton = Root.Q<Button>("EquipmentButton");
-			equipmentButton.LevelLock2(this, Root, UnlockSystem.Equipment, Data.OnLootButtonClicked);
 			var collectionButton = Root.Q<Button>("CollectionButton");
 			collectionButton.LevelLock2(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
 
@@ -244,7 +242,6 @@ namespace FirstLight.Game.Presenters
 
 			Root.SetupClicks(_services);
 			OnAnyPartyUpdate();
-			UpdateSquadsButtonVisibility();
 		}
 
 		private void OnItemRewarded(ItemRewardedMessage msg)
@@ -269,7 +266,6 @@ namespace FirstLight.Game.Presenters
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_settingsNotification.SetDisplay(_services.AuthenticationService.IsGuest);
-			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
 			SetHasNewsNotification(false);
 			_services.NewsService.HasNotSeenNews().ContinueWith(SetHasNewsNotification);
@@ -278,7 +274,7 @@ namespace FirstLight.Game.Presenters
 #else
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
-			_betaLabel.SetDisplay(FeatureFlags.BETA_VERSION);
+			_betaLabel.SetDisplay(RemoteConfigs.Instance.ShowBetaLabel);
 
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
@@ -530,7 +526,8 @@ namespace FirstLight.Game.Presenters
 		private void UpdateGameModeButton()
 		{
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
-			var isMemberNotLeader = _services.PartyService.HasParty.Value && !_services.PartyService.GetLocalMember().Leader;
+			var localMember = _services.PartyService.GetLocalMember();
+			var isMemberNotLeader = _services.PartyService.HasParty.Value && localMember is {Leader: false};
 			_gameModeLabel.text = LocalizationManager.GetTranslation(current.TitleTranslationKey);
 			_gameModeButton.SetEnabled(!isMemberNotLeader && !_partyService.OperationInProgress.Value);
 			_gameModeIcon.RemoveSpriteClasses();
@@ -565,15 +562,12 @@ namespace FirstLight.Game.Presenters
 				}
 				else
 				{
-					var isReady = _services.PartyService.GetLocalMember()!.Ready;
+					var isReady = _services.PartyService.LocalReadyStatus.Value;
 
 					if (isReady)
 					{
 						buttonClass = "play-button--get-ready";
 						translationKey = ScriptTerms.UITHomeScreen.youre_ready;
-
-						// TODO: Would be better to throttle requests than to block players from un-readying themselves
-						buttonEnabled = false;
 					}
 					else
 					{

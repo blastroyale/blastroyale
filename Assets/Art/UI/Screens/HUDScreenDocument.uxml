@@ -39,10 +39,10 @@
             <FirstLight.Game.UIElements.ImageButton name="WeaponDisplay" class="weapon-display customizable-hud">
                 <ui:VisualElement name="Melee" class="weapon-display__melee">
                     <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-melee">
-                        <ui:VisualElement name="MeleeRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-common" />
+                        <ui:VisualElement name="MeleeRarityIcon" class="weapon-display__rarity-icon weapon-display__rarity-icon" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="MeleeIconShadow" class="weapon-display__melee-icon weapon-display__melee-icon--shadow">
-                        <ui:VisualElement name="MeleeIcon" class="weapon-display__melee-icon" />
+                    <ui:VisualElement name="MeleeIconShadow" class="weapon-display__melee-icon weapon-display__melee-icon--default weapon-display__melee-icon__shadow">
+                        <ui:VisualElement name="MeleeIcon" class="weapon-display__melee-icon weapon-display__melee-icon--default" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="AmmoGradient" class="weapon-display__ammo-gradient" />
@@ -52,7 +52,7 @@
                     <ui:VisualElement name="GlowBlockCircle" class="weapon-display__out-of-ammo-bg-block" />
                     <FirstLight.Game.UIElements.RadialProgressElement name="AmmoProgress" progress="0.69" class="weapon-display__ammo-progress">
                         <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-weapon">
-                            <ui:VisualElement name="WeaponRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-common" />
+                            <ui:VisualElement name="WeaponRarityIcon" class="weapon-display__rarity-icon weapon-display__rarity-icon" />
                         </ui:VisualElement>
                     </FirstLight.Game.UIElements.RadialProgressElement>
                     <ui:VisualElement name="WeaponIconShadow" class="weapon-display__weapon-icon weapon-display__weapon-icon--shadow">

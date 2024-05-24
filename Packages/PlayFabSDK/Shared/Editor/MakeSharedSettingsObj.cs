@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MakeScriptableObject
 {
-    [MenuItem("PlayFab/MakePlayFabSharedSettings")]
+    [MenuItem("Tools/PlayFab/MakePlayFabSharedSettings")]
     public static void MakePlayFabSharedSettings()
     {
         PlayFabSharedSettings asset = ScriptableObject.CreateInstance<PlayFabSharedSettings>();

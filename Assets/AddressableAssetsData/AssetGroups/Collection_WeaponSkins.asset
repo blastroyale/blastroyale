@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Collection_WeaponSkins
+  m_EditorClassIdentifier: 
+  m_GroupName: Collection_WeaponSkins
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 2b2c07ef86c2d484a814745aa2dd6d8c
+  m_SerializeEntries:
+  - m_GUID: 1c3b08e8be7e0f3489601ae75f94bfd5
+    m_Address: Collections/WeaponSkins
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ScriptableObjectsOnly
+    - GenerateIds
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d31f478f5e9a7b040b72979172b88847, type: 2}
+    - {fileID: 11400000, guid: 9c8f32e60be8a994bbaf39aa7d8edec1, type: 2}

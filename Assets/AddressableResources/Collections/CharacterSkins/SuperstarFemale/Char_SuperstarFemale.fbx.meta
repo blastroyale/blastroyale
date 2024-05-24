@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cd2d4711ec2f8402785b224c4a9d5e49
+guid: e91aa4e9672ef402b89f4bf16763410c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_StarFemale
-    second: {fileID: 2100000, guid: c886b2ab800584f70b3e6213df0509de, type: 2}
+    second: {fileID: 2100000, guid: eecb3c9e261254af794bf4b768b0405a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

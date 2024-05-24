@@ -46,4 +46,3 @@ synced event GameItemCollected {
     ushort Amount;
 }
 
-signal OnConsumableCollected(PlayerRef PlayerRef EntityRef EntityRef Consumable Consumable Collectable Collectable);

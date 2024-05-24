@@ -72,7 +72,7 @@ public partial class SROptions
 	[Category("Network")]
 	public bool EnableCommitRoomLock
 	{
-		get => FeatureFlags.COMMIT_VERSION_LOCK;
-		set => FeatureFlags.COMMIT_VERSION_LOCK = !FeatureFlags.COMMIT_VERSION_LOCK;
+		get => RemoteConfigs.Instance != null && RemoteConfigs.Instance.EnableCommitVersionLock;
+		set => RemoteConfigs.Instance.EnableCommitVersionLock = value;
 	}
 }

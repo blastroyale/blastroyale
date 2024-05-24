@@ -1,7 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -89,7 +88,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
 		{
-			if (!IsInitialized() ) return;
+			if (!IsInitialized()) return;
 			_localPlayerLanded = true;
 			GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(1, -1, -1);
 		}
@@ -183,7 +182,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 				_indicators[i] = obj.GetComponent<IIndicator>();
 			}
-			
+
 			OnIndicatorsLoaded();
 		}
 
@@ -192,7 +191,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (_localPlayerLanded)
 			{
 				GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(1, -1, -1);
-			} 
+			}
 			else if (_localPlayerDropped)
 			{
 				GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(0, -1, -1);
@@ -268,15 +267,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			if (FeatureFlags.QUANTUM_PREDICTED_AIM)
-			{
-				aim = f.GetPlayerInput(playerCharacter->Player)->AimingDirection;
-			}
+			aim = f.GetPlayerInput(playerCharacter->Player)->AimingDirection;
 
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
 			var reloading = playerCharacter->SelectedWeaponSlot->MagazineShotCount == 0;
 			var transform = f.Unsafe.GetPointer<Transform3D>(_localPlayerEntity);
-			var aimDirection = QuantumHelpers.GetAimDirection(aim, ref transform->Rotation).Normalized.ToUnityVector2();
+			var aimDirection = QuantumHelpers.GetAimDirection(aim, transform->Rotation).Normalized.ToUnityVector2();
 			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue.AsFloat;
 
 			// We use a formula to calculate the scale of a shooting indicator
@@ -290,10 +286,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 				size = _weaponConfig.SplashRadius.AsFloat * 2f;
 			}
 
-			var isAiming = shooting || aim != FPVector2.Zero;
-
 			ShootIndicator.SetTransformState(aimDirection);
-			ShootIndicator.SetVisualState(isAiming, isEmptied || reloading);
+			ShootIndicator.SetVisualState(shooting, isEmptied || reloading);
 			ShootIndicator.SetVisualProperties(size, 0, rangeStat);
 		}
 

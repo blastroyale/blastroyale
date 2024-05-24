@@ -12,27 +12,23 @@ namespace FirstLight.Game.Data.DataTypes
 	public class EquipmentItemViewModel : IItemViewModel
 	{
 		public ItemData Item { get; }
-		public Equipment Equipment => _equipment;
-		public GameId GameId => _equipment.GameId;
+		public GameId GameId => Item.Id;
 		public uint Amount => 1;
 		public string Description => null;
-		public string DisplayName => GameId.GetLocalization().ToUpper();
+		public string DisplayName => "Legacy Equipment";
 		public string ItemTypeDisplayName => GameIdGroup.Equipment.GetGameIdGroupLocalization();
-		public VisualElement ItemCard => new EquipmentCardElement(_equipment)
+		public VisualElement ItemCard => new GameIdIconSummaryItemElement()
 		{
 			pickingMode = PickingMode.Ignore
-		};
+		}.SetReward(this);
 
 		public void DrawIcon(VisualElement icon)
 		{
 			icon.RemoveSpriteClasses();
 			icon.style.backgroundImage = StyleKeyword.Null;
-#pragma warning disable CS4014
-			UIUtils.SetSprite(GameId, icon);
-#pragma warning restore CS4014
+			icon.AddToClassList("sprite-home__icon-questionmark");
 		}
 
-		private Equipment _equipment;
 
 		public EquipmentItemViewModel(ItemData item)
 		{
@@ -42,7 +38,6 @@ namespace FirstLight.Game.Data.DataTypes
 			}
 
 			Item = item;
-			_equipment = item.GetMetadata<EquipmentMetadata>().Equipment;
 		}
 	}
 }

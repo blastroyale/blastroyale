@@ -1,0 +1,5 @@
+export_options(
+    provisioningProfiles: {
+        "com.firstlightgames.blastroyale.notificationservice" => "2a9b96f3-fbfb-4602-99d6-5d8980e3ce69"
+    }
+)

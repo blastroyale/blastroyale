@@ -5,37 +5,37 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the signal to process player's <seealso cref="PlayerMatchData"/> statistics
 	/// </summary>
-	public unsafe class MatchDataSystem : SystemSignalsOnly, ISignalPlayerDead, ISignalHealthChangedFromAttacker, 
-	                                      ISignalPlayerKilledPlayer, ISignalSpecialUsed
+	public unsafe class MatchDataSystem : SystemSignalsOnly, ISignalPlayerDead, ISignalHealthChangedFromAttacker,
+										  ISignalPlayerKilledPlayer, ISignalSpecialUsed, ISignalPlayerKilledByBeingAFK
 	{
 		/// <inheritdoc />
 		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
 		{
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 			var dataPointer = gameContainer->PlayersData.GetPointer(playerDead);
-			
+
 			dataPointer->DeathCount++;
-			dataPointer->LastDeathPosition = f.Get<Transform3D>(entityDead).Position;
+			dataPointer->LastDeathPosition = f.Unsafe.GetPointer<Transform3D>(entityDead)->Position;
 
 			if (dataPointer->FirstDeathTime == FP._0)
 			{
 				dataPointer->FirstDeathTime = f.Time;
 			}
-			
+
 			dataPointer->CurrentKillStreak = 0;
 			dataPointer->CurrentMultiKill = 0;
 		}
 
 		/// <inheritdoc />
 		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
-		                               EntityRef entityKiller)
+									   EntityRef entityKiller)
 		{
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
-			
+
 			if (playerDead != playerKiller)
 			{
 				var killerData = gameContainer->PlayersData.GetPointer(playerKiller);
-				
+
 				killerData->PlayersKilledCount++;
 				killerData->CurrentKillStreak++;
 
@@ -55,7 +55,7 @@ namespace Quantum.Systems
 				gameContainer->PlayersData.GetPointer(playerDead)->SuicideCount++;
 			}
 		}
-		
+
 		/// <inheritdoc />
 		public void HealthChangedFromAttacker(Frame f, EntityRef entity, EntityRef attacker, int previousHealth)
 		{
@@ -64,20 +64,20 @@ namespace Quantum.Systems
 				return;
 			}
 
-			var stats = f.Get<Stats>(entity);
+			var stats = f.Unsafe.GetPointer<Stats>(entity);
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
-			
+
 			if (f.TryGet<PlayerCharacter>(attacker, out var playerAttacker))
 			{
 				var data = gameContainer->PlayersData.GetPointer(playerAttacker.Player);
 				
-				if (stats.CurrentHealth < previousHealth)
+				if (stats->CurrentHealth < previousHealth)
 				{
-					data->DamageDone += (uint) (previousHealth - stats.CurrentHealth);
+					data->DamageDone += (uint) (previousHealth - stats->CurrentHealth);
 				}
-				else if(f.Has<PlayerCharacter>(entity))
+				else if (f.Has<PlayerCharacter>(entity))
 				{
-					data->HealingDone += (uint) (stats.CurrentHealth - previousHealth);
+					data->HealingDone += (uint) (stats->CurrentHealth - previousHealth);
 				}
 			}
 
@@ -85,13 +85,13 @@ namespace Quantum.Systems
 			{
 				var data = gameContainer->PlayersData.GetPointer(playerHit.Player);
 				
-				if (stats.CurrentHealth < previousHealth)
+				if (stats->CurrentHealth < previousHealth)
 				{
-					data->DamageReceived += (uint) (previousHealth - stats.CurrentHealth);
+					data->DamageReceived += (uint) (previousHealth - stats->CurrentHealth);
 				}
-				else if(attacker.IsValid && f.Has<PlayerCharacter>(entity))
+				else if (attacker.IsValid && f.Has<PlayerCharacter>(entity))
 				{
-					data->HealingReceived += (uint) (stats.CurrentHealth - previousHealth);
+					data->HealingReceived += (uint) (stats->CurrentHealth - previousHealth);
 				}
 			}
 		}
@@ -103,6 +103,13 @@ namespace Quantum.Systems
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(entity);
 
 			gameContainer->PlayersData.GetPointer(playerCharacter->Player)->SpecialsUsedCount++;
+		}
+
+		public void PlayerKilledByBeingAFK(Frame f, PlayerRef player)
+		{
+			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+			var playerData = gameContainer->PlayersData.GetPointer(player);
+			playerData->KilledByBeingAFK = true;
 		}
 	}
 }

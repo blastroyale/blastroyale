@@ -5,18 +5,17 @@ using System.Threading.Tasks;
 using Backend.Game.Services;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Microsoft.Extensions.Logging;
 using PlayFab;
 using FirstLight.Server.SDK;
-using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
 using FirstLight.Game.Data;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
+using GameLogicService.Game;
 
 namespace Backend.Game
 {
@@ -27,7 +26,7 @@ namespace Backend.Game
 	public class GameServer
 	{
 		private IServerCommahdHandler _cmdHandler;
-		private IEnvironmentService _environmentService;
+		private ServerEnvironmentService _environmentService;
 		private ILogger _log;
 		private IServerStateService _state;
 		private IServerMutex _mutex;
@@ -36,7 +35,7 @@ namespace Backend.Game
 		private IBaseServiceConfiguration _baseServiceConfig;
 		private IConfigsProvider _gameConfigs;
 
-		public GameServer(IConfigsProvider gameConfigs, IBaseServiceConfiguration baseServiceConfig, IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics, IEnvironmentService environmentService)
+		public GameServer(IConfigsProvider gameConfigs, IBaseServiceConfiguration baseServiceConfig, IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics, ServerEnvironmentService environmentService)
 		{
 			_cmdHandler = cmdHandler;
 			_log = log;

@@ -161,6 +161,8 @@ namespace FirstLight.Game.Utils
 			public const string COINS_EARNED = "Coins Earned";
 			public const string BPP_EARNED = "BPP Earned";
 			public const string BP_LEVEL = "BP Level";
+			public const string DAMAGE_DONE = "Damage Done";
+			public const string RANKED_DAMAGE_DONE = "Ranked Damage Done";
 			public const string XP_EARNED = "XP Earned";
 			public const string CS_EARNED = "CS Earned";
 			public const string COINS_TOTAL = "Coins Total";
@@ -171,6 +173,8 @@ namespace FirstLight.Game.Utils
 
 			// Metrics that should not be used in leaderboards seasons
 			// as they should never be reset
+			public const string RANKED_DAMAGE_DONE_EVER = "Ranked Damage Done Ever";
+			public const string DAMAGE_DONE_EVER = "Damage Done Ever";
 			public const string RANKED_KILLS_EVER = "Ranked Kills Ever";
 			public const string RANKED_DEATHS_EVER = "Ranked Deaths Ever";
 			public const string RANKED_GAMES_WON_EVER = "Ranked Games Won Ever";

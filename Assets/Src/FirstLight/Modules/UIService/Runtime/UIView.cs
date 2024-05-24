@@ -8,14 +8,17 @@ namespace FirstLight.UIService
 		/// The element this view is attached to.
 		/// </summary>
 		public VisualElement Element { get; private set; }
-
+		
+		/// <summary>
+		/// Presenter this view is attached to.
+		/// </summary>
+		public UIPresenter Presenter { get; private set; }
+		
 		/// <summary>
 		/// Called once, the first time the presenter screen is opened.
 		/// </summary>
-		/// <param name="element"></param>
-		public virtual void Attached(VisualElement element)
+		protected virtual void Attached()
 		{
-			Element = element;
 		}
 
 		/// <summary>
@@ -31,6 +34,16 @@ namespace FirstLight.UIService
 		/// </summary>
 		public virtual void OnScreenClose()
 		{
+		}
+
+		/// <summary>
+		/// Method called when attached to a presenter, if you need custom behaviour overwrite <see cref="Attached"/>
+		/// </summary>
+		internal void AttachedInternal(VisualElement element, UIPresenter presenter)
+		{
+			Element = element;
+			Presenter = presenter;
+			Attached();
 		}
 	}
 }

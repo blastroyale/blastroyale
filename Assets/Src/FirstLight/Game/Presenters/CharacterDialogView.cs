@@ -47,19 +47,19 @@ namespace FirstLight.Game.Presenters
 
 		private IGameServices _services;
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			
-			_backAvatarMale = element.Q<VisualElement>("BackAvatarMale").Required();
-			_characterMale = element.Q<VisualElement>("MaleCharacter").Required();
-			_bubbleMale = element.Q<VisualElement>("MaleBubble").Required();
-			_localizedLabelMale = element.Q<Label>("MaleLabel").Required();
+			_backAvatarMale = Element.Q<VisualElement>("BackAvatarMale").Required();
+			_characterMale = Element.Q<VisualElement>("MaleCharacter").Required();
+			_bubbleMale = Element.Q<VisualElement>("MaleBubble").Required();
+			_localizedLabelMale = Element.Q<Label>("MaleLabel").Required();
 
-			_backAvatarFemale = element.Q<VisualElement>("BackAvatarFemale").Required();
-			_characterFemale = element.Q<VisualElement>("FemaleCharacter").Required();
-			_bubbleFemale = element.Q<VisualElement>("FemaleBubble").Required();
-			_localizedLabelFemale = element.Q<Label>("FemaleLabel").Required();
+			_backAvatarFemale = Element.Q<VisualElement>("BackAvatarFemale").Required();
+			_characterFemale = Element.Q<VisualElement>("FemaleCharacter").Required();
+			_bubbleFemale = Element.Q<VisualElement>("FemaleBubble").Required();
+			_localizedLabelFemale = Element.Q<Label>("FemaleLabel").Required();
 
 			//setup ref dictionary
 			_characters = new Dictionary<CharacterType, VisualElement[]>
@@ -68,7 +68,7 @@ namespace FirstLight.Game.Presenters
 				{CharacterType.Male, new[] {_characterMale, _bubbleMale, _localizedLabelMale, _backAvatarMale}}
 			};
 			
-			element.SetupClicks(_services);
+			Element.SetupClicks(_services);
 		}
 
 		/// <summary>

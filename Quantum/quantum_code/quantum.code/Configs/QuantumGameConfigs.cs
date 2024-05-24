@@ -56,6 +56,10 @@ namespace Quantum
 		public bool HardAngleAim;
 		public FP CollectableEquipmentPickupRadius;
 		public FP ChanceToDropNoobOnKill;
+		public FP NoInputWarningTime;
+		public FP NoInputKillTime;
+		public FP NoInputStartChecking;
+		public FP NoInputStopChecking;
 	}
 
 	/// <summary>

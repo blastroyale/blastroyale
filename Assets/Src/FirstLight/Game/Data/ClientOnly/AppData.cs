@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
-using Quantum;
-using Environment = FirstLight.Game.Services.Environment;
 
 namespace FirstLight.Game.Data
 {
@@ -38,7 +34,7 @@ namespace FirstLight.Game.Data
 		public DateTime LoginTime;
 		public bool IsFirstSession;
 
-		public Environment LastEnvironment;
+		public string LastEnvironmentName;
 
 		// Moved to AccountData, this is here for backwards compatibility
 		[Obsolete]
@@ -54,6 +50,7 @@ namespace FirstLight.Game.Data
 
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public CustomGameOptions LastCustomGameOptions = new();
+		public int LastSelectedRankedMap;
 		
 		[NonSerialized] public Dictionary<string, string> TitleData;
 	}

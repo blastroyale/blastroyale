@@ -24,7 +24,6 @@ namespace FirstLight.Game.StateMachines
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
-		private readonly AudioBattleRoyaleState _audioBrState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private IMatchServices _matchServices;
@@ -40,7 +39,6 @@ namespace FirstLight.Game.StateMachines
 			_services = services;
 			_gameDataProvider = gameLogic;
 			_statechartTrigger = statechartTrigger;
-			_audioBrState = new AudioBattleRoyaleState(services, statechartTrigger);
 		}
 
 		private struct LoopedAudioClip
@@ -68,7 +66,7 @@ namespace FirstLight.Game.StateMachines
 			var mainMenu = stateFactory.State("AUDIO - Main Menu");
 			var matchmaking = stateFactory.State("AUDIO - Matchmaking");
 			var gameModeCheck = stateFactory.Choice("AUDIO - Game Mode Check");
-			var battleRoyale = stateFactory.Nest("AUDIO - Battle Royale");
+			var battleRoyale = stateFactory.State("AUDIO - Battle Royale");
 			var postGame = stateFactory.State("AUDIO - Post Game");
 			var disconnected = stateFactory.State("AUDIO - Disconnected");
 			var postGameSpectatorCheck = stateFactory.Choice("AUDIO - Spectator Check");
@@ -98,7 +96,6 @@ namespace FirstLight.Game.StateMachines
 			gameModeCheck.Transition().Target(battleRoyale);
 			gameModeCheck.OnExit(() => SetSimulationRunning(true));
 
-			battleRoyale.Nest(_audioBrState.Setup).Target(postGameSpectatorCheck);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.Event(MatchState.MatchCompleteExitEvent).Target(postGameSpectatorCheck);
 			battleRoyale.Event(MatchState.MatchEndedEvent).Target(postGameSpectatorCheck);
@@ -833,7 +830,7 @@ namespace FirstLight.Game.StateMachines
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.CollectableEntity, out var entityView) &&
 				audio != AudioId.None)
 			{
-				 _services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 			}
 		}
 
@@ -867,30 +864,8 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			var audio = AudioId.None;
-			var damagedPlayerIsLocal = _matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player;
+			var audio = AudioId.TakeHealthDamage;
 			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
-
-			if (FeatureFlags.NEW_SFX)
-			{
-				audio = AudioId.TakeHealthDamage;
-			}
-			else
-			{
-				if (damagedPlayerIsLocal)
-				{
-					audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
-				}
-				else
-				{
-					audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
-				}
-
-				if (callback.ShieldDamage > 0 && callback.HealthDamage > 0)
-				{
-					audio = damagedPlayerIsLocal ? AudioId.SelfShieldBreak : AudioId.ShieldBreak;
-				}
-			}
 
 			if (spectatedEntity == callback.Entity || spectatedEntity == callback.Attacker)
 			{

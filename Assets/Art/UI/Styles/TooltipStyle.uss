@@ -7,93 +7,6 @@
     flex-direction: column;
 }
 
-.tooltip {
-    font-size: 32px;
-    background-image: var(--sprite-home__background-tooltip-topright);
-    color: rgb(186, 161, 230);
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding-left: 20px;
-    padding-right: 33px;
-    padding-top: 33px;
-    padding-bottom: 20px;
-    opacity: 0;
-}
-
-.tooltip--tags {
-    opacity: 1;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding-left: 8px;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 8px;
-    align-items: center;
-    max-width: 480px;
-}
-
-.tooltip--topleft {
-    background-image: var(--sprite-home__background-tooltip-topleft);
-    padding-left: 33px;
-    padding-right: 20px;
-    padding-top: 33px;
-    padding-bottom: 20px;
-}
-
-.tooltip--tags.tooltip--topleft {
-    padding-left: 20px;
-    padding-right: 8px;
-    padding-top: 20px;
-    padding-bottom: 8px;
-}
-
-.tooltip--topright {
-    background-image: var(--sprite-home__background-tooltip-topright);
-    padding-left: 20px;
-    padding-right: 33px;
-    padding-top: 33px;
-    padding-bottom: 20px;
-}
-
-.tooltip--tags.tooltip--topright {
-    padding-left: 8px;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 8px;
-}
-
-.tooltip--bottomleft {
-    background-image: var(--sprite-home__background-tooltip-bottomleft);
-    padding-left: 33px;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 33px;
-}
-
-.tooltip--tags.tooltip--bottomleft {
-    padding-left: 20px;
-    padding-right: 8px;
-    padding-top: 8px;
-    padding-bottom: 20px;
-}
-
-.tooltip--bottomright {
-    background-image: var(--sprite-home__background-tooltip-bottomright);
-    padding-left: 20px;
-    padding-right: 33px;
-    padding-top: 20px;
-    padding-bottom: 33px;
-}
-
-.tooltip--tags.tooltip--bottomright {
-    padding-left: 8px;
-    padding-right: 20px;
-    padding-top: 8px;
-    padding-bottom: 20px;
-}
-
 .tooltip__tag {
     background-color: rgb(46, 42, 80);
     color: rgb(202, 72, 120);
@@ -117,4 +30,72 @@
 .tooltip__label {
     margin: 0;
     padding: 0;
+}
+
+
+.tooltip-element {
+    color: rgb(186, 161, 230);
+    font-size: 32px;
+    --fill-color: #161425;
+    --border-color: #B6A2E1;
+    --border-width: 4;
+    --tip-length: 16;
+    --tip-width: 22;
+    --border-radius: 20;
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+
+.tooltip-element__content-holder {
+    flex-grow: 1;
+}
+
+.tooltip-element__content {
+    padding: 16px;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.tooltip-element.player-context-menu {
+    --tip-length: 36;
+    --tip-width: 45;
+}
+
+
+.player-context-menu__button-container {
+    flex-grow: 1;
+}
+
+.player-context-menu__player-name {
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    font-size: 36px;
+    text-shadow: 2.7px 2.7px 0 rgb(0, 0, 0);
+    letter-spacing: -2px;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 12px;
+}
+
+.unity-button.player-context-menu__button {
+    background-color: rgba(182, 162, 225, 0.06);
+    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static');
+    color: rgb(132, 117, 166);
+    height: 82px;
+    font-size: 33px;
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+    border-bottom-right-radius: 28px;
+    border-bottom-left-radius: 28px;
+    width: 310px;
+    margin-bottom: 16px;
+}
+
+.unity-button.player-context-menu__button--red {
+    color: rgb(255, 74, 74);
 }

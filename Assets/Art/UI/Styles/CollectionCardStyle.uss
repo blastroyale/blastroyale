@@ -110,7 +110,7 @@
 }
 
 .collection-card__badge-nft {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Equipment%20Card/card-badge-nft.png?fileID=2800000&guid=ad9056538d56f4f8d9970542b2a02c90&type=3#card-badge-nft');
+    background-image: var(--sprite-home__nft-badge);
     width: 66px;
     height: 28px;
     position: relative;

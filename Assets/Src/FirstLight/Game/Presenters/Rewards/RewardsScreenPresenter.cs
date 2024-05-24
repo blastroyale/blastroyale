@@ -43,9 +43,6 @@ namespace FirstLight.Game.Presenters
 		private PlayableDirector _genericRewardDirector;
 
 		[SerializeField, Required, TabGroup("Animation")]
-		private PlayableDirector _equipmentRewardDirector;
-
-		[SerializeField, Required, TabGroup("Animation")]
 		private PlayableDirector _summaryDirector;
 
 		[SerializeField, Required, TabGroup("Animation")]
@@ -55,7 +52,6 @@ namespace FirstLight.Game.Presenters
 
 		#region Elements
 
-		private EquipmentRewardView _equipmentRewardView;
 		private GenericRewardView _genericRewardView;
 		private RewardsSummaryView _summaryView;
 
@@ -93,9 +89,6 @@ namespace FirstLight.Game.Presenters
 
 			_blocker.RegisterCallback<ClickEvent>(OnClick);
 
-			Root.Q<VisualElement>("EquipmentReward").Required().AttachView(this, out _equipmentRewardView);
-			_equipmentRewardView.Init(_animations, _animatedBackground, _equipmentRewardDirector);
-
 			Root.Q<VisualElement>("OneReward").Required().AttachView(this, out _genericRewardView);
 			_genericRewardView.Init(_animations, _animatedBackground, _genericRewardDirector, _genericRewardBgColor);
 
@@ -124,6 +117,7 @@ namespace FirstLight.Game.Presenters
 				_remaining = new Queue<ItemData>(Data.Items);
 				Move();
 			}
+
 			return base.OnScreenOpen(reload);
 		}
 
@@ -182,17 +176,9 @@ namespace FirstLight.Game.Presenters
 		private void SetCurrentReward(ItemData item)
 		{
 			var itemViewModelData = item.GetViewModel();
-			if (itemViewModelData is EquipmentItemViewModel eq)
-			{
-				_equipmentRewardView.ShowEquipment(eq);
-				_equipmentRewardView.SetItemParent(Data.ParentItem?.GetViewModel());
-				SetDisplays(_equipmentRewardView);
-			}
-			else
-			{
-				_genericRewardView.ShowReward(itemViewModelData);
-				SetDisplays(_genericRewardView);
-			}
+
+			_genericRewardView.ShowReward(itemViewModelData);
+			SetDisplays(_genericRewardView);
 		}
 
 		private bool ShouldShowSummary()
@@ -212,7 +198,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_genericRewardView.Element.SetDisplay(view == _genericRewardView);
 			_summaryView.Element.SetDisplay(view == _summaryView);
-			_equipmentRewardView.Element.SetDisplay(view == _equipmentRewardView);
 			_remainingRoot.SetDisplay(_remaining.Count > 0);
 			_skipAllButton.SetDisplay(view != _summaryView && !Data.FameRewards && Data.Items.Count() >= MIN_ITEMS_SHOW_SKIP_ALL);
 		}

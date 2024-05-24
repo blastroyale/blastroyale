@@ -9,14 +9,14 @@ namespace Quantum
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false,
 					   GenerateAssetResetMethod = false)]
-	public class StatFunction : AIFunction<FP>
+	public unsafe class StatFunction : AIFunction<FP>
 	{
 		public StatType Stat;
 
 		/// <inheritdoc />
 		public override FP Execute(Frame f, EntityRef e, ref AIContext aiContext)
 		{
-			return f.Get<Stats>(e).GetStatData(Stat).StatValue;
+			return f.Unsafe.GetPointer<Stats>(e)->GetStatData(Stat).StatValue;
 		}
 	}
 }

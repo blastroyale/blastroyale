@@ -3,17 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
+using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -29,7 +29,6 @@ namespace FirstLight.Game.Presenters
 			public Action<GameModeInfo> GameModeChosen;
 			public Action CustomGameChosen;
 
-			public Action OnHomeClicked;
 			public Action OnBackClicked;
 		}
 
@@ -39,6 +38,8 @@ namespace FirstLight.Game.Presenters
 		private Button _closeButton;
 		private ScrollView _buttonsSlider;
 		private ScreenHeaderElement _header;
+		private LocalizedDropDown _mapDropDown;
+		private List<GameId> _mapGameIds;
 
 		private List<GameModeSelectionButtonView> _buttonViews;
 		private IGameServices _services;
@@ -54,6 +55,9 @@ namespace FirstLight.Game.Presenters
 			_buttonsSlider = Root.Q<ScrollView>("ButtonsSlider").Required();
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
 			_header.backClicked += Data.OnBackClicked;
+			_mapDropDown = Root.Q<LocalizedDropDown>("Map").Required();
+			FillMapSelectionList();
+			_mapDropDown.RegisterValueChangedCallback(OnMapSelected);
 
 			var orderNumber = 1;
 
@@ -87,6 +91,13 @@ namespace FirstLight.Game.Presenters
 			customGameView.Disabled = _services.PartyService.HasParty.Value;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
+		}
+
+		private void OnMapSelected(ChangeEvent<string> evt)
+		{
+			var index = _mapDropDown.index;
+			var selected = _mapGameIds[index];
+			_services.GameModeService.SelectedMap = selected;
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
@@ -168,6 +179,36 @@ namespace FirstLight.Game.Presenters
 			{
 				buttonView.Selected = buttonView.GameModeInfo.Entry == newGamemode.Entry;
 			}
+		}
+
+		private void FillMapSelectionList()
+		{
+			var menuChoices = new List<string>();
+			_mapGameIds = new List<GameId>();
+			int selectedIndex = 0;
+			int index = 0;
+
+			foreach (var mapId in _services.GameModeService.ValidMatchmakingMaps)
+			{
+				menuChoices.Add(mapId.GetLocalization());
+				_mapGameIds.Add(mapId);
+				if (_services.GameModeService.SelectedMap == mapId)
+				{
+					selectedIndex = index;
+				}
+
+				index++;
+			}
+
+			menuChoices.Add(ScriptLocalization.UITGameModeSelection.random_map);
+			_mapGameIds.Add(GameId.Any);
+			if (_services.GameModeService.SelectedMap == GameId.Any)
+			{
+				selectedIndex = index;
+			}
+
+			_mapDropDown.choices = menuChoices;
+			_mapDropDown.index = selectedIndex;
 		}
 	}
 }

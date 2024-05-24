@@ -16,19 +16,16 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
-			var kcc = f.Unsafe.GetPointer<CharacterController3D>(e);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
 			var player = playerCharacter->Player;
-			var position = f.Get<Transform3D>(e).Position + FPVector3.Up*FP._0_50;
-			var team = f.Get<Targetable>(e).Team;
+			var position = f.Unsafe.GetPointer<Transform3D>(e)->Position + FPVector3.Up*FP._0_50;
+			var team = f.Unsafe.GetPointer<Targetable>(e)->Team;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue * weaponConfig.PowerToDamageRatio;
-			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
-			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
-			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
-			var aimingDirection = QuantumHelpers.GetAimDirection(bb->GetVector2(f, Constants.AimDirectionKey), ref  transform->Rotation).Normalized;
+			var power = f.Unsafe.GetPointer<Stats>(e)->GetStatData(StatType.Power).StatValue * weaponConfig.PowerToDamageRatio;
+			var rangeStat = f.Unsafe.GetPointer<Stats>(e)->GetStatData(StatType.AttackRange).StatValue;
+			var aimingDirection = QuantumHelpers.GetAimDirection(bb->GetVector2(f, Constants.AimDirectionKey), transform->Rotation).Normalized;
 
 			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = weaponConfig.MinAttackAngle;

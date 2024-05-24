@@ -138,7 +138,7 @@ Shader "FLG/Unlit/Water"
 
                 // Retrieve the view-space normal of the surface behind the
                 // pixel we are currently rendering.
-                float3 existingNormal = tex2Dproj(_CameraNormalsTexture, i.screenPosition);
+                float3 existingNormal = (float3) tex2Dproj(_CameraNormalsTexture, i.screenPosition);
 
                 //return float4(existingNormal, 1);
 
@@ -146,7 +146,7 @@ Shader "FLG/Unlit/Water"
                 // between the normals of our water surface and the object behind it.
                 // Larger differences allow for extra foam to attempt to keep the overall
                 // amount consistent.
-                float3 normalDot = saturate(dot(existingNormal, i.viewNormal));
+                float normalDot = saturate(dot(existingNormal, i.viewNormal));
                 //return float4(normalDot, 1);
                 float foamDistance = lerp(_FoamMaxDistance, _FoamMinDistance, normalDot);
                 float foamDepthDifference01 = saturate(depthDifference / foamDistance);

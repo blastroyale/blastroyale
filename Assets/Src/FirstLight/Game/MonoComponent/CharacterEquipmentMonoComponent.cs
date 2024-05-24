@@ -207,9 +207,9 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Equip a weapon using a GameId
 		/// </summary>
-		public void EquipWeapon(Equipment equip)
+		public void EquipWeapon(GameId id)
 		{
-			if (equip.GameId == GameId.Hammer)
+			if (id == GameId.Hammer)
 			{
 				_skin.WeaponType = _isMeleeXL ? WeaponType.XLMelee : WeaponType.Melee;
 				_skin.TriggerEquipMelee();

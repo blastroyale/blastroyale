@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 1434321088, guid: afbf832bc46149f5a291e87cab63e46d, type: 3}
   m_Name: RuleConfig
   m_EditorClassIdentifier: 
-  projectRules: []
+  projectRules:
+  - Enabled: 0
+    EnabledOverridden: 1
+    Type: Sirenix.OdinValidator.Editor.Validators.DuplicateComponentsValidator, Sirenix.OdinValidator.Editor
+    Override: 

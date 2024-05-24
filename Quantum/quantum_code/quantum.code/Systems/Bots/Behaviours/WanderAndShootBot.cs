@@ -9,7 +9,7 @@ namespace Quantum.Systems.Bots
 		private const int RETRIES = 10;
 		private FP rad360 = FP.Rad_180 * 2;
 		
-		internal void Update(Frame f, ref BotCharacterFilter filter, in BotUpdateGlobalContext botCtx)
+		internal void Update(Frame f, ref BotCharacterFilter filter)
 		{
 			// Do not do any decision making if the time has not come, unless a bot have no target to move to
 			if (filter.BotCharacter->MoveTarget != EntityRef.None

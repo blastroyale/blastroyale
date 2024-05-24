@@ -1,6 +1,9 @@
 using System;
+using System.Diagnostics;
+using FirstLight.Game.Utils;
 using JetBrains.Annotations;
 using UnityEditor;
+using Debug = UnityEngine.Debug;
 
 namespace FirstLight.Editor.Build.Utils
 {
@@ -9,12 +12,6 @@ namespace FirstLight.Editor.Build.Utils
 	/// </summary>
 	public static class BuildUtils
 	{
-		// TODO: This should be somewhere else - need to unify environment with backend service.
-		public const string ENV_DEV = "development";
-		public const string ENV_STAGING = "staging";
-		public const string ENV_COMMUNITY = "community";
-		public const string ENV_PROD = "production";
-
 		private const string ENVAR_BUILD_NUMBER = "FL_BUILD_NUMBER";
 		private const string ENVAR_ENVIRONMENT = "FL_ENVIRONMENT";
 		private const string ENVAR_DEVELOPMENT_BUILD = "FL_DEVELOPMENT_BUILD";
@@ -24,24 +21,18 @@ namespace FirstLight.Editor.Build.Utils
 		private const string ARG_DEV_BUILD = "-FLDevelopmentBuild";
 
 		/// <summary>
-		/// The version with dashes instead of dots, used for Addressables.
-		/// </summary>
-		[UsedImplicitly]
-		public static string AddressableBadge => PlayerSettings.bundleVersion.Replace(".", "_");
-
-		/// <summary>
 		/// The version override for the addressable catalog.
 		/// </summary>
 		[UsedImplicitly]
 		public static string AddressableVersionOverride =>
-			GetEnvironment() == ENV_DEV ? DateTime.UtcNow.ToString("yyyy.MM.dd.hh.mm.ss") : PlayerSettings.bundleVersion;
+			GetEnvironment() == FLEnvironment.DEVELOPMENT.Name ? DateTime.UtcNow.ToString("yyyy.MM.dd.hh.mm.ss") : PlayerSettings.bundleVersion;
 
 		/// <summary>
 		/// Gets the current UCS / Backend environment, defaults to development.
 		/// </summary>
 		public static string GetEnvironment()
 		{
-			return Environment.GetEnvironmentVariable(ENVAR_ENVIRONMENT) ?? GetCMDArgument(ARG_ENVIRONMENT) ?? "development";
+			return Environment.GetEnvironmentVariable(ENVAR_ENVIRONMENT) ?? GetCMDArgument(ARG_ENVIRONMENT) ?? FLEnvironment.DEVELOPMENT.Name;
 		}
 
 		/// <summary>
@@ -84,6 +75,17 @@ namespace FirstLight.Editor.Build.Utils
 			}
 
 			return null;
+		}
+
+		[UsedImplicitly]
+		[Conditional("UNITY_CLOUD_BUILD")]
+		public static void PreExport(UnityEngine.CloudBuild.BuildManifestObject manifest)
+		{
+			// In UCS DevOps we add the ENV build number to the cloud build number
+			var buildNumber = manifest.GetValue<int>("buildNumber") + GetBuildNumber();
+			Debug.Log("Setting build number to " + buildNumber);
+			PlayerSettings.Android.bundleVersionCode = buildNumber;
+			PlayerSettings.iOS.buildNumber = buildNumber.ToString();
 		}
 	}
 }

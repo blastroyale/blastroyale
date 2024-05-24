@@ -18,7 +18,7 @@ public class ftClearMenu : EditorWindow
     public SceneClearingMode sceneClearingMode = SceneClearingMode.lightmapReferences;
     public bool clearLightmapFiles = false;
 
-    [MenuItem("Bakery/Utilities/Clear baked data", false, 44)]
+    [MenuItem("Tools/Bakery/Utilities/Clear baked data", false, 44)]
     private static void ClearBakedDataShow()
     {
         var instance = (ftClearMenu)GetWindow(typeof(ftClearMenu));

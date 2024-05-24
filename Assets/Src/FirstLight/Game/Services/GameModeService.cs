@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
@@ -28,7 +29,6 @@ namespace FirstLight.Game.Services
 			EndTime = endTime;
 		}
 
-
 		public override string ToString()
 		{
 			return $"Entry({Entry}), EndTime({EndTime}), IsFixed({IsFixed})";
@@ -50,6 +50,16 @@ namespace FirstLight.Game.Services
 		/// The currently selected GameMode.
 		/// </summary>
 		IObservableField<GameModeInfo> SelectedGameMode { get; }
+
+		/// <summary>
+		/// The currently selected Map.
+		/// </summary>
+		GameId SelectedMap { set; get; }
+
+		/// <summary>
+		/// Allowed maps to be chosen on matchmaking
+		/// </summary>
+		List<GameId> ValidMatchmakingMaps { get; }
 
 		/// <summary>
 		/// Provides a list of currently available game modes which is automatically updated when
@@ -75,29 +85,66 @@ namespace FirstLight.Game.Services
 	{
 		private const string SelectedQueueLobbyProperty = "selected_queue";
 
-
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IThreadService _threadService;
 		private readonly IPartyService _partyService;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IAppDataProvider _appDataProvider;
+		private readonly LocalPrefsService _localPrefsService;
 
 		private readonly IObservableList<GameModeInfo> _slots;
+		private GameId _selectedMap;
 
 		public IObservableField<GameModeInfo> SelectedGameMode { get; }
 
-		public IObservableListReader<GameModeInfo> Slots => _slots;
+		public GameId SelectedMap
+		{
+			set => _localPrefsService.SelectedRankedMap.Value = (int)value;
+			get
+			{
+				if (_localPrefsService.SelectedRankedMap.Value == 0)
+				{
+					return GameId.MazeMayhem;
+				}
 
+				return (GameId) _localPrefsService.SelectedRankedMap.Value;
+			}
+		}
+
+		public List<GameId> ValidMatchmakingMaps
+		{
+			get
+			{
+				var gameModeConfigs = _configsProvider.GetConfigsList<QuantumGameModeConfig>();
+				var validMaps = new List<GameId>();
+				foreach (var gameModeConfig in gameModeConfigs.Where(gameModeConfig => gameModeConfig.Id == "BattleRoyale"))
+				{
+					foreach (var mapId in gameModeConfig.AllowedMaps)
+					{
+						var mapConfig = _configsProvider.GetConfig<QuantumMapConfig>((int) mapId);
+						if (!mapConfig.IsTestMap && !mapConfig.IsCustomOnly)
+						{
+							validMaps.Add(mapId);
+						}
+					}
+				}
+
+				return validMaps;
+			}
+		}
+
+		public IObservableListReader<GameModeInfo> Slots => _slots;
 
 		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService,
 							   IGameDataProvider gameDataProvider, IPartyService partyService,
-							   IAppDataProvider appDataProvider)
+							   IAppDataProvider appDataProvider,LocalPrefsService localPrefsService)
 		{
 			_configsProvider = configsProvider;
 			_threadService = threadService;
 			_gameDataProvider = gameDataProvider;
 			_partyService = partyService;
 			_appDataProvider = appDataProvider;
+			_localPrefsService = localPrefsService;
 
 			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
@@ -107,7 +154,6 @@ namespace FirstLight.Game.Services
 			_partyService.OnLobbyPropertiesCreated += AddGameModeToPartyProperties;
 			_partyService.LobbyProperties.Observe(SelectedQueueLobbyProperty, OnLeaderChangedGameMode);
 		}
-
 
 		public void Init()
 		{
@@ -146,11 +192,19 @@ namespace FirstLight.Game.Services
 
 			if (_partyService.HasParty.Value && _partyService.GetLocalMember().Leader)
 			{
-				_partyService.SetLobbyProperty(SelectedQueueLobbyProperty, current.Entry.PlayfabQueue.QueueName);
+				var newQueueName = current.Entry.PlayfabQueue.QueueName;
+				if (_partyService.LobbyProperties.TryGetValue(SelectedQueueLobbyProperty, out var currentPartyQueue))
+				{
+					if (currentPartyQueue == newQueueName)
+					{
+						return;
+					}
+				}
+				_partyService.SetLobbyProperty(SelectedQueueLobbyProperty, newQueueName, true).Forget();
 			}
 		}
 
-		private void AddGameModeToPartyProperties(Dictionary<string,string> _, Dictionary<string, string> lobbyData)
+		private void AddGameModeToPartyProperties(Dictionary<string, string> _, Dictionary<string, string> lobbyData)
 		{
 			lobbyData[SelectedQueueLobbyProperty] = SelectedGameMode.Value.Entry.PlayfabQueue.QueueName;
 		}
@@ -167,7 +221,6 @@ namespace FirstLight.Game.Services
 			if (newValue.Entry.PlayfabQueue?.QueueName == null) return;
 			SelectedGameMode.Value = newValue;
 		}
-
 
 		/// <summary>
 		/// Returns the current map in rotation, used for creating rooms with maps in rotation

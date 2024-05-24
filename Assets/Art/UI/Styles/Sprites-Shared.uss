@@ -11,6 +11,7 @@
     --sprite-shared__icon_edit: url('/Assets/Art/UI/Sprites/Shared/icon_edit.png');
     --sprite-shared__icon-arrow-current: url('/Assets/Art/UI/Sprites/Shared/icon-arrow-current.png');
     --sprite-shared__icon-back: url('/Assets/Art/UI/Sprites/Shared/icon-back.png');
+    --sprite-shared__icon-bug: url('/Assets/Art/UI/Sprites/Shared/icon-bug.png');
     --sprite-shared__icon-currency-blastbuck: url('/Assets/Art/UI/Sprites/Shared/icon-currency-blastbuck.png');
     --sprite-shared__icon-currency-blst: url('/Assets/Art/UI/Sprites/Shared/icon-currency-blst.png');
     --sprite-shared__icon-currency-bpp: url('/Assets/Art/UI/Sprites/Shared/icon-currency-bpp.png');
@@ -43,6 +44,7 @@
     --sprite-shared__progress-battlepass-bpp-yellow: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-yellow.png');
     --sprite-shared__progress-battlepass-rewards: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards.png');
     --sprite-shared__progress-battlepass-rewards-bpp: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards-bpp.png');
+    --sprite-shared__white-angled-tooltip: url('/Assets/Art/UI/Sprites/Shared/white-angled-tooltip.png');
 }
 
 .sprite-shared__arrow {
@@ -109,6 +111,12 @@
     background-image: var(--sprite-shared__icon-back);
     width: 63px;
     height: 75px;
+}
+
+.sprite-shared__icon-bug {
+    background-image: var(--sprite-shared__icon-bug);
+    width: 710px;
+    height: 730px;
 }
 
 .sprite-shared__icon-currency-blastbuck {
@@ -301,5 +309,11 @@
     background-image: var(--sprite-shared__progress-battlepass-rewards-bpp);
     width: 22px;
     height: 30px;
+}
+
+.sprite-shared__white-angled-tooltip {
+    background-image: var(--sprite-shared__white-angled-tooltip);
+    width: 296px;
+    height: 136px;
 }
 

@@ -20162,6 +20162,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/RankedDamageDone
+      TermType: 0
+      Description: 
+      Languages:
+      - Total Damage
+      - "\n\u0420\u0430\u043D\u0433\u043E\u0432\u044B\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
+      - Jogos classificados vencidos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MainMenu/RankedDeaths
       TermType: 0
       Description: 
@@ -22892,6 +22903,19 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITMatch/no_input_warning
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Warning! You are inactive.
+
+        You will be disconnected from the match.'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCollectionScreen/buy
       TermType: 0
       Description: 
@@ -24315,6 +24339,28 @@ MonoBehaviour:
       - Kill all the zombies. Survive as many waves as you can.
       - Kill all the zombies. Survive as many waves as you can.
       - Kill all the zombies. Survive as many waves as you can.
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/select_map
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT MAP
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/random_map
+      TermType: 0
+      Description: 
+      Languages:
+      - RANDOM
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -26203,176 +26249,176 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameEu
+    - Term: UITSettings/region_eu
       TermType: 0
       Description: 
       Languages:
+      - Europe1
       - Europe
-      - "\u0415\u0432\u0440\u043E\u043F\u0430"
       - Europa
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameHk
+    - Term: UITSettings/region_hk
       TermType: 0
       Description: 
       Languages:
-      - Hong Kong
+      - Asia1
       - Hong Kong
       - Hong Kong
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameUs
+    - Term: UITSettings/region_us
       TermType: 0
       Description: 
       Languages:
+      - America1
       - America
-      - "\u0410\u043C\u0435\u0440\u0438\u043A\u0430"
       - "Am\xE9rica"
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameAsia
+    - Term: UITSettings/region_asia
       TermType: 0
       Description: 
       Languages:
+      - Asia2
       - Asia
-      - "\u0410\u0437\u0438\u044F"
       - "\xC1sia"
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameAu
+    - Term: UITSettings/region_au
       TermType: 0
       Description: 
       Languages:
+      - Asia3
       - Australia
       - Australia
-      - Australia
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameCae
+    - Term: UITSettings/region_cae
       TermType: 0
       Description: 
       Languages:
+      - America2
       - Canada
       - Canada
-      - Canada
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameCn
+    - Term: UITSettings/region_cn
       TermType: 0
       Description: 
       Languages:
+      - Asia4
       - China
       - China
-      - China
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameIn
+    - Term: UITSettings/region_in
       TermType: 0
       Description: 
       Languages:
+      - Asia5
       - India
       - India
-      - India
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameJp
+    - Term: UITSettings/region_jp
       TermType: 0
       Description: 
       Languages:
+      - Asia6
       - Japan
       - Japan
-      - Japan
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameZa
+    - Term: UITSettings/region_za
       TermType: 0
       Description: 
       Languages:
+      - Africa1
       - South Africa
       - South Africa
-      - South Africa
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameSa
+    - Term: UITSettings/region_sa
       TermType: 0
       Description: 
       Languages:
+      - America3
       - Sao Paulo
       - Sao Paulo
-      - Sao Paulo
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameUae
+    - Term: UITSettings/region_uae
       TermType: 0
       Description: 
       Languages:
+      - Africa2
       - Dubai
       - Dubai
-      - Dubai
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameUsw
+    - Term: UITSettings/region_usw
       TermType: 0
       Description: 
       Languages:
+      - America4
       - America West
       - America West
-      - America West
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameUssc
+    - Term: UITSettings/region_ussc
       TermType: 0
       Description: 
       Languages:
-      - South US
+      - America5
       - South US
       - South US
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameKr
+    - Term: UITSettings/region_kr
       TermType: 0
       Description: 
       Languages:
-      - Korea
+      - Asia7
       - Korea
       - Korea
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/ServerNameTurkey
+    - Term: UITSettings/region_tr
       TermType: 0
       Description: 
       Languages:
-      - Turkey
+      - Europe2
       - Turkey
       - Turkey
       - 
@@ -27610,7 +27656,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1713360910178
+    Google_LastUpdatedVersion: 1716302609930
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

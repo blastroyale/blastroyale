@@ -1,20 +1,29 @@
 #if UNITY_EDITOR
+using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.MonoComponent.Collections;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
+using Path = System.IO.Path;
 
 namespace FirstLight.Editor.EditorTools.ArtTools
 {
 	public class CharacterTester : MonoBehaviour
 	{
+		[ShowInInspector, ValueDropdown("GetAllWeapons", FlattenTreeView = true), OnValueChanged("GiveWeapons")]
+		private GameObject _weapon;
+
+		[ShowInInspector, ValueDropdown("GetAllGliders", FlattenTreeView = true), OnValueChanged("GiveGliders")]
+		private GameObject _glider;
+
 		[Button]
-		private void InstantiateCharacters()
+		private void RefreshCharacters()
 		{
 			const float SPACING = 1.5f;
 			const int ROWS = 3;
 
-			var assets = AssetDatabase.FindAssets("t:Model t:Prefab Char_", new[] {"Assets/AddressableResources/Collections/CharacterSkins"});
+			var assets = AssetDatabase.FindAssets("t:Prefab Char_", new[] {"Assets/AddressableResources/Collections/CharacterSkins"});
 
 			// Destroy kids
 			while (transform.childCount > 0)
@@ -42,8 +51,25 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 			}
 		}
 
-		[Button]
-		private void GiveWeapons(GameObject weapon)
+		private IEnumerable<ValueDropdownItem<GameObject>> GetAllWeapons()
+		{
+			var weapons = AssetDatabase.FindAssets("t:Prefab Weapon_", new[] {"Assets/AddressableResources/Weapons"});
+
+			return weapons.Select(AssetDatabase.GUIDToAssetPath)
+				.Select(path => new ValueDropdownItem<GameObject>(Path.GetFileNameWithoutExtension(path).Replace("Weapon_", ""),
+					AssetDatabase.LoadAssetAtPath<GameObject>(path)));
+		}
+
+		private IEnumerable<ValueDropdownItem<GameObject>> GetAllGliders()
+		{
+			var gliders = AssetDatabase.FindAssets("t:Prefab Glider_", new[] {"Assets/AddressableResources/Gliders"});
+
+			return gliders.Select(AssetDatabase.GUIDToAssetPath)
+				.Select(path => new ValueDropdownItem<GameObject>(Path.GetFileNameWithoutExtension(path).Replace("Glider_", ""),
+					AssetDatabase.LoadAssetAtPath<GameObject>(path)));
+		}
+
+		private void GiveWeapons()
 		{
 			var skins = gameObject.transform.GetComponentsInChildren<CharacterSkinMonoComponent>();
 
@@ -56,16 +82,19 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 					DestroyImmediate(skin.WeaponAnchor.GetChild(0).gameObject);
 				}
 
-				var weaponInstance = (GameObject) PrefabUtility.InstantiatePrefab(weapon, skin.WeaponAnchor);
+				var weaponInstance = (GameObject) PrefabUtility.InstantiatePrefab(_weapon, skin.WeaponAnchor);
 
-				var weaponChild = weaponInstance.transform.GetChild(0);
-				weaponChild.localPosition = Vector3.zero;
-				weaponChild.localRotation = Quaternion.identity;
+				// TODO: Temporary if, new weapons don't have a child
+				if (weaponInstance.transform.childCount > 0)
+				{
+					var weaponChild = weaponInstance.transform.GetChild(0);
+					weaponChild.localPosition = Vector3.zero;
+					weaponChild.localRotation = Quaternion.identity;
+				}
 			}
 		}
 
-		[Button]
-		private void GiveGlider(GameObject glider)
+		private void GiveGliders()
 		{
 			var skins = gameObject.transform.GetComponentsInChildren<CharacterSkinMonoComponent>();
 
@@ -78,7 +107,7 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 					DestroyImmediate(skin.GliderAnchor.GetChild(0).gameObject);
 				}
 
-				var weaponInstance = (GameObject) PrefabUtility.InstantiatePrefab(glider, skin.GliderAnchor);
+				var weaponInstance = (GameObject) PrefabUtility.InstantiatePrefab(_glider, skin.GliderAnchor);
 
 				var weaponChild = weaponInstance.transform.GetChild(0);
 				weaponChild.localPosition = Vector3.zero;

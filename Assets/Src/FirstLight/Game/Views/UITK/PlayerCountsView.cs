@@ -26,25 +26,24 @@ namespace FirstLight.Game.Views.UITK
 
 		private readonly HashSet<int> _teamsCache = new ();
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
 			_gameServices = MainInstaller.ResolveServices();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
-			_aliveCountLabel = element.Q<Label>("AliveCountText").Required();
-			_aliveCountPing = element.Q<VisualElement>("AliveCountPing").Required();
-			_killsCountLabel = element.Q<Label>("KilledCountText").Required();
-			_killsCountPing = element.Q<VisualElement>("KilledCountPing").Required();
+			_aliveCountLabel = Element.Q<Label>("AliveCountText").Required();
+			_aliveCountPing = Element.Q<VisualElement>("AliveCountPing").Required();
+			_killsCountLabel = Element.Q<Label>("KilledCountText").Required();
+			_killsCountPing = Element.Q<VisualElement>("KilledCountPing").Required();
 			_showTeamCount = _gameServices.RoomService.CurrentRoom.Properties.TeamSize.Value > 1;
 			if (_showTeamCount)
 			{
-				_teamsCountLabel = element.Q<Label>("TeamsCountText").Required();
-				_teamsCountPing = element.Q<VisualElement>("TeamsCountPing").Required();
+				_teamsCountLabel = Element.Q<Label>("TeamsCountText").Required();
+				_teamsCountPing = Element.Q<VisualElement>("TeamsCountPing").Required();
 			}
 			else
 			{
-				element.Q("TeamsContainer").Required().SetDisplay(false);
+				Element.Q("TeamsContainer").Required().SetDisplay(false);
 			}
 		}
 

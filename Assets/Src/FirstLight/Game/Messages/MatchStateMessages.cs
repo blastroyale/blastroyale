@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using Quantum;
@@ -32,7 +33,13 @@ namespace FirstLight.Game.Messages
 		public QuantumGame Game;
 		public bool IsResync;
 	}
-
+	
+	public struct BeforeSimulationCommand : IMessage
+	{
+		public QuantumGame Game;
+		public QuantumServerCommand Type;
+	}
+	
 	public struct MatchEndedMessage : IMessage
 	{
 		public QuantumGame Game;

@@ -149,11 +149,6 @@ MonoBehaviour:
         Id:
           Value: 562045426505754909
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecision_34]
-    - Path: AddressableResources/Maps/NewBR/NewBRMap_NavMesh_data
-      AssetRef:
-        Id:
-          Value: 583182488621692793
-      Address: Maps/NewBR/NewBRMap_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFiringMode_38
       AssetRef:
         Id:
@@ -419,11 +414,6 @@ MonoBehaviour:
         Id:
           Value: 1599967694158015135
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TeleportSpawn_5]
-    - Path: AddressableResources/Maps/NewBR/NewBRMap
-      AssetRef:
-        Id:
-          Value: 1601773346252770156
-      Address: Maps/NewBR/NewBRMap.asset
     - Path: AddressableResources/QuantumAssets/Projectiles/RocketBullet|EntityPrototype
       AssetRef:
         Id:
@@ -439,11 +429,6 @@ MonoBehaviour:
         Id:
           Value: 1656225088092065763
       Address: Maps/Battlelands/BattlelandsMap.asset
-    - Path: AddressableResources/Maps/NewBR/NewBRMap_NavMesh
-      AssetRef:
-        Id:
-          Value: 1656664420704237954
-      Address: Maps/NewBR/NewBRMap_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TrueDecision_41
       AssetRef:
         Id:
@@ -795,11 +780,6 @@ MonoBehaviour:
         Id:
           Value: 3154801819037977363
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TryReload_8]
-    - Path: AddressableResources/Maps/NewBR/NewBRMap_mesh
-      AssetRef:
-        Id:
-          Value: 3177262706605919769
-      Address: Maps/NewBR/NewBRMap_mesh.asset
     - Path: AddressableResources/Maps/Fortress/Fortress_mesh
       AssetRef:
         Id:

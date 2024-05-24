@@ -47,6 +47,12 @@
     opacity: 1;
 }
 
+.player-status-bar__notification--noinputwarning {
+    color: rgb(255, 0, 0);
+    font-size: 36px;
+    opacity: 1;
+}
+
 .player-status-bar__notification--misc {
     color: rgb(255, 255, 255);
     opacity: 1;

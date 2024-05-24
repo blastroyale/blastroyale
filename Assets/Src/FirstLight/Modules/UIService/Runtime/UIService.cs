@@ -43,7 +43,12 @@ namespace FirstLight.UIService
 		// TODO: Shouldn't be here
 		public const string USS_PLAYER_LABEL = "player-name";
 
-		public event Action<Type> OnScreenOpened;
+		/// <summary>
+		/// Triggered when any screen is opened by this service.
+		/// </summary>
+		public event OnScreenOpenedDelegate OnScreenOpened;
+
+		public delegate void OnScreenOpenedDelegate(string screenName, string layerName);
 
 		private readonly GameObject _root;
 
@@ -68,9 +73,12 @@ namespace FirstLight.UIService
 			var screenType = typeof(T);
 
 			FLog.Info($"Opening screen {screenType.Name}");
-			if (_openedScreensType.ContainsKey(screenType))
+			if (_openedScreensType.TryGetValue(screenType, out var openedScreenType))
 			{
-				throw new InvalidOperationException($"Screen {screenType.Name} is already opened");
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+				FLog.Error($"Screen {screenType.Name} is already opened!");
+				return (T) openedScreenType;
+#endif
 			}
 
 			var layer = screenType.GetAttribute<UILayerAttribute>()?.Layer ?? UILayer.Default;
@@ -93,7 +101,7 @@ namespace FirstLight.UIService
 			_openedScreensLayer.Add(layer, screen);
 
 			await screen.OnScreenOpenedInternal();
-			OnScreenOpened?.Invoke(typeof(T));
+			OnScreenOpened?.Invoke(typeof(T).Name.Replace("Presenter", ""), layer.ToString());
 			return (T) screen;
 		}
 
@@ -130,15 +138,9 @@ namespace FirstLight.UIService
 				return CloseScreen(screen);
 			}
 
-			if (checkOpened)
-			{
-				var msg = $"Screen {typeof(T).Name} is not opened!";
-#if DEVELOPMENT_BUILD
-				throw new InvalidOperationException(msg);
-#else
-				FLog.Warn(msg);
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+			if (checkOpened) FLog.Error($"Screen {typeof(T).Name} is not opened!");
 #endif
-			}
 
 			return UniTask.CompletedTask;
 		}
@@ -147,6 +149,7 @@ namespace FirstLight.UIService
 		/// Closes a screen on the given layer.
 		/// </summary>
 		/// <param name="layer">The layer to close.</param>
+		/// <param name="checkOpened">If we should log an error when this screen is not opened.</param>
 		public UniTask CloseScreen(UILayer layer, bool checkOpened = true)
 		{
 			FLog.Info($"Closing layer {layer}");
@@ -156,15 +159,9 @@ namespace FirstLight.UIService
 				return CloseScreen(screen);
 			}
 
-			if (checkOpened)
-			{
-				var msg = $"Layer {layer} is empty!";
-#if DEVELOPMENT_BUILD
-				throw new InvalidOperationException(msg);
-#else
-				FLog.Warn(msg);
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+			if (checkOpened) FLog.Error($"Layer {layer} is empty!");
 #endif
-			}
 
 			return UniTask.CompletedTask;
 		}
@@ -186,7 +183,6 @@ namespace FirstLight.UIService
 
 			throw new InvalidOperationException($"Screen {screenType.Name} is not opened!");
 		}
-
 
 		/// <summary>
 		/// Checks if a screen of type <typeparamref name="T"/> is open.

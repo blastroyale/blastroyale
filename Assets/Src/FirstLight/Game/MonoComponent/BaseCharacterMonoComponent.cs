@@ -29,6 +29,8 @@ namespace FirstLight.Game.MonoComponent
 		protected IGameServices _services;
 		protected CharacterSkinMonoComponent _skin;
 
+		public MainMenuCharacterViewComponent CharacterViewComponent => _characterViewComponent;
+
 		protected virtual void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -37,9 +39,9 @@ namespace FirstLight.Game.MonoComponent
 
 		public async UniTask UpdateSkin(ItemData skinId)
 		{
-			if (_characterViewComponent != null && _characterViewComponent.gameObject != null)
+			if (CharacterViewComponent != null && CharacterViewComponent.gameObject != null)
 			{
-				Destroy(_characterViewComponent.gameObject);
+				Destroy(CharacterViewComponent.gameObject);
 			}
 
 
@@ -50,6 +52,16 @@ namespace FirstLight.Game.MonoComponent
 			obj.AddComponent<MainMenuCharacterViewComponent>();
 			AddDragCollider(obj);
 			SkinLoaded(skinId, obj);
+		}
+
+		public UniTask UpdateMeleeSkin(ItemData skinId)
+		{
+			/*
+			 Currently meta animations don't set the melee anchor position, so it doesn't work, waiting for animation changes
+			 CharacterViewComponent.Cosmetics = new[] {skinId.Id};
+			await CharacterViewComponent.InstantiateMelee();
+			CharacterViewComponent.EquipWeapon(GameId.Random);*/
+			return UniTask.CompletedTask;
 		}
 
 		/// <summary>

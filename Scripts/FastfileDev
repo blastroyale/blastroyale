@@ -1,0 +1,9 @@
+lane :use_notificationservice_profile do |options|
+    profile_path = File.join(options[:project_dir], 'Certificates/Blast_Royale_Notifications_Development.mobileprovision')
+    FastlaneCore::ProvisioningProfile.install(profile_path)
+    update_project_provisioning(
+        xcodeproj: 'Unity-iPhone.xcodeproj',
+        target_filter: 'notificationservice',
+        profile: profile_path
+    )
+end

@@ -22,6 +22,7 @@ using I2.Loc;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = System.Object;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -161,7 +162,6 @@ namespace FirstLight.Game.StateMachines
 			homeCheck.Transition().Target(homeMenu);
 
 			homeMenu.OnEnter(() => OpenHomeScreen().Forget());
-			homeMenu.OnEnter(TryClaimUncollectedRewards);
 			homeMenu.Event(PlayClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(homeCheck);
@@ -400,11 +400,10 @@ namespace FirstLight.Game.StateMachines
 			return _services.PartyService.GetCurrentGroupSize() > _services.GameModeService.SelectedGameMode.Value.Entry.TeamSize;
 		}
 
-
 		private async UniTaskVoid TogglePartyReadyStatus()
 		{
-			var local = _services.PartyService.GetLocalMember();
-			await _services.PartyService.Ready(!local?.Ready ?? false);
+			var isReady = _services.PartyService.LocalReadyStatus.Value;
+			await _services.PartyService.BufferedReady(!isReady);
 		}
 
 		private void OpenGameModeSelectionUI()
@@ -414,7 +413,6 @@ namespace FirstLight.Game.StateMachines
 				GameModeChosen = _ => _statechartTrigger(_gameModeSelectedFinishedEvent),
 				CustomGameChosen = () => _statechartTrigger(_roomJoinCreateClickedEvent),
 				OnBackClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent),
-				OnHomeClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent)
 			};
 
 			_services.UIService.OpenScreen<GameModeScreenPresenter>(data).Forget();
@@ -442,6 +440,7 @@ namespace FirstLight.Game.StateMachines
 			var data = new BattlePassScreenPresenter.StateData
 			{
 				BackClicked = () => { cacheActivity.Complete(); },
+				DisableScrollAnimation = true
 			};
 
 			_services.UIService.OpenScreen<BattlePassScreenPresenter>(data).Forget();
@@ -485,6 +484,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!_services.UIService.IsScreenOpen<HomeScreenPresenter>())
 			{
+				LoadingScreenPresenter.Destroy();
+
 				var data = new HomeScreenPresenter.StateData
 				{
 					OnPlayButtonClicked = PlayButtonClicked,
@@ -508,6 +509,8 @@ namespace FirstLight.Game.StateMachines
 
 				await _services.UIService.OpenScreen<HomeScreenPresenter>(data);
 			}
+
+			TryClaimUncollectedRewards();
 
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
@@ -578,7 +581,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			RequestDelayed().Forget();
 		}
-		
+
 		private async UniTask RequestDelayed()
 		{
 			await UniTask.NextFrame(); // TODO: Hack because we get into a loop and Unity freezes without it
@@ -618,7 +621,9 @@ namespace FirstLight.Game.StateMachines
 
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
-			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
+
+			await SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+			SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainMenu"));
 
 			_statechartTrigger(MainMenuLoadedEvent);
 
@@ -639,7 +644,7 @@ namespace FirstLight.Game.StateMachines
 				.ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
 
-			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
+			await SceneManager.UnloadSceneAsync("MainMenu");
 
 			await Resources.UnloadUnusedAssets();
 			MainInstaller.CleanDispose<IMainMenuServices>();

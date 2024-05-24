@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
@@ -19,6 +20,7 @@ using FirstLight.Services;
 using Sirenix.OdinInspector;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
+using Unity.Services.PushNotifications;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -66,13 +68,13 @@ namespace FirstLight.Game
 			await VersionUtils.LoadVersionDataAsync();
 			// This uglyness is here because we need to show the loading screen before loading configs, which need this tuple
 			var (services, assetResolver, configsProvider) = InitFLGServices();
-			await services.UIService.OpenScreen<LoadingScreenPresenter>();
 			OhYeah();
 
 			await StartupLoadingHelper.LoadConfigs(services, assetResolver, configsProvider);
 
 			InitSettings();
 			InitAppEventsListener();
+			await InitPushNotifications();
 
 			StartGameStateMachine();
 
@@ -81,11 +83,40 @@ namespace FirstLight.Game
 			Destroy(gameObject);
 		}
 
-		private void InitAppEventsListener()
+		private static void InitAppEventsListener()
 		{
 			var go = new GameObject("AppEventsListener");
 			go.AddComponent<AppEventsListener>();
 			DontDestroyOnLoad(go);
+		}
+
+		private static async UniTask InitPushNotifications()
+		{
+			if (Application.isEditor) return;
+
+			PushNotificationsService.Instance.OnRemoteNotificationReceived += PushNotificationReceived;
+
+			try
+			{
+				var token = await PushNotificationsService.Instance.RegisterForPushNotificationsAsync().AsUniTask();
+				FLog.Info($"Registered for push notifications with token: {token}");
+			}
+			catch (Exception e)
+			{
+				FLog.Warn("Failed to register for push notifications: ", e);
+			}
+
+			return;
+
+			// Only for testing for now
+			void PushNotificationReceived(Dictionary<string, object> notificationData)
+			{
+				FLog.Info("Notification received!");
+				foreach (var (key, value) in notificationData)
+				{
+					FLog.Info($"Notification data item: {key} - {value}");
+				}
+			}
 		}
 
 		private void InitTaskLogging()
@@ -128,13 +159,13 @@ namespace FirstLight.Game
 			};
 		}
 
-		private void StartGameStateMachine()
+		private static void StartGameStateMachine()
 		{
 			MainInstaller.Resolve<IGameStateMachine>().Run();
 		}
 
 		// TODO: This should not return the tuple, but we need UI Service before we await config loading
-		private (IGameServices, IAssetAdderService, IConfigsAdder) InitFLGServices()
+		private static (IGameServices, IAssetAdderService, IConfigsAdder) InitFLGServices()
 		{
 			var messageBroker = new InMemoryMessageBrokerService();
 			var timeService = new TimeService();
@@ -158,32 +189,32 @@ namespace FirstLight.Game
 			return (gameServices, assetResolver, configsProvider);
 		}
 
-		private async UniTask InitUnityServices()
+		private static async UniTask InitUnityServices()
 		{
 			var initOpts = new InitializationOptions();
 
-			initOpts.SetEnvironmentName(UnityCloudEnvironment.CURRENT);
-			RemoteConfigService.Instance.SetEnvironmentID(UnityCloudEnvironment.CURRENT_ID);
+			initOpts.SetEnvironmentName(FLEnvironment.Current.UCSEnvironmentName);
+			RemoteConfigService.Instance.SetEnvironmentID(FLEnvironment.Current.UCSEnvironmentID);
 
 			await UnityServices.InitializeAsync(initOpts).AsUniTask();
 			await Addressables.InitializeAsync().Task.AsUniTask();
 		}
 
-		private async UniTask InitAnalytics()
+		private static async UniTask InitAnalytics()
 		{
 			var trackingAllowed = ATTrackingUtils.IsTrackingAllowed();
 
-			var dependencyStatus = FirebaseApp.CheckAndFixDependenciesAsync().AsUniTask();
-			await dependencyStatus;
+			var dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync().AsUniTask();
 
-			if (dependencyStatus.Status != UniTaskStatus.Succeeded)
+			if (dependencyStatus == DependencyStatus.Available)
 			{
-				throw new InitializationException(InitResult.FailedMissingDependency,
-					$"Firebase could not be initialized properly. Status: {dependencyStatus}");
+				FirebaseApp.Create();
+				FirebaseAnalytics.SetAnalyticsCollectionEnabled(trackingAllowed);
 			}
-
-			FirebaseApp.Create();
-			FirebaseAnalytics.SetAnalyticsCollectionEnabled(trackingAllowed);
+			else
+			{
+				FLog.Warn($"Firebase could not be initialized properly. Status: {dependencyStatus}");
+			}
 
 			if (trackingAllowed)
 			{
@@ -200,27 +231,24 @@ namespace FirstLight.Game
 			}
 		}
 
-		private void InitPlugins()
+		private static void InitPlugins()
 		{
 #if !DISABLE_SRDEBUGGER
-			if (Debug.isDebugBuild)
-			{
-				SRDebug.Init();
-			}
+			SRDebug.Init();
 #endif
 			Debug.developerConsoleEnabled = false;
 			DebugManager.instance.enableRuntimeUI = false;
 			FLog.Init();
 		}
 
-		private void InitGlobalShaderData()
+		private static void InitGlobalShaderData()
 		{
 			// Used for DPI-based scaling in shaders
 			Shader.SetGlobalVector(Shader.PropertyToID("_PhysicalScreenSize"),
 				new Vector4(Screen.width / Screen.dpi, Screen.height / Screen.dpi, Screen.dpi, 69));
 		}
 
-		private void InitSettings()
+		private static void InitSettings()
 		{
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
 

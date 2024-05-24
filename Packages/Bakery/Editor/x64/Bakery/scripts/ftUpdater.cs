@@ -35,7 +35,7 @@ public class ftUpdater : EditorWindow
 
     bool anythingDownloaded = false;
 
-	[MenuItem ("Bakery/Utilities/Check for patches", false, 1000)]
+	[MenuItem("Tools/Bakery/Utilities/Check for patches", false, 1000)]
 	public static void Check()
     {
         var instance = (ftUpdater)GetWindow(typeof(ftUpdater));

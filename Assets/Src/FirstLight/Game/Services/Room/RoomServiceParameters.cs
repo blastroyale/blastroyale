@@ -48,11 +48,11 @@ namespace FirstLight.Game.Services.RoomService
 			properties.BotDifficultyOverwrite.Value = setup.BotDifficultyOverwrite;
 
 			// If you can select the spawn point give players time to do it
-				FLog.Info("Loading starts at "+properties.LoadingStartServerTime.Value);
-				FLog.Info("Now "+_service._networkService.ServerTimeInMilliseconds);
-				FLog.Info("Diff "+(properties.LoadingStartServerTime.Value-_service._networkService.ServerTimeInMilliseconds));
-			
-			
+			FLog.Info("Loading starts at " + properties.LoadingStartServerTime.Value);
+			FLog.Info("Now " + _service._networkService.ServerTimeInMilliseconds);
+			FLog.Info("Diff " + (properties.LoadingStartServerTime.Value - _service._networkService.ServerTimeInMilliseconds));
+
+
 			return properties;
 		}
 
@@ -65,6 +65,7 @@ namespace FirstLight.Game.Services.RoomService
 			{
 				teamSize = setup.PlayfabQueue.TeamSize;
 			}
+
 			return new RoomProperties
 			{
 				MatchType = {Value = setup.MatchType},
@@ -92,7 +93,7 @@ namespace FirstLight.Game.Services.RoomService
 			// mid games. If we don't we won't be able to reconnect to the room unless we use a frame snapshot which is tricky.
 			var emptyTtl = offline ? GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS : 0;
 
-			if (FeatureFlags.COMMIT_VERSION_LOCK)
+			if (RemoteConfigs.Instance.EnableCommitVersionLock)
 			{
 				roomNameFinal += RoomCommitLockData;
 			}
@@ -140,7 +141,7 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			var roomNameFinal = roomName;
 
-			if (FeatureFlags.COMMIT_VERSION_LOCK)
+			if (RemoteConfigs.Instance.EnableCommitVersionLock)
 			{
 				roomNameFinal += RoomCommitLockData;
 			}

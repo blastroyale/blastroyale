@@ -12,9 +12,9 @@ namespace Quantum
 	{
 		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
-			var player = f.Get<PlayerCharacter>(e);
-			f.Events.OnLocalPlayerSkydivePLF(player.Player, e);
-			f.Events.OnPlayerSkydivePLF(player.Player, e);
+			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
+			f.Events.OnLocalPlayerSkydivePLF(player->Player, e);
+			f.Events.OnPlayerSkydivePLF(player->Player, e);
 		}
 	}
 }

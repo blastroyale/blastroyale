@@ -70,7 +70,6 @@ namespace FirstLight.Game.StateMachines
 			var asyncLoginWait = stateFactory.TaskWait("Async Login Wait");
 
 			initial.Transition().Target(autoAuthCheck);
-			initial.OnExit(SubscribeEvents);
 
 			setupEnvironment.OnEnter(SetupBackendEnvironmentData);
 			setupEnvironment.Transition().Target(autoAuthCheck);
@@ -107,7 +106,6 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(PublishAuthenticationSuccessMessage);
 			final.OnEnter(UnsubscribeEvents);
 		}
-
 
 		private async UniTask WaitForAsyncLogin()
 		{
@@ -146,12 +144,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _usingAsyncLogin;
 		}
-
-		private void SubscribeEvents()
-		{
-			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
-		}
-
 
 		private void UnsubscribeEvents()
 		{
@@ -210,7 +202,6 @@ namespace FirstLight.Game.StateMachines
 			// Some unrecoverable shit happen, show a button to clear account data and reopen the game.
 			// Send error
 			OnLoginError(error);
-
 
 			return;
 		}
@@ -297,7 +288,6 @@ namespace FirstLight.Game.StateMachines
 				Callback = OpenStore
 			};
 
-
 			var message = string.Format(ScriptLocalization.General.UpdateGame, VersionUtils.VersionExternal,
 				_services.GameBackendService.GetTitleVersion());
 
@@ -324,17 +314,6 @@ namespace FirstLight.Game.StateMachines
 
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance,
 				ScriptLocalization.General.MaintenanceDescription, confirmButton);
-		}
-
-		private void OpenLoadingScreen()
-		{
-			_services.UIService.OpenScreen<LoadingScreenPresenter>().Forget();
-		}
-
-		private void OnApplicationQuit(ApplicationQuitMessage msg)
-		{
-			// TODO ??? Wat
-			OpenLoadingScreen();
 		}
 
 		private void PublishAuthenticationSuccessMessage()

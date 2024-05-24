@@ -433,7 +433,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (EntityView.EntityRef != callback.Entity) return;
 
-			_characterView.EquipWeapon(callback.Weapon);
+			_characterView.EquipWeapon(callback.Weapon.GameId);
 		}
 
 		private void HandlePlayerWeaponAdded(EventOnPlayerWeaponAdded callback)

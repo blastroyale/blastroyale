@@ -27,6 +27,7 @@ namespace FirstLight.Game.UIElements
 		private const string USS_NOTIFICATION_AMMO = USS_NOTIFICATION + "--ammo";
 		private const string USS_NOTIFICATION_LVLUP = USS_NOTIFICATION + "--lvlup";
 		private const string USS_NOTIFICATION_MISC = USS_NOTIFICATION + "--misc";
+		private const string USS_NOTIFICATION_NOINPUTWARNING = USS_NOTIFICATION + "--noinputwarning";
 		private const string USS_NOTIFICATION_WOUNDED = USS_NOTIFICATION + "--wounded";
 		private const string USS_DAMAGE_HOLDER = USS_BLOCK + "__damage-holder";
 		private const string USS_DAMAGE_NUMBER = USS_BLOCK + "__damage-number";
@@ -183,13 +184,26 @@ namespace FirstLight.Game.UIElements
 					_notificationLabel.text = data;
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_MISC);
 					break;
+				case NotificationType.NoInputWarning:
+					_notificationLabel.text = data;
+					_notificationLabel.AddToClassList(USS_NOTIFICATION_NOINPUTWARNING);
+					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(type), type, null);
 			}
 
 			_notificationLabel.SetDisplay(true);
-			_notificationHandle.ExecuteLater(1000);
-			_notificationLabel.AnimatePing();
+
+			if (type == NotificationType.NoInputWarning)
+			{
+				_notificationHandle.ExecuteLater(4000);
+				_notificationLabel.AnimatePing(1.4f, 4000);
+			}
+			else
+			{
+				_notificationHandle.ExecuteLater(1000);
+				_notificationLabel.AnimatePing();
+			}
 		}
 
 		private void AnimateDamageNumber(VisualElement damageNumber, float t)
@@ -233,7 +247,8 @@ namespace FirstLight.Game.UIElements
 			LevelUp,
 			MaxSpecials,
 			MiscPickup,
-			Wounded
+			Wounded,
+			NoInputWarning
 		}
 
 		public new class UxmlFactory : UxmlFactory<PlayerStatusBarElement, UxmlTraits>

@@ -1,0 +1,90 @@
+﻿parameters:
+  - name: organizationName
+    type: string
+    displayName: Organization Name
+    default: ""
+  - name: projectName
+    type: string
+    displayName: Project Name
+    default: ""
+  - name: pipelineName
+    type: string
+    displayName: Name of the pipeline to download the artifact from
+  - name: buildNumber
+    type: string
+    displayName: Build number to check
+  - name: artifactName
+    type: string
+    displayName: Artifact's name to download
+  - name: downloadPath
+    type: string
+    displayName: Folder that the artifact will be extracted to
+
+steps:
+  - powershell: |
+    
+      $pipelineName = "${{ parameters.pipelineName }}"
+      $buildNumber = "${{ parameters.buildNumber }}"
+      $artifactName = "${{ parameters.artifactName }}"
+      
+      
+      $baseUrl = "$(System.CollectionUri)"
+      if (!([string]::IsNullOrEmpty("${{ parameters.organizationName }}"))){
+        $baseUrl = "https://dev.azure.com/${{ parameters.organizationName }}"
+      }
+      if (!([string]::IsNullOrEmpty("${{ parameters.projectName }}"))){
+        $baseUrl = "${baseUrl}/${{ parameters.projectName }}"
+      }else {
+        $baseUrl = "${baseUrl}/$(System.TeamProject)"
+      }
+      
+      $baseUrl = "${baseUrl}/_apis"
+      Write-Host "Api url is: $baseUrl"
+      $definitionsUrl = "$baseUrl/build/definitions?api-version=6.1-preview.7&name=$pipelineName"
+      $definitionsResponse = Invoke-RestMethod -Uri $definitionsUrl -Headers @{Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"}
+      Write-Host "$definitionResponse"
+      if ($definitionsResponse.count -ne 1) {
+        Write-Error "Error: Pipeline $pipelineName not found or multiple pipelines were found."
+        exit 1
+      }
+      
+      $pipelineId = $definitionsResponse.value.id
+      $buildsUrl = "$baseUrl/build/builds?api-version=6.1-preview.6&definitions=$pipelineId&buildNumber=$buildNumber&statusFilter=completed"
+      $buildsResponse = Invoke-RestMethod -Uri $buildsUrl -Headers @{Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"}
+      
+      if ($buildsResponse.count -ne 1) {
+        Write-Error "Error: Build number $buildNumber not found or multiple builds were found for pipeline $pipelineName."
+        exit 1
+      }
+      
+      $buildId = $buildsResponse.value.id
+      $sourceVersion = $buildsResponse.value.sourceVersion
+      Write-Host "SourceVersion: $sourceVersion"
+      Write-Host "##vso[task.setvariable variable=buildCommit]$sourceVersion"
+      
+      $artifactsUrl = "$baseUrl/build/builds/$buildId/artifacts?api-version=6.1-preview.5"
+      $artifactsResponse = Invoke-RestMethod -Uri $artifactsUrl -Headers @{Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"}
+      
+      $artifact = $artifactsResponse.value | Where-Object { $_.name -eq $artifactName }
+      if (!$artifact) {
+        Write-Error "Error: Artifact '$artifactName' not found in build $buildNumber for pipeline $pipelineName."
+        exit 1
+      }
+      
+      $downloadUrl = $artifact.resource.downloadUrl
+      $downloadFile = Join-Path -Path "$env:TEMP_DIR" -ChildPath "$($artifactName).zip"
+      Write-Host "##vso[task.setvariable variable=downloadFile]$downloadFile"
+      Write-Host "Download link is $downloadUrl"
+      $artifactContent = Invoke-RestMethod -Uri $downloadUrl -Headers @{Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"} -OutFile $downloadFile
+      Write-Host "Artifact '$artifactName' downloaded from build $buildNumber for pipeline $pipelineName to $downloadFile"
+    displayName: 'Download Artifact'
+    env:
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+      ARTIFACT_DIR: $(System.ArtifactsDirectory)
+      TEMP_DIR: $(Agent.TempDirectory)
+
+  - task: ExtractFiles@1
+    displayName: 'Extract Artifact'
+    inputs:
+      archiveFilePatterns: '$(downloadFile)'
+      destinationFolder: '${{ parameters.downloadPath }}'

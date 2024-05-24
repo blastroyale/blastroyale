@@ -8,8 +8,9 @@ namespace FirstLight.Game.Services.Party
 		private const string CodeSearchProperty = "string_key1";
 		private const string LobbyCommitProperty = "string_key2";
 		private const string ServerProperty = "string_key3";
-		private const string DisplayNameMemberProperty = "display_name";
-		private const string ReadyMemberProperty = "ready";
+		private const string ReadyVersion = "ready_version";
+		
+		
 
 		private const string LevelProperty = "bpp_level";
 		private const string TrophiesProperty = "trophies";

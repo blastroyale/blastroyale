@@ -37,19 +37,18 @@ namespace FirstLight.Game.Views
 		
 		private List<LevelLevelRewardInfo> _levelRewardsInfo;
 
-		public override void Attached(VisualElement element)
+		protected override void Attached()
 		{
-			base.Attached(element);
-			_gainedLabel = element.Q<Label>("Gained").Required();
-			_nextLevelLabel = element.Q<Label>("Level").Required();
-			_totalLabel = element.Q<Label>("Total").Required();
-			_previousPointsBar = element.Q<VisualElement>("GreenBar").Required();
-			_newPointsBar = element.Q<VisualElement>("YellowBar").Required();
+			_gainedLabel = Element.Q<Label>("Gained").Required();
+			_nextLevelLabel = Element.Q<Label>("Level").Required();
+			_totalLabel = Element.Q<Label>("Total").Required();
+			_previousPointsBar = Element.Q<VisualElement>("GreenBar").Required();
+			_newPointsBar = Element.Q<VisualElement>("YellowBar").Required();
 
-			_gainedWeek = element.Q<Label>("GainedWeek");
-			_next = element.Q<Label>("Next");
-			_totalWeek = element.Q<Label>("TotalWeek");
-			_toLevelLabel = element.Q<Label>("ToLevel");
+			_gainedWeek = Element.Q<Label>("GainedWeek");
+			_next = Element.Q<Label>("Next");
+			_totalWeek = Element.Q<Label>("TotalWeek");
+			_toLevelLabel = Element.Q<Label>("ToLevel");
 			
 			HidePanel();
 		}
@@ -100,7 +99,7 @@ namespace FirstLight.Game.Views
 			{
 				var levelGained = levelRewardInfo.Start;
 
-				_nextLevelLabel.text = (levelRewardInfo.NextLevel+1).ToString();
+				_nextLevelLabel.text = (levelRewardInfo.NextLevel).ToString();
 				_totalLabel.text = levelGained + "/" + levelRewardInfo.MaxForLevel;
 				var nextPointsPercentage = (int)(100 * ((float) (levelRewardInfo.Start+levelRewardInfo.Total) / levelRewardInfo.MaxForLevel));
 				_newPointsBar.style.width = Length.Percent(nextPointsPercentage);

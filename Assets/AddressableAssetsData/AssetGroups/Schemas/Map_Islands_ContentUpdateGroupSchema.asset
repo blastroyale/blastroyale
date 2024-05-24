@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Map_Islands_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: 256c58fe4d72a6a44aefc46c801e99b6, type: 2}
-  m_StaticContent: 1
+  m_StaticContent: 0

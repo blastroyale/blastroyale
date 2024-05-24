@@ -6,8 +6,6 @@ using System.Linq;
 using System.Text;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
 using UnityEditor;
@@ -29,7 +27,7 @@ namespace FirstLight.Editor.EditorTools
 		}
 
 		[MenuItem("FLG/Build/Quantum")]
-		private static void BuildQuantum()
+		public static void BuildQuantum()
 		{
 			var progressId = Progress.Start("Building Quantum", "Builds Quantum as Debug using msbuild.",
 				Progress.Options.Indefinite | Progress.Options.Unmanaged);

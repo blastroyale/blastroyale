@@ -22,6 +22,8 @@ namespace FirstLight.FLogger
 		private string _logPath;
 		private List<string> _logPaths;
 
+		public string CurrentLogPath => _logPath;
+
 		public FileFLogWriter()
 		{
 #if UNITY_EDITOR
@@ -33,7 +35,7 @@ namespace FirstLight.FLogger
 #endif
 		}
 
-		private void Init()
+		public void Init()
 		{
 			var pathsString = PlayerPrefs.GetString(LogPathsKey);
 			_logPaths = string.IsNullOrEmpty(pathsString) ? new List<string>() : pathsString.Split(';').ToList();
@@ -77,11 +79,6 @@ namespace FirstLight.FLogger
 		{
 			lock (this)
 			{
-				if (_streamWriter == null)
-				{
-					Init();
-				}
-
 				_streamWriter!.WriteLine(log);
 			}
 		}

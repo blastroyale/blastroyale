@@ -1,9 +1,6 @@
 using System.Collections.Generic;
 using FirstLight.FLogger;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.StateMachines;
-using UnityEngine;
-using UnityEngine.Purchasing;
 
 namespace FirstLight.Game.Services.AnalyticsHelpers
 {

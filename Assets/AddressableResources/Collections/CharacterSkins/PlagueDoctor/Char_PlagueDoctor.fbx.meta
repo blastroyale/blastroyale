@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ade70a36eb0914018b4d7fb1492263f3
+guid: 8d29f4545b9ef4875bece4f778c1d1aa
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_PlagueDoctor
-    second: {fileID: 2100000, guid: 217aecc6451bf4c1db05bba73f6bb010, type: 2}
+    second: {fileID: 2100000, guid: 0deedd7aad4b546c28355a454decac2c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

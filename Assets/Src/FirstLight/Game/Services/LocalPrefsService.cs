@@ -5,6 +5,11 @@ namespace FirstLight.Game.Services
 	public class LocalPrefsService
 	{
 		/// <summary>
+		/// Stores the last selected map on gamemode selection screen
+		/// </summary>
+		public ObservableField<int> SelectedRankedMap { get; } = CreateIntSetting(nameof(SelectedRankedMap), 0);
+
+		/// <summary>
 		/// If the background music is enabled
 		/// </summary>
 		public ObservableField<bool> IsBGMEnabled { get; } = CreateBoolSetting(nameof(IsBGMEnabled), true);
@@ -53,7 +58,7 @@ namespace FirstLight.Game.Services
 		/// The current server region.
 		/// </summary>
 		public ObservableField<string> ServerRegion { get; } = CreateStringSetting(nameof(ServerRegion), string.Empty);
-		
+
 		/// <summary>
 		/// If we show the latency during the game
 		/// </summary>
@@ -87,6 +92,22 @@ namespace FirstLight.Game.Services
 			static void SetString(string key, string value)
 			{
 				PlayerPrefs.SetString(ConstructKey(key), value);
+				PlayerPrefs.Save();
+			}
+		}
+
+		private static ObservableField<int> CreateIntSetting(string key, int defaultValue)
+		{
+			return new ObservableResolverField<int>(() => GetInt(key, defaultValue), val => SetInt(key, val));
+
+			static int GetInt(string key, int defaultValue)
+			{
+				return PlayerPrefs.GetInt(ConstructKey(key), defaultValue);
+			}
+
+			static void SetInt(string key, int value)
+			{
+				PlayerPrefs.SetInt(ConstructKey(key), value);
 				PlayerPrefs.Save();
 			}
 		}

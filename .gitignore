@@ -95,13 +95,8 @@ crashlytics-build.properties
 [Aa]ssets/Plugins/Android/com.google.games.*
 ProjectSettings/AndroidResolverDependencies.xml
 ProjectSettings/GvhProjectSettings.xml
-
-# Credential files:
-**/GoogleService-Info*.plist*
-**/google-services*.json*
-[Aa]ssets/StreamingAssets*
-[Aa]ssets/StreamingAssets/
-[Aa]ssets/StreamingAssets.meta
+Assets/GeneratedLocalRepo.meta
+Assets/GeneratedLocalRepo/*
 
 #Project Specific
 [Aa]ssets/BuildReports/
@@ -132,13 +127,24 @@ Assets/Plugins/Android/com.*
 Assets/Plugins/Android/javax.*
 Assets/Plugins/Android/org.*
 Assets/Plugins/Android/FirebaseCrashlytics.*
-blast_royale_BackUpThisFolder_ButDontShipItWithYourGame
-blast_royale_BurstDebugInformation_DoNotShip
 Assets/InitTestScene*.unity
 Assets/InitTestScene*.unity.meta
-Assets/UnityDefaultRuntimeTheme.tss.meta
-Assets/UnityDefaultRuntimeTheme.tss
 /BuildArtifacts/
+Assets/Resources/version-data.txt
+Assets/Resources/version-data.txt.meta
+com.Tivadar.Best.HTTP.xml
+com.Tivadar.Best.TLSSecurity.xml
+com.Tivadar.Best.SignalR.xml
+com.Tivadar.Best.WebSockets.xml
+Assets/StreamingAssets/google-services.plist
+Assets/StreamingAssets/google-services.plist.meta
+Assets/AddressableAssetsData/link.xml
+Assets/AddressableAssetsData/link.xml.meta
+bakery-times.log
+mono_crash.*
+app/
+app_BackUpThisFolder_ButDontShipItWithYourGame/
+app_BurstDebugInformation_DoNotShip/
 
 # DLLs
 # Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll

@@ -6,5 +6,8 @@
             <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITGameModeSelection/tap_to_choose" name="Instructions" class="DO_NOT_USE_font-style-normal instructions anim-fade anim-delay-1" />
             <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITGameModeSelection/choose_a_mode" name="Header" />
         </ui:VisualElement>
+        <ui:VisualElement name="OptionsHolderColumnOne" class="selectors-options-column">
+            <FirstLight.Game.UIElements.LocalizedDropDown localization-key="UITGameModeSelection/select_map" name="Map" class="room-dropdown" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

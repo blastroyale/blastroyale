@@ -20,6 +20,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using ErrorCode = Photon.Realtime.ErrorCode;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -138,7 +139,6 @@ namespace FirstLight.Game.StateMachines
 			FLog.Verbose("Simulation ended, advancing network action");
 		}
 
-
 		private void UnsubscribeDisconnectEvents()
 		{
 			if (_tickReconnectAttemptCoroutine != null)
@@ -184,9 +184,15 @@ namespace FirstLight.Game.StateMachines
 			_networkService.ReconnectPhoton(out _requiresManualRoomReconnection);
 		}
 
-
 		private void OnGameMatched(GameMatched match)
 		{
+			if (match.RoomSetup.MapId == (int) GameId.Any)
+			{
+				var maps = _services.GameModeService.ValidMatchmakingMaps;
+				var index = Random.Range(0, maps.Count);
+				match.RoomSetup.MapId = (int) maps[index];
+			}
+
 			_services.RoomService.JoinOrCreateRoom(match.RoomSetup, match.TeamId, match.ExpectedPlayers);
 			_services.GenericDialogService.CloseDialog();
 		}
@@ -231,7 +237,6 @@ namespace FirstLight.Game.StateMachines
 				_networkService.SetCurrentRoomOpen(false);
 			}
 		}
-
 
 		private void OnSimulationStart(MatchSimulationStartedMessage message)
 		{
@@ -468,7 +473,6 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info("OnLobbyStatisticsUpdate");
 		}
 
-
 		private void OnAttemptManualReconnectionMessage(AttemptManualReconnectionMessage obj)
 		{
 			ReconnectPhoton();
@@ -520,7 +524,7 @@ namespace FirstLight.Game.StateMachines
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
 			var gameModeId = selectedGameMode.Entry.GameModeId;
 			var mutators = selectedGameMode.Entry.Mutators;
-			var mapConfig = _services.GameModeService.GetRotationMapConfig(gameModeId);
+			var map = _services.GameModeService.SelectedMap;
 			var rewards = selectedGameMode.Entry.AllowedRewards;
 
 			if (!FeatureFlags.ENABLE_NOOB)
@@ -530,7 +534,7 @@ namespace FirstLight.Game.StateMachines
 
 			var matchmakingSetup = new MatchRoomSetup()
 			{
-				MapId = (int) mapConfig.Map,
+				MapId = (int) map,
 				GameModeId = gameModeId,
 				Mutators = mutators,
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
@@ -559,7 +563,6 @@ namespace FirstLight.Game.StateMachines
 			};
 			StartRandomMatchmaking(setup);
 		}
-
 
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
@@ -604,7 +607,6 @@ namespace FirstLight.Game.StateMachines
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 			JoinRoom(msg.RoomName);
 		}
-
 
 		private void OnApplicationQuitMessage(ApplicationQuitMessage data)
 		{

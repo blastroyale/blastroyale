@@ -27,3 +27,11 @@
 .anim-delay-1 {
     transition-delay: 0.5s;
 }
+
+.selectors-options-column {
+    position: absolute;
+    top: 25px;
+    width: 400;
+    flex-grow: 1;
+    right: 267px;
+}

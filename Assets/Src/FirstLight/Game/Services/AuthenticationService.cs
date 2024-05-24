@@ -376,7 +376,7 @@ namespace FirstLight.Game.Services
 				if (version == VersionUtils.VersionExternal)
 				{
 					FLog.Info("Redirecting to staging");
-					_services.GameBackendService.SetupBackendEnvironment(Environment.STAGING);
+					_services.GameBackendService.SetupBackendEnvironment(FLEnvironment.STAGING);
 					LoginSetupGuest(onSuccess, onError);
 					return;
 				}
@@ -386,24 +386,13 @@ namespace FirstLight.Game.Services
 				FLog.Info($"No server redirect version={VersionUtils.VersionExternal} vInternal {VersionUtils.VersionInternal}");
 			}
 
-			var userId = result.PlayFabId;
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
-			var userName = result.InfoResultPayload.AccountInfo.Username;
 			var emails = result.InfoResultPayload.PlayerProfile?.ContactEmailAddresses;
 			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));
-			var migrationData = new MigrationData() {TutorialSections = tutorialData.TutorialSections};
+			var migrationData = new MigrationData {TutorialSections = tutorialData.TutorialSections};
 			_networkService.UserId.Value = result.PlayFabId;
 
-			//AppleApprovalHack(result);
-			if (titleData.TryGetValue("PHOTON_APP", out var photonAppId))
-			{
-				var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
-				quantumSettings.AppSettings.AppIdRealtime = photonAppId;
-				_services.GameBackendService.CurrentEnvironmentData.AppIDRealtime = photonAppId;
-				FLog.Info("Setting up photon app id by playfab title data " + photonAppId);
-			}
-
-			FLog.Info("Using photon with the id " + _services.GameBackendService.CurrentEnvironmentData.AppIDRealtime);
+			FLog.Info("Using photon with the id " + FLEnvironment.Current.PhotonAppIDRealtime);
 
 			var requiredServices = 2;
 			var doneServices = 0;
@@ -425,7 +414,7 @@ namespace FirstLight.Game.Services
 			AuthenticateGameNetwork(loginData, OnServiceConnected, onError);
 			GetPlayerData(loginData, OnServiceConnected, onError, previouslyLoggedIn);
 
-			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
+			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out _))
 			{
 				onError?.Invoke(null);
 				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
@@ -445,14 +434,6 @@ namespace FirstLight.Game.Services
 			FeatureFlags.ParseFlags(titleData);
 			FeatureFlags.ParseLocalFeatureFlags();
 			_services.MessageBrokerService.Publish(new FeatureFlagsChanged());
-
-
-			_services.LiveopsService.FetchSegments(_ =>
-			{
-				var liveopsFeatureFlags = _services.LiveopsService.GetUserSegmentedFeatureFlags();
-				FeatureFlags.ParseFlags(liveopsFeatureFlags);
-				_services.MessageBrokerService.Publish(new FeatureFlagsChanged());
-			});
 
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
@@ -718,11 +699,11 @@ namespace FirstLight.Game.Services
 
 		public void SendAccountRecoveryEmail(string email, Action onSuccess, Action<PlayFabError> onError)
 		{
-			SendAccountRecoveryEmailRequest request = new SendAccountRecoveryEmailRequest()
+			SendAccountRecoveryEmailRequest request = new SendAccountRecoveryEmailRequest
 			{
 				TitleId = PlayFabSettings.TitleId,
 				Email = email,
-				EmailTemplateId = _services.GameBackendService.CurrentEnvironmentData.RecoveryEmailTemplateID,
+				EmailTemplateId = FLEnvironment.Current.PlayFabRecoveryEmailTemplateID,
 				AuthenticationContext = PlayFabSettings.staticPlayer
 			};
 

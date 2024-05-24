@@ -16,8 +16,6 @@ using UnityEngine;
 
 public partial class SROptions
 {
-#if !DISABLE_SRDEBUGGER
-#if DEVELOPMENT_BUILD
 #if ENABLE_PLAYFABADMIN_API
 	[Category("Reset Player")]
 	public void ResetPlayer()
@@ -64,8 +62,9 @@ public partial class SROptions
 	}
 #endif
 
+#if !DISABLE_SRDEBUGGER
 	private static uint _currencyValue = 100;
-	
+
 	private static void AddCurrencyCheats()
 	{
 		var category = "Currencies";
@@ -112,6 +111,7 @@ public partial class SROptions
 
 		SRDebug.Instance.AddOptionContainer(container);
 	}
+#endif
 
 	private void UnlockCollectionItem(GameId item, IGameLogic gameLogic, IGameServices services)
 	{
@@ -195,8 +195,4 @@ public partial class SROptions
 	FLog.Info(str);
 #endif
 	}
-
-
-#endif
-#endif
 }

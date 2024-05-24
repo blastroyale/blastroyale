@@ -37,7 +37,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IPlayerProfileService ProfileService { get; }
 		public virtual IAuthenticationService AuthenticationService { get; set; }
 		public virtual ITutorialService TutorialService { get; }
-		public virtual ILiveopsService LiveopsService { get; set; }
 		public virtual IRemoteTextureService RemoteTextureService { get; }
 		public virtual IThreadService ThreadService { get; }
 		public virtual ICustomerSupportService CustomerSupportService { get; }
@@ -76,7 +75,6 @@ namespace FirstLight.Tests.EditorMode
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
-			AnalyticsService = new AnalyticsService(this, gameLogic);
 			TimeService = timeService;
 			DataSaver = dataService;
 			DataService = dataService;
@@ -88,13 +86,9 @@ namespace FirstLight.Tests.EditorMode
 			GameLogic = gameLogic;
 			LocalPrefsService = new LocalPrefsService();
 			AudioFxService = new GameAudioFxService(assetResolverService, LocalPrefsService);
-
 			ThreadService = new ThreadService();
-			
-			PartyService = Substitute.For<IPartyService>();
-			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic,
-				PartyService, gameLogic.AppDataProvider);
-		
+
+
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();
 			ProfileService = new PlayerProfileService(GameBackendService);
@@ -104,8 +98,11 @@ namespace FirstLight.Tests.EditorMode
 			PoolService = new PoolService();
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
+			PartyService = Substitute.For<IPartyService>();
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic,
+				PartyService, gameLogic.AppDataProvider, LocalPrefsService);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService,
-				MessageBrokerService, NetworkService, GameBackendService,ConfigsProvider, LocalPrefsService);
+				MessageBrokerService, NetworkService, GameBackendService, ConfigsProvider, LocalPrefsService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
 			RoomService = Substitute.For<IRoomService>();

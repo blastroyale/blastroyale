@@ -33,16 +33,12 @@ namespace FirstLight.Game.Commands
 		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			var logic = ctx.Logic.EquipmentLogic();
-			foreach (var kp in logic.Loadout.ReadOnlyDictionary.ToList())
-			{
-				if (!kp.Value.IsValid) continue;
-				logic.Unequip(kp.Value);
-			}
+			logic.RemoveAllFromLoadout();
 
 			var removed = new List<Equipment>();
 			foreach (var i in logic.Inventory.ReadOnlyDictionary!.ToList())
 			{
-				if (logic.TryGetNftInfo(i.Key, out var _)) continue;
+				if (logic.IsNftInfoValid(i.Key)) continue;
 				logic.RemoveFromInventory(i.Key);
 				removed.Add(i.Value);
 			}

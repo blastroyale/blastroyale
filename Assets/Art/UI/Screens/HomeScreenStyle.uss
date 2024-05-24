@@ -527,6 +527,10 @@
     background-image: url('project://database/Assets/Art/UI/Vectors/button-play-mask.svg?fileID=7388822144124034973&guid=34dd17c5baf534d41b1ffeceefca7356&type=3#button-play-mask');
 }
 
+.party-button-holder {
+    flex-direction: column-reverse;
+}
+
 .button-party {
     width: 340px;
     height: 78px;
@@ -921,55 +925,6 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-.squad-container {
-    width: 337px;
-    background-color: rgba(16, 12, 34, 0.59);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 0;
-    color: rgb(255, 255, 255);
-    overflow: hidden;
-    right: -3px;
-    bottom: -11px;
-    height: 222px;
-    transition-property: height;
-    transition-timing-function: ease-in-out;
-    transition-duration: 0.5s;
-}
-
-.squad-container--hidden {
-    height: 0;
-}
-
-.squad-container__title {
-    font-size: 36px;
-    -unity-text-align: middle-center;
-    background-color: rgb(16, 12, 34);
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    flex-grow: 1;
-}
-
-.squad-container__list {
-    position: absolute;
-    left: 0;
-    top: 59px;
-    bottom: 11px;
-    right: 0;
-}
-
-.squad-member:active {
-    font-size: 32px;
-    background-color: rgba(255, 255, 255, 0.27);
-}
-
 .squad-container__roomcode {
     font-size: 32px;
     background-color: rgb(196, 194, 220);
@@ -980,27 +935,47 @@
     padding-left: 8px;
     padding-right: 8px;
     color: rgb(16, 12, 34);
+    top: 3px;
+    position: absolute;
+}
+
+.squad-container {
+    flex-grow: 1;
+    height: 66px;
+    position: absolute;
+    width: 341px;
+    top: auto;
+    bottom: 88px;
+    flex-direction: column-reverse;
 }
 
 .squad-container__header {
     flex-direction: row;
-    height: 59px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
     background-color: rgb(16, 12, 34);
     padding-left: 5px;
     padding-right: 4px;
     align-items: center;
+    -unity-text-align: upper-left;
+    justify-content: center;
+    -unity-slice-right: 0;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    transition-property: height;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.33s;
+    top: auto;
+    right: auto;
+    left: auto;
+    position: relative;
+    height: 100%;
 }
 
-.squad-button-kick {
-    font-size: 32px;
-    color: rgb(239, 80, 78);
-    background-color: rgb(33, 28, 55);
-    min-width: 256px;
-    -unity-text-align: middle-left;
+.squad-container__header--hidden {
+    height: 0;
+}
+
+.squad-container__header--hidden > .squad-container__roomcode {
+    display: none;
 }
 
 .matchmaking-container {
@@ -1090,7 +1065,4 @@
 
 .news-button__icon {
     background-image: var(--sprite-home__news-icon);
-}
-
-.anim-translate--left-l {
 }

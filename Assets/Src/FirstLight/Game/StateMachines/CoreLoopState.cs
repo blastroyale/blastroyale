@@ -94,7 +94,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private async UniTask TutorialJoinTask(bool transition = false)
+		private async UniTask TutorialJoinTask(bool transition = true)
 		{
 			await _services.UIService.CloseScreen<PrivacyDialogPresenter>(false);
 			if (transition)
@@ -104,6 +104,7 @@ namespace FirstLight.Game.StateMachines
 				// before the event of starting the match is fireds causing an infinite loop and crash.
 				// This can still happen on some devices so this hack needs to be solved.
 				await UniTask.Delay(GameConstants.Tutorial.TIME_1000MS);
+				
 			}
 			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
 		}
@@ -134,7 +135,7 @@ namespace FirstLight.Game.StateMachines
 				AcceptPrivacyDialog().Forget();
 				return;
 			}
-			TutorialJoinTask(true).Forget();
+			TutorialJoinTask().Forget();
 		}
 
 		private void SubscribeEvents()

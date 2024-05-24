@@ -42,9 +42,6 @@ namespace FirstLight.Game.Data.DataTypes
 				case UnlockSystem.Leaderboards:
 					icon.AddToClassList("sprite-home__icon-leaderboards");
 					break;
-				case UnlockSystem.Equipment:
-					icon.AddToClassList("sprite-home__icon-equipment");
-					break;
 				case UnlockSystem.GameModes:
 					icon.AddToClassList("sprite-home__icon-customgame");
 					break;

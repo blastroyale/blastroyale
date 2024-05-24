@@ -49,9 +49,7 @@ namespace FirstLight.Game
 
 			_services.AnalyticsService.LogEvent(AnalyticsEvents.InitialLoadingComplete, new Dictionary<string, object>
 			{
-				{"client_version", VersionUtils.VersionInternal},
-				{"boot_time", Time.realtimeSinceStartup},
-				{"vendor_id", SystemInfo.deviceUniqueIdentifier}
+				{"boot_time", Time.realtimeSinceStartup}
 			});
 		}
 
@@ -73,7 +71,6 @@ namespace FirstLight.Game
 					asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<DummyAssetConfigs>(AddressableId.Configs_DummyAssetConfigs,
 					asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<SceneAssetConfigs>(AddressableId.Configs_SceneAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<SpriteAssetConfigs>(AddressableId.Configs_SpriteAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<SpecialMoveAssetConfigs>(AddressableId.Configs_SpecialMoveAssetConfigs,
 					asset => _assetService.AddConfigs(asset)),

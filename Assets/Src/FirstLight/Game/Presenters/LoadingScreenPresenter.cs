@@ -1,6 +1,5 @@
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UIService;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -8,16 +7,25 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Loading Screen UI by:
 	/// - Showing the loading status
+	///
+	/// This is intentionally not a UIPresenter as it's shown before services.
 	/// </summary>
-	public class LoadingScreenPresenter : UIPresenter
+	public class LoadingScreenPresenter : MonoBehaviour
 	{
-		protected override void QueryElements()
+		[SerializeField] private UIDocument _document;
+
+		private static GameObject Instance;
+
+		private void Start()
 		{
-			var labelsContainer = Root.Q("LabelsContainer").Required();
+			Instance = gameObject;
+			var root = _document.rootVisualElement;
+
+			var labelsContainer = root.Q("LabelsContainer").Required();
 			labelsContainer.Clear();
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-			labelsContainer.Add(new Label(UnityCloudEnvironment.CURRENT));
+			labelsContainer.Add(new Label(FLEnvironment.Current.Name));
 
 			var config = FeatureFlags.GetLocalConfiguration();
 			if (config.UseLocalServer)
@@ -33,6 +41,15 @@ namespace FirstLight.Game.Presenters
 #endif
 
 			labelsContainer.Add(new Label($"v{VersionUtils.VersionExternal}"));
+		}
+
+		public static void Destroy()
+		{
+			if (Instance != null)
+			{
+				Destroy(Instance);
+				Instance = null;
+			}
 		}
 	}
 }

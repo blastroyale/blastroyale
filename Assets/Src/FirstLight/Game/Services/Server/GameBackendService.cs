@@ -13,48 +13,13 @@ using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
-using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
-using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
-	public enum Environment
-	{
-		DEV,
-		STAGING,
-		COMMUNITY,
-		PROD
-	}
-
-	public class BackendEnvironmentData
-	{
-		public Environment EnvironmentID;
-
-		/// <summary>
-		/// Identifies the playfab title for this environment
-		/// </summary>
-		public string TitleID;
-
-		/// <summary>
-		/// Identifies the web3 id that will be used to identify it on the web3 layer
-		/// </summary>
-		public string Web3Id;
-
-		/// <summary>
-		/// Identify the photon application id that will be used by quantum
-		/// </summary>
-		public string AppIDRealtime;
-
-		/// <summary>
-		/// Playfab template ID that contains the password recovery html template.
-		/// </summary>
-		public string RecoveryEmailTemplateID;
-	}
-
 	/// <summary>
 	/// This service handles general interaction with playfab that are not needed by the server
 	/// </summary>
@@ -63,7 +28,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Sets up the backend with the correct cloud environment, per platform
 		/// </summary>
-		void SetupBackendEnvironment(Environment? forceEnvironment = null);
+		void SetupBackendEnvironment(FLEnvironment.Definition? forceEnvironment = null);
 
 		/// <summary>
 		/// Updates the user nickname in playfab.
@@ -99,11 +64,6 @@ namespace FirstLight.Game.Services
 		/// Segments are group of players based on metrics which can be used for various things.
 		/// </summary>
 		void GetPlayerSegments(Action<List<GetSegmentResult>> onSuccess, Action<PlayFabError> onError);
-
-		/// <summary>
-		/// Requests a data object with compiled info about the current backend environment
-		/// </summary>
-		BackendEnvironmentData CurrentEnvironmentData { get; }
 
 		/// <summary>
 		/// Requests to check if the game is currently in maintenance
@@ -148,7 +108,7 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IGameBackendService" />
 	public interface IInternalGameBackendService : IGameBackendService
 	{
-		new BackendEnvironmentData CurrentEnvironmentData { get; set; }
+		
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -161,9 +121,8 @@ namespace FirstLight.Game.Services
 
 		private readonly string _leaderboardLadderName;
 
-		public BackendEnvironmentData CurrentEnvironmentData { get; set; }
-
-		public GameBackendService(IMessageBrokerService msgBroker, IGameDataProvider dataProvider, IGameServices services, IDataService dataService, string leaderboardLadderName)
+		public GameBackendService(IMessageBrokerService msgBroker, IGameDataProvider dataProvider, IGameServices services, IDataService dataService,
+								  string leaderboardLadderName)
 		{
 			_messageBrokerService = msgBroker;
 			_dataProvider = dataProvider;
@@ -174,104 +133,37 @@ namespace FirstLight.Game.Services
 
 		public void GetPlayerSegments(Action<List<GetSegmentResult>> onSuccess, Action<PlayFabError> onError)
 		{
-			PlayFabClientAPI.GetPlayerSegments(new GetPlayerSegmentsRequest(), r => { onSuccess(r.Segments); }, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
+			PlayFabClientAPI.GetPlayerSegments(new GetPlayerSegmentsRequest(), r => { onSuccess(r.Segments); },
+				e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 		}
 
-		private void SetupLive(BackendEnvironmentData envData)
-		{
-			envData.EnvironmentID = Environment.PROD;
-			envData.TitleID = "***REMOVED***";
-			envData.AppIDRealtime = "***REMOVED***";
-			envData.RecoveryEmailTemplateID = "***REMOVED***";
-		}
-
-		private void SetupCommunity(BackendEnvironmentData envData)
-		{
-			envData.EnvironmentID = Environment.COMMUNITY;
-			envData.TitleID = "***REMOVED***";
-			envData.AppIDRealtime = "***REMOVED***";
-			envData.RecoveryEmailTemplateID = "***REMOVED***";
-		}
-
-		private void SetupStaging(BackendEnvironmentData envData)
-		{
-			envData.EnvironmentID = Environment.STAGING;
-			envData.TitleID = "***REMOVED***";
-			envData.RecoveryEmailTemplateID = "***REMOVED***";
-			envData.AppIDRealtime = "***REMOVED***";
-		}
-
-		private void SetupDev(BackendEnvironmentData envData)
-		{
-			envData.EnvironmentID = Environment.DEV;
-			envData.TitleID = "***REMOVED***";
-			envData.RecoveryEmailTemplateID = "***REMOVED***";
-			envData.AppIDRealtime = "***REMOVED***";
-			envData.Web3Id = "***REMOVED***";
-		}
-
-		private void SetupEnvironmentFromLocalConfig(Environment env, BackendEnvironmentData envData)
-		{
-			switch (env)
-			{
-				case Environment.PROD:
-					SetupLive(envData);
-					break;
-				case Environment.STAGING:
-					SetupStaging(envData);
-					break;
-				case Environment.COMMUNITY:
-					SetupCommunity(envData);
-					break;
-				default:
-					SetupDev(envData);
-					break;
-			}
-		}
-
-		private void SetupEnvironmentFromCompilerFlags(BackendEnvironmentData envData)
-		{
-#if PROD_SERVER
-			SetupLive(envData);
-#elif COMMUNITY_SERVER
-			SetupCommunity(envData);
-#elif STAGE_SERVER
-			SetupStaging(envData);
-#else
-			SetupEnvironmentFromLocalConfig(FeatureFlags.GetLocalConfiguration().EnvironmentOverride, envData);
-#endif
-		}
-
-		public void SetupBackendEnvironment(Environment? forceEnvironment)
+		public void SetupBackendEnvironment(FLEnvironment.Definition? forceEnvironment)
 		{
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			var appData = _dataService.GetData<AppData>();
-			var envData = new BackendEnvironmentData();
 
 			if (forceEnvironment.HasValue)
 			{
 				FLog.Info("Forcing Environment");
-				SetupEnvironmentFromLocalConfig(forceEnvironment.Value, envData);
-			}
-			else
-			{
-				SetupEnvironmentFromCompilerFlags(envData);
+				FLEnvironment.Current = forceEnvironment.Value;
 			}
 
-			FLog.Info($"Using environment: {envData.EnvironmentID.ToString()}");
+			FLog.Info($"Using environment: {FLEnvironment.Current.UCSEnvironmentName}");
 
-			_messageBrokerService.Publish(new EnvironmentChanged() {NewEnvironment = envData.EnvironmentID});
-			CurrentEnvironmentData = envData;
-			PlayFabSettings.TitleId = CurrentEnvironmentData.TitleID;
-			quantumSettings.AppSettings.AppIdRealtime = CurrentEnvironmentData.AppIDRealtime;
+			PlayFabSettings.TitleId = FLEnvironment.Current.PlayFabTitleID;
+			quantumSettings.AppSettings.AppIdRealtime = FLEnvironment.Current.PhotonAppIDRealtime;
 
-			if (CurrentEnvironmentData.EnvironmentID != appData.LastEnvironment)
+			if (FLEnvironment.Current.Name != appData.LastEnvironmentName)
 			{
 				FLog.Warn("Erasing APP data due to environment switch");
 
-				_services.AuthenticationService.SetLinkedDevice(false);
+				// We only unlink if there was a previous environment set (check is here for migration purposes)
+				if (!string.IsNullOrEmpty(appData.LastEnvironmentName))
+				{
+					_services.AuthenticationService.SetLinkedDevice(false);
+				}
 
-				appData.LastEnvironment = CurrentEnvironmentData.EnvironmentID;
+				appData.LastEnvironmentName = FLEnvironment.Current.Name;
 
 				_dataService.AddData(appData, true);
 				_dataService.SaveData<AppData>();
@@ -317,7 +209,11 @@ namespace FirstLight.Game.Services
 		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
 								 Action<PlayFabError> onError, object parameter = null)
 		{
-			var request = new ExecuteFunctionRequest {FunctionName = functionName, GeneratePlayStreamEvent = true, FunctionParameter = parameter, AuthenticationContext = PlayFabSettings.staticPlayer};
+			var request = new ExecuteFunctionRequest
+			{
+				FunctionName = functionName, GeneratePlayStreamEvent = true, FunctionParameter = parameter,
+				AuthenticationContext = PlayFabSettings.staticPlayer
+			};
 
 			PlayFabCloudScriptAPI.ExecuteFunction(request, res =>
 			{
@@ -353,7 +249,8 @@ namespace FirstLight.Game.Services
 
 			_services.AnalyticsService.ErrorsCalls.ReportError(errorType, error.ErrorMessage);
 
-			_services.MessageBrokerService?.Publish(new ServerHttpErrorMessage() {ErrorCode = (HttpStatusCode) error.HttpCode, Message = descriptiveError});
+			_services.MessageBrokerService?.Publish(new ServerHttpErrorMessage()
+				{ErrorCode = (HttpStatusCode) error.HttpCode, Message = descriptiveError});
 
 			callback?.Invoke(error);
 		}
@@ -399,7 +296,7 @@ namespace FirstLight.Game.Services
 
 		public bool IsDev()
 		{
-			return CurrentEnvironmentData.EnvironmentID == Environment.DEV;
+			return FLEnvironment.Current.Name == "development";
 		}
 
 		public bool RunsSimulationOnServer()
@@ -413,8 +310,6 @@ namespace FirstLight.Game.Services
 #endif
 			return FeatureFlags.QUANTUM_CUSTOM_SERVER;
 		}
-
-		public Environment? EnvironmentRedirect { get; set; } = null;
 
 		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)
 		{
@@ -468,18 +363,6 @@ namespace FirstLight.Game.Services
 			}
 
 			return titleVersion;
-		}
-
-		private String UnityDeviceID()
-		{
-			var id = SystemInfo.deviceUniqueIdentifier;
-#if UNITY_EDITOR
-			if (ParrelSync.ClonesManager.IsClone())
-			{
-				id += "_clone_" + ParrelSync.ClonesManager.GetArgument();
-			}
-#endif
-			return id;
 		}
 	}
 }

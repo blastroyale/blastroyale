@@ -137,7 +137,7 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 		}
 	}
 
-	private string ImxClientId => _services.GameBackendService.CurrentEnvironmentData.Web3Id;
+	private string ImxClientId => FLEnvironment.Current.Web3ID;
 
 	public Web3State State
 	{

@@ -163,6 +163,7 @@ namespace FirstLight.Game.StateMachines
 			homeCheck.Transition().Target(homeMenu);
 
 			homeMenu.OnEnter(() => OpenHomeScreen().Forget());
+			homeMenu.OnEnter(RequestStartMetaMatchTutorial);
 			homeMenu.Event(PlayClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(homeCheck);

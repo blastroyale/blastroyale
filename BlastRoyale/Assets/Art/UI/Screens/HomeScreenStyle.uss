@@ -42,7 +42,7 @@
 .player-header__name {
     position: absolute;
     font-size: 34px;
-    -unity-text-align: lower-center;
+    -unity-text-align: lower-left;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     padding-left: 0;
     padding-right: 0;
@@ -56,10 +56,12 @@
     overflow: hidden;
     -unity-text-overflow-position: end;
     text-overflow: ellipsis;
-    -unity-text-outline-width: 0.7px;
+    -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
     left: 164px;
-    top: 23px;
+    top: 12px;
+    color: rgb(255, 255, 255);
+    right: 113px;
 }
 
 .player-header__fame-lvl {
@@ -146,13 +148,13 @@
     width: 422px;
     height: 136px;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     background-image: var(--sprite-home__background-profile);
     left: -83px;
     justify-content: space-between;
-    padding-left: 86px;
-    padding-right: 33px;
-    padding-top: 37px;
+    padding-left: 75px;
+    padding-right: 29px;
+    padding-top: 53px;
 }
 
 .player-header__trophies-label {
@@ -1046,6 +1048,7 @@
 .sprite-shared__icon-trophy {
     width: 34px;
     height: 36px;
+    margin-top: 5px;
 }
 
 .beta-warning {

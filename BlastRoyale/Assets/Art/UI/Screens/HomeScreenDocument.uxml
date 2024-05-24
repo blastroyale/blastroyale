@@ -120,7 +120,7 @@
                     <FirstLight.Game.UIElements.PlayerAvatarElement name="Avatar" style="position: absolute; scale: 0.6 0.6; left: 6px; top: -20px;" />
                 </ui:VisualElement>
             </FirstLight.Game.UIElements.ImageButton>
-            <ui:Label text="PLAYER NAME" name="PlayerName" class="player-header__name" />
+            <ui:Label text="ExtremelyLongPlayerNamePotates" name="PlayerName" class="player-header__name" />
         </ui:VisualElement>
         <ui:Button display-tooltip-when-elided="true" name="DiscordButton" class="discord-button sfx-click-forwards anim-delay-0 anim-translate anim-translate--down-s" />
         <ui:Button display-tooltip-when-elided="true" name="YoutubeButton" class="youtube-button sfx-click-forwards anim-delay-1 anim-translate anim-translate--down-s" />

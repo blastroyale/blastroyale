@@ -125,6 +125,7 @@ namespace FirstLight.Game.UIElements
 				{
 					_activityLabel.SetVisibility(false);
 				}
+				_onlineIndicator.SetEnabled(false);
 			}
 			else if (relationship.Member.Presence != null)
 			{
@@ -132,6 +133,7 @@ namespace FirstLight.Game.UIElements
 				var availability = presence.Availability;
 
 				_onlineIndicator.EnableInClassList(USS_ONLINE_INDICATOR_ONLINE, availability == Availability.Online);
+				_onlineIndicator.SetEnabled(true);
 
 				_activityLabel.SetVisibility(true);
 				_activityLabel.text = relationship.Member.Presence.GetActivity<PlayerActivity>()?.Status;
@@ -139,12 +141,15 @@ namespace FirstLight.Game.UIElements
 			else
 			{
 				_activityLabel.SetVisibility(false);
+				_onlineIndicator.SetEnabled(false);
 			}
 
 			// Main button
 			_mainActionButton.SetDisplay(mainAction != null);
 			_mainActionButton.text = mainActionLabel;
 			_mainAction = mainAction;
+			_mainActionButton.EnableInClassList("button-long--red", _relationship.Type == RelationshipType.Block);
+			_mainActionButton.EnableInClassList("button-long--yellow", _relationship.Type != RelationshipType.Block);
 
 			// Accept/Decline buttons
 			_acceptDeclineContainer.SetDisplay(acceptAction != null && declineAction != null);

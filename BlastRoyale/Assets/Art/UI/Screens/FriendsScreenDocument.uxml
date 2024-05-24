@@ -3,7 +3,7 @@
     <ui:VisualElement name="reference" class="fill-parent" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Art/UI/References/Friends.png?fileID=2800000&amp;guid=dc759aece3b0f4fa480de8ae9f209171&amp;type=3#Friends&apos;); opacity: 0.58; display: none;" />
     <ui:VisualElement name="root" style="flex-grow: 1; overflow: hidden;">
         <FirstLight.Game.UIElements.SafeAreaElement name="SafeArea" apply-bottom="false" style="flex-direction: row;">
-            <ui:VisualElement name="LeftBar" picking-mode="Ignore" style="justify-content: center; align-items: center; width: 773px;">
+            <ui:VisualElement name="LeftBar" picking-mode="Ignore" class="anim-delay-0 anim-translate anim-translate--right-xxl" style="justify-content: center; align-items: center; width: 773px;">
                 <ui:VisualElement name="Background" style="position: absolute; width: 150%; align-self: flex-end; height: 150%; transform-origin: right; rotate: 4deg; background-color: rgba(9, 8, 14, 0.45); padding-right: 10px;">
                     <ui:VisualElement name="Center" style="flex-grow: 1; background-color: rgb(36, 32, 55); border-right-color: rgb(0, 0, 0); border-right-width: 3px;" />
                 </ui:VisualElement>
@@ -15,12 +15,12 @@
             </ui:VisualElement>
             <ui:VisualElement name="Content" picking-mode="Ignore" style="flex-grow: 1;">
                 <FirstLight.Game.UIElements.TabbedView class="settings-tabbed-view" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
-                    <FirstLight.Game.UIElements.TabButton target="SQUAD" focusable="true" text="SQUAD" />
-                    <FirstLight.Game.UIElements.TabButton target="FRIENDS" focusable="true" text="FRIENDS" />
-                    <FirstLight.Game.UIElements.TabButton target="REQUESTS" focusable="true" text="REQUESTS">
+                    <FirstLight.Game.UIElements.TabButton target="SQUAD" focusable="true" text="SQUAD" class="anim-delay-0 anim-translate anim-translate--down-m" />
+                    <FirstLight.Game.UIElements.TabButton target="FRIENDS" focusable="true" text="FRIENDS" class="anim-delay-1 anim-translate anim-translate--down-m"/>
+                    <FirstLight.Game.UIElements.TabButton target="REQUESTS" focusable="true" text="REQUESTS" class="anim-delay-2 anim-translate anim-translate--down-m">
                         <ui:Label name="RequestsCount" text="1" class="requests-count" />
                     </FirstLight.Game.UIElements.TabButton>
-                    <FirstLight.Game.UIElements.TabButton target="BLOCKED" focusable="true" text="BLOCKED" />
+                    <FirstLight.Game.UIElements.TabButton target="BLOCKED" focusable="true" text="BLOCKED" class="anim-delay-3 anim-translate anim-translate--down-m"/>
                     <ui:VisualElement name="SQUAD">
                         <ui:Label text="Coming soon..." style="font-size: 36px; color: rgb(255, 255, 255); -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 3px 3px 0 rgb(0, 0, 0);" />
                     </ui:VisualElement>

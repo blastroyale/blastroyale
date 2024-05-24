@@ -1,5 +1,4 @@
 using System;
-using FirstLight.Game.Messages;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
@@ -10,25 +9,19 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	public class MainMenuCharacterViewComponent : CharacterEquipmentMonoComponent, IDragHandler, IPointerClickHandler
 	{
 		public event Action<PointerEventData> Clicked;
-		
+
 		private const float MIN_FLARE_DELAY = 10f;
 		private const float MAX_FLARE_DELAY = 25f;
 
 		private float _nextFlareTime = -1f;
 		private bool _playedFirstFlareAnim;
-		private bool _disableRotation = true;
+		private float _inertia;
 
 		protected override void Awake()
 		{
 			base.Awake();
 			_nextFlareTime = Time.time + Random.Range(MIN_FLARE_DELAY / 2, MAX_FLARE_DELAY / 2);
 		}
-
-		public void EnableRotation()
-		{
-			_disableRotation = false;
-		}
-
 
 		private void Start()
 		{
@@ -44,9 +37,23 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
+		private void FixedUpdate()
+		{
+			if (_inertia != 0)
+			{
+				const float DRAG = 0.93f;
+				_skin.transform.Rotate(Vector3.up, _inertia * Time.fixedDeltaTime);
+				_inertia *= DRAG;
+				if (Mathf.Abs(_inertia) < 0.01f)
+				{
+					_inertia = 0;
+				}
+			}
+		}
+
 		public void OnDrag(PointerEventData eventData)
 		{
-			if (_disableRotation) return;
+			_inertia = -eventData.delta.x * 10f;
 			transform.parent.Rotate(0, -eventData.delta.x, 0, Space.Self);
 		}
 

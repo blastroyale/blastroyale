@@ -297,8 +297,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
 				{"chest_type", callback.ChestType.ToString()},
-				{"chest_coordinates", callback.ChestPosition.ToString()},
-				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed}
+				{"chest_coordinates", callback.ChestPosition.ToString()}
 			};
 
 			QueueEvent(AnalyticsEvents.MatchChestOpenAction, data);
@@ -323,8 +322,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"item_type", callback.CollectableId.ToString()},
-				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed}
+				{"item_type", callback.CollectableId.ToString()}
 			};
 
 			QueueEvent(AnalyticsEvents.MatchPickupAction, data);

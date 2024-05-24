@@ -531,6 +531,7 @@ namespace FirstLight.Game.Services
 				.WithMemberPresence(true)
 				.WithMemberProfile(true);
 			await FriendsService.Instance.InitializeAsync(friendsInitOpts).AsUniTask();
+			await AuthenticationService.Instance.GetPlayerNameAsync(); // We fetch the name (which generates a new one) so it's stored in the cache
 
 			onComplete();
 		}
@@ -697,7 +698,7 @@ namespace FirstLight.Game.Services
 			{
 				_localAccountData.GetData<AccountData>().LastLoginEmail = email;
 				_localAccountData.SaveData<AccountData>();
-				_services.GameBackendService.UpdateDisplayName(result.Username, null, null);
+				_services.GameBackendService.UpdateDisplayNamePlayfab(result.Username, null, null);
 				onSuccess?.Invoke(loginData);
 			}
 		}

@@ -33,7 +33,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates the user nickname in playfab.
 		/// </summary>
-		void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError);
+		void UpdateDisplayNamePlayfab(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError);
 
 		/// <summary>
 		/// Calls the given cloudscript function with the given arguments.
@@ -171,13 +171,12 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError)
+		public void UpdateDisplayNamePlayfab(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError)
 		{
 			var request = new UpdateUserTitleDisplayNameRequest {DisplayName = newNickname};
 
 			void OnSuccessWrapper(UpdateUserTitleDisplayNameResult result)
 			{
-				_dataProvider.AppDataProvider.DisplayName.Value = result.DisplayName;
 				onSuccess?.Invoke(result);
 			}
 

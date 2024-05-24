@@ -27,6 +27,7 @@ using I2.Loc;
 using Photon.Deterministic;
 using Quantum;
 using Quantum.Commands;
+using Unity.Services.Authentication;
 using UnityEngine;
 using Assert = UnityEngine.Assertions.Assert;
 
@@ -374,7 +375,7 @@ namespace FirstLight.Game.StateMachines
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
-				PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
+				PlayerName = AuthenticationService.Instance.PlayerNameTrimmed(),
 				Cosmetics = equippedCosmetics,
 				DeathFlagID = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.GRAVE)!.Id,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,

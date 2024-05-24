@@ -22,6 +22,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
 using Unity.Services.RemoteConfig;
+using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
@@ -285,7 +286,6 @@ namespace FirstLight.Game.Presenters
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
 
-			_dataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
 			_dataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
 			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.BPP, OnPoolChanged);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
@@ -298,12 +298,13 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 
+			_playerNameLabel.text = AuthenticationService.Instance.PlayerName;
+
 			return base.OnScreenOpen(reload);
 		}
 
 		protected override UniTask OnScreenClose()
 		{
-			_dataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
 			_dataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
 			_services.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
 			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.CS);
@@ -369,11 +370,6 @@ namespace FirstLight.Game.Presenters
 		private void OnClaimedRewards(ClaimedRewardsMessage msg)
 		{
 			Data.OnRewardsReceived(msg.Rewards);
-		}
-
-		private void OnDisplayNameChanged(string _, string current)
-		{
-			_playerNameLabel.text = _dataProvider.AppDataProvider.DisplayNameTrimmed;
 		}
 
 		private void OnFameChanged(uint previous, uint current)

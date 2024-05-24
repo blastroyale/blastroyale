@@ -12,6 +12,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.UIService;
 using I2.Loc;
 using PlayFab;
+using Unity.Services.Authentication;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -51,11 +52,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-		}
-
-		private void OnDisplayNameChanged(string _, string current)
-		{
-			_nameLabel.text = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
 		}
 
 		protected override void QueryElements()
@@ -103,14 +99,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
+			_nameLabel.text = AuthenticationService.Instance.PlayerName;
 			SetupPopup();
 			return base.OnScreenOpen(reload);
 		}
 
 		protected override UniTask OnScreenClose()
 		{
-			_gameDataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
 			return base.OnScreenClose();
 		}
@@ -144,7 +139,15 @@ namespace FirstLight.Game.Presenters
 				// TODO: Race condition if you close and quickly reopen the popup
 				if (!_services.UIService.IsScreenOpen<PlayerStatisticsPopupPresenter>()) return;
 
-				_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
+				// TODO mihak: Temporary
+				if (IsLocalPlayer)
+				{
+					_nameLabel.text = AuthenticationService.Instance.PlayerName;
+				}
+				else
+				{
+					_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
+				}
 
 				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);
 				SetStatInfo(1, result, GameConstants.Stats.RANKED_GAMES_WON_EVER, ScriptLocalization.MainMenu.RankedGamesWon);

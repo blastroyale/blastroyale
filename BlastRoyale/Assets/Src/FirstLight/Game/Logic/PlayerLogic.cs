@@ -59,6 +59,8 @@ namespace FirstLight.Game.Logic
 		/// Returns the flags of the player.
 		/// </summary>
 		PlayerFlags Flags { get; }
+		
+		int UCSMigrationVersion { get; }
 	}
 
 	/// <inheritdoc />
@@ -87,6 +89,8 @@ namespace FirstLight.Game.Logic
 		void MarkGuestAccountMigrated();
 
 		void ResetLevelAndXP();
+
+		void SetUCSMigrationVersion(int version);
 	}
 	
 	/// <inheritdoc cref="IPlayerLogic"/>
@@ -104,6 +108,7 @@ namespace FirstLight.Game.Logic
 		public IObservableFieldReader<uint> Level => _level;
 		public IObservableFieldReader<uint> XP => _xp;
 		public PlayerFlags Flags => Data.Flags;
+		public int UCSMigrationVersion => Data.UCSMigrationVersion;
 
 		public bool MigratedGuestAccount
 		{
@@ -295,6 +300,11 @@ namespace FirstLight.Game.Logic
 		{
 			_level.Value = 1;
 			_xp.Value = 0;
+		}
+
+		public void SetUCSMigrationVersion(int version)
+		{
+			Data.UCSMigrationVersion = version;
 		}
 	}
 }

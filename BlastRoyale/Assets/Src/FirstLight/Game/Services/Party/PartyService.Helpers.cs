@@ -8,6 +8,7 @@ using I2.Loc;
 using JetBrains.Annotations;
 using PlayFab;
 using PlayFab.MultiplayerModels;
+using Unity.Services.Authentication;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -38,7 +39,7 @@ namespace FirstLight.Game.Services.Party
 				MemberEntity = LocalEntityKey(),
 				MemberData = new ()
 				{
-					{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, _appDataProvider.GetDisplayName()},
+					{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, AuthenticationService.Instance.PlayerName},
 					{PartyMember.TROPHIES_PROPERTY, playerDataProvider.Trophies.Value.ToString()},
 					{PartyMember.READY_MEMBER_PROPERTY, "notready"},
 					{PartyMember.CHARACTER_SKIN_PROPERTY, collectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS).Id.ToString()},

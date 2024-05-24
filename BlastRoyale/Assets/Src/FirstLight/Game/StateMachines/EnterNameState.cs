@@ -21,6 +21,8 @@ using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
 using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
@@ -89,16 +91,16 @@ namespace FirstLight.Game.StateMachines
 			var confirmButton = new GenericDialogButton<string>
 			{
 				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = OnNameSet
+				ButtonOnClick = newName => OnNameSet(newName).Forget()
 			};
 
 			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.enter_your_name,
 				ScriptLocalization.UITHomeScreen.new_name_desc,
-				_dataProvider.AppDataProvider.GetDisplayName(true, false),
+				AuthenticationService.Instance.PlayerNameTrimmed(),
 				confirmButton, false);
 		}
 
-		private void OnNameSet(string newName)
+		private async UniTaskVoid OnNameSet(string newName)
 		{
 			var newNameTrimmed = newName.Trim();
 
@@ -124,23 +126,35 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			if (newNameTrimmed == _dataProvider.AppDataProvider.DisplayNameTrimmed)
+			if (newNameTrimmed == AuthenticationService.Instance.PlayerNameTrimmed())
 			{
 				_statechartTrigger(NameSetEvent);
 				return;
 			}
 
-			_services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>().Forget();
-			_services.GameBackendService.UpdateDisplayName(newNameTrimmed, (_) => _statechartTrigger(NameSetEvent), e =>
-			{
-				var description = GetErrorString(e);
-				if (e.Error == PlayFabErrorCode.ProfaneDisplayName)
-				{
-					description = ScriptLocalization.UITProfileScreen.username_profanity;
-				}
+			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 
-				OnSetNameError(description).Forget();
-			});
+			try
+			{
+				await AuthenticationService.Instance.UpdatePlayerNameAsync(newNameTrimmed);
+				_statechartTrigger(NameSetEvent);
+			}
+			catch (RequestFailedException e)
+			{
+				OnSetNameError($"Error setting player name: {e.Message}").Forget();
+			}
+
+			
+			// _services.GameBackendService.UpdateDisplayName(newNameTrimmed, (_) => _statechartTrigger(NameSetEvent), e =>
+			// {
+			// 	var description = GetErrorString(e);
+			// 	if (e.Error == PlayFabErrorCode.ProfaneDisplayName)
+			// 	{
+			// 		description = ScriptLocalization.UITProfileScreen.username_profanity;
+			// 	}
+			//
+			// 	OnSetNameError(description).Forget();
+			// });
 		}
 
 		private async UniTaskVoid OnSetNameError(string errorMessage)

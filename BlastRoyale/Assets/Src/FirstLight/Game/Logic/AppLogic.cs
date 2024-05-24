@@ -27,7 +27,8 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests the player's title display name (excluding appended numbers)
 		/// </summary>
-		string DisplayNameTrimmed { get; }
+		[Obsolete("Use AuthenticationService.Instance.PlayerName instead")]
+		string DisplayName { get; }
 
 		/// <summary>
 		/// Obtains the player unique id
@@ -53,24 +54,11 @@ namespace FirstLight.Game.Logic
 		/// Gets last current custom game options used
 		/// </summary>
 		CustomGameOptions LastCustomGameOptions { get; }
-		
-		/// <summary>
-		/// Requests the player's title display name (including appended numbers)
-		/// </summary>
-		IObservableField<string> DisplayName { get; }
 
 		/// <summary>
 		/// Playfab title data thats read and setup after player logs in
 		/// </summary>
 		IReadOnlyDictionary<string, string> TitleData { get; }
-
-		/// <summary>
-		/// Requests the player's title display name.
-		/// </summary>
-		/// <param name="trimmed">Shows or hides the appended numbers.</param>
-		/// <param name="tagged">Appends tags to the name (sprite sheet references).</param>
-		/// <returns></returns>
-		string GetDisplayName(bool trimmed = true, bool tagged = true);
 
 		/// <summary>
 		/// Sets last custom game options
@@ -131,16 +119,13 @@ namespace FirstLight.Game.Logic
 			get => Data.LastSelectedRankedMap;
 			set => Data.LastSelectedRankedMap = value;
 		}
-		
-		/// <inheritdoc />
-		public IObservableField<string> DisplayName { get; private set; }
 
 		public IObservableField<FrameSnapshot> LastFrameSnapshot { get; private set; }
 
 		public IReadOnlyDictionary<string, string> TitleData => Data.TitleData;
 
 		/// <inheritdoc />
-		public string DisplayNameTrimmed => GetDisplayName();
+		public string DisplayName => Data.DisplayName;
 
 		/// <inheritdoc />
 		public string PlayerId => Data.PlayerId;
@@ -148,21 +133,8 @@ namespace FirstLight.Game.Logic
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider) :
 			base(gameLogic, dataProvider)
 		{
-			DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
 			LastFrameSnapshot = new ObservableResolverField<FrameSnapshot>(() => Data.LastCapturedFrameSnapshot,
 				snap => Data.LastCapturedFrameSnapshot = snap);
-		}
-
-		public void ReInit()
-		{
-
-			{
-				var listeners = DisplayName.GetObservers();
-				DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
-				DisplayName.AddObservers(listeners);
-			}
-			
-			DisplayName.InvokeUpdate();
 		}
 
 		public void SetLastCustomGameOptions(CustomGameOptions options)
@@ -181,23 +153,23 @@ namespace FirstLight.Game.Logic
 			Data.GameReviewDate = GameLogic.TimeService.DateTimeUtcNow;
 		}
 
-		public string GetDisplayName(bool trimmed = true, bool tagged = true)
-		{
-			var name = DisplayName == null || string.IsNullOrWhiteSpace(DisplayName.Value) ||
-				DisplayName.Value.Length < 5
-					? ""
-					: trimmed
-						? DisplayName.Value.Substring(0, DisplayName.Value.Length - 5)
-						: DisplayName.Value;
-
-			if (tagged)
-			{
-				var playerData = DataProvider.GetData<PlayerData>();
-				var skin = TemporaryPlayerBadges.GetBadgeBasedOnFlags(playerData.Flags);
-				return skin != null ? $"{skin.GetSpriteText()} {name}" : name;
-			}
-
-			return name;
-		}
+		// public string GetDisplayName(bool trimmed = true, bool tagged = true)
+		// {
+		// 	var name = DisplayName == null || string.IsNullOrWhiteSpace(DisplayName.Value) ||
+		// 		DisplayName.Value.Length < 5
+		// 			? ""
+		// 			: trimmed
+		// 				? DisplayName.Value.Substring(0, DisplayName.Value.Length - 5)
+		// 				: DisplayName.Value;
+		//
+		// 	if (tagged)
+		// 	{
+		// 		var playerData = DataProvider.GetData<PlayerData>();
+		// 		var skin = TemporaryPlayerBadges.GetBadgeBasedOnFlags(playerData.Flags);
+		// 		return skin != null ? $"{skin.GetSpriteText()} {name}" : name;
+		// 	}
+		//
+		// 	return name;
+		// }
 	}
 }

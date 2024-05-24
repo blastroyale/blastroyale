@@ -4,6 +4,7 @@ using FirstLight.Game.Infos;
 using FirstLight.Game.Services.Party;
 using I2.Loc;
 using Quantum;
+using Unity.Services.Authentication;
 
 namespace FirstLight.Game.Utils
 {
@@ -251,6 +252,12 @@ namespace FirstLight.Game.Utils
 			}
 
 			return unlockSystem.ToString().ToUpperInvariant();
+		}
+		
+		public static string PlayerNameTrimmed(this IAuthenticationService authService)
+		{
+			var name = authService.PlayerName;
+			return name.Remove(name.LastIndexOf('#'));
 		}
 	}
 }

@@ -155,7 +155,6 @@ namespace FirstLight.Game.StateMachines
 			news.OnEnter(OnEnterNews);
 			news.Event(_backButtonClicked).Target(homeCheck);
 
-			homeCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
 			homeCheck.Transition().Condition(RequiresToSeeStore).Target(store);
 			homeCheck.Transition().Condition(IsInRoom)
@@ -301,13 +300,6 @@ namespace FirstLight.Game.StateMachines
 
 				await _assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1);
 			}
-		}
-
-		private bool HasDefaultName()
-		{
-			return _gameDataProvider.AppDataProvider.DisplayNameTrimmed ==
-				GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||
-				string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.DisplayNameTrimmed);
 		}
 
 		private bool MetaTutorialConditionsCheck()

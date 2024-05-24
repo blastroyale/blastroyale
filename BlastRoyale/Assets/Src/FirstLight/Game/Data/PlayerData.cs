@@ -32,6 +32,7 @@ namespace FirstLight.Game.Data
 		public bool MigratedGuestData = false;
 		public readonly List<ItemData> UncollectedRewards = new ();
 		public readonly Dictionary<GameIdGroup, UniqueId> Equipped = new (new GameIdGroupComparer());
+		public int UCSMigrationVersion = 0;
 
 		public readonly Dictionary<GameId, ResourcePoolData> ResourcePools = new (new GameIdComparer())
 		{
@@ -60,6 +61,7 @@ namespace FirstLight.Game.Data
 			hash = hash * 23 + Level.GetHashCode();
 			hash = hash * 23 + Xp.GetHashCode();
 			hash = hash * 23 + Trophies.GetHashCode();
+			hash = hash * 23 + UCSMigrationVersion.GetHashCode();
 
 			foreach (var e in UncollectedRewards)
 				hash = hash * 23 + e.GetHashCode();

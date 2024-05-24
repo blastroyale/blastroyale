@@ -34,7 +34,7 @@ namespace FirstLight.Game.Presenters
 
 		private List<Relationship> _friends;
 		private List<Relationship> _blocked;
-		private List<Relationship> _allRequests; // TODO: Only for testing
+		private List<Relationship> _requests;
 
 		protected override void QueryElements()
 		{
@@ -69,7 +69,7 @@ namespace FirstLight.Game.Presenters
 			_yourIDField.value = AuthenticationService.Instance.PlayerId;
 			RefreshAll();
 
-			// TODO: Temporary, we just always refresh all lists
+			// TODO mihak: Temporary, we just always refresh all lists
 			FriendsService.Instance.RelationshipDeleted += rde =>
 			{
 				FLog.Info($"Relationship deleted: {rde.Relationship.Id} - {rde.Relationship.Member.Id}");
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_friends = FriendsService.Instance.Friends.ToList();
 			// Sort by last seen so online friends are at the top
-			_friends.Sort((a, b) => b.Member.Presence.Availability.CompareTo(a.Member.Presence.Availability));
+			_friends.Sort((a, b) => a.Member.Presence.IsOnline().CompareTo(b.Member.Presence.IsOnline()));
 			_friendsList.itemsSource = _friends;
 			_friendsList.RefreshItems();
 		}
@@ -113,8 +113,8 @@ namespace FirstLight.Game.Presenters
 		{
 			var incomingRequests = FriendsService.Instance.IncomingFriendRequests.ToList();
 			var outgoingRequests = FriendsService.Instance.OutgoingFriendRequests.ToList();
-			_allRequests = incomingRequests.Concat(outgoingRequests).ToList();
-			_requestsList.itemsSource = _allRequests;
+			_requests = incomingRequests.Concat(outgoingRequests).ToList();
+			_requestsList.itemsSource = _requests;
 			_requestsList.RefreshItems();
 			
 			_requestsCount.SetVisibility(incomingRequests.Count > 0);
@@ -159,13 +159,13 @@ namespace FirstLight.Game.Presenters
 
 		private void OnRequestsBindItem(VisualElement element, int index)
 		{
-			var relationship = _allRequests[index];
+			var relationship = _requests[index];
 			FLog.Info("PACO", $"BingRequest({index}): {relationship.Member.Role}");
 			var sentRequest = relationship.Member.Role == MemberRole.Target; // If we sent this request or received it
 
 			string header = null;
 
-			if (index == 0 || (_allRequests[index - 1].Member.Role == MemberRole.Target) != sentRequest)
+			if (index == 0 || (_requests[index - 1].Member.Role == MemberRole.Target) != sentRequest)
 			{
 				header = relationship.Member.Role == MemberRole.Target ? "PENDING" : "RECEIVED";
 			}

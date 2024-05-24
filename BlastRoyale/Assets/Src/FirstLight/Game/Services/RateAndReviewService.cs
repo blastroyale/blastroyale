@@ -24,6 +24,8 @@ namespace FirstLight.Game.Services
 		
 		public RateAndReviewService(IMessageBrokerService msgBroker, LocalPrefsService localPrefsService)
 		{
+			_localPrefsService = localPrefsService;
+			
 			if (!FeatureFlags.REVIEW_PROMPT_ENABLED || localPrefsService.RateAndReviewPromptShown)
 			{
 				return;
@@ -33,7 +35,6 @@ namespace FirstLight.Game.Services
 			Object.DontDestroyOnLoad(_rateAndReviewComponent.gameObject);
 
 			_messageBrokerService = msgBroker;
-			_localPrefsService = localPrefsService;
 			_messageBrokerService.Subscribe<OpenRateAndReviewPromptMessage>(OnOpenRateAndReviewPromptMessage);
 			_messageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			

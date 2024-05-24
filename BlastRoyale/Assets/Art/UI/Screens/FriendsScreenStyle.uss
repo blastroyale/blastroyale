@@ -57,7 +57,7 @@
 .unity-scroller__slider {
     width: auto;
     min-width: initial;
-    background-color:  #201D3B;
+    background-color: rgb(32, 29, 59);
 }
 
 .unity-scroller .unity-base-slider__dragger {
@@ -215,7 +215,7 @@
     align-items: flex-start;
     width: 400px;
     height: auto;
-    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .unity-text-field__label {
@@ -244,15 +244,15 @@
 
 .button-copy {
     position: absolute;
-    right: 7px;
-    bottom: 7px;
-    width: 78px;
-    height: 78px;
+    right: 4px;
+    bottom: 4px;
+    width: 84px;
+    height: 84px;
     background-image: var(--sprite-home__button-copy);
 }
 
 .button-copy:active {
-    -unity-background-image-tint-color: rgb(170, 170, 170);
+    background-image: var(--sprite-home__button-copy-pressed);
 }
 
 .requests-count {
@@ -276,4 +276,36 @@
     margin-right: 0;
     margin-bottom: 0;
     margin-left: 0;
+}
+
+.safe-area-container {
+    flex-direction: row;
+}
+
+.left-bar {
+    justify-content: center;
+    align-items: center;
+    width: 773px;
+}
+
+.left-bar__background-parent {
+    position: absolute;
+    width: 150%;
+    align-self: flex-end;
+    height: 150%;
+    transform-origin: right;
+    rotate: 4deg;
+    background-color: rgba(9, 8, 14, 0.45);
+    padding-right: 10px;
+}
+
+.left-bar__background {
+    flex-grow: 1;
+    background-color: rgb(36, 32, 55);
+    border-right-color: rgb(0, 0, 0);
+    border-right-width: 3px;
+}
+
+.right-content {
+    flex-grow: 1;
 }

@@ -21,7 +21,7 @@
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBuckCurrency" currency="BlastBuck" class="anim-delay-3 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="FRIENDS" name="FriendsButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-3 anim-translate anim-translate--left-xl main-button-margin" style="margin-bottom: 5px;">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/friends" name="FriendsButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-3 anim-translate anim-translate--left-xl main-button-margin" style="margin-bottom: 5px;">
                     <ui:VisualElement name="FriendsIcon" class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <ui:VisualElement name="PartyButtonHolder" class="anim-delay-2 anim-translate anim-translate--left-xl party-button-holder">
@@ -57,7 +57,7 @@
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="LeftButtons" class="main-buttons main-buttons--left">
                 <ui:VisualElement name="Actions" style="flex-grow: 1; justify-content: center;">
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/collection" name="CollectionButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl main-button-margin">
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/collection" name="CollectionButton" class="sfx-click-forwards button-with-icon button-with-icon--collection anim-delay-2 anim-translate anim-translate--right-xl main-button-margin">
                         <ui:VisualElement name="CollectionIcon" class="button-with-icon__icon" />
                         <ui:VisualElement name="CollectionNotification" class="notification-icon button-with-icon__notification" />
                     </FirstLight.Game.UIElements.LocalizedButton>

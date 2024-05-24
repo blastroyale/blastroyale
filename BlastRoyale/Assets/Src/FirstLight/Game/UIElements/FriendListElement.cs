@@ -1,6 +1,7 @@
 using System;
 using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
+using I2.Loc;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
 using UnityEngine.UIElements;
@@ -27,12 +28,12 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _onlineIndicator;
 		private readonly Label _nameAndTrophiesLabel;
 		private readonly Label _activityLabel;
-		private readonly Button _mainActionButton;
+		private readonly LocalizedButton _mainActionButton;
 		private readonly ImageButton _moreActionsButton;
 		private readonly Label _header;
 		private readonly VisualElement _acceptDeclineContainer;
-		private readonly Button _acceptButton;
-		private readonly Button _declineButton;
+		private readonly LocalizedButton _acceptButton;
+		private readonly LocalizedButton _declineButton;
 
 		private Action<Relationship> _mainAction;
 		private Action<VisualElement, Relationship> _moreActionsAction;
@@ -74,8 +75,7 @@ namespace FirstLight.Game.UIElements
 					playerBarContainer.Add(_activityLabel = new Label("Player last seend\n30 minutes ago") {name = "activity"});
 					_activityLabel.AddToClassList(USS_ACTIVITY);
 
-					playerBarContainer.Add(_mainActionButton = new Button {name = "main-action-button"});
-					_mainActionButton.text = "INVITE";
+					playerBarContainer.Add(_mainActionButton = new LocalizedButton("UITFriends/invite") {name = "main-action-button"});
 					_mainActionButton.AddToClassList(USS_MAIN_ACTION_BUTTON);
 					_mainActionButton.AddToClassList("button-long");
 					_mainActionButton.AddToClassList("button-long--yellow");
@@ -87,14 +87,12 @@ namespace FirstLight.Game.UIElements
 				background.Add(_acceptDeclineContainer = new VisualElement {name = "accept-decline-container"});
 				_acceptDeclineContainer.AddToClassList(USS_ACCEPT_DECLINE_CONTAINER);
 				{
-					_acceptDeclineContainer.Add(_acceptButton = new Button {name = "accept-button"});
+					_acceptDeclineContainer.Add(_acceptButton = new LocalizedButton("UITFriends/accept") {name = "accept-button"});
 					_acceptButton.AddToClassList("button-long");
-					_acceptButton.AddToClassList("button-long--green"); // TODO mihak: Change to green
-					_acceptButton.text = "ACCEPT";
-					_acceptDeclineContainer.Add(_declineButton = new Button {name = "decline-button"});
+					_acceptButton.AddToClassList("button-long--green");
+					_acceptDeclineContainer.Add(_declineButton = new LocalizedButton("UITFriends/decline") {name = "decline-button"});
 					_declineButton.AddToClassList("button-long");
 					_declineButton.AddToClassList("button-long--red");
-					_declineButton.text = "DECLINE";
 				}
 			}
 
@@ -109,6 +107,7 @@ namespace FirstLight.Game.UIElements
 							Action<VisualElement, Relationship> moreActionsAction)
 		{
 			_relationship = relationship;
+			// TODO mihak: Show correct trophies
 			_nameAndTrophiesLabel.text = $"{relationship.Member.Profile.Name}\n{12234} <sprite name=\"TrophyIcon\">";
 
 			_header.SetDisplay(header != null);
@@ -119,13 +118,14 @@ namespace FirstLight.Game.UIElements
 				if (relationship.Member.Role == MemberRole.Source)
 				{
 					_activityLabel.SetVisibility(true);
-					_activityLabel.text = "Has sent you a friend request";
+					_activityLabel.text = ScriptLocalization.UITFriends.has_sent_request;
 				}
 				else
 				{
 					_activityLabel.SetVisibility(false);
 				}
-				_onlineIndicator.SetEnabled(false);
+
+				_onlineIndicator.SetDisplay(false);
 			}
 			else if (relationship.Member.Presence != null)
 			{
@@ -133,7 +133,7 @@ namespace FirstLight.Game.UIElements
 				var availability = presence.Availability;
 
 				_onlineIndicator.EnableInClassList(USS_ONLINE_INDICATOR_ONLINE, availability == Availability.Online);
-				_onlineIndicator.SetEnabled(true);
+				_onlineIndicator.SetDisplay(true);
 
 				_activityLabel.SetVisibility(true);
 				_activityLabel.text = relationship.Member.Presence.GetActivity<PlayerActivity>()?.Status;
@@ -141,7 +141,7 @@ namespace FirstLight.Game.UIElements
 			else
 			{
 				_activityLabel.SetVisibility(false);
-				_onlineIndicator.SetEnabled(false);
+				_onlineIndicator.SetDisplay(false);
 			}
 
 			// Main button

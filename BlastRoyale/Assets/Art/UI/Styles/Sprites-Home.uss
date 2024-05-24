@@ -51,6 +51,7 @@
     --sprite-home__button-collection-tab-pressed: url('/Assets/Art/UI/Sprites/Home/button-collection-tab-pressed.png');
     --sprite-home__button-collection-tab-selected: url('/Assets/Art/UI/Sprites/Home/button-collection-tab-selected.png');
     --sprite-home__button-copy: url('/Assets/Art/UI/Sprites/Home/button-copy.png');
+    --sprite-home__button-copy-pressed: url('/Assets/Art/UI/Sprites/Home/button-copy-pressed.png');
     --sprite-home__button-gamemode: url('/Assets/Art/UI/Sprites/Home/button-gamemode.png');
     --sprite-home__button-gamemode-overlay-battleroyale: url('/Assets/Art/UI/Sprites/Home/button-gamemode-overlay-battleroyale.png');
     --sprite-home__button-gamemode-pressed: url('/Assets/Art/UI/Sprites/Home/button-gamemode-pressed.png');
@@ -84,6 +85,12 @@
     --sprite-home__button-profile-pressed: url('/Assets/Art/UI/Sprites/Home/button-profile-pressed.png');
     --sprite-home__button-round: url('/Assets/Art/UI/Sprites/Home/button-round.png');
     --sprite-home__button-settings-toggle: url('/Assets/Art/UI/Sprites/Home/button-settings-toggle.png');
+    --sprite-home__button-small-green: url('/Assets/Art/UI/Sprites/Home/button-small-green.png');
+    --sprite-home__button-small-green-pressed: url('/Assets/Art/UI/Sprites/Home/button-small-green-pressed.png');
+    --sprite-home__button-small-purple: url('/Assets/Art/UI/Sprites/Home/button-small-purple.png');
+    --sprite-home__button-small-purple-pressed: url('/Assets/Art/UI/Sprites/Home/button-small-purple-pressed.png');
+    --sprite-home__button-small-red: url('/Assets/Art/UI/Sprites/Home/button-small-red.png');
+    --sprite-home__button-small-red-pressed: url('/Assets/Art/UI/Sprites/Home/button-small-red-pressed.png');
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');
     --sprite-home__card-selected: url('/Assets/Art/UI/Sprites/Home/card-selected.png');
     --sprite-home__card-shadow-pink: url('/Assets/Art/UI/Sprites/Home/card-shadow-pink.png');
@@ -495,8 +502,12 @@
 
 .sprite-home__button-copy {
     background-image: var(--sprite-home__button-copy);
-    width: 78px;
-    height: 78px;
+    width: 84px;
+    height: 86px;
+}
+
+.sprite-home__button-copy:active {
+    background-image: var(--sprite-home__button-copy-pressed);
 }
 
 .sprite-home__button-gamemode {
@@ -671,6 +682,36 @@
     background-image: var(--sprite-home__button-settings-toggle);
     width: 88px;
     height: 68px;
+}
+
+.sprite-home__button-small-green {
+    background-image: var(--sprite-home__button-small-green);
+    width: 73px;
+    height: 73px;
+}
+
+.sprite-home__button-small-green:active {
+    background-image: var(--sprite-home__button-small-green-pressed);
+}
+
+.sprite-home__button-small-purple {
+    background-image: var(--sprite-home__button-small-purple);
+    width: 73px;
+    height: 73px;
+}
+
+.sprite-home__button-small-purple:active {
+    background-image: var(--sprite-home__button-small-purple-pressed);
+}
+
+.sprite-home__button-small-red {
+    background-image: var(--sprite-home__button-small-red);
+    width: 73px;
+    height: 73px;
+}
+
+.sprite-home__button-small-red:active {
+    background-image: var(--sprite-home__button-small-red-pressed);
 }
 
 .sprite-home__button-special {

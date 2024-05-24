@@ -2167,6 +2167,28 @@ namespace I2.Loc
 			public static string upgrade 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/upgrade"); } }
 		}
 
+		public static class UITFriends
+		{
+			public static string accept 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/accept"); } }
+			public static string add_friend 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/add_friend"); } }
+			public static string block 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/block"); } }
+			public static string decline 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/decline"); } }
+			public static string enter_id 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/enter_id"); } }
+			public static string has_sent_request 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/has_sent_request"); } }
+			public static string invite 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/invite"); } }
+			public static string offline 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/offline"); } }
+			public static string online 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/online"); } }
+			public static string open_profile 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/open_profile"); } }
+			public static string received 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/received"); } }
+			public static string remove_friend 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/remove_friend"); } }
+			public static string sent 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/sent"); } }
+			public static string tab_blocked 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/tab_blocked"); } }
+			public static string tab_friends 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/tab_friends"); } }
+			public static string tab_requests 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/tab_requests"); } }
+			public static string unblock 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/unblock"); } }
+			public static string your_id 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/your_id"); } }
+		}
+
 		public static class UITGameModeSelection
 		{
 			public static string br_duos_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/br_duos_description"); } }
@@ -2216,6 +2238,7 @@ namespace I2.Loc
 			public static string discord 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/discord"); } }
 			public static string enter_your_name 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/enter_your_name"); } }
 			public static string equipment 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/equipment"); } }
+			public static string friends 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/friends"); } }
 			public static string gamemode_BattleRoyale 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/gamemode_BattleRoyale"); } }
 			public static string gamemode_BattleRoyaleDuos 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/gamemode_BattleRoyaleDuos"); } }
 			public static string gamemode_BattleRoyaleTrios 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/gamemode_BattleRoyaleTrios"); } }
@@ -4731,6 +4754,28 @@ namespace I2.Loc
 		    public const string upgrade = "UITEquipment/upgrade";
 		}
 
+		public static class UITFriends
+		{
+		    public const string accept = "UITFriends/accept";
+		    public const string add_friend = "UITFriends/add_friend";
+		    public const string block = "UITFriends/block";
+		    public const string decline = "UITFriends/decline";
+		    public const string enter_id = "UITFriends/enter_id";
+		    public const string has_sent_request = "UITFriends/has_sent_request";
+		    public const string invite = "UITFriends/invite";
+		    public const string offline = "UITFriends/offline";
+		    public const string online = "UITFriends/online";
+		    public const string open_profile = "UITFriends/open_profile";
+		    public const string received = "UITFriends/received";
+		    public const string remove_friend = "UITFriends/remove_friend";
+		    public const string sent = "UITFriends/sent";
+		    public const string tab_blocked = "UITFriends/tab_blocked";
+		    public const string tab_friends = "UITFriends/tab_friends";
+		    public const string tab_requests = "UITFriends/tab_requests";
+		    public const string unblock = "UITFriends/unblock";
+		    public const string your_id = "UITFriends/your_id";
+		}
+
 		public static class UITGameModeSelection
 		{
 		    public const string br_duos_description = "UITGameModeSelection/br_duos_description";
@@ -4780,6 +4825,7 @@ namespace I2.Loc
 		    public const string discord = "UITHomeScreen/discord";
 		    public const string enter_your_name = "UITHomeScreen/enter_your_name";
 		    public const string equipment = "UITHomeScreen/equipment";
+		    public const string friends = "UITHomeScreen/friends";
 		    public const string gamemode_BattleRoyale = "UITHomeScreen/gamemode_BattleRoyale";
 		    public const string gamemode_BattleRoyaleDuos = "UITHomeScreen/gamemode_BattleRoyaleDuos";
 		    public const string gamemode_BattleRoyaleTrios = "UITHomeScreen/gamemode_BattleRoyaleTrios";

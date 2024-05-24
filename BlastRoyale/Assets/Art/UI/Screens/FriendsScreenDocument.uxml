@@ -1,25 +1,24 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/FriendsScreenStyle.uss?fileID=7433441132597879392&amp;guid=ba1f0a1f15b1341029c691e8c160c114&amp;type=3#FriendsScreenStyle" />
-    <ui:VisualElement name="reference" class="fill-parent" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Art/UI/References/Friends.png?fileID=2800000&amp;guid=dc759aece3b0f4fa480de8ae9f209171&amp;type=3#Friends&apos;); opacity: 0.58; display: none;" />
-    <ui:VisualElement name="root" style="flex-grow: 1; overflow: hidden;">
-        <FirstLight.Game.UIElements.SafeAreaElement name="SafeArea" apply-bottom="false" style="flex-direction: row;">
-            <ui:VisualElement name="LeftBar" picking-mode="Ignore" class="anim-delay-0 anim-translate anim-translate--right-xxl" style="justify-content: center; align-items: center; width: 773px;">
-                <ui:VisualElement name="Background" style="position: absolute; width: 150%; align-self: flex-end; height: 150%; transform-origin: right; rotate: 4deg; background-color: rgba(9, 8, 14, 0.45); padding-right: 10px;">
-                    <ui:VisualElement name="Center" style="flex-grow: 1; background-color: rgb(36, 32, 55); border-right-color: rgb(0, 0, 0); border-right-width: 3px;" />
+    <ui:VisualElement name="root" class="fill-parent" style="overflow: hidden;">
+        <FirstLight.Game.UIElements.SafeAreaElement name="SafeArea" apply-bottom="false" class="safe-area-container">
+            <ui:VisualElement name="LeftBar" picking-mode="Ignore" class="anim-delay-0 anim-translate anim-translate--right-xxl left-bar">
+                <ui:VisualElement name="Background" class="left-bar__background-parent">
+                    <ui:VisualElement name="Center" class="left-bar__background" />
                 </ui:VisualElement>
-                <ui:TextField picking-mode="Ignore" label="YOUR ID" name="YourID" value="JwaSqdKILS3YAOAfitjKQRDBtVAd" readonly="true" hide-mobile-input="true" class="your-id-input">
+                <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITFriends/your_id" picking-mode="Ignore" name="YourID" value="JwaSqAKILS3YAeAfitjKQRDBtVAd" readonly="true" hide-mobile-input="true" class="your-id-input">
                     <FirstLight.Game.UIElements.ImageButton name="CopyButton" class="button-copy" />
-                </ui:TextField>
-                <ui:TextField picking-mode="Ignore" label="ENTER FRIEND ID" name="AddFriendID" max-length="50" />
-                <ui:Button text="ADD FRIEND" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AddFriendButton" class="button-long button-long--purple" style="margin-top: 28px;" />
+                </FirstLight.Game.UIElements.LocalizedTextField>
+                <FirstLight.Game.UIElements.LocalizedTextField picking-mode="Ignore" label-localization-key="UITFriends/enter_id" name="AddFriendID" max-length="50" />
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITFriends/add_friend" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AddFriendButton" class="button-long button-long--purple" />
             </ui:VisualElement>
-            <ui:VisualElement name="Content" picking-mode="Ignore" style="flex-grow: 1;">
-                <FirstLight.Game.UIElements.TabbedView class="settings-tabbed-view" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
-                    <FirstLight.Game.UIElements.TabButton target="FRIENDS" focusable="true" text="FRIENDS" class="anim-delay-1 anim-translate anim-translate--down-m"/>
-                    <FirstLight.Game.UIElements.TabButton target="REQUESTS" focusable="true" text="REQUESTS" class="anim-delay-2 anim-translate anim-translate--down-m">
+            <ui:VisualElement name="Content" picking-mode="Ignore" class="right-content">
+                <FirstLight.Game.UIElements.TabbedView class="settings-tabbed-view fill-parent">
+                    <FirstLight.Game.UIElements.TabButton localization-key="UITFriends/tab_friends" target="FRIENDS" focusable="true" class="anim-delay-1 anim-translate anim-translate--down-m" />
+                    <FirstLight.Game.UIElements.TabButton target="REQUESTS" focusable="true" localization-key="UITFriends/tab_requests" class="anim-delay-2 anim-translate anim-translate--down-m">
                         <ui:Label name="RequestsCount" text="1" class="requests-count" />
                     </FirstLight.Game.UIElements.TabButton>
-                    <FirstLight.Game.UIElements.TabButton target="BLOCKED" focusable="true" text="BLOCKED" class="anim-delay-3 anim-translate anim-translate--down-m"/>
+                    <FirstLight.Game.UIElements.TabButton target="BLOCKED" focusable="true" localization-key="UITFriends/tab_blocked" class="anim-delay-3 anim-translate anim-translate--down-m" />
                     <ui:VisualElement name="FRIENDS">
                         <ui:ListView name="FriendsList" virtualization-method="DynamicHeight" selection-type="None" />
                     </ui:VisualElement>
@@ -34,5 +33,4 @@
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" picking-mode="Ignore" />
     </ui:VisualElement>
-    <FirstLight.Game.UIElements.FriendListElement style="position: absolute; left: 889px; top: 637px; display: none;" />
 </ui:UXML>

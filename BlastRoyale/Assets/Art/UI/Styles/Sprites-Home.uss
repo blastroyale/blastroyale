@@ -82,6 +82,7 @@
     --sprite-home__button-popup-equipment-close-pressed: url('/Assets/Art/UI/Sprites/Home/button-popup-equipment-close-pressed.png');
     --sprite-home__button-profile: url('/Assets/Art/UI/Sprites/Home/button-profile.png');
     --sprite-home__button-profile-pressed: url('/Assets/Art/UI/Sprites/Home/button-profile-pressed.png');
+    --sprite-home__button-round: url('/Assets/Art/UI/Sprites/Home/button-round.png');
     --sprite-home__button-settings-toggle: url('/Assets/Art/UI/Sprites/Home/button-settings-toggle.png');
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');
     --sprite-home__card-selected: url('/Assets/Art/UI/Sprites/Home/card-selected.png');
@@ -658,6 +659,12 @@
 
 .sprite-home__button-profile:active {
     background-image: var(--sprite-home__button-profile-pressed);
+}
+
+.sprite-home__button-round {
+    background-image: var(--sprite-home__button-round);
+    width: 116px;
+    height: 116px;
 }
 
 .sprite-home__button-settings-toggle {

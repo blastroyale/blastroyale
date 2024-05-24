@@ -11,6 +11,7 @@
     bottom: 36px;
     flex-direction: column;
     justify-content: flex-end;
+    top: 222px;
 }
 
 .main-buttons--left {
@@ -529,6 +530,7 @@
 
 .party-button-holder {
     flex-direction: column-reverse;
+    margin-top: 60px;
 }
 
 .button-party {

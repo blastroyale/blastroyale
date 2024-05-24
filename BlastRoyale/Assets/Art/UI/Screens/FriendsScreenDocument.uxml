@@ -15,15 +15,11 @@
             </ui:VisualElement>
             <ui:VisualElement name="Content" picking-mode="Ignore" style="flex-grow: 1;">
                 <FirstLight.Game.UIElements.TabbedView class="settings-tabbed-view" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
-                    <FirstLight.Game.UIElements.TabButton target="SQUAD" focusable="true" text="SQUAD" class="anim-delay-0 anim-translate anim-translate--down-m" />
                     <FirstLight.Game.UIElements.TabButton target="FRIENDS" focusable="true" text="FRIENDS" class="anim-delay-1 anim-translate anim-translate--down-m"/>
                     <FirstLight.Game.UIElements.TabButton target="REQUESTS" focusable="true" text="REQUESTS" class="anim-delay-2 anim-translate anim-translate--down-m">
                         <ui:Label name="RequestsCount" text="1" class="requests-count" />
                     </FirstLight.Game.UIElements.TabButton>
                     <FirstLight.Game.UIElements.TabButton target="BLOCKED" focusable="true" text="BLOCKED" class="anim-delay-3 anim-translate anim-translate--down-m"/>
-                    <ui:VisualElement name="SQUAD">
-                        <ui:Label text="Coming soon..." style="font-size: 36px; color: rgb(255, 255, 255); -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 3px 3px 0 rgb(0, 0, 0);" />
-                    </ui:VisualElement>
                     <ui:VisualElement name="FRIENDS">
                         <ui:ListView name="FriendsList" virtualization-method="DynamicHeight" selection-type="None" />
                     </ui:VisualElement>

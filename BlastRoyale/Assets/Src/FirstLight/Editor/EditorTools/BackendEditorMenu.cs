@@ -17,7 +17,7 @@ namespace FirstLight.Editor.EditorTools
 		private static readonly string _quantumLibPath =
 			$"{Application.dataPath}/../Assets/Libs/Photon/Quantum/Assemblies/";
 
-		private static string _backendPath => $"{Application.dataPath}/../Backend";
+		private static string _backendPath => $"{Application.dataPath}/../../Backend";
 		
 		private static string _backendLibsPath => $"{_backendPath}/Lib";
 		private static string _backendResources => $"{_backendPath}/ServerCommon/Resources";

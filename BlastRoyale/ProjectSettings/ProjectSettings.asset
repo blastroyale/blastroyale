@@ -238,6 +238,7 @@ PlayerSettings:
   iOSMetalForceHardShadows: 0
   metalEditorSupport: 1
   metalAPIValidation: 1
+  metalCompileShaderBinary: 0
   iOSRenderExtraFrameOnPause: 0
   iosCopyPluginsCodeInsteadOfSymlink: 0
   appleDeveloperTeamID: 8UB22L9ZW7
@@ -871,7 +872,7 @@ PlayerSettings:
     PS5: TextMeshPro
     QNX: TextMeshPro
     Stadia: TextMeshPro
-    Standalone: QUANTUM_ADDRESSABLES;TextMeshPro;LOG_LEVEL_INFO;MOREMOUNTAINS_NICEVIBRATIONS;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;ODIN_VALIDATOR;ODIN_INSPECTOR;BAKERY_INCLUDED;ODIN_INSPECTOR_3_3;ODIN_VALIDATOR_3_3;ODIN_INSPECTOR_EDITOR_ONLY
+    Standalone: QUANTUM_ADDRESSABLES;TextMeshPro;LOG_LEVEL_INFO;MOREMOUNTAINS_NICEVIBRATIONS;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;ODIN_VALIDATOR;ODIN_INSPECTOR;BAKERY_INCLUDED;ODIN_INSPECTOR_3_3;ODIN_VALIDATOR_3_3;ODIN_INSPECTOR_EDITOR_ONLY;ODIN_VALIDATOR_3_1;ODIN_VALIDATOR_3_2;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2
     VisionOS: TextMeshPro
     WebGL: TextMeshPro
     Windows Store Apps: 
@@ -943,6 +944,7 @@ PlayerSettings:
   metroTileBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 0}
   metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21568628, a: 1}
   metroSplashScreenUseBackgroundColor: 0
+  syncCapabilities: 0
   platformCapabilities: {}
   metroTargetDeviceFamilies: {}
   metroFTAName: 

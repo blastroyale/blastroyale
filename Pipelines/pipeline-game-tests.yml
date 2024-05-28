@@ -12,14 +12,6 @@ pr:
     - develop
     - releases/*
 
-resources:
-  repositories:
-  - repository: self
-  - repository: templates
-    type: git
-    ref: main
-    name: Infrastructure/core-templates
-
 variables:
 - group: Secrets
 - group: Non-secrets
@@ -37,7 +29,7 @@ stages:
         submodules: true
         
       # Run tests and copy dlls
-      - template: pipelines/unity-tests.yml@templates
+      - template: unity-tests.yml
           
       # Game logic build
       - script: dotnet build

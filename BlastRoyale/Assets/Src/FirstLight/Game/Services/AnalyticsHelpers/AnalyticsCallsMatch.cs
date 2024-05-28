@@ -146,53 +146,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// <summary>
 		/// Logs when finish the match
 		/// </summary>
-		public void MatchEndBRPlayerDead(QuantumGame game, uint playerRank)
-		{
-			if (IsSpectator())
-			{
-				return;
-			}
-
-			FetchPropertiesFromRoom();
-			SendQueue();
-
-			var f = game.Frames.Verified;
-			var localPlayerData = new QuantumPlayerMatchData(f, game.GetLocalPlayerRef());
-			var totalPlayers = 0;
-
-			for (var i = 0; i < f.PlayerCount; i++)
-			{
-				if (f.GetPlayerData(i) != null)
-				{
-					totalPlayers++;
-				}
-			}
-
-			var data = new Dictionary<string, object>
-			{
-				{"match_id", _matchId},
-				{"match_type", _matchType},
-				{"game_mode", _gameModeId},
-				{"mutators", _mutators},
-				{"map_id", _mapId},
-				{"players_left", totalPlayers},
-				{"suicide", localPlayerData.Data.SuicideCount > 0},
-				{"kills", (int) localPlayerData.Data.PlayersKilledCount},
-				{"match_time", f.Time.AsFloat},
-				{"player_rank", (int) playerRank},
-				{"player_attacks", _playerNumAttacks},
-				{"team_id", localPlayerData.Data.TeamId},
-				{"team_size", f.GetTeamSize()}
-			};
-
-			_analyticsService.LogEvent(AnalyticsEvents.MatchEndBattleRoyalePlayerDead, data);
-
-			_playerNumAttacks = 0;
-		}
-
-		/// <summary>
-		/// Logs when finish the match
-		/// </summary>
 		public void MatchEnd(QuantumGame game, bool playerQuit, uint playerRank)
 		{
 			if (IsSpectator())
@@ -227,7 +180,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"map_name", _mapId},
+				{"map_id", _mapId},
 				{"players_left", totalPlayers},
 				{"suicide", localPlayerData.Data.SuicideCount > 0},
 				{"kills", (int) localPlayerData.Data.PlayersKilledCount},

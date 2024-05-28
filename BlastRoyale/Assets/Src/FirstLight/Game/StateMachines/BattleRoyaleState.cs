@@ -101,7 +101,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void MatchEndAnalytics()
 		{
-			_services.AnalyticsService.MatchCalls.MatchEndBRPlayerDead(QuantumRunner.Default.Game, _matchServices.MatchEndDataService.LocalPlayerMatchData.PlayerRank);
+			_services.AnalyticsService.MatchCalls.MatchEnd(QuantumRunner.Default.Game, false, _matchServices.MatchEndDataService.LocalPlayerMatchData.PlayerRank);
 		}
 
 		public bool IsMatchEnding()

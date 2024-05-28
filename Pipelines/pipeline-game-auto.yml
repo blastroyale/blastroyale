@@ -183,7 +183,7 @@ stages:
         - checkout: self
           lfs: true
           submodules: true
-        - template: .pipelines/unity-tests.yml
+        - template: unity-tests.yml
           parameters:
             testPlatform: EditMode 
         dependsOn: DisplayAndTagBuild  
@@ -228,7 +228,7 @@ stages:
           - checkout: self
             lfs: true
             fetchTags: false
-          - template: .pipelines/unity-build.yml
+          - template: unity-build.yml
             parameters:
               configuration: $(configuration)
               platform: Android
@@ -268,7 +268,7 @@ stages:
         - checkout: self
           lfs: true
           fetchTags: false
-        - template: .pipelines/unity-build.yml
+        - template: unity-build.yml
           parameters:
             configuration: $(configuration)
             platform: iOS

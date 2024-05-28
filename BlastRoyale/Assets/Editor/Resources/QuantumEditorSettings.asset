@@ -79,7 +79,7 @@ MonoBehaviour:
   AutoBuildOnSceneSave: 0
   AutoBuildOnPlaymodeChanged: 0
   AutoBuildOnBuild: 0
-  QuantumSolutionPath: ./Quantum/quantum_code/quantum_code.sln
+  QuantumSolutionPath: ../Quantum/quantum_code/quantum_code.sln
   MergeWithVisualStudioSolution: 0
   ImportQuantumLibrariesImmediately: 0
   AutoRunQtnCodeGen: 0

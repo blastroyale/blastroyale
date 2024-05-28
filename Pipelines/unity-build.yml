@@ -154,7 +154,7 @@ steps:
 
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: $(System.DefaultWorkingDirectory)/BuildArtifacts
+      pathtoPublish: $(System.DefaultWorkingDirectory)/BlastRoyale/BuildArtifacts
       artifactName: 'GameDlls'
     condition: and(eq(${{ parameters.publishDlls }}, true),not(or(failed(), canceled())))
 
@@ -167,18 +167,19 @@ steps:
   - script: |
       security set-key-partition-list -S apple: -s -k EgfTpS6F login.keychain
       fastlane gym --output_directory "$(System.DefaultWorkingDirectory)" --export_method development
-    workingDirectory: $(System.DefaultWorkingDirectory)/BlastRoyale/app
+    workingDirectory: $(System.DefaultWorkingDirectory)/BlastRoyale/BlastRoyale
     condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))
     displayName: 'Fastlane iOS Build'
 
   - task: PublishPipelineArtifact@1
+    condition: eq(${{ parameters.remote_addressables }}, true)
     inputs:
-      targetPath: $(System.DefaultWorkingDirectory)/ServerData
+      targetPath: $(System.DefaultWorkingDirectory)/BlastRoyale/ServerData
       artifact: 'AddressablesBuild_${{ parameters.platform }}'
 
   - script: |
-      mkdir -p $(System.DefaultWorkingDirectory)/ServerDataUCD/ServerData
-      mv $(System.DefaultWorkingDirectory)/ServerData/* $(System.DefaultWorkingDirectory)/ServerDataUCD/ServerData
+      mkdir -p $(System.DefaultWorkingDirectory)/BlastRoyale/ServerDataUCD/ServerData
+      mv $(System.DefaultWorkingDirectory)/BlastRoyale/ServerData/* $(System.DefaultWorkingDirectory)/BlastRoyale/ServerDataUCD/ServerData
     condition: eq(${{ parameters.remote_addressables }}, true)
     displayName: 'Move CCD Files'
 
@@ -265,8 +266,8 @@ steps:
         az storage blob upload `
         --account-name prodflgbuildstorage `
         --container-name $(platformLower) `
-        --name $(Build.DefinitionName)/$(Build.BuildNumber)/app.apk `
-        --file 'app.apk' `
+        --name $(Build.DefinitionName)/$(Build.BuildNumber)/BlastRoyale.apk `
+        --file 'BlastRoyale/BlastRoyale.apk' `
         --auth-mode login
 
 
@@ -280,7 +281,7 @@ steps:
       if ($platform -eq "ios") {
           $url = [System.Uri]::EscapeUriString("itms-services://0.0.0.0?action=download-manifest&url=https://prodflgbuildstorage.blob.core.windows.net/$platform/$name/$build_number/$file_name.plist")
       } else {
-          $url = [System.Uri]::EscapeUriString("https://prodflgbuildstorage.blob.core.windows.net/$platform/$name/$build_number/app.apk")
+          $url = [System.Uri]::EscapeUriString("https://prodflgbuildstorage.blob.core.windows.net/$platform/$name/$build_number/BlastRoyale.apk")
       }
       
       $link = $url
@@ -299,7 +300,7 @@ steps:
   # TODO: Fix android extension
   - script: |
       export GOOGLE_APPLICATION_CREDENTIALS=$(firebaseKey.secureFilePath)
-      firebase appdistribution:distribute app.apk  \
+      firebase appdistribution:distribute BlastRoyale/BlastRoyale.apk  \
       --app ***REMOVED***  \
       --groups "${{ parameters.firebaseDistGroups }}"  \
       --release-notes "$(Build.Reason) - $(Build.BuildNumber)

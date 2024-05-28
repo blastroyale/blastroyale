@@ -82,10 +82,10 @@ namespace FirstLight.Editor.Build
 			switch (buildTarget)
 			{
 				case BuildTarget.Android:
-					buildConfig.locationPathName = "app.apk";
+					buildConfig.locationPathName = "BlastRoyale.apk";
 					break;
 				case BuildTarget.iOS:
-					buildConfig.locationPathName = "app";
+					buildConfig.locationPathName = "BlastRoyale";
 					break;
 			}
 		}

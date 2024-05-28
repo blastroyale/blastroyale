@@ -129,7 +129,7 @@ BlastRoyale/Assets/Plugins/Android/org.*
 BlastRoyale/Assets/Plugins/Android/FirebaseCrashlytics.*
 BlastRoyale/Assets/InitTestScene*.unity
 BlastRoyale/Assets/InitTestScene*.unity.meta
-/BuildArtifacts/
+BlastRoyale/BuildArtifacts/
 BlastRoyale/Assets/Resources/version-data.txt
 BlastRoyale/Assets/Resources/version-data.txt.meta
 BlastRoyale/com.Tivadar.Best.HTTP.xml
@@ -142,9 +142,9 @@ BlastRoyale/Assets/AddressableAssetsData/link.xml
 BlastRoyale/Assets/AddressableAssetsData/link.xml.meta
 BlastRoyale/bakery-times.log
 BlastRoyale/mono_crash.*
-BlastRoyale/app/
-BlastRoyale/app_BackUpThisFolder_ButDontShipItWithYourGame/
-BlastRoyale/app_BurstDebugInformation_DoNotShip/
+BlastRoyale/BlastRoyale/
+BlastRoyale/BlastRoyale_BackUpThisFolder_ButDontShipItWithYourGame/
+BlastRoyale/BlastRoyale_BurstDebugInformation_DoNotShip/
 
 # DLLs
 # Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll

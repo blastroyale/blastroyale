@@ -58,6 +58,10 @@ parameters:
     type: boolean
     displayName: If should publish artifacts with game dlls
     default: false
+  - name: remote_addressables
+    type: boolean
+    displayName: Use Remote Addressables
+    default: false
 
 steps:
 
@@ -120,8 +124,8 @@ steps:
 
   - script: |
       /Applications/Unity/Hub/Editor/2022.3.30f1/Unity.app/Contents/MacOS/Unity \
-      -batchmode -buildTarget ${{ parameters.platform }} -projectPath $(System.DefaultWorkingDirectory)/BlastRoyale \
-      -logfile - -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -FLDevelopmentBuild ${{ parameters.dev_build }} \
+      -batchmode -buildTarget ${{ parameters.platform }} -projectPath $(System.DefaultWorkingDirectory)/BlastRoyale -logfile - \
+      -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -FLDevelopmentBuild ${{ parameters.dev_build }} -FLRemoteAddressables ${{ parameters.remote_addressables }} \
       -username ${{ parameters.unity_username }} -password ${{ parameters.unity_password }} \
       -EnableCacheServer -cacheServerEndpoint localhost:10080 -executeMethod FirstLight.Editor.Build.Builder.BatchBuild -quit
     condition: not(or(failed(), canceled()))
@@ -132,7 +136,7 @@ steps:
       targetType: 'inline'
       pwsh: true
       script: |
-        switch -File build-output.properties {
+        switch -File BlastRoyale/build-output.properties {
           default {
             $name, $value = $_.Trim() -split '=', 2
             if ($name -and $name[0] -ne '#') { # ignore blank and comment lines.
@@ -175,6 +179,7 @@ steps:
   - script: |
       mkdir -p $(System.DefaultWorkingDirectory)/ServerDataUCD/ServerData
       mv $(System.DefaultWorkingDirectory)/ServerData/* $(System.DefaultWorkingDirectory)/ServerDataUCD/ServerData
+    condition: eq(${{ parameters.remote_addressables }}, true)
     displayName: 'Move CCD Files'
 
   - script: |
@@ -182,28 +187,28 @@ steps:
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
       ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
       ucd releases create -b ***REMOVED*** --environment ***REMOVED***
-    condition: and(eq('${{ parameters.environment }}', 'development'), not(or(failed(), canceled())))
+    condition: and(eq(${{ parameters.remote_addressables }}, true), eq('${{ parameters.environment }}', 'development'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Development'
 
   - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
       ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
-    condition: and(eq('${{ parameters.environment }}', 'staging'), not(or(failed(), canceled())))
+    condition: and(eq(${{ parameters.remote_addressables }}, true), eq('${{ parameters.environment }}', 'staging'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Staging'
 
   - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
       ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
-    condition: and(eq('${{ parameters.environment }}', 'community'), not(or(failed(), canceled())))
+    condition: and(eq(${{ parameters.remote_addressables }}, true), eq('${{ parameters.environment }}', 'community'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Community'
 
   - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
       ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
-    condition: and(eq('${{ parameters.environment }}', 'production'), not(or(failed(), canceled())))
+    condition: and(eq(${{ parameters.remote_addressables }}, true), eq('${{ parameters.environment }}', 'production'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Production'
 
   - script: |

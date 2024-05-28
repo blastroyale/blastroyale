@@ -34,6 +34,10 @@ parameters:
       - staging
       - community
       - production
+  - name: param_remote_addressables
+    displayName: Use Remote Addressables
+    type: boolean
+    default: false
   - name: param_run_unity_tests
     displayName: Run Unit Tests
     type: boolean
@@ -242,7 +246,8 @@ stages:
               publishDlls: true
               environment: ${{ variables.environment }}
               dev_build: ${{ variables.dev_build }}
-            
+              remote_addressables: ${{ parameters.param_remote_addressables }}
+
       - job: iOSBuild
         timeoutInMinutes: 90
         dependsOn:  EditorTests
@@ -284,7 +289,7 @@ stages:
             publishDlls: false
             environment: ${{ variables.environment }}
             dev_build: ${{ variables.dev_build }}
-
+            remote_addressables: ${{ parameters.param_remote_addressables }}
 
 # GAME LOGIC
       - job: BuildAndPushGameLogic

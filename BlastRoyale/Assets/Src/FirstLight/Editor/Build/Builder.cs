@@ -25,7 +25,7 @@ namespace FirstLight.Editor.Build
 		/// </summary>
 		public static void BuildAddressablesUpdateIOS()
 		{
-			SetupAddressables();
+			SetupAddressables(true);
 			ContentUpdateScript.BuildContentUpdate(AddressableAssetSettingsDefaultObject.Settings, "ServerData/iOS/addressables_content_state.bin");
 		}
 
@@ -34,7 +34,7 @@ namespace FirstLight.Editor.Build
 		/// </summary>
 		public static void BuildAddressablesUpdateAndroid()
 		{
-			SetupAddressables();
+			SetupAddressables(true);
 			ContentUpdateScript.BuildContentUpdate(AddressableAssetSettingsDefaultObject.Settings,
 				"ServerData/Android/addressables_content_state.bin");
 		}
@@ -50,12 +50,13 @@ namespace FirstLight.Editor.Build
 			var environment = BuildUtils.GetEnvironment();
 			var buildNumber = BuildUtils.GetBuildNumber();
 			var isDevelopmentBuild = BuildUtils.GetIsDevelopmentBuild();
+			var remoteAddressables = BuildUtils.GetUseRemoteAddressables();
 
 			var buildConfig = new BuildPlayerOptions();
 
 			SetupBuildNumber(buildNumber);
 			SetupDevelopmentBuild(isDevelopmentBuild, ref buildConfig);
-			SetupAddressables();
+			SetupAddressables(remoteAddressables);
 			SetupAndroidKeystore();
 			SetupScenes(ref buildConfig);
 			SetupPath(ref buildConfig, buildTarget);
@@ -102,11 +103,11 @@ namespace FirstLight.Editor.Build
 			}
 		}
 
-		private static void SetupAddressables()
+		private static void SetupAddressables(bool remoteAddressables)
 		{
 			var addressableSettings = AddressableAssetSettingsDefaultObject.Settings;
 
-			var profileId = addressableSettings.profileSettings.GetProfileId("CCD");
+			var profileId = addressableSettings.profileSettings.GetProfileId(remoteAddressables ? "CCD" : "Default");
 
 			AddressableAssetSettingsDefaultObject.Settings.activeProfileId = profileId;
 		}
@@ -131,7 +132,7 @@ namespace FirstLight.Editor.Build
 		{
 			PlayerSettings.Android.useCustomKeystore = true;
 			PlayerSettings.Android.keystoreName =
-				Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Certificates", "firstlightgames.keystore"));
+				Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", "Certificates", "firstlightgames.keystore"));
 			PlayerSettings.Android.keystorePass = "***REMOVED***";
 			PlayerSettings.Android.keyaliasName = "blastroyale";
 			PlayerSettings.Android.keyaliasPass = "***REMOVED***";

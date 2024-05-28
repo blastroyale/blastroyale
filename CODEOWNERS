@@ -1,16 +1,19 @@
 @@@ServerNerds @"Carlos" @"Gabriel" @"Miha Krajnc"
 
 Quantum/ @@ServerNerds
-Assets/Src/FirstLight/Game/Logic/ @@ServerNerds
-Assets/Src/FirstLight/Game/Commands/ @@ServerNerds
-Assets/Src/FirstLight/Game/Data/ @@ServerNerds
-Assets/AddressableResources/Configs/ @@ServerNerds
-Assets/Src/FirstLight/Game/Utils/NetworkUtils.cs @@ServerNerds
-Assets/Src/FirstLight/Game/StateMachines/NetworkState.cs @@ServerNerds
-Assets/Libs/Photon/ @@ServerNerds
-Assets/Art/UI/ @"Miha Krajnc"
-Assets/Src/FirstLight/Game/Presenter/ @"Miha Krajnc"
-Assets/Src/FirstLight/Game/Views/UITK/ @"Miha Krajnc"
-Assets/Src/FirstLight/Game/UIElements/ @"Miha Krajnc"
+
+BlastRoyale/Assets/Src/FirstLight/Game/Logic/ @@ServerNerds
+BlastRoyale/Assets/Src/FirstLight/Game/Commands/ @@ServerNerds
+BlastRoyale/Assets/Src/FirstLight/Game/Data/ @@ServerNerds
+BlastRoyale/Assets/AddressableResources/Configs/ @@ServerNerds
+BlastRoyale/Assets/Src/FirstLight/Game/Utils/NetworkUtils.cs @@ServerNerds
+BlastRoyale/Assets/Src/FirstLight/Game/StateMachines/NetworkState.cs @@ServerNerds
+BlastRoyale/Assets/Libs/Photon/ @@ServerNerds
+BlastRoyale/Assets/Art/UI/ @"Miha Krajnc"
+BlastRoyale/Assets/Src/FirstLight/Game/Presenter/ @"Miha Krajnc"
+BlastRoyale/Assets/Src/FirstLight/Game/Views/UITK/ @"Miha Krajnc"
+BlastRoyale/Assets/Src/FirstLight/Game/UIElements/ @"Miha Krajnc"
+
+Pipelines/ @"Carlos"
 
 AllGroupsCheck(1)

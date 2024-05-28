@@ -42,7 +42,7 @@ namespace FirstLight.Editor.Build
 
 		private static void PrepareFirebase(string environment)
 		{
-			var configDirectory = Path.Combine(Application.dataPath, "../", "Configs");
+			var configDirectory = Path.Combine(Application.dataPath, "../", "../", "Configs");
 
 			// iOS
 			File.Copy(Path.Combine(configDirectory, $"GoogleService-Info-{environment}.plist"),

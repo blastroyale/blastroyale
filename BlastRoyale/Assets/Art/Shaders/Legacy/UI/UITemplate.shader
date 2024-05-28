@@ -51,7 +51,7 @@ Shader "Hidden/UI/Template"
 			#pragma target 2.0
 
 			#include "UnityCG.cginc"
-			#include "UIShaderShared.cginc"
+			// #include "UIShaderShared.cginc"
 
 			#pragma multi_compile_local _ UNITY_UI_CLIP_RECT
 			#pragma multi_compile_local _ UNITY_UI_ALPHACLIP
@@ -116,7 +116,7 @@ Shader "Hidden/UI/Template"
 				// BEGIN CUSTOM DRAW
 				float2 st = IN.texcoord;
 
-				half4 color = IN.color * circle(st, 1.0f);
+				half4 color = IN.color; // * circle(st, 1.0f);
 				// END CUSTOM DRAW
 
 				#ifdef UNITY_UI_CLIP_RECT

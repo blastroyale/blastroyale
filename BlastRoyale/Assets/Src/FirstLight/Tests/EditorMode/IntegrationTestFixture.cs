@@ -29,7 +29,7 @@ namespace FirstLight.Tests.EditorMode
 	/// </summary>
 	public abstract class IntegrationTestFixture
 	{
-		private static string _serverResourcesPath => $"{Application.dataPath}/../Backend/ServerCommon/Resources";
+		private static string _serverResourcesPath => $"{Application.dataPath}/../../Backend/ServerCommon/Resources";
 
 		protected string TestPlayerId;
 		protected IGameServices TestServices;

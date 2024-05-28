@@ -120,7 +120,7 @@ steps:
 
   - script: |
       /Applications/Unity/Hub/Editor/2022.3.19f1/Unity.app/Contents/MacOS/Unity \
-      -batchmode -buildTarget ${{ parameters.platform }} -projectPath $(System.DefaultWorkingDirectory) \
+      -batchmode -buildTarget ${{ parameters.platform }} -projectPath $(System.DefaultWorkingDirectory)/BlastRoyale \
       -logfile - -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -FLDevelopmentBuild ${{ parameters.dev_build }} \
       -username ${{ parameters.unity_username }} -password ${{ parameters.unity_password }} \
       -EnableCacheServer -cacheServerEndpoint localhost:10080 -executeMethod FirstLight.Editor.Build.Builder.BatchBuild -quit

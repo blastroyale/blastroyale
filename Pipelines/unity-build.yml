@@ -165,9 +165,9 @@ steps:
 
   # The security thing is because apple is apple and we need to unlock (or something) the login keychain
   - script: |
-      cd app
       security set-key-partition-list -S apple: -s -k EgfTpS6F login.keychain
       fastlane gym --output_directory "$(System.DefaultWorkingDirectory)" --export_method development
+    workingDirectory: $(System.DefaultWorkingDirectory)/BlastRoyale/app
     condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))
     displayName: 'Fastlane iOS Build'
 

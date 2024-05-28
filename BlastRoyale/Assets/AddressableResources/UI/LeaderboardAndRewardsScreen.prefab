@@ -64,8 +64,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _document: {fileID: 3274073835039566590}
-  _background: {fileID: 0}
-  _millisecondsToClose: 0
   _character: {fileID: 1362319859418750371}
   _camera: {fileID: 8278269561853960441}
   _leaderboardEntryAsset: {fileID: 9197481963319205126, guid: 6fb24398d54ea4f059d3e6f638340f5d, type: 3}

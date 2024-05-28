@@ -17,7 +17,6 @@ MonoBehaviour:
     PoolCapacity: 25
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720
-    UseNftData: 1
     BaseMaxTake: 9
     ScaleMultiplier:
       RawValue: 229376
@@ -31,15 +30,10 @@ MonoBehaviour:
       RawValue: 7209
     TakeDecreaseExponent:
       RawValue: 117965
-    PoolCapacityTrophiesModifier:
-      RawValue: 19660800000
-    TakeTrophiesModifier:
-      RawValue: 1966080000
   - Id: 26
     PoolCapacity: 3000
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 1440
-    UseNftData: 0
     BaseMaxTake: 0
     ScaleMultiplier:
       RawValue: 0
@@ -53,7 +47,3 @@ MonoBehaviour:
       RawValue: 0
     TakeDecreaseExponent:
       RawValue: 0
-    PoolCapacityTrophiesModifier:
-      RawValue: 327680000000
-    TakeTrophiesModifier:
-      RawValue: 327680000000

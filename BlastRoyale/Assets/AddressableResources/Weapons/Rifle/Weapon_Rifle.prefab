@@ -99,11 +99,11 @@ MonoBehaviour:
   - {fileID: 3323252044200413934}
   - {fileID: 652887400762561118}
   _originalMaterials:
-  - {fileID: 5561349426305759274, guid: 6b7ed4bd87d8443cb81f0f66ae511314, type: 3}
+  - {fileID: 2100000, guid: 131409319b68ac944b348112d1efa06e, type: 2}
   _rendererColors:
-  - {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
   _rendererAdditiveColors:
-  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 1}
 --- !u!1001 &4742835792570383619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -112,10 +112,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3253656072546269077}
     m_Modifications:
-    - target: {fileID: 5829862828538015940, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b7ed4bd87d8443cb81f0f66ae511314, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -177,6 +173,10 @@ PrefabInstance:
       value: Weapon_Rifle
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b7ed4bd87d8443cb81f0f66ae511314, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5829862828538015940, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}

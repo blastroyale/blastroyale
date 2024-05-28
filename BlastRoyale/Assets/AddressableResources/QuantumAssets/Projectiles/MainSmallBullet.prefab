@@ -317,6 +317,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 3
+  _renderer: {fileID: 5336828395552513732}
 --- !u!120 &5336828395552513732
 LineRenderer:
   serializedVersion: 2

@@ -34,7 +34,6 @@ RectTransform:
   m_Children:
   - {fileID: 5591684151730893418}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -106,10 +105,11 @@ MonoBehaviour:
   PressedEase: 1
   PressedDuration: 0.1
   PressedScale: {x: 0.9, y: 0.9, z: 0.9}
-  HapticType: 9
-  TapSoundFx: 18
   Anchor: {fileID: 5591684151730893418}
   ClickClip: {fileID: 7400000, guid: d28addb3dd8d04ac3a54c98a457c0666, type: 2}
+  PlaySound: 1
+  IsForward: 1
+  OverrideClickSfxId: 0
 --- !u!114 &5591684151562298099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +165,6 @@ RectTransform:
   - {fileID: 5591684152986601588}
   - {fileID: 3084804813262677588}
   m_Father: {fileID: 5591684151562298108}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -203,7 +202,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5591684151730893418}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -280,7 +278,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5591684151730893418}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

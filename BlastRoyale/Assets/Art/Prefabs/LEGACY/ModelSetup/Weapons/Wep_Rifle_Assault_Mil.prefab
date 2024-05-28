@@ -24,14 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3125009969563814572}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4083788711578951675}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4309578261644314024
 MonoBehaviour:
@@ -58,80 +57,4 @@ MonoBehaviour:
   - {fileID: 0}
   _surfaceTextures: []
   _adjectiveTextures: []
-  _renderers:
-  - {fileID: 5429981584420042271}
---- !u!1001 &4550378689913993232
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6301992637288147927}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_Name
-      value: MajorMarkdowns_AR
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5829862828538015940, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
---- !u!4 &4083788711578951675 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-  m_PrefabInstance: {fileID: 4550378689913993232}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &5429981584420042271 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 8393894092900158991, guid: ce0c8e2d6003fb6408c86d3112de2d64, type: 3}
-  m_PrefabInstance: {fileID: 4550378689913993232}
-  m_PrefabAsset: {fileID: 0}
+  _renderers: []

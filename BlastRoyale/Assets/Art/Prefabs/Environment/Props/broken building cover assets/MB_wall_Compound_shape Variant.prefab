@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5036953890090876515}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.04, y: 0, z: -5.25}
   m_LocalScale: {x: 3.827999, y: 1, z: 0.92833424}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2222952323732608989}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3129212517028348252
 BoxCollider:
@@ -122,13 +122,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5358547801697956724}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.74, y: 0, z: -0.15}
   m_LocalScale: {x: 6.5441, y: 1, z: 0.92833424}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2222952323732608989}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2547933132520590494
 BoxCollider:
@@ -219,13 +219,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9167468589718907486}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.94, y: 0, z: -1.27}
   m_LocalScale: {x: 2.1063778, y: 1, z: 1.7386953}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2222952323732608989}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3018485437327798843
 BoxCollider:
@@ -316,13 +316,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9191906483209850517}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0.05, y: 0, z: -4.68}
   m_LocalScale: {x: 8.717013, y: 1, z: 0.92833424}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2222952323732608989}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!65 &931893237310912792
 BoxCollider:

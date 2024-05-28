@@ -20,6 +20,13 @@ namespace FirstLight.Editor.EditorTools
 	/// </summary>
 	public class EditorShortcuts
 	{
+		
+		[MenuItem("FLG/Reserialize")]
+		private static void ReserializeAll()
+		{
+			AssetDatabase.ForceReserializeAssets();
+		}
+		
 		[MenuItem("FLG/Scene/Open FTUE Deck Scene")]
 		private static void OpenFtueDeckScene()
 		{

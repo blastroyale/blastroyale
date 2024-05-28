@@ -9,7 +9,6 @@ ShaderImporter:
   - _Mask: {fileID: 2800000, guid: 03e4ee8d0b5f45045bb12e2930ed4058, type: 3}
   - _ColorRamp: {fileID: 2800000, guid: 789405d2635550c4c9df257b8e484c62, type: 3}
   nonModifiableTextures: []
-  preprocessorOverride: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

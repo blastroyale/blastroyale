@@ -63,8 +63,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _document: {fileID: 3811839224865797129}
-  _background: {fileID: 0}
-  _millisecondsToClose: 0
 --- !u!1001 &4126856403242819126
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ChestOpen
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 1
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -119,7 +119,8 @@ AnimationClip:
       m_RotationOrder: 4
     path: Item/LootBoxes/LootBoxBase/InnerGlow
   m_FloatCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -147,7 +148,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxSolid
     classID: 1
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -175,7 +178,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxBase
     classID: 1
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -212,7 +217,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxLid
     classID: 1
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -249,7 +256,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxLid/Clamp1
     classID: 75
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -286,7 +295,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxLid/Lid04
     classID: 75
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -323,7 +334,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxLid/Lid03
     classID: 75
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -360,7 +373,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxLid/Lid02
     classID: 75
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -397,7 +412,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxLid/Lid01
     classID: 75
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -434,6 +451,7 @@ AnimationClip:
     path: FX_SpawnItem
     classID: 1
     script: {fileID: 0}
+    flags: 16
   m_PPtrCurves: []
   m_SampleRate: 30
   m_WrapMode: 1
@@ -464,7 +482,8 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -492,7 +511,9 @@ AnimationClip:
     path: Item/LootBoxes
     classID: 4
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -520,7 +541,9 @@ AnimationClip:
     path: Item/LootBoxes
     classID: 4
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -548,7 +571,9 @@ AnimationClip:
     path: Item/LootBoxes
     classID: 4
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -576,7 +601,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxSolid
     classID: 1
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -604,7 +631,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxBase
     classID: 1
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -641,7 +670,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxLid
     classID: 1
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -678,7 +709,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxLid/Clamp1
     classID: 75
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -715,7 +748,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxLid/Lid04
     classID: 75
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -752,7 +787,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxLid/Lid03
     classID: 75
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -789,7 +826,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxLid/Lid02
     classID: 75
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -826,7 +865,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxLid/Lid01
     classID: 75
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -863,7 +904,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxBase/InnerGlow
     classID: 4
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -909,7 +952,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxBase/InnerGlow
     classID: 4
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -946,7 +991,9 @@ AnimationClip:
     path: Item/LootBoxes/LootBoxBase/InnerGlow
     classID: 4
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -983,7 +1030,9 @@ AnimationClip:
     path: FX_SpawnItem
     classID: 1
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -1011,7 +1060,9 @@ AnimationClip:
     path: FX_SpawnItem
     classID: 4
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -1048,7 +1099,9 @@ AnimationClip:
     path: FX_SpawnItem
     classID: 4
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -1076,6 +1129,7 @@ AnimationClip:
     path: FX_SpawnItem
     classID: 4
     script: {fileID: 0}
+    flags: 16
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0

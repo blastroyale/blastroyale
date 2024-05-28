@@ -464,6 +464,8 @@ MonoBehaviour:
     RarityModifier: 0
     Disabled:
       Value: 0
+    DoNotDestroy:
+      Value: 0
 --- !u!114 &3568077156168453889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,8 +705,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -967,8 +967,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -1167,8 +1165,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -1580,8 +1576,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -1638,7 +1632,11 @@ MonoBehaviour:
   - {fileID: 2394868460768561348}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &3479030029828157640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1860,8 +1858,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -2060,8 +2056,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -2292,8 +2286,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -2350,7 +2342,11 @@ MonoBehaviour:
   - {fileID: 7688264798787325394}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &3154637644003744624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3191,8 +3187,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -3280,7 +3274,11 @@ MonoBehaviour:
   - {fileID: 3888655119136169620}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &7664020261710831052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3992,8 +3990,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -4050,7 +4046,11 @@ MonoBehaviour:
   - {fileID: 4976120315074249130}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &310844400765403498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4130,7 +4130,11 @@ MonoBehaviour:
   - {fileID: 8629635061164029405}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &727753248645082013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4412,8 +4416,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -4858,8 +4860,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -5058,8 +5058,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -5258,8 +5256,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -5520,8 +5516,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -5795,8 +5789,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -6147,7 +6139,11 @@ MonoBehaviour:
   - {fileID: 7555916623470394184}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &5030687369806547381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6369,8 +6365,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -6600,8 +6594,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -6800,8 +6792,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -7000,8 +6990,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -7325,6 +7313,8 @@ MonoBehaviour:
       Value: 130
     RarityModifier: 0
     Disabled:
+      Value: 0
+    DoNotDestroy:
       Value: 0
 --- !u!114 &2720214139880573827
 MonoBehaviour:
@@ -8079,8 +8069,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -8137,7 +8125,11 @@ MonoBehaviour:
   - {fileID: 4855368286444586773}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &17879188162979094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8418,6 +8410,8 @@ MonoBehaviour:
       Value: 4
     RarityModifier: 0
     Disabled:
+      Value: 0
+    DoNotDestroy:
       Value: 0
 --- !u!114 &5777187470753991972
 MonoBehaviour:
@@ -8717,8 +8711,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -9082,6 +9074,8 @@ MonoBehaviour:
       Value: 4
     RarityModifier: 0
     Disabled:
+      Value: 0
+    DoNotDestroy:
       Value: 0
 --- !u!114 &532688004643982779
 MonoBehaviour:
@@ -9461,8 +9455,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -9898,8 +9890,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -10160,8 +10150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -10435,8 +10423,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -10635,8 +10621,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -11097,6 +11081,8 @@ MonoBehaviour:
     RarityModifier: 0
     Disabled:
       Value: 0
+    DoNotDestroy:
+      Value: 0
 --- !u!114 &114071324055679330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11364,8 +11350,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -11564,8 +11548,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -11823,6 +11805,8 @@ MonoBehaviour:
       Value: 127
     RarityModifier: 0
     Disabled:
+      Value: 0
+    DoNotDestroy:
       Value: 0
 --- !u!114 &8906008863999303232
 MonoBehaviour:
@@ -12123,8 +12107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -12387,8 +12369,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -12587,8 +12567,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -13213,8 +13191,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -13303,7 +13279,11 @@ MonoBehaviour:
   - {fileID: 2391551816086558231}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &6480728830788336514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13600,8 +13580,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -13920,6 +13898,8 @@ MonoBehaviour:
     RarityModifier: 0
     Disabled:
       Value: 0
+    DoNotDestroy:
+      Value: 0
 --- !u!114 &2718831490276868534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14186,6 +14166,8 @@ MonoBehaviour:
       Value: 20
     RarityModifier: 0
     Disabled:
+      Value: 0
+    DoNotDestroy:
       Value: 0
 --- !u!114 &2622320604956772278
 MonoBehaviour:
@@ -14485,6 +14467,8 @@ MonoBehaviour:
     RarityModifier: 0
     Disabled:
       Value: 0
+    DoNotDestroy:
+      Value: 0
 --- !u!114 &2772408384349319453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14752,6 +14736,8 @@ MonoBehaviour:
     RarityModifier: 0
     Disabled:
       Value: 0
+    DoNotDestroy:
+      Value: 0
 --- !u!114 &4212880244425841396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14817,7 +14803,11 @@ MonoBehaviour:
   - {fileID: 2954006254647244649}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &6229713524935986605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14897,7 +14887,11 @@ MonoBehaviour:
   - {fileID: 3576733708470470980}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &5582102870769745324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15119,8 +15113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -15319,8 +15311,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -15519,8 +15509,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -15719,8 +15707,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -16090,8 +16076,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -16290,8 +16274,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -16490,8 +16472,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -16861,8 +16841,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -17285,7 +17263,11 @@ MonoBehaviour:
   - {fileID: 6670560131063845864}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &4647825968444204074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17541,8 +17523,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -17816,8 +17796,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -18047,8 +18025,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -18450,8 +18426,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -18910,8 +18884,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -19146,8 +19118,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -19346,8 +19316,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -19606,6 +19574,8 @@ MonoBehaviour:
     RarityModifier: 0
     Disabled:
       Value: 0
+    DoNotDestroy:
+      Value: 0
 --- !u!114 &9008004338354315051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19813,8 +19783,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -19871,7 +19839,11 @@ MonoBehaviour:
   - {fileID: 2755541447919367637}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &2551752505785807628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20288,8 +20260,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -20346,7 +20316,11 @@ MonoBehaviour:
   - {fileID: 3278852654603014883}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &4849941000174771515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20628,6 +20602,8 @@ MonoBehaviour:
     RarityModifier: 0
     Disabled:
       Value: 0
+    DoNotDestroy:
+      Value: 0
 --- !u!114 &6722745275617216103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20895,8 +20871,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -20953,7 +20927,11 @@ MonoBehaviour:
   - {fileID: 5104086960403938482}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1898618357093095592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21235,6 +21213,8 @@ MonoBehaviour:
     RarityModifier: 0
     Disabled:
       Value: 0
+    DoNotDestroy:
+      Value: 0
 --- !u!114 &3890815230596254226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21442,8 +21422,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -21837,8 +21815,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -22037,8 +22013,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -22237,8 +22211,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -22469,8 +22441,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -22728,6 +22698,8 @@ MonoBehaviour:
       Value: 20
     RarityModifier: 0
     Disabled:
+      Value: 0
+    DoNotDestroy:
       Value: 0
 --- !u!114 &7897270438431209248
 MonoBehaviour:
@@ -22996,6 +22968,8 @@ MonoBehaviour:
     RarityModifier: 0
     Disabled:
       Value: 0
+    DoNotDestroy:
+      Value: 0
 --- !u!114 &7581365548985362698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23263,6 +23237,8 @@ MonoBehaviour:
     RarityModifier: 0
     Disabled:
       Value: 0
+    DoNotDestroy:
+      Value: 0
 --- !u!114 &1631599879973059117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23470,8 +23446,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -23701,8 +23675,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -24096,8 +24068,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -24296,8 +24266,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -24571,8 +24539,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -24942,8 +24908,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -25781,8 +25745,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -26616,8 +26578,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -27197,8 +27157,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -27287,7 +27245,11 @@ MonoBehaviour:
   - {fileID: 8189766563335130342}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &7543983153936115629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27509,8 +27471,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -27813,7 +27773,11 @@ MonoBehaviour:
   - {fileID: 2319553191684054052}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &3361421867970733846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27893,7 +27857,11 @@ MonoBehaviour:
   - {fileID: 8511211329780666070}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &8243033984049726095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28402,6 +28370,8 @@ MonoBehaviour:
     RarityModifier: 0
     Disabled:
       Value: 0
+    DoNotDestroy:
+      Value: 0
 --- !u!114 &1622027153442242740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28467,7 +28437,11 @@ MonoBehaviour:
   - {fileID: 626343627089085659}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &2780252243436511583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28764,8 +28738,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -28964,8 +28936,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -29332,6 +29302,8 @@ MonoBehaviour:
     RarityModifier: 0
     Disabled:
       Value: 0
+    DoNotDestroy:
+      Value: 0
 --- !u!114 &1094882248465216277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29602,8 +29574,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -29802,8 +29772,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -29860,7 +29828,11 @@ MonoBehaviour:
   - {fileID: 5829065595062935438}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &3256413074528603180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30172,6 +30144,8 @@ MonoBehaviour:
       Value: 127
     RarityModifier: 0
     Disabled:
+      Value: 0
+    DoNotDestroy:
       Value: 0
 --- !u!114 &5073358490074508263
 MonoBehaviour:
@@ -30551,8 +30525,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -30751,8 +30723,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -30951,8 +30921,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -31151,8 +31119,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -31351,8 +31317,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -31977,8 +31941,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:
@@ -32177,8 +32139,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    ActivationTime:
-      RawValue: 0
     SpawnerType:
       Value: 0
     BehaviourType:

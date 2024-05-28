@@ -52,7 +52,6 @@ MonoBehaviour:
   _leftFootAnchor: {fileID: 59873977823043066}
   _rightFootAnchor: {fileID: 4989120483255982019}
   _animator: {fileID: 2903226188246445851}
-  _events: {fileID: 3021241579067450642}
 --- !u!1001 &8728188833055298186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -125,17 +124,6 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
   m_PrefabInstance: {fileID: 8728188833055298186}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3021241579067450642 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -3400962867267209320, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
-  m_PrefabInstance: {fileID: 8728188833055298186}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f5502b828334eaaa7cf21d50c555893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4989120483255982019 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4891986877565647543, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}

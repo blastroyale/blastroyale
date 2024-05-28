@@ -623,6 +623,8 @@ MonoBehaviour:
     RarityModifier: 0
     Disabled:
       Value: 0
+    DoNotDestroy:
+      Value: 0
 --- !u!114 &6620856611849151495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,7 +690,11 @@ MonoBehaviour:
   - {fileID: 5862414152779803861}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 1564045398164469642, guid: c7f93ff50dce7ad4cb897029ac85f594, type: 2}
+  - {fileID: 0}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &5023752328150327353
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,9 +8,6 @@ ShaderVariantCollection:
   m_PrefabAsset: {fileID: 0}
   m_Name: DefaultShaderCollection
   m_Shaders:
-  - first: {fileID: -6465566751694194690, guid: b46dfe5e05587f347a64a2315b30791f, type: 3}
-    second:
-      variants: []
   - first: {fileID: -6465566751694194690, guid: 7ae8122422817ca4193fd84d5b34dedf, type: 3}
     second:
       variants: []
@@ -23,13 +20,13 @@ ShaderVariantCollection:
   - first: {fileID: -6465566751694194690, guid: d598fcaae52fff44295a42aca73e0a40, type: 3}
     second:
       variants: []
+  - first: {fileID: -6465566751694194690, guid: b46dfe5e05587f347a64a2315b30791f, type: 3}
+    second:
+      variants: []
   - first: {fileID: -6465566751694194690, guid: c34f3be2c2459bf4eada94464aa4e496, type: 3}
     second:
       variants: []
   - first: {fileID: -6465566751694194690, guid: ba2966107d34c6e4f8cb75f0aa350aee, type: 3}
-    second:
-      variants: []
-  - first: {fileID: -6465566751694194690, guid: e7bf542b01c71ac49bb3f80465e04094, type: 3}
     second:
       variants: []
   - first: {fileID: -6465566751694194690, guid: 885db361ae5c6b741a2f7ccf868cb31f, type: 3}
@@ -39,6 +36,9 @@ ShaderVariantCollection:
     second:
       variants: []
   - first: {fileID: -6465566751694194690, guid: 4fd1b856d58fa6447b628a97b1943503, type: 3}
+    second:
+      variants: []
+  - first: {fileID: -6465566751694194690, guid: e7bf542b01c71ac49bb3f80465e04094, type: 3}
     second:
       variants: []
   - first: {fileID: -6465566751694194690, guid: e8f879df2c6767f4599434a84e52a88a, type: 3}

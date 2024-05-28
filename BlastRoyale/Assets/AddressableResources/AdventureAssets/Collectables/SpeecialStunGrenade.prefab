@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3382468661390407818, guid: 78c7612f52c0fc7479849acdded38164, type: 3}
       propertyPath: m_Name
-      value: SoecuakStunGrenade
+      value: SpeecialStunGrenade
       objectReference: {fileID: 0}
     - target: {fileID: 7042852014314340707, guid: 78c7612f52c0fc7479849acdded38164, type: 3}
       propertyPath: m_IsActive

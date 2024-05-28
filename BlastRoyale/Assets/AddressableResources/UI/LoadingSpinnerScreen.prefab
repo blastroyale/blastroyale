@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -51,8 +50,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _document: {fileID: 6452599285500023170}
-  _background: {fileID: 0}
-  _millisecondsToClose: 0
 --- !u!114 &6452599285500023170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,4 +65,4 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 5fd65fc44ec1c4925b7b13946cd5626e, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 4b9b14257b1aeb048a45b218067f15ab, type: 3}
-  m_SortingOrder: 10
+  m_SortingOrder: 5

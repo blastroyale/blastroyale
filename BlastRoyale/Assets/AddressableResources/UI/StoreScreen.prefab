@@ -49,7 +49,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 5fd65fc44ec1c4925b7b13946cd5626e, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: fd105a278941f4ff78597eab716f7c60, type: 3}
-  m_SortingOrder: 1
+  m_SortingOrder: 0
 --- !u!114 &5378216452218496701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,8 +63,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _document: {fileID: 6137259420522652925}
-  _background: {fileID: 0}
-  _millisecondsToClose: 0
   _StoreProductView: {fileID: 9197481963319205126, guid: 1c5b65a16c3ab4ba58b74986dc5fefdf, type: 3}
 --- !u!1001 &5970373715727251558
 PrefabInstance:

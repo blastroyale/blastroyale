@@ -730,6 +730,9 @@ MonoBehaviour:
         RawValue: 0
     RealPlayer:
       Value: 0
+    InputSnapshot: 0
+    LastNoInputTimeSnapshot:
+      RawValue: 0
 --- !u!114 &4338328958762609681
 MonoBehaviour:
   m_ObjectHideFlags: 0

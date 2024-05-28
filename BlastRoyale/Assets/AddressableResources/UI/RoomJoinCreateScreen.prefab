@@ -3294,8 +3294,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _document: {fileID: 4750363309275061445}
-  _background: {fileID: 0}
-  _millisecondsToClose: 0
 --- !u!114 &8847670435640540833
 MonoBehaviour:
   m_ObjectHideFlags: 0

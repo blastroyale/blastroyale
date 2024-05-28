@@ -26,6 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465671954405442202}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,7 +34,6 @@ Transform:
   m_Children:
   - {fileID: 4689508885726863861}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8230789077675086115
 MonoBehaviour:
@@ -62,7 +62,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials: []
   _renderers: []
   _particleRenderers:
   - {fileID: 8833295518965556917}
@@ -73,7 +72,9 @@ MonoBehaviour:
   - {fileID: 1854602151906161590}
   - {fileID: 2815156129364157677}
   - {fileID: 6192203176140612962}
-  _mainRenderer: {fileID: 0}
+  _originalMaterials: []
+  _rendererColors: []
+  _rendererAdditiveColors: []
 --- !u!114 &731538807971623199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,14 +87,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8f0f7a3f7faaf4ea32fa2ad42c8f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainRenderersContainer: {fileID: 8117976505276555994}
-  _renderersContainers:
-  - {fileID: 8117976505276555994}
 --- !u!1001 &511837092569663052
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1969717073681190072}
     m_Modifications:
     - target: {fileID: 4377569654219658369, guid: 0615a88bed68f66478ca79c01235835b, type: 3}
@@ -145,6 +144,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0615a88bed68f66478ca79c01235835b, type: 3}
 --- !u!199 &869127892439262496 stripped
 ParticleSystemRenderer:

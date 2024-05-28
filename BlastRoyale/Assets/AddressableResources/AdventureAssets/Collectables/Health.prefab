@@ -148,8 +148,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7601073966110252500}
     - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: _rendererColors.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: _originalMaterials.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: _rendererColors.Array.data[1].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: _rendererColors.Array.data[1].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: _rendererColors.Array.data[1].g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: _rendererColors.Array.data[1].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: _rendererColors.Array.data[2].a
+      value: 0.56078434
       objectReference: {fileID: 0}
     - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: _originalMaterials.Array.data[0]
@@ -163,6 +187,14 @@ PrefabInstance:
       propertyPath: _originalMaterials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: cb74f861d33ae4d0886d7fdb42f9bcd6, type: 2}
+    - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: _rendererAdditiveColors.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: _rendererAdditiveColors.Array.data[0].a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

@@ -153,8 +153,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _document: {fileID: 3274073835039566590}
-  _background: {fileID: 0}
-  _millisecondsToClose: 500
   _characters:
   - _values:
     - {fileID: 3941184851915864821}
@@ -170,7 +168,6 @@ MonoBehaviour:
     - {fileID: 4880920319273044187}
     - {fileID: 7853203781828837506}
     - {fileID: 7488879185994845485}
-  _camera: {fileID: 0}
 --- !u!114 &3274073835039566590
 MonoBehaviour:
   m_ObjectHideFlags: 0

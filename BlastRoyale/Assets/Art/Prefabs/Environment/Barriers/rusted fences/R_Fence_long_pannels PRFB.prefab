@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5894127272238086319}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.02, y: 2.77, z: 0.06}
   m_LocalScale: {x: 8.861345, y: 5.2033, z: 0.72304}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4610171592681816360}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5838901570035162245
 MeshFilter:
@@ -163,7 +163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ec1e0182c8b9d7742900424bd3f6c221, type: 3}
       propertyPath: m_Name
-      value: R_Fence_long_pannels (1) Variant
+      value: R_Fence_long_pannels PRFB
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ec1e0182c8b9d7742900424bd3f6c221, type: 3}
       propertyPath: m_StaticEditorFlags

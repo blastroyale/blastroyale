@@ -136,8 +136,8 @@ BlastRoyale/com.Tivadar.Best.HTTP.xml
 BlastRoyale/com.Tivadar.Best.TLSSecurity.xml
 BlastRoyale/com.Tivadar.Best.SignalR.xml
 BlastRoyale/com.Tivadar.Best.WebSockets.xml
-BlastRoyale/Assets/StreamingAssets/google-services-desktop.plist
-BlastRoyale/Assets/StreamingAssets/google-services-desktop.plist.meta
+BlastRoyale/Assets/StreamingAssets/google-services-desktop.json
+BlastRoyale/Assets/StreamingAssets/google-services-desktop.json.meta
 BlastRoyale/Assets/AddressableAssetsData/link.xml
 BlastRoyale/Assets/AddressableAssetsData/link.xml.meta
 BlastRoyale/bakery-times.log

@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3382468661390407818, guid: 78c7612f52c0fc7479849acdded38164, type: 3}
       propertyPath: m_Name
-      value: SpecialShieldedCharge Variant
+      value: SpecialShieldedCharge
       objectReference: {fileID: 0}
     - target: {fileID: 9031943283781837627, guid: 78c7612f52c0fc7479849acdded38164, type: 3}
       propertyPath: m_IsActive

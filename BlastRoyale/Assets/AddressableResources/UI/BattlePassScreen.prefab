@@ -126,8 +126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _document: {fileID: 7388267820579563775}
-  _background: {fileID: 0}
-  _millisecondsToClose: 0
   _scrollToDurationMs: 1500
   _battlepassLevelSprite: {fileID: 21300000, guid: f8b4c677be302ff44be35fb2a261cd5b, type: 3}
   _battlepassPremiumSprite: {fileID: 21300000, guid: 48f9187df2ec3a7408325105da0c6a65, type: 3}

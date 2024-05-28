@@ -67,11 +67,11 @@ MonoBehaviour:
   - {fileID: 1417548622430162837}
   - {fileID: 3800248050201696037}
   _originalMaterials:
-  - {fileID: 5561349426305759274, guid: 3b573ad29d4c040ba90f592c0b47dcee, type: 3}
+  - {fileID: 2100000, guid: 131409319b68ac944b348112d1efa06e, type: 2}
   _rendererColors:
-  - {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
   _rendererAdditiveColors:
-  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &4516585669790791156
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,6 +112,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4347746145901500465}
     m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 3b573ad29d4c040ba90f592c0b47dcee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3b573ad29d4c040ba90f592c0b47dcee, type: 3}
+      propertyPath: m_Name
+      value: Weapon_Shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3b573ad29d4c040ba90f592c0b47dcee, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a1261087fc443264e93ce442dde875e4, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -165,18 +177,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7974254394494865994, guid: a1261087fc443264e93ce442dde875e4, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3b573ad29d4c040ba90f592c0b47dcee, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 3b573ad29d4c040ba90f592c0b47dcee, type: 3}
-      propertyPath: m_Name
-      value: Weapon_Shotgun
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 3b573ad29d4c040ba90f592c0b47dcee, type: 3}
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}

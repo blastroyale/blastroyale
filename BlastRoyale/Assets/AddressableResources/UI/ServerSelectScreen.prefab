@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 5272494564021754129}
   - component: {fileID: 3054196964295098042}
   - component: {fileID: 214679242601795165}
+  - component: {fileID: 3219246199412115251}
   m_Layer: 5
   m_Name: ServerSelectScreen
   m_TagString: Untagged
@@ -414,9 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945fb6c78532df440b9f613aa47a0881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animation: {fileID: 1328273828029372526}
-  _introAnimationClip: {fileID: 7400000, guid: d048311dbfd41084cbbf3ee2a3ec9086, type: 2}
-  _outroAnimationClip: {fileID: 7400000, guid: 6e141fcd58e9e624598ffe05aef9546d, type: 2}
+  _document: {fileID: 0}
   _selectorAndButtonsContainer: {fileID: 2749697844538489797}
   _statusText: {fileID: 5763479494784489036}
   _connectButton: {fileID: 6345967096903657895}
@@ -434,6 +433,22 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &3219246199412115251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236820617552637931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 0}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 0}
+  m_SortingOrder: 0
 --- !u!1 &1327604966902002967
 GameObject:
   m_ObjectHideFlags: 0

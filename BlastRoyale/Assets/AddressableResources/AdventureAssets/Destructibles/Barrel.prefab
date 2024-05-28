@@ -26,6 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7799200939321987722}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,7 +34,6 @@ Transform:
   m_Children:
   - {fileID: 1155749769559834431}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5878908828069637292
 MonoBehaviour:
@@ -49,7 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RenderersContainerProxy: {fileID: 5634717868025790275}
   _animator: {fileID: 1155749769559834430}
-  _dissolveDelay: 3
 --- !u!114 &4647613641911194048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +77,18 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 07b88d953cafa124e9e0d45e3e08c3b0, type: 2}
   - {fileID: 2100000, guid: 07b88d953cafa124e9e0d45e3e08c3b0, type: 2}
   - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  _rendererColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _rendererAdditiveColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &5634717868025790275
 MonoBehaviour:
   m_ObjectHideFlags: 0

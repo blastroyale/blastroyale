@@ -15,11 +15,13 @@ steps:
 
   - task: UnityGetProjectVersionTask@1
     name: projectversion
+    inputs:
+      unityProjectPath: 'BlastRoyale/'
 
   - task: UnityTestTask@1
     name: unitytest
     inputs:
-      unityProjectPath: $(System.DefaultWorkingDirectory)
+      unityProjectPath: $(System.DefaultWorkingDirectory)/BlastRoyale
       testResultsPath: $(System.DefaultWorkingDirectory)/TestResults
       unityVersion: $(projectversion.projectVersion)
       testMode: editMode
@@ -30,7 +32,7 @@ steps:
     name: unitycmd
     inputs:
       unityVersion: $(projectversion.projectVersion)
-      unityProjectPath: $(System.DefaultWorkingDirectory)
+      unityProjectPath: $(System.DefaultWorkingDirectory)/BlastRoyale
       cmdArgs: -executeMethod FirstLight.Editor.EditorTools.BackendMenu.MoveBackendDlls -quit -quitTimeout 300 -EnableCacheServer -cacheServerEndpoint localhost:10080
 
   - task: PublishTestResults@2

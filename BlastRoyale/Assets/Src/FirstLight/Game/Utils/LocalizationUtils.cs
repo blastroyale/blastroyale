@@ -4,6 +4,7 @@ using FirstLight.Game.Infos;
 using FirstLight.Game.Services.Party;
 using I2.Loc;
 using Quantum;
+using Unity.Services.Authentication;
 
 namespace FirstLight.Game.Utils
 {

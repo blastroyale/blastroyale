@@ -18,13 +18,6 @@ namespace FirstLight.Game.UIElements
 		public LocalizedTextField(string labelKey)
 		{
 			LocalizeLabel(labelKey);
-			//this.RegisterCallback<ClickEvent>(OnClick);
-		}
-
-		private void OnClick(ClickEvent evt)
-		{
-			// TODO - implement content type for keyboards
-			//var keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.DecimalPad, false, false, true);
 		}
 
 		/// <summary>

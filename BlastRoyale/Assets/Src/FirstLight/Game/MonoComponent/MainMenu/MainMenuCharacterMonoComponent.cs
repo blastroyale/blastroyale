@@ -50,7 +50,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			await UpdateSkin(skin);
 			await UpdateMeleeSkin(melee);
-			_characterViewComponent.EnableRotation();
 		}
 
 		private void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage msg)

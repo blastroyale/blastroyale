@@ -19,7 +19,11 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-.unity-button:hover, .unity-button:hover:enabled {
+.unity-button:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.unity-button:hover:enabled {
     background-color: rgba(0, 0, 0, 0);
 }
 
@@ -80,29 +84,31 @@
 }
 
 .button-with-icon {
-    background-image: var(--sprite-home__button-main-purple);
+    background-image: var(--sprite-home__button-round);
     font-size: 38px;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     width: 222px;
     height: 128px;
-    padding-top: 60px;
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     overflow: visible;
-    -unity-text-align: middle-center;
+    -unity-text-align: lower-center;
+    -unity-background-scale-mode: scale-to-fit;
     align-items: center;
     -unity-font-style: bold;
+    letter-spacing: -7px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
 }
 
 .button-with-icon:active {
-    padding-top: 70px;
-    background-image: var(--sprite-home__button-main-purple-pressed);
     -unity-background-image-tint-color: rgb(164, 162, 166);
 }
 
 .button-with-icon:disabled {
-    background-image: var(--sprite-home__button-main-disabled);
     color: rgb(156, 156, 156);
 }
 
@@ -131,8 +137,8 @@
 
 .button-with-icon__notification {
     position: absolute;
-    top: -17px;
-    right: -13px;
+    top: -11px;
+    right: 37px;
 }
 
 .button-with-icon:active .button-with-icon__notification {
@@ -141,11 +147,11 @@
 
 .button-with-icon__icon {
     width: auto;
-    height: 90px;
+    height: 82px;
     position: absolute;
     left: 0;
     right: 0;
-    top: -40%;
+    top: 4%;
     overflow: visible;
     -unity-background-scale-mode: scale-to-fit;
 }
@@ -155,7 +161,7 @@
 }
 
 .button-with-icon:active > .button-with-icon__icon {
-    top: -40%;
+    top: -10%;
 }
 
 .loading-spinner {
@@ -301,7 +307,6 @@
     border-bottom-width: 0;
     background-color: rgba(0, 0, 0, 0);
     font-size: 42px;
-    -unity-font-style: bold;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
@@ -322,18 +327,20 @@
 
 .button-long:disabled {
     background-color: rgba(0, 0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-color: rgb(0, 0, 0);
-    background-image: var(--sprite-home__button-long-grey);
+    color: rgb(146, 140, 159);
+    background-image: var(--sprite-home__button-long-disabled);
     -unity-text-align: middle-center;
     padding-bottom: 0;
 }
 
 .button-long:disabled.button-long:active {
     background-color: rgba(0, 0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-color: rgb(0, 0, 0);
-    background-image: var(--sprite-home__button-long-grey);
+    color: rgb(146, 140, 159);
+    background-image: var(--sprite-home__button-long-disabled);
     -unity-text-align: middle-center;
     padding-bottom: 0;
 }
@@ -362,6 +369,14 @@
 
 .button-long--red:active {
     background-image: var(--sprite-home__button-long-red-pressed);
+}
+
+.button-long--green {
+    background-image: var(--sprite-home__button-long-green);
+}
+
+.button-long--green:active {
+    background-image: var(--sprite-home__button-long-green-pressed);
 }
 
 .button-long--price {
@@ -631,13 +646,12 @@
 
 .avatar--rounded {
     border-radius: 100%;
-    scale: 0.8 0.8
+    scale: 0.8 0.8;
 }
 
 .unity-scroller--vertical {
     width: 60px;
     border-left-width: 2px;
-
 }
 
 .unity-scroller--vertical > .unity-scroller__high-button {
@@ -652,7 +666,6 @@
     border-width: 0;
     width: 12px;
     right: 20px;
-
 }
 
 .unity-scroller--vertical > .unity-scroller__slider {
@@ -665,7 +678,7 @@
 .unity-scroller--vertical .unity-base-slider__tracker {
     border-width: 0;
     width: 100%;
-    background-color: #50238d;
+    background-color: rgb(80, 35, 141);
     border-radius: 10px;
 }
 
@@ -706,4 +719,34 @@
 
 .full-width {
     width: 100%;
+}
+
+.socials-buttons {
+    flex-direction: row;
+    width: 300px;
+    justify-content: space-between;
+}
+
+.socials-buttons__discord {
+    width: 48px;
+    height: 48px;
+    background-image: var(--sprite-home__icon-discord);
+}
+
+.socials-buttons__youtube {
+    width: 48px;
+    height: 48px;
+    background-image: var(--sprite-home__icon-youtube);
+}
+
+.socials-buttons__instagram {
+    width: 48px;
+    height: 48px;
+    background-image: var(--sprite-home__icon-instagram);
+}
+
+.socials-buttons__tiktok {
+    width: 48px;
+    height: 48px;
+    background-image: var(--sprite-home__icon-tiktok);
 }

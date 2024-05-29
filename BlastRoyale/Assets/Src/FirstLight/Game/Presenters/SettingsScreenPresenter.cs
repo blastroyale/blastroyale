@@ -10,6 +10,7 @@ using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 using Cysharp.Threading.Tasks;
 using FirstLight.UIService;
+using Unity.Services.Authentication;
 
 namespace FirstLight.Game.Presenters
 {
@@ -180,16 +181,15 @@ namespace FirstLight.Game.Presenters
 				_connectIdButton.SetDisplay(true);
 				_deleteAccountButton.SetDisplay(false);
 				_logoutButton.SetDisplay(false);
-				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_not_connected,
-					_gameDataProvider.AppDataProvider.DisplayName.Value);
+				_accountStatusLabel.text =
+					string.Format(ScriptLocalization.UITSettings.flg_id_not_connected, AuthenticationService.Instance.PlayerName);
 			}
 			else
 			{
 				_connectIdButton.SetDisplay(false);
 				_deleteAccountButton.SetDisplay(true);
 				_logoutButton.SetDisplay(true);
-				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_connected,
-					_gameDataProvider.AppDataProvider.DisplayName.Value);
+				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_connected, AuthenticationService.Instance.PlayerName);
 			}
 		}
 

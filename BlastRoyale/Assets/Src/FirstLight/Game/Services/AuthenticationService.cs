@@ -1,35 +1,30 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using Cysharp.Threading.Tasks;
-using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLightServerSDK.Services;
-using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
 using Unity.Services.Authentication;
-using Unity.Services.Core;
-using UnityEngine;
-using Debug = UnityEngine.Debug;
+using Unity.Services.CloudSave;
+using Unity.Services.Friends;
+using Unity.Services.Friends.Options;
 
 namespace FirstLight.Game.Services
 {
@@ -322,6 +317,7 @@ namespace FirstLight.Game.Services
 				data.LastLoginEmail = null;
 				data.DeviceId = null;
 				_localAccountData.SaveData<AccountData>();
+				AuthenticationService.Instance.SignOut(true);
 				onSuccess?.Invoke();
 			}, e => { _services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login); });
 		}
@@ -499,9 +495,7 @@ namespace FirstLight.Game.Services
 				await AuthenticationService.Instance.SignInAnonymouslyAsync();
 				FLog.Info("UnityCloudAuth", "Cached user sign in succeeded!");
 
-				await RemoteConfigs.Init();
-
-				onSuccess();
+				await PostUnityAuth(onSuccess);
 			}
 			else
 			{
@@ -517,17 +511,23 @@ namespace FirstLight.Game.Services
 
 						AuthenticationService.Instance.ProcessAuthenticationTokens(data["idToken"], data["sessionToken"]);
 
-						SuccessCall().Forget();
-						return;
-
-						async UniTaskVoid SuccessCall()
-						{
-							await RemoteConfigs.Init();
-							onSuccess();
-						}
+						PostUnityAuth(onSuccess).Forget();
 					},
 					e => { _services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login); });
 			}
+		}
+
+		private async UniTask PostUnityAuth(Action onComplete)
+		{
+			await RemoteConfigs.Init();
+			var friendsInitOpts = new InitializeOptions()
+				.WithEvents(true)
+				.WithMemberPresence(true)
+				.WithMemberProfile(true);
+			await FriendsService.Instance.InitializeAsync(friendsInitOpts).AsUniTask();
+			await AuthenticationService.Instance.GetPlayerNameAsync(); // We fetch the name (which generates a new one) so it's stored in the cache
+			await CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId);
+			onComplete();
 		}
 
 		private void UpdatePlayerDataAndLogic(Dictionary<string, string> state, bool previouslyLoggedIn)
@@ -692,7 +692,7 @@ namespace FirstLight.Game.Services
 			{
 				_localAccountData.GetData<AccountData>().LastLoginEmail = email;
 				_localAccountData.SaveData<AccountData>();
-				_services.GameBackendService.UpdateDisplayName(result.Username, null, null);
+				_services.GameBackendService.UpdateDisplayNamePlayfab(result.Username, null, null);
 				onSuccess?.Invoke(loginData);
 			}
 		}

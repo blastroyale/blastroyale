@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -38,7 +39,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var enterName = stateFactory.State("Enter name");
 			var completionCheck = stateFactory.Choice("Completion check");
 			var playGame = stateFactory.State("Play game");
 			var mapSelect = stateFactory.State("Map Select");
@@ -46,15 +46,10 @@ namespace FirstLight.Game.StateMachines
 			var createTutorialRoom = stateFactory.State("Join Room");
 			var waitSimulationStart = stateFactory.State("WaitSimulationStart");
 
-			initial.Transition().Target(enterName);
+			initial.Transition().Target(completionCheck);
 			initial.OnExit(SubscribeMessages);
 			initial.OnExit(_services.GameModeService.SelectDefaultRankedMode);
 			initial.OnExit(GetTutorialScreenRefs);
-
-			enterName.OnEnter(OnEnterNameEnter);
-			enterName.Event(EnterNameState.NameSetEvent).Target(completionCheck);
-			enterName.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
-			enterName.OnExit(OnEnterNameExit);
 
 			completionCheck.OnEnter(_sequence.SendCurrentStepCompletedAnalytics);
 			completionCheck.Transition().Target(playGame);
@@ -77,7 +72,7 @@ namespace FirstLight.Game.StateMachines
 			mapSelect.OnExit(OnMapSelectExit);
 
 			disconnected.OnEnter(CloseTutorialUi);
-			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(enterName);
+			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(completionCheck);
 			disconnected.OnExit(_sequence.Reset);
 
 			waitSimulationStart.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.WaitTutorialMatchStart); });
@@ -118,23 +113,12 @@ namespace FirstLight.Game.StateMachines
 		{
 		}
 
-		private void OnEnterNameEnter()
-		{
-			_tutorialOverlay.Dialog.ShowDialog(ScriptLocalization.UITTutorial.enter_your_name, CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopLeft);
-		}
-
-		private void OnEnterNameExit()
-		{
-			_tutorialOverlay.BlockFullScreen();
-		}
-
 		private async UniTaskVoid OnPlayGameEnter()
 		{
 			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 
 			_tutorialOverlay.Dialog.ShowDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
 
-			_tutorialOverlay.Unblock();
 			await _tutorialOverlay.BlockAround<HomeScreenPresenter>("play-button");
 			_tutorialOverlay.Highlight<HomeScreenPresenter>("play-button");
 		}

@@ -66,7 +66,7 @@ namespace FirstLight.Tests.EditorMode
 		{
 		}
 
-		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null,
+		public void UpdateDisplayNamePlayfab(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null,
 									  Action<PlayFabError> onError = null)
 		{
 		}

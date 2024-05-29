@@ -22,6 +22,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
 using Unity.Services.RemoteConfig;
+using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
@@ -53,13 +54,10 @@ namespace FirstLight.Game.Presenters
 			public Action OnLeaderboardClicked;
 			public Action OnBattlePassClicked;
 			public Action OnStoreClicked;
-			public Action OnDiscordClicked;
-			public Action OnYoutubeClicked;
-			public Action OnInstagramClicked;
-			public Action OnTiktokClicked;
 			public Action OnMatchmakingCancelClicked;
 			public Action OnLevelUp;
 			public Action NewsClicked;
+			public Action FriendsClicked;
 			public Action<List<ItemData>> OnRewardsReceived;
 		}
 
@@ -127,7 +125,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var data = new PlayerStatisticsPopupPresenter.StateData
 				{
-					PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
+					PlayfabID = PlayFabSettings.staticPlayer.PlayFabId,
 					OnCloseClicked = () =>
 					{
 						_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();
@@ -175,7 +173,6 @@ namespace FirstLight.Game.Presenters
 			_playButton = Root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
-
 			Root.Q<CurrencyDisplayElement>("CoinCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetData(_playButton);
@@ -185,7 +182,6 @@ namespace FirstLight.Game.Presenters
 			Root.Q<CurrencyDisplayElement>("NOOBCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetData(_playButton, true);
-
 
 			Root.Q<VisualElement>("PartyMemberNames").Required()
 				.AttachExistingView(this, _homePartyCharacterView);
@@ -209,33 +205,8 @@ namespace FirstLight.Game.Presenters
 				storeButton.LevelLock2(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
 			}
 
-			var discordButton = Root.Q<Button>("DiscordButton");
-			discordButton.clicked += () =>
-			{
-				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.DiscordLink);
-				Data.OnDiscordClicked();
-			};
-
-			var youtubeButton = Root.Q<Button>("YoutubeButton");
-			youtubeButton.clicked += () =>
-			{
-				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.YoutubeLink);
-				Data.OnYoutubeClicked();
-			};
-
-			var instagramButton = Root.Q<Button>("InstagramButton");
-			instagramButton.clicked += () =>
-			{
-				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.InstagramLink);
-				Data.OnInstagramClicked();
-			};
-
-			var tiktokButton = Root.Q<Button>("TiktokButton");
-			tiktokButton.clicked += () =>
-			{
-				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.TiktokLink);
-				Data.OnTiktokClicked();
-			};
+			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
+			Root.Q<Button>("FriendsButton").Required().clicked += Data.FriendsClicked;
 
 			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
@@ -279,7 +250,6 @@ namespace FirstLight.Game.Presenters
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
 
-			_dataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
 			_dataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
 			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.BPP, OnPoolChanged);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
@@ -292,12 +262,13 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 
+			_playerNameLabel.text = AuthenticationService.Instance.PlayerName;
+
 			return base.OnScreenOpen(reload);
 		}
 
 		protected override UniTask OnScreenClose()
 		{
-			_dataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
 			_dataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
 			_services.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
 			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.CS);
@@ -363,11 +334,6 @@ namespace FirstLight.Game.Presenters
 		private void OnClaimedRewards(ClaimedRewardsMessage msg)
 		{
 			Data.OnRewardsReceived(msg.Rewards);
-		}
-
-		private void OnDisplayNameChanged(string _, string current)
-		{
-			_playerNameLabel.text = _dataProvider.AppDataProvider.DisplayNameTrimmed;
 		}
 
 		private void OnFameChanged(uint previous, uint current)

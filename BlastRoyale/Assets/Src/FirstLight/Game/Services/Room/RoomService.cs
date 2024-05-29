@@ -13,6 +13,7 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Photon.Realtime;
 using Quantum;
+using Unity.Services.Authentication;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
@@ -592,7 +593,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		private void ResetLocalPlayerProperties(string teamId = null)
 		{
-			_networkService.QuantumClient.NickName = _dataProvider.AppDataProvider.DisplayNameTrimmed;
+			_networkService.QuantumClient.NickName = AuthenticationService.Instance.PlayerName;
 			var preloadIds = new List<GameId>();
 			
 			preloadIds.Add(_dataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id);

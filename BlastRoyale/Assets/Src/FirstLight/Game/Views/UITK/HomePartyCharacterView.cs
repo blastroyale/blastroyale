@@ -298,7 +298,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				{
 					var data = new PlayerStatisticsPopupPresenter.StateData
 					{
-						PlayerId = member.ProfileMasterId,
+						PlayfabID = member.ProfileMasterId,
 						OnCloseClicked = () => _services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget()
 					};
 					_services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(data).Forget();

@@ -11,6 +11,7 @@
     bottom: 36px;
     flex-direction: column;
     justify-content: flex-end;
+    top: 222px;
 }
 
 .main-buttons--left {
@@ -41,7 +42,7 @@
 .player-header__name {
     position: absolute;
     font-size: 34px;
-    -unity-text-align: lower-center;
+    -unity-text-align: lower-left;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     padding-left: 0;
     padding-right: 0;
@@ -55,10 +56,12 @@
     overflow: hidden;
     -unity-text-overflow-position: end;
     text-overflow: ellipsis;
-    -unity-text-outline-width: 0.7px;
+    -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
     left: 164px;
-    top: 23px;
+    top: 12px;
+    color: rgb(255, 255, 255);
+    right: 113px;
 }
 
 .player-header__fame-lvl {
@@ -145,13 +148,13 @@
     width: 422px;
     height: 136px;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     background-image: var(--sprite-home__background-profile);
     left: -83px;
     justify-content: space-between;
-    padding-left: 86px;
-    padding-right: 33px;
-    padding-top: 37px;
+    padding-left: 75px;
+    padding-right: 29px;
+    padding-top: 53px;
 }
 
 .player-header__trophies-label {
@@ -524,11 +527,12 @@
     position: absolute;
     right: 13px;
     bottom: 22px;
-    background-image: url('project://database/Assets/Art/UI/Vectors/button-play-mask.svg?fileID=7388822144124034973&guid=34dd17c5baf534d41b1ffeceefca7356&type=3#button-play-mask');
+    background-image: url("project://database/Assets/Art/UI/Vectors/button-play-mask.svg?fileID=7388822144124034973&guid=34dd17c5baf534d41b1ffeceefca7356&type=3#button-play-mask");
 }
 
 .party-button-holder {
     flex-direction: column-reverse;
+    margin-top: 60px;
 }
 
 .button-party {
@@ -846,48 +850,16 @@
     margin: 20px;
 }
 
-.discord-button {
-    width: 48px;
-    height: 48px;
-    background-image: var(--sprite-home__icon-discord);
-    left: 684px;
-    position: absolute;
-    top: 40px;
-}
-
-.youtube-button {
-    width: 48px;
-    height: 48px;
-    background-image: var(--sprite-home__icon-youtube);
-    position: absolute;
-    left: 758px;
-    top: 40px;
-}
-
-.instagram-button {
-    width: 48px;
-    height: 48px;
-    background-image: var(--sprite-home__icon-instagram);
-    position: absolute;
-    left: 832px;
-    top: 40px;
-}
-
-.tiktok-button {
-    width: 48px;
-    height: 48px;
-    background-image: var(--sprite-home__icon-tiktok);
-    position: absolute;
-    top: 40px;
-    left: 906px;
-}
-
 .button-with-icon--equipment > .button-with-icon__icon {
     background-image: var(--sprite-home__icon-equipment);
 }
 
+.button-with-icon--collection > .button-with-icon__icon {
+    background-image: var(--sprite-home__icon-collection);
+}
+
 .button-with-icon--heroes > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-collection.png?fileID=21300000&guid=9eb74582f82fb15428c6bb7b432a45d5&type=3#icon-collection');
+    background-image: var(--sprite-home__icon-heroes);
 }
 
 .button-with-icon--leaderboards > .button-with-icon__icon {
@@ -1044,6 +1016,7 @@
 .sprite-shared__icon-trophy {
     width: 34px;
     height: 36px;
+    margin-top: 5px;
 }
 
 .beta-warning {
@@ -1065,4 +1038,10 @@
 
 .news-button__icon {
     background-image: var(--sprite-home__news-icon);
+}
+
+.socials-buttons {
+    position: absolute;
+    left: 687px;
+    top: 37px;
 }

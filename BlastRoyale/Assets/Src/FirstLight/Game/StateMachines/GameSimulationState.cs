@@ -1,35 +1,25 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Assets.Src.FirstLight.Game.Commands.QuantumLogicCommands;
-using ExitGames.Client.Photon;
 using FirstLight.FLogger;
-using Cinemachine;
 using Cysharp.Threading.Tasks;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes.Helpers;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.TestCases;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Statechart;
 using I2.Loc;
 using Photon.Deterministic;
 using Quantum;
 using Quantum.Commands;
-using UnityEngine;
+using Unity.Services.Authentication;
 using Assert = UnityEngine.Assertions.Assert;
-
 
 namespace FirstLight.Game.StateMachines
 {
@@ -337,11 +327,6 @@ namespace FirstLight.Game.StateMachines
 			_services.VfxService.DespawnAll();
 		}
 
-		// private void OpenAdventureWorldHud()
-		// {
-		// 	_uiService.OpenUi<MatchWorldHudPresenter>();
-		// }
-
 		private void PublishMatchStartedMessage(QuantumGame game, bool isResync)
 		{
 			if (!isResync)
@@ -374,7 +359,7 @@ namespace FirstLight.Game.StateMachines
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
-				PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
+				PlayerName = AuthenticationService.Instance.PlayerNameTrimmed(),
 				Cosmetics = equippedCosmetics,
 				DeathFlagID = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.GRAVE)!.Id,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,

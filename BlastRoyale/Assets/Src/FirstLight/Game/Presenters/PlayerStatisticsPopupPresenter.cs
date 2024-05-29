@@ -8,10 +8,13 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.UIElements;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Server.SDK.Models;
 using FirstLight.UIService;
 using I2.Loc;
 using PlayFab;
+using Unity.Services.Authentication;
+using Unity.Services.CloudSave;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -24,7 +27,8 @@ namespace FirstLight.Game.Presenters
 	{
 		public class StateData
 		{
-			public string PlayerId;
+			public string PlayfabID;
+			public string UnityID;
 			public Action OnCloseClicked;
 			public Action OnEditNameClicked;
 		}
@@ -45,17 +49,12 @@ namespace FirstLight.Game.Presenters
 
 		private const int StatisticMaxSize = 4;
 
-		private bool IsLocalPlayer => Data.PlayerId == PlayFabSettings.staticPlayer.PlayFabId;
+		private bool IsLocalPlayer => Data.PlayfabID == PlayFabSettings.staticPlayer.PlayFabId;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-		}
-
-		private void OnDisplayNameChanged(string _, string current)
-		{
-			_nameLabel.text = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
 		}
 
 		protected override void QueryElements()
@@ -103,14 +102,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
-			SetupPopup();
+			_nameLabel.text = AuthenticationService.Instance.PlayerName;
+			SetupPopup().Forget();
 			return base.OnScreenOpen(reload);
 		}
 
 		protected override UniTask OnScreenClose()
 		{
-			_gameDataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
 			return base.OnScreenClose();
 		}
@@ -134,17 +132,32 @@ namespace FirstLight.Game.Presenters
 			}).Forget();
 		}
 
-		private void SetupPopup()
+		private async UniTaskVoid SetupPopup()
 		{
 			_content.visible = false;
 			_loadingSpinner.visible = true;
-			FLog.Info("Downloading profile for " + Data.PlayerId);
-			_services.ProfileService.GetPlayerPublicProfile(Data.PlayerId, (result) =>
+
+			// If PlayfabID is null we fetch it from CloudSave.
+			Data.PlayfabID ??= await CloudSaveService.Instance.LoadPlayfabID(Data.UnityID);
+			
+			if (!_services.UIService.IsScreenOpen<PlayerStatisticsPopupPresenter>()) return;
+			
+			FLog.Info("Downloading profile for " + Data.PlayfabID);
+			
+			_services.ProfileService.GetPlayerPublicProfile(Data.PlayfabID, (result) =>
 			{
 				// TODO: Race condition if you close and quickly reopen the popup
 				if (!_services.UIService.IsScreenOpen<PlayerStatisticsPopupPresenter>()) return;
 
-				_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
+				// TODO mihak: Temporary
+				if (IsLocalPlayer)
+				{
+					_nameLabel.text = AuthenticationService.Instance.PlayerName;
+				}
+				else
+				{
+					_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
+				}
 
 				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);
 				SetStatInfo(1, result, GameConstants.Stats.RANKED_GAMES_WON_EVER, ScriptLocalization.MainMenu.RankedGamesWon);

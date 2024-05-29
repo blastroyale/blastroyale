@@ -16,6 +16,7 @@ using JetBrains.Annotations;
 using NUnit.Framework;
 using PlayFab;
 using PlayFab.MultiplayerModels;
+using Unity.Services.Authentication;
 
 namespace FirstLight.Game.Services.Party
 {
@@ -232,7 +233,7 @@ namespace FirstLight.Game.Services.Party
 			msgBroker.Subscribe<ChangedServerRegionMessage>(OnChangedPhotonServer);
 			msgBroker.Subscribe<CollectionItemEquippedMessage>(OnCharacterSkinUpdatedMessage);
 			msgBroker.Subscribe<TrophiesUpdatedMessage>(OnTrophiesUpdateMessage);
-			_appDataProvider.DisplayName.Observe(OnDisplayNameChanged);
+			// TODO mihak: _appDataProvider.DisplayName.Observe(OnDisplayNameChanged);
 
 			_lobbyProperties.Observe(ReadyVersion, OnReadyVersionChanged);
 		}
@@ -244,7 +245,7 @@ namespace FirstLight.Game.Services.Party
 				return;
 			}
 
-			SetMemberProperty(PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, _appDataProvider.GetDisplayName()).Forget();
+			SetMemberProperty(PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, AuthenticationService.Instance.PlayerName).Forget();
 		}
 
 		private void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage obj)

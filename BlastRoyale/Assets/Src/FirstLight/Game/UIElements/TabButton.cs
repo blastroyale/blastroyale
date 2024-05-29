@@ -1,4 +1,5 @@
 using System;
+using I2.Loc;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,6 +20,12 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlStringAttributeDescription m_Target = new UxmlStringAttributeDescription
 				{name = "target"};
+			
+			private readonly UxmlStringAttributeDescription _localizationKeyAttribute = new()
+			{
+				name = "localization-key",
+				use = UxmlAttributeDescription.Use.Required
+			};
 
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
@@ -27,6 +34,7 @@ namespace FirstLight.Game.UIElements
 
 				item.m_Label.text = m_Text.GetValueFromBag(bag, cc);
 				item.TargetId = m_Target.GetValueFromBag(bag, cc);
+				item.LocalizeLabel(_localizationKeyAttribute.GetValueFromBag(bag, cc));
 			}
 		}
 
@@ -38,6 +46,7 @@ namespace FirstLight.Game.UIElements
 		public bool IsCloseable { get; set; }
 		public string TargetId { get; private set; }
 		public VisualElement Target { get; set; }
+		private string localizationKey { get; set; }
 
 		public event Action<TabButton> OnSelect;
 		public event Action<TabButton> OnClose;
@@ -52,6 +61,14 @@ namespace FirstLight.Game.UIElements
 			Init();
 			m_Label.text = text;
 			Target = target;
+		}
+		
+		public void LocalizeLabel(string labelKey)
+		{
+			localizationKey = labelKey;
+			m_Label.text = LocalizationManager.TryGetTranslation(labelKey, out var translation)
+				? translation
+				: $"#{labelKey}#";
 		}
 
 		private void PopulateContextMenu(ContextualMenuPopulateEvent populateEvent)

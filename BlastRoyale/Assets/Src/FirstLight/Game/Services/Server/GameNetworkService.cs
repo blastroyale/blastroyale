@@ -16,6 +16,7 @@ using Photon.Realtime;
 using UnityEngine;
 using Quantum;
 using Unity.Services.UserReporting;
+using Unity.Services.Authentication;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace FirstLight.Game.Services
@@ -460,7 +461,7 @@ namespace FirstLight.Game.Services
 
 			ResetQuantumProperties();
 
-			return QuantumClient.ConnectUsingSettings(settings, _dataProvider.AppDataProvider.DisplayNameTrimmed);
+			return QuantumClient.ConnectUsingSettings(settings, AuthenticationService.Instance.PlayerName);
 		}
 
 		public bool ConnectPhotonToRegionMaster(string region)

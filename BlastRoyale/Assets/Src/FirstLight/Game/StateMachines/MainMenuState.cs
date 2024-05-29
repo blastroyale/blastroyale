@@ -49,6 +49,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _storeClickedEvent = new StatechartEvent("Store Clicked Event");
 		private readonly IStatechartEvent _roomJoinCreateBackClickedEvent = new StatechartEvent("Room Join Create Back Button Clicked Event");
 		private readonly IStatechartEvent _closeClickedEvent = new StatechartEvent("Close Button Clicked Event");
+		private readonly IStatechartEvent _friendsClickedEvent = new StatechartEvent("Friends Button Clicked Event");
 
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
 		private readonly IStatechartEvent _brokenItemsCloseEvent = new StatechartEvent("Broken Items Close Event");
@@ -134,6 +135,7 @@ namespace FirstLight.Game.StateMachines
 			var leaderboard = stateFactory.Wait("Leaderboard");
 			var battlePass = stateFactory.Wait("BattlePass");
 			var store = stateFactory.Wait("Store");
+			var friends = stateFactory.Wait("Friends");
 			var enterNameDialog = stateFactory.Nest("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 
@@ -153,7 +155,6 @@ namespace FirstLight.Game.StateMachines
 			news.OnEnter(OnEnterNews);
 			news.Event(_backButtonClicked).Target(homeCheck);
 
-			homeCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
 			homeCheck.Transition().Condition(RequiresToSeeStore).Target(store);
 			homeCheck.Transition().Condition(IsInRoom)
@@ -162,6 +163,7 @@ namespace FirstLight.Game.StateMachines
 			homeCheck.Transition().Target(homeMenu);
 
 			homeMenu.OnEnter(() => OpenHomeScreen().Forget());
+			homeMenu.OnEnter(RequestStartMetaMatchTutorial);
 			homeMenu.Event(PlayClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(homeCheck);
@@ -172,6 +174,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_newsClickedEvent).Target(news);
 			homeMenu.Event(_storeClickedEvent).Target(store);
 			homeMenu.Event(_collectionClickedEvent).Target(collectionMenu);
+			homeMenu.Event(_friendsClickedEvent).Target(friends);
 			homeMenu.Event(NetworkState.JoinedPlayfabMatchmaking).Target(waitMatchmaking);
 
 			settingsMenu.Nest(_settingsMenuState.Setup).Target(homeCheck);
@@ -179,6 +182,7 @@ namespace FirstLight.Game.StateMachines
 			battlePass.WaitingFor(OpenBattlePassUI).Target(homeCheck);
 			leaderboard.WaitingFor(OpenLeaderboardUI).Target(homeCheck);
 			store.WaitingFor(OpenStore).Target(homeCheck);
+			friends.WaitingFor(wait => OpenFriends(wait).Forget()).Target(homeCheck);
 			AddGoToMatchmakingHook(settingsMenu, collectionMenu, battlePass, leaderboard, store, news);
 
 			playClickedCheck.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
@@ -213,6 +217,16 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(_closeClickedEvent).Target(homeCheck);
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
+		}
+
+		private async UniTaskVoid OpenFriends(IWaitActivity wait)
+		{
+			var data = new FriendsScreenPresenter.StateData
+			{
+				OnBackClicked = () => wait.Complete()
+			};
+            
+			await _services.UIService.OpenScreen<FriendsScreenPresenter>(data);
 		}
 
 		private void OnEnterNews()
@@ -287,13 +301,6 @@ namespace FirstLight.Game.StateMachines
 
 				await _assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1);
 			}
-		}
-
-		private bool HasDefaultName()
-		{
-			return _gameDataProvider.AppDataProvider.DisplayNameTrimmed ==
-				GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||
-				string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.DisplayNameTrimmed);
 		}
 
 		private bool MetaTutorialConditionsCheck()
@@ -497,14 +504,11 @@ namespace FirstLight.Game.StateMachines
 					OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent),
 					OnBattlePassClicked = () => _statechartTrigger(BattlePassClickedEvent),
 					OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
-					OnDiscordClicked = DiscordButtonClicked,
-					OnYoutubeClicked = YoutubeButtonClicked,
-					OnInstagramClicked = InstagramButtonClicked,
-					OnTiktokClicked = TiktokButtonClicked,
 					OnMatchmakingCancelClicked = SendCancelMatchmakingMessage,
 					OnLevelUp = OpenLevelUpScreen,
 					OnRewardsReceived = OnRewardsReceived,
-					NewsClicked = () => _statechartTrigger(_newsClickedEvent)
+					NewsClicked = () => _statechartTrigger(_newsClickedEvent),
+					FriendsClicked = () => _statechartTrigger(_friendsClickedEvent)
 				};
 
 				await _services.UIService.OpenScreen<HomeScreenPresenter>(data);
@@ -653,26 +657,6 @@ namespace FirstLight.Game.StateMachines
 		private bool IsInRoom()
 		{
 			return _services.RoomService.InRoom;
-		}
-
-		private void DiscordButtonClicked()
-		{
-			Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
-		}
-
-		private void YoutubeButtonClicked()
-		{
-			Application.OpenURL(GameConstants.Links.YOUTUBE_LINK);
-		}
-
-		private void InstagramButtonClicked()
-		{
-			Application.OpenURL(GameConstants.Links.INSTAGRAM_LINK);
-		}
-
-		private void TiktokButtonClicked()
-		{
-			Application.OpenURL(GameConstants.Links.TIKTOK_LINK);
 		}
 	}
 }

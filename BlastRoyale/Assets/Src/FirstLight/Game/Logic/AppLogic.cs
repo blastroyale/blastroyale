@@ -153,6 +153,7 @@ namespace FirstLight.Game.Logic
 			Data.GameReviewDate = GameLogic.TimeService.DateTimeUtcNow;
 		}
 
+		// TODO mihak: Make sure that tags are handled again
 		// public string GetDisplayName(bool trimmed = true, bool tagged = true)
 		// {
 		// 	var name = DisplayName == null || string.IsNullOrWhiteSpace(DisplayName.Value) ||

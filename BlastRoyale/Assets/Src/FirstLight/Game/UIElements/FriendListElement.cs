@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using Unity.Services.Friends;
@@ -8,6 +9,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
 {
+	/// <summary>
+	/// Displays a relationship in the friends screen (friend / request / blocked)
+	/// </summary>
 	public class FriendListElement : VisualElement
 	{
 		private const string USS_BLOCK = "friend-list-element";

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
-using FirstLight.Game.Data;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
@@ -23,7 +22,6 @@ namespace FirstLight.Game.Presenters
 			public Action OnBackClicked;
 		}
 
-		// private ListView _squadList;
 		private ListView _friendsList;
 		private ListView _requestsList;
 		private ListView _blockedList;
@@ -43,7 +41,6 @@ namespace FirstLight.Game.Presenters
 			header.SetTitle(ScriptLocalization.UITHomeScreen.friends);
 			header.backClicked += Data.OnBackClicked;
 
-			// _squadList = Root.Q<ListView>("SquadList").Required();
 			_friendsList = Root.Q<ListView>("FriendsList").Required();
 			_requestsList = Root.Q<ListView>("RequestsList").Required();
 			_blockedList = Root.Q<ListView>("BlockedList").Required();

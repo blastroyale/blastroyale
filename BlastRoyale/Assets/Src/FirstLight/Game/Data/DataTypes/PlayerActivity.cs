@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 using UnityEngine.Scripting;
 
-namespace FirstLight.Game.Data
+namespace FirstLight.Game.Data.DataTypes
 {
 	/// <summary>
 	/// Represents the current activity / status of a player.

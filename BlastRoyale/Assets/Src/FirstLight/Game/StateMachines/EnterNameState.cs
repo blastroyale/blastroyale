@@ -11,6 +11,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.NativeUi;
 using FirstLight.Services;
 using FirstLight.Statechart;
@@ -144,7 +145,7 @@ namespace FirstLight.Game.StateMachines
 				OnSetNameError($"Error setting player name: {e.Message}").Forget();
 			}
 
-			
+			// TODO mihak: Update on Playfab?
 			// _services.GameBackendService.UpdateDisplayName(newNameTrimmed, (_) => _statechartTrigger(NameSetEvent), e =>
 			// {
 			// 	var description = GetErrorString(e);

@@ -233,7 +233,7 @@ namespace FirstLight.Game.Services.Party
 			msgBroker.Subscribe<ChangedServerRegionMessage>(OnChangedPhotonServer);
 			msgBroker.Subscribe<CollectionItemEquippedMessage>(OnCharacterSkinUpdatedMessage);
 			msgBroker.Subscribe<TrophiesUpdatedMessage>(OnTrophiesUpdateMessage);
-			// TODO: _appDataProvider.DisplayName.Observe(OnDisplayNameChanged);
+			// TODO mihak: _appDataProvider.DisplayName.Observe(OnDisplayNameChanged);
 
 			_lobbyProperties.Observe(ReadyVersion, OnReadyVersionChanged);
 		}

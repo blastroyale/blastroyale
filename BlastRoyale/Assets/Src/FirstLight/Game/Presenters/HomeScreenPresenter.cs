@@ -239,10 +239,7 @@ namespace FirstLight.Game.Presenters
 				Data.OnTiktokClicked();
 			};
 			
-			Root.Q<Button>("FriendsButton").Required().clicked += () =>
-			{
-				Data.FriendsClicked();
-			};
+			Root.Q<Button>("FriendsButton").Required().clicked += Data.FriendsClicked;
 
 			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;

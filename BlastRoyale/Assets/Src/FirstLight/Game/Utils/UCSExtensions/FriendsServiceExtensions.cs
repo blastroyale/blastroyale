@@ -5,7 +5,7 @@ namespace FirstLight.Game.Utils
 	/// <summary>
 	/// Helpers for the UCS Friends service.
 	/// </summary>
-	public static class FriendsExtensions
+	public static class FriendsServiceExtensions
 	{
 		/// <summary>
 		/// Checks if the availability of a user / presence is online.

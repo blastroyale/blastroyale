@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
@@ -75,12 +76,14 @@ namespace FirstLight.Game.StateMachines
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
 			mainMenu.OnEnter(() =>
 			{
+				// TODO mihak: Add localization
 				FriendsService.Instance.SetPresenceAsync(Availability.Online, new PlayerActivity {Status = "In main menu"}).AsUniTask().Forget();
 			});
 
 			match.Nest(_matchState.Setup).Target(mainMenu);
 			match.OnEnter(() =>
 			{
+				// TODO mihak: Add localization
 				FriendsService.Instance.SetPresenceAsync(Availability.Online, new PlayerActivity {Status = "Playing a match"}).AsUniTask().Forget();
 			});
 

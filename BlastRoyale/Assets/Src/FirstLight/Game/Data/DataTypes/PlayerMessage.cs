@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 using UnityEngine.Scripting;
 
-namespace FirstLight.Game.Data
+namespace FirstLight.Game.Data.DataTypes
 {
 	/// <summary>
 	/// Represents a message that was sent by a player.

@@ -617,8 +617,8 @@ namespace FirstLight.Game.Services
 #elif UNITY_IOS
 			var link = new LinkIOSDeviceIDRequest
 			{
-				DeviceModel = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
+				DeviceModel = UnityEngine.SystemInfo.deviceModel,
+				OS = UnityEngine.SystemInfo.operatingSystem,
 				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
 				ForceLink = true
 			};

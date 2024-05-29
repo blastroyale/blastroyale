@@ -377,11 +377,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c7f93ff50dce7ad4cb897029ac85f594
-    m_Address: Assets/Art/Fonts/JockeyOne/JockeyOne-Regular SDF-InGame.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fe393ace9b354375a9cb14cdbbc28be4
     m_Address: Packages/com.textmeshproflg/Shaders/TMP_SDF-Mobile.shader
     m_ReadOnly: 0

@@ -15,10 +15,12 @@ namespace FirstLight.Editor.Build.Utils
 		private const string ENVAR_BUILD_NUMBER = "FL_BUILD_NUMBER";
 		private const string ENVAR_ENVIRONMENT = "FL_ENVIRONMENT";
 		private const string ENVAR_DEVELOPMENT_BUILD = "FL_DEVELOPMENT_BUILD";
+		private const string ENVAR_REMOTE_ADDRESSABLES = "FL_REMOTE_ADDRESSABLES";
 
 		private const string ARG_ENVIRONMENT = "-FLEnvironment";
 		private const string ARG_BUILD_NUMBER = "-FLBuildNumber";
 		private const string ARG_DEV_BUILD = "-FLDevelopmentBuild";
+		private const string ARG_REMOTE_ADDRESSABLES = "-FLRemoteAddressables";
 
 		/// <summary>
 		/// The version override for the addressable catalog.
@@ -49,6 +51,14 @@ namespace FirstLight.Editor.Build.Utils
 		public static bool GetIsDevelopmentBuild()
 		{
 			return bool.Parse(Environment.GetEnvironmentVariable(ENVAR_DEVELOPMENT_BUILD) ?? GetCMDArgument(ARG_DEV_BUILD) ?? "true");
+		}
+
+		/// <summary>
+		/// If we should use remote or bundled addressables.
+		/// </summary>
+		public static bool GetUseRemoteAddressables()
+		{
+			return bool.Parse(Environment.GetEnvironmentVariable(ENVAR_REMOTE_ADDRESSABLES) ?? GetCMDArgument(ARG_REMOTE_ADDRESSABLES) ?? "false");
 		}
 
 		public static BuildTarget GetBuildTarget()

@@ -58,6 +58,10 @@ parameters:
     type: boolean
     displayName: If should publish artifacts with game dlls
     default: false
+  - name: remote_addressables
+    type: boolean
+    displayName: Use Remote Addressables
+    default: false
 
 steps:
 
@@ -120,8 +124,8 @@ steps:
 
   - script: |
       /Applications/Unity/Hub/Editor/2022.3.30f1/Unity.app/Contents/MacOS/Unity \
-      -batchmode -buildTarget ${{ parameters.platform }} -projectPath $(System.DefaultWorkingDirectory)/BlastRoyale \
-      -logfile - -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -FLDevelopmentBuild ${{ parameters.dev_build }} \
+      -batchmode -buildTarget ${{ parameters.platform }} -projectPath $(System.DefaultWorkingDirectory)/BlastRoyale -logfile - \
+      -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -FLDevelopmentBuild ${{ parameters.dev_build }} -FLRemoteAddressables ${{ parameters.remote_addressables }} \
       -username ${{ parameters.unity_username }} -password ${{ parameters.unity_password }} \
       -EnableCacheServer -cacheServerEndpoint localhost:10080 -executeMethod FirstLight.Editor.Build.Builder.BatchBuild -quit
     condition: not(or(failed(), canceled()))
@@ -132,7 +136,7 @@ steps:
       targetType: 'inline'
       pwsh: true
       script: |
-        switch -File build-output.properties {
+        switch -File BlastRoyale/build-output.properties {
           default {
             $name, $value = $_.Trim() -split '=', 2
             if ($name -and $name[0] -ne '#') { # ignore blank and comment lines.
@@ -150,7 +154,7 @@ steps:
 
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: $(System.DefaultWorkingDirectory)/BuildArtifacts
+      pathtoPublish: $(System.DefaultWorkingDirectory)/BlastRoyale/BuildArtifacts
       artifactName: 'GameDlls'
     condition: and(eq(${{ parameters.publishDlls }}, true),not(or(failed(), canceled())))
 
@@ -161,20 +165,22 @@ steps:
 
   # The security thing is because apple is apple and we need to unlock (or something) the login keychain
   - script: |
-      cd app
       security set-key-partition-list -S apple: -s -k EgfTpS6F login.keychain
       fastlane gym --output_directory "$(System.DefaultWorkingDirectory)" --export_method development
+    workingDirectory: $(System.DefaultWorkingDirectory)/BlastRoyale/BlastRoyale
     condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))
     displayName: 'Fastlane iOS Build'
 
   - task: PublishPipelineArtifact@1
+    condition: eq(${{ parameters.remote_addressables }}, true)
     inputs:
-      targetPath: $(System.DefaultWorkingDirectory)/ServerData
+      targetPath: $(System.DefaultWorkingDirectory)/BlastRoyale/ServerData
       artifact: 'AddressablesBuild_${{ parameters.platform }}'
 
   - script: |
-      mkdir -p $(System.DefaultWorkingDirectory)/ServerDataUCD/ServerData
-      mv $(System.DefaultWorkingDirectory)/ServerData/* $(System.DefaultWorkingDirectory)/ServerDataUCD/ServerData
+      mkdir -p $(System.DefaultWorkingDirectory)/BlastRoyale/ServerDataUCD/ServerData
+      mv $(System.DefaultWorkingDirectory)/BlastRoyale/ServerData/* $(System.DefaultWorkingDirectory)/BlastRoyale/ServerDataUCD/ServerData
+    condition: eq(${{ parameters.remote_addressables }}, true)
     displayName: 'Move CCD Files'
 
   - script: |
@@ -182,28 +188,28 @@ steps:
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
       ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
       ucd releases create -b ***REMOVED*** --environment ***REMOVED***
-    condition: and(eq('${{ parameters.environment }}', 'development'), not(or(failed(), canceled())))
+    condition: and(eq(${{ parameters.remote_addressables }}, true), eq('${{ parameters.environment }}', 'development'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Development'
 
   - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
       ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
-    condition: and(eq('${{ parameters.environment }}', 'staging'), not(or(failed(), canceled())))
+    condition: and(eq(${{ parameters.remote_addressables }}, true), eq('${{ parameters.environment }}', 'staging'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Staging'
 
   - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
       ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
-    condition: and(eq('${{ parameters.environment }}', 'community'), not(or(failed(), canceled())))
+    condition: and(eq(${{ parameters.remote_addressables }}, true), eq('${{ parameters.environment }}', 'community'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Community'
 
   - script: |
       ucd auth login ***REMOVED***
       ucd config set bucket ***REMOVED*** --environment ***REMOVED***
       ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
-    condition: and(eq('${{ parameters.environment }}', 'production'), not(or(failed(), canceled())))
+    condition: and(eq(${{ parameters.remote_addressables }}, true), eq('${{ parameters.environment }}', 'production'), not(or(failed(), canceled())))
     displayName: 'Unity CCD Production'
 
   - script: |
@@ -260,8 +266,8 @@ steps:
         az storage blob upload `
         --account-name prodflgbuildstorage `
         --container-name $(platformLower) `
-        --name $(Build.DefinitionName)/$(Build.BuildNumber)/app.apk `
-        --file 'app.apk' `
+        --name $(Build.DefinitionName)/$(Build.BuildNumber)/BlastRoyale.apk `
+        --file 'BlastRoyale/BlastRoyale.apk' `
         --auth-mode login
 
 
@@ -275,7 +281,7 @@ steps:
       if ($platform -eq "ios") {
           $url = [System.Uri]::EscapeUriString("itms-services://0.0.0.0?action=download-manifest&url=https://prodflgbuildstorage.blob.core.windows.net/$platform/$name/$build_number/$file_name.plist")
       } else {
-          $url = [System.Uri]::EscapeUriString("https://prodflgbuildstorage.blob.core.windows.net/$platform/$name/$build_number/app.apk")
+          $url = [System.Uri]::EscapeUriString("https://prodflgbuildstorage.blob.core.windows.net/$platform/$name/$build_number/BlastRoyale.apk")
       }
       
       $link = $url
@@ -294,7 +300,7 @@ steps:
   # TODO: Fix android extension
   - script: |
       export GOOGLE_APPLICATION_CREDENTIALS=$(firebaseKey.secureFilePath)
-      firebase appdistribution:distribute app.apk  \
+      firebase appdistribution:distribute BlastRoyale/BlastRoyale.apk  \
       --app ***REMOVED***  \
       --groups "${{ parameters.firebaseDistGroups }}"  \
       --release-notes "$(Build.Reason) - $(Build.BuildNumber)

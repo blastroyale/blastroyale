@@ -324,6 +324,7 @@ namespace FirstLight.Game.Services
 				data.LastLoginEmail = null;
 				data.DeviceId = null;
 				_localAccountData.SaveData<AccountData>();
+				AuthenticationService.Instance.SignOut(true);
 				onSuccess?.Invoke();
 			}, e => { _services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login); });
 		}

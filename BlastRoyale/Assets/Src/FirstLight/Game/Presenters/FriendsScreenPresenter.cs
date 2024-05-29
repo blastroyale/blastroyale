@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
 using Unity.Services.Authentication;
@@ -26,6 +27,10 @@ namespace FirstLight.Game.Presenters
 		private ListView _requestsList;
 		private ListView _blockedList;
 
+		private VisualElement _friendsEmptyContainer;
+		private VisualElement _requestsEmptyContainer;
+		private VisualElement _blockedEmptyContainer;
+
 		private TextField _yourIDField;
 		private TextField _addFriendIDField;
 		private Button _addFriendButton;
@@ -44,6 +49,10 @@ namespace FirstLight.Game.Presenters
 			_friendsList = Root.Q<ListView>("FriendsList").Required();
 			_requestsList = Root.Q<ListView>("RequestsList").Required();
 			_blockedList = Root.Q<ListView>("BlockedList").Required();
+			
+			_friendsEmptyContainer = Root.Q<VisualElement>("FriendsEmptyContainer").Required();
+			_requestsEmptyContainer = Root.Q<VisualElement>("RequestsEmptyContainer").Required();
+			_blockedEmptyContainer = Root.Q<VisualElement>("BlockedEmptyContainer").Required();
 
 			_yourIDField = Root.Q<TextField>("YourID").Required();
 			_addFriendIDField = Root.Q<TextField>("AddFriendID").Required();
@@ -52,6 +61,7 @@ namespace FirstLight.Game.Presenters
 
 			_addFriendButton.clicked += () => AddFriend(_addFriendIDField.value).Forget();
 			Root.Q<ImageButton>("CopyButton").Required().clicked += CopyPlayerID;
+			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
 
 			_friendsList.bindItem = OnFriendsBindItem;
 			_requestsList.bindItem = OnRequestsBindItem;
@@ -105,6 +115,9 @@ namespace FirstLight.Game.Presenters
 			_friends.Sort((a, b) => a.Member.Presence.IsOnline().CompareTo(b.Member.Presence.IsOnline()));
 			_friendsList.itemsSource = _friends;
 			_friendsList.RefreshItems();
+
+			_friendsList.SetDisplay(_friends.Count > 0);
+			_friendsEmptyContainer.SetDisplay(_friends.Count == 0);
 		}
 
 		private void RefreshRequests()
@@ -117,6 +130,9 @@ namespace FirstLight.Game.Presenters
 
 			_requestsCount.SetVisibility(incomingRequests.Count > 0);
 			_requestsCount.text = incomingRequests.Count.ToString();
+
+			_requestsList.SetDisplay(_requests.Count > 0);
+			_requestsEmptyContainer.SetDisplay(_requests.Count == 0);
 		}
 
 		private void RefreshBlocked()
@@ -124,6 +140,9 @@ namespace FirstLight.Game.Presenters
 			_blocked = FriendsService.Instance.Blocks.ToList();
 			_blockedList.itemsSource = _blocked;
 			_blockedList.RefreshItems();
+
+			_blockedList.SetDisplay(_blocked.Count > 0);
+			_blockedEmptyContainer.SetDisplay(_blocked.Count == 0);
 		}
 
 		private VisualElement OnMakeListItem()

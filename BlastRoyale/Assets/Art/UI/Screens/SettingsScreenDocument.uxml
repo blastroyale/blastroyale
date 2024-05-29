@@ -8,11 +8,11 @@
                 <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="settings-popup__close" />
                 <ui:VisualElement name="Content" class="settings-popup__content">
                     <FirstLight.Game.UIElements.TabbedView name="SettingsTabbedView" class="settings-tabbed-view">
-                        <FirstLight.Game.UIElements.TabButton target="Sound" focusable="true" text="SOUND" class="settings-tab-button" />
-                        <FirstLight.Game.UIElements.TabButton target="Graphics" focusable="true" text="GRAPHICS" class="settings-tab-button" />
-                        <FirstLight.Game.UIElements.TabButton target="Controls" focusable="true" text="CONTROLS" class="settings-tab-button" />
-                        <FirstLight.Game.UIElements.TabButton target="Web3" focusable="true" text="WEB3" class="settings-tab-button" />
-                        <FirstLight.Game.UIElements.TabButton target="Account" focusable="true" text="ACCOUNT" class="settings-tab-button">
+                        <FirstLight.Game.UIElements.TabButton target="Sound" localization-key="UITSettings/sound_title" class="settings-tab-button" />
+                        <FirstLight.Game.UIElements.TabButton target="Graphics" localization-key="UITSettings/graphics_title" class="settings-tab-button" />
+                        <FirstLight.Game.UIElements.TabButton target="Controls" localization-key="UITSettings/controls_title" class="settings-tab-button" />
+                        <FirstLight.Game.UIElements.TabButton target="Web3" localization-key="UITSettings/web3" class="settings-tab-button" />
+                        <FirstLight.Game.UIElements.TabButton target="Account" localization-key="UITSettings/account_title" class="settings-tab-button">
                             <ui:VisualElement name="AccountNotification" class="notification-icon button-with-icon__notification" style="top: -14px; right: -11px;" />
                         </FirstLight.Game.UIElements.TabButton>
                         <ui:VisualElement name="Sound" class="settings-container">

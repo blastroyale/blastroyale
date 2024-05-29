@@ -527,7 +527,7 @@
     position: absolute;
     right: 13px;
     bottom: 22px;
-    background-image: url('project://database/Assets/Art/UI/Vectors/button-play-mask.svg?fileID=7388822144124034973&guid=34dd17c5baf534d41b1ffeceefca7356&type=3#button-play-mask');
+    background-image: url("project://database/Assets/Art/UI/Vectors/button-play-mask.svg?fileID=7388822144124034973&guid=34dd17c5baf534d41b1ffeceefca7356&type=3#button-play-mask");
 }
 
 .party-button-holder {
@@ -850,42 +850,6 @@
     margin: 20px;
 }
 
-.discord-button {
-    width: 48px;
-    height: 48px;
-    background-image: var(--sprite-home__icon-discord);
-    left: 684px;
-    position: absolute;
-    top: 40px;
-}
-
-.youtube-button {
-    width: 48px;
-    height: 48px;
-    background-image: var(--sprite-home__icon-youtube);
-    position: absolute;
-    left: 758px;
-    top: 40px;
-}
-
-.instagram-button {
-    width: 48px;
-    height: 48px;
-    background-image: var(--sprite-home__icon-instagram);
-    position: absolute;
-    left: 832px;
-    top: 40px;
-}
-
-.tiktok-button {
-    width: 48px;
-    height: 48px;
-    background-image: var(--sprite-home__icon-tiktok);
-    position: absolute;
-    top: 40px;
-    left: 906px;
-}
-
 .button-with-icon--equipment > .button-with-icon__icon {
     background-image: var(--sprite-home__icon-equipment);
 }
@@ -1074,4 +1038,10 @@
 
 .news-button__icon {
     background-image: var(--sprite-home__news-icon);
+}
+
+.socials-buttons {
+    position: absolute;
+    left: 687px;
+    top: 37px;
 }

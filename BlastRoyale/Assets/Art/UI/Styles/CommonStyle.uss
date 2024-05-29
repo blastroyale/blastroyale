@@ -720,3 +720,33 @@
 .full-width {
     width: 100%;
 }
+
+.socials-buttons {
+    flex-direction: row;
+    width: 300px;
+    justify-content: space-between;
+}
+
+.socials-buttons__discord {
+    width: 48px;
+    height: 48px;
+    background-image: var(--sprite-home__icon-discord);
+}
+
+.socials-buttons__youtube {
+    width: 48px;
+    height: 48px;
+    background-image: var(--sprite-home__icon-youtube);
+}
+
+.socials-buttons__instagram {
+    width: 48px;
+    height: 48px;
+    background-image: var(--sprite-home__icon-instagram);
+}
+
+.socials-buttons__tiktok {
+    width: 48px;
+    height: 48px;
+    background-image: var(--sprite-home__icon-tiktok);
+}

@@ -504,10 +504,6 @@ namespace FirstLight.Game.StateMachines
 					OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent),
 					OnBattlePassClicked = () => _statechartTrigger(BattlePassClickedEvent),
 					OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
-					OnDiscordClicked = DiscordButtonClicked,
-					OnYoutubeClicked = YoutubeButtonClicked,
-					OnInstagramClicked = InstagramButtonClicked,
-					OnTiktokClicked = TiktokButtonClicked,
 					OnMatchmakingCancelClicked = SendCancelMatchmakingMessage,
 					OnLevelUp = OpenLevelUpScreen,
 					OnRewardsReceived = OnRewardsReceived,
@@ -661,26 +657,6 @@ namespace FirstLight.Game.StateMachines
 		private bool IsInRoom()
 		{
 			return _services.RoomService.InRoom;
-		}
-
-		private void DiscordButtonClicked()
-		{
-			Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
-		}
-
-		private void YoutubeButtonClicked()
-		{
-			Application.OpenURL(GameConstants.Links.YOUTUBE_LINK);
-		}
-
-		private void InstagramButtonClicked()
-		{
-			Application.OpenURL(GameConstants.Links.INSTAGRAM_LINK);
-		}
-
-		private void TiktokButtonClicked()
-		{
-			Application.OpenURL(GameConstants.Links.TIKTOK_LINK);
 		}
 	}
 }

@@ -54,10 +54,6 @@ namespace FirstLight.Game.Presenters
 			public Action OnLeaderboardClicked;
 			public Action OnBattlePassClicked;
 			public Action OnStoreClicked;
-			public Action OnDiscordClicked;
-			public Action OnYoutubeClicked;
-			public Action OnInstagramClicked;
-			public Action OnTiktokClicked;
 			public Action OnMatchmakingCancelClicked;
 			public Action OnLevelUp;
 			public Action NewsClicked;
@@ -177,7 +173,6 @@ namespace FirstLight.Game.Presenters
 			_playButton = Root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
-
 			Root.Q<CurrencyDisplayElement>("CoinCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetData(_playButton);
@@ -187,7 +182,6 @@ namespace FirstLight.Game.Presenters
 			Root.Q<CurrencyDisplayElement>("NOOBCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetData(_playButton, true);
-
 
 			Root.Q<VisualElement>("PartyMemberNames").Required()
 				.AttachExistingView(this, _homePartyCharacterView);
@@ -211,34 +205,7 @@ namespace FirstLight.Game.Presenters
 				storeButton.LevelLock2(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
 			}
 
-			var discordButton = Root.Q<Button>("DiscordButton");
-			discordButton.clicked += () =>
-			{
-				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.DiscordLink);
-				Data.OnDiscordClicked();
-			};
-
-			var youtubeButton = Root.Q<Button>("YoutubeButton");
-			youtubeButton.clicked += () =>
-			{
-				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.YoutubeLink);
-				Data.OnYoutubeClicked();
-			};
-
-			var instagramButton = Root.Q<Button>("InstagramButton");
-			instagramButton.clicked += () =>
-			{
-				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.InstagramLink);
-				Data.OnInstagramClicked();
-			};
-
-			var tiktokButton = Root.Q<Button>("TiktokButton");
-			tiktokButton.clicked += () =>
-			{
-				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.TiktokLink);
-				Data.OnTiktokClicked();
-			};
-			
+			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
 			Root.Q<Button>("FriendsButton").Required().clicked += Data.FriendsClicked;
 
 			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);

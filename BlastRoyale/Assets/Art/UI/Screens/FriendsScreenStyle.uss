@@ -309,3 +309,20 @@
 .right-content {
     flex-grow: 1;
 }
+
+.empty-container {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 44px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-align: upper-center;
+    padding-top: 200px;
+}
+
+.socials-buttons {
+    margin-top: 30px;
+}

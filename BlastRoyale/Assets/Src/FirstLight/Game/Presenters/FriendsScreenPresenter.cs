@@ -49,7 +49,7 @@ namespace FirstLight.Game.Presenters
 			_friendsList = Root.Q<ListView>("FriendsList").Required();
 			_requestsList = Root.Q<ListView>("RequestsList").Required();
 			_blockedList = Root.Q<ListView>("BlockedList").Required();
-			
+
 			_friendsEmptyContainer = Root.Q<VisualElement>("FriendsEmptyContainer").Required();
 			_requestsEmptyContainer = Root.Q<VisualElement>("RequestsEmptyContainer").Required();
 			_blockedEmptyContainer = Root.Q<VisualElement>("BlockedEmptyContainer").Required();
@@ -338,17 +338,15 @@ namespace FirstLight.Game.Presenters
 			te.Copy();
 		}
 
-		private UniTask OpenProfile(string playerID)
+		private async UniTask OpenProfile(string playerID)
 		{
-			// TODO mihak: Open profile
-			FLog.Info($"Opening profile (not implemented yet): {playerID}");
-			// var data = new PlayerStatisticsPopupPresenter.StateData
-			// {
-			// 	PlayerId = member.ProfileMasterId,
-			// 	OnCloseClicked = () => _services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget()
-			// };
-			// _services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(data).Forget();
-			return UniTask.CompletedTask;
+			var services = MainInstaller.ResolveServices();
+
+			await services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new PlayerStatisticsPopupPresenter.StateData
+			{
+				UnityID = playerID,
+				OnCloseClicked = () => services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget()
+			});
 		}
 	}
 }

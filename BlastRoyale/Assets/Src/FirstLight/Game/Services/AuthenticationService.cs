@@ -1,37 +1,30 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using Cysharp.Threading.Tasks;
-using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLightServerSDK.Services;
-using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
 using Unity.Services.Authentication;
-using Unity.Services.Core;
+using Unity.Services.CloudSave;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Options;
-using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace FirstLight.Game.Services
 {
@@ -533,7 +526,7 @@ namespace FirstLight.Game.Services
 				.WithMemberProfile(true);
 			await FriendsService.Instance.InitializeAsync(friendsInitOpts).AsUniTask();
 			await AuthenticationService.Instance.GetPlayerNameAsync(); // We fetch the name (which generates a new one) so it's stored in the cache
-
+			await CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId);
 			onComplete();
 		}
 

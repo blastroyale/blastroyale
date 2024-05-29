@@ -125,7 +125,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var data = new PlayerStatisticsPopupPresenter.StateData
 				{
-					PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
+					PlayfabID = PlayFabSettings.staticPlayer.PlayFabId,
 					OnCloseClicked = () =>
 					{
 						_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();

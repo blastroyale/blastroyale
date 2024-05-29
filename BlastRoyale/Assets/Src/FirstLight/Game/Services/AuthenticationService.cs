@@ -262,8 +262,8 @@ namespace FirstLight.Game.Services
 			var login = new LoginWithAndroidDeviceIDRequest()
 			{
 				CreateAccount = false,
-				AndroidDevice = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
+				AndroidDevice = UnityEngine.SystemInfo.deviceModel,
+				OS = UnityEngine.SystemInfo.operatingSystem,
 				AndroidDeviceId = deviceId,
 				InfoRequestParameters = StandardLoginInfoRequestParams
 			};
@@ -276,8 +276,8 @@ namespace FirstLight.Game.Services
 			var login = new LoginWithIOSDeviceIDRequest()
 			{
 				CreateAccount = false,
-				DeviceModel = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
+				DeviceModel = UnityEngine.SystemInfo.deviceModel,
+				OS = UnityEngine.SystemInfo.operatingSystem,
 				DeviceId = deviceId,
 				InfoRequestParameters = StandardLoginInfoRequestParams
 			};
@@ -606,8 +606,8 @@ namespace FirstLight.Game.Services
 #elif UNITY_ANDROID
 			var link = new LinkAndroidDeviceIDRequest
 			{
-				AndroidDevice = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
+				AndroidDevice = UnityEngine.SystemInfo.deviceModel,
+				OS = UnityEngine.SystemInfo.operatingSystem,
 				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
 				ForceLink = true
 			};

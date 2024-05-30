@@ -443,27 +443,21 @@ namespace FirstLight.Game.StateMachines
 		private void OpenBattlePassUI(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
-
-			var claimedRewards = false;
+			
 			var data = new BattlePassScreenPresenter.StateData
 			{
 				BackClicked = () =>
 				{
-					if (_services.RateAndReviewService.ShouldShowPrompt
-						&& claimedRewards)
+					if (_services.RateAndReviewService.ShouldShowPrompt)
 					{
 						_services.MessageBrokerService.Publish(new OpenRateAndReviewPromptMessage());
 					}
-
+					
 					cacheActivity.Complete();
-				},
-				RewardsClaimed = () =>
-				{
-					claimedRewards = true;
 				},
 				DisableScrollAnimation = true
 			};
-
+			
 			_services.UIService.OpenScreen<BattlePassScreenPresenter>(data).Forget();
 		}
 

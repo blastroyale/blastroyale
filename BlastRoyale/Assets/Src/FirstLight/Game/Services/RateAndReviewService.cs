@@ -21,6 +21,7 @@ namespace FirstLight.Game.Services
 		private readonly IMessageBrokerService _messageBrokerService;
 		private RateAndReview _rateAndReviewComponent;
 		private LocalPrefsService _localPrefsService;
+		private bool _canShowPrompt;
 		
 		public RateAndReviewService(IMessageBrokerService msgBroker, LocalPrefsService localPrefsService)
 		{
@@ -37,11 +38,33 @@ namespace FirstLight.Game.Services
 			_messageBrokerService = msgBroker;
 			_messageBrokerService.Subscribe<OpenRateAndReviewPromptMessage>(OnOpenRateAndReviewPromptMessage);
 			_messageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
+			_messageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCollectionItemEquippedMessage);
+			_messageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUpMessage);
 			
 			Debug.Log($"RateAndReviewService->Setup");
 		}
 
-		public bool ShouldShowPrompt => FeatureFlags.REVIEW_PROMPT_ENABLED && !_localPrefsService.RateAndReviewPromptShown && _localPrefsService.GamesPlayed.Value >= 4;
+		public bool ShouldShowPrompt => FeatureFlags.REVIEW_PROMPT_ENABLED && !_localPrefsService.RateAndReviewPromptShown && _canShowPrompt;
+
+		private void OnBattlePassLevelUpMessage(BattlePassLevelUpMessage message)
+		{
+			if (_localPrefsService.GamesPlayed.Value < 4)
+			{
+				return;
+			}
+
+			_canShowPrompt = true;
+		}
+
+		private void OnCollectionItemEquippedMessage(CollectionItemEquippedMessage message)
+		{
+			if (_localPrefsService.GamesPlayed.Value < 4)
+			{
+				return;
+			}
+
+			_canShowPrompt = true;
+		}
 
 		private void OnOpenRateAndReviewPromptMessage(OpenRateAndReviewPromptMessage message)
 		{
@@ -54,6 +77,9 @@ namespace FirstLight.Game.Services
 			_localPrefsService.RateAndReviewPromptShown.Value = true;
 			_messageBrokerService.Unsubscribe<OpenRateAndReviewPromptMessage>(OnOpenRateAndReviewPromptMessage);
 			_messageBrokerService.Unsubscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
+			_messageBrokerService.Unsubscribe<CollectionItemEquippedMessage>(OnCollectionItemEquippedMessage);
+			_messageBrokerService.Unsubscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUpMessage);
+			
 			Debug.Log($"RateAndReviewService->OnOpenRateAndReviewPromptMessage");
 		}
 

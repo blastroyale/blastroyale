@@ -38,7 +38,6 @@ namespace FirstLight.Game.Presenters
 		public class StateData
 		{
 			public Action BackClicked;
-			public Action RewardsClaimed;
 			public bool DisableScrollAnimation;
 		}
 
@@ -290,7 +289,6 @@ namespace FirstLight.Game.Presenters
 		{
 			FLog.Verbose("Claiming BP Rewards");
 			OnClaimClicked(view.SegmentData.PassType);
-			Data.RewardsClaimed();
 		}
 
 		private void OnClaimClicked(PassType type)
@@ -538,7 +536,6 @@ namespace FirstLight.Game.Presenters
 		private void OnBattlePassLevelUp(BattlePassLevelUpMessage message)
 		{
 			ShowRewards(message.Rewards);
-			Data.RewardsClaimed();
 		}
 
 		private void ShowRewards(IEnumerable<ItemData> rewards)

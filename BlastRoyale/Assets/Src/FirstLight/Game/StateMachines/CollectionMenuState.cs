@@ -55,12 +55,11 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(SendLoadoutUpdateCommand);
 		}
 
-		private void CheckForOpenRateAndReviewPromptUI(bool equippedNonDefaultItem)
+		private void CheckForOpenRateAndReviewPromptUI()
 		{
-			Debug.Log($"CollectionMenuState->CheckForOpenRateAndReviewPromptUI {equippedNonDefaultItem}");
+			Debug.Log($"CollectionMenuState->CheckForOpenRateAndReviewPromptUI {_services.RateAndReviewService.ShouldShowPrompt}");
 			
-			if (_services.RateAndReviewService.ShouldShowPrompt
-				&& equippedNonDefaultItem)
+			if (_services.RateAndReviewService.ShouldShowPrompt)
 			{
 				_services.MessageBrokerService.Publish(new OpenRateAndReviewPromptMessage());
 			}
@@ -68,28 +67,22 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenCollectionScreen()
 		{
-			var equippedNonDefaultItem = false;
 			var data = new CollectionScreenPresenter.StateData
 			{
 				OnHomeClicked = () =>
 				{
-					CheckForOpenRateAndReviewPromptUI(equippedNonDefaultItem);
+					CheckForOpenRateAndReviewPromptUI();
 					
 					_statechartTrigger(_closeButtonClickedEvent);
 				},
 				OnBackClicked = () =>
 				{
-					CheckForOpenRateAndReviewPromptUI(equippedNonDefaultItem);
+					CheckForOpenRateAndReviewPromptUI();
 					
 					_statechartTrigger(_backButtonClickedEvent);
 				},
-				EquippedNonDefaultItem = () =>
-				{
-					Debug.Log("CollectionMenuState->EquippedNonDefaultItem event");
-					equippedNonDefaultItem = true;
-				}
 			};
-
+			
 			_services.UIService.OpenScreen<CollectionScreenPresenter>(data).Forget();
 		}
 

@@ -8,7 +8,6 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Collections;
-using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -41,7 +40,6 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action OnHomeClicked;
 			public Action OnBackClicked;
-			public Action EquippedNonDefaultItem;
 		}
 
 		private ListView _collectionList;
@@ -280,11 +278,6 @@ namespace FirstLight.Game.Presenters
 			_services.CommandService.ExecuteCommand(new EquipCollectionItemCommand() {Item = item});
 			UpdateCollectionDetails(_selectedCategory);
 			SelectEquipped(_selectedCategory);
-
-			if (!_services.CollectionService.IsDefaultItem(item.Id))
-			{
-				Data.EquippedNonDefaultItem();
-			}
 		}
 
 		/// <summary>

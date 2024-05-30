@@ -286,3 +286,9 @@ synced event OnLocalPlayerNoInput
 	local player_ref Player;
 	entity_ref Entity;
 }
+
+event OnPlayerAttackPrepare
+{
+    player_ref Player;
+    entity_ref Entity;
+}

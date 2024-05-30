@@ -120,7 +120,7 @@ namespace Quantum
 			{
 				var player = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
 				var weaponConfig = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
-				PlayerCharacterSystem.OnStartAiming(f, bb, weaponConfig);
+				PlayerCharacterSystem.OnStartAiming(f, bb, weaponConfig, player, botEntity);
 			}
 
 			bot.Target = target;

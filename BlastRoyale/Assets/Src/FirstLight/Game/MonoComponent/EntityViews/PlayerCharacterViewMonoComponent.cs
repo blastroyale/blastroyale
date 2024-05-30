@@ -2,6 +2,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
@@ -69,6 +70,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
+			QuantumEvent.Subscribe<EventOnPlayerAttackPrepare>(this, HandleOnPlayerAttackPrepare);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
 			QuantumEvent.Subscribe<EventOnAirstrikeUsed>(this, HandleOnAirstrikeUsed);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandleOnPlayerSpawned);
@@ -397,10 +399,26 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void HandleOnPlayerAttack(EventOnPlayerAttack callback)
 		{
 			if (EntityView.EntityRef != callback.PlayerEntity) return;
+			if (_skin.WeaponType == WeaponType.Melee)
+			{
+				FLog.Info("PACO", "Melee Attack");
+				return; // Handled in OnAttackPrepare
+			}
+		
 
-
-			_skin.TriggerAttack();
+		_skin.TriggerAttack();
 			TryStartAttackWithinVisVolume();
+		}
+		
+		private void HandleOnPlayerAttackPrepare(EventOnPlayerAttackPrepare callback)
+		{
+			if (EntityView.EntityRef != callback.Entity) return;
+
+			if (_skin.WeaponType == WeaponType.Melee)
+			{
+				FLog.Info("PACO", "Melee Prepare");
+				_skin.TriggerAttack();
+			}
 		}
 
 		private void HandleOnPlayerSpecialUsed(EventOnPlayerSpecialUsed callback)

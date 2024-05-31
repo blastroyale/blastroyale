@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -57,7 +58,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CheckForOpenRateAndReviewPromptUI()
 		{
-			Debug.Log($"CollectionMenuState->CheckForOpenRateAndReviewPromptUI {_services.RateAndReviewService.ShouldShowPrompt}");
+			FLog.Info($"CollectionMenuState->CheckForOpenRateAndReviewPromptUI {_services.RateAndReviewService.ShouldShowPrompt}");
 			
 			if (_services.RateAndReviewService.ShouldShowPrompt)
 			{

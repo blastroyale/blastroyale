@@ -1,3 +1,4 @@
+using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
@@ -41,7 +42,7 @@ namespace FirstLight.Game.Services
 			_messageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCollectionItemEquippedMessage);
 			_messageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUpMessage);
 			
-			Debug.Log($"RateAndReviewService->Setup");
+			FLog.Info($"RateAndReviewService->Setup");
 		}
 
 		public bool ShouldShowPrompt => FeatureFlags.REVIEW_PROMPT_ENABLED && !_localPrefsService.RateAndReviewPromptShown && _canShowPrompt;
@@ -80,13 +81,13 @@ namespace FirstLight.Game.Services
 			_messageBrokerService.Unsubscribe<CollectionItemEquippedMessage>(OnCollectionItemEquippedMessage);
 			_messageBrokerService.Unsubscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUpMessage);
 			
-			Debug.Log($"RateAndReviewService->OnOpenRateAndReviewPromptMessage");
+			FLog.Info($"RateAndReviewService->OnOpenRateAndReviewPromptMessage");
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
 		{
 			_localPrefsService.GamesPlayed.Value += 1;
-			Debug.Log($"RateAndReviewService->OnGameCompletedRewardsMessage LocalPrefsService.GamesPlayed.Value {_localPrefsService.GamesPlayed.Value}");
+			FLog.Info($"RateAndReviewService->OnGameCompletedRewardsMessage LocalPrefsService.GamesPlayed.Value {_localPrefsService.GamesPlayed.Value}");
 		}
 	}
 }

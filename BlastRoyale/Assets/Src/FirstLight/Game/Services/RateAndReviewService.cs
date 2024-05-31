@@ -28,7 +28,7 @@ namespace FirstLight.Game.Services
 		{
 			_localPrefsService = localPrefsService;
 			
-			if (!FeatureFlags.REVIEW_PROMPT_ENABLED || localPrefsService.RateAndReviewPromptShown)
+			if (!RemoteConfigs.Instance.EnableReviewPrompt || localPrefsService.RateAndReviewPromptShown)
 			{
 				return;
 			}
@@ -45,7 +45,7 @@ namespace FirstLight.Game.Services
 			FLog.Info($"RateAndReviewService->Setup");
 		}
 
-		public bool ShouldShowPrompt => FeatureFlags.REVIEW_PROMPT_ENABLED && !_localPrefsService.RateAndReviewPromptShown && _canShowPrompt;
+		public bool ShouldShowPrompt => RemoteConfigs.Instance.EnableReviewPrompt && !_localPrefsService.RateAndReviewPromptShown && _canShowPrompt;
 
 		private void OnBattlePassLevelUpMessage(BattlePassLevelUpMessage message)
 		{
@@ -69,7 +69,7 @@ namespace FirstLight.Game.Services
 
 		private void OnOpenRateAndReviewPromptMessage(OpenRateAndReviewPromptMessage message)
 		{
-			if (!FeatureFlags.REVIEW_PROMPT_ENABLED)
+			if (!RemoteConfigs.Instance.EnableReviewPrompt)
 			{
 				return;
 			}

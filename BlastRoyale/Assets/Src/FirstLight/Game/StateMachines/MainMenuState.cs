@@ -448,11 +448,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				BackClicked = () =>
 				{
-					if (_services.RateAndReviewService.ShouldShowPrompt)
-					{
-						_services.MessageBrokerService.Publish(new OpenRateAndReviewPromptMessage());
-					}
-					
 					cacheActivity.Complete();
 				},
 				DisableScrollAnimation = true

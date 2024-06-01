@@ -23,13 +23,7 @@ public partial class SROptions
 	{
 		MainInstaller.ResolveServices().UIService.OpenScreen<BattlePassSeasonBannerPresenter>().Forget();
 	}
-
-	[Category("Other")]
-	public void OpenReviewAndRateDialog()
-	{
-		MainInstaller.Resolve<IGameServices>().MessageBrokerService.Publish(new OpenRateAndReviewPromptMessage());
-	}
-
+	
 	[Category("Other")]
 	public void OpenButtonDialog()
 	{

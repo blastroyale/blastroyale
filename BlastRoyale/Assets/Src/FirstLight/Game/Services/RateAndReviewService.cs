@@ -13,7 +13,6 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface IRateAndReviewService
 	{
-		bool ShouldShowPrompt { get; }
 	}
 
 	/// <inheritdoc />
@@ -28,7 +27,7 @@ namespace FirstLight.Game.Services
 		{
 			_localPrefsService = localPrefsService;
 			
-			if (!RemoteConfigs.Instance.EnableReviewPrompt || localPrefsService.RateAndReviewPromptShown)
+			if (!FeatureFlags.REVIEW_PROMPT_ENABLED || localPrefsService.RateAndReviewPromptShown)
 			{
 				return;
 			}
@@ -37,16 +36,14 @@ namespace FirstLight.Game.Services
 			Object.DontDestroyOnLoad(_rateAndReviewComponent.gameObject);
 
 			_messageBrokerService = msgBroker;
-			_messageBrokerService.Subscribe<OpenRateAndReviewPromptMessage>(OnOpenRateAndReviewPromptMessage);
+			_messageBrokerService.Subscribe<PlayScreenOpenedMessage>(OnPlayScreenOpenedMessage);
 			_messageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_messageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCollectionItemEquippedMessage);
 			_messageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUpMessage);
 			
-			FLog.Info($"RateAndReviewService->Setup");
+			FLog.Info($"RateAndReviewService->ctr");
 		}
-
-		public bool ShouldShowPrompt => RemoteConfigs.Instance.EnableReviewPrompt && !_localPrefsService.RateAndReviewPromptShown && _canShowPrompt;
-
+		
 		private void OnBattlePassLevelUpMessage(BattlePassLevelUpMessage message)
 		{
 			if (_localPrefsService.GamesPlayed.Value < 4)
@@ -67,21 +64,35 @@ namespace FirstLight.Game.Services
 			_canShowPrompt = true;
 		}
 
-		private void OnOpenRateAndReviewPromptMessage(OpenRateAndReviewPromptMessage message)
+		private void OpenRateAndReviewPrompt()
 		{
-			if (!RemoteConfigs.Instance.EnableReviewPrompt)
-			{
-				return;
-			}
-			
 			_rateAndReviewComponent.RateReview();
 			_localPrefsService.RateAndReviewPromptShown.Value = true;
-			_messageBrokerService.Unsubscribe<OpenRateAndReviewPromptMessage>(OnOpenRateAndReviewPromptMessage);
 			_messageBrokerService.Unsubscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_messageBrokerService.Unsubscribe<CollectionItemEquippedMessage>(OnCollectionItemEquippedMessage);
 			_messageBrokerService.Unsubscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUpMessage);
+			_messageBrokerService.Unsubscribe<PlayScreenOpenedMessage>(OnPlayScreenOpenedMessage);
 			
-			FLog.Info($"RateAndReviewService->OnOpenRateAndReviewPromptMessage");
+			FLog.Info($"RateAndReviewService->OpenRateAndReviewPrompt");
+		}
+
+		private void OnPlayScreenOpenedMessage(PlayScreenOpenedMessage message)
+		{
+			if (_localPrefsService.GamesPlayed.Value < 4)
+			{
+				_canShowPrompt = false;
+				
+				return;
+			}
+
+			var shouldShowPrompt = _localPrefsService.RateAndReviewPromptShown && _canShowPrompt;
+
+			if (!shouldShowPrompt)
+			{
+				return;
+			}
+
+			OpenRateAndReviewPrompt();
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)

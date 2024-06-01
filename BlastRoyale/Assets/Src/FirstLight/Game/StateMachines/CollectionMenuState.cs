@@ -56,30 +56,17 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(SendLoadoutUpdateCommand);
 		}
 
-		private void CheckForOpenRateAndReviewPromptUI()
-		{
-			FLog.Info($"CollectionMenuState->CheckForOpenRateAndReviewPromptUI {_services.RateAndReviewService.ShouldShowPrompt}");
-			
-			if (_services.RateAndReviewService.ShouldShowPrompt)
-			{
-				_services.MessageBrokerService.Publish(new OpenRateAndReviewPromptMessage());
-			}
-		}
-
+		
 		private void OpenCollectionScreen()
 		{
 			var data = new CollectionScreenPresenter.StateData
 			{
 				OnHomeClicked = () =>
 				{
-					CheckForOpenRateAndReviewPromptUI();
-					
 					_statechartTrigger(_closeButtonClickedEvent);
 				},
 				OnBackClicked = () =>
 				{
-					CheckForOpenRateAndReviewPromptUI();
-					
 					_statechartTrigger(_backButtonClickedEvent);
 				},
 			};

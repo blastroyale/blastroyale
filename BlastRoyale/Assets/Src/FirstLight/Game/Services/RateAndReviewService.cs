@@ -26,13 +26,12 @@ namespace FirstLight.Game.Services
 		
 		public RateAndReviewService(IMessageBrokerService msgBroker, LocalPrefsService localPrefsService)
 		{
-			_localPrefsService = localPrefsService;
-			
 			if (!FeatureFlags.REVIEW_PROMPT_ENABLED || localPrefsService.RateAndReviewPromptShown)
 			{
 				return;
 			}
-			
+		
+			_localPrefsService = localPrefsService;
 			_rateAndReviewComponent = new GameObject("Rate And Review").AddComponent<RateAndReview>();
 			Object.DontDestroyOnLoad(_rateAndReviewComponent.gameObject);
 

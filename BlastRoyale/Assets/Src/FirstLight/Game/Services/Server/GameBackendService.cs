@@ -7,7 +7,6 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
@@ -83,17 +82,17 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Handles an incoming error. Sends outgoing messages, analytics and calls back
 		/// </summary>
-		void HandleError(PlayFabError error, Action<PlayFabError> callback, AnalyticsCallsErrors.ErrorType errorType);
+		void HandleError(PlayFabError error, Action<PlayFabError> callback);
 
 		/// <summary>
 		/// Handle an unrecoverable exception in the game, it will close and send analytics
 		/// </summary>
-		void HandleUnrecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType);
+		void HandleUnrecoverableException(Exception ex);
 
 		/// <summary>
 		/// Will handle a recoverable exception, making sure it will get to all analytics services
 		/// </summary>
-		void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable);
+		void HandleRecoverableException(Exception ex);
 
 		/// <summary>
 		/// Returns if the game is running on dev env. On dev things can be different.
@@ -102,13 +101,13 @@ namespace FirstLight.Game.Services
 
 		/// <summary>
 		/// Returns true for environments that run server-side simulation
+		/// </summary>
 		bool RunsSimulationOnServer();
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
 	public interface IInternalGameBackendService : IGameBackendService
 	{
-		
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -134,7 +133,7 @@ namespace FirstLight.Game.Services
 		public void GetPlayerSegments(Action<List<GetSegmentResult>> onSuccess, Action<PlayFabError> onError)
 		{
 			PlayFabClientAPI.GetPlayerSegments(new GetPlayerSegmentsRequest(), r => { onSuccess(r.Segments); },
-				e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
+				e => { HandleError(e, onError); });
 		}
 
 		public void SetupBackendEnvironment(FLEnvironment.Definition? forceEnvironment)
@@ -200,7 +199,7 @@ namespace FirstLight.Game.Services
 				}
 #endif
 				onSuccess(inSync);
-			}, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
+			}, e => { HandleError(e, onError); });
 		}
 
 		/// <inheritdoc />
@@ -223,7 +222,7 @@ namespace FirstLight.Game.Services
 				}
 
 				onSuccess(res);
-			}, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
+			}, e => { HandleError(e, onError); });
 		}
 
 		/// <summary>
@@ -241,12 +240,10 @@ namespace FirstLight.Game.Services
 			return null;
 		}
 
-		public void HandleError(PlayFabError error, Action<PlayFabError> callback, AnalyticsCallsErrors.ErrorType errorType)
+		public void HandleError(PlayFabError error, Action<PlayFabError> callback)
 		{
 			var descriptiveError = error.GenerateErrorReport();
 			FLog.Error(descriptiveError);
-
-			_services.AnalyticsService.ErrorsCalls.ReportError(errorType, error.ErrorMessage);
 
 			_services.MessageBrokerService?.Publish(new ServerHttpErrorMessage()
 				{ErrorCode = (HttpStatusCode) error.HttpCode, Message = descriptiveError});
@@ -254,19 +251,17 @@ namespace FirstLight.Game.Services
 			callback?.Invoke(error);
 		}
 
-		public void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable)
+		public void HandleRecoverableException(Exception ex)
 		{
 			// Unfortunately we have to log as an Error to send to crash analytics, and it is impossible to send exceptions manually :( 
 			FLog.Error("recoverable exception", ex);
-			_services.AnalyticsService.ErrorsCalls.ReportError(errorType, ex.Message);
 		}
 
 		/// <inheritdoc/>
-		public void HandleUnrecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType)
+		public void HandleUnrecoverableException(Exception ex)
 		{
 			FLog.Error("unrecoverable exception", ex);
 			var descriptiveError = $" {ex.Message}";
-			_services.AnalyticsService.ErrorsCalls.ReportError(errorType, ex.Message);
 #if UNITY_EDITOR
 			FLog.Error(descriptiveError);
 			var confirmButton = new GenericDialogButton
@@ -274,7 +269,6 @@ namespace FirstLight.Game.Services
 				ButtonText = "OK",
 				ButtonOnClick = () =>
 				{
-					_services.AnalyticsService.CrashLog(descriptiveError);
 					_services.QuitGame(descriptiveError);
 				}
 			};
@@ -295,7 +289,7 @@ namespace FirstLight.Game.Services
 
 		public bool IsDev()
 		{
-			return FLEnvironment.Current.Name == "development";
+			return FLEnvironment.Current.Name == FLEnvironment.DEVELOPMENT.Name;
 		}
 
 		public bool RunsSimulationOnServer()
@@ -318,7 +312,7 @@ namespace FirstLight.Game.Services
 					.ToDictionary(entry => entry.Key,
 						entry =>
 							entry.Value.Value)));
-			}, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
+			}, e => { HandleError(e, onError); });
 		}
 
 		/// <summary>
@@ -334,7 +328,7 @@ namespace FirstLight.Game.Services
 				}
 
 				onSuccess.Invoke(data);
-			}, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
+			}, e => { HandleError(e, onError); });
 		}
 
 		public bool IsGameInMaintenance()

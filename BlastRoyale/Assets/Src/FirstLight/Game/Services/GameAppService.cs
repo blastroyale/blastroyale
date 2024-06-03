@@ -24,7 +24,6 @@ namespace FirstLight.Game.Services
 		private static readonly TimeSpan _heartBeatTest = TimeSpan.FromSeconds(5);
 		private static readonly TimeSpan _heartBeat = TimeSpan.FromSeconds(30);
 		private DateTime _pauseTime;
-		private UniTask _heartbeatTask;
 		private bool _paused;
 
 		public GameAppService(IGameServices services)
@@ -37,16 +36,6 @@ namespace FirstLight.Game.Services
 			_services = services;
 			_services.MessageBrokerService.Subscribe<ApplicationFocusMessage>(OnApplicationFocus);
 			_services.MessageBrokerService.Subscribe<ApplicationPausedMessage>(OnApplicationPause);
-			_heartbeatTask = HeartbeatTask();
-		}
-
-		private async UniTask HeartbeatTask()
-		{
-			while (true)
-			{
-				_services?.AnalyticsService.SessionCalls.Heartbeat();
-				await UniTask.Delay(FLGTestRunner.Instance.IsRunning() ? _heartBeatTest : _heartBeat);
-			}
 		}
 
 		private void HandleGamePaused()

@@ -3,7 +3,6 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Services;
-using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
@@ -282,9 +281,6 @@ namespace FirstLight.Game.Presenters
 
 		private void OnRecoveryEmailError(PlayFabError error)
 		{
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
-				GetErrorString(error));
-
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,

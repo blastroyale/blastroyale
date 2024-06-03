@@ -1,4 +1,4 @@
-using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Game.Services.Analytics;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using UnityEngine;

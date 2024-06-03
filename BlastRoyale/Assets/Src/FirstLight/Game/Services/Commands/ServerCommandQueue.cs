@@ -169,7 +169,6 @@ namespace FirstLight.Game.Services
 					ButtonText = "OK",
 					ButtonOnClick = () =>
 					{
-						_services.AnalyticsService.CrashLog(exceptionMsg);
 						_services.QuitGame(exceptionMsg);
 					}
 				};

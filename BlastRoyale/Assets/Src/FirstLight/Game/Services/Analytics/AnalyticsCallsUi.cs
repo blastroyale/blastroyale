@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
-using FirstLight.UiService;
+using FirstLight.Game.Services.Analytics.Events;
 
-namespace FirstLight.Game.Services.AnalyticsHelpers
+namespace FirstLight.Game.Services.Analytics
 {
 	public static class UIAnalyticsButtonsNames
 	{
@@ -28,12 +26,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			screenName = screenName.Replace("FirstLight.Game.Presenters.", "");
 			screenName = screenName.Replace("Presenter", "");
 
-			var data = new Dictionary<string, object>
-			{
-				{"screen_name", screenName}
-			};
-
-			_analyticsService.LogEvent(AnalyticsEvents.ScreenView, data);
+			_analyticsService.LogEvent(new ScreenViewEvent(screenName));
 		}
 
 		/// <summary>
@@ -42,12 +35,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// <param name="buttonName">A name that identifies the button we clicked</param>
 		public void ButtonAction(string buttonName)
 		{
-			var data = new Dictionary<string, object>
-			{
-				{"button", buttonName}
-			};
-
-			_analyticsService.LogEvent(AnalyticsEvents.ButtonAction, data);
+			_analyticsService.LogEvent(new ButtonActionEvent(buttonName));
 		}
 	}
 }

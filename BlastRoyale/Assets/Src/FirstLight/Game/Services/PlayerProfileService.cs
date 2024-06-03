@@ -1,6 +1,5 @@
 using System;
 using FirstLight.Game.Logic.RPC;
-using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using UnityEngine;
@@ -39,7 +38,7 @@ namespace FirstLight.Game.Services
 			{
 				var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(r.FunctionResult.ToString());
 				onSuccess(ModelSerializer.DeserializeFromData<PublicPlayerProfile>(serverResult.Result.Data));
-			}, e => { _backend.HandleError(e, null, AnalyticsCallsErrors.ErrorType.Recoverable); }, new LogicRequest()
+			}, e => { _backend.HandleError(e, null); }, new LogicRequest()
 			{
 				Command = playerId
 			});

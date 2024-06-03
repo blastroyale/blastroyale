@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Services;
-using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
 using PlayFab;
@@ -32,15 +31,15 @@ namespace FirstLight.Tests.EditorMode
 			return null;
 		}
 
-		public void HandleError(PlayFabError error, Action<PlayFabError> callback, AnalyticsCallsErrors.ErrorType errorType)
+		public void HandleError(PlayFabError error, Action<PlayFabError> callback)
 		{
 		}
 
-		public void HandleUnrecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType)
+		public void HandleUnrecoverableException(Exception ex)
 		{
 		}
 
-		public void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable)
+		public void HandleRecoverableException(Exception ex)
 		{
 		}
 

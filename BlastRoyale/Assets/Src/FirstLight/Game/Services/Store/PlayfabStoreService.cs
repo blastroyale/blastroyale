@@ -6,7 +6,6 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic.RPC;
-using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLightServerSDK.Services;
@@ -156,9 +155,8 @@ namespace FirstLight.Game.Services
 
 		private void HandlePlayfabRequestError(PlayFabError error)
 		{
-			_backend.HandleError(error, null, AnalyticsCallsErrors.ErrorType.Recoverable);
+			_backend.HandleError(error, null);
 		}
-
 
 		public void AskBackendForItem(Product product, Action<Product, ItemData> onRewarded)
 		{

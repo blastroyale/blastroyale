@@ -8,6 +8,7 @@ using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services.Analytics;
 using FirstLight.Game.Utils;
 using FirstLight.Models;
 using FirstLight.SDK.Services;
@@ -194,7 +195,6 @@ namespace FirstLight.Game.Services
 				CatalogItemId = product.PlayfabProductConfig.CatalogItem.ItemId
 			});
 			PurchaseFinished?.Invoke(item, true);
-			_analyticsService.EconomyCalls.PurchaseIngameItem(product.UnityIapProduct(), item, price.item.ToString(), price.price);
 		}
 
 		/// <summary>
@@ -256,14 +256,6 @@ namespace FirstLight.Game.Services
 			});
 			_unityStore.Controller.ConfirmPendingPurchase(product);
 			PurchaseFinished?.Invoke(item, true);
-			SendAnalyticsEvent(product, item);
-		}
-
-		private void SendAnalyticsEvent(Product product, ItemData reward)
-		{
-			if (_gameBackendService.IsDev()) return;
-			var price = product.metadata.localizedPrice;
-			_analyticsService.EconomyCalls.Purchase(product, reward, price, NET_INCOME_MODIFIER);
 		}
 	}
 }

@@ -39,7 +39,6 @@ namespace FirstLight.Game.TestCases
 		}
 
 		private readonly List<string> _errors = new ();
-		private bool _isGameAwaken = false;
 		private bool _failCalled = false;
 		private PlayTestCase? _runningTest;
 		private TestRunnerBehaviour _testRunnerBehaviour = null!;
@@ -65,22 +64,6 @@ namespace FirstLight.Game.TestCases
 			yield return Run(testCase, true);
 		}
 
-		private void PublishTestResult(bool success, string message)
-		{
-			if (_runningTest == null || !_isGameAwaken)
-			{
-				return;
-			}
-
-			MainInstaller.ResolveServices().AnalyticsService.LogEvent("test_result",
-				new Dictionary<string, object>()
-				{
-					{"test_result", success ? "success" : "error"},
-					{"test_message", message.Length > 60 ? message.Substring(0, 60) : message},
-					{"exceptions", _errors.Count},
-				});
-		}
-
 
 		public IEnumerator Fail(string reason)
 		{
@@ -91,7 +74,6 @@ namespace FirstLight.Game.TestCases
 
 			_failCalled = true;
 			_testLabManager.AppendResult(false, reason);
-			PublishTestResult(false, reason);
 
 			// Idk what happens with metrics if quit instant
 			yield return new WaitForSeconds(5);
@@ -138,7 +120,6 @@ namespace FirstLight.Game.TestCases
 				yield break;
 			}
 
-			PublishTestResult(true, _errors.Count > 0 ? "Test finished with exceptions!" : "Success test!");
 			_testLabManager.AppendResult(true, _errors.Count > 0 ? "Test finished with exceptions!" : "Success test!");
 
 
@@ -237,12 +218,6 @@ namespace FirstLight.Game.TestCases
 			if (_runningTest == null) return;
 			_helpers?.OnGameAwaken();
 			_runningTest.AfterGameAwaken();
-			_isGameAwaken = true;
-			MainInstaller.ResolveServices().AnalyticsService.LogEvent("test_started",
-				new Dictionary<string, object>()
-				{
-					{"name", _runningTest.GetType().Name},
-				});
 		}
 	}
 }

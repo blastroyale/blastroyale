@@ -360,8 +360,6 @@ namespace FirstLight.Game.Services.Party
 				_operationInProgress.Value = false;
 				_accessSemaphore.Release();
 			}
-
-			SendAnalyticsAction("Create");
 		}
 
 		/// <summary>
@@ -458,8 +456,6 @@ namespace FirstLight.Game.Services.Party
 				_operationInProgress.Value = false;
 				_accessSemaphore.Release();
 			}
-
-			SendAnalyticsAction("Join");
 		}
 
 		public async UniTask SetLobbyProperty(string key, string value, bool bumpReadyVersion)
@@ -601,8 +597,6 @@ namespace FirstLight.Game.Services.Party
 				_operationInProgress.Value = false;
 				if (useSemaphore) _accessSemaphore.Release();
 			}
-
-			SendAnalyticsAction("Kick");
 		}
 
 		public async UniTask Promote(string playfabID)
@@ -638,8 +632,6 @@ namespace FirstLight.Game.Services.Party
 				_operationInProgress.Value = false;
 				_accessSemaphore.Release();
 			}
-
-			SendAnalyticsAction("PromoteMember");
 		}
 
 		/// <summary>
@@ -705,8 +697,6 @@ namespace FirstLight.Game.Services.Party
 				_operationInProgress.Value = false;
 				_accessSemaphore.Release();
 			}
-
-			SendAnalyticsAction("Leave", lobbyId, members);
 		}
 
 		/// <summary>
@@ -761,7 +751,6 @@ namespace FirstLight.Game.Services.Party
 		public async UniTask Ready(bool ready)
 		{
 			await SetMemberProperty(PartyMember.READY_MEMBER_PROPERTY, ready ? ReadyKey() : "nope");
-			SendAnalyticsAction($"Ready {ready}");
 		}
 
 		private CancellationTokenSource _readyBuffercancel = null;
@@ -905,7 +894,6 @@ namespace FirstLight.Game.Services.Party
 
 		private void LocalPlayerKicked()
 		{
-			SendAnalyticsAction("Kicked");
 			ResetState();
 			OnLocalPlayerKicked?.Invoke();
 		}
@@ -931,28 +919,6 @@ namespace FirstLight.Game.Services.Party
 			{
 				_lobbyProperties.Remove(key);
 			}
-		}
-
-		private void SendAnalyticsAction(string action, string overwriteLobbyId = null, string overwriteMembersString = null)
-		{
-			var lobby = overwriteLobbyId ?? _lobbyId;
-			var members = "";
-			if (overwriteMembersString != null)
-			{
-				members = overwriteMembersString;
-			}
-			else if (_members is {Count: > 0})
-			{
-				members = MembersAsString();
-			}
-
-			MainInstaller.Resolve<IGameServices>().AnalyticsService.LogEvent("team_action", new AnalyticsData()
-			{
-				{"action", action},
-				{"user_id", PlayFabSettings.staticPlayer.PlayFabId},
-				{"team_id", lobby},
-				{"members", members}
-			});
 		}
 	}
 }

@@ -4,6 +4,7 @@ using FirstLight.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Match;
+using FirstLight.Game.Services.Analytics;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Services.Collection;

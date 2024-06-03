@@ -35,7 +35,6 @@ namespace FirstLight.Game
 		private void OnApplicationQuit()
 		{
 			_services?.MessageBrokerService?.Publish(new ApplicationQuitMessage());
-			_services?.AnalyticsService?.SessionCalls?.SessionEnd(_services?.QuitReason);
 		}
 	}
 }

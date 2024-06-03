@@ -5,7 +5,6 @@ using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using PlayFab;
@@ -183,7 +182,7 @@ namespace FirstLight.Game.Services
 
 		private void LeaderboardError(PlayFabError error)
 		{
-			_services.GameBackendService.HandleError(error, null, AnalyticsCallsErrors.ErrorType.Session);
+			_services.GameBackendService.HandleError(error, null);
 		}
 
 		private void OnLogin(LoginResult login)

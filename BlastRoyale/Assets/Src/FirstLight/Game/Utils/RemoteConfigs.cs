@@ -18,6 +18,11 @@ namespace FirstLight.Game.Utils
 		/// Shows or hides the BETA tag on home screen.
 		/// </summary>
 		public bool ShowBetaLabel = false;
+
+		/// <summary>
+		/// The number of games played required to show a review prompt
+		/// </summary>
+		public int ReviewPromptGamesPlayedReq = 4;
 		
 		/// <summary>
 		/// If rooms should be created with a commit lock (only clients on the same commit

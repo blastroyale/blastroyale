@@ -22,7 +22,7 @@ namespace FirstLight.Game.Services
 		private RateAndReview _rateAndReviewComponent;
 		private LocalPrefsService _localPrefsService;
 		private bool _canShowPrompt;
-		private const int GAMES_PLAYED_REQUIRED = 4;
+
 		
 		public RateAndReviewService(IMessageBrokerService msgBroker, LocalPrefsService localPrefsService)
 		{
@@ -47,7 +47,7 @@ namespace FirstLight.Game.Services
 		
 		private void OnBattlePassLevelUpMessage(BattlePassLevelUpMessage message)
 		{
-			if (_localPrefsService.GamesPlayed.Value < GAMES_PLAYED_REQUIRED)
+			if (_localPrefsService.GamesPlayed.Value < RemoteConfigs.Instance.ReviewPromptGamesPlayedReq)
 			{
 				return;
 			}
@@ -57,7 +57,7 @@ namespace FirstLight.Game.Services
 
 		private void OnCollectionItemEquippedMessage(CollectionItemEquippedMessage message)
 		{
-			if (_localPrefsService.GamesPlayed.Value < GAMES_PLAYED_REQUIRED)
+			if (_localPrefsService.GamesPlayed.Value < RemoteConfigs.Instance.ReviewPromptGamesPlayedReq)
 			{
 				return;
 			}
@@ -79,7 +79,7 @@ namespace FirstLight.Game.Services
 
 		private void OnPlayScreenOpenedMessage(PlayScreenOpenedMessage message)
 		{
-			if (_localPrefsService.GamesPlayed.Value < GAMES_PLAYED_REQUIRED)
+			if (_localPrefsService.GamesPlayed.Value < RemoteConfigs.Instance.ReviewPromptGamesPlayedReq)
 			{
 				_canShowPrompt = false;
 				

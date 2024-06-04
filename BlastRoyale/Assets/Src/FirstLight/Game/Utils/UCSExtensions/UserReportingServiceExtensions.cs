@@ -1,14 +1,13 @@
 using System;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
 using Unity.Services.UserReporting;
 
-namespace FirstLight.Game.Utils
+namespace FirstLight.Game.Utils.UCSExtensions
 {
 	/// <summary>
 	/// Async extensions for the UserReportingService.
 	/// </summary>
-	public static class UserReportingAsyncExtensions
+	public static class UserReportingServiceExtensions
 	{
 		/// <inheritdoc cref="IUserReporting.CreateNewUserReport"/>
 		public static UniTask CreateNewUserReportAsync(this IUserReporting userReportingService)
@@ -31,15 +30,16 @@ namespace FirstLight.Game.Utils
 			userReportingService.SendUserReport(p =>
 			{
 				progress?.Invoke(p);
-			}, (result) =>
+			}, result =>
 			{
 				if (!result)
 				{
-					FLog.Error("Error sending user report.");
-					return;
+					completionSource.TrySetException(new Exception("Error sending user report."));
 				}
-
-				completionSource.TrySetResult();
+				else
+				{
+					completionSource.TrySetResult();
+				}
 			});
 
 			return completionSource.Task;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -7,6 +8,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.UIService;
 using Newtonsoft.Json;
 using Unity.Services.Authentication;
@@ -19,7 +21,7 @@ namespace FirstLight.Game.Presenters
 	[UILayer(UILayer.Debug)]
 	public class UserReportScreenPresenter : UIPresenter
 	{
-		private readonly List<string> CATEGORIES = new List<string>
+		private readonly List<string> _categories = new ()
 		{
 			"Gameplay",
 			"Account",
@@ -52,10 +54,17 @@ namespace FirstLight.Game.Presenters
 
 			_sendButton.Required().clicked += () => SendReport().Forget();
 			Root.Q<ImageButton>("ExitButton").clicked += ClosePopup;
-			;
+
 			Root.Q<ImageButton>("Icon").Required().clicked += () => OnOpenReportClicked().Forget();
 
-			_categoryField.choices = CATEGORIES;
+			if (Debug.isDebugBuild)
+			{
+				// Development build default to "Internal" category since we don't really need categories for internal reports.
+				_categories.Insert(0, "Internal");
+				_categoryField.value = _categories[0];
+			}
+
+			_categoryField.choices = _categories;
 
 			_reportContainer.SetDisplay(false);
 			_progressBar.SetVisibility(false);
@@ -77,12 +86,11 @@ namespace FirstLight.Game.Presenters
 			_summaryInput.SetEnabled(true);
 			_descriptionInput.SetEnabled(true);
 			_categoryField.SetEnabled(true);
+			_categoryField.value = _categories[0];
 			_progressBar.SetVisibility(false);
 			_screenshot.style.backgroundImage = null;
-			_categoryField.value = string.Empty;
 			_descriptionInput.value = string.Empty;
 			_summaryInput.value = string.Empty;
-			_categoryField.value = CATEGORIES[0];
 		}
 
 		private async UniTaskVoid SendReport()
@@ -99,7 +107,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			if (string.IsNullOrWhiteSpace(_descriptionInput.value))
+			if (!Debug.isDebugBuild && string.IsNullOrWhiteSpace(_descriptionInput.value))
 			{
 				_descriptionInput.AnimatePing(1.1f);
 				return;
@@ -112,6 +120,7 @@ namespace FirstLight.Game.Presenters
 			_descriptionInput.SetEnabled(false);
 			_categoryField.SetEnabled(false);
 
+			FLog.Info("Gathering data for user report");
 			var playfabId = MainInstaller.ResolveServices().NetworkService.UserId;
 			var ucsId = AuthenticationService.Instance.PlayerId;
 			var logFileBytes = await File.ReadAllBytesAsync(FLog.GetCurrentLogFilePath());
@@ -119,6 +128,7 @@ namespace FirstLight.Game.Presenters
 				Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_services.DataService.GetData<PlayerData>(), Formatting.Indented));
 			var appDataBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_services.DataService.GetData<AppData>(), Formatting.Indented));
 
+			FLog.Info("Adding data to user report");
 			UserReportingService.Instance.AddAttachmentToReport("Log", "log.txt", logFileBytes, "text/plain");
 			UserReportingService.Instance.AddAttachmentToReport("PlayerData", "player_data.json", playerDataBytes, "application/json");
 			UserReportingService.Instance.AddAttachmentToReport("AppData", "app_data.json", appDataBytes, "application/json");
@@ -126,6 +136,7 @@ namespace FirstLight.Game.Presenters
 			UserReportingService.Instance.AddMetadata("playfab_user_id", playfabId);
 			UserReportingService.Instance.AddMetadata("ucs_user_id", ucsId);
 
+			FLog.Info("Creating user report");
 			await UserReportingService.Instance.CreateNewUserReportAsync();
 
 			UserReportingService.Instance.AddDimensionValue("environment", FLEnvironment.Current.UCSEnvironmentName);
@@ -134,10 +145,20 @@ namespace FirstLight.Game.Presenters
 			UserReportingService.Instance.SetReportSummary(_summaryInput.value);
 			UserReportingService.Instance.SetReportDescription(_descriptionInput.value);
 
-			await UserReportingService.Instance.SendUserReportAsync(progress => _progressBar.value = progress * 0.9f);
-
-			_progressBar.value = 1f;
-			_progressBar.title = "Report sent! Thank you!";
+			try
+			{
+				FLog.Info("Sending user report");
+				await UserReportingService.Instance.SendUserReportAsync(progress => _progressBar.value = progress * 0.9f);
+				_progressBar.value = 1f;
+				_progressBar.title = "Report sent! Thank you!";
+				FLog.Info("User report sent!");
+			}
+			catch (Exception)
+			{
+				_progressBar.value = 1f;
+				_progressBar.title = "Error sending report. Please try again.";
+				FLog.Error("Error sending user report :(");
+			}
 		}
 	}
 }

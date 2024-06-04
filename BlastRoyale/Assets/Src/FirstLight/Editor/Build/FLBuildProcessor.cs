@@ -50,7 +50,7 @@ namespace FirstLight.Editor.Build
 
 			// Android
 			File.Copy(Path.Combine(configDirectory, $"google-services-{environment}.json"),
-				Path.Combine(Application.streamingAssetsPath, "google-services.plist"), true);
+				Path.Combine(Application.streamingAssetsPath, "google-services.json"), true);
 		}
 
 		private static void GenerateEnvironment(string environment)

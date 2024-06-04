@@ -19,6 +19,9 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public bool ShowBetaLabel = false;
 
+		/// <summary>
+		/// Enables or disables showing review prompt to a user
+		/// </summary>
 		public bool EnableReviewPrompt = true;
 		
 		/// <summary>

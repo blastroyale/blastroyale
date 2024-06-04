@@ -69,6 +69,9 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public ObservableField<bool> RateAndReviewPromptShown { get; } = CreateBoolSetting(nameof(RateAndReviewPromptShown), false);
 
+		/// <summary>
+		/// Number of games played 
+		/// </summary>
 		public ObservableField<int> GamesPlayed { get; } = CreateIntSetting(nameof(GamesPlayed), 0);
 		
 		private static ObservableField<bool> CreateBoolSetting(string key, bool defaultValue)

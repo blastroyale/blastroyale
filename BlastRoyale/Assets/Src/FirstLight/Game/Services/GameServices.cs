@@ -103,7 +103,7 @@ namespace FirstLight.Game.Services
 
 		public IPartyService PartyService { get; }
 		
-		public IRateAndReviewService RateAndReviewService { get; }
+		public RateAndReviewService RateAndReviewService { get; }
 
 		/// <inheritdoc cref="IPlayfabPubSubService"/>
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
@@ -167,8 +167,7 @@ namespace FirstLight.Game.Services
 		public IMatchmakingService MatchmakingService { get; }
 		public IIAPService IAPService { get; }
 		public IPartyService PartyService { get; }
-		
-		public IRateAndReviewService RateAndReviewService { get; }
+		public RateAndReviewService RateAndReviewService { get; }
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
 		public UIVFXService UIVFXService { get; }
@@ -222,7 +221,6 @@ namespace FirstLight.Game.Services
 
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider, LocalPrefsService);
-			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			RewardService = new RewardService(this, gameLogic);

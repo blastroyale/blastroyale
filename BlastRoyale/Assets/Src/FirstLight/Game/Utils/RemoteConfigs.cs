@@ -19,6 +19,8 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public bool ShowBetaLabel = false;
 
+		public bool EnableReviewPrompt = true;
+		
 		/// <summary>
 		/// The number of games played required to show a review prompt
 		/// </summary>

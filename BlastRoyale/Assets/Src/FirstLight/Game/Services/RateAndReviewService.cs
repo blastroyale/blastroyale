@@ -20,22 +20,27 @@ namespace FirstLight.Game.Services
 		
 		public RateAndReviewService(IMessageBrokerService msgBroker, LocalPrefsService localPrefsService)
 		{
-			if (!FeatureFlags.REVIEW_PROMPT_ENABLED || localPrefsService.RateAndReviewPromptShown)
+			_localPrefsService = localPrefsService;
+			_messageBrokerService = msgBroker;
+		}
+
+		public void Init()
+		{
+			if (!RemoteConfigs.Instance.EnableReviewPrompt || _localPrefsService.RateAndReviewPromptShown)
 			{
 				return;
 			}
-		
-			_localPrefsService = localPrefsService;
+			
 			_rateAndReviewComponent = new GameObject("Rate And Review").AddComponent<RateAndReview>();
 			Object.DontDestroyOnLoad(_rateAndReviewComponent.gameObject);
 
-			_messageBrokerService = msgBroker;
+			
 			_messageBrokerService.Subscribe<PlayScreenOpenedMessage>(OnPlayScreenOpenedMessage);
 			_messageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_messageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCollectionItemEquippedMessage);
 			_messageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUpMessage);
 		}
-		
+
 		private void OnBattlePassLevelUpMessage(BattlePassLevelUpMessage message)
 		{
 			if (_localPrefsService.GamesPlayed.Value < RemoteConfigs.Instance.ReviewPromptGamesPlayedReq)

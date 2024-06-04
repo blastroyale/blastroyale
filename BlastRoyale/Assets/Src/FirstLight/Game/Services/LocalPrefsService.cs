@@ -90,22 +90,6 @@ namespace FirstLight.Game.Services
 			}
 		}
 		
-		private static ObservableField<int> CreateIntSetting(string key, int defaultValue)
-		{
-			return new ObservableResolverField<int>(() => GetInt(key, defaultValue), val => SetInt(key, val));
-
-			static int GetInt(string key, int defaultValue)
-			{
-				return PlayerPrefs.GetInt(ConstructKey(key), defaultValue);
-			}
-
-			static void SetInt(string key, int value)
-			{
-				PlayerPrefs.SetInt(ConstructKey(key), value);
-				PlayerPrefs.Save();
-			}
-		}
-
 		private static ObservableField<string> CreateStringSetting(string key, string defaultValue)
 		{
 			return new ObservableResolverField<string>(() => GetString(key, defaultValue), val => SetString(key, val));

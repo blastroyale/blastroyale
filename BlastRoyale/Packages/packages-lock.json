@@ -534,9 +534,9 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.services.user-reporting": {
-      "version": "2.0.11",
+      "version": "file:com.unity.services.user-reporting@2.0.11",
       "depth": 0,
-      "source": "registry",
+      "source": "embedded",
       "dependencies": {
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.unitywebrequesttexture": "1.0.0",
@@ -545,8 +545,7 @@
         "com.unity.services.core": "1.12.5",
         "com.unity.modules.screencapture": "1.0.0",
         "com.unity.ugui": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
+      }
     },
     "com.unity.services.wire": {
       "version": "1.2.5",

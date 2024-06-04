@@ -11,18 +11,12 @@ namespace FirstLight.Game.Services
 	/// <summary>
 	/// This service handles logic for determining showing review prompt 
 	/// </summary>
-	public interface IRateAndReviewService
-	{
-	}
-
-	/// <inheritdoc />
-	public class RateAndReviewService : IRateAndReviewService
+	public class RateAndReviewService
 	{
 		private readonly IMessageBrokerService _messageBrokerService;
 		private RateAndReview _rateAndReviewComponent;
 		private LocalPrefsService _localPrefsService;
 		private bool _canShowPrompt;
-
 		
 		public RateAndReviewService(IMessageBrokerService msgBroker, LocalPrefsService localPrefsService)
 		{
@@ -40,8 +34,6 @@ namespace FirstLight.Game.Services
 			_messageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_messageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCollectionItemEquippedMessage);
 			_messageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUpMessage);
-			
-			FLog.Info($"RateAndReviewService->ctr");
 		}
 		
 		private void OnBattlePassLevelUpMessage(BattlePassLevelUpMessage message)

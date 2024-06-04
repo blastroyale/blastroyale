@@ -8,7 +8,6 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Collections;
-using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;

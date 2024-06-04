@@ -519,14 +519,18 @@ namespace FirstLight.Game.Services
 
 		private async UniTask PostUnityAuth(Action onComplete)
 		{
-			await RemoteConfigs.Init();
+			var tasks = new List<UniTask>();
+			
+			tasks.Add(RemoteConfigs.Init());
 			var friendsInitOpts = new InitializeOptions()
 				.WithEvents(true)
 				.WithMemberPresence(true)
 				.WithMemberProfile(true);
-			await FriendsService.Instance.InitializeAsync(friendsInitOpts).AsUniTask();
-			await AuthenticationService.Instance.GetPlayerNameAsync(); // We fetch the name (which generates a new one) so it's stored in the cache
-			await CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId);
+			tasks.Add(FriendsService.Instance.InitializeAsync(friendsInitOpts).AsUniTask());
+			tasks.Add(AuthenticationService.Instance.GetPlayerNameAsync().AsUniTask()); // We fetch the name (which generates a new one) so it's stored in the cache
+			tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId));
+			await UniTask.WhenAll(tasks);
+			_services.RateAndReviewService.Init();
 			onComplete();
 		}
 

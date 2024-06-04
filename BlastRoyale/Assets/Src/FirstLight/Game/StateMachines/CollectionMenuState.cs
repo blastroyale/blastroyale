@@ -1,13 +1,12 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Statechart;
 using Quantum;
+
 
 namespace FirstLight.Game.StateMachines
 {
@@ -54,14 +53,21 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(SendLoadoutUpdateCommand);
 		}
 
+		
 		private void OpenCollectionScreen()
 		{
 			var data = new CollectionScreenPresenter.StateData
 			{
-				OnHomeClicked = () => _statechartTrigger(_closeButtonClickedEvent),
-				OnBackClicked = () => _statechartTrigger(_backButtonClickedEvent),
+				OnHomeClicked = () =>
+				{
+					_statechartTrigger(_closeButtonClickedEvent);
+				},
+				OnBackClicked = () =>
+				{
+					_statechartTrigger(_backButtonClickedEvent);
+				},
 			};
-
+			
 			_services.UIService.OpenScreen<CollectionScreenPresenter>(data).Forget();
 		}
 

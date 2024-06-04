@@ -1,11 +1,18 @@
 {
     "name": "FirstLight.NativeUi",
-    "references": [],
+    "rootNamespace": "",
+    "references": [
+        "GUID:4139e191aa32f459e9eb2e331225ad7e",
+        "GUID:b649415412a3d4e8a83df256b07478bb",
+        "GUID:b4318b6f3695442c4983c360248781db"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
-    "precompiledReferences": [],
+    "precompiledReferences": [
+        ""
+    ],
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],

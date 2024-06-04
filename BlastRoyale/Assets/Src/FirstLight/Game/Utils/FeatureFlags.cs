@@ -193,7 +193,7 @@ namespace FirstLight.Game.Utils
 		/// Should game fetch remote web3 collections
 		/// </summary>
 		public static bool REMOTE_COLLECTIONS = false;
-
+		
 		/// <summary>
 		/// Only for testing.
 		/// When true, you will become invisible when entering bushes.
@@ -263,7 +263,7 @@ namespace FirstLight.Game.Utils
 			{
 				IMX_ID = imxId;
 			}
-
+			
 			if (TrySetFlag("ENABLE_NOOB", overrideData, out var enableNoob))
 			{
 				ENABLE_NOOB = enableNoob;

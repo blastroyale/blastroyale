@@ -443,13 +443,16 @@ namespace FirstLight.Game.StateMachines
 		private void OpenBattlePassUI(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
-
+			
 			var data = new BattlePassScreenPresenter.StateData
 			{
-				BackClicked = () => { cacheActivity.Complete(); },
+				BackClicked = () =>
+				{
+					cacheActivity.Complete();
+				},
 				DisableScrollAnimation = true
 			};
-
+			
 			_services.UIService.OpenScreen<BattlePassScreenPresenter>(data).Forget();
 		}
 

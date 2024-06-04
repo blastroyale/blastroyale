@@ -20,6 +20,16 @@ namespace FirstLight.Game.Utils
 		public bool ShowBetaLabel = false;
 
 		/// <summary>
+		/// Enables or disables showing review prompt to a user
+		/// </summary>
+		public bool EnableReviewPrompt = true;
+		
+		/// <summary>
+		/// The number of games played required to show a review prompt
+		/// </summary>
+		public int ReviewPromptGamesPlayedReq = 4;
+		
+		/// <summary>
 		/// If rooms should be created with a commit lock (only clients on the same commit
 		/// can play together).
 		/// </summary>

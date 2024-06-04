@@ -16,6 +16,8 @@ namespace FirstLight.Game.Services.Collection
 {
 	public interface ICollectionService
 	{
+		bool IsDefaultItem(GameId gameId);
+		
 		UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true);
 		UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true);
 
@@ -39,7 +41,7 @@ namespace FirstLight.Game.Services.Collection
 	public class CollectionService : ICollectionService
 	{
 		// Used if the player doesn't have any skin equipped, this should never be the case is a fallback to always render something
-		private static readonly Dictionary<GameIdGroup, GameId> DefaultSkins = new ()
+		private static readonly Dictionary<GameIdGroup, GameId> DefaultItems = new ()
 		{
 			{GameIdGroup.PlayerSkin, GameId.PlayerSkinBrandMale},
 			{GameIdGroup.MeleeSkin, GameId.MeleeSkinDefault},
@@ -73,8 +75,12 @@ namespace FirstLight.Game.Services.Collection
 				new WeaponSkinCollectionHandler(_configsProvider, _assetResolver)
 			};
 		}
-		
 
+		public bool IsDefaultItem(GameId gameId)
+		{
+			return DefaultItems.ContainsValue(gameId);
+		}
+		
 		public ItemData GetCosmeticForGroup(IEnumerable<GameId> cosmeticLoadout, GameIdGroup group, bool returnDefault = true)
 		{
 			if (cosmeticLoadout != null)
@@ -87,7 +93,7 @@ namespace FirstLight.Game.Services.Collection
 					}
 				}
 			}
-			return ItemFactory.Collection(returnDefault ? DefaultSkins[group] : default);
+			return ItemFactory.Collection(returnDefault ? DefaultItems[group] : default);
 		}
 
 

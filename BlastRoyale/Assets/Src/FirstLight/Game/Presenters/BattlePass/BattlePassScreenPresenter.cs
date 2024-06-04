@@ -81,6 +81,7 @@ namespace FirstLight.Game.Presenters
 		private Dictionary<PassType, List<BattlePassSegmentData>> _segmentData;
 		private Dictionary<int, BattlepassLevelColumnElement> _levelElements;
 
+		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -541,6 +542,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var battlePassData = Data;
 			battlePassData.DisableScrollAnimation = true;
+			
 			_services.UIService.OpenScreen<RewardsScreenPresenter>(new RewardsScreenPresenter.StateData()
 			{
 				SkipSummary = true,

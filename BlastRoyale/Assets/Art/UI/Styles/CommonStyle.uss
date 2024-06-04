@@ -4,9 +4,9 @@
     --color-highlight: rgb(196, 84, 122);
     --color-default: rgb(144, 98, 227);
     --color-body: rgb(148, 45, 68);
-    --font-bold: url('project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static');
-    --font-italic: url('project://database/Assets/Art/UI/Fonts/Stawix-Italic-Static.asset?fileID=11400000&guid=7832e1fcb057c44e48fbbb2ea5135595&type=2#Stawix-Italic-Static');
-    --font-italic-dynamic: url('project://database/Assets/Art/UI/Fonts/Stawix-Italic-Dynamic.asset?fileID=11400000&guid=e9b95b0e9aa0b48e08bd5e26c6365ddc&type=2#Stawix-Italic-Dynamic');
+    --font-bold: url("project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static");
+    --font-italic: url("project://database/Assets/Art/UI/Fonts/Stawix-Italic-Static.asset?fileID=11400000&guid=7832e1fcb057c44e48fbbb2ea5135595&type=2#Stawix-Italic-Static");
+    --font-italic-dynamic: url("project://database/Assets/Art/UI/Fonts/Stawix-Italic-Dynamic.asset?fileID=11400000&guid=e9b95b0e9aa0b48e08bd5e26c6365ddc&type=2#Stawix-Italic-Dynamic");
     -unity-font-definition: var(--font-italic);
 }
 
@@ -586,7 +586,7 @@
 
 .fame-lock__icon {
     background-color: rgba(0, 0, 0, 0);
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-collection-lock.png?fileID=21300000&guid=d5576ea5fdc864a9ba95bd20ee8e9a1b&type=3#icon-collection-lock');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/icon-collection-lock.png?fileID=21300000&guid=d5576ea5fdc864a9ba95bd20ee8e9a1b&type=3#icon-collection-lock");
     width: 130px;
     height: 136px;
     -unity-background-scale-mode: scale-to-fit;
@@ -607,7 +607,7 @@
 
 .button-party__icon {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-heroes.png?fileID=21300000&guid=270a8fbd99be94e3f866a62bc26685fb&type=3#icon-heroes');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/icon-heroes.png?fileID=21300000&guid=270a8fbd99be94e3f866a62bc26685fb&type=3#icon-heroes");
     width: 116px;
     height: 80px;
     left: -42px;
@@ -719,4 +719,47 @@
     width: 48px;
     height: 48px;
     background-image: var(--sprite-home__icon-tiktok);
+}
+
+.generic-popup {
+}
+
+.generic-popup__header {
+    background-image: var(--sprite-home__background-popup-header);
+    margin-left: 9px;
+    margin-right: 9px;
+    height: 100px;
+    justify-content: center;
+}
+
+.generic-popup__title {
+    font-size: 44px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    -unity-text-align: middle-center;
+}
+
+.generic-popup__content {
+    flex-grow: 1;
+    background-image: var(--sprite-home__background-popup-generic);
+    padding: 30px;
+}
+
+.generic-popup__close-button {
+    position: absolute;
+    width: 75px;
+    background-color: rgb(255, 255, 255);
+    right: 0;
+    top: 0;
+    bottom: 0;
 }

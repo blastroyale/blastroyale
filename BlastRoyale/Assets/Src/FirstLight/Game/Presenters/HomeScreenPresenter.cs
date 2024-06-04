@@ -206,15 +206,19 @@ namespace FirstLight.Game.Presenters
 			}
 
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
-			// Root.Q<Button>("FriendsButton").Required().clicked += Data.FriendsClicked;
-			// TODO: Re-enable this
-			Root.Q<Button>("FriendsButton").Required().SetDisplay(false);
+			Root.Q<Button>("FriendsButton").Required().clicked += Data.FriendsClicked;
+			Root.Q<LocalizedButton>("SquadUpButton").Required().clicked+= ShowSquadUpPopup;
 
 			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
 
 			Root.SetupClicks(_services);
 			OnAnyPartyUpdate();
+		}
+
+		private void ShowSquadUpPopup()
+		{
+			_services.UIService.OpenScreen<SquadUpPopupPresenter>().Forget();
 		}
 
 		private void OnItemRewarded(ItemRewardedMessage msg)

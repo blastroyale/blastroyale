@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/SquadUpPopupStyle.uss?fileID=7433441132597879392&amp;guid=b21c5cef5e25b40df84326e95bae7540&amp;type=3#SquadUpPopupStyle" />
+    <ui:VisualElement name="root" class="root" style="flex-grow: 1;">
+        <FirstLight.Game.UIElements.GenericPopupElement name="Popup">
+            <ui:VisualElement name="Sidebar" style="width: 512px; padding-top: 65px; align-items: stretch;">
+                <ui:VisualElement name="CodeContainer" style="height: 296px; background-color: rgb(22, 20, 38); border-top-left-radius: 30px; border-top-right-radius: 30px; border-bottom-right-radius: 30px; border-bottom-left-radius: 30px; align-items: center; justify-content: center;">
+                    <ui:Label tabindex="-1" text="Your team code" parse-escape-sequences="true" display-tooltip-when-elided="true" name="YourCodeLabel" style="font-size: 40px; color: rgb(132, 117, 166); -unity-text-align: upper-center;" />
+                    <ui:Label text="E2G5" name="TeamCode" style="color: rgb(248, 199, 46); font-size: 72px; -unity-text-align: upper-center;" />
+                    <ui:Button text="COPY TEAM CODE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CopyCodeButton" class="button-long" />
+                </ui:VisualElement>
+                <ui:Button text="CREATE TEAM" name="CreateTeamButton" class="button-long button-long--yellow" style="align-self: center;" />
+                <ui:Button text="JOIN TEAM" name="JoinTeamButton" class="button-long" style="align-self: center;" />
+                <ui:VisualElement name="Spacer" style="flex-grow: 1;" />
+                <ui:Button text="LEAVE TEAM" name="LeaveTeamButton" class="button-long button-long--red" style="align-self: center;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="MainContent" style="flex-grow: 1; margin-left: 39px;">
+                <ui:Label tabindex="-1" text="YOUR TEAM (1)" name="YourTeamLabel" class="category-title" />
+                <ui:VisualElement name="YourTeamContainer" class="category-content" style="margin-bottom: 32px;">
+                    <ui:VisualElement style="width: 100px; height: 100px;" />
+                </ui:VisualElement>
+                <ui:Label tabindex="-1" text="YOUR TEAM (1)" name="FriendsOnline" class="category-title" />
+                <ui:VisualElement name="FriendsOnlineContainer" class="category-content" style="flex-grow: 1;">
+                    <ui:VisualElement style="width: 100px; height: 100px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.GenericPopupElement>
+    </ui:VisualElement>
+</ui:UXML>

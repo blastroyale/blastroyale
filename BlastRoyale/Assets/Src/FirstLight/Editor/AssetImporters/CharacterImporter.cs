@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using FirstLight.Editor.EditorTools;
 using FirstLight.Editor.Ids;
 using FirstLight.Game.Configs;
 using FirstLight.Game.MonoComponent.Collections;
@@ -41,9 +40,12 @@ namespace FirstLight.Editor.AssetImporters
 			importer.ExtractTextures(folder);
 
 			// Apply preset
-			// TODO mihak: Add back when the materials are fixed
-			// var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/CharacterFBX.preset");
-			// preset.ApplyTo(importer);
+			// // TODO mihak: Add back when the materials are fixed
+			var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/CharacterFBX.preset");
+			preset.ApplyTo(importer);
+
+			// For external materials
+			importer.SearchAndRemapMaterials(ModelImporterMaterialName.BasedOnMaterialName, ModelImporterMaterialSearch.Everywhere);
 		}
 
 		private void OnPreprocessAnimation()
@@ -102,18 +104,18 @@ namespace FirstLight.Editor.AssetImporters
 			}
 		}
 
-		private void OnPreprocessMaterialDescription(MaterialDescription description, Material material, AnimationClip[] animations)
-		{
-			// TODO mihak: Fix this, produces "inconsistent results" on reimport
-			// if (!Path.GetFileName(assetPath).StartsWith(CHARACTER_PREFIX)) return;
-			//
-			// material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
-			//
-			// if (description.TryGetProperty("DiffuseColor", out TexturePropertyDescription diffuseColor))
-			// {
-			// 	material.SetTexture(Shader.PropertyToID("_MainTex"), diffuseColor.texture);
-			// }
-		}
+		// TODO mihak: Fix this so we can have embedded materials, produces "inconsistent results" on reimport
+		// private void OnPreprocessMaterialDescription(MaterialDescription description, Material material, AnimationClip[] animations)
+		// {
+		// 	if (!Path.GetFileName(assetPath).StartsWith(CHARACTER_PREFIX)) return;
+		//
+		// 	material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
+		//
+		// 	if (description.TryGetProperty("DiffuseColor", out TexturePropertyDescription diffuseColor))
+		// 	{
+		// 		material.SetTexture(Shader.PropertyToID("_MainTex"), diffuseColor.texture);
+		// 	}
+		// }
 
 		/// <summary>
 		/// Sets embedded material to correct shader
@@ -150,6 +152,7 @@ namespace FirstLight.Editor.AssetImporters
 						var characterName = directoryName[CHARACTER_PREFIX.Length..];
 						var characterFBXFilename = $"{CHARACTER_PREFIX}{characterName}.fbx";
 						var characterFBXPath = Path.Combine(assetPath, characterFBXFilename);
+						var characterTexturePath = Path.Combine(assetPath, $"T_{CHARACTER_PREFIX}{characterName}.png");
 						var characterPrefabFilename = $"{CHARACTER_PREFIX}{characterName}.prefab";
 						var characterFBX = (GameObject) AssetDatabase.LoadMainAssetAtPath(characterFBXPath);
 						var animations = AssetDatabase.LoadAllAssetRepresentationsAtPath(characterFBXPath).FilterCast<AnimationClip>().ToArray();
@@ -186,6 +189,11 @@ namespace FirstLight.Editor.AssetImporters
 						PrefabUtility.SaveAsPrefabAssetAndConnect(characterPrefab, Path.Combine(assetPath, characterPrefabFilename),
 							InteractionMode.AutomatedAction, out var success);
 						Object.DestroyImmediate(characterPrefab);
+
+						// Create material
+						var material = new Material(Shader.Find("FLG/Unlit/Dynamic Object"));
+						material.mainTexture = AssetDatabase.LoadAssetAtPath<Texture>(characterTexturePath);
+						AssetDatabase.CreateAsset(material, Path.Combine(assetPath, $"M_{CHARACTER_PREFIX}{characterName}.mat"));
 
 						if (!success)
 						{

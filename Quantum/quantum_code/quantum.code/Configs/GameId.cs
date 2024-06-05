@@ -94,7 +94,8 @@ namespace Quantum
 				{
 					GameId.Fragments, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -132,7 +133,8 @@ namespace Quantum
 				{
 					GameId.FloodCity, new List<GameIdGroup>
 					{
-						GameIdGroup.Map
+						GameIdGroup.Map,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -1146,6 +1148,76 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.PlayerSkinBurger, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinFootballGuy, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinLincoln, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinLion, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinSatoshi, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinSheriff, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinSoldier, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinSwimmer, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinThief, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinVR, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
@@ -2037,6 +2109,8 @@ namespace Quantum
 				{
 					GameIdGroup.Deprecated, new List<GameId>
 					{
+						GameId.Fragments,
+						GameId.FloodCity,
 						GameId.MausHelmet,
 						GameId.SoldierHelmet,
 						GameId.RiotHelmet,
@@ -2144,6 +2218,16 @@ namespace Quantum
 						GameId.PlayerSkinBrandMale,
 						GameId.PlayerSkinGearedApe,
 						GameId.PlayerSkinPlagueDoctor,
+						GameId.PlayerSkinBurger,
+						GameId.PlayerSkinFootballGuy,
+						GameId.PlayerSkinLincoln,
+						GameId.PlayerSkinLion,
+						GameId.PlayerSkinSatoshi,
+						GameId.PlayerSkinSheriff,
+						GameId.PlayerSkinSoldier,
+						GameId.PlayerSkinSwimmer,
+						GameId.PlayerSkinThief,
+						GameId.PlayerSkinVR,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -2463,7 +2547,17 @@ namespace Quantum
 						GameId.PlayerSkinBrandFemale,
 						GameId.PlayerSkinBrandMale,
 						GameId.PlayerSkinGearedApe,
-						GameId.PlayerSkinPlagueDoctor
+						GameId.PlayerSkinPlagueDoctor,
+						GameId.PlayerSkinBurger,
+						GameId.PlayerSkinFootballGuy,
+						GameId.PlayerSkinLincoln,
+						GameId.PlayerSkinLion,
+						GameId.PlayerSkinSatoshi,
+						GameId.PlayerSkinSheriff,
+						GameId.PlayerSkinSoldier,
+						GameId.PlayerSkinSwimmer,
+						GameId.PlayerSkinThief,
+						GameId.PlayerSkinVR
 					}.AsReadOnly()
 				},
 				{

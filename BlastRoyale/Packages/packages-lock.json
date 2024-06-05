@@ -222,13 +222,13 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.asset-manager-for-unity": {
-      "version": "0.6.0",
+      "version": "0.7.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.settings-manager": "1.0.2",
-        "com.unity.cloud.assets": "1.0.0",
-        "com.unity.cloud.identity": "1.0.0"
+        "com.unity.cloud.assets": "1.2.0-exp.1",
+        "com.unity.cloud.identity": "1.2.0-exp.1"
       },
       "url": "https://packages.unity.com"
     },
@@ -252,17 +252,16 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.cloud.assets": {
-      "version": "1.0.0",
+      "version": "1.2.0-exp.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.cloud.common": "1.0.0",
-        "com.unity.editorcoroutines": "1.0.0"
+        "com.unity.cloud.common": "1.1.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.cloud.common": {
-      "version": "1.0.0",
+      "version": "1.1.0",
       "depth": 2,
       "source": "registry",
       "dependencies": {
@@ -273,7 +272,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.cloud.identity": {
-      "version": "1.0.0",
+      "version": "1.2.0-exp.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f881fce875ad24b93be717325de7dcaa
+guid: f58ee60347f2c4323baa09a628b42e43
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,11 +8,11 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Ninja
-    second: {fileID: 2100000, guid: 6ce7c19cf0c544e9f97c63bfc5708749, type: 2}
+    second: {fileID: 2100000, guid: 35ca357a3a3604dac9a105298eeffa07, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

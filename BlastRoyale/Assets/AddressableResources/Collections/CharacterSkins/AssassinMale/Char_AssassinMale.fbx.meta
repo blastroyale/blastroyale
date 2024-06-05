@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8604dd83702b14922834723a509afa7c
+guid: db8075dee993e44649cb05eb7ec2bb3a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,11 +8,11 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_AssassinMale
-    second: {fileID: 2100000, guid: f9fe482bb083e47a483b8d94ee709d33, type: 2}
+    second: {fileID: 2100000, guid: d6c019eb95f564a309cb6d20b406810c, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

@@ -29,25 +29,25 @@ variables:
 pool: linux-k8s
 
 stages:
-  - template: .pipelines/deploy-game-logic-dev.yml
+  - template: deploy-game-logic-dev.yml
     parameters:
       helmRepoPassword: $(HELM-REPO-PASSWORD)
       autoDeployIfServer: development
       dockerImage:
       
-  - template: .pipelines/deploy-game-logic-testnet.yml
+  - template: deploy-game-logic-testnet.yml
     parameters:
       helmRepoPassword: $(HELM-REPO-PASSWORD)
       autoDeployIfServer: LIVE_TESTNET_SERVER
       dockerImage: 
         
-  - template: .pipelines/deploy-game-logic-staging.yml
+  - template: deploy-game-logic-staging.yml
     parameters:
       helmRepoPassword: $(HELM-REPO-PASSWORD)
       autoDeployIfServer: staging
       dockerImage:
         
-  - template: .pipelines/deploy-game-logic-prod.yml
+  - template: deploy-game-logic-prod.yml
     parameters:
       helmRepoPassword: $(HELM-REPO-PASSWORD)
       autoDeployIfServer: production

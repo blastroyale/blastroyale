@@ -8,11 +8,6 @@ resources:
     - pipeline: build
       source: 'Game-Builds'
       trigger: true
-  repositories:
-    - repository: templates
-      type: git
-      ref: main
-      name: Infrastructure/core-templates
 
 pool:
   vmImage: "ubuntu-latest"
@@ -23,7 +18,6 @@ parameters:
 variables:
   - name: inputArtifactName
     value: 'download-link-Android'
-    
     
 steps:
   - task: DownloadSecureFile@1

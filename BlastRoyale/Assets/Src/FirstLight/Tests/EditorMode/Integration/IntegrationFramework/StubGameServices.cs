@@ -101,7 +101,7 @@ namespace FirstLight.Tests.EditorMode
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
 			PartyService = Substitute.For<IPartyService>();
-			RateAndReviewService = Substitute.For<RateAndReviewService>();
+			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic,
 				PartyService, gameLogic.AppDataProvider, LocalPrefsService);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService,

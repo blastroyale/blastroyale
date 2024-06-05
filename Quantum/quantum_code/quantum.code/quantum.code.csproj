@@ -291,6 +291,7 @@
     <Compile Include="Systems\Bots\BotShooting.cs" />
     <Compile Include="Systems\Bots\BotUpdateContext.cs" />
     <Compile Include="Systems\ChestSystem.cs" />
+    <Compile Include="Systems\CollectableChunkSystem.cs" />
     <Compile Include="Systems\DeathFlagSystem.cs" />
     <Compile Include="Systems\EntityGroupSystem.cs" />
     <Compile Include="Systems\GameItemCollectableSystem.cs" />

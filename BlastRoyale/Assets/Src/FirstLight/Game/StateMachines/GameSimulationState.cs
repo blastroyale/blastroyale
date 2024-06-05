@@ -356,6 +356,7 @@ namespace FirstLight.Game.StateMachines
 			var config = _services.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
 			var avatarUrl = AvatarHelpers.GetAvatarUrl(_gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE),
 				config);
+			var useBotBehaviour = (FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour) || FeatureFlags.GetLocalConfiguration().UseBotBehaviour;
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
@@ -368,7 +369,7 @@ namespace FirstLight.Game.StateMachines
 				LeaderboardRank = (uint) _services.LeaderboardService.CurrentRankedEntry.Position,
 				PartyId = GetTeamId(),
 				AvatarUrl = avatarUrl,
-				UseBotBehaviour = FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour,
+				UseBotBehaviour = useBotBehaviour,
 				TeamColor = _services.RoomService.CurrentRoom.LocalPlayerProperties.ColorIndex.Value
 			});
 		}

@@ -17,11 +17,11 @@ MonoBehaviour:
       Path: AddressableResources/QuantumAssets/Physics Config Assets/Bot NavMeshAgentConfig
       Guid:
         Value: 1093005050644660195
-    UpdateInterval: 5
+    UpdateInterval: 20
     PathQuality: 0
-    CachedWaypointCount: 3
+    CachedWaypointCount: 4
     MaxRepathTimeout:
-      RawValue: 131072
+      RawValue: 327680
     LineOfSightFunneling: 0
     DynamicLineOfSight: 0
     DynamicLineOfSightWaypointRange:
@@ -29,7 +29,7 @@ MonoBehaviour:
     AutomaticTargetCorrection: 0
     AutomaticTargetCorrectionRadius:
       RawValue: 65536
-    EnableWaypointDetectionAxis: 1
+    EnableWaypointDetectionAxis: 0
     WaypointDetectionAxisExtend:
       RawValue: 32768
     WaypointDetectionAxisOffset:

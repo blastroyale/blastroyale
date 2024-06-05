@@ -296,6 +296,11 @@ namespace FirstLight.Game.Presenters
 		{
 			var posX = Random.Range(0.3f, 0.7f);
 			var posY = Random.Range(0.3f, 0.7f);
+			if (FeatureFlags.GetLocalConfiguration().UseBotBehaviour)
+			{
+				posX = 0.5f;
+				posY = 0.5f;
+			}
 			SelectDropZone(posX, posY);
 
 			// This weird register is just a slight performance improvement that prevents a closure allocation

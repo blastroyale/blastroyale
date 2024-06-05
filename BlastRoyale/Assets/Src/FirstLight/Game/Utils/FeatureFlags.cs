@@ -77,6 +77,12 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		[Description("Dev QOL/Autostart test game")]
 		public bool StartTestGameAutomatically = false;
+		
+		/// <summary>
+		/// If automatically starts the test game mode after the game boot up
+		/// </summary>
+		[Description("Dev QOL/Skip match load timer")]
+		public bool SkipMatchLoadTimer = false;
 
 		/// <summary>
 		/// If we should consider if the player has NFTs even if he doens't
@@ -91,10 +97,22 @@ namespace FirstLight.Game.Utils
 		public bool DisableReconnection = false;
 
 		/// <summary>
-		/// Force authentication connection error
+		/// Append current minute to playtest room
 		/// </summary>
 		[Description("Dev QOL/Append Minute to Playtest room")]
 		public bool AppendMinuteToPlaytest = true;
+		
+		/// <summary>
+		/// Fixed quantum seed
+		/// </summary>
+		[Description("Dev QOL/Fixed Quantum Seed")]
+		public bool FixedQuantumSeed = false;
+		
+		/// <summary>
+		/// Fixed quantum seed
+		/// </summary>
+		[Description("Dev QOL/Use bot behaviour")]
+		public bool UseBotBehaviour = false;
 	}
 
 

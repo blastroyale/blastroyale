@@ -1,5 +1,6 @@
 using System.Linq;
 using Photon.Deterministic;
+using Quantum.Profiling;
 using static Quantum.Systems.Bots.BotCharacterSystem;
 
 namespace Quantum.Systems.Bots
@@ -46,7 +47,7 @@ namespace Quantum.Systems.Bots
 					filter.BotCharacter->SetNextDecisionDelay(f, filter.BotCharacter->DecisionInterval);
 					return;
 				}
-
+				
 				return;
 			}
 
@@ -95,14 +96,18 @@ namespace Quantum.Systems.Bots
 				}
 			}
 
+			HostProfiler.Start("TryGoToSafeArea");
 			if (!FPMathHelpers.IsPositionInsideCircle(botCtx.circleTargetCenter, botCtx.circleTargetRadius, filter.Transform->Position.XZ) && botCtx.circleTimeToShrink < filter.BotCharacter->TimeStartRunningFromCircle)
 			{
 				if (TryGoToSafeArea(f, ref filter, botCtx.circleTargetCenter, botCtx.circleTargetRadius))
 				{
 					BotLogger.LogAction(ref filter, "go to safe area");
+					HostProfiler.End();
 					return;
 				}
 			}
+			HostProfiler.End();
+
 
 			// Let it finish the path
 			if (filter.BotCharacter->HasWaypoint(filter.Entity, f) && filter.Controller->Velocity != FPVector3.Zero && filter.NavMeshAgent->IsActive)
@@ -111,24 +116,33 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
+			HostProfiler.Start("TryGoForClosestCollectable");
 			if (filter.TryGoForClosestCollectable(f, botCtx.circleCenter, botCtx.circleRadius, botCtx.circleIsShrinking))
 			{
 				BotLogger.LogAction(ref filter, "go to collectable. MoveTarget now is: " + filter.BotCharacter->MoveTarget);
+				HostProfiler.End();
 				return;
 			}
+			HostProfiler.End();
 
+			HostProfiler.Start("TryStayCloseToTeammate");
 			if (TryStayCloseToTeammate(f, ref filter, botCtx.circleCenter, botCtx.circleRadius, botCtx.circleIsShrinking))
 			{
 				BotLogger.LogAction(ref filter, "stay close to team mate");
+				HostProfiler.End();
 				return;
 			}
+			HostProfiler.End();
 
+			HostProfiler.Start("WanderInsideCircle");
 			if (filter.BotCharacter->WanderInsideCircle(filter.Entity, f, botCtx.circleCenter, botCtx.circleRadius))
 			{
 				filter.SetHasWaypoint(f);
 				BotLogger.LogAction(ref filter, "wander");
+				HostProfiler.End();
 				return;
 			}
+			HostProfiler.End();
 
 			if (filter.BotCharacter->IsDoingJackShit())
 			{
@@ -140,6 +154,7 @@ namespace Quantum.Systems.Bots
 
 		private static bool TryGoReviveTeamMate(Frame f, ref BotCharacterFilter filter, in BotUpdateGlobalContext botCtx)
 		{
+			HostProfiler.Start("TryGoReviveTeamMate");
 			foreach (var entityRef in f.ResolveHashSet(filter.TeamMember->TeamMates))
 			{
 				if (entityRef.IsValid && f.Unsafe.TryGetPointer<KnockedOut>(entityRef, out var knockedOut))
@@ -176,23 +191,28 @@ namespace Quantum.Systems.Bots
 					if (BotMovement.MoveToLocation(f, filter.Entity, destination))
 					{
 						filter.BotCharacter->SetHasWaypoint(entityRef, f);
+						HostProfiler.End();
 						return true;
 					}
 				}
 			}
 
+			HostProfiler.End();
 			return false;
 		}
 
 
 		public void GoToCenterOfCircle(Frame f, ref BotCharacterFilter filter, FPVector2 circleCenter)
 		{
+			HostProfiler.Start("GoToCenterOfCircle");
+
 			var newPosition = circleCenter;
 			// We try to go into random position OR into circle center (it's good for a very small circle)
 			if (BotMovement.MoveToLocation(f, filter.Entity, newPosition.XOY))
 			{
 				filter.SetHasWaypoint(f);
 			}
+			HostProfiler.End();
 		}
 
 		// We loop through players to find a reference for alive teammate in case current is dead
@@ -202,6 +222,8 @@ namespace Quantum.Systems.Bots
 			{
 				return;
 			}
+
+			HostProfiler.Start("CheckOnTeammates");
 
 			var randomTeammate = EntityRef.None;
 
@@ -221,6 +243,7 @@ namespace Quantum.Systems.Bots
 			}
 
 			filter.BotCharacter->RandomTeammate = randomTeammate;
+			HostProfiler.End();
 		}
 
 
@@ -263,6 +286,7 @@ namespace Quantum.Systems.Bots
 			{
 				return false;
 			}
+			HostProfiler.Start("TryStayCloseToTeammate");
 
 			var teammatePosition = filter.BotCharacter->RandomTeammate.GetPosition(f);
 			var botPosition = filter.Transform->Position;
@@ -272,6 +296,7 @@ namespace Quantum.Systems.Bots
 			var distance = vectorToTeammate.SqrMagnitude;
 			if (distance < maxDistanceSquared)
 			{
+				HostProfiler.End();
 				return false;
 			}
 
@@ -285,6 +310,7 @@ namespace Quantum.Systems.Bots
 				filter.SetHasWaypoint(f);
 			}
 
+			HostProfiler.End();
 			return isGoing;
 		}
 	}

@@ -59,16 +59,18 @@ namespace Quantum.Systems.Bots
 			it.UseCulling = true;
 			var filter = default(BotCharacterFilter);
 			var botCtx = CreateGlobalContext(f);
+			byte botIndex = 0;
 			while (it.Next(&filter))
 			{
-				Update(f, botCtx, ref filter);
+				Update(f, botCtx, botIndex, ref filter);
+				botIndex++;
 			}
 		}
 
 		private BotUpdateGlobalContext CreateGlobalContext(Frame f)
 		{
 			if (_updateContext.FrameNumber == f.Number) return _updateContext;
-
+			_updateContext.AliveBots = f.ComponentCount<BotCharacter>();
 			var circleCenter = FPVector2.Zero;
 			var circleRadius = FP._0;
 			var circleIsShrinking = false;
@@ -95,7 +97,7 @@ namespace Quantum.Systems.Bots
 		}
 
 		/// <inheritdoc />
-		private void Update(Frame f, in BotUpdateGlobalContext botCtx, ref BotCharacterFilter filter)
+		private void Update(Frame f, in BotUpdateGlobalContext botCtx, byte botIndex, ref BotCharacterFilter filter)
 		{
 			if (QuantumFeatureFlags.FREEZE_BOTS) return;
 
@@ -130,7 +132,7 @@ namespace Quantum.Systems.Bots
 
 
 			// Distribute bot processing in 30 frames
-			if (filter.BotCharacter->BotNameIndex % 30 == f.Number % 30)
+			if (botIndex % botCtx.AliveBots == f.Number % botCtx.AliveBots)
 			{
 				return;
 			}
@@ -220,7 +222,7 @@ namespace Quantum.Systems.Bots
 		public void HealthChangedFromAttacker(Frame f, EntityRef entity, EntityRef attacker, int previousHealth)
 		{
 			if (ReviveSystem.IsKnockedOut(f, entity)) return;
-			
+
 			// Test change. Bots ALWAYS react on getting damaged
 			//if (f.RNG->NextBool()) return; // 50% chance bots ignore
 
@@ -230,8 +232,8 @@ namespace Quantum.Systems.Bots
 			if (attacker == bot->Target) return;
 			if (!f.Unsafe.TryGetPointer<Transform3D>(attacker, out var attackerLocation)) return;
 			if (!f.Unsafe.TryGetPointer<Transform3D>(entity, out var botLocation)) return;
-			
-			
+
+
 			// If player attacks a bot that has no target, the bot will try to answer
 			if (!bot->Target.IsValid)
 			{
@@ -245,7 +247,7 @@ namespace Quantum.Systems.Bots
 				bot->Target = attacker;
 
 				var distanceToAttacker = FPVector2.DistanceSquared(botLocation->Position.XZ, attackerLocation->Position.XZ);
-				
+
 				// when in range, ill just target back
 				if (distanceToAttacker < botMaxRange)
 				{
@@ -285,7 +287,7 @@ namespace Quantum.Systems.Bots
 				}
 
 				var distanceToAttacker = FPVector2.DistanceSquared(botLocation->Position.XZ, attackerLocation->Position.XZ);
-				
+
 				// If the attacker is closer to the bot than the current bot target, 50% swap chance
 				if (f.RNG->NextBool() &&
 					distanceToAttacker <

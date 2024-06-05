@@ -53,9 +53,8 @@ namespace Quantum.Systems.Bots
 
 			return false;
 		}
-
-		// TODO: Implement chunk based spatial positioning
-		public static bool TryGoForClosestCollectable(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f, FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking)
+// TODO: Implement chunk based spatial positioning
+		public static bool TryGoForClosestCollectableOld(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f, FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking)
 		{
 			// Strategy is to pick up everything you can possible pick up
 			// So we will look at closest pickups and discard things that we can't / don't need to pickup
@@ -168,6 +167,126 @@ namespace Quantum.Systems.Bots
 
 				filter.BotCharacter->MoveTarget = collectableEntity;
 
+				return true;
+			}
+
+			return false;
+		}
+		
+		public static bool TryGoForClosestCollectable(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f, FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking)
+		{
+			var botPosition = filter.Transform->Position;
+			var stats = f.Unsafe.GetPointer<Stats>(filter.Entity);
+			var maxShields = stats->Values[(int)StatType.Shield].StatValue;
+			var currentAmmo = stats->CurrentAmmoPercent;
+			var maxHealth = stats->Values[(int)StatType.Health].StatValue;
+
+			var needWeapon = filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) || currentAmmo < FP.SmallestNonZero;
+			var needAmmo = currentAmmo < FP._0_99;
+			var needShields = stats->CurrentShield < maxShields;
+			var needHealth = stats->CurrentHealth < maxHealth;
+			var needSpecials = !filter.PlayerInventory->Specials[0].IsUsable(f) ||
+				!filter.PlayerInventory->Specials[1].IsUsable(f);
+
+			var teamMembers = TeamSystem.GetTeamMembers(f, filter.Entity);
+			var invalidTargets = f.ResolveHashSet(filter.BotCharacter->InvalidMoveTargets);
+
+			var botChunk = CollectableChunkSystem.GetChunk(f, botPosition.XZ);
+
+			var collectables = CollectableChunkSystem.GetCollectables(f,
+				botChunk,
+				CollectableChunkSystem.AddChunks(f, botChunk, -1, 0),
+				CollectableChunkSystem.AddChunks(f, botChunk, -1, 1),
+				CollectableChunkSystem.AddChunks(f, botChunk, 0, 1),
+				CollectableChunkSystem.AddChunks(f, botChunk, 1, 1),
+				CollectableChunkSystem.AddChunks(f, botChunk, 1, 0),
+				CollectableChunkSystem.AddChunks(f, botChunk, 1, -1),
+				CollectableChunkSystem.AddChunks(f, botChunk, 0, -1),
+				CollectableChunkSystem.AddChunks(f, botChunk, -1, -1)
+			);
+
+			var collectableEntity = EntityRef.None;
+			for (int i = 0; i < collectables.Count; i++)
+			{
+				var hit = collectables[i];
+				var collectable = hit.Component;
+
+				if (invalidTargets.Contains(hit.Entity))
+				{
+					continue;
+				}
+
+				if (collectable->GameId.IsInGroup(GameIdGroup.Weapon) && !needWeapon)
+				{
+					continue;
+				}
+
+				var teamCollecting = false;
+
+				// If team mate is collecting ignore it!
+				foreach (var member in teamMembers)
+				{
+					if (collectable->IsCollecting(f, member.Entity))
+					{
+						teamCollecting = true;
+						break;
+					}
+
+					if (f.TryGet<BotCharacter>(member.Entity, out var otherBot))
+					{
+						if (otherBot.MoveTarget == hit.Entity)
+						{
+							teamCollecting = true;
+							break;
+						}
+					}
+				}
+
+				if (teamCollecting)
+				{
+					continue;
+				}
+
+				if (f.Unsafe.TryGetPointer<Consumable>(hit.Entity, out var consumable))
+				{
+					var usefulConsumable = consumable->ConsumableType switch
+					{
+						ConsumableType.Ammo    => needAmmo,
+						ConsumableType.Shield  => needShields,
+						ConsumableType.Health  => needHealth,
+						ConsumableType.Special => needSpecials,
+						_                      => true
+					};
+
+					if (!usefulConsumable)
+					{
+						continue;
+					}
+				}
+
+
+				if (BotState.IsInCircleWithSpareSpace(circleCenter, circleRadius, circleIsShrinking, hit.Entity.GetPosition(f)))
+				{
+					collectableEntity = hit.Entity;
+					break;
+				}
+			}
+
+			if (collectableEntity == EntityRef.None)
+			{
+				return false;
+			}
+
+			if (filter.NavMeshAgent->IsActive
+				&& filter.BotCharacter->MoveTarget == collectableEntity)
+			{
+				return true;
+			}
+
+			var pos = f.Unsafe.GetPointer<Transform3D>(collectableEntity)->Position;
+			if (BotMovement.MoveToLocation(f, filter.Entity, pos))
+			{
+				filter.BotCharacter->MoveTarget = collectableEntity;
 				return true;
 			}
 

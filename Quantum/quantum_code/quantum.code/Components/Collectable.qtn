@@ -8,6 +8,20 @@ component Collectable
 	[HideInInspector] FP AllowedToPickupTime;
 }
 
+struct CollectableChunk
+{
+    hash_set<entity_ref> Entities;
+}
+
+singleton component CollectableChunks
+{
+    [HideInInspector, AllocateOnComponentAdded, FreeOnComponentRemoved] dictionary<Int16, CollectableChunk> Collectables;
+}
+
+component ChunkDebug {
+    short Chunk;
+}
+
 synced event OnStartedCollecting
 {
 	entity_ref CollectableEntity;

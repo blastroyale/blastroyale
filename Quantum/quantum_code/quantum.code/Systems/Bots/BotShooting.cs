@@ -1,4 +1,5 @@
 using Photon.Deterministic;
+using Quantum.Profiling;
 
 namespace Quantum.Systems.Bots
 {
@@ -298,15 +299,18 @@ namespace Quantum.Systems.Bots
 				return false;
 			}
 
+			HostProfiler.Start("TryUseSpecials");
+
 			for (var i = 0; i <= 1; i++)
 			{
 				if (TryUseSpecial(f, inventory, i, botEntity, bot.Target))
 				{
 					bot.NextAllowedSpecialUseTime = f.Time + f.RNG->NextInclusive(bot.SpecialCooldown);
+					HostProfiler.End();
 					return true;
 				}
 			}
-
+			HostProfiler.End();
 			return false;
 		}
 

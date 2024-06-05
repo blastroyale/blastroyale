@@ -36,6 +36,7 @@ namespace Quantum
 				new GameItemCollectableSystem(),
 				new EntityGroupSystem(),
 				new LandMineSystem(),
+				new CollectableChunkSystem(),
 				
 				// Update systems - Update & OnInit & Signal order matters
 				new CommandsSystem(),

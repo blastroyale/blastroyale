@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
@@ -8,6 +9,9 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using System.Collections;
+using System.Numerics;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -89,7 +93,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnInit(QuantumGame game)
 		{
 			base.OnInit(game);
-
 
 			var frame = game.Frames.Verified;
 #if DEBUG_BOTS
@@ -225,7 +228,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			UpdateVfxPosition();
 		}
 
-
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			RefreshVfx(next);
@@ -268,7 +270,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-			
+
 			_collectors.Remove(callback.CollectorEntity);
 			RefreshVfx(MatchServices.SpectateService.SpectatedPlayer.Value);
 		}
@@ -325,7 +327,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					? VfxId.CollectableIndicatorLarge
 					: VfxId.CollectableIndicator;
 				_collectingVfx = (CollectableIndicatorVfxMonoComponent) Services.VfxService.Spawn(vfxId);
-				
+
 				UpdateVfxPosition();
 				_collectingVfx.transform.rotation = Quaternion.AngleAxis(145, Vector3.up);
 				_collectingVfx.transform.localScale = new Vector3(_pickupCircle.localScale.x * 2.5f, 1f,
@@ -388,6 +390,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				RefreshIndicator(frame, MatchServices.GetSpectatedPlayer().Entity, consumable->ConsumableType);
 			}
 		}
+#if UNITY_EDITOR
+		private unsafe void OnDrawGizmos()
+		{
+			if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
+			var frame = QuantumRunner.Default.PredictedFrame();
+			if (frame.Unsafe.TryGetPointer<ChunkDebug>(this.EntityRef, out var chunk))
+			{
+				UnityEditor.Handles.Label(this.transform.position + Vector3.up * 2, ""+chunk->Chunk);
+			}
+		}
+#endif
 
 		private struct CollectingData
 		{

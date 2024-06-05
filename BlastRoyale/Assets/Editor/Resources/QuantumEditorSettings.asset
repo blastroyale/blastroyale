@@ -51,13 +51,13 @@ MonoBehaviour:
   JointGizmosWarningColor: {r: 1, g: 0, b: 0, a: 1}
   DrawPredictionArea: 1
   PredictionAreaColor: {r: 1, g: 0, b: 0, a: 0.25}
-  DrawPathfinderRawPath: 0
+  DrawPathfinderRawPath: 1
   DrawPathfinderRawTrianglePath: 0
-  DrawPathfinderFunnel: 0
-  DrawNavMeshAgents: 0
+  DrawPathfinderFunnel: 1
+  DrawNavMeshAgents: 1
   NavMeshAgentColor: {r: 0, g: 1, b: 0, a: 1}
   NavMeshAvoidanceColor: {r: 0, g: 0.5, b: 0, a: 0.5}
-  DrawNavMesh: 1
+  DrawNavMesh: 0
   DrawNavMeshBorders: 1
   DrawNavMeshTriangleIds: 0
   DrawNavMeshRegionIds: 0

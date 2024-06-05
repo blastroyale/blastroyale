@@ -31,9 +31,12 @@ Menu.SetChecked("FLG/Local Flags/Force Authentication Connection Error", IsForce
 Menu.SetChecked("FLG/Local Flags/Dev QOL/Disable Pause Behaviour", IsDisablePauseBehaviour);
 Menu.SetChecked("FLG/Local Flags/Dev QOL/Offline mode", IsOfflineMode);
 Menu.SetChecked("FLG/Local Flags/Dev QOL/Autostart test game", IsStartTestGameAutomatically);
+Menu.SetChecked("FLG/Local Flags/Dev QOL/Skip match load timer", IsSkipMatchLoadTimer);
 Menu.SetChecked("FLG/Local Flags/Dev QOL/Unlock all fame stuff", IsUnlockAllFameStuff);
 Menu.SetChecked("FLG/Local Flags/Dev QOL/Disable Reconnection", IsDisableReconnection);
 Menu.SetChecked("FLG/Local Flags/Dev QOL/Append Minute to Playtest room", IsAppendMinuteToPlaytest);
+Menu.SetChecked("FLG/Local Flags/Dev QOL/Fixed Quantum Seed", IsFixedQuantumSeed);
+Menu.SetChecked("FLG/Local Flags/Dev QOL/Use bot behaviour", IsUseBotBehaviour);
 
 				Menu.SetChecked("FLG/Local Flags/Symbols/Enable bot debug visuals", IsBotDebug);
 
@@ -127,6 +130,18 @@ Menu.SetChecked("FLG/Local Flags/Dev QOL/Append Minute to Playtest room", IsAppe
 		}
 
 
+		private static bool IsSkipMatchLoadTimer
+		{
+			get => FeatureFlags.GetLocalConfiguration().SkipMatchLoadTimer;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().SkipMatchLoadTimer = value;
+				Debug.Log("Setting SkipMatchLoadTimer to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
+
 		private static bool IsUnlockAllFameStuff
 		{
 			get => FeatureFlags.GetLocalConfiguration().UnlockAllFameStuff;
@@ -158,6 +173,30 @@ Menu.SetChecked("FLG/Local Flags/Dev QOL/Append Minute to Playtest room", IsAppe
 			{
 				FeatureFlags.GetLocalConfiguration().AppendMinuteToPlaytest = value;
 				Debug.Log("Setting AppendMinuteToPlaytest to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
+
+		private static bool IsFixedQuantumSeed
+		{
+			get => FeatureFlags.GetLocalConfiguration().FixedQuantumSeed;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().FixedQuantumSeed = value;
+				Debug.Log("Setting FixedQuantumSeed to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
+
+		private static bool IsUseBotBehaviour
+		{
+			get => FeatureFlags.GetLocalConfiguration().UseBotBehaviour;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().UseBotBehaviour = value;
+				Debug.Log("Setting UseBotBehaviour to "+value);
 				FeatureFlags.SaveLocalConfig();
 			}
 		}
@@ -227,6 +266,14 @@ Menu.SetChecked("FLG/Local Flags/Dev QOL/Append Minute to Playtest room", IsAppe
 		}
 
 
+		[MenuItem("FLG/Local Flags/Dev QOL/Skip match load timer", false, 5)]
+		private static void ToggleSkipMatchLoadTimer()
+		{
+			IsSkipMatchLoadTimer = !IsSkipMatchLoadTimer;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Dev QOL/Skip match load timer", IsSkipMatchLoadTimer); };
+		}
+
+
 		[MenuItem("FLG/Local Flags/Dev QOL/Unlock all fame stuff", false, 5)]
 		private static void ToggleUnlockAllFameStuff()
 		{
@@ -248,6 +295,22 @@ Menu.SetChecked("FLG/Local Flags/Dev QOL/Append Minute to Playtest room", IsAppe
 		{
 			IsAppendMinuteToPlaytest = !IsAppendMinuteToPlaytest;
 			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Dev QOL/Append Minute to Playtest room", IsAppendMinuteToPlaytest); };
+		}
+
+
+		[MenuItem("FLG/Local Flags/Dev QOL/Fixed Quantum Seed", false, 5)]
+		private static void ToggleFixedQuantumSeed()
+		{
+			IsFixedQuantumSeed = !IsFixedQuantumSeed;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Dev QOL/Fixed Quantum Seed", IsFixedQuantumSeed); };
+		}
+
+
+		[MenuItem("FLG/Local Flags/Dev QOL/Use bot behaviour", false, 5)]
+		private static void ToggleUseBotBehaviour()
+		{
+			IsUseBotBehaviour = !IsUseBotBehaviour;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Dev QOL/Use bot behaviour", IsUseBotBehaviour); };
 		}
 
 		
@@ -320,6 +383,7 @@ Menu.SetChecked("FLG/Local Flags/Dev QOL/Append Minute to Playtest room", IsAppe
 			var currentValue = FeatureFlags.GetLocalConfiguration().Tutorial;
 			return currentValue.ToString() != "False";
 		}
+
 
 	}
 }

@@ -1,4 +1,5 @@
 using Photon.Deterministic;
+using Quantum.Profiling;
 
 namespace Quantum.Systems.Bots
 {
@@ -24,12 +25,14 @@ namespace Quantum.Systems.Bots
 		/// </summary>
 		public static void CleanDestroyedWaypointTarget(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f)
 		{
+			HostProfiler.Start("CleanDestoryedWaypoint");
 			if (filter.BotCharacter->MoveTarget != EntityRef.None &&
 				QuantumHelpers.IsDestroyed(f, filter.BotCharacter->MoveTarget))
 			{
 				filter.BotCharacter->ResetTargetWaypoint(f);
 				filter.NavMeshAgent->Stop(f, filter.Entity, true);
 			}
+			HostProfiler.End();
 		}
 
 		public static bool IsStaticMovement(this ref BotCharacter botCharacter)
@@ -75,17 +78,9 @@ From position {position} to position ({x},{y})
 		public static bool MoveToLocation(Frame f, in EntityRef e, in FPVector3 destination)
 		{
 			var agent = f.Unsafe.GetPointer<NavMeshPathfinder>(e);
-			var config = f.FindAsset<NavMeshAgentConfig>(agent->ConfigId);
 			var navMesh = f.NavMesh;
-
-			if (navMesh.FindRandomPointOnNavmesh(destination, config.AutomaticTargetCorrectionRadius, f.RNG,
-					agent->RegionMask, out var closestPosition))
-			{
-				agent->SetTarget(f, closestPosition, navMesh);
-				return true;
-			}
-
-			return false;
+			agent->SetTarget(f, destination, navMesh);
+			return true;
 		}
 	}
 }

@@ -751,7 +751,12 @@ namespace FirstLight.Game.Services.Party
 
 		private string ReadyKey()
 		{
-			return $"{_members.FirstOrDefault(m => m.Leader)?.PlayfabID}={_lobbyProperties[ReadyVersion]}";
+			if (!_lobbyProperties.TryGetValue(ReadyVersion, out var readyVersion))
+			{
+				readyVersion = "0";
+			}
+
+			return $"{_members.FirstOrDefault(m => m.Leader)?.PlayfabID}={readyVersion}";
 		}
 
 		/// <summary>

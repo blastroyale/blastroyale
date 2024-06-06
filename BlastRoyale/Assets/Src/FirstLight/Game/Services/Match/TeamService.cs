@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
-using FirstLight.Game.Services;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
+using Photon.Realtime;
 using Quantum;
 using UnityEngine;
-
 
 namespace FirstLight.Game.MonoComponent.Match
 {
@@ -23,6 +21,11 @@ namespace FirstLight.Game.MonoComponent.Match
 	public interface ITeamService
 	{
 		/// <summary>
+		///  Property set as the host to autobalance the game, just works for custom games
+		/// </summary>
+		public bool AutoBalanceCustom { get; set; }
+
+		/// <summary>
 		/// Gets the current team color of the current entity.
 		/// Returns null in case no color is assigned.
 		/// </summary>
@@ -31,13 +34,22 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <summary>
 		/// Gets team of a given entity
 		/// </summary>
-		public Color? GetTeamMemberColor(PlayerProperties color);
+		public Color? GetTeamMemberColor(Player player);
+
+		/// <summary>
+		/// Gets team of a given entity
+		/// </summary>
+		public byte GetTeamMemberColorIndex(Player player);
+
+		/// <summary>
+		/// Get the team id for a given player
+		/// </summary>
+		public string GetTeamForPlayer(Player player);
 
 		/// <summary>
 		/// Gets team of a given entity
 		/// </summary>
 		public int GetTeam(EntityRef entity);
-
 
 		/// <summary>
 		/// Checks if the entity is from the same team as the spectated player
@@ -50,14 +62,15 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// </summary>
 	public class TeamService : ITeamService
 	{
+		public bool AutoBalanceCustom { get; set; }
+
 		private IRoomService _roomService;
 
 		public TeamService(IRoomService roomService)
 		{
 			_roomService = roomService;
-			roomService.OnJoinedRoom += OnJoinedRoom;
+			roomService.BeforeHostStartsCustomGame += BeforeCustomGameStarts;
 		}
-
 
 		public Color? GetTeamMemberColor(EntityRef e)
 		{
@@ -66,11 +79,29 @@ namespace FirstLight.Game.MonoComponent.Match
 			return TeamConstants.Colors[Mathf.Min(member.Color, TeamConstants.Colors.Length - 1)];
 		}
 
-		public Color? GetTeamMemberColor(PlayerProperties properties)
+		public Color? GetTeamMemberColor(Player player)
 		{
-			return TeamConstants.Colors[Mathf.Min(properties.ColorIndex.Value, TeamConstants.Colors.Length - 1)];
+			var index = GetTeamMemberColorIndex(player);
+			return TeamConstants.Colors[Mathf.Min(index, TeamConstants.Colors.Length - 1)];
 		}
 
+		public byte GetTeamMemberColorIndex(Player player)
+		{
+			var room = _roomService.CurrentRoom;
+			if (room.Properties.TeamMemberColors.HasValue)
+			{
+				if (room.Properties.TeamMemberColors.Value.TryGetValue(player.ActorNumber.ToString(), out var color))
+				{
+					if (byte.TryParse(color, out var value))
+					{
+						return value;
+					}
+				}
+			}
+
+			var playerProps = room.GetPlayerProperties(player);
+			return playerProps.ColorIndex.HasValue ? playerProps.ColorIndex.Value : (byte) 0;
+		}
 
 		public int GetTeam(EntityRef e)
 		{
@@ -86,31 +117,71 @@ namespace FirstLight.Game.MonoComponent.Match
 			return team > 0 && team == GetTeam(matchServices.SpectateService.GetSpectatedEntity());
 		}
 
-
-		private void OnJoinedRoom()
+		private void AutoBalanceTeams()
 		{
-			var localProperties = _roomService.CurrentRoom.LocalPlayerProperties;
-			var team = localProperties.TeamId.Value;
-			List<byte> usedIds = new ();
-			foreach (var playersValue in _roomService.CurrentRoom.Players.Values)
+			var room = _roomService.CurrentRoom;
+			var playerTeam = new Dictionary<string, string>();
+			foreach (var playersValue in room.Players.Values)
 			{
-				if (playersValue.IsLocal) continue;
-				var properties = _roomService.CurrentRoom.GetPlayerProperties(playersValue);
-				if (properties.TeamId.Value == team && properties.ColorIndex.HasValue)
-				{
-					usedIds.Add(properties.ColorIndex.Value);
-				}
+				playerTeam[playersValue.ActorNumber + ""] = "t_" + playersValue.ActorNumber;
 			}
 
-			byte max = (byte) (usedIds.Count > 0 ? usedIds.Max() + 1 : 1);
-			for (byte i = 0; i <= max; i++)
-			{
-				if (!usedIds.Contains(i))
+			playerTeam = TeamDistribution.Distribute(playerTeam, (uint) room.Properties.TeamSize.Value);
+			room.Properties.OverwriteTeams.Value = playerTeam;
+		}
+
+		public string GetTeamForPlayer(Player player)
+		{
+			var room = _roomService.CurrentRoom;
+			var playerTeam = room.Properties.OverwriteTeams.Value;
+			if (playerTeam != null)
+				if (playerTeam.TryGetValue(player.ActorNumber.ToString(), out var team))
 				{
-					localProperties.ColorIndex.Value = i;
-					break;
+					return team;
 				}
+
+			return room.GetPlayerProperties(player).TeamId.Value;
+		}
+
+		private void SetTeamMemberColors()
+		{
+			var room = _roomService.CurrentRoom;
+
+			var lastUsedColorByTeam = new Dictionary<string, byte>();
+			var colorByPlayer = new Dictionary<string, string>();
+			foreach (var playersValue in room.Players.Values)
+			{
+				var playerTeam = "t_" + playersValue.ActorNumber;
+				if (room.Properties.OverwriteTeams.HasValue)
+				{
+					playerTeam = room.Properties.OverwriteTeams.Value[playersValue.ActorNumber.ToString()];
+				}
+				else if (room.GetPlayerProperties(playersValue).TeamId.HasValue)
+				{
+					playerTeam = room.GetPlayerProperties(playersValue).TeamId.Value;
+				}
+
+				byte usedColor = 0;
+				if (lastUsedColorByTeam.TryGetValue(playerTeam, out var lastColor))
+				{
+					usedColor = (byte) (lastColor + 1);
+				}
+
+				lastUsedColorByTeam[playerTeam] = usedColor;
+				colorByPlayer[playersValue.ActorNumber.ToString()] = usedColor.ToString();
 			}
+
+			room.Properties.TeamMemberColors.Value = colorByPlayer;
+		}
+
+		private void BeforeCustomGameStarts()
+		{
+			if (AutoBalanceCustom)
+			{
+				AutoBalanceTeams();
+			}
+
+			SetTeamMemberColors();
 		}
 	}
 }

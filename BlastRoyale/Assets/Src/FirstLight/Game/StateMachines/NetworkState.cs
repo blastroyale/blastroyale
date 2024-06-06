@@ -193,7 +193,7 @@ namespace FirstLight.Game.StateMachines
 				match.RoomSetup.MapId = (int) maps[index];
 			}
 
-			_services.RoomService.JoinOrCreateRoom(match.RoomSetup, match.TeamId, match.ExpectedPlayers);
+			_services.RoomService.JoinOrCreateRoom(match.RoomSetup, match.TeamId, match.ColorIndex, match.ExpectedPlayers);
 			_services.GenericDialogService.CloseDialog();
 		}
 

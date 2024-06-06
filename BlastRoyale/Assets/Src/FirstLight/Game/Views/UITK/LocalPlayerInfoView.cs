@@ -47,7 +47,6 @@ namespace FirstLight.Game.Views.UITK
 			QuantumCallback.SubscribeManual<CallbackEventConfirmed>(this, OnEventConfirmed);
 		}
 
-
 		public override void OnScreenClose()
 		{
 			base.OnScreenClose();
@@ -119,7 +118,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 
-			if (TeamSystem.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), playerEntity).Count < 1)
+			if (TeamSystem.GetTeamMembers(QuantumRunner.Default.VerifiedFrame(), playerEntity).Count < 1)
 			{
 				_teamColor.SetVisibility(false);
 				return;
@@ -143,7 +142,6 @@ namespace FirstLight.Game.Views.UITK
 			var sprite = await _gameServices.CollectionService.LoadCollectionItemSprite(itemData);
 			_pfp.style.backgroundImage = new StyleBackground(sprite);
 		}
-
 
 		private void OnEventCanceled(CallbackEventCanceled callback)
 		{

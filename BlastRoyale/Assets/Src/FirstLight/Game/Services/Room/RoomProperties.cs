@@ -34,6 +34,7 @@ namespace FirstLight.Game.Services.RoomService
 		public QuantumProperty<GameId> MapId;
 
 		public QuantumProperty<Dictionary<string, string>> OverwriteTeams;
+		public QuantumProperty<Dictionary<string, string>> TeamMemberColors;
 		public QuantumProperty<bool> AutoBalanceTeams;
 
 		public RoomProperties()
@@ -54,6 +55,7 @@ namespace FirstLight.Game.Services.RoomService
 			StartCustomGame = Create<bool>("cstart");
 			TeamSize = Create<int>("teamsize");
 			OverwriteTeams = CreateDictionary("overwriteteams");
+			TeamMemberColors = CreateDictionary("tmcolors");
 			AutoBalanceTeams = Create<bool>("autobalance");
 		}
 	}

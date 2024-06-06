@@ -97,6 +97,7 @@ namespace FirstLight.Game.Services
 	{
 		public string MatchIdentifier;
 		public string TeamId;
+		public byte ColorIndex;
 		public string[] ExpectedPlayers;
 		public MatchRoomSetup RoomSetup;
 	}
@@ -451,15 +452,22 @@ namespace FirstLight.Game.Services
 			{
 				string matchId = "timeout-match-" + ticket.TicketId;
 				FLog.Info("Ticket timed out, creating ticket only match " + matchId);
+				var players = ticket.Members
+					.Select(m => CustomMatchmakingPlayerProperties.Decode(m.Attributes).MasterPlayerId)
+					.ToArray();
+
+				var colorIndex = (byte) ticket.Members.Select(m => m.Entity.Id).OrderBy(a => a)
+					.ToList()
+					.IndexOf(PlayFabSettings.staticPlayer.EntityId);
+
 				_service.InvokeMatchFound(new GameMatched()
 				{
-					ExpectedPlayers = ticket.Members
-						.Select(m => CustomMatchmakingPlayerProperties.Decode(m.Attributes).MasterPlayerId)
-						.ToArray(),
+					ExpectedPlayers = players,
 					MatchIdentifier = matchId,
 					RoomSetup = _setup,
 					// Since this game is only going to be this ticket, all the players should be in the same team
-					TeamId = "team1"
+					TeamId = "team1",
+					ColorIndex = colorIndex
 				});
 				return;
 			}
@@ -480,6 +488,12 @@ namespace FirstLight.Game.Services
 
 				// This distribution should be deterministic and used in the server to validate if anyone is exploiting
 				membersWithTeam = TeamDistribution.Distribute(membersWithTeam, (uint) _setup.PlayfabQueue.TeamSize);
+				var playerTeam = membersWithTeam[PlayFabSettings.staticPlayer.EntityId];
+
+				var colorIndex = (byte) membersWithTeam.Where((kv) => kv.Value == playerTeam).Select(kv => kv.Key)
+					.OrderBy(a => a)
+					.ToList()
+					.IndexOf(PlayFabSettings.staticPlayer.EntityId);
 
 				var decodedPlayers = result.Members
 					.Select(m => CustomMatchmakingPlayerProperties.Decode(m.Attributes))
@@ -498,7 +512,8 @@ namespace FirstLight.Game.Services
 						.ToArray(),
 					MatchIdentifier = ticket.MatchId,
 					RoomSetup = _setup,
-					TeamId = membersWithTeam[PlayFabSettings.staticPlayer.EntityId]
+					TeamId = playerTeam,
+					ColorIndex = colorIndex,
 				});
 			});
 		}

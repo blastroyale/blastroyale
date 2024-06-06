@@ -48,6 +48,11 @@ namespace FirstLight.Game.Services.RoomService
 		event Action OnCustomGameLoadStart;
 
 		/// <summary>
+		/// Triggered in the custom game start process, just before setting communicating other players
+		/// </summary>
+		event Action BeforeHostStartsCustomGame;
+
+		/// <summary>
 		/// Do you need docs ?
 		/// </summary>
 		event Action OnMasterChanged;
@@ -64,7 +69,6 @@ namespace FirstLight.Game.Services.RoomService
 		/// </summary>
 		public event Action OnLocalPlayerKicked;
 
-
 		bool InRoom { get; }
 
 		GameRoom CurrentRoom { get; }
@@ -80,7 +84,7 @@ namespace FirstLight.Game.Services.RoomService
 		///  Used for custom games owner clicks to start, it will move players to load screen
 		/// </summary>
 		/// <returns></returns>
-		void StartCustomGameLoading(bool autoBalance);
+		void StartCustomGameLoading();
 
 		QuantumGameModeConfig GetGameModeConfig(string gameModeId);
 
@@ -121,7 +125,7 @@ namespace FirstLight.Game.Services.RoomService
 		/// for the client to be able to enter. If there is even one param mismatching, join operation will fail.
 		/// Used for Playfab matchmaking, because with playfab matchmaking we know the name of the room, so a random player will create it and the others will join
 		/// </remarks>
-		bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null, string[] expectedPlayers = null);
+		bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null, byte teamColor = 0, string[] expectedPlayers = null);
 
 		/// <summary>
 		/// Leaves the current room that local player is in
@@ -151,12 +155,13 @@ namespace FirstLight.Game.Services.RoomService
 
 		private RoomServiceParameters _parameters;
 		private RoomServiceCommands _commands;
-		
+
 		public static bool AutoStartWhenLoaded = false;
 		public event Action<Player, PlayerChangeReason> OnPlayersChange;
 		public event Action OnRoomPropertiesChanged;
 		public event Action OnMatchStarted;
 		public event Action OnCustomGameLoadStart;
+		public event Action BeforeHostStartsCustomGame;
 		public event Action OnMasterChanged;
 		public event Action OnJoinedRoom;
 		public event Action OnPlayerPropertiesUpdated;
@@ -187,7 +192,6 @@ namespace FirstLight.Game.Services.RoomService
 
 		public QuantumGameModeConfig GetGameModeConfig(string gameModeId) => _configsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
 		public QuantumMapConfig GetMapConfig(int mapId) => _configsProvider.GetConfig<QuantumMapConfig>(mapId);
-
 
 		/// <summary>
 		/// Used for joining custom games
@@ -228,12 +232,11 @@ namespace FirstLight.Game.Services.RoomService
 			return _networkService.QuantumClient.OpCreateRoom(createParams);
 		}
 
-
 		/// <summary>
 		/// Used for Playfab matchmaking, because with playfab matchmaking we know the name of the room, so a random player will create it and the others will join
 		/// </summary>
 		/// <returns></returns>
-		public bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null, string[] expectedPlayers = null)
+		public bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null, byte teamColor = 0, string[] expectedPlayers = null)
 		{
 			if (InRoom) return false;
 
@@ -242,7 +245,7 @@ namespace FirstLight.Game.Services.RoomService
 			var createParams = _parameters.GetRoomCreateParams(setup);
 			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
 
-			ResetLocalPlayerProperties(teamID);
+			ResetLocalPlayerProperties(teamID, teamColor);
 			_networkService.LastDisconnectLocation = LastDisconnectionLocation.None;
 			_networkService.LastUsedSetup.Value = setup;
 			return _networkService.QuantumClient.OpJoinOrCreateRoom(createParams);
@@ -294,7 +297,6 @@ namespace FirstLight.Game.Services.RoomService
 			return (byte) maxPlayers;
 		}
 
-
 		public void RegisterListeners()
 		{
 			_networkService.QuantumClient.AddCallbackTarget(this);
@@ -305,7 +307,6 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			ResetLocalPlayerProperties();
 		}
-
 
 		public void OnPlayerEnteredRoom(Player newPlayer)
 		{
@@ -378,7 +379,6 @@ namespace FirstLight.Game.Services.RoomService
 			OnPlayerPropertiesUpdated?.Invoke();
 		}
 
-
 		void IMatchmakingCallbacks.OnJoinedRoom()
 		{
 			FLog.Verbose("Joined room!");
@@ -399,7 +399,6 @@ namespace FirstLight.Game.Services.RoomService
 				props.OnLocalPlayerSetProperty += OnLocalPlayerSetPlayerProperty;
 			}
 		}
-
 
 		private void CheckMatchmakingLoadingStart()
 		{
@@ -460,7 +459,6 @@ namespace FirstLight.Game.Services.RoomService
 			}
 		}
 
-
 		public void CheckSimulationStart()
 		{
 			// Sometimes when player joined the room we don't have the server time yet so we don't start the loading timer,
@@ -496,17 +494,14 @@ namespace FirstLight.Game.Services.RoomService
 		///  Used for custom games owner clicks to start, it will move players to load screen
 		/// </summary>
 		/// <returns></returns>
-		public void StartCustomGameLoading(bool autoBalance)
+		public void StartCustomGameLoading()
 		{
 			if (!_networkService.LocalPlayer.IsMasterClient)
 			{
 				return;
 			}
 
-			if (autoBalance)
-			{
-				AutoBalanceTeams();
-			}
+			BeforeHostStartsCustomGame?.Invoke();
 
 			_networkService.CurrentRoom.IsOpen = false;
 			CurrentRoom.Properties.LoadingStartServerTime.Value =
@@ -515,25 +510,12 @@ namespace FirstLight.Game.Services.RoomService
 			CurrentRoom.Properties.StartCustomGame.Value = true;
 		}
 
-		private void AutoBalanceTeams()
-		{
-			var playerTeam = new Dictionary<string, string>();
-			foreach (var playersValue in CurrentRoom.Players.Values)
-			{
-				playerTeam[playersValue.ActorNumber + ""] = "t_" + playersValue.ActorNumber;
-			}
-
-			playerTeam = TeamDistribution.Distribute(playerTeam, (uint) CurrentRoom.Properties.TeamSize.Value);
-			CurrentRoom.Properties.OverwriteTeams.Value = playerTeam;
-		}
-
 		private void StartGame()
 		{
 			_networkService.CurrentRoom.IsOpen = false;
 			CurrentRoom.Properties.GameStarted.Value = true;
 			_networkService.QuantumClient.CurrentRoom.EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS;
 		}
-
 
 		public void OnJoinRoomFailed(short returnCode, string message)
 		{
@@ -550,7 +532,6 @@ namespace FirstLight.Game.Services.RoomService
 			FLog.Verbose("Left room");
 			CurrentRoom = null;
 		}
-
 
 		public void OnMasterClientSwitched(Player newMasterClient)
 		{
@@ -591,21 +572,22 @@ namespace FirstLight.Game.Services.RoomService
 			return _commands.SendKickCommand(playerToKick);
 		}
 
-		private void ResetLocalPlayerProperties(string teamId = null)
+		private void ResetLocalPlayerProperties(string teamId = null, byte teamColorIndex = 0)
 		{
 			_networkService.QuantumClient.NickName = AuthenticationService.Instance.PlayerName;
 			var preloadIds = new List<GameId>();
-			
+
 			preloadIds.Add(_dataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id);
 			preloadIds.Add(_dataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.MeleeSkin)).Id);
-			
+
 			var props = new PlayerProperties
 			{
 				Loadout = {Value = preloadIds},
 				Spectator = {Value = false},
 				CoreLoaded = {Value = false},
 				TeamId = {Value = teamId},
-				Rank = {Value = _leaderboardService.CurrentRankedEntry.Position}
+				Rank = {Value = _leaderboardService.CurrentRankedEntry.Position},
+				ColorIndex = {Value = teamColorIndex}
 			};
 
 			_networkService.LocalPlayer.SetCustomProperties(props.ToHashTable());

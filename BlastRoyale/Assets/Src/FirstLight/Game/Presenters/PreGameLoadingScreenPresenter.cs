@@ -145,11 +145,11 @@ namespace FirstLight.Game.Presenters
 
 			if (isSquadGame)
 			{
-				var teamId = CurrentRoom.GetTeamForPlayer(CurrentRoom.LocalPlayer);
+				var teamId = _services.TeamService.GetTeamForPlayer(CurrentRoom.LocalPlayer);
 
 				_squadContainer.SetDisplay(true);
 				_squadMembers = CurrentRoom.Players.Values
-					.Where(p => CurrentRoom.GetTeamForPlayer(p) == teamId)
+					.Where(p => _services.TeamService.GetTeamForPlayer(p) == teamId)
 					.ToList();
 
 				_squadMembersList.itemsSource = _squadMembers;
@@ -176,8 +176,7 @@ namespace FirstLight.Game.Presenters
 				var memberDropPosition = CurrentRoom.GetPlayerProperties(squadMember).DropPosition.Value;
 				var marker = new VisualElement {name = "marker"};
 				marker.AddToClassList("map-marker-party");
-				var props = CurrentRoom.GetPlayerProperties(squadMember);
-				var nameColor = _services.TeamService.GetTeamMemberColor(props);
+				var nameColor = _services.TeamService.GetTeamMemberColor(squadMember);
 				marker.style.backgroundColor = nameColor ?? Color.white;
 				var mapWidth = _mapImage.contentRect.width;
 				var markerPos = new Vector2(memberDropPosition.x * mapWidth, -memberDropPosition.y * mapWidth);
@@ -191,8 +190,7 @@ namespace FirstLight.Game.Presenters
 		{
 			if (index < 0 || index >= _squadMembers.Count) return;
 
-			var props = CurrentRoom.GetPlayerProperties(_squadMembers[index]);
-			var nameColor = _services.TeamService.GetTeamMemberColor(props);
+			var nameColor = _services.TeamService.GetTeamMemberColor(_squadMembers[index]);
 
 
 			((Label) element).text = _squadMembers[index].NickName;

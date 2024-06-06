@@ -258,19 +258,7 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			_pause = true;
 		}
-
-		public string GetTeamForPlayer(Player player)
-		{
-			var playerTeam = Properties.OverwriteTeams.Value;
-			if (playerTeam != null)
-				if (playerTeam.TryGetValue(player.ActorNumber.ToString(), out var team))
-				{
-					return team;
-				}
-
-			return GetPlayerProperties(player).TeamId.Value;
-		}
-
+		
 		public void ResumeTimer(int secondsToStart = -1)
 		{
 			_pause = false;

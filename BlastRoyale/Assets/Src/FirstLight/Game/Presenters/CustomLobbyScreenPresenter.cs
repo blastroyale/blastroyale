@@ -402,7 +402,8 @@ namespace FirstLight.Game.Presenters
 		{
 			ReadyToPlay();
 			CurrentRoom.Properties.HasBots.Value = _botsToggle.isOn;
-			_services.RoomService.StartCustomGameLoading(CurrentRoom.Properties.AutoBalanceTeams.Value);
+			_services.TeamService.AutoBalanceCustom = true;
+			_services.RoomService.StartCustomGameLoading();
 		}
 
 		private void OnLeaveRoomClicked()

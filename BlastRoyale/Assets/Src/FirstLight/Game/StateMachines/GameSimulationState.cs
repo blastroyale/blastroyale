@@ -162,11 +162,6 @@ namespace FirstLight.Game.StateMachines
 			return _services.RoomService.IsLocalPlayerSpectator;
 		}
 
-		private string GetTeamId()
-		{
-			return _services.RoomService.CurrentRoom.GetTeamForPlayer(_services.RoomService.CurrentRoom.LocalPlayer);
-		}
-
 		private void OnGameStart(CallbackGameStarted callback)
 		{
 			FLog.Verbose("Game Start");
@@ -367,10 +362,10 @@ namespace FirstLight.Game.StateMachines
 				PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 				LeaderboardRank = (uint) _services.LeaderboardService.CurrentRankedEntry.Position,
-				PartyId = GetTeamId(),
+				PartyId = _services.TeamService.GetTeamForPlayer(_services.RoomService.CurrentRoom.LocalPlayer),
 				AvatarUrl = avatarUrl,
 				UseBotBehaviour = useBotBehaviour,
-				TeamColor = _services.RoomService.CurrentRoom.LocalPlayerProperties.ColorIndex.Value
+				TeamColor = _services.TeamService.GetTeamMemberColorIndex(_services.RoomService.CurrentRoom.LocalPlayer)
 			});
 		}
 

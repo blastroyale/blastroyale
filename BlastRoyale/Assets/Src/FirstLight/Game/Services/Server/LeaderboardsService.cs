@@ -107,7 +107,7 @@ namespace FirstLight.Game.Services
 				{
 					var lb = new GameLeaderboard(seasonConfig.Name, metricName);
 					_leaderboards.Add(lb);
-					if (metricName == GameConstants.Stats.LEADERBOARD_LADDER_NAME) // likely never change so hard coded
+					if (metricName == GameConstants.Stats.RANKED_LEADERBOARD_LADDER_NAME) // likely never change so hard coded
 					{
 						Ranked = lb;
 					}
@@ -161,7 +161,7 @@ namespace FirstLight.Game.Services
 		{
 			PlayFabClientAPI.GetLeaderboardAroundPlayer(new ()
 			{
-				StatisticName = GameConstants.Stats.LEADERBOARD_LADDER_NAME,
+				StatisticName = GameConstants.Stats.RANKED_LEADERBOARD_LADDER_NAME,
 				MaxResultsCount = 1,
 			}, r =>
 			{

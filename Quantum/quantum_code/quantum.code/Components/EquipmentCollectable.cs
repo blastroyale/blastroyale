@@ -45,6 +45,10 @@ namespace Quantum
 										(!playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid());
 				
 				playerCharacter->AddWeapon(f, playerEntity, Item, primaryWeapon);
+				
+				var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+				var playerDataPointer = gameContainer->PlayersData.GetPointer(playerRef);
+				playerDataPointer->GunsCollectedCount++;
 			}
 
 			f.Events.OnEquipmentCollected(entity, playerRef, playerEntity);

@@ -24,36 +24,93 @@ namespace Src.FirstLight.Server
 	{
 		private PluginContext _ctx;
 
+		private async Task OnClaimRewards(GameLogicMessageEvent<ClaimedRewardsMessage> ev)
+		{
+			await TrackRewards(ev.PlayerId, "ClaimedRewardsMessage", ev.Message.Rewards);
+		}
+
 		public override void OnEnable(PluginContext context)
 		{
 			_ctx = context;
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.GAMES_PLAYED_EVER, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.GAMES_PLAYED, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.GAMES_WON, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.GAMES_WON_EVER, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_KILLS, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_KILLS_EVER, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_DEATHS_EVER, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.KILLS, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.KILLS_EVER, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_GAMES_WON, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_GAMES_WON_EVER, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_GAMES_PLAYED, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DEATHS, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.NFT_ITEMS, false);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.NON_NFTS, false);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.BROKEN_ITEMS, false);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.CS_TOTAL, false);
+			
+			//Setup Statistics in Playfab
+			//Player Current Currency Statistics
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.NOOB_TOTAL, false);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.COINS_TOTAL, false);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.CS_EARNED, true);
+			
+			//Player Persistent General Statistics
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.ITEMS_OBTAINED, false);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.KD_RATIO, false);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.WL_RATIO, false);
+			
+			
+			//Player Season General Statistics
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.COINS_EARNED, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.XP_EARNED, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.BPP_EARNED, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.BP_LEVEL, false);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DAMAGE_DONE, true);
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DAMAGE_DONE_EVER, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SEASON_XP_EARNED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SEASON_BPP_EARNED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SEASON_BP_LEVEL, false);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SEASON_WL_RATIO, false);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SEASON_KD_RATIO, false);
+			
+			//Player InGame Persistent Statistics
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_DAMAGE_DONE_EVER, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_DEATHS_EVER, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_GAMES_WON_EVER, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_KILLS_EVER, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_AIRDROP_OPENED_EVER, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_SUPPLY_CRATES_OPENED_EVER, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_GUNS_COLLECTED_EVER, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_PICKUPS_COLLECTED_EVER, true);
+
+			//Player InGame Season Statistics
+			//General
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_DAMAGE_DONE, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_DEATHS, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_GAMES_PLAYED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_GAMES_WON, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_KILLS, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_AIRDROP_OPENED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_SUPPLY_CRATES_OPENED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_GUNS_COLLECTED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.RANKED_PICKUPS_COLLECTED, true);
+			
+			//Solo Queue
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SOLO_RANKED_DAMAGE_DONE, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SOLO_RANKED_DEATHS, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SOLO_RANKED_GAMES_PLAYED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SOLO_RANKED_GAMES_WON, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SOLO_RANKED_KILLS, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SOLO_RANKED_AIRDROP_OPENED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SOLO_RANKED_SUPPLY_CRATES_OPENED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SOLO_RANKED_GUNS_COLLECTED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SOLO_RANKED_PICKUPS_COLLECTED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.SOLO_LEADERBOARD_LADDER_NAME, true);
+
+			//Duo Queue
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DUO_RANKED_DAMAGE_DONE, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DUO_RANKED_DEATHS, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DUO_RANKED_GAMES_PLAYED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DUO_RANKED_GAMES_WON, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DUO_RANKED_KILLS, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DUO_RANKED_AIRDROP_OPENED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DUO_RANKED_SUPPLY_CRATES_OPENED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DUO_RANKED_GUNS_COLLECTED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DUO_RANKED_PICKUPS_COLLECTED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.DUO_LEADERBOARD_LADDER_NAME, true);
+
+			//Quad Queue
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.QUAD_RANKED_DAMAGE_DONE, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.QUAD_RANKED_DEATHS, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.QUAD_RANKED_GAMES_PLAYED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.QUAD_RANKED_GAMES_WON, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.QUAD_RANKED_KILLS, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.QUAD_RANKED_AIRDROP_OPENED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.QUAD_RANKED_SUPPLY_CRATES_OPENED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.QUAD_RANKED_GUNS_COLLECTED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.QUAD_RANKED_PICKUPS_COLLECTED, true);
+			_ctx.Statistics.SetupStatistic(GameConstants.Stats.QUAD_LEADERBOARD_LADDER_NAME, true);
+			
 
 			var evManager = _ctx.PluginEventManager!;
 			evManager.RegisterEventListener<GameLogicMessageEvent<ClaimedRewardsMessage>>(OnClaimRewards);
@@ -61,23 +118,6 @@ namespace Src.FirstLight.Server
 			evManager.RegisterEventListener<GameLogicMessageEvent<BattlePassLevelUpMessage>>(OnBattlePassLevel);
 			evManager.RegisterEventListener<PlayerDataLoadEvent>(OnPlayerLoaded);
 			evManager.RegisterCommandListener<EndOfGameCalculationsCommand>(OnEndGameCalculations);
-			evManager.RegisterCommandListener<ScrapItemCommand>(OnScrap);
-			evManager.RegisterCommandListener<UpgradeItemCommand>(OnUpgrade);
-		}
-
-		private async Task OnScrap(string userId, ScrapItemCommand endGameCmd, ServerState state)
-		{
-			await _ctx.Statistics.UpdateStatistics(userId, (GameConstants.Stats.ITEM_SCRAPS, 1), (GameConstants.Stats.ITEM_SCRAPS_EVER, 1));
-		}
-
-		private async Task OnUpgrade(string userId, UpgradeItemCommand endGameCmd, ServerState state)
-		{
-			await _ctx.Statistics.UpdateStatistics(userId, (GameConstants.Stats.ITEM_UPGRADES, 1), (GameConstants.Stats.ITEM_UPGRADES_EVER, 1));
-		}
-
-		private async Task OnClaimRewards(GameLogicMessageEvent<ClaimedRewardsMessage> ev)
-		{
-			await TrackRewards(ev.PlayerId, "ClaimedRewardsMessage", ev.Message.Rewards);
 		}
 
 		private async Task TrackRewards(string playerId, string source, IEnumerable<ItemData> rewards)
@@ -125,14 +165,14 @@ namespace Src.FirstLight.Server
 
 			await _ctx.Statistics.UpdateStatistics(playerId,
 				(GameConstants.Stats.COINS_EARNED, coins),
-				(GameConstants.Stats.XP_EARNED, xp),
-				(GameConstants.Stats.BPP_EARNED, bpp));
+				(GameConstants.Stats.SEASON_XP_EARNED, xp),
+				(GameConstants.Stats.SEASON_BPP_EARNED, bpp));
 		}
 
 		private async Task OnBattlePassLevel(GameLogicMessageEvent<BattlePassLevelUpMessage> ev)
 		{
 			await _ctx.Statistics.UpdateStatistics(ev.PlayerId,
-				(GameConstants.Stats.BP_LEVEL, (int) ev.Message.NewLevel));
+				(GameConstants.Stats.SEASON_BP_LEVEL, (int) ev.Message.NewLevel));
 
 			await TrackRewards(ev.PlayerId, "BattlePassLevelUpMessage", ev.Message.Rewards);
 		}
@@ -142,59 +182,135 @@ namespace Src.FirstLight.Server
 			await _ctx.Statistics.UpdateStatistics(ev.PlayerId, (GameConstants.Stats.ITEMS_OBTAINED, 1));
 		}
 
+		// private async Task OnEndGameCalculations(string userId, EndOfGameCalculationsCommand endGameCmd, ServerState state)
 		private async Task OnEndGameCalculations(string userId, EndOfGameCalculationsCommand endGameCmd, ServerState state)
 		{
+			
+			var isRankedMatch = endGameCmd.QuantumValues.AllowedRewards?.Contains(GameId.Trophies) ?? false;
+
+			//Non-Ranked Matches (Custom Games since we don't have Casual Matches) are not used for player's statistics calculation.
+			if (!isRankedMatch)
+			{
+				return;
+			}
+
 			var toSend = new List<ValueTuple<string, int>>();
+			var firstPlacePlayerData = endGameCmd.PlayersMatchData.FirstOrDefault(p => p.PlayerRank == 1);
 			var thisPlayerData = endGameCmd.PlayersMatchData[endGameCmd.QuantumValues.ExecutingPlayer];
-			var firstPlayer = endGameCmd.PlayersMatchData.FirstOrDefault(p => p.PlayerRank == 1);
-			var isWin = false;
-			var ranked = endGameCmd.QuantumValues.AllowedRewards?.Contains(GameId.Trophies) ?? false;
-
-			if (firstPlayer.Data.IsValid && thisPlayerData.TeamId == firstPlayer.TeamId && thisPlayerData.TeamId > Constants.TEAM_ID_NEUTRAL)
-			{
-				isWin = true;
-			}
-			else if (thisPlayerData.PlayerRank == 1)
-			{
-				isWin = true;
-			}
-
-			if (isWin)
-			{
-				toSend.Add((GameConstants.Stats.GAMES_WON, 1));
-				toSend.Add((GameConstants.Stats.GAMES_WON_EVER, 1));
-				if (ranked)
-				{
-					toSend.Add((GameConstants.Stats.RANKED_GAMES_WON, 1));
-					toSend.Add((GameConstants.Stats.RANKED_GAMES_WON_EVER, 1));
-				}
-			}
-
-			if (ranked)
-			{
-				toSend.Add((GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, 1));
-				toSend.Add((GameConstants.Stats.RANKED_KILLS_EVER, (int) thisPlayerData.Data.PlayersKilledCount));
-				toSend.Add((GameConstants.Stats.RANKED_DEATHS_EVER, (int) thisPlayerData.Data.DeathCount));
-				toSend.Add((GameConstants.Stats.RANKED_GAMES_PLAYED, 1));
-				toSend.Add((GameConstants.Stats.RANKED_KILLS, (int) thisPlayerData.Data.PlayersKilledCount));
-				toSend.Add((GameConstants.Stats.RANKED_DAMAGE_DONE_EVER, (int)thisPlayerData.Data.DamageDone));
-				toSend.Add((GameConstants.Stats.RANKED_DAMAGE_DONE, (int)thisPlayerData.Data.DamageDone));
-			}
-
-			toSend.Add((GameConstants.Stats.DAMAGE_DONE_EVER, (int)thisPlayerData.Data.DamageDone));
-			toSend.Add((GameConstants.Stats.DAMAGE_DONE, (int)thisPlayerData.Data.DamageDone));
-			toSend.Add((GameConstants.Stats.GAMES_PLAYED_EVER, 1));
-			toSend.Add((GameConstants.Stats.KILLS_EVER, (int) thisPlayerData.Data.PlayersKilledCount));
-			toSend.Add((GameConstants.Stats.GAMES_PLAYED, 1));
-			toSend.Add((GameConstants.Stats.KILLS, (int) thisPlayerData.Data.PlayersKilledCount));
-			toSend.Add((GameConstants.Stats.DEATHS, (int) thisPlayerData.Data.DeathCount));
-
-			var trophies = (int) await CheckUpdateTrophiesState(userId, state);
-			toSend.Add((GameConstants.Stats.LEADERBOARD_LADDER_NAME, trophies));
+			
+			CalculateMatchPlayedAndWinStatistics(toSend, firstPlacePlayerData, thisPlayerData, endGameCmd.TeamSize);
+			CalculatePersistentStatistics(toSend, thisPlayerData, endGameCmd.TeamSize);
+			await CalculateSeasonStatistics(toSend, userId, state,  thisPlayerData, endGameCmd.TeamSize);
+			
+			
 			toSend.Add((GameConstants.Stats.NOOB_TOTAL, await UpdatePlayerDataCurrencySeasonAndReset(userId, state, GameConstants.Stats.NOOB_TOTAL, GameId.NOOB)));
-
+			
 			await _ctx.Statistics.UpdateStatistics(userId, toSend.ToArray());
 		}
+
+		private async Task CalculateSeasonStatistics(List<(string, int)> toSend, string userId, ServerState state, QuantumPlayerMatchData thisPlayerData, uint teamSize)
+		{
+			
+			toSend.Add((GameConstants.Stats.RANKED_DAMAGE_DONE, (int) thisPlayerData.Data.DamageDone));
+			toSend.Add((GameConstants.Stats.RANKED_DEATHS, (int) thisPlayerData.Data.DeathCount));
+			toSend.Add((GameConstants.Stats.RANKED_KILLS, (int) thisPlayerData.Data.PlayersKilledCount));
+			toSend.Add((GameConstants.Stats.RANKED_AIRDROP_OPENED, (int) thisPlayerData.Data.AirdropOpenedCount));
+			toSend.Add((GameConstants.Stats.RANKED_SUPPLY_CRATES_OPENED, (int) thisPlayerData.Data.SupplyCrateOpenedCount));
+			toSend.Add((GameConstants.Stats.RANKED_GUNS_COLLECTED, (int) thisPlayerData.Data.GunsCollectedCount));
+			toSend.Add((GameConstants.Stats.RANKED_PICKUPS_COLLECTED, (int) thisPlayerData.Data.PickupCollectedCount));
+			
+			var trophies = (int) await CheckUpdateTrophiesState(userId, state);
+			toSend.Add((GameConstants.Stats.RANKED_LEADERBOARD_LADDER_NAME, trophies));
+
+			switch (teamSize)
+			{
+				case 1:
+					toSend.Add((GameConstants.Stats.SOLO_RANKED_DAMAGE_DONE, (int) thisPlayerData.Data.DamageDone));
+					toSend.Add((GameConstants.Stats.SOLO_RANKED_DEATHS, (int) thisPlayerData.Data.DeathCount));
+					toSend.Add((GameConstants.Stats.SOLO_RANKED_KILLS, (int) thisPlayerData.Data.PlayersKilledCount));
+					toSend.Add((GameConstants.Stats.SOLO_RANKED_AIRDROP_OPENED, (int) thisPlayerData.Data.AirdropOpenedCount));
+					toSend.Add((GameConstants.Stats.SOLO_RANKED_SUPPLY_CRATES_OPENED, (int) thisPlayerData.Data.SupplyCrateOpenedCount));
+					toSend.Add((GameConstants.Stats.SOLO_RANKED_GUNS_COLLECTED, (int) thisPlayerData.Data.GunsCollectedCount));
+					toSend.Add((GameConstants.Stats.SOLO_RANKED_PICKUPS_COLLECTED, (int) thisPlayerData.Data.PickupCollectedCount));
+					toSend.Add((GameConstants.Stats.SOLO_LEADERBOARD_LADDER_NAME, trophies));
+					break;
+				case 2:
+					toSend.Add((GameConstants.Stats.DUO_RANKED_DAMAGE_DONE, (int) thisPlayerData.Data.DamageDone));
+					toSend.Add((GameConstants.Stats.DUO_RANKED_DEATHS, (int) thisPlayerData.Data.DeathCount));
+					toSend.Add((GameConstants.Stats.DUO_RANKED_KILLS, (int) thisPlayerData.Data.PlayersKilledCount));
+					toSend.Add((GameConstants.Stats.DUO_RANKED_AIRDROP_OPENED, (int) thisPlayerData.Data.AirdropOpenedCount));
+					toSend.Add((GameConstants.Stats.DUO_RANKED_SUPPLY_CRATES_OPENED, (int) thisPlayerData.Data.SupplyCrateOpenedCount));
+					toSend.Add((GameConstants.Stats.DUO_RANKED_GUNS_COLLECTED, (int) thisPlayerData.Data.GunsCollectedCount));
+					toSend.Add((GameConstants.Stats.DUO_RANKED_PICKUPS_COLLECTED, (int) thisPlayerData.Data.PickupCollectedCount));
+					toSend.Add((GameConstants.Stats.DUO_LEADERBOARD_LADDER_NAME, trophies));
+					break;
+				case 4:
+					toSend.Add((GameConstants.Stats.QUAD_RANKED_DAMAGE_DONE, (int) thisPlayerData.Data.DamageDone));
+					toSend.Add((GameConstants.Stats.QUAD_RANKED_DEATHS, (int) thisPlayerData.Data.DeathCount));
+					toSend.Add((GameConstants.Stats.QUAD_RANKED_KILLS, (int) thisPlayerData.Data.PlayersKilledCount));
+					toSend.Add((GameConstants.Stats.QUAD_RANKED_AIRDROP_OPENED, (int) thisPlayerData.Data.AirdropOpenedCount));
+					toSend.Add((GameConstants.Stats.QUAD_RANKED_SUPPLY_CRATES_OPENED, (int) thisPlayerData.Data.SupplyCrateOpenedCount));
+					toSend.Add((GameConstants.Stats.QUAD_RANKED_GUNS_COLLECTED, (int) thisPlayerData.Data.GunsCollectedCount));
+					toSend.Add((GameConstants.Stats.QUAD_RANKED_PICKUPS_COLLECTED, (int) thisPlayerData.Data.PickupCollectedCount));
+					toSend.Add((GameConstants.Stats.QUAD_LEADERBOARD_LADDER_NAME, trophies));
+					break;
+			}
+		}
+
+		private static void CalculatePersistentStatistics(List<(string, int)> toSend, QuantumPlayerMatchData thisPlayerData, uint teamSize)
+		{
+			toSend.Add((GameConstants.Stats.RANKED_DAMAGE_DONE_EVER, (int) thisPlayerData.Data.DamageDone));
+			toSend.Add((GameConstants.Stats.RANKED_DEATHS_EVER, thisPlayerData.Data.DeathCount));
+			toSend.Add((GameConstants.Stats.RANKED_KILLS_EVER, thisPlayerData.Data.PlayersKilledCount));
+			toSend.Add((GameConstants.Stats.RANKED_AIRDROP_OPENED_EVER, thisPlayerData.Data.AirdropOpenedCount));
+			toSend.Add((GameConstants.Stats.RANKED_SUPPLY_CRATES_OPENED_EVER, thisPlayerData.Data.SupplyCrateOpenedCount));
+			toSend.Add((GameConstants.Stats.RANKED_GUNS_COLLECTED_EVER, thisPlayerData.Data.GunsCollectedCount));
+			toSend.Add((GameConstants.Stats.RANKED_PICKUPS_COLLECTED_EVER, thisPlayerData.Data.PickupCollectedCount));
+		}
+
+		private static void CalculateMatchPlayedAndWinStatistics(List<(string, int)> toSend, QuantumPlayerMatchData firstPlacePlayerData, QuantumPlayerMatchData thisPlayerData, uint teamSize)
+		{
+			if (HasPlayerWin(firstPlacePlayerData, thisPlayerData))
+			{
+				toSend.Add((GameConstants.Stats.RANKED_GAMES_WON_EVER, 1));
+				toSend.Add((GameConstants.Stats.RANKED_GAMES_WON, 1));
+
+				switch (teamSize)
+				{
+					case 1: 
+						toSend.Add((GameConstants.Stats.SOLO_RANKED_GAMES_WON, 1));
+						break;
+					case 2: 
+						toSend.Add((GameConstants.Stats.DUO_RANKED_GAMES_WON, 1));
+						break;
+					case 4: 
+						toSend.Add((GameConstants.Stats.QUAD_RANKED_GAMES_WON, 1));
+						break;
+				}
+			}
+			
+			toSend.Add((GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, 1));
+			toSend.Add((GameConstants.Stats.RANKED_GAMES_PLAYED, 1));
+			switch (teamSize)
+			{
+				case 1: 
+					toSend.Add((GameConstants.Stats.SOLO_RANKED_GAMES_PLAYED, 1));
+					break;
+				case 2: 
+					toSend.Add((GameConstants.Stats.DUO_RANKED_GAMES_PLAYED, 1));
+					break;
+				case 4: 
+					toSend.Add((GameConstants.Stats.QUAD_RANKED_GAMES_PLAYED, 1));
+					break;
+			}
+		}
+
+		private static bool HasPlayerWin(QuantumPlayerMatchData firstPlayer, QuantumPlayerMatchData thisPlayerData)
+		{
+			return (firstPlayer.Data.IsValid && thisPlayerData.TeamId == firstPlayer.TeamId && thisPlayerData.TeamId > Constants.TEAM_ID_NEUTRAL) ||
+				    thisPlayerData.PlayerRank == 1;
+		}
+		
 
 		public async Task OnPlayerLoaded(PlayerDataLoadEvent playerLoadEvent)
 		{
@@ -218,7 +334,6 @@ namespace Src.FirstLight.Server
 
 			var newNoobies = await UpdatePlayerDataCurrencySeasonAndReset(playerLoadEvent.PlayerId, state, GameConstants.Stats.NOOB_TOTAL, GameId.NOOB);
 			await _ctx.Statistics.UpdateStatistics(playerLoadEvent.PlayerId,
-				(GameConstants.Stats.CS_TOTAL, (int) cs),
 				(GameConstants.Stats.COINS_TOTAL, (int) coins),
 				(GameConstants.Stats.NOOB_TOTAL, newNoobies),
 				(GameConstants.Stats.FAME, (int) playerData.Level)
@@ -276,7 +391,7 @@ namespace Src.FirstLight.Server
 		private async Task<uint> CheckUpdateTrophiesState(string userId, ServerState state)
 		{
 			var data = state.DeserializeModel<PlayerData>();
-			var currentSeason = await _ctx.Statistics.GetSeason(GameConstants.Stats.LEADERBOARD_LADDER_NAME);
+			var currentSeason = await _ctx.Statistics.GetSeason(GameConstants.Stats.RANKED_LEADERBOARD_LADDER_NAME);
 			if (currentSeason <= 0) return data.Trophies;
 			if (data.TrophySeason == 0)
 			{

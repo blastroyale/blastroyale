@@ -2,7 +2,7 @@ struct PlayerMatchData
 {
 	player_ref Player;
 	entity_ref Entity;
-	UInt32 PlayerLevel;
+	UInt16 PlayerLevel;
 	UInt32 PlayerTrophies;
 	Int32 TeamId;
 	short BotNameIndex;
@@ -16,6 +16,10 @@ struct PlayerMatchData
 	UInt16 DeathCount;
 	UInt16 SuicideCount;
 	UInt16 SpecialsUsedCount;
+	UInt16 AirdropOpenedCount;
+	UInt16 SupplyCrateOpenedCount;
+	UInt16 GunsCollectedCount;
+	UInt16 PickupCollectedCount;
 	UInt16 CurrentKillStreak;
 	UInt16 CurrentMultiKill;
 	FP MultiKillResetTime;

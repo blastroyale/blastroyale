@@ -213,7 +213,7 @@ namespace FirstLight.Game.Services
 			GuidService = new GuidService();
 			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
 			GameBackendService =
-				new GameBackendService(messageBrokerService, gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
+				new GameBackendService(messageBrokerService, gameLogic, this, dataService, GameConstants.Stats.RANKED_LEADERBOARD_LADDER_NAME);
 			ProfileService = new PlayerProfileService(GameBackendService);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic,
 				configsProvider);

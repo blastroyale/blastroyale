@@ -69,7 +69,8 @@ namespace Quantum.Systems
 		{
 			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
 				f.Time < collectable->AllowedToPickupTime || !f.Has<AlivePlayerCharacter>(info.Other) ||
-				!f.TryGet<PlayerCharacter>(info.Other, out var player) || f.Has<EntityDestroyer>(info.Entity) || ReviveSystem.IsKnockedOut(f, info.Other))
+				!f.TryGet<PlayerCharacter>(info.Other, out var player) || f.Has<EntityDestroyer>(info.Entity) ||
+				ReviveSystem.IsKnockedOut(f, info.Other))
 			{
 				return false;
 			}

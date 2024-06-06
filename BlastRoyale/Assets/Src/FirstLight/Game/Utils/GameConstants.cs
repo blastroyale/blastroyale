@@ -35,6 +35,88 @@ namespace FirstLight.Game.Utils
 			public const float MAP_DROPZONE_POS_RADIUS_PERCENT = 0.2f;
 		}
 
+		public static class Stats
+		{
+			//Player Current Currency Statistics
+			public const string COINS_TOTAL = "Coins Total";
+			public const string NOOB_TOTAL = "NOOB Total";
+			
+			//Player Persistent General Statistics
+			public const string ITEMS_OBTAINED = "Items Obtained";
+			public const string KD_RATIO = "K/D Ratio";
+			public const string WL_RATIO = "W/L Ratio";
+			public const string FAME = "Fame";
+			
+			//General Season Statistics
+			public const string COINS_EARNED = "Coins Earned";
+			public const string SEASON_XP_EARNED = "XP Earned";
+			public const string SEASON_BPP_EARNED = "BPP Earned";
+			public const string SEASON_BP_LEVEL = "BP Level";
+			public const string SEASON_KD_RATIO = "Season K/D Ratio";
+			public const string SEASON_WL_RATIO = "Season W/L Ratio";
+			
+			// Metrics that should not be used in leaderboards seasons as they should never be reset
+			//General Ranked Persistent Statistics
+			public const string RANKED_DAMAGE_DONE_EVER = "Ranked Damage Done Ever";
+			public const string RANKED_DEATHS_EVER = "Ranked Deaths Ever";
+			public const string RANKED_GAMES_PLAYED_EVER = "Ranked Games Played Ever";
+			public const string RANKED_GAMES_WON_EVER = "Ranked Games Won Ever";
+			public const string RANKED_KILLS_EVER = "Ranked Kills Ever";
+			public const string RANKED_AIRDROP_OPENED_EVER = "Ranked Airdrops Opened Ever";
+			public const string RANKED_SUPPLY_CRATES_OPENED_EVER = "Ranked Supply Crates Opened Ever";
+			public const string RANKED_GUNS_COLLECTED_EVER = "Ranked Guns Collected Ever";
+			public const string RANKED_PICKUPS_COLLECTED_EVER = "Ranked Pickups Collected Ever";
+			
+			//General Ranked InGame Season Statistics
+			public const string RANKED_DAMAGE_DONE = "Ranked Damage Done";
+			public const string RANKED_DEATHS = "Ranked Deaths";
+			public const string RANKED_GAMES_PLAYED = "Ranked Games Played";
+			public const string RANKED_GAMES_WON = "Ranked Games Won";
+			public const string RANKED_KILLS = "Ranked Kills";
+			public const string RANKED_AIRDROP_OPENED = "Ranked Airdrops Opened";
+			public const string RANKED_SUPPLY_CRATES_OPENED = "Ranked Supply Crates Opened";
+			public const string RANKED_GUNS_COLLECTED = "Ranked Guns Collected";
+			public const string RANKED_PICKUPS_COLLECTED = "Ranked Pickups Collected";
+			public const string RANKED_LEADERBOARD_LADDER_NAME = "Trophies Ladder";
+			
+			//Solo Ranked Season statistics name
+			public const string SOLO_RANKED_DAMAGE_DONE = "Solo Ranked Damage Done";
+			public const string SOLO_RANKED_DEATHS = "Solo Ranked Deaths";
+			public const string SOLO_RANKED_GAMES_PLAYED = "Solo Ranked Games Played";
+			public const string SOLO_RANKED_GAMES_WON = "Solo Ranked Games Won";
+			public const string SOLO_RANKED_KILLS = "Solo Ranked Kills";
+			public const string SOLO_RANKED_AIRDROP_OPENED = "Solo Ranked Airdrops Opened";
+			public const string SOLO_RANKED_SUPPLY_CRATES_OPENED = "Solo Ranked Supply Crates Opened";
+			public const string SOLO_RANKED_GUNS_COLLECTED = "Solo Ranked Guns Collected";
+			public const string SOLO_RANKED_PICKUPS_COLLECTED = "Solo Ranked Pickups Collected";
+			public const string SOLO_LEADERBOARD_LADDER_NAME = "Solo Trophies Ladder";
+			
+			//Duo Ranked Season statistics name
+			public const string DUO_RANKED_DAMAGE_DONE = "Duo Ranked Damage Done";
+			public const string DUO_RANKED_DEATHS = "Duo Ranked Deaths";
+			public const string DUO_RANKED_GAMES_PLAYED = "Duo Ranked Games Played";
+			public const string DUO_RANKED_GAMES_WON = "Duo Ranked Games Won";
+			public const string DUO_RANKED_KILLS = "Duo Ranked Kills";
+			public const string DUO_RANKED_AIRDROP_OPENED = "Duo Ranked Airdrops Opened";
+			public const string DUO_RANKED_SUPPLY_CRATES_OPENED = "Duo Ranked Supply Crates Opened";
+			public const string DUO_RANKED_GUNS_COLLECTED = "Duo Ranked Guns Collected";
+			public const string DUO_RANKED_PICKUPS_COLLECTED = "Duo Ranked Pickups Collected";
+			public const string DUO_LEADERBOARD_LADDER_NAME = "Duo Trophies Ladder";
+			
+			//Quad  Ranked Season statistics name
+			public const string QUAD_RANKED_DAMAGE_DONE = "Quad Ranked Damage Done";
+			public const string QUAD_RANKED_DEATHS = "Quad Ranked Deaths";
+			public const string QUAD_RANKED_GAMES_PLAYED = "Quad Ranked Games Played";
+			public const string QUAD_RANKED_GAMES_WON = "Quad Ranked Games Won";
+			public const string QUAD_RANKED_KILLS = "Quad Ranked Kills";
+			public const string QUAD_RANKED_AIRDROP_OPENED = "Quad Ranked Airdrops Opened";
+			public const string QUAD_RANKED_SUPPLY_CRATES_OPENED = "Quad Ranked Supply Crates Opened";
+			public const string QUAD_RANKED_GUNS_COLLECTED = "Quad Ranked Guns Collected";
+			public const string QUAD_RANKED_PICKUPS_COLLECTED = "Quad Ranked Pickups Collected";
+			public const string QUAD_LEADERBOARD_LADDER_NAME = "Quad Trophies Ladder";
+			
+		}
+
 		public static class Audio
 		{
 			public const string MIXER_MAIN_SNAPSHOT_ID = "Main";
@@ -139,49 +221,6 @@ namespace FirstLight.Game.Utils
 		{
 			public const string VERSION_KEY = nameof(Application.version);
 			public const string MAINTENANCE_KEY = "version block";
-		}
-
-		public static class Stats
-		{
-			public const string RANKED_GAMES_PLAYED = "Ranked Games Played";
-			public const string GAMES_PLAYED = "Games Played";
-			public const string GAMES_WON = "Games Won";
-			public const string RANKED_GAMES_WON = "Ranked Games Won";
-			public const string RANKED_KILLS = "Ranked Kills";
-			public const string KILLS = "Kills";
-			public const string DEATHS = "Deaths";
-			public const string NFT_ITEMS = "Nft Items";
-			public const string NON_NFTS = "Non Nft Items";
-			public const string BROKEN_ITEMS = "Broken Items";
-			public const string ITEM_UPGRADES = "Item Upgrades";
-			public const string ITEM_UPGRADES_EVER = "Item Upgrades Ever";
-			public const string ITEM_SCRAPS = "Item Scraps";
-			public const string ITEM_SCRAPS_EVER = "Item Scraps Ever";
-			public const string FAME = "Fame";
-			public const string COINS_EARNED = "Coins Earned";
-			public const string BPP_EARNED = "BPP Earned";
-			public const string BP_LEVEL = "BP Level";
-			public const string DAMAGE_DONE = "Damage Done";
-			public const string RANKED_DAMAGE_DONE = "Ranked Damage Done";
-			public const string XP_EARNED = "XP Earned";
-			public const string CS_EARNED = "CS Earned";
-			public const string COINS_TOTAL = "Coins Total";
-			public const string NOOB_TOTAL = "NOOB Total";
-			public const string CS_TOTAL = "CS Total";
-			public const string ITEMS_OBTAINED = "Items Obtained";
-			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
-
-			// Metrics that should not be used in leaderboards seasons
-			// as they should never be reset
-			public const string RANKED_DAMAGE_DONE_EVER = "Ranked Damage Done Ever";
-			public const string DAMAGE_DONE_EVER = "Damage Done Ever";
-			public const string RANKED_KILLS_EVER = "Ranked Kills Ever";
-			public const string RANKED_DEATHS_EVER = "Ranked Deaths Ever";
-			public const string RANKED_GAMES_WON_EVER = "Ranked Games Won Ever";
-			public const string RANKED_GAMES_PLAYED_EVER = "Ranked Games Played Ever";
-			public const string KILLS_EVER = "Kills Ever";
-			public const string GAMES_PLAYED_EVER = "Games Played Ever";
-			public const string GAMES_WON_EVER = "Games Won Ever";
 		}
 
 		public static class Network

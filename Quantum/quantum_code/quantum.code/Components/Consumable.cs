@@ -4,7 +4,7 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
-	public unsafe partial struct Consumable
+	public unsafe partial struct Consumable 
 	{
 		/// <summary>
 		/// Initializes this Consumable with all the necessary data
@@ -80,6 +80,13 @@ namespace Quantum
 				ShareCollectWithTeammates(f, playerEntity, team);
 			}
 
+			if (ConsumableType != ConsumableType.GameItem)
+			{
+				var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+				var playerDataPointer = gameContainer->PlayersData.GetPointer(player);
+				playerDataPointer->PickupCollectedCount++;
+			}
+			
 			f.Signals.OnConsumableCollected(player, playerEntity, ConsumableType, collectable->GameId);
 			f.Events.OnConsumableCollected(entity, player, playerEntity);
 		}

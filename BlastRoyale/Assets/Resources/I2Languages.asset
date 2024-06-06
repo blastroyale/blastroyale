@@ -26090,14 +26090,11 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'First Light ID connected!
-
-
-        User ID: <color=#948bc4>{0}</color>'
+      - You are connected to your First Light ID!
       - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
         \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
         \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
-      - Primeira ID da luz conectada!
+      - "Voc\xEA est\xE1 conectado a sua conta First Light ID."
       - 
       - 
       Flags: 0000000000
@@ -26126,16 +26123,11 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'First Light ID not connected!
-
-        <color=#FF4128>Connect First Light
-        ID to not lose your progress.</color>
-
-        Guest User ID: <color=#948bc4>{0}</color>'
+      - You are not connected to your First Light ID!
       - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
         \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
         \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
-      - "Primeira ID da luz n\xE3o conectada!"
+      - "Voc\xEA n\xE3o est\xE1 conectado a sua conta First Light ID."
       - 
       - 
       Flags: 0000000000
@@ -27873,6 +27865,17 @@ MonoBehaviour:
       - WINNERS
       - "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u0435\u043B\u0438"
       - Vencedores
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/player_id
+      TermType: 0
+      Description: 
+      Languages:
+      - Player ID
+      - Player ID
+      - Player ID
       - 
       - 
       Flags: 0000000000

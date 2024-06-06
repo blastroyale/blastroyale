@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/SettingsScreenStyle.uss?fileID=7433441132597879392&amp;guid=4e51e5379d62b426db9b3aa6880d0619&amp;type=3#SettingsScreenStyle" />
-    <ui:VisualElement name="root" class="fill-parent">
+    <ui:VisualElement name="root" class="fill-parent" style="top: 0; right: -2px; left: 3px; bottom: 0;">
         <ui:VisualElement name="Background" class="background fill-parent anim-delay-0 anim-fade" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent safe-area">
             <ui:VisualElement name="SettingsPopup" class="settings-popup anim-delay-0 anim-translate anim-translate--down-xxxl">
@@ -41,7 +41,10 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="Account" class="settings-container settings-container--account" style="width: initial;">
-                            <ui:Label text="First Light ID Connected!&#10;&#10;User ID: Penus48212" name="AccountStatusLabel" class="account-status-label" />
+                            <FirstLight.Game.UIElements.LocalizedLabel name="AccountStatusLabel" localization-key="UITSettings/flg_id_connected" picking-mode="Ignore" text="You are connected to your First Light ID!" class="account-status-label" />
+                            <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITSettings/player_id" picking-mode="Ignore" name="PlayerID" value="JwaSqAKILS3YAeAfitjKQRDBtVAd" readonly="true" hide-mobile-input="true" class="player-id-input" >
+                                <FirstLight.Game.UIElements.ImageButton name="CopyButton" class="button-copy" />
+                            </FirstLight.Game.UIElements.LocalizedTextField>
                             <ui:VisualElement name="Buttons" class="account-buttons">
                                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/delete_account" name="DeleteAccountButton" text="FAQ" class="button-long button-long--red account-button" />
                                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/logout" name="LogoutButton" text="FAQ" class="button-long account-button" />

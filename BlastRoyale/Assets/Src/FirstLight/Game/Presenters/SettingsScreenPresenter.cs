@@ -11,6 +11,7 @@ using Button = UnityEngine.UIElements.Button;
 using Cysharp.Threading.Tasks;
 using FirstLight.UIService;
 using Unity.Services.Authentication;
+using UnityEngine;
 
 namespace FirstLight.Game.Presenters
 {
@@ -42,10 +43,11 @@ namespace FirstLight.Game.Presenters
 		private Button _connectIdButton;
 		private Button _web3Button;
 		private Button _supportButton;
-		private Label _accountStatusLabel;
 		private Label _web3StatusLabel;
 		private VisualElement _web3Notification;
-
+		private LocalizedLabel _accountStatusLabel;
+		private TextField _playerIDField;
+		
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -93,7 +95,9 @@ namespace FirstLight.Game.Presenters
 			_deleteAccountButton.clicked += OnDeleteAccountClicked;
 			_connectIdButton = Root.Q<Button>("ConnectButton");
 			_connectIdButton.clicked += Data.OnConnectIdClicked;
-			_accountStatusLabel = Root.Q<Label>("AccountStatusLabel");
+			_accountStatusLabel = Root.Q<LocalizedLabel>("AccountStatusLabel").Required();
+			_playerIDField = Root.Q<TextField>("PlayerID").Required();
+			Root.Q<ImageButton>("CopyButton").Required().clicked += CopyPlayerID;
 			_web3StatusLabel = Root.Q<Label>("Web3StatusLabel");
 			UpdateAccountStatus();
 			UpdateWeb3State(MainInstaller.ResolveWeb3().State);
@@ -181,16 +185,17 @@ namespace FirstLight.Game.Presenters
 				_connectIdButton.SetDisplay(true);
 				_deleteAccountButton.SetDisplay(false);
 				_logoutButton.SetDisplay(false);
-				_accountStatusLabel.text =
-					string.Format(ScriptLocalization.UITSettings.flg_id_not_connected, AuthenticationService.Instance.PlayerName);
+				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_not_connected);
 			}
 			else
 			{
 				_connectIdButton.SetDisplay(false);
 				_deleteAccountButton.SetDisplay(true);
 				_logoutButton.SetDisplay(true);
-				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_connected, AuthenticationService.Instance.PlayerName);
+				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_connected);
 			}
+			
+			_playerIDField.value = AuthenticationService.Instance.PlayerId;
 		}
 
 		private void OpenCustomizeHud()
@@ -249,6 +254,16 @@ namespace FirstLight.Game.Presenters
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
+		}
+		
+		private void CopyPlayerID()
+		{
+			var te = new TextEditor
+			{
+				text = _playerIDField.value
+			};
+			te.SelectAll();
+			te.Copy();
 		}
 	}
 }

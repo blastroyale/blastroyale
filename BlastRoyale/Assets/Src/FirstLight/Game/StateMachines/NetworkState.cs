@@ -9,7 +9,6 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
-using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
@@ -281,12 +280,6 @@ namespace FirstLight.Game.StateMachines
 				}
 			}
 
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Disconnection,
-				_networkService.QuantumClient.DisconnectedCause
-					.ToString());
-
-			_services.AnalyticsService.SessionCalls.Disconnection(false);
-
 			_statechartTrigger(PhotonDisconnectedEvent);
 		}
 
@@ -484,7 +477,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				FLog.Error($"Network action on connection state {_networkService.QuantumClient.State} on server {_networkService.QuantumClient.Server}");
 				_statechartTrigger(PhotonCriticalDisconnectedEvent);
-				_services.AnalyticsService.SessionCalls.Disconnection(true);
 			}
 		}
 
@@ -628,7 +620,6 @@ namespace FirstLight.Game.StateMachines
 			yield return new WaitForSeconds(GameConstants.Network.CRITICAL_DISCONNECT_THRESHOLD_SECONDS);
 			FLog.Error("Critical disconnection");
 			_statechartTrigger(PhotonCriticalDisconnectedEvent);
-			_services.AnalyticsService.SessionCalls.Disconnection(true);
 		}
 
 		public void OnErrorInfo(ErrorInfo errorInfo)

@@ -6,6 +6,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Analytics;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
@@ -30,8 +31,6 @@ namespace FirstLight.Game
 			_configsAdder = configsAdder;
 			_configsLoader = new GameConfigsLoader(_assetService);
 
-			_services.AnalyticsService.SessionCalls.GameLoadStart();
-
 			var tasks = new List<UniTask>();
 			tasks.AddRange(_configsLoader.LoadConfigTasks(_configsAdder));
 			tasks.AddRange(LoadAssetConfigs());
@@ -46,11 +45,6 @@ namespace FirstLight.Game
 			await UniTask.WhenAll(audioTasks);
 
 			LoadVfx(); // This is not awaited
-
-			_services.AnalyticsService.LogEvent(AnalyticsEvents.InitialLoadingComplete, new Dictionary<string, object>
-			{
-				{"boot_time", Time.realtimeSinceStartup}
-			});
 		}
 
 		private static IEnumerable<UniTask> LoadAssetConfigs()

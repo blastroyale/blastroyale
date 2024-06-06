@@ -8,6 +8,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services.Analytics;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using Photon.Realtime;
@@ -104,7 +105,6 @@ namespace FirstLight.Game.Services
 				{"vendor_id", SystemInfo.deviceUniqueIdentifier},
 				{"playfab_player_id", _data.AppDataProvider.PlayerId}
 			};
-			_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadMatchAssetsComplete, dic);
 			FLog.Verbose("Completed loading all core assets");
 			_services.MessageBrokerService.Publish(new BenchmarkLoadedMandatoryMatchAssets());
 
@@ -113,7 +113,6 @@ namespace FirstLight.Game.Services
 				_services.RoomService.CurrentRoom.LocalPlayerProperties.CoreLoaded.Value = true;
 			}
 		}
-
 
 		public async UniTask UnloadAllMatchAssets()
 		{

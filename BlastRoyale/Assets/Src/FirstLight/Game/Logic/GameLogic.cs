@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Analytics;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.Commands;

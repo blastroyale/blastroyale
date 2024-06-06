@@ -494,8 +494,6 @@ namespace FirstLight.Game.StateMachines
 		private async UniTask OpenPreGameScreen()
 		{
 			FLog.Verbose("Entering Match State");
-			_services.AnalyticsService.MatchCalls.MatchInitiate();
-
 			if (!_roomService.InRoom) return;
 
 			// TODO: Reconnection screen but for now its MM screen

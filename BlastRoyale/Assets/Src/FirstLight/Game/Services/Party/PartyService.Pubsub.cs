@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
-using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using JetBrains.Annotations;
@@ -131,7 +130,7 @@ namespace FirstLight.Game.Services.Party
 				listenForLobbyUpdateFails++;
 				if (listenForLobbyUpdateFails > 2)
 				{
-					_backendService.HandleUnrecoverableException(ex, AnalyticsCallsErrors.ErrorType.Squads);
+					_backendService.HandleUnrecoverableException(ex);
 					return;
 				}
 

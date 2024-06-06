@@ -1,6 +1,6 @@
 using System;
 using FirstLight.Game.Services;
-using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Game.Services.Analytics;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.UIService;

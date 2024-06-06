@@ -162,8 +162,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnServerHttpErrorMessage(ServerHttpErrorMessage msg)
 		{
-			_services.AnalyticsService.CrashLog(msg.Message);
-
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,

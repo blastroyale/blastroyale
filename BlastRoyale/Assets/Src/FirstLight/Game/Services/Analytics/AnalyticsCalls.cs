@@ -1,4 +1,4 @@
-namespace FirstLight.Game.Services.AnalyticsHelpers
+namespace FirstLight.Game.Services.Analytics
 {
 	/// <summary>
 	/// Analytics base class for helper classes

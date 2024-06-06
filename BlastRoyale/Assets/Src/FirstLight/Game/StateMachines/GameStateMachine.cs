@@ -128,7 +128,6 @@ namespace FirstLight.Game.StateMachines
 			_gameLogic.Init();
 			_services.GameModeService.Init();
 			_services.IAPService.Init();
-			_services.AnalyticsService.SessionCalls.GameLoaded();
 			InitUserReporting(_services).Forget(); // TODO: Move this to Startup when we can await for auth there
 		}
 

@@ -253,7 +253,7 @@ namespace FirstLight.Game.Logic
 		private void SetCurrentSeasonToNow()
 		{
 			var cfg = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
-			var season = cfg.GetSeasonAt(DateTime.Now);
+			var season = cfg.GetSeasonAt(DateTime.UtcNow);
 			if (season != null)
 			{
 				_currentSeason = new BattlePassSeasonLogic(this, season.Season.Number);

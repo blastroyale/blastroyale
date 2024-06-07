@@ -12,10 +12,18 @@ namespace FirstLight.Game.Data.DataTypes
 	public class PlayerMessage
 	{
 		/// <summary>
-		/// The message that was sent
+		/// The ID of the squad to join.
 		/// </summary>
 		[Preserve]
-		[DataMember(Name = "message", IsRequired = true, EmitDefaultValue = true)]
-		public string Message { get; set; }
+		[DataMember(Name = "squad_code", IsRequired = false, EmitDefaultValue = true)]
+		public string SquadCode { get; private set; }
+
+		public static PlayerMessage CreateSquadInvite(string squadCode)
+		{
+			return new PlayerMessage
+			{
+				SquadCode = squadCode
+			};
+		}
 	}
 }

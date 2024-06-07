@@ -57,6 +57,20 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
 
+		/// <summary>
+		/// Opens the screen and loads the player statistics for the given Unity ID
+		/// </summary>
+		public static async UniTask Open(string unityID)
+		{
+			var services = MainInstaller.ResolveServices();
+
+			await services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new PlayerStatisticsPopupPresenter.StateData
+			{
+				UnityID = unityID,
+				OnCloseClicked = () => services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget()
+			});
+		}
+
 		protected override void QueryElements()
 		{
 			_statLabels = new Label[StatisticMaxSize];
@@ -135,11 +149,11 @@ namespace FirstLight.Game.Presenters
 
 			// If PlayfabID is null we fetch it from CloudSave.
 			Data.PlayfabID ??= await CloudSaveService.Instance.LoadPlayfabID(Data.UnityID);
-			
+
 			if (!_services.UIService.IsScreenOpen<PlayerStatisticsPopupPresenter>()) return;
-			
+
 			FLog.Info("Downloading profile for " + Data.PlayfabID);
-			
+
 			_services.ProfileService.GetPlayerPublicProfile(Data.PlayfabID, (result) =>
 			{
 				// TODO: Race condition if you close and quickly reopen the popup

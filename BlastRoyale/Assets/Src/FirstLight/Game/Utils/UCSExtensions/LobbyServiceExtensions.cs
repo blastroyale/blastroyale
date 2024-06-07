@@ -1,5 +1,7 @@
-using Cysharp.Threading.Tasks;
-using Unity.Services.Lobbies;
+using System;
+using FirstLight.Game.Services;
+using Quantum;
+using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
 
 namespace FirstLight.Game.Utils.UCSExtensions
@@ -10,22 +12,27 @@ namespace FirstLight.Game.Utils.UCSExtensions
 	public static class LobbyServiceExtensions
 	{
 		/// <summary>
-		/// Returns the current squad lobby, or null if player isn't in a squad.
+		/// Checks if the local player is the host of the lobby. If lobby is null, returns false.
 		/// </summary>
-		public static async UniTask<Lobby> GetCurrentSquadLobby(this ILobbyService lobbyService)
+		public static bool IsPlayerHost(this Lobby lobby)
 		{
-			var joinedLobbies = await lobbyService.GetJoinedLobbiesAsync();
+			return lobby != null && lobby.HostId == AuthenticationService.Instance.PlayerId;
+		}
 
-			foreach (var joinedLobby in joinedLobbies)
-			{
-				var lobby = await lobbyService.GetLobbyAsync(joinedLobby);
-				if (lobby.IsPrivate) // Private lobbies are always squad lobbies
-				{
-					return lobby;
-				}
-			}
-
-			return null;
+		/// <summary>
+		/// Gets the player skin id from the lobby player
+		/// </summary>
+		public static GameId GetPlayerCharacterSkin(this Player player)
+		{
+			return Enum.Parse<GameId>(player.Data[FLLobbyService.KEY_SKIN_ID].Value);
+		}
+		
+		/// <summary>
+		/// Gets the player melee id from the lobby player
+		/// </summary>
+		public static GameId GetPlayerMeleeSkin(this Player player)
+		{
+			return Enum.Parse<GameId>(player.Data[FLLobbyService.KEY_MELEE_ID].Value);
 		}
 	}
 }

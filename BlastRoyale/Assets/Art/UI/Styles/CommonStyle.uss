@@ -681,7 +681,7 @@
 }
 
 .player-name--small {
-    font-size: 46;
+    font-size: 46px;
     -unity-font-style: normal;
     -unity-text-outline-width: 1px;
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
@@ -753,13 +753,16 @@
     flex-grow: 1;
     background-image: var(--sprite-home__background-popup-generic);
     padding: 30px;
+    padding-bottom: 69px;
+    padding-right: 55px;
+    padding-left: 55px;
 }
 
 .generic-popup__close-button {
     position: absolute;
-    width: 75px;
-    background-color: rgb(255, 255, 255);
-    right: 0;
-    top: 0;
-    bottom: 0;
+    width: 40px;
+    height: 40px;
+    background-image: var(--sprite-home__icon-close-white);
+    right: 35px;
+    align-self: center;
 }

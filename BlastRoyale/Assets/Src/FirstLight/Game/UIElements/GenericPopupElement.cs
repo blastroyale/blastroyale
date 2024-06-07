@@ -1,4 +1,6 @@
 using System;
+using I2.Loc;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -8,8 +10,10 @@ namespace FirstLight.Game.UIElements
 		private const string USS_BLOCK = "generic-popup";
 		private const string USS_HEADER = USS_BLOCK + "__header";
 		private const string USS_TITLE = USS_BLOCK + "__title";
-		private const string USS_CONTENT= USS_BLOCK + "__content";
-		private const string USS_CLOSE_BUTTON= USS_BLOCK + "__close-button";
+		private const string USS_CONTENT = USS_BLOCK + "__content";
+		private const string USS_CLOSE_BUTTON = USS_BLOCK + "__close-button";
+
+		private string TitleLocalizationKey { get; set; }
 
 		private readonly VisualElement _header;
 		private readonly Label _title;
@@ -20,11 +24,7 @@ namespace FirstLight.Game.UIElements
 
 		public override VisualElement contentContainer { get; }
 
-		public GenericPopupElement() : this("My Title")
-		{
-		}
-
-		public GenericPopupElement(string title)
+		public GenericPopupElement()
 		{
 			contentContainer = this;
 
@@ -34,7 +34,7 @@ namespace FirstLight.Game.UIElements
 			Add(_header = new VisualElement {name = "header"});
 			_header.AddToClassList(USS_HEADER);
 			{
-				_header.Add(_title = new Label(title) {name = "title"});
+				_header.Add(_title = new Label("Title") {name = "title"});
 				_title.AddToClassList(USS_TITLE);
 				_header.Add(_closeButton = new ImageButton {name = "close-button"});
 				_closeButton.AddToClassList(USS_CLOSE_BUTTON);
@@ -47,8 +47,31 @@ namespace FirstLight.Game.UIElements
 			contentContainer = _content;
 		}
 
+		private void LocalizeTitle(string labelKey)
+		{
+			TitleLocalizationKey = labelKey;
+			_title.text = LocalizationManager.TryGetTranslation(labelKey, out var translation)
+				? translation
+				: $"#{labelKey}#";
+		}
+
 		public new class UxmlFactory : UxmlFactory<GenericPopupElement, UxmlTraits>
 		{
+		}
+
+		public new class UxmlTraits : VisualElement.UxmlTraits
+		{
+			private readonly UxmlStringAttributeDescription _titleLocalizationKeyAttribute = new ()
+			{
+				name = "title-localization-key",
+				use = UxmlAttributeDescription.Use.Required
+			};
+
+			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
+			{
+				base.Init(ve, bag, cc);
+				((GenericPopupElement) ve).LocalizeTitle(_titleLocalizationKeyAttribute.GetValueFromBag(bag, cc));
+			}
 		}
 	}
 }

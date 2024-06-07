@@ -218,7 +218,7 @@ namespace FirstLight.Game.Presenters
 
 		private void ShowSquadUpPopup()
 		{
-			_services.UIService.OpenScreen<SquadUpPopupPresenter>().Forget();
+			_services.UIService.OpenScreen<PartyPopupPresenter>().Forget();
 		}
 
 		private void OnItemRewarded(ItemRewardedMessage msg)

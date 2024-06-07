@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
@@ -167,12 +168,16 @@ namespace FirstLight.Game.Presenters
 				header = string.Format(online ? ScriptLocalization.UITFriends.online : ScriptLocalization.UITFriends.offline, count);
 			}
 
-			((FriendListElement) element).SetData(relationship, header, ScriptLocalization.UITFriends.invite, !online
-				? null
-				: r =>
+			((FriendListElement) element)
+				.SetPlayerName(relationship.Member.Profile.Name)
+				.SetHeader(header)
+				.SetStatus(relationship.Member.Presence.GetActivity<PlayerActivity>().Status, online)
+				.SetMainAction(ScriptLocalization.UITFriends.invite, () =>
 				{
-					FLog.Info($"Squad invite clicked: {r.Id}");
-				}, null, null, OpenFriendTooltip);
+					// TODO mihak: Invite to squad
+					FLog.Info($"Squad invite clicked: {relationship.Id}");
+				}, false)
+				.SetMoreActions(ve => OpenFriendTooltip(ve, relationship));
 		}
 
 		private void OnRequestsBindItem(VisualElement element, int index)
@@ -193,25 +198,35 @@ namespace FirstLight.Game.Presenters
 					count);
 			}
 
-			((FriendListElement) element).SetData(relationship, header, null, null,
-				sentRequest ? null : r => AcceptRequest(r).Forget(),
-				sentRequest ? null : r => DeclineRequest(r).Forget(),
-				OpenRequestsTooltip);
+			var playerElement = ((FriendListElement) element)
+				.SetPlayerName(relationship.Member.Profile.Name)
+				.SetHeader(header)
+				.SetMoreActions(ve => OpenRequestsTooltip(ve, relationship));
+
+			if (!sentRequest)
+			{
+				playerElement.SetAcceptDecline(
+					() => AcceptRequest(relationship).Forget(),
+					() => DeclineRequest(relationship).Forget()
+				);
+			}
 		}
 
 		private void OnBlockedBindItem(VisualElement element, int index)
 		{
 			var relationship = _blocked[index];
 
-			((FriendListElement) element).SetData(relationship, null, ScriptLocalization.UITFriends.unblock, r => UnblockPlayer(r).Forget(), null,
-				null, null);
+			((FriendListElement) element)
+				.SetPlayerName(relationship.Member.Profile.Name)
+				.SetMainAction(ScriptLocalization.UITFriends.unblock, () => UnblockPlayer(relationship).Forget(), true);
 		}
 
 		private void OpenFriendTooltip(VisualElement element, Relationship relationship)
 		{
 			TooltipUtils.OpenPlayerContextOptions(element, Root, relationship.Member.Profile.Name, new[]
 			{
-				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile", () => OpenProfile(relationship.Member.Id).Forget()),
+				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
+					() => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.remove_friend,
 					() => RemoveFriend(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
@@ -223,7 +238,8 @@ namespace FirstLight.Game.Presenters
 		{
 			TooltipUtils.OpenPlayerContextOptions(element, Root, relationship.Member.Profile.Name, new[]
 			{
-				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile", () => OpenProfile(relationship.Member.Id).Forget()),
+				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
+					() => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
 					() => BlockPlayer(relationship.Member.Id).Forget()),
 			}, TipDirection.TopRight, TooltipPosition.Center);
@@ -336,17 +352,6 @@ namespace FirstLight.Game.Presenters
 			};
 			te.SelectAll();
 			te.Copy();
-		}
-
-		private async UniTask OpenProfile(string playerID)
-		{
-			var services = MainInstaller.ResolveServices();
-
-			await services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new PlayerStatisticsPopupPresenter.StateData
-			{
-				UnityID = playerID,
-				OnCloseClicked = () => services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget()
-			});
 		}
 	}
 }

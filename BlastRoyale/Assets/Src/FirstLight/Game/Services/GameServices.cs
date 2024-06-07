@@ -103,12 +103,12 @@ namespace FirstLight.Game.Services
 		public IIAPService IAPService { get; }
 
 		public IPartyService PartyService { get; }
-		
+
 		public RateAndReviewService RateAndReviewService { get; }
 
 		/// <inheritdoc cref="IPlayfabPubSubService"/>
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
-		
+
 		public UIService.UIService UIService { get; }
 		public UIVFXService UIVFXService { get; }
 
@@ -125,6 +125,7 @@ namespace FirstLight.Game.Services
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; }
 		public LocalPrefsService LocalPrefsService { get; }
+		public FLLobbyService FLLobbyService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -183,9 +184,9 @@ namespace FirstLight.Game.Services
 		public ILeaderboardService LeaderboardService { get; }
 		public IRewardService RewardService { get; }
 		public LocalPrefsService LocalPrefsService { get; }
-		
-		public string QuitReason { get; set; }
+		public FLLobbyService FLLobbyService { get; }
 
+		public string QuitReason { get; set; }
 
 		public GameServices(IInternalGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 							ITimeService timeService, IDataService dataService, IConfigsAdder configsProvider,
@@ -221,7 +222,8 @@ namespace FirstLight.Game.Services
 				GenericDialogService, MessageBrokerService, LocalPrefsService);
 
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
-			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider, LocalPrefsService);
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider,
+				LocalPrefsService);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			RewardService = new RewardService(this, gameLogic);
@@ -236,7 +238,8 @@ namespace FirstLight.Game.Services
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 
-			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);
+			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic,
+				LeaderboardService);
 			TutorialService = new TutorialService(RoomService, CommandService, ConfigsProvider, gameLogic);
 			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
 			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, this);
@@ -244,9 +247,8 @@ namespace FirstLight.Game.Services
 			TeamService = new TeamService(RoomService);
 			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);
 			CustomerSupportService = new CustomerSupportService(AuthenticationService);
+			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic);
 		}
-
-
 
 		/// <inheritdoc />
 		public void QuitGame(string reason)

@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 78640a90db5304306ac2ea3675cf8414
+guid: f322cdf04d129409eba150ba1156e037
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Char_SuperstarFemale
+    second: {fileID: 2100000, guid: e8b84ae2cbb514a76bdb8d6f7f49b406, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

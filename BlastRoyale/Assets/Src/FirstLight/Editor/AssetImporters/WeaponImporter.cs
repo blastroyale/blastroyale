@@ -19,14 +19,12 @@ namespace FirstLight.Editor.AssetImporters
 
 			var importer = (ModelImporter) assetImporter;
 
-			// TODO: Add this when we have new weapons
-			// Extract textures
-			// var folder = assetPath.Remove(assetPath.LastIndexOf('/'));
-			// importer.ExtractTextures(folder);
-
 			// Apply preset
 			var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/WeaponFBX.preset");
 			preset.ApplyTo(importer);
+
+			// Find and map the M_Guns material
+			importer.SearchAndRemapMaterials(ModelImporterMaterialName.BasedOnMaterialName, ModelImporterMaterialSearch.Everywhere);
 		}
 
 		private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
@@ -77,7 +75,7 @@ namespace FirstLight.Editor.AssetImporters
 				DelayedEditorCall.DelayedCall(MoveWeapons, 0.5f);
 			}
 		}
-		
+
 		private static void MoveWeapons()
 		{
 			var folders = AssetDatabase.GetSubFolders(ASSET_MANAGER_PATH);

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ebaa8514d83144baa85cb39cf5248520
+guid: a69649584516945bf9dde47e2c53b84d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,12 +7,17 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_Guns
+    second: {fileID: 2100000, guid: 6f9f5c55163a8442c99b737427c4096f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: melee_weapons
     second: {fileID: 2100000, guid: 729d0da7a48b649a69d5ee8d6207e9cc, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

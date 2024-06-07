@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEditor;
+using UnityEditor.Presets;
 using UnityEngine;
 
 namespace FirstLight.Editor.AssetImporters
@@ -24,8 +25,8 @@ namespace FirstLight.Editor.AssetImporters
 			// importer.ExtractTextures(folder);
 
 			// Apply preset
-			// var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/WeaponFBX.preset");
-			// preset.ApplyTo(importer);
+			var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/WeaponFBX.preset");
+			preset.ApplyTo(importer);
 		}
 
 		private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,

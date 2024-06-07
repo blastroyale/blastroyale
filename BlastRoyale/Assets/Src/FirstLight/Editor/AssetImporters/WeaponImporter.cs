@@ -43,18 +43,18 @@ namespace FirstLight.Editor.AssetImporters
 					{
 						var weaponName = directoryName[WEAPON_PREFIX.Length..];
 						var weaponFBXFilename = $"{WEAPON_PREFIX}{weaponName}.fbx";
-						var characterFBXPath = Path.Combine(assetPath, weaponFBXFilename);
-						var characterPrefabFilename = $"{WEAPON_PREFIX}{weaponName}.prefab";
-						var characterFBX = (GameObject) AssetDatabase.LoadMainAssetAtPath(characterFBXPath);
+						var weaponFBXPath = Path.Combine(assetPath, weaponFBXFilename);
+						var weaponPrefabFilename = $"{WEAPON_PREFIX}{weaponName}.prefab";
+						var weaponFBX = (GameObject) AssetDatabase.LoadMainAssetAtPath(weaponFBXPath);
 
 						Debug.Log($"Importing new weapon: {weaponName}");
 
 						// We need to create a variant because for some reason when we set the animator controller
 						// directly on the FBX it loses the reference.
-						var weaponPrefab = (GameObject) PrefabUtility.InstantiatePrefab(characterFBX);
+						var weaponPrefab = (GameObject) PrefabUtility.InstantiatePrefab(weaponFBX);
 
 						// Create prefab variant
-						PrefabUtility.SaveAsPrefabAssetAndConnect(weaponPrefab, Path.Combine(assetPath, characterPrefabFilename),
+						PrefabUtility.SaveAsPrefabAssetAndConnect(weaponPrefab, Path.Combine(assetPath, weaponPrefabFilename),
 							InteractionMode.AutomatedAction, out var success);
 						Object.DestroyImmediate(weaponPrefab);
 

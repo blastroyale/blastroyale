@@ -16,23 +16,11 @@ MonoBehaviour:
   _configs:
   - Key: 0
     Value:
-      m_AssetGUID: b2e8403b59729ce4c97591f6ab0f5edc
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 1
-    Value:
-      m_AssetGUID: eaacc333698c3eb49a0eb536dd8d0e94
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 2
-    Value:
       m_AssetGUID: cea3168fcc0a94740958750cb394c105
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Key: 3
+  - Key: 1
     Value:
       m_AssetGUID: 551588a7996664ceebac948e598c488f
       m_SubObjectName: 

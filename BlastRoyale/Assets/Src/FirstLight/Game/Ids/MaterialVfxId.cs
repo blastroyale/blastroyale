@@ -5,8 +5,6 @@ namespace FirstLight.Game.Ids
 {
 	public enum MaterialVfxId
 	{
-		Invisibility,
-		Dissolve,
 		Invincible,
 		Golden,
 		TOTAL
@@ -38,7 +36,6 @@ namespace FirstLight.Game.Ids
 		private static readonly Dictionary<StatusModifierType, MaterialVfxId> _modifiers =
 			new Dictionary<StatusModifierType, MaterialVfxId>
 			{
-				{StatusModifierType.Invisibility, MaterialVfxId.Invisibility},
 				{StatusModifierType.Immunity, MaterialVfxId.Invincible},
 			};
 	}

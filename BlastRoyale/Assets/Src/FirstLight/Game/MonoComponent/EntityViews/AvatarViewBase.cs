@@ -15,17 +15,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// Polls and listens th Actor state to update this avatar animations accordingly.
 	/// Sets animation parameters for contexts shared between players and enemies.
 	/// </summary>
-	[RequireComponent( typeof(RenderersContainerProxyMonoComponent))]
+	[RequireComponent(typeof(RenderersContainerProxyMonoComponent))]
 	public abstract class AvatarViewBase : EntityMainViewBase
 	{
 		private IGameServices _services;
-		
+
 		[SerializeField] private Vector3 _vfxLocalScale = Vector3.one;
 
 		protected CharacterSkinMonoComponent _skin;
 		private Coroutine _stunCoroutine;
 		private Coroutine _materialsCoroutine;
-		private Coroutine _starCoroutine;
 		private Vfx<VfxId> _statusVfx;
 
 		/// <summary>
@@ -42,13 +41,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_skin = GetComponent<CharacterSkinMonoComponent>();
 			_services = MainInstaller.ResolveServices();
-			
+
 			QuantumEvent.Subscribe<EventOnHealthIsZeroFromAttacker>(this, HandleOnHealthIsZeroFromAttacker);
 			QuantumEvent.Subscribe<EventOnStatusModifierSet>(this, HandleOnStatusModifierSet);
 			QuantumEvent.Subscribe<EventOnStatusModifierCancelled>(this, HandleOnStatusModifierCancelled);
 			QuantumEvent.Subscribe<EventOnStatusModifierFinished>(this, HandleOnStatusModifierFinished);
 		}
-		
+
 		/// <summary>
 		/// Sets the modifier effect for the player
 		/// </summary>
@@ -57,12 +56,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (statusType == StatusModifierType.Stun)
 			{
 				_stunCoroutine = StartCoroutine(StunCoroutine(duration));
-			}
-
-			if (statusType == StatusModifierType.Star)
-			{
-				// Scale UP the character if it has a Star status
-				_starCoroutine = StartCoroutine(StarCoroutine(duration));
 			}
 
 			if (statusType.TryGetVfx(out MaterialVfxId materialVfx))
@@ -97,7 +90,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				_services.VfxService.Spawn(VfxId.DeathEffect).transform.position = transform.position + Vector3.up;
 			}
-			
+
 			_skin.TriggerDie();
 		}
 
@@ -107,13 +100,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-			
+
 			SetCulled(false);
-			
+
 			OnAvatarEliminated(callback.Game);
 		}
 
-		
 		/// <summary>www
 		/// Updates the color of the given character for the duration
 		/// </summary>
@@ -122,7 +114,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			RenderersContainerProxy.SetAdditiveColor(color);
 			StartCoroutine(EndBlink(duration));
 		}
-		
+
 		private IEnumerator EndBlink(float duration)
 		{
 			yield return new WaitForSeconds(duration);
@@ -183,14 +175,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				StopCoroutine(_stunCoroutine);
 				FinishStun();
 			}
-
-			if (_starCoroutine != null)
-			{
-				StopCoroutine(_starCoroutine);
-				FinishStar();
-			}
 		}
-		
+
 		private void FinishStun()
 		{
 			_stunCoroutine = null;
@@ -216,21 +202,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				RenderersContainerProxy.ResetMaterials();
 			}
-		}
-
-		private IEnumerator StarCoroutine(float time)
-		{
-			transform.localScale *= GameConstants.Visuals.STAR_STATUS_CHARACTER_SCALE_MULTIPLIER;
-
-			yield return new WaitForSeconds(time);
-
-			FinishStar();
-		}
-
-		private void FinishStar()
-		{
-			_starCoroutine = null;
-			transform.localScale /= GameConstants.Visuals.STAR_STATUS_CHARACTER_SCALE_MULTIPLIER;
 		}
 	}
 }

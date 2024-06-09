@@ -60,6 +60,20 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
+                    <ui:VisualElement name="StatRow3" class="stat-row">
+                        <ui:VisualElement name="StatsWidget6" class="stats-widget">
+                            <ui:VisualElement name="StatsContainer6" class="stats-container">
+                                <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName6" class="stats-container__stat-name" />
+                                <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue6" class="stats-container_stat-value" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="StatsWidget7" class="stats-widget">
+                            <ui:VisualElement name="StatsContainer7" class="stats-container">
+                                <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName7" class="stats-container__stat-name" />
+                                <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue7" class="stats-container_stat-value" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
                 </ui:VisualElement>
                 <FirstLight.Game.UIElements.AnimatedImageElement name="LoadingSpinner" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner spinner" style="visibility: hidden;" />
             </ui:VisualElement>

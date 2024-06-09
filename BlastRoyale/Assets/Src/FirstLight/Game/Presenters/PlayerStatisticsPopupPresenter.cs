@@ -47,7 +47,7 @@ namespace FirstLight.Game.Presenters
 
 		private int _pfpRequestHandle = -1;
 
-		private const int StatisticMaxSize = 4;
+		private const int StatisticMaxSize = 8;
 
 		private bool IsLocalPlayer => Data.PlayfabID == PlayFabSettings.staticPlayer.PlayFabId;
 
@@ -89,10 +89,6 @@ namespace FirstLight.Game.Presenters
 				_statLabels[i] = Root.Q<Label>($"StatName{i}").Required();
 				_statValues[i] = Root.Q<Label>($"StatValue{i}").Required();
 			}
-
-			// Hiding 2 more stats slots. Will be used later
-			Root.Q<VisualElement>($"StatsWidget4").Required().SetDisplay(false);
-			Root.Q<VisualElement>($"StatsWidget5").Required().SetDisplay(false);
 
 			_content.visible = false;
 			_loadingSpinner.visible = true;
@@ -163,6 +159,10 @@ namespace FirstLight.Game.Presenters
 				SetStatInfo(1, result, GameConstants.Stats.RANKED_GAMES_WON_EVER, ScriptLocalization.MainMenu.RankedGamesWon);
 				SetStatInfo(2, result, GameConstants.Stats.RANKED_KILLS_EVER, ScriptLocalization.MainMenu.RankedKills);
 				SetStatInfo(3, result, GameConstants.Stats.RANKED_DAMAGE_DONE_EVER, ScriptLocalization.MainMenu.RankedDamageDone);
+				SetStatInfo(4, result, GameConstants.Stats.RANKED_AIRDROP_OPENED_EVER, ScriptLocalization.MainMenu.RankedAirdropOpened);
+				SetStatInfo(5, result, GameConstants.Stats.RANKED_SUPPLY_CRATES_OPENED_EVER, ScriptLocalization.MainMenu.RankedSupplyCratesOpened);
+				SetStatInfo(6, result, GameConstants.Stats.RANKED_GUNS_COLLECTED_EVER, ScriptLocalization.MainMenu.RankedGunsCollected);
+				SetStatInfo(7, result, GameConstants.Stats.RANKED_PICKUPS_COLLECTED_EVER, ScriptLocalization.MainMenu.RankedPickupsCollected);
 
 				_pfpImage.SetAvatar(result.AvatarUrl);
 				if (IsLocalPlayer)

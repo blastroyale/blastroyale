@@ -120,7 +120,7 @@ namespace Quantum.Systems
 			if (config.Step > 1)
 			{
 				QuantumHelpers.TryFindPosOnNavMesh(f, targetPos,
-												   circle->TargetRadius,
+												   FPMath.Min(circle->TargetRadius, Constants.SHRINKINGCIRCLE_NAVMESH_CORRECTION_RADIUS),
 												   out targetPos);
 			}
 			

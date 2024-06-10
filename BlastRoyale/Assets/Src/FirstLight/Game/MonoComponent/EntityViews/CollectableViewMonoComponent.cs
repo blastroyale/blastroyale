@@ -10,6 +10,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using System.Collections;
 using System.Numerics;
+using Quantum.Systems;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
@@ -397,7 +398,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var frame = QuantumRunner.Default.PredictedFrame();
 			if (frame.Unsafe.TryGetPointer<ChunkDebug>(this.EntityRef, out var chunk))
 			{
-				UnityEditor.Handles.Label(this.transform.position + Vector3.up * 2, ""+chunk->Chunk);
+				var (px, py) = CollectableChunkSystem.GetChunkPosition(frame, chunk->Chunk);
+				UnityEditor.Handles.Label(this.transform.position + Vector3.up * 2, $"{chunk->Chunk}");
+				UnityEditor.Handles.color = Color.red;
+				UnityEditor.Handles.Label(this.transform.position + Vector3.up * 3, $"{px},{py}");
 			}
 		}
 #endif

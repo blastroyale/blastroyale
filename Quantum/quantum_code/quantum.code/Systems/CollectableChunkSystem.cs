@@ -62,24 +62,22 @@ namespace Quantum.Systems
 			}
 		}
 
-		public static List<EntityComponentPointerPair<Collectable>> GetCollectables(Frame f, params short[] chunks)
+		public static List<EntityComponentPointerPair<Collectable>> GetCollectables(Frame f, short chunk)
 		{
 			var entities = new List<EntityComponentPointerPair<Collectable>>();
-			foreach (var chunk in chunks)
+
+			var singleton = f.Unsafe.GetOrAddSingletonPointer<CollectableChunks>();
+			var chunksDictionary = f.ResolveDictionary(singleton->Collectables);
+			if (chunksDictionary.TryGetValue(chunk, out var chunkEntities))
 			{
-				var singleton = f.Unsafe.GetOrAddSingletonPointer<CollectableChunks>();
-				var chunksDictionary = f.ResolveDictionary(singleton->Collectables);
-				if (chunksDictionary.TryGetValue(chunk, out var chunkEntities))
+				var entityList = f.ResolveHashSet(chunkEntities.Entities);
+				foreach (var entityRef in entityList)
 				{
-					var entityList = f.ResolveHashSet(chunkEntities.Entities);
-					foreach (var entityRef in entityList)
+					entities.Add(new EntityComponentPointerPair<Collectable>()
 					{
-						entities.Add(new EntityComponentPointerPair<Collectable>()
-						{
-							Entity = entityRef,
-							Component = f.Unsafe.GetPointer<Collectable>(entityRef)
-						});
-					}
+						Entity = entityRef,
+						Component = f.Unsafe.GetPointer<Collectable>(entityRef)
+					});
 				}
 			}
 
@@ -91,6 +89,12 @@ namespace Quantum.Systems
 		{
 			var chunksLength = f.Map.WorldSize / ChunkSize.AsInt + 1;
 			return (short)(chunk + x + y * chunksLength);
+		}
+
+		public static (short, short) GetChunkPosition(Frame f, short chunk)
+		{
+			var chunksLength = f.Map.WorldSize / ChunkSize.AsInt + 1;
+			return ((short, short))(chunk % chunksLength, chunk / chunksLength);
 		}
 
 		public static short GetChunk(Frame f, FPVector2 pos)

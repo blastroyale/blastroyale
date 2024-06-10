@@ -21,12 +21,10 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class WinnersScreenPresenter : UIPresenterData<WinnersScreenPresenter.StateData>
 	{
-
 		public class StateData
 		{
 			public Action ContinueClicked;
 		}
-
 
 		[Serializable]
 		public class CharacterList
@@ -36,9 +34,7 @@ namespace FirstLight.Game.Presenters
 			public BaseCharacterMonoComponent[] Values => _values;
 		}
 
-
 		[SerializeField] private CharacterList[] _characters;
-
 
 		private IMatchServices _matchServices;
 		private IGameServices _gameServices;
@@ -61,10 +57,24 @@ namespace FirstLight.Game.Presenters
 			_nameContainer = Root.Q<VisualElement>("NameContainer").Required();
 		}
 
-		protected override UniTask OnScreenOpen(bool reload)
+		protected override async UniTask OnScreenOpen(bool reload)
 		{
-			// TODO Might have to forget this. If it works delete this comment
-			return UpdateCharacters();
+			await UpdateCharacters();
+
+			AnimateCharacters().Forget();
+		}
+
+		private async UniTaskVoid AnimateCharacters()
+		{
+			var characters = _characters[_usedCharactersIndex].Values;
+			await UniTask.Delay(300);
+			if (characters == null) return;
+			foreach (var t in characters)
+			{
+				if (t.IsDestroyed()) continue;
+				t.AnimateVictory();
+				await UniTask.Delay(500);
+			}
 		}
 
 		private async UniTask UpdateCharacters()
@@ -84,7 +94,6 @@ namespace FirstLight.Game.Presenters
 			_usedCharactersIndex = firstPosition.Count - 1;
 			var slots = _characters[_usedCharactersIndex].Values;
 
-
 			var tasks = new List<UniTask>();
 			_nameLabels = new Label[slots.Length];
 			for (var i = 0; i < slots.Length; i++)
@@ -92,7 +101,6 @@ namespace FirstLight.Game.Presenters
 				var player = firstPosition[i];
 				var rankColor =
 					_gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) player.LeaderboardRank);
-
 
 				var playerNameLabel = new Label();
 				playerNameLabel.AddToClassList(UIService.UIService.USS_PLAYER_LABEL);
@@ -102,25 +110,18 @@ namespace FirstLight.Game.Presenters
 				_nameLabels[i] = playerNameLabel;
 				playerNameLabel.SetPositionBasedOnWorldPosition(slots[i].transform.position);
 
-
 				var playerData = player.Data.Player;
 				if (!playerData.IsValid || !_matchServices.MatchEndDataService.PlayerMatchData.ContainsKey(playerData))
 				{
 					continue;
 				}
 
-				var skin = _gameServices.CollectionService.GetCosmeticForGroup(_matchServices.MatchEndDataService.PlayerMatchData[playerData].Cosmetics, GameIdGroup.PlayerSkin);
+				var skin = _gameServices.CollectionService.GetCosmeticForGroup(
+					_matchServices.MatchEndDataService.PlayerMatchData[playerData].Cosmetics, GameIdGroup.PlayerSkin);
 				tasks.Add(slots[i].UpdateSkin(skin));
 			}
 
 			await UniTask.WhenAll(tasks);
-			await UniTask.Delay(300);
-			foreach (var t in slots)
-			{
-				if (t.IsDestroyed()) continue;
-				t.AnimateVictory();
-				await UniTask.Delay(500);
-			}
 		}
 	}
 }

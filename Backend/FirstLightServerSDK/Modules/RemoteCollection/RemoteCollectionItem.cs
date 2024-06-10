@@ -1,5 +1,5 @@
 using System;
-using MessagePack;
+using System.Collections.Generic;
 
 namespace FirstLight.Server.SDK.Models
 {
@@ -7,10 +7,12 @@ namespace FirstLight.Server.SDK.Models
 	/// Remote collection item obtained from other sources.
 	/// </summary>
 	[Serializable]
-	[MessagePackObject()]
 	public class RemoteCollectionItem
 	{
-		[Key(0)]
-		public string Identifier;
+		public string TokenId;
+		public string Name;
+		public string Description;
+		public string Image;
+		public List<string> Attributes = new();
 	}
 }

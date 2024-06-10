@@ -9,7 +9,7 @@ namespace BlastRoyaleNFTPlugin
 	public class BlastRoyalePlugin : ServerPlugin
 	{
 		private PluginContext _ctx;
-		private NftSynchronizer _nftSynchronizer;
+		private BlockchainApi _blockchainApi;
 
 		/// <summary>
 		/// Server override called whenever the plugin is loaded.
@@ -22,7 +22,7 @@ namespace BlastRoyaleNFTPlugin
 			context.Log?.LogInformation($"Using blockchain URL at {baseUrl}");
 			if (context.ServerConfig.NftSync)
 			{
-				_nftSynchronizer = new NftSynchronizer(baseUrl, apiSecret, context);
+				_blockchainApi = new BlockchainApi(baseUrl, apiSecret, context);
 			}
 
 			context.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnDataLoad, EventPriority.LAST);
@@ -31,8 +31,8 @@ namespace BlastRoyaleNFTPlugin
 
 		private async Task OnDataLoad(PlayerDataLoadEvent onLoad)
 		{
-			if (_nftSynchronizer != null)
-				await _nftSynchronizer.SyncData(onLoad.PlayerState, onLoad.PlayerId);
+			if (_blockchainApi != null)
+				await _blockchainApi.SyncData(onLoad.PlayerState, onLoad.PlayerId);
 			// It needs to be the last one, because it may fail and need to rollback items back to playfab
 			await _ctx.InventorySync!.SyncData(onLoad.PlayerState, onLoad.PlayerId);
 		}

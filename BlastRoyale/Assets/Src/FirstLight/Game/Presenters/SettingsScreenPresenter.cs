@@ -195,7 +195,7 @@ namespace FirstLight.Game.Presenters
 				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_connected);
 			}
 			
-			_playerIDField.value = AuthenticationService.Instance.PlayerId;
+			_playerIDField.value = _gameDataProvider.AppDataProvider.PlayerId;
 		}
 
 		private void OpenCustomizeHud()

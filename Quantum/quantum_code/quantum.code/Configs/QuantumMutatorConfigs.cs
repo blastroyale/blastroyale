@@ -24,7 +24,8 @@ namespace Quantum
 		SpecialsMayhem,
 		DisableRevive,
 		ARsOnly,
-		Hardcore
+		Hardcore,
+		SafeZoneInPlayableArea
 	}
 
 	[Serializable]

@@ -102,3 +102,9 @@ MonoBehaviour:
         RawValue: 0
       Param2:
         RawValue: 0
+    - Id: SafeZoneInPlayableArea
+      Type: 19
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0

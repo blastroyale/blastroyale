@@ -269,7 +269,7 @@ namespace FirstLight.Game.Services
 			
 			PlayFabClientAPI.LoginWithAndroidDeviceID(login, (res) => ProcessAuthentication(res, loginData, onSuccess, onError),e =>
 				{
-					_services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login);
+					_services.GameBackendService.HandleError(e, onError);
 				});
 #elif UNITY_IOS
 			var login = new LoginWithIOSDeviceIDRequest()
@@ -283,7 +283,7 @@ namespace FirstLight.Game.Services
 
 			PlayFabClientAPI.LoginWithIOSDeviceID(login, (res) => ProcessAuthentication(res, loginData, onSuccess, onError),e =>
 				{
-					_services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login);
+					_services.GameBackendService.HandleError(e, onError);
 				});
 #endif
 		}

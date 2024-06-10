@@ -278,7 +278,6 @@ namespace FirstLight.Game.Services
 			{
 				Callback = () =>
 				{
-					_services.AnalyticsService.CrashLog(descriptiveError);
 					_services.QuitGame(descriptiveError);
 				},
 					Style = FirstLight.NativeUi.AlertButtonStyle.Negative,

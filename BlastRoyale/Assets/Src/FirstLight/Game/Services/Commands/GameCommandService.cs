@@ -120,7 +120,6 @@ namespace FirstLight.Game.Services
 			{
 				Callback = () =>
 				{
-					_services.AnalyticsService.CrashLog(exceptionMsg);
 					_services.QuitGame("Server desynch");
 				},
 				Style = AlertButtonStyle.Negative,

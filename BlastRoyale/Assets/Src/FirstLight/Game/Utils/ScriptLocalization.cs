@@ -1816,11 +1816,15 @@ namespace I2.Loc
 			public static string PrepareForActionWaiting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PrepareForActionWaiting"); } }
 			public static string ProgressChapter 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ProgressChapter"); } }
 			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
+			public static string RankedAirdropOpened 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedAirdropOpened"); } }
 			public static string RankedDamageDone 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedDamageDone"); } }
 			public static string RankedDeaths 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedDeaths"); } }
 			public static string RankedGamesPlayedEver 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedGamesPlayedEver"); } }
 			public static string RankedGamesWon 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedGamesWon"); } }
+			public static string RankedGunsCollected 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedGunsCollected"); } }
 			public static string RankedKills 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedKills"); } }
+			public static string RankedPickupsCollected 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedPickupsCollected"); } }
+			public static string RankedSupplyCratesOpened 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedSupplyCratesOpened"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
 			public static string ReconnectButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReconnectButton"); } }
 			public static string RegisterButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterButton"); } }
@@ -2172,8 +2176,10 @@ namespace I2.Loc
 			public static string accept 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/accept"); } }
 			public static string add_friend 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/add_friend"); } }
 			public static string block 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/block"); } }
+			public static string blocked_empty 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/blocked_empty"); } }
 			public static string decline 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/decline"); } }
 			public static string enter_id 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/enter_id"); } }
+			public static string friends_empty 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/friends_empty"); } }
 			public static string has_sent_request 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/has_sent_request"); } }
 			public static string invite 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/invite"); } }
 			public static string offline 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/offline"); } }
@@ -2181,6 +2187,7 @@ namespace I2.Loc
 			public static string open_profile 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/open_profile"); } }
 			public static string received 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/received"); } }
 			public static string remove_friend 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/remove_friend"); } }
+			public static string requests_empty 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/requests_empty"); } }
 			public static string sent 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/sent"); } }
 			public static string tab_blocked 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/tab_blocked"); } }
 			public static string tab_friends 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/tab_friends"); } }
@@ -2420,6 +2427,7 @@ namespace I2.Loc
 			public static string off 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/off"); } }
 			public static string old_players 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/old_players"); } }
 			public static string on 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/on"); } }
+			public static string player_id 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/player_id"); } }
 			public static string region_asia 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_asia"); } }
 			public static string region_au 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_au"); } }
 			public static string region_cae 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/region_cae"); } }
@@ -4403,11 +4411,15 @@ namespace I2.Loc
 		    public const string PrepareForActionWaiting = "MainMenu/PrepareForActionWaiting";
 		    public const string ProgressChapter = "MainMenu/ProgressChapter";
 		    public const string QuitGameButton = "MainMenu/QuitGameButton";
+		    public const string RankedAirdropOpened = "MainMenu/RankedAirdropOpened";
 		    public const string RankedDamageDone = "MainMenu/RankedDamageDone";
 		    public const string RankedDeaths = "MainMenu/RankedDeaths";
 		    public const string RankedGamesPlayedEver = "MainMenu/RankedGamesPlayedEver";
 		    public const string RankedGamesWon = "MainMenu/RankedGamesWon";
+		    public const string RankedGunsCollected = "MainMenu/RankedGunsCollected";
 		    public const string RankedKills = "MainMenu/RankedKills";
+		    public const string RankedPickupsCollected = "MainMenu/RankedPickupsCollected";
+		    public const string RankedSupplyCratesOpened = "MainMenu/RankedSupplyCratesOpened";
 		    public const string ReachPlayerLevelAdventure = "MainMenu/ReachPlayerLevelAdventure";
 		    public const string ReconnectButton = "MainMenu/ReconnectButton";
 		    public const string RegisterButton = "MainMenu/RegisterButton";
@@ -4759,8 +4771,10 @@ namespace I2.Loc
 		    public const string accept = "UITFriends/accept";
 		    public const string add_friend = "UITFriends/add_friend";
 		    public const string block = "UITFriends/block";
+		    public const string blocked_empty = "UITFriends/blocked_empty";
 		    public const string decline = "UITFriends/decline";
 		    public const string enter_id = "UITFriends/enter_id";
+		    public const string friends_empty = "UITFriends/friends_empty";
 		    public const string has_sent_request = "UITFriends/has_sent_request";
 		    public const string invite = "UITFriends/invite";
 		    public const string offline = "UITFriends/offline";
@@ -4768,6 +4782,7 @@ namespace I2.Loc
 		    public const string open_profile = "UITFriends/open_profile";
 		    public const string received = "UITFriends/received";
 		    public const string remove_friend = "UITFriends/remove_friend";
+		    public const string requests_empty = "UITFriends/requests_empty";
 		    public const string sent = "UITFriends/sent";
 		    public const string tab_blocked = "UITFriends/tab_blocked";
 		    public const string tab_friends = "UITFriends/tab_friends";
@@ -5007,6 +5022,7 @@ namespace I2.Loc
 		    public const string off = "UITSettings/off";
 		    public const string old_players = "UITSettings/old_players";
 		    public const string on = "UITSettings/on";
+		    public const string player_id = "UITSettings/player_id";
 		    public const string region_asia = "UITSettings/region_asia";
 		    public const string region_au = "UITSettings/region_au";
 		    public const string region_cae = "UITSettings/region_cae";

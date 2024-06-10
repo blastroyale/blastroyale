@@ -21010,6 +21010,50 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/RankedAirdropOpened
+      TermType: 0
+      Description: 
+      Languages:
+      - Airdrops Opened
+      - Airdrops Opened
+      - Airdrops Opened
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedSupplyCratesOpened
+      TermType: 0
+      Description: 
+      Languages:
+      - Crates Opened
+      - Crates Opened
+      - Crates Opened
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedGunsCollected
+      TermType: 0
+      Description: 
+      Languages:
+      - Guns Collected
+      - Guns Collected
+      - Guns Collected
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedPickupsCollected
+      TermType: 0
+      Description: 
+      Languages:
+      - Pickups Collected
+      - Pickups Collected
+      - Pickups Collected
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MapDropPoints/Aircraft
       TermType: 0
       Description: 
@@ -26332,6 +26376,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSettings/player_id
+      TermType: 0
+      Description: 
+      Languages:
+      - Player ID
+      - Player ID
+      - Player ID
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSettings/region_asia
       TermType: 0
       Description: 
@@ -27869,17 +27924,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/player_id
-      TermType: 0
-      Description: 
-      Languages:
-      - Player ID
-      - Player ID
-      - Player ID
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -27904,7 +27948,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1716987371536
+    Google_LastUpdatedVersion: 1717937187718
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

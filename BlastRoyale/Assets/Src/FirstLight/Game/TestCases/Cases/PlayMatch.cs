@@ -31,7 +31,6 @@ namespace FirstLight.Game.TestCases
 
 		public override IEnumerator Run()
 		{
-			yield return UIGeneric.WaitForGenericInputDialogAndInput("Pentelinho", ScriptLocalization.UITHomeScreen.enter_your_name);
 			yield return UIHome.WaitHomePresenter(60);
 
 			for (int i = 0; i < _matches; i++)

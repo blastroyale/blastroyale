@@ -26,6 +26,7 @@ namespace FirstLight.Editor.AssetImporters
 		private const string CHARACTER_PREFIX = "Char_";
 		private const string CHARACTERS_CONFIG = "Assets/AddressableResources/Collections/CharacterSkins/Config.asset";
 		private const string ANIMATION_CONTROLLER_PATH = CHARACTERS_DIR + "/Shared/character_animator.controller";
+		private const string DEFAULT_ICON_PATH = "Assets/AddressableResources/Collections/CharacterSkins/BrandMale/Icon_Char_BrandMale.png";
 
 		public override int GetPostprocessOrder() => 100;
 
@@ -71,11 +72,9 @@ namespace FirstLight.Editor.AssetImporters
 				anim.keepOriginalPositionY = true;
 				anim.keepOriginalPositionXZ = true;
 
-				if (anim.name.EndsWith("_loop"))
-				{
-					anim.loopTime = true;
-					anim.loopPose = true;
-				}
+				var isLoop = anim.name.EndsWith("_loop");
+				anim.loopTime = isLoop;
+				anim.loopPose = isLoop;
 			}
 
 			importer.clipAnimations = clips;
@@ -277,13 +276,18 @@ namespace FirstLight.Editor.AssetImporters
 					}
 				}
 
+				var iconPath = Path.Combine(folder, $"Icon_{characterFileName}.png");
+				if (string.IsNullOrEmpty(AssetDatabase.AssetPathToGUID(iconPath)))
+				{
+					iconPath = DEFAULT_ICON_PATH;
+				}
+
 				config.Skins.Add(new CharacterSkinConfigEntry
 				{
 					GameId = gameId ?? GameId.Random,
 					Prefab = new AssetReferenceGameObject(AssetDatabase.GUIDFromAssetPath(Path.Combine(folder, $"{characterFileName}.prefab"))
 						.ToString()),
-					Sprite = new AssetReferenceSprite(AssetDatabase.GUIDFromAssetPath(Path.Combine(folder, $"Icon_{characterFileName}.png"))
-						.ToString()),
+					Sprite = new AssetReferenceSprite(AssetDatabase.GUIDFromAssetPath(iconPath).ToString())
 				});
 			}
 

@@ -251,7 +251,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			if (slot.Character.gameObject.activeSelf && slot.LoadedSkin == playerSkin) return;
 			slot.SlotRoot.SetActive(true);
 			slot.LoadedSkin = playerSkin;
-			await slot.Character.UpdateSkin(ItemFactory.Collection(playerSkin));
+			await slot.Character.UpdateSkin(ItemFactory.Collection(playerSkin), true);
 			await slot.Character.UpdateMeleeSkin(ItemFactory.Collection(meleeSkin));
 			slot.Character.CharacterViewComponent.Clicked += _ => OpenPlayerOptions(slot, member);
 		}

@@ -65,7 +65,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 00000000000000000000000000000000
+        m_AssetGUID: ddecfba44186d4d5bbfcb687672b1d67
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -124,14 +124,14 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
-    - GameId: 0
+    - GameId: 211
       Prefab:
         m_AssetGUID: 38a93de9644f64ce98a26f8b88975dee
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 00000000000000000000000000000000
+        m_AssetGUID: ddecfba44186d4d5bbfcb687672b1d67
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 00000000000000000000000000000000
+        m_AssetGUID: ddecfba44186d4d5bbfcb687672b1d67
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 00000000000000000000000000000000
+        m_AssetGUID: ddecfba44186d4d5bbfcb687672b1d67
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -252,7 +252,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 00000000000000000000000000000000
+        m_AssetGUID: ddecfba44186d4d5bbfcb687672b1d67
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -263,7 +263,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 00000000000000000000000000000000
+        m_AssetGUID: ddecfba44186d4d5bbfcb687672b1d67
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -285,7 +285,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 00000000000000000000000000000000
+        m_AssetGUID: ddecfba44186d4d5bbfcb687672b1d67
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -329,7 +329,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 00000000000000000000000000000000
+        m_AssetGUID: ddecfba44186d4d5bbfcb687672b1d67
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -340,7 +340,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 00000000000000000000000000000000
+        m_AssetGUID: ddecfba44186d4d5bbfcb687672b1d67
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -362,7 +362,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 00000000000000000000000000000000
+        m_AssetGUID: ddecfba44186d4d5bbfcb687672b1d67
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

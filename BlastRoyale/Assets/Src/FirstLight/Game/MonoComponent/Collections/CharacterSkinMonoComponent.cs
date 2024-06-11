@@ -24,6 +24,7 @@ namespace FirstLight.Game.MonoComponent.Collections
 		private readonly int P_RESTORE = Animator.StringToHash("restore");
 		private readonly int P_EQUIP_MELEE = Animator.StringToHash("equip_melee");
 		private readonly int P_EQUIP_GUN = Animator.StringToHash("equip_gun");
+		private readonly int P_ENTER = Animator.StringToHash("enter");
 
 		private readonly int P_WEAPON_TYPE = Animator.StringToHash("weapon_type");
 		private readonly int P_WEAPON_TYPE_FLOAT = Animator.StringToHash("weapon_type_float");
@@ -94,6 +95,7 @@ namespace FirstLight.Game.MonoComponent.Collections
 		public void TriggerFlair() => _animator.SetTrigger(P_FLAIR);
 		public void TriggerEquipMelee() => _animator.SetTrigger(P_EQUIP_MELEE);
 		public void TriggerEquipGun() => _animator.SetTrigger(P_EQUIP_GUN);
+		public void TriggerEnter() => _animator.SetTrigger(P_ENTER);
 
 		#region AnimationClipEvents
 

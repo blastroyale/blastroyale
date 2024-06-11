@@ -365,7 +365,7 @@ namespace FirstLight.Game.Presenters
 			var playerData = _matchServices.MatchEndDataService.PlayerMatchData[playerRef];
 
 			var skinId = _gameServices.CollectionService.GetCosmeticForGroup(playerData.Cosmetics, GameIdGroup.PlayerSkin);
-			await _character.UpdateSkin(skinId);
+			await _character.UpdateSkin(skinId, true);
 			_playerName.SetPositionBasedOnWorldPosition(_character.transform.position);
 		}
 	}

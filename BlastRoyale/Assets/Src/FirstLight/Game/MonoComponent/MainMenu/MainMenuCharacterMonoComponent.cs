@@ -48,7 +48,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS);
 			var melee = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.MELEE_SKINS);
 
-			await UpdateSkin(skin);
+			await UpdateSkin(skin, true);
 			await UpdateMeleeSkin(melee);
 		}
 

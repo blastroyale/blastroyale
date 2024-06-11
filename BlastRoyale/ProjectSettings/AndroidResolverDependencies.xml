@@ -1,6 +1,8 @@
 <dependencies>
   <packages>
     <package>com.google.android.gms:play-services-base:18.4.0</package>
+    <package>com.google.android.play:core-common:2.0.0</package>
+    <package>com.google.android.play:review:2.0.0</package>
     <package>com.google.firebase:firebase-analytics:21.6.2</package>
     <package>com.google.firebase:firebase-analytics-unity:11.9.0</package>
     <package>com.google.firebase:firebase-app-unity:11.9.0</package>

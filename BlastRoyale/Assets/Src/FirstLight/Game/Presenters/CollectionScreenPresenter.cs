@@ -330,7 +330,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else if (_selectedCategory.Id == GameIdGroup.PlayerSkin)
 			{
-				_collectionObject.AddComponent<MainMenuCharacterViewComponent>();
+				_collectionObject.AddComponent<MainMenuCharacterViewComponent>().PlayEnterAnimation = true;
 			}
 			else
 			{

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4fa92f13773064bc28f77b3e0c77e275
+guid: 247564ce1d41f48a7b8c21092fa1ff0e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,11 +8,11 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Snowboarder
-    second: {fileID: 2100000, guid: 5b1129cbd21e1486bb763792239dfae4, type: 2}
+    second: {fileID: 2100000, guid: 3d83bf50e692a4efb8ad9a48f2801e98, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

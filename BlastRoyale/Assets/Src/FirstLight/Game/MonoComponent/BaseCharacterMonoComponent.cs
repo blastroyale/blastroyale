@@ -36,8 +36,7 @@ namespace FirstLight.Game.MonoComponent
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-
-		public async UniTask UpdateSkin(ItemData skinId)
+		public async UniTask UpdateSkin(ItemData skinId, bool playEnter)
 		{
 			if (CharacterViewComponent != null && CharacterViewComponent.gameObject != null)
 			{
@@ -49,7 +48,8 @@ namespace FirstLight.Game.MonoComponent
 			var container = obj.AddComponent<RenderersContainerMonoComponent>();
 			container.UpdateRenderers();
 			obj.AddComponent<RenderersContainerProxyMonoComponent>();
-			obj.AddComponent<MainMenuCharacterViewComponent>();
+			var mm = obj.AddComponent<MainMenuCharacterViewComponent>();
+			mm.PlayEnterAnimation = playEnter;
 			AddDragCollider(obj);
 			SkinLoaded(skinId, obj);
 		}

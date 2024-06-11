@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d25fd5c525aba4d11ba9029136e66ff7
+guid: e832d2f17c87c4eb29f613acab05db4f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,11 +8,11 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Leprechaun
-    second: {fileID: 2100000, guid: 742b2b47476644c578d1f7805acd32e6, type: 2}
+    second: {fileID: 2100000, guid: 89ccfd1e84691428cb9ae67cc6d38a0f, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f326c0c83d7eb4eceacf573d665e21be
+guid: e66eebc8817c1482d8d9b3b3260156b4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,11 +8,11 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_DunePaul
-    second: {fileID: 2100000, guid: 94377bd11fdc046d59917d7add85628f, type: 2}
+    second: {fileID: 2100000, guid: 4cd80a44c07b249898a7bb3a0e0c74b8, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

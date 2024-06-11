@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4bfe428de30254864baa6b6284d30cf3
+guid: ea6f73ae06f79405d81b3000be1c2af3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,11 +8,11 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Viking
-    second: {fileID: 2100000, guid: 304c33a8c6089474ca66bacbacb75d41, type: 2}
+    second: {fileID: 2100000, guid: aa7a314d781be46ed8dc506e837a3217, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

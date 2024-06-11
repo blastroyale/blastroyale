@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using FirstLight.Editor.EditorTools;
 using FirstLight.Editor.Ids;
 using FirstLight.Game.Configs;
 using FirstLight.Game.MonoComponent.Collections;
@@ -27,6 +26,7 @@ namespace FirstLight.Editor.AssetImporters
 		private const string CHARACTER_PREFIX = "Char_";
 		private const string CHARACTERS_CONFIG = "Assets/AddressableResources/Collections/CharacterSkins/Config.asset";
 		private const string ANIMATION_CONTROLLER_PATH = CHARACTERS_DIR + "/Shared/character_animator.controller";
+		private const string DEFAULT_ICON_PATH = "Assets/AddressableResources/Collections/CharacterSkins/BrandMale/Icon_Char_BrandMale.png";
 
 		public override int GetPostprocessOrder() => 100;
 
@@ -41,9 +41,12 @@ namespace FirstLight.Editor.AssetImporters
 			importer.ExtractTextures(folder);
 
 			// Apply preset
-			// TODO mihak: Add back when the materials are fixed
-			// var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/CharacterFBX.preset");
-			// preset.ApplyTo(importer);
+			// // TODO mihak: Add back when the materials are fixed
+			var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/CharacterFBX.preset");
+			preset.ApplyTo(importer);
+
+			// For external materials
+			importer.SearchAndRemapMaterials(ModelImporterMaterialName.BasedOnMaterialName, ModelImporterMaterialSearch.Everywhere);
 		}
 
 		private void OnPreprocessAnimation()
@@ -69,11 +72,9 @@ namespace FirstLight.Editor.AssetImporters
 				anim.keepOriginalPositionY = true;
 				anim.keepOriginalPositionXZ = true;
 
-				if (anim.name.EndsWith("_loop"))
-				{
-					anim.loopTime = true;
-					anim.loopPose = true;
-				}
+				var isLoop = anim.name.EndsWith("_loop");
+				anim.loopTime = isLoop;
+				anim.loopPose = isLoop;
 			}
 
 			importer.clipAnimations = clips;
@@ -102,18 +103,18 @@ namespace FirstLight.Editor.AssetImporters
 			}
 		}
 
-		private void OnPreprocessMaterialDescription(MaterialDescription description, Material material, AnimationClip[] animations)
-		{
-			// TODO mihak: Fix this, produces "inconsistent results" on reimport
-			// if (!Path.GetFileName(assetPath).StartsWith(CHARACTER_PREFIX)) return;
-			//
-			// material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
-			//
-			// if (description.TryGetProperty("DiffuseColor", out TexturePropertyDescription diffuseColor))
-			// {
-			// 	material.SetTexture(Shader.PropertyToID("_MainTex"), diffuseColor.texture);
-			// }
-		}
+		// TODO mihak: Fix this so we can have embedded materials, produces "inconsistent results" on reimport
+		// private void OnPreprocessMaterialDescription(MaterialDescription description, Material material, AnimationClip[] animations)
+		// {
+		// 	if (!Path.GetFileName(assetPath).StartsWith(CHARACTER_PREFIX)) return;
+		//
+		// 	material.shader = Shader.Find("FLG/Unlit/Dynamic Object");
+		//
+		// 	if (description.TryGetProperty("DiffuseColor", out TexturePropertyDescription diffuseColor))
+		// 	{
+		// 		material.SetTexture(Shader.PropertyToID("_MainTex"), diffuseColor.texture);
+		// 	}
+		// }
 
 		/// <summary>
 		/// Sets embedded material to correct shader
@@ -150,6 +151,7 @@ namespace FirstLight.Editor.AssetImporters
 						var characterName = directoryName[CHARACTER_PREFIX.Length..];
 						var characterFBXFilename = $"{CHARACTER_PREFIX}{characterName}.fbx";
 						var characterFBXPath = Path.Combine(assetPath, characterFBXFilename);
+						var characterTexturePath = Path.Combine(assetPath, $"T_{CHARACTER_PREFIX}{characterName}.png");
 						var characterPrefabFilename = $"{CHARACTER_PREFIX}{characterName}.prefab";
 						var characterFBX = (GameObject) AssetDatabase.LoadMainAssetAtPath(characterFBXPath);
 						var animations = AssetDatabase.LoadAllAssetRepresentationsAtPath(characterFBXPath).FilterCast<AnimationClip>().ToArray();
@@ -186,6 +188,11 @@ namespace FirstLight.Editor.AssetImporters
 						PrefabUtility.SaveAsPrefabAssetAndConnect(characterPrefab, Path.Combine(assetPath, characterPrefabFilename),
 							InteractionMode.AutomatedAction, out var success);
 						Object.DestroyImmediate(characterPrefab);
+
+						// Create material
+						var material = new Material(Shader.Find("FLG/Unlit/Dynamic Object"));
+						material.mainTexture = AssetDatabase.LoadAssetAtPath<Texture>(characterTexturePath);
+						AssetDatabase.CreateAsset(material, Path.Combine(assetPath, $"M_{CHARACTER_PREFIX}{characterName}.mat"));
 
 						if (!success)
 						{
@@ -269,13 +276,18 @@ namespace FirstLight.Editor.AssetImporters
 					}
 				}
 
+				var iconPath = Path.Combine(folder, $"Icon_{characterFileName}.png");
+				if (string.IsNullOrEmpty(AssetDatabase.AssetPathToGUID(iconPath)))
+				{
+					iconPath = DEFAULT_ICON_PATH;
+				}
+
 				config.Skins.Add(new CharacterSkinConfigEntry
 				{
 					GameId = gameId ?? GameId.Random,
 					Prefab = new AssetReferenceGameObject(AssetDatabase.GUIDFromAssetPath(Path.Combine(folder, $"{characterFileName}.prefab"))
 						.ToString()),
-					Sprite = new AssetReferenceSprite(AssetDatabase.GUIDFromAssetPath(Path.Combine(folder, $"Icon_{characterFileName}.png"))
-						.ToString()),
+					Sprite = new AssetReferenceSprite(AssetDatabase.GUIDFromAssetPath(iconPath).ToString())
 				});
 			}
 

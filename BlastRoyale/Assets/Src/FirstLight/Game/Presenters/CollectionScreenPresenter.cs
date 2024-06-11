@@ -8,6 +8,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Collections;
+using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -329,10 +330,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else if (_selectedCategory.Id == GameIdGroup.PlayerSkin)
 			{
-				var skin = _collectionObject.GetComponent<CharacterSkinMonoComponent>();
-				skin.Meta = true;
-				_degreesToRotate = _collectionSpawnRotation.y;
-				_anchorObject.transform.localRotation = Quaternion.Euler(_collectionSpawnRotation);
+				_collectionObject.AddComponent<MainMenuCharacterViewComponent>().PlayEnterAnimation = true;
 			}
 			else
 			{
@@ -347,6 +345,8 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
+
+			if (_selectedCategory.Id == GameIdGroup.PlayerSkin) return; // No rotation for characters
 
 			_degreesToRotate += (ITEM_ROTATE_SPEED * Time.deltaTime);
 

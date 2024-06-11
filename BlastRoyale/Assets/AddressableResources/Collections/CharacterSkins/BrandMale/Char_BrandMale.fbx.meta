@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 94e02553b0c1c4dc3bdc68777edf0b6c
+guid: b309076177b31459daf46fa69175f011
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,11 +8,11 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_BrandMale
-    second: {fileID: 2100000, guid: d69c126bf03104147a27733869a170b1, type: 2}
+    second: {fileID: 2100000, guid: 7326b8facb1f948a699ec0a977384e76, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
@@ -103,7 +103,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: Root
+    rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

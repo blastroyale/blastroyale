@@ -219,6 +219,16 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinBrandMale", 203, PlayerSkin, Collection, BotItem},
 			{"PlayerSkinGearedApe", 204, PlayerSkin, Collection},
 			{"PlayerSkinPlagueDoctor", 205, PlayerSkin, Collection},
+			{"PlayerSkinBurger", 210, PlayerSkin, Collection},
+			{"PlayerSkinFootballGuy", 211, PlayerSkin, Collection},
+			{"PlayerSkinLincoln", 212, PlayerSkin, Collection},
+			{"PlayerSkinLion", 213, PlayerSkin, Collection},
+			{"PlayerSkinSatoshi", 214, PlayerSkin, Collection},
+			{"PlayerSkinSheriff", 215, PlayerSkin, Collection},
+			{"PlayerSkinSoldier", 216, PlayerSkin, Collection},
+			{"PlayerSkinSwimmer", 217, PlayerSkin, Collection},
+			{"PlayerSkinThief", 218, PlayerSkin, Collection},
+			{"PlayerSkinVR", 219, PlayerSkin, Collection},
 			// SKINS GENERATION TOKEN KEEP THIS HERE
 
 			#endregion Player skins

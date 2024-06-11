@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 742b410119b3b4c3f8b1797592425a4f
+guid: c1bc4e87c7c3647b4915be7e2520e0e6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,11 +8,11 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_PunkMale
-    second: {fileID: 2100000, guid: 948be70b246194a4ab42de81a6392dfb, type: 2}
+    second: {fileID: 2100000, guid: 76ba903a6859f46419085a5f7ddd8a8b, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

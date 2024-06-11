@@ -1,4 +1,6 @@
 using System;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
@@ -9,6 +11,8 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	public class MainMenuCharacterViewComponent : CharacterEquipmentMonoComponent, IDragHandler, IPointerClickHandler
 	{
 		public event Action<PointerEventData> Clicked;
+
+		public bool PlayEnterAnimation { get; set; } = false;
 
 		private const float MIN_FLARE_DELAY = 10f;
 		private const float MAX_FLARE_DELAY = 25f;
@@ -26,6 +30,10 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private void Start()
 		{
 			_skin.Meta = true;
+			if (PlayEnterAnimation)
+			{
+				_skin.TriggerEnter();
+			}
 		}
 
 		private void Update()

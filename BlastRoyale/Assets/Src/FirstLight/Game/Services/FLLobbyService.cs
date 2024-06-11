@@ -46,18 +46,18 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// The custom game the player is currently in.
 		/// </summary>
-		public Lobby CurrentGameLobby { get; private set; }
+		public Lobby CurrentMatchLobby { get; private set; }
 
 		/// <summary>
 		/// Events that trigger when the custom game lobby changes.
 		/// </summary>
-		public LobbyEventCallbacks CurrentGameCallbacks { get; private set; } = new ();
+		public LobbyEventCallbacks CurrentMatchCallbacks { get; private set; } = new ();
 
 		private ILobbyEvents _partyLobbyEvents;
-		private ILobbyEvents _gameLobbyEvents;
+		private ILobbyEvents _matchLobbyEvents;
 
 		private readonly IGameDataProvider _dataProvider;
-		private readonly List<string> _sentInvites = new();
+		private readonly List<string> _sentInvites = new ();
 
 		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider)
 		{
@@ -105,7 +105,7 @@ namespace FirstLight.Game.Services
 			// Delete created lobbies when the player quits the game
 			FLog.Verbose("Deleting lobbies on application quit.");
 			if (CurrentPartyLobby.IsPlayerHost()) LobbyService.Instance.DeleteLobbyAsync(CurrentPartyLobby.Id);
-			if (CurrentGameLobby.IsPlayerHost()) LobbyService.Instance.DeleteLobbyAsync(CurrentGameLobby.Id);
+			if (CurrentMatchLobby.IsPlayerHost()) LobbyService.Instance.DeleteLobbyAsync(CurrentMatchLobby.Id);
 		}
 
 		/// <summary>
@@ -185,6 +185,9 @@ namespace FirstLight.Game.Services
 			}
 		}
 
+		/// <summary>
+		/// Leaves the current party.
+		/// </summary>
 		public async UniTask LeaveCurrentParty()
 		{
 			Assert.IsNotNull(CurrentPartyLobby, "Trying to leave a party but the player is not in one!");
@@ -216,6 +219,9 @@ namespace FirstLight.Game.Services
 			}
 		}
 
+		/// <summary>
+		/// Sets the party host to the given player ID.
+		/// </summary>
 		public async UniTask UpdatePartyHost(string playerID)
 		{
 			Assert.IsNotNull(CurrentPartyLobby, "Trying to update the party host but the player is not in one!");
@@ -237,6 +243,59 @@ namespace FirstLight.Game.Services
 			}
 		}
 
+		/// <summary>
+		/// Queries for public lobbies.
+		/// </summary>
+		public async UniTask<List<Lobby>> GetPublicGameLobbies()
+		{
+			var options = new QueryLobbiesOptions();
+
+			try
+			{
+				FLog.Info("Fetching game lobbies.");
+				var queryResponse = await LobbyService.Instance.QueryLobbiesAsync(options);
+				FLog.Info($"Game lobbies found: {queryResponse.Results}");
+				return queryResponse.Results;
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Error("Error fetching game lobbies!", e);
+			}
+
+			return null;
+		}
+
+		/// <summary>
+		/// Creates a new public game lobby.
+		/// </summary>
+		public async UniTask CreateMatchLobby(CustomGameOptions matchOptions)
+		{
+			Assert.IsNull(CurrentPartyLobby, "Trying to create a party but the player is already in one!");
+
+			var lobbyName = string.Format(PARTY_LOBBY_ID, AuthenticationService.Instance.PlayerId);
+			var options = new CreateLobbyOptions
+			{
+				IsPrivate = false,
+				Player = CreateLocalPlayer()
+			};
+
+			// TODO: Maybe we need to check if the player is already in a party?
+
+			try
+			{
+				FLog.Info($"Creating new party with ID: {lobbyName}");
+				var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, MAX_PARTY_SIZE, options);
+				_partyLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentPartyCallbacks);
+				FLog.Info($"Party created! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name}");
+
+				CurrentPartyLobby = lobby;
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Error("Error creating lobby!", e);
+			}
+		}
+
 		private async UniTaskVoid Tick()
 		{
 			FLog.Verbose("Ticking LobbyService");
@@ -252,10 +311,10 @@ namespace FirstLight.Game.Services
 					LobbyService.Instance.SendHeartbeatPingAsync(CurrentPartyLobby.Id).AsUniTask().Forget();
 				}
 
-				if (CurrentGameLobby != null && IsPlayerHost(CurrentGameLobby))
+				if (CurrentMatchLobby != null && IsPlayerHost(CurrentMatchLobby))
 				{
-					FLog.Verbose($"Sending game lobby heartbeat to {CurrentGameLobby.Id}");
-					LobbyService.Instance.SendHeartbeatPingAsync(CurrentGameLobby.Id).AsUniTask().Forget();
+					FLog.Verbose($"Sending game lobby heartbeat to {CurrentMatchLobby.Id}");
+					LobbyService.Instance.SendHeartbeatPingAsync(CurrentMatchLobby.Id).AsUniTask().Forget();
 				}
 			}
 			// ReSharper disable once FunctionNeverReturns

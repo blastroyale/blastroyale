@@ -1,0 +1,44 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/CustomGamesScreenStyle.uss?fileID=7433441132597879392&amp;guid=233d92d4c180d4714b2ca6e737bb8353&amp;type=3#CustomGamesScreenStyle" />
+    <ui:VisualElement name="reference" class="fill-parent" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/References/CustomGames.png?fileID=2800000&amp;guid=f5aba1fb6d3d9471cae0f4206e55a051&amp;type=3#CustomGames&quot;); opacity: 0.42;" />
+    <ui:VisualElement name="root" style="flex-grow: 1;">
+        <FirstLight.Game.UIElements.SafeAreaElement style="flex-direction: row; align-items: center; margin-right: 164px; margin-left: 100px;">
+            <ui:VisualElement name="ListContainer" style="flex-grow: 1; margin-top: 166px;">
+                <ui:VisualElement name="ListHeaders">
+                    <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="font-size: 33px; color: rgb(255, 255, 255);" />
+                </ui:VisualElement>
+                <ui:ListView name="GamesList" style="flex-grow: 1;" />
+                <ui:Button text="JOIN WITH CODE" name="JoinWithCodeButton" class="button-long" />
+            </ui:VisualElement>
+            <ui:VisualElement name="CreateGamePopup" class="create-game-popup">
+                <ui:VisualElement name="LeftBG" class="create-game-popup__left-bg" />
+                <ui:VisualElement name="RightBG" class="create-game-popup__right-bg" />
+                <ui:Label tabindex="-1" text="CREATE GAME" display-tooltip-when-elided="true" name="Title" class="create-game-popup__title" />
+                <ui:VisualElement name="ContentHolder" class="create-game-popup__content">
+                    <ui:VisualElement name="Row1" class="create-game-popup__horizontal-holder">
+                        <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="false" name="ModeButton" title-localization-key="MODE" />
+                        <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="true" name="TeamSizeButton" title-localization-key="TEAM SIZE" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Row2" class="create-game-popup__horizontal-holder">
+                        <FirstLight.Game.UIElements.MatchSettingsButtonElement name="GameModeButton" title-localization-key="MAP" />
+                        <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="true" name="MaxPlayersButton" title-localization-key="MAX PLAYERS" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Mutatros" class="mutators">
+                        <ui:Label tabindex="-1" text="MUTATORS" display-tooltip-when-elided="true" name="Title" class="mutators__label" />
+                        <ui:ScrollView mode="Horizontal" touch-scroll-type="Clamped" name="MutatorsScroller" class="mutators__container">
+                            <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" class="mutators__mutator" />
+                            <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" class="mutators__mutator" />
+                            <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" class="mutators__mutator" />
+                            <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" class="mutators__mutator" />
+                            <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" class="mutators__mutator" />
+                        </ui:ScrollView>
+                        <FirstLight.Game.UIElements.ImageButton name="MutatorsButton" class="mutators__add-button" />
+                    </ui:VisualElement>
+                    <ui:Toggle label="Toggle" class="create-game-toggle" />
+                    <ui:Toggle label="Toggle" class="create-game-toggle" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
+        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="BROWSE GAMES" />
+    </ui:VisualElement>
+</ui:UXML>

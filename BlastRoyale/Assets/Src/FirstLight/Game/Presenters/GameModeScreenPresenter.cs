@@ -123,7 +123,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnCustomGameClicked(GameModeSelectionButtonView info)
 		{
-			Data.CustomGameChosen();
+			_services.UIService.OpenScreen<CustomGamesScreenPresenter>().Forget();
 		}
 
 		private void OnSlotUpdated(int index, GameModeInfo previous, GameModeInfo current,

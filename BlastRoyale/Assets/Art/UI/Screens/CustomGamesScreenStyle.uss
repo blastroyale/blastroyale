@@ -1,0 +1,172 @@
+.create-game-popup {
+    width: 779px;
+    height: 1121px;
+    flex-direction: row;
+}
+
+.create-game-popup__left-bg {
+    flex-grow: 1;
+    background-image: var(--sprite-home__background-matchsettings);
+}
+
+.create-game-popup__right-bg {
+    flex-grow: 1;
+    background-image: var(--sprite-home__background-matchsettings);
+    scale: -1 1;
+}
+
+.create-game-popup__title {
+    position: absolute;
+    font-size: 55px;
+    color: rgb(255, 255, 255);
+    top: 32px;
+    left: 158px;
+    right: 158px;
+    -unity-text-align: upper-center;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.create-game-popup__map-button {
+    margin-right: 16px;
+}
+
+.create-game-popup__max-players {
+    flex-grow: 1;
+}
+
+.create-game-popup__content {
+    flex-grow: 1;
+    position: absolute;
+    bottom: 44px;
+    top: 154px;
+    left: 45px;
+    right: 45px;
+}
+
+.match-settings-button {
+    width: 336px;
+}
+
+.match-settings-button__title {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.match-settings-button__button {
+    height: 93px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 27px;
+    padding-right: 27px;
+    background-image: var(--sprite-home__background-game-option);
+    font-size: 32px;
+    justify-content: flex-start;
+    color: rgb(255, 255, 255);
+}
+
+.match-settings-button__button--numerical {
+    justify-content: center;
+    color: rgb(132, 117, 166);
+    font-size: 43px;
+}
+
+.match-settings-button__button-background {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.create-game-popup__horizontal-holder {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.match-settings-button--max-players .match-settings-button__icon {
+    display: none;
+}
+
+.match-settings-button--max-players .match-settings-button__label {
+    color: rgb(131, 117, 165);
+    -unity-text-align: upper-center;
+    font-size: 42px;
+    flex-grow: 1;
+}
+
+.match-settings-button--map .match-settings-button__icon {
+    display: none;
+}
+
+.match-settings-button--map .match-settings-button__label {
+    color: rgb(250, 191, 45);
+    -unity-text-align: upper-left;
+    font-size: 32px;
+    flex-grow: 1;
+}
+
+.mutators {
+}
+
+.mutators__label {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.mutators__container {
+    background-color: rgb(23, 20, 38);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-left: 16px;
+    padding-right: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.mutators__mutator {
+    background-color: rgb(255, 255, 255);
+    font-size: 32px;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static");
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-right: 16px;
+}
+
+.mutators__add-button {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/button-addbubble.png?fileID=21300000&guid=b23ad1332c3594fda96a50edbd6b0303&type=3#button-addbubble");
+    width: 130px;
+    height: 114px;
+    top: 19px;
+    right: -8px;
+}
+
+.mutators__add-button:active {
+    -unity-background-image-tint-color: rgb(7, 255, 0);
+}

@@ -15,8 +15,10 @@
     --sprite-home__background-gamemode-battleroyale-quads: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-quads.png');
     --sprite-home__background-gamemode-battleroyale-solo: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-solo.png');
     --sprite-home__background-gamemode-custom: url('/Assets/Art/UI/Sprites/Home/background-gamemode-custom.png');
+    --sprite-home__background-game-option: url('/Assets/Art/UI/Sprites/Home/background-game-option.png');
     --sprite-home__background-inputfield: url('/Assets/Art/UI/Sprites/Home/background-inputfield.png');
     --sprite-home__background-matchmakingstatus: url('/Assets/Art/UI/Sprites/Home/background-matchmakingstatus.png');
+    --sprite-home__background-matchsettings: url('/Assets/Art/UI/Sprites/Home/background-matchsettings.png');
     --sprite-home__background-modeselection-casual: url('/Assets/Art/UI/Sprites/Home/background-modeselection-casual.png');
     --sprite-home__background-modeselection-comingsoon: url('/Assets/Art/UI/Sprites/Home/background-modeselection-comingsoon.png');
     --sprite-home__background-modeselection-custom: url('/Assets/Art/UI/Sprites/Home/background-modeselection-custom.png');
@@ -40,6 +42,7 @@
     --sprite-home__bamboo-season-reward: url('/Assets/Art/UI/Sprites/Home/bamboo-season-reward.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__blastroyale-logo: url('/Assets/Art/UI/Sprites/Home/blastroyale-logo.png');
+    --sprite-home__button-addbubble: url('/Assets/Art/UI/Sprites/Home/button-addbubble.png');
     --sprite-home__button-battlepass: url('/Assets/Art/UI/Sprites/Home/button-battlepass.png');
     --sprite-home__button-battlepass-claimreward: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward.png');
     --sprite-home__button-battlepass-claimreward-pressed: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward-pressed.png');
@@ -303,6 +306,12 @@
     height: 461px;
 }
 
+.sprite-home__background-game-option {
+    background-image: var(--sprite-home__background-game-option);
+    width: 108px;
+    height: 109px;
+}
+
 .sprite-home__background-inputfield {
     background-image: var(--sprite-home__background-inputfield);
     width: 72px;
@@ -313,6 +322,12 @@
     background-image: var(--sprite-home__background-matchmakingstatus);
     width: 516px;
     height: 114px;
+}
+
+.sprite-home__background-matchsettings {
+    background-image: var(--sprite-home__background-matchsettings);
+    width: 360px;
+    height: 594px;
 }
 
 .sprite-home__background-modeselection-casual {
@@ -451,6 +466,12 @@
     background-image: var(--sprite-home__blastroyale-logo);
     width: 1568px;
     height: 859px;
+}
+
+.sprite-home__button-addbubble {
+    background-image: var(--sprite-home__button-addbubble);
+    width: 130px;
+    height: 114px;
 }
 
 .sprite-home__button-battlepass {

@@ -766,3 +766,55 @@
     right: 35px;
     align-self: center;
 }
+
+
+.unity-toggle {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.unity-toggle__label {
+    flex-grow: 1;
+    flex-shrink: 0;
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+}
+
+.unity-toggle__input {
+    background-color: rgb(24, 20, 38);
+    flex-shrink: initial;
+    flex-grow: initial;
+    width: 194px;
+    flex-basis: initial;
+    height: 68px;
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    flex-direction: row;
+    justify-content: flex-start;
+    transition-duration: 0.15s;
+}
+
+.unity-toggle__checkmark {
+    background-image: var(--sprite-home__button-settings-toggle);
+    width: 88px;
+    height: 68px;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    -unity-background-image-tint-color: rgb(247, 107, 106);
+    transition-duration: 0.15s;
+}
+
+.unity-toggle:checked .unity-toggle__checkmark {
+    -unity-background-image-tint-color: rgb(0, 255, 106);
+}
+
+.unity-toggle:checked .unity-toggle__input {
+    padding-left: 106px;
+}

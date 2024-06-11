@@ -1,17 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.UIService;
-using I2.Loc;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
-using Unity.Services.Friends.Notifications;
 using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
 
@@ -79,8 +77,6 @@ namespace FirstLight.Game.Presenters
 		{
 			RefreshData();
 
-			FriendsService.Instance.MessageReceived += OnFriendMessageReceived;
-
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
 
 			return base.OnScreenOpen(reload);
@@ -101,7 +97,7 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTaskVoid JoinParty(string partyCode)
 		{
-			await _services.FLLobbyService.JoinParty(partyCode); // TODO
+			await _services.FLLobbyService.JoinParty(partyCode);
 			RefreshData();
 		}
 
@@ -115,18 +111,6 @@ namespace FirstLight.Game.Presenters
 		{
 			// TODO: This could be done smarter by just refreshing what changed
 			RefreshData();
-		}
-
-		private void OnFriendMessageReceived(IMessageReceivedEvent e)
-		{
-			var message = e.GetAs<PlayerMessage>();
-
-			FLog.Info($"Squad join received: {message.SquadCode}");
-
-			if (!string.IsNullOrEmpty(message.SquadCode))
-			{
-				JoinParty(message.SquadCode).Forget();
-			}
 		}
 
 		private VisualElement OnMakeFriendsItem()
@@ -146,9 +130,8 @@ namespace FirstLight.Game.Presenters
 					? null
 					: () =>
 					{
-						FLog.Info($"Sending squad invite to: {relationship.Member.Profile.Name}({relationship.Member.Id})");
-						FriendsService.Instance.MessageAsync(relationship.Member.Id,
-							PlayerMessage.CreateSquadInvite(_services.FLLobbyService.CurrentPartyLobby.LobbyCode)).AsUniTask().Forget();
+						_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
+						RefreshData();
 					}, false)
 				.SetMoreActions(ve => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget());
 		}
@@ -163,9 +146,6 @@ namespace FirstLight.Game.Presenters
 			_yourTeamHeader.text = $"YOUR PARTY ({partyLobby?.Players?.Count ?? 0}/4)";
 			_yourTeamContainer.Clear();
 
-			// We always show the local player
-			_yourTeamContainer.Add(new FriendListElement(AuthenticationService.Instance.PlayerName));
-
 			if (inParty)
 			{
 				_teamCodeLabel.text = _services.FLLobbyService.CurrentPartyLobby.LobbyCode;
@@ -173,9 +153,14 @@ namespace FirstLight.Game.Presenters
 				foreach (var partyMember in partyLobby.Players)
 				{
 					if (partyMember.Id == AuthenticationService.Instance.PlayerId) continue;
-					_yourTeamContainer.Add(new FriendListElement(partyMember.Profile.Name));
+					_yourTeamContainer.Add(new FriendListElement(partyMember.GetPlayerName()));
 				}
 			}
+
+			// We always show the local player
+			_yourTeamContainer.Add(new FriendListElement(AuthenticationService.Instance.PlayerName));
+			
+			// TODO mihak: Add invited friends
 
 			_friendsOnlineList.itemsSource = _friends = FriendsService.Instance.Friends.Where(f => f.Member.Presence.IsOnline()).ToList();
 			_friendsHeader.text = $"FRIENDS ONLINE ({_friends.Count})";

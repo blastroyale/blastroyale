@@ -192,7 +192,6 @@ namespace FirstLight.Game.Utils
 			};
 		}
 
-
 		public static async UniTask<Sprite> LoadSprite(GameId id)
 		{
 			// TODO: This should be handled better.
@@ -235,22 +234,9 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Locks an element behind a level. unlockedCallback is triggered when this element isn't locked and is pressed.
 		/// </summary>
-		public static void LevelLock<TElement, TPData>(this TElement element,
-													   UIPresenterData<TPData> presenter, VisualElement root, UnlockSystem unlockSystem,
-													   Action unlockedCallback)
-			where TElement : VisualElement
-			where TPData : class
-		{
-			//element.AttachView(presenter, out FameLockedView storeLockedView);
-			//storeLockedView.Init(unlockSystem, root, unlockedCallback);
-		}
-
-		/// <summary>
-		/// Locks an element behind a level. unlockedCallback is triggered when this element isn't locked and is pressed.
-		/// </summary>
-		public static void LevelLock2<TElement>(this TElement element,
-												UIPresenter presenter, VisualElement root, UnlockSystem unlockSystem,
-												Action unlockedCallback)
+		public static void LevelLock<TElement>(this TElement element,
+											   UIPresenter presenter, VisualElement root, UnlockSystem unlockSystem,
+											   Action unlockedCallback)
 			where TElement : VisualElement
 		{
 			element.AttachView(presenter, out FameLockedView storeLockedView);
@@ -264,13 +250,11 @@ namespace FirstLight.Game.Utils
 		{
 			element.SetLevel(gameDataProvider.PlayerDataProvider.Level.Value);
 
-
 			var itemData = gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
 			var spriteTask = gameServices.CollectionService.LoadCollectionItemSprite(itemData);
 
 			element.LoadFromTask(spriteTask).Forget();
 		}
-
 
 		/// <summary>
 		/// Get the position inside the Panel of a World Position
@@ -284,7 +268,6 @@ namespace FirstLight.Game.Utils
 			screenPoint.y = flgCamera.pixelHeight - screenPoint.y;
 			return RuntimePanelUtils.ScreenToPanel(panel, screenPoint);
 		}
-
 
 		/// <summary>
 		/// Set the transform.position of an UIToolkit element to be at the same place of a given position in the 3D world

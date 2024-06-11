@@ -28,13 +28,15 @@
     border-bottom-left-radius: 30px;
     background-color: rgb(22, 20, 38);
     min-height: 162px;
-    max-height: 296px;
+    max-height: 340px;
     padding-left: 28px;
     padding-right: 28px;
     padding-top: 28px;
     padding-bottom: 28px;
     transition-duration: 0.3s;
     transition-property: background-color;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
 }
 
 .container-online-friends {
@@ -84,7 +86,6 @@
     display: none;
 }
 
-
-.friend-list-element {
+.container-your-team > .friend-list-element {
     width: 380px;
 }

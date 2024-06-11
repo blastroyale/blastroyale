@@ -1,12 +1,17 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.SDK.Services;
 using Unity.Services.Authentication;
+using Unity.Services.Friends;
+using Unity.Services.Friends.Exceptions;
+using Unity.Services.Friends.Notifications;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine.Assertions;
@@ -18,9 +23,10 @@ namespace FirstLight.Game.Services
 		private const string PARTY_LOBBY_ID = "party_{0}";
 		private const int MAX_PARTY_SIZE = 4;
 		private const float TICK_DELAY = 15f;
-		
+
 		public const string KEY_SKIN_ID = "skin_id";
 		public const string KEY_MELEE_ID = "melee_id";
+		public const string KEY_PLAYER_NAME = "player_name";
 
 		/// <summary>
 		/// The party the player is currently in.
@@ -31,6 +37,11 @@ namespace FirstLight.Game.Services
 		/// Events that trigger when the party lobby changes.
 		/// </summary>
 		public LobbyEventCallbacks CurrentPartyCallbacks { get; } = new ();
+
+		/// <summary>
+		/// The IDs of the players we sent invites to (only persists for the current session).
+		/// </summary>
+		public IReadOnlyList<string> SentInvites => _sentInvites;
 
 		/// <summary>
 		/// The custom game the player is currently in.
@@ -46,14 +57,47 @@ namespace FirstLight.Game.Services
 		private ILobbyEvents _gameLobbyEvents;
 
 		private readonly IGameDataProvider _dataProvider;
+		private readonly List<string> _sentInvites = new();
 
 		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider)
 		{
 			_dataProvider = dataProvider;
-			
+
 			Tick().Forget();
 
 			messageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
+
+			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
+			FriendsService.Instance.MessageReceived += OnFriendMessageReceived;
+		}
+
+		private void OnFriendMessageReceived(IMessageReceivedEvent e)
+		{
+			var message = e.GetAs<PlayerMessage>();
+
+			if (!string.IsNullOrEmpty(message.SquadCode) && CurrentPartyLobby == null)
+			{
+				// TODO mihak: Ask the player if they want to join
+				FLog.Info($"Squad join received: {message.SquadCode}");
+				JoinParty(message.SquadCode).Forget();
+			}
+		}
+
+		private void OnPartyLobbyChanged(ILobbyChanges changes)
+		{
+			if (changes.LobbyDeleted)
+			{
+				CurrentPartyLobby = null;
+				return;
+			}
+
+			// If a player joined check if we sent the invite and remove it
+			foreach (var playerJoined in changes.PlayerJoined.Value)
+			{
+				_sentInvites.Remove(playerJoined.Player.Id);
+			}
+
+			changes.ApplyToLobby(CurrentPartyLobby);
 		}
 
 		private void OnApplicationQuit(ApplicationQuitMessage _)
@@ -118,6 +162,26 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Error("Error joining party!", e);
+			}
+		}
+
+		/// <summary>
+		/// Invites a friend to the current party.
+		/// </summary>
+		public async UniTask InviteToParty(string playerID)
+		{
+			Assert.IsNotNull(CurrentPartyLobby, "Trying to invite a friend to a party but the player is not in one!");
+
+			try
+			{
+				FLog.Info($"Sending party invite to {playerID}");
+				await FriendsService.Instance.MessageAsync(playerID, PlayerMessage.CreateSquadInvite(CurrentPartyLobby.Id));
+				_sentInvites.Add(playerID);
+				FLog.Info("Party invite sent successfully!");
+			}
+			catch (FriendsServiceException e)
+			{
+				FLog.Error("Error sending party invite!", e);
 			}
 		}
 
@@ -201,15 +265,17 @@ namespace FirstLight.Game.Services
 		{
 			var skinID = _dataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS).Id;
 			var meleeID = _dataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.MELEE_SKINS).Id;
-			
+
 			return new Player(
-				AuthenticationService.Instance.PlayerId,
-				null,
-				new Dictionary<string, PlayerDataObject>()
+				id: AuthenticationService.Instance.PlayerId,
+				data: new Dictionary<string, PlayerDataObject>()
 				{
+					// TODO mihak: Need to figure out how to get this from profile but it's always null
+					{KEY_PLAYER_NAME, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, AuthenticationService.Instance.PlayerName)},
 					{KEY_SKIN_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, skinID.ToString())},
 					{KEY_MELEE_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, meleeID.ToString())}
-				}
+				},
+				profile: new PlayerProfile(AuthenticationService.Instance.PlayerName)
 			);
 		}
 

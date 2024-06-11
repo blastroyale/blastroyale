@@ -113,7 +113,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_friends = FriendsService.Instance.Friends.ToList();
 			// Sort by last seen so online friends are at the top
-			_friends.Sort((a, b) => a.Member.Presence.IsOnline().CompareTo(b.Member.Presence.IsOnline()));
+			_friends.Sort((a, b) => b.Member.Presence.IsOnline().CompareTo(a.Member.Presence.IsOnline()));
 			_friendsList.itemsSource = _friends;
 			_friendsList.RefreshItems();
 
@@ -171,7 +171,7 @@ namespace FirstLight.Game.Presenters
 			((FriendListElement) element)
 				.SetPlayerName(relationship.Member.Profile.Name)
 				.SetHeader(header)
-				.SetStatus(relationship.Member.Presence.GetActivity<PlayerActivity>().Status, online)
+				.SetStatus(relationship.Member.Presence.GetActivity<PlayerActivity>()?.Status, online)
 				.SetMainAction(ScriptLocalization.UITFriends.invite, () =>
 				{
 					// TODO mihak: Invite to squad

@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/FriendsScreenStyle.uss?fileID=7433441132597879392&amp;guid=ba1f0a1f15b1341029c691e8c160c114&amp;type=3#FriendsScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/FriendListElementStyle.uss?fileID=7433441132597879392&amp;guid=225ed0ca899d471084bae92a2bb08119&amp;type=3#FriendListElementStyle" />
     <ui:VisualElement name="root" class="fill-parent" style="overflow: hidden;">
         <FirstLight.Game.UIElements.SafeAreaElement name="SafeArea" apply-bottom="false" class="safe-area-container">
             <ui:VisualElement name="LeftBar" picking-mode="Ignore" class="anim-delay-0 anim-translate anim-translate--right-xxl left-bar">

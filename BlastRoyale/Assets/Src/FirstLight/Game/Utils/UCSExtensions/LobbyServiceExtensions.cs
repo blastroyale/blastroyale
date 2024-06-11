@@ -34,5 +34,14 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		{
 			return Enum.Parse<GameId>(player.Data[FLLobbyService.KEY_MELEE_ID].Value);
 		}
+		
+		/// <summary>
+		/// Gets the player name from the lobby player.
+		/// TODO: This should be fetched from the Player.Profile but it's always null 
+		/// </summary>
+		public static string GetPlayerName(this Player player)
+		{
+			return player.Data[FLLobbyService.KEY_PLAYER_NAME].Value;
+		}
 	}
 }

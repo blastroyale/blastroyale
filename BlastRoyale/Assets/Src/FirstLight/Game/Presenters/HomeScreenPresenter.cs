@@ -21,10 +21,8 @@ using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
-using Unity.Services.RemoteConfig;
 using Unity.Services.Authentication;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 using Random = UnityEngine.Random;
@@ -34,7 +32,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Home Screen.
 	/// </summary>
-	public partial class HomeScreenPresenter : UIPresenterData<HomeScreenPresenter.StateData>
+	public class HomeScreenPresenter : UIPresenterData<HomeScreenPresenter.StateData>
 	{
 		private const float TROPHIES_COUNT_DELAY = 0.8f;
 
@@ -167,8 +165,6 @@ namespace FirstLight.Game.Presenters
 
 			Root.Q<ImageButton>("NewsButton").clicked += Data.NewsClicked;
 
-			QueryElementsSquads(Root);
-
 			_playButtonContainer = Root.Q("PlayButtonHolder");
 			_playButton = Root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
@@ -192,31 +188,30 @@ namespace FirstLight.Game.Presenters
 			Root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 			Root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
 
-			_gameModeButton.LevelLock2(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
+			_gameModeButton.LevelLock(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
 			var leaderBoardButton = Root.Q<ImageButton>("LeaderboardsButton");
-			leaderBoardButton.LevelLock2(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
+			leaderBoardButton.LevelLock(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
 			var collectionButton = Root.Q<Button>("CollectionButton");
-			collectionButton.LevelLock2(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
+			collectionButton.LevelLock(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
 
 			var storeButton = Root.Q<Button>("StoreButton");
 			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
 			if (FeatureFlags.STORE_ENABLED)
 			{
-				storeButton.LevelLock2(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
+				storeButton.LevelLock(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
 			}
 
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
 			Root.Q<Button>("FriendsButton").Required().clicked += Data.FriendsClicked;
-			Root.Q<LocalizedButton>("SquadUpButton").Required().clicked+= ShowSquadUpPopup;
+			Root.Q<LocalizedButton>("SquadUpButton").Required().clicked += ShowPartyUpPopup;
 
 			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
 
 			Root.SetupClicks(_services);
-			OnAnyPartyUpdate();
 		}
 
-		private void ShowSquadUpPopup()
+		private void ShowPartyUpPopup()
 		{
 			_services.UIService.OpenScreen<PartyPopupPresenter>().Forget();
 		}
@@ -260,7 +255,6 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.BPP, OnPoolChanged);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
 			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
-			SubscribeToSquadEvents();
 			_updatePoolsCoroutine = _services.CoroutineService.StartCoroutine(UpdatePoolLabels());
 			_services.MatchmakingService.IsMatchmaking.Observe(OnIsMatchmakingChanged);
 			_dataProvider.PlayerDataProvider.Level.InvokeObserve(OnFameChanged);
@@ -287,8 +281,6 @@ namespace FirstLight.Game.Presenters
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnIsMatchmakingChanged);
 			_services.LeaderboardService.OnRankingUpdate -= OnRankingUpdateHandler;
 			_dataProvider.PlayerDataProvider.Level.StopObserving(OnFameChanged);
-
-			UnsubscribeFromSquadEvents();
 
 			if (_updatePoolsCoroutine != null)
 			{

@@ -140,6 +140,7 @@ namespace FirstLight.Game.Services
 		private readonly IGameDataProvider _dataProvider;
 		private readonly ICoroutineService _coroutines;
 		private readonly IPartyService _party;
+		private readonly FLLobbyService _lobbyService;
 		private readonly IGameNetworkService _networkService;
 		private readonly IGameBackendService _backendService;
 		private readonly LocalPrefsService _localPrefsService;
@@ -156,7 +157,7 @@ namespace FirstLight.Game.Services
 		public event IMatchmakingService.OnMatchmakingCancelledHandler OnMatchmakingCancelled;
 
 		public PlayfabMatchmakingService(IGameDataProvider dataProviderProvider, ICoroutineService coroutines,
-										 IPartyService party, IMessageBrokerService broker, IGameNetworkService networkService,
+										 IPartyService party, FLLobbyService lobbyService, IMessageBrokerService broker, IGameNetworkService networkService,
 										 IGameBackendService backendService, IConfigsProvider configsProvider, LocalPrefsService localPrefsService)
 		{
 			_networkService = networkService;
@@ -165,6 +166,7 @@ namespace FirstLight.Game.Services
 			_configsProvider = configsProvider;
 			_coroutines = coroutines;
 			_party = party;
+			_lobbyService = lobbyService;
 			_isMatchmaking = new ObservableField<bool>(false);
 			_localPrefsService = localPrefsService;
 

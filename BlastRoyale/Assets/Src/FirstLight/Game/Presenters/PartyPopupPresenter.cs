@@ -159,10 +159,10 @@ namespace FirstLight.Game.Presenters
 
 			// We always show the local player
 			_yourTeamContainer.Add(new FriendListElement(AuthenticationService.Instance.PlayerName));
-			
+
 			// TODO mihak: Add invited friends
 
-			_friendsOnlineList.itemsSource = _friends = FriendsService.Instance.Friends.Where(f => f.Member.Presence.IsOnline()).ToList();
+			_friendsOnlineList.itemsSource = _friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToList();
 			_friendsHeader.text = $"FRIENDS ONLINE ({_friends.Count})";
 		}
 	}

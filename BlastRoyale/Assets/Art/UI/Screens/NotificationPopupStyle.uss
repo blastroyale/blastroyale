@@ -1,0 +1,16 @@
+.root {
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.notification {
+    font-size: 46px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    top: 255px;
+    background-image: var(--sprite-shared__background-notification);
+    width: 932px;
+    -unity-text-align: upper-center;
+}

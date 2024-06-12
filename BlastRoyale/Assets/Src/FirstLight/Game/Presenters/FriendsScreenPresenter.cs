@@ -4,13 +4,16 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
+using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -23,6 +26,8 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action OnBackClicked;
 		}
+
+		private IGameServices _services;
 
 		private ListView _friendsList;
 		private ListView _requestsList;
@@ -43,6 +48,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements()
 		{
+			_services = MainInstaller.ResolveServices();
+
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
 			header.SetTitle(ScriptLocalization.UITHomeScreen.friends);
 			header.backClicked += Data.OnBackClicked;
@@ -113,7 +120,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_friends = FriendsService.Instance.Friends.ToList();
 			// Sort by last seen so online friends are at the top
-			_friends.Sort((a, b) => b.Member.Presence.IsOnline().CompareTo(a.Member.Presence.IsOnline()));
+			_friends.Sort((a, b) => b.IsOnline().CompareTo(a.IsOnline()));
 			_friendsList.itemsSource = _friends;
 			_friendsList.RefreshItems();
 
@@ -154,16 +161,16 @@ namespace FirstLight.Game.Presenters
 		private void OnFriendsBindItem(VisualElement element, int index)
 		{
 			var relationship = _friends[index];
-			var online = relationship.Member.Presence.Availability == Availability.Online;
+			var online = relationship.IsOnline();
 
 			string header = null;
 
 			// Show header if first item or if the previous item has a different status
-			if (index == 0 || ((_friends[index - 1].Member.Presence.Availability == Availability.Online) != online))
+			if (index == 0 || ((_friends[index - 1].IsOnline()) != online))
 			{
 				var count = online
-					? _friends.Count(r => r.Member.Presence.Availability == Availability.Online)
-					: _friends.Count(r => r.Member.Presence.Availability != Availability.Online);
+					? _friends.Count(r => r.IsOnline())
+					: _friends.Count(r => !r.IsOnline());
 
 				header = string.Format(online ? ScriptLocalization.UITFriends.online : ScriptLocalization.UITFriends.offline, count);
 			}
@@ -172,11 +179,13 @@ namespace FirstLight.Game.Presenters
 				.SetPlayerName(relationship.Member.Profile.Name)
 				.SetHeader(header)
 				.SetStatus(relationship.Member.Presence.GetActivity<PlayerActivity>()?.Status, online)
-				.SetMainAction(ScriptLocalization.UITFriends.invite, () =>
-				{
-					// TODO mihak: Invite to squad
-					FLog.Info($"Squad invite clicked: {relationship.Id}");
-				}, false)
+				.SetMainAction(ScriptLocalization.UITFriends.invite, !relationship.IsOnline()
+					? null
+					: () =>
+					{
+						// TODO mihak: Invite to squad
+						FLog.Info($"Squad invite clicked: {relationship.Id}");
+					}, false)
 				.SetMoreActions(ve => OpenFriendTooltip(ve, relationship));
 		}
 
@@ -252,12 +261,16 @@ namespace FirstLight.Game.Presenters
 				FLog.Info($"Accepting friend request: {r.Member.Id}");
 				await FriendsService.Instance.AddFriendAsync(r.Member.Id).AsUniTask();
 				FLog.Info($"Friend request accepted: {r.Member.Id}");
+
 				RefreshRequests();
 				RefreshFriends();
+
+				_services.NotificationService.QueueNotification("#Friend request accepted#");
 			}
-			catch (Exception e)
+			catch (FriendsServiceException e)
 			{
 				FLog.Error("Error accepting friend request.", e);
+				_services.NotificationService.QueueNotification($"#Error accepting friend request ({(int) e.ErrorCode})#");
 			}
 		}
 
@@ -269,10 +282,13 @@ namespace FirstLight.Game.Presenters
 				await FriendsService.Instance.DeleteIncomingFriendRequestAsync(r.Member.Id).AsUniTask();
 				FLog.Info($"Friend request deleted: {r.Member.Id}");
 				RefreshRequests();
+
+				_services.NotificationService.QueueNotification("#Friend request declined#");
 			}
-			catch (Exception e)
+			catch (FriendsServiceException e)
 			{
-				FLog.Error("Error declining friend request.", e);
+				FLog.Error("Error declining friend request", e);
+				_services.NotificationService.QueueNotification($"#Error declining friend request ({(int) e.ErrorCode})#");
 			}
 		}
 
@@ -286,12 +302,16 @@ namespace FirstLight.Game.Presenters
 				FLog.Info($"Sending friend request: {playerId}");
 				await FriendsService.Instance.AddFriendAsync(playerId).AsUniTask();
 				FLog.Info($"Friend request sent: {playerId}");
+
 				RefreshRequests();
 				RefreshFriends(); // In case they already had a request from that friend, it accepts it
+
+				_services.NotificationService.QueueNotification("Friend request sent");
 			}
-			catch (Exception e)
+			catch (FriendsServiceException e)
 			{
 				FLog.Error("Error adding friend.", e);
+				_services.NotificationService.QueueNotification($"#Error adding friend ({(int) e.ErrorCode})#");
 			}
 
 			_addFriendButton.SetEnabled(true);
@@ -306,10 +326,13 @@ namespace FirstLight.Game.Presenters
 				await FriendsService.Instance.DeleteFriendAsync(playerID).AsUniTask();
 				FLog.Info($"Friend removed: {playerID}");
 				RefreshFriends();
+
+				_services.NotificationService.QueueNotification("#Friend removed#");
 			}
-			catch (Exception e)
+			catch (FriendsServiceException e)
 			{
 				FLog.Error("Error removing friend.", e);
+				_services.NotificationService.QueueNotification($"#Error removing friend ({(int) e.ErrorCode})#");
 			}
 		}
 
@@ -321,10 +344,13 @@ namespace FirstLight.Game.Presenters
 				await FriendsService.Instance.AddBlockAsync(playerID).AsUniTask();
 				FLog.Info($"Player blocked: {playerID}");
 				RefreshAll();
+
+				_services.NotificationService.QueueNotification("#Player blocked#");
 			}
-			catch (Exception e)
+			catch (FriendsServiceException e)
 			{
-				FLog.Error("Error blocking", e);
+				FLog.Error("Error blocking player", e);
+				_services.NotificationService.QueueNotification($"#Error blocking player ({(int) e.ErrorCode})#");
 			}
 		}
 
@@ -336,10 +362,13 @@ namespace FirstLight.Game.Presenters
 				await FriendsService.Instance.DeleteBlockAsync(r.Member.Id).AsUniTask();
 				FLog.Info($"Player unblocked: {r.Member.Id}");
 				RefreshAll(); // Figure out if needed
+
+				_services.NotificationService.QueueNotification("#Player unblocked#");
 			}
-			catch (Exception e)
+			catch (FriendsServiceException e)
 			{
 				FLog.Error("Error unblocking player.", e);
+				_services.NotificationService.QueueNotification($"#Error unblocking player ({(int) e.ErrorCode})#");
 			}
 		}
 
@@ -352,6 +381,8 @@ namespace FirstLight.Game.Presenters
 			};
 			te.SelectAll();
 			te.Copy();
+
+			_services.NotificationService.QueueNotification("Copied to clipboard");
 		}
 	}
 }

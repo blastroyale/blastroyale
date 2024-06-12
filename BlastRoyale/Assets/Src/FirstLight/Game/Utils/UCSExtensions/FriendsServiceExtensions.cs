@@ -1,8 +1,9 @@
+using System;
 using System.Linq;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
 
-namespace FirstLight.Game.Utils
+namespace FirstLight.Game.Utils.UCSExtensions
 {
 	/// <summary>
 	/// Helpers for the UCS Friends service.
@@ -10,11 +11,17 @@ namespace FirstLight.Game.Utils
 	public static class FriendsServiceExtensions
 	{
 		/// <summary>
-		/// Checks if the availability of a user / presence is online.
+		/// Checks if a user should be considered online.
 		/// </summary>
-		public static bool IsOnline(this Presence presence)
+		public static bool IsOnline(this Relationship relationship)
 		{
-			return presence.Availability == Availability.Online;
+			const int ONLINE_THRESHOLD_MINUTES = 30;
+
+			var presence = relationship.Member.Presence;
+			if (presence == null) return false;
+			if (presence.Availability != Availability.Online) return false;
+
+			return DateTime.UtcNow - relationship.Member.Presence.LastSeen < TimeSpan.FromMinutes(ONLINE_THRESHOLD_MINUTES);
 		}
 
 		/// <summary>

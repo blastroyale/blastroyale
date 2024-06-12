@@ -45,7 +45,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IMatchmakingService MatchmakingService { get; }
 		public virtual IIAPService IAPService { get; }
 		public virtual IPartyService PartyService { get; }
-		
+
 		public RateAndReviewService RateAndReviewService { get; }
 		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
@@ -62,6 +62,7 @@ namespace FirstLight.Tests.EditorMode
 		public INewsService NewsService { get; set; }
 		public LocalPrefsService LocalPrefsService { get; }
 		public FLLobbyService FLLobbyService { get; }
+		public NotificationService NotificationService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
@@ -92,6 +93,7 @@ namespace FirstLight.Tests.EditorMode
 			AudioFxService = new GameAudioFxService(assetResolverService, LocalPrefsService);
 			ThreadService = new ThreadService();
 
+			NotificationService = new NotificationService(UIService);
 
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();

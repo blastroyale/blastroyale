@@ -84,17 +84,17 @@ namespace FirstLight.UIService
 
 		internal async UniTask OnScreenClosedInternal()
 		{
+			await OnScreenClose();
+
+			foreach (var view in _views)
+			{
+				view.OnScreenClose();
+			}
+
 			if (_document != null)
 			{
 				Root.EnableInClassList(UIService.CLASS_HIDDEN, true);
-
-				foreach (var view in _views)
-				{
-					view.OnScreenClose();
-				}
 			}
-
-			await OnScreenClose();
 		}
 
 		protected abstract void QueryElements();

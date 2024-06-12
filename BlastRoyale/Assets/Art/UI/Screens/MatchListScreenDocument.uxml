@@ -3,10 +3,13 @@
     <Style src="project://database/Assets/Art/UI/Screens/MatchListScreenStyle.uss?fileID=7433441132597879392&amp;guid=233d92d4c180d4714b2ca6e737bb8353&amp;type=3#MatchListScreenStyle" />
     <ui:VisualElement name="reference" class="fill-parent" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/References/CustomGames.png?fileID=2800000&amp;guid=f5aba1fb6d3d9471cae0f4206e55a051&amp;type=3#CustomGames&quot;); opacity: 0.42; display: none;" />
     <ui:VisualElement name="root" style="flex-grow: 1;">
-        <FirstLight.Game.UIElements.SafeAreaElement style="flex-direction: row; align-items: center; margin-right: 164px; margin-left: 100px;">
-            <ui:VisualElement name="ListContainer" style="flex-grow: 1; margin-top: 166px;">
-                <ui:VisualElement name="ListHeaders">
-                    <ui:Label tabindex="-1" text="TITLE TITLE TITLE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="font-size: 33px; color: rgb(255, 255, 255);" />
+        <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
+            <ui:VisualElement name="ListContainer" class="match-list-container">
+                <ui:VisualElement name="ListHeaders" class="match-list-container__headers">
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="NAME" name="NameTitle" style="color: rgb(255, 255, 255);" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="MODE" name="ModeTitle" style="color: rgb(255, 255, 255);" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="PLAYERS" name="PlayersTitle" style="color: rgb(255, 255, 255);" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="STATUS" name="StatusTitle" style="color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
                 <ui:ListView name="GamesList" fixed-item-height="118" show-bound-collection-size="false" style="flex-grow: 1;" />
                 <ui:Button text="JOIN WITH CODE" name="JoinWithCodeButton" class="button-long" />
@@ -14,5 +17,6 @@
             <ui:Instance template="MatchSettings" name="MatchSettings" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="BROWSE GAMES" name="Header" />
+        <FirstLight.Game.UIElements.MatchLobbyItemElement style="position: absolute; top: 261px; left: 102px; width: 1471px; display: none;" />
     </ui:VisualElement>
 </ui:UXML>

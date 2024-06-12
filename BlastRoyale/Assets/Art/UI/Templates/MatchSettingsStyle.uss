@@ -1,21 +1,21 @@
-.create-game-popup {
+.match-settings {
     width: 779px;
-    height: 1121px;
     flex-direction: row;
+    flex-grow: 1;
 }
 
-.create-game-popup__left-bg {
+.match-settings__left-bg {
     flex-grow: 1;
     background-image: var(--sprite-home__background-matchsettings);
 }
 
-.create-game-popup__right-bg {
+.match-settings__right-bg {
     flex-grow: 1;
     background-image: var(--sprite-home__background-matchsettings);
     scale: -1 1;
 }
 
-.create-game-popup__title {
+.match-settings__title {
     position: absolute;
     font-size: 55px;
     color: rgb(255, 255, 255);
@@ -28,15 +28,15 @@
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
 
-.create-game-popup__map-button {
+.match-settings__map-button {
     margin-right: 16px;
 }
 
-.create-game-popup__max-players {
+.match-settings__max-players {
     flex-grow: 1;
 }
 
-.create-game-popup__content {
+.match-settings__content {
     flex-grow: 1;
     position: absolute;
     bottom: 44px;
@@ -47,6 +47,7 @@
 
 .match-settings-button {
     width: 336px;
+    margin-bottom: 20px;
 }
 
 .match-settings-button__title {
@@ -75,6 +76,9 @@
 
 .match-settings-button__button--numerical {
     justify-content: center;
+}
+
+.match-settings-button__button--numerical .match-settings-button__label{
     color: rgb(132, 117, 166);
     font-size: 43px;
 }
@@ -88,34 +92,13 @@
     bottom: 0;
 }
 
-.create-game-popup__horizontal-holder {
+.match-settings__horizontal-holder {
     flex-direction: row;
     justify-content: space-between;
 }
 
-.match-settings-button--max-players .match-settings-button__icon {
-    display: none;
-}
-
-.match-settings-button--max-players .match-settings-button__label {
-    color: rgb(131, 117, 165);
-    -unity-text-align: upper-center;
-    font-size: 42px;
-    flex-grow: 1;
-}
-
-.match-settings-button--map .match-settings-button__icon {
-    display: none;
-}
-
-.match-settings-button--map .match-settings-button__label {
-    color: rgb(250, 191, 45);
-    -unity-text-align: upper-left;
-    font-size: 32px;
-    flex-grow: 1;
-}
-
 .mutators {
+    margin-bottom: 30px;
 }
 
 .mutators__label {
@@ -134,14 +117,14 @@
     border-bottom-right-radius: 10px;
     flex-direction: row;
     align-items: center;
-    flex-wrap: wrap;
     padding-left: 16px;
     padding-right: 5px;
     padding-top: 8px;
     padding-bottom: 8px;
+    height: 72px;
 }
 
-.mutators__mutator {
+.mutators__container Label {
     background-color: rgb(255, 255, 255);
     font-size: 32px;
     -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static");
@@ -154,6 +137,12 @@
     padding-top: 5px;
     padding-bottom: 5px;
     margin-right: 16px;
+    -unity-text-outline-width: 0;
+    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    color: rgb(0, 0, 0);
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 0;
 }
 
 .mutators__add-button {
@@ -168,5 +157,5 @@
 }
 
 .mutators__add-button:active {
-    -unity-background-image-tint-color: rgb(7, 255, 0);
+    scale: 0.9 0.9;
 }

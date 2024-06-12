@@ -10,15 +10,6 @@
     -unity-font-definition: var(--font-italic);
 }
 
-
-.unity-text-element {
-    font-size: 32px;
-    color: white;
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
-}
-
 .unity-button {
     background-color: rgba(0, 0, 0, 0);
     border-width: 0;
@@ -38,6 +29,10 @@
 
 .unity-button:disabled {
     background-color: rgba(0, 0, 0, 0);
+}
+
+.unity-base-field:focus:enabled > .unity-base-field__label {
+    color: white;
 }
 
 .unity-text-field {
@@ -776,7 +771,6 @@
     align-self: center;
 }
 
-
 .unity-toggle {
     justify-content: space-between;
     align-items: center;
@@ -787,43 +781,48 @@
 .unity-toggle__label {
     flex-grow: 1;
     flex-shrink: 0;
+    font-size: 32px;
     color: rgb(255, 255, 255);
-    font-size: 50px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
 
 .unity-toggle__input {
-    background-color: rgb(24, 20, 38);
+    background-color: rgb(22, 20, 38);
     flex-shrink: initial;
     flex-grow: initial;
-    width: 194px;
+    width: 90px;
     flex-basis: initial;
-    height: 68px;
-    border-top-left-radius: 18px;
-    border-bottom-left-radius: 18px;
-    border-top-right-radius: 18px;
-    border-bottom-right-radius: 18px;
+    height: 50px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
     flex-direction: row;
     justify-content: flex-start;
     transition-duration: 0.15s;
+    overflow: visible;
 }
 
 .unity-toggle__checkmark {
-    background-image: var(--sprite-home__button-settings-toggle);
-    width: 88px;
-    height: 68px;
-    background-color: rgba(0, 0, 0, 0);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
     border-bottom-width: 0;
-    -unity-background-image-tint-color: rgb(247, 107, 106);
     transition-duration: 0.15s;
 }
 
-.unity-toggle:checked .unity-toggle__checkmark {
-    -unity-background-image-tint-color: rgb(0, 255, 106);
+
+.unity-toggle > .unity-toggle__input:checked > .unity-toggle__checkmark {
+    background-image: initial;
 }
 
-.unity-toggle:checked .unity-toggle__input {
-    padding-left: 106px;
+.unity-toggle > .unity-toggle__input:checked {
+    background-color: rgb(216, 75, 121);
+    padding-left: 40px;
 }

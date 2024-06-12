@@ -1,5 +1,3 @@
-
-
 .match-lobby-item {
     flex-direction: row;
     background-image: var(--sprite-home__background-roundedelement);
@@ -17,7 +15,40 @@
 
 .match-lobby-item > Label {
     flex-grow: 1;
+    width: 0;
 }
 
 .match-lobby-item__action-background {
+}
+
+.safe-area {
+    flex-direction: row;
+    align-items: stretch;
+    padding-top: 42px;
+    padding-right: 164px;
+    padding-bottom: 42px;
+    padding-left: 100px;
+}
+
+.match-list-container {
+    flex-grow: 1;
+    margin-top: 166px;
+    padding-right: 42px;
+}
+
+.match-list-container__headers {
+    flex-direction: row;
+    padding-right: 342px;
+    padding-left: 47px;
+    margin-bottom: 20px;
+}
+
+.match-list-container__headers > LocalizedLabel {
+    flex-grow: 1;
+    width: 0;
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }

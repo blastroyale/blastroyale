@@ -26,9 +26,7 @@ namespace FirstLight.Game.UIElements
 		public void LocalizeLabel(string labelKey)
 		{
 			labelLocalizationKey = labelKey;
-			label = LocalizationManager.TryGetTranslation(labelKey, out var translation)
-				? translation
-				: $"#{labelKey}#";
+			label = LocalizationManager.TryGetTranslation(labelKey, out var translation) ? translation : $"#{labelKey}#";
 		}
 
 		public new class UxmlFactory : UxmlFactory<LocalizedTextField, UxmlTraits>
@@ -37,7 +35,7 @@ namespace FirstLight.Game.UIElements
 
 		public new class UxmlTraits : TextField.UxmlTraits
 		{
-			UxmlStringAttributeDescription _labelLocalizationKeyAttribute = new()
+			UxmlStringAttributeDescription _labelLocalizationKeyAttribute = new ()
 			{
 				name = "label-localization-key",
 				use = UxmlAttributeDescription.Use.Required

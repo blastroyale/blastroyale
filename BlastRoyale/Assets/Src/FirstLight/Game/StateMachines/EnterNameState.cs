@@ -8,6 +8,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -40,7 +41,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-
 		public EnterNameState(IGameServices services, IGameDataProvider dataProvider,
 							  Action<IStatechartEvent> statechartTrigger)
 		{
@@ -62,7 +62,6 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(nameEntry);
 			initial.OnExit(SubscribeEvents);
 
-
 			nameEntry.OnEnter(OpenEnterNameDialog);
 			nameEntry.Event(NameSetEvent).Target(final);
 			nameEntry.Event(_invalidNameEvent).Target(invalidName);
@@ -75,7 +74,6 @@ namespace FirstLight.Game.StateMachines
 		private void CloseLoading()
 		{
 			_services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>(false).Forget();
-
 		}
 
 		private void SubscribeEvents()
@@ -123,7 +121,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (errorMessage != null)
 			{
-				OnSetNameError(errorMessage).Forget();
+				await OnSetNameError(errorMessage);
 				return;
 			}
 
@@ -137,28 +135,37 @@ namespace FirstLight.Game.StateMachines
 
 			try
 			{
+				await AsyncPlayfabAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest()
+				{
+					DisplayName = newNameTrimmed
+				});
+			}
+			catch (WrappedPlayFabException ex)
+			{
+				var description = GetErrorString(ex.Error);
+				if (ex.Error.Error == PlayFabErrorCode.ProfaneDisplayName)
+				{
+					description = ScriptLocalization.UITProfileScreen.username_profanity;
+				}
+
+				await OnSetNameError(description);
+				return;
+			}
+
+			try
+			{
 				await AuthenticationService.Instance.UpdatePlayerNameAsync(newNameTrimmed);
 				_statechartTrigger(NameSetEvent);
 			}
 			catch (RequestFailedException e)
 			{
-				OnSetNameError($"Error setting player name: {e.Message}").Forget();
+				await OnSetNameError($"Error setting player name: {e.Message}");
 			}
 
-			// TODO mihak: Update on Playfab?
-			// _services.GameBackendService.UpdateDisplayName(newNameTrimmed, (_) => _statechartTrigger(NameSetEvent), e =>
-			// {
-			// 	var description = GetErrorString(e);
-			// 	if (e.Error == PlayFabErrorCode.ProfaneDisplayName)
-			// 	{
-			// 		description = ScriptLocalization.UITProfileScreen.username_profanity;
-			// 	}
-			//
-			// 	OnSetNameError(description).Forget();
-			// });
+			_services.MessageBrokerService.Publish(new DisplayNameChangedMessage());
 		}
 
-		private async UniTaskVoid OnSetNameError(string errorMessage)
+		private async UniTask OnSetNameError(string errorMessage)
 		{
 			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>(false);
 			// HACK: When you open a generic dialog in a close action of another generic dialog it will not work.

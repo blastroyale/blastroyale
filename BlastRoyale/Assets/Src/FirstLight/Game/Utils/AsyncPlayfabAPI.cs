@@ -42,18 +42,26 @@ namespace FirstLight.Game.Utils
 			= Wrap<GetTitleNewsRequest, GetTitleNewsResult>(PlayFabClientAPI.GetTitleNews);
 
 		private static Func<LoginWithCustomIDRequest, UniTask<LoginResult>> LoginCustomIdFunc { get; }
-		= Wrap<LoginWithCustomIDRequest, LoginResult>(PlayFabClientAPI.LoginWithCustomID);
+			= Wrap<LoginWithCustomIDRequest, LoginResult>(PlayFabClientAPI.LoginWithCustomID);
 
 		private static Func<LoginWithEmailAddressRequest, UniTask<LoginResult>> LoginWithEmailFunc { get; }
-		= Wrap<LoginWithEmailAddressRequest, LoginResult>(PlayFabClientAPI.LoginWithEmailAddress);
-		
+			= Wrap<LoginWithEmailAddressRequest, LoginResult>(PlayFabClientAPI.LoginWithEmailAddress);
+
 		private static Func<GetCatalogItemsRequest, UniTask<GetCatalogItemsResult>> GetCatalogItemsFunc { get; }
 			= Wrap<GetCatalogItemsRequest, GetCatalogItemsResult>(PlayFabClientAPI.GetCatalogItems);
 
 		private static Func<GetStoreItemsRequest, UniTask<GetStoreItemsResult>> GetStoreItemsFunc { get; }
 			= Wrap<GetStoreItemsRequest, GetStoreItemsResult>(PlayFabClientAPI.GetStoreItems);
-		
-		
+
+		private static Func<UpdateUserTitleDisplayNameRequest, UniTask<UpdateUserTitleDisplayNameResult>> UpdateUserTitleDisplayNameFunc { get; }
+			= Wrap<UpdateUserTitleDisplayNameRequest, UpdateUserTitleDisplayNameResult>(PlayFabClientAPI.UpdateUserTitleDisplayName);
+
+		/// <inheritdoc cref="PlayFabClientAPI.UpdateUserTitleDisplayName"/>
+		public static UniTask<UpdateUserTitleDisplayNameResult> UpdateUserTitleDisplayName(UpdateUserTitleDisplayNameRequest req)
+		{
+			return UpdateUserTitleDisplayNameFunc(req);
+		}
+
 		/// <inheritdoc cref="PlayFabClientAPI.GetCatalogItems"/>
 		public static UniTask<GetCatalogItemsResult> GetCatalogItems(GetCatalogItemsRequest req)
 		{
@@ -66,13 +74,12 @@ namespace FirstLight.Game.Utils
 			return GetStoreItemsFunc(req);
 		}
 
-		
 		/// <inheritdoc cref="PlayFabMultiplayerAPI.UpdateLobby"/>
 		public static UniTask<LobbyEmptyResult> UpdateLobby(UpdateLobbyRequest req)
 		{
 			return UpdateLobbyFunc(req);
 		}
-		
+
 		public static UniTask<GetTitleNewsResult> GetNews(GetTitleNewsRequest req)
 		{
 			return GetNewsFunc(req);
@@ -137,7 +144,6 @@ namespace FirstLight.Game.Utils
 		{
 			return SubscribeToLobbyResourceFunc(req);
 		}
-
 
 		private static Func<TRequest, UniTask<TResponse>> Wrap<TRequest, TResponse>(Action<TRequest, Action<TResponse>, Action<PlayFabError>, object, Dictionary<string, string>> func)
 		{

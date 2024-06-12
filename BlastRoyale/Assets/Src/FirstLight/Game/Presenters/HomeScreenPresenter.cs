@@ -260,6 +260,7 @@ namespace FirstLight.Game.Presenters
 			_services.LeaderboardService.OnRankingUpdate += OnRankingUpdateHandler;
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
+			_services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
 
 			_playerNameLabel.text = AuthenticationService.Instance.PlayerName;
 
@@ -289,6 +290,11 @@ namespace FirstLight.Game.Presenters
 			}
 
 			return base.OnScreenClose();
+		}
+
+		private void OnDisplayNameChanged(DisplayNameChangedMessage _)
+		{
+			_playerNameLabel.text = AuthenticationService.Instance.PlayerName;
 		}
 
 		private void OnRankingUpdateHandler(PlayerLeaderboardEntry leaderboardEntry)

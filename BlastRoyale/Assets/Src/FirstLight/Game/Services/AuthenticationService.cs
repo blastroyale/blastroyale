@@ -345,7 +345,6 @@ namespace FirstLight.Game.Services
 				e => { _services.GameBackendService.HandleError(e, onError); });
 		}
 
-
 		public void ProcessAuthentication(LoginResult result, LoginData loginData, Action<LoginData> onSuccess,
 										  Action<PlayFabError> onError, bool previouslyLoggedIn = false)
 		{
@@ -517,7 +516,7 @@ namespace FirstLight.Game.Services
 		private async UniTask PostUnityAuth(Action onComplete)
 		{
 			var tasks = new List<UniTask>();
-			
+
 			tasks.Add(RemoteConfigs.Init());
 			var friendsInitOpts = new InitializeOptions()
 				.WithEvents(true)
@@ -527,8 +526,47 @@ namespace FirstLight.Game.Services
 			tasks.Add(AuthenticationService.Instance.GetPlayerNameAsync().AsUniTask()); // We fetch the name (which generates a new one) so it's stored in the cache
 			tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId));
 			await UniTask.WhenAll(tasks);
+			CheckNamesUpdates().Forget();
 			_services.RateAndReviewService.Init();
 			onComplete();
+		}
+
+		private async UniTask CheckNamesUpdates()
+		{
+			try
+			{
+				var appData = _dataService.GetData<AppData>();
+				var newAccount = appData.IsFirstSession;
+				var playfabName = appData.DisplayName;
+				playfabName = playfabName == null || string.IsNullOrWhiteSpace(playfabName) ||
+					playfabName.Length < 5
+						? ""
+						: playfabName.Substring(0, playfabName.Length - 5);
+				var unityName = AuthenticationService.Instance.PlayerNameTrimmed();
+
+				if (newAccount)
+				{
+					FLog.Info("Updating playfab name to auto generated unity one" + unityName);
+
+					await AsyncPlayfabAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest()
+					{
+						DisplayName = unityName
+					});
+					return;
+				}
+
+				// Handle old user accounts
+				if (!playfabName.Equals(unityName))
+				{		
+					FLog.Info($"Updating unity name('{unityName}') to '{playfabName}'");
+					await AuthenticationService.Instance.UpdatePlayerNameAsync(playfabName);
+					_services.MessageBrokerService.Publish(new DisplayNameChangedMessage());
+				}
+			}
+			catch (Exception ex)
+			{
+				FLog.Error("Failed to update name", ex);
+			}
 		}
 
 		private void UpdatePlayerDataAndLogic(Dictionary<string, string> state, bool previouslyLoggedIn)

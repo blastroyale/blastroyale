@@ -18,6 +18,16 @@ namespace FirstLight.Editor.EditorTools
 	/// </summary>
 	public static class PlayFabShortcuts
 	{
+		[MenuItem("Tools/PlayFab/Open Current Account")]
+		private static void OpenCurrentAccount()
+		{
+			var data = new DataService();
+			data.LoadData<AppData>();
+			var playerId = data.GetData<AppData>().PlayerId;
+
+			Application.OpenURL($"https://developer.playfab.com/en-us/r/t/***REMOVED***/players/{playerId}/data");
+		}
+		
 #if UNITY_EDITOR && ENABLE_PLAYFABADMIN_API
 		[MenuItem("Tools/PlayFab/Delete Player Accounts")]
 		private static void DeleteAllPlayers()
@@ -118,16 +128,6 @@ namespace FirstLight.Editor.EditorTools
 					}
 				}
 			}
-		}
-		
-		[MenuItem("Tools/PlayFab/Open Current Account")]
-		private static void OpenCurrentAccount()
-		{
-			var data = new DataService();
-			data.LoadData<AppData>();
-			var playerId = data.GetData<AppData>().PlayerId;
-
-			Application.OpenURL($"https://developer.playfab.com/en-us/r/t/***REMOVED***/players/{playerId}/data");
 		}
 
 		/// <summary>

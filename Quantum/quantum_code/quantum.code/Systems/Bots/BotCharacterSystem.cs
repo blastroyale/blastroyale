@@ -18,6 +18,8 @@ namespace Quantum.Systems.Bots
 											 ISignalOnPlayerRevived,
 											 ISignalOnPlayerKnockedOut
 	{
+		private static int DistributeProcessingFrames = 20;
+
 		private BotSetup _botSetup = new BotSetup();
 		private BattleRoyaleBot _battleRoyaleBot = new BattleRoyaleBot();
 		private WanderAndShootBot _wanderAndShootBot = new WanderAndShootBot();
@@ -70,7 +72,6 @@ namespace Quantum.Systems.Bots
 		private BotUpdateGlobalContext CreateGlobalContext(Frame f)
 		{
 			if (_updateContext.FrameNumber == f.Number) return _updateContext;
-			_updateContext.AliveBots = f.ComponentCount<BotCharacter>();
 			var circleCenter = FPVector2.Zero;
 			var circleRadius = FP._0;
 			var circleIsShrinking = false;
@@ -130,13 +131,6 @@ namespace Quantum.Systems.Bots
 				filter.StopAiming(f);
 			}
 
-
-			// Distribute bot processing in 30 frames
-			if (botIndex % botCtx.AliveBots == f.Number % botCtx.AliveBots)
-			{
-				return;
-			}
-
 			if (filter.BotCharacter->IsMoveSpeedReseted && f.Unsafe.GetPointer<Revivable>(filter.Entity)->RecoverMoveSpeedAfter < f.Time)
 			{
 				filter.StopAiming(f);
@@ -153,6 +147,12 @@ namespace Quantum.Systems.Bots
 				// The bot will always try to keep aiming at his target
 				// but if his target gets out of range, the target will get cleared
 				filter.UpdateAimTarget(f);
+			}
+
+			// Distribute bot processing, this needs to be after aim, other wise it looks very cluncky
+			if (botIndex % DistributeProcessingFrames != f.Number % DistributeProcessingFrames)
+			{
+				return;
 			}
 
 			// Bots look for others to shoot at not on every frame

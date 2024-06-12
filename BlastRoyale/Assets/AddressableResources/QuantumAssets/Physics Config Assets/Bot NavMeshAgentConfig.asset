@@ -26,9 +26,9 @@ MonoBehaviour:
     DynamicLineOfSight: 0
     DynamicLineOfSightWaypointRange:
       RawValue: 0
-    AutomaticTargetCorrection: 0
+    AutomaticTargetCorrection: 1
     AutomaticTargetCorrectionRadius:
-      RawValue: 65536
+      RawValue: 1310720
     EnableWaypointDetectionAxis: 0
     WaypointDetectionAxisExtend:
       RawValue: 32768

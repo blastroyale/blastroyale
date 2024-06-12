@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
@@ -12,7 +11,6 @@ using Newtonsoft.Json;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
-using Unity.Services.Friends.Notifications;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine.Assertions;
@@ -73,19 +71,6 @@ namespace FirstLight.Game.Services
 			messageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 
 			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
-			FriendsService.Instance.MessageReceived += OnFriendMessageReceived;
-		}
-
-		private void OnFriendMessageReceived(IMessageReceivedEvent e)
-		{
-			var message = e.GetAs<PlayerMessage>();
-
-			if (!string.IsNullOrEmpty(message.SquadCode) && CurrentPartyLobby == null)
-			{
-				// TODO mihak: Ask the player if they want to join
-				FLog.Info($"Squad join received: {message.SquadCode}");
-				JoinParty(message.SquadCode).Forget();
-			}
 		}
 
 		private void OnPartyLobbyChanged(ILobbyChanges changes)
@@ -109,8 +94,32 @@ namespace FirstLight.Game.Services
 		{
 			// Delete created lobbies when the player quits the game
 			FLog.Verbose("Deleting lobbies on application quit.");
-			if (CurrentPartyLobby.IsPlayerHost()) LobbyService.Instance.DeleteLobbyAsync(CurrentPartyLobby.Id);
-			if (CurrentMatchLobby.IsPlayerHost()) LobbyService.Instance.DeleteLobbyAsync(CurrentMatchLobby.Id);
+
+			if (CurrentPartyLobby != null)
+			{
+				if (CurrentPartyLobby.IsPlayerHost())
+				{
+					LobbyService.Instance.DeleteLobbyAsync(CurrentPartyLobby.Id);
+				}
+				else
+				{
+					// TODO: We should not remove player, we should try to reconnect to the lobby
+					LobbyService.Instance.RemovePlayerAsync(CurrentPartyLobby.Id, AuthenticationService.Instance.PlayerId);
+				}
+			}
+
+			if (CurrentMatchLobby != null)
+			{
+				if (CurrentMatchLobby.IsPlayerHost())
+				{
+					LobbyService.Instance.DeleteLobbyAsync(CurrentMatchLobby.Id);
+				}
+				else
+				{
+					// TODO: We should not remove player, we should try to reconnect to the lobby
+					LobbyService.Instance.RemovePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId);
+				}
+			}
 		}
 
 		/// <summary>
@@ -180,7 +189,7 @@ namespace FirstLight.Game.Services
 			try
 			{
 				FLog.Info($"Sending party invite to {playerID}");
-				await FriendsService.Instance.MessageAsync(playerID, PlayerMessage.CreateSquadInvite(CurrentPartyLobby.Id));
+				await FriendsService.Instance.MessageAsync(playerID, FriendMessage.CreatePartyInvite(CurrentPartyLobby.LobbyCode));
 				_sentInvites.Add(playerID);
 				FLog.Info("Party invite sent successfully!");
 			}

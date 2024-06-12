@@ -527,6 +527,7 @@ namespace FirstLight.Game.Services
 			tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId));
 			await UniTask.WhenAll(tasks);
 			CheckNamesUpdates().Forget();
+			_services.NotificationService.Init();
 			_services.RateAndReviewService.Init();
 			onComplete();
 		}

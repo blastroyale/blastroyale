@@ -130,7 +130,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void CloseDialog()
 		{
-			_uiService.CloseScreen(UILayer.Popup, false).Forget();
+			_uiService.CloseLayer(UILayer.Popup).Forget();
 		}
 	}
 }

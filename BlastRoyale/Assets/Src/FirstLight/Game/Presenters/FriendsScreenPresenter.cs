@@ -178,7 +178,7 @@ namespace FirstLight.Game.Presenters
 			((FriendListElement) element)
 				.SetPlayerName(relationship.Member.Profile.Name)
 				.SetHeader(header)
-				.SetStatus(relationship.Member.Presence.GetActivity<PlayerActivity>()?.Status, online)
+				.SetStatus(relationship.Member.Presence.GetActivity<FriendActivity>()?.Status, online)
 				.SetMainAction(ScriptLocalization.UITFriends.invite, !relationship.IsOnline()
 					? null
 					: () =>
@@ -239,7 +239,7 @@ namespace FirstLight.Game.Presenters
 				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.remove_friend,
 					() => RemoveFriend(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
-					() => BlockPlayer(relationship.Member.Id).Forget())
+					() => BlockPlayer(relationship.Member.Id, false).Forget())
 			}, TipDirection.TopRight, TooltipPosition.Center);
 		}
 
@@ -250,7 +250,7 @@ namespace FirstLight.Game.Presenters
 				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
 					() => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
-					() => BlockPlayer(relationship.Member.Id).Forget()),
+					() => BlockPlayer(relationship.Member.Id, true).Forget()),
 			}, TipDirection.TopRight, TooltipPosition.Center);
 		}
 
@@ -336,11 +336,17 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private async UniTaskVoid BlockPlayer(string playerID)
+		private async UniTaskVoid BlockPlayer(string playerID, bool isRequest)
 		{
 			try
 			{
 				FLog.Info($"Blocking player: {playerID}");
+
+				if (isRequest)
+				{
+					await FriendsService.Instance.DeleteIncomingFriendRequestAsync(playerID);
+				}
+
 				await FriendsService.Instance.AddBlockAsync(playerID).AsUniTask();
 				FLog.Info($"Player blocked: {playerID}");
 				RefreshAll();

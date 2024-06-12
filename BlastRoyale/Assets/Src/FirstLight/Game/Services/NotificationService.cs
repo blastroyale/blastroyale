@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
+using Unity.Services.Friends;
+using Unity.Services.Friends.Notifications;
 
 namespace FirstLight.Game.Services
 {
@@ -17,10 +19,31 @@ namespace FirstLight.Game.Services
 			_uiService = uiService;
 		}
 
+		public void Init()
+		{
+			FriendsService.Instance.MessageReceived += OnFriendMessageReceived;
+		}
+
 		public void QueueNotification(string message)
 		{
 			_messages.Enqueue(message);
 			ProcessQueue().Forget();
+		}
+
+		private void OnFriendMessageReceived(IMessageReceivedEvent e)
+		{
+			var message = e.GetAs<FriendMessage>();
+
+			// We skip inviting to party if the player already has an invite open
+			if (_uiService.IsScreenOpen<PartyInvitePopupPresenter>()) return;
+
+			// TODO mihak: Only allow this if the player is in main menu
+
+			_uiService.OpenScreen<PartyInvitePopupPresenter>(new PartyInvitePopupPresenter.StateData
+			{
+				SenderID = e.UserId,
+				PartyCode = message.LobbyID
+			}).Forget();
 		}
 
 		private async UniTaskVoid ProcessQueue()
@@ -31,10 +54,8 @@ namespace FirstLight.Game.Services
 			while (_messages.Count > 0)
 			{
 				// TODO: Not the best since we always destroy and create the screen
-				FLog.Info("PACO NotificationService ProcessQueueStart");
 				await _uiService.OpenScreen<NotificationPopupPresenter>(new NotificationPopupPresenter.StateData(_messages.Dequeue()));
 				await _uiService.CloseScreen<NotificationPopupPresenter>();
-				FLog.Info("PACO NotificationService ProcessQueueEnd");
 			}
 
 			_isProcessingQueue = false;

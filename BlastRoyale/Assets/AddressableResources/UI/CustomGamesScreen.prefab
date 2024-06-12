@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8217182004713176132}
   - component: {fileID: 8017597006603166791}
   - component: {fileID: 2466801415227737550}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CustomGamesScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}

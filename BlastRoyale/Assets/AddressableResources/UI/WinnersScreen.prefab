@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 8031133416829682191}
   - component: {fileID: 1571740032104187485}
   - component: {fileID: 3274073835039566590}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WinnersScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}

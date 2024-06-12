@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8054656277005885518}
   - component: {fileID: 1598044781133389566}
   - component: {fileID: 3067466824914046431}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MatchLobbyScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}

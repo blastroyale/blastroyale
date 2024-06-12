@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using UnityEngine.UIElements;
@@ -30,16 +31,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			FLog.Info("PACO NotificationsScreenPresenter OnScreenOpen");
 			_messageLabel.text = Data.Message;
 			return base.OnScreenOpen(reload);
 		}
 
 		protected override async UniTask OnScreenClose()
 		{
-			FLog.Info("PACO NotificationsScreenPresenter OnScreenClose1");
 			await UniTask.WaitForSeconds(CLOSE_DELAY);
-			FLog.Info("PACO NotificationsScreenPresenter OnScreenClose2");
 		}
 	}
 }

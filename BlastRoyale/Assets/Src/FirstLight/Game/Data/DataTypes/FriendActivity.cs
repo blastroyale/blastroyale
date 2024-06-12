@@ -9,7 +9,7 @@ namespace FirstLight.Game.Data.DataTypes
 	/// </summary>
 	[Preserve]
 	[DataContract]
-	public class PlayerActivity
+	public class FriendActivity
 	{
 		/// <summary>
 		/// Status of the player.

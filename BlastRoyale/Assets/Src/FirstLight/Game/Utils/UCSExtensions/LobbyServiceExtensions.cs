@@ -18,7 +18,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// </summary>
 		public static bool IsPlayerHost(this Lobby lobby)
 		{
-			return lobby != null && lobby.HostId == AuthenticationService.Instance.PlayerId;
+			return lobby.HostId == AuthenticationService.Instance.PlayerId;
 		}
 		
 		/// <summary>

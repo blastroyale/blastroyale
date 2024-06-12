@@ -121,11 +121,10 @@ namespace FirstLight.Game.Presenters
 		private void OnBindFriendsItem(VisualElement element, int index)
 		{
 			var relationship = _friends[index];
-			var online = relationship.Member.Presence.Availability == Availability.Online;
 
 			((FriendListElement) element)
 				.SetPlayerName(relationship.Member.Profile.Name)
-				.SetStatus(relationship.Member.Presence.GetActivity<PlayerActivity>().Status, online)
+				.SetStatus(relationship.Member.Presence.GetActivity<FriendActivity>()?.Status, true)
 				.SetMainAction("INVITE", _services.FLLobbyService.CurrentPartyLobby == null
 					? null
 					: () =>

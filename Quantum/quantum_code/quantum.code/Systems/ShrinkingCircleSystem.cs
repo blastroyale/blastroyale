@@ -99,7 +99,11 @@ namespace Quantum.Systems
 			circle->ShrinkingWarningTime = config.WarningTime.AsInt; // TODO: Storing configs in components isn't ideal
 
 			var fitRadius = circle->CurrentRadius - circle->TargetRadius;
-			var radiusToPickNewCenter = FPMath.Max(0, fitRadius * config.NewSafeSpaceAreaSizeK);
+
+			var newSafeSpaceAreaSizeK = f.Context.TryGetMutatorByType(MutatorType.SafeZoneInPlayableArea, out var _)
+											? FPMath.Clamp(config.NewSafeSpaceAreaSizeK, FP._0, FP._1)
+											: config.NewSafeSpaceAreaSizeK;
+			var radiusToPickNewCenter = FPMath.Max(0, fitRadius * newSafeSpaceAreaSizeK);
 			var halfWorldSize = f.Map.WorldSize / FP._2;
 			
 			// We use mathematical randomization to find a potential new center
@@ -116,7 +120,7 @@ namespace Quantum.Systems
 			if (config.Step > 1)
 			{
 				QuantumHelpers.TryFindPosOnNavMesh(f, targetPos,
-												   circle->TargetRadius,
+												   FPMath.Min(circle->TargetRadius, Constants.SHRINKINGCIRCLE_NAVMESH_CORRECTION_RADIUS),
 												   out targetPos);
 			}
 			

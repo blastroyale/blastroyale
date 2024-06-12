@@ -15,6 +15,7 @@ parameters:
   - name: inputBuildNumber
     displayName: Build number of game pipeline
     type: number
+    default: 0
 variables:
   - name: inputArtifactName
     value: 'download-link-Android'

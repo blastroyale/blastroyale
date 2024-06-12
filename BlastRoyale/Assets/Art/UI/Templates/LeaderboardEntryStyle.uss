@@ -87,8 +87,12 @@
 .leaderboard-entry__player-name {
     font-size: 36px;
     -unity-font-style: normal;
-    position: relative;
-    left: auto;
+    position: absolute;
+    left: 75px;
+    right: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .leaderboard-entry__kills {
@@ -97,7 +101,7 @@
     color: rgb(105, 98, 166);
     position: absolute;
     -unity-text-align: upper-right;
-    right: 35px;
+    right: 15px;
     white-space: nowrap;
     left: auto;
 }
@@ -216,7 +220,7 @@
     background-color: rgba(0, 0, 0, 0);
     min-width: auto;
     min-height: auto;
-    width: 50%;
+    width: 56%;
     height: 100%;
     left: 113px;
     flex-direction: row;

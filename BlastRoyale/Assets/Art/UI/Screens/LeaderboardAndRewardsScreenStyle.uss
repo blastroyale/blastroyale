@@ -458,8 +458,12 @@
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     position: absolute;
-    left: 212px;
-    top: 11px;
+    left: 180px;
+    top: 5px;
+    right: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .fame__gained {

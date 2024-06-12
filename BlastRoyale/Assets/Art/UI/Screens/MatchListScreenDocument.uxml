@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:Template name="MatchSettings" src="project://database/Assets/Art/UI/Templates/MatchSettings.uxml?fileID=9197481963319205126&amp;guid=1e44a74fe2142438a9167c71b2b9e8c9&amp;type=3#MatchSettings" />
-    <Style src="project://database/Assets/Art/UI/Screens/CustomGamesScreenStyle.uss?fileID=7433441132597879392&amp;guid=233d92d4c180d4714b2ca6e737bb8353&amp;type=3#CustomGamesScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Screens/MatchListScreenStyle.uss?fileID=7433441132597879392&amp;guid=233d92d4c180d4714b2ca6e737bb8353&amp;type=3#MatchListScreenStyle" />
     <ui:VisualElement name="reference" class="fill-parent" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/References/CustomGames.png?fileID=2800000&amp;guid=f5aba1fb6d3d9471cae0f4206e55a051&amp;type=3#CustomGames&quot;); opacity: 0.42; display: none;" />
     <ui:VisualElement name="root" style="flex-grow: 1;">
         <FirstLight.Game.UIElements.SafeAreaElement style="flex-direction: row; align-items: center; margin-right: 164px; margin-left: 100px;">
@@ -13,6 +13,6 @@
             </ui:VisualElement>
             <ui:Instance template="MatchSettings" name="MatchSettings" />
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="BROWSE GAMES" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="BROWSE GAMES" name="Header" />
     </ui:VisualElement>
 </ui:UXML>

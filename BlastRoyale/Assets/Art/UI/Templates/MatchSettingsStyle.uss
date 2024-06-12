@@ -170,25 +170,3 @@
 .mutators__add-button:active {
     -unity-background-image-tint-color: rgb(7, 255, 0);
 }
-
-.match-lobby-item {
-    flex-direction: row;
-    background-image: var(--sprite-home__background-roundedelement);
-    -unity-background-image-tint-color: rgb(50, 41, 90);
-    height: 118px;
-    align-items: center;
-    font-size: 32px;
-    color: rgb(255, 255, 255);
-    text-shadow: 2px 3px 0 rgb(0, 0, 0);
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    padding-left: 38px;
-    padding-right: 28px;
-}
-
-.match-lobby-item > Label {
-    flex-grow: 1;
-}
-
-.match-lobby-item__action-background {
-}

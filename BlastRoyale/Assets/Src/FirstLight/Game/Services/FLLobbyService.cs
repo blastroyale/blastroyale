@@ -60,11 +60,13 @@ namespace FirstLight.Game.Services
 		private ILobbyEvents _matchLobbyEvents;
 
 		private readonly IGameDataProvider _dataProvider;
+		private readonly NotificationService _notificationService;
 		private readonly List<string> _sentInvites = new ();
 
-		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider)
+		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider, NotificationService notificationService)
 		{
 			_dataProvider = dataProvider;
+			_notificationService = notificationService;
 
 			Tick().Forget();
 
@@ -97,7 +99,7 @@ namespace FirstLight.Game.Services
 
 			if (CurrentPartyLobby != null)
 			{
-				if (CurrentPartyLobby.IsPlayerHost())
+				if (CurrentPartyLobby.IsLocalPlayerHost())
 				{
 					LobbyService.Instance.DeleteLobbyAsync(CurrentPartyLobby.Id);
 				}
@@ -110,7 +112,7 @@ namespace FirstLight.Game.Services
 
 			if (CurrentMatchLobby != null)
 			{
-				if (CurrentMatchLobby.IsPlayerHost())
+				if (CurrentMatchLobby.IsLocalPlayerHost())
 				{
 					LobbyService.Instance.DeleteLobbyAsync(CurrentMatchLobby.Id);
 				}
@@ -150,6 +152,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Error("Error creating lobby!", e);
+				_notificationService.QueueNotification($"Could not create party ({(int) e.Reason})");
 			}
 		}
 
@@ -176,6 +179,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Error("Error joining party!", e);
+				_notificationService.QueueNotification($"Could not join party ({(int) e.Reason})");
 			}
 		}
 
@@ -196,6 +200,7 @@ namespace FirstLight.Game.Services
 			catch (FriendsServiceException e)
 			{
 				FLog.Error("Error sending party invite!", e);
+				_notificationService.QueueNotification($"Could not send party invite ({(int) e.ErrorCode})");
 			}
 		}
 
@@ -230,6 +235,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Error("Error leaving party!", e);
+				_notificationService.QueueNotification($"Could not leave party ({(int) e.Reason})");
 			}
 		}
 
@@ -254,6 +260,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Error("Error updating party host!", e);
+				_notificationService.QueueNotification($"Could not update party host ({(int) e.Reason})");
 			}
 		}
 
@@ -274,6 +281,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Error("Error fetching match lobbies!", e);
+				_notificationService.QueueNotification($"Could not fetch games ({(int) e.Reason})");
 			}
 
 			return null;
@@ -282,11 +290,14 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Creates a new public game lobby.
 		/// </summary>
-		public async UniTask CreateMatch(CustomGameOptions matchOptions)
+		public async UniTask CreateMatch(CustomMatchSettings matchOptions)
 		{
 			Assert.IsNull(CurrentMatchLobby, "Trying to create a match but the player is already in one!");
 
-			var lobbyName = string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName);
+			// TODO: What should we use when not showing creator name?
+			var lobbyName = matchOptions.ShowCreatorName
+				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName)
+				: matchOptions.MapID;
 			var options = new CreateLobbyOptions
 			{
 				IsPrivate = false,
@@ -296,8 +307,6 @@ namespace FirstLight.Game.Services
 					{KEY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(matchOptions))}
 				}
 			};
-
-			// TODO: Maybe we need to check if the player is already in a party?
 
 			try
 			{
@@ -310,6 +319,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Error("Error creating lobby!", e);
+				_notificationService.QueueNotification($"Error creating match ({(int) e.Reason})");
 			}
 		}
 
@@ -333,6 +343,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Error("Error joining match!", e);
+				_notificationService.QueueNotification($"Could not join match ({(int) e.Reason})");
 			}
 		}
 
@@ -364,6 +375,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Error("Error leaving match lobby!", e);
+				_notificationService.QueueNotification($"Could not leave match lobby ({(int) e.Reason})");
 			}
 		}
 

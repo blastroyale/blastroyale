@@ -251,7 +251,7 @@ namespace FirstLight.Game.Services
 			TeamService = new TeamService(RoomService);
 			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);
 			CustomerSupportService = new CustomerSupportService(AuthenticationService);
-			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic);
+			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, NotificationService);
 		}
 
 		/// <inheritdoc />

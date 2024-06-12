@@ -1,8 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="MatchSettings" src="project://database/Assets/Art/UI/Templates/MatchSettings.uxml?fileID=9197481963319205126&amp;guid=1e44a74fe2142438a9167c71b2b9e8c9&amp;type=3#MatchSettings" />
     <Style src="project://database/Assets/Art/UI/Screens/MatchLobbyScreenStyle.uss?fileID=7433441132597879392&amp;guid=86bc32e8e558d4dc49c4fd245497e2be&amp;type=3#MatchLobbyScreenStyle" />
     <ui:VisualElement name="root" class="fill-parent" style="align-items: center; justify-content: center;">
-        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DebugStatus" style="font-size: 36px; color: rgb(255, 255, 255);" />
-        <ui:Button text="BACK" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DebugBackButton" class="button-long" />
         <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" />
+        <ui:VisualElement name="ContentContainer" style="flex-grow: 1; flex-direction: row; margin-top: 147px; margin-bottom: 46px; margin-right: 45px; margin-left: 106px;">
+            <ui:VisualElement name="PlayersContainer" class="players-container">
+                <ui:Label text="Squeazer" style="font-size: 46px; flex-shrink: 1; width: 302px; height: 82px; -unity-text-align: middle-center; background-color: rgb(63, 52, 200); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;" />
+                <ui:Label text="Squeazer" class="player" />
+                <ui:Label text="Squeazer" style="font-size: 46px; flex-shrink: 1; width: 302px; height: 82px; -unity-text-align: middle-center; background-color: rgb(63, 52, 200); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;" />
+            </ui:VisualElement>
+            <ui:Instance template="MatchSettings" name="MatchSettings" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

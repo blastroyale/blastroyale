@@ -3,7 +3,9 @@ using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
 using Unity.Services.Friends;
+using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Notifications;
+using Unity.Services.Lobbies;
 
 namespace FirstLight.Game.Services
 {

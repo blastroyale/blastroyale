@@ -1,3 +1,4 @@
+using FirstLight.Game.Data;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -74,6 +75,11 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public ObservableField<int> GamesPlayed { get; } = CreateIntSetting(nameof(GamesPlayed), 0);
 		
+		/// <summary>
+		/// The last CustomMatchSettings that were set up when creating a custom game.
+		/// </summary>
+		public ObservableField<CustomMatchSettings> LastCustomMatchSettings { get; } = CreateObjectSetting(nameof(LastCustomMatchSettings), new CustomMatchSettings());
+		
 		private static ObservableField<bool> CreateBoolSetting(string key, bool defaultValue)
 		{
 			return new ObservableResolverField<bool>(() => GetBool(key, defaultValue), val => SetBool(key, val));
@@ -118,6 +124,24 @@ namespace FirstLight.Game.Services
 			static void SetInt(string key, int value)
 			{
 				PlayerPrefs.SetInt(ConstructKey(key), value);
+				PlayerPrefs.Save();
+			}
+		}
+		
+		private static ObservableField<T> CreateObjectSetting<T>(string key, T defaultValue)
+		{
+			return new ObservableResolverField<T>(() => GetStruct(key, defaultValue), val => SetStruct(key, val));
+
+			static T GetStruct(string key, T defaultValue)
+			{
+				var json = PlayerPrefs.GetString(ConstructKey(key), null);
+				return  string.IsNullOrEmpty(json) ? defaultValue : JsonUtility.FromJson<T>(json);
+			}
+
+			static void SetStruct(string key, T value)
+			{
+				var json = JsonUtility.ToJson(value);
+				PlayerPrefs.SetString(ConstructKey(key), json);
 				PlayerPrefs.Save();
 			}
 		}

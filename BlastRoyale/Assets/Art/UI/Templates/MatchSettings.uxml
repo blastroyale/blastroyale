@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Templates/MatchSettingsStyle.uss?fileID=7433441132597879392&amp;guid=17bc0d06316648518d8576ed67ce7f4e&amp;type=3#MatchSettingsStyle" />
     <ui:VisualElement name="MatchSettings" class="create-game-popup">
         <ui:VisualElement name="LeftBG" class="create-game-popup__left-bg" />
         <ui:VisualElement name="RightBG" class="create-game-popup__right-bg" />

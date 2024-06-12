@@ -12,7 +12,7 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
-	public class CustomGamesScreenPresenter : UIPresenter
+	public class MatchListScreenPresenter : UIPresenter
 	{
 		private ListView _gamesList;
 
@@ -26,19 +26,23 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.ResolveServices();
 
+			var header = Root.Q<ScreenHeaderElement>("Header").Required();
+			header.SetTitle("#Browse games#");
+
 			Root.Q("MatchSettings").Required().AttachView(this, out _matchSettingsView);
 			_gamesList = Root.Q<ListView>("GamesList").Required();
 			_gamesList.bindItem = BindMatchLobbyItem;
 			_gamesList.makeItem = MakeMatchLobbyItem;
 
 			Root.Q<Button>("JoinWithCodeButton").clicked += OnJoinWithCodeClicked;
-			_matchSettingsView.SetEditable(true);
-			_matchSettingsView.SetMainAction("#CREATE MATCH#", () => CreateMatch(_matchSettingsView.GetMatchSettings()).Forget());
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			RefreshLobbies().Forget();
+			
+			_matchSettingsView.SetMatchSettings(_services.LocalPrefsService.LastCustomMatchSettings, true);
+			_matchSettingsView.SetMainAction("#CREATE MATCH#", () => CreateMatch(_matchSettingsView.MatchSettings).Forget());
 
 			return base.OnScreenOpen(reload);
 		}
@@ -63,10 +67,9 @@ namespace FirstLight.Game.Presenters
 			await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>();
 		}
 
-		private async UniTaskVoid CreateMatch(CustomGameOptions options)
+		private async UniTaskVoid CreateMatch(CustomMatchSettings matchSettings)
 		{
-			FLog.Info("PACO CreateMatch");
-			await _services.FLLobbyService.CreateMatch(options);
+			await _services.FLLobbyService.CreateMatch(matchSettings);
 			await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>();
 		}
 

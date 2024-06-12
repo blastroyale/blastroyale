@@ -3,8 +3,9 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
+using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
-using Newtonsoft.Json;
+using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -12,6 +13,11 @@ namespace FirstLight.Game.Presenters
 	public class MatchLobbyScreenPresenter : UIPresenter
 	{
 		private IGameServices _services;
+
+		private VisualElement _playersContainer;
+		private VisualElement _matchSettings;
+
+		private MatchSettingsView _matchSettingsView;
 
 		protected override void QueryElements()
 		{
@@ -21,28 +27,54 @@ namespace FirstLight.Game.Presenters
 			header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
 			header.backClicked += () => LeaveMatchLobby().Forget();
 
-			Root.Q<Button>("DebugBackButton").Required().clicked += () => _services.UIService.OpenScreen<CustomGamesScreenPresenter>().Forget();
+			_playersContainer = Root.Q("PlayersContainer").Required();
+			_matchSettings = Root.Q("MatchSettings").Required().AttachView(this, out _matchSettingsView);
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
+			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged += OnLobbyChanged;
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
+			var playerIsHost = matchLobby.IsLocalPlayerHost();
 
-			Root.Q<Label>("DebugStatus").Required().text =
-				$"Name: {matchLobby.Name}\n" +
-				$"Players: {matchLobby.Players.Count}/{matchLobby.MaxPlayers}\n" +
-				$"ID: {matchLobby.Id}" +
-				$"Host: {matchLobby.HostId}" +
-				$"Data: {JsonConvert.SerializeObject(matchLobby.GetMatchSettings())}";
+			_matchSettingsView.SetMainAction(playerIsHost ? "#START MATCH#" : null, () => StartMatch().Forget());
+
+			RefreshData();
 
 			return base.OnScreenOpen(reload);
+		}
+
+		private void OnLobbyChanged(ILobbyChanges obj)
+		{
+			RefreshData();
+		}
+
+		private void RefreshData()
+		{
+			// TODO: Do this more cleverly
+			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
+
+			_playersContainer.Clear();
+			foreach (var player in matchLobby.Players)
+			{
+				var playerLabel = new Label(player.GetPlayerName());
+				playerLabel.AddToClassList("player");
+				_playersContainer.Add(playerLabel);
+			}
+
+			_matchSettingsView.SetMatchSettings(matchLobby.GetMatchSettings(), matchLobby.IsLocalPlayerHost());
+		}
+
+		private async UniTaskVoid StartMatch()
+		{
+			// TODO
+			await UniTask.NextFrame();
 		}
 
 		private async UniTaskVoid LeaveMatchLobby()
 		{
 			await _services.FLLobbyService.LeaveMatch();
-
-			_services.UIService.OpenScreen<CustomGamesScreenPresenter>().Forget();
+			await _services.UIService.OpenScreen<MatchListScreenPresenter>();
 		}
 	}
 }

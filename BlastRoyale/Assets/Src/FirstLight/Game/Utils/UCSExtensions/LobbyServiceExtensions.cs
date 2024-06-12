@@ -16,7 +16,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// <summary>
 		/// Checks if the local player is the host of the lobby. If lobby is null, returns false.
 		/// </summary>
-		public static bool IsPlayerHost(this Lobby lobby)
+		public static bool IsLocalPlayerHost(this Lobby lobby)
 		{
 			return lobby.HostId == AuthenticationService.Instance.PlayerId;
 		}
@@ -24,9 +24,9 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// <summary>
 		/// Gets the match settings from lobby data.
 		/// </summary>
-		public static CustomGameOptions GetMatchSettings(this Lobby lobby)
+		public static CustomMatchSettings GetMatchSettings(this Lobby lobby)
 		{
-			return JsonConvert.DeserializeObject<CustomGameOptions>(lobby.Data[FLLobbyService.KEY_MATCH_SETTINGS].Value);
+			return JsonConvert.DeserializeObject<CustomMatchSettings>(lobby.Data[FLLobbyService.KEY_MATCH_SETTINGS].Value);
 		}
 
 		/// <summary>

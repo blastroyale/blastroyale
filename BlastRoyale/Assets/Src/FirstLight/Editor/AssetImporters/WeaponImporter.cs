@@ -15,6 +15,7 @@ namespace FirstLight.Editor.AssetImporters
 
 		private void OnPreprocessModel()
 		{
+			if (assetPath.Contains("Legacy")) return; // Temporary while we have old
 			if (!Path.GetFileName(assetPath).StartsWith(WEAPON_PREFIX)) return;
 
 			var importer = (ModelImporter) assetImporter;

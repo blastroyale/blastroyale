@@ -73,7 +73,14 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnTeamSizeClicked()
 		{
-			MatchSettings.TeamSize = (MatchSettings.TeamSize + 1) % 4 + 1; // TODO mihak: 4 should be somewhere else
+			MatchSettings.TeamSize++;
+
+			// TODO mihak: 4 should be somewhere else
+			if (MatchSettings.TeamSize > 4)
+			{
+				MatchSettings.TeamSize = 1;
+			}
+
 			RefreshData();
 		}
 

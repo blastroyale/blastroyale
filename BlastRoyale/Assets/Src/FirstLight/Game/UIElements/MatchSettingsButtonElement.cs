@@ -1,5 +1,6 @@
 using System;
 using I2.Loc;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -70,7 +71,7 @@ namespace FirstLight.Game.UIElements
 			{
 				base.Init(ve, bag, cc);
 
-				var msbe = ((MatchSettingsButtonElement) ve);
+				var msbe = (MatchSettingsButtonElement) ve;
 
 				var isNumerical = _numericalAttribute.GetValueFromBag(bag, cc);
 				msbe.Numerical = isNumerical;
@@ -79,6 +80,12 @@ namespace FirstLight.Game.UIElements
 				var titleKey = _titleLocalizationKeyAttribute.GetValueFromBag(bag, cc);
 				msbe.TitleLocalizationKey = titleKey;
 				msbe._title.text = LocalizationManager.TryGetTranslation(titleKey, out var translation) ? translation : $"#{titleKey}#";
+				
+				// For editor preview
+				if (!Application.isPlaying && isNumerical)
+				{
+					msbe._buttonLabel.text = "1";
+				}
 			}
 		}
 	}

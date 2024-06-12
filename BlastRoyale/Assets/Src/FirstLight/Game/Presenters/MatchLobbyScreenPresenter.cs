@@ -5,8 +5,10 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
+using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
+using Player = Unity.Services.Lobbies.Models.Player;
 
 namespace FirstLight.Game.Presenters
 {
@@ -44,6 +46,12 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
+		protected override UniTask OnScreenClose()
+		{
+			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged -= OnLobbyChanged;
+			return base.OnScreenClose();
+		}
+
 		private void OnLobbyChanged(ILobbyChanges obj)
 		{
 			RefreshData();
@@ -57,6 +65,8 @@ namespace FirstLight.Game.Presenters
 			_playersContainer.Clear();
 			foreach (var player in matchLobby.Players)
 			{
+				_playersContainer.Add(CreatePlayerElement(player));
+
 				var playerLabel = new Label(player.GetPlayerName());
 				playerLabel.AddToClassList("player");
 				_playersContainer.Add(playerLabel);
@@ -67,6 +77,8 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTaskVoid StartMatch()
 		{
+			var matchSettings = _matchSettingsView.MatchSettings;
+
 			// TODO
 			await UniTask.NextFrame();
 		}
@@ -75,6 +87,29 @@ namespace FirstLight.Game.Presenters
 		{
 			await _services.FLLobbyService.LeaveMatch();
 			await _services.UIService.OpenScreen<MatchListScreenPresenter>();
+		}
+
+		private VisualElement CreatePlayerElement(Player player)
+		{
+			var playerElement = new Label(player.GetPlayerName());
+			playerElement.AddToClassList("player");
+
+			// Host
+			if (player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId)
+			{
+				playerElement.AddToClassList("player--host");
+				var crown = new VisualElement();
+				playerElement.Add(crown);
+				crown.AddToClassList("player__crown");
+			}
+
+			// Local player
+			if (player.Id == AuthenticationService.Instance.PlayerId)
+			{
+				playerElement.AddToClassList("player--local");
+			}
+
+			return playerElement;
 		}
 	}
 }

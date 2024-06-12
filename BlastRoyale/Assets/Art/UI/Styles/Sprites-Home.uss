@@ -140,6 +140,7 @@
     --sprite-home__icon-core-legendary: url('/Assets/Art/UI/Sprites/Home/icon-core-legendary.png');
     --sprite-home__icon-core-rare: url('/Assets/Art/UI/Sprites/Home/icon-core-rare.png');
     --sprite-home__icon-crown: url('/Assets/Art/UI/Sprites/Home/icon-crown.png');
+    --sprite-home__icon-crown-2: url('/Assets/Art/UI/Sprites/Home/icon-crown-2.png');
     --sprite-home__icon-crown-ranked: url('/Assets/Art/UI/Sprites/Home/icon-crown-ranked.png');
     --sprite-home__icon-customgame: url('/Assets/Art/UI/Sprites/Home/icon-customgame.png');
     --sprite-home__icon-discord: url('/Assets/Art/UI/Sprites/Home/icon-discord.png');
@@ -1007,6 +1008,12 @@
     background-image: var(--sprite-home__icon-crown);
     width: 56px;
     height: 56px;
+}
+
+.sprite-home__icon-crown-2 {
+    background-image: var(--sprite-home__icon-crown-2);
+    width: 56px;
+    height: 46px;
 }
 
 .sprite-home__icon-crown-ranked {

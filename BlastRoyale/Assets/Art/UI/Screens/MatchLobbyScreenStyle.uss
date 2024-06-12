@@ -1,8 +1,10 @@
 .players-container {
     flex-grow: 1;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    margin-top: 166px;
+    padding-right: 42px;
     flex-direction: row;
+    flex-wrap: wrap;
+    flex-basis: 1px;
 }
 
 .player {
@@ -11,11 +13,33 @@
     width: 302px;
     height: 82px;
     -unity-text-align: middle-center;
-    background-color: rgb(63, 52, 200);
+    background-color: rgb(10, 37, 83);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
+    color: rgb(117, 138, 193);
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.player__crown {
+    position: absolute;
+    right: -19px;
+    top: -21px;
+    background-image: var(--sprite-home__icon-crown-2);
+    width: 56px;
+    height: 46px;
+}
+
+.player--local {
+    background-color: rgb(159, 218, 64);
+}
+
+.player--host {
+    background-color: rgb(255, 198, 52);
 }
 
 .safe-area {

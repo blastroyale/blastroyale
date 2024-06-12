@@ -1,5 +1,7 @@
 using System;
+using FirstLight.Game.Data;
 using FirstLight.Game.Services;
+using Newtonsoft.Json;
 using Quantum;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
@@ -17,6 +19,14 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		public static bool IsPlayerHost(this Lobby lobby)
 		{
 			return lobby != null && lobby.HostId == AuthenticationService.Instance.PlayerId;
+		}
+		
+		/// <summary>
+		/// Gets the match settings from lobby data.
+		/// </summary>
+		public static CustomGameOptions GetMatchSettings(this Lobby lobby)
+		{
+			return JsonConvert.DeserializeObject<CustomGameOptions>(lobby.Data[FLLobbyService.KEY_MATCH_SETTINGS].Value);
 		}
 
 		/// <summary>

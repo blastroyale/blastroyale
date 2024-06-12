@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="MatchSettings" class="create-game-popup">
+        <ui:VisualElement name="LeftBG" class="create-game-popup__left-bg" />
+        <ui:VisualElement name="RightBG" class="create-game-popup__right-bg" />
+        <ui:Label tabindex="-1" text="CREATE GAME" display-tooltip-when-elided="true" name="Title" class="create-game-popup__title" />
+        <ui:VisualElement name="ContentHolder" class="create-game-popup__content">
+            <ui:VisualElement name="Row1" class="create-game-popup__horizontal-holder">
+                <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="false" name="ModeButton" title-localization-key="MODE" />
+                <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="true" name="TeamSizeButton" title-localization-key="TEAM SIZE" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Row2" class="create-game-popup__horizontal-holder">
+                <FirstLight.Game.UIElements.MatchSettingsButtonElement name="MapButton" title-localization-key="MAP" />
+                <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="true" name="MaxPlayersButton" title-localization-key="MAX PLAYERS" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Mutatros" class="mutators">
+                <ui:Label tabindex="-1" text="MUTATORS" display-tooltip-when-elided="true" name="Title" class="mutators__label" />
+                <ui:ScrollView mode="Horizontal" touch-scroll-type="Clamped" name="MutatorsScroller" class="mutators__container">
+                    <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" class="mutators__mutator" />
+                    <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" class="mutators__mutator" />
+                    <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" class="mutators__mutator" />
+                    <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" class="mutators__mutator" />
+                    <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" class="mutators__mutator" />
+                </ui:ScrollView>
+                <FirstLight.Game.UIElements.ImageButton name="MutatorsButton" class="mutators__add-button" />
+            </ui:VisualElement>
+            <ui:Toggle label="PRIVATE ROOM" name="PrivateRoomToggle" class="create-game-toggle" />
+            <ui:Toggle label="SHOW CREATOR NAME" name="ShowNameToggle" class="create-game-toggle" />
+            <ui:VisualElement name="Spacer" style="flex-grow: 1;" />
+            <ui:Button text="CREATE MATCH" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MainActionButton" class="button-long button-long--yellow" style="align-self: center;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

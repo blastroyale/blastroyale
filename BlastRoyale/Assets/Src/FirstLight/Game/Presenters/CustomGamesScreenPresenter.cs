@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -28,6 +30,10 @@ namespace FirstLight.Game.Presenters
 			_gamesList = Root.Q<ListView>("GamesList").Required();
 			_gamesList.bindItem = BindMatchLobbyItem;
 			_gamesList.makeItem = MakeMatchLobbyItem;
+
+			Root.Q<Button>("JoinWithCodeButton").clicked += OnJoinWithCodeClicked;
+			_matchSettingsView.SetEditable(true);
+			_matchSettingsView.SetMainAction("#CREATE MATCH#", () => CreateMatch(_matchSettingsView.GetMatchSettings()).Forget());
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
@@ -39,21 +45,40 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTask RefreshLobbies()
 		{
-			_lobbies = await _services.FLLobbyService.GetPublicGameLobbies();
+			_lobbies = await _services.FLLobbyService.GetPublicMatches();
 			if (gameObject == null) return;
 			_gamesList.itemsSource = _lobbies;
 			_gamesList.RefreshItems();
 		}
 
-		private VisualElement MakeMatchLobbyItem()
+		private void OnJoinWithCodeClicked()
 		{
-			return new MatchLobbyElement();
+			FLog.Info("Join with code clicked");
+			// TODO mihak: Open popup
+		}
+
+		private async UniTaskVoid JoinMatch(Lobby lobby)
+		{
+			await _services.FLLobbyService.JoinMatch(lobby.Id);
+			await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>();
+		}
+
+		private async UniTaskVoid CreateMatch(CustomGameOptions options)
+		{
+			FLog.Info("PACO CreateMatch");
+			await _services.FLLobbyService.CreateMatch(options);
+			await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>();
 		}
 
 		private void BindMatchLobbyItem(VisualElement e, int index)
 		{
-			var mle = (MatchLobbyElement) e;
-			mle.SetLobby(_lobbies[index]);
+			var lobby = _lobbies[index];
+			((MatchLobbyItemElement) e).SetLobby(lobby, () => JoinMatch(lobby).Forget());
+		}
+
+		private static VisualElement MakeMatchLobbyItem()
+		{
+			return new MatchLobbyItemElement();
 		}
 	}
 }

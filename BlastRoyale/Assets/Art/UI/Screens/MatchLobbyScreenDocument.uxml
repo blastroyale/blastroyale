@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/MatchLobbyScreenStyle.uss?fileID=7433441132597879392&amp;guid=86bc32e8e558d4dc49c4fd245497e2be&amp;type=3#MatchLobbyScreenStyle" />
+    <ui:VisualElement name="root" class="fill-parent" style="align-items: center; justify-content: center;">
+        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DebugStatus" style="font-size: 36px; color: rgb(255, 255, 255);" />
+        <ui:Button text="BACK" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DebugBackButton" class="button-long" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" />
+    </ui:VisualElement>
+</ui:UXML>

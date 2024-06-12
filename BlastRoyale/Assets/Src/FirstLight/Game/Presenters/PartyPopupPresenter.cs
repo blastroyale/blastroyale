@@ -103,7 +103,7 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTaskVoid LeaveParty()
 		{
-			await _services.FLLobbyService.LeaveCurrentParty();
+			await _services.FLLobbyService.LeaveParty();
 			RefreshData();
 		}
 

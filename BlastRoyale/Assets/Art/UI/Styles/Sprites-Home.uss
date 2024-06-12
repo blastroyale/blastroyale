@@ -32,6 +32,7 @@
     --sprite-home__background-price-small: url('/Assets/Art/UI/Sprites/Home/background-price-small.png');
     --sprite-home__background-profile: url('/Assets/Art/UI/Sprites/Home/background-profile.png');
     --sprite-home__background-resourcepool: url('/Assets/Art/UI/Sprites/Home/background-resourcepool.png');
+    --sprite-home__background-roundedelement: url('/Assets/Art/UI/Sprites/Home/background-roundedelement.png');
     --sprite-home__background-settings-item: url('/Assets/Art/UI/Sprites/Home/background-settings-item.png');
     --sprite-home__background-settingstab: url('/Assets/Art/UI/Sprites/Home/background-settingstab.png');
     --sprite-home__background-settingstab-chosen: url('/Assets/Art/UI/Sprites/Home/background-settingstab-chosen.png');
@@ -406,6 +407,12 @@
     background-image: var(--sprite-home__background-resourcepool);
     width: 428px;
     height: 102px;
+}
+
+.sprite-home__background-roundedelement {
+    background-image: var(--sprite-home__background-roundedelement);
+    width: 64px;
+    height: 66px;
 }
 
 .sprite-home__background-settings-item {

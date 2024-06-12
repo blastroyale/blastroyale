@@ -8,6 +8,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.SDK.Services;
+using Newtonsoft.Json;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
@@ -20,13 +21,17 @@ namespace FirstLight.Game.Services
 {
 	public class FLLobbyService
 	{
-		private const string PARTY_LOBBY_ID = "party_{0}";
+		private const string PARTY_LOBBY_NAME = "party_{0}";
+		private const string MATCH_LOBBY_NAME = "{0}'s game";
 		private const int MAX_PARTY_SIZE = 4;
+		private const int MAX_MATCH_SIZE = 48;
 		private const float TICK_DELAY = 15f;
 
 		public const string KEY_SKIN_ID = "skin_id";
 		public const string KEY_MELEE_ID = "melee_id";
 		public const string KEY_PLAYER_NAME = "player_name";
+
+		public const string KEY_MATCH_SETTINGS = "match_settings";
 
 		/// <summary>
 		/// The party the player is currently in.
@@ -115,7 +120,7 @@ namespace FirstLight.Game.Services
 		{
 			Assert.IsNull(CurrentPartyLobby, "Trying to create a party but the player is already in one!");
 
-			var lobbyName = string.Format(PARTY_LOBBY_ID, AuthenticationService.Instance.PlayerId);
+			var lobbyName = string.Format(PARTY_LOBBY_NAME, AuthenticationService.Instance.PlayerId);
 			var options = new CreateLobbyOptions
 			{
 				IsPrivate = true,
@@ -126,7 +131,7 @@ namespace FirstLight.Game.Services
 
 			try
 			{
-				FLog.Info($"Creating new party with ID: {lobbyName}");
+				FLog.Info($"Creating new party with name: {lobbyName}");
 				var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, MAX_PARTY_SIZE, options);
 				_partyLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentPartyCallbacks);
 				FLog.Info($"Party created! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name}");
@@ -188,7 +193,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Leaves the current party.
 		/// </summary>
-		public async UniTask LeaveCurrentParty()
+		public async UniTask LeaveParty()
 		{
 			Assert.IsNotNull(CurrentPartyLobby, "Trying to leave a party but the player is not in one!");
 
@@ -246,20 +251,20 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Queries for public lobbies.
 		/// </summary>
-		public async UniTask<List<Lobby>> GetPublicGameLobbies()
+		public async UniTask<List<Lobby>> GetPublicMatches()
 		{
 			var options = new QueryLobbiesOptions();
 
 			try
 			{
-				FLog.Info("Fetching game lobbies.");
+				FLog.Info("Fetching match lobbies.");
 				var queryResponse = await LobbyService.Instance.QueryLobbiesAsync(options);
-				FLog.Info($"Game lobbies found: {queryResponse.Results}");
+				FLog.Info($"Match lobbies found: {queryResponse.Results}");
 				return queryResponse.Results;
 			}
 			catch (LobbyServiceException e)
 			{
-				FLog.Error("Error fetching game lobbies!", e);
+				FLog.Error("Error fetching match lobbies!", e);
 			}
 
 			return null;
@@ -268,31 +273,88 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Creates a new public game lobby.
 		/// </summary>
-		public async UniTask CreateMatchLobby(CustomGameOptions matchOptions)
+		public async UniTask CreateMatch(CustomGameOptions matchOptions)
 		{
-			Assert.IsNull(CurrentPartyLobby, "Trying to create a party but the player is already in one!");
+			Assert.IsNull(CurrentMatchLobby, "Trying to create a match but the player is already in one!");
 
-			var lobbyName = string.Format(PARTY_LOBBY_ID, AuthenticationService.Instance.PlayerId);
+			var lobbyName = string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName);
 			var options = new CreateLobbyOptions
 			{
 				IsPrivate = false,
-				Player = CreateLocalPlayer()
+				Player = CreateLocalPlayer(),
+				Data = new Dictionary<string, DataObject>
+				{
+					{KEY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(matchOptions))}
+				}
 			};
 
 			// TODO: Maybe we need to check if the player is already in a party?
 
 			try
 			{
-				FLog.Info($"Creating new party with ID: {lobbyName}");
-				var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, MAX_PARTY_SIZE, options);
-				_partyLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentPartyCallbacks);
-				FLog.Info($"Party created! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name}");
-
-				CurrentPartyLobby = lobby;
+				FLog.Info($"Creating new match lobby with name: {lobbyName}");
+				var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, MAX_MATCH_SIZE, options);
+				_matchLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentMatchCallbacks);
+				CurrentMatchLobby = lobby;
+				FLog.Info($"Match lobby created! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name}");
 			}
 			catch (LobbyServiceException e)
 			{
 				FLog.Error("Error creating lobby!", e);
+			}
+		}
+
+		public async UniTask JoinMatch(string lobbyID)
+		{
+			Assert.IsNull(CurrentMatchLobby, "Trying to join a match but the player is already in one!");
+
+			var options = new JoinLobbyByIdOptions
+			{
+				Player = CreateLocalPlayer()
+			};
+
+			try
+			{
+				FLog.Info($"Joining match with ID: {lobbyID}");
+				var lobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyID, options);
+				_matchLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentMatchCallbacks);
+				CurrentMatchLobby = lobby;
+				FLog.Info($"Match lobby joined! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name}");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Error("Error joining match!", e);
+			}
+		}
+
+		public async UniTask LeaveMatch()
+		{
+			Assert.IsNotNull(CurrentMatchLobby, "Trying to leave a match but the player is not in one!");
+
+			try
+			{
+				if (IsPlayerHost(CurrentMatchLobby))
+				{
+					// Delete the lobby if the player is the host
+					FLog.Info($"Deleting match lobby: {CurrentMatchLobby.Id}");
+					await LobbyService.Instance.DeleteLobbyAsync(CurrentMatchLobby.Id);
+					FLog.Info("Match deleted successfully!");
+				}
+				else
+				{
+					// Leave the lobby if the player is not the host
+					FLog.Info($"Leaving match lobby: {CurrentMatchLobby.Id}");
+					await LobbyService.Instance.RemovePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId);
+					FLog.Info("Left match lobby successfully!");
+				}
+
+				await _matchLobbyEvents.UnsubscribeAsync();
+				_matchLobbyEvents = null;
+				CurrentMatchLobby = null;
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Error("Error leaving match lobby!", e);
 			}
 		}
 
@@ -327,7 +389,7 @@ namespace FirstLight.Game.Services
 
 			return new Player(
 				id: AuthenticationService.Instance.PlayerId,
-				data: new Dictionary<string, PlayerDataObject>()
+				data: new Dictionary<string, PlayerDataObject>
 				{
 					// TODO mihak: Need to figure out how to get this from profile but it's always null
 					{KEY_PLAYER_NAME, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, AuthenticationService.Instance.PlayerName)},

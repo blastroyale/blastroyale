@@ -536,7 +536,6 @@ namespace FirstLight.Game.Services
 			try
 			{
 				var appData = _dataService.GetData<AppData>();
-				var newAccount = appData.IsFirstSession;
 				var playfabName = appData.DisplayName;
 				playfabName = playfabName == null || string.IsNullOrWhiteSpace(playfabName) ||
 					playfabName.Length < 5
@@ -544,7 +543,7 @@ namespace FirstLight.Game.Services
 						: playfabName.Substring(0, playfabName.Length - 5);
 				var unityName = AuthenticationService.Instance.PlayerNameTrimmed();
 
-				if (newAccount)
+				if (appData.IsFirstSession || string.IsNullOrWhiteSpace(playfabName))
 				{
 					FLog.Info("Updating playfab name to auto generated unity one" + unityName);
 
@@ -557,7 +556,7 @@ namespace FirstLight.Game.Services
 
 				// Handle old user accounts
 				if (!playfabName.Equals(unityName))
-				{		
+				{
 					FLog.Info($"Updating unity name('{unityName}') to '{playfabName}'");
 					await AuthenticationService.Instance.UpdatePlayerNameAsync(playfabName);
 					_services.MessageBrokerService.Publish(new DisplayNameChangedMessage());

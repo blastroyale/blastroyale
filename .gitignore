@@ -145,6 +145,7 @@ BlastRoyale/mono_crash.*
 BlastRoyale/BlastRoyale/
 BlastRoyale/BlastRoyale_BackUpThisFolder_ButDontShipItWithYourGame/
 BlastRoyale/BlastRoyale_BurstDebugInformation_DoNotShip/
+BlastRoyale_clone_*
 
 # DLLs
 # Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll

@@ -534,6 +534,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var f = callback.Game.Frames.Predicted;
 			if (!f.Unsafe.TryGetPointer<AIBlackboardComponent>(EntityRef, out var bb))
 			{
+
 				return;
 			}
 

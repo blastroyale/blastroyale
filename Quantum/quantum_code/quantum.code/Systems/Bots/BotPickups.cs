@@ -71,7 +71,7 @@ namespace Quantum.Systems.Bots
 			var needSpecials = !filter.PlayerInventory->Specials[0].IsUsable(f) ||
 				!filter.PlayerInventory->Specials[1].IsUsable(f);
 
-			var teamMembers = TeamSystem.GetTeamMembers(f, filter.Entity);
+			var teamMembers = TeamSystem.GetTeamMemberEntities(f, filter.Entity);
 			var invalidTargets = f.ResolveHashSet(filter.BotCharacter->InvalidMoveTargets);
 
 			var botChunk = CollectableChunkSystem.GetChunk(f, botPosition.XZ);
@@ -107,16 +107,15 @@ namespace Quantum.Systems.Bots
 
 					var teamCollecting = false;
 
+					if (collectable->HasCollector(f, teamMembers))
+					{
+						continue;
+					}
+					
 					// If team mate is collecting ignore it!
 					foreach (var member in teamMembers)
 					{
-						if (collectable->IsCollecting(f, member.Entity))
-						{
-							teamCollecting = true;
-							break;
-						}
-
-						if (f.TryGet<BotCharacter>(member.Entity, out var otherBot))
+						if (f.TryGet<BotCharacter>(member, out var otherBot))
 						{
 							if (otherBot.MoveTarget == entity)
 							{

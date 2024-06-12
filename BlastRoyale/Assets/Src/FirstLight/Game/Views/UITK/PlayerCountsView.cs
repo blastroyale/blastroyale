@@ -71,16 +71,16 @@ namespace FirstLight.Game.Views.UITK
 			UpdatePlayerCounts(QuantumRunner.Default.Game.Frames.Verified);
 		}
 
-		private void UpdatePlayerCounts(Frame f)
+		private unsafe void UpdatePlayerCounts(Frame f)
 		{
-			var container = f.GetSingleton<GameContainer>();
+			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
 
 			// We count all alive players in a match and display this number
 			var playersAlive = 0;
 			_teamsCache.Clear();
-			for (int i = 0; i < container.PlayersData.Length; i++)
+			for (int i = 0; i < container->PlayersData.Length; i++)
 			{
-				var data = container.PlayersData[i];
+				var data = container->PlayersData[i];
 
 				if (data.IsValid && data.Entity.IsAlive(f))
 				{
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Views.UITK
 			// Check tries to fix https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/2681
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 			var killsCount = spectatedPlayer.Player.IsValid
-				? container.PlayersData[_matchServices.SpectateService.SpectatedPlayer.Value.Player].PlayersKilledCount
+				? container->PlayersData[_matchServices.SpectateService.SpectatedPlayer.Value.Player].PlayersKilledCount
 				: 0;
 			if (killsCount != _killsCount)
 			{

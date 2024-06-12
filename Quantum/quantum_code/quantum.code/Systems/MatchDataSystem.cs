@@ -67,9 +67,9 @@ namespace Quantum.Systems
 			var stats = f.Unsafe.GetPointer<Stats>(entity);
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 
-			if (f.TryGet<PlayerCharacter>(attacker, out var playerAttacker))
+			if (f.Unsafe.TryGetPointer<PlayerCharacter>(attacker, out var playerAttacker))
 			{
-				var data = gameContainer->PlayersData.GetPointer(playerAttacker.Player);
+				var data = gameContainer->PlayersData.GetPointer(playerAttacker->Player);
 				
 				if (stats->CurrentHealth < previousHealth)
 				{
@@ -81,9 +81,9 @@ namespace Quantum.Systems
 				}
 			}
 
-			if (f.TryGet<PlayerCharacter>(entity, out var playerHit))
+			if (f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerHit))
 			{
-				var data = gameContainer->PlayersData.GetPointer(playerHit.Player);
+				var data = gameContainer->PlayersData.GetPointer(playerHit->Player);
 				
 				if (stats->CurrentHealth < previousHealth)
 				{

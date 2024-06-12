@@ -6,6 +6,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -68,7 +69,6 @@ namespace FirstLight.Game.Services
 				list = new List<EntityView>();
 				_inactiveBullets[view.AssetGuid.Value] = list;
 			}
-
 			list.Add(view);
 		}
 
@@ -88,7 +88,6 @@ namespace FirstLight.Game.Services
 				bullet.gameObject.SetActive(true);
 				return bullet;
 			}
-
 			return base.CreateEntityViewInstance(asset, position, rotation);
 		}
 
@@ -117,33 +116,7 @@ namespace FirstLight.Game.Services
 
 			_viewParent = new GameObject("Views");
 			_gameServices = MainInstaller.Resolve<IGameServices>();
-
-			_gameServices.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 		}
-
-		private void OnMatchStartedMessage(MatchStartedMessage msg)
-		{
-			if (!msg.IsResync) return;
-
-			var f = msg.Game.Frames.Verified;
-
-			if (!f.Context.GameModeConfig.DeathMarker) return;
-
-			var data = f.GetSingleton<GameContainer>().PlayersData;
-			for (var i = 0; i < data.Length; i++)
-			{
-				var playerData = data[i];
-
-				if (playerData.DeathCount > 0)
-				{
-
-					var cosmetics = PlayerLoadout.GetCosmetics(f, playerData.Player);
-					var deathMarker = _gameServices.CollectionService.GetCosmeticForGroup(cosmetics,GameIdGroup.DeathMarker);
-					SpawnDeathMarker(deathMarker, playerData.LastDeathPosition.ToUnityVector3());
-				}
-			}
-		}
-
 
 		private void LateUpdate()
 		{

@@ -380,7 +380,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			rend.material.SetColor("_Color", color);
 		}
 
-		public unsafe override void SetCulled(bool culled)
+		public override unsafe void SetCulled(bool culled)
 		{
 			_animation.enabled = !culled;
 			base.SetCulled(culled);

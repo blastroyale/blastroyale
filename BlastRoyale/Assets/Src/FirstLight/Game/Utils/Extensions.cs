@@ -24,6 +24,8 @@ namespace FirstLight.Game.Utils
 	/// </summary>
 	public static class Extensions
 	{
+		private static PlayerMatchData _defaultPlayerMatchDataReference = default;
+		
 		/// <summary>
 		/// Requests the hierarchy path in the scene of the given game object
 		/// </summary>
@@ -365,17 +367,16 @@ namespace FirstLight.Game.Utils
 				property.SetValue(dest, property.GetValue(source));
 			}
 		}
-
+		
 		/// <summary>
 		/// Requests the <see cref="Quantum.PlayerMatchData"/> of the current local player playing the game
 		/// </summary>
-		public static PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
+		public static unsafe ref PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
 		{
 			var localPlayers = game.GetLocalPlayers();
-
 			f = isVerified ? game.Frames.Verified : game.Frames.Predicted;
-
-			return localPlayers.Length == 0 ? new PlayerMatchData() : f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
+			if (localPlayers.Length == 0) return ref _defaultPlayerMatchDataReference;
+			return ref *f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData.GetPointer(localPlayers[0]);
 		}
 
 		/// <summary>

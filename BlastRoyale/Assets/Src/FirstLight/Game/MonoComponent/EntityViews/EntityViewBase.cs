@@ -15,7 +15,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	{
 		protected IGameServices Services;
 		protected IMatchServices MatchServices;
-
+		
 		/// <summary>
 		/// Requests the <see cref="EntityView"/> representing this view execution base
 		/// </summary>
@@ -69,8 +69,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	[RequireComponent(typeof(RenderersContainerProxyMonoComponent))]
 	public abstract class EntityMainViewBase : EntityViewBase
 	{
-		private static readonly int  _dissolveProperty = Shader.PropertyToID("dissolve_amount");
-
 		private bool _culled = false;
 		private bool _visible = false;
 		protected bool Visible
@@ -91,15 +89,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				RenderersContainerProxy = GetComponent<RenderersContainerProxyMonoComponent>();
 			}
-
 			base.Awake();
-			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView, onlyIfActiveAndEnabled: true);
 		}
 
 		public void OnUpdateView(CallbackUpdateView callback)
 		{
 			if (callback.Game.IsGameOver()) return;
-			
 			if (callback.Game.Frames.Predicted.IsCulled(EntityRef))
 			{
 				if (!_culled)

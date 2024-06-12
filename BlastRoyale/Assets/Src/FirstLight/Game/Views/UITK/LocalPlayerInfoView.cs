@@ -118,7 +118,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 
-			if (TeamSystem.GetTeamMembers(QuantumRunner.Default.VerifiedFrame(), playerEntity).Count < 1)
+			if (TeamSystem.GetTeamMemberEntities(QuantumRunner.Default.VerifiedFrame(), playerEntity).Length < 1)
 			{
 				_teamColor.SetVisibility(false);
 				return;

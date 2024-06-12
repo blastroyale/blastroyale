@@ -8,7 +8,7 @@ namespace Quantum.Systems.Bots
 	public unsafe class BattleRoyaleBot
 	{
 		public static FP MaxDistanceToTryToRevive = FP.FromString("25") * FP.FromString("25");
-
+		
 		internal void Update(Frame f, ref BotCharacterFilter filter, in bool isTakingCircleDamage, in BotUpdateGlobalContext botCtx)
 		{
 			filter.CleanDestroyedWaypointTarget(f);
@@ -31,7 +31,6 @@ namespace Quantum.Systems.Bots
 			{
 				return;
 			}
-
 
 			///////////////////////////////////////////////////////////
 			// The following code works in Decision time intervals

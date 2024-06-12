@@ -176,8 +176,6 @@ namespace Quantum.Systems.Bots
 				_wanderAndShootBot.Update(f, ref filter);
 				return;
 			}
-
-
 			_battleRoyaleBot.Update(f, ref filter, isTakingCircleDamage, botCtx);
 		}
 

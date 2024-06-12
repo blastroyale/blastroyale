@@ -153,10 +153,11 @@ namespace FirstLight.Game.Presenters
 			}
 
 			// I can't find a cleaner way to do this
+			_shootingJoystick.RemoveFromClassList("joystick--aim");
 			_shootingJoystick.RemoveFromClassList("joystick--move");
+			_movementJoystick.RemoveFromClassList("joystick--move");
 			_movementJoystick.RemoveFromClassList("joystick--aim");
-			_shootingJoystick.RemoveFromClassList("joystick--move");
-			_movementJoystick.RemoveFromClassList("joystick--aim");
+
 			_shootingJoystick.AddToClassList("joystick--aim");
 			_movementJoystick.AddToClassList("joystick--move");
 

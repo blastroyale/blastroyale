@@ -46,7 +46,6 @@ namespace FirstLight.Game.Utils
 		{
 			var f = game.Frames.Verified;
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-
 			return container->IsGameOver;
 		}
 

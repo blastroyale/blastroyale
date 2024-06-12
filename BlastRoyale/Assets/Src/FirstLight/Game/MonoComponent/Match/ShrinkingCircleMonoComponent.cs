@@ -93,7 +93,6 @@ namespace FirstLight.Game.MonoComponent.Match
 					cachedSafeAreaCircleLine.localScale = new Vector3(radius, radius, 1f);
 					_safeAreaCircleLinerRenderer.WidthMultiplier = 0f;
 				}
-				
 				return;
 			}
 			

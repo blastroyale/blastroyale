@@ -84,6 +84,16 @@ namespace Quantum
 
 			return false;
 		}
+		
+		public bool HasCollector(Frame f, params EntityRef [] entities)
+		{
+			var dict = f.ResolveDictionary(CollectorsEndTime);
+			foreach (var e in entities)
+			{
+				if (dict.ContainsKey(e)) return true;
+			}
+			return false;
+		}
 
 		public void StartCollecting(Frame f, EntityRef collector, FP collectTime)
 		{

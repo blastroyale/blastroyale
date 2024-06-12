@@ -90,7 +90,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return false;
 			}
 
-			if (TeamSystem.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), PlayerView.EntityRef).Count < 1)
+			if (TeamSystem.GetTeamMemberEntities(QuantumRunner.Default.PredictedFrame(), PlayerView.EntityRef).Length < 1)
 			{
 				return false;
 			}

@@ -91,9 +91,9 @@ public class FootprinterMonoComponent : MonoBehaviour
 		// Need this hack because our code handles bots differently from players -.-
 		if (_view.EntityRef.IsBot(f)) return _view.transform.rotation;
 
+		
 		if (f.TryGet<AIBlackboardComponent>(_view.EntityRef, out var bb) && bb.HasEntry(f, Constants.MoveDirectionKey))
 		{
-			// TODO: Use lookup table for performance
 			return Quaternion.LookRotation(bb.GetVector2(f, Constants.MoveDirectionKey).ToUnityVector3());
 		}
 
@@ -158,7 +158,6 @@ public class FootprinterMonoComponent : MonoBehaviour
 	private void Despawn(GameObject o)
 	{
 		if (o == null || !o.activeSelf) return;
-
 		o.SetActive(false);
 		_globalPool.Enqueue(o);
 	}

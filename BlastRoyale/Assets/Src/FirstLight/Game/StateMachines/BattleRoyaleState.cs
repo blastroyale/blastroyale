@@ -104,19 +104,19 @@ namespace FirstLight.Game.StateMachines
 			_services.AnalyticsService.MatchCalls.MatchEnd(QuantumRunner.Default.Game, false, _matchServices.MatchEndDataService.LocalPlayerMatchData.PlayerRank);
 		}
 
-		public bool IsMatchEnding()
+		public unsafe bool IsMatchEnding()
 		{
 			var f = QuantumRunner.Default.Game.Frames.Verified;
-			var container = f.GetSingleton<GameContainer>();
-			return container.IsGameOver || container.IsGameCompleted;
+			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
+			return container->IsGameOver || container->IsGameCompleted;
 		}
 
-		private bool IsLocalPlayerAlive()
+		private unsafe bool IsLocalPlayerAlive()
 		{
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var playersData = gameContainer.PlayersData;
+			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+			var playersData = gameContainer->PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayerRef()];
 
 			return localPlayer.Entity.IsAlive(f);

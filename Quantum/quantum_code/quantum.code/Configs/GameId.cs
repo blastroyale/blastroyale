@@ -1479,6 +1479,55 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.MeleeSkinCrowbar, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinAxe, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinKnife, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinOar, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinSpatula, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinTrophy, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinWalkingStick, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Avatar1, new List<GameIdGroup>
 					{
 						GameIdGroup.ProfilePicture,
@@ -2275,6 +2324,13 @@ namespace Quantum
 						GameId.MeleeSkinKatana,
 						GameId.MeleeSkinKeyboard,
 						GameId.MeleeSkinMagicalShillelagh,
+						GameId.MeleeSkinCrowbar,
+						GameId.MeleeSkinAxe,
+						GameId.MeleeSkinKnife,
+						GameId.MeleeSkinOar,
+						GameId.MeleeSkinSpatula,
+						GameId.MeleeSkinTrophy,
+						GameId.MeleeSkinWalkingStick,
 						GameId.Avatar1,
 						GameId.Avatar2,
 						GameId.Avatar3,
@@ -2538,7 +2594,14 @@ namespace Quantum
 						GameId.MeleeSkinBaton,
 						GameId.MeleeSkinKatana,
 						GameId.MeleeSkinKeyboard,
-						GameId.MeleeSkinMagicalShillelagh
+						GameId.MeleeSkinMagicalShillelagh,
+						GameId.MeleeSkinCrowbar,
+						GameId.MeleeSkinAxe,
+						GameId.MeleeSkinKnife,
+						GameId.MeleeSkinOar,
+						GameId.MeleeSkinSpatula,
+						GameId.MeleeSkinTrophy,
+						GameId.MeleeSkinWalkingStick
 					}.AsReadOnly()
 				},
 				{

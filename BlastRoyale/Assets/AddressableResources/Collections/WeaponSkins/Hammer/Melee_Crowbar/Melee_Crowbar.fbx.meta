@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 98dd3d0726669428ea92f354c35a4fcf
+guid: c05ede3f93a1144c7bdaf5369af126d1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: melee_weapons
+      name: M_Melee_Crowbar
     second: {fileID: 2100000, guid: 6f9f5c55163a8442c99b737427c4096f, type: 2}
   materials:
     materialImportMode: 2

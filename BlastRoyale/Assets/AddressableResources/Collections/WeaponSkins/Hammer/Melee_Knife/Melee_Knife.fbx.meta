@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 98dd3d0726669428ea92f354c35a4fcf
+guid: 41a3e8dea5a0343f8bb26ef4abb87380
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: melee_weapons
+      name: M_Melee_Knife
     second: {fileID: 2100000, guid: 6f9f5c55163a8442c99b737427c4096f, type: 2}
   materials:
     materialImportMode: 2

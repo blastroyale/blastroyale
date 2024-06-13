@@ -60,12 +60,12 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 210
       Prefab:
-        m_AssetGUID: a61d067c5794f415badabaea31062d37
+        m_AssetGUID: 28f5fe2642c2d46fbbd11b081e9b25e8
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 4205e023c81cf4d2d84b98dcb491f593
+        m_AssetGUID: 8e29f0107bbd74917bc85017a0c42ea1
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

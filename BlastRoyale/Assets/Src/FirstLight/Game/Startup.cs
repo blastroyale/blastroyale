@@ -49,14 +49,14 @@ namespace FirstLight.Game
 			InitTaskLogging();
 			InitPlugins();
 
-			FLGTestRunner.Instance.CheckAutomations();
-			FLGTestRunner.Instance.CheckFirebaseRun();
-
 			InitGlobalShaderData();
 
 			await ATTrackingUtils.RequestATTPermission();
 			await InitUnityServices();
 			await InitAnalytics();
+
+			FLGTestRunner.Instance.CheckAutomations();
+			FLGTestRunner.Instance.CheckFirebaseRun();
 
 			TouchSimulation.Enable();
 			EnhancedTouchSupport.Enable();

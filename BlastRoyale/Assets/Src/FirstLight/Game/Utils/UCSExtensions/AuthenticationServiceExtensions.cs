@@ -13,7 +13,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		public static string PlayerNameTrimmed(this IAuthenticationService authService)
 		{
 			var name = authService.PlayerName;
-			return name.Remove(name.LastIndexOf('#'));
+			return name?.Remove(name.LastIndexOf('#'));
 		}
 	}
 }

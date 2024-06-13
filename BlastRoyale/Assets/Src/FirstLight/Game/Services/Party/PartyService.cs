@@ -9,6 +9,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
@@ -233,19 +234,19 @@ namespace FirstLight.Game.Services.Party
 			msgBroker.Subscribe<ChangedServerRegionMessage>(OnChangedPhotonServer);
 			msgBroker.Subscribe<CollectionItemEquippedMessage>(OnCharacterSkinUpdatedMessage);
 			msgBroker.Subscribe<TrophiesUpdatedMessage>(OnTrophiesUpdateMessage);
-			// TODO mihak: _appDataProvider.DisplayName.Observe(OnDisplayNameChanged);
+			msgBroker.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
 
 			_lobbyProperties.Observe(ReadyVersion, OnReadyVersionChanged);
 		}
 
-		private void OnDisplayNameChanged(string _, string _2)
+		private void OnDisplayNameChanged(DisplayNameChangedMessage _)
 		{
 			if (!_hasParty.Value)
 			{
 				return;
 			}
 
-			SetMemberProperty(PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, AuthenticationService.Instance.PlayerName).Forget();
+			SetMemberProperty(PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, AuthenticationService.Instance.PlayerNameTrimmed()).Forget();
 		}
 
 		private void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage obj)

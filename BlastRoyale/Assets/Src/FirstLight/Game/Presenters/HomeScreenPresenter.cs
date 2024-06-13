@@ -14,6 +14,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
@@ -262,7 +263,7 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 			_services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
 
-			_playerNameLabel.text = AuthenticationService.Instance.PlayerName;
+			_playerNameLabel.text = AuthenticationService.Instance.PlayerNameTrimmed();
 
 			return base.OnScreenOpen(reload);
 		}
@@ -294,7 +295,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnDisplayNameChanged(DisplayNameChangedMessage _)
 		{
-			_playerNameLabel.text = AuthenticationService.Instance.PlayerName;
+			_playerNameLabel.text = AuthenticationService.Instance.PlayerNameTrimmed();
 		}
 
 		private void OnRankingUpdateHandler(PlayerLeaderboardEntry leaderboardEntry)

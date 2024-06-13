@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using I2.Loc;
 using JetBrains.Annotations;
 using PlayFab;
@@ -39,7 +40,7 @@ namespace FirstLight.Game.Services.Party
 				MemberEntity = LocalEntityKey(),
 				MemberData = new ()
 				{
-					{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, AuthenticationService.Instance.PlayerName},
+					{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, AuthenticationService.Instance.PlayerNameTrimmed()},
 					{PartyMember.TROPHIES_PROPERTY, playerDataProvider.Trophies.Value.ToString()},
 					{PartyMember.READY_MEMBER_PROPERTY, "notready"},
 					{PartyMember.CHARACTER_SKIN_PROPERTY, collectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS).Id.ToString()},

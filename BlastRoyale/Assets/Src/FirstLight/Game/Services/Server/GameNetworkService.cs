@@ -11,6 +11,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Photon.Realtime;
 using UnityEngine;
@@ -461,7 +462,7 @@ namespace FirstLight.Game.Services
 
 			ResetQuantumProperties();
 
-			return QuantumClient.ConnectUsingSettings(settings, AuthenticationService.Instance.PlayerName);
+			return QuantumClient.ConnectUsingSettings(settings, AuthenticationService.Instance.PlayerNameTrimmed());
 		}
 
 		public bool ConnectPhotonToRegionMaster(string region)

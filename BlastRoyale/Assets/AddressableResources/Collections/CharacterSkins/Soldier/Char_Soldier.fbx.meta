@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 62dc484ed309941169b61053b7405c40
+guid: b84a751aede7d4cc7b697579ed543f42
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Soldier
-    second: {fileID: 2100000, guid: dff46cf7b139e4bf691b440dc537d869, type: 2}
+    second: {fileID: 2100000, guid: 683d3db68f2074ecaae3b0b2a6bcd986, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

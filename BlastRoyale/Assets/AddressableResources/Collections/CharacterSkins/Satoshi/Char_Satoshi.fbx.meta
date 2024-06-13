@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e891c886befda4636b2682afb1deedf2
+guid: 4f3013b10b32d42069f4168184fe285a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Satoshi
-    second: {fileID: 2100000, guid: 208ec5cff198543e4be95d72f81ab735, type: 2}
+    second: {fileID: 2100000, guid: 351bed5a3e1304e289f1b25f4e7aa1b8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

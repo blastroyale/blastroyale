@@ -53,9 +53,11 @@ MonoBehaviour:
   - Name: Floor
     Destination: {fileID: 1828197493739328813}
     SourceTransform: []
+    Walkable: 1
   - Name: Obstacles
     Destination: {fileID: 3789657554451478332}
     SourceTransform: []
+    Walkable: 0
   _cleaner: {fileID: 449028872914988740}
 --- !u!114 &2468079486366683940
 MonoBehaviour:

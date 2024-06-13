@@ -17,6 +17,7 @@ namespace FirstLight.Game.MonoComponent.EditorOnly
 			public string Name;
 			[ChildGameObjectsOnly] public Transform Destination;
 			public Transform[] SourceTransform;
+			public bool Walkable;
 		}
 
 		[SerializeField, FoldoutGroup("Config", expanded: false)]
@@ -65,7 +66,7 @@ namespace FirstLight.Game.MonoComponent.EditorOnly
 
 				foreach (var source in groupConfig.SourceTransform)
 				{
-					CreateCollidersBasedOn(source, groupConfig.Destination);
+					CreateCollidersBasedOn(source, groupConfig.Destination, groupConfig.Walkable);
 				}
 			}
 		}
@@ -109,7 +110,7 @@ namespace FirstLight.Game.MonoComponent.EditorOnly
 			_cleaner.Reset();
 		}
 
-		private void CreateCollidersBasedOn(Transform parentSource, Transform parentDestination)
+		private void CreateCollidersBasedOn(Transform parentSource, Transform parentDestination, bool walkable)
 		{
 			var colliders = parentSource.GetComponentsInChildren<QuantumStaticBoxCollider3D>();
 			foreach (var q3d in colliders)
@@ -125,7 +126,7 @@ namespace FirstLight.Game.MonoComponent.EditorOnly
 				var modifierVolume = go.GetComponent<NavMeshModifierVolume>();
 				modifierVolume.center = bx.center;
 				modifierVolume.size = bx.size;
-				modifierVolume.area = 1; // not walkable
+				modifierVolume.area = walkable ? 0 : 1;
 				go.transform.SetParent(parentDestination);
 			}
 		}

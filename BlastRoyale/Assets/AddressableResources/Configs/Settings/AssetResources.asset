@@ -309,11 +309,6 @@ MonoBehaviour:
         Id:
           Value: 1093005050644660195
       Address: QuantumAssets/Physics Config Assets/Bot NavMeshAgentConfig.asset
-    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_NavMesh_data
-      AssetRef:
-        Id:
-          Value: 1151613473964670480
-      Address: Maps/MazeMayhem/MazeMayhem_NavMesh_data.asset
     - Path: AddressableResources/Maps/Battlelands/BattlelandsMap_NavMesh_data
       AssetRef:
         Id:
@@ -354,6 +349,11 @@ MonoBehaviour:
         Id:
           Value: 1433292725654733562
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Stunned_6]
+    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_mesh
+      AssetRef:
+        Id:
+          Value: 1450048216646686403
+      Address: Maps/MazeMayhem/MazeMayhem_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMNotDecision_45
       AssetRef:
         Id:
@@ -604,6 +604,11 @@ MonoBehaviour:
         Id:
           Value: 2408532451239495612
       Address: Maps/TestAssets/TestAssetsMap_mesh.asset
+    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_Navmesh Baking
+      AssetRef:
+        Id:
+          Value: 2440465253894807376
+      Address: Maps/MazeMayhem/MazeMayhem_Navmesh Baking.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFPDecision_25
       AssetRef:
         Id:
@@ -629,11 +634,6 @@ MonoBehaviour:
         Id:
           Value: 2526948452384311002
       Address: QuantumAssets/Collectables/AirDrop.prefab[AirDropEntityView]
-    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_mesh
-      AssetRef:
-        Id:
-          Value: 2551591651683386162
-      Address: Maps/MazeMayhem/MazeMayhem_mesh.asset
     - Path: AddressableResources/Maps/District/District_NavMesh
       AssetRef:
         Id:
@@ -659,11 +659,6 @@ MonoBehaviour:
         Id:
           Value: 2794687721108520062
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckBlackboardBool_3]
-    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_NavMesh
-      AssetRef:
-        Id:
-          Value: 2797025370966690795
-      Address: Maps/MazeMayhem/MazeMayhem_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_10
       AssetRef:
         Id:
@@ -1066,6 +1061,11 @@ MonoBehaviour:
         Id:
           Value: 4447278863549580665
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[HFSMNotDecision_14]
+    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_Navmesh Baking_data
+      AssetRef:
+        Id:
+          Value: 4455590774678749724
+      Address: Maps/MazeMayhem/MazeMayhem_Navmesh Baking_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_6
       AssetRef:
         Id:

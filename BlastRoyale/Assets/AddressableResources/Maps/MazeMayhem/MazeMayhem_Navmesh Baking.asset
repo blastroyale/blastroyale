@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfb2d134f0fd8e447b08e569da2a1031, type: 3}
-  m_Name: MazeMayhem_NavMesh
+  m_Name: MazeMayhem_Navmesh Baking
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_NavMesh
+      Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_Navmesh Baking
       Guid:
-        Value: 2797025370966690795
-    Name: NavMesh
+        Value: 2440465253894807376
+    Name: Navmesh Baking
     DataAsset:
       Id:
-        Value: 1151613473964670480
+        Value: 4455590774678749724
     DataFilepath: 
     GridSizeX: 16
     GridSizeY: 16
-    GridNodeSize: 16
+    GridNodeSize: 12
     WorldOffset:
       X:
-        RawValue: -8388608
+        RawValue: -6291456
       Y:
-        RawValue: -8388608
+        RawValue: -6291456
     MinAgentRadius:
-      RawValue: 32768
+      RawValue: 22937

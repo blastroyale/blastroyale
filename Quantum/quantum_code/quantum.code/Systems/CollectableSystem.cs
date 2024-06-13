@@ -28,7 +28,7 @@ namespace Quantum.Systems
 
 			// We try to start collecting here because collectable may be allowed to
 			// become collected after it already triggered with a player
-			if (!collectable->IsCollecting(f, playerEntity) && f.Time >= collectable->AllowedToPickupTime)
+			if (!collectable->IsCollecting(f, info.Entity, playerEntity))
 			{
 				if (!TryStartCollecting(f, info, false))
 				{
@@ -36,7 +36,7 @@ namespace Quantum.Systems
 				}
 			}
 
-			if (!collectable->TryGetCollectingEndTime(f, playerEntity, out var endTime) || f.Time < endTime)
+			if (!collectable->TryGetCollectingEndTime(f, info.Entity, playerEntity, out var endTime) || f.Time < endTime)
 			{
 				return;
 			}
@@ -68,7 +68,8 @@ namespace Quantum.Systems
 		private bool TryStartCollecting(Frame f, TriggerInfo3D info, bool sendEvent)
 		{
 			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
-				f.Time < collectable->AllowedToPickupTime || !f.Has<AlivePlayerCharacter>(info.Other) ||
+				!GameContainer.HasGameStarted(f) ||
+				!f.Has<AlivePlayerCharacter>(info.Other) ||
 				!f.Unsafe.TryGetPointer<PlayerCharacter>(info.Other, out var player) || f.Has<EntityDestroyer>(info.Entity) ||
 				ReviveSystem.IsKnockedOut(f, info.Other))
 			{
@@ -115,18 +116,32 @@ namespace Quantum.Systems
 		private bool StartCollecting(Frame f, PlayerRef player, EntityRef collector, Collectable* collectable,
 									 EntityRef collectableEntity)
 		{
-			if (collectable->IsCollecting(f, collector)) return false;
-			collectable->StartCollecting(f, collector, GetCollectDuration(f, collectableEntity, collector));
+			if (collectable->IsCollecting(f, collectableEntity, collector)) return false;
+			collectable->StartCollecting(f, collectableEntity, collector, GetCollectDuration(f, collectableEntity, collector));
 			f.Events.OnStartedCollecting(collectableEntity, *collectable, collector);
 
 			return true;
 		}
 
+		/// <summary>
+		/// Hack until consumables, collectibesl, equipment collectibes and all this mess is centralized
+		/// </summary>
+		public static FP GetCollectionRadius(Frame frame, GameId id)
+		{
+			var config = frame.ConsumableConfigs.GetConfig(id);
+			if (config != null) return config.CollectableConsumablePickupRadius;
+			if (frame.ChestConfigs.HasConfig(id))
+			{
+				return frame.ChestConfigs.GetConfig(id).CollectableChestPickupRadius;
+			}
+			return frame.GameConfig.CollectableEquipmentPickupRadius;
+		}
+
 		private void StopCollecting(Frame f, EntityRef entity, EntityRef collector, PlayerRef player,
 									Collectable* collectable)
 		{
-			if (!collectable->IsCollecting(f, collector)) return;
-			collectable->StopCollecting(f, collector);
+			if (!collectable->IsCollecting(f, entity, collector)) return;
+			collectable->StopCollecting(f, entity, collector);
 			f.Events.OnStoppedCollecting(entity, collector);
 		}
 
@@ -173,7 +188,7 @@ namespace Quantum.Systems
 		private FP GetCollectDuration(Frame f, EntityRef consumableEntity, EntityRef playerEntity)
 		{
 			var timeMod = f.Unsafe.GetPointer<Stats>(playerEntity)->GetStatData(StatType.PickupSpeed).StatValue;
-
+		
 			// We default to global collect time
 			var endTime = f.GameConfig.CollectableCollectTime.Get(f);
 
@@ -184,7 +199,7 @@ namespace Quantum.Systems
 			}
 			else if (f.TryGet<Consumable>(consumableEntity, out var consumable))
 			{
-				endTime = consumable.CollectTime;
+				endTime = f.ConsumableConfigs.GetConfig(consumable.ConsumableType).ConsumableCollectTime.Get(f);
 			}
 
 			endTime = FPMath.Max(Constants.PICKUP_SPEED_MINIMUM, (FP._1 - (timeMod / FP._100)) * endTime);

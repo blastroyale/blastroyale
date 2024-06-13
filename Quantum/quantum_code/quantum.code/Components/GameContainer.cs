@@ -12,6 +12,11 @@ namespace Quantum
 		/// </summary>
 		public bool IsGameCompleted => CurrentProgress >= TargetProgress;
 
+		public static bool HasGameStarted(Frame f)
+		{
+			return f.Unsafe.GetPointerSingleton<GameContainer>()->IsGameStarted;
+		}
+
 		/// <summary>
 		/// Add a PlayerMatchData to the container linked to a specific PlayerRef.
 		/// </summary>
@@ -100,7 +105,7 @@ namespace Quantum
 				f.Signals.GameEnded();
 			}
 		}
-
+		
 		/// <summary>
 		/// Request all players match data.
 		/// Battle Royale Ranking: More frags == higher rank and Dead longer == lower rank

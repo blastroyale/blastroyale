@@ -1,6 +1,5 @@
 using System;
 using FirstLight.Game.Utils;
-using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using UnityEngine;
 

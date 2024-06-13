@@ -38,17 +38,10 @@ namespace FirstLight.Game.Serializers
 				Edition = Edition,
 				Faction = Faction,
 				GameId = GameId,
-				Generation = Generation,
 				Grade = Grade,
-				InitialReplicationCounter = InitialReplicationCounter,
-				LastRepairTimestamp = LastRepairTimestamp,
-				Level = Level,
+				Level = (ushort)Level,
 				Material = Material,
-				MaxDurability = MaxDurability,
 				Rarity = Rarity,
-				ReplicationCounter = ReplicationCounter,
-				TotalRestoredDurability = TotalRestoredDurability,
-				Tuning = Tuning
 			};
 		}
 	}
@@ -139,7 +132,7 @@ namespace FirstLight.Game.Serializers
 
 	public class EquipmentSerializer : JsonConverter<Equipment>
 	{
-		private const int CURRENT_VERSION = 0;
+		private const int CURRENT_VERSION = 1;
 
 		private static readonly EquipmentEnumConvertersV0 Converter = new();
 		
@@ -166,15 +159,7 @@ namespace FirstLight.Game.Serializers
 			writer.WriteValue(Converter.GradeMapping.GetIntValue(value.Grade));
 			writer.WriteValue(Converter.MaterialMapping.GetIntValue(value.Material));
 			writer.WriteValue(Converter.RarityMapping.GetIntValue(value.Rarity));
-			writer.WriteValue(value.Generation);
-			writer.WriteValue(value.InitialReplicationCounter);
-			writer.WriteValue(value.LastRepairTimestamp.ToString());
 			writer.WriteValue(value.Level);
-			writer.WriteValue(value.MaxDurability);
-			writer.WriteValue(value.ReplicationCounter);
-			writer.WriteValue(value.TotalRestoredDurability);
-			writer.WriteValue(value.Tuning);
-
 			writer.WriteEndArray();
 		}
 
@@ -190,14 +175,12 @@ namespace FirstLight.Game.Serializers
 
 			throw new JsonException($"Unexpected token type {reader.TokenType}");
 		}
-
-
+		
 		private uint ReadUint(JsonReader reader)
 		{
 			// We don't have uints here that may overflow so idc
 			var value = reader.ReadAsInt32();
 			if (value is null or < 0) throw new InvalidOperationException("Cant parse uint!");
-
 			return (uint) value;
 		}
 
@@ -215,7 +198,6 @@ namespace FirstLight.Game.Serializers
 			Equipment equipment = new();
 
 			var version = reader.ReadAsInt32();
-			if (version != CURRENT_VERSION) throw new InvalidOperationException($"Invalid version number. Expected {CURRENT_VERSION}, but got {version}.");
 
 			var gameIdString = reader.ReadAsString();
 			if (gameIdString == null || !Converter.GameIdMapping.TryGetValue(gameIdString, out var id)) throw new InvalidOperationException($"{gameIdString} is not a valid game id");
@@ -227,15 +209,24 @@ namespace FirstLight.Game.Serializers
 			equipment.Grade = Converter.GradeMapping.GetValue(reader.ReadAsInt32());
 			equipment.Material = Converter.MaterialMapping.GetValue(reader.ReadAsInt32());
 			equipment.Rarity = Converter.RarityMapping.GetValue(reader.ReadAsInt32());
-			equipment.Generation = ReadUint(reader);
-			equipment.InitialReplicationCounter = ReadUint(reader);
-			equipment.LastRepairTimestamp = ReadStringAsLong(reader);
-			equipment.Level = ReadUint(reader);
-			equipment.MaxDurability = ReadUint(reader);
-			equipment.ReplicationCounter = ReadUint(reader);
-			equipment.TotalRestoredDurability = ReadUint(reader);
-			equipment.Tuning = ReadUint(reader);
 
+			if (version == 0)
+			{
+				ReadUint(reader); // generation
+				ReadUint(reader); // initial replication counter
+				ReadStringAsLong(reader); // last repair
+			}
+			
+			equipment.Level = (ushort)ReadUint(reader);
+
+			if (version == 0)
+			{
+				ReadUint(reader); // max durab
+				ReadUint(reader); // replication counter
+				ReadUint(reader); // restored dur
+				ReadUint(reader); // tuning
+			}
+			
 			reader.Read(); // End array
 
 			return equipment;

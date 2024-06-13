@@ -41,7 +41,6 @@ namespace FirstLight.Game.Commands
 				GameId = info.Equipment.GameId,
 				Name = info.Equipment.GameId.ToString(),
 				Durability = info.CurrentDurability,
-				DurabilityFinal = info.Equipment.MaxDurability,
 				Price = cost
 			});
 			return UniTask.CompletedTask;

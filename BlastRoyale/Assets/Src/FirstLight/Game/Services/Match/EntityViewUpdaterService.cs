@@ -52,7 +52,8 @@ namespace FirstLight.Game.Services
 			_viewsToDestroy = new Dictionary<EntityRef, EntityView>(256);
 
 		private readonly List<EntityView> _viewsListToDestroy = new List<EntityView>(256);
-
+		private readonly Vector3 _disabledPosition = new Vector3(999, 999, 999);
+		
 		private IGameServices _gameServices;
 
 		private Dictionary<long, List<EntityView>> _inactiveBullets = new();
@@ -63,7 +64,7 @@ namespace FirstLight.Game.Services
 
 		private void PollBullet(EntityView view)
 		{
-			view.gameObject.SetActive(false);
+			view.transform.position = _disabledPosition;
 			if (!_inactiveBullets.TryGetValue(view.AssetGuid.Value, out var list))
 			{
 				list = new List<EntityView>();
@@ -85,7 +86,6 @@ namespace FirstLight.Game.Services
 				if (position.HasValue) bullet.transform.position = position.Value;
 				if (rotation.HasValue) bullet.transform.rotation = rotation.Value;
 				inactiveList.RemoveAt(0);
-				bullet.gameObject.SetActive(true);
 				return bullet;
 			}
 			return base.CreateEntityViewInstance(asset, position, rotation);

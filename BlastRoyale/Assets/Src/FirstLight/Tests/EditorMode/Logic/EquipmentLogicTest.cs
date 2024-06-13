@@ -7,11 +7,8 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using NSubstitute;
-using NSubstitute.Extensions;
 using NUnit.Framework;
-using Photon.Deterministic;
 using Quantum;
-using UnityEngine;
 using Assert = NUnit.Framework.Assert;
 using Equipment = Quantum.Equipment;
 using QuantumBaseEquipmentStatConfig = Quantum.QuantumBaseEquipmentStatConfig;
@@ -226,7 +223,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var item = SetupItem(2, GameId.MausHelmet, 1);
 
-			item.Value.Level = (uint) _equipmentLogic.GetMaxLevel(item.Value);
+			item.Value.Level = (ushort)_equipmentLogic.GetMaxLevel(item.Value);
 			TestData.Inventory.Add(item.Key, item.Value);
 
 			Assert.Throws<LogicException>(() => _equipmentLogic.Upgrade(item.Key));
@@ -237,7 +234,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var item = new Equipment(gameId)
 			{
 				Level = 1,
-				LastRepairTimestamp = durabilityTimeStamp < 0 ? TimeService.DateTimeUtcNow.Ticks : durabilityTimeStamp
 			};
 			UniqueIdLogic.Ids[id].Returns(gameId);
 			UniqueIdLogic.GenerateNewUniqueId(gameId).Returns(id);

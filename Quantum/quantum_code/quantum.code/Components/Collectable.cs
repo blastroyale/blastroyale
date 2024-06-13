@@ -64,9 +64,9 @@ namespace Quantum
 		/// <summary>
 		/// Checks if the given <paramref name="possibleCollector"/> is collecting the collectable
 		/// </summary>
-		public bool IsCollecting(Frame f, EntityRef possibleCollector)
+		public bool IsCollecting(Frame f, EntityRef collectable, EntityRef possibleCollector)
 		{
-			if (TryGetCollectingEndTime(f, possibleCollector, out var endTime))
+			if (TryGetCollectingEndTime(f, collectable, possibleCollector, out var endTime))
 			{
 				return endTime > FP._0;
 			}
@@ -74,20 +74,19 @@ namespace Quantum
 			return false;
 		}
 
-		public bool TryGetCollectingEndTime(Frame f, EntityRef collectorRef, out FP endTime)
+		public bool TryGetCollectingEndTime(Frame f, EntityRef collectable, EntityRef collectorRef, out FP endTime)
 		{
-			var dict = f.ResolveDictionary(CollectorsEndTime);
+			var dict = CollectorsEndTime(f, collectable);
 			if (dict.TryGetValue(collectorRef, out endTime))
 			{
 				return endTime > FP._0;
 			}
-
 			return false;
 		}
 		
-		public bool HasCollector(Frame f, params EntityRef [] entities)
+		public bool HasCollector(Frame f, EntityRef collectable, params EntityRef [] entities)
 		{
-			var dict = f.ResolveDictionary(CollectorsEndTime);
+			var dict = CollectorsEndTime(f, collectable);
 			foreach (var e in entities)
 			{
 				if (dict.ContainsKey(e)) return true;
@@ -95,21 +94,35 @@ namespace Quantum
 			return false;
 		}
 
-		public void StartCollecting(Frame f, EntityRef collector, FP collectTime)
+		public QDictionary<EntityRef, FP> CollectorsEndTime(Frame f, EntityRef e)
 		{
-			var dict = f.ResolveDictionary(CollectorsEndTime);
+			if (!f.TryGet<CollectableTime>(e, out var collectableTime))
+			{
+				f.Add<CollectableTime>(e);
+				collectableTime = f.Get<CollectableTime>(e);
+			}
+
+			return f.ResolveDictionary(collectableTime.CollectorsEndTime);
+		}
+
+		public void StartCollecting(Frame f, EntityRef collectable, EntityRef collector, FP collectTime)
+		{
+			var dict = CollectorsEndTime(f, collectable);
 			dict[collector] = f.Time + collectTime;
 		}
 
-		public void StopCollecting(Frame f, EntityRef collector)
+		public void StopCollecting(Frame f, EntityRef collectable, EntityRef collector)
 		{
-			if (CollectorsEndTime.Ptr == Ptr.Null)
+			if (!f.Has<CollectableTime>(collectable))
 			{
 				return;
 			}
-
-			var dict = f.ResolveDictionary(CollectorsEndTime);
-			dict.Remove(collector);
+			var collectors = CollectorsEndTime(f, collectable);
+			collectors.Remove(collector);
+			if (collectors.Count == 0)
+			{
+				f.Remove<CollectableTime>(collectable);
+			}
 		}
 
 		private static FPVector3 GetPointOnNavMesh(Frame f, FPVector3 position, int angleDropStep, bool isConsiderNavMesh, int dropAngles, FP radiusOffset)

@@ -72,9 +72,28 @@ namespace Quantum
 		private object _lock = new object();
 
 		/// <summary>
+		/// Checks if this has the given config
+		/// </summary>
+		public bool HasConfig(GameId id)
+		{
+			EnsureCreated();
+			return _dictionary.ContainsKey(id);
+		}
+		
+		/// <summary>
 		/// Requests the <see cref="QuantumChestConfig"/> defined by the given <paramref name="id"/>
 		/// </summary>
 		public QuantumChestConfig GetConfig(GameId id)
+		{
+			EnsureCreated();
+			return _dictionary[id];
+		}
+
+		/// <summary>
+		/// Ensures the cache is created.
+		/// TODO: REMOVE ALL CACHES FROM ALL CONFIGS !!
+		/// </summary>
+		private void EnsureCreated()
 		{
 			if (_dictionary == null)
 			{
@@ -89,8 +108,6 @@ namespace Quantum
 					_dictionary = dict;
 				}
 			}
-
-			return _dictionary[id];
 		}
 
 		/// <summary>

@@ -1,11 +1,13 @@
 component Collectable
 {
 	[HideInInspector] GameId GameId;
-	[HideInInspector, AllocateOnComponentAdded, FreeOnComponentRemoved] dictionary<EntityRef, FP> CollectorsEndTime;
 	[HideInInspector] EntityRef Spawner;
-	[HideInInspector] FP PickupRadius;  
 	[HideInInspector] FPVector3 OriginPosition;
-	[HideInInspector] FP AllowedToPickupTime;
+}
+
+component CollectableTime 
+{
+	[HideInInspector, AllocateOnComponentAdded, FreeOnComponentRemoved] dictionary<EntityRef, FP> CollectorsEndTime;
 }
 
 struct CollectableChunk

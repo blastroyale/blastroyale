@@ -9,10 +9,8 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using System.Collections;
-using System.Numerics;
+using FirstLight.FLogger;
 using Quantum.Systems;
-using Quaternion = UnityEngine.Quaternion;
-using Vector3 = UnityEngine.Vector3;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -95,6 +93,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnInit(game);
 
+
 			var frame = game.Frames.Verified;
 #if DEBUG_BOTS
 			AddDebugCylinder(frame);
@@ -105,9 +104,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				ren.enabled = true;
 			}
 
-			if (frame.TryGet<Collectable>(EntityView.EntityRef, out var collectable) &&
-				collectable.PickupRadius > FP._0)
+			if (frame.TryGet<Collectable>(EntityView.EntityRef, out var collectable))
 			{
+				var radius = CollectableSystem.GetCollectionRadius(frame, collectable.GameId);
 				// Change scale for certain weapons
 				if (collectable.GameId.IsInGroup(GameIdGroup.Weapon))
 				{
@@ -127,7 +126,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					}
 				}
 
-				var radiusCorrected = collectable.PickupRadius.AsFloat * RADIUS_CORRECTION;
+				var radiusCorrected = radius.AsFloat * RADIUS_CORRECTION;
 				_pickupCircle.localScale =
 					new Vector3(radiusCorrected, radiusCorrected, 1f);
 				_pickupCircle.position = _collectableIndicatorAnchor.position +
@@ -251,12 +250,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			var f = callback.Game.Frames.Predicted;
 			var startTime = f.Time.AsFloat;
-			if (!callback.Collectable.TryGetCollectingEndTime(f, callback.CollectorEntity, out var endTime))
+			if (!callback.Collectable.TryGetCollectingEndTime(f, callback.CollectableEntity, callback.CollectorEntity, out var endTime))
 			{
 				return;
 			}
 
-			var isLargeCollectable = callback.Collectable.PickupRadius > FP._1_25;
+			var radius = CollectableSystem.GetCollectionRadius(f, callback.Collectable.GameId);
+			var isLargeCollectable = radius > FP._1_25; // TODO: remove
 
 			_collectors[callback.CollectorEntity] = new CollectingData(startTime, endTime.AsFloat, isLargeCollectable);
 
@@ -271,7 +271,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-
+			
 			_collectors.Remove(callback.CollectorEntity);
 			RefreshVfx(MatchServices.SpectateService.SpectatedPlayer.Value);
 		}
@@ -328,7 +328,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					? VfxId.CollectableIndicatorLarge
 					: VfxId.CollectableIndicator;
 				_collectingVfx = (CollectableIndicatorVfxMonoComponent) Services.VfxService.Spawn(vfxId);
-
+				
 				UpdateVfxPosition();
 				_collectingVfx.transform.rotation = Quaternion.AngleAxis(145, Vector3.up);
 				_collectingVfx.transform.localScale = new Vector3(_pickupCircle.localScale.x * 2.5f, 1f,
@@ -391,20 +391,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				RefreshIndicator(frame, MatchServices.GetSpectatedPlayer().Entity, consumable->ConsumableType);
 			}
 		}
-#if UNITY_EDITOR
-		private unsafe void OnDrawGizmos()
-		{
-			if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
-			var frame = QuantumRunner.Default.PredictedFrame();
-			if (frame.Unsafe.TryGetPointer<ChunkDebug>(this.EntityRef, out var chunk))
-			{
-				var (px, py) = CollectableChunkSystem.GetChunkPosition(frame, chunk->Chunk);
-				UnityEditor.Handles.Label(this.transform.position + Vector3.up * 2, $"{chunk->Chunk}");
-				UnityEditor.Handles.color = Color.red;
-				UnityEditor.Handles.Label(this.transform.position + Vector3.up * 3, $"{px},{py}");
-			}
-		}
-#endif
 
 		private struct CollectingData
 		{

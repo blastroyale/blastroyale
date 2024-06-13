@@ -19,7 +19,7 @@ namespace FirstLight.Game.Logic
 {
 	public enum EquipmentFilter
 	{
-		All,
+		All, 
 		NftOnly,
 		NftOnlyNotOnCooldown,
 		NoNftOnly,
@@ -244,17 +244,7 @@ namespace FirstLight.Game.Logic
 
 		public Pair<GameId, uint> GetRepairCost(Equipment equipment, bool isNft)
 		{
-			var resourceType = isNft ? GameId.CS : GameId.COIN;
-			var config = GameLogic.ConfigsProvider.GetConfig<RepairDataConfig>((int) resourceType);
-			var durability =
-				equipment.GetCurrentDurability(isNft, GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>(),
-				                               GameLogic.TimeService.DateTimeUtcNow.Ticks);
-			var restoredAmount = (double) (equipment.MaxDurability - durability);
-			var cost =
-				Math.Pow(((int)equipment.TotalRestoredDurability * config.DurabilityCostIncreasePerPoint.AsDouble + 1) * restoredAmount,
-				         config.BasePower.AsDouble) * (int) config.BaseRepairCost;
-
-			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));
+			return new Pair<GameId, uint>(GameId.COIN, 10);
 		}
 
 		public EquipmentInfo GetInfo(UniqueId id)
@@ -612,25 +602,7 @@ namespace FirstLight.Game.Logic
 
 		public void Repair(UniqueId itemId)
 		{
-			var equipment = _inventory[itemId];
-			var config = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var durability = equipment.GetCurrentDurability(false, config, GameLogic.TimeService.DateTimeUtcNow.Ticks);
-
-			if (_nftInventory.ContainsKey(itemId))
-			{
-				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and " +
-				                         $"{itemId} - {equipment.GameId.ToString()} is a NFT");
-			}
-			
-			if (durability == equipment.MaxDurability)
-			{
-				throw new LogicException($"Item {itemId} - {equipment.GameId.ToString()} is already fully repaired");
-			}
-
-			equipment.TotalRestoredDurability += equipment.MaxDurability - durability;
-			equipment.LastRepairTimestamp = GameLogic.TimeService.DateTimeUtcNow.Ticks;
-
-			_inventory[itemId] = equipment;
+			// clank clank clank
 		}
 
 		private int GetWeightedRandomDictionaryIndex<TKey, TValue>(SerializedDictionary<TKey, TValue> dictionary)

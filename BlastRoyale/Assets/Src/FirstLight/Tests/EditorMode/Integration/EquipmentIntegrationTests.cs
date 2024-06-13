@@ -35,8 +35,6 @@ namespace FirstLight.Tests.EditorMode.Integration
 			var equip = new Equipment()
 			{
 				GameId = GameId.HockeyHelmet,
-				MaxDurability = 2,
-				LastRepairTimestamp = TestLogic.TimeService.DateTimeUtcNow.Ticks,
 				Level = 1
 			};
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);

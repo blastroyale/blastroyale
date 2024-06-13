@@ -1,11 +1,9 @@
 component Consumable
 {
 	[HideInInspector] ConsumableType ConsumableType;
-	[HideInInspector] FP Amount;
-	[HideInInspector] FP CollectTime;
 }
 
-enum ConsumableType
+enum ConsumableType : Byte
 {
 	Health,
 	Rage,

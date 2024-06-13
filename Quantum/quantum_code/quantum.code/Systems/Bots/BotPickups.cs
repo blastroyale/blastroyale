@@ -107,7 +107,7 @@ namespace Quantum.Systems.Bots
 
 					var teamCollecting = false;
 
-					if (collectable->HasCollector(f, teamMembers))
+					if (collectable->HasCollector(f, entity, teamMembers))
 					{
 						continue;
 					}

@@ -52,28 +52,11 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Shared encapsulated code to request the current's <paramref name="equipment"/> durability on the
-		/// given <paramref name="timestamp"/>.
-		/// This code is to be used in Hub & Game Servers to validate given equipments are valid.
+		/// OBSOLETE
 		/// </summary>
 		public static uint GetCurrentDurability(this Equipment equipment, bool isNft, QuantumGameConfig config, long timestamp)
 		{
-			var rustTime = new TimeSpan(timestamp - equipment.LastRepairTimestamp);
-			//var dropDays = isNft ? config.NftDurabilityDropDays : config.NonNftDurabilityDropDays;
-			// TODO: Gabriel delete when we update the backend
-			var dropDays = FP._7;
-			
-			// We don't let days drop below 0, this way we can set LastRepairTimestamp in the future if needed
-			var daysOfRustingPassed = Math.Max(0d, rustTime.TotalDays);
-			
-			var durabilityDropped = (uint) Math.Floor(daysOfRustingPassed / dropDays.AsDouble);
-			
-			if ((isNft && !FeatureFlags.ITEM_DURABILITY_NFTS) || (!isNft && !FeatureFlags.ITEM_DURABILITY_NON_NFTS))
-			{
-				durabilityDropped = 0;
-			}
-
-			return equipment.MaxDurability - Math.Min(durabilityDropped, equipment.MaxDurability);
+			return 1;
 		}
 
 		/// <summary>

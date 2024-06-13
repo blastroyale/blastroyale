@@ -139,7 +139,6 @@ namespace FirstLight.Game.Infos
 			foreach (var nft in items)
 			{
 				total += nft.CurrentDurability;
-				maxDurability += nft.Equipment.MaxDurability;
 			}
 
 			return total;

@@ -56,17 +56,8 @@ namespace Quantum
 			Faction = faction;
 			Adjective = adjective;
 			Material = material;
-
-			MaxDurability = maxDurability;
-			InitialReplicationCounter = initialReplicationCounter;
-			Tuning = tuning;
-
-			Level = level;
-			Generation = generation;
-			ReplicationCounter = replicationCounter;
-			TotalRestoredDurability = totalRestoredDurability;
-
-			LastRepairTimestamp = lastRepairTimestamp;
+			Level = (ushort)level;
+		
 		}
 
 		/// <summary>
@@ -114,12 +105,10 @@ namespace Quantum
 		public bool Equals(Equipment other, bool ignoreRarity)
 		{
 			return (ignoreRarity || Rarity == other.Rarity) && Adjective == other.Adjective &&
-			       LastRepairTimestamp == other.LastRepairTimestamp && Edition == other.Edition &&
-			       Faction == other.Faction && GameId == other.GameId && Generation == other.Generation &&
-			       Grade == other.Grade && InitialReplicationCounter == other.InitialReplicationCounter &&
-			       Level == other.Level && Material == other.Material &&
-			       MaxDurability == other.MaxDurability &&
-			       ReplicationCounter == other.ReplicationCounter && Tuning == other.Tuning;
+			   Edition == other.Edition &&
+			       Faction == other.Faction && GameId == other.GameId  &&
+			       Grade == other.Grade &&
+			       Level == other.Level && Material == other.Material;
 		}
 
 		/// <summary>
@@ -134,7 +123,7 @@ namespace Quantum
 			{
 				GameId = id,
 				Rarity = rarity,
-				Level = level
+				Level = (ushort)level
 			};
 		}
 
@@ -151,17 +140,10 @@ namespace Quantum
 				hash = hash * 31 + (Int32) Edition;
 				hash = hash * 31 + (Int32) Faction;
 				hash = hash * 31 + (Int32) GameId;
-				hash = hash * 31 + Generation.GetHashCode();
 				hash = hash * 31 + (Int32) Grade;
-				hash = hash * 31 + InitialReplicationCounter.GetHashCode();
-				// hash = hash * 31 + LastRepairTimestamp.GetHashCode(); ; // ignored on server
 				hash = hash * 31 + Level.GetHashCode();
 				hash = hash * 31 + (Int32) Material;
-				hash = hash * 31 + MaxDurability.GetHashCode();
 				hash = hash * 31 + (Int32) Rarity;
-				hash = hash * 31 + ReplicationCounter.GetHashCode();
-				hash = hash * 31 + TotalRestoredDurability.GetHashCode();
-				hash = hash * 31 + Tuning.GetHashCode();
 				return hash;
 			}
 		}
@@ -173,17 +155,10 @@ namespace Quantum
 				$"{nameof(Adjective)}: {Adjective},\n" +
 				$"{nameof(Edition)}: {Edition},\n" +
 				$"{nameof(Faction)}: {Faction}\n" +
-				$"{nameof(Generation)}: {Generation}\n" +
 				$"{nameof(Grade)}: {Grade}\n" +
-				$"{nameof(InitialReplicationCounter)}: {InitialReplicationCounter}\n" +
-				$"{nameof(LastRepairTimestamp)}: {LastRepairTimestamp}\n" +
 				$"{nameof(Level)}: {Level}\n" +
 				$"{nameof(Material)}: {Material}\n" +
-				$"{nameof(MaxDurability)}: {MaxDurability}\n" +
-				$"{nameof(Rarity)}: {Rarity}\n" +
-				$"{nameof(ReplicationCounter)}: {ReplicationCounter}\n" +
-				$"{nameof(TotalRestoredDurability)}: {TotalRestoredDurability}\n" +
-				$"{nameof(Tuning)}: {Tuning}\n}}";
+				$"{nameof(Rarity)}: {Rarity}\n";
 		}
 	}
 }

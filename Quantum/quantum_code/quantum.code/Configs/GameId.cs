@@ -762,6 +762,20 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.ChestVitality, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.ChestAmmo, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
 					GameId.SpecialAimingAirstrike, new List<GameIdGroup>
 					{
 						GameIdGroup.Special
@@ -2403,6 +2417,8 @@ namespace Quantum
 						GameId.ChestEquipmentTutorial,
 						GameId.ChestWeapon,
 						GameId.ChestLegendary,
+						GameId.ChestVitality,
+						GameId.ChestAmmo,
 						GameId.SpecialAimingStunGrenade,
 						GameId.SpecialShieldSelf,
 						GameId.SpecialSkyLaserBeam,
@@ -2427,6 +2443,8 @@ namespace Quantum
 						GameId.ChestEquipmentTutorial,
 						GameId.ChestWeapon,
 						GameId.ChestLegendary,
+						GameId.ChestVitality,
+						GameId.ChestAmmo,
 						GameId.CoreRare,
 						GameId.CoreEpic,
 						GameId.CoreLegendary

@@ -693,7 +693,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 1
       - Chance:
-          RawValue: 16
+          RawValue: 47
         Amount: 1
         Pool:
         - ItemConfig:
@@ -1272,7 +1272,7 @@ MonoBehaviour:
               Tuning: 0
           Weight: 60
       - Chance:
-          RawValue: 65
+          RawValue: 194
         Amount: 1
         Pool:
         - ItemConfig:
@@ -1539,7 +1539,164 @@ MonoBehaviour:
               TotalRestoredDurability: 0
               Tuning: 0
           Weight: 1
+        - ItemConfig:
+            SimpleGameId: 127
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 10
       CollectableChestPickupRadius:
         RawValue: 111411
       CollectTime:
         RawValue: 131072
+    - Id: 220
+      ChestType: 5
+      AutoOpen: 1
+      DropTables:
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 20
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 28
+        - ItemConfig:
+            SimpleGameId: 4
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 72
+        - ItemConfig:
+            SimpleGameId: 127
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 2
+      CollectableChestPickupRadius:
+        RawValue: 65536
+      CollectTime:
+        RawValue: 65536
+    - Id: 221
+      ChestType: 6
+      AutoOpen: 1
+      DropTables:
+      - Chance:
+          RawValue: 65536
+        Amount: 1
+        Pool:
+        - ItemConfig:
+            SimpleGameId: 127
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 94
+        - ItemConfig:
+            SimpleGameId: 4
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 3
+        - ItemConfig:
+            SimpleGameId: 20
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Generation: 0
+              Grade: 0
+              InitialReplicationCounter: 0
+              LastRepairTimestamp: 0
+              Level: 0
+              Material: 0
+              MaxDurability: 0
+              Rarity: 0
+              ReplicationCounter: 0
+              TotalRestoredDurability: 0
+              Tuning: 0
+          Weight: 3
+      CollectableChestPickupRadius:
+        RawValue: 65536
+      CollectTime:
+        RawValue: 65536

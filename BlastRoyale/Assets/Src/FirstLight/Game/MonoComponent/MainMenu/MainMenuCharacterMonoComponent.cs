@@ -14,7 +14,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	{
 		private IGameDataProvider _gameDataProvider;
 		
-		private static bool _animationPlayed = false; // Hacky but this will be refactored
+		// private static bool _animationPlayed = false; // Hacky but this will be refactored
 
 		protected override void Awake()
 		{
@@ -48,10 +48,11 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS);
 			var melee = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.MELEE_SKINS);
 
-			await UpdateSkin(skin, !_animationPlayed);
+			// await UpdateSkin(skin, !_animationPlayed);
+			await UpdateSkin(skin, false);
 			await UpdateMeleeSkin(melee);
 
-			_animationPlayed = true;
+			// _animationPlayed = true;
 		}
 
 		private void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage msg)

@@ -158,6 +158,8 @@ namespace FirstLight.Editor.Ids
 			{"ChestEquipmentTutorial", 132, Chest, Collectable},
 			{"ChestWeapon", 134, Chest, Collectable},
 			{"ChestLegendary", 19, Chest, Collectable},
+			{"ChestVitality", 220, Chest, Collectable},
+			{"ChestAmmo", 221, Chest, Collectable},
 			{"SpecialAimingAirstrike", 10, Special},
 			{"SpecialAimingStunGrenade", 85, Special, Collectable},
 			{"SpecialShieldSelf", 89, Special, Collectable},

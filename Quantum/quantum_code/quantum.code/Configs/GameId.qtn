@@ -98,6 +98,8 @@ enum GameId
 	ChestEquipmentTutorial = 132,
 	ChestWeapon = 134,
 	ChestLegendary = 19,
+	ChestVitality = 220,
+	ChestAmmo = 221,
 	SpecialAimingAirstrike = 10,
 	SpecialAimingStunGrenade = 85,
 	SpecialShieldSelf = 89,

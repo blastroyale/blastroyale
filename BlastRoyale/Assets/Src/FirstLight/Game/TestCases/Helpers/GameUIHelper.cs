@@ -62,6 +62,7 @@ namespace FirstLight.Game.TestCases.Helpers
 				}
 				else
 				{
+					yield return new WaitForSeconds(4);
 					yield return _uiHelper.ClickNextButton();
 				}
 			}

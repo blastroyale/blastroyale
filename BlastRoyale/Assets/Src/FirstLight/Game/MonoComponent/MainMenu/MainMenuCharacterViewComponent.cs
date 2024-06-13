@@ -43,14 +43,10 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				_skin.TriggerFlair();
 				_nextFlareTime = Time.time + Random.Range(MIN_FLARE_DELAY, MAX_FLARE_DELAY);
 			}
-		}
-
-		private void FixedUpdate()
-		{
 			if (_inertia != 0)
 			{
 				const float DRAG = 0.93f;
-				_skin.transform.Rotate(Vector3.up, _inertia * Time.fixedDeltaTime);
+				_skin.transform.Rotate(Vector3.up, _inertia * Time.deltaTime);
 				_inertia *= DRAG;
 				if (Mathf.Abs(_inertia) < 0.01f)
 				{
@@ -58,6 +54,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				}
 			}
 		}
+		
 
 		public void OnDrag(PointerEventData eventData)
 		{

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -15,50 +16,39 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public struct GiveDefaultCollectionItemsCommand : IGameCommand
 	{
-		private static readonly ReadOnlyDictionary<CollectionCategory, List<GameId>> DiscordModItems = new (new Dictionary<CollectionCategory, List<GameId>>()
-		{
-			{
-				CollectionCategories.PROFILE_PICTURE, new List<GameId>()
-				{
-					GameId.Avatar1,
-				}
-			},
-			{
-				CollectionCategories.PLAYER_SKINS, new List<GameId>
-				{
-				}
-			},
-			{
-				CollectionCategories.GLIDERS, new List<GameId>
-				{
-				}
-			},
-			{
-				CollectionCategories.GRAVE, new List<GameId>
-				{
-				}
-			},
-			{
-				CollectionCategories.MELEE_SKINS, new List<GameId>
-				{
-					GameId.MeleeSkinCactus,
-					GameId.MeleeSkinPowerPan,
-				}
-			}
-		});
+		private static readonly GameId[] DiscordModItems = {
+			GameId.Avatar1,
+			GameId.MeleeSkinCactus,
+			GameId.MeleeSkinPowerPan,
+			GameId.MeleeSkinCactus,
+			GameId.PlayerSkinGearedApe,
+			GameId.PlayerSkinCupid,
+			GameId.FemaleAssassin,
+			GameId.FemalePunk,
+			GameId.MaleAssassin,
+			GameId.Rocket,
+			GameId.MeleeSkinYouGotMail,
+			GameId.MeleeSkinOutOfThePark,
+			GameId.MeleeSkinElectricSolo,
+			GameId.MeleeSkinTvTakedown
+		};
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Initialization;
-
 
 		/// <inheritdoc />
 		public UniTask Execute(CommandExecutionContext ctx)
 		{
 			GiveDefaultItems(ctx);
 			SyncItemsBasedOnFlag(ctx, PlayerFlags.DiscordMod, DiscordModItems, "discordmod");
-			SyncItemsBasedOnFlag(ctx, PlayerFlags.FLGOfficial, DiscordModItems, "flg");
+			SyncItemsBasedOnFlag(ctx, PlayerFlags.FLGOfficial, GetAllCollectionItems(ctx), "flg");
 			return UniTask.CompletedTask;
+		}
+
+		private IEnumerable<GameId> GetAllCollectionItems(CommandExecutionContext ctx)
+		{
+			return ctx.Logic.CollectionLogic().GetCollectionsCategories().SelectMany(c => c.Id.GetIds().ToList().Where(id => !id.IsInGroup(GameIdGroup.GenericCollectionItem)));
 		}
 
 		private void GiveDefaultItems(CommandExecutionContext ctx)
@@ -82,11 +72,11 @@ namespace FirstLight.Game.Commands
 			}
 		}
 
-		private void SyncItemsBasedOnFlag(CommandExecutionContext ctx, PlayerFlags flag, IReadOnlyDictionary<CollectionCategory, List<GameId>> itemsToGive, string itemtag)
+		private void SyncItemsBasedOnFlag(CommandExecutionContext ctx, PlayerFlags flag, IEnumerable<GameId> itemsToGive, string itemtag)
 		{
-			var isMod = ctx.Logic.PlayerLogic().Flags.HasFlag(flag);
+			var hasFlag = ctx.Logic.PlayerLogic().Flags.HasFlag(flag);
 
-			if (isMod)
+			if (hasFlag)
 			{
 				GiveItemsBasedOnTag(ctx, itemsToGive, itemtag);
 			}
@@ -120,31 +110,28 @@ namespace FirstLight.Game.Commands
 			}
 		}
 
-		private void GiveItemsBasedOnTag(CommandExecutionContext ctx, IReadOnlyDictionary<CollectionCategory, List<GameId>> itemsToGive, string itemtag)
+		private void GiveItemsBasedOnTag(CommandExecutionContext ctx, IEnumerable<GameId> itemsToGive, string itemtag)
 		{
-			foreach (var category in itemsToGive)
+			foreach (var id in itemsToGive)
 			{
-				foreach (var id in category.Value)
+				// Check if the mod already have the item, if so we don't give it again
+				if (ctx.Logic.CollectionLogic().IsItemOwned(ItemFactory.Collection(id)))
 				{
-					// Check if the mod already have the item, if so we don't give it again
-					if (ctx.Logic.CollectionLogic().IsItemOwned(ItemFactory.Collection(id)))
-					{
-						continue;
-					}
-
-					var collectible = ItemFactory.Collection(id, new CollectionTrait("origin", itemtag));
-					// If we already gave the item for the mod
-					if (ctx.Logic.CollectionLogic().IsItemOwned(collectible))
-					{
-						continue;
-					}
-
-					ctx.Logic.CollectionLogic().UnlockCollectionItem(collectible);
-					ctx.Services.MessageBrokerService().Publish(new CollectionItemUnlockedMessage()
-					{
-						EquippedItem = collectible
-					});
+					continue;
 				}
+
+				var collectible = ItemFactory.Collection(id, new CollectionTrait("origin", itemtag));
+				// If we already gave the item for the mod
+				if (ctx.Logic.CollectionLogic().IsItemOwned(collectible))
+				{
+					continue;
+				}
+
+				ctx.Logic.CollectionLogic().UnlockCollectionItem(collectible);
+				ctx.Services.MessageBrokerService().Publish(new CollectionItemUnlockedMessage()
+				{
+					EquippedItem = collectible
+				});
 			}
 		}
 	}

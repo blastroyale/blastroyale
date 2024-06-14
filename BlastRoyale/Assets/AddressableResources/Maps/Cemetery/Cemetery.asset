@@ -23,7 +23,7 @@ MonoBehaviour:
     Scene: CemeteryScene
     ScenePath: Assets/AddressableResources/Maps/Cemetery/CemeteryScene.unity
     SceneGuid: 4ad82073443106b49b53e42761c59d39
-    WorldSize: 80
+    WorldSize: 56
     BucketsCount: 16
     BucketsSubdivisions: 8
     BucketingAxis: 0
@@ -35,8 +35,8 @@ MonoBehaviour:
     OptionalTriangleMetadataSerializationEnabled: 1
     SerializeTrianglesMetadata: 0
     StaticColliders3DTrianglesBinaryFile: 
-    GridSizeX: 16
-    GridSizeY: 16
+    GridSizeX: 4
+    GridSizeY: 4
     GridNodeSize: 16
     NavMeshLinks:
     - Id:
@@ -2966,8 +2966,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -3115,8 +3118,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -3264,8 +3270,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -3413,8 +3422,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -3614,8 +3626,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -3815,8 +3830,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4016,8 +4034,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4217,8 +4238,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4418,8 +4442,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4619,8 +4646,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4820,8 +4850,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5021,8 +5054,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5222,8 +5258,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5310,8 +5349,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5398,8 +5440,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5486,8 +5531,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5574,8 +5622,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5662,8 +5713,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5750,8 +5804,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5838,8 +5895,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5926,8 +5986,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6014,8 +6077,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6102,8 +6168,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6190,8 +6259,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6278,8 +6350,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6366,8 +6441,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6454,8 +6532,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6542,8 +6623,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6630,8 +6714,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6718,8 +6805,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6806,8 +6896,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6894,8 +6987,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6982,8 +7078,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7070,8 +7169,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7158,8 +7260,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7246,8 +7351,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7334,8 +7442,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7422,8 +7533,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7510,8 +7624,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7598,8 +7715,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7686,8 +7806,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7774,8 +7897,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7862,8 +7988,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7950,8 +8079,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8038,8 +8170,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8126,8 +8261,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8214,8 +8352,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8302,8 +8443,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8390,8 +8534,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8478,8 +8625,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8566,8 +8716,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8654,8 +8807,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8742,8 +8898,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8830,8 +8989,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8918,8 +9080,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -9006,8 +9171,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -9094,8 +9262,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -9182,8 +9353,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -9270,8 +9444,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -9358,8 +9535,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -9446,8 +9626,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -9534,8 +9717,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -9622,8 +9808,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -9710,8 +9899,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -9798,8 +9990,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -9886,8 +10081,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -9974,8 +10172,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -10062,8 +10263,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -10150,8 +10354,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -10238,8 +10445,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -10326,8 +10536,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -10414,8 +10627,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -10502,8 +10718,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -10590,8 +10809,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -10678,8 +10900,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -10766,8 +10991,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -10854,8 +11082,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -10942,8 +11173,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -11030,8 +11264,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -11118,8 +11355,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -11206,8 +11446,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -11294,8 +11537,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -11382,8 +11628,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -11470,8 +11719,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -11558,8 +11810,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -11646,8 +11901,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -11734,8 +11992,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -11822,8 +12083,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -11910,8 +12174,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -11999,8 +12266,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -12084,8 +12354,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -12169,8 +12442,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -12254,8 +12530,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -12339,8 +12618,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -12424,8 +12706,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -12509,8 +12794,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -12594,8 +12882,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -12679,8 +12970,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -12764,8 +13058,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -12849,8 +13146,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -12934,8 +13234,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -13019,8 +13322,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -13104,8 +13410,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -13189,8 +13498,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -13274,8 +13586,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -13358,8 +13673,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -13440,7 +13758,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -13456,6 +13776,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -13538,7 +13859,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -13554,6 +13877,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -13636,7 +13960,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -13652,6 +13978,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -13734,7 +14061,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -13750,6 +14079,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -13832,7 +14162,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -13848,6 +14180,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -13930,7 +14263,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -13946,6 +14281,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -14028,7 +14364,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -14044,6 +14382,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -14126,7 +14465,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -14142,6 +14483,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -14224,7 +14566,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -14240,6 +14584,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -14322,7 +14667,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -14338,6 +14685,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -14420,7 +14768,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -14436,6 +14786,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -14518,7 +14869,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -14534,6 +14887,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -14616,7 +14970,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -14632,6 +14988,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -14714,7 +15071,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -14730,6 +15089,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -14812,7 +15172,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -14828,6 +15190,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -14910,7 +15273,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -14926,6 +15291,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -15008,7 +15374,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -15024,6 +15392,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -15106,7 +15475,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -15122,6 +15493,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -15204,7 +15576,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -15220,6 +15594,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -15302,7 +15677,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -15318,6 +15695,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -15400,7 +15778,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -15416,6 +15796,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -15498,7 +15879,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -15514,6 +15897,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -15596,7 +15980,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -15612,6 +15998,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -15694,7 +16081,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -15710,6 +16099,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -15792,7 +16182,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -15808,6 +16200,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -15890,7 +16283,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -15906,6 +16301,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -15988,7 +16384,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -16004,6 +16402,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -16086,7 +16485,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -16102,6 +16503,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -16184,7 +16586,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -16200,6 +16604,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -16282,7 +16687,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -16298,6 +16705,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -16380,7 +16788,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -16396,6 +16806,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -16478,7 +16889,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -16494,6 +16907,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -16576,7 +16990,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -16592,6 +17008,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []

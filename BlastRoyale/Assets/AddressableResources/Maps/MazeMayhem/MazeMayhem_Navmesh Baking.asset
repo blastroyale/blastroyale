@@ -16,11 +16,11 @@ MonoBehaviour:
     Identifier:
       Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_Navmesh Baking
       Guid:
-        Value: 2440465253894807376
+        Value: 1049868368744456114
     Name: Navmesh Baking
     DataAsset:
       Id:
-        Value: 4455590774678749724
+        Value: 2197360873231187991
     DataFilepath: 
     GridSizeX: 16
     GridSizeY: 16

@@ -20,28 +20,31 @@ MonoBehaviour:
     Entries:
     - Type: 3
       Key:
-        Key: StunDuration
+        Key: MoveSpeed
+    - Type: 2
+      Key:
+        Key: AimAngle
     - Type: 0
       Key:
         Key: IsKnockedOut
     - Type: 3
       Key:
-        Key: BurstShotCount
-    - Type: 2
-      Key:
-        Key: AimAngle
+        Key: AimingMovementSpeed
     - Type: 3
       Key:
-        Key: MoveSpeed
+        Key: BurstShotCount
     - Type: 0
       Key:
         Key: IsShooting
-    - Type: 3
-      Key:
-        Key: AimingMovementSpeed
     - Type: 0
       Key:
         Key: IsSkydiving
+    - Type: 3
+      Key:
+        Key: StunDuration
+    - Type: 3
+      Key:
+        Key: LastShotAt
     - Type: 4
       Key:
         Key: AimDirection
@@ -50,25 +53,22 @@ MonoBehaviour:
         Key: MagazineSize
     - Type: 3
       Key:
-        Key: BurstTimeDelay
-    - Type: 3
-      Key:
         Key: AttackPrepareDuration
     - Type: 3
       Key:
-        Key: LastShotAt
-    - Type: 3
-      Key:
-        Key: NumberOfBursts
-    - Type: 0
-      Key:
-        Key: HasMeleeWeapon
+        Key: BurstTimeDelay
     - Type: 0
       Key:
         Key: IsAimPressed
+    - Type: 0
+      Key:
+        Key: HasMeleeWeapon
     - Type: 4
       Key:
         Key: MoveDirection
+    - Type: 3
+      Key:
+        Key: NumberOfBursts
     - Type: 3
       Key:
         Key: AttackCooldown

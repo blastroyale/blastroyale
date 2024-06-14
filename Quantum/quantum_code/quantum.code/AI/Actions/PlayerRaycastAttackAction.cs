@@ -17,7 +17,6 @@ namespace Quantum
 		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			// NOT USED
-			Log.Info("PACO PlayerRaycastAttackAction");
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);

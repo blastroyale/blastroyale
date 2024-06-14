@@ -27,7 +27,6 @@ namespace Quantum
 		public AssetRefEntityPrototype BulletEndOfLifetimePrototype;
 		public SubProjectileHitType HitType;
 		public int MagazineSize;
-		public FP ReloadTime;
 		public FP AimingMovementSpeed;
 		public FP AttackPrepareDuration;
 		public FP AttackCooldown;

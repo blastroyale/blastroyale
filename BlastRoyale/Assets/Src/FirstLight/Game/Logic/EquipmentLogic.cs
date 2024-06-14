@@ -22,9 +22,7 @@ namespace FirstLight.Game.Logic
 		All, 
 		NftOnly,
 		NftOnlyNotOnCooldown,
-		NoNftOnly,
-		Broken,
-		Unbroken
+		NoNftOnly
 	}
 	
 	/// <summary>
@@ -257,28 +255,13 @@ namespace FirstLight.Game.Logic
 
 		public EquipmentInfo GetInfo(Equipment equipment, bool isNft)
 		{
-			var nextEquipment = equipment;
-			nextEquipment.Level++;
-
-			var nextRarityEquipment = equipment;
-			nextRarityEquipment.Rarity++;
-			
-			var durability =
-				equipment.GetCurrentDurability(isNft, GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>(),
-					GameLogic.TimeService.DateTimeUtcNow.Ticks);
-
 			return new EquipmentInfo
 			{
 				Equipment = equipment,
 				ScrappingValue = GetScrappingReward(equipment, isNft),
-				UpgradeCost = GetUpgradeCost(equipment, isNft),
-				RepairCost = GetRepairCost(equipment, isNft),
-				FuseCost = GetFuseCost(equipment),
-				CurrentDurability = durability,
 				IsNft = isNft,
 				MaxLevel = GetMaxLevel(equipment),
 				Manufacturer = GetManufacturer(equipment),
-				Stats = equipment.GetStats(GameLogic.ConfigsProvider)
 			};
 		}
 
@@ -309,8 +292,6 @@ namespace FirstLight.Game.Logic
 		public List<EquipmentInfo> GetLoadoutEquipmentInfo(EquipmentFilter filter)
 		{
 			var ret = new List<EquipmentInfo>();
-			var config = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var timestamp = GameLogic.TimeService.DateTimeUtcNow.Ticks;
 
 			foreach (var (slot, id) in _loadout)
 			{
@@ -324,14 +305,6 @@ namespace FirstLight.Game.Logic
 					continue;
 				}
 
-				var durability = _inventory[id].GetCurrentDurability(contains, config, timestamp);
-
-				if (filter == EquipmentFilter.Broken && durability > 0 ||
-				    filter == EquipmentFilter.Unbroken && durability == 0)
-				{
-					continue;
-				}
-
 				ret.Add(GetInfo(id));
 			}
 
@@ -341,8 +314,6 @@ namespace FirstLight.Game.Logic
 		public List<EquipmentInfo> GetInventoryEquipmentInfo(EquipmentFilter filter)
 		{
 			var ret = new List<EquipmentInfo>();
-			var config = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var timestamp = GameLogic.TimeService.DateTimeUtcNow.Ticks;
 
 			foreach (var (id, equipment) in _inventory)
 			{
@@ -352,14 +323,6 @@ namespace FirstLight.Game.Logic
 				    || filter == EquipmentFilter.NoNftOnly && contains
 				    || filter == EquipmentFilter.NftOnlyNotOnCooldown &&
 				    (!contains || (TryGetNftInfo(id, out var nftInfo) && nftInfo.IsOnCooldown)))
-				{
-					continue;
-				}
-
-				var durability = _inventory[id].GetCurrentDurability(contains, config, timestamp);
-
-				if (filter == EquipmentFilter.Broken && durability > 0 ||
-				    filter == EquipmentFilter.Unbroken && durability == 0)
 				{
 					continue;
 				}
@@ -373,8 +336,6 @@ namespace FirstLight.Game.Logic
 		public int GetInventoryEquipmentCount(EquipmentFilter filter)
 		{
 			var count = 0;
-			var config = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var timestamp = GameLogic.TimeService.DateTimeUtcNow.Ticks;
 
 			foreach (var (id, _) in _inventory)
 			{
@@ -384,14 +345,6 @@ namespace FirstLight.Game.Logic
 					|| filter == EquipmentFilter.NoNftOnly && contains
 					|| filter == EquipmentFilter.NftOnlyNotOnCooldown &&
 					(!contains || (TryGetNftInfo(id, out var nftInfo) && nftInfo.IsOnCooldown)))
-				{
-					continue;
-				}
-
-				var durability = _inventory[id].GetCurrentDurability(contains, config, timestamp);
-
-				if (filter == EquipmentFilter.Broken && durability > 0 ||
-					filter == EquipmentFilter.Unbroken && durability == 0)
 				{
 					continue;
 				}
@@ -486,16 +439,10 @@ namespace FirstLight.Game.Logic
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();
-			var config = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
 			if (!Inventory.TryGetValue(itemId, out var equipment))
 			{
 				throw new LogicException($"The player does not own item {itemId} - {equipment.GameId.ToString()}");
-			}
-			
-			if (equipment.GetCurrentDurability(NftInventory.ContainsKey(itemId), config, GameLogic.TimeService.DateTimeUtcNow.Ticks) == 0)
-			{
-				throw new LogicException($"Item {itemId} - {equipment.GameId.ToString()} is broken");
 			}
 
 			if (_loadout.TryGetValue(slot, out var equippedId))

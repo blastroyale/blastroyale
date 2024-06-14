@@ -39,10 +39,10 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 32768
-      TapCooldown:
-        RawValue: 49152
+      AttackPrepareDuration:
+        RawValue: 16384
       AttackCooldown:
-        RawValue: 49152
+        RawValue: 32768
       PowerToDamageRatio:
         RawValue: 10079
       AttackHitSpeed:
@@ -56,10 +56,6 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
-        RawValue: 0
-      InitialAttackCooldown:
-        RawValue: 0
-      InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 0
     - Id: 87
@@ -81,8 +77,8 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 36045
-      TapCooldown:
-        RawValue: 3932
+      AttackPrepareDuration:
+        RawValue: 0
       AttackCooldown:
         RawValue: 3932
       PowerToDamageRatio:
@@ -98,10 +94,6 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
-        RawValue: 0
-      InitialAttackCooldown:
-        RawValue: 0
-      InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 1
     - Id: 91
@@ -123,8 +115,8 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 58982
-      TapCooldown:
-        RawValue: 8520
+      AttackPrepareDuration:
+        RawValue: 0
       AttackCooldown:
         RawValue: 8520
       PowerToDamageRatio:
@@ -140,10 +132,6 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
-        RawValue: 0
-      InitialAttackCooldown:
-        RawValue: 0
-      InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 0
     - Id: 90
@@ -165,8 +153,8 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 52429
-      TapCooldown:
-        RawValue: 72090
+      AttackPrepareDuration:
+        RawValue: 0
       AttackCooldown:
         RawValue: 72090
       PowerToDamageRatio:
@@ -182,10 +170,6 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
-        RawValue: 0
-      InitialAttackCooldown:
-        RawValue: 0
-      InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 0
     - Id: 92
@@ -207,8 +191,8 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 52429
-      TapCooldown:
-        RawValue: 11141
+      AttackPrepareDuration:
+        RawValue: 0
       AttackCooldown:
         RawValue: 11141
       PowerToDamageRatio:
@@ -224,10 +208,6 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
-        RawValue: 0
-      InitialAttackCooldown:
-        RawValue: 0
-      InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 0
     - Id: 94
@@ -249,8 +229,8 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 39322
-      TapCooldown:
-        RawValue: 111411
+      AttackPrepareDuration:
+        RawValue: 0
       AttackCooldown:
         RawValue: 111411
       PowerToDamageRatio:
@@ -267,10 +247,6 @@ MonoBehaviour:
         RawValue: 81920
       SplashDamageRatio:
         RawValue: 4456448
-      InitialAttackCooldown:
-        RawValue: 0
-      InitialAttackRampUpTime:
-        RawValue: 0
       UseRangedCam: 1
     - Id: 88
       FiringMode: 0
@@ -291,8 +267,8 @@ MonoBehaviour:
         RawValue: 32768
       AimingMovementSpeed:
         RawValue: 55706
-      TapCooldown:
-        RawValue: 16384
+      AttackPrepareDuration:
+        RawValue: 0
       AttackCooldown:
         RawValue: 16384
       PowerToDamageRatio:
@@ -308,10 +284,6 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
-        RawValue: 0
-      InitialAttackCooldown:
-        RawValue: 0
-      InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 0
     - Id: 93
@@ -333,8 +305,8 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 36045
-      TapCooldown:
-        RawValue: 65536
+      AttackPrepareDuration:
+        RawValue: 0
       AttackCooldown:
         RawValue: 65536
       PowerToDamageRatio:
@@ -350,9 +322,5 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
-        RawValue: 0
-      InitialAttackCooldown:
-        RawValue: 0
-      InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 1

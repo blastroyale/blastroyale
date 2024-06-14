@@ -16,6 +16,7 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
+			// NOT USED
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
@@ -33,15 +34,6 @@ namespace Quantum
 				   QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
 				   FP._0;
 
-			//only do attackSpeed ramping if the weapon has it
-			var rampUpStartTime = bb->GetFP(f, Constants.RampUpTimeStart);
-			if (weaponConfig.InitialAttackRampUpTime != FP._0)
-			{
-				var timeDiff = f.Time - rampUpStartTime;
-				var currentAttackCooldown = FPMath.Lerp(weaponConfig.InitialAttackCooldown, weaponConfig.AttackCooldown, 
-					timeDiff / weaponConfig.InitialAttackRampUpTime);
-				bb->Set(f, nameof(weaponConfig.AttackCooldown), currentAttackCooldown);
-			}
 
 			var raycastShot = new RaycastShots
 			{

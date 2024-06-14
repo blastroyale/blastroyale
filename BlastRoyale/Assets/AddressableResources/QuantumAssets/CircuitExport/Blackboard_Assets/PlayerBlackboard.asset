@@ -18,72 +18,57 @@ MonoBehaviour:
       Guid:
         Value: 2204164627415752385
     Entries:
+    - Type: 3
+      Key:
+        Key: MoveSpeed
     - Type: 2
       Key:
-        Key: MagazineSize
-    - Type: 0
-      Key:
-        Key: IsShooting
+        Key: AimAngle
     - Type: 0
       Key:
         Key: IsKnockedOut
     - Type: 3
       Key:
-        Key: TapCooldown
-    - Type: 2
-      Key:
-        Key: AimAngle
-    - Type: 3
-      Key:
-        Key: BurstShotCount
-    - Type: 3
-      Key:
-        Key: MoveSpeed
-    - Type: 3
-      Key:
         Key: AimingMovementSpeed
     - Type: 3
       Key:
-        Key: RampUpTimeStart
-    - Type: 3
+        Key: BurstShotCount
+    - Type: 0
       Key:
-        Key: StunDuration
+        Key: IsShooting
     - Type: 0
       Key:
         Key: IsSkydiving
-    - Type: 4
-      Key:
-        Key: AimDirection
     - Type: 3
       Key:
-        Key: BurstTimeDelay
-    - Type: 3
-      Key:
-        Key: NextShotTime
+        Key: StunDuration
     - Type: 3
       Key:
         Key: LastShotAt
+    - Type: 4
+      Key:
+        Key: AimDirection
+    - Type: 2
+      Key:
+        Key: MagazineSize
     - Type: 3
       Key:
-        Key: InitialAttackCooldown
+        Key: AttackPrepareDuration
     - Type: 3
       Key:
-        Key: ReloadTime
-    - Type: 3
-      Key:
-        Key: NumberOfBursts
-    - Type: 0
-      Key:
-        Key: HasMeleeWeapon
+        Key: BurstTimeDelay
     - Type: 0
       Key:
         Key: IsAimPressed
-    - Type: 3
+    - Type: 0
       Key:
-        Key: NextTapTime
+        Key: HasMeleeWeapon
     - Type: 4
       Key:
         Key: MoveDirection
+    - Type: 3
+      Key:
+        Key: NumberOfBursts
     - Type: 3
       Key:
         Key: AttackCooldown

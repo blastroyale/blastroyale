@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\Actions\AttackPrepareEventAction.cs" />
     <Compile Include="AI\Actions\PlayerActivateAction.cs" />
     <Compile Include="AI\Actions\PlayerOnBurstCompleteAction.cs" />
     <Compile Include="AI\Actions\PlayerReloadAction.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="AI\Functions\HFSM.FPVector3SqrtMagnitudeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.FPSumFunction.cs" />
     <Compile Include="AI\Functions\HFSM.GetAmmoCountFunction.cs" />
+    <Compile Include="AI\Functions\HFSM.ResolveBlackboardFP.cs" />
     <Compile Include="AI\Functions\HFSM.StatFunction.cs" />
     <Compile Include="AI\Functions\HFSM.FPMultiplierFunction.cs" />
     <Compile Include="AI\Functions\HFSM.FPVector3SumFunction.cs" />

@@ -116,31 +116,26 @@ namespace FirstLight.Tests.EditorMode.Logic
 				{
 					Equipment = new Equipment(GameId.BaseballArmor, rarity: EquipmentRarity.RarePlus,
 						grade: EquipmentGrade.GradeV, adjective: EquipmentAdjective.Regular, maxDurability: 100),
-					CurrentDurability = 50
 				},
 				new()
 				{
 					Equipment = new Equipment(GameId.SciCannon, rarity: EquipmentRarity.Rare,
 						grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Exquisite, maxDurability: 100),
-					CurrentDurability = 70
 				},
 				new()
 				{
 					Equipment = new Equipment(GameId.MouseAmulet, rarity: EquipmentRarity.Uncommon,
 						grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Cool, maxDurability: 100),
-					CurrentDurability = 65
 				},
 				new()
 				{
 					Equipment = new Equipment(GameId.RoadShield, rarity: EquipmentRarity.Legendary,
 						grade: EquipmentGrade.GradeI, adjective: EquipmentAdjective.Royal, maxDurability: 100),
-					CurrentDurability = 34
 				},
 				new()
 				{
 					Equipment = new Equipment(GameId.BaseballHelmet, rarity: EquipmentRarity.LegendaryPlus,
 						grade: EquipmentGrade.GradeIV, adjective: EquipmentAdjective.Divine, maxDurability: 100),
-					CurrentDurability = 97
 				},
 			};
 
@@ -150,31 +145,26 @@ namespace FirstLight.Tests.EditorMode.Logic
 				{
 					Equipment = new Equipment(GameId.FootballArmor, rarity: EquipmentRarity.Common,
 						grade: EquipmentGrade.GradeIV, adjective: EquipmentAdjective.Regular, maxDurability: 100),
-					CurrentDurability = 90
 				},
 				new()
 				{
 					Equipment = new Equipment(GameId.ModPistol, rarity: EquipmentRarity.Common,
 						grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Regular, maxDurability: 100),
-					CurrentDurability = 80
 				},
 				new()
 				{
 					Equipment = new Equipment(GameId.RiotAmulet, rarity: EquipmentRarity.Uncommon,
 						grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Cool, maxDurability: 100),
-					CurrentDurability = 65
 				},
 				new()
 				{
 					Equipment = new Equipment(GameId.WarriorShield, rarity: EquipmentRarity.CommonPlus,
 						grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Regular, maxDurability: 100),
-					CurrentDurability = 66
 				},
 				new()
 				{
 					Equipment = new Equipment(GameId.HockeyHelmet, rarity: EquipmentRarity.Rare,
 						grade: EquipmentGrade.GradeV, adjective: EquipmentAdjective.Regular, maxDurability: 100),
-					CurrentDurability = 100
 				},
 			};
 

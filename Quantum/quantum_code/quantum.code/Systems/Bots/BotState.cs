@@ -116,13 +116,6 @@ namespace Quantum
 		{
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botEntity);
 			bb->Set(f, Constants.IsAimPressedKey, true);
-			if (bot.Target != target)
-			{
-				var player = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
-				var weaponConfig = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
-				PlayerCharacterSystem.OnStartAiming(f, bb, weaponConfig);
-			}
-
 			bot.Target = target;
 		}
 

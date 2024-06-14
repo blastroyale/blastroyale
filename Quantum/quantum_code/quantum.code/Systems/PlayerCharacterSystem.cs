@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Deterministic;
@@ -16,7 +15,6 @@ namespace Quantum.Systems
 	{
 		private static readonly FP TURN_RATE = FP._0_50 + FP._0_05;
 		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + FP._0_25;
-		public static readonly FP AIM_DELAY = FP._0_50;
 
 		public struct PlayerCharacterFilter
 		{
@@ -95,7 +93,7 @@ namespace Quantum.Systems
 				}
 				else
 				{
-					membersByTeam["p" + i] = new HashSet<int>() { i };
+					membersByTeam["p" + i] = new HashSet<int>() {i};
 				}
 			}
 
@@ -145,7 +143,8 @@ namespace Quantum.Systems
 				consumablesToDrop.Add(consumable);
 
 				if (playerDead->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid()
-					&& f.RNG->Next(FP._0, FP._1) < Constants.CHANCE_TO_DROP_WEAPON_ON_DEATH) //also drop the target player's weapon
+					&& f.RNG->Next(FP._0, FP._1) <
+					Constants.CHANCE_TO_DROP_WEAPON_ON_DEATH) //also drop the target player's weapon
 				{
 					equipmentToDrop.Add(playerDead->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon);
 				}
@@ -158,7 +157,8 @@ namespace Quantum.Systems
 							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.Health, GameId.ShieldSmall));
 							break;
 						case GameId.Health:
-							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall));
+							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall,
+								GameId.ShieldSmall));
 							break;
 						case GameId.ShieldSmall:
 							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.Health));
@@ -215,7 +215,8 @@ namespace Quantum.Systems
 				new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
 					f.RNG->Next(-gridSquareSize, gridSquareSize));
 			var spawner = QuantumHelpers.GetPlayerSpawnPosition(f, spawnPosition);
-			var spawnTransform = new Transform3D { Position = spawner.Component->Position, Rotation = spawner.Component->Rotation };
+			var spawnTransform = new Transform3D
+				{Position = spawner.Component->Position, Rotation = spawner.Component->Rotation};
 
 			var kccConfig = f.FindAsset<CharacterController3DConfig>(playerCharacter->KccConfigRef.Id);
 			var setup = new PlayerCharacterSetup()
@@ -240,21 +241,6 @@ namespace Quantum.Systems
 			f.Destroy(spawner.Entity);
 		}
 
-		/// <summary>
-		/// When player starts to aim, there is an initial delay for when a bullet needs to be fired.
-		/// </summary>
-		public static void OnStartAiming(Frame f, AIBlackboardComponent* bb, in QuantumWeaponConfig weaponConfig)
-		{
-			if (weaponConfig.IsMeleeWeapon) return; // melee weapons are instant
-			var nextShotTime = bb->GetFP(f, nameof(Constants.NextShotTime));
-			var expectedAimDelayShot = f.Time + AIM_DELAY;
-			var isInCooldown = nextShotTime > f.Time;
-			// If the shoot cooldown will finish after the aim delay, we use it instead
-			if (isInCooldown && nextShotTime > expectedAimDelayShot) expectedAimDelayShot = nextShotTime;
-			bb->Set(f, nameof(Constants.NextShotTime), expectedAimDelayShot);
-			bb->Set(f, nameof(Constants.NextTapTime), expectedAimDelayShot);
-		}
-
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)
 		{
 			// Do not process input if player is stunned or not alive
@@ -272,16 +258,16 @@ namespace Quantum.Systems
 			}
 
 			var input = f.GetPlayerInput(filter.Player->Player);
-			
+
 			// Check inactivity only up to certain time and only in ranked matches
 			if (f.Time > f.GameConfig.NoInputStartChecking &&
 				f.Time < f.GameConfig.NoInputStopChecking &&
 				f.RuntimeConfig.AllowedRewards != null &&
-				f.RuntimeConfig.AllowedRewards.Contains((int)GameId.Trophies))
+				f.RuntimeConfig.AllowedRewards.Contains((int) GameId.Trophies))
 			{
 				ProcessNoInputWarning(f, ref filter, input->GetHashCode());
 			}
-			
+
 			var rotation = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
 			var prevRotation = bb->GetVector2(f, Constants.AimDirectionKey);
@@ -290,9 +276,7 @@ namespace Quantum.Systems
 			var direction = input->Direction;
 			var aim = input->AimingDirection;
 			var shooting = input->IsShooting && !isKnockedOut;
-			var lastShotAt = bb->GetFP(f, Constants.LastShotAt);
 			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
-			var attackCooldown = f.Time < lastShotAt + (weaponConfig.IsMeleeWeapon ? FP._0_33 : FP._0_20);
 
 			if (direction != FPVector2.Zero)
 			{
@@ -308,10 +292,6 @@ namespace Quantum.Systems
 			{
 				rotation = aim;
 			}
-			else if (attackCooldown)
-			{
-				rotation = prevRotation;
-			}
 
 			//this way you save your previous attack angle when flicking and only return your movement angle when your shot is finished
 			if (rotation == FPVector2.Zero && bb->GetBoolean(f, Constants.IsShootingKey))
@@ -324,17 +304,10 @@ namespace Quantum.Systems
 				rotation = direction;
 			}
 
-			var wasShooting = bb->GetBoolean(f, Constants.IsAimPressedKey);
-
 			bb->Set(f, Constants.IsAimPressedKey, shooting);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
 			bb->Set(f, Constants.MoveSpeedKey, 1);
-
-			if (!wasShooting && shooting)
-			{
-				OnStartAiming(f, bb, weaponConfig);
-			}
 
 			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
 			if (aimDirection.SqrMagnitude > FP._0)
@@ -374,8 +347,9 @@ namespace Quantum.Systems
 				else if (f.Time - filter.Player->LastNoInputTimeSnapshot > f.GameConfig.NoInputWarningTime
 						 && f.Time - filter.Player->LastNoInputTimeSnapshot < f.GameConfig.NoInputWarningTime + FP._1)
 				{
-					f.Events.OnLocalPlayerNoInput(f.Unsafe.GetPointer<PlayerCharacter>(filter.Entity)->Player, filter.Entity);
-						
+					f.Events.OnLocalPlayerNoInput(f.Unsafe.GetPointer<PlayerCharacter>(filter.Entity)->Player,
+						filter.Entity);
+
 					// A hack with a time counter to avoid sending more than a single event
 					filter.Player->LastNoInputTimeSnapshot -= FP._1_50;
 				}
@@ -384,7 +358,7 @@ namespace Quantum.Systems
 			{
 				filter.Player->LastNoInputTimeSnapshot = f.Time;
 			}
-			
+
 			filter.Player->InputSnapshot = inputHashCode;
 		}
 
@@ -395,7 +369,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-			
+
 			var seconds = healthPerSecondsMutatorConfig.Param2.AsInt;
 
 			// It will heal every x frames
@@ -408,8 +382,8 @@ namespace Quantum.Systems
 			}
 
 			var health = healthPerSecondsMutatorConfig.Param1.AsInt;
-			
-			var spell = new Spell() { PowerAmount = (uint)health };
+
+			var spell = new Spell() {PowerAmount = (uint) health};
 			if (health > 0)
 			{
 				stats->GainHealth(f, filter.Entity, &spell);
@@ -422,7 +396,8 @@ namespace Quantum.Systems
 
 		public bool OnCharacterCollision3D(FrameBase f, EntityRef character, Hit3D hit)
 		{
-			var blockMovement = !QuantumFeatureFlags.TEAM_IGNORE_COLLISION || !TeamSystem.HasSameTeam(f, character, hit.Entity);
+			var blockMovement = !QuantumFeatureFlags.TEAM_IGNORE_COLLISION ||
+				!TeamSystem.HasSameTeam(f, character, hit.Entity);
 			if (!QuantumFeatureFlags.PLAYER_PUSHING) return blockMovement;
 			if (blockMovement && f.TryGet<CharacterController3D>(hit.Entity, out var enemyKcc) &&
 				f.TryGet<CharacterController3D>(character, out var myKcc))

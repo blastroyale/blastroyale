@@ -22,13 +22,13 @@ MonoBehaviour:
       Id:
         Value: 2204164627415752385
     InitialValues:
-    - Key: IsShooting
+    - Key: MoveSpeed
       Value:
         AsBoolean: 0
         AsByte: 0
         AsInteger: 0
         AsFP:
-          RawValue: 0
+          RawValue: 65536
         AsFPVector2:
           X:
             RawValue: 0
@@ -66,13 +66,13 @@ MonoBehaviour:
         AsAssetRef:
           Id:
             Value: 0
-    - Key: MoveSpeed
+    - Key: IsShooting
       Value:
         AsBoolean: 0
         AsByte: 0
         AsInteger: 0
         AsFP:
-          RawValue: 65536
+          RawValue: 0
         AsFPVector2:
           X:
             RawValue: 0
@@ -89,6 +89,28 @@ MonoBehaviour:
           Id:
             Value: 0
     - Key: IsSkydiving
+      Value:
+        AsBoolean: 0
+        AsByte: 0
+        AsInteger: 0
+        AsFP:
+          RawValue: 0
+        AsFPVector2:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        AsFPVector3:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        AsAssetRef:
+          Id:
+            Value: 0
+    - Key: AttackPrepareDuration
       Value:
         AsBoolean: 0
         AsByte: 0

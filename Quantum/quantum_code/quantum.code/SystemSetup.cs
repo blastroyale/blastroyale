@@ -61,7 +61,7 @@ namespace Quantum
 				new TeamSystem(), // needs to be after bots
 
 				// Debugging
-				new BotSDKDebuggerSystem(),
+				// new BotSDKDebuggerSystem(),
 
 				// Finalizer systems
 				new GameSystem(),

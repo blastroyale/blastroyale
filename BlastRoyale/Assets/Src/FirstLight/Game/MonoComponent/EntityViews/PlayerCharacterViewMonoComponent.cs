@@ -401,12 +401,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (EntityView.EntityRef != callback.PlayerEntity) return;
 			if (_skin.WeaponType == WeaponType.Melee)
 			{
-				FLog.Info("PACO", "Melee Attack");
-				return; // Handled in OnAttackPrepare
+				return; // Animation for melees is triggered in OnAttackPrepare
 			}
-		
 
-		_skin.TriggerAttack();
+			_skin.TriggerAttack();
 			TryStartAttackWithinVisVolume();
 		}
 		
@@ -416,7 +414,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			if (_skin.WeaponType == WeaponType.Melee)
 			{
-				FLog.Info("PACO", "Melee Prepare");
 				_skin.TriggerAttack();
 			}
 		}
@@ -425,9 +422,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (EntityView.EntityRef != callback.Entity) return;
 
-
-			//TODO: bespoke animation for each special 
-			//AnimatorWrapper.SetTrigger(Triggers.Special);
 			TryStartAttackWithinVisVolume();
 		}
 

@@ -63,7 +63,7 @@ namespace FirstLight.Game.TestCases.FirebaseLab
 
 		public virtual void WriteLine(string text)
 		{
-			Debug.LogError("TesterLog: " + text);
+			Debug.Log("TesterLog: " + text);
 		}
 
 		public void WriteHeaders()

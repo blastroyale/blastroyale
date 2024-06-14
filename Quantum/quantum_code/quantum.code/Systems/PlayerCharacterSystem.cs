@@ -15,8 +15,6 @@ namespace Quantum.Systems
 	{
 		private static readonly FP TURN_RATE = FP._0_50 + FP._0_05;
 		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + FP._0_25;
-		public static readonly FP GUN_AIM_DELAY = FP._0_50;
-		public static readonly FP MELEE_AIM_DELAY = FP._0_02 + FP._0_05;
 
 		public struct PlayerCharacterFilter
 		{
@@ -243,26 +241,6 @@ namespace Quantum.Systems
 			f.Destroy(spawner.Entity);
 		}
 
-		/// <summary>
-		/// When player starts to aim, there is an initial delay for when a bullet needs to be fired.
-		/// </summary>
-		public static void OnStartAiming(Frame f, AIBlackboardComponent* bb, in QuantumWeaponConfig weaponConfig,
-										 PlayerCharacter* player, EntityRef entity)
-		{
-			var nextShotTime = bb->GetFP(f, nameof(Constants.NextShotTime));
-			var expectedAimDelayShot = f.Time + (weaponConfig.IsMeleeWeapon ? MELEE_AIM_DELAY : GUN_AIM_DELAY);
-			var isInCooldown = nextShotTime > f.Time;
-			// If the shoot cooldown will finish after the aim delay, we use it instead
-			if (isInCooldown && nextShotTime > expectedAimDelayShot) expectedAimDelayShot = nextShotTime;
-			bb->Set(f, nameof(Constants.NextShotTime), expectedAimDelayShot);
-			bb->Set(f, nameof(Constants.NextTapTime), expectedAimDelayShot);
-
-			// if (weaponConfig.IsMeleeWeapon)
-			// {
-			// 	f.Events.OnPlayerAttackPrepare(player->Player, entity);
-			// }
-		}
-
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)
 		{
 			// Do not process input if player is stunned or not alive
@@ -298,9 +276,7 @@ namespace Quantum.Systems
 			var direction = input->Direction;
 			var aim = input->AimingDirection;
 			var shooting = input->IsShooting && !isKnockedOut;
-			var lastShotAt = bb->GetFP(f, Constants.LastShotAt);
 			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
-			var attackOnCooldown = f.Time < lastShotAt + (weaponConfig.IsMeleeWeapon ? MELEE_AIM_DELAY : GUN_AIM_DELAY);
 
 			if (direction != FPVector2.Zero)
 			{
@@ -316,10 +292,6 @@ namespace Quantum.Systems
 			{
 				rotation = aim;
 			}
-			else if (attackOnCooldown)
-			{
-				rotation = prevRotation;
-			}
 
 			//this way you save your previous attack angle when flicking and only return your movement angle when your shot is finished
 			if (rotation == FPVector2.Zero && bb->GetBoolean(f, Constants.IsShootingKey))
@@ -332,17 +304,10 @@ namespace Quantum.Systems
 				rotation = direction;
 			}
 
-			var wasShooting = bb->GetBoolean(f, Constants.IsAimPressedKey);
-
 			bb->Set(f, Constants.IsAimPressedKey, shooting);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
 			bb->Set(f, Constants.MoveSpeedKey, 1);
-
-			if (!wasShooting && shooting)
-			{
-				OnStartAiming(f, bb, weaponConfig, filter.Player, filter.Entity);
-			}
 
 			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
 			if (aimDirection.SqrMagnitude > FP._0)
@@ -382,8 +347,9 @@ namespace Quantum.Systems
 				else if (f.Time - filter.Player->LastNoInputTimeSnapshot > f.GameConfig.NoInputWarningTime
 						 && f.Time - filter.Player->LastNoInputTimeSnapshot < f.GameConfig.NoInputWarningTime + FP._1)
 				{
-					f.Events.OnLocalPlayerNoInput(f.Unsafe.GetPointer<PlayerCharacter>(filter.Entity)->Player, filter.Entity);
-						
+					f.Events.OnLocalPlayerNoInput(f.Unsafe.GetPointer<PlayerCharacter>(filter.Entity)->Player,
+						filter.Entity);
+
 					// A hack with a time counter to avoid sending more than a single event
 					filter.Player->LastNoInputTimeSnapshot -= FP._1_50;
 				}

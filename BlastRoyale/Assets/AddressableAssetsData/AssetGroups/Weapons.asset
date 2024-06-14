@@ -16,7 +16,12 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 5f94bb782cc764034b58d834e25cec2e
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 1250fecbdfd1ed4409b49d55eca2f400
+    m_Address: Assets/AddressableResources/WeaponsLegacy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

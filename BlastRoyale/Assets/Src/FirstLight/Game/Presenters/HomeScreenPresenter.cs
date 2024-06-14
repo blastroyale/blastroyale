@@ -206,7 +206,9 @@ namespace FirstLight.Game.Presenters
 			}
 
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
-			Root.Q<Button>("FriendsButton").Required().clicked += Data.FriendsClicked;
+			// Root.Q<Button>("FriendsButton").Required().clicked += Data.FriendsClicked;
+			// TODO: Re-enable this
+			Root.Q<Button>("FriendsButton").Required().SetDisplay(false);
 
 			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;

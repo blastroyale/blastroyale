@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using Unity.AI.Navigation;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.MonoComponent.EditorOnly
 {
@@ -76,16 +75,16 @@ namespace FirstLight.Game.MonoComponent.EditorOnly
 		[Button(ButtonSizes.Small, Name = "Delete Colliders", Icon = SdfIconType.DashCircle)]
 		public void DeleteColliders()
 		{
+			var children = new List<GameObject>();
 			foreach (var groupConfig in _groups)
 			{
-				var children = new List<GameObject>();
 				foreach (Transform child in groupConfig.Destination)
 				{
 					children.Add(child.gameObject);
 				}
-
-				children.ForEach(DestroyImmediate);
 			}
+
+			children.ForEach(DestroyImmediate);
 		}
 
 		[FoldoutGroup("Debug", expanded: false)]
@@ -116,7 +115,6 @@ namespace FirstLight.Game.MonoComponent.EditorOnly
 			foreach (var q3d in colliders)
 			{
 				var go = new GameObject("TempCollider " + q3d.gameObject.name, typeof(BoxCollider), typeof(NavMeshModifierVolume));
-				go.hideFlags = HideFlags.DontSave;
 				go.transform.position = q3d.transform.position;
 				go.transform.rotation = Quaternion.Euler(q3d.transform.rotation.eulerAngles + q3d.RotationOffset.ToUnityVector3());
 				go.transform.localScale = q3d.transform.localScale;
@@ -131,28 +129,16 @@ namespace FirstLight.Game.MonoComponent.EditorOnly
 			}
 		}
 
-		[GUIColor(1f, 0f, 1f)]
-		[Button(ButtonSizes.Large, Icon = SdfIconType.Hammer, Name = "Bake Navmesh", Style = ButtonStyle.Box, Expanded = true)]
-		public void BakeUnityNavMesh(bool applyCleaner = true)
+		private async UniTaskVoid Bake(bool applyCleaner)
 		{
 			// Bake mesh with islands
 			var navmeshSurface = GetComponent<NavMeshSurface>();
-			var scene = SceneManager.GetActiveScene();
+			if (Unity.AI.Navigation.Editor.NavMeshAssetManager.instance.IsSurfaceBaking(navmeshSurface)) return;
 
-			var scenePath = Path.GetDirectoryName(scene.path);
-			var meshDataPath = Path.Join(scenePath, "GenerateMeshData.asset");
-			var navmeshData = UnityEditor.AssetDatabase.LoadAssetAtPath<NavMeshData>(meshDataPath);
-			if (navmeshData == null)
-			{
-				navmeshData = new NavMeshData();
-				UnityEditor.AssetDatabase.CreateAsset(navmeshData, meshDataPath);
-			}
-
-			navmeshSurface.RemoveData();
-			navmeshSurface.navMeshData = navmeshData;
 			DeleteColliders();
 			CreateColliders();
-			navmeshSurface.BuildNavMesh();
+			Unity.AI.Navigation.Editor.NavMeshAssetManager.instance.StartBakingSurfaces(new Object[] {navmeshSurface});
+			await UniTask.WaitUntil(() => !Unity.AI.Navigation.Editor.NavMeshAssetManager.instance.IsSurfaceBaking(navmeshSurface));
 			if (!applyCleaner || _cleaner.m_WalkablePoint?.Count == 0)
 			{
 				DeleteColliders();
@@ -161,9 +147,17 @@ namespace FirstLight.Game.MonoComponent.EditorOnly
 
 			// Now apply the cleaner creating a new mesh collider to remove the islands
 			ApplyCleaner();
-			navmeshSurface.BuildNavMesh();
+			Unity.AI.Navigation.Editor.NavMeshAssetManager.instance.StartBakingSurfaces(new Object[] {navmeshSurface});
+			await UniTask.WaitUntil(() => !Unity.AI.Navigation.Editor.NavMeshAssetManager.instance.IsSurfaceBaking(navmeshSurface));
 			ResetCleaner();
 			DeleteColliders();
+		}
+
+		[GUIColor(1f, 0f, 1f)]
+		[Button(ButtonSizes.Large, Icon = SdfIconType.Hammer, Name = "Bake Navmesh", Style = ButtonStyle.Box, Expanded = true)]
+		public void BakeUnityNavMesh(bool applyCleaner = true)
+		{
+			Bake(applyCleaner).Forget();
 		}
 #endif
 	}

@@ -64,6 +64,11 @@ MonoBehaviour:
         Id:
           Value: 293828422263463376
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydivePLFAction_21]
+    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_Navmesh Baking_data
+      AssetRef:
+        Id:
+          Value: 302926518594886766
+      Address: Maps/MazeMayhem/MazeMayhem_Navmesh Baking_data.asset
     - Path: AddressableResources/QuantumAssets/Default Config Assets/Default CharacterController2DConfigAsset
       AssetRef:
         Id:
@@ -264,6 +269,11 @@ MonoBehaviour:
         Id:
           Value: 884576220807429317
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckFiringMode_36]
+    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_Navmesh Baking
+      AssetRef:
+        Id:
+          Value: 890067851687444296
+      Address: Maps/MazeMayhem/MazeMayhem_Navmesh Baking.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TransformPositionFunction_1
       AssetRef:
         Id:
@@ -299,11 +309,6 @@ MonoBehaviour:
         Id:
           Value: 1044893520518403950
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SetBlackboardBool_5]
-    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_Navmesh Baking
-      AssetRef:
-        Id:
-          Value: 1049868368744456114
-      Address: Maps/MazeMayhem/MazeMayhem_Navmesh Baking.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_12
       AssetRef:
         Id:
@@ -574,11 +579,6 @@ MonoBehaviour:
         Id:
           Value: 2194276554936782103
       Address: QuantumAssets/Spawners/PlayerSpawner.prefab[PlayerSpawnerEntityPrototype]
-    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_Navmesh Baking_data
-      AssetRef:
-        Id:
-          Value: 2197360873231187991
-      Address: Maps/MazeMayhem/MazeMayhem_Navmesh Baking_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard
       AssetRef:
         Id:

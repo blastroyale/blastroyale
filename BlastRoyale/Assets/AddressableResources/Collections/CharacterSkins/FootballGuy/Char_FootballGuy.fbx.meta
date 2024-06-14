@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4b458de2211cc4a66bdc4662f302aca7
+guid: 964dc1f0b74ad4f0c848bbbf95569ff9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_FootballGuy
-    second: {fileID: 2100000, guid: 6d3c5a060406942cab629674ae1fc85c, type: 2}
+    second: {fileID: 2100000, guid: b89407acaff3446c8aa51b0d9613dac1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

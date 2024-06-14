@@ -9,5 +9,9 @@ AnimatorOverrideController:
   m_Name: Char_Burger_animator
   m_Controller: {fileID: 9100000, guid: 13d1b76a3cd20412baded888cc19b5be, type: 2}
   m_Clips:
+  - m_OriginalClip: {fileID: 3382396147884237927, guid: ec393c9a852f44fdab1dbcf9378237a1, type: 3}
+    m_OverrideClip: {fileID: 3382396147884237927, guid: 90f10c15b2e6c4b1fb3ac1a070c8cbb1, type: 3}
   - m_OriginalClip: {fileID: -4311744423893859263, guid: d0302e79c5f6d4229ab918095deea886, type: 3}
-    m_OverrideClip: {fileID: -4311744423893859263, guid: 0622ff97740ff4bed9bb78e9b0dc1ce9, type: 3}
+    m_OverrideClip: {fileID: -4311744423893859263, guid: 90f10c15b2e6c4b1fb3ac1a070c8cbb1, type: 3}
+  - m_OriginalClip: {fileID: -1533404506062787293, guid: a7d6f41f7844e4cc5aa5b8bce9feb9c1, type: 3}
+    m_OverrideClip: {fileID: -1533404506062787293, guid: 90f10c15b2e6c4b1fb3ac1a070c8cbb1, type: 3}

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5c47af891ad7746039401e75d0badddc
+guid: 0fa56bc0c9cfb43ca95941c33ba6624f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_VR
-    second: {fileID: 2100000, guid: 516f2a58cd7394e1285252f6ab1388dc, type: 2}
+    second: {fileID: 2100000, guid: 936e86d70b2804c2c8ae9c9ba8e8382e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

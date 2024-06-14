@@ -280,6 +280,13 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinKatana", 206, MeleeSkin, Collection},
 			{"MeleeSkinKeyboard", 207, MeleeSkin, Collection},
 			{"MeleeSkinMagicalShillelagh", 208, MeleeSkin, Collection},
+			{"MeleeSkinCrowbar", 223, MeleeSkin, Collection},
+			{"MeleeSkinAxe", 224, MeleeSkin, Collection},
+			{"MeleeSkinKnife", 225, MeleeSkin, Collection},
+			{"MeleeSkinOar", 226, MeleeSkin, Collection},
+			{"MeleeSkinSpatula", 227, MeleeSkin, Collection},
+			{"MeleeSkinTrophy", 228, MeleeSkin, Collection},
+			{"MeleeSkinWalkingStick", 229, MeleeSkin, Collection},
 			
 			#endregion
 

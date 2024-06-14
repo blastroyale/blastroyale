@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: da0eae4ce9f0141b4ba8da3a98c59622
+guid: 8d6394c71c9974ac882a024f5e74542e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Swimmer
-    second: {fileID: 2100000, guid: 959beac0bb81d42b096415c2da8646f1, type: 2}
+    second: {fileID: 2100000, guid: 4c3944ba432334b3fafee3bcb48884da, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

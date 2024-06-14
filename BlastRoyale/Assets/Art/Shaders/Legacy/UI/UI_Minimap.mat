@@ -40,7 +40,7 @@ Material:
     - _PingSize: 0.25
     - _PingWidth: 0.015
     - _PlayersSize: 0.02
-    - _PlayersSizeFocused: 0.05
+    - _PlayersSizeFocused: 0.02
     - _RingWidth: 0.01
     - _SafeAreaSize: 1
     - _Stencil: 0

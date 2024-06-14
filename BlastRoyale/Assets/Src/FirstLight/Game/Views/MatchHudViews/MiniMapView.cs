@@ -92,7 +92,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private DateTime _radarEndTime;
 		private float _radarRange;
 		private float _defaultPlayerSize;
-		private float _maxPlayerSize;
 		private DateTime _radarStartTime;
 		private DateTime _radarLastUpdate;
 		private float _mapConfigCameraSize;
@@ -124,7 +123,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_pingPool = new ObjectRefPool<MinimapPingView>(1, _pingIndicatorRef,
 				GameObjectPool<MinimapPingView>.Instantiator);
 			_defaultPlayerSize = _minimapImage.materialForRendering.GetFloat(_playerCircleSizePID);
-			_maxPlayerSize = _minimapImage.materialForRendering.GetFloat(_playerCircleSizeFocusedPID);
 
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
@@ -132,7 +130,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnTeamAssigned>(this, OnTeamAssigned);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
-			QuantumEvent.Subscribe<EventOnRadarUsed>(this, OnRadarUsed);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, OnRadarUsed);
 			QuantumEvent.Subscribe<EventOnTeamPositionPing>(this, OnTeamPositionPing);
 
@@ -251,16 +248,23 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void UpdateMinimapSize(float f)
 		{
+			// Reference averageMapCameraSize and player ping size that works for most of the maps
+			// This is the "average" value of MinimapCameraSize that you can find on QuantumMapConfig.assets 
+			var referenceMinimapCameraSize = 120; 
+			
+			// Calculate the adjusted player size based on the current map's camera size (Get from Quantum)
+			var adjustedMinPlayerSize = _defaultPlayerSize * (referenceMinimapCameraSize / _mapConfigCameraSize);
+			
 			_animationModifier = f;
-			_minimapImage.materialForRendering.SetFloat(_playerCircleSizePID, Mathf.Lerp(_defaultPlayerSize, _maxPlayerSize, f));
+			_minimapImage.materialForRendering.SetFloat(_playerCircleSizePID, Mathf.Lerp(adjustedMinPlayerSize, _defaultPlayerSize, f));
 			_rectTransform.anchorMin = Vector2.Lerp(Vector2.one, Vector2.one / 2f, f);
 			_rectTransform.anchorMax = Vector2.Lerp(Vector2.one, Vector2.one / 2f, f);
 			_rectTransform.anchoredPosition = Vector2.Lerp(_smallMapPosition, Vector2.zero, f);
-			_rectTransform.sizeDelta = Vector2.Lerp(Vector2.one * _smallMapSize,
-				Vector2.one * _fullScreenMapSize - Vector2.one * _fullScreenPadding, f);
+			_rectTransform.sizeDelta = Vector2.Lerp(Vector2.one * _smallMapSize, Vector2.one * _fullScreenMapSize - Vector2.one * _fullScreenPadding, f);
 			_rectTransform.pivot = Vector2.Lerp(Vector2.one, Vector2.one / 2f, f);
 			_backgroundImage.color = Color.Lerp(Color.clear, new Color(0f, 0f, 0f, 0.78f), f);
 			_currentViewportSize = Mathf.Lerp(_viewportSize, 1f, f);
+			
 		}
 
 		private void UpdatePlayerIndicator(in Vector3 playerViewportPoint, in Transform3D playerTransform)

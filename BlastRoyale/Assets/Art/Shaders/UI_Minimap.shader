@@ -20,7 +20,6 @@ Shader "FLG/UI/Minimap"
         _PingProgress ("Ping Progress", Float) = 1
 
         _PlayersSize("Players Size", Float) = 0.02
-        _PlayersSizeFocused("Players Size Focused", Float) = 0.06
         _PingSize("Ping Size", Float) = 0.01
         _PingWidth("Ping Width", Float) = 0.1
         _SafeAreaSize ("Safe Area Size", Float) = 1

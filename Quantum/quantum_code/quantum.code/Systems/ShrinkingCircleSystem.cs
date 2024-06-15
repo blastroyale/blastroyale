@@ -18,7 +18,7 @@ namespace Quantum.Systems
 			base.OnEnabled(f);
 
 			var circle = f.Unsafe.GetOrAddSingletonPointer<ShrinkingCircle>();
-			circle->CurrentRadius = f.Map.WorldSize / FP._2 * FPMath.Sqrt(FP._2);
+			circle->CurrentRadius = f.Map.WorldSize / FP._2;
 			circle->Step = -1;
 		}
 

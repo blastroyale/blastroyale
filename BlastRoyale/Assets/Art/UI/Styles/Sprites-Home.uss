@@ -186,6 +186,7 @@
     --sprite-home__pattern-rewardglow-rainbow: url('/Assets/Art/UI/Sprites/Home/pattern-rewardglow-rainbow.png');
     --sprite-home__pattern-rewardglow-rare: url('/Assets/Art/UI/Sprites/Home/pattern-rewardglow-rare.png');
     --sprite-home__pattern-rewardglow-uncommon: url('/Assets/Art/UI/Sprites/Home/pattern-rewardglow-uncommon.png');
+    --sprite-home__pattybun-season-reward: url('/Assets/Art/UI/Sprites/Home/pattybun-season-reward.png');
     --sprite-home__progress-battlepass: url('/Assets/Art/UI/Sprites/Home/progress-battlepass.png');
     --sprite-home__progress-battlepass-bg: url('/Assets/Art/UI/Sprites/Home/progress-battlepass-bg.png');
     --sprite-home__progress-battlepassbtn-bg: url('/Assets/Art/UI/Sprites/Home/progress-battlepassbtn-bg.png');
@@ -1276,6 +1277,12 @@
     background-image: var(--sprite-home__pattern-rewardglow-uncommon);
     width: 128px;
     height: 128px;
+}
+
+.sprite-home__pattybun-season-reward {
+    background-image: var(--sprite-home__pattybun-season-reward);
+    width: 510px;
+    height: 713px;
 }
 
 .sprite-home__progress-battlepass {

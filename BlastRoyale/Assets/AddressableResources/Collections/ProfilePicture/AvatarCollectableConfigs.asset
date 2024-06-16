@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Config:
     GameIdUrlDictionary:
-      _keyData: 7400000075000000760000007800000079000000960000009700000098000000990000009a0000009b0000009c0000009d0000009e0000009f000000a0000000a1000000a2000000a3000000a4000000a5000000a6000000a7000000a8000000a9000000aa000000ab000000ac000000ad000000ae000000af000000b0000000b1000000b2000000b3000000b4000000b5000000b6000000b7000000b8000000b9000000ba000000bb000000bc000000bd000000be000000bf000000c0000000c1000000c2000000f4010000f5010000f6010000f7010000f8010000f9010000fa010000fb010000fc010000
+      _keyData: 7400000075000000760000007800000079000000960000009700000098000000990000009a0000009b0000009c0000009d0000009e0000009f000000a0000000a1000000a2000000a3000000a4000000a5000000a6000000a7000000a8000000a9000000aa000000ab000000ac000000ad000000ae000000af000000b0000000b1000000b2000000b3000000b4000000b5000000b6000000b7000000b8000000b9000000ba000000bb000000bc000000bd000000be000000bf000000c0000000c1000000c2000000f4010000f5010000f6010000f7010000f8010000f9010000fa010000fb010000fc010000fd010000fe010000ff010000000200000102000002020000030200000402000005020000060200000702000008020000
       _valueData:
       - https://prodflgimagestorage.blob.core.windows.net/avatars/Avatar1.png
       - https://prodflgimagestorage.blob.core.windows.net/avatars/Avatar2.png
@@ -75,3 +75,15 @@ MonoBehaviour:
       - https://prodflgimagestorage.blob.core.windows.net/avatars/ninjaalternative.png
       - https://prodflgimagestorage.blob.core.windows.net/avatars/policefemale.png
       - https://prodflgimagestorage.blob.core.windows.net/avatars/plaguedoctormystery.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/burger.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/footballguy.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/lion.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/lion2.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/satoshi.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/sheriff.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/soldier.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/swimmer.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/thief.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/vr.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/ball.png
+      - https://prodflgimagestorage.blob.core.windows.net/avatars/lincoln.png

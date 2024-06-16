@@ -19,11 +19,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -31,16 +31,16 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 0000000005000000
+      _keyData: 0005
       _valueData:
       - RawValue: 3276800
       - RawValue: 3276800
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -57,11 +57,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -69,15 +69,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -99,11 +99,11 @@ MonoBehaviour:
       - RawValue: 1310720
       - RawValue: 1310720
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -111,18 +111,18 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 00010203
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -144,11 +144,11 @@ MonoBehaviour:
       - RawValue: 1310720
       - RawValue: 1310720
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -156,18 +156,18 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 00010203
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -189,11 +189,11 @@ MonoBehaviour:
       - RawValue: 1310720
       - RawValue: 1310720
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 0000000001000000
+      _keyData: 0001
       _valueData:
       - RawValue: 4915200
       - RawValue: 1638400
@@ -202,18 +202,18 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 00010203
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -235,11 +235,11 @@ MonoBehaviour:
       - RawValue: 1310720
       - RawValue: 1310720
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 000000000100000002000000
+      _keyData: 000102
       _valueData:
       - RawValue: 2949120
       - RawValue: 2949120
@@ -249,7 +249,7 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 000000000100000002000000030000000400000005000000
+      _keyData: 000102030405
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
@@ -258,11 +258,11 @@ MonoBehaviour:
       - RawValue: 589824
       - RawValue: 589824
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -284,11 +284,11 @@ MonoBehaviour:
       - RawValue: 1310720
       - RawValue: 1310720
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 0100000002000000
+      _keyData: 0102
       _valueData:
       - RawValue: 5242880
       - RawValue: 1310720
@@ -297,7 +297,7 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 000000000100000002000000030000000400000005000000
+      _keyData: 000102030405
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
@@ -306,11 +306,11 @@ MonoBehaviour:
       - RawValue: 589824
       - RawValue: 589824
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -329,11 +329,11 @@ MonoBehaviour:
       - RawValue: 3276800
       - RawValue: 3276800
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -341,16 +341,16 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 0000000001000000
+      _keyData: 0001
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -369,11 +369,11 @@ MonoBehaviour:
       - RawValue: 3276800
       - RawValue: 3276800
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -381,16 +381,16 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 0200000003000000
+      _keyData: 0203
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -408,11 +408,11 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -420,18 +420,18 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 00010203
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 02000000
+      _keyData: 02
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -510,11 +510,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -522,18 +522,18 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 00010203
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -550,11 +550,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -562,18 +562,18 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 00010203
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -590,11 +590,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -602,18 +602,18 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 00010203
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -631,11 +631,11 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 01000000
+      _keyData: 01
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -643,18 +643,18 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 00010203
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -671,11 +671,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -683,18 +683,18 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 00010203
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -711,11 +711,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -723,15 +723,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -748,11 +748,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -760,15 +760,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -785,11 +785,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -797,15 +797,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -822,11 +822,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -834,15 +834,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -859,11 +859,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Grade:
@@ -871,15 +871,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 6553600
     MaxDurability:
@@ -896,11 +896,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -908,15 +908,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -933,11 +933,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -945,15 +945,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -970,11 +970,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -982,15 +982,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1007,11 +1007,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1019,15 +1019,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1044,11 +1044,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1056,15 +1056,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1081,11 +1081,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1093,15 +1093,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1118,11 +1118,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1130,15 +1130,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1155,11 +1155,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1167,15 +1167,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1192,11 +1192,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1204,15 +1204,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1229,11 +1229,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1241,15 +1241,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1266,11 +1266,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1278,15 +1278,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1303,11 +1303,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1315,15 +1315,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1340,11 +1340,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1352,15 +1352,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1377,11 +1377,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1389,15 +1389,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1414,11 +1414,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1426,15 +1426,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1451,11 +1451,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1463,15 +1463,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1488,11 +1488,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1500,15 +1500,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1525,11 +1525,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1537,15 +1537,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1562,11 +1562,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1574,15 +1574,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1599,11 +1599,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1611,15 +1611,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1636,11 +1636,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1648,15 +1648,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1673,11 +1673,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1685,15 +1685,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1710,11 +1710,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1722,15 +1722,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1747,11 +1747,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1759,15 +1759,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1784,11 +1784,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1796,15 +1796,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1821,11 +1821,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1833,15 +1833,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1858,11 +1858,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1870,15 +1870,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1895,11 +1895,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1907,15 +1907,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1932,11 +1932,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1944,15 +1944,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -1969,11 +1969,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -1981,15 +1981,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2006,11 +2006,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2018,15 +2018,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2043,11 +2043,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2055,15 +2055,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2080,11 +2080,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2092,15 +2092,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2117,11 +2117,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2129,15 +2129,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2154,11 +2154,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2166,15 +2166,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2191,11 +2191,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2203,15 +2203,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2228,11 +2228,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2240,15 +2240,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2265,11 +2265,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2277,15 +2277,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2302,11 +2302,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2314,15 +2314,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2339,11 +2339,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2351,15 +2351,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2376,11 +2376,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2388,15 +2388,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2413,11 +2413,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2425,15 +2425,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2450,11 +2450,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2462,15 +2462,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2487,11 +2487,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2499,15 +2499,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2524,11 +2524,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2536,15 +2536,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2561,11 +2561,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2573,15 +2573,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2598,11 +2598,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2610,15 +2610,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2635,11 +2635,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2647,15 +2647,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2672,11 +2672,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2684,15 +2684,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2709,11 +2709,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2721,15 +2721,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2746,11 +2746,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2758,15 +2758,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2783,11 +2783,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2795,15 +2795,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2820,11 +2820,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2832,15 +2832,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2857,11 +2857,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2869,15 +2869,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2894,11 +2894,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2906,15 +2906,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2931,11 +2931,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2943,15 +2943,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -2968,11 +2968,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -2980,15 +2980,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3005,11 +3005,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3017,15 +3017,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3042,11 +3042,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3054,15 +3054,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3079,11 +3079,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3091,15 +3091,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3116,11 +3116,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3128,15 +3128,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3153,11 +3153,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3165,15 +3165,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3190,11 +3190,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3202,15 +3202,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3227,11 +3227,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3239,15 +3239,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3264,11 +3264,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3276,15 +3276,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3301,11 +3301,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3313,15 +3313,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3338,11 +3338,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3350,15 +3350,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3375,11 +3375,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3387,15 +3387,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3412,11 +3412,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3424,15 +3424,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3449,11 +3449,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3461,15 +3461,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3486,11 +3486,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3498,15 +3498,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3523,11 +3523,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3535,15 +3535,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3560,11 +3560,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3572,15 +3572,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3597,11 +3597,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3609,15 +3609,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3634,11 +3634,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3646,15 +3646,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3671,11 +3671,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3683,15 +3683,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3708,11 +3708,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3720,15 +3720,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3745,11 +3745,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3757,15 +3757,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3782,11 +3782,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3794,15 +3794,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3819,11 +3819,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3831,15 +3831,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3856,11 +3856,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3868,15 +3868,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3893,11 +3893,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3905,15 +3905,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3930,11 +3930,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3942,15 +3942,15 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:
@@ -3967,11 +3967,11 @@ MonoBehaviour:
       _keyData: 
       _valueData: []
     Edition:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Rarity:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Grade:
@@ -3979,15 +3979,718 @@ MonoBehaviour:
       _valueData:
       - RawValue: 0
     Faction:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Adjective:
-      _keyData: 00000000
+      _keyData: 00
       _valueData:
       - RawValue: 0
     Material:
-      _keyData: 00000000
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 106
+    GameId: 509
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 107
+    GameId: 510
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 108
+    GameId: 511
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 109
+    GameId: 512
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 110
+    GameId: 513
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 111
+    GameId: 514
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 112
+    GameId: 515
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 113
+    GameId: 516
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 114
+    GameId: 517
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 115
+    GameId: 518
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 116
+    GameId: 519
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 117
+    GameId: 520
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 118
+    GameId: 223
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 119
+    GameId: 224
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 120
+    GameId: 225
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 121
+    GameId: 226
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 122
+    GameId: 227
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 123
+    GameId: 228
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 1
+  - Id: 124
+    GameId: 229
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Rarity:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 0
+    Faction:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Adjective:
+      _keyData: 00
+      _valueData:
+      - RawValue: 0
+    Material:
+      _keyData: 00
       _valueData:
       - RawValue: 0
     MaxDurability:

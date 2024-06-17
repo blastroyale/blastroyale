@@ -86,7 +86,7 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			var shouldShowPrompt = _localPrefsService.RateAndReviewPromptShown && _canShowPrompt;
+			var shouldShowPrompt = !_localPrefsService.RateAndReviewPromptShown && _canShowPrompt;
 
 			if (!shouldShowPrompt)
 			{

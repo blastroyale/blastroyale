@@ -23,7 +23,7 @@ MonoBehaviour:
     Scene: FortressScene
     ScenePath: Assets/AddressableResources/Maps/Fortress/FortressScene.unity
     SceneGuid: 0d2e7a79f30e53f45878b92ecc13c1ed
-    WorldSize: 72
+    WorldSize: 90
     BucketsCount: 16
     BucketsSubdivisions: 8
     BucketingAxis: 0

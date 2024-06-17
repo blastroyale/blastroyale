@@ -23,7 +23,7 @@ MonoBehaviour:
     Scene: CemeteryScene
     ScenePath: Assets/AddressableResources/Maps/Cemetery/CemeteryScene.unity
     SceneGuid: 4ad82073443106b49b53e42761c59d39
-    WorldSize: 56
+    WorldSize: 80
     BucketsCount: 16
     BucketsSubdivisions: 8
     BucketingAxis: 0

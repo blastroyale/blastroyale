@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4acba63618c0342937419023073940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XLMelee: 0
+  WeaponType: 1
 --- !u!1001 &1433475550801623380
 PrefabInstance:
   m_ObjectHideFlags: 0

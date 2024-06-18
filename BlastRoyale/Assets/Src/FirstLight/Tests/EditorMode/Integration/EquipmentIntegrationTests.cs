@@ -51,5 +51,47 @@ namespace FirstLight.Tests.EditorMode.Integration
 
 			Assert.AreEqual(itemUniqueId, data.Equipped[GameIdGroup.Helmet]);
 		}
+
+		/// <summary>
+		/// Ensuring scrap item command rewards the correct ammount of te scrap result
+		/// </summary>
+		[Test]
+		public void ScrapItemCommand()
+		{
+			var equip = new Equipment() {GameId = GameId.HockeyHelmet, Level = 1};
+			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
+			var reward = TestLogic.EquipmentLogic.GetScrappingReward(equip, false);
+			var data = TestData.GetData<PlayerData>();
+
+			TestServices.CommandService.ExecuteCommand(new ScrapItemCommand()
+			{
+				Item = itemUniqueId
+			});
+
+
+			Assert.AreEqual(reward.Value, data.Currencies[reward.Key]);
+		}
+
+		/// <summary>
+		/// Ensuring upgrade item command deducts the correct ammount of of the upgrade cost
+		/// </summary>
+		[Test]
+		public void UpgradeItemCommand()
+		{
+			var equip = new Equipment() {GameId = GameId.HockeyHelmet, Level = 1};
+			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
+			var cost = TestLogic.EquipmentLogic.GetUpgradeCost(equip, false);
+			var data = TestData.GetData<PlayerData>();
+
+			data.Currencies[cost.Key] = cost.Value;
+
+			TestServices.CommandService.ExecuteCommand(new UpgradeItemCommand()
+			{
+				Item = itemUniqueId
+			});
+
+			Assert.AreEqual(0, data.Currencies[cost.Key]);
+			Assert.AreEqual(2, TestLogic.EquipmentLogic.Inventory[itemUniqueId].Level);
+		}
 	}
 }

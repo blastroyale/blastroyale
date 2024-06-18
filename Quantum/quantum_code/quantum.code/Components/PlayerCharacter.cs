@@ -224,6 +224,7 @@ namespace Quantum
 
 			var targetSlot = WeaponSlots.GetPointer(slot);
 			targetSlot->MagazineShotCount = weaponConfig.MagazineSize;
+			targetSlot->ReloadTime = weaponConfig.ReloadTime;
 			targetSlot->MagazineSize = weaponConfig.MagazineSize;
 			WeaponSlots[slot].Weapon = weapon;
 
@@ -396,10 +397,11 @@ namespace Quantum
 			//if we are only firing one shot, burst interval is 0
 			var burstCooldown = weaponConfig.NumberOfBursts > 1 ? weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER / (weaponConfig.NumberOfBursts - 1) : 0;
 
+			blackboard->Set(f, nameof(QuantumWeaponConfig.TapCooldown), weaponConfig.TapCooldown);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
-			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackPrepareDuration), weaponConfig.AttackPrepareDuration);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.NumberOfBursts), weaponConfig.NumberOfBursts);
+			blackboard->Set(f, nameof(QuantumWeaponConfig.ReloadTime), weaponConfig.ReloadTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.MagazineSize), weaponConfig.MagazineSize);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);

@@ -27,8 +27,9 @@ namespace Quantum
 		public AssetRefEntityPrototype BulletEndOfLifetimePrototype;
 		public SubProjectileHitType HitType;
 		public int MagazineSize;
+		public FP ReloadTime;
 		public FP AimingMovementSpeed;
-		public FP AttackPrepareDuration;
+		public FP TapCooldown;
 		public FP AttackCooldown;
 		public FP PowerToDamageRatio;
 		public FP AttackHitSpeed;
@@ -39,6 +40,8 @@ namespace Quantum
 		public bool CanHitSameTarget;
 		public FP SplashRadius;
 		public FP SplashDamageRatio;
+		public FP InitialAttackCooldown;
+		public FP InitialAttackRampUpTime;
 		public bool UseRangedCam;
 
 		/// <summary>
@@ -66,6 +69,7 @@ namespace Quantum
 		SniperGun = 4,
 		Launcher = 5,
 		XLMelee = 6,
+		KnifeMelee = 7,
 	}
 
 	/// <summary>

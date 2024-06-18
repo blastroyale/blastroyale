@@ -1,3 +1,4 @@
+using System;
 using Photon.Deterministic;
 using static Quantum.Systems.Bots.BotCharacterSystem;
 
@@ -17,6 +18,8 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
+			var weaponConfig = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
+			PlayerCharacterSystem.OnStartAiming(f, bb, weaponConfig);
 			bb->Set(f, Constants.IsAimPressedKey, true);
 		}
 	}

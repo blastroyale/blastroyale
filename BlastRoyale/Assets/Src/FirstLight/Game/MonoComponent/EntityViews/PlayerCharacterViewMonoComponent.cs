@@ -2,7 +2,6 @@ using System.Collections;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
@@ -70,7 +69,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
-			QuantumEvent.Subscribe<EventOnPlayerAttackPrepare>(this, HandleOnPlayerAttackPrepare);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
 			QuantumEvent.Subscribe<EventOnAirstrikeUsed>(this, HandleOnAirstrikeUsed);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandleOnPlayerSpawned);
@@ -399,29 +397,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void HandleOnPlayerAttack(EventOnPlayerAttack callback)
 		{
 			if (EntityView.EntityRef != callback.PlayerEntity) return;
-			if (_skin.WeaponType == WeaponType.Melee)
-			{
-				return; // Animation for melees is triggered in OnAttackPrepare
-			}
+
 
 			_skin.TriggerAttack();
 			TryStartAttackWithinVisVolume();
-		}
-		
-		private void HandleOnPlayerAttackPrepare(EventOnPlayerAttackPrepare callback)
-		{
-			if (EntityView.EntityRef != callback.Entity) return;
-
-			if (_skin.WeaponType == WeaponType.Melee)
-			{
-				_skin.TriggerAttack();
-			}
 		}
 
 		private void HandleOnPlayerSpecialUsed(EventOnPlayerSpecialUsed callback)
 		{
 			if (EntityView.EntityRef != callback.Entity) return;
 
+
+			//TODO: bespoke animation for each special 
+			//AnimatorWrapper.SetTrigger(Triggers.Special);
 			TryStartAttackWithinVisVolume();
 		}
 

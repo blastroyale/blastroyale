@@ -23,6 +23,41 @@ namespace FirstLight.Game.Utils
 				{ "rarity", equipment.Rarity },
 			};
 		}
+		
+		/// <summary>
+		/// TODO: Gabriel delete when we update the backend
+		/// </summary>
+		public static bool IsBroken(this Equipment equipment)
+		{
+			return equipment.GetCurrentDurability(DateTime.UtcNow.Ticks) == 0;
+		}
+
+
+		/// <summary>
+		/// TODO: Gabriel delete when we update the backend
+		/// </summary>
+		public static uint GetCurrentDurability(this Equipment equipment, long timestamp)
+		{
+			return equipment.GetCurrentDurability(false, default, timestamp);
+		}
+
+
+		/// <summary>
+		/// Shared encapsulated code to detect if a given given <paramref name="equipment"/> is broken.
+		/// This code is to be used in Hub & Game Servers to validate given equipments are valid.
+		/// </summary>
+		public static bool IsBroken(this Equipment equipment, bool isNft, QuantumGameConfig config)
+		{
+			return equipment.GetCurrentDurability(isNft, config, DateTime.UtcNow.Ticks) == 0;
+		}
+
+		/// <summary>
+		/// OBSOLETE
+		/// </summary>
+		public static uint GetCurrentDurability(this Equipment equipment, bool isNft, QuantumGameConfig config, long timestamp)
+		{
+			return 1;
+		}
 
 		/// <summary>
 		/// Calculate equipment stats given a configuration.
@@ -73,6 +108,7 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.SplashDamageRadius, weaponConfig.SplashRadius.AsFloat);
 				stats.Add(EquipmentStatType.PowerToDamageRatio, weaponConfig.PowerToDamageRatio.AsFloat);
 				stats.Add(EquipmentStatType.NumberOfShots, weaponConfig.NumberOfShots);
+				stats.Add(EquipmentStatType.ReloadTime, weaponConfig.ReloadTime.AsFloat);
 				stats.Add(EquipmentStatType.MagazineSize, Math.Max(0, weaponConfig.MagazineSize));
 				
 				stats.Add(EquipmentStatType.Damage, weaponConfig.PowerToDamageRatio.AsFloat * power);

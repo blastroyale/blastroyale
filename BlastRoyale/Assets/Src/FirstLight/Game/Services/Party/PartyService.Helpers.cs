@@ -40,7 +40,7 @@ namespace FirstLight.Game.Services.Party
 				MemberEntity = LocalEntityKey(),
 				MemberData = new ()
 				{
-					{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, AuthenticationService.Instance.PlayerNameTrimmed()},
+					{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, AuthenticationService.Instance.GetPlayerName()},
 					{PartyMember.TROPHIES_PROPERTY, playerDataProvider.Trophies.Value.ToString()},
 					{PartyMember.READY_MEMBER_PROPERTY, "notready"},
 					{PartyMember.CHARACTER_SKIN_PROPERTY, collectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS).Id.ToString()},

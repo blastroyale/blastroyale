@@ -541,7 +541,7 @@ namespace FirstLight.Game.Services
 					playfabName.Length < 5
 						? ""
 						: playfabName.Substring(0, playfabName.Length - 5);
-				var unityName = AuthenticationService.Instance.PlayerNameTrimmed();
+				var unityName = AuthenticationService.Instance.GetPlayerName();
 
 				if (appData.IsFirstSession || string.IsNullOrWhiteSpace(playfabName))
 				{

@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Templates/Popups/JoinWithCodePopupStyle.uss?fileID=7433441132597879392&amp;guid=2227e7d6f6e6d48129194338f75ab625&amp;type=3#JoinWithCodePopupStyle" />
+    <ui:VisualElement name="Content" class="content">
+        <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="ENTER ROOM CODE" name="CodeInput" class="code-input" />
+        <FirstLight.Game.UIElements.LocalizedButton text="##" name="JoinButton" localization-key="JOIN" class="button-long button-long--yellow" />
+    </ui:VisualElement>
+</ui:UXML>

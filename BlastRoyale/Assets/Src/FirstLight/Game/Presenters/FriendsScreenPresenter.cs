@@ -68,7 +68,6 @@ namespace FirstLight.Game.Presenters
 			_requestsCount = Root.Q<Label>("RequestsCount").Required();
 
 			_addFriendButton.clicked += () => AddFriend(_addFriendIDField.value).Forget();
-			Root.Q<ImageButton>("CopyButton").Required().clicked += CopyPlayerID;
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
 
 			_friendsList.bindItem = OnFriendsBindItem;
@@ -376,19 +375,6 @@ namespace FirstLight.Game.Presenters
 				FLog.Error("Error unblocking player.", e);
 				_services.NotificationService.QueueNotification($"#Error unblocking player ({(int) e.ErrorCode})#");
 			}
-		}
-
-		private void CopyPlayerID()
-		{
-			// Copy the player ID to the clipboard
-			var te = new TextEditor
-			{
-				text = _yourIDField.value
-			};
-			te.SelectAll();
-			te.Copy();
-
-			_services.NotificationService.QueueNotification("Copied to clipboard");
 		}
 	}
 }

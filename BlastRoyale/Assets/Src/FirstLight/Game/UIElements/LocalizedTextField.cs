@@ -10,6 +10,9 @@ namespace FirstLight.Game.UIElements
 	public class LocalizedTextField : TextField
 	{
 		private string labelLocalizationKey { get; set; }
+		private bool showCopyButton { get; set; }
+
+		private ImageButton _copyButton;
 
 		public LocalizedTextField() : this(string.Empty)
 		{
@@ -29,22 +32,61 @@ namespace FirstLight.Game.UIElements
 			label = LocalizationManager.TryGetTranslation(labelKey, out var translation) ? translation : $"#{labelKey}#";
 		}
 
+		/// <summary>
+		/// Enables or disables the "copy to clipboard" button.
+		/// </summary>
+		public void EnableCopyButton(bool enable)
+		{
+			if (enable && _copyButton == null)
+			{
+				_copyButton = new ImageButton {name = "copy-button"};
+				Add(_copyButton);
+				_copyButton.AddToClassList("unity-text-field__copy-button");
+
+				_copyButton.clicked += () =>
+				{
+					var te = new TextEditor
+					{
+						text = value
+					};
+					te.SelectAll();
+					te.Copy();
+				};
+			}
+			else if (!enable && _copyButton != null)
+			{
+				_copyButton.RemoveFromHierarchy();
+				_copyButton = null;
+			}
+		}
+
 		public new class UxmlFactory : UxmlFactory<LocalizedTextField, UxmlTraits>
 		{
 		}
 
 		public new class UxmlTraits : TextField.UxmlTraits
 		{
-			UxmlStringAttributeDescription _labelLocalizationKeyAttribute = new ()
+			private readonly UxmlStringAttributeDescription _labelLocalizationKeyAttribute = new ()
 			{
 				name = "label-localization-key",
 				use = UxmlAttributeDescription.Use.Required
 			};
 
+			private readonly UxmlBoolAttributeDescription _showCopyButton = new ()
+			{
+				name = "show-copy-button",
+				use = UxmlAttributeDescription.Use.Optional,
+				defaultValue = false
+			};
+
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
 				base.Init(ve, bag, cc);
-				((LocalizedTextField) ve).LocalizeLabel(_labelLocalizationKeyAttribute.GetValueFromBag(bag, cc));
+
+				var ltf = (LocalizedTextField) ve;
+
+				ltf.LocalizeLabel(_labelLocalizationKeyAttribute.GetValueFromBag(bag, cc));
+				ltf.EnableCopyButton(_showCopyButton.GetValueFromBag(bag, cc));
 			}
 		}
 	}

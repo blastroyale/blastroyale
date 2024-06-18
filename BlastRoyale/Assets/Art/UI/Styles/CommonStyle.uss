@@ -31,33 +31,51 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-.unity-base-field:focus:enabled > .unity-base-field__label {
-    color: white;
-}
-
 .unity-text-field {
-    align-items: stretch;
     -unity-text-align: middle-left;
     font-size: 35px;
-    width: 678px;
-    height: 71px;
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    margin-bottom: 50px;
 }
 
+.unity-text-field:focus > .unity-text-field__label,
+.unity-text-field:focus:hover > .unity-text-field__label,
+.unity-text-field:hover > .unity-text-field__label,
+.unity-base-field:focus:enabled > .unity-base-field__label,
 .unity-text-field__label {
-    -unity-text-align: middle-right;
-    color: rgb(90, 86, 125);
+    -unity-text-align: upper-left;
+    color: rgb(157, 131, 216);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 4px 0 rgb(0, 0, 0);
+    margin-left: 14px;
 }
 
 .unity-text-field__input {
-    background-image: var(--sprite-home__background-inputfield);
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    background-color: rgba(255, 255, 255, 0);
-    color: rgb(90, 86, 125);
-    -unity-text-align: middle-left;
-    padding-left: 26px;
+    background-image: none;
+    background-color: rgb(22, 20, 38);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-width: 0;
+    color: rgb(255, 255, 255);
+    height: 92px;
+}
+
+.unity-text-field__copy-button {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    width: 84px;
+    height: 84px;
+    background-image: var(--sprite-home__button-copy);
+}
+
+.unity-text-field__copy-button:active {
+    background-image: var(--sprite-home__button-copy-pressed);
 }
 
 .font-bold {
@@ -726,6 +744,8 @@
 }
 
 .generic-popup {
+    min-width: 500px;
+    min-height: 400px;
 }
 
 .generic-popup__header {

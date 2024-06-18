@@ -78,9 +78,17 @@
     justify-content: center;
 }
 
-.match-settings-button__button--numerical .match-settings-button__button-label {
+.match-settings-button__button-label {
     color: rgb(132, 117, 166);
+    font-size: 32px;
+}
+
+.match-settings-button__button--numerical .match-settings-button__button-label {
     font-size: 43px;
+}
+
+#MapButton .match-settings-button__button-label {
+    color: #F9C02E;
 }
 
 .match-settings-button__button-background {

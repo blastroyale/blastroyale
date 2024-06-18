@@ -31,7 +31,6 @@ namespace FirstLight.Game.Services
 		public bool IsEmpty => ButtonOnClick.GetInvocationList().Length == 0;
 	}
 
-
 	/// <summary>
 	/// This service provides a direct reference to UI Generic dialogs to any system in the game.
 	/// This are the <see cref="GenericButtonDialogPresenter"/>, <see cref="GenericDialogVideoPresenter"/>, etc

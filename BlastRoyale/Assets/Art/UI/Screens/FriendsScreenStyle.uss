@@ -68,26 +68,6 @@
     border-bottom-left-radius: 4px;
 }
 
-.unity-text-field__label {
-    -unity-text-align: upper-left;
-    color: rgb(157, 131, 216);
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 2px 4px 0 rgb(0, 0, 0);
-    margin-left: 14px;
-}
-
-.unity-text-field__input {
-    background-image: none;
-    background-color: rgb(22, 20, 38);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    color: rgb(255, 255, 255);
-    height: 92px;
-}
-
 .your-id-input > .unity-text-field__input {
     padding-right: 100px;
 }

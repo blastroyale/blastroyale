@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using FirstLight.Game.Utils;
-using I2.Loc;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements

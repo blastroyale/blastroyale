@@ -40,7 +40,7 @@ namespace FirstLight.Game.Presenters
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			RefreshLobbies().Forget();
-			
+
 			_matchSettingsView.SetMatchSettings(_services.LocalPrefsService.LastCustomMatchSettings, true);
 			_matchSettingsView.SetMainAction("#CREATE MATCH#", () => CreateMatch(_matchSettingsView.MatchSettings).Forget());
 
@@ -57,26 +57,35 @@ namespace FirstLight.Game.Presenters
 
 		private void OnJoinWithCodeClicked()
 		{
-			FLog.Info("Join with code clicked");
-			// TODO mihak: Open popup
+			PopupPresenter.OpenJoinWithCode(code =>
+			{
+				PopupPresenter.Close().Forget();
+				JoinMatch(code).Forget();
+			}).Forget();
 		}
 
-		private async UniTaskVoid JoinMatch(Lobby lobby)
+		private async UniTaskVoid JoinMatch(string lobbyIDOrCode)
 		{
-			await _services.FLLobbyService.JoinMatch(lobby.Id);
-			await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>();
+			var success = await _services.FLLobbyService.JoinMatch(lobbyIDOrCode);
+			if (success)
+			{
+				await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>();
+			}
 		}
 
 		private async UniTaskVoid CreateMatch(CustomMatchSettings matchSettings)
 		{
-			await _services.FLLobbyService.CreateMatch(matchSettings);
-			await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>();
+			var success = await _services.FLLobbyService.CreateMatch(matchSettings);
+			if (success)
+			{
+				await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>();
+			}
 		}
 
 		private void BindMatchLobbyItem(VisualElement e, int index)
 		{
 			var lobby = _lobbies[index];
-			((MatchLobbyItemElement) e).SetLobby(lobby, () => JoinMatch(lobby).Forget());
+			((MatchLobbyItemElement) e).SetLobby(lobby, () => JoinMatch(lobby.Id).Forget());
 		}
 
 		private static VisualElement MakeMatchLobbyItem()

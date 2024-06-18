@@ -7,9 +7,7 @@
                 <ui:VisualElement name="Background" class="left-bar__background-parent">
                     <ui:VisualElement name="Center" class="left-bar__background" />
                 </ui:VisualElement>
-                <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITFriends/your_id" picking-mode="Ignore" name="YourID" value="JwaSqAKILS3YAeAfitjKQRDBtVAd" readonly="true" hide-mobile-input="true" class="your-id-input">
-                    <FirstLight.Game.UIElements.ImageButton name="CopyButton" class="button-copy" />
-                </FirstLight.Game.UIElements.LocalizedTextField>
+                <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITFriends/your_id" picking-mode="Ignore" name="YourID" value="JwaSqAKILS3YAeAfitjKQRDBtVAd" readonly="true" hide-mobile-input="true" show-copy-button="true" class="your-id-input" />
                 <FirstLight.Game.UIElements.LocalizedTextField picking-mode="Ignore" label-localization-key="UITFriends/enter_id" name="AddFriendID" max-length="50" />
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITFriends/add_friend" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AddFriendButton" class="button-long button-long--purple" />
             </ui:VisualElement>

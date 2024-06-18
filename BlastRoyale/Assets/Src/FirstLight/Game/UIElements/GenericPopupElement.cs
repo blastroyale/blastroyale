@@ -47,7 +47,7 @@ namespace FirstLight.Game.UIElements
 			contentContainer = _content;
 		}
 
-		private void LocalizeTitle(string labelKey)
+		public void LocalizeTitle(string labelKey)
 		{
 			TitleLocalizationKey = labelKey;
 			_title.text = LocalizationManager.TryGetTranslation(labelKey, out var translation)

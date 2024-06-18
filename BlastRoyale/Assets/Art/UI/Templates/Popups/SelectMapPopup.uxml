@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Templates/Popups/SelectMapPopupStyle.uss?fileID=7433441132597879392&amp;guid=881d4aaf8835a4ad6a31a0c96ef8cfec&amp;type=3#SelectMapPopupStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/MatchSettingsSelectionStyle.uss?fileID=7433441132597879392&amp;guid=be9517bcfa2b4682ab6db57c13e7629e&amp;type=3#MatchSettingsSelectionStyle" />
+    <ui:VisualElement name="Content" style="flex-grow: 1;">
+        <ui:ScrollView name="MapScrollView" vertical-scroller-visibility="Hidden" class="maps-scroller">
+            <FirstLight.Game.UIElements.MatchSettingsSelectionElement />
+            <FirstLight.Game.UIElements.MatchSettingsSelectionElement />
+            <FirstLight.Game.UIElements.MatchSettingsSelectionElement />
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>

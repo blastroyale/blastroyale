@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Styles/MatchSettingsSelectionStyle.uss?fileID=7433441132597879392&amp;guid=be9517bcfa2b4682ab6db57c13e7629e&amp;type=3#MatchSettingsSelectionStyle" />
+    <Style src="project://database/Assets/Art/UI/Templates/Popups/SelectSquadSizePopupStyle.uss?fileID=7433441132597879392&amp;guid=fbae38cab5cdf46f4a803cdf05ed536c&amp;type=3#SelectSquadSizePopupStyle" />
+    <ui:VisualElement name="Content" style="flex-grow: 1; flex-direction: row; align-items: center; justify-content: center;">
+        <FirstLight.Game.UIElements.MatchSettingsSelectionElement name="Solos" title-localization-key="SOLO" subtitle-localization-key="One VS all" />
+        <FirstLight.Game.UIElements.MatchSettingsSelectionElement name="Duos" title-localization-key="DUOS" subtitle-localization-key="Only teams of TWO" />
+        <FirstLight.Game.UIElements.MatchSettingsSelectionElement name="Quads" title-localization-key="QUADS" subtitle-localization-key="Only teams of FOUR" />
+    </ui:VisualElement>
+</ui:UXML>

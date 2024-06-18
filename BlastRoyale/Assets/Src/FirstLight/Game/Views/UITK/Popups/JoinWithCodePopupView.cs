@@ -1,5 +1,4 @@
 using System;
-using Cysharp.Threading.Tasks;
 using FirstLight.Game.UIElements;
 using FirstLight.UIService;
 using UnityEngine.UIElements;

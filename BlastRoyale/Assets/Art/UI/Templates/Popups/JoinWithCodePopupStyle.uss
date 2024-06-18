@@ -1,11 +1,9 @@
 .code-input {
     width: 600px;
-    margin-top: 84px;
 }
 
 .content {
-    flex-grow: 1;
     align-items: center;
-    width: 1391px;
-    height: 600px;
+    height: 486px;
+    justify-content: center;
 }

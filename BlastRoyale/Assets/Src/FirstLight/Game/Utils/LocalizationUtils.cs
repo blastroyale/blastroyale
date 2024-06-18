@@ -86,9 +86,17 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetDescriptionLocalization(this GameId id)
 		{
-			var localized = LocalizationManager.GetTranslation(id.GetLocalizationKey() + "Description");
+			var localized = LocalizationManager.GetTranslation(id.GetDescriptionLocalizationKey());
 			if (string.IsNullOrEmpty(localized)) return id.ToString();
 			return localized;
+		}
+		
+		/// <summary>
+		/// Gets the key for the description of the given <paramref name="id"/>
+		/// </summary>
+		public static string GetDescriptionLocalizationKey(this GameId id)
+		{
+			return id.GetLocalizationKey() + "Description";
 		}
 
 		/// <summary>

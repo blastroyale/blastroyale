@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/PopupStyle.uss?fileID=7433441132597879392&amp;guid=a80bca05a36ab4f39abe7eca214be5f7&amp;type=3#PopupStyle" />
-    <ui:VisualElement name="root" class="root">
-        <FirstLight.Game.UIElements.GenericPopupElement name="Popup" />
+    <ui:VisualElement name="root" class="root fill-parent">
+        <FirstLight.Game.UIElements.ImageButton name="Blocker" class="fill-parent blocker" />
+        <FirstLight.Game.UIElements.GenericPopupElement name="Popup" style="width: 1400px;" />
     </ui:VisualElement>
 </ui:UXML>

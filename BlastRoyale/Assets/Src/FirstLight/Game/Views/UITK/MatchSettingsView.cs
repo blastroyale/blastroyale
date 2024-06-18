@@ -1,10 +1,13 @@
 using System;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using Quantum;
+using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
@@ -27,9 +30,7 @@ namespace FirstLight.Game.Views.UITK
 		public Action MainActionClicked { get; set; }
 		public CustomMatchSettings MatchSettings { get; private set; }
 
-		// TODO: Remove when we have popups
 		private int _selectedModeIndex;
-		private int _selectedMapIndex;
 
 		protected override void Attached()
 		{
@@ -49,6 +50,8 @@ namespace FirstLight.Game.Views.UITK
 			_modeButton.Button.clicked += OnGameModeClicked;
 			_teamSizeButton.Button.clicked += OnTeamSizeClicked;
 			_mapButton.Button.clicked += OnMapClicked;
+			_maxPlayersButton.Button.clicked += OnMaxPlayersClicked;
+			_mutatorsButton.clicked += OnMutatorsClicked;
 		}
 
 		public void SetMatchSettings(CustomMatchSettings settings, bool editable)
@@ -60,38 +63,53 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnMapClicked()
 		{
-			// TODO: Replace with popup
-			var maps = _services.ConfigsProvider.GetConfigsList<QuantumMapConfig>();
+			PopupPresenter.OpenSelectMap(mapId =>
+			{
+				MatchSettings.MapID = mapId;
+				RefreshData();
+				PopupPresenter.Close().Forget();
+			}, MatchSettings.GameModeID, MatchSettings.MapID).Forget();
+		}
 
-			_selectedMapIndex = (_selectedMapIndex + 1) % maps.Count;
-			var selectedMap = maps[_selectedMapIndex];
-
-			MatchSettings.MapID = selectedMap.Map.ToString();
-
-			RefreshData();
+		private void OnMaxPlayersClicked()
+		{
+			// TODO mihak: These numbers should be somewhere else
+			PopupPresenter.OpenSelectNumber(val =>
+			{
+				MatchSettings.MaxPlayers = val;
+				RefreshData();
+				PopupPresenter.Close().Forget();
+			}, "MAX PLAYERS", "Choose maximum amount of players", 2, 48, MatchSettings.MaxPlayers).Forget();
 		}
 
 		private void OnTeamSizeClicked()
 		{
-			MatchSettings.TeamSize++;
-
-			// TODO mihak: 4 should be somewhere else
-			if (MatchSettings.TeamSize > 4)
+			PopupPresenter.OpenSelectSquadSize(val =>
 			{
-				MatchSettings.TeamSize = 1;
-			}
+				MatchSettings.SquadSize = val;
+				RefreshData();
+				PopupPresenter.Close().Forget();
+			}, MatchSettings.SquadSize).Forget();
+		}
 
-			RefreshData();
+		private void OnMutatorsClicked()
+		{
+			PopupPresenter.OpenSelectMutators(mutators =>
+			{
+				MatchSettings.Mutators = mutators;
+				RefreshData();
+				PopupPresenter.Close().Forget();
+			}, MatchSettings.Mutators).Forget();
 		}
 
 		private void OnGameModeClicked()
 		{
-			// TODO: Replace with popup
-			var gameModes = _services.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>();
+			// We currently only support changing the game mode in debug builds
+			if (!Debug.isDebugBuild) return;
 
+			var gameModes = _services.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>();
 			_selectedModeIndex = (_selectedModeIndex + 1) % gameModes.Count;
 			var selectedGameMode = gameModes[_selectedModeIndex];
-
 			MatchSettings.GameModeID = selectedGameMode.Id;
 
 			RefreshData();
@@ -113,7 +131,7 @@ namespace FirstLight.Game.Views.UITK
 		private void RefreshData()
 		{
 			_modeButton.SetValue(MatchSettings.GameModeID);
-			_teamSizeButton.SetValue(MatchSettings.TeamSize.ToString());
+			_teamSizeButton.SetValue(MatchSettings.SquadSize.ToString());
 			_mapButton.SetValue(MatchSettings.MapID);
 			_maxPlayersButton.SetValue(MatchSettings.MaxPlayers.ToString());
 

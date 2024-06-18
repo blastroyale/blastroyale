@@ -35,6 +35,7 @@ namespace FirstLight.Game.Presenters
 			_gamesList.makeItem = MakeMatchLobbyItem;
 
 			Root.Q<Button>("JoinWithCodeButton").clicked += OnJoinWithCodeClicked;
+			Root.Q<Button>("RefreshButton").clicked += () => RefreshLobbies().Forget();
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
@@ -49,6 +50,8 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTask RefreshLobbies()
 		{
+			_gamesList.itemsSource = null;
+			_gamesList.RefreshItems();
 			_lobbies = await _services.FLLobbyService.GetPublicMatches();
 			if (gameObject == null) return;
 			_gamesList.itemsSource = _lobbies;

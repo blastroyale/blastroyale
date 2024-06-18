@@ -12,7 +12,11 @@
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="STATUS" name="StatusTitle" style="color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
                 <ui:ListView name="GamesList" fixed-item-height="118" show-bound-collection-size="false" style="flex-grow: 1;" />
-                <ui:Button text="JOIN WITH CODE" name="JoinWithCodeButton" class="button-long" />
+                <ui:VisualElement style="flex-direction: row;">
+                    <ui:Button text="JOIN WITH CODE" name="JoinWithCodeButton" class="button-long" />
+                    <ui:VisualElement style="flex-grow: 1;" />
+                    <FirstLight.Game.UIElements.LocalizedButton name="RefreshButton" localization-key="REFRESH" class="button-long" />
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:Instance template="MatchSettings" name="MatchSettings" />
         </FirstLight.Game.UIElements.SafeAreaElement>

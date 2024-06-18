@@ -63,3 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _document: {fileID: 3925228246131804731}
   _joinWithCodeDocument: {fileID: 9197481963319205126, guid: 7034bba7c19784312b56e8dae449acf6, type: 3}
+  _selectNumberDocument: {fileID: 9197481963319205126, guid: 3719e3e67ca69499dbc5ac36f9a76da1, type: 3}
+  _selectMapDocument: {fileID: 9197481963319205126, guid: 010cd1064a43f4167a48585d36076afd, type: 3}
+  _selectSquadSizeDocument: {fileID: 9197481963319205126, guid: 9d50799aa973d40f2b154e230a01561a, type: 3}
+  _selectMutatorsDocument: {fileID: 9197481963319205126, guid: ad1fa6a0c7ee940d690fcccb4bfce22f, type: 3}

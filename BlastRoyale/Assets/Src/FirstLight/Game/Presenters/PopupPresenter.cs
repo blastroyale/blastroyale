@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -20,6 +21,10 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[SerializeField, Required] private VisualTreeAsset _joinWithCodeDocument;
+		[SerializeField, Required] private VisualTreeAsset _selectNumberDocument;
+		[SerializeField, Required] private VisualTreeAsset _selectMapDocument;
+		[SerializeField, Required] private VisualTreeAsset _selectSquadSizeDocument;
+		[SerializeField, Required] private VisualTreeAsset _selectMutatorsDocument;
 
 		private GenericPopupElement _popup;
 
@@ -27,11 +32,26 @@ namespace FirstLight.Game.Presenters
 		{
 			_popup = Root.Q<GenericPopupElement>("Popup").Required();
 			_popup.LocalizeTitle(Data.TitleKey);
+			_popup.CloseClicked += () => Close().Forget();
+
+			Root.Q<ImageButton>("Blocker").Required().clicked += () => Close().Forget();
 
 			switch (Data.View)
 			{
 				case JoinWithCodePopupView view:
 					SetupPopup(_joinWithCodeDocument, view);
+					break;
+				case SelectNumberPopupView view:
+					SetupPopup(_selectNumberDocument, view);
+					break;
+				case SelectMapPopupView view:
+					SetupPopup(_selectMapDocument, view);
+					break;
+				case SelectSquadSizePopupView view:
+					SetupPopup(_selectSquadSizeDocument, view);
+					break;
+				case SelectMutatorsPopupView view:
+					SetupPopup(_selectMutatorsDocument, view);
 					break;
 				default:
 					throw new NotImplementedException($"You need to implement the view type: {Data.View.GetType()}");
@@ -41,6 +61,26 @@ namespace FirstLight.Game.Presenters
 		public static UniTaskVoid OpenJoinWithCode(Action<string> onJoin)
 		{
 			return OpenPopup(new JoinWithCodePopupView(onJoin), "JOIN WITH CODE");
+		}
+
+		public static UniTaskVoid OpenSelectNumber(Action<int> onConfirm, string titleKey, string subtitleKey, int min, int max, int currentValue)
+		{
+			return OpenPopup(new SelectNumberPopupView(onConfirm, subtitleKey, min, max, currentValue), titleKey);
+		}
+
+		public static UniTaskVoid OpenSelectMap(Action<string> onMapSelected, string gameModeID, string currentMapID)
+		{
+			return OpenPopup(new SelectMapPopupView(onMapSelected, gameModeID, currentMapID), "SELECT A MAP");
+		}
+
+		public static UniTaskVoid OpenSelectSquadSize(Action<int> onSquadSizeSelected, int currentSize)
+		{
+			return OpenPopup(new SelectSquadSizePopupView(onSquadSizeSelected, currentSize), "SELECT SQUAD SIZE");
+		}
+
+		public static UniTaskVoid OpenSelectMutators(Action<List<string>> onMutatorsSelected, List<string> currentMutators)
+		{
+			return OpenPopup(new SelectMutatorsPopupView(onMutatorsSelected, currentMutators), "SELECT MUTATORS");
 		}
 
 		public static UniTask Close()

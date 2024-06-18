@@ -47,7 +47,7 @@ namespace FirstLight.Game.UIElements
 
 			var matchSettings = lobby.GetMatchSettings();
 
-			_lobbyModeLabel.text = matchSettings.TeamSize.ToString();
+			_lobbyModeLabel.text = matchSettings.SquadSize.ToString();
 			_lobbyPlayersLabel.text = $"{lobby.Players.Count}/{lobby.MaxPlayers}";
 			_lobbyStatus.text = lobby.IsLocked ? "IN GAME" : "IN LOBBY"; // TODO mihak ?
 

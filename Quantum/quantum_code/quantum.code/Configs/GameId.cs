@@ -1957,6 +1957,90 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.AvatarBurger, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFootballguy, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarLion, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarLion2, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSatoshi, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSheriff, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSoldier, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSwimmer, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarThief, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarVr, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarBall, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarLincoln, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.FootprintDot, new List<GameIdGroup>
 					{
 						GameIdGroup.Footprint,
@@ -2391,7 +2475,19 @@ namespace Quantum
 						GameId.AvatarNinja,
 						GameId.AvatarNinjaalternative,
 						GameId.AvatarPolicefemale,
-						GameId.AvatarPlaguedoctormystery
+						GameId.AvatarPlaguedoctormystery,
+						GameId.AvatarBurger,
+						GameId.AvatarFootballguy,
+						GameId.AvatarLion,
+						GameId.AvatarLion2,
+						GameId.AvatarSatoshi,
+						GameId.AvatarSheriff,
+						GameId.AvatarSoldier,
+						GameId.AvatarSwimmer,
+						GameId.AvatarThief,
+						GameId.AvatarVr,
+						GameId.AvatarBall,
+						GameId.AvatarLincoln
 					}.AsReadOnly()
 				},
 				{
@@ -2722,7 +2818,19 @@ namespace Quantum
 						GameId.AvatarNinja,
 						GameId.AvatarNinjaalternative,
 						GameId.AvatarPolicefemale,
-						GameId.AvatarPlaguedoctormystery
+						GameId.AvatarPlaguedoctormystery,
+						GameId.AvatarBurger,
+						GameId.AvatarFootballguy,
+						GameId.AvatarLion,
+						GameId.AvatarLion2,
+						GameId.AvatarSatoshi,
+						GameId.AvatarSheriff,
+						GameId.AvatarSoldier,
+						GameId.AvatarSwimmer,
+						GameId.AvatarThief,
+						GameId.AvatarVr,
+						GameId.AvatarBall,
+						GameId.AvatarLincoln
 					}.AsReadOnly()
 				},
 				{

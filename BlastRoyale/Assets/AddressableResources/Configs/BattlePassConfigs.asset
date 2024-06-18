@@ -61,7 +61,7 @@ MonoBehaviour:
       StartsAt: 10/06/2024
       EndsAt: 31/08/2024
       RemovePaid: 0
-      EndGraphicImageClass: sprite-home__goji-season-reward
+      EndGraphicImageClass: sprite-home__pattybun-season-reward
       EndGraphicName: PATTY BUN
       Highlighted: 45,1,40:F,90
     Levels:
@@ -1525,7 +1525,7 @@ MonoBehaviour:
       PremiumRewardId: 89
       PointsForNextLevel: 0
       Season: 10
-    - RewardId: 88
+    - RewardId: 112
       PremiumRewardId: 89
       PointsForNextLevel: 0
       Season: 10
@@ -1546,7 +1546,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 10
     - RewardId: 64
-      PremiumRewardId: 87
+      PremiumRewardId: 111
       PointsForNextLevel: 0
       Season: 10
     - RewardId: 64
@@ -1565,7 +1565,7 @@ MonoBehaviour:
       PremiumRewardId: 89
       PointsForNextLevel: 0
       Season: 10
-    - RewardId: 78
+    - RewardId: 118
       PremiumRewardId: 89
       PointsForNextLevel: 0
       Season: 10
@@ -1626,7 +1626,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 10
     - RewardId: 90
-      PremiumRewardId: 86
+      PremiumRewardId: 113
       PointsForNextLevel: 0
       Season: 10
     - RewardId: 64
@@ -1665,7 +1665,7 @@ MonoBehaviour:
       PremiumRewardId: 89
       PointsForNextLevel: 0
       Season: 10
-    - RewardId: 81
+    - RewardId: 122
       PremiumRewardId: 89
       PointsForNextLevel: 0
       Season: 10
@@ -1686,7 +1686,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 10
     - RewardId: 64
-      PremiumRewardId: 79
+      PremiumRewardId: 123
       PointsForNextLevel: 0
       Season: 10
     - RewardId: 35
@@ -1725,7 +1725,7 @@ MonoBehaviour:
       PremiumRewardId: 70
       PointsForNextLevel: 0
       Season: 10
-    - RewardId: 84
+    - RewardId: 116
       PremiumRewardId: 89
       PointsForNextLevel: 0
       Season: 10
@@ -1765,7 +1765,7 @@ MonoBehaviour:
       PremiumRewardId: 89
       PointsForNextLevel: 0
       Season: 10
-    - RewardId: 80
+    - RewardId: 121
       PremiumRewardId: 70
       PointsForNextLevel: 0
       Season: 10
@@ -1786,7 +1786,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 10
     - RewardId: 64
-      PremiumRewardId: 43
+      PremiumRewardId: 120
       PointsForNextLevel: 0
       Season: 10
     - RewardId: 64
@@ -1806,7 +1806,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 10
     - RewardId: 64
-      PremiumRewardId: 85
+      PremiumRewardId: 106
       PointsForNextLevel: 0
       Season: 10
     - RewardId: 64
@@ -1825,7 +1825,7 @@ MonoBehaviour:
       PremiumRewardId: 70
       PointsForNextLevel: 0
       Season: 10
-    - RewardId: 82
+    - RewardId: 114
       PremiumRewardId: 89
       PointsForNextLevel: 0
       Season: 10

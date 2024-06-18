@@ -12498,6 +12498,270 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/AvatarBurger
+      TermType: 0
+      Description: 
+      Languages:
+      - BURGERHEAD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBurgerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFootballguy
+      TermType: 0
+      Description: 
+      Languages:
+      - PENALTY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFootballguyDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLion
+      TermType: 0
+      Description: 
+      Languages:
+      - ARMOR CLEANING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLionDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLion2
+      TermType: 0
+      Description: 
+      Languages:
+      - ROAR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLion2Description
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSatoshi
+      TermType: 0
+      Description: 
+      Languages:
+      - SAMURAI MASK
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSatoshiDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSheriff
+      TermType: 0
+      Description: 
+      Languages:
+      - HOWDY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSheriffDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSoldier
+      TermType: 0
+      Description: 
+      Languages:
+      - READY FOR BATTLE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSoldierDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSwimmer
+      TermType: 0
+      Description: 
+      Languages:
+      - SWIM TIME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSwimmerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarThief
+      TermType: 0
+      Description: 
+      Languages:
+      - JUST PASSING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarThiefDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarVr
+      TermType: 0
+      Description: 
+      Languages:
+      - DREAMING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarVrDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBall
+      TermType: 0
+      Description: 
+      Languages:
+      - FOOTBALL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBallDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLincoln
+      TermType: 0
+      Description: 
+      Languages:
+      - SERIOUS BUSINESS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLincolnDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/BLSTDescription
       TermType: 0
       Description: 
@@ -14478,6 +14742,160 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinCrowbar
+      TermType: 0
+      Description: 
+      Languages:
+      - CROWBAR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinCrowbarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinAxe
+      TermType: 0
+      Description: 
+      Languages:
+      - AXE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinAxeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinKnife
+      TermType: 0
+      Description: 
+      Languages:
+      - KNIFE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinKnifeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinOar
+      TermType: 0
+      Description: 
+      Languages:
+      - OAR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinOarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinSpatula
+      TermType: 0
+      Description: 
+      Languages:
+      - SPATULA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinSpatulaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinTrophy
+      TermType: 0
+      Description: 
+      Languages:
+      - TROPHY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinTrophyDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinWalkingStick
+      TermType: 0
+      Description: 
+      Languages:
+      - CANE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinWalkingStickDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/ModHeavyMachineGun
       TermType: 0
       Description: 
@@ -14748,6 +15166,226 @@ MonoBehaviour:
       - For Valhalla!
       - For Valhalla!
       - For Valhalla!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBurger
+      TermType: 0
+      Description: 
+      Languages:
+      - PATTY BUN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBurgerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFootballGuy
+      TermType: 0
+      Description: 
+      Languages:
+      - MESSY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFootballGuyDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinLincoln
+      TermType: 0
+      Description: 
+      Languages:
+      - ABE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinLincolnDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinLion
+      TermType: 0
+      Description: 
+      Languages:
+      - LION HART
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinLionDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSatoshi
+      TermType: 0
+      Description: 
+      Languages:
+      - NAKAMOTO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSatoshiDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSheriff
+      TermType: 0
+      Description: 
+      Languages:
+      - WENDY WEST
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSheriffDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSoldier
+      TermType: 0
+      Description: 
+      Languages:
+      - OSMAN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSoldierDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSwimmer
+      TermType: 0
+      Description: 
+      Languages:
+      - BELLA FLOAT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSwimmerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinThief
+      TermType: 0
+      Description: 
+      Languages:
+      - VINNIE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinThiefDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinVR
+      TermType: 0
+      Description: 
+      Languages:
+      - JOON
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinVRDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -27948,7 +28586,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1717937187718
+    Google_LastUpdatedVersion: 1718529454778
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -267,6 +267,18 @@ enum GameId
 	AvatarNinjaalternative = 506,
 	AvatarPolicefemale = 507,
 	AvatarPlaguedoctormystery = 508,
+	AvatarBurger = 509,
+	AvatarFootballguy = 510,
+	AvatarLion = 511,
+	AvatarLion2 = 512,
+	AvatarSatoshi = 513,
+	AvatarSheriff = 514,
+	AvatarSoldier = 515,
+	AvatarSwimmer = 516,
+	AvatarThief = 517,
+	AvatarVr = 518,
+	AvatarBall = 519,
+	AvatarLincoln = 520,
 	FootprintDot = 111,
 }
 

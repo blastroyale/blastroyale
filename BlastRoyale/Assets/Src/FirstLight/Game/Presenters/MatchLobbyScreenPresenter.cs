@@ -66,10 +66,6 @@ namespace FirstLight.Game.Presenters
 			foreach (var player in matchLobby.Players)
 			{
 				_playersContainer.Add(CreatePlayerElement(player));
-
-				var playerLabel = new Label(player.GetPlayerName());
-				playerLabel.AddToClassList("player");
-				_playersContainer.Add(playerLabel);
 			}
 
 			_matchSettingsView.SetMatchSettings(matchLobby.GetMatchSettings(), matchLobby.IsLocalPlayerHost());

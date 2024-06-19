@@ -25,9 +25,9 @@
     flex-direction: row;
     align-items: stretch;
     padding-top: 42px;
-    padding-right: 164px;
+    padding-right: 75px;
     padding-bottom: 42px;
-    padding-left: 100px;
+    padding-left: 75px;
 }
 
 .match-list-container {

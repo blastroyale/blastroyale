@@ -45,10 +45,10 @@
 .safe-area {
     flex-direction: row;
     align-items: stretch;
-    margin-right: 164px;
-    margin-left: 100px;
-    margin-top: 42px;
-    margin-bottom: 42px;
+    padding-top: 42px;
+    padding-right: 75px;
+    padding-bottom: 42px;
+    padding-left: 75px;
 }
 
 .match-list-container {

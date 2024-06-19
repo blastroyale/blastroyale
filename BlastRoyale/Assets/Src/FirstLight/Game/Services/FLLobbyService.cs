@@ -22,7 +22,6 @@ namespace FirstLight.Game.Services
 		private const string PARTY_LOBBY_NAME = "party_{0}";
 		private const string MATCH_LOBBY_NAME = "{0}'s game";
 		private const int MAX_PARTY_SIZE = 4;
-		private const int MAX_MATCH_SIZE = 48;
 		private const float TICK_DELAY = 15f;
 
 		public const string KEY_SKIN_ID = "skin_id";
@@ -73,55 +72,7 @@ namespace FirstLight.Game.Services
 			messageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 
 			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
-		}
-
-		private void OnPartyLobbyChanged(ILobbyChanges changes)
-		{
-			if (changes.LobbyDeleted)
-			{
-				CurrentPartyLobby = null;
-				return;
-			}
-
-			// If a player joined check if we sent the invite and remove it
-			foreach (var playerJoined in changes.PlayerJoined.Value)
-			{
-				_sentInvites.Remove(playerJoined.Player.Id);
-			}
-
-			changes.ApplyToLobby(CurrentPartyLobby);
-		}
-
-		private void OnApplicationQuit(ApplicationQuitMessage _)
-		{
-			// Delete created lobbies when the player quits the game
-			FLog.Verbose("Deleting lobbies on application quit.");
-
-			if (CurrentPartyLobby != null)
-			{
-				if (CurrentPartyLobby.IsLocalPlayerHost())
-				{
-					LobbyService.Instance.DeleteLobbyAsync(CurrentPartyLobby.Id);
-				}
-				else
-				{
-					// TODO: We should not remove player, we should try to reconnect to the lobby
-					LobbyService.Instance.RemovePlayerAsync(CurrentPartyLobby.Id, AuthenticationService.Instance.PlayerId);
-				}
-			}
-
-			if (CurrentMatchLobby != null)
-			{
-				if (CurrentMatchLobby.IsLocalPlayerHost())
-				{
-					LobbyService.Instance.DeleteLobbyAsync(CurrentMatchLobby.Id);
-				}
-				else
-				{
-					// TODO: We should not remove player, we should try to reconnect to the lobby
-					LobbyService.Instance.RemovePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId);
-				}
-			}
+			CurrentMatchCallbacks.LobbyChanged += OnMatchLobbyChanged;
 		}
 
 		/// <summary>
@@ -311,7 +262,7 @@ namespace FirstLight.Game.Services
 			try
 			{
 				FLog.Info($"Creating new match lobby with name: {lobbyName}");
-				var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, MAX_MATCH_SIZE, options);
+				var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, matchOptions.MaxPlayers, options);
 				_matchLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentMatchCallbacks);
 				CurrentMatchLobby = lobby;
 				FLog.Info($"Match lobby created! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name}");
@@ -432,6 +383,66 @@ namespace FirstLight.Game.Services
 		private static bool IsPlayerHost(Lobby lobby)
 		{
 			return lobby.HostId == AuthenticationService.Instance.PlayerId;
+		}
+
+		private void OnMatchLobbyChanged(ILobbyChanges changes)
+		{
+			if (changes.LobbyDeleted)
+			{
+				CurrentMatchLobby = null;
+				return;
+			}
+
+			changes.ApplyToLobby(CurrentMatchLobby);
+		}
+
+		private void OnPartyLobbyChanged(ILobbyChanges changes)
+		{
+			if (changes.LobbyDeleted)
+			{
+				CurrentPartyLobby = null;
+				return;
+			}
+
+			// If a player joined check if we sent the invite and remove it
+			foreach (var playerJoined in changes.PlayerJoined.Value)
+			{
+				_sentInvites.Remove(playerJoined.Player.Id);
+			}
+
+			changes.ApplyToLobby(CurrentPartyLobby);
+		}
+
+		private void OnApplicationQuit(ApplicationQuitMessage _)
+		{
+			// Delete created lobbies when the player quits the game
+			FLog.Verbose("Deleting lobbies on application quit.");
+
+			if (CurrentPartyLobby != null)
+			{
+				if (CurrentPartyLobby.IsLocalPlayerHost())
+				{
+					LobbyService.Instance.DeleteLobbyAsync(CurrentPartyLobby.Id);
+				}
+				else
+				{
+					// TODO: We should not remove player, we should try to reconnect to the lobby
+					LobbyService.Instance.RemovePlayerAsync(CurrentPartyLobby.Id, AuthenticationService.Instance.PlayerId);
+				}
+			}
+
+			if (CurrentMatchLobby != null)
+			{
+				if (CurrentMatchLobby.IsLocalPlayerHost())
+				{
+					LobbyService.Instance.DeleteLobbyAsync(CurrentMatchLobby.Id);
+				}
+				else
+				{
+					// TODO: We should not remove player, we should try to reconnect to the lobby
+					LobbyService.Instance.RemovePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId);
+				}
+			}
 		}
 	}
 }

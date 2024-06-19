@@ -2,7 +2,6 @@
     <ui:Template name="MatchSettings" src="project://database/Assets/Art/UI/Templates/MatchSettings.uxml?fileID=9197481963319205126&amp;guid=1e44a74fe2142438a9167c71b2b9e8c9&amp;type=3#MatchSettings" />
     <Style src="project://database/Assets/Art/UI/Screens/MatchLobbyScreenStyle.uss?fileID=7433441132597879392&amp;guid=86bc32e8e558d4dc49c4fd245497e2be&amp;type=3#MatchLobbyScreenStyle" />
     <ui:VisualElement name="root" class="fill-parent" style="align-items: center; justify-content: center;">
-        <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" />
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
             <ui:VisualElement name="PlayersContainer" class="players-container">
                 <ui:Label text="Squeazer" class="player">
@@ -11,5 +10,6 @@
             </ui:VisualElement>
             <ui:Instance template="MatchSettings" name="MatchSettings" />
         </FirstLight.Game.UIElements.SafeAreaElement>
+        <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" />
     </ui:VisualElement>
 </ui:UXML>

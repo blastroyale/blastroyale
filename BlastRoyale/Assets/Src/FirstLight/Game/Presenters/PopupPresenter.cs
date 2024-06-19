@@ -20,6 +20,7 @@ namespace FirstLight.Game.Presenters
 			public UIView View;
 		}
 
+		// Unity can't serialize 'Type' so we need to be explicit here
 		[SerializeField, Required] private VisualTreeAsset _joinWithCodeDocument;
 		[SerializeField, Required] private VisualTreeAsset _selectNumberDocument;
 		[SerializeField, Required] private VisualTreeAsset _selectMapDocument;

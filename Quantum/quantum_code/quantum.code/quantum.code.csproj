@@ -109,6 +109,7 @@
     <Compile Include="Configs\Helpers\QuantumGameModePair.cs" />
     <Compile Include="Configs\Helpers\QuantumPerGameModeConfig.cs" />
     <Compile Include="Configs\Helpers\QuantumPair.cs" />
+    <Compile Include="Configs\Mutator.cs" />
     <Compile Include="Configs\QuantumBotDifficultyConfigs.cs" />
     <Compile Include="Configs\QuantumReviveConfigs.cs" />
     <Compile Include="QuantumFeatureFlags.cs" />
@@ -253,7 +254,6 @@
     <Compile Include="Configs\QuantumChestConfigs.cs" />
     <Compile Include="Configs\QuantumEquipmentMaterialStatConfigs.cs" />
     <Compile Include="Configs\QuantumGameModeConfig.cs" />
-    <Compile Include="Configs\QuantumMutatorConfigs.cs" />
     <Compile Include="Configs\QuantumStatConfigs.cs" />
     <Compile Include="Configs\QuantumMapConfigs.cs" />
     <Compile Include="Configs\QuantumEquipmentStatConfigs.cs" />

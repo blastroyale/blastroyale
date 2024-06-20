@@ -142,7 +142,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private void UpdateSpecials(Frame f, PlayerInventory inventory, bool forceHide = false)
 		{
-			if (f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _) || forceHide)
+			if (f.Context.Mutators.HasFlagFast(Mutator.DoNotDropSpecials) || forceHide)
 			{
 				_special0Button.SetVisibility(false);
 				_special1Button.SetVisibility(false);

@@ -73,7 +73,7 @@ namespace Quantum
 					throw new ArgumentOutOfRangeException();
 			}
 
-			if (isTeamsMode && f.Context.TryGetMutatorByType(MutatorType.ConsumablesSharing, out _))
+			if (isTeamsMode && f.Context.Mutators.HasFlagFast(Mutator.ConsumableSharing))
 			{
 				ShareCollectWithTeammates(f, playerEntity, team);
 			}

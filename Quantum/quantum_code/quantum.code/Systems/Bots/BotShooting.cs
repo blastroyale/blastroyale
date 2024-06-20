@@ -54,13 +54,12 @@ namespace Quantum.Systems.Bots
 					var team = f.Unsafe.GetPointer<Targetable>(filter.Entity)->Team;
 					if (filter.TryToAimAtEnemy(f, team, maxRange, target, out var targetHit))
 					{
-						var speedUpMutatorExists =
-							f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
+						var speedUpMutatorExists = f.Context.Mutators.HasFlagFast(Mutator.SpeedUp);
 						var speed = f.Unsafe.GetPointer<Stats>(filter.Entity)->Values[(int)StatType.Speed].StatValue;
 						speed *= filter.BotCharacter->MovementSpeedMultiplier;
 						speed *= weaponConfig.AimingMovementSpeed;
 						var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
-						kcc->MaxSpeed = speedUpMutatorExists ? speed * speedUpMutatorConfig.Param1 : speed;
+						kcc->MaxSpeed = speedUpMutatorExists ? speed * Constants.MUTATOR_SPEEDUP_AMOUNT : speed;
 						filter.SetAttackTarget(f, targetHit);
 						target = targetHit;
 					}
@@ -158,8 +157,8 @@ namespace Quantum.Systems.Bots
 			var speed = f.Unsafe.GetPointer<Stats>(botFilter.Entity)->Values[(int)StatType.Speed].StatValue;
 			speed *= botFilter.BotCharacter->MovementSpeedMultiplier;
 
-			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
-			speed = speedUpMutatorExists ? speed * speedUpMutatorConfig.Param1 : speed;
+			var speedUpMutatorExists = f.Context.Mutators.HasFlagFast(Mutator.SpeedUp);
+			speed = speedUpMutatorExists ? speed * Constants.MUTATOR_SPEEDUP_AMOUNT : speed;
 
 			ReviveSystem.OverwriteMaxMoveSpeed(f, botFilter.Entity, ref speed);
 			// When we clear the target we also return speed to normal
@@ -167,7 +166,7 @@ namespace Quantum.Systems.Bots
 			f.Unsafe.GetPointer<CharacterController3D>(botFilter.Entity)->MaxSpeed = speed;
 
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botFilter.Entity);
-			bb->Set(f, Constants.IsAimPressedKey, false);
+			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, false);
 
 			BotLogger.LogAction(ref botFilter, "[Aim] Cleared Aim");
 		}
@@ -177,8 +176,8 @@ namespace Quantum.Systems.Bots
 			var speed = f.Unsafe.GetPointer<Stats>(entity)->Values[(int)StatType.Speed].StatValue;
 			speed *= botCharacter->MovementSpeedMultiplier;
 
-			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
-			speed = speedUpMutatorExists ? speed * speedUpMutatorConfig.Param1 : speed;
+			var speedUpMutatorExists = f.Context.Mutators.HasFlagFast(Mutator.SpeedUp);
+			speed = speedUpMutatorExists ? speed * Constants.MUTATOR_SPEEDUP_AMOUNT : speed;
 
 			ReviveSystem.OverwriteMaxMoveSpeed(f, entity, ref speed);
 			// When we clear the target we also return speed to normal
@@ -186,8 +185,8 @@ namespace Quantum.Systems.Bots
 			f.Unsafe.GetPointer<CharacterController3D>(entity)->MaxSpeed = speed;
 
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(entity);
-			bb->Set(f, Constants.IsAimPressedKey, false);
-			bb->Set(f, Constants.IsShootingKey, false);
+			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, false);
+			bb->Set(f, Constants.IS_SHOOTING_KEY, false);
 
 			BotLogger.LogAction(entity, "[Aim] Cleared Aim");
 		}
@@ -284,7 +283,7 @@ namespace Quantum.Systems.Bots
 		public static bool TryUseSpecials(this ref BotCharacter bot, PlayerInventory* inventory, EntityRef botEntity, Frame f)
 		{
 			// If there are no specials in this match, then no need to try using them as bots don't have them
-			if (f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
+			if (f.Context.Mutators.HasFlagFast(Mutator.DoNotDropSpecials))
 			{
 				return false;
 			}
@@ -413,16 +412,16 @@ namespace Quantum.Systems.Bots
 			// when the shot is fired bot will make sure it gets prediction
 			if (bot.SharpShootNextShot)
 			{
-				bb->Set(f, Constants.AimDirectionKey, (targetPosition - botPosition).XZ);
+				bb->Set(f, Constants.AIM_DIRECTION_KEY, (targetPosition - botPosition).XZ);
 				BotLogger.LogAction(bot, "Sharp Shooting");
 				return;
 			}
 
 			if (bot.AccuracySpreadAngle > 0)
 			{
-				var lerpSpeed = bb->GetFP(f, Constants.AccuracyLerp);
-				var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
-				var targetAimDirection = bb->GetVector2(f, Constants.TargetAim);
+				var lerpSpeed = bb->GetFP(f, Constants.ACCURACY_LERP);
+				var aimDirection = bb->GetVector2(f, Constants.AIM_DIRECTION_KEY);
+				var targetAimDirection = bb->GetVector2(f, Constants.TARGET_AIM);
 
 				if (aimDirection == FPVector2.Zero)
 				{
@@ -441,7 +440,7 @@ namespace Quantum.Systems.Bots
 					{
 						var angleHalfInRad = (bot.AccuracySpreadAngle * FP.Deg2Rad) / FP._2;
 						targetAimDirection = FPVector2.Rotate((targetPosition - botPosition).XZ, f.RNG->Next(-angleHalfInRad, angleHalfInRad));
-						bb->Set(f, Constants.TargetAim, targetAimDirection);
+						bb->Set(f, Constants.TARGET_AIM, targetAimDirection);
 						BotLogger.LogAction(bot, "Setting Target Aim without precision");
 					}
 					else
@@ -450,13 +449,13 @@ namespace Quantum.Systems.Bots
 						if (botHealthRatio < FP._0_33 && botHealthRatio < targetHealthRatio && f.RNG->NextBool())
 						{
 							bot.SharpShootNextShot = true;
-							bb->Set(f, Constants.AccuracyLerp, FP._1);
+							bb->Set(f, Constants.ACCURACY_LERP, FP._1);
 						}
 
 						// if he is just lower life than enemy he will just shoot better
 						// but wont sharp shoot
 						targetAimDirection = (targetPosition - botPosition).XZ;
-						bb->Set(f, Constants.AimDirectionKey, targetAimDirection);
+						bb->Set(f, Constants.AIM_DIRECTION_KEY, targetAimDirection);
 						BotLogger.LogAction(bot, "Setting aim with precision but lerping");
 					}
 				}
@@ -468,23 +467,23 @@ namespace Quantum.Systems.Bots
 				if (lerpSpeed >= FP._1)
 				{
 					aimDirection = targetAimDirection;
-					bb->Set(f, Constants.AccuracyLerp, FP._0);
-					bb->Set(f, Constants.TargetAim, FPVector2.Zero);
+					bb->Set(f, Constants.ACCURACY_LERP, FP._0);
+					bb->Set(f, Constants.TARGET_AIM, FPVector2.Zero);
 				}
 				else
 				{
-					bb->Set(f, Constants.AccuracyLerp, lerpSpeed);
+					bb->Set(f, Constants.ACCURACY_LERP, lerpSpeed);
 					aimDirection = FPQuaternion.Lerp(aimDirection.ToRotation(), targetAimDirection.ToRotation(), lerpSpeed).ToDirection();
 				}
 
-				bb->Set(f, Constants.AimDirectionKey, aimDirection);
+				bb->Set(f, Constants.AIM_DIRECTION_KEY, aimDirection);
 			}
 			else
 			{
 				// Sharp Shooter
 				BotLogger.LogAction(bot, "Setting sharp shooter");
 				bot.SharpShootNextShot = true;
-				bb->Set(f, Constants.AimDirectionKey, (targetPosition - botPosition).XZ);
+				bb->Set(f, Constants.AIM_DIRECTION_KEY, (targetPosition - botPosition).XZ);
 			}
 		}
 	}

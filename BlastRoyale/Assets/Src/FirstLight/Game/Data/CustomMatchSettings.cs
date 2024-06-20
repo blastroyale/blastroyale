@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using Quantum;
 
 namespace FirstLight.Game.Data
 {
@@ -8,7 +8,7 @@ namespace FirstLight.Game.Data
 		public int SquadSize = 1;
 		public string MapID = "MazeMayhem";
 		public int MaxPlayers = 48;
-		public List<string> Mutators = new ();
+		public Mutator Mutators = new ();
 		public bool PrivateRoom = false;
 		public bool ShowCreatorName = true;
 	}

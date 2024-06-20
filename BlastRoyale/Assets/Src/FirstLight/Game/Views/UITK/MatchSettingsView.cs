@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
+using I2.Loc;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -25,9 +26,11 @@ namespace FirstLight.Game.Views.UITK
 		private ScrollView _mutatorsScroller;
 		private ImageButton _mutatorsButton;
 
-		private Button _mainActionButton;
+		private LocalizedButton _mainActionButton;
 
 		public Action MainActionClicked { get; set; }
+		public Action<CustomMatchSettings> MatchSettingsChanged { get; set; }
+        
 		public CustomMatchSettings MatchSettings { get; private set; }
 
 		private int _selectedModeIndex;
@@ -44,7 +47,7 @@ namespace FirstLight.Game.Views.UITK
 			_mutatorsScroller = Element.Q<ScrollView>("MutatorsScroller").Required();
 			_mutatorsButton = Element.Q<ImageButton>("MutatorsButton").Required();
 
-			_mainActionButton = Element.Q<Button>("MainActionButton");
+			_mainActionButton = Element.Q<LocalizedButton>("MainActionButton");
 			_mainActionButton.clicked += () => MainActionClicked.Invoke();
 
 			_modeButton.Button.clicked += OnGameModeClicked;
@@ -58,7 +61,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			MatchSettings = settings;
 			Element.SetEnabled(editable);
-			RefreshData();
+			RefreshData(false);
 		}
 
 		private void OnMapClicked()
@@ -66,7 +69,7 @@ namespace FirstLight.Game.Views.UITK
 			PopupPresenter.OpenSelectMap(mapId =>
 			{
 				MatchSettings.MapID = mapId;
-				RefreshData();
+				RefreshData(true);
 				PopupPresenter.Close().Forget();
 			}, MatchSettings.GameModeID, MatchSettings.MapID).Forget();
 		}
@@ -77,9 +80,9 @@ namespace FirstLight.Game.Views.UITK
 			PopupPresenter.OpenSelectNumber(val =>
 			{
 				MatchSettings.MaxPlayers = val;
-				RefreshData();
+				RefreshData(true);
 				PopupPresenter.Close().Forget();
-			}, "MAX PLAYERS", "Choose maximum amount of players", 2, 48, MatchSettings.MaxPlayers).Forget();
+			}, ScriptTerms.UITCustomGames.max_players, ScriptTerms.UITCustomGames.max_players_desc, 2, 48, MatchSettings.MaxPlayers).Forget();
 		}
 
 		private void OnTeamSizeClicked()
@@ -87,7 +90,7 @@ namespace FirstLight.Game.Views.UITK
 			PopupPresenter.OpenSelectSquadSize(val =>
 			{
 				MatchSettings.SquadSize = val;
-				RefreshData();
+				RefreshData(true);
 				PopupPresenter.Close().Forget();
 			}, MatchSettings.SquadSize).Forget();
 		}
@@ -97,7 +100,7 @@ namespace FirstLight.Game.Views.UITK
 			PopupPresenter.OpenSelectMutators(mutators =>
 			{
 				MatchSettings.Mutators = mutators;
-				RefreshData();
+				RefreshData(true);
 				PopupPresenter.Close().Forget();
 			}, MatchSettings.Mutators).Forget();
 		}
@@ -112,23 +115,23 @@ namespace FirstLight.Game.Views.UITK
 			var selectedGameMode = gameModes[_selectedModeIndex];
 			MatchSettings.GameModeID = selectedGameMode.Id;
 
-			RefreshData();
+			RefreshData(true);
 		}
 
-		public void SetMainAction(string label, Action action)
+		public void SetMainAction(string labelKey, Action action)
 		{
-			if (label == null || action == null)
+			if (labelKey == null || action == null)
 			{
 				_mainActionButton.SetDisplay(false);
 				return;
 			}
 
 			_mainActionButton.SetDisplay(true);
-			_mainActionButton.text = label;
+			_mainActionButton.Localize(labelKey);
 			MainActionClicked = action;
 		}
 
-		private void RefreshData()
+		private void RefreshData(bool newSettings)
 		{
 			_modeButton.SetValue(MatchSettings.GameModeID);
 			_teamSizeButton.SetValue(MatchSettings.SquadSize.ToString());
@@ -136,12 +139,17 @@ namespace FirstLight.Game.Views.UITK
 			_maxPlayersButton.SetValue(MatchSettings.MaxPlayers.ToString());
 
 			_mutatorsScroller.Clear();
-			foreach (var mutator in MatchSettings.Mutators)
+			foreach (var mutator in MatchSettings.Mutators.GetSetFlags())
 			{
-				var mutatorLabel = new Label(mutator);
+				var mutatorLabel = new LocalizedLabel(mutator.GetLocalizationKey());
 				mutatorLabel.AddToClassList("mutator");
 
 				_mutatorsScroller.Add(mutatorLabel);
+			}
+
+			if (newSettings)
+			{
+				MatchSettingsChanged?.Invoke(MatchSettings);
 			}
 		}
 	}

@@ -9,7 +9,7 @@ namespace Quantum
 		// Non Serialized Map Data
 		[NonSerialized] public int MapId;
 		[NonSerialized] public string GameModeId;
-		[NonSerialized] public string[] Mutators;
+		[NonSerialized] public Mutator Mutators;
 		[NonSerialized] public int BotOverwriteDifficulty;
 		[NonSerialized] public int TeamSize;
 		[NonSerialized] public int[] AllowedRewards;
@@ -30,18 +30,15 @@ namespace Quantum
 		public AssetRefQuantumBaseEquipmentStatConfigs BaseEquipmentStatConfigs;
 		public AssetRefQuantumStatConfigs StatConfigs;
 		public AssetRefQuantumEquipmentMaterialStatConfigs EquipmentMaterialStatConfigs;
-		public AssetRefQuantumMutatorConfigs MutatorConfigs;
 		public AssetRefQuantumReviveConfigs ReviveConfigs;
 		
 		partial void SerializeUserData(BitStream stream)
 		{
 			stream.Serialize(ref MapId);
 			stream.Serialize(ref GameModeId);
-			stream.SerializeArrayLength(ref Mutators);
-			for (var i = 0; i < Mutators.Length; i++)
-			{
-				stream.Serialize(ref Mutators[i]);
-			}
+			var mutators = (int) Mutators;
+			stream.Serialize(ref mutators);
+			Mutators = (Mutator) mutators;
 			stream.Serialize(ref BotOverwriteDifficulty);
 			stream.Serialize(ref TeamSize);
 			stream.SerializeArrayLength(ref AllowedRewards);
@@ -65,7 +62,6 @@ namespace Quantum
 			stream.Serialize(ref BaseEquipmentStatConfigs);
 			stream.Serialize(ref StatConfigs);
 			stream.Serialize(ref EquipmentMaterialStatConfigs);
-			stream.Serialize(ref MutatorConfigs);
 			stream.Serialize(ref ReviveConfigs);
 		}
 	}

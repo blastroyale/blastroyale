@@ -311,7 +311,7 @@ namespace Quantum.Systems.Bots
 
 			if (f.Unsafe.TryGetPointer<AIBlackboardComponent>(entity, out var bb))
 			{
-				bb->Set(f, Constants.IsKnockedOut, false);
+				bb->Set(f, Constants.IS_KNOCKED_OUT, false);
 			}
 		}
 
@@ -337,12 +337,12 @@ namespace Quantum.Systems.Bots
 
 			if (f.Unsafe.TryGetPointer<AIBlackboardComponent>(knockedOutEntity, out var bb))
 			{
-				bb->Set(f, Constants.IsKnockedOut, true);
+				bb->Set(f, Constants.IS_KNOCKED_OUT, true);
 			}
 
 			if (f.Unsafe.TryGetPointer<HFSMAgent>(knockedOutEntity, out var agent))
 			{
-				HFSMManager.TriggerEvent(f, &agent->Data, knockedOutEntity, Constants.KnockedOutEvent);
+				HFSMManager.TriggerEvent(f, &agent->Data, knockedOutEntity, Constants.KNOCKED_OUT_EVENT);
 			}
 		}
 

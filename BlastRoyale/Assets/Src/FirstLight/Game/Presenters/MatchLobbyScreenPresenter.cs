@@ -41,6 +41,14 @@ namespace FirstLight.Game.Presenters
 
 			_matchSettingsView.SetMainAction(playerIsHost ? "#START MATCH#" : null, () => StartMatch().Forget());
 
+			if (playerIsHost)
+			{
+				_matchSettingsView.MatchSettingsChanged += settings =>
+				{
+					_services.FLLobbyService.UpdateMatchSettings(settings).Forget();
+				};
+			}
+
 			RefreshData();
 
 			return base.OnScreenOpen(reload);

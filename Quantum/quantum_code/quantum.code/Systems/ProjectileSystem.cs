@@ -169,8 +169,8 @@ namespace Quantum.Systems
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
-			if(f.Unsafe.TryGetPointer<BotCharacter>(e, out var bot) && bot->Target.IsValid && bb->GetBoolean(f, Constants.IsAimPressedKey))
+			var aimDirection = bb->GetVector2(f, Constants.AIM_DIRECTION_KEY);
+			if(f.Unsafe.TryGetPointer<BotCharacter>(e, out var bot) && bot->Target.IsValid && bb->GetBoolean(f, Constants.IS_AIM_PRESSED_KEY))
 			{
 				if (bot->SharpShootNextShot)
 				{
@@ -186,8 +186,8 @@ namespace Quantum.Systems
 			var aimingDirection = QuantumHelpers.GetAimDirection(aimDirection, transform->Rotation).Normalized;
 			var rangeStat = f.Unsafe.GetPointer<Stats>(e)->GetStatData(StatType.AttackRange).StatValue;
 			playerCharacter->ReduceMag(f, e); //consume a shot from your magazine
-			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);
-			bb->Set(f, Constants.LastShotAt, f.Time);
+			bb->Set(f, Constants.BURST_SHOT_COUNT, bb->GetFP(f, Constants.BURST_SHOT_COUNT) - 1);
+			bb->Set(f, Constants.LAST_SHOT_AT, f.Time);
 			f.Events.OnPlayerAttack(playerCharacter->Player, e, playerCharacter->CurrentWeapon, weaponConfig, aimingDirection, rangeStat);
 			if (weaponConfig.NumberOfShots == 1 || weaponConfig.IsMeleeWeapon)
 			{

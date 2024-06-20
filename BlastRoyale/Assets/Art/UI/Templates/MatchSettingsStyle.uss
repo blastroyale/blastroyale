@@ -4,6 +4,10 @@
     flex-grow: 1;
 }
 
+.match-settings:disabled {
+    opacity: 1;
+}
+
 .match-settings__left-bg {
     flex-grow: 1;
     background-image: var(--sprite-home__background-matchsettings);
@@ -132,10 +136,9 @@
     height: 72px;
 }
 
-.mutators__container Label {
+.mutators__container LocalizedLabel {
     background-color: rgb(255, 255, 255);
     font-size: 32px;
-    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static");
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -157,7 +160,7 @@
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
-    background-image: url("project://database/Assets/Art/UI/Sprites/Home/button-addbubble.png?fileID=21300000&guid=b23ad1332c3594fda96a50edbd6b0303&type=3#button-addbubble");
+    background-image: var(--sprite-home__button-addbubble);
     width: 130px;
     height: 114px;
     top: 19px;

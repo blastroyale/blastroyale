@@ -15,8 +15,7 @@ namespace Quantum.Systems
 			f.Global->Queries = f.AllocateList<EntityPair>(128);
 			f.Context.MapConfig = f.MapConfigs.GetConfig(f.RuntimeConfig.MapId);
 			f.Context.GameModeConfig = f.GameModeConfigs.GetConfig(f.RuntimeConfig.GameModeId);
-			f.Context.MutatorConfigs = f.RuntimeConfig.Mutators
-			                            .Select(mutatorId => f.MutatorConfigs.GetConfig(mutatorId)).ToList();
+			f.Context.Mutators = f.RuntimeConfig.Mutators;
 			f.Context.TargetAllLayerMask = -1;
 			f.Context.TargetPlayersMask = f.Layers.GetLayerMask(PhysicsLayers.PLAYERS);
 			f.Context.TargetMapOnlyLayerMask = f.Layers.GetLayerMask(PhysicsLayers.OBSTACLES);

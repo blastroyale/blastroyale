@@ -13,7 +13,7 @@
                 <FirstLight.Game.UIElements.MatchSettingsButtonElement name="MapButton" title-localization-key="MAP" />
                 <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="true" name="MaxPlayersButton" title-localization-key="MAX PLAYERS" />
             </ui:VisualElement>
-            <ui:VisualElement name="Mutatros" class="mutators">
+            <ui:VisualElement name="Mutators" class="mutators">
                 <ui:Label tabindex="-1" text="MUTATORS" display-tooltip-when-elided="true" name="Title" class="mutators__label" />
                 <ui:ScrollView mode="Horizontal" touch-scroll-type="Clamped" name="MutatorsScroller" class="mutators__container">
                     <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" />
@@ -23,7 +23,7 @@
             <ui:Toggle label="PRIVATE ROOM" name="PrivateRoomToggle" />
             <ui:Toggle label="SHOW CREATOR NAME" name="ShowNameToggle" />
             <ui:VisualElement name="Spacer" style="flex-grow: 1;" />
-            <ui:Button text="CREATE MATCH" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MainActionButton" class="button-long button-long--yellow" style="align-self: center;" />
+            <FirstLight.Game.UIElements.LocalizedButton localization-key="CREATE MATCH" name="MainActionButton" class="button-long button-long--yellow" style="align-self: center;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

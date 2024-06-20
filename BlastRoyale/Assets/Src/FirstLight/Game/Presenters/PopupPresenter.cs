@@ -5,6 +5,8 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK.Popups;
 using FirstLight.UIService;
+using I2.Loc;
+using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -61,7 +63,7 @@ namespace FirstLight.Game.Presenters
 
 		public static UniTaskVoid OpenJoinWithCode(Action<string> onJoin)
 		{
-			return OpenPopup(new JoinWithCodePopupView(onJoin), "JOIN WITH CODE");
+			return OpenPopup(new JoinWithCodePopupView(onJoin), ScriptTerms.UITCustomGames.join_with_code);
 		}
 
 		public static UniTaskVoid OpenSelectNumber(Action<int> onConfirm, string titleKey, string subtitleKey, int min, int max, int currentValue)
@@ -71,17 +73,17 @@ namespace FirstLight.Game.Presenters
 
 		public static UniTaskVoid OpenSelectMap(Action<string> onMapSelected, string gameModeID, string currentMapID)
 		{
-			return OpenPopup(new SelectMapPopupView(onMapSelected, gameModeID, currentMapID), "SELECT A MAP");
+			return OpenPopup(new SelectMapPopupView(onMapSelected, gameModeID, currentMapID), ScriptTerms.UITCustomGames.select_map);
 		}
 
 		public static UniTaskVoid OpenSelectSquadSize(Action<int> onSquadSizeSelected, int currentSize)
 		{
-			return OpenPopup(new SelectSquadSizePopupView(onSquadSizeSelected, currentSize), "SELECT SQUAD SIZE");
+			return OpenPopup(new SelectSquadSizePopupView(onSquadSizeSelected, currentSize), ScriptTerms.UITCustomGames.select_squad_size);
 		}
 
-		public static UniTaskVoid OpenSelectMutators(Action<List<string>> onMutatorsSelected, List<string> currentMutators)
+		public static UniTaskVoid OpenSelectMutators(Action<Mutator> onMutatorsSelected, Mutator mutators)
 		{
-			return OpenPopup(new SelectMutatorsPopupView(onMutatorsSelected, currentMutators), "SELECT MUTATORS");
+			return OpenPopup(new SelectMutatorsPopupView(onMutatorsSelected, mutators), ScriptTerms.UITCustomGames.select_mutators);
 		}
 
 		public static UniTask Close()

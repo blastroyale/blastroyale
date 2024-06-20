@@ -338,6 +338,34 @@ namespace FirstLight.Game.Services
 			}
 		}
 
+		public async UniTask<bool> UpdateMatchSettings(CustomMatchSettings settings)
+		{
+			Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
+
+			var options = new UpdateLobbyOptions
+			{
+				Data = new Dictionary<string, DataObject>
+				{
+					{KEY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(settings))}
+				}
+			};
+
+			try
+			{
+				FLog.Info($"Updating match settings for lobby: {CurrentMatchLobby.Id}");
+				CurrentMatchLobby = await LobbyService.Instance.UpdateLobbyAsync(CurrentMatchLobby.Id, options);
+				FLog.Info("Match settings updated successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn("Error updating match settings!", e);
+				_notificationService.QueueNotification($"Could not update match settings ({(int) e.Reason})");
+				return false;
+			}
+
+			return true;
+		}
+
 		private async UniTaskVoid Tick()
 		{
 			FLog.Verbose("Ticking LobbyService");

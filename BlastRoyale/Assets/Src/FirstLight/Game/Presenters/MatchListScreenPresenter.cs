@@ -7,6 +7,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
+using I2.Loc;
 using Unity.Services.Lobbies.Models;
 using UnityEngine.UIElements;
 
@@ -27,7 +28,7 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.ResolveServices();
 
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
-			header.SetTitle("#Browse games#");
+			header.SetTitle(ScriptLocalization.UITCustomGames.browse_games);
 
 			Root.Q("MatchSettings").Required().AttachView(this, out _matchSettingsView);
 			_gamesList = Root.Q<ListView>("GamesList").Required();
@@ -43,7 +44,7 @@ namespace FirstLight.Game.Presenters
 			RefreshLobbies().Forget();
 
 			_matchSettingsView.SetMatchSettings(_services.LocalPrefsService.LastCustomMatchSettings, true);
-			_matchSettingsView.SetMainAction("#CREATE MATCH#", () => CreateMatch(_matchSettingsView.MatchSettings).Forget());
+			_matchSettingsView.SetMainAction(ScriptTerms.UITCustomGames.create_lobby, () => CreateMatch(_matchSettingsView.MatchSettings).Forget());
 
 			return base.OnScreenOpen(reload);
 		}

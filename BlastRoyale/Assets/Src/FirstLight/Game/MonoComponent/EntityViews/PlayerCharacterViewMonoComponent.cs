@@ -175,7 +175,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			get
 			{
 				var f = QuantumRunner.Default.PredictedFrame();
-				return f.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(f, Constants.IsSkydiving);
+				return f.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(f, Constants.IS_SKYDIVING);
 			}
 		}
 
@@ -556,7 +556,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
 
 			var isMoving = sqrSpeed > (ReviveSystem.IsKnockedOut(f, EntityRef) ? KNOCKED_OUT_SPEED_THRESHOLD_SQUARED : SPEED_THRESHOLD_SQUARED);
-			var isAiming = bb->GetBoolean(f, Constants.IsAimPressedKey) && !knockedOut;
+			var isAiming = bb->GetBoolean(f, Constants.IS_AIM_PRESSED_KEY) && !knockedOut;
 
 			_skin.Moving = isMoving;
 			_characterView.PrintFootsteps = isMoving && !knockedOut;

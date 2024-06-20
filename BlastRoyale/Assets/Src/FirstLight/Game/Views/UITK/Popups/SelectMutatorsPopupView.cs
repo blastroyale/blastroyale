@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
+using I2.Loc;
 using Quantum;
 using UnityEngine.UIElements;
 
@@ -13,35 +12,34 @@ namespace FirstLight.Game.Views.UITK.Popups
 {
 	public class SelectMutatorsPopupView : UIView
 	{
-		private readonly Action<List<string>> _onMutatorsSelected;
-		private readonly List<string> _currentMutators;
-
-		private readonly IGameServices _services;
+		private readonly Action<Mutator> _onMutatorsSelected;
+		private readonly Mutator _currentMutators;
 
 		private ScrollView _mutatorsScroller;
 		private Label _selectedMutatorsLabel;
 
-		public SelectMutatorsPopupView(Action<List<string>> onMutatorsSelected, List<string> currentMutators)
+		public SelectMutatorsPopupView(Action<Mutator> onMutatorsSelected, Mutator currentMutators)
 		{
 			_onMutatorsSelected = onMutatorsSelected;
 			_currentMutators = currentMutators;
-
-			_services = MainInstaller.ResolveServices();
 		}
 
 		protected override void Attached()
 		{
-			var options = _services.ConfigsProvider.GetConfigsList<QuantumMutatorConfig>();
+			var options = Enum.GetValues(typeof(Mutator))
+				.Cast<Mutator>()
+				.Where(m => m != Mutator.None && m != Mutator.HammerTime) // TODO: Remove hammertime when we have weapon filters
+				.ToArray();
 
 			_mutatorsScroller = Element.Q<ScrollView>("MutatorsScrollView").Required();
 			_mutatorsScroller.Clear();
-			foreach (var mutator in options)
+			foreach (Mutator mutator in options)
 			{
-				var element = new MatchSettingsSelectionElement(mutator.Id, "some description");
-				element.userData = mutator.Id;
+				var element = new MatchSettingsSelectionElement(mutator.GetLocalizationKey(), mutator.GetDescriptionLocalizationKey());
+				element.userData = mutator;
 				element.clicked += () => OnMutatorClicked(element);
 
-				if (_currentMutators.Contains(mutator.Id))
+				if (_currentMutators.HasFlagFast(mutator))
 				{
 					element.AddToClassList("match-settings-selection--selected");
 				}
@@ -53,13 +51,13 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 			Element.Q<LocalizedButton>("ConfirmButton").Required().clicked += OnConfirmClicked;
 			_selectedMutatorsLabel = Element.Q<Label>("SelectedMutatorsLabel").Required();
-			_selectedMutatorsLabel.text = $"#Selected Mutators: {GetSelectedMutators().Count}#";
+			_selectedMutatorsLabel.text = string.Format(ScriptLocalization.UITCustomGames.selected_mutators, GetSelectedMutators().CountSetFlags());
 		}
 
 		private void OnMutatorClicked(MatchSettingsSelectionElement element)
 		{
 			element.ToggleInClassList("match-settings-selection--selected");
-			_selectedMutatorsLabel.text = $"#Selected Mutators: {GetSelectedMutators().Count}#";
+			_selectedMutatorsLabel.text = string.Format(ScriptLocalization.UITCustomGames.selected_mutators, GetSelectedMutators().CountSetFlags());
 		}
 
 		private void OnConfirmClicked()
@@ -68,14 +66,16 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_onMutatorsSelected(selectedMutators);
 		}
 
-		private List<string> GetSelectedMutators()
+		private Mutator GetSelectedMutators()
 		{
 			return _mutatorsScroller.Children()
 				.Where(ve => ve.ClassListContains("match-settings-selection--selected"))
-				.Select(ve => ve.userData as string).ToList();
+				.Select(ve => (Mutator) ve.userData)
+				.DefaultIfEmpty(Mutator.None)
+				.Aggregate((acc, mut) => acc | mut);
 		}
 
-		private async UniTaskVoid LoadMutatorPicture(QuantumMutatorConfig mutatorConfig, MatchSettingsSelectionElement element)
+		private async UniTaskVoid LoadMutatorPicture(Mutator mutator, MatchSettingsSelectionElement element)
 		{
 			// TODO
 			// var mapImage = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mutatorConfig.Map, false);

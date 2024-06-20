@@ -261,5 +261,15 @@ namespace FirstLight.Game.Utils
 
 			return unlockSystem.ToString().ToUpperInvariant();
 		}
+
+		public static string GetLocalizationKey(this Mutator mutator)
+		{
+			return $"UITCustomGames/mutator_{mutator.ToString()}";
+		}
+		
+		public static string GetDescriptionLocalizationKey(this Mutator mutator)
+		{
+			return $"UITCustomGames/mutator_{mutator.ToString()}_Description";
+		}
 	}
 }

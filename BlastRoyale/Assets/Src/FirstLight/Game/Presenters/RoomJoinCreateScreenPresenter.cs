@@ -50,18 +50,6 @@ namespace FirstLight.Game.Presenters
 		private Button _createRoomButton;
 		private LocalizedDropDown _weaponLimitDropDown;
 
-		private static List<MutatorType> _weaponLimiterMutators = new List<MutatorType>
-		{
-			MutatorType.HammerTime,
-			MutatorType.PistolsOnly,
-			MutatorType.SMGsOnly,
-			MutatorType.MinigunsOnly,
-			MutatorType.ShotgunsOnly,
-			MutatorType.SnipersOnly,
-			MutatorType.RPGsOnly,
-			MutatorType.ARsOnly
-		};
-
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -285,30 +273,30 @@ namespace FirstLight.Game.Presenters
 
 		private void FillMutatorsSelectionList()
 		{
-			var selectedMutators = GetSelectedMutators();
-			var mutatorConfigs = _services.ConfigsProvider.GetConfigsList<QuantumMutatorConfig>();
-
-			foreach (var mutatorsSelection in _mutatorModeDropDown)
-			{
-				mutatorsSelection.choices.Clear();
-				var menuChoices = new List<string>();
-				menuChoices.Add(ScriptLocalization.MainMenu.None);
-
-				foreach (var mutatorConfig in mutatorConfigs)
-				{
-					if (_weaponLimiterMutators.Contains(mutatorConfig.Type))
-					{
-						continue;
-					}
-
-					if (!selectedMutators.Contains(mutatorConfig.Id))
-					{
-						menuChoices.Add(mutatorConfig.Id);
-					}
-				}
-
-				mutatorsSelection.choices = menuChoices;
-			}
+			// var selectedMutators = GetSelectedMutators();
+			// var mutatorConfigs = _services.ConfigsProvider.GetConfigsList<QuantumMutatorConfig>();
+			//
+			// foreach (var mutatorsSelection in _mutatorModeDropDown)
+			// {
+			// 	mutatorsSelection.choices.Clear();
+			// 	var menuChoices = new List<string>();
+			// 	menuChoices.Add(ScriptLocalization.MainMenu.None);
+			//
+			// 	foreach (var mutatorConfig in mutatorConfigs)
+			// 	{
+			// 		if (_weaponLimiterMutators.Contains(mutatorConfig.Type))
+			// 		{
+			// 			continue;
+			// 		}
+			//
+			// 		if (!selectedMutators.Contains(mutatorConfig.Id))
+			// 		{
+			// 			menuChoices.Add(mutatorConfig.Id);
+			// 		}
+			// 	}
+			//
+			// 	mutatorsSelection.choices = menuChoices;
+			// }
 		}
 
 		private void FillMapSelectionList(int gameModeSelectionIndex)
@@ -425,22 +413,22 @@ namespace FirstLight.Game.Presenters
 
 		private void FillWeaponLimitSelectionList()
 		{
-			var mutatorConfigs = _services.ConfigsProvider.GetConfigsList<QuantumMutatorConfig>();
-
-			_weaponLimitDropDown.choices.Clear();
-			var menuChoices = new List<string>();
-			menuChoices.Add(ScriptLocalization.MainMenu.None);
-
-			foreach (var mutatorConfig in mutatorConfigs)
-			{
-				if (_weaponLimiterMutators.Contains(mutatorConfig.Type))
-				{
-					menuChoices.Add(mutatorConfig.Id);
-				}
-			}
-
-			_weaponLimitDropDown.choices = menuChoices;
-			_weaponLimitDropDown.index = 0;
+			// var mutatorConfigs = _services.ConfigsProvider.GetConfigsList<QuantumMutatorConfig>();
+			//
+			// _weaponLimitDropDown.choices.Clear();
+			// var menuChoices = new List<string>();
+			// menuChoices.Add(ScriptLocalization.MainMenu.None);
+			//
+			// foreach (var mutatorConfig in mutatorConfigs)
+			// {
+			// 	if (_weaponLimiterMutators.Contains(mutatorConfig.Type))
+			// 	{
+			// 		menuChoices.Add(mutatorConfig.Id);
+			// 	}
+			// }
+			//
+			// _weaponLimitDropDown.choices = menuChoices;
+			// _weaponLimitDropDown.index = 0;
 		}
 	}
 }

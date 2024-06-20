@@ -159,17 +159,14 @@
 
 .map-holder {
     position: absolute;
-    right: 5%;
+    right: 0%;
     align-items: center;
     justify-content: center;
-    top: 5%;
-    bottom: 100px;
-    width: 1024px;
+    top: 0%;
+    bottom: 0px;
 }
 
 .map {
-    width: 1024px;
-    height: 1024px;
     background-image: none;
     align-items: center;
     justify-content: center;

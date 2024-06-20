@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Screens/PreGameLoadingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#PreGameLoadingScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent">
         <FirstLight.Game.UIElements.AnimatedImageElement name="Clouds" sine-wave-pos-min-x="-65" sine-wave-pos-x-frequency="1" sine-wave-pos-y-frequency="-1" sine-wave-pos-min-y="-35" sine-wave-pos-max-x="65" sine-wave-pos-max-y="35" sine-wave-pos-x-offset="0" sine-wave-pos-y-offset="0.75" class="clouds" />
-        <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
+        <FirstLight.Game.UIElements.SafeAreaElement apply-top="true" class="safe-area">
             <FirstLight.Game.UIElements.AnimatedImageElement name="PlayerImage" sine-wave-pos-max-y="25" sine-wave-pos-min-y="-25" sine-wave-pos-y-frequency="2" sine-wave-pos-x-frequency="2" sine-wave-pos-min-x="-25" sine-wave-pos-max-x="25" sine-wave-pos-x-offset="1" class="player-image" />
             <ui:VisualElement name="PlayerAmountHolder" class="load-status-holder">
                 <FirstLight.Game.UIElements.AnimatedImageElement name="LoadIcon" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner" />
@@ -16,10 +16,10 @@
                 <ui:Label name="ModeDescTop" text="LAST PLAYER STANDING" class="mode-desc__top" />
                 <ui:Label name="ModeDescBot" text="WINS THE MATCH" class="mode-desc__bot" />
             </ui:VisualElement>
-            <ui:VisualElement name="MapHolder" class="map-holder">
-                <ui:VisualElement name="Map" class="map">
-                    <ui:VisualElement name="MapImage" class="map__image">
-                        <ui:VisualElement name="TutorialDropPos" picking-mode="Ignore" class="tutorial-drop-pos" />
+            <ui:VisualElement name="MapHolder" class="map-holder" style="-unity-background-scale-mode: scale-to-fit; width: 50%;">
+                <ui:VisualElement name="Map" class="map" style="height: 100%; width: 100%;">
+                    <ui:VisualElement name="MapImage" class="map__image" style="-unity-background-scale-mode: scale-to-fit; top: 0; display: flex;">
+                        <ui:VisualElement name="TutorialDropPos" picking-mode="Ignore" class="tutorial-drop-pos" style="display: flex;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="PartyMarkers" picking-mode="Ignore" class="fill-parent party-markers">
                         <ui:VisualElement name="marker" class="map-marker-party" />

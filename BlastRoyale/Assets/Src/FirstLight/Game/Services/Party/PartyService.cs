@@ -246,7 +246,7 @@ namespace FirstLight.Game.Services.Party
 				return;
 			}
 
-			SetMemberProperty(PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, AuthenticationService.Instance.PlayerNameTrimmed()).Forget();
+			SetMemberProperty(PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, AuthenticationService.Instance.GetPlayerName()).Forget();
 		}
 
 		private void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage obj)

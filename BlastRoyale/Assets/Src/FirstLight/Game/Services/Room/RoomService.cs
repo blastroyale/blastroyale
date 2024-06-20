@@ -575,7 +575,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		private void ResetLocalPlayerProperties(string teamId = null, byte teamColorIndex = 0)
 		{
-			_networkService.QuantumClient.NickName = AuthenticationService.Instance.PlayerNameTrimmed();
+			_networkService.QuantumClient.NickName = AuthenticationService.Instance.GetPlayerName();
 			var preloadIds = new List<GameId>();
 
 			preloadIds.Add(_dataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id);

@@ -56,17 +56,15 @@ namespace Quantum
 		/// </summary>
 		public QuantumConsumableConfig GetConfig(GameId id)
 		{
-			if (_byConsumableId == null)
+			if (_byGameId == null)
 			{
 				lock (_lock)
 				{
 					var dict = new Dictionary<GameId, QuantumConsumableConfig>();
-
 					for (var i = 0; i < QuantumConfigs.Count; i++)
 					{
 						dict.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
 					}
-
 					_byGameId = dict;
 				}
 			}

@@ -1,0 +1,74 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "41a3e8dea5a0343f8bb26ef4abb87380",
+            "OriginalPath": "Melee_Knife.fbx"
+        },
+        {
+            "Guid": "c27708c28163849dda18fc396e98e362",
+            "OriginalPath": "Icon_Melee_Knife.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": ".fbx",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af1665d2abf8855acd671\\\",\\\"assetVersion\\\":\\\"565e04f3-665a-4ca5-9d41-e6db7b25764f\\\"}\",\"data\":{\"assetId\":\"666af1665d2abf8855acd671\",\"assetVersion\":\"565e04f3-665a-4ca5-9d41-e6db7b25764f\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-06-13T13:29:23.31Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:29:45.765Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Knife.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy8yMjY5MjdkZi05MThkLTQxNmUtOTA4MC1lN2YxM2Y4NGVmZDYvNzhlOGM2N2U5OTFiNGRlZjg0NmFlOTI4NjgxZjg1NGQvSWNvbl9NZWxlZV9LbmlmZS5wbmc%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:29:36Z&ske=2024-06-16T13:29:36Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T13:29:36Z&sr=b&sp=r&sig=cef1v8EdqPbZ1VOQzNFAhn4D218RBH%2FYdZc7AaMWC2A%3D\",\"files\":[{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:28.342Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:48.172Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/226927df-918d-416e-9080-e7f13f84efd6/394632f4bd0374791d1986b36cf00e78/Melee_Knife.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=IN0kF6jiZNifXM3RtpVQQndXWJgrNoZqSeGBEpYpr50%3D\",\"filePath\":\"Melee_Knife.fbx\",\"fileSize\":27836,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:44.125Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:44.309Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/63f42468-fe99-4ef7-8d2b-79d135c3547f/e6b6601c3e1c8d9be72b42216bdd3aba/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=ap7I7iFti%2BDZpcUIJulBfnvPv7awogsHzrJing7lM80%3D\",\"filePath\":\"preview.glb\",\"fileSize\":14744,\"userChecksum\":\"50b972c36a7a5dbbfc35e8d4f9d43c29\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:44.131Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:44.131Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/63f42468-fe99-4ef7-8d2b-79d135c3547f/bdeb24f8d54659178ffd8e5f5b4688ea/preview_glb_preview.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=UGWDjVXbTvo5XaHVa3PTVHEARvTUzmBUircUub7tuzw%3D\",\"filePath\":\"preview_glb_preview.json\",\"fileSize\":29,\"userChecksum\":\"85dbd80c9633bf923c397d3d05ed0974\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:47.909Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:47.909Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/c0ee031b-e83f-47e5-98a9-75f4222ed0b8/1a2aff853121344cda95d8d632cc0f9f/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=IYgdf0VSjLETxwjXskhMv%2BQ6p2wcnx%2BRQGTtSDxrZFM%3D\",\"filePath\":\"metadata.json\",\"fileSize\":518,\"userChecksum\":\"194b05f6afbdd16cbdbb9ffdcbc83049\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:54.159Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:54.445Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/4bed10c0-4d2c-4a87-a7e9-81f330a6a4e0/9b4db27aad60859b5745c4637f23f604/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=OZoct1IOWHDg9j0TCqDdr2Vg3VT%2Fg1ALytwNwZkU%2FvU%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":52343,\"userChecksum\":\"2057f22a966e3eba253c7f427fc9aaed\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:54.166Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:54.662Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/4bed10c0-4d2c-4a87-a7e9-81f330a6a4e0/a4006d0877ed6c5d71ff6b71f703e153/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=vYu0Fo1jZ%2Fcf7lK4BFbAiMJQS4R16lqddoKn8HB9M80%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":54302,\"userChecksum\":\"45bb92eee9369b6e40928ea737c44aa7\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:54.171Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:54.905Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/4bed10c0-4d2c-4a87-a7e9-81f330a6a4e0/8fcffd83990003870cef49698154ee8d/preview_persFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=Bl0rbG58mEgEqqOh5%2Fg0bi6gDOkLtLLBIWMSPYH%2FpUc%3D\",\"filePath\":\"preview_persFrontLeftTop.png\",\"fileSize\":82816,\"userChecksum\":\"a6ceb0c8eb811594f9d0a22800fb6410\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:54.177Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:55.117Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/4bed10c0-4d2c-4a87-a7e9-81f330a6a4e0/a3718b08331b0d21611faa7b4c4aaf83/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=77u0OFIm%2BmpP2wQOGTCPPc3zSJeWjbX%2Bc2kN8rjXiGg%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":71143,\"userChecksum\":\"ff42ffbdac68f3c0ac3a6eed75837791\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:22:41.089Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:29:36.272Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/226927df-918d-416e-9080-e7f13f84efd6/78e8c67e991b4def846ae928681f854d/Icon_Melee_Knife.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=Ic%2BMbfDrlSJIp5ErgaNRh5gMV79wl4Co1K1wMv176FM%3D\",\"filePath\":\"Icon_Melee_Knife.png\",\"fileSize\":39843,\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"226927df-918d-416e-9080-e7f13f84efd6\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:26.813Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:22:43.091Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"33d22b4e-61e3-418a-8769-b92c0d1b3a9c\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:26.817Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:29:36.28Z\",\"filesOrder\":[\"preview.glb\"],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"4bed10c0-4d2c-4a87-a7e9-81f330a6a4e0\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:30.712Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:54.184Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"63f42468-fe99-4ef7-8d2b-79d135c3547f\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:31.255Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:44.136Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"c0ee031b-e83f-47e5-98a9-75f4222ed0b8\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:31.707Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:47.915Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Melee_Knife\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy8yMjY5MjdkZi05MThkLTQxNmUtOTA4MC1lN2YxM2Y4NGVmZDYvNzhlOGM2N2U5OTFiNGRlZjg0NmFlOTI4NjgxZjg1NGQvSWNvbl9NZWxlZV9LbmlmZS5wbmc%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:29:36Z&ske=2024-06-16T13:29:36Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T13:29:36Z&sr=b&sp=r&sig=cef1v8EdqPbZ1VOQzNFAhn4D218RBH%2FYdZc7AaMWC2A%3D",
+                    "m_SourceFiles": [
+                        {
+                            "rid": 1001
+                        },
+                        {
+                            "rid": 1002
+                        }
+                    ],
+                    "m_UVCSFiles": []
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Icon_Melee_Knife.png",
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 39843,
+                    "m_Guid": ""
+                }
+            },
+            {
+                "rid": 1002,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Melee_Knife.fbx",
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 27836,
+                    "m_Guid": ""
+                }
+            }
+        ]
+    }
+}

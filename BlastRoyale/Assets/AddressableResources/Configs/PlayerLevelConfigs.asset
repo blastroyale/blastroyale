@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea9016dd33b4b7ca868b86cf6082138, type: 3}
+  m_Name: PlayerLevelConfigs
+  m_EditorClassIdentifier: 
+  _configs:
+  - LevelStart: 1
+    LevelEnd: 1
+    LevelUpXP: 200
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 19000000
+    Systems: 03000000
+  - LevelStart: 2
+    LevelEnd: 2
+    LevelUpXP: 200
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 32000000
+    Systems: 04000000
+  - LevelStart: 3
+    LevelEnd: 3
+    LevelUpXP: 200
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 32000000
+    Systems: 02000000
+  - LevelStart: 4
+    LevelEnd: 4
+    LevelUpXP: 200
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 4b000000
+    Systems: 
+  - LevelStart: 5
+    LevelEnd: 5
+    LevelUpXP: 500
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 64000000
+    Systems: 
+  - LevelStart: 6
+    LevelEnd: 6
+    LevelUpXP: 1000
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 96000000
+    Systems: 
+  - LevelStart: 7
+    LevelEnd: 7
+    LevelUpXP: 2200
+    Rewards:
+      _keyData: 3d000000
+      _valueData: c8000000
+    Systems: 
+  - LevelStart: 8
+    LevelEnd: 8
+    LevelUpXP: 4500
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 2c010000
+    Systems: 
+  - LevelStart: 9
+    LevelEnd: 99
+    LevelUpXP: 9000
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 90010000
+    Systems: 
+  - LevelStart: 100
+    LevelEnd: 499
+    LevelUpXP: 20000
+    Rewards:
+      _keyData: 3d000000
+      _valueData: e8030000
+    Systems: 
+  - LevelStart: 500
+    LevelEnd: 999
+    LevelUpXP: 50000
+    Rewards:
+      _keyData: 3d000000
+      _valueData: d0070000
+    Systems: 

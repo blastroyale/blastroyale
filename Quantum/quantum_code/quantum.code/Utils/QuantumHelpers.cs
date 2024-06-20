@@ -302,7 +302,7 @@ namespace Quantum
 					closestDistance = distance;
 				}
 			}
-			
+
 			return new EntityComponentPointerPair<Transform3D>
 			{
 				Component = f.Unsafe.GetPointer<Transform3D>(closest.Entity),

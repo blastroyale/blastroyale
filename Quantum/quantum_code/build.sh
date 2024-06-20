@@ -26,6 +26,11 @@ if [ "$1" = "release" ]; then
   set -x
   $command "$SCRIPTPATH/quantum_code.sln" -restore -p:Configuration=Release -p:RestorePackagesConfig=true -p:DefineConstants=$symbols
   exit
+elif [ "$1" = "releasep" ]; then
+    echo "Release build"
+    set -x
+    $command "$SCRIPTPATH/quantum_code.sln" -restore -p:Configuration=ReleaseProfiler -p:RestorePackagesConfig=true -p:DefineConstants=$symbols
+    exit
 elif [ "$1" = "bots-debug" ]; then
   symbols="$symbols%3BBOT_DEBUG"
   echo "Debugging bots"

@@ -41,6 +41,24 @@ namespace Quantum
 				}
 				step++;
 			}
+
+			if (playerRef.IsValid)
+			{
+				var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+				var playerDataPointer = gameContainer->PlayersData.GetPointer(playerRef);
+			
+				if (f.TryGet<AirDrop>(e, out _))
+				{
+					playerDataPointer->AirdropOpenedCount++;	
+				}
+				else
+				{
+					playerDataPointer->SupplyCrateOpenedCount++;
+				}	
+			}
+
+			
+			
 			f.Signals.ChestOpened(config.Id, chestPosition, playerRef, playerEntity);
 			f.Events.OnChestOpened(config.Id, chestPosition, playerRef, playerEntity);
 		}

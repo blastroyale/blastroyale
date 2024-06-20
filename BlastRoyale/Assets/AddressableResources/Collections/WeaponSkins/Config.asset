@@ -1,0 +1,382 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd91bfc66901ef34b990c2e1edc2625e, type: 3}
+  m_Name: Config
+  m_EditorClassIdentifier: 
+  _config:
+    Groups:
+    - Key: 38
+      Value:
+        DefaultSkin: 300
+        Configs:
+        - SkinId: 300
+          Prefab:
+            m_AssetGUID: 81ad39d08d4dc674295b62068c55c2bc
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 19d33dc7d6c615f4dad7c1553dbeb9bf
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 301
+          Prefab:
+            m_AssetGUID: dca1e785bfe8c79a38c4e195a6438880
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 80aa6d15f1205d54fb3299dbad0a6fe1
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 302
+          Prefab:
+            m_AssetGUID: 4cb27021e3ce0f6cf8a06cbe42283b90
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: b1a213b933ac9e54b8430d15860735dc
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 312
+          Prefab:
+            m_AssetGUID: 8f3c3a5ab62f00e439a41d6b00eb995e
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: f9d247e600cc2724397c247d65fc5ec2
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 306
+          Prefab:
+            m_AssetGUID: 7b4e1dfdd03534a478b4fcceb92db05a
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 05fd6a6ad0e6a2146b5e1b0ac0fa06ab
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 315
+          Prefab:
+            m_AssetGUID: 25c5cfc773f8eaa4595c4abea0813fca
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: d23e5afb1685fd5448e95bfc7af2ef2b
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 303
+          Prefab:
+            m_AssetGUID: d5ae918c14101f944a0c064373c0fa96
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 29665b3d98074d04a9ee8b219d4584d3
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 304
+          Prefab:
+            m_AssetGUID: 111205dad61d8ca48a9831bf1ec6cf42
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: e194998fa6da251439ba228dd28bdb0f
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 305
+          Prefab:
+            m_AssetGUID: 6e12ec8c98e4dee43a0c789b777cacae
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 52af3c21f8afead4d8dda5c71ec563d2
+            m_SubObjectName: melee_electric-solo
+            m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_EditorAssetChanged: 0
+        - SkinId: 307
+          Prefab:
+            m_AssetGUID: 1e3990a12098ad64287e4b49f6a5a4b2
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 4ad9b7382f491d44c975f5deb0d3f548
+            m_SubObjectName: melee_mw-hatchet
+            m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_EditorAssetChanged: 0
+        - SkinId: 308
+          Prefab:
+            m_AssetGUID: ec28f8ef7c1a33c49a640e1c3782d6c3
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 580b37016a5f92d4292ae2d7002195d9
+            m_SubObjectName: melee_mic-drop
+            m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_EditorAssetChanged: 0
+        - SkinId: 309
+          Prefab:
+            m_AssetGUID: ca34acef44906c542bdc52fe30913b78
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: df2e1dbaea862664d9da0e7c55ed61e1
+            m_SubObjectName: melee_mighty-sledge
+            m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_EditorAssetChanged: 0
+        - SkinId: 310
+          Prefab:
+            m_AssetGUID: e7d033c2fb9cc104f8a064b6da0dca3c
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: d9de3955d223c1545a657a1d6a7fd623
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 311
+          Prefab:
+            m_AssetGUID: 50566947549d241458dd467cebc7f282
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: a31d9db5bfb4a31499061b04c43245a5
+            m_SubObjectName: melee_power-pan
+            m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_EditorAssetChanged: 0
+        - SkinId: 313
+          Prefab:
+            m_AssetGUID: 6d7836ef1d0e8ba48a4174fd52a248a6
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 862f0a494c35cac4e96a756199e77af9
+            m_SubObjectName: melee_sir-quacks-alot
+            m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_EditorAssetChanged: 0
+        - SkinId: 314
+          Prefab:
+            m_AssetGUID: 27ac40e30f8bf4a46a4f20a24cb9e1cb
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 3d97bf69c9913e54b89c6f6375549d32
+            m_SubObjectName: melee_thunder-axe
+            m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_EditorAssetChanged: 0
+        - SkinId: 316
+          Prefab:
+            m_AssetGUID: 2bed5aebdccdffb49b5ff0b0f9ca1875
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 8518f47cf9258a94b9835300e6630bb0
+            m_SubObjectName: melee_tv-takedown
+            m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_EditorAssetChanged: 0
+        - SkinId: 317
+          Prefab:
+            m_AssetGUID: adeec381b0f8d5b4ab7aa7b87bd14a49
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: d94f063e754f2344e83e957bc73d77bd
+            m_SubObjectName: melee_wheel-of-pain
+            m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_EditorAssetChanged: 0
+        - SkinId: 318
+          Prefab:
+            m_AssetGUID: c8ca057e2800eee4fac244ca0db29559
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 845a2ac59e12c0d4db3dba32a535fa5c
+            m_SubObjectName: melee_wrench
+            m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_EditorAssetChanged: 0
+        - SkinId: 319
+          Prefab:
+            m_AssetGUID: 4653962159a233f48a2ac458aac6321b
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 2e9fcb22dfacde347945e452f3eb59eb
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 320
+          Prefab:
+            m_AssetGUID: 10ffc052a8e4bb8439b2ce53b6daf3a4
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 67aa28c95d8df4e219b4758800bf3b87
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 129
+          Prefab:
+            m_AssetGUID: 5735c2128809b4b21bd236d8ff50c4fa
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: d38d396399c734dd2b19c9412d1104fa
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 206
+          Prefab:
+            m_AssetGUID: f2884e7aef209425cbecdd9747fada23
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 1bc2cd5abdd9b4d2896b85c7950b4d7d
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 207
+          Prefab:
+            m_AssetGUID: afb4cba65aa914403a137340c2a1d8c1
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 42bdb585b3ccd4bacbff3c4cf56aa85e
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 208
+          Prefab:
+            m_AssetGUID: bb3c5cd06f4cb481b849918aecb8f3c1
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: d4c26e37f995b49e18a51f1eee42c3cf
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 224
+          Prefab:
+            m_AssetGUID: 38be70dbc367d41e9aa1549695702bff
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: c55e4bf14619a4f568b51cbdbf9d3603
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 223
+          Prefab:
+            m_AssetGUID: 53e7adc1cb9ba4aa5bb9d9b93054379c
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 2e7f11a611d494177b634cd92ebbdbb8
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 225
+          Prefab:
+            m_AssetGUID: 76006c65868524c8397ba1e08d3dd85e
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: c27708c28163849dda18fc396e98e362
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 226
+          Prefab:
+            m_AssetGUID: 61c468c2f3b1745e4aa16c94742195b3
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 0b076e88bd0f642428c6d9ed2a097e67
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 227
+          Prefab:
+            m_AssetGUID: 9c5a170e7be6048c2bd0171f5712eb16
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 484de191c34bf4987a16e2a2b2c94685
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 228
+          Prefab:
+            m_AssetGUID: 8f3880944403f4139a32f75f537d523a
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 0691eaf9649104d5fa174056ffa5d02a
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 229
+          Prefab:
+            m_AssetGUID: 2803b01530ccc4ef28b1d2fcca3aed6c
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 0fe51b91f1abd4b26a31d0567c1c0a29
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0

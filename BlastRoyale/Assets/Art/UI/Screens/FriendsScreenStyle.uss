@@ -1,0 +1,328 @@
+.unity-tabbed-view__tabs-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 45px;
+}
+
+.unity-tabbed-view__content-container {
+    flex-grow: 1;
+    margin-top: 55px;
+    margin-left: 174px;
+    margin-right: 132px;
+}
+
+.unity-tab-button {
+    font-size: 36px;
+    color: rgb(255, 255, 255);
+    background-image: var(--sprite-home__background-tab-friends);
+    width: 311px;
+    height: 69px;
+    -unity-text-align: middle-center;
+    padding-top: 8px;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.unity-tab-button--active {
+    color: rgb(0, 0, 0);
+    background-image: var(--sprite-home__background-tab-friends-selected);
+}
+
+.unity-list-view {
+    flex-grow: 1;
+}
+
+.unity-list-view__item {
+    padding-bottom: 20px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.unity-scroll-view__content-viewport {
+    margin-right: 70px;
+}
+
+.unity-scroller {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.unity-scroller--vertical {
+    width: 8px;
+}
+
+.unity-scroller__slider {
+    width: auto;
+    min-width: initial;
+    background-color: rgb(32, 29, 59);
+}
+
+.unity-scroller .unity-base-slider__dragger {
+    left: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.friend-list-element {
+}
+
+.friend-list-element__player-bar-container {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.friend-list-element__background {
+    background-image: var(--sprite-home__background-friends-player);
+    overflow: hidden;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 55px;
+    padding-left: 55px;
+}
+
+.friend-list-element__background-pattern {
+    background-image: var(--sprite-home__pattern-friends-dots);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 230px;
+}
+
+.friend-list-element__avatar {
+    width: 112px;
+    align-self: stretch;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    background-color: rgb(215, 56, 68);
+    border-width: 1px;
+    border-color: black;
+    background-image: var(--sprite-shared__avatar-default);
+    -unity-background-scale-mode: scale-to-fit;
+    height: 112px;
+    margin-right: 27px;
+}
+
+.friend-list-element__name-and-trophies {
+    -unity-text-align: middle-left;
+    color: rgb(255, 255, 255);
+    font-size: 36px;
+    flex-grow: 1;
+    text-shadow: 3px 4px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 33px;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.friend-list-element__activity {
+    -unity-text-align: middle-right;
+    font-size: 32px;
+    color: rgb(157, 131, 216);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 4px 0 rgb(0, 0, 0);
+    margin-top: 0;
+    margin-right: 29px;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.friend-list-element__main-action-button {
+    font-size: 32px;
+    width: 214px;
+    height: 69px;
+    color: rgb(255, 255, 255);
+    margin-right: 30px;
+    text-shadow: 2px 2px 0 rgb(156, 36, 12);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(156, 36, 12);
+    margin-bottom: 0;
+}
+
+.friend-list-element__more-actions-button {
+    width: 73px;
+    height: 73px;
+    background-image: var(--sprite-home__button-more-actions);
+}
+
+.friend-list-element__header {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    margin-bottom: 15px;
+}
+
+.friend-list-element__online-indicator {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 26px;
+    height: 26px;
+    background-color: rgb(144, 144, 144);
+    color: rgb(255, 255, 255);
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.friend-list-element__online-indicator--online {
+    background-color: rgb(121, 237, 56);
+}
+
+.friend-list-element__accept-decline-container {
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 5px;
+}
+
+.friend-list-element__accept-decline-container > * {
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+.unity-text-field {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 400px;
+    height: auto;
+    margin-bottom: 50px;
+}
+
+.unity-text-field__label {
+    -unity-text-align: upper-left;
+    color: rgb(157, 131, 216);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 4px 0 rgb(0, 0, 0);
+    margin-left: 14px;
+}
+
+.unity-text-field__input {
+    background-image: none;
+    background-color: rgb(22, 20, 38);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    color: rgb(255, 255, 255);
+    height: 92px;
+}
+
+.your-id-input > .unity-text-field__input {
+    padding-right: 100px;
+}
+
+.button-copy {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    width: 84px;
+    height: 84px;
+    background-image: var(--sprite-home__button-copy);
+}
+
+.button-copy:active {
+    background-image: var(--sprite-home__button-copy-pressed);
+}
+
+.requests-count {
+    font-size: 36px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(255, 0, 43);
+    width: 50px;
+    height: 50px;
+    top: -17px;
+    right: -11px;
+    position: absolute;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    padding-top: 0;
+    padding-right: 2px;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.safe-area-container {
+    flex-direction: row;
+}
+
+.left-bar {
+    justify-content: center;
+    align-items: center;
+    width: 773px;
+}
+
+.left-bar__background-parent {
+    position: absolute;
+    width: 150%;
+    align-self: flex-end;
+    height: 150%;
+    transform-origin: right;
+    rotate: 4deg;
+    background-color: rgba(9, 8, 14, 0.45);
+    padding-right: 10px;
+}
+
+.left-bar__background {
+    flex-grow: 1;
+    background-color: rgb(36, 32, 55);
+    border-right-color: rgb(0, 0, 0);
+    border-right-width: 3px;
+}
+
+.right-content {
+    flex-grow: 1;
+}
+
+.empty-container {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 44px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-align: upper-center;
+    padding-top: 200px;
+}
+
+.socials-buttons {
+    margin-top: 30px;
+}

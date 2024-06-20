@@ -66,7 +66,7 @@ namespace IntegrationTests
 				PlayFabId = _playerId,
 				Statistics = new List<StatisticUpdate>()
 				{
-					new() {StatisticName = GameConstants.Stats.LEADERBOARD_LADDER_NAME, Value = 666}
+					new() {StatisticName = GameConstants.Stats.RANKED_LEADERBOARD_LADDER_NAME, Value = 666}
 				}
 			});
 			Assert.IsNull(r.Error);
@@ -78,7 +78,7 @@ namespace IntegrationTests
 			
 			var result = ModelSerializer.Deserialize<PlayFabResult<BackendLogicResult>>(response);
 			var profile = ModelSerializer.DeserializeFromData<PublicPlayerProfile>(result.Result.Data);
-			var rankedStat = profile.Statistics.First(s => s.Name == GameConstants.Stats.LEADERBOARD_LADDER_NAME);
+			var rankedStat = profile.Statistics.First(s => s.Name == GameConstants.Stats.RANKED_LEADERBOARD_LADDER_NAME);
 			
 			Assert.AreEqual(666, rankedStat.Value);
 		}

@@ -1,0 +1,94 @@
+# Pipeline to release new containers on container apps
+pr: none
+trigger: none
+# This pipeline doesn't use the current branch to deploy, it uses an image as parameter so it makes no sense to append the commit message to the run
+appendCommitMessageToRunName: false
+resources:
+  pipelines:
+    - pipeline: build
+      source: 'Game-Builds'
+      trigger: true
+
+pool:
+  vmImage: "ubuntu-latest"
+parameters:
+  - name: inputBuildNumber
+    displayName: Build number of game pipeline
+    type: number
+    default: 0
+variables:
+  - name: inputArtifactName
+    value: 'download-link-Android'
+    
+steps:
+  - task: DownloadSecureFile@1
+    name: firebaseKey
+    displayName: 'Download Firebase Key'
+    inputs:
+      secureFile: firebase-key-fb177f497a1b.json
+  - checkout: none
+  - ${{ if ne(variables['Build.Reason'], 'Manual') }}:
+    - download: build
+      artifact: ${{ variables.inputArtifactName }}
+    - download: build
+      artifact: parameters
+    - script: |
+        json=$(cat "$(Pipeline.Workspace)/build/parameters/parameters.json" | jq -c '.')
+        run_test_lab=$(echo "$json" | jq -r '.run_test_lab')
+        echo "Should run tests: $run_test_lab"
+  
+        if [ "${run_test_lab,,}" != "true" ]; then
+          echo "Skip deploy because run_test_lab != true"
+          echo "##vso[task.setvariable variable=skipTests]true"
+          exit
+        fi
+      displayName: 'Check if should run test'
+    - powershell: |
+        $shouldSkip = "$env:SKIPTESTS"
+          if ($shouldSkip -eq "true") {
+            Write-Host "##vso[build.updatebuildnumber]SKIPPED-${env:BUILD_BUILDID}-GameBuild_${env:RESOURCES_PIPELINE_BUILD_RUNNAME}"
+            Write-Host "Skipping tests!"
+            exit
+         }
+         Write-Host "##vso[build.updatebuildnumber]${env:BUILD_BUILDID}-GameBuild_${env:RESOURCES_PIPELINE_BUILD_RUNNAME}"
+         Write-Host "##vso[task.setvariable variable=artifactPath]$(Pipeline.Workspace)/build/${{ variables.inputArtifactName }}/downloadLinkAndroid.properties"
+      displayName: 'Fetch Link From Build'
+  - ${{ else }}:
+    - template: helpers/download-artifact-with-build-number.yml
+      parameters:
+        pipelineName: "Game-Builds"
+        buildNumber: ${{ parameters.inputBuildNumber }}
+        artifactName: ${{ variables.inputArtifactName }}
+        downloadPath: $(System.ArtifactsDirectory)/Extracted
+    - powershell: |
+        Get-ChildItem -Path "$(System.ArtifactsDirectory)/Extracted/${{ variables.inputArtifactName }}/" -Recurse | 
+          Select @{Name="MB Size";Expression={ "{0:N1}" -f ($_.Length / 1MB) }}, Fullname, LastWriteTime;
+        Write-Host "##vso[build.updatebuildnumber]Manual-${env:BUILD_BUILDID}-GameBuild_${{ parameters.inputBuildNumber }}"
+        Write-Host "##vso[task.setvariable variable=artifactPath]$(System.ArtifactsDirectory)/Extracted/${{ variables.inputArtifactName }}/downloadLinkAndroid.properties"
+      displayName: 'Parse Build File'
+  - powershell: |
+      $file_content = Get-Content "$(artifactPath)"
+      $file_content = $file_content -join [Environment]::NewLine
+    
+      $configuration = ConvertFrom-StringData($file_content)
+      $downloadLink = $configuration.SHORT_LINK
+      
+      Write-Host "Download link: $downloadLink"
+       Invoke-WebRequest $downloadLink -OutFile .\app.apk
+      
+       $fileName = "app.apk"
+      Set-PSDebug -Trace 1
+       gcloud auth activate-service-account --key-file=$(firebaseKey.secureFilePath)
+       gcloud firebase test android run --app $fileName  `
+         --quiet `
+         --async `
+         --project=blast-royale-dev `
+         --type=game-loop `
+         --scenario-numbers=${env:ANDROID_SCENARIOS} `
+         --timeout=${env:ANDROID_TIMEOUT} `
+         --client-details=matrixLabel="GameBuild_${env:RESOURCES_PIPELINE_BUILD_RUNNAME}" `
+         ${env:ANDROID_MODELS_PARAMETERS} `
+         --format json 
+      
+    displayName: 'Trigger TestLab'
+    

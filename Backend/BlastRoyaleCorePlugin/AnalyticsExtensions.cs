@@ -19,7 +19,6 @@ namespace BlastRoyaleNFTPlugin
 				{"GameId", equipment.GameId},
 				{"edition", equipment.Edition },
 				{"faction", equipment.Faction },
-				{"generation", equipment.Generation },
 				{"rarity", equipment.Rarity },
 				{"adjective", equipment.Adjective },
 				{"material", equipment.Material },

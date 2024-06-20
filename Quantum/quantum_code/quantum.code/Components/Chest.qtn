@@ -17,5 +17,7 @@ enum ChestType
     Equipment,
     Legendary,
     Tutorial,
-    Weapon
+    Weapon,
+    Vitality,
+    Ammo
 }

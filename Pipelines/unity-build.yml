@@ -1,0 +1,373 @@
+parameters:
+  - name: configuration
+    type: string
+    displayName: Debug or Release build
+    default: 'Debug'
+  - name: platform
+    type: string
+    displayName: Choose Platform for build. Android or iOS.
+    default: ''
+  - name: unity_username
+    type: string
+    default: ''
+    displayName: Unity Username
+  - name: unity_password
+    type: string
+    default: ''
+    displayName: Unity Password
+  - name: unity_serial
+    type: string
+    default: ''
+    displayName: Unity Serial
+  - name: dev_build
+    type: boolean
+    default: true
+    displayName: Development Build
+  - name: environment
+    type: string
+    default: 'development'
+    displayName: Environment
+  - name: workingDirectory
+    type: string
+    default: ''
+    displayName: Working Directory
+  - name: FirebaseDistGroups
+    type: string
+    default: 'first-light-internal'
+    displayName: Firebase Distribution Groups
+  - name: branchName
+    type: string
+    default: ''
+  - name: slackToken
+    type: string
+    displayName: Slack bot token
+    default: ''
+  - name: kuttKey
+    type: string
+    displayName: f.feldmann.dev api key
+    default: ''
+  - name: developmentiOSCertPwd
+    type: string
+    displayName: Password for the development iOS certificate
+    default: ''
+  - name: distributioniOSCertPwd
+    type: string
+    displayName: Password for the distribution iOS certificate
+    default: ''
+  - name: publishDlls
+    type: boolean
+    displayName: If should publish artifacts with game dlls
+    default: false
+  - name: remote_addressables
+    type: boolean
+    displayName: Use Remote Addressables
+    default: false
+
+steps:
+
+  - task: DownloadSecureFile@1
+    name: firebaseKey
+    displayName: 'Download Firebase Key'
+    inputs:
+      secureFile: firebase-key-fb177f497a1b.json
+  
+  # Leaving this commented unless we need it in the future.
+  # The current unity license is applied manually on the server because this task both assigns and returns a license.
+  # This causes a problem when two builds run in parallel, as the license could be returned half way through a build on another agent, and it would fail.
+  # The manually applied license is never returned.
+  # - task: UnityActivateLicenseTask@1
+  #   name: unityactivation
+  #   inputs:
+  #     username: ${{ parameters.unity_username }}
+  #     password: ${{ parameters.unity_password }}
+  #     serial: ${{ parameters.unity_serial }}
+
+  - script: |
+      echo $(Build.SourceBranch)
+      echo ${{ parameters.branchName }}
+      echo "##vso[task.setvariable variable=branchName;]${{ parameters.branchName }}"
+    displayName: 'Set Branch Name'
+
+  - script: |
+      echo ${{ parameters.platform }}
+      lower=$(echo ${{ parameters.platform }} | tr '[:upper:]' '[:lower:]')
+      echo $lower
+      echo "##vso[task.setvariable variable=platformLower;]$lower"
+    displayName: 'Set Variables'
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      pwsh: true
+      script: |
+        Write-Host "##vso[task.prependpath]/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.3.0"
+    displayName: 'Setup Homebrew Environment'
+  
+  # Send building status
+  - template: tasks/update-slack-message.yml@templates
+    parameters:
+      slackToken: $(slackToken)
+      messageIdArtifact: slackbuildmessage
+      update:
+        - blockId: $(platformLower)
+          path: text.text
+          value: '*:$(platformLower): ${{ parameters.platform }} :$(platformLower):*#n*Status:* Building :tower:'
+          operation: replace
+
+  - script: |
+      msbuild \
+      ./Quantum/quantum_code/quantum_code.sln \
+      -restore \
+      -p:Configuration=${{ parameters.configuration }} \
+      -p:RestorePackagesConfig=true
+    displayName: 'Quantum Build'
+
+  - script: |
+      /Applications/Unity/Hub/Editor/2022.3.30f1/Unity.app/Contents/MacOS/Unity \
+      -batchmode -buildTarget ${{ parameters.platform }} -projectPath $(System.DefaultWorkingDirectory)/BlastRoyale -logfile - \
+      -FLEnvironment ${{ parameters.environment }} -FLBuildNumber $(Build.BuildNumber) -FLDevelopmentBuild ${{ parameters.dev_build }} -FLRemoteAddressables ${{ parameters.remote_addressables }} \
+      -username ${{ parameters.unity_username }} -password ${{ parameters.unity_password }} \
+      -EnableCacheServer -cacheServerEndpoint localhost:10080 -executeMethod FirstLight.Editor.Build.Builder.BatchBuild -quit
+    condition: not(or(failed(), canceled()))
+    displayName: 'Unity Build'
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      pwsh: true
+      script: |
+        switch -File BlastRoyale/build-output.properties {
+          default {
+            $name, $value = $_.Trim() -split '=', 2
+            if ($name -and $name[0] -ne '#') { # ignore blank and comment lines.
+              Set-Item "Env:$name" $value
+              Write-Host "##vso[task.setvariable variable=$name;]$value"
+            }
+          }
+        }
+    displayName: 'Load env vars'
+
+  - script: |
+      ls -alh
+    condition: and(eq(variables['system.debug'], 'true'),not(or(failed(), canceled())))
+    displayName: 'List Files'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: $(System.DefaultWorkingDirectory)/BlastRoyale/BuildArtifacts
+      artifactName: 'GameDlls'
+    condition: and(eq(${{ parameters.publishDlls }}, true),not(or(failed(), canceled())))
+
+  - script: |
+      cat build-output.properties
+    condition: eq(variables['system.debug'], 'true')
+    displayName: 'List build output properties'
+
+  # The security thing is because apple is apple and we need to unlock (or something) the login keychain
+  - script: |
+      security set-key-partition-list -S apple: -s -k EgfTpS6F login.keychain
+      fastlane gym --output_directory "$(System.DefaultWorkingDirectory)" --export_method development
+    workingDirectory: $(System.DefaultWorkingDirectory)/BlastRoyale/BlastRoyale
+    condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))
+    displayName: 'Fastlane iOS Build'
+
+  - task: PublishPipelineArtifact@1
+    condition: eq(${{ parameters.remote_addressables }}, true)
+    inputs:
+      targetPath: $(System.DefaultWorkingDirectory)/BlastRoyale/ServerData
+      artifact: 'AddressablesBuild_${{ parameters.platform }}'
+
+  - script: |
+      mkdir -p $(System.DefaultWorkingDirectory)/BlastRoyale/ServerDataUCD/ServerData
+      mv $(System.DefaultWorkingDirectory)/BlastRoyale/ServerData/* $(System.DefaultWorkingDirectory)/BlastRoyale/ServerDataUCD/ServerData
+    condition: eq(${{ parameters.remote_addressables }}, true)
+    displayName: 'Move CCD Files'
+
+  - script: |
+      ucd auth login ***REMOVED***
+      ucd config set bucket ***REMOVED*** --environment ***REMOVED***
+      ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
+      ucd releases create -b ***REMOVED*** --environment ***REMOVED***
+    condition: and(eq(${{ parameters.remote_addressables }}, true), eq('${{ parameters.environment }}', 'development'), not(or(failed(), canceled())))
+    displayName: 'Unity CCD Development'
+
+  - script: |
+      ucd auth login ***REMOVED***
+      ucd config set bucket ***REMOVED*** --environment ***REMOVED***
+      ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
+    condition: and(eq(${{ parameters.remote_addressables }}, true), eq('${{ parameters.environment }}', 'staging'), not(or(failed(), canceled())))
+    displayName: 'Unity CCD Staging'
+
+  - script: |
+      ucd auth login ***REMOVED***
+      ucd config set bucket ***REMOVED*** --environment ***REMOVED***
+      ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
+    condition: and(eq(${{ parameters.remote_addressables }}, true), eq('${{ parameters.environment }}', 'community'), not(or(failed(), canceled())))
+    displayName: 'Unity CCD Community'
+
+  - script: |
+      ucd auth login ***REMOVED***
+      ucd config set bucket ***REMOVED*** --environment ***REMOVED***
+      ucd entries sync $(System.DefaultWorkingDirectory)/ServerDataUCD --environment ***REMOVED***
+    condition: and(eq(${{ parameters.remote_addressables }}, true), eq('${{ parameters.environment }}', 'production'), not(or(failed(), canceled())))
+    displayName: 'Unity CCD Production'
+
+  - script: |
+      wget https://prodflgbuildstorage.blob.core.windows.net/public/manifest-template.plist
+    condition: and(eq('${{ parameters.platform }}', 'iOS'),not(or(failed(), canceled())))
+    displayName: 'Download Manifest Template'
+
+  - script: |
+      echo $(Build.DefinitionName)
+      echo $(Build.BuildNumber)
+      Build_DefinitionName=$(echo $(Build.DefinitionName))
+      Build_BuildNumber=$(echo $(Build.BuildNumber))
+      echo "##vso[task.setvariable variable=Build_DefinitionName;]$Build_DefinitionName"
+      echo "##vso[task.setvariable variable=Build_BuildNumber;]$Build_BuildNumber"
+    condition: and(eq('${{ parameters.platform }}', 'iOS'),not(or(failed(), canceled())))
+    displayName: 'Set build vars'
+
+  - task: colinsalmcorner.colinsalmcorner-buildtasks.replace-tokens-task.ReplaceTokens@1
+    condition: and(eq('${{ parameters.platform }}', 'iOS'),not(or(failed(), canceled())))
+    displayName: 'Transform Manifest Template'
+    inputs:
+      sourcePath: $(System.DefaultWorkingDirectory)
+      filePattern: manifest-template.plist
+      tokenRegex: '__(\w+)__'  # regex pattern to use to find tokens
+
+  - script: |
+      cp manifest-template.plist $(FL_INTERNAL_VERSION_FILENAME).plist
+    condition: and(eq('${{ parameters.platform }}', 'iOS'),not(or(failed(), canceled())))
+    displayName: 'Rename plist'
+
+  - task: AzureCLI@2
+    condition: and(eq('${{ parameters.platform }}', 'iOS'),not(or(failed(), canceled())))
+    displayName: 'Upload plist'
+    inputs:
+      azureSubscription: 'azure-sponsorship'
+      scriptType: pscore
+      scriptLocation: inlineScript
+      inlineScript: |
+        az storage blob upload `
+        --account-name prodflgbuildstorage `
+        --container-name $(platformLower) `
+        --name $(Build.DefinitionName)/$(Build.BuildNumber)/$(FL_INTERNAL_VERSION_FILENAME).plist `
+        --file '$(FL_INTERNAL_VERSION_FILENAME).plist' `
+        --auth-mode login
+
+  - task: AzureCLI@2
+    condition: and(eq('${{ parameters.platform }}', 'Android'),not(or(failed(), canceled())))
+    displayName: 'Upload APK'
+    inputs:
+      azureSubscription: 'azure-sponsorship'
+      scriptType: pscore
+      scriptLocation: inlineScript
+      inlineScript: |
+        az storage blob upload `
+        --account-name prodflgbuildstorage `
+        --container-name $(platformLower) `
+        --name $(Build.DefinitionName)/$(Build.BuildNumber)/BlastRoyale.apk `
+        --file 'BlastRoyale/BlastRoyale.apk' `
+        --auth-mode login
+
+
+  - powershell: |
+      $platform = "$(platformLower)"
+      $name = "$(Build.DefinitionName)"
+      $build_number = "$(Build.BuildNumber)"
+      $file_name = "$(FL_INTERNAL_VERSION_FILENAME)"
+      $token = "$(kuttKey)"
+      
+      if ($platform -eq "ios") {
+          $url = [System.Uri]::EscapeUriString("itms-services://0.0.0.0?action=download-manifest&url=https://prodflgbuildstorage.blob.core.windows.net/$platform/$name/$build_number/$file_name.plist")
+      } else {
+          $url = [System.Uri]::EscapeUriString("https://prodflgbuildstorage.blob.core.windows.net/$platform/$name/$build_number/BlastRoyale.apk")
+      }
+      
+      $link = $url
+      
+      Write-Host("##vso[task.setvariable variable=shortLink]"+$link)
+      
+      $f = New-Item -ItemType File -Path "downloadLink$platform.properties" -Force
+      $f | Add-Content -Value "SHORT_LINK=$link"
+    displayName: 'Get Download Link'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: $(System.DefaultWorkingDirectory)/downloadLink${{ parameters.platform }}.properties
+      artifactName: 'download-link-${{ parameters.platform }}'
+  
+  # TODO: Fix android extension
+  - script: |
+      export GOOGLE_APPLICATION_CREDENTIALS=$(firebaseKey.secureFilePath)
+      firebase appdistribution:distribute BlastRoyale/BlastRoyale.apk  \
+      --app ***REMOVED***  \
+      --groups "${{ parameters.firebaseDistGroups }}"  \
+      --release-notes "$(Build.Reason) - $(Build.BuildNumber)
+      Dev Build: ${{ parameters.dev_build }}
+      Environment: ${{ parameters.environment }}
+      Commit: ${{ parameters.branchName }} - $(Build.SourceVersion)
+      User: $(Build.QueuedBy)"
+    displayName: 'Upload To Firebase'
+    condition: and(eq('${{ parameters.platform }}', 'Android'),not(or(failed(), canceled())))
+
+  - script: |
+      export GOOGLE_APPLICATION_CREDENTIALS=$(firebaseKey.secureFilePath)
+      firebase appdistribution:distribute BlastRoyale.ipa  \
+      --app 1:***REMOVED***:ios:970c7402b7d844a83eccf9  \
+      --groups "${{ parameters.firebaseDistGroups }}"  \
+      --release-notes "$(Build.Reason) - $(Build.BuildNumber)
+      Dev Build: ${{ parameters.dev_build }}
+      Environment: ${{ parameters.environment }}
+      Commit: ${{ parameters.branchName }} - $(Build.SourceVersion)
+      User: $(Build.QueuedBy)"
+    displayName: 'Upload To Firebase'
+    condition: and(eq('${{ parameters.platform }}', 'iOS'),not(or(failed(), canceled())))
+  
+  
+  # Send Slack status
+  - powershell: |
+      $statusMessage = "Unkown error ocurred"
+      $statusImage = "Unkown error ocurred"
+      if("$(Agent.JobStatus)" -eq "Succeeded") {
+          $statusMessage = "Succeeded :check-mark:#n<$(shortlink)|:download: Download>"
+          $statusImage = "https://cataas.com/cat?type=square&wi=150&random=$(Build.BuildNumber)_$(platformLower)"
+      }elseif("$(Agent.JobStatus)" -eq "Failed"){
+          $statusMessage = "Failed :cross-mark:"
+          $statusImage = "https://cataas.com/cat/sad/says/fuck?type=square&wi=150&random=$(Build.BuildNumber)_$(platformLower)"
+      }elseif("$(Agent.JobStatus)" -eq "Canceled"){
+          $statusMessage = "Canceled :skipped:"
+          $statusImage = "https://cataas.com/cat/sad?type=square&wi=150&random=$(Build.BuildNumber)_$(platformLower)"
+      }
+      Write-Host "##vso[task.setvariable variable=statusMessage;]$statusMessage"
+      Write-Host "##vso[task.setvariable variable=statusImage;]$statusImage"
+    displayName: 'Transform build status into slack message'
+    condition: always()
+
+  - template: tasks/update-slack-message.yml@templates
+    parameters:
+      slackToken: $(slackToken)
+      messageIdArtifact: slackbuildmessage
+      condition: always()
+      update:
+        - blockId: $(platformLower)
+          path: text.text
+          value: '*:$(platformLower): ${{ parameters.platform }} :$(platformLower):*#n*Status:* $(statusMessage)'
+          operation: replace
+        - blockId: $(platformLower)
+          path: accessory.image_url
+          value: '$(statusImage)'
+          operation: replace
+
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Agent.TempDirectory)'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/AgentTempDirectory-${{ parameters.platform }}/'
+    displayName: 'Copy Agent.TempDirectory to drop'
+    condition: eq(variables['system.debug'], 'true')
+
+  - publish: $(Build.ArtifactStagingDirectory)/AgentTempDirectory-${{ parameters.platform }}/
+    artifact: AgentTempDirectory-${{ parameters.platform }}
+    condition: eq(variables['system.debug'], 'true')

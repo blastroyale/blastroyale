@@ -4,7 +4,7 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
-	public unsafe partial struct Consumable
+	public unsafe partial struct Consumable 
 	{
 		/// <summary>
 		/// Initializes this Consumable with all the necessary data
@@ -14,14 +14,11 @@ namespace Quantum
 		{
 			var collectable = new Collectable
 			{
-				GameId = config.Id, PickupRadius = config.CollectableConsumablePickupRadius,
-				AllowedToPickupTime = f.Time + Constants.CONSUMABLE_POPOUT_DURATION
+				GameId = config.Id
 			};
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
 			ConsumableType = config.ConsumableType;
-			Amount = config.Amount.Get(f);
-			CollectTime = config.ConsumableCollectTime.Get(f);
 
 			collectable.Spawner = spawner;
 			collectable.OriginPosition = originPos;
@@ -34,7 +31,7 @@ namespace Quantum
 			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
 			collider->Shape.Sphere.Radius = config.CollectableConsumablePickupRadius;
 		}
-
+		
 		/// <summary>
 		/// Collects this given <paramref name="entity"/> by the given <paramref name="player"/>
 		/// </summary>
@@ -44,25 +41,26 @@ namespace Quantum
 			var isTeamsMode = f.GetTeamSize() > 1;
 			var team = f.Unsafe.GetPointer<Targetable>(playerEntity)->Team;
 			var collectable = f.Unsafe.GetPointer<Collectable>(entity);
-			
+			var config = f.ConsumableConfigs.GetConfig(ConsumableType);
+			var amount = config.Amount.Get(f);
 			// TODO: switch to signal handlers on specific systems
 			switch (ConsumableType)
 			{
 				case ConsumableType.Health:
-					var spell = new Spell {PowerAmount = (uint) Amount.AsInt};
+					var spell = new Spell {PowerAmount = (uint) amount};
 					stats->GainHealth(f, playerEntity, &spell);
 					break;
 				case ConsumableType.Rage:
-					StatusModifiers.AddStatusModifierToEntity(f, playerEntity, StatusModifierType.Rage, Amount.AsInt);
+					StatusModifiers.AddStatusModifierToEntity(f, playerEntity, StatusModifierType.Rage, amount);
 					break;
 				case ConsumableType.Ammo:
-					stats->GainAmmoPercent(f, playerEntity, Amount);
+					stats->GainAmmoPercent(f, playerEntity, amount);
 					break;
 				case ConsumableType.Shield:
-					stats->GainShield(f, playerEntity, Amount.AsInt);
+					stats->GainShield(f, playerEntity, amount.AsInt);
 					break;
 				case ConsumableType.ShieldCapacity:
-					stats->GainShieldCapacity(f, playerEntity, Amount.AsInt);
+					stats->GainShieldCapacity(f, playerEntity, amount.AsInt);
 					break;
 				case ConsumableType.Special:
 					f.Unsafe.GetPointer<PlayerInventory>(playerEntity)->TryAddSpecial(f, playerEntity, player,
@@ -80,6 +78,13 @@ namespace Quantum
 				ShareCollectWithTeammates(f, playerEntity, team);
 			}
 
+			if (ConsumableType != ConsumableType.GameItem)
+			{
+				var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+				var playerDataPointer = gameContainer->PlayersData.GetPointer(player);
+				playerDataPointer->PickupCollectedCount++;
+			}
+			
 			f.Signals.OnConsumableCollected(player, playerEntity, ConsumableType, collectable->GameId);
 			f.Events.OnConsumableCollected(entity, player, playerEntity);
 		}
@@ -91,7 +96,8 @@ namespace Quantum
 			{
 				return;
 			}
-
+			var config = f.ConsumableConfigs.GetConfig(ConsumableType);
+			var Amount = config.Amount.Get(f);
 			foreach (var teammateCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
 			{
 				if (teammateCandidate.Entity != playerEntity &&

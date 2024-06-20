@@ -1,0 +1,58 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Android;
+using UnityEngine;
+#if UNITY_IOS
+using UnityEngine.iOS;
+
+#elif UNITY_ANDROID
+using Google.Play.Review;
+#endif
+
+namespace FirstLight.NativeUi
+{
+	public class RateAndReview : MonoBehaviour
+	{
+#if UNITY_ANDROID
+private ReviewManager _reviewManager;
+private PlayReviewInfo _playReviewInfo;
+#endif
+		
+		public void RateReview()
+		{
+#if UNITY_IOS
+			if (!Device.RequestStoreReview())
+			{
+				Debug.Log("iOS version is too low or StoreKit framework was not linked.");
+			}
+#elif UNITY_ANDROID
+			_reviewManager = new ReviewManager();
+			StartCoroutine(ReviewCoroutine());
+#endif
+		}
+
+#if UNITY_ANDROID
+private IEnumerator ReviewCoroutine()
+{
+	var requestFlowOperation = _reviewManager.RequestReviewFlow();
+	yield return requestFlowOperation;
+	if (requestFlowOperation.Error != ReviewErrorCode.NoError)
+	{
+		Debug.LogError($"requestFlowOperation {requestFlowOperation.Error}");
+		// Log error. For example, using requestFlowOperation.Error.ToString().
+		yield break;
+	}
+	_playReviewInfo = requestFlowOperation.GetResult();
+	var launchFlowOperation = _reviewManager.LaunchReviewFlow(_playReviewInfo);
+	yield return launchFlowOperation;
+	_playReviewInfo = null;
+	if (launchFlowOperation.Error != ReviewErrorCode.NoError)
+	{
+		Debug.LogError($"launchFlowOperation {launchFlowOperation.Error}");
+		// Log error. For example, using requestFlowOperation.Error.ToString().
+		yield break;
+	}
+}
+#endif
+	}
+}

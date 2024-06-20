@@ -1,0 +1,368 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb509fd87cd49ee40b021b26c0feee64, type: 3}
+  m_Name: Config
+  m_EditorClassIdentifier: 
+  _config:
+    Skins:
+    - GameId: 81
+      Prefab:
+        m_AssetGUID: b2217e292f7d84b9d9b18d3e448a968f
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 753d28ce0e93a4230894cc8ef27ddf66
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 68
+      Prefab:
+        m_AssetGUID: b9e9c01eb3b634bde87c0b1c1972e108
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 5f5daddd987f345779585cf218044356
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 202
+      Prefab:
+        m_AssetGUID: 20061955e579a4f29a2cc53ecb47fd40
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 4dc588b60400243e4a4b3dd609f25892
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 203
+      Prefab:
+        m_AssetGUID: 2cc4460d87cab477e87a86c3952299f3
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: ddecfba44186d4d5bbfcb687672b1d67
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 210
+      Prefab:
+        m_AssetGUID: 28f5fe2642c2d46fbbd11b081e9b25e8
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 8e29f0107bbd74917bc85017a0c42ea1
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 82
+      Prefab:
+        m_AssetGUID: c7ee0c8f6356f44baa0c79c61e4cda8b
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 46c017c3c5b0c4b6b973ec4976cc91ce
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 69
+      Prefab:
+        m_AssetGUID: 441cc71808b6243768defe68dfefa18b
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: fd90e5595c54644778ddb7f3fac6b4f8
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 142
+      Prefab:
+        m_AssetGUID: e0f71c0619464495ebed9894436f154d
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 7f3a1a6995c7b40079db09853ce392bb
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 404
+      Prefab:
+        m_AssetGUID: 92e49171acb1e4d39adbfee36f9db881
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: d6591987b3bd14ec49d82514ddf3e1f7
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 196
+      Prefab:
+        m_AssetGUID: ee2b52b3792814f80a85af43cde55a83
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 49de33fa8ee8e44089b7d4642c1dc3a7
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 211
+      Prefab:
+        m_AssetGUID: 88aaba6bf97fa45d8aa234ce58d05303
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 275e740d3221948e3b1c1e9a63bcf33c
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 204
+      Prefab:
+        m_AssetGUID: e69f31ce611cf4aa3be49048160f2694
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 0bbb77947942f48a6bdc3449eb4d6104
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 401
+      Prefab:
+        m_AssetGUID: 26f03ff55bc4144ff8803a3df4af6298
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: aa83d8a83b972437591542bc06a674df
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 212
+      Prefab:
+        m_AssetGUID: 7597a6a74622d4b3aadc39c942449c00
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: cfdc5c3ca1b1a4dacae0d11f6cc2e7f8
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 213
+      Prefab:
+        m_AssetGUID: 545ec4a43b8a74f328ec9bdc34737cf5
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 18af95968a70940c584d9ec2d651c090
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 201
+      Prefab:
+        m_AssetGUID: 4e0cddcaa0edf44fb893d2162e084061
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 2af2fef24666840179710a95d2014258
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 400
+      Prefab:
+        m_AssetGUID: 9d9b36c3fa80240dab484819fee40ada
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: a4857e967f1bf4864bb757a1b1967184
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 205
+      Prefab:
+        m_AssetGUID: 9beceea3d4fd34b3f8fc43d8f69fbfa7
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 585bdcc85aa514467a3b629bad7a0d88
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 199
+      Prefab:
+        m_AssetGUID: 7d01846d8ae304241841506732c76901
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 431c0920145e547a4acf4488d9039003
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 83
+      Prefab:
+        m_AssetGUID: 37e4d0e3b560b4db6a16f1ce9eb8773e
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 7f20aed4fd20b4f2a9ec56a53ddd1efc
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 77
+      Prefab:
+        m_AssetGUID: ea25fd56503384f78954cafea6213692
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 6f0053a9e2c464a09856a1da10f6ac95
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 214
+      Prefab:
+        m_AssetGUID: 516f439bd928a4d7a9b3ba40204feb91
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: c4b487b79675a43049ed8e9a000739f9
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 215
+      Prefab:
+        m_AssetGUID: 56457ce7923c6476e9cd01f8acf40c60
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 780ce45324f97434c870f85a18f84abe
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 403
+      Prefab:
+        m_AssetGUID: f9a24deef99e446a5b253e04f8b49fb4
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: e79f03853fe1b49c1b4ed408b1b6239a
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 216
+      Prefab:
+        m_AssetGUID: bb5be247cba5f4aa7933689411db492d
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 285d59b6dae8a4bf7956a56ce1766df7
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 104
+      Prefab:
+        m_AssetGUID: 44ae48a8dcff649c3a16a7b31968ef3b
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 4fefa47326dfa4530b2ae422e2505337
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 80
+      Prefab:
+        m_AssetGUID: 15144898f1e914be5a12bacf4027aaa1
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: e11741982405442db8c43a49b8e39a58
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 149
+      Prefab:
+        m_AssetGUID: ebe58f0500f674314b1745064f844241
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: bd03839b1c8a5479eaf8dbf376961487
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 217
+      Prefab:
+        m_AssetGUID: 14998885e20f642aba05c775d3df49e3
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: caf6520c185a14868b902bbdd03c50ba
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 218
+      Prefab:
+        m_AssetGUID: 50f25c393c21649dcadf7d6a22cf0fce
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 9d40ac3022935409d98c6d1e3210a52d
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 405
+      Prefab:
+        m_AssetGUID: 15ea8b1de045b47bcbfbbfb3ed9ef8ea
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 13b1ed23f0f1f4372a4b14a2c46b7fd3
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 219
+      Prefab:
+        m_AssetGUID: 376393d4db8764788893d68d79070500
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: fc62099136c7a4f0fbb9d807c8133f91
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0

@@ -53,23 +53,31 @@ namespace GameLogicService.Services
 		
 		public async Task UpdateStatistics(string user, params ValueTuple<string, int> [] stats)
 		{
-			var toUpdate = new List<StatisticUpdate>();
-			foreach(var stat in stats)
+			const int STATISTICS_CHUNK_SIZE = 20;
+			var chunkedStatistics = SplitList(stats, STATISTICS_CHUNK_SIZE);
+
+			foreach (var chunk in chunkedStatistics)
 			{
-				toUpdate.Add(new StatisticUpdate()
+				var toUpdate = new List<StatisticUpdate>();
+				foreach (var stat in chunk)
 				{
-					Value = stat.Item2,
-					StatisticName = stat.Item1
+					toUpdate.Add(new StatisticUpdate()
+					{
+						Value = stat.Item2,
+						StatisticName = stat.Item1
+					});
+				}
+
+				var resp = await PlayFabServerAPI.UpdatePlayerStatisticsAsync(new UpdatePlayerStatisticsRequest()
+				{
+					PlayFabId = user,
+					Statistics = toUpdate,
 				});
-			}
-			var resp = await PlayFabServerAPI.UpdatePlayerStatisticsAsync(new UpdatePlayerStatisticsRequest()
-			{
-				PlayFabId = user,
-				Statistics = toUpdate,
-			});
-			if (resp.Error != null)
-			{
-				_log.LogError(resp.Error.GenerateErrorReport());
+
+				if (resp.Error != null)
+				{
+					_log.LogError(resp.Error.GenerateErrorReport());
+				}
 			}
 		}
 		
@@ -100,6 +108,14 @@ namespace GameLogicService.Services
 				}).ToList(),
 				AvatarUrl = profile.AvatarUrl
 			};
+		}
+		
+		public static IEnumerable<IEnumerable<T>> SplitList<T>(IEnumerable<T> list, int size)
+		{
+			for (int i = 0; i < list.Count(); i += size)
+			{
+				yield return list.Skip(i).Take(size);
+			}
 		}
 	}
 }

@@ -1,0 +1,41 @@
+# Android build and release pipeline
+# This pipeline is respsonsible for building the Android APK, and uploading to Azure Storage.
+
+name: $(Rev:r)
+
+trigger: 
+  batch: true
+pr:
+  branches:
+    include:
+    - master
+    - develop
+    - releases/*
+
+variables:
+- group: Secrets
+- group: Non-secrets
+pool: macos-tests-pool
+
+stages:
+- stage: EditorTests
+  displayName: Editor Tests
+  jobs:
+    - job: EditorTests
+      displayName: Run Editor Test Suite
+      steps:
+      - checkout: self
+        lfs: true
+        submodules: true
+        
+      # Run tests and copy dlls
+      - template: unity-tests.yml
+          
+      # Game logic build
+      - script: dotnet build
+        workingDirectory: Backend
+        displayName: 'Dotnet Build'
+  
+      - script: dotnet test TestUnit/TestUnit.csproj
+        workingDirectory: Backend
+        displayName: 'Dotnet Test'

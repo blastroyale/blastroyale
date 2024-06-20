@@ -1,0 +1,74 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "0fa56bc0c9cfb43ca95941c33ba6624f",
+            "OriginalPath": "Char_VR.fbx"
+        },
+        {
+            "Guid": "fc62099136c7a4f0fbb9d807c8133f91",
+            "OriginalPath": "Icon_Char_VR.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": ".fbx",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"665e02662751a7fd778ec2d1\\\",\\\"assetVersion\\\":\\\"5360aa33-bb7a-4ee8-9029-a4a370798dbd\\\"}\",\"data\":{\"assetId\":\"665e02662751a7fd778ec2d1\",\"assetVersion\":\"5360aa33-bb7a-4ee8-9029-a4a370798dbd\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-06-13T12:03:32.235Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-13T12:03:54.544Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy83Njg1M2FmZC01YTZmLTQ5YjYtYjczNS1jMmM4YWQyZTg4ZDYvZDVkZjBhNGNkODk4YWI2M2UyZjI3OGNkNzQzMmY4NTQvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:03:33Z&ske=2024-06-16T12:03:33Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T12:03:33Z&sr=b&sp=r&sig=F39HNOPJCDzCkJ7TKmxTvGV7eulUBf4WANrCe3mAwlg%3D\",\"files\":[{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-03T17:50:31.411Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-03T17:50:51.666Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/3be61a61-29ce-485e-bd41-57f8b37bdcda/c340a7f68836a32ed9b5957fc0b87750/Char_VR.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:13Z&ske=2024-06-13T12:17:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:13Z&sr=b&sp=r&sig=MERf3NXH5E%2BKQ2fSbdTrvkdy5e2olBWQyASJ4oPyexg%3D\",\"filePath\":\"Char_VR.fbx\",\"fileSize\":1037404,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-03T17:50:50.967Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-03T17:50:50.967Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/7670423e-61be-4a3f-b776-7966c6e69ac2/e782525a5ae4dbeba6c3ec412072910b/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:13Z&ske=2024-06-13T12:17:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:13Z&sr=b&sp=r&sig=b5sN1b2Bp35UxHWE5jQL5eaoS%2BVq7yEp%2Bq%2B73D9qrYA%3D\",\"filePath\":\"metadata.json\",\"fileSize\":278,\"userChecksum\":\"85abf1f3e50b2375cabde2aab54bb95d\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-03T17:50:51.236Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-03T17:50:51.475Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/3eb4504a-5305-43f6-94c5-f19cef506de8/2556de086269ad99cc8e6f5145ce1217/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:13Z&ske=2024-06-13T12:17:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:13Z&sr=b&sp=r&sig=lvL%2BYXkUAz8Bd7I4bAIhgaYtm3rBn8Ll3letqxjjadY%3D\",\"filePath\":\"preview.glb\",\"fileSize\":1367536,\"userChecksum\":\"6014440940c815ffe68836f586407327\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-03T17:51:00.297Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-03T17:51:00.543Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/76853afd-5a6f-49b6-b735-c2c8ad2e88d6/c20673d482323ad9c002190307919713/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:13Z&ske=2024-06-13T12:17:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:13Z&sr=b&sp=r&sig=vNiJVKcwNWxJFSCIZxf2FZyNnBVmQVRQ71viVq7t4q0%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":322301,\"userChecksum\":\"e6b3529388f3d9f18b207547f76bdb7c\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-03T17:51:00.305Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-03T17:51:00.797Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/76853afd-5a6f-49b6-b735-c2c8ad2e88d6/04588090bea70ad70b8c2b4d9e6dd448/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:13Z&ske=2024-06-13T12:17:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:13Z&sr=b&sp=r&sig=J78C3xut%2FC%2FKXaGIUZrxnXG3B1G0uILh8YpEL00wyTo%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":249323,\"userChecksum\":\"97afe5047214ff2abf044f6af057eb72\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-03T17:51:00.314Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-03T17:51:00.982Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/76853afd-5a6f-49b6-b735-c2c8ad2e88d6/d5df0a4cd898ab63e2f278cd7432f854/preview_persFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:13Z&ske=2024-06-13T12:17:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:13Z&sr=b&sp=r&sig=4h%2BWkjECd%2FArhycEOIoAQbd5e2ezxspiK8bXdvCV7oE%3D\",\"filePath\":\"preview_persFrontLeftTop.png\",\"fileSize\":257063,\"userChecksum\":\"3047f82cc94d2c405f0b5869e7c13d34\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-03T17:51:00.321Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-03T17:51:01.199Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/76853afd-5a6f-49b6-b735-c2c8ad2e88d6/63854518898d4beb3b9663fdb4027970/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:13Z&ske=2024-06-13T12:17:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:13Z&sr=b&sp=r&sig=pkyhkfEXNQEihKYcb9xJw6W0Oy6ifKOn92lbvmYTb9Q%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":202284,\"userChecksum\":\"e95f4464136d706cf5c8597798e8b5dd\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T12:03:44.108Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T12:03:45.943Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/3be61a61-29ce-485e-bd41-57f8b37bdcda/7df26a6cc5fa3a43f6c031f8507e9c28/Icon_Char_VR.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:13Z&ske=2024-06-13T12:17:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:13Z&sr=b&sp=r&sig=BD9fhtjKnpWxC2UoLPdy4SxdjViH2sgE2eaJpdSZMs4%3D\",\"filePath\":\"Icon_Char_VR.png\",\"fileSize\":227838,\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"3be61a61-29ce-485e-bd41-57f8b37bdcda\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-03T17:50:30.178Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T12:03:46.042Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"a6241e2b-54c8-4a2d-9774-f8c42271da86\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-03T17:50:30.184Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-03T17:51:01.205Z\",\"filesOrder\":[\"preview.glb\"],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"76853afd-5a6f-49b6-b735-c2c8ad2e88d6\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-03T17:50:37.411Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-03T17:51:00.327Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"3eb4504a-5305-43f6-94c5-f19cef506de8\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-03T17:50:37.931Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-03T17:50:51.243Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"7670423e-61be-4a3f-b776-7966c6e69ac2\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-03T17:50:38.399Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-03T17:50:50.973Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Char_VR\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 1,
+                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy83Njg1M2FmZC01YTZmLTQ5YjYtYjczNS1jMmM4YWQyZTg4ZDYvZDVkZjBhNGNkODk4YWI2M2UyZjI3OGNkNzQzMmY4NTQvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:03:33Z&ske=2024-06-16T12:03:33Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T12:03:33Z&sr=b&sp=r&sig=F39HNOPJCDzCkJ7TKmxTvGV7eulUBf4WANrCe3mAwlg%3D",
+                    "m_SourceFiles": [
+                        {
+                            "rid": 1001
+                        },
+                        {
+                            "rid": 1002
+                        }
+                    ],
+                    "m_UVCSFiles": []
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Char_VR.fbx",
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 1037404,
+                    "m_Guid": ""
+                }
+            },
+            {
+                "rid": 1002,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Icon_Char_VR.png",
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 227838,
+                    "m_Guid": ""
+                }
+            }
+        ]
+    }
+}

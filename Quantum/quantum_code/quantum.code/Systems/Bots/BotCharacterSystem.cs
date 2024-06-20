@@ -18,6 +18,8 @@ namespace Quantum.Systems.Bots
 											 ISignalOnPlayerRevived,
 											 ISignalOnPlayerKnockedOut
 	{
+		private static int DistributeProcessingFrames = 20;
+
 		private BotSetup _botSetup = new BotSetup();
 		private BattleRoyaleBot _battleRoyaleBot = new BattleRoyaleBot();
 		private WanderAndShootBot _wanderAndShootBot = new WanderAndShootBot();
@@ -59,16 +61,17 @@ namespace Quantum.Systems.Bots
 			it.UseCulling = true;
 			var filter = default(BotCharacterFilter);
 			var botCtx = CreateGlobalContext(f);
+			byte botIndex = 0;
 			while (it.Next(&filter))
 			{
-				Update(f, botCtx, ref filter);
+				Update(f, botCtx, botIndex, ref filter);
+				botIndex++;
 			}
 		}
 
 		private BotUpdateGlobalContext CreateGlobalContext(Frame f)
 		{
 			if (_updateContext.FrameNumber == f.Number) return _updateContext;
-
 			var circleCenter = FPVector2.Zero;
 			var circleRadius = FP._0;
 			var circleIsShrinking = false;
@@ -95,7 +98,7 @@ namespace Quantum.Systems.Bots
 		}
 
 		/// <inheritdoc />
-		private void Update(Frame f, in BotUpdateGlobalContext botCtx, ref BotCharacterFilter filter)
+		private void Update(Frame f, in BotUpdateGlobalContext botCtx, byte botIndex, ref BotCharacterFilter filter)
 		{
 			if (QuantumFeatureFlags.FREEZE_BOTS) return;
 
@@ -128,13 +131,6 @@ namespace Quantum.Systems.Bots
 				filter.StopAiming(f);
 			}
 
-
-			// Distribute bot processing in 30 frames
-			if (filter.BotCharacter->BotNameIndex % 30 == f.Number % 30)
-			{
-				return;
-			}
-
 			if (filter.BotCharacter->IsMoveSpeedReseted && f.Unsafe.GetPointer<Revivable>(filter.Entity)->RecoverMoveSpeedAfter < f.Time)
 			{
 				filter.StopAiming(f);
@@ -151,6 +147,12 @@ namespace Quantum.Systems.Bots
 				// The bot will always try to keep aiming at his target
 				// but if his target gets out of range, the target will get cleared
 				filter.UpdateAimTarget(f);
+			}
+
+			// Distribute bot processing, this needs to be after aim, other wise it looks very cluncky
+			if (botIndex % DistributeProcessingFrames != f.Number % DistributeProcessingFrames)
+			{
+				return;
 			}
 
 			// Bots look for others to shoot at not on every frame
@@ -174,8 +176,6 @@ namespace Quantum.Systems.Bots
 				_wanderAndShootBot.Update(f, ref filter);
 				return;
 			}
-
-
 			_battleRoyaleBot.Update(f, ref filter, isTakingCircleDamage, botCtx);
 		}
 
@@ -220,7 +220,7 @@ namespace Quantum.Systems.Bots
 		public void HealthChangedFromAttacker(Frame f, EntityRef entity, EntityRef attacker, int previousHealth)
 		{
 			if (ReviveSystem.IsKnockedOut(f, entity)) return;
-			
+
 			// Test change. Bots ALWAYS react on getting damaged
 			//if (f.RNG->NextBool()) return; // 50% chance bots ignore
 
@@ -230,8 +230,8 @@ namespace Quantum.Systems.Bots
 			if (attacker == bot->Target) return;
 			if (!f.Unsafe.TryGetPointer<Transform3D>(attacker, out var attackerLocation)) return;
 			if (!f.Unsafe.TryGetPointer<Transform3D>(entity, out var botLocation)) return;
-			
-			
+
+
 			// If player attacks a bot that has no target, the bot will try to answer
 			if (!bot->Target.IsValid)
 			{
@@ -245,7 +245,7 @@ namespace Quantum.Systems.Bots
 				bot->Target = attacker;
 
 				var distanceToAttacker = FPVector2.DistanceSquared(botLocation->Position.XZ, attackerLocation->Position.XZ);
-				
+
 				// when in range, ill just target back
 				if (distanceToAttacker < botMaxRange)
 				{
@@ -285,7 +285,7 @@ namespace Quantum.Systems.Bots
 				}
 
 				var distanceToAttacker = FPVector2.DistanceSquared(botLocation->Position.XZ, attackerLocation->Position.XZ);
-				
+
 				// If the attacker is closer to the bot than the current bot target, 50% swap chance
 				if (f.RNG->NextBool() &&
 					distanceToAttacker <

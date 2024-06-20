@@ -1,11 +1,27 @@
 component Collectable
 {
 	[HideInInspector] GameId GameId;
-	[HideInInspector, AllocateOnComponentAdded, FreeOnComponentRemoved] dictionary<EntityRef, FP> CollectorsEndTime;
 	[HideInInspector] EntityRef Spawner;
-	[HideInInspector] FP PickupRadius;  
 	[HideInInspector] FPVector3 OriginPosition;
-	[HideInInspector] FP AllowedToPickupTime;
+}
+
+component CollectableTime 
+{
+	[HideInInspector, AllocateOnComponentAdded, FreeOnComponentRemoved] dictionary<EntityRef, FP> CollectorsEndTime;
+}
+
+struct CollectableChunk
+{
+    hash_set<entity_ref> Entities;
+}
+
+singleton component CollectableChunks
+{
+    [HideInInspector, AllocateOnComponentAdded, FreeOnComponentRemoved] dictionary<Int16, CollectableChunk> Collectables;
+}
+
+component ChunkDebug {
+    short Chunk;
 }
 
 synced event OnStartedCollecting

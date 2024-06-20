@@ -1,0 +1,55 @@
+# Pipeline to release new containers on container apps
+pr: none
+trigger: none
+# This pipeline doesn't use the current branch to deploy, it uses an image as parameter so it makes no sense to append the commit message to the run
+appendCommitMessageToRunName: false
+resources:
+  pipelines:
+    - pipeline: build
+      source: 'Game-Builds'
+      trigger: true
+  repositories:
+    - repository: templates
+      type: git
+      ref: main
+      name: Infrastructure/core-templates
+
+variables:
+  # Variable called 'image_manual_override' is defined for optional per-run manual override.
+  - group: Secrets
+  - group: Non-secrets
+  - name: serviceConnection
+    value: AzureRM
+  - name: serviceName
+    value: game-logic-service
+  - name: registry
+    value: $(REGISTRY_NAME).azurecr.io
+
+
+pool: linux-k8s
+
+stages:
+  - template: deploy-game-logic-dev.yml
+    parameters:
+      helmRepoPassword: $(HELM-REPO-PASSWORD)
+      autoDeployIfServer: development
+      dockerImage:
+      
+  - template: deploy-game-logic-testnet.yml
+    parameters:
+      helmRepoPassword: $(HELM-REPO-PASSWORD)
+      autoDeployIfServer: LIVE_TESTNET_SERVER
+      dockerImage: 
+        
+  - template: deploy-game-logic-staging.yml
+    parameters:
+      helmRepoPassword: $(HELM-REPO-PASSWORD)
+      autoDeployIfServer: staging
+      dockerImage:
+        
+  - template: deploy-game-logic-prod.yml
+    parameters:
+      helmRepoPassword: $(HELM-REPO-PASSWORD)
+      autoDeployIfServer: production
+      dockerImage:
+

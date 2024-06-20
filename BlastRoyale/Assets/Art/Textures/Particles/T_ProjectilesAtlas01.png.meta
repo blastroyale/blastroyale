@@ -1,0 +1,6159 @@
+fileFormatVersion: 2
+guid: 1ae85e09c72137742adfce12bc0bf778
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 512
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 3
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 3
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 3
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 3
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 3
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_0
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1862
+        width: 173
+        height: 186
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f723d2b9e9574d3ba605a8db0dcaeab
+      internalID: -1494258037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_1
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 2004
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c9cefcf03c884a0085d85413dcec268
+      internalID: 445334205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_2
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 1840
+        width: 414
+        height: 208
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7d899ef62eca49c493cdffceced328c
+      internalID: 1569771530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_3
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 1858
+        width: 200
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bdc2daeb4283402ea71be28bfa6d24b
+      internalID: -1386728322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_4
+      rect:
+        serializedVersion: 2
+        x: 823
+        y: 1844
+        width: 201
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9baf2ac95abe34d4ba127ac032eea892
+      internalID: -1775485620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_5
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 1886
+        width: 192
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60a7ed6a284a0464cb8733a81acf5283
+      internalID: -612115775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_6
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 1839
+        width: 204
+        height: 209
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 426b5b0305d644fceabd8773f6f1b99f
+      internalID: 2007884861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_7
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 1988
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe085a5f625674e159008665dfc21ea8
+      internalID: 776290617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_8
+      rect:
+        serializedVersion: 2
+        x: 1436
+        y: 1984
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 725136426c40445b1a57a052333cecc4
+      internalID: -745585813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_9
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 1908
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fe7adec424564ebe83d73f050658932
+      internalID: -1173629581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_10
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 1892
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b750b69b21e74fcd9f892578ed9fef8
+      internalID: -337725198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_11
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 1828
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f071be7e9e724ecdbaa754bbc65b9fd
+      internalID: -1156505828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_12
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 1828
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8df73d775ff2c4c2e8119a0210e67346
+      internalID: 107900922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_13
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 1828
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e750d6266ffff4f89bce86012f33786d
+      internalID: 1622933671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_14
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 1828
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f9e41fe95d934df09ef5fb4e842c14e
+      internalID: 1154232187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_15
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 1828
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e79e1dc78695410988c380a35e01731
+      internalID: -404197612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_16
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 1828
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adbe44d2e0c924334bd8f7cab1a62f24
+      internalID: -1635726877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_17
+      rect:
+        serializedVersion: 2
+        x: 872
+        y: 1828
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0565a83e9df8945c1a1febf5885eacbc
+      internalID: -1085693556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_18
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 1828
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20eb9f5ff474c459c807a376d677cc07
+      internalID: -827616684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_19
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 1664
+        width: 144
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 179ce3af83ae84e48a2a3ea147198377
+      internalID: -2088459103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_20
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 1664
+        width: 160
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2e098405349046faa2a5a4ab688947b
+      internalID: 1966858726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_21
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 1664
+        width: 144
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d955ca40a7564e47868573b980e9f63
+      internalID: -876456665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_22
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1664
+        width: 160
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0db32410b2a244b59c473974a2b7981
+      internalID: -927417292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_23
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 1670
+        width: 158
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 936b78560350d4807b4fd7d6a0472637
+      internalID: -1739874268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_24
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 1686
+        width: 68
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e39c034e7f13481eba3f748a0c3254f
+      internalID: 1692634687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_25
+      rect:
+        serializedVersion: 2
+        x: 1130
+        y: 1794
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d868eca7f687646849afcef72c587dcd
+      internalID: -1117006320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_26
+      rect:
+        serializedVersion: 2
+        x: 1274
+        y: 1774
+        width: 56
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34925f761af044188ae5aef6de8783c6
+      internalID: 1807764227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_27
+      rect:
+        serializedVersion: 2
+        x: 1338
+        y: 1792
+        width: 38
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b537e17de7c2a4476b04106f222fd928
+      internalID: -1417294915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_28
+      rect:
+        serializedVersion: 2
+        x: 1466
+        y: 1722
+        width: 68
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6deb949d738d148f6a0097b5b2ae489f
+      internalID: -363875076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_29
+      rect:
+        serializedVersion: 2
+        x: 1542
+        y: 1794
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bf2cc2bc688045049e86c0a17d7ca24
+      internalID: 1367166467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_30
+      rect:
+        serializedVersion: 2
+        x: 1686
+        y: 1774
+        width: 24
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 830b2b67b9d2d49e9820750e3f218dc2
+      internalID: 1440873573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_31
+      rect:
+        serializedVersion: 2
+        x: 1878
+        y: 1670
+        width: 140
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c830e2306ef754cb2bf35a39870e01d8
+      internalID: 1595037048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_32
+      rect:
+        serializedVersion: 2
+        x: 1162
+        y: 1754
+        width: 32
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9072b1b6591bf4052bd8f4674b429d90
+      internalID: -1657649250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_33
+      rect:
+        serializedVersion: 2
+        x: 1378
+        y: 1754
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2b1dde957a3445229adfc7962ace184
+      internalID: 1759584131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_34
+      rect:
+        serializedVersion: 2
+        x: 1582
+        y: 1758
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5397f8eba19d4c8582f8982fa4384fb
+      internalID: 429681001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_35
+      rect:
+        serializedVersion: 2
+        x: 1772
+        y: 1772
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f005925fdf0a44acba19e439733d2630
+      internalID: 2093168414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_36
+      rect:
+        serializedVersion: 2
+        x: 1784
+        y: 1762
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6553fc543e1a641a88edff6bf4679bfc
+      internalID: -896278382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_37
+      rect:
+        serializedVersion: 2
+        x: 1248
+        y: 1690
+        width: 46
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98deeb554c8f546dea5666a52bdb3eb8
+      internalID: -521840507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_38
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 1719
+        width: 32
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96411ae484dac4f9b8925b7fa8151334
+      internalID: 177108928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_39
+      rect:
+        serializedVersion: 2
+        x: 1772
+        y: 1760
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78714ad148d4344469499d84d83dc2b2
+      internalID: -1198352756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_40
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 1682
+        width: 42
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ff694b6bde48434d889d09e10fb2cae
+      internalID: 649127516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_41
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 1744
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cfa0e03c79444f7cbd419c6040f0f36
+      internalID: 1171153805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_42
+      rect:
+        serializedVersion: 2
+        x: 1358
+        y: 1682
+        width: 40
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a085592a4e56c4d98ad60c67db29a90d
+      internalID: -1946365325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_43
+      rect:
+        serializedVersion: 2
+        x: 1590
+        y: 1718
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94295a055429543768d6c88c0602b8fe
+      internalID: 1191065310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_44
+      rect:
+        serializedVersion: 2
+        x: 1798
+        y: 1718
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac6e298e07cd94f53b12a6d9a188040e
+      internalID: -1642698369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_45
+      rect:
+        serializedVersion: 2
+        x: 1474
+        y: 1684
+        width: 26
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3201eb13b685b421c9c84282ce89b291
+      internalID: -2142150964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_46
+      rect:
+        serializedVersion: 2
+        x: 1678
+        y: 1694
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ccb5e36af6624bcc8deb3fa79bec578
+      internalID: 1239119857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_47
+      rect:
+        serializedVersion: 2
+        x: 1708
+        y: 1712
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c98bac207f65f482190e7f5f9513fa5b
+      internalID: -146369105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_48
+      rect:
+        serializedVersion: 2
+        x: 1724
+        y: 1712
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22e36a54d96f543f2969d14086768fbc
+      internalID: 1638373437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_49
+      rect:
+        serializedVersion: 2
+        x: 1566
+        y: 1682
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db15807e6659349ec9b90cd041616fb5
+      internalID: -131119561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_50
+      rect:
+        serializedVersion: 2
+        x: 1724
+        y: 1696
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54391153276b3482b9d70ab0651f9f8c
+      internalID: 1837152778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_51
+      rect:
+        serializedVersion: 2
+        x: 1098
+        y: 1670
+        width: 48
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a1b7292db49249d7b063b170d14d61e
+      internalID: -1260390612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_52
+      rect:
+        serializedVersion: 2
+        x: 1306
+        y: 1674
+        width: 24
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fd9caeb9760045ebaab1b5e87b030f8
+      internalID: 1462150644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_53
+      rect:
+        serializedVersion: 2
+        x: 1338
+        y: 1674
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9059a8ffd9ace41f1a66918ab3c9d1fc
+      internalID: 992119918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_54
+      rect:
+        serializedVersion: 2
+        x: 1480
+        y: 1668
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5898e1f1665a84d90ad855620a2647a7
+      internalID: 1034120255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_55
+      rect:
+        serializedVersion: 2
+        x: 1496
+        y: 1668
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea95173c038844590a3ac8fc67513a67
+      internalID: 1271149504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_56
+      rect:
+        serializedVersion: 2
+        x: 1510
+        y: 1674
+        width: 44
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79b6c302221984f03acc73c4e1b7d044
+      internalID: -120106688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_57
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 1670
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25b1a3c636e544b4192a53ecac34c04c
+      internalID: -1078102370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_58
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 1611
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d84f984fdae74d9381f6a771f70753b
+      internalID: 262636137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_59
+      rect:
+        serializedVersion: 2
+        x: 1323
+        y: 1611
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5485edb49bccb4fb0b84fce6b990cfeb
+      internalID: 253298259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_60
+      rect:
+        serializedVersion: 2
+        x: 1658
+        y: 1470
+        width: 171
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f5cb602cd2b0485eb9fbe95288f58d4
+      internalID: 1899354678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_61
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 1460
+        width: 162
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18d60f4b2420749198acdb57fa1d12e6
+      internalID: 483335981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_62
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 1470
+        width: 146
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63923181e4d924b6f930a053cf532367
+      internalID: -402159457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_63
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 1471
+        width: 138
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97cf8a5a157ab4da9a6c258c3ab2ffc2
+      internalID: -1464319414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_64
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 1482
+        width: 146
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 338db22e342584c6b8b5613dcd499f50
+      internalID: 6061535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_65
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 1490
+        width: 131
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00ce5c0fce8e44859bed48c525292471
+      internalID: 1507810387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_66
+      rect:
+        serializedVersion: 2
+        x: 1070
+        y: 1494
+        width: 124
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 028f80629d0aa4450bbe322ead0272f9
+      internalID: -1987838133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_67
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 1494
+        width: 120
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcaf50ee270cb48c0a6b1c3b9980e8ec
+      internalID: -1186323222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_68
+      rect:
+        serializedVersion: 2
+        x: 1490
+        y: 1502
+        width: 118
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29cd4cb8dcbde45f88bf5ba259ac3319
+      internalID: -1250627390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_69
+      rect:
+        serializedVersion: 2
+        x: 1852
+        y: 1536
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd59678e36db1426eb3cd0b9bb8965a1
+      internalID: -2100869043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_70
+      rect:
+        serializedVersion: 2
+        x: 1862
+        y: 1470
+        width: 186
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 831a5f240f2b44935b15c6291855e538
+      internalID: -697347432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_71
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 1520
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bf393000fa094817a83f0ebd4d734ae
+      internalID: -2069658335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_72
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 1504
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 126511c16780e431eb0a2b64d0c0c225
+      internalID: -289615968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_73
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 1504
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d318d046dc0ba432eb1548518318f736
+      internalID: -1436175734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_74
+      rect:
+        serializedVersion: 2
+        x: 1612
+        y: 1504
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ba886aa51e99436d8922a9819c97d2f
+      internalID: 1236862046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_75
+      rect:
+        serializedVersion: 2
+        x: 984
+        y: 1476
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2d435290968d4781bc648dd1ed3beb5
+      internalID: -709050171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_76
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 1456
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5450ddaf1c5344121955e0c94573964e
+      internalID: -164017207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_77
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1263
+        width: 193
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbb38dbebfa804c5fb9f9fd56ebe4777
+      internalID: 2127942605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_78
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 1263
+        width: 170
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83fa7067a5baa424da29b2f88ec5172e
+      internalID: -1448091997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_79
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 1264
+        width: 136
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70d1dc2b4ea134104bb3b8f5994a5e63
+      internalID: -614357182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_80
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 1248
+        width: 119
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40b553954f6e34f489b1e062369e77df
+      internalID: -154010085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_81
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 1359
+        width: 59
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22d4326d76ee8477ab99fc268e1592b2
+      internalID: 1847589199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_82
+      rect:
+        serializedVersion: 2
+        x: 927
+        y: 1360
+        width: 65
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d7a5784fa7a8449dbe27c3fc25bcff0
+      internalID: 2028823980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_83
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 1374
+        width: 36
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ced3becc060f4275884b899ab7bddfa
+      internalID: 367714879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_84
+      rect:
+        serializedVersion: 2
+        x: 1354
+        y: 1382
+        width: 28
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98f0dbbab40e540a9b35a6ae2395dde6
+      internalID: -1953392735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_85
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1235
+        width: 193
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b41e94ff3c9d42bb94c531e92bba6fc
+      internalID: -8814752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_86
+      rect:
+        serializedVersion: 2
+        x: 1644
+        y: 1232
+        width: 193
+        height: 208
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d05cafbee1f50462bac91f16891615b3
+      internalID: -258077704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_87
+      rect:
+        serializedVersion: 2
+        x: 1851
+        y: 1252
+        width: 197
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b60eec0b421ee4c7a8c507d85b6b0982
+      internalID: -1818729548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_88
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 1310
+        width: 48
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24698cb9a90c94c0ead42965e06d7d3c
+      internalID: 1194093720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_89
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 1314
+        width: 36
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e22e5440cac44ea8903d15d9078a3c8
+      internalID: -1646463108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_90
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 1360
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40c6e699fbc3c48dfa8b9ba29eff6ed5
+      internalID: -1676915383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_91
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 1360
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d210eb7d7cb1d40c68731446e1299373
+      internalID: -1539755666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_92
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 1344
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cecac9a91b1d24a1cb71e3e348c54a4b
+      internalID: -139731243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_93
+      rect:
+        serializedVersion: 2
+        x: 838
+        y: 1262
+        width: 116
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 329926fd8a5f84adcb05a079635c2334
+      internalID: -2056254171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_94
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 1314
+        width: 32
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc023030fb9f148409c48b0697c484a5
+      internalID: 1377409557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_95
+      rect:
+        serializedVersion: 2
+        x: 1186
+        y: 1312
+        width: 30
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01f5366c75c514098a445bf1456959c3
+      internalID: 1625056899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_96
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 1312
+        width: 49
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95e737e72069a43b999d131afd544536
+      internalID: 1235490437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_97
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1248
+        width: 122
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 182c824fa2cc94ec6adeb1ef6baf469a
+      internalID: 327742223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_98
+      rect:
+        serializedVersion: 2
+        x: 1247
+        y: 1274
+        width: 75
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b25d9915001e140498d390a0fa6d9b22
+      internalID: 721496141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_99
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 1266
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2780862c565fb45889058ea66345b416
+      internalID: 1140259081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_100
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 1236
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82f7da478d779411191ef0ed4cec7ead
+      internalID: 2067869769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_101
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 1236
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6a2bfefd0aff4daba11a876eac89806
+      internalID: 1494510653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_102
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 1236
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eca7be1e6e86f456ba894d847d7f6301
+      internalID: 863594216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_103
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 1236
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6db519c55dc940db8ef7f181227ccbd
+      internalID: -504468134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_104
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 1236
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 278d298b4b4bf457dae9c89fa608d86c
+      internalID: -125028443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_105
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 1232
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90ccb9d0dc874443b9da1233fa60b8e3
+      internalID: 369224520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_106
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 1232
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c4ea8c36909849a49358bcbb7d29740
+      internalID: 627413489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_107
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 1232
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abb2f195374bf4cbc81f85b0503d28cc
+      internalID: -1301795448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_108
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 1232
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbdd2cb1714a047eb9f4622a5228e92d
+      internalID: 561088422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_109
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 1232
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83333763f7d814e27ac047e6ac967e7c
+      internalID: -2141893274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_110
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 1232
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe0d209edfb7c4889b4ac8a25a71c18f
+      internalID: 1092172118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_111
+      rect:
+        serializedVersion: 2
+        x: 1116
+        y: 1232
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a21096e6b4091495094c39064528ff9c
+      internalID: 1520346453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_112
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1060
+        width: 193
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d14c84c92c8e241488fbbbd466077231
+      internalID: 2060647277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_113
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 1076
+        width: 185
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8560249784741470198f6279e2bb957f
+      internalID: 1127060675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_114
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 1087
+        width: 197
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3db76b32e562496f863aa4b13b8d38e
+      internalID: 1314163854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_115
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 1128
+        width: 165
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d335f761e2683482a9cab7c3bf08f778
+      internalID: -1123441818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_116
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 1139
+        width: 156
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cfeb489018844550b221dbd44245618
+      internalID: 1829678139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_117
+      rect:
+        serializedVersion: 2
+        x: 1072
+        y: 1168
+        width: 112
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dbb77a8d3fa046dda783cf37c824130
+      internalID: -1881690352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_118
+      rect:
+        serializedVersion: 2
+        x: 1708
+        y: 1216
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fa8be8ce87eb467f8d25169e276a797
+      internalID: -1803841037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_119
+      rect:
+        serializedVersion: 2
+        x: 892
+        y: 1136
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98a7f90efa55546ad8d93e87b5c132ad
+      internalID: 732194504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_120
+      rect:
+        serializedVersion: 2
+        x: 1242
+        y: 1046
+        width: 391
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1083142c72dfe4b2099ba7704aac05ea
+      internalID: 1346866478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_121
+      rect:
+        serializedVersion: 2
+        x: 1650
+        y: 1039
+        width: 188
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ff41bf8ad5e84b61961f9ce1ebf28f3
+      internalID: 9784475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_122
+      rect:
+        serializedVersion: 2
+        x: 1854
+        y: 1040
+        width: 194
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd8a4d4662e8f4ab9b7085963c53846a
+      internalID: -1753448085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_123
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 1120
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edfe4cb7c783c4f1983cebcd6a36b9be
+      internalID: 1612121625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_124
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 1120
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8dae155c42c8436a80ec8ba6c6cfc02
+      internalID: 1320754058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_125
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1060
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fe0090afb1374d03a6451fd16443299
+      internalID: 534442510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_126
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 1060
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2c06598d01c34da4af6898b36814c54
+      internalID: -1759562391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_127
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 1008
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 173f598b09ea0430b80664e281becf7c
+      internalID: 749534146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_128
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 1002
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b55ade4685a2411681e9aa6d15c1aec
+      internalID: 1395606479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_129
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 824
+        width: 213
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aaa7f0ab51e21403285d8197fd21d2e4
+      internalID: 843381482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_130
+      rect:
+        serializedVersion: 2
+        x: 1238
+        y: 824
+        width: 395
+        height: 201
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32e1aacc175ea4e6ca5b31817219ba83
+      internalID: 1129919949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_131
+      rect:
+        serializedVersion: 2
+        x: 1646
+        y: 832
+        width: 188
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c8fa9f18ff574ccda4337d0b606d8cc
+      internalID: 114912754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_132
+      rect:
+        serializedVersion: 2
+        x: 1855
+        y: 858
+        width: 193
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e22d84fa707f645a187419ce166f9f72
+      internalID: 1377284365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_133
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 831
+        width: 240
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e604f190d0c64e73a60215843458b8c
+      internalID: 1298215878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_134
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 894
+        width: 162
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 806a70456c0324b60919704c9a9f36b1
+      internalID: -140784857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_135
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 962
+        width: 44
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 753d30ee0e65a4334805567d5fb6a461
+      internalID: -2022830982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_136
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 894
+        width: 100
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff3cbbcdee66b451896fc4f9ce37abb8
+      internalID: -1608377855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_137
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 966
+        width: 64
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e876e21b92a94aa680554b4f383bb09
+      internalID: -1039899811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_138
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 896
+        width: 138
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5be4286aac2443a6a2a1fad28a34a22
+      internalID: -1938186455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_139
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 975
+        width: 24
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5975f77de000444aa9bd3ed439dce47c
+      internalID: -1650152218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_140
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 959
+        width: 70
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09c6485d21a7341548216d7dab9cab4d
+      internalID: 547597564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_141
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 886
+        width: 32
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20709904945794971bb381127f1b78ea
+      internalID: 820985017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_142
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 960
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5ae54c8580bf4f3ebc7defd0156739a
+      internalID: 916644336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_143
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 888
+        width: 31
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce96e82c61ae44a638f368dbb7b8c7e4
+      internalID: 547091478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_144
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 912
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 876751ff1558149f793e3c206e4a878c
+      internalID: -1259473700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_145
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 830
+        width: 134
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3b48d91ea5a047798ca4c2a6505a290
+      internalID: -1491215988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_146
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 820
+        width: 158
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c716334f18ea84c77bfcfa573017c510
+      internalID: 1158066629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_147
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 880
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ba0b6ec3440c4c8cb7c2c13131d2e74
+      internalID: -2143311645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_148
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 826
+        width: 147
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f24308bba869f4d9c9f11abfe97e6d02
+      internalID: -634476629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_149
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 623
+        width: 173
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76564396f1ce140f08b10b9859503581
+      internalID: -1733627823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_150
+      rect:
+        serializedVersion: 2
+        x: 958
+        y: 830
+        width: 48
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2239b0088cf8947b584f5a07563a89f6
+      internalID: 1386220006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_151
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 672
+        width: 161
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c127966899dc3437eabeade1873497be
+      internalID: 818980907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_152
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 708
+        width: 134
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 499ac19ffe0a347bb97e2e9bd218257f
+      internalID: 2036384457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_153
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 816
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38041524ff3ed40e7a0de55b8c1455b2
+      internalID: -163061605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_154
+      rect:
+        serializedVersion: 2
+        x: 1292
+        y: 816
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4937de93233f424fa87cc75441b352e
+      internalID: -1430060211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_155
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 664
+        width: 184
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e44997083f9e456ca72ca0cbc114300
+      internalID: 1811715611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_156
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 740
+        width: 88
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fbcfed7adc2f4b60b1c15097dbf6e2f
+      internalID: -1845328738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_157
+      rect:
+        serializedVersion: 2
+        x: 1043
+        y: 224
+        width: 173
+        height: 577
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c2345446705944818cc289c292b3c7b
+      internalID: -954249924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_158
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 800
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6ea3fd86351c47f0b948fe3a65613d5
+      internalID: 1737647053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_159
+      rect:
+        serializedVersion: 2
+        x: 1116
+        y: 800
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1184383542fbf480fb3f6866f5d812e3
+      internalID: 1657630221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_160
+      rect:
+        serializedVersion: 2
+        x: 1256
+        y: 628
+        width: 100
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f07bb646925c044638f922298aebf42f
+      internalID: 818897477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_161
+      rect:
+        serializedVersion: 2
+        x: 1356
+        y: 800
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d12ff6ee8dc1a4b80b60c97d5965234c
+      internalID: -715211540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_162
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 623
+        width: 145
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be82af3ecc97a457e8251351c3626512
+      internalID: -1689265655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_163
+      rect:
+        serializedVersion: 2
+        x: 1652
+        y: 644
+        width: 172
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 387a5b8ae323a4adb8bbdbd22989ebb8
+      internalID: -1715737244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_164
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 784
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bac115098bc34e9a99771d13e9f8cb3
+      internalID: -136005704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_165
+      rect:
+        serializedVersion: 2
+        x: 1860
+        y: 622
+        width: 136
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27cc09b084da243c69b422eaaaf012bd
+      internalID: 1242604598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_166
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 768
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24feffd49059746ac936829f53ce49cc
+      internalID: 259418522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_167
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 768
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4957aaa4b817848aaae3762f8c30697e
+      internalID: 1953310365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_168
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 756
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cf92899aeeb54449a29f8df8c25af37
+      internalID: 1803436447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_169
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 740
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7fc066f398714c08aeddf277766f618
+      internalID: -1175737162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_170
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 724
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 896eb6d3fe0ba405389193d40e156db4
+      internalID: 1772153512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_171
+      rect:
+        serializedVersion: 2
+        x: 1992
+        y: 724
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd26737d0edd447db96a35115a52d591
+      internalID: 877400382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_172
+      rect:
+        serializedVersion: 2
+        x: 2008
+        y: 724
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c9acb9b757ca4f08818c9ebbe0f7379
+      internalID: -456328523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_173
+      rect:
+        serializedVersion: 2
+        x: 1352
+        y: 708
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75d6a97f535e14f0b9248f8a9a0f3c03
+      internalID: -2073616880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_174
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 708
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3858ec7682017463cb3d54681d29b579
+      internalID: -182056542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_175
+      rect:
+        serializedVersion: 2
+        x: 2008
+        y: 708
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b901950f30f3459e88afa5c0db89033
+      internalID: -2112524061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_176
+      rect:
+        serializedVersion: 2
+        x: 1592
+        y: 692
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cb7587e4415c4f7097a542b59f678f6
+      internalID: -1420991374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_177
+      rect:
+        serializedVersion: 2
+        x: 1372
+        y: 688
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e353cb62ca214ffc92abdd6c429f1fb
+      internalID: 1806886581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_178
+      rect:
+        serializedVersion: 2
+        x: 1592
+        y: 676
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb02e26d5fab34a8686436e21e7008bf
+      internalID: -1551686746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_179
+      rect:
+        serializedVersion: 2
+        x: 1372
+        y: 672
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61881fed3a73b4e0b90a58fa088d44a5
+      internalID: 1386911514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_180
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 660
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41eab64fcd78a44b68eb6303bd508e77
+      internalID: 335033533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_181
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 644
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 525f45a21fd4344b99ae1b2a7800ac6e
+      internalID: 1600579378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_182
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 644
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30ff96455d6b9424dbb30e0f30e85fed
+      internalID: -1037678456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_183
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 612
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ae534a1950494437af52121060b8040
+      internalID: -2124970785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_184
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 612
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76cd6bc9cad8d40a6a2cbed2b3156897
+      internalID: -1993262574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_185
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 423
+        width: 98
+        height: 181
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72f66b67edf504662b402145a06ac6d0
+      internalID: 2048465341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_186
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 415
+        width: 111
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63fca6c5fb9dc41d38a167c6982f49d9
+      internalID: -1941788353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_187
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 432
+        width: 177
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af9f72d1c24d14c52acd6fcff042eb8b
+      internalID: -1162849445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_188
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 434
+        width: 162
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c466ea5c929ef4eb88ac7ec65e053677
+      internalID: -1277127104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_189
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 434
+        width: 167
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f027a16a241347539b078ebea2ff5e2
+      internalID: 145193534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_190
+      rect:
+        serializedVersion: 2
+        x: 1248
+        y: 434
+        width: 161
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52f5c83fa69fd43259d5d92d08537ad2
+      internalID: -456919982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_191
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 223
+        width: 171
+        height: 367
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f1700acfa0e94d1497832f0375f2578
+      internalID: 1675257877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_192
+      rect:
+        serializedVersion: 2
+        x: 1655
+        y: 223
+        width: 170
+        height: 385
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f0dc3798c5d74fc482105922c5b7be2
+      internalID: 1183290800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_193
+      rect:
+        serializedVersion: 2
+        x: 1878
+        y: 538
+        width: 68
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85423de6a72ef475a89eaa50979dcd3c
+      internalID: 1732036137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_194
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 574
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4de914bb3d7b427faa2b0314b2e4081
+      internalID: 1916653882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_195
+      rect:
+        serializedVersion: 2
+        x: 1974
+        y: 562
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbd65eaf81a014b7caeb4e528882896b
+      internalID: 986122917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_196
+      rect:
+        serializedVersion: 2
+        x: 1998
+        y: 534
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60bb4a95ed1e741ac93b3e886b6ae9a7
+      internalID: 1092104682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_197
+      rect:
+        serializedVersion: 2
+        x: 1856
+        y: 462
+        width: 46
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cd131972a319488cbcfdb47cd4a0e64
+      internalID: -1692998429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_198
+      rect:
+        serializedVersion: 2
+        x: 2028
+        y: 528
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b151ccb9234a47eea1ee44d383c2105
+      internalID: 50424777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_199
+      rect:
+        serializedVersion: 2
+        x: 2044
+        y: 528
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d0f601af429e4c80a6aa4d0294dd752
+      internalID: -115332234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_200
+      rect:
+        serializedVersion: 2
+        x: 1984
+        y: 480
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1ef8b1def9ff40b6ad6f861a8504aef
+      internalID: -1644178730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_201
+      rect:
+        serializedVersion: 2
+        x: 2044
+        y: 512
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 783bd1a0be6d04ef48ae99dc161b3b7c
+      internalID: 471199365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_202
+      rect:
+        serializedVersion: 2
+        x: 1902
+        y: 438
+        width: 40
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bf9e669f89d14423a8a8979d27792a6
+      internalID: 1365392727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_203
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 438
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65126590790044701b3e3bff4976b42a
+      internalID: 1208428448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_204
+      rect:
+        serializedVersion: 2
+        x: 1974
+        y: 450
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97b072fc8c2d24a65b3432d6ae9bcade
+      internalID: 452519014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_205
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 420
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3c2e43f9fee14e3da293ec33a63ab9a
+      internalID: 469856202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_206
+      rect:
+        serializedVersion: 2
+        x: 940
+        y: 400
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d84d944f743144ca5960ae726cb38357
+      internalID: 305663201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_207
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 400
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3570a736b42c460ca1ee9cfa9876a72
+      internalID: -421386276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_208
+      rect:
+        serializedVersion: 2
+        x: 1246
+        y: 224
+        width: 163
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a95aa8cc470cd4c84972e5ad62e3eccd
+      internalID: 1641165972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_209
+      rect:
+        serializedVersion: 2
+        x: 1854
+        y: 212
+        width: 171
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d312d4c1ca47b4686aafbb41c63dd3a0
+      internalID: -1124708793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_210
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 362
+        width: 36
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87bbc6ddeb5694460bc6e1032a094ea7
+      internalID: 2011018724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_211
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 366
+        width: 28
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbdb09ab834d44912bcce59790a6978a
+      internalID: 916665751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_212
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 246
+        width: 130
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc5b11b33f6de49078628aedc0d7a852
+      internalID: 1673730691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_213
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 246
+        width: 137
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cc904f6bd311415fa11d3a5d12f9437
+      internalID: 1403610875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_214
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 223
+        width: 161
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1fea2b3960b342899d95f184f4b6fae
+      internalID: -1806496934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_215
+      rect:
+        serializedVersion: 2
+        x: 1612
+        y: 368
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 650b4e48572214d94aab611ad6326624
+      internalID: 1735728994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_216
+      rect:
+        serializedVersion: 2
+        x: 1628
+        y: 368
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5dd2be28ef48434b800005652635d24
+      internalID: -207395653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_217
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 350
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45286af1d7a534e5e9d68c294cd93a9d
+      internalID: -1790735877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_218
+      rect:
+        serializedVersion: 2
+        x: 1628
+        y: 352
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2d4534704c964933810a11fc3f188b1
+      internalID: 2136758597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_219
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 334
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2043b338bb5024b51bf90178c719fd84
+      internalID: 476345872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_220
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 334
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 922c8a6bc2e47421190ace4956d4b005
+      internalID: -1322809983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_221
+      rect:
+        serializedVersion: 2
+        x: 1628
+        y: 336
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb9a00070bf024fc8acd1131b638dd3f
+      internalID: -827003051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_222
+      rect:
+        serializedVersion: 2
+        x: 1644
+        y: 336
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f483d4b08c52466ea67d1b581755164
+      internalID: 862026974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_223
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 258
+        width: 32
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15e714fc3932e43a8838b11abdfda462
+      internalID: 253977085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_224
+      rect:
+        serializedVersion: 2
+        x: 1628
+        y: 320
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bc10f938092c490db7095328066f59c
+      internalID: 380335091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_225
+      rect:
+        serializedVersion: 2
+        x: 1644
+        y: 320
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7cafac455f9c49a2bc4e8526d82cdac
+      internalID: 449252701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_226
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 278
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55d51558b7a6e4a0ca138d3688b0b160
+      internalID: 474796606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_227
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 286
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b32191242f4134649a881e88c409df93
+      internalID: -1586633908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_228
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 279
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3928a423132249b9afaa76a4bdec347
+      internalID: 690115483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_229
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 266
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25badeff2fc83465abd643b2473319c5
+      internalID: -1161219026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_230
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 234
+        width: 28
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66df87b70338c43f5a49564a7b15d309
+      internalID: -165915152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_231
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 223
+        width: 23
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 258a49c03667c42c3aa2399b41de53c1
+      internalID: -794726006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_232
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 242
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 190dc47949ed9477fa9baab0aec82bcc
+      internalID: -1406511048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_233
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 224
+        width: 48
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83e437545619a4f3399086dd425f8de5
+      internalID: -574376922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_234
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 244
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07d88d8d2636c46b7abaed9675daf194
+      internalID: 590438526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_235
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 244
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 630461f9344334beb800c93dedbb3983
+      internalID: 1068881780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_236
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 228
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73779a731e7de4763bd62d74de80ce88
+      internalID: 220775856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_237
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 228
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b36c6229def3d4c0bb1eb8138156311e
+      internalID: 1971098629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_238
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 63
+        width: 614
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27471d1f9329344ccaa81ce2d8a209f0
+      internalID: -1917341646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_239
+      rect:
+        serializedVersion: 2
+        x: 1896
+        y: 196
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dce0ae208e2b4b93af095939a94e2f9
+      internalID: -2081330757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_240
+      rect:
+        serializedVersion: 2
+        x: 1912
+        y: 196
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec10131b70d5c4e17a318be89378be6c
+      internalID: -1705244949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_241
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 148
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26837a1d28d3747c486908ae7b7bc81b
+      internalID: -1349710757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_242
+      rect:
+        serializedVersion: 2
+        x: 1144
+        y: 148
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e04d36f479bc84e028162c4e9d852f43
+      internalID: -511704134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_243
+      rect:
+        serializedVersion: 2
+        x: 1160
+        y: 148
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ac3eb228a1524f5bbad3103b95fecb8
+      internalID: -746901725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_244
+      rect:
+        serializedVersion: 2
+        x: 1176
+        y: 148
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f57575055b7dc4d869002b4841d2ea5d
+      internalID: -1746872628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_245
+      rect:
+        serializedVersion: 2
+        x: 2044
+        y: 111
+        width: 4
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cb3e26bc7ac243009e9994bf89148df
+      internalID: 123685859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_246
+      rect:
+        serializedVersion: 2
+        x: 940
+        y: 144
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86cd494db2f6d4b56a27ad7a14856b61
+      internalID: 577550444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_247
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 144
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 712034643ed6547569eeb6d0a549765d
+      internalID: 1499638140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_248
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 0
+        width: 606
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03c5e1806a8e64b48bf62148e74e85c8
+      internalID: -735141808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_249
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 0
+        width: 397
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f0797c7a8bb74103b61f8635cf813f4
+      internalID: -13843111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_250
+      rect:
+        serializedVersion: 2
+        x: 1640
+        y: 116
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 879faf9d26c914ebe9c01b798b1f9723
+      internalID: -1439407356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_251
+      rect:
+        serializedVersion: 2
+        x: 1652
+        y: 64
+        width: 184
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e51ac5f94b5894a08af09d13835985f9
+      internalID: 1899766466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_252
+      rect:
+        serializedVersion: 2
+        x: 1876
+        y: 80
+        width: 44
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c8063202971b4bb5b99f8c5b1ac610c
+      internalID: -1339964386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_253
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 82
+        width: 104
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be0718623262f41adb4bfc14aafecf25
+      internalID: 2127635143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_254
+      rect:
+        serializedVersion: 2
+        x: 1640
+        y: 100
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74c3c0bb68d2043e49c230ce75ee5ae4
+      internalID: -1606527010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_255
+      rect:
+        serializedVersion: 2
+        x: 2044
+        y: 96
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14edc996990ff4442a18c285051bc5cc
+      internalID: 1106232574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_256
+      rect:
+        serializedVersion: 2
+        x: 1644
+        y: 80
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27e05e045a50f4c9d876e3521f931d99
+      internalID: 407791655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_257
+      rect:
+        serializedVersion: 2
+        x: 1868
+        y: 80
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25e2e3c997c434b83862edf1665d6dfe
+      internalID: 789545666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_258
+      rect:
+        serializedVersion: 2
+        x: 2044
+        y: 80
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e026277f8b59247d88feff3ce5983f40
+      internalID: 767181176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_259
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 80
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3566d6d5459ea46aeaffbb8e58f3f876
+      internalID: 272336272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_260
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 51
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd37849d0ce5d4b5c92671efcbbaef95
+      internalID: -83221543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_261
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 68
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf31c5e3a4dad4f5f8d7d45197e4da00
+      internalID: -1235017057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_262
+      rect:
+        serializedVersion: 2
+        x: 1944
+        y: 68
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 231145327ba8e4926b734d2ddcf3e2c1
+      internalID: 1722204718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_263
+      rect:
+        serializedVersion: 2
+        x: 1228
+        y: 64
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ea41f3917ff241ceb7356daf4331605
+      internalID: 1457099011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_264
+      rect:
+        serializedVersion: 2
+        x: 1644
+        y: 64
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cde1369aeb324dcca8d3a8282b7c00d
+      internalID: -524093994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_265
+      rect:
+        serializedVersion: 2
+        x: 1868
+        y: 64
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8590ecf7a746240458e84e4d5b638e3e
+      internalID: 873837094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_266
+      rect:
+        serializedVersion: 2
+        x: 1884
+        y: 64
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b696549fc42b4d3aa1939e7d71a77f7
+      internalID: -1078894889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_267
+      rect:
+        serializedVersion: 2
+        x: 2028
+        y: 64
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b48a5d712096a4ba89e64e809c894456
+      internalID: -106382476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_268
+      rect:
+        serializedVersion: 2
+        x: 2044
+        y: 64
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c68f3d3fe3e3471e9e7791cff1091c6
+      internalID: -768449218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_269
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 48
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e4059b32abf34b7488ff74296f15d8b
+      internalID: -672887471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_270
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 48
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94c1bc37928384cc58674b3c4a88756d
+      internalID: 800576497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_271
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 0
+        width: 40
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a606fcd41387424dbf154bf2602ef7b
+      internalID: 825818464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ProjectilesAtlas01_272
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 32
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb9bf4a729935477ca57f640a0a2710a
+      internalID: 297020712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5af280114ec9440528910576e5beeb4b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      T_ProjectilesAtlas01_0: -1494258037
+      T_ProjectilesAtlas01_1: 445334205
+      T_ProjectilesAtlas01_10: -337725198
+      T_ProjectilesAtlas01_100: 2067869769
+      T_ProjectilesAtlas01_101: 1494510653
+      T_ProjectilesAtlas01_102: 863594216
+      T_ProjectilesAtlas01_103: -504468134
+      T_ProjectilesAtlas01_104: -125028443
+      T_ProjectilesAtlas01_105: 369224520
+      T_ProjectilesAtlas01_106: 627413489
+      T_ProjectilesAtlas01_107: -1301795448
+      T_ProjectilesAtlas01_108: 561088422
+      T_ProjectilesAtlas01_109: -2141893274
+      T_ProjectilesAtlas01_11: -1156505828
+      T_ProjectilesAtlas01_110: 1092172118
+      T_ProjectilesAtlas01_111: 1520346453
+      T_ProjectilesAtlas01_112: 2060647277
+      T_ProjectilesAtlas01_113: 1127060675
+      T_ProjectilesAtlas01_114: 1314163854
+      T_ProjectilesAtlas01_115: -1123441818
+      T_ProjectilesAtlas01_116: 1829678139
+      T_ProjectilesAtlas01_117: -1881690352
+      T_ProjectilesAtlas01_118: -1803841037
+      T_ProjectilesAtlas01_119: 732194504
+      T_ProjectilesAtlas01_12: 107900922
+      T_ProjectilesAtlas01_120: 1346866478
+      T_ProjectilesAtlas01_121: 9784475
+      T_ProjectilesAtlas01_122: -1753448085
+      T_ProjectilesAtlas01_123: 1612121625
+      T_ProjectilesAtlas01_124: 1320754058
+      T_ProjectilesAtlas01_125: 534442510
+      T_ProjectilesAtlas01_126: -1759562391
+      T_ProjectilesAtlas01_127: 749534146
+      T_ProjectilesAtlas01_128: 1395606479
+      T_ProjectilesAtlas01_129: 843381482
+      T_ProjectilesAtlas01_13: 1622933671
+      T_ProjectilesAtlas01_130: 1129919949
+      T_ProjectilesAtlas01_131: 114912754
+      T_ProjectilesAtlas01_132: 1377284365
+      T_ProjectilesAtlas01_133: 1298215878
+      T_ProjectilesAtlas01_134: -140784857
+      T_ProjectilesAtlas01_135: -2022830982
+      T_ProjectilesAtlas01_136: -1608377855
+      T_ProjectilesAtlas01_137: -1039899811
+      T_ProjectilesAtlas01_138: -1938186455
+      T_ProjectilesAtlas01_139: -1650152218
+      T_ProjectilesAtlas01_14: 1154232187
+      T_ProjectilesAtlas01_140: 547597564
+      T_ProjectilesAtlas01_141: 820985017
+      T_ProjectilesAtlas01_142: 916644336
+      T_ProjectilesAtlas01_143: 547091478
+      T_ProjectilesAtlas01_144: -1259473700
+      T_ProjectilesAtlas01_145: -1491215988
+      T_ProjectilesAtlas01_146: 1158066629
+      T_ProjectilesAtlas01_147: -2143311645
+      T_ProjectilesAtlas01_148: -634476629
+      T_ProjectilesAtlas01_149: -1733627823
+      T_ProjectilesAtlas01_15: -404197612
+      T_ProjectilesAtlas01_150: 1386220006
+      T_ProjectilesAtlas01_151: 818980907
+      T_ProjectilesAtlas01_152: 2036384457
+      T_ProjectilesAtlas01_153: -163061605
+      T_ProjectilesAtlas01_154: -1430060211
+      T_ProjectilesAtlas01_155: 1811715611
+      T_ProjectilesAtlas01_156: -1845328738
+      T_ProjectilesAtlas01_157: -954249924
+      T_ProjectilesAtlas01_158: 1737647053
+      T_ProjectilesAtlas01_159: 1657630221
+      T_ProjectilesAtlas01_16: -1635726877
+      T_ProjectilesAtlas01_160: 818897477
+      T_ProjectilesAtlas01_161: -715211540
+      T_ProjectilesAtlas01_162: -1689265655
+      T_ProjectilesAtlas01_163: -1715737244
+      T_ProjectilesAtlas01_164: -136005704
+      T_ProjectilesAtlas01_165: 1242604598
+      T_ProjectilesAtlas01_166: 259418522
+      T_ProjectilesAtlas01_167: 1953310365
+      T_ProjectilesAtlas01_168: 1803436447
+      T_ProjectilesAtlas01_169: -1175737162
+      T_ProjectilesAtlas01_17: -1085693556
+      T_ProjectilesAtlas01_170: 1772153512
+      T_ProjectilesAtlas01_171: 877400382
+      T_ProjectilesAtlas01_172: -456328523
+      T_ProjectilesAtlas01_173: -2073616880
+      T_ProjectilesAtlas01_174: -182056542
+      T_ProjectilesAtlas01_175: -2112524061
+      T_ProjectilesAtlas01_176: -1420991374
+      T_ProjectilesAtlas01_177: 1806886581
+      T_ProjectilesAtlas01_178: -1551686746
+      T_ProjectilesAtlas01_179: 1386911514
+      T_ProjectilesAtlas01_18: -827616684
+      T_ProjectilesAtlas01_180: 335033533
+      T_ProjectilesAtlas01_181: 1600579378
+      T_ProjectilesAtlas01_182: -1037678456
+      T_ProjectilesAtlas01_183: -2124970785
+      T_ProjectilesAtlas01_184: -1993262574
+      T_ProjectilesAtlas01_185: 2048465341
+      T_ProjectilesAtlas01_186: -1941788353
+      T_ProjectilesAtlas01_187: -1162849445
+      T_ProjectilesAtlas01_188: -1277127104
+      T_ProjectilesAtlas01_189: 145193534
+      T_ProjectilesAtlas01_19: -2088459103
+      T_ProjectilesAtlas01_190: -456919982
+      T_ProjectilesAtlas01_191: 1675257877
+      T_ProjectilesAtlas01_192: 1183290800
+      T_ProjectilesAtlas01_193: 1732036137
+      T_ProjectilesAtlas01_194: 1916653882
+      T_ProjectilesAtlas01_195: 986122917
+      T_ProjectilesAtlas01_196: 1092104682
+      T_ProjectilesAtlas01_197: -1692998429
+      T_ProjectilesAtlas01_198: 50424777
+      T_ProjectilesAtlas01_199: -115332234
+      T_ProjectilesAtlas01_2: 1569771530
+      T_ProjectilesAtlas01_20: 1966858726
+      T_ProjectilesAtlas01_200: -1644178730
+      T_ProjectilesAtlas01_201: 471199365
+      T_ProjectilesAtlas01_202: 1365392727
+      T_ProjectilesAtlas01_203: 1208428448
+      T_ProjectilesAtlas01_204: 452519014
+      T_ProjectilesAtlas01_205: 469856202
+      T_ProjectilesAtlas01_206: 305663201
+      T_ProjectilesAtlas01_207: -421386276
+      T_ProjectilesAtlas01_208: 1641165972
+      T_ProjectilesAtlas01_209: -1124708793
+      T_ProjectilesAtlas01_21: -876456665
+      T_ProjectilesAtlas01_210: 2011018724
+      T_ProjectilesAtlas01_211: 916665751
+      T_ProjectilesAtlas01_212: 1673730691
+      T_ProjectilesAtlas01_213: 1403610875
+      T_ProjectilesAtlas01_214: -1806496934
+      T_ProjectilesAtlas01_215: 1735728994
+      T_ProjectilesAtlas01_216: -207395653
+      T_ProjectilesAtlas01_217: -1790735877
+      T_ProjectilesAtlas01_218: 2136758597
+      T_ProjectilesAtlas01_219: 476345872
+      T_ProjectilesAtlas01_22: -927417292
+      T_ProjectilesAtlas01_220: -1322809983
+      T_ProjectilesAtlas01_221: -827003051
+      T_ProjectilesAtlas01_222: 862026974
+      T_ProjectilesAtlas01_223: 253977085
+      T_ProjectilesAtlas01_224: 380335091
+      T_ProjectilesAtlas01_225: 449252701
+      T_ProjectilesAtlas01_226: 474796606
+      T_ProjectilesAtlas01_227: -1586633908
+      T_ProjectilesAtlas01_228: 690115483
+      T_ProjectilesAtlas01_229: -1161219026
+      T_ProjectilesAtlas01_23: -1739874268
+      T_ProjectilesAtlas01_230: -165915152
+      T_ProjectilesAtlas01_231: -794726006
+      T_ProjectilesAtlas01_232: -1406511048
+      T_ProjectilesAtlas01_233: -574376922
+      T_ProjectilesAtlas01_234: 590438526
+      T_ProjectilesAtlas01_235: 1068881780
+      T_ProjectilesAtlas01_236: 220775856
+      T_ProjectilesAtlas01_237: 1971098629
+      T_ProjectilesAtlas01_238: -1917341646
+      T_ProjectilesAtlas01_239: -2081330757
+      T_ProjectilesAtlas01_24: 1692634687
+      T_ProjectilesAtlas01_240: -1705244949
+      T_ProjectilesAtlas01_241: -1349710757
+      T_ProjectilesAtlas01_242: -511704134
+      T_ProjectilesAtlas01_243: -746901725
+      T_ProjectilesAtlas01_244: -1746872628
+      T_ProjectilesAtlas01_245: 123685859
+      T_ProjectilesAtlas01_246: 577550444
+      T_ProjectilesAtlas01_247: 1499638140
+      T_ProjectilesAtlas01_248: -735141808
+      T_ProjectilesAtlas01_249: -13843111
+      T_ProjectilesAtlas01_25: -1117006320
+      T_ProjectilesAtlas01_250: -1439407356
+      T_ProjectilesAtlas01_251: 1899766466
+      T_ProjectilesAtlas01_252: -1339964386
+      T_ProjectilesAtlas01_253: 2127635143
+      T_ProjectilesAtlas01_254: -1606527010
+      T_ProjectilesAtlas01_255: 1106232574
+      T_ProjectilesAtlas01_256: 407791655
+      T_ProjectilesAtlas01_257: 789545666
+      T_ProjectilesAtlas01_258: 767181176
+      T_ProjectilesAtlas01_259: 272336272
+      T_ProjectilesAtlas01_26: 1807764227
+      T_ProjectilesAtlas01_260: -83221543
+      T_ProjectilesAtlas01_261: -1235017057
+      T_ProjectilesAtlas01_262: 1722204718
+      T_ProjectilesAtlas01_263: 1457099011
+      T_ProjectilesAtlas01_264: -524093994
+      T_ProjectilesAtlas01_265: 873837094
+      T_ProjectilesAtlas01_266: -1078894889
+      T_ProjectilesAtlas01_267: -106382476
+      T_ProjectilesAtlas01_268: -768449218
+      T_ProjectilesAtlas01_269: -672887471
+      T_ProjectilesAtlas01_27: -1417294915
+      T_ProjectilesAtlas01_270: 800576497
+      T_ProjectilesAtlas01_271: 825818464
+      T_ProjectilesAtlas01_272: 297020712
+      T_ProjectilesAtlas01_28: -363875076
+      T_ProjectilesAtlas01_29: 1367166467
+      T_ProjectilesAtlas01_3: -1386728322
+      T_ProjectilesAtlas01_30: 1440873573
+      T_ProjectilesAtlas01_31: 1595037048
+      T_ProjectilesAtlas01_32: -1657649250
+      T_ProjectilesAtlas01_33: 1759584131
+      T_ProjectilesAtlas01_34: 429681001
+      T_ProjectilesAtlas01_35: 2093168414
+      T_ProjectilesAtlas01_36: -896278382
+      T_ProjectilesAtlas01_37: -521840507
+      T_ProjectilesAtlas01_38: 177108928
+      T_ProjectilesAtlas01_39: -1198352756
+      T_ProjectilesAtlas01_4: -1775485620
+      T_ProjectilesAtlas01_40: 649127516
+      T_ProjectilesAtlas01_41: 1171153805
+      T_ProjectilesAtlas01_42: -1946365325
+      T_ProjectilesAtlas01_43: 1191065310
+      T_ProjectilesAtlas01_44: -1642698369
+      T_ProjectilesAtlas01_45: -2142150964
+      T_ProjectilesAtlas01_46: 1239119857
+      T_ProjectilesAtlas01_47: -146369105
+      T_ProjectilesAtlas01_48: 1638373437
+      T_ProjectilesAtlas01_49: -131119561
+      T_ProjectilesAtlas01_5: -612115775
+      T_ProjectilesAtlas01_50: 1837152778
+      T_ProjectilesAtlas01_51: -1260390612
+      T_ProjectilesAtlas01_52: 1462150644
+      T_ProjectilesAtlas01_53: 992119918
+      T_ProjectilesAtlas01_54: 1034120255
+      T_ProjectilesAtlas01_55: 1271149504
+      T_ProjectilesAtlas01_56: -120106688
+      T_ProjectilesAtlas01_57: -1078102370
+      T_ProjectilesAtlas01_58: 262636137
+      T_ProjectilesAtlas01_59: 253298259
+      T_ProjectilesAtlas01_6: 2007884861
+      T_ProjectilesAtlas01_60: 1899354678
+      T_ProjectilesAtlas01_61: 483335981
+      T_ProjectilesAtlas01_62: -402159457
+      T_ProjectilesAtlas01_63: -1464319414
+      T_ProjectilesAtlas01_64: 6061535
+      T_ProjectilesAtlas01_65: 1507810387
+      T_ProjectilesAtlas01_66: -1987838133
+      T_ProjectilesAtlas01_67: -1186323222
+      T_ProjectilesAtlas01_68: -1250627390
+      T_ProjectilesAtlas01_69: -2100869043
+      T_ProjectilesAtlas01_7: 776290617
+      T_ProjectilesAtlas01_70: -697347432
+      T_ProjectilesAtlas01_71: -2069658335
+      T_ProjectilesAtlas01_72: -289615968
+      T_ProjectilesAtlas01_73: -1436175734
+      T_ProjectilesAtlas01_74: 1236862046
+      T_ProjectilesAtlas01_75: -709050171
+      T_ProjectilesAtlas01_76: -164017207
+      T_ProjectilesAtlas01_77: 2127942605
+      T_ProjectilesAtlas01_78: -1448091997
+      T_ProjectilesAtlas01_79: -614357182
+      T_ProjectilesAtlas01_8: -745585813
+      T_ProjectilesAtlas01_80: -154010085
+      T_ProjectilesAtlas01_81: 1847589199
+      T_ProjectilesAtlas01_82: 2028823980
+      T_ProjectilesAtlas01_83: 367714879
+      T_ProjectilesAtlas01_84: -1953392735
+      T_ProjectilesAtlas01_85: -8814752
+      T_ProjectilesAtlas01_86: -258077704
+      T_ProjectilesAtlas01_87: -1818729548
+      T_ProjectilesAtlas01_88: 1194093720
+      T_ProjectilesAtlas01_89: -1646463108
+      T_ProjectilesAtlas01_9: -1173629581
+      T_ProjectilesAtlas01_90: -1676915383
+      T_ProjectilesAtlas01_91: -1539755666
+      T_ProjectilesAtlas01_92: -139731243
+      T_ProjectilesAtlas01_93: -2056254171
+      T_ProjectilesAtlas01_94: 1377409557
+      T_ProjectilesAtlas01_95: 1625056899
+      T_ProjectilesAtlas01_96: 1235490437
+      T_ProjectilesAtlas01_97: 327742223
+      T_ProjectilesAtlas01_98: 721496141
+      T_ProjectilesAtlas01_99: 1140259081
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

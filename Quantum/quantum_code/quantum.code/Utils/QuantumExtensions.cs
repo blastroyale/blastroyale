@@ -80,8 +80,10 @@ namespace Quantum
 				ChestType.Equipment  => Quantum.GameId.ChestEquipment,
 				ChestType.Consumable => Quantum.GameId.ChestConsumable,
 				ChestType.Legendary  => Quantum.GameId.ChestLegendary,
-				ChestType.Tutorial  => Quantum.GameId.ChestEquipmentTutorial,
-				ChestType.Weapon  => Quantum.GameId.ChestWeapon,
+				ChestType.Tutorial   => Quantum.GameId.ChestEquipmentTutorial,
+				ChestType.Weapon     => Quantum.GameId.ChestWeapon,
+				ChestType.Vitality     => Quantum.GameId.ChestVitality,
+				ChestType.Ammo     => Quantum.GameId.ChestAmmo,
 				_                    => throw new ArgumentOutOfRangeException(nameof(type), type, null)
 			};
 		}

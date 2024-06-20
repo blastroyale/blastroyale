@@ -16,28 +16,21 @@ struct Equipment
 	GameId GameId;
 	EquipmentRarity Rarity;
 	EquipmentMaterial Material;
-    UInt32 Level;
+    UInt16 Level;
     		
 	[HideInInspector] EquipmentEdition Edition;
 	[HideInInspector] EquipmentGrade Grade;
 	[HideInInspector] EquipmentFaction Faction;
 	[HideInInspector] EquipmentAdjective Adjective;	
-	[HideInInspector] UInt32 MaxDurability;
-	[HideInInspector] UInt32 InitialReplicationCounter;
-	[HideInInspector] UInt32 Tuning;	
-	[HideInInspector] UInt32 Generation;
-	[HideInInspector] UInt32 ReplicationCounter;
-	[HideInInspector] UInt64 TotalRestoredDurability;
-	[HideInInspector] Int64 LastRepairTimestamp;
 }
 
-enum EquipmentEdition
+enum EquipmentEdition : Byte
 {
 	Genesis,
 	TOTAL,            // Used to know the total amount of this type without the need of reflection
 }
 
-enum EquipmentRarity
+enum EquipmentRarity : Byte
 {
 	Common,
 	CommonPlus,
@@ -62,7 +55,7 @@ enum EquipmentGrade
 	TOTAL,            // Used to know the total amount of this type without the need of reflection
 }
 
-enum EquipmentFaction
+enum EquipmentFaction : Byte
 {
 	Order,
 	Chaos,
@@ -74,7 +67,7 @@ enum EquipmentFaction
 	TOTAL,            // Used to know the total amount of this type without the need of reflection
 }
 
-enum EquipmentAdjective
+enum EquipmentAdjective : Byte
 {
 	Regular,
 	Cool,
@@ -89,7 +82,7 @@ enum EquipmentAdjective
 	TOTAL,            // Used to know the total amount of this type without the need of reflection
 }
 
-enum EquipmentMaterial
+enum EquipmentMaterial : Byte
 {
 	Plastic,
 	Steel,
@@ -99,7 +92,7 @@ enum EquipmentMaterial
 	TOTAL,            // Used to know the total amount of this type without the need of reflection
 }
 
-enum EquipmentManufacturer
+enum EquipmentManufacturer : Byte
 {
 	Military,
 	Futuristic,

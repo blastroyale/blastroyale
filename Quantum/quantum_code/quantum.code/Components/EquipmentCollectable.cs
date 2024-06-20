@@ -5,13 +5,24 @@ namespace Quantum
 {
 	public unsafe partial struct EquipmentCollectable
 	{
+
+		public FP PickupRadius(Frame f)
+		{
+			return f.GameConfig.CollectableEquipmentPickupRadius;
+		}
+		
+		public FP AllowedPickupTime(Frame f)
+		{
+			return f.Time + Constants.CONSUMABLE_POPOUT_DURATION;
+		}
+		
 		/// <summary>
 		/// Initializes this Weapon pick up with all the necessary data
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, FPVector3 originPos, in Equipment equipment, EntityRef spawner,
 		                   PlayerRef owner = new PlayerRef())
 		{
-			var collectable = new Collectable {GameId = equipment.GameId, PickupRadius = f.GameConfig.CollectableEquipmentPickupRadius, AllowedToPickupTime = f.Time + Constants.CONSUMABLE_POPOUT_DURATION};
+			var collectable = new Collectable {GameId = equipment.GameId };
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
 			transform->Position = position;
@@ -45,6 +56,10 @@ namespace Quantum
 										(!playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid());
 				
 				playerCharacter->AddWeapon(f, playerEntity, Item, primaryWeapon);
+				
+				var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+				var playerDataPointer = gameContainer->PlayersData.GetPointer(playerRef);
+				playerDataPointer->GunsCollectedCount++;
 			}
 
 			f.Events.OnEquipmentCollected(entity, playerRef, playerEntity);

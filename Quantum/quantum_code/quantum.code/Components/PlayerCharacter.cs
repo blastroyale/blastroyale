@@ -190,7 +190,7 @@ namespace Quantum
 				HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);
 			}
 
-			if (!f.Has<BotCharacter>(e))
+			if (RealPlayer)
 			{
 				f.ServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
 			}

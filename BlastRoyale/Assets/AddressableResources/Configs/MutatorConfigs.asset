@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a36549f1c645be8616a8989d2af19c, type: 3}
+  m_Name: MutatorConfigs
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/Configs/MutatorConfigs
+      Guid:
+        Value: 490727885306324360
+    QuantumConfigs:
+    - Id: SpeedUp
+      Type: 1
+      Param1:
+        RawValue: 85197
+      Param2:
+        RawValue: 0
+    - Id: HealthyAir
+      Type: 2
+      Param1:
+        RawValue: 983040
+      Param2:
+        RawValue: 196608
+    - Id: HammerTime
+      Type: 4
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0
+    - Id: DoNotDropSpecials
+      Type: 7
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0
+    - Id: PistolsOnly
+      Type: 8
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0
+    - Id: SMGsOnly
+      Type: 9
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0
+    - Id: MinigunsOnly
+      Type: 10
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0
+    - Id: ShotgunsOnly
+      Type: 11
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0
+    - Id: SnipersOnly
+      Type: 12
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0
+    - Id: RPGsOnly
+      Type: 13
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0
+    - Id: ConsumablesSharing
+      Type: 14
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0
+    - Id: DisableRevive
+      Type: 16
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0
+    - Id: ARsOnly
+      Type: 17
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0
+    - Id: Hardcore
+      Type: 18
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0
+    - Id: SafeZoneInPlayableArea
+      Type: 19
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0

@@ -43,44 +43,44 @@ namespace Quantum
 		/// </summary>
 		public FP Time => Number * DeltaTime;
 
-		internal QuantumGameConfig GameConfig =>
+		public QuantumGameConfig GameConfig =>
 			FindAsset<QuantumGameConfigs>(RuntimeConfig.GameConfigs.Id).QuantumConfig;
 
-		internal NavMesh NavMesh => FindAsset<NavMesh>(Map.NavMeshLinks[0].Id);
-		internal QuantumMapConfigs MapConfigs => FindAsset<QuantumMapConfigs>(RuntimeConfig.MapConfigs.Id);
-		internal QuantumGameModeConfigs GameModeConfigs => FindAsset<QuantumGameModeConfigs>(RuntimeConfig.GameModeConfigs.Id);
-		internal QuantumWeaponConfigs WeaponConfigs => FindAsset<QuantumWeaponConfigs>(RuntimeConfig.WeaponConfigs.Id);
+		public NavMesh NavMesh => FindAsset<NavMesh>(Map.NavMeshLinks[0].Id);
+		public QuantumMapConfigs MapConfigs => FindAsset<QuantumMapConfigs>(RuntimeConfig.MapConfigs.Id);
+		public QuantumGameModeConfigs GameModeConfigs => FindAsset<QuantumGameModeConfigs>(RuntimeConfig.GameModeConfigs.Id);
+		public QuantumWeaponConfigs WeaponConfigs => FindAsset<QuantumWeaponConfigs>(RuntimeConfig.WeaponConfigs.Id);
 
-		internal QuantumStatConfigs StatConfigs =>
+		public QuantumStatConfigs StatConfigs =>
 			FindAsset<QuantumStatConfigs>(RuntimeConfig.StatConfigs.Id);
 
-		internal QuantumBaseEquipmentStatConfigs BaseEquipmentStatConfigs =>
+		public QuantumBaseEquipmentStatConfigs BaseEquipmentStatConfigs =>
 			FindAsset<QuantumBaseEquipmentStatConfigs>(RuntimeConfig.BaseEquipmentStatConfigs.Id);
 
-		internal QuantumEquipmentStatConfigs EquipmentStatConfigs =>
+		public QuantumEquipmentStatConfigs EquipmentStatConfigs =>
 			FindAsset<QuantumEquipmentStatConfigs>(RuntimeConfig.EquipmentStatConfigs.Id);
 
-		internal QuantumEquipmentMaterialStatConfigs EquipmentMaterialStatConfigs =>
+		public QuantumEquipmentMaterialStatConfigs EquipmentMaterialStatConfigs =>
 			FindAsset<QuantumEquipmentMaterialStatConfigs>(RuntimeConfig.EquipmentMaterialStatConfigs.Id);
 
-		internal QuantumConsumableConfigs ConsumableConfigs =>
+		public QuantumConsumableConfigs ConsumableConfigs =>
 			FindAsset<QuantumConsumableConfigs>(RuntimeConfig.ConsumableConfigs.Id);
 
-		internal QuantumChestConfigs ChestConfigs => FindAsset<QuantumChestConfigs>(RuntimeConfig.ChestConfigs.Id);
+		public QuantumChestConfigs ChestConfigs => FindAsset<QuantumChestConfigs>(RuntimeConfig.ChestConfigs.Id);
 
-		internal QuantumSpecialConfigs SpecialConfigs =>
+		public QuantumSpecialConfigs SpecialConfigs =>
 			FindAsset<QuantumSpecialConfigs>(RuntimeConfig.SpecialConfigs.Id);
 
-		internal QuantumAssetConfigs AssetConfigs => FindAsset<QuantumAssetConfigs>(RuntimeConfig.AssetConfigs.Id);
-		internal QuantumBotConfigs BotConfigs => FindAsset<QuantumBotConfigs>(RuntimeConfig.BotConfigs.Id);
+		public QuantumAssetConfigs AssetConfigs => FindAsset<QuantumAssetConfigs>(RuntimeConfig.AssetConfigs.Id);
+		public QuantumBotConfigs BotConfigs => FindAsset<QuantumBotConfigs>(RuntimeConfig.BotConfigs.Id);
 
-		internal QuantumBotDifficultyConfigs BotDifficultyConfigs => FindAsset<QuantumBotDifficultyConfigs>(RuntimeConfig.BotDifficultyConfigs.Id);
+		public QuantumBotDifficultyConfigs BotDifficultyConfigs => FindAsset<QuantumBotDifficultyConfigs>(RuntimeConfig.BotDifficultyConfigs.Id);
 
 
-		internal QuantumShrinkingCircleConfigs ShrinkingCircleConfigs =>
+		public QuantumShrinkingCircleConfigs ShrinkingCircleConfigs =>
 			FindAsset<QuantumShrinkingCircleConfigs>(RuntimeConfig.ShrinkingCircleConfigs.Id);
 
-		internal QuantumMutatorConfigs MutatorConfigs => FindAsset<QuantumMutatorConfigs>(RuntimeConfig.MutatorConfigs.Id);
+		public QuantumMutatorConfigs MutatorConfigs => FindAsset<QuantumMutatorConfigs>(RuntimeConfig.MutatorConfigs.Id);
 
 		/// <summary>
 		/// Requests the list of <typeparamref name="T"/> pointers that can be iterated over.

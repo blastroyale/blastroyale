@@ -94,7 +94,8 @@ namespace Quantum
 				{
 					GameId.Fragments, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -132,7 +133,8 @@ namespace Quantum
 				{
 					GameId.FloodCity, new List<GameIdGroup>
 					{
-						GameIdGroup.Map
+						GameIdGroup.Map,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -760,6 +762,20 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.ChestVitality, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.ChestAmmo, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
 					GameId.SpecialAimingAirstrike, new List<GameIdGroup>
 					{
 						GameIdGroup.Special
@@ -1146,6 +1162,76 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.PlayerSkinBurger, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinFootballGuy, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinLincoln, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinLion, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinSatoshi, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinSheriff, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinSoldier, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinSwimmer, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinThief, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinVR, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
@@ -1387,6 +1473,55 @@ namespace Quantum
 				},
 				{
 					GameId.MeleeSkinMagicalShillelagh, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinCrowbar, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinAxe, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinKnife, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinOar, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinSpatula, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinTrophy, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinWalkingStick, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
 						GameIdGroup.Collection
@@ -1822,6 +1957,90 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.AvatarBurger, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFootballguy, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarLion, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarLion2, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSatoshi, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSheriff, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSoldier, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSwimmer, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarThief, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarVr, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarBall, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarLincoln, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.FootprintDot, new List<GameIdGroup>
 					{
 						GameIdGroup.Footprint,
@@ -2037,6 +2256,8 @@ namespace Quantum
 				{
 					GameIdGroup.Deprecated, new List<GameId>
 					{
+						GameId.Fragments,
+						GameId.FloodCity,
 						GameId.MausHelmet,
 						GameId.SoldierHelmet,
 						GameId.RiotHelmet,
@@ -2144,6 +2365,16 @@ namespace Quantum
 						GameId.PlayerSkinBrandMale,
 						GameId.PlayerSkinGearedApe,
 						GameId.PlayerSkinPlagueDoctor,
+						GameId.PlayerSkinBurger,
+						GameId.PlayerSkinFootballGuy,
+						GameId.PlayerSkinLincoln,
+						GameId.PlayerSkinLion,
+						GameId.PlayerSkinSatoshi,
+						GameId.PlayerSkinSheriff,
+						GameId.PlayerSkinSoldier,
+						GameId.PlayerSkinSwimmer,
+						GameId.PlayerSkinThief,
+						GameId.PlayerSkinVR,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -2177,6 +2408,13 @@ namespace Quantum
 						GameId.MeleeSkinKatana,
 						GameId.MeleeSkinKeyboard,
 						GameId.MeleeSkinMagicalShillelagh,
+						GameId.MeleeSkinCrowbar,
+						GameId.MeleeSkinAxe,
+						GameId.MeleeSkinKnife,
+						GameId.MeleeSkinOar,
+						GameId.MeleeSkinSpatula,
+						GameId.MeleeSkinTrophy,
+						GameId.MeleeSkinWalkingStick,
 						GameId.Avatar1,
 						GameId.Avatar2,
 						GameId.Avatar3,
@@ -2237,7 +2475,19 @@ namespace Quantum
 						GameId.AvatarNinja,
 						GameId.AvatarNinjaalternative,
 						GameId.AvatarPolicefemale,
-						GameId.AvatarPlaguedoctormystery
+						GameId.AvatarPlaguedoctormystery,
+						GameId.AvatarBurger,
+						GameId.AvatarFootballguy,
+						GameId.AvatarLion,
+						GameId.AvatarLion2,
+						GameId.AvatarSatoshi,
+						GameId.AvatarSheriff,
+						GameId.AvatarSoldier,
+						GameId.AvatarSwimmer,
+						GameId.AvatarThief,
+						GameId.AvatarVr,
+						GameId.AvatarBall,
+						GameId.AvatarLincoln
 					}.AsReadOnly()
 				},
 				{
@@ -2319,6 +2569,8 @@ namespace Quantum
 						GameId.ChestEquipmentTutorial,
 						GameId.ChestWeapon,
 						GameId.ChestLegendary,
+						GameId.ChestVitality,
+						GameId.ChestAmmo,
 						GameId.SpecialAimingStunGrenade,
 						GameId.SpecialShieldSelf,
 						GameId.SpecialSkyLaserBeam,
@@ -2343,6 +2595,8 @@ namespace Quantum
 						GameId.ChestEquipmentTutorial,
 						GameId.ChestWeapon,
 						GameId.ChestLegendary,
+						GameId.ChestVitality,
+						GameId.ChestAmmo,
 						GameId.CoreRare,
 						GameId.CoreEpic,
 						GameId.CoreLegendary
@@ -2436,7 +2690,14 @@ namespace Quantum
 						GameId.MeleeSkinBaton,
 						GameId.MeleeSkinKatana,
 						GameId.MeleeSkinKeyboard,
-						GameId.MeleeSkinMagicalShillelagh
+						GameId.MeleeSkinMagicalShillelagh,
+						GameId.MeleeSkinCrowbar,
+						GameId.MeleeSkinAxe,
+						GameId.MeleeSkinKnife,
+						GameId.MeleeSkinOar,
+						GameId.MeleeSkinSpatula,
+						GameId.MeleeSkinTrophy,
+						GameId.MeleeSkinWalkingStick
 					}.AsReadOnly()
 				},
 				{
@@ -2463,7 +2724,17 @@ namespace Quantum
 						GameId.PlayerSkinBrandFemale,
 						GameId.PlayerSkinBrandMale,
 						GameId.PlayerSkinGearedApe,
-						GameId.PlayerSkinPlagueDoctor
+						GameId.PlayerSkinPlagueDoctor,
+						GameId.PlayerSkinBurger,
+						GameId.PlayerSkinFootballGuy,
+						GameId.PlayerSkinLincoln,
+						GameId.PlayerSkinLion,
+						GameId.PlayerSkinSatoshi,
+						GameId.PlayerSkinSheriff,
+						GameId.PlayerSkinSoldier,
+						GameId.PlayerSkinSwimmer,
+						GameId.PlayerSkinThief,
+						GameId.PlayerSkinVR
 					}.AsReadOnly()
 				},
 				{
@@ -2547,7 +2818,19 @@ namespace Quantum
 						GameId.AvatarNinja,
 						GameId.AvatarNinjaalternative,
 						GameId.AvatarPolicefemale,
-						GameId.AvatarPlaguedoctormystery
+						GameId.AvatarPlaguedoctormystery,
+						GameId.AvatarBurger,
+						GameId.AvatarFootballguy,
+						GameId.AvatarLion,
+						GameId.AvatarLion2,
+						GameId.AvatarSatoshi,
+						GameId.AvatarSheriff,
+						GameId.AvatarSoldier,
+						GameId.AvatarSwimmer,
+						GameId.AvatarThief,
+						GameId.AvatarVr,
+						GameId.AvatarBall,
+						GameId.AvatarLincoln
 					}.AsReadOnly()
 				},
 				{

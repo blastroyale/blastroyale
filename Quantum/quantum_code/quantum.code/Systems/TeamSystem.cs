@@ -109,53 +109,40 @@ namespace Quantum.Systems
 		/// </summary>
 		public static ushort GetAliveTeamMembersAmount(Frame f, EntityRef entity, bool countKnockedOut)
 		{
-			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var player))
+			ushort ct = 0;
+			foreach (var ally in GetTeamMemberEntities(f, entity))
 			{
-				return 0;
-			}
-
-			var playerTeam = player->TeamId;
-			ushort members = 0;
-			foreach (var otherPlayer in f.Unsafe.GetComponentBlockIterator<PlayerCharacter>())
-			{
-				if (!f.Has<AlivePlayerCharacter>(otherPlayer.Entity)) continue;
-				var teamId = otherPlayer.Component->TeamId;
-				if (teamId > 0 && teamId == playerTeam && otherPlayer.Entity != entity)
+				if (!f.Has<AlivePlayerCharacter>(ally))
 				{
-					if (!countKnockedOut && ReviveSystem.IsKnockedOut(f, otherPlayer.Entity))
-					{
-						continue;
-					}
-
-					members++;
+					continue;
 				}
+				if (!countKnockedOut && ReviveSystem.IsKnockedOut(f, ally))
+				{
+					continue;
+				}
+				ct++;
 			}
-
-			return members;
+			return ct;
 		}
-
+		
 		/// <summary>
 		/// Return PlayerCharacters members of the same team of entity, it doesn't include the entity!
 		/// </summary>
-		public static List<EntityComponentPointerPair<PlayerCharacter>> GetTeamMembers(Frame f, EntityRef entity)
+		public static EntityRef [] GetTeamMemberEntities(Frame f, EntityRef entity)
 		{
-			var teamMembers = new List<EntityComponentPointerPair<PlayerCharacter>>();
-			if (!f.TryGet<PlayerCharacter>(entity, out var player))
+			if (!f.Unsafe.TryGetPointer<TeamMember>(entity, out var team))
 			{
-				return teamMembers;
+				return Array.Empty<EntityRef>();
 			}
-
-			var playerTeam = player.TeamId;
-			foreach (var otherPlayer in f.Unsafe.GetComponentBlockIterator<PlayerCharacter>())
+			var allies = f.ResolveHashSet(team->TeamMates);
+			var arr = new EntityRef[allies.Count];
+			var index = 0;
+			foreach (var ally in allies)
 			{
-				var teamId = otherPlayer.Component->TeamId;
-				if (teamId > 0 && teamId == playerTeam && otherPlayer.Entity != entity)
-				{
-					teamMembers.Add(otherPlayer);
-				}
+				arr[index] = ally;
+				index++;
 			}
-
-			return teamMembers;
+			return arr;
 		}
 
 		/// <summary>

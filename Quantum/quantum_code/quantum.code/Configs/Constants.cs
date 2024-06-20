@@ -24,6 +24,7 @@ namespace Quantum
 		public static readonly FP CONSUMABLE_POPOUT_DURATION = FP._0_50 + FP._0_10;
 		public static readonly FP CHANCE_TO_DROP_WEAPON_ON_DEATH = FP._1 - FP._0_10;
 		public static readonly FP DROP_Y_POSITION = FP._0_10;
+		public static readonly FP SHRINKINGCIRCLE_NAVMESH_CORRECTION_RADIUS = FP._10;
 
 		public static readonly int TEAM_ID_NEUTRAL = 0;
 		public static readonly int TEAM_ID_START_PLAYERS = 100;

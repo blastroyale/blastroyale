@@ -1,0 +1,4927 @@
+fileFormatVersion: 2
+guid: e5ceb8ef2fbf675449f74b6a83f6b7a5
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_0
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 1862
+        width: 165
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd1871206430c4b4eac75e5a9f1ebb36
+      internalID: -1139301211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_1
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 1848
+        width: 194
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f036068a05924b3080b523e47954591
+      internalID: 612288446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_2
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 1866
+        width: 204
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fae22f0367144200a1680087afd718b
+      internalID: -1852283373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_3
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 1862
+        width: 197
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a313658e99dec44afb8aae54306cdc08
+      internalID: 1305009683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_4
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 1851
+        width: 189
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d590ab647970401ca17d2c88a4b8e19
+      internalID: 1103195678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_5
+      rect:
+        serializedVersion: 2
+        x: 1033
+        y: 1890
+        width: 188
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c99a12ad5279c416d99956b584517b85
+      internalID: -707071424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_6
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 1675
+        width: 134
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ca045c910bf84ebfb4ba2350d2113d9
+      internalID: -2129770921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_7
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 1675
+        width: 132
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fbdd4465f19d427bbca95ce2bd25370
+      internalID: 94389944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_8
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 1675
+        width: 131
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b120256d2de9466e9cd58a13f440a97
+      internalID: -587106611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_9
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 1676
+        width: 131
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bcbc387a1fec4cd483860adc1b7d20f
+      internalID: -1956682740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_10
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 1777
+        width: 49
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 275306f2fcdc0496e8de164077a6a610
+      internalID: 777730804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_11
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 1799
+        width: 15
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9437077981a2c4b5aae356d0f9e5d478
+      internalID: 1621686296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_12
+      rect:
+        serializedVersion: 2
+        x: 1074
+        y: 1777
+        width: 48
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c62869e49ba9f4c7fb5dcf083af8f09e
+      internalID: -368005499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_13
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 1800
+        width: 12
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7abe637d9d91f49c89e387ae57355fff
+      internalID: -1883578929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_14
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1778
+        width: 45
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8351022af92fd474c9149475709e787e
+      internalID: 1931517532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_15
+      rect:
+        serializedVersion: 2
+        x: 1340
+        y: 1800
+        width: 9
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 010b5286110c04554a31221d5de481d8
+      internalID: 628352896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_16
+      rect:
+        serializedVersion: 2
+        x: 1523
+        y: 1801
+        width: 30
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c60f35101254c4eedad81e93ae859185
+      internalID: -1122228114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_17
+      rect:
+        serializedVersion: 2
+        x: 1865
+        y: 1658
+        width: 157
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3497814d9b8944d968687c7c2d753907
+      internalID: -707654254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_18
+      rect:
+        serializedVersion: 2
+        x: 959
+        y: 1753
+        width: 25
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1955faff13fe74ce7861e657b16a7aea
+      internalID: 995408292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_19
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 1757
+        width: 22
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b95f50aed99bd4d36ad377dff9fe17b2
+      internalID: -1651119405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_20
+      rect:
+        serializedVersion: 2
+        x: 1485
+        y: 1779
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d33a47f93d23435c95961863ea09a88
+      internalID: 1683145267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_21
+      rect:
+        serializedVersion: 2
+        x: 1698
+        y: 1787
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e8f03b57c8a54ae2b6c309dfd0f8eaf
+      internalID: 111316409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_22
+      rect:
+        serializedVersion: 2
+        x: 1691
+        y: 1780
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6189ae3fd4bda4a039d91dcd3e447340
+      internalID: -1093876937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_23
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 1691
+        width: 28
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e1acc426b77843f2a5ebfc4335c7283
+      internalID: 335266514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_24
+      rect:
+        serializedVersion: 2
+        x: 1060
+        y: 1692
+        width: 27
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afaba573ff2054c5196d6c8c3252c88d
+      internalID: 93249979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_25
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 1721
+        width: 8
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af961a6c8c9724feca139ca53cf7e8bb
+      internalID: 257289157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_26
+      rect:
+        serializedVersion: 2
+        x: 1381
+        y: 1759
+        width: 11
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 198f96db0298d4caebe3cc5510bbe941
+      internalID: -1140023750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_27
+      rect:
+        serializedVersion: 2
+        x: 1587
+        y: 1761
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2bca0956b6d240bb80e2f295b8d5ddf
+      internalID: -505973798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_28
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 1763
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e6c443b5a78a4850b5080f90b3989a5
+      internalID: -94226867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_29
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 1685
+        width: 37
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9b16a1ba95ee4b92aadc9524f0cac09
+      internalID: 1380310018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_30
+      rect:
+        serializedVersion: 2
+        x: 1156
+        y: 1685
+        width: 35
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5db6ea6726f5484781ce4ea0ebf46d7
+      internalID: -416921976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_31
+      rect:
+        serializedVersion: 2
+        x: 1389
+        y: 1717
+        width: 6
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a79e08e161612415bb03aa0755fae9c3
+      internalID: 83846262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_32
+      rect:
+        serializedVersion: 2
+        x: 1471
+        y: 1724
+        width: 7
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02a77ecd9297e4db1accb738eddd83c1
+      internalID: -1897859302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_33
+      rect:
+        serializedVersion: 2
+        x: 1595
+        y: 1720
+        width: 5
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 350382f7851e041929d1c6c32db4d198
+      internalID: 755482159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_34
+      rect:
+        serializedVersion: 2
+        x: 1676
+        y: 1726
+        width: 6
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a12b5b385065048018a862072de07c5d
+      internalID: 67926704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_35
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 1722
+        width: 4
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6525b2871933c4293946682dc723e105
+      internalID: 1769940524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_36
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 1694
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64c7472062b5d4e3881502734331c9ea
+      internalID: -1665826508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_37
+      rect:
+        serializedVersion: 2
+        x: 1362
+        y: 1686
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f970c9663de5e4f0fb8e7fa722698c16
+      internalID: 53319505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_38
+      rect:
+        serializedVersion: 2
+        x: 1478
+        y: 1696
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4609049ab64e489794c66422ab8beec
+      internalID: 217953000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_39
+      rect:
+        serializedVersion: 2
+        x: 1569
+        y: 1687
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a2503c62917e4cbaa669b8e3664c02b
+      internalID: -794992420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_40
+      rect:
+        serializedVersion: 2
+        x: 1684
+        y: 1698
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6551bccffd490473db28f4bd53ec1903
+      internalID: -19087675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_41
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 1676
+        width: 35
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63ab7a02dab7f463f8a7c6f3c5187b18
+      internalID: 903472324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_42
+      rect:
+        serializedVersion: 2
+        x: 927
+        y: 1676
+        width: 17
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc411c7639c514302b9996b4ed1b9148
+      internalID: -503822684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_43
+      rect:
+        serializedVersion: 2
+        x: 1102
+        y: 1676
+        width: 24
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9e73487f63c84cf2b9a1cef279bccee
+      internalID: -1747988535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_44
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 1677
+        width: 11
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f27f813a7a7844768bd70f6747e0c15d
+      internalID: 269566504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_45
+      rect:
+        serializedVersion: 2
+        x: 1308
+        y: 1676
+        width: 21
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 633c15c132df24680ae6f3d715809560
+      internalID: 460077268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_46
+      rect:
+        serializedVersion: 2
+        x: 1340
+        y: 1677
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c94bbc8a448dc48eabf3d272ccb69442
+      internalID: 1322032198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_47
+      rect:
+        serializedVersion: 2
+        x: 1514
+        y: 1677
+        width: 37
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82a1067a850f0428da8004432a251fd6
+      internalID: 900545467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_48
+      rect:
+        serializedVersion: 2
+        x: 1720
+        y: 1676
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d25513012bc6749dc9e71f328622725f
+      internalID: 1894338095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_49
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 1461
+        width: 151
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c40b349a07c04c6683ac00b537bfe57
+      internalID: -1262531115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_50
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 1471
+        width: 141
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3da28c2b7459a4035985a8601404a196
+      internalID: 1147545120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_51
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 1491
+        width: 123
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab12d64aeffa249749be241582a318cb
+      internalID: 1953435840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_52
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 1519
+        width: 97
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a8e70dc69fc246a5a6678ea221b0c64
+      internalID: 493115367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_53
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 1549
+        width: 68
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc53765f238c542f28ad1a055e4415c9
+      internalID: 1615280918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_54
+      rect:
+        serializedVersion: 2
+        x: 1106
+        y: 1578
+        width: 40
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8eab36ada444f4c6881af69a54b851aa
+      internalID: 817211823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_55
+      rect:
+        serializedVersion: 2
+        x: 1322
+        y: 1601
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aff8b1695a6d04f6ab4ccc8cacc60958
+      internalID: -41907817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_56
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 1453
+        width: 165
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f674252b1afe491b9d6e83f1392f5e1
+      internalID: -418942016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_57
+      rect:
+        serializedVersion: 2
+        x: 1658
+        y: 1453
+        width: 166
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e5809c9bdc3847cf81e3e285644650a
+      internalID: -1256970785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_58
+      rect:
+        serializedVersion: 2
+        x: 1862
+        y: 1453
+        width: 166
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b2c3e2b8ab3644c88f667711dec2e67
+      internalID: -1113847979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_59
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1248
+        width: 166
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc29f08824d88430da26f83164466581
+      internalID: -96136727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_60
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 1248
+        width: 166
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e9993533c0134326ad264152ece91df
+      internalID: 90200270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_61
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 1248
+        width: 166
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79d597b56f5544fa6b07b6dbf37cc73f
+      internalID: -2098189188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_62
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 1254
+        width: 166
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f052e30ba49ed49ac8f23421a7c10b83
+      internalID: -1273552673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_63
+      rect:
+        serializedVersion: 2
+        x: 838
+        y: 1270
+        width: 167
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7425f064f4153405a9b6877b41576153
+      internalID: -1119915694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_64
+      rect:
+        serializedVersion: 2
+        x: 1043
+        y: 1306
+        width: 154
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8702c93422ce74c59b3667df7bfbcf45
+      internalID: -172791816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_65
+      rect:
+        serializedVersion: 2
+        x: 1271
+        y: 1274
+        width: 121
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04dd0fe61af4f4f328c20284f515930e
+      internalID: -1604514180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_66
+      rect:
+        serializedVersion: 2
+        x: 1477
+        y: 1273
+        width: 119
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20aff80197baa42bf9edf9e0af0833f7
+      internalID: 995947202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_67
+      rect:
+        serializedVersion: 2
+        x: 1681
+        y: 1272
+        width: 118
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a0a8c98f02244694aa44928940f97e5
+      internalID: 418099288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_68
+      rect:
+        serializedVersion: 2
+        x: 1886
+        y: 1272
+        width: 117
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebe876faf607344bb90dac9f18ef3ea9
+      internalID: 431026391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_69
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 1068
+        width: 116
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cc53e317259a487f8a3ec8fa933bc87
+      internalID: -1705681255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_70
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 1070
+        width: 116
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 390d20e444ab34e7691a84fe44d574a8
+      internalID: -1872450103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_71
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 1070
+        width: 118
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5270ce3da533497d8096b78eb84070b
+      internalID: -1423362664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_72
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 1070
+        width: 118
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b6b7b8b892ea460c8d232c1c52a5fb4
+      internalID: 1982670627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_73
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 1070
+        width: 120
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b40e230e2774421495904405f21f767
+      internalID: -433396385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_74
+      rect:
+        serializedVersion: 2
+        x: 1043
+        y: 1043
+        width: 166
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be2993b7cea5c40a29c012d983357e9e
+      internalID: -162605943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_75
+      rect:
+        serializedVersion: 2
+        x: 1248
+        y: 1044
+        width: 166
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2019af30550a4c4487a283ff60a6009
+      internalID: -1836393182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_76
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 1043
+        width: 166
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdde59c23c0b44e42825cb115f4290be
+      internalID: -1013933149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_77
+      rect:
+        serializedVersion: 2
+        x: 1657
+        y: 1044
+        width: 166
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02336513f8e304721bbbc11cf8ada1b2
+      internalID: -886177115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_78
+      rect:
+        serializedVersion: 2
+        x: 1863
+        y: 1047
+        width: 166
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f10a0e5f72716428c8e2736280d72ca9
+      internalID: 1125138944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_79
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 898
+        width: 166
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53588c4a9429940e79d50e349660de2e
+      internalID: 496445866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_80
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 910
+        width: 166
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e5b3c6dee3e644ce90c4160cd1268c7
+      internalID: -439073359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_81
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 925
+        width: 30
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1b81423697f341f2b2c0c3925568125
+      internalID: -937428603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_82
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 938
+        width: 78
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9205c280ed1244959291e8faf244952
+      internalID: 1540277637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_83
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 864
+        width: 157
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97e18c2c208d247aebbf5d67f32bb2b7
+      internalID: -1578220226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_84
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 864
+        width: 117
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00e10fdcb440243c68d24bb0d55b8cd4
+      internalID: 1662634984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_85
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 831
+        width: 94
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d826fa309c9654708aceebbc1baad452
+      internalID: -40135143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_86
+      rect:
+        serializedVersion: 2
+        x: 1246
+        y: 824
+        width: 153
+        height: 171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33be4bc38e87b4069bfad30859a236cf
+      internalID: -452338217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_87
+      rect:
+        serializedVersion: 2
+        x: 1459
+        y: 841
+        width: 154
+        height: 181
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9f7bc4966d18450a9396d78dbb9cacd
+      internalID: -118604856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_88
+      rect:
+        serializedVersion: 2
+        x: 1651
+        y: 865
+        width: 160
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4800121bf0de411593faaad813d0725
+      internalID: 376862385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_89
+      rect:
+        serializedVersion: 2
+        x: 1868
+        y: 834
+        width: 94
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac96b27d81ade4e25aa3d73bf8db4764
+      internalID: 488405956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_90
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 620
+        width: 146
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a43e882f00444df7b7eecc50de49562
+      internalID: -2044074210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_91
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 628
+        width: 150
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 293b54a7eeafc432e8e99e1a599ec3f1
+      internalID: -9663641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_92
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 626
+        width: 198
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6260c87c2034846e18d441a1ad5b55fe
+      internalID: -619099389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_93
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 616
+        width: 145
+        height: 181
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1efe3aa01cb644ce99c35a607b1e436d
+      internalID: -693796266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_94
+      rect:
+        serializedVersion: 2
+        x: 825
+        y: 621
+        width: 151
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4b30f5a8e33640b7824296bdbb3f93f
+      internalID: 477084149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_95
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 615
+        width: 191
+        height: 171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf42084a49bba4f15a10af0448269234
+      internalID: -1089531258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_96
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 637
+        width: 197
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed012d8a8c33f4087b70d2db75f1e7dd
+      internalID: -489272486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_97
+      rect:
+        serializedVersion: 2
+        x: 1447
+        y: 616
+        width: 184
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b0209ee4e11d424da7fded2f7121e46
+      internalID: 593011818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_98
+      rect:
+        serializedVersion: 2
+        x: 1647
+        y: 624
+        width: 143
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a43caef30bf7e4e388a3dd301d198e84
+      internalID: -467555445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_99
+      rect:
+        serializedVersion: 2
+        x: 1843
+        y: 615
+        width: 188
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46d67f24e974c4a209bf820fe1370a25
+      internalID: -1737776268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_100
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 440
+        width: 197
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9076c7b77236e4e30b5b1d3e859d4781
+      internalID: -1452692470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_101
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 557
+        width: 37
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbaa7590e4e014834be8d167f3316714
+      internalID: -291423434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_102
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 539
+        width: 6
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35ed4f06f71b94f049ce2ffd4bc59eb3
+      internalID: -1604865992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_103
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 560
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 708d122c663a04bd88f14763aaab2864
+      internalID: -1316326537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_104
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 531
+        width: 20
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 815deba3a5be5484395cb99d79892bac
+      internalID: 1321364290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_105
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 555
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 556059d45ca0e4f19bf895ccfa63d20f
+      internalID: 1911428278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_106
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 567
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a90d2d61da92449c3863db74a4a5c593
+      internalID: -1522095878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_107
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 544
+        width: 39
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea37cabdf1f0c46f595f860c37e43b9c
+      internalID: 1118185171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_108
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 544
+        width: 31
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ba2564ab85be4c3da1714baf5cfd43b
+      internalID: 458408224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_109
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 533
+        width: 17
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 916bbab138d1747c6939a9ebecaec4c3
+      internalID: 786257398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_110
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 541
+        width: 14
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31ae734d8dbff46f5a7f29155483cd16
+      internalID: -132419765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_111
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 537
+        width: 44
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b3d26dafcfcf46d098724c4c417c16f
+      internalID: -1904571086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_112
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 498
+        width: 85
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b92beaa199a343b09306b79f8970b9a
+      internalID: 1182989526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_113
+      rect:
+        serializedVersion: 2
+        x: 1866
+        y: 448
+        width: 154
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34747f021fda5412cb730551c7a8e3e8
+      internalID: 674303814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_114
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 474
+        width: 106
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b03ff73f33c084a7782eeb49adffdbba
+      internalID: 2072097109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_115
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 559
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d8d4edfd51ed4202be7da71faf03d41
+      internalID: 2067581104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_116
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 561
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9707b25a7eb774bb1984c338328720ff
+      internalID: -1599219476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_117
+      rect:
+        serializedVersion: 2
+        x: 1101
+        y: 557
+        width: 5
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bebfe4b5c46445bf9b43d25fb3d77a2
+      internalID: -963340783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_118
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 555
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9e864259399f4a6c9c796a8737971c5
+      internalID: -81304364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_119
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 543
+        width: 22
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67aea12268f844ddebf62f57ddacffe9
+      internalID: 1173375411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_120
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 548
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 286e30c51b3d84a7bbd538463a9af98e
+      internalID: 476596135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_121
+      rect:
+        serializedVersion: 2
+        x: 883
+        y: 547
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1361ca65934249bf93f1f4e6c3477e9
+      internalID: -303466559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_122
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 552
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89b1a616b789e46a3b17139ab410e613
+      internalID: 1916918927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_123
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 555
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6613b4df0a3cc4bc3a86e2813553050e
+      internalID: -1723873726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_124
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 539
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 519eacc7ffde04523bdeb1f53e5f231d
+      internalID: -2110846590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_125
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 543
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fe9ddcf98ba9423cb74e1de8dee9db0
+      internalID: 1485846749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_126
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 451
+        width: 118
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09a454d1395cb490baf210b16ea40b53
+      internalID: 470814650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_127
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 541
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f050f6a64e32e457ba1577377bbf610c
+      internalID: -1212893273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_128
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 533
+        width: 4
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1542e0f81a8a4315b966d687fee8667
+      internalID: -1306842235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_129
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 537
+        width: 5
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39e7fb104c9ea4c6d9e5e3c2d2b37da2
+      internalID: -1896290257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_130
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 535
+        width: 4
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b934f89e8425248889fb07ad8272008c
+      internalID: -1467299521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_131
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 539
+        width: 4
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: affda11a70c624bd4a04eb91c4a4d361
+      internalID: -342906659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_132
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 538
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f01524e2fa8b4342aded73d68774728
+      internalID: 228975687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_133
+      rect:
+        serializedVersion: 2
+        x: 1106
+        y: 542
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1de7e00abf3034a15865433683e2c680
+      internalID: 246221719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_134
+      rect:
+        serializedVersion: 2
+        x: 1119
+        y: 544
+        width: 4
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b033661c40e14107aa96d60966484e7
+      internalID: 1145685706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_135
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 542
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 234f70de09b1149529edb671dcbe3af5
+      internalID: -610023923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_136
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 511
+        width: 37
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c719eabc71d24872b507bd1ae387e02
+      internalID: 1298913841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_137
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 527
+        width: 9
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69b753188c0fe402eb51eac858c0f1d3
+      internalID: 1423700197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_138
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 511
+        width: 38
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c2f7556b87514038b3b73aeed47f4ef
+      internalID: 1102314541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_139
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 525
+        width: 26
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 831fbd0cd283e4f18a80ea49388b19a0
+      internalID: -1752171386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_140
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 523
+        width: 9
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e597c66af6ed1416399394e87486a40f
+      internalID: -2001096055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_141
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 443
+        width: 116
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6b7511f80b1349b5afe858a168cc5a3
+      internalID: -687488663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_142
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 511
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58852c50f2d6b45548717ca5d0ea764e
+      internalID: 1894957031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_143
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 440
+        width: 114
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5164bbc8bad044ac1ac5a3a961be132d
+      internalID: 1340286881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_144
+      rect:
+        serializedVersion: 2
+        x: 878
+        y: 533
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a30d304a954274713b3b4500beabe696
+      internalID: 1305150471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_145
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 530
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef95d0aadd1cc4c569e54ff1f8c78db8
+      internalID: 984454618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_146
+      rect:
+        serializedVersion: 2
+        x: 958
+        y: 511
+        width: 29
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 719054a37da6843549dcd571b609da23
+      internalID: -891160173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_147
+      rect:
+        serializedVersion: 2
+        x: 1072
+        y: 435
+        width: 97
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 656e0b74a5d664c2dab9af5c672c252d
+      internalID: -545056205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_148
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 523
+        width: 9
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16d738c8b2cfd4831b736e37042e3bc2
+      internalID: 695945203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_149
+      rect:
+        serializedVersion: 2
+        x: 1143
+        y: 500
+        width: 30
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d37c5e83574d41f0a6ffe6485865c9d
+      internalID: 2094374268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_150
+      rect:
+        serializedVersion: 2
+        x: 1309
+        y: 516
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c40a311e427c482b864cf7d6c932e79
+      internalID: 1652509998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_151
+      rect:
+        serializedVersion: 2
+        x: 1494
+        y: 475
+        width: 71
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 292f0032f2e024028bc86113a14cf358
+      internalID: -1053034497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_152
+      rect:
+        serializedVersion: 2
+        x: 1729
+        y: 505
+        width: 41
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ba6f14027e6d49b98890aae9738cfbe
+      internalID: 102744484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_153
+      rect:
+        serializedVersion: 2
+        x: 1083
+        y: 499
+        width: 11
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48f69ec3c77544a41b7926d9ae1bec92
+      internalID: -892468305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_154
+      rect:
+        serializedVersion: 2
+        x: 1096
+        y: 492
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba3741804201a4057b7d4be9602233c0
+      internalID: 2048792926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_155
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 498
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0adf7d23955b6495ba0d98d89570a512
+      internalID: -431116305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_156
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 477
+        width: 4
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb33385ebcd3b401e89d3f3430cf6d5a
+      internalID: 1274510680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_157
+      rect:
+        serializedVersion: 2
+        x: 1301
+        y: 492
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25516a3ffaf78480e8d0dbf30f5b098a
+      internalID: -1616201485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_158
+      rect:
+        serializedVersion: 2
+        x: 1311
+        y: 489
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a70432595af534f999c25a7eb4b4993c
+      internalID: 2028484417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_159
+      rect:
+        serializedVersion: 2
+        x: 1325
+        y: 470
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f0bbe32a28304a11a79779f88b255c5
+      internalID: -1015426678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_160
+      rect:
+        serializedVersion: 2
+        x: 1354
+        y: 494
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7d4939dd4d0849b9b16d50450cb897a
+      internalID: -2026846047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_161
+      rect:
+        serializedVersion: 2
+        x: 1506
+        y: 492
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 643324e50b59d40c6bb424de51526ab6
+      internalID: 17904965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_162
+      rect:
+        serializedVersion: 2
+        x: 1549
+        y: 493
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5e9f2eefde4249c48b14a28fc20b9f0
+      internalID: 1671913197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_163
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 476
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2aadeb840c7544ffa924278693f806e
+      internalID: 119897366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_164
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 485
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a51585deb5bd44cde81f46df19707818
+      internalID: -2106799634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_165
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 473
+        width: 5
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af51e6c54b34048eea7093b86806e950
+      internalID: -60075290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_166
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 482
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b08a5379203674265b0c9184411a2c43
+      internalID: -728981768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_167
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 483
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67e235f8ad4ee43f1a80fe3404d49bd1
+      internalID: 1329040689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_168
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 473
+        width: 4
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d4fea27df36b46aca3ac0c3c5cd7cb7
+      internalID: 142256317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_169
+      rect:
+        serializedVersion: 2
+        x: 1082
+        y: 483
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 906aaa717ac0e4617ba2d588b921cb4d
+      internalID: 1643741666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_170
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 477
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9393529d9f324e1ba9b67a34510ae11
+      internalID: 144011751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_171
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 470
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c85ebed1c7cd1470581a85e017fea1a7
+      internalID: -1920856880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_172
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 471
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8db4433e7ee54cf69475d4b770d266c
+      internalID: 1987101230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_173
+      rect:
+        serializedVersion: 2
+        x: 763
+        y: 479
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a94bd4e701f8a4eb691c5fe5865b7d98
+      internalID: -594658124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_174
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 481
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5349a534b1b843b5b169471ff1480b2
+      internalID: 716093708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_175
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 477
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9d08799e221c4df7bc4bfbbe8e867c0
+      internalID: -789886787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_176
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 478
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 399229ff7547c4ddab3d6602bec46704
+      internalID: 1058817337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_177
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 472
+        width: 4
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 060faedee62bb4344a6b0af3569456a5
+      internalID: 119346959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_178
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 476
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07b86c9f6fa8b468a89d606ec059b731
+      internalID: 1562953784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_179
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 465
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f818067935904d30968152e5fd7f170
+      internalID: -1569755589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_180
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 472
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e83235ba80684a70b81f90521b6a073
+      internalID: 827561723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_181
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 470
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd1a8fd4a9bbb4f1da3e4aca1437c9a9
+      internalID: 73350326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_182
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 431
+        width: 8
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 214ace761ac2a4055a5ca9fc17cd5332
+      internalID: -236606317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_183
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 468
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77b95b4e4d68643f699df73f5e37e4f9
+      internalID: 818361700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_184
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 457
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49e0b00091ab34bc596b68ce55d2b904
+      internalID: 1323640489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_185
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 452
+        width: 4
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9c5b9270c02c4763ac64811b49a39ca
+      internalID: 369732805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_186
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 460
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b36e689eae5d4d01b6ee47a3c86bf25
+      internalID: 1391697600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_187
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 468
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e21f8611d47984cf385bf999978b8d18
+      internalID: -1801967659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_188
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 469
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a23f9dd7d803f44c3997756b9c3b2694
+      internalID: 981055993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_189
+      rect:
+        serializedVersion: 2
+        x: 879
+        y: 464
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0819ee28e1c4e4b0e8d8dca1dae02c7c
+      internalID: 519073093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_190
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 467
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e699f8f2c116421ca2ff980695c49e8
+      internalID: 1555624384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_191
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 449
+        width: 8
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44fa3c38bb7cd43db92b133f9a5628a9
+      internalID: -2030239727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_192
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 455
+        width: 4
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe553bd8e86ae483da2bf90577655e45
+      internalID: -120190621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_193
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 461
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f87767ebaec2847cfadc8347a20a4ce8
+      internalID: 2039685080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_194
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 463
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f0c79e79349f4620a3065efc89ff2a7
+      internalID: -1392228400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_195
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 460
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d60dda2bcded44dc9ff450d01c8712a
+      internalID: 174089472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_196
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 446
+        width: 5
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a56c77ff6ec9a495299d5837a8774096
+      internalID: 1264945268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_197
+      rect:
+        serializedVersion: 2
+        x: 899
+        y: 465
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75231b04c17a347748c67ac92d42ad2a
+      internalID: -1297092847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_198
+      rect:
+        serializedVersion: 2
+        x: 1082
+        y: 461
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52787f05b23b441a6aace386f33c4e39
+      internalID: 1570493739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_199
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 457
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c278516fac141432fba0cf77a1434cea
+      internalID: 488690775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_200
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 453
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3462b2933de5a4e37ac2cb491ece311a
+      internalID: 1363720006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_201
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 449
+        width: 4
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be0585a3d631b45cf93b614f3c7dbf9d
+      internalID: -1717565310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_202
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 455
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fa36da38a03e4aa18cdc8378f74f418
+      internalID: -992228795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_203
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 451
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a77af269ef3747a984893f90ea706be
+      internalID: -1751293776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_204
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 256
+        width: 123
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b01f69fbce2dc476ab6e15f8548917c3
+      internalID: 904519516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_205
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 257
+        width: 135
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 967a0ab1396e84666b5724d14c7c4e70
+      internalID: 208329500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_206
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 363
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ecdc25092a104db4a7c753068c0a2ee
+      internalID: 570459059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_207
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 246
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3e7231beb459480c8a6ff7593ab9d64
+      internalID: -1946961507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_208
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 253
+        width: 135
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54d1f97bc369e4765aba324cad52ef53
+      internalID: -1429921322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_209
+      rect:
+        serializedVersion: 2
+        x: 1051
+        y: 254
+        width: 151
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1a235fe041414edbb5053f6737a97fc
+      internalID: 828411526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_210
+      rect:
+        serializedVersion: 2
+        x: 1247
+        y: 242
+        width: 160
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a99c8fa9a6694e9cb913470bd3befce
+      internalID: 1935486868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_211
+      rect:
+        serializedVersion: 2
+        x: 1454
+        y: 242
+        width: 157
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d869c34380b14b5c85ff9bf8dbf209a
+      internalID: -1795622484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_212
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 291
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a69ccd69800e4d9ca5c5a1709985809
+      internalID: 1080594621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_213
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 243
+        width: 117
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36cd8428ff0904050aec51f326d6ae5f
+      internalID: 1321104186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_214
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 264
+        width: 30
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bb402569ab2b4b689a34c425c5eae90
+      internalID: 165288809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_215
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 238
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b770ecc421bfb4413a4d33cc38dcd18a
+      internalID: -250422943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonProjectiles_10X10_2K_part2_216
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 233
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96a4d3644cc514915b864624bd731184
+      internalID: -778170861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: b72e6769f8465447ca7a55a5bf924c28
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      ToonProjectiles_10X10_2K_part2_0: -1139301211
+      ToonProjectiles_10X10_2K_part2_1: 612288446
+      ToonProjectiles_10X10_2K_part2_10: 777730804
+      ToonProjectiles_10X10_2K_part2_100: -1452692470
+      ToonProjectiles_10X10_2K_part2_101: -291423434
+      ToonProjectiles_10X10_2K_part2_102: -1604865992
+      ToonProjectiles_10X10_2K_part2_103: -1316326537
+      ToonProjectiles_10X10_2K_part2_104: 1321364290
+      ToonProjectiles_10X10_2K_part2_105: 1911428278
+      ToonProjectiles_10X10_2K_part2_106: -1522095878
+      ToonProjectiles_10X10_2K_part2_107: 1118185171
+      ToonProjectiles_10X10_2K_part2_108: 458408224
+      ToonProjectiles_10X10_2K_part2_109: 786257398
+      ToonProjectiles_10X10_2K_part2_11: 1621686296
+      ToonProjectiles_10X10_2K_part2_110: -132419765
+      ToonProjectiles_10X10_2K_part2_111: -1904571086
+      ToonProjectiles_10X10_2K_part2_112: 1182989526
+      ToonProjectiles_10X10_2K_part2_113: 674303814
+      ToonProjectiles_10X10_2K_part2_114: 2072097109
+      ToonProjectiles_10X10_2K_part2_115: 2067581104
+      ToonProjectiles_10X10_2K_part2_116: -1599219476
+      ToonProjectiles_10X10_2K_part2_117: -963340783
+      ToonProjectiles_10X10_2K_part2_118: -81304364
+      ToonProjectiles_10X10_2K_part2_119: 1173375411
+      ToonProjectiles_10X10_2K_part2_12: -368005499
+      ToonProjectiles_10X10_2K_part2_120: 476596135
+      ToonProjectiles_10X10_2K_part2_121: -303466559
+      ToonProjectiles_10X10_2K_part2_122: 1916918927
+      ToonProjectiles_10X10_2K_part2_123: -1723873726
+      ToonProjectiles_10X10_2K_part2_124: -2110846590
+      ToonProjectiles_10X10_2K_part2_125: 1485846749
+      ToonProjectiles_10X10_2K_part2_126: 470814650
+      ToonProjectiles_10X10_2K_part2_127: -1212893273
+      ToonProjectiles_10X10_2K_part2_128: -1306842235
+      ToonProjectiles_10X10_2K_part2_129: -1896290257
+      ToonProjectiles_10X10_2K_part2_13: -1883578929
+      ToonProjectiles_10X10_2K_part2_130: -1467299521
+      ToonProjectiles_10X10_2K_part2_131: -342906659
+      ToonProjectiles_10X10_2K_part2_132: 228975687
+      ToonProjectiles_10X10_2K_part2_133: 246221719
+      ToonProjectiles_10X10_2K_part2_134: 1145685706
+      ToonProjectiles_10X10_2K_part2_135: -610023923
+      ToonProjectiles_10X10_2K_part2_136: 1298913841
+      ToonProjectiles_10X10_2K_part2_137: 1423700197
+      ToonProjectiles_10X10_2K_part2_138: 1102314541
+      ToonProjectiles_10X10_2K_part2_139: -1752171386
+      ToonProjectiles_10X10_2K_part2_14: 1931517532
+      ToonProjectiles_10X10_2K_part2_140: -2001096055
+      ToonProjectiles_10X10_2K_part2_141: -687488663
+      ToonProjectiles_10X10_2K_part2_142: 1894957031
+      ToonProjectiles_10X10_2K_part2_143: 1340286881
+      ToonProjectiles_10X10_2K_part2_144: 1305150471
+      ToonProjectiles_10X10_2K_part2_145: 984454618
+      ToonProjectiles_10X10_2K_part2_146: -891160173
+      ToonProjectiles_10X10_2K_part2_147: -545056205
+      ToonProjectiles_10X10_2K_part2_148: 695945203
+      ToonProjectiles_10X10_2K_part2_149: 2094374268
+      ToonProjectiles_10X10_2K_part2_15: 628352896
+      ToonProjectiles_10X10_2K_part2_150: 1652509998
+      ToonProjectiles_10X10_2K_part2_151: -1053034497
+      ToonProjectiles_10X10_2K_part2_152: 102744484
+      ToonProjectiles_10X10_2K_part2_153: -892468305
+      ToonProjectiles_10X10_2K_part2_154: 2048792926
+      ToonProjectiles_10X10_2K_part2_155: -431116305
+      ToonProjectiles_10X10_2K_part2_156: 1274510680
+      ToonProjectiles_10X10_2K_part2_157: -1616201485
+      ToonProjectiles_10X10_2K_part2_158: 2028484417
+      ToonProjectiles_10X10_2K_part2_159: -1015426678
+      ToonProjectiles_10X10_2K_part2_16: -1122228114
+      ToonProjectiles_10X10_2K_part2_160: -2026846047
+      ToonProjectiles_10X10_2K_part2_161: 17904965
+      ToonProjectiles_10X10_2K_part2_162: 1671913197
+      ToonProjectiles_10X10_2K_part2_163: 119897366
+      ToonProjectiles_10X10_2K_part2_164: -2106799634
+      ToonProjectiles_10X10_2K_part2_165: -60075290
+      ToonProjectiles_10X10_2K_part2_166: -728981768
+      ToonProjectiles_10X10_2K_part2_167: 1329040689
+      ToonProjectiles_10X10_2K_part2_168: 142256317
+      ToonProjectiles_10X10_2K_part2_169: 1643741666
+      ToonProjectiles_10X10_2K_part2_17: -707654254
+      ToonProjectiles_10X10_2K_part2_170: 144011751
+      ToonProjectiles_10X10_2K_part2_171: -1920856880
+      ToonProjectiles_10X10_2K_part2_172: 1987101230
+      ToonProjectiles_10X10_2K_part2_173: -594658124
+      ToonProjectiles_10X10_2K_part2_174: 716093708
+      ToonProjectiles_10X10_2K_part2_175: -789886787
+      ToonProjectiles_10X10_2K_part2_176: 1058817337
+      ToonProjectiles_10X10_2K_part2_177: 119346959
+      ToonProjectiles_10X10_2K_part2_178: 1562953784
+      ToonProjectiles_10X10_2K_part2_179: -1569755589
+      ToonProjectiles_10X10_2K_part2_18: 995408292
+      ToonProjectiles_10X10_2K_part2_180: 827561723
+      ToonProjectiles_10X10_2K_part2_181: 73350326
+      ToonProjectiles_10X10_2K_part2_182: -236606317
+      ToonProjectiles_10X10_2K_part2_183: 818361700
+      ToonProjectiles_10X10_2K_part2_184: 1323640489
+      ToonProjectiles_10X10_2K_part2_185: 369732805
+      ToonProjectiles_10X10_2K_part2_186: 1391697600
+      ToonProjectiles_10X10_2K_part2_187: -1801967659
+      ToonProjectiles_10X10_2K_part2_188: 981055993
+      ToonProjectiles_10X10_2K_part2_189: 519073093
+      ToonProjectiles_10X10_2K_part2_19: -1651119405
+      ToonProjectiles_10X10_2K_part2_190: 1555624384
+      ToonProjectiles_10X10_2K_part2_191: -2030239727
+      ToonProjectiles_10X10_2K_part2_192: -120190621
+      ToonProjectiles_10X10_2K_part2_193: 2039685080
+      ToonProjectiles_10X10_2K_part2_194: -1392228400
+      ToonProjectiles_10X10_2K_part2_195: 174089472
+      ToonProjectiles_10X10_2K_part2_196: 1264945268
+      ToonProjectiles_10X10_2K_part2_197: -1297092847
+      ToonProjectiles_10X10_2K_part2_198: 1570493739
+      ToonProjectiles_10X10_2K_part2_199: 488690775
+      ToonProjectiles_10X10_2K_part2_2: -1852283373
+      ToonProjectiles_10X10_2K_part2_20: 1683145267
+      ToonProjectiles_10X10_2K_part2_200: 1363720006
+      ToonProjectiles_10X10_2K_part2_201: -1717565310
+      ToonProjectiles_10X10_2K_part2_202: -992228795
+      ToonProjectiles_10X10_2K_part2_203: -1751293776
+      ToonProjectiles_10X10_2K_part2_204: 904519516
+      ToonProjectiles_10X10_2K_part2_205: 208329500
+      ToonProjectiles_10X10_2K_part2_206: 570459059
+      ToonProjectiles_10X10_2K_part2_207: -1946961507
+      ToonProjectiles_10X10_2K_part2_208: -1429921322
+      ToonProjectiles_10X10_2K_part2_209: 828411526
+      ToonProjectiles_10X10_2K_part2_21: 111316409
+      ToonProjectiles_10X10_2K_part2_210: 1935486868
+      ToonProjectiles_10X10_2K_part2_211: -1795622484
+      ToonProjectiles_10X10_2K_part2_212: 1080594621
+      ToonProjectiles_10X10_2K_part2_213: 1321104186
+      ToonProjectiles_10X10_2K_part2_214: 165288809
+      ToonProjectiles_10X10_2K_part2_215: -250422943
+      ToonProjectiles_10X10_2K_part2_216: -778170861
+      ToonProjectiles_10X10_2K_part2_22: -1093876937
+      ToonProjectiles_10X10_2K_part2_23: 335266514
+      ToonProjectiles_10X10_2K_part2_24: 93249979
+      ToonProjectiles_10X10_2K_part2_25: 257289157
+      ToonProjectiles_10X10_2K_part2_26: -1140023750
+      ToonProjectiles_10X10_2K_part2_27: -505973798
+      ToonProjectiles_10X10_2K_part2_28: -94226867
+      ToonProjectiles_10X10_2K_part2_29: 1380310018
+      ToonProjectiles_10X10_2K_part2_3: 1305009683
+      ToonProjectiles_10X10_2K_part2_30: -416921976
+      ToonProjectiles_10X10_2K_part2_31: 83846262
+      ToonProjectiles_10X10_2K_part2_32: -1897859302
+      ToonProjectiles_10X10_2K_part2_33: 755482159
+      ToonProjectiles_10X10_2K_part2_34: 67926704
+      ToonProjectiles_10X10_2K_part2_35: 1769940524
+      ToonProjectiles_10X10_2K_part2_36: -1665826508
+      ToonProjectiles_10X10_2K_part2_37: 53319505
+      ToonProjectiles_10X10_2K_part2_38: 217953000
+      ToonProjectiles_10X10_2K_part2_39: -794992420
+      ToonProjectiles_10X10_2K_part2_4: 1103195678
+      ToonProjectiles_10X10_2K_part2_40: -19087675
+      ToonProjectiles_10X10_2K_part2_41: 903472324
+      ToonProjectiles_10X10_2K_part2_42: -503822684
+      ToonProjectiles_10X10_2K_part2_43: -1747988535
+      ToonProjectiles_10X10_2K_part2_44: 269566504
+      ToonProjectiles_10X10_2K_part2_45: 460077268
+      ToonProjectiles_10X10_2K_part2_46: 1322032198
+      ToonProjectiles_10X10_2K_part2_47: 900545467
+      ToonProjectiles_10X10_2K_part2_48: 1894338095
+      ToonProjectiles_10X10_2K_part2_49: -1262531115
+      ToonProjectiles_10X10_2K_part2_5: -707071424
+      ToonProjectiles_10X10_2K_part2_50: 1147545120
+      ToonProjectiles_10X10_2K_part2_51: 1953435840
+      ToonProjectiles_10X10_2K_part2_52: 493115367
+      ToonProjectiles_10X10_2K_part2_53: 1615280918
+      ToonProjectiles_10X10_2K_part2_54: 817211823
+      ToonProjectiles_10X10_2K_part2_55: -41907817
+      ToonProjectiles_10X10_2K_part2_56: -418942016
+      ToonProjectiles_10X10_2K_part2_57: -1256970785
+      ToonProjectiles_10X10_2K_part2_58: -1113847979
+      ToonProjectiles_10X10_2K_part2_59: -96136727
+      ToonProjectiles_10X10_2K_part2_6: -2129770921
+      ToonProjectiles_10X10_2K_part2_60: 90200270
+      ToonProjectiles_10X10_2K_part2_61: -2098189188
+      ToonProjectiles_10X10_2K_part2_62: -1273552673
+      ToonProjectiles_10X10_2K_part2_63: -1119915694
+      ToonProjectiles_10X10_2K_part2_64: -172791816
+      ToonProjectiles_10X10_2K_part2_65: -1604514180
+      ToonProjectiles_10X10_2K_part2_66: 995947202
+      ToonProjectiles_10X10_2K_part2_67: 418099288
+      ToonProjectiles_10X10_2K_part2_68: 431026391
+      ToonProjectiles_10X10_2K_part2_69: -1705681255
+      ToonProjectiles_10X10_2K_part2_7: 94389944
+      ToonProjectiles_10X10_2K_part2_70: -1872450103
+      ToonProjectiles_10X10_2K_part2_71: -1423362664
+      ToonProjectiles_10X10_2K_part2_72: 1982670627
+      ToonProjectiles_10X10_2K_part2_73: -433396385
+      ToonProjectiles_10X10_2K_part2_74: -162605943
+      ToonProjectiles_10X10_2K_part2_75: -1836393182
+      ToonProjectiles_10X10_2K_part2_76: -1013933149
+      ToonProjectiles_10X10_2K_part2_77: -886177115
+      ToonProjectiles_10X10_2K_part2_78: 1125138944
+      ToonProjectiles_10X10_2K_part2_79: 496445866
+      ToonProjectiles_10X10_2K_part2_8: -587106611
+      ToonProjectiles_10X10_2K_part2_80: -439073359
+      ToonProjectiles_10X10_2K_part2_81: -937428603
+      ToonProjectiles_10X10_2K_part2_82: 1540277637
+      ToonProjectiles_10X10_2K_part2_83: -1578220226
+      ToonProjectiles_10X10_2K_part2_84: 1662634984
+      ToonProjectiles_10X10_2K_part2_85: -40135143
+      ToonProjectiles_10X10_2K_part2_86: -452338217
+      ToonProjectiles_10X10_2K_part2_87: -118604856
+      ToonProjectiles_10X10_2K_part2_88: 376862385
+      ToonProjectiles_10X10_2K_part2_89: 488405956
+      ToonProjectiles_10X10_2K_part2_9: -1956682740
+      ToonProjectiles_10X10_2K_part2_90: -2044074210
+      ToonProjectiles_10X10_2K_part2_91: -9663641
+      ToonProjectiles_10X10_2K_part2_92: -619099389
+      ToonProjectiles_10X10_2K_part2_93: -693796266
+      ToonProjectiles_10X10_2K_part2_94: 477084149
+      ToonProjectiles_10X10_2K_part2_95: -1089531258
+      ToonProjectiles_10X10_2K_part2_96: -489272486
+      ToonProjectiles_10X10_2K_part2_97: 593011818
+      ToonProjectiles_10X10_2K_part2_98: -467555445
+      ToonProjectiles_10X10_2K_part2_99: -1737776268
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

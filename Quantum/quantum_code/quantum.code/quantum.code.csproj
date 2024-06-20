@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>../../../Assets/Libs/Photon/Quantum/Assemblies</OutputPath>
+    <OutputPath>../../../BlastRoyale/Assets/Libs/Photon/Quantum/Assemblies</OutputPath>
     <DefineConstants>TRACE;DEBUG;UNITY_EDITOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,7 +31,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>../../../Assets/Libs/Photon/Quantum/Assemblies</OutputPath>
+    <OutputPath>../../../BlastRoyale/Assets/Libs/Photon/Quantum/Assemblies</OutputPath>
     <DefineConstants>UNITY_EDITOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -44,7 +44,7 @@
   <ItemGroup>
     <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.2.0" />
     <Reference Include="Sirenix.OdinInspector.Attributes">
-      <HintPath>..\..\..\Assets\Libs\Odin\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
+      <HintPath>..\..\..\BlastRoyale\Assets\Libs\Odin\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -291,6 +291,7 @@
     <Compile Include="Systems\Bots\BotShooting.cs" />
     <Compile Include="Systems\Bots\BotUpdateContext.cs" />
     <Compile Include="Systems\ChestSystem.cs" />
+    <Compile Include="Systems\CollectableChunkSystem.cs" />
     <Compile Include="Systems\DeathFlagSystem.cs" />
     <Compile Include="Systems\EntityGroupSystem.cs" />
     <Compile Include="Systems\GameItemCollectableSystem.cs" />
@@ -405,9 +406,9 @@
   </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)quantum.code.dll" "$(ProjectDir)../../../Assets/Libs"</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)quantum.code.dll" "$(ProjectDir)../../../BlastRoyale/Assets/Libs"</PostBuildEvent>
     <PreBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen\quantum.codegen.host.exe" "$(ProjectPath)"</PreBuildEvent>
-    <PostBuildEvent Condition="'$(OS)' != 'Windows_NT'">mono "$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)quantum.code.dll" "$(ProjectDir)../../../Assets/Libs"</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' != 'Windows_NT'">mono "$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)quantum.code.dll" "$(ProjectDir)../../../BlastRoyale/Assets/Libs"</PostBuildEvent>
     <PreBuildEvent Condition="'$(OS)' != 'Windows_NT'">mono "$(ProjectDir)..\..\tools\codegen\quantum.codegen.host.exe" "$(ProjectPath)"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>

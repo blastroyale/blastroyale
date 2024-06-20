@@ -29,8 +29,7 @@ namespace Quantum.Systems
 			f.Add(e,
 				new Collectable
 				{
-					GameId = chestId, PickupRadius = config.CollectableChestPickupRadius,
-					AllowedToPickupTime = f.Time + Constants.CONSUMABLE_POPOUT_DURATION
+					GameId = chestId
 				});
 			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
 			collider->Shape.Sphere.Radius = config.CollectableChestPickupRadius; 

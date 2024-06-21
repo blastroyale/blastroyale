@@ -12,8 +12,13 @@ using Player = Unity.Services.Lobbies.Models.Player;
 
 namespace FirstLight.Game.Presenters
 {
-	public class MatchLobbyScreenPresenter : UIPresenter
+	public class MatchLobbyScreenPresenter : UIPresenterData<MatchLobbyScreenPresenter.StateData>
 	{
+		public class StateData
+		{
+			public MatchListScreenPresenter.StateData MatchListStateData; // Ugly but I don't want to refac state machines
+		}
+
 		private IGameServices _services;
 
 		private VisualElement _playersContainer;
@@ -54,12 +59,6 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
-		protected override UniTask OnScreenClose()
-		{
-			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged -= OnLobbyChanged;
-			return base.OnScreenClose();
-		}
-
 		private void OnLobbyChanged(ILobbyChanges obj)
 		{
 			RefreshData();
@@ -89,8 +88,10 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTaskVoid LeaveMatchLobby()
 		{
+			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged -= OnLobbyChanged;
+
 			await _services.FLLobbyService.LeaveMatch();
-			await _services.UIService.OpenScreen<MatchListScreenPresenter>();
+			await _services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData);
 		}
 
 		private VisualElement CreatePlayerElement(Player player)

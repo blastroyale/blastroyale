@@ -225,7 +225,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				OnBackClicked = () => wait.Complete()
 			};
-            
+
 			await _services.UIService.OpenScreen<FriendsScreenPresenter>(data);
 		}
 
@@ -443,7 +443,7 @@ namespace FirstLight.Game.StateMachines
 		private void OpenBattlePassUI(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
-			
+
 			var data = new BattlePassScreenPresenter.StateData
 			{
 				BackClicked = () =>
@@ -452,7 +452,7 @@ namespace FirstLight.Game.StateMachines
 				},
 				DisableScrollAnimation = true
 			};
-			
+
 			_services.UIService.OpenScreen<BattlePassScreenPresenter>(data).Forget();
 		}
 
@@ -480,14 +480,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenRoomJoinCreateMenuUI()
 		{
-			var data = new RoomJoinCreateScreenPresenter.StateData
+			_services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData
 			{
-				CloseClicked = () => _statechartTrigger(_closeClickedEvent),
-				BackClicked = () => _statechartTrigger(_roomJoinCreateBackClickedEvent),
-				PlayClicked = PlayButtonClicked
-			};
-
-			_services.UIService.OpenScreen<RoomJoinCreateScreenPresenter>(data).Forget();
+				BackClicked = () => _statechartTrigger(_roomJoinCreateBackClickedEvent)
+			}).Forget();
 		}
 
 		private async UniTaskVoid OpenHomeScreen()

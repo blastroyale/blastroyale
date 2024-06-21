@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -13,8 +13,13 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
-	public class MatchListScreenPresenter : UIPresenter
+	public class MatchListScreenPresenter : UIPresenterData<MatchListScreenPresenter.StateData>
 	{
+		public class StateData
+		{
+			public Action BackClicked; // Fucking disgusting
+		}
+
 		private ListView _gamesList;
 
 		private MatchSettingsView _matchSettingsView;
@@ -29,6 +34,7 @@ namespace FirstLight.Game.Presenters
 
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
 			header.SetTitle(ScriptLocalization.UITCustomGames.browse_games);
+			header.backClicked += Data.BackClicked;
 
 			Root.Q("MatchSettings").Required().AttachView(this, out _matchSettingsView);
 			_gamesList = Root.Q<ListView>("GamesList").Required();
@@ -73,7 +79,7 @@ namespace FirstLight.Game.Presenters
 			var success = await _services.FLLobbyService.JoinMatch(lobbyIDOrCode);
 			if (success)
 			{
-				await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>();
+				await OpenMatchLobby();
 			}
 		}
 
@@ -82,7 +88,7 @@ namespace FirstLight.Game.Presenters
 			var success = await _services.FLLobbyService.CreateMatch(matchSettings);
 			if (success)
 			{
-				await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>();
+				await OpenMatchLobby();
 			}
 		}
 
@@ -95,6 +101,14 @@ namespace FirstLight.Game.Presenters
 		private static VisualElement MakeMatchLobbyItem()
 		{
 			return new MatchLobbyItemElement();
+		}
+
+		private async UniTask OpenMatchLobby()
+		{
+			await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>(new MatchLobbyScreenPresenter.StateData
+			{
+				MatchListStateData = Data
+			});
 		}
 	}
 }

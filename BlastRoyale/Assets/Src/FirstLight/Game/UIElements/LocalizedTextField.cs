@@ -29,7 +29,8 @@ namespace FirstLight.Game.UIElements
 		public void LocalizeLabel(string labelKey)
 		{
 			labelLocalizationKey = labelKey;
-			label = LocalizationManager.TryGetTranslation(labelKey, out var translation) ? translation : $"#{labelKey}#";
+			label = string.IsNullOrEmpty(labelKey) ? string.Empty :
+				LocalizationManager.TryGetTranslation(labelKey, out var translation) ? translation : $"#{labelKey}#";
 		}
 
 		/// <summary>

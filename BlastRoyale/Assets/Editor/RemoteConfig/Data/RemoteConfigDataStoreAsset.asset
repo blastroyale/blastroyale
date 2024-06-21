@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"c68fb325-0c10-45c8-995e-f655a11fba44\"\n   
+  _rsKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"ddef5ef0-8280-40a2-941f-4ce99437465b\"\n   
     },\n    \"rs\": {\n      \"key\": \"ShowBetaLabel\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"b5f61836-33a7-4c2a-ad71-5d5327027a15\"\n   
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"696391e6-fccc-4a78-a088-ad78935d6ddf\"\n   
     },\n    \"rs\": {\n      \"key\": \"EnableCommitVersionLock\",\n      \"type\":
     \"bool\",\n      \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n     
-    \"entityId\": \"cf5af87f-cdd7-4966-86f4-dfb72c793337\"\n    },\n    \"rs\": {\n     
+    \"entityId\": \"9063348b-8ee8-4751-9d8c-b16dc48cd834\"\n    },\n    \"rs\": {\n     
     \"key\": \"ShowBugReportButton\",\n      \"type\": \"bool\",\n      \"value\":
     true\n    }\n  }\n]"
-  _rsLastCachedKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"c68fb325-0c10-45c8-995e-f655a11fba44\"\n   
+  _rsLastCachedKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"ddef5ef0-8280-40a2-941f-4ce99437465b\"\n   
     },\n    \"rs\": {\n      \"key\": \"ShowBetaLabel\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"b5f61836-33a7-4c2a-ad71-5d5327027a15\"\n   
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"696391e6-fccc-4a78-a088-ad78935d6ddf\"\n   
     },\n    \"rs\": {\n      \"key\": \"EnableCommitVersionLock\",\n      \"type\":
     \"bool\",\n      \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n     
-    \"entityId\": \"cf5af87f-cdd7-4966-86f4-dfb72c793337\"\n    },\n    \"rs\": {\n     
+    \"entityId\": \"9063348b-8ee8-4751-9d8c-b16dc48cd834\"\n    },\n    \"rs\": {\n     
     \"key\": \"ShowBugReportButton\",\n      \"type\": \"bool\",\n      \"value\":
     true\n    }\n  }\n]"
   _environments: "[\n  {\n    \"projectId\": \"***REMOVED***\",\n   

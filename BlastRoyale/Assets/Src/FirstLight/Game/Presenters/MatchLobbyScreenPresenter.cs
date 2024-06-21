@@ -27,7 +27,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 
 		private VisualElement _playersContainer;
-		private VisualElement _matchSettings;
+		private LocalizedTextField _lobbyCode;
 
 		private MatchSettingsView _matchSettingsView;
 
@@ -40,7 +40,10 @@ namespace FirstLight.Game.Presenters
 			header.backClicked += () => LeaveMatchLobby().Forget();
 
 			_playersContainer = Root.Q("PlayersContainer").Required();
-			_matchSettings = Root.Q("MatchSettings").Required().AttachView(this, out _matchSettingsView);
+			Root.Q("MatchSettings").Required().AttachView(this, out _matchSettingsView);
+			
+			_lobbyCode = Root.Q<LocalizedTextField>("LobbyCode").Required();
+			_lobbyCode.value = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)

@@ -72,10 +72,10 @@ namespace FirstLight.Game.MonoComponent
 			var weapon = await _services.CollectionService.LoadCollectionItem3DModel(skinId);
 			var weaponTransform = weapon.transform;
 			_meleeWeaponType = weapon.GetComponent<WeaponSkinMonoComponent>().WeaponType;
-			var anchor = _meleeWeaponType == WeaponType.XLMelee ? _skin.WeaponXLMeleeAnchor : _skin.WeaponMeleeAnchor;
+			var anchor = _meleeWeaponType is WeaponType.XLMelee or WeaponType.KnifeMelee ? _skin.WeaponXLMeleeAnchor : _skin.WeaponMeleeAnchor;
 
 			// TODO: Not a great fix but sometimes EquipMelee is called before the weapon is loaded and we need to set the weapon type again if it's a melee weapon
-			if (_skin.WeaponType is WeaponType.XLMelee or WeaponType.Melee)
+			if (_skin.WeaponType is WeaponType.XLMelee or WeaponType.Melee or WeaponType.KnifeMelee)
 			{
 				_skin.WeaponType = _meleeWeaponType;
 			}

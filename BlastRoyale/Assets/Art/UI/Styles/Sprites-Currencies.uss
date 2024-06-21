@@ -104,8 +104,8 @@
 
 .sprite-currencies__noob-1 {
     background-image: var(--sprite-currencies__noob-1);
-    width: 938px;
-    height: 838px;
+    width: 512px;
+    height: 512px;
 }
 
 .sprite-currencies__noob-default {

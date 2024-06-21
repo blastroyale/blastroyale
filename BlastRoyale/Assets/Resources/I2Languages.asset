@@ -24936,94 +24936,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITGameModeSelection/br_duos_description
-      TermType: 0
-      Description: 
-      Languages:
-      - Play in teams of 2 players
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_duos_title
-      TermType: 0
-      Description: 
-      Languages:
-      - DUOS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_quads_description
-      TermType: 0
-      Description: 
-      Languages:
-      - Play in teams of 4 players
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_quads_title
-      TermType: 0
-      Description: 
-      Languages:
-      - QUADS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_solo_description
-      TermType: 0
-      Description: 
-      Languages:
-      - One vs everyone
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_solo_title
-      TermType: 0
-      Description: 
-      Languages:
-      - SOLO
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_trios_descrption
-      TermType: 0
-      Description: 
-      Languages:
-      - Play in teams of 3 players
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_trios_title
-      TermType: 0
-      Description: 
-      Languages:
-      - TRIOS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITGameModeSelection/choose_a_mode
       TermType: 0
       Description: 
@@ -25121,6 +25033,94 @@ MonoBehaviour:
       - Kill all the zombies. Survive as many waves as you can.
       - Kill all the zombies. Survive as many waves as you can.
       - Kill all the zombies. Survive as many waves as you can.
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_duos_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Play in teams of 2 players
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_duos_title
+      TermType: 0
+      Description: 
+      Languages:
+      - DUOS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_quads_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Play in teams of 4 players
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_quads_title
+      TermType: 0
+      Description: 
+      Languages:
+      - QUADS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_solo_description
+      TermType: 0
+      Description: 
+      Languages:
+      - One vs everyone
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_solo_title
+      TermType: 0
+      Description: 
+      Languages:
+      - SOLO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_trios_descrption
+      TermType: 0
+      Description: 
+      Languages:
+      - Play in teams of 3 players
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_trios_title
+      TermType: 0
+      Description: 
+      Languages:
+      - TRIOS
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -27818,6 +27818,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITShared/confirm
+      TermType: 0
+      Description: 
+      Languages:
+      - CONFIRM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSpectate/camera_1
       TermType: 0
       Description: 
@@ -29014,6 +29025,39 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/enter_room_code
+      TermType: 0
+      Description: 
+      Languages:
+      - ENTER ROOM CODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/join
+      TermType: 0
+      Description: 
+      Languages:
+      - JOIN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/start_match
+      TermType: 0
+      Description: 
+      Languages:
+      - START MATCH
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -29038,7 +29082,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1718996686067
+    Google_LastUpdatedVersion: 1719006937501
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

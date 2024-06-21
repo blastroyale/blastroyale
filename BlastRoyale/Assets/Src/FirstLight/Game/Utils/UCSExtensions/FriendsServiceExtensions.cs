@@ -1,6 +1,9 @@
 using System;
 using System.Linq;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using Unity.Services.Friends;
+using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
 
 namespace FirstLight.Game.Utils.UCSExtensions
@@ -32,7 +35,32 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// </summary>
 		public static Relationship GetFriendByID(this IFriendsService friendsService, string playerID)
 		{
-			return friendsService.Friends.First(r => r.Member.Id == playerID);
+			return friendsService.Friends.FirstOrDefault(r => r.Member.Id == playerID);
+		}
+
+		/// <summary>
+		/// Adds a friend by player id and handles notifications / errors.
+		/// </summary>
+		public static async UniTask<bool> AddFriendHandled(this IFriendsService friendsService, string playerID)
+		{
+			var services = MainInstaller.ResolveServices();
+
+			try
+			{
+				FLog.Info($"Sending friend request: {playerID}");
+				await friendsService.AddFriendAsync(playerID).AsUniTask();
+				FLog.Info($"Friend request sent: {playerID}");
+
+				services.NotificationService.QueueNotification("Friend request sent");
+			}
+			catch (FriendsServiceException e)
+			{
+				FLog.Error("Error adding friend.", e);
+				services.NotificationService.QueueNotification($"#Error adding friend ({(int) e.ErrorCode})#");
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

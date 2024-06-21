@@ -277,6 +277,9 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
+		/// <summary>
+		/// Joins a match lobby by id or code.
+		/// </summary>
 		public async UniTask<bool> JoinMatch(string lobbyIDOrCode)
 		{
 			Assert.IsNull(CurrentMatchLobby, "Trying to join a match but the player is already in one!");
@@ -306,6 +309,9 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
+		/// <summary>
+		/// Leaves the current match labby.
+		/// </summary>
 		public async UniTask LeaveMatch()
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to leave a match but the player is not in one!");
@@ -338,7 +344,10 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public async UniTask<bool> UpdateMatchSettings(CustomMatchSettings settings)
+		/// <summary>
+		/// Updates the data / locked state of the current match lobby.
+		/// </summary>
+		public async UniTask<bool> UpdateMatchLobby(CustomMatchSettings settings, bool locked = false)
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
 
@@ -347,7 +356,8 @@ namespace FirstLight.Game.Services
 				Data = new Dictionary<string, DataObject>
 				{
 					{KEY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(settings))}
-				}
+				},
+				IsLocked = locked
 			};
 
 			try
@@ -360,6 +370,57 @@ namespace FirstLight.Game.Services
 			{
 				FLog.Warn("Error updating match settings!", e);
 				_notificationService.QueueNotification($"Could not update match settings ({(int) e.Reason})");
+				return false;
+			}
+
+			return true;
+		}
+		
+		/// <summary>
+		/// Sets the party host to the given player ID.
+		/// </summary>
+		public async UniTask<bool> UpdateMatchHost(string playerID)
+		{
+			Assert.IsNotNull(CurrentMatchLobby, "Trying to update the match host but the player is not in one!");
+
+			var options = new UpdateLobbyOptions
+			{
+				HostId = playerID
+			};
+
+			try
+			{
+				FLog.Info($"Updating match host to: {playerID}");
+				CurrentPartyLobby = await LobbyService.Instance.UpdateLobbyAsync(CurrentMatchLobby.Id, options);
+				FLog.Info("Match host updated successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn("Error updating match host!", e);
+				_notificationService.QueueNotification($"Could not update match host ({(int) e.Reason})");
+				return false;
+			}
+
+			return true;
+		}
+		
+		/// <summary>
+		/// Sets the party host to the given player ID.
+		/// </summary>
+		public async UniTask<bool> KickPlayerFromMatch(string playerID)
+		{
+			Assert.IsNotNull(CurrentMatchLobby, "Trying to kick player from match but the player is not in one!");
+
+			try
+			{
+				FLog.Info($"Kicking player: {playerID}");
+				await LobbyService.Instance.RemovePlayerAsync(CurrentMatchLobby.Id, playerID);
+				FLog.Info("Player kicked successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn("Error kicking player!", e);
+				_notificationService.QueueNotification($"Could not kick player ({(int) e.Reason})");
 				return false;
 			}
 

@@ -291,26 +291,18 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private async UniTaskVoid AddFriend(string playerId)
+		private async UniTaskVoid AddFriend(string playerID)
 		{
-			if (string.IsNullOrWhiteSpace(playerId)) return;
+			if (string.IsNullOrWhiteSpace(playerID)) return;
 
 			_addFriendButton.SetEnabled(false);
-			try
-			{
-				FLog.Info($"Sending friend request: {playerId}");
-				await FriendsService.Instance.AddFriendAsync(playerId).AsUniTask();
-				FLog.Info($"Friend request sent: {playerId}");
 
+			var success = await FriendsService.Instance.AddFriendHandled(playerID);
+
+			if (success)
+			{
 				RefreshRequests();
 				RefreshFriends(); // In case they already had a request from that friend, it accepts it
-
-				_services.NotificationService.QueueNotification("Friend request sent");
-			}
-			catch (FriendsServiceException e)
-			{
-				FLog.Error("Error adding friend.", e);
-				_services.NotificationService.QueueNotification($"#Error adding friend ({(int) e.ErrorCode})#");
 			}
 
 			_addFriendButton.SetEnabled(true);

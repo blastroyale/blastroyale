@@ -4,7 +4,7 @@
         <ui:VisualElement name="LeftBG" class="match-settings__left-bg" />
         <ui:VisualElement name="RightBG" class="match-settings__right-bg" />
         <ui:Label tabindex="-1" text="CREATE GAME" display-tooltip-when-elided="true" name="Title" class="match-settings__title" />
-        <ui:ScrollView name="Content" horizontal-scroller-visibility="Hidden" nested-interaction-kind="ForwardScrolling" touch-scroll-type="Elastic" class="match-settings__content">
+        <ui:ScrollView name="Content" horizontal-scroller-visibility="Hidden" nested-interaction-kind="ForwardScrolling" touch-scroll-type="Clamped" class="match-settings__content">
             <ui:VisualElement name="Row1" class="match-settings__horizontal-holder">
                 <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="false" name="ModeButton" title-localization-key="UITCustomGames/mode" />
                 <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="true" name="TeamSizeButton" title-localization-key="UITCustomGames/team_size" />
@@ -15,17 +15,21 @@
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITCustomGames/mutators" name="MutatorsToggle" />
             <ui:VisualElement name="Mutators" class="horizontal-scroll-picker">
-                <ui:ScrollView mode="Horizontal" touch-scroll-type="Clamped" name="MutatorsScroller" class="horizontal-scroll-picker__container">
-                    <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" />
-                </ui:ScrollView>
-                <FirstLight.Game.UIElements.ImageButton name="MutatorsButton" class="horizontal-scroll-picker__add-button" />
+                <ui:VisualElement name="MutatorsTopContainer" class="horizontal-scroll-picker__top-container">
+                    <ui:ScrollView mode="Horizontal" touch-scroll-type="Clamped" name="MutatorsScroller" class="horizontal-scroll-picker__container">
+                        <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" />
+                    </ui:ScrollView>
+                    <FirstLight.Game.UIElements.ImageButton name="MutatorsButton" class="horizontal-scroll-picker__add-button" />
+                </ui:VisualElement>
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITCustomGames/filter_weapons" name="FilterWeaponsToggle" />
             <ui:VisualElement name="FilterWeapons" class="horizontal-scroll-picker">
-                <ui:ScrollView mode="Horizontal" touch-scroll-type="Clamped" name="FilterWeaponsScroller" class="horizontal-scroll-picker__container">
-                    <ui:Label tabindex="-1" text="All" display-tooltip-when-elided="true" name="All" />
-                </ui:ScrollView>
-                <FirstLight.Game.UIElements.ImageButton name="FilterWeaponsButton" class="horizontal-scroll-picker__add-button" />
+                <ui:VisualElement name="FilterWeaponsTopContainer" class="horizontal-scroll-picker__top-container">
+                    <ui:ScrollView mode="Horizontal" touch-scroll-type="Clamped" name="FilterWeaponsScroller" class="horizontal-scroll-picker__container">
+                        <ui:Label tabindex="-1" text="All" name="All" />
+                    </ui:ScrollView>
+                    <FirstLight.Game.UIElements.ImageButton name="FilterWeaponsButton" class="horizontal-scroll-picker__add-button" />
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="Spacer" style="flex-grow: 1;" />
             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITCustomGames/private_room" name="PrivateRoomToggle" />

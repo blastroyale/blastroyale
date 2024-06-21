@@ -10,7 +10,6 @@ using I2.Loc;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Views.UITK
 {
@@ -23,17 +22,26 @@ namespace FirstLight.Game.Views.UITK
 		private MatchSettingsButtonElement _teamSizeButton;
 		private MatchSettingsButtonElement _maxPlayersButton;
 
+		private VisualElement _mutatorsContainer;
+		private LocalizedToggle _mutatorsToggle;
 		private ScrollView _mutatorsScroller;
 		private ImageButton _mutatorsButton;
+
+		private VisualElement _filterWeaponsContainer;
+		private LocalizedToggle _filterWeaponsToggle;
+		private ScrollView _filterWeaponsScroller;
+		private ImageButton _filterWeaponsButton;
 
 		private LocalizedButton _mainActionButton;
 
 		public Action MainActionClicked { get; set; }
 		public Action<CustomMatchSettings> MatchSettingsChanged { get; set; }
-        
+
 		public CustomMatchSettings MatchSettings { get; private set; }
 
 		private int _selectedModeIndex;
+		private bool _mutatorsTurnedOn;
+		private bool _weaponFilterTurnedOn;
 
 		protected override void Attached()
 		{
@@ -44,8 +52,15 @@ namespace FirstLight.Game.Views.UITK
 			_mapButton = Element.Q<MatchSettingsButtonElement>("MapButton").Required();
 			_maxPlayersButton = Element.Q<MatchSettingsButtonElement>("MaxPlayersButton").Required();
 
+			_mutatorsContainer = Element.Q("Mutators").Required();
+			_mutatorsToggle = Element.Q<LocalizedToggle>("MutatorsToggle").Required();
 			_mutatorsScroller = Element.Q<ScrollView>("MutatorsScroller").Required();
 			_mutatorsButton = Element.Q<ImageButton>("MutatorsButton").Required();
+
+			_filterWeaponsContainer = Element.Q("FilterWeapons").Required();
+			_filterWeaponsToggle = Element.Q<LocalizedToggle>("FilterWeaponsToggle").Required();
+			_filterWeaponsScroller = Element.Q<ScrollView>("FilterWeaponsScroller").Required();
+			_filterWeaponsButton = Element.Q<ImageButton>("FilterWeaponsButton").Required();
 
 			_mainActionButton = Element.Q<LocalizedButton>("MainActionButton");
 			_mainActionButton.clicked += () => MainActionClicked.Invoke();
@@ -55,6 +70,22 @@ namespace FirstLight.Game.Views.UITK
 			_mapButton.clicked += OnMapClicked;
 			_maxPlayersButton.clicked += OnMaxPlayersClicked;
 			_mutatorsButton.clicked += OnMutatorsClicked;
+			_filterWeaponsButton.clicked += OnWeaponFilterClicked;
+
+			_mutatorsToggle.RegisterValueChangedCallback(OnMutatorsToggle);
+			_filterWeaponsToggle.RegisterValueChangedCallback(OnWeaponFilterToggle);
+		}
+
+		private void OnMutatorsToggle(ChangeEvent<bool> e)
+		{
+			_mutatorsTurnedOn = e.newValue;
+			_mutatorsContainer.EnableInClassList("horizontal-scroll-picker--hidden", !e.newValue);
+		}
+
+		private void OnWeaponFilterToggle(ChangeEvent<bool> e)
+		{
+			_weaponFilterTurnedOn = e.newValue;
+			_filterWeaponsContainer.EnableInClassList("horizontal-scroll-picker--hidden", !e.newValue);
 		}
 
 		public void SetMatchSettings(CustomMatchSettings settings, bool editable)
@@ -104,6 +135,12 @@ namespace FirstLight.Game.Views.UITK
 				PopupPresenter.Close().Forget();
 			}, MatchSettings.Mutators).Forget();
 		}
+		
+		
+		private void OnWeaponFilterClicked()
+		{
+			// TODO mihak: Implement weapon filter
+		}
 
 		private void OnGameModeClicked()
 		{
@@ -137,14 +174,32 @@ namespace FirstLight.Game.Views.UITK
 			_teamSizeButton.SetValue(MatchSettings.SquadSize.ToString());
 			_mapButton.SetValue(MatchSettings.MapID);
 			_maxPlayersButton.SetValue(MatchSettings.MaxPlayers.ToString());
-
+			
 			_mutatorsScroller.Clear();
-			foreach (var mutator in MatchSettings.Mutators.GetSetFlags())
+			var mutators = MatchSettings.Mutators.GetSetFlags();
+			_mutatorsToggle.value = mutators.Length > 0 || _mutatorsTurnedOn;
+			_mutatorsContainer.EnableInClassList("horizontal-scroll-picker--hidden", !_mutatorsToggle.value); // TODO mihak: I shouldn't have to do this
+			
+			foreach (var mutator in mutators)
 			{
 				var mutatorLabel = new LocalizedLabel(mutator.GetLocalizationKey());
-				mutatorLabel.AddToClassList("mutator");
 
 				_mutatorsScroller.Add(mutatorLabel);
+			}
+			
+			_filterWeaponsScroller.Clear();
+			var weaponFilter = MatchSettings.WeaponFilter;
+			_filterWeaponsToggle.value = weaponFilter.Count > 0 || _weaponFilterTurnedOn;
+			_filterWeaponsContainer.EnableInClassList("horizontal-scroll-picker--hidden", !_filterWeaponsToggle.value); // TODO mihak: I shouldn't have to do this
+			
+			foreach (var weapon in weaponFilter)
+			{
+				_filterWeaponsScroller.Add(new LocalizedLabel(weapon)); // TODO mihak: Add localization key
+			}
+
+			if (weaponFilter.Count == 0)
+			{
+				_filterWeaponsScroller.Add(new LocalizedLabel("All"));
 			}
 
 			if (newSettings)

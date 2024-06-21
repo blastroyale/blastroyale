@@ -2133,9 +2133,14 @@ namespace I2.Loc
 		{
 			public static string browse_games 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/browse_games"); } }
 			public static string create_lobby 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/create_lobby"); } }
+			public static string enter_room_code 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/enter_room_code"); } }
+			public static string filter_weapons 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/filter_weapons"); } }
+			public static string join 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/join"); } }
 			public static string join_with_code 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/join_with_code"); } }
+			public static string map 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/map"); } }
 			public static string max_players 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/max_players"); } }
 			public static string max_players_desc 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/max_players_desc"); } }
+			public static string mode 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mode"); } }
 			public static string mutator_ConsumableSharing 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_ConsumableSharing"); } }
 			public static string mutator_ConsumableSharing_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_ConsumableSharing_Description"); } }
 			public static string mutator_DisableRevive 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_DisableRevive"); } }
@@ -2150,12 +2155,19 @@ namespace I2.Loc
 			public static string mutator_SafeZoneInPlayableArea_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_SafeZoneInPlayableArea_Description"); } }
 			public static string mutator_SpeedUp 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_SpeedUp"); } }
 			public static string mutator_SpeedUp_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_SpeedUp_Description"); } }
+			public static string mutators 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutators"); } }
+			public static string name 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/name"); } }
+			public static string no_matches 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/no_matches"); } }
+			public static string players 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/players"); } }
 			public static string private_room 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/private_room"); } }
 			public static string select_map 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/select_map"); } }
 			public static string select_mutators 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/select_mutators"); } }
 			public static string select_squad_size 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/select_squad_size"); } }
 			public static string selected_mutators 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/selected_mutators"); } }
 			public static string show_creator_name 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/show_creator_name"); } }
+			public static string start_match 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/start_match"); } }
+			public static string status 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/status"); } }
+			public static string team_size 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/team_size"); } }
 		}
 
 		public static class UITDisconnected
@@ -2565,6 +2577,7 @@ namespace I2.Loc
 			public static string claim 		{ get{ return LocalizationManager.GetTranslation ("UITShared/claim"); } }
 			public static string close 		{ get{ return LocalizationManager.GetTranslation ("UITShared/close"); } }
 			public static string coming_soon 		{ get{ return LocalizationManager.GetTranslation ("UITShared/coming_soon"); } }
+			public static string confirm 		{ get{ return LocalizationManager.GetTranslation ("UITShared/confirm"); } }
 			public static string confirmation 		{ get{ return LocalizationManager.GetTranslation ("UITShared/confirmation"); } }
 			public static string deathmatch 		{ get{ return LocalizationManager.GetTranslation ("UITShared/deathmatch"); } }
 			public static string error 		{ get{ return LocalizationManager.GetTranslation ("UITShared/error"); } }
@@ -4822,9 +4835,14 @@ namespace I2.Loc
 		{
 		    public const string browse_games = "UITCustomGames/browse_games";
 		    public const string create_lobby = "UITCustomGames/create_lobby";
+		    public const string enter_room_code = "UITCustomGames/enter_room_code";
+		    public const string filter_weapons = "UITCustomGames/filter_weapons";
+		    public const string join = "UITCustomGames/join";
 		    public const string join_with_code = "UITCustomGames/join_with_code";
+		    public const string map = "UITCustomGames/map";
 		    public const string max_players = "UITCustomGames/max_players";
 		    public const string max_players_desc = "UITCustomGames/max_players_desc";
+		    public const string mode = "UITCustomGames/mode";
 		    public const string mutator_ConsumableSharing = "UITCustomGames/mutator_ConsumableSharing";
 		    public const string mutator_ConsumableSharing_Description = "UITCustomGames/mutator_ConsumableSharing_Description";
 		    public const string mutator_DisableRevive = "UITCustomGames/mutator_DisableRevive";
@@ -4839,12 +4857,19 @@ namespace I2.Loc
 		    public const string mutator_SafeZoneInPlayableArea_Description = "UITCustomGames/mutator_SafeZoneInPlayableArea_Description";
 		    public const string mutator_SpeedUp = "UITCustomGames/mutator_SpeedUp";
 		    public const string mutator_SpeedUp_Description = "UITCustomGames/mutator_SpeedUp_Description";
+		    public const string mutators = "UITCustomGames/mutators";
+		    public const string name = "UITCustomGames/name";
+		    public const string no_matches = "UITCustomGames/no_matches";
+		    public const string players = "UITCustomGames/players";
 		    public const string private_room = "UITCustomGames/private_room";
 		    public const string select_map = "UITCustomGames/select_map";
 		    public const string select_mutators = "UITCustomGames/select_mutators";
 		    public const string select_squad_size = "UITCustomGames/select_squad_size";
 		    public const string selected_mutators = "UITCustomGames/selected_mutators";
 		    public const string show_creator_name = "UITCustomGames/show_creator_name";
+		    public const string start_match = "UITCustomGames/start_match";
+		    public const string status = "UITCustomGames/status";
+		    public const string team_size = "UITCustomGames/team_size";
 		}
 
 		public static class UITDisconnected
@@ -5254,6 +5279,7 @@ namespace I2.Loc
 		    public const string claim = "UITShared/claim";
 		    public const string close = "UITShared/close";
 		    public const string coming_soon = "UITShared/coming_soon";
+		    public const string confirm = "UITShared/confirm";
 		    public const string confirmation = "UITShared/confirmation";
 		    public const string deathmatch = "UITShared/deathmatch";
 		    public const string error = "UITShared/error";

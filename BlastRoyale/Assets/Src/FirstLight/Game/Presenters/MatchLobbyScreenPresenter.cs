@@ -1,11 +1,16 @@
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
+using I2.Loc;
 using Unity.Services.Authentication;
+using Unity.Services.Friends;
+using Unity.Services.Friends.Exceptions;
 using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
 using Player = Unity.Services.Lobbies.Models.Player;
@@ -44,13 +49,13 @@ namespace FirstLight.Game.Presenters
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 			var playerIsHost = matchLobby.IsLocalPlayerHost();
 
-			_matchSettingsView.SetMainAction(playerIsHost ? "#START MATCH#" : null, () => StartMatch().Forget());
+			_matchSettingsView.SetMainAction(playerIsHost ? ScriptTerms.UITCustomGames.start_match : null, () => StartMatch().Forget());
 
 			if (playerIsHost)
 			{
 				_matchSettingsView.MatchSettingsChanged += settings =>
 				{
-					_services.FLLobbyService.UpdateMatchSettings(settings).Forget();
+					_services.FLLobbyService.UpdateMatchLobby(settings).Forget();
 				};
 			}
 
@@ -66,7 +71,7 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshData()
 		{
-			// TODO: Do this more cleverly
+			// TODO: Do this more cleverly maybe
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 
 			_playersContainer.Clear();
@@ -82,8 +87,9 @@ namespace FirstLight.Game.Presenters
 		{
 			var matchSettings = _matchSettingsView.MatchSettings;
 
-			// TODO
-			await UniTask.NextFrame();
+			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, true);
+
+			// TODO start match
 		}
 
 		private async UniTaskVoid LeaveMatchLobby()
@@ -96,7 +102,11 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement CreatePlayerElement(Player player)
 		{
-			var playerElement = new Label(player.GetPlayerName());
+			var playerElement = new Button
+			{
+				text = player.GetPlayerName(),
+				userData = player
+			};
 			playerElement.AddToClassList("player");
 
 			// Host
@@ -113,8 +123,61 @@ namespace FirstLight.Game.Presenters
 			{
 				playerElement.AddToClassList("player--local");
 			}
+			else
+			{
+				playerElement.clicked += () => OnPlayerClicked(playerElement);
+			}
 
 			return playerElement;
+		}
+
+		private void OnPlayerClicked(Button source)
+		{
+			var player = (Player) source.userData;
+			var isFriend = FriendsService.Instance.GetFriendByID(player.Id) != null;
+
+			var buttons = new List<PlayerContextButton>
+			{
+				new (PlayerButtonContextStyle.Normal, "Open Profile", () =>
+				{
+					_services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new PlayerStatisticsPopupPresenter.StateData
+					{
+						UnityID = player.Id
+					}).Forget();
+				})
+			};
+
+			if (!isFriend) // TODO mihak: Also check if the friend request is pending
+			{
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Send friend request",
+					() => FriendsService.Instance.AddFriendHandled(player.Id).Forget()));
+			}
+
+			if (_services.FLLobbyService.CurrentMatchLobby.IsLocalPlayerHost())
+			{
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Promote to room owner",
+					() => PromotePlayerToHost(player.Id).Forget()));
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, "Kick",
+					() => KickPlayer(player.Id).Forget()));
+			}
+
+			TooltipUtils.OpenPlayerContextOptions(source, Root, player.GetPlayerName(), buttons, TipDirection.TopLeft, TooltipPosition.BottomRight);
+		}
+
+		private async UniTaskVoid KickPlayer(string playerID)
+		{
+			if (await _services.FLLobbyService.KickPlayerFromMatch(playerID))
+			{
+				RefreshData();
+			}
+		}
+
+		private async UniTaskVoid PromotePlayerToHost(string playerID)
+		{
+			if (await _services.FLLobbyService.UpdateMatchHost(playerID))
+			{
+				RefreshData();
+			}
 		}
 	}
 }

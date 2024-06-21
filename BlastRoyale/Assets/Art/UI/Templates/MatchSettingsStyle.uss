@@ -65,6 +65,12 @@
     border-bottom-left-radius: 31px;
     align-items: center;
     margin-top: 10px;
+    transition-property: scale;
+    transition-duration: 0.1s;
+}
+
+.match-settings-button:active {
+    scale: 0.95 0.95;
 }
 
 .match-settings-button--numerical {
@@ -118,8 +124,25 @@
 }
 
 .horizontal-scroll-picker {
-    margin-top: 10px;
-    margin-bottom: 30px;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    transition-property: height;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+
+.horizontal-scroll-picker--hidden {
+    height: 0;
+}
+
+.horizontal-scroll-picker__top-container {
+    height: 100px;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .horizontal-scroll-picker__label {
@@ -150,7 +173,7 @@
     padding-top: 0;
 }
 
-.horizontal-scroll-picker__container Label {
+.horizontal-scroll-picker__container LocalizedLabel {
     background-color: rgb(255, 255, 255);
     font-size: 32px;
     height: 60px;
@@ -173,16 +196,19 @@
 }
 
 .horizontal-scroll-picker__add-button {
-    flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
     background-image: var(--sprite-home__button-addbubble);
     width: 115px;
     height: 100px;
-    top: -8px;
-    right: -8px;
+    right: 0;
+    bottom: 0;
 }
 
 .horizontal-scroll-picker__add-button:active {
     scale: 0.9 0.9;
+}
+
+#ModeButton > .match-settings-button__edit-icon {
+    display: none;
 }

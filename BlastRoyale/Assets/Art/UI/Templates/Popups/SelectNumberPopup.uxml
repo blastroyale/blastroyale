@@ -3,6 +3,6 @@
     <ui:VisualElement name="Content" class="content">
         <FirstLight.Game.UIElements.LocalizedLabel localization-key="Choose amount of maximum players" name="Subtitle" style="font-size: 32px; color: rgb(132, 117, 166); -unity-text-align: upper-center; padding-bottom: 76px;" />
         <FirstLight.Game.UIElements.SliderIntWithButtons name="Slider" style="height: 436px; background-color: rgb(22, 20, 38); border-top-left-radius: 30px; border-top-right-radius: 30px; border-bottom-right-radius: 30px; border-bottom-left-radius: 30px; align-items: center; padding-left: 30px; padding-right: 30px; padding-top: 30px; padding-bottom: 30px; margin-bottom: 66px;" />
-        <FirstLight.Game.UIElements.LocalizedButton localization-key="CONFIRM" name="ConfirmButton" class="button-long button-long--yellow" style="align-self: center;" />
+        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/confirm" name="ConfirmButton" class="button-long button-long--yellow" style="align-self: center;" />
     </ui:VisualElement>
 </ui:UXML>

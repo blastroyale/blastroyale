@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -59,6 +58,12 @@ namespace FirstLight.Game.Presenters
 				default:
 					throw new NotImplementedException($"You need to implement the view type: {Data.View.GetType()}");
 			}
+		}
+
+		protected override UniTask OnScreenOpen(bool reload)
+		{
+			_popup.AnimatePing(1.1f);
+			return base.OnScreenOpen(reload);
 		}
 
 		public static UniTaskVoid OpenJoinWithCode(Action<string> onJoin)

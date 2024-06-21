@@ -4,26 +4,33 @@
         <ui:VisualElement name="LeftBG" class="match-settings__left-bg" />
         <ui:VisualElement name="RightBG" class="match-settings__right-bg" />
         <ui:Label tabindex="-1" text="CREATE GAME" display-tooltip-when-elided="true" name="Title" class="match-settings__title" />
-        <ui:VisualElement name="ContentHolder" class="match-settings__content">
+        <ui:ScrollView name="Content" horizontal-scroller-visibility="Hidden" nested-interaction-kind="ForwardScrolling" touch-scroll-type="Elastic" class="match-settings__content">
             <ui:VisualElement name="Row1" class="match-settings__horizontal-holder">
-                <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="false" name="ModeButton" title-localization-key="MODE" />
-                <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="true" name="TeamSizeButton" title-localization-key="TEAM SIZE" />
+                <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="false" name="ModeButton" title-localization-key="UITCustomGames/mode" />
+                <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="true" name="TeamSizeButton" title-localization-key="UITCustomGames/team_size" />
             </ui:VisualElement>
             <ui:VisualElement name="Row2" class="match-settings__horizontal-holder">
-                <FirstLight.Game.UIElements.MatchSettingsButtonElement name="MapButton" title-localization-key="MAP" />
-                <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="true" name="MaxPlayersButton" title-localization-key="MAX PLAYERS" />
+                <FirstLight.Game.UIElements.MatchSettingsButtonElement name="MapButton" title-localization-key="UITCustomGames/map" />
+                <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="true" name="MaxPlayersButton" title-localization-key="UITCustomGames/max_players" />
             </ui:VisualElement>
-            <ui:VisualElement name="Mutators" class="mutators">
-                <ui:Label tabindex="-1" text="MUTATORS" display-tooltip-when-elided="true" name="Title" class="mutators__label" />
-                <ui:ScrollView mode="Horizontal" touch-scroll-type="Clamped" name="MutatorsScroller" class="mutators__container">
+            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITCustomGames/mutators" name="MutatorsToggle" />
+            <ui:VisualElement name="Mutators" class="horizontal-scroll-picker">
+                <ui:ScrollView mode="Horizontal" touch-scroll-type="Clamped" name="MutatorsScroller" class="horizontal-scroll-picker__container">
                     <ui:Label tabindex="-1" text="Healthy Air" display-tooltip-when-elided="true" name="Mutator1" />
                 </ui:ScrollView>
-                <FirstLight.Game.UIElements.ImageButton name="MutatorsButton" class="mutators__add-button" />
+                <FirstLight.Game.UIElements.ImageButton name="MutatorsButton" class="horizontal-scroll-picker__add-button" />
             </ui:VisualElement>
-            <ui:Toggle label="PRIVATE ROOM" name="PrivateRoomToggle" />
-            <ui:Toggle label="SHOW CREATOR NAME" name="ShowNameToggle" />
+            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITCustomGames/filter_weapons" name="FilterWeaponsToggle" />
+            <ui:VisualElement name="FilterWeapons" class="horizontal-scroll-picker">
+                <ui:ScrollView mode="Horizontal" touch-scroll-type="Clamped" name="FilterWeaponsScroller" class="horizontal-scroll-picker__container">
+                    <ui:Label tabindex="-1" text="All" display-tooltip-when-elided="true" name="All" />
+                </ui:ScrollView>
+                <FirstLight.Game.UIElements.ImageButton name="FilterWeaponsButton" class="horizontal-scroll-picker__add-button" />
+            </ui:VisualElement>
             <ui:VisualElement name="Spacer" style="flex-grow: 1;" />
-            <FirstLight.Game.UIElements.LocalizedButton localization-key="CREATE MATCH" name="MainActionButton" class="button-long button-long--yellow" style="align-self: center;" />
-        </ui:VisualElement>
+            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITCustomGames/private_room" name="PrivateRoomToggle" />
+            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITCustomGames/show_creator_name" name="ShowNameToggle" />
+            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCustomGames/create_lobby" name="MainActionButton" class="button-long button-long--yellow" style="align-self: center; margin-top: 18px;" />
+        </ui:ScrollView>
     </ui:VisualElement>
 </ui:UXML>

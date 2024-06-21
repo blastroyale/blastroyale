@@ -145,6 +145,7 @@
     --sprite-home__icon-customgame: url('/Assets/Art/UI/Sprites/Home/icon-customgame.png');
     --sprite-home__icon-discord: url('/Assets/Art/UI/Sprites/Home/icon-discord.png');
     --sprite-home__icon-durability: url('/Assets/Art/UI/Sprites/Home/icon-durability.png');
+    --sprite-home__icon-edit: url('/Assets/Art/UI/Sprites/Home/icon-edit.png');
     --sprite-home__icon-equipment: url('/Assets/Art/UI/Sprites/Home/icon-equipment.png');
     --sprite-home__icon-gamemode-battleroyale: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale.png');
     --sprite-home__icon-gamemode-battleroyale-shadow: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale-shadow.png');
@@ -165,6 +166,7 @@
     --sprite-home__icon-mutator-quickspecials: url('/Assets/Art/UI/Sprites/Home/icon-mutator-quickspecials.png');
     --sprite-home__icon-mutator-speedup: url('/Assets/Art/UI/Sprites/Home/icon-mutator-speedup.png');
     --sprite-home__icon-notification: url('/Assets/Art/UI/Sprites/Home/icon-notification.png');
+    --sprite-home__icon-party: url('/Assets/Art/UI/Sprites/Home/icon-party.png');
     --sprite-home__icon-player-blue: url('/Assets/Art/UI/Sprites/Home/icon-player-blue.png');
     --sprite-home__icon-profilepicture: url('/Assets/Art/UI/Sprites/Home/icon-profilepicture.png');
     --sprite-home__icon-questionmark: url('/Assets/Art/UI/Sprites/Home/icon-questionmark.png');
@@ -1043,6 +1045,12 @@
     height: 40px;
 }
 
+.sprite-home__icon-edit {
+    background-image: var(--sprite-home__icon-edit);
+    width: 49px;
+    height: 49px;
+}
+
 .sprite-home__icon-equipment {
     background-image: var(--sprite-home__icon-equipment);
     width: 128px;
@@ -1161,6 +1169,12 @@
     background-image: var(--sprite-home__icon-notification);
     width: 38px;
     height: 38px;
+}
+
+.sprite-home__icon-party {
+    background-image: var(--sprite-home__icon-party);
+    width: 136px;
+    height: 90px;
 }
 
 .sprite-home__icon-player-blue {

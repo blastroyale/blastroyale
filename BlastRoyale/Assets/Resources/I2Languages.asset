@@ -11457,7 +11457,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - June'24 Leaderboard
       - 
       - 
       - 
@@ -11809,7 +11809,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Purchase in the Shop
       - 
       - 
       - 
@@ -12117,7 +12117,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Purchase in the Shop
       - 
       - 
       - 
@@ -12139,7 +12139,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - May'24 Leaderboard
       - 
       - 
       - 
@@ -12227,7 +12227,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - May'24 Leaderboard
       - 
       - 
       - 
@@ -12271,7 +12271,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Purchase in the Shop
       - 
       - 
       - 
@@ -12403,7 +12403,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Purchase in the Shop
       - 
       - 
       - 
@@ -12425,7 +12425,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - June'24 Leaderboard
       - 
       - 
       - 
@@ -25450,7 +25450,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SQUAD UP
+      - PARTY UP
       - "\u041E\u0422\u0420\u042F\u0414"
       - "ESQUADR\xC3O"
       - 
@@ -28776,7 +28776,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TAMED ZONE - New safe zone always spawns within the current playable area
+      - New safe zone always spawns within the current playable area
       - 
       - 
       - 
@@ -28915,6 +28915,105 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/map
+      TermType: 0
+      Description: 
+      Languages:
+      - MAP
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mode
+      TermType: 0
+      Description: 
+      Languages:
+      - MODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/players
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAYERS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/status
+      TermType: 0
+      Description: 
+      Languages:
+      - STATUS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/team_size
+      TermType: 0
+      Description: 
+      Languages:
+      - TEAM SIZE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/no_matches
+      TermType: 0
+      Description: 
+      Languages:
+      - No matches found. Try creating one!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/name
+      TermType: 0
+      Description: 
+      Languages:
+      - NAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutators
+      TermType: 0
+      Description: 
+      Languages:
+      - MUTATORS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/filter_weapons
+      TermType: 0
+      Description: 
+      Languages:
+      - FILTER WEAPONS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -28939,7 +29038,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1718888799331
+    Google_LastUpdatedVersion: 1718996686067
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

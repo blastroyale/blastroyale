@@ -1,29 +1,23 @@
-using System;
 using I2.Loc;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
 {
-	public class MatchSettingsButtonElement : VisualElement
+	public class MatchSettingsButtonElement : ImageButton
 	{
 		private const string USS_BLOCK = "match-settings-button";
 		private const string USS_TITLE = USS_BLOCK + "__title";
-		private const string USS_BUTTON = USS_BLOCK + "__button";
-		private const string USS_BUTTON_BACKGROUND = USS_BLOCK + "__button-background";
-		private const string USS_BUTTON_LABEL = USS_BLOCK + "__button-label";
+		private const string USS_VALUE = USS_BLOCK + "__value";
+		private const string USS_EDIT_ICON = USS_BLOCK + "__edit-icon";
 
-		private const string USS_BUTTON_NUMERICAL = USS_BUTTON + "--numerical";
-
-		public ImageButton Button => _button;
+		private const string USS_BUTTON_NUMERICAL = USS_BLOCK + "--numerical";
 
 		private bool Numerical { get; set; }
 		private string TitleLocalizationKey { get; set; }
 
 		private readonly Label _title;
-		private readonly ImageButton _button;
-		private readonly VisualElement _buttonBackground;
-		private readonly Label _buttonLabel;
+		private readonly Label _value;
 
 		public MatchSettingsButtonElement()
 		{
@@ -32,20 +26,17 @@ namespace FirstLight.Game.UIElements
 			Add(_title = new Label("MODE") {name = "title"});
 			_title.AddToClassList(USS_TITLE);
 
-			Add(_button = new ImageButton {name = "button"});
-			_button.AddToClassList(USS_BUTTON);
-			{
-				_button.Add(_buttonBackground = new VisualElement {name = "button-background"});
-				_buttonBackground.AddToClassList(USS_BUTTON_BACKGROUND);
+			Add(_value = new Label("BATTLE ROYALE") {name = "value"});
+			_value.AddToClassList(USS_VALUE);
 
-				_button.Add(_buttonLabel = new Label("BATTLE ROYALE") {name = "button-label"});
-				_buttonLabel.AddToClassList(USS_BUTTON_LABEL);
-			}
+			var editIcon = new VisualElement {name = "edit-icon"};
+			Add(editIcon);
+			editIcon.AddToClassList(USS_EDIT_ICON);
 		}
 
 		public void SetValue(string value)
 		{
-			_buttonLabel.text = value;
+			_value.text = value;
 		}
 
 		public new class UxmlFactory : UxmlFactory<MatchSettingsButtonElement, UxmlTraits>
@@ -75,16 +66,16 @@ namespace FirstLight.Game.UIElements
 
 				var isNumerical = _numericalAttribute.GetValueFromBag(bag, cc);
 				msbe.Numerical = isNumerical;
-				msbe._button.EnableInClassList(USS_BUTTON_NUMERICAL, isNumerical);
+				msbe.EnableInClassList(USS_BUTTON_NUMERICAL, isNumerical);
 
 				var titleKey = _titleLocalizationKeyAttribute.GetValueFromBag(bag, cc);
 				msbe.TitleLocalizationKey = titleKey;
 				msbe._title.text = LocalizationManager.TryGetTranslation(titleKey, out var translation) ? translation : $"#{titleKey}#";
-				
+
 				// For editor preview
 				if (!Application.isPlaying && isNumerical)
 				{
-					msbe._buttonLabel.text = "1";
+					msbe._value.text = "1";
 				}
 			}
 		}

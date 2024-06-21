@@ -4,21 +4,21 @@
     <ui:VisualElement name="root" style="flex-grow: 1;">
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="safe-area">
             <ui:VisualElement name="ListContainer" class="match-list-container">
-                <ui:VisualElement name="ListHeaders" class="match-list-container__headers">
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="NAME" name="NameTitle" style="color: rgb(255, 255, 255);" />
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="MODE" name="ModeTitle" style="color: rgb(255, 255, 255);" />
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="PLAYERS" name="PlayersTitle" style="color: rgb(255, 255, 255);" />
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="STATUS" name="StatusTitle" style="color: rgb(255, 255, 255);" />
+                <ui:VisualElement name="ListHeaders" class="match-list-container__headers  anim-delay-0 anim-translate anim-translate--right-xxxl">
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/name" name="NameTitle" style="color: rgb(255, 255, 255);" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/mode" name="ModeTitle" style="color: rgb(255, 255, 255);" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/players" name="PlayersTitle" style="color: rgb(255, 255, 255);" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/status" name="StatusTitle" style="color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
-                <ui:ListView name="GamesList" fixed-item-height="118" show-bound-collection-size="false" style="flex-grow: 1;" />
+                <ui:ListView name="GamesList" fixed-item-height="118" show-bound-collection-size="false" style="flex-grow: 1;" class=" anim-delay-0 anim-translate anim-translate--right-xxxl" />
                 <ui:VisualElement style="flex-direction: row;">
-                    <ui:Button text="JOIN WITH CODE" name="JoinWithCodeButton" class="button-long" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCustomGames/join_with_code" name="JoinWithCodeButton" class="button-long anim-delay-0 anim-translate anim-translate--up-m" />
                     <ui:VisualElement style="flex-grow: 1;" />
-                    <FirstLight.Game.UIElements.LocalizedButton name="RefreshButton" localization-key="REFRESH" class="button-long" />
+                    <ui:Button name="RefreshButton" text="REFRESH" class="button-long anim-delay-0 anim-translate anim-translate--up-m" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:Instance template="MatchSettings" name="MatchSettings" />
+            <ui:Instance template="MatchSettings" name="MatchSettings" class="anim-delay-0 anim-translate anim-translate--left-xxl" />
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="BROWSE GAMES" name="Header" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITCustomGames/browse_games" name="Header" />
     </ui:VisualElement>
 </ui:UXML>

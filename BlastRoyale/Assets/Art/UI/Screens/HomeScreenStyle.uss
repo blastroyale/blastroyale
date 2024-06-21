@@ -862,6 +862,10 @@
     background-image: var(--sprite-home__icon-heroes);
 }
 
+.button-with-icon--party > .button-with-icon__icon {
+    background-image: var(--sprite-home__icon-party);
+}
+
 .button-with-icon--leaderboards > .button-with-icon__icon {
     background-image: var(--sprite-home__icon-leaderboards);
 }

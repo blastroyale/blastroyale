@@ -7,6 +7,10 @@
     height: 650px;
 }
 
+.content {
+    width: 1249px;
+}
+
 .unity-scroll-view__content-container {
     flex-direction: row;
     flex-wrap: wrap;

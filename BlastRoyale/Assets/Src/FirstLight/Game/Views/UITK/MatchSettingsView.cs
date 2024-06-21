@@ -50,10 +50,10 @@ namespace FirstLight.Game.Views.UITK
 			_mainActionButton = Element.Q<LocalizedButton>("MainActionButton");
 			_mainActionButton.clicked += () => MainActionClicked.Invoke();
 
-			_modeButton.Button.clicked += OnGameModeClicked;
-			_teamSizeButton.Button.clicked += OnTeamSizeClicked;
-			_mapButton.Button.clicked += OnMapClicked;
-			_maxPlayersButton.Button.clicked += OnMaxPlayersClicked;
+			_modeButton.clicked += OnGameModeClicked;
+			_teamSizeButton.clicked += OnTeamSizeClicked;
+			_mapButton.clicked += OnMapClicked;
+			_maxPlayersButton.clicked += OnMaxPlayersClicked;
 			_mutatorsButton.clicked += OnMutatorsClicked;
 		}
 

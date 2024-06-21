@@ -12,30 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"b555105e-a8ac-4d44-8be8-46192f8b43c0\"\n   
+  _rsKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"ed7f06dc-9e42-45f2-bd69-fc364710c06f\"\n   
     },\n    \"rs\": {\n      \"key\": \"ShowBetaLabel\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"30f40301-f4bb-4caa-b89e-4a90b79518cf\"\n   
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"5d1507d8-2446-4e69-a34d-4d3043b567e5\"\n   
     },\n    \"rs\": {\n      \"key\": \"EnableCommitVersionLock\",\n      \"type\":
     \"bool\",\n      \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n     
-    \"entityId\": \"6f30f3e1-6b09-45e1-a612-75bec7eed257\"\n    },\n    \"rs\": {\n     
+    \"entityId\": \"871ce56c-2246-464b-85e3-29938bef04b1\"\n    },\n    \"rs\": {\n     
     \"key\": \"ShowBugReportButton\",\n      \"type\": \"bool\",\n      \"value\":
-    true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"b57ae497-51c5-4e41-9837-9e3a84f16651\"\n   
-    },\n    \"rs\": {\n      \"key\": \"EnableReviewPrompt\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"74afa12c-6b91-49a9-ae2e-d2dd83472c7d\"\n   
-    },\n    \"rs\": {\n      \"key\": \"MaxPlayersInCustomGame\",\n      \"type\":
-    \"int\",\n      \"value\": 48\n    }\n  }\n]"
-  _rsLastCachedKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"b555105e-a8ac-4d44-8be8-46192f8b43c0\"\n   
+    true\n    }\n  }\n]"
+  _rsLastCachedKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"ed7f06dc-9e42-45f2-bd69-fc364710c06f\"\n   
     },\n    \"rs\": {\n      \"key\": \"ShowBetaLabel\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"30f40301-f4bb-4caa-b89e-4a90b79518cf\"\n   
+    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"5d1507d8-2446-4e69-a34d-4d3043b567e5\"\n   
     },\n    \"rs\": {\n      \"key\": \"EnableCommitVersionLock\",\n      \"type\":
     \"bool\",\n      \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n     
-    \"entityId\": \"6f30f3e1-6b09-45e1-a612-75bec7eed257\"\n    },\n    \"rs\": {\n     
+    \"entityId\": \"871ce56c-2246-464b-85e3-29938bef04b1\"\n    },\n    \"rs\": {\n     
     \"key\": \"ShowBugReportButton\",\n      \"type\": \"bool\",\n      \"value\":
-    true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"b57ae497-51c5-4e41-9837-9e3a84f16651\"\n   
-    },\n    \"rs\": {\n      \"key\": \"EnableReviewPrompt\",\n      \"type\": \"bool\",\n     
-    \"value\": true\n    }\n  },\n  {\n    \"metadata\": {\n      \"entityId\": \"74afa12c-6b91-49a9-ae2e-d2dd83472c7d\"\n   
-    },\n    \"rs\": {\n      \"key\": \"MaxPlayersInCustomGame\",\n      \"type\":
-    \"int\",\n      \"value\": 48\n    }\n  }\n]"
+    true\n    }\n  }\n]"
   _environments: "[\n  {\n    \"projectId\": \"***REMOVED***\",\n   
     \"name\": \"community\",\n    \"id\": \"***REMOVED***\",\n   
     \"isDefault\": false,\n    \"createdAt\": \"2024-04-18T16:33:45Z\",\n    \"updatedAt\":

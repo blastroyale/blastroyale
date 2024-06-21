@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -13,17 +14,12 @@ using Unity.Services.Friends.Models;
 using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
 
-namespace FirstLight.Game.Presenters
+namespace FirstLight.Game.Views.UITK.Popups
 {
-	/// <summary>
-	/// Displays the squad up popup with logic for joining / creating a squad.
-	/// </summary>
-	[UILayer(UILayer.Popup)]
-	public class PartyPopupPresenter : UIPresenter
+	public class PartyPopupView : UIView
 	{
 		private const string USS_PARTY_JOINED = "party-joined";
 
-		private GenericPopupElement _popup;
 		private Button _createTeamButton;
 		private Button _joinTeamButton;
 		private Button _leaveTeamButton;
@@ -38,20 +34,19 @@ namespace FirstLight.Game.Presenters
 
 		private List<Relationship> _friends;
 
-		protected override void QueryElements()
+		protected override void Attached()
 		{
 			_services = MainInstaller.ResolveServices();
 
-			_popup = Root.Q<GenericPopupElement>("Popup").Required();
-			_createTeamButton = Root.Q<Button>("CreateTeamButton").Required();
-			_joinTeamButton = Root.Q<Button>("JoinTeamButton").Required();
-			_leaveTeamButton = Root.Q<Button>("LeaveTeamButton").Required();
-			_friendsOnlineList = Root.Q<ListView>("FriendsOnlineList").Required();
-			_yourTeamHeader = Root.Q<Label>("YourTeamLabel").Required();
-			_friendsHeader = Root.Q<Label>("FriendsOnline").Required();
+			_createTeamButton = Element.Q<Button>("CreateTeamButton").Required();
+			_joinTeamButton = Element.Q<Button>("JoinTeamButton").Required();
+			_leaveTeamButton = Element.Q<Button>("LeaveTeamButton").Required();
+			_friendsOnlineList = Element.Q<ListView>("FriendsOnlineList").Required();
+			_yourTeamHeader = Element.Q<Label>("YourTeamLabel").Required();
+			_friendsHeader = Element.Q<Label>("FriendsOnline").Required();
 
-			_teamCodeLabel = Root.Q<Label>("TeamCode").Required();
-			_yourTeamContainer = Root.Q("YourTeamContainer").Required();
+			_teamCodeLabel = Element.Q<Label>("TeamCode").Required();
+			_yourTeamContainer = Element.Q("YourTeamContainer").Required();
 
 			_createTeamButton.clicked += () => CreateParty().Forget();
 			_joinTeamButton.clicked += () =>
@@ -67,26 +62,21 @@ namespace FirstLight.Game.Presenters
 					"", confirmButton, true);
 			};
 			_leaveTeamButton.clicked += () => LeaveParty().Forget();
-			_popup.CloseClicked += () => _services.UIService.CloseScreen<PartyPopupPresenter>();
 
 			_friendsOnlineList.makeItem = OnMakeFriendsItem;
 			_friendsOnlineList.bindItem = OnBindFriendsItem;
 		}
 
-		protected override UniTask OnScreenOpen(bool reload)
+		public override void OnScreenOpen(bool reload)
 		{
 			RefreshData();
 
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
-
-			return base.OnScreenOpen(reload);
 		}
 
-		protected override UniTask OnScreenClose()
+		public override void OnScreenClose()
 		{
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
-
-			return base.OnScreenClose();
 		}
 
 		private async UniTaskVoid CreateParty()
@@ -140,7 +130,7 @@ namespace FirstLight.Game.Presenters
 			var partyLobby = _services.FLLobbyService.CurrentPartyLobby;
 			var inParty = partyLobby != null;
 
-			Root.EnableInClassList(USS_PARTY_JOINED, inParty);
+			Element.EnableInClassList(USS_PARTY_JOINED, inParty);
 
 			_yourTeamHeader.text = $"YOUR PARTY ({partyLobby?.Players?.Count ?? 0}/4)";
 			_yourTeamContainer.Clear();

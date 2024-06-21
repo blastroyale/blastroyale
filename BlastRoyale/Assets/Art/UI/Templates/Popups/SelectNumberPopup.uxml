@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement name="Content" style="align-items: stretch;">
+    <Style src="project://database/Assets/Art/UI/Templates/Popups/SelectNumberPopupStyle.uss?fileID=7433441132597879392&amp;guid=ee49f7f2fda7f46db9749c4e20e6a46f&amp;type=3#SelectNumberPopupStyle" />
+    <ui:VisualElement name="Content" class="content">
         <FirstLight.Game.UIElements.LocalizedLabel localization-key="Choose amount of maximum players" name="Subtitle" style="font-size: 32px; color: rgb(132, 117, 166); -unity-text-align: upper-center; padding-bottom: 76px;" />
         <FirstLight.Game.UIElements.SliderIntWithButtons name="Slider" style="height: 436px; background-color: rgb(22, 20, 38); border-top-left-radius: 30px; border-top-right-radius: 30px; border-bottom-right-radius: 30px; border-bottom-left-radius: 30px; align-items: center; padding-left: 30px; padding-right: 30px; padding-top: 30px; padding-bottom: 30px; margin-bottom: 66px;" />
         <FirstLight.Game.UIElements.LocalizedButton localization-key="CONFIRM" name="ConfirmButton" class="button-long button-long--yellow" style="align-self: center;" />

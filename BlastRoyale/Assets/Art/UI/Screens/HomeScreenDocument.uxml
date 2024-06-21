@@ -21,11 +21,11 @@
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBuckCurrency" currency="BlastBuck" class="anim-delay-3 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
-                <ui:VisualElement style="flex-direction: row; margin-bottom: 38px;">
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="PARTY UP" name="SquadUpButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-3 anim-translate anim-translate--left-xl main-button-margin" style="margin-bottom: 5px;">
+                <ui:VisualElement style="flex-direction: row; margin-bottom: 38px;" class="anim-delay-3 anim-translate anim-translate--left-xl">
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/party" name="PartyUpButton" class="sfx-click-forwards button-with-icon button-with-icon--party main-button-margin" style="margin-bottom: 5px;">
                         <ui:VisualElement name="FriendsIcon" class="button-with-icon__icon" />
                     </FirstLight.Game.UIElements.LocalizedButton>
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/friends" name="FriendsButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-3 anim-translate anim-translate--left-xl main-button-margin" style="margin-bottom: 5px;">
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/friends" name="FriendsButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes main-button-margin" style="margin-bottom: 5px;">
                         <ui:VisualElement name="FriendsIcon" class="button-with-icon__icon" />
                     </FirstLight.Game.UIElements.LocalizedButton>
                 </ui:VisualElement>

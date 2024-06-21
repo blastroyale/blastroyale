@@ -27,6 +27,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private VisualTreeAsset _selectMapDocument;
 		[SerializeField, Required] private VisualTreeAsset _selectSquadSizeDocument;
 		[SerializeField, Required] private VisualTreeAsset _selectMutatorsDocument;
+		[SerializeField, Required] private VisualTreeAsset _partyDocument;
 
 		private GenericPopupElement _popup;
 
@@ -54,6 +55,9 @@ namespace FirstLight.Game.Presenters
 					break;
 				case SelectMutatorsPopupView view:
 					SetupPopup(_selectMutatorsDocument, view);
+					break;
+				case PartyPopupView view:
+					SetupPopup(_partyDocument, view);
 					break;
 				default:
 					throw new NotImplementedException($"You need to implement the view type: {Data.View.GetType()}");
@@ -89,6 +93,11 @@ namespace FirstLight.Game.Presenters
 		public static UniTaskVoid OpenSelectMutators(Action<Mutator> onMutatorsSelected, Mutator mutators)
 		{
 			return OpenPopup(new SelectMutatorsPopupView(onMutatorsSelected, mutators), ScriptTerms.UITCustomGames.select_mutators);
+		}
+		
+		public static UniTaskVoid OpenParty()
+		{
+			return OpenPopup(new PartyPopupView(), ScriptTerms.UITHomeScreen.party);
 		}
 
 		public static UniTask Close()

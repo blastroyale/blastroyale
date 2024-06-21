@@ -1,18 +1,3 @@
-.root {
-    background-color: rgba(0, 0, 0, 0.57);
-    align-items: center;
-    justify-content: center;
-}
-
-.generic-popup {
-    width: 1868px;
-    height: 996px;
-}
-
-.generic-popup__content {
-    flex-direction: row;
-}
-
 .category-title {
     font-size: 32px;
     color: rgb(255, 255, 255);
@@ -33,8 +18,6 @@
     padding-right: 28px;
     padding-top: 28px;
     padding-bottom: 28px;
-    transition-duration: 0.3s;
-    transition-property: background-color;
     flex-direction: row;
     flex-wrap: wrap-reverse;
 }

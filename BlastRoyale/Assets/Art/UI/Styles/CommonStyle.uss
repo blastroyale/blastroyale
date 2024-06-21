@@ -646,40 +646,43 @@
     border-left-width: 2px;
 }
 
-.unity-scroller--vertical > .unity-scroller__high-button {
+.unity-scroller__high-button {
     display: none;
 }
 
-.unity-scroller--vertical > .unity-scroller__low-button {
+.unity-scroller__low-button {
     display: none;
-}
-
-.unity-scroller--vertical {
-    border-width: 0;
-    width: 12px;
-    right: 20px;
-}
-
-.unity-scroller--vertical > .unity-scroller__slider {
-    border-width: 0;
-    width: 100%;
-    margin-top: 70px;
-    margin-bottom: 70px;
-}
-
-.unity-scroller--vertical .unity-base-slider__tracker {
-    border-width: 0;
-    width: 100%;
-    background-color: rgb(80, 35, 141);
-    border-radius: 10px;
 }
 
 .unity-scroller--vertical .unity-base-slider__dragger {
     border-width: 0;
-    width: 80%;
-    align-self: center;
+    width: 100%;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 3px;
+    left: 0;
+}
+
+.unity-scroll-view__vertical-scroller {
+    width: 6px;
+    right: initial;
+    border-width: 0;
+}
+
+.unity-scroll-view__vertical-scroller > .unity-scroller__slider {
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    min-width: initial;
+    border-radius: 3px;
+    background-color: #1C1930;
+}
+
+.unity-scroll-view__vertical-scroller .unity-base-slider__tracker {
+    display: none;
+}
+
+.unity-scroll-view__vertical-scroller > .unity-scroller__slider > .unity-slider__input {
+    background-color: initial;
 }
 
 .player-name {
@@ -801,7 +804,7 @@
 .unity-toggle__label {
     flex-grow: 1;
     flex-shrink: 0;
-    font-size: 32px;
+    font-size: 35px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);

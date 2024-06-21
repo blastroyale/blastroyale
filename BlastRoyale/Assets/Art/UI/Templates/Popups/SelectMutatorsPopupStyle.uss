@@ -1,3 +1,7 @@
+.content {
+    width: 1187px;
+}
+
 .maps-scroller {
     border-top-left-radius: 27px;
     border-top-right-radius: 27px;

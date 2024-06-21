@@ -33,7 +33,6 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.ResolveServices();
 
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
-			header.SetTitle(ScriptLocalization.UITCustomGames.browse_games);
 			header.backClicked += Data.BackClicked;
 
 			Root.Q("MatchSettings").Required().AttachView(this, out _matchSettingsView);

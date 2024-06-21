@@ -52,3 +52,23 @@
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
+
+.match-settings__content .unity-scroll-view__content-container {
+    flex-grow: 1;
+}
+
+#MutatorsToggle {
+    display: none;
+}
+
+#Mutators {
+    display: none;
+}
+
+#FilterWeaponsToggle {
+    display: none;
+}
+
+#FilterWeapons {
+    display: none;
+}

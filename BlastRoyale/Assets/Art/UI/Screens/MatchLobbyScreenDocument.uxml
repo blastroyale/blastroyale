@@ -4,9 +4,7 @@
     <ui:VisualElement name="root" class="fill-parent" style="align-items: center; justify-content: center;">
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
             <ui:VisualElement name="PlayersContainer" class="players-container">
-                <ui:Label text="Squeazer" class="player">
-                    <ui:VisualElement class="player__crown" style="flex-grow: 1;" />
-                </ui:Label>
+                <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITCustomGames/lobby_code" show-copy-button="true" name="LobbyCode" value="ABC8ET" class="lobby-code" />
             <ui:Instance template="MatchSettings" name="MatchSettings" />

@@ -169,6 +169,7 @@
     --sprite-home__icon-notification: url('/Assets/Art/UI/Sprites/Home/icon-notification.png');
     --sprite-home__icon-party: url('/Assets/Art/UI/Sprites/Home/icon-party.png');
     --sprite-home__icon-player-blue: url('/Assets/Art/UI/Sprites/Home/icon-player-blue.png');
+    --sprite-home__icon-plus: url('/Assets/Art/UI/Sprites/Home/icon-plus.png');
     --sprite-home__icon-profilepicture: url('/Assets/Art/UI/Sprites/Home/icon-profilepicture.png');
     --sprite-home__icon-questionmark: url('/Assets/Art/UI/Sprites/Home/icon-questionmark.png');
     --sprite-home__icon-settings: url('/Assets/Art/UI/Sprites/Home/icon-settings.png');
@@ -1188,6 +1189,12 @@
     background-image: var(--sprite-home__icon-player-blue);
     width: 549px;
     height: 599px;
+}
+
+.sprite-home__icon-plus {
+    background-image: var(--sprite-home__icon-plus);
+    width: 51px;
+    height: 50px;
 }
 
 .sprite-home__icon-profilepicture {

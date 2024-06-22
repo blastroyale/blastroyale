@@ -83,9 +83,28 @@ namespace FirstLight.Game.Presenters
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 
 			_playersContainer.Clear();
-			foreach (var player in matchLobby.Players)
+
+			for (var i = 0; i < matchLobby.MaxPlayers; i++)
 			{
-				_playersContainer.Add(CreatePlayerElement(player));
+				if (i < matchLobby.Players.Count)
+				{
+					var player = matchLobby.Players[i];
+					var isHost = player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId;
+					var isLocal = player.Id == AuthenticationService.Instance.PlayerId;
+					var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal);
+				
+					_playersContainer.Add(playerElement);
+
+					if (!isLocal)
+					{
+						playerElement.userData = player;
+						playerElement.clicked += () => OnPlayerClicked(playerElement);
+					}
+				}
+				else
+				{
+					_playersContainer.Add(new MatchLobbyPlayerElement(null, false, false));
+				}
 			}
 
 			_matchSettingsView.SetMatchSettings(matchLobby.GetMatchSettings(), matchLobby.IsLocalPlayerHost());
@@ -108,38 +127,7 @@ namespace FirstLight.Game.Presenters
 			await _services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData);
 		}
 
-		private VisualElement CreatePlayerElement(Player player)
-		{
-			var playerElement = new Button
-			{
-				text = player.GetPlayerName(),
-				userData = player
-			};
-			playerElement.AddToClassList("player");
-
-			// Host
-			if (player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId)
-			{
-				playerElement.AddToClassList("player--host");
-				var crown = new VisualElement();
-				playerElement.Add(crown);
-				crown.AddToClassList("player__crown");
-			}
-
-			// Local player
-			if (player.Id == AuthenticationService.Instance.PlayerId)
-			{
-				playerElement.AddToClassList("player--local");
-			}
-			else
-			{
-				playerElement.clicked += () => OnPlayerClicked(playerElement);
-			}
-
-			return playerElement;
-		}
-
-		private void OnPlayerClicked(Button source)
+		private void OnPlayerClicked(VisualElement source)
 		{
 			var player = (Player) source.userData;
 			var isFriend = FriendsService.Instance.GetFriendByID(player.Id) != null;

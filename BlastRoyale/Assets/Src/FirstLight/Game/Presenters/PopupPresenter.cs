@@ -64,12 +64,6 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		protected override UniTask OnScreenOpen(bool reload)
-		{
-			_popup.AnimatePing(1.1f);
-			return base.OnScreenOpen(reload);
-		}
-
 		public static UniTaskVoid OpenJoinWithCode(Action<string> onJoin)
 		{
 			return OpenPopup(new JoinWithCodePopupView(onJoin), ScriptTerms.UITCustomGames.join_with_code);

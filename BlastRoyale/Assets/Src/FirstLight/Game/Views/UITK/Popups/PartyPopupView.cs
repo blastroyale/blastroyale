@@ -8,6 +8,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.UIService;
+using I2.Loc;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
@@ -16,6 +17,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK.Popups
 {
+	/// <summary>
+	/// Handles party popup logic - showing your current party / party code etc...
+	/// </summary>
 	public class PartyPopupView : UIView
 	{
 		private const string USS_PARTY_JOINED = "party-joined";
@@ -38,9 +42,9 @@ namespace FirstLight.Game.Views.UITK.Popups
 		{
 			_services = MainInstaller.ResolveServices();
 
-			_createTeamButton = Element.Q<Button>("CreateTeamButton").Required();
-			_joinTeamButton = Element.Q<Button>("JoinTeamButton").Required();
-			_leaveTeamButton = Element.Q<Button>("LeaveTeamButton").Required();
+			_createTeamButton = Element.Q<Button>("CreatePartyButton").Required();
+			_joinTeamButton = Element.Q<Button>("JoinPartyButton").Required();
+			_leaveTeamButton = Element.Q<Button>("LeavePartyButton").Required();
 			_friendsOnlineList = Element.Q<ListView>("FriendsOnlineList").Required();
 			_yourTeamHeader = Element.Q<Label>("YourTeamLabel").Required();
 			_friendsHeader = Element.Q<Label>("FriendsOnline").Required();
@@ -51,17 +55,10 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_createTeamButton.clicked += () => CreateParty().Forget();
 			_joinTeamButton.clicked += () =>
 			{
-				// TODO: Temporary
-				var confirmButton = new GenericDialogButton<string>
-				{
-					ButtonText = "JOIN",
-					ButtonOnClick = code => JoinParty(code).Forget()
-				};
-				_services.GenericDialogService.OpenInputDialog("JOIN ROOM",
-					"CODE",
-					"", confirmButton, true);
+				PopupPresenter.OpenJoinWithCode(code => JoinParty(code).Forget()).Forget();
 			};
 			_leaveTeamButton.clicked += () => LeaveParty().Forget();
+			Element.Q<LocalizedButton>("CopyCodeButton").clicked += OnCopyCodeClicked;
 
 			_friendsOnlineList.makeItem = OnMakeFriendsItem;
 			_friendsOnlineList.bindItem = OnBindFriendsItem;
@@ -99,7 +96,6 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		private void OnLobbyChanged(ILobbyChanges lobbyChanges)
 		{
-			// TODO: This could be done smarter by just refreshing what changed
 			RefreshData();
 		}
 
@@ -115,14 +111,14 @@ namespace FirstLight.Game.Views.UITK.Popups
 			((FriendListElement) element)
 				.SetPlayerName(relationship.Member.Profile.Name)
 				.SetStatus(relationship.Member.Presence.GetActivity<FriendActivity>()?.Status, true)
-				.SetMainAction("INVITE", _services.FLLobbyService.CurrentPartyLobby == null
+				.SetMainAction(ScriptLocalization.UITFriends.invite, _services.FLLobbyService.CurrentPartyLobby == null
 					? null
 					: () =>
 					{
 						_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
 						RefreshData();
 					}, false)
-				.SetMoreActions(ve => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget());
+				.SetMoreActions(_ => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget());
 		}
 
 		private void RefreshData()
@@ -132,14 +128,14 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 			Element.EnableInClassList(USS_PARTY_JOINED, inParty);
 
-			_yourTeamHeader.text = $"YOUR PARTY ({partyLobby?.Players?.Count ?? 0}/4)";
+			_yourTeamHeader.text = string.Format(ScriptLocalization.UITParty.your_party, partyLobby?.Players?.Count ?? 0, 4);
 			_yourTeamContainer.Clear();
 
 			if (inParty)
 			{
 				_teamCodeLabel.text = _services.FLLobbyService.CurrentPartyLobby.LobbyCode;
 
-				foreach (var partyMember in partyLobby.Players)
+				foreach (var partyMember in partyLobby.Players!)
 				{
 					if (partyMember.Id == AuthenticationService.Instance.PlayerId) continue;
 					_yourTeamContainer.Add(new FriendListElement(partyMember.GetPlayerName()));
@@ -150,9 +146,13 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_yourTeamContainer.Add(new FriendListElement(AuthenticationService.Instance.PlayerName));
 
 			// TODO mihak: Add invited friends
-
 			_friendsOnlineList.itemsSource = _friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToList();
-			_friendsHeader.text = $"FRIENDS ONLINE ({_friends.Count})";
+			_friendsHeader.text = string.Format(ScriptLocalization.UITParty.online_friends, _friends.Count);
+		}
+
+		private void OnCopyCodeClicked()
+		{
+			UIUtils.SaveToClipboard(_services.FLLobbyService.CurrentPartyLobby.LobbyCode);
 		}
 	}
 }

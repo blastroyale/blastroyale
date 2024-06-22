@@ -2463,6 +2463,17 @@ namespace I2.Loc
 			public static string wins_the_match 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/wins_the_match"); } }
 		}
 
+		public static class UITParty
+		{
+			public static string create_party 		{ get{ return LocalizationManager.GetTranslation ("UITParty/create_party"); } }
+			public static string invite_description 		{ get{ return LocalizationManager.GetTranslation ("UITParty/invite_description"); } }
+			public static string join_party 		{ get{ return LocalizationManager.GetTranslation ("UITParty/join_party"); } }
+			public static string leave_party 		{ get{ return LocalizationManager.GetTranslation ("UITParty/leave_party"); } }
+			public static string online_friends 		{ get{ return LocalizationManager.GetTranslation ("UITParty/online_friends"); } }
+			public static string party_invite 		{ get{ return LocalizationManager.GetTranslation ("UITParty/party_invite"); } }
+			public static string your_party 		{ get{ return LocalizationManager.GetTranslation ("UITParty/your_party"); } }
+		}
+
 		public static class UITProfileScreen
 		{
 			public static string profile 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/profile"); } }
@@ -5163,6 +5174,17 @@ namespace I2.Loc
 		    public const string select_dropzone = "UITMatchmaking/select_dropzone";
 		    public const string squad = "UITMatchmaking/squad";
 		    public const string wins_the_match = "UITMatchmaking/wins_the_match";
+		}
+
+		public static class UITParty
+		{
+		    public const string create_party = "UITParty/create_party";
+		    public const string invite_description = "UITParty/invite_description";
+		    public const string join_party = "UITParty/join_party";
+		    public const string leave_party = "UITParty/leave_party";
+		    public const string online_friends = "UITParty/online_friends";
+		    public const string party_invite = "UITParty/party_invite";
+		    public const string your_party = "UITParty/your_party";
 		}
 
 		public static class UITProfileScreen

@@ -1,13 +1,13 @@
-.team-invite {
-    width: 1084px;
-    height: 685px;
+.generic-popup {
+    width: 1017px;
+    height: 611px;
 }
 
 .generic-popup__content {
     justify-content: space-between;
     align-items: center;
-    padding-top: 71px;
-    padding-bottom: 100px;
+    padding-top: 42px;
+    padding-bottom: 69px;
 }
 
 .team-invite__horizontal-group {

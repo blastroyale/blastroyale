@@ -7,26 +7,18 @@
 }
 
 .container-your-team {
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    border-bottom-left-radius: 30px;
+    border-radius: 30px;
     background-color: rgb(22, 20, 38);
     min-height: 162px;
     max-height: 340px;
-    padding-left: 28px;
-    padding-right: 28px;
-    padding-top: 28px;
-    padding-bottom: 28px;
+    padding: 28px;
     flex-direction: row;
     flex-wrap: wrap-reverse;
 }
 
 .container-online-friends {
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    border-bottom-left-radius: 30px;
+    border-radius: 30px;
+    padding: 28px;
     background-color: rgb(22, 20, 38);
     flex-grow: 1;
 }
@@ -41,11 +33,11 @@
     background-color: rgb(64, 169, 28);
 }
 
-.party-joined #CreateTeamButton {
+.party-joined #CreatePartyButton {
     display: none;
 }
 
-.party-joined #JoinTeamButton {
+.party-joined #JoinPartyButton {
     display: none;
 }
 
@@ -53,22 +45,32 @@
     display: flex;
 }
 
-.party-joined #LeaveTeamButton {
+.party-joined #LeavePartyButton {
     display: flex;
 }
 
 .container-code {
     height: 296px;
     background-color: rgb(22, 20, 38);
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    border-bottom-left-radius: 30px;
+    border-radius: 30px;
     align-items: center;
     justify-content: center;
     display: none;
+    width: 465px;
 }
 
 .container-your-team > .friend-list-element {
     width: 380px;
+}
+
+.content {
+    flex-direction: row;
+    height: 825px;
+    width: 1678px;
+}
+
+.sidebar {
+    width: 441px;
+    padding-top: 65px;
+    align-items: center;
 }

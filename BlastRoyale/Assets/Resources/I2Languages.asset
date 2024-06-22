@@ -29058,6 +29058,107 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/no_lobbies
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Oh-oh, looks like no lobbies were found.
+
+        Try creating one!'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/party_invite
+      TermType: 0
+      Description: 
+      Languages:
+      - PARTY INVITE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/invite_description
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} has invited you\nto join their party!'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/your_party
+      TermType: 0
+      Description: 
+      Languages:
+      - YOUR PARTY ({0}/{1})
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/online_friends
+      TermType: 0
+      Description: 
+      Languages:
+      - ONLINE FRIENDS ({0})
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/create_party
+      TermType: 0
+      Description: 
+      Languages:
+      - CREATE PARTY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/join_party
+      TermType: 0
+      Description: 
+      Languages:
+      - JOIN PARTY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/leave_party
+      TermType: 0
+      Description: 
+      Languages:
+      - LEAVE PARTY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/copy_party_code
+      TermType: 0
+      Description: 
+      Languages:
+      - COPY PARTY CODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -29082,7 +29183,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1719006937501
+    Google_LastUpdatedVersion: 1719059563077
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

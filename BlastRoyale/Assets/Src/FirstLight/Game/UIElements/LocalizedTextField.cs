@@ -1,3 +1,4 @@
+using FirstLight.Game.Utils;
 using I2.Loc;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -38,21 +39,14 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void EnableCopyButton(bool enable)
 		{
+			showCopyButton = enable;
 			if (enable && _copyButton == null)
 			{
 				_copyButton = new ImageButton {name = "copy-button"};
 				Add(_copyButton);
 				_copyButton.AddToClassList("unity-text-field__copy-button");
-
-				_copyButton.clicked += () =>
-				{
-					var te = new TextEditor
-					{
-						text = value
-					};
-					te.SelectAll();
-					te.Copy();
-				};
+				
+				_copyButton.clicked += () => UIUtils.SaveToClipboard(value);
 			}
 			else if (!enable && _copyButton != null)
 			{

@@ -35,8 +35,8 @@ namespace FirstLight.Game.UIElements
 		public ScreenHeaderElement()
 		{
 			AddToClassList(USS_BLOCK);
-			AddToClassList("anim-delay-0");
-			AddToClassList("anim-fade");
+			// AddToClassList("anim-delay-0");
+			// AddToClassList("anim-fade");
 
 			// This doesn't seem to work at the moment - picking mode has to be manually set to Ignore
 			// on the Header element in UXML if you want to have interactive elements behind it.

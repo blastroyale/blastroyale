@@ -1,17 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Styles/FriendListElementStyle.uss?fileID=7433441132597879392&amp;guid=225ed0ca899d471084bae92a2bb08119&amp;type=3#FriendListElementStyle" />
-    <Style src="project://database/Assets/Art/UI/Screens/PartyPopupStyle.uss?fileID=7433441132597879392&amp;guid=b21c5cef5e25b40df84326e95bae7540&amp;type=3#PartyPopupStyle" />
-    <ui:VisualElement name="Content" style="flex-direction: row; height: 897px; width: 1868px;">
-        <ui:VisualElement name="Sidebar" style="width: 512px; padding-top: 65px; align-items: stretch;">
+    <Style src="project://database/Assets/Art/UI/Templates/Popups/PartyPopupStyle.uss?fileID=7433441132597879392&amp;guid=b21c5cef5e25b40df84326e95bae7540&amp;type=3#PartyPopupStyle" />
+    <ui:VisualElement name="Content" class="content">
+        <ui:VisualElement name="Sidebar" class="sidebar">
             <ui:VisualElement name="CodeContainer" class="container-code">
                 <ui:Label tabindex="-1" text="Your team code" parse-escape-sequences="true" display-tooltip-when-elided="true" name="YourCodeLabel" style="font-size: 40px; color: rgb(132, 117, 166); -unity-text-align: upper-center;" />
                 <ui:Label text="E2G5" name="TeamCode" style="color: rgb(248, 199, 46); font-size: 72px; -unity-text-align: upper-center;" />
-                <ui:Button text="COPY TEAM CODE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CopyCodeButton" class="button-long" />
+                <FirstLight.Game.UIElements.LocalizedButton name="CopyCodeButton" localization-key="UITParty/copy_party_code" class="button-long" />
             </ui:VisualElement>
-            <ui:Button text="CREATE TEAM" name="CreateTeamButton" class="button-long button-long--yellow" style="align-self: center;" />
-            <ui:Button text="JOIN TEAM" name="JoinTeamButton" class="button-long" style="align-self: center;" />
+            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/create_party" name="CreatePartyButton" class="button-long button-long--yellow" style="align-self: center;" />
+            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/join_party" name="JoinPartyButton" class="button-long" style="align-self: center;" />
             <ui:VisualElement name="Spacer" style="flex-grow: 1;" />
-            <ui:Button text="LEAVE TEAM" name="LeaveTeamButton" class="button-long button-long--red" style="align-self: center; display: none;" />
+            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/leave_party" name="LeavePartyButton" class="button-long button-long--red" />
         </ui:VisualElement>
         <ui:VisualElement name="MainContent" style="flex-grow: 1; margin-left: 39px;">
             <ui:Label tabindex="-1" text="YOUR PARTY (0)" name="YourTeamLabel" class="category-title" />

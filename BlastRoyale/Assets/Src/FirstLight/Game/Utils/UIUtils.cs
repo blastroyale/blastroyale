@@ -276,5 +276,18 @@ namespace FirstLight.Game.Utils
 		{
 			element.transform.position = WorldPositionToPanel(element.panel, worldPosition);
 		}
+
+		/// <summary>
+		/// Copies the provided string to the system clipboard.
+		/// </summary>
+		public static void SaveToClipboard(string value)
+		{
+			var te = new TextEditor
+			{
+				text = value
+			};
+			te.SelectAll();
+			te.Copy();
+		}
 	}
 }

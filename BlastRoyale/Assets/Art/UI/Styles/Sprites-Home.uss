@@ -65,6 +65,7 @@
     --sprite-home__button-grey: url('/Assets/Art/UI/Sprites/Home/button-grey.png');
     --sprite-home__button-info: url('/Assets/Art/UI/Sprites/Home/button-info.png');
     --sprite-home__button-info-pressed: url('/Assets/Art/UI/Sprites/Home/button-info-pressed.png');
+    --sprite-home__button-info-round: url('/Assets/Art/UI/Sprites/Home/button-info-round.png');
     --sprite-home__button-long-darkblue: url('/Assets/Art/UI/Sprites/Home/button-long-darkblue.png');
     --sprite-home__button-long-darkblue-pressed: url('/Assets/Art/UI/Sprites/Home/button-long-darkblue-pressed.png');
     --sprite-home__button-long-disabled: url('/Assets/Art/UI/Sprites/Home/button-long-disabled.png');
@@ -595,6 +596,12 @@
 
 .sprite-home__button-info:active {
     background-image: var(--sprite-home__button-info-pressed);
+}
+
+.sprite-home__button-info-round {
+    background-image: var(--sprite-home__button-info-round);
+    width: 67px;
+    height: 65px;
 }
 
 .sprite-home__button-long-darkblue {

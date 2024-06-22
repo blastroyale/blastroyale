@@ -6,10 +6,7 @@
     align-items: center;
     padding-left: 25px;
     padding-right: 25px;
-    margin-top: 15px;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    margin-left: 15px;
+    margin: 15px;
     transition-duration: 0.1s;
     border-top-width: 8px;
     border-right-width: 8px;

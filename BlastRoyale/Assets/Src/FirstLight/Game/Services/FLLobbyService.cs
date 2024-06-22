@@ -375,7 +375,7 @@ namespace FirstLight.Game.Services
 
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Sets the party host to the given player ID.
 		/// </summary>
@@ -403,7 +403,7 @@ namespace FirstLight.Game.Services
 
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Sets the party host to the given player ID.
 		/// </summary>
@@ -478,6 +478,7 @@ namespace FirstLight.Game.Services
 		{
 			if (changes.LobbyDeleted)
 			{
+				_notificationService.QueueNotification("Match lobby was closed by the host.");
 				CurrentMatchLobby = null;
 				return;
 			}

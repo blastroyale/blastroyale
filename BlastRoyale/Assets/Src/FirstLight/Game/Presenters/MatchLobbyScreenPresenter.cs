@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -10,7 +9,6 @@ using FirstLight.UIService;
 using I2.Loc;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
-using Unity.Services.Friends.Exceptions;
 using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
 using Player = Unity.Services.Lobbies.Models.Player;
@@ -41,7 +39,7 @@ namespace FirstLight.Game.Presenters
 
 			_playersContainer = Root.Q("PlayersContainer").Required();
 			Root.Q("MatchSettings").Required().AttachView(this, out _matchSettingsView);
-			
+
 			_lobbyCode = Root.Q<LocalizedTextField>("LobbyCode").Required();
 			_lobbyCode.value = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
 		}
@@ -67,9 +65,16 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
-		private void OnLobbyChanged(ILobbyChanges obj)
+		private void OnLobbyChanged(ILobbyChanges changes)
 		{
-			RefreshData();
+			if (changes.LobbyDeleted)
+			{
+				_services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData).Forget();
+			}
+			else
+			{
+				RefreshData();
+			}
 		}
 
 		private void RefreshData()

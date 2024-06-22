@@ -5,10 +5,10 @@
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="safe-area">
             <ui:VisualElement name="ListContainer" class="match-list-container" style="align-items: stretch;">
                 <ui:VisualElement name="ListHeaders" class="match-list-container__headers  anim-delay-0 anim-translate anim-translate--right-xxxl">
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/name" name="NameTitle" style="color: rgb(255, 255, 255);" />
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/mode" name="ModeTitle" style="color: rgb(255, 255, 255);" />
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/players" name="PlayersTitle" style="color: rgb(255, 255, 255);" />
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/status" name="StatusTitle" style="color: rgb(255, 255, 255);" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/name" name="NameTitle" class="match-lobby-item__name match-list-container__header-item" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/mode" name="ModeTitle" class="match-lobby-item__mode match-list-container__header-item" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/players" name="PlayersTitle" class="match-lobby-item__players match-list-container__header-item" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/status" name="StatusTitle" class="match-lobby-item__status match-list-container__header-item" />
                 </ui:VisualElement>
                 <ui:ListView name="GamesList" fixed-item-height="118" show-bound-collection-size="false" class=" anim-delay-0 anim-translate anim-translate--right-xxxl" style="flex-grow: 1;" />
                 <FirstLight.Game.UIElements.DotsLoadingElement name="Loader" style="position: absolute; top: 337px; scale: 2.5 2.5; align-self: center;" />

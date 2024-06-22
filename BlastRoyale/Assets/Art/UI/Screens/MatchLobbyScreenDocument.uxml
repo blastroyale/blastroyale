@@ -8,7 +8,7 @@
                     <ui:VisualElement class="player__crown" style="flex-grow: 1;" />
                 </ui:Label>
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="LOBBY CODE" show-copy-button="true" name="LobbyCode" value="ABC8ET" style="position: absolute; width: 457px; top: 50px; right: 791px; flex-direction: row; align-items: center;" />
+            <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITCustomGames/lobby_code" show-copy-button="true" name="LobbyCode" value="ABC8ET" class="lobby-code" />
             <ui:Instance template="MatchSettings" name="MatchSettings" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" />

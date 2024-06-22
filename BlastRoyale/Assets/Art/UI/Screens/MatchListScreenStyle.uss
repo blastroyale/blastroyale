@@ -10,15 +10,71 @@
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
     padding-left: 38px;
-    padding-right: 28px;
+    padding-right: 16px;
+    overflow: hidden;
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 16px;
 }
 
 .match-lobby-item > Label {
+    overflow: hidden;
+    -unity-text-align: middle-center;
+    -unity-text-overflow-position: end;
+    text-overflow: ellipsis;
+}
+
+.match-lobby-item > LocalizedLabel {
+    overflow: hidden;
+    -unity-text-align: middle-center;
+    -unity-text-overflow-position: end;
+    text-overflow: ellipsis;
+}
+
+.match-lobby-item__name {
+    flex-grow: 2;
+    width: 0;
+}
+
+.match-lobby-item__mode {
     flex-grow: 1;
     width: 0;
 }
 
+.match-lobby-item__players {
+    flex-grow: 1;
+    width: 0;
+}
+
+.match-lobby-item__status {
+    flex-grow: 1;
+    width: 0;
+}
+
+.match-lobby-item__action-button {
+    margin-bottom: 0;
+    margin-left: 45px;
+    margin-right: 8px;
+}
+
+.match-lobby-item__info-button {
+    width: 67px;
+    height: 65px;
+    background-image: var(--sprite-home__button-info-round);
+    transition-property: scale;
+    transition-duration: 0.1s;
+}
+
+.match-lobby-item__info-button:active {
+    scale: 0.9 0.9;
+}
+
 .match-lobby-item__action-background {
+    position: absolute;
+    background-color: rgb(22, 20, 38);
+    right: 0;
+    width: 414px;
+    height: 330px;
+    rotate: 16deg;
 }
 
 .safe-area {
@@ -38,14 +94,13 @@
 
 .match-list-container__headers {
     flex-direction: row;
-    padding-right: 342px;
+    padding-right: 371px;
     padding-left: 47px;
     margin-bottom: 20px;
+    color: rgb(255, 255, 255);
 }
 
-.match-list-container__headers > LocalizedLabel {
-    flex-grow: 1;
-    width: 0;
+.match-list-container__header-item {
     font-size: 32px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;

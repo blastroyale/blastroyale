@@ -29071,6 +29071,39 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/in_lobby
+      TermType: 0
+      Description: 
+      Languages:
+      - IN LOBBY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/in_game
+      TermType: 0
+      Description: 
+      Languages:
+      - IN GAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/lobby_code
+      TermType: 0
+      Description: 
+      Languages:
+      - LOBBY CODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITParty/party_invite
       TermType: 0
       Description: 
@@ -29183,7 +29216,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1719059563077
+    Google_LastUpdatedVersion: 1719083084001
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using I2.Loc;
 using Unity.Services.Lobbies.Models;
@@ -20,7 +21,7 @@ namespace FirstLight.Game.UIElements
 		private readonly Label _lobbyNameLabel;
 		private readonly Label _lobbyModeLabel;
 		private readonly Label _lobbyPlayersLabel;
-		private readonly LocalizedLabel _lobbyStatus;
+		private readonly LocalizedLabel _lobbyRegion;
 		private readonly LocalizedButton _actionButton;
 		private readonly ImageButton _infoButton;
 
@@ -41,8 +42,8 @@ namespace FirstLight.Game.UIElements
 			_lobbyModeLabel.AddToClassList(USS_MODE);
 			Add(_lobbyPlayersLabel = new Label("1/30"));
 			_lobbyPlayersLabel.AddToClassList(USS_PLAYERS);
-			Add(_lobbyStatus = new LocalizedLabel("IN LOBBY"));
-			_lobbyStatus.AddToClassList(USS_STATUS);
+			Add(_lobbyRegion = new LocalizedLabel("EU"));
+			_lobbyRegion.AddToClassList(USS_STATUS);
 			Add(_actionButton = new LocalizedButton(ScriptTerms.UITCustomGames.join));
 			_actionButton.AddToClassList("button-long");
 			_actionButton.AddToClassList(USS_ACTION_BUTTON);
@@ -64,7 +65,7 @@ namespace FirstLight.Game.UIElements
 
 			_lobbyModeLabel.text = matchSettings.SquadSize.ToString();
 			_lobbyPlayersLabel.text = $"{lobby.Players.Count}/{lobby.MaxPlayers}";
-			_lobbyStatus.text = lobby.IsLocked ? "IN GAME" : "IN LOBBY"; // TODO mihak ?
+			_lobbyRegion.text = lobby.GetMatchRegion().GetPhotonRegionTranslation();
 		}
 
 		public new class UxmlFactory : UxmlFactory<MatchLobbyItemElement>

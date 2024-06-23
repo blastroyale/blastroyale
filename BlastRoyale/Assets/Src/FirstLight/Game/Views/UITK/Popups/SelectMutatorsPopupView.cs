@@ -6,17 +6,22 @@ using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using QuickEye.UIToolkit;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK.Popups
 {
+	/// <summary>
+	/// Shows a list of all available mutators and allows the user to select as many as they want.
+	/// </summary>
 	public class SelectMutatorsPopupView : UIView
 	{
+		[Q("MutatorsScrollView")] private ScrollView _mutatorsScroller;
+		[Q("SelectedMutatorsLabel")] private Label _selectedMutatorsLabel;
+		[Q("ConfirmButton")] private LocalizedButton _confirmButton;
+
 		private readonly Action<Mutator> _onMutatorsSelected;
 		private readonly Mutator _currentMutators;
-
-		private ScrollView _mutatorsScroller;
-		private Label _selectedMutatorsLabel;
 
 		public SelectMutatorsPopupView(Action<Mutator> onMutatorsSelected, Mutator currentMutators)
 		{
@@ -31,7 +36,6 @@ namespace FirstLight.Game.Views.UITK.Popups
 				.Where(m => m != Mutator.None && m != Mutator.HammerTime) // TODO: Remove hammertime when we have weapon filters
 				.ToArray();
 
-			_mutatorsScroller = Element.Q<ScrollView>("MutatorsScrollView").Required();
 			_mutatorsScroller.Clear();
 			foreach (Mutator mutator in options)
 			{
@@ -49,8 +53,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 				LoadMutatorPicture(mutator, element).Forget();
 			}
 
-			Element.Q<LocalizedButton>("ConfirmButton").Required().clicked += OnConfirmClicked;
-			_selectedMutatorsLabel = Element.Q<Label>("SelectedMutatorsLabel").Required();
+			_confirmButton.Required().clicked += OnConfirmClicked;
 			_selectedMutatorsLabel.text = string.Format(ScriptLocalization.UITCustomGames.selected_mutators, GetSelectedMutators().CountSetFlags());
 		}
 

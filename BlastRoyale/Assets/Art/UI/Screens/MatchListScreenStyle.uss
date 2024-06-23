@@ -45,7 +45,7 @@
     width: 0;
 }
 
-.match-lobby-item__status {
+.match-lobby-item__region {
     flex-grow: 1;
     width: 0;
 }
@@ -138,4 +138,8 @@
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-text-align: upper-center;
+}
+
+#ShowAllRegionsToggle {
+    margin-right: 20px;
 }

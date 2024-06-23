@@ -8,11 +8,15 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
+using QuickEye.UIToolkit;
 using Unity.Services.Lobbies.Models;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
+	/// <summary>
+	/// Represents a presenter for the Match List screen.
+	/// </summary>
 	public class MatchListScreenPresenter : UIPresenterData<MatchListScreenPresenter.StateData>
 	{
 		public class StateData
@@ -20,11 +24,14 @@ namespace FirstLight.Game.Presenters
 			public Action BackClicked; // Fucking disgusting
 		}
 
-		private VisualElement _listHeaders;
-		private LocalizedLabel _noLobbiesLabel;
-		private DotsLoadingElement _loader;
-		private ListView _gamesList;
-		private Button _refreshButton;
+		[Q("ListHeaders")] private VisualElement _listHeaders;
+		[Q("NoLobbiesLabel")] private LocalizedLabel _noLobbiesLabel;
+		[Q("Loader")] private DotsLoadingElement _loader;
+		[Q("RefreshButton")] private Button _refreshButton;
+		[Q("GamesList")] private ListView _gamesList;
+		[Q("MatchSettings")] private VisualElement _matchSettings;
+		[Q("JoinWithCodeButton")] private Button _joinWithCodeButton;
+		[Q("ShowAllRegionsToggle")] private LocalizedToggle _allRegionsToggle;
 
 		private MatchSettingsView _matchSettingsView;
 
@@ -39,18 +46,14 @@ namespace FirstLight.Game.Presenters
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
 			header.backClicked += Data.BackClicked;
 
-			Root.Q("MatchSettings").Required().AttachView(this, out _matchSettingsView);
-			_gamesList = Root.Q<ListView>("GamesList").Required();
+			_matchSettings.AttachView(this, out _matchSettingsView);
 			_gamesList.bindItem = BindMatchLobbyItem;
 			_gamesList.makeItem = MakeMatchLobbyItem;
 
-			_listHeaders = Root.Q("ListHeaders").Required();
-			_loader = Root.Q<DotsLoadingElement>("Loader").Required();
-			_noLobbiesLabel = Root.Q<LocalizedLabel>("NoLobbiesLabel").Required();
-			_refreshButton = Root.Q<Button>("RefreshButton").Required();
-
-			Root.Q<Button>("JoinWithCodeButton").clicked += OnJoinWithCodeClicked;
+			_joinWithCodeButton.clicked += OnJoinWithCodeClicked;
 			_refreshButton.clicked += () => RefreshLobbies().Forget();
+
+			_allRegionsToggle.RegisterValueChangedCallback(value => RefreshLobbies().Forget());
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
@@ -69,14 +72,14 @@ namespace FirstLight.Game.Presenters
 			_loader.SetDisplay(true);
 			_noLobbiesLabel.SetDisplay(false);
 			_refreshButton.SetEnabled(false);
-			
+
 			_gamesList.itemsSource = null;
 			_gamesList.RefreshItems();
-			_lobbies = await _services.FLLobbyService.GetPublicMatches();
+			_lobbies = await _services.FLLobbyService.GetPublicMatches(_allRegionsToggle.value);
 			if (gameObject == null) return;
 			_gamesList.itemsSource = _lobbies;
 			_gamesList.RefreshItems();
-			
+
 			_refreshButton.SetEnabled(true);
 			_listHeaders.SetVisibility(_lobbies.Count > 0);
 			_loader.SetDisplay(false);

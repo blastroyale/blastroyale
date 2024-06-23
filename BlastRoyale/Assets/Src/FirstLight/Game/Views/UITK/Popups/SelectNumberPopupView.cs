@@ -2,12 +2,19 @@ using System;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
-using UnityEngine.UIElements;
+using QuickEye.UIToolkit;
 
 namespace FirstLight.Game.Views.UITK.Popups
 {
+	/// <summary>
+	/// Allows the user to select a number within a range.
+	/// </summary>
 	public class SelectNumberPopupView : UIView
 	{
+		[Q("Subtitle")] private LocalizedLabel _subtitle;
+		[Q("Slider")] private SliderIntWithButtons _slider;
+		[Q("ConfirmButton")] private LocalizedButton _confirmButton;
+
 		private readonly Action<int> _onConfirm;
 		private readonly string _subtitleKey;
 		private readonly int _min;
@@ -25,17 +32,14 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		protected override void Attached()
 		{
-			Element.Q<LocalizedLabel>("Subtitle").Localize(_subtitleKey);
+			_subtitle.Localize(_subtitleKey);
 
-			var slider = Element.Q<SliderIntWithButtons>("Slider");
-			slider.lowValue = _min;
-			slider.highValue = _max;
-			slider.value = _currentValue;
+			_slider.lowValue = _min;
+			_slider.highValue = _max;
+			_slider.value = _currentValue;
 
-			Element.Q<LocalizedButton>("ConfirmButton").Required().clicked += () =>
-			{
-				_onConfirm.Invoke(slider.value);
-			};
+			_confirmButton.Required().clicked += () => _onConfirm.Invoke(_slider.value);
+			;
 		}
 	}
 }

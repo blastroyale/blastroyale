@@ -29,6 +29,7 @@ namespace FirstLight.Game.Services
 		public const string KEY_PLAYER_NAME = "player_name";
 
 		public const string KEY_MATCH_SETTINGS = "match_settings";
+		public const string KEY_REGION = "region"; // S1
 
 		/// <summary>
 		/// The party the player is currently in.
@@ -43,7 +44,12 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// The IDs of the players we sent invites to (only persists for the current session).
 		/// </summary>
-		public IReadOnlyList<string> SentInvites => _sentInvites;
+		public IReadOnlyList<string> SentPartyInvites => _sentPartyInvites;
+		
+		/// <summary>
+		/// The IDs of the players we sent invites to (only persists for the current session).
+		/// </summary>
+		public IReadOnlyList<string> SentMatchInvites => _sentMatchInvites;
 
 		/// <summary>
 		/// The custom game the player is currently in.
@@ -60,12 +66,16 @@ namespace FirstLight.Game.Services
 
 		private readonly IGameDataProvider _dataProvider;
 		private readonly NotificationService _notificationService;
-		private readonly List<string> _sentInvites = new ();
+		private readonly LocalPrefsService _localPrefsService;
+		private readonly List<string> _sentPartyInvites = new ();
+		private readonly List<string> _sentMatchInvites = new ();
 
-		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider, NotificationService notificationService)
+		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider, NotificationService notificationService,
+							  LocalPrefsService localPrefsService)
 		{
 			_dataProvider = dataProvider;
 			_notificationService = notificationService;
+			_localPrefsService = localPrefsService;
 
 			Tick().Forget();
 
@@ -145,7 +155,7 @@ namespace FirstLight.Game.Services
 			{
 				FLog.Info($"Sending party invite to {playerID}");
 				await FriendsService.Instance.MessageAsync(playerID, FriendMessage.CreatePartyInvite(CurrentPartyLobby.LobbyCode));
-				_sentInvites.Add(playerID);
+				_sentPartyInvites.Add(playerID);
 				FLog.Info("Party invite sent successfully!");
 			}
 			catch (FriendsServiceException e)
@@ -191,36 +201,20 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <summary>
-		/// Sets the party host to the given player ID.
-		/// </summary>
-		public async UniTask UpdatePartyHost(string playerID)
-		{
-			Assert.IsNotNull(CurrentPartyLobby, "Trying to update the party host but the player is not in one!");
-
-			var options = new UpdateLobbyOptions
-			{
-				HostId = playerID
-			};
-
-			try
-			{
-				FLog.Info($"Updating party host to: {playerID}");
-				CurrentPartyLobby = await LobbyService.Instance.UpdateLobbyAsync(CurrentPartyLobby.Id, options);
-				FLog.Info("Party host updated successfully!");
-			}
-			catch (LobbyServiceException e)
-			{
-				FLog.Warn("Error updating party host!", e);
-				_notificationService.QueueNotification($"Could not update party host ({(int) e.Reason})");
-			}
-		}
-
-		/// <summary>
 		/// Queries for public lobbies.
 		/// </summary>
-		public async UniTask<List<Lobby>> GetPublicMatches()
+		public async UniTask<List<Lobby>> GetPublicMatches(bool allRegions = false)
 		{
-			var options = new QueryLobbiesOptions();
+			var options = new QueryLobbiesOptions
+			{
+				Filters = new List<QueryFilter>()
+			};
+
+			if (!allRegions)
+			{
+				// TODO: Should we be fetching the region from prefs?
+				options.Filters.Add(new QueryFilter(QueryFilter.FieldOptions.S1, _localPrefsService.ServerRegion.Value, QueryFilter.OpOptions.EQ));
+			}
 
 			try
 			{
@@ -249,14 +243,20 @@ namespace FirstLight.Game.Services
 			var lobbyName = matchOptions.ShowCreatorName
 				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName)
 				: matchOptions.MapID;
+
+			var data = new Dictionary<string, DataObject>
+			{
+				{KEY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(matchOptions))},
+				{
+					KEY_REGION,
+					new DataObject(DataObject.VisibilityOptions.Public, _localPrefsService.ServerRegion.Value, DataObject.IndexOptions.S1)
+				}
+			};
 			var options = new CreateLobbyOptions
 			{
 				IsPrivate = false,
 				Player = CreateLocalPlayer(),
-				Data = new Dictionary<string, DataObject>
-				{
-					{KEY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(matchOptions))}
-				}
+				Data = data
 			};
 
 			try
@@ -307,6 +307,27 @@ namespace FirstLight.Game.Services
 			}
 
 			return true;
+		}
+		
+		/// <summary>
+		/// Invites a friend to the current party.
+		/// </summary>
+		public async UniTask InviteToMatch(string playerID)
+		{
+			Assert.IsNotNull(CurrentMatchLobby, "Trying to invite a friend to a party but the player is not in one!");
+
+			try
+			{
+				FLog.Info($"Sending match invite to {playerID}");
+				await FriendsService.Instance.MessageAsync(playerID, FriendMessage.CreateMatchInvite(CurrentMatchLobby.LobbyCode));
+				_sentMatchInvites.Add(playerID);
+				FLog.Info("Match invite sent successfully!");
+			}
+			catch (FriendsServiceException e)
+			{
+				FLog.Warn("Error sending match invite!", e);
+				_notificationService.QueueNotification($"Could not send match invite ({(int) e.ErrorCode})");
+			}
 		}
 
 		/// <summary>
@@ -377,31 +398,19 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <summary>
-		/// Sets the party host to the given player ID.
+		/// Sets the match host to the given player ID.
 		/// </summary>
 		public async UniTask<bool> UpdateMatchHost(string playerID)
 		{
-			Assert.IsNotNull(CurrentMatchLobby, "Trying to update the match host but the player is not in one!");
+			return (CurrentMatchLobby = await UpdateHost(playerID, CurrentMatchLobby, "match")) != null;
+		}
 
-			var options = new UpdateLobbyOptions
-			{
-				HostId = playerID
-			};
-
-			try
-			{
-				FLog.Info($"Updating match host to: {playerID}");
-				CurrentPartyLobby = await LobbyService.Instance.UpdateLobbyAsync(CurrentMatchLobby.Id, options);
-				FLog.Info("Match host updated successfully!");
-			}
-			catch (LobbyServiceException e)
-			{
-				FLog.Warn("Error updating match host!", e);
-				_notificationService.QueueNotification($"Could not update match host ({(int) e.Reason})");
-				return false;
-			}
-
-			return true;
+		/// <summary>
+		/// Sets the party host to the given player ID.
+		/// </summary>
+		public async UniTask<bool> UpdatePartyHost(string playerID)
+		{
+			return (CurrentPartyLobby = await UpdateHost(playerID, CurrentPartyLobby, "party")) != null;
 		}
 
 		/// <summary>
@@ -425,6 +434,31 @@ namespace FirstLight.Game.Services
 			}
 
 			return true;
+		}
+
+		private async UniTask<Lobby> UpdateHost(string playerID, Lobby lobby, string type)
+		{
+			Assert.IsNotNull(lobby, $"Trying to update the {type} host but the player is not in one!");
+
+			var options = new UpdateLobbyOptions
+			{
+				HostId = playerID
+			};
+
+			try
+			{
+				FLog.Info($"Updating {type} host to: {playerID}");
+				lobby = await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, options);
+				FLog.Info($"{type} host updated successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn($"Error updating {type} host!", e);
+				_notificationService.QueueNotification($"Could not update {type} host ({(int) e.Reason})");
+				return null;
+			}
+
+			return lobby;
 		}
 
 		private async UniTaskVoid Tick()
@@ -497,7 +531,7 @@ namespace FirstLight.Game.Services
 			// If a player joined check if we sent the invite and remove it
 			foreach (var playerJoined in changes.PlayerJoined.Value)
 			{
-				_sentInvites.Remove(playerJoined.Player.Id);
+				_sentPartyInvites.Remove(playerJoined.Player.Id);
 			}
 
 			changes.ApplyToLobby(CurrentPartyLobby);

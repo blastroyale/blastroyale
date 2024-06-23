@@ -1,4 +1,4 @@
-@import url("unity-theme://default");
+@import url("DefaultTheme.tss");
 
 @import url("/Assets/Art/UI/Styles/Sprites-Home.uss");
 @import url("/Assets/Art/UI/Styles/Sprites-Match.uss");
@@ -14,6 +14,8 @@
 @import url("/Assets/Art/UI/Styles/TooltipStyle.uss");
 @import url("/Assets/Art/UI/Styles/SliderIntWithButtons.uss");
 @import url("/Assets/Art/UI/Screens/DropdownStyle.uss");
+
+
 
 
 

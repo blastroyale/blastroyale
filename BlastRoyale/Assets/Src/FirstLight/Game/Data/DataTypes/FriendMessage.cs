@@ -34,12 +34,12 @@ namespace FirstLight.Game.Data.DataTypes
 			};
 		}
 
-		public static FriendMessage CreateMatchInvite(string partyLobbyID)
+		public static FriendMessage CreateMatchInvite(string matchLobbyID)
 		{
 			return new FriendMessage
 			{
 				MessageType = FriendMessageType.MatchInvite,
-				LobbyID = partyLobbyID
+				LobbyID = matchLobbyID
 			};
 		}
 

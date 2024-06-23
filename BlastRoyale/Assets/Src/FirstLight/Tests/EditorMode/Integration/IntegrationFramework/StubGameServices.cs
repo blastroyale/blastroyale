@@ -103,7 +103,7 @@ namespace FirstLight.Tests.EditorMode
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();
 			TickService = new StubTickService();
-			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, NotificationService);
+			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, NotificationService, LocalPrefsService);
 			CoroutineService = new StubCoroutineService();
 			PartyService = Substitute.For<IPartyService>();
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);

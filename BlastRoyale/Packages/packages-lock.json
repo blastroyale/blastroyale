@@ -105,6 +105,13 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.quickeye.ui-toolkit-plus": {
+      "version": "git@github.com:ErnSur/UI-Toolkit-Plus.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "e954c009b99edad93d3f1144b23eb363be171878"
+    },
     "com.singular": {
       "version": "file:Singular",
       "depth": 0,

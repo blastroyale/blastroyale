@@ -9,6 +9,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.UIService;
 using I2.Loc;
+using QuickEye.UIToolkit;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
@@ -18,21 +19,23 @@ using UnityEngine.UIElements;
 namespace FirstLight.Game.Views.UITK.Popups
 {
 	/// <summary>
-	/// Handles party popup logic - showing your current party / party code etc...
+	/// Allows the user to create or join a party and invite friends.
 	/// </summary>
 	public class PartyPopupView : UIView
 	{
 		private const string USS_PARTY_JOINED = "party-joined";
 
-		private Button _createTeamButton;
-		private Button _joinTeamButton;
-		private Button _leaveTeamButton;
+		[Q("CreatePartyButton")] private Button _createTeamButton;
+		[Q("JoinPartyButton")] private Button _joinTeamButton;
+		[Q("LeavePartyButton")] private Button _leaveTeamButton;
 
-		private Label _teamCodeLabel;
-		private Label _yourTeamHeader;
-		private Label _friendsHeader;
-		private VisualElement _yourTeamContainer;
-		private ListView _friendsOnlineList;
+		[Q("TeamCode")] private Label _teamCodeLabel;
+		[Q("YourTeamLabel")] private Label _yourTeamHeader;
+		[Q("FriendsOnline")] private Label _friendsHeader;
+		[Q("YourTeamContainer")] private VisualElement _yourTeamContainer;
+		[Q("FriendsOnlineList")] private ListView _friendsOnlineList;
+
+		[Q("CopyCodeButton")] private LocalizedButton _copyCodeButton;
 
 		private IGameServices _services;
 
@@ -42,23 +45,14 @@ namespace FirstLight.Game.Views.UITK.Popups
 		{
 			_services = MainInstaller.ResolveServices();
 
-			_createTeamButton = Element.Q<Button>("CreatePartyButton").Required();
-			_joinTeamButton = Element.Q<Button>("JoinPartyButton").Required();
-			_leaveTeamButton = Element.Q<Button>("LeavePartyButton").Required();
-			_friendsOnlineList = Element.Q<ListView>("FriendsOnlineList").Required();
-			_yourTeamHeader = Element.Q<Label>("YourTeamLabel").Required();
-			_friendsHeader = Element.Q<Label>("FriendsOnline").Required();
-
-			_teamCodeLabel = Element.Q<Label>("TeamCode").Required();
-			_yourTeamContainer = Element.Q("YourTeamContainer").Required();
-
 			_createTeamButton.clicked += () => CreateParty().Forget();
 			_joinTeamButton.clicked += () =>
 			{
 				PopupPresenter.OpenJoinWithCode(code => JoinParty(code).Forget()).Forget();
 			};
 			_leaveTeamButton.clicked += () => LeaveParty().Forget();
-			Element.Q<LocalizedButton>("CopyCodeButton").clicked += OnCopyCodeClicked;
+
+			_copyCodeButton.clicked += OnCopyCodeClicked;
 
 			_friendsOnlineList.makeItem = OnMakeFriendsItem;
 			_friendsOnlineList.bindItem = OnBindFriendsItem;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
@@ -7,6 +8,7 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
+using QuickEye.UIToolkit;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Lobbies;
@@ -15,6 +17,9 @@ using Player = Unity.Services.Lobbies.Models.Player;
 
 namespace FirstLight.Game.Presenters
 {
+	/// <summary>
+	/// Represents the presenter for the match lobby screen.
+	/// </summary>
 	public class MatchLobbyScreenPresenter : UIPresenterData<MatchLobbyScreenPresenter.StateData>
 	{
 		public class StateData
@@ -22,25 +27,24 @@ namespace FirstLight.Game.Presenters
 			public MatchListScreenPresenter.StateData MatchListStateData; // Ugly but I don't want to refac state machines
 		}
 
+		[Q("Header")] private ScreenHeaderElement _header;
+		[Q("PlayersContainer")] private VisualElement _playersContainer;
+		[Q("LobbyCode")] private LocalizedTextField _lobbyCode;
+		[Q("MatchSettings")] private VisualElement _matchSettings;
+
 		private IGameServices _services;
-
-		private VisualElement _playersContainer;
-		private LocalizedTextField _lobbyCode;
-
 		private MatchSettingsView _matchSettingsView;
 
 		protected override void QueryElements()
 		{
 			_services = MainInstaller.ResolveServices();
 
-			var header = Root.Q<ScreenHeaderElement>("Header").Required();
+			var header = _header.Required();
 			header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
 			header.backClicked += () => LeaveMatchLobby().Forget();
 
-			_playersContainer = Root.Q("PlayersContainer").Required();
-			Root.Q("MatchSettings").Required().AttachView(this, out _matchSettingsView);
+			_matchSettings.Required().AttachView(this, out _matchSettingsView);
 
-			_lobbyCode = Root.Q<LocalizedTextField>("LobbyCode").Required();
 			_lobbyCode.value = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
 		}
 
@@ -92,7 +96,7 @@ namespace FirstLight.Game.Presenters
 					var isHost = player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId;
 					var isLocal = player.Id == AuthenticationService.Instance.PlayerId;
 					var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal);
-				
+
 					_playersContainer.Add(playerElement);
 
 					if (!isLocal)

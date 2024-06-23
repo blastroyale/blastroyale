@@ -30,6 +30,16 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		}
 
 		/// <summary>
+		/// Gets the quantum server region for this lobby.
+		/// </summary>
+		/// <param name="lobby"></param>
+		/// <returns></returns>
+		public static string GetMatchRegion(this Lobby lobby)
+		{
+			return lobby.Data[FLLobbyService.KEY_REGION].Value;
+		}
+
+		/// <summary>
 		/// Gets the player skin id from the lobby player
 		/// </summary>
 		public static GameId GetPlayerCharacterSkin(this Player player)

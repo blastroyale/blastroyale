@@ -6,13 +6,19 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using Quantum;
+using QuickEye.UIToolkit;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK.Popups
 {
+	/// <summary>
+	/// Shows a list of all available maps and allows the user to select one.
+	/// </summary>
 	public class SelectMapPopupView : UIView
 	{
+		[Q("MapScrollView")] private ScrollView _mapScrollView;
+
 		private readonly Action<string> _onMapSelected;
 		private readonly string _gameModeID;
 		private readonly string _currentMapID;
@@ -36,7 +42,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 				.Select(id => _services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) id))
 				.Where(cfg => !cfg.IsTestMap || Debug.isDebugBuild);
 
-			var mapScroller = Element.Q<ScrollView>("MapScrollView").Required();
+			var mapScroller = _mapScrollView.Required();
 			mapScroller.Clear();
 			foreach (var mapConfig in options)
 			{

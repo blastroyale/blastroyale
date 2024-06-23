@@ -40,19 +40,6 @@
     margin-bottom: 50px;
 }
 
-.unity-text-field:focus > .unity-text-field__label,
-.unity-text-field:focus:hover > .unity-text-field__label,
-.unity-text-field:hover > .unity-text-field__label,
-.unity-base-field:focus:enabled > .unity-base-field__label,
-.unity-text-field__label {
-    -unity-text-align: upper-left;
-    color: rgb(157, 131, 216);
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 2px 4px 0 rgb(0, 0, 0);
-    margin-left: 14px;
-}
-
 .unity-text-field__input {
     background-image: none;
     background-color: rgb(22, 20, 38);
@@ -799,6 +786,7 @@
     align-items: center;
     margin-bottom: 15px;
     margin-top: 15px;
+    flex-direction: row;
 }
 
 .unity-toggle__label {
@@ -838,11 +826,6 @@
     border-top-width: 0;
     border-bottom-width: 0;
     transition-duration: 0.15s;
-}
-
-
-.unity-toggle > .unity-toggle__input:checked > .unity-toggle__checkmark {
-    background-image: initial;
 }
 
 .unity-toggle > .unity-toggle__input:checked {

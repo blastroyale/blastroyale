@@ -16,7 +16,7 @@
                 <ui:VisualElement style="flex-direction: row;">
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCustomGames/join_with_code" name="JoinWithCodeButton" class="button-long anim-delay-0 anim-translate anim-translate--up-m" />
                     <ui:VisualElement style="flex-grow: 1;" />
-                    <FirstLight.Game.UIElements.LocalizedToggle name="ShowAllRegionsToggle" localization-key="UITCustomGames/show_all_regions" />
+                    <FirstLight.Game.UIElements.LocalizedToggle name="ShowAllRegionsToggle" localization-key="UITCustomGames/show_all_regions" class="anim-delay-1 anim-translate anim-translate--up-m" />
                     <ui:Button name="RefreshButton" text="REFRESH" class="button-long anim-delay-0 anim-translate anim-translate--up-m" />
                 </ui:VisualElement>
             </ui:VisualElement>

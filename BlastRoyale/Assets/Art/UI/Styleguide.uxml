@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Styles/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
+    <ui:ScrollView horizontal-scroller-visibility="AlwaysVisible" vertical-scroller-visibility="AlwaysVisible" mode="VerticalAndHorizontal" name="ScrollView" style="position: relative; width: 273px; height: 310px;">
+        <ui:VisualElement style="width: 500px; height: 500px; background-color: rgba(91, 91, 91, 0.53);" />
+    </ui:ScrollView>
+</ui:UXML>

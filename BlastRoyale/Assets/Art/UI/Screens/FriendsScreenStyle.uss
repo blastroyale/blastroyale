@@ -19,10 +19,11 @@
     width: 311px;
     height: 69px;
     -unity-text-align: middle-center;
-    padding-top: 8px;
+    padding-top: 0;
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
+    justify-content: center;
 }
 
 .unity-tab-button--active {
@@ -151,6 +152,13 @@
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-text-align: upper-center;
     padding-top: 200px;
+}
+
+.unity-text-field {
+    flex-direction: column;
+    width: 400px;
+    height: auto;
+    margin-bottom: 50px;
 }
 
 .socials-buttons {

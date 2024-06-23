@@ -45,6 +45,10 @@
     display: flex;
 }
 
+#LeavePartyButton {
+    display: none;
+}
+
 .party-joined #LeavePartyButton {
     display: flex;
 }

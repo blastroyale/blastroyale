@@ -148,11 +148,3 @@
     margin-right: 40px;
     margin-left: 40px;
 }
-
-.unity-text-field {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 400px;
-    height: auto;
-    margin-bottom: 50px;
-}

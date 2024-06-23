@@ -106,7 +106,7 @@
       "dependencies": {}
     },
     "com.quickeye.ui-toolkit-plus": {
-      "version": "git@github.com:ErnSur/UI-Toolkit-Plus.git",
+      "version": "https://github.com/ErnSur/UI-Toolkit-Plus.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},

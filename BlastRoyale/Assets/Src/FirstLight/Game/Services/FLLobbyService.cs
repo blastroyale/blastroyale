@@ -45,7 +45,7 @@ namespace FirstLight.Game.Services
 		/// The IDs of the players we sent invites to (only persists for the current session).
 		/// </summary>
 		public IReadOnlyList<string> SentPartyInvites => _sentPartyInvites;
-		
+
 		/// <summary>
 		/// The IDs of the players we sent invites to (only persists for the current session).
 		/// </summary>
@@ -220,7 +220,7 @@ namespace FirstLight.Game.Services
 			{
 				FLog.Info("Fetching match lobbies.");
 				var queryResponse = await LobbyService.Instance.QueryLobbiesAsync(options);
-				FLog.Info($"Match lobbies found: {queryResponse.Results}");
+				FLog.Info($"Match lobbies found: {queryResponse.Results.Count}");
 				return queryResponse.Results;
 			}
 			catch (LobbyServiceException e)
@@ -308,7 +308,7 @@ namespace FirstLight.Game.Services
 
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Invites a friend to the current party.
 		/// </summary>
@@ -512,7 +512,11 @@ namespace FirstLight.Game.Services
 		{
 			if (changes.LobbyDeleted)
 			{
-				_notificationService.QueueNotification("Match lobby was closed by the host.");
+				if (!CurrentMatchLobby.IsLocalPlayerHost())
+				{
+					_notificationService.QueueNotification("Match lobby was closed by the host.");
+				}
+
 				CurrentMatchLobby = null;
 				return;
 			}

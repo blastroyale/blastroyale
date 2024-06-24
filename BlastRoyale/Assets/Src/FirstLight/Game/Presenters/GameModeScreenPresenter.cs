@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
-using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using Unity.Services.Lobbies;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -71,7 +71,7 @@ namespace FirstLight.Game.Presenters
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
 
-				view.Disabled = slot.Entry.TeamSize < _services.PartyService.GetCurrentGroupSize();
+				view.Disabled = slot.Entry.TeamSize < (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1);
 				view.Selected = _services.GameModeService.SelectedGameMode.Value.Equals(slot);
 
 				_buttonsSlider.Add(button);
@@ -88,7 +88,7 @@ namespace FirstLight.Game.Presenters
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
 			customGameView.SetData("CustomGameButton", GetVisibleClass(orderNumber++), gameModeInfo);
 			customGameView.Clicked += OnCustomGameClicked;
-			customGameView.Disabled = _services.PartyService.HasParty.Value;
+			customGameView.Disabled = _services.FLLobbyService.CurrentPartyLobby != null;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
 		}
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_services.GameModeService.Slots.Observe(OnSlotUpdated);
 			_services.GameModeService.SelectedGameMode.Observe(OnGameModeUpdated);
-			_services.PartyService.Members.Observe(OnPartyMembersChanged);
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
 			return base.OnScreenOpen(reload);
 		}
 
@@ -112,7 +112,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_services.GameModeService.Slots.StopObserving(OnSlotUpdated);
 			_services.GameModeService.SelectedGameMode.StopObserving(OnGameModeUpdated);
-			_services.PartyService.Members.StopObserving(OnPartyMembersChanged);
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
 			return base.OnScreenClose();
 		}
 
@@ -132,19 +132,15 @@ namespace FirstLight.Game.Presenters
 		{
 			_buttonViews[index].SetData(current);
 		}
-
-		private void OnPartyMembersChanged(int index, PartyMember before, PartyMember after, ObservableUpdateType type)
+		
+		
+		private void OnLobbyChanged(ILobbyChanges changes)
 		{
-			if (type != ObservableUpdateType.Added && type != ObservableUpdateType.Removed)
-			{
-				return;
-			}
-
 			foreach (var view in _buttonViews)
 			{
 				if (view.GameModeInfo.Entry.MatchType == MatchType.Custom) continue;
 				if (view.GameModeInfo.Entry.PlayfabQueue == null) continue;
-				view.Disabled = view.GameModeInfo.Entry.PlayfabQueue.TeamSize < _services.PartyService.GetCurrentGroupSize();
+				view.Disabled = view.GameModeInfo.Entry.PlayfabQueue.TeamSize < (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1);
 			}
 		}
 

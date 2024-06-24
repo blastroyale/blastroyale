@@ -68,6 +68,17 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		}
 
 		/// <summary>
+		/// Returns the number of trophies the player has.
+		/// </summary>
+		/// <param name="player"></param>
+		/// <returns></returns>
+		public static int GetPlayerTrophies(this Player player)
+		{
+			// TODO mihak
+			return 0;
+		}
+
+		/// <summary>
 		/// Checks if the player is a friend of the local player.
 		/// </summary>
 		public static bool IsFriend(this Player player)
@@ -81,6 +92,24 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		public static IEnumerable<Player> GetFriends(this Lobby lobby)
 		{
 			return lobby.Players.Where(IsFriend);
+		}
+
+		/// <summary>
+		/// Checks if all players in the lobby are ready.
+		/// </summary>
+		public static bool IsEveryoneReady(this Lobby lobby)
+		{
+			return lobby.Players
+				.Where(p => p.Id != AuthenticationService.Instance.PlayerId) // Host doesn't need to be ready
+				.All(IsReady);
+		}
+
+		/// <summary>
+		/// Checks if the player has set themselves ready.
+		/// </summary>
+		public static bool IsReady(this Player player)
+		{
+			return player.Data[FLLobbyService.KEY_READY].Value == "true";
 		}
 	}
 }

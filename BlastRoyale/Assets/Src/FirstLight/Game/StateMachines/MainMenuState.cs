@@ -16,6 +16,7 @@ using FirstLight.Game.Presenters.News;
 using FirstLight.Game.Presenters.Store;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Statechart;
 using FirstLight.UIService;
 using I2.Loc;
@@ -391,26 +392,25 @@ namespace FirstLight.Game.StateMachines
 
 		private bool CheckIsNotPartyLeader()
 		{
-			if (!_services.PartyService.HasParty.Value) return false;
+			if (_services.FLLobbyService.CurrentPartyLobby == null) return false;
 
-			return !(_services.PartyService.GetLocalMember().Leader && _services.PartyService.PartyReady.Value);
+			return !(_services.FLLobbyService.CurrentPartyLobby.IsLocalPlayerHost() && _services.FLLobbyService.CurrentPartyLobby.IsEveryoneReady());
 		}
 
 		private bool CheckPartyNotReady()
 		{
-			return _services.PartyService.HasParty.Value && _services.PartyService.GetLocalMember().Leader &&
-				!_services.PartyService.PartyReady.Value;
+			return _services.FLLobbyService.CurrentPartyLobby != null && _services.FLLobbyService.CurrentPartyLobby.IsLocalPlayerHost() &&
+				!_services.FLLobbyService.CurrentPartyLobby.IsEveryoneReady();
 		}
 
 		private bool CheckInvalidTeamSize()
 		{
-			return _services.PartyService.GetCurrentGroupSize() > _services.GameModeService.SelectedGameMode.Value.Entry.TeamSize;
+			return (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) > _services.GameModeService.SelectedGameMode.Value.Entry.TeamSize;
 		}
 
 		private async UniTaskVoid TogglePartyReadyStatus()
 		{
-			var isReady = _services.PartyService.LocalReadyStatus.Value;
-			await _services.PartyService.BufferedReady(!isReady);
+			await _services.FLLobbyService.TogglePartyReady();
 		}
 
 		private void OpenGameModeSelectionUI()

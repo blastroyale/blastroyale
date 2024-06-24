@@ -312,7 +312,7 @@ namespace FirstLight.Game.StateMachines
 
 			FLog.Verbose($"Current Room Debug:{_networkService.CurrentRoom.Name}{_networkService.CurrentRoom.GetRoomDebugString()} ");
 
-			_services.PartyService.ForceRefresh(); // TODO: This should be in a "OnReconnected" callback
+			// TODO mihak: _services.PartyService.ForceRefresh(); // TODO: This should be in a "OnReconnected" callback
 
 			_networkService.SetLastRoom();
 

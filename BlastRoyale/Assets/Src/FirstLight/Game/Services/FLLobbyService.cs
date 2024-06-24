@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
@@ -27,6 +28,7 @@ namespace FirstLight.Game.Services
 		public const string KEY_SKIN_ID = "skin_id";
 		public const string KEY_MELEE_ID = "melee_id";
 		public const string KEY_PLAYER_NAME = "player_name";
+		public const string KEY_READY = "ready";
 
 		public const string KEY_MATCH_SETTINGS = "match_settings";
 		public const string KEY_REGION = "region"; // S1
@@ -197,6 +199,58 @@ namespace FirstLight.Game.Services
 			{
 				FLog.Warn("Error leaving party!", e);
 				_notificationService.QueueNotification($"Could not leave party ({(int) e.Reason})");
+			}
+		}
+		
+		/// <summary>
+		/// Sets the party host to the given player ID.
+		/// </summary>
+		public async UniTask<bool> KickPlayerFromParty(string playerID)
+		{
+			Assert.IsNotNull(CurrentMatchLobby, "Trying to kick player from party but the player is not in one!");
+
+			try
+			{
+				FLog.Info($"Kicking player: {playerID}");
+				await LobbyService.Instance.RemovePlayerAsync(CurrentPartyLobby.Id, playerID);
+				FLog.Info("Player kicked successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn("Error kicking player!", e);
+				_notificationService.QueueNotification($"Could not kick player ({(int) e.Reason})");
+				return false;
+			}
+
+			return true;
+		}
+
+		public async UniTask TogglePartyReady()
+		{
+			Assert.IsNotNull(CurrentPartyLobby, "Trying to toggle party ready status but the player is not in one!");
+
+			var currentStatus = CurrentPartyLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId).IsReady();
+
+			var options = new UpdatePlayerOptions
+			{
+				Data = new Dictionary<string, PlayerDataObject>
+				{
+					{
+						KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, (!currentStatus).ToString())
+					}
+				}
+			};
+
+			try
+			{
+				FLog.Info($"Setting lobby ready status to: {!currentStatus}");
+				await LobbyService.Instance.UpdatePlayerAsync(CurrentPartyLobby.Id, AuthenticationService.Instance.PlayerId, options);
+				FLog.Info("Lobby status set successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn("Error setting ready status!", e);
+				_notificationService.QueueNotification($"Could not set ready status ({e.ErrorCode})");
 			}
 		}
 
@@ -492,7 +546,8 @@ namespace FirstLight.Game.Services
 					// TODO mihak: Need to figure out how to get this from profile but it's always null
 					{KEY_PLAYER_NAME, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, AuthenticationService.Instance.PlayerName)},
 					{KEY_SKIN_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, skinID.ToString())},
-					{KEY_MELEE_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, meleeID.ToString())}
+					{KEY_MELEE_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, meleeID.ToString())},
+					{KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "false")}
 				},
 				profile: new PlayerProfile(AuthenticationService.Instance.PlayerName)
 			);

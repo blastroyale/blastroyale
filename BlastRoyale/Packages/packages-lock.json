@@ -726,15 +726,6 @@
       "dependencies": {},
       "hash": "48cbd360031104245ab583b8eb83420de070c610"
     },
-    "io.backtrace.unity": {
-      "version": "3.8.7",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.screencapture": "1.0.0"
-      },
-      "url": "https://package.openupm.com"
-    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

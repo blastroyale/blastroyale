@@ -11,7 +11,6 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
-using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -63,8 +62,6 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IMainMenuServices _mainMenuServices;
 
-		private IPartyService _partyService;
-
 		private LocalizedButton _playButton;
 		private VisualElement _playButtonContainer;
 
@@ -109,7 +106,6 @@ namespace FirstLight.Game.Presenters
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
-			_partyService = _services.PartyService;
 		}
 
 		private void OpenStats(PlayerStatisticsPopupPresenter.StateData data)
@@ -492,10 +488,10 @@ namespace FirstLight.Game.Presenters
 		private void UpdateGameModeButton()
 		{
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
-			var localMember = _services.PartyService.GetLocalMember();
-			var isMemberNotLeader = _services.PartyService.HasParty.Value && localMember is {Leader: false};
+			var isMemberNotLeader = _services.FLLobbyService.CurrentPartyLobby != null && !_services.FLLobbyService.CurrentPartyLobby.IsLocalPlayerHost();
 			_gameModeLabel.text = LocalizationManager.GetTranslation(current.TitleTranslationKey);
-			_gameModeButton.SetEnabled(!isMemberNotLeader && !_partyService.OperationInProgress.Value);
+			// TODO mihak: _gameModeButton.SetEnabled(!isMemberNotLeader && !_partyService.OperationInProgress.Value); 
+			_gameModeButton.SetEnabled(!isMemberNotLeader);
 			_gameModeIcon.RemoveSpriteClasses();
 			_gameModeIcon.AddToClassList(current.IconSpriteClass);
 		}
@@ -505,18 +501,20 @@ namespace FirstLight.Game.Presenters
 			var translationKey = ScriptTerms.UITHomeScreen.play;
 			var buttonClass = string.Empty;
 			var buttonEnabled = true;
+			
+			var partyLobby = _services.FLLobbyService.CurrentPartyLobby;
 
-			if (forceLoading || _services.PartyService.OperationInProgress.Value ||
-				_services.MatchmakingService.IsMatchmaking.Value)
+			// TODO mihak: Add operation in progress logic for parties
+			if (forceLoading || _services.MatchmakingService.IsMatchmaking.Value)
 			{
 				buttonClass = "play-button--loading";
 				buttonEnabled = false;
 			}
-			else if (_services.PartyService.HasParty.Value && _services.PartyService.GetLocalMember() != null)
+			else if (partyLobby != null)
 			{
-				if (_services.PartyService.GetLocalMember().Leader)
+				if (partyLobby.IsLocalPlayerHost())
 				{
-					if (!_services.PartyService.PartyReady.Value)
+					if (!partyLobby.IsEveryoneReady())
 					{
 						translationKey = ScriptTerms.UITHomeScreen.waiting_for_members;
 						buttonEnabled = false;
@@ -528,7 +526,7 @@ namespace FirstLight.Game.Presenters
 				}
 				else
 				{
-					var isReady = _services.PartyService.LocalReadyStatus.Value;
+					var isReady = partyLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId).IsReady();
 
 					if (isReady)
 					{

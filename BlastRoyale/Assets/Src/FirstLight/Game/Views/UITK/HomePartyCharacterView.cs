@@ -9,10 +9,14 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using Unity.Services.Authentication;
+using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -70,7 +74,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		[SerializeField] private VisualTreeAsset _playerNameTemplate;
 
 		private IGameServices _services;
-		private IPartyService _partyService;
 		private readonly SemaphoreSlim _lock = new (1, 1);
 
 		private List<MenuPartyMember> AllMembers
@@ -86,7 +89,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		protected override void Attached()
 		{
 			_services = MainInstaller.ResolveServices();
-			_partyService = _services.PartyService;
 
 			_localPlayer.SaveInitialPosition();
 			// Create labels before so they are ready for OnScreenOpen, because we can't add new views inside there
@@ -99,10 +101,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		public override void OnScreenOpen(bool reload)
 		{
 			_services.MatchmakingService.IsMatchmaking.Observe(OnMatchmaking);
-			_partyService.Members.Observe(OnPartyUpdate);
-			_partyService.HasParty.Observe(OnHasPartyChanged);
-			_partyService.LobbyProperties.Observe(OnLobbyPropertiesChanged);
-			_partyService.LocalReadyStatus.Observe(OnLocalStatusChanged);
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
 			Element.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
 
 			CleanAllRemote();
@@ -112,10 +111,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		public override void OnScreenClose()
 		{
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnMatchmaking);
-			_partyService.LocalReadyStatus.StopObserving(OnLocalStatusChanged);
-			_partyService.HasParty.StopObserving(OnHasPartyChanged);
-			_partyService.Members.StopObserving(OnPartyUpdate);
-			_partyService.LobbyProperties.StopObserving(OnLobbyPropertiesChanged);
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
 		}
 
 		private void OnGeometryChanged(GeometryChangedEvent evt)
@@ -126,7 +122,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
-		private void OnLobbyPropertiesChanged(string arg1, string arg2, string arg3, ObservableUpdateType arg4)
+		private void OnLobbyChanged(ILobbyChanges obj)
 		{
 			UpdateMembers().Forget();
 		}
@@ -136,46 +132,26 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			UpdateMembers().Forget();
 		}
 
-		private void OnLocalStatusChanged(bool arg1, bool arg2)
-		{
-			UpdateMembers().Forget();
-		}
-
-		private void OnHasPartyChanged(bool _, bool newValue)
-		{
-			if (!newValue)
-			{
-				_localPlayer.NameView?.Disable();
-				_localPlayer.ApplyInitialPosition();
-				CleanAllRemote();
-				return;
-			}
-
-			UpdateSlot(_localPlayer, _partyService.GetLocalMember()).Forget();
-		}
-
-		private void OnPartyUpdate(int _, PartyMember oldMenuPartyMember, PartyMember newMenuPartyMember, ObservableUpdateType updateType)
-		{
-			UpdateMembers().Forget();
-		}
-
 		public async UniTaskVoid UpdateMembers()
 		{
 			await _lock.WaitAsync();
 			try
 			{
-				var partyMembers = _partyService.Members.ToList();
-				//var partyMembers = GetFakeMembers();
-				if (!_partyService.HasParty.Value)
+				var partyLobby = _services.FLLobbyService.CurrentPartyLobby;
+
+				if (partyLobby == null)
 				{
 					CleanAllRemote();
+					return;
 				}
+
+				var partyMembers = partyLobby.Players;
 
 				// Remove old members
 				foreach (var teamMatePosition in _teamMatePositions)
 				{
 					if (!teamMatePosition.IsUsed) continue;
-					if (partyMembers.All(pm => pm.PlayfabID != teamMatePosition.PlayerId))
+					if (partyMembers.All(pm => pm.Id != teamMatePosition.PlayerId))
 					{
 						Clean(teamMatePosition);
 					}
@@ -183,13 +159,13 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 				foreach (var member in partyMembers)
 				{
-					if (member.Local)
+					if (member.Id == AuthenticationService.Instance.PlayerId)
 					{
 						await UpdateSlot(_localPlayer, member);
 						continue;
 					}
 
-					var currentSlot = _teamMatePositions.FirstOrDefault(slot => slot.PlayerId == member.PlayfabID);
+					var currentSlot = _teamMatePositions.FirstOrDefault(slot => slot.PlayerId == member.Id);
 					if (currentSlot == null)
 					{
 						var emptySlot = _teamMatePositions.FirstOrDefault(slot => !slot.IsUsed);
@@ -211,15 +187,16 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
-		public async UniTask UpdateSlot(MenuPartyMember slot, PartyMember member)
+		public async UniTask UpdateSlot(MenuPartyMember slot, Player member)
 		{
-			slot.PlayerId = member.PlayfabID;
+			slot.PlayerId = member.Id;
 			// Update ui
-			slot.NameView.Enable(member.DisplayName, member.Leader, _partyService.IsReady(member) || _services.MatchmakingService.IsMatchmaking.Value);
+			slot.NameView.Enable(member.GetPlayerName(), member.Id == _services.FLLobbyService.CurrentPartyLobby.HostId,
+				member.IsReady() || _services.MatchmakingService.IsMatchmaking.Value);
 			// Local player is always on screen so we don't have to load their skin
-			if (member.Local)
+			if (member.Id == AuthenticationService.Instance.PlayerId)
 			{
-				if (_partyService.Members.Count > 1)
+				if ((_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) > 1)
 				{
 					((LocalPlayerMember) slot).ApplyPartyPosition();
 				}
@@ -235,17 +212,8 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			slot.NameView.UpdatePosition();
 			slot.NameView.OnClicked = () => OpenPlayerOptions(slot, member);
 
-			var playerSkin = GameId.MaleAssassin;
-			if (Enum.TryParse<GameId>(member.CharacterSkin, out var value))
-			{
-				playerSkin = value;
-			}
-
-			var meleeSkin = GameId.Hammer;
-			if (Enum.TryParse<GameId>(member.CharacterSkin, out var melee))
-			{
-				meleeSkin = melee;
-			}
+			var playerSkin = member.GetPlayerCharacterSkin();
+			var meleeSkin = member.GetPlayerMeleeSkin();
 
 			// Already loaded same skin
 			if (slot.Character.gameObject.activeSelf && slot.LoadedSkin == playerSkin) return;
@@ -281,15 +249,9 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			slot.SlotRoot.SetActive(false);
 		}
 
-		private void OpenPlayerOptions(MenuPartyMember slot, PartyMember partyMember = null)
+		private void OpenPlayerOptions(MenuPartyMember slot, Player partyMember)
 		{
-			var member = partyMember ?? _partyService.Members.FirstOrDefault(m => m.PlayfabID == slot.PlayerId);
-			if (member == null)
-			{
-				return;
-			}
-
-			var isLocalPlayerLeader = _partyService.GetLocalMember()?.Leader ?? false;
+			var isLocalPlayerLeader = _services.FLLobbyService.CurrentPartyLobby?.IsLocalPlayerHost() ?? false;
 			var playerContextButtons = new List<PlayerContextButton>();
 			playerContextButtons.Add(new PlayerContextButton
 			{
@@ -298,7 +260,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				{
 					var data = new PlayerStatisticsPopupPresenter.StateData
 					{
-						PlayfabID = member.ProfileMasterId
+						UnityID = partyMember.Id
 					};
 					_services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(data).Forget();
 				}
@@ -322,104 +284,22 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				});
 			}
 
-			var displayName = member.DisplayName;
-			if (int.TryParse(member.Trophies, out var trophies))
-			{
-				displayName += $"\n{trophies} <sprite name=\"TrophyIcon\">";
-			}
+			var displayName = partyMember.GetPlayerName();
+			// TODO Add support for trophies
+			// var trophies = partyMember.GetPlayerTrophies();
+			// displayName += $"\n{trophies} <sprite name=\"TrophyIcon\">";
 
 			TooltipUtils.OpenPlayerContextOptions(slot.NameView.PlayerNameLabel, Element, displayName, playerContextButtons);
 		}
 
-		private async UniTaskVoid KickPartyMember(string playfabId)
+		private async UniTaskVoid KickPartyMember(string playerID)
 		{
-			try
-			{
-				await _partyService.Kick(playfabId);
-			}
-			catch (PartyException pe)
-			{
-				MainInstaller.ResolveServices().GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, pe.Error.GetTranslation(),
-					true,
-					new GenericDialogButton()).Forget();
-				FLog.Warn("Error on kicking squad member", pe);
-			}
+			await _services.FLLobbyService.KickPlayerFromParty(playerID);
 		}
 
-		private async UniTaskVoid PromotePartyMember(string playfabId)
+		private async UniTaskVoid PromotePartyMember(string playerID)
 		{
-			try
-			{
-				await _partyService.Promote(playfabId);
-			}
-			catch (PartyException pe)
-			{
-				MainInstaller.ResolveServices().GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, pe.Error.GetTranslation(),
-					true,
-					new GenericDialogButton()).Forget();
-				FLog.Warn("Error on promoting squad member", pe);
-			}
+			await _services.FLLobbyService.UpdatePartyHost(playerID);
 		}
-
-#if UNITY_EDITOR
-		private List<PartyMember> GetFakeMembers()
-		{
-			return new List<PartyMember>()
-			{
-				new ()
-				{
-					Leader = true,
-					PlayfabID = PlayFab.PlayFabSettings.staticPlayer.EntityId,
-					RawProperties = new Dictionary<string, string>()
-					{
-						{PartyMember.PROFILE_MASTER_ID, PlayFab.PlayFabSettings.staticPlayer.PlayFabId},
-						{PartyMember.TROPHIES_PROPERTY, "4242"},
-						{PartyMember.CHARACTER_SKIN_PROPERTY, GameId.PlayerSkinEGirl.ToString()},
-						{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, "Local Player"},
-						{PartyMember.READY_MEMBER_PROPERTY, "false"}
-					}
-				},
-				new ()
-				{
-					Leader = false,
-					PlayfabID = "FE254F35877468D3",
-					RawProperties = new Dictionary<string, string>()
-					{
-						{PartyMember.PROFILE_MASTER_ID, "6BED68CD7667A34E"},
-						{PartyMember.TROPHIES_PROPERTY, "4242"},
-						{PartyMember.CHARACTER_SKIN_PROPERTY, GameId.PlayerSkinGearedApe.ToString()},
-						{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, "Member1"},
-						{PartyMember.READY_MEMBER_PROPERTY, "false"}
-					}
-				},
-				new ()
-				{
-					Leader = false,
-					PlayfabID = "7C47BE0F485E1157",
-					RawProperties = new Dictionary<string, string>()
-					{
-						{PartyMember.PROFILE_MASTER_ID, "643C1C2F2926C934"},
-						{PartyMember.TROPHIES_PROPERTY, "423"},
-						{PartyMember.CHARACTER_SKIN_PROPERTY, GameId.PlayerSkinNinja.ToString()},
-						{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, "Member2"},
-						{PartyMember.READY_MEMBER_PROPERTY, "false"}
-					}
-				},
-				new ()
-				{
-					Leader = false,
-					PlayfabID = "313AC847A0DC6817",
-					RawProperties = new Dictionary<string, string>()
-					{
-						{PartyMember.PROFILE_MASTER_ID, "313AC847A0DC6817"},
-						{PartyMember.TROPHIES_PROPERTY, "4242"},
-						{PartyMember.CHARACTER_SKIN_PROPERTY, GameId.PlayerSkinLeprechaun.ToString()},
-						{PartyMember.DISPLAY_NAME_MEMBER_PROPERTY, "Member3"},
-						{PartyMember.READY_MEMBER_PROPERTY, "false"}
-					}
-				}
-			};
-		}
-#endif
 	}
 }

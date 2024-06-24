@@ -160,6 +160,7 @@
     --sprite-home__icon-mapmarker: url('/Assets/Art/UI/Sprites/Home/icon-mapmarker.png');
     --sprite-home__icon-marketplace: url('/Assets/Art/UI/Sprites/Home/icon-marketplace.png');
     --sprite-home__icon-match-duos: url('/Assets/Art/UI/Sprites/Home/icon-match-duos.png');
+    --sprite-home__icon-match-friend: url('/Assets/Art/UI/Sprites/Home/icon-match-friend.png');
     --sprite-home__icon-match-quads: url('/Assets/Art/UI/Sprites/Home/icon-match-quads.png');
     --sprite-home__icon-match-solos: url('/Assets/Art/UI/Sprites/Home/icon-match-solos.png');
     --sprite-home__icon-melee-skin: url('/Assets/Art/UI/Sprites/Home/icon-melee-skin.png');
@@ -1135,6 +1136,12 @@
     background-image: var(--sprite-home__icon-match-duos);
     width: 338px;
     height: 413px;
+}
+
+.sprite-home__icon-match-friend {
+    background-image: var(--sprite-home__icon-match-friend);
+    width: 43px;
+    height: 43px;
 }
 
 .sprite-home__icon-match-quads {

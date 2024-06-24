@@ -3,11 +3,29 @@
     <Style src="project://database/Assets/Art/UI/Screens/MatchLobbyScreenStyle.uss?fileID=7433441132597879392&amp;guid=86bc32e8e558d4dc49c4fd245497e2be&amp;type=3#MatchLobbyScreenStyle" />
     <ui:VisualElement name="root" class="fill-parent" style="align-items: center; justify-content: center;">
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
-            <ui:VisualElement name="PlayersContainer" class="players-container">
-                <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
+            <ui:VisualElement name="LeftContainer" class="left-container">
+                <ui:ScrollView name="PlayersScrollview" class="players-container">
+                    <ui:VisualElement class="players-container__row">
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="players-container__row" style="flex-grow: 1;">
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
+                    </ui:VisualElement>
+                </ui:ScrollView>
+                <ui:VisualElement class="bottom-bar" style="padding-right: 37px;">
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCustomGames/invite_friends" class="button-long" />
+                    <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITCustomGames/lobby_code" show-copy-button="true" name="LobbyCode" value="ABC8ET" class="lobby-code" />
+                    <ui:VisualElement style="flex-grow: 1;" />
+                    <ui:Label tabindex="-1" text="12/42" name="PlayersAmountLabel" style="font-size: 38px; color: rgb(255, 255, 255); -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 3px 3px 0 rgb(0, 0, 0);" />
+                </ui:VisualElement>
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITCustomGames/lobby_code" show-copy-button="true" name="LobbyCode" value="ABC8ET" class="lobby-code" />
-            <ui:Instance template="MatchSettings" name="MatchSettings" />
+            <ui:Instance template="MatchSettings" name="MatchSettingsContainer" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" />
     </ui:VisualElement>

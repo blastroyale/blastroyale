@@ -80,12 +80,24 @@ namespace FirstLight.Game.Views.UITK
 		{
 			_mutatorsTurnedOn = e.newValue;
 			_mutatorsContainer.EnableInClassList("horizontal-scroll-picker--hidden", !e.newValue);
+
+			if (!e.newValue)
+			{
+				MatchSettings.Mutators = Mutator.None;
+				_mutatorsScroller.Clear();
+			}
 		}
 
 		private void OnWeaponFilterToggle(ChangeEvent<bool> e)
 		{
 			_weaponFilterTurnedOn = e.newValue;
 			_filterWeaponsContainer.EnableInClassList("horizontal-scroll-picker--hidden", !e.newValue);
+			
+			if (!e.newValue)
+			{
+				MatchSettings.WeaponFilter.Clear();
+				_filterWeaponsScroller.Clear();
+			}
 		}
 
 		public void SetMatchSettings(CustomMatchSettings settings, bool editable)
@@ -135,7 +147,6 @@ namespace FirstLight.Game.Views.UITK
 				PopupPresenter.Close().Forget();
 			}, MatchSettings.Mutators).Forget();
 		}
-		
 		
 		private void OnWeaponFilterClicked()
 		{

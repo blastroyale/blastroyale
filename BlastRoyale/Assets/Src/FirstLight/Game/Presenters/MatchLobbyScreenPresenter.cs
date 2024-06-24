@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
@@ -22,15 +21,19 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class MatchLobbyScreenPresenter : UIPresenterData<MatchLobbyScreenPresenter.StateData>
 	{
+		private const int PLAYERS_PER_ROW = 4;
+		private const string USS_ROW = "players-container__row";
+
 		public class StateData
 		{
 			public MatchListScreenPresenter.StateData MatchListStateData; // Ugly but I don't want to refac state machines
 		}
 
 		[Q("Header")] private ScreenHeaderElement _header;
-		[Q("PlayersContainer")] private VisualElement _playersContainer;
+		[Q("PlayersScrollview")] private ScrollView _playersContainer;
 		[Q("LobbyCode")] private LocalizedTextField _lobbyCode;
 		[Q("MatchSettings")] private VisualElement _matchSettings;
+		[Q("PlayersAmountLabel")]private Label _playersAmount;
 
 		private IGameServices _services;
 		private MatchSettingsView _matchSettingsView;
@@ -83,13 +86,19 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshData()
 		{
-			// TODO: Do this more cleverly maybe
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 
 			_playersContainer.Clear();
 
+			VisualElement row = null;
 			for (var i = 0; i < matchLobby.MaxPlayers; i++)
 			{
+				if (i % PLAYERS_PER_ROW == 0)
+				{
+					_playersContainer.Add(row = new VisualElement());
+					row.AddToClassList(USS_ROW);
+				}
+
 				if (i < matchLobby.Players.Count)
 				{
 					var player = matchLobby.Players[i];
@@ -97,7 +106,7 @@ namespace FirstLight.Game.Presenters
 					var isLocal = player.Id == AuthenticationService.Instance.PlayerId;
 					var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal);
 
-					_playersContainer.Add(playerElement);
+					row!.Add(playerElement);
 
 					if (!isLocal)
 					{
@@ -107,11 +116,12 @@ namespace FirstLight.Game.Presenters
 				}
 				else
 				{
-					_playersContainer.Add(new MatchLobbyPlayerElement(null, false, false));
+					row!.Add(new MatchLobbyPlayerElement(null, false, false));
 				}
 			}
 
 			_matchSettingsView.SetMatchSettings(matchLobby.GetMatchSettings(), matchLobby.IsLocalPlayerHost());
+			_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers}";
 		}
 
 		private async UniTaskVoid StartMatch()

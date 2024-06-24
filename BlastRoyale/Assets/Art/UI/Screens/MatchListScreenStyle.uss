@@ -81,9 +81,9 @@
     flex-direction: row;
     align-items: stretch;
     padding-top: 42px;
-    padding-right: 75px;
+    padding-right: 25px;
     padding-bottom: 42px;
-    padding-left: 75px;
+    padding-left: 25px;
 }
 
 .match-list-container {

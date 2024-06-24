@@ -29,7 +29,6 @@ namespace FirstLight.Game.Presenters
 		{
 			public string PlayfabID;
 			public string UnityID;
-			public Action OnCloseClicked;
 			public Action OnEditNameClicked;
 		}
 
@@ -64,10 +63,9 @@ namespace FirstLight.Game.Presenters
 		{
 			var services = MainInstaller.ResolveServices();
 
-			await services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new PlayerStatisticsPopupPresenter.StateData
+			await services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new StateData
 			{
 				UnityID = unityID,
-				OnCloseClicked = () => services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget()
 			});
 		}
 
@@ -87,8 +85,8 @@ namespace FirstLight.Game.Presenters
 				editNameButton.SetVisibility(false);
 			}
 
-			Root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
-			Root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
+			Root.Q<ImageButton>("CloseButton").clicked += Close;
+			Root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, PlayerStatisticsPopupPresenter>((_, p) => p.Close(), this);
 
 			_pfpImage = Root.Q<PlayerAvatarElement>("Avatar").Required();
 			_content = Root.Q<VisualElement>("Content").Required();
@@ -115,6 +113,11 @@ namespace FirstLight.Game.Presenters
 			_nameLabel.text = AuthenticationService.Instance.GetPlayerName();
 			SetupPopup().Forget();
 			return base.OnScreenOpen(reload);
+		}
+
+		private void Close()
+		{
+			_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();
 		}
 
 		protected override UniTask OnScreenClose()

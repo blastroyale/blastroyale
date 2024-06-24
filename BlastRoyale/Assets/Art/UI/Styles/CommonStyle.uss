@@ -49,11 +49,16 @@
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     border-width: 0;
-
     height: 92px;
 }
 
-.unity-text-field__label {}
+.unity-text-field__label {
+    color: rgba(157, 131, 216, 1);
+    font-size: 36px;
+    -unity-text-outline: 1px black;
+    text-shadow: black 2px 2px 0;
+    margin: 10px;
+}
 
 .unity-text-field__copy-button {
     position: absolute;
@@ -852,9 +857,15 @@
     transition-duration: 0.15s;
 }
 
-.unity-toggle > .unity-toggle__input:checked {
+.unity-toggle__input:checked {
     background-color: rgb(216, 75, 121);
     padding-left: 40px;
 }
 
+.unity-toggle__input:checked:disabled {
+    background-color: rgba(32, 29, 59, 1);
+}
 
+.unity-toggle__input:disabled .unity-toggle__checkmark {
+    background-color: rgba(132, 117, 166, 1);
+}

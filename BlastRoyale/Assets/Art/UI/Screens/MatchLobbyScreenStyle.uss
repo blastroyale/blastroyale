@@ -2,15 +2,19 @@
     flex-grow: 1;
     margin-top: 166px;
     padding-right: 42px;
-    flex-direction: row;
-    flex-wrap: wrap;
     flex-basis: 1px;
+    margin-bottom: 0;
+}
+
+.players-container__row {
+    flex-direction: row;
+    flex-grow: 1;
 }
 
 .match-lobby-player {
     font-size: 46px;
-    flex-shrink: 1;
-    width: 302px;
+    flex-grow: 1;
+    flex-basis: 1;
     height: 82px;
     -unity-text-align: middle-center;
     background-color: rgb(10, 37, 83);
@@ -19,11 +23,17 @@
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     color: rgb(117, 138, 193);
-    margin-right: 20px;
-    margin-left: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
     overflow: visible;
+    transition-property: scale;
+    transition-duration: 0.1s;
+}
+
+.match-lobby-player:active {
+    scale: 0.95 0.95;
 }
 
 .match-lobby-player__name {
@@ -35,6 +45,8 @@
     overflow: hidden;
     -unity-text-overflow-position: end;
     text-overflow: ellipsis;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .match-lobby-player--empty > .match-lobby-player__name {
@@ -92,15 +104,9 @@
     flex-direction: row;
     align-items: stretch;
     padding-top: 42px;
-    padding-right: 0;
+    padding-right: 25px;
     padding-bottom: 42px;
-    padding-left: 0;
-}
-
-.match-list-container {
-    flex-grow: 1;
-    margin-top: 166px;
-    padding-right: 42px;
+    padding-left: 25px;
 }
 
 #PrivateRoomToggle {
@@ -112,11 +118,22 @@
 }
 
 .lobby-code {
-    position: absolute;
     width: 454px;
-    right: 791px;
     flex-direction: row;
     align-items: center;
-    bottom: -6px;
     font-size: 42px;
+    margin-bottom: 0;
+    margin-left: 26px;
+}
+
+.players-container .unity-scroll-view__content-container {
+}
+
+.left-container {
+    flex-grow: 1;
+}
+
+.bottom-bar {
+    flex-direction: row;
+    align-items: center;
 }

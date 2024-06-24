@@ -8,6 +8,6 @@
             <FirstLight.Game.UIElements.MatchSettingsSelectionElement title-localization-key="HEALTHY AIR" subtitle-localization-key="Recover HP bar when not in a fight." />
         </ui:ScrollView>
         <ui:Label tabindex="-1" text="Mutators chosen: 2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SelectedMutatorsLabel" class="selected-label" />
-        <FirstLight.Game.UIElements.LocalizedButton localization-key="CONFIRM" name="ConfirmButton" class="button-long button-long--yellow" style="align-self: center;" />
+        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/confirm" name="ConfirmButton" class="button-long button-long--yellow" style="align-self: center;" />
     </ui:VisualElement>
 </ui:UXML>

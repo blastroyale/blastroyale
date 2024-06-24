@@ -118,6 +118,10 @@
     top: -9px;
 }
 
+.match-settings-button__edit-icon:disabled {
+    display: none;
+}
+
 .match-settings__horizontal-holder {
     flex-direction: row;
     justify-content: space-between;
@@ -173,6 +177,10 @@
     padding-top: 0;
 }
 
+.horizontal-scroll-picker:disabled .unity-scroll-view__content-container{
+    padding-right: 0;
+}
+
 .horizontal-scroll-picker__container LocalizedLabel {
     background-color: rgb(255, 255, 255);
     font-size: 32px;
@@ -203,6 +211,10 @@
     height: 100px;
     right: 0;
     bottom: 0;
+}
+
+.horizontal-scroll-picker__add-button:disabled {
+    display: none;
 }
 
 .horizontal-scroll-picker__add-button:active {

@@ -10,9 +10,9 @@ namespace FirstLight.Game.Views.UITK.Popups
 	/// </summary>
 	public class SelectSquadSizePopupView : UIView
 	{
-		[Q("")] private ImageButton  _solos;
-		[Q("")] private ImageButton  _duos;
-		[Q("")] private ImageButton  _quads;
+		[Q("Solos")] private MatchSettingsSelectionElement  _solos;
+		[Q("Duos")] private MatchSettingsSelectionElement  _duos;
+		[Q("Quads")] private MatchSettingsSelectionElement  _quads;
 		
 		private readonly Action<int> _onSquadSizeSelected;
 		private readonly int _currentSize;

@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Templates/MatchSettingsStyle.uss?fileID=7433441132597879392&amp;guid=17bc0d06316648518d8576ed67ce7f4e&amp;type=3#MatchSettingsStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/MatchSettingsButtonStyle.uss?fileID=7433441132597879392&amp;guid=49dfa0136e894e18a6e53beb23b7a53e&amp;type=3#MatchSettingsButtonStyle" />
     <ui:VisualElement name="MatchSettings" class="match-settings">
         <ui:VisualElement name="LeftBG" class="match-settings__left-bg" />
         <ui:VisualElement name="RightBG" class="match-settings__right-bg" />

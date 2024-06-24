@@ -33,6 +33,7 @@ namespace FirstLight.Game.UIElements
 
 		private Lobby _lobby;
 		private Action _onActionClicked;
+		private Action _onInfoClicked;
 
 		public MatchLobbyItemElement()
 		{
@@ -66,18 +67,20 @@ namespace FirstLight.Game.UIElements
 			Add(_infoButton = new ImageButton {name = "info-button"});
 			_infoButton.AddToClassList(USS_INFO_BUTTON);
 			_infoButton.AddToClassList("sprite-home__button-info");
+			_infoButton.clicked += () => _onInfoClicked.Invoke();
 		}
 
-		public void SetLobby(Lobby lobby, Action onActionClicked)
+		public void SetLobby(Lobby lobby, Action onActionClicked, Action onInfoClicked)
 		{
 			_lobby = lobby;
 			_onActionClicked = onActionClicked;
+			_onInfoClicked = onInfoClicked;
 
 			_lobbyNameLabel.text = lobby.Name;
 
 			var matchSettings = lobby.GetMatchSettings();
 
-			_lobbyModeLabel.text = matchSettings.SquadSize.ToString();
+			_lobbyModeLabel.text = $"{matchSettings.GameModeID}\n{LocalizationUtils.GetTranslationForTeamSize(matchSettings.SquadSize)}";
 			_lobbyPlayersLabel.text = $"{lobby.Players.Count}/{lobby.MaxPlayers}";
 			_lobbyRegion.text = lobby.GetMatchRegion().GetPhotonRegionTranslation();
 			_mutatorsCountLabel.SetVisibility(matchSettings.Mutators != Mutator.None);

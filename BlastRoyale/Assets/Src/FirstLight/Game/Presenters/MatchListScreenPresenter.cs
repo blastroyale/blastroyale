@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
@@ -116,12 +118,18 @@ namespace FirstLight.Game.Presenters
 		private void BindMatchLobbyItem(VisualElement e, int index)
 		{
 			var lobby = _lobbies[index];
-			((MatchLobbyItemElement) e).SetLobby(lobby, () => JoinMatch(lobby.Id).Forget());
+			((MatchLobbyItemElement) e).SetLobby(lobby, () => JoinMatch(lobby.Id).Forget(), () => OpenMatchInfo(lobby));
 		}
 
 		private static VisualElement MakeMatchLobbyItem()
 		{
 			return new MatchLobbyItemElement();
+		}
+
+		private void OpenMatchInfo(Lobby lobby)
+		{
+			var friendsPlaying = lobby.Players.Where(p => p.IsFriend()).Select(p => p.GetPlayerName()).ToList();
+			PopupPresenter.OpenMatchInfo(lobby.GetMatchSettings(), friendsPlaying).Forget();
 		}
 
 		private async UniTask OpenMatchLobby()

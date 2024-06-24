@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Data;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK.Popups;
@@ -28,6 +30,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private VisualTreeAsset _selectSquadSizeDocument;
 		[SerializeField, Required] private VisualTreeAsset _selectMutatorsDocument;
 		[SerializeField, Required] private VisualTreeAsset _partyDocument;
+		[SerializeField, Required] private VisualTreeAsset _matchInfoDocument;
 
 		private GenericPopupElement _popup;
 
@@ -58,6 +61,9 @@ namespace FirstLight.Game.Presenters
 					break;
 				case PartyPopupView view:
 					SetupPopup(_partyDocument, view);
+					break;
+				case MatchInfoPopupView view:
+					SetupPopup(_matchInfoDocument, view);
 					break;
 				default:
 					throw new NotImplementedException($"You need to implement the view type: {Data.View.GetType()}");
@@ -92,6 +98,11 @@ namespace FirstLight.Game.Presenters
 		public static UniTaskVoid OpenParty()
 		{
 			return OpenPopup(new PartyPopupView(), ScriptTerms.UITHomeScreen.party);
+		}
+
+		public static UniTaskVoid OpenMatchInfo(CustomMatchSettings matchSettings, List<string> friendsPlaying)
+		{
+			return OpenPopup(new MatchInfoPopupView(matchSettings, friendsPlaying), "MATCH INFO");
 		}
 
 		public static UniTask Close()

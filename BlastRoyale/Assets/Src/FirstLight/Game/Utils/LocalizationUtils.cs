@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
@@ -90,7 +91,7 @@ namespace FirstLight.Game.Utils
 			if (string.IsNullOrEmpty(localized)) return id.ToString();
 			return localized;
 		}
-		
+
 		/// <summary>
 		/// Gets the key for the description of the given <paramref name="id"/>
 		/// </summary>
@@ -250,7 +251,6 @@ namespace FirstLight.Game.Utils
 			return GetTranslationForGameModeId(gameMode) + separator + GetTranslationForTeamSize(teamSize);
 		}
 
-
 		public static string GetTranslation(this UnlockSystem unlockSystem)
 		{
 			var term = $"{nameof(ScriptTerms.UnlockSystems)}/" + unlockSystem.ToString();
@@ -266,7 +266,7 @@ namespace FirstLight.Game.Utils
 		{
 			return $"UITCustomGames/mutator_{mutator.ToString()}";
 		}
-		
+
 		public static string GetDescriptionLocalizationKey(this Mutator mutator)
 		{
 			return $"UITCustomGames/mutator_{mutator.ToString()}_Description";

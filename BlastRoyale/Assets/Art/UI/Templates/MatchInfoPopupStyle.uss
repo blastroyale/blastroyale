@@ -46,12 +46,12 @@
 }
 
 .friends-playing-container {
-    flex-grow: 1;
     align-items: center;
     flex-wrap: wrap;
     margin-top: 17px;
     flex-direction: row;
     justify-content: center;
+    max-height: 219px;
 }
 
 .friends-playing-container > Label {

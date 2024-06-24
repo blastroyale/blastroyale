@@ -99,20 +99,24 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTaskVoid JoinMatch(string lobbyIDOrCode)
 		{
+			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 			var success = await _services.FLLobbyService.JoinMatch(lobbyIDOrCode);
 			if (success)
 			{
 				await OpenMatchLobby();
 			}
+			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 		}
 
 		private async UniTaskVoid CreateMatch(CustomMatchSettings matchSettings)
 		{
+			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 			var success = await _services.FLLobbyService.CreateMatch(matchSettings);
 			if (success)
 			{
 				await OpenMatchLobby();
 			}
+			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 		}
 
 		private void BindMatchLobbyItem(VisualElement e, int index)

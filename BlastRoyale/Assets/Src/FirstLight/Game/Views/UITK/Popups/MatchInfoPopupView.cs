@@ -35,9 +35,13 @@ namespace FirstLight.Game.Views.UITK.Popups
 		protected override void Attached()
 		{
 			_mode.SetValue(_matchSettings.GameModeID);
+			_mode.SetEnabled(false);
 			_teamSize.SetValue(_matchSettings.SquadSize.ToString());
+			_teamSize.SetEnabled(false);
 			_map.SetValue(_matchSettings.MapID);
+			_map.SetEnabled(false);
 			_maxPlayers.SetValue(_matchSettings.MaxPlayers.ToString());
+			_maxPlayers.SetEnabled(false);
 
 			_friendsTitle.SetVisibility(_friendsPlaying.Count > 0);
 			_friendsContainer.Clear();

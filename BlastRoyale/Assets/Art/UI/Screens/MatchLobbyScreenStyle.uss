@@ -113,7 +113,7 @@
     display: none;
 }
 
-#ShowNameToggle {
+#ShowCreatorNameToggle {
     display: none;
 }
 

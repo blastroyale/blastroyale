@@ -135,10 +135,13 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTaskVoid LeaveMatchLobby()
 		{
+			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
+			
 			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged -= OnLobbyChanged;
 
 			await _services.FLLobbyService.LeaveMatch();
 			await _services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData);
+			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 		}
 
 		private void OnPlayerClicked(VisualElement source)

@@ -6,6 +6,7 @@
         <ui:VisualElement name="Left" class="content__left">
             <ui:Label text="BATTLE ROYALE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" class="title" />
             <ui:VisualElement name="Thumbnail" class="thumbnail sprite-home__icon-match-solos" />
+            <ui:VisualElement style="flex-grow: 1;" />
             <FirstLight.Game.UIElements.LocalizedLabel name="FriendsTitle" localization-key="UITCustomGames/friends_playing" class="friends-playing-label" />
             <ui:VisualElement name="FriendsContainer" class="friends-playing-container">
                 <ui:Label tabindex="-1" text="Squeazer#443" parse-escape-sequences="true" display-tooltip-when-elided="true" />

@@ -8,6 +8,7 @@ using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using QuickEye.UIToolkit;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -17,22 +18,24 @@ namespace FirstLight.Game.Views.UITK
 	{
 		private IGameServices _services;
 
-		private MatchSettingsButtonElement _modeButton;
-		private MatchSettingsButtonElement _mapButton;
-		private MatchSettingsButtonElement _teamSizeButton;
-		private MatchSettingsButtonElement _maxPlayersButton;
+		[Q("ModeButton")] private MatchSettingsButtonElement _modeButton;
+		[Q("MapButton")] private MatchSettingsButtonElement _mapButton;
+		[Q("TeamSizeButton")] private MatchSettingsButtonElement _teamSizeButton;
+		[Q("MaxPlayersButton")] private MatchSettingsButtonElement _maxPlayersButton;
 
-		private VisualElement _mutatorsContainer;
-		private LocalizedToggle _mutatorsToggle;
-		private ScrollView _mutatorsScroller;
-		private ImageButton _mutatorsButton;
+		[Q("Mutators")] private VisualElement _mutatorsContainer;
+		[Q("MutatorsToggle")] private LocalizedToggle _mutatorsToggle;
+		[Q("MutatorsScroller")] private ScrollView _mutatorsScroller;
+		[Q("MutatorsButton")] private ImageButton _mutatorsButton;
+		[Q("FilterWeapons")] private VisualElement _filterWeaponsContainer;
+		[Q("FilterWeaponsToggle")] private LocalizedToggle _filterWeaponsToggle;
+		[Q("FilterWeaponsScroller")] private ScrollView _filterWeaponsScroller;
+		[Q("FilterWeaponsButton")] private ImageButton _filterWeaponsButton;
 
-		private VisualElement _filterWeaponsContainer;
-		private LocalizedToggle _filterWeaponsToggle;
-		private ScrollView _filterWeaponsScroller;
-		private ImageButton _filterWeaponsButton;
+		[Q("PrivateRoomToggle")] private Toggle _privateRoomToggle;
+		[Q("ShowCreatorNameToggle")] private Toggle _showCreatorNameToggle;
 
-		private LocalizedButton _mainActionButton;
+		[Q("MainActionButton")] private LocalizedButton _mainActionButton;
 
 		public Action MainActionClicked { get; set; }
 		public Action<CustomMatchSettings> MatchSettingsChanged { get; set; }
@@ -47,22 +50,6 @@ namespace FirstLight.Game.Views.UITK
 		{
 			_services = MainInstaller.ResolveServices();
 
-			_modeButton = Element.Q<MatchSettingsButtonElement>("ModeButton").Required();
-			_teamSizeButton = Element.Q<MatchSettingsButtonElement>("TeamSizeButton").Required();
-			_mapButton = Element.Q<MatchSettingsButtonElement>("MapButton").Required();
-			_maxPlayersButton = Element.Q<MatchSettingsButtonElement>("MaxPlayersButton").Required();
-
-			_mutatorsContainer = Element.Q("Mutators").Required();
-			_mutatorsToggle = Element.Q<LocalizedToggle>("MutatorsToggle").Required();
-			_mutatorsScroller = Element.Q<ScrollView>("MutatorsScroller").Required();
-			_mutatorsButton = Element.Q<ImageButton>("MutatorsButton").Required();
-
-			_filterWeaponsContainer = Element.Q("FilterWeapons").Required();
-			_filterWeaponsToggle = Element.Q<LocalizedToggle>("FilterWeaponsToggle").Required();
-			_filterWeaponsScroller = Element.Q<ScrollView>("FilterWeaponsScroller").Required();
-			_filterWeaponsButton = Element.Q<ImageButton>("FilterWeaponsButton").Required();
-
-			_mainActionButton = Element.Q<LocalizedButton>("MainActionButton");
 			_mainActionButton.clicked += () => MainActionClicked.Invoke();
 
 			_modeButton.clicked += OnGameModeClicked;
@@ -74,6 +61,8 @@ namespace FirstLight.Game.Views.UITK
 
 			_mutatorsToggle.RegisterValueChangedCallback(OnMutatorsToggle);
 			_filterWeaponsToggle.RegisterValueChangedCallback(OnWeaponFilterToggle);
+			_privateRoomToggle.RegisterValueChangedCallback(v => MatchSettings.PrivateRoom = v.newValue);
+			_showCreatorNameToggle.RegisterValueChangedCallback(v => MatchSettings.ShowCreatorName = v.newValue);
 		}
 
 		private void OnMutatorsToggle(ChangeEvent<bool> e)
@@ -92,7 +81,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			_weaponFilterTurnedOn = e.newValue;
 			_filterWeaponsContainer.EnableInClassList("horizontal-scroll-picker--hidden", !e.newValue);
-			
+
 			if (!e.newValue)
 			{
 				MatchSettings.WeaponFilter.Clear();
@@ -147,7 +136,7 @@ namespace FirstLight.Game.Views.UITK
 				PopupPresenter.Close().Forget();
 			}, MatchSettings.Mutators).Forget();
 		}
-		
+
 		private void OnWeaponFilterClicked()
 		{
 			// TODO mihak: Implement weapon filter
@@ -185,24 +174,28 @@ namespace FirstLight.Game.Views.UITK
 			_teamSizeButton.SetValue(MatchSettings.SquadSize.ToString());
 			_mapButton.SetValue(MatchSettings.MapID);
 			_maxPlayersButton.SetValue(MatchSettings.MaxPlayers.ToString());
-			
+			_privateRoomToggle.value = MatchSettings.PrivateRoom;
+			_showCreatorNameToggle.value = MatchSettings.ShowCreatorName;
+
 			_mutatorsScroller.Clear();
 			var mutators = MatchSettings.Mutators.GetSetFlags();
 			_mutatorsToggle.value = mutators.Length > 0 || _mutatorsTurnedOn;
-			_mutatorsContainer.EnableInClassList("horizontal-scroll-picker--hidden", !_mutatorsToggle.value); // TODO mihak: I shouldn't have to do this
-			
+			_mutatorsContainer.EnableInClassList("horizontal-scroll-picker--hidden",
+				!_mutatorsToggle.value); // TODO mihak: I shouldn't have to do this
+
 			foreach (var mutator in mutators)
 			{
 				var mutatorLabel = new LocalizedLabel(mutator.GetLocalizationKey());
 
 				_mutatorsScroller.Add(mutatorLabel);
 			}
-			
+
 			_filterWeaponsScroller.Clear();
 			var weaponFilter = MatchSettings.WeaponFilter;
 			_filterWeaponsToggle.value = weaponFilter.Count > 0 || _weaponFilterTurnedOn;
-			_filterWeaponsContainer.EnableInClassList("horizontal-scroll-picker--hidden", !_filterWeaponsToggle.value); // TODO mihak: I shouldn't have to do this
-			
+			_filterWeaponsContainer.EnableInClassList("horizontal-scroll-picker--hidden",
+				!_filterWeaponsToggle.value); // TODO mihak: I shouldn't have to do this
+
 			foreach (var weapon in weaponFilter)
 			{
 				_filterWeaponsScroller.Add(new LocalizedLabel(weapon)); // TODO mihak: Add localization key

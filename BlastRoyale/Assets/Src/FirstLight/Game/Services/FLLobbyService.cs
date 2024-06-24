@@ -254,7 +254,7 @@ namespace FirstLight.Game.Services
 			};
 			var options = new CreateLobbyOptions
 			{
-				IsPrivate = false,
+				IsPrivate = matchOptions.PrivateRoom,
 				Player = CreateLocalPlayer(),
 				Data = data
 			};
@@ -284,17 +284,12 @@ namespace FirstLight.Game.Services
 		{
 			Assert.IsNull(CurrentMatchLobby, "Trying to join a match but the player is already in one!");
 
-			var options = new JoinLobbyByIdOptions
-			{
-				Player = CreateLocalPlayer()
-			};
-
 			try
 			{
 				FLog.Info($"Joining match with ID/Code: {lobbyIDOrCode}");
 				var lobby = lobbyIDOrCode.Length == 6
-					? await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyIDOrCode)
-					: await LobbyService.Instance.JoinLobbyByIdAsync(lobbyIDOrCode, options);
+					? await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyIDOrCode, new JoinLobbyByCodeOptions {Player = CreateLocalPlayer()})
+					: await LobbyService.Instance.JoinLobbyByIdAsync(lobbyIDOrCode, new JoinLobbyByIdOptions {Player = CreateLocalPlayer()});
 				_matchLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentMatchCallbacks);
 				CurrentMatchLobby = lobby;
 				FLog.Info($"Match lobby joined! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name}");

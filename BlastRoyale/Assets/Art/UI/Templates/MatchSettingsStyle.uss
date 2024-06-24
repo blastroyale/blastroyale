@@ -47,6 +47,7 @@
     top: 154px;
     left: 45px;
     right: 16px;
+    flex-direction: column;
 }
 
 .match-settings__content .unity-scroll-view__content-container {
@@ -109,7 +110,7 @@
     padding-top: 0;
 }
 
-.horizontal-scroll-picker:disabled .unity-scroll-view__content-container{
+.horizontal-scroll-picker:disabled .unity-scroll-view__content-container {
     padding-right: 0;
 }
 
@@ -155,4 +156,12 @@
 
 #ModeButton > .match-settings-button__edit-icon {
     display: none;
+}
+
+.match-settings__action-button {
+    align-self: center;
+}
+
+.match-settings__scrollview {
+    flex-grow: 1;
 }

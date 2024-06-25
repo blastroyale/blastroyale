@@ -111,5 +111,33 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		{
 			return player.Data[FLLobbyService.KEY_READY].Value == "true";
 		}
+
+		/// <summary>
+		/// Returns the playfab id of the player.
+		/// </summary>
+		public static string GetPlayfabID(this Player player)
+		{
+			return player.Data[FLLobbyService.KEY_PLAYFAB_ID].Value;
+		}
+
+		/// <summary>
+		/// Converts the provided Player object into an EntityKey object.
+		/// </summary>
+		public static PlayFab.MultiplayerModels.EntityKey ToEntityKey(this Player player)
+		{
+			return new PlayFab.MultiplayerModels.EntityKey
+			{
+				Id = player.GetPlayfabID(),
+				Type = PlayFabConstants.TITLE_PLAYER_ENTITY_TYPE
+			};
+		}
+
+		/// <summary>
+		/// Checks if the player is the local player.
+		/// </summary>
+		public static bool IsLocal(this Player player)
+		{
+			return player.Id == AuthenticationService.Instance.PlayerId;
+		}
 	}
 }

@@ -48,7 +48,9 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_createTeamButton.clicked += () => CreateParty().Forget();
 			_joinTeamButton.clicked += () =>
 			{
-				PopupPresenter.OpenJoinWithCode(code => JoinParty(code).Forget()).Forget();
+				PopupPresenter.Close()
+					.ContinueWith(() => PopupPresenter.OpenJoinWithCode(code => JoinParty(code).ContinueWith(PopupPresenter.Close).ContinueWith(PopupPresenter.OpenParty).Forget()))
+					.Forget();
 			};
 			_leaveTeamButton.clicked += () => LeaveParty().Forget();
 
@@ -76,7 +78,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 			RefreshData();
 		}
 
-		private async UniTaskVoid JoinParty(string partyCode)
+		private async UniTask JoinParty(string partyCode)
 		{
 			await _services.FLLobbyService.JoinParty(partyCode);
 			RefreshData();

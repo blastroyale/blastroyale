@@ -41,15 +41,23 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// <summary>
 		/// Adds a friend by player id and handles notifications / errors.
 		/// </summary>
-		public static async UniTask<bool> AddFriendHandled(this IFriendsService friendsService, string playerID)
+		public static async UniTask<bool> AddFriendHandled(this IFriendsService friendsService, string playerIDOrName)
 		{
 			var services = MainInstaller.ResolveServices();
 
 			try
 			{
-				FLog.Info($"Sending friend request: {playerID}");
-				await friendsService.AddFriendAsync(playerID).AsUniTask();
-				FLog.Info($"Friend request sent: {playerID}");
+				FLog.Info($"Sending friend request: {playerIDOrName}");
+				if (playerIDOrName.Contains('#'))
+				{
+					await friendsService.AddFriendByNameAsync(playerIDOrName).AsUniTask();
+				}
+				else
+				{
+					await friendsService.AddFriendAsync(playerIDOrName).AsUniTask();
+				}
+
+				FLog.Info($"Friend request sent: {playerIDOrName}");
 
 				services.NotificationService.QueueNotification("Friend request sent");
 			}

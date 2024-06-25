@@ -8,7 +8,7 @@
 }
 
 .background {
-    background-image: url('project://database/Assets/Art/UI/Textures/background-clouds-fullscreen.png?fileID=21300000&guid=3f530cc27360b304985813d124efd4a5&type=3#background-clouds-fullscreen');
+    background-image: url("project://database/Assets/Art/UI/Textures/background-clouds-fullscreen.png?fileID=21300000&guid=3f530cc27360b304985813d124efd4a5&type=3#background-clouds-fullscreen");
     width: 100%;
     height: 100%;
     -unity-background-scale-mode: scale-and-crop;
@@ -19,7 +19,7 @@
 
 .clouds {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Textures/background-clouds.png?fileID=21300000&guid=2d0080ea2e7385e498b5def29a77760e&type=3#background-clouds');
+    background-image: url("project://database/Assets/Art/UI/Textures/background-clouds.png?fileID=21300000&guid=2d0080ea2e7385e498b5def29a77760e&type=3#background-clouds");
     -unity-background-scale-mode: scale-and-crop;
     width: 115%;
     height: 75%;
@@ -159,11 +159,11 @@
 
 .map-holder {
     position: absolute;
-    right: 0%;
+    right: 0;
     align-items: center;
     justify-content: center;
-    top: 0%;
-    bottom: 0px;
+    top: 0;
+    bottom: 0;
 }
 
 .map {
@@ -176,7 +176,7 @@
 
 .map__mask {
     overflow: hidden;
-    background-image: url('project://database/Assets/Art/UI/Vectors/CircleMask.svg?fileID=7388822144124034973&guid=2faf20de6b535b54f93e074b0daa472e&type=3#CircleMask');
+    background-image: url("project://database/Assets/Art/UI/Vectors/CircleMask.svg?fileID=7388822144124034973&guid=2faf20de6b535b54f93e074b0daa472e&type=3#CircleMask");
     height: 96%;
     width: 96%;
     -unity-background-scale-mode: scale-to-fit;
@@ -187,10 +187,10 @@
 .map__image {
     position: absolute;
     left: 0;
-    top: -7;
+    top: 0;
     right: 0;
     bottom: 0;
-    background-image: url('project://database/Assets/AddressableResources/Sprites/Maps/MazeMayhem.png?fileID=2800000&guid=9925399d46561064eb3665e7a998aada&type=3#MazeMayhem');
+    background-image: url("project://database/Assets/AddressableResources/Sprites/Maps/MazeMayhem.png?fileID=2800000&guid=9925399d46561064eb3665e7a998aada&type=3#MazeMayhem");
     -unity-background-scale-mode: stretch-to-fill;
     width: 100%;
     height: 100%;

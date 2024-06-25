@@ -19,6 +19,7 @@ using FirstLight.UIService;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
@@ -107,6 +108,16 @@ namespace FirstLight.Game.Presenters
 			_squadMembersList.bindItem = BindSquadListEntry;
 
 			_header.backClicked += OnCloseClicked;
+		}
+
+		[Button]
+		private void Button1()
+		{
+			Debug.Log($"Map holder rect: " +
+				$"{_mapHolder.worldBound.width} {_mapHolder.worldBound.height}");
+			
+			Debug.Log($"Root rect: " +
+				$"{Root.worldBound.width} {Root.worldBound.height}");
 		}
 
 
@@ -229,7 +240,24 @@ namespace FirstLight.Game.Presenters
 			{
 				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
 				_mapImage.style.backgroundImage = new StyleBackground(sprite);
+				
+				Debug.Log("Screen Width, Height: " + Screen.width + " " + Screen.height);
+				
+				Debug.Log($"PreGameLoadingScreenPresenter->LoadMapAsset map image wh:" +
+					$"{_mapImage.worldBound.width} {_mapImage.worldBound.height}");
 				_mapAreaConfig = _services.ConfigsProvider.GetConfig<MapAreaConfigs>().GetMapAreaConfig(mapConfig.Map);
+
+				Debug.Log($"PreGameLoadingScreenPresenter->LoadMapAsset map holder style wh:" +
+					$"{_mapHolder.style.width} {_mapHolder.style.height}");
+
+				if ((Screen.width / 2) >= Screen.height)
+				{
+					_mapHolder.style.width = _mapImage.worldBound.height;
+				}
+				else if (Screen.height > Screen.width)
+				{
+					_mapHolder.style.height = _mapImage.worldBound.width;
+				}
 			}
 			else
 			{
@@ -332,12 +360,17 @@ namespace FirstLight.Game.Presenters
 		{
 			if (!_services.RoomService.InRoom) return false;
 			if (!_dropSelectionAllowed) return false;
+			
+			Debug.Log($"TrySetMarkerPosition->locaPos {localPos}");
 
 			var mapWidth = _mapImage.contentRect.width;
 			var mapHeight = _mapImage.contentRect.height;
 			var mapWidthHalf = mapWidth / 2;
 			var mapHeightHalf = mapHeight / 2;
 			var mapAreaPosition = new Vector2(localPos.x / mapWidth, 1f - localPos.y / mapHeight);
+			
+			
+			Debug.Log($"TrySetMarkerPosition->mapAreaPosition {mapAreaPosition}");
 
 			if (mapAreaPosition.x >= 1f || mapAreaPosition.x < 0f || mapAreaPosition.y >= 1f || mapAreaPosition.y < 0f)
 			{

@@ -16,9 +16,9 @@
                 <ui:Label name="ModeDescTop" text="LAST PLAYER STANDING" class="mode-desc__top" />
                 <ui:Label name="ModeDescBot" text="WINS THE MATCH" class="mode-desc__bot" />
             </ui:VisualElement>
-            <ui:VisualElement name="MapHolder" class="map-holder" style="-unity-background-scale-mode: scale-to-fit; width: 50%;">
+            <ui:VisualElement name="MapHolder" class="map-holder" style="-unity-background-scale-mode: scale-to-fit; width: 50%; background-color: rgb(255, 0, 232);">
                 <ui:VisualElement name="Map" class="map" style="height: 100%; width: 100%;">
-                    <ui:VisualElement name="MapImage" class="map__image" style="-unity-background-scale-mode: scale-to-fit; top: 0; display: flex;">
+                    <ui:VisualElement name="MapImage" class="map__image" style="-unity-background-scale-mode: scale-to-fit; top: 0; display: flex; background-color: rgb(0, 0, 0);">
                         <ui:VisualElement name="TutorialDropPos" picking-mode="Ignore" class="tutorial-drop-pos" style="display: flex;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="PartyMarkers" picking-mode="Ignore" class="fill-parent party-markers">
@@ -41,6 +41,6 @@
             </ui:VisualElement>
             <ui:Label name="DebugMasterClient" text="MASTER" class="debug-master-client" />
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITMatchmaking/entering_game" subtitle-key="UITLeaderboards/battleroyale" name="Header" class="screen-header--no-back" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITMatchmaking/entering_game" subtitle-key="UITLeaderboards/battleroyale" name="Header" picking-mode="Ignore" class="screen-header--no-back" />
     </ui:VisualElement>
 </ui:UXML>

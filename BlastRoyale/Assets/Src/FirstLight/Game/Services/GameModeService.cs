@@ -9,9 +9,12 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Quantum;
+using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -87,7 +90,7 @@ namespace FirstLight.Game.Services
 
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IThreadService _threadService;
-		private readonly IPartyService _partyService;
+		private readonly FLLobbyService _lobbyService;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IAppDataProvider _appDataProvider;
 		private readonly LocalPrefsService _localPrefsService;
@@ -99,7 +102,7 @@ namespace FirstLight.Game.Services
 
 		public GameId SelectedMap
 		{
-			set => _localPrefsService.SelectedRankedMap.Value = (int)value;
+			set => _localPrefsService.SelectedRankedMap.Value = (int) value;
 			get
 			{
 				if (_localPrefsService.SelectedRankedMap.Value == 0)
@@ -136,23 +139,22 @@ namespace FirstLight.Game.Services
 		public IObservableListReader<GameModeInfo> Slots => _slots;
 
 		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService,
-							   IGameDataProvider gameDataProvider, IPartyService partyService,
-							   IAppDataProvider appDataProvider,LocalPrefsService localPrefsService)
+							   IGameDataProvider gameDataProvider, FLLobbyService lobbyService,
+							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService)
 		{
 			_configsProvider = configsProvider;
 			_threadService = threadService;
 			_gameDataProvider = gameDataProvider;
-			_partyService = partyService;
+			_lobbyService = lobbyService;
 			_appDataProvider = appDataProvider;
 			_localPrefsService = localPrefsService;
 
 			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
 			SelectedGameMode.Observe(OnGameModeSet);
-			_partyService.Members.Observe(OnPartyMemberUpdate);
-			_partyService.HasParty.Observe((_, hasParty) => { OnHasPartyUpdate(hasParty); });
-			_partyService.OnLobbyPropertiesCreated += AddGameModeToPartyProperties;
-			_partyService.LobbyProperties.Observe(SelectedQueueLobbyProperty, OnLeaderChangedGameMode);
+
+			_lobbyService.CurrentPartyCallbacks.LobbyJoined += OnPartyLobbyJoined;
+			_lobbyService.CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
 		}
 
 		public void Init()
@@ -190,36 +192,35 @@ namespace FirstLight.Game.Services
 				MainInstaller.Resolve<IGameServices>().DataSaver.SaveData<AppData>();
 			}
 
-			if (_partyService.HasParty.Value && _partyService.GetLocalMember().Leader)
+			if (_lobbyService.CurrentPartyLobby != null && _lobbyService.CurrentPartyLobby.IsLocalPlayerHost())
 			{
-				var newQueueName = current.Entry.PlayfabQueue.QueueName;
-				if (_partyService.LobbyProperties.TryGetValue(SelectedQueueLobbyProperty, out var currentPartyQueue))
-				{
-					if (currentPartyQueue == newQueueName)
-					{
-						return;
-					}
-				}
-				_partyService.SetLobbyProperty(SelectedQueueLobbyProperty, newQueueName, true).Forget();
+				// TODO: Should wait for this or something
+				_lobbyService.UpdatePartyMatchmakingQueue(current.Entry.PlayfabQueue.QueueName).Forget();
 			}
 		}
 
-		private void AddGameModeToPartyProperties(Dictionary<string, string> _, Dictionary<string, string> lobbyData)
+		private void OnPartyLobbyJoined(Lobby lobby)
 		{
-			lobbyData[SelectedQueueLobbyProperty] = SelectedGameMode.Value.Entry.PlayfabQueue.QueueName;
+			if (!lobby.IsLocalPlayerHost())
+			{
+				SelectedGameMode.Value =
+					_slots.FirstOrDefault(a => a.Entry.PlayfabQueue.QueueName == lobby.Data[FLLobbyService.KEY_MATCHMAKING_QUEUE].Value);
+			}
 		}
 
-		private void OnLeaderChangedGameMode(string key, string previous, string current, ObservableUpdateType type)
+		private void OnPartyLobbyChanged(ILobbyChanges changes)
 		{
-			var selected = SelectedGameMode.Value.Entry.PlayfabQueue.QueueName;
-			if (selected == current)
+			if (changes.LobbyDeleted) return;
+
+			if (changes.Data.Changed && changes.Data.Value.TryGetValue(FLLobbyService.KEY_MATCHMAKING_QUEUE, out var queue))
 			{
-				return;
+				SelectedGameMode.Value = _slots.FirstOrDefault(a => a.Entry.PlayfabQueue.QueueName == queue.Value.Value);
 			}
 
-			var newValue = _slots.FirstOrDefault(a => a.Entry.PlayfabQueue.QueueName == current);
-			if (newValue.Entry.PlayfabQueue?.QueueName == null) return;
-			SelectedGameMode.Value = newValue;
+			if (_lobbyService.CurrentPartyLobby.IsLocalPlayerHost() && (changes.PlayerJoined.Changed || changes.PlayerLeft.Changed))
+			{
+				AutoSelectGameModeForTeamSize(_lobbyService.CurrentPartyLobby.Players.Count);
+			}
 		}
 
 		/// <summary>
@@ -256,26 +257,6 @@ namespace FirstLight.Game.Services
 			}
 
 			return compatibleMaps[timeSegmentIndex];
-		}
-
-		private void OnPartyMemberUpdate(int index, PartyMember before, PartyMember after, ObservableUpdateType type)
-		{
-			if (type == ObservableUpdateType.Added || type == ObservableUpdateType.Removed)
-			{
-				AutoSelectGameModeForTeamSize(_partyService.Members.Count);
-			}
-		}
-
-		public void OnHasPartyUpdate(bool hasParty)
-		{
-			// Player left party
-			if (!hasParty)
-			{
-				AutoSelectGameModeForTeamSize(1, true);
-				return;
-			}
-
-			AutoSelectGameModeForTeamSize(_partyService.Members.Count);
 		}
 
 		private void AutoSelectGameModeForTeamSize(int size, bool forceMinSize = false)

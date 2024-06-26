@@ -100,7 +100,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		public static bool IsEveryoneReady(this Lobby lobby)
 		{
 			return lobby.Players
-				.Where(p => p.Id != AuthenticationService.Instance.PlayerId) // Host doesn't need to be ready
+				.Where(p => !p.IsLocal()) // Host doesn't need to be ready
 				.All(IsReady);
 		}
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -6,9 +7,11 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.SDK.Services;
 using Newtonsoft.Json;
+using PlayFab;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
@@ -29,6 +32,9 @@ namespace FirstLight.Game.Services
 		public const string KEY_MELEE_ID = "melee_id";
 		public const string KEY_PLAYER_NAME = "player_name";
 		public const string KEY_READY = "ready";
+		public const string KEY_PLAYFAB_ID = "playfab_id";
+		public const string KEY_MATCHMAKING_TICKET = "matchmaking_ticket";
+		public const string KEY_MATCHMAKING_QUEUE = "matchmaking_queue";
 
 		public const string KEY_MATCH_SETTINGS = "match_settings";
 		public const string KEY_REGION = "region"; // S1
@@ -41,17 +47,12 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Events that trigger when the party lobby changes.
 		/// </summary>
-		public LobbyEventCallbacks CurrentPartyCallbacks { get; } = new ();
+		public FLLobbyEventCallbacks CurrentPartyCallbacks { get; } = new ();
 
 		/// <summary>
 		/// The IDs of the players we sent invites to (only persists for the current session).
 		/// </summary>
 		public IReadOnlyList<string> SentPartyInvites => _sentPartyInvites;
-
-		/// <summary>
-		/// The IDs of the players we sent invites to (only persists for the current session).
-		/// </summary>
-		public IReadOnlyList<string> SentMatchInvites => _sentMatchInvites;
 
 		/// <summary>
 		/// The custom game the player is currently in.
@@ -61,7 +62,12 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Events that trigger when the custom game lobby changes.
 		/// </summary>
-		public LobbyEventCallbacks CurrentMatchCallbacks { get; private set; } = new ();
+		public FLLobbyEventCallbacks CurrentMatchCallbacks { get; } = new ();
+
+		/// <summary>
+		/// The IDs of the players we sent invites to (only persists for the current session).
+		/// </summary>
+		public IReadOnlyList<string> SentMatchInvites => _sentMatchInvites;
 
 		private ILobbyEvents _partyLobbyEvents;
 		private ILobbyEvents _matchLobbyEvents;
@@ -95,10 +101,17 @@ namespace FirstLight.Game.Services
 			Assert.IsNull(CurrentPartyLobby, "Trying to create a party but the player is already in one!");
 
 			var lobbyName = string.Format(PARTY_LOBBY_NAME, AuthenticationService.Instance.PlayerId);
+			// TODO: Should not have to resolve services here but there's a circular dependency
+			var currentGameModeQueue = MainInstaller.ResolveServices().GameModeService.SelectedGameMode.Value.Entry.PlayfabQueue.QueueName;
 			var options = new CreateLobbyOptions
 			{
 				IsPrivate = true,
-				Player = CreateLocalPlayer()
+				Player = CreateLocalPlayer(),
+				Data = new ()
+				{
+					{KEY_MATCHMAKING_QUEUE, new DataObject(DataObject.VisibilityOptions.Member, currentGameModeQueue)},
+					{KEY_MATCHMAKING_TICKET, new DataObject(DataObject.VisibilityOptions.Member, null)}
+				}
 			};
 
 			// TODO: Maybe we need to check if the player is already in a party?
@@ -106,11 +119,11 @@ namespace FirstLight.Game.Services
 			try
 			{
 				FLog.Info($"Creating new party with name: {lobbyName}");
-				var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, MAX_PARTY_SIZE, options);
-				_partyLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentPartyCallbacks);
-				FLog.Info($"Party created! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name}");
+				CurrentPartyLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, MAX_PARTY_SIZE, options);
+				_partyLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(CurrentPartyLobby.Id, CurrentPartyCallbacks);
+				FLog.Info($"Party created! Code: {CurrentPartyLobby.LobbyCode} ID: {CurrentPartyLobby.Id} Name: {CurrentPartyLobby.Name}");
 
-				CurrentPartyLobby = lobby;
+				CurrentPartyCallbacks.TriggerLobbyJoined(CurrentPartyLobby);
 			}
 			catch (LobbyServiceException e)
 			{
@@ -126,7 +139,7 @@ namespace FirstLight.Game.Services
 		{
 			Assert.IsNull(CurrentPartyLobby, "Trying to join a party but the player is already in one!");
 
-			var options = new JoinLobbyByCodeOptions()
+			var options = new JoinLobbyByCodeOptions
 			{
 				Player = CreateLocalPlayer()
 			};
@@ -134,10 +147,11 @@ namespace FirstLight.Game.Services
 			try
 			{
 				FLog.Info($"Joining party with code: {code}");
-				var lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code, options);
-				_partyLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentPartyCallbacks);
-				CurrentPartyLobby = lobby;
-				FLog.Info($"Party joined! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name} UPID: {lobby.Upid}");
+				CurrentPartyLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code, options);
+				_partyLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(CurrentPartyLobby.Id, CurrentPartyCallbacks);
+				CurrentPartyCallbacks.TriggerLobbyJoined(CurrentPartyLobby);
+				FLog.Info(
+					$"Party joined! Code: {CurrentPartyLobby.LobbyCode} ID: {CurrentPartyLobby.Id} Name: {CurrentPartyLobby.Name} UPID: {CurrentPartyLobby.Upid}");
 			}
 			catch (LobbyServiceException e)
 			{
@@ -201,7 +215,7 @@ namespace FirstLight.Game.Services
 				_notificationService.QueueNotification($"Could not leave party ({(int) e.Reason})");
 			}
 		}
-		
+
 		/// <summary>
 		/// Sets the party host to the given player ID.
 		/// </summary>
@@ -225,18 +239,21 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
+		/// <summary>
+		/// Toggles the ready status of the player in the current party.
+		/// </summary>
 		public async UniTask TogglePartyReady()
 		{
 			Assert.IsNotNull(CurrentPartyLobby, "Trying to toggle party ready status but the player is not in one!");
 
-			var currentStatus = CurrentPartyLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId).IsReady();
+			var currentStatus = CurrentPartyLobby.Players.First(p => p.IsLocal()).IsReady();
 
 			var options = new UpdatePlayerOptions
 			{
 				Data = new Dictionary<string, PlayerDataObject>
 				{
 					{
-						KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, (!currentStatus).ToString())
+						KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, (!currentStatus).ToString().ToLowerInvariant())
 					}
 				}
 			};
@@ -244,7 +261,8 @@ namespace FirstLight.Game.Services
 			try
 			{
 				FLog.Info($"Setting lobby ready status to: {!currentStatus}");
-				await LobbyService.Instance.UpdatePlayerAsync(CurrentPartyLobby.Id, AuthenticationService.Instance.PlayerId, options);
+				CurrentPartyLobby =
+					await LobbyService.Instance.UpdatePlayerAsync(CurrentPartyLobby.Id, AuthenticationService.Instance.PlayerId, options);
 				FLog.Info("Lobby status set successfully!");
 			}
 			catch (LobbyServiceException e)
@@ -252,6 +270,74 @@ namespace FirstLight.Game.Services
 				FLog.Warn("Error setting ready status!", e);
 				_notificationService.QueueNotification($"Could not set ready status ({e.ErrorCode})");
 			}
+		}
+
+		/// <summary>
+		/// Updates the matchmaking ticket for the current party.
+		/// </summary>
+		public async UniTask<bool> UpdatePartyMatchmakingTicket(JoinedMatchmaking ticket)
+		{
+			Assert.IsNotNull(CurrentPartyLobby, "Trying to update party matchmaking ticket but the player is not in one!");
+
+			var options = new UpdateLobbyOptions
+			{
+				Data = new Dictionary<string, DataObject>
+				{
+					{
+						KEY_MATCHMAKING_TICKET,
+						new DataObject(DataObject.VisibilityOptions.Member, ticket == null ? null : JsonConvert.SerializeObject(ticket))
+					}
+				}
+			};
+
+			try
+			{
+				FLog.Info("Updating party matchmaking ticket.");
+				CurrentPartyLobby = await LobbyService.Instance.UpdateLobbyAsync(CurrentPartyLobby.Id, options);
+				FLog.Info("Party matchmaking ticket updated successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn("Error updating party matchmaking ticket!", e);
+				_notificationService.QueueNotification($"Could not start party matchmaking ({e.ErrorCode})");
+
+				return false;
+			}
+
+			return true;
+		}
+
+		/// <summary>
+		/// Updates the matchmaking ticket for the current party.
+		/// </summary>
+		public async UniTask<bool> UpdatePartyMatchmakingQueue(string queue)
+		{
+			Assert.IsNotNull(CurrentPartyLobby, "Trying to update party matchmaking queue but the player is not in one!");
+
+			var options = new UpdateLobbyOptions
+			{
+				Data = new Dictionary<string, DataObject>
+				{
+					{
+						KEY_MATCHMAKING_QUEUE, queue == null ? null : new DataObject(DataObject.VisibilityOptions.Member, queue)
+					}
+				}
+			};
+
+			try
+			{
+				FLog.Info("Updating party matchmaking queue.");
+				CurrentPartyLobby = await LobbyService.Instance.UpdateLobbyAsync(CurrentPartyLobby.Id, options);
+				FLog.Info("Party matchmaking queue updated successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn("Error updating party matchmaking queue!", e);
+				_notificationService.QueueNotification($"Could not update party game mode ({e.ErrorCode})");
+				return false;
+			}
+
+			return true;
 		}
 
 		/// <summary>
@@ -319,6 +405,7 @@ namespace FirstLight.Game.Services
 				var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, matchOptions.MaxPlayers, options);
 				_matchLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentMatchCallbacks);
 				CurrentMatchLobby = lobby;
+				CurrentMatchCallbacks.TriggerLobbyJoined(lobby);
 				FLog.Info($"Match lobby created! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name}");
 			}
 			catch (LobbyServiceException e)
@@ -346,6 +433,7 @@ namespace FirstLight.Game.Services
 					: await LobbyService.Instance.JoinLobbyByIdAsync(lobbyIDOrCode, new JoinLobbyByIdOptions {Player = CreateLocalPlayer()});
 				_matchLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentMatchCallbacks);
 				CurrentMatchLobby = lobby;
+				CurrentMatchCallbacks.TriggerLobbyJoined(lobby);
 				FLog.Info($"Match lobby joined! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name}");
 			}
 			catch (LobbyServiceException e)
@@ -543,11 +631,12 @@ namespace FirstLight.Game.Services
 				id: AuthenticationService.Instance.PlayerId,
 				data: new Dictionary<string, PlayerDataObject>
 				{
-					// TODO mihak: Need to figure out how to get this from profile but it's always null
+					// TODO mihak: Need to figure out how to get the name from profile but it's always null
 					{KEY_PLAYER_NAME, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, AuthenticationService.Instance.PlayerName)},
 					{KEY_SKIN_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, skinID.ToString())},
 					{KEY_MELEE_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, meleeID.ToString())},
-					{KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "false")}
+					{KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "false")},
+					{KEY_PLAYFAB_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayFabSettings.staticPlayer.EntityId)}
 				},
 				profile: new PlayerProfile(AuthenticationService.Instance.PlayerName)
 			);
@@ -583,9 +672,12 @@ namespace FirstLight.Game.Services
 			}
 
 			// If a player joined check if we sent the invite and remove it
-			foreach (var playerJoined in changes.PlayerJoined.Value)
+			if (changes.PlayerJoined.Value != null)
 			{
-				_sentPartyInvites.Remove(playerJoined.Player.Id);
+				foreach (var playerJoined in changes.PlayerJoined.Value)
+				{
+					_sentPartyInvites.Remove(playerJoined.Player.Id);
+				}
 			}
 
 			changes.ApplyToLobby(CurrentPartyLobby);
@@ -621,6 +713,19 @@ namespace FirstLight.Game.Services
 					LobbyService.Instance.RemovePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId);
 				}
 			}
+		}
+	}
+
+	public class FLLobbyEventCallbacks : LobbyEventCallbacks
+	{
+		/// <summary>
+		/// Event called when a new lobby is created.
+		/// </summary>
+		public event Action<Lobby> LobbyJoined;
+
+		public void TriggerLobbyJoined(Lobby lobby)
+		{
+			LobbyJoined?.Invoke(lobby);
 		}
 	}
 }

@@ -132,7 +132,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenMatchInfo(Lobby lobby)
 		{
-			var friendsPlaying = lobby.Players.Where(p => p.IsFriend()).Select(p => p.GetPlayerName()).ToList();
+			var friendsPlaying = lobby.GetFriends().Select(p => p.GetPlayerName()).ToList();
 			PopupPresenter.OpenMatchInfo(lobby.GetMatchSettings(), friendsPlaying).Forget();
 		}
 

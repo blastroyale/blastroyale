@@ -102,8 +102,6 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IIAPService"/>
 		public IIAPService IAPService { get; }
 
-		public IPartyService PartyService { get; }
-
 		public RateAndReviewService RateAndReviewService { get; }
 
 		/// <inheritdoc cref="IPlayfabPubSubService"/>
@@ -169,7 +167,6 @@ namespace FirstLight.Game.Services
 		public IGameModeService GameModeService { get; }
 		public IMatchmakingService MatchmakingService { get; }
 		public IIAPService IAPService { get; }
-		public IPartyService PartyService { get; }
 		public RateAndReviewService RateAndReviewService { get; }
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
@@ -222,11 +219,10 @@ namespace FirstLight.Game.Services
 			ProfileService = new PlayerProfileService(GameBackendService);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic,
 				configsProvider);
-			PartyService = new PartyService(PlayfabPubSubService, gameLogic.AppDataProvider, GameBackendService,
-				GenericDialogService, MessageBrokerService, LocalPrefsService);
 
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
-			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider,
+			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, NotificationService, LocalPrefsService);
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, FLLobbyService, gameLogic.AppDataProvider,
 				LocalPrefsService);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
@@ -236,7 +232,7 @@ namespace FirstLight.Game.Services
 			CoroutineService = new CoroutineService();
 			ControlsSetup = new ControlSetupService();
 			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
-			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, FLLobbyService, MessageBrokerService, NetworkService,
+			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider, LocalPrefsService);
 			NewsService = new PlayfabNewsService(MessageBrokerService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
@@ -251,7 +247,6 @@ namespace FirstLight.Game.Services
 			TeamService = new TeamService(RoomService);
 			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);
 			CustomerSupportService = new CustomerSupportService(AuthenticationService);
-			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, NotificationService, LocalPrefsService);
 		}
 
 		/// <inheritdoc />

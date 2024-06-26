@@ -21,6 +21,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
 using Unity.Services.Authentication;
+using Unity.Services.Lobbies;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -254,6 +255,9 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 			_services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
+			
+			UpdatePlayButton();
 
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
 
@@ -273,6 +277,7 @@ namespace FirstLight.Game.Presenters
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnIsMatchmakingChanged);
 			_services.LeaderboardService.OnRankingUpdate -= OnRankingUpdateHandler;
 			_dataProvider.PlayerDataProvider.Level.StopObserving(OnFameChanged);
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnPartyLobbyChanged;
 
 			if (_updatePoolsCoroutine != null)
 			{
@@ -286,6 +291,11 @@ namespace FirstLight.Game.Presenters
 		private void OnDisplayNameChanged(DisplayNameChangedMessage _)
 		{
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
+		}
+		
+		private void OnPartyLobbyChanged(ILobbyChanges changes)
+		{
+			UpdatePlayButton();
 		}
 
 		private void OnRankingUpdateHandler(PlayerLeaderboardEntry leaderboardEntry)
@@ -526,7 +536,7 @@ namespace FirstLight.Game.Presenters
 				}
 				else
 				{
-					var isReady = partyLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId).IsReady();
+					var isReady = partyLobby.Players.First(p => p.IsLocal()).IsReady();
 
 					if (isReady)
 					{

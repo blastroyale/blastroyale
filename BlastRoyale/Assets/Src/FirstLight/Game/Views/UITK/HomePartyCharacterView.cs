@@ -101,6 +101,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		public override void OnScreenOpen(bool reload)
 		{
 			_services.MatchmakingService.IsMatchmaking.Observe(OnMatchmaking);
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += OnLobbyJoined;
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
 			Element.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
 
@@ -111,6 +112,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		public override void OnScreenClose()
 		{
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnMatchmaking);
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined -= OnLobbyJoined;
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
 		}
 
@@ -122,7 +124,12 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
-		private void OnLobbyChanged(ILobbyChanges obj)
+		private void OnLobbyChanged(ILobbyChanges changes)
+		{
+			UpdateMembers().Forget();
+		}
+
+		private void OnLobbyJoined(Lobby lobby)
 		{
 			UpdateMembers().Forget();
 		}

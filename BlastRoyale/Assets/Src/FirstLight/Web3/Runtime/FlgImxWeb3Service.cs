@@ -10,7 +10,6 @@ using Cysharp.Threading.Tasks.CompilerServices;
 using FirstLight.Game.Presenters;
 using FirstLight.FLogger;
 
-
 /// <summary>
 /// Integrates IMX Passport to FLG Game
 /// </summary>
@@ -96,17 +95,21 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 	public async UniTask<Web3State> OpenLoginDialog()
 	{
 		FLog.Verbose("[IMX Web3]", "Login Requested");
-		if (PROOF_KEY) await Passport.LoginPKCE();
-		else
+#if UNITY_ANDROID || UNITY_IPHONE || UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+			if (PROOF_KEY)
 		{
-			if (!await Passport.Login())
-			{
-				return State;
-			}
+			await Passport.LoginPKCE();
+			State = Web3State.Authenticated;
+			return State;
+		}
+#endif
 
-			await ConnectBlockchain();
+		if (!await Passport.Login())
+		{
+			return State;
 		}
 
+		await ConnectBlockchain();
 		State = Web3State.Authenticated;
 		return State;
 	}

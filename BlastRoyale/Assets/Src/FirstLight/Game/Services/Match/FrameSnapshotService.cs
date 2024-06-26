@@ -1,28 +1,15 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Services;
-using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
-using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
-using Newtonsoft.Json;
-using Photon.Deterministic;
-using Photon.Realtime;
 using Quantum;
-using Quantum.Core;
-using UnityEngine;
 using UnityEngine.Serialization;
+using BitStream = Photon.Deterministic.BitStream;
 
 namespace FirstLight.Game.Services
 {
@@ -61,11 +48,11 @@ namespace FirstLight.Game.Services
 		public string RoomName;
 		public byte[] SnapshotBytes;
 		public int FrameNumber;
-		public MatchRoomSetup Setup;
+		public byte[] SerializedSetup;
 
 		public override string ToString()
 		{
-			return $"<Snapshot Frame={FrameNumber} Setup={Setup} Room={RoomName} Offline={Offline} QtdPlayers={AmtPlayers}>";
+			return $"<Snapshot Frame={FrameNumber} Setup={SerializedSetup} Room={RoomName} Offline={Offline} QtdPlayers={AmtPlayers}>";
 		}
 
 		/// <summary>
@@ -83,7 +70,6 @@ namespace FirstLight.Game.Services
 		private readonly IDataService _dataService;
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _data;
-
 
 		private readonly CancellationTokenSource _disposeCancelation = new CancellationTokenSource();
 
@@ -108,7 +94,6 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-
 		private void OnMatchStarted(MatchStartedMessage msg)
 		{
 			if (QuantumRunner.Default != null && QuantumRunner.Default.Game?.Frames.Verified != null)
@@ -116,7 +101,6 @@ namespace FirstLight.Game.Services
 				SnapshotRoutine(_disposeCancelation.Token).Forget();
 			}
 		}
-
 
 		private unsafe bool CanGameBeReconnected()
 		{
@@ -128,6 +112,7 @@ namespace FirstLight.Game.Services
 
 		public void TakeSnapshot(QuantumGame game)
 		{
+			//TODO: Reconnection broken don't let me merge
 			if (!CanGameBeReconnected()) return;
 
 			var lastRoom = _services.RoomService.LastRoom;
@@ -137,10 +122,10 @@ namespace FirstLight.Game.Services
 				RoomName = lastRoom?.Name,
 				ExpiresAt = DateTime.UtcNow.Ticks + timeToEndGame.Ticks,
 				Offline = lastRoom?.IsOffline ?? false,
-				Setup = lastRoom?.ToMatchSetup(),
+				SerializedSetup = lastRoom?.ToMatchSetup().ToByteArray(),
 				AmtPlayers = (byte) lastRoom?.GetRealPlayerAmount(),
 			};
-			
+
 			_data.AppDataProvider.LastFrameSnapshot.Value = snapshot;
 			_services.DataSaver.SaveData<AppData>();
 			FLog.Info($"Frame snapshot captured {snapshot}");

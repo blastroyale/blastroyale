@@ -40,17 +40,18 @@ namespace FirstLight.Game.Services.Analytics
 				return;
 			}
 
+			var matchConfig = room.Properties.SimulationMatchConfig.Value;
 			// We create lookups so we don't have boxing situations happening during the gameplay
 			_matchId = _services.NetworkService.QuantumClient.CurrentRoom.Name;
-			_mutators = string.Join(",", room.Properties.Mutators.Value);
-			_matchType = room.Properties.MatchType.Value.ToString();
-			var rewards = room.Properties.AllowedRewards.Value ?? new List<GameId>();
-			if (room.Properties.MatchType.Value == MatchType.Matchmaking)
+			_mutators = string.Join(",", matchConfig.Mutators);
+			_matchType = matchConfig.MatchType.ToString();
+			var rewards = new List<GameId>();
+			if (matchConfig.MatchType == MatchType.Matchmaking)
 			{
 				_matchType = rewards.Contains(GameId.Trophies) ? "Ranked" : "Casual";
 			}
 
-			_gameModeId = room.Properties.GameModeId.Value;
+			_gameModeId = matchConfig.GameModeID;
 			var config = room.MapConfig;
 			_mapId = config.Map.ToString();
 		}
@@ -75,7 +76,7 @@ namespace FirstLight.Game.Services.Analytics
 				FetchPropertiesFromRoom();
 
 				_analyticsService.LogEvent(new MatchStartEvent(_matchId, _matchType, _gameModeId, _mutators, totalPlayers, _mapId,
-					room.Properties.TeamSize.Value));
+					(int)room.Properties.SimulationMatchConfig.Value.TeamSize));
 			}
 			catch (Exception e)
 			{

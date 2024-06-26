@@ -13,16 +13,16 @@ namespace Quantum.Systems
 		public override void OnInit(Frame f)
 		{
 			f.Global->Queries = f.AllocateList<EntityPair>(128);
-			f.Context.MapConfig = f.MapConfigs.GetConfig(f.RuntimeConfig.MapId);
-			f.Context.GameModeConfig = f.GameModeConfigs.GetConfig(f.RuntimeConfig.GameModeId);
-			f.Context.MutatorConfigs = f.RuntimeConfig.Mutators
+			f.Context.MapConfig = f.MapConfigs.GetConfig(f.RuntimeConfig.MatchConfigs.MapId);
+			f.Context.GameModeConfig = f.GameModeConfigs.GetConfig(f.RuntimeConfig.MatchConfigs.GameModeID);
+			f.Context.MutatorConfigs = f.RuntimeConfig.MatchConfigs.Mutators
 			                            .Select(mutatorId => f.MutatorConfigs.GetConfig(mutatorId)).ToList();
 			f.Context.TargetAllLayerMask = -1;
 			f.Context.TargetPlayersMask = f.Layers.GetLayerMask(PhysicsLayers.PLAYERS);
 			f.Context.TargetMapOnlyLayerMask = f.Layers.GetLayerMask(PhysicsLayers.OBSTACLES);
 			f.Context.TargetPlayerLineOfSightLayerMask = f.Layers.GetLayerMask(PhysicsLayers.OBSTACLES, PhysicsLayers.PLAYERS);
 			f.Context.TargetPlayerTriggersLayerIndex = f.Layers.GetLayerIndex(PhysicsLayers.PLAYER_TRIGGERS);
-			f.Context.MapShrinkingCircleConfigs = f.ShrinkingCircleConfigs.GetConfigs(f.RuntimeConfig.MapId);
+			f.Context.MapShrinkingCircleConfigs = f.ShrinkingCircleConfigs.GetConfigs(f.RuntimeConfig.MatchConfigs.MapId);
 
 			foreach (var systemName in f.Context.GameModeConfig.Systems)
 			{

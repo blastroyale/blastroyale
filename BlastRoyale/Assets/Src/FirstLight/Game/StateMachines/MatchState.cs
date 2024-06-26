@@ -217,7 +217,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsCustomGame()
 		{
-			return _roomService.CurrentRoom.Properties.MatchType.Value == MatchType.Custom;
+			return _roomService.CurrentRoom.Properties.SimulationMatchConfig.Value.MatchType == MatchType.Custom;
 		}
 
 		private bool IsGameStarted()
@@ -293,8 +293,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				MatchId = room.Name,
 				ExecutingPlayer = game.GetLocalPlayers()[0],
-				MatchType = _roomService.CurrentRoom.Properties.MatchType.Value,
-				AllowedRewards = _roomService.CurrentRoom.Properties.AllowedRewards.Value
 			});
 			_services.CommandService.ExecuteCommand(command as IGameCommand);
 		}

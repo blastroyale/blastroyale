@@ -3,16 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using FirstLight.Game.Ids;
 using FirstLight.Services;
 using PlayFab;
 using PlayFab.MultiplayerModels;
 using FirstLight.FLogger;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.Party;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
@@ -71,35 +70,12 @@ namespace FirstLight.Game.Services
 		public event OnMatchmakingCancelledHandler OnMatchmakingCancelled;
 	}
 
-	/// <summary>
-	/// Represents a match join settings
-	/// This object is passed down through the network to all party players so please be careful
-	/// when adding data here
-	/// </summary>
-	[Serializable]
-	public class MatchRoomSetup
-	{
-		// Required at creation
-		public int MapId;
-		public string GameModeId;
-		public int OverwriteMaxPlayers;
-		public MatchType MatchType;
-		public IReadOnlyList<string> Mutators;
-		public string RoomIdentifier = "";
-		public int BotDifficultyOverwrite = -1;
-		public List<GameId> AllowedRewards = new ();
-		public GameModeRotationConfig.PlayfabQueue PlayfabQueue = new ();
-
-		public override string ToString() => ModelSerializer.Serialize(this).Value;
-	}
-
 	public class GameMatched
 	{
 		public string MatchIdentifier;
-		public string TeamId;
-		public byte ColorIndex;
 		public string[] ExpectedPlayers;
 		public MatchRoomSetup RoomSetup;
+		public PlayerJoinRoomProperties PlayerProperties;
 	}
 
 	class CustomMatchmakingPlayerProperties
@@ -297,14 +273,6 @@ namespace FirstLight.Game.Services
 			}, callback, ErrorCallback("GetTicket"));
 		}
 
-		public void GetMyTickets(string queue, Action<ListMatchmakingTicketsForPlayerResult> callback)
-		{
-			PlayFabMultiplayerAPI.ListMatchmakingTicketsForPlayer(new ListMatchmakingTicketsForPlayerRequest()
-			{
-				QueueName = queue
-			}, callback, ErrorCallback("GetMyTickets"));
-		}
-
 		public void GetMatch(string matchId, string queue, Action<GetMatchResult> callback)
 		{
 			PlayFabMultiplayerAPI.GetMatch(new GetMatchRequest()
@@ -328,7 +296,7 @@ namespace FirstLight.Game.Services
 				{
 					Server = _localPrefsService.ServerRegion.Value,
 					// We need to send the map as null so it can be matched with everyone else
-					Map = roomSetup.MapId != (int) GameId.Any ? roomSetup.MapId.ToString() : null,
+					Map = roomSetup.SimulationConfig.MapId != (int) GameId.Any ? roomSetup.SimulationConfig.MapId.ToString() : null,
 					MasterPlayerId = _networkService.UserId,
 					PlayerCount = 1
 				}.Encode()
@@ -465,9 +433,12 @@ namespace FirstLight.Game.Services
 					ExpectedPlayers = players,
 					MatchIdentifier = matchId,
 					RoomSetup = _setup,
-					// Since this game is only going to be this ticket, all the players should be in the same team
-					TeamId = "team1",
-					ColorIndex = colorIndex
+					PlayerProperties = new PlayerJoinRoomProperties()
+					{
+						// Since this game is only going to be this ticket, all the players should be in the same team
+						Team = "team1",
+						TeamColor = colorIndex
+					}
 				});
 				return;
 			}
@@ -487,7 +458,7 @@ namespace FirstLight.Game.Services
 					);
 
 				// This distribution should be deterministic and used in the server to validate if anyone is exploiting
-				membersWithTeam = TeamDistribution.Distribute(membersWithTeam, (uint) _setup.PlayfabQueue.TeamSize);
+				membersWithTeam = TeamDistribution.Distribute(membersWithTeam, (uint) _setup.SimulationConfig.TeamSize);
 				var playerTeam = membersWithTeam[PlayFabSettings.staticPlayer.EntityId];
 
 				var colorIndex = (byte) membersWithTeam.Where((kv) => kv.Value == playerTeam).Select(kv => kv.Key)
@@ -504,7 +475,7 @@ namespace FirstLight.Game.Services
 					.Select(m => m.Map).Distinct()
 					.FirstOrDefault(id => id != ((int) GameId.Any).ToString()) ?? ((int) GameId.Any).ToString();
 
-				_setup.MapId = int.Parse(map);
+				_setup.SimulationConfig.MapId = int.Parse(map);
 				_service.InvokeMatchFound(new GameMatched()
 				{
 					ExpectedPlayers = decodedPlayers
@@ -512,8 +483,12 @@ namespace FirstLight.Game.Services
 						.ToArray(),
 					MatchIdentifier = ticket.MatchId,
 					RoomSetup = _setup,
-					TeamId = playerTeam,
-					ColorIndex = colorIndex,
+					PlayerProperties = new PlayerJoinRoomProperties()
+					{
+						// Since this game is only going to be this ticket, all the players should be in the same team
+						Team = playerTeam,
+						TeamColor = colorIndex
+					},
 				});
 			});
 		}

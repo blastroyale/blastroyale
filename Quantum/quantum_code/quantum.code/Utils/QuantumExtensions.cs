@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
+using Photon.Deterministic;
+using Photon.Deterministic.Protocol;
 
 namespace Quantum
 {
-
 	/// <summary>
 	/// This class has a list of useful extensions to be used in the quantum project
 	/// </summary>
 	public static class QuantumExtensions
 	{
-
 		/// <summary>
 		/// Sends a command that will be executed in client logic.
 		/// The command will be routed via quantum server if its a quantum command to
@@ -20,7 +20,7 @@ namespace Quantum
 			f.Events.FireQuantumServerCommand(sender, command); // server-only
 			f.Events.FireLocalQuantumServerCommand(sender, command); // prediction
 		}
-		
+
 		/// <summary>
 		/// Sorts a list of player by their <see cref="QuantumPlayerMatchData.PlayerRank"/>
 		/// </summary>
@@ -82,10 +82,18 @@ namespace Quantum
 				ChestType.Legendary  => Quantum.GameId.ChestLegendary,
 				ChestType.Tutorial   => Quantum.GameId.ChestEquipmentTutorial,
 				ChestType.Weapon     => Quantum.GameId.ChestWeapon,
-				ChestType.Vitality     => Quantum.GameId.ChestVitality,
-				ChestType.Ammo     => Quantum.GameId.ChestAmmo,
+				ChestType.Vitality   => Quantum.GameId.ChestVitality,
+				ChestType.Ammo       => Quantum.GameId.ChestAmmo,
 				_                    => throw new ArgumentOutOfRangeException(nameof(type), type, null)
 			};
+		}
+
+
+		public static void Serialize(this BitStream stream, ref GameId id)
+		{
+			var intVal = (int)id;
+			stream.Serialize(ref intVal);
+			id = (GameId)intVal;
 		}
 	}
 }

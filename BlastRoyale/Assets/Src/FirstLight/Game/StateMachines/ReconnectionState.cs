@@ -109,9 +109,10 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Verbose("Creating new room From Snapshot");
 			var snapshot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
-			snapshot.Setup.RoomIdentifier ??= Guid.NewGuid().ToString();
+			MatchRoomSetup.TryParseMatchRoomSetup(snapshot.SerializedSetup, out var setup);
+			setup.RoomIdentifier ??= Guid.NewGuid().ToString();
 			_networkService.JoinSource.Value = JoinRoomSource.RecreateFrameSnapshot;
-			_services.RoomService.CreateRoom(snapshot.Setup, snapshot.Offline);
+			_services.RoomService.CreateRoom(setup, snapshot.Offline);
 		}
 
 		private bool HasPendingMatch()
@@ -124,7 +125,11 @@ namespace FirstLight.Game.StateMachines
 			}
 #endif
 			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
-			var isTutorial = snapShot.Setup is {GameModeId: GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID};
+			if (!MatchRoomSetup.TryParseMatchRoomSetup(snapShot.SerializedSetup, out var setup))
+			{
+				return false;
+			}
+			var isTutorial = setup.SimulationConfig is {GameModeID: GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID};
 			var canRestoreFromSnapshot = _services.GameBackendService.RunsSimulationOnServer() || snapShot.Offline || snapShot.AmtPlayers > 1;
 
 			// Tutorial does not support reconnecting mid-way if app was closed due to keeping track of internal states in view/state machines
@@ -154,11 +159,12 @@ namespace FirstLight.Game.StateMachines
 		{
 			MatchTransition().Forget();
 			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
+			MatchRoomSetup.TryParseMatchRoomSetup(snapShot.SerializedSetup, out var setup);
 			if (snapShot.Offline)
 			{
 				FLog.Verbose("Creating offline room from snapshot");
 				_networkService.JoinSource.Value = JoinRoomSource.RecreateFrameSnapshot;
-				_services.RoomService.CreateRoom(snapShot.Setup, true);
+				_services.RoomService.CreateRoom(setup, true);
 			}
 			else
 			{

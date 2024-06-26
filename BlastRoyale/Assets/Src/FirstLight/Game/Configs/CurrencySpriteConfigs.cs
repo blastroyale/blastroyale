@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FirstLight.Editor.Inspector;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.Attributes;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using UnityEngine;

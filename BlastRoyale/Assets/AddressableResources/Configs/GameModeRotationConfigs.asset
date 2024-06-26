@@ -17,41 +17,77 @@ MonoBehaviour:
     RotationSlotDuration: 10800
     Slots:
     - Entries:
-      - GameModeId: BattleRoyale
-        MatchType: 1
-        Mutators: []
+      - TimedEntry: 0
+        TimedGameModeEntries: []
+        MatchConfig:
+          ConfigId: a1c6f3af
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 1
+          Mutators: []
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites: []
+          RewardModifiers: []
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 0
         PlayfabQueue:
           QueueName: battleroyale_1
-          TeamSize: 1
           TimeoutTimeInSeconds: 10
-        AllowedRewards: 030000000c000000160000001a000000d10000003d000000
-        TitleTranslationKey: UITGameModeSelection/br_solo_title
-        DescriptionTranslationKey: UITGameModeSelection/br_solo_description
-        ImageModifier: battleroyale-solo
-        IconSpriteClass: sprite-shared__icon-gamemode-solo
+          ExtraKey: 
+        Visual:
+          TitleTranslationKey: UITGameModeSelection/br_solo_title
+          DescriptionTranslationKey: UITGameModeSelection/br_solo_description
+          ImageModifier: battleroyale-solo
+          IconSpriteClass: sprite-shared__icon-gamemode-solo
     - Entries:
-      - GameModeId: BattleRoyale
-        MatchType: 1
-        Mutators: []
+      - TimedEntry: 0
+        TimedGameModeEntries: []
+        MatchConfig:
+          ConfigId: 9bf41c6a
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: []
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites: []
+          RewardModifiers: []
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 0
         PlayfabQueue:
           QueueName: battleroyale_2
-          TeamSize: 2
           TimeoutTimeInSeconds: 25
-        AllowedRewards: 030000000c000000160000001a000000d10000003d000000
-        TitleTranslationKey: UITGameModeSelection/br_duos_title
-        DescriptionTranslationKey: UITGameModeSelection/br_duos_description
-        ImageModifier: battleroyale-duos
-        IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ExtraKey: 
+        Visual:
+          TitleTranslationKey: UITGameModeSelection/br_duos_title
+          DescriptionTranslationKey: UITGameModeSelection/br_duos_description
+          ImageModifier: battleroyale-duos
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
     - Entries:
-      - GameModeId: BattleRoyale
-        MatchType: 1
-        Mutators: []
+      - TimedEntry: 0
+        TimedGameModeEntries: []
+        MatchConfig:
+          ConfigId: b273d8cb
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: []
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites: []
+          RewardModifiers: []
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 0
         PlayfabQueue:
           QueueName: battleroyale_4
-          TeamSize: 4
           TimeoutTimeInSeconds: 40
-        AllowedRewards: 030000000c000000160000001a000000d10000003d000000
-        TitleTranslationKey: UITGameModeSelection/br_quads_title
-        DescriptionTranslationKey: UITGameModeSelection/br_quads_description
-        ImageModifier: battleroyale-quads
-        IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ExtraKey: 
+        Visual:
+          TitleTranslationKey: UITGameModeSelection/br_quads_title
+          DescriptionTranslationKey: UITGameModeSelection/br_quads_description
+          ImageModifier: battleroyale-quads
+          IconSpriteClass: sprite-shared__icon-gamemode-squads

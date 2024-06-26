@@ -2,17 +2,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace Quantum 
+namespace Quantum
 {
 	partial class RuntimeConfig
-	{
-		// Non Serialized Map Data
-		[NonSerialized] public int MapId;
-		[NonSerialized] public string GameModeId;
-		[NonSerialized] public string[] Mutators;
-		[NonSerialized] public int BotOverwriteDifficulty;
-		[NonSerialized] public int TeamSize;
-		[NonSerialized] public int[] AllowedRewards;
+	{ 
+		public SimulationMatchConfig MatchConfigs;
 		
 		public AssetRefQuantumGameConfigs GameConfigs;
 		public AssetRefQuantumMapConfigs MapConfigs;
@@ -32,23 +26,11 @@ namespace Quantum
 		public AssetRefQuantumEquipmentMaterialStatConfigs EquipmentMaterialStatConfigs;
 		public AssetRefQuantumMutatorConfigs MutatorConfigs;
 		public AssetRefQuantumReviveConfigs ReviveConfigs;
-		
+
 		partial void SerializeUserData(BitStream stream)
 		{
-			stream.Serialize(ref MapId);
-			stream.Serialize(ref GameModeId);
-			stream.SerializeArrayLength(ref Mutators);
-			for (var i = 0; i < Mutators.Length; i++)
-			{
-				stream.Serialize(ref Mutators[i]);
-			}
-			stream.Serialize(ref BotOverwriteDifficulty);
-			stream.Serialize(ref TeamSize);
-			stream.SerializeArrayLength(ref AllowedRewards);
-			for (var i = 0; i < AllowedRewards.Length; i++)
-			{
-				stream.Serialize(ref AllowedRewards[i]);
-			}
+			MatchConfigs ??= new SimulationMatchConfig();
+			MatchConfigs.Serialize(stream);
 			stream.Serialize(ref GameConfigs);
 			stream.Serialize(ref MapConfigs);
 			stream.Serialize(ref GameModeConfigs);

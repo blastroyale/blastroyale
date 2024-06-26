@@ -401,17 +401,6 @@ namespace Quantum
             }
 
             var clientPlayer = RuntimePlayer.FromByteArray(setPlayerData.Data);
-            var equipmentData = ModelSerializer.DeserializeFromData<EquipmentData>(playfabData);
-            var validItemHashes = new HashSet<int>();
-
-            foreach (var itemTuple in equipmentData.Inventory)
-            {
-                var isNft = equipmentData.NftInventory.ContainsKey(itemTuple.Key);
-                if (isNft || !itemTuple.Value.IsBroken())
-                {
-                    validItemHashes.Add(itemTuple.Value.GetServerHashCode());
-                }
-            }
 
             if (!ValidatePlayerCosmetics(playfabData, ref clientPlayer))
             {

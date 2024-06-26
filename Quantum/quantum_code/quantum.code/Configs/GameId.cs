@@ -1086,6 +1086,7 @@ namespace Quantum
 					GameId.PlayerSkinSnowboarder, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1336,7 +1337,8 @@ namespace Quantum
 					GameId.MeleeSkinElectricSolo, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1372,7 +1374,8 @@ namespace Quantum
 					GameId.MeleeSkinOutOfThePark, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1417,7 +1420,8 @@ namespace Quantum
 					GameId.MeleeSkinTvTakedown, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1439,7 +1443,8 @@ namespace Quantum
 					GameId.MeleeSkinYouGotMail, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -2515,6 +2520,7 @@ namespace Quantum
 						GameId.FemaleSuperstar,
 						GameId.PlayerSkinXmasSuperstar,
 						GameId.PlayerSkinCupid,
+						GameId.PlayerSkinSnowboarder,
 						GameId.PlayerSkinBrandFemale,
 						GameId.PlayerSkinBrandMale,
 						GameId.Divinci,
@@ -2527,11 +2533,15 @@ namespace Quantum
 						GameId.Unicorn,
 						GameId.MeleeSkinDefault,
 						GameId.MeleeSkinDaggerOfDestiny,
+						GameId.MeleeSkinElectricSolo,
 						GameId.MeleeSkinMicDrop,
+						GameId.MeleeSkinOutOfThePark,
 						GameId.MeleeSkinPowerPan,
 						GameId.MeleeSkinThunderAxe,
 						GameId.MeleeSkinToyMelee,
+						GameId.MeleeSkinTvTakedown,
 						GameId.MeleeSkinWheelOfPain,
+						GameId.MeleeSkinYouGotMail,
 						GameId.MeleeSkinXmas2023,
 						GameId.FootprintDot
 					}.AsReadOnly()

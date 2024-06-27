@@ -24936,6 +24936,94 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITGameModeSelection/br_duos_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Play in teams of 2 players
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_duos_title
+      TermType: 0
+      Description: 
+      Languages:
+      - DUOS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_quads_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Play in teams of 4 players
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_quads_title
+      TermType: 0
+      Description: 
+      Languages:
+      - QUADS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_solo_description
+      TermType: 0
+      Description: 
+      Languages:
+      - One vs everyone
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_solo_title
+      TermType: 0
+      Description: 
+      Languages:
+      - SOLO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_trios_descrption
+      TermType: 0
+      Description: 
+      Languages:
+      - Play in teams of 3 players
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/br_trios_title
+      TermType: 0
+      Description: 
+      Languages:
+      - TRIOS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITGameModeSelection/choose_a_mode
       TermType: 0
       Description: 
@@ -25033,94 +25121,6 @@ MonoBehaviour:
       - Kill all the zombies. Survive as many waves as you can.
       - Kill all the zombies. Survive as many waves as you can.
       - Kill all the zombies. Survive as many waves as you can.
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_duos_description
-      TermType: 0
-      Description: 
-      Languages:
-      - Play in teams of 2 players
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_duos_title
-      TermType: 0
-      Description: 
-      Languages:
-      - DUOS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_quads_description
-      TermType: 0
-      Description: 
-      Languages:
-      - Play in teams of 4 players
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_quads_title
-      TermType: 0
-      Description: 
-      Languages:
-      - QUADS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_solo_description
-      TermType: 0
-      Description: 
-      Languages:
-      - One vs everyone
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_solo_title
-      TermType: 0
-      Description: 
-      Languages:
-      - SOLO
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_trios_descrption
-      TermType: 0
-      Description: 
-      Languages:
-      - Play in teams of 3 players
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITGameModeSelection/br_trios_title
-      TermType: 0
-      Description: 
-      Languages:
-      - TRIOS
-      - 
-      - 
       - 
       - 
       Flags: 0000000000
@@ -27587,6 +27587,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITShared/confirm
+      TermType: 0
+      Description: 
+      Languages:
+      - CONFIRM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITShared/confirmation
       TermType: 0
       Description: 
@@ -27708,6 +27719,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITShared/match_info
+      TermType: 0
+      Description: 
+      Languages:
+      - MATCH INFO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITShared/match_info_summary
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}, created by {1}.'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITShared/next
       TermType: 0
       Description: 
@@ -27763,6 +27796,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITShared/summary
+      TermType: 0
+      Description: 
+      Languages:
+      - SUMMARY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITShared/team_size_1
       TermType: 0
       Description: 
@@ -27814,50 +27858,6 @@ MonoBehaviour:
       - Waiting...
       - "\u041E\u0436\u0438\u0434\u0430\u044E\u0449\u0438\u0439..."
       - Esperando...
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITShared/confirm
-      TermType: 0
-      Description: 
-      Languages:
-      - CONFIRM
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITShared/summary
-      TermType: 0
-      Description: 
-      Languages:
-      - SUMMARY
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITShared/match_info
-      TermType: 0
-      Description: 
-      Languages:
-      - MATCH INFO
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITShared/match_info_summary
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0}, created by {1}.'
-      - 
-      - 
       - 
       - 
       Flags: 0000000000
@@ -28684,11 +28684,198 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/allow_bots
+      TermType: 0
+      Description: 
+      Languages:
+      - ALLOW BOTS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/browse_games
+      TermType: 0
+      Description: 
+      Languages:
+      - BROWSE GAMES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/create_game
+      TermType: 0
+      Description: 
+      Languages:
+      - CREATE GAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/create_lobby
+      TermType: 0
+      Description: 
+      Languages:
+      - CREATE LOBBY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/enter_room_code
+      TermType: 0
+      Description: 
+      Languages:
+      - ENTER ROOM CODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/filter_weapons
+      TermType: 0
+      Description: 
+      Languages:
+      - FILTER WEAPONS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/friends_playing
+      TermType: 0
+      Description: 
+      Languages:
+      - YOUR FRIENDS ARE PLAYING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/game_info
+      TermType: 0
+      Description: 
+      Languages:
+      - GAME INFO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/in_game
+      TermType: 0
+      Description: 
+      Languages:
+      - IN GAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/in_lobby
+      TermType: 0
+      Description: 
+      Languages:
+      - IN LOBBY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/invite_friends
+      TermType: 0
+      Description: 
+      Languages:
+      - INVITE FRIENDS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/join
+      TermType: 0
+      Description: 
+      Languages:
+      - JOIN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCustomGames/join_with_code
       TermType: 0
       Description: 
       Languages:
       - JOIN WITH CODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/lobby_code
+      TermType: 0
+      Description: 
+      Languages:
+      - LOBBY CODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/map
+      TermType: 0
+      Description: 
+      Languages:
+      - MAP
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/max_players
+      TermType: 0
+      Description: 
+      Languages:
+      - MAX PLAYERS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/max_players_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - Select the maximum number of players
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mode
+      TermType: 0
+      Description: 
+      Languages:
+      - MODE
       - 
       - 
       - 
@@ -28849,6 +29036,85 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/mutators
+      TermType: 0
+      Description: 
+      Languages:
+      - MUTATORS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/name
+      TermType: 0
+      Description: 
+      Languages:
+      - NAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/no_lobbies
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Oh-oh, looks like no lobbies were found.
+
+        Try creating one!'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/no_matches
+      TermType: 0
+      Description: 
+      Languages:
+      - No matches found. Try creating one!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/players
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAYERS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/private_room
+      TermType: 0
+      Description: 
+      Languages:
+      - PRIVATE ROOM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/region
+      TermType: 0
+      Description: 
+      Languages:
+      - REGION
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCustomGames/select_map
       TermType: 0
       Description: 
@@ -28882,55 +29148,22 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCustomGames/max_players
+    - Term: UITCustomGames/selected_mutators
       TermType: 0
       Description: 
       Languages:
-      - MAX PLAYERS
+      - 'Selected mutators: {0}'
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCustomGames/max_players_desc
+    - Term: UITCustomGames/show_all_regions
       TermType: 0
       Description: 
       Languages:
-      - Select the maximum number of players
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/browse_games
-      TermType: 0
-      Description: 
-      Languages:
-      - BROWSE GAMES
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/create_lobby
-      TermType: 0
-      Description: 
-      Languages:
-      - CREATE LOBBY
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/private_room
-      TermType: 0
-      Description: 
-      Languages:
-      - PRIVATE ROOM
+      - Show All Regions
       - 
       - 
       - 
@@ -28948,44 +29181,33 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCustomGames/selected_mutators
+    - Term: UITCustomGames/spectate
       TermType: 0
       Description: 
       Languages:
-      - 'Selected mutators: {0}'
+      - SPECTATE
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCustomGames/map
+    - Term: UITCustomGames/spectators
       TermType: 0
       Description: 
       Languages:
-      - MAP
+      - SPECTATORS
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCustomGames/mode
+    - Term: UITCustomGames/start_match
       TermType: 0
       Description: 
       Languages:
-      - MODE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/players
-      TermType: 0
-      Description: 
-      Languages:
-      - PLAYERS
+      - START MATCH
       - 
       - 
       - 
@@ -29014,266 +29236,22 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCustomGames/no_matches
+    - Term: UITCustomGames/invite_blasters
       TermType: 0
       Description: 
       Languages:
-      - No matches found. Try creating one!
+      - INVITE BLASTERS
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCustomGames/name
+    - Term: UITParty/copy_party_code
       TermType: 0
       Description: 
       Languages:
-      - NAME
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/mutators
-      TermType: 0
-      Description: 
-      Languages:
-      - MUTATORS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/filter_weapons
-      TermType: 0
-      Description: 
-      Languages:
-      - FILTER WEAPONS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/enter_room_code
-      TermType: 0
-      Description: 
-      Languages:
-      - ENTER ROOM CODE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/join
-      TermType: 0
-      Description: 
-      Languages:
-      - JOIN
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/start_match
-      TermType: 0
-      Description: 
-      Languages:
-      - START MATCH
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/no_lobbies
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Oh-oh, looks like no lobbies were found.
-
-        Try creating one!'
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/in_lobby
-      TermType: 0
-      Description: 
-      Languages:
-      - IN LOBBY
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/in_game
-      TermType: 0
-      Description: 
-      Languages:
-      - IN GAME
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/lobby_code
-      TermType: 0
-      Description: 
-      Languages:
-      - LOBBY CODE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/region
-      TermType: 0
-      Description: 
-      Languages:
-      - REGION
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/show_all_regions
-      TermType: 0
-      Description: 
-      Languages:
-      - Show All Regions
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/invite_friends
-      TermType: 0
-      Description: 
-      Languages:
-      - INVITE FRIENDS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/friends_playing
-      TermType: 0
-      Description: 
-      Languages:
-      - YOUR FRIENDS ARE PLAYING
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/game_info
-      TermType: 0
-      Description: 
-      Languages:
-      - GAME INFO
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/spectators
-      TermType: 0
-      Description: 
-      Languages:
-      - SPECTATORS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/spectate
-      TermType: 0
-      Description: 
-      Languages:
-      - SPECTATE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/create_game
-      TermType: 0
-      Description: 
-      Languages:
-      - CREATE GAME
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCustomGames/allow_bots
-      TermType: 0
-      Description: 
-      Languages:
-      - ALLOW BOTS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITParty/party_invite
-      TermType: 0
-      Description: 
-      Languages:
-      - PARTY INVITE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITParty/invite_description
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} has invited you\nto join their party!'
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITParty/your_party
-      TermType: 0
-      Description: 
-      Languages:
-      - YOUR PARTY ({0}/{1})
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITParty/online_friends
-      TermType: 0
-      Description: 
-      Languages:
-      - ONLINE FRIENDS ({0})
+      - COPY PARTY CODE
       - 
       - 
       - 
@@ -29285,6 +29263,17 @@ MonoBehaviour:
       Description: 
       Languages:
       - CREATE PARTY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/invite_description
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} has invited you\nto join their party!'
       - 
       - 
       - 
@@ -29313,11 +29302,33 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITParty/copy_party_code
+    - Term: UITParty/online_friends
       TermType: 0
       Description: 
       Languages:
-      - COPY PARTY CODE
+      - ONLINE FRIENDS ({0})
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/party_invite
+      TermType: 0
+      Description: 
+      Languages:
+      - PARTY INVITE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/your_party
+      TermType: 0
+      Description: 
+      Languages:
+      - YOUR PARTY ({0}/{1})
       - 
       - 
       - 
@@ -29348,7 +29359,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1719511328941
+    Google_LastUpdatedVersion: 1719514853018
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

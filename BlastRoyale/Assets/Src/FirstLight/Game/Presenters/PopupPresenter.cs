@@ -31,6 +31,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private VisualTreeAsset _selectMutatorsDocument;
 		[SerializeField, Required] private VisualTreeAsset _partyDocument;
 		[SerializeField, Required] private VisualTreeAsset _matchInfoDocument;
+		[SerializeField, Required] private VisualTreeAsset _inviteFriendsDocument;
 
 		private GenericPopupElement _popup;
 
@@ -64,6 +65,9 @@ namespace FirstLight.Game.Presenters
 					break;
 				case MatchInfoPopupView view:
 					SetupPopup(_matchInfoDocument, view);
+					break;
+				case InviteFriendsPopupView view:
+					SetupPopup(_inviteFriendsDocument, view);
 					break;
 				default:
 					throw new NotImplementedException($"You need to implement the view type: {Data.View.GetType()}");
@@ -103,6 +107,11 @@ namespace FirstLight.Game.Presenters
 		public static UniTaskVoid OpenMatchInfo(CustomMatchSettings matchSettings, List<string> friendsPlaying)
 		{
 			return OpenPopup(new MatchInfoPopupView(matchSettings, friendsPlaying), "MATCH INFO");
+		}
+		
+		public static UniTaskVoid OpenInviteFriends()
+		{
+			return OpenPopup(new InviteFriendsPopupView(), ScriptTerms.UITCustomGames.invite_blasters);
 		}
 
 		public static UniTask Close()

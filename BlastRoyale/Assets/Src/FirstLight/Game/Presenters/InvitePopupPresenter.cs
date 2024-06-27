@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -10,12 +11,19 @@ using UnityEngine.UIElements;
 namespace FirstLight.Game.Presenters
 {
 	[UILayer(UILayer.Notifications, false)]
-	public class PartyInvitePopupPresenter : UIPresenterData<PartyInvitePopupPresenter.StateData>
+	public class InvitePopupPresenter : UIPresenterData<InvitePopupPresenter.StateData>
 	{
 		public class StateData
 		{
+			public InviteType Type;
 			public string SenderID;
-			public string PartyCode;
+			public string LobbyCode;
+
+			public enum InviteType
+			{
+				Party,
+				Match
+			}
 		}
 
 		private IGameServices _services;
@@ -26,7 +34,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements()
 		{
 			_services = MainInstaller.ResolveServices();
-			
+
 			_sender = Root.Q<FriendListElement>("Sender").Required();
 			_contentLabel = Root.Q<Label>("ContentLabel").Required();
 			Root.Q<Button>("AcceptButton").Required().clicked += () => AcceptInvite().Forget();
@@ -38,20 +46,42 @@ namespace FirstLight.Game.Presenters
 			var sender = FriendsService.Instance.GetFriendByID(Data.SenderID);
 			var senderName = sender.Member.Profile.Name;
 			_sender.SetPlayerName(senderName);
-			_contentLabel.text = $"#{senderName} has invited you\nto join their party!";
-			
+			switch (Data.Type)
+			{
+				case StateData.InviteType.Party:
+					_contentLabel.text = $"#{senderName} has invited you\nto join their party!";
+					break;
+				case StateData.InviteType.Match:
+					_contentLabel.text = $"#{senderName} has invited you\nto join their match!";
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
 			return base.OnScreenOpen(reload);
 		}
 
 		private async UniTaskVoid AcceptInvite()
 		{
-			await _services.FLLobbyService.JoinParty(Data.PartyCode);
-			await _services.UIService.CloseScreen<PartyInvitePopupPresenter>();
+			switch (Data.Type)
+			{
+				case StateData.InviteType.Party:
+					await _services.FLLobbyService.JoinParty(Data.LobbyCode);
+					break;
+				case StateData.InviteType.Match:
+					await _services.FLLobbyService.JoinMatch(Data.LobbyCode);
+					await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>();
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			await _services.UIService.CloseScreen<InvitePopupPresenter>();
 		}
 
 		private async UniTaskVoid DeclineInvite()
 		{
-			await _services.UIService.CloseScreen<PartyInvitePopupPresenter>();
+			await _services.UIService.CloseScreen<InvitePopupPresenter>();
 		}
 	}
 }

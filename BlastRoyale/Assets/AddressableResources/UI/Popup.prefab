@@ -69,3 +69,4 @@ MonoBehaviour:
   _selectMutatorsDocument: {fileID: 9197481963319205126, guid: ad1fa6a0c7ee940d690fcccb4bfce22f, type: 3}
   _partyDocument: {fileID: 9197481963319205126, guid: 9b105550373004256b7bf9eb990fd5f5, type: 3}
   _matchInfoDocument: {fileID: 9197481963319205126, guid: f10919fe72eb8408b984196a705faa2e, type: 3}
+  _inviteFriendsDocument: {fileID: 9197481963319205126, guid: 912b071f0ff80444797f21bd7a5ff5d0, type: 3}

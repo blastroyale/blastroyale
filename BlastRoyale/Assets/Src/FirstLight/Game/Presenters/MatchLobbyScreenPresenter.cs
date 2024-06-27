@@ -34,6 +34,7 @@ namespace FirstLight.Game.Presenters
 		[Q("LobbyCode")] private LocalizedTextField _lobbyCode;
 		[Q("MatchSettings")] private VisualElement _matchSettings;
 		[Q("PlayersAmountLabel")] private Label _playersAmount;
+		[Q("InviteFriendsButton")] private LocalizedButton _inviteFriendsButton;
 
 		private IGameServices _services;
 		private MatchSettingsView _matchSettingsView;
@@ -49,6 +50,7 @@ namespace FirstLight.Game.Presenters
 			_matchSettings.Required().AttachView(this, out _matchSettingsView);
 
 			_lobbyCode.value = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
+			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends();
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
@@ -113,6 +115,7 @@ namespace FirstLight.Game.Presenters
 					if (player.IsSpectator())
 					{
 						spectators.Add(player);
+						row!.Add(new MatchLobbyPlayerElement(null, false, false));
 						continue;
 					}
 

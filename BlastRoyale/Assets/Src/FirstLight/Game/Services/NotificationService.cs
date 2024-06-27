@@ -1,11 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
 using Unity.Services.Friends;
-using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Notifications;
-using Unity.Services.Lobbies;
 
 namespace FirstLight.Game.Services
 {
@@ -37,15 +36,32 @@ namespace FirstLight.Game.Services
 			var message = e.GetAs<FriendMessage>();
 
 			// We skip inviting to party if the player already has an invite open
-			if (_uiService.IsScreenOpen<PartyInvitePopupPresenter>()) return;
-
+			if (_uiService.IsScreenOpen<InvitePopupPresenter>()) return;
+			
 			// TODO mihak: Only allow this if the player is in main menu
-
-			_uiService.OpenScreen<PartyInvitePopupPresenter>(new PartyInvitePopupPresenter.StateData
+			
+			switch (message.MessageType)
 			{
-				SenderID = e.UserId,
-				PartyCode = message.LobbyID
-			}).Forget();
+				case FriendMessage.FriendMessageType.PartyInvite:
+					_uiService.OpenScreen<InvitePopupPresenter>(new InvitePopupPresenter.StateData
+					{
+						Type = InvitePopupPresenter.StateData.InviteType.Party,
+						SenderID = e.UserId,
+						LobbyCode = message.LobbyID
+					}).Forget();
+					break;
+				case FriendMessage.FriendMessageType.MatchInvite:
+					// TODO mihak: Open match invite popup, not party one
+					_uiService.OpenScreen<InvitePopupPresenter>(new InvitePopupPresenter.StateData
+					{
+						Type = InvitePopupPresenter.StateData.InviteType.Match,
+						SenderID = e.UserId,
+						LobbyCode = message.LobbyID
+					}).Forget();
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 
 		private async UniTaskVoid ProcessQueue()

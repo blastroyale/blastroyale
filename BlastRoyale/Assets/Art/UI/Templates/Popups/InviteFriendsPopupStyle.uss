@@ -1,0 +1,9 @@
+.content {
+    width: 1391px;
+    height: 775px;
+    background-color: rgb(22, 20, 38);
+    border-top-left-radius: 27px;
+    border-top-right-radius: 27px;
+    border-bottom-right-radius: 27px;
+    border-bottom-left-radius: 27px;
+}

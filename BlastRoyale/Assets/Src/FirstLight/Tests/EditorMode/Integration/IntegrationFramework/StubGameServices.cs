@@ -44,8 +44,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IGameModeService GameModeService { get; }
 		public virtual IMatchmakingService MatchmakingService { get; }
 		public virtual IIAPService IAPService { get; }
-		public virtual IPartyService PartyService { get; }
-
 		public RateAndReviewService RateAndReviewService { get; }
 		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
@@ -55,7 +53,6 @@ namespace FirstLight.Tests.EditorMode
 		public IControlSetupService ControlsSetup { get; set; }
 		public IRoomService RoomService { get; }
 		public IGameAppService GameAppService { get; set; }
-
 		public IBattlePassService BattlePassService { get; }
 		public ITeamService TeamService { get; }
 		public IServerListService ServerListService { get; }
@@ -108,7 +105,6 @@ namespace FirstLight.Tests.EditorMode
 			TickService = new StubTickService();
 			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, NotificationService, LocalPrefsService);
 			CoroutineService = new StubCoroutineService();
-			PartyService = Substitute.For<IPartyService>();
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic,
 				FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService);

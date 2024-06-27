@@ -211,14 +211,6 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Requests the localized text representing the given <paramref name="error"/> as a string
-		/// </summary>
-		public static string GetTranslation(this PartyErrors error)
-		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.UITSquads)}/error_{error}");
-		}
-
-		/// <summary>
 		/// Requests the localized text representing the given <paramref name="gameModeId"/> as a string
 		/// </summary>
 		public static string GetTranslationForGameModeId(string gameModeId)

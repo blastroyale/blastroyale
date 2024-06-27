@@ -33,6 +33,7 @@ namespace FirstLight.Game.Services
 		public const string KEY_PLAYER_NAME = "player_name";
 		public const string KEY_READY = "ready";
 		public const string KEY_PLAYFAB_ID = "playfab_id";
+		public const string KEY_SPECTATOR = "spectator";
 		public const string KEY_MATCHMAKING_TICKET = "matchmaking_ticket";
 		public const string KEY_MATCHMAKING_QUEUE = "matchmaking_queue";
 
@@ -573,6 +574,37 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
+		/// <summary>
+		/// Toggles the spectator status for the current player in the match lobby.
+		/// </summary>
+		public async UniTask SetMatchSpectator(bool spectating)
+		{
+			Assert.IsNotNull(CurrentMatchLobby, "Trying to toggle spectator status but the player is not in a match!");
+			
+			var options = new UpdatePlayerOptions
+			{
+				Data = new Dictionary<string, PlayerDataObject>
+				{
+					{
+						KEY_SPECTATOR, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, spectating.ToString().ToLowerInvariant())
+					}
+				}
+			};
+
+			try
+			{
+				FLog.Info($"Setting spectator status to: {spectating}");
+				CurrentMatchLobby =
+					await LobbyService.Instance.UpdatePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId, options);
+				FLog.Info("Spectate status set successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn("Error setting spectate status!", e);
+				_notificationService.QueueNotification($"Could not set spectate status ({e.ErrorCode})");
+			}
+		}
+
 		private async UniTask<Lobby> UpdateHost(string playerID, Lobby lobby, string type)
 		{
 			Assert.IsNotNull(lobby, $"Trying to update the {type} host but the player is not in one!");
@@ -636,7 +668,8 @@ namespace FirstLight.Game.Services
 					{KEY_SKIN_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, skinID.ToString())},
 					{KEY_MELEE_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, meleeID.ToString())},
 					{KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "false")},
-					{KEY_PLAYFAB_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayFabSettings.staticPlayer.EntityId)}
+					{KEY_PLAYFAB_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayFabSettings.staticPlayer.EntityId)},
+					{KEY_SPECTATOR, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "false")}
 				},
 				profile: new PlayerProfile(AuthenticationService.Instance.PlayerName)
 			);

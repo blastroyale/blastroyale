@@ -27,6 +27,6 @@
             </ui:VisualElement>
             <ui:Instance template="MatchSettings" name="MatchSettingsContainer" />
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" picking-mode="Ignore" />
     </ui:VisualElement>
 </ui:UXML>

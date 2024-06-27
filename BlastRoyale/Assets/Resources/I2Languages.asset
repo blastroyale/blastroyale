@@ -27851,6 +27851,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITShared/match_info_summary
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}, created by {1}.'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSpectate/camera_1
       TermType: 0
       Description: 
@@ -29170,6 +29181,50 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/game_info
+      TermType: 0
+      Description: 
+      Languages:
+      - GAME INFO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/spectators
+      TermType: 0
+      Description: 
+      Languages:
+      - SPECTATORS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/spectate
+      TermType: 0
+      Description: 
+      Languages:
+      - SPECTATE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/create_game
+      TermType: 0
+      Description: 
+      Languages:
+      - CREATE GAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITParty/party_invite
       TermType: 0
       Description: 
@@ -29282,7 +29337,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1719244771716
+    Google_LastUpdatedVersion: 1719509001899
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

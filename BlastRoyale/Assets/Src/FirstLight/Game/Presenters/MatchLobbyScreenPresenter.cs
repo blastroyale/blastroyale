@@ -33,7 +33,7 @@ namespace FirstLight.Game.Presenters
 		[Q("PlayersScrollview")] private ScrollView _playersContainer;
 		[Q("LobbyCode")] private LocalizedTextField _lobbyCode;
 		[Q("MatchSettings")] private VisualElement _matchSettings;
-		[Q("PlayersAmountLabel")]private Label _playersAmount;
+		[Q("PlayersAmountLabel")] private Label _playersAmount;
 
 		private IGameServices _services;
 		private MatchSettingsView _matchSettingsView;
@@ -58,6 +58,12 @@ namespace FirstLight.Game.Presenters
 			var playerIsHost = matchLobby.IsLocalPlayerHost();
 
 			_matchSettingsView.SetMainAction(playerIsHost ? ScriptTerms.UITCustomGames.start_match : null, () => StartMatch().Forget());
+
+			_matchSettingsView.SpectatorChanged += async spectating =>
+			{
+				await _services.FLLobbyService.SetMatchSpectator(spectating);
+				RefreshData();
+			};
 
 			if (playerIsHost)
 			{
@@ -87,6 +93,7 @@ namespace FirstLight.Game.Presenters
 		private void RefreshData()
 		{
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
+			var spectators = new List<Player>();
 
 			_playersContainer.Clear();
 
@@ -102,6 +109,13 @@ namespace FirstLight.Game.Presenters
 				if (i < matchLobby.Players.Count)
 				{
 					var player = matchLobby.Players[i];
+
+					if (player.IsSpectator())
+					{
+						spectators.Add(player);
+						continue;
+					}
+
 					var isHost = player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId;
 					var isLocal = player.Id == AuthenticationService.Instance.PlayerId;
 					var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal);
@@ -120,7 +134,8 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 
-			_matchSettingsView.SetMatchSettings(matchLobby.GetMatchSettings(), matchLobby.IsLocalPlayerHost());
+			_matchSettingsView.SetMatchSettings(matchLobby.GetMatchSettings(), matchLobby.IsLocalPlayerHost(), true);
+			_matchSettingsView.SetSpectators(spectators);
 			_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers}";
 		}
 
@@ -136,7 +151,7 @@ namespace FirstLight.Game.Presenters
 		private async UniTaskVoid LeaveMatchLobby()
 		{
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
-			
+
 			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged -= OnLobbyChanged;
 
 			await _services.FLLobbyService.LeaveMatch();

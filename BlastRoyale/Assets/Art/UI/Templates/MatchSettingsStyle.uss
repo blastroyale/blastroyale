@@ -4,7 +4,7 @@
     flex-grow: 1;
 }
 
-.match-settings:disabled {
+#GameInfo:disabled {
     opacity: 1;
 }
 
@@ -23,13 +23,14 @@
     position: absolute;
     font-size: 55px;
     color: rgb(255, 255, 255);
-    top: 32px;
+    top: 42px;
     left: 158px;
     right: 158px;
     -unity-text-align: upper-center;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    visibility: hidden;
 }
 
 .match-settings__map-button {
@@ -40,19 +41,8 @@
     flex-grow: 1;
 }
 
-.match-settings__content {
-    flex-grow: 1;
-    position: absolute;
-    bottom: 44px;
-    top: 154px;
-    left: 45px;
-    right: 16px;
-    flex-direction: column;
-}
-
-.match-settings__content .unity-scroll-view__content-container {
-    padding-right: 20px;
-    padding-top: 20px;
+.match-settings .unity-scroll-view__content-container {
+    padding-right: 16px;
 }
 
 .match-settings__horizontal-holder {
@@ -164,4 +154,54 @@
 
 .match-settings__scrollview {
     flex-grow: 1;
+}
+
+.unity-tab-button--gameinfo {
+    width: 230px;
+    height: 67px;
+    background-image: var(--sprite-home__background-matchsettings-gameinfo);
+    right: -5px;
+}
+
+.unity-tab-button--spectators {
+    width: 244px;
+    height: 67px;
+    background-image: var(--sprite-home__background-matchsettings-spectators);
+    left: -5px;
+}
+
+.unity-tabbed-view__tabs-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 35px;
+}
+
+.unity-tabbed-view__content-container {
+    flex-grow: 1;
+    margin-top: 53px;
+    margin-left: 35px;
+    margin-right: 43px;
+    margin-bottom: 45px;
+}
+
+.unity-tab-button {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    justify-content: center;
+    -unity-background-image-tint-color: rgb(22, 20, 38);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    transition-property: scale;
+    transition-duration: 0.1s;
+}
+
+.unity-tab-button--active {
+    -unity-background-image-tint-color: rgb(46, 71, 125);
 }

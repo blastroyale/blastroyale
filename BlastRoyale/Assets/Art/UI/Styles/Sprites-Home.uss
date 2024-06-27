@@ -19,6 +19,8 @@
     --sprite-home__background-inputfield: url('/Assets/Art/UI/Sprites/Home/background-inputfield.png');
     --sprite-home__background-matchmakingstatus: url('/Assets/Art/UI/Sprites/Home/background-matchmakingstatus.png');
     --sprite-home__background-matchsettings: url('/Assets/Art/UI/Sprites/Home/background-matchsettings.png');
+    --sprite-home__background-matchsettings-gameinfo: url('/Assets/Art/UI/Sprites/Home/background-matchsettings-gameinfo.png');
+    --sprite-home__background-matchsettings-spectators: url('/Assets/Art/UI/Sprites/Home/background-matchsettings-spectators.png');
     --sprite-home__background-modeselection-casual: url('/Assets/Art/UI/Sprites/Home/background-modeselection-casual.png');
     --sprite-home__background-modeselection-comingsoon: url('/Assets/Art/UI/Sprites/Home/background-modeselection-comingsoon.png');
     --sprite-home__background-modeselection-custom: url('/Assets/Art/UI/Sprites/Home/background-modeselection-custom.png');
@@ -338,6 +340,18 @@
     background-image: var(--sprite-home__background-matchsettings);
     width: 360px;
     height: 594px;
+}
+
+.sprite-home__background-matchsettings-gameinfo {
+    background-image: var(--sprite-home__background-matchsettings-gameinfo);
+    width: 230px;
+    height: 67px;
+}
+
+.sprite-home__background-matchsettings-spectators {
+    background-image: var(--sprite-home__background-matchsettings-spectators);
+    width: 244px;
+    height: 67px;
 }
 
 .sprite-home__background-modeselection-casual {

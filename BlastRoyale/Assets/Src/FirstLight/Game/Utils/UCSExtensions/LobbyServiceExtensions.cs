@@ -139,5 +139,13 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		{
 			return player.Id == AuthenticationService.Instance.PlayerId;
 		}
+
+		/// <summary>
+		/// Checks if the player is a spectator.
+		/// </summary>
+		public static bool IsSpectator(this Player player)
+		{
+			return player.Data[FLLobbyService.KEY_SPECTATOR].Value == "true";
+		}
 	}
 }

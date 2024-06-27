@@ -62,7 +62,7 @@ namespace FirstLight.Game.Presenters
 		{
 			RefreshLobbies().Forget();
 
-			_matchSettingsView.SetMatchSettings(_services.LocalPrefsService.LastCustomMatchSettings, true);
+			_matchSettingsView.SetMatchSettings(_services.LocalPrefsService.LastCustomMatchSettings, true, false);
 			_matchSettingsView.SetMainAction(ScriptTerms.UITCustomGames.create_lobby, () => CreateMatch(_matchSettingsView.MatchSettings).Forget());
 
 			return base.OnScreenOpen(reload);

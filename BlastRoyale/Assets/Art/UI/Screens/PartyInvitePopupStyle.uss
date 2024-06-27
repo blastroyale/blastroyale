@@ -15,3 +15,9 @@
     justify-content: space-between;
     width: 666px;
 }
+
+.description {
+    font-size: 32px;
+    color: rgb(132, 117, 166);
+    -unity-text-align: upper-center;
+}

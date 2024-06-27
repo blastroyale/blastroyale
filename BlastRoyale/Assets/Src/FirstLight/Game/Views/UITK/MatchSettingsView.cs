@@ -1,14 +1,18 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using QuickEye.UIToolkit;
+using Unity.Services.Authentication;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,6 +22,10 @@ namespace FirstLight.Game.Views.UITK
 	{
 		private IGameServices _services;
 
+		[Q("unity-tabs-container")] private VisualElement _tabsContainer;
+		[Q("Title")] private LocalizedLabel _bigTitle;
+		[Q("GameInfo")] private VisualElement _gameInfoContainer;
+		
 		[Q("ModeButton")] private MatchSettingsButtonElement _modeButton;
 		[Q("MapButton")] private MatchSettingsButtonElement _mapButton;
 		[Q("TeamSizeButton")] private MatchSettingsButtonElement _teamSizeButton;
@@ -34,11 +42,15 @@ namespace FirstLight.Game.Views.UITK
 
 		[Q("PrivateRoomToggle")] private Toggle _privateRoomToggle;
 		[Q("ShowCreatorNameToggle")] private Toggle _showCreatorNameToggle;
+		
+		[Q("SpectatorToggle")]private LocalizedToggle _spectatorToggle;
+		[Q("SpectatorsScrollView")]private ScrollView _spectatorsScrollView;
 
 		[Q("MainActionButton")] private LocalizedButton _mainActionButton;
 
 		public Action MainActionClicked { get; set; }
 		public Action<CustomMatchSettings> MatchSettingsChanged { get; set; }
+		public Func<bool, UniTaskVoid> SpectatorChanged { get; set; }
 
 		public CustomMatchSettings MatchSettings { get; private set; }
 
@@ -63,6 +75,7 @@ namespace FirstLight.Game.Views.UITK
 			_filterWeaponsToggle.RegisterValueChangedCallback(OnWeaponFilterToggle);
 			_privateRoomToggle.RegisterValueChangedCallback(v => MatchSettings.PrivateRoom = v.newValue);
 			_showCreatorNameToggle.RegisterValueChangedCallback(v => MatchSettings.ShowCreatorName = v.newValue);
+			_spectatorToggle.RegisterValueChangedCallback(v => SpectatorChanged(v.newValue).Forget());
 		}
 
 		private void OnMutatorsToggle(ChangeEvent<bool> e)
@@ -89,11 +102,34 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public void SetMatchSettings(CustomMatchSettings settings, bool editable)
+		public void SetMatchSettings(CustomMatchSettings settings, bool editable, bool showSpectators)
 		{
 			MatchSettings = settings;
-			Element.SetEnabled(editable);
+			_gameInfoContainer.SetEnabled(editable);
+			_bigTitle.SetVisibility(!showSpectators);
+			_tabsContainer.SetVisibility(showSpectators);
 			RefreshData(false);
+		}
+
+		public void SetSpectators(List<Player> spectators)
+		{
+			_spectatorsScrollView.Clear();
+			
+			foreach (var player in spectators)
+			{
+				var isHost = player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId;
+				var isLocal = player.Id == AuthenticationService.Instance.PlayerId;
+				var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal);
+
+				_spectatorsScrollView.Add(playerElement);
+
+				// TODO: Clicks
+				// if (!isLocal)
+				// {
+				// 	playerElement.userData = player;
+				// 	playerElement.clicked += () => OnPlayerClicked(playerElement);
+				// }
+			}
 		}
 
 		private void OnMapClicked()

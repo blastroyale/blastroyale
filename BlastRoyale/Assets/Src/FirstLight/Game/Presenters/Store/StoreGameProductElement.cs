@@ -147,7 +147,7 @@ namespace FirstLight.Game.Presenters.Store
 			var final = "";
 			foreach (var piece in s.Split("-"))
 			{
-				final += Char.ToUpper(piece[0]) + piece.Substring(1).ToLower();
+				final += Char.ToUpperInvariant(piece[0]) + piece.Substring(1).ToLowerInvariant();
 			}
 
 			return final;

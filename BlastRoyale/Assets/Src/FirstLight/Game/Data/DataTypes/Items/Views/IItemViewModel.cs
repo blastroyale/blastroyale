@@ -82,7 +82,7 @@ namespace FirstLight.Game.Data.DataTypes
 			{
 				if (collection.Length > 0)
 				{
-					return collection[0].ToString().ToUpper() + collection[1..].ToLower();
+					return collection[0].ToString().ToUpperInvariant() + collection[1..].ToLowerInvariant();
 				}
 
 				return collection;

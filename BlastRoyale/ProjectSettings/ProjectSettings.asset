@@ -233,6 +233,7 @@ PlayerSettings:
   iOSDeviceRequirements: []
   iOSURLSchemes:
   - firebase-game-loop
+  - blastroyale
   macOSURLSchemes: []
   iOSBackgroundModes: 0
   iOSMetalForceHardShadows: 0

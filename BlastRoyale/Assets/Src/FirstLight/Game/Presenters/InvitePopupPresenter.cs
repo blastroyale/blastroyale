@@ -43,6 +43,12 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
+			if (Data.SenderID == null)
+			{
+				// TODO: Deep link support
+				return base.OnScreenOpen(reload);
+			}
+			
 			var sender = FriendsService.Instance.GetFriendByID(Data.SenderID);
 			var senderName = sender.Member.Profile.Name;
 			_sender.SetPlayerName(senderName);

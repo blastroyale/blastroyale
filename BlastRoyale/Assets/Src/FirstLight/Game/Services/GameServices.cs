@@ -125,6 +125,7 @@ namespace FirstLight.Game.Services
 		public LocalPrefsService LocalPrefsService { get; }
 		public FLLobbyService FLLobbyService { get; }
 		public NotificationService NotificationService { get; }
+		public DeepLinkService DeepLinkService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -184,6 +185,7 @@ namespace FirstLight.Game.Services
 		public LocalPrefsService LocalPrefsService { get; }
 		public FLLobbyService FLLobbyService { get; }
 		public NotificationService NotificationService { get; }
+		public DeepLinkService DeepLinkService { get; }
 
 		public string QuitReason { get; set; }
 
@@ -206,6 +208,8 @@ namespace FirstLight.Game.Services
 			GenericDialogService = new GenericDialogService(UIService, gameLogic.CurrencyDataProvider);
 			UIVFXService = new UIVFXService(this, assetResolverService);
 			UIVFXService.Init().Forget();
+
+			DeepLinkService = new DeepLinkService(MessageBrokerService, UIService);
 
 			NotificationService = new NotificationService(UIService);
 

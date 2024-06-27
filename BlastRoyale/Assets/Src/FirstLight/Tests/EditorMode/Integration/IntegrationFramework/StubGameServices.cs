@@ -63,6 +63,7 @@ namespace FirstLight.Tests.EditorMode
 		public LocalPrefsService LocalPrefsService { get; }
 		public FLLobbyService FLLobbyService { get; }
 		public NotificationService NotificationService { get; }
+		public DeepLinkService DeepLinkService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
@@ -94,6 +95,8 @@ namespace FirstLight.Tests.EditorMode
 			ThreadService = new ThreadService();
 
 			NotificationService = new NotificationService(UIService);
+
+			DeepLinkService = new DeepLinkService(MessageBrokerService, UIService);
 
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();

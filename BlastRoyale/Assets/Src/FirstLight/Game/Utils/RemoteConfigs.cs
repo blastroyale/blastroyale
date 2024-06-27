@@ -40,6 +40,11 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public bool ShowBugReportButton = true;
 
+		/// <summary>
+		/// Enables or disables deep linking feature.
+		/// </summary>
+		public bool EnableDeepLinking = true;
+
 		public static RemoteConfigs Instance { get; private set; }
 
 		public static async UniTask Init()

@@ -98,7 +98,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_nameLabel.text = AuthenticationService.Instance.PlayerNameTrimmed();
+			_nameLabel.text = AuthenticationService.Instance.GetPlayerName();
 			SetupPopup().Forget();
 			return base.OnScreenOpen(reload);
 		}
@@ -148,7 +148,7 @@ namespace FirstLight.Game.Presenters
 				// TODO mihak: Temporary
 				if (IsLocalPlayer)
 				{
-					_nameLabel.text = AuthenticationService.Instance.PlayerNameTrimmed();
+					_nameLabel.text = AuthenticationService.Instance.GetPlayerName();
 				}
 				else
 				{

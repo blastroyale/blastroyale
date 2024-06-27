@@ -37,13 +37,13 @@ MonoBehaviour:
       MaxAimingRange:
         RawValue: 589824
       MovementSpeedMultiplier:
-        RawValue: 45875
+        RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 32768
+        RawValue: 65536
       DamageTakenMultiplier:
-        RawValue: 98304
+        RawValue: 65536
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:
@@ -71,13 +71,13 @@ MonoBehaviour:
       MaxAimingRange:
         RawValue: 589824
       MovementSpeedMultiplier:
-        RawValue: 52429
+        RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 39322
+        RawValue: 65536
       DamageTakenMultiplier:
-        RawValue: 88474
+        RawValue: 65536
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:
@@ -105,13 +105,13 @@ MonoBehaviour:
       MaxAimingRange:
         RawValue: 589824
       MovementSpeedMultiplier:
-        RawValue: 58982
+        RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 45875
+        RawValue: 65536
       DamageTakenMultiplier:
-        RawValue: 75366
+        RawValue: 65536
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:
@@ -139,11 +139,11 @@ MonoBehaviour:
       MaxAimingRange:
         RawValue: 589824
       MovementSpeedMultiplier:
-        RawValue: 62259
+        RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 52429
+        RawValue: 65536
       DamageTakenMultiplier:
         RawValue: 65536
       MinSpecialCooldown:
@@ -177,7 +177,7 @@ MonoBehaviour:
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 58982
+        RawValue: 65536
       DamageTakenMultiplier:
         RawValue: 65536
       MinSpecialCooldown:
@@ -479,13 +479,13 @@ MonoBehaviour:
       MaxAimingRange:
         RawValue: 589824
       MovementSpeedMultiplier:
-        RawValue: 45875
+        RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 32768
+        RawValue: 65536
       DamageTakenMultiplier:
-        RawValue: 98304
+        RawValue: 65536
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:

@@ -91,7 +91,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Requests the current room that the local player is in
 		/// </summary>
-		Room CurrentRoom { get; }
+		Photon.Realtime.Room CurrentRoom { get; }
 
 		/// <summary>
 		/// Requests the local player in <see cref="QuantumClient"/>
@@ -462,7 +462,7 @@ namespace FirstLight.Game.Services
 
 			ResetQuantumProperties();
 
-			return QuantumClient.ConnectUsingSettings(settings, AuthenticationService.Instance.PlayerNameTrimmed());
+			return QuantumClient.ConnectUsingSettings(settings, AuthenticationService.Instance.GetPlayerName());
 		}
 
 		public bool ConnectPhotonToRegionMaster(string region)

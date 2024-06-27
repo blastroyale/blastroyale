@@ -21,7 +21,7 @@ namespace FirstLight.Game.Commands
 		public QuantumValues QuantumValues;
 		public bool ValidRewardsFromFrame = true;
 		public bool RunningTutorialMode = false;
-		public uint TeamSize;
+		public byte[] SerializedSimulationConfig;
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Service;
 
@@ -34,22 +34,19 @@ namespace FirstLight.Game.Commands
 			{
 				return UniTask.CompletedTask;
 			}
-			
+
 			var matchData = PlayersMatchData;
 			var trophiesBeforeChange = ctx.Logic.PlayerLogic().Trophies.Value;
-			var matchType = QuantumValues.MatchType;
 			var rewardSource = new RewardSource()
 			{
 				MatchData = matchData,
 				ExecutingPlayer = QuantumValues.ExecutingPlayer,
-				MatchType = matchType,
+				MatchConfig = SimulationMatchConfig.FromByteArray(SerializedSimulationConfig),
 				DidPlayerQuit = false,
 				GamePlayerCount = matchData.Count,
-				AllowedRewards = QuantumValues.AllowedRewards,
 				CollectedItems = EarnedGameItems ?? new (),
-				TeamSize = TeamSize,
 			};
-			
+
 			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);
 
 			ctx.Services.MessageBrokerService().Publish(new GameCompletedRewardsMessage
@@ -63,11 +60,11 @@ namespace FirstLight.Game.Commands
 
 		public void FromFrame(Frame frame, QuantumValues quantumValues)
 		{
+			SerializedSimulationConfig = frame.RuntimeConfig.MatchConfigs.ToByteArray();
 			var gameContainer = frame.Unsafe.GetPointerSingleton<GameContainer>();
 			PlayersMatchData = gameContainer->GeneratePlayersMatchData(frame, out _, out _);
-			
+
 			QuantumValues = quantumValues;
-			TeamSize = (uint)frame.GetTeamSize();
 
 			var executingData = PlayersMatchData[QuantumValues.ExecutingPlayer];
 			var items = frame.ResolveDictionary(executingData.Data.CollectedMetaItems);
@@ -76,9 +73,10 @@ namespace FirstLight.Game.Commands
 			{
 				EarnedGameItems[kp.Key] = kp.Value;
 			}
+
 			// TODO: Find better way to determine tutorial mode. GameConstants ID perhaps? Something that backend has access to
 			RunningTutorialMode = frame.Context.GameModeConfig.Id.Contains("Tutorial");
-				
+
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer->IsGameCompleted &&
 				!gameContainer->IsGameOver)
 			{

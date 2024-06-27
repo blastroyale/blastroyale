@@ -49,7 +49,7 @@ MonoBehaviour:
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 400
       StartsAt: 01/05/2024
-      EndsAt: 09/06/2024
+      EndsAt: 30/06/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__goji-season-reward
       EndGraphicName: GOJI
@@ -58,7 +58,7 @@ MonoBehaviour:
       Price: 150
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
-      StartsAt: 10/06/2024
+      StartsAt: 01/07/2024
       EndsAt: 31/08/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__pattybun-season-reward

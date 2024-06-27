@@ -53,7 +53,7 @@ namespace FirstLight.Game.Views
 				_button.SetEnabled(!_disabled);
 				_disabledContainer.SetDisplay(_disabled);
 				if (!_disabled) return;
-				_disabledLabel.text = GameModeInfo.Entry.GameModeId == GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME ? ScriptLocalization.UITGameModeSelection.custom_blocked_for_party : ScriptLocalization.UITGameModeSelection.too_many_players;
+				_disabledLabel.text = IsCustomGame() ? ScriptLocalization.UITGameModeSelection.custom_blocked_for_party : ScriptLocalization.UITGameModeSelection.too_many_players;
 			}
 		}
 
@@ -136,7 +136,7 @@ namespace FirstLight.Game.Views
 			}
 			else
 			{
-				_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.ImageModifier}");
+				_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.Visual.ImageModifier}");
 			}
 
 			UpdateTeamSize(gameModeInfo);
@@ -144,9 +144,9 @@ namespace FirstLight.Game.Views
 			UpdateMutators();
 		}
 
-		private bool IsCustomGame()
+		public bool IsCustomGame()
 		{
-			return GameModeInfo.Entry.GameModeId == GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME;
+			return GameModeInfo.Entry.MatchConfig.GameModeID == GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME;
 		}
 
 		private void UpdateTeamSize(GameModeInfo gameModeInfo)
@@ -160,8 +160,8 @@ namespace FirstLight.Game.Views
 			}
 
 			_teamSizeIcon.RemoveSpriteClasses();
-			_teamSizeIcon.AddToClassList(gameModeInfo.Entry.IconSpriteClass);
-			_teamSizeLabel.text = gameModeInfo.Entry.PlayfabQueue.TeamSize + "";
+			_teamSizeIcon.AddToClassList(gameModeInfo.Entry.Visual.IconSpriteClass);
+			_teamSizeLabel.text = gameModeInfo.Entry.TeamSize + "";
 		}
 
 		private void RemoveClasses()
@@ -171,13 +171,14 @@ namespace FirstLight.Game.Views
 
 		private void UpdateTitleAndDescription()
 		{
-			_gameModeLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.TitleTranslationKey);
-			_gameModeDescriptionLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.DescriptionTranslationKey);
+			_gameModeLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.Visual.TitleTranslationKey);
+			_gameModeDescriptionLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.Visual.DescriptionTranslationKey);
 		}
 
 		private void UpdateMutators()
 		{
-			if (GameModeInfo.Entry.Mutators.Count == 0)
+			var mutators = GameModeInfo.Entry.MatchConfig.Mutators;
+			if (mutators.Length == 0)
 			{
 				_mutatorsPanel.SetDisplay(false);
 				return;
@@ -187,10 +188,10 @@ namespace FirstLight.Game.Views
 
 			for (var mutatorIndex = 0; mutatorIndex < _mutatorLines.Count; mutatorIndex++)
 			{
-				if (mutatorIndex <= GameModeInfo.Entry.Mutators.Count - 1)
+				if (mutatorIndex <= mutators.Length - 1)
 				{
 					_mutatorLines[mutatorIndex].SetDisplay(true);
-					SetMutatorLine(_mutatorLines[mutatorIndex], GameModeInfo.Entry.Mutators[mutatorIndex]);
+					SetMutatorLine(_mutatorLines[mutatorIndex], mutators[mutatorIndex]);
 				}
 				else
 				{

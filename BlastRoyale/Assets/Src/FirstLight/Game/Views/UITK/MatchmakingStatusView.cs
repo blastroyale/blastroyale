@@ -1,15 +1,11 @@
 using System;
-using FirstLight.FLogger;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
@@ -49,7 +45,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (setup != null)
 			{
-				if (setup.MatchType == MatchType.Matchmaking)
+				if (setup.SimulationConfig.MatchType == MatchType.Matchmaking)
 				{
 					_matchmakingText.Localize(ScriptTerms.UITHomeScreen.matchmaking);
 					_closeButton.SetDisplay(true);

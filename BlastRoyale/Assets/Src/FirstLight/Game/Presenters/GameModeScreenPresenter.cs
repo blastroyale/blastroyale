@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
@@ -78,12 +79,22 @@ namespace FirstLight.Game.Presenters
 			}
 
 			// Add custom game button
-			var gameModeInfo = new GameModeInfo();
-			gameModeInfo.Entry.GameModeId = GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME;
-			gameModeInfo.Entry.MatchType = MatchType.Custom;
-			gameModeInfo.Entry.TitleTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_title;
-			gameModeInfo.Entry.DescriptionTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_description;
-			gameModeInfo.Entry.Mutators = new List<string>();
+			var gameModeInfo = new GameModeInfo()
+			{
+				Entry = new GameModeRotationConfig.GameModeEntry()
+				{
+					MatchConfig = new SimulationMatchConfig()
+					{
+						GameModeID = GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME,
+						Mutators = new string[] { },
+					},
+					Visual = new GameModeRotationConfig.VisualEntryConfig
+					{
+						TitleTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_title,
+						DescriptionTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_description
+					}
+				}
+			};
 			var createGameButton = _buttonAsset.Instantiate();
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
 			customGameView.SetData("CustomGameButton", GetVisibleClass(orderNumber++), gameModeInfo);
@@ -141,9 +152,9 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var view in _buttonViews)
 			{
-				if (view.GameModeInfo.Entry.MatchType == MatchType.Custom) continue;
+				if (view.IsCustomGame()) continue;
 				if (view.GameModeInfo.Entry.PlayfabQueue == null) continue;
-				view.Disabled = view.GameModeInfo.Entry.PlayfabQueue.TeamSize < _services.PartyService.GetCurrentGroupSize();
+				view.Disabled = view.GameModeInfo.Entry.TeamSize < _services.PartyService.GetCurrentGroupSize();
 			}
 		}
 

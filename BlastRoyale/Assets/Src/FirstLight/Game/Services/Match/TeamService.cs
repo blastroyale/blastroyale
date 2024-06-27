@@ -126,7 +126,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				playerTeam[playersValue.ActorNumber + ""] = "t_" + playersValue.ActorNumber;
 			}
 
-			playerTeam = TeamDistribution.Distribute(playerTeam, (uint) room.Properties.TeamSize.Value);
+			playerTeam = TeamDistribution.Distribute(playerTeam, (uint) room.Properties.SimulationMatchConfig.Value.TeamSize);
 			room.Properties.OverwriteTeams.Value = playerTeam;
 		}
 

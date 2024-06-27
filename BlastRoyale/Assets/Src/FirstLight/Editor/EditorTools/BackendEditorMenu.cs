@@ -35,7 +35,7 @@ namespace FirstLight.Editor.EditorTools
 		[MenuItem("FLG/Backend/Export Asset DB to Quantum Local Server")]
 		public static void CopyLocalQuantumFiles()
 		{
-			var qtnPluginFolder = $"{Application.dataPath}/../Quantum/quantum_server/quantum.custom.plugin/";
+			var qtnPluginFolder = $"{Application.dataPath}/../../Quantum/quantum_server/quantum.custom.plugin/";
 			ArtifactCopier.Copy(qtnPluginFolder, ArtifactCopier.QuantumAssetDBArtifact);
 		}
 

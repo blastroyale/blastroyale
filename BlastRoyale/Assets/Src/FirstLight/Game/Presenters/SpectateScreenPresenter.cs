@@ -65,7 +65,7 @@ namespace FirstLight.Game.Presenters
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			// TODO: Use proper localization
-			var gameModeID = _services.RoomService.CurrentRoom.Properties.GameModeId.Value;
+			var gameModeID = _services.RoomService.CurrentRoom.Properties.SimulationMatchConfig.Value.GameModeID;
 			_header.SetSubtitle(gameModeID.ToUpper());
 
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);

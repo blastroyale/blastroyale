@@ -1,17 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
+using Photon.Deterministic;
 using Photon.Realtime;
 using PlayFab;
 using Quantum;
@@ -104,7 +104,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<SimulationEndedMessage>(OnMatchSimulationEndedMessage);
 			_services.MessageBrokerService.Subscribe<LocalPlayerClickedPlayMessage>(OnPlayerClickedPlay);
 			_services.MessageBrokerService.Subscribe<MatchmakingCancelMessage>(OnMatchmakingCancelMessage);
-			_services.MessageBrokerService.Subscribe<PlayMapClickedMessage>(OnPlayMapClickedMessage);
 			_services.MessageBrokerService.Subscribe<PlayJoinRoomClickedMessage>(OnPlayJoinRoomClickedMessage);
 			_services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(OnPlayCreateRoomClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
@@ -185,14 +184,14 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnGameMatched(GameMatched match)
 		{
-			if (match.RoomSetup.MapId == (int) GameId.Any)
+			if (match.RoomSetup.SimulationConfig.MapId == (int) GameId.Any)
 			{
 				var maps = _services.GameModeService.ValidMatchmakingMaps;
 				var index = Random.Range(0, maps.Count);
-				match.RoomSetup.MapId = (int) maps[index];
+				match.RoomSetup.SimulationConfig.MapId = (int) maps[index];
 			}
 
-			_services.RoomService.JoinOrCreateRoom(match.RoomSetup, match.TeamId, match.ColorIndex, match.ExpectedPlayers);
+			_services.RoomService.JoinOrCreateRoom(match.RoomSetup, match.PlayerProperties, match.ExpectedPlayers);
 			_services.GenericDialogService.CloseDialog();
 		}
 
@@ -514,23 +513,30 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
-			var gameModeId = selectedGameMode.Entry.GameModeId;
-			var mutators = selectedGameMode.Entry.Mutators;
+
 			var map = _services.GameModeService.SelectedMap;
-			var rewards = selectedGameMode.Entry.AllowedRewards;
+			var simulationConfig = selectedGameMode.Entry.MatchConfig.CloneSerializing();
+			simulationConfig.MapId = (int) map;
+			simulationConfig.MatchType = MatchType.Matchmaking;
 
 			if (!FeatureFlags.ENABLE_NOOB)
 			{
-				rewards.Remove(GameId.NOOB);
+				var removeNoobOverwrites = Enum.GetValues(typeof(DropPlace)).Cast<DropPlace>()
+					.Select(place => new MetaItemDropOverwrite()
+					{
+						Place = place,
+						Id = GameId.NOOB,
+						DropRate = FP._0
+					});
+
+				simulationConfig.MetaItemDropOverwrites = simulationConfig.MetaItemDropOverwrites.Where(drop => drop.Id != GameId.NOOB)
+					.Concat(removeNoobOverwrites)
+					.ToArray();
 			}
 
 			var matchmakingSetup = new MatchRoomSetup()
 			{
-				MapId = (int) map,
-				GameModeId = gameModeId,
-				Mutators = mutators,
-				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
-				AllowedRewards = selectedGameMode.Entry.AllowedRewards,
+				SimulationConfig = simulationConfig,
 				PlayfabQueue = selectedGameMode.Entry.PlayfabQueue
 			};
 
@@ -540,20 +546,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnMatchmakingCancelMessage(MatchmakingCancelMessage obj)
 		{
 			_services.MatchmakingService.LeaveMatchmaking();
-		}
-
-		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)
-		{
-			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
-			var gameModeId = selectedGameMode.Entry.GameModeId;
-			var setup = new MatchRoomSetup()
-			{
-				GameModeId = gameModeId,
-				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
-				Mutators = selectedGameMode.Entry.Mutators,
-				MapId = msg.MapId,
-			};
-			StartRandomMatchmaking(setup);
 		}
 
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
@@ -570,18 +562,17 @@ namespace FirstLight.Game.StateMachines
 
 			var setup = new MatchRoomSetup()
 			{
-				GameModeId = gameModeId,
-				MapId = (int) msg.MapConfig.Map,
-				Mutators = mutatorsFullList,
-				MatchType = MatchType.Custom,
-				RoomIdentifier = msg.RoomName,
-				BotDifficultyOverwrite = msg.CustomGameOptions.BotDifficulty,
-				PlayfabQueue = new GameModeRotationConfig.PlayfabQueue()
+				SimulationConfig = new SimulationMatchConfig()
 				{
-					//TODO: Carlos remove team size from playfab queue, it should be outside
-					TeamSize = msg.CustomGameOptions.TeamSize
+					MapId = (int) msg.MapConfig.Map,
+					GameModeID = gameModeId,
+					MatchType = MatchType.Custom,
+					Mutators = mutatorsFullList.ToArray(),
+					MaxPlayersOverwrite = msg.CustomGameOptions.PlayersNumber,
+					BotOverwriteDifficulty = msg.CustomGameOptions.BotDifficulty,
+					TeamSize = (uint) msg.CustomGameOptions.TeamSize,
 				},
-				OverwriteMaxPlayers = msg.CustomGameOptions.PlayersNumber
+				RoomIdentifier = msg.RoomName,
 			};
 			var offlineMatch = msg.MapConfig.IsTestMap;
 			if (msg.JoinIfExists)

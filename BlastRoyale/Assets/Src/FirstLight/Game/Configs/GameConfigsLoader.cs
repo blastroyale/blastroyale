@@ -52,7 +52,7 @@ namespace FirstLight.Game.Configs
 				clh.LoadConfigEditor();
 			}
 		}
-		
+
 		public IEnumerable<IConfigLoadHandler> GetLoadHandlers(IConfigsAdder configsAdder)
 		{
 			return new List<IConfigLoadHandler>
@@ -161,5 +161,33 @@ namespace FirstLight.Game.Configs
 #endif
 			}
 		}
+
+#if UNITY_EDITOR
+		public class EditorConfigProvider
+		{
+			private static ConfigsProvider _provider;
+
+			public static ConfigsProvider GetProvider()
+			{
+				if (_provider == null)
+				{
+					_provider = new ConfigsProvider();
+					var configsLoader = new GameConfigsLoader(new AssetResolverService());
+					configsLoader.LoadConfigEditor(_provider);
+				}
+
+				return _provider;
+			}
+
+			public static T LoadFromAddressable<T>() where T : ScriptableObject
+			{
+				var editorCfg = UnityEditor.AssetDatabase.FindAssets($"t:{typeof(T)}");
+				Assert.AreEqual(1, editorCfg.Length, $"Found more than one config of type {typeof(T)}");
+				var cfgPath = UnityEditor.AssetDatabase.GUIDToAssetPath(editorCfg[0]);
+				var asset = (T) UnityEditor.AssetDatabase.LoadAssetAtPath(cfgPath, typeof(T));
+				return asset;
+			}
+		}
+#endif
 	}
 }

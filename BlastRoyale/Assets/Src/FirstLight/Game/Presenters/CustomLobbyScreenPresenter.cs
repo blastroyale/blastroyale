@@ -14,6 +14,7 @@ using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Photon.Realtime;
+using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -117,7 +118,6 @@ namespace FirstLight.Game.Presenters
 			_services.RoomService.OnMasterChanged += Update;
 			_services.RoomService.OnPlayerPropertiesUpdated += Update;
 
-
 			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH) return base.OnScreenOpen(reload);
 
 			_rootObject.SetActive(true);
@@ -126,8 +126,8 @@ namespace FirstLight.Game.Presenters
 			var gameModeConfig = room.GameModeConfig;
 
 			CurrentRoom.Properties.AutoBalanceTeams.OnValueChanged += OnAutoBalanceValueChanged;
-
-			mapSelectionView.SetupMapView(room.Properties.GameModeId.Value, room.Properties.MapId.Value.GetHashCode());
+			var matchConfig = room.Properties.SimulationMatchConfig.Value;
+			mapSelectionView.SetupMapView(matchConfig.GameModeID, matchConfig.MapId.GetHashCode());
 
 			if (RejoiningRoom)
 			{
@@ -152,9 +152,9 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_selectDropZoneTextRootObject.SetActive(gameModeConfig.SpawnSelection);
-			_selectDropZoneText.text = room.Properties.MapId.Value.GetLocalization();
+			_selectDropZoneText.text = ((GameId) matchConfig.MapId).GetLocalization();
 			_gameModeText.text =
-				LocalizationUtils.GetTranslationForGameModeAndTeamSize(room.Properties.GameModeId.Value, room.Properties.TeamSize.Value);
+				LocalizationUtils.GetTranslationForGameModeAndTeamSize(matchConfig.GameModeID, matchConfig.TeamSize);
 			_lockRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			_playersFoundText.gameObject.SetActive(true);
@@ -179,15 +179,13 @@ namespace FirstLight.Game.Presenters
 				CurrentRoom.LocalPlayerProperties.TeamId.Value = $"{GameConstants.Network.MANUAL_TEAM_ID_PREFIX}{_squadId}";
 			}
 
-
-			var matchType = room.Properties.MatchType.Value;
-			var gameMode = room.Properties.GameModeId.Value;
+			var matchType = matchConfig.MatchType;
+			var gameMode = matchConfig;
 
 			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue,
 				matchType.ToString().ToUpper(), gameMode);
 
 			UpdateRoomPlayerCounts();
-
 
 			_playerListHolder.Init((uint) room.GetMaxPlayers(), RequestKickPlayer);
 			_spectatorListHolder.Init((uint) room.GetMaxSpectators(), RequestKickPlayer);
@@ -268,7 +266,6 @@ namespace FirstLight.Game.Presenters
 				_lockRoomButton.gameObject.SetActive(false);
 			}
 		}
-
 
 		private void UpdateRoomPlayerCounts()
 		{
@@ -380,7 +377,6 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-
 		private IEnumerator TimeoutSpectatorToggleCoroutine()
 		{
 			SetSpectateInteractable(false);
@@ -397,12 +393,12 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-
 		private void OnLockRoomClicked()
 		{
 			ReadyToPlay();
-			CurrentRoom.Properties.HasBots.Value = _botsToggle.isOn;
-			_services.TeamService.AutoBalanceCustom = true;
+			CurrentRoom.Properties.SimulationMatchConfig.Value.HasBots = _botsToggle.isOn;
+			CurrentRoom.Properties.SimulationMatchConfig.UpdateValue();
+			_services.TeamService.AutoBalanceCustom = _autoBalanceToggle.isOn;
 			_services.RoomService.StartCustomGameLoading();
 		}
 
@@ -425,7 +421,7 @@ namespace FirstLight.Game.Presenters
 
 		private void ReadyToPlay()
 		{
-			if(_isReadyToPlay) return;
+			if (_isReadyToPlay) return;
 			_isReadyToPlay = true;
 			_services.UIService.OpenScreen<SwipeTransitionScreenPresenter>().Forget();
 

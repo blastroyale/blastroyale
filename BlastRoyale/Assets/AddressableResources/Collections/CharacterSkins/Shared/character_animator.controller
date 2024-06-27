@@ -1276,7 +1276,7 @@ BlendTree:
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 6552979826339809234, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
+    m_Motion: {fileID: -4587092738342549234, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
     m_Threshold: 7
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -1809,7 +1809,7 @@ BlendTree:
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7228729691312038173, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
+    m_Motion: {fileID: 2089966354041182047, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
     m_Threshold: 7
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -1902,7 +1902,7 @@ BlendTree:
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 4004796894030555492, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
+    m_Motion: {fileID: -8445014279228973091, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
     m_Threshold: 7
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1

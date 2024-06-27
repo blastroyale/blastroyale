@@ -7,6 +7,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
 using Newtonsoft.Json;
+using Quantum;
 
 namespace Src.FirstLight.Server
 {
@@ -33,11 +34,12 @@ namespace Src.FirstLight.Server
 
 		private Task OnGameEndCommand(string userId, EndOfGameCalculationsCommand cmd, ServerState state)
 		{
+			var simulationConfig = SimulationMatchConfig.FromByteArray(cmd.SerializedSimulationConfig);
 			var player = cmd.PlayersMatchData[cmd.QuantumValues.ExecutingPlayer];
 			var data = new AnalyticsData()
 			{
 				{"match_id", cmd.QuantumValues.MatchId},
-				{"match_type", cmd.QuantumValues.MatchType.ToString()},
+				{"match_type", simulationConfig.MatchType},
 				{"game_mode", player.GameModeId},
 				{"map_id", player.MapId},
 				{"players_left", cmd.PlayersMatchData.Count(d => !d.IsBot)},
@@ -54,7 +56,7 @@ namespace Src.FirstLight.Server
 				{"first_death_time", player.Data.FirstDeathTime.AsLong.ToString() },
 				{"last_death_position", player.Data.LastDeathPosition.ToString() },
 				{"specials_used", player.Data.SpecialsUsedCount.ToString() },
-				{"team_size", cmd.TeamSize },
+				{"team_size", simulationConfig.TeamSize },
 				{"team_id", player.Data.TeamId },
 			};
 			_ctx.Analytics!.EmitUserEvent(userId, $"server_match_end_summary", data);

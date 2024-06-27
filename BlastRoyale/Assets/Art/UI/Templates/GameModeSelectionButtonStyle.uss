@@ -122,9 +122,6 @@
 }
 
 
-.game-mode-button--custom .game-mode-button__top {
-    background-image: var(--sprite-home__background-gamemode-custom);
-}
 
 .game-mode-button__top-mask {
     width: 502px;
@@ -134,6 +131,11 @@
     background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
     margin-top: 2px;
     -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+}
+
+
+.game-mode-button--custom .game-mode-button__top {
+    background-image: var(--sprite-home__background-gamemode-custom);
 }
 
 .game-mode-button--battleroyale-solo .game-mode-button__top {
@@ -175,14 +177,6 @@
     background-image: var(--sprite-home__background-modeselection-custom);
 }
 
-.game-mode-button--matchmaking .game-mode-button__data-panel {
-    background-image: var(--sprite-home__background-modeselection-ranked);
-}
-
-.game-mode-button--casual .game-mode-button__data-panel {
-    background-image: var(--sprite-home__background-modeselection-casual);
-}
-
 .game-mode-button__icon {
     width: 50px;
     height: 50px;
@@ -203,14 +197,6 @@
 
 .game-mode-button--deathmatch .game-mode-button__icon {
     background-image: var(--sprite-home__icon-gamemode-deathmatch);
-}
-
-.game-mode-button--matchmaking .game-mode-button__icon {
-    -unity-background-image-tint-color: rgb(71, 18, 2);
-}
-
-.game-mode-button--casual .game-mode-button__icon {
-    -unity-background-image-tint-color: rgb(8, 20, 58);
 }
 
 .game-mode-button--custom .game-mode-button__icon {
@@ -244,70 +230,6 @@
 }
 
 
-.game-mode-button__timer {
-    color: rgb(0, 0, 0);
-    font-size: 30px;
-    -unity-text-align: upper-right;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    position: absolute;
-    bottom: 5px;
-    right: 30px;
-}
-
-
-
-
-.game-mode-button__mutators {
-    width: 270px;
-    height: auto;
-    background-image: url('project://database/Assets/Art/UI/Vectors/MutatorsBack.svg?fileID=7388822144124034973&guid=0e58669687c4b4ff387d2604ced0f2ff&type=3#MutatorsBack');
-    position: absolute;
-    bottom: 219px;
-    left: 15px;
-    padding-left: 30px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    -unity-background-scale-mode: scale-and-crop;
-    flex-direction: column-reverse;
-}
-
-.game-mode-button__mutator-line {
-    flex-direction: row;
-}
-
-.game-mode-button__mutators__icon {
-    -unity-background-image-tint-color: rgb(0, 0, 0);
-    width: 46px;
-    height: 46px;
-}
-
-.speedup-mutator .game-mode-button__mutators__icon {
-    background-image: var(--sprite-home__icon-mutator-speedup);
-}
-
-.quickspecials-mutator .game-mode-button__mutators__icon {
-    background-image: var(--sprite-home__icon-mutator-quickspecials);
-}
-
-.healthyair-mutator .game-mode-button__mutators__icon {
-    background-image: var(--sprite-home__icon-mutator-healthyair);
-}
-
-.game-mode-button__mutators__title {
-    color: rgb(255, 255, 255);
-    font-size: 27px;
-    margin-left: 10px;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-}
 
 .game-mode-button__crown {
     width: 517px;
@@ -328,28 +250,6 @@
     background-image: var(--sprite-home__icon-crown-ranked);
     width: 86px;
     height: 58px;
-}
-
-.game-mode-button__mode-tag {
-    width: 150px;
-    height: 46px;
-    right: -5px;
-    top: -12px;
-    position: absolute;
-}
-
-.game-mode-button--matchmaking .game-mode-button__mode-tag {
-    background-image: var(--sprite-home__background-modetag-ranked);
-}
-
-.game-mode-button--casual .game-mode-button__mode-tag {
-    background-image: var(--sprite-home__background-modetag-casual);
-}
-
-.game-mode-button__mode-tag-title {
-    color: rgb(255, 255, 255);
-    font-size: 35px;
-    -unity-text-outline-width: 2px;
 }
 
 
@@ -416,15 +316,6 @@
     height: 55px;
     -unity-background-scale-mode: scale-to-fit;
     flex-shrink: 0;
-}
-
-.coming-soon-button__title {
-    color: rgb(150, 118, 234);
-    position: absolute;
-    bottom: 100px;
-    font-size: 40px;
-    -unity-text-align: upper-center;
-    left: 90px;
 }
 
 .anim-delay-3 {

@@ -1,0 +1,12 @@
+﻿<canvas id="canvas" height="1000" width="1400" style="margin-left: 200px;"></canvas>
+
+<script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    //let topLeft = (0,1);
+    ctx.beginPath();
+    ctx.moveTo(100,100);
+    ctx.arcTo(100,120, 110, 130, 5);
+    ctx.stroke();
+</script>

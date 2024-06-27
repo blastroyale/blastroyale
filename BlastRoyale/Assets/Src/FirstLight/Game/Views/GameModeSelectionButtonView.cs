@@ -21,7 +21,6 @@ namespace FirstLight.Game.Views
 	{
 		private const string GameModeButtonBase = "game-mode-button";
 		private const string GameModeButtonSelectedModifier = GameModeButtonBase + "--selected";
-		private const string GameModeButtonMutatorLine = GameModeButtonBase + "__mutator-line";
 
 		public GameModeInfo GameModeInfo { get; private set; }
 		public event Action<GameModeSelectionButtonView> Clicked;
@@ -69,9 +68,6 @@ namespace FirstLight.Game.Views
 		private bool _disabled;
 		private Coroutine _timerCoroutine;
 
-		private VisualElement _mutatorsPanel;
-		private List<VisualElement> _mutatorLines;
-
 		public GameModeSelectionButtonView()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -88,9 +84,6 @@ namespace FirstLight.Game.Views
 			_teamSizeLabel = dataPanel.Q<Label>("TeamSizeLabel").Required();
 			_disabledContainer = Element.Q<VisualElement>("Disabled").Required();
 			_disabledLabel = Element.Q<Label>("DisabledLabel").Required();
-
-			_mutatorsPanel = Element.Q<VisualElement>("Mutators");
-			_mutatorLines = _mutatorsPanel.Query<VisualElement>("MutatorLine").ToList();
 
 			_button.clicked += () => Clicked?.Invoke(this);
 		}
@@ -141,7 +134,6 @@ namespace FirstLight.Game.Views
 
 			UpdateTeamSize(gameModeInfo);
 			UpdateTitleAndDescription();
-			UpdateMutators();
 		}
 
 		private bool IsCustomGame()
@@ -173,39 +165,6 @@ namespace FirstLight.Game.Views
 		{
 			_gameModeLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.TitleTranslationKey);
 			_gameModeDescriptionLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.DescriptionTranslationKey);
-		}
-
-		private void UpdateMutators()
-		{
-			if (GameModeInfo.Entry.Mutators.Count == 0)
-			{
-				_mutatorsPanel.SetDisplay(false);
-				return;
-			}
-
-			_mutatorsPanel.SetDisplay(true);
-
-			for (var mutatorIndex = 0; mutatorIndex < _mutatorLines.Count; mutatorIndex++)
-			{
-				if (mutatorIndex <= GameModeInfo.Entry.Mutators.Count - 1)
-				{
-					_mutatorLines[mutatorIndex].SetDisplay(true);
-					SetMutatorLine(_mutatorLines[mutatorIndex], GameModeInfo.Entry.Mutators[mutatorIndex]);
-				}
-				else
-				{
-					_mutatorLines[mutatorIndex].SetDisplay(false);
-				}
-			}
-		}
-
-		private void SetMutatorLine(VisualElement mutatorLine, string mutator)
-		{
-			mutatorLine.ClearClassList();
-			mutatorLine.AddToClassList(GameModeButtonMutatorLine);
-			mutatorLine.AddToClassList(mutator.ToLowerInvariant() + "-mutator");
-			var mutatorTitle = mutatorLine.Q<Label>("Title").Required();
-			mutatorTitle.text = mutator.ToUpperInvariant();
 		}
 	}
 }

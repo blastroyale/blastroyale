@@ -18,9 +18,10 @@ namespace FirstLight.Game.UIElements
 		protected int borderSize { get; set; }
 		protected bool inverted { get; set; }
 		protected bool useParentHeight { get; set; }
-		protected Color fillColor;
+		protected Color fillColor { get; set; }
+		protected Color outlineColor { get; set; }
+		protected int outlineWidth { get; set; }
 
-		private float _outlineWidth = 10;
 		private float _borderRadiusStyle = 5;
 		private float _borderRadius = 5;
 		private VectorImage cachedImage;
@@ -47,10 +48,7 @@ namespace FirstLight.Game.UIElements
 			});
 			hierarchy.Add(_mask = new VisualElement()
 			{
-				name = "Mask",
-				style =
-				{
-				}
+				name = "Mask"
 			});
 			_background.generateVisualContent += GenerateBackground;
 			//_mask.generateVisualContent += GenerateOutline;
@@ -61,13 +59,13 @@ namespace FirstLight.Game.UIElements
 		void GenerateBackground(MeshGenerationContext context)
 		{
 			var paint = this.contentRect;
-			ToPainter(context.painter2D, paint, Color.green, Color.yellow, borderSize, _outlineWidth, useParentHeight ? parent.contentRect : default);
+			ToPainter(context.painter2D, paint, false, this.fillColor, outlineColor, borderSize, outlineWidth, useParentHeight ? parent.contentRect : default);
 		}
-a
+
 		private void OnGeometryChangedMask(GeometryChangedEvent evt)
 		{
 			var newPainter = new Painter2D();
-			ToPainter(newPainter, evt.newRect, Color.red, Color.magenta, borderSize * 1.5f, _outlineWidth, this.contentRect);
+			ToPainter(newPainter, evt.newRect, true, Color.red, Color.red, borderSize, outlineWidth, this.contentRect);
 			if (cachedImage == null)
 			{
 				cachedImage = ScriptableObject.CreateInstance<VectorImage>();
@@ -75,13 +73,13 @@ a
 
 			_mask.style.backgroundImage = new StyleBackground(cachedImage);
 			newPainter.SaveToVectorImage(cachedImage);
-			this._mask.MarkDirtyRepaint();
+			_mask.MarkDirtyRepaint();
 		}
 
 		private void OnGeometryChanged(GeometryChangedEvent evt)
 		{
 			this._mask.style.position = Position.Absolute;
-			this._mask.style.top = O;
+			this._mask.style.top = 0;
 			this._mask.style.left = 0;
 			this._mask.style.height = contentRect.height;
 			this._mask.style.width = contentRect.width;
@@ -89,7 +87,7 @@ a
 			this._mask.MarkDirtyRepaint();
 		}
 
-		public Rect ToPainter(Painter2D painter, Rect paintReact, Color fillColor, Color strokeColor, float borderWidth, float strokeWidth = 0, Rect parentRect = default)
+		public Rect ToPainter(Painter2D painter, Rect paintReact, bool mask, Color fillColor, Color strokeColor, float borderWidth, float strokeWidth = 0, Rect parentRect = default)
 		{
 			var useParent = parentRect != default;
 			var size = paintReact.size;
@@ -239,6 +237,13 @@ a
 				defaultValue = 20,
 			};
 
+			UxmlIntAttributeDescription _outlineWidth = new ()
+			{
+				name = "outlineWidth",
+				use = UxmlAttributeDescription.Use.Required,
+				defaultValue = 20,
+			};
+
 			UxmlBoolAttributeDescription _inverted = new ()
 			{
 				name = "inverted",
@@ -260,6 +265,13 @@ a
 				defaultValue = Color.blue,
 			};
 
+			private UxmlColorAttributeDescription _outlineColor = new ()
+			{
+				name = "outlineColor",
+				use = UxmlAttributeDescription.Use.Required,
+				defaultValue = Color.yellow,
+			};
+
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
 				base.Init(ve, bag, cc);
@@ -270,6 +282,8 @@ a
 				an.useParentHeight = _useParentHeight.GetValueFromBag(bag, cc);
 				an.fillColor = _color.GetValueFromBag(bag, cc);
 				an.borderSize = _borderSize.GetValueFromBag(bag, cc);
+				an.outlineWidth = _outlineWidth.GetValueFromBag(bag, cc);
+				an.outlineColor = _outlineColor.GetValueFromBag(bag, cc);
 				an.MarkDirtyRepaint();
 			}
 		}

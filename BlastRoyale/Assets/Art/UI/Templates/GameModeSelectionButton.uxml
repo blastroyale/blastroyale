@@ -19,16 +19,6 @@
                                 <ui:VisualElement name="TeamSizeIcon" class="sprite-shared__icon-gamemode-solo game-mode-button__team-size-icon" />
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement name="Mutators" class="game-mode-button__mutators">
-                            <ui:VisualElement name="MutatorLine" class="speedup-mutator game-mode-button__mutator-line">
-                                <ui:VisualElement name="Icon" class="game-mode-button__mutators__icon" />
-                                <ui:Label text="MUTATOR 2" display-tooltip-when-elided="true" name="Title" class="game-mode-button__mutators__title" />
-                            </ui:VisualElement>
-                            <ui:VisualElement name="MutatorLine" class="speedup-mutator game-mode-button__mutator-line">
-                                <ui:VisualElement name="Icon" class="game-mode-button__mutators__icon" />
-                                <ui:Label text="MUTATOR 1" display-tooltip-when-elided="true" name="Title" class="game-mode-button__mutators__title" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="Disabled" class="game-mode-button__disabled" style="display: none;">
                         <ui:Label tabindex="-1" text="TOO MANY PLAYERS IN THE SQUAD" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DisabledLabel" class="game-mode-button__disabled-label" />

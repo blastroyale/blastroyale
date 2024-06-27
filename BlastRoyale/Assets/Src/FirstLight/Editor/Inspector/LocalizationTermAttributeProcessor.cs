@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FirstLight.Game.Utils.Attributes;
 using I2.Loc;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;

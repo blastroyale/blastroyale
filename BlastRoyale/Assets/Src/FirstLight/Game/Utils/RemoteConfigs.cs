@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using Newtonsoft.Json;
+using Unity.Services.Authentication;
 using Unity.Services.RemoteConfig;
 
 // ReSharper disable ConvertToConstant.Global
@@ -49,6 +50,9 @@ namespace FirstLight.Game.Utils
 
 		public static async UniTask Init()
 		{
+			RemoteConfigService.Instance.SetCustomUserID(AuthenticationService.Instance.PlayerId);
+			
+			// Fetch regular configs
 			var rc = await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
 			Instance = JsonConvert.DeserializeObject<RemoteConfigs>(rc.config.ToString());
 

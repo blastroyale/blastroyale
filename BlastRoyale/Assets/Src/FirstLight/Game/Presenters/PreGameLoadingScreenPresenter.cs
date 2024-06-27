@@ -252,13 +252,14 @@ namespace FirstLight.Game.Presenters
 			// the geometry changed event fires constantly.
 			_mapHolder.UnregisterCallback<GeometryChangedEvent>(InitMap);
 
-			var matchType = CurrentRoom.Properties.MatchType.Value;
+			var simulationConfig = CurrentRoom.Properties.SimulationMatchConfig.Value;
+			var matchType = simulationConfig.MatchType;
 			var gameModeConfig = CurrentRoom.GameModeConfig;
 			var mapConfig = CurrentRoom.MapConfig;
 			var modeDesc = GetGameModeDescriptions(gameModeConfig.CompletionStrategy);
 
 			_locationLabel.text = mapConfig.Map.GetLocalization();
-			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, CurrentRoom.Properties.TeamSize.Value),
+			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, simulationConfig.TeamSize),
 				matchType.GetLocalization().ToUpper());
 
 			_modeDescTopLabel.text = modeDesc[0];

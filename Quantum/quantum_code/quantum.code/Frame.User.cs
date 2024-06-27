@@ -107,9 +107,9 @@ namespace Quantum
 				.Where(p => p != null);
 		}
 		
-		public int GetTeamSize()
+		public uint GetTeamSize()
 		{
-			return _runtimeConfig.TeamSize;
+			return _runtimeConfig.MatchConfigs.TeamSize;
 		}
 	}
 }

@@ -128,8 +128,10 @@ public class TestBlastRoyaleCommands
 			QuantumValues = new QuantumValues()
 			{
 				ExecutingPlayer = playerRef,
-			}
+			},
+			SerializedSimulationConfig = new SimulationMatchConfig().ToByteArray()
 		};
+		
 		var result = _server?.SendTestCommand(command);
 		Assert.IsFalse(result?.Data.ContainsKey("LogicException"));
 	}

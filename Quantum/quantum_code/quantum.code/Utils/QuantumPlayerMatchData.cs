@@ -26,8 +26,8 @@ namespace Quantum
 			var playerData = f.GetPlayerData(data.Player);
 
 			IsBot = playerData == null;
-			MapId = f.RuntimeConfig.MapId;
-			GameModeId = f.RuntimeConfig.GameModeId;
+			MapId = f.RuntimeConfig.MatchConfigs.MapId;
+			GameModeId = f.RuntimeConfig.MatchConfigs.GameModeID;
 			Data = data;
 			PlayerName = playerData == null ? data.BotNameIndex.ToString() : playerData.PlayerName;
 			TeamId = data.TeamId;

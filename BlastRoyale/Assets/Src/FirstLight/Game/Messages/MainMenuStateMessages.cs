@@ -42,7 +42,7 @@ namespace FirstLight.Game.Messages
 		public string RoomName;
 		public QuantumGameModeConfig GameModeConfig;
 		public QuantumMapConfig MapConfig;
-		public CustomGameOptions CustomGameOptions;
+		public CustomMatchSettings CustomGameOptions;
 		public bool JoinIfExists;
 	}
 

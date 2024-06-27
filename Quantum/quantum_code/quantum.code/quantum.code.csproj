@@ -111,6 +111,7 @@
     <Compile Include="Configs\Helpers\QuantumPair.cs" />
     <Compile Include="Configs\Mutator.cs" />
     <Compile Include="Configs\QuantumBotDifficultyConfigs.cs" />
+    <Compile Include="Configs\QuantumSimulationMatchConfigs.cs" />
     <Compile Include="Configs\QuantumReviveConfigs.cs" />
     <Compile Include="QuantumFeatureFlags.cs" />
     <Compile Include="AI\HFSM.State.cs" />

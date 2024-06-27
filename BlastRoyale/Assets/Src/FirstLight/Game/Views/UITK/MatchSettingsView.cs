@@ -166,7 +166,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			PopupPresenter.OpenSelectSquadSize(val =>
 			{
-				MatchSettings.SquadSize = val;
+				MatchSettings.SquadSize = (uint) val;
 				RefreshData(true);
 				PopupPresenter.Close().Forget();
 			}, MatchSettings.SquadSize).Forget();

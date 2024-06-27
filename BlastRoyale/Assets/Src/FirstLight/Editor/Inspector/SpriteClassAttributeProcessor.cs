@@ -2,16 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Editor.EditorTools;
+using FirstLight.Game.Utils.Attributes;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
-using UnityEditor;
 
 namespace FirstLight.Editor.Inspector
 {
 	public class SpriteClassAttributeProcessor : OdinAttributeProcessor
 	{
 		private static ValueDropdownList<string> _cachedClasses;
-
 
 		private static ValueDropdownList<string> GetClasses()
 		{
@@ -41,7 +40,7 @@ namespace FirstLight.Editor.Inspector
 
 		private static string GetClassName(InspectorProperty property)
 		{
-			return property.BaseValueEntry.WeakSmartValue.ToString();
+			return property?.BaseValueEntry?.WeakSmartValue?.ToString() ?? "None";
 		}
 
 		private static IEnumerable GetSprites()

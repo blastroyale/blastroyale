@@ -87,7 +87,7 @@ namespace FirstLight.Game.Services
 
 			FLog.Verbose("Starting mandatory asset load");
 			var time = Time.realtimeSinceStartup;
-			var map = _services.RoomService.CurrentRoom.Properties.MapId.Value;
+			var map = (GameId)_services.RoomService.CurrentRoom.Properties.SimulationMatchConfig.Value.MapId;
 			_services.MessageBrokerService.Publish(new BenchmarkStartedLoadingMatchAssets
 			{
 				Map = map.ToString()

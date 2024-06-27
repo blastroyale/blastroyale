@@ -20,17 +20,6 @@ namespace FirstLight.Game.Commands
 			GameId.Avatar1,
 			GameId.MeleeSkinCactus,
 			GameId.MeleeSkinPowerPan,
-			GameId.MeleeSkinCactus,
-			GameId.PlayerSkinGearedApe,
-			GameId.PlayerSkinCupid,
-			GameId.FemaleAssassin,
-			GameId.FemalePunk,
-			GameId.MaleAssassin,
-			GameId.Rocket,
-			GameId.MeleeSkinYouGotMail,
-			GameId.MeleeSkinOutOfThePark,
-			GameId.MeleeSkinElectricSolo,
-			GameId.MeleeSkinTvTakedown
 		};
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;

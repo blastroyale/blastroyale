@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Photon.Realtime;
@@ -25,9 +23,9 @@ namespace FirstLight.Game.Services.RoomService
 		private bool _pause;
 
 		public bool GameStarted => Properties.GameStarted.Value;
-		public bool IsTeamGame => Properties.TeamSize.Value > 1;
-		public QuantumMapConfig MapConfig => _roomService.GetMapConfig(Properties.MapId.Value.GetHashCode());
-		public QuantumGameModeConfig GameModeConfig => _roomService.GetGameModeConfig(Properties.GameModeId.Value);
+		public bool IsTeamGame => Properties.SimulationMatchConfig.Value.TeamSize > 1;
+		public QuantumMapConfig MapConfig => _roomService.GetMapConfig(Properties.SimulationMatchConfig.Value.MapId.GetHashCode());
+		public QuantumGameModeConfig GameModeConfig => _roomService.GetGameModeConfig(Properties.SimulationMatchConfig.Value.GameModeID);
 		public Dictionary<int, Player> Players => _room.Players;
 		public string Name => _room.Name;
 
@@ -86,7 +84,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		public int GetMaxSpectators()
 		{
-			return _roomService.GetMaxSpectators(Properties.MatchType.Value);
+			return _roomService.GetMaxSpectators(Properties.SimulationMatchConfig.Value.MatchType);
 		}
 
 		/// <summary>
@@ -125,7 +123,7 @@ namespace FirstLight.Game.Services.RoomService
 			var roomSize = GetRealPlayerCapacity();
 			var gameMode = DeterministicGameMode.Multiplayer;
 
-			if (!Properties.HasBots.Value)
+			if (!Properties.SimulationMatchConfig.Value.HasBots)
 			{
 				roomSize = playersInRoom;
 			}
@@ -164,7 +162,8 @@ namespace FirstLight.Game.Services.RoomService
 		public void SetRuntimeConfig()
 		{
 			var configProvider = _roomService._configsProvider;
-			var map = Properties.MapId.Value;
+			var simulationConfig = Properties.SimulationMatchConfig.Value;
+			var map = (GameId) simulationConfig.MapId;
 			if (!configProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
 			{
 				throw new Exception("Asset map config not found for map " + map);
@@ -181,13 +180,8 @@ namespace FirstLight.Game.Services.RoomService
 				runtimeConfig.Seed = Random.Range(0, int.MaxValue);
 			}
 
-			runtimeConfig.MapId = Properties.MapId.Value.GetHashCode();
+			runtimeConfig.MatchConfigs = simulationConfig;
 			runtimeConfig.Map = op.WaitForCompletion().Settings;
-			runtimeConfig.GameModeId = Properties.GameModeId.Value;
-			//runtimeConfig.Mutators = Properties.Mutators.Value.ToArray();
-			runtimeConfig.BotOverwriteDifficulty = Properties.BotDifficultyOverwrite.HasValue ? Properties.BotDifficultyOverwrite.Value : -1;
-			runtimeConfig.TeamSize = Properties.TeamSize.Value;
-			runtimeConfig.AllowedRewards = Properties.AllowedRewards.Value?.Select(id => (int) id).ToArray() ?? Array.Empty<int>();
 		}
 
 		/// <summary>
@@ -226,13 +220,8 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			return new MatchRoomSetup()
 			{
-				Mutators = Properties.Mutators.Value.ToList(),
-				MapId = Properties.MapId.Value.GetHashCode(),
-				MatchType = Properties.MatchType.Value,
-				BotDifficultyOverwrite = Properties.BotDifficultyOverwrite.Value,
-				GameModeId = Properties.GameModeId.Value,
 				RoomIdentifier = _room.Name,
-				AllowedRewards = Properties.AllowedRewards.Value
+				SimulationConfig = Properties.SimulationMatchConfig.Value
 			};
 		}
 
@@ -258,7 +247,7 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			_pause = true;
 		}
-		
+
 		public void ResumeTimer(int secondsToStart = -1)
 		{
 			_pause = false;

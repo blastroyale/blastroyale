@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
-using FirstLight.Server.SDK.Models;
-using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Photon.Realtime;
@@ -24,6 +20,12 @@ namespace FirstLight.Game.Services.RoomService
 	{
 		Join,
 		Leave,
+	}
+
+	public class PlayerJoinRoomProperties
+	{
+		public string Team;
+		public byte TeamColor;
 	}
 
 	public interface IRoomService
@@ -126,7 +128,7 @@ namespace FirstLight.Game.Services.RoomService
 		/// for the client to be able to enter. If there is even one param mismatching, join operation will fail.
 		/// Used for Playfab matchmaking, because with playfab matchmaking we know the name of the room, so a random player will create it and the others will join
 		/// </remarks>
-		bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null, byte teamColor = 0, string[] expectedPlayers = null);
+		bool JoinOrCreateRoom(MatchRoomSetup setup, PlayerJoinRoomProperties playerProperties = null, string[] expectedPlayers = null);
 
 		/// <summary>
 		/// Leaves the current room that local player is in
@@ -237,7 +239,7 @@ namespace FirstLight.Game.Services.RoomService
 		/// Used for Playfab matchmaking, because with playfab matchmaking we know the name of the room, so a random player will create it and the others will join
 		/// </summary>
 		/// <returns></returns>
-		public bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null, byte teamColor = 0, string[] expectedPlayers = null)
+		public bool JoinOrCreateRoom(MatchRoomSetup setup, PlayerJoinRoomProperties playerProperties, string[] expectedPlayers = null)
 		{
 			if (InRoom) return false;
 
@@ -246,7 +248,7 @@ namespace FirstLight.Game.Services.RoomService
 			var createParams = _parameters.GetRoomCreateParams(setup);
 			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
 
-			ResetLocalPlayerProperties(teamID, teamColor);
+			ResetLocalPlayerProperties(playerProperties);
 			_networkService.LastDisconnectLocation = LastDisconnectionLocation.None;
 			_networkService.LastUsedSetup.Value = setup;
 			return _networkService.QuantumClient.OpJoinOrCreateRoom(createParams);
@@ -289,10 +291,10 @@ namespace FirstLight.Game.Services.RoomService
 		public byte GetMaxPlayers(MatchRoomSetup setup,
 								  bool spectators = true)
 		{
-			var maxPlayers = setup.OverwriteMaxPlayers > 0 ? setup.OverwriteMaxPlayers : GetMapConfig(setup.MapId).MaxPlayers;
+			var maxPlayers = setup.SimulationConfig.MaxPlayersOverwrite > 0 ? setup.SimulationConfig.MaxPlayersOverwrite : GetMapConfig(setup.SimulationConfig.MapId).MaxPlayers;
 			if (spectators)
 			{
-				maxPlayers += GetMaxSpectators(setup.MatchType);
+				maxPlayers += GetMaxSpectators(setup.SimulationConfig.MatchType);
 			}
 
 			return (byte) maxPlayers;
@@ -404,7 +406,7 @@ namespace FirstLight.Game.Services.RoomService
 		private void CheckMatchmakingLoadingStart()
 		{
 			// When master joins matchmaking it should set the timer values
-			if (!CurrentRoom.LocalPlayer.IsMasterClient || CurrentRoom.Properties.MatchType.Value == MatchType.Custom ||
+			if (!CurrentRoom.LocalPlayer.IsMasterClient || CurrentRoom.Properties.SimulationMatchConfig.Value.MatchType == MatchType.Custom ||
 				CurrentRoom.Properties.LoadingStartServerTime.HasValue || CurrentRoom.GameStarted) return;
 			var time = _networkService.ServerTimeInMilliseconds;
 			// We don't have server time yet lets wait
@@ -475,7 +477,7 @@ namespace FirstLight.Game.Services.RoomService
 				return;
 			}
 
-			if (CurrentRoom.Properties.MatchType.Value == MatchType.Custom && !CurrentRoom.Properties.StartCustomGame.Value && !CurrentRoom.GameModeConfig.InstantLoad)
+			if (CurrentRoom.Properties.SimulationMatchConfig.Value.MatchType == MatchType.Custom && !CurrentRoom.Properties.StartCustomGame.Value && !CurrentRoom.GameModeConfig.InstantLoad)
 			{
 				return;
 			}
@@ -536,7 +538,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		public void OnMasterClientSwitched(Player newMasterClient)
 		{
-			if (newMasterClient.IsLocal && CurrentRoom.Properties.MatchType.Value != MatchType.Custom)
+			if (newMasterClient.IsLocal && CurrentRoom.Properties.SimulationMatchConfig.Value.MatchType != MatchType.Custom)
 			{
 				CheckMatchmakingLoadingStart();
 			}
@@ -573,7 +575,7 @@ namespace FirstLight.Game.Services.RoomService
 			return _commands.SendKickCommand(playerToKick);
 		}
 
-		private void ResetLocalPlayerProperties(string teamId = null, byte teamColorIndex = 0)
+		private void ResetLocalPlayerProperties(PlayerJoinRoomProperties properties = null)
 		{
 			_networkService.QuantumClient.NickName = AuthenticationService.Instance.GetPlayerName();
 			var preloadIds = new List<GameId>();
@@ -586,9 +588,9 @@ namespace FirstLight.Game.Services.RoomService
 				Loadout = {Value = preloadIds},
 				Spectator = {Value = false},
 				CoreLoaded = {Value = false},
-				TeamId = {Value = teamId},
+				TeamId = {Value = properties?.Team},
 				Rank = {Value = _leaderboardService.CurrentRankedEntry.Position},
-				ColorIndex = {Value = teamColorIndex}
+				ColorIndex = {Value = properties?.TeamColor ?? 0}
 			};
 
 			_networkService.LocalPlayer.SetCustomProperties(props.ToHashTable());

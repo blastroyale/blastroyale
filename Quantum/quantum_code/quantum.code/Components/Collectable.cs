@@ -29,7 +29,6 @@ namespace Quantum
 			}
 
 			var configConsumable = f.ConsumableConfigs.GetConfig(gameId);
-			if (configConsumable.ConsumableType == ConsumableType.GameItem && !f.RuntimeConfig.AllowedRewards.Contains((int)gameId)) return;
 			var entityConsumable = f.Create(f.FindAsset<EntityPrototype>(configConsumable.AssetRef.Id));
 
 			f.Unsafe.GetPointer<Consumable>(entityConsumable)->Init(f, entityConsumable, dropPosition,

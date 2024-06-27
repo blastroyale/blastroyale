@@ -15,9 +15,9 @@ namespace FirstLight.Game.Views.UITK.Popups
 		[Q("Quads")] private MatchSettingsSelectionElement  _quads;
 		
 		private readonly Action<int> _onSquadSizeSelected;
-		private readonly int _currentSize;
+		private readonly uint _currentSize;
 
-		public SelectSquadSizePopupView(Action<int> onSquadSizeSelected, int currentSize)
+		public SelectSquadSizePopupView(Action<int> onSquadSizeSelected, uint currentSize)
 		{
 			_onSquadSizeSelected = onSquadSizeSelected;
 			_currentSize = currentSize;

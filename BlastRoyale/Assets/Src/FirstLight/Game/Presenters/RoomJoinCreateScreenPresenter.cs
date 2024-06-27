@@ -195,7 +195,7 @@ namespace FirstLight.Game.Presenters
 				RoomName = roomName,
 				GameModeConfig = gameModeConfig,
 				MapConfig = mapConfig,
-				CustomGameOptions = GetChosenOptions(),
+				//CustomGameOptions = GetChosenOptions(),
 				JoinIfExists = true
 			};
 			_services.MessageBrokerService.Publish(message);
@@ -215,7 +215,7 @@ namespace FirstLight.Game.Presenters
 				RoomName = roomName,
 				GameModeConfig = gameModeConfig,
 				MapConfig = mapConfig,
-				CustomGameOptions = GetChosenOptions()
+				//CustomGameOptions = GetChosenOptions()
 			};
 			_services.MessageBrokerService.Publish(message);
 			Data.PlayClicked();

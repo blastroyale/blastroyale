@@ -166,9 +166,18 @@ namespace Quantum.Systems
 					}
 				}
 
-				if (f.RNG->Next(FP._0, FP._1) < f.GameConfig.ChanceToDropNoobOnKill)
+				foreach (var metaItemDropOverwrite in f.RuntimeConfig.MatchConfigs.MetaItemDropOverwrites
+							 .Where(d => d.Place == DropPlace.Player))
 				{
-					consumablesToDrop.Add(GameId.NOOB);
+					var rnd = f.RNG->Next();
+					if (rnd <= metaItemDropOverwrite.DropRate)
+					{
+						var amount = f.RNG->Next(metaItemDropOverwrite.MinDropAmount, metaItemDropOverwrite.MaxDropAmount);
+						for (var i = 0; i < amount; i++)
+						{
+							consumablesToDrop.Add(metaItemDropOverwrite.Id);
+						}
+					}
 				}
 			}
 
@@ -272,16 +281,15 @@ namespace Quantum.Systems
 			}
 
 			var input = f.GetPlayerInput(filter.Player->Player);
-			
+
 			// Check inactivity only up to certain time and only in ranked matches
 			if (f.Time > f.GameConfig.NoInputStartChecking &&
 				f.Time < f.GameConfig.NoInputStopChecking &&
-				f.RuntimeConfig.AllowedRewards != null &&
-				f.RuntimeConfig.AllowedRewards.Contains((int)GameId.Trophies))
+				f.RuntimeConfig.MatchConfigs.MatchType == MatchType.Matchmaking)
 			{
 				ProcessNoInputWarning(f, ref filter, input->GetHashCode());
 			}
-			
+
 			var rotation = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
 			var prevRotation = bb->GetVector2(f, Constants.AIM_DIRECTION_KEY);
@@ -375,7 +383,7 @@ namespace Quantum.Systems
 						 && f.Time - filter.Player->LastNoInputTimeSnapshot < f.GameConfig.NoInputWarningTime + FP._1)
 				{
 					f.Events.OnLocalPlayerNoInput(f.Unsafe.GetPointer<PlayerCharacter>(filter.Entity)->Player, filter.Entity);
-						
+
 					// A hack with a time counter to avoid sending more than a single event
 					filter.Player->LastNoInputTimeSnapshot -= FP._1_50;
 				}
@@ -384,7 +392,7 @@ namespace Quantum.Systems
 			{
 				filter.Player->LastNoInputTimeSnapshot = f.Time;
 			}
-			
+
 			filter.Player->InputSnapshot = inputHashCode;
 		}
 
@@ -408,7 +416,7 @@ namespace Quantum.Systems
 			}
 
 			var health = Constants.MUTATOR_HEALTHPERSECONDS_AMOUNT;
-			
+
 			var spell = new Spell() { PowerAmount = (uint)health };
 			if (health > 0)
 			{

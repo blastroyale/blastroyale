@@ -499,11 +499,11 @@ namespace FirstLight.Game.Presenters
 		{
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
 			var isMemberNotLeader = _services.FLLobbyService.CurrentPartyLobby != null && !_services.FLLobbyService.CurrentPartyLobby.IsLocalPlayerHost();
-			_gameModeLabel.text = LocalizationManager.GetTranslation(current.TitleTranslationKey);
+			_gameModeLabel.text = LocalizationManager.GetTranslation(current.Visual.TitleTranslationKey);
 			// TODO mihak: _gameModeButton.SetEnabled(!isMemberNotLeader && !_partyService.OperationInProgress.Value); 
 			_gameModeButton.SetEnabled(!isMemberNotLeader);
 			_gameModeIcon.RemoveSpriteClasses();
-			_gameModeIcon.AddToClassList(current.IconSpriteClass);
+			_gameModeIcon.AddToClassList(current.Visual.IconSpriteClass);
 		}
 
 		private void UpdatePlayButton(bool forceLoading = false)

@@ -10,11 +10,9 @@ namespace Quantum.Systems
 		public Chest* Chest;
 		public QuantumChestConfig Config;
 	}
-	
+
 	public unsafe class ChestSystem : SystemSignalsOnly, ISignalOnComponentAdded<Chest>
 	{
-		
-
 		public static EntityRef SpawnChest(Frame f, GameId chestId, FPVector3 position)
 		{
 			var config = f.ChestConfigs.GetConfig(chestId);
@@ -32,10 +30,10 @@ namespace Quantum.Systems
 					GameId = chestId
 				});
 			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
-			collider->Shape.Sphere.Radius = config.CollectableChestPickupRadius; 
+			collider->Shape.Sphere.Radius = config.CollectableChestPickupRadius;
 			return e;
 		}
-		
+
 		/// <summary>
 		/// Generates chest contents given a chest and its configs.
 		/// </summary>
@@ -48,8 +46,35 @@ namespace Quantum.Systems
 				Config = f.ChestConfigs.GetConfig(chest->ChestType),
 			};
 			var items = new List<SimulationItem>();
-			
+
 			RollDropTables(f, ctx, items);
+
+			DropPlace place;
+			switch (chest->ChestType)
+			{
+				case ChestType.Legendary:
+					place = DropPlace.Airdrop;
+					break;
+				case ChestType.Equipment:
+					place = DropPlace.Chest;
+					break;
+				default:
+					return items;
+			}
+
+			foreach (var metaItemDropOverwrite in f.RuntimeConfig.MatchConfigs.MetaItemDropOverwrites
+						 .Where(d => d.Place == place))
+			{
+				var rnd = f.RNG->Next();
+				if (rnd <= metaItemDropOverwrite.DropRate)
+				{
+					var amount = f.RNG->Next(metaItemDropOverwrite.MinDropAmount, metaItemDropOverwrite.MaxDropAmount);
+					for (var i = 0; i < amount; i++)
+					{
+						items.Add(SimulationItem.CreateSimple(metaItemDropOverwrite.Id));
+					}
+				}
+			}
 
 			return items;
 		}
@@ -95,6 +120,7 @@ namespace Quantum.Systems
 							item.EquipmentItem->GameId = gameContainer->GenerateNextWeapon(f).GameId;
 						}
 					}
+
 					items.Add(item);
 					count--;
 				}

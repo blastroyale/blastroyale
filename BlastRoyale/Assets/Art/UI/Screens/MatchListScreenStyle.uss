@@ -137,7 +137,7 @@
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
 
-.match-settings__content .unity-scroll-view__content-container {
+.match-settings .unity-scroll-view__content-container {
     flex-grow: 1;
 }
 
@@ -154,6 +154,14 @@
 }
 
 #FilterWeapons {
+    display: none;
+}
+
+#AllowBotsToggle {
+    display: none;
+}
+
+#BotDifficultySlider {
     display: none;
 }
 

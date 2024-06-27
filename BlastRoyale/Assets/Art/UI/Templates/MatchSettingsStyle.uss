@@ -205,3 +205,61 @@
 .unity-tab-button--active {
     -unity-background-image-tint-color: rgb(46, 71, 125);
 }
+
+.bots-slider {
+    margin-top: 15px;
+}
+
+.bots-slider--hidden {
+    display: none;
+}
+
+.bots-slider .unity-base-slider__drag-container {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.bots-slider .unity-base-slider__dragger {
+    width: 46px;
+    height: 33px;
+    top: 23px;
+    background-color: rgb(132, 117, 166);
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    border-bottom-right-radius: 11px;
+    border-bottom-left-radius: 11px;
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-left-color: rgb(22, 20, 38);
+    border-right-color: rgb(22, 20, 38);
+    border-top-color: rgb(22, 20, 38);
+    border-bottom-color: rgb(22, 20, 38);
+}
+
+.bots-slider > .unity-slider-int__label {
+    font-size: 35px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    margin-bottom: 12px;
+}
+
+.bots-slider .unity-base-slider__tracker {
+    background-image: var(--sprite-home__background-difficultygradient);
+    background-color: initial;
+    height: 16px;
+    top: 22px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.bots-slider > .unity-slider-int__input {
+    height: 54px;
+    border-radius: 10px;
+    background-color: rgb(22, 20, 38);
+}

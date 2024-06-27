@@ -39,6 +39,8 @@ namespace FirstLight.Game.Views.UITK
 		[Q("FilterWeaponsToggle")] private LocalizedToggle _filterWeaponsToggle;
 		[Q("FilterWeaponsScroller")] private ScrollView _filterWeaponsScroller;
 		[Q("FilterWeaponsButton")] private ImageButton _filterWeaponsButton;
+		[Q("AllowBotsToggle")] private LocalizedToggle _allowBotsToggle;
+		[Q("BotDifficultySlider")] private SliderInt _botDifficultySlider;
 
 		[Q("PrivateRoomToggle")] private Toggle _privateRoomToggle;
 		[Q("ShowCreatorNameToggle")] private Toggle _showCreatorNameToggle;
@@ -73,9 +75,16 @@ namespace FirstLight.Game.Views.UITK
 
 			_mutatorsToggle.RegisterValueChangedCallback(OnMutatorsToggle);
 			_filterWeaponsToggle.RegisterValueChangedCallback(OnWeaponFilterToggle);
+			_allowBotsToggle.RegisterValueChangedCallback(OnAllowBotsToggle);
 			_privateRoomToggle.RegisterValueChangedCallback(v => MatchSettings.PrivateRoom = v.newValue);
 			_showCreatorNameToggle.RegisterValueChangedCallback(v => MatchSettings.ShowCreatorName = v.newValue);
 			_spectatorToggle.RegisterValueChangedCallback(v => SpectatorChanged(v.newValue).Forget());
+		}
+
+		private void OnAllowBotsToggle(ChangeEvent<bool> e)
+		{
+			_botDifficultySlider.EnableInClassList("bots-slider--hidden", !e.newValue);
+			_botDifficultySlider.value = MatchSettings.BotDifficulty = e.newValue ? 1 : 0;
 		}
 
 		private void OnMutatorsToggle(ChangeEvent<bool> e)
@@ -216,6 +225,9 @@ namespace FirstLight.Game.Views.UITK
 			_mutatorsScroller.Clear();
 			var mutators = MatchSettings.Mutators.GetSetFlags();
 			_mutatorsToggle.value = mutators.Length > 0 || _mutatorsTurnedOn;
+			_allowBotsToggle.value = MatchSettings.BotDifficulty > 0;
+			_botDifficultySlider.value = MatchSettings.BotDifficulty;
+			_botDifficultySlider.EnableInClassList("bots-slider--hidden", !_allowBotsToggle.value);
 			_mutatorsContainer.EnableInClassList("horizontal-scroll-picker--hidden",
 				!_mutatorsToggle.value); // TODO mihak: I shouldn't have to do this
 

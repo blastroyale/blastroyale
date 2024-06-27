@@ -45,6 +45,8 @@
                     <ui:VisualElement name="Spacer" style="flex-grow: 1;" />
                     <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITCustomGames/private_room" name="PrivateRoomToggle" />
                     <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITCustomGames/show_creator_name" name="ShowCreatorNameToggle" />
+                    <FirstLight.Game.UIElements.LocalizedToggle name="AllowBotsToggle" localization-key="UITCustomGames/allow_bots" />
+                    <ui:SliderInt label="BOT&apos;S SKILL" high-value="9" low-value="1" name="BotDifficultySlider" class="bots-slider" />
                 </ui:ScrollView>
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCustomGames/create_lobby" name="MainActionButton" class="button-long button-long--yellow match-settings__action-button" />
             </ui:VisualElement>

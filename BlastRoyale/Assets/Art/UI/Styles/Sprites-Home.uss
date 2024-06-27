@@ -9,6 +9,7 @@
     --sprite-home__background-bundle-image: url('/Assets/Art/UI/Sprites/Home/background-bundle-image.png');
     --sprite-home__background-bundle-image-gradient: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-gradient.png');
     --sprite-home__background-bundle-image-small: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-small.png');
+    --sprite-home__background-difficultygradient: url('/Assets/Art/UI/Sprites/Home/background-difficultygradient.png');
     --sprite-home__background-dots-effect: url('/Assets/Art/UI/Sprites/Home/background-dots-effect.png');
     --sprite-home__background-friends-player: url('/Assets/Art/UI/Sprites/Home/background-friends-player.png');
     --sprite-home__background-gamemode-battleroyale-duos: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-duos.png');
@@ -280,6 +281,12 @@
     background-image: var(--sprite-home__background-bundle-image-small);
     width: 304px;
     height: 254px;
+}
+
+.sprite-home__background-difficultygradient {
+    background-image: var(--sprite-home__background-difficultygradient);
+    width: 587px;
+    height: 23px;
 }
 
 .sprite-home__background-dots-effect {

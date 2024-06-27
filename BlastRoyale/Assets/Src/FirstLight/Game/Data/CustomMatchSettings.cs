@@ -9,6 +9,7 @@ namespace FirstLight.Game.Data
 		public int SquadSize = 1;
 		public string MapID = "MazeMayhem";
 		public int MaxPlayers = 48;
+		public int BotDifficulty = 1;
 		public Mutator Mutators = new ();
 		public List<string> WeaponFilter = new ();
 		public bool PrivateRoom = false;

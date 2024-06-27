@@ -133,7 +133,7 @@ namespace FirstLight.Game.Presenters
 
 		private void SetMood(CharacterType character, CharacterDialogMoodType mood)
 		{
-			var moodClass = MOOD_STYLE+character.ToString().ToLower() + "-" + mood.ToString().ToLower();
+			var moodClass = MOOD_STYLE+character.ToString().ToLowerInvariant() + "-" + mood.ToString().ToLowerInvariant();
 			if (_characters[character][0].ClassListContains(moodClass))
 				return;
 			

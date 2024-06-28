@@ -8,6 +8,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Modules;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
@@ -25,7 +26,7 @@ namespace FirstLight.Game.Utils
 	public static class Extensions
 	{
 		private static PlayerMatchData _defaultPlayerMatchDataReference = default;
-		
+
 		/// <summary>
 		/// Requests the hierarchy path in the scene of the given game object
 		/// </summary>
@@ -50,7 +51,6 @@ namespace FirstLight.Game.Utils
 			return playerName.Remove(playerName.Length - appendedNumberAmount, appendedNumberAmount);
 		}
 
-
 		/// <summary>
 		/// Get Photon region translation for the given <paramref name="regionKey"/> 
 		/// </summary>
@@ -60,7 +60,7 @@ namespace FirstLight.Game.Utils
 			{
 				return translation;
 			}
-			
+
 			switch (regionKey)
 			{
 				case "eu":
@@ -319,7 +319,6 @@ namespace FirstLight.Game.Utils
 			graph.GetRootPlayable(0).SetSpeed(0);
 		}
 
-
 		/// <summary>
 		/// Obtains the current selected room code name in the given <paramref name="room"/>
 		/// </summary>
@@ -354,7 +353,6 @@ namespace FirstLight.Game.Utils
 			return snapshot.Offline;
 		}
 
-
 		/// <summary>
 		/// Copy properties from one model to another.
 		/// Only a shallow copy.
@@ -367,7 +365,7 @@ namespace FirstLight.Game.Utils
 				property.SetValue(dest, property.GetValue(source));
 			}
 		}
-		
+
 		/// <summary>
 		/// Requests the <see cref="Quantum.PlayerMatchData"/> of the current local player playing the game
 		/// </summary>
@@ -450,7 +448,7 @@ namespace FirstLight.Game.Utils
 
 		public static void SelectDefaultRankedMode(this IGameModeService service)
 		{
-			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Matchmaking);
+			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => !x.Entry.TimedEntry);
 			service.SelectedGameMode.Value = gameMode;
 		}
 
@@ -498,6 +496,11 @@ namespace FirstLight.Game.Utils
 		public static SpectatedPlayer GetSpectatedPlayer(this IMatchServices matchServices)
 		{
 			return matchServices.SpectateService.SpectatedPlayer.Value;
+		}
+
+		public static T CloneSerializing<T>(this T value)
+		{
+			return ModelSerializer.Deserialize<T>(ModelSerializer.Serialize(value).Value);
 		}
 	}
 }

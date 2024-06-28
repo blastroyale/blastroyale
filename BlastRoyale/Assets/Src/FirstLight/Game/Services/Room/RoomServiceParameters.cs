@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using ExitGames.Client.Photon;
-using FirstLight.FLogger;
-using FirstLight.Game.Ids;
+﻿using FirstLight.FLogger;
 using FirstLight.Game.Utils;
 using Photon.Realtime;
 using Quantum;
@@ -13,7 +9,6 @@ namespace FirstLight.Game.Services.RoomService
 	{
 		public static string RoomCommitLockData => GameConstants.Network.ROOM_META_SEPARATOR + VersionUtils.Commit;
 		private static string[] _expectedCustomRoomProperties = new RoomProperties().GetExposedPropertiesIds();
-
 
 		private RoomService _service;
 
@@ -41,17 +36,11 @@ namespace FirstLight.Game.Services.RoomService
 		private RoomProperties GetCreateRoomProperties(MatchRoomSetup setup)
 		{
 			var properties = GetJoinRoomProperties(setup);
-			var gameModeConfig = _service.GetGameModeConfig(setup.GameModeId);
 			// TODO: Setting the time here prevents from 2 players joining the same room if they click concurrently
-
-			properties.HasBots.Value = gameModeConfig.AllowBots;
-			properties.BotDifficultyOverwrite.Value = setup.BotDifficultyOverwrite;
-
 			// If you can select the spawn point give players time to do it
 			FLog.Info("Loading starts at " + properties.LoadingStartServerTime.Value);
 			FLog.Info("Now " + _service._networkService.ServerTimeInMilliseconds);
 			FLog.Info("Diff " + (properties.LoadingStartServerTime.Value - _service._networkService.ServerTimeInMilliseconds));
-
 
 			return properties;
 		}
@@ -60,22 +49,11 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			// !!!NOTE!!!
 			// If you add anything here you must also add the key in GetCreateRoomPropertiesForLobby!
-			var teamSize = 1;
-			if (setup.PlayfabQueue != null && setup.PlayfabQueue.TeamSize > 1)
-			{
-				teamSize = setup.PlayfabQueue.TeamSize;
-			}
-
 			return new RoomProperties
 			{
-				MatchType = {Value = setup.MatchType},
 				Commit = {Value = VersionUtils.Commit},
-				MapId = {Value = (GameId) setup.MapId},
-				GameModeId = {Value = setup.GameModeId},
-				Mutators = {Value = setup.Mutators.ToList()},
 				GameStarted = {Value = false},
-				AllowedRewards = {Value = setup.AllowedRewards},
-				TeamSize = {Value = teamSize}
+				SimulationMatchConfig = {Value = setup.SimulationConfig}
 			};
 		}
 
@@ -84,15 +62,10 @@ namespace FirstLight.Game.Services.RoomService
 		/// </summary>
 		public EnterRoomParams GetRoomCreateParams(MatchRoomSetup setup, bool offline = false)
 		{
-			var gamemodeConfig = _service.GetGameModeConfig(setup.GameModeId);
-			var mapConfig = _service.GetMapConfig(setup.MapId);
-
-
 			var roomNameFinal = string.IsNullOrEmpty(setup.RoomIdentifier) ? null : setup.RoomIdentifier;
 			// In offline games we need to create the room with the correct TTL as we cannot update TTL
 			// mid games. If we don't we won't be able to reconnect to the room unless we use a frame snapshot which is tricky.
 			var emptyTtl = offline ? GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS : 0;
-
 			if (RemoteConfigs.Instance.EnableCommitVersionLock)
 			{
 				roomNameFinal += RoomCommitLockData;
@@ -121,11 +94,11 @@ namespace FirstLight.Game.Services.RoomService
 					Plugins = null,
 					SuppressRoomEvents = false,
 					SuppressPlayerInfo = false,
-					PublishUserId = setup.MatchType == MatchType.Matchmaking,
+					PublishUserId = setup.SimulationConfig.MatchType == MatchType.Matchmaking,
 					DeleteNullProperties = true,
 					EmptyRoomTtl = emptyTtl,
 					IsOpen = true,
-					IsVisible = setup.MatchType == MatchType.Custom,
+					IsVisible = setup.SimulationConfig.MatchType == MatchType.Custom,
 					MaxPlayers = _service.GetMaxPlayers(setup),
 					PlayerTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS
 				},

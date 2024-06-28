@@ -35,7 +35,7 @@ namespace FirstLight.Game.Views.UITK
 			_aliveCountPing = Element.Q<VisualElement>("AliveCountPing").Required();
 			_killsCountLabel = Element.Q<Label>("KilledCountText").Required();
 			_killsCountPing = Element.Q<VisualElement>("KilledCountPing").Required();
-			_showTeamCount = _gameServices.RoomService.CurrentRoom.Properties.TeamSize.Value > 1;
+			_showTeamCount = _gameServices.RoomService.CurrentRoom.Properties.SimulationMatchConfig.Value.TeamSize > 1;
 			if (_showTeamCount)
 			{
 				_teamsCountLabel = Element.Q<Label>("TeamsCountText").Required();

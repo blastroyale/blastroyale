@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using ExitGames.Client.Photon;
+using Photon.Deterministic;
+using Quantum;
 
 namespace FirstLight.Game.Services.RoomService
 {
@@ -52,7 +54,6 @@ namespace FirstLight.Game.Services.RoomService
 			HasValue = false;
 		}
 
-
 		public virtual void FromRaw(object value)
 		{
 			if (value == null)
@@ -79,6 +80,11 @@ namespace FirstLight.Game.Services.RoomService
 				OnValueChanged?.Invoke(this);
 			}
 		}
+
+		public void UpdateValue()
+		{
+			OnValueChanged?.Invoke(this);
+		}
 	}
 
 	public class EnumProperty<T> : QuantumProperty<T> where T : struct, Enum
@@ -94,6 +100,24 @@ namespace FirstLight.Game.Services.RoomService
 		}
 
 		public EnumProperty(string key, bool expose = false) : base(key, expose)
+		{
+		}
+	}
+
+	public class SimulationMatchConfigProperty : QuantumProperty<SimulationMatchConfig>
+	{
+		public override void FromRaw(object value)
+		{
+			var config = SimulationMatchConfig.FromByteArray((byte[]) value);
+			SetInternal(config);
+		}
+
+		public override object ToRaw()
+		{
+			return _currentValue.ToByteArray();
+		}
+
+		public SimulationMatchConfigProperty(string key, bool expose = false) : base(key, expose)
 		{
 		}
 	}
@@ -192,11 +216,9 @@ namespace FirstLight.Game.Services.RoomService
 	{
 		private List<IQuantumProperty> _allProperties = new ();
 
-
 		public delegate void OnSetPropertyCallback(string key, object value);
 
 		public event OnSetPropertyCallback OnLocalPlayerSetProperty;
-
 
 		private void InitProperty<T>(QuantumProperty<T> property)
 		{
@@ -239,6 +261,12 @@ namespace FirstLight.Game.Services.RoomService
 			return property;
 		}
 
+		protected SimulationMatchConfigProperty CreateSimulationMatchConfig(string key, bool expose = false)
+		{
+			var property = new SimulationMatchConfigProperty(key, expose);
+			InitProperty(property);
+			return property;
+		}
 
 		private void OnLocalPlayerSetPropertyCallback(IQuantumProperty property)
 		{

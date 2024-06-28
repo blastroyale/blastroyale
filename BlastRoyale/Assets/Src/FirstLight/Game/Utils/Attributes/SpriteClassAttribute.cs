@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace FirstLight.Editor.Inspector
+namespace FirstLight.Game.Utils.Attributes
+
 {
 	public class SpriteClassAttribute : Attribute
 	{

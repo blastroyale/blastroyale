@@ -56,7 +56,7 @@
       <HintPath>..\..\..\Backend\Lib\FirstLight.Services.dll</HintPath>
     </Reference>
     <Reference Include="FirstLightServerSDK">
-      <HintPath>..\..\..\Assets\Src\FirstLight\Server\Plugin\net48\FirstLightServerSDK.dll</HintPath>
+      <HintPath>..\..\..\BlastRoyale\Assets\Src\FirstLight\Server\Plugin\net48\FirstLightServerSDK.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <Private>True</Private>
@@ -65,7 +65,7 @@
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PhotonDeterministic">
-      <HintPath>..\..\..\Assets\Libs\Photon\Quantum\Assemblies\PhotonDeterministic.dll</HintPath>
+      <HintPath>..\..\..\BlastRoyale\Assets\Libs\Photon\Quantum\Assemblies\PhotonDeterministic.dll</HintPath>
     </Reference>
     <Reference Include="PhotonDeterministic.Plugin">
       <SpecificVersion>False</SpecificVersion>
@@ -85,10 +85,10 @@
       <HintPath>..\packages\PlayFabAllSDK.1.108.220118\lib\net45\PlayFabAllSDK.dll</HintPath>
     </Reference>
     <Reference Include="quantum.code">
-      <HintPath>..\..\..\Assets\Libs\Photon\Quantum\Assemblies\quantum.code.dll</HintPath>
+      <HintPath>..\..\..\BlastRoyale\Assets\Libs\Photon\Quantum\Assemblies\quantum.code.dll</HintPath>
     </Reference>
     <Reference Include="quantum.core">
-      <HintPath>..\..\..\Assets\Libs\Photon\Quantum\Assemblies\quantum.core.dll</HintPath>
+      <HintPath>..\..\..\BlastRoyale\Assets\Libs\Photon\Quantum\Assemblies\quantum.core.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.OdinInspector.Attributes">
       <HintPath>..\..\..\Backend\UnityLib\Sirenix.OdinInspector.Attributes.dll</HintPath>

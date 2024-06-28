@@ -155,3 +155,4 @@ BlastRoyale_clone_*
 
 # Remote addressables
 /ServerData/
+Quantum/quantum_server/quantum.custom.plugin/assetDatabase.json

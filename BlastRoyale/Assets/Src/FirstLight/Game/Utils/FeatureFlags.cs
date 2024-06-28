@@ -350,7 +350,7 @@ namespace FirstLight.Game.Utils
 		{
 			if (TrySetStringFlag(flagName, titleData, out var stringFlag))
 			{
-				flag = stringFlag.ToLower() == "true";
+				flag = stringFlag.ToLowerInvariant() == "true";
 				return true;
 			}
 			else

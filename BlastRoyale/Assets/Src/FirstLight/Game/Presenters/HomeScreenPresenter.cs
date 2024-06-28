@@ -502,10 +502,10 @@ namespace FirstLight.Game.Presenters
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
 			var localMember = _services.PartyService.GetLocalMember();
 			var isMemberNotLeader = _services.PartyService.HasParty.Value && localMember is {Leader: false};
-			_gameModeLabel.text = LocalizationManager.GetTranslation(current.TitleTranslationKey);
+			_gameModeLabel.text = LocalizationManager.GetTranslation(current.Visual.TitleTranslationKey);
 			_gameModeButton.SetEnabled(!isMemberNotLeader && !_partyService.OperationInProgress.Value);
 			_gameModeIcon.RemoveSpriteClasses();
-			_gameModeIcon.AddToClassList(current.IconSpriteClass);
+			_gameModeIcon.AddToClassList(current.Visual.IconSpriteClass);
 		}
 
 		private void UpdatePlayButton(bool forceLoading = false)

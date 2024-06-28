@@ -274,7 +274,6 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-
 		private void OnShieldChanged(EventOnShieldChanged callback)
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
@@ -338,7 +337,8 @@ namespace FirstLight.Game.Views.UITK
 				return;
 			}
 
-			var text = $"+{ev.Amount} {ev.Collected.GetCurrencyLocalization(ev.Amount)}";
+			var fixedAmount = RewardLogic.GetModifiedReward(ev.Amount, ev.Collected, ev.Game.Frames.Predicted.RuntimeConfig.MatchConfigs, true);
+			var text = $"+{fixedAmount} {ev.Collected.GetCurrencyLocalization((uint)fixedAmount)}";
 			bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, text);
 		}
 
@@ -419,8 +419,7 @@ namespace FirstLight.Game.Views.UITK
 		private void OnLocalPlayerNoInput(EventOnLocalPlayerNoInput callback)
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
-			
-			
+
 			bar.ShowNotification(PlayerStatusBarElement.NotificationType.NoInputWarning, ScriptLocalization.UITMatch.no_input_warning);
 		}
 	}

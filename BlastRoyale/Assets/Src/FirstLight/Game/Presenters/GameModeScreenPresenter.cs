@@ -23,7 +23,7 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class GameModeScreenPresenter : UIPresenterData<GameModeScreenPresenter.StateData>
 	{
-		private const string VISIBLE_GAMEMODE_BUTTON = "visible-gamemodebutton";
+		private const string VISIBLE_GAMEMODE_BUTTON = "game-mode-card--element-";
 
 		public class StateData
 		{
@@ -69,7 +69,7 @@ namespace FirstLight.Game.Presenters
 				var button = _buttonAsset.Instantiate();
 				button.userData = slot;
 				button.AttachView(this, out GameModeSelectionButtonView view);
-				view.SetData("GameModeButton" + orderNumber, GetVisibleClass(orderNumber++), slot);
+				view.SetData("GameModeButton" + orderNumber, slot, GetVisibleClass(orderNumber++));
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
 
@@ -91,6 +91,7 @@ namespace FirstLight.Game.Presenters
 					},
 					Visual = new GameModeRotationConfig.VisualEntryConfig
 					{
+						CardModifier = "custom",
 						TitleTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_title,
 						DescriptionTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_description
 					}
@@ -98,7 +99,7 @@ namespace FirstLight.Game.Presenters
 			};
 			var createGameButton = _buttonAsset.Instantiate();
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
-			customGameView.SetData("CustomGameButton", GetVisibleClass(orderNumber++), gameModeInfo);
+			customGameView.SetData("CustomGameButton", gameModeInfo, GetVisibleClass(orderNumber), VISIBLE_GAMEMODE_BUTTON + "last");
 			customGameView.Clicked += OnCustomGameClicked;
 			customGameView.Disabled = _services.PartyService.HasParty.Value;
 			_buttonViews.Add(customGameView);
@@ -162,7 +163,7 @@ namespace FirstLight.Game.Presenters
 		private void OnModeButtonClicked(GameModeSelectionButtonView info)
 		{
 			SelectButton(info);
-			StartCoroutine(ChangeGameModeCoroutine(info));
+			//StartCoroutine(ChangeGameModeCoroutine(info));
 		}
 
 		private IEnumerator ChangeGameModeCoroutine(GameModeSelectionButtonView info)

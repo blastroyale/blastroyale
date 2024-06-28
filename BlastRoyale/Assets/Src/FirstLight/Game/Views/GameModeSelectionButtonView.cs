@@ -1,17 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
-using Quantum;
-using UnityEngine;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Views
 {
@@ -51,9 +44,6 @@ namespace FirstLight.Game.Views
 			{
 				_disabled = value;
 				_button.SetEnabled(!_disabled);
-				_disabledContainer.SetDisplay(_disabled);
-				if (!_disabled) return;
-				_disabledLabel.text = IsCustomGame() ? ScriptLocalization.UITGameModeSelection.custom_blocked_for_party : ScriptLocalization.UITGameModeSelection.too_many_players;
 			}
 		}
 
@@ -89,10 +79,13 @@ namespace FirstLight.Game.Views
 		/// </summary>
 		/// <param name="orderNumber">Order of the button on the list</param>
 		/// <param name="gameModeInfo">Game mode data to fill the button's visuals</param>
-		public void SetData(string buttonName, string visibleClass, GameModeInfo gameModeInfo)
+		public void SetData(string buttonName, GameModeInfo gameModeInfo, params string[] extraClasses)
 		{
 			_button.name = buttonName;
-			_button.AddToClassList(visibleClass);
+			foreach (var extraClass in extraClasses)
+			{
+				_button.AddToClassList(extraClass);
+			}
 
 			SetData(gameModeInfo);
 		}
@@ -106,7 +99,7 @@ namespace FirstLight.Game.Views
 			GameModeInfo = gameModeInfo;
 
 			RemoveClasses();
-			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.GameModeCardModifier}");
+			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.Visual.CardModifier}");
 			UpdateTeamSize(gameModeInfo);
 			UpdateTitleAndDescription();
 			if (gameModeInfo.IsFixed)
@@ -117,9 +110,9 @@ namespace FirstLight.Game.Views
 			Element.schedule.Execute(() =>
 			{
 				var timeLeft = gameModeInfo.EndTime - DateTime.UtcNow;
-				if ( timeLeft.TotalSeconds < 0)
+				if (timeLeft.TotalSeconds < 0)
 				{
-					_timeLeftLabel.text="ENDED";
+					_timeLeftLabel.text = "ENDED";
 					return;
 				}
 
@@ -134,14 +127,6 @@ namespace FirstLight.Game.Views
 
 		private void UpdateTeamSize(GameModeInfo gameModeInfo)
 		{
-			if (IsCustomGame())
-			{
-				_teamSizeIcon.RemoveSpriteClasses();
-				_teamSizeLabel.SetDisplay(false);
-				_teamSizeIcon.SetDisplay(false);
-				return;
-			}
-
 			_teamSizeIcon.RemoveSpriteClasses();
 			_teamSizeIcon.AddToClassList(gameModeInfo.Entry.Visual.IconSpriteClass);
 			_teamSizeLabel.text = gameModeInfo.Entry.TeamSize + "";
@@ -156,40 +141,6 @@ namespace FirstLight.Game.Views
 		{
 			_gameModeLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.Visual.TitleTranslationKey);
 			_gameModeDescriptionLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.Visual.DescriptionTranslationKey);
-		}
-
-		private void UpdateMutators()
-		{
-			var mutators = GameModeInfo.Entry.MatchConfig.Mutators;
-			if (mutators.Length == 0)
-			{
-				_mutatorsPanel.SetDisplay(false);
-				return;
-			}
-
-			_mutatorsPanel.SetDisplay(true);
-
-			for (var mutatorIndex = 0; mutatorIndex < _mutatorLines.Count; mutatorIndex++)
-			{
-				if (mutatorIndex <= mutators.Length - 1)
-				{
-					_mutatorLines[mutatorIndex].SetDisplay(true);
-					SetMutatorLine(_mutatorLines[mutatorIndex], mutators[mutatorIndex]);
-				}
-				else
-				{
-					_mutatorLines[mutatorIndex].SetDisplay(false);
-				}
-			}
-		}
-
-		private void SetMutatorLine(VisualElement mutatorLine, string mutator)
-		{
-			mutatorLine.ClearClassList();
-			mutatorLine.AddToClassList(GameModeButtonMutatorLine);
-			mutatorLine.AddToClassList(mutator.ToLowerInvariant() + "-mutator");
-			var mutatorTitle = mutatorLine.Q<Label>("Title").Required();
-			mutatorTitle.text = mutator.ToUpperInvariant();
 		}
 	}
 }

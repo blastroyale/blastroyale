@@ -13,9 +13,39 @@ MonoBehaviour:
   m_Name: GameModeRotationConfigs
   m_EditorClassIdentifier: 
   _config:
-    RotationStartTimeTicks: 0
-    RotationSlotDuration: 10800
     Slots:
+    - Entries:
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 28/06/2024 10:00
+          EndsAt: 28/06/2024 20:00
+        MatchConfig:
+          ConfigId: b15b823f
+          GameModeID: BattleRoyale
+          MapId: 115
+          TeamSize: 1
+          Mutators:
+          - HealthyAir
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites: []
+          RewardModifiers:
+          - Id: 61
+            Multiplier:
+              RawValue: 327680
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 0
+        PlayfabQueue:
+          QueueName: battleroyale_1
+          TimeoutTimeInSeconds: 10
+          ExtraKey: event_1
+        Visual:
+          TitleTranslationKey: UITGameModeSelection/br_solo_title
+          DescriptionTranslationKey: UITGameModeSelection/br_solo_description
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-solo
     - Entries:
       - TimedEntry: 0
         TimedGameModeEntries: []
@@ -39,7 +69,7 @@ MonoBehaviour:
         Visual:
           TitleTranslationKey: UITGameModeSelection/br_solo_title
           DescriptionTranslationKey: UITGameModeSelection/br_solo_description
-          ImageModifier: battleroyale-solo
+          CardModifier: solo
           IconSpriteClass: sprite-shared__icon-gamemode-solo
     - Entries:
       - TimedEntry: 0
@@ -64,7 +94,7 @@ MonoBehaviour:
         Visual:
           TitleTranslationKey: UITGameModeSelection/br_duos_title
           DescriptionTranslationKey: UITGameModeSelection/br_duos_description
-          ImageModifier: battleroyale-duos
+          CardModifier: duos
           IconSpriteClass: sprite-shared__icon-gamemode-duos
     - Entries:
       - TimedEntry: 0
@@ -89,5 +119,5 @@ MonoBehaviour:
         Visual:
           TitleTranslationKey: UITGameModeSelection/br_quads_title
           DescriptionTranslationKey: UITGameModeSelection/br_quads_description
-          ImageModifier: battleroyale-quads
+          CardModifier: quads
           IconSpriteClass: sprite-shared__icon-gamemode-squads

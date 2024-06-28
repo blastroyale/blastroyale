@@ -99,7 +99,7 @@ namespace FirstLight.Game.Services
 
 		public GameId SelectedMap
 		{
-			set => _localPrefsService.SelectedRankedMap.Value = (int)value;
+			set => _localPrefsService.SelectedRankedMap.Value = (int) value;
 			get
 			{
 				if (_localPrefsService.SelectedRankedMap.Value == 0)
@@ -137,7 +137,7 @@ namespace FirstLight.Game.Services
 
 		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService,
 							   IGameDataProvider gameDataProvider, IPartyService partyService,
-							   IAppDataProvider appDataProvider,LocalPrefsService localPrefsService)
+							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService)
 		{
 			_configsProvider = configsProvider;
 			_threadService = threadService;
@@ -168,23 +168,27 @@ namespace FirstLight.Game.Services
 			RefreshGameModes(true);
 
 			// Try to set the saved game mode
-			var lastGameMode = _appDataProvider.LastGameMode;
-			if (CanSelectGameMode(lastGameMode))
+			var lastGameMode = _localPrefsService.SelectedGameMode.Value;
+			if (!string.IsNullOrEmpty(lastGameMode))
 			{
-				FLog.Verbose($"Restored selected game mode to: {lastGameMode}");
-				SelectedGameMode.Value = new GameModeInfo(lastGameMode);
+				foreach (var gm in _slots)
+				{
+					if (gm.Entry.MatchConfig.ConfigId == lastGameMode)
+					{
+						FLog.Verbose($"Restored selected game mode to: {lastGameMode}");
+						SelectedGameMode.Value = gm;
+						return;
+					}
+				}
 			}
-			else
-			{
-				this.SelectDefaultRankedMode();
-			}
+			this.SelectDefaultRankedMode();
 		}
 
 		private void OnGameModeSet(GameModeInfo _, GameModeInfo current)
 		{
 			FLog.Info($"Selected GameMode set to: {current}");
 
-			_appDataProvider.LastGameMode = current.Entry;
+			_localPrefsService.SelectedGameMode.Value = current.Entry.MatchConfig.ConfigId;
 			if (_appDataProvider.IsPlayerLoggedIn)
 			{
 				MainInstaller.Resolve<IGameServices>().DataSaver.SaveData<AppData>();
@@ -200,6 +204,7 @@ namespace FirstLight.Game.Services
 						return;
 					}
 				}
+
 				_partyService.SetLobbyProperty(SelectedQueueLobbyProperty, newQueueName, true).Forget();
 			}
 		}
@@ -316,46 +321,53 @@ namespace FirstLight.Game.Services
 
 		private void RefreshSlot(int index)
 		{
-			var entry = GetCurrentRotationEntry(index, out var ticksLeft, out var rotating);
+			if (!TryGetGameMode(index, out var entry, out var endsAt))
+			{
+				_slots[index] = default;
+				return;
+			}
 
-			var info = new GameModeInfo(entry, rotating ? DateTime.UtcNow.AddTicks(ticksLeft) : default);
+			var info = new GameModeInfo(entry, endsAt);
 			_slots[index] = info;
 
 			FLog.Info($"GameMode in slot {index} refreshed to {info.ToString()}");
 
-			if (rotating)
+			if (endsAt != default)
 			{
-				var delay = (int) TimeSpan.FromTicks(ticksLeft).TotalMilliseconds + 500;
-				_threadService.EnqueueDelayed(delay, () => 0, _ => { RefreshGameModes(false); });
+				var diff = (endsAt - DateTime.UtcNow).Add(TimeSpan.FromSeconds(1));
+				_threadService.EnqueueDelayed((int) diff.TotalMilliseconds, () => 0, _ => { RefreshGameModes(false); });
 			}
 		}
 
-		private GameModeRotationConfig.GameModeEntry GetCurrentRotationEntry(
-			int slotIndex, out long ticksLeft, out bool rotating)
+		private bool TryGetGameMode(
+			int slotIndex, out GameModeRotationConfig.GameModeEntry entry, out DateTime endsAt)
 		{
 			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
 
-			if (config.Slots[slotIndex].Count == 1)
+			foreach (var gameModeEntry in config.Slots[slotIndex].Entries)
 			{
-				rotating = false;
-				ticksLeft = 0;
-				return config.Slots[slotIndex][0];
+				if (!gameModeEntry.TimedEntry)
+				{
+					endsAt = new DateTime(0);
+					entry = gameModeEntry;
+					return true;
+				}
+
+				var now = DateTime.UtcNow;
+				foreach (var timedGameModeEntry in gameModeEntry.TimedGameModeEntries)
+				{
+					if (timedGameModeEntry.Contains(now))
+					{
+						endsAt = timedGameModeEntry.GetEndsAtDateTime();
+						entry = gameModeEntry;
+						return true;
+					}
+				}
 			}
 
-			var startTimeTicks = config.RotationStartTimeTicks;
-			var slotDurationTicks = TimeSpan.FromSeconds(config.RotationSlotDuration).Ticks;
-
-			var currentTime = DateTime.UtcNow.Ticks;
-
-			var ticksFromStart = currentTime - startTimeTicks;
-			var ticksWindow = slotDurationTicks * config.Slots[slotIndex].Count;
-			var ticksElapsed = ticksFromStart % ticksWindow;
-
-			var entryIndex = (int) Math.Ceiling((double) ticksElapsed / slotDurationTicks) - 1;
-			ticksLeft = slotDurationTicks - ticksElapsed % slotDurationTicks;
-			rotating = true;
-
-			return config.Slots[slotIndex][entryIndex];
+			endsAt = new DateTime(0);
+			entry = default;
+			return false;
 		}
 	}
 }

@@ -12,9 +12,6 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct GameModeRotationConfig
 	{
-		public long RotationStartTimeTicks;
-		public uint RotationSlotDuration;
-
 		public List<SlotWrapper> Slots;
 
 		[Serializable]
@@ -33,7 +30,7 @@ namespace FirstLight.Game.Configs
 		{
 			[LocalizationTerm] public string TitleTranslationKey;
 			[LocalizationTerm] public string DescriptionTranslationKey;
-			public string ImageModifier;
+			public string CardModifier;
 			[SpriteClass] public string IconSpriteClass;
 		}
 

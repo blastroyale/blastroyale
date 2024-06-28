@@ -1,9 +1,16 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace FirstLight.Game.Services
 {
 	public class LocalPrefsService
 	{
+		
+		/// <summary>
+		/// Stores the last selected gamemode 
+		/// </summary>
+		public ObservableField<string> SelectedGameMode { get; } = CreateStringSetting(nameof(SelectedGameMode), string.Empty);
+
 		/// <summary>
 		/// Stores the last selected map on gamemode selection screen
 		/// </summary>

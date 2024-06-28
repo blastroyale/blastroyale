@@ -37,5 +37,9 @@
 }
 
 .buttons-slider .unity-scroll-view__content-container {
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.map-selector .unity-base-field__label {
+    margin-left: 31px;
 }

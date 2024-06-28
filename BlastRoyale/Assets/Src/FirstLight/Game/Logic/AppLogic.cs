@@ -41,11 +41,6 @@ namespace FirstLight.Game.Logic
 		string AvatarUrl { get; }
 
 		/// <summary>
-		/// Returns the last gamemode user has chosen
-		/// </summary>
-		GameModeRotationConfig.GameModeEntry LastGameMode { get; set; }
-
-		/// <summary>
 		/// Returns the last ranked map user has selected
 		/// </summary>
 		int LastSelectedRankedMap { get; set; }

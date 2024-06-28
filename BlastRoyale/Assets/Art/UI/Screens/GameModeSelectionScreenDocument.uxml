@@ -5,16 +5,16 @@
     <ui:VisualElement name="root" class="fill-parent" style="background-image: url(&quot;project://database/Assets/Art/UI/References/Back.png?fileID=2800000&amp;guid=aa3da0aa20f63d148a95a9724e2b64f7&amp;type=3#Back&quot;);">
         <ui:VisualElement name="backgroundPattern" class="fill-parent" style="top: 0; right: 1px; left: 0; bottom: 0;">
             <ui:ScrollView name="ButtonsSlider" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" vertical-page-size="-1" class="buttons-slider" style="align-self: center; justify-content: space-between; align-items: center; flex-direction: row; margin-top: 47px; padding-left: 129px;">
-                <ui:Instance template="GameModeSelectionButton" name="event" class="game-mode-card--event" />
-                <ui:Instance template="GameModeSelectionButton" name="solo" class="game-mode-card--solo" />
-                <ui:Instance template="GameModeSelectionButton" name="duos" class="game-mode-card--duos game-mode-card--selected" />
+                <ui:Instance template="GameModeSelectionButton" name="event" class="game-mode-card--event game-mode-card--element-1" />
+                <ui:Instance template="GameModeSelectionButton" name="solo" class="game-mode-card--solo game-mode-card--selected" />
+                <ui:Instance template="GameModeSelectionButton" name="duos" class="game-mode-card--duos" />
                 <ui:Instance template="GameModeSelectionButton" name="quads" class="game-mode-card--quads" />
                 <ui:Instance template="GameModeSelectionButton" name="custom" class="game-mode-card--custom" />
             </ui:ScrollView>
             <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITGameModeSelection/choose_a_mode" name="Header" />
-        </ui:VisualElement>
-        <ui:VisualElement name="OptionsHolderColumnOne" class="selectors-options-column">
-            <FirstLight.Game.UIElements.LocalizedDropDown localization-key="UITGameModeSelection/select_map" name="Map" class="room-dropdown" />
+            <FirstLight.Game.UIElements.SafeAreaElement apply-right="false" apply-left="false" name="SafeArea" picking-mode="Ignore">
+                <FirstLight.Game.UIElements.LocalizedDropDown localization-key="UITGameModeSelection/select_map" name="Map" class="map-selector" style="width: 645px; flex-direction: row-reverse; right: 257px; position: absolute; margin-top: 24px;" />
+            </FirstLight.Game.UIElements.SafeAreaElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

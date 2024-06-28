@@ -1,13 +1,12 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" FLG="FirstLight.Game.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Templates/GameModeSelectionButtonStyle.uss?fileID=7433441132597879392&amp;guid=1a806c33bc7a34069a8b184b546c14e0&amp;type=3#GameModeSelectionButtonStyle" />
-    <FirstLight.Game.UIElements.ImageButton name="CardRoot" class="game-mode-card">
+    <FirstLight.Game.UIElements.ImageButton name="CardRoot" enabled="false" class="game-mode-card">
         <ui:VisualElement name="Disabled" style="flex-grow: 1; visibility: hidden;">
             <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DisabledLabel" />
         </ui:VisualElement>
         <ui:VisualElement name="SelectedEffects" picking-mode="Ignore" class="fill-parent game-mode-card-selected-effects" style="flex-grow: 1;">
-            <ui:VisualElement name="Crown" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/icon-crown-ranked.png?fileID=21300000&amp;guid=a3323e773a3d94bfda84717a55d45241&amp;type=3#icon-crown-ranked&quot;); -unity-background-scale-mode: scale-to-fit; width: 86px; height: 58px; top: -85px; left: 246px;" />
-            <ui:VisualElement name="Outline" class="game-mode-card__shadow" style="background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-selected-rectangle.svg?fileID=7388822144124034973&amp;guid=634d1369f68f8a841a085b249ed50f68&amp;type=3#gamemode-selected-rectangle&quot;); width: 478px; height: 682px; -unity-background-image-tint-color: rgb(248, 199, 46); position: absolute; top: -11px; left: 10px;" />
-            <ui:VisualElement name="Glow" picking-mode="Ignore" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/pattern-glow-chosengamemode.png?fileID=21300000&amp;guid=52f7975f7a5a24e04ab18c4ea9cb930d&amp;type=3#pattern-glow-chosengamemode&quot;); position: absolute; height: 1417px; width: 1284px; top: -294px; left: -356px; -unity-background-image-tint-color: rgba(232, 96, 19, 0.19); display: flex;" />
+            <ui:VisualElement name="BorderGlow" picking-mode="Ignore" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-border-glow.png?fileID=2800000&amp;guid=c4f2c82005ae6864f9df3cf2ccee1b46&amp;type=3#gamemode-border-glow&quot;); height: 1100px; width: 853px; top: -217px; left: -179px; opacity: 0.64; display: flex;" />
+            <ui:VisualElement name="Outline" class="game-mode-card__outline" style="background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-selected-rectangle.svg?fileID=7388822144124034973&amp;guid=634d1369f68f8a841a085b249ed50f68&amp;type=3#gamemode-selected-rectangle&quot;); width: 471px; height: 671px; -unity-background-image-tint-color: rgb(248, 199, 46); position: absolute; top: -3px; left: 14px;" />
         </ui:VisualElement>
         <ui:VisualElement name="Shadow" class="game-mode-card__shadow" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-card-blue.png?fileID=21300000&amp;guid=4176b5a521474f448a0c46f8e1159d7b&amp;type=3#gamemode-card-blue&quot;); width: 100%; height: 100%; -unity-background-scale-mode: scale-to-fit; position: absolute; top: 10px; left: 5px;" />
         <ui:VisualElement name="Background" class="game-mode-card__background">
@@ -31,6 +30,7 @@
                     <ui:VisualElement name="BBIcon" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Currencies/noob-default.png?fileID=21300000&amp;guid=adaae1f917fcbba4fa4f0e29fa10a168&amp;type=3#noob-default&quot;); flex-shrink: 0; width: 72px; height: 72px; align-items: stretch;" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:VisualElement name="Crown" class="game-mode-card__crown" />
         </ui:VisualElement>
     </FirstLight.Game.UIElements.ImageButton>
 </ui:UXML>

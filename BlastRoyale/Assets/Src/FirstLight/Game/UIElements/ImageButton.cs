@@ -8,6 +8,7 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class ImageButton : VisualElement
 	{
+		public bool enabled { get; set; }
 		private Clickable _clickable;
 
 		/// <summary>
@@ -69,7 +70,23 @@ namespace FirstLight.Game.UIElements
 
 		public new class UxmlTraits : VisualElement.UxmlTraits
 		{
-			public UxmlTraits() => focusable.defaultValue = true;
+			private readonly UxmlBoolAttributeDescription _enabled = new ()
+			{
+				name = "enabled",
+				defaultValue = true,
+			};
+
+			public UxmlTraits()
+			{
+				focusable.defaultValue = true;
+			}
+
+			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
+			{
+				base.Init(ve, bag, cc);
+				ve.SetEnabled(_enabled.GetValueFromBag(bag, cc));
+
+			}
 		}
 	}
 }

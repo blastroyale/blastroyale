@@ -45,5 +45,10 @@ namespace FirstLight.Game.Configs.Utils
 
 		public DateTime GetStartsAtDateTime() => Parse(StartsAt);
 		public DateTime GetEndsAtDateTime() => Parse(EndsAt);
+
+		public bool Contains(DateTime dateTime)
+		{
+			return GetStartsAtDateTime() <= dateTime && GetEndsAtDateTime() > dateTime;
+		}
 	}
 }

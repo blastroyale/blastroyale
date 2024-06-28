@@ -202,25 +202,26 @@
 .map__title {
     font-size: 48px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 3px;
+    -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(108, 8, 40);
-    rotate: -5deg;
     text-shadow: 5px 5px 0 rgb(108, 8, 40);
     -unity-font-style: bold;
-    display: flex;
     letter-spacing: -4px;
+    rotate: -8deg;
+    bottom: 4px;
 }
 
 .map__title-bg {
-    width: 80%;
-    height: 191px;
+    width: 770px;
+    height: 248px;
     background-image: var(--sprite-home__banner-mapselection);
     align-items: center;
     justify-content: center;
     position: absolute;
-    bottom: -5%;
+    bottom: 10%;
     display: flex;
     -unity-background-scale-mode: scale-to-fit;
+    rotate: 8deg;
 }
 
 .map-marker {
@@ -239,7 +240,7 @@
     padding-bottom: 5px;
     margin-bottom: 15px;
     position: absolute;
-    bottom: 125px;
+    bottom: 80px;
     background-color: rgb(248, 208, 48);
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
@@ -248,9 +249,9 @@
 }
 
 .map-marker__icon {
-    background-image: var(--sprite-home__icon-mapmarker);
-    width: 90px;
-    height: 132px;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/icon-mapmarker-small.png?fileID=21300000&guid=f5d0e86da28c9d74f8830073c4b1b945&type=3#icon-mapmarker-small");
+    width: 82px;
+    height: 74px;
 }
 
 .squad-member {
@@ -355,4 +356,15 @@
 
 .screen-header--homeonly .screen-header__back {
     display: none;
+}
+
+.map__title-effect {
+    position: absolute;
+    height: 116px;
+    width: 1220px;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/background-dropzone-effect.png?fileID=21300000&guid=e9cd4a790499edb44be9de4aa3a66a2e&type=3#background-dropzone-effect");
+    rotate: -8deg;
+    bottom: 68px;
+    display: flex;
+    align-self: center;
 }

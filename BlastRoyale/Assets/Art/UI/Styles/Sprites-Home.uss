@@ -10,6 +10,7 @@
     --sprite-home__background-bundle-image-gradient: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-gradient.png');
     --sprite-home__background-bundle-image-small: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-small.png');
     --sprite-home__background-dots-effect: url('/Assets/Art/UI/Sprites/Home/background-dots-effect.png');
+    --sprite-home__background-dropzone-effect: url('/Assets/Art/UI/Sprites/Home/background-dropzone-effect.png');
     --sprite-home__background-friends-player: url('/Assets/Art/UI/Sprites/Home/background-friends-player.png');
     --sprite-home__background-gamemode-battleroyale-duos: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-duos.png');
     --sprite-home__background-gamemode-battleroyale-quads: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-quads.png');
@@ -149,6 +150,7 @@
     --sprite-home__icon-jetpack: url('/Assets/Art/UI/Sprites/Home/icon-jetpack.png');
     --sprite-home__icon-leaderboards: url('/Assets/Art/UI/Sprites/Home/icon-leaderboards.png');
     --sprite-home__icon-mapmarker: url('/Assets/Art/UI/Sprites/Home/icon-mapmarker.png');
+    --sprite-home__icon-mapmarker-small: url('/Assets/Art/UI/Sprites/Home/icon-mapmarker-small.png');
     --sprite-home__icon-marketplace: url('/Assets/Art/UI/Sprites/Home/icon-marketplace.png');
     --sprite-home__icon-melee-skin: url('/Assets/Art/UI/Sprites/Home/icon-melee-skin.png');
     --sprite-home__icon-mutator-healthyair: url('/Assets/Art/UI/Sprites/Home/icon-mutator-healthyair.png');
@@ -269,6 +271,12 @@
     background-image: var(--sprite-home__background-dots-effect);
     width: 370px;
     height: 412px;
+}
+
+.sprite-home__background-dropzone-effect {
+    background-image: var(--sprite-home__background-dropzone-effect);
+    width: 84px;
+    height: 124px;
 }
 
 .sprite-home__background-friends-player {
@@ -1055,6 +1063,12 @@
     background-image: var(--sprite-home__icon-mapmarker);
     width: 90px;
     height: 132px;
+}
+
+.sprite-home__icon-mapmarker-small {
+    background-image: var(--sprite-home__icon-mapmarker-small);
+    width: 60px;
+    height: 54px;
 }
 
 .sprite-home__icon-marketplace {

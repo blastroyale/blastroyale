@@ -60,7 +60,8 @@ namespace FirstLight.Game.Presenters
 			_mapDropDown.RegisterValueChangedCallback(OnMapSelected);
 
 			var orderNumber = 1;
-
+			// Clear the slide from the test values
+			_buttonsSlider.Clear();
 			// Add game modes buttons
 			foreach (var slot in _services.GameModeService.Slots)
 			{
@@ -83,7 +84,7 @@ namespace FirstLight.Game.Presenters
 			gameModeInfo.Entry.MatchType = MatchType.Custom;
 			gameModeInfo.Entry.TitleTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_title;
 			gameModeInfo.Entry.DescriptionTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_description;
-			gameModeInfo.Entry.ImageModifier = "custom";
+			gameModeInfo.Entry.GameModeCardModifier = "custom";
 			gameModeInfo.Entry.Mutators = new List<string>();
 			var createGameButton = _buttonAsset.Instantiate();
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);

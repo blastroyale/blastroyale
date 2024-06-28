@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.UIService;
@@ -56,7 +57,7 @@ namespace FirstLight.Game.Views
 			}
 		}
 
-		private Button _button;
+		private ImageButton _button;
 		private Label _gameModeLabel;
 		private Label _teamSizeLabel;
 		private Label _timeLeftLabel;
@@ -66,10 +67,10 @@ namespace FirstLight.Game.Views
 		private Label _disabledLabel;
 		private bool _selected;
 		private bool _disabled;
-		
+
 		protected override void Attached()
 		{
-			_button = Element.Q<Button>().Required();
+			_button = Element.Q<ImageButton>().Required();
 
 			var dataPanel = Element.Q<VisualElement>("TextContainer");
 			_gameModeLabel = dataPanel.Q<Label>("Title").Required();
@@ -82,8 +83,7 @@ namespace FirstLight.Game.Views
 
 			_button.clicked += () => Clicked?.Invoke(this);
 		}
-		
-		
+
 		/// <summary>
 		/// Sets the data needed to fill the button's visuals
 		/// </summary>
@@ -106,13 +106,24 @@ namespace FirstLight.Game.Views
 			GameModeInfo = gameModeInfo;
 
 			RemoveClasses();
-			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.ImageModifier}");
+			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.GameModeCardModifier}");
 			UpdateTeamSize(gameModeInfo);
 			UpdateTitleAndDescription();
+			if (gameModeInfo.IsFixed)
+			{
+				return;
+			}
+
 			Element.schedule.Execute(() =>
 			{
-				_timeLeftLabel.
-				
+				var timeLeft = gameModeInfo.EndTime - DateTime.UtcNow;
+				if ( timeLeft.TotalSeconds < 0)
+				{
+					_timeLeftLabel.text="ENDED";
+					return;
+				}
+
+				_timeLeftLabel.text = $"ENDS IN {timeLeft.Hours}h {timeLeft.Minutes}m {timeLeft.Seconds}s";
 			}).Every(1000);
 		}
 

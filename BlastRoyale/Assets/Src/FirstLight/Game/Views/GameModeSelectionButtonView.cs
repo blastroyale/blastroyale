@@ -19,7 +19,7 @@ namespace FirstLight.Game.Views
 	/// </summary>
 	public class GameModeSelectionButtonView : UIView
 	{
-		private const string GameModeButtonBase = "game-mode-button";
+		private const string GameModeButtonBase = "game-mode-card";
 		private const string GameModeButtonSelectedModifier = GameModeButtonBase + "--selected";
 
 		public GameModeInfo GameModeInfo { get; private set; }
@@ -56,50 +56,34 @@ namespace FirstLight.Game.Views
 			}
 		}
 
-		private IGameServices _services;
 		private Button _button;
 		private Label _gameModeLabel;
 		private Label _teamSizeLabel;
+		private Label _timeLeftLabel;
 		private VisualElement _teamSizeIcon;
 		private Label _gameModeDescriptionLabel;
 		private VisualElement _disabledContainer;
 		private Label _disabledLabel;
 		private bool _selected;
 		private bool _disabled;
-		private Coroutine _timerCoroutine;
-
-		public GameModeSelectionButtonView()
-		{
-			_services = MainInstaller.Resolve<IGameServices>();
-		}
-
+		
 		protected override void Attached()
 		{
 			_button = Element.Q<Button>().Required();
 
-			var dataPanel = Element.Q<VisualElement>("DataPanel");
-			_gameModeLabel = dataPanel.Q<VisualElement>("Title").Q<Label>("Label").Required();
+			var dataPanel = Element.Q<VisualElement>("TextContainer");
+			_gameModeLabel = dataPanel.Q<Label>("Title").Required();
 			_gameModeDescriptionLabel = dataPanel.Q<Label>("Description");
 			_teamSizeIcon = dataPanel.Q<VisualElement>("TeamSizeIcon").Required();
 			_teamSizeLabel = dataPanel.Q<Label>("TeamSizeLabel").Required();
 			_disabledContainer = Element.Q<VisualElement>("Disabled").Required();
 			_disabledLabel = Element.Q<Label>("DisabledLabel").Required();
+			_timeLeftLabel = Element.Q<Label>("TimeLeftLabel").Required();
 
 			_button.clicked += () => Clicked?.Invoke(this);
 		}
-
-		public override void OnScreenOpen(bool reload)
-		{
-		}
-
-		public override void OnScreenClose()
-		{
-			if (_timerCoroutine != null)
-			{
-				_services.CoroutineService.StopCoroutine(_timerCoroutine);
-			}
-		}
-
+		
+		
 		/// <summary>
 		/// Sets the data needed to fill the button's visuals
 		/// </summary>
@@ -122,18 +106,14 @@ namespace FirstLight.Game.Views
 			GameModeInfo = gameModeInfo;
 
 			RemoveClasses();
-
-			if (IsCustomGame())
-			{
-				_button.AddToClassList($"{GameModeButtonBase}--custom");
-			}
-			else
-			{
-				_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.ImageModifier}");
-			}
-
+			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.ImageModifier}");
 			UpdateTeamSize(gameModeInfo);
 			UpdateTitleAndDescription();
+			Element.schedule.Execute(() =>
+			{
+				_timeLeftLabel.
+				
+			}).Every(1000);
 		}
 
 		private bool IsCustomGame()

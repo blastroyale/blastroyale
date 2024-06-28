@@ -2,29 +2,15 @@
     <ui:Template name="GameModeSelectionButton" src="project://database/Assets/Art/UI/Templates/GameModeSelectionButton.uxml?fileID=9197481963319205126&amp;guid=1acd361f6f23744e4b060f6c7339014b&amp;type=3#GameModeSelectionButton" />
     <Style src="project://database/Assets/Art/UI/Screens/GameModeSelectionScreenStyle.uss?fileID=7433441132597879392&amp;guid=65b63b653515f438aa2452fed30ceae6&amp;type=3#GameModeSelectionScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Templates/GameModeSelectionButtonStyle.uss?fileID=7433441132597879392&amp;guid=1a806c33bc7a34069a8b184b546c14e0&amp;type=3#GameModeSelectionButtonStyle" />
-    <ui:VisualElement name="root" class="fill-parent">
+    <ui:VisualElement name="root" class="fill-parent" style="background-image: url(&quot;project://database/Assets/Art/UI/References/Back.png?fileID=2800000&amp;guid=aa3da0aa20f63d148a95a9724e2b64f7&amp;type=3#Back&quot;);">
         <ui:VisualElement name="backgroundPattern" class="fill-parent" style="top: 0; right: 1px; left: 0; bottom: 0;">
-            <ui:ScrollView name="ButtonsSlider" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" vertical-page-size="-1" class="buttons-slider" style="top: -16px; right: 49px; left: -20px; bottom: 44px; align-self: center; justify-content: space-between; align-items: center; flex-direction: row;">
-                <ui:VisualElement name="VisualElement" style="flex-grow: 1; -unity-background-scale-mode: scale-to-fit; width: 462px; height: 750px; position: relative; top: 143px; left: auto; display: flex; justify-content: flex-end; align-items: center; flex-direction: row;">
-                    <ui:VisualElement name="Shadow" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/card-blue.png?fileID=21300000&amp;guid=4176b5a521474f448a0c46f8e1159d7b&amp;type=3#card-blue&quot;); width: 100%; height: 100%; -unity-background-scale-mode: scale-to-fit; position: absolute; -unity-background-image-tint-color: rgb(0, 0, 0); top: 10px; left: 5px;" />
-                    <ui:VisualElement name="Background" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/card-blue.png?fileID=2800000&amp;guid=4176b5a521474f448a0c46f8e1159d7b&amp;type=3#card-blue&quot;); width: 100%; height: 100%; -unity-background-scale-mode: scale-to-fit; overflow: hidden;" />
-                    <ui:VisualElement name="TextContainer" style="flex-grow: 0; align-self: center; flex-shrink: 0; width: 305px; height: 100px; justify-content: flex-start; align-items: center; right: auto; padding-top: 8px; bottom: 109px; position: absolute; left: 79px;">
-                        <ui:Label text="DUOS" display-tooltip-when-elided="true" name="Title" class="game-mode-button__label" style="font-size: 64px; margin-bottom: 0;" />
-                        <ui:Label text="Play Battle royale in team of 2" name="Description" class="game-mode-button__description font-bold" style="font-size: 30px; width: 388px; padding-top: 0; margin-top: 0;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="TeamSize" class="game-mode-button__team-size" style="align-self: flex-end; position: absolute; top: 677px; left: auto; right: 46px; width: 72px; height: 52px;">
-                        <ui:Label tabindex="-1" text="2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TeamSizeLabel" class="game-mode-button__team-size-label" style="font-size: 38px;" />
-                        <ui:VisualElement name="TeamSizeIcon" class="sprite-shared__icon-gamemode-solo game-mode-button__team-size-icon" style="width: 44px; height: 44px;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="Char" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/gamemode-solo-characters.png?fileID=21300000&amp;guid=e5cf982183bb0774aab58c41145ff5c0&amp;type=3#gamemode-solo-characters&quot;); position: absolute; width: 323px; height: 475px; top: 28px; left: 97px; -unity-background-scale-mode: scale-to-fit;" />
-                </ui:VisualElement>
-                <ui:Instance template="GameModeSelectionButton" name="Event" class="game-mode-button--battleroyale-solo" />
-                <ui:Instance template="GameModeSelectionButton" name="Solo" class="game-mode-button--battleroyale-solo" />
-                <ui:Instance template="GameModeSelectionButton" name="Duos" class="game-mode-button--battleroyale-duos" />
-                <ui:Instance template="GameModeSelectionButton" name="Quads" class="game-mode-button--battleroyale-quads" />
-                <ui:Instance template="GameModeSelectionButton" name="Custom" class="game-mode-button--custom" />
+            <ui:ScrollView name="ButtonsSlider" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" vertical-page-size="-1" class="buttons-slider" style="align-self: center; justify-content: space-between; align-items: center; flex-direction: row; margin-top: 47px; padding-left: 129px;">
+                <ui:Instance template="GameModeSelectionButton" name="event" class="game-mode-card--event" />
+                <ui:Instance template="GameModeSelectionButton" name="solo" class="game-mode-card--solo" />
+                <ui:Instance template="GameModeSelectionButton" name="duos" class="game-mode-card--duos game-mode-card--selected" />
+                <ui:Instance template="GameModeSelectionButton" name="quads" class="game-mode-card--quads" />
+                <ui:Instance template="GameModeSelectionButton" name="custom" class="game-mode-card--custom" />
             </ui:ScrollView>
-            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITGameModeSelection/tap_to_choose" name="Instructions" class="DO_NOT_USE_font-style-normal instructions anim-fade anim-delay-1" />
             <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITGameModeSelection/choose_a_mode" name="Header" />
         </ui:VisualElement>
         <ui:VisualElement name="OptionsHolderColumnOne" class="selectors-options-column">

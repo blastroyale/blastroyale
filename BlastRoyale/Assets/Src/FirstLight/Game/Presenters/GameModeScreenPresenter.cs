@@ -83,6 +83,7 @@ namespace FirstLight.Game.Presenters
 			gameModeInfo.Entry.MatchType = MatchType.Custom;
 			gameModeInfo.Entry.TitleTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_title;
 			gameModeInfo.Entry.DescriptionTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_description;
+			gameModeInfo.Entry.ImageModifier = "custom";
 			gameModeInfo.Entry.Mutators = new List<string>();
 			var createGameButton = _buttonAsset.Instantiate();
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);

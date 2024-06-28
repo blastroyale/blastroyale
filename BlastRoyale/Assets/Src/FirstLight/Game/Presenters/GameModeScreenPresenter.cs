@@ -101,7 +101,7 @@ namespace FirstLight.Game.Presenters
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
 			customGameView.SetData("CustomGameButton", gameModeInfo, GetVisibleClass(orderNumber), VISIBLE_GAMEMODE_BUTTON + "last");
 			customGameView.Clicked += OnCustomGameClicked;
-			customGameView.Disabled = _services.PartyService.HasParty.Value;
+			customGameView.Disabled = true;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
 		}
@@ -154,8 +154,10 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var view in _buttonViews)
 			{
-				if (view.IsCustomGame()) continue;
-				if (view.GameModeInfo.Entry.PlayfabQueue == null) continue;
+				if (view.IsCustomGame())
+				{
+					return;
+				}
 				view.Disabled = view.GameModeInfo.Entry.TeamSize < _services.PartyService.GetCurrentGroupSize();
 			}
 		}

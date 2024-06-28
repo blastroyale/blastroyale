@@ -8,7 +8,9 @@
                 <ui:Instance template="GameModeSelectionButton" name="event" class="game-mode-card--event game-mode-card--element-1" />
                 <ui:Instance template="GameModeSelectionButton" name="solo" class="game-mode-card--solo game-mode-card--selected" />
                 <ui:Instance template="GameModeSelectionButton" name="duos" class="game-mode-card--duos" />
-                <ui:Instance template="GameModeSelectionButton" name="quads" class="game-mode-card--quads" />
+                <ui:Instance template="GameModeSelectionButton" name="quads" class="game-mode-card--quads">
+                    <AttributeOverrides element-name="CardRoot" enabled="true" />
+                </ui:Instance>
                 <ui:Instance template="GameModeSelectionButton" name="custom" class="game-mode-card--custom" />
             </ui:ScrollView>
             <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITGameModeSelection/choose_a_mode" name="Header" />

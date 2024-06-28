@@ -42,11 +42,10 @@
     top: 7px;
 }
 
-.game-mode-card--selected  .game-mode-card__background {
+.game-mode-card--selected .game-mode-card__background {
     left: 4px;
     top: 7px;
 }
-
 
 .game-mode-card__team-size {
     flex-grow: 1;
@@ -64,11 +63,9 @@
 .game-mode-card--event .game-mode-card__team-size {
     display: none;
 }
+
 .game-mode-card--custom .game-mode-card__team-size {
     display: none;
-}
-.game-mode-card--disable{
-    
 }
 
 .game-mode-card__text-container {
@@ -124,9 +121,14 @@
     display: none;
 }
 
+.game-mode-card:disabled .game-mode-card__event-container {
+    opacity: 0.25;
+}
+
 .game-mode-card--event .game-mode-card__event-container {
     display: flex;
 }
+
 
 .game-mode-card__shadow {
     -unity-background-image-tint-color: black;
@@ -226,7 +228,6 @@
     margin-right: -25px;
 }
 
-
 .game-mode-card--clickable {
     background-color: red;
 }
@@ -247,7 +248,6 @@
     display: flex;
 }
 
-
 .game-mode-card__crown {
     opacity: 0;
     transition-property: opacity;
@@ -259,7 +259,7 @@
 }
 
 .game-mode-card__outline {
-    background-image: url("project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-selected-rectangle.svg?fileID=7388822144124034973&amp;guid=634d1369f68f8a841a085b249ed50f68&amp;type=3#gamemode-selected-rectangle");
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-selected-rectangle.svg?fileID=7388822144124034973&guid=634d1369f68f8a841a085b249ed50f68&type=3#gamemode-selected-rectangle");
     width: 478px;
     height: 682px;
     -unity-background-image-tint-color: rgba(248, 199, 46, 0);
@@ -268,12 +268,31 @@
     left: 10px;
     opacity: 0;
     transition-property: opacity;
-    transition-duration: 0.33s;
+    transition-duration: 0.5s;
 }
 
 .game-mode-card--selected .game-mode-card__outline {
     opacity: 1;
 }
+
+.game-mode-card__glow {
+    flex-grow: 1;
+    position: absolute;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-border-glow.png?fileID=2800000&amp;guid=c4f2c82005ae6864f9df3cf2ccee1b46&amp;type=3#gamemode-border-glow");
+    height: 1100px;
+    width: 853px;
+    top: -217px;
+    left: -179px;
+    opacity: 0;
+    display: flex;
+    transition-property: opacity;
+    transition-duration: 2s;
+}
+
+.game-mode-card--selected .game-mode-card__glow{
+    opacity: 0.64;
+}
+
 
 .game-mode-card-selected-effects {
     display: none;
@@ -283,7 +302,26 @@
     display: flex;
 }
 
-.gradient {
-    --gradient-from: rgba(255,255,255,255);
-    --gradient-to: rgba(255,255,255,0);
+.game-mode-card:disabled .game-mode-card__character {
+    -unity-background-image-tint-color: rgb(88, 88, 88);
+}
+
+.game-mode-card:disabled .game-mode-card--disabled-container {
+    display: flex;
+}
+
+
+.game-mode-card--disabled-container {
+    display: none;
+    flex-grow: 1;
+    visibility: visible;
+    height: 659px;
+    width: 456px;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-selected-rectangle.svg?fileID=7388822144124034973&guid=634d1369f68f8a841a085b249ed50f68&type=3#gamemode-selected-rectangle");
+    background-color: rgba(30, 8, 58, 0);
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 21px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
 }

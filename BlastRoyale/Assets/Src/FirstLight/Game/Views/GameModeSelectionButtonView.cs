@@ -21,30 +21,13 @@ namespace FirstLight.Game.Views
 
 		public bool Selected
 		{
-			get => _selected;
-			set
-			{
-				_selected = value;
-
-				if (_selected)
-				{
-					_button.AddToClassList(GameModeButtonSelectedModifier);
-				}
-				else
-				{
-					_button.RemoveFromClassList(GameModeButtonSelectedModifier);
-				}
-			}
+			set => _button.EnableInClassList(GameModeButtonSelectedModifier, value);
 		}
 
 		public bool Disabled
 		{
-			get => _disabled;
-			set
-			{
-				_disabled = value;
-				_button.SetEnabled(!_disabled);
-			}
+			get => !_button.enabledSelf;
+			set => _button.SetEnabled(!value);
 		}
 
 		private ImageButton _button;
@@ -53,10 +36,7 @@ namespace FirstLight.Game.Views
 		private Label _timeLeftLabel;
 		private VisualElement _teamSizeIcon;
 		private Label _gameModeDescriptionLabel;
-		private VisualElement _disabledContainer;
 		private Label _disabledLabel;
-		private bool _selected;
-		private bool _disabled;
 
 		protected override void Attached()
 		{
@@ -67,8 +47,6 @@ namespace FirstLight.Game.Views
 			_gameModeDescriptionLabel = dataPanel.Q<Label>("Description");
 			_teamSizeIcon = dataPanel.Q<VisualElement>("TeamSizeIcon").Required();
 			_teamSizeLabel = dataPanel.Q<Label>("TeamSizeLabel").Required();
-			_disabledContainer = Element.Q<VisualElement>("Disabled").Required();
-			_disabledLabel = Element.Q<Label>("DisabledLabel").Required();
 			_timeLeftLabel = Element.Q<Label>("TimeLeftLabel").Required();
 
 			_button.clicked += () => Clicked?.Invoke(this);

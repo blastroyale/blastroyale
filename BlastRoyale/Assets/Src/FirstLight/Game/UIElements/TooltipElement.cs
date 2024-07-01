@@ -68,6 +68,7 @@ namespace FirstLight.Game.UIElements
 			generateVisualContent += GenerateVisualContent;
 			RegisterCallback<CustomStyleResolvedEvent>(ResolvedCustomStyle);
 		}
+		
 
 		public override VisualElement contentContainer => _content;
 
@@ -109,6 +110,13 @@ namespace FirstLight.Game.UIElements
 
 			painter.Stroke();
 			painter.Fill();
+		}
+
+		public void SetTip(TipDirection direction)
+		{
+			tipPosition = direction;
+			MarkDirtyRepaint();
+			CalculateOffsets(true);
 		}
 
 		private void CalculateOffsets(bool applyPadding = false)

@@ -56,19 +56,10 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnClick()
 		{
-
-			var dir = TipDirection.TopLeft;
-			var pos = TooltipPosition.BottomRight;
-			if (Element.GetPositionOnScreen(_root).x > (Screen.width / 2))
-			{
-				dir = TipDirection.TopRight;
-				pos = TooltipPosition.BottomLeft;
-			}
 			if (_locked)
 			{
 				// Tooltip
-				Element.OpenTooltip(_root, $"You need to reach level <color=#f8c72e>{_requiredLevel}</color> to unlock this.",
-					position: pos, direction: dir);
+				Element.OpenTooltip(_root, $"You need to reach level <color=#f8c72e>{_requiredLevel}</color> to unlock this.");
 			}
 			else
 			{

@@ -89,7 +89,7 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var loading = stateFactory.TaskWait("Loading Assets");
 			var openLoadingScreen = stateFactory.TaskWait("Open Pre Game Screen");
-			var openCustomGameScreen = stateFactory.TaskWait("Open CustomGame Screen");
+			//var openCustomGameScreen = stateFactory.TaskWait("Open CustomGame Screen");
 			var roomCheck = stateFactory.Choice("Room Check");
 			var gameLoading = stateFactory.State("Matchmaking");
 			var openHud = stateFactory.TaskWait("Open HUD");
@@ -117,10 +117,10 @@ namespace FirstLight.Game.StateMachines
 			// Reconnection is first, because if the custom game is running we skip the custom game screen
 			customGameCheck.Transition().Condition(IsInstantLoad).Target(loading);
 			customGameCheck.Transition().Condition(IsReconnection).Target(loading);
-			customGameCheck.Transition().Condition(IsCustomGame).Target(openCustomGameScreen);
+			customGameCheck.Transition().Condition(IsCustomGame).Target(customGameLobby);
 			customGameCheck.Transition().Target(openLoadingScreen);
 
-			openCustomGameScreen.WaitingFor(OpenCustomLobbyScreen).Target(customGameLobby);
+			//openCustomGameScreen.WaitingFor(OpenCustomLobbyScreen).Target(customGameLobby);
 
 			customGameLobby.Event(NetworkState.LeftRoomEvent).Target(randomLeftRoom);
 			customGameLobby.Event(CustomGameLoadStart).Target(openLoadingScreen);

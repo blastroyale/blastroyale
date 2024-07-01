@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -7,6 +9,7 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
+using Quantum;
 using QuickEye.UIToolkit;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
@@ -147,6 +150,41 @@ namespace FirstLight.Game.Presenters
 			var matchSettings = _matchSettingsView.MatchSettings;
 
 			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, true);
+			
+			// TODO: Ugly
+			((IInternalGameNetworkService) _services.NetworkService).JoinSource.Value = JoinRoomSource.FirstJoin;
+
+			var setup = new MatchRoomSetup
+			{
+				SimulationConfig = new SimulationMatchConfig
+				{
+					MapId = (int) Enum.Parse<GameId>(matchSettings.MapID),
+					GameModeID = matchSettings.GameModeID,
+					MatchType = MatchType.Custom,
+					Mutators = matchSettings.Mutators,
+					MaxPlayersOverwrite = matchSettings.MaxPlayers,
+					BotOverwriteDifficulty = matchSettings.BotDifficulty,
+					TeamSize = matchSettings.SquadSize,
+					WeaponsSelectionOverwrite = matchSettings.WeaponFilter.ToArray()
+				},
+				RoomIdentifier = _services.FLLobbyService.CurrentMatchLobby.Id,
+			};
+
+			try
+			{
+				await _services.RoomService.CreateRoomAsync(setup);
+				Data.MatchListStateData.PlayClicked();
+				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);
+				
+				_services.TeamService.AutoBalanceCustom = true;
+				await UniTask.WaitForSeconds(5); // TODO: Remove this hack
+				
+				_services.RoomService.StartCustomGameLoading();
+			}
+			catch (Exception e)
+			{
+				FLog.Error("Could not create quantum room", e);
+			}
 
 			// TODO start match
 		}

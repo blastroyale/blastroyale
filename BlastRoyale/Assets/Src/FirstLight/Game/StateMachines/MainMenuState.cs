@@ -213,7 +213,10 @@ namespace FirstLight.Game.StateMachines
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
-			roomJoinCreateMenu.Event(PlayClickedEvent).OnTransition(() => OpenHomeScreen().Forget()).Target(waitMatchmaking);
+			roomJoinCreateMenu.Event(PlayClickedEvent).OnTransition(() =>
+			{
+				OpenHomeScreen().Forget();
+			}).Target(waitMatchmaking);
 			roomJoinCreateMenu.Event(_roomJoinCreateBackClickedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(_closeClickedEvent).Target(homeCheck);
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
@@ -482,7 +485,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData
 			{
-				BackClicked = () => _statechartTrigger(_roomJoinCreateBackClickedEvent)
+				BackClicked = () => _statechartTrigger(_roomJoinCreateBackClickedEvent),
+				PlayClicked = () => _statechartTrigger(PlayClickedEvent)
 			}).Forget();
 		}
 

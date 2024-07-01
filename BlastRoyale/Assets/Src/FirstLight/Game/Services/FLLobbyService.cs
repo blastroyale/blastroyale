@@ -38,6 +38,7 @@ namespace FirstLight.Game.Services
 		public const string KEY_MATCHMAKING_QUEUE = "matchmaking_queue";
 
 		public const string KEY_MATCH_SETTINGS = "match_settings";
+		public const string KEY_MATCH_ROOM_NAME = "room_name";
 		public const string KEY_REGION = "region"; // S1
 
 		/// <summary>
@@ -171,14 +172,15 @@ namespace FirstLight.Game.Services
 			try
 			{
 				FLog.Info($"Sending party invite to {playerID}");
-				await FriendsService.Instance.MessageAsync(playerID, FriendMessage.CreatePartyInvite(CurrentPartyLobby.LobbyCode));
 				_sentPartyInvites.Add(playerID);
+				await FriendsService.Instance.MessageAsync(playerID, FriendMessage.CreatePartyInvite(CurrentPartyLobby.LobbyCode));
 				FLog.Info("Party invite sent successfully!");
 			}
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error sending party invite!", e);
 				_notificationService.QueueNotification($"Could not send party invite ({(int) e.ErrorCode})");
+				_sentPartyInvites.Remove(playerID);
 			}
 		}
 
@@ -529,6 +531,37 @@ namespace FirstLight.Game.Services
 			{
 				FLog.Warn("Error updating match settings!", e);
 				_notificationService.QueueNotification($"Could not update match settings ({(int) e.Reason})");
+				return false;
+			}
+
+			return true;
+		}
+		
+		/// <summary>
+		/// Updates the data / locked state of the current match lobby.
+		/// </summary>
+		public async UniTask<bool> SetMatchRoom(string roomName)
+		{
+			Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
+
+			var options = new UpdateLobbyOptions
+			{
+				Data = new Dictionary<string, DataObject>
+				{
+					{KEY_MATCH_ROOM_NAME, new DataObject(DataObject.VisibilityOptions.Member, roomName)}
+				}
+			};
+
+			try
+			{
+				FLog.Info($"Updating match room to {roomName} for lobby: {CurrentMatchLobby.Id}");
+				CurrentMatchLobby = await LobbyService.Instance.UpdateLobbyAsync(CurrentMatchLobby.Id, options);
+				FLog.Info("Match room updated successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn("Error updating match room!", e);
+				_notificationService.QueueNotification($"Could not update match room ({(int) e.Reason})");
 				return false;
 			}
 

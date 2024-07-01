@@ -24,6 +24,7 @@ namespace FirstLight.Game.Presenters
 		public class StateData
 		{
 			public Action BackClicked; // Fucking disgusting
+			public Action PlayClicked;
 		}
 
 		[Q("ListHeaders")] private VisualElement _listHeaders;

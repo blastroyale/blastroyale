@@ -174,17 +174,22 @@ namespace FirstLight.Game.Presenters
 				header = string.Format(online ? ScriptLocalization.UITFriends.online : ScriptLocalization.UITFriends.offline, count);
 			}
 
+			var showPartyInvite = relationship.IsOnline() && _services.FLLobbyService.CurrentPartyLobby != null &&
+				!_services.FLLobbyService.SentPartyInvites.Contains(relationship.Member.Id);
+
 			((FriendListElement) element)
 				.SetPlayerName(relationship.Member.Profile.Name)
 				.SetHeader(header)
 				.SetStatus(relationship.Member.Presence.GetActivity<FriendActivity>()?.Status, online)
-				.SetMainAction(ScriptLocalization.UITFriends.invite, !relationship.IsOnline()
-					? null
-					: () =>
-					{
-						// TODO mihak: Invite to squad
-						FLog.Info($"Squad invite clicked: {relationship.Id}");
-					}, false)
+				.SetMainAction(ScriptLocalization.UITFriends.invite,
+					!showPartyInvite
+						? null
+						: () =>
+						{
+							_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
+							// TODO mihak: Invite to squad
+							FLog.Info($"Squad invite clicked: {relationship.Id}");
+						}, false)
 				.SetMoreActions(ve => OpenFriendTooltip(ve, relationship));
 		}
 

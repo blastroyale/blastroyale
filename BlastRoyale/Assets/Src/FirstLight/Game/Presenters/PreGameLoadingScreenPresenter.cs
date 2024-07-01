@@ -54,8 +54,8 @@ namespace FirstLight.Game.Presenters
 		private Label _loadStatusLabel;
 		private Label _locationLabel;
 		private ScreenHeaderElement _header;
-		private Label _modeDescTopLabel;
-		private Label _modeDescBotLabel;
+		//private Label _modeDescTopLabel;
+		//private Label _modeDescBotLabel;
 		private Label _debugPlayerCountLabel;
 		private Label _debugMasterClient;
 		private IGameServices _services;
@@ -95,13 +95,14 @@ namespace FirstLight.Game.Presenters
 			_loadStatusLabel = Root.Q<Label>("LoadStatusLabel").Required();
 			_locationLabel = Root.Q<Label>("LocationLabel").Required();
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
-			_modeDescTopLabel = Root.Q<Label>("ModeDescTop").Required();
-			_modeDescBotLabel = Root.Q<Label>("ModeDescBot").Required();
+			//_modeDescTopLabel = Root.Q<Label>("ModeDescTop").Required();
+			//_modeDescBotLabel = Root.Q<Label>("ModeDescBot").Required();
 			_debugPlayerCountLabel = Root.Q<Label>("DebugPlayerCount").Required();
 			_debugMasterClient = Root.Q<Label>("DebugMasterClient").Required();
 			_squadContainer = Root.Q("SquadContainer").Required();
 			_squadMembersList = Root.Q<ListView>("SquadList").Required();
 			_partyMarkers = Root.Q("PartyMarkers").Required();
+			_header.SetSubtitle("");
 
 			_squadMembersList.DisableScrollbars();
 			_squadMembersList.makeItem = CreateSquadListEntry;
@@ -201,11 +202,10 @@ namespace FirstLight.Game.Presenters
 		{
 			if (index < 0 || index >= _squadMembers.Count) return;
 
-			var nameColor = _services.TeamService.GetTeamMemberColor(_squadMembers[index]);
-
-
+			//var nameColor = _services.TeamService.GetTeamMemberColor(_squadMembers[index]);
+			
 			((Label) element).text = _squadMembers[index].NickName;
-			((Label) element).style.color = nameColor ?? Color.white;
+			((Label) element).style.color =  Color.white;
 		}
 
 		private VisualElement CreateSquadListEntry()
@@ -281,17 +281,16 @@ namespace FirstLight.Game.Presenters
 			_mapHolder.UnregisterCallback<GeometryChangedEvent>(InitMap);
 
 			var simulationConfig = CurrentRoom.Properties.SimulationMatchConfig.Value;
-			var matchType = simulationConfig.MatchType;
+			//var matchType = simulationConfig.MatchType;
 			var gameModeConfig = CurrentRoom.GameModeConfig;
 			var mapConfig = CurrentRoom.MapConfig;
-			var modeDesc = GetGameModeDescriptions(gameModeConfig.CompletionStrategy);
+			//var modeDesc = GetGameModeDescriptions(gameModeConfig.CompletionStrategy);
 
 			_locationLabel.text = mapConfig.Map.GetLocalization();
-			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, simulationConfig.TeamSize),
-				matchType.GetLocalization().ToUpper());
+			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, simulationConfig.TeamSize));
 
-			_modeDescTopLabel.text = modeDesc[0];
-			_modeDescBotLabel.text = modeDesc[1];
+			//_modeDescTopLabel.text = modeDesc[0];
+			//_modeDescBotLabel.text = modeDesc[1];
 			_header.SetButtonsVisibility(!_services.TutorialService.IsTutorialRunning);
 
 			UpdatePlayerCount();

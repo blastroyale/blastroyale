@@ -151,6 +151,11 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenClose();
 		}
 
+		private void SetAvatarSprite(Sprite s)
+		{
+			Debug.Log(s.name);
+		}
+
 		private void RefreshPartyList()
 		{
 			var isSquadGame = CurrentRoom.IsTeamGame;
@@ -164,6 +169,12 @@ namespace FirstLight.Game.Presenters
 					.Where(p => _services.TeamService.GetTeamForPlayer(p) == teamId)
 					.ToList();
 
+				var loadout = CurrentRoom.GetPlayerProperties(_squadMembers.First()).Loadout;
+
+				_services.CollectionService.LoadCollectionItemSprite(
+					_services.CollectionService.GetCosmeticForGroup(loadout.Value.ToArray(), 
+						GameIdGroup.PlayerSkin)).ContinueWith(SetAvatarSprite);
+				
 				_squadMembersList.itemsSource = _squadMembers;
 				_squadMembersList.RefreshItems();
 

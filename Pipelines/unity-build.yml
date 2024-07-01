@@ -42,18 +42,6 @@ parameters:
     type: string
     displayName: Slack bot token
     default: ''
-  - name: kuttKey
-    type: string
-    displayName: f.feldmann.dev api key
-    default: ''
-  - name: developmentiOSCertPwd
-    type: string
-    displayName: Password for the development iOS certificate
-    default: ''
-  - name: distributioniOSCertPwd
-    type: string
-    displayName: Password for the distribution iOS certificate
-    default: ''
   - name: publishDlls
     type: boolean
     displayName: If should publish artifacts with game dlls
@@ -70,18 +58,14 @@ steps:
     displayName: 'Download Firebase Key'
     inputs:
       secureFile: firebase-key-fb177f497a1b.json
-  
-  # Leaving this commented unless we need it in the future.
-  # The current unity license is applied manually on the server because this task both assigns and returns a license.
-  # This causes a problem when two builds run in parallel, as the license could be returned half way through a build on another agent, and it would fail.
-  # The manually applied license is never returned.
-  # - task: UnityActivateLicenseTask@1
-  #   name: unityactivation
-  #   inputs:
-  #     username: ${{ parameters.unity_username }}
-  #     password: ${{ parameters.unity_password }}
-  #     serial: ${{ parameters.unity_serial }}
 
+  - task: DownloadSecureFile@1
+    name: appleAuthKey
+    displayName: 'Download Apple Auth Key'
+    inputs:
+      secureFile: 'AppleAuthKey.json'
+    condition: and(eq('${{ parameters.platform }}', 'iOS'),not(or(failed(), canceled())))
+    
   - script: |
       echo $(Build.SourceBranch)
       echo ${{ parameters.branchName }}
@@ -165,8 +149,11 @@ steps:
 
   # The security thing is because apple is apple and we need to unlock (or something) the login keychain
   - script: |
+      mkdir -p "./fastlane"
+      cp $(System.DefaultWorkingDirectory)/Scripts/Fastfile "./fastlane"
+      keyPath=$(appleAuthKey.secureFilePath)
       security set-key-partition-list -S apple: -s -k EgfTpS6F login.keychain
-      fastlane gym --output_directory "$(System.DefaultWorkingDirectory)" --export_method development
+      fastlane internal output_directory:"$(System.DefaultWorkingDirectory)" key_path:"$keyPath"
     workingDirectory: $(System.DefaultWorkingDirectory)/BlastRoyale/BlastRoyale
     condition: and(eq('${{ parameters.platform }}', 'iOS'), not(or(failed(), canceled())))
     displayName: 'Fastlane iOS Build'
@@ -236,7 +223,7 @@ steps:
       tokenRegex: '__(\w+)__'  # regex pattern to use to find tokens
 
   - script: |
-      cp manifest-template.plist $(FL_INTERNAL_VERSION_FILENAME).plist
+      cp manifest-template.plist "$(FL_INTERNAL_VERSION_FILENAME).plist"
     condition: and(eq('${{ parameters.platform }}', 'iOS'),not(or(failed(), canceled())))
     displayName: 'Rename plist'
 
@@ -251,7 +238,7 @@ steps:
         az storage blob upload `
         --account-name prodflgbuildstorage `
         --container-name $(platformLower) `
-        --name $(Build.DefinitionName)/$(Build.BuildNumber)/$(FL_INTERNAL_VERSION_FILENAME).plist `
+        --name "$(Build.DefinitionName)/$(Build.BuildNumber)/$(FL_INTERNAL_VERSION_FILENAME).plist" `
         --file '$(FL_INTERNAL_VERSION_FILENAME).plist' `
         --auth-mode login
 
@@ -269,6 +256,21 @@ steps:
         --name $(Build.DefinitionName)/$(Build.BuildNumber)/BlastRoyale.apk `
         --file 'BlastRoyale/BlastRoyale.apk' `
         --auth-mode login
+        
+  - task: AzureCLI@2
+    condition: and(eq('${{ parameters.platform }}', 'iOS'),not(or(failed(), canceled())))
+    displayName: 'Upload IPA'
+    inputs:
+      azureSubscription: 'azure-sponsorship'
+      scriptType: pscore
+      scriptLocation: inlineScript
+      inlineScript: |
+        az storage blob upload `
+        --account-name prodflgbuildstorage `
+        --container-name $(platformLower) `
+        --name $(Build.DefinitionName)/$(Build.BuildNumber)/$(FL_INTERNAL_VERSION_FILENAME).ipa `
+        --file 'BlastRoyale.ipa' `
+        --auth-mode login
 
 
   - powershell: |
@@ -276,7 +278,6 @@ steps:
       $name = "$(Build.DefinitionName)"
       $build_number = "$(Build.BuildNumber)"
       $file_name = "$(FL_INTERNAL_VERSION_FILENAME)"
-      $token = "$(kuttKey)"
       
       if ($platform -eq "ios") {
           $url = [System.Uri]::EscapeUriString("itms-services://0.0.0.0?action=download-manifest&url=https://prodflgbuildstorage.blob.core.windows.net/$platform/$name/$build_number/$file_name.plist")
@@ -358,7 +359,12 @@ steps:
           path: accessory.image_url
           value: '$(statusImage)'
           operation: replace
-
+          
+  - template: helpers/slack-send-message-in-thread.yml
+    parameters:
+      slackToken: $(slackToken)
+      messageIdArtifact: slackbuildmessage
+      content: '*:$(platformLower): ${{ parameters.platform }} :$(platformLower):*#n*Status:* $(statusMessage)'
 
   - task: CopyFiles@2
     inputs:

@@ -33,7 +33,12 @@
             </ui:VisualElement>
             <ui:VisualElement name="SquadContainer" class="squad-container" style="background-color: rgba(19, 142, 211, 0.4); overflow: visible;">
                 <FirstLight.Game.UIElements.LocalizedButton name="Title" localization-key="UITHomeScreen/party" class="squad-container__title" style="display: flex; background-color: rgba(16, 12, 34, 0); color: rgb(248, 199, 46); -unity-text-outline-width: 1px; text-shadow: 3px 3px 0 rgb(0, 0, 0); letter-spacing: 0; -unity-text-outline-color: rgb(0, 0, 0); top: -30px; position: absolute; left: 0; right: 0;" />
-                <ui:ListView focusable="true" name="SquadList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" class="squad-container__list" style="display: flex;" />
+                <ui:VisualElement name="Row" class="header-row" style="flex-direction: row;">
+                    <ui:VisualElement name="AvatarContainer" class="avatar-container">
+                        <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="NameLabel" class="player-header__playername-label" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:ListView focusable="true" name="SquadList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" class="squad-container__list" style="display: none;" />
             </ui:VisualElement>
             <ui:Label name="DebugMasterClient" text="MASTER" class="debug-master-client" />
         </FirstLight.Game.UIElements.SafeAreaElement>

@@ -17,7 +17,7 @@ namespace FirstLight.Game.UIElements
 		private const string USS_TEAM_COLOR = USS_BLOCK + "__team-color1";
 		private const string USS_PFP_MASK = USS_BLOCK + "__pfp-mask1";
 		
-		private readonly VisualElement _teamColor;
+		//private readonly VisualElement _teamColor;
 		private readonly VisualElement _pfpMask;
 		private readonly VisualElement _pfp;
 		
@@ -48,10 +48,12 @@ namespace FirstLight.Game.UIElements
 			this.Query().Build().ForEach(e => e.pickingMode = PickingMode.Ignore);
 		}
 
-		public void SetTeamColor(Color? color)
+		public void SetTeamColor(Color color)
 		{
-			if (!color.HasValue) _teamColor.SetDisplay(false);
-			else _teamColor.style.backgroundColor = color.Value;
+			style.borderBottomColor = color;
+			style.borderTopColor = color;
+			style.borderLeftColor = color;
+			style.borderRightColor = color;
 		}
 
 		public void SetPfpImage(Sprite image)

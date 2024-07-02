@@ -391,11 +391,10 @@
     justify-content: center;
     margin-right: 18px;
     
-    background-color: rgba(23, 18, 53, 0.39);
+    background-color: rgba(23, 18, 53, 0);
 }
 
 .squad-member__pfp1 {
-    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/Ninja/Icon_Char_Ninja.png?fileID=21300000&guid=759699db299dced46a9c460f5114b6cc&type=3#Icon_Char_Ninja');
     position: absolute;
     width: 96px;
     height: 96px;

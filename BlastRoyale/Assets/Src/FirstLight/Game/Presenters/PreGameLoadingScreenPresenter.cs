@@ -204,6 +204,9 @@ namespace FirstLight.Game.Presenters
 						_services.CollectionService.GetCosmeticForGroup(loadout.Value.ToArray(), 
 							GameIdGroup.PlayerSkin)).ContinueWith(_playerMemberElements[i].SetPfpImage);
 
+					var nameColor = _services.TeamService.GetTeamMemberColor(_squadMembers[i]);
+					_playerMemberElements[i].SetTeamColor(nameColor ?? Color.white);
+					
 					_nameLabels[i].text = _squadMembers[i].NickName;
 				}
 				

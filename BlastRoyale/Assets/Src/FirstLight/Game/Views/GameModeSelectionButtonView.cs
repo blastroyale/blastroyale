@@ -8,6 +8,8 @@ using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using UITTimeline;
+using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views
@@ -23,6 +25,8 @@ namespace FirstLight.Game.Views
 		private const string USS_REWARD_ICON = USS_BASE + "__reward-icon";
 
 		public GameModeInfo GameModeInfo { get; private set; }
+		public PlayableDirector NewEventDirector;
+
 		public event Action<GameModeSelectionButtonView> Clicked;
 
 		public bool Selected
@@ -37,6 +41,7 @@ namespace FirstLight.Game.Views
 		}
 
 		private IPartyService _partyService;
+		private LocalPrefsService _localPrefs;
 
 		private ImageButton _button;
 		private Label _gameModeLabel;
@@ -45,12 +50,14 @@ namespace FirstLight.Game.Views
 		private VisualElement _teamSizeIcon;
 		private Label _gameModeDescriptionLabel;
 		private Label _disabledLabel;
+		private VisualElement _newEventEffectsHolder;
 		private VisualElement _rewardContainer;
 		private IVisualElementScheduledItem _scheduled;
 
 		protected override void Attached()
 		{
 			_partyService = MainInstaller.ResolveServices().PartyService;
+			_localPrefs = MainInstaller.ResolveServices().LocalPrefsService;
 			_button = Element.Q<ImageButton>().Required();
 
 			var dataPanel = Element.Q<VisualElement>("TextContainer");
@@ -105,6 +112,17 @@ namespace FirstLight.Game.Views
 			if (comingSoon)
 			{
 				_button.AddToClassList(USS_COMING_SOON);
+			}
+
+			var showEventAnimation = !GameModeInfo.IsFixed && GameModeInfo.Duration.Contains(DateTime.UtcNow) && _localPrefs.LastSeenEvent.Value != GameModeInfo.GetKey();
+			if (showEventAnimation)
+			{
+				_localPrefs.LastSeenEvent.Value = GameModeInfo.GetKey();
+				_button.AddToClassList("animation-root-overwrite");
+				Element.schedule.Execute(() =>
+				{
+					NewEventDirector.Play();
+				});
 			}
 
 			_scheduled = Element.schedule.Execute(() =>
@@ -189,8 +207,8 @@ namespace FirstLight.Game.Views
 
 		private void UpdateTitleAndDescription()
 		{
-			_gameModeLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.Visual.TitleTranslationKey);
-			_gameModeDescriptionLabel.text = LocalizationManager.GetTranslation(GameModeInfo.Entry.Visual.DescriptionTranslationKey);
+			_gameModeLabel.text = GameModeInfo.Entry.Visual.TitleTranslationKey.GetText();
+			_gameModeDescriptionLabel.text = GameModeInfo.Entry.Visual.DescriptionTranslationKey.GetText();
 		}
 	}
 }

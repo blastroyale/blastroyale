@@ -17,8 +17,8 @@ MonoBehaviour:
     - Entries:
       - TimedEntry: 1
         TimedGameModeEntries:
-        - StartsAt: 02/07/2024 12:38
-          EndsAt: 02/07/2024 12:40
+        - StartsAt: 02/07/2024 14:50
+          EndsAt: 02/07/2024 15:51
         MatchConfig:
           ConfigId: b15b823f
           GameModeID: BattleRoyale
@@ -60,8 +60,14 @@ MonoBehaviour:
           TimeoutTimeInSeconds: 10
           ExtraKey: event_1
         Visual:
-          TitleTranslationKey: UITGameModeSelection/br_solo_title
-          DescriptionTranslationKey: UITGameModeSelection/br_solo_description
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: DEADLY BEASTS
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Hurry! Limited event
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-solo
     - Entries:
@@ -85,8 +91,14 @@ MonoBehaviour:
           TimeoutTimeInSeconds: 10
           ExtraKey: 
         Visual:
-          TitleTranslationKey: UITGameModeSelection/br_solo_title
-          DescriptionTranslationKey: UITGameModeSelection/br_solo_description
+          TitleTranslationKey:
+            _useLocalization: 1
+            _localizationTerm: UITGameModeSelection/br_solo_title
+            _text: 
+          DescriptionTranslationKey:
+            _useLocalization: 1
+            _localizationTerm: UITGameModeSelection/br_solo_description
+            _text: 
           CardModifier: solo
           IconSpriteClass: sprite-shared__icon-gamemode-solo
     - Entries:
@@ -110,8 +122,14 @@ MonoBehaviour:
           TimeoutTimeInSeconds: 25
           ExtraKey: 
         Visual:
-          TitleTranslationKey: UITGameModeSelection/br_duos_title
-          DescriptionTranslationKey: UITGameModeSelection/br_duos_description
+          TitleTranslationKey:
+            _useLocalization: 1
+            _localizationTerm: UITGameModeSelection/br_duos_title
+            _text: 
+          DescriptionTranslationKey:
+            _useLocalization: 1
+            _localizationTerm: UITGameModeSelection/br_duos_description
+            _text: 
           CardModifier: duos
           IconSpriteClass: sprite-shared__icon-gamemode-duos
     - Entries:
@@ -135,7 +153,13 @@ MonoBehaviour:
           TimeoutTimeInSeconds: 40
           ExtraKey: 
         Visual:
-          TitleTranslationKey: UITGameModeSelection/br_quads_title
-          DescriptionTranslationKey: UITGameModeSelection/br_quads_description
+          TitleTranslationKey:
+            _useLocalization: 1
+            _localizationTerm: UITGameModeSelection/br_quads_title
+            _text: 
+          DescriptionTranslationKey:
+            _useLocalization: 1
+            _localizationTerm: UITGameModeSelection/br_quads_description
+            _text: 
           CardModifier: quads
           IconSpriteClass: sprite-shared__icon-gamemode-squads

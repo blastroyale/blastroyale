@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Globalization;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils.Attributes;
+using I2.Loc;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -20,6 +23,41 @@ namespace FirstLight.Game.Configs.Utils
 		[Required] public AnimatorUpdateMode UpdateMode;
 		[Required] public AnimatorCullingMode CullingMode;
 		[Required] public RuntimeAnimatorController Controller;
+	}
+
+	[Serializable]
+	public class LocalizableString
+	{
+		[SerializeField] private bool _useLocalization;
+
+		[ShowIf("_useLocalization"), LocalizationTerm, SerializeField]
+		private string _localizationTerm;
+
+		[ShowIf("@!_useLocalization")] [SerializeField]
+		private string _text;
+
+		public string GetText()
+		{
+			return _useLocalization ? LocalizationManager.GetTranslation(_localizationTerm) : _text;
+		}
+
+		public static LocalizableString FromText(string text)
+		{
+			return new LocalizableString
+			{
+				_useLocalization = false,
+				_text = text
+			};
+		}
+
+		public static LocalizableString FromTerm(string term)
+		{
+			return new LocalizableString
+			{
+				_useLocalization = true,
+				_localizationTerm = term
+			};
+		}
 	}
 
 	[Serializable]

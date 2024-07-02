@@ -623,8 +623,8 @@
     align-self: flex-start;
     justify-content: flex-start;
     position: absolute;
-    top: -106px;
-    left: 26px;
+    top: -109px;
+    left: 11px;
 }
 
 .game-mode-button__mode {
@@ -640,14 +640,14 @@
     padding-right: 0;
     padding-left: 0;
     right: auto;
-    font-size: 44px;
-    top: -76px;
     position: absolute;
     justify-content: space-around;
     align-items: stretch;
     align-self: stretch;
-    left: 229px;
     letter-spacing: -4px;
+    font-size: 42px;
+    top: -67px;
+    left: 232px;
 }
 
 .game-mode-button__selected-mode {
@@ -656,8 +656,6 @@
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    overflow: visible;
-    -unity-text-align: middle-right;
     align-items: center;
     scale: 1 1;
     top: -52px;
@@ -669,6 +667,10 @@
     position: relative;
     letter-spacing: -4px;
     font-size: 50px;
+    width: 248px;
+    height: 51px;
+    -unity-text-align: middle-left;
+    overflow: hidden;
 }
 
 .game-mode-button__mode--multiple-line {

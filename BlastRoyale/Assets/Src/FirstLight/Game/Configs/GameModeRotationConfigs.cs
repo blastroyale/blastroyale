@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using Quantum;
 using UnityEngine;
@@ -20,16 +21,15 @@ namespace FirstLight.Game.Configs
 			[Required] public string QueueName;
 			[Required] public int TimeoutTimeInSeconds;
 
-			[UnityEngine.Tooltip("Used to split player who have the same key, used for events")]
+			[Tooltip("Used to split player who have the same key, used for events")]
 			public string ExtraKey;
 		}
-		
 
 		[Serializable]
 		public class VisualEntryConfig
 		{
-			[LocalizationTerm] public string TitleTranslationKey;
-			[LocalizationTerm] public string DescriptionTranslationKey;
+			public LocalizableString TitleTranslationKey;
+			public LocalizableString DescriptionTranslationKey;
 			public string CardModifier;
 			[SpriteClass] public string IconSpriteClass;
 		}
@@ -138,5 +138,4 @@ namespace FirstLight.Game.Configs
 			}
 		}
 	}
-	
 }

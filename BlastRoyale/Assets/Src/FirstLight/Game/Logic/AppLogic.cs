@@ -103,12 +103,6 @@ namespace FirstLight.Game.Logic
 
 		public string AvatarUrl => Data.AvatarUrl;
 
-		public GameModeRotationConfig.GameModeEntry LastGameMode
-		{
-			get => Data.LastGameMode;
-			set => Data.LastGameMode = value;
-		}
-
 		public int LastSelectedRankedMap
 		{
 			get => Data.LastSelectedRankedMap;

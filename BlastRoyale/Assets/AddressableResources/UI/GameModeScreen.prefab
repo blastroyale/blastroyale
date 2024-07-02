@@ -65,7 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _document: {fileID: 1971436955827305704}
   _buttonAsset: {fileID: 9197481963319205126, guid: 1acd361f6f23744e4b060f6c7339014b, type: 3}
-  _newEventDirector: {fileID: 0}
+  _newEventDirector: {fileID: 4565728818201693878}
 --- !u!1 &9106152680101475467
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,6 +30,11 @@ namespace FirstLight.Game.Services
 			Duration = duration;
 		}
 
+		public string GetKey()
+		{
+			return Entry.MatchConfig.ConfigId + ":" + Duration?.StartsAt + ":" + Duration?.EndsAt;
+		}
+
 		public override string ToString()
 		{
 			return $"Entry({Entry}), EndTime({Duration?.EndsAt}), IsFixed({IsFixed})";
@@ -175,7 +180,7 @@ namespace FirstLight.Game.Services
 				foreach (var gm in _slots)
 				{
 					if (gm.Entry.MatchConfig == null) continue;
-					if (gm.Entry.MatchConfig.ConfigId == lastGameMode)
+					if (gm.Entry.MatchConfig.ConfigId == lastGameMode && IsInRotation(gm.Entry))
 					{
 						FLog.Verbose($"Restored selected game mode to: {lastGameMode}");
 						SelectedGameMode.Value = gm;
@@ -228,6 +233,16 @@ namespace FirstLight.Game.Services
 			var newValue = _slots.FirstOrDefault(a => a.Entry.PlayfabQueue.QueueName == current);
 			if (newValue.Entry.PlayfabQueue?.QueueName == null) return;
 			SelectedGameMode.Value = newValue;
+		}
+
+		public bool IsInRotation(GameModeRotationConfig.GameModeEntry gameMode)
+		{
+			if (!gameMode.TimedEntry)
+			{
+				return true;
+			}
+			var now = DateTime.UtcNow;
+			return gameMode.TimedGameModeEntries.Any(a => a.Contains(now));
 		}
 
 		/// <summary>
@@ -298,16 +313,6 @@ namespace FirstLight.Game.Services
 				.First(g => g.Entry.TeamSize >= size);
 
 			SelectedGameMode.Value = firstThatFits;
-		}
-
-		private bool CanSelectGameMode(GameModeRotationConfig.GameModeEntry gameMode)
-		{
-			return IsInRotation(gameMode);
-		}
-
-		public bool IsInRotation(GameModeRotationConfig.GameModeEntry gameMode)
-		{
-			return _slots.Any(gmi => gmi.Entry == gameMode);
 		}
 
 		private void RefreshGameModes(bool forceAll)

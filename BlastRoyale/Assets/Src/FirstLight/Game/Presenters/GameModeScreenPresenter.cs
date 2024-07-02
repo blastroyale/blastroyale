@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
@@ -36,9 +38,9 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[SerializeField] private VisualTreeAsset _buttonAsset;
+
 		[SerializeField, Required, TabGroup("Animation")]
 		private PlayableDirector _newEventDirector;
-
 
 		private Button _closeButton;
 		private ScrollView _buttonsSlider;
@@ -48,6 +50,8 @@ namespace FirstLight.Game.Presenters
 
 		private List<GameModeSelectionButtonView> _buttonViews;
 		private IGameServices _services;
+
+		private CancellationTokenSource _cancelSelection = null;
 
 		private void Awake()
 		{
@@ -70,15 +74,15 @@ namespace FirstLight.Game.Presenters
 			// Add game modes buttons
 			foreach (var slot in _services.GameModeService.Slots)
 			{
+				if (slot.Entry.MatchConfig == null) continue;
 				var button = _buttonAsset.Instantiate();
 				button.userData = slot;
 				button.AttachView(this, out GameModeSelectionButtonView view);
+				view.NewEventDirector = _newEventDirector;
 				view.SetData("GameModeButton" + orderNumber, slot, GetVisibleClass(orderNumber++));
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
-
 				view.Selected = _services.GameModeService.SelectedGameMode.Value.Equals(slot);
-
 				_buttonsSlider.Add(button);
 			}
 
@@ -96,8 +100,8 @@ namespace FirstLight.Game.Presenters
 					Visual = new GameModeRotationConfig.VisualEntryConfig
 					{
 						CardModifier = "custom",
-						TitleTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_title,
-						DescriptionTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_description
+						TitleTranslationKey = LocalizableString.FromTerm(ScriptTerms.UITGameModeSelection.custom_game_title),
+						DescriptionTranslationKey = LocalizableString.FromTerm(ScriptTerms.UITGameModeSelection.custom_game_description)
 					}
 				}
 			};
@@ -161,14 +165,16 @@ namespace FirstLight.Game.Presenters
 		private void OnModeButtonClicked(GameModeSelectionButtonView info)
 		{
 			SelectButton(info);
-			//StartCoroutine(ChangeGameModeCoroutine(info));
+			_cancelSelection?.Cancel();
+			_cancelSelection = new CancellationTokenSource();
+			ChangeGameModeCoroutine(info, _cancelSelection.Token).Forget();
 		}
 
-		private IEnumerator ChangeGameModeCoroutine(GameModeSelectionButtonView info)
+		private async UniTask ChangeGameModeCoroutine(GameModeSelectionButtonView info, CancellationToken tok)
 		{
+			await UniTask.WaitForSeconds(0.75f, cancellationToken: tok);
 			_services.GameModeService.SelectedGameMode.Value = info.GameModeInfo;
 			Data.GameModeChosen(info.GameModeInfo);
-			yield return null;
 		}
 
 		private void SelectButton(GameModeSelectionButtonView info)

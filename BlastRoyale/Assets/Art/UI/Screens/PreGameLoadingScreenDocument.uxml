@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/PreGameLoadingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#PreGameLoadingScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/ScreenHeaderStyle.uss?fileID=7433441132597879392&amp;guid=656beac25a9f4146b77bab8d9c8c8699&amp;type=3#ScreenHeaderStyle" />
-   <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent">
+    <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent">
         <FirstLight.Game.UIElements.AnimatedImageElement name="Clouds" sine-wave-pos-min-x="-65" sine-wave-pos-x-frequency="1" sine-wave-pos-y-frequency="-1" sine-wave-pos-min-y="-35" sine-wave-pos-max-x="65" sine-wave-pos-max-y="35" sine-wave-pos-x-offset="0" sine-wave-pos-y-offset="0.75" class="clouds" />
         <FirstLight.Game.UIElements.SafeAreaElement apply-top="true" class="safe-area">
             <FirstLight.Game.UIElements.AnimatedImageElement name="PlayerImage" sine-wave-pos-max-y="25" sine-wave-pos-min-y="-25" sine-wave-pos-y-frequency="2" sine-wave-pos-x-frequency="2" sine-wave-pos-min-x="-25" sine-wave-pos-max-x="25" sine-wave-pos-x-offset="1" class="player-image" />
@@ -21,8 +21,8 @@
                     <ui:VisualElement name="PartyMarkers" picking-mode="Ignore" class="fill-parent party-markers">
                         <ui:VisualElement name="marker" class="map-marker-party" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker">
-                        <ui:Label name="MapMarkerTitle" text="PLACE NAME" picking-mode="Ignore" class="map-marker__title" />
+                    <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker" style="flex-direction: row;">
+                        <ui:Label name="MapMarkerTitle" text="PLACE NAME" picking-mode="Ignore" class="map-marker__title" style="position: relative; bottom: auto;" />
                         <ui:VisualElement name="MapMarkerIcon" picking-mode="Ignore" class="map-marker__icon" />
                     </ui:VisualElement>
                     <ui:VisualElement name="MapTitleBg" picking-mode="Ignore" class="map__title-bg">
@@ -32,7 +32,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="SquadContainer" class="squad-container" style="background-color: rgba(19, 142, 211, 0.4); overflow: visible; max-height: 624px;">
-                <FirstLight.Game.UIElements.LocalizedButton name="Title" localization-key="UITHomeScreen/party" class="squad-container__title" style="display: flex; background-color: rgba(16, 12, 34, 0); color: rgb(248, 199, 46); -unity-text-outline-width: 1px; text-shadow: 3px 3px 0 rgb(0, 0, 0); letter-spacing: 0; -unity-text-outline-color: rgb(0, 0, 0); top: -30px; position: absolute; left: 0; right: 0;" />
+                <FirstLight.Game.UIElements.LocalizedButton name="Title" localization-key="UITHomeScreen/youre_team" class="squad-container__title" style="display: flex; background-color: rgba(16, 12, 34, 0); color: rgb(248, 199, 46); -unity-text-outline-width: 1px; text-shadow: 3px 3px 0 rgb(0, 0, 0); letter-spacing: 0; -unity-text-outline-color: rgb(0, 0, 0); top: -30px; position: absolute; left: 0; right: 0;" />
                 <ui:VisualElement name="Row0" class="header-row" style="flex-direction: row; margin-top: 40px; margin-right: 10px; margin-bottom: 10px; margin-left: 40px;">
                     <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement0" style="position: relative;" />
                     <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name0" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden;" />

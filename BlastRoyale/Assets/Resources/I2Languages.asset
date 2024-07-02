@@ -11332,6 +11332,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/AvatarBall
+      TermType: 0
+      Description: 
+      Languages:
+      - FOOTBALL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBallDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/AvatarBlastcatads
       TermType: 0
       Description: 
@@ -11398,6 +11420,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/AvatarBurger
+      TermType: 0
+      Description: 
+      Languages:
+      - BURGERHEAD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBurgerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/AvatarBurgerads
       TermType: 0
       Description: 
@@ -11413,7 +11457,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - June'24 Leaderboard
       - 
       - 
       - 
@@ -11765,7 +11809,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Purchase in the Shop
       - 
       - 
       - 
@@ -11904,6 +11948,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/AvatarFootballguy
+      TermType: 0
+      Description: 
+      Languages:
+      - PENALTY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFootballguyDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/AvatarGearedape
       TermType: 0
       Description: 
@@ -11948,6 +12014,72 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/AvatarLincoln
+      TermType: 0
+      Description: 
+      Languages:
+      - SERIOUS BUSINESS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLincolnDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLion
+      TermType: 0
+      Description: 
+      Languages:
+      - ARMOR CLEANING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLion2
+      TermType: 0
+      Description: 
+      Languages:
+      - ROAR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLion2Description
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLionDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/AvatarMaleassasin
       TermType: 0
       Description: 
@@ -11985,7 +12117,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Purchase in the Shop
       - 
       - 
       - 
@@ -12007,7 +12139,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - May'24 Leaderboard
       - 
       - 
       - 
@@ -12095,7 +12227,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - May'24 Leaderboard
       - 
       - 
       - 
@@ -12139,7 +12271,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Purchase in the Shop
       - 
       - 
       - 
@@ -12271,7 +12403,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Purchase in the Shop
       - 
       - 
       - 
@@ -12293,7 +12425,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - June'24 Leaderboard
       - 
       - 
       - 
@@ -12315,7 +12447,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - July'24 Leaderboard
       - 
       - 
       - 
@@ -12447,139 +12579,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarSuperstarloveads
-      TermType: 0
-      Description: 
-      Languages:
-      - HEART EYES
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarSuperstarloveadsDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - January'24 Leaderboard
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarUnicornssticker
-      TermType: 0
-      Description: 
-      Languages:
-      - UNICORN
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarUnicornsstickerDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Beta Season 8
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarBurger
-      TermType: 0
-      Description: 
-      Languages:
-      - BURGERHEAD
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarBurgerDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Beta Season 10
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarFootballguy
-      TermType: 0
-      Description: 
-      Languages:
-      - PENALTY
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarFootballguyDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Purchase in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarLion
-      TermType: 0
-      Description: 
-      Languages:
-      - ARMOR CLEANING
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarLionDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - TBD
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarLion2
-      TermType: 0
-      Description: 
-      Languages:
-      - ROAR
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarLion2Description
-      TermType: 0
-      Description: 
-      Languages:
-      - TBD
+      - July'24 Leaderboard
       - 
       - 
       - 
@@ -12652,6 +12652,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/AvatarSuperstarloveads
+      TermType: 0
+      Description: 
+      Languages:
+      - HEART EYES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSuperstarloveadsDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - January'24 Leaderboard
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/AvatarSwimmer
       TermType: 0
       Description: 
@@ -12696,6 +12718,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/AvatarUnicornssticker
+      TermType: 0
+      Description: 
+      Languages:
+      - UNICORN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarUnicornsstickerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 8
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/AvatarVr
       TermType: 0
       Description: 
@@ -12708,50 +12752,6 @@ MonoBehaviour:
       Flags: 0000000000
       Languages_Touch: []
     - Term: GameIds/AvatarVrDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Purchase in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarBall
-      TermType: 0
-      Description: 
-      Languages:
-      - FOOTBALL
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarBallDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Beta Season 10
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarLincoln
-      TermType: 0
-      Description: 
-      Languages:
-      - SERIOUS BUSINESS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarLincolnDescription
       TermType: 0
       Description: 
       Languages:
@@ -12887,6 +12887,17 @@ MonoBehaviour:
       Description: 
       Languages:
       - LANDS OF BATTLES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BattlelandsMapDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Medium size. Remembrance of things past
       - 
       - 
       - 
@@ -13159,6 +13170,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/CemeteryDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Extra small size. Fight carefully to not disturb the spirits of the dead
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/ChickenDinner
       TermType: 0
       Description: 
@@ -13320,6 +13342,17 @@ MonoBehaviour:
       Description: 
       Languages:
       - DISTRICT DASH
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/DistrictDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Small size. Close combat fights on the streets of a town centre
       - 
       - 
       - 
@@ -13660,6 +13693,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/FortressDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Extra small size. Siege or be sieged. Who will control the keep?
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Fragment_Plural
       TermType: 0
       Description: 
@@ -13913,11 +13957,34 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/IslandOneDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Large size. Explore the once lively island turned into a battlefield frozen
+        in time
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/IslandsMap
       TermType: 0
       Description: 
       Languages:
       - RIVERBANK RUMBLE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/IslandsMapDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Medium size. Secret research facilities on the banks of a peaceful river
       - 
       - 
       - 
@@ -14192,6 +14259,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MazeMayhemDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Medium size. Explore the aftermath of the destructive event
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinAtomSlicer
       TermType: 0
       Description: 
@@ -14208,6 +14286,28 @@ MonoBehaviour:
       Description: 
       Languages:
       - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinAxe
+      TermType: 0
+      Description: 
+      Languages:
+      - AXE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinAxeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
       - 
       - 
       - 
@@ -14252,6 +14352,28 @@ MonoBehaviour:
       Description: 
       Languages:
       - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinCrowbar
+      TermType: 0
+      Description: 
+      Languages:
+      - CROWBAR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinCrowbarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
       - 
       - 
       - 
@@ -14412,6 +14534,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinKnife
+      TermType: 0
+      Description: 
+      Languages:
+      - KNIFE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinKnifeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinMagicalShillelagh
       TermType: 0
       Description: 
@@ -14472,6 +14616,28 @@ MonoBehaviour:
       Description: 
       Languages:
       - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinOar
+      TermType: 0
+      Description: 
+      Languages:
+      - OAR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinOarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
       - 
       - 
       - 
@@ -14588,6 +14754,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinSpatula
+      TermType: 0
+      Description: 
+      Languages:
+      - SPATULA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinSpatulaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinThunderAxe
       TermType: 0
       Description: 
@@ -14632,6 +14820,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinTrophy
+      TermType: 0
+      Description: 
+      Languages:
+      - TROPHY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinTrophyDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinTvTakedown
       TermType: 0
       Description: 
@@ -14648,6 +14858,28 @@ MonoBehaviour:
       Description: 
       Languages:
       - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinWalkingStick
+      TermType: 0
+      Description: 
+      Languages:
+      - CANE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinWalkingStickDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
       - 
       - 
       - 
@@ -14732,160 +14964,6 @@ MonoBehaviour:
       Flags: 0000000000
       Languages_Touch: []
     - Term: GameIds/MeleeSkinYouGotMailDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Purchase in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinCrowbar
-      TermType: 0
-      Description: 
-      Languages:
-      - CROWBAR
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinCrowbarDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Beta Season 10
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinAxe
-      TermType: 0
-      Description: 
-      Languages:
-      - AXE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinAxeDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Purchase in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinKnife
-      TermType: 0
-      Description: 
-      Languages:
-      - KNIFE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinKnifeDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Beta Season 10
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinOar
-      TermType: 0
-      Description: 
-      Languages:
-      - OAR
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinOarDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Beta Season 10
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinSpatula
-      TermType: 0
-      Description: 
-      Languages:
-      - SPATULA
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinSpatulaDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Beta Season 10
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinTrophy
-      TermType: 0
-      Description: 
-      Languages:
-      - TROPHY
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinTrophyDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Beta Season 10
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinWalkingStick
-      TermType: 0
-      Description: 
-      Languages:
-      - CANE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinWalkingStickDescription
       TermType: 0
       Description: 
       Languages:
@@ -15170,226 +15248,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/PlayerSkinBurger
-      TermType: 0
-      Description: 
-      Languages:
-      - PATTY BUN
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinBurgerDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Beta Season 10
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinFootballGuy
-      TermType: 0
-      Description: 
-      Languages:
-      - MESSY
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinFootballGuyDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Purchase in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinLincoln
-      TermType: 0
-      Description: 
-      Languages:
-      - ABE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinLincolnDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Purchase in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinLion
-      TermType: 0
-      Description: 
-      Languages:
-      - LION HART
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinLionDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - TBD
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinSatoshi
-      TermType: 0
-      Description: 
-      Languages:
-      - NAKAMOTO
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinSatoshiDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - TBD
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinSheriff
-      TermType: 0
-      Description: 
-      Languages:
-      - WENDY WEST
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinSheriffDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Beta Season 10
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinSoldier
-      TermType: 0
-      Description: 
-      Languages:
-      - OSMAN
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinSoldierDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Purchase in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinSwimmer
-      TermType: 0
-      Description: 
-      Languages:
-      - BELLA FLOAT
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinSwimmerDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Beta Season 10
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinThief
-      TermType: 0
-      Description: 
-      Languages:
-      - VINNIE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinThiefDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Beta Season 10
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinVR
-      TermType: 0
-      Description: 
-      Languages:
-      - JOON
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinVRDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Purchase in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: GameIds/PlayerSkinBrandFemale
       TermType: 0
       Description: 
@@ -15428,6 +15286,28 @@ MonoBehaviour:
       Description: 
       Languages:
       - Default character
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBurger
+      TermType: 0
+      Description: 
+      Languages:
+      - PATTY BUN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBurgerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
       - 
       - 
       - 
@@ -15566,6 +15446,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinFootballGuy
+      TermType: 0
+      Description: 
+      Languages:
+      - MESSY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFootballGuyDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/PlayerSkinGearedApe
       TermType: 0
       Description: 
@@ -15628,6 +15530,50 @@ MonoBehaviour:
       - Blast Pass - Beta Season 9
       - "It\u2019s my lucky day!"
       - "It\u2019s my lucky day!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinLincoln
+      TermType: 0
+      Description: 
+      Languages:
+      - ABE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinLincolnDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinLion
+      TermType: 0
+      Description: 
+      Languages:
+      - LION HART
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinLionDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15742,6 +15688,50 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinSatoshi
+      TermType: 0
+      Description: 
+      Languages:
+      - NAKAMOTO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSatoshiDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSheriff
+      TermType: 0
+      Description: 
+      Languages:
+      - WENDY WEST
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSheriffDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/PlayerSkinSnowboarder
       TermType: 0
       Description: 
@@ -15764,6 +15754,72 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinSoldier
+      TermType: 0
+      Description: 
+      Languages:
+      - OSMAN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSoldierDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSwimmer
+      TermType: 0
+      Description: 
+      Languages:
+      - BELLA FLOAT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSwimmerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinThief
+      TermType: 0
+      Description: 
+      Languages:
+      - VINNIE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinThiefDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 10
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/PlayerSkinTieGuy
       TermType: 0
       Description: 
@@ -15782,6 +15838,28 @@ MonoBehaviour:
       - Came To A Better Place
       - Punk Rock Thrasher
       - Punk Rock Thrasher
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinVR
+      TermType: 0
+      Description: 
+      Languages:
+      - JOON
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinVRDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchase in the Shop
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -20800,6 +20878,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/RankedAirdropOpened
+      TermType: 0
+      Description: 
+      Languages:
+      - Airdrops Opened
+      - Airdrops Opened
+      - Airdrops Opened
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MainMenu/RankedDamageDone
       TermType: 0
       Description: 
@@ -20846,6 +20935,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/RankedGunsCollected
+      TermType: 0
+      Description: 
+      Languages:
+      - Guns Collected
+      - Guns Collected
+      - Guns Collected
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MainMenu/RankedKills
       TermType: 0
       Description: 
@@ -20853,6 +20953,28 @@ MonoBehaviour:
       - Kills
       - "\n\u0420\u0430\u043D\u0433\u043E\u0432\u044B\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
       - Jogos classificados vencidos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedPickupsCollected
+      TermType: 0
+      Description: 
+      Languages:
+      - Pickups Collected
+      - Pickups Collected
+      - Pickups Collected
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedSupplyCratesOpened
+      TermType: 0
+      Description: 
+      Languages:
+      - Crates Opened
+      - Crates Opened
+      - Crates Opened
       - 
       - 
       Flags: 0000000000
@@ -21644,50 +21766,6 @@ MonoBehaviour:
       - "\u041E\u0440\u0443\u0436\u0438\u0435 \u043D\u0430 \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u043C
         \u0443\u0440\u043E\u0432\u043D\u0435"
       - "Arma est\xE1 no n\xEDvel m\xE1ximo"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/RankedAirdropOpened
-      TermType: 0
-      Description: 
-      Languages:
-      - Airdrops Opened
-      - Airdrops Opened
-      - Airdrops Opened
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/RankedSupplyCratesOpened
-      TermType: 0
-      Description: 
-      Languages:
-      - Crates Opened
-      - Crates Opened
-      - Crates Opened
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/RankedGunsCollected
-      TermType: 0
-      Description: 
-      Languages:
-      - Guns Collected
-      - Guns Collected
-      - Guns Collected
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/RankedPickupsCollected
-      TermType: 0
-      Description: 
-      Languages:
-      - Pickups Collected
-      - Pickups Collected
-      - Pickups Collected
       - 
       - 
       Flags: 0000000000
@@ -24862,7 +24940,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Play Battle Royale in a team of 2
+      - Play in teams of 2 players
       - 
       - 
       - 
@@ -24884,7 +24962,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Play Battle Royale in a team of 4
+      - Play in teams of 4 players
       - 
       - 
       - 
@@ -24906,7 +24984,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Play Battle Royale vs everyone
+      - One vs everyone
       - 
       - 
       - 
@@ -24928,7 +25006,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Play Battle Royale in a team of 3
+      - Play in teams of 3 players
       - 
       - 
       - 
@@ -25372,7 +25450,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SQUAD UP
+      - PARTY UP
       - "\u041E\u0422\u0420\u042F\u0414"
       - "ESQUADR\xC3O"
       - 
@@ -25539,6 +25617,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/youre_team
+      TermType: 0
+      Description: 
+      Languages:
+      - YOUR TEAM
+      - "\u0422\u0412\u041E\u042F \u041A\u041E\u041C\u0410\u041D\u0414\u0410"
+      - SEU TIME
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITFriends/accept
       TermType: 0
       Description: 
@@ -25572,6 +25661,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITFriends/blocked_empty
+      TermType: 0
+      Description: 
+      Languages:
+      - No blocked players
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITFriends/decline
       TermType: 0
       Description: 
@@ -25588,6 +25688,20 @@ MonoBehaviour:
       Description: 
       Languages:
       - ENTER FRIEND ID OR NAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITFriends/friends_empty
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Connect to social networks or find
+
+        friends in the game to play
+        with!'
       - 
       - 
       - 
@@ -25671,6 +25785,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITFriends/requests_empty
+      TermType: 0
+      Description: 
+      Languages:
+      - No friend requests
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITFriends/sent
       TermType: 0
       Description: 
@@ -25731,42 +25856,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - YOUR ID
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITFriends/blocked_empty
-      TermType: 0
-      Description: 
-      Languages:
-      - No blocked players
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITFriends/friends_empty
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Connect to social networks or find
-
-        friends in the game to play
-        with!'
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITFriends/requests_empty
-      TermType: 0
-      Description: 
-      Languages:
-      - No friend requests
       - 
       - 
       - 
@@ -27509,6 +27598,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITShared/confirm
+      TermType: 0
+      Description: 
+      Languages:
+      - CONFIRM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITShared/confirmation
       TermType: 0
       Description: 
@@ -27630,6 +27730,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITShared/match_info
+      TermType: 0
+      Description: 
+      Languages:
+      - MATCH INFO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITShared/match_info_summary
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}, created by {1}.'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITShared/next
       TermType: 0
       Description: 
@@ -27681,6 +27803,17 @@ MonoBehaviour:
       - SHOW
       - "\u041F\u041E\u041A\u0410\u0417\u042B\u0412\u0410\u0422\u042C"
       - MOSTRAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITShared/summary
+      TermType: 0
+      Description: 
+      Languages:
+      - SUMMARY
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -28562,6 +28695,657 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/allow_bots
+      TermType: 0
+      Description: 
+      Languages:
+      - ALLOW BOTS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/browse_games
+      TermType: 0
+      Description: 
+      Languages:
+      - BROWSE GAMES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/create_game
+      TermType: 0
+      Description: 
+      Languages:
+      - CREATE GAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/create_lobby
+      TermType: 0
+      Description: 
+      Languages:
+      - CREATE LOBBY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/enter_room_code
+      TermType: 0
+      Description: 
+      Languages:
+      - ENTER ROOM CODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/filter_weapons
+      TermType: 0
+      Description: 
+      Languages:
+      - FILTER WEAPONS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/friends_playing
+      TermType: 0
+      Description: 
+      Languages:
+      - YOUR FRIENDS ARE PLAYING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/game_info
+      TermType: 0
+      Description: 
+      Languages:
+      - GAME INFO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/in_game
+      TermType: 0
+      Description: 
+      Languages:
+      - IN GAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/in_lobby
+      TermType: 0
+      Description: 
+      Languages:
+      - IN LOBBY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/invite_friends
+      TermType: 0
+      Description: 
+      Languages:
+      - INVITE FRIENDS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/join
+      TermType: 0
+      Description: 
+      Languages:
+      - JOIN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/join_with_code
+      TermType: 0
+      Description: 
+      Languages:
+      - JOIN WITH CODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/lobby_code
+      TermType: 0
+      Description: 
+      Languages:
+      - LOBBY CODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/map
+      TermType: 0
+      Description: 
+      Languages:
+      - MAP
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/max_players
+      TermType: 0
+      Description: 
+      Languages:
+      - MAX PLAYERS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/max_players_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - Select the maximum number of players
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mode
+      TermType: 0
+      Description: 
+      Languages:
+      - MODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_ConsumableSharing
+      TermType: 0
+      Description: 
+      Languages:
+      - CONSUMABLE SHARING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_ConsumableSharing_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - When you pick up ammo/health/shields your teammates also get it
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_DisableRevive
+      TermType: 0
+      Description: 
+      Languages:
+      - NO REVIVE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_DisableRevive_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Risks are high. If you die - teammates can't revive you
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_DoNotDropSpecials
+      TermType: 0
+      Description: 
+      Languages:
+      - NO SPECIALS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_DoNotDropSpecials_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Specials don't spawn and don't drop from crates
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_Hardcore
+      TermType: 0
+      Description: 
+      Languages:
+      - HARDCORE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_Hardcore_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - No health or shields pickups. 100 HP is all you have for the whole match
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_HealthyAir
+      TermType: 0
+      Description: 
+      Languages:
+      - HEALTHY AIR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_HealthyAir_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Every few seconds everyone gets healed a bit
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_SafeZoneInPlayableArea
+      TermType: 0
+      Description: 
+      Languages:
+      - TAMED ZONE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_SafeZoneInPlayableArea_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - New safe zone always spawns within the current playable area
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_SpeedUp
+      TermType: 0
+      Description: 
+      Languages:
+      - SPEED UP
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_SpeedUp_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Movement is much faster
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutators
+      TermType: 0
+      Description: 
+      Languages:
+      - MUTATORS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/name
+      TermType: 0
+      Description: 
+      Languages:
+      - NAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/no_lobbies
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Oh-oh, looks like no lobbies were found.
+
+        Try creating one!'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/no_matches
+      TermType: 0
+      Description: 
+      Languages:
+      - No matches found. Try creating one!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/players
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAYERS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/private_room
+      TermType: 0
+      Description: 
+      Languages:
+      - PRIVATE ROOM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/region
+      TermType: 0
+      Description: 
+      Languages:
+      - REGION
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/select_map
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT A MAP
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/select_mutators
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT MUTATORS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/select_squad_size
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT SQUAD SIZE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/selected_mutators
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Selected mutators: {0}'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/show_all_regions
+      TermType: 0
+      Description: 
+      Languages:
+      - Show All Regions
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/show_creator_name
+      TermType: 0
+      Description: 
+      Languages:
+      - SHOW CREATOR NAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/spectate
+      TermType: 0
+      Description: 
+      Languages:
+      - SPECTATE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/spectators
+      TermType: 0
+      Description: 
+      Languages:
+      - SPECTATORS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/start_match
+      TermType: 0
+      Description: 
+      Languages:
+      - START MATCH
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/status
+      TermType: 0
+      Description: 
+      Languages:
+      - STATUS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/team_size
+      TermType: 0
+      Description: 
+      Languages:
+      - TEAM SIZE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/invite_blasters
+      TermType: 0
+      Description: 
+      Languages:
+      - INVITE BLASTERS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/copy_party_code
+      TermType: 0
+      Description: 
+      Languages:
+      - COPY PARTY CODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/create_party
+      TermType: 0
+      Description: 
+      Languages:
+      - CREATE PARTY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/invite_description
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} has invited you\nto join their party!'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/join_party
+      TermType: 0
+      Description: 
+      Languages:
+      - JOIN PARTY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/leave_party
+      TermType: 0
+      Description: 
+      Languages:
+      - LEAVE PARTY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/online_friends
+      TermType: 0
+      Description: 
+      Languages:
+      - ONLINE FRIENDS ({0})
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/party_invite
+      TermType: 0
+      Description: 
+      Languages:
+      - PARTY INVITE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITParty/your_party
+      TermType: 0
+      Description: 
+      Languages:
+      - YOUR PARTY ({0}/{1})
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -28586,7 +29370,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1718529454778
+    Google_LastUpdatedVersion: 1719934565935
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

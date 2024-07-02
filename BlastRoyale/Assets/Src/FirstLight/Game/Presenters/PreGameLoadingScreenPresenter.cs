@@ -48,6 +48,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _mapHolder;
 		private VisualElement _mapTitleBg;
 		private VisualElement _mapMarker;
+		private VisualElement _mapMarkerIcon;
 		private VisualElement _mapImage;
 		private VisualElement _squadContainer;
 		private VisualElement _partyMarkers;
@@ -102,6 +103,7 @@ namespace FirstLight.Game.Presenters
 			_mapHolder = Root.Q("Map").Required();
 			_mapImage = Root.Q("MapImage").Required();
 			_mapMarker = Root.Q("MapMarker").Required();
+			_mapMarkerIcon = Root.Q("MapMarkerIcon").Required();
 			_mapMarkerTitle = Root.Q<Label>("MapMarkerTitle").Required();
 			_mapTitleBg = Root.Q("MapTitleBg").Required();
 			_loadStatusLabel = Root.Q<Label>("LoadStatusLabel").Required();
@@ -440,11 +442,19 @@ namespace FirstLight.Game.Presenters
 			{
 				_mapMarkerTitle.SetDisplay(false);
 			}
-
+			
 			_markerLocalPosition = new Vector3(localPos.x - mapWidthHalf, localPos.y - mapHeightHalf, 0);
-			_mapMarker.transform.position = _markerLocalPosition;
 
+			UpdateMarkerPosition().Forget();
+			
 			return true;
+		}
+
+		private async UniTaskVoid UpdateMarkerPosition()
+		{
+			 await UniTask.DelayFrame(1);
+			 _markerLocalPosition.x -= (_mapMarker.worldBound.width / 2) - (_mapMarkerIcon.worldBound.width / 2);
+			 _mapMarker.transform.position = _markerLocalPosition;
 		}
 
 		/// <summary>

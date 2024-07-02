@@ -23,21 +23,27 @@ namespace FirstLight.Game.UIElements
 		
 		public PlayerMemberElement()
 		{
-			AddToClassList(USS_BLOCK);
+			AddToClassList(USS_TEAM_COLOR);
 
-			var container = new VisualElement {name = "container"};
-			Add(container);
-			container.AddToClassList(USS_CONTAINER);
+			//var container = new VisualElement {name = "container"};
+			//Add(container);
+			//container.AddToClassList(USS_CONTAINER);
 			
-			container.Add(_teamColor = new VisualElement {name = "team-color"});
-			_teamColor.AddToClassList(USS_TEAM_COLOR);
+			Add(_pfpMask = new VisualElement {name = "pfp-mask"});
+			_pfpMask.AddToClassList(USS_PFP_MASK);
 			{
-				_teamColor.Add(_pfpMask = new VisualElement {name = "pfp-mask"});
-				_pfpMask.AddToClassList(USS_PFP_MASK);
-				
 				_pfpMask.Add(_pfp = new VisualElement {name = "pfp"});
 				_pfp.AddToClassList(USS_PFP);
 			}
+
+			//_teamColor.AddToClassList(USS_TEAM_COLOR);
+			//{
+			//	_teamColor.Add(_pfpMask = new VisualElement {name = "pfp-mask"});
+			//	_pfpMask.AddToClassList(USS_PFP_MASK);
+				
+			//	_pfpMask.Add(_pfp = new VisualElement {name = "pfp"});
+			//	_pfp.AddToClassList(USS_PFP);
+			//}
 			
 			this.Query().Build().ForEach(e => e.pickingMode = PickingMode.Ignore);
 		}

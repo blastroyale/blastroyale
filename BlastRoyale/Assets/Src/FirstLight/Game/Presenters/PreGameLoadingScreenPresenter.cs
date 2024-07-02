@@ -52,7 +52,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _squadContainer;
 		private VisualElement _partyMarkers;
 		private Label _squadLabel;
-		private ListView _squadMembersList;
+		//private ListView _squadMembersList;
 		private Label _mapMarkerTitle;
 		private Label _loadStatusLabel;
 		private Label _locationLabel;
@@ -68,6 +68,8 @@ namespace FirstLight.Game.Presenters
 		private Tweener _planeFlyTween;
 		private bool _dropSelectionAllowed;
 		private bool _matchStarting;
+		
+		private PlayerMemberElement[] _playerMemberElements;
 
 		private List<Player> _squadMembers = new ();
 
@@ -93,6 +95,8 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements()
 		{
 			_squadContainers = new VisualElement[MaxSquadPlayers];
+			_playerMemberElements = new PlayerMemberElement[MaxSquadPlayers];
+			
 			_nameLabels = new Label[MaxSquadPlayers];
 			
 			_mapHolder = Root.Q("Map").Required();
@@ -108,13 +112,13 @@ namespace FirstLight.Game.Presenters
 			_debugPlayerCountLabel = Root.Q<Label>("DebugPlayerCount").Required();
 			_debugMasterClient = Root.Q<Label>("DebugMasterClient").Required();
 			_squadContainer = Root.Q("SquadContainer").Required();
-			_squadMembersList = Root.Q<ListView>("SquadList").Required();
+			//_squadMembersList = Root.Q<ListView>("SquadList").Required();
 			_partyMarkers = Root.Q("PartyMarkers").Required();
 			_header.SetSubtitle("");
 
-			_squadMembersList.DisableScrollbars();
-			_squadMembersList.makeItem = CreateSquadListEntry;
-			_squadMembersList.bindItem = BindSquadListEntry;
+			//_squadMembersList.DisableScrollbars();
+			//_squadMembersList.makeItem = CreateSquadListEntry;
+			//_squadMembersList.bindItem = BindSquadListEntry;
 
 			_header.backClicked += OnCloseClicked;
 
@@ -122,8 +126,12 @@ namespace FirstLight.Game.Presenters
 			{
 				_squadContainers[i] = Root.Q<VisualElement>($"Row{i}").Required();
 				_squadContainers[i].visible = false;
+				
+				_playerMemberElements[i] = Root.Q<PlayerMemberElement>($"PlayerMemberElement{i}").Required();
 				_nameLabels[i] = Root.Q<Label>($"Name{i}").Required();
 			}
+			
+			Debug.Log("");
 		}
 
 		[Button]
@@ -184,14 +192,26 @@ namespace FirstLight.Game.Presenters
 					.Where(p => _services.TeamService.GetTeamForPlayer(p) == teamId)
 					.ToList();
 
-				var loadout = CurrentRoom.GetPlayerProperties(_squadMembers.First()).Loadout;
+				for (var i = 0; i < MaxSquadPlayers; i++)
+				{
+					_squadContainers[i].visible = false;
+				}
 
-				_services.CollectionService.LoadCollectionItemSprite(
-					_services.CollectionService.GetCosmeticForGroup(loadout.Value.ToArray(), 
-						GameIdGroup.PlayerSkin)).ContinueWith(SetAvatarSprite);
+				for (var i = 0; i < _squadMembers.Count; i++)
+				{
+					_squadContainers[i].visible = true;
+					
+					var loadout = CurrentRoom.GetPlayerProperties(_squadMembers[i]).Loadout;
+
+					_services.CollectionService.LoadCollectionItemSprite(
+						_services.CollectionService.GetCosmeticForGroup(loadout.Value.ToArray(), 
+							GameIdGroup.PlayerSkin)).ContinueWith(_playerMemberElements[i].SetPfpImage);
+
+					_nameLabels[i].text = _squadMembers[i].NickName;
+				}
 				
-				_squadMembersList.itemsSource = _squadMembers;
-				_squadMembersList.RefreshItems();
+				//_squadMembersList.itemsSource = _squadMembers;
+				//_squadMembersList.RefreshItems();
 
 				RefreshPartyMarkers();
 			}

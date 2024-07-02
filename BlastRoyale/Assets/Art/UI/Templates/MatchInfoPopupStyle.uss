@@ -83,3 +83,27 @@
 .match-settings-button {
     width: 371px;
 }
+
+.summary {
+    background-color: rgb(22, 20, 38);
+    border-top-left-radius: 31px;
+    border-top-right-radius: 31px;
+    border-bottom-right-radius: 31px;
+    border-bottom-left-radius: 31px;
+    font-size: 28px;
+    color: rgb(132, 117, 166);
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-bottom: 27px;
+}
+
+.row {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.join-button {
+    align-self: center;
+}

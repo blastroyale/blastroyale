@@ -9,6 +9,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
 {
+	/// <summary>
+	/// Shows a match lobby item in the match list.
+	/// </summary>
 	public class MatchLobbyItemElement : VisualElement
 	{
 		private const string USS_BLOCK = "match-lobby-item";

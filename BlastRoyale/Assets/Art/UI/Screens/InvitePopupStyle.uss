@@ -21,3 +21,8 @@
     color: rgb(132, 117, 166);
     -unity-text-align: upper-center;
 }
+
+.sender {
+    width: 535px;
+    align-self: center;
+}

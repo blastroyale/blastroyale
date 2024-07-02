@@ -7,3 +7,11 @@
     border-bottom-right-radius: 27px;
     border-bottom-left-radius: 27px;
 }
+
+.content__list {
+    flex-grow: 1;
+    margin-top: 35px;
+    margin-right: 35px;
+    margin-bottom: 35px;
+    margin-left: 35px;
+}

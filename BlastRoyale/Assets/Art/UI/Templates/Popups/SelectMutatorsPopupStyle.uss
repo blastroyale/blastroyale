@@ -29,3 +29,7 @@
     margin-top: 16px;
     margin-bottom: 17px;
 }
+
+.button-confirm {
+    align-self: center;
+}

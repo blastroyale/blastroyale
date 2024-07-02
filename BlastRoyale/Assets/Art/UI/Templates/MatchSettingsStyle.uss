@@ -263,3 +263,12 @@
     border-radius: 10px;
     background-color: rgb(22, 20, 38);
 }
+
+.spoctators-container {
+    flex-grow: 1;
+    margin-bottom: 40px;
+}
+
+.spectators-scroll-view {
+    flex-grow: 1;
+}

@@ -8,3 +8,7 @@
     -unity-text-align: upper-center;
     padding-bottom: 76px;
 }
+
+.slider-with-buttons {
+    margin-bottom: 66px;
+}

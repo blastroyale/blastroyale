@@ -132,7 +132,7 @@ namespace FirstLight.Game.Views.UITK
 
 				_spectatorsScrollView.Add(playerElement);
 
-				// TODO: Clicks
+				// TODO mihak: Clicks
 				// if (!isLocal)
 				// {
 				// 	playerElement.userData = player;

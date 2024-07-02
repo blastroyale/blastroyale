@@ -9,6 +9,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK.Popups
 {
+	/// <summary>
+	/// Shows the details of a match / event.
+	/// </summary>
 	public class MatchInfoPopupView : UIView
 	{
 		private readonly CustomMatchSettings _matchSettings;

@@ -5,16 +5,16 @@
         <ui:VisualElement name="LeftBG" class="match-settings__left-bg" />
         <ui:VisualElement name="RightBG" class="match-settings__right-bg" />
         <FirstLight.Game.UIElements.LocalizedLabel name="Title" localization-key="UITCustomGames/create_game" class="match-settings__title" />
-        <FirstLight.Game.UIElements.TabbedView style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: flex;">
+        <FirstLight.Game.UIElements.TabbedView class="fill-parent">
             <FirstLight.Game.UIElements.TabButton name="GameInfoTab" target="GameInfo" localization-key="UITCustomGames/game_info" class="unity-tab-button--gameinfo" />
             <FirstLight.Game.UIElements.TabButton name="SpectatorsTab" target="Spectators" localization-key="UITCustomGames/spectators" class="unity-tab-button--spectators" />
-            <ui:VisualElement name="Spectators" style="flex-grow: 1; margin-bottom: 40px;">
-                <ui:ScrollView name="SpectatorsScrollView" style="flex-grow: 1;">
+            <ui:VisualElement name="Spectators" class="spoctators-container">
+                <ui:ScrollView name="SpectatorsScrollView" class="spectators-scroll-view">
                     <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
                 </ui:ScrollView>
                 <FirstLight.Game.UIElements.LocalizedToggle name="SpectatorToggle" localization-key="UITCustomGames/spectate" />
             </ui:VisualElement>
-            <ui:VisualElement name="GameInfo" style="flex-grow: 1;">
+            <ui:VisualElement name="GameInfo" class="fill-parent">
                 <ui:ScrollView horizontal-scroller-visibility="Hidden" nested-interaction-kind="ForwardScrolling" touch-scroll-type="Clamped" class="match-settings__scrollview">
                     <ui:VisualElement name="Row1" class="match-settings__horizontal-holder">
                         <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="false" name="ModeButton" title-localization-key="UITCustomGames/mode" />

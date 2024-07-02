@@ -5,6 +5,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
 {
+	/// <summary>
+	/// The default popup element for the game.
+	/// </summary>
 	public class GenericPopupElement : VisualElement
 	{
 		private const string USS_BLOCK = "generic-popup";

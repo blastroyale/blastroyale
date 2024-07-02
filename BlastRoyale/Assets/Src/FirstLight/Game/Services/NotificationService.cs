@@ -8,6 +8,9 @@ using Unity.Services.Friends.Notifications;
 
 namespace FirstLight.Game.Services
 {
+	/// <summary>
+	/// Handles showing "async" notifications to the player.
+	/// </summary>
 	public class NotificationService
 	{
 		private readonly UIService.UIService _uiService;
@@ -37,9 +40,9 @@ namespace FirstLight.Game.Services
 
 			// We skip inviting to party if the player already has an invite open
 			if (_uiService.IsScreenOpen<InvitePopupPresenter>()) return;
-			
+
 			// TODO mihak: Only allow this if the player is in main menu
-			
+
 			switch (message.MessageType)
 			{
 				case FriendMessage.FriendMessageType.PartyInvite:

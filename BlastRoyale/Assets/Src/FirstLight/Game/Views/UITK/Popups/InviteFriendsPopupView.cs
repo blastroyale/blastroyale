@@ -16,6 +16,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK.Popups
 {
+	/// <summary>
+	/// Shows a list of friends to invite to a match.
+	/// </summary>
 	public class InviteFriendsPopupView: UIView
 	{
 		[Q("FriendsList")] private ListView _friendsList;

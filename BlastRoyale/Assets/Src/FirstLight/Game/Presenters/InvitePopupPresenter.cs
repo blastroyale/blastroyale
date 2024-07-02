@@ -10,6 +10,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
+	/// <summary>
+	/// Shows an invite popup for party or match invites.
+	/// </summary>
 	[UILayer(UILayer.Notifications, false)]
 	public class InvitePopupPresenter : UIPresenterData<InvitePopupPresenter.StateData>
 	{

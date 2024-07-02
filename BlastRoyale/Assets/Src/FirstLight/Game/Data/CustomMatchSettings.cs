@@ -3,6 +3,7 @@ using Quantum;
 
 namespace FirstLight.Game.Data
 {
+	// TODO mihak: Unify this with SimulationMatchConfig
 	public class CustomMatchSettings
 	{
 		public string GameModeID = "BattleRoyale";

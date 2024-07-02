@@ -61,6 +61,7 @@
     margin-left: 0;
     flex-grow: 1;
     width: 1px;
+    white-space: nowrap;
 }
 
 .friend-list-element__activity {
@@ -147,4 +148,16 @@
 .friend-list-element__accept-decline-container > * {
     margin-right: 40px;
     margin-left: 40px;
+}
+
+.container-code_your-code {
+    font-size: 40px;
+    color: rgb(132, 117, 166);
+    -unity-text-align: upper-center;
+}
+
+.container-code_your-actual-code {
+    color: rgb(248, 199, 46);
+    font-size: 72px;
+    -unity-text-align: upper-center;
 }

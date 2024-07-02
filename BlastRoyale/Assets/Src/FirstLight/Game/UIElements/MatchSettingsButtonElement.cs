@@ -4,6 +4,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
 {
+	/// <summary>
+	/// A button element for the match settings view.
+	/// </summary>
 	public class MatchSettingsButtonElement : ImageButton
 	{
 		private const string USS_BLOCK = "match-settings-button";

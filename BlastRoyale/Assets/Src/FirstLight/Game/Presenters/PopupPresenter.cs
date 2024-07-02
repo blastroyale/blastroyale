@@ -14,6 +14,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
+	/// <summary>
+	/// A general base presenter for all popups.
+	/// </summary>
 	[UILayer(UILayer.Popup)]
 	public class PopupPresenter : UIPresenterData<PopupPresenter.StateData>
 	{

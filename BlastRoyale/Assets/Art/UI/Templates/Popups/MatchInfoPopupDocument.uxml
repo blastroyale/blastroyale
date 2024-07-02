@@ -1,7 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Styles/MatchSettingsButtonStyle.uss?fileID=7433441132597879392&amp;guid=49dfa0136e894e18a6e53beb23b7a53e&amp;type=3#MatchSettingsButtonStyle" />
     <Style src="project://database/Assets/Art/UI/Templates/MatchInfoPopupStyle.uss?fileID=7433441132597879392&amp;guid=24c96d0135f8f44c2ba264c9f99851d9&amp;type=3#MatchInfoPopupStyle" />
-    <ui:VisualElement name="reference" style="background-image: url(&quot;project://database/Assets/Art/UI/References/MatchInfoPopup.png?fileID=2800000&amp;guid=4506128573be14328a8e56a8186e062b&amp;type=3#MatchInfoPopup&quot;); width: 1372px; height: 702px; position: absolute; opacity: 0.54; display: none;" />
     <ui:VisualElement name="Content" class="content">
         <ui:VisualElement name="Left" class="content__left">
             <ui:Label text="BATTLE ROYALE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" class="title" />
@@ -18,17 +17,17 @@
         <ui:VisualElement name="Right" class="conten__right">
             <ui:ScrollView horizontal-scroller-visibility="Hidden" style="flex-grow: 1;">
                 <FirstLight.Game.UIElements.LocalizedLabel name="SummaryTitle" localization-key="UITShared/summary" class="summary-title" />
-                <ui:Label tabindex="-1" text="Classic Battle Royale, created by Playername123" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Summary" style="background-color: rgb(22, 20, 38); border-top-left-radius: 31px; border-top-right-radius: 31px; border-bottom-right-radius: 31px; border-bottom-left-radius: 31px; font-size: 28px; color: rgb(132, 117, 166); padding-bottom: 20px; padding-top: 20px; padding-right: 20px; padding-left: 20px; margin-bottom: 27px;" />
-                <ui:VisualElement name="Row1" style="flex-direction: row; justify-content: space-between;">
+                <ui:Label tabindex="-1" text="Classic Battle Royale, created by Playername123" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Summary" class="summary" />
+                <ui:VisualElement name="Row1" class="row">
                     <FirstLight.Game.UIElements.MatchSettingsButtonElement title-localization-key="UITCustomGames/mode" name="GameMode" />
                     <FirstLight.Game.UIElements.MatchSettingsButtonElement name="MaxPlayers" title-localization-key="UITCustomGames/max_players" />
                 </ui:VisualElement>
-                <ui:VisualElement name="Row2" style="flex-direction: row; justify-content: space-between;">
+                <ui:VisualElement name="Row2" class="row">
                     <FirstLight.Game.UIElements.MatchSettingsButtonElement name="Map" title-localization-key="UITCustomGames/map" />
                     <FirstLight.Game.UIElements.MatchSettingsButtonElement name="SquadSize" title-localization-key="UITCustomGames/team_size" />
                 </ui:VisualElement>
             </ui:ScrollView>
-            <FirstLight.Game.UIElements.LocalizedButton text="##" name="JoinButton" localization-key="UITCustomGames/join" class="button-long button-long--yellow" style="align-self: center;" />
+            <FirstLight.Game.UIElements.LocalizedButton text="##" name="JoinButton" localization-key="UITCustomGames/join" class="button-long button-long--yellow join-button" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -180,3 +180,18 @@
 #ShowAllRegionsToggle {
     margin-right: 20px;
 }
+
+.match-list-container__list {
+    flex-grow: 1;
+}
+
+.match-list-container__loader {
+    position: absolute;
+    top: 337px;
+    scale: 2.5 2.5;
+    align-self: center;
+}
+
+.match-list-container__bottom-bar {
+    flex-direction: row;
+}

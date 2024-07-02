@@ -2,6 +2,6 @@
     <Style src="project://database/Assets/Art/UI/Styles/FriendListElementStyle.uss?fileID=7433441132597879392&amp;guid=225ed0ca899d471084bae92a2bb08119&amp;type=3#FriendListElementStyle" />
     <Style src="project://database/Assets/Art/UI/Templates/Popups/InviteFriendsPopupStyle.uss?fileID=7433441132597879392&amp;guid=f4e0d48fe72fa4bdb948490e414c32d3&amp;type=3#InviteFriendsPopupStyle" />
     <ui:VisualElement name="Content" class="content">
-        <ui:ListView name="FriendsList" virtualization-method="DynamicHeight" style="flex-grow: 1; margin-top: 35px; margin-right: 35px; margin-bottom: 35px; margin-left: 35px;" />
+        <ui:ListView name="FriendsList" virtualization-method="DynamicHeight" class="content__list" />
     </ui:VisualElement>
 </ui:UXML>

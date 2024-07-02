@@ -1,9 +1,11 @@
-using FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
 {
+	/// <summary>
+	/// An element to show a map / gun / mutator...
+	/// </summary>
 	public class MatchSettingsSelectionElement : ImageButton
 	{
 		private const string USS_BLOCK = "match-settings-selection";

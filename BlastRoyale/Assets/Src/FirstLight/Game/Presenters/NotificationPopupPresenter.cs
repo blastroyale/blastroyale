@@ -7,6 +7,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
+	/// <summary>
+	/// A presenter for general popups that show a message to the user.
+	/// </summary>
 	[UILayer(UILayer.Notifications)]
 	public class NotificationPopupPresenter : UIPresenterData<NotificationPopupPresenter.StateData>
 	{

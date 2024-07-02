@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/NotificationPopupStyle.uss?fileID=7433441132597879392&amp;guid=cfe8c81e0699c46eb8ebf864c5ecfbf8&amp;type=3#NotificationPopupStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/FriendListElementStyle.uss?fileID=7433441132597879392&amp;guid=225ed0ca899d471084bae92a2bb08119&amp;type=3#FriendListElementStyle" />
-    <ui:VisualElement name="root" picking-mode="Ignore" class="root" style="flex-grow: 1;">
+    <ui:VisualElement name="root" picking-mode="Ignore" class="root">
         <ui:Label text="Your party is full" name="NotificationLabel" picking-mode="Ignore" class="notification anim-fade" />
     </ui:VisualElement>
 </ui:UXML>

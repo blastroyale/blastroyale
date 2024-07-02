@@ -4,8 +4,8 @@
     <ui:VisualElement name="Content" class="content">
         <ui:VisualElement name="Sidebar" class="sidebar">
             <ui:VisualElement name="CodeContainer" class="container-code">
-                <ui:Label tabindex="-1" text="Your team code" parse-escape-sequences="true" display-tooltip-when-elided="true" name="YourCodeLabel" style="font-size: 40px; color: rgb(132, 117, 166); -unity-text-align: upper-center;" />
-                <ui:Label text="E2G5" name="TeamCode" style="color: rgb(248, 199, 46); font-size: 72px; -unity-text-align: upper-center;" />
+                <ui:Label tabindex="-1" text="Your team code" parse-escape-sequences="true" display-tooltip-when-elided="true" name="YourCodeLabel" class="container-code_your-code" />
+                <ui:Label text="E2G5" name="TeamCode" class="container-code_your-actual-code" />
                 <FirstLight.Game.UIElements.LocalizedButton name="CopyCodeButton" localization-key="UITParty/copy_party_code" class="button-long" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/create_party" name="CreatePartyButton" class="button-long button-long--yellow" style="align-self: center;" />
@@ -13,9 +13,9 @@
             <ui:VisualElement name="Spacer" style="flex-grow: 1;" />
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/leave_party" name="LeavePartyButton" class="button-long button-long--red" />
         </ui:VisualElement>
-        <ui:VisualElement name="MainContent" style="flex-grow: 1; margin-left: 39px;">
+        <ui:VisualElement name="MainContent" class="main-container">
             <ui:Label tabindex="-1" text="YOUR PARTY (0)" name="YourTeamLabel" class="category-title" />
-            <ui:VisualElement name="YourTeamContainer" class="container-your-team" style="margin-bottom: 32px;">
+            <ui:VisualElement name="YourTeamContainer" class="container-your-team">
                 <FirstLight.Game.UIElements.FriendListElement />
                 <FirstLight.Game.UIElements.FriendListElement />
                 <FirstLight.Game.UIElements.FriendListElement />

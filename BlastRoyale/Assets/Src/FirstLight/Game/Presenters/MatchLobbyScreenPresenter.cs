@@ -151,7 +151,6 @@ namespace FirstLight.Game.Presenters
 
 			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, true);
 			
-			// TODO: Ugly
 			((IInternalGameNetworkService) _services.NetworkService).JoinSource.Value = JoinRoomSource.FirstJoin;
 
 			var setup = new MatchRoomSetup
@@ -177,7 +176,7 @@ namespace FirstLight.Game.Presenters
 				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);
 				
 				_services.TeamService.AutoBalanceCustom = true;
-				await UniTask.WaitForSeconds(5); // TODO: Remove this hack
+				await UniTask.WaitForSeconds(5); // TODO mihak: REMOVE THIS HACK BEFORE RELEASE
 				
 				_services.RoomService.StartCustomGameLoading();
 			}
@@ -185,8 +184,6 @@ namespace FirstLight.Game.Presenters
 			{
 				FLog.Error("Could not create quantum room", e);
 			}
-
-			// TODO start match
 		}
 
 		private async UniTaskVoid LeaveMatchLobby()

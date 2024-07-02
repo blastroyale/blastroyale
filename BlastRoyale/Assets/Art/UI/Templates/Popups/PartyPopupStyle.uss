@@ -6,6 +6,11 @@
     margin-bottom: 16px;
 }
 
+.main-container {
+    flex-grow: 1;
+    margin-left: 39px;
+}
+
 .container-your-team {
     border-radius: 30px;
     background-color: rgb(22, 20, 38);
@@ -14,6 +19,7 @@
     padding: 28px;
     flex-direction: row;
     flex-wrap: wrap-reverse;
+    margin-bottom: 27px;
 }
 
 .container-online-friends {

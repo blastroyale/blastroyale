@@ -21,6 +21,10 @@ using UnityEngine.Assertions;
 
 namespace FirstLight.Game.Services
 {
+	
+	/// <summary>
+	/// Handles all lobby-related operations (parties, custom matches).
+	/// </summary>
 	public class FLLobbyService
 	{
 		private const string PARTY_LOBBY_NAME = "party_{0}";
@@ -115,8 +119,6 @@ namespace FirstLight.Game.Services
 					{KEY_MATCHMAKING_TICKET, new DataObject(DataObject.VisibilityOptions.Member, null)}
 				}
 			};
-
-			// TODO: Maybe we need to check if the player is already in a party?
 
 			try
 			{
@@ -355,7 +357,6 @@ namespace FirstLight.Game.Services
 
 			if (!allRegions)
 			{
-				// TODO: Should we be fetching the region from prefs?
 				options.Filters.Add(new QueryFilter(QueryFilter.FieldOptions.S1, _localPrefsService.ServerRegion.Value, QueryFilter.OpOptions.EQ));
 			}
 
@@ -382,7 +383,6 @@ namespace FirstLight.Game.Services
 		{
 			Assert.IsNull(CurrentMatchLobby, "Trying to create a match but the player is already in one!");
 
-			// TODO: What should we use when not showing creator name?
 			var lobbyName = matchOptions.ShowCreatorName
 				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName)
 				: matchOptions.MapID;
@@ -762,7 +762,6 @@ namespace FirstLight.Game.Services
 				}
 				else
 				{
-					// TODO: We should not remove player, we should try to reconnect to the lobby
 					LobbyService.Instance.RemovePlayerAsync(CurrentPartyLobby.Id, AuthenticationService.Instance.PlayerId);
 				}
 			}
@@ -775,7 +774,6 @@ namespace FirstLight.Game.Services
 				}
 				else
 				{
-					// TODO: We should not remove player, we should try to reconnect to the lobby
 					LobbyService.Instance.RemovePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId);
 				}
 			}

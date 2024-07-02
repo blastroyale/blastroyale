@@ -47,6 +47,10 @@
     top: 7px;
 }
 
+.game-mode-card--coming-soon .game-mode-card__background {
+    background-image: var(--sprite-home__gamemode-coming-soon);
+}
+
 .game-mode-card__team-size {
     flex-grow: 1;
     align-items: center;
@@ -82,6 +86,10 @@
     position: absolute;
     left: 28px;
     margin-bottom: 20px;
+}
+
+.game-mode-card--coming-soon .game-mode-card__text-container {
+    display: none;
 }
 
 .game-mode-card--event .game-mode-card__text-container {
@@ -121,17 +129,67 @@
     display: none;
 }
 
-.game-mode-card:disabled .game-mode-card__event-container {
-    opacity: 0.25;
-}
-
 .game-mode-card--event .game-mode-card__event-container {
     display: flex;
+}
+.game-mode-card--coming-soon .game-mode-card__event-container  {
+    display: none;
+}
+
+.game-mode-card__status-container {
+    flex-grow: 0;
+    width: 289px;
+    height: 41px;
+    flex-shrink: 0;
+    background-color: rgb(64, 169, 28);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    position: absolute;
+    top: 403px;
+    left: 97px;
+    align-self: auto;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    display: none;
+}
+.game-mode-card--event .game-mode-card__status-container {
+    display: flex;
+}
+
+
+.game-mode-card--coming-soon .game-mode-card__status-container {
+    top: 506px;
+    left: 110px;
+    height: 79px;
+    width: 246px;
 }
 
 
 .game-mode-card__shadow {
     -unity-background-image-tint-color: black;
+}
+
+.game-mode-card--coming-soon .game-mode-card__shadow {
+    display: none;
+}
+
+.game-mode-card__coming-soon-label {
+    color: rgb(150, 118, 234);
+    height: 54px;
+    width: 273px;
+    position: absolute;
+    top: 411px;
+    left: 112px;
+    font-size: 48px;
+    margin-bottom: 0;
+    display: none;
+}
+
+.game-mode-card--coming-soon .game-mode-card__coming-soon-label {
+    display: flex;
 }
 
 .game-mode-card__team-size-label {
@@ -204,6 +262,10 @@
     left: 27px;
 }
 
+.game-mode-card--coming-soon .game-mode-card__character {
+    display: none;
+}
+
 .game-mode-card {
     flex-grow: 0;
     -unity-background-scale-mode: scale-to-fit;
@@ -260,15 +322,16 @@
 
 .game-mode-card__outline {
     background-image: url("project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-selected-rectangle.svg?fileID=7388822144124034973&guid=634d1369f68f8a841a085b249ed50f68&type=3#gamemode-selected-rectangle");
-    width: 478px;
-    height: 682px;
     -unity-background-image-tint-color: rgba(248, 199, 46, 0);
     position: absolute;
-    top: -11px;
-    left: 10px;
     opacity: 0;
     transition-property: opacity;
     transition-duration: 0.5s;
+    width: 471px;
+    height: 671px;
+    -unity-background-image-tint-color: rgb(248, 199, 46);
+    top: -3px;
+    left: 14px;
 }
 
 .game-mode-card--selected .game-mode-card__outline {
@@ -278,7 +341,7 @@
 .game-mode-card__glow {
     flex-grow: 1;
     position: absolute;
-    background-image: url("project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-border-glow.png?fileID=2800000&amp;guid=c4f2c82005ae6864f9df3cf2ccee1b46&amp;type=3#gamemode-border-glow");
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-border-glow.png?fileID=21300000&guid=c4f2c82005ae6864f9df3cf2ccee1b46&type=3#gamemode-border-glow");
     height: 1100px;
     width: 853px;
     top: -217px;
@@ -289,10 +352,9 @@
     transition-duration: 2s;
 }
 
-.game-mode-card--selected .game-mode-card__glow{
+.game-mode-card--selected .game-mode-card__glow {
     opacity: 0.64;
 }
-
 
 .game-mode-card-selected-effects {
     display: none;
@@ -310,6 +372,9 @@
     display: flex;
 }
 
+.game-mode-card:disabled.game-mode-card--coming-soon .game-mode-card--disabled-container {
+    display: none;
+}
 
 .game-mode-card--disabled-container {
     display: none;
@@ -324,4 +389,33 @@
     top: 0;
     left: 21px;
     -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+}
+
+.game-mode-card__rewards-container {
+    flex-grow: 0;
+    position: relative;
+    width: 317px;
+    height: 62px;
+    background-color: rgba(132, 117, 166, 0.3);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    flex-shrink: 0;
+    align-self: center;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: row;
+    padding-right: 18px;
+    padding-left: 43px;
+}
+
+.game-mode-card__info-button {
+    flex-grow: 1;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-circle-info-button.png?fileID=21300000&guid=1ccc14fc762443242b62479f405a7330&type=3#gamemode-circle-info-button");
+    width: 65px;
+    height: 65px;
+    position: absolute;
+    top: -558px;
+    left: 382px;
 }

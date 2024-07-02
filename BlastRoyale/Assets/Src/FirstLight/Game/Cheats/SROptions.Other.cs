@@ -44,7 +44,7 @@ public partial class SROptions
 		{
 			FLog.Warn("Close callback.");
 		}
-	}
+	} 
 
 	[Category("Other")]
 	public void OpenInputDialog()

@@ -3,7 +3,7 @@
     <FirstLight.Game.UIElements.ImageButton name="CardRoot" enabled="true" focusable="true" class="game-mode-card">
         <ui:VisualElement name="SelectedEffects" picking-mode="Ignore" class="fill-parent game-mode-card-selected-effects" style="flex-grow: 1;">
             <ui:VisualElement name="BorderGlow" picking-mode="Ignore" class="game-mode-card__glow" />
-            <ui:VisualElement name="Outline" class="game-mode-card__outline" style="background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-selected-rectangle.svg?fileID=7388822144124034973&amp;guid=634d1369f68f8a841a085b249ed50f68&amp;type=3#gamemode-selected-rectangle&quot;); width: 471px; height: 671px; -unity-background-image-tint-color: rgb(248, 199, 46); position: absolute; top: -3px; left: 14px;" />
+            <ui:VisualElement name="Outline" class="game-mode-card__outline" />
         </ui:VisualElement>
         <ui:VisualElement name="Shadow" class="game-mode-card__shadow" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-card-blue.png?fileID=21300000&amp;guid=4176b5a521474f448a0c46f8e1159d7b&amp;type=3#gamemode-card-blue&quot;); width: 100%; height: 100%; -unity-background-scale-mode: scale-to-fit; position: absolute; top: 10px; left: 5px;" />
         <ui:VisualElement name="Background" class="game-mode-card__background">
@@ -15,21 +15,22 @@
                     <ui:VisualElement name="TeamSizeIcon" class="sprite-shared__icon-gamemode-solo game-mode-card__team-size-icon" style="width: 39px; height: 48px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="Disabled" class="game-mode-card--disabled-container">
-                <ui:VisualElement name="BG" class="fill-parent" style="flex-grow: 1; background-color: rgba(30, 8, 58, 0.6);" />
-            </ui:VisualElement>
-            <ui:VisualElement name="Char" class="game-mode-card__character" />
             <ui:VisualElement name="EventContainer" class="game-mode-card__event-container" style="flex-grow: 1; position: absolute; height: 95px; width: 374px; left: 31px; flex-direction: column; top: 551px; justify-content: center; align-items: center;">
-                <ui:VisualElement name="TimeLeftContainer" style="flex-grow: 0; width: 289px; height: 41px; flex-shrink: 0; background-color: rgb(64, 169, 28); border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px; position: absolute; top: -146px; left: 60px; align-self: auto; justify-content: center; align-items: center;">
-                    <ui:Label tabindex="-1" text="ENDS  IN 23h 54m 34s" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TimeLeftLabel" style="font-size: 28px; -unity-font-style: normal; color: rgb(255, 255, 255); letter-spacing: -2px; height: 100%; flex-shrink: 1; -unity-text-align: middle-center;" />
-                </ui:VisualElement>
-                <ui:VisualElement name="InfoButton" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-circle-info-button.png?fileID=21300000&amp;guid=1ccc14fc762443242b62479f405a7330&amp;type=3#gamemode-circle-info-button&quot;); width: 65px; height: 65px; position: absolute; top: -558px; left: 382px;" />
-                <ui:VisualElement name="RewardsContainer" style="flex-grow: 0; position: relative; width: 317px; height: 62px; background-color: rgba(132, 117, 166, 0.3); border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px; flex-shrink: 0; align-self: center; align-items: flex-end; justify-content: space-around; flex-direction: row; padding-right: 18px; padding-left: 43px;">
+                <ui:VisualElement name="InfoButton" class="game-mode-card__info-button" />
+                <ui:VisualElement name="RewardsContainer" class="game-mode-card__rewards-container">
                     <ui:VisualElement name="BBIcon" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Currencies/blastbuck-default.png?fileID=21300000&amp;guid=b14c2bbd7a492e540b19cb9a6826d2b1&amp;type=3#blastbuck-default&quot;); flex-shrink: 0; width: 72px; height: 72px; align-items: stretch;" />
                     <ui:VisualElement name="BBIcon" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Currencies/coin-default.png?fileID=21300000&amp;guid=22febd22ec45fdb4897db36dcc713070&amp;type=3#coin-default&quot;); flex-shrink: 0; width: 72px; height: 72px; align-items: stretch;" />
                     <ui:VisualElement name="BBIcon" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Currencies/noob-default.png?fileID=21300000&amp;guid=adaae1f917fcbba4fa4f0e29fa10a168&amp;type=3#noob-default&quot;); flex-shrink: 0; width: 72px; height: 72px; align-items: stretch;" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:VisualElement name="Disabled" class="game-mode-card--disabled-container">
+                <ui:VisualElement name="BG" class="fill-parent" style="flex-grow: 1; background-color: rgba(30, 8, 58, 0.6);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Char" class="game-mode-card__character" />
+            <ui:VisualElement name="StatusContainer" class="game-mode-card__status-container" style="">
+                <ui:Label tabindex="-1" text="ENDS  IN 23h 54m 34s" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatusLabel" style="font-size: 28px; -unity-font-style: normal; color: rgb(255, 255, 255); letter-spacing: -2px; height: 100%; flex-shrink: 1; -unity-text-align: middle-center; opacity: 1;" />
+            </ui:VisualElement>
+            <ui:Label text="COMING SOON!" display-tooltip-when-elided="true" name="ComingSoon" class="game-mode-card__coming-soon-label"/>
             <ui:VisualElement name="Crown" class="game-mode-card__crown" />
         </ui:VisualElement>
     </FirstLight.Game.UIElements.ImageButton>

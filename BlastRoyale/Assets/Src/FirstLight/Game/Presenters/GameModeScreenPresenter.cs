@@ -73,7 +73,6 @@ namespace FirstLight.Game.Presenters
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
 
-				view.Disabled = slot.Entry.TeamSize < _services.PartyService.GetCurrentGroupSize();
 				view.Selected = _services.GameModeService.SelectedGameMode.Value.Equals(slot);
 
 				_buttonsSlider.Add(button);
@@ -88,6 +87,7 @@ namespace FirstLight.Game.Presenters
 					{
 						GameModeID = GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME,
 						Mutators = new string[] { },
+						TeamSize = 1
 					},
 					Visual = new GameModeRotationConfig.VisualEntryConfig
 					{
@@ -101,7 +101,6 @@ namespace FirstLight.Game.Presenters
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
 			customGameView.SetData("CustomGameButton", gameModeInfo, GetVisibleClass(orderNumber), VISIBLE_GAMEMODE_BUTTON + "last");
 			customGameView.Clicked += OnCustomGameClicked;
-			customGameView.Disabled = true;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
 		}
@@ -115,7 +114,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_services.GameModeService.Slots.Observe(OnSlotUpdated);
 			_services.GameModeService.SelectedGameMode.Observe(OnGameModeUpdated);
 			_services.PartyService.Members.Observe(OnPartyMembersChanged);
 			return base.OnScreenOpen(reload);
@@ -123,7 +121,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenClose()
 		{
-			_services.GameModeService.Slots.StopObserving(OnSlotUpdated);
 			_services.GameModeService.SelectedGameMode.StopObserving(OnGameModeUpdated);
 			_services.PartyService.Members.StopObserving(OnPartyMembersChanged);
 			return base.OnScreenClose();
@@ -139,12 +136,6 @@ namespace FirstLight.Game.Presenters
 			Data.CustomGameChosen();
 		}
 
-		private void OnSlotUpdated(int index, GameModeInfo previous, GameModeInfo current,
-								   ObservableUpdateType updateType)
-		{
-			_buttonViews[index].SetData(current);
-		}
-
 		private void OnPartyMembersChanged(int index, PartyMember before, PartyMember after, ObservableUpdateType type)
 		{
 			if (type != ObservableUpdateType.Added && type != ObservableUpdateType.Removed)
@@ -158,7 +149,8 @@ namespace FirstLight.Game.Presenters
 				{
 					return;
 				}
-				view.Disabled = view.GameModeInfo.Entry.TeamSize < _services.PartyService.GetCurrentGroupSize();
+
+				view.UpdateDisabledStatus();
 			}
 		}
 

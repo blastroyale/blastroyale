@@ -4,6 +4,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -19,19 +20,19 @@ namespace FirstLight.Game.Services
 	public struct GameModeInfo
 	{
 		public GameModeRotationConfig.GameModeEntry Entry;
-		public DateTime EndTime;
+		public DurationConfig Duration;
 
-		public bool IsFixed => EndTime == default || EndTime.Ticks == 0;
+		public bool IsFixed => Duration == null;
 
-		public GameModeInfo(GameModeRotationConfig.GameModeEntry entry, DateTime endTime = default)
+		public GameModeInfo(GameModeRotationConfig.GameModeEntry entry, DurationConfig duration = null)
 		{
 			Entry = entry;
-			EndTime = endTime;
+			Duration = duration;
 		}
 
 		public override string ToString()
 		{
-			return $"Entry({Entry}), EndTime({EndTime}), IsFixed({IsFixed})";
+			return $"Entry({Entry}), EndTime({Duration?.EndsAt}), IsFixed({IsFixed})";
 		}
 	}
 
@@ -173,6 +174,7 @@ namespace FirstLight.Game.Services
 			{
 				foreach (var gm in _slots)
 				{
+					if (gm.Entry.MatchConfig == null) continue;
 					if (gm.Entry.MatchConfig.ConfigId == lastGameMode)
 					{
 						FLog.Verbose($"Restored selected game mode to: {lastGameMode}");
@@ -181,6 +183,7 @@ namespace FirstLight.Game.Services
 					}
 				}
 			}
+
 			this.SelectDefaultRankedMode();
 		}
 
@@ -312,7 +315,7 @@ namespace FirstLight.Game.Services
 			for (var i = 0; i < _slots.Count; i++)
 			{
 				var slot = _slots[i];
-				if (forceAll || !slot.IsFixed && slot.EndTime < DateTime.UtcNow)
+				if (forceAll || !slot.IsFixed && slot.Duration.GetEndsAtDateTime() < DateTime.UtcNow)
 				{
 					RefreshSlot(i);
 				}
@@ -321,51 +324,67 @@ namespace FirstLight.Game.Services
 
 		private void RefreshSlot(int index)
 		{
-			if (!TryGetGameMode(index, out var entry, out var endsAt))
+			if (!TryGetGameMode(index, out var entry, out var duration))
 			{
 				_slots[index] = default;
 				return;
 			}
 
-			var info = new GameModeInfo(entry, endsAt);
+			var info = new GameModeInfo(entry, duration);
 			_slots[index] = info;
 
 			FLog.Info($"GameMode in slot {index} refreshed to {info.ToString()}");
 
-			if (endsAt != default)
+			if (!info.IsFixed)
 			{
-				var diff = (endsAt - DateTime.UtcNow).Add(TimeSpan.FromSeconds(1));
+				var diff = (duration.GetEndsAtDateTime() - DateTime.UtcNow).Add(TimeSpan.FromSeconds(1));
 				_threadService.EnqueueDelayed((int) diff.TotalMilliseconds, () => 0, _ => { RefreshGameModes(false); });
 			}
 		}
 
 		private bool TryGetGameMode(
-			int slotIndex, out GameModeRotationConfig.GameModeEntry entry, out DateTime endsAt)
+			int slotIndex, out GameModeRotationConfig.GameModeEntry entry, out DurationConfig duration)
 		{
 			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
+			var now = DateTime.UtcNow;
 
+			GameModeRotationConfig.GameModeEntry closest = default;
+			DurationConfig closestDate = null;
 			foreach (var gameModeEntry in config.Slots[slotIndex].Entries)
 			{
 				if (!gameModeEntry.TimedEntry)
 				{
-					endsAt = new DateTime(0);
+					duration = null;
 					entry = gameModeEntry;
 					return true;
 				}
 
-				var now = DateTime.UtcNow;
 				foreach (var timedGameModeEntry in gameModeEntry.TimedGameModeEntries)
 				{
 					if (timedGameModeEntry.Contains(now))
 					{
-						endsAt = timedGameModeEntry.GetEndsAtDateTime();
+						duration = timedGameModeEntry;
 						entry = gameModeEntry;
 						return true;
+					}
+
+					var starts = timedGameModeEntry.GetStartsAtDateTime();
+					if (starts > now && (closestDate == null || starts < closestDate.GetStartsAtDateTime()))
+					{
+						closestDate = timedGameModeEntry;
+						closest = gameModeEntry;
 					}
 				}
 			}
 
-			endsAt = new DateTime(0);
+			if (closestDate != null)
+			{
+				entry = closest;
+				duration = closestDate;
+				return true;
+			}
+
+			duration = null;
 			entry = default;
 			return false;
 		}

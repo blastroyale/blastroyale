@@ -1,9 +1,11 @@
 using System;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using I2.Loc;
+using Quantum;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views
@@ -13,22 +15,25 @@ namespace FirstLight.Game.Views
 	/// </summary>
 	public class GameModeSelectionButtonView : UIView
 	{
-		private const string GameModeButtonBase = "game-mode-card";
-		private const string GameModeButtonSelectedModifier = GameModeButtonBase + "--selected";
+		private const string USS_BASE = "game-mode-card";
+		private const string USS_SELECTED = USS_BASE + "--selected";
+		private const string USS_COMING_SOON = USS_BASE + "--coming-soon";
 
 		public GameModeInfo GameModeInfo { get; private set; }
 		public event Action<GameModeSelectionButtonView> Clicked;
 
 		public bool Selected
 		{
-			set => _button.EnableInClassList(GameModeButtonSelectedModifier, value);
+			set => _button.EnableInClassList(USS_SELECTED, value);
 		}
 
-		public bool Disabled
+		private bool Disabled
 		{
 			get => !_button.enabledSelf;
-			set => _button.SetEnabled(!value);
+			set { _button.SetEnabled(!value); }
 		}
+
+		private IPartyService _partyService;
 
 		private ImageButton _button;
 		private Label _gameModeLabel;
@@ -37,9 +42,11 @@ namespace FirstLight.Game.Views
 		private VisualElement _teamSizeIcon;
 		private Label _gameModeDescriptionLabel;
 		private Label _disabledLabel;
+		private IVisualElementScheduledItem _scheduled;
 
 		protected override void Attached()
 		{
+			_partyService = MainInstaller.ResolveServices().PartyService;
 			_button = Element.Q<ImageButton>().Required();
 
 			var dataPanel = Element.Q<VisualElement>("TextContainer");
@@ -47,7 +54,7 @@ namespace FirstLight.Game.Views
 			_gameModeDescriptionLabel = dataPanel.Q<Label>("Description");
 			_teamSizeIcon = dataPanel.Q<VisualElement>("TeamSizeIcon").Required();
 			_teamSizeLabel = dataPanel.Q<Label>("TeamSizeLabel").Required();
-			_timeLeftLabel = Element.Q<Label>("TimeLeftLabel").Required();
+			_timeLeftLabel = Element.Q<Label>("StatusLabel").Required();
 
 			_button.clicked += () => Clicked?.Invoke(this);
 		}
@@ -74,27 +81,49 @@ namespace FirstLight.Game.Views
 		/// <param name="gameModeInfo">Game mode data to fill the button's visuals</param>
 		public void SetData(GameModeInfo gameModeInfo)
 		{
+			_scheduled?.Pause();
 			GameModeInfo = gameModeInfo;
 
 			RemoveClasses();
-			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.Visual.CardModifier}");
+			_button.AddToClassList($"{USS_BASE}--{GameModeInfo.Entry.Visual.CardModifier}");
 			UpdateTeamSize(gameModeInfo);
 			UpdateTitleAndDescription();
+			UpdateDisabledStatus();
 			if (gameModeInfo.IsFixed)
 			{
 				return;
 			}
 
-			Element.schedule.Execute(() =>
+			var now = DateTime.UtcNow;
+			var comingSoon = gameModeInfo.Duration.GetStartsAtDateTime() > now;
+			if (comingSoon)
 			{
-				var timeLeft = gameModeInfo.EndTime - DateTime.UtcNow;
+				_button.AddToClassList(USS_COMING_SOON);
+			}
+
+			_scheduled = Element.schedule.Execute(() =>
+			{
+				var timeLeft = gameModeInfo.Duration.GetEndsAtDateTime() - DateTime.UtcNow;
+				if (comingSoon)
+				{
+					timeLeft = gameModeInfo.Duration.GetStartsAtDateTime() - DateTime.UtcNow;
+				}
+
 				if (timeLeft.TotalSeconds < 0)
 				{
-					_timeLeftLabel.text = "ENDED";
+					if (comingSoon)
+					{
+						SetData(gameModeInfo);
+						return;
+					}
+
+					Disabled = true;
+					_timeLeftLabel.text = "EVENT FINISHED";
 					return;
 				}
 
-				_timeLeftLabel.text = $"ENDS IN {timeLeft.Hours}h {timeLeft.Minutes}m {timeLeft.Seconds}s";
+				var prefix = comingSoon ? "NEXT EVENT IN\n" : "ENDS IN ";
+				_timeLeftLabel.text = $"{prefix}{timeLeft.Hours}h {timeLeft.Minutes}m {timeLeft.Seconds}s";
 			}).Every(1000);
 		}
 
@@ -108,6 +137,29 @@ namespace FirstLight.Game.Views
 			_teamSizeIcon.RemoveSpriteClasses();
 			_teamSizeIcon.AddToClassList(gameModeInfo.Entry.Visual.IconSpriteClass);
 			_teamSizeLabel.text = gameModeInfo.Entry.TeamSize + "";
+		}
+
+		public void UpdateDisabledStatus()
+		{
+			if (GameModeInfo.Entry.MatchConfig.MatchType == MatchType.Custom && _partyService.HasParty.Value)
+			{
+				Disabled = true;
+				return;
+			}
+
+			if (GameModeInfo.Entry.TeamSize < _partyService.GetCurrentGroupSize())
+			{
+				Disabled = true;
+				return;
+			}
+
+			if (!GameModeInfo.IsFixed && !GameModeInfo.Duration.Contains(DateTime.UtcNow))
+			{
+				Disabled = true;
+				return;
+			}
+
+			Disabled = false;
 		}
 
 		private void RemoveClasses()

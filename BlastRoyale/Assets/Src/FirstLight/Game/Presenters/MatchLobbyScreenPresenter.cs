@@ -227,7 +227,7 @@ namespace FirstLight.Game.Presenters
 					() => KickPlayer(player.Id).Forget()));
 			}
 
-			TooltipUtils.OpenPlayerContextOptions(source, Root, player.GetPlayerName(), buttons, TipDirection.TopLeft, TooltipPosition.BottomRight);
+			TooltipUtils.OpenPlayerContextOptions(source, Root, player.GetPlayerName(), buttons);
 		}
 
 		private async UniTaskVoid KickPlayer(string playerID)

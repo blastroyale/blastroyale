@@ -296,7 +296,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			// var trophies = partyMember.GetPlayerTrophies();
 			// displayName += $"\n{trophies} <sprite name=\"TrophyIcon\">";
 
-			TooltipUtils.OpenPlayerContextOptions(slot.NameView.PlayerNameLabel, Element, displayName, playerContextButtons);
+			TooltipUtils.OpenPlayerContextOptions(slot.NameView.PlayerNameLabel, Element, displayName, playerContextButtons, TooltipPosition.Top);
 		}
 
 		private async UniTaskVoid KickPartyMember(string playerID)

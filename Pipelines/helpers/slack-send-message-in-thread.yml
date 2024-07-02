@@ -1,0 +1,35 @@
+﻿parameters:
+  - name: slackToken
+    type: string
+  - name: messageIdArtifact
+    type: string
+  - name: content
+    type: string
+    default: ''
+steps:
+  - task: DownloadPipelineArtifact@2
+    inputs:
+      artifactName: ${{ parameters.messageIdArtifact }}
+      targetPath: $(Pipeline.Workspace)/${{ parameters.messageIdArtifact }}
+    displayName: "[Slack] Download message id artifact"
+
+  - powershell: |
+      $token = "${{ parameters.slackToken }}"
+      $ts = Get-Content $(Pipeline.Workspace)/${{ parameters.messageIdArtifact }}/id.txt
+      $ch = Get-Content $(Pipeline.Workspace)/${{ parameters.messageIdArtifact }}/channel.txt
+      $data = @{
+          thread_ts = $ts
+          channel = $ch
+          text = "${{parameters.content}}"
+      } | ConvertTo-Json -Depth 30 -Compress
+      $data = $data.replace('#n','\n')
+
+      $response = Invoke-RestMethod -Uri https://slack.com/api/chat.postMessage -Headers @{Authorization = "Bearer $token"} -Method POST -ContentType 'application/json' -Body $data
+      if ( $response.ok -eq $true ) {
+        Write-Host "Request succeeded"
+      } else {
+        Write-Host "Request Failed"
+        Exit 1
+      }
+
+    displayName: "[Slack] Send message in thread"

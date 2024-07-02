@@ -5,11 +5,8 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
-using I2.Loc;
 using Quantum;
-using UITTimeline;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 

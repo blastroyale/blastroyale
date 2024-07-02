@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Utils;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
@@ -155,7 +153,7 @@ namespace FirstLight.Game.Presenters
 			{
 				if (view.IsCustomGame())
 				{
-					return;
+					continue;
 				}
 
 				view.UpdateDisabledStatus();

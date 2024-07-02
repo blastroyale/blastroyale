@@ -1,17 +1,21 @@
-.game-mode-card--element-1 {
-    transition-delay: 0.1s, 0.1s;
+.game-mode-card--element-1 .game-mode-card__animation {
+    transition-delay: 0.025s;
 }
 
-.game-mode-card--element-2 {
-    transition-delay: 0.15s, 0.15s;
+.game-mode-card--element-2 .game-mode-card__animation {
+    transition-delay: 0.05s;
 }
 
-.game-mode-card--element-3 {
-    transition-delay: 0.2s, 0.2s;
+.game-mode-card--element-3 .game-mode-card__animation {
+    transition-delay: 0.075s;
 }
 
-.game-mode-card--element-4 {
-    transition-delay: 0.25s, 0.25s;
+.game-mode-card--element-4 .game-mode-card__animation {
+    transition-delay: 0.1s;
+}
+
+.game-mode-card--element-large .game-mode-card__animation {
+    transition-delay: 0.125s;
 }
 
 .game-mode-card__background {
@@ -56,12 +60,17 @@
     align-items: center;
     flex-direction: row;
     justify-content: flex-end;
-    margin-right: 41px;
     padding-top: 0;
     margin-top: 0;
-    margin-bottom: 16px;
-    align-self: auto;
-    top: 9px;
+    align-self: flex-end;
+    position: absolute;
+    left: auto;
+    width: 72px;
+    height: 63px;
+    top: 113px;
+    right: 23px;
+    margin-right: 0;
+    margin-bottom: 0;
 }
 
 .game-mode-card--event .game-mode-card__team-size {
@@ -127,6 +136,15 @@
 
 .game-mode-card__event-container {
     display: none;
+    flex-grow: 1;
+    position: absolute;
+    height: 95px;
+    width: 374px;
+    left: 31px;
+    flex-direction: column;
+    top: 551px;
+    justify-content: center;
+    align-items: center;
 }
 
 .game-mode-card--event .game-mode-card__event-container {
@@ -170,6 +188,14 @@
 
 .game-mode-card__shadow {
     -unity-background-image-tint-color: black;
+    flex-grow: 1;
+    background-image: var(--sprite-home__gamemode-card-blue);
+    width: 100%;
+    height: 100%;
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+    top: 10px;
+    left: 5px;
 }
 
 .game-mode-card--coming-soon .game-mode-card__shadow {
@@ -202,10 +228,10 @@
 
 .game-mode-card__team-size-icon {
     flex-grow: 0;
-    width: 55px;
-    height: 55px;
     -unity-background-scale-mode: scale-to-fit;
     flex-shrink: 0;
+    width: 39px;
+    height: 39px
 }
 
 .anim-delay-3 {
@@ -376,19 +402,30 @@
     display: none;
 }
 
-.game-mode-card--disabled-container {
+.game-mode-card__disabled-container {
     display: none;
     flex-grow: 1;
     visibility: visible;
     height: 659px;
     width: 456px;
     background-image: url("project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-selected-rectangle.svg?fileID=7388822144124034973&guid=634d1369f68f8a841a085b249ed50f68&type=3#gamemode-selected-rectangle");
-    background-color: rgba(30, 8, 58, 0);
     overflow: hidden;
     position: absolute;
     top: 0;
     left: 21px;
     -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+    background-color: rgba(30, 8, 58, 0.6);
+}
+
+.game-mode-card__status-label {
+    font-size: 28px;
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+    letter-spacing: -2px;
+    height: 100%;
+    flex-shrink: 1;
+    -unity-text-align: middle-center;
+    opacity: 1;
 }
 
 .game-mode-card__rewards-container {

@@ -136,7 +136,7 @@ namespace FirstLight.Game.Presenters
 
 		private string GetVisibleClass(int orderNumber)
 		{
-			return VISIBLE_GAMEMODE_BUTTON + (orderNumber > 4 ? "" : orderNumber);
+			return VISIBLE_GAMEMODE_BUTTON + (orderNumber > 4 ? "large" : orderNumber);
 		}
 
 		private void OnCustomGameClicked(GameModeSelectionButtonView info)

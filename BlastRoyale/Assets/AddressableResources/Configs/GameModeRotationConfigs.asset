@@ -18,7 +18,7 @@ MonoBehaviour:
       - TimedEntry: 1
         TimedGameModeEntries:
         - StartsAt: 02/07/2024 14:50
-          EndsAt: 02/07/2024 15:51
+          EndsAt: 02/07/2024 19:51
         MatchConfig:
           ConfigId: b15b823f
           GameModeID: BattleRoyale

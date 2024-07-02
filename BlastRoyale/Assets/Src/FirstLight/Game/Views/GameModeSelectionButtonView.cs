@@ -23,6 +23,7 @@ namespace FirstLight.Game.Views
 		private const string USS_SELECTED = USS_BASE + "--selected";
 		private const string USS_COMING_SOON = USS_BASE + "--coming-soon";
 		private const string USS_REWARD_ICON = USS_BASE + "__reward-icon";
+		private const string USS_ANIM_ROOT = "anim-root";
 
 		public GameModeInfo GameModeInfo { get; private set; }
 		public PlayableDirector NewEventDirector;
@@ -79,12 +80,12 @@ namespace FirstLight.Game.Views
 		public void SetData(string buttonName, GameModeInfo gameModeInfo, params string[] extraClasses)
 		{
 			_button.name = buttonName;
+			SetData(gameModeInfo);
 			foreach (var extraClass in extraClasses)
 			{
 				_button.AddToClassList(extraClass);
 			}
 
-			SetData(gameModeInfo);
 		}
 
 		/// <summary>
@@ -118,11 +119,15 @@ namespace FirstLight.Game.Views
 			if (showEventAnimation)
 			{
 				_localPrefs.LastSeenEvent.Value = GameModeInfo.GetKey();
-				_button.AddToClassList("animation-root-overwrite");
+				_button.AddToClassList(USS_ANIM_ROOT);
 				Element.schedule.Execute(() =>
 				{
 					NewEventDirector.Play();
 				});
+			}
+			else
+			{
+				_button.RemoveFromClassList(USS_ANIM_ROOT);
 			}
 
 			_scheduled = Element.schedule.Execute(() =>

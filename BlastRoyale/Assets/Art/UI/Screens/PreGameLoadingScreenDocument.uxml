@@ -1,11 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/PreGameLoadingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#PreGameLoadingScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/ScreenHeaderStyle.uss?fileID=7433441132597879392&amp;guid=656beac25a9f4146b77bab8d9c8c8699&amp;type=3#ScreenHeaderStyle" />
-    <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent" style="display: flex;">
-        <FirstLight.Game.UIElements.AnimatedImageElement name="Clouds" sine-wave-pos-min-x="-65" sine-wave-pos-x-frequency="1" sine-wave-pos-y-frequency="-1" sine-wave-pos-min-y="-35" sine-wave-pos-max-x="65" sine-wave-pos-max-y="35" sine-wave-pos-x-offset="0" sine-wave-pos-y-offset="0.75" class="clouds" style="display: flex;" />
-        <FirstLight.Game.UIElements.SafeAreaElement apply-top="true" class="safe-area" style="display: flex;">
-            <FirstLight.Game.UIElements.AnimatedImageElement name="PlayerImage" sine-wave-pos-max-y="25" sine-wave-pos-min-y="-25" sine-wave-pos-y-frequency="2" sine-wave-pos-x-frequency="2" sine-wave-pos-min-x="-25" sine-wave-pos-max-x="25" sine-wave-pos-x-offset="1" class="player-image" style="display: flex;" />
-            <ui:VisualElement name="PlayerAmountHolder" class="load-status-holder" style="display: flex;">
+   <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent">
+        <FirstLight.Game.UIElements.AnimatedImageElement name="Clouds" sine-wave-pos-min-x="-65" sine-wave-pos-x-frequency="1" sine-wave-pos-y-frequency="-1" sine-wave-pos-min-y="-35" sine-wave-pos-max-x="65" sine-wave-pos-max-y="35" sine-wave-pos-x-offset="0" sine-wave-pos-y-offset="0.75" class="clouds" />
+        <FirstLight.Game.UIElements.SafeAreaElement apply-top="true" class="safe-area">
+            <FirstLight.Game.UIElements.AnimatedImageElement name="PlayerImage" sine-wave-pos-max-y="25" sine-wave-pos-min-y="-25" sine-wave-pos-y-frequency="2" sine-wave-pos-x-frequency="2" sine-wave-pos-min-x="-25" sine-wave-pos-max-x="25" sine-wave-pos-x-offset="1" class="player-image" />
+            <ui:VisualElement name="PlayerAmountHolder" class="load-status-holder">
                 <FirstLight.Game.UIElements.AnimatedImageElement name="LoadIcon" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner" />
                 <ui:VisualElement name="Labels" class="load-status-holder__labels">
                     <ui:Label name="LoadStatusLabel" text="5/30" class="DO_NOT_USE_font-style-h2 load-status-holder__player-label" />

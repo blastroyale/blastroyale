@@ -132,7 +132,8 @@
 .game-mode-card--event .game-mode-card__event-container {
     display: flex;
 }
-.game-mode-card--coming-soon .game-mode-card__event-container  {
+
+.game-mode-card--coming-soon .game-mode-card__event-container {
     display: none;
 }
 
@@ -155,6 +156,7 @@
     opacity: 1;
     display: none;
 }
+
 .game-mode-card--event .game-mode-card__status-container {
     display: flex;
 }
@@ -406,8 +408,8 @@
     align-items: flex-end;
     justify-content: space-around;
     flex-direction: row;
-    padding-right: 18px;
-    padding-left: 43px;
+    padding-right: 13px;
+    padding-left: 13px;
 }
 
 .game-mode-card__info-button {
@@ -418,4 +420,12 @@
     position: absolute;
     top: -558px;
     left: 382px;
+}
+
+.game-mode-card__reward-icon {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
+    align-items: stretch;
 }

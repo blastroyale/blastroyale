@@ -1,8 +1,10 @@
 using System;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
@@ -18,6 +20,7 @@ namespace FirstLight.Game.Views
 		private const string USS_BASE = "game-mode-card";
 		private const string USS_SELECTED = USS_BASE + "--selected";
 		private const string USS_COMING_SOON = USS_BASE + "--coming-soon";
+		private const string USS_REWARD_ICON = USS_BASE + "__reward-icon";
 
 		public GameModeInfo GameModeInfo { get; private set; }
 		public event Action<GameModeSelectionButtonView> Clicked;
@@ -42,6 +45,7 @@ namespace FirstLight.Game.Views
 		private VisualElement _teamSizeIcon;
 		private Label _gameModeDescriptionLabel;
 		private Label _disabledLabel;
+		private VisualElement _rewardContainer;
 		private IVisualElementScheduledItem _scheduled;
 
 		protected override void Attached()
@@ -55,6 +59,7 @@ namespace FirstLight.Game.Views
 			_teamSizeIcon = dataPanel.Q<VisualElement>("TeamSizeIcon").Required();
 			_teamSizeLabel = dataPanel.Q<Label>("TeamSizeLabel").Required();
 			_timeLeftLabel = Element.Q<Label>("StatusLabel").Required();
+			_rewardContainer = Element.Q<VisualElement>("RewardsContainer").Required();
 
 			_button.clicked += () => Clicked?.Invoke(this);
 		}
@@ -89,6 +94,7 @@ namespace FirstLight.Game.Views
 			UpdateTeamSize(gameModeInfo);
 			UpdateTitleAndDescription();
 			UpdateDisabledStatus();
+			UpdateRewards();
 			if (gameModeInfo.IsFixed)
 			{
 				return;
@@ -125,6 +131,20 @@ namespace FirstLight.Game.Views
 				var prefix = comingSoon ? "NEXT EVENT IN\n" : "ENDS IN ";
 				_timeLeftLabel.text = $"{prefix}{timeLeft.Hours}h {timeLeft.Minutes}m {timeLeft.Seconds}s";
 			}).Every(1000);
+		}
+
+		private void UpdateRewards()
+		{
+			_rewardContainer.Clear();
+			if (GameModeInfo.Entry.MatchConfig.MetaItemDropOverwrites == null) return;
+			foreach (var modifier in GameModeInfo.Entry.MatchConfig.MetaItemDropOverwrites)
+			{
+				var icon = new VisualElement();
+				icon.AddToClassList(USS_REWARD_ICON);
+				var viewModel = new CurrencyItemViewModel(ItemFactory.Currency(modifier.Id, 0));
+				viewModel.DrawIcon(icon);
+				_rewardContainer.Add(icon);
+			}
 		}
 
 		public bool IsCustomGame()

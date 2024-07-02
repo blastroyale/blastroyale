@@ -173,12 +173,7 @@ namespace FirstLight.Game.Presenters
 
 			return base.OnScreenClose();
 		}
-
-		private void SetAvatarSprite(Sprite s)
-		{
-			Debug.Log(s.name);
-		}
-
+		
 		private void RefreshPartyList()
 		{
 			var isSquadGame = CurrentRoom.IsTeamGame;
@@ -232,15 +227,20 @@ namespace FirstLight.Game.Presenters
 				if (squadMember.IsLocal) continue;
 
 				var memberDropPosition = CurrentRoom.GetPlayerProperties(squadMember).DropPosition.Value;
+
+				//var playerMarker = new PlayerMemberElement {name = "player-marker"};
+				
 				var marker = new VisualElement {name = "marker"};
 				marker.AddToClassList("map-marker-party");
 				var nameColor = _services.TeamService.GetTeamMemberColor(squadMember);
+				//playerMarker.SetTeamColor(nameColor ?? Color.white);
 				marker.style.backgroundColor = nameColor ?? Color.white;
 				var mapWidth = _mapImage.contentRect.width;
 				var markerPos = new Vector2(memberDropPosition.x * mapWidth, -memberDropPosition.y * mapWidth);
 
 				_partyMarkers.Add(marker);
 				marker.transform.position = markerPos;
+				//playerMarker.transform.position = markerPos;
 			}
 		}
 

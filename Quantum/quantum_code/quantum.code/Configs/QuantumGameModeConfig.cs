@@ -76,7 +76,6 @@ namespace Quantum
 		/// If this gamemode skips the pre game loading screen with the plane and maps election
 		/// </summary>
 		public bool InstantLoad;
-
 #endregion
 
 #region Bots
@@ -103,12 +102,6 @@ namespace Quantum
 		
 		[FoldoutGroup("Endgame"), PropertyTooltip(DESC_ALLOW_EARLY_REWARDS)]
 		public bool AllowEarlyRewards;
-		
-		[FoldoutGroup("Endgame"), PropertyTooltip(DESC_COINS_MULT)]
-		public ushort MetaCoinsMultiplier = 1;
-		
-		[FoldoutGroup("Endgame"), PropertyTooltip(DESC_BPP_MULT)]
-		public ushort MetaBppMultiplier = 1;
 
 #endregion
 
@@ -173,11 +166,7 @@ namespace Quantum
 		private const string DESC_ALLOWED_MAPS = "Which maps are allowed to be played with this game mode.";
 		private const string DESC_COMPLETION_STRATEGY = "What should mark the end of a match.";
 		private const string DESC_ALLOW_EARLY_REWARDS = "Can player earn rewards mid-game ?";
-		private const string DESC_COINS_MULT = "Meta Coins multiplier";
-		private const string DESC_BPP_MULT = "Meta BPP multiplier";
 		private const string DESC_COMPLETION_KILL_COUNT = "How many kills must a player have to win the match.";
-		private const string DESC_GAME_SIMULATION_SM = "Which state machine to use for game simulation";
-		private const string DESC_AUDIO_SM = "Which state machine to use for audio.";
 		private const string DESC_SYSTEMS = "Which Quantum systems should be enabled for this game mode.";
 		private const string DESC_IS_DEBUG_ONLY = "Marks this game mode to be available only in Debug builds.";
 		// @formatter:on

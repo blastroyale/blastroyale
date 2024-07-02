@@ -18,26 +18,26 @@ MonoBehaviour:
       - TimedEntry: 1
         TimedGameModeEntries:
         - StartsAt: 02/07/2024 14:50
-          EndsAt: 02/07/2024 19:51
+          EndsAt: 30/07/2024 14:00
         MatchConfig:
           ConfigId: b15b823f
           GameModeID: BattleRoyale
           MapId: 115
           TeamSize: 1
           Mutators:
-          - HealthyAir
+          - RPGsOnly
           WeaponsSelectionOverwrite: []
           MetaItemDropOverwrites:
           - Id: 209
-            Place: 0
+            Place: 1
             DropRate:
-              RawValue: 32768
+              RawValue: 65536
             MinDropAmount: 1
             MaxDropAmount: 1
           - Id: 61
-            Place: 1
+            Place: 2
             DropRate:
-              RawValue: 19660
+              RawValue: 65536
             MinDropAmount: 1
             MaxDropAmount: 5
           - Id: 105
@@ -46,11 +46,17 @@ MonoBehaviour:
               RawValue: 65536
             MinDropAmount: 1
             MaxDropAmount: 1
+          - Id: 105
+            Place: 2
+            DropRate:
+              RawValue: 65536
+            MinDropAmount: 2
+            MaxDropAmount: 3
           RewardModifiers:
           - Id: 61
             Multiplier:
               RawValue: 327680
-            CollectedInsideGame: 0
+            CollectedInsideGame: 1
           HasBots: 1
           BotOverwriteDifficulty: -1
           MaxPlayersOverwrite: 0

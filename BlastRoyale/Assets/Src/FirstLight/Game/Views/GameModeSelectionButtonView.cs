@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
@@ -152,7 +153,7 @@ namespace FirstLight.Game.Views
 				}
 
 				var prefix = comingSoon ? "NEXT EVENT IN\n" : "ENDS IN ";
-				_timeLeftLabel.text = $"{prefix}{timeLeft.Hours}h {timeLeft.Minutes}m {timeLeft.Seconds}s";
+				_timeLeftLabel.text = $"{prefix}{Math.Floor(timeLeft.TotalHours)}h {timeLeft.Minutes}m {timeLeft.Seconds}s";
 			}).Every(1000);
 		}
 
@@ -160,11 +161,11 @@ namespace FirstLight.Game.Views
 		{
 			_rewardContainer.Clear();
 			if (GameModeInfo.Entry.MatchConfig.MetaItemDropOverwrites == null) return;
-			foreach (var modifier in GameModeInfo.Entry.MatchConfig.MetaItemDropOverwrites)
+			foreach (var gameId in GameModeInfo.Entry.MatchConfig.MetaItemDropOverwrites.Select(a=>a.Id).Distinct())
 			{
 				var icon = new VisualElement();
 				icon.AddToClassList(USS_REWARD_ICON);
-				var viewModel = new CurrencyItemViewModel(ItemFactory.Currency(modifier.Id, 0));
+				var viewModel = new CurrencyItemViewModel(ItemFactory.Currency(gameId, 0));
 				viewModel.DrawIcon(icon);
 				_rewardContainer.Add(icon);
 			}

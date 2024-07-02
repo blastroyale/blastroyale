@@ -14,7 +14,7 @@
         </ui:ScrollView>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITGameModeSelection/choose_a_mode" name="Header" />
         <FirstLight.Game.UIElements.SafeAreaElement apply-right="false" apply-left="false" name="SafeArea" picking-mode="Ignore">
-            <FirstLight.Game.UIElements.LocalizedDropDown localization-key="UITGameModeSelection/select_map" name="Map" class="map-selector" />
+            <FirstLight.Game.UIElements.LocalizedDropDown localization-key="UITGameModeSelection/select_map" name="Map" class="map-selector anim-translate anim-translate--down-l anim-delay-0" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITGameModeSelection/tap_to_choose" name="Instructions" class="instructions anim-fade anim-delay-1" style="" />
     </ui:VisualElement>

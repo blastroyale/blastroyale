@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
@@ -574,7 +575,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			foreach (var friendlyView in poolSpawnedReadOnly)
 			{
 				if (friendlyView.Entity != callback.Entity) continue;
-
+				
 				friendlyView.SetColor(_services.TeamService.GetTeamMemberColor(callback.Entity) ?? Color.white);
 				break;
 			}
@@ -601,11 +602,19 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			if (_spawnedFriendlies.Contains(entity)) return;
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view)) return;
-
+			
+			
 			var friendlyView = _friendliesPool.Spawn();
 			_spawnedFriendlies.Add(entity);
 			friendlyView.SetPlayer(entity, view.transform);
 			friendlyView.SetColor(_services.TeamService.GetTeamMemberColor(entity) ?? Color.white);
+
+			QuantumRunner.Default.Game.Frames.Verified.TryGet<CosmeticsHolder>(entity, out var cosmeticsHolder);
+			
+			var cosmetics = QuantumRunner.Default.Game.Frames.Verified.ResolveList(cosmeticsHolder.Cosmetics);
+
+			_services.CollectionService.LoadCollectionItemSprite(_services.CollectionService.GetCosmeticForGroup(cosmetics, GameIdGroup.PlayerSkin))
+									   .ContinueWith(friendlyView.SetAvatar);
 		}
 
 		private Vector2 ViewportToMinimapPosition(Vector3 viewportPosition, Vector3 playerViewportPosition)

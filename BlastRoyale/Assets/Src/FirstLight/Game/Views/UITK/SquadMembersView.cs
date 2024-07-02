@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Collection;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
@@ -22,7 +25,8 @@ namespace FirstLight.Game.Views.UITK
 		private IMatchServices _matchServices;
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
-
+		private ICollectionService _collectionService;
+		
 		private readonly Dictionary<EntityRef, SquadMemberElement> _squadMembers = new ();
 
 		protected override void Attached()
@@ -30,6 +34,7 @@ namespace FirstLight.Game.Views.UITK
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_services = MainInstaller.ResolveServices();
 			_dataProvider = MainInstaller.ResolveData();
+			_collectionService = _services.CollectionService;
 			Element.Clear(); // Clears development-time child elements.
 		}
 
@@ -118,7 +123,7 @@ namespace FirstLight.Game.Views.UITK
 			squadMember.PingDamage();
 		}
 
-		private void RecheckSquadMembers(Frame f)
+		private unsafe void RecheckSquadMembers(Frame f)
 		{
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 
@@ -157,8 +162,12 @@ namespace FirstLight.Game.Views.UITK
 						: _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked,
 							(int) f.GetPlayerData(pc.Player).LeaderboardRank);
 
-					squadMember.SetPlayer(pc.Player, playerName, 0,
-						isBot ? null : f.GetPlayerData(pc.Player).AvatarUrl, playerNameColor);
+					var cosmetics = f.ResolveList(f.Get<CosmeticsHolder>(e).Cosmetics);
+					 _collectionService.LoadCollectionItemSprite(_collectionService.GetCosmeticForGroup(cosmetics, GameIdGroup.PlayerSkin))
+									   .ContinueWith(loadedAvatar => squadMember.SetPlayer(pc.Player, playerName, loadedAvatar, playerNameColor));
+					
+					 squadMember.SetPlayer(pc.Player, playerName, null, playerNameColor);
+					
 					if (f.TryGet<Stats>(e, out var stats))
 					{
 						var maxHealth = FPMath.RoundToInt(stats.GetStatData(StatType.Health).StatValue);

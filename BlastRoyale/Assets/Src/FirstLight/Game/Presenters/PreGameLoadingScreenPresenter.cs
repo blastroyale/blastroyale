@@ -42,6 +42,9 @@ namespace FirstLight.Game.Presenters
 			public Action LeaveRoomClicked;
 		}
 
+		private VisualElement[] _squadContainers;
+		private Label[] _nameLabels;
+		
 		private VisualElement _mapHolder;
 		private VisualElement _mapTitleBg;
 		private VisualElement _mapMarker;
@@ -70,6 +73,8 @@ namespace FirstLight.Game.Presenters
 
 		private MapAreaConfig _mapAreaConfig;
 		private Vector2 _markerLocalPosition;
+		
+		private const int MaxSquadPlayers = 4; 
 
 		private bool RejoiningRoom => _services.NetworkService.JoinSource.HasResync();
 
@@ -87,6 +92,9 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements()
 		{
+			_squadContainers = new VisualElement[MaxSquadPlayers];
+			_nameLabels = new Label[MaxSquadPlayers];
+			
 			_mapHolder = Root.Q("Map").Required();
 			_mapImage = Root.Q("MapImage").Required();
 			_mapMarker = Root.Q("MapMarker").Required();
@@ -109,6 +117,13 @@ namespace FirstLight.Game.Presenters
 			_squadMembersList.bindItem = BindSquadListEntry;
 
 			_header.backClicked += OnCloseClicked;
+
+			for (var i = 0; i < MaxSquadPlayers; i++)
+			{
+				_squadContainers[i] = Root.Q<VisualElement>($"Row{i}").Required();
+				_squadContainers[i].visible = false;
+				_nameLabels[i] = Root.Q<Label>($"Name{i}").Required();
+			}
 		}
 
 		[Button]

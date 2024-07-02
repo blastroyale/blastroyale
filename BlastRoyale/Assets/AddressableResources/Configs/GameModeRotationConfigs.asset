@@ -17,7 +17,7 @@ MonoBehaviour:
     - Entries:
       - TimedEntry: 1
         TimedGameModeEntries:
-        - StartsAt: 02/07/2024 12:06
+        - StartsAt: 02/07/2024 12:38
           EndsAt: 02/07/2024 12:40
         MatchConfig:
           ConfigId: b15b823f

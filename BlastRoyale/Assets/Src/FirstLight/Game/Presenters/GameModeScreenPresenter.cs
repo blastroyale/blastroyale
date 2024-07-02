@@ -12,7 +12,9 @@ using FirstLight.Game.Views;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
@@ -34,7 +36,9 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[SerializeField] private VisualTreeAsset _buttonAsset;
-		[SerializeField] private VisualTreeAsset _comingSoonAsset;
+		[SerializeField, Required, TabGroup("Animation")]
+		private PlayableDirector _newEventDirector;
+
 
 		private Button _closeButton;
 		private ScrollView _buttonsSlider;

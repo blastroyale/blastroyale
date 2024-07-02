@@ -27,11 +27,19 @@
                 <ui:VisualElement name="BG" class="fill-parent" style="flex-grow: 1; background-color: rgba(30, 8, 58, 0.6);" />
             </ui:VisualElement>
             <ui:VisualElement name="Char" class="game-mode-card__character" />
-            <ui:VisualElement name="StatusContainer" class="game-mode-card__status-container" style="">
+            <ui:VisualElement name="StatusContainer" class="game-mode-card__status-container">
                 <ui:Label tabindex="-1" text="ENDS  IN 23h 54m 34s" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatusLabel" style="font-size: 28px; -unity-font-style: normal; color: rgb(255, 255, 255); letter-spacing: -2px; height: 100%; flex-shrink: 1; -unity-text-align: middle-center; opacity: 1;" />
             </ui:VisualElement>
-            <ui:Label text="COMING SOON!" display-tooltip-when-elided="true" name="ComingSoon" class="game-mode-card__coming-soon-label"/>
+            <ui:Label text="COMING SOON!" display-tooltip-when-elided="true" name="ComingSoon" class="game-mode-card__coming-soon-label" />
             <ui:VisualElement name="Crown" class="game-mode-card__crown" />
+        </ui:VisualElement>
+        <ui:VisualElement name="NewEventEffects" class="game-mode-card__new-event-effects">
+            <ui:VisualElement name="NewEventBackground" class="game-mode-card__new-event-effects__background" />
+            <ui:VisualElement name="Mask" class="fill-parent game-mode-card__new-event-effects__mask">
+                <ui:VisualElement name="NewEventBallMedium" class="game-mode-card__new-event-effects__ball-medium" />
+                <ui:VisualElement name="NewEventBallSmall" class="game-mode-card__new-event-effects__ball-small" />
+                <ui:Label name="NewEventLabel" tabindex="-1" text="NEW EVENT !" parse-escape-sequences="true" display-tooltip-when-elided="true"  class="game-mode-card__new-event-effects__label" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </FirstLight.Game.UIElements.ImageButton>
 </ui:UXML>

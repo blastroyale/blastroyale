@@ -31,16 +31,16 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices = matchServices;
 			_gameServices = gameServices;
 			_hitEffects = new();
-			QuantumEvent.SubscribeManual<EventOnProjectileSuccessHit>(this, OnProjectileHit);
-			QuantumEvent.SubscribeManual<EventOnProjectileFailedHit>(this, OnProjectileFailedHit);
+			QuantumEvent.SubscribeManual<EventOnProjectileSuccessHitPredicted>(this, OnProjectileHit);
+			QuantumEvent.SubscribeManual<EventOnProjectileFailedHitPredicted>(this, OnProjectileFailedHit);
 			QuantumCallback.SubscribeManual<CallbackGameDestroyed>(this, OnGameDestroyed);
 		}
 
 		private void OnGameDestroyed(CallbackGameDestroyed c) => _hitEffects.Clear();
 		
-		private void OnProjectileFailedHit(EventOnProjectileFailedHit ev)
+		private void OnProjectileFailedHit(EventOnProjectileFailedHitPredicted ev)
 		{
-			if (ev.Game.Frames.Verified.IsCulled(ev.ProjectileEntity) && ev.Projectile.Attacker != _matchServices.SpectateService.GetSpectatedEntity())
+			if (ev.Game.Frames.Predicted.IsCulled(ev.ProjectileEntity) && ev.Projectile.Attacker != _matchServices.SpectateService.GetSpectatedEntity())
 			{
 				return;
 			}
@@ -50,7 +50,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_gameServices.VfxService.Spawn(VfxId.ProjectileFailedSmoke).transform.position = ev.LastPosition.ToUnityVector3();
 		}
 
-		private void PlayHitEffect(EventOnProjectileSuccessHit ev)
+		private void PlayHitEffect(EventOnProjectileSuccessHitPredicted ev)
 		{
 			var fx = GetHitEffect(ev);
 			if (fx == null) return;
@@ -64,10 +64,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 		}
 
-		private void OnProjectileHit(EventOnProjectileSuccessHit ev)
+		private void OnProjectileHit(EventOnProjectileSuccessHitPredicted ev)
 		{
 			var isMine = ev.Projectile.Attacker == _matchServices.SpectateService.GetSpectatedEntity() || ev.HitEntity == _matchServices.SpectateService.GetSpectatedEntity();
-			if (ev.Game.Frames.Verified.IsCulled(ev.HitEntity) && !isMine)
+			if (ev.Game.Frames.Predicted.IsCulled(ev.HitEntity) && !isMine)
 			{
 				return;
 			}
@@ -108,7 +108,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumCallback.UnsubscribeListener(this);
 		}
 		
-		private bool IsInitialized(EventOnProjectileSuccessHit ev)
+		private bool IsInitialized(EventOnProjectileSuccessHitPredicted ev)
 		{
 			if (!_hitEffects.ContainsKey(ev.HitEntity))
 			{
@@ -125,7 +125,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		}
 
 		[CanBeNull]
-		public GameObject GetHitEffect(EventOnProjectileSuccessHit ev)
+		public GameObject GetHitEffect(EventOnProjectileSuccessHitPredicted ev)
 		{
 			if (!IsInitialized(ev)) return null;
 			if (!_hitEffects.TryGetValue(ev.HitEntity, out var ef)) return null;

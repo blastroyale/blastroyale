@@ -42,7 +42,7 @@ synced event OnProjectileTargetableHit
 	FPVector3 HitPosition;
 }
 
-event OnProjectileFailedHit
+event OnProjectileFailedHitPredicted
 {
     entity_ref ProjectileEntity;
  	Projectile Projectile;
@@ -50,9 +50,10 @@ event OnProjectileFailedHit
  	bool HitWall;
 }
 
-event OnProjectileSuccessHit
+event OnProjectileSuccessHitPredicted
 {
 	Projectile Projectile;
 	entity_ref HitEntity;
-	FPVector3 HitPosition;
+	FP Power;
+	nothashed FPVector3 HitPosition;
 }

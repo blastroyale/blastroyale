@@ -89,7 +89,7 @@ namespace FirstLight.Game.Views.UITK
 		public override void OnScreenOpen(bool reload)
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
-			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
+			QuantumEvent.SubscribeManual<EventOnHealthChangedPredicted>(this, OnHealthChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
 			QuantumEvent.SubscribeManual<EventOnPlayerRevived>(this, OnPlayerRevived);
 		}
@@ -108,7 +108,7 @@ namespace FirstLight.Game.Views.UITK
 			_lowHP.style.opacity = 0;
 		}
 
-		private void OnHealthChanged(EventOnHealthChanged callback)
+		private void OnHealthChanged(EventOnHealthChangedPredicted callback)
 		{
 			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 			if (callback.Entity != spectatedEntity) return;
@@ -119,7 +119,7 @@ namespace FirstLight.Game.Views.UITK
 				return;
 			}
 
-			var shouldShowLowHP = callback.CurrentHealth <= _lowHPThreshold;
+			var shouldShowLowHP = callback.CurrentValue <= _lowHPThreshold;
 			if (shouldShowLowHP == _lowHPAnimation.isActive) return;
 
 			if (shouldShowLowHP)

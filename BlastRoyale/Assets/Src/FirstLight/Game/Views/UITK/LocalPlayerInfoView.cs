@@ -44,12 +44,10 @@ namespace FirstLight.Game.Views.UITK
 
 		public override void OnScreenOpen(bool reload)
 		{
-			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
-			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
+			QuantumEvent.SubscribeManual<EventOnHealthChangedVerified>(this, OnHealthChangedVerified);
+			QuantumEvent.SubscribeManual<EventOnShieldChangedPredicted>(this, OnShieldChanged);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnTeamAssigned>(this, OnTeamAssigned);
-			QuantumCallback.SubscribeManual<CallbackEventCanceled>(this, OnEventCanceled);
-			QuantumCallback.SubscribeManual<CallbackEventConfirmed>(this, OnEventConfirmed);
 		}
 
 		public override void OnScreenClose()
@@ -105,18 +103,16 @@ namespace FirstLight.Game.Views.UITK
 			UpdateTeamColor();
 		}
 
-		private void OnShieldChanged(EventOnShieldChanged callback)
+		private void OnShieldChanged(EventOnShieldChangedPredicted callback)
 		{
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
-			_healthShield.UpdateShield(callback.PreviousShield, callback.CurrentShield, callback.CurrentShieldCapacity);
-			_localPlayerEvents.Add(callback);
+			_healthShield.UpdateShield(callback.PreviousValue, callback.CurrentValue, callback.CurrentMax);
 		}
-
-		private void OnHealthChanged(EventOnHealthChanged callback)
+		
+		private void OnHealthChangedVerified(EventOnHealthChangedVerified callback)
 		{
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
-			_healthShield.UpdateHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
-			_localPlayerEvents.Add(callback);
+			_healthShield.UpdateHealth(callback.PreviousValue, callback.CurrentValue, callback.CurrentMax);
 		}
 
 		private void UpdateTeamColor()
@@ -148,19 +144,6 @@ namespace FirstLight.Game.Views.UITK
 			var itemData = _dataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS);
 			var sprite = await _gameServices.CollectionService.LoadCollectionItemSprite(itemData);
 			_pfp.style.backgroundImage = new StyleBackground(sprite);
-		}
-
-		private void OnEventCanceled(CallbackEventCanceled callback)
-		{
-			if (!_localPlayerEvents.Contains(callback.EventKey)) return;
-
-			UpdateHealthAndShieldFromFrame(callback.Game.Frames.Verified);
-			_localPlayerEvents.Remove(callback.EventKey);
-		}
-
-		private void OnEventConfirmed(CallbackEventConfirmed callback)
-		{
-			_localPlayerEvents.Remove(callback.EventKey);
 		}
 	}
 }

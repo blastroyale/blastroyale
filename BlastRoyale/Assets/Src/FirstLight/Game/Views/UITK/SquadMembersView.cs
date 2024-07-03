@@ -42,8 +42,8 @@ namespace FirstLight.Game.Views.UITK
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
-			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
-			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
+			QuantumEvent.SubscribeManual<EventOnHealthChangedPredicted>(this, OnHealthChanged);
+			QuantumEvent.SubscribeManual<EventOnShieldChangedPredicted>(this, OnShieldChanged);
 			QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
 			QuantumEvent.SubscribeManual<EventOnTeamAssigned>(this, OnTeamAssigned);
 			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
@@ -102,18 +102,18 @@ namespace FirstLight.Game.Views.UITK
 		}
 
 
-		private void OnHealthChanged(EventOnHealthChanged callback)
+		private void OnHealthChanged(EventOnHealthChangedPredicted callback)
 		{
 			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
 
-			squadMember.UpdateHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
+			squadMember.UpdateHealth(callback.PreviousValue, callback.CurrentValue, callback.CurrentMax);
 		}
 
-		private void OnShieldChanged(EventOnShieldChanged callback)
+		private void OnShieldChanged(EventOnShieldChangedPredicted callback)
 		{
 			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
 
-			squadMember.UpdateShield(callback.PreviousShield, callback.CurrentShield, callback.CurrentShieldCapacity);
+			squadMember.UpdateShield(callback.PreviousValue, callback.CurrentValue, callback.CurrentMax);
 		}
 
 		private void OnEntityDamaged(EventOnEntityDamaged callback)

@@ -148,7 +148,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				switch (consumable.ConsumableType)
 				{
 					case ConsumableType.Health:
-						QuantumEvent.Subscribe<EventOnHealthChanged>(this,
+						QuantumEvent.Subscribe<EventOnHealthChangedPredicted>(this,
 							c => RefreshIndicator(c.Game.Frames.Predicted, c.Entity, ConsumableType.Health));
 						break;
 					case ConsumableType.Ammo:
@@ -156,7 +156,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Ammo));
 						break;
 					case ConsumableType.Shield:
-						QuantumEvent.Subscribe<EventOnShieldChanged>(this,
+						QuantumEvent.Subscribe<EventOnShieldChangedPredicted>(this,
 							c => RefreshIndicator(c.Game.Frames.Predicted, c.Entity, ConsumableType.Shield));
 						break;
 					case ConsumableType.Special:

@@ -181,7 +181,7 @@ namespace FirstLight.Game.Presenters
 				.SetData(_playButton);
 			Root.Q<CurrencyDisplayElement>("NOOBCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
-				.SetData(_playButton, true);
+				.SetData(_playButton);
 
 			Root.Q<VisualElement>("PartyMemberNames").Required()
 				.AttachExistingView(this, _homePartyCharacterView);

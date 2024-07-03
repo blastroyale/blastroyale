@@ -309,6 +309,9 @@
     transition-property: scale, top, right;
     transition-duration: 0.33s;
 }
+.game-mode-card .anim-root{
+    visibility: hidden;
+}
 
 .game-mode-card--selected {
     scale: 1.083 1.083;

@@ -92,9 +92,7 @@ namespace FirstLight.Game.Services
 		private const string SelectedQueueLobbyProperty = "selected_queue";
 
 		private readonly IConfigsProvider _configsProvider;
-		private readonly IThreadService _threadService;
 		private readonly IPartyService _partyService;
-		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IAppDataProvider _appDataProvider;
 		private readonly LocalPrefsService _localPrefsService;
 
@@ -146,8 +144,6 @@ namespace FirstLight.Game.Services
 							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService)
 		{
 			_configsProvider = configsProvider;
-			_threadService = threadService;
-			_gameDataProvider = gameDataProvider;
 			_partyService = partyService;
 			_appDataProvider = appDataProvider;
 			_localPrefsService = localPrefsService;
@@ -219,18 +215,18 @@ namespace FirstLight.Game.Services
 
 		private void AddGameModeToPartyProperties(Dictionary<string, string> _, Dictionary<string, string> lobbyData)
 		{
-			lobbyData[SelectedQueueLobbyProperty] = SelectedGameMode.Value.Entry.PlayfabQueue.QueueName;
+			lobbyData[SelectedQueueLobbyProperty] = SelectedGameMode.Value.Entry.MatchConfig.ConfigId;
 		}
 
 		private void OnLeaderChangedGameMode(string key, string previous, string current, ObservableUpdateType type)
 		{
-			var selected = SelectedGameMode.Value.Entry.PlayfabQueue.QueueName;
+			var selected = SelectedGameMode.Value.Entry.MatchConfig.ConfigId;
 			if (selected == current)
 			{
 				return;
 			}
 
-			var newValue = _slots.FirstOrDefault(a => a.Entry.PlayfabQueue.QueueName == current);
+			var newValue = _slots.FirstOrDefault(a => a.Entry.MatchConfig != null && a.Entry.MatchConfig.ConfigId == current);
 			if (newValue.Entry.PlayfabQueue?.QueueName == null) return;
 			SelectedGameMode.Value = newValue;
 		}
@@ -241,6 +237,7 @@ namespace FirstLight.Game.Services
 			{
 				return true;
 			}
+
 			var now = DateTime.UtcNow;
 			return gameMode.TimedGameModeEntries.Any(a => a.Contains(now));
 		}
@@ -309,7 +306,9 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			var firstThatFits = _slots.OrderBy(g => g.Entry.TeamSize)
+			var firstThatFits = _slots
+				.Where(a => a.Entry.MatchConfig != null)
+				.OrderBy(g => g.Entry.TeamSize)
 				.First(g => g.Entry.TeamSize >= size);
 
 			SelectedGameMode.Value = firstThatFits;
@@ -343,8 +342,14 @@ namespace FirstLight.Game.Services
 			if (!info.IsFixed)
 			{
 				var diff = (duration.GetEndsAtDateTime() - DateTime.UtcNow).Add(TimeSpan.FromSeconds(1));
-				_threadService.EnqueueDelayed((int) diff.TotalMilliseconds, () => 0, _ => { RefreshGameModes(false); });
+				UpdateGameModes(diff).Forget();
 			}
+		}
+
+		private async UniTaskVoid UpdateGameModes(TimeSpan delay)
+		{
+			await UniTask.Delay(delay);
+			RefreshGameModes(false);
 		}
 
 		private bool TryGetGameMode(

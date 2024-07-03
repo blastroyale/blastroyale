@@ -309,7 +309,8 @@
     transition-property: scale, top, right;
     transition-duration: 0.33s;
 }
-.game-mode-card .anim-root{
+
+.game-mode-card .anim-root {
     visibility: hidden;
 }
 
@@ -397,12 +398,17 @@
     -unity-background-image-tint-color: rgb(88, 88, 88);
 }
 
-.game-mode-card:disabled .game-mode-card--disabled-container {
+.game-mode-card:disabled .game-mode-card__disabled-container {
     display: flex;
 }
 
-.game-mode-card:disabled.game-mode-card--coming-soon .game-mode-card--disabled-container {
+.game-mode-card:disabled.game-mode-card--coming-soon .game-mode-card__disabled-container {
     display: none;
+}
+
+.game-mode-card__disabled-container__bg {
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+    background-color: rgba(30, 8, 58, 0.6);
 }
 
 .game-mode-card__disabled-container {
@@ -416,8 +422,9 @@
     position: absolute;
     top: 0;
     left: 21px;
+    background-color: rgba(0, 0, 0, 0);
     -unity-background-image-tint-color: rgba(255, 255, 255, 0);
-    background-color: rgba(30, 8, 58, 0.6);
+
 }
 
 .game-mode-card__status-label {

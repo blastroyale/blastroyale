@@ -19,9 +19,6 @@ namespace FirstLight.Game.Configs
 		{
 			[Required] public string QueueName;
 			[Required] public int TimeoutTimeInSeconds;
-
-			[Tooltip("Used to split player who have the same key, used for events")]
-			public string ExtraKey;
 		}
 
 		[Serializable]

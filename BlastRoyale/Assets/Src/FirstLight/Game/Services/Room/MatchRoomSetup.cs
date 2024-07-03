@@ -60,7 +60,6 @@ namespace FirstLight.Game.Services
 			bitStream.Serialize(ref RoomIdentifier);
 			bitStream.Serialize(ref PlayfabQueue.QueueName);
 			bitStream.Serialize(ref PlayfabQueue.TimeoutTimeInSeconds);
-			bitStream.Serialize(ref PlayfabQueue.ExtraKey);
 			SimulationConfig ??= new SimulationMatchConfig();
 			SimulationConfig.Serialize(bitStream);
 			return true;

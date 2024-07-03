@@ -77,6 +77,7 @@ namespace FirstLight.Game.Presenters
 				button.userData = slot;
 				button.AttachView(this, out GameModeSelectionButtonView view);
 				view.NewEventDirector = _newEventDirector;
+				slot.Entry.MatchConfig.MatchType = MatchType.Matchmaking;
 				view.SetData("GameModeButton" + orderNumber, slot, GetVisibleClass(orderNumber++));
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
@@ -91,8 +92,8 @@ namespace FirstLight.Game.Presenters
 				{
 					MatchConfig = new SimulationMatchConfig()
 					{
-						GameModeID = GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME,
 						Mutators = new string[] { },
+						MatchType = MatchType.Custom,
 						TeamSize = 1
 					},
 					Visual = new GameModeRotationConfig.VisualEntryConfig
@@ -170,7 +171,7 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTask ChangeGameModeCoroutine(GameModeSelectionButtonView info, CancellationToken tok)
 		{
-			await UniTask.WaitForSeconds(0.75f, cancellationToken: tok);
+			await UniTask.WaitForSeconds(0.5f, cancellationToken: tok);
 			_services.GameModeService.SelectedGameMode.Value = info.GameModeInfo;
 			Data.GameModeChosen(info.GameModeInfo);
 		}

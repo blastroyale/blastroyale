@@ -83,7 +83,8 @@ namespace FirstLight.Game.Services
 		public string MasterPlayerId;
 		public string Server;
 		public int PlayerCount;
-		public string ExtraKey;
+		// Players will only be matched with others who have the same key 
+		public string DistinctionKey;
 
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string Map;
@@ -300,7 +301,7 @@ namespace FirstLight.Game.Services
 					Map = roomSetup.SimulationConfig.MapId != (int) GameId.Any ? roomSetup.SimulationConfig.MapId.ToString() : null,
 					MasterPlayerId = _networkService.UserId,
 					PlayerCount = 1,
-					ExtraKey = string.IsNullOrWhiteSpace(roomSetup.PlayfabQueue.ExtraKey) ? null : roomSetup.PlayfabQueue.ExtraKey
+					DistinctionKey = roomSetup.SimulationConfig.ConfigId
 				}.Encode()
 			};
 

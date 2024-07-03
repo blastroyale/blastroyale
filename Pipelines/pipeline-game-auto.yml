@@ -34,6 +34,14 @@ parameters:
       - staging
       - community
       - production
+  - name: param_platforms
+    displayName: Platforms
+    type: string
+    default: All
+    values:  
+      - All
+      - iOS
+      - Android
   - name: param_remote_addressables
     displayName: Use Remote Addressables
     type: boolean
@@ -54,14 +62,6 @@ parameters:
     displayName: "[CD] Deploy Quantum Plugin"
     type: boolean
     default: false  
-  - name: param_fake_build
-    displayName: "[DEBUG] Skip game builds and reuse dlls"
-    type: boolean
-    default: false
-  - name: param_skip_ios # In theory this should make androids builds faster, because there is nothing running in parallel
-    displayName: "[DEBUG] Skip IOS build"
-    type: boolean
-    default: false
 
 variables:
 - group: Secrets
@@ -76,8 +76,6 @@ variables:
   value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
 - name: slackToken
   value: $(SLACK-BOT-TOKEN)
-- name: kuttKey
-  value: $(KUTT-KEY)
 - name: isQuantumPluginBumpVersion
   value: ${{ or(eq(variables['Build.Reason'], 'BatchedCI'), eq(parameters['param_deploy_quantum_plugin'], 'True')) }}
   # Auto setup
@@ -126,6 +124,8 @@ stages:
     lockBehavior: sequential
     jobs:
       - job: DisplayAndTagBuild
+        pool:
+          vmImage: "ubuntu-latest"
         steps:
         - checkout: none
         - bash: |
@@ -196,57 +196,34 @@ stages:
         timeoutInMinutes: 90
         dependsOn:  EditorTests
         displayName: Android Build
-        condition: |
-            and(in(dependencies.EditorTests.result, 'Succeeded', 'Skipped'),not(or(failed(), canceled())))
-          
-      
+        condition: and(in(dependencies.EditorTests.result, 'Succeeded', 'Skipped'),not(or(failed(), canceled())),ne('${{ parameters.param_platforms }}', 'iOS'))
         steps:
-        # This is a helper to debug this hellish pipeline, it bypasses the GameBuilds and uses a previous artifact
-        # and continue the execution to the game logic / quantum plugin deployment
-        - ${{ if eq(parameters['param_fake_build'], 'true') }}:              
-          - checkout: none
-          - task: DownloadPipelineArtifact@2
-            inputs:
-              buildType: 'specific'
-              project: 'blast-royale'
-              pipeline: 'Game-Builds'
-              pipelineId: $(fake_build_id)
-              runVersion: 'specific'
-              artifactName: 'GameDlls'
-              downloadPath: '$(Pipeline.Workspace)/GameDlls'
-              allowFailedBuilds: true
-          - task: PublishPipelineArtifact@1
-            inputs:
-              artifactName: 'GameDlls'
-              targetPath: '$(Pipeline.Workspace)/GameDlls'
-        - ${{ else }}:
-          - template:  tasks/update-slack-message.yml@templates
-            parameters:
-              slackToken: $(slackToken)
-              messageIdArtifact: slackbuildmessage  
-              update:
-                - blockId: android
-                  path: text.text
-                  value: '*:android: Android :android:*#n*Status:* Dowloading code :downloading:'
-                  operation: replace
-          - checkout: self
-            lfs: true
-            fetchTags: false
-          - template: unity-build.yml
-            parameters:
-              configuration: $(configuration)
-              platform: Android
-              unity_username: $(unity_email)
-              unity_password: $(unity_password)
-              unity_serial: $(unity_serial)
-              workingDirectory: .
-              branchName: $(branchName)
-              slackToken: $(slackToken)
-              kuttKey: $(kuttKey)
-              publishDlls: true
-              environment: ${{ variables.environment }}
-              dev_build: ${{ variables.dev_build }}
-              remote_addressables: ${{ parameters.param_remote_addressables }}
+        - template:  tasks/update-slack-message.yml@templates
+          parameters:
+            slackToken: $(slackToken)
+            messageIdArtifact: slackbuildmessage  
+            update:
+              - blockId: android
+                path: text.text
+                value: '*:android: Android :android:*#n*Status:* Dowloading code :downloading:'
+                operation: replace
+        - checkout: self
+          lfs: true
+          fetchTags: false
+        - template: unity-build.yml
+          parameters:
+            configuration: $(configuration)
+            platform: Android
+            unity_username: $(unity_email)
+            unity_password: $(unity_password)
+            unity_serial: $(unity_serial)
+            workingDirectory: .
+            branchName: $(branchName)
+            slackToken: $(slackToken)
+            publishDlls: true
+            environment: ${{ variables.environment }}
+            dev_build: ${{ variables.dev_build }}
+            remote_addressables: ${{ parameters.param_remote_addressables }}
 
       - job: iOSBuild
         timeoutInMinutes: 90
@@ -254,8 +231,7 @@ stages:
         displayName: iOS Build
         condition: |
           and(
-            ne(${{ parameters.param_fake_build }}, true),
-            ne(${{ parameters.param_skip_ios }}, true),
+            ne('${{ parameters.param_platforms }}', 'Android'),
             in(dependencies.EditorTests.result, 'Succeeded', 'Skipped'),
             not(or(failed(), canceled()))
           )
@@ -283,10 +259,7 @@ stages:
             workingDirectory: .
             branchName: $(branchName)
             slackToken: $(slackToken)
-            kuttKey: $(kuttKey)
-            developmentiOSCertPwd: $(developmentiOSCertPwd)
-            distributioniOSCertPwd: $(distributioniOSCertPwd)
-            publishDlls: false
+            publishDlls: ${{ eq(parameters.param_platforms, 'iOS') }}
             environment: ${{ variables.environment }}
             dev_build: ${{ variables.dev_build }}
             remote_addressables: ${{ parameters.param_remote_addressables }}

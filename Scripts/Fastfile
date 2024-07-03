@@ -1,0 +1,22 @@
+lane :internal do |options|
+    cert(
+      api_key_path: options[:key_path],
+      development: true
+    )
+    sigh(
+      api_key_path: options[:key_path],
+      app_identifier: "com.firstlightgames.blastroyale",
+      development: true,
+      force: true,
+    )
+     sigh(
+      api_key_path: options[:key_path],
+      app_identifier: "com.firstlightgames.blastroyale.notificationservice",
+      development: true,
+      force: true,
+    )
+    gym(
+       export_method: "development",
+       output_directory: options[:output_directory] 
+    )
+end

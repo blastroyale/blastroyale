@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Collection;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using Quantum;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
@@ -20,6 +22,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private IMatchServices _matchServices;
 		private IGameServices _gameServices;
+		private ICollectionService _collectionService;
 
 		private readonly List<DeathNotificationElement> _visibleNotifications = new ();
 
@@ -30,6 +33,7 @@ namespace FirstLight.Game.Views.UITK
 
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_gameServices = MainInstaller.Resolve<IGameServices>();
+			_collectionService = _gameServices.CollectionService;
 		}
 
 		public override void OnScreenOpen(bool reload)
@@ -42,7 +46,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
-		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		private async void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			// Do nothing in case of offline Tutorial match where there are bots on the map which are not in PlayersMatchData
 			if (callback.PlayersMatchData.Count <= 1)
@@ -60,17 +64,23 @@ namespace FirstLight.Game.Views.UITK
 
 			var killerFriendly = killerData.TeamId == _matchServices.SpectateService.SpectatedPlayer.Value.Team;
 			var victimFriendly = victimData.TeamId == _matchServices.SpectateService.SpectatedPlayer.Value.Team;
-
-			SpawnDeathNotification(killerData.GetPlayerName(), killerFriendly, killerData.AvatarUrl, victimData.GetPlayerName(), victimFriendly,
-				victimData.AvatarUrl, killerData.Data.Player == victimData.Data.Player, killerNameColor, victimNameColor);
+			
+			var killerCosmetics = callback.Game.Frames.Verified.ResolveList(killerData.Data.Cosmetics);
+			var victimCosmetics = callback.Game.Frames.Verified.ResolveList(victimData.Data.Cosmetics);
+			
+			var killerCharacterPfpSprite = await _collectionService.LoadCollectionItemSprite(_collectionService.GetCosmeticForGroup(killerCosmetics, GameIdGroup.PlayerSkin));
+			var victimCharacterPfpSprite = await _collectionService.LoadCollectionItemSprite(_collectionService.GetCosmeticForGroup(victimCosmetics, GameIdGroup.PlayerSkin));
+			
+			SpawnDeathNotification(killerData.GetPlayerName(), killerFriendly, killerCharacterPfpSprite, victimData.GetPlayerName(), victimFriendly,
+				victimCharacterPfpSprite, killerData.Data.Player == victimData.Data.Player, killerNameColor, victimNameColor);
 		}
 
-		private void SpawnDeathNotification(string killerName, bool killerFriendly, string killerAvatarUrl, string victimName,
-											bool victimFriendly, string victimAvatarUrl, bool suicide, StyleColor killerColor, StyleColor victimColor)
+		private void SpawnDeathNotification(string killerName, bool killerFriendly, Sprite killerCharacterPfpSprite, string victimName,
+											bool victimFriendly, Sprite victimCharacterPfpSprite, bool suicide, StyleColor killerColor, StyleColor victimColor)
 		{
 			// TODO: Add a pool for this
-			var deathNotification = new DeathNotificationElement(killerName, killerFriendly, killerAvatarUrl, victimName, victimFriendly,
-				victimAvatarUrl, suicide, killerColor, victimColor);
+			var deathNotification = new DeathNotificationElement(killerName, killerFriendly, killerCharacterPfpSprite, victimName, victimFriendly,
+				victimCharacterPfpSprite, suicide, killerColor, victimColor);
 			deathNotification.Hide(false);
 
 			deathNotification.schedule.Execute(() =>

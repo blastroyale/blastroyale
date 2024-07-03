@@ -22,7 +22,7 @@ public partial class SROptions
 	{
 		MainInstaller.ResolveServices().UIService.OpenScreen<BattlePassSeasonBannerPresenter>().Forget();
 	}
-	
+
 	[Category("Other")]
 	public void OpenButtonDialog()
 	{

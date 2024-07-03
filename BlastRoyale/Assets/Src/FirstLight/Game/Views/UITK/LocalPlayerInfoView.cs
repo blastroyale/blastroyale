@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Collection;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
@@ -23,13 +24,17 @@ namespace FirstLight.Game.Views.UITK
 		private IGameServices _gameServices;
 		private IMatchServices _matchServices;
 		private IGameDataProvider _dataProvider;
+		private ICollectionService _collectionService;
 		private HashSet<EventKey> _localPlayerEvents = new ();
+		
+		
 
 		protected override void Attached()
 		{
 			_gameServices = MainInstaller.ResolveServices();
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_dataProvider = MainInstaller.ResolveData();
+			_collectionService = _gameServices.CollectionService;
 
 			_healthShield = Element.Q<PlayerHealthShieldElement>("LocalPlayerHealthShield").Required();
 			_teamColor = Element.Q("TeamColor").Required();
@@ -39,12 +44,10 @@ namespace FirstLight.Game.Views.UITK
 
 		public override void OnScreenOpen(bool reload)
 		{
-			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
-			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
+			QuantumEvent.SubscribeManual<EventOnHealthChangedVerified>(this, OnHealthChangedVerified);
+			QuantumEvent.SubscribeManual<EventOnShieldChangedPredicted>(this, OnShieldChanged);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnTeamAssigned>(this, OnTeamAssigned);
-			QuantumCallback.SubscribeManual<CallbackEventCanceled>(this, OnEventCanceled);
-			QuantumCallback.SubscribeManual<CallbackEventConfirmed>(this, OnEventConfirmed);
 		}
 
 		public override void OnScreenClose()
@@ -100,18 +103,16 @@ namespace FirstLight.Game.Views.UITK
 			UpdateTeamColor();
 		}
 
-		private void OnShieldChanged(EventOnShieldChanged callback)
+		private void OnShieldChanged(EventOnShieldChangedPredicted callback)
 		{
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
-			_healthShield.UpdateShield(callback.PreviousShield, callback.CurrentShield, callback.CurrentShieldCapacity);
-			_localPlayerEvents.Add(callback);
+			_healthShield.UpdateShield(callback.PreviousValue, callback.CurrentValue, callback.CurrentMax);
 		}
-
-		private void OnHealthChanged(EventOnHealthChanged callback)
+		
+		private void OnHealthChangedVerified(EventOnHealthChangedVerified callback)
 		{
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
-			_healthShield.UpdateHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
-			_localPlayerEvents.Add(callback);
+			_healthShield.UpdateHealth(callback.PreviousValue, callback.CurrentValue, callback.CurrentMax);
 		}
 
 		private void UpdateTeamColor()
@@ -120,40 +121,29 @@ namespace FirstLight.Game.Views.UITK
 
 			if (TeamSystem.GetTeamMemberEntities(QuantumRunner.Default.VerifiedFrame(), playerEntity).Length < 1)
 			{
-				_teamColor.SetVisibility(false);
 				return;
 			}
 
 			var teamColor = _gameServices.TeamService.GetTeamMemberColor(playerEntity);
 			if (teamColor.HasValue)
 			{
-				_teamColor.SetVisibility(true);
-				_teamColor.style.backgroundColor = teamColor.Value;
-			}
-			else
-			{
-				_teamColor.SetVisibility(false);
+				_teamColor.style.borderTopColor = teamColor.Value;
+				_teamColor.style.borderBottomColor = teamColor.Value;
+				_teamColor.style.borderLeftColor = teamColor.Value;
+				_teamColor.style.borderRightColor = teamColor.Value;
+				
+				_teamColor.style.borderTopWidth = GameConstants.Visuals.TEAMMATE_BORDER_RADIUS;
+				_teamColor.style.borderBottomWidth = GameConstants.Visuals.TEAMMATE_BORDER_RADIUS;
+				_teamColor.style.borderLeftWidth = GameConstants.Visuals.TEAMMATE_BORDER_RADIUS;
+				_teamColor.style.borderRightWidth = GameConstants.Visuals.TEAMMATE_BORDER_RADIUS;
 			}
 		}
 
 		private async UniTask LoadPFP()
 		{
-			var itemData = _dataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
+			var itemData = _dataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS);
 			var sprite = await _gameServices.CollectionService.LoadCollectionItemSprite(itemData);
 			_pfp.style.backgroundImage = new StyleBackground(sprite);
-		}
-
-		private void OnEventCanceled(CallbackEventCanceled callback)
-		{
-			if (!_localPlayerEvents.Contains(callback.EventKey)) return;
-
-			UpdateHealthAndShieldFromFrame(callback.Game.Frames.Verified);
-			_localPlayerEvents.Remove(callback.EventKey);
-		}
-
-		private void OnEventConfirmed(CallbackEventConfirmed callback)
-		{
-			_localPlayerEvents.Remove(callback.EventKey);
 		}
 	}
 }

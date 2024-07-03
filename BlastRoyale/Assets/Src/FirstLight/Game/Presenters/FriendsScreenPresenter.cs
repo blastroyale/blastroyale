@@ -216,7 +216,7 @@ namespace FirstLight.Game.Presenters
 					() => RemoveFriend(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
 					() => BlockPlayer(relationship.Member.Id).Forget())
-			}, TipDirection.TopRight, TooltipPosition.Center);
+			});
 		}
 
 		private void OpenRequestsTooltip(VisualElement element, Relationship relationship)
@@ -226,7 +226,7 @@ namespace FirstLight.Game.Presenters
 				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile", () => OpenProfile(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
 					() => BlockPlayer(relationship.Member.Id).Forget()),
-			}, TipDirection.TopRight, TooltipPosition.Center);
+			});
 		}
 
 		private async UniTaskVoid AcceptRequest(Relationship r)

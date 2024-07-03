@@ -61,8 +61,8 @@
 }
 
 .tooltip-element.player-context-menu {
-    --tip-length: 36;
-    --tip-width: 45;
+    --tip-length: 16;
+    --tip-width: 20;
 }
 
 

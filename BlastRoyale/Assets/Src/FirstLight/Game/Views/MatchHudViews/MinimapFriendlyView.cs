@@ -3,6 +3,7 @@ using FirstLight.Services;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.MatchHudViews
@@ -44,6 +45,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private GameObject _dead;
 		[SerializeField, Required] private Image _aliveIcon;
 		[SerializeField, Required] private Image _deadIcon;
+		[SerializeField, Required] private Image _characterAvatar;
 
 		private Transform _playerTransform;
 		private Vector3 _playerTransformPosition;
@@ -79,6 +81,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_aliveIcon.color = color;
 			_deadIcon.color = color;
 		}
+		
+		/// <summary>
+		/// Sets the color of the player.
+		/// </summary>
+		public void SetAvatar(Sprite avatar)
+		{
+			_characterAvatar.sprite = avatar;
+		}
+
+
 
 		/// <summary>
 		/// Sets the visual state as alive or dead.

@@ -26,7 +26,7 @@ namespace FirstLight.Game.Data.DataTypes.Helpers
 					&& metadata.TryGetTrait(CollectionTraits.NFT_COLLECTION, out var collection)
 					&& metadata.TryGetTrait(CollectionTraits.TOKEN_ID, out var token))
 				{
-					return string.Format(NFT_COLLECTION_FORMAT, collection, token);
+					return string.Format(NFT_COLLECTION_FORMAT, collection.ToLowerInvariant(), token);
 				}
 			}
 

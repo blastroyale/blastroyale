@@ -42,8 +42,6 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 1
-      MetaCoinsMultiplier: 100
-      MetaBppMultiplier: 10
       IsDebugOnly: 0
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
@@ -74,8 +72,6 @@ MonoBehaviour:
       CompletionStrategy: 0
       CompletionKillCount: 0
       AllowEarlyRewards: 1
-      MetaCoinsMultiplier: 1
-      MetaBppMultiplier: 1
       IsDebugOnly: 1
       Systems: []
     - Id: Tutorial
@@ -102,8 +98,6 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 0
-      MetaCoinsMultiplier: 1
-      MetaBppMultiplier: 1
       IsDebugOnly: 1
       Systems: []
     - Id: BattleRoyale First Game
@@ -130,8 +124,6 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 1
-      MetaCoinsMultiplier: 100
-      MetaBppMultiplier: 1
       IsDebugOnly: 1
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,

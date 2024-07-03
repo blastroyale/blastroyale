@@ -48,7 +48,6 @@ namespace FirstLight.Game.Data
 		public FrameSnapshot LastCapturedFrameSnapshot;
 		
 
-		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public CustomGameOptions LastCustomGameOptions = new();
 		public int LastSelectedRankedMap;
 		

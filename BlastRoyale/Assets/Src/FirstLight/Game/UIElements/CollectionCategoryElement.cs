@@ -100,7 +100,7 @@ namespace FirstLight.Game.UIElements
 			EnableInClassList(UssBlockSelected, selected);
 		}
 
-		public new class UxmlFactory : UxmlFactory<CollectionCategoryElement, UxmlTraits>
+		public new class UxmlFactory : UxmlFactory<CollectionCategoryElement, AutoFocusTrait>
 		{
 		}
 	}

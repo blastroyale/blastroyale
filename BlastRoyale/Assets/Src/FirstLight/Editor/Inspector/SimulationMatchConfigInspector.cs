@@ -11,10 +11,9 @@ using Sirenix.Utilities;
 
 namespace FirstLight.Editor.Inspector
 {
-
 	public class MetaItemDropOverwriteProcessor : OdinAttributeProcessor<MetaItemDropOverwrite>
 	{
-		private static IEnumerable<GameId> ValidMetaItems = new[] {GameId.NOOB, GameId.COIN, GameId.BPP};
+		private static IEnumerable<GameId> ValidMetaItems = new[] {GameId.NOOB, GameId.COIN, GameId.BPP, GameId.BlastBuck};
 
 		public override void ProcessChildMemberAttributes(InspectorProperty parentProperty, MemberInfo member, List<Attribute> attributes)
 		{

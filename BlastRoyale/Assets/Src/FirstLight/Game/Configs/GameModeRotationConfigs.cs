@@ -12,9 +12,6 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct GameModeRotationConfig
 	{
-		public long RotationStartTimeTicks;
-		public uint RotationSlotDuration;
-
 		public List<SlotWrapper> Slots;
 
 		[Serializable]
@@ -22,18 +19,14 @@ namespace FirstLight.Game.Configs
 		{
 			[Required] public string QueueName;
 			[Required] public int TimeoutTimeInSeconds;
-
-			[UnityEngine.Tooltip("Used to split player who have the same key, used for events")]
-			public string ExtraKey;
 		}
-		
 
 		[Serializable]
 		public class VisualEntryConfig
 		{
-			[LocalizationTerm] public string TitleTranslationKey;
-			[LocalizationTerm] public string DescriptionTranslationKey;
-			public string ImageModifier;
+			public LocalizableString TitleTranslationKey;
+			public LocalizableString DescriptionTranslationKey;
+			public string CardModifier;
 			[SpriteClass] public string IconSpriteClass;
 		}
 
@@ -141,5 +134,4 @@ namespace FirstLight.Game.Configs
 			}
 		}
 	}
-	
 }

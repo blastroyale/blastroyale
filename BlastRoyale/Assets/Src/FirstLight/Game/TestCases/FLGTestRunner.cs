@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.TestCases.Helpers;
 using FirstLight.Game.Utils;
+using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
@@ -175,8 +176,11 @@ namespace FirstLight.Game.TestCases
 					1  => new PlayMatch(1),
 					2  => new PlayMatch(2),
 					5  => new PlayMatch(5),
-					10 => new PlayMatch(10),
-					_  => new TutorialTestCase()
+				
+					10 => new PlayMatch(1, true, GameId.MazeMayhem),
+					11 => new PlayMatch(2,true, GameId.MazeMayhem),
+					12 => new PlayMatch(5,true, GameId.MazeMayhem),
+					_ => new TutorialTestCase()
 				};
 				RunInsideCoroutine(testCase);
 			}

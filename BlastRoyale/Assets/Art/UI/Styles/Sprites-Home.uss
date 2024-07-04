@@ -38,7 +38,6 @@
     --sprite-home__bamboo-season-reward: url('/Assets/Art/UI/Sprites/Home/bamboo-season-reward.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__blastroyale-logo: url('/Assets/Art/UI/Sprites/Home/blastroyale-logo.png');
-    --sprite-home__brand-pose: url('/Assets/Art/UI/Sprites/Home/brand-pose.png');
     --sprite-home__button-battlepass: url('/Assets/Art/UI/Sprites/Home/button-battlepass.png');
     --sprite-home__button-battlepass-claimreward: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward.png');
     --sprite-home__button-battlepass-claimreward-pressed: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward-pressed.png');
@@ -54,8 +53,10 @@
     --sprite-home__button-copy: url('/Assets/Art/UI/Sprites/Home/button-copy.png');
     --sprite-home__button-copy-pressed: url('/Assets/Art/UI/Sprites/Home/button-copy-pressed.png');
     --sprite-home__button-gamemode: url('/Assets/Art/UI/Sprites/Home/button-gamemode.png');
+    --sprite-home__button-gamemode-event: url('/Assets/Art/UI/Sprites/Home/button-gamemode-event.png');
     --sprite-home__button-gamemode-overlay-battleroyale: url('/Assets/Art/UI/Sprites/Home/button-gamemode-overlay-battleroyale.png');
     --sprite-home__button-gamemode-pressed: url('/Assets/Art/UI/Sprites/Home/button-gamemode-pressed.png');
+    --sprite-home__button-gamemode-pressed-event: url('/Assets/Art/UI/Sprites/Home/button-gamemode-pressed-event.png');
     --sprite-home__button-gamemodeselection: url('/Assets/Art/UI/Sprites/Home/button-gamemodeselection.png');
     --sprite-home__button-grey: url('/Assets/Art/UI/Sprites/Home/button-grey.png');
     --sprite-home__button-info: url('/Assets/Art/UI/Sprites/Home/button-info.png');
@@ -451,12 +452,6 @@
     height: 859px;
 }
 
-.sprite-home__brand-pose {
-    background-image: var(--sprite-home__brand-pose);
-    width: 381px;
-    height: 586px;
-}
-
 .sprite-home__button-battlepass {
     background-image: var(--sprite-home__button-battlepass);
     width: 564px;
@@ -535,6 +530,12 @@
     height: 168px;
 }
 
+.sprite-home__button-gamemode-event {
+    background-image: var(--sprite-home__button-gamemode-event);
+    width: 414px;
+    height: 168px;
+}
+
 .sprite-home__button-gamemode-overlay-battleroyale {
     background-image: var(--sprite-home__button-gamemode-overlay-battleroyale);
     width: 264px;
@@ -543,6 +544,12 @@
 
 .sprite-home__button-gamemode:active {
     background-image: var(--sprite-home__button-gamemode-pressed);
+}
+
+.sprite-home__button-gamemode-pressed-event {
+    background-image: var(--sprite-home__button-gamemode-pressed-event);
+    width: 414px;
+    height: 168px;
 }
 
 .sprite-home__button-gamemodeselection {
@@ -826,7 +833,7 @@
 .sprite-home__gamemode-coming-soon {
     background-image: var(--sprite-home__gamemode-coming-soon);
     width: 463px;
-    height: 719px;
+    height: 662px;
 }
 
 .sprite-home__gamemode-custom-characters {

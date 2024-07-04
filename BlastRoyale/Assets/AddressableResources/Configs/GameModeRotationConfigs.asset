@@ -17,122 +17,122 @@ MonoBehaviour:
     - Entries:
       - TimedEntry: 1
         TimedGameModeEntries:
-          - StartsAt: 03/07/2024 13:28
-            EndsAt: 03/07/2024 15:17
-          - StartsAt: 03/07/2024 15:00
-            EndsAt: 03/07/2024 19:00
-          - StartsAt: 04/07/2024 12:00
-            EndsAt: 04/07/2024 13:00
-          - StartsAt: 04/07/2024 15:00
-            EndsAt: 04/07/2024 19:00
-          - StartsAt: 05/07/2024 12:00
-            EndsAt: 05/07/2024 13:00
-          - StartsAt: 05/07/2024 15:00
-            EndsAt: 05/07/2024 19:00
-          - StartsAt: 06/07/2024 12:00
-            EndsAt: 06/07/2024 13:00
-          - StartsAt: 06/07/2024 15:00
-            EndsAt: 06/07/2024 19:00
-          - StartsAt: 07/07/2024 12:00
-            EndsAt: 07/07/2024 13:00
-          - StartsAt: 07/07/2024 15:00
-            EndsAt: 07/07/2024 19:00
-          - StartsAt: 08/07/2024 12:00
-            EndsAt: 08/07/2024 13:00
-          - StartsAt: 08/07/2024 15:00
-            EndsAt: 08/07/2024 19:00
-          - StartsAt: 09/07/2024 12:00
-            EndsAt: 09/07/2024 13:00
-          - StartsAt: 09/07/2024 15:00
-            EndsAt: 09/07/2024 19:00
-          - StartsAt: 10/07/2024 12:00
-            EndsAt: 10/07/2024 13:00
-          - StartsAt: 10/07/2024 15:00
-            EndsAt: 10/07/2024 19:00
-          - StartsAt: 11/07/2024 12:00
-            EndsAt: 11/07/2024 13:00
-          - StartsAt: 11/07/2024 15:00
-            EndsAt: 11/07/2024 19:00
-          - StartsAt: 12/07/2024 12:00
-            EndsAt: 12/07/2024 13:00
-          - StartsAt: 12/07/2024 15:00
-            EndsAt: 12/07/2024 19:00
-          - StartsAt: 13/07/2024 12:00
-            EndsAt: 13/07/2024 13:00
-          - StartsAt: 13/07/2024 15:00
-            EndsAt: 13/07/2024 19:00
-          - StartsAt: 14/07/2024 12:00
-            EndsAt: 14/07/2024 13:00
-          - StartsAt: 14/07/2024 15:00
-            EndsAt: 14/07/2024 19:00
-          - StartsAt: 15/07/2024 12:00
-            EndsAt: 15/07/2024 13:00
-          - StartsAt: 15/07/2024 15:00
-            EndsAt: 15/07/2024 19:00
-          - StartsAt: 16/07/2024 12:00
-            EndsAt: 16/07/2024 13:00
-          - StartsAt: 16/07/2024 15:00
-            EndsAt: 16/07/2024 19:00
-          - StartsAt: 17/07/2024 12:00
-            EndsAt: 17/07/2024 13:00
-          - StartsAt: 17/07/2024 15:00
-            EndsAt: 17/07/2024 19:00
-          - StartsAt: 18/07/2024 12:00
-            EndsAt: 18/07/2024 13:00
-          - StartsAt: 18/07/2024 15:00
-            EndsAt: 18/07/2024 19:00
-          - StartsAt: 19/07/2024 12:00
-            EndsAt: 19/07/2024 13:00
-          - StartsAt: 19/07/2024 15:00
-            EndsAt: 19/07/2024 19:00
-          - StartsAt: 20/07/2024 12:00
-            EndsAt: 20/07/2024 13:00
-          - StartsAt: 20/07/2024 15:00
-            EndsAt: 20/07/2024 19:00
-          - StartsAt: 21/07/2024 12:00
-            EndsAt: 21/07/2024 13:00
-          - StartsAt: 21/07/2024 15:00
-            EndsAt: 21/07/2024 19:00
-          - StartsAt: 22/07/2024 12:00
-            EndsAt: 22/07/2024 13:00
-          - StartsAt: 22/07/2024 15:00
-            EndsAt: 22/07/2024 19:00
-          - StartsAt: 23/07/2024 12:00
-            EndsAt: 23/07/2024 13:00
-          - StartsAt: 23/07/2024 15:00
-            EndsAt: 23/07/2024 19:00
-          - StartsAt: 24/07/2024 12:00
-            EndsAt: 24/07/2024 13:00
-          - StartsAt: 24/07/2024 15:00
-            EndsAt: 24/07/2024 19:00
-          - StartsAt: 25/07/2024 12:00
-            EndsAt: 25/07/2024 13:00
-          - StartsAt: 25/07/2024 15:00
-            EndsAt: 25/07/2024 19:00
-          - StartsAt: 26/07/2024 12:00
-            EndsAt: 26/07/2024 13:00
-          - StartsAt: 26/07/2024 15:00
-            EndsAt: 26/07/2024 19:00
-          - StartsAt: 27/07/2024 12:00
-            EndsAt: 27/07/2024 13:00
-          - StartsAt: 27/07/2024 15:00
-            EndsAt: 27/07/2024 19:00
-          - StartsAt: 28/07/2024 12:00
-            EndsAt: 28/07/2024 13:00
-          - StartsAt: 28/07/2024 15:00
-            EndsAt: 28/07/2024 19:00
-          - StartsAt: 29/07/2024 12:00
-            EndsAt: 29/07/2024 13:00
-          - StartsAt: 29/07/2024 15:00
-            EndsAt: 29/07/2024 19:00
-          - StartsAt: 30/07/2024 12:00
-            EndsAt: 30/07/2024 13:00
-          - StartsAt: 30/07/2024 15:00
-            EndsAt: 30/07/2024 19:00
-          - StartsAt: 31/07/2024 12:00
-            EndsAt: 31/07/2024 13:00
-          - StartsAt: 31/07/2024 15:00
-            EndsAt: 31/07/2024 19:00
+        - StartsAt: 03/07/2024 13:28
+          EndsAt: 03/07/2024 15:17
+        - StartsAt: 03/07/2024 15:00
+          EndsAt: 03/07/2024 16:00
+        - StartsAt: 04/07/2024 12:00
+          EndsAt: 04/07/2024 13:00
+        - StartsAt: 04/07/2024 15:00
+          EndsAt: 04/07/2024 19:00
+        - StartsAt: 05/07/2024 12:00
+          EndsAt: 05/07/2024 13:00
+        - StartsAt: 05/07/2024 15:00
+          EndsAt: 05/07/2024 19:00
+        - StartsAt: 06/07/2024 12:00
+          EndsAt: 06/07/2024 13:00
+        - StartsAt: 06/07/2024 15:00
+          EndsAt: 06/07/2024 19:00
+        - StartsAt: 07/07/2024 12:00
+          EndsAt: 07/07/2024 13:00
+        - StartsAt: 07/07/2024 15:00
+          EndsAt: 07/07/2024 19:00
+        - StartsAt: 08/07/2024 12:00
+          EndsAt: 08/07/2024 13:00
+        - StartsAt: 08/07/2024 15:00
+          EndsAt: 08/07/2024 19:00
+        - StartsAt: 09/07/2024 12:00
+          EndsAt: 09/07/2024 13:00
+        - StartsAt: 09/07/2024 15:00
+          EndsAt: 09/07/2024 19:00
+        - StartsAt: 10/07/2024 12:00
+          EndsAt: 10/07/2024 13:00
+        - StartsAt: 10/07/2024 15:00
+          EndsAt: 10/07/2024 19:00
+        - StartsAt: 11/07/2024 12:00
+          EndsAt: 11/07/2024 13:00
+        - StartsAt: 11/07/2024 15:00
+          EndsAt: 11/07/2024 19:00
+        - StartsAt: 12/07/2024 12:00
+          EndsAt: 12/07/2024 13:00
+        - StartsAt: 12/07/2024 15:00
+          EndsAt: 12/07/2024 19:00
+        - StartsAt: 13/07/2024 12:00
+          EndsAt: 13/07/2024 13:00
+        - StartsAt: 13/07/2024 15:00
+          EndsAt: 13/07/2024 19:00
+        - StartsAt: 14/07/2024 12:00
+          EndsAt: 14/07/2024 13:00
+        - StartsAt: 14/07/2024 15:00
+          EndsAt: 14/07/2024 19:00
+        - StartsAt: 15/07/2024 12:00
+          EndsAt: 15/07/2024 13:00
+        - StartsAt: 15/07/2024 15:00
+          EndsAt: 15/07/2024 19:00
+        - StartsAt: 16/07/2024 12:00
+          EndsAt: 16/07/2024 13:00
+        - StartsAt: 16/07/2024 15:00
+          EndsAt: 16/07/2024 19:00
+        - StartsAt: 17/07/2024 12:00
+          EndsAt: 17/07/2024 13:00
+        - StartsAt: 17/07/2024 15:00
+          EndsAt: 17/07/2024 19:00
+        - StartsAt: 18/07/2024 12:00
+          EndsAt: 18/07/2024 13:00
+        - StartsAt: 18/07/2024 15:00
+          EndsAt: 18/07/2024 19:00
+        - StartsAt: 19/07/2024 12:00
+          EndsAt: 19/07/2024 13:00
+        - StartsAt: 19/07/2024 15:00
+          EndsAt: 19/07/2024 19:00
+        - StartsAt: 20/07/2024 12:00
+          EndsAt: 20/07/2024 13:00
+        - StartsAt: 20/07/2024 15:00
+          EndsAt: 20/07/2024 19:00
+        - StartsAt: 21/07/2024 12:00
+          EndsAt: 21/07/2024 13:00
+        - StartsAt: 21/07/2024 15:00
+          EndsAt: 21/07/2024 19:00
+        - StartsAt: 22/07/2024 12:00
+          EndsAt: 22/07/2024 13:00
+        - StartsAt: 22/07/2024 15:00
+          EndsAt: 22/07/2024 19:00
+        - StartsAt: 23/07/2024 12:00
+          EndsAt: 23/07/2024 13:00
+        - StartsAt: 23/07/2024 15:00
+          EndsAt: 23/07/2024 19:00
+        - StartsAt: 24/07/2024 12:00
+          EndsAt: 24/07/2024 13:00
+        - StartsAt: 24/07/2024 15:00
+          EndsAt: 24/07/2024 19:00
+        - StartsAt: 25/07/2024 12:00
+          EndsAt: 25/07/2024 13:00
+        - StartsAt: 25/07/2024 15:00
+          EndsAt: 25/07/2024 19:00
+        - StartsAt: 26/07/2024 12:00
+          EndsAt: 26/07/2024 13:00
+        - StartsAt: 26/07/2024 15:00
+          EndsAt: 26/07/2024 19:00
+        - StartsAt: 27/07/2024 12:00
+          EndsAt: 27/07/2024 13:00
+        - StartsAt: 27/07/2024 15:00
+          EndsAt: 27/07/2024 19:00
+        - StartsAt: 28/07/2024 12:00
+          EndsAt: 28/07/2024 13:00
+        - StartsAt: 28/07/2024 15:00
+          EndsAt: 28/07/2024 19:00
+        - StartsAt: 29/07/2024 12:00
+          EndsAt: 29/07/2024 13:00
+        - StartsAt: 29/07/2024 15:00
+          EndsAt: 29/07/2024 19:00
+        - StartsAt: 30/07/2024 12:00
+          EndsAt: 30/07/2024 13:00
+        - StartsAt: 30/07/2024 15:00
+          EndsAt: 30/07/2024 19:00
+        - StartsAt: 31/07/2024 12:00
+          EndsAt: 31/07/2024 13:00
+        - StartsAt: 31/07/2024 15:00
+          EndsAt: 31/07/2024 19:00
         MatchConfig:
           ConfigId: b15b823f
           GameModeID: BattleRoyale
@@ -174,7 +174,7 @@ MonoBehaviour:
           HasBots: 1
           BotOverwriteDifficulty: -1
           MaxPlayersOverwrite: 0
-          MatchType: 0
+          MatchType: 2
         PlayfabQueue:
           QueueName: battleroyale_1
           TimeoutTimeInSeconds: 10
@@ -204,7 +204,7 @@ MonoBehaviour:
           HasBots: 1
           BotOverwriteDifficulty: -1
           MaxPlayersOverwrite: 0
-          MatchType: 0
+          MatchType: 2
         PlayfabQueue:
           QueueName: battleroyale_1
           TimeoutTimeInSeconds: 10
@@ -234,7 +234,7 @@ MonoBehaviour:
           HasBots: 1
           BotOverwriteDifficulty: -1
           MaxPlayersOverwrite: 0
-          MatchType: 0
+          MatchType: 2
         PlayfabQueue:
           QueueName: battleroyale_2
           TimeoutTimeInSeconds: 25
@@ -264,7 +264,7 @@ MonoBehaviour:
           HasBots: 1
           BotOverwriteDifficulty: -1
           MaxPlayersOverwrite: 0
-          MatchType: 0
+          MatchType: 2
         PlayfabQueue:
           QueueName: battleroyale_4
           TimeoutTimeInSeconds: 40

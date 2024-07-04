@@ -84,6 +84,11 @@ namespace FirstLight.Game.Services
 		/// Gets the current map in the given game mode rotation
 		/// </summary>
 		QuantumMapConfig GetRotationMapConfig(string gameModeId);
+
+		/// <summary>
+		/// Returns the closer event in the configs 
+		/// </summary>
+		public bool TryGetNextEvent(out GameModeInfo next);
 	}
 
 	/// <inheritdoc cref="IGameModeService"/>
@@ -91,6 +96,7 @@ namespace FirstLight.Game.Services
 	{
 		private const string SelectedQueueLobbyProperty = "selected_queue";
 
+		private const int NextEventsDisplayDaysBefore = 3;
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IPartyService _partyService;
 		private readonly IAppDataProvider _appDataProvider;
@@ -307,7 +313,7 @@ namespace FirstLight.Game.Services
 			}
 
 			var firstThatFits = _slots
-				.Where(a => a.Entry.MatchConfig != null)
+				.Where(a => a.Entry.MatchConfig != null && IsInRotation(a.Entry))
 				.OrderBy(g => g.Entry.TeamSize)
 				.First(g => g.Entry.TeamSize >= size);
 
@@ -352,6 +358,24 @@ namespace FirstLight.Game.Services
 			RefreshGameModes(false);
 		}
 
+		public bool TryGetNextEvent(out GameModeInfo next)
+		{
+			for (var i = 0; i < _slots.Count; i++)
+			{
+				if (TryGetGameMode(i, out var entry, out var duration))
+				{
+					if (entry.TimedEntry)
+					{
+						next = new GameModeInfo() {Duration = duration, Entry = entry};
+						return true;
+					}
+				}
+			}
+
+			next = default;
+			return false;
+		}
+
 		private bool TryGetGameMode(
 			int slotIndex, out GameModeRotationConfig.GameModeEntry entry, out DurationConfig duration)
 		{
@@ -379,7 +403,9 @@ namespace FirstLight.Game.Services
 					}
 
 					var starts = timedGameModeEntry.GetStartsAtDateTime();
-					if (starts > now && (closestDate == null || starts < closestDate.GetStartsAtDateTime()))
+					if (starts > now
+						&& (closestDate == null || starts < closestDate.GetStartsAtDateTime())
+						&& starts <= now.AddDays(NextEventsDisplayDaysBefore))
 					{
 						closestDate = timedGameModeEntry;
 						closest = gameModeEntry;

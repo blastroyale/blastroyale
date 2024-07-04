@@ -83,7 +83,6 @@ namespace FirstLight.Game.Views
 			{
 				_button.AddToClassList(extraClass);
 			}
-
 		}
 
 		/// <summary>
@@ -150,7 +149,7 @@ namespace FirstLight.Game.Views
 				}
 
 				var prefix = comingSoon ? "NEXT EVENT IN\n" : "ENDS IN ";
-				_timeLeftLabel.text = $"{prefix}{Math.Floor(timeLeft.TotalHours)}h {timeLeft.Minutes}m {timeLeft.Seconds}s";
+				_timeLeftLabel.text = $"{prefix}{timeLeft.Display(showSeconds: true, showDays: false).ToLowerInvariant()}";
 			}).Every(1000);
 		}
 
@@ -158,7 +157,7 @@ namespace FirstLight.Game.Views
 		{
 			_rewardContainer.Clear();
 			if (GameModeInfo.Entry.MatchConfig.MetaItemDropOverwrites == null) return;
-			foreach (var gameId in GameModeInfo.Entry.MatchConfig.MetaItemDropOverwrites.Select(a=>a.Id).Distinct())
+			foreach (var gameId in GameModeInfo.Entry.MatchConfig.MetaItemDropOverwrites.Select(a => a.Id).Distinct())
 			{
 				var icon = new VisualElement();
 				icon.AddToClassList(USS_REWARD_ICON);

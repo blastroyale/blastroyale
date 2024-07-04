@@ -128,8 +128,8 @@ namespace FirstLight.Game.Presenters
 			_currentReward.clicked += GoToCurrentReward;
 
 			_fullScreenClaimButton.SetDisplay(false);
-			Root.Q("RewardShineBlue").Required().AddRotatingEffect(3, 10);
-			Root.Q("RewardShineYellow").Required().AddRotatingEffect(5, 10);
+			Root.Q("RewardShineBlue").Required().AddRotatingEffect(15, 10);
+			Root.Q("RewardShineYellow").Required().AddRotatingEffect(25, 10);
 			_services.MessageBrokerService.Subscribe<BattlePassPurchasedMessage>(OnBpPurchase);
 			_services.MessageBrokerService.Subscribe<BattlePassLevelPurchasedMessage>(OnBoughtBpLevel);
 		}

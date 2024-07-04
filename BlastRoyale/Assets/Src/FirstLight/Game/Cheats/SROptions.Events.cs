@@ -1,3 +1,4 @@
+#if !DISABLE_SRDEBUGGER
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,6 @@ using FirstLight.Server.SDK.Modules;
 using Photon.Deterministic;
 using Quantum;
 using SRDebugger;
-using UnityEngine;
 
 public partial class SROptions
 {
@@ -274,3 +274,4 @@ public partial class SROptions
 		}
 	}
 }
+#endif

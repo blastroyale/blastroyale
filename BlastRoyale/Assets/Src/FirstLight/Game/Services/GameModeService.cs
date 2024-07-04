@@ -50,7 +50,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Sets up the initial game mode rotation values - must be called after configs are loaded.
 		/// </summary>
-		void Init();
+		void Init(GameModeRotationConfig config = default);
 
 		/// <summary>
 		/// The currently selected GameMode.
@@ -163,10 +163,14 @@ namespace FirstLight.Game.Services
 			_partyService.LobbyProperties.Observe(SelectedQueueLobbyProperty, OnLeaderChangedGameMode);
 		}
 
-		public void Init()
+		public void Init(GameModeRotationConfig config = default)
 		{
-			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
+			if (config.Slots == null)
+			{
+				config = _configsProvider.GetConfig<GameModeRotationConfig>();
+			}
 
+			_slots.Clear();
 			// Initially add empty objects which get updated by RefreshGameModes
 			for (var i = 0; i < config.Slots.Count; i++)
 			{

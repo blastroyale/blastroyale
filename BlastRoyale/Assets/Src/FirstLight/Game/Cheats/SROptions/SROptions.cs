@@ -26,6 +26,7 @@ public partial class SROptions : INotifyPropertyChanged
 	{
 		_current = new SROptions(); // Need to reset options here so if we enter play-mode without a domain reload there will be the default set of options.
 		AddCurrencyCheats();
+		AddEventsModifiers();
 
 		SRServiceManager.GetService<SRDebugger.Internal.InternalOptionsRegistry>().AddOptionContainer(Current);
 		SRDebug.Instance.SetBugReporterHandler(new FirstLight.Game.Cheats.SROptions.FLGBugReporter());

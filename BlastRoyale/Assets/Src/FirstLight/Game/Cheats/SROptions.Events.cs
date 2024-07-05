@@ -26,6 +26,7 @@ public partial class SROptions
 		DrpNoobKill50,
 		DrpCoinAir50,
 		DrpBBChest50,
+		RemoteEventImage
 	}
 
 	private static HashSet<EventModifier> _toggledModifiers = new ();
@@ -34,11 +35,13 @@ public partial class SROptions
 	// Default Value for property
 	private int _eventDuration = 30;
 	private int _startsIn = 1;
+	private string _eventTitle = "Forced Test Event";
+	private string _eventDescription = "This is a forced event <sprite name=\"HPIcon\">";
 
 	// Options will be grouped by category
 	// Options will be grouped by category
 	[Category("Events")]
-	[Sort(10)]
+	[Sort(100)]
 	public int StartsIn
 	{
 		get { return _startsIn; }
@@ -46,11 +49,26 @@ public partial class SROptions
 	}
 
 	[Category("Events")]
-	[Sort(11)]
+	[Sort(101)]
 	public int EventDuration
 	{
 		get { return _eventDuration; }
 		set { _eventDuration = value; }
+	}
+
+	[Category("Events")]
+	[Sort(102)]
+	public string EventTitle
+	{
+		get { return _eventTitle; }
+		set { _eventTitle = value; }
+	}
+	[Category("Events")]
+	[Sort(103)]
+	public string EventDescription
+	{
+		get { return _eventDescription; }
+		set { _eventDescription = value; }
 	}
 
 	private static void AddEventsModifiers()
@@ -58,7 +76,7 @@ public partial class SROptions
 		var container = new SRDebugger.DynamicOptionContainer();
 		// Create a mutable option
 
-		int order = 12;
+		int order = 104;
 		foreach (var modifierObj in Enum.GetValues(typeof(EventModifier)))
 		{
 			var modifier = (EventModifier) modifierObj;
@@ -126,10 +144,10 @@ public partial class SROptions
 		container.AddOption(definition);
 	}
 
-	private SimulationMatchConfig _originalConfig;
+	private GameModeRotationConfig.GameModeEntry _originalConfig;
 
 	[Category("Events")]
-	[Sort(50)]
+	[Sort(150)]
 	public void Start()
 	{
 		var configProvider = MainInstaller.ResolveServices().ConfigsProvider;
@@ -142,9 +160,13 @@ public partial class SROptions
 				var gmConfigEntry = gmConfig.Entries[entriyIndex];
 				if (gmConfigEntry.TimedEntry)
 				{
-					if (_originalConfig == null)
+					if (_originalConfig.MatchConfig == null)
 					{
-						_originalConfig = gmConfigEntry.MatchConfig.CloneSerializing();
+						_originalConfig = gmConfigEntry.CloneSerializing();
+					}
+					else
+					{
+						gmConfigEntry = _originalConfig;
 					}
 
 					List<RewardModifier> rewardModifier = new List<RewardModifier>();
@@ -261,9 +283,19 @@ public partial class SROptions
 							.FirstOrDefault(mConfig => mConfig.Type == selectedType)
 							?.Id;
 					}).Where(cfg => cfg != null).ToArray();
-					gmConfigEntry.MatchConfig.ConfigId = "debug-" + _originalConfig.ConfigId;
+					gmConfigEntry.MatchConfig.ConfigId = "debug-" + _originalConfig.MatchConfig.ConfigId;
 					gmConfigEntry.MatchConfig.RewardModifiers = rewardModifier.ToArray();
 					gmConfigEntry.MatchConfig.MetaItemDropOverwrites = itemDropOverwrites.ToArray();
+					if (_toggledModifiers.Contains(EventModifier.RemoteEventImage))
+					{
+						gmConfigEntry.Visual.OverwriteImageURL = "https://cdn.blastroyale.com/images/events/test.png";
+					}
+					else
+					{
+						gmConfigEntry.Visual.OverwriteImageURL = "";
+					}
+					gmConfigEntry.Visual.TitleTranslationKey = LocalizableString.FromText(EventTitle);
+					gmConfigEntry.Visual.DescriptionTranslationKey = LocalizableString.FromText(EventDescription);
 					gmConfig[slotIndex] = gmConfigEntry;
 					config.Slots[slotIndex] = gmConfig;
 					MainInstaller.ResolveServices().GameModeService.Init(config);

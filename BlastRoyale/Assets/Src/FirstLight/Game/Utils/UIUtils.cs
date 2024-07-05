@@ -298,12 +298,32 @@ namespace FirstLight.Game.Utils
 			st.paddingRight = 0;
 			st.paddingTop = 0;
 		}
+
 		public static void SetMargin(this IStyle st, int padding)
 		{
 			st.marginBottom = 0;
 			st.marginLeft = 0;
 			st.marginRight = 0;
 			st.marginTop = 0;
+		}
+
+		public static void ListenOnce<T>(this VisualElement visual, Action action) where T : EventBase<T>, new()
+		{
+			ListenOnce<T>(visual, (_) =>
+			{
+				action();
+			});
+		}
+
+		public static void ListenOnce<T>(this VisualElement visual, EventCallback<T> action) where T : EventBase<T>, new()
+		{
+			EventCallback<T> wrapped = null;
+			wrapped = @event =>
+			{
+				action(@event);
+				visual.UnregisterCallback(wrapped);
+			};
+			visual.RegisterCallback(wrapped);
 		}
 	}
 }

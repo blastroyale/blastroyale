@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
@@ -7,6 +8,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using Quantum;
+using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
@@ -19,6 +21,7 @@ namespace FirstLight.Game.Views
 	{
 		private const string USS_BASE = "game-mode-card";
 		private const string USS_SELECTED = USS_BASE + "--selected";
+		private const string USS_EVENT_CUSTOM_IMAGE = USS_BASE + "--event-custom-image";
 		private const string USS_COMING_SOON = USS_BASE + "--coming-soon";
 		private const string USS_REWARD_ICON = USS_BASE + "__reward-icon";
 		private const string USS_ANIM_ROOT = "anim-root";
@@ -41,6 +44,7 @@ namespace FirstLight.Game.Views
 
 		private IPartyService _partyService;
 		private LocalPrefsService _localPrefs;
+		private IRemoteTextureService _remoteTexture;
 
 		private ImageButton _button;
 		private Label _gameModeLabel;
@@ -49,15 +53,19 @@ namespace FirstLight.Game.Views
 		private VisualElement _teamSizeIcon;
 		private Label _gameModeDescriptionLabel;
 		private Label _disabledLabel;
+		private VisualElement _char;
 		private VisualElement _newEventEffectsHolder;
 		private VisualElement _rewardContainer;
 		private IVisualElementScheduledItem _scheduled;
 
 		protected override void Attached()
 		{
-			_partyService = MainInstaller.ResolveServices().PartyService;
-			_localPrefs = MainInstaller.ResolveServices().LocalPrefsService;
+			var services = MainInstaller.ResolveServices();
+			_partyService = services.PartyService;
+			_localPrefs = services.LocalPrefsService;
+			_remoteTexture = services.RemoteTextureService;
 			_button = Element.Q<ImageButton>().Required();
+			_char = Element.Q<VisualElement>("Char").Required();
 
 			var dataPanel = Element.Q<VisualElement>("TextContainer");
 			_gameModeLabel = dataPanel.Q<Label>("Title").Required();
@@ -100,6 +108,7 @@ namespace FirstLight.Game.Views
 			UpdateTitleAndDescription();
 			UpdateDisabledStatus();
 			UpdateRewards();
+			CheckCustomImage();
 			if (gameModeInfo.IsFixed)
 			{
 				return;
@@ -151,6 +160,34 @@ namespace FirstLight.Game.Views
 				var prefix = comingSoon ? "NEXT EVENT IN\n" : "ENDS IN ";
 				_timeLeftLabel.text = $"{prefix}{timeLeft.Display(showSeconds: true, showDays: false).ToLowerInvariant()}";
 			}).Every(1000);
+		}
+
+		private void CheckCustomImage()
+		{
+			var url = GameModeInfo.Entry.Visual.OverwriteImageURL;
+			if (string.IsNullOrWhiteSpace(GameModeInfo.Entry.Visual.OverwriteImageURL))
+			{
+				return;
+			}
+
+			var request = _remoteTexture.RequestTexture(url, cancellationToken: Presenter.GetCancellationTokenOnClose());
+			_button.AddToClassList(USS_EVENT_CUSTOM_IMAGE);
+			_button.ListenOnce<GeometryChangedEvent>(() =>
+			{
+				SetTexture(request).Forget();
+			});
+		}
+
+		private async UniTaskVoid SetTexture(UniTask<Texture2D> task)
+		{
+			// Didn't load before geometry change, so add a loading effect
+			if (task.Status == UniTaskStatus.Pending)
+			{
+				_char.AddToClassList("anim-fade");
+			}
+			var tex = await task;
+			_char.style.backgroundImage = new StyleBackground(tex);
+			_char.style.opacity = 1;
 		}
 
 		private void UpdateRewards()

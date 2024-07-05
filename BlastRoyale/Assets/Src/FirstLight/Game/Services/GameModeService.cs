@@ -101,6 +101,7 @@ namespace FirstLight.Game.Services
 		private readonly IPartyService _partyService;
 		private readonly IAppDataProvider _appDataProvider;
 		private readonly LocalPrefsService _localPrefsService;
+		private readonly IRemoteTextureService _remoteTextureService;
 
 		private readonly IObservableList<GameModeInfo> _slots;
 		private GameId _selectedMap;
@@ -145,14 +146,14 @@ namespace FirstLight.Game.Services
 
 		public IObservableListReader<GameModeInfo> Slots => _slots;
 
-		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService,
-							   IGameDataProvider gameDataProvider, IPartyService partyService,
+		public GameModeService(IConfigsProvider configsProvider, IRemoteTextureService remoteTextureService, IPartyService partyService,
 							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService)
 		{
 			_configsProvider = configsProvider;
 			_partyService = partyService;
 			_appDataProvider = appDataProvider;
 			_localPrefsService = localPrefsService;
+			_remoteTextureService = remoteTextureService;
 
 			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
@@ -353,6 +354,12 @@ namespace FirstLight.Game.Services
 			{
 				var diff = (duration.GetEndsAtDateTime() - DateTime.UtcNow).Add(TimeSpan.FromSeconds(1));
 				UpdateGameModes(diff).Forget();
+			}
+
+			// Cache gamemode image on game load
+			if (!string.IsNullOrWhiteSpace(info.Entry.Visual.OverwriteImageURL))
+			{
+				_remoteTextureService.RequestTexture(info.Entry.Visual.OverwriteImageURL).Forget();
 			}
 		}
 

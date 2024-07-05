@@ -280,6 +280,7 @@
     width: 446px;
 }
 
+
 .game-mode-card--event .game-mode-card__character {
     background-image: var(--sprite-home__gamemode-event-characters);
     height: 533px;
@@ -287,6 +288,15 @@
     top: -78px;
     left: 27px;
 }
+
+.game-mode-card--event-custom-image.game-mode-card--event .game-mode-card__character {
+    opacity: 0;
+    top: -250px;
+    left: 41px;
+    height: 746px;
+    width: 446px;
+}
+
 
 .game-mode-card--coming-soon .game-mode-card__character {
     display: none;

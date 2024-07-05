@@ -14,7 +14,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Photon.Realtime;
@@ -69,11 +68,13 @@ namespace FirstLight.Game.Presenters
 		private Tweener _planeFlyTween;
 		private bool _dropSelectionAllowed;
 		private bool _matchStarting;
+
+		private Dictionary<Player, VisualElement> _playerSquadEntries = new Dictionary<Player, VisualElement>();
 		
 		private PlayerMemberElement[] _playerMemberElements;
 
 		private List<Player> _squadMembers = new ();
-
+		
 		private MapAreaConfig _mapAreaConfig;
 		private Vector2 _markerLocalPosition;
 		
@@ -182,6 +183,8 @@ namespace FirstLight.Game.Presenters
 
 			if (isSquadGame)
 			{
+				_playerSquadEntries.Clear();
+				
 				var teamId = _services.TeamService.GetTeamForPlayer(CurrentRoom.LocalPlayer);
 
 				_squadContainer.SetDisplay(true);
@@ -191,11 +194,13 @@ namespace FirstLight.Game.Presenters
 
 				for (var i = 0; i < MaxSquadPlayers; i++)
 				{
+					_squadContainers[i].SetDisplay(false);
 					_squadContainers[i].visible = false;
 				}
 
 				for (var i = 0; i < _squadMembers.Count; i++)
 				{
+					_squadContainers[i].SetDisplay(true);
 					_squadContainers[i].visible = true;
 					
 					var loadout = CurrentRoom.GetPlayerProperties(_squadMembers[i]).Loadout;
@@ -208,6 +213,8 @@ namespace FirstLight.Game.Presenters
 					_playerMemberElements[i].SetTeamColor(nameColor ?? Color.white);
 					
 					_nameLabels[i].text = _squadMembers[i].NickName;
+					
+					_playerSquadEntries.Add(_squadMembers[i], _squadContainers[i]);
 				}
 				
 				//_squadMembersList.itemsSource = _squadMembers;
@@ -485,10 +492,57 @@ namespace FirstLight.Game.Presenters
 			_services.RoomService.CurrentRoom.LocalPlayerProperties.DropPosition.Value = quantumSelectPos;
 		}
 
-		private void OnPlayersChanged(Player p, PlayerChangeReason r)
+		private void OnPlayersChanged(Player player, PlayerChangeReason reason)
 		{
+			Debug.Log($"OnPlayersChanged {reason}");
 			UpdatePlayerCount();
-			RefreshPartyList();
+
+			if (!CurrentRoom.IsTeamGame)
+			{
+				return;
+			}
+			
+			if (reason == PlayerChangeReason.Leave)
+			{
+				_playerSquadEntries[player].SetDisplay(false);
+				_playerSquadEntries[player].visible = false;
+				_playerSquadEntries.Remove(player);
+			}
+			else
+			{
+				for (var i = 0; i < _squadContainers.Length; i++)
+				{
+					if (_squadContainers[i].style.display == DisplayStyle.None)
+					{
+						_playerSquadEntries.Add(player, _squadContainers[i]);
+						
+						_squadContainers[i].SetDisplay(true);
+						_squadContainers[i].visible = true;
+						
+						var loadout = CurrentRoom.GetPlayerProperties(player).Loadout;
+
+						_services.CollectionService.LoadCollectionItemSprite(
+							_services.CollectionService.GetCosmeticForGroup(loadout.Value.ToArray(), 
+								GameIdGroup.PlayerSkin)).ContinueWith(_playerMemberElements[i].SetPfpImage);
+
+						var nameColor = _services.TeamService.GetTeamMemberColor(player);
+						_playerMemberElements[i].SetTeamColor(nameColor ?? Color.white);
+					
+						_nameLabels[i].text = player.NickName;
+						
+						break;
+					}
+				}
+			}
+
+			/*foreach (var entry in _playerSquadEntries)
+			{
+				var nameColor = _services.TeamService.GetTeamMemberColor(entry.Key);
+				var playerMemberElement = (PlayerMemberElement)entry.Value.Children().First();
+				playerMemberElement.SetTeamColor(nameColor ?? Color.white); 
+			}*/
+			
+			RefreshPartyMarkers();
 		}
 
 		private void OnWaitingMandatoryMatchAssets()

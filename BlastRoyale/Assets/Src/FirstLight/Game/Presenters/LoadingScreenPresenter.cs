@@ -1,3 +1,4 @@
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -15,32 +16,49 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private UIDocument _document;
 
 		private static GameObject Instance;
+		private VisualElement _labelsContainer;
+		private IVisualElementScheduledItem _environmentRedirectTask;
 
 		private void Start()
 		{
 			Instance = gameObject;
 			var root = _document.rootVisualElement;
 
-			var labelsContainer = root.Q("LabelsContainer").Required();
-			labelsContainer.Clear();
+			_labelsContainer = root.Q("LabelsContainer").Required();
+			_labelsContainer.Clear();
 
+			_environmentRedirectTask = _labelsContainer.schedule.Execute(CheckEnvironmentRedirect).Every(1000);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-			labelsContainer.Add(new Label(FLEnvironment.Current.Name));
+			_labelsContainer.Add(new Label(FLEnvironment.Current.Name));
 
 			var config = FeatureFlags.GetLocalConfiguration();
 			if (config.UseLocalServer)
 			{
-				labelsContainer.Add(new Label("Local Server"));
+				_labelsContainer.Add(new Label("Local Server"));
 			}
 
 			if (config.Tutorial != FlagOverwrite.None)
 			{
-				labelsContainer.Add(new Label($"Tutorial: {config.Tutorial.Bool()}"));
+				_labelsContainer.Add(new Label($"Tutorial: {config.Tutorial.Bool()}"));
 			}
 
 #endif
 
-			labelsContainer.Add(new Label($"v{VersionUtils.VersionExternal}"));
+			_labelsContainer.Add(new Label($"v{VersionUtils.VersionExternal}"));
+		}
+
+		private void CheckEnvironmentRedirect(TimerState obj)
+		{
+			if (MainInstaller.TryResolve<IGameServices>(out var services))
+			{
+				if (services.GameBackendService.ForcedEnvironment)
+				{
+					var lbl = new Label("Release");
+					lbl.style.color = Color.magenta;
+					_labelsContainer.Add(lbl);
+					_environmentRedirectTask.Pause();
+				}
+			}
 		}
 
 		public static void Destroy()

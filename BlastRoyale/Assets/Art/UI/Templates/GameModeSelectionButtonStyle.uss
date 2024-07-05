@@ -41,7 +41,7 @@
     background-image: var(--sprite-home__gamemode-card-purple);
 }
 
-.game-mode-card:active > .game-mode-card__background {
+.game-mode-card:active .game-mode-card__background {
     left: 4px;
     top: 7px;
 }
@@ -302,11 +302,14 @@
     display: none;
 }
 
+.game-mode-card-size {
+    width: 491px;
+    height: 650px;
+}
+
 .game-mode-card {
     flex-grow: 0;
     -unity-background-scale-mode: scale-to-fit;
-    width: 491px;
-    height: 650px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -318,6 +321,9 @@
     scale: 1 1;
     transition-property: scale, top, right;
     transition-duration: 0.33s;
+    --left-angle: 6;
+    --right-angle: 6;
+    --inverted: true;
 }
 
 .game-mode-card .anim-root {
@@ -552,3 +558,13 @@
     color: rgb(142, 23, 0);
     font-size: 64px;
 }
+
+.test {
+    background-color: yellow;
+
+}
+
+.test:hover {
+    background-color: green;
+}
+

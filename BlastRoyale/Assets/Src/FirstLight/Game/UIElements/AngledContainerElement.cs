@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 using Color = UnityEngine.Color;
 
@@ -8,7 +9,7 @@ namespace FirstLight.Game.UIElements
 	/// Displays the might graphic.
 	/// TODO: Borders don't work so great
 	/// </summary>
-	public class AngledContainerElement : VisualElement
+	public class AngledContainerElement : ImageButton
 	{
 		private static readonly CustomStyleProperty<Color> S_FillColor = new ("--fill-color");
 		private static readonly CustomStyleProperty<Color> S_BorderColor = new ("--border-color");
@@ -32,6 +33,7 @@ namespace FirstLight.Game.UIElements
 		private VisualElement _contentContainer;
 		private readonly VisualElement _background;
 		private readonly VisualElement _mask;
+		private Vector2[] _vertexes = null;
 
 		public override VisualElement contentContainer => _mask;
 
@@ -47,17 +49,65 @@ namespace FirstLight.Game.UIElements
 					top = 0,
 					height = Length.Percent(100),
 					width = Length.Percent(100),
-				}
+				},
+				pickingMode = PickingMode.Ignore
 			});
 			hierarchy.Add(_mask = new VisualElement
 			{
-				name = "Mask"
+				name = "Mask",
+				pickingMode = PickingMode.Ignore
 			});
 			_background.generateVisualContent += GenerateBackground;
-			//_mask.generateVisualContent += GenerateOutline;
 			RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
 			_mask.RegisterCallback<GeometryChangedEvent>(OnGeometryChangedMask);
 			RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
+		}
+
+		public override bool ContainsPoint(Vector2 localPoint)
+		{
+			if (_vertexes == null) return false;
+
+			if (!base.ContainsPoint(localPoint))
+			{
+				return false;
+			}
+
+			var a = resolvedStyle.scale.value;
+			var scale = new Vector3(a.x, a.y);
+			var value = IsPointInQuadrilateral(new Vector2(localPoint.x, localPoint.y), _vertexes[0], _vertexes[1] * scale, _vertexes[2] * scale, _vertexes[3] );
+			return value;
+		}
+
+		public override bool Overlaps(Rect rectangle)
+		{
+			var overlaps = ContainsPoint(rectangle.min) && ContainsPoint(rectangle.max) && ContainsPoint(new Vector2(rectangle.xMin, rectangle.yMax)) && ContainsPoint(new Vector2(rectangle.xMax, rectangle.yMin));
+
+			Debug.Log("OVerlaps:" + overlaps);
+			return overlaps;
+		}
+
+		static float CrossProduct(Vector2 A, Vector2 B, Vector2 P)
+		{
+			return (B.x - A.x) * (P.y - A.y) - (B.y - A.y) * (P.x - A.x);
+		}
+
+		static bool IsPointInQuadrilateral(Vector2 P, Vector2 A, Vector2 B, Vector2 C, Vector2 D)
+		{
+			// Adjust for inverted Y-axis by negating the Y-values
+			Vector2 PA = new Vector2(P.x, -P.y);
+			Vector2 AA = new Vector2(A.x, -A.y);
+			Vector2 BA = new Vector2(B.x, -B.y);
+			Vector2 CA = new Vector2(C.x, -C.y);
+			Vector2 DA = new Vector2(D.x, -D.y);
+
+			// Calculate cross products
+			float cp1 = CrossProduct(AA, BA, PA);
+			float cp2 = CrossProduct(BA, CA, PA);
+			float cp3 = CrossProduct(CA, DA, PA);
+			float cp4 = CrossProduct(DA, AA, PA);
+
+			// Check if all cross products have the same sign
+			return (cp1 > 0 && cp2 > 0 && cp3 > 0 && cp4 > 0) || (cp1 < 0 && cp2 < 0 && cp3 < 0 && cp4 < 0);
 		}
 
 		private void OnCustomStyleResolved(CustomStyleResolvedEvent evt)
@@ -81,19 +131,22 @@ namespace FirstLight.Game.UIElements
 			{
 				_borderWidth = borderWidth;
 			}
+
 			if (evt.customStyle.TryGetValue(S_LeftAngle, out var leftAngle))
 			{
 				_leftAngle = leftAngle;
 			}
+
 			if (evt.customStyle.TryGetValue(S_RightAngle, out var rightAngle))
 			{
 				_rightAngle = rightAngle;
 			}
-			
+
 			if (evt.customStyle.TryGetValue(S_UseParentHeight, out var useParentHeight))
 			{
 				_useParentHeight = useParentHeight;
 			}
+
 			if (evt.customStyle.TryGetValue(S_Inverted, out var inverted))
 			{
 				_inverted = inverted;
@@ -127,7 +180,7 @@ namespace FirstLight.Game.UIElements
 			_mask.style.left = 0;
 			_mask.style.height = contentRect.height;
 			_mask.style.width = contentRect.width;
-			_mask.style.overflow = Overflow.Hidden;
+			_mask.style.overflow = style.overflow;
 			_mask.MarkDirtyRepaint();
 		}
 
@@ -195,6 +248,11 @@ namespace FirstLight.Game.UIElements
 				}
 			}
 
+			if (!mask)
+			{
+				_vertexes = new[] {topRight, topLeft, bottomLeft, bottomRight};
+			}
+
 			painter.BeginPath();
 			painter.fillColor = fillColor;
 			painter.lineJoin = LineJoin.Round;
@@ -257,6 +315,5 @@ namespace FirstLight.Game.UIElements
 		public new class UxmlFactory : UxmlFactory<AngledContainerElement, UxmlTraits>
 		{
 		}
-		
 	}
 }

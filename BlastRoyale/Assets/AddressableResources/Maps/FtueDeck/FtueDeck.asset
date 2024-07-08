@@ -55,11 +55,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: -1482239
+          RawValue: -1463619
         Y:
-          RawValue: 176481
+          RawValue: 0
         Z:
-          RawValue: 51163
+          RawValue: -177534
       PhysicsMaterial:
         Id:
           Value: 0
@@ -68,16 +68,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 21073
+          RawValue: 65536
         Y:
-          RawValue: 149627
+          RawValue: 131072
         Z:
-          RawValue: 460536
+          RawValue: 579010
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: _Coll
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -96,11 +96,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: -1006060
+          RawValue: -1165400
         Y:
-          RawValue: 176481
+          RawValue: 0
         Z:
-          RawValue: 278480
+          RawValue: 352348
       PhysicsMaterial:
         Id:
           Value: 0
@@ -109,16 +109,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 21073
+          RawValue: 359792
         Y:
-          RawValue: 149627
+          RawValue: 131072
         Z:
-          RawValue: 363858
+          RawValue: 65536
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: _Coll (1)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -130,18 +130,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46446
+          RawValue: 186
         Z:
           RawValue: 0
         W:
-          RawValue: -46235
+          RawValue: -65535
       Position:
         X:
-          RawValue: -1183817
+          RawValue: -1164166
         Y:
-          RawValue: 176481
+          RawValue: 0
         Z:
-          RawValue: 409343
+          RawValue: -693015
       PhysicsMaterial:
         Id:
           Value: 0
@@ -150,16 +150,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 131671
+          RawValue: 359792
         Y:
-          RawValue: 149627
+          RawValue: 131072
         Z:
-          RawValue: 187922
+          RawValue: 65536
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: _Coll (2)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -171,18 +171,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46446
+          RawValue: 186
         Z:
           RawValue: 0
         W:
-          RawValue: -46235
+          RawValue: -65535
       Position:
         X:
-          RawValue: -1293439
+          RawValue: -647017
         Y:
-          RawValue: 286202
+          RawValue: 0
         Z:
-          RawValue: 281483
+          RawValue: -751322
       PhysicsMaterial:
         Id:
           Value: 0
@@ -191,16 +191,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 29943
+          RawValue: 227409
         Y:
-          RawValue: 149627
+          RawValue: 131072
         Z:
-          RawValue: 23310
+          RawValue: 303104
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: _Coll (3)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -219,11 +219,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: -1242509
+          RawValue: -647977
         Y:
-          RawValue: 176481
+          RawValue: 0
         Z:
-          RawValue: -392232
+          RawValue: 61979
       PhysicsMaterial:
         Id:
           Value: 0
@@ -232,16 +232,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 270196
+          RawValue: 227409
         Y:
-          RawValue: 149627
+          RawValue: 131072
         Z:
-          RawValue: 33446
+          RawValue: 303104
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: _Coll (4)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -260,11 +260,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: -867048
+          RawValue: 1839203
         Y:
-          RawValue: 176481
+          RawValue: 0
         Z:
-          RawValue: -340670
+          RawValue: -568163
       PhysicsMaterial:
         Id:
           Value: 0
@@ -273,16 +273,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 159913
+          RawValue: 65536
         Y:
-          RawValue: 149627
+          RawValue: 131072
         Z:
-          RawValue: 40370
+          RawValue: 275251
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (5)
+        Name: _Coll (14)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -301,11 +301,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: -854945
+          RawValue: 703842
         Y:
-          RawValue: 176481
+          RawValue: 0
         Z:
-          RawValue: -45023
+          RawValue: -889122
       PhysicsMaterial:
         Id:
           Value: 0
@@ -314,16 +314,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 157130
+          RawValue: 1178337
         Y:
-          RawValue: 149627
+          RawValue: 131072
         Z:
-          RawValue: 40370
+          RawValue: 65536
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (6)
+        Name: _Coll (15)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -342,11 +342,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: -714339
+          RawValue: -96444
         Y:
-          RawValue: 182727
+          RawValue: 0
         Z:
-          RawValue: -543200
+          RawValue: 299215
       PhysicsMaterial:
         Id:
           Value: 0
@@ -355,14 +355,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 21073
+          RawValue: 372244
         Y:
-          RawValue: 149627
+          RawValue: 131072
         Z:
-          RawValue: 243093
+          RawValue: 303104
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (7)
+        Name: _Coll (5)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -383,11 +383,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: -456988
+          RawValue: 557222
         Y:
-          RawValue: 182727
+          RawValue: 0
         Z:
-          RawValue: -730126
+          RawValue: 68644
       PhysicsMaterial:
         Id:
           Value: 0
@@ -396,14 +396,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 319580
+          RawValue: 372244
         Y:
-          RawValue: 149627
+          RawValue: 131072
         Z:
-          RawValue: 22893
+          RawValue: 303104
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (8)
+        Name: _Coll (6)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -424,11 +424,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: -39678
+          RawValue: 985985
         Y:
-          RawValue: 182727
+          RawValue: 0
         Z:
-          RawValue: -599216
+          RawValue: -64542
       PhysicsMaterial:
         Id:
           Value: 0
@@ -437,11 +437,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 176882
+          RawValue: 181534
         Y:
-          RawValue: 149627
+          RawValue: 131072
         Z:
-          RawValue: 152063
+          RawValue: 91422
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: _Coll (9)
@@ -465,11 +465,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: -37821
+          RawValue: 1492568
         Y:
-          RawValue: 182727
+          RawValue: 0
         Z:
-          RawValue: 48936
+          RawValue: -56080
       PhysicsMaterial:
         Id:
           Value: 0
@@ -478,11 +478,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 176882
+          RawValue: 336855
         Y:
-          RawValue: 149627
+          RawValue: 131072
         Z:
-          RawValue: 233492
+          RawValue: 91422
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: _Coll (10)
@@ -499,18 +499,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: -25317
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: -60447
       Position:
         X:
-          RawValue: -716182
+          RawValue: -1354264
         Y:
-          RawValue: 189890
+          RawValue: 0
         Z:
-          RawValue: 70980
+          RawValue: 232391
       PhysicsMaterial:
         Id:
           Value: 0
@@ -519,14 +519,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 17131
+          RawValue: 24576
         Y:
-          RawValue: 149627
+          RawValue: 131072
         Z:
-          RawValue: 154042
+          RawValue: 24576
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (11)
+        Name: _Coll (16)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -547,11 +547,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: -199934
+          RawValue: -927371
         Y:
-          RawValue: 212175
+          RawValue: 327
         Z:
-          RawValue: -304493
+          RawValue: 162378
       PhysicsMaterial:
         Id:
           Value: 0
@@ -560,14 +560,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 12714
+          RawValue: 69795
         Y:
-          RawValue: 122327
+          RawValue: 131072
         Z:
-          RawValue: 152063
+          RawValue: 57671
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (12)
+        Name: _Coll (17)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -579,20 +579,20 @@ MonoBehaviour:
       MutableMode: 0
     - Rotation:
         X:
-          RawValue: 47
+          RawValue: 0
         Y:
-          RawValue: 179
+          RawValue: -38895
         Z:
-          RawValue: -16673
+          RawValue: 0
         W:
-          RawValue: -63379
+          RawValue: -52745
       Position:
         X:
-          RawValue: -148168
+          RawValue: -1281329
         Y:
-          RawValue: 392757
+          RawValue: 0
         Z:
-          RawValue: 202160
+          RawValue: -484028
       PhysicsMaterial:
         Id:
           Value: 0
@@ -601,14 +601,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 213010
+          RawValue: 16384
         Y:
-          RawValue: 58988
+          RawValue: 131072
         Z:
-          RawValue: 13771
+          RawValue: 16384
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (13)
+        Name: _Coll (18)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -629,11 +629,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: -392508
+          RawValue: -366062
         Y:
-          RawValue: 271843
+          RawValue: 0
         Z:
-          RawValue: 164516
+          RawValue: -31404
       PhysicsMaterial:
         Id:
           Value: 0
@@ -642,14 +642,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 70112
+          RawValue: 78970
         Y:
-          RawValue: 58988
+          RawValue: 131072
         Z:
-          RawValue: 19170
+          RawValue: 56688
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (14)
+        Name: _Coll (20)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -657,47 +657,6 @@ MonoBehaviour:
             Value: 0
         IsTrigger: 0
         ColliderIndex: 14
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 47
-        Y:
-          RawValue: 179
-        Z:
-          RawValue: -16673
-        W:
-          RawValue: -63379
-      Position:
-        X:
-          RawValue: -148305
-        Y:
-          RawValue: 392757
-        Z:
-          RawValue: 318159
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 213010
-        Y:
-          RawValue: 58988
-        Z:
-          RawValue: 11100
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: _Coll (15)
-        Tag: Untagged
-        Layer: 8
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 15
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -711,11 +670,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: -487740
+          RawValue: 227089
         Y:
-          RawValue: 263585
+          RawValue: 0
         Z:
-          RawValue: 337679
+          RawValue: -629703
       PhysicsMaterial:
         Id:
           Value: 0
@@ -724,14 +683,55 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 176494
+          RawValue: 65208
         Y:
-          RawValue: 58988
+          RawValue: 131072
         Z:
-          RawValue: 36353
+          RawValue: 56688
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (16)
+        Name: _Coll (21)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 15
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 45747
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 46926
+      Position:
+        X:
+          RawValue: 223836
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -650023
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 88801
+        Y:
+          RawValue: 131072
+        Z:
+          RawValue: 59637
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: _Coll (22)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -752,11 +752,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: -671927
+          RawValue: 218711
         Y:
-          RawValue: 263585
+          RawValue: 0
         Z:
-          RawValue: 253119
+          RawValue: -749644
       PhysicsMaterial:
         Id:
           Value: 0
@@ -765,14 +765,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 37878
+          RawValue: 56360
         Y:
-          RawValue: 58988
+          RawValue: 131072
         Z:
-          RawValue: 103961
+          RawValue: 77660
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (17)
+        Name: _Coll (23)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -793,11 +793,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: 249567
+          RawValue: 666998
         Y:
-          RawValue: 474319
+          RawValue: 0
         Z:
-          RawValue: -795286
+          RawValue: -767465
       PhysicsMaterial:
         Id:
           Value: 0
@@ -806,14 +806,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 231520
+          RawValue: 86835
         Y:
-          RawValue: 58988
+          RawValue: 131072
         Z:
-          RawValue: 22893
+          RawValue: 60293
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (18)
+        Name: _Coll (24)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -834,11 +834,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: 16356
+          RawValue: 666998
         Y:
-          RawValue: 474319
+          RawValue: 0
         Z:
-          RawValue: -323243
+          RawValue: -767465
       PhysicsMaterial:
         Id:
           Value: 0
@@ -847,14 +847,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 21074
+          RawValue: 1612513
         Y:
-          RawValue: 58988
+          RawValue: 131072
         Z:
-          RawValue: 519833
+          RawValue: 60293
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (19)
+        Name: _Coll (25)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -875,11 +875,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: 47590
+          RawValue: 1196797
         Y:
-          RawValue: 490001
+          RawValue: 0
         Z:
-          RawValue: 199775
+          RawValue: -439160
       PhysicsMaterial:
         Id:
           Value: 0
@@ -888,14 +888,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 47041
+          RawValue: 55050
         Y:
-          RawValue: 58988
+          RawValue: 131072
         Z:
-          RawValue: 19050
+          RawValue: 65208
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (20)
+        Name: _Coll (26)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -916,11 +916,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: 481365
+          RawValue: 1616246
         Y:
-          RawValue: 474319
+          RawValue: 0
         Z:
-          RawValue: -626126
+          RawValue: -454393
       PhysicsMaterial:
         Id:
           Value: 0
@@ -929,14 +929,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 20339
+          RawValue: 55050
         Y:
-          RawValue: 58988
+          RawValue: 131072
         Z:
-          RawValue: 220537
+          RawValue: 65208
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (21)
+        Name: _Coll (27)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -957,11 +957,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: 480640
+          RawValue: 1681127
         Y:
-          RawValue: 474319
+          RawValue: 0
         Z:
-          RawValue: -12055
+          RawValue: -454972
       PhysicsMaterial:
         Id:
           Value: 0
@@ -970,14 +970,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 20339
+          RawValue: 55050
         Y:
-          RawValue: 58988
+          RawValue: 131072
         Z:
-          RawValue: 220537
+          RawValue: 65208
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (22)
+        Name: _Coll (28)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -998,11 +998,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: 443054
+          RawValue: 553256
         Y:
-          RawValue: 474319
+          RawValue: -45875
         Z:
-          RawValue: 183198
+          RawValue: 96820
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1011,16 +1011,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 81972
+          RawValue: 2293760
         Y:
-          RawValue: 58988
+          RawValue: 32768
         Z:
-          RawValue: 58680
+          RawValue: 1310720
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (23)
+        Name: _Coll
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -1032,18 +1032,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 0
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: 65536
       Position:
         X:
-          RawValue: 328269
+          RawValue: -1324482
         Y:
-          RawValue: 474319
+          RawValue: -19660
         Z:
-          RawValue: 264982
+          RawValue: -159252
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1052,16 +1052,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 81972
+          RawValue: 27852
         Y:
-          RawValue: 58988
+          RawValue: 65536
         Z:
-          RawValue: 58680
+          RawValue: 93061
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (24)
+        Name: SM_Prop_Trestle_Table_01
         Tag: Untagged
-        Layer: 8
+        Layer: 0
         Asset:
           Id:
             Value: 0
@@ -1073,18 +1073,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 46364
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: -46317
       Position:
         X:
-          RawValue: 160334
+          RawValue: 1115656
         Y:
-          RawValue: 490001
+          RawValue: 32768
         Z:
-          RawValue: 335033
+          RawValue: -42926
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1093,14 +1093,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 152312
+          RawValue: 55966
         Y:
-          RawValue: 58988
+          RawValue: 32768
         Z:
-          RawValue: 32942
+          RawValue: 20928
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (25)
+        Name: CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1114,18 +1114,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 46364
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: -46317
       Position:
         X:
-          RawValue: 214493
+          RawValue: 1109757
         Y:
-          RawValue: 484966
+          RawValue: 32768
         Z:
-          RawValue: -729595
+          RawValue: 509542
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1134,14 +1134,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 34586
+          RawValue: 55966
         Y:
-          RawValue: 58988
+          RawValue: 32768
         Z:
-          RawValue: 58899
+          RawValue: 20928
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (26)
+        Name: CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1155,18 +1155,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 46026
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: 46653
       Position:
         X:
-          RawValue: 425229
+          RawValue: 841482
         Y:
-          RawValue: 474319
+          RawValue: 65407
         Z:
-          RawValue: 70979
+          RawValue: -597295
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1175,14 +1175,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 81972
+          RawValue: 42841
         Y:
-          RawValue: 58988
+          RawValue: 64431
         Z:
-          RawValue: 58680
+          RawValue: 42841
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (27)
+        Name: Cement_bollard Variant
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1196,18 +1196,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 46026
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: 46653
       Position:
         X:
-          RawValue: -273188
+          RawValue: 841482
         Y:
-          RawValue: 239206
+          RawValue: 65407
         Z:
-          RawValue: 127302
+          RawValue: -331284
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1216,14 +1216,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 64864
+          RawValue: 42841
         Y:
-          RawValue: 58988
+          RawValue: 64431
         Z:
-          RawValue: 52483
+          RawValue: 42841
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (28)
+        Name: Cement_bollard Variant (1)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1237,18 +1237,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 76
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: 65535
       Position:
         X:
-          RawValue: 613079
+          RawValue: -1280564
         Y:
-          RawValue: 474319
+          RawValue: 108984
         Z:
-          RawValue: -429924
+          RawValue: -487592
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1257,14 +1257,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 111605
+          RawValue: 16384
         Y:
-          RawValue: 58988
+          RawValue: 105439
         Z:
-          RawValue: 24490
+          RawValue: 16056
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (29)
+        Name: CoconutTree3 (7)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1278,18 +1278,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 16533
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: 63416
       Position:
         X:
-          RawValue: 612817
+          RawValue: -1368969
         Y:
-          RawValue: 474319
+          RawValue: 139527
         Z:
-          RawValue: -207946
+          RawValue: 230578
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1298,14 +1298,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 111605
+          RawValue: 21017
         Y:
-          RawValue: 58988
+          RawValue: 135257
         Z:
-          RawValue: 24490
+          RawValue: 20596
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (30)
+        Name: CoconutTree3 (9)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1319,18 +1319,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 16533
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: 63416
       Position:
         X:
-          RawValue: 108104
+          RawValue: 1643064
         Y:
-          RawValue: 212175
+          RawValue: 139527
         Z:
-          RawValue: -320514
+          RawValue: -258975
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1339,14 +1339,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 77798
+          RawValue: 21017
         Y:
-          RawValue: 58988
+          RawValue: 135257
         Z:
-          RawValue: 152063
+          RawValue: 20596
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (31)
+        Name: CoconutTree3 (10)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1360,18 +1360,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 16533
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: 63416
       Position:
         X:
-          RawValue: -1383615
+          RawValue: 1746611
         Y:
-          RawValue: 242483
+          RawValue: 139527
         Z:
-          RawValue: -219383
+          RawValue: -184919
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1380,14 +1380,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 59179
+          RawValue: 21017
         Y:
-          RawValue: 65956
+          RawValue: 135257
         Z:
-          RawValue: 159999
+          RawValue: 20596
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (32)
+        Name: CoconutTree3 (11)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1401,18 +1401,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 16533
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: 63416
       Position:
         X:
-          RawValue: -1419452
+          RawValue: 1738747
         Y:
-          RawValue: 242483
+          RawValue: 139527
         Z:
-          RawValue: 159372
+          RawValue: -350725
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1421,14 +1421,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 72672
+          RawValue: 21017
         Y:
-          RawValue: 65956
+          RawValue: 135257
         Z:
-          RawValue: 66320
+          RawValue: 20596
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (33)
+        Name: CoconutTree3 (12)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1442,18 +1442,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46446
+          RawValue: 16533
         Z:
           RawValue: 0
         W:
-          RawValue: -46235
+          RawValue: 63416
       Position:
         X:
-          RawValue: -1380497
+          RawValue: 1739402
         Y:
-          RawValue: 176481
+          RawValue: 139527
         Z:
-          RawValue: 470714
+          RawValue: -513910
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1462,14 +1462,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 24724
+          RawValue: 21017
         Y:
-          RawValue: 149627
+          RawValue: 135257
         Z:
-          RawValue: 187922
+          RawValue: 20596
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (34)
+        Name: CoconutTree3 (13)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1483,18 +1483,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 16533
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: 63416
       Position:
         X:
-          RawValue: -632882
+          RawValue: 1736125
         Y:
-          RawValue: 263585
+          RawValue: 139527
         Z:
-          RawValue: 154271
+          RawValue: -662021
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1503,14 +1503,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 62082
+          RawValue: 21017
         Y:
-          RawValue: 58988
+          RawValue: 135257
         Z:
-          RawValue: 10174
+          RawValue: 20596
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (35)
+        Name: CoconutTree3 (14)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1524,18 +1524,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 10543
+          RawValue: 16533
         Z:
           RawValue: 0
         W:
-          RawValue: -64682
+          RawValue: 63416
       Position:
         X:
-          RawValue: -407245
+          RawValue: 1736125
         Y:
-          RawValue: 271843
+          RawValue: 139527
         Z:
-          RawValue: 185829
+          RawValue: -662021
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1544,14 +1544,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 53302
+          RawValue: 21017
         Y:
-          RawValue: 69046
+          RawValue: 135257
         Z:
-          RawValue: 15255
+          RawValue: 20596
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (36)
+        Name: CoconutTree3 (15)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1565,18 +1565,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 64996
+          RawValue: 16533
         Z:
           RawValue: 0
         W:
-          RawValue: 8395
+          RawValue: 63416
       Position:
         X:
-          RawValue: 680592
+          RawValue: 1641754
         Y:
-          RawValue: 46530
+          RawValue: 139527
         Z:
-          RawValue: -623925
+          RawValue: -707241
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1585,14 +1585,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 36366
+          RawValue: 21017
         Y:
-          RawValue: 61419
+          RawValue: 135257
         Z:
-          RawValue: 139414
+          RawValue: 20596
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (1)
+        Name: CoconutTree3 (16)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1606,18 +1606,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 60277
+          RawValue: 65536
         Z:
           RawValue: 0
         W:
-          RawValue: 25721
+          RawValue: -3
       Position:
         X:
-          RawValue: 826211
+          RawValue: 623564
         Y:
-          RawValue: 51642
+          RawValue: 103892
         Z:
-          RawValue: -872518
+          RawValue: 209430
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1626,14 +1626,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 36366
+          RawValue: 54826
         Y:
-          RawValue: 50828
+          RawValue: 108436
         Z:
-          RawValue: 139414
+          RawValue: 54826
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (37)
+        Name: Statue_PRFB (1)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1647,18 +1647,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 51045
+          RawValue: 46364
         Z:
           RawValue: 0
         W:
-          RawValue: 41101
+          RawValue: -46317
       Position:
         X:
-          RawValue: 1080271
+          RawValue: 201729
         Y:
-          RawValue: 51642
+          RawValue: 17059
         Z:
-          RawValue: -1008375
+          RawValue: -1168862
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1667,14 +1667,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 36366
+          RawValue: 229101
         Y:
-          RawValue: 50828
+          RawValue: 309408
         Z:
-          RawValue: 139414
+          RawValue: 197917
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (38)
+        Name: Brownstone_4_CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1688,18 +1688,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 23678
+          RawValue: 46364
         Z:
           RawValue: 0
         W:
-          RawValue: 61108
+          RawValue: -46317
       Position:
         X:
-          RawValue: 1567147
+          RawValue: 201729
         Y:
-          RawValue: 51642
+          RawValue: 334381
         Z:
-          RawValue: -869508
+          RawValue: -1168862
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1708,14 +1708,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 36366
+          RawValue: 267355
         Y:
-          RawValue: 50828
+          RawValue: 15666
         Z:
-          RawValue: 139414
+          RawValue: 240420
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (39)
+        Name: Brownstone_4_CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1729,18 +1729,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 9360
+          RawValue: 46364
         Z:
           RawValue: 0
         W:
-          RawValue: 64864
+          RawValue: -46317
       Position:
         X:
-          RawValue: 1708610
+          RawValue: 58039
         Y:
-          RawValue: 51642
+          RawValue: 417418
         Z:
-          RawValue: -618598
+          RawValue: -1352466
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1749,14 +1749,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 36366
+          RawValue: 12614
         Y:
-          RawValue: 50828
+          RawValue: 84305
         Z:
-          RawValue: 139414
+          RawValue: 18006
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (40)
+        Name: Brownstone_4_CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1770,18 +1770,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 11664
+          RawValue: 46364
         Z:
           RawValue: 0
         W:
-          RawValue: -64489
+          RawValue: -46317
       Position:
         X:
-          RawValue: 1699013
+          RawValue: 351162
         Y:
-          RawValue: 51642
+          RawValue: 371238
         Z:
-          RawValue: -331209
+          RawValue: -1024670
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1790,14 +1790,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 36366
+          RawValue: 59295
         Y:
-          RawValue: 50828
+          RawValue: 25003
         Z:
-          RawValue: 139414
+          RawValue: 35753
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (41)
+        Name: Brownstone_4_CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1811,18 +1811,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 42550
+          RawValue: 65536
         Z:
           RawValue: 0
         W:
-          RawValue: -49843
+          RawValue: -3
       Position:
         X:
-          RawValue: 1295855
+          RawValue: -195966
         Y:
-          RawValue: 51642
+          RawValue: 17059
         Z:
-          RawValue: 32816
+          RawValue: -1205328
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1831,14 +1831,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 36366
+          RawValue: 229101
         Y:
-          RawValue: 50828
+          RawValue: 309408
         Z:
-          RawValue: 139414
+          RawValue: 197917
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (42)
+        Name: Brownstone_4_CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1852,18 +1852,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 53923
+          RawValue: 65536
         Z:
           RawValue: 0
         W:
-          RawValue: -37244
+          RawValue: -3
       Position:
         X:
-          RawValue: 1009106
+          RawValue: -195966
         Y:
-          RawValue: 51642
+          RawValue: 334381
         Z:
-          RawValue: 4375
+          RawValue: -1205328
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1872,14 +1872,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 36366
+          RawValue: 267355
         Y:
-          RawValue: 50828
+          RawValue: 15666
         Z:
-          RawValue: 139414
+          RawValue: 240420
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (43)
+        Name: Brownstone_4_CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1893,18 +1893,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 62085
+          RawValue: 65536
         Z:
           RawValue: 0
         W:
-          RawValue: -20985
+          RawValue: -3
       Position:
         X:
-          RawValue: 777603
+          RawValue: -12362
         Y:
-          RawValue: 51642
+          RawValue: 417418
         Z:
-          RawValue: -167077
+          RawValue: -1349019
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1913,14 +1913,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 36366
+          RawValue: 12614
         Y:
-          RawValue: 50828
+          RawValue: 84305
         Z:
-          RawValue: 139414
+          RawValue: 18006
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (44)
+        Name: Brownstone_4_CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1934,18 +1934,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 65182
+          RawValue: 65536
         Z:
           RawValue: 0
         W:
-          RawValue: -6794
+          RawValue: -3
       Position:
         X:
-          RawValue: 727446
+          RawValue: -340157
         Y:
-          RawValue: 201195
+          RawValue: 371238
         Z:
-          RawValue: -343376
+          RawValue: -1055895
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1954,14 +1954,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 29735
+          RawValue: 59295
         Y:
-          RawValue: 156740
+          RawValue: 25003
         Z:
-          RawValue: 139414
+          RawValue: 35753
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (47)
+        Name: Brownstone_4_CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -1975,18 +1975,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 39235
+          RawValue: 76
         Z:
           RawValue: 0
         W:
-          RawValue: 52493
+          RawValue: 65535
       Position:
         X:
-          RawValue: 1302916
+          RawValue: 73801
         Y:
-          RawValue: 51642
+          RawValue: 85160
         Z:
-          RawValue: -952182
+          RawValue: 182613
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1995,14 +1995,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 29735
+          RawValue: 52796
         Y:
-          RawValue: 50828
+          RawValue: 87127
         Z:
-          RawValue: 139414
+          RawValue: 52939
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (49)
+        Name: CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -2016,18 +2016,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 24683
+          RawValue: 76
         Z:
           RawValue: 0
         W:
-          RawValue: -60710
+          RawValue: 65535
       Position:
         X:
-          RawValue: 1522800
+          RawValue: 1215439
         Y:
-          RawValue: 51642
+          RawValue: 74675
         Z:
-          RawValue: -128134
+          RawValue: -218467
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2036,14 +2036,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 29735
+          RawValue: 52796
         Y:
-          RawValue: 50828
+          RawValue: 87127
         Z:
-          RawValue: 139414
+          RawValue: 52939
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (51)
+        Name: CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -2057,18 +2057,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 64996
+          RawValue: 76
         Z:
           RawValue: 0
         W:
-          RawValue: 8395
+          RawValue: 65535
       Position:
         X:
-          RawValue: 724606
+          RawValue: 1215439
         Y:
-          RawValue: 372818
+          RawValue: 74675
         Z:
-          RawValue: -549381
+          RawValue: -692947
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2077,14 +2077,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 36366
+          RawValue: 52796
         Y:
-          RawValue: 160490
+          RawValue: 87127
         Z:
-          RawValue: 139414
+          RawValue: 52939
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (45)
+        Name: CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -2098,18 +2098,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 62291
+          RawValue: 29159
         Z:
           RawValue: 0
         W:
-          RawValue: -20364
+          RawValue: -58691
       Position:
         X:
-          RawValue: 777827
+          RawValue: 1679071
         Y:
-          RawValue: 367985
+          RawValue: 23557
         Z:
-          RawValue: -98476
+          RawValue: -794634
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2118,14 +2118,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 36366
+          RawValue: 52796
         Y:
-          RawValue: 165322
+          RawValue: 87127
         Z:
-          RawValue: 139414
+          RawValue: 52939
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (52)
+        Name: CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -2137,20 +2137,20 @@ MonoBehaviour:
       MutableMode: 0
     - Rotation:
         X:
-          RawValue: 46
+          RawValue: 0
         Y:
-          RawValue: 179
+          RawValue: 19430
         Z:
-          RawValue: -16545
+          RawValue: 0
         W:
-          RawValue: -63412
+          RawValue: 62589
       Position:
         X:
-          RawValue: 724049
+          RawValue: 1680628
         Y:
-          RawValue: 388987
+          RawValue: 23557
         Z:
-          RawValue: -301651
+          RawValue: -912536
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2159,14 +2159,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 36366
+          RawValue: 52796
         Y:
-          RawValue: 67555
+          RawValue: 87127
         Z:
-          RawValue: 185187
+          RawValue: 52939
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (53)
+        Name: CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -2180,18 +2180,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 29159
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: -58691
       Position:
         X:
-          RawValue: 1714173
+          RawValue: 1679071
         Y:
-          RawValue: 51642
+          RawValue: 23557
         Z:
-          RawValue: -135117
+          RawValue: -1027942
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2200,14 +2200,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 47185
+          RawValue: 52796
         Y:
-          RawValue: 50828
+          RawValue: 87127
         Z:
-          RawValue: 167772
+          RawValue: 52939
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (54)
+        Name: CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -2221,18 +2221,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 29159
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: -58691
       Position:
         X:
-          RawValue: 1606621
+          RawValue: 1688246
         Y:
-          RawValue: 51642
+          RawValue: 23557
         Z:
-          RawValue: -72985
+          RawValue: -1142347
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2241,14 +2241,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 47185
+          RawValue: 52796
         Y:
-          RawValue: 50828
+          RawValue: 87127
         Z:
-          RawValue: 105512
+          RawValue: 52939
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (55)
+        Name: CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -2262,18 +2262,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 186
+          RawValue: 19430
         Z:
           RawValue: 0
         W:
-          RawValue: -65535
+          RawValue: 62589
       Position:
         X:
-          RawValue: 1503022
+          RawValue: 1689803
         Y:
-          RawValue: 51642
+          RawValue: 23557
         Z:
-          RawValue: -29198
+          RawValue: -1260249
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2282,14 +2282,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 47185
+          RawValue: 52796
         Y:
-          RawValue: 50828
+          RawValue: 87127
         Z:
-          RawValue: 60948
+          RawValue: 52939
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (56)
+        Name: CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -2303,18 +2303,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 45869
+          RawValue: 29159
         Z:
           RawValue: 0
         W:
-          RawValue: 46807
+          RawValue: -58691
       Position:
         X:
-          RawValue: 1601791
+          RawValue: 1688246
         Y:
-          RawValue: 51642
+          RawValue: 23557
         Z:
-          RawValue: -978043
+          RawValue: -1375655
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2323,14 +2323,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 47185
+          RawValue: 52796
         Y:
-          RawValue: 50828
+          RawValue: 87127
         Z:
-          RawValue: 167772
+          RawValue: 52939
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (57)
+        Name: CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -2344,18 +2344,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 45869
+          RawValue: 76
         Z:
           RawValue: 0
         W:
-          RawValue: 46807
+          RawValue: 65535
       Position:
         X:
-          RawValue: 1661986
+          RawValue: 81666
         Y:
-          RawValue: 51642
+          RawValue: 83850
         Z:
-          RawValue: -869394
+          RawValue: 640710
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2364,14 +2364,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 47185
+          RawValue: 52796
         Y:
-          RawValue: 50828
+          RawValue: 87127
         Z:
-          RawValue: 105512
+          RawValue: 52939
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (58)
+        Name: CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -2385,18 +2385,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 45869
+          RawValue: 0
         Z:
           RawValue: 0
         W:
-          RawValue: 46807
+          RawValue: 65536
       Position:
         X:
-          RawValue: 1703909
+          RawValue: -841882
         Y:
-          RawValue: 51642
+          RawValue: 8607
         Z:
-          RawValue: -765028
+          RawValue: -171353
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2405,16 +2405,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 47185
+          RawValue: 90478
         Y:
-          RawValue: 50828
+          RawValue: 91452
         Z:
-          RawValue: 60948
+          RawValue: 64950
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (59)
+        Name: CLLSN
         Tag: Untagged
-        Layer: 8
+        Layer: 0
         Asset:
           Id:
             Value: 0
@@ -2426,18 +2426,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 65521
+          RawValue: 0
         Z:
           RawValue: 0
         W:
-          RawValue: 1378
+          RawValue: 65536
       Position:
         X:
-          RawValue: 672322
+          RawValue: -822439
         Y:
-          RawValue: 51642
+          RawValue: -41624
         Z:
-          RawValue: -849749
+          RawValue: -66423
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2446,16 +2446,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 47185
+          RawValue: 79431
         Y:
-          RawValue: 50828
+          RawValue: 41220
         Z:
-          RawValue: 167772
+          RawValue: 53059
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (60)
+        Name: CLLSN
         Tag: Untagged
-        Layer: 8
+        Layer: 0
         Asset:
           Id:
             Value: 0
@@ -2467,18 +2467,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 65521
+          RawValue: 0
         Z:
           RawValue: 0
         W:
-          RawValue: 1378
+          RawValue: 65536
       Position:
         X:
-          RawValue: 781887
+          RawValue: -407371
         Y:
-          RawValue: 51642
+          RawValue: 22441
         Z:
-          RawValue: -937723
+          RawValue: 654442
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2487,16 +2487,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 47185
+          RawValue: 22852
         Y:
-          RawValue: 50828
+          RawValue: 23672
         Z:
-          RawValue: 105512
+          RawValue: 22851
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (61)
+        Name: Ammo_box Variant
         Tag: Untagged
-        Layer: 8
+        Layer: 0
         Asset:
           Id:
             Value: 0
@@ -2508,18 +2508,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 65521
+          RawValue: 0
         Z:
           RawValue: 0
         W:
-          RawValue: 1378
+          RawValue: 65536
       Position:
         X:
-          RawValue: 886152
+          RawValue: -354615
         Y:
-          RawValue: 51642
+          RawValue: 22441
         Z:
-          RawValue: -990029
+          RawValue: 653984
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2528,16 +2528,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 47185
+          RawValue: 22852
         Y:
-          RawValue: 50828
+          RawValue: 23672
         Z:
-          RawValue: 60948
+          RawValue: 22851
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (62)
+        Name: Ammo_box Variant (1)
         Tag: Untagged
-        Layer: 8
+        Layer: 0
         Asset:
           Id:
             Value: 0
@@ -2549,18 +2549,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46498
+          RawValue: 0
         Z:
           RawValue: 0
         W:
-          RawValue: -46183
+          RawValue: 65536
       Position:
         X:
-          RawValue: 753653
+          RawValue: -378798
         Y:
-          RawValue: 51642
+          RawValue: 22441
         Z:
-          RawValue: -21575
+          RawValue: 577372
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2569,16 +2569,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 47185
+          RawValue: 22852
         Y:
-          RawValue: 50828
+          RawValue: 23672
         Z:
-          RawValue: 105512
+          RawValue: 22851
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (64)
+        Name: Ammo_box Variant (2)
         Tag: Untagged
-        Layer: 8
+        Layer: 0
         Asset:
           Id:
             Value: 0
@@ -2590,18 +2590,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46498
+          RawValue: 0
         Z:
           RawValue: 0
         W:
-          RawValue: -46183
+          RawValue: 65536
       Position:
         X:
-          RawValue: 697584
+          RawValue: -296878
         Y:
-          RawValue: 51642
+          RawValue: 22441
         Z:
-          RawValue: -123864
+          RawValue: 651428
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2610,16 +2610,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 47185
+          RawValue: 22852
         Y:
-          RawValue: 50828
+          RawValue: 23672
         Z:
-          RawValue: 60948
+          RawValue: 22851
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: _Coll (65)
+        Name: Ammo_box Variant (4)
         Tag: Untagged
-        Layer: 8
+        Layer: 0
         Asset:
           Id:
             Value: 0
@@ -2631,18 +2631,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 37534
+          RawValue: 0
         Z:
           RawValue: 0
         W:
-          RawValue: 53722
+          RawValue: 65536
       Position:
         X:
-          RawValue: 1032761
+          RawValue: -373555
         Y:
-          RawValue: 56334
+          RawValue: 77491
         Z:
-          RawValue: -272892
+          RawValue: 653394
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2651,16 +2651,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27552
+          RawValue: 22852
         Y:
-          RawValue: 32768
+          RawValue: 23672
         Z:
-          RawValue: 65290
+          RawValue: 22851
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: barricade_concrete_High Variant
+        Name: Ammo_box Variant (5)
         Tag: Untagged
-        Layer: 8
+        Layer: 0
         Asset:
           Id:
             Value: 0
@@ -2672,18 +2672,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 37534
+          RawValue: 0
         Z:
           RawValue: 0
         W:
-          RawValue: 53722
+          RawValue: 65536
       Position:
         X:
-          RawValue: 1220770
+          RawValue: -701890
         Y:
-          RawValue: 56334
+          RawValue: 35548
         Z:
-          RawValue: -205823
+          RawValue: 879493
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2692,595 +2692,21 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27552
+          RawValue: 22852
         Y:
-          RawValue: 32768
+          RawValue: 23672
         Z:
-          RawValue: 65290
+          RawValue: 22851
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: barricade_concrete_High Variant (1)
+        Name: Ammo_box Variant (3)
         Tag: Untagged
-        Layer: 8
+        Layer: 0
         Asset:
           Id:
             Value: 0
         IsTrigger: 0
         ColliderIndex: 64
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 10385
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 64707
-      Position:
-        X:
-          RawValue: 1422259
-        Y:
-          RawValue: 56334
-        Z:
-          RawValue: -453967
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 27552
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 65290
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: barricade_concrete_High Variant (2)
-        Tag: Untagged
-        Layer: 8
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 65
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 10385
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 64707
-      Position:
-        X:
-          RawValue: 1358315
-        Y:
-          RawValue: 56334
-        Z:
-          RawValue: -643061
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 27552
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 65290
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: barricade_concrete_High Variant (3)
-        Tag: Untagged
-        Layer: 8
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 66
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 25255
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -60474
-      Position:
-        X:
-          RawValue: 942042
-        Y:
-          RawValue: 56334
-        Z:
-          RawValue: -591504
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 27552
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 65290
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: barricade_concrete_High Variant (4)
-        Tag: Untagged
-        Layer: 8
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 67
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 25255
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -60474
-      Position:
-        X:
-          RawValue: 1082379
-        Y:
-          RawValue: 56334
-        Z:
-          RawValue: -733460
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 27552
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 65290
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: barricade_concrete_High Variant (5)
-        Tag: Untagged
-        Layer: 8
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 68
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 186
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -65535
-      Position:
-        X:
-          RawValue: -1259436
-        Y:
-          RawValue: 188088
-        Z:
-          RawValue: 68466
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 240733
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 448778
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: _Coll
-        Tag: Untagged
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 69
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 186
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -65535
-      Position:
-        X:
-          RawValue: -865907
-        Y:
-          RawValue: 188088
-        Z:
-          RawValue: -196490
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 154320
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 116977
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: _Coll (1)
-        Tag: Untagged
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 70
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 186
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -65535
-      Position:
-        X:
-          RawValue: -355296
-        Y:
-          RawValue: 188088
-        Z:
-          RawValue: -268632
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 392852
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 464761
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: _Coll (2)
-        Tag: Untagged
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 71
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 186
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -65535
-      Position:
-        X:
-          RawValue: -535208
-        Y:
-          RawValue: 188088
-        Z:
-          RawValue: 243909
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 136006
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 80624
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: _Coll (3)
-        Tag: Untagged
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 72
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 47
-        Y:
-          RawValue: 179
-        Z:
-          RawValue: -16673
-        W:
-          RawValue: -63379
-      Position:
-        X:
-          RawValue: -191866
-        Y:
-          RawValue: 311596
-        Z:
-          RawValue: 257814
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 260835
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 71175
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: _Coll (4)
-        Tag: Untagged
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 73
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 186
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -65535
-      Position:
-        X:
-          RawValue: 199815
-        Y:
-          RawValue: 435159
-        Z:
-          RawValue: -287637
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 173851
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 501120
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: _Coll (5)
-        Tag: Untagged
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 74
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 186
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -65535
-      Position:
-        X:
-          RawValue: 139333
-        Y:
-          RawValue: 435789
-        Z:
-          RawValue: 242094
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 120297
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 67614
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: _Coll (6)
-        Tag: Untagged
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 75
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 186
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -65535
-      Position:
-        X:
-          RawValue: 418002
-        Y:
-          RawValue: 435159
-        Z:
-          RawValue: -333546
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 44280
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 454954
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: _Coll (7)
-        Tag: Untagged
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 76
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 186
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -65535
-      Position:
-        X:
-          RawValue: 584201
-        Y:
-          RawValue: 432930
-        Z:
-          RawValue: -301602
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 138542
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 104089
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: _Coll (8)
-        Tag: Untagged
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 77
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 186
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -65535
-      Position:
-        X:
-          RawValue: 1198162
-        Y:
-          RawValue: -9437
-        Z:
-          RawValue: -485033
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 565219
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 519020
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: _Coll (9)
-        Tag: Untagged
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 78
         MutableMode: 0
       MutableMode: 0
     MapEntities: []
@@ -3294,8 +2720,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -3344,6 +2773,8 @@ MonoBehaviour:
         SceneIndexPlusOne: 3
       FirstBarrier:
         SceneIndexPlusOne: 14
+      FinalBotBlocker:
+        SceneIndexPlusOne: 0
     UTAgent: []
     VisibilityArea: []
     CharacterController2D: []
@@ -3380,8 +2811,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -3444,16 +2878,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1183539
+          RawValue: -1159857
         Y:
-          RawValue: 241827
+          RawValue: 0
         Z:
-          RawValue: 173413
+          RawValue: 98730
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 11792048
+          RawValue: 16379567
         Z:
           RawValue: 0
     View: []
@@ -3468,103 +2902,204 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder:
+    - Cosmetics:
+      - Value: 77
+    DeadPlayerCharacter: []
+    DeathFlag: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner:
+    - SpawnerType:
+        Value: 3
+      BehaviourType:
+        Value: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Revivable: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    TutorialRuntimeData: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1477312
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -456523
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 9498288
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    ChunkDebug: []
+    Collectable: []
+    CollectableChunks: []
+    CollectablePlatformSpawner: []
+    CollectableTime: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder:
+    - Cosmetics:
+      - Value: 82
+      - Value: 314
+    DeadPlayerCharacter: []
+    DeathFlag: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner:
+    - SpawnerType:
+        Value: 3
+      BehaviourType:
+        Value: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Revivable: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    TutorialRuntimeData: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 141862
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -604245
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 17690288
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    ChunkDebug: []
+    Collectable: []
+    CollectableChunks: []
+    CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder:
     - Cosmetics:
       - Value: 69
-    DeadPlayerCharacter: []
-    DeathFlag: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EntityGroup: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    KnockedOut: []
-    KnockedOutCollider: []
-    LandMine: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner:
-    - SpawnerType:
-        Value: 3
-      BehaviourType:
-        Value: 1
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    Revivable: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    TutorialRuntimeData: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 1495167
-        Y:
-          RawValue: 24903
-        Z:
-          RawValue: -592162
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 23588528
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder:
-    - Cosmetics:
-      - Value: 83
+      - Value: 301
     DeadPlayerCharacter: []
     DeathFlag: []
     Destructible: []
@@ -3624,11 +3159,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -263766
+          RawValue: 129695
         Y:
-          RawValue: 232194
+          RawValue: 0
         Z:
-          RawValue: -581852
+          RawValue: -290342
       Rotation:
         X:
           RawValue: 0
@@ -3648,13 +3183,17 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder:
     - Cosmetics:
-      - Value: 77
+      - Value: 69
+      - Value: 227
     DeadPlayerCharacter: []
     DeathFlag: []
     Destructible: []
@@ -3714,11 +3253,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -264413
+          RawValue: -150650
         Y:
-          RawValue: 232718
+          RawValue: 0
         Z:
-          RawValue: -33906
+          RawValue: 139243
       Rotation:
         X:
           RawValue: 0
@@ -3738,97 +3277,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder:
-    - Cosmetics:
-      - Value: 77
-    DeadPlayerCharacter: []
-    DeathFlag: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EntityGroup: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    KnockedOut: []
-    KnockedOutCollider: []
-    LandMine: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner:
-    - SpawnerType:
-        Value: 3
-      BehaviourType:
-        Value: 0
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    Revivable: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    TutorialRuntimeData: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -51092
-        Y:
-          RawValue: 232718
-        Z:
-          RawValue: -312182
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 17690288
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -3844,6 +3295,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 1
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -3902,11 +3354,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 192650
+          RawValue: 500186
         Y:
-          RawValue: 470941
+          RawValue: 6553
         Z:
-          RawValue: -324346
+          RawValue: -470128
       Rotation:
         X:
           RawValue: 0
@@ -3926,7 +3378,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -3942,6 +3396,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 1
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4000,11 +3455,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -811513
+          RawValue: -517733
         Y:
-          RawValue: 235929
+          RawValue: 6553
         Z:
-          RawValue: -195770
+          RawValue: -347467
       Rotation:
         X:
           RawValue: 0
@@ -4024,7 +3479,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -4040,6 +3497,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 1
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4098,11 +3556,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -632159
+          RawValue: -350403
         Y:
-          RawValue: 235929
+          RawValue: 6553
         Z:
-          RawValue: -569114
+          RawValue: -527494
       Rotation:
         X:
           RawValue: 0
@@ -4122,7 +3580,110 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 5
+      InitialSpawnDelayInSec: 2
+      GameId:
+        Value: 127
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+      DoNotDestroy:
+        Value: 1
+    CollectableTime: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    DeathFlag: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Revivable: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    TutorialRuntimeData: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1146249
+        Y:
+          RawValue: 6553
+        Z:
+          RawValue: -325927
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 23588528
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    ChunkDebug: []
+    Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -4138,6 +3699,7 @@ MonoBehaviour:
         Value: 1
       DoNotDestroy:
         Value: 1
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4196,11 +3758,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -629682
+          RawValue: -143788
         Y:
-          RawValue: 235929
+          RawValue: 6553
         Z:
-          RawValue: -447214
+          RawValue: -122237
       Rotation:
         X:
           RawValue: 0
@@ -4220,7 +3782,9 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner:
     - Collectable:
         SceneIndexPlusOne: 0
@@ -4236,6 +3800,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 1
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4294,11 +3859,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1491892
+          RawValue: 1461595
         Y:
-          RawValue: 17694
+          RawValue: 6553
         Z:
-          RawValue: -593476
+          RawValue: -465717
       Rotation:
         X:
           RawValue: 0
@@ -4318,282 +3883,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    DeathFlag: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EntityGroup: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate:
-    - IsOpening:
-        Value: 0
-      TimeToOpen:
-        RawValue: 0
-      OpeningTime:
-        RawValue: 131072
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    KnockedOut: []
-    KnockedOutCollider: []
-    LandMine: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    Revivable: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger:
-    - Target:
-        SceneIndexPlusOne: 12
-      Data:
-        _field_used_: CHESTOPENTRIGGERDATA
-        PlayersAliveTriggerData:
-          PlayersAlive: 2
-        ChestOpenTriggerData:
-          _empty_prototype_dummy_field_: 0
-        WeaponCollectedTriggerData:
-          WeaponSpawner:
-            SceneIndexPlusOne: 0
-    TutorialRuntimeData: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 0
-        PositionOffset:
-          X:
-            RawValue: -31457
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 98304
-          Y:
-            RawValue: 98304
-          Z:
-            RawValue: 13107
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 8
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 464196
-        Y:
-          RawValue: 543031
-        Z:
-          RawValue: -350240
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 5893807
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    DeathFlag: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EntityGroup: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate:
-    - IsOpening:
-        Value: 0
-      TimeToOpen:
-        RawValue: 0
-      OpeningTime:
-        RawValue: 131072
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    KnockedOut: []
-    KnockedOutCollider: []
-    LandMine: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    Revivable: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger:
-    - Target:
-        SceneIndexPlusOne: 13
-      Data:
-        _field_used_: PLAYERSALIVETRIGGERDATA
-        PlayersAliveTriggerData:
-          PlayersAlive: 2
-        ChestOpenTriggerData:
-          _empty_prototype_dummy_field_: 0
-        WeaponCollectedTriggerData:
-          WeaponSpawner:
-            SceneIndexPlusOne: 0
-    TutorialRuntimeData: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 0
-        PositionOffset:
-          X:
-            RawValue: 45875
-          Y:
-            RawValue: -52428
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 52428
-          Y:
-            RawValue: 65536
-          Z:
-            RawValue: 6553
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 8
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -567675
-        Y:
-          RawValue: 334692
-        Z:
-          RawValue: 155659
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 23588528
-        Z:
-          RawValue: -2
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    Collectable: []
-    CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4607,7 +3901,147 @@ MonoBehaviour:
       TimeToDestroy:
         RawValue: 0
       Health:
-        RawValue: 1310720
+        RawValue: 6553600
+      DamagePower:
+        RawValue: 0
+      SplashRadius:
+        RawValue: 0
+      DestructionLengthTime:
+      - RawValue: 0
+      - RawValue: 0
+      GameId:
+        Value: 195
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Revivable: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger: []
+    TutorialRuntimeData: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 58327
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 32768
+          Y:
+            RawValue: 32768
+          Z:
+            RawValue: 32768
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes: []
+        IsSetFromSourceCollider: 0
+      Layer: 8
+      IsTrigger: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 0
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -881459
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 281149
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    ChunkDebug: []
+    Collectable: []
+    CollectableChunks: []
+    CollectablePlatformSpawner: []
+    CollectableTime: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    DeathFlag: []
+    Destructible:
+    - IsDestructing:
+        Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
+      TimeToDestroy:
+        RawValue: 0
+      Health:
+        RawValue: 1966080
       DamagePower:
         RawValue: 0
       SplashRadius:
@@ -4705,11 +4139,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -974234
+          RawValue: -843448
         Y:
-          RawValue: 218759
+          RawValue: -6553
         Z:
-          RawValue: -200222
+          RawValue: -345374
       Rotation:
         X:
           RawValue: 0
@@ -4729,8 +4163,11 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4842,11 +4279,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -736234
+          RawValue: -462028
         Y:
-          RawValue: 296943
+          RawValue: 61079
         Z:
-          RawValue: -121625
+          RawValue: -279183
       Rotation:
         X:
           RawValue: 0
@@ -4866,31 +4303,297 @@ MonoBehaviour:
     BotLoadout: []
     Chest: []
     ChestContents: []
+    ChunkDebug: []
     Collectable: []
+    CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
     DeadPlayerCharacter: []
     DeathFlag: []
-    Destructible:
-    - IsDestructing:
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate:
+    - IsOpening:
         Value: 0
-      Destroyer:
-        SceneIndexPlusOne: 0
-      TimeToDestroy:
+      TimeToOpen:
         RawValue: 0
-      Health:
-        RawValue: 1310720
-      DamagePower:
+      OpeningTime:
+        RawValue: 131072
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Revivable: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger:
+    - Target:
+        SceneIndexPlusOne: 16
+      Data:
+        _field_used_: PLAYERSALIVETRIGGERDATA
+        PlayersAliveTriggerData:
+          PlayersAlive: 2
+        ChestOpenTriggerData:
+          _empty_prototype_dummy_field_: 0
+        WeaponCollectedTriggerData:
+          WeaponSpawner:
+            SceneIndexPlusOne: 0
+    TutorialRuntimeData: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 95027
+          Y:
+            RawValue: -52428
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 102236
+          Y:
+            RawValue: 65536
+          Z:
+            RawValue: 6553
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes: []
+        IsSetFromSourceCollider: 0
+      Layer: 8
+      IsTrigger: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 0
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 201850
+        Y:
+          RawValue: 99614
+        Z:
+          RawValue: -354549
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 5898240
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    ChunkDebug: []
+    Collectable: []
+    CollectableChunks: []
+    CollectablePlatformSpawner: []
+    CollectableTime: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    DeathFlag: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate:
+    - IsOpening:
+        Value: 0
+      TimeToOpen:
         RawValue: 0
-      SplashRadius:
-        RawValue: 0
-      DestructionLengthTime:
-      - RawValue: 0
-      - RawValue: 0
-      GameId:
-        Value: 195
+      OpeningTime:
+        RawValue: 131072
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Revivable: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    Trigger:
+    - Target:
+        SceneIndexPlusOne: 17
+      Data:
+        _field_used_: CHESTOPENTRIGGERDATA
+        PlayersAliveTriggerData:
+          PlayersAlive: 2
+        ChestOpenTriggerData:
+          _empty_prototype_dummy_field_: 0
+        WeaponCollectedTriggerData:
+          WeaponSpawner:
+            SceneIndexPlusOne: 0
+    TutorialRuntimeData: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: -31457
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 98304
+          Y:
+            RawValue: 98304
+          Z:
+            RawValue: 13107
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes: []
+        IsSetFromSourceCollider: 0
+      Layer: 8
+      IsTrigger: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 0
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 830341
+        Y:
+          RawValue: 76349
+        Z:
+          RawValue: -501350
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 5893807
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    ChunkDebug: []
+    Collectable: []
+    CollectableChunks: []
+    CollectablePlatformSpawner: []
+    CollectableTime: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    DeathFlag: []
+    Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
     EntityGroup: []
@@ -4937,7 +4640,7 @@ MonoBehaviour:
     PhysicsCollider2D: []
     PhysicsCollider3D:
     - ShapeConfig:
-        ShapeType: 2
+        ShapeType: 16
         SphereRadius:
           RawValue: 58327
         PositionOffset:
@@ -4949,11 +4652,11 @@ MonoBehaviour:
             RawValue: 0
         BoxExtents:
           X:
-            RawValue: 32768
+            RawValue: 98304
           Y:
             RawValue: 32768
           Z:
-            RawValue: 70123
+            RawValue: 286392
         RotationOffset:
           X:
             RawValue: 0
@@ -4963,7 +4666,111 @@ MonoBehaviour:
             RawValue: 0
         UserTag: 0
         IsPersistent: 1
-        CompoundShapes: []
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          BoxExtents:
+            X:
+              RawValue: 98304
+            Y:
+              RawValue: 65536
+            Z:
+              RawValue: 32768
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: -152043
+          BoxExtents:
+            X:
+              RawValue: 98304
+            Y:
+              RawValue: 65536
+            Z:
+              RawValue: 32768
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 67502
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: -74055
+          BoxExtents:
+            X:
+              RawValue: 32768
+            Y:
+              RawValue: 65536
+            Z:
+              RawValue: 98304
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: -70778
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: -74055
+          BoxExtents:
+            X:
+              RawValue: 32768
+            Y:
+              RawValue: 65536
+            Z:
+              RawValue: 98304
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
         IsSetFromSourceCollider: 0
       Layer: 8
       IsTrigger: 0
@@ -4979,16 +4786,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1381345
+          RawValue: 2082078
         Y:
-          RawValue: 256245
+          RawValue: 0
         Z:
-          RawValue: 22643
+          RawValue: -676331
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 49409
+          RawValue: 0
         Z:
           RawValue: 0
     View: []

@@ -262,10 +262,13 @@ namespace FirstLight.Game.Utils
 				DESYNC_DETECTION = desyncDetection;
 			}
 
+			/*
 			if (TrySetFlag("TUTORIAL", overrideData, out var tutorial))
 			{
 				TUTORIAL = tutorial;
 			}
+			*/
+			TUTORIAL = true;
 
 			if (TrySetFlag("PAUSE_FREEZE", overrideData, out var pauseFreeze))
 			{

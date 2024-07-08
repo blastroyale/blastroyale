@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.FLogger;
@@ -52,13 +51,10 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _squadContainer;
 		private VisualElement _partyMarkers;
 		private Label _squadLabel;
-		//private ListView _squadMembersList;
 		private Label _mapMarkerTitle;
 		private Label _loadStatusLabel;
 		private Label _locationLabel;
 		private ScreenHeaderElement _header;
-		//private Label _modeDescTopLabel;
-		//private Label _modeDescBotLabel;
 		private Label _debugPlayerCountLabel;
 		private Label _debugMasterClient;
 		private IGameServices _services;
@@ -110,44 +106,24 @@ namespace FirstLight.Game.Presenters
 			_loadStatusLabel = Root.Q<Label>("LoadStatusLabel").Required();
 			_locationLabel = Root.Q<Label>("LocationLabel").Required();
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
-			//_modeDescTopLabel = Root.Q<Label>("ModeDescTop").Required();
-			//_modeDescBotLabel = Root.Q<Label>("ModeDescBot").Required();
 			_debugPlayerCountLabel = Root.Q<Label>("DebugPlayerCount").Required();
 			_debugMasterClient = Root.Q<Label>("DebugMasterClient").Required();
 			_squadContainer = Root.Q("SquadContainer").Required();
-			//_squadMembersList = Root.Q<ListView>("SquadList").Required();
 			_partyMarkers = Root.Q("PartyMarkers").Required();
 			_header.SetSubtitle("");
-
-			//_squadMembersList.DisableScrollbars();
-			//_squadMembersList.makeItem = CreateSquadListEntry;
-			//_squadMembersList.bindItem = BindSquadListEntry;
-
+			
 			_header.backClicked += OnCloseClicked;
 
 			for (var i = 0; i < MaxSquadPlayers; i++)
 			{
 				_squadContainers[i] = Root.Q<VisualElement>($"Row{i}").Required();
 				_squadContainers[i].visible = false;
-				
 				_playerMemberElements[i] = Root.Q<PlayerMemberElement>($"PlayerMemberElement{i}").Required();
 				_nameLabels[i] = Root.Q<Label>($"Name{i}").Required();
 			}
-			
-			Debug.Log("");
 		}
 
-		[Button]
-		private void Button1()
-		{
-			Debug.Log($"Map holder rect: " +
-				$"{_mapHolder.worldBound.width} {_mapHolder.worldBound.height}");
-			
-			Debug.Log($"Root rect: " +
-				$"{Root.worldBound.width} {Root.worldBound.height}");
-		}
-
-
+		
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_mapHolder.RegisterCallback<GeometryChangedEvent>(InitMap);
@@ -217,9 +193,6 @@ namespace FirstLight.Game.Presenters
 					_playerSquadEntries.Add(_squadMembers[i], _squadContainers[i]);
 				}
 				
-				//_squadMembersList.itemsSource = _squadMembers;
-				//_squadMembersList.RefreshItems();
-
 				RefreshPartyMarkers();
 			}
 			else
@@ -251,21 +224,15 @@ namespace FirstLight.Game.Presenters
 				var markerPos = new Vector2(memberDropPosition.x * mapWidth, -memberDropPosition.y * mapWidth);
 
 				_partyMarkers.Add(marker);
+				//_partyMarkers.Add(playerMarker);
+				
 				marker.transform.position = markerPos;
+				
 				//playerMarker.transform.position = markerPos;
 			}
 		}
 
-		private void BindSquadListEntry(VisualElement element, int index)
-		{
-			if (index < 0 || index >= _squadMembers.Count) return;
-
-			//var nameColor = _services.TeamService.GetTeamMemberColor(_squadMembers[index]);
-			
-			((Label) element).text = _squadMembers[index].NickName;
-			((Label) element).style.color =  Color.white;
-		}
-
+		
 		private VisualElement CreateSquadListEntry()
 		{
 			var label = new Label();
@@ -299,15 +266,6 @@ namespace FirstLight.Game.Presenters
 				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
 				_mapImage.style.backgroundImage = new StyleBackground(sprite);
 				
-				Debug.Log("Screen Width, Height: " + Screen.width + " " + Screen.height);
-				
-				Debug.Log($"PreGameLoadingScreenPresenter->LoadMapAsset map image wh:" +
-					$"{_mapImage.worldBound.width} {_mapImage.worldBound.height}");
-				_mapAreaConfig = _services.ConfigsProvider.GetConfig<MapAreaConfigs>().GetMapAreaConfig(mapConfig.Map);
-
-				Debug.Log($"PreGameLoadingScreenPresenter->LoadMapAsset map holder style wh:" +
-					$"{_mapHolder.style.width} {_mapHolder.style.height}");
-
 				if ((Screen.width / 2) >= Screen.height)
 				{
 					_mapHolder.style.width = _mapImage.worldBound.height;
@@ -339,16 +297,12 @@ namespace FirstLight.Game.Presenters
 			_mapHolder.UnregisterCallback<GeometryChangedEvent>(InitMap);
 
 			var simulationConfig = CurrentRoom.Properties.SimulationMatchConfig.Value;
-			//var matchType = simulationConfig.MatchType;
 			var gameModeConfig = CurrentRoom.GameModeConfig;
 			var mapConfig = CurrentRoom.MapConfig;
-			//var modeDesc = GetGameModeDescriptions(gameModeConfig.CompletionStrategy);
-
+			
 			_locationLabel.text = mapConfig.Map.GetLocalization();
 			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, simulationConfig.TeamSize));
 
-			//_modeDescTopLabel.text = modeDesc[0];
-			//_modeDescBotLabel.text = modeDesc[1];
 			_header.SetButtonsVisibility(!_services.TutorialService.IsTutorialRunning);
 
 			UpdatePlayerCount();
@@ -419,17 +373,12 @@ namespace FirstLight.Game.Presenters
 			if (!_services.RoomService.InRoom) return false;
 			if (!_dropSelectionAllowed) return false;
 			
-			Debug.Log($"TrySetMarkerPosition->locaPos {localPos}");
-
 			var mapWidth = _mapImage.contentRect.width;
 			var mapHeight = _mapImage.contentRect.height;
 			var mapWidthHalf = mapWidth / 2;
 			var mapHeightHalf = mapHeight / 2;
 			var mapAreaPosition = new Vector2(localPos.x / mapWidth, 1f - localPos.y / mapHeight);
 			
-			
-			Debug.Log($"TrySetMarkerPosition->mapAreaPosition {mapAreaPosition}");
-
 			if (mapAreaPosition.x >= 1f || mapAreaPosition.x < 0f || mapAreaPosition.y >= 1f || mapAreaPosition.y < 0f)
 			{
 				return false;
@@ -455,18 +404,11 @@ namespace FirstLight.Game.Presenters
 			
 			_markerLocalPosition = new Vector3(localPos.x - mapWidthHalf, localPos.y - mapHeightHalf, 0);
 
-			UpdateMarkerPosition().Forget();
+			_mapMarker.transform.position = _markerLocalPosition;
 			
 			return true;
 		}
-
-		private async UniTaskVoid UpdateMarkerPosition()
-		{
-			 await UniTask.DelayFrame(1);
-			 _markerLocalPosition.x -= (_mapMarker.worldBound.width / 2) - (_mapMarkerIcon.worldBound.width / 2);
-			 _mapMarker.transform.position = _markerLocalPosition;
-		}
-
+		
 		/// <summary>
 		/// Accepts the position in the canvas (-mapWidth/2, -mapHeight/2) to (mapWidth/2, mapHeight/2)
 		/// </summary>
@@ -494,7 +436,6 @@ namespace FirstLight.Game.Presenters
 
 		private void OnPlayersChanged(Player player, PlayerChangeReason reason)
 		{
-			Debug.Log($"OnPlayersChanged {reason}");
 			UpdatePlayerCount();
 
 			if (!CurrentRoom.IsTeamGame)
@@ -637,18 +578,7 @@ namespace FirstLight.Game.Presenters
 				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_waiting;
 			}
 		}
-
-
-		private string[] GetGameModeDescriptions(GameCompletionStrategy strategy)
-		{
-			var descriptions = new string[2];
-			descriptions[0] = strategy.GetLocalization();
-			descriptions[1] = ScriptLocalization.UITMatchmaking.wins_the_match;
-
-			return descriptions;
-		}
-
-
+		
 		public void OnPlayerPropertiesUpdate()
 		{
 			RefreshPartyList();

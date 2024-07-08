@@ -22,8 +22,10 @@
                         <ui:VisualElement name="marker" class="map-marker-party" />
                     </ui:VisualElement>
                     <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker" style="flex-direction: row;">
-                        <ui:Label name="MapMarkerTitle" text="PLACE NAME" picking-mode="Ignore" class="map-marker__title" style="position: relative; bottom: auto;" />
-                        <ui:VisualElement name="MapMarkerIcon" picking-mode="Ignore" class="map-marker__icon" />
+                        <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row; align-self: center; position: absolute; right: -41px;">
+                            <ui:Label name="MapMarkerTitle" text="PLACE NAME" picking-mode="Ignore" class="map-marker__title" style="position: relative; bottom: auto;" />
+                            <ui:VisualElement name="MapMarkerIcon" picking-mode="Ignore" class="map-marker__icon" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="MapTitleBg" picking-mode="Ignore" class="map__title-bg">
                         <ui:VisualElement name="AnimationLine" class="map__title-effect" />

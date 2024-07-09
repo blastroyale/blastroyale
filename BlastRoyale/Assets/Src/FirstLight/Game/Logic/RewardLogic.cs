@@ -155,7 +155,7 @@ namespace FirstLight.Game.Logic
 		private bool IsDebug(SimulationMatchConfig matchConfig)
 		{
 			// This is checked on quantum plugin, rooms are not allowed to be created with this config
-			return matchConfig.ConfigId.Contains("debug-");
+			return matchConfig.ConfigId?.Contains("debug-") ?? false;
 		}
 
 		private bool IsEventValid(RewardSource source, GameModeRotationConfig.GameModeEntry usedGamemode)

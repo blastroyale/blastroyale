@@ -465,6 +465,88 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
+          RawValue: 857786
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -278341
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 98304
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: _Coll (11)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 10
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 186
+        Z:
+          RawValue: 0
+        W:
+          RawValue: -65535
+      Position:
+        X:
+          RawValue: 858256
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -676144
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 98304
+        Z:
+          RawValue: 98304
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: _Coll (12)
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 11
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 186
+        Z:
+          RawValue: 0
+        W:
+          RawValue: -65535
+      Position:
+        X:
           RawValue: 1492568
         Y:
           RawValue: 0
@@ -492,7 +574,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 10
+        ColliderIndex: 12
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -533,7 +615,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 11
+        ColliderIndex: 13
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -574,7 +656,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 12
+        ColliderIndex: 14
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -615,7 +697,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 13
+        ColliderIndex: 15
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -656,7 +738,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 14
+        ColliderIndex: 16
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -697,7 +779,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 15
+        ColliderIndex: 17
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -738,7 +820,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 16
+        ColliderIndex: 18
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -779,7 +861,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 17
+        ColliderIndex: 19
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -820,7 +902,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 18
+        ColliderIndex: 20
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -861,7 +943,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 19
+        ColliderIndex: 21
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -902,7 +984,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 20
+        ColliderIndex: 22
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -943,7 +1025,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 21
+        ColliderIndex: 23
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -984,7 +1066,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 22
+        ColliderIndex: 24
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1025,7 +1107,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 23
+        ColliderIndex: 25
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1066,7 +1148,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 24
+        ColliderIndex: 26
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1107,7 +1189,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 25
+        ColliderIndex: 27
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1142,88 +1224,6 @@ MonoBehaviour:
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
-        Tag: Untagged
-        Layer: 8
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 26
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46026
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 46653
-      Position:
-        X:
-          RawValue: 841482
-        Y:
-          RawValue: 65407
-        Z:
-          RawValue: -597295
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 42841
-        Y:
-          RawValue: 64431
-        Z:
-          RawValue: 42841
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Cement_bollard Variant
-        Tag: Untagged
-        Layer: 8
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 27
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46026
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 46653
-      Position:
-        X:
-          RawValue: 841482
-        Y:
-          RawValue: 65407
-        Z:
-          RawValue: -331284
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 42841
-        Y:
-          RawValue: 64431
-        Z:
-          RawValue: 42841
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Cement_bollard Variant (1)
         Tag: Untagged
         Layer: 8
         Asset:
@@ -2772,7 +2772,7 @@ MonoBehaviour:
       FinalBot:
         SceneIndexPlusOne: 3
       FirstBarrier:
-        SceneIndexPlusOne: 14
+        SceneIndexPlusOne: 13
       FinalBotBlocker:
         SceneIndexPlusOne: 0
     UTAgent: []
@@ -2887,7 +2887,7 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 16379567
+          RawValue: 12470809
         Z:
           RawValue: 0
     View: []
@@ -3253,11 +3253,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -150650
+          RawValue: -150634
         Y:
           RawValue: 0
         Z:
-          RawValue: 139243
+          RawValue: 181579
       Rotation:
         X:
           RawValue: 0
@@ -3561,107 +3561,6 @@ MonoBehaviour:
           RawValue: 6553
         Z:
           RawValue: -527494
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 23588528
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    ChunkDebug: []
-    Collectable: []
-    CollectableChunks: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 2
-      GameId:
-        Value: 127
-      RarityModifier: 0
-      Disabled:
-        Value: 0
-      DoNotDestroy:
-        Value: 1
-    CollectableTime: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    DeathFlag: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EntityGroup: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    KnockedOut: []
-    KnockedOutCollider: []
-    LandMine: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    Revivable: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    Trigger: []
-    TutorialRuntimeData: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -1146249
-        Y:
-          RawValue: 6553
-        Z:
-          RawValue: -325927
       Rotation:
         X:
           RawValue: 0
@@ -4213,7 +4112,7 @@ MonoBehaviour:
     TeamMember: []
     Trigger:
     - Target:
-        SceneIndexPlusOne: 15
+        SceneIndexPlusOne: 14
       Data:
         _field_used_: WEAPONCOLLECTEDTRIGGERDATA
         PlayersAliveTriggerData:
@@ -4353,7 +4252,7 @@ MonoBehaviour:
     TeamMember: []
     Trigger:
     - Target:
-        SceneIndexPlusOne: 16
+        SceneIndexPlusOne: 15
       Data:
         _field_used_: PLAYERSALIVETRIGGERDATA
         PlayersAliveTriggerData:
@@ -4493,7 +4392,7 @@ MonoBehaviour:
     TeamMember: []
     Trigger:
     - Target:
-        SceneIndexPlusOne: 17
+        SceneIndexPlusOne: 16
       Data:
         _field_used_: CHESTOPENTRIGGERDATA
         PlayersAliveTriggerData:

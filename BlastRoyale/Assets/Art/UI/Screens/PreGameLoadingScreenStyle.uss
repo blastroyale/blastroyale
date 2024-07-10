@@ -388,9 +388,7 @@
     border-top-width: 6px;
     border-bottom-width: 6px;
     align-items: center;
-    justify-content: center;
-    margin-right: 18px;
-    
+    justify-content: center;    
     background-color: rgba(23, 18, 53, 0);
 }
 

@@ -21,8 +21,8 @@
                     <ui:VisualElement name="PartyMarkers" picking-mode="Ignore" class="fill-parent party-markers">
                         <ui:VisualElement name="marker" class="map-marker-party" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker" style="flex-direction: row;">
-                        <ui:VisualElement picking-mode="Ignore" name="VisualElement" style="flex-direction: row; align-self: center; position: absolute; right: 0;">
+                    <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker" style="flex-direction: row; bottom: 0; top: -37px;">
+                        <ui:VisualElement picking-mode="Ignore" name="VisualElement" style="flex-direction: row; align-self: center; position: absolute; right: 0; align-items: center;">
                             <ui:Label name="MapMarkerTitle" text="PLACE NAME" picking-mode="Ignore" class="map-marker__title" style="position: relative; bottom: auto;" />
                             <ui:VisualElement name="MapMarkerIcon" picking-mode="Ignore" class="map-marker__icon" style="margin-right: -41px;" />
                         </ui:VisualElement>
@@ -33,23 +33,23 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="SquadContainer" class="squad-container" style="background-color: rgba(19, 142, 211, 0.4); overflow: visible; max-height: 624px;">
+            <ui:VisualElement name="SquadContainer" class="squad-container" style="background-color: rgba(19, 142, 211, 0.4); overflow: visible; max-height: 624px; min-height: 524px;">
                 <FirstLight.Game.UIElements.LocalizedButton name="Title" localization-key="UITHomeScreen/youre_team" class="squad-container__title" style="display: flex; background-color: rgba(16, 12, 34, 0); color: rgb(248, 199, 46); -unity-text-outline-width: 1px; text-shadow: 3px 3px 0 rgb(0, 0, 0); letter-spacing: 0; -unity-text-outline-color: rgb(0, 0, 0); top: -30px; position: absolute; left: 0; right: 0;" />
                 <ui:VisualElement name="Row0" class="header-row" style="flex-direction: row; margin-top: 40px; margin-right: 10px; margin-bottom: 10px; margin-left: 40px;">
                     <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement0" style="position: relative;" />
-                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name0" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden;" />
+                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name0" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden; padding-left: 20px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Row1" class="header-row" style="flex-direction: row; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 40px;">
                     <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement1" style="position: relative;" />
-                    <ui:Label tabindex="-1" text="Name&#10;" display-tooltip-when-elided="true" name="Name1" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden;" />
+                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name1" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden; padding-left: 20px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Row2" class="header-row" style="flex-direction: row; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 40px;">
                     <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement2" style="position: relative;" />
-                    <ui:Label tabindex="-1" text="Name&#10;" display-tooltip-when-elided="true" name="Name2" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden;" />
+                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name2" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden; padding-left: 20px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Row3" class="header-row" style="flex-direction: row; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 40px;">
                     <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement3" style="position: relative;" />
-                    <ui:Label tabindex="-1" text="Name&#10;" display-tooltip-when-elided="true" name="Name3" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden;" />
+                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name3" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden; padding-left: 20px;" />
                 </ui:VisualElement>
                 <ui:ListView focusable="true" name="SquadList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" class="squad-container__list" style="display: none;" />
             </ui:VisualElement>

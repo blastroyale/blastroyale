@@ -265,12 +265,13 @@ namespace FirstLight.Game.Presenters
 			{
 				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
 				_mapImage.style.backgroundImage = new StyleBackground(sprite);
+				var halfWidth = Screen.width / 2;
 				
-				if ((Screen.width / 2) >= Screen.height)
+				if (halfWidth >= Screen.height)
 				{
 					_mapHolder.style.width = _mapImage.worldBound.height;
 				}
-				else if (Screen.height > Screen.width)
+				else
 				{
 					_mapHolder.style.height = _mapImage.worldBound.width;
 				}
@@ -300,6 +301,7 @@ namespace FirstLight.Game.Presenters
 			var gameModeConfig = CurrentRoom.GameModeConfig;
 			var mapConfig = CurrentRoom.MapConfig;
 			
+			_mapAreaConfig = _services.ConfigsProvider.GetConfig<MapAreaConfigs>().GetMapAreaConfig(mapConfig.Map);
 			_locationLabel.text = mapConfig.Map.GetLocalization();
 			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, simulationConfig.TeamSize));
 
@@ -437,6 +439,7 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayersChanged(Player player, PlayerChangeReason reason)
 		{
 			UpdatePlayerCount();
+			RefreshPartyList();
 
 			if (!CurrentRoom.IsTeamGame)
 			{
@@ -482,8 +485,6 @@ namespace FirstLight.Game.Presenters
 				var playerMemberElement = (PlayerMemberElement)entry.Value.Children().First();
 				playerMemberElement.SetTeamColor(nameColor ?? Color.white); 
 			}*/
-			
-			RefreshPartyMarkers();
 		}
 
 		private void OnWaitingMandatoryMatchAssets()

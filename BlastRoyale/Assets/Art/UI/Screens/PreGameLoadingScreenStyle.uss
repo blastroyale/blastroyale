@@ -261,7 +261,7 @@
 .squad-container {
     position: absolute;
     left: 81px;
-    top: 391px;
+    top: 308px;
     bottom: 230px;
     width: 524px;
     background-color: rgba(16, 12, 34, 0.22);

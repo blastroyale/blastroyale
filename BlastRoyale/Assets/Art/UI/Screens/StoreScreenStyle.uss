@@ -126,5 +126,5 @@
     top: 34px;
     flex-direction: row-reverse;
     justify-content: space-around;
-    width: 502px;
+    width: 760px;
 }

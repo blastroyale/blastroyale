@@ -1,43 +1,47 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" FLG="FirstLight.Game.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Templates/GameModeSelectionButtonStyle.uss?fileID=7433441132597879392&amp;guid=1a806c33bc7a34069a8b184b546c14e0&amp;type=3#GameModeSelectionButtonStyle" />
-    <ui:Button display-tooltip-when-elided="true" name="GameModeButton" class="game-mode-button anim-translate--up-m anim-fade-and-translate game-mode-button--ranked">
-        <ui:VisualElement name="Scalable" class="game-mode-button__scalable">
-            <ui:VisualElement name="Glow" class="game-mode-button__glow" />
-            <ui:VisualElement name="Outline" class="game-mode-button__outline">
-                <ui:VisualElement name="Frame" class="game-mode-button__frame">
-                    <ui:VisualElement name="TopMask" class="game-mode-button__top-mask">
-                        <ui:VisualElement name="Top" class="game-mode-button__top" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="BottomMask" class="game-mode-button_bottom-mask">
-                        <ui:VisualElement name="DataPanel" class="game-mode-button__data-panel">
-                            <ui:VisualElement name="Title" class="game-mode-button__title">
-                                <ui:Label text="DUOS" display-tooltip-when-elided="true" name="Label" class="game-mode-button__label" />
-                            </ui:VisualElement>
-                            <ui:Label text="Play Battle royale in team of 2" name="Description" class="game-mode-button__description font-bold" />
-                            <ui:VisualElement name="TeamSize" class="game-mode-button__team-size">
-                                <ui:Label tabindex="-1" text="2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TeamSizeLabel" class="game-mode-button__team-size-label" />
-                                <ui:VisualElement name="TeamSizeIcon" class="sprite-shared__icon-gamemode-solo game-mode-button__team-size-icon" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                        <ui:VisualElement name="Mutators" class="game-mode-button__mutators">
-                            <ui:VisualElement name="MutatorLine" class="speedup-mutator game-mode-button__mutator-line">
-                                <ui:VisualElement name="Icon" class="game-mode-button__mutators__icon" />
-                                <ui:Label text="MUTATOR 2" display-tooltip-when-elided="true" name="Title" class="game-mode-button__mutators__title" />
-                            </ui:VisualElement>
-                            <ui:VisualElement name="MutatorLine" class="speedup-mutator game-mode-button__mutator-line">
-                                <ui:VisualElement name="Icon" class="game-mode-button__mutators__icon" />
-                                <ui:Label text="MUTATOR 1" display-tooltip-when-elided="true" name="Title" class="game-mode-button__mutators__title" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="Disabled" class="game-mode-button__disabled" style="display: none;">
-                        <ui:Label tabindex="-1" text="TOO MANY PLAYERS IN THE SQUAD" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DisabledLabel" class="game-mode-button__disabled-label" />
+    <FirstLight.Game.UIElements.AngledContainerElement name="CardRoot" enabled="true" focusable="true" class="game-mode-card game-mode-card-size" style="display: flex;">
+        <ui:VisualElement picking-mode="Ignore" class="fill-parent game-mode-card__animation anim-translate anim-translate--up-xxl game-mode-card-size" style="top: 10px;">
+            <ui:VisualElement name="SelectedEffects" picking-mode="Ignore" class="fill-parent game-mode-card-selected-effects">
+                <ui:VisualElement name="BorderGlow" picking-mode="Ignore" class="game-mode-card__glow" />
+                <ui:VisualElement name="Outline" picking-mode="Ignore" class="game-mode-card__outline" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Shadow" picking-mode="Ignore" class="game-mode-card__shadow" />
+            <ui:VisualElement name="Background" picking-mode="Ignore" class="game-mode-card__background">
+                <ui:VisualElement name="TextContainer" picking-mode="Ignore" class="game-mode-card__text-container">
+                    <ui:Label text="DUOS" display-tooltip-when-elided="true" name="Title" picking-mode="Ignore" class="game-mode-card__text-container__label" />
+                    <ui:Label text="Play Battle Royale vs everyone" name="Description" picking-mode="Ignore" class="game-mode-card__text-container__description font-bold" />
+                    <ui:VisualElement name="TeamSize" picking-mode="Ignore" class="game-mode-card__team-size">
+                        <ui:Label tabindex="-1" text="2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TeamSizeLabel" class="game-mode-card__team-size-label" />
+                        <ui:VisualElement name="TeamSizeIcon" class="sprite-shared__icon-gamemode-solo game-mode-card__team-size-icon" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <ui:VisualElement name="EventContainer" picking-mode="Ignore" class="game-mode-card__event-container">
+                    <FirstLight.Game.UIElements.ImageButton name="InfoButton" class="game-mode-card__info-button" />
+                    <ui:VisualElement name="RewardsContainer" picking-mode="Ignore" class="game-mode-card__rewards-container">
+                        <ui:VisualElement name="BBIcon" class="game-mode-card__reward-icon sprite-currencies__noob-default" />
+                        <ui:VisualElement name="BBIcon" class="game-mode-card__reward-icon sprite-currencies__blastbuck-default" />
+                        <ui:VisualElement name="BBIcon" class="game-mode-card__reward-icon sprite-currencies__coin-default" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Disabled" picking-mode="Ignore" class="game-mode-card__disabled-container">
+                    <ui:VisualElement name="BG" picking-mode="Ignore" class="fill-parent game-mode-card__disabled-container__bg" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Char" picking-mode="Ignore" class="game-mode-card__character" />
+                <ui:VisualElement name="StatusContainer" picking-mode="Ignore" class="game-mode-card__status-container">
+                    <ui:Label tabindex="-1" text="ENDS  IN 23h 54m 34s" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatusLabel" picking-mode="Ignore" class="game-mode-card__status-label" />
+                </ui:VisualElement>
+                <ui:Label text="COMING SOON!" display-tooltip-when-elided="true" name="ComingSoon" picking-mode="Ignore" class="game-mode-card__coming-soon-label" />
+                <ui:VisualElement name="Crown" picking-mode="Ignore" class="game-mode-card__crown" />
             </ui:VisualElement>
-            <ui:VisualElement name="Crown" class="anim-fade-and-translate game-mode-button__crown anim-translate--up-s anim-delay-3">
-                <ui:VisualElement name="CrownImage" class="game-mode-button__crown__image" />
+            <ui:VisualElement name="NewEventEffects" picking-mode="Ignore" class="game-mode-card__new-event-effects">
+                <ui:VisualElement name="NewEventBackground" picking-mode="Ignore" class="game-mode-card__new-event-effects__background" />
+                <ui:VisualElement name="Mask" picking-mode="Ignore" class="fill-parent game-mode-card__new-event-effects__mask">
+                    <ui:VisualElement name="NewEventBallMedium" picking-mode="Ignore" class="game-mode-card__new-event-effects__ball-medium" />
+                    <ui:VisualElement name="NewEventBallSmall" picking-mode="Ignore" class="game-mode-card__new-event-effects__ball-small" />
+                    <ui:Label name="NewEventLabel" tabindex="-1" text="NEW EVENT !" parse-escape-sequences="true" display-tooltip-when-elided="true" picking-mode="Ignore" class="game-mode-card__new-event-effects__label" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-    </ui:Button>
+    </FirstLight.Game.UIElements.AngledContainerElement>
 </ui:UXML>

@@ -23,20 +23,43 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Animates the scale up and then back down to 1
 		/// </summary>
-		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f, int duration = 150, bool repeat = false)
+		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f, int duration = 150, bool repeat = false, long delay = 0)
 		{
-			var anim = element.experimental.animation.Scale(amount, duration).OnCompleted(() =>
+			var toScale = element.experimental.animation.Scale(amount, duration);
+			ValueAnimation<float> backToOne = null;
+			toScale.OnCompleted(() =>
 			{
-				element.experimental.animation.Scale(1f, duration).OnCompleted(() =>
+				if (backToOne == null)
 				{
+					backToOne = element.experimental.animation.Scale(1f, duration);
 					if (repeat)
 					{
-						element.AnimatePing(amount, duration, repeat);
+						backToOne.KeepAlive();
+						backToOne.OnCompleted(() =>
+						{
+							if (delay > 0)
+							{
+								element.schedule.Execute(() =>
+								{
+									toScale.Start();
+								}).ExecuteLater(delay);
+								return;
+							}
+
+							toScale.Start();
+						});
 					}
-				}).Start();
+				}
+
+				backToOne.Start();
 			});
-			anim.Start();
-			return anim;
+			if (repeat)
+			{
+				toScale.KeepAlive();
+			}
+
+			toScale.Start();
+			return toScale;
 		}
 
 		/// <summary>
@@ -64,18 +87,18 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Animates the opacity from 0 up to <paramref name="amount"/> and back to 0;
+		/// Animates the opacity from <paramref name="fromAmount"/> up to <paramref name="toAmount"/> and back to <paramref name="fromAmount"/>;
 		/// </summary>
-		public static IValueAnimation AnimatePingOpacity(this VisualElement element, float amount = 1f, int duration = 150, bool repeat = false)
+		public static IValueAnimation AnimatePingOpacity(this VisualElement element, float fromAmount = 0f, float toAmount = 1f, int duration = 150, bool repeat = false)
 		{
 			var from = new StyleValues
 			{
-				opacity = 0f
+				opacity = fromAmount
 			};
 
 			var to = new StyleValues
 			{
-				opacity = amount
+				opacity = toAmount
 			};
 
 			var anim = element.experimental.animation.Start(from, to, duration).OnCompleted(() =>
@@ -84,7 +107,7 @@ namespace FirstLight.Game.Utils
 				{
 					if (repeat)
 					{
-						element.AnimatePingOpacity(amount, duration, repeat);
+						element.AnimatePingOpacity(fromAmount, toAmount, duration, repeat);
 					}
 				}).Start();
 			});
@@ -100,7 +123,7 @@ namespace FirstLight.Game.Utils
 			var currentAngle = element.style.rotate.value.angle.value;
 			element.schedule.Execute(() =>
 			{
-				currentAngle += angleDelta;
+				currentAngle += angleDelta * Time.deltaTime;
 				element.style.rotate = new StyleRotate(new Rotate(new Angle(currentAngle)));
 			}).Every(delay);
 		}

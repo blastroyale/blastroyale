@@ -82,7 +82,7 @@ namespace FirstLight.Game.Views.UITK
 			_hotShine.SetDisplay(hot);
 			if (hot)
 			{
-				_hotShine.AddRotatingEffect(1, 1);
+				_hotShine.AddRotatingEffect(5, 1);
 				_hotShine.AnimatePing();
 				_hot.AnimatePing();
 			}

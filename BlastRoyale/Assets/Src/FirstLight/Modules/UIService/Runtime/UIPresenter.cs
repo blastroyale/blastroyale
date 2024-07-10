@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using QuickEye.UIToolkit;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace FirstLight.UIService
 
 		private readonly List<UIView> _views = new ();
 		private bool _enableTriggered;
+		private CancellationTokenSource _cancellationTokenSource;
 
 		private void OnEnable()
 		{
@@ -52,6 +54,7 @@ namespace FirstLight.UIService
 
 		internal async UniTask OnScreenOpenedInternal(bool reload = false)
 		{
+			_cancellationTokenSource = new CancellationTokenSource();
 			// Assert.AreEqual(typeof(T), Data.GetType(), $"Screen opened with incorrect data type {Data.GetType()} instead of {typeof(T)}");
 
 			if (_document != null) // TODO: Only here to support legacy lobby screen, remove when it's UITK
@@ -86,6 +89,8 @@ namespace FirstLight.UIService
 
 		internal async UniTask OnScreenClosedInternal()
 		{
+			_cancellationTokenSource.Cancel();
+
 			await OnScreenClose();
 
 			foreach (var view in _views)
@@ -98,6 +103,11 @@ namespace FirstLight.UIService
 				Root.EnableInClassList(UIService.CLASS_HIDDEN, true);
 			}
 		}
+
+		/// <summary>
+		/// A cancelation toke with the lifetime of the screen
+		/// </summary>
+		public CancellationToken GetCancellationTokenOnClose() => _cancellationTokenSource.Token;
 
 		protected abstract void QueryElements();
 

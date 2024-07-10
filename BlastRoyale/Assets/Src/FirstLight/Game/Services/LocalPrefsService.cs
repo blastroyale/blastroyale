@@ -1,10 +1,21 @@
 using FirstLight.Game.Data;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace FirstLight.Game.Services
 {
 	public class LocalPrefsService
 	{
+		/// <summary>
+		/// Stores the last selected gamemode 
+		/// </summary>
+		public ObservableField<string> SelectedGameMode { get; } = CreateStringSetting(nameof(SelectedGameMode), string.Empty);
+
+		/// <summary>
+		/// Last seen gamemode event of a player
+		/// </summary>
+		public ObservableField<string> LastSeenEvent { get; } = CreateStringSetting(nameof(LastSeenEvent), string.Empty);
+
 		/// <summary>
 		/// Stores the last selected map on gamemode selection screen
 		/// </summary>
@@ -79,7 +90,7 @@ namespace FirstLight.Game.Services
 		/// The last CustomMatchSettings that were set up when creating a custom game.
 		/// </summary>
 		public ObservableField<CustomMatchSettings> LastCustomMatchSettings { get; } = CreateObjectSetting(nameof(LastCustomMatchSettings), new CustomMatchSettings());
-		
+
 		private static ObservableField<bool> CreateBoolSetting(string key, bool defaultValue)
 		{
 			return new ObservableResolverField<bool>(() => GetBool(key, defaultValue), val => SetBool(key, val));
@@ -95,7 +106,7 @@ namespace FirstLight.Game.Services
 				PlayerPrefs.Save();
 			}
 		}
-		
+
 		private static ObservableField<string> CreateStringSetting(string key, string defaultValue)
 		{
 			return new ObservableResolverField<string>(() => GetString(key, defaultValue), val => SetString(key, val));

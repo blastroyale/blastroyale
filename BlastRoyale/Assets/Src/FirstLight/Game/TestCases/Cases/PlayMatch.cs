@@ -1,6 +1,8 @@
 using System.Collections;
 using FirstLight.Game.Services.RoomService;
+using FirstLight.Game.Utils;
 using I2.Loc;
+using Quantum;
 
 namespace FirstLight.Game.TestCases
 
@@ -9,11 +11,13 @@ namespace FirstLight.Game.TestCases
 	{
 		private int _matches;
 		private bool _speedUp;
+		private GameId _map;
 
-		public PlayMatch(int matches, bool speedUp = true)
+		public PlayMatch(int matches, bool speedUp = true, GameId map = GameId.IslandOne)
 		{
 			_matches = matches;
 			_speedUp = speedUp;
+			_map = map;
 		}
 
 
@@ -41,7 +45,9 @@ namespace FirstLight.Game.TestCases
 					yield return GameConfigHelper.DecreaseMatchmakingTime();
 					yield return Quantum.DecreaseCircleTimesForNextMatch();
 				}
-
+				
+				MainInstaller.ResolveServices().GameModeService.SelectedMap = _map;
+				
 				yield return Quantum.UseBotBehaviourForNextMatch();
 				yield return UIHome.ClickPlayButton();
 				yield return UIGame.WaitDropZoneSelectScreen();

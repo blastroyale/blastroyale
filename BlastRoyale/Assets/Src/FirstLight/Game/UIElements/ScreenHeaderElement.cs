@@ -99,7 +99,7 @@ namespace FirstLight.Game.UIElements
 		{
 		}
 
-		public new class UxmlTraits : ImageButton.UxmlTraits
+		public new class UxmlTraits : ImageButton.AutoFocusTrait
 		{
 			private readonly UxmlStringAttributeDescription _titleKeyAttribute = new ()
 			{

@@ -96,11 +96,18 @@ namespace Quantum
 
                 _roomProps = new RoomProperties();
                 _roomProps.FromSystemHashTable(customProperties);
-                
+
 
                 // TODO: Validate if game is valid ranked using playfab matchmaking api, not hard to do 
 
                 var matchConfig = _roomProps.SimulationMatchConfig.Value;
+
+                if (matchConfig.ConfigId != null && matchConfig.ConfigId.Contains("debug-"))
+                {
+                    info.Fail("Hacking attempt detected!");
+                    Log.Error("Someone is trying to hack match configs!");
+                    return;
+                }
 
                 if (CustomServer.ServerSimulation && matchConfig.MatchType == MatchType.Custom)
                 {

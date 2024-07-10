@@ -87,7 +87,7 @@ namespace Quantum.Systems.Bots
 				PlayerPrototype = f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id),
 				NavMeshAgentConfig = f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id),
 				PlayersByTeam = TeamSystem.GetPlayersByTeam(f),
-				TotalTeamsInGameMode = (uint)f.PlayerCount / (uint)f.GetTeamSize()
+				TotalTeamsInGameMode = (uint)f.PlayerCount / f.GetTeamSize()
 			};
 			AddBotTeams(ctx);
 			return ctx;

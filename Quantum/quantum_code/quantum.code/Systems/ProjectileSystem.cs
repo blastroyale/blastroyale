@@ -29,7 +29,7 @@ namespace Quantum.Systems
 				// Projectile that performs Sub Projectile at end of lifetime is not considered as failed
 				else
 				{
-					f.Events.OnProjectileFailedHit(filter.Entity, *filter.Projectile, filter.Transform->Position, false);
+					f.Events.OnProjectileFailedHitPredicted(filter.Entity, *filter.Projectile, filter.Transform->Position, false);
 				}
 
 				f.Events.OnProjectileEndOfLife(filter.Projectile->SourceId, filter.Transform->Position, false, filter.Projectile->IsSubProjectile());
@@ -111,21 +111,21 @@ namespace Quantum.Systems
 			var projectileCopy = *projectile;
 			if (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION && isTeamHit && !projectile->IsSubProjectile() && !spawnSubOnEof)
 			{
-				f.Events.OnProjectileFailedHit(projectileEntity, projectileCopy, position, false);
+				f.Events.OnProjectileFailedHitPredicted(projectileEntity, projectileCopy, position, false);
 				f.Destroy(projectileEntity);
 				return;
 			}
 			
-			if(targetHit == projectileEntity || !targetHit.IsValid)
-				f.Events.OnProjectileFailedHit(projectileEntity, projectileCopy, position, true);
-			else
-				f.Events.OnProjectileSuccessHit(projectileCopy, targetHit, position);
-			
-			f.Events.OnProjectileEndOfLife(projectile->SourceId, position, true,projectile->IsSubProjectile());
-
 			var isSelfAOE = projectile->Attacker == targetHit && projectile->IsSubProjectile();
 			var power = (uint)(projectile->GetPower(f) * (isSelfAOE ? Constants.SELF_DAMAGE_MODIFIER : FP._1));
-				
+			
+			if(targetHit == projectileEntity || !targetHit.IsValid)
+				f.Events.OnProjectileFailedHitPredicted(projectileEntity, projectileCopy, position, true);
+			else
+				f.Events.OnProjectileSuccessHitPredicted(projectileCopy, targetHit, power, position);
+			
+			f.Events.OnProjectileEndOfLife(projectile->SourceId, position, true,projectile->IsSubProjectile());
+			
 			var spell = Spell.CreateInstant(f, targetHit, projectile->Attacker, projectileEntity, power,
 											projectile->KnockbackAmount, position, isSelfAOE ? 0 : projectile->TeamSource);
 				

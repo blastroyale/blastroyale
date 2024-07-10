@@ -168,7 +168,7 @@ namespace FirstLight.Game.UIElements
 			view.DrawIcon(_image);
 		}
 
-		public new class UxmlFactory : UxmlFactory<CollectionCardElement, UxmlTraits>
+		public new class UxmlFactory : UxmlFactory<CollectionCardElement, AutoFocusTrait>
 		{
 		}
 	}

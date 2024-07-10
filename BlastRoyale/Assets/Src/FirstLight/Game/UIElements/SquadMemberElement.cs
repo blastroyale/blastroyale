@@ -21,14 +21,16 @@ namespace FirstLight.Game.UIElements
 		private const string USS_RING_EFFECT = USS_BLOCK + "__ring-effect";
 		private const string USS_DEAD_CROSS = USS_BLOCK + "__dead-cross";
 		private const string USS_BG = USS_BLOCK + "__bg";
+		private const string USS_PFP_MASK = USS_BLOCK + "__pfp-mask";
 		private const string USS_PFP = USS_BLOCK + "__pfp";
 		private const string USS_TEAM_COLOR = USS_BLOCK + "__team-color";
 		private const string USS_NAME = USS_BLOCK + "__name";
 		private const string USS_SHIELD_HEALTH = USS_BLOCK + "__health-shield";
 
 		private readonly VisualElement _bg;
-		private readonly VisualElement _pfp;
 		private readonly VisualElement _teamColor;
+		private readonly VisualElement _pfpMask;
+		private readonly VisualElement _pfp;
 		private readonly Label _name;
 
 		private readonly PlayerHealthShieldElement _healthShield;
@@ -62,8 +64,12 @@ namespace FirstLight.Game.UIElements
 			container.Add(_teamColor = new VisualElement {name = "team-color"});
 			_teamColor.AddToClassList(USS_TEAM_COLOR);
 			{
-				_teamColor.Add(_pfp = new VisualElement {name = "pfp"});
-				_pfp.AddToClassList(USS_PFP);
+				_teamColor.Add(_pfpMask = new VisualElement {name = "pfp-mask"});
+				_pfpMask.AddToClassList(USS_PFP_MASK);
+				{
+					_pfpMask.Add(_pfp = new VisualElement {name = "pfp"});
+					_pfp.AddToClassList(USS_PFP);
+				}
 			}
 
 			container.Add(_name = new Label("PLAYER NAME") {name = "name"});
@@ -88,13 +94,18 @@ namespace FirstLight.Game.UIElements
 
 		public void SetTeamColor(Color? color)
 		{
-			if (!color.HasValue) _teamColor.SetDisplay(false);
-			else _teamColor.style.backgroundColor = color.Value;
+			if (!color.HasValue)
+				return;
+			
+			_teamColor.style.borderTopColor = color.Value;
+			_teamColor.style.borderBottomColor = color.Value;
+			_teamColor.style.borderLeftColor = color.Value;
+			_teamColor.style.borderRightColor = color.Value;
 		}
 
-		public void SetPlayer(PlayerRef player, string playerName, int level, string pfpUrl, Color playerNameColor)
+		public void SetPlayer(PlayerRef player, string playerName, Sprite pfpSprite, Color playerNameColor)
 		{
-			if (_player == player) return;
+			if (_player == player && pfpSprite == null) return;
 			_player = player;
 
 			_name.text = playerName;
@@ -102,26 +113,14 @@ namespace FirstLight.Game.UIElements
 
 			if (Application.isPlaying)
 			{
-				// pfpUrl =
-				// 	$"https://mainnetprodflghubstorage.blob.core.windows.net/collections/corpos/{Random.Range(1, 888)}.png";
 
-				if (!string.IsNullOrEmpty(pfpUrl))
+				if (pfpSprite == null)
 				{
-					var textureService = MainInstaller.Resolve<IGameServices>().RemoteTextureService;
-					textureService.CancelRequest(_pfpRequestHandle);
-					_pfpRequestHandle = textureService.RequestTexture(
-						pfpUrl,
-						tex =>
-						{
-							if (_pfp?.panel != null)
-							{
-								_pfp.style.backgroundImage = new StyleBackground(tex);
-							}
-						}, null);
+					_pfp.style.backgroundImage = StyleKeyword.Null;
 				}
 				else
 				{
-					_pfp.style.backgroundImage = StyleKeyword.Null;
+					_pfp.style.backgroundImage = new StyleBackground(pfpSprite);
 				}
 			}
 		}

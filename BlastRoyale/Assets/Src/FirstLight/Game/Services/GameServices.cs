@@ -216,6 +216,7 @@ namespace FirstLight.Game.Services
 			AnalyticsService = new AnalyticsService(this, gameLogic, UIService);
 
 			ThreadService = new ThreadService();
+			CoroutineService = new CoroutineService();
 			GuidService = new GuidService();
 			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
 			GameBackendService =
@@ -223,23 +224,22 @@ namespace FirstLight.Game.Services
 			ProfileService = new PlayerProfileService(GameBackendService);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic,
 				configsProvider);
-
-			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
+			PartyService = new PartyService(PlayfabPubSubService, gameLogic.AppDataProvider, GameBackendService,
+				GenericDialogService, MessageBrokerService, LocalPrefsService);
 			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, NotificationService, LocalPrefsService);
-			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, FLLobbyService, gameLogic.AppDataProvider,
-				LocalPrefsService);
+			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
+			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
+			GameModeService = new GameModeService(ConfigsProvider, RemoteTextureService, PartyService, gameLogic.AppDataProvider, LocalPrefsService);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			RewardService = new RewardService(this, gameLogic);
 			TickService = new TickService();
 			LeaderboardService = new LeaderboardsService(this);
-			CoroutineService = new CoroutineService();
 			ControlsSetup = new ControlSetupService();
 			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider, LocalPrefsService);
 			NewsService = new PlayfabNewsService(MessageBrokerService);
-			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 
 			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic,

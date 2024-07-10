@@ -30,15 +30,28 @@
                     </FirstLight.Game.UIElements.LocalizedButton>
                 </ui:VisualElement>
                 <FirstLight.Game.UIElements.ImageButton name="GameModeButton" class="sfx-click-forwards anim-delay-1 anim-translate anim-translate--left-l game-mode-button">
-                    <ui:VisualElement name="GameModeOverlay" class="game-mode-button__overlay" />
-                    <ui:VisualElement name="ContentContainer" class="game-mode-button__content-container">
-                        <ui:VisualElement name="SelectedContainer" class="game-mode-button__selected-container">
-                            <ui:VisualElement name="GameModeIcon" class="game-mode-button__icon sprite-shared__icon-gamemode-solo" />
-                            <ui:Label text="DUOS" name="GameModeLabel" class="game-mode-button__selected-mode" />
+                    <FirstLight.Game.UIElements.AngledContainerElement name="NextEventContainer" class="game-mode-button__next-event-container">
+                        <ui:VisualElement name="TextContainer" class="game-mode-button__event-text-container">
+                            <ui:Label tabindex="-1" text="NEXT EVENT IN" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NextEventLabel" class="game-mode-button__event-text-container__new-event" />
+                            <ui:Label name="NextEventCountdown" tabindex="-1" text="4H 21M" parse-escape-sequences="true" display-tooltip-when-elided="true" class="game-mode-button__event-text-container__countdown" />
                         </ui:VisualElement>
-                        <ui:Label text="MODE" name="Mode" class="game-mode-button__mode" />
+                    </FirstLight.Game.UIElements.AngledContainerElement>
+                    <ui:VisualElement name="NewEventEffects" class="fill-parent game-mode-button__new-event-effects">
+                        <ui:VisualElement name="NewEventShine" class="game-mode-button__new-event-shine" />
+                        <ui:VisualElement name="NewEventGlow" class="game-mode-button__new-event-glow" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="Dimmer" class="game-mode-button__dimmer fill-parent" />
+                    <ui:VisualElement name="GameModeButtonBG" class=" game-mode-button__bg">
+                        <ui:VisualElement name="GameModeOverlay" class="game-mode-button__overlay" />
+                        <ui:VisualElement name="ContentContainer" class="game-mode-button__content-container">
+                            <FirstLight.Game.UIElements.LabelOutlined text="NEW EVENT !" name="NewEventLabel" enable-rich-text="false" display-tooltip-when-elided="false" class="game-mode-button__new-event-label" />
+                            <ui:VisualElement name="SelectedContainer" class="game-mode-button__selected-container">
+                                <ui:VisualElement name="GameModeIcon" class="game-mode-button__icon sprite-shared__icon-gamemode-solo" />
+                                <FirstLight.Game.UIElements.AutoSizeLabel name="GameModeLabel" text="ASDASDSDASDAASDSDAASDASDASDASDASDDASDAS" min-font-size="32" max-font-size="199" class="game-mode-button__selected-mode" />
+                                <ui:Label text="MODE" name="Mode" class="game-mode-button__mode" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Dimmer" class="game-mode-button__dimmer fill-parent" />
+                    </ui:VisualElement>
                 </FirstLight.Game.UIElements.ImageButton>
                 <ui:VisualElement name="PlayButtonHolder" class="anim-delay-0 anim-translate anim-translate--left-l button-with-pool">
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/play" name="PlayButton" class="sfx-click-forwards play-button">

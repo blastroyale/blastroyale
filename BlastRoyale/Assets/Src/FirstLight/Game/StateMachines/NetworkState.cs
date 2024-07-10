@@ -273,6 +273,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				if (!string.IsNullOrEmpty(_services.LocalPrefsService.ServerRegion.Value))
 				{
+					_services.LocalPrefsService.ServerRegion.Value = null;
 					FLog.Info("Invalid region, retrying");
 					_statechartTrigger(PhotonInvalidServer);
 					return;

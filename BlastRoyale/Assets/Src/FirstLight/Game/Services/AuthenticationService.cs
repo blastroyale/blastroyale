@@ -364,22 +364,6 @@ namespace FirstLight.Game.Services
 			var appData = _dataService.GetData<AppData>();
 			var tutorialData = _dataService.GetData<TutorialData>();
 			var titleData = result.InfoResultPayload.TitleData;
-
-			if (titleData.TryGetValue("REDIRECT_TESTSERVER", out var version))
-			{
-				if (version == VersionUtils.VersionExternal)
-				{
-					FLog.Info("Redirecting to staging");
-					_services.GameBackendService.SetupBackendEnvironment(FLEnvironment.STAGING);
-					LoginSetupGuest(onSuccess, onError);
-					return;
-				}
-			}
-			else
-			{
-				FLog.Info($"No server redirect version={VersionUtils.VersionExternal} vInternal {VersionUtils.VersionInternal}");
-			}
-
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			var emails = result.InfoResultPayload.PlayerProfile?.ContactEmailAddresses;
 			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));

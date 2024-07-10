@@ -439,8 +439,7 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayersChanged(Player player, PlayerChangeReason reason)
 		{
 			UpdatePlayerCount();
-			RefreshPartyList();
-
+			
 			if (!CurrentRoom.IsTeamGame)
 			{
 				return;
@@ -485,6 +484,7 @@ namespace FirstLight.Game.Presenters
 				var playerMemberElement = (PlayerMemberElement)entry.Value.Children().First();
 				playerMemberElement.SetTeamColor(nameColor ?? Color.white); 
 			}*/
+			RefreshPartyMarkers();
 		}
 
 		private void OnWaitingMandatoryMatchAssets()

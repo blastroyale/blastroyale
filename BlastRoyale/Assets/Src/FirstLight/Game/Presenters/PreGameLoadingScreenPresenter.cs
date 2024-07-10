@@ -17,7 +17,6 @@ using FirstLight.UIService;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
@@ -49,7 +48,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _mapMarkerIcon;
 		private VisualElement _mapImage;
 		private VisualElement _squadContainer;
-		private VisualElement _partyMarkers;
+		private VisualElement[] _partyMarkers;
 		private Label _squadLabel;
 		private Label _mapMarkerTitle;
 		private Label _loadStatusLabel;
@@ -94,6 +93,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_squadContainers = new VisualElement[MaxSquadPlayers];
 			_playerMemberElements = new PlayerMemberElement[MaxSquadPlayers];
+			_partyMarkers = new VisualElement[MaxSquadPlayers-1];
 			
 			_nameLabels = new Label[MaxSquadPlayers];
 			
@@ -109,10 +109,15 @@ namespace FirstLight.Game.Presenters
 			_debugPlayerCountLabel = Root.Q<Label>("DebugPlayerCount").Required();
 			_debugMasterClient = Root.Q<Label>("DebugMasterClient").Required();
 			_squadContainer = Root.Q("SquadContainer").Required();
-			_partyMarkers = Root.Q("PartyMarkers").Required();
 			_header.SetSubtitle("");
 			
 			_header.backClicked += OnCloseClicked;
+
+			for (var i = 0; i < MaxSquadPlayers-1; i++)
+			{
+				_partyMarkers[i] = Root.Q<VisualElement>($"MarkerPoint{i}").Required();
+				_partyMarkers[i].visible = false;
+			}
 
 			for (var i = 0; i < MaxSquadPlayers; i++)
 			{
@@ -156,6 +161,8 @@ namespace FirstLight.Game.Presenters
 		private void RefreshPartyList()
 		{
 			var isSquadGame = CurrentRoom.IsTeamGame;
+			
+			//Debug.Log("RefreshPartyList");
 
 			if (isSquadGame)
 			{
@@ -199,36 +206,37 @@ namespace FirstLight.Game.Presenters
 			{
 				_squadContainer.SetDisplay(false);
 				_squadMembers.Clear();
-				_partyMarkers.Clear();
 			}
 		}
 
 		private void RefreshPartyMarkers()
 		{
-			_partyMarkers.Clear();
-
-			foreach (var squadMember in _squadMembers)
+			foreach (var partyMarker in _partyMarkers)
 			{
-				if (squadMember.IsLocal) continue;
+				partyMarker.visible = false;
+			}
+			
+			for(var i=0; i<_squadMembers.Count; i++)
+			{
+				var squadMember = _squadMembers[i];
 
-				var memberDropPosition = CurrentRoom.GetPlayerProperties(squadMember).DropPosition.Value;
+				if (squadMember.IsLocal)
+				{
+					_partyMarkers[i].visible = false;
+					
+					continue;
+				}
 
-				//var playerMarker = new PlayerMemberElement {name = "player-marker"};
+				_partyMarkers[i].visible = true;
 				
-				var marker = new VisualElement {name = "marker"};
-				marker.AddToClassList("map-marker-party");
+				var memberDropPosition = CurrentRoom.GetPlayerProperties(squadMember).DropPosition.Value;
+				
 				var nameColor = _services.TeamService.GetTeamMemberColor(squadMember);
-				//playerMarker.SetTeamColor(nameColor ?? Color.white);
-				marker.style.backgroundColor = nameColor ?? Color.white;
+				_partyMarkers[i].style.backgroundColor = nameColor ?? Color.white;
 				var mapWidth = _mapImage.contentRect.width;
 				var markerPos = new Vector2(memberDropPosition.x * mapWidth, -memberDropPosition.y * mapWidth);
-
-				_partyMarkers.Add(marker);
-				//_partyMarkers.Add(playerMarker);
 				
-				marker.transform.position = markerPos;
-				
-				//playerMarker.transform.position = markerPos;
+				_partyMarkers[i].transform.position = markerPos;
 			}
 		}
 
@@ -329,7 +337,7 @@ namespace FirstLight.Game.Presenters
 
 			await LoadMapAsset(mapConfig);
 			InitSkydiveSpawnMapData();
-			RefreshPartyList();
+			//RefreshPartyList();
 		}
 
 		private void InitSkydiveSpawnMapData()
@@ -582,7 +590,8 @@ namespace FirstLight.Game.Presenters
 		
 		public void OnPlayerPropertiesUpdate()
 		{
-			RefreshPartyList();
+			RefreshPartyMarkers();
+			//RefreshPartyList();
 		}
 
 		private void OnCloseClicked()

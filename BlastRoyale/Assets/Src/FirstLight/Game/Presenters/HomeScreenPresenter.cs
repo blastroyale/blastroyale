@@ -118,7 +118,6 @@ namespace FirstLight.Game.Presenters
 
 			Root.Q<ImageButton>("NewsButton").clicked += Data.NewsClicked;
 
-			_playButtonContainer = Root.Q("PlayButtonHolder");
 			_playButton = Root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
@@ -143,7 +142,7 @@ namespace FirstLight.Game.Presenters
 			Root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 
 			var gameModeButton = Root.Q<ImageButton>("GameModeButton");
-			gameModeButton.LevelLock2(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
+			gameModeButton.LevelLock(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
 			gameModeButton.AttachView(this, out GameModeButtonView _);
 
 			var leaderBoardButton = Root.Q<ImageButton>("LeaderboardsButton");

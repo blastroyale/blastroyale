@@ -224,12 +224,10 @@ namespace FirstLight.Game.Services
 			ProfileService = new PlayerProfileService(GameBackendService);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic,
 				configsProvider);
-			PartyService = new PartyService(PlayfabPubSubService, gameLogic.AppDataProvider, GameBackendService,
-				GenericDialogService, MessageBrokerService, LocalPrefsService);
 			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, NotificationService, LocalPrefsService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
-			GameModeService = new GameModeService(ConfigsProvider, RemoteTextureService, PartyService, gameLogic.AppDataProvider, LocalPrefsService);
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			RewardService = new RewardService(this, gameLogic);

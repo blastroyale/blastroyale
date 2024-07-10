@@ -82,7 +82,6 @@ namespace FirstLight.Game.Presenters
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
 
-				view.Disabled = slot.Entry.TeamSize < (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1);
 				view.Selected = _services.GameModeService.SelectedGameMode.Value.Equals(slot);
 				_buttonsSlider.Add(button);
 			}
@@ -94,7 +93,7 @@ namespace FirstLight.Game.Presenters
 				{
 					MatchConfig = new SimulationMatchConfig
 					{
-						Mutators = new string[] { },
+						Mutators = Mutator.None,
 						MatchType = MatchType.Custom,
 						TeamSize = 1
 					},
@@ -159,7 +158,7 @@ namespace FirstLight.Game.Presenters
 			{
 				if (view.IsCustomGame()) continue;
 				if (view.GameModeInfo.Entry.PlayfabQueue == null) continue;
-				view.Disabled = view.GameModeInfo.Entry.TeamSize < (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1);
+				view.UpdateDisabledStatus();
 			}
 		}
 

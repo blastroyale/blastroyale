@@ -153,7 +153,7 @@ namespace FirstLight.Game.Services
 
 		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService,
 							   IGameDataProvider gameDataProvider, FLLobbyService lobbyService,
-							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService)
+							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService, IRemoteTextureService remoteTextureService)
 		{
 			_configsProvider = configsProvider;
 			_threadService = threadService;

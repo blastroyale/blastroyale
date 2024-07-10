@@ -1,10 +1,10 @@
 ﻿using System;
 using FirstLight.Game.Services;
-using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.UIService;
-using UnityEngine;
+using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 
@@ -16,7 +16,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private Label _gameModeLabel;
 		private VisualElement _gameModeIcon;
 		private IGameServices _services;
-		private IPartyService _partyService;
 		private Label _eventCountDown;
 		private VisualElement _nextEventContainer;
 		private VisualElement _newEventShine;
@@ -29,7 +28,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		protected override void Attached()
 		{
 			_services = MainInstaller.ResolveServices();
-			_partyService = _services.PartyService;
 			_gameModeLabel = Element.Q<Label>("GameModeLabel").Required();
 			_gameModeIcon = Element.Q<VisualElement>("GameModeIcon").Required();
 			_gameModeButton = Element.Q<ImageButton>("GameModeButton").Required();
@@ -41,38 +39,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		public override void OnScreenOpen(bool reload)
 		{
-			_partyService.HasParty.InvokeObserve(OnHasPartyChanged);
-			_partyService.PartyReady.InvokeObserve(OnPartyReadyChanged);
-			_partyService.Members.Observe(OnMembersChanged);
-			_partyService.OperationInProgress.InvokeObserve(OnPartyLoadingProgress);
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
 			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
 		}
 
 		public override void OnScreenClose()
 		{
-			_partyService.HasParty.StopObserving(OnHasPartyChanged);
-			_partyService.PartyReady.StopObserving(OnPartyReadyChanged);
-			_partyService.Members.StopObserving(OnMembersChanged);
-			_partyService.OperationInProgress.StopObserving(OnPartyLoadingProgress);
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
 			_services.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
 		}
 
-		private void OnPartyLoadingProgress(bool arg1, bool arg2)
-		{
-			UpdateGameModeButton();
-		}
-
-		private void OnMembersChanged(int arg1, PartyMember arg2, PartyMember arg3, ObservableUpdateType arg4)
-		{
-			UpdateGameModeButton();
-		}
-
-		private void OnPartyReadyChanged(bool arg1, bool arg2)
-		{
-			UpdateGameModeButton();
-		}
-
-		private void OnHasPartyChanged(bool arg1, bool arg2)
+		private void OnLobbyChanged(ILobbyChanges obj)
 		{
 			UpdateGameModeButton();
 		}
@@ -87,10 +64,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_updateSchedule?.Pause();
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
 
-			var localMember = _services.PartyService.GetLocalMember();
-			var isMemberNotLeader = _services.PartyService.HasParty.Value && localMember is {Leader: false};
+			var isMemberNotLeader = _services.FLLobbyService.CurrentPartyLobby != null && !_services.FLLobbyService.CurrentPartyLobby.IsLocalPlayerHost();
 			_gameModeLabel.text = current.Visual.TitleTranslationKey.GetText();
-			_gameModeButton.SetEnabled(!isMemberNotLeader && !_services.PartyService.OperationInProgress.Value);
+			_gameModeButton.SetEnabled(!isMemberNotLeader);
 			_gameModeIcon.RemoveSpriteClasses();
 			_gameModeIcon.AddToClassList(current.Visual.IconSpriteClass);
 			_updateSchedule = _eventCountDown.schedule.Execute(UpdateEvent)

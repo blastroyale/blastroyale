@@ -17,159 +17,36 @@ MonoBehaviour:
     - Entries:
       - TimedEntry: 1
         TimedGameModeEntries:
-        - StartsAt: 03/07/2024 13:28
-          EndsAt: 03/07/2024 15:17
-        - StartsAt: 03/07/2024 15:00
-          EndsAt: 03/07/2024 16:00
-        - StartsAt: 04/07/2024 12:00
-          EndsAt: 04/07/2024 13:00
-        - StartsAt: 04/07/2024 15:00
-          EndsAt: 04/07/2024 19:00
-        - StartsAt: 05/07/2024 12:00
-          EndsAt: 05/07/2024 13:00
-        - StartsAt: 05/07/2024 15:00
-          EndsAt: 05/07/2024 19:00
-        - StartsAt: 06/07/2024 12:00
-          EndsAt: 06/07/2024 13:00
-        - StartsAt: 06/07/2024 15:00
-          EndsAt: 06/07/2024 19:00
-        - StartsAt: 07/07/2024 12:00
-          EndsAt: 07/07/2024 13:00
-        - StartsAt: 07/07/2024 15:00
-          EndsAt: 07/07/2024 19:00
-        - StartsAt: 08/07/2024 12:00
-          EndsAt: 08/07/2024 13:00
-        - StartsAt: 08/07/2024 15:00
-          EndsAt: 08/07/2024 19:00
-        - StartsAt: 09/07/2024 12:00
-          EndsAt: 09/07/2024 13:00
-        - StartsAt: 09/07/2024 15:00
-          EndsAt: 09/07/2024 19:00
-        - StartsAt: 10/07/2024 12:00
-          EndsAt: 10/07/2024 13:00
-        - StartsAt: 10/07/2024 15:00
-          EndsAt: 10/07/2024 19:00
-        - StartsAt: 11/07/2024 12:00
-          EndsAt: 11/07/2024 13:00
-        - StartsAt: 11/07/2024 15:00
-          EndsAt: 11/07/2024 19:00
-        - StartsAt: 12/07/2024 12:00
-          EndsAt: 12/07/2024 13:00
-        - StartsAt: 12/07/2024 15:00
-          EndsAt: 12/07/2024 19:00
-        - StartsAt: 13/07/2024 12:00
-          EndsAt: 13/07/2024 13:00
-        - StartsAt: 13/07/2024 15:00
-          EndsAt: 13/07/2024 19:00
-        - StartsAt: 14/07/2024 12:00
-          EndsAt: 14/07/2024 13:00
-        - StartsAt: 14/07/2024 15:00
-          EndsAt: 14/07/2024 19:00
-        - StartsAt: 15/07/2024 12:00
-          EndsAt: 15/07/2024 13:00
-        - StartsAt: 15/07/2024 15:00
-          EndsAt: 15/07/2024 19:00
-        - StartsAt: 16/07/2024 12:00
-          EndsAt: 16/07/2024 13:00
-        - StartsAt: 16/07/2024 15:00
-          EndsAt: 16/07/2024 19:00
-        - StartsAt: 17/07/2024 12:00
-          EndsAt: 17/07/2024 13:00
-        - StartsAt: 17/07/2024 15:00
-          EndsAt: 17/07/2024 19:00
-        - StartsAt: 18/07/2024 12:00
-          EndsAt: 18/07/2024 13:00
-        - StartsAt: 18/07/2024 15:00
-          EndsAt: 18/07/2024 19:00
-        - StartsAt: 19/07/2024 12:00
-          EndsAt: 19/07/2024 13:00
-        - StartsAt: 19/07/2024 15:00
-          EndsAt: 19/07/2024 19:00
-        - StartsAt: 20/07/2024 12:00
-          EndsAt: 20/07/2024 13:00
-        - StartsAt: 20/07/2024 15:00
-          EndsAt: 20/07/2024 19:00
-        - StartsAt: 21/07/2024 12:00
-          EndsAt: 21/07/2024 13:00
-        - StartsAt: 21/07/2024 15:00
-          EndsAt: 21/07/2024 19:00
-        - StartsAt: 22/07/2024 12:00
-          EndsAt: 22/07/2024 13:00
-        - StartsAt: 22/07/2024 15:00
-          EndsAt: 22/07/2024 19:00
-        - StartsAt: 23/07/2024 12:00
-          EndsAt: 23/07/2024 13:00
-        - StartsAt: 23/07/2024 15:00
-          EndsAt: 23/07/2024 19:00
-        - StartsAt: 24/07/2024 12:00
-          EndsAt: 24/07/2024 13:00
-        - StartsAt: 24/07/2024 15:00
-          EndsAt: 24/07/2024 19:00
-        - StartsAt: 25/07/2024 12:00
-          EndsAt: 25/07/2024 13:00
-        - StartsAt: 25/07/2024 15:00
-          EndsAt: 25/07/2024 19:00
-        - StartsAt: 26/07/2024 12:00
-          EndsAt: 26/07/2024 13:00
-        - StartsAt: 26/07/2024 15:00
-          EndsAt: 26/07/2024 19:00
-        - StartsAt: 27/07/2024 12:00
-          EndsAt: 27/07/2024 13:00
-        - StartsAt: 27/07/2024 15:00
-          EndsAt: 27/07/2024 19:00
-        - StartsAt: 28/07/2024 12:00
-          EndsAt: 28/07/2024 13:00
-        - StartsAt: 28/07/2024 15:00
-          EndsAt: 28/07/2024 19:00
-        - StartsAt: 29/07/2024 12:00
-          EndsAt: 29/07/2024 13:00
-        - StartsAt: 29/07/2024 15:00
-          EndsAt: 29/07/2024 19:00
-        - StartsAt: 30/07/2024 12:00
-          EndsAt: 30/07/2024 13:00
-        - StartsAt: 30/07/2024 15:00
-          EndsAt: 30/07/2024 19:00
-        - StartsAt: 31/07/2024 12:00
-          EndsAt: 31/07/2024 13:00
-        - StartsAt: 31/07/2024 15:00
-          EndsAt: 31/07/2024 19:00
+        - StartsAt: 08/07/2024 05:00
+          EndsAt: 08/07/2024 07:00
+        - StartsAt: 08/07/2024 16:00
+          EndsAt: 08/07/2024 18:00
+        - StartsAt: 08/07/2024 22:00
+          EndsAt: 09/07/2024 00:00
+        - StartsAt: 09/07/2024 05:00
+          EndsAt: 09/07/2024 07:00
+        - StartsAt: 09/07/2024 16:00
+          EndsAt: 09/07/2024 18:00
+        - StartsAt: 09/07/2024 22:00
+          EndsAt: 10/07/2024 00:00
         MatchConfig:
-          ConfigId: b15b823f
+          ConfigId: f30174bb
           GameModeID: BattleRoyale
-          MapId: 115
+          MapId: 200
           TeamSize: 1
-          Mutators:
-          - RPGsOnly
+          Mutators: []
           WeaponsSelectionOverwrite: []
           MetaItemDropOverwrites:
-          - Id: 209
-            Place: 1
-            DropRate:
-              RawValue: 65536
-            MinDropAmount: 1
-            MaxDropAmount: 1
           - Id: 61
-            Place: 2
-            DropRate:
-              RawValue: 65536
-            MinDropAmount: 1
-            MaxDropAmount: 5
-          - Id: 105
             Place: 0
             DropRate:
-              RawValue: 65536
+              RawValue: 52428
             MinDropAmount: 1
             MaxDropAmount: 1
-          - Id: 105
-            Place: 2
-            DropRate:
-              RawValue: 65536
-            MinDropAmount: 2
-            MaxDropAmount: 3
           RewardModifiers:
           - Id: 61
             Multiplier:
-              RawValue: 327680
+              RawValue: 65536
             CollectedInsideGame: 1
           HasBots: 1
           BotOverwriteDifficulty: -1
@@ -177,18 +54,19 @@ MonoBehaviour:
           MatchType: 2
         PlayfabQueue:
           QueueName: battleroyale_1
-          TimeoutTimeInSeconds: 10
+          TimeoutTimeInSeconds: 15
         Visual:
           TitleTranslationKey:
             _useLocalization: 0
             _localizationTerm: 
-            _text: DEADLY BEASTS
+            _text: BBs SUPPLY
           DescriptionTranslationKey:
             _useLocalization: 0
             _localizationTerm: 
-            _text: Hurry! Limited event
+            _text: Open crates, get Blast Bucks
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-solo
+          OverwriteImageURL: 
     - Entries:
       - TimedEntry: 0
         TimedGameModeEntries: []
@@ -207,7 +85,7 @@ MonoBehaviour:
           MatchType: 2
         PlayfabQueue:
           QueueName: battleroyale_1
-          TimeoutTimeInSeconds: 10
+          TimeoutTimeInSeconds: 15
         Visual:
           TitleTranslationKey:
             _useLocalization: 1
@@ -219,6 +97,7 @@ MonoBehaviour:
             _text: 
           CardModifier: solo
           IconSpriteClass: sprite-shared__icon-gamemode-solo
+          OverwriteImageURL: 
     - Entries:
       - TimedEntry: 0
         TimedGameModeEntries: []
@@ -249,6 +128,7 @@ MonoBehaviour:
             _text: 
           CardModifier: duos
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          OverwriteImageURL: 
     - Entries:
       - TimedEntry: 0
         TimedGameModeEntries: []
@@ -279,3 +159,4 @@ MonoBehaviour:
             _text: 
           CardModifier: quads
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          OverwriteImageURL: 

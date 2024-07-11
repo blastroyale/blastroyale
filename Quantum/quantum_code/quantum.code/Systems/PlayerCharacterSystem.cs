@@ -255,13 +255,13 @@ namespace Quantum.Systems
 		public static void OnStartAiming(Frame f, AIBlackboardComponent* bb, in QuantumWeaponConfig weaponConfig)
 		{
 			if (weaponConfig.IsMeleeWeapon) return; // melee weapons are instant
-			var nextShotTime = bb->GetFP(f, nameof(Constants.NEXT_SHOT_TIME));
+			var nextShotTime = bb->GetFP(f, Constants.NEXT_SHOT_TIME);
 			var expectedAimDelayShot = f.Time + AIM_DELAY;
 			var isInCooldown = nextShotTime > f.Time;
 			// If the shoot cooldown will finish after the aim delay, we use it instead
 			if (isInCooldown && nextShotTime > expectedAimDelayShot) expectedAimDelayShot = nextShotTime;
-			bb->Set(f, nameof(Constants.NEXT_SHOT_TIME), expectedAimDelayShot);
-			bb->Set(f, nameof(Constants.NEXT_TAP_TIME), expectedAimDelayShot);
+			bb->Set(f, Constants.NEXT_SHOT_TIME, expectedAimDelayShot);
+			bb->Set(f, Constants.NEXT_TAP_TIME, expectedAimDelayShot);
 		}
 
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)

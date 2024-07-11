@@ -11,23 +11,16 @@ namespace FirstLight.Game.UIElements
 	public class PlayerMemberElement : VisualElement
 	{
 		private const string USS_BLOCK = "squad-member";
-		private const string USS_CONTAINER = USS_BLOCK + "__container";
-
-		private const string USS_PFP = USS_BLOCK + "__pfp1";
-		private const string USS_TEAM_COLOR = USS_BLOCK + "__team-color1";
-		private const string USS_PFP_MASK = USS_BLOCK + "__pfp-mask1";
+		private const string USS_PFP = USS_BLOCK + "__pfp";
+		private const string USS_TEAM_COLOR = USS_BLOCK + "__team-color";
+		private const string USS_PFP_MASK = USS_BLOCK + "__pfp-mask";
 		
-		//private readonly VisualElement _teamColor;
 		private readonly VisualElement _pfpMask;
 		private readonly VisualElement _pfp;
 		
 		public PlayerMemberElement()
 		{
 			AddToClassList(USS_TEAM_COLOR);
-
-			//var container = new VisualElement {name = "container"};
-			//Add(container);
-			//container.AddToClassList(USS_CONTAINER);
 			
 			Add(_pfpMask = new VisualElement {name = "pfp-mask"});
 			_pfpMask.AddToClassList(USS_PFP_MASK);
@@ -35,15 +28,6 @@ namespace FirstLight.Game.UIElements
 				_pfpMask.Add(_pfp = new VisualElement {name = "pfp"});
 				_pfp.AddToClassList(USS_PFP);
 			}
-
-			//_teamColor.AddToClassList(USS_TEAM_COLOR);
-			//{
-			//	_teamColor.Add(_pfpMask = new VisualElement {name = "pfp-mask"});
-			//	_pfpMask.AddToClassList(USS_PFP_MASK);
-				
-			//	_pfpMask.Add(_pfp = new VisualElement {name = "pfp"});
-			//	_pfp.AddToClassList(USS_PFP);
-			//}
 			
 			this.Query().Build().ForEach(e => e.pickingMode = PickingMode.Ignore);
 		}

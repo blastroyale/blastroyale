@@ -13,9 +13,9 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Label name="DebugPlayerCount" text="30/30" class="DO_NOT_USE_font-style-h2 debug-player-count" />
-            <ui:VisualElement name="MapHolder" class="map-holder" style="-unity-background-scale-mode: scale-to-fit; width: 50%; background-color: rgba(255, 0, 232, 0); margin-top: 2%; margin-right: 2%; margin-bottom: 2%; margin-left: 2%;">
-                <ui:VisualElement name="Map" class="map" style="height: 100%; width: 100%;">
-                    <ui:VisualElement name="MapImage" class="map__image" style="-unity-background-scale-mode: scale-to-fit; top: 0; display: flex; background-color: rgba(0, 0, 0, 0);">
+            <ui:VisualElement name="MapHolder" class="map-holder">
+                <ui:VisualElement name="Map" class="map">
+                    <ui:VisualElement name="MapImage" class="map-image">
                         <ui:VisualElement name="TutorialDropPos" picking-mode="Ignore" class="tutorial-drop-pos" style="display: flex;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="PartyMarkers" picking-mode="Ignore" class="fill-parent party-markers">

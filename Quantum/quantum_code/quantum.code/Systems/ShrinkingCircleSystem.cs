@@ -18,14 +18,14 @@ namespace Quantum.Systems
 			base.OnEnabled(f);
 
 			var circle = f.Unsafe.GetOrAddSingletonPointer<ShrinkingCircle>();
-
-			if (string.Compare(f.Map.Scene, "IslandOneScene", StringComparison.Ordinal)==0)
+			
+			if(f.Context.MapConfig.IsLegacyMap)
 			{
-				circle->CurrentRadius = (f.Map.WorldSize / FP._2) * FPMath.Sqrt(FP._2);
+				circle->CurrentRadius = f.Map.WorldSize / FP._2;
 			}
 			else
 			{
-				circle->CurrentRadius = f.Map.WorldSize / FP._2;
+				circle->CurrentRadius = (f.Map.WorldSize / FP._2) * FPMath.Sqrt(FP._2);
 			}
 			circle->Step = -1;
 		}

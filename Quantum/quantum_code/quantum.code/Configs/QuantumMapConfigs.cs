@@ -13,6 +13,7 @@ namespace Quantum
 		public float DropSelectionSize;
 		public float MinimapCameraSize;
 		public short LootingVersion;
+		public bool IsLegacyMap;
 	}
 	
 	/// <summary>

@@ -103,6 +103,11 @@ namespace FirstLight.Game.Services
 		/// Returns true for environments that run server-side simulation
 		/// </summary>
 		bool RunsSimulationOnServer();
+
+		/// <summary>
+		/// If the environment was forced by a redirect
+		/// </summary>
+		public bool ForcedEnvironment { get; }
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -118,6 +123,7 @@ namespace FirstLight.Game.Services
 		private readonly IDataService _dataService;
 		private readonly IGameServices _services;
 
+		public bool ForcedEnvironment { get; private set; }
 		private readonly string _leaderboardLadderName;
 
 		public GameBackendService(IMessageBrokerService msgBroker, IGameDataProvider dataProvider, IGameServices services, IDataService dataService,
@@ -143,7 +149,8 @@ namespace FirstLight.Game.Services
 
 			if (forceEnvironment.HasValue)
 			{
-				FLog.Info("Forcing Environment");
+				FLog.Info("Forcing Environment " + forceEnvironment.Value.Name);
+				ForcedEnvironment = true;
 				FLEnvironment.Current = forceEnvironment.Value;
 			}
 

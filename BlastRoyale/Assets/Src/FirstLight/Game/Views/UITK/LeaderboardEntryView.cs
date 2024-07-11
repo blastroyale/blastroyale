@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.UIService;
@@ -38,13 +40,15 @@ namespace FirstLight.Game.Views
 		private VisualElement _border;
 
 		private IGameServices _services;
+		private ICollectionService _collectionService;
 
 		private int _pfpRequestHandle = -1;
 
 		protected override void Attached()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-
+			_collectionService = _services.CollectionService;
+			
 			_leaderboardEntry = Element.Q<VisualElement>("LeaderboardEntryParent").Required();
 			_leaderboardEntry.RegisterCallback<MouseDownEvent>(OnClick);
 			_rankNumber = Element.Q<Label>("RankNumber").Required();
@@ -74,28 +78,14 @@ namespace FirstLight.Game.Views
 				PlayfabID = _playerId
 			}).Forget();
 		}
-		
-		public VisualElement MetricIcon => _metricIcon;
-		
+
 		/// <summary>
 		/// Sets the data needed to fill leaderboard entry's data.
 		/// </summary>
-		public void SetData(int rank, string playerName, int playerKilledCount, int playerTrophies, bool isLocalPlayer,
-							string pfpUrl, string playerId, Color? borderColor)
+		public void SetData(int rank, string playerName, int playerKilledCount, int playerTrophies, bool isLocalPlayer, string playerId, Color? borderColor)
 		{
+
 			_leaderboardEntry.RemoveModifiers();
-			
-			/*
-			if (borderColor.HasValue && borderColor.Value != GameConstants.PlayerName.DEFAULT_COLOR)//  rank > 0 && rank <= GameConstants.Data.LEADERBOARD_BRONZE_ENTRIES)
-			{
-				_border.SetDisplay(true);
-				_border.style.unityBackgroundImageTintColor = borderColor.Value;
-			}
-			else
-			{
-				_border.SetDisplay(false);
-			}
-			*/
 			
 			_playerName.style.color = borderColor.Value;
 			_rankNumber.style.color = borderColor.Value;
@@ -132,11 +122,23 @@ namespace FirstLight.Game.Views
 			{
 				delayTime, delayTime
 			};
+		}
 
-			// pfpUrl = "https://mainnetprodflghubstorage.blob.core.windows.net/collections/corpos/1.png".Replace("1.png",
-			// 	$"{Random.Range(1, 888)}.png");
 
-			// PFP
+		public void SetLeaderboardEntryPFPSprite(Sprite pfp)
+		{
+			if (pfp == null)
+			{
+				_pfpImage.style.backgroundImage = StyleKeyword.Null;
+				return;
+			}
+			
+			_pfpImage.style.backgroundImage = new StyleBackground(pfp);
+		}
+
+		
+		public void SetLeaderboardEntryPFPUrl(string pfpUrl)
+		{
 			if (!string.IsNullOrEmpty(pfpUrl))
 			{
 				_pfpRequestHandle = _services.RemoteTextureService.RequestTexture(
@@ -155,10 +157,11 @@ namespace FirstLight.Game.Views
 				_pfpImage.style.backgroundImage = StyleKeyword.Null;
 			}
 		}
-
+		
 		public override void OnScreenClose()
 		{
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
 		}
+
 	}
 }

@@ -1,2 +1,2 @@
 #!/bin/sh
-./Quantum/quantum_code/build.sh debug
+#./Quantum/quantum_code/build.sh debug

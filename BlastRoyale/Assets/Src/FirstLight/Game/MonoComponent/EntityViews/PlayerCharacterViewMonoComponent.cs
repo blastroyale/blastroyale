@@ -66,7 +66,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 #pragma warning disable CS0612 // Type or member is obsolete
 			BuildingVisibility = new ();
 #pragma warning restore CS0612 // Type or member is obsolete
-			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
+			QuantumEvent.Subscribe<EventOnHealthChangedPredicted>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
@@ -136,15 +136,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_characterView.PrintFootsteps = active;
 		}
 
-		private void HandleOnHealthChanged(EventOnHealthChanged evnt)
+		private void HandleOnHealthChanged(EventOnHealthChangedPredicted evnt)
 		{
-			if (Culled || evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)
+			if (Culled || evnt.Entity != EntityView.EntityRef || evnt.PreviousValue <= evnt.CurrentValue)
 			{
 				return;
 			}
 
 			// Do not trigger hit when player is knockedout
-			if (!ReviveSystem.IsKnockedOut(evnt.Game.Frames.Verified, evnt.Entity))
+			if (!ReviveSystem.IsKnockedOut(evnt.Game.Frames.Predicted, evnt.Entity))
 			{
 				_skin.TriggerHit();
 			}

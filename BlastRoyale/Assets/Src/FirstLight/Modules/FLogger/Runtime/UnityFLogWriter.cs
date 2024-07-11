@@ -9,6 +9,7 @@ namespace FirstLight.FLogger
 	internal class UnityFLogWriter : IFLogWriter
 	{
 		/// <inheritdoc />
+		[HideInCallstack]
 		public void Write(FLogLevel level, string log)
 		{
 			switch (level)

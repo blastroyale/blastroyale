@@ -1,20 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Cinemachine;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using FirstLight.FLogger;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Collection;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
@@ -43,6 +39,7 @@ namespace FirstLight.Game.Presenters
 
 		private IMatchServices _matchServices;
 		private IGameServices _gameServices;
+		private ICollectionService _collectionService;
 		private IGameDataProvider _gameDataProvider;
 
 		private Button _nextButton;
@@ -68,6 +65,7 @@ namespace FirstLight.Game.Presenters
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_gameServices = MainInstaller.Resolve<IGameServices>();
+			_collectionService = _gameServices.CollectionService;
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
@@ -179,8 +177,7 @@ namespace FirstLight.Game.Presenters
 			var levelsInfo = new List<RewardLevelPanelView.LevelLevelRewardInfo>();
 			var nextLevel = (uint) Math.Clamp(_gameDataProvider.PlayerDataProvider.Level.Value, 1, maxLevel);
 			var currentLevel = nextLevel;
-			//var configs = _gameServices.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
-
+			
 			do
 			{
 				var levelRewardInfo = new RewardLevelPanelView.LevelLevelRewardInfo();
@@ -308,16 +305,29 @@ namespace FirstLight.Game.Presenters
 
 			entries.SortByPlayerRank(false);
 
-			foreach (var entry in entries)
+			foreach (var playerEntry in entries)
 			{
-				var newEntry = _leaderboardEntryAsset.Instantiate();
-				var borderColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) entry.LeaderboardRank);
-				newEntry.AttachView(this, out LeaderboardEntryView view);
-				view.SetData((int) entry.PlayerRank, entry.GetPlayerName(), (int) entry.Data.PlayersKilledCount,
-					(int) entry.Data.PlayerTrophies,
-					_matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player, entry.AvatarUrl, null, borderColor);
-				_leaderboardScrollView.Add(newEntry);
+			
+				var borderColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) playerEntry.LeaderboardRank);
+				
+				var leaderboardEntry = _leaderboardEntryAsset.Instantiate();
+				leaderboardEntry.AttachView(this, out LeaderboardEntryView leaderboardEntryView);
+				leaderboardEntryView.SetData((int) playerEntry.PlayerRank, playerEntry.GetPlayerName(), (int) playerEntry.Data.PlayersKilledCount, (int) playerEntry.Data.PlayerTrophies, _matchServices.MatchEndDataService.LocalPlayer == playerEntry.Data.Player, null, borderColor);
+				
+				var playersCosmetics = _matchServices.MatchEndDataService.PlayerMatchData[playerEntry.Data.Player].Cosmetics;
+				ResolveLeaderboardEntryPlayerAvatar(playersCosmetics, leaderboardEntryView);
+				
+				_leaderboardScrollView.Add(leaderboardEntry);
 			}
+		}
+
+		private void ResolveLeaderboardEntryPlayerAvatar(GameId[] playersCosmetics, LeaderboardEntryView leaderboardEntryView)
+		{
+			//Set to null while async loads the character skin avatar.
+			leaderboardEntryView.SetLeaderboardEntryPFPSprite(null);
+			
+			_collectionService.LoadCollectionItemSprite(_collectionService.GetCosmeticForGroup(playersCosmetics, GameIdGroup.PlayerSkin))
+							  .ContinueWith(leaderboardEntryView.SetLeaderboardEntryPFPSprite);
 		}
 
 		private Dictionary<GameId, int> ProcessRewards()

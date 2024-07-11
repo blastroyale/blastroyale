@@ -1,9 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
+using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
@@ -12,7 +12,9 @@ using FirstLight.Game.Views;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
@@ -23,7 +25,7 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class GameModeScreenPresenter : UIPresenterData<GameModeScreenPresenter.StateData>
 	{
-		private const string VISIBLE_GAMEMODE_BUTTON = "visible-gamemodebutton";
+		private const string VISIBLE_GAMEMODE_BUTTON = "game-mode-card--element-";
 
 		public class StateData
 		{
@@ -34,7 +36,9 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[SerializeField] private VisualTreeAsset _buttonAsset;
-		[SerializeField] private VisualTreeAsset _comingSoonAsset;
+
+		[SerializeField, Required, TabGroup("Animation")]
+		private PlayableDirector _newEventDirector;
 
 		private Button _closeButton;
 		private ScrollView _buttonsSlider;
@@ -44,6 +48,8 @@ namespace FirstLight.Game.Presenters
 
 		private List<GameModeSelectionButtonView> _buttonViews;
 		private IGameServices _services;
+
+		private CancellationTokenSource _cancelSelection = null;
 
 		private void Awake()
 		{
@@ -61,20 +67,21 @@ namespace FirstLight.Game.Presenters
 			_mapDropDown.RegisterValueChangedCallback(OnMapSelected);
 
 			var orderNumber = 1;
-
+			// Clear the slide from the test values
+			_buttonsSlider.Clear();
 			// Add game modes buttons
 			foreach (var slot in _services.GameModeService.Slots)
 			{
+				if (slot.Entry.MatchConfig == null) continue;
 				var button = _buttonAsset.Instantiate();
 				button.userData = slot;
 				button.AttachView(this, out GameModeSelectionButtonView view);
-				view.SetData("GameModeButton" + orderNumber, GetVisibleClass(orderNumber++), slot);
+				view.NewEventDirector = _newEventDirector;
+				slot.Entry.MatchConfig.MatchType = MatchType.Matchmaking;
+				view.SetData("GameModeButton" + orderNumber, slot, GetVisibleClass(orderNumber++));
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
-
-				view.Disabled = slot.Entry.TeamSize < _services.PartyService.GetCurrentGroupSize();
 				view.Selected = _services.GameModeService.SelectedGameMode.Value.Equals(slot);
-
 				_buttonsSlider.Add(button);
 			}
 
@@ -85,21 +92,22 @@ namespace FirstLight.Game.Presenters
 				{
 					MatchConfig = new SimulationMatchConfig()
 					{
-						GameModeID = GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME,
 						Mutators = new string[] { },
+						MatchType = MatchType.Custom,
+						TeamSize = 1
 					},
 					Visual = new GameModeRotationConfig.VisualEntryConfig
 					{
-						TitleTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_title,
-						DescriptionTranslationKey = ScriptTerms.UITGameModeSelection.custom_game_description
+						CardModifier = "custom",
+						TitleTranslationKey = LocalizableString.FromTerm(ScriptTerms.UITGameModeSelection.custom_game_title),
+						DescriptionTranslationKey = LocalizableString.FromTerm(ScriptTerms.UITGameModeSelection.custom_game_description)
 					}
 				}
 			};
 			var createGameButton = _buttonAsset.Instantiate();
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
-			customGameView.SetData("CustomGameButton", GetVisibleClass(orderNumber++), gameModeInfo);
+			customGameView.SetData("CustomGameButton", gameModeInfo, GetVisibleClass(orderNumber), VISIBLE_GAMEMODE_BUTTON + "last");
 			customGameView.Clicked += OnCustomGameClicked;
-			customGameView.Disabled = _services.PartyService.HasParty.Value;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
 		}
@@ -113,7 +121,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_services.GameModeService.Slots.Observe(OnSlotUpdated);
 			_services.GameModeService.SelectedGameMode.Observe(OnGameModeUpdated);
 			_services.PartyService.Members.Observe(OnPartyMembersChanged);
 			return base.OnScreenOpen(reload);
@@ -121,7 +128,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenClose()
 		{
-			_services.GameModeService.Slots.StopObserving(OnSlotUpdated);
 			_services.GameModeService.SelectedGameMode.StopObserving(OnGameModeUpdated);
 			_services.PartyService.Members.StopObserving(OnPartyMembersChanged);
 			return base.OnScreenClose();
@@ -129,18 +135,12 @@ namespace FirstLight.Game.Presenters
 
 		private string GetVisibleClass(int orderNumber)
 		{
-			return VISIBLE_GAMEMODE_BUTTON + (orderNumber > 4 ? "" : orderNumber);
+			return VISIBLE_GAMEMODE_BUTTON + (orderNumber > 4 ? "large" : orderNumber);
 		}
 
 		private void OnCustomGameClicked(GameModeSelectionButtonView info)
 		{
 			Data.CustomGameChosen();
-		}
-
-		private void OnSlotUpdated(int index, GameModeInfo previous, GameModeInfo current,
-								   ObservableUpdateType updateType)
-		{
-			_buttonViews[index].SetData(current);
 		}
 
 		private void OnPartyMembersChanged(int index, PartyMember before, PartyMember after, ObservableUpdateType type)
@@ -152,23 +152,28 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var view in _buttonViews)
 			{
-				if (view.IsCustomGame()) continue;
-				if (view.GameModeInfo.Entry.PlayfabQueue == null) continue;
-				view.Disabled = view.GameModeInfo.Entry.TeamSize < _services.PartyService.GetCurrentGroupSize();
+				if (view.IsCustomGame())
+				{
+					continue;
+				}
+
+				view.UpdateDisabledStatus();
 			}
 		}
 
 		private void OnModeButtonClicked(GameModeSelectionButtonView info)
 		{
 			SelectButton(info);
-			StartCoroutine(ChangeGameModeCoroutine(info));
+			_cancelSelection?.Cancel();
+			_cancelSelection = new CancellationTokenSource();
+			ChangeGameModeCoroutine(info, _cancelSelection.Token).Forget();
 		}
 
-		private IEnumerator ChangeGameModeCoroutine(GameModeSelectionButtonView info)
+		private async UniTask ChangeGameModeCoroutine(GameModeSelectionButtonView info, CancellationToken tok)
 		{
+			await UniTask.WaitForSeconds(0.5f, cancellationToken: tok);
 			_services.GameModeService.SelectedGameMode.Value = info.GameModeInfo;
 			Data.GameModeChosen(info.GameModeInfo);
-			yield return null;
 		}
 
 		private void SelectButton(GameModeSelectionButtonView info)

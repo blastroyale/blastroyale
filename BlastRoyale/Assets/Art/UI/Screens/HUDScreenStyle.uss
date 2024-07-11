@@ -885,36 +885,33 @@
 }
 
 .local-player-info__team-color {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 110px;
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
     border-bottom-left-radius: 50%;
-    background-color: rgb(255, 255, 255);
     align-items: center;
     justify-content: center;
-    margin-right: 15px;
+    margin-right: 18px;
+    border-left-color: rgb(255, 0, 0);
+    border-right-color: rgb(255, 0, 0);
+    border-top-color: rgb(255, 0, 0);
+    border-bottom-color: rgb(255, 0, 0);
+    background-color: rgba(23, 18, 53, 0.39);
+    bottom: 6px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
 }
 
 .local-player-info_pfp {
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-    background-color: rgb(0, 0, 0);
-    width: 85px;
-    height: 85px;
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
-    border-left-color: rgb(24, 18, 54);
-    border-right-color: rgb(24, 18, 54);
-    border-top-color: rgb(24, 18, 54);
-    border-bottom-color: rgb(24, 18, 54);
-    background-image: var(--sprite-shared__avatar-default);
-    visibility: visible;
+    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/Ninja/Icon_Char_Ninja.png?fileID=21300000&guid=759699db299dced46a9c460f5114b6cc&type=3#Icon_Char_Ninja');
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    bottom: -6px;
 }
 
 .local-player-info__name {
@@ -924,7 +921,7 @@
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(24, 18, 54);
     text-shadow: 2px 2px 0 rgb(24, 18, 54);
-    left: 118px;
+    left: 136px;
     margin-top: 0;
     margin-right: 0;
     margin-bottom: 0;
@@ -1043,4 +1040,16 @@
     padding-left: 0;
     -unity-text-align: lower-left;
     bottom: 86px;
+}
+
+.local-player-info__pfp-mask {
+    background-image: url('project://database/Assets/Art/UI/Vectors/avatar-mask-hud.svg?fileID=7388822144124034973&guid=6bafe853b1a3dac4cacac6eb1c7e4c6f&type=3#avatar-mask-hud');
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    align-items: center;
+    overflow: hidden;
+    bottom: 0;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+    justify-content: flex-end;
 }

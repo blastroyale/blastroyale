@@ -92,7 +92,7 @@ namespace FirstLight.Game.Presenters.Store
 		private void OnClickInfo()
 		{
 			var desc = _product.PlayfabProductConfig.StoreItemData.Description;
-			_infoButton.OpenTooltip(_root, desc, TipDirection.BottomLeft, TooltipPosition.TopRight);
+			_infoButton.OpenTooltip(_root, desc);
 		}
 
 		public void SetData(GameProduct product, ProductFlags flags, VisualElement rootDocument)
@@ -147,7 +147,7 @@ namespace FirstLight.Game.Presenters.Store
 			var final = "";
 			foreach (var piece in s.Split("-"))
 			{
-				final += Char.ToUpper(piece[0]) + piece.Substring(1).ToLower();
+				final += Char.ToUpperInvariant(piece[0]) + piece.Substring(1).ToLowerInvariant();
 			}
 
 			return final;

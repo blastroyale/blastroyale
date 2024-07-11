@@ -54,7 +54,7 @@ namespace FirstLight.Game.Data.DataTypes
 			Item = item;
 			GameId = item.Id;
 			Amount = 1;
-			DisplayName = GameId.GetLocalization().ToUpper();
+			DisplayName = GameId.GetLocalization().ToUpperInvariant();
 		}
 	}
 }

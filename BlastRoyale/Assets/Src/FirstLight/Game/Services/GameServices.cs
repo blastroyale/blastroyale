@@ -210,6 +210,7 @@ namespace FirstLight.Game.Services
 			AnalyticsService = new AnalyticsService(this, gameLogic, UIService);
 
 			ThreadService = new ThreadService();
+			CoroutineService = new CoroutineService();
 			GuidService = new GuidService();
 			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
 			GameBackendService =
@@ -219,21 +220,19 @@ namespace FirstLight.Game.Services
 				configsProvider);
 			PartyService = new PartyService(PlayfabPubSubService, gameLogic.AppDataProvider, GameBackendService,
 				GenericDialogService, MessageBrokerService, LocalPrefsService);
-
+			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
-			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider, LocalPrefsService);
+			GameModeService = new GameModeService(ConfigsProvider, RemoteTextureService, PartyService, gameLogic.AppDataProvider, LocalPrefsService);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			RewardService = new RewardService(this, gameLogic);
 			TickService = new TickService();
 			LeaderboardService = new LeaderboardsService(this);
-			CoroutineService = new CoroutineService();
 			ControlsSetup = new ControlSetupService();
 			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider, LocalPrefsService);
 			NewsService = new PlayfabNewsService(MessageBrokerService);
-			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 
 			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);

@@ -104,6 +104,8 @@ namespace FirstLight.Game.Services
 					GameModeID = gameModeId,
 					MapId = GameId.FtueDeck.GetHashCode(),
 					MatchType = MatchType.Forced,
+					TeamSize = 1,
+					HasBots = true
 				},
 				RoomIdentifier = Guid.NewGuid().ToString(),
 			};
@@ -121,6 +123,8 @@ namespace FirstLight.Game.Services
 					GameModeID = gameModeId,
 					MapId = GameId.MazeMayhem.GetHashCode(),
 					MatchType = MatchType.Forced,
+					TeamSize = 1,
+					HasBots = true
 				},
 				RoomIdentifier = Guid.NewGuid().ToString(),
 			};

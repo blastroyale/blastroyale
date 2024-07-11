@@ -16,7 +16,7 @@ namespace FirstLight.Game.Data.DataTypes
 		public ItemData Item { get; }
 		public GameId GameId => _gameId;
 		public uint Amount => 1;
-		public string DisplayName => GameId.GetLocalization().ToUpper();
+		public string DisplayName => GameId.GetLocalization().ToUpperInvariant();
 		public VisualElement ItemCard => new GameIdIconSummaryItemElement()
 		{
 			pickingMode = PickingMode.Ignore

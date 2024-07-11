@@ -154,7 +154,6 @@ namespace FirstLight.Game.Presenters
 		private void OnAnyPartyUpdate()
 		{
 			UpdatePlayButton();
-			UpdateGameModeButton();
 		}
 	}
 }

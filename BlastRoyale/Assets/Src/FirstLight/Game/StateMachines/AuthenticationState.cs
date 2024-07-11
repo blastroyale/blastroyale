@@ -10,6 +10,7 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.Statechart;
@@ -18,6 +19,7 @@ using Newtonsoft.Json;
 using PlayFab;
 using UnityEngine;
 using UnityEngine.Analytics;
+using UnityEngine.Networking;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -26,13 +28,11 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AuthenticationState
 	{
+		private const string VERSION_FILE_TEMPLATE = "https://cdn.blastroyale.com/versions/{0}.json";
 		public static readonly int MaxAuthenticationRetries = 3;
 
 		private readonly IStatechartEvent _authSuccessEvent = new StatechartEvent("Authentication Success Event");
 		private readonly IStatechartEvent _authFailEvent = new StatechartEvent("Authentication Fail Generic Event");
-
-		private readonly IStatechartEvent _authFailContinueEvent =
-			new StatechartEvent("Authentication Fail Continue Event");
 
 		private readonly IStatechartEvent _authFailAccountDeletedEvent =
 			new StatechartEvent("Authentication Fail Account Deleted Event");
@@ -58,9 +58,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var setupEnvironment = stateFactory.Transition("Setup Environment");
 			var authLoginGuest = stateFactory.State("Guest Login");
-			var autoAuthCheck = stateFactory.Choice("Auto Auth Check");
 			var authLoginDevice = stateFactory.State("Login Device Authentication");
 			var authFail = stateFactory.State("Authentication Fail Dialog");
 			var postAuthCheck = stateFactory.Choice("Post Authentication Checks");
@@ -69,19 +67,9 @@ namespace FirstLight.Game.StateMachines
 			var gameUpdate = stateFactory.State("Game Update Dialog");
 			var asyncLoginWait = stateFactory.TaskWait("Async Login Wait");
 
-			initial.Transition().Target(autoAuthCheck);
-
-			setupEnvironment.OnEnter(SetupBackendEnvironmentData);
-			setupEnvironment.Transition().Target(autoAuthCheck);
-
-			autoAuthCheck.Transition().Condition(IsAsyncLogin).Target(asyncLoginWait);
-			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
-			autoAuthCheck.Transition().Target(authLoginGuest);
-
-			authFail.Event(_authFailContinueEvent).Target(autoAuthCheck);
+			initial.Transition().Target(asyncLoginWait);
 
 			asyncLoginWait.WaitingFor(WaitForAsyncLogin).Target(postAuthCheck);
-
 			authLoginGuest.OnEnter(SetupLoginGuest);
 			authLoginGuest.Event(_authSuccessEvent).Target(final);
 			authLoginGuest.Event(_authFailEvent).Target(authFail);
@@ -135,14 +123,67 @@ namespace FirstLight.Game.StateMachines
 
 		public void QuickAsyncLogin()
 		{
-			_services.GameBackendService.SetupBackendEnvironment();
-			_usingAsyncLogin = true;
-			_asyncLogin = HasLinkedDevice() ? AsyncDeviceLogin() : AsyncGuestLogin();
+			_asyncLogin = LoginTask();
 		}
 
-		private bool IsAsyncLogin()
+		private async UniTask LoginTask()
 		{
-			return _usingAsyncLogin;
+			var redirectEnvironment = await GetRedirectEnvironment();
+
+			if (redirectEnvironment.success)
+			{
+				_services.GameBackendService.SetupBackendEnvironment(redirectEnvironment.definition);
+			}
+			else
+			{
+				_services.GameBackendService.SetupBackendEnvironment();
+			}
+
+			if (HasLinkedDevice())
+			{
+				await AsyncDeviceLogin();
+			}
+			else
+			{
+				await AsyncGuestLogin();
+			}
+		}
+
+		private async Task<(bool success, FLEnvironment.Definition definition)> GetRedirectEnvironment()
+		{
+			try
+			{
+				var start = Time.time;
+				var req = UnityWebRequest.Get(string.Format(VERSION_FILE_TEMPLATE, Application.version));
+				req.timeout = 2000;
+				var response = await req.SendWebRequest().ToUniTask();
+				FLog.Info("Version info download took " + (Time.time - start) + "s");
+				if (response.result == UnityWebRequest.Result.Success)
+				{
+					var text = response.downloadHandler.text;
+					FLog.Info(text);
+					var value = ModelSerializer.Deserialize<RemoteVersionData>(text);
+					if (FLEnvironment.TryGetFromName(value.EnvironmentOverwrite, out var definition))
+					{
+						return (true, definition);
+					}
+				}
+				
+			}
+			catch (UnityWebRequestException ex)
+			{
+				if (ex.ResponseCode == 404)
+				{
+					return (false, default);
+				}
+				FLog.Warn("Failed to download version redirect", ex);
+			}
+			catch (Exception ex)
+			{
+				FLog.Warn("Failed to download version redirect", ex);
+			}
+
+			return (false, default);
 		}
 
 		private void UnsubscribeEvents()

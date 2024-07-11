@@ -152,25 +152,17 @@ namespace FirstLight.Game.Logic
 			return (int) Math.Floor(currentValue * mp);
 		}
 
-		public List<ItemData> CalculateMatchRewards(RewardSource source, out int trophyChange)
+		private bool IsDebug(SimulationMatchConfig matchConfig)
 		{
-			var rewards = new List<ItemData>();
-			var localMatchData = source.MatchData[source.ExecutingPlayer];
-			trophyChange = 0;
-			if (source.MatchConfig.MatchType == MatchType.Custom) return rewards;
+			// This is checked on quantum plugin, rooms are not allowed to be created with this config
+			return matchConfig.ConfigId?.Contains("debug-") ?? false;
+		}
 
-			if (localMatchData.PlayerRank == 0)
-			{
-				throw new MatchDataEmptyLogicException();
-			}
-
-			var rotationConfigs = GameLogic.ConfigsProvider.GetConfig<GameModeRotationConfig>();
-			var usedGamemode = rotationConfigs.Slots.SelectMany(m => m.Entries)
-				.FirstOrDefault(m => m.MatchConfig.ConfigId == source.MatchConfig.ConfigId);
-			var usedSimConfig = usedGamemode.MatchConfig;
-
+		private bool IsEventValid(RewardSource source, GameModeRotationConfig.GameModeEntry usedGamemode)
+		{
 			// Config not valid someone probably trying to cheat
-			if (usedGamemode.MatchConfig == null) return rewards;
+			if (usedGamemode.MatchConfig == null) return false;
+
 			if (usedGamemode.TimedEntry)
 			{
 				var now = GameLogic.TimeService.DateTimeUtcNow;
@@ -190,20 +182,45 @@ namespace FirstLight.Game.Logic
 				// Player trying to send not active gamemode
 				if (!found)
 				{
-					return rewards;
+					return false;
 				}
 			}
 
 			// Prevent sneaky players from sending different meta item drop overwrites from the config,
 			// in this case the collected items from the simulation cannot be trusted
-			if (source.MatchConfig.MetaItemDropOverwrites != null && !source.MatchConfig.MetaItemDropOverwrites.SequenceEqual(usedSimConfig.MetaItemDropOverwrites))
+			if (source.MatchConfig.MetaItemDropOverwrites != null && !source.MatchConfig.MetaItemDropOverwrites.SequenceEqual(usedGamemode.MatchConfig.MetaItemDropOverwrites))
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		public List<ItemData> CalculateMatchRewards(RewardSource source, out int trophyChange)
+		{
+			var rewards = new List<ItemData>();
+			var localMatchData = source.MatchData[source.ExecutingPlayer];
+			trophyChange = 0;
+			if (source.MatchConfig.MatchType == MatchType.Custom) return rewards;
+
+			if (localMatchData.PlayerRank == 0)
+			{
+				throw new MatchDataEmptyLogicException();
+			}
+
+			var rotationConfigs = GameLogic.ConfigsProvider.GetConfig<GameModeRotationConfig>();
+			var usedGamemode = rotationConfigs.Slots.SelectMany(m => m.Entries)
+				.FirstOrDefault(m => m.MatchConfig.ConfigId == source.MatchConfig.ConfigId);
+			var usedSimConfig = usedGamemode.MatchConfig;
+
+			if ((!IsEventValid(source, usedGamemode) && !IsDebug(source.MatchConfig)) || localMatchData.Data.KilledByBeingAFK)
 			{
 				return rewards;
 			}
 
-			if (localMatchData.Data.KilledByBeingAFK)
+			if (IsDebug(source.MatchConfig))
 			{
-				return rewards;
+				usedSimConfig = source.MatchConfig;
 			}
 
 			var teamSize = Math.Max(1, source.MatchConfig.TeamSize);
@@ -247,7 +264,7 @@ namespace FirstLight.Game.Logic
 					break;
 				}
 			}
-			
+
 			// We dont give rewards for quitting, but players can loose trophies
 			CalculateTrophiesReward(rewards, usedSimConfig, localMatchData, trophyRewardConfig, out trophyChange);
 			if (source.DidPlayerQuit || source.GamePlayerCount == 1)

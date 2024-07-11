@@ -11,6 +11,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Views.UITK;
+using FirstLight.Statechart;
 using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
@@ -192,7 +193,6 @@ namespace FirstLight.Game.Utils
 			};
 		}
 
-
 		public static async UniTask<Sprite> LoadSprite(GameId id)
 		{
 			// TODO: This should be handled better.
@@ -264,13 +264,11 @@ namespace FirstLight.Game.Utils
 		{
 			element.SetLevel(gameDataProvider.PlayerDataProvider.Level.Value);
 
-
 			var itemData = gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
 			var spriteTask = gameServices.CollectionService.LoadCollectionItemSprite(itemData);
 
 			element.LoadFromTask(spriteTask).Forget();
 		}
-
 
 		/// <summary>
 		/// Get the position inside the Panel of a World Position
@@ -285,13 +283,47 @@ namespace FirstLight.Game.Utils
 			return RuntimePanelUtils.ScreenToPanel(panel, screenPoint);
 		}
 
-
 		/// <summary>
 		/// Set the transform.position of an UIToolkit element to be at the same place of a given position in the 3D world
 		/// </summary>
 		public static void SetPositionBasedOnWorldPosition(this VisualElement element, Vector3 worldPosition)
 		{
 			element.transform.position = WorldPositionToPanel(element.panel, worldPosition);
+		}
+
+		public static void SetPadding(this IStyle st, int padding)
+		{
+			st.paddingBottom = 0;
+			st.paddingLeft = 0;
+			st.paddingRight = 0;
+			st.paddingTop = 0;
+		}
+
+		public static void SetMargin(this IStyle st, int padding)
+		{
+			st.marginBottom = 0;
+			st.marginLeft = 0;
+			st.marginRight = 0;
+			st.marginTop = 0;
+		}
+
+		public static void ListenOnce<T>(this VisualElement visual, Action action) where T : EventBase<T>, new()
+		{
+			ListenOnce<T>(visual, (_) =>
+			{
+				action();
+			});
+		}
+
+		public static void ListenOnce<T>(this VisualElement visual, EventCallback<T> action) where T : EventBase<T>, new()
+		{
+			EventCallback<T> wrapped = null;
+			wrapped = @event =>
+			{
+				action(@event);
+				visual.UnregisterCallback(wrapped);
+			};
+			visual.RegisterCallback(wrapped);
 		}
 	}
 }

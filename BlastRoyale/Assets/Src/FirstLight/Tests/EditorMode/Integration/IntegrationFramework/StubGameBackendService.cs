@@ -53,6 +53,8 @@ namespace FirstLight.Tests.EditorMode
 			return false;
 		}
 
+		public bool ForcedEnvironment => false;
+
 		public void SetupBackendEnvironment(FLEnvironment.Definition? force)
 		{
 		}

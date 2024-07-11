@@ -256,6 +256,7 @@ namespace FirstLight.Game.Utils
 			public const float RESOURCE_POOL_UPDATE_TIME_SECONDS = 3;
 			public const float STAR_STATUS_CHARACTER_SCALE_MULTIPLIER = 1.5f;
 			public const float RADIAL_LOCAL_POS_OFFSET = 0.1f;
+			public const float TEAMMATE_BORDER_RADIUS = 6f;
 			public static readonly Color HIT_COLOR = new Color(0x7B / 255f, 0x7B / 255f, 0x7B / 255f);
 
 			// The name of the parameter in the animator that decides the time of stun outro animation

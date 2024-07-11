@@ -28,7 +28,7 @@ namespace FirstLight.Models
 		{
 			foreach (var kp in CurrencyMap)
 			{
-				if (kp.Value.ToLower() == id.ToLower()) return kp.Key;
+				if (kp.Value.ToLowerInvariant() == id.ToLowerInvariant()) return kp.Key;
 			}
 			throw new Exception($"Currency {id} not registered in playfab currencies");
 		}

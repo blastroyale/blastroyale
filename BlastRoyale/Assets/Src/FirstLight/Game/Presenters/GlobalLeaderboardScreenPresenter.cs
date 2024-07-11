@@ -111,8 +111,7 @@ namespace FirstLight.Game.Presenters
 			_infoButton.clicked += () =>
 			{
 				// TODO: Language not working for some reason
-				_endsInContainer.OpenTooltip(Root, "Progress will be reset at the end of the season", TipDirection.TopRight,
-				                             TooltipPosition.BottomLeft, 20, 20);
+				_endsInContainer.OpenTooltip(Root, "Progress will be reset at the end of the season", new Vector2(20, 20));
 			};
 			_discordButton.clicked += () => Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
 			_leaderboardListView.makeItem = CreateLeaderboardEntry;
@@ -189,9 +188,8 @@ namespace FirstLight.Game.Presenters
 			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
 			var borderColor = _services.LeaderboardService.GetRankColor(_viewingBoard, leaderboardEntry.Position + 1);
-			leaderboardEntryView.SetData(leaderboardEntry.Position + 1,
-				leaderboardEntry.DisplayName[..^5], -1,
-				leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.Profile.AvatarUrl, leaderboardEntry.PlayFabId, borderColor);
+			leaderboardEntryView.SetData(leaderboardEntry.Position + 1, leaderboardEntry.DisplayName[..^5], -1, leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.PlayFabId, borderColor);
+			leaderboardEntryView.SetLeaderboardEntryPFPUrl(leaderboardEntry.Profile.AvatarUrl);
 			
 			leaderboardEntryView.SetIcon(GetIconClass());
 		}
@@ -290,12 +288,10 @@ namespace FirstLight.Game.Presenters
 
 			if (_localPlayerPos != -1)
 			{
-				FLog.Verbose("Found local player in leaderboard, scrolling to it");
 				StartCoroutine(RepositionScrollToLocalPlayer());
 				return;
 			}
-
-			FLog.Verbose("Local player not found in leaderboard, getting elements near him");
+			
 			_services.LeaderboardService.GetNeighborRankLeaderboard(board.MetricName,
 				OnLeaderboardNeighborRanksReceived);
 		}
@@ -313,7 +309,8 @@ namespace FirstLight.Game.Presenters
 
 			view.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
-				trophies, true, _dataProvider.AppDataProvider.AvatarUrl, leaderboardEntry.PlayFabId, Color.white);
+				trophies, true, leaderboardEntry.PlayFabId, Color.white);
+			view.SetLeaderboardEntryPFPUrl(_dataProvider.AppDataProvider.AvatarUrl);
 			
 			view.SetIcon(GetIconClass());
 			

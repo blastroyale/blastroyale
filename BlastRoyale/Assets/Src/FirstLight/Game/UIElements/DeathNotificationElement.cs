@@ -33,13 +33,13 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _victimPfp;
 		private readonly Label _victimName;
 
-		public DeathNotificationElement() : this("FRIENDLYLONGNAME", true, string.Empty, "ENEMYLONGNAMEHI", false, string.Empty, false,
+		public DeathNotificationElement() : this("FRIENDLYLONGNAME", true, null, "ENEMYLONGNAMEHI", false, null, false,
 			GameConstants.PlayerName.DEFAULT_COLOR, GameConstants.PlayerName.DEFAULT_COLOR)
 		{
 		}
 
-		public DeathNotificationElement(string killerName, bool killerFriendly, string killerAvatarUrl, string victimName, bool victimFriendly,
-										string victimAvatarUrl, bool suicide, StyleColor killerColor, StyleColor victimColor)
+		public DeathNotificationElement(string killerName, bool killerFriendly, Sprite killerCharacterPfpSprite, string victimName, bool victimFriendly,
+										Sprite victimCharacterPfpSprite, bool suicide, StyleColor killerColor, StyleColor victimColor)
 		{
 			AddToClassList(USS_BLOCK);
 
@@ -66,11 +66,11 @@ namespace FirstLight.Game.UIElements
 			_victimPfp.AddToClassList(USS_PFP);
 			_victimPfp.AddToClassList(USS_PFP_VICTIM);
 
-			SetData(killerName, killerFriendly, killerAvatarUrl, victimName, victimFriendly, victimAvatarUrl, suicide, killerColor, victimColor);
+			SetData(killerName, killerFriendly, killerCharacterPfpSprite, victimName, victimFriendly, victimCharacterPfpSprite, suicide, killerColor, victimColor);
 		}
 
-		public void SetData(string killerName, bool killerFriendly, string killerAvatarUrl, string victimName, bool victimFriendly,
-							string victimAvatarUrl, bool suicide, StyleColor killerColor, StyleColor victimColor)
+		public void SetData(string killerName, bool killerFriendly, Sprite killerCharacterPfpSprite, string victimName, bool victimFriendly,
+							Sprite victimCharacterPfpSprite, bool suicide, StyleColor killerColor, StyleColor victimColor)
 		{
 			_killerName.text = killerName.ToUpper();
 			_victimName.text = victimName.ToUpper();
@@ -92,7 +92,9 @@ namespace FirstLight.Game.UIElements
 				//  	$"{Random.Range(1, 888)}.png");
 				// victimAvatarUrl = "https://mainnetprodflghubstorage.blob.core.windows.net/collections/corpos/1.png".Replace("1.png",
 				// 	$"{Random.Range(1, 888)}.png");
-				LoadAvatars(killerAvatarUrl, victimAvatarUrl);
+				// LoadAvatars(killerAvatarUrl, victimAvatarUrl);
+				_killerPfp.style.backgroundImage = new StyleBackground(killerCharacterPfpSprite);
+				_victimPfp.style.backgroundImage = new StyleBackground(victimCharacterPfpSprite);
 			}
 		}
 

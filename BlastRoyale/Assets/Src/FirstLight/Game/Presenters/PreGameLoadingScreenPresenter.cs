@@ -72,8 +72,7 @@ namespace FirstLight.Game.Presenters
 		private MapAreaConfig _mapAreaConfig;
 		private Vector2 _markerLocalPosition;
 		
-		private const int MaxSquadPlayers = 4; 
-
+		
 		private bool RejoiningRoom => _services.NetworkService.JoinSource.HasResync();
 
 		private void Awake()
@@ -90,11 +89,12 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements()
 		{
-			_squadContainers = new VisualElement[MaxSquadPlayers];
-			_playerMemberElements = new PlayerMemberElement[MaxSquadPlayers];
-			_partyMarkers = new VisualElement[MaxSquadPlayers-1];
+			var size = GameConstants.Data.MAX_SQUAD_MEMBERS + 1;
+			_squadContainers = new VisualElement[size];
+			_playerMemberElements = new PlayerMemberElement[size];
+			_partyMarkers = new VisualElement[size-1];
 			
-			_nameLabels = new Label[MaxSquadPlayers];
+			_nameLabels = new Label[size];
 			
 			_mapHolder = Root.Q("Map").Required();
 			_mapImage = Root.Q("MapImage").Required();
@@ -111,13 +111,13 @@ namespace FirstLight.Game.Presenters
 			
 			_header.backClicked += OnCloseClicked;
 
-			for (var i = 0; i < MaxSquadPlayers-1; i++)
+			for (var i = 0; i < size-1; i++)
 			{
 				_partyMarkers[i] = Root.Q<VisualElement>($"MarkerPoint{i}").Required();
 				_partyMarkers[i].visible = false;
 			}
 
-			for (var i = 0; i < MaxSquadPlayers; i++)
+			for (var i = 0; i < size; i++)
 			{
 				_squadContainers[i] = Root.Q<VisualElement>($"Row{i}").Required();
 				_squadContainers[i].visible = false;
@@ -171,7 +171,9 @@ namespace FirstLight.Game.Presenters
 					.Where(p => _services.TeamService.GetTeamForPlayer(p) == teamId)
 					.ToList();
 
-				for (var i = 0; i < MaxSquadPlayers; i++)
+				var size = GameConstants.Data.MAX_SQUAD_MEMBERS + 1;
+				
+				for (var i = 0; i < size; i++)
 				{
 					_squadContainers[i].SetDisplay(false);
 					_squadContainers[i].visible = false;

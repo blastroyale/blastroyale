@@ -53,7 +53,6 @@
                     <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement3" style="position: relative;" />
                     <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name3" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden; padding-left: 20px;" />
                 </ui:VisualElement>
-                <ui:ListView focusable="true" name="SquadList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" class="squad-container__list" style="display: none;" />
             </ui:VisualElement>
             <ui:Label name="DebugMasterClient" text="MASTER" class="debug-master-client" />
         </FirstLight.Game.UIElements.SafeAreaElement>

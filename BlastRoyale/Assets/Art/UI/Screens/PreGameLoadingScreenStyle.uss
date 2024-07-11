@@ -388,7 +388,7 @@
     border-top-width: 6px;
     border-bottom-width: 6px;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;
     background-color: rgba(23, 18, 53, 0);
 }
 
@@ -397,11 +397,10 @@
     width: 96px;
     height: 96px;
     bottom: -6px;
-    
 }
 
 .squad-member__pfp-mask {
-    background-image: url('project://database/Assets/Art/UI/Vectors/avatar-mask-hud.svg?fileID=7388822144124034973&guid=6bafe853b1a3dac4cacac6eb1c7e4c6f&type=3#avatar-mask-hud');
+    background-image: url("project://database/Assets/Art/UI/Vectors/avatar-mask-hud.svg?fileID=7388822144124034973&guid=6bafe853b1a3dac4cacac6eb1c7e4c6f&type=3#avatar-mask-hud");
     position: absolute;
     width: 90px;
     height: 120px;

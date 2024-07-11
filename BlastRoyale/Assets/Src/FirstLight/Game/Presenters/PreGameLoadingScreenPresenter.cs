@@ -45,7 +45,6 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _mapHolder;
 		private VisualElement _mapTitleBg;
 		private VisualElement _mapMarker;
-		private VisualElement _mapMarkerIcon;
 		private VisualElement _mapImage;
 		private VisualElement _squadContainer;
 		private VisualElement[] _partyMarkers;
@@ -64,7 +63,7 @@ namespace FirstLight.Game.Presenters
 		private bool _dropSelectionAllowed;
 		private bool _matchStarting;
 
-		private Dictionary<Player, VisualElement> _playerSquadEntries = new Dictionary<Player, VisualElement>();
+		private Dictionary<Player, VisualElement> _playerSquadEntries = new ();
 		
 		private PlayerMemberElement[] _playerMemberElements;
 
@@ -100,7 +99,6 @@ namespace FirstLight.Game.Presenters
 			_mapHolder = Root.Q("Map").Required();
 			_mapImage = Root.Q("MapImage").Required();
 			_mapMarker = Root.Q("MapMarker").Required();
-			_mapMarkerIcon = Root.Q("MapMarkerIcon").Required();
 			_mapMarkerTitle = Root.Q<Label>("MapMarkerTitle").Required();
 			_mapTitleBg = Root.Q("MapTitleBg").Required();
 			_loadStatusLabel = Root.Q<Label>("LoadStatusLabel").Required();
@@ -162,8 +160,6 @@ namespace FirstLight.Game.Presenters
 		{
 			var isSquadGame = CurrentRoom.IsTeamGame;
 			
-			//Debug.Log("RefreshPartyList");
-
 			if (isSquadGame)
 			{
 				_playerSquadEntries.Clear();
@@ -241,13 +237,6 @@ namespace FirstLight.Game.Presenters
 		}
 
 		
-		private VisualElement CreateSquadListEntry()
-		{
-			var label = new Label();
-			label.AddToClassList("squad-member");
-			return label;
-		}
-
 		/// <summary>
 		///  Select the drop zone based on percentages of the map
 		/// Range of the input is 0 to 1
@@ -337,7 +326,6 @@ namespace FirstLight.Game.Presenters
 
 			await LoadMapAsset(mapConfig);
 			InitSkydiveSpawnMapData();
-			//RefreshPartyList();
 		}
 
 		private void InitSkydiveSpawnMapData()
@@ -485,13 +473,7 @@ namespace FirstLight.Game.Presenters
 					}
 				}
 			}
-
-			/*foreach (var entry in _playerSquadEntries)
-			{
-				var nameColor = _services.TeamService.GetTeamMemberColor(entry.Key);
-				var playerMemberElement = (PlayerMemberElement)entry.Value.Children().First();
-				playerMemberElement.SetTeamColor(nameColor ?? Color.white); 
-			}*/
+			
 			RefreshPartyMarkers();
 		}
 
@@ -591,7 +573,6 @@ namespace FirstLight.Game.Presenters
 		public void OnPlayerPropertiesUpdate()
 		{
 			RefreshPartyMarkers();
-			//RefreshPartyList();
 		}
 
 		private void OnCloseClicked()

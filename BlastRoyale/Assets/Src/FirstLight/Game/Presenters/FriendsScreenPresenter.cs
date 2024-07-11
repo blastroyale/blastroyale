@@ -213,6 +213,7 @@ namespace FirstLight.Game.Presenters
 
 			var playerElement = ((FriendListElement) element)
 				.SetPlayerName(relationship.Member.Profile.Name)
+				.SetStatus(string.Empty, null)
 				.SetHeader(header)
 				.SetMoreActions(ve => OpenRequestsTooltip(ve, relationship));
 

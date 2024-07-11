@@ -120,6 +120,7 @@ namespace FirstLight.Game.Presenters
 			for (var i = 0; i < size; i++)
 			{
 				_squadContainers[i] = Root.Q<VisualElement>($"Row{i}").Required();
+				_squadContainers[i].SetDisplay(false);
 				_squadContainers[i].visible = false;
 				_playerMemberElements[i] = Root.Q<PlayerMemberElement>($"PlayerMemberElement{i}").Required();
 				_nameLabels[i] = Root.Q<Label>($"Name{i}").Required();
@@ -163,13 +164,8 @@ namespace FirstLight.Game.Presenters
 			if (isSquadGame)
 			{
 				_playerSquadEntries.Clear();
-				
-				var teamId = _services.TeamService.GetTeamForPlayer(CurrentRoom.LocalPlayer);
 
-				_squadContainer.SetDisplay(true);
-				_squadMembers = CurrentRoom.Players.Values
-					.Where(p => _services.TeamService.GetTeamForPlayer(p) == teamId)
-					.ToList();
+				SyncSquadMembersData();
 
 				var size = GameConstants.Data.MAX_SQUAD_MEMBERS + 1;
 				
@@ -197,22 +193,24 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshPartyMarkers()
 		{
+			var isSquadGame = CurrentRoom.IsTeamGame;
+
+			if (!isSquadGame)
+			{
+				return;
+			}
+			
 			foreach (var partyMarker in _partyMarkers)
 			{
 				partyMarker.visible = false;
 			}
+
+			var players = _squadMembers.Where(p => !p.IsLocal).ToList();
 			
-			for(var i=0; i<_squadMembers.Count; i++)
+			for(var i=0; i<players.Count(); i++)
 			{
-				var squadMember = _squadMembers[i];
-
-				if (squadMember.IsLocal)
-				{
-					_partyMarkers[i].visible = false;
-					
-					continue;
-				}
-
+				var squadMember = players[i];
+				
 				_partyMarkers[i].visible = true;
 				
 				var memberDropPosition = CurrentRoom.GetPlayerProperties(squadMember).DropPosition.Value;
@@ -431,6 +429,8 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 			
+			SyncSquadMembersData();
+			
 			if (reason == PlayerChangeReason.Leave)
 			{
 				_playerSquadEntries[player].SetDisplay(false);
@@ -470,6 +470,15 @@ namespace FirstLight.Game.Presenters
 			_playerMemberElements[index].SetTeamColor(nameColor ?? Color.white);
 					
 			_nameLabels[index].text = player.NickName;
+		}
+		
+		private void SyncSquadMembersData()
+		{
+			var teamId = _services.TeamService.GetTeamForPlayer(CurrentRoom.LocalPlayer);
+			
+			_squadMembers = CurrentRoom.Players.Values
+				.Where(p => _services.TeamService.GetTeamForPlayer(p) == teamId)
+				.ToList();
 		}
 
 		private void OnWaitingMandatoryMatchAssets()
@@ -569,7 +578,7 @@ namespace FirstLight.Game.Presenters
 		{
 			RefreshPartyMarkers();
 		}
-
+		
 		private void OnCloseClicked()
 		{
 			var desc = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);

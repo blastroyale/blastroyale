@@ -47,11 +47,11 @@ MonoBehaviour:
         RawValue: 10079
       AttackHitSpeed:
         RawValue: 0
-      MinAttackAngle: 60
-      NumberOfShots: 6
+      MinAttackAngle: 80
+      NumberOfShots: 7
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 65536
+        RawValue: 78643
       CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0

@@ -179,19 +179,7 @@ namespace FirstLight.Game.Presenters
 
 				for (var i = 0; i < _squadMembers.Count; i++)
 				{
-					_squadContainers[i].SetDisplay(true);
-					_squadContainers[i].visible = true;
-					
-					var loadout = CurrentRoom.GetPlayerProperties(_squadMembers[i]).Loadout;
-
-					_services.CollectionService.LoadCollectionItemSprite(
-						_services.CollectionService.GetCosmeticForGroup(loadout.Value.ToArray(), 
-							GameIdGroup.PlayerSkin)).ContinueWith(_playerMemberElements[i].SetPfpImage);
-
-					var nameColor = _services.TeamService.GetTeamMemberColor(_squadMembers[i]);
-					_playerMemberElements[i].SetTeamColor(nameColor ?? Color.white);
-					
-					_nameLabels[i].text = _squadMembers[i].NickName;
+					SetPlayerSquadEntryVisualData(_squadMembers[i], i);
 					
 					_playerSquadEntries.Add(_squadMembers[i], _squadContainers[i]);
 				}
@@ -453,21 +441,9 @@ namespace FirstLight.Game.Presenters
 				{
 					if (_squadContainers[i].style.display == DisplayStyle.None)
 					{
+						SetPlayerSquadEntryVisualData(player, i);
+						
 						_playerSquadEntries.Add(player, _squadContainers[i]);
-						
-						_squadContainers[i].SetDisplay(true);
-						_squadContainers[i].visible = true;
-						
-						var loadout = CurrentRoom.GetPlayerProperties(player).Loadout;
-
-						_services.CollectionService.LoadCollectionItemSprite(
-							_services.CollectionService.GetCosmeticForGroup(loadout.Value.ToArray(), 
-								GameIdGroup.PlayerSkin)).ContinueWith(_playerMemberElements[i].SetPfpImage);
-
-						var nameColor = _services.TeamService.GetTeamMemberColor(player);
-						_playerMemberElements[i].SetTeamColor(nameColor ?? Color.white);
-					
-						_nameLabels[i].text = player.NickName;
 						
 						break;
 					}
@@ -475,6 +451,23 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			RefreshPartyMarkers();
+		}
+
+		private void SetPlayerSquadEntryVisualData(Player player, int index)
+		{
+			_squadContainers[index].SetDisplay(true);
+			_squadContainers[index].visible = true;
+						
+			var loadout = CurrentRoom.GetPlayerProperties(player).Loadout;
+
+			_services.CollectionService.LoadCollectionItemSprite(
+				_services.CollectionService.GetCosmeticForGroup(loadout.Value.ToArray(), 
+					GameIdGroup.PlayerSkin)).ContinueWith(_playerMemberElements[index].SetPfpImage);
+
+			var nameColor = _services.TeamService.GetTeamMemberColor(player);
+			_playerMemberElements[index].SetTeamColor(nameColor ?? Color.white);
+					
+			_nameLabels[index].text = player.NickName;
 		}
 
 		private void OnWaitingMandatoryMatchAssets()

@@ -294,12 +294,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void OnUpdateAim(Frame f, FPVector2 aim, bool shooting)
 		{
 			if (!_localPlayerEntity.IsAlive(f)) return;
-
-			if (_weaponConfig.IsMeleeWeapon)
-			{
-				LegacyConeAim(f, aim, shooting);
-			}
-			else
+			
+			// Melee weapon doesn't use a damage indicator
+			if (!_weaponConfig.IsMeleeWeapon)
 			{
 				_weaponAim.gameObject.SetActive(shooting);
 				if (shooting)

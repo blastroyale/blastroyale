@@ -1206,7 +1206,7 @@ MonoBehaviour:
         - StartsAt: 13/08/2024 22:00
           EndsAt: 14/08/2024 00:00
         MatchConfig:
-          ConfigId: f30174bb
+          ConfigId: 7c0d7367
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
@@ -1285,7 +1285,7 @@ MonoBehaviour:
         - StartsAt: 27/08/2024 22:00
           EndsAt: 28/08/2024 00:00
         MatchConfig:
-          ConfigId: e743f9ce
+          ConfigId: 3d7fbad2
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
@@ -1364,7 +1364,7 @@ MonoBehaviour:
         - StartsAt: 24/08/2024 22:00
           EndsAt: 25/08/2024 00:00
         MatchConfig:
-          ConfigId: c329ee28
+          ConfigId: 84fd036d
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
@@ -1443,7 +1443,7 @@ MonoBehaviour:
         - StartsAt: 31/08/2024 22:00
           EndsAt: 01/09/2024 00:00
         MatchConfig:
-          ConfigId: 6ccebd67
+          ConfigId: 78fe1a05
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
@@ -1522,7 +1522,7 @@ MonoBehaviour:
         - StartsAt: 03/09/2024 22:00
           EndsAt: 04/09/2024 00:00
         MatchConfig:
-          ConfigId: 432928d7
+          ConfigId: a3f055a5
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
@@ -1589,7 +1589,7 @@ MonoBehaviour:
         - StartsAt: 09/08/2024 22:00
           EndsAt: 10/08/2024 00:00
         MatchConfig:
-          ConfigId: b481f40c
+          ConfigId: 54075997
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
@@ -1656,7 +1656,7 @@ MonoBehaviour:
         - StartsAt: 15/08/2024 22:00
           EndsAt: 16/08/2024 00:00
         MatchConfig:
-          ConfigId: 099ead59
+          ConfigId: 001b24ef
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
@@ -1723,7 +1723,7 @@ MonoBehaviour:
         - StartsAt: 04/09/2024 22:00
           EndsAt: 05/09/2024 00:00
         MatchConfig:
-          ConfigId: 865ccb29
+          ConfigId: b67cbbdf
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
@@ -1790,7 +1790,7 @@ MonoBehaviour:
         - StartsAt: 01/09/2024 22:00
           EndsAt: 02/09/2024 00:00
         MatchConfig:
-          ConfigId: f30174bb
+          ConfigId: 2ef1ae47
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
@@ -1868,7 +1868,7 @@ MonoBehaviour:
         - StartsAt: 30/08/2024 22:00
           EndsAt: 31/08/2024 00:00
         MatchConfig:
-          ConfigId: e743f9ce
+          ConfigId: 9c154555
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
@@ -1946,7 +1946,7 @@ MonoBehaviour:
         - StartsAt: 18/08/2024 22:00
           EndsAt: 19/08/2024 00:00
         MatchConfig:
-          ConfigId: c329ee28
+          ConfigId: a1db4209
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
@@ -2024,7 +2024,7 @@ MonoBehaviour:
         - StartsAt: 11/08/2024 22:00
           EndsAt: 12/08/2024 00:00
         MatchConfig:
-          ConfigId: 6ccebd67
+          ConfigId: 89127fd6
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
@@ -2102,7 +2102,7 @@ MonoBehaviour:
         - StartsAt: 05/09/2024 22:00
           EndsAt: 06/09/2024 00:00
         MatchConfig:
-          ConfigId: 432928d7
+          ConfigId: ba801831
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
@@ -2168,7 +2168,7 @@ MonoBehaviour:
         - StartsAt: 08/09/2024 22:00
           EndsAt: 09/09/2024 00:00
         MatchConfig:
-          ConfigId: b481f40c
+          ConfigId: d518d6a3
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
@@ -2234,7 +2234,7 @@ MonoBehaviour:
         - StartsAt: 09/09/2024 22:00
           EndsAt: 10/09/2024 00:00
         MatchConfig:
-          ConfigId: 099ead59
+          ConfigId: 936485fb
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
@@ -2300,7 +2300,7 @@ MonoBehaviour:
         - StartsAt: 23/08/2024 22:00
           EndsAt: 24/08/2024 00:00
         MatchConfig:
-          ConfigId: 865ccb29
+          ConfigId: 1f4dabb6
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
@@ -2361,8 +2361,40 @@ MonoBehaviour:
           TeamSize: 1
           Mutators: []
           WeaponsSelectionOverwrite: []
-          MetaItemDropOverwrites: []
-          RewardModifiers: []
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 655
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 1310
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 65
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
           HasBots: 1
           BotOverwriteDifficulty: -1
           MaxPlayersOverwrite: 0
@@ -2392,8 +2424,40 @@ MonoBehaviour:
           TeamSize: 2
           Mutators: []
           WeaponsSelectionOverwrite: []
-          MetaItemDropOverwrites: []
-          RewardModifiers: []
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 655
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 1310
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 65
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
           HasBots: 1
           BotOverwriteDifficulty: -1
           MaxPlayersOverwrite: 0
@@ -2423,8 +2487,40 @@ MonoBehaviour:
           TeamSize: 4
           Mutators: []
           WeaponsSelectionOverwrite: []
-          MetaItemDropOverwrites: []
-          RewardModifiers: []
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 655
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 1310
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 65
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
           HasBots: 1
           BotOverwriteDifficulty: -1
           MaxPlayersOverwrite: 0

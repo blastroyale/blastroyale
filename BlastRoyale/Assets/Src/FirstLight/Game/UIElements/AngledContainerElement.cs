@@ -74,7 +74,7 @@ namespace FirstLight.Game.UIElements
 
 			var a = resolvedStyle.scale.value;
 			var scale = new Vector3(a.x, a.y);
-			var value = IsPointInQuadrilateral(new Vector2(localPoint.x, localPoint.y), _vertexes[0], _vertexes[1] * scale, _vertexes[2] * scale, _vertexes[3] );
+			var value = IsPointInQuadrilateral(new Vector2(localPoint.x, localPoint.y), _vertexes[0], _vertexes[1] * scale, _vertexes[2] * scale, _vertexes[3]);
 			return value;
 		}
 
@@ -161,7 +161,7 @@ namespace FirstLight.Game.UIElements
 
 		private void OnGeometryChangedMask(GeometryChangedEvent evt)
 		{
-			var newPainter = new Painter2D();
+			using var newPainter = new Painter2D();
 			ToPainter(newPainter, evt.newRect, true, Color.clear, Color.clear, _borderRadius, _borderWidth, contentRect);
 			if (cachedImage == null)
 			{

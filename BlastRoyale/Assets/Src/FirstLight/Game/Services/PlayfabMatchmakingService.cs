@@ -368,7 +368,7 @@ namespace FirstLight.Game.Services
 			{
 				FLog.Info("Removing ticket from lobby properties because match was found!");
 				//_party.DeleteLobbyProperty(LOBBY_TICKET_PROPERTY).Forget();
-				_lobbyService.UpdatePartyMatchmakingTicket(null).Forget(); // TODO: Will likely break
+				//_lobbyService.UpdatePartyMatchmakingTicket(null).Forget(); // TODO: Will likely break
 			}
 		}
 

@@ -39,7 +39,7 @@ namespace FirstLight.Game.Services
 		public const string KEY_PLAYFAB_ID = "playfab_id";
 		public const string KEY_SPECTATOR = "spectator";
 		public const string KEY_MATCHMAKING_TICKET = "matchmaking_ticket";
-		public const string KEY_MATCHMAKING_QUEUE = "matchmaking_queue";
+		public const string KEY_MATCHMAKING_GAMEMODE = "matchmaking_gamemode";
 
 		public const string KEY_MATCH_SETTINGS = "match_settings";
 		public const string KEY_MATCH_ROOM_NAME = "room_name";
@@ -108,14 +108,14 @@ namespace FirstLight.Game.Services
 
 			var lobbyName = string.Format(PARTY_LOBBY_NAME, AuthenticationService.Instance.PlayerId);
 			// TODO: Should not have to resolve services here but there's a circular dependency
-			var currentGameModeQueue = MainInstaller.ResolveServices().GameModeService.SelectedGameMode.Value.Entry.PlayfabQueue.QueueName;
+			var currentGameMode = MainInstaller.ResolveServices().GameModeService.SelectedGameMode.Value.Entry.MatchConfig.ConfigId;
 			var options = new CreateLobbyOptions
 			{
 				IsPrivate = true,
 				Player = CreateLocalPlayer(),
 				Data = new ()
 				{
-					{KEY_MATCHMAKING_QUEUE, new DataObject(DataObject.VisibilityOptions.Member, currentGameModeQueue)},
+					{KEY_MATCHMAKING_GAMEMODE, new DataObject(DataObject.VisibilityOptions.Member, currentGameMode)},
 					{KEY_MATCHMAKING_TICKET, new DataObject(DataObject.VisibilityOptions.Member, null)}
 				}
 			};
@@ -315,7 +315,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates the matchmaking ticket for the current party.
 		/// </summary>
-		public async UniTask<bool> UpdatePartyMatchmakingQueue(string queue)
+		public async UniTask<bool> UpdatePartyMatchmakingGameMode(string modeID)
 		{
 			Assert.IsNotNull(CurrentPartyLobby, "Trying to update party matchmaking queue but the player is not in one!");
 
@@ -324,7 +324,7 @@ namespace FirstLight.Game.Services
 				Data = new Dictionary<string, DataObject>
 				{
 					{
-						KEY_MATCHMAKING_QUEUE, queue == null ? null : new DataObject(DataObject.VisibilityOptions.Member, queue)
+						KEY_MATCHMAKING_GAMEMODE, modeID == null ? null : new DataObject(DataObject.VisibilityOptions.Member, modeID)
 					}
 				}
 			};

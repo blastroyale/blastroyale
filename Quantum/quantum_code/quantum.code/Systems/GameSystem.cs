@@ -47,7 +47,6 @@ namespace Quantum.Systems
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
-			SetupWeaponPool(f, component);
 		}
 
 		/// <inheritdoc />
@@ -100,23 +99,6 @@ namespace Quantum.Systems
 				var inc = container->PlayersData[playerKiller].PlayersKilledCount - container->CurrentProgress;
 
 				container->UpdateGameProgress(f, inc);
-			}
-		}
-
-		private void SetupWeaponPool(Frame f, GameContainer* component)
-		{
-			var isHammerTimeMutator = f.Context.Mutators.HasFlagFast(Mutator.HammerTime);
-			var offPool = new List<GameId>(GameIdGroup.Weapon.GetIds().Where(item => !item.IsInGroup(GameIdGroup.Deprecated)));
-			var count = isHammerTimeMutator ? 0 : component->DropPool.WeaponPool.Length;
-
-			offPool.Remove(GameId.Hammer);
-
-			if (!isHammerTimeMutator && f.Context.TryGetWeaponLimiterMutator(out var forcedWeaponId))
-			{
-				for (var i = 0; i < count; i++)
-				{
-					component->DropPool.WeaponPool[i] = Equipment.Create(f, forcedWeaponId, EquipmentRarity.Common, 1);
-				}
 			}
 		}
 

@@ -17,15 +17,5 @@ namespace Quantum
 		public int TargetPlayerLineOfSightLayerMask { get; internal set; }
 		public int TargetPlayersMask { get; internal set; }
 		public int TargetPlayerTriggersLayerIndex { get; internal set; }
-		
-		// TODO: Refactor this hardcode
-		/// <summary>
-		/// Requests the weapon GameId if forced by mutator
-		/// </summary>
-		public bool TryGetWeaponLimiterMutator(out GameId weaponLimitId)
-		{
-			weaponLimitId = default(GameId);
-			return false;
-		}
 	}
 }

@@ -12,7 +12,6 @@ using FirstLight.Game.Services.Party;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
-using FirstLight.Services;
 using Quantum;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
@@ -97,13 +96,9 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IGameModeService"/>
 	public class GameModeService : IGameModeService
 	{
-		private const string SelectedQueueLobbyProperty = "selected_queue";
-
 		private const int NextEventsDisplayDaysBefore = 3;
 		private readonly IConfigsProvider _configsProvider;
-		private readonly IThreadService _threadService;
 		private readonly FLLobbyService _lobbyService;
-		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IAppDataProvider _appDataProvider;
 		private readonly LocalPrefsService _localPrefsService;
 		private readonly IRemoteTextureService _remoteTextureService;
@@ -151,13 +146,10 @@ namespace FirstLight.Game.Services
 
 		public IObservableListReader<GameModeInfo> Slots => _slots;
 
-		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService,
-							   IGameDataProvider gameDataProvider, FLLobbyService lobbyService,
+		public GameModeService(IConfigsProvider configsProvider, FLLobbyService lobbyService,
 							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService, IRemoteTextureService remoteTextureService)
 		{
 			_configsProvider = configsProvider;
-			_threadService = threadService;
-			_gameDataProvider = gameDataProvider;
 			_lobbyService = lobbyService;
 			_appDataProvider = appDataProvider;
 			_localPrefsService = localPrefsService;
@@ -219,7 +211,7 @@ namespace FirstLight.Game.Services
 			if (_lobbyService.CurrentPartyLobby != null && _lobbyService.CurrentPartyLobby.IsLocalPlayerHost())
 			{
 				// TODO: Should wait for this or something
-				_lobbyService.UpdatePartyMatchmakingQueue(current.Entry.PlayfabQueue.QueueName).Forget();
+				_lobbyService.UpdatePartyMatchmakingGameMode(current.Entry.MatchConfig.ConfigId).Forget();
 			}
 		}
 
@@ -228,7 +220,7 @@ namespace FirstLight.Game.Services
 			if (!lobby.IsLocalPlayerHost())
 			{
 				SelectedGameMode.Value =
-					_slots.FirstOrDefault(a => a.Entry.PlayfabQueue.QueueName == lobby.Data[FLLobbyService.KEY_MATCHMAKING_QUEUE].Value);
+					_slots.FirstOrDefault(a => a.Entry.MatchConfig.ConfigId == lobby.Data[FLLobbyService.KEY_MATCHMAKING_GAMEMODE].Value);
 			}
 		}
 
@@ -236,9 +228,9 @@ namespace FirstLight.Game.Services
 		{
 			if (changes.LobbyDeleted) return;
 
-			if (changes.Data.Changed && changes.Data.Value.TryGetValue(FLLobbyService.KEY_MATCHMAKING_QUEUE, out var queue))
+			if (changes.Data.Changed && changes.Data.Value.TryGetValue(FLLobbyService.KEY_MATCHMAKING_GAMEMODE, out var gameModeConfig))
 			{
-				SelectedGameMode.Value = _slots.FirstOrDefault(a => a.Entry.PlayfabQueue.QueueName == queue.Value.Value);
+				SelectedGameMode.Value = _slots.FirstOrDefault(a => a.Entry.MatchConfig.ConfigId == gameModeConfig.Value.Value);
 			}
 
 			if (_lobbyService.CurrentPartyLobby.IsLocalPlayerHost() && (changes.PlayerJoined.Changed || changes.PlayerLeft.Changed))

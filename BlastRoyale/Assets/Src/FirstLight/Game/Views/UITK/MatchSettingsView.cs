@@ -22,10 +22,13 @@ namespace FirstLight.Game.Views.UITK
 	{
 		private IGameServices _services;
 
+		private const string BOT_SLIDER_HIDDEN = "bots-slider--hidden";
+		private const string HORIZONTAL_SCROLL_PICKER_HIDDEN = "horizontal-scroll-picker--hidden";
+
 		[Q("unity-tabs-container")] private VisualElement _tabsContainer;
 		[Q("Title")] private LocalizedLabel _bigTitle;
 		[Q("GameInfo")] private VisualElement _gameInfoContainer;
-		
+
 		[Q("ModeButton")] private MatchSettingsButtonElement _modeButton;
 		[Q("MapButton")] private MatchSettingsButtonElement _mapButton;
 		[Q("TeamSizeButton")] private MatchSettingsButtonElement _teamSizeButton;
@@ -44,9 +47,9 @@ namespace FirstLight.Game.Views.UITK
 
 		[Q("PrivateRoomToggle")] private Toggle _privateRoomToggle;
 		[Q("ShowCreatorNameToggle")] private Toggle _showCreatorNameToggle;
-		
-		[Q("SpectatorToggle")]private LocalizedToggle _spectatorToggle;
-		[Q("SpectatorsScrollView")]private ScrollView _spectatorsScrollView;
+
+		[Q("SpectatorToggle")] private LocalizedToggle _spectatorToggle;
+		[Q("SpectatorsScrollView")] private ScrollView _spectatorsScrollView;
 
 		[Q("MainActionButton")] private LocalizedButton _mainActionButton;
 
@@ -83,14 +86,14 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnAllowBotsToggle(ChangeEvent<bool> e)
 		{
-			_botDifficultySlider.EnableInClassList("bots-slider--hidden", !e.newValue);
+			_botDifficultySlider.EnableInClassList(BOT_SLIDER_HIDDEN, !e.newValue);
 			_botDifficultySlider.value = MatchSettings.BotDifficulty = e.newValue ? 1 : 0;
 		}
 
 		private void OnMutatorsToggle(ChangeEvent<bool> e)
 		{
 			_mutatorsTurnedOn = e.newValue;
-			_mutatorsContainer.EnableInClassList("horizontal-scroll-picker--hidden", !e.newValue);
+			_mutatorsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN, !e.newValue);
 
 			if (!e.newValue)
 			{
@@ -102,7 +105,7 @@ namespace FirstLight.Game.Views.UITK
 		private void OnWeaponFilterToggle(ChangeEvent<bool> e)
 		{
 			_weaponFilterTurnedOn = e.newValue;
-			_filterWeaponsContainer.EnableInClassList("horizontal-scroll-picker--hidden", !e.newValue);
+			_filterWeaponsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN, !e.newValue);
 
 			if (!e.newValue)
 			{
@@ -123,7 +126,7 @@ namespace FirstLight.Game.Views.UITK
 		public void SetSpectators(List<Player> spectators)
 		{
 			_spectatorsScrollView.Clear();
-			
+
 			foreach (var player in spectators)
 			{
 				var isHost = player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId;
@@ -132,7 +135,7 @@ namespace FirstLight.Game.Views.UITK
 
 				_spectatorsScrollView.Add(playerElement);
 
-				// TODO mihak: Clicks
+				// TODO mihak: Implement tooltip
 				// if (!isLocal)
 				// {
 				// 	playerElement.userData = player;
@@ -227,8 +230,8 @@ namespace FirstLight.Game.Views.UITK
 			_mutatorsToggle.value = mutators.Length > 0 || _mutatorsTurnedOn;
 			_allowBotsToggle.value = MatchSettings.BotDifficulty > 0;
 			_botDifficultySlider.value = MatchSettings.BotDifficulty;
-			_botDifficultySlider.EnableInClassList("bots-slider--hidden", !_allowBotsToggle.value);
-			_mutatorsContainer.EnableInClassList("horizontal-scroll-picker--hidden",
+			_botDifficultySlider.EnableInClassList(BOT_SLIDER_HIDDEN, !_allowBotsToggle.value);
+			_mutatorsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN,
 				!_mutatorsToggle.value); // TODO mihak: I shouldn't have to do this
 
 			foreach (var mutator in mutators)
@@ -241,7 +244,7 @@ namespace FirstLight.Game.Views.UITK
 			_filterWeaponsScroller.Clear();
 			var weaponFilter = MatchSettings.WeaponFilter;
 			_filterWeaponsToggle.value = weaponFilter.Count > 0 || _weaponFilterTurnedOn;
-			_filterWeaponsContainer.EnableInClassList("horizontal-scroll-picker--hidden",
+			_filterWeaponsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN,
 				!_filterWeaponsToggle.value); // TODO mihak: I shouldn't have to do this
 
 			foreach (var weapon in weaponFilter)

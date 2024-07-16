@@ -248,7 +248,6 @@
     <Compile Include="Components\Stats.cs" />
     <Compile Include="Components\StatusModifiers.cs" />
     <Compile Include="Components\EquipmentCollectable.cs" />
-    <Compile Include="Components\WeaponDropPool.cs" />
     <Compile Include="Configs\Constants.cs" />
     <Compile Include="Configs\GameId.cs" />
     <Compile Include="Configs\QuantumBaseEquipmentStatConfig.cs" />
@@ -386,7 +385,6 @@
     <Content Include="Components\Targetable.qtn" />
     <Content Include="Components\EquipmentCollectable.qtn" />
     <Content Include="Components\Triggers.qtn" />
-    <Content Include="Components\WeaponDropPool.qtn" />
     <Content Include="Components\Revive.qtn" />
     <Content Include="Configs\Configs.qtn" />
     <Content Include="Configs\GameId.qtn" />

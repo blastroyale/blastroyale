@@ -77,14 +77,14 @@ namespace FirstLight.Game.StateMachines
 			mainMenu.OnEnter(() =>
 			{
 				// TODO mihak: Add localization
-				FriendsService.Instance.SetPresenceAsync(Availability.Online, new PlayerActivity {Status = "In main menu"}).AsUniTask().Forget();
+				FriendsService.Instance.SetPresenceAsync(Availability.Online, new FriendActivity {Status = "In main menu"}).AsUniTask().Forget();
 			});
 
 			match.Nest(_matchState.Setup).Target(mainMenu);
 			match.OnEnter(() =>
 			{
 				// TODO mihak: Add localization
-				FriendsService.Instance.SetPresenceAsync(Availability.Online, new PlayerActivity {Status = "Playing a match"}).AsUniTask().Forget();
+				FriendsService.Instance.SetPresenceAsync(Availability.Online, new FriendActivity {Status = "Playing a match"}).AsUniTask().Forget();
 			});
 
 			// TODO - Decide what to do if join room fails

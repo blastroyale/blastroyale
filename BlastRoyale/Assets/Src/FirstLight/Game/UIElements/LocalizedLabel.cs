@@ -25,14 +25,8 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void Localize(string key)
 		{
-			if (!LocalizationManager.TryGetTranslation(key, out var translation))
-			{
-				translation = key;
-				Debug.LogWarning($"Could not find translation for key {key} in element " + name);
-			}
-
 			localizationKey = key;
-			text = translation;
+			text = LocalizationManager.TryGetTranslation(key, out var translation) ? translation : $"#{key}#";
 		}
 
 		public new class UxmlFactory : UxmlFactory<LocalizedLabel, UxmlTraits>

@@ -1,0 +1,14 @@
+.content {
+    width: 1391px;
+}
+
+.description {
+    font-size: 32px;
+    color: rgb(132, 117, 166);
+    -unity-text-align: upper-center;
+    padding-bottom: 76px;
+}
+
+.slider-with-buttons {
+    margin-bottom: 66px;
+}

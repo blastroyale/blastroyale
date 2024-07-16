@@ -1003,6 +1003,10 @@
     background-image: var(--sprite-home__icon-heroes);
 }
 
+.button-with-icon--party > .button-with-icon__icon {
+    background-image: var(--sprite-home__icon-party);
+}
+
 .button-with-icon--leaderboards > .button-with-icon__icon {
     background-image: var(--sprite-home__icon-leaderboards);
 }
@@ -1026,69 +1030,6 @@
 
 .button-with-pool {
     margin-top: 51px;
-}
-
-.squad-member {
-    font-size: 32px;
-    background-color: rgba(16, 12, 34, 0.59);
-    -unity-text-align: middle-left;
-}
-
-.squad-member.unity-collection-view__item--alternative-background {
-    background-color: rgba(0, 0, 0, 0);
-}
-
-.squad-container__roomcode {
-    font-size: 32px;
-    background-color: rgb(196, 194, 220);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding-left: 8px;
-    padding-right: 8px;
-    color: rgb(16, 12, 34);
-    top: 3px;
-    position: absolute;
-}
-
-.squad-container {
-    flex-grow: 1;
-    height: 66px;
-    position: absolute;
-    width: 341px;
-    top: auto;
-    bottom: 88px;
-    flex-direction: column-reverse;
-}
-
-.squad-container__header {
-    flex-direction: row;
-    background-color: rgb(16, 12, 34);
-    padding-left: 5px;
-    padding-right: 4px;
-    align-items: center;
-    -unity-text-align: upper-left;
-    justify-content: center;
-    -unity-slice-right: 0;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    transition-property: height;
-    transition-timing-function: ease-in-out;
-    transition-duration: 0.33s;
-    top: auto;
-    right: auto;
-    left: auto;
-    position: relative;
-    height: 100%;
-}
-
-.squad-container__header--hidden {
-    height: 0;
-}
-
-.squad-container__header--hidden > .squad-container__roomcode {
-    display: none;
 }
 
 .matchmaking-container {

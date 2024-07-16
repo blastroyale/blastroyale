@@ -1,3 +1,4 @@
+using QuickEye.UIToolkit;
 using UnityEngine.UIElements;
 
 namespace FirstLight.UIService
@@ -43,6 +44,7 @@ namespace FirstLight.UIService
 		{
 			Element = element;
 			Presenter = presenter;
+			Element.AssignQueryResults(this);
 			Attached();
 		}
 	}

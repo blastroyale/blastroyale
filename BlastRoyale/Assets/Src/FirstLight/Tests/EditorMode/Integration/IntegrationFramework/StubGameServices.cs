@@ -44,8 +44,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IGameModeService GameModeService { get; }
 		public virtual IMatchmakingService MatchmakingService { get; }
 		public virtual IIAPService IAPService { get; }
-		public virtual IPartyService PartyService { get; }
-		
 		public RateAndReviewService RateAndReviewService { get; }
 		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
@@ -55,12 +53,14 @@ namespace FirstLight.Tests.EditorMode
 		public IControlSetupService ControlsSetup { get; set; }
 		public IRoomService RoomService { get; }
 		public IGameAppService GameAppService { get; set; }
-
 		public IBattlePassService BattlePassService { get; }
 		public ITeamService TeamService { get; }
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; set; }
 		public LocalPrefsService LocalPrefsService { get; }
+		public FLLobbyService FLLobbyService { get; }
+		public NotificationService NotificationService { get; }
+		public DeepLinkService DeepLinkService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
@@ -91,6 +91,9 @@ namespace FirstLight.Tests.EditorMode
 			AudioFxService = new GameAudioFxService(assetResolverService, LocalPrefsService);
 			ThreadService = new ThreadService();
 
+			NotificationService = new NotificationService(UIService);
+
+			DeepLinkService = new DeepLinkService(MessageBrokerService, UIService);
 
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();
@@ -100,14 +103,12 @@ namespace FirstLight.Tests.EditorMode
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();
 			TickService = new StubTickService();
+			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, NotificationService, LocalPrefsService);
 			CoroutineService = new StubCoroutineService();
-			PartyService = Substitute.For<IPartyService>();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
-			GameModeService = new GameModeService(ConfigsProvider, RemoteTextureService,
-				PartyService, gameLogic.AppDataProvider, LocalPrefsService);
-			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService,
-				MessageBrokerService, NetworkService, GameBackendService, ConfigsProvider, LocalPrefsService);
+			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService);
+			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService, GameBackendService, ConfigsProvider, LocalPrefsService);
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
 			RoomService = Substitute.For<IRoomService>();
 			CollectionService = Substitute.For<ICollectionService>();

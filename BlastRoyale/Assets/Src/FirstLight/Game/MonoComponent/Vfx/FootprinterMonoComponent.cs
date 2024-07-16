@@ -92,9 +92,9 @@ public class FootprinterMonoComponent : MonoBehaviour
 		if (_view.EntityRef.IsBot(f)) return _view.transform.rotation;
 
 		
-		if (f.TryGet<AIBlackboardComponent>(_view.EntityRef, out var bb) && bb.HasEntry(f, Constants.MoveDirectionKey))
+		if (f.TryGet<AIBlackboardComponent>(_view.EntityRef, out var bb) && bb.HasEntry(f, Constants.MOVE_DIRECTION_KEY))
 		{
-			return Quaternion.LookRotation(bb.GetVector2(f, Constants.MoveDirectionKey).ToUnityVector3());
+			return Quaternion.LookRotation(bb.GetVector2(f, Constants.MOVE_DIRECTION_KEY).ToUnityVector3());
 		}
 
 		return _view.transform.rotation;

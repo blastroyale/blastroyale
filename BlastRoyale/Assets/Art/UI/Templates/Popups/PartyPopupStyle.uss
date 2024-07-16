@@ -1,0 +1,86 @@
+.category-title {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    margin-left: 30px;
+    margin-bottom: 16px;
+}
+
+.main-container {
+    flex-grow: 1;
+    margin-left: 39px;
+}
+
+.container-your-team {
+    border-radius: 30px;
+    background-color: rgb(22, 20, 38);
+    min-height: 162px;
+    max-height: 340px;
+    padding: 28px;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    margin-bottom: 27px;
+}
+
+.container-online-friends {
+    border-radius: 30px;
+    padding: 28px;
+    background-color: rgb(22, 20, 38);
+    flex-grow: 1;
+}
+
+.category-content--green {
+}
+
+.party-joined {
+}
+
+.party-joined .container-your-team {
+    background-color: rgb(64, 169, 28);
+}
+
+.party-joined #CreatePartyButton {
+    display: none;
+}
+
+.party-joined #JoinPartyButton {
+    display: none;
+}
+
+.party-joined #CodeContainer {
+    display: flex;
+}
+
+#LeavePartyButton {
+    display: none;
+}
+
+.party-joined #LeavePartyButton {
+    display: flex;
+}
+
+.container-code {
+    height: 296px;
+    background-color: rgb(22, 20, 38);
+    border-radius: 30px;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    width: 465px;
+}
+
+.container-your-team > .friend-list-element {
+    width: 380px;
+}
+
+.content {
+    flex-direction: row;
+    height: 825px;
+    width: 1678px;
+}
+
+.sidebar {
+    width: 441px;
+    padding-top: 65px;
+    align-items: center;
+}

@@ -29,7 +29,6 @@ namespace FirstLight.Game.Presenters
 		{
 			public string PlayfabID;
 			public string UnityID;
-			public Action OnCloseClicked;
 			public Action OnEditNameClicked;
 		}
 
@@ -57,6 +56,19 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
 
+		/// <summary>
+		/// Opens the screen and loads the player statistics for the given Unity ID
+		/// </summary>
+		public static async UniTask Open(string unityID)
+		{
+			var services = MainInstaller.ResolveServices();
+
+			await services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new StateData
+			{
+				UnityID = unityID,
+			});
+		}
+
 		protected override void QueryElements()
 		{
 			_statLabels = new Label[StatisticMaxSize];
@@ -73,8 +85,8 @@ namespace FirstLight.Game.Presenters
 				editNameButton.SetVisibility(false);
 			}
 
-			Root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
-			Root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
+			Root.Q<ImageButton>("CloseButton").clicked += Close;
+			Root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, PlayerStatisticsPopupPresenter>((_, p) => p.Close(), this);
 
 			_pfpImage = Root.Q<PlayerAvatarElement>("Avatar").Required();
 			_content = Root.Q<VisualElement>("Content").Required();
@@ -101,6 +113,11 @@ namespace FirstLight.Game.Presenters
 			_nameLabel.text = AuthenticationService.Instance.GetPlayerName();
 			SetupPopup().Forget();
 			return base.OnScreenOpen(reload);
+		}
+
+		private void Close()
+		{
+			_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();
 		}
 
 		protected override UniTask OnScreenClose()
@@ -135,11 +152,11 @@ namespace FirstLight.Game.Presenters
 
 			// If PlayfabID is null we fetch it from CloudSave.
 			Data.PlayfabID ??= await CloudSaveService.Instance.LoadPlayfabID(Data.UnityID);
-			
+
 			if (!_services.UIService.IsScreenOpen<PlayerStatisticsPopupPresenter>()) return;
-			
+
 			FLog.Info("Downloading profile for " + Data.PlayfabID);
-			
+
 			_services.ProfileService.GetPlayerPublicProfile(Data.PlayfabID, (result) =>
 			{
 				// TODO: Race condition if you close and quickly reopen the popup

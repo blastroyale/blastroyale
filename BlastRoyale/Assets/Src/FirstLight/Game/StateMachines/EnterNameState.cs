@@ -95,7 +95,7 @@ namespace FirstLight.Game.StateMachines
 
 			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.enter_your_name,
 				ScriptLocalization.UITHomeScreen.new_name_desc,
-				AuthenticationService.Instance.GetPlayerName(),
+				AuthenticationService.Instance.GetPlayerName(true, false),
 				confirmButton, false);
 		}
 

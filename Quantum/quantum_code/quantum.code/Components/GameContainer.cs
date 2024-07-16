@@ -159,7 +159,13 @@ namespace Quantum
 		/// </summary>
 		public Equipment GenerateNextWeapon(Frame f)
 		{
-			return DropPool.WeaponPool[f.RNG->Next(0, DropPool.WeaponPool.Length)];
+			var filter = f.RuntimeConfig.MatchConfigs.WeaponsSelectionOverwrite;
+
+			var offPool = GameIdGroup.Weapon.GetIds()
+					.Where(item => !item.IsInGroup(GameIdGroup.Deprecated))
+					.Where(item => filter.Length == 0 || filter.Contains(item.ToString())).ToList();
+			
+			return Equipment.Create(f, offPool[f.RNG->Next(0, offPool.Count)], EquipmentRarity.Common, 1);
 		}
 
 		#region Player Rank Sorters

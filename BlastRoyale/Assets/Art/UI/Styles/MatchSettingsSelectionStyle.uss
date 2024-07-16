@@ -1,0 +1,57 @@
+.match-settings-selection {
+    width: 591px;
+    height: 258px;
+    background-image: var(--sprite-home__background-friends-player);
+    flex-direction: row;
+    align-items: center;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin: 15px;
+    transition-duration: 0.1s;
+    border-top-width: 8px;
+    border-right-width: 8px;
+    border-bottom-width: 8px;
+    border-left-width: 8px;
+}
+
+.match-settings-selection:active {
+    scale: 0.95 0.95;
+}
+
+.match-settings-selection__title {
+    font-size: 38px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.match-settings-selection__subtitle {
+    font-size: 30px;
+    color: rgb(132, 117, 166);
+}
+
+.match-settings-selection__text-container {
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.match-settings-selection__image {
+    width: 220px;
+    height: 220px;
+}
+
+.match-settings-selection--selected {
+    border-left-color: rgb(64, 169, 28);
+    border-right-color: rgb(64, 169, 28);
+    border-top-color: rgb(64, 169, 28);
+    border-bottom-color: rgb(64, 169, 28);
+    border-top-width: 8px;
+    border-right-width: 8px;
+    border-bottom-width: 8px;
+    border-left-width: 8px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}

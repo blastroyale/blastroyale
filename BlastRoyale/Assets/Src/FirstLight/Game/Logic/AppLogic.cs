@@ -56,12 +56,6 @@ namespace FirstLight.Game.Logic
 		IReadOnlyDictionary<string, string> TitleData { get; }
 
 		/// <summary>
-		/// Sets last custom game options
-		/// </summary>
-		/// <param name="options"></param>
-		void SetLastCustomGameOptions(CustomGameOptions options);
-
-		/// <summary>
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		void MarkGameAsReviewed();

@@ -40,7 +40,6 @@
 
 .loading-label {
     font-size: 42px;
-    color: rgb(49, 45, 71);
     position: absolute;
     bottom: 60px;
     left: 178px;

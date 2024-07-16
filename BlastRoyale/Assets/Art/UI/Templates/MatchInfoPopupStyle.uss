@@ -1,0 +1,109 @@
+.content {
+    width: 1372px;
+    height: 702px;
+    flex-direction: row;
+}
+
+.content__left {
+    width: 583px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 35px;
+    padding-left: 35px;
+}
+
+.conten__right {
+    flex-grow: 1;
+    padding-top: 7px;
+    padding-right: 16px;
+}
+
+.title {
+    font-size: 48px;
+    -unity-text-align: upper-center;
+    color: rgb(255, 199, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.thumbnail {
+    height: 288px;
+    width: 288px;
+    margin-top: 37px;
+    align-self: center;
+    margin-bottom: 37px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.friends-playing-label {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-align: upper-center;
+}
+
+.friends-playing-container {
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 17px;
+    flex-direction: row;
+    justify-content: center;
+    max-height: 219px;
+}
+
+.friends-playing-container > Label {
+    font-size: 28px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(64, 169, 28);
+    height: 42px;
+    -unity-text-align: middle-left;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-top-left-radius: 21px;
+    border-top-right-radius: 21px;
+    border-bottom-right-radius: 21px;
+    border-bottom-left-radius: 21px;
+    margin-bottom: 15px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.summary-title {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    margin-bottom: 11px;
+}
+
+.match-settings-button {
+    width: 371px;
+}
+
+.summary {
+    background-color: rgb(22, 20, 38);
+    border-top-left-radius: 31px;
+    border-top-right-radius: 31px;
+    border-bottom-right-radius: 31px;
+    border-bottom-left-radius: 31px;
+    font-size: 28px;
+    color: rgb(132, 117, 166);
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-bottom: 27px;
+}
+
+.row {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.join-button {
+    align-self: center;
+}

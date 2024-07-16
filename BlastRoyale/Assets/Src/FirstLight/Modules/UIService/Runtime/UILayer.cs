@@ -1,7 +1,7 @@
 namespace FirstLight.UIService
 {
 	/// <summary>
-	/// The layers that the UI can be on. These are not serialized so they can be changed at any time.
+	/// The layers that the UI can be on. These are not serialized, so they can be changed at any time.
 	/// </summary>
 	public enum UILayer
 	{
@@ -13,6 +13,8 @@ namespace FirstLight.UIService
 
 		Loading = 5,
 		Foreground = 6,
+		
+		Notifications = 7,
 
 		LegacyVFXHack = 10,
 		

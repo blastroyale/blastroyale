@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Styles/MatchSettingsSelectionStyle.uss?fileID=7433441132597879392&amp;guid=be9517bcfa2b4682ab6db57c13e7629e&amp;type=3#MatchSettingsSelectionStyle" />
+    <Style src="project://database/Assets/Art/UI/Templates/Popups/SelectSquadSizePopupStyle.uss?fileID=7433441132597879392&amp;guid=fbae38cab5cdf46f4a803cdf05ed536c&amp;type=3#SelectSquadSizePopupStyle" />
+    <ui:VisualElement name="Content" class="content">
+        <FirstLight.Game.UIElements.MatchSettingsSelectionElement name="Solos" title-localization-key="UITGameModeSelection/br_solo_title" subtitle-localization-key="UITGameModeSelection/br_solo_description" />
+        <FirstLight.Game.UIElements.MatchSettingsSelectionElement name="Duos" title-localization-key="UITGameModeSelection/br_duos_title" subtitle-localization-key="UITGameModeSelection/br_duos_description" />
+        <FirstLight.Game.UIElements.MatchSettingsSelectionElement name="Quads" title-localization-key="UITGameModeSelection/br_quads_title" subtitle-localization-key="UITGameModeSelection/br_quads_description" />
+    </ui:VisualElement>
+</ui:UXML>

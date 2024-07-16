@@ -26,33 +26,37 @@ namespace Quantum
 		public static readonly FP DROP_Y_POSITION = FP._0_10;
 		public static readonly FP SHRINKINGCIRCLE_NAVMESH_CORRECTION_RADIUS = FP._10;
 
-		public static readonly int TEAM_ID_NEUTRAL = 0;
-		public static readonly int TEAM_ID_START_PLAYERS = 100;
-		public static readonly int TEAM_ID_START_PARTIES = 200;
-		public static readonly int TEAM_ID_START_BOT_PARTIES = 300;
+		public const int TEAM_ID_NEUTRAL = 0;
+		public const int TEAM_ID_START_PLAYERS = 100;
+		public const int TEAM_ID_START_PARTIES = 200;
+		public const int TEAM_ID_START_BOT_PARTIES = 300;
 
-		public static readonly string DeadEvent = "OnDead";
-		public static readonly string RespawnEvent = "OnRespawn";
-		public static readonly string StunnedEvent = "OnStunned";
-		public static readonly string KnockedOutEvent = "OnKnockedOut";
-		public static readonly string StunCancelledEvent = "OnStunCancelled";
-		public static readonly string ChangeWeaponEvent = "OnWeaponChanged";
-		public static readonly string StunDurationKey = "StunDuration";
-		public static readonly string AimDirectionKey = "AimDirection";
-		public static readonly string MoveDirectionKey = "MoveDirection";
-		public static readonly string TargetAim = "MoveDirection";
-		public static readonly string MoveSpeedKey = "MoveSpeed";
-		public static readonly string AccuracyLerp = "MoveSpeed";
-		public static readonly string HasMeleeWeaponKey = "HasMeleeWeapon";
-		public static readonly string BurstTimeDelay = "BurstTimeDelay";
-		public static readonly string BurstShotCount = "BurstShotCount";
-		public static readonly string NextTapTime = "NextTapTime";
-		public static readonly string NextShotTime = "NextShotTime";
-		public static readonly string LastShotAt = "LastShotAt";
-		public static readonly string RampUpTimeStart = "RampUpTimeStart";
-		public static readonly string IsAimPressedKey = "IsAimPressed";
-		public static readonly string IsSkydiving = "IsSkydiving";
-		public static readonly string IsShootingKey = "IsShooting";
-		public static readonly string IsKnockedOut = "IsKnockedOut";
+		public const string DEAD_EVENT = "OnDead";
+		public const string RESPAWN_EVENT = "OnRespawn";
+		public const string STUNNED_EVENT = "OnStunned";
+		public const string KNOCKED_OUT_EVENT = "OnKnockedOut";
+		public const string STUN_CANCELLED_EVENT = "OnStunCancelled";
+		public const string CHANGE_WEAPON_EVENT = "OnWeaponChanged";
+		public const string STUN_DURATION_KEY = "StunDuration";
+		public const string AIM_DIRECTION_KEY = "AimDirection";
+		public const string MOVE_DIRECTION_KEY = "MoveDirection";
+		public const string TARGET_AIM = "MoveDirection";
+		public const string MOVE_SPEED_KEY = "MoveSpeed";
+		public const string ACCURACY_LERP = "MoveSpeed";
+		public const string HAS_MELEE_WEAPON_KEY = "HasMeleeWeapon";
+		public const string BURST_TIME_DELAY = "BurstTimeDelay";
+		public const string BURST_SHOT_COUNT = "BurstShotCount";
+		public const string NEXT_TAP_TIME = "NextTapTime";
+		public const string NEXT_SHOT_TIME = "NextShotTime";
+		public const string LAST_SHOT_AT = "LastShotAt";
+		public const string RAMP_UP_TIME_START = "RampUpTimeStart";
+		public const string IS_AIM_PRESSED_KEY = "IsAimPressed";
+		public const string IS_SKYDIVING = "IsSkydiving";
+		public const string IS_SHOOTING_KEY = "IsShooting";
+		public const string IS_KNOCKED_OUT = "IsKnockedOut";
+		
+		public static readonly FP MUTATOR_HEALTHPERSECONDS_AMOUNT = FP._10 + FP._5;
+		public static readonly FP MUTATOR_HEALTHPERSECONDS_DURATION = FP._3;
+		public static readonly FP MUTATOR_SPEEDUP_AMOUNT = FP._1 + FP._0_33;
 	}
 }

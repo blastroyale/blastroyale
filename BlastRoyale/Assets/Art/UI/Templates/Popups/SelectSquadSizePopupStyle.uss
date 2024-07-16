@@ -1,0 +1,35 @@
+.content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 1179px;
+}
+
+.match-settings-selection {
+    flex-direction: column-reverse;
+    width: 362px;
+    height: 576px;
+}
+
+.match-settings-selection__image {
+    width: 334px;
+    height: 408px;
+    margin-top: 10px;
+    margin-bottom: 26px;
+}
+
+#Solos > .match-settings-selection__image {
+    background-image: var(--sprite-home__icon-match-solos);
+}
+
+#Duos > .match-settings-selection__image {
+    background-image: var(--sprite-home__icon-match-duos);
+}
+
+#Quads > .match-settings-selection__image {
+    background-image: var(--sprite-home__icon-match-quads);
+}
+
+.match-settings-selection__text-container {
+    align-items: center;
+}

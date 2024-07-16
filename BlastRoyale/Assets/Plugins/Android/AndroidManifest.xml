@@ -19,6 +19,9 @@
         <category android:name="android.intent.category.BROWSABLE" />
         <data android:scheme="unitydl" android:host="callback" />
         <data android:scheme="unitydl" android:host="logout" />
+        <data android:scheme="blastroyale" android:host="party" />
+        <data android:scheme="blastroyale" android:host="match" />
+        <data android:scheme="blastroyale" android:host="friend" />
       </intent-filter>
     </activity>
   </application>

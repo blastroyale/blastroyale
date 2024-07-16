@@ -312,7 +312,7 @@ namespace FirstLight.Game.StateMachines
 
 			FLog.Verbose($"Current Room Debug:{_networkService.CurrentRoom.Name}{_networkService.CurrentRoom.GetRoomDebugString()} ");
 
-			_services.PartyService.ForceRefresh(); // TODO: This should be in a "OnReconnected" callback
+			// TODO mihak: _services.PartyService.ForceRefresh(); // TODO: This should be in a "OnReconnected" callback
 
 			_networkService.SetLastRoom();
 
@@ -553,25 +553,19 @@ namespace FirstLight.Game.StateMachines
 		{
 			var gameModeId = msg.GameModeConfig.Id;
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
-			_gameDataProvider.AppDataProvider.SetLastCustomGameOptions(msg.CustomGameOptions);
-			_services.DataSaver.SaveData<AppData>();
-			var mutatorsFullList = msg.CustomGameOptions.Mutators;
-			if (msg.CustomGameOptions.WeaponLimiter != ScriptLocalization.MainMenu.None)
-			{
-				mutatorsFullList.Add(msg.CustomGameOptions.WeaponLimiter);
-			}
 
-			var setup = new MatchRoomSetup()
+			var setup = new MatchRoomSetup
 			{
-				SimulationConfig = new SimulationMatchConfig()
+				SimulationConfig = new SimulationMatchConfig
 				{
 					MapId = (int) msg.MapConfig.Map,
 					GameModeID = gameModeId,
 					MatchType = MatchType.Custom,
-					Mutators = mutatorsFullList.ToArray(),
-					MaxPlayersOverwrite = msg.CustomGameOptions.PlayersNumber,
+					Mutators = msg.CustomGameOptions.Mutators,
+					MaxPlayersOverwrite = msg.CustomGameOptions.MaxPlayers,
 					BotOverwriteDifficulty = msg.CustomGameOptions.BotDifficulty,
-					TeamSize = (uint) msg.CustomGameOptions.TeamSize,
+					TeamSize = (uint) msg.CustomGameOptions.SquadSize,
+					WeaponsSelectionOverwrite = msg.CustomGameOptions.WeaponFilter.ToArray()
 				},
 				RoomIdentifier = msg.RoomName,
 			};

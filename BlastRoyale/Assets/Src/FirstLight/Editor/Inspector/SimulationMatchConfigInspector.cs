@@ -82,7 +82,7 @@ namespace FirstLight.Editor.Inspector
 		}
 
 		public static IEnumerable<string> GameModes => GameConfigsLoader.EditorConfigProvider.GetProvider().GetConfigsList<QuantumGameModeConfig>().Select(c => c.Id);
-		public static IEnumerable<string> Mutators => GameConfigsLoader.EditorConfigProvider.GetProvider().GetConfigsList<QuantumMutatorConfig>().Select(c => c.Id);
+		public static IEnumerable<string> Mutators => Enum.GetValues(typeof(Mutator)).Cast<Mutator>().Select(m => m.ToString());
 
 		public static ValueDropdownList<int> GetMaxPlayersOverwrite()
 		{

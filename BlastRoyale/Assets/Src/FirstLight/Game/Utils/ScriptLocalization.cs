@@ -2396,6 +2396,7 @@ namespace I2.Loc
 			public static string waitforrewards_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/waitforrewards_popup_title"); } }
 			public static string waiting_for_members 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/waiting_for_members"); } }
 			public static string youre_ready 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/youre_ready"); } }
+			public static string youre_team 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/youre_team"); } }
 		}
 
 		public static class UITInbox
@@ -2723,9 +2724,13 @@ namespace I2.Loc
 
 		public static class UnlockSystems
 		{
+			public static string BattlePass 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/BattlePass"); } }
 			public static string Collection 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/Collection"); } }
 			public static string Equipment 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/Equipment"); } }
+			public static string Friends 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/Friends"); } }
 			public static string GameModes 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/GameModes"); } }
+			public static string GameModesCustomGames 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/GameModesCustomGames"); } }
+			public static string GameModesMapSelector 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/GameModesMapSelector"); } }
 			public static string Leaderboards 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/Leaderboards"); } }
 			public static string PaidBattlePass 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/PaidBattlePass"); } }
 			public static string Shop 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/Shop"); } }
@@ -5127,6 +5132,7 @@ namespace I2.Loc
 		    public const string waitforrewards_popup_title = "UITHomeScreen/waitforrewards_popup_title";
 		    public const string waiting_for_members = "UITHomeScreen/waiting_for_members";
 		    public const string youre_ready = "UITHomeScreen/youre_ready";
+		    public const string youre_team = "UITHomeScreen/youre_team";
 		}
 
 		public static class UITInbox
@@ -5454,9 +5460,13 @@ namespace I2.Loc
 
 		public static class UnlockSystems
 		{
+		    public const string BattlePass = "UnlockSystems/BattlePass";
 		    public const string Collection = "UnlockSystems/Collection";
 		    public const string Equipment = "UnlockSystems/Equipment";
+		    public const string Friends = "UnlockSystems/Friends";
 		    public const string GameModes = "UnlockSystems/GameModes";
+		    public const string GameModesCustomGames = "UnlockSystems/GameModesCustomGames";
+		    public const string GameModesMapSelector = "UnlockSystems/GameModesMapSelector";
 		    public const string Leaderboards = "UnlockSystems/Leaderboards";
 		    public const string PaidBattlePass = "UnlockSystems/PaidBattlePass";
 		    public const string Shop = "UnlockSystems/Shop";

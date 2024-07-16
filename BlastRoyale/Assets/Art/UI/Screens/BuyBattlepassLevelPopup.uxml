@@ -3,24 +3,13 @@
     <Style src="project://database/Assets/Art/UI/Styles/BuyBattlepassLevelPopup.uss?fileID=7433441132597879392&amp;guid=a3f08c07846d4e62be574aec68253440&amp;type=3#BuyBattlepassLevelPopup" />
     <ui:VisualElement name="root" class="purchase-confirmation-root">
         <ui:Button name="BlockerButton" class="blocker" />
-        <ui:VisualElement name="Popup" class="popup popup-radius popup--xl anim-delay-0 anim-translate anim-translate--down-xxxl">
-            <ui:VisualElement name="Window" class="popup-radius popup__window popup__window--full">
-                <ui:VisualElement name="Header" class="background-purple window__header window__header--xl">
-                    <ui:VisualElement name="TitleDots" class="dots-pattern" />
-                    <ui:Label name="Title" text="BUY BLAST PASS LEVELS" class="purchase-confirmation__title" />
-                    <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="window__close-button" />
-                </ui:VisualElement>
-                <ui:VisualElement name="Content" class="window__content window__content--buy-bpp">
-                    <ui:Label name="Desc" focusable="false" text="HOW MANY LEVELS OF BATTLE PASS YOU WANT TO BUY?" class="buy-bpp__desc" />
-                    <ui:VisualElement name="SliderContainer" class="purchase-confirmation__item-slot buy-bpp__slider__container">
-                        <FirstLight.Game.UIElements.SliderIntWithButtons show-input-field="false" high-value="20" inverted="false" direction="Horizontal" low-value="1" name="Slider" class="full-width" />
-                    </ui:VisualElement>
-                    <FirstLight.Game.UIElements.ImageButton name="BuyButton" class="button-long button-long--yellow purchase-confirmation__item-button ">
-                        <ui:Label tabindex="-1" text="200" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemPrice" class="purchase-confirmation__item-price-label" />
-                        <ui:VisualElement name="CostIcon" class="purchase-confirmation__button-icon" />
-                    </FirstLight.Game.UIElements.ImageButton>
-                </ui:VisualElement>
-            </ui:VisualElement>
-        </ui:VisualElement>
+        <FirstLight.Game.UIElements.GenericPopupElement style="width: 1392px; height: 793px;">
+            <ui:Label name="Desc" focusable="false" text="HOW MANY LEVELS OF BATTLE PASS YOU WANT TO BUY?" class="buy-bpp__desc" />
+            <FirstLight.Game.UIElements.SliderIntWithButtons show-input-field="false" high-value="20" inverted="false" direction="Horizontal" low-value="1" name="Slider" class="full-width" style="height: 349px;" />
+            <FirstLight.Game.UIElements.ImageButton name="BuyButton" class="button-long button-long--yellow purchase-confirmation__item-button ">
+                <ui:Label tabindex="-1" text="200" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemPrice" class="purchase-confirmation__item-price-label" />
+                <ui:VisualElement name="CostIcon" class="purchase-confirmation__button-icon" />
+            </FirstLight.Game.UIElements.ImageButton>
+        </FirstLight.Game.UIElements.GenericPopupElement>
     </ui:VisualElement>
 </ui:UXML>

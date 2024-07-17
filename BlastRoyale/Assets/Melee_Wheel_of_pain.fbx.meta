@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: 98dd3d0726669428ea92f354c35a4fcf
+guid: 50000046967c78b49baaeca6aa6d7103
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Weapons
-    second: {fileID: 2100000, guid: e8fa8f21907090640a854146d341e06c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: melee_weapons
-    second: {fileID: 2100000, guid: 6f9f5c55163a8442c99b737427c4096f, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

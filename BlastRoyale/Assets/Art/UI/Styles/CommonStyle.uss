@@ -707,7 +707,9 @@
     align-items: center;
     transition-property: opacity;
     transition-duration: 0.3s;
+    overflow: visible;
     align-self: flex-start;
+    white-space: nowrap;
     font-size: 60px;
     -unity-font-style: bold;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);

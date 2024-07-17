@@ -107,7 +107,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnNextButtonClicked()
 		{
-			if (_showingLeaderboards)
+			if (_showingLeaderboards && !_matchServices.MatchEndDataService.JoinedAsSpectator)
 			{
 				ShowRewards();
 			}
@@ -146,6 +146,14 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateRewards()
 		{
+			if (_matchServices.MatchEndDataService.JoinedAsSpectator)
+			{
+				_trophiesView.Element.SetVisibility(false);
+				_bppView.Element.SetVisibility(false);
+				_levelView.Element.SetVisibility(false);
+				return;
+			}
+			
 			var rewards = ProcessRewards();
 
 			// Trophies
@@ -327,7 +335,7 @@ namespace FirstLight.Game.Presenters
 			leaderboardEntryView.SetLeaderboardEntryPFPSprite(null);
 			
 			_collectionService.LoadCollectionItemSprite(_collectionService.GetCosmeticForGroup(playersCosmetics, GameIdGroup.PlayerSkin))
-							  .ContinueWith(leaderboardEntryView.SetLeaderboardEntryPFPSprite);
+							  .ContinueWith(leaderboardEntryView.SetLeaderboardEntryPFPSprite).Forget();
 		}
 
 		private Dictionary<GameId, int> ProcessRewards()

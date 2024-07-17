@@ -179,7 +179,18 @@ namespace FirstLight.Game.Services.RoomService
 
 		public bool InRoom => CurrentRoom != null && _networkService.InRoom;
 
-		public bool IsLocalPlayerSpectator => CurrentRoom?.LocalPlayerProperties?.Spectator?.Value ?? false;
+		public bool IsLocalPlayerSpectator
+		{
+			get
+			{
+				if (CurrentRoom == null)
+				{
+					FLog.Error("Trying to get spectator properties when room no longer exists.");
+					return false;
+				}
+				return CurrentRoom?.LocalPlayerProperties?.Spectator?.Value ?? false;
+			}
+		}
 
 		internal MatchmakingAndRoomConfig Configs => _configsProvider.GetConfig<MatchmakingAndRoomConfig>();
 		

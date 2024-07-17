@@ -153,10 +153,20 @@
 .input-field > .unity-text-field__input {
     -unity-text-align: middle-left;
     -unity-font-definition: var(--font-italic-dynamic);
+    background-color: rgb(224, 224, 224);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    height: 80px;
 }
 
 .input-field--center > .unity-text-field__input {
     -unity-text-align: middle-center;
+    align-self: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .blocker {
@@ -384,4 +394,9 @@
 }
 
 .height-spacer {
+}
+
+.generic-form-field {
+    width: 80%;
+    color: rgb(55, 52, 52);
 }

@@ -1,4 +1,4 @@
-﻿<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False" gen-cs-namespace="FirstLight.Game.Presenters" gen-cs-file="cbe4142427fcc42bfb588a8088b284db">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False" gen-cs-namespace="FirstLight.Game.Presenters" gen-cs-file="cbe4142427fcc42bfb588a8088b284db">
     <Style src="project://database/Assets/Art/UI/Screens/ConnectFlgIdScreenStyle.uss?fileID=7433441132597879392&amp;guid=62c1d9d88fd9646f987a3c9d8d48a713&amp;type=3#ConnectFlgIdScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/PopupElementStyle.uss?fileID=7433441132597879392&amp;guid=374b9cc1f935a80428e43e051f7a4fd9&amp;type=3#PopupElementStyle" />
@@ -9,9 +9,9 @@
                 <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
                 <FirstLight.Game.UIElements.LocalizedLabel name="Desc" text="DESC GOES HERE" localization-key="UITLoginRegister/recommended_to_save_progress" class="font-style-popup content__desc" />
                 <ui:VisualElement name="Spacer" class="height-spacer height-spacer--xxl" />
-                <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="input-field" />
+                <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="input-field login-form-field" />
                 <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
-                <FirstLight.Game.UIElements.PasswordFieldElement label-localization-key="UITLoginRegister/password" name="PasswordTextField" />
+                <FirstLight.Game.UIElements.PasswordFieldElement label-localization-key="UITLoginRegister/password" name="PasswordTextField" class="login-form-field" />
                 <ui:VisualElement name="Spacer" class="height-spacer height-spacer--xxxxl" />
                 <ui:VisualElement name="Controls" class="content__controls">
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/reset_password" name="ResetPasswordButton" text="RESETPASSWORD" class="button-long button-long--small-font" />
@@ -24,11 +24,11 @@
                 <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
                 <FirstLight.Game.UIElements.LocalizedLabel name="Desc" text="DESC GOES HERE" localization-key="UITLoginRegister/recommended_to_save_progress" class="font-style-popup content__desc" />
                 <ui:VisualElement name="Spacer" class="height-spacer height-spacer--xxl" />
-                <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="input-field" />
+                <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="input-field login-form-field" />
                 <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
-                <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/username" name="UsernameTextField" class="input-field" />
+                <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/username" name="UsernameTextField" class="input-field login-form-field" />
                 <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
-                <FirstLight.Game.UIElements.PasswordFieldElement label-localization-key="UITLoginRegister/password" name="PasswordTextField" />
+                <FirstLight.Game.UIElements.PasswordFieldElement label-localization-key="UITLoginRegister/password" name="PasswordTextField" class="login-form-field" />
                 <ui:VisualElement name="Spacer" class="height-spacer height-spacer--xxxxl" />
                 <ui:VisualElement name="Controls" class="content__controls">
                     <FirstLight.Game.UIElements.LocalizedButton name="RegisterButton" text="LOG IN" localization-key="UITLoginRegister/register" class="sfx-click-forwards button-long button-long--yellow" />

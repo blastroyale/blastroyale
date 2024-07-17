@@ -54,7 +54,7 @@ namespace FirstLight.Game.Presenters
 
 		private void ClosePopup()
 		{
-			_services.UIService.CloseScreen(this).Forget();
+			_services.UIService.CloseScreen<BattlePassSeasonBannerPresenter>().Forget();
 		}
 
 		private void OnClick()

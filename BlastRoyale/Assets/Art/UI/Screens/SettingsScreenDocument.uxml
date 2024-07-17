@@ -16,20 +16,20 @@
                             <ui:VisualElement name="AccountNotification" class="notification-icon button-with-icon__notification" style="top: -14px; right: -11px;" />
                         </FirstLight.Game.UIElements.TabButton>
                         <ui:VisualElement name="Sound" class="settings-container">
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/sound_effects" name="SoundEffects" class="settings-toggle" />
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/announcer" name="Announcer" class="settings-toggle" />
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/bg_music" name="BGMusic" class="settings-toggle" />
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/haptic_feedback" name="HapticFeedback" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/sound_effects" name="SoundEffects" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/announcer" name="Announcer" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/bg_music" name="BGMusic" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/haptic_feedback" name="HapticFeedback" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Graphics" class="settings-container">
-                            <FirstLight.Game.UIElements.LocalizedToggle value="0" localization-key="UITSettings/fps" name="FPSLimit" class="settings-toggle" />
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/use_overhead_ui" name="UseOverheadUI" class="settings-toggle" />
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/show_latency" name="ShowLatency" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedToggle value="0" localization-key="UITSettings/fps" name="FPSLimit" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/use_overhead_ui" name="UseOverheadUI" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/show_latency" name="ShowLatency" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Controls" class="settings-container">
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/screenshake" name="ScreenShake" class="settings-toggle" />
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/InvertSpecialCancel" name="InvertSpecialCancelling" label="Invert Special Cancelling" class="settings-toggle" />
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/switch_joysticks" name="SwitchJoysticks" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/screenshake" name="ScreenShake" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/InvertSpecialCancel" name="InvertSpecialCancelling" label="Invert Special Cancelling" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/switch_joysticks" name="SwitchJoysticks" />
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/hud_customization" name="CustomizeHud" class="button-long sfx-click-forwards" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Web3" class="settings-container settings-container--account" style="width: initial;">
@@ -42,9 +42,7 @@
                         </ui:VisualElement>
                         <ui:VisualElement name="Account" class="settings-container settings-container--account" style="width: initial;">
                             <FirstLight.Game.UIElements.LocalizedLabel name="AccountStatusLabel" localization-key="UITSettings/flg_id_connected" picking-mode="Ignore" text="You are connected to your First Light ID!" class="account-status-label" />
-                            <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITSettings/player_id" picking-mode="Ignore" name="PlayerID" value="JwaSqAKILS3YAeAfitjKQRDBtVAd" readonly="true" hide-mobile-input="true" class="player-id-input" >
-                                <FirstLight.Game.UIElements.ImageButton name="CopyButton" class="button-copy" />
-                            </FirstLight.Game.UIElements.LocalizedTextField>
+                            <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITSettings/player_id" picking-mode="Ignore" name="PlayerID" value="JwaSqAKILS3YAeAfitjKQRDBtVAd" readonly="true" hide-mobile-input="true" show-copy-button="true" />
                             <ui:VisualElement name="Buttons" class="account-buttons">
                                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/delete_account" name="DeleteAccountButton" text="FAQ" class="button-long button-long--red account-button" />
                                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/logout" name="LogoutButton" text="FAQ" class="button-long account-button" />

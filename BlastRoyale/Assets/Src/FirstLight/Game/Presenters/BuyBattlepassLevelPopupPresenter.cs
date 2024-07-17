@@ -63,25 +63,26 @@ namespace FirstLight.Game.Presenters
 			_buyButton.clicked += OnBuyButtonClicked;
 			_blockerButton.clicked += CloseRequested;
 			_closeButton.clicked += CloseRequested;
+			
+			_slider.SetTooltipFormat("+ {0} LEVELS");
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_slider.highValue = (int) _battlePassData.GetMaxPurchasableLevels(Data.OwnedCurrency);
-			_slider.lowValue = 1;
-			_slider.RegisterCallback<ChangeEvent<int>>((e) => UpdatePriceAndLevel());
+			_slider.lowValue = 2;
+			_slider.RegisterCallback<ChangeEvent<int>>(UpdatePrice);
 			var costIcon = ItemFactory.Currency(_currency, 0);
 			costIcon.GetViewModel().DrawIcon(_costIcon);
 
-			UpdatePriceAndLevel();
+			_slider.value = 2;
 
 			return base.OnScreenOpen(reload);
 		}
 
-		private void UpdatePriceAndLevel()
+		private void UpdatePrice(ChangeEvent<int> evt)
 		{
 			var val = _slider.value;
-			_slider.SetTooltipText($"+ {val} LEVEL{(val > 1 ? "S" : "")}");
 			_itemPrice.text = _battlePassData.GetPriceForBuying((uint) val).ToString();
 		}
 

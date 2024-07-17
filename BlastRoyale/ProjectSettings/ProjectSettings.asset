@@ -142,8 +142,7 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.22.0
-  preloadedAssets:
-  - {fileID: 11400000, guid: c3452a039b34041249d840c527f7b803, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -174,7 +173,7 @@ PlayerSettings:
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 22
-  AndroidTargetSdkVersion: 33
+  AndroidTargetSdkVersion: 34
   AndroidPreferredInstallLocation: 0
   aotOptions: 
   stripEngineCode: 1
@@ -233,6 +232,7 @@ PlayerSettings:
   iOSDeviceRequirements: []
   iOSURLSchemes:
   - firebase-game-loop
+  - blastroyale
   macOSURLSchemes: []
   iOSBackgroundModes: 0
   iOSMetalForceHardShadows: 0
@@ -920,7 +920,7 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform:
     Android: 6
     Standalone: 6
-    iPhone: 3
+    iPhone: 6
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: Project Phoenix

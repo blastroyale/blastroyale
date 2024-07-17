@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Styles/MatchSettingsSelectionStyle.uss?fileID=7433441132597879392&amp;guid=be9517bcfa2b4682ab6db57c13e7629e&amp;type=3#MatchSettingsSelectionStyle" />
+    <Style src="project://database/Assets/Art/UI/Templates/Popups/SelectMutatorsPopupStyle.uss?fileID=7433441132597879392&amp;guid=b8eb3be92f3154adcad10535aea55b80&amp;type=3#SelectMutatorsPopupStyle" />
+    <ui:VisualElement name="Content" class="content">
+        <ui:ScrollView name="MutatorsScrollView" vertical-scroller-visibility="Hidden" class="maps-scroller">
+            <FirstLight.Game.UIElements.MatchSettingsSelectionElement title-localization-key="HEALTHY AIR" subtitle-localization-key="Recover HP bar when not in a fight." />
+            <FirstLight.Game.UIElements.MatchSettingsSelectionElement title-localization-key="HEALTHY AIR" subtitle-localization-key="Recover HP bar when not in a fight." />
+            <FirstLight.Game.UIElements.MatchSettingsSelectionElement title-localization-key="HEALTHY AIR" subtitle-localization-key="Recover HP bar when not in a fight." />
+        </ui:ScrollView>
+        <ui:Label tabindex="-1" text="Mutators chosen: 2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SelectedMutatorsLabel" class="selected-label" />
+        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/confirm" name="ConfirmButton" class="button-long button-long--yellow button-confirm" />
+    </ui:VisualElement>
+</ui:UXML>

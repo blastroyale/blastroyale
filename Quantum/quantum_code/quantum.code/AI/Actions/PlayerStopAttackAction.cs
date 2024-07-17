@@ -14,7 +14,7 @@ namespace Quantum
 		{
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e)->Player;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			bb->Set(f, Constants.IsShootingKey, false);
+			bb->Set(f, Constants.IS_SHOOTING_KEY, false);
 			f.Events.OnPlayerStopAttack(player, e);
 		}
 	}

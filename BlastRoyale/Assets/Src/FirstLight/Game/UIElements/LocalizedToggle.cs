@@ -31,7 +31,7 @@ namespace FirstLight.Game.UIElements
 
 		public new class UxmlTraits : Toggle.UxmlTraits
 		{
-			UxmlStringAttributeDescription _localizationKeyAttribute = new()
+			UxmlStringAttributeDescription _localizationKeyAttribute = new ()
 			{
 				name = "localization-key",
 				use = UxmlAttributeDescription.Use.Required

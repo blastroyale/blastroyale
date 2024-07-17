@@ -23,7 +23,7 @@ namespace Quantum.Systems
 		{
 			foreach (var bb in f.Unsafe.GetComponentBlockIterator<AIBlackboardComponent>())
 			{
-				bb.Component->Set(f, Constants.IsAimPressedKey, false);
+				bb.Component->Set(f, Constants.IS_AIM_PRESSED_KEY, false);
 			}
 		}
 	}

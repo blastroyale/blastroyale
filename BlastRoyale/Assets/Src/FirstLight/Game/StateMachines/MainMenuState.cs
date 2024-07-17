@@ -16,6 +16,7 @@ using FirstLight.Game.Presenters.News;
 using FirstLight.Game.Presenters.Store;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Statechart;
 using FirstLight.UIService;
 using I2.Loc;
@@ -212,7 +213,10 @@ namespace FirstLight.Game.StateMachines
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
-			roomJoinCreateMenu.Event(PlayClickedEvent).OnTransition(() => OpenHomeScreen().Forget()).Target(waitMatchmaking);
+			roomJoinCreateMenu.Event(PlayClickedEvent).OnTransition(() =>
+			{
+				OpenHomeScreen().Forget();
+			}).Target(waitMatchmaking);
 			roomJoinCreateMenu.Event(_roomJoinCreateBackClickedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(_closeClickedEvent).Target(homeCheck);
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
@@ -225,7 +229,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				OnBackClicked = () => wait.Complete()
 			};
-            
+
 			await _services.UIService.OpenScreen<FriendsScreenPresenter>(data);
 		}
 
@@ -391,26 +395,25 @@ namespace FirstLight.Game.StateMachines
 
 		private bool CheckIsNotPartyLeader()
 		{
-			if (!_services.PartyService.HasParty.Value) return false;
+			if (_services.FLLobbyService.CurrentPartyLobby == null) return false;
 
-			return !(_services.PartyService.GetLocalMember().Leader && _services.PartyService.PartyReady.Value);
+			return !(_services.FLLobbyService.CurrentPartyLobby.IsLocalPlayerHost() && _services.FLLobbyService.CurrentPartyLobby.IsEveryoneReady());
 		}
 
 		private bool CheckPartyNotReady()
 		{
-			return _services.PartyService.HasParty.Value && _services.PartyService.GetLocalMember().Leader &&
-				!_services.PartyService.PartyReady.Value;
+			return _services.FLLobbyService.CurrentPartyLobby != null && _services.FLLobbyService.CurrentPartyLobby.IsLocalPlayerHost() &&
+				!_services.FLLobbyService.CurrentPartyLobby.IsEveryoneReady();
 		}
 
 		private bool CheckInvalidTeamSize()
 		{
-			return _services.PartyService.GetCurrentGroupSize() > _services.GameModeService.SelectedGameMode.Value.Entry.TeamSize;
+			return (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) > _services.GameModeService.SelectedGameMode.Value.Entry.TeamSize;
 		}
 
 		private async UniTaskVoid TogglePartyReadyStatus()
 		{
-			var isReady = _services.PartyService.LocalReadyStatus.Value;
-			await _services.PartyService.BufferedReady(!isReady);
+			await _services.FLLobbyService.TogglePartyReady();
 		}
 
 		private void OpenGameModeSelectionUI()
@@ -443,7 +446,7 @@ namespace FirstLight.Game.StateMachines
 		private void OpenBattlePassUI(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
-			
+
 			var data = new BattlePassScreenPresenter.StateData
 			{
 				BackClicked = () =>
@@ -452,7 +455,7 @@ namespace FirstLight.Game.StateMachines
 				},
 				DisableScrollAnimation = true
 			};
-			
+
 			_services.UIService.OpenScreen<BattlePassScreenPresenter>(data).Forget();
 		}
 
@@ -480,14 +483,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenRoomJoinCreateMenuUI()
 		{
-			var data = new RoomJoinCreateScreenPresenter.StateData
+			_services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData
 			{
-				CloseClicked = () => _statechartTrigger(_closeClickedEvent),
 				BackClicked = () => _statechartTrigger(_roomJoinCreateBackClickedEvent),
-				PlayClicked = PlayButtonClicked
-			};
-
-			_services.UIService.OpenScreen<RoomJoinCreateScreenPresenter>(data).Forget();
+				PlayClicked = () => _statechartTrigger(PlayClickedEvent)
+			}).Forget();
 		}
 
 		private async UniTaskVoid OpenHomeScreen()

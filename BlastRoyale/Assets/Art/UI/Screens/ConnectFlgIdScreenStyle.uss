@@ -7,20 +7,43 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0);
-    background-image: url('project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/LoadingBkNoLogo.png?fileID=2800000&guid=20756f8f6e6857841a5b8bd4d761942a&type=3#LoadingBkNoLogo');
+    background-image: url("project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/LoadingBkNoLogo.png?fileID=2800000&guid=20756f8f6e6857841a5b8bd4d761942a&type=3#LoadingBkNoLogo");
     -unity-background-scale-mode: scale-and-crop;
     -unity-background-image-tint-color: rgb(153, 135, 174);
 }
 
 .unity-text-field__label {
     margin-right: 15px;
-    width: 150px;
+    width: 116px;
     font-size: 33px;
+    align-items: flex-end;
+    -unity-text-align: middle-right;
+    height: 42px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-text-outline-width: 0;
+    color: rgb(90, 86, 125);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0);
 }
 
-.unity-text-field__input {
+.login-form-field > .unity-text-field__input {
     flex-grow: 1;
     -unity-font-definition: var(--font-italic-dynamic);
+    align-self: auto;
+    background-color: rgba(212, 212, 212, 0.81);
+    width: 532px;
+    height: 63px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    -unity-text-align: middle-left;
+    color: rgb(66, 51, 103);
+    max-height: 63px;
 }
 
 .safe-area {
@@ -40,4 +63,11 @@
     justify-content: flex-end;
     flex-direction: row;
     padding-top: 15px;
+}
+
+.login-form-field {
+    flex-direction: row;
+    justify-content: space-between;
+    align-self: center;
+    height: 15px;
 }

@@ -20,10 +20,10 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var f = QuantumRunner.Default.Game.Frames.Predicted;
 			if (!f.Unsafe.TryGetPointer<BotCharacter>(EntityRef, out var bot)) return;
 			if (!f.Unsafe.TryGetPointer<AIBlackboardComponent>(EntityRef, out var bb)) return;
-			var aiming = bb->GetBoolean(f, Constants.IsAimPressedKey);
+			var aiming = bb->GetBoolean(f, Constants.IS_AIM_PRESSED_KEY);
 			if (bot->Target.IsValid && aiming)
 			{
-				transform.rotation = Quaternion.LookRotation(bb->GetVector2(f, Constants.AimDirectionKey).ToUnityVector3());
+				transform.rotation = Quaternion.LookRotation(bb->GetVector2(f, Constants.AIM_DIRECTION_KEY).ToUnityVector3());
 			}
 			else if(transform.localRotation != Quaternion.identity)
 			{

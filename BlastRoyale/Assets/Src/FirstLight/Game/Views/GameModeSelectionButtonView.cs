@@ -44,9 +44,9 @@ namespace FirstLight.Game.Views
 			set { _button.SetEnabled(!value); }
 		}
 
-		private IPartyService _partyService;
 		private LocalPrefsService _localPrefs;
 		private IRemoteTextureService _remoteTexture;
+		private FLLobbyService _lobbyService;
 
 		private AngledContainerElement _button;
 		private Label _gameModeLabel;
@@ -64,9 +64,9 @@ namespace FirstLight.Game.Views
 		protected override void Attached()
 		{
 			var services = MainInstaller.ResolveServices();
-			_partyService = services.PartyService;
 			_localPrefs = services.LocalPrefsService;
 			_remoteTexture = services.RemoteTextureService;
+			_lobbyService = services.FLLobbyService;
 			_char = Element.Q<VisualElement>("Char").Required();
 			_button = Element.Q<AngledContainerElement>().Required();
 
@@ -102,7 +102,7 @@ namespace FirstLight.Game.Views
 
 
 				details.Append("<br>Mutators:<br>");
-				foreach (var mp in entry.MatchConfig.Mutators)
+				foreach (var mp in entry.MatchConfig.Mutators.GetSetFlags())
 				{
 					details.Append($"<indent=1em>{mp}<br></indent>");
 				}
@@ -254,13 +254,13 @@ namespace FirstLight.Game.Views
 
 		public void UpdateDisabledStatus()
 		{
-			if (GameModeInfo.Entry.MatchConfig.MatchType == MatchType.Custom && _partyService.HasParty.Value)
+			if (GameModeInfo.Entry.MatchConfig.MatchType == MatchType.Custom && _lobbyService.CurrentPartyLobby != null)
 			{
 				Disabled = true;
 				return;
 			}
 
-			if (GameModeInfo.Entry.TeamSize < _partyService.GetCurrentGroupSize())
+			if (_lobbyService.CurrentPartyLobby != null && GameModeInfo.Entry.TeamSize < _lobbyService.CurrentPartyLobby.Players.Count)
 			{
 				Disabled = true;
 				return;

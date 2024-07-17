@@ -26,7 +26,7 @@ namespace FirstLight.Tests.EditorMode.Models
 			room1.SimulationMatchConfig.Value = new SimulationMatchConfig()
 			{
 				MatchType = MatchType.Matchmaking,
-				Mutators = new[] {"mutator"},
+				Mutators = Mutator.DisableRevive | Mutator.Hardcore,
 				MetaItemDropOverwrites = new[]
 				{
 					metaItemDropOverwrite
@@ -43,11 +43,11 @@ namespace FirstLight.Tests.EditorMode.Models
 			Assert.AreEqual("commityolo", room2.Commit.Value);
 			Assert.AreEqual("thisisagamemode", room2.SimulationMatchConfig.Value.GameModeID);
 			Assert.AreEqual(MatchType.Matchmaking, room2.SimulationMatchConfig.Value.MatchType);
-			Assert.Contains("mutator", room2.SimulationMatchConfig.Value.Mutators);
+			Assert.AreEqual(Mutator.DisableRevive | Mutator.Hardcore, room2.SimulationMatchConfig.Value.Mutators);
 			var overwrites = room2.SimulationMatchConfig.Value.MetaItemDropOverwrites;
 			Assert.AreEqual(1, overwrites.Length);
 			Assert.AreEqual(overwrites[0], metaItemDropOverwrite);
-			Assert.Contains("mutator", room2.SimulationMatchConfig.Value.Mutators);
+			Assert.AreEqual(Mutator.DisableRevive | Mutator.Hardcore, room2.SimulationMatchConfig.Value.Mutators);
 		}
 
 		[Test]

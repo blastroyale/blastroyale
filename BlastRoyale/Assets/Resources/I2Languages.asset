@@ -11501,7 +11501,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appeared in the Shop
       - 
       - 
       - 
@@ -11523,7 +11523,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appeared in the Shop
       - 
       - 
       - 
@@ -11545,7 +11545,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appeared in the Shop
       - 
       - 
       - 
@@ -11633,7 +11633,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -11655,7 +11655,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Appears in the Shop
       - 
       - 
       - 
@@ -11677,7 +11677,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Appeared in the Shop
       - 
       - 
       - 
@@ -11699,7 +11699,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Appeared in the Shop
       - 
       - 
       - 
@@ -11721,7 +11721,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appeared in the Shop
       - 
       - 
       - 
@@ -11743,7 +11743,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appeared in the Shop
       - 
       - 
       - 
@@ -11809,7 +11809,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -11963,7 +11963,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -11985,7 +11985,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -12029,7 +12029,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -12117,7 +12117,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -12271,7 +12271,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -12403,7 +12403,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -12755,7 +12755,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -14307,7 +14307,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -14439,7 +14439,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -14659,7 +14659,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -14879,7 +14879,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -14967,7 +14967,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -15329,7 +15329,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - Aim Of Affection
       - Aim Of Affection
       - 
@@ -15461,7 +15461,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -15483,7 +15483,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -15549,7 +15549,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -15857,7 +15857,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -17517,7 +17517,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - GameModes
+      - Game Modes
       - 
       - 
       - 
@@ -17561,7 +17561,51 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Squads
+      - Party Up
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/BattlePass
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/GameModesMapSelector
+      TermType: 0
+      Description: 
+      Languages:
+      - Map Selection
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/GameModesCustomGames
+      TermType: 0
+      Description: 
+      Languages:
+      - Custom Games
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/Friends
+      TermType: 0
+      Description: 
+      Languages:
+      - Friends
       - 
       - 
       - 
@@ -25687,7 +25731,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ENTER FRIEND ID OR NAME
+      - ENTER FRIENDSHIP ID
       - 
       - 
       - 
@@ -25698,10 +25742,10 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'Connect to social networks or find
+      - 'Join our socials to look for friends,
 
-        friends in the game to play
-        with!'
+        or find friends in the game
+        to play with!'
       - 
       - 
       - 
@@ -25855,7 +25899,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - YOUR ID
+      - YOUR FRIENDSHIP ID
       - 
       - 
       - 
@@ -29370,7 +29414,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1719934565935
+    Google_LastUpdatedVersion: 1721144547832
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

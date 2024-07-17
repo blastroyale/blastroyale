@@ -114,11 +114,6 @@ MonoBehaviour:
         Id:
           Value: 452268884930367831
       Address: QuantumAssets/Others/DeathFlagPrototype.prefab[DeathFlagPrototypeEntityView]
-    - Path: AddressableResources/Configs/MutatorConfigs
-      AssetRef:
-        Id:
-          Value: 490727885306324360
-      Address: Configs/MutatorConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|AttackProjectile_0
       AssetRef:
         Id:

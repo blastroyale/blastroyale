@@ -25,7 +25,7 @@ namespace Quantum.Commands
 			}
 
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(entity);
-			HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.RespawnEvent);
+			HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.RESPAWN_EVENT);
 		}
 	}
 }

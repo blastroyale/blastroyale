@@ -33,12 +33,13 @@ namespace Quantum
 
 		public MetaItemDropOverwrite Clone()
 		{
-			return (MetaItemDropOverwrite)MemberwiseClone();
+			return (MetaItemDropOverwrite) MemberwiseClone();
 		}
 
 		protected bool Equals(MetaItemDropOverwrite other)
 		{
-			return Id == other.Id && Place == other.Place && DropRate.Equals(other.DropRate) && MinDropAmount == other.MinDropAmount && MaxDropAmount == other.MaxDropAmount;
+			return Id == other.Id && Place == other.Place && DropRate.Equals(other.DropRate) &&
+				MinDropAmount == other.MinDropAmount && MaxDropAmount == other.MaxDropAmount;
 		}
 
 		public override bool Equals(object obj)
@@ -46,15 +47,15 @@ namespace Quantum
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
 			if (obj.GetType() != this.GetType()) return false;
-			return Equals((MetaItemDropOverwrite)obj);
+			return Equals((MetaItemDropOverwrite) obj);
 		}
 
 		public override int GetHashCode()
 		{
 			unchecked
 			{
-				var hashCode = (int)Id;
-				hashCode = (hashCode * 397) ^ (int)Place;
+				var hashCode = (int) Id;
+				hashCode = (hashCode * 397) ^ (int) Place;
 				hashCode = (hashCode * 397) ^ DropRate.GetHashCode();
 				hashCode = (hashCode * 397) ^ MinDropAmount;
 				hashCode = (hashCode * 397) ^ MaxDropAmount;
@@ -72,12 +73,13 @@ namespace Quantum
 
 		public RewardModifier Clone()
 		{
-			return (RewardModifier)MemberwiseClone();
+			return (RewardModifier) MemberwiseClone();
 		}
 
 		protected bool Equals(RewardModifier other)
 		{
-			return Id == other.Id && Multiplier.Equals(other.Multiplier) && CollectedInsideGame == other.CollectedInsideGame;
+			return Id == other.Id && Multiplier.Equals(other.Multiplier) &&
+				CollectedInsideGame == other.CollectedInsideGame;
 		}
 
 		public override bool Equals(object obj)
@@ -85,14 +87,14 @@ namespace Quantum
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
 			if (obj.GetType() != this.GetType()) return false;
-			return Equals((RewardModifier)obj);
+			return Equals((RewardModifier) obj);
 		}
 
 		public override int GetHashCode()
 		{
 			unchecked
 			{
-				var hashCode = (int)Id;
+				var hashCode = (int) Id;
 				hashCode = (hashCode * 397) ^ Multiplier.GetHashCode();
 				hashCode = (hashCode * 397) ^ CollectedInsideGame.GetHashCode();
 				return hashCode;
@@ -107,7 +109,7 @@ namespace Quantum
 		public string GameModeID;
 		public int MapId;
 		public uint TeamSize;
-		public string[] Mutators;
+		public Mutator Mutators;
 		public string[] WeaponsSelectionOverwrite;
 		public MetaItemDropOverwrite[] MetaItemDropOverwrites;
 		public RewardModifier[] RewardModifiers;
@@ -142,9 +144,9 @@ namespace Quantum
 		public void Serialize(BitStream stream)
 		{
 			stream.Serialize(ref ConfigId);
-			var matchType = (byte)MatchType;
+			var matchType = (byte) MatchType;
 			stream.Serialize(ref matchType);
-			MatchType = (MatchType)matchType;
+			MatchType = (MatchType) matchType;
 
 			stream.Serialize(ref GameModeID);
 			stream.Serialize(ref MapId);
@@ -159,13 +161,9 @@ namespace Quantum
 				stream.Serialize(ref WeaponsSelectionOverwrite[i]);
 			}
 
-			Mutators ??= Array.Empty<string>();
-
-			stream.SerializeArrayLength(ref Mutators);
-			for (var i = 0; i < Mutators.Length; i++)
-			{
-				stream.Serialize(ref Mutators[i]);
-			}
+			var mutators = (int) Mutators;
+			stream.Serialize(ref mutators);
+			Mutators = (Mutator) mutators;
 
 			MetaItemDropOverwrites ??= Array.Empty<MetaItemDropOverwrite>();
 			stream.SerializeArrayLength(ref MetaItemDropOverwrites);
@@ -176,9 +174,9 @@ namespace Quantum
 
 				stream.Serialize(ref overwrite.Id);
 				stream.Serialize(ref overwrite.DropRate);
-				var intValue = (int)overwrite.Place;
+				var intValue = (int) overwrite.Place;
 				stream.Serialize(ref intValue);
-				overwrite.Place = (DropPlace)intValue;
+				overwrite.Place = (DropPlace) intValue;
 				stream.Serialize(ref overwrite.MinDropAmount);
 				stream.Serialize(ref overwrite.MaxDropAmount);
 			}

@@ -108,7 +108,7 @@ namespace Quantum.Systems
 
 			var fitRadius = circle->CurrentRadius - circle->TargetRadius;
 
-			var newSafeSpaceAreaSizeK = f.Context.TryGetMutatorByType(MutatorType.SafeZoneInPlayableArea, out var _)
+			var newSafeSpaceAreaSizeK = f.Context.Mutators.HasFlagFast(Mutator.SafeZoneInPlayableArea)
 											? FPMath.Clamp(config.NewSafeSpaceAreaSizeK, FP._0, FP._1)
 											: config.NewSafeSpaceAreaSizeK;
 			var radiusToPickNewCenter = FPMath.Max(0, fitRadius * newSafeSpaceAreaSizeK);

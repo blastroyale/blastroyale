@@ -923,7 +923,7 @@ GameObject:
   - component: {fileID: 9107933737851029003}
   - component: {fileID: 1992658982101314426}
   - component: {fileID: 2048047923676842665}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HUDScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}

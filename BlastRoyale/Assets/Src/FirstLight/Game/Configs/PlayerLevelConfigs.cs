@@ -24,7 +24,11 @@ namespace FirstLight.Game.Configs
 		Leaderboards,
 		GameModes,
 		Squads,
-		PaidBattlePass
+		PaidBattlePass,
+		BattlePass,
+		GameModesMapSelector,
+		GameModesCustomGames,
+		Friends
 	}
 
 	public class PlayerLevelConfigs : ScriptableObject, IConfigsContainer<PlayerLevelConfig>

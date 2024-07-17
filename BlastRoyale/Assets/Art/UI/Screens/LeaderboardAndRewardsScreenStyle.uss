@@ -222,8 +222,8 @@
     -unity-font-style: normal;
     color: rgb(248, 199, 46);
     position: absolute;
-    left: 117px;
-    top: 24px;
+    left: 100px;
+    top: 36px;
 }
 
 .trophies__logo-total {
@@ -240,8 +240,8 @@
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
-    left: 431px;
-    top: 35px;
+    left: 436px;
+    top: 39px;
     -unity-text-outline-width: 0.7px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
@@ -354,7 +354,7 @@
     width: 100%;
     align-self: center;
     margin-left: 3px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards-bpp.png?fileID=21300000&guid=557657056a3d9b44dbbbb666ec2fc9d9&type=3#progress-battlepass-rewards-bpp');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards-bpp.png?fileID=21300000&guid=557657056a3d9b44dbbbb666ec2fc9d9&type=3#progress-battlepass-rewards-bpp");
     max-width: 460px;
 }
 
@@ -432,7 +432,7 @@
     width: 612px;
     height: 106px;
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/background-rewards-fame.png?fileID=21300000&guid=351bb965f9ed2974e9edc1ea7688cc75&type=3#background-rewards-fame');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/background-rewards-fame.png?fileID=21300000&guid=351bb965f9ed2974e9edc1ea7688cc75&type=3#background-rewards-fame");
     transition-property: opacity;
     transition-duration: 0.3s;
 }
@@ -464,6 +464,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: rgb(255, 255, 255);
 }
 
 .fame__gained {
@@ -517,7 +518,7 @@
 }
 
 .fame__bar__yellow-bar {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-yellow.png?fileID=21300000&guid=063b38f07262840f8bc807b13c43d0cf&type=3#progress-battlepass-bpp-yellow');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-yellow.png?fileID=21300000&guid=063b38f07262840f8bc807b13c43d0cf&type=3#progress-battlepass-bpp-yellow");
     position: absolute;
     height: 26px;
     width: 70%;
@@ -528,7 +529,7 @@
 }
 
 .fame__bar__green-bar {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards.png?fileID=21300000&guid=cc30324b9951b419db0ce1e9b0d8b0fd&type=3#progress-battlepass-rewards');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards.png?fileID=21300000&guid=cc30324b9951b419db0ce1e9b0d8b0fd&type=3#progress-battlepass-rewards");
     position: absolute;
     height: 26px;
     width: 50%;

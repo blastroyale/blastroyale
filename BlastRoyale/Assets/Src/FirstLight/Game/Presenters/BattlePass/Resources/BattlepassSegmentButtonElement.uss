@@ -82,7 +82,7 @@
     justify-content: center;
     align-self: center;
     display: flex;
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/rectangle.png?fileID=21300000&guid=5008ecfd4171e40928f4a171597f84b1&type=3#rectangle');
+    background-image: url("project://database/Assets/Art/UI/Sprites/BattlePass/rectangle.png?fileID=21300000&guid=5008ecfd4171e40928f4a171597f84b1&type=3#rectangle");
     -unity-background-scale-mode: stretch-to-fill;
     position: absolute;
     align-items: center;
@@ -129,7 +129,7 @@
     flex-grow: 1;
     flex-shrink: 0;
     position: absolute;
-    bottom: 10px;
+    bottom: 20px;
     right: 23px;
     min-height: auto;
     min-width: 90%;
@@ -207,12 +207,12 @@
 }
 
 .reward__button-claimable {
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-premium-reached.png?fileID=21300000&guid=dec701178c78d44d2adbb415c0a74573&type=3#slot-premium-reached');
+    background-image: url("project://database/Assets/Art/UI/Sprites/BattlePass/slot-premium-reached.png?fileID=21300000&guid=dec701178c78d44d2adbb415c0a74573&type=3#slot-premium-reached");
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .reward__button--claimed {
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-claimed.png?fileID=21300000&guid=440491fac6ddb4da4853ee6474f7937f&type=3#slot-claimed');
+    background-image: url("project://database/Assets/Art/UI/Sprites/BattlePass/slot-claimed.png?fileID=21300000&guid=440491fac6ddb4da4853ee6474f7937f&type=3#slot-claimed");
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -224,16 +224,16 @@
 }
 
 .reward__button-premium {
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-premium-unreached.png?fileID=21300000&guid=e8ebf9155fe754c088e68a1c3533b81e&type=3#slot-premium-unreached');
+    background-image: url("project://database/Assets/Art/UI/Sprites/BattlePass/slot-premium-unreached.png?fileID=21300000&guid=e8ebf9155fe754c088e68a1c3533b81e&type=3#slot-premium-unreached");
 }
 
 .reward__button--unclaimed-paid {
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-premium-unreached.png?fileID=2800000&guid=e8ebf9155fe754c088e68a1c3533b81e&type=3#slot-premium-unreached');
+    background-image: url("project://database/Assets/Art/UI/Sprites/BattlePass/slot-premium-unreached.png?fileID=2800000&guid=e8ebf9155fe754c088e68a1c3533b81e&type=3#slot-premium-unreached");
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .reward__button--unclaimed-free {
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-free-unreached.png?fileID=2800000&guid=7825359757fd34f539965fe1e8215c08&type=3#slot-free-unreached');
+    background-image: url("project://database/Assets/Art/UI/Sprites/BattlePass/slot-free-unreached.png?fileID=2800000&guid=7825359757fd34f539965fe1e8215c08&type=3#slot-free-unreached");
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -448,7 +448,7 @@
 
 .reward__lock {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/icon-lock.png?fileID=21300000&guid=263366e3a84b54d6fa1dc43028346628&type=3#icon-lock');
+    background-image: url("project://database/Assets/Art/UI/Sprites/BattlePass/icon-lock.png?fileID=21300000&guid=263366e3a84b54d6fa1dc43028346628&type=3#icon-lock");
     top: -15px;
     left: -13px;
     width: 73px;

@@ -70,7 +70,7 @@ namespace FirstLight.Game.Utils
 		{
 			return element.worldBound.Overlaps(root.worldBound);
 		}
-
+		
 		/// <summary>
 		/// Gets the position (center of content rect) of the <paramref name="element"/>, in screen coordinates.
 		/// TODO: There has to be a better way to do this, without using the camera
@@ -80,7 +80,7 @@ namespace FirstLight.Game.Utils
 		{
 			if (!element.worldBound.Overlaps(root.worldBound))
 			{
-				throw new Exception("Element out of bounds");
+				throw new Exception("Unable to get position in screen!");
 			}
 
 			var viewportPoint = element.worldBound.center / root.worldBound.size;

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
@@ -25,11 +27,9 @@ namespace FirstLight.Game.UIElements
 		private const string UssIconOutline = UssBlock + "__icon-outline";
 		private const string LabelUssClassName = UssBlock + "__label";
 
-
 		/* UXML attributes */
 		private GameId Currency { get; set; }
 		private bool _hideIfPlayerDoesntHaveIt = false;
-
 
 		/* VisualElements created within this element */
 		private readonly VisualElement _icon;
@@ -42,6 +42,7 @@ namespace FirstLight.Game.UIElements
 		private CurrencyItemViewModel _currencyView;
 
 		/* Other private variables */
+		private CancellationToken _cancellationToken;
 		private Tween _animationTween;
 		private VisualElement _originElement;
 		private bool _playingAnimation;
@@ -99,7 +100,6 @@ namespace FirstLight.Game.UIElements
 			_services = gameServices;
 		}
 
-
 		public void SubscribeToEvents()
 		{
 			_gameDataProvider.CurrencyDataProvider.Currencies.Observe(Currency, OnCurrencyChanged);
@@ -107,7 +107,6 @@ namespace FirstLight.Game.UIElements
 			this.SetDisplay(amount > 0 || !_hideIfPlayerDoesntHaveIt);
 			_label.text = amount.ToString();
 		}
-
 
 		public void UnsubscribeFromEvents()
 		{
@@ -118,45 +117,53 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the origin of the currency flying animation starting at another visual element
 		/// </summary>
-		public void SetData(VisualElement animationOrigin, bool hideIfPlayerDoesntHaveIt = false)
+		public void SetData(VisualElement animationOrigin, bool hideIfPlayerDoesntHaveIt = false, CancellationToken cancellationToken = default)
 		{
 			_originElement = animationOrigin;
 			_hideIfPlayerDoesntHaveIt = hideIfPlayerDoesntHaveIt;
+			_cancellationToken = cancellationToken;
 		}
 
 		private void OnCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType type)
 		{
 			this.SetDisplay(current > 0 || !_hideIfPlayerDoesntHaveIt);
-			if (!_playingAnimation && current > previous) AnimateCurrency(previous, current);
-			else _label.text = current.ToString();
+			if (!_playingAnimation && current > previous)
+			{
+				AnimateCurrency(previous, current).Forget();
+			}
+			else
+			{
+				_label.text = current.ToString();
+			}
 		}
 
-		private void AnimateCurrency(ulong previous, ulong current)
+		private async UniTaskVoid AnimateCurrency(ulong previous, ulong current)
 		{
 			_playingAnimation = true;
 			_animationTween?.Kill();
 
-			_animationTween = DOVirtual.DelayedCall(0.1f, () =>
+			await UniTask.WaitUntil(() => _label.worldBound.Overlaps(GetRoot().worldBound), cancellationToken: _cancellationToken);
+			// Wait for currency view animation to finish
+			await UniTask.Delay(500, cancellationToken: _cancellationToken);
+			var labelPosition = _label.GetPositionOnScreen(GetRoot());
+			for (int i = 0; i < Mathf.Min(10, current - previous); i++)
 			{
-				for (int i = 0; i < Mathf.Min(10, current - previous); i++)
-				{
-					var originPosition = _originElement != null
-						? _originElement.GetPositionOnScreen(GetRoot())
-						: GetRoot().GetPositionOnScreen(GetRoot()) + Random.insideUnitCircle * 100;
+				var originPosition = _originElement != null
+					? _originElement.GetPositionOnScreen(GetRoot())
+					: GetRoot().GetPositionOnScreen(GetRoot()) + Random.insideUnitCircle * 100;
 
-					_services.UIVFXService.PlayVfx(Currency,
-						i * 0.1f,
-						originPosition,
-						_label.GetPositionOnScreen(GetRoot()),
-						() =>
-						{
-							DOVirtual.Float(previous, current, 0.3f, val => { _label.text = val.ToString("F0"); });
-							_services.AudioFxService.PlayClip2D(AudioId.CounterTick1);
-						});
-				}
+				_services.UIVFXService.PlayVfx(Currency,
+					i * 0.1f,
+					originPosition,
+					labelPosition,
+					() =>
+					{
+						DOVirtual.Float(previous, current, 0.3f, val => { _label.text = val.ToString("F0"); });
+						_services.AudioFxService.PlayClip2D(AudioId.CounterTick1);
+					});
+			}
 
-				_playingAnimation = false;
-			});
+			_playingAnimation = false;
 		}
 
 		private VisualElement GetRoot()

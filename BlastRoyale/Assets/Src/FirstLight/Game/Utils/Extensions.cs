@@ -448,7 +448,7 @@ namespace FirstLight.Game.Utils
 
 		public static void SelectDefaultRankedMode(this IGameModeService service)
 		{
-			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => !x.Entry.TimedEntry);
+			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry is {MatchConfig: not null, TimedEntry: false});
 			service.SelectedGameMode.Value = gameMode;
 		}
 

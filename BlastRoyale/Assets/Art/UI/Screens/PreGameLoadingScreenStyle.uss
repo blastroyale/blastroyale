@@ -238,15 +238,16 @@
     top: 308px;
     bottom: 230px;
     width: 524px;
-    background-color: rgba(16, 12, 34, 0.22);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     color: rgb(255, 255, 255);
-    overflow: hidden;
-    min-height: 164px;
+    min-height: 524px;
+    max-height: 624px;
     margin-bottom: 28px;
+    background-color: rgba(19, 142, 211, 0.4);
+    overflow: visible;
 }
 
 .squad-container__title {
@@ -338,6 +339,7 @@
     position: relative;
     left: 45%;
     top: 45%;
+    display: flex;
 }
 
 .screen-header--homeonly .screen-header__back {

@@ -16,12 +16,12 @@
             <ui:VisualElement name="MapHolder" class="map-holder">
                 <ui:VisualElement name="Map" class="map">
                     <ui:VisualElement name="MapImage" class="map-image">
-                        <ui:VisualElement name="TutorialDropPos" picking-mode="Ignore" class="tutorial-drop-pos" style="display: flex;" />
+                        <ui:VisualElement name="TutorialDropPos" picking-mode="Ignore" class="tutorial-drop-pos" />
                     </ui:VisualElement>
                     <ui:VisualElement name="PartyMarkers" picking-mode="Ignore" class="fill-parent party-markers">
-                        <ui:VisualElement name="MarkerPoint0" class="map-marker-party map-marker-party1" />
-                        <ui:VisualElement name="MarkerPoint1" class="map-marker-party" style="visibility: hidden; position: absolute;" />
-                        <ui:VisualElement name="MarkerPoint2" class="map-marker-party" style="visibility: hidden; position: absolute;" />
+                        <ui:VisualElement name="MarkerPoint0" class="map-marker-party" />
+                        <ui:VisualElement name="MarkerPoint1" class="map-marker-party" />
+                        <ui:VisualElement name="MarkerPoint2" class="map-marker-party" />
                     </ui:VisualElement>
                     <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker">
                         <ui:VisualElement picking-mode="Ignore" name="VisualElement" class="map-marker__root">
@@ -35,7 +35,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="SquadContainer" class="squad-container" style="background-color: rgba(19, 142, 211, 0.4); overflow: visible; max-height: 624px; min-height: 524px;">
+            <ui:VisualElement name="SquadContainer" class="squad-container">
                 <FirstLight.Game.UIElements.LocalizedButton name="Title" localization-key="UITHomeScreen/youre_team" class="squad-container__title" />
                 <ui:VisualElement name="Row0" class="header-row squad-row">
                     <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement0" class="player-member" />

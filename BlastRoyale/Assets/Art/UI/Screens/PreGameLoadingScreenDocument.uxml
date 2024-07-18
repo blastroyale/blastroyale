@@ -19,14 +19,14 @@
                         <ui:VisualElement name="TutorialDropPos" picking-mode="Ignore" class="tutorial-drop-pos" style="display: flex;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="PartyMarkers" picking-mode="Ignore" class="fill-parent party-markers">
-                        <ui:VisualElement name="MarkerPoint0" class="map-marker-party" style="visibility: hidden; position: absolute;" />
+                        <ui:VisualElement name="MarkerPoint0" class="map-marker-party map-marker-party1" />
                         <ui:VisualElement name="MarkerPoint1" class="map-marker-party" style="visibility: hidden; position: absolute;" />
                         <ui:VisualElement name="MarkerPoint2" class="map-marker-party" style="visibility: hidden; position: absolute;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker">
-                        <ui:VisualElement picking-mode="Ignore" name="VisualElement" style="flex-direction: row; align-self: center; position: absolute; right: 0; align-items: center;">
-                            <ui:Label name="MapMarkerTitle" text="PLACE NAME" picking-mode="Ignore" class="map-marker__title" style="position: relative; bottom: auto;" />
-                            <ui:VisualElement name="MapMarkerIcon" picking-mode="Ignore" class="map-marker__icon" style="margin-right: -41px;" />
+                        <ui:VisualElement picking-mode="Ignore" name="VisualElement" class="map-marker__root">
+                            <ui:Label name="MapMarkerTitle" text="PLACE NAME" picking-mode="Ignore" class="map-marker__title" />
+                            <ui:VisualElement name="MapMarkerIcon" picking-mode="Ignore" class="map-marker__icon" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="MapTitleBg" picking-mode="Ignore" class="map__title-bg">

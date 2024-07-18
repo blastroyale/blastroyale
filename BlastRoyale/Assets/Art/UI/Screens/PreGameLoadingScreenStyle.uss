@@ -212,8 +212,8 @@
     padding-top: 6px;
     padding-bottom: 5px;
     margin-bottom: 15px;
-    position: absolute;
-    bottom: 80px;
+    position: relative;
+    bottom: auto;
     background-color: rgb(248, 208, 48);
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
@@ -225,6 +225,7 @@
     background-image: url("project://database/Assets/Art/UI/Sprites/Home/icon-mapmarker-small.png?fileID=21300000&guid=f5d0e86da28c9d74f8830073c4b1b945&type=3#icon-mapmarker-small");
     width: 82px;
     height: 74px;
+    margin-right: -41px;
 }
 
 .squad-member {
@@ -322,6 +323,8 @@
     border-right-width: 4px;
     border-top-width: 4px;
     border-bottom-width: 4px;
+    visibility: hidden;
+    position: absolute;
 }
 
 .party-markers {
@@ -449,3 +452,10 @@
     position: relative;
 }
 
+.map-marker__root {
+    flex-direction: row;
+    align-self: center;
+    position: absolute;
+    right: 0;
+    align-items: center;
+}

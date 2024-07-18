@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
@@ -43,10 +44,9 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private void OnBindFriendsItem(VisualElement element, int index)
 		{
 			var relationship = _friends[index];
-
-			((FriendListElement) element)
-				.SetPlayerName(relationship.Member.Profile.Name)
-				.SetStatus(relationship.Member.Presence.GetActivity<FriendActivity>()?.Status, true)
+			var e = ((FriendListElement) element);
+			e.SetFromRelationship(relationship);
+			e
 				.SetMainAction(ScriptLocalization.UITFriends.invite, _invitedFriends.Contains(relationship.Member.Id)
 					? null
 					: () =>

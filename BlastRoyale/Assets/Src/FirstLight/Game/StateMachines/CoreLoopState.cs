@@ -77,14 +77,14 @@ namespace FirstLight.Game.StateMachines
 			mainMenu.OnEnter(() =>
 			{
 				// TODO mihak: Add localization
-				FriendsService.Instance.SetPresenceAsync(Availability.Online, new FriendActivity {Status = "In main menu"}).AsUniTask().Forget();
+				SetCurrentActivity("In main menu");
 			});
 
 			match.Nest(_matchState.Setup).Target(mainMenu);
 			match.OnEnter(() =>
 			{
 				// TODO mihak: Add localization
-				FriendsService.Instance.SetPresenceAsync(Availability.Online, new FriendActivity {Status = "Playing a match"}).AsUniTask().Forget();
+				SetCurrentActivity("Playing a match");
 			});
 
 			// TODO - Decide what to do if join room fails
@@ -92,6 +92,16 @@ namespace FirstLight.Game.StateMachines
 			joinTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(match);
 
 			final.OnEnter(UnsubscribeEvents);
+		}
+
+		private void SetCurrentActivity(string activity)
+		{
+			FriendsService.Instance.SetPresenceAsync(Availability.Online, new FriendActivity
+			{
+				Status = activity,
+				AvatarUrl = _dataProvider.AppDataProvider.AvatarUrl
+			}).AsUniTask().Forget();
+
 		}
 
 		private bool InRoom()

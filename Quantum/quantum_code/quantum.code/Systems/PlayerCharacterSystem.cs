@@ -131,6 +131,12 @@ namespace Quantum.Systems
 
 			playerDead->Dead(f, entity, attacker, fromRoofDamage);
 
+			// Don't drop items for last player dead
+			if (f.Unsafe.GetPointerSingleton<GameContainer>()->IsGameGoingToEndWithKill(f, entity))
+			{
+				return;
+			}
+
 			// Try to drop player weapon
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.WeaponOnly &&
 				!playerDead->HasMeleeWeapon(f, entity))

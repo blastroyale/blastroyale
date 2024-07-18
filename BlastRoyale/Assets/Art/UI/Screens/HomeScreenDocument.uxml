@@ -21,7 +21,7 @@
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBuckCurrency" currency="BlastBuck" class="anim-delay-3 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
-                <ui:VisualElement style="flex-direction: row; margin-bottom: 38px;" class="anim-delay-3 anim-translate anim-translate--left-xl">
+                <ui:VisualElement class="anim-delay-3 anim-translate anim-translate--left-xl" style="flex-direction: row; margin-bottom: 38px;">
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/party" name="PartyUpButton" class="sfx-click-forwards button-with-icon button-with-icon--party main-button-margin" style="margin-bottom: 5px;">
                         <ui:VisualElement name="FriendsIcon" class="button-with-icon__icon" />
                     </FirstLight.Game.UIElements.LocalizedButton>
@@ -80,7 +80,7 @@
                             <ui:Label text="+20" name="RestockLabelAmount" />
                             <ui:VisualElement name="BppIcon" class="resource-pool__icon" />
                             <ui:Label text="IN 2H 45M" name="RestockLabelTime" />
-                            <ui:Label text="&lt;color=#49D4D4&gt;20&lt;/color&gt; / 100&#10;" name="AmountLabel" />
+                            <ui:Label text="&lt;color=#49D4D4&gt;20&lt;/color&gt; / 100" name="AmountLabel" />
                             <ui:VisualElement name="Separator" class="resource-pool__separator" />
                         </ui:VisualElement>
                     </ui:VisualElement>

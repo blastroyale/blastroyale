@@ -111,6 +111,12 @@ namespace FirstLight.Game.Presenters
 			customGameView.Clicked += OnCustomGameClicked;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
+			UpdateMapDropdownVisibility();
+		}
+
+		private void UpdateMapDropdownVisibility()
+		{
+			_mapDropDown.SetDisplay(_services.GameModeService.SelectedGameMode.Value.Entry.MatchConfig.MapId == (int) GameId.Any);
 		}
 
 		private void OnMapSelected(ChangeEvent<string> evt)
@@ -196,6 +202,8 @@ namespace FirstLight.Game.Presenters
 			{
 				buttonView.Selected = buttonView.GameModeInfo.Entry == newGamemode.Entry;
 			}
+
+			UpdateMapDropdownVisibility();
 		}
 
 		private void FillMapSelectionList()

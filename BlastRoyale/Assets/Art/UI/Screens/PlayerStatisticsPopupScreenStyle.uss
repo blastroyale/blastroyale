@@ -20,7 +20,7 @@
 }
 
 .player-statistics-popup__title {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/header-popup-equipment.png?fileID=21300000&guid=2d6c823359e264eac88204c4e1664c4c&type=3#header-popup-equipment');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/header-popup-equipment.png?fileID=21300000&guid=2d6c823359e264eac88204c4e1664c4c&type=3#header-popup-equipment");
     -unity-text-align: middle-center;
     height: 86px;
     margin: 0;
@@ -83,7 +83,7 @@
 .stats-container {
     align-items: center;
     justify-content: center;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/background-stat-dark.png?fileID=21300000&guid=d49b2a8c0f8344da4a317261f81e6850&type=3#background-stat-dark');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/background-stat-dark.png?fileID=21300000&guid=d49b2a8c0f8344da4a317261f81e6850&type=3#background-stat-dark");
     width: 156px;
 }
 
@@ -99,7 +99,7 @@
     height: 128px;
     max-width: 128px;
     max-height: 128px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/avatar-default.png?fileID=2800000&guid=a586a1ae1408749e9b1267b30f1bc628&type=3#avatar-default');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/avatar-default.png?fileID=2800000&guid=a586a1ae1408749e9b1267b30f1bc628&type=3#avatar-default");
     align-self: flex-end;
     align-items: center;
     justify-content: center;
@@ -164,7 +164,7 @@
     border-bottom-right-radius: 10px;
     position: absolute;
     right: -2px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/background-stat.png?fileID=21300000&guid=119d947463d914dde82656f9069a791f&type=3#background-stat');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/background-stat.png?fileID=21300000&guid=119d947463d914dde82656f9069a791f&type=3#background-stat");
     -unity-background-scale-mode: stretch-to-fill;
 }
 
@@ -172,20 +172,24 @@
     font-size: 44px;
     -unity-text-outline-width: 0.8px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    top: 25px;
-    -unity-text-align: upper-center;
+    top: 18px;
+    -unity-text-align: middle-center;
     left: -290px;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    width: 350px;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
 }
 
 .player-header__leaderboards-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/icon_edit.png?fileID=21300000&guid=5a4652befed4d024db77cdcb367eb46f&type=3#icon_edit');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/icon_edit.png?fileID=21300000&guid=5a4652befed4d024db77cdcb367eb46f&type=3#icon_edit");
     width: 50px;
     height: 50px;
 }
 
 .player-header__edit-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/icon_edit.png?fileID=21300000&guid=5a4652befed4d024db77cdcb367eb46f&type=3#icon_edit');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/icon_edit.png?fileID=21300000&guid=5a4652befed4d024db77cdcb367eb46f&type=3#icon_edit");
     width: 50px;
     height: 50px;
 }
@@ -211,7 +215,7 @@
 .stats-container_stat-value {
     -unity-text-outline-width: 0.8px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    top: -29px;
+    top: -19px;
     -unity-text-align: upper-center;
 }
 
@@ -224,7 +228,7 @@
     background-color: rgba(23, 20, 38, 0);
     width: 647px;
     height: 80px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/background-stat.png?fileID=21300000&guid=119d947463d914dde82656f9069a791f&type=3#background-stat');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/background-stat.png?fileID=21300000&guid=119d947463d914dde82656f9069a791f&type=3#background-stat");
     -unity-background-image-tint-color: rgb(255, 255, 255);
     -unity-text-outline-width: 0;
     -unity-text-outline-color: rgb(255, 255, 255);
@@ -241,6 +245,8 @@
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     align-items: flex-end;
+    justify-content: center;
+    align-self: center;
 }
 
 .avatar-container {
@@ -249,7 +255,7 @@
     height: 68px;
     width: 627px;
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/background-stat-dark.png?fileID=21300000&guid=d49b2a8c0f8344da4a317261f81e6850&type=3#background-stat-dark');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/background-stat-dark.png?fileID=21300000&guid=d49b2a8c0f8344da4a317261f81e6850&type=3#background-stat-dark");
     margin-left: 61px;
     flex-direction: row;
     padding-left: 63px;
@@ -267,7 +273,7 @@
     background-color: rgba(0, 0, 0, 0);
     width: 90px;
     height: 90px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-crown-ranked.png?fileID=21300000&guid=a3323e773a3d94bfda84717a55d45241&type=3#icon-crown-ranked');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/icon-crown-ranked.png?fileID=21300000&guid=a3323e773a3d94bfda84717a55d45241&type=3#icon-crown-ranked");
     position: absolute;
     right: 340px;
 }

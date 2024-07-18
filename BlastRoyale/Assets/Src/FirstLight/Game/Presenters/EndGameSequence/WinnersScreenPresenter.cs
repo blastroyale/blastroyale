@@ -18,6 +18,7 @@ namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// Presenter for the winners screen, which shows who are the top 3 winners of the game
+	/// This is the second screen presented on the end game sequence flow
 	/// </summary>
 	public class WinnersScreenPresenter : UIPresenterData<WinnersScreenPresenter.StateData>
 	{

@@ -1,8 +1,14 @@
 using System;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using I2.Loc;
+using Unity.Services.Authentication;
+using Unity.Services.CloudSave;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
 using UnityEngine;
@@ -108,6 +114,37 @@ namespace FirstLight.Game.UIElements
 			_declineButton.clicked += () => _declineAction?.Invoke();
 		}
 
+		public FriendListElement SetFromRelationship(Relationship relationship)
+		{
+			var activity = relationship.Member?.Presence?.GetActivity<FriendActivity>();
+			SetPlayerName(relationship.Member?.Profile.Name);
+			SetStatus(activity?.Status, relationship.IsOnline());
+			_avatar.SetDisplay(true);
+			if (!string.IsNullOrEmpty(activity?.AvatarUrl))
+			{
+				MainInstaller.ResolveServices().RemoteTextureService.SetTexture(_avatar, activity.AvatarUrl);
+			}
+			else
+			{
+				SetAvatarHack(relationship.Member.Id).Forget();
+			}
+			return this;
+		}
+
+		private async UniTaskVoid SetAvatarHack(string unityId)
+		{
+			if (unityId == null)
+			{
+				return;
+			}
+			var playfabId = await CloudSaveService.Instance.LoadPlayfabID(unityId);
+			var services = MainInstaller.ResolveServices();
+			services.ProfileService.GetPlayerPublicProfile(playfabId, profile =>
+			{
+				services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
+			});
+		}
+
 		public FriendListElement SetPlayerName(string playerName)
 		{
 			_nameAndTrophiesLabel.text = playerName;
@@ -167,7 +204,7 @@ namespace FirstLight.Game.UIElements
 
 		public FriendListElement SetAvatar(Texture2D avatar)
 		{
-			_avatar.SetDisplay(avatar != null);
+			_avatar.SetVisibility(avatar != null);
 			_avatar.style.backgroundImage = new StyleBackground(avatar);
 			return this;
 		}

@@ -515,9 +515,13 @@ namespace FirstLight.Game.StateMachines
 
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
 
-			var map = _services.GameModeService.SelectedMap;
 			var simulationConfig = selectedGameMode.Entry.MatchConfig.CloneSerializing();
-			simulationConfig.MapId = (int) map;
+			if (simulationConfig.MapId == GameId.Any.GetHashCode())
+			{
+				var map = _services.GameModeService.SelectedMap;
+				simulationConfig.MapId = (int) map;
+			}
+
 			simulationConfig.MatchType = MatchType.Matchmaking;
 
 			if (!FeatureFlags.ENABLE_NOOB)

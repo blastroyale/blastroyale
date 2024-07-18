@@ -105,7 +105,30 @@ namespace Quantum
 				f.Signals.GameEnded();
 			}
 		}
-		
+
+		public bool IsGameGoingToEndWithKill(Frame f, EntityRef deadPlayer)
+		{
+			var teamsAlive = new HashSet<int>();
+			foreach (var (entity, _) in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
+			{
+				if (entity == deadPlayer)
+				{
+					continue;
+				}
+
+				if (f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var t))
+				{
+					teamsAlive.Add(t->TeamId);
+				}
+			}
+
+			// We count how many teams are alive towards our goal (we remove ours)
+			var teamsAliveForGoal = teamsAlive.Count - 1;
+			var tempProgress = (uint)(TargetProgress - teamsAliveForGoal);
+
+			return tempProgress >= TargetProgress;
+		}
+
 		/// <summary>
 		/// Request all players match data.
 		/// Battle Royale Ranking: More frags == higher rank and Dead longer == lower rank
@@ -188,7 +211,7 @@ namespace Quantum
 		{
 			public uint ProcessRank(IReadOnlyList<QuantumPlayerMatchData> playersData, int i, IRankSorter sorter);
 		}
-		
+
 
 		private class GeneralRankProcessor : IRankProcessor
 		{

@@ -87,7 +87,8 @@ namespace FirstLight.Game.Views
 				details.Append($"<align=\"center\"><size=+2><allcaps>{entry.Visual.TitleTranslationKey.GetText()}</allcaps></size><br>");
 				details.Append($"<size=-2>{entry.Visual.DescriptionTranslationKey.GetText()}</size><br>");
 				details.Append("<br></align>");
-				details.Append("<align=\"left\">Reward Multipliers:<br>");
+				details.Append($"<align=\"left\">Map: {EnumUtils.FromInt<GameId>(entry.MatchConfig.MapId)}<br><br>");
+				details.Append("Reward Multipliers:<br>");
 				foreach (var mp in entry.MatchConfig.RewardModifiers)
 				{
 					details.Append($"<indent=1em>{mp.Multiplier}x {mp.Id.GetLocalization()}{(mp.CollectedInsideGame ? " collected inside the game" : "")}<br></indent>");

@@ -18,6 +18,8 @@ namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// This presenter shows the match winner.
+	/// This is the first thing that opens on the sequence, before the scene is unloaded.
+	/// It's the dialog "Winner" with the "NEXT" button.
 	/// </summary>
 	public class WinnerScreenPresenter : UIPresenterData<WinnerScreenPresenter.StateData>, INotificationReceiver
 	{
@@ -35,9 +37,7 @@ namespace FirstLight.Game.Presenters
 		private Button _nextButton;
 
 		private Transform _entityViewTransform;
-
-		private bool _isSpectator;
-
+		
 		private void Awake()
 		{
 			_matchService = MainInstaller.Resolve<IMatchServices>();

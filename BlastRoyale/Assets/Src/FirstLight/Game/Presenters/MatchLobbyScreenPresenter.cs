@@ -92,7 +92,28 @@ namespace FirstLight.Game.Presenters
 			else
 			{
 				RefreshData();
+
+				// TODO mihak: This should not be here, move when we refac network service
+				if ((changes.Data.Changed || changes.Data.Added || changes.Data.Removed) &&
+					changes.Data.Value.TryGetValue(FLLobbyService.KEY_MATCH_ROOM_NAME, out var value))
+				{
+					var room = value.Value.Value;
+					JoinRoom(room).Forget();
+				}
 			}
+		}
+
+		private async UniTaskVoid JoinRoom(string room)
+		{
+			// TODO mihak: This should not be here, move when we refac network service
+			await _services.RoomService.JoinRoomAsync(room);
+
+			Data.MatchListStateData.PlayClicked();
+
+			_services.TeamService.AutoBalanceCustom = true;
+			await UniTask.WaitForSeconds(5); // TODO mihak: REMOVE THIS HACK BEFORE RELEASE
+
+			_services.RoomService.StartCustomGameLoading();
 		}
 
 		private void RefreshData()
@@ -150,7 +171,7 @@ namespace FirstLight.Game.Presenters
 			var matchSettings = _matchSettingsView.MatchSettings;
 
 			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, true);
-			
+
 			((IInternalGameNetworkService) _services.NetworkService).JoinSource.Value = JoinRoomSource.FirstJoin;
 
 			var setup = new MatchRoomSetup
@@ -174,10 +195,10 @@ namespace FirstLight.Game.Presenters
 				await _services.RoomService.CreateRoomAsync(setup);
 				Data.MatchListStateData.PlayClicked();
 				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);
-				
+
 				_services.TeamService.AutoBalanceCustom = true;
 				await UniTask.WaitForSeconds(5); // TODO mihak: REMOVE THIS HACK BEFORE RELEASE
-				
+
 				_services.RoomService.StartCustomGameLoading();
 			}
 			catch (Exception e)

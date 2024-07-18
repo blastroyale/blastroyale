@@ -97,7 +97,9 @@
 
 .load-status-holder__labels {
     justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
+    height: 120px;
 }
 
 .load-status-holder__loading-icon {

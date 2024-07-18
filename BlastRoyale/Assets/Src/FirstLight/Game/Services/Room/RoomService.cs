@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
@@ -12,7 +13,9 @@ using Photon.Realtime;
 using Quantum;
 using Unity.Services.Authentication;
 using UnityEngine;
+using Assert = UnityEngine.Assertions.Assert;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using UniTaskCompletionSource = Cysharp.Threading.Tasks.UniTaskCompletionSource;
 
 namespace FirstLight.Game.Services.RoomService
 {
@@ -103,6 +106,8 @@ namespace FirstLight.Game.Services.RoomService
 		/// </remarks>
 		bool JoinRoom(string roomName);
 
+		UniTask JoinRoomAsync(string roomName);
+		
 		/// <summary>
 		/// Rejoins a room, only if the player is still active in the room. Will never enter a room creating a new player.
 		/// The room creation params must match the room params when created.
@@ -118,6 +123,8 @@ namespace FirstLight.Game.Services.RoomService
 		///  This used for custom games or forced matches
 		/// </remarks>
 		bool CreateRoom(MatchRoomSetup setup, bool offlineMode);
+
+		UniTask CreateRoomAsync(MatchRoomSetup setup);
 
 		/// <summary>
 		/// Joins a specific room with matching params if it exists, or creates a new one if it doesn't
@@ -172,9 +179,23 @@ namespace FirstLight.Game.Services.RoomService
 
 		public bool InRoom => CurrentRoom != null && _networkService.InRoom;
 
-		public bool IsLocalPlayerSpectator => CurrentRoom?.LocalPlayerProperties?.Spectator?.Value ?? false;
+		public bool IsLocalPlayerSpectator
+		{
+			get
+			{
+				if (CurrentRoom == null)
+				{
+					FLog.Error("Trying to get spectator properties when room no longer exists.");
+					return false;
+				}
+				return CurrentRoom?.LocalPlayerProperties?.Spectator?.Value ?? false;
+			}
+		}
 
 		internal MatchmakingAndRoomConfig Configs => _configsProvider.GetConfig<MatchmakingAndRoomConfig>();
+		
+		private UniTaskCompletionSource _roomCreationTcs;
+		private UniTaskCompletionSource _roomJoinTcs;
 
 		public RoomService(IGameNetworkService networkService, IGameBackendService backendService, IConfigsProvider configsProvider,
 						   ICoroutineService coroutineService, IGameDataProvider dataProvider, ILeaderboardService leaderboardService)
@@ -215,6 +236,17 @@ namespace FirstLight.Game.Services.RoomService
 
 			return _networkService.QuantumClient.OpJoinRoom(enterParams);
 		}
+		
+		public UniTask JoinRoomAsync(string roomName)
+		{
+			Assert.IsNull(_roomJoinTcs, "JoinRoomAsync called while another join operation is in progress");
+			
+			_roomJoinTcs = new UniTaskCompletionSource();
+
+			JoinRoom(roomName);
+
+			return _roomJoinTcs.Task;
+		}
 
 		/// <summary>
 		/// This used for custom games or forced matches
@@ -233,6 +265,17 @@ namespace FirstLight.Game.Services.RoomService
 			_networkService.LastDisconnectLocation = LastDisconnectionLocation.None;
 			_networkService.LastUsedSetup.Value = setup;
 			return _networkService.QuantumClient.OpCreateRoom(createParams);
+		}
+
+		public UniTask CreateRoomAsync(MatchRoomSetup setup)
+		{
+			Assert.IsNull(_roomCreationTcs, "CreateRoomAsync called while another create operation is in progress");
+			
+			_roomCreationTcs = new UniTaskCompletionSource();
+
+			CreateRoom(setup, false);
+
+			return _roomCreationTcs.Task;
 		}
 
 		/// <summary>
@@ -384,6 +427,9 @@ namespace FirstLight.Game.Services.RoomService
 
 		void IMatchmakingCallbacks.OnJoinedRoom()
 		{
+			_roomJoinTcs?.TrySetResult();
+			_roomJoinTcs = null;
+			
 			FLog.Verbose("Joined room!");
 			CheckRoomInit();
 			OnJoinedRoom?.Invoke();
@@ -522,6 +568,8 @@ namespace FirstLight.Game.Services.RoomService
 
 		public void OnJoinRoomFailed(short returnCode, string message)
 		{
+			_roomJoinTcs?.TrySetException(new Exception("Failed to join room: " + message));
+			_roomJoinTcs = null;
 			FLog.Info(message);
 		}
 
@@ -552,10 +600,14 @@ namespace FirstLight.Game.Services.RoomService
 
 		public void OnCreatedRoom()
 		{
+			_roomCreationTcs?.TrySetResult();
+			_roomCreationTcs = null;
 		}
 
 		public void OnCreateRoomFailed(short returnCode, string message)
 		{
+			_roomCreationTcs?.TrySetException(new Exception("Failed to create room: " + message));
+			_roomCreationTcs = null;
 			FLog.Info(message);
 		}
 

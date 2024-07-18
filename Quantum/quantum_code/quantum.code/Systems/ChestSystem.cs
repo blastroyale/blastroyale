@@ -49,11 +49,6 @@ namespace Quantum.Systems
 
 			RollDropTables(f, ctx, items);
 
-			if (f.Context.TryGetMutatorByType(MutatorType.SpecialsMayhem, out _) && !f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _))
-			{
-				items.Add(SimulationItem.CreateSimple(Special.GetRandomSpecialId(f)));
-			}
-
 			DropPlace place;
 			switch (chest->ChestType)
 			{
@@ -86,9 +81,10 @@ namespace Quantum.Systems
 
 		private static void RollDropTables(Frame f, in ChestContentsGenerationContext ctx, List<SimulationItem> items)
 		{
-			var isHammerTimeMutator = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _);
-			var dontDropSpecialsMutator = f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _);
+			var isHammerTimeMutator = f.Context.Mutators.HasFlagFast(Mutator.HammerTime);
+			var dontDropSpecialsMutator = f.Context.Mutators.HasFlagFast(Mutator.DoNotDropSpecials);
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+
 			foreach (var droptable in ctx.Config.DropTables)
 			{
 				if (droptable.Amount == 0) continue;
@@ -116,11 +112,7 @@ namespace Quantum.Systems
 							count--;
 							continue;
 						}
-						else if (f.Context.TryGetWeaponLimiterMutator(out var forcedWeaponId))
-						{
-							item.EquipmentItem->GameId = forcedWeaponId;
-						}
-						else if (item.EquipmentItem->GameId == GameId.Any)
+						else if (item.EquipmentItem->GameId == GameId.Any || f.RuntimeConfig.MatchConfigs.WeaponsSelectionOverwrite.Length > 0)
 						{
 							item.EquipmentItem->GameId = gameContainer->GenerateNextWeapon(f).GameId;
 						}

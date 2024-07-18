@@ -152,9 +152,9 @@ MonoBehaviour:
       InitialCooldown:
         RawValue: 0
       Radius:
-        RawValue: 2621440
+        RawValue: 3932160
       SpecialPower:
-        RawValue: 196608
+        RawValue: 327680
       Speed:
         RawValue: 0
       MinRange:
@@ -192,7 +192,7 @@ MonoBehaviour:
       SpecialPower:
         RawValue: 26214
       Speed:
-        RawValue: 65536
+        RawValue: 98304
       MinRange:
         RawValue: 0
       MaxRange:

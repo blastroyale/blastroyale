@@ -89,7 +89,7 @@ namespace Quantum.Systems
 			var mineComponent = f.Unsafe.GetPointer<LandMine>(mine);
 			var mineCollider = f.Unsafe.GetPointer<PhysicsCollider3D>(mine);
 			mineCollider->Shape = Shape3D.CreateSphere(special.Radius);
-			mineComponent->TriggerableAfter = f.Time + FP._2;
+			mineComponent->TriggerableAfter = f.Time + special.Speed;
 			mineComponent->Radius = special.Radius;
 			mineComponent->Damage = (uint)damage;
 			mineComponent->Owner = attacker;

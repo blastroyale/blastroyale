@@ -11,7 +11,6 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
-using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -22,10 +21,9 @@ using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
-using Unity.Services.RemoteConfig;
 using Unity.Services.Authentication;
+using Unity.Services.Lobbies;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 using Random = UnityEngine.Random;
@@ -35,7 +33,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Home Screen.
 	/// </summary>
-	public partial class HomeScreenPresenter : UIPresenterData<HomeScreenPresenter.StateData>
+	public class HomeScreenPresenter : UIPresenterData<HomeScreenPresenter.StateData>
 	{
 		private const float TROPHIES_COUNT_DELAY = 0.8f;
 
@@ -60,8 +58,6 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
 
-		private IPartyService _partyService;
-
 		private LocalizedButton _playButton;
 
 		private Label _playerNameLabel;
@@ -85,7 +81,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			_partyService = _services.PartyService;
 		}
 
 		private void OpenStats(PlayerStatisticsPopupPresenter.StateData data)
@@ -100,10 +95,6 @@ namespace FirstLight.Game.Presenters
 				var data = new PlayerStatisticsPopupPresenter.StateData
 				{
 					PlayfabID = PlayFabSettings.staticPlayer.PlayFabId,
-					OnCloseClicked = () =>
-					{
-						_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();
-					},
 					OnEditNameClicked = () =>
 					{
 						Data.OnProfileClicked();
@@ -127,20 +118,18 @@ namespace FirstLight.Game.Presenters
 
 			Root.Q<ImageButton>("NewsButton").clicked += Data.NewsClicked;
 
-			QueryElementsSquads(Root);
-
 			_playButton = Root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
 			Root.Q<CurrencyDisplayElement>("CoinCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
-				.SetData(_playButton);
+				.SetData(_playButton, cancellationToken: GetCancellationTokenOnClose());
 			Root.Q<CurrencyDisplayElement>("BlastBuckCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
-				.SetData(_playButton);
+				.SetData(_playButton, cancellationToken: GetCancellationTokenOnClose());
 			Root.Q<CurrencyDisplayElement>("NOOBCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
-				.SetData(_playButton);
+				.SetData(_playButton, cancellationToken: GetCancellationTokenOnClose());
 
 			Root.Q<VisualElement>("PartyMemberNames").Required()
 				.AttachExistingView(this, _homePartyCharacterView);
@@ -153,31 +142,34 @@ namespace FirstLight.Game.Presenters
 			Root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 
 			var gameModeButton = Root.Q<ImageButton>("GameModeButton");
-			gameModeButton.LevelLock2(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
+			gameModeButton.LevelLock(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
 			gameModeButton.AttachView(this, out GameModeButtonView _);
 
 			var leaderBoardButton = Root.Q<ImageButton>("LeaderboardsButton");
-			leaderBoardButton.LevelLock2(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
+			leaderBoardButton.LevelLock(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
 			var collectionButton = Root.Q<Button>("CollectionButton");
-			collectionButton.LevelLock2(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
+			collectionButton.LevelLock(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
 
 			var storeButton = Root.Q<Button>("StoreButton");
 			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
 			if (FeatureFlags.STORE_ENABLED)
 			{
-				storeButton.LevelLock2(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
+				storeButton.LevelLock(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
 			}
 
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
-			// Root.Q<Button>("FriendsButton").Required().clicked += Data.FriendsClicked;
-			// TODO: Re-enable this
-			Root.Q<Button>("FriendsButton").Required().SetDisplay(false);
+			Root.Q<Button>("FriendsButton").Required().clicked += Data.FriendsClicked;
+			Root.Q<LocalizedButton>("PartyUpButton").Required().clicked += ShowPartyUpPopup;
 
 			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
 
 			Root.SetupClicks(_services);
-			OnAnyPartyUpdate();
+		}
+
+		private void ShowPartyUpPopup()
+		{
+			PopupPresenter.OpenParty().Forget();
 		}
 
 		private void OnItemRewarded(ItemRewardedMessage msg)
@@ -216,13 +208,15 @@ namespace FirstLight.Game.Presenters
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
 
 			_dataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
-			SubscribeToSquadEvents();
 			_services.MatchmakingService.IsMatchmaking.Observe(OnIsMatchmakingChanged);
 			_dataProvider.PlayerDataProvider.Level.InvokeObserve(OnFameChanged);
 			_services.LeaderboardService.OnRankingUpdate += OnRankingUpdateHandler;
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 			_services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
+			
+			UpdatePlayButton();
 
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
 
@@ -237,8 +231,7 @@ namespace FirstLight.Game.Presenters
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnIsMatchmakingChanged);
 			_services.LeaderboardService.OnRankingUpdate -= OnRankingUpdateHandler;
 			_dataProvider.PlayerDataProvider.Level.StopObserving(OnFameChanged);
-
-			UnsubscribeFromSquadEvents();
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnPartyLobbyChanged;
 
 			return base.OnScreenClose();
 		}
@@ -246,6 +239,11 @@ namespace FirstLight.Game.Presenters
 		private void OnDisplayNameChanged(DisplayNameChangedMessage _)
 		{
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
+		}
+		
+		private void OnPartyLobbyChanged(ILobbyChanges changes)
+		{
+			UpdatePlayButton();
 		}
 
 		private void OnRankingUpdateHandler(PlayerLeaderboardEntry leaderboardEntry)
@@ -334,18 +332,20 @@ namespace FirstLight.Game.Presenters
 			var translationKey = ScriptTerms.UITHomeScreen.play;
 			var buttonClass = string.Empty;
 			var buttonEnabled = true;
+			
+			var partyLobby = _services.FLLobbyService.CurrentPartyLobby;
 
-			if (forceLoading || _services.PartyService.OperationInProgress.Value ||
-				_services.MatchmakingService.IsMatchmaking.Value)
+			// TODO mihak: Add operation in progress logic for parties
+			if (forceLoading || _services.MatchmakingService.IsMatchmaking.Value)
 			{
 				buttonClass = "play-button--loading";
 				buttonEnabled = false;
 			}
-			else if (_services.PartyService.HasParty.Value && _services.PartyService.GetLocalMember() != null)
+			else if (partyLobby != null)
 			{
-				if (_services.PartyService.GetLocalMember().Leader)
+				if (partyLobby.IsLocalPlayerHost())
 				{
-					if (!_services.PartyService.PartyReady.Value)
+					if (!partyLobby.IsEveryoneReady())
 					{
 						translationKey = ScriptTerms.UITHomeScreen.waiting_for_members;
 						buttonEnabled = false;
@@ -357,7 +357,7 @@ namespace FirstLight.Game.Presenters
 				}
 				else
 				{
-					var isReady = _services.PartyService.LocalReadyStatus.Value;
+					var isReady = partyLobby.Players.First(p => p.IsLocal()).IsReady();
 
 					if (isReady)
 					{

@@ -25,8 +25,6 @@ namespace FirstLight.Game.Presenters
 			public Action LogoutClicked;
 			public Action OnClose;
 			public Action OnConnectIdClicked;
-			public Action OnCustomizeHudClicked;
-			public Action OnServerSelectClicked;
 			public Action OnDeleteAccountClicked;
 		}
 
@@ -97,7 +95,6 @@ namespace FirstLight.Game.Presenters
 			_connectIdButton.clicked += Data.OnConnectIdClicked;
 			_accountStatusLabel = Root.Q<LocalizedLabel>("AccountStatusLabel").Required();
 			_playerIDField = Root.Q<TextField>("PlayerID").Required();
-			Root.Q<ImageButton>("CopyButton").Required().clicked += CopyPlayerID;
 			_web3StatusLabel = Root.Q<Label>("Web3StatusLabel");
 			UpdateAccountStatus();
 			UpdateWeb3State(MainInstaller.ResolveWeb3().State);
@@ -254,16 +251,6 @@ namespace FirstLight.Game.Presenters
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
-		}
-		
-		private void CopyPlayerID()
-		{
-			var te = new TextEditor
-			{
-				text = _playerIDField.value
-			};
-			te.SelectAll();
-			te.Copy();
 		}
 	}
 }

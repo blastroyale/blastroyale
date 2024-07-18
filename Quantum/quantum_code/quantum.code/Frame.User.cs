@@ -80,8 +80,6 @@ namespace Quantum
 		public QuantumShrinkingCircleConfigs ShrinkingCircleConfigs =>
 			FindAsset<QuantumShrinkingCircleConfigs>(RuntimeConfig.ShrinkingCircleConfigs.Id);
 
-		public QuantumMutatorConfigs MutatorConfigs => FindAsset<QuantumMutatorConfigs>(RuntimeConfig.MutatorConfigs.Id);
-
 		/// <summary>
 		/// Requests the list of <typeparamref name="T"/> pointers that can be iterated over.
 		/// Use this with caution because creates garbage. A good use is to allow indexing on a execution loop

@@ -1,10 +1,17 @@
 using System;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using I2.Loc;
+using Unity.Services.Authentication;
+using Unity.Services.CloudSave;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -31,7 +38,7 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _avatar;
 		private readonly VisualElement _onlineIndicator;
 		private readonly Label _nameAndTrophiesLabel;
-		private readonly Label _activityLabel;
+		private readonly Label _statusLabel;
 		private readonly LocalizedButton _mainActionButton;
 		private readonly ImageButton _moreActionsButton;
 		private readonly Label _header;
@@ -39,14 +46,16 @@ namespace FirstLight.Game.UIElements
 		private readonly LocalizedButton _acceptButton;
 		private readonly LocalizedButton _declineButton;
 
-		private Action<Relationship> _mainAction;
-		private Action<VisualElement, Relationship> _moreActionsAction;
-		private Action<Relationship> _acceptAction;
-		private Action<Relationship> _declineAction;
+		private Action _mainAction;
+		private Action<VisualElement> _moreActionsAction;
+		private Action _acceptAction;
+		private Action _declineAction;
 
-		private Relationship _relationship;
+		public FriendListElement() : this("VeryLongPlayerNameThatWillBreakTheLayout")
+		{
+		}
 
-		public FriendListElement()
+		public FriendListElement(string name)
 		{
 			AddToClassList(USS_BLOCK);
 
@@ -72,12 +81,11 @@ namespace FirstLight.Game.UIElements
 						_onlineIndicator.AddToClassList(USS_ONLINE_INDICATOR);
 					}
 
-					playerBarContainer.Add(
-						_nameAndTrophiesLabel = new Label("PlayerWithALongName\n<color=#FFC700>12345") {name = "name-and-trophies"});
+					playerBarContainer.Add(_nameAndTrophiesLabel = new Label(name) {name = "name-and-trophies"});
 					_nameAndTrophiesLabel.AddToClassList(USS_NAME_AND_TROPHIES);
 
-					playerBarContainer.Add(_activityLabel = new Label("Player last seend\n30 minutes ago") {name = "activity"});
-					_activityLabel.AddToClassList(USS_ACTIVITY);
+					playerBarContainer.Add(_statusLabel = new Label("Player last seend\n30 minutes ago") {name = "activity"});
+					_statusLabel.AddToClassList(USS_ACTIVITY);
 
 					playerBarContainer.Add(_mainActionButton = new LocalizedButton("UITFriends/invite") {name = "main-action-button"});
 					_mainActionButton.AddToClassList(USS_MAIN_ACTION_BUTTON);
@@ -100,69 +108,105 @@ namespace FirstLight.Game.UIElements
 				}
 			}
 
-			_mainActionButton.clicked += () => _mainAction?.Invoke(_relationship);
-			_moreActionsButton.clicked += () => _moreActionsAction?.Invoke(_moreActionsButton, _relationship);
-			_acceptButton.clicked += () => _acceptAction?.Invoke(_relationship);
-			_declineButton.clicked += () => _declineAction?.Invoke(_relationship);
+			_mainActionButton.clicked += () => _mainAction?.Invoke();
+			_moreActionsButton.clicked += () => _moreActionsAction?.Invoke(_moreActionsButton);
+			_acceptButton.clicked += () => _acceptAction?.Invoke();
+			_declineButton.clicked += () => _declineAction?.Invoke();
 		}
 
-		public void SetData(Relationship relationship, string header, string mainActionLabel, Action<Relationship> mainAction,
-							Action<Relationship> acceptAction, Action<Relationship> declineAction,
-							Action<VisualElement, Relationship> moreActionsAction)
+		public FriendListElement SetFromRelationship(Relationship relationship)
 		{
-			_relationship = relationship;
-			// TODO mihak: Show correct trophies
-			_nameAndTrophiesLabel.text = $"{relationship.Member.Profile.Name}\n{12234} <sprite name=\"TrophyIcon\">";
-
-			_header.SetDisplay(header != null);
-			_header.text = header;
-
-			if (relationship.Type == RelationshipType.FriendRequest)
+			var activity = relationship.Member?.Presence?.GetActivity<FriendActivity>();
+			SetPlayerName(relationship.Member?.Profile.Name);
+			SetStatus(activity?.Status, relationship.IsOnline());
+			_avatar.SetDisplay(true);
+			if (!string.IsNullOrEmpty(activity?.AvatarUrl))
 			{
-				if (relationship.Member.Role == MemberRole.Source)
-				{
-					_activityLabel.SetVisibility(true);
-					_activityLabel.text = ScriptLocalization.UITFriends.has_sent_request;
-				}
-				else
-				{
-					_activityLabel.SetVisibility(false);
-				}
-
-				_onlineIndicator.SetDisplay(false);
-			}
-			else if (relationship.Member.Presence != null)
-			{
-				var presence = relationship.Member.Presence;
-				var availability = presence.Availability;
-
-				_onlineIndicator.EnableInClassList(USS_ONLINE_INDICATOR_ONLINE, availability == Availability.Online);
-				_onlineIndicator.SetDisplay(true);
-
-				_activityLabel.SetVisibility(true);
-				_activityLabel.text = relationship.Member.Presence.GetActivity<PlayerActivity>()?.Status;
+				MainInstaller.ResolveServices().RemoteTextureService.SetTexture(_avatar, activity.AvatarUrl);
 			}
 			else
 			{
-				_activityLabel.SetVisibility(false);
+				SetAvatarHack(relationship.Member.Id).Forget();
+			}
+			return this;
+		}
+
+		private async UniTaskVoid SetAvatarHack(string unityId)
+		{
+			if (unityId == null)
+			{
+				return;
+			}
+			var playfabId = await CloudSaveService.Instance.LoadPlayfabID(unityId);
+			var services = MainInstaller.ResolveServices();
+			services.ProfileService.GetPlayerPublicProfile(playfabId, profile =>
+			{
+				services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
+			});
+		}
+
+		public FriendListElement SetPlayerName(string playerName)
+		{
+			_nameAndTrophiesLabel.text = playerName;
+			return this;
+		}
+
+		public FriendListElement SetHeader(string header)
+		{
+			_header.SetDisplay(header != null);
+			_header.text = header;
+			return this;
+		}
+
+		public FriendListElement SetStatus(string activity, bool? online)
+		{
+			_statusLabel.SetVisibility(!string.IsNullOrEmpty(activity));
+			_statusLabel.text = activity;
+
+			if (online.HasValue)
+			{
+				_onlineIndicator.SetDisplay(true);
+				_onlineIndicator.EnableInClassList(USS_ONLINE_INDICATOR_ONLINE, online.Value);
+			}
+			else
+			{
 				_onlineIndicator.SetDisplay(false);
 			}
 
-			// Main button
-			_mainActionButton.SetDisplay(mainAction != null);
-			_mainActionButton.text = mainActionLabel;
-			_mainAction = mainAction;
-			_mainActionButton.EnableInClassList("button-long--red", _relationship.Type == RelationshipType.Block);
-			_mainActionButton.EnableInClassList("button-long--yellow", _relationship.Type != RelationshipType.Block);
+			return this;
+		}
 
-			// Accept/Decline buttons
+		public FriendListElement SetAcceptDecline(Action acceptAction, Action declineAction)
+		{
 			_acceptDeclineContainer.SetDisplay(acceptAction != null && declineAction != null);
 			_acceptAction = acceptAction;
 			_declineAction = declineAction;
+			return this;
+		}
 
-			// Details button
+		public FriendListElement SetMainAction(string label, Action mainAction, bool negative)
+		{
+			_mainActionButton.SetDisplay(!string.IsNullOrEmpty(label) && mainAction != null);
+			_mainActionButton.EnableInClassList("button-long--red", negative);
+			_mainActionButton.EnableInClassList("button-long--yellow", !negative);
+
+			_mainActionButton.text = label;
+			_mainAction = mainAction;
+			return this;
+		}
+
+		public FriendListElement SetMoreActions(Action<VisualElement> moreActionsAction)
+		{
 			_moreActionsButton.SetDisplay(moreActionsAction != null);
 			_moreActionsAction = moreActionsAction;
+			return this;
+		}
+
+		public FriendListElement SetAvatar(Texture2D avatar)
+		{
+			_avatar.SetVisibility(avatar != null);
+			_avatar.style.backgroundImage = new StyleBackground(avatar);
+			return this;
 		}
 
 		public new class UxmlFactory : UxmlFactory<FriendListElement, UxmlTraits>

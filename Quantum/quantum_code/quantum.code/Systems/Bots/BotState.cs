@@ -115,7 +115,7 @@ namespace Quantum
 		public static void SetAttackTarget(this ref BotCharacter bot, in EntityRef botEntity, Frame f, in EntityRef target)
 		{
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botEntity);
-			bb->Set(f, Constants.IsAimPressedKey, true);
+			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, true);
 			if (bot.Target != target)
 			{
 				var player = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);

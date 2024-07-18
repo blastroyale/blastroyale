@@ -16,7 +16,7 @@
 
 .winner-banner__title {
     width: 260px;
-    top: 160px;
+    top: 167px;
     rotate: -10deg;
     left: 230px;
     font-size: 58px;
@@ -33,7 +33,7 @@
 
 .winner-banner__player-name {
     width: 260px;
-    top: 130px;
+    top: 150px;
     rotate: -10deg;
     left: 290px;
     text-shadow: 4px 4px 0 rgb(107, 4, 2);
@@ -44,6 +44,7 @@
     transition-property: opacity, scale;
     transition-delay: 0.3s, 0.3s;
     transition-duration: 0.2s, 0.2s;
+    white-space: nowrap;
 }
 
 .hidden .winner-banner__player-name {

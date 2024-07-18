@@ -30,7 +30,7 @@ public partial class SROptions
 	}
 
 	private static HashSet<EventModifier> _toggledModifiers = new ();
-	private static HashSet<MutatorType> _mutators = new ();
+	private static HashSet<Mutator> _mutators = new ();
 
 	// Default Value for property
 	private int _eventDuration = 30;
@@ -86,11 +86,9 @@ public partial class SROptions
 
 		var mts = new[]
 		{
-			MutatorType.Hardcore,
-			MutatorType.Speed,
-			MutatorType.HammerTime,
-			MutatorType.RPGsOnly,
-			MutatorType.SpecialsMayhem
+			Mutator.Hardcore,
+			Mutator.SpeedUp,
+			Mutator.HammerTime,
 		};
 		foreach (var mutatorType in mts)
 		{
@@ -100,7 +98,7 @@ public partial class SROptions
 		SRDebug.Instance.AddOptionContainer(container);
 	}
 
-	private static void CreateMutator(MutatorType mutator, int order, DynamicOptionContainer container)
+	private static void CreateMutator(Mutator mutator, int order, DynamicOptionContainer container)
 	{
 		var definition = SRDebugger.OptionDefinition.Create(
 			"mut:" + mutator,
@@ -277,12 +275,7 @@ public partial class SROptions
 							EndsAt = DateTime.UtcNow.AddMinutes(_startsIn).AddMinutes(_eventDuration).ToString(DurationConfig.DATE_FORMAT)
 						}
 					};
-					gmConfigEntry.MatchConfig.Mutators = _mutators.Select(selectedType =>
-					{
-						return configProvider.GetConfigsList<QuantumMutatorConfig>()
-							.FirstOrDefault(mConfig => mConfig.Type == selectedType)
-							?.Id;
-					}).Where(cfg => cfg != null).ToArray();
+					gmConfigEntry.MatchConfig.Mutators = _mutators.Aggregate((acc, m) => acc | m);
 					gmConfigEntry.MatchConfig.ConfigId = "debug-" + _originalConfig.MatchConfig.ConfigId;
 					gmConfigEntry.MatchConfig.RewardModifiers = rewardModifier.ToArray();
 					gmConfigEntry.MatchConfig.MetaItemDropOverwrites = itemDropOverwrites.ToArray();

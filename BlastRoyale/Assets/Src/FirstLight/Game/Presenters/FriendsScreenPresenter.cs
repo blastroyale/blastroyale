@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
+using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -22,6 +26,8 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action OnBackClicked;
 		}
+
+		private IGameServices _services;
 
 		private ListView _friendsList;
 		private ListView _requestsList;
@@ -42,6 +48,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements()
 		{
+			_services = MainInstaller.ResolveServices();
+
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
 			header.SetTitle(ScriptLocalization.UITHomeScreen.friends);
 			header.backClicked += Data.OnBackClicked;
@@ -60,7 +68,6 @@ namespace FirstLight.Game.Presenters
 			_requestsCount = Root.Q<Label>("RequestsCount").Required();
 
 			_addFriendButton.clicked += () => AddFriend(_addFriendIDField.value).Forget();
-			Root.Q<ImageButton>("CopyButton").Required().clicked += CopyPlayerID;
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
 
 			_friendsList.bindItem = OnFriendsBindItem;
@@ -112,7 +119,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_friends = FriendsService.Instance.Friends.ToList();
 			// Sort by last seen so online friends are at the top
-			_friends.Sort((a, b) => a.Member.Presence.IsOnline().CompareTo(b.Member.Presence.IsOnline()));
+			_friends.Sort((a, b) => b.IsOnline().CompareTo(a.IsOnline()));
 			_friendsList.itemsSource = _friends;
 			_friendsList.RefreshItems();
 
@@ -153,26 +160,36 @@ namespace FirstLight.Game.Presenters
 		private void OnFriendsBindItem(VisualElement element, int index)
 		{
 			var relationship = _friends[index];
-			var online = relationship.Member.Presence.Availability == Availability.Online;
+			var online = relationship.IsOnline();
 
 			string header = null;
 
 			// Show header if first item or if the previous item has a different status
-			if (index == 0 || ((_friends[index - 1].Member.Presence.Availability == Availability.Online) != online))
+			if (index == 0 || ((_friends[index - 1].IsOnline()) != online))
 			{
 				var count = online
-					? _friends.Count(r => r.Member.Presence.Availability == Availability.Online)
-					: _friends.Count(r => r.Member.Presence.Availability != Availability.Online);
+					? _friends.Count(r => r.IsOnline())
+					: _friends.Count(r => !r.IsOnline());
 
 				header = string.Format(online ? ScriptLocalization.UITFriends.online : ScriptLocalization.UITFriends.offline, count);
 			}
 
-			((FriendListElement) element).SetData(relationship, header, ScriptLocalization.UITFriends.invite, !online
-				? null
-				: r =>
-				{
-					FLog.Info($"Squad invite clicked: {r.Id}");
-				}, null, null, OpenFriendTooltip);
+			var showPartyInvite = relationship.IsOnline() && _services.FLLobbyService.CurrentPartyLobby != null &&
+				!_services.FLLobbyService.SentPartyInvites.Contains(relationship.Member.Id);
+			var e = ((FriendListElement) element);
+			e
+				.SetHeader(header)
+				.SetFromRelationship(relationship)
+				.SetMainAction(ScriptLocalization.UITFriends.invite,
+					!showPartyInvite
+						? null
+						: () =>
+						{
+							_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
+							// TODO mihak: Invite to squad
+							FLog.Info($"Squad invite clicked: {relationship.Id}");
+						}, false)
+				.SetMoreActions(ve => OpenFriendTooltip(ve, relationship));
 		}
 
 		private void OnRequestsBindItem(VisualElement element, int index)
@@ -193,29 +210,41 @@ namespace FirstLight.Game.Presenters
 					count);
 			}
 
-			((FriendListElement) element).SetData(relationship, header, null, null,
-				sentRequest ? null : r => AcceptRequest(r).Forget(),
-				sentRequest ? null : r => DeclineRequest(r).Forget(),
-				OpenRequestsTooltip);
+			var playerElement = ((FriendListElement) element)
+				.SetFromRelationship(relationship)
+				.SetStatus(string.Empty, null)
+				.SetHeader(header)
+				.SetMoreActions(ve => OpenRequestsTooltip(ve, relationship));
+
+			if (!sentRequest)
+			{
+				playerElement.SetAcceptDecline(
+					() => AcceptRequest(relationship).Forget(),
+					() => DeclineRequest(relationship).Forget()
+				);
+			}
 		}
 
 		private void OnBlockedBindItem(VisualElement element, int index)
 		{
 			var relationship = _blocked[index];
 
-			((FriendListElement) element).SetData(relationship, null, ScriptLocalization.UITFriends.unblock, r => UnblockPlayer(r).Forget(), null,
-				null, null);
+			((FriendListElement) element)
+				.SetFromRelationship(relationship)
+				.SetPlayerName(relationship.Member.Profile.Name)
+				.SetMainAction(ScriptLocalization.UITFriends.unblock, () => UnblockPlayer(relationship).Forget(), true);
 		}
 
 		private void OpenFriendTooltip(VisualElement element, Relationship relationship)
 		{
 			TooltipUtils.OpenPlayerContextOptions(element, Root, relationship.Member.Profile.Name, new[]
 			{
-				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile", () => OpenProfile(relationship.Member.Id).Forget()),
+				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
+					() => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.remove_friend,
 					() => RemoveFriend(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
-					() => BlockPlayer(relationship.Member.Id).Forget())
+					() => BlockPlayer(relationship.Member.Id, false).Forget())
 			});
 		}
 
@@ -223,9 +252,10 @@ namespace FirstLight.Game.Presenters
 		{
 			TooltipUtils.OpenPlayerContextOptions(element, Root, relationship.Member.Profile.Name, new[]
 			{
-				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile", () => OpenProfile(relationship.Member.Id).Forget()),
+				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
+					() => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
-					() => BlockPlayer(relationship.Member.Id).Forget()),
+					() => BlockPlayer(relationship.Member.Id, true).Forget()),
 			});
 		}
 
@@ -236,12 +266,16 @@ namespace FirstLight.Game.Presenters
 				FLog.Info($"Accepting friend request: {r.Member.Id}");
 				await FriendsService.Instance.AddFriendAsync(r.Member.Id).AsUniTask();
 				FLog.Info($"Friend request accepted: {r.Member.Id}");
+
 				RefreshRequests();
 				RefreshFriends();
+
+				_services.NotificationService.QueueNotification("#Friend request accepted#");
 			}
-			catch (Exception e)
+			catch (FriendsServiceException e)
 			{
 				FLog.Error("Error accepting friend request.", e);
+				_services.NotificationService.QueueNotification($"#Error accepting friend request ({(int) e.ErrorCode})#");
 			}
 		}
 
@@ -253,29 +287,28 @@ namespace FirstLight.Game.Presenters
 				await FriendsService.Instance.DeleteIncomingFriendRequestAsync(r.Member.Id).AsUniTask();
 				FLog.Info($"Friend request deleted: {r.Member.Id}");
 				RefreshRequests();
+
+				_services.NotificationService.QueueNotification("#Friend request declined#");
 			}
-			catch (Exception e)
+			catch (FriendsServiceException e)
 			{
-				FLog.Error("Error declining friend request.", e);
+				FLog.Error("Error declining friend request", e);
+				_services.NotificationService.QueueNotification($"#Error declining friend request ({(int) e.ErrorCode})#");
 			}
 		}
 
-		private async UniTaskVoid AddFriend(string playerId)
+		private async UniTaskVoid AddFriend(string playerID)
 		{
-			if (string.IsNullOrWhiteSpace(playerId)) return;
+			if (string.IsNullOrWhiteSpace(playerID)) return;
 
 			_addFriendButton.SetEnabled(false);
-			try
+
+			var success = await FriendsService.Instance.AddFriendHandled(playerID);
+
+			if (success)
 			{
-				FLog.Info($"Sending friend request: {playerId}");
-				await FriendsService.Instance.AddFriendAsync(playerId).AsUniTask();
-				FLog.Info($"Friend request sent: {playerId}");
 				RefreshRequests();
 				RefreshFriends(); // In case they already had a request from that friend, it accepts it
-			}
-			catch (Exception e)
-			{
-				FLog.Error("Error adding friend.", e);
 			}
 
 			_addFriendButton.SetEnabled(true);
@@ -290,25 +323,37 @@ namespace FirstLight.Game.Presenters
 				await FriendsService.Instance.DeleteFriendAsync(playerID).AsUniTask();
 				FLog.Info($"Friend removed: {playerID}");
 				RefreshFriends();
+
+				_services.NotificationService.QueueNotification("#Friend removed#");
 			}
-			catch (Exception e)
+			catch (FriendsServiceException e)
 			{
 				FLog.Error("Error removing friend.", e);
+				_services.NotificationService.QueueNotification($"#Error removing friend ({(int) e.ErrorCode})#");
 			}
 		}
 
-		private async UniTaskVoid BlockPlayer(string playerID)
+		private async UniTaskVoid BlockPlayer(string playerID, bool isRequest)
 		{
 			try
 			{
 				FLog.Info($"Blocking player: {playerID}");
+
+				if (isRequest)
+				{
+					await FriendsService.Instance.DeleteIncomingFriendRequestAsync(playerID);
+				}
+
 				await FriendsService.Instance.AddBlockAsync(playerID).AsUniTask();
 				FLog.Info($"Player blocked: {playerID}");
 				RefreshAll();
+
+				_services.NotificationService.QueueNotification("#Player blocked#");
 			}
-			catch (Exception e)
+			catch (FriendsServiceException e)
 			{
-				FLog.Error("Error blocking", e);
+				FLog.Error("Error blocking player", e);
+				_services.NotificationService.QueueNotification($"#Error blocking player ({(int) e.ErrorCode})#");
 			}
 		}
 
@@ -320,33 +365,14 @@ namespace FirstLight.Game.Presenters
 				await FriendsService.Instance.DeleteBlockAsync(r.Member.Id).AsUniTask();
 				FLog.Info($"Player unblocked: {r.Member.Id}");
 				RefreshAll(); // Figure out if needed
+
+				_services.NotificationService.QueueNotification("#Player unblocked#");
 			}
-			catch (Exception e)
+			catch (FriendsServiceException e)
 			{
 				FLog.Error("Error unblocking player.", e);
+				_services.NotificationService.QueueNotification($"#Error unblocking player ({(int) e.ErrorCode})#");
 			}
-		}
-
-		private void CopyPlayerID()
-		{
-			// Copy the player ID to the clipboard
-			var te = new TextEditor
-			{
-				text = _yourIDField.value
-			};
-			te.SelectAll();
-			te.Copy();
-		}
-
-		private async UniTask OpenProfile(string playerID)
-		{
-			var services = MainInstaller.ResolveServices();
-
-			await services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new PlayerStatisticsPopupPresenter.StateData
-			{
-				UnityID = playerID,
-				OnCloseClicked = () => services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget()
-			});
 		}
 	}
 }

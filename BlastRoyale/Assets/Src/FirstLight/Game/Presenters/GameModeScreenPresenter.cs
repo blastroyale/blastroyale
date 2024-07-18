@@ -5,13 +5,13 @@ using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.Services;
-using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using Unity.Services.Lobbies;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -81,18 +81,19 @@ namespace FirstLight.Game.Presenters
 				view.SetData("GameModeButton" + orderNumber, slot, GetVisibleClass(orderNumber++));
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
+
 				view.Selected = _services.GameModeService.SelectedGameMode.Value.Equals(slot);
 				_buttonsSlider.Add(button);
 			}
 
 			// Add custom game button
-			var gameModeInfo = new GameModeInfo()
+			var gameModeInfo = new GameModeInfo
 			{
-				Entry = new GameModeRotationConfig.GameModeEntry()
+				Entry = new GameModeRotationConfig.GameModeEntry
 				{
-					MatchConfig = new SimulationMatchConfig()
+					MatchConfig = new SimulationMatchConfig
 					{
-						Mutators = new string[] { },
+						Mutators = Mutator.None,
 						MatchType = MatchType.Custom,
 						TeamSize = 1
 					},
@@ -110,6 +111,12 @@ namespace FirstLight.Game.Presenters
 			customGameView.Clicked += OnCustomGameClicked;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
+			UpdateMapDropdownVisibility();
+		}
+
+		private void UpdateMapDropdownVisibility()
+		{
+			_mapDropDown.SetDisplay(_services.GameModeService.SelectedGameMode.Value.Entry.MatchConfig.MapId == (int) GameId.Any);
 		}
 
 		private void OnMapSelected(ChangeEvent<string> evt)
@@ -122,14 +129,14 @@ namespace FirstLight.Game.Presenters
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_services.GameModeService.SelectedGameMode.Observe(OnGameModeUpdated);
-			_services.PartyService.Members.Observe(OnPartyMembersChanged);
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
 			return base.OnScreenOpen(reload);
 		}
 
 		protected override UniTask OnScreenClose()
 		{
 			_services.GameModeService.SelectedGameMode.StopObserving(OnGameModeUpdated);
-			_services.PartyService.Members.StopObserving(OnPartyMembersChanged);
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
 			return base.OnScreenClose();
 		}
 
@@ -141,22 +148,22 @@ namespace FirstLight.Game.Presenters
 		private void OnCustomGameClicked(GameModeSelectionButtonView info)
 		{
 			Data.CustomGameChosen();
+			// _services.UIService.OpenScreen<MatchListScreenPresenter>().Forget();
 		}
 
-		private void OnPartyMembersChanged(int index, PartyMember before, PartyMember after, ObservableUpdateType type)
+		private void OnSlotUpdated(int index, GameModeInfo previous, GameModeInfo current,
+								   ObservableUpdateType updateType)
 		{
-			if (type != ObservableUpdateType.Added && type != ObservableUpdateType.Removed)
-			{
-				return;
-			}
-
+			_buttonViews[index].SetData(current);
+		}
+		
+		
+		private void OnLobbyChanged(ILobbyChanges changes)
+		{
 			foreach (var view in _buttonViews)
 			{
-				if (view.IsCustomGame())
-				{
-					continue;
-				}
-
+				if (view.IsCustomGame()) continue;
+				if (view.GameModeInfo.Entry.PlayfabQueue == null) continue;
 				view.UpdateDisabledStatus();
 			}
 		}
@@ -195,6 +202,8 @@ namespace FirstLight.Game.Presenters
 			{
 				buttonView.Selected = buttonView.GameModeInfo.Entry == newGamemode.Entry;
 			}
+
+			UpdateMapDropdownVisibility();
 		}
 
 		private void FillMapSelectionList()

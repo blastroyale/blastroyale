@@ -25,6 +25,7 @@
     flex-grow: 1;
     height: 46px;
     max-height: 108px;
+    align-self: center;
 }
 
 .buy-bpp__slider__container {

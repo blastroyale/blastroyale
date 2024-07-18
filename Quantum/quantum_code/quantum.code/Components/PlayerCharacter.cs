@@ -187,7 +187,7 @@ namespace Quantum
 
 			if (f.Unsafe.TryGetPointer<HFSMAgent>(e, out var agent))
 			{
-				HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);
+				HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DEAD_EVENT);
 			}
 
 			if (RealPlayer)
@@ -239,7 +239,7 @@ namespace Quantum
 		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			SetSlotWeapon(f, e, slot);
-			HFSMManager.TriggerEvent(f, e, Constants.ChangeWeaponEvent);
+			HFSMManager.TriggerEvent(f, e, Constants.CHANGE_WEAPON_EVENT);
 		}
 
 		/// <summary>
@@ -306,7 +306,7 @@ namespace Quantum
 		/// </summary>
 		public bool IsSkydiving(Frame f, EntityRef e)
 		{
-			return f.Unsafe.TryGetPointer<AIBlackboardComponent>(e, out var bb) && bb->GetBoolean(f, Constants.IsSkydiving);
+			return f.Unsafe.TryGetPointer<AIBlackboardComponent>(e, out var bb) && bb->GetBoolean(f, Constants.IS_SKYDIVING);
 		}
 
 		/// <summary>
@@ -314,7 +314,7 @@ namespace Quantum
 		/// </summary>
 		public bool HasMeleeWeapon(Frame f, EntityRef e)
 		{
-			return f.Unsafe.GetPointer<AIBlackboardComponent>(e)->GetBoolean(f, Constants.HasMeleeWeaponKey);
+			return f.Unsafe.GetPointer<AIBlackboardComponent>(e)->GetBoolean(f, Constants.HAS_MELEE_WEAPON_KEY);
 		}
 
 		/// <summary>
@@ -403,8 +403,8 @@ namespace Quantum
 			blackboard->Set(f, nameof(QuantumWeaponConfig.NumberOfBursts), weaponConfig.NumberOfBursts);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.ReloadTime), weaponConfig.ReloadTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.MagazineSize), weaponConfig.MagazineSize);
-			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
-			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
+			blackboard->Set(f, Constants.HAS_MELEE_WEAPON_KEY, weaponConfig.IsMeleeWeapon);
+			blackboard->Set(f, Constants.BURST_TIME_DELAY, burstCooldown);
 
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			var gear = Array.Empty<Equipment>();

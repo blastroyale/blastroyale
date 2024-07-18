@@ -46,6 +46,18 @@ namespace FirstLight.Game.Data.DataTypes
 					icon.AddToClassList("sprite-home__icon-customgame");
 					break;
 				case UnlockSystem.Squads:
+					icon.AddToClassList("sprite-home__icon-party");
+					break;
+				case UnlockSystem.BattlePass:
+					icon.AddToClassList("sprite-home__icon_premium-pass_no_gradient");
+					break;
+				case UnlockSystem.GameModesMapSelector:
+					icon.AddToClassList("sprite-home__icon-mapmarker");
+					break;
+				case UnlockSystem.GameModesCustomGames:
+					icon.AddToClassList("sprite-home__icon-customgame");
+					break;
+				case UnlockSystem.Friends:
 					icon.AddToClassList("sprite-home__icon-heroes");
 					break;
 			}

@@ -81,7 +81,7 @@ namespace FirstLight.Game.Presenters
 
 		private void CloseRequested()
 		{
-			_services.UIService.CloseScreen(UILayer.Popup, false).Forget();
+			_services.UIService.CloseLayer(UILayer.Popup).Forget();
 		}
 	}
 }

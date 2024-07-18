@@ -351,7 +351,7 @@ namespace Quantum.Systems
 			}
 
 			// reviving disabled
-			if (f.Context.TryGetMutatorByType(MutatorType.DisableRevive, out _))
+			if (f.Context.Mutators.HasFlagFast(Mutator.DisableRevive))
 			{
 				return false;
 			}

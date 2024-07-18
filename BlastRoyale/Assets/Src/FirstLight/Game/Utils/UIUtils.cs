@@ -70,7 +70,7 @@ namespace FirstLight.Game.Utils
 		{
 			return element.worldBound.Overlaps(root.worldBound);
 		}
-
+		
 		/// <summary>
 		/// Gets the position (center of content rect) of the <paramref name="element"/>, in screen coordinates.
 		/// TODO: There has to be a better way to do this, without using the camera
@@ -80,7 +80,7 @@ namespace FirstLight.Game.Utils
 		{
 			if (!element.worldBound.Overlaps(root.worldBound))
 			{
-				throw new Exception("Element out of bounds");
+				throw new Exception("Unable to get position in screen!");
 			}
 
 			var viewportPoint = element.worldBound.center / root.worldBound.size;
@@ -235,22 +235,9 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Locks an element behind a level. unlockedCallback is triggered when this element isn't locked and is pressed.
 		/// </summary>
-		public static void LevelLock<TElement, TPData>(this TElement element,
-													   UIPresenterData<TPData> presenter, VisualElement root, UnlockSystem unlockSystem,
-													   Action unlockedCallback)
-			where TElement : VisualElement
-			where TPData : class
-		{
-			//element.AttachView(presenter, out FameLockedView storeLockedView);
-			//storeLockedView.Init(unlockSystem, root, unlockedCallback);
-		}
-
-		/// <summary>
-		/// Locks an element behind a level. unlockedCallback is triggered when this element isn't locked and is pressed.
-		/// </summary>
-		public static void LevelLock2<TElement>(this TElement element,
-												UIPresenter presenter, VisualElement root, UnlockSystem unlockSystem,
-												Action unlockedCallback)
+		public static void LevelLock<TElement>(this TElement element,
+											   UIPresenter presenter, VisualElement root, UnlockSystem unlockSystem,
+											   Action unlockedCallback)
 			where TElement : VisualElement
 		{
 			element.AttachView(presenter, out FameLockedView storeLockedView);
@@ -324,6 +311,19 @@ namespace FirstLight.Game.Utils
 				visual.UnregisterCallback(wrapped);
 			};
 			visual.RegisterCallback(wrapped);
+		}
+
+		/// <summary>
+		/// Copies the provided string to the system clipboard.
+		/// </summary>
+		public static void SaveToClipboard(string value)
+		{
+			var te = new TextEditor
+			{
+				text = value
+			};
+			te.SelectAll();
+			te.Copy();
 		}
 	}
 }

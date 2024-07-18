@@ -22,12 +22,12 @@ namespace Quantum.Systems
 			
 			if(f.Unsafe.TryGetPointer<AIBlackboardComponent>(entity, out var bbComponent))
 			{
-				bbComponent->Set(f, Constants.StunDurationKey, f.Get<Stats>(entity).CurrentStatusModifierDuration);
+				bbComponent->Set(f, Constants.STUN_DURATION_KEY, f.Get<Stats>(entity).CurrentStatusModifierDuration);
 			}
 
 			if (f.Unsafe.TryGetPointer<HFSMAgent>(entity, out var agent))
 			{
-				HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.StunnedEvent);
+				HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.STUNNED_EVENT);
 			}
 		}
 
@@ -36,7 +36,7 @@ namespace Quantum.Systems
 		{
 			if (type == StatusModifierType.Stun && f.Unsafe.TryGetPointer<HFSMAgent>(entity, out var agent))
 			{
-				HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.StunCancelledEvent);
+				HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.STUN_CANCELLED_EVENT);
 			}
 		}
 	}

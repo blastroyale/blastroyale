@@ -21,17 +21,12 @@
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBuckCurrency" currency="BlastBuck" class="anim-delay-3 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/friends" name="FriendsButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-3 anim-translate anim-translate--left-xl main-button-margin" style="margin-bottom: 5px;">
-                    <ui:VisualElement name="FriendsIcon" class="button-with-icon__icon" />
-                </FirstLight.Game.UIElements.LocalizedButton>
-                <ui:VisualElement name="PartyButtonHolder" class="anim-delay-2 anim-translate anim-translate--left-xl party-button-holder">
-                    <ui:VisualElement name="PartyHeaderContainer" class="squad-container">
-                        <ui:VisualElement name="PartyHeader" class="squad-container__header">
-                            <ui:Label text="CODE: ABD8" name="PartyRoomCode" class="squad-container__roomcode" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/party" name="PartyButton" class="button-party sfx-click-forwards">
-                        <ui:VisualElement name="PartyIcon" class="button-party__icon" />
+                <ui:VisualElement class="anim-delay-3 anim-translate anim-translate--left-xl" style="flex-direction: row; margin-bottom: 38px;">
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/party" name="PartyUpButton" class="sfx-click-forwards button-with-icon button-with-icon--party main-button-margin" style="margin-bottom: 5px;">
+                        <ui:VisualElement name="FriendsIcon" class="button-with-icon__icon" />
+                    </FirstLight.Game.UIElements.LocalizedButton>
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/friends" name="FriendsButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes main-button-margin" style="margin-bottom: 5px;">
+                        <ui:VisualElement name="FriendsIcon" class="button-with-icon__icon" />
                     </FirstLight.Game.UIElements.LocalizedButton>
                 </ui:VisualElement>
                 <FirstLight.Game.UIElements.ImageButton name="GameModeButton" class="sfx-click-forwards anim-delay-1 anim-translate anim-translate--left-l game-mode-button">
@@ -85,7 +80,7 @@
                             <ui:Label text="+20" name="RestockLabelAmount" />
                             <ui:VisualElement name="BppIcon" class="resource-pool__icon" />
                             <ui:Label text="IN 2H 45M" name="RestockLabelTime" />
-                            <ui:Label text="&lt;color=#49D4D4&gt;20&lt;/color&gt; / 100&#10;" name="AmountLabel" />
+                            <ui:Label text="&lt;color=#49D4D4&gt;20&lt;/color&gt; / 100" name="AmountLabel" />
                             <ui:VisualElement name="Separator" class="resource-pool__separator" />
                         </ui:VisualElement>
                     </ui:VisualElement>

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using QuickEye.UIToolkit;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -59,6 +60,7 @@ namespace FirstLight.UIService
 			if (_document != null) // TODO: Only here to support legacy lobby screen, remove when it's UITK
 			{
 				Root = _document.rootVisualElement.Q(UIService.ID_ROOT);
+				Root.AssignQueryResults(this);
 				QueryElements();
 
 				if (reload)
@@ -88,17 +90,18 @@ namespace FirstLight.UIService
 		internal async UniTask OnScreenClosedInternal()
 		{
 			_cancellationTokenSource.Cancel();
+
+			await OnScreenClose();
+
+			foreach (var view in _views)
+			{
+				view.OnScreenClose();
+			}
+
 			if (_document != null)
 			{
 				Root.EnableInClassList(UIService.CLASS_HIDDEN, true);
-
-				foreach (var view in _views)
-				{
-					view.OnScreenClose();
-				}
 			}
-
-			await OnScreenClose();
 		}
 
 		/// <summary>

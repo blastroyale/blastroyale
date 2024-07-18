@@ -17,8 +17,8 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void OnInit(Frame f)
 		{
-			var hammerTime = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _);
-			var noHealthNoShields = f.Context.TryGetMutatorByType(MutatorType.Hardcore, out _);
+			var hammerTime = f.Context.Mutators.HasFlagFast(Mutator.HammerTime);
+			var noHealthNoShields = f.Context.Mutators.HasFlagFast(Mutator.Hardcore);
 
 			if (!hammerTime && !noHealthNoShields) return;
 

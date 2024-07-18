@@ -1,0 +1,249 @@
+using System;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
+using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
+using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
+using FirstLight.Game.Views.UITK;
+using FirstLight.UIService;
+using I2.Loc;
+using Quantum;
+using QuickEye.UIToolkit;
+using Unity.Services.Authentication;
+using Unity.Services.Friends;
+using Unity.Services.Lobbies;
+using UnityEngine.UIElements;
+using Player = Unity.Services.Lobbies.Models.Player;
+
+namespace FirstLight.Game.Presenters
+{
+	/// <summary>
+	/// Represents the presenter for the match lobby screen.
+	/// </summary>
+	public class MatchLobbyScreenPresenter : UIPresenterData<MatchLobbyScreenPresenter.StateData>
+	{
+		private const int PLAYERS_PER_ROW = 4;
+		private const string USS_ROW = "players-container__row";
+
+		public class StateData
+		{
+			public MatchListScreenPresenter.StateData MatchListStateData; // Ugly but I don't want to refac state machines
+		}
+
+		[Q("Header")] private ScreenHeaderElement _header;
+		[Q("PlayersScrollview")] private ScrollView _playersContainer;
+		[Q("LobbyCode")] private LocalizedTextField _lobbyCode;
+		[Q("MatchSettings")] private VisualElement _matchSettings;
+		[Q("PlayersAmountLabel")] private Label _playersAmount;
+		[Q("InviteFriendsButton")] private LocalizedButton _inviteFriendsButton;
+
+		private IGameServices _services;
+		private MatchSettingsView _matchSettingsView;
+
+		protected override void QueryElements()
+		{
+			_services = MainInstaller.ResolveServices();
+
+			var header = _header.Required();
+			header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
+			header.backClicked += () => LeaveMatchLobby().Forget();
+
+			_matchSettings.Required().AttachView(this, out _matchSettingsView);
+
+			_lobbyCode.value = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
+			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends();
+		}
+
+		protected override UniTask OnScreenOpen(bool reload)
+		{
+			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged += OnLobbyChanged;
+			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
+			var playerIsHost = matchLobby.IsLocalPlayerHost();
+
+			_matchSettingsView.SetMainAction(playerIsHost ? ScriptTerms.UITCustomGames.start_match : null, () => StartMatch().Forget());
+
+			_matchSettingsView.SpectatorChanged += async spectating =>
+			{
+				await _services.FLLobbyService.SetMatchSpectator(spectating);
+				RefreshData();
+			};
+
+			if (playerIsHost)
+			{
+				_matchSettingsView.MatchSettingsChanged += settings =>
+				{
+					_services.FLLobbyService.UpdateMatchLobby(settings).Forget();
+				};
+			}
+
+			RefreshData();
+
+			return base.OnScreenOpen(reload);
+		}
+
+		private void OnLobbyChanged(ILobbyChanges changes)
+		{
+			if (changes.LobbyDeleted)
+			{
+				_services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData).Forget();
+			}
+			else
+			{
+				RefreshData();
+			}
+		}
+
+		private void RefreshData()
+		{
+			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
+			var spectators = new List<Player>();
+
+			_playersContainer.Clear();
+
+			VisualElement row = null;
+			for (var i = 0; i < matchLobby.MaxPlayers; i++)
+			{
+				if (i % PLAYERS_PER_ROW == 0)
+				{
+					_playersContainer.Add(row = new VisualElement());
+					row.AddToClassList(USS_ROW);
+				}
+
+				if (i < matchLobby.Players.Count)
+				{
+					var player = matchLobby.Players[i];
+
+					if (player.IsSpectator())
+					{
+						spectators.Add(player);
+						row!.Add(new MatchLobbyPlayerElement(null, false, false));
+						continue;
+					}
+
+					var isHost = player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId;
+					var isLocal = player.Id == AuthenticationService.Instance.PlayerId;
+					var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal);
+
+					row!.Add(playerElement);
+
+					if (!isLocal)
+					{
+						playerElement.userData = player;
+						playerElement.clicked += () => OnPlayerClicked(playerElement);
+					}
+				}
+				else
+				{
+					row!.Add(new MatchLobbyPlayerElement(null, false, false));
+				}
+			}
+
+			_matchSettingsView.SetMatchSettings(matchLobby.GetMatchSettings(), matchLobby.IsLocalPlayerHost(), true);
+			_matchSettingsView.SetSpectators(spectators);
+			_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers}";
+		}
+
+		private async UniTaskVoid StartMatch()
+		{
+			var matchSettings = _matchSettingsView.MatchSettings;
+
+			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, true);
+			
+			((IInternalGameNetworkService) _services.NetworkService).JoinSource.Value = JoinRoomSource.FirstJoin;
+
+			var setup = new MatchRoomSetup
+			{
+				SimulationConfig = new SimulationMatchConfig
+				{
+					MapId = (int) Enum.Parse<GameId>(matchSettings.MapID),
+					GameModeID = matchSettings.GameModeID,
+					MatchType = MatchType.Custom,
+					Mutators = matchSettings.Mutators,
+					MaxPlayersOverwrite = matchSettings.MaxPlayers,
+					BotOverwriteDifficulty = matchSettings.BotDifficulty,
+					TeamSize = matchSettings.SquadSize,
+					WeaponsSelectionOverwrite = matchSettings.WeaponFilter.ToArray()
+				},
+				RoomIdentifier = _services.FLLobbyService.CurrentMatchLobby.Id,
+			};
+
+			try
+			{
+				await _services.RoomService.CreateRoomAsync(setup);
+				Data.MatchListStateData.PlayClicked();
+				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);
+				
+				_services.TeamService.AutoBalanceCustom = true;
+				await UniTask.WaitForSeconds(5); // TODO mihak: REMOVE THIS HACK BEFORE RELEASE
+				
+				_services.RoomService.StartCustomGameLoading();
+			}
+			catch (Exception e)
+			{
+				FLog.Error("Could not create quantum room", e);
+			}
+		}
+
+		private async UniTaskVoid LeaveMatchLobby()
+		{
+			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
+
+			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged -= OnLobbyChanged;
+
+			await _services.FLLobbyService.LeaveMatch();
+			await _services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData);
+			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
+		}
+
+		private void OnPlayerClicked(VisualElement source)
+		{
+			var player = (Player) source.userData;
+			var isFriend = FriendsService.Instance.GetFriendByID(player.Id) != null;
+
+			var buttons = new List<PlayerContextButton>
+			{
+				new (PlayerButtonContextStyle.Normal, "Open Profile", () =>
+				{
+					_services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new PlayerStatisticsPopupPresenter.StateData
+					{
+						UnityID = player.Id
+					}).Forget();
+				})
+			};
+
+			if (!isFriend) // TODO mihak: Also check if the friend request is pending
+			{
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Send friend request",
+					() => FriendsService.Instance.AddFriendHandled(player.Id).Forget()));
+			}
+
+			if (_services.FLLobbyService.CurrentMatchLobby.IsLocalPlayerHost())
+			{
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Promote to room owner",
+					() => PromotePlayerToHost(player.Id).Forget()));
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, "Kick",
+					() => KickPlayer(player.Id).Forget()));
+			}
+
+			TooltipUtils.OpenPlayerContextOptions(source, Root, player.GetPlayerName(), buttons);
+		}
+
+		private async UniTaskVoid KickPlayer(string playerID)
+		{
+			if (await _services.FLLobbyService.KickPlayerFromMatch(playerID))
+			{
+				RefreshData();
+			}
+		}
+
+		private async UniTaskVoid PromotePlayerToHost(string playerID)
+		{
+			if (await _services.FLLobbyService.UpdateMatchHost(playerID))
+			{
+				RefreshData();
+			}
+		}
+	}
+}

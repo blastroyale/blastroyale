@@ -118,7 +118,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnMainMenuLoaded()
 		{
-			_services.MessageBrokerService.Publish(new MainMenuOpenedMessage());
+			_services.MessageBrokerService.Publish(new MainMenuLoadedMessage());
 		}
 
 		private void MainMenuSetup(IStateFactory stateFactory)
@@ -519,7 +519,7 @@ namespace FirstLight.Game.StateMachines
 
 			TryClaimUncollectedRewards();
 
-			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
+			_services.MessageBrokerService.Publish(new MainMenuOpenedMessage());
 		}
 
 		private void FinishRewardSequence()

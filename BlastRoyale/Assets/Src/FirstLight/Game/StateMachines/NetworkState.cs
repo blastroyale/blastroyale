@@ -33,8 +33,6 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("NETWORK - Photon Disconnected Event");
 
 		public static readonly IStatechartEvent PhotonCriticalDisconnectedEvent = new StatechartEvent("NETWORK - Photon Critical Disconnected Event");
-		public static readonly IStatechartEvent RegionUpdatedEvent = new StatechartEvent("NETWORK - Connect To Region Master");
-		public static readonly IStatechartEvent ConnectToNameServerFailEvent = new StatechartEvent("NETWORK - Connected To Name Fail Server Event");
 
 		public static readonly IStatechartEvent CreateRoomFailedEvent = new StatechartEvent("NETWORK - Create Room Failed Event");
 		public static readonly IStatechartEvent JoinedPlayfabMatchmaking = new StatechartEvent("NETWORK - Joined Matchmaking Event");
@@ -44,7 +42,6 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent AlreadyJoined = new StatechartEvent("NETWORK - Already joined");
 		public static readonly IStatechartEvent GameDoesNotExists = new StatechartEvent("NETWORK - Game does not exists");
 		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("NETWORK - Left Room Event");
-		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
@@ -104,7 +101,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<SimulationEndedMessage>(OnMatchSimulationEndedMessage);
 			_services.MessageBrokerService.Subscribe<LocalPlayerClickedPlayMessage>(OnPlayerClickedPlay);
 			_services.MessageBrokerService.Subscribe<MatchmakingCancelMessage>(OnMatchmakingCancelMessage);
-			_services.MessageBrokerService.Subscribe<PlayJoinRoomClickedMessage>(OnPlayJoinRoomClickedMessage);
 			_services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(OnPlayCreateRoomClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnectedMessage);
@@ -340,6 +336,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			_statechartTrigger(JoinedRoomEvent);
+			_services.MessageBrokerService.Publish(new JoinRoomMessage());
 		}
 
 		public void OnJoinRoomFailed(short returnCode, string message)
@@ -582,12 +579,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.RoomService.CreateRoom(setup, offlineMatch);
 			}
-		}
-
-		private void OnPlayJoinRoomClickedMessage(PlayJoinRoomClickedMessage msg)
-		{
-			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
-			JoinRoom(msg.RoomName);
 		}
 
 		private void OnApplicationQuitMessage(ApplicationQuitMessage data)

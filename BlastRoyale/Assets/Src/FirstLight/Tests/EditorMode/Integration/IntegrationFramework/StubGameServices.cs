@@ -63,6 +63,7 @@ namespace FirstLight.Tests.EditorMode
 		public DeepLinkService DeepLinkService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
+		public GameSocialService GameSocialService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
@@ -119,6 +120,7 @@ namespace FirstLight.Tests.EditorMode
 			ServerListService = Substitute.For<IServerListService>();
 			IAPService = Substitute.For<IIAPService>();
 			CustomerSupportService = new CustomerSupportService(AuthenticationService);
+			GameSocialService = new GameSocialService(this);
 		}
 	}
 }

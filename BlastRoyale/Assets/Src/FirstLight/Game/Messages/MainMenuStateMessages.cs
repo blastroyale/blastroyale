@@ -8,8 +8,8 @@ using FirstLight.SDK.Services;
 namespace FirstLight.Game.Messages
 {
 	public struct MainMenuShouldReloadMessage : IMessage { }
+	public struct MainMenuLoadedMessage : IMessage { }
 	public struct MainMenuOpenedMessage : IMessage { }
-	public struct PlayScreenOpenedMessage : IMessage { }
 	public struct ShopScreenOpenedMessage : IMessage { }
 	public struct OnViewingRewardsFinished : IMessage { }
 	public struct EquippedItemMessage : IMessage
@@ -17,7 +17,9 @@ namespace FirstLight.Game.Messages
 		public UniqueId ItemID;
 	}
 	public struct RoomLeaveClickedMessage : IMessage { }
-	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
+
+	public struct JoinRoomMessage : IMessage { }
+
 	public struct LocalPlayerClickedPlayMessage : IMessage { }
 	public struct MatchmakingCancelMessage : IMessage { }
 	

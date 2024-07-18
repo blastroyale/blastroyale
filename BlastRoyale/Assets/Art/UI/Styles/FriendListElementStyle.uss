@@ -79,7 +79,6 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    display: none;
 }
 
 .friend-list-element__main-action-button {

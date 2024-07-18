@@ -126,6 +126,7 @@ namespace FirstLight.Game.Services
 		public FLLobbyService FLLobbyService { get; }
 		public NotificationService NotificationService { get; }
 		public DeepLinkService DeepLinkService { get; }
+		public GameSocialService GameSocialService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -186,6 +187,7 @@ namespace FirstLight.Game.Services
 		public FLLobbyService FLLobbyService { get; }
 		public NotificationService NotificationService { get; }
 		public DeepLinkService DeepLinkService { get; }
+		public GameSocialService GameSocialService { get; }
 
 		public string QuitReason { get; set; }
 
@@ -249,6 +251,7 @@ namespace FirstLight.Game.Services
 			TeamService = new TeamService(RoomService);
 			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);
 			CustomerSupportService = new CustomerSupportService(AuthenticationService);
+			GameSocialService = new GameSocialService(this);
 		}
 
 		/// <inheritdoc />

@@ -14,6 +14,7 @@ using QuickEye.UIToolkit;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
+using Unity.Services.Friends.Notifications;
 using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
 
@@ -41,6 +42,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private IGameServices _services;
 
 		private List<Relationship> _friends;
+		private Dictionary<string, FriendListElement> _elements = new ();
 
 		protected override void Attached()
 		{
@@ -64,13 +66,19 @@ namespace FirstLight.Game.Views.UITK.Popups
 		public override void OnScreenOpen(bool reload)
 		{
 			RefreshData();
-
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
+			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
 		}
 
 		public override void OnScreenClose()
 		{
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
+			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated;
+		}
+
+		private void OnPresenceUpdated(IPresenceUpdatedEvent e)
+		{
+			RefreshData();
 		}
 
 		private async UniTaskVoid CreateParty()
@@ -104,17 +112,15 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private void OnBindFriendsItem(VisualElement element, int index)
 		{
 			var relationship = _friends[index];
-			var canInvite = _services.FLLobbyService.CurrentPartyLobby?.IsLocalPlayerHost() ?? false;
 			var e = ((FriendListElement) element);
-			e	.SetFromRelationship(relationship)
-				.SetMainAction(ScriptLocalization.UITFriends.invite, canInvite
-					? null
-					: () =>
-					{
-						_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
-						RefreshData();
-					}, false)
-				.SetMoreActions(_ => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget());
+			e.SetFromRelationship(relationship)
+				.AddOpenProfileAction(relationship)
+				.TryAddInviteOption(relationship, () =>
+				{
+					_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
+					RefreshData();
+				});
+			_elements[relationship.Member.Id] = e;
 		}
 
 		private void RefreshData()

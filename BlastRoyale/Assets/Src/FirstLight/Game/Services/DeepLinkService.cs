@@ -22,10 +22,10 @@ namespace FirstLight.Game.Services
 			_deepLink = Application.absoluteURL;
 
 			Application.deepLinkActivated += OnDeepLinkActivated;
-			messageBrokerService.Subscribe<MainMenuOpenedMessage>(OnMainMenuOpened);
+			messageBrokerService.Subscribe<MainMenuLoadedMessage>(OnMainMenuOpened);
 		}
 
-		private void OnMainMenuOpened(MainMenuOpenedMessage obj)
+		private void OnMainMenuOpened(MainMenuLoadedMessage obj)
 		{
 			if (string.IsNullOrEmpty(_deepLink)) return;
 

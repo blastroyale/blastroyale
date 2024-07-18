@@ -4,6 +4,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using I2.Loc;
@@ -84,7 +85,7 @@ namespace FirstLight.Game.UIElements
 					playerBarContainer.Add(_nameAndTrophiesLabel = new Label(name) {name = "name-and-trophies"});
 					_nameAndTrophiesLabel.AddToClassList(USS_NAME_AND_TROPHIES);
 
-					playerBarContainer.Add(_statusLabel = new Label("Player last seend\n30 minutes ago") {name = "activity"});
+					playerBarContainer.Add(_statusLabel = new Label("In Main Menu") {name = "activity"});
 					_statusLabel.AddToClassList(USS_ACTIVITY);
 
 					playerBarContainer.Add(_mainActionButton = new LocalizedButton("UITFriends/invite") {name = "main-action-button"});
@@ -137,12 +138,20 @@ namespace FirstLight.Game.UIElements
 			{
 				return;
 			}
-			var playfabId = await CloudSaveService.Instance.LoadPlayfabID(unityId);
 			var services = MainInstaller.ResolveServices();
-			services.ProfileService.GetPlayerPublicProfile(playfabId, profile =>
+			FLog.Verbose("Setting avatar hack for "+unityId);
+			try
 			{
-				services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
-			});
+				var playfabId = await CloudSaveService.Instance.LoadPlayfabID(unityId);
+				services.ProfileService.GetPlayerPublicProfile(playfabId, profile =>
+				{
+					services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
+				});
+			}
+			catch (Exception e)
+			{
+				FLog.Error($"Error setting friend unityid {unityId} avatar", e);
+			}
 		}
 
 		public FriendListElement SetPlayerName(string playerName)
@@ -182,6 +191,20 @@ namespace FirstLight.Game.UIElements
 			_acceptAction = acceptAction;
 			_declineAction = declineAction;
 			return this;
+		}
+
+		public FriendListElement TryAddInviteOption(Relationship friend, Action callback)
+		{
+			var services = MainInstaller.ResolveServices();
+			var showInvite = callback != null && services.GameSocialService.CanInvite(friend);
+			if(showInvite)
+				return SetMainAction(ScriptLocalization.UITFriends.invite, callback, false);
+			return SetMainAction("", null, false);;
+		}
+		
+		public FriendListElement AddOpenProfileAction(Relationship friend)
+		{
+			return SetMoreActions(_ => PlayerStatisticsPopupPresenter.Open(friend.Member.Id).Forget());
 		}
 
 		public FriendListElement SetMainAction(string label, Action mainAction, bool negative)

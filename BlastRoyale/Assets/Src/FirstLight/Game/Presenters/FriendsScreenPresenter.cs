@@ -180,16 +180,13 @@ namespace FirstLight.Game.Presenters
 			e
 				.SetHeader(header)
 				.SetFromRelationship(relationship)
-				.SetMainAction(ScriptLocalization.UITFriends.invite,
-					!showPartyInvite
-						? null
-						: () =>
-						{
-							_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
-							// TODO mihak: Invite to squad
-							FLog.Info($"Squad invite clicked: {relationship.Id}");
-						}, false)
-				.SetMoreActions(ve => OpenFriendTooltip(ve, relationship));
+				.AddOpenProfileAction(relationship)
+				.TryAddInviteOption(relationship, () =>
+				{
+					_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
+					// TODO mihak: Invite to squad
+					FLog.Info($"Squad invite clicked: {relationship.Id}");
+				});
 		}
 
 		private void OnRequestsBindItem(VisualElement element, int index)

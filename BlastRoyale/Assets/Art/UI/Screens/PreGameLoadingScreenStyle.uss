@@ -198,6 +198,9 @@
     justify-content: center;
     align-items: center;
     bottom: 65px;
+    flex-direction: row;
+    bottom: 0;
+    top: -37px;
 }
 
 .map-marker__title {
@@ -431,3 +434,4 @@
     display: flex;
     background-color: rgba(0, 0, 0, 0);
 }
+

@@ -39,19 +39,19 @@
                 <FirstLight.Game.UIElements.LocalizedButton name="Title" localization-key="UITHomeScreen/youre_team" class="squad-container__title" />
                 <ui:VisualElement name="Row0" class="header-row squad-row">
                     <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement0" class="player-member" />
-                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name0" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden; padding-left: 20px;" />
+                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name0" class="player-header__playername-label squad-header__playername-label" />
                 </ui:VisualElement>
-                <ui:VisualElement name="Row1" class="header-row" style="flex-direction: row; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 40px;">
+                <ui:VisualElement name="Row1" class="header-row squad-row">
                     <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement1" class="player-member" />
-                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name1" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden; padding-left: 20px;" />
+                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name1" class="player-header__playername-label squad-header__playername-label" />
                 </ui:VisualElement>
-                <ui:VisualElement name="Row2" class="header-row" style="flex-direction: row; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 40px;">
+                <ui:VisualElement name="Row2" class="header-row squad-row">
                     <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement2" class="player-member" />
-                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name2" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden; padding-left: 20px;" />
+                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name2" class="player-header__playername-label squad-header__playername-label" />
                 </ui:VisualElement>
-                <ui:VisualElement name="Row3" class="header-row" style="flex-direction: row; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 40px;">
+                <ui:VisualElement name="Row3" class="header-row squad-row">
                     <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement3" class="player-member" />
-                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name3" class="player-header__playername-label" style="font-size: 32px; text-shadow: 3px 3px 0 rgb(0, 0, 0); flex-grow: 1; width: 1px; -unity-text-align: middle-left; text-overflow: ellipsis; overflow: hidden; padding-left: 20px;" />
+                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name3" class="player-header__playername-label squad-header__playername-label" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Label name="DebugMasterClient" text="MASTER" class="debug-master-client" />

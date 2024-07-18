@@ -461,3 +461,14 @@
     right: 0;
     align-items: center;
 }
+
+.squad-header__playername-label {
+    font-size: 32px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    flex-grow: 1;
+    width: 1px;
+    -unity-text-align: middle-left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-left: 20px;
+}

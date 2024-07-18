@@ -66,7 +66,6 @@
     --sprite-home__button-gamemode-overlay-battleroyale: url('/Assets/Art/UI/Sprites/Home/button-gamemode-overlay-battleroyale.png');
     --sprite-home__button-gamemode-pressed: url('/Assets/Art/UI/Sprites/Home/button-gamemode-pressed.png');
     --sprite-home__button-gamemode-pressed-event: url('/Assets/Art/UI/Sprites/Home/button-gamemode-pressed-event.png');
-    --sprite-home__button-gamemodeselection: url('/Assets/Art/UI/Sprites/Home/button-gamemodeselection.png');
     --sprite-home__button-grey: url('/Assets/Art/UI/Sprites/Home/button-grey.png');
     --sprite-home__button-info: url('/Assets/Art/UI/Sprites/Home/button-info.png');
     --sprite-home__button-info-pressed: url('/Assets/Art/UI/Sprites/Home/button-info-pressed.png');
@@ -622,12 +621,6 @@
     background-image: var(--sprite-home__button-gamemode-pressed-event);
     width: 414px;
     height: 168px;
-}
-
-.sprite-home__button-gamemodeselection {
-    background-image: var(--sprite-home__button-gamemodeselection);
-    width: 494px;
-    height: 722px;
 }
 
 .sprite-home__button-grey {

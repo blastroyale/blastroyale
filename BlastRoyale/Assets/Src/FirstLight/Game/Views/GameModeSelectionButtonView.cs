@@ -1,14 +1,12 @@
 using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using System.Text;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
-using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
-using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -79,40 +77,8 @@ namespace FirstLight.Game.Views
 			_infoButton = Element.Q<ImageButton>("InfoButton").Required();
 			_rewardContainer = Element.Q<VisualElement>("RewardsContainer").Required();
 			_button.clicked += () => Clicked?.Invoke(this);
-			_infoButton.clicked += () =>
-			{
-				var entry = GameModeInfo.Entry;
-				// Temp should use same popups as custom games
-				var details = new StringBuilder();
-				details.Append($"<align=\"center\"><size=+2><allcaps>{entry.Visual.TitleTranslationKey.GetText()}</allcaps></size><br>");
-				details.Append($"<size=-2>{entry.Visual.DescriptionTranslationKey.GetText()}</size><br>");
-				details.Append("<br></align>");
-				details.Append($"<align=\"left\">Map: {EnumUtils.FromInt<GameId>(entry.MatchConfig.MapId)}<br><br>");
-				details.Append("Reward Multipliers:<br>");
-				foreach (var mp in entry.MatchConfig.RewardModifiers)
-				{
-					details.Append($"<indent=1em>{mp.Multiplier}x {mp.Id.GetLocalization()}{(mp.CollectedInsideGame ? " collected inside the game" : "")}<br></indent>");
-				}
-
-				details.Append("<br>Drop Chances:<br>");
-				foreach (var mp in entry.MatchConfig.MetaItemDropOverwrites)
-				{
-					var currencyView = new CurrencyItemViewModel(ItemFactory.Currency(mp.Id, 1));
-					details.Append($"<indent=1em>{currencyView.GetRichTextIcon()} on {mp.Place} with {(mp.DropRate * FP._100).ToString("0.##")}%<br></indent>");
-				}
-
-
-				details.Append("<br>Mutators:<br>");
-				foreach (var mp in entry.MatchConfig.Mutators.GetSetFlags())
-				{
-					details.Append($"<indent=1em>{mp}<br></indent>");
-				}
-
-				details.Append("</align>");
-
-
-				MainInstaller.ResolveServices().GenericDialogService.OpenSimpleMessage("Event Details Placeholder", details.ToString());
-			};
+			_infoButton.clicked += () => PopupPresenter.OpenMatchInfo(GameModeInfo, () =>
+				PopupPresenter.Close().ContinueWith(() => Clicked?.Invoke(this)));
 		}
 
 		/// <summary>
@@ -173,15 +139,10 @@ namespace FirstLight.Game.Views
 				_button.RemoveFromClassList(USS_ANIM_ROOT);
 			}
 
-			_scheduled = Element.schedule.Execute(() =>
-			{
-				var timeLeft = gameModeInfo.Duration.GetEndsAtDateTime() - DateTime.UtcNow;
-				if (comingSoon)
-				{
-					timeLeft = gameModeInfo.Duration.GetStartsAtDateTime() - DateTime.UtcNow;
-				}
-
-				if (timeLeft.TotalSeconds < 0)
+			_scheduled = _timeLeftLabel.SetTimer(
+				() => comingSoon ? gameModeInfo.Duration.GetStartsAtDateTime() : gameModeInfo.Duration.GetEndsAtDateTime(),
+				comingSoon ? "NEXT EVENT IN\n" : "ENDS IN ",
+				(el) =>
 				{
 					if (comingSoon)
 					{
@@ -190,13 +151,9 @@ namespace FirstLight.Game.Views
 					}
 
 					Disabled = true;
-					_timeLeftLabel.text = "EVENT FINISHED";
-					return;
+					el.text = "EVENT FINISHED";
 				}
-
-				var prefix = comingSoon ? "NEXT EVENT IN\n" : "ENDS IN ";
-				_timeLeftLabel.text = $"{prefix}{timeLeft.Display(showSeconds: true, showDays: false).ToLowerInvariant()}";
-			}).Every(1000);
+			);
 		}
 
 		private void CheckCustomImage()
@@ -222,6 +179,7 @@ namespace FirstLight.Game.Views
 			{
 				_char.AddToClassList("anim-fade");
 			}
+
 			var tex = await task;
 			_char.style.backgroundImage = new StyleBackground(tex);
 			_char.style.opacity = 1;

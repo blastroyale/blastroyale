@@ -34,7 +34,7 @@ public partial class SROptions
 
 	// Default Value for property
 	private int _eventDuration = 30;
-	private int _startsIn = 1;
+	private int _startsIn = 0;
 	private string _eventTitle = "Forced Test Event";
 	private string _eventDescription = "This is a forced event <sprite name=\"HPIcon\">";
 
@@ -63,6 +63,7 @@ public partial class SROptions
 		get { return _eventTitle; }
 		set { _eventTitle = value; }
 	}
+
 	[Category("Events")]
 	[Sort(103)]
 	public string EventDescription
@@ -77,6 +78,8 @@ public partial class SROptions
 		// Create a mutable option
 
 		int order = 104;
+		_toggledModifiers.Add(EventModifier.DoubleTrophies);
+		_toggledModifiers.Add(EventModifier.DrpCoinAir);
 		foreach (var modifierObj in Enum.GetValues(typeof(EventModifier)))
 		{
 			var modifier = (EventModifier) modifierObj;
@@ -89,9 +92,13 @@ public partial class SROptions
 			Mutator.Hardcore,
 			Mutator.SpeedUp,
 			Mutator.HammerTime,
+			Mutator.ConsumableSharing,
+			Mutator.DisableRevive,
+			Mutator.HealthyAir
 		};
 		foreach (var mutatorType in mts)
 		{
+			_mutators.Add(mutatorType);
 			CreateMutator(mutatorType, order++, container);
 		}
 
@@ -275,7 +282,7 @@ public partial class SROptions
 							EndsAt = DateTime.UtcNow.AddMinutes(_startsIn).AddMinutes(_eventDuration).ToString(DurationConfig.DATE_FORMAT)
 						}
 					};
-					gmConfigEntry.MatchConfig.Mutators = _mutators.Aggregate((acc, m) => acc | m);
+					gmConfigEntry.MatchConfig.Mutators = _mutators.Count > 0 ? _mutators.Aggregate((acc, m) => acc | m) : Mutator.None;
 					gmConfigEntry.MatchConfig.ConfigId = "debug-" + _originalConfig.MatchConfig.ConfigId;
 					gmConfigEntry.MatchConfig.RewardModifiers = rewardModifier.ToArray();
 					gmConfigEntry.MatchConfig.MetaItemDropOverwrites = itemDropOverwrites.ToArray();
@@ -287,8 +294,10 @@ public partial class SROptions
 					{
 						gmConfigEntry.Visual.OverwriteImageURL = "";
 					}
+
 					gmConfigEntry.Visual.TitleTranslationKey = LocalizableString.FromText(EventTitle);
 					gmConfigEntry.Visual.DescriptionTranslationKey = LocalizableString.FromText(EventDescription);
+					gmConfigEntry.Visual.LongDescriptionTranslationKey = LocalizableString.FromText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eget lacus vitae lorem accumsan ultricies sit amet vel eros. Etiam pulvinar ultrices commodo.");
 					gmConfig[slotIndex] = gmConfigEntry;
 					config.Slots[slotIndex] = gmConfig;
 					MainInstaller.ResolveServices().GameModeService.Init(config);

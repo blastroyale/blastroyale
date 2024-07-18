@@ -1,20 +1,28 @@
 .content {
     width: 1372px;
-    height: 702px;
+    height: 760px;
     flex-direction: row;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+}
+
+.content--event {
+}
+
+.unity-disabled.match-settings-button {
+    opacity: 1;
 }
 
 .content__left {
     width: 583px;
-    padding-top: 8px;
-    padding-bottom: 8px;
     padding-right: 35px;
     padding-left: 35px;
 }
 
-.conten__right {
+.content__right {
     flex-grow: 1;
-    padding-top: 7px;
+    padding-top: 20px;
     padding-right: 16px;
 }
 
@@ -36,7 +44,7 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
-.friends-playing-label {
+.left-container-label {
     font-size: 32px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;
@@ -45,7 +53,15 @@
     -unity-text-align: upper-center;
 }
 
-.friends-playing-container {
+.custom-game-container {
+    display: none;
+}
+
+.content--custom .custom-game-container {
+    display: flex;
+}
+
+.friends-playing-list-container {
     align-items: center;
     flex-wrap: wrap;
     margin-top: 17px;
@@ -54,7 +70,106 @@
     max-height: 219px;
 }
 
-.friends-playing-container > Label {
+.event-container__top {
+    width: 100%;
+    align-items: center;
+}
+
+.event-container {
+    height: 100%;
+    display: none;
+}
+
+.content--event .event-container {
+    display: flex;
+}
+
+.event-thumbnail {
+    background-color: rgb(248, 158, 43);
+    height: 283px;
+    width: 283px;
+    align-self: center;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-thumbnail__image {
+    background-image: var(--sprite-home__gamemode-event-characters);
+    translate: -50% -56%;
+    width: 240px;
+    height: 292px;
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+}
+
+.event-container--custom-image .event-thumbnail__image {
+    position: absolute;
+    width: 302px;
+    height: 367px;
+    -unity-background-scale-mode: scale-to-fit;
+    translate: 0 -83px;
+}
+
+.event-container--custom-image .event-thumbnail__mask {
+    position: absolute;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.event-ends-label {
+    font-size: 28px;
+    color: white;
+    background-color: rgb(63, 168, 29);
+    width: 265px;
+    height: 45px;
+    border-radius: 15px;
+    -unity-text-align: middle-center;
+    margin-bottom: 30px;
+    margin-top: 8px;
+}
+
+.rewards-container {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.rewards-list-container {
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    align-content: auto;
+    justify-content: center;
+    max-width: 360px;
+    height: auto;
+    padding-left: 5px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.event-reward {
+    background-size: 75%;
+    color: white;
+    width: 100px;
+    height: 100px;
+    font-size: 32px;
+    -unity-text-align: lower-right;
+    background-color: rgb(21, 21, 37);
+    border-radius: 10px;
+    padding-right: 10px;
+    padding-bottom: 3px;
+    -unity-text-outline: black 1px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.friends-playing-list-container > Label {
     font-size: 28px;
     color: rgb(255, 255, 255);
     background-color: rgb(64, 169, 28);
@@ -104,6 +219,55 @@
     justify-content: space-between;
 }
 
+.match-settings-button--margin {
+    margin-right: 36px;
+}
+
 .join-button {
     align-self: center;
+    margin-top: 15px;
+}
+
+
+.horizontal-label-list__container {
+    margin-top: 10px;
+}
+
+.horizontal-label-list__container__label {
+    font-size: 36px;
+    color: white;
+    -unity-text-outline: black 2px;
+    text-shadow: black 2px 2px;
+}
+
+.horizontal-label-list__scroll {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.horizontal-label-list__scroll LocalizedLabel {
+    background-color: white;
+    width: auto;
+    font-size: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 35px;
+    padding-left: 35px;
+    border-radius: 15px;
+    margin-right: 10px;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static");
+}
+
+.horizontal-label-list__background {
+    background-color: rgb(22, 20, 38);
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    border-radius: 20px;
+    padding-right: 10px;
+    margin-top: 5px;
+}
+
+.right-scroll .unity-scroller--vertical {
+    padding-left: 41px;
 }

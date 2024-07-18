@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
+using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK.Popups;
@@ -67,6 +68,7 @@ namespace FirstLight.Game.Presenters
 					SetupPopup(_partyDocument, view);
 					break;
 				case MatchInfoPopupView view:
+					_popup.Configure(false, view.IsEvent());
 					SetupPopup(_matchInfoDocument, view);
 					break;
 				case InviteFriendsPopupView view:
@@ -101,17 +103,22 @@ namespace FirstLight.Game.Presenters
 		{
 			return OpenPopup(new SelectMutatorsPopupView(onMutatorsSelected, mutators), ScriptTerms.UITCustomGames.select_mutators);
 		}
-		
+
 		public static UniTaskVoid OpenParty()
 		{
 			return OpenPopup(new PartyPopupView(), ScriptTerms.UITHomeScreen.party);
 		}
 
-		public static UniTaskVoid OpenMatchInfo(CustomMatchSettings matchSettings, List<string> friendsPlaying)
+		public static UniTaskVoid OpenMatchInfo(SimulationMatchConfig matchSettings, List<string> friendsPlaying)
 		{
 			return OpenPopup(new MatchInfoPopupView(matchSettings, friendsPlaying), "MATCH INFO");
 		}
-		
+
+		public static UniTaskVoid OpenMatchInfo(GameModeInfo info, Action selectClicked)
+		{
+			return OpenPopup(new MatchInfoPopupView(info, selectClicked), ScriptTerms.UITGameModeSelection.event_info_popup_title);
+		}
+
 		public static UniTaskVoid OpenInviteFriends()
 		{
 			return OpenPopup(new InviteFriendsPopupView(), ScriptTerms.UITCustomGames.invite_blasters);

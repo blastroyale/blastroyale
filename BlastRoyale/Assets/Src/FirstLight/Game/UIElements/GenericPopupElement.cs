@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Utils;
 using I2.Loc;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,9 +12,12 @@ namespace FirstLight.Game.UIElements
 	public class GenericPopupElement : VisualElement
 	{
 		private const string USS_BLOCK = "generic-popup";
+		private const string USS_NO_PADDING_MODIFIER = USS_BLOCK + "--no-padding";
 		private const string USS_HEADER = USS_BLOCK + "__header";
 		private const string USS_TITLE = USS_BLOCK + "__title";
 		private const string USS_CONTENT = USS_BLOCK + "__content";
+		private const string USS_GLOW_HOLDER = USS_CONTENT + "__glow-holder";
+		private const string USS_GLOW = USS_CONTENT + "__glow";
 		private const string USS_CLOSE_BUTTON = USS_BLOCK + "__close-button";
 
 		private string TitleLocalizationKey { get; set; }
@@ -22,6 +26,7 @@ namespace FirstLight.Game.UIElements
 		private readonly Label _title;
 		private readonly ImageButton _closeButton;
 		private readonly VisualElement _content;
+		private readonly VisualElement _glowHolder;
 
 		public event Action CloseClicked;
 
@@ -46,8 +51,21 @@ namespace FirstLight.Game.UIElements
 
 			Add(_content = new VisualElement {name = "content"});
 			_content.AddToClassList(USS_CONTENT);
+			_glowHolder = new VisualElement {name = "glow-holder"};
+			_glowHolder.AddToClassList(USS_GLOW_HOLDER);
+			_glowHolder.SetDisplay(false);
+			var glow = new VisualElement() {name = "glow"};
+			glow.AddToClassList(USS_GLOW);
+			_glowHolder.Add(glow);
+			_content.Add(_glowHolder);
 
 			contentContainer = _content;
+		}
+
+		public void Configure(bool padding, bool glowBackground)
+		{
+			EnableInClassList(USS_NO_PADDING_MODIFIER, !padding);
+			_glowHolder.SetDisplay(glowBackground);
 		}
 
 		public void LocalizeTitle(string labelKey)

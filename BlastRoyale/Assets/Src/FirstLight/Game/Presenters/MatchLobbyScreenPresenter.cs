@@ -176,17 +176,7 @@ namespace FirstLight.Game.Presenters
 
 			var setup = new MatchRoomSetup
 			{
-				SimulationConfig = new SimulationMatchConfig
-				{
-					MapId = (int) Enum.Parse<GameId>(matchSettings.MapID),
-					GameModeID = matchSettings.GameModeID,
-					MatchType = MatchType.Custom,
-					Mutators = matchSettings.Mutators,
-					MaxPlayersOverwrite = matchSettings.MaxPlayers,
-					BotOverwriteDifficulty = matchSettings.BotDifficulty,
-					TeamSize = matchSettings.SquadSize,
-					WeaponsSelectionOverwrite = matchSettings.WeaponFilter.ToArray()
-				},
+				SimulationConfig = matchSettings.ToSimulationMatchConfig(),
 				RoomIdentifier = _services.FLLobbyService.CurrentMatchLobby.Id,
 			};
 

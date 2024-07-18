@@ -25169,6 +25169,39 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITGameModeSelection/rewards
+      TermType: 0
+      Description: 
+      Languages:
+      - REWARDS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/select_event
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/event_info_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - EVENT INFO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/blast_pass
       TermType: 0
       Description: 
@@ -29091,6 +29124,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/mutator_HammerTime
+      TermType: 0
+      Description: 
+      Languages:
+      - HAMMER TIME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_HammerTime_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - You can only use your hammer!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCustomGames/mutators
       TermType: 0
       Description: 
@@ -29414,7 +29469,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1721144547832
+    Google_LastUpdatedVersion: 1721298552032
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

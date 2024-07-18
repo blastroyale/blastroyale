@@ -56,7 +56,8 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static void OpenTooltip(this VisualElement element, VisualElement root, string content,
 									   Vector2 offset = default,
-									   TooltipPosition position = TooltipPosition.Auto
+									   TooltipPosition position = TooltipPosition.Auto,
+									   int maxWidth = 0
 		)
 
 		{
@@ -64,7 +65,10 @@ namespace FirstLight.Game.Utils
 
 			var label = new Label(content);
 			label.AddToClassList("tooltip__label");
-
+			if (maxWidth > 0)
+			{
+				label.style.maxWidth = maxWidth;
+			}
 			tooltip.Add(label);
 		}
 

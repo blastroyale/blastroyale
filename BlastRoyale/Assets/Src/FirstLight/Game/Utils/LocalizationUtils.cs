@@ -32,7 +32,14 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetTranslationGameIdString(this string gameId)
 		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{gameId}");
+			return LocalizationManager.GetTranslation(GetTranslationKeyGameIdString(gameId));
+		}
+		/// <summary>
+		/// Requests the localization key for the given <paramref name="gameId"/> as a string
+		/// </summary>
+		public static string GetTranslationKeyGameIdString(this string gameId)
+		{
+			return $"{nameof(ScriptTerms.GameIds)}/{gameId}";
 		}
 
 		/// <summary>

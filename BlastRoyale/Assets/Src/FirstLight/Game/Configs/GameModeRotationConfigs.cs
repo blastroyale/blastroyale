@@ -26,6 +26,7 @@ namespace FirstLight.Game.Configs
 		{
 			public LocalizableString TitleTranslationKey;
 			public LocalizableString DescriptionTranslationKey;
+			public LocalizableString LongDescriptionTranslationKey;
 			public string CardModifier;
 			[SpriteClass] public string IconSpriteClass;
 			public string OverwriteImageURL;

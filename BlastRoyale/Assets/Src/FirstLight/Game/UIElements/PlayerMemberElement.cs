@@ -8,6 +8,9 @@ using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.UIElements
 {
+	/// <summary>
+	/// Displays player avatar element with border, mask and background image.
+	/// </summary>
 	public class PlayerMemberElement : VisualElement
 	{
 		private const string USS_BLOCK = "squad-member";

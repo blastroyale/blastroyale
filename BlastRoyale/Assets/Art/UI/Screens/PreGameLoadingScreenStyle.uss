@@ -249,9 +249,19 @@
 }
 
 .squad-container__title {
+    display: flex;
+    background-color: rgba(16, 12, 34, 0);
+    color: rgb(248, 199, 46);
+    -unity-text-outline-width: 1px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    letter-spacing: 0;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    top: -30px;
+    position: absolute;
+    left: 0;
+    right: 0;
     font-size: 36px;
     -unity-text-align: middle-center;
-    background-color: rgb(16, 12, 34);
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -433,5 +443,9 @@
     -unity-background-scale-mode: scale-to-fit;
     display: flex;
     background-color: rgba(0, 0, 0, 0);
+}
+
+.player-member {
+    position: relative;
 }
 

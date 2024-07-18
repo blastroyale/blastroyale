@@ -37,22 +37,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="SquadContainer" class="squad-container">
                 <FirstLight.Game.UIElements.LocalizedButton name="Title" localization-key="UITHomeScreen/youre_team" class="squad-container__title" />
-                <ui:VisualElement name="Row0" class="header-row squad-row">
-                    <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement0" class="player-member" />
-                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name0" class="player-header__playername-label squad-header__playername-label" />
-                </ui:VisualElement>
-                <ui:VisualElement name="Row1" class="header-row squad-row">
-                    <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement1" class="player-member" />
-                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name1" class="player-header__playername-label squad-header__playername-label" />
-                </ui:VisualElement>
-                <ui:VisualElement name="Row2" class="header-row squad-row">
-                    <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement2" class="player-member" />
-                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name2" class="player-header__playername-label squad-header__playername-label" />
-                </ui:VisualElement>
-                <ui:VisualElement name="Row3" class="header-row squad-row">
-                    <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement3" class="player-member" />
-                    <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="Name3" class="player-header__playername-label squad-header__playername-label" />
-                </ui:VisualElement>
+                <ui:ListView focusable="true" name="SquadList" show-bound-collection-size="false" selection-type="None" fixed-item-height="90" class="squad-container__list" style="display: flex;" />
             </ui:VisualElement>
             <ui:Label name="DebugMasterClient" text="MASTER" class="debug-master-client" />
         </FirstLight.Game.UIElements.SafeAreaElement>

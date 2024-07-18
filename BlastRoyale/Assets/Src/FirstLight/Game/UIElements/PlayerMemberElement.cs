@@ -17,29 +17,39 @@ namespace FirstLight.Game.UIElements
 		private const string USS_PFP = USS_BLOCK + "__pfp";
 		private const string USS_TEAM_COLOR = USS_BLOCK + "__team-color";
 		private const string USS_PFP_MASK = USS_BLOCK + "__pfp-mask";
+		private const string USS_LABEL = USS_BLOCK + "__playername-label";
 		
 		private readonly VisualElement _pfpMask;
 		private readonly VisualElement _pfp;
+		private Label _textLabel;
 		
 		public PlayerMemberElement()
 		{
-			AddToClassList(USS_TEAM_COLOR);
+			AddToClassList(USS_BLOCK);
 			
 			Add(_pfpMask = new VisualElement {name = "pfp-mask"});
 			_pfpMask.AddToClassList(USS_PFP_MASK);
 			_pfpMask.Add(_pfp = new VisualElement {name = "pfp"});
 			
 			_pfp.AddToClassList(USS_PFP);
+
+			Add(_textLabel = new Label("text"));
+			_textLabel.AddToClassList(USS_LABEL);
+		}
+
+		public void SetData(string text, Color color)
+		{
+			_textLabel.text = text;
+			SetTeamColor(color);
 			
-			this.Query().Build().ForEach(e => e.pickingMode = PickingMode.Ignore);
 		}
 
 		public void SetTeamColor(Color color)
 		{
-			style.borderBottomColor = color;
-			style.borderTopColor = color;
-			style.borderLeftColor = color;
-			style.borderRightColor = color;
+			_pfpMask.style.borderBottomColor = color;
+			_pfpMask.style.borderTopColor = color;
+			_pfpMask.style.borderLeftColor = color;
+			_pfpMask.style.borderRightColor = color;
 		}
 
 		public void SetPfpImage(Sprite image)

@@ -176,11 +176,10 @@ namespace FirstLight.Game.Presenters
 
 			var showPartyInvite = relationship.IsOnline() && _services.FLLobbyService.CurrentPartyLobby != null &&
 				!_services.FLLobbyService.SentPartyInvites.Contains(relationship.Member.Id);
-
-			((FriendListElement) element)
-				.SetPlayerName(relationship.Member.Profile.Name)
+			var e = ((FriendListElement) element);
+			e
 				.SetHeader(header)
-				.SetStatus(relationship.Member.Presence.GetActivity<FriendActivity>()?.Status, online)
+				.SetFromRelationship(relationship)
 				.SetMainAction(ScriptLocalization.UITFriends.invite,
 					!showPartyInvite
 						? null
@@ -212,7 +211,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var playerElement = ((FriendListElement) element)
-				.SetPlayerName(relationship.Member.Profile.Name)
+				.SetFromRelationship(relationship)
 				.SetStatus(string.Empty, null)
 				.SetHeader(header)
 				.SetMoreActions(ve => OpenRequestsTooltip(ve, relationship));
@@ -231,6 +230,7 @@ namespace FirstLight.Game.Presenters
 			var relationship = _blocked[index];
 
 			((FriendListElement) element)
+				.SetFromRelationship(relationship)
 				.SetPlayerName(relationship.Member.Profile.Name)
 				.SetMainAction(ScriptLocalization.UITFriends.unblock, () => UnblockPlayer(relationship).Forget(), true);
 		}

@@ -17,5 +17,9 @@ namespace FirstLight.Game.Data.DataTypes
 		[Preserve]
 		[DataMember(Name = "status", IsRequired = true, EmitDefaultValue = true)]
 		public string Status { get; set; }
+		
+		[Preserve]
+		[DataMember(Name = "avatar", IsRequired = true, EmitDefaultValue = true)]
+		public string AvatarUrl { get; set; }
 	}
 }

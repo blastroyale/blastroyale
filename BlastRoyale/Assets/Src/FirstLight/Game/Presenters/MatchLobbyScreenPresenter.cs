@@ -9,7 +9,6 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
-using Quantum;
 using QuickEye.UIToolkit;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
@@ -42,6 +41,8 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private MatchSettingsView _matchSettingsView;
 
+		private bool _localPlayerHost;
+
 		protected override void QueryElements()
 		{
 			_services = MainInstaller.ResolveServices();
@@ -60,9 +61,9 @@ namespace FirstLight.Game.Presenters
 		{
 			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged += OnLobbyChanged;
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
-			var playerIsHost = matchLobby.IsLocalPlayerHost();
+			_localPlayerHost = matchLobby.IsLocalPlayerHost();
 
-			_matchSettingsView.SetMainAction(playerIsHost ? ScriptTerms.UITCustomGames.start_match : null, () => StartMatch().Forget());
+			_matchSettingsView.SetMainAction(_localPlayerHost ? ScriptTerms.UITCustomGames.start_match : null, () => StartMatch().Forget());
 
 			_matchSettingsView.SpectatorChanged += async spectating =>
 			{
@@ -70,7 +71,7 @@ namespace FirstLight.Game.Presenters
 				RefreshData();
 			};
 
-			if (playerIsHost)
+			if (_localPlayerHost)
 			{
 				_matchSettingsView.MatchSettingsChanged += settings =>
 				{
@@ -83,10 +84,21 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
+		protected override UniTask OnScreenClose()
+		{
+			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged -= OnLobbyChanged;
+			return base.OnScreenClose();
+		}
+
 		private void OnLobbyChanged(ILobbyChanges changes)
 		{
 			if (changes.LobbyDeleted)
 			{
+				if (!_localPlayerHost)
+				{
+					_services.NotificationService.QueueNotification("Match lobby was closed by the host.");
+				}
+				
 				_services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData).Forget();
 			}
 			else
@@ -190,6 +202,7 @@ namespace FirstLight.Game.Presenters
 				await UniTask.WaitForSeconds(5); // TODO mihak: REMOVE THIS HACK BEFORE RELEASE
 
 				_services.RoomService.StartCustomGameLoading();
+				await _services.FLLobbyService.LeaveMatch();
 			}
 			catch (Exception e)
 			{

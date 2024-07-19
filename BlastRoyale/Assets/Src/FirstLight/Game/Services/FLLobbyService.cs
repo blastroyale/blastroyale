@@ -717,11 +717,6 @@ namespace FirstLight.Game.Services
 		{
 			if (changes.LobbyDeleted)
 			{
-				if (!CurrentMatchLobby.IsLocalPlayerHost())
-				{
-					_notificationService.QueueNotification("Match lobby was closed by the host.");
-				}
-
 				CurrentMatchLobby = null;
 				return;
 			}

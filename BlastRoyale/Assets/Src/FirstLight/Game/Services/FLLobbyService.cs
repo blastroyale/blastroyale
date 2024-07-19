@@ -518,7 +518,8 @@ namespace FirstLight.Game.Services
 				{
 					{KEY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(settings))}
 				},
-				IsLocked = locked
+				IsLocked = locked,
+				MaxPlayers = settings.MaxPlayers
 			};
 
 			try

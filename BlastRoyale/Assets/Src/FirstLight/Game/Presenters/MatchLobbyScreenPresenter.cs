@@ -63,21 +63,17 @@ namespace FirstLight.Game.Presenters
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 			_localPlayerHost = matchLobby.IsLocalPlayerHost();
 
-			_matchSettingsView.SetMainAction(_localPlayerHost ? ScriptTerms.UITCustomGames.start_match : null, () => StartMatch().Forget());
-
 			_matchSettingsView.SpectatorChanged += async spectating =>
 			{
 				await _services.FLLobbyService.SetMatchSpectator(spectating);
 				RefreshData();
 			};
 
-			if (_localPlayerHost)
+			_matchSettingsView.MatchSettingsChanged += settings =>
 			{
-				_matchSettingsView.MatchSettingsChanged += settings =>
-				{
-					_services.FLLobbyService.UpdateMatchLobby(settings).Forget();
-				};
-			}
+				if (!_localPlayerHost) return;
+				_services.FLLobbyService.UpdateMatchLobby(settings).Forget();
+			};
 
 			RefreshData();
 
@@ -98,7 +94,7 @@ namespace FirstLight.Game.Presenters
 				{
 					_services.NotificationService.QueueNotification("Match lobby was closed by the host.");
 				}
-				
+
 				_services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData).Forget();
 			}
 			else
@@ -133,6 +129,7 @@ namespace FirstLight.Game.Presenters
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 			var spectators = new List<Player>();
 
+			_localPlayerHost = matchLobby.IsLocalPlayerHost();
 			_playersContainer.Clear();
 
 			VisualElement row = null;
@@ -173,6 +170,7 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 
+			_matchSettingsView.SetMainAction(_localPlayerHost ? ScriptTerms.UITCustomGames.start_match : null, () => StartMatch().Forget());
 			_matchSettingsView.SetMatchSettings(matchLobby.GetMatchSettings(), matchLobby.IsLocalPlayerHost(), true);
 			_matchSettingsView.SetSpectators(spectators);
 			_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers}";

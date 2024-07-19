@@ -225,7 +225,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			_modeButton.SetValue(MatchSettings.GameModeID);
 			_teamSizeButton.SetValue(MatchSettings.SquadSize.ToString());
-			_mapButton.SetValue(MatchSettings.MapID);
+			_mapButton.SetValue(Enum.Parse<GameId>(MatchSettings.MapID).GetLocalization());
 			_maxPlayersButton.SetValue(MatchSettings.MaxPlayers.ToString());
 			_privateRoomToggle.value = MatchSettings.PrivateRoom;
 			_showCreatorNameToggle.value = MatchSettings.ShowCreatorName;

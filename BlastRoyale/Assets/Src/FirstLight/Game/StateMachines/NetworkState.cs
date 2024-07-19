@@ -9,6 +9,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Statechart;
 using I2.Loc;
 using Photon.Deterministic;
@@ -315,7 +316,7 @@ namespace FirstLight.Game.StateMachines
 			var room = _services.RoomService.CurrentRoom;
 			if (_networkService.JoinSource.Value == JoinRoomSource.FirstJoin)
 			{
-				var isSpectator = _services.RoomService.IsLocalPlayerSpectator;
+				var isSpectator = _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.IsLocal()).IsSpectator();
 
 				if (!isSpectator && _services.RoomService.CurrentRoom.GetRealPlayerAmount() >
 					_services.RoomService.CurrentRoom.GetRealPlayerCapacity())
@@ -326,6 +327,10 @@ namespace FirstLight.Game.StateMachines
 						 room.GetMaxSpectators())
 				{
 					room.LocalPlayerProperties.Spectator.Value = false;
+				}
+				else
+				{
+					room.LocalPlayerProperties.Spectator.Value = isSpectator;
 				}
 
 				if (_networkService.QuantumRunnerConfigs.IsOfflineMode ||

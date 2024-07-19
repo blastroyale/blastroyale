@@ -2100,6 +2100,7 @@ namespace I2.Loc
 			public static string bp_level 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/bp_level"); } }
 			public static string buy_level_popup_item_name 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/buy_level_popup_item_name"); } }
 			public static string buy_level_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/buy_level_popup_title"); } }
+			public static string buy_levels_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/buy_levels_popup_title"); } }
 			public static string buy_premium_batttlepass_popup_item_name 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/buy_premium_batttlepass_popup_item_name"); } }
 			public static string claim_all 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/claim_all"); } }
 			public static string equipment_reward 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/equipment_reward"); } }
@@ -2358,6 +2359,7 @@ namespace I2.Loc
 
 		public static class UITHomeScreen
 		{
+			public static string CREATE_TEAM 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/CREATE TEAM"); } }
 			public static string blast_pass 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass"); } }
 			public static string bp_button_completed 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/bp_button_completed"); } }
 			public static string bp_button_reward_subtitle 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/bp_button_reward_subtitle"); } }
@@ -2380,7 +2382,6 @@ namespace I2.Loc
 			public static string gamemode_Zombies 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/gamemode_Zombies"); } }
 			public static string heroes 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/heroes"); } }
 			public static string join 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/join"); } }
-			public static string join_party 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/join_party"); } }
 			public static string joining 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/joining"); } }
 			public static string leaderboards 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/leaderboards"); } }
 			public static string leave_party 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/leave_party"); } }
@@ -2671,6 +2672,11 @@ namespace I2.Loc
 			public static string coin_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/coin_pack_large"); } }
 			public static string coin_pack_medium 		{ get{ return LocalizationManager.GetTranslation ("UITStore/coin_pack_medium"); } }
 			public static string coin_pack_small 		{ get{ return LocalizationManager.GetTranslation ("UITStore/coin_pack_small"); } }
+			public static string content_creator 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator"); } }
+			public static string content_creator_description 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator_description"); } }
+			public static string content_creator_invalid_code 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator_invalid_code"); } }
+			public static string content_creator_stop_supporting 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator_stop_supporting"); } }
+			public static string content_creator_support 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator_support"); } }
 			public static string description_blastbuck_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_large"); } }
 			public static string description_blastbuck_pack_medium 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_medium"); } }
 			public static string description_blastbuck_pack_small 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_small"); } }
@@ -4841,6 +4847,7 @@ namespace I2.Loc
 		    public const string bp_level = "UITBattlePass/bp_level";
 		    public const string buy_level_popup_item_name = "UITBattlePass/buy_level_popup_item_name";
 		    public const string buy_level_popup_title = "UITBattlePass/buy_level_popup_title";
+		    public const string buy_levels_popup_title = "UITBattlePass/buy_levels_popup_title";
 		    public const string buy_premium_batttlepass_popup_item_name = "UITBattlePass/buy_premium_batttlepass_popup_item_name";
 		    public const string claim_all = "UITBattlePass/claim_all";
 		    public const string equipment_reward = "UITBattlePass/equipment_reward";
@@ -5099,6 +5106,7 @@ namespace I2.Loc
 
 		public static class UITHomeScreen
 		{
+		    public const string CREATE_TEAM = "UITHomeScreen/CREATE TEAM";
 		    public const string blast_pass = "UITHomeScreen/blast_pass";
 		    public const string bp_button_completed = "UITHomeScreen/bp_button_completed";
 		    public const string bp_button_reward_subtitle = "UITHomeScreen/bp_button_reward_subtitle";
@@ -5121,7 +5129,6 @@ namespace I2.Loc
 		    public const string gamemode_Zombies = "UITHomeScreen/gamemode_Zombies";
 		    public const string heroes = "UITHomeScreen/heroes";
 		    public const string join = "UITHomeScreen/join";
-		    public const string join_party = "UITHomeScreen/join_party";
 		    public const string joining = "UITHomeScreen/joining";
 		    public const string leaderboards = "UITHomeScreen/leaderboards";
 		    public const string leave_party = "UITHomeScreen/leave_party";
@@ -5412,6 +5419,11 @@ namespace I2.Loc
 		    public const string coin_pack_large = "UITStore/coin_pack_large";
 		    public const string coin_pack_medium = "UITStore/coin_pack_medium";
 		    public const string coin_pack_small = "UITStore/coin_pack_small";
+		    public const string content_creator = "UITStore/content_creator";
+		    public const string content_creator_description = "UITStore/content_creator_description";
+		    public const string content_creator_invalid_code = "UITStore/content_creator_invalid_code";
+		    public const string content_creator_stop_supporting = "UITStore/content_creator_stop_supporting";
+		    public const string content_creator_support = "UITStore/content_creator_support";
 		    public const string description_blastbuck_pack_large = "UITStore/description_blastbuck_pack_large";
 		    public const string description_blastbuck_pack_medium = "UITStore/description_blastbuck_pack_medium";
 		    public const string description_blastbuck_pack_small = "UITStore/description_blastbuck_pack_small";

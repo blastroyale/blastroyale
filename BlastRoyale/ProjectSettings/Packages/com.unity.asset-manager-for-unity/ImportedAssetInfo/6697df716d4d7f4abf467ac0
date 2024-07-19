@@ -1,0 +1,79 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "4f7435c6d09bad341bcf655d20e7da3d",
+            "OriginalPath": "Melee_Hammer.fbx"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": ".fbx",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df716d4d7f4abf467ac0\\\",\\\"assetVersion\\\":\\\"e1916336-3989-4509-9845-7c733d248819\\\"}\",\"data\":{\"assetId\":\"6697df716d4d7f4abf467ac0\",\"assetVersion\":\"e1916336-3989-4509-9845-7c733d248819\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-17T15:12:49.341Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:55.661Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy8zY2JkYjZiOC0yYzdlLTRiNTUtODliOS1lMjIyNGVjODYyMDAvNDBiMjU3OWEzZGNkYzExZWMyY2RiNzk5YTY1OGNlMzIvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:47:13Z&ske=2024-07-20T17:47:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-20T17:47:13Z&sr=b&sp=r&sig=EmIr1q66ssCcuruIuSRMGnyyuBGIA4AEYqVEN39Qo2E%3D\",\"files\":[{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:55.759Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:53.367Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/a3c47db5-76da-46e0-a6b1-170a0a2f6659/4ee32b206c277480ddae557f2bdd66ac/Melee_Hammer.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=5yGJYP7MWWVdrbMWcp8QcQPbKUmxhjApqOJ7tRcbM0Q%3D\",\"filePath\":\"Melee_Hammer.fbx\",\"fileSize\":23212,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:53.146Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:53.146Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/688298e7-2d85-4110-ac53-175fcd8167a6/9eeb604f0ffce004b8b6374c4b59c3cb/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=7rNfjmARA3EoeXlX9qwIa8e%2BXOuA8%2BZJOdAtXMcQBEE%3D\",\"filePath\":\"metadata.json\",\"fileSize\":521,\"userChecksum\":\"0ec2cabfe676c196d5668fd86cc395ca\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:14:11.796Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:12.037Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/ec617e05-eb6b-4474-b9bf-a52195fce0f0/0e2e6251fbc21e753cb8d19056d0187b/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=6dC8nReM9tx075d6gEqQu2szcw6K4rpBRxSylID7NhQ%3D\",\"filePath\":\"preview.glb\",\"fileSize\":21700,\"userChecksum\":\"019dbfaa40335c17246e8a1026c44b67\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:14:11.805Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:11.805Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/ec617e05-eb6b-4474-b9bf-a52195fce0f0/d94c79279fb172ca5b3661180eaf2157/preview_glb_preview.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=6jtT6X9TZlA2R1FfSPG06ZOAoOgYPkdyxKntoWECeVA%3D\",\"filePath\":\"preview_glb_preview.json\",\"fileSize\":29,\"userChecksum\":\"85dbd80c9633bf923c397d3d05ed0974\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:16:54.61Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:54.904Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/3cbdb6b8-2c7e-4b55-89b9-e2224ec86200/62eb23b9132f70e8d2bae54742195bd1/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=JFaqP%2FED5SVPBNeOAglYKVhCDLhLh3scbyWDDGFfuFA%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":118018,\"userChecksum\":\"8947128673c87003355a9f5aaeb95124\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:16:54.616Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:55.142Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/3cbdb6b8-2c7e-4b55-89b9-e2224ec86200/4f468fb4ae8b03a53b1a9fa64e19151a/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=EESWy9iboeL13PoMMLmX7IfQCLNLPdkc%2FS0eEIDx8co%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":142104,\"userChecksum\":\"cb800a0b2ed510109ee5645adc4ee385\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:16:54.622Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:55.372Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/3cbdb6b8-2c7e-4b55-89b9-e2224ec86200/40b2579a3dcdc11ec2cdb799a658ce32/preview_persFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=72GteZu1fXL4DUI1rEgY7c%2BoCRPkEd5kSNj2zV4XlUc%3D\",\"filePath\":\"preview_persFrontLeftTop.png\",\"fileSize\":133789,\"userChecksum\":\"30b2cc38d4e97009d1516b9f68bb81ab\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:16:54.628Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:55.618Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/3cbdb6b8-2c7e-4b55-89b9-e2224ec86200/9c71262ff54023f8a870d95cec0767cc/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=vd7ZTUGbBvLxabI7WnbjlPgc3tKz95fpZiN8rLbhASE%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":110087,\"userChecksum\":\"80a9ce7df126e56246953ab8cf1967da\",\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"a3c47db5-76da-46e0-a6b1-170a0a2f6659\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:49.346Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:12:57.365Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"7893e05d-d1d4-4111-9868-82dfd5ce0d89\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:49.352Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:55.625Z\",\"filesOrder\":[\"preview.glb\"],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"3cbdb6b8-2c7e-4b55-89b9-e2224ec86200\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:57.676Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:54.634Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"ec617e05-eb6b-4474-b9bf-a52195fce0f0\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:59.03Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:11.812Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"688298e7-2d85-4110-ac53-175fcd8167a6\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:59.483Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:53.152Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Melee_Hammer\",\"description\":\"\",\"tags\":[],\"primaryType\":\"Other\"}}",
+                    "m_AssetComparisonResult": 1,
+                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy8zY2JkYjZiOC0yYzdlLTRiNTUtODliOS1lMjIyNGVjODYyMDAvNDBiMjU3OWEzZGNkYzExZWMyY2RiNzk5YTY1OGNlMzIvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:47:13Z&ske=2024-07-20T17:47:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-20T17:47:13Z&sr=b&sp=r&sig=EmIr1q66ssCcuruIuSRMGnyyuBGIA4AEYqVEN39Qo2E%3D",
+                    "m_SourceFiles": [
+                        {
+                            "rid": 1001
+                        }
+                    ],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1002
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Melee_Hammer.fbx",
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 23212,
+                    "m_Guid": ""
+                }
+            },
+            {
+                "rid": 1002,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df716d4d7f4abf467ac0\\\",\\\"assetVersion\\\":\\\"e1916336-3989-4509-9845-7c733d248819\\\"}\",\"data\":{\"assetId\":\"6697df716d4d7f4abf467ac0\",\"assetVersion\":\"e1916336-3989-4509-9845-7c733d248819\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[\"Pending\"],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-17T15:12:49.341Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:55.661Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Melee_Hammer\",\"description\":\"\",\"tags\":[],\"primaryType\":\"Other\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1002
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

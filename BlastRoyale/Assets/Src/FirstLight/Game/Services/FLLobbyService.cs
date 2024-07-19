@@ -518,7 +518,8 @@ namespace FirstLight.Game.Services
 				{
 					{KEY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(settings))}
 				},
-				IsLocked = locked
+				IsLocked = locked,
+				MaxPlayers = settings.MaxPlayers
 			};
 
 			try
@@ -717,11 +718,6 @@ namespace FirstLight.Game.Services
 		{
 			if (changes.LobbyDeleted)
 			{
-				if (!CurrentMatchLobby.IsLocalPlayerHost())
-				{
-					_notificationService.QueueNotification("Match lobby was closed by the host.");
-				}
-
 				CurrentMatchLobby = null;
 				return;
 			}

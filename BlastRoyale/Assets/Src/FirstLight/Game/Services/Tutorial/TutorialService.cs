@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services.RoomService;
@@ -115,17 +116,11 @@ namespace FirstLight.Game.Services
 
 		public void CreateJoinSecondTutorialRoom()
 		{
-			var gameModeId = GameConstants.Tutorial.SECOND_BOT_MODE_ID;
+			var config = _configsProvider.GetConfig<TutorialConfig>().SecondMatch.CloneSerializing();
+			config.MatchType = MatchType.Forced;
 			var setup = new MatchRoomSetup()
 			{
-				SimulationConfig = new SimulationMatchConfig()
-				{
-					GameModeID = gameModeId,
-					MapId = GameId.MazeMayhem.GetHashCode(),
-					MatchType = MatchType.Forced,
-					TeamSize = 1,
-					HasBots = true
-				},
+				SimulationConfig = config,
 				RoomIdentifier = Guid.NewGuid().ToString(),
 			};
 

@@ -540,6 +540,13 @@ namespace FirstLight.Tests.EditorMode.Logic
 			InitConfigData(new QuantumGameConfig
 				{TrophiesPerKill = FP._1_50, TrophyEloK = 4, TrophyEloRange = 400, TrophyMinChange = FP._0_05});
 
+			InitConfigData(new TutorialConfig()
+			{
+				SecondMatch = new SimulationMatchConfig()
+				{
+					ConfigId = "tutorial"
+				}
+			});
 			InitConfigData(config => config.Placement,
 				new MatchRewardConfig
 				{

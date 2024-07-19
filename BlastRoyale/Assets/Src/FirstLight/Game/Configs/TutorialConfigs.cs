@@ -18,20 +18,32 @@ namespace FirstLight.Game.Configs
 		public TutorialSection Section;
 		public List<uint> RewardIds;
 	}
-	
+
+	[Serializable]
+	public struct TutorialConfig
+	{
+		[SerializeField] public List<TutorialRewardConfig> Rewards;
+		[SerializeField] public SimulationMatchConfig SecondMatch;
+	}
+
 	/// <summary>
 	/// Scriptable Object tool to import the <seealso cref="TutorialRewardConfigs"/> sheet data
 	/// </summary>
-	[CreateAssetMenu(fileName = "BattlePassRewardConfigs",
-	                 menuName = "ScriptableObjects/Configs/TutorialRewardConfigs")]
-	public class TutorialRewardConfigs : ScriptableObject, IConfigsContainer<TutorialRewardConfig>
+	[CreateAssetMenu(fileName = "TutorialConfigs",
+		menuName = "ScriptableObjects/Configs/TutorialConfigs")]
+	public class TutorialConfigs : ScriptableObject, ISingleConfigContainer<TutorialConfig>
 	{
-		[SerializeField] private List<TutorialRewardConfig> _configs;
+		[SerializeField] TutorialConfig _config;
 
-		public List<TutorialRewardConfig> Configs
+		public TutorialConfig Config
 		{
-			get => _configs;
-			set => _configs = value;
+			get => _config;
+			set => _config = value;
+		}
+
+		private void OnValidate()
+		{
+			_config.SecondMatch.ConfigId ??= "second-match-id";
 		}
 	}
 }

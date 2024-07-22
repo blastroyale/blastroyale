@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -9,7 +10,6 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
-using Quantum;
 using QuickEye.UIToolkit;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
@@ -42,6 +42,8 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private MatchSettingsView _matchSettingsView;
 
+		private bool _localPlayerHost;
+
 		protected override void QueryElements()
 		{
 			_services = MainInstaller.ResolveServices();
@@ -58,11 +60,9 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged += OnLobbyChanged;
+			_services.MessageBrokerService.Subscribe<MatchLobbyUpdatedMessage>(OnLobbyChanged);
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
-			var playerIsHost = matchLobby.IsLocalPlayerHost();
-
-			_matchSettingsView.SetMainAction(playerIsHost ? ScriptTerms.UITCustomGames.start_match : null, () => StartMatch().Forget());
+			_localPlayerHost = matchLobby.IsLocalPlayerHost();
 
 			_matchSettingsView.SpectatorChanged += async spectating =>
 			{
@@ -70,29 +70,60 @@ namespace FirstLight.Game.Presenters
 				RefreshData();
 			};
 
-			if (playerIsHost)
+			_matchSettingsView.MatchSettingsChanged += settings =>
 			{
-				_matchSettingsView.MatchSettingsChanged += settings =>
-				{
-					_services.FLLobbyService.UpdateMatchLobby(settings).Forget();
-				};
-			}
+				if (!_localPlayerHost) return;
+				_services.FLLobbyService.UpdateMatchLobby(settings).Forget();
+			};
 
 			RefreshData();
 
 			return base.OnScreenOpen(reload);
 		}
 
-		private void OnLobbyChanged(ILobbyChanges changes)
+		protected override UniTask OnScreenClose()
 		{
-			if (changes.LobbyDeleted)
+			_services.MessageBrokerService.UnsubscribeAll(this);
+			return base.OnScreenClose();
+		}
+
+		private void OnLobbyChanged(MatchLobbyUpdatedMessage m)
+		{
+			if (m.Changes.LobbyDeleted)
 			{
+				if (!_localPlayerHost)
+				{
+					_services.NotificationService.QueueNotification("Match lobby was closed by the host.");
+				}
+
 				_services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData).Forget();
 			}
 			else
 			{
+				var changes = m.Changes;
 				RefreshData();
+
+				// TODO mihak: This should not be here, move when we refac network service
+				if ((changes.Data.Changed || changes.Data.Added || changes.Data.Removed) &&
+					changes.Data.Value.TryGetValue(FLLobbyService.KEY_MATCH_ROOM_NAME, out var value))
+				{
+					var room = value.Value.Value;
+					JoinRoom(room).Forget();
+				}
 			}
+		}
+
+		private async UniTaskVoid JoinRoom(string room)
+		{
+			// TODO mihak: This should not be here, move when we refac network service
+			await _services.RoomService.JoinRoomAsync(room);
+
+			Data.MatchListStateData.PlayClicked();
+
+			_services.TeamService.AutoBalanceCustom = true;
+			await UniTask.WaitForSeconds(5); // TODO mihak: REMOVE THIS HACK BEFORE RELEASE
+
+			_services.RoomService.StartCustomGameLoading();
 		}
 
 		private void RefreshData()
@@ -100,6 +131,7 @@ namespace FirstLight.Game.Presenters
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 			var spectators = new List<Player>();
 
+			_localPlayerHost = matchLobby.IsLocalPlayerHost();
 			_playersContainer.Clear();
 
 			VisualElement row = null;
@@ -140,6 +172,7 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 
+			_matchSettingsView.SetMainAction(_localPlayerHost ? ScriptTerms.UITCustomGames.start_match : null, () => StartMatch().Forget());
 			_matchSettingsView.SetMatchSettings(matchLobby.GetMatchSettings(), matchLobby.IsLocalPlayerHost(), true);
 			_matchSettingsView.SetSpectators(spectators);
 			_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers}";
@@ -150,22 +183,12 @@ namespace FirstLight.Game.Presenters
 			var matchSettings = _matchSettingsView.MatchSettings;
 
 			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, true);
-			
+
 			((IInternalGameNetworkService) _services.NetworkService).JoinSource.Value = JoinRoomSource.FirstJoin;
 
 			var setup = new MatchRoomSetup
 			{
-				SimulationConfig = new SimulationMatchConfig
-				{
-					MapId = (int) Enum.Parse<GameId>(matchSettings.MapID),
-					GameModeID = matchSettings.GameModeID,
-					MatchType = MatchType.Custom,
-					Mutators = matchSettings.Mutators,
-					MaxPlayersOverwrite = matchSettings.MaxPlayers,
-					BotOverwriteDifficulty = matchSettings.BotDifficulty,
-					TeamSize = matchSettings.SquadSize,
-					WeaponsSelectionOverwrite = matchSettings.WeaponFilter.ToArray()
-				},
+				SimulationConfig = matchSettings.ToSimulationMatchConfig(),
 				RoomIdentifier = _services.FLLobbyService.CurrentMatchLobby.Id,
 			};
 
@@ -174,11 +197,12 @@ namespace FirstLight.Game.Presenters
 				await _services.RoomService.CreateRoomAsync(setup);
 				Data.MatchListStateData.PlayClicked();
 				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);
-				
+
 				_services.TeamService.AutoBalanceCustom = true;
 				await UniTask.WaitForSeconds(5); // TODO mihak: REMOVE THIS HACK BEFORE RELEASE
-				
+
 				_services.RoomService.StartCustomGameLoading();
+				await _services.FLLobbyService.LeaveMatch();
 			}
 			catch (Exception e)
 			{
@@ -190,7 +214,7 @@ namespace FirstLight.Game.Presenters
 		{
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 
-			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged -= OnLobbyChanged;
+			_services.MessageBrokerService.UnsubscribeAll(this);
 
 			await _services.FLLobbyService.LeaveMatch();
 			await _services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData);

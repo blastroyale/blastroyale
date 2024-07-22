@@ -70,6 +70,11 @@ namespace FirstLight.Game.Services
 		/// Closes the <see cref="GenericButtonDialogPresenter"/> if opened
 		/// </summary>
 		void CloseDialog();
+
+		/// <summary>
+		/// Check if there's any popup already open before calling a new one
+		/// </summary>
+		bool HasPopupOpen();
 	}
 
 	/// <inheritdoc />
@@ -131,5 +136,11 @@ namespace FirstLight.Game.Services
 		{
 			_uiService.CloseLayer(UILayer.Popup).Forget();
 		}
+
+		public bool HasPopupOpen()
+		{
+			return _uiService.HasUIPresenterOpenOnLayer(UILayer.Popup);
+		}
+
 	}
 }

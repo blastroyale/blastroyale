@@ -250,9 +250,9 @@ namespace FirstLight.Game.Services
 			_commandService.ExecuteCommand(new AddIAPRewardLocalCommand {Reward = item});
 
 			// Second command is server and client, and collects the unclaimed reward.
-			_commandService.ExecuteCommand(new ClaimUnclaimedRewardCommand()
+			_commandService.ExecuteCommand(new ClaimPurchasedItem()
 			{
-				ToClaim = item
+				PurchasedItemToClaim = item
 			});
 			_unityStore.Controller.ConfirmPendingPurchase(product);
 			PurchaseFinished?.Invoke(item, true);

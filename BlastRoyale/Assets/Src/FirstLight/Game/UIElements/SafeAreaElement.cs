@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
-
 namespace FirstLight.Game.UIElements
 {
 	/// <summary>
@@ -63,35 +62,35 @@ namespace FirstLight.Game.UIElements
 
 		public new class UxmlTraits : VisualElement.UxmlTraits
 		{
-			private readonly UxmlBoolAttributeDescription _applyTopAttribute = new()
+			private readonly UxmlBoolAttributeDescription _applyTopAttribute = new ()
 			{
 				name = "apply-top",
 				defaultValue = true,
 				use = UxmlAttributeDescription.Use.Optional
 			};
 
-			private readonly UxmlBoolAttributeDescription _applyBottomAttribute = new()
+			private readonly UxmlBoolAttributeDescription _applyBottomAttribute = new ()
 			{
 				name = "apply-bottom",
 				defaultValue = true,
 				use = UxmlAttributeDescription.Use.Optional
 			};
 
-			private readonly UxmlBoolAttributeDescription _applyLeftAttribute = new()
+			private readonly UxmlBoolAttributeDescription _applyLeftAttribute = new ()
 			{
 				name = "apply-left",
 				defaultValue = true,
 				use = UxmlAttributeDescription.Use.Optional
 			};
 
-			private readonly UxmlBoolAttributeDescription _applyRightAttribute = new()
+			private readonly UxmlBoolAttributeDescription _applyRightAttribute = new ()
 			{
 				name = "apply-right",
 				defaultValue = true,
 				use = UxmlAttributeDescription.Use.Optional
 			};
 
-			private readonly UxmlBoolAttributeDescription _invertAttribute = new()
+			private readonly UxmlBoolAttributeDescription _invertAttribute = new ()
 			{
 				name = "invert",
 				defaultValue = false,

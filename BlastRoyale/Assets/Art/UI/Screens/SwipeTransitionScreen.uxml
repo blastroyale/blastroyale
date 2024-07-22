@@ -5,7 +5,7 @@
             <ui:VisualElement name="BlueElement" class="blue-element" />
             <ui:VisualElement name="YellowElement" class="yellow-element" />
             <ui:VisualElement name="RedElement" class="red-element" />
-            <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Message" localization-key="UITSwipeTransition/lets_blast" class="message" />
+            <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Message" localization-key="UITSwipeTransition/lets_blast" outline-hack="false" class="message" />
             <ui:VisualElement name="Badge" class="badge" />
         </ui:VisualElement>
     </ui:VisualElement>

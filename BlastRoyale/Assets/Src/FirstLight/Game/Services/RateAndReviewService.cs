@@ -39,7 +39,7 @@ namespace FirstLight.Game.Services
 			Object.DontDestroyOnLoad(_rateAndReviewComponent.gameObject);
 
 			
-			_messageBrokerService.Subscribe<PlayScreenOpenedMessage>(OnPlayScreenOpenedMessage);
+			_messageBrokerService.Subscribe<MainMenuOpenedMessage>(OnPlayScreenOpenedMessage);
 			_messageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_messageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCollectionItemEquippedMessage);
 			_messageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUpMessage);
@@ -72,12 +72,12 @@ namespace FirstLight.Game.Services
 			_messageBrokerService.Unsubscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_messageBrokerService.Unsubscribe<CollectionItemEquippedMessage>(OnCollectionItemEquippedMessage);
 			_messageBrokerService.Unsubscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUpMessage);
-			_messageBrokerService.Unsubscribe<PlayScreenOpenedMessage>(OnPlayScreenOpenedMessage);
+			_messageBrokerService.Unsubscribe<MainMenuOpenedMessage>(OnPlayScreenOpenedMessage);
 			
 			FLog.Info($"RateAndReviewService->OpenRateAndReviewPrompt");
 		}
 
-		private void OnPlayScreenOpenedMessage(PlayScreenOpenedMessage message)
+		private void OnPlayScreenOpenedMessage(MainMenuOpenedMessage message)
 		{
 			if (_localPrefsService.GamesPlayed.Value < RemoteConfigs.Instance.ReviewPromptGamesPlayedReq)
 			{

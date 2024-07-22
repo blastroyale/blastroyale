@@ -114,7 +114,7 @@ namespace Src.FirstLight.Server
 
 			var evManager = _ctx.PluginEventManager!;
 			evManager.RegisterEventListener<GameLogicMessageEvent<ClaimedRewardsMessage>>(OnClaimRewards);
-			evManager.RegisterEventListener<GameLogicMessageEvent<RewardClaimedMessage>>(OnPurchase);
+			evManager.RegisterEventListener<GameLogicMessageEvent<PurchaseClaimedMessage>>(OnPurchase);
 			evManager.RegisterEventListener<GameLogicMessageEvent<BattlePassLevelUpMessage>>(OnBattlePassLevel);
 			evManager.RegisterEventListener<PlayerDataLoadEvent>(OnPlayerLoaded);
 			evManager.RegisterCommandListener<EndOfGameCalculationsCommand>(OnEndGameCalculations);
@@ -177,7 +177,7 @@ namespace Src.FirstLight.Server
 			await TrackRewards(ev.PlayerId, "BattlePassLevelUpMessage", ev.Message.Rewards);
 		}
 
-		private async Task OnPurchase(GameLogicMessageEvent<RewardClaimedMessage> ev)
+		private async Task OnPurchase(GameLogicMessageEvent<PurchaseClaimedMessage> ev)
 		{
 			await _ctx.Statistics.UpdateStatistics(ev.PlayerId, (GameConstants.Stats.ITEMS_OBTAINED, 1));
 		}

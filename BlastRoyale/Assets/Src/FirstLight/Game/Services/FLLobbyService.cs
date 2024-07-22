@@ -21,11 +21,138 @@ using UnityEngine.Assertions;
 
 namespace FirstLight.Game.Services
 {
-	
+	public interface IFLLobbyService
+	{
+		/// <summary>
+		/// The party the player is currently in.
+		/// </summary>
+		Lobby CurrentPartyLobby { get; }
+
+		/// <summary>
+		/// Events that trigger when the party lobby changes.
+		/// </summary>
+		FLLobbyEventCallbacks CurrentPartyCallbacks { get; }
+
+		/// <summary>
+		/// The IDs of the players we sent invites to (only persists for the current session).
+		/// </summary>
+		IReadOnlyList<string> SentPartyInvites { get; }
+
+		/// <summary>
+		/// The custom game the player is currently in.
+		/// </summary>
+		Lobby CurrentMatchLobby { get; }
+
+		/// <summary>
+		/// Events that trigger when the custom game lobby changes.
+		/// </summary>
+		FLLobbyEventCallbacks CurrentMatchCallbacks { get; }
+
+		/// <summary>
+		/// The IDs of the players we sent invites to (only persists for the current session).
+		/// </summary>
+		IReadOnlyList<string> SentMatchInvites { get; }
+
+		/// <summary>
+		/// Creates a new party for the current player with their ID.
+		/// </summary>
+		UniTask CreateParty();
+
+		/// <summary>
+		/// Joins a party with the given code.
+		/// </summary>
+		UniTask JoinParty(string code);
+
+		/// <summary>
+		/// Invites a friend to the current party.
+		/// </summary>
+		UniTask InviteToParty(string playerID);
+
+		/// <summary>
+		/// Leaves the current party.
+		/// </summary>
+		UniTask LeaveParty();
+
+		/// <summary>
+		/// Sets the party host to the given player ID.
+		/// </summary>
+		UniTask<bool> KickPlayerFromParty(string playerID);
+
+		/// <summary>
+		/// Toggles the ready status of the player in the current party.
+		/// </summary>
+		UniTask TogglePartyReady();
+
+		/// <summary>
+		/// Updates the matchmaking ticket for the current party.
+		/// </summary>
+		UniTask<bool> UpdatePartyMatchmakingTicket(JoinedMatchmaking ticket);
+
+		/// <summary>
+		/// Updates the matchmaking ticket for the current party.
+		/// </summary>
+		UniTask<bool> UpdatePartyMatchmakingGameMode(string modeID);
+
+		/// <summary>
+		/// Queries for public lobbies.
+		/// </summary>
+		UniTask<List<Lobby>> GetPublicMatches(bool allRegions = false);
+
+		/// <summary>
+		/// Creates a new public game lobby.
+		/// </summary>
+		UniTask<bool> CreateMatch(CustomMatchSettings matchOptions);
+
+		/// <summary>
+		/// Joins a match lobby by id or code.
+		/// </summary>
+		UniTask<bool> JoinMatch(string lobbyIDOrCode);
+
+		/// <summary>
+		/// Invites a friend to the current party.
+		/// </summary>
+		UniTask InviteToMatch(string playerID);
+
+		/// <summary>
+		/// Leaves the current match labby.
+		/// </summary>
+		UniTask LeaveMatch();
+
+		/// <summary>
+		/// Updates the data / locked state of the current match lobby.
+		/// </summary>
+		UniTask<bool> UpdateMatchLobby(CustomMatchSettings settings, bool locked = false);
+
+		/// <summary>
+		/// Updates the data / locked state of the current match lobby.
+		/// </summary>
+		UniTask<bool> SetMatchRoom(string roomName);
+
+		/// <summary>
+		/// Sets the match host to the given player ID.
+		/// </summary>
+		UniTask<bool> UpdateMatchHost(string playerID);
+
+		/// <summary>
+		/// Sets the party host to the given player ID.
+		/// </summary>
+		UniTask<bool> UpdatePartyHost(string playerID);
+
+		/// <summary>
+		/// Sets the party host to the given player ID.
+		/// </summary>
+		UniTask<bool> KickPlayerFromMatch(string playerID);
+
+		/// <summary>
+		/// Toggles the spectator status for the current player in the match lobby.
+		/// </summary>
+		UniTask SetMatchSpectator(bool spectating);
+	}
+
 	/// <summary>
 	/// Handles all lobby-related operations (parties, custom matches).
 	/// </summary>
-	public class FLLobbyService
+	public class FLLobbyService : IFLLobbyService
 	{
 		private const string PARTY_LOBBY_NAME = "party_{0}";
 		private const string MATCH_LOBBY_NAME = "{0}'s game";
@@ -94,11 +221,13 @@ namespace FirstLight.Game.Services
 			Tick().Forget();
 
 			messageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
-
+			
 			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
 			CurrentMatchCallbacks.LobbyChanged += OnMatchLobbyChanged;
+			
+			((ILobbyServiceSDKConfiguration)LobbyService.Instance).EnableLocalPlayerLobbyEvents(true);
 		}
-
+		
 		/// <summary>
 		/// Creates a new party for the current player with their ID.
 		/// </summary>
@@ -268,6 +397,7 @@ namespace FirstLight.Game.Services
 				FLog.Info($"Setting lobby ready status to: {!currentStatus}");
 				CurrentPartyLobby =
 					await LobbyService.Instance.UpdatePlayerAsync(CurrentPartyLobby.Id, AuthenticationService.Instance.PlayerId, options);
+
 				FLog.Info("Lobby status set successfully!");
 			}
 			catch (LobbyServiceException e)
@@ -518,7 +648,8 @@ namespace FirstLight.Game.Services
 				{
 					{KEY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(settings))}
 				},
-				IsLocked = locked
+				IsLocked = locked,
+				MaxPlayers = settings.MaxPlayers
 			};
 
 			try
@@ -715,25 +846,29 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchLobbyChanged(ILobbyChanges changes)
 		{
+			FLog.Verbose("Match lobby updated "+changes.Version.Value);
 			if (changes.LobbyDeleted)
 			{
-				if (!CurrentMatchLobby.IsLocalPlayerHost())
-				{
-					_notificationService.QueueNotification("Match lobby was closed by the host.");
-				}
-
 				CurrentMatchLobby = null;
 				return;
 			}
-
 			changes.ApplyToLobby(CurrentMatchLobby);
+			MainInstaller.ResolveServices().MessageBrokerService.Publish(new MatchLobbyUpdatedMessage()
+			{
+				Changes = changes
+			});
 		}
 
 		private void OnPartyLobbyChanged(ILobbyChanges changes)
 		{
+			FLog.Verbose("Party lobby updated version "+changes.Version.Value);
 			if (changes.LobbyDeleted)
 			{
 				CurrentPartyLobby = null;
+				MainInstaller.ResolveServices().MessageBrokerService.Publish(new PartyLobbyUpdatedMessage()
+				{
+					Changes = changes
+				});
 				return;
 			}
 
@@ -745,8 +880,11 @@ namespace FirstLight.Game.Services
 					_sentPartyInvites.Remove(playerJoined.Player.Id);
 				}
 			}
-
 			changes.ApplyToLobby(CurrentPartyLobby);
+			MainInstaller.ResolveServices().MessageBrokerService.Publish(new PartyLobbyUpdatedMessage()
+			{
+				Changes = changes
+			});
 		}
 
 		private void OnApplicationQuit(ApplicationQuitMessage _)

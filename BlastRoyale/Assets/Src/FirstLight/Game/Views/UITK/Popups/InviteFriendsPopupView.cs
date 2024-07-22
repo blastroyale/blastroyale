@@ -44,18 +44,15 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private void OnBindFriendsItem(VisualElement element, int index)
 		{
 			var relationship = _friends[index];
-			var e = ((FriendListElement) element);
-			e.SetFromRelationship(relationship);
-			e
-				.SetMainAction(ScriptLocalization.UITFriends.invite, _invitedFriends.Contains(relationship.Member.Id)
-					? null
-					: () =>
-					{
-						_invitedFriends.Add(relationship.Member.Id);
-						_services.FLLobbyService.InviteToMatch(relationship.Member.Id).Forget();
-						_friendsList.RefreshItem(index);
-					}, false)
-				.SetMoreActions(_ => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget());
+			var e = ((FriendListElement) element)
+				.SetFromRelationship(relationship)
+				.AddOpenProfileAction(relationship)
+				.TryAddInviteOption(relationship, () =>
+				{
+					_invitedFriends.Add(relationship.Member.Id);
+					_services.FLLobbyService.InviteToMatch(relationship.Member.Id).Forget();
+					_friendsList.RefreshItem(index);
+				});
 		}
 	}
 }

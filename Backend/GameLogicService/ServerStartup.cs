@@ -19,6 +19,7 @@ using FirstLight.Server.SDK.Services;
 using FirstLightServerSDK.Services;
 using GameLogicService.Game;
 using GameLogicService.Services;
+using GameLogicService.Services.Providers;
 using ServerCommon;
 using ServerCommon.CommonServices;
 using PluginManager = Backend.Plugins.PluginManager;
@@ -41,7 +42,9 @@ namespace Backend
 			
 			services.AddSingleton<IPluginManager>(f => pluginManager);
 			services.AddSingleton<ShopService>();
-			services.AddSingleton<IServerAnalytics, PlaystreamAnalyticsService>();
+			services.AddSingleton<IServerAnalytics, AnalyticsService>();
+			services.AddSingleton<IAnalyticsProvider, PlayfabPlayStreamAnalyticsServiceProvider>();
+			services.AddSingleton<IAnalyticsProvider, UnityAnalyticsServiceProvider>();
 			services.AddSingleton<IPlayerSetupService, DefaultPlayerSetupService>();
 			services.AddSingleton<IServerPlayerProfileService, PlayfabProfileService>();
 			services.AddSingleton<IPluginLogger, ServerPluginLogger>();

@@ -17,11 +17,11 @@
             <ui:VisualElement name="GameInfo" class="fill-parent">
                 <ui:ScrollView horizontal-scroller-visibility="Hidden" nested-interaction-kind="ForwardScrolling" touch-scroll-type="Clamped" class="match-settings__scrollview">
                     <ui:VisualElement name="Row1" class="match-settings__horizontal-holder">
-                        <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="false" name="ModeButton" title-localization-key="UITCustomGames/mode" />
+                        <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="false" name="ModeButton" title-localization-key="UITCustomGames/mode" class="match-settings-button--margin"/>
                         <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="true" name="TeamSizeButton" title-localization-key="UITCustomGames/team_size" />
                     </ui:VisualElement>
                     <ui:VisualElement name="Row2" class="match-settings__horizontal-holder">
-                        <FirstLight.Game.UIElements.MatchSettingsButtonElement name="MapButton" title-localization-key="UITCustomGames/map" />
+                        <FirstLight.Game.UIElements.MatchSettingsButtonElement name="MapButton" title-localization-key="UITCustomGames/map" class="match-settings-button--margin" />
                         <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="true" name="MaxPlayersButton" title-localization-key="UITCustomGames/max_players" />
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITCustomGames/mutators" name="MutatorsToggle" />

@@ -34,7 +34,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModSniper
           MetaItemDropOverwrites:
@@ -91,6 +91,13 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: This is a very long event description, this shows up in the event
+              info popup and it is not easy
+              Not line whwohwowo
+              \nHERE IS ANOTHER ONE TAKE THAT
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -113,7 +120,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModSniper
           MetaItemDropOverwrites:
@@ -170,6 +177,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -192,7 +203,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModSniper
           MetaItemDropOverwrites:
@@ -249,6 +260,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -271,7 +286,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModSniper
           MetaItemDropOverwrites:
@@ -328,6 +343,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -350,7 +369,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModSniper
           MetaItemDropOverwrites:
@@ -395,6 +414,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Kill-2-Earn, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -417,7 +440,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModSniper
           MetaItemDropOverwrites:
@@ -462,6 +485,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Kill-2-Earn, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -484,7 +511,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModSniper
           MetaItemDropOverwrites:
@@ -529,6 +556,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Kill-2-Earn, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -551,7 +582,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModSniper
           MetaItemDropOverwrites:
@@ -596,6 +627,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Kill-2-Earn, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -618,8 +653,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators:
-          - SpeedUp
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModShotgun
           MetaItemDropOverwrites:
@@ -676,6 +710,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -698,8 +736,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators:
-          - SpeedUp
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModShotgun
           MetaItemDropOverwrites:
@@ -756,6 +793,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -778,8 +819,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators:
-          - SpeedUp
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModShotgun
           MetaItemDropOverwrites:
@@ -836,6 +876,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -858,8 +902,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators:
-          - SpeedUp
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModShotgun
           MetaItemDropOverwrites:
@@ -916,6 +959,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -938,8 +985,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators:
-          - SpeedUp
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModShotgun
           MetaItemDropOverwrites:
@@ -984,6 +1030,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -1006,8 +1056,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators:
-          - SpeedUp
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModShotgun
           MetaItemDropOverwrites:
@@ -1052,6 +1101,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -1074,8 +1127,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators:
-          - SpeedUp
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModShotgun
           MetaItemDropOverwrites:
@@ -1120,6 +1172,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -1142,8 +1198,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators:
-          - SpeedUp
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModShotgun
           MetaItemDropOverwrites:
@@ -1188,6 +1243,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -1210,7 +1269,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModLauncher
           MetaItemDropOverwrites:
@@ -1267,6 +1326,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -1289,7 +1352,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModLauncher
           MetaItemDropOverwrites:
@@ -1346,6 +1409,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -1368,7 +1435,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModLauncher
           MetaItemDropOverwrites:
@@ -1425,6 +1492,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -1447,7 +1518,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModLauncher
           MetaItemDropOverwrites:
@@ -1504,6 +1575,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -1526,7 +1601,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModLauncher
           MetaItemDropOverwrites:
@@ -1571,6 +1646,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Kill-2-Earn, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -1593,7 +1672,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModLauncher
           MetaItemDropOverwrites:
@@ -1638,6 +1717,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Kill-2-Earn, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -1660,7 +1743,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModLauncher
           MetaItemDropOverwrites:
@@ -1705,6 +1788,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Kill-2-Earn, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -1727,7 +1814,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite:
           - ModLauncher
           MetaItemDropOverwrites:
@@ -1772,6 +1859,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Kill-2-Earn, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -1794,7 +1885,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite: []
           MetaItemDropOverwrites:
           - Id: 105
@@ -1850,6 +1941,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -1872,7 +1967,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite: []
           MetaItemDropOverwrites:
           - Id: 105
@@ -1928,6 +2023,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -1950,7 +2049,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite: []
           MetaItemDropOverwrites:
           - Id: 61
@@ -2006,6 +2105,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -2028,7 +2131,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite: []
           MetaItemDropOverwrites:
           - Id: 61
@@ -2084,6 +2187,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Rich crates
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -2106,7 +2213,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite: []
           MetaItemDropOverwrites:
           - Id: 105
@@ -2150,6 +2257,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Kill-2-Earn
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -2172,7 +2283,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite: []
           MetaItemDropOverwrites:
           - Id: 105
@@ -2216,6 +2327,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Kill-2-Earn
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -2238,7 +2353,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite: []
           MetaItemDropOverwrites:
           - Id: 61
@@ -2282,6 +2397,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Kill-2-Earn
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -2304,7 +2423,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite: []
           MetaItemDropOverwrites:
           - Id: 61
@@ -2348,6 +2467,10 @@ MonoBehaviour:
             _useLocalization: 0
             _localizationTerm: 
             _text: Kill-2-Earn
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
           OverwriteImageURL: 
@@ -2359,7 +2482,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 1
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite: []
           MetaItemDropOverwrites:
           - Id: 61
@@ -2411,6 +2534,10 @@ MonoBehaviour:
             _useLocalization: 1
             _localizationTerm: UITGameModeSelection/br_solo_description
             _text: 
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: solo
           IconSpriteClass: sprite-shared__icon-gamemode-solo
           OverwriteImageURL: 
@@ -2422,7 +2549,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 2
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite: []
           MetaItemDropOverwrites:
           - Id: 61
@@ -2474,6 +2601,10 @@ MonoBehaviour:
             _useLocalization: 1
             _localizationTerm: UITGameModeSelection/br_duos_description
             _text: 
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
           CardModifier: duos
           IconSpriteClass: sprite-shared__icon-gamemode-duos
           OverwriteImageURL: 
@@ -2485,7 +2616,7 @@ MonoBehaviour:
           GameModeID: BattleRoyale
           MapId: 126
           TeamSize: 4
-          Mutators: []
+          Mutators: 0
           WeaponsSelectionOverwrite: []
           MetaItemDropOverwrites:
           - Id: 61
@@ -2536,6 +2667,10 @@ MonoBehaviour:
           DescriptionTranslationKey:
             _useLocalization: 1
             _localizationTerm: UITGameModeSelection/br_quads_description
+            _text: 
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
             _text: 
           CardModifier: quads
           IconSpriteClass: sprite-shared__icon-gamemode-squads

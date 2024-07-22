@@ -70,3 +70,6 @@ MonoBehaviour:
   _partyDocument: {fileID: 9197481963319205126, guid: 9b105550373004256b7bf9eb990fd5f5, type: 3}
   _matchInfoDocument: {fileID: 9197481963319205126, guid: f10919fe72eb8408b984196a705faa2e, type: 3}
   _inviteFriendsDocument: {fileID: 9197481963319205126, guid: 912b071f0ff80444797f21bd7a5ff5d0, type: 3}
+  _enterCreatorCodeDocument: {fileID: 9197481963319205126, guid: 669e6d616de241c48a3c1ba269437e09, type: 3}
+  _genericInfoDocument: {fileID: 9197481963319205126, guid: f939a547a53a0f64dac2dbd07369ce57, type: 3}
+  _genericConfirmDocument: {fileID: 9197481963319205126, guid: 5911e60133d79d848ae7d5e30fda1c3e, type: 3}

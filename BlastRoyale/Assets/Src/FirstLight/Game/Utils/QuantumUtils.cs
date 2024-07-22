@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Quantum;
 
 namespace FirstLight.Game.Utils
@@ -60,6 +61,25 @@ namespace FirstLight.Game.Utils
 			}
 
 			return false;
+		}
+
+		public static int GetMaxPlayers(this SimulationMatchConfig matchConfig)
+		{
+			if (matchConfig.MaxPlayersOverwrite > 0)
+			{
+				return matchConfig.MaxPlayersOverwrite;
+			}
+
+			var services = MainInstaller.ResolveServices();
+			var map = matchConfig.MapId;
+			if (map == (int) GameId.Any)
+			{
+				return services.GameModeService.ValidMatchmakingMaps.Max(
+					(id) => services.ConfigsProvider.GetConfig<QuantumMapConfig>((int)id).MaxPlayers);
+			}
+
+			var mapConfig = services.ConfigsProvider.GetConfig<QuantumMapConfig>(map);
+			return mapConfig.MaxPlayers;
 		}
 	}
 }

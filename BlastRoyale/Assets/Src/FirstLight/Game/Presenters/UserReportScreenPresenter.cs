@@ -36,7 +36,7 @@ namespace FirstLight.Game.Presenters
 		private TextField _summaryInput;
 		private TextField _descriptionInput;
 		private DropdownField _categoryField;
-		private Button _sendButton;
+		private LocalizedButton _sendButton;
 		private ProgressBar _progressBar;
 		private VisualElement _screenshot;
 
@@ -48,7 +48,7 @@ namespace FirstLight.Game.Presenters
 			_descriptionInput = Root.Q<TextField>("DescriptionInput").Required();
 			_reportContainer = Root.Q<ImageButton>("ReportContainer").Required();
 			_categoryField = Root.Q<DropdownField>("CategoryDropdown").Required();
-			_sendButton = Root.Q<Button>("SendButton").Required();
+			_sendButton = Root.Q<LocalizedButton>("SendButton").Required();
 			_progressBar = Root.Q<ProgressBar>("ProgressBar").Required();
 			_screenshot = Root.Q<VisualElement>("Screenshot").Required();
 

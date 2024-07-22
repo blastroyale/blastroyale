@@ -10,6 +10,25 @@
     -unity-font-definition: var(--font-italic);
 }
 
+.localized-button {
+    border-radius: 0;
+    -unity-text-align: middle-center;
+    flex: 0 0 auto;
+    overflow: hidden;
+    white-space: nowrap;
+    border-color: rgb(149, 149, 149);
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 4px;
+    margin-right: 4px;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
 .unity-button {
     background-color: rgba(0, 0, 0, 0);
     border-width: 0;
@@ -102,22 +121,22 @@
 
 .button-with-icon {
     background-image: var(--sprite-home__button-round);
-    font-size: 38px;
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    font-size: 34px;
+    text-shadow: 3px 5px 0 rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     width: 222px;
     height: 128px;
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(0, 0, 0);
     overflow: visible;
-    -unity-text-align: lower-center;
     -unity-background-scale-mode: scale-to-fit;
+    -unity-text-align: lower-center;
     align-items: center;
-    -unity-font-style: bold;
-    letter-spacing: -7px;
+    letter-spacing: -1px;
     padding: 0;
     scale: 1;
 }
+
 
 .button-with-icon:active {
     scale: 0.9;
@@ -146,7 +165,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 4%;
+    top: 8%;
     overflow: visible;
     -unity-background-scale-mode: scale-to-fit;
 }
@@ -169,7 +188,7 @@
 .button-flat {
     font-size: 42px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 4px;
     border-radius: 10px;
     border-left-width: 1px;
     border-right-width: 1px;
@@ -177,7 +196,6 @@
     border-bottom-width: 1px;
     min-height: 70px;
     -unity-paragraph-spacing: -30px;
-    -unity-font-style: bold;
     background-image: var(--sprite-home__pattern-dots-gradient);
     -unity-background-scale-mode: scale-and-crop;
     padding: 5px 40px;
@@ -189,7 +207,8 @@
 }
 
 .button-flat--primary {
-    font-size: 47px;
+    font-size: 45px;
+    -unity-text-outline-width: 5px;
     background-color: rgb(245, 203, 47);
     -unity-text-outline-color: rgb(100, 19, 0);
     -unity-background-image-tint-color: rgb(255, 116, 0);
@@ -226,6 +245,8 @@
 }
 
 .button-flat--cancel {
+    font-size: 45px;
+    -unity-text-outline-width: 5px;
     background-color: rgb(253, 97, 97);
     -unity-text-outline-color: rgb(145, 34, 14);
     -unity-background-image-tint-color: rgb(158, 31, 42);
@@ -295,7 +316,7 @@
     background-color: rgba(0, 0, 0, 0);
     font-size: 42px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     padding: 0 0 7px;
@@ -337,7 +358,9 @@
 }
 
 .button-long--large-font {
-    font-size: 52px;
+    font-size: 48px;
+    -unity-text-outline-width: 5px;
+    text-shadow: 3px 5px 0 rgb(0, 0, 0);
 }
 
 .button-long--yellow {
@@ -360,6 +383,8 @@
 
 .button-long--green {
     background-image: var(--sprite-home__button-long-green);
+    -unity-text-outline-color: rgb(48, 86, 21);
+    text-shadow: 3px 3px 0 rgb(48, 86, 21);
 }
 
 .button-long--green:active {
@@ -449,14 +474,13 @@
     background-color: rgba(255, 255, 255, 0);
     margin: 0;
     color: rgb(255, 255, 255);
-    text-shadow: 3px 3px 0 rgb(107, 4, 2);
+    text-shadow: 5px 5px 0 rgb(107, 4, 2);
     -unity-text-outline-color: rgb(107, 4, 2);
-    font-size: 52px;
-    -unity-text-outline-width: 2px;
+    font-size: 58px;
+    -unity-text-outline-width: 5px;
     padding-bottom: 20px;
     -unity-text-align: middle-center;
     padding-right: 41px;
-    -unity-font-style: bold;
     position: absolute;
     right: 10px;
     bottom: 10px;
@@ -699,9 +723,9 @@
 .player-name {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 0;
+    left: -200px;
     height: 0;
+    padding: 0;
     -unity-text-align: upper-center;
     flex-direction: row;
     align-items: center;
@@ -710,12 +734,12 @@
     overflow: visible;
     align-self: flex-start;
     white-space: nowrap;
-    font-size: 60px;
-    -unity-font-style: bold;
+    font-size: 54px;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    width: 400px;
 }
 
 .player-name--small {
@@ -797,6 +821,32 @@
     padding-right: 55px;
     padding-left: 55px;
 }
+.generic-popup__content__glow {
+    position: absolute;
+    left: -80%;
+    bottom: -150%;
+    width: 2000px;
+    height: 2000px;
+    background-image: var(--sprite-home__pattern-rewardglow-common);
+    -unity-background-image-tint-color: rgba(255, 18, 18, 0.3);
+}
+
+.generic-popup__content__glow-holder {
+    position: absolute;
+    top: 0;
+    left: 12px;
+    bottom: 27px;
+    right: 12px;
+    border-radius: 27px;
+    overflow: hidden;
+}
+
+.generic-popup--no-padding .generic-popup__content {
+    padding: 0px;
+    padding-bottom: 24px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
 
 .generic-popup__close-button {
     position: absolute;
@@ -804,6 +854,17 @@
     height: 40px;
     background-image: var(--sprite-home__icon-close-white);
     right: 35px;
+    align-self: center;
+}
+
+.generic-popup__close-button-container {
+    position: absolute;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100px;
+    height: 80px;
+    right: 0px;
     align-self: center;
 }
 
@@ -871,3 +932,37 @@
 .unity-toggle__input:disabled .unity-toggle__checkmark {
     background-color: rgba(132, 117, 166, 1);
 }
+
+
+.internal-label {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+.game-label {
+    font-size: 42px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-align: middle-center;
+
+}
+
+.game-label--small {
+    font-size: 32px;
+    -unity-text-outline-width: 2px;
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+
+}
+
+.game-label--large {
+    font-size: 56px;
+    -unity-text-outline-width: 6px;
+    text-shadow: 3px 5px 0 rgb(0, 0, 0);
+}
+

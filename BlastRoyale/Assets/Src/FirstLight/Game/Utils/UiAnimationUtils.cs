@@ -127,5 +127,19 @@ namespace FirstLight.Game.Utils
 				element.style.rotate = new StyleRotate(new Rotate(new Angle(currentAngle)));
 			}).Every(delay);
 		}
+
+		public static IVisualElementScheduledItem SetTimer(this TextElement element, Func<DateTime> endTimeGetter, string prefix, Action<TextElement> finishCallback = null)
+		{
+			return element.schedule.Execute(() =>
+			{
+				var timeLeft = endTimeGetter() - DateTime.UtcNow;
+				if (timeLeft.TotalSeconds < 0)
+				{
+					finishCallback?.Invoke(element);
+					return;
+				}
+				element.text = $"{prefix}{timeLeft.Display(showSeconds: true, showDays: false).ToLowerInvariant()}";
+			}).Every(1000);
+		}
 	}
 }

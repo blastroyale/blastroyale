@@ -44,7 +44,7 @@
                             <ui:Label tabindex="-1" text="PREMIUM&#10;&lt;size=32&gt;PASS&lt;/size&gt;" display-tooltip-when-elided="true" name="PremiumTitle" class="premium-title" />
                             <ui:VisualElement name="PremiumLock" class="premium-lock" />
                         </ui:VisualElement>
-                        <ui:Button text="ACTIVATE" display-tooltip-when-elided="true" name="ActivateButton" class="activate-button" />
+                        <FirstLight.Game.UIElements.LocalizedButton text="ACTIVATE" display-tooltip-when-elided="true" name="ActivateButton" class="button-long button-long--yellow activate-button" />
                     </ui:VisualElement>
                     <ui:VisualElement name="FreeContainer" class="free-container">
                         <ui:VisualElement name="IconBackground" class="free-icon-background">
@@ -60,7 +60,7 @@
         <ui:VisualElement name="SeasonHeader" class="season-header anim-translate anim-translate--down-s anim-delay-4">
             <ui:VisualElement name="Background" class="season-header__background" />
             <ui:VisualElement name="HeaderContainer" class="season-header__currencies">
-                <ui:Label tabindex="-1" text="SEASON 1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SeasonNumber" enable-rich-text="true" class="season-number" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="SEASON 1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SeasonNumber" enable-rich-text="true" class="season-number" />
                 <ui:VisualElement name="BppBarLayout" class="season-header__bpp-bar-layout">
                     <ui:VisualElement name="BppBar" class="bpp-bar">
                         <ui:VisualElement name="BppBackground" class="bpp-bar__background">
@@ -73,14 +73,14 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="Arrow" class="bpp-bar__arrow" />
                     <ui:VisualElement name="NextLevel" class="bar__level">
-                        <ui:Label tabindex="-1" text="13" display-tooltip-when-elided="true" name="NextLevelLabel" enable-rich-text="true" class="bar__level__label" />
+                        <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" text="13" display-tooltip-when-elided="true" name="NextLevelLabel" enable-rich-text="true" class="bar__level__label" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="RightContainer" class="season-header__right-container">
                     <ui:VisualElement name="SeasonInfo" class="season-info anim-delay-0 anim-translate anim-translate--up-s">
                         <ui:VisualElement name="SeasonEndInfo" class="season-info__season-end">
                             <FirstLight.Game.UIElements.LocalizedLabel text="##" name="SeasonEndsLabel" localization-key="UITBattlePass/season_ends_in" class="season-info__label" />
-                            <ui:Label text=" 10d 10h" display-tooltip-when-elided="true" name="TimeLeftLabel" class="season-info__label season-info__label--white" />
+                            <FirstLight.Game.UIElements.LabelOutlined text=" 10d 10h" display-tooltip-when-elided="true" name="TimeLeftLabel" class="season-info__label season-info__label--white" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.CurrencyDisplayElement name="BBCurrency" currency="BlastBuck" class="season-info__blastbucks" />

@@ -50,7 +50,7 @@ namespace FirstLight.Game.UIElements
 			_killerPfp.AddToClassList(USS_PFP);
 			_killerPfp.AddToClassList(USS_PFP_KILLER);
 
-			_container.Add(_killerName = new Label(killerName) {name = "killer-name"});
+			_container.Add(_killerName = new LabelOutlined("killer-name") {text = killerName});
 			_killerName.AddToClassList(USS_NAME);
 			_killerName.AddToClassList(USS_NAME_KILLER);
 
@@ -58,7 +58,7 @@ namespace FirstLight.Game.UIElements
 			_container.Add(killIcon);
 			killIcon.AddToClassList(USS_KILL_ICON);
 
-			_container.Add(_victimName = new Label(victimName) {name = "victim-name"});
+			_container.Add(_victimName = new LabelOutlined("victim-name") { text = victimName});
 			_victimName.AddToClassList(USS_NAME);
 			_victimName.AddToClassList(USS_NAME_VICTIM);
 

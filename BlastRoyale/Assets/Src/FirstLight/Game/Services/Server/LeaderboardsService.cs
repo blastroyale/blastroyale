@@ -79,13 +79,13 @@ namespace FirstLight.Game.Services
 		public LeaderboardsService(IGameServices services)
 		{
 			_services = services;
-			_services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(OnMenuOpened);
+			_services.MessageBrokerService.Subscribe<MainMenuLoadedMessage>(OnMenuOpened);
 			_services.AuthenticationService.OnLogin += OnLogin;
 		}
 
 		public LeaderboardConfigs GetConfigs() => _configs;
 		
-		private void OnMenuOpened(MainMenuOpenedMessage msg)
+		private void OnMenuOpened(MainMenuLoadedMessage msg)
 		{
 			if (_configs == null)
 			{
@@ -114,7 +114,7 @@ namespace FirstLight.Game.Services
 					FLog.Verbose($"Registered Leaderboard for metric {metricName}");
 				}
 			}
-			_services.MessageBrokerService.Unsubscribe<MainMenuOpenedMessage>(OnMenuOpened);
+			_services.MessageBrokerService.Unsubscribe<MainMenuLoadedMessage>(OnMenuOpened);
 
 		}
 

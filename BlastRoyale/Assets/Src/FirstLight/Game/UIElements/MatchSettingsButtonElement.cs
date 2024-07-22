@@ -16,11 +16,21 @@ namespace FirstLight.Game.UIElements
 
 		private const string USS_BUTTON_NUMERICAL = USS_BLOCK + "--numerical";
 
-		private bool Numerical { get; set; }
+		private bool Numerical
+		{
+			get => _numerical;
+			set
+			{
+				_numerical = value;
+				EnableInClassList(USS_BUTTON_NUMERICAL, _numerical);
+			}
+		}
+
 		private string TitleLocalizationKey { get; set; }
 
 		private readonly Label _title;
 		private readonly Label _value;
+		private bool _numerical;
 
 		public MatchSettingsButtonElement()
 		{
@@ -69,7 +79,6 @@ namespace FirstLight.Game.UIElements
 
 				var isNumerical = _numericalAttribute.GetValueFromBag(bag, cc);
 				msbe.Numerical = isNumerical;
-				msbe.EnableInClassList(USS_BUTTON_NUMERICAL, isNumerical);
 
 				var titleKey = _titleLocalizationKeyAttribute.GetValueFromBag(bag, cc);
 				msbe.TitleLocalizationKey = titleKey;

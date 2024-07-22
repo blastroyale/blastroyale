@@ -14,9 +14,14 @@
     font-size: 44px;
     background-color: rgba(255, 255, 255, 0);
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 5px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    width: auto;
+    flex-grow: 1;
+}
+.spacer{
+    width: 20px;
 }
 
 .scroll-view {
@@ -88,14 +93,15 @@
     height: 66px;
     font-size: 44px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1.4px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    text-shadow: 3px 5px 0 rgb(0, 0, 0);
     background-color: rgba(50, 19, 74, 0.33);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
+    letter-spacing: -1px;
 }
 
 .blocker {

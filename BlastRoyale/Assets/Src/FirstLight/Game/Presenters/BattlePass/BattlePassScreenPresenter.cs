@@ -26,7 +26,6 @@ using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 using Button = UnityEngine.UIElements.Button;
 
-
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
@@ -59,7 +58,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _nextLevelRoot;
 		private LocalizedButton _claimButton;
 		private VisualElement _premiumLock;
-		private Button _activateButton;
+		private LocalizedButton _activateButton;
 		private ImageButton _fullScreenClaimButton;
 		private Label _bppProgressLabel;
 		private Label _seasonNumber;
@@ -81,7 +80,6 @@ namespace FirstLight.Game.Presenters
 		private Dictionary<PassType, List<BattlePassSegmentData>> _segmentData;
 		private Dictionary<int, BattlepassLevelColumnElement> _levelElements;
 
-		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -107,7 +105,7 @@ namespace FirstLight.Game.Presenters
 			_nextLevelRoot = Root.Q("NextLevel").Required();
 			_columnHolder = Root.Q("ColumnHolder").Required();
 			_premiumLock = Root.Q("PremiumLock").Required();
-			_activateButton = Root.Q<Button>("ActivateButton").Required();
+			_activateButton = Root.Q<LocalizedButton>("ActivateButton").Required();
 			_timeLeftLabel = Root.Q<Label>("TimeLeftLabel").Required();
 			_premiumTitle = Root.Q<Label>("PremiumTitle").Required();
 			_freeTitle = Root.Q<Label>("FreeTitle").Required();
@@ -256,7 +254,7 @@ namespace FirstLight.Game.Presenters
 					_services.CommandService.ExecuteCommand(new BuyBattlepassLevelCommand {Levels = (uint) levels});
 				},
 				OnExit = OnExit
-			});
+			}).Forget();
 		}
 
 		private void UpdateTimeLeft()
@@ -331,7 +329,6 @@ namespace FirstLight.Game.Presenters
 			var rewardConfig = _services.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 
-
 			_activateButton.text = ScriptLocalization.UITBattlePass.activate_premium_button_text;
 			_premiumTitle.text = ScriptLocalization.UITBattlePass.left_bar_premium_title;
 			_freeTitle.text = ScriptLocalization.UITBattlePass.left_bar_free_title;
@@ -349,7 +346,6 @@ namespace FirstLight.Game.Presenters
 
 			_seasonNumber.text = string.Format(ScriptLocalization.UITBattlePass.season_number,
 				battlePassConfig.Season.Number);
-
 
 			for (var i = 0; i < battlePassConfig.Levels.Count; ++i)
 			{
@@ -542,7 +538,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var battlePassData = Data;
 			battlePassData.DisableScrollAnimation = true;
-			
+
 			_services.UIService.OpenScreen<RewardsScreenPresenter>(new RewardsScreenPresenter.StateData()
 			{
 				SkipSummary = true,

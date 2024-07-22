@@ -29,7 +29,7 @@ namespace FirstLight.Game.Logic
 		/// Request the player's current XP (level up consumes XP).
 		/// </summary>
 		IObservableFieldReader<uint> XP { get; }
-
+		
 		/// <summary>
 		/// Requests the unlock level of the given <paramref name="unlockSystem"/>
 		/// </summary>
@@ -74,7 +74,8 @@ namespace FirstLight.Game.Logic
 		/// added/removed
 		/// </summary>
 		void UpdateTrophies(int change);
-
+		
+		
 		/// <summary>
 		/// Flags that the given tutorial step is completed
 		/// </summary>
@@ -100,9 +101,9 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Trophies => _trophies;
-
 		public IObservableFieldReader<uint> Level => _level;
 		public IObservableFieldReader<uint> XP => _xp;
+		
 		public PlayerFlags Flags => Data.Flags;
 
 		public bool MigratedGuestAccount
@@ -123,6 +124,7 @@ namespace FirstLight.Game.Logic
 			_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 			_level = new ObservableResolverField<uint>(() => Data.Level, val => Data.Level = val);
 			_xp = new ObservableResolverField<uint>(() => Data.Xp, val => Data.Xp = val);
+			
 			_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
 		}
 
@@ -272,7 +274,8 @@ namespace FirstLight.Game.Logic
 		{
 			_trophies.Value = (uint) Math.Max(0, _trophies.Value + change);
 		}
-		
+
+
 		public bool HasTutorialSection(TutorialSection section)
 		{
 			return DataProvider.GetData<TutorialData>().TutorialSections.HasFlag(section);

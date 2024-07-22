@@ -158,37 +158,46 @@ namespace FirstLight.Game.Logic
 			return matchConfig.ConfigId?.Contains("debug-") ?? false;
 		}
 
-		private bool IsEventValid(RewardSource source, GameModeRotationConfig.GameModeEntry usedGamemode)
+		public List<SimulationMatchConfig> ValidMatchRewardConfigs()
 		{
-			// Config not valid someone probably trying to cheat
-			if (usedGamemode.MatchConfig == null) return false;
-
-			if (usedGamemode.TimedEntry)
+			var validConfigs = new List<SimulationMatchConfig>
 			{
-				var now = GameLogic.TimeService.DateTimeUtcNow;
-				var found = false;
-				foreach (var timedGameModeEntry in usedGamemode.TimedGameModeEntries)
+				GameLogic.ConfigsProvider.GetConfig<TutorialConfig>().SecondMatch
+			};
+
+			var rotationConfigs = GameLogic.ConfigsProvider.GetConfig<GameModeRotationConfig>();
+			var now = GameLogic.TimeService.DateTimeUtcNow;
+			foreach (var gameModeEntry in rotationConfigs.Slots.SelectMany(m => m.Entries))
+			{
+				if (!gameModeEntry.TimedEntry)
+				{
+					validConfigs.Add(gameModeEntry.MatchConfig);
+					continue;
+				}
+
+				foreach (var timedGameModeEntry in gameModeEntry.TimedGameModeEntries)
 				{
 					// Lets add some time due to clock desyncs and matchs in progress
 					var starts = timedGameModeEntry.GetStartsAtDateTime().AddMinutes(-EXTRA_GAME_MODE_CHECK_MINUTES);
 					var endsAt = timedGameModeEntry.GetEndsAtDateTime().AddMinutes(EXTRA_GAME_MODE_CHECK_MINUTES);
 					if (starts < now && endsAt > now)
 					{
-						found = true;
+						validConfigs.Add(gameModeEntry.MatchConfig);
 						break;
 					}
 				}
-
-				// Player trying to send not active gamemode
-				if (!found)
-				{
-					return false;
-				}
 			}
 
+			return validConfigs;
+		}
+
+		private bool IsEventValid(RewardSource source, SimulationMatchConfig usedConfig)
+		{
+			// Config not valid someone probably trying to cheat
+			if (usedConfig == null) return false;
 			// Prevent sneaky players from sending different meta item drop overwrites from the config,
 			// in this case the collected items from the simulation cannot be trusted
-			if (source.MatchConfig.MetaItemDropOverwrites != null && !source.MatchConfig.MetaItemDropOverwrites.SequenceEqual(usedGamemode.MatchConfig.MetaItemDropOverwrites))
+			if (source.MatchConfig.MetaItemDropOverwrites != null && !source.MatchConfig.MetaItemDropOverwrites.SequenceEqual(usedConfig.MetaItemDropOverwrites))
 			{
 				return false;
 			}
@@ -208,12 +217,9 @@ namespace FirstLight.Game.Logic
 				throw new MatchDataEmptyLogicException();
 			}
 
-			var rotationConfigs = GameLogic.ConfigsProvider.GetConfig<GameModeRotationConfig>();
-			var usedGamemode = rotationConfigs.Slots.SelectMany(m => m.Entries)
-				.FirstOrDefault(m => m.MatchConfig.ConfigId == source.MatchConfig.ConfigId);
-			var usedSimConfig = usedGamemode.MatchConfig;
+			var usedSimConfig = ValidMatchRewardConfigs().FirstOrDefault(valid => valid.ConfigId == source.MatchConfig.ConfigId);
 
-			if ((!IsEventValid(source, usedGamemode) && !IsDebug(source.MatchConfig)) || localMatchData.Data.KilledByBeingAFK)
+			if ((!IsEventValid(source, usedSimConfig) && !IsDebug(source.MatchConfig)) || localMatchData.Data.KilledByBeingAFK)
 			{
 				return rewards;
 			}
@@ -223,7 +229,7 @@ namespace FirstLight.Game.Logic
 				usedSimConfig = source.MatchConfig;
 			}
 
-			var teamSize = Math.Max(1, source.MatchConfig.TeamSize);
+			var teamSize = Math.Max(1, usedSimConfig.TeamSize);
 			var maxTeamsInMatch = source.GamePlayerCount / teamSize;
 
 			// Always perform ordering operation on the configs.
@@ -351,11 +357,11 @@ namespace FirstLight.Game.Logic
 
 		public IEnumerable<ItemData> GetRewardsFromTutorial(TutorialSection section)
 		{
-			var tutorialRewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<TutorialRewardConfig>();
-			var tutorialRewardsCount = tutorialRewardsCfg.Count(c => c.Section == section);
+			var tutorialRewardsCfg = GameLogic.ConfigsProvider.GetConfig<TutorialConfig>();
+			var tutorialRewardsCount = tutorialRewardsCfg.Rewards.Count(c => c.Section == section);
 			if (tutorialRewardsCount == 0) return Array.Empty<ItemData>();
 			var rewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
-			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.First(c => c.Section == section).RewardIds.Contains((uint) c.Id));
+			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.Rewards.First(c => c.Section == section).RewardIds.Contains((uint) c.Id));
 			var rewardItems = CreateItemsFromConfigs(rewardsConfigs);
 			return rewardItems;
 		}

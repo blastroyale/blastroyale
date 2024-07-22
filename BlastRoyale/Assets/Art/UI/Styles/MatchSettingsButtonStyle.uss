@@ -1,15 +1,17 @@
-
 .match-settings-button {
-    width: 300px;
-    margin-bottom: 10px;
-    height: 109px;
+    width: 378px;
+    height: 106px;
     background-color: rgb(22, 20, 38);
     border-top-left-radius: 31px;
     border-top-right-radius: 31px;
     border-bottom-right-radius: 31px;
     border-bottom-left-radius: 31px;
     align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+    padding-top:5px;
     margin-top: 10px;
+    margin-bottom: 10px;
     transition-property: scale;
     transition-duration: 0.1s;
 }
@@ -22,12 +24,12 @@
 }
 
 .match-settings-button__title {
-    font-size: 32px;
+    font-size: 36px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    margin-top: 12px;
+    margin-top: 5px;
     margin-right: 0;
     margin-bottom: 0;
     margin-left: 0;
@@ -46,12 +48,16 @@
     margin-left: 0;
     padding-left: 0;
     padding-right: 0;
-    padding-top: 8px;
+    padding-top: 0px;
     padding-bottom: 0;
 }
 
 .match-settings-button--numerical .match-settings-button__value {
-    font-size: 43px;
+    font-size: 52px;
+}
+
+.match-settings-button--numerical .match-settings-button__title {
+
 }
 
 .match-settings-button__edit-icon {

@@ -2,12 +2,12 @@
     <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/BuyBattlepassLevelPopup.uss?fileID=7433441132597879392&amp;guid=a3f08c07846d4e62be574aec68253440&amp;type=3#BuyBattlepassLevelPopup" />
     <ui:VisualElement name="root" class="purchase-confirmation-root">
-        <ui:Button name="BlockerButton" class="blocker" />
-        <FirstLight.Game.UIElements.GenericPopupElement style="width: 1392px; height: 793px;">
+        <FirstLight.Game.UIElements.ImageButton name="BlockerButton" class="blocker" />
+        <FirstLight.Game.UIElements.GenericPopupElement name="Popup" style="width: 1392px; height: 793px;" title-localization-key="UITBattlePass/buy_levels_popup_title">
             <ui:Label name="Desc" focusable="false" text="HOW MANY LEVELS OF BATTLE PASS YOU WANT TO BUY?" class="buy-bpp__desc" />
-            <FirstLight.Game.UIElements.SliderIntWithButtons show-input-field="false" high-value="20" inverted="false" direction="Horizontal" low-value="1" name="Slider" class="full-width" style="height: 349px;" />
+            <FirstLight.Game.UIElements.SliderIntWithButtons show-input-field="false" high-value="20" inverted="false" use-plus-minus-symbols="true" direction="Horizontal" low-value="1" name="Slider" class="full-width" style="height: 349px;" />
             <FirstLight.Game.UIElements.ImageButton name="BuyButton" class="button-long button-long--yellow purchase-confirmation__item-button ">
-                <ui:Label tabindex="-1" text="200" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemPrice" class="purchase-confirmation__item-price-label" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="200" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemPrice" class="purchase-confirmation__item-price-label" />
                 <ui:VisualElement name="CostIcon" class="purchase-confirmation__button-icon" />
             </FirstLight.Game.UIElements.ImageButton>
         </FirstLight.Game.UIElements.GenericPopupElement>

@@ -62,7 +62,7 @@ namespace FirstLight.Game.TestCases
 				matchCount++;
 				currentLocation = "Match" + matchCount+" "+msg.Map;
 			});
-			services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>((_) =>
+			services.MessageBrokerService.Subscribe<MainMenuLoadedMessage>((_) =>
 			{
 				currentLocation = "MainMenu";
 			});

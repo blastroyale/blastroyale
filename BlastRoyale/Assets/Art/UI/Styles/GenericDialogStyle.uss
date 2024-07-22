@@ -262,9 +262,9 @@
     flex-shrink: 0;
     flex-grow: 0;
     -unity-text-align: middle-right;
-    text-shadow: 3px 3px 0 rgb(156, 36, 12);
+    text-shadow: 4px 5px 0 rgb(156, 36, 12);
     -unity-text-outline-color: rgb(156, 36, 12);
-    letter-spacing: -4px;
+    -unity-text-outline-width: 6px;
 }
 
 .purchase-confirmation__button-icon {
@@ -364,8 +364,8 @@
 
 .purchase-confirmation__title {
     font-size: 44px;
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    -unity-text-outline-width: 2px;
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 6px;
     -unity-text-outline-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     -unity-font-style: normal;
@@ -376,10 +376,10 @@
     color: rgb(255, 255, 255);
     font-size: 64px;
     height: 82px;
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 5px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    letter-spacing: -4px;
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    letter-spacing: -1px;
     -unity-text-align: lower-right;
     align-self: auto;
     width: 100%;

@@ -4,16 +4,17 @@
         <FirstLight.Game.UIElements.SafeAreaElement>
             <ui:VisualElement name="Container" class="container fill-parent">
                 <ui:VisualElement name="LeaderboardPanel" class="leaderboard-panel">
-                    <ui:VisualElement name="LeaderboardHeader" class="header__label">
-                        <FirstLight.Game.UIElements.LocalizedLabel name="Player" localization-key="UITLeaderboards/player" class="header-label header__label--player" />
-                        <FirstLight.Game.UIElements.LocalizedLabel name="Trophies" localization-key="UITLeaderboards/trophies" class="header-label header__label--trophies" />
-                        <ui:Label text="#" display-tooltip-when-elided="true" name="RankNumber" class="header-label header__label--rank-number" />
+                    <ui:VisualElement name="LeaderboardHeader" class="game-label game-label--small leaderboard-header">
+                        <FirstLight.Game.UIElements.LabelOutlined text="#" display-tooltip-when-elided="true" name="RankNumber" class=" header__label--rank-number" />
+                        <FirstLight.Game.UIElements.LocalizedLabel name="Player" localization-key="UITLeaderboards/player" class="header__label--player" />
+                        <FirstLight.Game.UIElements.LocalizedLabel name="Trophies" localization-key="UITLeaderboards/trophies" class="header__label--trophies" />
+                        
                     </ui:VisualElement>
                     <ui:ListView focusable="true" name="LeaderboardList" fixed-item-height="80" selection-type="None" show-bound-collection-size="false" class="leaderboard-entries" />
                     <ui:VisualElement name="LeaderboardDescription" class="leaderboard-description">
                         <ui:VisualElement name="Header" class="description-header">
                             <ui:VisualElement name="Dots" class="description-title-dots" />
-                            <ui:Label tabindex="-1" text="Leaderboard Title" display-tooltip-when-elided="true" name="LeaderboardTitle" class="leaderboard-title-label" />
+                            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="Leaderboard Title" display-tooltip-when-elided="true" name="LeaderboardTitle" class="game-label game-label--large" />
                         </ui:VisualElement>
                         <ui:VisualElement name="EndsInContainer" class="timer-bar">
                             <ui:Label tabindex="-1" text="Ends in 115d 5h" display-tooltip-when-elided="true" name="EndsInText" class="description-text timer-text" />

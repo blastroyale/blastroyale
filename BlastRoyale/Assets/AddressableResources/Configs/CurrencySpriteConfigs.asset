@@ -59,3 +59,15 @@ MonoBehaviour:
           _keyData: 01000000
           _valueData:
           - sprite-currencies__noob-1
+    - Key: 22
+      Value:
+        DefaultSprite: sprite-shared__icon-trophy
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 3
+      Value:
+        DefaultSprite: sprite-shared__icon-xp
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []

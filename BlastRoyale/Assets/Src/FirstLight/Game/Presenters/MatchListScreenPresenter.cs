@@ -106,6 +106,7 @@ namespace FirstLight.Game.Presenters
 			{
 				await OpenMatchLobby();
 			}
+
 			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 		}
 
@@ -117,6 +118,7 @@ namespace FirstLight.Game.Presenters
 			{
 				await OpenMatchLobby();
 			}
+
 			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 		}
 
@@ -134,7 +136,7 @@ namespace FirstLight.Game.Presenters
 		private void OpenMatchInfo(Lobby lobby)
 		{
 			var friendsPlaying = lobby.GetFriends().Select(p => p.GetPlayerName()).ToList();
-			PopupPresenter.OpenMatchInfo(lobby.GetMatchSettings(), friendsPlaying).Forget();
+			PopupPresenter.OpenMatchInfo(lobby.GetMatchSettings().ToSimulationMatchConfig(), friendsPlaying).Forget();
 		}
 
 		private async UniTask OpenMatchLobby()

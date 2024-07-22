@@ -40,7 +40,7 @@ namespace FirstLight.Game.Presenters
 		private IMatchServices _matchServices;
 		private IGameServices _gameServices;
 
-		private Button _nextButton;
+		private LocalizedButton _nextButton;
 		private VisualElement _nameContainer;
 		private int _usedCharactersIndex = 0;
 		private Label[] _nameLabels;
@@ -53,7 +53,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements()
 		{
-			_nextButton = Root.Q<Button>("NextButton").Required();
+			_nextButton = Root.Q<LocalizedButton>("NextButton").Required();
 			_nextButton.clicked += Data.ContinueClicked;
 			_nameContainer = Root.Q<VisualElement>("NameContainer").Required();
 		}
@@ -103,7 +103,7 @@ namespace FirstLight.Game.Presenters
 				var rankColor =
 					_gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) player.LeaderboardRank);
 
-				var playerNameLabel = new Label();
+				var playerNameLabel = new LabelOutlined("PlayerName");
 				playerNameLabel.AddToClassList(UIService.UIService.USS_PLAYER_LABEL);
 				playerNameLabel.style.color = rankColor;
 				playerNameLabel.text = player.GetPlayerName();

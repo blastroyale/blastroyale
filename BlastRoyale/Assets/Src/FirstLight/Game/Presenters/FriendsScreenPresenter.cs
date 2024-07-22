@@ -39,7 +39,7 @@ namespace FirstLight.Game.Presenters
 
 		private TextField _yourIDField;
 		private TextField _addFriendIDField;
-		private Button _addFriendButton;
+		private LocalizedButton _addFriendButton;
 		private Label _requestsCount;
 
 		private List<Relationship> _friends;
@@ -64,7 +64,7 @@ namespace FirstLight.Game.Presenters
 
 			_yourIDField = Root.Q<TextField>("YourID").Required();
 			_addFriendIDField = Root.Q<TextField>("AddFriendID").Required();
-			_addFriendButton = Root.Q<Button>("AddFriendButton").Required();
+			_addFriendButton = Root.Q<LocalizedButton>("AddFriendButton").Required();
 			_requestsCount = Root.Q<Label>("RequestsCount").Required();
 
 			_addFriendButton.clicked += () => AddFriend(_addFriendIDField.value).Forget();
@@ -180,16 +180,13 @@ namespace FirstLight.Game.Presenters
 			e
 				.SetHeader(header)
 				.SetFromRelationship(relationship)
-				.SetMainAction(ScriptLocalization.UITFriends.invite,
-					!showPartyInvite
-						? null
-						: () =>
-						{
-							_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
-							// TODO mihak: Invite to squad
-							FLog.Info($"Squad invite clicked: {relationship.Id}");
-						}, false)
-				.SetMoreActions(ve => OpenFriendTooltip(ve, relationship));
+				.AddOpenProfileAction(relationship)
+				.TryAddInviteOption(relationship, () =>
+				{
+					_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
+					// TODO mihak: Invite to squad
+					FLog.Info($"Squad invite clicked: {relationship.Id}");
+				});
 		}
 
 		private void OnRequestsBindItem(VisualElement element, int index)

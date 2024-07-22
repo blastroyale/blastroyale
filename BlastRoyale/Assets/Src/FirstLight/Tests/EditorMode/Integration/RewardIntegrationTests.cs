@@ -16,7 +16,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 		[Test]
 		public void TestTutorialSectionRewardList()
 		{
-			var tutorialRewards = TestConfigs.GetConfigsList<TutorialRewardConfig>().First();
+			var tutorialRewards = TestConfigs.GetConfig<TutorialConfig>().Rewards.First();
 			var rewardConfigs = TestConfigs.GetConfigsList<EquipmentRewardConfig>().Where(c => tutorialRewards.RewardIds.Contains((uint)c.Id));
 
 			var itemsToBeRewarded = TestLogic.RewardLogic.GetRewardsFromTutorial(tutorialRewards.Section);
@@ -108,7 +108,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 		[Test]
 		public void TestTutorialCompletingCommandRewards()
 		{
-			var tutorialRewards = TestConfigs.GetConfigsList<TutorialRewardConfig>().First();
+			var tutorialRewards = TestConfigs.GetConfig<TutorialConfig>().Rewards.First();
 
 			Assert.False(TestLogic.PlayerLogic.HasTutorialSection(tutorialRewards.Section));
 			

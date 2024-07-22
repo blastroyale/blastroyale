@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
+using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK.Popups;
@@ -35,6 +36,9 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private VisualTreeAsset _partyDocument;
 		[SerializeField, Required] private VisualTreeAsset _matchInfoDocument;
 		[SerializeField, Required] private VisualTreeAsset _inviteFriendsDocument;
+        [SerializeField, Required] private VisualTreeAsset _enterCreatorCodeDocument;
+        [SerializeField, Required] private VisualTreeAsset _genericInfoDocument;
+        [SerializeField, Required] private VisualTreeAsset _genericConfirmDocument;
 
 		private GenericPopupElement _popup;
 
@@ -67,11 +71,21 @@ namespace FirstLight.Game.Presenters
 					SetupPopup(_partyDocument, view);
 					break;
 				case MatchInfoPopupView view:
+					_popup.Configure(false, view.IsEvent());
 					SetupPopup(_matchInfoDocument, view);
 					break;
 				case InviteFriendsPopupView view:
 					SetupPopup(_inviteFriendsDocument, view);
 					break;
+                case EnterCreatorCodePopupView view:
+                    SetupPopup(_enterCreatorCodeDocument, view);
+                    break;
+                case GenericInfoPopupView view:
+                    SetupPopup(_genericInfoDocument, view);
+                    break;
+                case GenericConfirmPopupView view:
+                    SetupPopup(_genericConfirmDocument, view);
+                    break;
 				default:
 					throw new NotImplementedException($"You need to implement the view type: {Data.View.GetType()}");
 			}
@@ -101,30 +115,53 @@ namespace FirstLight.Game.Presenters
 		{
 			return OpenPopup(new SelectMutatorsPopupView(onMutatorsSelected, mutators), ScriptTerms.UITCustomGames.select_mutators);
 		}
-		
+
 		public static UniTaskVoid OpenParty()
 		{
 			return OpenPopup(new PartyPopupView(), ScriptTerms.UITHomeScreen.party);
 		}
 
-		public static UniTaskVoid OpenMatchInfo(CustomMatchSettings matchSettings, List<string> friendsPlaying)
+		public static UniTaskVoid OpenMatchInfo(SimulationMatchConfig matchSettings, List<string> friendsPlaying)
 		{
 			return OpenPopup(new MatchInfoPopupView(matchSettings, friendsPlaying), "MATCH INFO");
 		}
-		
+
+		public static UniTaskVoid OpenMatchInfo(GameModeInfo info, Action selectClicked)
+		{
+			return OpenPopup(new MatchInfoPopupView(info, selectClicked), ScriptTerms.UITGameModeSelection.event_info_popup_title);
+		}
+
 		public static UniTaskVoid OpenInviteFriends()
 		{
 			return OpenPopup(new InviteFriendsPopupView(), ScriptTerms.UITCustomGames.invite_blasters);
 		}
 
-		public static UniTask Close()
+        public static UniTaskVoid OpenEnterCreatorCode(Action<string> creatorCode)
+        {
+            return OpenPopup(new EnterCreatorCodePopupView(creatorCode), ScriptTerms.UITStore.content_creator);
+        }
+        
+        public static UniTaskVoid OpenGenericInfo(string titleKey, string infoText)
+        {
+            return OpenPopup(new GenericInfoPopupView(infoText, () => Close().Forget()), titleKey, true);
+        }
+
+        public static UniTaskVoid OpenGenericConfirm(string titleKey, string confirmText, Action confirmAction)
+        {
+            return OpenPopup(new GenericConfirmPopupView(confirmText, confirmAction, () => Close().Forget()), titleKey, true);
+        }
+        
+        public static UniTask Close()
 		{
 			var services = MainInstaller.ResolveServices();
 			return services.UIService.CloseScreen<PopupPresenter>();
 		}
 
-		private static async UniTaskVoid OpenPopup(UIView view, string titleKey)
+		private static async UniTaskVoid OpenPopup(UIView view, string titleKey, bool closeOpenedPopups = false)
 		{
+            if (closeOpenedPopups)
+                Close().Forget();
+            
 			var services = MainInstaller.ResolveServices();
 			await services.UIService.OpenScreen<PopupPresenter>(new StateData
 			{

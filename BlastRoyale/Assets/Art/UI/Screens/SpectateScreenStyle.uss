@@ -7,7 +7,7 @@
     color: rgb(255, 255, 255);
     align-items: center;
     justify-content: flex-start;
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
     flex-direction: row;
@@ -118,9 +118,9 @@
 
 .player-holder__player-name {
     font-size: 50px;
-    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     margin-top: 9px;
     margin-bottom: 9px;
@@ -130,7 +130,7 @@
     color: rgb(231, 58, 58);
     font-size: 36px;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    -unity-text-outline-width: 0.8px;
+    -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 

@@ -63,9 +63,9 @@
     position: absolute;
     color: rgb(170, 216, 97);
     font-size: 30px;
-    -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 4px;
     left: 4px;
     bottom: -16px;
     margin-left: 0;
@@ -80,7 +80,7 @@
 
 .player-health-shield--local .player-health-shield__health-label {
     top: -1px;
-    font-size: 36px;
+    font-size: 33px;
 }
 
 .player-health-shield--knockedout .player-health-shield__health-label {
@@ -104,15 +104,14 @@
     left: 5px;
     bottom: -2px;
     color: rgb(140, 221, 255);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
-    -unity-text-outline-width: 1px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    letter-spacing: -2px;
 }
 
 .player-health-shield--local .player-health-shield__shield-label {
-    top: -2px;
-    font-size: 36px;
+    top: -1px;
+    font-size: 33px;
 }
 
 .player-health-shield--local.player-health-shield--knockedout .player-health-shield__shield-label {

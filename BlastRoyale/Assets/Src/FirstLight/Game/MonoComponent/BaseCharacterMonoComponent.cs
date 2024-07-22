@@ -24,7 +24,7 @@ namespace FirstLight.Game.MonoComponent
 
 		[SerializeField, Required] protected UnityEvent _characterLoadedEvent;
 		[SerializeField, Required] protected Transform _characterAnchor;
-
+		public Vector3 Anchor => _characterAnchor.position;
 		protected MainMenuCharacterViewComponent _characterViewComponent;
 		protected IGameServices _services;
 		protected CharacterSkinMonoComponent _skin;

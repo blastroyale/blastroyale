@@ -8,8 +8,8 @@
             <ui:VisualElement name="PlayerAmountHolder" class="load-status-holder">
                 <FirstLight.Game.UIElements.AnimatedImageElement name="LoadIcon" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner" />
                 <ui:VisualElement name="Labels" class="load-status-holder__labels">
-                    <ui:Label name="LoadStatusLabel" text="5/30" class="DO_NOT_USE_font-style-h2 load-status-holder__player-label" />
-                    <ui:Label name="LocationLabel" text="LOCATION" class="DO_NOT_USE_font-style-h2 load-status-holder__location-label" />
+                    <FirstLight.Game.UIElements.LabelOutlined name="LoadStatusLabel" text="5/30" class="DO_NOT_USE_font-style-h2 load-status-holder__player-label" />
+                    <FirstLight.Game.UIElements.LabelOutlined name="LocationLabel" text="LOCATION" class="DO_NOT_USE_font-style-h2 load-status-holder__location-label" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Label name="DebugPlayerCount" text="30/30" class="DO_NOT_USE_font-style-h2 debug-player-count" />

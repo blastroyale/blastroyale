@@ -20,6 +20,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
+using GameLogicService.Services.Providers;
 using Quantum;
 using Environment = System.Environment;
 
@@ -146,6 +147,7 @@ public class TestServer
 		ServerStartup.Setup(services.AddMvc(), testAppPath);
 		services.AddSingleton<IDataProvider, ServerTestData>();
 		services.AddSingleton<ITestPlayerSetup, TestPlayerSetup>();
+		services.RemoveAll<IAnalyticsProvider>();
 		services.RemoveAll<ILogger>();
 		services.AddSingleton<ILogger>(p => new LoggerFactory().CreateLogger("Log"));
 		return services;

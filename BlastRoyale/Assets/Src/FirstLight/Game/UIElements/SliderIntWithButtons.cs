@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Game.Utils;
 using UnityEngine.UIElements;
 
@@ -21,6 +22,18 @@ namespace FirstLight.Game.UIElements
 		private readonly Button _rightButton;
 
 		private string _tooltipFormat = "{0}";
+		private bool _usePlusMinusSymbol;
+
+		public bool usePlusMinusSymbol
+		{
+			get => _usePlusMinusSymbol;
+			set
+			{
+				_leftButton.text = "-";
+				_rightButton.text = "+";
+				_usePlusMinusSymbol = value;
+			}
+		}
 
 		public new int highValue
 		{
@@ -28,6 +41,7 @@ namespace FirstLight.Game.UIElements
 			set
 			{
 				base.highValue = value;
+				if (usePlusMinusSymbol) return;
 				_rightButton.text = value.ToString();
 			}
 		}
@@ -38,6 +52,7 @@ namespace FirstLight.Game.UIElements
 			set
 			{
 				base.lowValue = value;
+				if (usePlusMinusSymbol) return;
 				_leftButton.text = value.ToString();
 			}
 		}
@@ -56,14 +71,14 @@ namespace FirstLight.Game.UIElements
 		{
 			AddToClassList(USS_BLOCK);
 			{
-				_leftButton = new Button(() => value--) {name = "LeftButton"};
+				_leftButton = new Button(() => value = Math.Max(value - 1, lowValue)) {name = "LeftButton"};
 				_leftButton.AddToClassList(USS_BUTTON);
 				_leftButton.AddToClassList(USS_BUTTON_LEFT);
 				_leftButton.text = "0";
 				Insert(0, _leftButton);
 			}
 			{
-				_rightButton = new Button(() => value++) {name = "RightButton"};
+				_rightButton = new Button(() => value = Math.Min(value + 1, highValue)) {name = "RightButton"};
 				_rightButton.AddToClassList(USS_BUTTON);
 				_rightButton.AddToClassList(USS_BUTTON_RIGHT);
 				_rightButton.text = "99";
@@ -96,6 +111,23 @@ namespace FirstLight.Game.UIElements
 
 		protected new class UxmlFactory : UxmlFactory<SliderIntWithButtons, UxmlTraits>
 		{
+		}
+
+		protected new class UxmlTraits : SliderInt.UxmlTraits
+		{
+			private readonly UxmlBoolAttributeDescription _usePlusMinusSymbol = new ()
+			{
+				name = "use-plus-minus-symbols",
+				defaultValue = false,
+				use = UxmlAttributeDescription.Use.Optional
+			};
+
+			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
+			{
+				var el = (SliderIntWithButtons) ve;
+				el.usePlusMinusSymbol = _usePlusMinusSymbol.GetValueFromBag(bag, cc);
+				base.Init(ve, bag, cc);
+			}
 		}
 	}
 }

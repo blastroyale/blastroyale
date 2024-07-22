@@ -7,13 +7,13 @@
             <ui:VisualElement name="Window" class="popup-radius popup__window popup__window--full">
                 <ui:VisualElement name="Header" class="background-purple window__header window__header--xl">
                     <ui:VisualElement name="TitleDots" class="dots-pattern" style="-unity-background-image-tint-color: rgb(105, 67, 195);" />
-                    <ui:Label name="Title" text="CONFIRM ACTION" class="purchase-confirmation__title" />
+                    <FirstLight.Game.UIElements.LocalizedButton  name="Title" text="CONFIRM ACTION" class="purchase-confirmation__title" />
                     <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="window__close-button" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Content" class="window__content window__content--purchase">
                     <ui:VisualElement name="ItemSlot" class="purchase-confirmation__item-slot">
                         <ui:VisualElement name="ItemIcon" class="purchase-confirmation__item-icon" />
-                        <ui:Label tabindex="-1" text="1501" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemAmount" class="purchase-confirmation__amount" />
+                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="1501" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemAmount" class="purchase-confirmation__amount" />
                     </ui:VisualElement>
                     <ui:VisualElement name="DescContainer" class="purchase-confirmation__desc-container">
                         <ui:Label name="Desc" focusable="false" text="YOU ARE GOING TO BUY PREMIUM BATTLE PASS" class="purchase-confirmation__desc-label" />
@@ -24,7 +24,7 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="Controls" class="content__controls">
                         <FirstLight.Game.UIElements.ImageButton name="BuyButton" class="button-long button-long--yellow purchase-confirmation__item-button ">
-                            <ui:Label tabindex="-1" text="200" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemPrice" class="purchase-confirmation__item-price-label" />
+                            <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" text="200" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemPrice" class="purchase-confirmation__item-price-label" />
                             <ui:VisualElement name="CostIcon" class="purchase-confirmation__button-icon" />
                         </FirstLight.Game.UIElements.ImageButton>
                     </ui:VisualElement>

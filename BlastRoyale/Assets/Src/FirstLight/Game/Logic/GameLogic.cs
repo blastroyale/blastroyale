@@ -64,6 +64,9 @@ namespace FirstLight.Game.Logic
 		IBattlePassDataProvider BattlePassDataProvider { get; }
 
 		ICollectionDataProvider CollectionDataProvider { get; }
+		
+		/// <inheritdoc cref="IContentCreatorDataProvider"/>
+		IContentCreatorDataProvider ContentCreatorDataProvider { get; }
 	}
 
 	/// <summary>
@@ -108,7 +111,10 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc cref="IBattlePassLogic"/>
 		IBattlePassLogic BattlePassLogic { get; }
-
+		
+		/// <inheritdoc cref="IBattlePassLogic"/>
+		IContentCreatorLogic ContentCreatorLogic { get; }
+		
 		/// <inheritdoc cref="ILiveopsLogic"/>
 		ILiveopsLogic LiveopsLogic { get; }
 
@@ -160,6 +166,9 @@ namespace FirstLight.Game.Logic
 		public IBattlePassDataProvider BattlePassDataProvider => BattlePassLogic;
 
 		/// <inheritdoc />
+		public IContentCreatorDataProvider ContentCreatorDataProvider => ContentCreatorLogic;
+		
+		/// <inheritdoc />
 		public ILiveopsDataProvider LiveopsDataProvider => LiveopsLogic;
 
 		public ICollectionDataProvider CollectionDataProvider => CollectionLogic;
@@ -190,7 +199,10 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IBattlePassLogic BattlePassLogic { get; }
-
+		
+		/// <inheritdoc />
+		public IContentCreatorLogic ContentCreatorLogic { get; }
+		
 		/// <inheritdoc />
 		public ILiveopsLogic LiveopsLogic { get; }
 
@@ -212,6 +224,7 @@ namespace FirstLight.Game.Logic
 			EquipmentLogic = new EquipmentLogic(this, dataProvider);
 			RewardLogic = new RewardLogic(this, dataProvider);
 			BattlePassLogic = new BattlePassLogic(this, dataProvider);
+			ContentCreatorLogic = new ContentCreatorLogic(this, dataProvider);
 			LiveopsLogic = new LiveopsLogic(this, dataProvider);
 			CollectionLogic = new CollectionLogic(this, dataProvider);
 			_logicInitializers = new List<IGameLogicInitializer>();
@@ -223,6 +236,7 @@ namespace FirstLight.Game.Logic
 			_logicInitializers.Add(PlayerLogic as IGameLogicInitializer);
 			_logicInitializers.Add(RewardLogic as IGameLogicInitializer);
 			_logicInitializers.Add(BattlePassLogic as IGameLogicInitializer);
+			_logicInitializers.Add(ContentCreatorLogic as IGameLogicInitializer);
 			_logicInitializers.Add(LiveopsLogic as IGameLogicInitializer);
 			_logicInitializers.Add(CollectionLogic as IGameLogicInitializer);
 		}
@@ -291,6 +305,7 @@ namespace FirstLight.Game.Logic
 			container.Add(logic.ResourceLogic);
 			container.Add(logic.PlayerLogic);
 			container.Add(logic.BattlePassLogic);
+			container.Add(logic.ContentCreatorLogic);
 			container.Add(logic.EquipmentLogic);
 			container.Add(logic.UniqueIdLogic);
 			container.Add(logic.LiveopsLogic);
@@ -304,6 +319,7 @@ namespace FirstLight.Game.Logic
 		public static IResourceLogic ResourceLogic(this LogicContainer c) => c.Get<IResourceLogic>();
 		public static IPlayerLogic PlayerLogic(this LogicContainer c) => c.Get<IPlayerLogic>();
 		public static IBattlePassLogic BattlePassLogic(this LogicContainer c) => c.Get<IBattlePassLogic>();
+		public static IContentCreatorLogic ContentCreatorLogic(this LogicContainer c) => c.Get<IContentCreatorLogic>();
 		public static IEquipmentLogic EquipmentLogic(this LogicContainer c) => c.Get<IEquipmentLogic>();
 		public static IUniqueIdLogic UniqueIdLogic(this LogicContainer c) => c.Get<IUniqueIdLogic>();
 		public static ILiveopsLogic LiveopsLogic(this LogicContainer c) => c.Get<ILiveopsLogic>();

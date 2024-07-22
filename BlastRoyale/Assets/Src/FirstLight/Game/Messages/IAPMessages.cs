@@ -3,9 +3,10 @@ using FirstLight.SDK.Services;
 
 namespace FirstLight.Game.Messages
 {
-	public struct RewardClaimedMessage : IMessage
+	public struct PurchaseClaimedMessage : IMessage
 	{
-		public ItemData Reward;
+		public ItemData ItemPurchased;
+		public string SupportingContentCreator;
 	}
 	
 	public struct BattlePassPurchasedMessage : IMessage

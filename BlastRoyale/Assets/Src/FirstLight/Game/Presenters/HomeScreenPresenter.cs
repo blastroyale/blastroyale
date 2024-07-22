@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
@@ -141,16 +142,16 @@ namespace FirstLight.Game.Presenters
 			bpButtonView.Clicked += Data.OnBattlePassClicked;
 			Root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 
-			var gameModeButton = Root.Q<ImageButton>("GameModeButton");
+			var gameModeButton = Root.Q<ImageButton>("GameModeButton").Required();
 			gameModeButton.LevelLock(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
 			gameModeButton.AttachView(this, out GameModeButtonView _);
 
 			var leaderBoardButton = Root.Q<ImageButton>("LeaderboardsButton");
 			leaderBoardButton.LevelLock(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
-			var collectionButton = Root.Q<Button>("CollectionButton");
+			var collectionButton = Root.Q<LocalizedButton>("CollectionButton");
 			collectionButton.LevelLock(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
 
-			var storeButton = Root.Q<Button>("StoreButton");
+			var storeButton = Root.Q<LocalizedButton>("StoreButton").Required();
 			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
 			if (FeatureFlags.STORE_ENABLED)
 			{
@@ -158,7 +159,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
-			Root.Q<Button>("FriendsButton").Required().clicked += Data.FriendsClicked;
+			Root.Q<LocalizedButton>("FriendsButton").Required().clicked += Data.FriendsClicked;
 			Root.Q<LocalizedButton>("PartyUpButton").Required().clicked += ShowPartyUpPopup;
 
 			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
@@ -214,13 +215,18 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 			_services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
+			_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnPartyLobbyUpdate);
 			
 			UpdatePlayButton();
 
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
 
 			return base.OnScreenOpen(reload);
+		}
+
+		private void OnPartyLobbyUpdate(PartyLobbyUpdatedMessage m)
+		{
+			UpdatePlayButton();
 		}
 
 		protected override UniTask OnScreenClose()
@@ -231,7 +237,6 @@ namespace FirstLight.Game.Presenters
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnIsMatchmakingChanged);
 			_services.LeaderboardService.OnRankingUpdate -= OnRankingUpdateHandler;
 			_dataProvider.PlayerDataProvider.Level.StopObserving(OnFameChanged);
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnPartyLobbyChanged;
 
 			return base.OnScreenClose();
 		}
@@ -239,11 +244,6 @@ namespace FirstLight.Game.Presenters
 		private void OnDisplayNameChanged(DisplayNameChangedMessage _)
 		{
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
-		}
-		
-		private void OnPartyLobbyChanged(ILobbyChanges changes)
-		{
-			UpdatePlayButton();
 		}
 
 		private void OnRankingUpdateHandler(PlayerLeaderboardEntry leaderboardEntry)
@@ -253,8 +253,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePlayerNameColor(int leaderboardRank)
 		{
-			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, leaderboardRank);
-			_playerNameLabel.style.color = nameColor;
+			_playerNameLabel.style.color = Color.white;
 		}
 
 		private void UpdatePFP()
@@ -333,6 +332,7 @@ namespace FirstLight.Game.Presenters
 			var buttonClass = string.Empty;
 			var buttonEnabled = true;
 			
+			FLog.Verbose("Updating play button state");
 			var partyLobby = _services.FLLobbyService.CurrentPartyLobby;
 
 			// TODO mihak: Add operation in progress logic for parties

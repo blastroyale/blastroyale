@@ -21,7 +21,7 @@ namespace FirstLight.Game.UIElements
 
 		private VisualElement _container;
 		public override VisualElement contentContainer => _container;
-		private LocalizedLabel _title;
+		private LabelOutlined _title;
 
 		public PopupElement()
 		{
@@ -42,7 +42,7 @@ namespace FirstLight.Game.UIElements
 			header.Add(dotsBg);
 			dotsBg.AddToClassList(UssPopupHeaderBackground);
 
-			_title = new LocalizedLabel();
+			_title = new LabelOutlined("title");
 			header.Add(_title);
 			_title.AddToClassList(UssPopupHeaderTitle);
 

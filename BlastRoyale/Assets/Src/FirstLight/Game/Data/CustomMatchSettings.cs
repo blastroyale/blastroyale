@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Quantum;
 
@@ -15,5 +16,20 @@ namespace FirstLight.Game.Data
 		public List<string> WeaponFilter = new ();
 		public bool PrivateRoom = false;
 		public bool ShowCreatorName = true;
+
+		public SimulationMatchConfig ToSimulationMatchConfig()
+		{
+			return new SimulationMatchConfig
+			{
+				MapId = (int) Enum.Parse<GameId>(MapID),
+				GameModeID = GameModeID,
+				MatchType = MatchType.Custom,
+				Mutators = Mutators,
+				MaxPlayersOverwrite = MaxPlayers,
+				BotOverwriteDifficulty = BotDifficulty,
+				TeamSize = SquadSize,
+				WeaponsSelectionOverwrite = WeaponFilter.ToArray()
+			};
+		}
 	}
 }

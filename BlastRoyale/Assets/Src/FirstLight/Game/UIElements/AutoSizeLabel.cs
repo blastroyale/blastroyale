@@ -11,7 +11,7 @@ namespace FirstLight.Game.UIElements
 	/// This element allegedly doesn't work with flexGrow as it leads to undefined behaviour (recursion).
 	/// Use Size/Width[%] and Size/Height attributes instead
 	/// </summary>
-	public sealed class AutoSizeLabel : Label
+	public sealed class AutoSizeLabel : LabelOutlined
 	{
 		private int minFontSize { get; set; }
 		private int maxFontSize { get; set; }
@@ -30,9 +30,8 @@ namespace FirstLight.Game.UIElements
 		{
 		}
 
-		public AutoSizeLabel(string text, int minFontSize = 10, int maxFontSize = 200)
+		public AutoSizeLabel(string text, int minFontSize = 10, int maxFontSize = 200) : base(text)
 		{
-			this.text = text;
 			this.minFontSize = minFontSize;
 			this.maxFontSize = maxFontSize;
 
@@ -67,16 +66,16 @@ namespace FirstLight.Game.UIElements
 		{
 		}
 
-		public new class UxmlTraits : Label.UxmlTraits
+		public new class UxmlTraits : LabelOutlined.UxmlTraits
 		{
-			readonly UxmlIntAttributeDescription _minFontSize = new()
+			readonly UxmlIntAttributeDescription _minFontSize = new ()
 			{
 				name = "min-font-size",
 				defaultValue = 10,
 				restriction = new UxmlValueBounds {min = "1"}
 			};
 
-			readonly UxmlIntAttributeDescription _maxFontSize = new()
+			readonly UxmlIntAttributeDescription _maxFontSize = new ()
 			{
 				name = "max-font-size",
 				defaultValue = 200,

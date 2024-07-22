@@ -4,6 +4,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using I2.Loc;
@@ -84,10 +85,10 @@ namespace FirstLight.Game.UIElements
 					playerBarContainer.Add(_nameAndTrophiesLabel = new Label(name) {name = "name-and-trophies"});
 					_nameAndTrophiesLabel.AddToClassList(USS_NAME_AND_TROPHIES);
 
-					playerBarContainer.Add(_statusLabel = new Label("Player last seend\n30 minutes ago") {name = "activity"});
+					playerBarContainer.Add(_statusLabel = new Label("In Main Menu") {name = "activity"});
 					_statusLabel.AddToClassList(USS_ACTIVITY);
 
-					playerBarContainer.Add(_mainActionButton = new LocalizedButton("UITFriends/invite") {name = "main-action-button"});
+					playerBarContainer.Add(_mainActionButton = new LocalizedButton("main-action-button") {name = "UITFriends/invite"});
 					_mainActionButton.AddToClassList(USS_MAIN_ACTION_BUTTON);
 					_mainActionButton.AddToClassList("button-long");
 					_mainActionButton.AddToClassList("button-long--yellow");
@@ -95,14 +96,13 @@ namespace FirstLight.Game.UIElements
 					playerBarContainer.Add(_moreActionsButton = new ImageButton {name = "more-actions-button"});
 					_moreActionsButton.AddToClassList(USS_MORE_ACTIONS_BUTTON);
 				}
-
 				background.Add(_acceptDeclineContainer = new VisualElement {name = "accept-decline-container"});
 				_acceptDeclineContainer.AddToClassList(USS_ACCEPT_DECLINE_CONTAINER);
 				{
-					_acceptDeclineContainer.Add(_acceptButton = new LocalizedButton("UITFriends/accept") {name = "accept-button"});
+					_acceptDeclineContainer.Add(_acceptButton = new LocalizedButton("accept-button") {LocalizationKey = "UITFriends/accept"});
 					_acceptButton.AddToClassList("button-long");
 					_acceptButton.AddToClassList("button-long--green");
-					_acceptDeclineContainer.Add(_declineButton = new LocalizedButton("UITFriends/decline") {name = "decline-button"});
+					_acceptDeclineContainer.Add(_declineButton = new LocalizedButton("decline-button") {LocalizationKey = "UITFriends/decline"});
 					_declineButton.AddToClassList("button-long");
 					_declineButton.AddToClassList("button-long--red");
 				}
@@ -112,6 +112,7 @@ namespace FirstLight.Game.UIElements
 			_moreActionsButton.clicked += () => _moreActionsAction?.Invoke(_moreActionsButton);
 			_acceptButton.clicked += () => _acceptAction?.Invoke();
 			_declineButton.clicked += () => _declineAction?.Invoke();
+			SetStatus(null, true);
 		}
 
 		public FriendListElement SetFromRelationship(Relationship relationship)
@@ -137,12 +138,20 @@ namespace FirstLight.Game.UIElements
 			{
 				return;
 			}
-			var playfabId = await CloudSaveService.Instance.LoadPlayfabID(unityId);
 			var services = MainInstaller.ResolveServices();
-			services.ProfileService.GetPlayerPublicProfile(playfabId, profile =>
+			FLog.Verbose("Setting avatar hack for "+unityId);
+			try
 			{
-				services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
-			});
+				var playfabId = await CloudSaveService.Instance.LoadPlayfabID(unityId);
+				services.ProfileService.GetPlayerPublicProfile(playfabId, profile =>
+				{
+					services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
+				});
+			}
+			catch (Exception e)
+			{
+				FLog.Error($"Error setting friend unityid {unityId} avatar", e);
+			}
 		}
 
 		public FriendListElement SetPlayerName(string playerName)
@@ -182,6 +191,20 @@ namespace FirstLight.Game.UIElements
 			_acceptAction = acceptAction;
 			_declineAction = declineAction;
 			return this;
+		}
+
+		public FriendListElement TryAddInviteOption(Relationship friend, Action callback)
+		{
+			var services = MainInstaller.ResolveServices();
+			var showInvite = callback != null && services.GameSocialService.CanInvite(friend);
+			if(showInvite)
+				return SetMainAction(ScriptLocalization.UITFriends.invite, callback, false);
+			return SetMainAction("", null, false);;
+		}
+		
+		public FriendListElement AddOpenProfileAction(Relationship friend)
+		{
+			return SetMoreActions(_ => PlayerStatisticsPopupPresenter.Open(friend.Member.Id).Forget());
 		}
 
 		public FriendListElement SetMainAction(string label, Action mainAction, bool negative)

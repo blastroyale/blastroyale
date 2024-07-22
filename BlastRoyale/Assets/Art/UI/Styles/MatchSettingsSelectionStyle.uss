@@ -39,6 +39,7 @@
 .match-settings-selection__image {
     width: 220px;
     height: 220px;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .match-settings-selection--selected {

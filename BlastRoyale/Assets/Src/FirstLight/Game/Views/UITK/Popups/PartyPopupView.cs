@@ -3,6 +3,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -14,6 +15,7 @@ using QuickEye.UIToolkit;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
+using Unity.Services.Friends.Notifications;
 using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
 
@@ -26,9 +28,9 @@ namespace FirstLight.Game.Views.UITK.Popups
 	{
 		private const string USS_PARTY_JOINED = "party-joined";
 
-		[Q("CreatePartyButton")] private Button _createTeamButton;
-		[Q("JoinPartyButton")] private Button _joinTeamButton;
-		[Q("LeavePartyButton")] private Button _leaveTeamButton;
+		[Q("CreatePartyButton")] private LocalizedButton _createTeamButton;
+		[Q("JoinPartyButton")] private LocalizedButton _joinTeamButton;
+		[Q("LeavePartyButton")] private LocalizedButton _leaveTeamButton;
 
 		[Q("TeamCode")] private Label _teamCodeLabel;
 		[Q("YourTeamLabel")] private Label _yourTeamHeader;
@@ -41,6 +43,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private IGameServices _services;
 
 		private List<Relationship> _friends;
+		private Dictionary<string, FriendListElement> _elements = new ();
 
 		protected override void Attached()
 		{
@@ -56,7 +59,6 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_leaveTeamButton.clicked += () => LeaveParty().Forget();
 
 			_copyCodeButton.clicked += OnCopyCodeClicked;
-
 			_friendsOnlineList.makeItem = OnMakeFriendsItem;
 			_friendsOnlineList.bindItem = OnBindFriendsItem;
 		}
@@ -64,13 +66,19 @@ namespace FirstLight.Game.Views.UITK.Popups
 		public override void OnScreenOpen(bool reload)
 		{
 			RefreshData();
-
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
+			_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnLobbyChanged);
+			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
 		}
 
 		public override void OnScreenClose()
 		{
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
+			_services.MessageBrokerService.UnsubscribeAll(this);
+			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated;
+		}
+
+		private void OnPresenceUpdated(IPresenceUpdatedEvent e)
+		{
+			RefreshData();
 		}
 
 		private async UniTaskVoid CreateParty()
@@ -91,7 +99,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 			RefreshData();
 		}
 
-		private void OnLobbyChanged(ILobbyChanges lobbyChanges)
+		private void OnLobbyChanged(PartyLobbyUpdatedMessage m)
 		{
 			RefreshData();
 		}
@@ -104,17 +112,15 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private void OnBindFriendsItem(VisualElement element, int index)
 		{
 			var relationship = _friends[index];
-			var canInvite = _services.FLLobbyService.CurrentPartyLobby?.IsLocalPlayerHost() ?? false;
 			var e = ((FriendListElement) element);
-			e	.SetFromRelationship(relationship)
-				.SetMainAction(ScriptLocalization.UITFriends.invite, canInvite
-					? null
-					: () =>
-					{
-						_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
-						RefreshData();
-					}, false)
-				.SetMoreActions(_ => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget());
+			e.SetFromRelationship(relationship)
+				.AddOpenProfileAction(relationship)
+				.TryAddInviteOption(relationship, () =>
+				{
+					_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
+					RefreshData();
+				});
+			_elements[relationship.Member.Id] = e;
 		}
 
 		private void RefreshData()

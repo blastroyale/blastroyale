@@ -39,6 +39,10 @@ namespace FirstLight.Game.Views.UITK
 			{
 				ib.clicked += OnClick;
 			}
+			else if (Element is LocalizedButton lb)
+			{
+				lb.clicked += OnClick;
+			}
 			else if (Element is Button b)
 			{
 				b.clicked += OnClick;
@@ -83,18 +87,18 @@ namespace FirstLight.Game.Views.UITK
 		private void OnFameUpdated(uint _, uint level)
 		{
 			_currentLevel = level;
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			if (FeatureFlags.GetLocalConfiguration().UnlockAllFameStuff)
 			{
 				_currentLevel = 99;
 			}
-			#endif
+#endif
 			UpdateLock(true);
 		}
 
 		private void UpdateLock(bool animate)
 		{
-			var locked = FeatureFlags.SYSTEM_LOCKS ?  _currentLevel < _requiredLevel : false;
+			var locked = FeatureFlags.SYSTEM_LOCKS ? _currentLevel < _requiredLevel : false;
 			EnableLock(locked, animate);
 		}
 

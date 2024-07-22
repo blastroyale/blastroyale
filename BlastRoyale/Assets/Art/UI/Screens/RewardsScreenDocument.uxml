@@ -10,7 +10,7 @@
             <FirstLight.Game.UIElements.PlayerAvatarElement name="Avatar" class="player-avatar--nft rewards-summary__avatar" style="display: none;" />
             <ui:VisualElement name="LabelRewardsContainer" class="rewards-summary__label-rewards-holder">
                 <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" localization-key="UITRewards/you_got" text="YOU GOT" display-tooltip-when-elided="true" name="YouGotLabel" class="rewards-summary__you-got-label" />
-                <ui:Label tabindex="-1" text="REACH LEVEL &lt;color=#f8c72e&gt; 130 &lt;/color&gt; TO GET NEXT REWARDS" display-tooltip-when-elided="true" name="ReachLevelToGetRewards" class="rewards-summary__you-got-label" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="REACH LEVEL &lt;color=#f8c72e&gt; 130 &lt;/color&gt; TO GET NEXT REWARDS" display-tooltip-when-elided="true" name="ReachLevelToGetRewards" class="rewards-summary__you-got-label" />
                 <ui:VisualElement name="RewardsContainer" class="rewards-summary__rewards-container">
                     <FirstLight.Game.UIElements.RewardSummaryItemElement />
                     <FirstLight.Game.UIElements.RewardSummaryItemElement />
@@ -23,8 +23,8 @@
             <ui:VisualElement name="RaysOneReward" class="rewards-one__rays">
                 <ui:VisualElement name="RaysGradient" class="rewards-one__gradient" />
             </ui:VisualElement>
-            <ui:Label tabindex="-1" text="COINS" display-tooltip-when-elided="true" name="RewardName" class="rewards-one__name" />
-            <ui:Label tabindex="-1" text="x 250" display-tooltip-when-elided="true" name="RewardAmount" class="rewards-one__amount" />
+            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="COINS" display-tooltip-when-elided="true" name="RewardName" class="rewards-one__name" />
+            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="x 250" display-tooltip-when-elided="true" name="RewardAmount" class="rewards-one__amount" />
             <ui:VisualElement name="RewardsImpactCircle" class="rewards-one__circle-impact" />
             <ui:VisualElement name="SparkGradient1" class="rewards-one__spark-small rewards-one__spark-small--1">
                 <ui:VisualElement name="Spark" class="rewards-one__spark" />

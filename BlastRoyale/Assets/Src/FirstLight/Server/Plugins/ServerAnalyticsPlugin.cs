@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,6 +30,7 @@ namespace Src.FirstLight.Server
 			evManager.RegisterEventListener<GameLogicMessageEvent<ItemUpgradedMessage>>(OnItemUpgraded);
 			evManager.RegisterEventListener<GameLogicMessageEvent<ItemRepairedMessage>>(OnItemRepaired);
 			evManager.RegisterEventListener<GameLogicMessageEvent<CurrencyChangedMessage>>(OnCurrencyChanged);
+			evManager.RegisterEventListener<GameLogicMessageEvent<PurchaseClaimedMessage>>(OnPurchasedItemRewarded);
 			evManager.RegisterCommandListener<EndOfGameCalculationsCommand>(OnGameEndCommand);
 		}
 
@@ -78,6 +80,24 @@ namespace Src.FirstLight.Server
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, eventName, data);
 			return Task.CompletedTask;
 		}
+		
+		private Task OnPurchasedItemRewarded(GameLogicMessageEvent<PurchaseClaimedMessage> ev)
+		{
+			var data = new AnalyticsData
+			{
+				{"item_name", Enum.GetName(typeof(GameId), ev.Message.ItemPurchased.Id)},
+				{"item_metadata", JsonConvert.SerializeObject(ev.Message.ItemPurchased)},
+			};
+
+			if (!string.IsNullOrEmpty(ev.Message.SupportingContentCreator))
+			{
+				data["content_creator_code"] = ev.Message.SupportingContentCreator;
+			}
+
+			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "purchased_item", data);
+			return Task.CompletedTask;
+		}
+
 
 		private Task OnItemRepaired(GameLogicMessageEvent<ItemRepairedMessage> ev)
 		{

@@ -123,9 +123,10 @@ namespace FirstLight.Game.Services
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; }
 		public LocalPrefsService LocalPrefsService { get; }
-		public FLLobbyService FLLobbyService { get; }
+		public IFLLobbyService FLLobbyService { get; }
 		public NotificationService NotificationService { get; }
 		public DeepLinkService DeepLinkService { get; }
+		public IGameSocialService GameSocialService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -183,9 +184,10 @@ namespace FirstLight.Game.Services
 		public ILeaderboardService LeaderboardService { get; }
 		public IRewardService RewardService { get; }
 		public LocalPrefsService LocalPrefsService { get; }
-		public FLLobbyService FLLobbyService { get; }
+		public IFLLobbyService FLLobbyService { get; }
 		public NotificationService NotificationService { get; }
 		public DeepLinkService DeepLinkService { get; }
+		public IGameSocialService GameSocialService { get; }
 
 		public string QuitReason { get; set; }
 
@@ -227,7 +229,7 @@ namespace FirstLight.Game.Services
 			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, NotificationService, LocalPrefsService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
-			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService);
+			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService, MessageBrokerService);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			RewardService = new RewardService(this, gameLogic);
@@ -249,6 +251,7 @@ namespace FirstLight.Game.Services
 			TeamService = new TeamService(RoomService);
 			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);
 			CustomerSupportService = new CustomerSupportService(AuthenticationService);
+			GameSocialService = new GameSocialService(this);
 		}
 
 		/// <inheritdoc />

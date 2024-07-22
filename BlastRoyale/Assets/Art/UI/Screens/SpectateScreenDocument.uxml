@@ -17,7 +17,7 @@
                 <ui:VisualElement name="Icon" class="player-holder__arrow-icon" />
             </FirstLight.Game.UIElements.ImageButton>
             <ui:VisualElement name="CurrentPlayer" class="player-holder__player">
-                <ui:Label text="PLAYER NAME" name="PlayerName" class="player-holder__player-name" />
+                <FirstLight.Game.UIElements.LabelOutlined text="PLAYER NAME" name="PlayerName" class="player-holder__player-name" />
                 <FirstLight.Game.UIElements.LocalizedLabel name="DefeatedYou" localization-key="UITSpectate/defeated_you" text="DEFEATED YOU" class="player-holder__defeated-you" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="ArrowRight" class="player-holder__arrow player-holder__arrow--right sfx-click-forwards">

@@ -100,7 +100,7 @@ namespace FirstLight.Game.Services
 	{
 		private const int NextEventsDisplayDaysBefore = 3;
 		private readonly IConfigsProvider _configsProvider;
-		private readonly FLLobbyService _lobbyService;
+		private readonly IFLLobbyService _lobbyService;
 		private readonly IAppDataProvider _appDataProvider;
 		private readonly LocalPrefsService _localPrefsService;
 		private readonly IRemoteTextureService _remoteTextureService;
@@ -148,7 +148,7 @@ namespace FirstLight.Game.Services
 
 		public IObservableListReader<GameModeInfo> Slots => _slots;
 
-		public GameModeService(IConfigsProvider configsProvider, FLLobbyService lobbyService,
+		public GameModeService(IConfigsProvider configsProvider, IFLLobbyService lobbyService,
 							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService, IRemoteTextureService remoteTextureService, IMessageBrokerService msgBroker)
 		{
 			_configsProvider = configsProvider;

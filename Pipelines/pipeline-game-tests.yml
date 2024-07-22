@@ -11,7 +11,11 @@ pr:
     - master
     - develop
     - releases/*
-
+parameters:
+  - name: param_clean_library
+    displayName: Clean Library Folder
+    type: boolean
+    default: false
 variables:
 - group: Secrets
 - group: Non-secrets
@@ -26,9 +30,18 @@ stages:
       steps:
       - checkout: self
         lfs: true
-        submodules: true
-        
-      # Run tests and copy dlls
+        submodules: true  
+        clean: false
+      - bash: |
+          echo "Removing library: ${{ parameters.param_clean_library }}"
+          # remove temp files except library, we don't need to wait to recompile everything
+          if [ "${{ parameters.param_clean_library }}" == "True" ]; then
+            git clean -ffdx
+          else
+            git clean -ffdx --exclude="BlastRoyale/Library"
+          fi
+          git reset --hard HEAD
+        # Run tests and copy dlls
       - template: unity-tests.yml
           
       # Game logic build

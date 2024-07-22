@@ -38,8 +38,14 @@ namespace FirstLight.Game.Services
 		public string Status => CurrentActivityEnum.ToString().Replace(@"_", " ");
 		public GameActivities CurrentActivityEnum => ((GameActivities) CurrentActivity);
 	}
-	
-	public class GameSocialService
+
+	public interface IGameSocialService
+	{
+		bool CanInvite(Relationship friend);
+		void SetCurrentActivity(GameActivities activity);
+	}
+
+	public class GameSocialService : IGameSocialService
 	{
 		private IGameServices _services;
 		public GameSocialService(IGameServices services)

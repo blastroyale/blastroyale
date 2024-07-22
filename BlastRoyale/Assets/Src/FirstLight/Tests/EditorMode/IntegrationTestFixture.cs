@@ -57,6 +57,7 @@ namespace FirstLight.Tests.EditorMode
 		[SetUp]
 		public void Setup()
 		{
+			
 			var messageBroker = new InMemoryMessageBrokerService();
 			TimeService = new TimeService();
 			TestNetwork = new GameNetworkService(TestConfigs);

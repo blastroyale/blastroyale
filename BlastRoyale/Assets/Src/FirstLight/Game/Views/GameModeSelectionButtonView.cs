@@ -44,7 +44,7 @@ namespace FirstLight.Game.Views
 
 		private LocalPrefsService _localPrefs;
 		private IRemoteTextureService _remoteTexture;
-		private FLLobbyService _lobbyService;
+		private IFLLobbyService _lobbyService;
 
 		private AngledContainerElement _button;
 		private Label _gameModeLabel;

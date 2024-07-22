@@ -58,12 +58,12 @@ namespace FirstLight.Tests.EditorMode
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; set; }
 		public LocalPrefsService LocalPrefsService { get; }
-		public FLLobbyService FLLobbyService { get; }
+		public IFLLobbyService FLLobbyService { get; }
 		public NotificationService NotificationService { get; }
 		public DeepLinkService DeepLinkService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
-		public GameSocialService GameSocialService { get; set; }
+		public IGameSocialService GameSocialService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
@@ -104,7 +104,7 @@ namespace FirstLight.Tests.EditorMode
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();
 			TickService = new StubTickService();
-			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, NotificationService, LocalPrefsService);
+			FLLobbyService = new StubFLLobbyService();
 			CoroutineService = new StubCoroutineService();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
@@ -119,8 +119,8 @@ namespace FirstLight.Tests.EditorMode
 			TeamService = Substitute.For<ITeamService>();
 			ServerListService = Substitute.For<IServerListService>();
 			IAPService = Substitute.For<IIAPService>();
-			CustomerSupportService = new CustomerSupportService(AuthenticationService);
-			GameSocialService = new GameSocialService(this);
+			
+			GameSocialService = Substitute.For<IGameSocialService>();
 		}
 	}
 }

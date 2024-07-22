@@ -123,10 +123,10 @@ namespace FirstLight.Game.Services
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; }
 		public LocalPrefsService LocalPrefsService { get; }
-		public FLLobbyService FLLobbyService { get; }
+		public IFLLobbyService FLLobbyService { get; }
 		public NotificationService NotificationService { get; }
 		public DeepLinkService DeepLinkService { get; }
-		public GameSocialService GameSocialService { get; }
+		public IGameSocialService GameSocialService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -184,10 +184,10 @@ namespace FirstLight.Game.Services
 		public ILeaderboardService LeaderboardService { get; }
 		public IRewardService RewardService { get; }
 		public LocalPrefsService LocalPrefsService { get; }
-		public FLLobbyService FLLobbyService { get; }
+		public IFLLobbyService FLLobbyService { get; }
 		public NotificationService NotificationService { get; }
 		public DeepLinkService DeepLinkService { get; }
-		public GameSocialService GameSocialService { get; }
+		public IGameSocialService GameSocialService { get; }
 
 		public string QuitReason { get; set; }
 

@@ -133,19 +133,11 @@
 }
 
 .begin-button {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-long-yellow.png?fileID=21300000&guid=9da5c1bf95cb14250aacab06348ab34d&type=3#button-long-yellow');
-    height: 102px;
+     height: 102px;
     position: absolute;
     width: 378px;
     top: 313px;
     left: 184px;
-    font-size: 44px;
-    -unity-font-style: bold;
-    -unity-text-outline-width: 2px;
-    color: rgb(255, 255, 255);
-    -unity-text-outline-color: rgb(156, 36, 12);
-    text-shadow: 4px 4px 0 rgb(156, 36, 12);
-    letter-spacing: -4px;
 }
 
 .time-left-widget {
@@ -163,48 +155,23 @@
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    -unity-text-align: middle-center;
+    font-size: 38px;
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: black;
+    color: white;
+    
 }
 
 .time-left-widget__title {
-    position: relative;
-    width: auto;
-    height: 100px;
-    top: auto;
-    left: auto;
-    align-items: center;
-    justify-content: center;
-    align-self: center;
-    -unity-text-align: middle-center;
-    font-size: 36px;
-    color: rgb(255, 255, 255);
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
+
 }
 
 .time-left-widget__time {
-    position: relative;
-    width: auto;
-    height: 100px;
-    top: auto;
-    left: 12px;
-    align-items: center;
-    justify-content: center;
-    align-self: center;
-    -unity-text-align: middle-center;
-    background-color: rgba(255, 255, 255, 0);
-    font-size: 36px;
-    color: rgb(255, 255, 255);
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    letter-spacing: -4px;
+ 
 }
 
 .season-text-container {
@@ -220,7 +187,7 @@
 .season-text-container__title {
     font-size: 78px;
     color: rgb(248, 205, 45);
-    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-width: 6px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 6px 6px 0 rgb(0, 0, 0);
     padding-top: 0;
@@ -254,7 +221,7 @@
 .season-text-container__desc {
     font-size: 52px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
 }
@@ -299,7 +266,7 @@
 .get-rewards-text {
     font-size: 40px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(156, 36, 12);
     text-shadow: 4px 4px 0 rgb(156, 36, 12);
     padding-top: 0;
@@ -312,10 +279,8 @@
     margin-left: 0;
     position: absolute;
     top: 206px;
-    -unity-font-style: bold;
-    letter-spacing: -4px;
     -unity-text-align: upper-right;
-    left: -135px;
+    left: -185px;
 }
 
 .banner-contents__right {

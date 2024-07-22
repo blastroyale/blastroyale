@@ -142,16 +142,16 @@ namespace FirstLight.Game.Presenters
 			bpButtonView.Clicked += Data.OnBattlePassClicked;
 			Root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 
-			var gameModeButton = Root.Q<ImageButton>("GameModeButton");
+			var gameModeButton = Root.Q<ImageButton>("GameModeButton").Required();
 			gameModeButton.LevelLock(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
 			gameModeButton.AttachView(this, out GameModeButtonView _);
 
 			var leaderBoardButton = Root.Q<ImageButton>("LeaderboardsButton");
 			leaderBoardButton.LevelLock(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
-			var collectionButton = Root.Q<Button>("CollectionButton");
+			var collectionButton = Root.Q<LocalizedButton>("CollectionButton");
 			collectionButton.LevelLock(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
 
-			var storeButton = Root.Q<Button>("StoreButton");
+			var storeButton = Root.Q<LocalizedButton>("StoreButton").Required();
 			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
 			if (FeatureFlags.STORE_ENABLED)
 			{
@@ -159,7 +159,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
-			Root.Q<Button>("FriendsButton").Required().clicked += Data.FriendsClicked;
+			Root.Q<LocalizedButton>("FriendsButton").Required().clicked += Data.FriendsClicked;
 			Root.Q<LocalizedButton>("PartyUpButton").Required().clicked += ShowPartyUpPopup;
 
 			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
@@ -253,8 +253,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePlayerNameColor(int leaderboardRank)
 		{
-			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, leaderboardRank);
-			_playerNameLabel.style.color = nameColor;
+			_playerNameLabel.style.color = Color.white;
 		}
 
 		private void UpdatePFP()

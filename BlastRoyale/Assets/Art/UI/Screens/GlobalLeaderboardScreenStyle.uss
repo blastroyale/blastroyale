@@ -20,34 +20,29 @@
     width: 1100px;
 }
 
-.header__label {
-    top: 0;
-    position: relative;
-    height: 35px;
-    width: 720px;
-    margin-right: 0;
-    font-size: 35px;
-    color: rgb(233, 226, 225);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    margin-top: 15px;
-    left: -5%;
+.leaderboard-header {
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    top: 30px;
+    left: 30%;
+    align-items: center;
+    padding-right: 0;
+    width: 680px;
 }
 
+
 .header__label--rank-number {
-    left: 40px;
-    margin-top: 0;
-    padding-top: 0;
+    padding-left: 100px;
+
 }
 
 .header__label--player {
-    left: 110px;
+    padding-right: 200px;
 }
 
 .header__label--trophies {
-    right: 40px;
-    -unity-text-align: upper-right;
+    width: 150px;
 }
 
 .localplayer-fixed-pos-holder {
@@ -86,59 +81,8 @@
     left: 50%;
 }
 
-.leaderboard-button__indicator {
-    flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/ArrowBig.png?fileID=2800000&guid=acbbae5af29a049b58bac07b5ee12147&type=3#ArrowBig');
-    width: 65px;
-    height: 65px;
-    max-height: 65px;
-    max-width: 65px;
-    min-width: 65px;
-    min-height: 65px;
-    scale: -1 1;
-    translate: -100% 0;
-    justify-content: center;
-    align-self: center;
-}
-
-.leaderboard-button {
-    width: 80%;
-    align-self: center;
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-    font-size: 50px;
-    flex-direction: row;
-    height: 90px;
-    max-height: 90px;
-    min-height: 90px;
-    background-color: rgb(255, 255, 255);
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-    border-left-width: 3px;
-    border-right-width: 3px;
-    border-top-width: 3px;
-    border-bottom-width: 3px;
-    border-radius: 10px;
-    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.65);
-    overflow: visible;
-    -unity-background-image-tint-color: rgb(255, 255, 255);
-    -unity-slice-scale: 0.4px;
-    -unity-slice-left: 1;
-    -unity-slice-top: 1;
-    -unity-slice-right: 1;
-    -unity-slice-bottom: 1;
-    -unity-background-scale-mode: stretch-to-fill;
-    align-items: center;
-    -unity-text-align: middle-center;
-    background-image: var(--sprite-home__button-main-purple);
-    margin-bottom: 10px;
-}
-
 .leaderboard-options {
+    align-items: flex-end;
     flex-grow: 1;
     background-color: rgba(255, 0, 0, 0);
     position: absolute;
@@ -148,6 +92,24 @@
     top: 70px;
     padding-top: 10px;
 }
+
+.leaderboard-button__indicator {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/ArrowBig.png?fileID=2800000&guid=acbbae5af29a049b58bac07b5ee12147&type=3#ArrowBig');
+    width: 65px;
+    height: 65px;
+    scale: -1 1;
+    translate: -330% 0;
+    justify-content: center;
+    align-self: center;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.leaderboard-button {
+    width: 80%;
+}
+
 
 .leaderboard-description {
     flex-grow: 1;

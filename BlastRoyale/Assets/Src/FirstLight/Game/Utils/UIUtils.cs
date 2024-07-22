@@ -30,6 +30,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Throws an exception if the <paramref name="visualElement"/> is null.
 		/// </summary>
+		[HideInCallstack]
 		public static T Required<T>(this T visualElement) where T : VisualElement
 		{
 			if (visualElement == null)

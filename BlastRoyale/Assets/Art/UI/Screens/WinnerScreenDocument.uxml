@@ -3,8 +3,8 @@
     <ui:VisualElement name="root" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement apply-left="false" apply-top="false">
             <ui:VisualElement name="WinnerBanner" class="winner-banner">
-                <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITWinners/winner" name="WinnerLabel" class="DO_NOT_USE_font-style-normal winner-banner__title" />
-                <ui:Label text="PLAYER NAME" name="NameLabel" class="DO_NOT_USE_font-style-normal winner-banner__player-name" />
+                <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITWinners/winner" name="WinnerLabel" outline-hack="false" class="DO_NOT_USE_font-style-normal winner-banner__title" />
+                <FirstLight.Game.UIElements.LabelOutlined text="PLAYER NAME" name="NameLabel" class="winner-banner__player-name" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
         </FirstLight.Game.UIElements.SafeAreaElement>

@@ -1,4 +1,7 @@
+using System;
+using System.Runtime.CompilerServices;
 using FirstLight.Game.Utils;
+using I2.Loc;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,51 +9,141 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
 {
-	public sealed class LabelOutlined : Label
+	public class LabelOutlined : Label
 	{
 		private Label _internalLabel;
 
 		private string textContent;
+		protected string _localizationKey;
+		public override VisualElement contentContainer => outlineHack ? _internalLabel : this;
 
-		public LabelOutlined()
+		protected bool outlineHack { get; set; }
+
+		public string LocalizationKey
 		{
-			_internalLabel = new Label()
+			get => _localizationKey;
+			set
 			{
-				name = "Text",
-				text = text
-			};
-			_internalLabel.AddToClassList("fill-parent");
-			_internalLabel.style.SetPadding(0);
-			_internalLabel.style.SetMargin(0);
-			_internalLabel.style.unityTextOutlineWidth = 0;
-			_internalLabel.style.textShadow = new TextShadow()
+				_localizationKey = value;
+				if (string.IsNullOrWhiteSpace(_localizationKey)) return;
+				if (!LocalizationManager.TryGetTranslation(_localizationKey, out var translation))
+				{
+					translation = _localizationKey;
+					Debug.LogWarning($"Could not find translation for key {_localizationKey} in element " + name);
+				}
+
+				text = translation;
+			}
+		}
+#if UNITY_EDITOR
+		private IVisualElementScheduledItem _scheduledEditorUpdate;
+
+#endif
+		protected void Init()
+		{
+			if (_internalLabel != null)
 			{
-				color = Color.clear
-			};
-			Add(_internalLabel);
-			Sync();
-			RegisterCallback<GeometryChangedEvent>((ev) =>
+				hierarchy.Remove(_internalLabel);
+			}
+
+			if (outlineHack)
 			{
+				_internalLabel = new Label()
+				{
+					name = "Text",
+					text = "Initial Value"
+				};
+				_internalLabel.AddToClassList("internal-label");
+				_internalLabel.style.unityTextOutlineWidth = 0;
+				_internalLabel.style.textShadow = new TextShadow()
+				{
+					color = Color.clear
+				};
+				hierarchy.Add(_internalLabel);
+
+				this.RegisterValueChangedCallback(valueChange =>
+				{
+					_internalLabel.text = valueChange.newValue;
+				});
 				Sync();
-			});
+
+				RegisterCallback<GeometryChangedEvent>((ev) =>
+				{
+					Sync();
+				});
 #if UNITY_EDITOR
 
-			schedule.Execute(() =>
-			{
-				if (Application.isPlaying) return;
-				Sync();
-			}).Every(500);
+				_scheduledEditorUpdate?.Pause();
+				_scheduledEditorUpdate = schedule.Execute(() =>
+				{
+					if (Application.isPlaying) return;
+					Sync();
+				}).Every(500);
 #endif
+			}
+		}
+
+		/// <summary>
+		/// Do not call this method constructor, only used for unity internals!
+		/// </summary>
+		[Obsolete("Do not use default constructor", false)]
+		public LabelOutlined()
+		{
+		}
+
+		public LabelOutlined(string elementName, bool outlineHack = true)
+		{
+			this.outlineHack = outlineHack;
+			name = elementName;
+			Init();
+		}
+
+		/// <summary>
+		/// Sets the text to the localized string from <paramref name="key"/>.
+		/// </summary>
+		public void Localize(string key)
+		{
+			LocalizationKey = key;
 		}
 
 		private void Sync()
 		{
 			_internalLabel.text = text;
 			_internalLabel.style.whiteSpace = resolvedStyle.whiteSpace;
+			_internalLabel.style.textOverflow = resolvedStyle.textOverflow;
+			_internalLabel.style.flexDirection = resolvedStyle.flexDirection;
+			_internalLabel.style.alignItems = resolvedStyle.alignItems;
+			_internalLabel.style.alignContent = resolvedStyle.alignContent;
+			_internalLabel.style.justifyContent = resolvedStyle.justifyContent;
 		}
 
 		public new class UxmlFactory : UxmlFactory<LabelOutlined, UxmlTraits>
 		{
+		}
+
+		public new class UxmlTraits : TextElement.UxmlTraits
+		{
+			UxmlStringAttributeDescription _localizationKeyAttribute = new ()
+			{
+				name = "localization-key",
+				use = UxmlAttributeDescription.Use.Optional
+			};
+
+			UxmlBoolAttributeDescription _outlineHack = new ()
+			{
+				name = "outline-hack",
+				use = UxmlAttributeDescription.Use.Optional,
+				defaultValue = true,
+			};
+
+			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
+			{
+				base.Init(ve, bag, cc);
+				var labelOutlined = (LabelOutlined) ve;
+				labelOutlined.outlineHack = _outlineHack.GetValueFromBag(bag, cc);
+				labelOutlined.Localize(_localizationKeyAttribute.GetValueFromBag(bag, cc));
+				labelOutlined.Init();
+			}
 		}
 	}
 }

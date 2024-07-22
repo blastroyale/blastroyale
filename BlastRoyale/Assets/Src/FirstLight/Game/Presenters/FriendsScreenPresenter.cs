@@ -39,7 +39,7 @@ namespace FirstLight.Game.Presenters
 
 		private TextField _yourIDField;
 		private TextField _addFriendIDField;
-		private Button _addFriendButton;
+		private LocalizedButton _addFriendButton;
 		private Label _requestsCount;
 
 		private List<Relationship> _friends;
@@ -64,7 +64,7 @@ namespace FirstLight.Game.Presenters
 
 			_yourIDField = Root.Q<TextField>("YourID").Required();
 			_addFriendIDField = Root.Q<TextField>("AddFriendID").Required();
-			_addFriendButton = Root.Q<Button>("AddFriendButton").Required();
+			_addFriendButton = Root.Q<LocalizedButton>("AddFriendButton").Required();
 			_requestsCount = Root.Q<Label>("RequestsCount").Required();
 
 			_addFriendButton.clicked += () => AddFriend(_addFriendIDField.value).Forget();

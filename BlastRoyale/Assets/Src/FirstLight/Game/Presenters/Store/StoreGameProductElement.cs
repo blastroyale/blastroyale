@@ -22,7 +22,7 @@ namespace FirstLight.Game.Presenters.Store
 		OWNED = 1 << 1,
 		NEW = 1 << 2
 	}
-	
+
 	public class StoreGameProductElement : VisualElement
 	{
 		private const string USS_PRODUCT_NAME = "product-name";
@@ -65,7 +65,7 @@ namespace FirstLight.Game.Presenters.Store
 		private VisualElement _icon;
 		private VisualElement _root;
 		private Label _price;
-		private ImageButton _infoButton; 
+		private ImageButton _infoButton;
 		private ImageButton _background;
 		private VisualElement _ownedStamp;
 		private VisualElement _infoIcon;
@@ -108,14 +108,14 @@ namespace FirstLight.Game.Presenters.Store
 			{
 				_ownedOverlay.SetDisplay(true);
 				_ownedStamp.SetDisplay(true);
-				_icon.AddToClassList(USS_PRODUCT_NAME+USS_OWNED_MODIFIER);
-				_name.AddToClassList(USS_PRODUCT_NAME+USS_OWNED_MODIFIER);
-				_infoIcon.AddToClassList(USS_INFO+USS_OWNED_MODIFIER);
+				_icon.AddToClassList(USS_PRODUCT_NAME + USS_OWNED_MODIFIER);
+				_name.AddToClassList(USS_PRODUCT_NAME + USS_OWNED_MODIFIER);
+				_infoIcon.AddToClassList(USS_INFO + USS_OWNED_MODIFIER);
 			}
-			
+
 			var price = product.GetPrice();
 			FLog.Verbose("Store Screen", $"Setting up store item {product.GameItem}, price={price}");
-			
+
 			var priceConfig = product.PlayfabProductConfig.CatalogItem.VirtualCurrencyPrices.First();
 
 			if (flags.HasFlag(ProductFlags.OWNED))
@@ -129,10 +129,11 @@ namespace FirstLight.Game.Presenters.Store
 			else
 			{
 				var currencyItem = ItemFactory.Currency(price.item, 1);
-				var currencyView = (CurrencyItemViewModel)currencyItem.GetViewModel();
+				var currencyView = (CurrencyItemViewModel) currencyItem.GetViewModel();
 				var priceIcon = currencyView.GetRichTextIcon();
-				_price.text = priceIcon + priceConfig.Value;
+				_price.text = priceIcon + " " + priceConfig.Value;
 			}
+
 			itemView.DrawIcon(_icon);
 
 			_infoButton.SetDisplay(flags.HasFlag(ProductFlags.OWNED) || !string.IsNullOrEmpty(_product.PlayfabProductConfig.StoreItemData.Description));
@@ -204,13 +205,11 @@ namespace FirstLight.Game.Presenters.Store
 				defaultValue = GameId.FemaleCorpos,
 			};
 
-
 			private readonly UxmlStringAttributeDescription _imageOverwrite = new ()
 			{
 				name = "image-overwrite",
 				defaultValue = "",
 			};
-
 
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{

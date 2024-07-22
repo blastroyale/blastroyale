@@ -25,15 +25,15 @@
                             <ui:VisualElement name="SparkTicketSmall" class="banner-icon__spark-small" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:Button text="BEGIN SEASON" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" enable-rich-text="true" tabindex="5" class="begin-button" />
+                    <FirstLight.Game.UIElements.LocalizedButton text="BEGIN SEASON" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" enable-rich-text="true" tabindex="5" class="button-long button-long--yellow begin-button" />
                     <ui:VisualElement name="TimeLeftWidget" class="time-left-widget">
-                        <ui:Label tabindex="-1" text="TIME LEFT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TimeLeftTitle" class="time-left-widget__title" />
-                        <ui:Label tabindex="-1" text="1D 45H" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TimeLeft" class="time-left-widget__time" />
+                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="TIME LEFT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TimeLeftTitle" class="time-left-widget__title" />
+                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="1D 45H" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TimeLeft" class="time-left-widget__time" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="TextContainer" picking-mode="Ignore" class="season-text-container">
-                    <ui:Label tabindex="-1" text="GET BLAST PASS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BPText" class="season-text-container__title" />
-                    <ui:Label tabindex="-1" text="CLAIM EXCLUSIVE REWARDS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="IsHereText" class="season-text-container__desc" />
+                    <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="GET BLAST PASS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BPText" class="season-text-container__title" />
+                    <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="CLAIM EXCLUSIVE REWARDS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="IsHereText" class="season-text-container__desc" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Rewards" class="banner-rewards">
                     <ui:VisualElement name="ItemDisplay" class="reward-display">
@@ -44,7 +44,7 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="ItemDisplay" class="reward-display">
                         <ui:VisualElement name="RewardIcon" class="reward-display__icon" />
-                        <ui:Label tabindex="-1" text="UNLOCK NEW ITEMS" parse-escape-sequences="false" display-tooltip-when-elided="true" name="GetExclusiveRewards" class="get-rewards-text" />
+                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="UNLOCK NEW ITEMS" parse-escape-sequences="false" display-tooltip-when-elided="true" name="GetExclusiveRewards" class="get-rewards-text" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="RightSide" class="banner-contents__right">

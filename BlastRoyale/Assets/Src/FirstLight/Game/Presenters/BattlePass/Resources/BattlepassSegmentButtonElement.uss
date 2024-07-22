@@ -22,14 +22,14 @@
 
 .reward__title {
     -unity-font-style: normal;
-    font-size: 50px;
+    font-size: 44px;
     color: rgb(255, 215, 0);
     -unity-text-align: middle-center;
     right: auto;
     height: 65px;
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 3px;
+    text-shadow: 3px 5px 0 rgba(0, 0, 0, 0.96);
     -unity-text-outline-color: rgb(0, 0, 0);
-    letter-spacing: -4px;
     top: auto;
     position: relative;
     margin-top: 0;
@@ -40,8 +40,6 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    text-shadow: 2px 4px 0 rgba(0, 0, 0, 0.96);
-    -unity-text-outline-width: 1px;
     width: 100%;
     align-self: center;
 }
@@ -133,7 +131,6 @@
     right: 23px;
     min-height: auto;
     min-width: 90%;
-    letter-spacing: -4px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -192,12 +189,11 @@
     color: rgb(255, 255, 255);
     -unity-font-style: normal;
     text-overflow: ellipsis;
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     top: auto;
     position: relative;
     font-size: 32px;
-    letter-spacing: -4px;
     text-shadow: 2px 4px 0 rgb(0, 0, 0);
     min-width: 100%;
     width: 100%;
@@ -242,8 +238,6 @@
     background-color: rgb(126, 250, 213);
     height: 70px;
     width: 70px;
-    margin-top: 0;
-    margin-bottom: 0;
     background-image: none;
     -unity-background-scale-mode: stretch-to-fill;
     border-color: rgb(98, 204, 202);
@@ -255,8 +249,6 @@
     left: auto;
     align-items: center;
     min-height: auto;
-    margin-left: 0;
-    margin-right: 0;
     position: absolute;
     bottom: auto;
     justify-content: center;
@@ -266,11 +258,14 @@
 }
 
 .bar__level__label {
-    font-size: 50px;
+    font-size: 54px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    text-shadow: 2px 4px 0 rgb(0, 0, 0);
+    width: 100%;
+    height: 100%;
+    -unity-text-align: middle-center;
 }
 
 .completed-bar {
@@ -411,7 +406,7 @@
 
 .bar__buy-button__label {
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 5px;
     width: 94px;
     position: absolute;
     top: 10px;
@@ -420,7 +415,7 @@
     height: 78px;
     -unity-text-align: middle-left;
     -unity-text-outline-color: rgb(156, 36, 12);
-    text-shadow: 2.5px 2.5px 0 rgb(156, 36, 12);
+    text-shadow: 4px 4px 0 rgb(156, 36, 12);
 }
 
 .bar__buy-button {

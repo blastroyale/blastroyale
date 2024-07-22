@@ -5,8 +5,8 @@
             <ui:ScrollView name="ProductScrollView" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" horizontal-page-size="-1" class="scroll-view">
                 <ui:VisualElement name="ProductList" class="product-list" />
             </ui:ScrollView>
-            <ui:VisualElement name="Categories" class="categories" style="width: 100%;" />
         </FirstLight.Game.UIElements.SafeAreaElement>
+        <ui:VisualElement name="Categories" class="categories" style="width: 100%;" />
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITStore/shop" name="Header">
             <ui:VisualElement name="Currencies" class="currency-display-holder">
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="NOOBTokens" currency="NOOB" />

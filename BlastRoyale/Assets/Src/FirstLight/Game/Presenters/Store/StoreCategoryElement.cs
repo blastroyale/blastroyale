@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
@@ -21,7 +22,7 @@ namespace FirstLight.Game.Presenters.Store
 			var categoryElement = this;
 			categoryElement.AddToClassList(UssCategory);
 
-			var categoryLabel = new Label();
+			var categoryLabel = new LabelOutlined("CategoryLabel");
 			categoryLabel.AddToClassList(UssCategoryLabel);
 			categoryLabel.text = categoryName;
 			categoryElement.Add(categoryLabel);

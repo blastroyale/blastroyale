@@ -109,21 +109,20 @@
 
 .load-status-holder__location-label {
     font-size: 50px;
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(16, 10, 63);
     text-shadow: 3px 3px 0 rgb(16, 10, 63);
     color: rgb(214, 76, 123);
-    -unity-font-style: bold;
     margin-top: -20px;
-    letter-spacing: -4px;
+    letter-spacing: -1px;
 }
 
 .load-status-holder__player-label {
-    font-size: 68px;
-    -unity-text-outline-width: 2px;
+    font-size: 65px;
+    -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(16, 10, 63);
-    text-shadow: 3px 3px 0 rgb(16, 10, 63);
-    letter-spacing: -3px;
+    text-shadow: 4px 4px 0 rgb(16, 10, 63);
+    letter-spacing: -1px;
 }
 
 .dropzone {
@@ -206,13 +205,12 @@
 .map__title {
     font-size: 48px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 3px;
+    -unity-text-outline-width: 5px;
     -unity-text-outline-color: rgb(108, 8, 40);
     rotate: -5deg;
-    text-shadow: 5px 5px 0 rgb(108, 8, 40);
-    -unity-font-style: bold;
+    text-shadow: 6px 6px 0 rgb(108, 8, 40);
     display: flex;
-    letter-spacing: -4px;
+    letter-spacing: -1px;
 }
 
 .map__title-bg {

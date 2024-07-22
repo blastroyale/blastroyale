@@ -72,7 +72,7 @@ namespace FirstLight.Game.UIElements
 				}
 			}
 
-			container.Add(_name = new Label("PLAYER NAME") {name = "name"});
+			container.Add(_name = new LabelOutlined(name) {text = "PLAYER NAME"});
 			_name.AddToClassList(USS_NAME);
 
 			container.Add(_healthShield = new PlayerHealthShieldElement {name = "health-shield"});
@@ -96,7 +96,7 @@ namespace FirstLight.Game.UIElements
 		{
 			if (!color.HasValue)
 				return;
-			
+
 			_teamColor.style.borderTopColor = color.Value;
 			_teamColor.style.borderBottomColor = color.Value;
 			_teamColor.style.borderLeftColor = color.Value;
@@ -113,7 +113,6 @@ namespace FirstLight.Game.UIElements
 
 			if (Application.isPlaying)
 			{
-
 				if (pfpSprite == null)
 				{
 					_pfp.style.backgroundImage = StyleKeyword.Null;
@@ -151,7 +150,6 @@ namespace FirstLight.Game.UIElements
 				_pingRingEffect.schedule.Execute(() =>
 				{
 					_pingAnimation.Start();
-                    
 				}).Every(WOUNDED_PING_REPEAT).Until(() => !ClassListContains(USS_KNOCKEDOUT));
 			}
 		}

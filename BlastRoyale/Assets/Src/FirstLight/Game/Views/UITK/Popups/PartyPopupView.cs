@@ -28,9 +28,9 @@ namespace FirstLight.Game.Views.UITK.Popups
 	{
 		private const string USS_PARTY_JOINED = "party-joined";
 
-		[Q("CreatePartyButton")] private Button _createTeamButton;
-		[Q("JoinPartyButton")] private Button _joinTeamButton;
-		[Q("LeavePartyButton")] private Button _leaveTeamButton;
+		[Q("CreatePartyButton")] private LocalizedButton _createTeamButton;
+		[Q("JoinPartyButton")] private LocalizedButton _joinTeamButton;
+		[Q("LeavePartyButton")] private LocalizedButton _leaveTeamButton;
 
 		[Q("TeamCode")] private Label _teamCodeLabel;
 		[Q("YourTeamLabel")] private Label _yourTeamHeader;

@@ -37,7 +37,7 @@
             <ui:VisualElement name="ScreenSwitchElement" class="screen-switch-element">
                 <ui:Label name="SwitchScreenDesc" text="TITLE GOES HERE" class="DO_NOT_USE_font-style-h2" />
                 <ui:VisualElement name="Spacer" class="width-spacer width-spacer--l" />
-                <ui:Button name="SwitchScreenButton" text="TEXT" class="button-long" />
+                <FirstLight.Game.UIElements.LocalizedButton name="SwitchScreenButton" text="TEXT" class="button-long" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

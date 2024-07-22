@@ -202,7 +202,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 							(int) predictedLevelAndPoints.Item1);
 
 					_battlePassProgressElement.style.width = Length.Percent((float) points / requiredPoints * 100);
-					_battlePassProgressLabel.text = $"{points}/{requiredPoints}";
+					_battlePassProgressLabel.text = $"{points} / {requiredPoints}";
 				}
 			}
 		}

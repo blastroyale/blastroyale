@@ -88,7 +88,7 @@ namespace FirstLight.Game.UIElements
 					playerBarContainer.Add(_statusLabel = new Label("In Main Menu") {name = "activity"});
 					_statusLabel.AddToClassList(USS_ACTIVITY);
 
-					playerBarContainer.Add(_mainActionButton = new LocalizedButton("UITFriends/invite") {name = "main-action-button"});
+					playerBarContainer.Add(_mainActionButton = new LocalizedButton("main-action-button") {name = "UITFriends/invite"});
 					_mainActionButton.AddToClassList(USS_MAIN_ACTION_BUTTON);
 					_mainActionButton.AddToClassList("button-long");
 					_mainActionButton.AddToClassList("button-long--yellow");
@@ -99,10 +99,10 @@ namespace FirstLight.Game.UIElements
 				background.Add(_acceptDeclineContainer = new VisualElement {name = "accept-decline-container"});
 				_acceptDeclineContainer.AddToClassList(USS_ACCEPT_DECLINE_CONTAINER);
 				{
-					_acceptDeclineContainer.Add(_acceptButton = new LocalizedButton("UITFriends/accept") {name = "accept-button"});
+					_acceptDeclineContainer.Add(_acceptButton = new LocalizedButton("accept-button") {LocalizationKey = "UITFriends/accept"});
 					_acceptButton.AddToClassList("button-long");
 					_acceptButton.AddToClassList("button-long--green");
-					_acceptDeclineContainer.Add(_declineButton = new LocalizedButton("UITFriends/decline") {name = "decline-button"});
+					_acceptDeclineContainer.Add(_declineButton = new LocalizedButton("decline-button") {LocalizationKey = "UITFriends/decline"});
 					_declineButton.AddToClassList("button-long");
 					_declineButton.AddToClassList("button-long--red");
 				}

@@ -48,6 +48,7 @@ namespace FirstLight.Game.Views
 
 		private AngledContainerElement _button;
 		private Label _gameModeLabel;
+		private Label _eventLabel;
 		private Label _teamSizeLabel;
 		private Label _timeLeftLabel;
 		private VisualElement _teamSizeIcon;
@@ -70,6 +71,7 @@ namespace FirstLight.Game.Views
 
 			var dataPanel = Element.Q<VisualElement>("TextContainer");
 			_gameModeLabel = dataPanel.Q<Label>("Title").Required();
+			_eventLabel = dataPanel.Q<Label>("EventTitle").Required();
 			_gameModeDescriptionLabel = dataPanel.Q<Label>("Description");
 			_teamSizeIcon = dataPanel.Q<VisualElement>("TeamSizeIcon").Required();
 			_teamSizeLabel = dataPanel.Q<Label>("TeamSizeLabel").Required();
@@ -241,6 +243,7 @@ namespace FirstLight.Game.Views
 
 		private void UpdateTitleAndDescription()
 		{
+			_eventLabel.text = GameModeInfo.Entry.Visual.TitleTranslationKey.GetText();
 			_gameModeLabel.text = GameModeInfo.Entry.Visual.TitleTranslationKey.GetText();
 			_gameModeDescriptionLabel.text = GameModeInfo.Entry.Visual.DescriptionTranslationKey.GetText();
 		}

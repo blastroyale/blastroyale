@@ -43,7 +43,7 @@
     position: absolute;
     font-size: 34px;
     -unity-text-align: lower-left;
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
@@ -56,12 +56,12 @@
     overflow: hidden;
     -unity-text-overflow-position: end;
     text-overflow: ellipsis;
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 5px;
     -unity-text-outline-color: rgb(0, 0, 0);
     left: 164px;
     top: 12px;
     color: rgb(255, 255, 255);
-    right: 113px;
+    width: 300px;
 }
 
 .player-header__fame-lvl {
@@ -264,50 +264,50 @@
 .battle-pass-button__title {
     text-shadow: -4px 4px 0 rgb(49, 7, 108);
     font-size: 60px;
-    -unity-text-outline-width: 3px;
+    -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(48, 6, 106);
     -unity-text-align: upper-center;
     color: rgb(255, 255, 255);
     margin: 0;
     padding: 0;
-    -unity-font-style: bold;
-    letter-spacing: -1px;
 }
 
 .battle-pass-button_reward-title-holder .battle-pass-button__title {
-    left: 48px;
+    left: 60px;
     position: absolute;
     top: 19px;
-    font-size: 76px;
-    -unity-text-outline-color: rgb(166, 16, 1);
-    text-shadow: -4px 4px 0 rgb(166, 16, 1);
+    font-size: 62px;
+    -unity-text-outline-width: 6px;
+    -unity-text-outline-color: rgb(141, 23, 1);
+    text-shadow: -5px 5px 0 rgb(141, 23, 1);
 }
 
 .battle-pass-button__subtitle {
     font-size: 40px;
     margin-left: 12px;
+    bottom: 12px;
     color: rgb(48, 6, 106);
+    margin-top: 12px;
 }
 
 .battle-pass-button_reward-title-holder .battle-pass-button__subtitle {
     left: 40px;
     position: absolute;
-    right: 68px;
-    bottom: 26px;
+    right: 112px;
+    bottom: 32px;
     font-size: 46px;
     -unity-text-align: lower-center;
-    color: rgb(166, 16, 1);
+    color: rgb(141, 23, 1);
 }
 
 .battle-pass-button__progress-text {
     -unity-text-align: middle-right;
-    font-size: 42px;
+    font-size: 40px;
     color: rgb(255, 255, 255);
-    -unity-font-style: bold;
     position: absolute;
-    bottom: 26px;
+    bottom: 32px;
     left: 194px;
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 5px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: -2px 2px 0 rgb(0, 0, 0);
 }
@@ -443,13 +443,12 @@
 .play-button {
     width: 535px;
     height: 193px;
-    font-size: 70px;
+    font-size: 74px;
     color: rgb(255, 255, 255);
-    -unity-font-style: bold;
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(166, 16, 1);
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: rgb(141, 23, 1);
     padding-left: 38px;
-    text-shadow: 5px 5px 0 rgb(166, 16, 1);
+    text-shadow: 4px 7px rgb(141, 23, 1);
     -unity-text-align: middle-center;
     padding-bottom: 19px;
     background-color: rgba(0, 0, 0, 0);
@@ -646,6 +645,7 @@
     font-size: 26px;
     top: auto;
     flex-shrink: 1;
+    padding-left: 8px;
 }
 
 .game-mode-button {
@@ -771,7 +771,7 @@
     padding-bottom: 0;
     text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72);
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 5px;
     -unity-text-outline-color: rgb(0, 0, 0);
     overflow: visible;
     -unity-text-align: middle-right;
@@ -784,17 +784,16 @@
     justify-content: space-around;
     align-items: stretch;
     align-self: stretch;
-    letter-spacing: -4px;
     font-size: 42px;
     top: 41px;
-    left: 227px;
+    left: 220px;
 }
 
 .game-mode-button__selected-mode {
     padding-bottom: 0;
-    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72);
+    text-shadow: 6px 6px 0 rgba(0, 0, 0, 0.72);
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 6px;
     -unity-text-outline-color: rgb(0, 0, 0);
     align-items: center;
     scale: 1 1;
@@ -805,8 +804,7 @@
     top: auto;
     right: auto;
     position: relative;
-    letter-spacing: -4px;
-    font-size: 50px;
+    font-size: 48px;
     width: 248px;
     height: 51px;
     -unity-text-align: middle-left;
@@ -1119,8 +1117,8 @@
     bottom: 40px;
     -unity-background-image-tint-color: rgba(22, 20, 38, 0.24);
     -unity-text-outline-color: rgb(22, 20, 38);
-    -unity-text-outline-width: 1.2px;
-    text-shadow: 2px 2px 0 rgb(22, 20, 38);
+    -unity-text-outline-width: 3px;
+    text-shadow: 3px 3px 0 rgb(22, 20, 38);
     background-image: var(--sprite-match__background-whitegradient);
 }
 

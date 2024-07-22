@@ -316,7 +316,7 @@ namespace FirstLight.Game.StateMachines
 			var room = _services.RoomService.CurrentRoom;
 			if (_networkService.JoinSource.Value == JoinRoomSource.FirstJoin)
 			{
-				var isSpectator = _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.IsLocal()).IsSpectator();
+				var isSpectator = _services.FLLobbyService.CurrentMatchLobby != null &&_services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.IsLocal()).IsSpectator();
 
 				if (!isSpectator && _services.RoomService.CurrentRoom.GetRealPlayerAmount() >
 					_services.RoomService.CurrentRoom.GetRealPlayerCapacity())

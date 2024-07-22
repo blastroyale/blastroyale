@@ -42,7 +42,7 @@ namespace FirstLight.Game.Presenters
 		private ICollectionService _collectionService;
 		private IGameDataProvider _gameDataProvider;
 
-		private Button _nextButton;
+		private LocalizedButton _nextButton;
 		private VisualElement _leaderboardPanel;
 		private ScrollView _leaderboardScrollView;
 		private Label _fameTitle;
@@ -70,8 +70,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			SetupCamera();
-
 			UpdatePlayerName();
 			UpdateCharacter();
 			UpdateLeaderboard();
@@ -85,7 +83,7 @@ namespace FirstLight.Game.Presenters
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
 			_header.backClicked += OnNextButtonClicked;
 
-			_nextButton = Root.Q<Button>("NextButton").Required();
+			_nextButton = Root.Q<LocalizedButton>("NextButton").Required();
 			_nextButton.clicked += OnNextButtonClicked;
 
 			_leaderboardPanel = Root.Q<VisualElement>("LeaderboardPanel").Required();
@@ -185,7 +183,7 @@ namespace FirstLight.Game.Presenters
 			var levelsInfo = new List<RewardLevelPanelView.LevelLevelRewardInfo>();
 			var nextLevel = (uint) Math.Clamp(_gameDataProvider.PlayerDataProvider.Level.Value, 1, maxLevel);
 			var currentLevel = nextLevel;
-			
+
 			do
 			{
 				var levelRewardInfo = new RewardLevelPanelView.LevelLevelRewardInfo();
@@ -278,7 +276,7 @@ namespace FirstLight.Game.Presenters
 				? _matchServices.MatchEndDataService.Leader
 				: _matchServices.MatchEndDataService.LocalPlayer;
 
-			_playerName = new Label();
+			_playerName = new LabelOutlined("PlayerName");
 			_playerName.AddToClassList(UIService.UIService.USS_PLAYER_LABEL);
 			Root.Add(_playerName);
 			if (playerRef == PlayerRef.None)
@@ -305,6 +303,10 @@ namespace FirstLight.Game.Presenters
 			_playerName.text = playerPrefix + playerName;
 			_fameTitle.text = playerName;
 			_fameTitle.style.color = rankColor;
+			_playerName.ListenOnce<GeometryChangedEvent>(() =>
+			{
+				_playerName.SetPositionBasedOnWorldPosition(_character.Anchor);
+			});
 		}
 
 		private void UpdateLeaderboard()
@@ -315,16 +317,15 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var playerEntry in entries)
 			{
-			
 				var borderColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) playerEntry.LeaderboardRank);
-				
+
 				var leaderboardEntry = _leaderboardEntryAsset.Instantiate();
 				leaderboardEntry.AttachView(this, out LeaderboardEntryView leaderboardEntryView);
 				leaderboardEntryView.SetData((int) playerEntry.PlayerRank, playerEntry.GetPlayerName(), (int) playerEntry.Data.PlayersKilledCount, (int) playerEntry.Data.PlayerTrophies, _matchServices.MatchEndDataService.LocalPlayer == playerEntry.Data.Player, null, borderColor);
-				
+
 				var playersCosmetics = _matchServices.MatchEndDataService.PlayerMatchData[playerEntry.Data.Player].Cosmetics;
 				ResolveLeaderboardEntryPlayerAvatar(playersCosmetics, leaderboardEntryView);
-				
+
 				_leaderboardScrollView.Add(leaderboardEntry);
 			}
 		}
@@ -333,9 +334,9 @@ namespace FirstLight.Game.Presenters
 		{
 			//Set to null while async loads the character skin avatar.
 			leaderboardEntryView.SetLeaderboardEntryPFPSprite(null);
-			
+
 			_collectionService.LoadCollectionItemSprite(_collectionService.GetCosmeticForGroup(playersCosmetics, GameIdGroup.PlayerSkin))
-							  .ContinueWith(leaderboardEntryView.SetLeaderboardEntryPFPSprite).Forget();
+				.ContinueWith(leaderboardEntryView.SetLeaderboardEntryPFPSprite).Forget();
 		}
 
 		private Dictionary<GameId, int> ProcessRewards()
@@ -355,12 +356,6 @@ namespace FirstLight.Game.Presenters
 			}
 
 			return dictionary;
-		}
-
-		private void SetupCamera()
-		{
-			// A very magic number that makes the character look good enough in any aspect ratio
-			_camera.m_Lens.FieldOfView = Camera.HorizontalToVerticalFieldOfView(20f, _camera.m_Lens.Aspect);
 		}
 
 		private async void UpdateCharacter()
@@ -384,7 +379,7 @@ namespace FirstLight.Game.Presenters
 
 			var skinId = _gameServices.CollectionService.GetCosmeticForGroup(playerData.Cosmetics, GameIdGroup.PlayerSkin);
 			await _character.UpdateSkin(skinId, false);
-			_playerName.SetPositionBasedOnWorldPosition(_character.transform.position);
+			_playerName.SetPositionBasedOnWorldPosition(_character.Anchor);
 		}
 	}
 }

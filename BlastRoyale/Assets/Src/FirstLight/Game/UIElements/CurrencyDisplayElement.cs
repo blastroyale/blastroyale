@@ -63,7 +63,7 @@ namespace FirstLight.Game.UIElements
 			_iconOutline.Add(_icon);
 
 			// Currency label
-			_label = new Label("1234");
+			_label = new LabelOutlined("CurrencyAmount") {text = "1234"};
 			_label.AddToClassList(LabelUssClassName);
 			Add(_label);
 

@@ -10,6 +10,7 @@
             <ui:VisualElement name="Background" picking-mode="Ignore" class="game-mode-card__background">
                 <ui:VisualElement name="TextContainer" picking-mode="Ignore" class="game-mode-card__text-container">
                     <ui:Label text="DUOS" display-tooltip-when-elided="true" name="Title" picking-mode="Ignore" class="game-mode-card__text-container__label" />
+                    <FirstLight.Game.UIElements.AutoSizeLabel text="THIS IS A VERY LONG EVENT" display-tooltip-when-elided="true" name="EventTitle" picking-mode="Ignore" class="game-mode-card__text-container__event-label" max-font-size="48" min-font-size="32" outline-hack="false"/>
                     <ui:Label text="Play Battle Royale vs everyone" name="Description" picking-mode="Ignore" class="game-mode-card__text-container__description font-bold" />
                     <ui:VisualElement name="TeamSize" picking-mode="Ignore" class="game-mode-card__team-size">
                         <ui:Label tabindex="-1" text="2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TeamSizeLabel" class="game-mode-card__team-size-label" />

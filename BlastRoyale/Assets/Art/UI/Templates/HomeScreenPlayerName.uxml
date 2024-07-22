@@ -2,9 +2,9 @@
     <Style src="project://database/Assets/Art/UI/Styles/HomeScreenPlayerName.uss?fileID=7433441132597879392&amp;guid=baba2ea38cf84c643872c304792786d4&amp;type=3#HomeScreenPlayerName" />
     <ui:VisualElement name="PlayerNameContainer" picking-mode="Ignore" class="player-name-container">
         <ui:VisualElement name="Crown" class="sprite-home__icon-crown player-name-container__icon" />
-        <ui:Label tabindex="-1" text="Currentplayername" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" name="PlayerNameLabel" class="player-name-container__name-label" />
+        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="Currentplayername" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" name="PlayerNameLabel" class="player-name-container__name-label" />
         <ui:VisualElement name="ReadyStatus" class="player-name-container__ready-status">
-            <ui:Label tabindex="-1" text="Ready" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" name="Label" class="player-name-container__ready-status__label" />
+            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="Ready" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" name="Label" class="player-name-container__ready-status__label" />
         </ui:VisualElement>
         <FirstLight.Game.UIElements.DotsLoadingElement name="NotReadyStatus" dot-size="10" class="player-name-container__not-ready-status" />
     </ui:VisualElement>

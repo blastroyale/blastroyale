@@ -7,12 +7,12 @@
             <ui:VisualElement name="BarShadow" class="completed-bar__shadow" />
         </ui:VisualElement>
         <ui:VisualElement name="BarLevel" class="bar__level">
-            <ui:Label tabindex="-1" text="77" display-tooltip-when-elided="true" name="BarLevelLabel" enable-rich-text="true" class="bar__level__label" />
+            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="77" display-tooltip-when-elided="true" name="BarLevelLabel" enable-rich-text="true" class="bar__level__label" />
         </ui:VisualElement>
         <FirstLight.Game.UIElements.ImageButton name="BuyLevelButton" class="bar__buy-button">
             <ui:VisualElement picking-mode="Ignore" name="BuyLevelArrow" class="sprite-shared__icon-arrow-current" style="flex-grow: 1; position: absolute; top: -60%; left: 80px;" />
             <ui:VisualElement name="Content" class="bar__buy-button--content" style="flex-grow: 1;">
-                <ui:Label tabindex="-1" text="77" display-tooltip-when-elided="true" name="PriceLabel" enable-rich-text="true" class="bar__buy-button__label" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="77" display-tooltip-when-elided="true" name="PriceLabel" enable-rich-text="true" class="bar__buy-button__label" />
                 <ui:VisualElement name="BlasBucksIcon" class="bar__buy-button__blastbucks-icon" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.ImageButton>

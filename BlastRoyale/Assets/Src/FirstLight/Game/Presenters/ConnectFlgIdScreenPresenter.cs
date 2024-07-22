@@ -34,10 +34,10 @@ namespace FirstLight.Game.Presenters
 		private TextField _registerPasswordField;
 		private VisualElement _blockerElement;
 		private ImageButton _closeButton;
-		private Button _loginButton;
-		private Button _registerButton;
-		private Button _switchScreenButton;
-		private Button _resetPasswordButton;
+		private LocalizedButton _loginButton;
+		private LocalizedButton _registerButton;
+		private LocalizedButton _switchScreenButton;
+		private LocalizedButton _resetPasswordButton;
 		private Label _switchScreenDesc;
 
 		private IGameServices _services;
@@ -54,15 +54,15 @@ namespace FirstLight.Game.Presenters
 			_loginPopupRoot = Root.Q("LoginPopup").Required();
 			_registerPopupRoot = Root.Q("RegisterPopup").Required();
 			_closeButton = Root.Q<ImageButton>("CloseButton").Required();
-			_switchScreenButton = Root.Q<Button>("SwitchScreenButton").Required();
+			_switchScreenButton = Root.Q<LocalizedButton>("SwitchScreenButton").Required();
 			_switchScreenDesc = Root.Q<Label>("SwitchScreenDesc").Required();
-			_resetPasswordButton = Root.Q<Button>("ResetPasswordButton").Required();
+			_resetPasswordButton = Root.Q<LocalizedButton>("ResetPasswordButton").Required();
 
-			_loginButton = _loginPopupRoot.Q<Button>("LoginButton").Required();
+			_loginButton = _loginPopupRoot.Q<LocalizedButton>("LoginButton").Required();
 			_loginEmailField = _loginPopupRoot.Q<TextField>("EmailTextField").Required();
 			_loginPasswordField = _loginPopupRoot.Q<TextField>("PasswordTextField").Required();
 
-			_registerButton = _registerPopupRoot.Q<Button>("RegisterButton").Required();
+			_registerButton = _registerPopupRoot.Q<LocalizedButton>("RegisterButton").Required();
 			_registerEmailField = _registerPopupRoot.Q<TextField>("EmailTextField").Required();
 			_registerPasswordField = _registerPopupRoot.Q<TextField>("PasswordTextField").Required();
 			_registerUsernameField = _registerPopupRoot.Q<TextField>("UsernameTextField").Required();

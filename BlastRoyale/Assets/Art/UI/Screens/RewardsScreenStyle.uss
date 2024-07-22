@@ -25,7 +25,7 @@
 .rewards-one__name {
     font-size: 60px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1.4px;
+    -unity-text-outline-width: 4px;
     text-shadow: 4px 4px 0 rgb(0, 0, 0);
     position: absolute;
     -unity-text-outline-color: rgb(0, 0, 0);
@@ -37,7 +37,7 @@
     font-size: 60px;
     color: rgb(255, 255, 255);
     text-shadow: 4px 4px 0 rgb(0, 0, 0);
-    -unity-text-outline-width: 1.4px;
+    -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(0, 0, 0);
     align-self: center;
     top: 793px;
@@ -294,8 +294,8 @@
 .rewards-summary__you-got-label {
     font-size: 48px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1.4px;
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 3px;
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
     -unity-text-outline-color: rgb(0, 0, 0);
     margin-bottom: 40px;
 }

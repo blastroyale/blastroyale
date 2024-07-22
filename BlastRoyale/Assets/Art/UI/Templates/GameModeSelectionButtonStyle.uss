@@ -122,10 +122,21 @@
 }
 
 .game-mode-card--event .game-mode-card__text-container__label {
-    font-size: 48px;
-    -unity-text-align: middle-left;
+    display: none;
+}
+
+.game-mode-card__text-container__event-label {
+    display: none;
+}
+
+.game-mode-card--event .game-mode-card__text-container__event-label {
+    margin-left: 10px;
+    display: flex;
+    width: 90%;
+    -unity-text-align: middle-center;
     padding-bottom: 4px;
-    padding-top: 0;
+    padding-top: 0px;
+    height: 200px;
 }
 
 .game-mode-card--custom .game-mode-card__text-container__label {

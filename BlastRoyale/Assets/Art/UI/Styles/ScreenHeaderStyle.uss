@@ -32,16 +32,16 @@
     position: absolute;
     left: 350px;
     top: 40px;
-    font-size: 60px;
+    font-size: 55px;
     color: rgb(255, 255, 255);
-    text-shadow: 6px 5px 0 rgb(0, 0, 0);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
     margin: 0;
     padding: 0;
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 5px;
     -unity-text-outline-color: rgb(0, 0, 0);
     -unity-text-align: middle-left;
     padding-bottom: 25px;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
 }
 
 .screen-header__subtitle {
@@ -50,14 +50,14 @@
     top: 95px;
     font-size: 38px;
     color: rgb(106, 129, 189);
-    text-shadow: 2.5px 2.5px 0 rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
     margin: 0;
     padding: 0;
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(0, 0, 0);
     -unity-text-align: middle-left;
     padding-bottom: 25px;
-    letter-spacing: -4px;
+    letter-spacing: -1px;
     word-spacing: 10px;
 }
 

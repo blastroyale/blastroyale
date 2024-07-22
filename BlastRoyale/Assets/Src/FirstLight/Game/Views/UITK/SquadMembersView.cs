@@ -20,8 +20,6 @@ namespace FirstLight.Game.Views.UITK
 	/// </summary>
 	public class SquadMembersView : UIView
 	{
-		private const int MAX_SQUAD_MEMBERS = 3;
-
 		private IMatchServices _matchServices;
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
@@ -133,7 +131,7 @@ namespace FirstLight.Game.Views.UITK
 			var index = 0;
 			foreach (var (e, pc) in f.GetComponentIterator<PlayerCharacter>())
 			{
-				if (_squadMembers.Count >= MAX_SQUAD_MEMBERS) break;
+				if (_squadMembers.Count >= GameConstants.Data.MAX_SQUAD_MEMBERS) break;
 
 				if (pc.TeamId == spectatedPlayer.Team && spectatedPlayer.Entity != e)
 				{

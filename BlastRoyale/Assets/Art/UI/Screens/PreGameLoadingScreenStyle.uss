@@ -96,6 +96,7 @@
 }
 
 .load-status-holder__labels {
+    justify-content: center;
     justify-content: space-between;
     align-items: flex-start;
     height: 120px;
@@ -109,20 +110,21 @@
 
 .load-status-holder__location-label {
     font-size: 50px;
-    -unity-text-outline-width: 4px;
+    -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(16, 10, 63);
     text-shadow: 3px 3px 0 rgb(16, 10, 63);
     color: rgb(214, 76, 123);
+    -unity-font-style: bold;
     margin-top: -20px;
-    letter-spacing: -1px;
+    letter-spacing: -4px;
 }
 
 .load-status-holder__player-label {
-    font-size: 65px;
-    -unity-text-outline-width: 4px;
+    font-size: 68px;
+    -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(16, 10, 63);
-    text-shadow: 4px 4px 0 rgb(16, 10, 63);
-    letter-spacing: -1px;
+    text-shadow: 3px 3px 0 rgb(16, 10, 63);
+    letter-spacing: -3px;
 }
 
 .dropzone {
@@ -157,26 +159,6 @@
     bottom: 0;
 }
 
-.map-holder {
-    position: absolute;
-    right: 5%;
-    align-items: center;
-    justify-content: center;
-    top: 5%;
-    bottom: 100px;
-    width: 1024px;
-}
-
-.map {
-    width: 1024px;
-    height: 1024px;
-    background-image: none;
-    align-items: center;
-    justify-content: center;
-    -unity-background-scale-mode: scale-to-fit;
-    position: absolute;
-}
-
 .map__mask {
     overflow: hidden;
     background-image: url("project://database/Assets/Art/UI/Vectors/CircleMask.svg?fileID=7388822144124034973&guid=2faf20de6b535b54f93e074b0daa472e&type=3#CircleMask");
@@ -187,48 +169,38 @@
     visibility: hidden;
 }
 
-.map__image {
-    position: absolute;
-    left: 0;
-    top: -7;
-    right: 0;
-    bottom: 0;
-    background-image: url("project://database/Assets/AddressableResources/Sprites/Maps/MazeMayhem.png?fileID=2800000&guid=9925399d46561064eb3665e7a998aada&type=3#MazeMayhem");
-    -unity-background-scale-mode: stretch-to-fill;
-    width: 100%;
-    height: 100%;
-    flex-shrink: 0;
-    flex-grow: 1;
-    visibility: visible;
-}
-
 .map__title {
     font-size: 48px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 5px;
+    -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(108, 8, 40);
-    rotate: -5deg;
-    text-shadow: 6px 6px 0 rgb(108, 8, 40);
-    display: flex;
-    letter-spacing: -1px;
+    text-shadow: 5px 5px 0 rgb(108, 8, 40);
+    -unity-font-style: bold;
+    letter-spacing: -4px;
+    rotate: -8deg;
+    bottom: 4px;
 }
 
 .map__title-bg {
-    width: 80%;
-    height: 191px;
+    width: 770px;
+    height: 248px;
     background-image: var(--sprite-home__banner-mapselection);
     align-items: center;
     justify-content: center;
     position: absolute;
-    bottom: -5%;
+    bottom: 10%;
     display: flex;
     -unity-background-scale-mode: scale-to-fit;
+    rotate: 8deg;
 }
 
 .map-marker {
     justify-content: center;
     align-items: center;
     bottom: 65px;
+    flex-direction: row;
+    bottom: 0;
+    top: -37px;
 }
 
 .map-marker__title {
@@ -240,8 +212,8 @@
     padding-top: 6px;
     padding-bottom: 5px;
     margin-bottom: 15px;
-    position: absolute;
-    bottom: 125px;
+    position: relative;
+    bottom: auto;
     background-color: rgb(248, 208, 48);
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
@@ -250,36 +222,51 @@
 }
 
 .map-marker__icon {
-    background-image: var(--sprite-home__icon-mapmarker);
-    width: 90px;
-    height: 132px;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/icon-mapmarker-small.png?fileID=21300000&guid=f5d0e86da28c9d74f8830073c4b1b945&type=3#icon-mapmarker-small");
+    width: 82px;
+    height: 74px;
+    margin-right: -41px;
 }
 
 .squad-member {
     font-size: 32px;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
 
 .squad-container {
     position: absolute;
     left: 81px;
-    top: 391px;
-    bottom: 230px;
-    width: 320px;
-    background-color: rgba(16, 12, 34, 0.22);
+    bottom: 186px;
+    width: 524px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    color: rgb(255, 255, 255);
-    overflow: hidden;
-    min-height: 164px;
     margin-bottom: 28px;
+    background-color: rgba(19, 142, 211, 0.4);
+    overflow: visible;
+    top: 248px;
 }
 
 .squad-container__title {
+    display: flex;
+    background-color: rgba(16, 12, 34, 0);
+    color: rgb(248, 199, 46);
+    -unity-text-outline-width: 1px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    letter-spacing: 0;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    top: -30px;
+    position: absolute;
+    left: 0;
+    right: 0;
     font-size: 36px;
     -unity-text-align: middle-center;
-    background-color: rgb(16, 12, 34);
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -340,6 +327,8 @@
     border-right-width: 4px;
     border-top-width: 4px;
     border-bottom-width: 4px;
+    visibility: hidden;
+    position: absolute;
 }
 
 .party-markers {
@@ -353,8 +342,141 @@
     position: relative;
     left: 45%;
     top: 45%;
+    display: flex;
 }
 
 .screen-header--homeonly .screen-header__back {
     display: none;
+}
+
+.map__title-effect {
+    position: absolute;
+    height: 116px;
+    width: 1220px;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/background-dropzone-effect.png?fileID=21300000&guid=e9cd4a790499edb44be9de4aa3a66a2e&type=3#background-dropzone-effect");
+    rotate: -8deg;
+    bottom: 68px;
+    display: flex;
+    align-self: center;
+}
+
+.squad-member__team-color {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 96px;
+    height: 96px;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-left-color: rgb(24, 18, 54);
+    border-right-color: rgb(24, 18, 54);
+    border-top-color: rgb(24, 18, 54);
+    border-bottom-color: rgb(24, 18, 54);
+    border-left-width: 6px;
+    border-right-width: 6px;
+    border-top-width: 6px;
+    border-bottom-width: 6px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(23, 18, 53, 0);
+}
+
+.squad-member__pfp {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    left: 0;
+}
+
+.squad-member__pfp-mask {
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.squad-row {
+    flex-direction: row;
+    margin-top: 40px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 40px;
+}
+
+.map-holder {
+    position: absolute;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    bottom: 0;
+    -unity-background-scale-mode: scale-to-fit;
+    width: 50%;
+    background-color: rgba(255, 0, 232, 0);
+    margin-top: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+}
+
+.map {
+    background-image: none;
+    align-items: center;
+    justify-content: center;
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.map-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("project://database/Assets/AddressableResources/Sprites/Maps/MazeMayhem.png?fileID=2800000&guid=9925399d46561064eb3665e7a998aada&type=3#MazeMayhem");
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    flex-grow: 1;
+    visibility: visible;
+    -unity-background-scale-mode: scale-to-fit;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.map-marker__root {
+    flex-direction: row;
+    align-self: center;
+    position: absolute;
+    right: 0;
+    align-items: center;
+}
+
+.squad-member__playername-label {
+    margin-left: 15px;
+    flex-grow: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: rgb(255, 255, 255);
+    font-size: 36px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
 }

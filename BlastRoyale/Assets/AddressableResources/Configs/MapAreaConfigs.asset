@@ -264,7 +264,7 @@ MonoBehaviour:
         rgba: 4294909964
       Name: NORTH PARK
   - MapID: 200
-    AreaTexture: {fileID: 2800000, guid: 64907e180eb9de64790ce85b8a00388c, type: 3}
+    AreaTexture: {fileID: 2800000, guid: 131edb4bf54774dc68f063ab57f36c03, type: 3}
     Areas:
     - Color:
         serializedVersion: 2

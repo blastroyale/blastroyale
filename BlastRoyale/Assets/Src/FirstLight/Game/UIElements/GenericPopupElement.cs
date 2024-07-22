@@ -19,7 +19,7 @@ namespace FirstLight.Game.UIElements
 		private const string USS_GLOW_HOLDER = USS_CONTENT + "__glow-holder";
 		private const string USS_GLOW = USS_CONTENT + "__glow";
 		private const string USS_CLOSE_BUTTON = USS_BLOCK + "__close-button";
-
+		private const string USS_CLOSE_BUTTON_CONTAINER = USS_CLOSE_BUTTON + "-container";
 		private string TitleLocalizationKey { get; set; }
 
 		private readonly VisualElement _header;
@@ -44,8 +44,11 @@ namespace FirstLight.Game.UIElements
 			{
 				_header.Add(_title = new Label("Title") {name = "title"});
 				_title.AddToClassList(USS_TITLE);
-				_header.Add(_closeButton = new ImageButton {name = "close-button"});
-				_closeButton.AddToClassList(USS_CLOSE_BUTTON);
+				_header.Add(_closeButton = new ImageButton {name = "close-button-container"});
+				_closeButton.AddToClassList(USS_CLOSE_BUTTON_CONTAINER);
+				var icon = new VisualElement() {name = "close-button"};
+				icon.AddToClassList(USS_CLOSE_BUTTON);
+				_closeButton.Add(icon);
 				_closeButton.clicked += () => CloseClicked?.Invoke();
 			}
 

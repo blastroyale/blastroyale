@@ -8,6 +8,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
+using Quantum;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
 
@@ -18,6 +19,7 @@ namespace FirstLight.Game.Services
 		In_Main_Menu,
 		In_Game_Lobby,
 		In_a_Match,
+		In_Matchmaking,
 		In_Shop,
 		In_Collection,
 		In_Blast_Pass,
@@ -43,14 +45,16 @@ namespace FirstLight.Game.Services
 		public GameSocialService(IGameServices services)
 		{
 			services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(_ => SetCurrentActivity(GameActivities.In_Main_Menu));
-			services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(_ => SetCurrentActivity(GameActivities.In_Game_Lobby));
-			services.MessageBrokerService.Subscribe<JoinRoomMessage>(_ => SetCurrentActivity(GameActivities.In_Game_Lobby));
+			services.MessageBrokerService.Subscribe<JoinRoomMessage>(_ => SetCurrentActivity(
+				IsCustomGame ? GameActivities.In_Game_Lobby : GameActivities.In_a_Match));
 			services.MessageBrokerService.Subscribe<MatchStartedMessage>(_ => SetCurrentActivity(GameActivities.In_a_Match));
 			services.MessageBrokerService.Subscribe<ShopScreenOpenedMessage>(_ => SetCurrentActivity(GameActivities.In_Shop));
 			services.UIService.OnScreenOpened += OnScreenOpened;
 			_services = services;
 		}
 
+		private bool IsCustomGame => _services.RoomService.CurrentRoom?.Properties?.SimulationMatchConfig?.Value?.MatchType == MatchType.Custom;
+			
 		public bool CanInvite(Relationship friend)
 		{
 			if (!friend.IsOnline()) return false;
@@ -58,7 +62,7 @@ namespace FirstLight.Game.Services
 			var activity = friend.Member?.Presence?.GetActivity<FriendActivity>();
 			if (activity == null) return false;
 
-			if (activity.CurrentActivityEnum == GameActivities.In_a_Match || activity.CurrentActivityEnum == GameActivities.In_Game_Lobby)
+			if (activity.CurrentActivityEnum == GameActivities.In_a_Match || activity.CurrentActivityEnum == GameActivities.In_Matchmaking)
 			{
 				return false;
 			}
@@ -90,6 +94,9 @@ namespace FirstLight.Game.Services
 			} else if (service.IsScreenOpen<FriendsScreenPresenter>())
 			{
 				SetCurrentActivity(GameActivities.In_Friends_Screen);
+			}else if (service.IsScreenOpen<PreGameLoadingScreenPresenter>())
+			{
+				SetCurrentActivity(GameActivities.In_a_Match);
 			}
 		}
 		

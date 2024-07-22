@@ -835,6 +835,17 @@
     align-self: center;
 }
 
+.generic-popup__close-button-container {
+    position: absolute;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100px;
+    height: 80px;
+    right: 0px;
+    align-self: center;
+}
+
 .unity-toggle {
     justify-content: space-between;
     align-items: center;

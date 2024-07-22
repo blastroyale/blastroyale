@@ -83,7 +83,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenClose()
 		{
-			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged -= OnLobbyChanged;
+			_services.MessageBrokerService.UnsubscribeAll(this);
 			return base.OnScreenClose();
 		}
 
@@ -100,6 +100,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
+				var changes = m.Changes;
 				RefreshData();
 
 				// TODO mihak: This should not be here, move when we refac network service
